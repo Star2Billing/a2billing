@@ -228,7 +228,7 @@ if ($this->FG_FILTER_SEARCH_FORM){
 				<?php
 					 foreach ($selects[1] as $recordset){
 				?>
-						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($processed[$selects[2]]==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
+						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($processed[$selects[2]]==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]; if (strlen($recordset[2])>0) echo ' - '.$recordset[2]; ?></option>
 				<?php 	 }
 				?>
 					</select>
