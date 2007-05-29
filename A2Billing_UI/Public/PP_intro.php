@@ -9,7 +9,7 @@ $smarty->display('main.tpl');
 <br/>
 <table align=center width="80%" bgcolor="white" cellpadding="5" cellspacing="5" style="border-bottom: medium dotted #AA0000">
 	<tr>
-		<td width="10%"><img src="<?php echo Images_Path;?>/AN_boutton_type01.gif"  border="1"></td>
+		<td width="10%"><img src="<?php echo Images_Path;?>/logoA2B-white-300.gif"></td>
 		<td align="right"> <?php  echo TEXTCONTACT; ?> <a href="mailto:<?php  echo EMAILCONTACT; ?>"><?php  echo EMAILCONTACT; ?></a>
 
 		</td>
