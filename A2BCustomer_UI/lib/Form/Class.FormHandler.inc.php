@@ -405,8 +405,7 @@ class FormHandler{
 	var $lang = array('strfirst' => '&lt;&lt; First', 'strprev' => '&lt; Prev', 'strnext' => 'Next &gt;', 'strlast' => 'Last &gt;&gt;' );
 
 	var $logger = null;
-	// To Enable Disable the Log 
-	var $FG_ENABLE_LOG = 0;
+	var $FG_ENABLE_LOG = ENABLE_LOG;
 	// ----------------------------------------------
 	// CLASS CONSTRUCTOR : FormHandler
 	//	@public

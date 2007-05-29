@@ -232,5 +232,5 @@ define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing sy
 
 include (FSROOT."lib/help.php");
 
-
+define ("ENABLE_LOG", 0);
 ?>

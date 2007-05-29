@@ -231,9 +231,13 @@ define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
 
 
+define ("ENABLE_LOG", 1);
+
 include (FSROOT."lib/help.php");
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();			
 $log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 $log = null;
+
+
 ?>
