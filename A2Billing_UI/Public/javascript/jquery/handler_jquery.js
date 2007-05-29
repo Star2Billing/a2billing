@@ -24,7 +24,7 @@ $(document).ready(
 		});
 		
 		
-		$("div.toggle_hide2show a").toggle(function(){
+		$("div.toggle_hide2show a.toggle_menu").toggle(function(){
 			//div_toggle = $(this).parent().parent().parent().find("div.toggle_hide2show");
 			//div_toggle.css("background-color","#555555");
 			//$(this).parent().parent().append("&nbsp;");
