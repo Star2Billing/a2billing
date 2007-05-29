@@ -1,0 +1,113 @@
+<!-- 
+file upload manager -css [www.mtnpeak.net]
+stylesheet by pipe [pipebomb.net]
+-->
+
+#content {
+	position: absolute
+}
+
+a:link {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 11px;
+	color: #666666;
+	text-decoration: none;
+}
+
+a:visited {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 11px;
+	color: #666666;
+	text-decoration: none;
+}
+
+a:active {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 11px;
+	color: #666666;
+	text-decoration: none;
+}
+
+a:hover {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 11px;
+	color: #000000;
+	text-decoration: none;
+}
+
+
+table {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 9px;
+	}
+
+.table_decoration {
+	border-collapse: collapse;
+	border-top: #3399ff solid 0px;
+	border-left: #6D7A84 dashed 2px;
+	border-right: #3399ff solid 0px;
+	border-bottom: #6D7A84 dashed 2px;
+	background-color: #ffffff;
+	empty-cells:hide
+}
+
+.table_auth {
+	border: #000000 dotted 1px;
+}
+
+body {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 9px;
+	color: #000000;
+	scrollbar-arrow-color: #FFFFFF;
+	scrollbar-3dlight-color: #DBDBDB;
+	scrollbar-highlight-color: #55AAFF;
+	scrollbar-face-color: #55AAFF;
+	scrollbar-shadow-color: #55AAFF;
+	scrollbar-darkshadow-color: #DBDBDB;
+	scrollbar-track-color: #DBDBDB;
+}
+
+.space {
+	font-size: 2px;
+}
+
+.textfield {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 9px;
+	color: #666666;
+	border: dotted 1px;
+	border-color: #DBDBDB;
+	background-image: url('textfield.gif');
+}
+
+.button {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 10px;
+	color: #FFFFFF;
+	background-color: #000000;
+	border: solid 0px;
+} 
+
+textarea {
+        font-family: Verdana,Helvetica,Arial;
+	font-size: 9px;
+	color: #666666;
+	background-color: #FFFFFF;
+	border: solid 1px;
+	border-color: #DBDBDB;
+	overflow:hidden;
+}
+
+text-info {
+        font-family: Verdana,Helvetica,Arial;
+	font-size: 9px;
+	color: #3399FF;
+}
+
+select {
+	font-family: Verdana,Helvetica,Arial;
+	font-size: 9px;
+	color: #666666;
+	background-color: #FFFFFF;
+}

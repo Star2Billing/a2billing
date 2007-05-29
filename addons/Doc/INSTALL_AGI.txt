@@ -1,0 +1,123 @@
+
+********************************************************************
+               ASTERISK2BILLING : CALLING CARD PLATFORM
+********************************************************************
+Name: Asterisk2Billing / Asterisk callingcard agi 
+Author: Belaid Arezqui <areski at gmail dot com>
+Date: 7 May 2007
+[Tested with $PHP 4.3.10 ; $PostgreSQL 7.4.6 ; mysql-3.23 ; mysql-4.1.x ]
+[Tested with $PHP-5.0.4  ; $PostgreSQL-8.0.4 ; mysql-5.x]
+
+ * Requires : php-pcntl, wget , php as console interpret ( php4-cli or something like ) and php-/mysql/pgsql
+
+
+INSTALLATION GUIDE OF THE ASTERISK APPLICATION:
+====================================================================
+
+
+1. Edit libs_a2billing/Class.A2Billing.php and set AST_CONFIG_DIR 
+   Place the entire content directory into your agi-bin directory.
+	 cp a2billing.php /var/lib/asterisk/agi-bin/.
+	 cp -rf libs_a2billing/ /var/lib/asterisk/agi-bin/.
+	 
+	 
+	 
+2. Make sure the script is runnable 
+     chmod +x a2billing.php
+
+4. Copy the sounds files
+	cp -r addons/sounds/en/* /var/lib/asterisk/sounds/.
+	 	 
+5. Create a Database use  a2billing-pgsql-schema.psql for postgres
+
+
+6. Setup your Database into the application
+
+	Copy & Edit /etc/asterisk/a2billing.conf files
+
+    * HOST: This is the Database host name.
+      Example: localhost
+    * PORT: Database port.
+      Example: 5432
+    * USER: Username to access to the database.
+      Example: username
+    * PASS: Database password of the user.
+      Example: password
+    * DBNAME: Name of the Database.
+      Example: a2billing
+    * DB_TYPE: Database type.
+      support: postgres or mysql
+
+		
+	# THERE IS MORE PARAMETERS, PLEASE CHECK THE COMPLETE CONF FILE AND READ THE INFORMATION ASIDE
+		
+		
+
+7. Setup the callingcard application into Asterisk
+	Edit extensions.conf (/etc/asterisk/extensions.conf)
+	Add the following link to the appropriate context
+	
+	
+[a2billing]
+exten => _X.,1,Answer
+exten => _X.,n,Wait(1)
+exten => _X.,n,DeadAGI(a2billing.php|1)
+exten => _X.,n,Hangup
+
+[a2billing-callback]
+exten => _X.,1,DeadAGI(a2billing.php|1|callback)
+exten => _X.,n,Hangup
+
+[a2billing-cid-callback]
+exten => _X.,1,DeadAGI(a2billing.php|1|cid-callback|34) ;last parameter is the callback area code
+exten => _X.,n,Hangup
+
+[a2billing-all-callback]
+exten => _X.,1,DeadAGI(a2billing.php|1|all-callback|34) ;last parameter is the callback area code
+exten => _X.,n,Hangup	
+
+[a2billing-predictivedialer]
+exten => _X.,1,DeadAGI(a2billing.php|1|predictivedialer)	
+exten => _X.,n,Hangup
+
+[a2billing-did]
+exten => _X.,1,DeadAGI(a2billing.php|1|did)
+exten => _X.,2,Hangup
+
+[a2billing-voucher]
+exten => _X.,1,DeadAGI(a2billing.php|1|voucher)
+exten => _X.,n,Hangup	
+
+
+8. sip.conf add the line at the end	
+   #include additional_a2billing_sip.conf 
+	
+   It s to include the sip friends
+
+
+9. iax.conf add the line at the end	
+   #include additional_a2billing_iax.conf 
+	
+   It s to include the iax friends
+
+10. Set the rigth permissions ( apache in debian is www-data ).
+
+chown -R asterisk:apache /etc/asterisk
+chmod -R 774 /etc/asterisk
+
+11. Configure the Asterisk manager...
+
+	[general]
+	enabled = yes
+	port = 5038
+	bindaddr = 127.0.0.1 
+
+
+	Add an entry to allow a manager connection, like
+	
+	[myasterisk]
+	secret = mycode						
+	read = system,call,log,verbose,command,agent,user
+	write = system,call,log,verbose,command,agent,user 
+
+12. RELOAD ASTERISK

@@ -1,0 +1,17 @@
+
+
+REQUIREMENTS :
+
+    * Apache
+    * PHP
+    * PHP-PGSQL or PHP-MYSQL
+    * PHP-PCNTL
+    * PHP-GETTEXT
+    * PEAR SOAP class
+    * PostgreSQL or MySQL
+    * Use PHPAGI 2.14 included (http://phpagi.sourceforge.net written by Matthew Asham)
+	* Freetype (for signup captcha)
+	
+	* Perl (CallBack Daemon)
+	
+	* etc...

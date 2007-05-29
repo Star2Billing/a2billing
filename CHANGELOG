@@ -1,0 +1,1965 @@
+
+
+********************************************************************
+						V1.3
+********************************************************************
+
+#### CALLBACK : INTRO MESSAGE
+********************************************************************
+Play an intro message on CallBack
+
+
+#### Building a logging / tracking system on the web interface
+********************************************************************
+Building a logging / tracking system on the web interface
+
+
+#### FEATURE : IVR - OPTION NO VOICE
+********************************************************************
+Create an option on the AGI to remove Audio
+
+; Play audio - this will disable all stream file but not the Get Data 
+; for wholesale ensure that the authentication works and than number_try = 1
+play_audio = YES
+
+
+#### REMOVE OLD PAYPAL
+********************************************************************
+A2Billing_UI/paypal
+A2B_entity_paypal.php?atmenu=paypal&stitle=PaypalTransaction&form_action=list&section=2
+FG_var_paypal
+
+
+#### SIGNUP : IF SIP/IAX Created reload asterik
+********************************************************************
+After the public signup , get Asterisk to do a reload, as when a new card is created, 
+asterisk is not reloaded, and therefore the SIP/IAX friend cannot register.
+
+I added new parameter to handle this :
+; Define if you want to reload Asterisk when a SIP / IAX Friend is created at signup time
+reload_asterisk_if_sipiax_created = no
+
+
+
+#### CHANGE : INVOICE ADD MORE INFO
+********************************************************************
+A2BCustomer_UI/A2B_entity_call_details.php
+add : Calls by Destination ; Calls by Date ; TOTAL ; VAT
+like we have in A2BCustomer_UI/A2B_entity_invoice_detail.php?section=4&invoice_type=1
+
+
+#### CHANGE : PAYMENT MODULE
+********************************************************************
+We should have a single button but just saying that Pay Amount.. and then on the check_payment select payment gate way then fill the amount
+This will be the right process otherwise we cannot remove this conflict
+Userinfo => Just Pay Now Button..no amount
+Checkout_payment => Select Payment gateway
+Checkout_amount => Enter the amount ,,, Currecny will be shown to him
+checkout_confirmation =>
+
+$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
+
+foreach($arr_purchase_amount as $value){
+
+#### INVOICE FIX
+********************************************************************
+fix on A2Billing_UI/Public/invoices_customer.php ->  false cardnumber
+# Error page : Blank page with "No User found"
+need design good error pages !!
+Golden rule : never show a white page with an error message.
+
+
+#### FIX : REFILL BASE CURRENCY
+********************************************************************
+A2BCustomer_UI/userinfo.php
+# when we are changing the base currency -> on the userinfo it is shown to purchage 20 $
+the amount to refill should be show in the base currency and the next page should refill accordingly
+
+
+#### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
+********************************************************************
+Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
+
+## USE CC_COUNTRY TO SELECT THE COUNTRY : ON SIGNUP & EDIT CUSTOMER
+********************************************************************
+We will use cc_country table to select the country on signup module and also when 
+we edit customer info. The value store in cc_card->country will be the cc_country->countrycode
+
+#### BUG
+********************************************************************
+yes the authorize is always in USD as it s only for US peoples.
+So the amount received by Authorize is in USD, we need configure it convert from  
+USD -> base currency before making the insert.
+if the base currency is in EURO it wont work correctly now
+
+#### PROMOTE : CALL-LABS
+********************************************************************
+Promote : call-labs on a2billing trunk
+
+
+#### EPAYMENT : MULTI CURRENCY MANAGEMENT
+********************************************************************
+handle mc_currency with paypal & mb_currency with moneybookers
+in order to secure the currency of the transactions
+
+#### UPDATE : IMPORT MODULE
+********************************************************************
+When I import, I get a page which allows me to check the data is being
+imported properly. There is no way to accept that import without selecting 
+the csv files again. 
+
+#### BUGS
+********************************************************************
+1# One more thing - if the SIP/IAX friend is created via "Create SIP Friend" button, 
+then the defaults are not filled in, such as the context.
+
+2#
+IAX and SIP friends are not created correctly when created from the customer signup page. My understanding is that the account number and CID should be the same as the account number and card alias - this is the ony way it seems to work, otherwise the call is rejected.
+
+#### FEATURES : EDIT SOME CUSTOMER INFORMATION ON CUSTOMERUI
+********************************************************************
+A2BCustomer_UI/userinfo.php
+add a button below "Country" -> "edit my personal informations"
+we should be able to edit some of the data, not all, base on our framework.
+Ensure that customer cannot edit an other cardid
+
+#### CONSOLIDATE THE GETTEXT FILES
+********************************************************************
+Consolidate the gettext files for customer and admin interface
+regenerate all PO & MO files
+
+#### ADD referial ID : Admin & customer (conf)
+********************************************************************
+https://www.moneybookers.com/app/?rid=811621
+https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU
+
+
+#### BUG
+********************************************************************
+http://forum.asterisk2billing.org/viewtopic.php?t=1927
+
+
+#### FEATURE CUSTOMER UI : SIP/IAX INFO & partial edit
+********************************************************************
+What about link under account Info.
+ 
+VoIP settings
+          o List SIP
+          o List IAX
+
+Put the User name and password under each link from the appropriate table.
+ 
+This could be developed in a later release to allow the customer to change some of the more advanced settings, unless of course you just re-use the "List IAX-Friend" code from the admin screens, which would be a very quick win. 
+
+
+User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
+
+#### E-PAYMENT MODULE
+********************************************************************
+Modified: trunk/A2BCustomer_UI/checkout_payment.php
+
+# customers_id -> feed with the card ID
+
+# http://locals.com/checkout_process.php?sess_id=8g34831kbhdimm790mt5heh0u5&transactionID=6
+Secure that
+
+# ADD a random number MDP
+on $key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no[0][0]."^".$amount."^".$_SESSION["card_id"]);
+
+# Check security on MD5 HMAC 
+but we need a secret code on moneybooker side / paypal / etc---
+
+// Calculate and return fingerprint
+// Use when you need control on the HTML output
+function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp, $currency = "") {
+  return ($this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency));
+}
+that will work only stored on provider side
+
+
+#### FEATURES : CALLBACK APIs
+********************************************************************
+1# Queue a callback request from an API : HTTP / WSDL
+- it will return the uniqueID generate for the callback request
+an API could generate a callback http://apiurl/callback-exec.php?listparameter=values&uniqueid=324234
+return an ID to identify the callback request
+
+2# API to check the status of the callback : webservice  
+- check the status of a generated callback 
+
+So an API will return result of a callback http://apiurl/callback-status.php?id=123453
+id is the ID returned by 
+reply : Pending ; Success ; Error, etc ...
+
+
+#### WEB-CALLBACK
+********************************************************************
+if the 2 leg is not connected, we need to bill the 1st 
+
+
+#### SIGNUP SELECT TARIFFGROUP
+********************************************************************
+"
+; ID Tariffgroup to use, check the ID in the tariffgroup list - WebUI
+tariff = 1
+"
+-> need to be changed to ->
+
+; ID CallPlan to sign the customers
+; or define a list of ID to let himselect select the callplan
+; check the ID in the callplan list - WebUI
+callplan = 1, 2, 3
+"
+
+SO "IN CASE OF MULTIPLE CALLPLAN", a new Dropdown menu will appear on the signup form.
+with the list of Callplan associate here to the list of ID 
+(name of the callplab will appear, not the number 1, 2, 3)
+
+Security, ensure at the sign-up time that the value send by the form is include in
+it to avoid the possibility from the customer to signup under an other tariffgroup
+
+
+
+#### MoneyBooker bug
+********************************************************************
+http://myaccount.call-labs.com/checkout_process.php?sess_id=58u4ckvmu0e0eedn9k872v1od4
+Fatal error: Call to undefined method moneybookers::get_CurrentCurrency() in /var/www/html/svn/trunk/A2BCustomer_UI/lib/epayment/classes/payment.php on line 168
+
+
+#### BUG
+********************************************************************
+You have 1 dependent records.
+You are going as well to remove all the SIP/IAX accounts attached to this card! Please comfirm that you really want to remove that SIP/IAX Accounts ?
+
+
+#### check files 
+********************************************************************
+A2BCustomer_UI/lib/epayment/includes/methods/*
+
+define action url from conf file
+A2BCustomer_UI/lib/epayment/methods/moneybookers.php
+
+
+#### SHIFT LEFT : DEFINES.PHP
+********************************************************************
+SHIFT LEFT : DEFINES.PHP
+
+
+#### FEATURE : NEW CALLBACK SYSTEM
+********************************************************************
+rebuild of the callback system, we are using a spool system in DB and a perl Daemon to initiate the callback.
+it brings flexibility and a way to track the callback request, their status, etc...
+So we have a spool system, all request are stored and handled by a perl daemon that will take care of dispatching 
+them through several asterisk server.
+There is also an API also for this to generate the callback.
+/api/api_spool_callback.php
+this could be use by any third application/platform to generate callback request.
+
+#### INVOICES 
+********************************************************************
+View Invoices 
+	# show cardnumber
+	# Status appears to be empty for the invoice I had previously why ?
+	# if I click on Sent the sent date is not update
+	# Enter the cardnumber: -> this is the Card ID
+	
+	# Click on Details -> it will be good to see the Start date and the End Date there
+	# Details -> 
+		the Charges is not converted at all if I have a charge of 100 in EUR and my base currency is in usd
+		it will show 100 usd the amount is not converted
+		there is function in Misc.php for this
+	# Details -> the amount dont fit with what I have on the invoice page !!
+	# Details -> keeping some options like in invoices.php	
+		- RESULT :  	 Minutes - Second
+		- EXPORT FORMAT :  	 See Invoice in HTML  or Export PDF
+		- CURRENCY : selection
+	# Details -> Status :   	   	 Connected      DisConnected
+		only show Status : [the appropiated image ] Connected or DisConnected
+	
+Create Invoices 
+	# For card number: -> From card ID:
+	# When you create the invoice we need an option to choose if we send or not directly the mail
+	# INVOICE STATUS
+		UNPAID
+		SENT-UNPAID
+		SENT-PAID
+		PAID
+	
+	# A2B_entity_create_invoice.php no footer
+	
+
+Invoice_Customer
+	# Menu dont use _ -> Invoice Customer
+	
+	# Error page : Blank with "No User found"
+	Can we design good error pages !!
+	
+	# if there is no calls and no charge, only the logo appear :
+		there is nothing telling u that the invoice is empty!!
+		
+	# show the covert start date
+	
+	# keeping some options like in invoices.php
+		- RESULT :  	 Minutes - Second
+		- EXPORT FORMAT :  	 See Invoice in HTML  or Export PDF
+		- CURRENCY : selection
+
+CUSTOMER
+	# A2BCustomer_UI/invoices_customer.php
+		- if there is no calls and no charge, only the logo appear :
+		there is nothing telling u that the invoice is empty!!
+		- show the covert start date
+	# List of invoices
+		customer should be able to see his own history of invoices with their status
+		Status should be different here, only pay or unpay
+	
+	
+
+#### FEATURE : REVIEW NEW DID MANAGEMENT
+********************************************************************
+Reservation and release
+* To check
+
+######## CURRENCY MANAGEMENT IN CRONT SERVICE 
+********************************************************************
+Currency management in cront service
+
+
+#### VOUCHER
+********************************************************************
+if you want to refill you card with a voucher please dial...
+and its not understandable
+
+
+#### Review Audio
+********************************************************************
+Send mail to Vincent for Spanish recording
+
+#### DID CRONT - currency cc_charge
+********************************************************************
+1#  add currency
+	a2billing_bill_diduse.php
+	
+	
+#### JQUERY SLIDE
+********************************************************************
+Menu with Jquery
+
+
+#### NAMING
+********************************************************************
+REPLACE SIGNUP IN THE LEFT MENU -> MISC
+replace also SIGNUP  in ACL
+
+TARIFFGROUP -> CALL PLAN
+	TARIFFGROUPNAME -> NAME
+	Change in edit card, signup & AGI
+
+
+#### JQUERY SLIDE
+********************************************************************
+help.php
+
+
+#### Misc : FORMAT
+********************************************************************
+To tidy up the box for filtering, can you either reduce the font size or use symbols only, e.g. >  ;   >=  ; <=
+
+
+#### Misc : INVOICE
+********************************************************************
+1# 
+	http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/981
+	we need to have all this way
+
+2#
+	if the description is long, for instance put in the description "Extra Charges are to allow the billing of one-off or re-occurring monthly charges. These may be used as setup or service charges, etc...Charges will appear to the user with the description you attach. Each charge that you create for a user will decrement his account."
+
+	it doesnt looks pretty, the description column is very small
+	
+	problem on :
+	A2B_entity_invoice_billedmail.php
+	A2B_entity_invoice_detail.php
+	...
+
+3# 
+	if you click on payment button when u have few payement
+	then u click on the "sort button" or to display [10] [50] [100] it fails or show up the menu!!!
+
+	
+4#
+	images on 
+	<img src="<?php echo Images_Path;?>/asterisk01.jpg" align="middle">
+	
+	I added a new parameter on a2billing.conf,
+	; filename of the image that will be display at the top of the invoice (if not defined no image will appear ; path to place the image templates/default/images/)
+	invoice_image = asterisk01.jpg
+	
+	we will handle this that way
+	
+5#
+	A2B_entity_invoice_billedmail.php?section=2&id=8&cardid=12&action=sendinvoice&exporttype=html
+	some images dont exist
+	Public/templates/default/images/spacer.jpg
+	
+6#
+	A2B_entity_invoice_billedmail.php
+	this need to use mailtemplate
+	$email_from = "admin@a2billing.org"; 
+	$email_subject = "A2Billing Invoice";
+	$email_message = "Dear Customer<br><br>\n\n Attached is the Invoice.\n\n <br><br>Sincerely<br>\n\nAdministrator A2Billing";
+	
+	
+7#
+	Refactoring this HUGE mess.
+	We have tons of pages to show up almost the same report
+	Find a centralized way to make it clean and compress
+
+
+8#
+	A2B_entity_invoice_billedmail.php
+	we still have the understandable stuff at the end :
+	Status : 
+    Connected      Disconnected
+	
+	do the same as : A2B_entity_invoice_detail.php
+	
+
+#### TO FIX
+********************************************************************
+to check the patch I made here :
+http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/955
+
+and try to reproduce this all all the invoices pages
+this compress and make the code cleaner.
+
+do this work for all the files :
+A2B_entity_invoice_billedmail.php
+A2B_entity_invoice_detail.php
+A2B_entity_invoice_list.php
+A2B_entity_invoices.php
+A2B_entity_invoices_unbilled.php
+A2B_entity_invoice_unbilledmail.php
+
+#### MISC
+********************************************************************
+* Customer -> Call Details : add criteria - Answered call
+
+#### FORMAT
+********************************************************************
+Rates -> Browse Rates
+Reduce the size of the fonts in the batch up section e.g. 1.) Trunk – looks ok in firefox, but everything falls off the end in IE7 
+
+
+#### ADD SCROLLBAR ON ALL POPUP
+********************************************************************
+scrollbars=1 in the window.open
+Check Rev 977
+
+
+#### WRITE DOCUMENTATION: API SHOW RATECARD -> 
+********************************************************************
+WRITE FULL DOCUMENTATION FOR :
+trunk/A2Billing_UI/api/display_ratecard.php
+
+
+
+#### WRITE DOCUMENTATION: ALARM SYSTEM
+********************************************************************
+WRITE DOCUMENTATION: ALARM SYSTEM
+
+
+#### FEATURE : NEW INVOICING SYSTEM
+********************************************************************
+you will see, I dont describe here
+
+
+#### FEATURE : jump_voucher_if_min_credit
+********************************************************************
+When the user credit are below the minimum credit to call min_credit 
+we might have an option to decide if we jump directly to the voucher IVR menu instead of just disconecting
+
+option in a2billing.conf
+jump_voucher_if_min_credit = yes or no
+
+
+#### MANAGE MULTI LENGHT CARD NUMBER
+********************************************************************
+New parameter :
+[global]
+; len_cardnumber is removed
+; interval for the length of the cardnumber (number of digits), 
+; ie: 10-15 (cardnumber authorised 10, 11, 12, 13, 14, 15) ; 10,12,14 (cardnumber authorised 10, 12, 14)
+interval_len_cardnumber = 10-15
+
+
+We will support more than 1 lenght for the cardnumber.
+Admin Web interface :
+- Create customer : 
+	Add a drop-down button in the top page (below the help) to select the lenght for the card creation
+	-> if the drop-down is selected the page will refresh with the new value for the card lenght
+	by default we will use the minimum value of interval_len_cardnumber
+- Generate Customer :
+	Add a point 13) as a drop-down button, select the card lenght but no refresh needed here
+- AGI
+
+#### EXEC_SETLANGUAGE
+********************************************************************
+function exec_setlanguage($language='en')
+{
+  return $this->exec('SetLanguage', $language);
+}
+
+
+#### UPDATE a2billing_invoice_cront
+********************************************************************
+* use the conf parameter : invoice_system -> invoiceday
+* add cc_charge
+* invoice_history
+
+
+#### BUG CAPTCHA
+********************************************************************
+please have a look also at the captcha
+if u use caps letters, it wont work, all the pics are shows with caps
+
+#### HOURLY ALARM
+********************************************************************
+add in the alarm system an hourly check
+
+
+#### bug CallerID
+********************************************************************
+CID not working  when  ANSWER_CALL=NO
+iv changed back to ANSER_CALL=YES , AND WORKS
+
+
+#### missing text put text in Gettext
+********************************************************************
+CC_phonelist_import_analyse.php
+CC_ratecard_import_analyse.php
+CC_card_import_analyse.php
+
+also some more are missing on those files (check the javascript):
+CC_card_import.php
+CC_phonelist_import.php
+CC_ratecard_import.php
+
+
+#### ADD INVOICE DAY
+********************************************************************
+
+
+#### SAVE PAYMENT OPTION
+********************************************************************
+when go on edit paypal/moneybooker and click on Update
+I dont get any confirmation that the option has been saved
+
+
+#### PAYMENT OPTION
+********************************************************************
+put some help on the top
+
+#### IMPORT RATECARD
+********************************************************************
+ADD option to define if we want to import the price in cents or in units
+
+
+#### BAD ERROR MESSAGE
+********************************************************************
+when u import a csv file and the size is bigger the 500 k for example u get the error  file not found
+the error message its not defined correctly
+
+
+#### FEATURE
+********************************************************************
+REPORTING AND SUPPORT ALARMS :
+
+	
+	* ALOC (average length of call): Too low or too high.
+	* ASR (answer seize ratio): Too low or too high.
+	
+	maybe if possible :
+	* CIC (Consecutive Incomplete Calls): Too many.
+   
+We already have ALOC under the name of ACD in the page "CDR REPORT", we just need a new column for ASR and
+rename ACD -> ALOC
+
+
+ASR = Answer Seizure Ratio
+Its calculated by taking the number of sucessfully answered calls and dividing by the total number of calls attempted (seizures). Since busy signals and other rejections by the called number count as call failures, the calculated ASR value can vary depending on user behaviour. 
+
+
+For "Consecutive Incomplete Calls", we might find a way to display this I open to your suggestion. maybe a report as follow :
+Date ; total nb fails ; max of number fail calls succesively ; rate of fails (%)
+
+
+
+For the alarm let's build a new table and a new page in CRONT SERVICE.
+We need the user to be able to define different kind of alarm, for instance if I want
+to monitor a specific trunk and not all
+We can have in the table something like :
+- period (daily ; monday-sunday ; 01 - 31)
+- typealarm (asr, aloc, callfail)
+- trunk (all or the ID of the trunk)
+- etc...
+
+
+
+#### FEATURE : PACKAGES SYSTEM - FREE MINUTES
+********************************************************************
+Situation :
+We need to support a new relation call "FREE MINUTE" under kind of package according to the destination.
+We have an example : http://www.blueface.ie/
+There is several kind of packages :
+- Unlimited UK/Ireland where they can call as much as they want to this destination and pay for the rest.
+- 300 minutes free over 20 destinations + unlimited on Uk for instance
+- 300 minutes free over 20 destinations
+- pay as you go, standard
+
+We have to add in A2Billing this relation... For the unlimited calls we already have the routes at 0 cost.
+now we might need to assign the X free minutes relation over YZ destinations.
+
+
+- 300 minutes free over 20 destinations + unlimited on Uk for instance
+the relation unlimited is already defined in the rate-engine through the route with cost=0
+
+we need to add new table :
+table cc_package to define the type package & min free. 
+CREATE TABLE cc_package_offer (
+    id bigserial NOT NULL,
+    creationdate timestamp without time zone DEFAULT now(),
+    label text NOT NULL,
+    packagetype int NOT NULL,
+	billingtype int NOT NULL,
+	startday int NOT NULL,
+	freeminutes int NOT NULL
+);
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+I guess a field in cc_tariffgroup which will define the relation with cc_package_offer 
+and a field in cc_ratecard to define if the rate will take advantage of the package offer (part of X min free)
+
+We have also to think that the offer will be per month (per week, etc..) so we will need to keep the number of free-minutes used by month (period)
+and by user/card, Customer have to have the offer for each time period (since the creation date).
+Table cc_card_package (id_card, id_package_offer, time_used(secondes) )
+
+CREATE TABLE cc_card_package_offer (
+    id 					bigserial NOT NULL,
+	id_cc_card 			bigint NOT NULL.
+	id_cc_package_offer bigint NOT NULL,
+    date_consumption 	timestamp without time zone DEFAULT now(),
+	used_secondes 		bigint NOT NULL
+);
+CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_cc_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
+
+ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;
+
+
+Other Billing difficulty : 
+When we reach the limite, we will have part of the call inside the offer (so not billed) and the rest of the minutes should be billed...
+
+
+CREATE TABLE cc_subscription_fee (
+    id 				BIGSERIAL NOT NULL,
+    label 			TEXT NOT NULL,	
+	fee 			NUMERIC(12,4) NOT NULL,
+	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::character varying,
+	status 			INTEGER NOT NULL DEFAULT 0,
+    numberofrun 	INTEGER NOT NULL DEFAULT 0,
+    datecreate 		timestamp(0) without time zone DEFAULT now(),
+    datelastrun 	timestamp(0) without time zone DEFAULT now(),
+    emailreport 	TEXT,
+    totalcredit 	DOUBLE PRECISION NOT NULL DEFAULT 0,
+    totalcardperform INTEGER NOT NULL DEFAULT 0
+);
+ALTER TABLE ONLY cc_subscription_fee
+ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE cc_charge 	ADD COLUMN currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING;
+ALTER TABLE cc_charge 	ADD COLUMN id_cc_subscription_fee 	BIGINT DEFAULT 0;
+
+
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge USING btree (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdate);
+
+
+-- INSTEAD USE CC_CHARGE
+--	CREATE TABLE cc_subscription_fee_card (
+--	    id 						BIGSERIAL NOT NULL,
+--	    id_cc_card 				BIGINT NOT NULL,
+--		id_cc_subscription_fee 	BIGINT NOT NULL,
+--	    datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
+--	    fee 					NUMERIC(12,4) NOT NULL,
+--		fee_converted			NUMERIC(12,4) NOT NULL,
+--		currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
+--	);
+--	ALTER TABLE ONLY cc_subscription_fee_card
+--	ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
+
+--	CREATE INDEX ind_cc_subscription_fee_card_id_card ON cc_subscription_fee_card USING btree (id_card);
+--	CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
+--	CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_subscription_fee_card USING btree (datefee);
+
+
+
+--- MENU ---
+PACKAGE OFFER
+	* List package Offer
+	* Add package Offer
+	* details by card
+
+SERVICE
+	* List subscription service
+	* Add subscription service
+
+
+
+
+?? ADD CC_SUBSCRIPTION_FEE & CC_CHARGE CHANGES IN MYSQL SCHEMAS
+
+MISSING : 
+- AGI
+	http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/789
+	
+	IF PACKAGE IN THE TARIFFGROUP
+		0#	add freetimetocall_package_offer in select ratecard
+		
+		1# 	Get info from the package
+			- billingtype ; startday ; freetimetocall
+		2# 
+			According to billingtype (monthly 0 ; weekly 1)
+			if (monthly){
+				if (startday > last day of the month) startday = last day of the month;
+				if (startday <= 0 ) startday = 1;
+				dateclause >= year-month-startday
+			}else{// weekly
+				startday = startday % 7 (modulo)
+				if (currentdayofweek < startday) currentdayofweek++7
+				diffday = currentdayofweek - startday (current lundi 1 - mercredi 3 = 5) 
+				dateclause >= 				
+				# mysql -> SELECT DATE_SUB('2003-07-13 00:00:00', INTERVAL 14 DAY);
+				# mysql -> SELECT DATE_SUB(NOW(), INTERVAL 14 DAY);
+				# psql  -> SELECT (date('2003-07-13 00:00:00') - interval '14 day');
+				# psql  -> SELECT (now() - interval '14 day');				
+			}
+			SELECT  sum(used_secondes) AS used_secondes 
+			FROM cc_card_package_offer
+			WHERE (date_consumption) >= ('2007-02-01') AND id_cc_card = '%%%%%%%%%%%' AND id_cc_package_offer = '%%%%%%%%%%%'
+			AND DATE_CLAUSE
+			
+			init freetimetocall_used
+			freetimetocall_left = freetimetocall - freetimetocall_used
+			
+			### MAKE CALL ### 
+			CHECK IF THE RATE HAVE "freetimetocall_package_offer" = Yes
+			
+			if (Yes && (TimeofCAll >0) && (freetimetocall_left > 0)){
+					
+					if (freetimetocall_left >= TIMEOFCALL) freetimetocall_used = TIMEOFCALL;
+					else freetimetocall_used = freetimetocall_left;
+					
+					TIMEOFCALL = TIMEOFCALL - freetimetocall_used
+					Before calculated the cost
+					TIMEOFCALL = TIMEOFCALL + freetimetocall_used
+					
+					Add table cc_card_package_offer (...freetimetocall_used)
+					add cc_call <- id_card_package_offer
+			}
+	
+- CRONT
+	- BROWSE ALL THE CUSTOMER THAT HAVE A SUBSCRIPTION FEE ENABLE
+		SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
+	- Support multi currency
+	- Add a charge for this user
+		INSERT INTO cc_charge (id_cc_card, amount, chargetype, description) values ('1', '120', '3', 'description here...')
+	- Decrement his balance
+	
+- ADD SELECT subscription fee on card 
+ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER;
+
+
+#### DOCUMENTATION : SMARTY & NEW DID MANAGEMENT
+********************************************************************
+- How smarty works and how to customize the design of a2billing with smarty and css.
+  little guide about how to do it!
+- Doc/DID_Billing.info to continue : make a detailed explanation of how to configure and use 
+  the DID billing explain a real case when we need to sell DIDs through A2Billing
+
+
+#### STYLE
+********************************************************************
+LIST CUSTOMER -> Define specific criteria to search for cards created.
+Search engine style should be the same as we have over CDR Report
+
+http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/895
+this patch make a couples of fixes & changes on the CDR Report (such as text size, position, names, colors...)
+
+
+#### CAPTCHA 
+********************************************************************
+Try to add some captcha into the Sign-Up Form
+
+http://www.nogajski.de/horst/php/captcha/index.php?download=yes&id=1234
+
+** Add parameter in a2billing.conf to enable captcha
+
+
+#### SIGN-UP LINK ON CUSTOMER UI
+********************************************************************
+ 
+put a link on the Customer sign in page. 
+"To sign up click here" where "here" links to  A2Billing_UI/signup
+
+use of the new parameter in a2billing.conf
+
+[webcustomerui]
+
+; url of the signup page to show up on the sign in page (if empty no link will show up)
+signup_page_url = "http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/signup/"
+	
+	
+#### NEW MODE VOUCHER
+********************************************************************
+add a mode voucher to just let the refill
+
+check also for :
+; When the user credit are below the minimum credit to call min_credit
+; jump directly to the voucher IVR menu  (values: YES - NO)
+jump_voucher_if_min_credit = NO
+
+
+#### SIGNUP MODULE
+********************************************************************
+the design is broken probably due to smarty template
+
+
+#### NEW TASK
+********************************************************************
+When removing a Card -> Check if SIP/IAX has been created if yes ask for confirmation.
+1# we can add an id_card in the buddy table
+2# we can add an id_sip id_iax in the cc_card table
+find the best solution
+
+
+#### REPORT IMPROVE PRESENTATION
+********************************************************************
+commit :
+http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/895
+this patch make a couples of fixes & changes on the CDR Report (such as text size, position, names, colors...)
+
+We need to make those same changes over the other report page :
+# Invoices
+# Calls Compare
+# Monthly Traffic
+# Daily Load
+# Report
+
+and also on the customer interface.
+
+
+#### BUGS & CHECKS : DIVERS
+********************************************************************
+[FIXED]
+1) Bug on edit entity (framework) keep transfered value in case of errors RegEx 
+
+2) Reduce big space in top pages :
+			A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3
+			CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard&section=3
+			
+			Good high :
+			A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1
+			
+
+2) LIST CARDNUMBER -> REFILL : ARANGE FORMAT OF REFILL - remove the ugly red border
+3) EDIT TARIFFGROUP -> add ratecard : reduce the border
+4) Security check on update tariffgroup : not create code on tmp
+%% ??
+
+#### MISC
+********************************************************************
+- Selection of the month -> replace by -> Month select ...
+- 1.Call Report – CDR Report – for appearances sake, can you make the font and size 
+the same for Show: Answered Calls etc in the options section. As per the rest of this form ? 
+- see more bug from Joe's report 
+
+#### CHECK DESIGN ERROR WITH IE (INTERNET EXPLORER)
+********************************************************************
+- licence at the bottom is broken
+- anything else we find, etc...
+
+
+#### IE ISSUES
+********************************************************************
+A user can face following issues in the client side Website.
+
+1) Login Page: Click Here Text is very Small.
+2) Main Problem at the Pages is Menu. Left Side Menu is Half Displayed. and + Expand functionality is not working for DID.
+3) Userinfo.php: Text Font is very bad. Huge font are displayed. 2) Page layout is disturbed.
+4) Layout is disturbed on all pages
+5) Layout of the Footer is not ok.
+6) Change password page layout: Page has much white space under the header.
+7) Add Caller ID Page is containing different text fonts.
+
+
+
+######## ACTIVATED TO CHECK ON CID ROUTING
+********************************************************************
+CREATE TABLE cc_outbound_cid_list (
+    id 					BIGSERIAL NOT NULL,
+	outbound_cid_group	NOT NULL,
+	cid					TEXT NOT NULL,    
+    activated 			CHAR(1)	DEFAULT 't' NOT NULL,
+    creationdate 		TIMESTAMP(0) without time zone DEFAULT now()   
+);
+ALTER TABLE ONLY cc_outbound_cid_list
+ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
+
+We have 	activated 		CHAR(1) DEFAULT 't' NOT NULL,
+We should always use the following type
+activated INTEGER NOT NULL DEFAULT 0,
+(0 false ; 1 True)
+
+Update webinterface and AGI accordingly 
+
+
+######## CID GROUP DELETE
+********************************************************************
+when u delete a group of CID, it may remove all the CID inside that group
+
+
+#### UPDATE ACL : RIGHT MANAGEMENT
+********************************************************************
+A2Billing_UI/Public/A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10
+
+Add new list of rights for the new options in the menu
+for instance add a new option for callback.
+Edit all the page of the callback and modify the access restriction to 
+fit with the new right.
+
+MODIFY ACX_RATECARD with the new right
+if (! has_rights (ACX_RATECARD)){ 
+	   Header ("HTTP/1.0 401 Unauthorized");
+	   Header ("Location: PP_error.php?c=accessdenied");	   
+	   die();	   
+}
+
+#### UPDATE THE FORMAT OF THE SCRIPT : REARRANGE
+********************************************************************
+DataBase/mysql/Mysql-3.x_4.x/a2billing-mysql-schema-MYSQL.3.X-4.X_v1.2.4.sql
+DataBase/mysql/Mysql-5.x/a2billing-mysql-schema-MYSQL.5.X-v1.2.4.sql
+DataBase/psql/a2billing-pgsql-schema-v1.2.4.sql
+
+This :
+
+	CREATE TABLE cc_service_report (
+		id bigserial NOT NULL,
+		cc_service_id bigserial NOT NULL,
+		daterun timestamp(0) without time zone DEFAULT now(),
+		totalcardperform integer,
+		totalcredit double precision
+	);
+	ALTER TABLE ONLY cc_service_report
+	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
+	
+will become :
+
+	CREATE TABLE cc_service_report (
+		id 					BIGSERIAL NOT NULL,
+		cc_service_id 		BIGSERIAL NOT NULL,
+		daterun 			TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
+		totalcardperform 	INTEGER,
+		totalcredit 		DOUBLE PRECISION
+	);
+	ALTER TABLE ONLY cc_service_report
+	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
+	
+
+######## CURRENCY MANAGEMENT IN CRONT SUBSCRIPTION FEE
+********************************************************************
+Currency management in cront subscription fee
+
+
+#### MIGRATE NEW VERSION OF ADODB
+********************************************************************
+started by Angel
+
+
+#### FEATURE : ADD ALL EPAYMENT METHOD TO THE VERSION
+********************************************************************
+Authorize, moneybooker, etc...
+
+
+######## Misc BUGS
+********************************************************************
+A2BCustomer_UI/invoices.php?section=4
+- click on search, left menu dissapear
+
+A2BCustomer_UI/A2B_entity_call_details.php?section=4
+- Javascript popup debug : "I am in a function"
+- click on search, left menu disappear
+
+A2BCustomer_UI/A2B_entity_unbilled_summary.php?section=4
+- Fatal error: Call to a member function numRows() on a non-object in /home/areski/public_html/svn/a2billing/trunk/A2BCustomer_UI/A2B_entity_unbilled_summary.php on line 240
+
+A2BCustomer_UI/A2B_entity_billed_summary.php?section=4
+- Fatal error: Call to a member function numRows() on a non-object in /home/areski/public_html/svn/a2billing/trunk/A2BCustomer_UI/A2B_entity_billed_summary.php on line 268
+
+A2B_entity_card_multi.php?stitle=Card&section=1
+- Dont work at all, neither for range creation or standard generation cards
+
+
+#### FEATURE : ENSURE MENU STAY OPTION IN THE LAST SELECTED SECTION
+********************************************************************
+Ensure menu stay option in the last selected section : use session for this
+Keep a different format for the last select submenu
+
+
+#### BUGS : TEST AGI 1.2 & 1.4 
+********************************************************************
+Test AGI for 1.2. and 1.4 and check warning and fix it
+
+#### REMOVE cc_subscription_fee_card we use cc_charge instead
+********************************************************************
+REMOVE cc_subscription_fee_card we use cc_charge instead
+
+
+
+#### FEATURE : ROTATION CALLERID IN OUTBOUND CALLS
+********************************************************************
+Situation: if I want to put a Asterisk box in Romania with a Digium board to terminate Romanian traffic.
+But the Romanian PTT will deny all calls if they don't have a Romanian CID. we need a way you can make some 
+thing so that every time I send a call to Romania it takes a good Romanian number out of a list of 500 or 1000 CID's.
+
+NEED : Little modification to do in the AGI and on the Admin UI.
+We will have to define the group of CallerID according to the destination and so we need a new field in
+cc_ratecard -> outbound_cid_group
+
+
+and 2 new tables :
+cc_outbound_cid_group
+(id, label, datecreated, blabla...)
+cc_outbound_cid_list
+(id, outbound_cid_group, cid, datecreated, blabla...)
+
+cc_outbound_cid_group is the group info that will be associate to the destination : destination (cc_ratecard)
+
+In the AGI : if the system found cc_outbound_cid_group defined when running the outbound call, it will take randomly
+a CID number in this group and it will be defined before the outbound call.
+
+
+In the admin site, there is a bit of work also, but basically it will use the standard function from the framework.
+OUTBOUND CID
+- Create Group
+- List Group
+- Add OUTBOUND CID
+- List OUTBOUND CID
+
+later :
+- Import OUTBOUND CID
+
+#### FEATURE : API SHOW RATECARD
+********************************************************************
+http://domain/a2billing/api/display_ratecard.php?security_key&ratecardid&css_url&
+nb_display_lines&filter&field_to_display=sellingrate|buyrate|etc...&column_name=sellingrate|buyrate|etc...
+&browse_style= page number or Letter (A, B, C)
+& prefix_select = 32 (only prefix start by 32)
+& url_page = http://mysite.com/rates.php
+
+The idea it s to have something very flexible so that users could get
+something like this
+http://www.voip.com/voip_international.aspx
+well more or less :D
+
+I guess we can reuse some page from the customer interface to show ratecard and
+transform this to an API and something more flexible on design
+well the idea it s to keep something flexible so that anybody can display what
+they want from the ratecard.
+
+
+
+
+#### BUG
+********************************************************************
+22 Aug 2006
+ subject: voucher list in web customer problem with Firefox 	Reply with quote
+I've the last version of A2Billing and I've Firefox.
+In the web Customer page i can't see the dialog box to insert the voucher, here:
+http://...../A2B_entity_voucher.php?form_action=list
+All OK with Internet Explorer.
+Can you test in your Firefox Browser? 
+
+
+
+#### ADD
+********************************************************************
+Add Cardalias in the search engine -> list customers
+
+In Invoice option as in Call Report to show only the answered calls
+(Customer & Admin)
+
+
+
+#### []
+********************************************************************
+Automatic DID Billing
+Cront to find the DID used and bill then accordingly
+
+#### NEW TASK []
+********************************************************************
+Smarty - template management
+
+
+#### [Done]
+********************************************************************
+Add VAT in customer invoice
+
+#### [Done]
+********************************************************************
+NEW FRAMEWORK NEED TO CREATE SIP/IAX FRIENDS WHEN CREATING CARDS
+
+
+#### [done]
+********************************************************************
+We need also the option when creating rate to create multi entries
+ie:
+	Define the destination prefix. ie, 44 for UK proper. You can use 'defaultprefix' to setup a rate 
+	by default for the destination for which you dont want to provide a specific rate.
+	IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same time and range, as below:
+	32484-32487 -> this would insert 32484, 32485, 32486, 32487
+	32476,32477,32478 separate by comma  
+
+
+#### [Done]
+********************************************************************
+BUG on new framework when you edit a def ratecard.
+
+#### []
+********************************************************************
+Importation tools for the cards
+
+
+#### []
+********************************************************************
+Add report by voip-provider 
+see the selling traffic and the buying traffic, be able to see how much I 
+earn for each voip-provider (difference from the selling rate and the buyrate)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+********************************************************************
+						V1.2.3
+********************************************************************
+
+
+#### NEW TASK []
+********************************************************************
+margin is (revenue - carrier cost)/revenue
+markup is revenue - carrier cost)/carrier cost
+the above gives a %
+$50 revenue $25 carrier cost
+Profit = $25
+MArgin = 50%
+Markup = 100%
+
+#### UPDATE []
+********************************************************************
+ sip/iax secret need to be only numeric for some voip client (Kiax) or hardphone
+ 
+
+#### NEW TASK []
+********************************************************************
+	language support : add flag on Admin
+
+
+#### NEW TASK []
+********************************************************************
+import example (rates, card, DID) -> centralize in 1 file
+
+#### UPDATE
+********************************************************************
+	ON CUSTOM INTERFACE
+	Generate a new PO and merge it will the current transalation
+
+#### FIXED
+********************************************************************
+Admin : voucher  -> Export CSV  : Broken
+I just cant export the customer list to xml or csv just got a
+ERROR CSV EXPORT
+but nothing about the error in the apache logs.
+didnt modified the fields, its as it comes configured.
+->>> CHECK ALL THE CSV & XML export
+
+
+#### NEW TASK []
+********************************************************************
+	Forget password option	
+		Case 1
+			WE Create a User From Signup module and he dont get email
+			Solution 1
+				We should make a page in the Signup Module to list all Non Active User and From where we should be able to send email again containing Activation key
+		Case 2
+			if the user is Already Signup ,, and Forgot Password
+			Solution :
+				We should have the forgot password link on the User Side
+		Case 3
+			if the User is Disabled by the Admin... or Disable By Default as he didnt activated account
+				Now the place comes where we have to create a differentiation
+				that is if the By Default Settings contain the Active = f for New User when we create via Signup;; it mean User is not Active. and need Activation
+				and 2nd is the Again Active = f when administrator Blocks some User
+
+
+
+#### NEW TASK []
+********************************************************************
+Added provider/trunk filtering in call reports.
+Thx Marcel :D
+
+
+#### NEW TASK []
+********************************************************************
+You can afterward check that I created CC_card_import.php... CC_card_import_analyse.php
+make later on a tool as the import ratecard but for cards
+So peoples would like to import card, name, firstname, address, cardnumber, cardalias, webuipass, etc...
+
+
+
+#### TO FIX
+********************************************************************
+ BUG in CUSTOMER DID
+ Select Country -> Duplicate in the DID list (select Virtual Phonenumber)
+
+#### TO ADD
+********************************************************************
+FILTER PREFIX on the define ratecard
+handy to have it back
+
+#### TO ADD
+********************************************************************
+Email confirmation on signup module
+
+#### NEW TASK []
+********************************************************************
+multi langague for Admin, 
+
+#### TO FIX []
+********************************************************************
+	if (!isset($_SESSION["language"]))
+    {
+        $_SESSION["language"]='english';
+    }
+	else if (isset($language))
+    {
+        $_SESSION["language"] = $language;
+    }
+	
+	this is working with register_globals = off 
+	but if On it doesnt
+	We need a solution that work with both
+	
+	
+
+#### NEW TASK DID []
+********************************************************************
+DID insert : support range and interval 
+Also a little import tool as the one for the Ratecard
+
+	
+#### NEW TASK []
+********************************************************************
+/Form Class have an issue due to the images path 
+on A2Billing_UI the path for the images is ../Images
+and on A2BCustomer_UI the path for the images is ./images
+
+we need the path to be a DEFINE in the defines.php in order
+to user the same Form Class on the both interface (Customer & Admin)
+
+
+
+#### NEW TASK []
+********************************************************************
+On Calls Compare (call-comp.php)  
+the graphs show the variantion according to the amount of calls.
+We need now Sells, Buyings and also Earnings
+
+Same on Monthly Traffic
+-> We need now Sells, Buyings and also Earnings
+
+
+
+#### NEW TASK []
+********************************************************************
+Customer Interface : move all to the new framework
+A2BCustomer_UI/ratecard.php
+A2BCustomer_UI/did.php
+A2BCustomer_UI/voucher.php
+
+
+#### NEW TASK []
+********************************************************************
+customer should be allow to change password. That should be in customer interface. 
+
+
+#### []
+********************************************************************
+Report on the earnings
+define the buy rate into the cc_call table to know how much
+we have to pay for this call made
+add in cc_call : buyrate, buycost
+
+	-- Add Buying cost into the reporting
+	
+	POSTGRESQL
+		ALTER TABLE cc_call ADD COLUMN buyrate numeric(12,4);
+		ALTER TABLE cc_call ALTER COLUMN buyrate SET DEFAULT 0;
+		
+		ALTER TABLE cc_call ADD COLUMN buycost numeric(12,4);
+		ALTER TABLE cc_call ALTER COLUMN buycost SET DEFAULT 0;
+		
+	MYSQL 
+		ALTER TABLE cc_call ADD COLUMN buyrate decimal(15,5);
+		ALTER TABLE cc_call ALTER COLUMN buyrate SET DEFAULT 0;
+		
+		ALTER TABLE cc_call ADD COLUMN buycost decimal(15,5);
+		ALTER TABLE cc_call ALTER COLUMN buycost SET DEFAULT 0;
+
+
+ use in the AGI : from cc_ratecard,	buyrate	buyrateinitblock	buyrateincrement
+ 
+
+#### NEW TASK []
+********************************************************************
+When Card "pre-selection" is made on A2B_entity_card.php
+we need to add a feature to remove the pre-selected cards.
+
+
+#### ADD
+********************************************************************
+AUTO REFILL FEATURE
+
+
+	-- inital balance : it would be used by the cron in order to refill automatically each month
+	ALTER TABLE cc_card ADD COLUMN initialbalance numeric(12,4);
+	ALTER TABLE cc_card ALTER COLUMN initialbalance SET DEFAULT 0;
+	UPDATE cc_card SET initialbalance = '0';
+	
+	-- invoiceday : day of the month when the customer invoice need to be created 
+	ALTER TABLE cc_card ADD COLUMN invoiceday integer;
+	ALTER TABLE cc_card ALTER COLUMN invoiceday SET DEFAULT 1;
+	UPDATE cc_card SET invoiceday = '1';
+	
+	-- autorefill : define if the automatic refill will be permorfed on this card
+	ALTER TABLE cc_card ADD COLUMN autorefill integer;
+	ALTER TABLE cc_card ALTER COLUMN autorefill SET DEFAULT 0;
+	UPDATE cc_card SET autorefill = '0';
+	
+	-- Auto Refill Report Table	
+	CREATE TABLE cc_autorefill_report (
+		id bigserial NOT NULL,
+		daterun timestamp(0) without time zone DEFAULT now(),
+		totalcardperform integer,
+		totalcredit double precision
+	);
+	ALTER TABLE ONLY cc_autorefill_report
+	ADD CONSTRAINT cc_autorefill_report_pkey PRIMARY KEY (id);
+		
+	
+	create new Cront a2billing_autorefill.php
+	
+	
+
+
+
+
+
+
+
+
+
+
+********************************************************************
+						V1.2.2
+********************************************************************
+
+#### []
+********************************************************************
+migrate ADD callerID and Speeddial from Customer interface to the
+new framework
+
+
+
+#### NEW TASK []
+********************************************************************
+When removing a ratecard -> Remove all the rate belonging to
+When removing a trunk -> Check if rate are using it if yes ask for confirmation.
+When removing a tarriffgroup -> Check if Card are using it if yes ask for confirmation.
+When removing a DIDgroup -> Check if Card are using it if yes ask for confirmation.
+
+#### BUG []
+********************************************************************
+(11:33:55) Vahan: have a look at A2BCustomer_UI/add caller id / delete
+(11:34:07) Vahan: there is no delete button, it says 'Caller ID' only without button background :)
+
+
+
+#### BUG [fixed]
+********************************************************************
+Paypal update the card correctly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+********************************************************************
+						V1.2.1
+********************************************************************
+
+
+#### []
+********************************************************************
+Use gettext in the future ftm only user interface
+
+
+
+#### NEW TASK [Done]
+********************************************************************
+In my opinion, may be "RUN SERVICE" could be one option; when we "Generate customers"
+RUN SERVICE : Yes No
+This could be helpful to enable run service for those cards in bulk, When we generate customers.
+
+
+#### BUG V1.2 [fixed]
+********************************************************************
+POPUP
+http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/Public/CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator
+
+
+#### NEW TASK [Done]
+********************************************************************
+In my opinion: if its there also
+FILTER input field for "View money situation" & "View Payment".
+
+
+#### BUG V1.2 [Fixed]
+********************************************************************
+
+Customer bal is $2.5912
+It says $2.5912 is the balance instead of $2.59
+It seems to be a matter of some calculation that is not being rounded to 2 decmal places.
+
+
+#### NEW 
+********************************************************************
+UPDATE I18n TO GETTEXT ON CUSTOMER INTERFACE AND ADMIN
+
+
+#### CHANGE FRAMEWORK
+********************************************************************
+signup module
+
+
+
+********************************************************************
+						V1.2
+********************************************************************
+
+
+
+#### BUG [Done]
+********************************************************************
+when i delete an acount....they  seting are stil in the list iax or sip
+oh true
+we need to regenerate the conf files
+
+
+
+#### BUG [fixed]
+********************************************************************
+create IAX friends 
+secret = carnumber ?? might be webui
+
+
+#### BUG [Fixed]
+********************************************************************
+DID - customer interface show up more number that what it might
+
+
+#### BUG [was not a bug]
+********************************************************************
+Launched AGI Script /var/lib/asterisk/agi-bin/a2billing.php
+  a2billing.php|1|did: line:59 - IDCONFIG : 1
+  a2billing.php|1|did:
+  a2billing.php|1|did: line:68 - MODE : did
+  ....
+ (34650XXXXX|30|HL(3600000:61000:30000))
+ ...
+ 
+ DID call seems to not assign the trunk value on the callout
+ 
+ 
+#### BUG [Fixed]
+********************************************************************
+Webphone doesnt work anymore
+
+
+
+#### BUG [fixed]
+********************************************************************
+export vouchers...is exporting the accounts
+
+
+#### BUG [Fixed]
+********************************************************************
+iv increase it to 17 digits.. but still doing voishers with 15 digits
+
+
+#### BUG [Fixed]
+********************************************************************
+- CALLERID LIST -  	
+FILTER ON CALLERID :
+CALLERID 	CARDNUMBER 	ACTIVATED 	ACTION
+		Active 	  Edit this CallerID   Delete this CallerID
+5905868969 	5905868969 	Active 	  Edit this CallerID   Delete this CallerID 
+
+caller id list
+when i click on card button..... i get this
+Not Found
+
+The requested URL /ksys/A2Billing_UI/Public/A2B_entity_card was not found on this server.
+Apache/2.0.54 (Fedora) Server at 213.246.61.95 Port 80
+
+
+#### BUG [Fixed]
+********************************************************************
+when i click list sip friends///
+select a card number....aply filter..is tellin me that : THERE IS NO IAX FRIEND CREATED!
+
+but im the list sip friend no list iax friend :)
+ - IAX FRIEND LIST -  	
+FILTER ON NAME :
+NAME 	ACCOUNTCODE 	CALLERID 	CONTEXT 	DEFAULTIP 	DTMFMODE 	ACTION
+6829162082 	6829162082 	6829162082 	a2billing 		
+ instead or showing me the sip friend after i aply the filter is showing me the IAX friend
+
+
+#### [Done]
+********************************************************************
+Fix Money Situation
+
+#### [Done]
+********************************************************************
+Tag php short mode : Off 
+
+
+#### [Done]
+********************************************************************
+//// IMPORTANT 
+More meangingful error message on the AGI section
+ APPLY_RULES DESTINATION ::> 1815
+ a2billing.php: RESFINDRATE::> 0
+
+#### [DONE]
+********************************************************************
+//// IMPORTANT 
+Hardcoded 
+additional_a2billing_sip.conf & additional_a2billing_iax.conf
+
+#### [done]
+*******************************************************************
+//// IMPORTANT 
+* signup autocreates SIP/IAX additional_a2billing_SIP/IAX.conf
+
+
+
+#### [Done]
+*******************************************************************
+* List available rates in Customer UI.
+* JIAX integration in  Customer UI.
+* use the useralias in the sip/iax calls
+
+
+#### [done-guess]
+********************************************************************
+
+b) RateCard's entries not only for weeking days because there are normally many local calls which have PEAK (Mo to Fr from 8a.m. to 6p.m) and OFF PEAK (from Fr 6.p.m to Mo 8a.m and on holidays) prices for the carrier as for the customer. So this would be very usefully for more special definitions.
+
+#### [done]
+********************************************************************
+
+6.) BUG - SIP/IAX allow codec problem
+ 
+The codec will be printed out like allow=g729;ulaw;alaw;gsm but this don't work with Asterisk 1.2.x (I think also not with 1.0.x but I'm not sure) because there must be for each allow a own line like allow=g729 allow=ulaw .. and so on.
+ 
+So there is missing a simple FOREACH in the module where it will be printed out
+
+
+#### [done]
+********************************************************************
+
+4.) SECURITY : In case of some problems with MySQL 4.1.14 if in my.cnf is defined "latin1" as default you will get roubles at the "CC_asterisk_rate-engine: SUPER QUERY". The problem is that as default the database will be installed for "varchar"-fields with "latin1-swedish" ;-(
+ 
+It's surely a bug with MySQL because it is the last entry from latin1. So to be more secure you should change/add the charset to the CREATE syntax of MySQL to CHARSET=utf8 .This will be in the future also much more better if someone upgrades to MySQL 5.x Here is one example (se last entry will be used which is utf8_general_ci  ;-)
+ 
+DROP TABLE IF EXISTS `templatemail`;
+CREATE TABLE `templatemail` (
+  `mailtype` varchar(50) default NULL,
+  `fromemail` varchar(70) default NULL,
+  `fromname` varchar(70) default NULL,
+  `subject` varchar(70) default NULL,
+  `messagetext` longtext,
+  `messagehtml` longtext
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+#### [done]
+********************************************************************
+//// IMPORTANT 
+Update currency table 
+Use Yahoo, check the script php for this
+Store currency in the Database
+
+
+#### [Update-local-text-files]
+********************************************************************
+
+DOCUMENTATION
+
+from your web site
+
+cp -rf libs_a2billing /var/lib/asterisk/agi-bin/.
+should be
+cp -rf libs_a2billing/* /var/lib/asterisk/agi-bin/.
+or u will miss 2 files in the folder
+
+likewise from your website
+cp  sounds/en/* /var/lib/asterisk/sounds/.
+can be
+cp  sounds/en/* /var/lib/asterisk/sounds/. < yes.txt
+if u want to automate in a script
+
+
+#### [done]
+********************************************************************
+
+
+ - Leaking in documentation that AGI needs php as cgi ( so people with only mod_phpX won't able to make it work ),
+   well at least in some systems php command line comes with cgi package or in a separate package php4-cli.
+
+#### [done]
+********************************************************************
+
+ - Leaking in documentation a2billing needs php-pcntl ( in debian is not in official repository ).
+
+#### [done]
+********************************************************************
+
+ - Use a unique file to store all the path and setting , so we avoid to changes values from files where
+   are hardcoded :
+
+   i.ex in defines.php there's : 
+
+   include ("/etc/asterisk/rates.inc");
+
+   Maybe a good solution is to move those variable to a2billing.conf file, that can be fixed because it's
+   already defined -> buddyfilepath.
+
+   Also can be checked asterisk.conf because there are placed path for asterisk locations.
+  
+   ( Others files with hardcoded data -> CC_upload.php , a2billing.php , Class.A2Billing.php , etc ... ).
+
+#### [done]
+********************************************************************
+//// IMPORTANT 
+ - Files inside [astetcdir] have to be writeables by apache user ( nobody or apache or www-data , etc ... ).
+   ( not need to be set 777 )
+
+#### [done]
+********************************************************************
+//// IMPORTANT 
+ - Directories sounds and mohmp3 ( [astvarlibdir]/sounds/a2billing [astvarlibdir]/mohmp3 ) have to be 
+   writeable by apache user ( not need to be set 777 ) .
+
+
+#### [done]
+********************************************************************
+ 
+ - CC_entity_car_refill.php ( if no cardnumber is added and you try or you try to refill a non existing 
+   user no error message just a 0 is written in left top of the page.
+
+#### [not-valid]
+********************************************************************
+
+ - allow field from table cc_sip_buddies is filled with "g729ulawalawgsm" ( change that input field with
+   a drop box ). Moreover from CC_entity_edit_friend.php ( allows to insert a new user with only the name field ).
+
+#### [no-valid]
+********************************************************************
+
+ - If duplitated entry CC_entity_edit_friend.php :
+
+   Database error: Invalid SQL: INSERT INTO cc_sip_buddies (name, type, amaflags, nat, dtmfmode, canreinvite, disallow, allow, host, context, regseconds, cancallforward) values ('pepito', 'friend', 'billing', 'yes', 'RFC2833', 'yes', 'all', 'g729ulawalawgsm', 'dynamic', 'callingcard', '0', 'yes')
+MySQL Error: 1062 (Duplicate entry 'pepito' for key 2)
+
+
+#### [done]
+********************************************************************
+
+ - In CC_entity_friend.php , if the users listed are only sip and you click over "Generate additional_a2billing_iax.conf" page blank
+   is returned. That happens when there's only a type of user ( IAX or SIP ) and click over the button to generate file for oposite 
+   type of user.
+
+#### [not-valid] -> It should be done at starting , and maybe also in login screen.
+********************************************************************
+
+ - CC_entity_friend.php should check if additional files exist and are writeable otherwise warm the user.
+
+#### [done]
+********************************************************************
+
+ -  [error] PHP Warning:  Invalid argument supplied for foreach() in /usr/local/www/data-dist/a2billing/Public/CC_entity_card_refill.php on line 144.
+
+#### [not-valid]
+********************************************************************
+//// IMPORTANT 
+
+ - mysql -u root mya2billing < update-PredictiveDialer-mysql-schema-v1.0.sql
+ERROR 1293 (HY000) at line 67: Incorrect table definition; there can be only one TIMESTAMP column with CURRENT_TIMESTAMP in DEFAULT or ON UPDATE clause
+
+ That is in the creation of :
+
+ CREATE TABLE cc_campaign (
+    id INT NOT NULL AUTO_INCREMENT,
+    campaign_name CHAR(50) NOT NULL,
+    creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    startingdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expirationdate TIMESTAMP,
+    description MEDIUMTEXT,
+    id_trunk INT DEFAULT 0,
+    secondusedreal INT DEFAULT 0,
+    nb_callmade INT DEFAULT 0,
+    enable INT DEFAULT 0 NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE cons_phonelistname (campaign_name)
+);
+
+ Reference : http://dev.mysql.com/doc/refman/4.1/en/error-messages-server.html 
+
+ Solution : maybe creationdate , should be change and when the campaign is create from web , use
+	    to mysql query the CURRENT_TIMESTAMP value.
+
+#### [done]
+********************************************************************
+
+
+ - a2billing-mysql-createdb-user-v1.0.0.sql could be too "friendly" maybe change to be more restrictive.
+
+#### [done]
+*******************************************************************
+//// IMPORTANT 
+ - DID in Customer UI doesn't work properly , seems that only for mysql-3.x_4.x due a sql subqueries .
+
+#### [done]
+*******************************************************************
+//// IMPORTANT
+ - Create tools for backup/restore database.
+
+
+#### [Done]
+********************************************************************
+Export csv for the card
+
+ 1# Solve the issue that the csv files opened with Excel remove leading 0
+    Use the 'format the number to force it as a string
+   
+#### [done]
+********************************************************************
+//// IMPORTANT
+Generate customers -> check box to choose to generate the IAX/SIP
+friends too
+
+
+#### [done]
+********************************************************************
+//// IMPORTANT
+"Customer Creation" -> check box to choose to generate the IAX/SIP
+friends too
+
+When a Customer is deleted if he was created as sip/iax friend that is not
+detele from asterisk additionals-* files.
+
+#### [done]
+********************************************************************
+//// IMPORTANT
+move the currency select from defines.php to a specific file
+
+#### [done]
+********************************************************************
+Export csv for the card
+
+2# Customize the field to export, perhaps use a parameter in a2billing.conf
+   to define the different field to export
+      ;; card_export_field_list = creationdate, username, credit, lastname,
+      firstname
+
+
+#### [done]
+********************************************************************
+popup simulate ratecard - bug
+
+
+
+
+#### [Done]
+********************************************************************
+//// IMPORTANT 
+Make a Advanced-user features into the a2billing.conf to let the user
+1.1. on the "trunks" screen  shouldn't there be a "delete" as well as "edit"
+1.2. on the "Administrator" screen  shouldn't there be a "delete" as well as "edit"
+also we can make a div that will hide by default the cycle into the rateengine
+
+
+
+
+#### [Done]
+********************************************************************
+//// IMPORTANT 
+SUGGESTED RENAME
+
+CYCLE -> call it time c
+
+time charge is a duration not a charge, it should be called initial block
+
+
+
+
+STEPCHARGE C
+When entering in the cycle 'C', define the amount to charge for the
+entrance.
+CHARGE C
+When entering in the cycle 'C', define the rate to apply.
+TIMECHARGE C
+Define the duration of the cycle 'C'.
+BILLING BLOCK C
+Define the duration of each billing block to apply the rate 'CHARGE C'.
+
+
+timecharge c - define the duration of the cycle
+quite obviously IF IT IS A DURATION IT IS NOT A CHARGE SO DO NOT CALL IT
+"TIMECHARGEC"
+terribly confusing can u see that ?
+
+stepcharge c
+u mean the "bong charge for this cycle" or "connection charge for this
+cycle"  (bong charge or connection charge is better term than "entrance"
+- this is not a stage)
+
+charge c
+i would add in my definition "the rate to apply to block c"
+
+BUYING RATE
+BUYRATE INIT BLOCK
+define the minimum time that your provider buy for (ie 30 secs)
+BUYRATE BILLING BLOCK
+Define the billing increment (billing block) to the provider apply.
+RATEINITIAL
+MIN DURATION
+This allow you to define the minimum time to bill the caller (ie 30 secs)
+BILLING BLOCK
+Define the duration of each billing block to apply globaly (if not cycle
+are defined).
+
+
+POETS AND PROGRAMMERS SHOULD USE SYMMETRIC FORM !!!!!!!!!!!!
+
+if block refers to duration or time use the words duration or time EVERY
+where u use the term block
+
+if buying rate refers to the block rate then it should say so the term
+buy rate without adjective is meaningless
+
+EITHER HAVE A BLACK LINE ACROSS SCREEN TO SEPARATE BUY FROM SELL
+OR prefix buy_ and sell_ to the field names
+do u c how confusing this is ?
+
+besides none of the grammar is right and some of it is painful to read
+
+ >>>define the minimum time that your provider buy for (ie 30 secs)
+ >>>provider buys not buy
+
+ >>>This allow you to define the minimum time to bill the caller (ie 30
+secs)
+ >>>this allows not allow
+
+ >>>Define the duration of each billing block to apply globaly (if not
+cycle are defined).
+ >>>this is painful to read....it should say (if cycle is not defined)
+
+#### [done]
+*******************************************************************
+//// IMPORTANT
+ - Fix window.open width , needs to show the whole table . 
+
+
+
+#### [Done]
+********************************************************************
+//// IMPORTANT 
+Callback 1st leg billing
+
+
+#### [Done]
+********************************************************************
+1. webui password auto-generation
+
+#### [done-but-only selfsigned]
+******************************************************************
+
+Fix the iax webphone , sign with our own certificate.
+
+#### [done]
+********************************************************************
+//// IMPORTANT
+Setup new site asterisk2billing.org
+- FORUM
+- SVN
+- WIKI
+- DEMO
+- IVR DEMO VIA JIAX
+
+#### [check-if-fixed-already]
+*******************************************************************
+//// IMPORTANT
+ - Popups Not working in IE.
+
+#### [done]
+********************************************************************
+//// IMPORTANT
+USE DB-FRAMEWORK FROM PEAR

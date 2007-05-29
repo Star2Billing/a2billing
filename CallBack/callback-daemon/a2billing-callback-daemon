@@ -1,0 +1,412 @@
+#!/usr/bin/perl -w
+
+use strict;
+use DBI;
+use POSIX qw(setsid);
+use vars qw($dbh);
+
+use lib '/var/lib/asterisk/a2billing/callback-daemon/lib';
+use Asterisk::Manager;
+use Config::IniFiles;
+
+$|++;
+
+
+######################### GLOBALS ########################
+my $path_daemon = "/var/lib/asterisk/a2billing/callback-daemon/";
+my $daemon = "CallBack-Daemon";
+
+######################### READ THE CONFIG FILE ########################
+my $conf_file = "/etc/asterisk/a2billing.conf";
+# Read the config file
+my $cfg = Config::IniFiles->new( -file => $conf_file );
+
+######################### DB PARAMETER ########################
+my $dbname = $cfg->val('database', 'dbname');
+my $dbhost = $cfg->val('database', 'hostname');
+my $dbport = $cfg->val('database', 'port');
+my $login = $cfg->val('database', 'user');
+my $pwd = $cfg->val('database', 'password');
+my $dbtype = $cfg->val('database', 'dbtype');
+
+
+######################### LOG FILE ########################
+my $log_file = "/var/log/asterisk/a2billing-daemon-callback.log";
+
+######################### ASTERISK MANAGER ########################
+my $manager_host = "localhost";
+my $manager_username = "myasterisk";
+my $manager_secret = "mycode";
+
+###################### BEHAVIOUR PARAMETER ########################
+my $pass_nb = 0;
+
+
+my $trace  = '/tmp/pgtrace.out';
+my ($conn, $result, $i);
+my ($status, $timestamp);
+
+my $DEBUG  = 0; # set this to 1 for traces
+
+my @childs; # define child in the daemon
+
+
+if (($path_daemon eq "") or ($daemon eq ""))
+{
+  print "Error in Config File check it!!\n";
+  exit(0);
+}
+
+
+#### SET SIGNAL HANDLER #######
+
+$SIG{'TERM'} = 'INT_handler';
+my $set_exit = 0;
+
+
+#### TEST MANAGER PARAMETER 
+my $astman = new Asterisk::Manager;
+
+# $astman->user($manager_username);
+# $astman->secret($manager_secret);
+# $astman->host($manager_host);
+# $status = $astman->connect;
+# my @res_manager = $astman->sendcommand( Action => 'Command', Command => 'show channels');
+# print @res_manager;
+# exit(0);
+
+&daemonize($path_daemon);
+
+open(LOGFILE, ">>".$log_file) || warn "Could not open >> $log_file.\n";
+$timestamp = &longfmt();
+print LOGFILE "$timestamp";
+print LOGFILE "[DAEMON START FORK]\n";
+close LOGFILE;
+
+###
+# our infinite loop
+###
+while(1) {
+
+	# check if there're changes
+	&func_callback_processing();
+ 
+	# wait for 5 secondes
+	sleep(10);
+	
+	foreach (@childs) {
+		waitpid($_, 0);
+	}
+	foreach (@childs) {
+		my $childpid = $_;
+		# print "CHILD = $childpid \n";
+	}
+	@childs = ();
+	foreach (@childs) {
+		my $childpid = $_;
+		# print "AFTER EMPTY CHILD = $childpid \n";
+	}
+
+	if ($set_exit) { exit(0); }
+}
+
+
+###
+# Subroutine that daemonize this proccess
+###
+sub daemonize {
+    # chdir '/home/areski/bin'   or die "Can't chdir to /: $!";
+    chdir $_[0]   or die "Can't chdir to /: $!";
+    open STDIN, '/dev/null'   or die "Can't read /dev/null: $!";
+    open STDOUT, '>>/dev/null' or die "Can't write to /dev/null: $!";
+    open STDERR, '>>/dev/null' or die "Can't write to /dev/null: $!";
+    defined(my $pid = fork)   or die "Can't fork: $!";
+    exit if $pid;
+    setsid                    or die "Can't start a new session: $!";
+    umask 0;
+}
+
+
+
+###
+# This Subroutine check if there new emails to import
+###
+sub func_callback_processing{ 
+
+	my ($direlem,$LINES);
+	my ($dbh, $sth, $sth2 , $sth3, $res);
+	my $SQL="";
+	my $QUERY="";
+	my @server_manager;
+	my @row;
+	my @row2;
+	my ($line, $count, $id, $uniqueid, $status, $server_ip, $num_attempt, $channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid, $id_server_group);
+	my $timestamp;
+	my $pid;
+
+	$pass_nb++;
+	open(LOGFILE, ">>".$log_file)
+		|| warn "Could not open >> $log_file.\n";
+	
+	if ($dbtype eq "mysql")
+	{
+		$dbh ||= DBI->connect("dbi:mysql:$dbname:$dbhost", "$login", "$pwd");		
+	}else{
+		$dbh ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$dbhost;port=$dbport", "$login", "$pwd");
+		#$dbh ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$dbhost;port=$dbport", "$login");
+	}
+	
+	if (!$dbh) {
+		$timestamp = &longfmt();
+		print LOGFILE "[$timestamp]";
+		print LOGFILE "ERR: Couldn't open connection: ".$DBI::errstr."\n";
+		die "ERR: Couldn't open connection: ".$DBI::errstr."\n";
+	}
+	
+	if ($dbtype eq "mysql")
+	{
+		$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM cc_callback_spool WHERE status='PENDING' AND entry_time > SUBDATE( CURRENT_TIMESTAMP, INTERVAL 24 HOUR ) AND ( callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP ) LIMIT 0, 5";
+	} else {
+		$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM cc_callback_spool WHERE status='PENDING' AND entry_time > (CURRENT_TIMESTAMP - INTERVAL '24 HOUR') AND (callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP) LIMIT 5 OFFSET 0";
+	}
+	
+	$timestamp = &longfmt();
+	print LOGFILE "$timestamp : TRY TO FIND PENDING CALLBACK";
+	
+	$sth = $dbh->prepare($SQL);
+	$sth->execute();
+
+	print LOGFILE "\n ** Number of PENDING callbacks ".$sth->rows." **\n";
+
+	while ( @row = $sth->fetchrow ) {
+   		
+		$id = $row[0]; $uniqueid = $row[1]; $status = $row[3]; $server_ip = $row[4]; $num_attempt = $row[5];
+		$channel = $row[10]; $exten = $row[11]; $context = $row[12]; $priority = $row[13]; $application = $row[14];
+		$data = $row[15]; $timeout = $row[16]; $callerid = $row[17]; $variable = $row[18]; $account = $row[19];
+		$async = $row[20]; $actionid = $row[21]; $id_server_group = $row[22];
+		
+		## UPDATE THE CALLBACK BEFORE FORK
+		$QUERY = "UPDATE cc_callback_spool SET status='PROCESSING' WHERE id='$id'";
+		print LOGFILE $QUERY."\n";
+		$sth3 = $dbh->prepare($QUERY);
+		$sth3->execute();
+		
+		if ($pid = fork){
+			# PARENT -> PID = CHILD PID
+			print LOGFILE "\n WE ARE IN THE PARENT PROCESS -> CHILD PID = $pid -> RECORD ID = $id \n";
+			push(@childs, $pid); # Add Child pid in the array
+			sleep(1);
+			next;
+		} elsif ($pid == 0) {
+			# PID = 0
+			# CHILD
+			print LOGFILE "\n WE ARE IN THE CHILD PROCESS\n";
+		} else {
+			$QUERY = "UPDATE cc_callback_spool SET status='PENDING' WHERE id='$id'";
+			print LOGFILE $QUERY."\n";
+			$sth3 = $dbh->prepare($QUERY);
+			$sth3 -> execute();
+			$sth3 -> finish;
+			die "couldnt fork: $!\n";
+		}
+		
+		# Save existing handler.
+		 my $saved_warn_handler = $SIG{__WARN__};
+		# Suppress warnings.
+		$SIG{__WARN__} = sub {};
+		
+		# OPEN THE DB CONNECTION FOR THE CHILD
+		my $dbh_child = $dbh->clone();
+		
+		# Restore saved handler.
+		$SIG{__WARN__} = $saved_warn_handler;
+		
+		$dbh->{InactiveDestroy} = 1;
+		undef $dbh;
+		
+		
+		# my $dbh_child ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$pghost;port=$pgport", "$login");
+		
+		$id_server_group = 1;
+		@server_manager = &get_server($dbh_child, $id_server_group);		
+		
+		if (!(@server_manager)){
+			print LOGFILE " server_manager not find for the id_server_group= $id_server_group \n";
+			$QUERY = "UPDATE cc_callback_spool SET status='ERROR', last_attempt_time=now() WHERE id='$id'";
+			print LOGFILE "\n".$QUERY."\n";
+			$sth2 = $dbh_child->prepare($QUERY);
+
+			$sth2 -> execute();
+			$sth2 -> finish;
+			#next;
+			exit(0);
+		}
+		$timestamp = &longfmt();
+		print LOGFILE "$timestamp\n";
+		
+		$astman->user($server_manager[3]);
+		$astman->secret($server_manager[4]);
+		$astman->host($server_manager[1]);		
+		
+		$status = $astman->connect;
+		if ( defined $status ){
+			$timestamp = &longfmt();
+			print LOGFILE "[$timestamp]\n";
+			print LOGFILE " ::>>> $status \n";
+			
+			# Action: Originate
+			# Parameters: Channel, Exten, Context, Priority, Timeout, CallerID, Variable, Account, Application, Data
+			my @res_manager = $astman->sendcommand( Action => 'Originate',
+                                       Channel => $channel,
+                                       Exten => $exten,
+                                       Context => $context,
+                                       Priority => $priority,
+                                       Timeout => $timeout,
+                                       CallerID => $callerid,
+                                       Variable => $variable,
+                                       Account => $account,
+                                       Application => $application,
+                                       Data => $data );
+			$timestamp = &longfmt();
+			print LOGFILE "[$timestamp]";
+			print LOGFILE $res_manager[0] . ' - ' . $res_manager[1] . ' - ' . $res_manager[2] . ' - ' . $res_manager[3] . "\n";
+			
+			if (is_integer($num_attempt)){  $num_attempt++;
+			}else{$num_attempt = 0;}
+			
+			if ( $res_manager[1] =~ /^Success/ ){
+				print LOGFILE "[$timestamp]\n";
+				print LOGFILE "\n ## SUCCESS CALLBACK -> ($channel, $exten, $context, $priority)\n";
+				$QUERY = "UPDATE cc_callback_spool SET status='SENT', manager_result='".$res_manager[1].'-'.$res_manager[3]."', num_attempt='$num_attempt', last_attempt_time=now(), id_server='".$server_manager[0]."' WHERE id='$id'";
+				print LOGFILE $QUERY;
+				$sth2 = $dbh_child->prepare($QUERY);
+				$sth2->execute();
+				
+				$QUERY = $SQL = "UPDATE cc_server_manager SET lasttime_used=current_timestamp WHERE id ='".$server_manager[0]."'";
+				print LOGFILE "[$timestamp]\n";
+				$sth2 = $dbh_child->prepare($QUERY);
+				$sth2->execute();
+				$sth2->finish;
+				
+			}else{
+				print LOGFILE "[$timestamp]\n";
+				print LOGFILE "\n ## CALLBACK FAIL \n";
+				$QUERY = "UPDATE cc_callback_spool SET status='ERROR', manager_result='".$res_manager[1].'-'.$res_manager[3]."', num_attempt='$num_attempt', last_attempt_time=now(), id_server='".$server_manager[0]."' WHERE id='$id'";
+				print LOGFILE $QUERY;			
+				$sth2 = $dbh_child->prepare($QUERY);
+				$sth2->execute();
+				
+				$QUERY = $SQL = "UPDATE cc_server_manager SET lasttime_used=current_timestamp WHERE id ='".$server_manager[0]."'";
+				print LOGFILE "[$timestamp]\n";
+				print LOGFILE $QUERY;
+				$sth2 = $dbh_child->prepare($QUERY);
+				$sth2->execute();
+				$sth2->finish;
+			}
+			
+			
+			$astman->disconnect;	
+		}else{
+			$timestamp = &longfmt();
+			print LOGFILE "[$timestamp]\n";
+			print LOGFILE "## ERROR Cannot connect to the asterisk manager! \n Please check the manager configuration...\n";
+			
+			## UPDATE THE CALLBACK AFTER FORK
+			$QUERY = "UPDATE cc_callback_spool SET status='ERROR' WHERE id='$id'";
+			print LOGFILE $QUERY."\n";
+			$sth2 = $dbh_child->prepare($QUERY);
+			$sth2->execute();
+			$sth2->finish;
+		}
+		
+		$timestamp = &longfmt();
+		print LOGFILE "[$timestamp]\n";
+		print LOGFILE " [END SELECT] \n";
+		
+		# CLOSE THE DB CONNECTION OF THE CHILD
+		$dbh_child->disconnect;
+		exit(0);
+	} # end while fetchrow
+	
+	
+	$sth->finish;
+	$dbh->disconnect;
+	
+	# print LOGFILE "   ++++ \n";
+	close LOGFILE;
+}
+
+
+
+#
+# Get the less recently used manager server
+# Return an array with the selected row
+#
+sub get_server{
+	my ($dbh) = shift(@_);
+	my ($id_server_group) = shift(@_);
+	my $sth;
+	my $SQL="";
+	my @row;
+
+	if ($id_server_group > 0){
+		$SQL = "SELECT id, server_ip, manager_host, manager_username, manager_secret, lasttime_used FROM cc_server_manager WHERE id_group='".$id_server_group."' ORDER BY lasttime_used ASC LIMIT 1 OFFSET 0";
+	}else{
+		$SQL = "SELECT id, server_ip, manager_host, manager_username, manager_secret, lasttime_used FROM cc_server_manager ORDER BY lasttime_used ASC LIMIT 1 OFFSET 0";
+	}
+	print LOGFILE " SQL =".$SQL." \n";
+	
+	$sth = $dbh->prepare($SQL);
+	$sth->execute();
+	@row = $sth->fetchrow;
+
+	return @row;
+}
+
+###
+# Perl trim function to remove whitespace from the start and end of the string
+###
+sub trim($) {
+	my $string = shift;
+	$string =~ s/^\s+//;
+	$string =~ s/\s+$//;
+	return $string;
+}
+
+###
+# check if a variable is an integer
+###
+sub is_integer { 
+	$_[0] =~ /^[+-]?\d+$/ 
+}
+
+
+sub insert0 {
+	my ($date) = shift;
+	if ($date < 10) {
+		return "0$date";
+	}
+	return $date;
+}
+
+###
+# Long format: Custom datestring for the logfile
+###
+sub longfmt {
+	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$iddst) = localtime(time);
+	my $datestring;
+
+	$year += 1900;
+	$mon++;
+	$mon  = insert0($mon);
+	$mday = insert0($mday);
+	$min  = insert0($min);
+	$sec  = insert0($sec);
+	$datestring = "\n[$year-$mon-$mday $hour:$min:$sec]";
+	return($datestring);
+}
+
+sub INT_handler {
+	$set_exit = 1;
+	print LOGFILE "\n *** Recieved signal to exit *** \n";
+}

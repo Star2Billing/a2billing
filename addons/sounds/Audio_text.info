@@ -1,0 +1,393 @@
+
+
+---------------------------  MAIN --------------------------
+prepaid-menulang 								press 1 for English, pulsa 2 para el español, Pressez 3 pour Français
+
+
+################################################################################
+
+prepaid-welcome 								welcome to  the calling card system...
+prepaid-enter-card-num   						please, enter your 10 digits card number skipping any ponctuations, follow by the pound key
+prepaid-enter-pin-number		   				please, enter your complete PIN number
+
+prepaid-no-card-entered							no card number has been entered
+prepaid-invalid-digits							invalid digits
+prepaid-auth-fail								sorry, your authentication failed
+prepaid-zero-balance							sorry, you have zero credit
+prepaid-card-expired							sorry, your card is expired
+prepaid-no-enough-credit						sorry, you dont have enough credit to call this number
+prepaid-no-enough-credit-stop					sorry, you dont have enough credit
+prepaid-card-in-use								this card number is already used!
+
+prepaid-you-have								you have
+prepaid-cents									cents
+vm-and											and
+
+
+prepaid-sipiax-press9							If you want to call a SIP or IAX Friend, please press 9 now...
+
+prepaid-sipiax-enternumber						Please enter the number of the IAX, SIP Friend 
+												you want to call and then press the pound key...
+
+prepaid-sipiax-num-nomatch						Sorry, there is none SIP or IAX friend that match with this number!
+
+prepaid-isbusy									the number is currently busy
+prepaid-noanswer								the number is not answering
+
+prepaid-enter-dest								Please, enter the number you wish to call and then press the pound key...
+? EUROPE
+												Please, enter the number you are calling starting with 00 and the prefix of the country you wish to call
+												and then press the pound key...
+prepaid-enter-number-u-calling-1-or-011.			
+												Please, enter the number you are calling starting for 1 for domestic or 011 for international calls
+												and then press the pound key...
+prepaid-dest-unreachable						The number, you have dial, is currently unavailable... 
+
+
+prepaid-you-have								you have
+prepaid-minute									minute
+prepaid-minutes									minutes
+prepaid-second									second
+prepaid-seconds									seconds
+
+prepaid-final									goodbye
+
+
+prepaid-dollar									dollar
+prepaid-dollars									dollars
+prepaid-euro									euro
+prepaid-euros									euros
+
+; Voucher
+prepaid-account_refill							your account has been refill of 
+prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
+prepaid-unknow_used_currencie					sorry unknow used currency
+prepaid-voucher_does_not_exist					the voucher does not exist
+prepaid-voucher_enter_number					please enter the voucher number and press the pound key
+
+; Callback
+prepaid-callback_intro							Your call is now being connected, Please hold
+
+
+---------------------------  FRENCH --------------------------
+
+prepaid-welcome 								Bienvenue dans notre système de carte pré-payé....
+prepaid-enter-card-num		   					Entrez le numéro de votre carte, suivit de la touche dièse
+prepaid-enter-pin-number		   				Entrez votre numero d'identification...
+
+prepaid-no-card-entered							Aucun numéro de carte n'a été introduit...
+prepaid-invalid-digits							numéros incorrects...
+prepaid-auth-fail								désolé, votre authentification a échoué... 
+prepaid-zero-balance							désolé, votre crédit est nul...
+prepaid-card-expired							désolé, votre carte a expiré...
+prepaid-no-enough-credit						désolé, vous n'avez pas assez de crédit pour appeller ce numéro.
+prepaid-no-enough-credit-stop					désolé, vous n'avez pas assez de crédit...
+prepaid-card-in-use								Cette carte est déjà en cours d'utilisation
+
+prepaid-you-have								vous avez
+prepaid-cents									centimes
+vm-and											et
+
+
+prepaid-isbusy									Ce numéro est occupé.
+prepaid-noanswer								Ce numéro ne répond pas.
+
+prepaid-enter-dest								Composez le numéro que vous souhaitez appeler suivit de la touche dièse.
+prepaid-enter-dest-europe						Composez le numéro que vous souhaitez appeler précédé par 00 
+												et le prefix pays. Finalisez avec la touche dièse.
+				
+prepaid-enter-number-u-calling-1-or-011			Entrez le numéro que vous souhaitez appeler précédé par 1 pour 
+												les appels domestiques et par 011 pour les appels international, 
+												suivit ensuite de la touche dièse...
+				
+prepaid-dest-unreachable						Le numero que vous avez composé n'est pas disponible... 
+
+prepaid-you-have								vous avez
+prepaid-minute									minute
+prepaid-minutes									minutes
+prepaid-second									seconde
+prepaid-seconds									secondes
+prepaid-final									Au revoir
+
+
+dollar											dollar
+dollars											dollars
+euro											euro
+euros											euros
+
+; Voucher
+prepaid-account_refill							Votre compte a été rechargé de 
+prepaid-refill_card_with_voucher				si vous désirez recharger votre carte avec un voucher, pressez la touche 8
+prepaid-unknow_used_currencie					Désolé, la device utilisé n'est pas reconnu
+prepaid-voucher_does_not_exist					Ce voucher n'existe pas
+prepaid-voucher_enter_number					Veuillez composer le numéro du voucher suivit de la touche dièse
+
+; Callback
+prepaid-callback_intro							?? Your call is now being connected, Please hold
+
+---------------------------  SPANISH  --------------------------
+
+prepaid-welcome                                 Bienvenido al sistema de tarjeta de llamada
+
+prepaid-enter-card-num                          Introduzca los diez números de su tarjeta seguido de almohadilla
+
+prepaid-enter-pin-number						Introduzca su código PIN
+
+prepaid-no-card-entered                       	No se ha introducido ningún número de tarjeta
+
+prepaid-invalid-digits							Números incorrectos
+
+prepaid-auth-fail								No se ha podido verificar su número de tarjeta
+
+prepaid-zero-balance							Lo sentimos, no tiene crédito en su tarjeta
+
+prepaid-card-expired							Lo sentimos, su tarjeta ha caducado
+
+prepaid-no-enough-credit                        Lo sentimos, no tiene suficientes créditos para esta llamada
+
+prepaid-no-enough-credit-stop                   Lo sentimos, no tiene suficientes créditos
+
+prepaid-card-in-use		                       	¡Su tarjeta está siendo utilizada en este momento!
+
+prepaid-you-have								tiene
+
+prepaid-cents                                   céntimos
+vm-and                                          y
+
+
+prepaid-sipiax-press9                           Si quiere llamar a un  SIP Friend o I A X Friend, marque 9
+
+prepaid-sipiax-enternumber                      Introduzca el número del  SIP Friend o I A X Friend que quiere llamar y marque almohadilla
+
+prepaid-sipiax-num-nomatch						Lo sentimos, no hay ningún  SIP Friend o I A X Friend con ese número
+
+prepaid-isbusy									El número marcado está comunicando
+
+prepaid-noanswer								El número marcado no contesta
+
+prepaid-enter-dest								Introduzca el número que desea llamar seguido de almohadilla
+
+prepaid-enter-dest-europe						Marque 00, el prefijo del país y el número que desea llamar seguido de almohadilla
+
+prepaid-enter-number-u-calling-1-or-011			Marque el número que quiere llamar comenzando por 1 si la llamada es doméstica, 
+												o comenzando por 011 para llamadas internacionales seguido de almohadilla
+												
+prepaid-dest-unreachable                        El número marcado no está disponible
+
+prepaid-you-have                                tiene
+prepaid-minute                          		minuto
+prepaid-minutes                         		minutos
+prepaid-second                          		segundo
+prepaid-seconds                         		segundos
+
+prepaid-final                                   Adiós
+
+dollar											dólar
+dollars											dólares
+euro                                          	euro
+euros                                 			euros
+
+
+; Voucher
+prepaid-account_refill							your account has been refill of 
+prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
+prepaid-unknow_used_currencie					sorry unknow used currency
+prepaid-voucher_does_not_exist					the voucher does not exist
+prepaid-voucher_enter_number					please enter the voucher number and press the pound key
+
+
+; Callback
+prepaid-callback_intro							Your call is now being connected, Please hold
+
+
+
+---------------------------  Recorded by Allison ------------------------
+English :
+	prepaid-enter-pin-number.wav
+	prepaid-invalid-digits.wav
+	prepaid-no-card-entered.wav
+	prepaid-you-have.wav
+	
+
+
+---------------------------  CURRENCY LIST  ------------------------
+[MOST COMMON]
+-------------
+US Dollar 
+Euro 
+Canadian Dollar
+British Pound
+Australian Dollar 
+Hong Kong Dollar 
+Japanese Yen 
+New Zealand Dollar 
+Singapore Dollar 
+Taiwan Dollar
+Polish Zloty 
+Swedish Krona  
+Danish Krone 
+Swiss Franc 
+Colombian Peso 
+Mexican Peso 
+Chilean Peso
+
+[NOT COMMON]
+------------
+Afghanistan Afghani 
+Albanian Lek 
+Algerian Dinar 
+Andorran Franc 
+Andorran Peseta 
+Angolan New Kwanza 
+Argentine Peso 
+Aruban Florin 
+Austrian Schilling 
+Bahamian Dollar 
+Bahraini Dinar 
+Bangladeshi Taka 
+Barbados Dollar 
+Belgian Franc 
+Belize Dollar 
+Bermudian Dollar 
+Bhutan Ngultrum 
+Bolivian Boliviano 
+Botswana Pula 
+Brazilian Real 
+Brunei Dollar 
+Bulgarian Lev 
+Burundi Franc 
+CFA Franc BCEAO 
+CFA Franc BEAC 
+CFP Franc 
+Cambodian Riel
+Cape Verde Escudo 
+Cayman Islands Dollar 
+Chinese Yuan Renminbi 
+Comoros Franc 
+Costa Rican Colon 
+Croatian Kuna 
+Cuban Convertible Peso 
+Cuban Peso 
+Cyprus Pound 
+Czech Koruna 
+Djibouti Franc 
+Dominican Ro 
+Dutch Guilder 
+ECU 
+East Caribbean Dollar 
+Ecuador Sucre 
+Egyptian Pound 
+El Salvador Colon 
+Estonian Kroon 
+Ethiopian Birr 
+Falkland Islands Pound 
+Fiji Dollar 
+Finnish Markka 
+French Franc 
+Gambian Dalasi 
+German Mark 
+Ghanaian Cedi 
+Gibraltar Pound 
+Gold (oz.) 
+Greek Drachma 
+Guatemalan Quetzal 
+Guinea Franc 
+Guyanese Dollar 
+Haitian Gourde 
+Honduran Lempira 
+Hungarian Forint 
+Iceland Krona 
+Indian Rupee 
+Indonesian Rupiah 
+Iranian Rial 
+Iraqi Dinar 
+Irish Punt 
+Israeli New Shekel 
+Italian Lira 
+Jamaican Dollar 
+Jordanian Dinar 
+Kazakhstan Tenge 
+Kenyan Shilling 
+Kuwaiti Dinar 
+Lao Kip 
+Latvian Lats 
+Lebanese Pound 
+Lesotho Loti 
+Liberian Dollar 
+Libyan Dinar 
+Lithuanian Litas 
+Luxembourg Franc 
+Macau Pataca 
+Malagasy Ariary 
+Malagasy Franc 
+Malawi Kwacha 
+Malaysian Ringgit 
+Maldive Rufiyaa 
+Maltese Lira 
+Mauritanian Ouguiya 
+Mauritius Rupee 
+Mongolian Tugrik 
+Moroccan Dirham 
+Mozambique Metical 
+Myanmar Kyat 
+NL Antillian Guilder 
+Namibia Dollar 
+Nepalese Rupee 
+Nicaraguan Cordoba Oro 
+Nigerian Naira 
+North Korean Won 
+Norwegian Kroner 
+Omani Rial 
+Pakistan Rupee 
+Palladium (oz.) 
+Panamanian Balboa 
+Papua New Guinea Kina 
+Paraguay Guarani 
+Peruvian Nuevo Sol 
+Philippine Peso 
+Platinum (oz.) 
+Portuguese Escudo 
+Qatari Rial 
+Romanian Lei 
+Romanian New Lei 
+Russian Rouble 
+Samoan Tala 
+Sao Tome/Principe Dobra 
+Saudi Riyal 
+Serbian Dinar 
+Seychelles Rupee 
+Sierra Leone Leone 
+Silver (oz.) 
+Slovak Koruna 
+Slovenian Tolar 
+Solomon Islands Dollar 
+Somali Shilling 
+South African Rand 
+South-Korean Won 
+Spanish Peseta 
+Sri Lanka Rupee 
+Stena Pound 
+Sudanese Dinar 
+Sudanese Pound 
+Suriname Dollar 
+Suriname Guilder 
+Swaziland Lilangeni 
+Syrian Pound 
+Tanzanian Shilling 
+Thai Baht 
+Tonga Pa'anga 
+Trinidad/Tobago Dollar 
+Tunisian Dinar 
+Turkish Lira 
+Turkish New Lira 
+Uganda Shilling 
+Ukraine Hryvnia 
+Uruguayan Peso 
+Utdb Emirham 
+Vanuatu Vatu 
+Venezuelan Bolivar 
+Vietnamese Dong 
+Yemeni Rial 
+Yugoslav Dinar 
+Zambian Kwacha 
+Zimbabwe Dollar

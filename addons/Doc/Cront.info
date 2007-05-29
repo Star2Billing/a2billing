@@ -1,0 +1,40 @@
+
+-----===========------===========------===========------===========------===========-----
+								CRONT SERVICE
+-----===========------===========------===========------===========------===========-----
+
+
+## 	A2BILLING_INVOICE_CRONT.PHP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Purpose: To greate invoices for Each User.
+
+	This cront will generate the invoice for your customer the appropriate day (see invoiceday in customer conf)
+ 	The script need to be run every day in order to bill all your customer the right day.
+	The sample above will run the script every day of each month at 6AM :
+	crontab -e
+	0 6 1 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_invoice_cront.php
+	
+	
+## 	A2BILLING_BILL_DIDUSE.PHP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Purpose : this script will browse all the DID that are reserve and check if the customer need to pay for it
+ 	bill them or warn them per email to know if they want to pay in order to keep their DIDs 
+	
+	crontab -e
+	0 2 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_bill_diduse.php
+	
+	
+	
+	
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	
+	field	 allowed values
+	-----	 --------------
+	minute	 0-59
+	hour		 0-23
+	day of month	 1-31
+	month	 1-12 (or names, see below)
+	day of week	 0-7 (0 or 7 is Sun, or use names)

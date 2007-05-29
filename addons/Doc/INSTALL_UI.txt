@@ -1,0 +1,109 @@
+
+********************************************************************
+               ASTERISK2BILLING : CALLING CARD PLATFORM
+********************************************************************
+Name: Asterisk2Billing / Admin Web Interface
+Author: Belaid Arezqui <areski at gmail dot com>
+Date: 7 May 2007
+[Tested with $PHP 4.3.10 ; $PostgreSQL 7.4.6 ; mysql-3.23 ; mysql-4.1.x]
+[Tested with $PHP-5.0.4  ; $PostgreSQL-8.0.4 ; mysql-5.x]
+
+
+
+INSTALLATION GUIDE OF THE ASTERISK2BILLING WEB APPLICATION :
+====================================================================
+
+DocumentRoot "/var/www/html/test"
+
+1. Place the entire content of this directory into your DocumentRoot directory of your web server.
+	 cp -r * /var/www/html/a2billing
+	 
+	 	FROM httpd.conf 
+		# DocumentRoot: The directory out of which you will serve your
+		# documents. By default, all requests are taken from this directory, but
+		# symbolic links and aliases may be used to point to other locations.
+		#
+	 
+	 	 
+2. Ensure that you have create the Database with the right schema mysql or postgresql
+
+
+3. Setup your Database into the application
+
+
+	Copy & Edit /etc/asterisk/a2billing.conf files
+
+    * HOST: This is the Database host name.
+      Example: localhost
+    * PORT: Database port.
+      Example: 5432
+    * USER: Username to access to the database.
+      Example: username
+    * PASS: Database password of the user.
+      Example: password
+    * DBNAME: Name of the Database.
+      Example: a2billing
+    * DB_TYPE: Database type.
+      support: postgres & mysql 
+	  
+	  
+		
+	# THERE IS MORE PARAMETERS, PLEASE CHECK THE COMPLETE CONF FILE AND READ THE INFORMATION ASIDE
+		
+3.1 Set the permissions for /etc/asterisk ( in Debian use www-data instead of apache ) 
+
+   chown -R asterisk:apache /etc/asterisk
+   chmod -R 774 /etc/asterisk
+		
+4. Have fun :D
+
+
+
+
+------------------------------------------------------------
+MusicOnHold Custom !
+
+add in /etc/asterisk/musiconhold.conf
+
+; class definitions For AreskiCC
+acc_1 => mp3:/var/lib/asterisk/mohmp3/acc_1
+acc_2 => mp3:/var/lib/asterisk/mohmp3/acc_2
+acc_3 => mp3:/var/lib/asterisk/mohmp3/acc_3
+acc_4 => mp3:/var/lib/asterisk/mohmp3/acc_4
+acc_5 => mp3:/var/lib/asterisk/mohmp3/acc_5
+acc_6 => mp3:/var/lib/asterisk/mohmp3/acc_6
+acc_7 => mp3:/var/lib/asterisk/mohmp3/acc_7
+acc_8 => mp3:/var/lib/asterisk/mohmp3/acc_8
+acc_9 => mp3:/var/lib/asterisk/mohmp3/acc_9
+acc_10 => mp3:/var/lib/asterisk/mohmp3/acc_10
+
+
+mkdir -p /var/lib/asterisk/mohmp3/acc_1
+mkdir -p /var/lib/asterisk/mohmp3/acc_2
+  ...
+
+chown asterisk:apache /var/lib/asterisk/mohmp3/acc_*
+chmod 774 /var/lib/asterisk/mohmp3/acc_*
+
+
+* Set asterisk user and apache group permissions ( in Debian use www-data instead of apache )
+
+mkdir -p /var/lib/asterisk/sounds/a2billing
+chown asterisk:apache /var/lib/asterisk/sounds/a2billing
+chmod 774 /var/lib/asterisk/sounds/a2billing
+
+
+
+
+---------------- MANAGER. CONF --------------------------
+[general]
+enabled = yes
+port = 5038
+bindaddr = 127.0.0.1
+
+[myasterisk]
+secret = mycode
+;deny=0.0.0.0/0.0.0.0
+;permit=209.16.236.73/255.255.255.0
+read = system,call,log,verbose,command,agent,user
+write = system,call,log,verbose,command,agent,user
