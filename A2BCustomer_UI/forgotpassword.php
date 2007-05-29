@@ -2,7 +2,6 @@
 // session_name("FORGOT");
 // session_start();
 
-include (dirname(__FILE__)."/lib/company_info.php");
 include ("./lib/defines.php");
 
 getpost_ifset(array('pr_email','action'));
@@ -26,11 +25,12 @@ if(isset($pr_email) && isset($action))
         $show_message = true;
         $DBHandle  = DbConnect();
         $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='forgetpassword' ";
-	$num = 0;
+		
+		$num = 0;
         $res = $DBHandle -> Execute($QUERY);
-	if ($res)
+		if ($res)
 	        $num = $res -> RecordCount();
-
+		
         if (!$num) exit();
         for($i=0;$i<$num;$i++)
         {
@@ -106,7 +106,6 @@ switch($error)
 }
 
 
-//include("PP_header.php");
  ?>
 <html>
 <head>
@@ -189,7 +188,7 @@ switch($error)
 			<tr><td colspan="2" ></td></tr>
 			<tr>
 			<td class="bgcolor_006">
-			<img src="<?php echo Images_Path_Main ?>/kicons/khelpcenter.png"/></td>
+			<img src="<?php echo Images_Path_Main ?>/kicons/khelpcenter.gif"/></td>
 			<td class="bgcolor_006">
 			
 			<b>

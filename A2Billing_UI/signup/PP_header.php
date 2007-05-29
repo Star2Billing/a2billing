@@ -1,6 +1,3 @@
-<?php 
-	include (dirname(__FILE__)."/../lib/company_info.php");
-?>
 <html><head>
 <link rel="shortcut icon" href="../Images/favicon.ico">
 <link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">

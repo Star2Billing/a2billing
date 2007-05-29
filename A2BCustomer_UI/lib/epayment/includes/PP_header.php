@@ -1,8 +1,7 @@
 <?php
-	include (tep_href_link("lib/company_info.php","", 'SSL', false, false));
 
-	define ("WEBUI_DATE", 'Release : 31 July 2006');
-	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 svn-trunk (BrainCoral)- ');
+include (tep_href_link("lib/defines.php","", 'SSL', false, false));
+	
 ?>
 <html><head>
 <link rel="shortcut icon" href="<?php echo tep_href_link("images/favicon.ico","", 'SSL', false, false);?>">
@@ -67,5 +66,5 @@ function imgidclick(imgID,divID)
 </script>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<p class="version" align="right"><?php echo WEBUI_VERSION.WEBUI_DATE; ?></p>
+<p class="version" align="right"></p>
 <br>

@@ -1,8 +1,6 @@
 <?php
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include (dirname(__FILE__)."/company_info.php");
-
 define( 'FULL_PATH', dirname(__FILE__) . '/' );
 define( 'SMARTY_DIR', FULL_PATH . '/Smarty/' );
 define( 'TEMPLATE_DIR',  './templates/' );
