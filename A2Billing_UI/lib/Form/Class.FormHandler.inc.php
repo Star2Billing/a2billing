@@ -157,7 +157,11 @@ class FormHandler{
 	* @public  - @type boolean , array , string
 	*/
 	var $FG_FILTER_SEARCH_FORM = false;
+	// to display or not the Date Month
+	var $FG_FILTER_SEARCH_1_TIME = true;
 	var $FG_FILTER_SEARCH_1_TIME_TEXT = '';
+	// to display or not the Date Day
+	var $FG_FILTER_SEARCH_2_TIME = true;
 	var $FG_FILTER_SEARCH_2_TIME_TEXT = '';
 	var $FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
 	var $FG_FILTER_SEARCH_FORM_1C = array();
@@ -166,6 +170,7 @@ class FormHandler{
 	var $FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
 	var $FG_FILTER_SEARCH_TOP_TEXT = "";	
 	var $FG_FILTER_SEARCH_SESSION_NAME = '';
+	var $FG_FILTER_SEARCH_DELETE_ALL = true;
 	
 	
 	/**
