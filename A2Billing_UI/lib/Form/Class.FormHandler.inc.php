@@ -1436,9 +1436,16 @@ class FormHandler{
 		$iax_buddy = $processed['iax_buddy'];
 		
 		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
-		$username = $this -> FG_QUERY_EXTRA_HIDDED[0];
-		$uipass = $this -> FG_QUERY_EXTRA_HIDDED[2];
-		$useralias = $this -> FG_QUERY_EXTRA_HIDDED[1];
+		
+		if (strlen($this -> FG_QUERY_EXTRA_HIDDED[0])>0){
+			$username = $this -> FG_QUERY_EXTRA_HIDDED[0];
+			$uipass = $this -> FG_QUERY_EXTRA_HIDDED[2];
+			$useralias = $this -> FG_QUERY_EXTRA_HIDDED[1];
+		}else{
+			$username = $processed['username'];
+			$uipass = $processed['uipass'];
+			$useralias = $processed['useralias'];
+		}
 		
 		$FG_TABLE_SIP_NAME="cc_sip_buddies";
 		$FG_TABLE_IAX_NAME="cc_iax_buddies";
