@@ -3,6 +3,18 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### MOVE THIS IN CONF FILE
+********************************************************************
+	and this the a2billing-callback-daemon:
+	
+	####### ASTERISK MANAGER ######
+	my $manager_host = "localhost";
+	my $manager_username = "myasterisk";
+	my $manager_secret = "mycode"; 
+
+
+
 #### FILE USED ?
 ********************************************************************
 trunk/A2BCustomer_UI/lib/epayment/includes/PP_header.php
