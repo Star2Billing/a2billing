@@ -3,21 +3,11 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### BUG : IE Customer UI
-********************************************************************
-the menu is very bad on Internet Explorer in client interface
-you can view just half of the menu
 
 
 #### BUG : IAX / SIP friends
 ********************************************************************
-I have the BLANK PAGE when i click to generate the iax friend 
-it hapens on the first user in the sistem
-
-
-#### BUG : IAX / SIP friends
-********************************************************************
-problems with IAX / SIP friends, where I could not dila from one friend to another
+problems with IAX / SIP friends, where I could not diaa from one friend to another
 nor could I forward a DDI to a SIP/IAX friend 
 
 
