@@ -11,28 +11,6 @@ problems with IAX / SIP friends, where I could not diaa from one friend to anoth
 nor could I forward a DDI to a SIP/IAX friend 
 
 
-#### MOVE THIS IN CONF FILE
-********************************************************************
-	and this the a2billing-callback-daemon:
-	
-	####### ASTERISK MANAGER ######
-	my $manager_host = "localhost";
-	my $manager_username = "myasterisk";
-	my $manager_secret = "mycode"; 
-
-
-
-#### FILE USED ?
-********************************************************************
-trunk/A2BCustomer_UI/lib/epayment/includes/PP_header.php
-trunk/A2Billing_UI/lib/epayment/includes/PP_header.php
-
-To remove : 
-trunk/A2Billing_UI/signup/PP_footer.php
-trunk/A2Billing_UI/signup/PP_header.php
-
-
-
 #### NEW LOGO ON MAIN PAGE
 ********************************************************************
 

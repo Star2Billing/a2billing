@@ -34,9 +34,9 @@ my $dbtype = $cfg->val('database', 'dbtype');
 my $log_file = "/var/log/asterisk/a2billing-daemon-callback.log";
 
 ######################### ASTERISK MANAGER ########################
-my $manager_host = "localhost";
-my $manager_username = "myasterisk";
-my $manager_secret = "mycode";
+my $manager_host = $cfg->val('global', 'manager_host');
+my $manager_username = $cfg->val('global', 'manager_username');
+my $manager_secret = $cfg->val('global', 'manager_secret');
 
 ###################### BEHAVIOUR PARAMETER ########################
 my $pass_nb = 0;

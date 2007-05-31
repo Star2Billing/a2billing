@@ -5,6 +5,32 @@
 ********************************************************************
 
 
+#### MOVE THIS IN CONF FILE
+********************************************************************
+	and this the a2billing-callback-daemon:
+	
+	####### ASTERISK MANAGER ######
+	my $manager_host = "localhost";
+	my $manager_username = "myasterisk";
+	my $manager_secret = "mycode"; 
+
+use a2billing.conf
+[global]
+; MANAGER CONNECTION PARAMETERS
+manager_host = localhost
+manager_username = myasterisk
+manager_secret = mycode
+
+
+#### FILE USED ?
+********************************************************************
+trunk/A2BCustomer_UI/lib/epayment/includes/PP_header.php
+trunk/A2Billing_UI/lib/epayment/includes/PP_header.php
+
+To remove : 
+trunk/A2Billing_UI/signup/PP_footer.php
+trunk/A2Billing_UI/signup/PP_header.php
+
 #### BUG : IAX / SIP friends
 ********************************************************************
 I have the BLANK PAGE when I click to generate the iax friend 

@@ -21,6 +21,9 @@ define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['datab
 define ("LEN_ALIASNUMBER", isset($A2B->config["global"]['len_aliasnumber'])?$A2B->config["global"]['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config["global"]['len_voucher'])?$A2B->config["global"]['len_voucher']:null);
 define ("BASE_CURRENCY", isset($A2B->config['global']['base_currency'])?$A2B->config['global']['base_currency']:null);
+define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->config['global']['manager_host']:null);
+define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
+define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
 
 // For ePayment Modules
 define('PULL_DOWN_DEFAULT', 'Please Select');    
@@ -68,9 +71,6 @@ define ("EPAYMENT_PURCHASE_AMOUNT", isset($A2B->config['epayment_method']['purch
 // WEB DEFINE FROM THE A2BILLING.CONF FILE
 define ("EMAIL_ADMIN", isset($A2B->config['webui']['email_admin'])?$A2B->config['webui']['email_admin']:null);
 define ("NUM_MUSICONHOLD_CLASS", isset($A2B->config['webui']['num_musiconhold_class'])?$A2B->config['webui']['num_musiconhold_class']:null);
-define ("MANAGER_HOST", isset($A2B->config['webui']['manager_host'])?$A2B->config['webui']['manager_host']:null);
-define ("MANAGER_USERNAME", isset($A2B->config['webui']['manager_username'])?$A2B->config['webui']['manager_username']:null);
-define ("MANAGER_SECRET", isset($A2B->config['webui']['manager_secret'])?$A2B->config['webui']['manager_secret']:null);
 define ("SHOW_HELP", isset($A2B->config['webui']['show_help'])?$A2B->config['webui']['show_help']:null);	
 define ("MY_MAX_FILE_SIZE_IMPORT", isset($A2B->config['webui']['my_max_file_size_import'])?$A2B->config['webui']['my_max_file_size_import']:null);
 define ("MY_MAX_FILE_SIZE", isset($A2B->config['webui']['my_max_file_size'])?$A2B->config['webui']['my_max_file_size']:null);
