@@ -32,24 +32,29 @@
 	<ul id="nav">
 		
 		
-		<li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li>
+		
+		<div>
+		<ul><li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li></ul>
+		
 		{if $A2Bconfig.webcustomerui.sipiaxinfo==1 }
 		<li><a href="#" target="_self"></a></li>
-		<li><a href="A2B_entity_sipiax_info.php?section=1"><strong>{php} echo gettext("SIP/IAX INFO");{/php}</strong></a></li>
+		<ul><li><a href="A2B_entity_sipiax_info.php?section=1"><strong>{php} echo gettext("SIP/IAX INFO");{/php}</strong></a></li></ul>
 		{/if}
+		
 		{if $A2Bconfig.webcustomerui.cdr==1 }
 		<li><a href="#" target="_self"></a></li>
-		<li><a href="call-history.php?section=2"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li>
+		<ul><li><a href="call-history.php?section=2"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li></ul>
 		{/if}
 		
 		{if $A2Bconfig.webcustomerui.voucher==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_voucher.php?form_action=list&section=3"><strong>{php} echo gettext("VOUCHER");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=3"><strong>{php} echo gettext("VOUCHER");{/php}</strong></a></li></ul>
 		{/if}
 		
-		{if $A2Bconfig.webcustomerui.invoice==1 }
-		<li><a href="#" target="_self"></a></a></li>
+		<li><a href="#" target="_self"></a></li>
+		</div>
 		
+		{if $A2Bconfig.webcustomerui.invoice==1 }
 		<div class="toggle_menu">
 		<li>
 		<a href="#" class="toggle_menu" target="_self"><img id="img1"  
@@ -74,51 +79,51 @@
 		</ul>
 		</div>
 		</div>
-		
 		{/if}
+		
 
 		{if $A2Bconfig.webcustomerui.did==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_did.php?form_action=list&section=5"><strong>{php} echo gettext("DID");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_did.php?form_action=list&section=5"><strong>{php} echo gettext("DID");{/php}</strong></a></li></ul>
 		{/if}
 		
 		{if $A2Bconfig.webcustomerui.speeddial==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=6"><strong>{php} echo gettext("SPEED DIAL");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=6"><strong>{php} echo gettext("SPEED DIAL");{/php}</strong></a></li></ul>
 		{/if}
 		
 		{if $A2Bconfig.webcustomerui.ratecard==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_ratecard.php?form_action=list&section=7"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_ratecard.php?form_action=list&section=7"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li></ul>
 		{/if}
 		
 		{if $A2Bconfig.webcustomerui.simulator==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="simulator.php?section=8"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="simulator.php?section=8"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li></ul>
 		{/if}
 		
 		{if $A2Bconfig.webcustomerui.callback==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="callback.php?section=9"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="callback.php?section=9"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li></ul>
 		{/if}
 		
 		{if $A2Bconfig.webcustomerui.webphone==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="webphone.php?section=11"><strong>{php} echo gettext("WEB-PHONE");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="webphone.php?section=11"><strong>{php} echo gettext("WEB-PHONE");{/php}</strong></a></li></ul>
 		{/if}
 		
 		{if $A2Bconfig.webcustomerui.callerid==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=12"><strong>{php} echo gettext("ADD CALLER ID");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=12"><strong>{php} echo gettext("ADD CALLER ID");{/php}</strong></a></li></ul>
 		{/if}
 		
 		{if $A2Bconfig.webcustomerui.password==1 }
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li></ul>
 		{/if}
 		
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong>{php} echo gettext("LOGOUT");{/php}</strong></font></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong>{php} echo gettext("LOGOUT");{/php}</strong></font></a></li></ul>
 
 	</ul>
 	<div id="nav_after"></div>

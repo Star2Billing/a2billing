@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.13, created on 2007-05-19 21:16:22
+<?php /* Smarty version 2.6.13, created on 2007-05-31 12:02:53
          compiled from main.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'checkseleted', 'main.tpl', 146, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'checkseleted', 'main.tpl', 151, false),)), $this); ?>
 <HTML>
 <HEAD>
 	<link rel="shortcut icon" href="templates/<?php echo $this->_tpl_vars['SKIN_NAME']; ?>
@@ -43,24 +43,29 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'checkselete
 	<ul id="nav">
 		
 		
-		<li><a href="userinfo.php?section=1"><strong><?php  echo gettext("ACCOUNT INFO"); ?></strong></a></li>
+		
+		<div>
+		<ul><li><a href="userinfo.php?section=1"><strong><?php  echo gettext("ACCOUNT INFO"); ?></strong></a></li></ul>
+		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['sipiaxinfo'] == 1): ?>
 		<li><a href="#" target="_self"></a></li>
-		<li><a href="A2B_entity_sipiax_info.php?section=1"><strong><?php  echo gettext("SIP/IAX INFO"); ?></strong></a></li>
+		<ul><li><a href="A2B_entity_sipiax_info.php?section=1"><strong><?php  echo gettext("SIP/IAX INFO"); ?></strong></a></li></ul>
 		<?php endif; ?>
+		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['cdr'] == 1): ?>
 		<li><a href="#" target="_self"></a></li>
-		<li><a href="call-history.php?section=2"><strong><?php  echo gettext("CALL HISTORY"); ?></strong></a></li>
+		<ul><li><a href="call-history.php?section=2"><strong><?php  echo gettext("CALL HISTORY"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['voucher'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_voucher.php?form_action=list&section=3"><strong><?php  echo gettext("VOUCHER"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=3"><strong><?php  echo gettext("VOUCHER"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
-		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['invoice'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
+		<li><a href="#" target="_self"></a></li>
+		</div>
 		
+		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['invoice'] == 1): ?>
 		<div class="toggle_menu">
 		<li>
 		<a href="#" class="toggle_menu" target="_self"><img id="img1"  
@@ -87,51 +92,51 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'checkselete
 		</ul>
 		</div>
 		</div>
-		
 		<?php endif; ?>
+		
 
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['did'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_did.php?form_action=list&section=5"><strong><?php  echo gettext("DID"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_did.php?form_action=list&section=5"><strong><?php  echo gettext("DID"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['speeddial'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=6"><strong><?php  echo gettext("SPEED DIAL"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=6"><strong><?php  echo gettext("SPEED DIAL"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['ratecard'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_ratecard.php?form_action=list&section=7"><strong><?php  echo gettext("RATECARD"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_ratecard.php?form_action=list&section=7"><strong><?php  echo gettext("RATECARD"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['simulator'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="simulator.php?section=8"><strong><?php  echo gettext("SIMULATOR"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="simulator.php?section=8"><strong><?php  echo gettext("SIMULATOR"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['callback'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="callback.php?section=9"><strong><?php  echo gettext("CALLBACK"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="callback.php?section=9"><strong><?php  echo gettext("CALLBACK"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['webphone'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="webphone.php?section=11"><strong><?php  echo gettext("WEB-PHONE"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="webphone.php?section=11"><strong><?php  echo gettext("WEB-PHONE"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['callerid'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=12"><strong><?php  echo gettext("ADD CALLER ID"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=12"><strong><?php  echo gettext("ADD CALLER ID"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
 		<?php if ($this->_tpl_vars['A2Bconfig']['webcustomerui']['password'] == 1): ?>
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong><?php  echo gettext("PASSWORD"); ?></strong></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong><?php  echo gettext("PASSWORD"); ?></strong></a></li></ul>
 		<?php endif; ?>
 		
-		<li><a href="#" target="_self"></a></a></li>
-		<li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong><?php  echo gettext("LOGOUT"); ?></strong></font></a></li>
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong><?php  echo gettext("LOGOUT"); ?></strong></font></a></li></ul>
 
 	</ul>
 	<div id="nav_after"></div>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.13, created on 2007-05-22 15:27:31
+<?php /* Smarty version 2.6.13, created on 2007-05-31 11:58:49
          compiled from main.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'checkseleted', 'main.tpl', 460, false),)), $this); ?>
