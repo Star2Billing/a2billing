@@ -151,7 +151,7 @@ if (!isset($terminatecause)){
 }
 if ($terminatecause=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="terminatecause='ANSWER' OR terminatecause='ANSWERED'";
+	$FG_TABLE_CLAUSE.=" (terminatecause='ANSWER' OR terminatecause='ANSWERED') ";
 }
 
 if ($grouped){

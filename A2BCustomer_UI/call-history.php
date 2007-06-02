@@ -239,10 +239,9 @@ if (!isset($terminatecause)){
 }
 if ($terminatecause=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED' ";
+	$FG_TABLE_CLAUSE .= " (t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED') ";
 }
 
-//WORKS! 
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
