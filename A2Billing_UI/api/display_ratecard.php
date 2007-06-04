@@ -307,7 +307,7 @@ function Search(Source){
 <!-- ** ** ** ** ** Part to display the ratecard ** ** ** ** ** -->
 
 	<div class="result" align="left">
-	<table width="70%" border=0 cellPadding=0 cellSpacing=0>
+	<table width="100%" border=0 cellPadding=0 cellSpacing=0>
 	<TR> 
 		<TD> 
 			<?php echo $FG_HTML_TABLE_TITLE?>
