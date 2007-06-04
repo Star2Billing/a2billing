@@ -378,6 +378,5 @@ function Search(Source){
 </div>
 
 </html>
-<?php } 
-echo "current_page=$current_page";
+<?php }
 ?>
