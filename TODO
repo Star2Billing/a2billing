@@ -39,8 +39,6 @@ Please credit your account by paying via the customer interface at http://myacco
 
 To log into your account please use your email address or card-alias ($cardalias) as your username and your password ($password) to login.
 
-For security purposes, we recommend that you change your account login password on the customer interface as soon as possible
-
 Configure your VoIP phone with the following settings.
 
 Host / SIP proxy = voip.call-labs.com
