@@ -856,6 +856,8 @@ $CC_help_list_payment_methods = '<div class="toggle_show2hide">
 </div></div>
 '; 
 
+} //ENDIF SHOW_HELP
+
 
 $SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';
 $SPOT['MONEYBOOKERS'] 	= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
@@ -888,5 +890,5 @@ $CALL_LABS ='
 	</tr>
 </table>';
 
-} //ENDIF SHOW_HELP
+
 ?>
