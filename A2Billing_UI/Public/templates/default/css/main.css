@@ -806,6 +806,10 @@ SPAN.errorText {
 	border-top: #FF7777 1px dashed;
 	border-left: #FF7777 1px dashed;
 	border-bottom: #FF7777 1px dashed;
+	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	overflow:-moz-scrollbars-vertical;
 }
 .form_input_text
 {
