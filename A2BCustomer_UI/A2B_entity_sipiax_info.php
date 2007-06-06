@@ -84,7 +84,7 @@ echo $CC_help_sipiax_info;
 		  <tr>
 			<td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center"><br><?php echo gettext("Copy and past this into your ")?> <?php echo $config_file;?><br>
 			 
-				<textarea name="textfield" cols="80" rows="12" class="form_input_text" ><?php if($configtype == "IAX"){ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
+				<textarea name="textfield" cols="80" rows="12" class="form_input_text" ><?php if(is_array($sip_iax_data)){ ?><?php if($configtype == "IAX"){ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
 username=<?php echo $sip_iax_data[0][1]?>
 
 type=friend
@@ -125,6 +125,11 @@ if (count($additional_sip) > 0)
 	}
 }		
 ?>
+<?php } ?>
+<?php }else{ ?>
+
+
+<?php echo gettext("The peer is not defined, please contact your Administrator!")?>
 <?php } ?>
 </textarea>
 <br><br>
