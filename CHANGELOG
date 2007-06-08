@@ -5,6 +5,29 @@
 ********************************************************************
 
 
+
+#### MISC
+********************************************************************
+- Change qualify to 7 chars : 
+	db change mysql :
+		ALTER TABLE cc_iax_buddies CHANGE qualify qualify char(7);
+		ALTER TABLE cc_sip_buddies CHANGE qualify qualify char(7);
+	db change psql :
+		ALTER TABLE cc_iax_buddies ALTER COLUMN qualify TYPE char(7);
+		ALTER TABLE cc_sip_buddies ALTER COLUMN qualify TYPE char(7);
+	
+- Correction on alarm spelling
+- Add export rates csv & xml
+- BUG : wrong audio file prepaid-enter-pin-number.gsm
+- BUG : peer sip iax qualify & nat & sip/iax info on Customer UI display 
+- UPDATE : scrollbar on textarea
+- UPDATE : naming on batch update
+- UPDATE : Help files
+- UPDATE : remove paypal section from conf files
+- UPDATE : Display ratecard 100% wide
+- BUG : Reporting
+
+
 #### NEW LOGO ON MAIN PAGE
 ********************************************************************
 

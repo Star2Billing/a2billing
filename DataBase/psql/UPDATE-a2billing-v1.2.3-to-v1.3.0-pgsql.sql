@@ -938,3 +938,7 @@ CREATE TABLE cc_system_log (
 );
 ALTER TABLE ONLY cc_system_log
 ADD CONSTRAINT cc_system_log_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE cc_iax_buddies ALTER COLUMN qualify TYPE char(7);
+ALTER TABLE cc_sip_buddies ALTER COLUMN qualify TYPE char(7);

@@ -505,7 +505,7 @@ CREATE TABLE cc_sip_buddies (
     disallow 							CHARACTER VARYING(100) DEFAULT 'all'::CHARACTER varying,
     allow 								CHARACTER VARYING(100) DEFAULT 'gsm,ulaw,alaw'::CHARACTER varying,
     host 								CHARACTER VARYING(31) DEFAULT ''::CHARACTER varying NOT NULL,
-    qualify 							CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying NOT NULL,
+    qualify 							CHARACTER VARYING(7) DEFAULT 'yes'::CHARACTER varying NOT NULL,
     canreinvite 						CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying,
     callgroup 							CHARACTER VARYING(10),
     context 							CHARACTER VARYING(80),

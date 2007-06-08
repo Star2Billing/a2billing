@@ -18,15 +18,13 @@ $period_list["3"]  = array( "Weekly", "3");
 $period_list["4"]  = array( "Monthly", "4");
 
 
-
-
 $actived_list = array();
 $actived_list["0"] = array( gettext("Inactive"), "0");
 $actived_list["1"] = array( gettext("Active"), "1");
 
 $type_list = array();
-$type_list["1"]  = array( gettext("Apply alarm on ALOC too low or too hight"), "1");
-$type_list["2"]  = array( gettext("Apply alarm on ASR too low or too hight"), "2");
+$type_list["1"]  = array( gettext("Apply alarm on ALOC too low or too high"), "1");
+$type_list["2"]  = array( gettext("Apply alarm on ASR too low or too high"), "2");
 $type_list["3"]  = array( gettext("Apply alarm on CIC too many"), "3");
 
 

@@ -56,6 +56,11 @@ $HD_Form -> AddViewElement(gettext("<acronym title=\"FREE TIME TO CALL\">".gette
 
 $HD_Form -> FieldViewElement ('destination, dialprefix, buyrate, rateinitial, startdate, stopdate, initblock, connectcharge, id_trunk, freetimetocall_package_offer');
 
+$HD_Form -> FieldExportElement('destination, dialprefix, rateinitial');
+$HD_Form -> FG_EXPORT_CSV = true;
+$HD_Form -> FG_EXPORT_XML = true;
+$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_rates";
+
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED."); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;

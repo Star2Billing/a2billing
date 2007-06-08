@@ -38,9 +38,9 @@ $A2B -> load_conf($agi, NULL, 0, $idconfig);
 write_log(LOGFILE_CRONT_ALARM, basename(__FILE__).' line:'.__LINE__."[#### BATCH BEGIN ####]");
 
 if (!$A2B -> DbConnect()){				
-			echo "[Cannot connect to the database]\n";
-			write_log(LOGFILE_CRONT_ALARM, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
-			exit;						
+	echo "[Cannot connect to the database]\n";
+	write_log(LOGFILE_CRONT_ALARM, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
+	exit;
 }
 //$A2B -> DBHandle
 $instance_table = new Table();
@@ -55,9 +55,9 @@ $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 if ($verbose_level>=1) print_r ($result);
 
 if( !is_array($result)) {
-		echo "[No Alarm to run]\n";
-		write_log(LOGFILE_CRONT_ALARM, basename(__FILE__).' line:'.__LINE__."[ No Alarm to run]");
-		exit();
+	echo "[No Alarm to run]\n";
+	write_log(LOGFILE_CRONT_ALARM, basename(__FILE__).' line:'.__LINE__."[ No Alarm to run]");
+	exit();
 }
 // 0 id, 1 name, 2 period, 3 type, 4 maxvalue, 5 minvalue, 6 id_trunk, 7 status, 8 numberofrun, 9 datecreate, 10 datelastrun, 11 emailreport 
 
@@ -145,8 +145,8 @@ foreach ($result as $myalarm) {
 			// REST AFTER $groupcalls CARD HANDLED
 			if ($page > 0) sleep(15);
 			
-			$QUERY =	"SELECT CASE WHEN terminatecause = 'ANSWER' THEN 1 ELSE 0 END AS success,".
-						"CASE WHEN terminatecause ='ANSWER' THEN 0 ELSE 1 END AS fail,sessiontime FROM cc_call $SQL_CLAUSE";
+			$QUERY =	"SELECT CASE WHEN (terminatecause = 'ANSWER' OR terminatecause = 'ANSWERED') THEN 1 ELSE 0 END AS success,".
+						"CASE WHEN (terminatecause = 'ANSWER' OR terminatecause = 'ANSWERED') THEN 0 ELSE 1 END AS fail,sessiontime FROM cc_call $SQL_CLAUSE";
 			
 			if ($A2B->config["database"]['dbtype'] == "postgres")
 			{

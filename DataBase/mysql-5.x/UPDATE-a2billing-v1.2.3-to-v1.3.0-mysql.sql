@@ -937,3 +937,8 @@ CREATE TABLE cc_system_log (
 	creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+
+ALTER TABLE cc_iax_buddies CHANGE qualify qualify char(7);
+ALTER TABLE cc_sip_buddies CHANGE qualify qualify char(7);

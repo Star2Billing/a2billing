@@ -4,9 +4,9 @@ require_once("../lib/iam_csvdump.php");
 include ("../lib/module.access.php");
 
 if (!has_rights (ACX_CALL_REPORT) && !has_rights (ACX_CUSTOMER)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 getpost_ifset(array('var_export'));
@@ -14,10 +14,11 @@ getpost_ifset(array('var_export_type'));
 
 if (strlen($var_export)==0)
 {
-     $var_export='pr_sql_export';
+	$var_export='pr_sql_export';
 }
 
-/*   DEBUG  *
+/*   
+// DEBUG 
 echo "var_export = $var_export <br>";
 echo "SESSION var_export =".$_SESSION[$var_export]."</br>";
 echo "var_export_type = $var_export_type <br>";
