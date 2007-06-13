@@ -143,15 +143,10 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
 
-if (isset($customer)  &&  ($customer>0)){
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="t1.username='$customer'";
-}else{
-	if (isset($entercustomer)  &&  ($entercustomer>0)){
-		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
-	}
-}
+if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+$FG_TABLE_CLAUSE.="t1.username='$customer'";
+
+
 if (strlen($FG_TABLE_CLAUSE)>0)
 {
 	$FG_TABLE_CLAUSE.=" AND ";
