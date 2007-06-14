@@ -506,7 +506,7 @@ CREATE TABLE cc_iax_buddies (
     mask 									CHAR(95),
     pickupgroup 							CHAR(10),
     port 									CHAR(5) DEFAULT '' NOT NULL,
-    qualify 								CHAR(3) DEFAULT 'yes',
+    qualify 								CHAR(7) DEFAULT 'yes',
     restrictcid 							CHAR(1),
     rtptimeout 								CHAR(3),
     rtpholdtimeout 							CHAR(3),
