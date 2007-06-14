@@ -1586,8 +1586,8 @@ class A2Billing {
 				
 				// CHECK IF CALLERID ACTIVATED
 				if( $result[0][2] != "t" && $result[0][2] != "1" ) 	$prompt = "prepaid-auth-fail";
-						
-				// CHECK credit > min_credit_2call / you have zero balance
+				
+				// CHECK credit < min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 				if( $this->active != "t" && $this->active != "1" ) 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
@@ -1619,8 +1619,7 @@ class A2Billing {
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
 					
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refiil_card_withvoucher] ");
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "NOTENOUGHCREDIT - Refill with vouchert");
+					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
 					
 					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance"){
 					
