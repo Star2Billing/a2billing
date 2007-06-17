@@ -12,8 +12,8 @@
                 $charEncoding = "iso88591";
             break;
             case "brazilian":
-                $languageEncoding = "en_US.iso88591";
-                $slectedLanguage = "en_US";
+                $languageEncoding = "pt_BR.iso88591";
+                $slectedLanguage = "pt_BR";
                 $charEncoding = "iso88591";
         	break;
         	case "chinese":
