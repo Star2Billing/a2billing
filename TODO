@@ -4,6 +4,13 @@
 ********************************************************************************
 
 
+#### TODO : GENERATE VOUCHER
+********************************************************************
+In the generate option, the tag value is set to a random ID : 1181897201
+this allow us to see exactly after the generation those that has been created!
+If someone really use the tag feature to classify his voucher, this can be bit annoying! 
+
+
 #### TODO : Detach Selling ratecard from Buying ratecard
 ********************************************************************
 - you need to update the selling prices multiple times

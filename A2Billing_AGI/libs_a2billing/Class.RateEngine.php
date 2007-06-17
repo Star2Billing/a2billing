@@ -947,10 +947,9 @@ class RateEngine {
 				}else{
 					$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
 				}
-			}	
-				
-				
-				
+			}
+			
+			
 			//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
 			if (strlen($addparameter)>0){
 				$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
@@ -973,8 +972,7 @@ class RateEngine {
 			{
 				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
 			}
-		
-
+			
 			$A2B->instance_table = new Table();
 			$cidresult = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 			$outcid = 0;
@@ -996,7 +994,7 @@ class RateEngine {
 				$myres = $agi->exec("STOPMONITOR");
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$A2B->uniqueid."-".$A2B->cardnumber.")");
 			}
-				
+			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
 			$this->answeredtime = $answeredtime['data'];
 			$dialstatus = $agi->get_variable("DIALSTATUS");
@@ -1023,29 +1021,27 @@ class RateEngine {
 				
 				
 				if (is_array($result) && count($result)>0){
-						
+					
 					//DO SELECT WITH THE FAILOVER_TRUNKID
-						
 					$prefix		= $result[0][0];
 					$tech 		= $result[0][1];
 					$ipaddress 	= $result[0][2];
 					$removeprefix 	= $result[0][3];
 					$next_failover_trunk = $result[0][4];
-						
-						
+					
 					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 					
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 						
-					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
+					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0){
 						$destination= substr($destination, strlen($removeprefix));
-						
-									
+					}
+					
 					$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
-							
+					
 					if ($pos_dialingnumber !== false){					   
-						   $dialstr = "$tech/$ipaddress".$dialparams;
+						$dialstr = "$tech/$ipaddress".$dialparams;
 					}else{
 						if ($A2B->agiconfig['switchdialcommand'] == 1){
 							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
@@ -1054,12 +1050,11 @@ class RateEngine {
 						}
 					}	
 					
-					
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
 					
 					$myres = $agi->exec("DIAL $dialstr");
 					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL FAILOVER $dialstr");
-							
+					
 					$answeredtime = $agi->get_variable("ANSWEREDTIME");
 					$this->answeredtime = $answeredtime['data'];
 					$dialstatus = $agi->get_variable("DIALSTATUS");
