@@ -192,12 +192,12 @@ class Callback
 		$A2B -> credit = 1000;
 		$A2B -> tariff = $A2B -> config["callback"]['all_callback_tariff'];
 		
-	
+		
 		$RateEngine = new RateEngine();
 		// $RateEngine -> webui = 0;
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-							
-		$A2B ->dnid = $A2B ->destination = $caller_areacode.$A2B->CallerID;
+		
+		$A2B ->dnid = $A2B ->destination = $caller_areacode.$calling;
 		
 		$resfindrate = $RateEngine -> rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
 		
