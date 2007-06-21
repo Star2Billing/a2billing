@@ -3,6 +3,21 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### BUG : SIGNUP
+********************************************************************
+http://forum.asterisk2billing.org/viewtopic.php?p=7406#7406
+ we shouldn't deactivate magic_quotes_gpc at all.
+ 
+
+#### FEATURE : FRIENDS
+********************************************************************
+its really hard to identify a sip frind based on name,  make the search base on the card number
+
+#### BUG : IMPORT
+********************************************************************
+http://forum.asterisk2billing.org/viewtopic.php?t=2221
+
+
 #### TODO : CUSTOMER UI
 ********************************************************************
 1. May I suggest that the only Logo's displayed on the customer interface are the payment methods that are enabled.
