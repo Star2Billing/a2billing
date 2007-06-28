@@ -39,11 +39,6 @@ If someone really use the tag feature to classify his voucher, this can be bit a
 ********************************************************************
 to have a CallerID prefix for DIDs, so that you might want to allocate the same DID do different persons, depending on the caller id
 
-#### BUG : IAX / SIP friends
-********************************************************************
-problems with IAX / SIP friends, where I could not dial from one friend to another
-nor could I forward a DDI to a SIP/IAX friend 
-
 
 
 #### A2Billing_UI/Public/index.php
@@ -88,6 +83,8 @@ CallerID = $cardalias
 Kind regards,
 
 The Call Labs Team
+
+
 
 
 

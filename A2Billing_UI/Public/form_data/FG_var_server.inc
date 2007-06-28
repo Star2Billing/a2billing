@@ -7,12 +7,12 @@ $HD_Form = new FormHandler("cc_server_manager","Server");
 
 $HD_Form -> FG_DEBUG = 0;
 
-$HD_Form -> AddViewElement("ID_GROUP", "id_group", "8%", "center", "sort", "15");
-$HD_Form -> AddViewElement("GROUP", "id_group", "12%", "center", "sort", "15", "lie", "cc_server_group", "name", "id='%id'", "%1");
-$HD_Form -> AddViewElement("SERVER_IP", "server_ip", "12%", "center", "sort");
-$HD_Form -> AddViewElement("MANAGER_HOST", "manager_host", "15%", "center", "sort");
-$HD_Form -> AddViewElement("MANAGER_USERNAME", "manager_username", "15%", "center", "sort");
-$HD_Form -> AddViewElement("LASTTIME_USED", "lasttime_used", "14%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("ID GROUP"), "id_group", "8%", "center", "sort", "15");
+$HD_Form -> AddViewElement(gettext("GROUP"), "id_group", "12%", "center", "sort", "15", "lie", "cc_server_group", "name", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("SERVER HOSTNAME"), "server_ip", "16%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("MANAGER HOST"), "manager_host", "16%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("MANAGER USERNAME"), "manager_username", "16%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("LASTTIME USED"), "lasttime_used", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 
 
 $HD_Form -> FieldViewElement ('id_group, id_group, server_ip, manager_host, manager_username, lasttime_used');
@@ -38,7 +38,7 @@ $HD_Form -> AddEditElement (gettext("SERVER GROUP"),
 				"name, id",
 				"", "", "%1","", "");
 
-$HD_Form -> AddEditElement ("SERVER_IP",	
+$HD_Form -> AddEditElement (gettext("SERVER HOSTNAME"),	
 			   "server_ip",		
 			   '$value',	
 			   "INPUT",	
@@ -47,7 +47,7 @@ $HD_Form -> AddEditElement ("SERVER_IP",
 			   "Insert the server_ip", 
 			   "" , "", "",	"", "" , "", "", "");
 
-$HD_Form -> AddEditElement ("MANAGER_HOST",	
+$HD_Form -> AddEditElement (gettext("MANAGER HOST"),	
 			   "manager_host",		
 			   '$value',	
 			   "INPUT",	
@@ -56,7 +56,7 @@ $HD_Form -> AddEditElement ("MANAGER_HOST",
 			   "Insert the server_ip", 
 			   "" , "", "",	"", "" , "", "", "");
 
-$HD_Form -> AddEditElement ("MANAGER_USERNAME",	
+$HD_Form -> AddEditElement (gettext("MANAGER USERNAME"),
 			   "manager_username",		
 			   '$value',	
 			   "INPUT",	
@@ -65,7 +65,7 @@ $HD_Form -> AddEditElement ("MANAGER_USERNAME",
 			   "Insert the server_ip", 
 			   "" , "", "",	"", "" , "", "", "");
 
-$HD_Form -> AddEditElement ("MANAGER_SECRET",	
+$HD_Form -> AddEditElement (gettext("MANAGER SECRET"),
 			   "manager_secret",		
 			   '$value',	
 			   "INPUT",	
