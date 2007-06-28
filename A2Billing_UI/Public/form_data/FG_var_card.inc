@@ -543,7 +543,16 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   gettext("Insert the zipcode"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-
+$HD_Form -> AddEditElement (gettext("TIMEZONE"),
+			   "id_timezone",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_timezone",
+			   "gmtzone, id",
+			   "", "", "%1", "", "", "", "" );
+			   
 $HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
 			   "phone",			
 			   '$value',	
@@ -620,7 +629,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_subscription_fee, id_didgroup, id_campaign,'.
 'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
-'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
+'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
 'fax, sip_buddy, iax_buddy, mac_addr, inuse');
 
 
