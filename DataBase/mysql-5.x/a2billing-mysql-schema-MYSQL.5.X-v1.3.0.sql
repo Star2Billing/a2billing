@@ -349,6 +349,7 @@ CREATE TABLE cc_card (
     activatedbyuser 				CHAR(1) DEFAULT 't' NOT NULL,
 	id_subscription_fee 			INT DEFAULT 0,
 	mac_addr						CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
+	id_timezone						INT DEFAILT 0,
     PRIMARY KEY (id),
     UNIQUE cons_cc_card_username (username),
     UNIQUE cons_cc_card_useralias (useralias)
@@ -2061,3 +2062,87 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('File Enter Destination', 'file_conf_enter_destination', 'prepaid-enter-dest', 'Please enter the file name you want to play when we prompt the calling party to enter the destination number, file_conf_enter_destination = prepaid-enter-number-u-calling-1-or-011.',0 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('File Language Menu', 'file_conf_enter_menulang', 'prepaid-menulang2', 'Please enter the file name you want to play when we prompt the calling party to choose the prefered language .',0 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Bill Callback', 'callback_bill_1stleg_ifcall_notconnected', 'YES', 'Define if you want to bill the 1st leg on callback even if the call is not connected to the destination.',1 , 11);
+
+CREATE TABLE cc_timezone (
+    id 								INT NOT NULL AUTO_INCREMENT,
+    gmtzone							VARCHAR(255),
+    gmttime		 					VARCHAR(255),
+	gmtoffset						BIGINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-12:00) International Date Line West', 'GMT-12:00', '-43200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-11:00) Midway Island,Samoa', 'GMT-11:00', '-39600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-10:00) Hawaii', 'GMT-10:00', '-36000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-09:00) Alaska', 'GMT-09:00', '-32400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-08:00) Pacific Time (US & Canada) Tijuana', 'GMT-08:00', '-28800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-07:00) Arizona', 'GMT+07:00', '-25200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-07:00) Chihuahua, La Paz, Mazatlan', 'GMT+07:00', '-25200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-07:00) Mountain Time(US & Canada)', 'GMT+07:00', '-25200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-06:00) Central America', 'GMT+06:00', '-21600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-06:00) Central Time (US & Canada)', 'GMT+06:00', '-21600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-06:00) Guadalajara, Mexico City, Monterrey', 'GMT+06:00', '-21600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-06:00) Saskatchewan', 'GMT+06:00', '-21600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-05:00) Bagota, LIMA,Quito', 'GMT+05:00', '-18000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-05:00) Eastern Time (US & Canada)', 'GMT+05:00', '-18000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-05:00) Indiana (East)', 'GMT+05:00', '-18000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-04:00) Atlantic Time (Canada)', 'GMT+04:00', '-14400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-04:00) Caracas, La Paz', 'GMT+13:00', '-14400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-04:00) Santiago', 'GMT+04:00', '-14400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-03:30) NewFoundland', 'GMT+03:30', '-12600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-03:00) Brasillia', 'GMT+03:00', '-10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-03:00) Buenos Aires, Georgetown', 'GMT+03:00', '-10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-03:00) Greenland', 'GMT+03:00', '-10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-03:00) Mid-Atlantic', 'GMT+03:00', '-10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-01:00) Azores', 'GMT+01:00', '-3600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT-01:00) Cape Verd Is.', 'GMT+01:00', '-3600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT) Casablanca, Monrovia', 'GMT+13:00', '0');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon,  London', 'GMT', '0');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm,Vienna', 'GMT+01:00', '3600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Pragua', 'GMT+01:00', '3600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+01:00) Brussels, Copenhagen, Madrid, Paris', 'GMT+01:00', '3600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb', 'GMT+01:00', '3600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+01:00) West Central Africa', 'GMT+01:00', '3600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+02:00) Athens, Istanbul, Minsk', 'GMT+02:00', '7200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+02:00) Bucharest', 'GMT+02:00', '7200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+02:00) Cairo', 'GMT+02:00', '7200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+02:00) Harere,Pretoria', 'GMT+02:00', '7200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+02:00) Helsinki, Kyiv, Riga, Sofia,Tallinn, Vilnius', 'GMT+02:00', '7200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+02:00) Jeruasalem', 'GMT+02:00', '7200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+03:00) Baghdad', 'GMT+03:00', '10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+03:00) Kuwait, Riyadh', 'GMT+03:00', '10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+03:00) Moscow, St.Petersburg,Volgograd', 'GMT+03:00', '10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+03:00) Nairobi', 'GMT+03:00', '10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+03:30) Tehran', 'GMT+03:30', '10800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+04:00)Abu Dhabi, Muscat', 'GMT+04:00', '14400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+04:00) Baku, Tbillisi, Yerevan', 'GMT+04:00', '14400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+04:30) Kabul', 'GMT+04:30', '16200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+05:00) Ekaterinburg', 'GMT+05:00', '18000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+05:00) Islamabad, Karachi,Tashkent', 'GMT+05:00', '18000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi', 'GMT+05:30', '19800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+05:45) Kathmandu', 'GMT+05:45', '20700');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+06:00) Almaty, Novosibirsk', 'GMT+06:00', '21600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+06:00) Astana, Dhaka', 'GMT+06:00', '21600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+06:00) Sri Jayawardenepura', 'GMT+06:00', '21600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+06:30) Rangoon', 'GMT+13:00', '23400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+07:00) Bangkok, Honoi, Jakarta', 'GMT+07:00', '25200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+07:00) Krasnoyarsk', 'GMT+07:00', '25200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+08:00) Beijiing,Chongging, Honk King, Urumqi', 'GMT+08:00', '28800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+08:00) Irkutsk, Ulaan Bataar', 'GMT+08:00', '28800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+08:00) Kaula Lampur, Singapore', 'GMT+08:00', '28800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+08:00) Perth', 'GMT+08:00', '28800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+08:00) Taipei', 'GMT+08:00', '28800');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+09:00) Osaka, Sapporo, Tokyo', 'GMT+09:00', '32400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+09:00) Seoul', 'GMT+09:00', '32400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+09:00) Yakutsk', 'GMT+09:00', '32400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+09:00) Adelaide', 'GMT+09:00', '32400');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+09:30) Darwin', 'GMT+10:00', '34200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+10:00) Brisbane', 'GMT+10:00', '36000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+10:00) Canberra, Melbourne, Sydney', 'GMT+10:00', '36000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+10:00) Guam, Port Moresby', 'GMT+10:00', '36000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+10:00) Hobart', 'GMT+10:00', '36000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+10:00) Vladivostok', 'GMT+10:00', '36000');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+11:00) Magadan, Solomon Is. , New Caledonia', 'GMT+11:00', '39600');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+12:00) Auckland, Wellington', 'GMT+1200', '43200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+12:00) Fiji, Kamchatka, Marshall Is.', 'GMT+12:00', '43200');
+INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+13:00) Nuku alofa', 'GMT+13:00', '46800');
