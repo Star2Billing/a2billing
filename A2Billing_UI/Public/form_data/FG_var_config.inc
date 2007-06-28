@@ -23,9 +23,20 @@ $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INST
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
+$HD_Form -> FG_LIMITE_DISPLAY = 25;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = false;
+
+$HD_Form -> AddEditElement (gettext("GROUP"),
+	"group_title",
+	'$value',
+	"INPUT",
+	"size=40 readonly",
+	"",
+	gettext("This is the group of the configuration. Not editable!"),
+	"" , "", "", "", "", "", "", gettext("Insert the Group Name"));
+	
 
 $HD_Form -> AddEditElement (gettext("TITLE"),
 	"config_title",
@@ -56,24 +67,15 @@ $HD_Form -> AddEditElement (gettext("VALUE"),
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"config_description",
-	'$value',
-	"INPUT",
-	"size=40",
+	'',
+	"TEXTAREA",
+	"cols=80 rows=10",
 	"",
 	gettext("Insert the Description"),
-	"" , "", "", "", "", "", "", gettext("Insert Description"));
+	"" , "", "", "", "" , "", "", "");
 
-$HD_Form -> AddEditElement (gettext("GROUP"),
-	"group_title",
-	'$value',
-	"INPUT",
-	"size=40 readonly",
-	"",
-	gettext("Insert the Group Name"),
-	"" , "", "", "", "", "", "", gettext("Insert the Group Name"));
-	
 
-$HD_Form -> FieldEditElement ('config_title, config_key, config_value, config_description, ccg.group_title');
+$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value, config_description');
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";

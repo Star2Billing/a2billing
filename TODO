@@ -3,6 +3,17 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### CONFIGURATION
+********************************************************************
+- if the field is readonly : find a way maybe with css to change the backgroup color of the field like grey color
+
+- comments when u edit : "Insert the Group Name",  stuff like that when u edit -> this section is to provide a real information
+
+- dropdown value : As we have many Variables like Card_Type which can have 2 Values like postpaid & Prepaid, 
+   Our System will automatically show a Dropdown List to provide customer to select from it...
+   
+- we need a drop down for the group in list configuration   
+
 #### BUG : SIGNUP
 ********************************************************************
 http://forum.asterisk2billing.org/viewtopic.php?p=7406#7406
