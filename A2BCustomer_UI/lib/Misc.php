@@ -505,4 +505,32 @@ function securitykey ($key, $data)
 		
 		return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
 	}
+
+/*
+	Function to show GMT DateTime.
+*/	
+function display_GMT($currDate, $number, $fulldate = 1)
+{	
+	$date_time_array = getdate(strtotime($currDate));
+    $hours = $date_time_array['hours'];
+    $minutes = $date_time_array['minutes'];
+    $seconds = $date_time_array['seconds'];
+    $month = $date_time_array['mon'];
+    $day = $date_time_array['mday'];
+    $year = $date_time_array['year'];      
+    $timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);  
+	
+	if ($number < 0){ $timestamp = $timestamp -($number); }
+	else { $timestamp = $timestamp +($number);}
+
+	if($fulldate == 1)
+	{
+		$gmdate = gmdate("m/d/Y h:i:s A", $timestamp);
+	}
+	else
+	{
+		$gmdate = gmdate("m/d/Y", $timestamp);
+	}
+	return $gmdate;
+}
 ?>

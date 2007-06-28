@@ -65,7 +65,7 @@ $FG_TABLE_COL = array();
 Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
 *******/
 
-$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
@@ -348,7 +348,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             </tr>           
             <tr>
               <td width="35%" ><font color="#003399"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
-              <td width="65%" ><font color="#003399"><?php echo date('m-d-Y');?> </font></td>
+              <td width="65%" ><font color="#003399"><?php echo display_GMT(date('m-d-Y'), $_SESSION["gmtoffset"], 0);?> </font></td>
             </tr>
             <tr>
               <td colspan="2">&nbsp; </td>
@@ -492,7 +492,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			
 			?>
             <tr class="invoice_rows">
-              <td width="29%" ><font color="#003399"><?php echo $data[0]?></font></td>
+              <td width="29%" ><font color="#003399"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0);?></font></td>
               <td width="38%" ><font color="#003399"><?php echo $minutes?> </font></td>
 			  
 			  <td width="12%"  align="right"><font color="#003399"><?php echo $data[3]?> </font></td>
@@ -627,7 +627,14 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
-						 	echo stripslashes($record_display);
+						 	if($i == 0)
+								{
+									echo display_GMT($record_display, $_SESSION["gmtoffset"], 1);
+								}
+								else
+								{
+									echo stripslashes($record_display);
+								}
 						 }						 
 						 ?></font></TD>
 				 		 <?php  } 
@@ -720,8 +727,14 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
-						 	echo stripslashes($record_display);
-						 }						 
+								if($i == 0)
+								{
+									echo display_GMT($record_display, $_SESSION["gmtoffset"], 1);
+								}
+								else
+								{
+									echo stripslashes($record_display);
+								}						 }						 
 						 ?></font></TD>
 				 		 <?php  } 
 						 

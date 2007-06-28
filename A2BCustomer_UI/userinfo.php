@@ -11,10 +11,10 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 
-//require (LANGUAGE_DIR.FILENAME_USERINFO);
+$DBHandle_max  = DbConnect();
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
-$DBHandle_max  = DbConnect();
+
 $numrow = 0;	
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax)

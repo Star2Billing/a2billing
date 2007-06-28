@@ -98,6 +98,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["id_didgroup"]=$return[4];
 			$_SESSION["tariff"]=$return[5];
 			$_SESSION["vat"]=$return[6];
+			$_SESSION["gmtoffset"]=$return[8];
 		}
 
 	}else{
@@ -117,7 +118,7 @@ function login ($user, $pass) {
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 
-	$QUERY = "SELECT username, credit, activated, id, id_didgroup, tariff, vat, activatedbyuser FROM cc_card WHERE (email = '".$user."' OR useralias = '".$user."') AND uipass = '".$pass."'"; 
+	$QUERY = "SELECT cc.username, cc.credit, cc.activated, cc.id, cc.id_didgroup, cc.tariff, cc.vat, cc.activatedbyuser, ct.gmtoffset FROM cc_card cc, cc_timezone ct WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."' AND ct.id = cc.id_timezone"; 
 	$res = $DBHandle -> Execute($QUERY);
 
 	if (!$res) {

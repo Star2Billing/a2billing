@@ -78,7 +78,7 @@ $FG_TABLE_COL = array();
 Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
 *******/
 
-$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
@@ -622,7 +622,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             </tr>
             <tr>
               <td width="35%" class="invoice_td"><?php echo gettext("As of Date")?>&nbsp; :</td>
-              <td width="65%" class="invoice_td"><?php echo date('m-d-Y');?> </td>
+              <td width="65%" class="invoice_td"><?php echo display_GMT(date('m/d/Y'), $_SESSION["gmtoffset"], 0);?> </td>
             </tr>
             <tr>
               <td colspan="2">&nbsp; </td>
@@ -759,7 +759,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			
 			?>
             <tr class="invoice_rows">
-              <td width="29%" class="invoice_td"><?php echo $data[0]?></td>
+              <td width="29%" class="invoice_td"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0);?></td>
               <td width="19%" class="invoice_td"><?php echo $minutes?> </td>
 			  <td width="20%" class="invoice_td"><img src="<?php echo Images_Path_Main ?>/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>"> </td>
 			  <td width="11%" class="invoice_td"><?php echo $data[3]?> </td>
@@ -890,7 +890,14 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
-						 	echo stripslashes($record_display);
+						 		if($i == 0)
+								{
+									echo display_GMT($record_display, $_SESSION["gmtoffset"], 1);
+								}
+								else
+								{
+									echo stripslashes($record_display);
+								}
 						 }						 
 						 ?></TD>
 				 		 <?php  } 

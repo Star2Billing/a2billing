@@ -11,7 +11,7 @@ if (! has_rights (ACX_ACCESS)){
 	die();
 }
 
-getpost_ifset(array('customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
+getpost_ifset(array('id','customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
@@ -353,16 +353,16 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			?>
             <tr>
               <td width="35%" class="invoice_td"><?php echo gettext("From Date");?>&nbsp;:</td>
-              <td width="65%" class="invoice_td"><?php echo display_dateonly($invoice_dates[0][0]);?> </td>
+              <td width="65%" class="invoice_td"><?php echo display_GMT($invoice_dates[0][0], $_SESSION["gmtoffset"], 0);?> </td>
             </tr>
 			<?php }else{ ?>
 			<tr>
               <td width="35%" class="invoice_td"><?php echo gettext("From Date");?>&nbsp;:</td>
-              <td width="65%" class="invoice_td"><?php echo display_dateonly($invoice_dates[0][1]);?> </td>
+              <td width="65%" class="invoice_td"><?php echo display_GMT($invoice_dates[0][0], $_SESSION["gmtoffset"], 0);?> </td>
             </tr>
 			<tr>
               <td width="35%" class="invoice_td"><?php echo gettext("To Date");?>&nbsp;:</td>
-              <td width="65%" class="invoice_td"><?php echo display_dateonly($invoice_dates[0][0]);?> </td>
+              <td width="65%" class="invoice_td"><?php echo display_GMT($invoice_dates[0][0], $_SESSION["gmtoffset"], 0);?></td>
             </tr>
 			<?php } ?>
             <tr>
@@ -507,7 +507,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			
 			?>
             <tr class="invoice_rows">
-              <td width="29%" class="invoice_td"><?php echo $data[0]?></td>
+              <td width="29%" class="invoice_td"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0)?></td>
               <td width="19%" class="invoice_td"><?php echo $minutes?> </td>
 			  <td width="20%" class="invoice_td"><img src="<?php echo Images_Path_Main ?>/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>"> </td>
 			  <td width="11%" class="invoice_td"><?php echo $data[3]?> </td>
@@ -580,7 +580,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			
 			?>
 			 <tr class="invoice_rows">
-			 <td width="16%" class="invoice_td"><?php echo $data[1]?> </td>
+			 <td width="16%" class="invoice_td"><?php echo display_GMT($data[1], $_SESSION["gmtoffset"], 0); ?> </td>
               <td width="15%" class="invoice_td">&nbsp;<?php echo $data[4]; ?></td>
               <td width="16%" class="invoice_td">&nbsp;<?php  echo $data[3]; ?> </td>
   			  <td width="37%" class="invoice_td">&nbsp;<?php echo $data[2]?></td>			  			  

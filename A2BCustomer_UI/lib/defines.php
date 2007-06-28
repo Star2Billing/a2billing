@@ -18,6 +18,9 @@ define ("PASS", isset($A2B->config['database']['password'])?$A2B->config['databa
 define ("DBNAME", isset($A2B->config['database']['dbname'])?$A2B->config['database']['dbname']:null);
 define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null); 	
 
+//Loading Configuration from DB
+$A2B -> load_conf_db($agi, AST_CONFIG_DIR."a2billing.conf", 1);
+
 define ("LEN_ALIASNUMBER", isset($A2B->config["global"]['len_aliasnumber'])?$A2B->config["global"]['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config["global"]['len_voucher'])?$A2B->config["global"]['len_voucher']:null);
 define ("BASE_CURRENCY", isset($A2B->config['global']['base_currency'])?$A2B->config['global']['base_currency']:null);
@@ -26,7 +29,7 @@ define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A
 define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
 
 // For ePayment Modules
-define('PULL_DOWN_DEFAULT', 'Please Select');    
+define('PULL_DOWN_DEFAULT', 'Please Select');
 define('TYPE_BELOW', 'Type Below');
 define('TEXT_CCVAL_ERROR_INVALID_DATE', gettext('The expiry date entered for the credit card is invalid.')."<br>".gettext('Please check the date and try again.'));
 define('TEXT_CCVAL_ERROR_INVALID_NUMBER', gettext('The credit card number entered is invalid.')."<br>".gettext('Please check the number and try again.'));
