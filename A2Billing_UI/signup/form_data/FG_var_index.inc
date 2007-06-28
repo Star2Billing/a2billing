@@ -214,7 +214,16 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   gettext("Insert your zipcode"),
 			   "" , "", "",	"", "", "" , "", "");
 
-
+$HD_Form -> AddEditElement (gettext("TIMEZONE"),
+			   "id_timezone",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_timezone",
+			   "gmtzone, id",
+			   "", "", "%1", "", "", "", "" );
+			   
 $HD_Form -> AddEditElement (gettext("PHONENUMBER"),
 			   "phone",
 			   '$value',
@@ -247,14 +256,14 @@ if (strlen($callPlan_idlist) > 1)
 {
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,'.
-	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
+	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
 	'fax, captchacode, sip_buddy, iax_buddy, inuse');
 }
 else
 {
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, id_didgroup, id_campaign,'.
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,'.
-	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
+	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
 	'fax, captchacode, sip_buddy, iax_buddy, inuse');
 }
 
