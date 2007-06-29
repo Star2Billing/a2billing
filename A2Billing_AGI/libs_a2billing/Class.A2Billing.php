@@ -19,7 +19,7 @@
 
 define('AST_CONFIG_DIR', '/etc/asterisk/'); 
 define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR . '/a2billing.conf');
-
+include_once (dirname(__FILE__)."/db_php_lib/Class.Table.php");
 // DEFINE STATUS FOR DEBUG
 define ('VERBOSE',			1);
 define ('WRITELOG',			2);			// 1 << 1
@@ -263,9 +263,48 @@ class A2Billing {
 		foreach($optconfig as $var=>$val)
 			$this->config["agi-conf$idconfig"][$var] = $val;
 		
-		// add default values to config for uninitialized values
-        
+		       
+		// conf for the database connection
+		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
+		if(!isset($this->config['database']['port']))		$this->config['database']['port'] = '5432';
+		if(!isset($this->config['database']['user']))		$this->config['database']['user'] = 'postgres';
+		if(!isset($this->config['database']['password']))	$this->config['database']['password'] = '';
+		if(!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
+		if(!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
 		
+		$this->load_conf_db($agi, NULL, 0, $idconfig);
+    }
+	
+	//Load config from Database
+	function load_conf_db( &$agi, $config=NULL, $webui=0, $idconfig=1, $optconfig=array())
+    {
+	  
+		$this -> idconfig = $idconfig;
+		// load config
+		$config_table = new Table("cc_config ccc, cc_config_group ccg", "ccc.config_key as cfgkey, ccc.config_value as cfgvalue, ccg.group_title as cfggname, ccc.config_valuetype as cfgtype");
+		$this->DbConnect();		
+		$config_res = $config_table -> Get_list($this->DBHandle, "ccc.config_group_id = ccg.id");
+		
+		foreach ($config_res as $conf)
+		{
+			if($conf['cfgtype'] == 0) // if its type is text
+			{
+				$this->config[$conf['cfggname']][$conf['cfgkey']] = $conf['cfgvalue'];
+			}
+			elseif($conf['cfgtype'] == 1) // if its type is boolean
+			{
+				if(strtoupper($conf['cfgvalue']) == "YES") // if equal to 'yes'
+				{
+					$this->config[$conf['cfggname']][$conf['cfgkey']] = 1;
+				}
+				else // if equal to 'no'
+				{
+					$this->config[$conf['cfggname']][$conf['cfgkey']] = 0;
+				}
+			}	
+		}		
+		$this->DbDisconnect($this->DBHandle);
+	  
 		//Card Number Length Code
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
 		$this -> cardnumber_range = $this -> splitable_data ($card_length_range);
@@ -287,18 +326,7 @@ class A2Billing {
 		if(!isset($this->config['global']['didbilling_daytopay'])) 	$this->config['global']['didbilling_daytopay'] = 5;
 		if(!isset($this->config['global']['admin_email'])) 			$this->config['global']['admin_email'] = 'root@localhost';
 		
-		// conf for the database connection
-		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
-		if(!isset($this->config['database']['port']))		$this->config['database']['port'] = '5432';
-		if(!isset($this->config['database']['user']))		$this->config['database']['user'] = 'postgres';
-		if(!isset($this->config['database']['password']))	$this->config['database']['password'] = '';
-		if(!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
-		if(!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
-		
-		
-		
-		
-		// Conf for the Callback
+				// Conf for the Callback
 		if(!isset($this->config['callback']['context_callback']))	$this->config['callback']['context_callback'] = 'a2billing-callback';
 		if(!isset($this->config['callback']['ani_callback_delay']))	$this->config['callback']['ani_callback_delay'] = '10';
 		if(!isset($this->config['callback']['extension']))		$this->config['callback']['extension'] = '1000';
@@ -506,6 +534,7 @@ class A2Billing {
 		if (!$webui) $this->conlog('A2Billing AGI internal configuration:');
       	if (!$webui) $this->conlog(print_r($this->agiconfig, true));
     }
+	
 	
 	/**
     * Log to console if debug mode.
