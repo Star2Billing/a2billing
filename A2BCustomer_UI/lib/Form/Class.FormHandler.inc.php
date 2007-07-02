@@ -577,6 +577,9 @@ class FormHandler{
 
 
 	function sanitize_data($data){
+		if(is_array($data)){
+			return $data; //Need to sanatize this later
+		}
 		$lowerdata = strtolower ($data);
 		$data = str_replace('--', '', $data);
 		$data = str_replace("'", '', $data);
@@ -1769,25 +1772,49 @@ class FormHandler{
 
 		$table_split = split(":",$this->FG_TABLE_EDITION[$sub_action][14]);
 
-		$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);
+		$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);		
 		
+		if(is_array($processed[$table_split[1]])){
+			foreach($processed[$table_split[1]] as $value) {
+				if (!isset($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
+					// RESPECT REGULAR EXPRESSION
+					$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($value))."', '".addslashes(trim($id))."'", null, null);
+			
+					if (!$result_query ){
+			
+						$findme   = 'duplicate';
+						$pos_find = strpos($instance_sub_table -> errstr, $findme);
+			
+						// Note our use of ===.  Simply == would not work as expected
+						// because the position of 'a' was the 0th (first) character.
+			
+						if ($pos_find === false) {
+							echo $instance_sub_table -> errstr;
+						}else{
+							$alarm_db_error_duplication = true;
+						}
+					}
+				}
+			}
+		} else {
+			$value = $processed[$table_split[1]];
+			if (!isset($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
+				// RESPECT REGULAR EXPRESSION
+				$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($value))."', '".addslashes(trim($id))."'", null, null);
 		
-		if (!isset($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $processed[$table_split[1]])){
-			// RESPECT REGULAR EXPRESSION
-			$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($processed[$table_split[1]]))."', '".addslashes(trim($id))."'", null, null);
-	
-			if (!$result_query ){
-	
-				$findme   = 'duplicate';
-				$pos_find = strpos($instance_sub_table -> errstr, $findme);
-	
-				// Note our use of ===.  Simply == would not work as expected
-				// because the position of 'a' was the 0th (first) character.
-	
-				if ($pos_find === false) {
-					echo $instance_sub_table -> errstr;
-				}else{
-					$alarm_db_error_duplication = true;
+				if (!$result_query ){
+		
+					$findme   = 'duplicate';
+					$pos_find = strpos($instance_sub_table -> errstr, $findme);
+		
+					// Note our use of ===.  Simply == would not work as expected
+					// because the position of 'a' was the 0th (first) character.
+		
+					if ($pos_find === false) {
+						echo $instance_sub_table -> errstr;
+					}else{
+						$alarm_db_error_duplication = true;
+					}
 				}
 			}
 		}
@@ -1801,12 +1828,15 @@ class FormHandler{
 	function perform_del_content($sub_action,$id){
 		$processed = $this->getProcessed();
 		$table_split = split(":",$this->FG_TABLE_EDITION[$sub_action][14]);
-	
+		if(array_key_exists($table_split[1].'_hidden', $processed)){
+			$value = trim($processed[$table_split[1].'_hidden']);
+		} else {
+			$value = trim($processed[$table_split[1]]);
+		}
 		$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);	
-		$SPLIT_FG_DELETE_CLAUSE = $table_split[1]."='".trim($_POST[$table_split[1]])."' AND ".$table_split[5]."='".trim($id)."'";
+		$SPLIT_FG_DELETE_CLAUSE = $table_split[1]."='".$value."' AND ".$table_split[5]."='".trim($id)."'";
 		$instance_sub_table -> Delete_table ($this->DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);
-	}
-	
+	}	
 	
 	/**
      * Function to create the top page section

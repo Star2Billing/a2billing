@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'tariffgroupname', 'lcrtype', 'removeinterprefix', 'idtariffplan', 'id_cc_package_offer'));
+getpost_ifset(array('id', 'tariffgroupname', 'lcrtype', 'removeinterprefix', 'idtariffplan', 'idtariffplan_hidden', 'id_cc_package_offer'));
 
 $HD_Form = new FormHandler("cc_tariffgroup","Call Plan");
 
@@ -75,14 +75,14 @@ $HD_Form -> AddEditElement (gettext("LC TYPE"),
 
 
 $HD_Form -> AddEditElement(gettext("PACKAGE"),
-			   "id_cc_package_offer",
-			   '$value',
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_package_offer",
-			   "label, id",
-			   	"", "", "%1", "", gettext("Set the Package offer if you wish to use one with this Call Plan"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
+	"id_cc_package_offer",
+	'$value',
+	"SELECT",
+	"", "", "",
+	"sql",
+	"cc_package_offer",
+	"label, id",
+	"", "", "%1", "", gettext("Set the Package offer if you wish to use one with this Call Plan"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
 
 $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 	"removeinterprefix",		
@@ -106,7 +106,7 @@ if ($numrow>0){
 		"tariffplan",	
 		'$value',	
 		"SELECT",		
-		"",
+		'size="10" multiple="multiple"',
 		"",		
 		"",	
 		"sql",		
