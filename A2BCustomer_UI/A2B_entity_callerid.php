@@ -24,9 +24,18 @@ $HD_Form -> init();
 
 /************************************  ADD SPEED DIAL  ***********************************************/
 if (strlen($add_callerid)>0  && is_numeric($add_callerid)){
+	
 	$instance_sub_table = new Table('cc_callerid');
-	$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
-	$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card='".$_SESSION["card_id"]."'";
+	$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 1);
+	
+	// CHECK IF THE AMOUNT OF CALLERID IS LESS THAN THE LIMIT
+	if ($result[0][0] < $A2B->config["webcustomerui"]['limit_callerid']){
+		
+		$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
+		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+		
+	}
 }
 /***********************************************************************************/
 
