@@ -3,6 +3,29 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### BUG : FAILOVER
+********************************************************************
+http://forum.asterisk2billing.org/viewtopic.php?t=2243
+
+Consider 2 trunks configured like this:
+#1: trunkprefix=8888 removeprefix=0 failover=trunk #2
+#2: trunkprefix=8889 removeprefix=0 failover=-1/none
+
+When dialing 0123456789 the call is presented to trunk #1 as it should be:
+888812345678
+
+If the call fails over each of the successive attempts will add the correct prefix, but not remove the desired digits:
+88890123456789
+
+
+
+#### BUG : Customer UI
+********************************************************************
+from the user portal, i'm able to add more than 5 callerID eventhough i just set limit_callerid = 2. Is it a BUG or just i'm having this problem?
+http://forum.asterisk2billing.org/viewtopic.php?t=2250
+
+
+
 #### CONFIGURATION
 ********************************************************************
 - if the field is readonly : find a way maybe with css to change the backgroup color of the field like grey color
@@ -13,6 +36,13 @@
    Our System will automatically show a Dropdown List to provide customer to select from it...
    
 - we need a drop down for the group in list configuration   
+
+- remove the Text Area  and will make it simple Paragraph.. i will add a new type in the Framework
+  we need to show the only Description,, it shouldnot confuse the use that either it is somthing to enter in database as this is description for this whole record
+
+- Consolidate class
+
+- UPDATE DB SCRIPT
 
 #### BUG : SIGNUP
 ********************************************************************
