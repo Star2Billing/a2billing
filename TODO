@@ -19,13 +19,6 @@ If the call fails over each of the successive attempts will add the correct pref
 
 
 
-#### BUG : Customer UI
-********************************************************************
-from the user portal, i'm able to add more than 5 callerID eventhough i just set limit_callerid = 2. Is it a BUG or just i'm having this problem?
-http://forum.asterisk2billing.org/viewtopic.php?t=2250
-
-
-
 #### CONFIGURATION
 ********************************************************************
 - if the field is readonly : find a way maybe with css to change the backgroup color of the field like grey color

@@ -6,6 +6,13 @@
 
 
 
+
+#### BUG : Customer UI
+********************************************************************
+from the user portal, i'm able to add more than 5 callerID eventhough i just set limit_callerid = 2. Is it a BUG or just i'm having this problem?
+http://forum.asterisk2billing.org/viewtopic.php?t=2250
+
+
 #### MISC
 ********************************************************************
 - Change qualify to 7 chars : 
