@@ -44,8 +44,9 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Manager User ID', 'manager_username', 'myastersik', 'Manger Host User Name',0 , 1);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Manager Password', 'manager_secret', 'mycode', 'Manager Host Password',0 , 1);
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Context Callback', 'context_callback', '10', 'Contaxt to use in Callback',0 , 2);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Context Callback', 'context_callback', 'a2billing-callback', 'Context to use in Callback',0 , 2);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Extension', 'extension', '1000', 'Extension to call while callback.',0 , 2);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Second to wait for callback', 'sec_wait_before_callback', '10', 'this is the number of seconds to wait before initiating the call back.',0 , 2);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Avoid Repeat Duration', 'sec_avoid_repeate', '10', 'Number of seconds before the call-back can be re-initiated from the web page to prevent repeated and unwanted calls.',0 , 2);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Time out', 'timeout', '20', 'if the callback doesnt succeed within the value below, then the call is deemed to have failed.',0 , 2);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Answer on Call', 'answer_call', 'yes', 'if we want to manage the answer on the call.',1 , 2);
@@ -237,6 +238,8 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('File Enter Destination', 'file_conf_enter_destination', 'prepaid-enter-dest', 'Please enter the file name you want to play when we prompt the calling party to enter the destination number, file_conf_enter_destination = prepaid-enter-number-u-calling-1-or-011.',0 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('File Language Menu', 'file_conf_enter_menulang', 'prepaid-menulang2', 'Please enter the file name you want to play when we prompt the calling party to choose the prefered language .',0 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Bill Callback', 'callback_bill_1stleg_ifcall_notconnected', 'YES', 'Define if you want to bill the 1st leg on callback even if the call is not connected to the destination.',1 , 11);
+
+
 
 CREATE TABLE cc_timezone (
     id 								INT NOT NULL AUTO_INCREMENT,
