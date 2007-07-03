@@ -71,7 +71,7 @@ $CC_help_sipiax_info='
 	<div class="w2">
 <table width="90%">
 <tr>
-<td width="100%">'.gettext("Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessory modifications.").'<br>
+<td width="100%">'.gettext("Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessary modifications.").'<br>
 <br></td>
 </tr>
 </table>

@@ -5,6 +5,9 @@
 ********************************************************************
 
 
+#### BUG : CallBack
+********************************************************************
+DIVIDE THE AMOUNT OF CREDIT BY 2 IN ORDER TO AVOID NEGATIVE BALANCE IF THE USER USE ALL HIS CREDIT
 
 
 #### BUG : Customer UI

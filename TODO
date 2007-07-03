@@ -19,6 +19,14 @@ If the call fails over each of the successive attempts will add the correct pref
 
 
 
+#### GMT
+********************************************************************
+- we need a parameter to define the server_GMT
+- when creating a customer we need to have it as default on GMT+0
+- for signup module it can be managed with a right definition in the sql
+- call-history.php on customer dont have any GMT support on it
+
+
 #### CONFIGURATION
 ********************************************************************
 - if the field is readonly : find a way maybe with css to change the backgroup color of the field like grey color

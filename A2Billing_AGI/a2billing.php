@@ -751,8 +751,12 @@ if ($mode == 'standard'){
 			$RateEngine->Reinit();
 			$A2B-> Reinit();
 			
+			// DIVIDE THE AMOUNT OF CREDIT BY 2 IN ORDER TO AVOID NEGATIVE BALANCE IF THE USER USE ALL HIS CREDIT
+			$orig_credit = $A2B -> credit;
+			$A2B -> credit = $A2B->credit / 2;
+			
 			$stat_channel = $agi->channel_status($A2B-> channel);
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[status_channel=$status_channel]:[CREDIT STATUS : ".$A2B-> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[status_channel=$status_channel]:[ORIG_CREDIT : ".$orig_credit." - CUR_CREDIT - : ".$A2B -> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 			
 			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
 			if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
