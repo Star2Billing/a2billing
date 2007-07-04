@@ -396,7 +396,15 @@ class FormHandler{
 
     // Delete Message for FK
     var $FG_FK_DELETE_MESSAGE = "Are you sure to delete all records connected to this instance.";
+	
+    //To enable Disable Selection List 
+    var $FG_DISPLAY_SELECT  = false;	
 
+    //Selection List Field Name to get from Database
+    var $FG_SELECT_FIELDNAME  = "";
+
+	//Configuration Key value Field Name
+    var $FG_CONF_VALUE_FIELDNAME  = "";
     //*****************************
     // For Pre Selected Delete
     //Pre Selected Records Count
@@ -828,7 +836,14 @@ class FormHandler{
 	 * @ $col_query	 
      */
 	 
-	function FieldEditElement ($fieldname) {         
+	function FieldEditElement ($fieldname) {     
+		if($this->FG_DISPLAY_SELECT == true)
+		{
+			if(strlen($this->FG_SELECT_FIELDNAME)>0)
+			{
+				$fieldname.= ", ".$this->FG_SELECT_FIELDNAME;
+			}
+		}
 		$this->FG_QUERY_EDITION = $fieldname;
 		$this->FG_QUERY_ADITION = $fieldname;
 	}
@@ -1609,11 +1624,14 @@ class FormHandler{
 					}
 					
 					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$processed[$fields_name];
-					if ($i>0) $param_update .= ", ";
+					if ($i>0 && $this->FG_TABLE_EDITION[$i][3]!= "SPAN") $param_update .= ", ";
 					if (empty($processed[$fields_name]) && strtoupper(substr($this->FG_TABLE_ADITION[$i][13],3,4))=="NULL"){
 						$param_update .= $fields_name." = NULL ";
 					}else{
-						$param_update .= $fields_name." = '".addslashes(trim($processed[$fields_name]))."' ";
+						if($this->FG_TABLE_EDITION[$i][3]!= "SPAN")
+						{
+							$param_update .= $fields_name." = '".addslashes(trim($processed[$fields_name]))."' ";
+						}
 					}
 				}
 
