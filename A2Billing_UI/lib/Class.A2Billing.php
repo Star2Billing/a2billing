@@ -19,7 +19,7 @@
 
 define('AST_CONFIG_DIR', '/etc/asterisk/'); 
 define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR . '/a2billing.conf');
-
+include_once (dirname(__FILE__)."/db_php_lib/Class.Table.php");
 // DEFINE STATUS FOR DEBUG
 define ('VERBOSE',			1);
 define ('WRITELOG',			2);			// 1 << 1
@@ -252,19 +252,18 @@ class A2Billing {
 	  
 		$this -> idconfig = $idconfig;
 		// load config
-		
 		if(!is_null($config) && file_exists($config))
 			$this->config = parse_ini_file($config, true);
 		elseif(file_exists(DEFAULT_A2BILLING_CONFIG)){
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);		
 		}
-	    
+	  
+	  
+		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
 		foreach($optconfig as $var=>$val)
 			$this->config["agi-conf$idconfig"][$var] = $val;
 		
-		// add default values to config for uninitialized values
-        
-			
+		       
 		// conf for the database connection
 		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
 		if(!isset($this->config['database']['port']))		$this->config['database']['port'] = '5432';
@@ -272,20 +271,19 @@ class A2Billing {
 		if(!isset($this->config['database']['password']))	$this->config['database']['password'] = '';
 		if(!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
 		if(!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
-	
 		
+		$this->load_conf_db($agi, NULL, 0, $idconfig);
     }
 	
-	// Load Configuration from DB
+	//Load config from Database
 	function load_conf_db( &$agi, $config=NULL, $webui=0, $idconfig=1, $optconfig=array())
     {
 	  
 		$this -> idconfig = $idconfig;
 		// load config
-		
-	  	$config_table = new Table("cc_config ccc, cc_config_group ccg", "ccc.config_key as cfgkey, ccc.config_value as cfgvalue, ccg.group_title as cfggname, ccc.config_valuetype as cfgtype");
-		$DBHandle  = DbConnect();
-		$config_res = $config_table -> Get_list($DBHandle, "ccc.config_group_id = ccg.id");
+		$config_table = new Table("cc_config ccc, cc_config_group ccg", "ccc.config_key as cfgkey, ccc.config_value as cfgvalue, ccg.group_title as cfggname, ccc.config_valuetype as cfgtype");
+		$this->DbConnect();		
+		$config_res = $config_table -> Get_list($this->DBHandle, "ccc.config_group_id = ccg.id");
 		
 		foreach ($config_res as $conf)
 		{
@@ -305,12 +303,13 @@ class A2Billing {
 				}
 			}	
 		}		
-		DbDisconnect($DBHandle);
+		$this->DbDisconnect($this->DBHandle);
+		
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
 		foreach($optconfig as $var=>$val)
 			$this->config["agi-conf$idconfig"][$var] = $val;
 		
-		// add default values to config for uninitialized values	
+		// add default values to config for uninitialized values
 		//Card Number Length Code
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
 		$this -> cardnumber_range = $this -> splitable_data ($card_length_range);
@@ -332,7 +331,7 @@ class A2Billing {
 		if(!isset($this->config['global']['didbilling_daytopay'])) 	$this->config['global']['didbilling_daytopay'] = 5;
 		if(!isset($this->config['global']['admin_email'])) 			$this->config['global']['admin_email'] = 'root@localhost';
 		
-		// Conf for the Callback
+				// Conf for the Callback
 		if(!isset($this->config['callback']['context_callback']))	$this->config['callback']['context_callback'] = 'a2billing-callback';
 		if(!isset($this->config['callback']['ani_callback_delay']))	$this->config['callback']['ani_callback_delay'] = '10';
 		if(!isset($this->config['callback']['extension']))		$this->config['callback']['extension'] = '1000';
@@ -433,8 +432,25 @@ class A2Billing {
 		if(!isset($this->config['peer_friend']['qualify'])) 	$this->config['peer_friend']['qualify'] = 'yes';
 		if(!isset($this->config['peer_friend']['host'])) 		$this->config['peer_friend']['host'] = 'dynamic';
 		if(!isset($this->config['peer_friend']['dtmfmode'])) 	$this->config['peer_friend']['dtmfmode'] = 'RFC2833';
-			
 		
+		
+		// conf for the log-files
+		/*
+		if(!isset($this->config['log-files']['cront_alarm'])) $this->config['log-files']['cront_alarm'] = '/tmp/cront_a2b_alarm.log';
+		if(!isset($this->config['log-files']['cront_autorefill'])) $this->config['log-files']['cront_autorefill'] = '/tmp/cront_a2b_autorefill.log';
+		if(!isset($this->config['log-files']['cront_batch_process'])) $this->config['log-files']['cront_batch_process'] = '/tmp/cront_a2b_batch_process.log';
+		if(!isset($this->config['log-files']['cront_bill_diduse'])) $this->config['log-files']['cront_bill_diduse'] = '/tmp/cront_a2b_bill_diduse.log';
+		if(!isset($this->config['log-files']['cront_subscriptionfee'])) $this->config['log-files']['cront_subscriptionfee'] = '/tmp/cront_a2b_subscriptionfee.log';
+		if(!isset($this->config['log-files']['cront_currency_update'])) $this->config['log-files']['cront_currency_update'] = '/tmp/cront_a2b_currency_update.log';
+		if(!isset($this->config['log-files']['cront_invoice'])) $this->config['log-files']['cront_invoice'] = '/tmp/cront_a2b_invoice.log';
+		
+		if(!isset($this->config['log-files']['paypal'])) $this->config['log-files']['paypal'] = '/tmp/a2billing_paypal.log';
+		if(!isset($this->config['log-files']['epayment'])) $this->config['log-files']['epayment'] = '/tmp/a2billing_epayment.log';
+		if(!isset($this->config['log-files']['ecommerce_api'])) $this->config['log-files']['ecommerce_api'] = '/tmp/api_ecommerce_request.log';
+		if(!isset($this->config['log-files']['soap_api'])) $this->config['log-files']['soap_api'] = '/tmp/api_soap_request.log';
+		if(!isset($this->config['log-files']['callback_api'])) $this->config['log-files']['callback_api'] = '/tmp/api_callback_request.log';
+		if(!isset($this->config['log-files']['agi'])) $this->config['log-files']['agi'] = '/tmp/a2billing_agi.log';
+		*/
 		if(isset($this->config['log-files']['agi']) && strlen ($this->config['log-files']['agi']) > 1)
 		{
 			$this -> log_file = $this -> config['log-files']['agi'];
@@ -523,6 +539,7 @@ class A2Billing {
 		if (!$webui) $this->conlog('A2Billing AGI internal configuration:');
       	if (!$webui) $this->conlog(print_r($this->agiconfig, true));
     }
+	
 	
 	/**
     * Log to console if debug mode.
@@ -1603,8 +1620,8 @@ class A2Billing {
 				
 				// CHECK IF CALLERID ACTIVATED
 				if( $result[0][2] != "t" && $result[0][2] != "1" ) 	$prompt = "prepaid-auth-fail";
-						
-				// CHECK credit > min_credit_2call / you have zero balance
+				
+				// CHECK credit < min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 				if( $this->active != "t" && $this->active != "1" ) 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
@@ -1636,8 +1653,7 @@ class A2Billing {
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
 					
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refiil_card_withvoucher] ");
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "NOTENOUGHCREDIT - Refill with vouchert");
+					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
 					
 					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance"){
 					

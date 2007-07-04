@@ -304,7 +304,12 @@ class A2Billing {
 			}	
 		}		
 		$this->DbDisconnect($this->DBHandle);
-	  
+		
+		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
+		foreach($optconfig as $var=>$val)
+			$this->config["agi-conf$idconfig"][$var] = $val;
+		
+		// add default values to config for uninitialized values
 		//Card Number Length Code
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
 		$this -> cardnumber_range = $this -> splitable_data ($card_length_range);
