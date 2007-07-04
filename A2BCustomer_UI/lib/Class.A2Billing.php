@@ -19,7 +19,7 @@
 
 define('AST_CONFIG_DIR', '/etc/asterisk/'); 
 define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR . '/a2billing.conf');
-include_once (dirname(__FILE__)."/db_php_lib/Class.Table.php");
+
 // DEFINE STATUS FOR DEBUG
 define ('VERBOSE',			1);
 define ('WRITELOG',			2);			// 1 << 1
@@ -560,7 +560,7 @@ class A2Billing {
 			if(!$busy) // no conlogs inside conlog!!!
 			{
 			  $busy = true;          
-			  $agi->verbose($str, $vbl);
+			  if (isset($agi)) $agi->verbose($str, $vbl);
 			  $busy = false;
 			}
 		}
