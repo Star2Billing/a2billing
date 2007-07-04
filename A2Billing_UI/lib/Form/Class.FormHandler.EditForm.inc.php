@@ -44,20 +44,16 @@ function sendtolittle(direction){
             <TBODY>
 <?php 
 	for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
-		$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY
-		
-		
+		$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY		
 		if (strlen($this->FG_TABLE_EDITION[$i][16])>1){
 			echo '<TR><TD width="%25" valign="top" bgcolor="#FEFEEE" colspan="2" class="tableBodyRight" ><i>';				
 			echo $this->FG_TABLE_EDITION[$i][16];
 			echo '</i></TD></TR>';
 		}
 		
-		if (!$pos){
-			
+		if (!$pos){			
 ?>
-                    <TR> 
-		
+                    <TR> 		
 		<?php if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){ ?>
 			<TD width="%25" valign="middle" class="form_head_red"> 		<?php echo $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
 		  	<TD width="%75" valign="top" class="tableBodyRight" background="<?php echo Images_Path;?>/background_cells_red.gif" >
@@ -67,13 +63,33 @@ function sendtolittle(direction){
 		<?php } ?>
                         <?php 
 			if ($this->FG_DEBUG == 1) print($this->FG_TABLE_EDITION[$i][3]);
-		  		if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
+				if(($this->FG_DISPLAY_SELECT == true) && (strlen($this->FG_SELECT_FIELDNAME)>0) && (strlen($list[0][$this->FG_SELECT_FIELDNAME])>0) && ($this->FG_CONF_VALUE_FIELDNAME == $this->FG_TABLE_EDITION[$i][1]))
+				{
+				$valuelist = explode(",", $list[0][$this->FG_SELECT_FIELDNAME]);
+				
+				?>
+					<SELECT name='<?php echo $this->FG_TABLE_EDITION[$i][1]?>' class="form_input_select">
+					<?php 
+					foreach($valuelist as $listval)
+					{
+					?>
+					<option value="<?php echo $listval;?>" <?php  if($listval == $list[0][$i]) echo " selected";?>><?php echo $listval;?></option>
+					<?php }?>
+					</select>
+				<?
+				}
+		  		elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
 				{								
 					if (isset ($this->FG_TABLE_EDITION[$i][15]) && strlen($this->FG_TABLE_EDITION[$i][15])>1){				
 						$list[0][$i] = call_user_func($this->FG_TABLE_EDITION[$i][15], $list[0][$i]);
 					}			
 			  ?>
-                        <INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
+                        <INPUT 	
+						class="form_input_text" 
+						 <?php if(substr_count($this->FG_TABLE_EDITION[$i][4], "readonly") > 0){?>
+						 style="background-color: #CCCCCC;" 
+						 <?php }?> 
+						name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
                         <?php 
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUE")){
 			?>
@@ -108,7 +124,16 @@ function sendtolittle(direction){
 		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("TEXTAREA"))
 				{
 			  ?>
-                     <textarea class="form_input_textarea" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></textarea> 
+                     <textarea class="form_input_textarea" 
+					 <?php if(substr_count($this->FG_TABLE_EDITION[$i][4], "readonly") > 0){?>
+						 style="background-color: #CCCCCC;" 
+						 <?php }?> 
+					 name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></textarea> 
+				<?php	
+		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SPAN"))
+				{
+			  ?>
+                     <span class="form_input_span" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></span> 	 
                         <?php 	
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 				{

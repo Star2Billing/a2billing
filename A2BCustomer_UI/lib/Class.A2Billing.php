@@ -284,8 +284,8 @@ class A2Billing {
 		// load config
 		
 	  	$config_table = new Table("cc_config ccc, cc_config_group ccg", "ccc.config_key as cfgkey, ccc.config_value as cfgvalue, ccg.group_title as cfggname, ccc.config_valuetype as cfgtype");
-		$DBHandle  = DbConnect();
-		$config_res = $config_table -> Get_list($DBHandle, "ccc.config_group_id = ccg.id");
+		$this->DbConnect();
+		$config_res = $config_table -> Get_list($this->DBHandle, "ccc.config_group_id = ccg.id");
 		
 		foreach ($config_res as $conf)
 		{
@@ -305,7 +305,7 @@ class A2Billing {
 				}
 			}	
 		}		
-		DbDisconnect($DBHandle);
+		$this->DbDisconnect($this->DBHandle);
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
 		foreach($optconfig as $var=>$val)
 			$this->config["agi-conf$idconfig"][$var] = $val;

@@ -28,24 +28,28 @@ $HD_Form -> FG_LIMITE_DISPLAY = 25;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = false;
 
+$HD_Form -> FG_DISPLAY_SELECT = true;
+$HD_Form -> FG_SELECT_FIELDNAME = "config_listvalues";
+$HD_Form -> FG_CONF_VALUE_FIELDNAME = "config_value";
+
 $HD_Form -> AddEditElement (gettext("GROUP"),
 	"group_title",
 	'$value',
 	"INPUT",
-	"size=40 readonly",
+	"size=30 readonly",
 	"",
 	gettext("This is the group of the configuration. Not editable!"),
-	"" , "", "", "", "", "", "", gettext("Insert the Group Name"));
+	"" , "", "", "", "", "", "", gettext("Group Name of the configuration variable"));
 	
 
 $HD_Form -> AddEditElement (gettext("TITLE"),
 	"config_title",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=100",
+	"size=30 maxlength=100 readonly",
 	"",
 	gettext("Insert the TITLE"),
-	"" , "", "", "", "" , "", "" ,gettext("Insert Title"));
+	"" , "", "", "", "" , "", "" ,gettext("Title of the configuration variable"));
 
 $HD_Form -> AddEditElement (gettext("KEY"),
 	"config_key",
@@ -54,7 +58,7 @@ $HD_Form -> AddEditElement (gettext("KEY"),
 	"size=30 maxlength=30 readonly",
 	"",
 	gettext("Insert the TITLE"),
-	"" , "", "", "", "" , "", "" ,gettext("Insert Key"));
+	"" , "", "", "", "" , "", "" ,gettext("Key name of the configuration variable"));
 
 $HD_Form -> AddEditElement (gettext("VALUE"),
 	"config_value",
@@ -63,12 +67,12 @@ $HD_Form -> AddEditElement (gettext("VALUE"),
 	"size=30 ",
 	"",
 	gettext("Insert the starting date"),
-	"" , "", "", "", "", "", "", gettext("Insert Value"));
+	"" , "", "", "", "", "", "", gettext("Insert the Value"));
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"config_description",
 	'',
-	"TEXTAREA",
+	"SPAN",
 	"cols=80 rows=10",
 	"",
 	gettext("Insert the Description"),

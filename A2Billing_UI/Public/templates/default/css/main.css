@@ -811,6 +811,18 @@ SPAN.errorText {
 	overflow-x: hidden;
 	overflow:-moz-scrollbars-vertical;
 }
+.form_input_span
+{
+	background-color: #FFFFCC;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #BC2222;	
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
 .form_input_text
 {
 	font-weight: bold;

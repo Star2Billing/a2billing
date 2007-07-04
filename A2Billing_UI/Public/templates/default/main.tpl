@@ -377,7 +377,7 @@
 				<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&stitle=Mail+Tempalte&section=8">{php} echo gettext("Create mail template");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&stitle=Prefix&section=8">{php} echo gettext("Browse Prefix");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=8">{php} echo gettext("Add Prefix");{/php}</a></li>
-				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&stitle=ConfigGroup&section=8">{php} echo gettext("List Config Groups");{/php}</a></li>
+				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&stitle=ConfigGroup&section=8">{php} echo gettext("List Global  Config");{/php}</a></li>
 				<li><a href="A2B_entity_config.php?form_action=list&atmenu=config&stitle=Configuration&section=8">{php} echo gettext("List Configuration");{/php}</a></li>
 			</ul></li>
 		</ul>

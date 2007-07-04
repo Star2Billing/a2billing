@@ -199,7 +199,7 @@ if ($form_action == "list"){
 						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_idtariffplan==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
 					<?php 	 }
 					?>
-				</select>
+				</select>12221
 				<br/>
 			</td>
 		</tr>
