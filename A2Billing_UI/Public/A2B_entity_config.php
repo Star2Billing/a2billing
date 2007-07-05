@@ -78,13 +78,11 @@ function Check()
 	return true;
 }
 </script>
-<form name="searchform" id="searchform" method="post" action="A2B_entity_view_invoice.php">
+<form name="searchform" id="searchform" method="post" action="A2B_entity_config.php">
 <input type="hidden" name="searchenabled" value="yes">
 
 <table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>
-			<?php  if ($_SESSION["pr_groupID"]==2 && is_numeric($_SESSION["pr_IDCust"])){ ?>
-			<?php  }else{ ?>
+			<tbody>			
 			<tr>
 				<td width="19%" align="left" valign="top" class="bgcolor_004">					
 					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SELECT GROUP");?></font>
@@ -100,11 +98,11 @@ function Check()
 				  
 				  ?>
 				<select name="groupselect" class="form_input_select">
-				<option value="-1"><?php echo gettext("Select Group");?></option>
+				<option value="-1" ><?php echo gettext("Select Group");?></option>
 				<?php 
 				foreach($list_total_groups as $groupname){
 				?>
-				<option value="<?php echo $groupname[0]?>"><?php echo $groupname[1]?></option>
+				<option value="<?php echo $groupname[0]?>" <?php if($groupselect == $groupname[0]) echo "selected"?>><?php echo $groupname[1]?></option>
 				<?php 
 				}
 				?>
@@ -112,7 +110,7 @@ function Check()
 					</td>					
 				</tr></table></td>
 			</tr>			
-			<?php  }?>
+
 			<tr>
         		<td class="bgcolor_002" align="left">&nbsp;</td>
       			<td class="bgcolor_003" align="left">

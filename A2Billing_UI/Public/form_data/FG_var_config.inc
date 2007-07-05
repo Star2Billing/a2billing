@@ -1,5 +1,5 @@
 <?php
-getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_id'));
+getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_id', 'groupselect'));
 
 
 $HD_Form = new FormHandler("cc_config ccc, cc_config_group ccg","Configuration");
@@ -8,7 +8,12 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="ccc.id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
+
 $HD_Form -> FG_TABLE_CLAUSE = "ccc.config_group_id =  ccg.id";
+if($groupselect!= "")
+{
+	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
+}
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");
