@@ -580,37 +580,39 @@ class A2Billing {
 			
 			$this -> languageselected = $res_dtmf ["result"];
 			
-			if 		($this->languageselected=="2")		
+			if ($this->languageselected=="2")
 				$language = 'es';
 			elseif 	($this->languageselected=="3")		
 				$language = 'fr';
 			else									
 				$language = 'en';
 			
-			if($this->agiconfig['asterisk_version'] == "1_1")
+			if($this->agiconfig['asterisk_version'] == "1_2")
 			{
-				$agi -> set_variable('LANGUAGE()', $language);								
+				$lg_var_set = 'LANGUAGE()';				
 			}
 			else
 			{
-				$agi->ChangeLanguage($language);
+				$lg_var_set = 'CHANNEL(language)';
 			}
-			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SET LANGUAGE() $language]");
+			$agi -> set_variable($lg_var_set, $language);
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 			
 		}elseif (strlen($this->agiconfig['force_language'])==2){
 			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FORCE LANGUAGE : ".$this->agiconfig['force_language']);	
 			$this->languageselected = 1;
 			$language = strtolower($this->agiconfig['force_language']);
-			if($this->agiconfig['asterisk_version'] == "1_1")
+			if($this->agiconfig['asterisk_version'] == "1_2")
 			{
-				$agi -> set_variable('LANGUAGE()', $language);								
+				$lg_var_set = 'LANGUAGE()';				
 			}
 			else
 			{
-				$agi->ChangeLanguage($language);
+				$lg_var_set = 'CHANNEL(language)';
 			}
-			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SET LANGUAGE() $language]");
+			$agi -> set_variable($lg_var_set, $language);
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 			
 		}
 	}

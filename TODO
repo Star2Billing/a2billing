@@ -3,6 +3,10 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### BUG : choose language
+********************************************************************
+problem on calling card language selection. once select 1 or 2 or 3 in the language selection IVR, it dropped rightaway. 
+it was good on my original version. 
 
 #### BUG : FAILOVER
 ********************************************************************
