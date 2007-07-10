@@ -48,6 +48,7 @@ $HD_Form -> create_toppage ($form_action);
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+if($form_action == "list" || $form_action == "list"){
 ?>
 <br>
 <script language="javascript">
@@ -128,6 +129,7 @@ function Check()
 </center>
 
 <?php 
+}
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
