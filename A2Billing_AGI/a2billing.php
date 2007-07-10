@@ -717,6 +717,7 @@ if ($mode == 'standard'){
 	}elseif ($callback_mode=='ALL'){  
 		$A2B->agiconfig['use_dnid'] = 0;
 		$A2B->agiconfig['number_try'] =1;
+		$A2B->agiconfig['cid_enable'] =0;
 		
 	}else{
 		$charge_callback = 1;
