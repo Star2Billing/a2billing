@@ -1,28 +1,44 @@
 <?php
-/*
-this ligne is an exemple of wath you must add into the main page to desplay the ratecard
+/***************************************************************************
+ *
+ * display_ratecard.php : A2Billing display ratecard API
+ * Written for PHP 4.x & PHP 5.X versions.
+ *
+ * A2Billing -- Asterisk billing solution.
+ * Copyright (C) 2004, 2007 Belaid Arezqui <areski _atl_ gmail com>
+ *
+ * See http://www.asterisk2billing.org for more information about
+ * the A2Billing project. 
+ * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
+ *
+ * This software is released under the terms of the GNU Lesser General Public License v2.1
+ * A copy of which is available from http://www.gnu.org/copyleft/lesser.html
+ *
+ *
+ *
+ * Usage :
+Below an example hor to add the api into your page and display the ratecard
+
 include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial&column_name=Destination,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 
 
-to change display set css_url in the include ligne
- you can change parameters in /Css/api_ratecard.css 
+ ****************************************************************************/
 
-
-*/
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 
 
- 	// The wrapper variables for security
- 	$security_key = API_SECURITY_KEY;
-	
-	// The name of the log file
-	$logfile = API_LOGFILE;
-	
-	// recipient email to send the alarm
-	$email_alarm = EMAIL_ADMIN;	
-	
-	$FG_DEBUG = 0;
+// The wrapper variables for security
+$security_key = API_SECURITY_KEY;
+
+// The name of the log file
+$logfile = API_LOGFILE;
+
+// recipient email to send the alarm
+$email_alarm = EMAIL_ADMIN;	
+
+$FG_DEBUG = 0;
+
 
 
 getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage'));
@@ -43,10 +59,15 @@ getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display
 	&merge_form (0 or 1) 1 for merge form search and 1 seaparated search form by default 0
 	&fullhtmlpage (0 or 1)
 */
-  $ip_remote = getenv('REMOTE_ADDR'); 
-  $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
- // CHECK KEY
- if ($FG_DEBUG > 0) echo "<br> md5(".md5($security_key).") !== $key";
+
+
+
+$ip_remote = getenv('REMOTE_ADDR'); 
+$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
+
+
+// CHECK KEY
+if ($FG_DEBUG > 0) echo "<br> md5(".md5($security_key).") !== $key";
 if (md5($security_key) !== $key  || strlen($security_key)==0)
  {
 	  mail($email_alarm, "ALARM : RATE CARD API - CODE_ERROR 2", $mail_content);
@@ -108,11 +129,17 @@ for ($i=0;$i<count($fltr);$i++){
 	switch ($fltr[$i]){
 		case "countryname":
 			$FILTER_COUNTRY=true;
-			if (isset ($choose_country) && strlen($choose_country) != 0) add_clause($FG_TABLE_CLAUSE,"t1.destination $REG_EXP '$choose_country'");
+			if (isset ($choose_country) && strlen($choose_country) != 0){
+				add_clause($FG_TABLE_CLAUSE,"t1.destination $REG_EXP '$choose_country'");
+				$current_page=0; 
+			}
 		break;
 		case "prefix":
 			$FILTER_PREFIX=true;
-			if (isset ($searchpre) && strlen($searchpre) != 0) add_clause($FG_TABLE_CLAUSE,"t1.dialprefix $REG_EXP '^$searchpre'");
+			if (isset ($searchpre) && strlen($searchpre) != 0){
+				add_clause($FG_TABLE_CLAUSE,"t1.dialprefix $REG_EXP '^$searchpre'");
+				$current_page=0; 
+			}
 		break;
 	}
 }
@@ -131,10 +158,10 @@ if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
 		add_clause($FG_TABLE_CLAUSE,"t4.id = '$ratecardid' AND t1.idtariffplan = t4.id");
 	}
 }
+
 if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
 	$nb_display_lines=100;
 	$FG_LIMITE_DISPLAY=$nb_display_lines;
-	$current_page=0;
 }
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
@@ -170,7 +197,7 @@ $FG_COL_QUERY='DISTINCT '.$field_to_display;
 
 
 $FG_TABLE_DEFAULT_ORDER = $field[0];
-$FG_TABLE_DEFAULT_SENS = "DESC";
+$FG_TABLE_DEFAULT_SENS = "ASC";
 	
 // The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=$nb_display_lines;
@@ -275,7 +302,7 @@ function Search(Source){
 			<?php for ($i=65;$i<=90;$i++) {
  				$x = chr($i);
 				if ($merge_form){
- 					echo "<a	href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a> ";
+ 					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a> ";
 				}else{
 					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url\">$x</a> ";
 				}

@@ -6,9 +6,12 @@
 Product Name: Rate Card Display API
 Product Technology: SOAP WebService
 
+
+
 1. INTRODUCTION
 
 Rate API is a Webservice that enable you to integrate it in your Website. and Display the Calling Rates for Different Countries.
+
 
 
 2. INSTALLATION
@@ -21,23 +24,57 @@ Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
  ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial&column_name=Destination,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 
 
+
+
 3. QUERY STRING PARAMETERS EXPLANATION
 
-   1) Key is API Security Key. You must change it in order to ensure security for your API.
-	  you can change your security key in the /etc/asterisk/a2billing.conf in the webui section.
-   2) page_url is the URL of your Page in which you are calling this API.
-   3) field_to_display is List of Fields, that you want to display in your page.
-   4) column_name is the List of Names of Columns.
-   5) css_url This Field help you to set the CSS for the Information that this API will Display.
-   6) ratecardid- It is the ID of the Rate Card if you want to dispaly only a sigle ratecard.
-   7) nb_display_lines- It is maximum lines per page.
-   8) filter (coutryname,prefix)
-   9) prefix_select- i.e 32 only prefix start by 32
-   10) currency_select currency code i.e USD
-   11) merge_form (0 or 1) 1 for merge form search and 1 seaparated search form by default 0
-   12) fullhtmlpage (0 or 1) 1 to show the html header in the page
-	if not we will advice to add the css in your html page to display nicely the ratecard : 
-	add : <link href="http://a2billingserver/api/api_ratecard.css" rel="stylesheet" type="text/css">
+   1) Key 
+   		this is API Security Key. You must change it in order to ensure security for your API.
+	  	you can change your security key in the /etc/asterisk/a2billing.conf in the webui section.
+		
+   2) page_url 
+   		this is the URL of your Page in which you are calling this API.
+		page_url=http://localhost/myrates.php
+		
+   3) field_to_display :
+   		this is List of Fields, that you want to display in your page.
+		ie, t1.destination,t1.dialprefix,t1.rateinitial
+		
+   4) column_name 
+   		this is the List of Names of Columns according to the field to display.
+   		column_name=Destination,Prefix,Rate/Min
+		
+   5) css_url 
+   		You can change the design by setting your own css 
+		
+   6) ratecardid
+		this is the ID of the Rate Card if you want to dispaly only a single ratecard.
+		
+   7) nb_display_lines
+   		this is maximum lines per page.
+		
+   8) filter 
+   		the value of filter can be those both, empty or just one of them : "coutryname,prefix" 
+		it will display the country selection dropbox and the input for for prefix
+		
+   9) prefix_select
+   		i.e 32 only prefix start by 32
+		
+   10) currency_select 
+   		currency code i.e USD
+		
+   11) merge_form 
+   		value accepted : 0 or 1
+		1 for merge form search and 1 seaparated search form by default 0
+		
+   12) fullhtmlpage 
+   		value accepted : 0 or 1 
+		1 will show the html header in the page
+		if not we will advice to add the css in your html page to display nicely the ratecard : 
+		add : <link href="http://a2billingserver/api/api_ratecard.css" rel="stylesheet" type="text/css">
+
+
+
 
 4. TROUBLESHOOTING
 
