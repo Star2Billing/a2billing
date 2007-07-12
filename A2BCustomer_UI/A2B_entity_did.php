@@ -48,11 +48,15 @@ if (isset($choose_did_rate) && strlen($choose_did_rate)!=0){
 	$rate=$did_rate[1];
 }
 
-$QUERY = "SELECT credit FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT credit, creditlimit, typepaid	FROM cc_card	WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 $DBHandle_max  = DbConnect();
 $resmax = $DBHandle_max -> Execute($QUERY);
-if ($resmax)
-	$user_credit = $resmax -> fetchRow();
+if ($resmax) {
+	$row = $resmax -> fetchRow();
+	$user_credit = $row[0];
+	$user_creditlimit = $row[1];
+	$user_typepaid = $row[2];
+}
 
 /*************************************************************/
 /*           releese the choosen did                        */
@@ -120,7 +124,7 @@ if (!isset($action_release) || $action_release=="confirm_release" || $action_rel
 
 	if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
 	{
-		if ($rate <= $user_credit[0]) $confirm_buy_did = 2;
+		if ($rate <= $user_credit || ($user_typepaid == 1 && $rate <= $user_credit + $user_creditlimit)) $confirm_buy_did = 2;
 		else $confirm_buy_did = 0;
 	} else 
 	{   
@@ -135,7 +139,7 @@ if (!isset($action_release) || $action_release=="confirm_release" || $action_rel
 
 		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 		if ($confirm_buy_did == 2){			
-			$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype,id_cc_did) VALUES ('".$_SESSION["card_id"]."', '".$rate."', '2','".$choose_did."')";
+			$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ('".$_SESSION["card_id"]."', '".$rate."', '2','".$choose_did."','".strtoupper(BASE_CURRENCY)."')";
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);	
 			
 			$QUERY1 = "UPDATE cc_did set iduser = ".$_SESSION["card_id"].",reserved=1 where id = '".$choose_did."'" ;
@@ -622,7 +626,7 @@ echo gettext("VOIP CALL : ");?> <?php echo gettext("Yes");?><input class="form_e
 				<td colspan="2" height="40">
 					<?php
 					if ($confirm_buy_did == 2) {?><center><font color="black"><?php echo gettext("The purchase of the DID is done ")?> </font></center>
-					<?php }else {?><center><font color="red"><?php echo "<br>".gettext("The purchase of the DID cant be done, your credit of  ").number_format($user_credit[0],2,".",",")." ".BASE_CURRENCY.gettext(" is lower than Fixerate of the DID  ").number_format($rate,2,".",",")." ".BASE_CURRENCY." </br> <hr>".gettext("Please reload your account ");?> </font></center>
+					<?php }else {?><center><font color="red"><?php echo "<br>".gettext("The purchase of the DID cant be done, your credit of  ").number_format($user_credit,2,".",",")." ".BASE_CURRENCY.gettext(" is lower than Fixerate of the DID  ").number_format($rate,2,".",",")." ".BASE_CURRENCY." </br> <hr>".gettext("Please reload your account ");?> </font></center>
 				<?php } ?></td>
 			</tr>
 			<INPUT type="hidden" name="choose_did_rate" value="">
