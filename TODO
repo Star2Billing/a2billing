@@ -28,8 +28,8 @@ If the call fails over each of the successive attempts will add the correct pref
 ********************************************************************
 - we need a parameter to define the server_GMT
 - when creating a customer we need to have it as default on GMT+0
-- for signup module it can be managed with a right definition in the sql
-- call-history.php on customer dont have any GMT support on it
+	* for signup module it can be managed with a right definition in the sql
+- CustomerUI : call-history.php on customer dont have any GMT support on it
 
 
 #### CONFIGURATION
