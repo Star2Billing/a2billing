@@ -100,8 +100,13 @@ foreach ($result as $myservice) {
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Service : ".$myservice[1]." ]");
 	
 	if ($verbose_level>=1) echo "------>>>   TIME STAMP $datewish < $timestamp_lastsend \n";		
+	
+	// 1 -> APPLY SERVICE IF NOT USED IN THE LAST X DAYS
+	// 2 -> APPLY SERVICE IF CARD HAS BEEN USED IN THE LAST X DAYS
+	
 	// Comment if you dont wish to check time of the service running - testing
-	 if ($myservice[4]!=3)  if ($datewish < $timestamp_lastsend){        write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Service in the Date range : not to run ]"); continue; }
+	// we will apply the service only if there is a laps of X days 
+	if ($myservice[4]!=3)  if ($datewish < $timestamp_lastsend){        write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Service in the Date range : not to run ]"); continue; }
 
 
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Service analyze cards on which to apply service ]");
@@ -168,8 +173,8 @@ foreach ($result as $myservice) {
 			// CHECK if CREDIT <= 0 && STOPMODE Account balance below zero
 			if ( $mycard[1]<=0 && $myservice[6]==1 ) continue;
 			
-			
-			$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit=credit-'".$myservice[2]."' WHERE id=".$mycard[0];	
+			// UPDATE THE CARD CREDIT AND SERVICE LAST RUN
+			$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit=credit-'".$myservice[2]."', servicelastrun=now() WHERE id=".$mycard[0];	
 			$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 			if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 			$totalcardperform ++;

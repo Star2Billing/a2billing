@@ -3,6 +3,11 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+file a2billing_batch_process.php
+$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card WHERE firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1 ORDER BY id  ";
+servicelastrun, it s not updated !
+
+
 #### BUG : choose language
 ********************************************************************
 problem on calling card language selection. once select 1 or 2 or 3 in the language selection IVR, it dropped rightaway. 
@@ -22,6 +27,11 @@ When dialing 0123456789 the call is presented to trunk #1 as it should be:
 If the call fails over each of the successive attempts will add the correct prefix, but not remove the desired digits:
 88890123456789
 
+
+
+#### MASS MAIL FEATURE
+********************************************************************
+option to let send an email to all the a2billing user
 
 
 #### GMT

@@ -1113,7 +1113,7 @@ class A2Billing {
 								$agi-> stream_file($prompt, '#');
 								continue;
 							}
-								 
+							
 							if (($RateEngine->dialstatus == "NOANSWER") || ($RateEngine->dialstatus == "CANCEL") || ($RateEngine->dialstatus == "BUSY") || ($RateEngine->dialstatus == "CHANUNAVAIL") || ($RateEngine->dialstatus == "CONGESTION")) continue;
 								
 							// INSERT CDR  & UPDATE SYSTEM
@@ -1146,7 +1146,7 @@ class A2Billing {
      *  @param float $credit
      *  @return nothing
 	**/
-	function fct_say_balance ($agi, $credit, $fromvoucher){
+	function fct_say_balance ($agi, $credit, $fromvoucher = 0){
 		
 		global $currencies_list;
 		
