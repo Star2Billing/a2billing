@@ -31,7 +31,7 @@ if ($form_action == 'add'){
 
 	if ($do_gzip){
 		// Compress file
-		$run_gzip = GZIP_EXE." ".$backup_file;
+		$run_gzip = GZIP_EXE." '$backup_file'";
 		if ($FG_DEBUG == 1 ) echo $run_gzip."<br>";
 		exec($run_gzip);
 	}
