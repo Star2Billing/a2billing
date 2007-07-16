@@ -71,6 +71,8 @@ class paypal {
 							   tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
 							   tep_draw_hidden_field('item_name', STORE_NAME) .
 							   tep_draw_hidden_field('rm', '2') .
+							   tep_draw_hidden_field('LC', 'US') .
+							   tep_draw_hidden_field('country', 'USA') .
 							   tep_draw_hidden_field('no_shipping', '1') .
 							   tep_draw_hidden_field('PHPSESSID', session_id()) .
 							   tep_draw_hidden_field('amount', number_format($order->info['total'], $currencyObject->get_decimal_places($my_currency))) .
