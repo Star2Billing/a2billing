@@ -3,10 +3,6 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-file a2billing_batch_process.php
-$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card WHERE firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1 ORDER BY id  ";
-servicelastrun, it s not updated !
-
 
 #### BUG : choose language
 ********************************************************************
