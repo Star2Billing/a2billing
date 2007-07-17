@@ -12,12 +12,12 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 // TODO Integrate a generic LIST to Framework
 
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "9%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("TITLE"), "group_title", "25%", "center");
+$HD_Form -> AddViewElement(gettext("ID"), "id", "8%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("TITLE"), "group_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "group_description", "60%", "left");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id, group_title, group_description', 0);
+$HD_Form -> FieldViewElement ('id, group_title, group_description');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -27,6 +27,12 @@ $HD_Form -> FG_LIMITE_DISPLAY = 15;
 
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
+
+// View Details
+$HD_Form -> FG_OTHER_BUTTON1 = true;
+$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_config.php?id=|param|";
+$HD_Form -> FG_OTHER_BUTTON1_ALT = 'DETAILS';
+
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';

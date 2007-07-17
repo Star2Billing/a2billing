@@ -103,7 +103,7 @@ function Check()
 				<?php 
 				foreach($list_total_groups as $groupname){
 				?>
-				<option value="<?php echo $groupname[0]?>" <?php if($groupselect == $groupname[0]) echo "selected"?>><?php echo $groupname[1]?></option>
+				<option value="<?php echo $groupname[0]?>" <?php if($groupselect == $groupname[0] || $id == $groupname[0]) echo "selected"?>><?php echo $groupname[1]?></option>
 				<?php 
 				}
 				?>
@@ -118,7 +118,7 @@ function Check()
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 					  <td class="fontstyle_searchoptions">					<div align="center"><span class="bgcolor_005">
-				      <input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
+				      <input type="image"  name="image16" align="left" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
 				        </span> </div></td>
 					</tr>
 					</table>

@@ -14,6 +14,10 @@ if($groupselect!= "")
 {
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
 }
+if($id != "")
+{
+	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$id;
+}
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");

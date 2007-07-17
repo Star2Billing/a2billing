@@ -1034,7 +1034,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 								$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
 								$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
 								$record_display = $FG_TABLE_COL[$i][10];
-								for ($l=1;$l<=count($field_list_sun);$l++){													$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
+								for ($l=1;$l<=count($field_list_sun);$l++){	$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
 								}
 							}elseif ($FG_TABLE_COL[$i][6]=="list"){
 									$select_list = $FG_TABLE_COL[$i][7];

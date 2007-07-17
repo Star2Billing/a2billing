@@ -261,8 +261,6 @@ if ($FG_DEBUG >= 1) var_dump ($list);
 
 }//end IF nodisplay
 
-
-
 if ($nb_record<=$FG_LIMITE_DISPLAY){ 
 	$nb_record_max=1;
 }else{ 
@@ -552,14 +550,14 @@ echo $CC_help_balance_customer;
                 <TR> 
                   <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG
                               height=1 
-                              src="<?php echo Images_Path_Main ?>/clear.gif" 
-                              width=1></TD>
+                              src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
                 </TR>
 				<?php
 					  
 				  	 $ligne_number=0;					 
 				  	 foreach ($list as $recordset){ 
 						 $ligne_number++;
+						 $recordset[0] = display_GMT($recordset[0], $_SESSION["gmtoffset"], 1);
 				?>
 				
                		 <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'"> 
@@ -570,7 +568,6 @@ echo $CC_help_balance_customer;
 						  
 						<?php 				
 							if ($FG_TABLE_COL[$i][6]=="lie"){
-
 									$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
 									$sub_clause = str_replace("%id", $recordset[$i], $FG_TABLE_COL[$i][9]);																																	
 									$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
@@ -600,11 +597,11 @@ echo $CC_help_balance_customer;
 							
 				 		 ?>
                  		 <TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php 
-						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
+                 		 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 		call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
-						 		echo stripslashes($record_display);
-						 }						 
+									echo stripslashes($record_display);
+							 }						 
 						 ?></TD>
 				 		 <?php  } ?>
                   
