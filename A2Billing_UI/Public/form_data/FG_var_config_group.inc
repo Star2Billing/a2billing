@@ -30,7 +30,7 @@ $HD_Form -> FG_DELETION = false;
 
 // View Details
 $HD_Form -> FG_OTHER_BUTTON1 = true;
-$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_config.php?id=|param|";
+$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_config.php?groupselect=|param|";
 $HD_Form -> FG_OTHER_BUTTON1_ALT = 'DETAILS';
 
 

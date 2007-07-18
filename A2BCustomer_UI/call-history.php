@@ -564,8 +564,6 @@ echo $CC_help_balance_customer;
 						<TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY.".&nbsp;"; ?></TD>
 							 
 				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ ?>
-						
-						  
 						<?php 				
 							if ($FG_TABLE_COL[$i][6]=="lie"){
 									$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
