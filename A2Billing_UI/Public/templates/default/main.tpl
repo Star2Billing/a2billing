@@ -30,7 +30,7 @@
 	{if ($ACXCUSTOMER > 0) }
 	<div class="toggle_menu">
 	<li>
-	<a href="#" class="toggle_menu" target="_self"><img id="img1"  
+	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"  
 	{if ($section == "1")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -64,7 +64,7 @@
 		
 	{if ($ACXBILLING > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img2" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2" 
 	{if ($section =="2")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -101,7 +101,7 @@
 	
 	{if ($ACXRATECARD > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img3" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3" 
 	{if ($section =="3")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -132,7 +132,7 @@
 	
 	{if ($ACXPACKAGEOFFER > 0)}	
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img3_3" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_3" 
 	{if ($section =="3_3")}	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -158,7 +158,7 @@
 	
 	{if ($ACXOUTBOUNDCID > 0)}	
 	<div class="toggle_menu">	
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img3_5" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_5" 
 	{if ($section =="3_5")}	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -185,7 +185,7 @@
 	
 	{if ($ACXTRUNK > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img4"  
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img4"  
 	{if ($section =="4")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -211,7 +211,7 @@
 	
 	{if ($ACXDID > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img41"  
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img41"  
 	{if ($section == "5")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -243,7 +243,7 @@
 	
 	{if ($ACXCALLREPORT > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img5" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img5" 
 	{if ($section == "6")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -270,7 +270,7 @@
 	
 	{if ($ACXINVOICING > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img2" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2" 
 	{if ($section =="13")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -299,7 +299,7 @@
 	
 	{if ($ACXCRONTSERVICE  > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img9" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img9" 
 	{if ($section =="7")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -329,7 +329,7 @@
 	
 	{if ($ACXCALLBACK  > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img10" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img10" 
 	{if ($section =="12")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -358,7 +358,7 @@
 
 	{if ($ACXMISC  > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img6" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img6" 
 	{if ($section =="8")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -387,7 +387,7 @@
 	
 	{if ($ACXADMINISTRATOR  > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img7" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img7" 
 	{if ($section =="10")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -417,7 +417,7 @@
 	
 	{if ($ACXFILEMANAGER  > 0)}
 	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img8" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8" 
 	{if ($section == "11")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}

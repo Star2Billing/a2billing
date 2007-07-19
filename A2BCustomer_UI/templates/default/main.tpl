@@ -57,7 +57,7 @@
 		{if $A2Bconfig.webcustomerui.invoice==1 }
 		<div class="toggle_menu">
 		<li>
-		<a href="#" class="toggle_menu" target="_self"><img id="img1"  
+		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"  
 		{if ($section == "4")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
 		{else}
