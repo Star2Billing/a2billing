@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax','message'));
+getpost_ifset(array('id', 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode','id_timezone', 'phone', 'fax','message'));
 
 
 $HD_Form = new FormHandler("cc_card","Card");
@@ -80,7 +80,16 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   gettext("Insert the zipcode"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-
+$HD_Form -> AddEditElement (gettext("TIMEZONE"),
+			   "id_timezone",
+			   '',
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_timezone",
+			   "gmtzone, id",
+			   "", "", "%1", "", "", "", "" );
+			   
 $HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
 			   "phone",			
 			   '$value',	
@@ -100,7 +109,7 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   gettext("Insert the fax number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode, phone,'.
+$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode,id_timezone, phone,'.
 'fax');
 
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily update your information clicking on the button.");
