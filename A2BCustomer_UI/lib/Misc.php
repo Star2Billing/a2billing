@@ -7,7 +7,6 @@
  ****************************************************************************/
 
 
-
 /* 
  * get_currencies 
  */
@@ -164,7 +163,6 @@ function display_dateonly($mydate)
  * function res_display_dateformat
  */
 function res_display_dateformat($mydate){
-	
 	if (DB_TYPE == "mysql"){			
 		if (strlen($mydate)==14){
 			// YYYY-MM-DD HH:MM:SS 20300331225242
@@ -172,8 +170,7 @@ function res_display_dateformat($mydate){
 			$res.= ' '.substr($mydate,8,2).':'.substr($mydate,10,2).':'.substr($mydate,12,2);				
 			return $res;
 		}
-	}	
-	
+	}
 	return $mydate;			
 }
 
@@ -181,44 +178,44 @@ function res_display_dateformat($mydate){
  * function display_minute
  */
 function display_minute($sessiontime){
-		global $resulttype;
-		if ((!isset($resulttype)) || ($resulttype=="min")){  
-				$minutes = sprintf("%02d",intval($sessiontime/60)).":".sprintf("%02d",intval($sessiontime%60));
-		}else{
-				$minutes = $sessiontime;
-		}
-		echo $minutes;
+	global $resulttype;
+	if ((!isset($resulttype)) || ($resulttype=="min")){  
+			$minutes = sprintf("%02d",intval($sessiontime/60)).":".sprintf("%02d",intval($sessiontime%60));
+	}else{
+			$minutes = $sessiontime;
+	}
+	echo $minutes;
 }
 
 function display_2dec($var){		
-		echo number_format($var,2);
+	echo number_format($var,2);
 }
 
 function display_2dec_percentage($var){	
-		if (isset($var))
-		{	
-			echo number_format($var,2)."%";
-		}else
-		{
-			echo "n/a";
-		}
+	if (isset($var))
+	{	
+		echo number_format($var,2)."%";
+	}else
+	{
+		echo "n/a";
+	}
 }
 
 function display_2bill($var, $currency = BASE_CURRENCY){	
-		global $currencies_list, $choose_currency;
-		if (isset($choose_currency) && strlen($choose_currency)==3) $currency=$choose_currency;
-		if ( (!isset($currencies_list)) || (!is_array($currencies_list)) ) $currencies_list = get_currencies();
-		$var = $var / $currencies_list[strtoupper($currency)][2];
-		echo number_format($var,3).' '.$currency;
+	global $currencies_list, $choose_currency;
+	if (isset($choose_currency) && strlen($choose_currency)==3) $currency=$choose_currency;
+	if ( (!isset($currencies_list)) || (!is_array($currencies_list)) ) $currencies_list = get_currencies();
+	$var = $var / $currencies_list[strtoupper($currency)][2];
+	echo number_format($var,3).' '.$currency;
 }
 
 function remove_prefix($phonenumber){
-		
-		if (substr($phonenumber,0,3) == "011"){
-					echo substr($phonenumber,3);
-					return 1;
-		}
-		echo $phonenumber;
+	
+	if (substr($phonenumber,0,3) == "011"){
+		echo substr($phonenumber,3);
+		return 1;
+	}
+	echo $phonenumber;
 }
 
 /*
@@ -419,6 +416,7 @@ function printPages($page, $pages, $url, $max_width = 20) {
 		}
 	}
 }
+
 /**
 * Validate the Uploaded Files.  Return the error string if any.
 * @param $the_file the file to validate
@@ -427,23 +425,24 @@ function printPages($page, $pages, $url, $max_width = 20) {
 function validate_upload($the_file, $the_file_type) {
 
 	$registered_types = array(
-                                        "application/x-gzip-compressed"         => ".tar.gz, .tgz",
-                                        "application/x-zip-compressed"          => ".zip",
-                                        "application/x-tar"                     => ".tar",
-                                        "text/plain"                            => ".html, .php, .txt, .inc (etc)",
-                                        "image/bmp"                             => ".bmp, .ico",
-                                        "image/gif"                             => ".gif",
-                                        "image/pjpeg"                           => ".jpg, .jpeg",
-                                        "image/jpeg"                            => ".jpg, .jpeg",
-                                        "image/png"                             => ".png",
-                                        "application/x-shockwave-flash"         => ".swf",
-                                        "application/msword"                    => ".doc",
-                                        "application/vnd.ms-excel"              => ".xls",
-                                        "application/octet-stream"              => ".exe, .fla (etc)",
-										"text/x-comma-separated-values"			=> ".csv"
-                                        ); # these are only a few examples, you can find many more!
+						"application/x-gzip-compressed"         => ".tar.gz, .tgz",
+						"application/x-zip-compressed"          => ".zip",
+						"application/x-tar"                     => ".tar",
+						"text/plain"                            => ".html, .php, .txt, .inc (etc)",
+						"image/bmp"                             => ".bmp, .ico",
+						"image/gif"                             => ".gif",
+						"image/pjpeg"                           => ".jpg, .jpeg",
+						"image/jpeg"                            => ".jpg, .jpeg",
+						"image/png"                             => ".png",
+						"application/x-shockwave-flash"         => ".swf",
+						"application/msword"                    => ".doc",
+						"application/vnd.ms-excel"              => ".xls",
+						"application/octet-stream"              => ".exe, .fla (etc)",
+						"text/x-comma-separated-values"			=> ".csv"
+						"text/csv"								=> ".csv"
+						); # these are only a few examples, you can find many more!
 
-	$allowed_types = array("text/plain", "text/x-comma-separated-values");
+	$allowed_types = array("text/plain", "text/x-comma-separated-values", "text/csv", "application/vnd.ms-excel");
 
 
 	$start_error = "\n<b>ERROR:</b>\n<ul>";
@@ -464,7 +463,7 @@ function validate_upload($the_file, $the_file_type) {
         {
  			if (!in_array($the_file_type,$allowed_types))
  			{
- 				$error .= "\n<li>".gettext("file type is not allowed")."\n<ul>";
+ 				$error .= "\n<li>".gettext("file type is not allowed").': '.$the_file_type."\n<ul>";
                 while ($type = current($allowed_types))
                 {
                     $error .= "\n<li>" . $registered_types[$type] . " (" . $type . ")</li>";
@@ -486,25 +485,26 @@ function validate_upload($the_file, $the_file_type) {
 
 } # END validate_upload
 
+
 function securitykey ($key, $data)
-	{
-		// RFC 2104 HMAC implementation for php.
-		// Creates an md5 HMAC.
-		// Eliminates the need to install mhash to compute a HMAC
-		// Hacked by Lance Rushing
-		
-		$b = 64; // byte length for md5
-		if (strlen($key) > $b) {
-			$key = pack("H*",md5($key));
-		}
-		$key  = str_pad($key, $b, chr(0x00));
-		$ipad = str_pad('', $b, chr(0x36));
-		$opad = str_pad('', $b, chr(0x5c));
-		$k_ipad = $key ^ $ipad ;
-		$k_opad = $key ^ $opad;
-		
-		return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
+{
+	// RFC 2104 HMAC implementation for php.
+	// Creates an md5 HMAC.
+	// Eliminates the need to install mhash to compute a HMAC
+	// Hacked by Lance Rushing
+	
+	$b = 64; // byte length for md5
+	if (strlen($key) > $b) {
+		$key = pack("H*",md5($key));
 	}
+	$key  = str_pad($key, $b, chr(0x00));
+	$ipad = str_pad('', $b, chr(0x36));
+	$opad = str_pad('', $b, chr(0x5c));
+	$k_ipad = $key ^ $ipad ;
+	$k_opad = $key ^ $opad;
+	
+	return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
+}
 
 /*
 	Function to show GMT DateTime.
@@ -533,4 +533,6 @@ function display_GMT($currDate, $number, $fulldate = 1)
 	}
 	return $gmdate;
 }
+
+
 ?>
