@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'id_didgroup', 'id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee', 'mac_addr', 'cardnumberlenght_list'));
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list'));
 
 
 $HD_Form = new FormHandler("cc_card","Card");
@@ -264,17 +264,6 @@ $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "cc_tariffgroup",
 			   "tariffgroupname, id",
 			   "", "", "%1", "", "");
-
-
-$HD_Form -> AddEditElement (gettext("SUBSCRIPTION FEE"),
-			   "id_subscription_fee",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_subscription_fee",
-			   "label, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
@@ -627,7 +616,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_subscription_fee, id_didgroup, id_campaign,'.
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
 'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
 'fax, sip_buddy, iax_buddy, mac_addr, inuse');

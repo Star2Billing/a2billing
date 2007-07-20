@@ -57,7 +57,10 @@ $instance_table = new Table();
 // SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
 
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE SERVICE
-$QUERY = 'SELECT count(*) FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1';
+//$QUERY = 'SELECT count(*) FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1';
+
+$QUERY = 'SELECT count(*) FROM cc_card_subscription JOIN cc_subscription_fee ON cc_card_subscription.id_subscription_fee=cc_subscription_fee.id'.
+ 		 ' WHERE cc_subscription_fee.status=1 AND startdate < NOW() AND (stopdate = "0000-00-00 00:00:00" OR stopdate > NOW())';
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
@@ -93,15 +96,6 @@ $oneday = 60*60*24;
 
 $currencies_list = get_currencies($A2B -> DBHandle);
 
-/*
-$amount_converted = convert_currency ($currencies_list, 1, 'USD', 'EUR');
-$amount_converted = convert_currency ($currencies_list, 1, 'MAD', 'EUR');
-$amount_converted = convert_currency ($currencies_list, 1, 'EUR', 'MAD');
-exit;*/
-
-
-// mail variable for user notification
-
 // BROWSE THROUGH THE SERVICES 
 foreach ($result as $myservice) {
 
@@ -110,14 +104,17 @@ foreach ($result as $myservice) {
 	$totalcredit_converted = 0;
 	
 	$myservice_id = $myservice[0];
+	$myservice_label = $myservice[1];
 	$myservice_fee = $myservice[2];
 	$myservice_cur = $myservice[3];
 	
-	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Subscription Fee Service analyze cards on which to apply service ]");
+	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Subscription Fee Service No".$myservice_id."  analyze cards on which to apply service ]");
 	// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
 	for ($page = 0; $page <= $nbpagemax; $page++) {
 		
-		$sql = "SELECT id, credit, currency, username, email FROM cc_card WHERE id_subscription_fee='$myservice_id' ORDER BY id ";
+		$sql = "SELECT cc_card.id, credit, currency, username, email, cc_card_subscription.description FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card ".
+			   "WHERE id_subscription_fee='$myservice_id' AND startdate < NOW() AND (stopdate = '0000-00-00 00:00:00' OR stopdate > NOW()) ORDER BY id ";
+
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
 			$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
 		}else{
@@ -139,17 +136,10 @@ foreach ($result as $myservice) {
 				if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 				
 				// ADD A CHARGE
-				$QUERY = "INSERT INTO cc_charge (id_cc_card, id_cc_subscription_fee, chargetype, amount, currency) ".
-						 "VALUES ('".$mycard[0]."', '$myservice_id', '3', '$amount_converted', '".strtoupper($mycard[2])."')";
+				$QUERY = "INSERT INTO cc_charge (id_cc_card, id_cc_subscription_fee, chargetype, amount, currency, description) ".
+						 "VALUES ('".$mycard[0]."', '$myservice_id', '3', '$amount_converted', '".strtoupper($mycard[2])."','".$mycard[5].' - '.$myservice_label."')";
 				$result_insert = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				if ($verbose_level>=1) echo "==> INSERT CHARGE QUERY=$QUERY\n";
-				
-				/* // INSERT REPORT IN cc_subscription_fee_card 
-				$QUERY = "INSERT INTO cc_subscription_fee_card (id_cc_card, id_cc_subscription_fee, fee, fee_converted, currency) ".
-						 "VALUES ('".$mycard[0]."', '$myservice_id', '$myservice_fee', '$amount_converted', '".strtoupper($mycard[2])."')";
-				$result_insert = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-				if ($verbose_level>=1) echo "==> INSERT SERVICE REPORT QUERY=$QUERY\n";
-				*/
 				
 				$totalcardperform ++;
 				$totalcredit += $myservice_fee;

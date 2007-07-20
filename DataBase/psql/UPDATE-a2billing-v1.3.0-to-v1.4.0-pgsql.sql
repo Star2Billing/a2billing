@@ -1,6 +1,20 @@
+CREATE TABLE cc_card_subscription (
+	id 								BIGSERIAL NOT NULL,
+	id_cc_card 						BIGINT DEFAULT 0 NOT NULL,
+	id_subscription_fee 			BIGINT DEFAULT 0 NOT NULL,
+    startdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    stopdate 						TIMESTAMP WITHOUT TIME ZONE,
+	description 					TEXT,
+	PRIMARY KEY (id)
+);
 
+ALTER TABLE ONLY cc_card_subscription
+    ADD CONSTRAINT cc_card_subscription_pkey PRIMARY KEY (id);
+
+ALTER TABLE cc_card DROP id_subscription_fee;
 
 ALTER TABLE cc_card ALTER COLUMN id_timezone INTEGER DEFAULT 0;
+
 
 CREATE TABLE cc_config (
   	id 								BIGSERIAL NOT NULL,

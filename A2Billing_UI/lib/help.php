@@ -797,6 +797,18 @@ $CC_help_list_subscription='<div class="toggle_show2hide">
 </div></div>
 ';
 
+$CC_help_list_subscriber='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/config-date.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("SUSCRIBER - You can make customers subscribe for any subscription and for a certain time.").'
+<br/><br/><br/>
+</div></div></div>
+</div></div>
+';
+
 $CC_help_server='<div class="toggle_show2hide">
 <a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 <div class="tohide" style="display:visible;">

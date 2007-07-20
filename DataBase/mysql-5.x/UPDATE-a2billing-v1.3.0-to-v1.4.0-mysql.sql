@@ -1,4 +1,14 @@
+CREATE TABLE cc_card_subscription (
+	id 								BIGINT NOT NULL AUTO_INCREMENT,
+	id_cc_card 						BIGINT ,
+	id_subscription_fee 			INT,
+    startdate 						TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    stopdate 						TIMESTAMP,
+	description 					MEDIUMTEXT,
+	PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+ALTER TABLE cc_card DROP id_subscription_fee;
 
 CREATE TABLE cc_config (
   	id 								INT NOT NULL auto_increment,

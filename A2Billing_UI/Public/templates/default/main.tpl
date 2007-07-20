@@ -320,6 +320,8 @@
 				<li><a href="A2B_entity_alarm.php?stitle=Alarm&form_action=ask-add&section=7">{php} echo gettext("Add Alarm");{/php}</a></li>
 				<li><a href="A2B_entity_subscription.php?stitle=Subscription&section=7">{php} echo gettext("List Subscription");{/php}</a></li>
 				<li><a href="A2B_entity_subscription.php?stitle=Subscription&form_action=ask-add&section=7">{php} echo gettext("Add Subscription");{/php}</a></li>
+				<li><a href="A2B_entity_subscriber.php?stitle=Subscriber&section=7">{php} echo gettext("List Suscriber");{/php}</a></li>
+				<li><a href="A2B_entity_subscriber.php?stitle=Subscriber&form_action=ask-add&section=7">{php} echo gettext("Add Suscriber");{/php}</a></li>				
 			</ul></li>
 		</ul>
 	</div>
