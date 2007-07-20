@@ -8,12 +8,12 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "10%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "15%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription_fee", "20%", "center", "sort", "15", "lie", "cc_subscription_fee", "label", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("DATESTART"), "startdate", "12%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DATESTOP"), "stopdate", "12%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "20%", "center", "sort");
-$HD_Form -> FG_ACTION_SIZE_COLUMN = '26%';
+$HD_Form -> AddViewElement(gettext("DATESTART"), "startdate", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DATESTOP"), "stopdate", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "20%", "center", "sort", "25");
+$HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('id_cc_card, id_subscription_fee, startdate, stopdate, description');
@@ -29,7 +29,7 @@ $HD_Form -> FG_DELETION = true;
 $comp_zero = $comp_date_plus='';
 if (isset($form_action) && $form_action=="ask-add"){
 	$begin_date = date("Y");
-	$begin_date_plus = date("Y")+10;
+	$begin_date_plus = date("Y")+30;
 	$end_date = date("-m-d H:i:s");
 	$comp_date = "value='".$begin_date.$end_date."'";
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
@@ -37,53 +37,53 @@ if (isset($form_action) && $form_action=="ask-add"){
 }
 
 $HD_Form -> AddEditElement (gettext("ID CARD"),
-	"id_cc_card",
-	'',
-	"POPUPVALUE",
-	"size=30 maxlength=50",
-	"4",
-	gettext("Insert the Id CardNumber"),
-	"" , "", "", "", "",
-	"A2B_entity_card.php?popup_select=1&"
-	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
-	gettext("Set the card number ID."));
+				"id_cc_card",
+				'',
+				"POPUPVALUE",
+				"size=30 maxlength=50",
+				"4",
+				gettext("Insert the Id CardNumber"),
+				"" , "", "", "", "",
+				"A2B_entity_card.php?popup_select=1&"
+				, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
+				gettext("Set the card number ID."));
 		
 $HD_Form -> AddEditElement (gettext("ID SUBSCRIPTION"),
-			  "id_subscription_fee",
-			  "",
-			  "SELECT",
-			  "", "", "",
-			  "sql",
-			  "cc_subscription_fee",
-			  "label, id",
-			  "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+				"id_subscription_fee",
+				"",
+				"SELECT",
+				"", "", "",
+				"sql",
+				"cc_subscription_fee",
+				"label, id",
+				"", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 $HD_Form -> AddEditElement (gettext("START DATE"),
-			   "startdate",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=40  $comp_date_plus",
-			   "10",
-			   gettext("Insert the start date"),
-			   "" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+				"startdate",
+				'$value',
+				"INPUT",
+				"size=40 maxlength=40  $comp_date",
+				"10",
+				gettext("Insert the start date"),
+				"" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 	
 $HD_Form -> AddEditElement (gettext("STOP DATE"),
-			   "stopdate",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=40  $comp_date_plus",
-			   "10",
-			   gettext("Insert the stop date"),
-			   "" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+				"stopdate",
+				'$value',
+				"INPUT",
+				"size=40 maxlength=40  $comp_date_plus",
+				"10",
+				gettext("Insert the stop date"),
+				"" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 		
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
-			"description",
-			'$value',
-			"INPUT",
-			"size=30 maxlength=30",
-			"0",
-			gettext("Enter the description of this subscription"),
-			"" , "", "", "", "", "" , "NO-NULL", "");
+				"description",		
+				'',	
+				"TEXTAREA",	
+				"cols=50 rows=4",	
+				"",	
+				gettext("Enter the description of this subscription"),
+				"" , "", "",	"", "" , "", "", "");
 
 $HD_Form -> FieldEditElement ('id_cc_card, id_subscription_fee, startdate, stopdate, description');
 
@@ -111,4 +111,5 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
 ?>
