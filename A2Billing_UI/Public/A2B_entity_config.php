@@ -6,10 +6,9 @@ include ("./form_data/FG_var_config.inc");
 include ("../lib/smarty.php");
 
 if (! has_rights (ACX_MISC)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 /***********************************************************************************/
@@ -56,13 +55,10 @@ function go(URL)
 {
 	if ( Check() )
 	{
-		
 		document.searchform.action = URL;		
 		alert(document.searchform.action);
 		document.searchform.submit();
-
 	}
-		
 }	
 
 function Check()
@@ -81,6 +77,7 @@ function Check()
 </script>
 <form name="searchform" id="searchform" method="post" action="A2B_entity_config.php">
 <input type="hidden" name="searchenabled" value="yes">
+<input type="hidden" name="posted" value="1">
 
 <table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>			
