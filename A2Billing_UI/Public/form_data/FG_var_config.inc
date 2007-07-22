@@ -15,6 +15,9 @@ if (isset($posted) && $groupselect!= ""){
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }else{
+	if (isset($posted)){
+		$_SESSION['ss_groupselect'] = '';
+	}
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect'];
 }
 
