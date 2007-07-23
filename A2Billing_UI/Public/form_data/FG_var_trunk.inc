@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select'));
+getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use'));
 
 
 $HD_Form = new FormHandler("cc_trunk","trunk");
@@ -10,6 +10,14 @@ $HD_Form -> FG_TABLE_ID = " id_trunk";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " id_trunk";
 $HD_Form -> FG_EDITION_CLAUSE = " id_trunk='%id' ";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
+
+$actived_list = array();
+$actived_list["0"] = array( gettext("Inactive"), "0");
+$actived_list["1"] = array( gettext("Active"), "1");
+
+$maxuse_behaviour_list = array();
+$maxuse_behaviour_list["0"] = array( gettext("Use failover trunk"), "0");
+$maxuse_behaviour_list["1"] = array( gettext("Use next trunk"), "1");
 
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
@@ -31,18 +39,20 @@ if ($popup_select)
 }
 else
 {
-	$HD_Form -> AddViewElement(gettext("LABEL"), "trunkcode", "15%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("ADD_PREFIX"), "trunkprefix", "7%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("REMOVE_PREFIX"), "removeprefix", "7%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("TECH"), "providertech", "7%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("IP/HOST"), "providerip" , "15%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("PROVIDER"), "id_provider" ,"10%", "center", "sort", "15", "lie", "cc_provider", "provider_name", "id='%id'", "%1");
-	$HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+	$HD_Form -> AddViewElement(gettext("LABEL"), "trunkcode", "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("ADD_PREFIX"), "trunkprefix", "6%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("REMOVE_PREFIX"), "removeprefix", "6%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("TECH"), "providertech", "6%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("IP/HOST"), "providerip" , "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("PROVIDER"), "id_provider" ,"9%", "center", "sort", "15", "lie", "cc_provider", "provider_name", "id='%id'", "%1");
+	$HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "%9", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
+	$HD_Form -> AddViewElement(gettext("MAXUSE"), "maxuse" , "5%", "center", "sort");
 
-	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal');
+	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse');
 }
 
-$HD_Form -> FG_ACTION_SIZE_COLUMN = '20%';
+$HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
@@ -143,8 +153,44 @@ $HD_Form -> AddEditElement (gettext("FAILOVER TRUNK"),
 	"trunkcode, id_trunk",
 	"", "", "%1", "", gettext("You can define an other trunk in case of failover!"), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
 
+$HD_Form -> AddEditElement (gettext("CURRENT CONNECTIONS"),
+	"inuse",
+	"",
+	"INPUT",
+	"size=30 maxlength=30",
+	"12",
+	gettext("Number of current connections"),
+	"" , "", "", "", "", "", "", gettext("Define the number of use of this trunk. If a non-standard stop of the application occurs it maybe that the trunk is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this trunk.") );
 
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk');
+$HD_Form -> AddEditElement (gettext("MAXIMUM CONNECTIONS"),
+	"maxuse",
+	"",
+	"INPUT",
+	"size=30 maxlength=30",
+	"12",
+	gettext("Number of maximum simultaneous connections"),
+	"" , "", "", "", "", "", "", gettext("Define the number of simultaneous connections on this trunk. Set to -1 in order to have an unlimited number of connections") );
+
+$HD_Form -> AddEditElement ("IFMAXUSED",
+	"if_max_use",
+	'$value',
+	"SELECT",
+	"",
+	"",
+	gettext("Define the behaviour when the maximum of connections is reached"),
+	"list" , "", "", "", $maxuse_behaviour_list, "%1" , "", gettext("Specifies which trunk to use when the maximum number of connections is reached"));
+	
+$HD_Form -> AddEditElement ("STATUS",
+	"status",
+	'$value',
+	"SELECT",
+	"",
+	"",
+	gettext("Define if this trunk is active or not"),
+	"list" , "", "", "", $actived_list, "%1" , "", "");
+
+
+$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status');
 
 
 if (DB_TYPE == "postgres"){

@@ -1,3 +1,11 @@
+
+
+ALTER TABLE cc_trunk ADD COLUMN inuse INT DEFAULT 0;
+ALTER TABLE cc_trunk ADD COLUMN maxuse INT DEFAULT -1;
+ALTER TABLE cc_trunk ADD COLUMN status INT DEFAULT 1;
+ALTER TABLE cc_trunk ADD COLUMN if_max_use INT DEFAULT 0;
+
+
 CREATE TABLE cc_card_subscription (
 	id 								BIGINT NOT NULL AUTO_INCREMENT,
 	id_cc_card 						BIGINT ,
@@ -8,7 +16,11 @@ CREATE TABLE cc_card_subscription (
 	PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+
 ALTER TABLE cc_card DROP id_subscription_fee;
+
+ALTER TABLE cc_card ADD COLUMN id_timezone INT DEFAULT 0;
+
 
 CREATE TABLE cc_config (
   	id 								INT NOT NULL auto_increment,
@@ -235,8 +247,8 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('IVR Voucher Refill', 'ivr_voucher', 'NO', 'enable the option to refill card with voucher in IVR (values : YES - NO) .',1 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('IVR Voucher Prefix', 'ivr_voucher_prefix', '8', 'if ivr_voucher is active, you can define a prefix for the voucher number to refill your card, values : number - don''t forget to change prepaid-refill_card_with_voucher audio accordingly .',0 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('IVR Low Credit', 'jump_voucher_if_min_credit', 'NO', 'When the user credit are below the minimum credit to call min_credit jump directly to the voucher IVR menu  (values: YES - NO) .',1 , 11);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Dail Command Parms', 'dialcommand_param', '|60|HRrL(%timeout%:61000:30000)', 'More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.',0 , 11);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('SIP/IAX Dial Command Parms', 'dialcommand_param_sipiax_friend', '|60|HL(3600000:61000:30000)', 'by default (3600000  =  1HOUR MAX CALL).',0 , 11);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Dail Command Parms', 'dialcommand_param', '|60|HRgrL(%timeout%:61000:30000)', 'More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.',0 , 11);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('SIP/IAX Dial Command Parms', 'dialcommand_param_sipiax_friend', '|60|HRgrL(3600000:61000:30000)', 'by default (3600000  =  1HOUR MAX CALL).',0 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Outbound Call', 'switchdialcommand', 'NO', 'Define the order to make the outbound call<br>YES -> SIP/dialedphonenumber@gateway_ip - NO  SIP/gateway_ip/dialedphonenumber<br>Both should work exactly the same but i experimented one case when gateway was supporting dialedphonenumber@gateway_ip, So in case of trouble, try it out.',1 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Failover Retry Limit', 'failover_recursive_limit', '2', 'failover recursive search - define how many time we want to authorize the research of the failover trunk when a call fails (value : 0 - 20) .',0 , 11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) VALUES ('Max Time', 'maxtime_tocall_negatif_free_route', '5400', 'For free calls, limit the duration: amount in seconds  .',0 , 11);
@@ -334,5 +346,3 @@ INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL
 INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+12:00) Auckland, Wellington', 'GMT+1200', '43200');
 INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+12:00) Fiji, Kamchatka, Marshall Is.', 'GMT+12:00', '43200');
 INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES (NULL, '(GMT+13:00) Nuku alofa', 'GMT+13:00', '46800');
-
-ALTER TABLE cc_card ADD COLUMN id_timezone INT DEFAULT 0;

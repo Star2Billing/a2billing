@@ -730,7 +730,7 @@ class A2Billing {
 			$this -> fct_say_balance ($agi, $this->credit);
 			return -1;
 		}
-			
+	
 		//REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
 		if ($this->destination=='*1'){
 			$this->destination = $this->redial;

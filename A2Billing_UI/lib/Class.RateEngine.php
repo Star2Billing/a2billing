@@ -155,8 +155,15 @@ class RateEngine {
 		tp_trunk.addparameter AS tp_addparameter_trunk,
 		rt_trunk.addparameter AS rt_addparameter_trunk,
 		id_outbound_cidgroup,
-		freetimetocall_package_offer, freetimetocall, packagetype, billingtype, startday, id_cc_package_offer
-
+		freetimetocall_package_offer, freetimetocall, packagetype, billingtype, startday, id_cc_package_offer,
+		tp_trunk.status, 
+		rt_trunk.status,
+		tp_trunk.inuse, 
+		rt_trunk.inuse,
+		tp_trunk.maxuse, 
+		rt_trunk.maxuse,
+		tp_trunk.if_max_use, 
+		rt_trunk.if_max_use
 		
 		FROM cc_tariffgroup 
 		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id=$tariffgroupid
@@ -241,20 +248,26 @@ class RateEngine {
 		}
 	
 		
-		// 3) REMOVE THOSE THAT USE THE SAME TRUNK - MAKE A DISTINCT
+		// 3) REMOVE THOSE THAT USE THE SAME TRUNK - MAKE A DISTINCT 
+		//    AND THOSE THAT ARE DISABLED.
 		$mylistoftrunk = array();
 		for ($i=0;$i<count($result);$i++){
 			
-			if ($result[$i][34]==-1) $mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][29];
-			else $mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][34];
+			if ($result[$i][34]==-1) {
+				$status = $result[$i][51];
+				$mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][29];
+			} else {
+				$status = $result[$i][52];
+				$mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][34];
+			}			
 			
-			
-			// Check if we already have the same trunk in the ratecard 
-			if ($i==0 || !in_array ($mycurrenttrunk , $mylistoftrunk)) {
+			// Check if we already have the same trunk in the ratecard 	
+			if (($i==0 || !in_array ($mycurrenttrunk , $mylistoftrunk)) && $status == 1) {
 				$distinct_result[] = $result[$i];			
 			}	
 			
-			$mylistoftrunk[]= $mycurrenttrunk;				
+			if ($status == 1)
+				$mylistoftrunk[]= $mycurrenttrunk;				
 		}	
 	
 		
@@ -880,6 +893,22 @@ class RateEngine {
 		}
 	}
 	
+	/*
+	 *	function would set when the trunk is used or when it release
+	 */
+	function trunk_start_inuse($agi, $A2B, $inuse){
+		
+		if ($inuse){
+			$QUERY = "UPDATE cc_trunk SET inuse=inuse+1 WHERE id_trunk='".$this -> usedtrunk."'";
+		}else{ 			
+			$QUERY = "UPDATE cc_trunk SET inuse=inuse-1 WHERE id_trunk='".$this -> usedtrunk."'";
+		}
+		
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[TRUNK STATUS UPDATE : $QUERY]");
+		if (!$this -> CC_TESTING) $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
+		
+		return 0;
+	}
 	
 	/*
 		RATE ENGINE - PERFORM CALLS
@@ -912,7 +941,10 @@ class RateEngine {
 			$failover_trunk	= $this -> ratecard_obj[$k][40+$usetrunk_failover];
 			$addparameter	= $this -> ratecard_obj[$k][42+$usetrunk_failover];
 			$cidgroupid		= $this -> ratecard_obj[$k][44];
-
+			$inuse 			= $this -> ratecard_obj[$k][53+$usetrunk_failover];
+			$maxuse 		= $this -> ratecard_obj[$k][55+$usetrunk_failover];
+			$ifmaxuse 		= $this -> ratecard_obj[$k][57+$usetrunk_failover];
+			
 			if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
 				$destination= substr($destination, strlen($removeprefix));
 				
@@ -947,10 +979,9 @@ class RateEngine {
 				}else{
 					$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
 				}
-			}	
-				
-				
-				
+			}
+			
+			
 			//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
 			if (strlen($addparameter)>0){
 				$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
@@ -973,8 +1004,7 @@ class RateEngine {
 			{
 				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
 			}
-		
-
+			
 			$A2B->instance_table = new Table();
 			$cidresult = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 			$outcid = 0;
@@ -986,17 +1016,32 @@ class RateEngine {
 			}
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "app_callingcard: CIDGROUPID='$cidgroupid' OUTBOUND CID SELECTED IS '$outcid'.");
 			
-			$myres = $agi->exec("Dial $dialstr");	
-    		//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
+			if ($maxuse == -1 || $inuse < $maxuse) {
+				// Count this call on the trunk
+				$this -> trunk_start_inuse($agi, $A2B, 1);
+							
+				$myres = $agi->exec("Dial $dialstr");	
+	    		//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
+				    		
+	    		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL $dialstr");
+									
+				// Count this call on the trunk
+				$this -> trunk_start_inuse($agi, $A2B, 0);
+			} else {
+				if ($ifmaxuse == 1) {
+					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use next trunk\n");
+					continue 1;
+				} else {
+					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use failover trunk\n");
+				}				
+			}			
 			
-			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL $dialstr");
-				
 			if ($A2B -> agiconfig['record_call'] == 1){
 				// Monitor(wav,kiki,m)					
 				$myres = $agi->exec("STOPMONITOR");
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$A2B->uniqueid."-".$A2B->cardnumber.")");
 			}
-				
+			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
 			$this->answeredtime = $answeredtime['data'];
 			$dialstatus = $agi->get_variable("DIALSTATUS");
@@ -1007,7 +1052,7 @@ class RateEngine {
 			
 			// LOOOOP FOR THE FAILOVER LIMITED TO failover_recursive_limit
 			$loop_failover = 0;
-			while ( $loop_failover <= $A2B->agiconfig['failover_recursive_limit'] && is_numeric($failover_trunk) && $failover_trunk>=0 && (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION")) ){
+			while ( $loop_failover <= $A2B->agiconfig['failover_recursive_limit'] && is_numeric($failover_trunk) && $failover_trunk>=0 && (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION") || ($inuse>=$maxuse && $maxuse!=-1)) ){
 				$loop_failover++;
 				$this->answeredtime=0;
 				$this -> usedtrunk = $failover_trunk;
@@ -1017,35 +1062,59 @@ class RateEngine {
 				
 				$destination=$old_destination;
 				
-				$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk FROM cc_trunk WHERE id_trunk='$failover_trunk'";
+				$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk, status, inuse, maxuse, if_max_use FROM cc_trunk WHERE id_trunk='$failover_trunk'";
 				$A2B->instance_table = new Table();
 				$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 				
 				
 				if (is_array($result) && count($result)>0){
-						
+					
 					//DO SELECT WITH THE FAILOVER_TRUNKID
-						
 					$prefix		= $result[0][0];
 					$tech 		= $result[0][1];
 					$ipaddress 	= $result[0][2];
 					$removeprefix 	= $result[0][3];
 					$next_failover_trunk = $result[0][4];
+					$status = $result[0][5];
+					$inuse = $result[0][6];
+					$maxuse = $result[0][7];
+					$ifmaxuse = $result[0][8];
+
+					// Check if we will be able to use this route:
+					//  if the trunk is activated and 
+					//  if there are less connection than it can support or there is an unlimited number of connections
+					// If not, use the next failover trunk or next trunk in list
+					if ($status == 0) {
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because it is disabled. Now use next trunk\n");
+						continue 2;
+					}
+
+					if ($maxuse!=-1 && $inuse >= $maxuse) {
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because maximum number of connections on this trunk is already reached.\n");
 						
-						
+						// use failover trunk
+						if ($ifmaxuse == 0) { 
+							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Now using its failover trunk\n");
+							continue 1;
+						} else {
+							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Now using next trunk\n");
+							continue 2;							
+						}						
+					}
+					
 					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 					
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 						
-					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
+					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0){
 						$destination= substr($destination, strlen($removeprefix));
-						
-									
+					}
+					
 					$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
-							
+					
 					if ($pos_dialingnumber !== false){					   
-						   $dialstr = "$tech/$ipaddress".$dialparams;
+						$dialstr = "$tech/$ipaddress".$dialparams;
 					}else{
 						if ($A2B->agiconfig['switchdialcommand'] == 1){
 							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
@@ -1054,12 +1123,17 @@ class RateEngine {
 						}
 					}	
 					
-					
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
 					
+					// Count this call on the trunk
+					$this -> trunk_start_inuse($agi, $A2B, 1);
+			
 					$myres = $agi->exec("DIAL $dialstr");
 					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL FAILOVER $dialstr");
-							
+					
+					// Count this call on the trunk
+					$this -> trunk_start_inuse($agi, $A2B, 0);
+			
 					$answeredtime = $agi->get_variable("ANSWEREDTIME");
 					$this->answeredtime = $answeredtime['data'];
 					$dialstatus = $agi->get_variable("DIALSTATUS");
