@@ -532,7 +532,7 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 
 $timezone_list = get_timezones();  
 foreach($timezone_list as $key => $cur_value) {
-	if(in_array(SERVER_GMT,$cur_value[])){
+	if(in_array(SERVER_GMT,$cur_value)){
 		$timezone_list[$key]  = array( $cur_value[2], $key." selected");
 	}else{
 		$timezone_list[$key]  = array( $cur_value[2], $key);
