@@ -509,6 +509,27 @@ function securitykey ($key, $data)
 /*
 	Function to show GMT DateTime.
 */	
+
+function get_timezones($handle = null)
+{
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	$QUERY =  "SELECT id, gmttime, gmtzone from cc_timezone order by id";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	
+	if (is_array($result)){
+		$num_cur = count($result);
+		for ($i=0;$i<$num_cur;$i++){
+			$timezone_list[$result[$i][0]] = array (1 => $result[$i][1], 2 => $result[$i][2]);
+		}
+	}
+	
+	return $timezone_list;
+}
+
+
 function display_GMT($currDate, $number, $fulldate = 1)
 {	
 	$date_time_array = getdate(strtotime($currDate));

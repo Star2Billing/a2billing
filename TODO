@@ -853,3 +853,8 @@ Check Call Report.
 
 Fix the generation of pdf avoid to use ob_* functions and generate the pdf to disk
 so we avoid the problem of php memory exausting.
+
+#### [LEFT MENUS OF ADMIN AND CUSTOMER UI]
+*******************************************************************
+While browsing Admin and customer ui on clicking menus, page move upward to the top.
+It should not move upward when someone want to open the menus.

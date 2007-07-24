@@ -6,7 +6,6 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list'));
 
-
 $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
@@ -59,7 +58,6 @@ $currency_list_r = array();
 $indcur=0;
 
 $currencies_list = get_currencies();
-
 foreach($currencies_list as $key => $cur_value) {
 	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
 	$currency_list_r[$key]  = array( $key, $cur_value[1]);
@@ -532,15 +530,22 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   gettext("Insert the zipcode"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
+$timezone_list = get_timezones();  
+foreach($timezone_list as $key => $cur_value) {
+	if($cur_value[1] == SERVER_GMT){
+		$timezone_list[$key]  = array( $cur_value[2], $key." selected");
+	}else{
+		$timezone_list[$key]  = array( $cur_value[2], $key);
+	}
+}
+
+
 $HD_Form -> AddEditElement (gettext("TIMEZONE"),
 			   "id_timezone",
 			   "",
 			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_timezone",
-			   "gmtzone, id",
-			   "", "", "%1", "", "", "", "" );
+			   "","","",
+			   "list" , "", "",	"", $timezone_list, "%1", "", "" );
 			   
 $HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
 			   "phone",			

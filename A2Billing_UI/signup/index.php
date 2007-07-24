@@ -46,7 +46,6 @@ $smarty->display('signup_header.tpl');
 
 
 
-
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
