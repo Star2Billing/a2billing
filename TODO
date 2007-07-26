@@ -66,15 +66,13 @@ We should get something like this at the end :
  
 2. When we click on a section, we can then edit, just as we can under list configuration, but you can only see the section you have clicked on.
  
-4. Beneath "List Global Config" we need a button call Add AGI-CONF - 
-this simply creates a standard agi-conf and calls it agi-conf2 (or 3 or 4 depending on how many have been created) 
-We will see the parameter from AGI-Conf-Base and be able to redefine and save the changes
+4. Beneath "List Global Config" we need a button call Add AGI-CONF - this simply creates a standard agi-conf and calls it agi-conf2 (or 3 or 4 depending on how many have been created) We will see the parameter from AGI-Conf-Base and be able to redefine and save the changes
  
 The new agi-conf-X can then be accessed via "List Global Config"
 this will do a SELECT of the AGI-Conf-Base and show the parameter that has been created
  
 5. Within each setting, where possible, the user should be restricted to valid values, e.g if the options are "yes" or "no" then there should be a dropdown that only allows "yes" or "no" and no other value is allowed.
- 	
+ 
  
 
 #### BUG : SIGNUP
