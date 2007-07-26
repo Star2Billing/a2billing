@@ -1,5 +1,5 @@
 <?php
-getpost_ifset(array('id', 'group_title', 'group_description'));
+getpost_ifset(array('id', 'group_title', 'group_description','agi_conf'));
 
 
 $HD_Form = new FormHandler("cc_config_group","configuration group");
@@ -9,8 +9,22 @@ $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
-// TODO Integrate a generic LIST to Framework
+// This will generate agi-confx 
+// agi-confx is duplication of Global configuration and list of configurations of : agi-conf1 
+if($agi_conf)
+{
+	add_agi_confx();
+	unset($agi_conf);
+}
 
+if($agi_conf_delelte && isset($id_agi)){
+	delete_agi_confx($id_agi);
+	unset($agi_conf_delelte);
+	unset($id_agi);
+}
+
+
+// TODO Integrate a generic LIST to Framework
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "8%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TITLE"), "group_title", "20%", "center");

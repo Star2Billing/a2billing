@@ -11,21 +11,22 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $HD_Form -> FG_TABLE_CLAUSE = "ccc.config_group_id =  ccg.id";
 
-if (isset($posted) && $groupselect!= ""){
+if (isset($posted) || $groupselect!= ""){
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
-}else{
+}
+/*else{
 	if (isset($posted)){
 		$_SESSION['ss_groupselect'] = '';
 	}
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect'];
 }
-
+*/
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");
-$HD_Form -> AddViewElement(gettext("VALUE"), "config_value", "20%", "center");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "config_description", "40%", "left");
+$HD_Form -> AddViewElement(gettext("VALUE"), "config_value", "10%", "center");
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "config_description", "30%", "left");
 $HD_Form -> AddViewElement(gettext("GROUP"), "group_title", "5%", "center");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
@@ -39,6 +40,13 @@ $HD_Form -> FG_LIMITE_DISPLAY = 25;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = false;
+
+//add list of values
+
+$HD_Form -> FG_OTHER_BUTTON2 = true;
+$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_config_listofvalues.php?form_action=ask-edit&id=|param|";
+$HD_Form -> FG_OTHER_BUTTON2_ALT = 'List values';
+
 
 $HD_Form -> FG_DISPLAY_SELECT = true;
 $HD_Form -> FG_SELECT_FIELDNAME = "config_listvalues";
@@ -91,7 +99,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "" , "", "", "");
 
 
-$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value, config_description');
+$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value ,config_description');
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";

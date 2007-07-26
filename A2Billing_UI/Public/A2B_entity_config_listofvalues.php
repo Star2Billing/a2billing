@@ -2,14 +2,13 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_config_group.inc");
+include ("./form_data/FG_var_config_listofvalues.inc");
 include ("../lib/smarty.php");
 
 if (! has_rights (ACX_MISC)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 /***********************************************************************************/
@@ -18,6 +17,7 @@ $HD_Form -> setDBHandler (DbConnect());
 
 
 $HD_Form -> init();
+
 
 if ($id!="" || !is_null($id)){
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
@@ -47,8 +47,6 @@ $HD_Form -> create_toppage ($form_action);
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
