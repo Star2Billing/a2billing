@@ -1,5 +1,5 @@
 <?php
-getpost_ifset(array('id', 'group_title', 'group_description'));
+getpost_ifset(array('id', 'group_title', 'group_description','agi_conf'));
 
 
 $HD_Form = new FormHandler("cc_config_group","configuration group");
@@ -10,7 +10,6 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 // TODO Integrate a generic LIST to Framework
-
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "8%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TITLE"), "group_title", "20%", "center");

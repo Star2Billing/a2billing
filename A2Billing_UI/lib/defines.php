@@ -240,5 +240,6 @@ $log = new Logger();
 $log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 $log = null;
 
-
+//Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
+define("LIST_OF_VALUES",true)
 ?>
