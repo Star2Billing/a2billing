@@ -84,7 +84,7 @@ if($forcustomer != "")
 				
 				$resdate = $instance_table -> SQLExec ($HD_Form ->DBHandle, $query_billdate);
 				if($verbose_level >= 2) print_r($resdate);
-				if (is_array($resdate) && count($resdate)>0 && $result[0][0] != "0001-01-01 00:01:00"){
+				if (is_array($resdate) && count($resdate)>0 && $resdate[0][0] != "0001-01-01 00:01:00"){
 					// Customer Last Invoice Date
 					$cover_startdate = $resdate[0][0];
 				} else {
