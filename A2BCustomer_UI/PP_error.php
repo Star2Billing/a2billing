@@ -42,5 +42,7 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 <br/><br/>
 
 <?php
+	if ($c == "accessdenied")
+		$smarty->display('index.tpl');
 	$smarty->display('footer.tpl');
 ?>

@@ -61,5 +61,7 @@ $error["ERR-0002"] = gettext("No such card number found. Please check your card 
 <br/><br/>
 
 <?php
+	if ($c == "accessdenied")
+		$smarty->display('index.tpl');
 	$smarty->display('footer.tpl');
 ?>
