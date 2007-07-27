@@ -113,11 +113,15 @@ foreach($config as $values){
 		</td>
 	</tr>
 	<br>
+	<?php 
+	$text = gettext("CREATE");
+	$group_title = $text." ".ucwords($group_title);
+	?>
 	<tr>
 		<td align="right">
 		<form name="theform">
 		<input class="form_input_button" 
-				TYPE="button" VALUE="<?php echo gettext("CREATE AGI-CONF6 - 5");?>" onClick="window.open('<?=$link?>')">
+				TYPE="button" VALUE="<?=$group_title;?>" onClick="window.open('<?=$link?>')">
 		</form></td>
 	</tr>
 </table>

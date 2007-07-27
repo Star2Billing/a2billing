@@ -18,17 +18,21 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $HD_Form -> FG_TABLE_CLAUSE = "ccc.config_group_id =  ccg.id";
 
-if (isset($posted) || $groupselect!= ""){
+if ($groupselect != ""){
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
-/*else{
-	if (isset($posted)){
-		$_SESSION['ss_groupselect'] = '';
-	}
-	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect'];
+if (isset($posted)){
+	$_SESSION['ss_groupselect'] = '';
+	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
-*/
+
+if($form_action == "list"){
+		$_SESSION['ss_groupselect'] = '';
+}else{
+	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
+}
+
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");

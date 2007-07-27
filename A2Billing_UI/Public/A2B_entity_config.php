@@ -93,14 +93,13 @@ function Check()
 				  $instance_table = new Table();
 				    $QUERY = "SELECT * from cc_config_group"; 					
 					$list_total_groups  = $instance_table->SQLExec ($DBHandle, $QUERY);		
-				  
-				  ?>
+				   ?>
 				<select name="groupselect" class="form_input_select">
 				<option value="-1" ><?php echo gettext("Select Group");?></option>
 				<?php 
 				foreach($list_total_groups as $groupname){
 				?>
-				<option value="<?php echo $groupname[0]?>" <?php if($groupselect == $groupname[0] || $id == $groupname[0]) echo "selected"?>><?php echo $groupname[1]?></option>
+				<option value="<?php echo $groupname[0]?>" <?php if($groupselect == $groupname[0] || $groupname[0] == $_SESSION['ss_groupselect']) echo "selected"?>><?php echo $groupname[1]?></option>
 				<?php 
 				}
 				?>
