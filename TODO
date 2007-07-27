@@ -4,10 +4,23 @@
 ********************************************************************************
 
 
-#### BUG : choose language
+
+#### TODO : CUSTOMER UI
 ********************************************************************
-problem on calling card language selection. once select 1 or 2 or 3 in the language selection IVR, it dropped rightaway. 
-it was good on my original version. 
+A2BCustomer_UI/userinfo.php
+suggest that the only Logo's (paypal, Moneybooker, Authorize.net) displayed on the customer interface 
+are the payment methods that are enabled.
+
+patch for trunk and branches/1.3
+
+
+#### A2Billing_UI/Public/index.php
+********************************************************************
+on the login page & signup, there is a log enable :
+QUERY:INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data) VALUES('1','1','Page Visit','User Visited the Page','','index.php','127.0.0.1','')
+
+remove this for page where user is not login too
+
 
 #### BUG : FAILOVER
 ********************************************************************
@@ -30,52 +43,6 @@ If the call fails over each of the successive attempts will add the correct pref
 option to let send an email to all the a2billing user
 
 
-#### GMT
-********************************************************************
-- we need a parameter to define the server_GMT
-- when creating a customer we need to have it as default on GMT+0
-	* for signup module it can be managed with a right definition in the sql
-- CustomerUI : call-history.php on customer dont have any GMT support on it
-
-
-#### CONFIGURATION
-********************************************************************
-- if the field is readonly : find a way maybe with css to change the backgroup color of the field like grey color
-
-- comments when u edit : "Insert the Group Name",  stuff like that when u edit -> this section is to provide a real information
-
-- dropdown value : As we have many Variables like Card_Type which can have 2 Values like postpaid & Prepaid, 
-   Our System will automatically show a Dropdown List to provide customer to select from it...
-   
-- we need a drop down for the group in list configuration   
-
-- remove the Text Area  and will make it simple Paragraph.. i will add a new type in the Framework
-  we need to show the only Description,, it should not confuse the use that either it is something to enter in database as this is description for this whole record
-
-- we want to define a concept of heritage for the AGI-Conf1, 2, 3
-using a general one agi-conf-base and we will only redefine the changes in agi-conf1, 2, etc...
-The web interface need to allow us to redefine only the parameter we want.
-
-- Change the name of list config groups to List Global Config
-
-
-
-We should get something like this at the end :
- 
-1. In Global config (list config groups), we should be able to click on each line, and only see the settings pertaining to that section.
- 
-2. When we click on a section, we can then edit, just as we can under list configuration, but you can only see the section you have clicked on.
- 
-4. Beneath "List Global Config" we need a button call Add AGI-CONF - 
-this simply creates a standard agi-conf and calls it agi-conf2 (or 3 or 4 depending on how many have been created) 
-We will see the parameter from AGI-Conf-Base and be able to redefine and save the changes
- 
-The new agi-conf-X can then be accessed via "List Global Config"
-this will do a SELECT of the AGI-Conf-Base and show the parameter that has been created
- 
-5. Within each setting, where possible, the user should be restricted to valid values, e.g if the options are "yes" or "no" then there should be a dropdown that only allows "yes" or "no" and no other value is allowed.
- 	
- 
 
 #### BUG : SIGNUP
 ********************************************************************
@@ -92,9 +59,6 @@ its really hard to identify a sip frind based on name,  make the search base on 
 http://forum.asterisk2billing.org/viewtopic.php?t=2221
 
 
-#### TODO : CUSTOMER UI
-********************************************************************
-1. May I suggest that the only Logo's displayed on the customer interface are the payment methods that are enabled.
 
 #### TODO : GENERATE VOUCHER
 ********************************************************************
@@ -115,9 +79,7 @@ to have a CallerID prefix for DIDs, so that you might want to allocate the same 
 
 
 
-#### A2Billing_UI/Public/index.php
-********************************************************************
-QUERY:INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data) VALUES('1','1','Page Visit','User Visited the Page','','index.php','127.0.0.1','')
+
 
 
 #### MAILTYPE : EPAYMENT GATEWAY SECURITY 
@@ -127,7 +89,7 @@ Can you add a Mailtype to Epayment Gateway Security Verification Failed so that 
 
 #### CUSTOMER : IAX / SIP Info 
 ********************************************************************
-user interface ability to et up the codec, etc..
+user interface ability to set up the codec, etc..
 
 
 #### IAX / SIP Info on signup
