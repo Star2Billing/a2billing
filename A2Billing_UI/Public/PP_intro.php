@@ -25,8 +25,6 @@ $smarty->display('main.tpl');
 		For VoIP termination, please visit <a href="http://www.call-labs.com" target="_blank">http://www.call-labs.com</a> <br>
 		Profits from Call-Labs are used to support the A2Billing project.<br><br>
 		
-	
-
 		</td>
 	</tr>
 </table>
