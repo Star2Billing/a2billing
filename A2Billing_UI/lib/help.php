@@ -868,6 +868,18 @@ $CC_help_list_payment_methods = '<div class="toggle_show2hide">
 </div></div>
 '; 
 
+$CC_help_add_agi_confx = '<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("This action will generate agi-conf2 as a global configuration along with all list of configurations.").'
+<br/><br/><br>
+</div></div></div>
+</div></div>
+'; 
+
 } //ENDIF SHOW_HELP
 
 
