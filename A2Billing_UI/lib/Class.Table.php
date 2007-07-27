@@ -10,10 +10,9 @@ class Table {
 	var $debug_stop_update 	= 0;
 	var $debug_stop_delete 	= 0;
 	var $sp                 = "`"; //bound_caract
-	var $start_message_debug = '<table width="70%" align="right"><tr><td>QUERY:';
-	var $end_message_debug = '</td></tr></table>';
-		
-		
+	var $start_message_debug = '<table width="100%" align="right" style="float : left;"><tr><td>QUERY:';
+	var $end_message_debug = '</td></tr></table><br><br><br>';
+	
     var $FK_TABLES ;
     var $FK_EDITION_CLAUSE ;
     // FALSE if you want to delete the dependent Records, TRUE if you want to update

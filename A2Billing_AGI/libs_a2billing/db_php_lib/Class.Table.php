@@ -10,10 +10,9 @@ class Table {
 	var $debug_stop_update 	= 0;
 	var $debug_stop_delete 	= 0;
 	var $sp                 = "`"; //bound_caract
-	var $start_message_debug = '<table width="70%" align="right"><tr><td>QUERY:';
-	var $end_message_debug = '</td></tr></table>';
-		
-		
+	var $start_message_debug = '<table width="100%" align="right" style="float : left;"><tr><td>QUERY:';
+	var $end_message_debug = '</td></tr></table><br><br><br>';
+	
     var $FK_TABLES ;
     var $FK_EDITION_CLAUSE ;
     // FALSE if you want to delete the dependent Records, TRUE if you want to update
@@ -161,7 +160,7 @@ class Table {
 	}
 	
 	
-	function Add_table ($DBHandle, $value, $func_fields = null, $func_table = null, $id_name = null) {
+	function Add_table ($DBHandle, $value, $func_fields = null, $func_table = null, $id_name = null, $subquery = false) {
 		
 		if ($func_fields!=""){		
 			$this -> fields = $func_fields;
@@ -170,11 +169,15 @@ class Table {
 		if ($func_table !=""){		
 			$this -> table = $func_table;
 		}
-		
-		$QUERY = "INSERT INTO $sp".$this -> table."$sp (".$this -> fields.") values (".trim ($value).")";
+		if($subquery){
+			$QUERY = "INSERT INTO $sp".$this -> table."$sp (".$this -> fields.") (".trim ($value).")";	
+		}
+		else{
+			$QUERY = "INSERT INTO $sp".$this -> table."$sp (".$this -> fields.") values (".trim ($value).")";
+		}
+			
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($this -> debug_stop_add){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
-				
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){
