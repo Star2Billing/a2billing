@@ -239,7 +239,9 @@ include (FSROOT."lib/help.php");
 // 
 // The system will not log for Public/index.php and 
 // signup/index.php
-if(!strcmp(substr(__FILE__,-16),'Public/index.php') || !strcmp(substr(__FILE__,-16),'signup/index.php') ){
+$URI = $_SERVER['REQUEST_URI'];
+$restircted_url = substr($URI,-16);
+if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") ){
 	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 }
 $log = null;
