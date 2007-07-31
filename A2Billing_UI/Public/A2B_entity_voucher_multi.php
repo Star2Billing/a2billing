@@ -12,7 +12,7 @@ if (! has_rights (ACX_BILLING)){
 	die();	   
 }
 
-getpost_ifset(array('choose_list', 'addcredit', 'gen_id', 'cardnum', 'choose_currency', 'expirationdate', 'addcredit'));
+getpost_ifset(array('choose_list', 'addcredit', 'gen_id', 'cardnum', 'choose_currency', 'expirationdate', 'addcredit','tag_list'));
 
 
 
@@ -20,21 +20,17 @@ getpost_ifset(array('choose_list', 'addcredit', 'gen_id', 'cardnum', 'choose_cur
 $HD_Form -> setDBHandler (DbConnect());
 
 
-
-
-
-
 $nbcard = $choose_list;
 
 if ($nbcard>0){
-		
+	
 		$FG_ADITION_SECOND_ADD_TABLE  = "cc_voucher";		
 		//$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, userpass, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays";
 		$FG_ADITION_SECOND_ADD_FIELDS = "voucher, credit, activated, tag, currency, expirationdate";
 		$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 				
 		$gen_id = time();
-		$_SESSION["IDfilter"]=$gen_id;
+		$_SESSION["IDfilter"]=$tag_list;
 		
 		
 		$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
@@ -42,9 +38,10 @@ if ($nbcard>0){
 		for ($k=0;$k<$nbcard;$k++){
 			$vouchernum = gen_card($FG_ADITION_SECOND_ADD_TABLE, LEN_VOUCHER, voucher);
 			if (!is_numeric($addcredit)) $addcredit=0;
-			$FG_ADITION_SECOND_ADD_VALUE  = "'$vouchernum', '$addcredit', 't', '$gen_id', '$choose_currency', '$expirationdate'";
+			$FG_ADITION_SECOND_ADD_VALUE  = "'$vouchernum', '$addcredit', 't', '$tag_list', '$choose_currency', '$expirationdate'";
 			
-			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null);			
+			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null);
+				
 		}
 
 }
@@ -124,15 +121,13 @@ echo $CC_help_generate_voucher;
 				<strong>4)</strong>
 				<?php echo gettext("Expiration date");?> : <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>> <?php echo gettext("(respect the format YYYY-MM-DD HH:MM:SS)");?>
 				<br/>
+				<strong>5)</strong>
+				<?php echo gettext("Tag");?> : <input class="form_input_text"  name="tag_list" size="40" maxlength="40" > 
+			
 							
 		</td>	
 		<td align="left" valign="bottom"> 
-		
-				
 				<input class="form_input_button" value=" GENERATE VOUCHER " type="submit"> 
-
-
-          
         </td>
 		 </form>
         </tr>
