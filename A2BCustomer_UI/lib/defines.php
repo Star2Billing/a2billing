@@ -37,12 +37,6 @@ define('TEXT_CCVAL_ERROR_INVALID_DATE', gettext('The expiry date entered for the
 define('TEXT_CCVAL_ERROR_INVALID_NUMBER', gettext('The credit card number entered is invalid.')."<br>".gettext('Please check the number and try again.'));
 define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', gettext('The first four digits of the number entered are').": %s<br>".gettext('If that number is correct, we do not accept that type of credit card.')."<br>".gettext('If it is wrong, please try again.'));
 
-// Display paypal, authorize and moneybookers logo
-define ("DISPLAY_PAYPAL_LOGO", isset($A2B->config['epayment_method']['display_paypal'])?$A2B->config['epayment_method']['display_paypal']:null);
-define ("DISPLAY_MONEYBOOKERS_LOGO", isset($A2B->config['epayment_method']['display_moneybookers'])?$A2B->config['epayment_method']['display_moneybookers']:null);
-define ("DISPLAY_AUTHORIZE_LOGO", isset($A2B->config['epayment_method']['display_authorize'])?$A2B->config['epayment_method']['display_authorize']:null);
-
-
 define('REVIEW_TEXT_MIN_LENGTH', '10');
 define('CC_OWNER_MIN_LENGTH', '2');
 define('CC_NUMBER_MIN_LENGTH', '15');

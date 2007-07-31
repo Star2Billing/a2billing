@@ -158,18 +158,28 @@ $CC_help_release_did ='
 
 } //ENDIF SHOW_HELP
 
+$DBHandle  = DbConnect();
+$instance_table = new Table();
+
+$QUERY = "SELECT configuration_key, configuration_value FROM cc_configuration where configuration_key in ('MODULE_PAYMENT_AUTHORIZENET_STATUS','MODULE_PAYMENT_PAYPAL_STATUS','MODULE_PAYMENT_MONEYBOOKERS_STATUS')";
+$payment_methods  = $instance_table->SQLExec ($DBHandle, $QUERY);	
+
+
 $show_logo = '';
-if(DISPLAY_PAYPAL_LOGO){
-	$show_logo = '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>&nbsp;&nbsp; &nbsp;';	
-}
-if(DISPLAY_MONEYBOOKERS_LOGO){
-	$show_logo .= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>&nbsp;&nbsp; &nbsp';	
-}
-if(DISPLAY_AUTHORIZE_LOGO){
-	$show_logo .= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a>';	
+
+if( $payment_methods[1][0] == "MODULE_PAYMENT_PAYPAL_STATUS" && $payment_methods[1][1] == "True") {
+	$show_logo = '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>&nbsp;&nbsp; &nbsp;';
 }
 
-if(DISPLAY_PAYPAL_LOGO || DISPLAY_MONEYBOOKERS_LOGO || DISPLAY_AUTHORIZE_LOGO){
+if( $payment_methods[0][0] == "MODULE_PAYMENT_AUTHORIZENET_STATUS" && $payment_methods[0][1] == "True") {
+	$show_logo .= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a>&nbsp;&nbsp; &nbsp; ';
+}
+
+if( $payment_methods[2][0] == "MODULE_PAYMENT_MONEYBOOKERS_STATUS" && $payment_methods[2][1] == "True") {
+$show_logo .= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
+}
+
+
 $PAYMENT_METHOD ='
 <table width="70%" align="center">
 	<tr>
@@ -178,20 +188,7 @@ $PAYMENT_METHOD ='
 		</td>
 	</tr>
 </table>';
-}
-/*$PAYMENT_METHOD ='
-<table width="70%" align="center">
-	<tr>
-		<TD valign="top" align="center" class="tableBodyRight">
-			'.$SPOT['PAYPAL'].'
-			&nbsp;&nbsp; &nbsp; 
-			'.$SPOT['MONEYBOOKERS'].'
-			&nbsp;&nbsp; &nbsp;
-			'.$SPOT['AUTHORIZENET'].'
-		</td>
-	</tr>
-</table>';
-*/
+
 
 $CALL_LABS ='
 <table width="70%" align="center">

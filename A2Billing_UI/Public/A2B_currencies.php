@@ -11,7 +11,6 @@ if (! has_rights (ACX_BILLING)){
 	die();	   
 }
 
-
 getpost_ifset(array('updatecurrency'));
 
 $HD_Form -> setDBHandler (DbConnect());

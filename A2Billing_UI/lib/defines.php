@@ -233,11 +233,15 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 
 
 define ("ENABLE_LOG", 1);
-
-include (FSROOT."lib/help.php");
 include (FSROOT."lib/Class.Logger.php");
-$log = new Logger();			
-$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+$log = new Logger();
+include (FSROOT."lib/help.php");
+// 
+// The system will not log for Public/index.php and 
+// signup/index.php
+if(!strcmp(substr(__FILE__,-16),'Public/index.php') || !strcmp(substr(__FILE__,-16),'signup/index.php') ){
+	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+}
 $log = null;
 
 //Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
