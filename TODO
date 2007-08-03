@@ -4,6 +4,13 @@
 ********************************************************************************
 
 
+#### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
+********************************************************************
+Use adoDB caching in the framework
+many part can be improve, most of all the part when we bound to a view to other table
+for each field we run a little query. Caching here will save a lot!
+
+
 #### BUG : RESTORE DATABASE
 ********************************************************************
 Check the restore DB function
