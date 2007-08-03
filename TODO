@@ -4,6 +4,26 @@
 ********************************************************************************
 
 
+#### BUG : RESTORE DATABASE
+********************************************************************
+Check the restore DB function
+
+
+#### FEATURE : ADD CSV EXPORT ON THE CDR REPORT
+********************************************************************
+Add CSV & XML Export on the cdr report
+- look how it s done on the customer list
+
+
+#### FEATURE : AGI
+********************************************************************
+Showing Balance on Softphone....
+
+
+#### FEATURE : BILLING ON VOIP CALL - DID VOIP CALL
+********************************************************************
+add billing for voip/call
+
 
 #### TODO : CUSTOMER UI
 ********************************************************************
@@ -50,21 +70,12 @@ http://forum.asterisk2billing.org/viewtopic.php?p=7406#7406
  we shouldn't deactivate magic_quotes_gpc at all.
  
 
-#### FEATURE : FRIENDS
-********************************************************************
-its really hard to identify a sip frind based on name,  make the search base on the card number
-
-#### BUG : IMPORT
-********************************************************************
-http://forum.asterisk2billing.org/viewtopic.php?t=2221
-
-
-
 #### TODO : GENERATE VOUCHER
 ********************************************************************
 In the generate option, the tag value is set to a random ID : 1181897201
 this allow us to see exactly after the generation those that has been created!
 If someone really use the tag feature to classify his voucher, this can be bit annoying! 
+we need to give the option to define the tag to a specific value or to use the random number.
 
 
 #### TODO : Detach Selling ratecard from Buying ratecard
