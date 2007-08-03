@@ -115,17 +115,16 @@ if(ini_get('register_globals'))
 		$$key = $value;
 	}
 }
-
 if (!isset($_SESSION["language"]))
 {
-	$_SESSION["language"]='english';
+  $_SESSION["language"] = 'english';
 }
 else if (isset($language))
 {
   $_SESSION["language"] = $language;
 }
 define ("LANGUAGE",$_SESSION["language"]);
-require("languageSettings.php");
+require_once("languageSettings.php");
 SetLocalLanguage();
  
 function DbConnect($db= NULL)

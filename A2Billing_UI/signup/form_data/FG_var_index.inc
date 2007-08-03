@@ -95,16 +95,22 @@ if (isset($form_action) && $form_action=="add")
     $loginkey = MDP_STRING(20);
 }
 
-$HD_Form -> AddEditElement ("LANGUAGE",
+
+$languages_db_list = get_db_languages();  
+
+foreach($languages_db_list as $key => $cur_value) {
+	if(in_array('en', $cur_value)){
+		$lang_list[$key]  = array( $cur_value[1], $key." selected");
+	}else{
+		$lang_list[$key]  = array( $cur_value[1], $key);
+	}
+}
+$HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "language",
 			   "",
 			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $language_list, "%1", "", "" );
-
-
+			   "","","",
+			   "list" , "", "",	"", $lang_list, "%1", "", "" );
 $HD_Form -> AddEditElement ("CURRENCY",
 			   "currency",
 			   "",

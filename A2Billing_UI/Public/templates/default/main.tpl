@@ -375,7 +375,7 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&stitle=Mail+Tempalte&section=8">{php} echo gettext("Show mail template");{/php}</a></li>
+				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&stitle=Mail+Tempalte&section=8&languages=en">{php} echo gettext("Show mail template");{/php}</a></li>
 				<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&stitle=Mail+Tempalte&section=8">{php} echo gettext("Create mail template");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&stitle=Prefix&section=8">{php} echo gettext("Browse Prefix");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=8">{php} echo gettext("Add Prefix");{/php}</a></li>

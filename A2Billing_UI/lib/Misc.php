@@ -658,4 +658,87 @@ function delete_agi_confx($id_agi)
 	return $result;
 	
 }
+function check_translated($id, $languages){
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+
+	$QUERY =  "SELECT id from cc_templatemail where id = $id and id_language = '$languages'";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	if (is_array($result)){
+		if(count($result) > 0)
+			return true;
+		else
+			return false;
+	}else{
+		return false;
+	} 		
+	
+}
+function update_translation($id, $languages, $subject, $mailtext){
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	$param_update = "subject = '$subject', messagetext = '$mailtext'";
+	$clause = "id = $id and id_language = '$languages'";
+	$func_table = 'cc_templatemail';
+	$update = $instance_table -> Update_table ($handle, $param_update, $clause, $func_table);
+	return $update;
+}
+
+function insert_translation($id, $languages, $subject, $mailtext){
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	$fromemail = '';
+	$fromname = '';			
+	$mailtype = '';			
+	$QUERY =  "SELECT fromemail,fromname,mailtype from cc_templatemail where id = $id and id_language = 'en'";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	if (is_array($result)){
+		if(count($result) > 0){
+			$fromemail = $result[0][0];
+			$fromname = $result[0][1];						
+			$mailtype = $result[0][2];						
+		}
+	}
+			
+	
+	$value = "$id, '$languages', '$subject', '$mailtext', '$mailtype','$fromemail','$fromname'";
+	$func_fields = "id,id_language,subject,messagetext,mailtype,fromemail,fromname";
+	$func_table = 'cc_templatemail';
+	$id_name = "";
+	$inserted = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name);
+	return $inserted;
+}
+
+function mailtemplate_latest_id(){
+		if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+
+	$QUERY =  "SELECT max(id) as latest_id from cc_templatemail where id_language = 'en'";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	$result[0][0] = $result[0][0] + 1;
+	return $result[0][0];
+	
+}
+
+function get_db_languages($handle = null)
+{
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	$QUERY =  "SELECT code,name from cc_iso639 order by code";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	
+
+	return $result;
+}
+
 ?>

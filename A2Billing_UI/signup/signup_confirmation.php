@@ -1,9 +1,7 @@
 <?php
 session_name("UISIGNUP");
 session_start();
-
-
-include ("../lib/defines.php");
+require_once ("../lib/defines.php");
 include ("../lib/smarty.php");
 if (!$A2B->config["signup"]['enable_signup'])
 {
@@ -20,7 +18,6 @@ else
 	echo gettext("Sorry the confirmation email has been sent already, multi-signup are not authorized! Please wait 2 minutes before making any other signup!");
 	exit();
 }
-
 if (!isset($_SESSION["cardnumber_signup"]) || strlen($_SESSION["cardnumber_signup"])<=1)
 {
 	echo gettext("Error : No User Created.");
@@ -33,14 +30,14 @@ $DBHandle  = DbConnect();
 
 $activatedbyuser = $A2B->config["signup"]['activatedbyuser'];
 
+$lang_code = $_SESSION["language_code"];
 if(!$activatedbyuser){
-	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' ";
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' and id_language = '$lang_code'";
 	//echo "<br>User is Not Activated";
 }else{
-	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' and id_language = '$lang_code'";
 	//echo "<br>User is Already Activated";		
 }
-
 $res = $DBHandle -> Execute($QUERY);
 $num = 0;	
 if ($res)
@@ -48,9 +45,28 @@ if ($res)
 
 if (!$num)
 {
-	echo "<br>".gettext("Error : No email Template Found");
-	exit();
+	if(!$activatedbyuser){
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' and id_language = 'en'";
+	//echo "<br>User is Not Activated";
+	}else{
+		$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' and id_language = 'en'";
+		//echo "<br>User is Already Activated";		
+	}
+
+	$res = $DBHandle -> Execute($QUERY);
+	$num = 0;	
+	if ($res)
+		$num = $res -> RecordCount();
+	
+	if (!$num)
+	{
+		echo "<br>".gettext("Error : No email Template Found");
+		exit();
+	}
 }
+
+
+
 
 for($i=0;$i<$num;$i++)
 {
@@ -58,13 +74,13 @@ for($i=0;$i<$num;$i++)
 }
 
 list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
+
 if ($FG_DEBUG == 1)
 {
 	echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
 }
 
 $QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE username='".$_SESSION["cardnumber_signup"]."' ";
-
 $res = $DBHandle -> Execute($QUERY);
 $num = 0;	
 if ($res)

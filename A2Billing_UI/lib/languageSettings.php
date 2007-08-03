@@ -35,7 +35,6 @@
                 $languageEncoding = "fr_FR.iso88591";
                 $slectedLanguage = "fr_FR";
                 $charEncoding = "iso-8859-1";
-
         	break;
         	case "german":
                 $languageEncoding = "en_US.iso88591";
