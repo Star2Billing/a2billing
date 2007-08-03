@@ -4,6 +4,12 @@
 ********************************************************************************
 
 
+
+#### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
+********************************************************************
+The backup restore option does not work
+
+
 #### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
 ********************************************************************
 Use adoDB caching in the framework

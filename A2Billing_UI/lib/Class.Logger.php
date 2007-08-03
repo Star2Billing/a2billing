@@ -73,7 +73,8 @@ class Logger
 		$DB_Handle = DBConnect();
 		$table_log = new Table();		
 		$pageName = basename($pageName);
-		$pageName    = array_shift(explode('?', $pageName));
+		$pageArray = explode('?', $pageName);
+		$pageName = array_shift($pageArray);
 		$description = str_replace("'", "", $description);
 		
 		$QUERY = "INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data) ";
