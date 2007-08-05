@@ -3,6 +3,31 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### UPDATE : MAIL TEMPLATE TAG HTML - Add a plaintext versions
+********************************************************************
+Shopping details is as below.
+
+Item Name  <b>balance</b>
+Item ID  <b>8711503777</b>
+Amount  <b>1 USD</b>
+Payment Method  <b>paypal</b>
+Status  <b></b>
+
+
+#### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
+********************************************************************
+a2billing.php|1: file:Class.A2Billing.php - line:763 - TIMEOUT::> 1016  : minutes=16 - seconds=56
+AGI Tx >> 200 result=1
+AGI Rx << SAY NUMBER 285 ""
+    -- Playing 'digits/2' (language 'en')
+    -- Playing 'digits/hundred' (language 'en')
+    -- Playing 'digits/80' (language 'en')
+    -- Playing 'digits/5' (language 'en')
+AGI Tx >> 200 result=0
+AGI Rx << STREAM FILE cents-per-minute "" 
+
+create a mode to choose if we play in cents or in unit
+2 dollars and 85 cents per minutes
 
 
 #### FEATURE : USE ADODB CACHING IN THE FRAMEWORK

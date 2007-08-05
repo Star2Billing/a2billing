@@ -799,7 +799,7 @@ class A2Billing {
 			$agi-> stream_file($prompt, '#');
 			return -1;
 		}
-		
+		$this->agiconfig['say_rateinitial']=1;
 		if ($this->agiconfig['say_rateinitial']==1){
 			$this -> fct_say_rate ($agi, $RateEngine->ratecard_obj[0][12] * 100);   // say rate in cents
 		}

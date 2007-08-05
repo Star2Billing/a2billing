@@ -69,6 +69,12 @@ prepaid-voucher_enter_number					please enter the voucher number and press the p
 prepaid-callback_intro							Your call is now being connected, Please hold
 
 
+
+; Say Rate initial
+prepaid-cost-call 								the cost of the call is 
+prepaid-per-minutes								per minutes
+
+
 ---------------------------  FRENCH --------------------------
 
 prepaid-welcome 								Bienvenue dans notre système de carte pré-payé....
@@ -124,6 +130,11 @@ prepaid-voucher_enter_number					Veuillez composer le numéro du voucher suivit 
 
 ; Callback
 prepaid-callback_intro							?? Your call is now being connected, Please hold
+
+
+; Say Rate initial
+prepaid-cost-call 								le cout de l appel est de 
+prepaid-per-minutes								par minutes
 
 ---------------------------  SPANISH  --------------------------
 
@@ -200,6 +211,9 @@ prepaid-voucher_enter_number					please enter the voucher number and press the p
 prepaid-callback_intro							Your call is now being connected, Please hold
 
 
+; Say Rate initial
+prepaid-cost-call 								El coste de la llamade es de
+prepaid-per-minutes								por minutos
 
 ---------------------------  Recorded by Allison ------------------------
 English :
