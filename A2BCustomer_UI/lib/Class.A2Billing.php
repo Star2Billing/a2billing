@@ -730,7 +730,7 @@ class A2Billing {
 			$this -> fct_say_balance ($agi, $this->credit);
 			return -1;
 		}
-			
+	
 		//REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
 		if ($this->destination=='*1'){
 			$this->destination = $this->redial;
@@ -801,7 +801,7 @@ class A2Billing {
 		}
 		
 		if ($this->agiconfig['say_rateinitial']==1){
-			$this -> fct_say_rate ($agi, $RateEngine->ratecard_obj[0][12] * 100);   // say rate in cents
+			$this -> fct_say_rate ($agi, $RateEngine->ratecard_obj[0][12]);
 		}
 		
 		if ($this->agiconfig['say_timetocall']==1){
@@ -1199,40 +1199,63 @@ class A2Billing {
 	
 
 	/**
-	 *      Function to play the rate in cents
-	 *      format : "7 point 5 cents per minute"
+	 * 	Function to play the initial rate
+	 *  format : "the cost of the call is 7 dollars and 50 cents per minutes"
 	 *
 	 *  @param object $agi
 	 *  @param float $rate
 	 *  @return nothing
 	 **/
 	function fct_say_rate ($agi, $rate){
-
-		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SAY RATE ::> ".$rate."]");
-
+		
 		global $currencies_list;
-
+		
 		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3)
 		{ 
 			$this->currency = $this->agiconfig['agi_force_currency'];
 		}
 		
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CURRENCY : $this->currency]");
 		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
-		$rate_cur = $rate / $mycur;
-		$cents = intval($rate_cur);
-		$units = round(($rate_cur - $cents) * 1E4);
-		while ($units != 0 && $units % 10 == 0) $units /= 10;
+		$credit_cur = $rate / $mycur;
 		
-		// say 'the rate is'
-		//$agi->stream_file('the-rate-is');
-
-		$agi->say_number($cents);
-		if ($units > 0) {
-			$agi->stream_file('point');
-			$agi->say_digits($units);
+		list($units,$cents)=split('[.]', $credit_cur);
+		if (strlen($cents)>2) $cents=substr($cents,0,2);
+		if ($units=='') $units=0;
+		if ($cents=='') $cents=0;
+		elseif (strlen($cents)==1) $cents.= '0';
+		
+		if (isset($this->agiconfig['currency_association_internal'][strtolower($this->currency)])){
+			$unit_audio = $this->agiconfig['currency_association_internal'][strtolower($this->currency)];
+		}else{
+			$unit_audio = $this->agiconfig['currency_association_internal']['all'];
+		}				
+		$cent_audio = 'prepaid-cents';
+		
+		
+		// say 'the cost of the call is '
+		$agi-> stream_file('prepaid-cost-call', '#');
+		
+		if ($units==0 && $cents==0){
+			$agi -> say_number(0);				
+			$agi -> stream_file($unit_audio, '#');
+		} else {
+			if ($units >= 1){
+				$agi -> say_number($units);
+				$agi -> stream_file($unit_audio, '#');
+			}
+			
+			if ($units > 0 && $cents > 0){
+				$agi -> stream_file('vm-and', '#');
+			}
+			if ($cents>0){
+				$agi -> say_number($cents);
+				$agi -> stream_file($cent_audio, '#');
+			}
 		}
-		$agi->stream_file('cents-per-minute');
+		// say 'per minutes'
+		$agi-> stream_file('prepaid-per-minutes', '#');
 	}
 
 	/**
