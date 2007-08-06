@@ -75,7 +75,7 @@ function SetLocalLanguage()
 	/*
 	Code here to set the Encoding of the Lanuages and its Envirnoment Variables
 	*/
-	//print($languageEncoding);
+	//echo "languageEncoding=$languageEncoding - slectedLanguage=$slectedLanguage";
 	@setlocale(LC_TIME,$languageEncoding);
 	putenv("LANG=$slectedLanguage");
 	putenv("LANGUAGE=$slectedLanguage");

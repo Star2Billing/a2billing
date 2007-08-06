@@ -75,7 +75,7 @@ function SetLocalLanguage()
 	/*
 	Code here to set the Encoding of the Lanuages and its Envirnoment Variables
 	*/
-	//print($languageEncoding);
+	//echo "languageEncoding=$languageEncoding - slectedLanguage=$slectedLanguage";
 	@setlocale(LC_TIME,$languageEncoding);
 	putenv("LANG=$slectedLanguage");
 	putenv("LANGUAGE=$slectedLanguage");
@@ -83,7 +83,7 @@ function SetLocalLanguage()
 	$domain = 'messages';
 	bindtextdomain("messages", "./lib/locale");
 	textdomain($domain);
-	//bind_textdomain_codeset($domain, $charEncoding);
+	bind_textdomain_codeset($domain, $charEncoding);
 	define('CHARSET', $charEncoding);
 }
 
