@@ -4,6 +4,23 @@
 ********************************************************************************
 
 
+#### LOAD BALANCING ON TRUNK
+********************************************************************
+Laod balancing not role over or fail over but load balancing. Expl.
+If you have 3 GSM gtwy of 90 port each, we want to send one call to the first gtwy 
+then the second call to the next gtwy and then the next call to the next gtwy.
+
+
+#### TRUNK REPORTING PAGE - DASH BOARD
+********************************************************************
+A screen page where you can see the call stats Expl. ASR, ALOC, CIC  from each trunk on one web page.
+
+
+#### CHECK BACKUP & RESTORE FEATURE
+********************************************************************
+user posted that is broken.
+
+
 
 #### UPDATE CSS Menu : menu.css
 ********************************************************************
