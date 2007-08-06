@@ -2,7 +2,7 @@
 # Copyright (C) 2007, Carlos Alberto Cesario <carloscesario@gmail.com>
 #
 # This file is distributed under the same license as the Asterisk2Billing package.
-# 
+#
 # Thanks to Maurício Collares, Felipe Neuwald, Danilo Chilene
 #
 # Por favor, caso encontrem algum erro, me desculpem. Por favor me avise
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Asterisk2Billing-1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-11 12:18-0300\n"
-"PO-Revision-Date: 2007-05-06 12:56-0300\n"
-"Last-Translator: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
+"POT-Creation-Date: 2007-08-06 08:17-0300\n"
+"PO-Revision-Date: 2007-07-23 17:05-0300\n"
+"Last-Translator: Caros Alberto Cesario <carloscesario@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -125,14 +125,14 @@ msgstr "Você não pode escolher mais que um !"
 
 #. TEXT
 #: .././lib/Form/Class.FormHandler.inc.php:486
-#: .././lib/Form/Class.FormHandler.inc.php:704
+#: .././lib/Form/Class.FormHandler.inc.php:707
 #: .././frontoffice_data/CC_var_base.inc:122
 #: .././frontoffice_data/CC_var_phonelist.inc:114
 msgid "Delete this "
 msgstr "Deletar este "
 
 #: .././lib/Form/Class.FormHandler.inc.php:487
-#: .././lib/Form/Class.FormHandler.inc.php:698
+#: .././lib/Form/Class.FormHandler.inc.php:701
 #: .././frontoffice_data/CC_var_base.inc:123
 #: .././frontoffice_data/CC_var_phonelist.inc:115
 msgid "Edit this "
@@ -296,119 +296,119 @@ msgstr "CÓDIGOS"
 
 #. This variable define a text that you should put over the table list.
 #. To introduce the module working and utility ;)
-#: .././lib/Form/Class.FormHandler.inc.php:675
-#: .././lib/Form/Class.FormHandler.inc.php:677
+#: .././lib/Form/Class.FormHandler.inc.php:678
+#: .././lib/Form/Class.FormHandler.inc.php:680
 #: .././frontoffice_data/CC_var_base.inc:118
 #: .././frontoffice_data/CC_var_phonelist.inc:110
 msgid "You can browse through our "
 msgstr "Você pode navegar através do nosso "
 
-#: .././lib/Form/Class.FormHandler.inc.php:675
-#: .././lib/Form/Class.FormHandler.inc.php:677
+#: .././lib/Form/Class.FormHandler.inc.php:678
+#: .././lib/Form/Class.FormHandler.inc.php:680
 msgid " and modify their different properties<br>"
 msgstr "e modificar suas diferentes propriedades<br>"
 
-#: .././lib/Form/Class.FormHandler.inc.php:838
+#: .././lib/Form/Class.FormHandler.inc.php:841
 msgid "(at least 3 characters)"
 msgstr "(pelo menos 3 caracteres)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:842
+#: .././lib/Form/Class.FormHandler.inc.php:845
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr "(deve conter a estrutura de email. Exemplo: nome@domínio.com)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:846
+#: .././lib/Form/Class.FormHandler.inc.php:849
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr "(pelo menos 5 caracteres sucessivos aparecem no fim desta string)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:850
+#: .././lib/Form/Class.FormHandler.inc.php:853
 msgid "(at least 4 characters)"
 msgstr "(pelo menos 4 caracteres)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:854
+#: .././lib/Form/Class.FormHandler.inc.php:857
 msgid "(number format)"
 msgstr "(formato de número)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:862
+#: .././lib/Form/Class.FormHandler.inc.php:865
 msgid "(only number with more that 8 digits)"
 msgstr "(somente números com mais de 8 dígitos)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:866
+#: .././lib/Form/Class.FormHandler.inc.php:869
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr "(pelo menos 8 dígitos usando . ou - ou tecla de espaço)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:870
+#: .././lib/Form/Class.FormHandler.inc.php:873
 msgid "network adress format"
 msgstr "formato de endereço de rede"
 
-#: .././lib/Form/Class.FormHandler.inc.php:874
+#: .././lib/Form/Class.FormHandler.inc.php:877
 msgid "at least 1 character"
 msgstr "pelo menos 1 caracter"
 
-#: .././lib/Form/Class.FormHandler.inc.php:882
+#: .././lib/Form/Class.FormHandler.inc.php:885
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(PELO MENOS 2 CARACTERES)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:886
+#: .././lib/Form/Class.FormHandler.inc.php:889
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr "(FORMATO DE NÚMERO COM/SEM CASA DECIMAL, use '.' para casa decimal)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:902
+#: .././lib/Form/Class.FormHandler.inc.php:905
 msgid "You must write something."
 msgstr "Você deve escrever alguma coisa."
 
-#: .././lib/Form/Class.FormHandler.inc.php:906
+#: .././lib/Form/Class.FormHandler.inc.php:909
 msgid "8 characters alphanumeric"
 msgstr "8 caracteres alfanuméricos"
 
-#: .././lib/Form/Class.FormHandler.inc.php:913
+#: .././lib/Form/Class.FormHandler.inc.php:916
 msgid "(at least 6 Alphanumeric characters)"
 msgstr "(pelo menos 6 caracteres alfanuméricos)"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1376
+#: .././lib/Form/Class.FormHandler.inc.php:1379
 msgid "This did is in use by customer id:"
 msgstr "Este DID está em uso pelo cliente id:"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1488
-#: .././lib/Form/Class.FormHandler.inc.php:1530
+#: .././lib/Form/Class.FormHandler.inc.php:1491
+#: .././lib/Form/Class.FormHandler.inc.php:1533
 msgid "Could not open buddy file"
 msgstr "Não foi possível abrir o arquivo de contatos"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1505
-#: .././lib/Form/Class.FormHandler.inc.php:1535
-#: .././lib/Form/Class.FormHandler.inc.php:1547
+#: .././lib/Form/Class.FormHandler.inc.php:1508
+#: .././lib/Form/Class.FormHandler.inc.php:1538
+#: .././lib/Form/Class.FormHandler.inc.php:1550
 msgid "Impossible to write to the file"
 msgstr "Impossível escrever no arquivo"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1679
-#: .././lib/Form/Class.FormHandler.inc.php:1731
+#: .././lib/Form/Class.FormHandler.inc.php:1682
+#: .././lib/Form/Class.FormHandler.inc.php:1734
 msgid "<br> GOTO ; "
 msgstr "<br> IR PARA ; "
 
-#: .././lib/Form/Class.FormHandler.inc.php:1725
+#: .././lib/Form/Class.FormHandler.inc.php:1728
 #: .././CC_entity_edit_did_destination.php:202
 msgid "error deletion"
 msgstr "erro ao deletar"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1826
+#: .././lib/Form/Class.FormHandler.inc.php:1856
 msgid "ERROR_DUPLICATION"
 msgstr "ERRO_NA_DUPLICAÇÃO"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1911
+#: .././lib/Form/Class.FormHandler.inc.php:1941
 msgid "Done"
 msgstr "Feito"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1937
-#: .././lib/Form/Class.FormHandler.inc.php:1990
+#: .././lib/Form/Class.FormHandler.inc.php:1967
+#: .././lib/Form/Class.FormHandler.inc.php:2020
 msgid "THE CURRENT RATECARD"
 msgstr "O RATECARD ATUAL"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1948
-#: .././lib/Form/Class.FormHandler.inc.php:2001
+#: .././lib/Form/Class.FormHandler.inc.php:1978
+#: .././lib/Form/Class.FormHandler.inc.php:2031
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
-#: .././lib/Form/Class.FormHandler.inc.php:1954
-#: .././lib/Form/Class.FormHandler.inc.php:2007
+#: .././lib/Form/Class.FormHandler.inc.php:1984
+#: .././lib/Form/Class.FormHandler.inc.php:2037
 msgid "Choose a ratecard"
 msgstr "Escolha um ratecard"
 
@@ -481,25 +481,25 @@ msgid "To :"
 msgstr "Para :"
 
 #: .././lib/Form/Class.SearchHandler.inc.php:161
-#: .././A2B_entity_call_details.php:492 .././A2B_entity_call_details.php:506
-#: .././call-history.php:447
+#: .././A2B_entity_call_details.php:487 .././A2B_entity_call_details.php:501
+#: .././call-history.php:421
 msgid "Exact"
 msgstr "Exato"
 
 #: .././lib/Form/Class.SearchHandler.inc.php:162
-#: .././A2B_entity_call_details.php:493 .././A2B_entity_call_details.php:507
-#: .././call-history.php:448
+#: .././A2B_entity_call_details.php:488 .././A2B_entity_call_details.php:502
+#: .././call-history.php:422
 msgid "Begins with"
 msgstr "Começa com"
 
 #: .././lib/Form/Class.SearchHandler.inc.php:163
-#: .././A2B_entity_call_details.php:494 .././A2B_entity_call_details.php:508
-#: .././call-history.php:449
+#: .././A2B_entity_call_details.php:489 .././A2B_entity_call_details.php:503
+#: .././call-history.php:423
 msgid "Contains"
 msgstr "Contêm"
 
 #: .././lib/Form/Class.SearchHandler.inc.php:164
-#: .././A2B_entity_call_details.php:495 .././A2B_entity_call_details.php:509
+#: .././A2B_entity_call_details.php:490 .././A2B_entity_call_details.php:504
 msgid "Ends with"
 msgstr "Termina com"
 
@@ -600,12 +600,12 @@ msgstr "Você tem "
 
 #: .././lib/Form/Class.FormHandler.DelForm.inc.php:145
 #: .././lib/Form/Class.FormHandler.EditForm.inc.php:179
-#: .././lib/Form/Class.FormHandler.EditForm.inc.php:372
-#: .././lib/Form/Class.FormHandler.EditForm.inc.php:641
+#: .././lib/Form/Class.FormHandler.EditForm.inc.php:373
+#: .././lib/Form/Class.FormHandler.EditForm.inc.php:642
 #: .././lib/Form/Class.FormHandler.AddForm.inc.php:144
-#: .././A2B_entity_call_details_pdf.php:651
-#: .././A2B_entity_call_details_pdf.php:744 .././invoices_customer.php:705
-#: .././A2B_entity_call_details.php:915 .././A2B_entity_call_details.php:1015
+#: .././A2B_entity_call_details_pdf.php:646
+#: .././A2B_entity_call_details_pdf.php:739 .././invoices_customer.php:697
+#: .././A2B_entity_call_details.php:910 .././A2B_entity_call_details.php:1010
 #: .././CC_entity_edit_speeddial.php:266 .././CC_entity_edit_speeddial.php:476
 #: .././CC_entity_edit_speeddial.php:768
 #: .././CC_entity_edit_speeddial.php:1014
@@ -613,7 +613,7 @@ msgstr "Você tem "
 #: .././CC_entity_edit_did_destination.php:595
 #: .././CC_entity_edit_did_destination.php:913
 #: .././CC_entity_edit_did_destination.php:1035
-#: .././CC_entity_edit_did_destination.php:1199 .././call-history.php:638
+#: .././CC_entity_edit_did_destination.php:1199 .././call-history.php:612
 msgid "No data found !!!"
 msgstr "Dados não encontrados !!!"
 
@@ -682,18 +682,18 @@ msgid "No"
 msgstr "Não"
 
 #: .././lib/Form/Class.FormHandler.EditForm.inc.php:325
-#: .././lib/Form/Class.FormHandler.EditForm.inc.php:491
+#: .././lib/Form/Class.FormHandler.EditForm.inc.php:492
 #: .././CC_entity_edit_speeddial.php:420 .././CC_entity_edit_speeddial.php:610
 #: .././CC_entity_edit_did_destination.php:742
 msgid "Add a new"
 msgstr "Adicionar um novo"
 
 #. END_IF
-#: .././lib/Form/Class.FormHandler.EditForm.inc.php:384
+#: .././lib/Form/Class.FormHandler.EditForm.inc.php:385
 msgid "add new a "
 msgstr "adicionar um novo "
 
-#: .././lib/Form/Class.FormHandler.EditForm.inc.php:417
+#: .././lib/Form/Class.FormHandler.EditForm.inc.php:418
 #: .././CC_entity_edit_speeddial.php:532 .././CC_entity_edit_speeddial.php:701
 #: .././CC_entity_edit_did_destination.php:649
 #: .././CC_entity_edit_did_destination.php:844
@@ -703,7 +703,7 @@ msgstr "LISTAR"
 #. end if if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 #. end if pos
 #. END_FOR
-#: .././lib/Form/Class.FormHandler.EditForm.inc.php:661
+#: .././lib/Form/Class.FormHandler.EditForm.inc.php:662
 #: .././lib/Form/Class.FormHandler.AddForm.inc.php:202
 msgid "CONFIRM DATA"
 msgstr "CONFIRMAR DADOS"
@@ -712,21 +712,21 @@ msgstr "CONFIRMAR DADOS"
 msgid "Create a new "
 msgstr "Criar um novo "
 
-#: .././lib/Misc.php:453
+#: .././lib/Misc.php:452
 msgid "File size is greater than allowed limit."
 msgstr "O tamanho do arquivo é maior do que o permitido."
 
-#: .././lib/Misc.php:457
+#: .././lib/Misc.php:456
 msgid "You did not upload anything!"
 msgstr "Você não fez o upload de nada!"
 
-#: .././lib/Misc.php:461
+#: .././lib/Misc.php:460
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr ""
 "Falha ao fazer o upload do arquivo. O arquivo que você fez upload pode não "
 "existir no disco."
 
-#: .././lib/Misc.php:467
+#: .././lib/Misc.php:466
 msgid "file type is not allowed"
 msgstr "tipo de arquivo não permitido"
 
@@ -734,26 +734,26 @@ msgstr "tipo de arquivo não permitido"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número do cartão inválido definido na configuração."
 
-#: .././lib/Class.A2Billing.php:1999
+#: .././lib/Class.A2Billing.php:2000
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: .././lib/Class.A2Billing.php:2030 .././lib/Class.A2Billing.php:2035
+#: .././lib/Class.A2Billing.php:2031 .././lib/Class.A2Billing.php:2036
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o bastante para ligar !!!"
 
-#: .././lib/Class.A2Billing.php:2041
+#: .././lib/Class.A2Billing.php:2042
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativo!!!"
 
-#: .././lib/Class.A2Billing.php:2047
+#: .././lib/Class.A2Billing.php:2048
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
 #. expire date
 #. CARD EXPIRED :(
-#: .././lib/Class.A2Billing.php:2056 .././lib/Class.A2Billing.php:2064
-#: .././lib/Class.A2Billing.php:2072
+#: .././lib/Class.A2Billing.php:2057 .././lib/Class.A2Billing.php:2065
+#: .././lib/Class.A2Billing.php:2073
 msgid "Error : Card have expired!!!"
 msgstr "Erro : O cartão expirou!!!"
 
@@ -952,7 +952,7 @@ msgstr ""
 #: .././lib/help.php:74
 msgid ""
 "Configuration information for SIP and IAX Client. You can simply copy and "
-"paste it in your configuration files and can do neccessory modifications."
+"paste it in your configuration files and can do neccessary modifications."
 msgstr ""
 "Informação de configuração para Clientes SIP e IAX. Você pode simplesmente "
 "copiar e colar isto no seu arquivo de configuração e fazer as modificações "
@@ -992,9 +992,9 @@ msgstr ""
 
 #: .././form_data/FG_var_ratecard.inc:34 .././form_data/FG_var_ratecard.inc:58
 #: .././form_data/FG_var_did.inc:41 .././form_data/FG_var_did.inc:69
-#: .././invoices_customer.php:466 .././invoices_customer.php:855
-#: .././invoices_customer.php:942 .././A2B_entity_call_details.php:487
-#: .././simulator.php:211 .././call-history.php:442
+#: .././invoices_customer.php:458 .././invoices_customer.php:847
+#: .././invoices_customer.php:934 .././A2B_entity_call_details.php:482
+#: .././simulator.php:211 .././call-history.php:416
 msgid "DESTINATION"
 msgstr "DESTINO"
 
@@ -1059,7 +1059,7 @@ msgid ""
 "Mobile Telefonica, ..."
 msgstr ""
 "Nome para o destino desta ligação, por exemplo : Reino Unido, Bélgica, "
-"Espanha Telefonica Móvel, ..."
+"Espanha Telefônica Móvel, ..."
 
 #: .././form_data/FG_var_ratecard.inc:68
 msgid "SELLING RATE"
@@ -1113,7 +1113,7 @@ msgid "SENTDATE"
 msgstr "DATA DE ENVIO"
 
 #. $HD_Form -> AddViewElement(gettext("STATUS"), "invoicestatus", "5%", "center", "sort", "", "list", $status_list);
-#: .././form_data/FG_var_view_invoice.inc:63 .././invoices_customer.php:802
+#: .././form_data/FG_var_view_invoice.inc:63 .././invoices_customer.php:794
 msgid "AMOUNT"
 msgstr "QUANTIA"
 
@@ -1318,7 +1318,7 @@ msgstr "Ativado"
 msgid "Disactive"
 msgstr "Desativado"
 
-#: .././form_data/FG_var_callerid.inc:16 .././A2B_entity_did.php:565
+#: .././form_data/FG_var_callerid.inc:16 .././A2B_entity_did.php:569
 msgid "Yes"
 msgstr "Sim"
 
@@ -1402,8 +1402,8 @@ msgstr "Grátis"
 
 #: .././form_data/FG_var_did.inc:42 .././form_data/FG_var_did.inc:78
 #: .././templates/default/main.tpl:87 .././templates/design1/main.tpl:261
-#: .././A2B_entity_invoice_detail_pdf.php:590
-#: .././A2B_entity_invoice_detail.php:573
+#: .././A2B_entity_invoice_detail_pdf.php:583
+#: .././A2B_entity_invoice_detail.php:568
 msgid "DID"
 msgstr "DID"
 
@@ -1669,8 +1669,8 @@ msgstr "HISTÓRICO DE LIGAÇÕES"
 msgid "INVOICES"
 msgstr "FATURAS"
 
-#: .././templates/default/main.tpl:75 .././invoices_customer.php:358
-#: .././invoices_customer.php:759
+#: .././templates/default/main.tpl:75 .././invoices_customer.php:350
+#: .././invoices_customer.php:751
 msgid "Invoice Details"
 msgstr "Detalhes da Fatura"
 
@@ -1737,7 +1737,7 @@ msgstr "Sumário dos não faturados"
 msgid "UnBilled Details"
 msgstr "Detalhes não faturados"
 
-#: .././templates/design1/main.tpl:253 .././A2B_entity_call_details.php:612
+#: .././templates/design1/main.tpl:253 .././A2B_entity_call_details.php:607
 msgid "Call Details"
 msgstr "Detalhes da Ligações"
 
@@ -1747,14 +1747,14 @@ msgstr "Detalhes da Ligações"
 #: .././A2B_entity_call_details_pdf.php:68 .././invoices_customer.php:71
 #: .././A2B_entity_call_details.php:81
 #: .././A2B_entity_invoice_detail_pdf.php:56
-#: .././A2B_entity_invoice_detail.php:47 .././call-history.php:83
+#: .././A2B_entity_invoice_detail.php:47 .././call-history.php:79
 msgid "Calldate"
 msgstr "Data da ligação"
 
 #: .././A2B_entity_call_details_pdf.php:69 .././invoices_customer.php:72
 #: .././A2B_entity_call_details.php:82
 #: .././A2B_entity_invoice_detail_pdf.php:57
-#: .././A2B_entity_invoice_detail.php:48
+#: .././A2B_entity_invoice_detail.php:48 .././call-history.php:80
 msgid "Source"
 msgstr "Pesquisa"
 
@@ -1766,157 +1766,157 @@ msgid "Callednumber"
 msgstr "Número chamado"
 
 #: .././A2B_entity_call_details_pdf.php:71
-#: .././A2B_entity_call_details_pdf.php:373 .././invoices_customer.php:74
-#: .././A2B_entity_call_details.php:84 .././A2B_entity_call_details.php:649
+#: .././A2B_entity_call_details_pdf.php:368 .././invoices_customer.php:74
+#: .././A2B_entity_call_details.php:84 .././A2B_entity_call_details.php:644
 #: .././A2B_entity_speeddial.php:74 .././A2B_entity_invoice_detail_pdf.php:59
-#: .././A2B_entity_invoice_detail_pdf.php:398
+#: .././A2B_entity_invoice_detail_pdf.php:391
 #: .././A2B_entity_invoice_detail.php:50
-#: .././A2B_entity_invoice_detail.php:397 .././call-history.php:90
+#: .././A2B_entity_invoice_detail.php:392 .././call-history.php:82
 msgid "Destination"
 msgstr "Destino"
 
 #: .././A2B_entity_call_details_pdf.php:72
-#: .././A2B_entity_call_details_pdf.php:374
-#: .././A2B_entity_call_details_pdf.php:472 .././invoices_customer.php:75
-#: .././A2B_entity_call_details.php:85 .././A2B_entity_call_details.php:650
-#: .././A2B_entity_call_details.php:739
+#: .././A2B_entity_call_details_pdf.php:369
+#: .././A2B_entity_call_details_pdf.php:467 .././invoices_customer.php:75
+#: .././A2B_entity_call_details.php:85 .././A2B_entity_call_details.php:645
+#: .././A2B_entity_call_details.php:734
 #: .././A2B_entity_invoice_detail_pdf.php:60
-#: .././A2B_entity_invoice_detail_pdf.php:399
-#: .././A2B_entity_invoice_detail_pdf.php:496
+#: .././A2B_entity_invoice_detail_pdf.php:392
+#: .././A2B_entity_invoice_detail_pdf.php:489
 #: .././A2B_entity_invoice_detail.php:51
-#: .././A2B_entity_invoice_detail.php:398
-#: .././A2B_entity_invoice_detail.php:487 .././call-history.php:92
+#: .././A2B_entity_invoice_detail.php:393
+#: .././A2B_entity_invoice_detail.php:482 .././call-history.php:83
 msgid "Duration"
 msgstr "Duração"
 
 #: .././A2B_entity_call_details_pdf.php:75 .././invoices_customer.php:78
 #: .././A2B_entity_call_details.php:89
 #: .././A2B_entity_invoice_detail_pdf.php:63
-#: .././A2B_entity_invoice_detail.php:54 .././call-history.php:94
+#: .././A2B_entity_invoice_detail.php:54 .././call-history.php:84
 msgid "Cardused"
 msgstr "Cartão usado"
 
 #: .././A2B_entity_call_details_pdf.php:78 .././invoices_customer.php:80
 #: .././A2B_entity_call_details.php:92
 #: .././A2B_entity_invoice_detail_pdf.php:66
-#: .././A2B_entity_invoice_detail.php:57 .././call-history.php:104
+#: .././A2B_entity_invoice_detail.php:57 .././call-history.php:88
 msgid "Cost"
 msgstr "Custo"
 
-#: .././A2B_entity_call_details_pdf.php:332
+#: .././A2B_entity_call_details_pdf.php:327
 msgid "Call Details for Card Number"
 msgstr "Detalhes das ligações do cartão número"
 
-#: .././A2B_entity_call_details_pdf.php:340
+#: .././A2B_entity_call_details_pdf.php:335
 msgid "Calls Details"
 msgstr "Destinos das Ligações"
 
-#: .././A2B_entity_call_details_pdf.php:347 .././invoices_customer.php:368
-#: .././invoices_customer.php:769 .././A2B_entity_call_details.php:621
-#: .././A2B_entity_speeddial.php:76 .././A2B_entity_invoice_detail_pdf.php:367
-#: .././A2B_entity_invoice_detail.php:349
+#: .././A2B_entity_call_details_pdf.php:342 .././invoices_customer.php:360
+#: .././invoices_customer.php:761 .././A2B_entity_call_details.php:616
+#: .././A2B_entity_speeddial.php:76 .././A2B_entity_invoice_detail_pdf.php:360
+#: .././A2B_entity_invoice_detail.php:344
 msgid "Name"
 msgstr "Nome"
 
-#: .././A2B_entity_call_details_pdf.php:351 .././invoices_customer.php:372
-#: .././invoices_customer.php:773 .././A2B_entity_call_details.php:625
-#: .././A2B_entity_invoice_detail_pdf.php:371
-#: .././A2B_entity_invoice_detail.php:353
+#: .././A2B_entity_call_details_pdf.php:346 .././invoices_customer.php:364
+#: .././invoices_customer.php:765 .././A2B_entity_call_details.php:620
+#: .././A2B_entity_invoice_detail_pdf.php:364
+#: .././A2B_entity_invoice_detail.php:348
 msgid "Card Number"
 msgstr "Número do Cartão"
 
-#: .././A2B_entity_call_details_pdf.php:355
-#: .././A2B_entity_call_details.php:629
+#: .././A2B_entity_call_details_pdf.php:350
+#: .././A2B_entity_call_details.php:624
 msgid "As of Date"
 msgstr "Até a Data"
 
-#: .././A2B_entity_call_details_pdf.php:369
-#: .././A2B_entity_invoice_detail_pdf.php:394
+#: .././A2B_entity_call_details_pdf.php:364
+#: .././A2B_entity_invoice_detail_pdf.php:387
 msgid "By Destination"
 msgstr "Pelo Destino"
 
-#: .././A2B_entity_call_details_pdf.php:376
-#: .././A2B_entity_call_details_pdf.php:474
-#: .././A2B_entity_call_details.php:652 .././A2B_entity_call_details.php:741
-#: .././A2B_entity_invoice_detail_pdf.php:401
-#: .././A2B_entity_invoice_detail_pdf.php:498
-#: .././A2B_entity_invoice_detail.php:400
-#: .././A2B_entity_invoice_detail.php:489
+#: .././A2B_entity_call_details_pdf.php:371
+#: .././A2B_entity_call_details_pdf.php:469
+#: .././A2B_entity_call_details.php:647 .././A2B_entity_call_details.php:736
+#: .././A2B_entity_invoice_detail_pdf.php:394
+#: .././A2B_entity_invoice_detail_pdf.php:491
+#: .././A2B_entity_invoice_detail.php:395
+#: .././A2B_entity_invoice_detail.php:484
 msgid "Calls"
 msgstr "Ligações"
 
-#: .././A2B_entity_call_details_pdf.php:377
-#: .././A2B_entity_call_details_pdf.php:475
-#: .././A2B_entity_call_details.php:653 .././A2B_entity_call_details.php:742
-#: .././A2B_entity_invoice_detail_pdf.php:402
-#: .././A2B_entity_invoice_detail_pdf.php:499
-#: .././A2B_entity_invoice_detail_pdf.php:593
-#: .././A2B_entity_invoice_detail_pdf.php:666
-#: .././A2B_entity_invoice_detail.php:401
-#: .././A2B_entity_invoice_detail.php:490
-#: .././A2B_entity_invoice_detail.php:576
-#: .././A2B_entity_invoice_detail.php:651
+#: .././A2B_entity_call_details_pdf.php:372
+#: .././A2B_entity_call_details_pdf.php:470
+#: .././A2B_entity_call_details.php:648 .././A2B_entity_call_details.php:737
+#: .././A2B_entity_invoice_detail_pdf.php:395
+#: .././A2B_entity_invoice_detail_pdf.php:492
+#: .././A2B_entity_invoice_detail_pdf.php:586
+#: .././A2B_entity_invoice_detail_pdf.php:659
+#: .././A2B_entity_invoice_detail.php:396
+#: .././A2B_entity_invoice_detail.php:485
+#: .././A2B_entity_invoice_detail.php:571
+#: .././A2B_entity_invoice_detail.php:646
 msgid "Amount"
 msgstr "Quantia"
 
 #. for loop end here
-#: .././A2B_entity_call_details_pdf.php:425
-#: .././A2B_entity_call_details_pdf.php:525 .././invoices_customer.php:432
-#: .././invoices_customer.php:521 .././invoices_customer.php:614
-#: .././invoices_customer.php:821 .././invoices_customer.php:904
-#: .././invoices_customer.php:990 .././A2B_entity_call_details.php:702
-#: .././A2B_entity_call_details.php:792
-#: .././A2B_entity_invoice_detail_pdf.php:450
-#: .././A2B_entity_invoice_detail_pdf.php:549
-#: .././A2B_entity_invoice_detail_pdf.php:622
-#: .././A2B_entity_invoice_detail_pdf.php:712
-#: .././A2B_entity_invoice_detail.php:450
-#: .././A2B_entity_invoice_detail.php:540
-#: .././A2B_entity_invoice_detail.php:607
-#: .././A2B_entity_invoice_detail.php:695 .././call-history.php:794
+#: .././A2B_entity_call_details_pdf.php:420
+#: .././A2B_entity_call_details_pdf.php:520 .././invoices_customer.php:424
+#: .././invoices_customer.php:513 .././invoices_customer.php:606
+#: .././invoices_customer.php:813 .././invoices_customer.php:896
+#: .././invoices_customer.php:982 .././A2B_entity_call_details.php:697
+#: .././A2B_entity_call_details.php:787
+#: .././A2B_entity_invoice_detail_pdf.php:443
+#: .././A2B_entity_invoice_detail_pdf.php:542
+#: .././A2B_entity_invoice_detail_pdf.php:615
+#: .././A2B_entity_invoice_detail_pdf.php:705
+#: .././A2B_entity_invoice_detail.php:445
+#: .././A2B_entity_invoice_detail.php:535
+#: .././A2B_entity_invoice_detail.php:602
+#: .././A2B_entity_invoice_detail.php:690 .././call-history.php:768
 msgid "TOTAL"
 msgstr "TOTAL"
 
-#: .././A2B_entity_call_details_pdf.php:468
-#: .././A2B_entity_invoice_detail_pdf.php:492
+#: .././A2B_entity_call_details_pdf.php:463
+#: .././A2B_entity_invoice_detail_pdf.php:485
 msgid "By Date"
 msgstr "Pela Data"
 
-#: .././A2B_entity_call_details_pdf.php:471
-#: .././A2B_entity_call_details.php:738
-#: .././A2B_entity_invoice_detail_pdf.php:495
-#: .././A2B_entity_invoice_detail_pdf.php:663
-#: .././A2B_entity_invoice_detail.php:486
-#: .././A2B_entity_invoice_detail.php:648
+#: .././A2B_entity_call_details_pdf.php:466
+#: .././A2B_entity_call_details.php:733
+#: .././A2B_entity_invoice_detail_pdf.php:488
+#: .././A2B_entity_invoice_detail_pdf.php:656
+#: .././A2B_entity_invoice_detail.php:481
+#: .././A2B_entity_invoice_detail.php:643
 msgid "Date"
 msgstr "Data"
 
-#: .././A2B_entity_call_details_pdf.php:547 .././invoices_customer.php:716
-#: .././invoices_customer.php:1085 .././A2B_entity_call_details.php:816
-#: .././A2B_entity_invoice_detail_pdf.php:734
-#: .././A2B_entity_invoice_detail.php:725
+#: .././A2B_entity_call_details_pdf.php:542 .././invoices_customer.php:708
+#: .././invoices_customer.php:1077 .././A2B_entity_call_details.php:811
+#: .././A2B_entity_invoice_detail_pdf.php:727
+#: .././A2B_entity_invoice_detail.php:720
 msgid "VAT"
 msgstr "IVA"
 
-#: .././A2B_entity_call_details_pdf.php:555 .././invoices_customer.php:721
-#: .././invoices_customer.php:1090 .././A2B_entity_call_details.php:821
-#: .././A2B_entity_invoice_detail_pdf.php:742
-#: .././A2B_entity_invoice_detail.php:730
+#: .././A2B_entity_call_details_pdf.php:550 .././invoices_customer.php:713
+#: .././invoices_customer.php:1082 .././A2B_entity_call_details.php:816
+#: .././A2B_entity_invoice_detail_pdf.php:735
+#: .././A2B_entity_invoice_detail.php:725
 msgid "Grand Total"
 msgstr "Total Geral"
 
-#: .././A2B_entity_call_details_pdf.php:568
-#: .././A2B_entity_call_details.php:830 .././A2B_entity_call_details.php:930
+#: .././A2B_entity_call_details_pdf.php:563
+#: .././A2B_entity_call_details.php:825 .././A2B_entity_call_details.php:925
 msgid "No of Calls"
 msgstr "Nenhuma das Ligações"
 
-#: .././A2B_entity_call_details_pdf.php:571
-#: .././A2B_entity_call_details_pdf.php:664
+#: .././A2B_entity_call_details_pdf.php:566
+#: .././A2B_entity_call_details_pdf.php:659
 msgid "Sr"
 msgstr "Sr"
 
 #. end_if
-#: .././A2B_entity_call_details_pdf.php:661
+#: .././A2B_entity_call_details_pdf.php:656
 msgid "No of DID Calls"
 msgstr "Nenhuma ligação do DID"
 
@@ -1976,11 +1976,11 @@ msgstr "Este Voucher não existe !"
 msgid "USE VOUCHER"
 msgstr "USAR O VOUCHER"
 
-#: .././A2B_entity_callerid.php:68
+#: .././A2B_entity_callerid.php:77
 msgid "CALLER ID :"
 msgstr "IDENTIFICADOR DE CHAMADAS :"
 
-#: .././A2B_entity_callerid.php:72
+#: .././A2B_entity_callerid.php:81
 msgid "ADD NEW CALLERID"
 msgstr "ADICIONAR NOVO IDENTIFICADOR DE CHAMADAS"
 
@@ -1992,262 +1992,262 @@ msgstr "ERRO: Não pode ser feito o download do arquivo"
 msgid "it does not exist"
 msgstr "isto não existe"
 
-#: .././invoices_customer.php:288 .././A2B_entity_call_details.php:514
-#: .././call-history.php:455
+#: .././invoices_customer.php:280 .././A2B_entity_call_details.php:509
+#: .././call-history.php:429
 msgid "OPTIONS"
 msgstr "OPÇÕES"
 
-#: .././invoices_customer.php:293 .././A2B_entity_call_details.php:521
+#: .././invoices_customer.php:285 .././A2B_entity_call_details.php:516
 msgid "RESULT"
 msgstr "RESULTADO"
 
-#: .././invoices_customer.php:296 .././A2B_entity_call_details.php:524
-#: .././simulator.php:218 .././call-history.php:475
+#: .././invoices_customer.php:288 .././A2B_entity_call_details.php:519
+#: .././simulator.php:218 .././call-history.php:449
 msgid "Minutes"
 msgstr "Minutos"
 
-#: .././invoices_customer.php:296 .././A2B_entity_call_details.php:524
-#: .././call-history.php:475
+#: .././invoices_customer.php:288 .././A2B_entity_call_details.php:519
+#: .././call-history.php:449
 msgid "Seconds"
 msgstr "Segundos"
 
-#: .././invoices_customer.php:301 .././A2B_entity_call_details.php:529
+#: .././invoices_customer.php:293 .././A2B_entity_call_details.php:524
 msgid "EXPORT FORMAT"
 msgstr "EXPORTAR NO FORMATO"
 
-#: .././invoices_customer.php:304 .././A2B_entity_call_details.php:532
+#: .././invoices_customer.php:296 .././A2B_entity_call_details.php:527
 msgid "See Invoice in HTML"
 msgstr "Ver Fatura em HTML"
 
-#: .././invoices_customer.php:305 .././A2B_entity_call_details.php:533
+#: .././invoices_customer.php:297 .././A2B_entity_call_details.php:528
 msgid "or Export PDF"
 msgstr "ou exportar para PDF"
 
-#: .././invoices_customer.php:310 .././A2B_entity_call_details.php:550
-#: .././call-history.php:480
+#: .././invoices_customer.php:302 .././A2B_entity_call_details.php:545
+#: .././call-history.php:454
 msgid "CURRENCY"
 msgstr "MOEDA"
 
-#: .././invoices_customer.php:334 .././A2B_entity_call_details.php:574
-#: .././call-history.php:502
+#: .././invoices_customer.php:326 .././A2B_entity_call_details.php:569
+#: .././call-history.php:476
 msgid "Search"
 msgstr "Pesquisar"
 
-#: .././invoices_customer.php:376 .././invoices_customer.php:777
-#: .././A2B_entity_invoice_detail_pdf.php:378
-#: .././A2B_entity_invoice_detail_pdf.php:383
+#: .././invoices_customer.php:368 .././invoices_customer.php:769
+#: .././A2B_entity_invoice_detail_pdf.php:371
+#: .././A2B_entity_invoice_detail_pdf.php:376
+#: .././A2B_entity_invoice_detail.php:355
 #: .././A2B_entity_invoice_detail.php:360
-#: .././A2B_entity_invoice_detail.php:365
 msgid "From Date"
 msgstr "Da data"
 
-#: .././invoices_customer.php:405 .././invoices_customer.php:796
-#: .././A2B_entity_invoice_detail_pdf.php:660
-#: .././A2B_entity_invoice_detail_pdf.php:693
-#: .././A2B_entity_invoice_detail.php:645
-#: .././A2B_entity_invoice_detail.php:677
+#: .././invoices_customer.php:397 .././invoices_customer.php:788
+#: .././A2B_entity_invoice_detail_pdf.php:653
+#: .././A2B_entity_invoice_detail_pdf.php:686
+#: .././A2B_entity_invoice_detail.php:640
+#: .././A2B_entity_invoice_detail.php:672
 msgid "Extra Charges"
 msgstr "Taxas Extras"
 
-#: .././invoices_customer.php:408 .././invoices_customer.php:561
-#: .././invoices_customer.php:800 .././call-history.php:739
+#: .././invoices_customer.php:400 .././invoices_customer.php:553
+#: .././invoices_customer.php:792 .././call-history.php:713
 msgid "DATE"
 msgstr "DATA"
 
-#: .././invoices_customer.php:409 .././invoices_customer.php:801
+#: .././invoices_customer.php:401 .././invoices_customer.php:793
 msgid "NB CHARGE"
 msgstr "NUM. DE TAXAS"
 
-#: .././invoices_customer.php:410 .././invoices_customer.php:470
-#: .././invoices_customer.php:565 .././invoices_customer.php:858
-#: .././invoices_customer.php:945
+#: .././invoices_customer.php:402 .././invoices_customer.php:462
+#: .././invoices_customer.php:557 .././invoices_customer.php:850
+#: .././invoices_customer.php:937
 msgid "TOTALCOST"
 msgstr "CUSTO TOTAL"
 
-#: .././invoices_customer.php:463 .././invoices_customer.php:851
+#: .././invoices_customer.php:455 .././invoices_customer.php:843
 msgid "CALLS PER DESTINATION"
 msgstr "LIGAÇÕES POR DESTINO"
 
-#: .././invoices_customer.php:467 .././invoices_customer.php:562
+#: .././invoices_customer.php:459 .././invoices_customer.php:554
 msgid "DUR"
 msgstr "DUR"
 
-#: .././invoices_customer.php:468 .././invoices_customer.php:563
-#: .././call-history.php:741
+#: .././invoices_customer.php:460 .././invoices_customer.php:555
+#: .././call-history.php:715
 msgid "GRAPHIC"
 msgstr "GRÁFICO"
 
-#: .././invoices_customer.php:469 .././invoices_customer.php:564
-#: .././invoices_customer.php:857 .././invoices_customer.php:944
+#: .././invoices_customer.php:461 .././invoices_customer.php:556
+#: .././invoices_customer.php:849 .././invoices_customer.php:936
 msgid "CALL"
 msgstr "LIGAÇÃO"
 
-#: .././invoices_customer.php:558 .././invoices_customer.php:938
+#: .././invoices_customer.php:550 .././invoices_customer.php:930
 msgid "CALLS PER DAY"
 msgstr "LIGAÇÕES POR DIA"
 
-#: .././invoices_customer.php:630 .././invoices_customer.php:1011
+#: .././invoices_customer.php:622 .././invoices_customer.php:1003
 msgid "Number of call"
 msgstr "Número de ligações"
 
 #. end_if
-#: .././invoices_customer.php:713 .././invoices_customer.php:1082
-#: .././A2B_entity_call_details.php:813 .././A2B_entity_invoice_detail.php:722
+#: .././invoices_customer.php:705 .././invoices_customer.php:1074
+#: .././A2B_entity_call_details.php:808 .././A2B_entity_invoice_detail.php:717
 msgid "Total"
 msgstr "Total"
 
-#: .././invoices_customer.php:727 .././A2B_entity_invoice_detail_pdf.php:754
-#: .././A2B_entity_invoice_detail.php:741
+#: .././invoices_customer.php:719 .././A2B_entity_invoice_detail_pdf.php:747
+#: .././A2B_entity_invoice_detail.php:736
 msgid "Status"
 msgstr "Status"
 
-#: .././invoices_customer.php:856 .././invoices_customer.php:943
-#: .././call-history.php:740
+#: .././invoices_customer.php:848 .././invoices_customer.php:935
+#: .././call-history.php:714
 msgid "DURATION"
 msgstr "DURAÇÃO"
 
-#: .././invoices_customer.php:1015
+#: .././invoices_customer.php:1007
 msgid "nb"
 msgstr "num"
 
-#: .././A2B_entity_call_details.php:338 .././call-history.php:325
+#: .././A2B_entity_call_details.php:333 .././call-history.php:299
 msgid "SELECT BY MONTH"
 msgstr "SELECIONAR PELO MÊS"
 
-#: .././A2B_entity_call_details.php:344 .././A2B_entity_call_details.php:393
-#: .././call-history.php:331 .././call-history.php:382
+#: .././A2B_entity_call_details.php:339 .././A2B_entity_call_details.php:388
+#: .././call-history.php:305 .././call-history.php:356
 msgid "FROM"
 msgstr "DE"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "JANUARY"
 msgstr "JANEIRO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "FEBRUARY"
 msgstr "FEVEREIRO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "MARCH"
 msgstr "MARÇO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "APRIL"
 msgstr "ABRIL"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "MAY"
 msgstr "MAIO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "JUNE"
 msgstr "JUNHO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "JULY"
 msgstr "JULHO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "AUGUST"
 msgstr "AGOSTO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "SEPTEMBER"
 msgstr "SETEMBRO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "OCTOBER"
 msgstr "OUTUBRO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "NOVEMBER"
 msgstr "NOVEMBRO"
 
-#: .././A2B_entity_call_details.php:348 .././A2B_entity_call_details.php:368
-#: .././A2B_entity_call_details.php:406 .././A2B_entity_call_details.php:451
-#: .././call-history.php:335 .././call-history.php:356
-#: .././call-history.php:395 .././call-history.php:423
+#: .././A2B_entity_call_details.php:343 .././A2B_entity_call_details.php:363
+#: .././A2B_entity_call_details.php:401 .././A2B_entity_call_details.php:446
+#: .././call-history.php:309 .././call-history.php:330
+#: .././call-history.php:369 .././call-history.php:397
 msgid "DECEMBER"
 msgstr "DEZEMBRO"
 
-#: .././A2B_entity_call_details.php:364 .././A2B_entity_call_details.php:438
-#: .././call-history.php:351 .././call-history.php:410
+#: .././A2B_entity_call_details.php:359 .././A2B_entity_call_details.php:433
+#: .././call-history.php:325 .././call-history.php:384
 msgid "TO"
 msgstr "ATÉ"
 
-#: .././A2B_entity_call_details.php:388 .././call-history.php:377
+#: .././A2B_entity_call_details.php:383 .././call-history.php:351
 msgid "SELECT BY DAY"
 msgstr "SELECIONAR PELO DIA"
 
-#: .././A2B_entity_call_details.php:496 .././A2B_entity_call_details.php:510
+#: .././A2B_entity_call_details.php:491 .././A2B_entity_call_details.php:505
 msgid "Is not"
 msgstr "Não é"
 
-#: .././A2B_entity_call_details.php:501
+#: .././A2B_entity_call_details.php:496
 msgid "SOURCE"
 msgstr "PESQUISAR"
 
-#: .././A2B_entity_call_details.php:538 .././call-history.php:460
+#: .././A2B_entity_call_details.php:533 .././call-history.php:434
 msgid "SHOW"
 msgstr "MOSTRAR"
 
-#: .././A2B_entity_call_details.php:541 .././call-history.php:463
+#: .././A2B_entity_call_details.php:536 .././call-history.php:437
 msgid "Answered Calls"
 msgstr "Ligações Atendidas"
 
-#: .././A2B_entity_call_details.php:543 .././call-history.php:465
+#: .././A2B_entity_call_details.php:538 .././call-history.php:439
 msgid "All Calls"
 msgstr "Todas as Ligações"
 
-#: .././A2B_entity_call_details.php:645 .././A2B_entity_invoice_detail.php:393
+#: .././A2B_entity_call_details.php:640 .././A2B_entity_invoice_detail.php:388
 msgid "Calls by Destination"
 msgstr "Ligações por Destino"
 
-#: .././A2B_entity_call_details.php:651 .././A2B_entity_call_details.php:740
-#: .././A2B_entity_invoice_detail.php:399
-#: .././A2B_entity_invoice_detail.php:488
+#: .././A2B_entity_call_details.php:646 .././A2B_entity_call_details.php:735
+#: .././A2B_entity_invoice_detail.php:394
+#: .././A2B_entity_invoice_detail.php:483
 msgid "Graphic"
 msgstr "Gráfico"
 
-#: .././A2B_entity_call_details.php:735 .././A2B_entity_invoice_detail.php:483
+#: .././A2B_entity_call_details.php:730 .././A2B_entity_invoice_detail.php:478
 msgid "Calls by Date"
 msgstr "Ligações por Data"
 
 #. end_if
-#: .././A2B_entity_call_details.php:930
+#: .././A2B_entity_call_details.php:925
 msgid "DID Calls"
 msgstr "Ligações DID"
 
@@ -2316,12 +2316,12 @@ msgstr "Clique aqui para ver a última pessoa chamada e as ligações atuais"
 msgid "Previous"
 msgstr "Anterior"
 
-#: .././predictivedialer.php:322 .././call-history.php:669
+#: .././predictivedialer.php:322 .././call-history.php:643
 msgid "NEXT"
 msgstr "PRÓXIMO"
 
 #: .././predictivedialer.php:341 .././CC_entity_phonelist.php:267
-#: .././A2B_entity_did.php:565
+#: .././A2B_entity_did.php:569
 msgid "NO"
 msgstr "NÃO"
 
@@ -2487,70 +2487,70 @@ msgstr "Detalhes das Faturas não Faturadas do Cartão Número"
 msgid "Billed Invoice Details for Card Number"
 msgstr "Detalhes das Faturas Faturadas do Cartão Número"
 
-#: .././A2B_entity_invoice_detail_pdf.php:387
-#: .././A2B_entity_invoice_detail.php:369
+#: .././A2B_entity_invoice_detail_pdf.php:380
+#: .././A2B_entity_invoice_detail.php:364
 msgid "To Date"
 msgstr "Até a Data"
 
-#: .././A2B_entity_invoice_detail_pdf.php:457
-#: .././A2B_entity_invoice_detail_pdf.php:559
+#: .././A2B_entity_invoice_detail_pdf.php:450
+#: .././A2B_entity_invoice_detail_pdf.php:552
 msgid "None!!!"
 msgstr "Nenhuma!!!"
 
-#: .././A2B_entity_invoice_detail_pdf.php:586
-#: .././A2B_entity_invoice_detail.php:569
+#: .././A2B_entity_invoice_detail_pdf.php:579
+#: .././A2B_entity_invoice_detail.php:564
 msgid "DID Billing"
 msgstr "Faturamento do DID"
 
-#: .././A2B_entity_invoice_detail_pdf.php:589
-#: .././A2B_entity_invoice_detail.php:572
+#: .././A2B_entity_invoice_detail_pdf.php:582
+#: .././A2B_entity_invoice_detail.php:567
 msgid "Charge Date"
 msgstr "Data da taxa"
 
-#: .././A2B_entity_invoice_detail_pdf.php:591
-#: .././A2B_entity_invoice_detail.php:574
+#: .././A2B_entity_invoice_detail_pdf.php:584
+#: .././A2B_entity_invoice_detail.php:569
 msgid "Country"
 msgstr "País"
 
-#: .././A2B_entity_invoice_detail_pdf.php:592
-#: .././A2B_entity_invoice_detail_pdf.php:665
-#: .././A2B_entity_invoice_detail.php:575
-#: .././A2B_entity_invoice_detail.php:650
+#: .././A2B_entity_invoice_detail_pdf.php:585
+#: .././A2B_entity_invoice_detail_pdf.php:658
+#: .././A2B_entity_invoice_detail.php:570
+#: .././A2B_entity_invoice_detail.php:645
 msgid "Description"
 msgstr "Descrição"
 
-#: .././A2B_entity_invoice_detail_pdf.php:664
-#: .././A2B_entity_invoice_detail.php:649
+#: .././A2B_entity_invoice_detail_pdf.php:657
+#: .././A2B_entity_invoice_detail.php:644
 msgid "Type"
 msgstr "Tipo"
 
-#: .././A2B_entity_invoice_detail_pdf.php:681
-#: .././A2B_entity_invoice_detail.php:665
+#: .././A2B_entity_invoice_detail_pdf.php:674
+#: .././A2B_entity_invoice_detail.php:660
 msgid "Setup Charges"
 msgstr "Configurar taxas"
 
-#: .././A2B_entity_invoice_detail_pdf.php:685
-#: .././A2B_entity_invoice_detail.php:669
+#: .././A2B_entity_invoice_detail_pdf.php:678
+#: .././A2B_entity_invoice_detail.php:664
 msgid "DID Montly Use"
 msgstr "Uso mensal do DID"
 
-#: .././A2B_entity_invoice_detail_pdf.php:689
-#: .././A2B_entity_invoice_detail.php:673
+#: .././A2B_entity_invoice_detail_pdf.php:682
+#: .././A2B_entity_invoice_detail.php:668
 msgid "Subscription Fee"
 msgstr "Taxa da assinatura"
 
-#: .././A2B_entity_invoice_detail_pdf.php:764
-#: .././A2B_entity_invoice_detail.php:750
+#: .././A2B_entity_invoice_detail_pdf.php:757
+#: .././A2B_entity_invoice_detail.php:745
 msgid "Connected"
 msgstr "Conectado"
 
-#: .././A2B_entity_invoice_detail_pdf.php:765
+#: .././A2B_entity_invoice_detail_pdf.php:758
 msgid "Disconnected"
 msgstr "Desconectado"
 
 #: .././PP_error.php:12
 msgid "ERROR : ACCESS REFUSED"
-msgstr "ERROR : ACCESSO NEGADO"
+msgstr "ERROR : ACESSO NEGADO"
 
 #: .././PP_error.php:13
 msgid "Sorry a problem occur on our system, please try later!"
@@ -2688,7 +2688,7 @@ msgstr "Sua transação está em progresso."
 msgid "Your transaction was successful."
 msgstr "Sua transação teve sucesso."
 
-#: .././A2B_entity_invoice_detail.php:751
+#: .././A2B_entity_invoice_detail.php:746
 msgid "DisConnected"
 msgstr "DesConectado"
 
@@ -2734,7 +2734,7 @@ msgstr "De"
 msgid "To"
 msgstr "Até"
 
-#: .././CC_entity_phonelist.php:248 .././A2B_entity_did.php:580
+#: .././CC_entity_phonelist.php:248 .././A2B_entity_did.php:584
 msgid "Next"
 msgstr "Próximo"
 
@@ -2802,80 +2802,76 @@ msgstr "NENHUMA CONTA IAX"
 msgid "START IAX PHONE"
 msgstr "INICIAR O IAX PHONE"
 
-#: .././call-history.php:89
+#: .././call-history.php:81
 msgid "CardNumber"
 msgstr "Número do Cartão"
 
-#: .././call-history.php:95
+#: .././call-history.php:85
 msgid "Terminate Cause"
 msgstr "Causa do Término"
 
-#: .././call-history.php:95
+#: .././call-history.php:85
 msgid "TC"
 msgstr "TC"
 
-#: .././call-history.php:96
+#: .././call-history.php:86
 msgid "Calltype"
 msgstr "Tipo de ligação"
 
-#. if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-#. if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-#. if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-#. if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-#: .././call-history.php:103
+#: .././call-history.php:87
 msgid "InitalRate"
 msgstr "Taxa Inicial"
 
 #. This variable define the Title of the HTML table
-#: .././call-history.php:132
+#: .././call-history.php:114
 msgid "Call Logs"
 msgstr "Histórico das Ligações"
 
-#: .././call-history.php:450
+#: .././call-history.php:424
 msgid "End with"
 msgstr "Termina com"
 
-#: .././call-history.php:472
+#: .././call-history.php:446
 msgid "RESUTL"
 msgstr "RESULTADO"
 
-#: .././call-history.php:511
+#: .././call-history.php:485
 msgid "Number of Calls"
 msgstr "Número de ligações"
 
-#: .././call-history.php:663
+#: .././call-history.php:637
 msgid "PREVIOUS"
 msgstr "ANTERIOR"
 
-#: .././call-history.php:685
+#: .././call-history.php:659
 msgid "Total Cost"
 msgstr "Custo Total"
 
-#: .././call-history.php:724
+#: .././call-history.php:698
 msgid "SUMMARY"
 msgstr "SUMÁRIO"
 
-#: .././call-history.php:736
+#: .././call-history.php:710
 msgid "CALLING CARD MINUTES"
 msgstr "MINUTOS USADOS DO CARTÃO"
 
-#: .././call-history.php:742
+#: .././call-history.php:716
 msgid "CALLS"
 msgstr "LIGAÇÕES"
 
-#: .././call-history.php:743
+#: .././call-history.php:717
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "TAMANHO MÉDIO DA LIGAÇÃO"
 
-#: .././call-history.php:743
+#: .././call-history.php:717
 msgid "ALOC"
 msgstr "ALOC"
 
-#: .././call-history.php:744
+#: .././call-history.php:718
 msgid "TOTAL COST"
 msgstr "CUSTO TOTAL"
 
-#: .././call-history.php:808
+#: .././call-history.php:782
 msgid "No calls in your selection"
 msgstr "Nenhuma ligação na sua seleção"
 
@@ -2899,61 +2895,61 @@ msgstr "Quantia Total"
 msgid "Please click button to confirm your order"
 msgstr "Por favor clique no botão para confirmar sua ordem de pagamento"
 
-#: .././A2B_entity_did.php:62
+#: .././A2B_entity_did.php:66
 msgid "The following Destinaton-DID has been relesed:"
 msgstr "O seguinte DID de Destino foi liberado:"
 
-#: .././A2B_entity_did.php:100
+#: .././A2B_entity_did.php:104
 msgid "If you really want release this DID , Click on the release button."
 msgstr "Se você quer realmente liberar este DID, clique no botão \"release\"."
 
-#: .././A2B_entity_did.php:107
+#: .././A2B_entity_did.php:111
 msgid "Release the DID "
 msgstr "Liberar o DID "
 
-#: .././A2B_entity_did.php:154
+#: .././A2B_entity_did.php:158
 msgid "The following Destinaton-DID has been added:"
 msgstr "O seguinte DID de Destino foi adicionado:"
 
 #. /////////////////////////////////////////////////////////////////////////
 #. /////////////////////////////////////////////////////////////////////////
-#: .././A2B_entity_did.php:364
+#: .././A2B_entity_did.php:368
 msgid "Buy New DID"
 msgstr "Comprar um novo DID"
 
-#: .././A2B_entity_did.php:364
+#: .././A2B_entity_did.php:368
 msgid "Add Phone Number to your DID"
 msgstr "Adicionar um número de telefone para o seu DID"
 
-#: .././A2B_entity_did.php:364
+#: .././A2B_entity_did.php:368
 msgid "Release DID"
 msgstr "Liberar o DID"
 
-#: .././A2B_entity_did.php:381
+#: .././A2B_entity_did.php:385
 msgid "Select Country"
 msgstr "Selecione o País"
 
-#: .././A2B_entity_did.php:395
+#: .././A2B_entity_did.php:399
 msgid "Select Virtual Phone Number"
 msgstr "Selecione um número virtual"
 
-#: .././A2B_entity_did.php:409
+#: .././A2B_entity_did.php:413
 msgid "Ring To Number "
 msgstr "Tocar no número "
 
-#: .././A2B_entity_did.php:561
+#: .././A2B_entity_did.php:565
 msgid "Country Code - Area Code - Number"
 msgstr "Código do Pais - DDD - Número"
 
-#: .././A2B_entity_did.php:565
+#: .././A2B_entity_did.php:569
 msgid "VOIP CALL : "
 msgstr "LIGAÇÃO VOIP : "
 
-#: .././A2B_entity_did.php:567
+#: .././A2B_entity_did.php:571
 msgid "Ring To destination "
 msgstr "Tocar no destino "
 
-#: .././A2B_entity_did.php:570
+#: .././A2B_entity_did.php:574
 msgid ""
 "Enter the phone number you wish to call, or the SIP/IAX client to reach  "
 "(ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, "
@@ -2963,49 +2959,49 @@ msgstr ""
 "347894999 ou SIP/jeremy@182.212.1.45). Se for uma ligação VoIP, será "
 "necessário habilitar o voip_call"
 
-#: .././A2B_entity_did.php:574
+#: .././A2B_entity_did.php:578
 msgid "If you release the did you will not be monthly charged any more."
 msgstr ""
 "Se você liberar o did você não será mais cobrado com taxa extra mensalmente."
 
-#: .././A2B_entity_did.php:582
+#: .././A2B_entity_did.php:586
 msgid "Add phone number"
 msgstr "Adicionar um número de telefone"
 
-#: .././A2B_entity_did.php:584 .././A2B_entity_did.php:613
-#: .././A2B_entity_did.php:634
+#: .././A2B_entity_did.php:588 .././A2B_entity_did.php:617
+#: .././A2B_entity_did.php:638
 msgid "Ok"
 msgstr "OK"
 
-#: .././A2B_entity_did.php:600
+#: .././A2B_entity_did.php:604
 msgid "Confirm the purchase of the DID "
 msgstr "Confirmar a compra do DID "
 
-#: .././A2B_entity_did.php:605
+#: .././A2B_entity_did.php:609
 msgid "A monthly fee of "
 msgstr "Uma taxa mensal de "
 
-#: .././A2B_entity_did.php:605
+#: .././A2B_entity_did.php:609
 msgid " will be carrie out from your acount"
 msgstr " será debitado da sua conta"
 
-#: .././A2B_entity_did.php:610
+#: .././A2B_entity_did.php:614
 msgid "Prev"
 msgstr "Anterior"
 
-#: .././A2B_entity_did.php:624
+#: .././A2B_entity_did.php:628
 msgid "The purchase of the DID is done "
 msgstr "A compra do DID está efetuada "
 
-#: .././A2B_entity_did.php:625
+#: .././A2B_entity_did.php:629
 msgid "The purchase of the DID cant be done, your credit of  "
 msgstr "A compra do DID não pode ser feita, seu crédito é de "
 
-#: .././A2B_entity_did.php:625
+#: .././A2B_entity_did.php:629
 msgid " is lower than Fixerate of the DID  "
 msgstr " é menor do que a taxa do DID "
 
-#: .././A2B_entity_did.php:625
+#: .././A2B_entity_did.php:629
 msgid "Please reload your account "
 msgstr "Por favor atualize sua conta "
 
