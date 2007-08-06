@@ -740,5 +740,4 @@ function get_db_languages($handle = null)
 
 	return $result;
 }
-
 ?>

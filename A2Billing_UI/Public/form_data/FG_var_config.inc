@@ -8,6 +8,41 @@ if($agi_conf)
 	$groupselect = add_agi_confx();
 	unset($agi_conf);
 }
+$setbool = false;
+$handle = DbConnect();
+$instance_table = new Table();
+$QUERY =  "SELECT config_value, config_listvalues from cc_config where id = $id";
+$result = $instance_table -> SQLExec ($handle, $QUERY);
+if($result[0][1] == "yes,no" || $result[0][1] == "no,yes"){
+	$setbool = true;
+}
+
+$value_list[0][0] = "no";
+$value_list[0][1] = 0;
+$value_list[1][0] = "yes";
+$value_list[1][1] = 1;
+foreach($value_list as $key => $cur_value) {
+	if(in_array($result[0][0],$cur_value)){
+		$value_list[$key]  = array( $cur_value[0], $key." selected");
+	}else{
+		$value_list[$key]  = array( $cur_value[0], $key);
+	}
+}
+$yesno = array();
+
+$QUERY =  "SELECT config_value from cc_config order by id";
+$result = $instance_table -> SQLExec ($handle, $QUERY);
+
+foreach($result as $key => $cur_value) {
+		if($cur_value[0] == "1"){
+			$yesno[$cur_value[0]] = array('Yes',$key);
+		}else if($cur_value[0] == "0"){
+			$yesno[$cur_value[0]] = array('No', $key);						
+		}else{
+			$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
+		}
+	
+}
 
 $HD_Form = new FormHandler("cc_config ccc, cc_config_group ccg","Configuration");
 
@@ -32,11 +67,10 @@ if($form_action == "list"){
 }else{
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }
-
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");
-$HD_Form -> AddViewElement(gettext("VALUE"), "config_value", "10%", "center");
+$HD_Form -> AddViewElement(gettext("Value"), "config_value", "10%", "center","","","list",$yesno);
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "config_description", "40%", "left");
 $HD_Form -> AddViewElement(gettext("GROUP"), "group_title", "5%", "center");
 
@@ -52,10 +86,11 @@ $HD_Form -> FG_LIMITE_DISPLAY = 25;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = false;
 
-
-$HD_Form -> FG_DISPLAY_SELECT = true;
-$HD_Form -> FG_SELECT_FIELDNAME = "config_listvalues";
-$HD_Form -> FG_CONF_VALUE_FIELDNAME = "config_value";
+if(!$setbool){
+	$HD_Form -> FG_DISPLAY_SELECT = true;
+	$HD_Form -> FG_SELECT_FIELDNAME = "config_listvalues";
+	$HD_Form -> FG_CONF_VALUE_FIELDNAME = "config_value";
+}
 
 $HD_Form -> AddEditElement (gettext("GROUP"),
 	"group_title",
@@ -84,15 +119,23 @@ $HD_Form -> AddEditElement (gettext("KEY"),
 	"",
 	gettext("Insert the TITLE"),
 	"" , "", "", "", "" , "", "" ,gettext("Key name of the configuration variable"));
-
+if($setbool){
+$HD_Form -> AddEditElement (gettext("VALUE"),
+			   "config_value",
+			   "",
+			   "SELECT",
+			   "","","",
+			   "list" , "", "",	"", $value_list, "", "", "" );
+	
+}else{
 $HD_Form -> AddEditElement (gettext("VALUE"),
 	"config_value",
 	'$value',
 	"INPUT",
 	"size=30 ",
-	"",
-	gettext("Insert the starting date"),
+	"","",
 	"" , "", "", "", "", "", "", gettext("Insert the Value"));
+}
 if(LIST_OF_VALUES){
 $HD_Form -> AddEditElement (gettext("LIST OF VALUES"),
 	"config_listvalues",
