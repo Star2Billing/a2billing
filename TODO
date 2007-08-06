@@ -3,6 +3,21 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+
+#### UPDATE CSS Menu : menu.css
+********************************************************************
+With some translation the text in the menu overpass the size of the cell.
+changing has below the height change the design we need to wrap the text and make it 
+fit according to the amount of text.
+
+ #nav ul li span,#nav ul li a {
+      padding: 2px 18px 2px 20px;
+      font-size: 10px;
+-       height : 11px;
+ }
+
+
 #### UPDATE : MAIL TEMPLATE TAG HTML - Add a plaintext versions
 ********************************************************************
 Shopping details is as below.
