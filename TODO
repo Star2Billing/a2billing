@@ -3,6 +3,10 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### BILLING : ADD VIEW AND SEARCH ON TABLE cc_epayment_log
+********************************************************************
+ADD VIEW AND SEARCH ON TABLE cc_epayment_log
+status -> 0 : New ; 1 : Finish ; 2 ; inprocess !?
 
 #### LOAD BALANCING ON TRUNK
 ********************************************************************

@@ -36,18 +36,29 @@ include ("./lib/epayment/includes/loadconfiguration.php");
 $DBHandle_max  = DbConnect();
 $paymentTable = new Table();
 
-$QUERY = "SELECT * from cc_epayment_log WHERE status = 0 AND id = ".$transactionID;
+if (DB_TYPE == "postgres"){
+	$NOW_2MIN = " creationdate <= (now() - interval '2 minute') ";
+} else {
+	$NOW_2MIN = " creationdate <= DATE_SUB(NOW(), INTERVAL 2 MINUTE) ";
+}
+
+$QUERY = "SELECT * from cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
+
+//Update the Transaction Status to 1
+$QUERY = "UPDATE cc_epayment_log SET status = 2 WHERE id = ".$transactionID;
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
+$paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 
 if(!is_array($transaction_data) && count($transaction_data) == 0)
 {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- transactionID=$transactionID"." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
 	exit();
 }
 else
 {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
 }
 $security_verify = true;
 
@@ -364,12 +375,10 @@ $_SESSION["p_module"] = null;
 
 //Update the Transaction Status to 1
 $QUERY = "UPDATE cc_epayment_log SET status = 1 WHERE id = ".$transactionID;
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
 $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 // load the after_process function from the payment modules
 $payment_modules->after_process();
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION END----");
-
-
-?>

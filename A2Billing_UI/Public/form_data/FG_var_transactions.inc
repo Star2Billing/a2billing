@@ -15,7 +15,8 @@ $HD_Form -> AddViewElement(gettext("ORDER DATE"), "date_purchased", "10%", "cent
 $HD_Form -> AddViewElement(gettext("CARDID"), "customers_id", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "customers_name", "10%", "center", "sort");
 //$HD_Form -> AddViewElement(gettext("EMAIL"), "customers_email_address", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ITEM NAME"), "item_name", "12%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ITEM NAME"), "item_name", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ITEM ID"), "item_id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("METHOD"), "payment_method", "9%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CC NUMBER"), "cc_number", "10%", "center", "sort");
 //$HD_Form -> AddViewElement(gettext("CC EXPIRES"), "cc_expires", "7%", "center", "sort");
@@ -24,7 +25,7 @@ $HD_Form -> AddViewElement(gettext("AMOUNT"), "orders_amount", "8%", "center", "
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "");
 $HD_Form -> AddViewElement(gettext("VALUE"), "currency_value", "5%", "center", "SORT", "30");
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id, date_purchased, customers_id, customers_name, item_name, payment_method, cc_number, orders_status, orders_amount, currency, currency_value');
+$HD_Form -> FieldViewElement ('id, date_purchased, customers_id, customers_name, item_name, item_id, payment_method, cc_number, orders_status, orders_amount, currency, currency_value');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
