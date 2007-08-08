@@ -56,6 +56,7 @@
 				<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=1">{php} echo gettext("List CallerID");{/php}</a></li>
 				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=1">{php} echo gettext("List Speed Dial");{/php}</a></li>
 				<li><a href="A2B_entity_speeddial.php?form_action=ask-add&atmenu=speeddial&stitle=Speed+Dial&section=1">{php} echo gettext("Create Speed Dial");{/php}</a></li>
+				<li><a href="A2B_entity_statuslog.php?&atmenu=statuslog&stitle=Status+Log&section=1">{php} echo gettext("Customer Status Log");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>

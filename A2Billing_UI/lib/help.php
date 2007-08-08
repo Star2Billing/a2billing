@@ -339,6 +339,20 @@ $CC_help_list_log ='
 </div></div></div>
 </div></div>';
 
+$CC_help_status_log ='
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
+	<div class="w2">
+	<br/>'
+	.gettext("Status log help you to keep track of all status of customers. These status can be 'New, Active, Cancelled, Reserved, Waiting-MailConfirmation and Expired.").'
+<br/><br/>
+</div></div></div>
+</div></div>';
+
+
 $CC_help_admin_edit ='
 <div class="toggle_show2hide">
 <a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>

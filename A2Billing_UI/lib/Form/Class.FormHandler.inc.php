@@ -360,7 +360,7 @@ class FormHandler{
 	var $FG_ADDITIONAL_FUNCTION_AFTER_ADD = '';
 	var $FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_DELETE = '';
-
+	var $FG_ADDITIONAL_FUNCTION_AFTER_EDITION = '';
 
 	var $FG_TABLE_ALTERNATE_ROW_COLOR = array();
 	
@@ -1442,12 +1442,27 @@ class FormHandler{
 			$as->disconnect();
 		}
 	}
+	
+	function create_status_log(){
+		$processed = $this->getProcessed();
+		$status = $processed['status'];
+		if($this -> RESULT_QUERY != '')
+			$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+		else
+			$id = $processed['id']; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+
+		$value = "'$status','$id'";
+		$func_fields = "status,id_cc_card";
+		$func_table = 'cc_status_log';
+		$id_name = "";
+		$instance_table = new Table();
+		$inserted_id = $instance_table -> Add_table ($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+	} 
 	/**
      * Function to edit the fields
      * @public
      */
 	function create_sipiax_friends(){
-		
 		global $A2B;
 		$processed = $this->getProcessed();
 		
@@ -1697,6 +1712,9 @@ class FormHandler{
 			$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		}	
 		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
+		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
+			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)>0)
+				$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)); 
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))){				
 			if ($this->FG_DEBUG == 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];

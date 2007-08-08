@@ -1,13 +1,12 @@
 <?php
 
 getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff',
-'id_didgroup', 'id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
+'id_didgroup','id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list'));
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list', 'status'));
 
 $HD_Form = new FormHandler("cc_card","Card");
-
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
@@ -48,9 +47,6 @@ $simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
 $simultaccess_list_r = array();
 $simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
 $simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
-
-
-
 
 
 $currency_list = array();
@@ -296,14 +292,15 @@ $HD_Form -> AddEditElement (gettext("CALLBACK"),
 			   "" , "", "",	"", "", "",	"", gettext("Configure the callback url, ie : SIP/jeremy@211.23.76.12 or ZAP/g2, etc...") );
 
 
-$HD_Form -> AddEditElement (gettext("ACTIVATED"),
-			   "activated",
-			   't',
-			   "RADIOBUTTON",
+$HD_Form -> AddEditElement (gettext("STATUS"),
+			   "status",
 			   "",
-			   "",
-			   gettext("Choose if you want to activate this card"),
-			   "" , "", "" , "Yes :t, - No:f",	"", "", "", "" );
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_status",
+			   "status, id",
+			   "", "", "%1", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMATION"),
@@ -622,9 +619,11 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
-'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
+'callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
 'fax, sip_buddy, iax_buddy, mac_addr, inuse');
+
+
 
 
 if(!isset($myusername)) $myusername='';
@@ -642,6 +641,7 @@ $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
+
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
@@ -667,6 +667,8 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 
 
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_status_log';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

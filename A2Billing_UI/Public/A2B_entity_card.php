@@ -18,7 +18,18 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber', 'status'));
+
+if(isset($atmenu) && $atmenu == 'card'){
+		$_SESSION['statusfilter'] = '';
+}
+if($status != ''){
+	$_SESSION["statusfilter"] = $status;
+	if (isset($_SESSION["statusfilter"])){
+		$HD_Form -> FG_TABLE_CLAUSE = "status = '".$_SESSION["statusfilter"]."'";	
+	}
+}
+
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)){
@@ -189,9 +200,6 @@ if ($form_action == "list"){
 	</div>
 </div>
 
-<div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
-	<div class="tohide" style="display:none;">
 <?php
 
 /********************************* BATCH UPDATE ***********************************/
@@ -203,6 +211,9 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 	$nb_tariff = count($list_tariff);
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
+	<div class="tohide" style="display:none;">
 
 <center>
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
@@ -336,7 +347,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				</font>
 		  </td>
 		</tr>
-		<tr>
+		<tr>$HD_Form -> DBHandle
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_enableexpire]" type="checkbox" <?php if ($check["upd_enableexpire"]=="on") echo "checked"?>>
 		  </td>
@@ -397,15 +408,38 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 		</form>
 		</table>
 </center>
-<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+	</div>
+</div>
+<table align="center" class="bgcolor_001" border="0" width="30%">
+        <tbody><tr>
+		<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+          <td align="left" width="75%">
+					<?php
+						$instance_table = new Table();
+						$QUERY =  "SELECT id,status from cc_status order by status";
+						$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY);
+						if (is_array($result)){
+							$num_cur = count($result);
+							for ($i=0;$i<$num_cur;$i++){
+								$status_list[$result[$i][0]] = array (0 => $result[$i][0], 1 => $result[$i][1]);
+							}
+						}
+					?>
+				<select NAME="status" size="1" class="form_input_select" onChange="form.submit()">
+					<option value='' selected>Select Status</option>
+					<?php 
+					foreach($status_list as $key => $status_value) {											
+				?>
+					<option value='<?php echo $status_value[0];?>' <?php if($status_value[0]==$status)print "selected";?>><?php echo $status_value[1]; ?></option>
+				<?php } ?>		
+        </td>
+        </form>
+       </tr></tbody></table>
 
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <?php
 } // END if ($form_action == "list")
 ?>
-
-
-	</div>
-</div>
 
 
 <?php  if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>

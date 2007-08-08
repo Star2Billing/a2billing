@@ -490,3 +490,25 @@ ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL ;
 ALTER TABLE cc_templatemail DROP PRIMARY KEY;
 ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language ); 
 
+ALTER TABLE cc_card ADD status INT NOT NULL DEFAULT '2' AFTER activated ;
+update cc_card set status = 1 where activated = 't';
+update cc_card set status = 0 where activated = 'f';
+CREATE TABLE cc_status_log (
+  id bigint(20) NOT NULL auto_increment,
+  status int(11) NOT NULL,
+  id_cc_card bigint(20) NOT NULL,
+  updated_date timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE TABLE cc_status (
+  id int(11) NOT NULL,
+  status varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+INSERT INTO cc_status (id, status) VALUES (0, 'Cancelled');
+INSERT INTO cc_status (id, status) VALUES (1, 'Active');
+INSERT INTO cc_status (id, status) VALUES (2, 'New');
+INSERT INTO cc_status (id, status) VALUES (3, 'Waiting-MailConfirmation');
+INSERT INTO cc_status (id, status) VALUES (4, 'Reserved');
+INSERT INTO cc_status (id, status) VALUES (5, 'Expired');
+

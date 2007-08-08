@@ -30,14 +30,18 @@ foreach($value_list as $key => $cur_value) {
 }
 $yesno = array();
 
-$QUERY =  "SELECT config_value from cc_config order by id";
+$QUERY =  "SELECT config_value, config_valuetype from cc_config order by id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);
 
 foreach($result as $key => $cur_value) {
-		if($cur_value[0] == "1"){
-			$yesno[$cur_value[0]] = array('Yes',$key);
-		}else if($cur_value[0] == "0"){
-			$yesno[$cur_value[0]] = array('No', $key);						
+		if($cur_value[1] == "1"){
+			if($cur_value[0] == "1"){
+				$yesno[$cur_value[0]] = array('Yes',$key);
+			}else if($cur_value[0] == "0"){
+				$yesno[$cur_value[0]] = array('No', $key);						
+			}else{
+				$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
+			}
 		}else{
 			$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
 		}

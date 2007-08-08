@@ -56,7 +56,7 @@ class Table {
 	function SQLExec ($DBHandle, $QUERY, $select = 1) {
 
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
-		
+//		print $QUERY;
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){
@@ -113,6 +113,7 @@ class Table {
 		
 		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
 		//print $QUERY;
+		
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		
 		$res = $DBHandle -> Execute($QUERY);
