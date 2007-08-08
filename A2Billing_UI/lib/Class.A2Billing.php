@@ -293,7 +293,7 @@ class A2Billing {
 			}
 			elseif($conf['cfgtype'] == 1) // if its type is boolean
 			{
-				if(strtoupper($conf['cfgvalue']) == "YES") // if equal to 'yes'
+				if(strtoupper($conf['cfgvalue']) == "YES" || $conf['cfgvalue'] == 1 || $conf['cfgvalue'] == true) // if equal to 'yes'
 				{
 					$this->config[$conf['cfggname']][$conf['cfgkey']] = 1;
 				}
