@@ -3,16 +3,25 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+
+#### TODO : GENERATE VOUCHER
+********************************************************************
+In the generate option, the tag value is set to a random ID : 1181897201
+this allow us to see exactly after the generation those that has been created!
+If someone really use the tag feature to classify his voucher, this can be bit annoying! 
+we need to give the option to define the tag to a specific value or to use the random number.
+
+
+#### GENERAL : replace activated by status
+********************************************************************
+we need to review where we use activated and replace it by status everywhere in the code or we are duplicating the need on this field.
+
+
 #### BILLING : ADD VIEW AND SEARCH ON TABLE cc_epayment_log
 ********************************************************************
 ADD VIEW AND SEARCH ON TABLE cc_epayment_log
-status -> 0 : New ; 1 : Finish ; 2 ; inprocess !?
-
-#### LOAD BALANCING ON TRUNK
-********************************************************************
-Laod balancing not role over or fail over but load balancing. Expl.
-If you have 3 GSM gtwy of 90 port each, we want to send one call to the first gtwy 
-then the second call to the next gtwy and then the next call to the next gtwy.
+status -> 0 : New ; 1 : proceed ; 2 ; in process
 
 
 #### TRUNK REPORTING PAGE - DASH BOARD
@@ -23,7 +32,6 @@ A screen page where you can see the call stats Expl. ASR, ALOC, CIC  from each t
 #### CHECK BACKUP & RESTORE FEATURE
 ********************************************************************
 user posted that is broken.
-
 
 
 #### UPDATE CSS Menu : menu.css
@@ -38,7 +46,6 @@ fit according to the amount of text.
 -       height : 11px;
  }
 
-
 #### UPDATE : MAIL TEMPLATE TAG HTML - Add a plaintext versions
 ********************************************************************
 Shopping details is as below.
@@ -48,22 +55,6 @@ Item ID  <b>8711503777</b>
 Amount  <b>1 USD</b>
 Payment Method  <b>paypal</b>
 Status  <b></b>
-
-
-#### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
-********************************************************************
-a2billing.php|1: file:Class.A2Billing.php - line:763 - TIMEOUT::> 1016  : minutes=16 - seconds=56
-AGI Tx >> 200 result=1
-AGI Rx << SAY NUMBER 285 ""
-    -- Playing 'digits/2' (language 'en')
-    -- Playing 'digits/hundred' (language 'en')
-    -- Playing 'digits/80' (language 'en')
-    -- Playing 'digits/5' (language 'en')
-AGI Tx >> 200 result=0
-AGI Rx << STREAM FILE cents-per-minute "" 
-
-create a mode to choose if we play in cents or in unit
-2 dollars and 85 cents per minutes
 
 
 #### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
@@ -83,10 +74,11 @@ for each field we run a little query. Caching here will save a lot!
 Check the restore DB function
 
 
-#### FEATURE : ADD CSV EXPORT ON THE CDR REPORT
+#### FEATURE : BILLING ON VOIP CALL - DID VOIP CALL
 ********************************************************************
-Add CSV & XML Export on the cdr report
-- look how it s done on the customer list
+add billing for voip/call
+
+
 
 
 #### FEATURE : AGI
@@ -94,26 +86,20 @@ Add CSV & XML Export on the cdr report
 Showing Balance on Softphone....
 
 
-#### FEATURE : BILLING ON VOIP CALL - DID VOIP CALL
+#### LOAD BALANCING ON TRUNK
 ********************************************************************
-add billing for voip/call
+Laod balancing not role over or fail over but load balancing. Expl.
+If you have 3 GSM gtwy of 90 port each, we want to send one call to the first gtwy 
+then the second call to the next gtwy and then the next call to the next gtwy.
 
 
-#### TODO : CUSTOMER UI
+#### MASS MAIL FEATURE
 ********************************************************************
-A2BCustomer_UI/userinfo.php
-suggest that the only Logo's (paypal, Moneybooker, Authorize.net) displayed on the customer interface 
-are the payment methods that are enabled.
+option to let send an email to all the a2billing user
+- check how is it done on phpBB
+if we have several thousand of mail to send this can be an issue with normal php scripts
+maybe a daemon is needed
 
-patch for trunk and branches/1.3
-
-
-#### A2Billing_UI/Public/index.php
-********************************************************************
-on the login page & signup, there is a log enable :
-QUERY:INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data) VALUES('1','1','Page Visit','User Visited the Page','','index.php','127.0.0.1','')
-
-remove this for page where user is not login too
 
 
 #### BUG : FAILOVER
@@ -132,24 +118,11 @@ If the call fails over each of the successive attempts will add the correct pref
 
 
 
-#### MASS MAIL FEATURE
-********************************************************************
-option to let send an email to all the a2billing user
-
-
-
 #### BUG : SIGNUP
 ********************************************************************
 http://forum.asterisk2billing.org/viewtopic.php?p=7406#7406
  we shouldn't deactivate magic_quotes_gpc at all.
  
-
-#### TODO : GENERATE VOUCHER
-********************************************************************
-In the generate option, the tag value is set to a random ID : 1181897201
-this allow us to see exactly after the generation those that has been created!
-If someone really use the tag feature to classify his voucher, this can be bit annoying! 
-we need to give the option to define the tag to a specific value or to use the random number.
 
 
 #### TODO : Detach Selling ratecard from Buying ratecard

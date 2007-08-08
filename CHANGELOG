@@ -3,6 +3,44 @@
 ********************************************************************
 
 
+#### FEATURE : ADD CSV EXPORT ON THE CDR REPORT
+********************************************************************
+Add CSV & XML Export on the cdr report
+- look how it s done on the customer list
+
+
+#### FEATURE : play rate
+********************************************************************
+a2billing.php|1: file:Class.A2Billing.php - line:763 - TIMEOUT::> 1016  : minutes=16 - seconds=56
+AGI Tx >> 200 result=1
+AGI Rx << SAY NUMBER 285 ""
+    -- Playing 'digits/2' (language 'en')
+    -- Playing 'digits/hundred' (language 'en')
+    -- Playing 'digits/80' (language 'en')
+    -- Playing 'digits/5' (language 'en')
+AGI Tx >> 200 result=0
+AGI Rx << STREAM FILE cents-per-minute "" 
+
+create a mode to choose if we play in cents or in unit
+2 dollars and 85 cents per minutes
+
+
+
+#### TODO : CUSTOMER UI
+********************************************************************
+A2BCustomer_UI/userinfo.php
+suggest that the only Logo's (paypal, Moneybooker, Authorize.net) displayed on the customer interface 
+are the payment methods that are enabled.
+
+patch for trunk and branches/1.3
+
+
+#### A2Billing_UI/Public/index.php
+********************************************************************
+on the login page & signup, there is a log enable :
+QUERY:INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data) VALUES('1','1','Page Visit','User Visited the Page','','index.php','127.0.0.1','')
+
+remove this for page where user is not login too
 
 #### FEATURE - GMT SUPPORT
 ********************************************************************
