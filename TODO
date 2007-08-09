@@ -61,29 +61,34 @@ Status  <b></b>
 
 #### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
 ********************************************************************
-The backup restore option does not work
-
-
-#### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
-********************************************************************
 Use adoDB caching in the framework
 many part can be improve, most of all the part when we bound to a view to other table
 for each field we run a little query. Caching here will save a lot!
 
+for instance if you put the sql debug on Class.Table, you will see that on all the view 
+there is lot lot of query performed cause for all the LIE action made on view
+a query is perform so if you view 20 records on a page u will have all the sql query of the page more 20 sql select for the LIE to find back some information
+the sample of card
+$HD_Form -> AddViewElement(gettext("Call Plan"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+you have a LIE here to see the tariffgroup name so if you view lot of card, you will do a lot of sql query 
 
-#### BUG : RESTORE DATABASE
+
+#### MASS MAIL FEATURE
 ********************************************************************
-Check the restore DB function
-
-
-#### FEATURE : BILLING ON VOIP CALL - DID VOIP CALL
-********************************************************************
-add billing for voip/call
+option to let send an email to all the a2billing user
+- check how is it done on phpBB
+if we have several thousand of mail to send this can be an issue with normal php scripts
+maybe a daemon is needed
 
 
 #### NEW TASK - NEW button style []
 ********************************************************************
 Replace all the big button on view by a cute icons.
+
+
+#### FEATURE : BILLING ON VOIP CALL - DID VOIP CALL
+********************************************************************
+add billing for voip/call
 
 
 
@@ -98,13 +103,6 @@ Laod balancing not role over or fail over but load balancing. Expl.
 If you have 3 GSM gtwy of 90 port each, we want to send one call to the first gtwy 
 then the second call to the next gtwy and then the next call to the next gtwy.
 
-
-#### MASS MAIL FEATURE
-********************************************************************
-option to let send an email to all the a2billing user
-- check how is it done on phpBB
-if we have several thousand of mail to send this can be an issue with normal php scripts
-maybe a daemon is needed
 
 
 
