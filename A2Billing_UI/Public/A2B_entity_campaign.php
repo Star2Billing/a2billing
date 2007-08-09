@@ -7,11 +7,10 @@ include ("./form_data/FG_var_campaign.inc");
 include ("../lib/smarty.php");
 
 if (! has_rights (ACX_PREDICTIVE_DIALER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
-
 
 
 /***********************************************************************************/

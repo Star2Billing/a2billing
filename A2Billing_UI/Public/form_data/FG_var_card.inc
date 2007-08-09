@@ -270,7 +270,9 @@ $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 			   "didgroupname, id",
 			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
-
+/*
+// The campaign for predictive dialer is removing for now, as this feature arent supported anymore
+// this is not fully depreciated
 $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "id_campaign",
 			   "",
@@ -280,7 +282,7 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "cc_campaign",
 			   "campaign_name, id",
 			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-
+*/
 
 $HD_Form -> AddEditElement (gettext("CALLBACK"),
 			   "callback",
@@ -618,7 +620,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, '.
 'callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
 'fax, sip_buddy, iax_buddy, mac_addr, inuse');
