@@ -3,12 +3,16 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### TODO : GENERATE VOUCHER
+#### TODO : GENERATE VOUCHER & GENERATE CARD
 ********************************************************************
 In the generate option, the tag value is set to a random ID : 1181897201
 this allow us to see exactly after the generation those that has been created!
 If someone really use the tag feature to classify his voucher, this can be bit annoying! 
 we need to give the option to define the tag to a specific value or to use the random number.
+
+We can add a new field in cc_card for this :
+ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
+We should add a reseach by tag too on View card.
 
 
 #### GENERAL : replace activated by status
