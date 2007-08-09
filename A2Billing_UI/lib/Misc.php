@@ -156,7 +156,9 @@ function display_dateformat($mydate){
  */
 function display_dateonly($mydate)
 {
-	echo date("m/d/Y", strtotime($mydate));
+	if (strlen($mydate)!="NULL"){
+		echo date("m/d/Y", strtotime($mydate));
+	}
 }
 
 /*

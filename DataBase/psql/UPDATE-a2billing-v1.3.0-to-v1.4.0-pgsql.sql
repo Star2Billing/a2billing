@@ -527,5 +527,3 @@ INSERT INTO cc_status (id, status) VALUES (2, 'New');
 INSERT INTO cc_status (id, status) VALUES (3, 'Waiting-MailConfirmation');
 INSERT INTO cc_status (id, status) VALUES (4, 'Reserved');
 INSERT INTO cc_status (id, status) VALUES (5, 'Expired');
-
-    
