@@ -3,8 +3,6 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-
-
 #### TODO : GENERATE VOUCHER
 ********************************************************************
 In the generate option, the tag value is set to a random ID : 1181897201
@@ -78,6 +76,10 @@ Check the restore DB function
 ********************************************************************
 add billing for voip/call
 
+
+#### NEW TASK - NEW button style []
+********************************************************************
+Replace all the big button on view by a cute icons.
 
 
 
@@ -281,12 +283,6 @@ so that admin can click on update button to update the status
 what will happend when a invoice is paid
 we should not show the pay invoice button then 
 is there anything in framework that support like this?
-
-
-#### NEW TASK - NEW button style []
-********************************************************************
-New button for edit/delete... really tiny but with text
-New button for confirm Data
 
 
 #### FEATURES : CALLBACK dont bill 1st if not connected
