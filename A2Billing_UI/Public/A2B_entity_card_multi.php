@@ -19,7 +19,7 @@ $HD_Form -> FG_OTHER_BUTTON1 = false;
 $HD_Form -> FG_OTHER_BUTTON2 = false;
 $HD_Form -> FG_FILTER_APPLY = false;
 
-getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax','cardnumberlenght_list'));
+getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax','cardnumberlenght_list','tag'));
 
 
 /***********************************************************************************/
@@ -40,7 +40,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 'adresse', 'city', 'state', 'country', '1000', '0000000000', '2465773443')
 */
 		$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
-		$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, userpass, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice";
+		$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, userpass, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag";
 
 		if (DB_TYPE != "postgres"){
 		        $FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
@@ -87,7 +87,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 			 $useralias = $arr_card_alias[1];
 			if (!is_numeric($addcredit)) $addcredit=0;
 			$passui_secret = MDP_NUMERIC(10);
-			$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', '$cardnum', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice'";
+			$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', '$cardnum', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice','$tag'";
 			
 			
 			if (DB_TYPE != "postgres") $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
@@ -348,6 +348,9 @@ $nb_tariff = count($list_tariff);
 				<strong>13)</strong>
 			   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: <?php echo gettext("SIP")?> <input type="checkbox" name="sip" value="1" checked> <?php echo gettext("IAX")?> : <input type="checkbox" name="iax" value="1" checked>
 				<br/>
+				<strong>14)</strong>
+				<?php echo gettext("Tag");?> : <input class="form_input_text"  name="tag" size="40" maxlength="40" > 
+				
 		</td>	
 		<td align="left" valign="bottom"> 
 				<input class="form_input_button"  value=" GENERATE CARDS " type="submit"> 

@@ -89,9 +89,9 @@ $invoiceday_list = array();
 for ($k=0;$k<=28;$k++)
 	$invoiceday_list["$k"]  = array( "$k", "$k");
 
-
-
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
+if(substr($_SERVER['REQUEST_URI'],-47,25) == 'A2B_entity_card_multi.php')
+	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "11%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CARD NUMBER"), "username", "11%", "center", "sort");
 if (!($popup_select>=1))  $HD_Form -> AddViewElement("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
