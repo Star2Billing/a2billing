@@ -33,12 +33,23 @@ $security_key = API_SECURITY_KEY;
 
 
 $endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/callback-exec.php';
-
 // ADD ON THE SPEC SECURITY KEY
 
 $callback = new SOAP_Client($endpoint);
 
 
+echo "<hr>#############   ACTIVATE_CARD #############   </hr>";
+$method = 'Activate_Card';  
+
+
+$params = array('security_key' => md5($security_key), 'uniqueid' => '1');
+
+$ans = $callback->call($method, $params);
+
+print_r($ans);
+exit;
+
+/*
 //	#############   Request CallBack   #############
 echo "<hr>#############   Request CallBack   #############   </hr>";
 $method = 'Request';   
@@ -54,9 +65,12 @@ print_r($ans);
 $insert_id_callback = $ans[0];
 
 //$insert_id_callback = '47'; // ??
+ * 
+ */
 //	#############   Check Status   #############   
 echo "<hr>#############   Check Status  #############   </hr>";
 $method = 'Status';
+$insert_id_callback = 1;
 // array('in' => array('security_key' => 'string', 'id' => 'string'),
 //				'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
 $params = array('security_key' => md5($security_key), 'id' => $insert_id_callback);
@@ -65,6 +79,6 @@ $ans = $callback -> call($method, $params);
 
 print_r($ans);
 
-
+exit;
 
 ?>

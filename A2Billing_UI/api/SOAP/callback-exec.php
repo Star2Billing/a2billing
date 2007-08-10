@@ -66,7 +66,11 @@ class Callback
 			array('in' => array('security_key' => 'string', 'id' => 'string'),
 				'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
 				);
-		
+        $this->__dispatch_map['Activation_Card'] =
+             array('in' => array('security_key' => 'string', 'uniqueid' => 'string'),
+                   'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
+                   );
+	
      }
 	 
 
@@ -81,7 +85,7 @@ class Callback
 		$DBHandle  = DbConnect();
 		$instance_table = new Table();
 		
-		$QUERY = "SELECT status, uniqueid FROM cc_callback_spool WHERE id='$id'";
+		$QUERY = "SELECT status, id FROM cc_card WHERE id='$id'";
 		$callback_data = $instance_table -> SQLExec ($DBHandle, $QUERY);
 		if(!is_array($callback_data) || count($callback_data) == 0)
 		{
@@ -96,6 +100,35 @@ class Callback
 		return array($uniqueid, 'result='.$status, " - Callback request found $QUERY");
 	}
 	
+	function Activation_Card($security_key, $uniqueid){ 
+	 		
+	
+			$FG_TABLE  = "cc_card";
+			
+			$DBHandle  = DbConnect();
+			
+			$instance_sub_table = new Table($FG_TABLE);
+			
+			$status_activate = 2;
+
+			$param_update = "status = $status_activate";
+
+			$clause = " id = $uniqueid";
+
+			$func_table = $FG_TABLE;
+
+			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause, $func_table);
+
+		if(!is_array($update) || count($update) == 0)
+		{
+			// FAIL SELECT
+			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+			sleep(2);
+			return array($uniqueid, 'result=null', ' ERROR - SELECT DB'.$update);
+		}
+		$status = 2;
+		return array($uniqueid, 'result='.$status, " - Callback request found $update");
+	 }
 	
 	/*
 	 *		Function to make Callback : it will insert a callback request 

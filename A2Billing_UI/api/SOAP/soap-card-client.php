@@ -27,14 +27,11 @@
 include ("../../lib/defines.php");
 require('SOAP/Client.php');
 
-
 exit;
 $security_key = API_SECURITY_KEY;
-
 $endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/soap-card-server.php';
 
 // ADD ON THE SPEC SECURITY KEY
-
 $card = new SOAP_Client($endpoint);
 
 //	#############   CREATE_CARD   #############   
@@ -53,6 +50,7 @@ $ans = $card->call($method, $params);
 print_r($ans);
 
 //	#############   REMOVE_CARD   #############   
+
 echo "<hr>#############   REMOVE_CARD : $ans[2]  #############   </hr>";
 $method = 'Remove_Card';   
 
@@ -62,7 +60,5 @@ $params = array('security_key' => md5($security_key), 'transaction_code' => 'myt
 $ans = $card->call($method, $params);
 
 print_r($ans);
-	
-    
 
 ?>

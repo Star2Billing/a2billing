@@ -61,7 +61,6 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 
-
 $typepaid_list = array();
 $typepaid_list["0"]  = array( gettext("PREPAID CARD"), "0");
 $typepaid_list["1"]  = array( gettext("POSTPAY CARD"), "1");
@@ -154,6 +153,7 @@ $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2',
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
 $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
+$HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), "cc_status", "id, status", "", "status", "ASC", "status");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 

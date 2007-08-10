@@ -59,6 +59,12 @@ class Cards
 			 					, 'cardnumber' => 'string', 'callerid_list' => 'string'),
                    'out' => array('transaction_code' => 'string', 'account_number' => 'string', 'card_number' => 'string', 'result' => 'string', 'details' => 'string')
                    );
+
+        $this->__dispatch_map['Activation_Card'] =
+             array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'cardid' => 'string', 'cardnumber' => 'string', 'webuipassword' => 'string'),
+                   'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
+                   );
+
      }
 	 
 	 /*		ACTUALIZAR CLIENTES
@@ -106,6 +112,54 @@ class Cards
 			 return array($transaction_code, $account_number, $cardnumber, 'result=OK', '');
 	 
 	 }
+	 /*
+	  *		Function for the Service Activation_Card : Activate an existing card
+	  */ 
+     function Activation_Card($security_key, $uniqueid, $cardnumber, $cardid, $webuipassword){ 
+	 		
+			// The wrapper variables for security
+ 			// $security_key = API_SECURITY_KEY;
+			$logfile=SOAP_LOGFILE;	
+
+			$mysecurity_key = API_SECURITY_KEY;
+						
+			$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Activate_Card [$transaction_code, $account_number, $cardnumber]";
+			
+			// CHECK SECURITY KEY
+			 if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
+			 {
+				  mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
+				  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
+				  sleep(2);
+				  return array($uniqueid, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
+			 } 
+			   
+			   
+			// Create new account			
+			$FG_TABLE  = "cc_card";
+			
+			$DBHandle  = DbConnect();
+			
+			$instance_sub_table = new Table($FG_TABLE);
+			
+			$status_activate = 1;
+
+			$param_update = "status = $status_activate";
+
+			$clause = " id = $uniqueid";
+
+			$func_table = $FG_TABLE;
+
+			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause, $func_table);
+
+			if (!$update){
+				return array($uniqueid, $cardnumber, $cardid, $webuipassword, 'result=ERROR', 'Cannot Activate this cardnumber');
+			}else{
+				return array($uniqueid, $cardnumber, $cardid, $webuipassword, 'result=OK', '');
+			}
+	 }
+	 
+	 
 	 /*
 	  *		Function for the Service Remove_Card : remove an existing card for the database
 	  */ 

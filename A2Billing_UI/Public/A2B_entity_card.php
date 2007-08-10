@@ -18,17 +18,7 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber', 'status'));
-
-if(isset($atmenu) && $atmenu == 'card'){
-		$_SESSION['statusfilter'] = '';
-}
-if($status != ''){
-	$_SESSION["statusfilter"] = $status;
-	if (isset($_SESSION["statusfilter"])){
-		$HD_Form -> FG_TABLE_CLAUSE = "status = '".$_SESSION["statusfilter"]."'";	
-	}
-}
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
 
 
 // CHECK IF REQUEST OF BATCH UPDATE
@@ -209,6 +199,12 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 	$FG_TABLE_CLAUSE = "";
 	$list_tariff = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 	$nb_tariff = count($list_tariff);
+	
+	$instance_table_status = new Table("cc_status", "id, status");
+	$FG_TABLE_CLAUSE = "";
+	$list_status = $instance_table_status -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "status", "ASC", null, null, null, null);
+	$nb_status = count($list_status);
+
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <div class="toggle_hide2show">
@@ -237,17 +233,21 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 		  </td>
 		</tr>
 		<tr>		
-          <td align="left" class="bgcolor_001">
-		  	<input name="check[upd_activated]" type="checkbox" <?php if ($check["upd_activated"]=="on") echo "checked"?>>
+          <td align="left"  class="bgcolor_001">
+		  	<input name="check[upd_status]" type="checkbox" <?php if ($check["upd_status"]=="on") echo "checked"?> >
 		  </td>
-		  <td align="left"  class="bgcolor_001">	
-				 2)&nbsp;<?php echo gettext("ACTIVATE");?>&nbsp;:
-				<font class="version">
-				<input type="radio" NAME="type[upd_activated]" value="t" <?php if((!isset($type[upd_activated]))|| ($type[upd_activated]=='t') ){?>checked<?php }?>> <?php echo gettext("Yes");?>
-				<input type="radio" NAME="type[upd_activated]" value="f" <?php if($type[upd_activated]=='f'){?>checked<?php }?>> <?php echo gettext("No");?>
-				</font>
+		  <td align="left" class="bgcolor_001">
+			  	2)&nbsp;<?php echo gettext("STATUS");?>&nbsp;:
+				<select NAME="upd_status" size="1" class="form_input_select">
+					<?php					 
+				  	 foreach ($list_status as $recordset){ 						 
+					?>
+						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_status==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>                        
+					<?php } ?>
+				</select><br/>
 		  </td>
 		</tr>
+
 		<tr>		
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_language]" type="checkbox" <?php if ($check["upd_language"]=="on") echo "checked"?>>
@@ -410,32 +410,6 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 </center>
 	</div>
 </div>
-<table align="center" class="bgcolor_001" border="0" width="30%">
-        <tbody><tr>
-		<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-          <td align="left" width="75%">
-					<?php
-						$instance_table = new Table();
-						$QUERY =  "SELECT id,status from cc_status order by status";
-						$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY);
-						if (is_array($result)){
-							$num_cur = count($result);
-							for ($i=0;$i<$num_cur;$i++){
-								$status_list[$result[$i][0]] = array (0 => $result[$i][0], 1 => $result[$i][1]);
-							}
-						}
-					?>
-				<select NAME="status" size="1" class="form_input_select" onChange="form.submit()">
-					<option value='' selected>Select Status</option>
-					<?php 
-					foreach($status_list as $key => $status_value) {											
-				?>
-					<option value='<?php echo $status_value[0];?>' <?php if($status_value[0]==$status)print "selected";?>><?php echo $status_value[1]; ?></option>
-				<?php } ?>		
-        </td>
-        </form>
-       </tr></tbody></table>
-
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <?php
 } // END if ($form_action == "list")
