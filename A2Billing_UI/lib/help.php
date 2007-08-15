@@ -894,8 +894,20 @@ $CC_help_add_agi_confx = '<div class="toggle_show2hide">
 </div></div>
 '; 
 
-} //ENDIF SHOW_HELP
+$CC_help_payment_log = '<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("Payment log with status, payment methods , owner and creation date.").'
+<br/><br/><br>
+</div></div></div>
+</div></div>
+'; 
 
+
+} //ENDIF SHOW_HELP
 
 $SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';
 $SPOT['MONEYBOOKERS'] 	= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
