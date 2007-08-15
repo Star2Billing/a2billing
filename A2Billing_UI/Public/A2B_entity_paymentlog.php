@@ -184,7 +184,7 @@ if (strlen($_GET["menu"])>0)
 				<td class="bgcolor_003" align="left">
 				<select name="status" style="width:100px;">
 				<option value="0" <?php if ($status == 0) echo "selected"?>>New</option>
-				<option value="1" <?php if ($status == 1) echo "selected"?>>Processed</option>
+				<option value="1" <?php if ($status == 1) echo "selected"?>>Proceed</option>
 				<option value="2" <?php if ($status == 2) echo "selected"?>>In Progress</option>
 				</select>
 				</td>
