@@ -54,27 +54,22 @@ class Callback
 
 	function Callback() {
         // Define the signature of the dispatch map on the Web servicesmethod
-
+		
         // Necessary for WSDL creation
 		
         $this->__dispatch_map['Request'] =
              array('in' => array('security_key' => 'string', 'pn_callingparty' => 'string', 'pn_calledparty' => 'string', 'callerid' => 'string', 'callback_time' => 'string', 'uniqueid' => 'string'),
                    'out' => array('id' => 'string', 'result' => 'string', 'details' => 'string')
                    );
-
         $this->__dispatch_map['Remove_Card'] =
              array('in' => array('security_key' => 'string', 'transaction_code' => 'string', 'account_number' => 'string',
 								'cardnumber' => 'string'),
                    'out' => array('transaction_code' => 'string', 'account_number' => 'string', 'card_number' => 'string', 'result' => 'string', 'details' => 'string')
                    );
-		
-
         $this->__dispatch_map['Reservation_Card'] =
              array('in' => array('security_key' => 'string', 'uniqueid' => 'string'),
                    'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
                    );
-
-	
      }
 	 
 
@@ -106,41 +101,37 @@ class Callback
 	
 
      function Remove_Card($security_key, $transaction_code, $account_number, $cardnumber){ 
-	 		
-			// The wrapper variables for security
- 			// $security_key = API_SECURITY_KEY;
-			$logfile=SOAP_LOGFILE;	
-
-			$mysecurity_key = API_SECURITY_KEY;
-						
-			$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Remove_Card [$transaction_code, $account_number, $cardnumber]";
-			
-			// CHECK SECURITY KEY
-			 if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
-			 {
-				  mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
-				  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
-				  sleep(2);
-				  return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
-			 } 
-			   
-			   
-			// Create new account			
-			$FG_TABLE  = "cc_card";
-			
-			$DBHandle  = DbConnect();
-			
-			$instance_sub_table = new Table($FG_TABLE);
-			
-			$FG_EDITION_CLAUSE = " username = '$cardnumber' ";
-			
-			$res_delete = $instance_sub_table -> Delete_table ($DBHandle, $FG_EDITION_CLAUSE);
-			if (!$res_delete){
-				return array($transaction_code, $account_number, $cardnumber, 'result=ERROR', 'Cannot remove this cardnumber');
-			}else{
-				return array($transaction_code, $account_number, $cardnumber, 'result=OK', '');
-			}
-	 }
+		
+		// The wrapper variables for security
+		// $security_key = API_SECURITY_KEY;
+		$logfile=SOAP_LOGFILE;	
+		
+		$mysecurity_key = API_SECURITY_KEY;
+		
+		$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Remove_Card [$transaction_code, $account_number, $cardnumber]";
+		
+		// CHECK SECURITY KEY
+		if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
+		{
+			mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
+			error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
+			sleep(2);
+			return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
+		} 
+		
+		
+		$DBHandle  = DbConnect();
+		$FG_TABLE  = "cc_card";
+		$instance_sub_table = new Table($FG_TABLE);
+		$FG_EDITION_CLAUSE = " username = '$cardnumber' ";
+		
+		$res_delete = $instance_sub_table -> Delete_table ($DBHandle, $FG_EDITION_CLAUSE);
+		if (!$res_delete) {
+			return array($transaction_code, $account_number, $cardnumber, 'result=ERROR', 'Cannot remove this card');
+		} else {
+			return array($transaction_code, $account_number, $cardnumber, 'result=OK', '');
+		}
+	}
 	
 	
 	/*
