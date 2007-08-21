@@ -264,7 +264,7 @@
 					<li><a href="call-last-month.php?section=6">{php} echo gettext("Monthly Traffic");{/php}</a></li>
 					<li><a href="call-daily-load.php?section=6">{php} echo gettext("Daily Load");{/php}</a></li>
 					<li><a href="call-count-reporting.php?stitle=Call_Reporting&nodisplay=1&posted=1&section=6">{php} echo gettext("Report");{/php}</a></li>
-					<li><a href="A2B_entity_dashboard.php?stitle=Dash_board&section=6">{php} echo gettext("Dashboard");{/php}</a></li>
+					<li><a href="A2B_entity_dashboard.php?stitle=Dash_board&section=6">{php} echo gettext("Trunk Report");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

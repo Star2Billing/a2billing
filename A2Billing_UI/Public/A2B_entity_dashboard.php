@@ -27,6 +27,26 @@ if ($Period=="Month"){
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
 		$date_clause.=" $UNIX_TIMESTAMP(t.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 	}
+}else if($Period=="Time"){
+	if ($lst_time != "") 
+	{
+		if (strlen($date_clause)>0) $date_clause.=" AND ";
+			switch($lst_time){
+				case 1:
+					$date_clause .= "DATE_SUB(CURDATE(),INTERVAL 1 HOUR) >= $UNIX_TIMESTAMP(t.creationdate)";
+				break;
+				case 2:
+					$date_clause .= "DATE_SUB(CURDATE(),INTERVAL 6 HOUR) <= $UNIX_TIMESTAMP(t.creationdate)";
+				break;
+				case 3:
+					$date_clause .= "DATE_SUB(CURDATE(),INTERVAL 1 DAY) <= $UNIX_TIMESTAMP(t.creationdate)";
+				break;
+				case 4:
+					$date_clause .= "DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= $UNIX_TIMESTAMP(t.creationdate)";
+				break;
+			}
+				
+	}	
 }else{
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
 	{
@@ -39,7 +59,6 @@ if ($Period=="Month"){
 		$date_clause.=" $UNIX_TIMESTAMP(t.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
 }
-
 
 if(DB_TYPE == "postgres"){
 
@@ -75,7 +94,6 @@ if(DB_TYPE == "postgres"){
 	$QUERY .= " GROUP BY c.id_trunk";
 
 }
-
 $res = $DBHandle -> Execute($QUERY);
 if ($res){
 	$num = $res -> RecordCount( );		
@@ -89,12 +107,6 @@ if ($res){
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
-
-// #### HELP SECTION
-	echo $CC_help_payment_log;
-
-
-
 
 
 // #### CREATE FORM OR LIST
@@ -230,7 +242,8 @@ if (strlen($_GET["menu"])>0)
 	  			</td>
     		</tr>
 			<tr>
-				<td class="bgcolor_002" align="left">			
+				<td class="bgcolor_002" align="left">		
+				<input type="radio" name="Period" value="Time" <?php  if (($Period=="Time")){ ?>checked="checked" <?php  } ?>>	
 					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("Select Time");?></font>
 				</td>				
 				<td class="bgcolor_003" align="left">
