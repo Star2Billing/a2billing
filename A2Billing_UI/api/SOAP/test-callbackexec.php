@@ -24,7 +24,6 @@
  *
  ****************************************************************************/
 
-exit;
 
 include ("../../lib/defines.php");
 require('SOAP/Client.php');
@@ -38,18 +37,8 @@ $endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/
 $callback = new SOAP_Client($endpoint);
 
 
-echo "<hr>#############   ACTIVATE_CARD #############   </hr>";
-$method = 'Activate_Card';  
 
 
-$params = array('security_key' => md5($security_key), 'uniqueid' => '1');
-
-$ans = $callback->call($method, $params);
-
-print_r($ans);
-exit;
-
-/*
 //	#############   Request CallBack   #############
 echo "<hr>#############   Request CallBack   #############   </hr>";
 $method = 'Request';   
@@ -65,8 +54,7 @@ print_r($ans);
 $insert_id_callback = $ans[0];
 
 //$insert_id_callback = '47'; // ??
- * 
- */
+
 //	#############   Check Status   #############   
 echo "<hr>#############   Check Status  #############   </hr>";
 $method = 'Status';
@@ -80,5 +68,4 @@ $ans = $callback -> call($method, $params);
 print_r($ans);
 
 exit;
-
 ?>

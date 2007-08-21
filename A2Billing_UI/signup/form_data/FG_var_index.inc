@@ -263,7 +263,7 @@ $HD_Form -> AddEditElement (gettext("VERIFICATION"),
 			   "size=10 maxlength=6",
 			   "19",
 			   gettext("Insert code from above picture"),
-			   "" , "", "",	"", "", "" , "", "", null, null, null,CAPTCHA_ENABLE);
+			   "" , "", "",	"", "", "" , "", "",CAPTCHA_ENABLE);
 
 if (strlen($callPlan_idlist) > 1)
 {

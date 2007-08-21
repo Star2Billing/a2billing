@@ -30,9 +30,53 @@ require('SOAP/Client.php');
 exit;
 $security_key = API_SECURITY_KEY;
 $endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/soap-card-server.php';
-
 // ADD ON THE SPEC SECURITY KEY
 $card = new SOAP_Client($endpoint);
+
+
+
+
+//	#############   Reservation_Card   #############   
+
+echo "<hr>#############   Reservation_Card : $ans[2]  #############   </hr>";
+$method = 'Reservation_Card';   
+
+$params = array('security_key' => md5($security_key), 'unique_id' => '1', 'cardnumber' => 'mycard_number', 
+				'cardid' => 'mycard_id', 'webuipassword' => 'mywebui_password');
+
+$ans = $card->call($method, $params);
+
+print_r($ans);
+exit;
+
+//	#############  Batch_Activation_Card   #############   
+
+echo "<hr>#############   Batch_Activation_Card : $ans[2]  #############   </hr>";
+$method = 'Batch_Activation_Card';   
+
+$params = array('security_key' => md5($security_key), 'unique_id' => '95125', 'begin_cardid' => '31', 
+				'end_cardid' => '50');
+
+$ans = $card->call($method, $params);
+
+print_r($ans);
+exit;
+
+
+
+//	#############   Activation_Card   #############   
+
+echo "<hr>#############   Activation_CARD : $ans[2]  #############   </hr>";
+$method = 'Activation_Card';   
+
+$params = array('security_key' => md5($security_key), 'unique_id' => '95125', 'cardnumber' => 'mycard_number', 
+				'cardid' => 'mycard_id', 'webuipassword' => 'mywebui_password');
+
+$ans = $card->call($method, $params);
+
+print_r($ans);
+exit;
+
 
 //	#############   CREATE_CARD   #############   
 
@@ -48,7 +92,7 @@ $params = array('security_key' => md5($security_key), 'transaction_code' => 'myt
 $ans = $card->call($method, $params);
 
 print_r($ans);
-
+exit;
 //	#############   REMOVE_CARD   #############   
 
 echo "<hr>#############   REMOVE_CARD : $ans[2]  #############   </hr>";
@@ -60,5 +104,5 @@ $params = array('security_key' => md5($security_key), 'transaction_code' => 'myt
 $ans = $card->call($method, $params);
 
 print_r($ans);
-
+exit;
 ?>

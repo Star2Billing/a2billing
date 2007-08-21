@@ -25,10 +25,6 @@ ADD VIEW AND SEARCH ON TABLE cc_epayment_log
 status -> 0 : New ; 1 : proceed ; 2 ; in process
 
 
-#### TRUNK REPORTING PAGE - DASH BOARD
-********************************************************************
-A screen page where you can see the call stats Expl. ASR, ALOC, CIC  from each trunk on one web page.
-
 
 #### CHECK BACKUP & RESTORE FEATURE
 ********************************************************************
@@ -56,6 +52,10 @@ Item ID  <b>8711503777</b>
 Amount  <b>1 USD</b>
 Payment Method  <b>paypal</b>
 Status  <b></b>
+
+#### TRUNK REPORTING PAGE - DASH BOARD
+********************************************************************
+A screen page where you can see the call stats Expl. ASR, ALOC, CIC  from each trunk on one web page.
 
 
 #### FEATURE : USE ADODB CACHING IN THE FRAMEWORK

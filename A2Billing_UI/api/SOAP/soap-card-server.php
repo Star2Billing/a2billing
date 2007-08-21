@@ -4,30 +4,6 @@ include ("../../lib/regular_express.inc");
 require_once('SOAP/Server.php');
 require_once('SOAP/Disco.php');
 
-exit;
-// USAGE 
-// , to separate the CallerID 9010213,9010214,9010200
-
-/*
-
-    $card = new SOAP_Client($endpoint);
-    $method = 'Create_Card';
-    
-	
-    $params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'account_number' => 'myaccount_number', 'tariff' => '1', 'uipass' => '', 'credit' => '10', 'language' => 'en', 
-	'activated' => '1', 'simultaccess' => '0', 'currency' => 'USD', 'runservice' => '0', 'typepaid' => '1', 'creditlimit' => '0', 
-	'enableexpire' => '0', 'expirationdate' => '', 'expiredays' => '0', 'lastname' => 'Areski', 'firstname' => 'Areski', 'address' => 'my address', 
-	'city' => 'mycity', 'state' => 'mystate', 'country' => 'mycoutry', 'zipcode' => '1000', 'phone' => '646486411', 'fax' => '', 
-	'callerid_list' => '21345', 'iax_friend' => '1', 'sip_friend' => '0');
-	
-    $ans = $card->call($method, $params);
-	
-*/
-
-
-//echo $security_key;
-
-
 class Cards
 {
      var $__dispatch_map = array();
@@ -62,6 +38,16 @@ class Cards
 
         $this->__dispatch_map['Activation_Card'] =
              array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'cardid' => 'string', 'cardnumber' => 'string', 'webuipassword' => 'string'),
+                   'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
+                   );
+
+        $this->__dispatch_map['Batch_Activation_Card'] =
+             array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'begin_cardid' => 'string', 'end_cardid' => 'string'),
+                   'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
+                   );
+
+        $this->__dispatch_map['Reservation_Card'] =
+             array('in' => array('security_key' => 'string', 'uniqueid' => 'string'),
                    'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
                    );
 
@@ -115,34 +101,16 @@ class Cards
 	 /*
 	  *		Function for the Service Activation_Card : Activate an existing card
 	  */ 
-     function Activation_Card($security_key, $uniqueid, $cardnumber, $cardid, $webuipassword){ 
+	function Activation_Card($security_key, $uniqueid){ 
 	 		
-			// The wrapper variables for security
- 			// $security_key = API_SECURITY_KEY;
-			$logfile=SOAP_LOGFILE;	
-
-			$mysecurity_key = API_SECURITY_KEY;
-						
-			$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Activate_Card [$transaction_code, $account_number, $cardnumber]";
-			
-			// CHECK SECURITY KEY
-			 if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
-			 {
-				  mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
-				  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
-				  sleep(2);
-				  return array($uniqueid, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
-			 } 
-			   
-			   
-			// Create new account			
+	
 			$FG_TABLE  = "cc_card";
 			
 			$DBHandle  = DbConnect();
 			
 			$instance_sub_table = new Table($FG_TABLE);
 			
-			$status_activate = 1;
+			$status_activate = 2;
 
 			$param_update = "status = $status_activate";
 
@@ -152,11 +120,73 @@ class Cards
 
 			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause, $func_table);
 
-			if (!$update){
-				return array($uniqueid, $cardnumber, $cardid, $webuipassword, 'result=ERROR', 'Cannot Activate this cardnumber');
-			}else{
-				return array($uniqueid, $cardnumber, $cardid, $webuipassword, 'result=OK', '');
-			}
+		if(!is_array($update) && count($update) == 0)
+		{
+			// FAIL SELECT
+			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+			sleep(2);
+			return array($uniqueid, 'result=500', ' ERROR - SELECT DB');
+		}
+		return array($uniqueid, 'result=200', " - Callback request found");
+	 }
+
+	function Batch_Activation_Card($security_key, $uniqueid,$begin_cardid, $end_cardid){ 
+	 		
+	
+			$FG_TABLE  = "cc_card";
+			
+			$DBHandle  = DbConnect();
+			
+			$instance_sub_table = new Table($FG_TABLE);
+			
+			$status_activate = 2;
+
+			$param_update = "status = $status_activate";
+
+			$clause = " id between $begin_cardid and $end_cardid";
+
+			$func_table = $FG_TABLE;
+
+			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause, $func_table);
+
+		if(!is_array($update) && count($update) == 0)
+		{
+			// FAIL SELECT
+			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+			sleep(2);
+			return array($uniqueid, 'result=500', ' ERROR - SELECT DB');
+		}
+		return array($uniqueid, 'result=200', " - Callback request found");
+	 }
+
+
+	function Reservation_Card($security_key, $uniqueid){ 
+	 		
+	
+			$FG_TABLE  = "cc_card";
+			
+			$DBHandle  = DbConnect();
+			
+			$instance_sub_table = new Table($FG_TABLE);
+			
+			$status_reserved = 4;
+
+			$param_update = "status = $status_reserved";
+
+			$clause = " id = $uniqueid";
+
+			$func_table = $FG_TABLE;
+
+			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause, $func_table);
+
+		if(!is_array($update) && count($update) == 0)
+		{
+			// FAIL SELECT
+			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+			sleep(2);
+			return array($uniqueid, 'result=500', ' ERROR - SELECT DB');
+		}
+		return array($uniqueid, 'result=200', " - Callback request found");
 	 }
 	 
 	 
