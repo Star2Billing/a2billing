@@ -160,18 +160,21 @@ SetLocalLanguage();
 
 function DbConnect($db= NULL)
 {
+	$ADODB_CACHE_DIR = dirname(__FILE__)."/ADODB_cache";
+	/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
+	
 	if (DB_TYPE == "postgres"){
 		$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
 	}else{
 		$datasource = 'mysql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
 	}
-
+	
 	$DBHandle = NewADOConnection($datasource);
-
 	if (!$DBHandle) die("Connection failed");
-
+	
 	return $DBHandle;
 }
+
 
 
 function DbDisconnect($DBHandle)
