@@ -174,8 +174,9 @@ function openURLFilter(theLINK)
 					/**********************   select the mode to browse define the column value : lie, list, value, eval.... ************************/
 					if ($this->FG_TABLE_COL[$i][6]=="lie"){
 						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
-						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);																																	
-						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null);
+						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
+						
+						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
 								
