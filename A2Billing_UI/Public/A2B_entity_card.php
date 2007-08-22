@@ -5,6 +5,8 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_card.inc");
 include ("../lib/smarty.php");
 
+
+
 if (! has_rights (ACX_CUSTOMER)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
@@ -15,7 +17,6 @@ if (! has_rights (ACX_CUSTOMER)){
 
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
-
 
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
@@ -498,7 +499,7 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 
 
-
 // #### FOOTER SECTION
 if (!($popup_select>=1)) $smarty->display('footer.tpl');
+
 ?>

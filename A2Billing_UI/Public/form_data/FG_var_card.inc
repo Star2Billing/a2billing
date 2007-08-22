@@ -106,10 +106,11 @@ if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement("<acronym title=\"NUM CALLS DONE\">".gettext("NT")."</acronym>", "nbused", "4%", "center", "sort");
-	if(substr($_SERVER['REQUEST_URI'],-47,25) == 'A2B_entity_card_multi.php')
-		$FG_COL_QUERY='id,tag, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
-	else
+	if(substr($_SERVER['REQUEST_URI'],-47,25) == 'A2B_entity_card_multi.php') {
+		$FG_COL_QUERY='id, tag, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+	} else {
 		$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+	}
 }else{
 	$FG_COL_QUERY='id, username, lastname, credit';
 }

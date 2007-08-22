@@ -5,6 +5,8 @@ include (dirname(__FILE__)."/Class.Table.php");
 
 $A2B = new A2Billing();
 
+$_START_TIME = time();
+
 // SELECT THE FILES TO LOAD THE CONFIGURATION
 $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);	
 
