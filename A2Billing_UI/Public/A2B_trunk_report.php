@@ -31,19 +31,36 @@ if ($Period=="Month"){
 	if ($lst_time != "") 
 	{
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
-			switch($lst_time){
-				case 1:
-					$date_clause .= "DATE_SUB(CURDATE(),INTERVAL 1 HOUR) >= $UNIX_TIMESTAMP(t.creationdate)";
-				break;
-				case 2:
-					$date_clause .= "DATE_SUB(CURDATE(),INTERVAL 6 HOUR) <= $UNIX_TIMESTAMP(t.creationdate)";
-				break;
-				case 3:
-					$date_clause .= "DATE_SUB(CURDATE(),INTERVAL 1 DAY) <= $UNIX_TIMESTAMP(t.creationdate)";
-				break;
-				case 4:
-					$date_clause .= "DATE_SUB(CURDATE(),INTERVAL 7 DAY) <= $UNIX_TIMESTAMP(t.creationdate)";
-				break;
+			if(DB_TYPE == "postgres"){
+				switch($lst_time){
+					case 1:
+						$date_clause .= "CURRENT_TIMESTAMP - interval '1 hour' <= t.creationdate";
+					break;
+					case 2:
+						$date_clause .= "CURRENT_TIMESTAMP - interval '6 hours' <= t.creationdate";
+					break;
+					case 3:
+						$date_clause .= "CURRENT_TIMESTAMP - interval '1 day' <= t.creationdate";
+					break;
+					case 4:
+						$date_clause .= "CURRENT_TIMESTAMP - interval '7 days' <= t.creationdate";
+					break;
+				}
+			}else{
+				switch($lst_time){
+					case 1:
+						$date_clause .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (t.creationdate)";
+					break;
+					case 2:
+						$date_clause .= "DATE_SUB(NOW(),INTERVAL 6 HOUR) <= (t.creationdate)";
+					break;
+					case 3:
+						$date_clause .= "DATE_SUB(NOW(),INTERVAL 1 DAY) <= (t.creationdate)";
+					break;
+					case 4:
+						$date_clause .= "DATE_SUB(NOW(),INTERVAL 7 DAY) <= (t.creationdate)";
+					break;
+				}
 			}
 				
 	}	
@@ -62,7 +79,7 @@ if ($Period=="Month"){
 
 if(DB_TYPE == "postgres"){
 
-	$QUERY = "SELECT c.id_trunk,t.providerip, t.trunkcode, (SUM(extract(epoch from (stoptime - starttime))/60) / Count(c.id_trunk)) AS ALOC,  count(c.id_trunk ) AS total_calls FROM cc_call c, cc_trunk t WHERE c.id_trunk = t.id_trunk";
+	$QUERY = "SELECT c.id_trunk,t.providerip, t.trunkcode, (SUM(extract(epoch from (stoptime - starttime))/60) / Count(c.id_trunk)) AS ALOC,  count(c.id_trunk ) AS total_calls, t.creationdate FROM cc_call c, cc_trunk t WHERE c.id_trunk = t.id_trunk";
 	
 	if($trunks != "")
 	{
@@ -74,12 +91,12 @@ if(DB_TYPE == "postgres"){
 		$QUERY.=" AND ".$date_clause;
 	}
 	
-	$QUERY .= " GROUP BY c.id_trunk,  t.providerip, t.trunkcode, c.stoptime, c.starttime";
+	$QUERY .= " GROUP BY c.id_trunk,  t.providerip, t.trunkcode, c.stoptime, c.starttime, t.creationdate";
 	
 }else{
 
 	$QUERY = "SELECT t.id_trunk, t.providerip, t.trunkcode, (SUM( TIME_TO_SEC( TIMEDIFF(c.stoptime, c.starttime ) ) ) / count(c.id_trunk )
-	) ALOC, count(c.id_trunk ) total_calls FROM cc_call c, cc_trunk t WHERE c.id_trunk = t.id_trunk";
+	) ALOC, count(c.id_trunk ) total_calls, t.creationdate FROM cc_call c, cc_trunk t WHERE c.id_trunk = t.id_trunk";
 	
 	if($trunks != "")
 	{
@@ -94,6 +111,7 @@ if(DB_TYPE == "postgres"){
 	$QUERY .= " GROUP BY c.id_trunk";
 
 }
+
 $res = $DBHandle -> Execute($QUERY);
 if ($res){
 	$num = $res -> RecordCount( );		
@@ -293,6 +311,7 @@ if (strlen($_GET["menu"])>0)
 
 			<table border="0" cellpadding="2" cellspacing="2" width="90%" align="center">
 				<tbody>
+				<?php if($num > 0){?>
 					<tr class="form_head"> 
 					 <td class="tableBody" style="padding: 2px;" align="center" width="4%"> 				
 						<strong> 
@@ -321,7 +340,6 @@ if (strlen($_GET["menu"])>0)
 					</td>
                 </tr>
 		<?php
-			if($num > 0){ 
 			$i = 0;
 			foreach($trunk_calls as $key => $cur_val){
 			$trunk_id = $cur_val[0];
@@ -372,9 +390,10 @@ if (strlen($_GET["menu"])>0)
 				</tr>
 			<?php }else{?>
 				<tr>
-					<td colspan="5">No Record Found!</td>
+					<td colspan="5" align="center">No Record Found!</td>
 				</tr>				
 			<?php }?>
+			</tbody>
 </table>	
 	<?
 
