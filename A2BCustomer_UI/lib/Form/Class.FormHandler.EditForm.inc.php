@@ -164,7 +164,7 @@ function sendtolittle(direction){
 							foreach ($select_list as $select_recordset){ 
 								$select_number++;
 								?>
-								<OPTION  value=<?php echo $select_recordset[1]?> <?php 
+								<OPTION  value='<?php echo $select_recordset[1]?>' <?php 
 									
 									if($this->VALID_SQL_REG_EXP){ 
 										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){										
@@ -389,7 +389,7 @@ function sendtolittle(direction){
 							 }
 
 			  ?>
-                                            <OPTION  value=<?php echo $select_recordset[1]?>>
+                                            <OPTION  value='<?php echo $select_recordset[1]?>'>
                                             <?php echo $value_display?>
                                             </OPTION>
                                             <?php
