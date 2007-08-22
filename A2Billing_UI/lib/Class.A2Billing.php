@@ -2139,8 +2139,9 @@ class A2Billing {
 
 	function DbConnect()
 	{
-		//require_once('DB.php'); // PEAR
-		require_once('adodb/adodb.inc.php'); // AdoDB
+		$ADODB_CACHE_DIR = dirname(__FILE__)."/ADODB_cache";
+		/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
+		require_once('adodb/adodb.inc.php');
 		
 		if ($this->config['database']['dbtype'] == "postgres"){
 			$datasource = 'pgsql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
@@ -2149,7 +2150,7 @@ class A2Billing {
 		}		
 		$this->DBHandle = NewADOConnection($datasource);
 		if (!$this->DBHandle) return false;
-				
+		
 		return true;
 	}
 	
