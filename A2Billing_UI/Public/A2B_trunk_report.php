@@ -3,31 +3,38 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/smarty.php");
 
+
 if (! has_rights (ACX_MISC)){
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
+
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'lst_time','trunks'));
-/***********************************************************************************/
+
+
 $DBHandle  = DbConnect();
 
 $date_clause = "";
 $QUERY = '';
-if (DB_TYPE == "postgres"){
-	 	$UNIX_TIMESTAMP = "";
-}else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+if (DB_TYPE == "postgres") 
+{
+	$UNIX_TIMESTAMP = "";
+} else {
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
+
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month"){
+
+if ($Period=="Month")
+{
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(t.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
 	if ($tomonth && isset($tostatsmonth))
 	{
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
 		$date_clause.=" $UNIX_TIMESTAMP(t.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 	}
-}else if($Period=="Time"){
+} else if($Period=="Time") {
 	if ($lst_time != "") 
 	{
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
@@ -121,7 +128,7 @@ if ($res){
 	}
 }
 
-
+echo $QUERY;
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
@@ -344,17 +351,22 @@ if (strlen($_GET["menu"])>0)
 			foreach($trunk_calls as $key => $cur_val){
 			$trunk_id = $cur_val[0];
 			if(DB_TYPE == "postgres")
+			{
 				$QUERY_CIC = "SELECT count(c.id_trunk) AS CIC FROM cc_call c, cc_trunk t WHERE (extract(epoch from (stoptime - starttime))/60) <= 10 AND c.id_trunk = t.id_trunk AND c.id_trunk = $trunk_id group by c.id_trunk";
-			else
+			} else {
 				$QUERY_CIC = "SELECT count(c.id_trunk) AS CIC FROM cc_call c, cc_trunk t WHERE TIME_TO_SEC( TIMEDIFF(c.stoptime, c.starttime )) <= 10 AND c.id_trunk = t.id_trunk AND c.id_trunk = $trunk_id group by c.id_trunk";
+			}
 			$res_CIC = $DBHandle -> Execute($QUERY_CIC);
 			$row_CIC = $res_CIC->fetchRow();
 			$total_calls = $cur_val[4];
 			$QUERY_ASR = "SELECT (count(c.id_trunk )/ $total_calls) AS ASR FROM cc_call c, cc_trunk t WHERE c.id_trunk = t.id_trunk AND c.terminatecause = 'ANSWER' AND c.id_trunk = $cur_val[0]";
 			$res = $DBHandle -> Execute($QUERY_ASR);
 			$row = $res->fetchRow();
-					
-			if($i % 2 == 0){$bgcolor = "bgcolor='#F2F2EE'";$mouseout = "bgColor='#F2F2EE'";}else{$bgcolor = "bgcolor='#FCFBFB'";$mouseout = "bgColor='#FCFBFB'";}	
+			
+			if($i % 2 == 0)
+			{
+				$bgcolor = "bgcolor='#F2F2EE'";$mouseout = "bgColor='#F2F2EE'";}else{$bgcolor = "bgcolor='#FCFBFB'";$mouseout = "bgColor='#FCFBFB'";
+			}
 			?>
                	 <tr onmouseover="bgColor='#FFDEA6'" onmouseout=<?=$mouseout?> <?=$bgcolor?>> 
 					<td class="tableBody" align="center" valign="top"><?=$cur_val[1]?></td>
