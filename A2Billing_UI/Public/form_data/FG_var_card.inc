@@ -4,7 +4,8 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'id_didgroup','id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list', 'status'));
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list', 
+'status', 'template_invoice', 'template_outstanding' ));
 
 $HD_Form = new FormHandler("cc_card","Card");
 $HD_Form -> FG_DEBUG = 0;
@@ -72,6 +73,25 @@ $expire_list["1"]  = array( gettext("EXPIRE DATE"), "1");
 $expire_list["2"]  = array( gettext("EXPIRE DAYS SINCE FIRST USE"), "2");
 $expire_list["3"]  = array( gettext("EXPIRE DAYS SINCE CREATION"), "3");
 
+$template_invoice_list = array();
+$no = 0;
+$dir = opendir ('./templates/default/'.$A2B->config['global']['invoice_template_path']);
+while (false !== ($file = readdir($dir))) {
+	if (strpos($file, '.tpl',1)) {
+		$template_invoice_list[''.$no++] = array(substr($file, 0, -4), $file);
+	}
+}
+closedir($dir);
+
+$template_outstanding_list = array();
+$no = 0;
+$dir = opendir ('./templates/default/'.$A2B->config['global']['outstanding_template_path']);
+while (false !== ($file = readdir($dir))) {
+	if (strpos($file, '.tpl',1)) {
+		$template_outstanding_list[''.$no++] = array(substr($file, 0, -4), $file);
+	}
+}
+closedir($dir);
 
 $inuse_list = array();
 for ($k=0;$k<=40;$k++)
@@ -608,7 +628,24 @@ $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "", 
 			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Define the number of use of this cardnumber. If a non-standard stop of the application occurs it maybe that the card is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this card.") );
 
-
+$HD_Form -> AddEditElement (gettext("INVOICE TEMPLATE"),
+			   "template_invoice",
+			   '',	
+			   "SELECT",
+			   "",	
+			   "",	
+			   "", 
+			   "list" , "", "",	"", $template_invoice_list, "%1", "", gettext("Define the default template to use to display invoice.") );
+			   
+$HD_Form -> AddEditElement (gettext("INCUR TEMPLATE"),
+			   "template_outstanding",
+			   '',	
+			   "SELECT",
+			   "",	
+			   "",	
+			   "", 
+			   "list" , "", "",	"", $template_outstanding_list, "%1", "", gettext("Define the default template to use to display incur.") );		
+			   
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "callerid",
 			   '$value',
@@ -627,7 +664,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, '.
 'callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
-'fax, sip_buddy, iax_buddy, mac_addr, inuse');
+'fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding');
 
 
 

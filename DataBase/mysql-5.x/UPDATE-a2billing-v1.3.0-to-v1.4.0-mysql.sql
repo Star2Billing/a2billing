@@ -1,4 +1,57 @@
+CREATE TABLE `cc_invoice_items` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `invoiceid` int(11) NOT NULL,
+  `invoicesection` text,
+  `designation` text,
+  `sub_designation` text,
+  `start_date` date default NULL,
+  `end_date` date default NULL,
+  `bill_date` date default NULL,
+  `calltime` int(11) default NULL,
+  `nbcalls` int(11) default NULL,
+  `quantity` int(11) default NULL,
+  `price` decimal(15,5) default NULL,
+  `buy_price` decimal(15,5) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TABLE `cc_invoice` (
+  `id` int(11) NOT NULL auto_increment,
+  `cardid` bigint(20) NOT NULL,
+  `invoicecreated_date` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `amount` decimal(15,5) default '0.00000',
+  `tax` decimal(15,5) default '0.00000',
+  `total` decimal(15,5) default '0.00000',
+  `filename` varchar(250) collate utf8_bin default NULL,
+  `payment_status` int(11) default '0',
+  `cover_call_startdate` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `cover_call_enddate` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `cover_charge_startdate` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `cover_charge_enddate` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `currency` varchar(3) collate utf8_bin default NULL,
+  `previous_balance` decimal(15,5) default NULL,
+  `current_balance` decimal(15,5) default NULL,
+  `templatefile` varchar(250) collate utf8_bin default NULL,
+  `username` char(50) collate utf8_bin default NULL,
+  `lastname` char(50) collate utf8_bin default NULL,
+  `firstname` char(50) collate utf8_bin default NULL,
+  `address` char(100) collate utf8_bin default NULL,
+  `city` char(40) collate utf8_bin default NULL,
+  `state` char(40) collate utf8_bin default NULL,
+  `country` char(40) collate utf8_bin default NULL,
+  `zipcode` char(20) collate utf8_bin default NULL,
+  `phone` char(20) collate utf8_bin default NULL,
+  `email` char(70) collate utf8_bin default NULL,
+  `fax` char(20) collate utf8_bin default NULL,
+  `vat` float default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=363 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE cc_charge DROP COLUMN id_cc_subscription_fee;
+
+ALTER TABLE cc_charge ADD COLUMN id_cc_card_subscription BIGINT;
+ALTER TABLE cc_charge ADD COLUMN cover_from DATE;
+ALTER TABLE cc_charge ADD COLUMN cover_to 	DATE;
 
 ALTER TABLE cc_trunk ADD COLUMN inuse INT DEFAULT 0;
 ALTER TABLE cc_trunk ADD COLUMN maxuse INT DEFAULT -1;
@@ -7,20 +60,22 @@ ALTER TABLE cc_trunk ADD COLUMN if_max_use INT DEFAULT 0;
 
 
 CREATE TABLE cc_card_subscription (
-	id 								BIGINT NOT NULL AUTO_INCREMENT,
-	id_cc_card 						BIGINT ,
-	id_subscription_fee 			INT,
-    startdate 						TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    stopdate 						TIMESTAMP,
-	description 					MEDIUMTEXT,
-	PRIMARY KEY (id)
+id BIGINT NOT NULL AUTO_INCREMENT,
+id_cc_card BIGINT ,
+id_subscription_fee INT,
+startdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+stopdate TIMESTAMP,
+product_id TINYTEXT,
+product_name TEXT,
+PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 ALTER TABLE cc_card DROP id_subscription_fee;
 
 ALTER TABLE cc_card ADD COLUMN id_timezone INT DEFAULT 0;
-
+ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
+ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
 
 CREATE TABLE cc_config_group (
   	id 								INT NOT NULL auto_increment,
@@ -247,6 +302,9 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('File Language Menu', 'file_conf_enter_menulang', 'prepaid-menulang2', 'Please enter the file name you want to play when we prompt the calling party to choose the prefered language .', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Bill Callback', 'callback_bill_1stleg_ifcall_no', 1, 'Define if you want to bill the 1st leg on callback even if the call is not connected to the destination.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Server GMT', 'server_GMT', 'GMT+10:00', 'Define the sever gmt time', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Template Path', 'invoice_template_path', '../invoice/', 'gives invoice template path from default one', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Outstanding Template Path', 'outstanding_template_path', '../outstanding/', 'gives outstanding template path from default one', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Sales Template Path', 'sales_template_path', '../sales/', 'gives sales template path from default one', 0, 1, NULL);
 
 
 CREATE TABLE cc_timezone (

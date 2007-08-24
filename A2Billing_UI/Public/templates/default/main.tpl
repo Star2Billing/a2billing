@@ -300,6 +300,35 @@
 	</div>
 	{/if}
 	
+	{if ($ACXINVOICING2 > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2" 
+	{if ($section =="14")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES2");{/php}</strong></a></li>
+	<div class="tohide"
+	{if ($section =="14")}
+	style="">
+	{else}
+	style="display:none;">	
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_invoices2_bill.php?atmenu=payment&stitle=Solde&section=14">{php} echo gettext("Bill Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_invoices2_period.php?atmenu=payment&stitle=Solde&section=14">{php} echo gettext("Billed per period");{/php}</a></li>
+				<li><a href="A2B_entity_invoices2_card.php?invoicetype=billed&atmenu=payment&stitle=Solde&section=14">{php} echo gettext("Billed per customer");{/php}</a></li>
+				<li><a href="A2B_entity_invoices2_card.php?invoicetype=unbilled&atmenu=payment&stitle=Solde&section=14">{php} echo gettext("Unbilled Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_invoices2_sales.php?atmenu=payment&stitle=Solde&section=14">{php} echo gettext("Sales");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+	
+	
 	{if ($ACXCRONTSERVICE  > 0)}
 	<div class="toggle_menu">
 	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img9" 
