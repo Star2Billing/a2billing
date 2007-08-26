@@ -4,6 +4,32 @@
 
 
 
+#### ADDITIONAL CHARGES ON REALTIME BILLING
+********************************************************************
+1) Rouding calltime
+
+	We will need 2 new fields in the ratecard to define this, 
+	- rounding_threshold that will define the amount in seconds from which the rounding calltime will apply
+	for install 300 (5 minutes)
+	- rounding_calltime will define the new calltime that will be assigned to this call, for instance 360 (6 minutes)
+	
+	** take note that if the call last 7 minutes if the rounding_calltime is less that the current calltime we dont round down the calltime
+	
+2) Additional Block charge
+	
+	This is an additional charge that will be apply according to the duration of the call and the amount of "time block" inside the the calltime.
+	We will need 2 new fields in the ratecard to define this, 
+	- additional_block_charge that will define the charge amount, ie 0.50 cents
+	- additional_block_charge_time that will define the amount of seconds from which we have to apply this new charge, we will count the amount of time this block of time can be contain inside the calltime and apply the charge accordingly to this.
+	Example, additional_block_charge_time = 300 (5 minutes) if the call last 360 seconds, the additional_block_charge_time is contains 1 time so we apply this charge once. If the call last now 660 seconds (11 minutes), the additional_block_charge_time (5min) is contains 2 time so we will apply this charge 2 time too (2 time 0.50 cents)
+
+
+#### TODO : TRANSLATION - CANCEL, ANSWERED, CONGESTION
+********************************************************************
+I am puting all the a2customer and a2billing in correct portuguese grammar and i need the help. I need to know the file or where I can change the status of the call from english to portuguese?
+Explaining: Whem a customer log in in the a2customer control panel and click in historic call the customer see the status of the call, if was CANCEL, ANSWERED, CONGESTION... 
+ewrtwet
+
 #### TODO : GENERATE VOUCHER & GENERATE CARD
 ********************************************************************
 In the generate option, the tag value is set to a random ID : 1181897201

@@ -37,7 +37,7 @@ class Cards
                    );
 
         $this->__dispatch_map['Activation_Card'] =
-             array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'cardid' => 'string', 'cardnumber' => 'string', 'webuipassword' => 'string'),
+             array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'card_id' => 'string', 'cardnumber' => 'string'),
                    'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
                    );
 
@@ -47,7 +47,7 @@ class Cards
                    );
 
         $this->__dispatch_map['Reservation_Card'] =
-             array('in' => array('security_key' => 'string', 'uniqueid' => 'string'),
+             array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'card_id' => 'string'),
                    'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
                    );
 
@@ -100,54 +100,40 @@ class Cards
 	 }
 	 /*
 	  *		Function for the Service Activation_Card : Activate an existing card
-	  */ 
-	function Activation_Card($security_key, $uniqueid){ 
-	 		
-	
-			$FG_TABLE  = "cc_card";
-			
-			$DBHandle  = DbConnect();
-			
-			$instance_sub_table = new Table($FG_TABLE);
-			
-			$status_activate = 2;
-
-			$param_update = "status = $status_activate";
-
-			$clause = " id = $uniqueid";
-
-			$func_table = $FG_TABLE;
-
-			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause, $func_table);
-
+	  */
+	function Activation_Card($security_key, $uniqueid, $card_id, $cardnumber)
+	{ 
+		// Activate the card
+		$FG_TABLE  = "cc_card";
+		$DBHandle  = DbConnect();
+		$instance_sub_table = new Table($FG_TABLE);
+		
+		$status_activate = 2;
+		$param_update = "status = $status_activate";
+		$clause = " id = $card_id AND username = '$cardnumber' ";
+		$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
+		
 		if(!is_array($update) && count($update) == 0)
 		{
 			// FAIL SELECT
 			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 			sleep(2);
-			return array($uniqueid, 'result=500', ' ERROR - SELECT DB');
+			return array($uniqueid, 'result=500', " ERROR - Update : $card_id");
 		}
-		return array($uniqueid, 'result=200', " - Callback request found");
+		return array($uniqueid, 'result=200', " - Activate card : $card_id");
 	 }
 
-	function Batch_Activation_Card($security_key, $uniqueid,$begin_cardid, $end_cardid){ 
-	 		
-	
-			$FG_TABLE  = "cc_card";
-			
-			$DBHandle  = DbConnect();
-			
-			$instance_sub_table = new Table($FG_TABLE);
-			
-			$status_activate = 2;
-
-			$param_update = "status = $status_activate";
-
-			$clause = " id between $begin_cardid and $end_cardid";
-
-			$func_table = $FG_TABLE;
-
-			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause, $func_table);
+	function Batch_Activation_Card($security_key, $uniqueid, $begin_cardid, $end_cardid)
+	{
+		// BATCH ACTIVATE
+		$FG_TABLE  = "cc_card";
+		$DBHandle  = DbConnect();
+		$instance_sub_table = new Table($FG_TABLE);
+		
+		$status_activate = 2;
+		$param_update = "status = $status_activate";
+		$clause = " id between $begin_cardid and $end_cardid";
+		$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
 
 		if(!is_array($update) && count($update) == 0)
 		{
@@ -160,25 +146,18 @@ class Cards
 	 }
 
 
-	function Reservation_Card($security_key, $uniqueid){ 
-	 		
-	
-			$FG_TABLE  = "cc_card";
-			
-			$DBHandle  = DbConnect();
-			
-			$instance_sub_table = new Table($FG_TABLE);
-			
-			$status_reserved = 4;
-
-			$param_update = "status = $status_reserved";
-
-			$clause = " id = $uniqueid";
-
-			$func_table = $FG_TABLE;
-
-			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause, $func_table);
-
+	function Reservation_Card($security_key, $unique_id, $card_id)
+	{ 
+		// RESERVE THE CARD
+		$FG_TABLE  = "cc_card";
+		$DBHandle  = DbConnect();
+		$instance_sub_table = new Table($FG_TABLE);
+		
+		$status_reserved = 4;
+		$param_update = "status = $status_reserved";
+		$clause = " id = $card_id";
+		$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
+		
 		if(!is_array($update) && count($update) == 0)
 		{
 			// FAIL SELECT
