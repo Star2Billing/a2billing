@@ -136,7 +136,7 @@ else
 										$value_display = $select_recordset[0];
 									}
 						?>
-						<OPTION  value=<?php echo $select_recordset[1]?> <?php if (strcmp($list[0][$i],$select_recordset[1])==0){ echo "selected"; } ?>>
+						<OPTION  value='<?php echo $select_recordset[1]?>' <?php if (strcmp($list[0][$i],$select_recordset[1])==0){ echo "selected"; } ?>>
 							<?php echo $value_display?>
 						</OPTION>
 						<?php

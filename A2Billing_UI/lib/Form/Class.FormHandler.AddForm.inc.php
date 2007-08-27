@@ -126,7 +126,7 @@
 						}else{
 							$value_display = $select_recordset[0];													}
 	?>
-	<OPTION  value=<?php echo $select_recordset[1]?> 
+	<OPTION  value='<?php echo $select_recordset[1]?>' 
 	<?php 
 						 										
 							if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){								
