@@ -41,8 +41,8 @@ $card = new SOAP_Client($endpoint);
 echo "<hr>#############   Reservation_Card : $ans[2]  #############   </hr>";
 $method = 'Reservation_Card';   
 
-$params = array('security_key' => md5($security_key), 'unique_id' => '1', 'cardnumber' => 'mycard_number', 
-				'cardid' => 'mycard_id', 'webuipassword' => 'mywebui_password');
+$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'cardnumber' => $ans[2], 
+				'card_id' => 'mycard_id');
 
 $ans = $card->call($method, $params);
 
@@ -54,8 +54,8 @@ exit;
 echo "<hr>#############   Batch_Activation_Card : $ans[2]  #############   </hr>";
 $method = 'Batch_Activation_Card';   
 
-$params = array('security_key' => md5($security_key), 'unique_id' => '95125', 'begin_cardid' => '31', 
-				'end_cardid' => '50');
+$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'begin_card_id' => '31', 
+				'end_card_id' => '50');
 
 $ans = $card->call($method, $params);
 
@@ -69,8 +69,8 @@ exit;
 echo "<hr>#############   Activation_CARD : $ans[2]  #############   </hr>";
 $method = 'Activation_Card';   
 
-$params = array('security_key' => md5($security_key), 'unique_id' => '95125', 'cardnumber' => 'mycard_number', 
-				'cardid' => 'mycard_id', 'webuipassword' => 'mywebui_password');
+$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'cardnumber' => $ans[2], 
+				'card_id' => 'mycard_id');
 
 $ans = $card->call($method, $params);
 

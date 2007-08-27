@@ -37,18 +37,18 @@ class Cards
                    );
 
         $this->__dispatch_map['Activation_Card'] =
-             array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'card_id' => 'string', 'cardnumber' => 'string'),
-                   'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
+             array('in' => array('security_key' => 'string', 'transaction_code' => 'string', 'card_id' => 'string', 'cardnumber' => 'string'),
+                   'out' => array('transaction_code' => 'string', 'result' => 'string', 'details' => 'string')
                    );
 
         $this->__dispatch_map['Batch_Activation_Card'] =
-             array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'begin_cardid' => 'string', 'end_cardid' => 'string'),
-                   'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
+             array('in' => array('security_key' => 'string', 'transaction_code' => 'string', 'begin_card_id' => 'string', 'end_card_id' => 'string'),
+                   'out' => array('transaction_code' => 'string', 'result' => 'string', 'details' => 'string')
                    );
 
         $this->__dispatch_map['Reservation_Card'] =
-             array('in' => array('security_key' => 'string', 'uniqueid' => 'string', 'card_id' => 'string'),
-                   'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
+             array('in' => array('security_key' => 'string', 'transaction_code' => 'string', 'card_id' => 'string'),
+                   'out' => array('transaction_code' => 'string', 'result' => 'string', 'details' => 'string')
                    );
 
      }
@@ -101,7 +101,7 @@ class Cards
 	 /*
 	  *		Function for the Service Activation_Card : Activate an existing card
 	  */
-	function Activation_Card($security_key, $uniqueid, $card_id, $cardnumber)
+	function Activation_Card($security_key, $transaction_code, $card_id, $cardnumber)
 	{ 
 		// Activate the card
 		$FG_TABLE  = "cc_card";
@@ -118,35 +118,58 @@ class Cards
 			// FAIL SELECT
 			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 			sleep(2);
-			return array($uniqueid, 'result=500', " ERROR - Update : $card_id");
+			return array($transaction_code, 'result=500', " ERROR - Update : $card_id");
 		}
-		return array($uniqueid, 'result=200', " - Activate card : $card_id");
+		return array($transaction_code, 'result=200', " - Activate card : $card_id");
 	 }
 
-	function Batch_Activation_Card($security_key, $uniqueid, $begin_cardid, $end_cardid)
+	function Batch_Activation_Card($security_key, $transaction_code, $begin_card_id, $end_card_id)
 	{
 		// BATCH ACTIVATE
-		$FG_TABLE  = "cc_card";
 		$DBHandle  = DbConnect();
-		$instance_sub_table = new Table($FG_TABLE);
-		
-		$status_activate = 2;
-		$param_update = "status = $status_activate";
-		$clause = " id between $begin_cardid and $end_cardid";
-		$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
 
-		if(!is_array($update) && count($update) == 0)
-		{
-			// FAIL SELECT
-			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+		$instance_table_card = new Table("cc_card", "id");
+		
+		// initialization variables
+		$nb_begin_card = 0;
+		$nb_end_card = 0;
+		
+		// If begin_card_id exist in table
+		$FG_TABLE_CLAUSE = "id = $begin_card_id";
+		$list_card = $instance_table_card -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);
+		$nb_begin_card = count($list_card);
+			
+		// If end_card_id exist in table
+		$FG_TABLE_CLAUSE = "id = $end_card_id";
+		$list_card = $instance_table_card -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);
+		$nb_end_card = count($list_card);
+
+		if($nb_begin_card <= 0 && $nb_end_card <= 0){
+			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> QUERY");
 			sleep(2);
-			return array($uniqueid, 'result=500', ' ERROR - SELECT DB');
+			return array($transaction_code, 'result=500', ' ERROR - SELECT DB');
 		}
-		return array($uniqueid, 'result=200', " - Callback request found");
+		else {
+			$FG_TABLE  = "cc_card";
+			$instance_sub_table = new Table($FG_TABLE);
+			$status_activate = 2;
+			$param_update = "status = $status_activate";
+			$clause = " id between $begin_card_id and $end_card_id";
+			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
+	
+			if(!is_array($update) && count($update) == 0)
+			{
+				// FAIL SELECT
+				write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+				sleep(2);
+				return array($transaction_code, 'result=500', ' ERROR - SELECT DB');
+			}
+			return array($transaction_code, 'result=200', " - Callback request found");
+		}
 	 }
 
 
-	function Reservation_Card($security_key, $unique_id, $card_id)
+	function Reservation_Card($security_key, $transaction_code, $card_id)
 	{ 
 		// RESERVE THE CARD
 		$FG_TABLE  = "cc_card";
@@ -163,9 +186,9 @@ class Cards
 			// FAIL SELECT
 			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 			sleep(2);
-			return array($uniqueid, 'result=500', ' ERROR - SELECT DB');
+			return array($transaction_code, 'result=500', ' ERROR - SELECT DB');
 		}
-		return array($uniqueid, 'result=200', " - Callback request found");
+		return array($transaction_code, 'result=200', " - Callback request found");
 	 }
 	 
 	 
@@ -191,16 +214,11 @@ class Cards
 				  return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
 			 } 
 			   
-			   
 			// Create new account			
 			$FG_TABLE  = "cc_card";
-			
 			$DBHandle  = DbConnect();
-			
 			$instance_sub_table = new Table($FG_TABLE);
-			
 			$FG_EDITION_CLAUSE = " username = '$cardnumber' ";
-			
 			$res_delete = $instance_sub_table -> Delete_table ($DBHandle, $FG_EDITION_CLAUSE);
 			if (!$res_delete){
 				return array($transaction_code, $account_number, $cardnumber, 'result=ERROR', 'Cannot remove this cardnumber');

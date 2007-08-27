@@ -89,9 +89,9 @@ function Check()
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 				  <td class="fontstyle_searchoptions">
 				  <?php
-				  $DBHandle  = DbConnect();
-				  $instance_table = new Table();
-				    $QUERY = "SELECT * from cc_config_group"; 					
+					$DBHandle  = DbConnect();
+					$instance_table = new Table();
+					$QUERY = "SELECT * from cc_config_group"; 					
 					$list_total_groups  = $instance_table->SQLExec ($DBHandle, $QUERY);		
 				   ?>
 				<select name="groupselect" class="form_input_select">
