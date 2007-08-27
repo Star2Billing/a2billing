@@ -1,815 +1,825 @@
 <?php
 
-// To sort charge type in correct category
-$chargetype_list = array();
-$chargetype_list[1] = gettext("Connection charge for DID setup");
-$chargetype_list[2] = gettext("Monthly Charge for DID use");
-$chargetype_list[3] = gettext("Subscription fee");
-$chargetype_list[4] = gettext("Extra charge");
-$chargetype_list[5] = gettext("Product Purchase");
-$chargetype_list[6] = gettext("Refund");
 
-Class	A2B_Invoice {
-
-	////
-	// System
-	////
-		var		$verbose_level;
-		var		$instance_table;
-		var		$DB_Handle;
-		var		$base_currency;
-		var		$currencies_list;
-		
-	////
-	//	Initial Information for generation
-	//////
-		// Additional filters for Invoice menu
-		// filter_***_op:
-		// 1: is
-		// 2: begins with
-		// 3: contains
-		// 4: ends with
-		// 5: different from
-		var		$filter_provider;
-		var		$filter_trunk;
-		var		$filter_destination;
-		var		$filter_destination_op;
-		var 	$filter_source;
-		var		$filter_source_op;
-	////
-	//	Collected information
-	//////
-		// Will be computed according to previous invoices
-		var		$cover_call_startdate;
-		var		$cover_call_enddate;
-		var		$cover_charge_startdate;
-		var		$cover_charge_enddate;
-		var		$previous_balance;
-
-		// Information about invoiced customer
-		var		$customer_cardid;
-		var		$customer_username;
-		var		$customer_creation_date;
-		var		$customer_VAT;
-		var		$customer_creationdate;
-		var		$customer_lastname;
-		var		$customer_firstname;
-		var		$customer_address;
-		var		$customer_city;
-		var		$customer_state;
-		var		$customer_country;
-		var		$customer_zipcode;
-		var		$customer_phone;
-		var		$customer_email;
-		var		$customer_fax;
-		var		$customer_invoicetemplate;
-		var		$customer_outstandingtemplate;
-		var		$customer_currentbalance;
-		var		$customer_currency;
-		
-		// List of Calls Grouped by destination
-		// [n][0]: destination
-		// [n][1]: totaltime
-		// [n][2]: totalsellcost
-		// [n][3]: nbcall
-		// [n][4]: totalbuycost
-		var		$list_total_destination;
-		
-		// List of Charges
-		// [n][0]:	id
-		// [n][1]:	id_cc_card
-		// [n][2]:	iduser
-		// [n][3]: 	creationdate
-		// [n][4]:	amount
-		// [n][5]:	currency
-		// [n][6]:	chargetype
-		// [n][7]:	description
-		// [n][8]:	id_cc_did
-		// [n][9]:	cover_to
-		// [n][10]: cover_from
-		// [n][11]: id_cc_card_subscription
-		// [n][12]: cc_card_subscription -> product name
-		// [n][13]: cc_subscription_fee -> label
-		var		$list_total_charge;
-	////
-	// 	Generated Invoice
-	//////
-		// Total
-		var 	$invoice_currency;
-		var		$invoice_subtotal;
-		var		$invoice_tax;
-		var		$invoice_total;
-				
-		// List of invoice items
-		// [n][0]:  invoicesection
-		// [n][1]:  designation
-		// [n][2]:  sub_designation
-		// [n][3]:  start_date
-		// [n][4]:  end_date
-		// [n][5]:  bill_date
-		// [n][6]:  calltime
-		// [n][7]:  nbcalls
-		// [n][8]:  quantity
-		// [n][9]:  buy_price
-		// [n][10]: price	
-		var		$list_items;
-		var		$list_category_items; 	// List items, once sorted. 3 dims array	
-	////
-	// Billed Invoice (official)
-	//////
-		// Storage
-		var		$billedinvoice_id;
-		var		$billedinvoice_default_template;		
-		var		$billedinvoice_filename;	// PDF file
-		var		$billedinvoice_creationdate;
-
-		// Payment status:
-		// 0: UNPAID
-		// 1: SENT-UNPAID
-		// 2: SENT-PAID
-		// 3: PAID
-		var		$billedinvoice_paymentstatus;
-		
-		
-		
-////
-////	Initialisation & Global Methods
-////	
-	function __construct($DB_Handle, $verbose_level=0) {		
-		
-		$this->DB_Handle 			= $DB_Handle;
-		$this->instance_table		= new Table();
-		$this->verbose_level		= $verbose_level;
-		$this->currencies_list		= get_currencies($this->DBHandle);
-		
-		global $A2B;				
-		$this->base_currency		= $A2B->config['global']['base_currency'];	
+function EmailInvoice($id, $invoice_type = 1)
+{
+	//getpost_ifset(array('customer', 'posted', 'Period', 'cardid','exporttype','choose_billperiod','id','invoice_type'));
+	if ($invoice_type == "")
+	{
+		$invoice_type = 1;
 	}
-	
-	function RetrieveInformation($customer_cardid, $billcalls, $billcharges, $enddate) {
-				
-		$this->ReadCardInfo($customer_cardid);
-		$this->FindCoverDates($billcalls, $billcharges, $enddate);
-		$this->ListCalls();
-		$this->ListCharges();		
-	}
-////
-////	Gathering Information
-////
-	//	Look for older invoices to start from 
-	//	base on customer_cardid 
-	//	generate cover_(call/charge)_(start/end)date
-	function FindCoverDates($billcalls, $billcharges, $enddate) {
-		
-		if (! isset($this->customer_cardid))
-			throw new Exception('Unable to find cover dates since customer_cardid not set');
-			
-		// Here we have to check for the Last Invoice date to set the Cover Start date. 
-		// if a user dont have a Last invocie then we have to Set the Cover Start date to it Creation Date.
-		$query_billdate = "SELECT CASE WHEN max(cover_call_enddate)   is NULL THEN '0001-01-01 00:01:00' ELSE max(cover_call_enddate)   END, ".
-						         "CASE WHEN max(cover_charge_enddate) is NULL THEN '0001-01-01 00:01:00' ELSE max(cover_charge_enddate) END  ".
-						   		 "FROM cc_invoice WHERE cardid='$this->customer_cardid'";
-		if ($this->verbose_level>=1) echo "\nQUERY_BILLDATE = $query_billdate";
-		
-		$resdate = $this->instance_table -> SQLExec ($this->DB_Handle, $query_billdate);
-		if ($this->verbose_level >= 2) print_r($resdate);
-		
-		if (!is_array($resdate))
-			throw new Exception('Unable to find cover dates');
-					
-		// Call Dates
-		$this->cover_call_startdate = ($resdate[0][0] != "0001-01-01 00:01:00") ? 
-				$resdate[0][0] 					// Customer Last Invoice Date
-			:	$this->customer_creationdate; 	// Customer Creation Date	
-	
-		$this->cover_call_enddate = ($billcalls == "Yes") ?
-				$enddate
-			:	$this->cover_call_startdate;
-				
-		// Charge Dates
-		$this->cover_charge_startdate = ($resdate[0][1] != "0001-01-01 00:01:00") ?
-			 	$resdate[0][1]					// Customer Last Invoice Date
-			:	$this->customer_creationdate;	// Customer Creation Date
-				
-		$this->cover_charge_enddate = ($billcharges == "Yes") ?
-				$enddate
-			:	$this->cover_charge_startdate;
-		
-		// Display Result
-		if($this->verbose_level >= 1)	{
-			echo "\n Cover Calls for '$this->customer_username', Start Date:".$this->cover_call_startdate.', End Date:'.$this->cover_call_enddate;
-			echo "\n Cover Charges for '$this->customer_username', Start Date:".$this->cover_charge_startdate.', End Date:'.$this->cover_charge_enddate;
-		}
-		
-		// If Last Invoice for Call and Dates is the same, then we can get balance of previous invoice
-		if (($this->cover_call_startdate == $this->cover_charge_startdate) && ($this->cover_call_startdate != $this->customer_creationdate)) {
-
-			$query_lastbalance = "SELECT	current_balance".
-								" FROM		cc_invoice".
-						   		" WHERE 	cardid='$this->customer_cardid'".
-						   		" ORDER BY 	cover_call_enddate DESC".
-						   		" LIMIT		1";
-			if ($this->verbose_level>=1) echo "\nQUERY_LASTBALANCE = $query_lastbalance";
-			
-			$reslastbalance = $this->instance_table -> SQLExec ($this->DB_Handle, $query_lastbalance);
-			if ($this->verbose_level >= 2) print_r($reslastbalance);
-			
-			if (is_array($reslastbalance) && count($reslastbalance) == 1)
-				$previous_balance = $reslastbalance[0][0];
-			else
-				throw new Exception('Unable to find Previous Invoice');
+	if ($invoice_type == 1)
+	{
+		$cardid = $id;
+		if($cardid == "" )
+		{
+			exit("Invalid ID");
 		}
 	}
-	
-	// List calls according to:
-	//  * filters
-	//	* billing period
-	//	* customer
-	// Group by destination	
-	function ListCalls() {
-		
-		if (! $this->IsCoveringCalls())	return;
-		
-		$Query_Destinations  = "SELECT ca.destination, sum(ca.sessiontime), sum(ca.sessionbill), count(*), sum(ca.buycost) FROM cc_call ca";
-		
-		if (isset($this->filter_provider))
-			$Query_Destinations .= " JOIN cc_trunk tr USING(id_trunk)";
-					
-		$Query_Destinations .= " WHERE ca.starttime >= '$this->cover_call_startdate' AND ca.starttime < '$this->cover_call_enddate'";
-		
-		if (isset($this->customer_username))
-			$Query_Destinations .= " AND ca.username='$this->customer_username'";
-			
-		if (isset($this->filter_trunk))
-			$Query_Destinations .= " AND ca.id_trunk='$this->filter_trunk'";
-			
-		if (isset($this->filter_provider))
-			$Query_Destinations .= "$Query_Destinations .= tr.id_provider='$this->filter_provider'";
-			
-		if (isset($this->filter_destination))
-			switch ($this->filter_destination_op) {                         
-	                case 1: $Query_Destinations .= " AND ca.calledstation = '".    $this->filter_destination. "'"; break;
-	                case 2: $Query_Destinations .= " AND ca.calledstation LIKE '". $this->filter_destination."%'"; break;
- 	                case 4: $Query_Destinations .= " AND ca.calledstation LIKE '%".$this->filter_destination. "'"; break;
- 	                case 5: $Query_Destinations .= " AND ca.calledstation <> '".   $this->filter_destination. "'"; break;
-	                default:
-	                case 3: $Query_Destinations .= " AND ca.calledstation LIKE '%".$this->filter_destination."%'"; break;
- 	    	}
- 	    	
-		if (isset($this->filter_source))
-			switch ($this->filter_source_op) {
-	                case 1: $Query_Destinations .= " AND ca.src = '".    $this->filter_source. "'"; break;
-	                case 2: $Query_Destinations .= " AND ca.src LIKE '". $this->filter_source."%'"; break;
- 	                case 4: $Query_Destinations .= " AND ca.src LIKE '%".$this->filter_source. "'"; break;
- 	                case 5: $Query_Destinations .= " AND ca.src <> '".   $this->filter_source. "'"; break;
-	                default:
-	                case 3: $Query_Destinations .= " AND ca.src LIKE '%".$this->filter_source."%'"; break;
- 	    	}
- 	    												  
-		$Query_Destinations .= " GROUP BY destination";
-		if($this->verbose_level >= 1)	echo "\n Query_Destinations = $Query_Destinations";
-		
-		$this->list_total_destination = $this->instance_table -> SQLExec ($this->DB_Handle, $Query_Destinations);
-		if (!is_array($this->list_total_destination))
-			throw new Exception('Unable to list calls');
-		if ($this->verbose_level >= 2)	print_r($this->list_total_destination); 
-		
-		if ($this->verbose_level >= 1)	echo "\n Number of Destinations for '$this->customer_username' Found: ".count($this->list_total_destination);
-	}
-	
-	// List Charges
-	function ListCharges() {
-
-		if (! $this->IsCoveringCharges())	return;
-		
-		$QUERY_CHARGE = "SELECT cc.id, cc.id_cc_card, cc.iduser, cc.creationdate, cc.amount, cc.currency, cc.chargetype,  cc.description, ".
-							  " cc.id_cc_did, cc.cover_to, cc.cover_from, cc.id_cc_card_subscription, cs.product_name, cf.label".
-					    " FROM cc_charge AS cc".
-					    " LEFT OUTER JOIN cc_card_subscription AS cs ON cs.id = cc.id_cc_card_subscription".
-					    " LEFT OUTER JOIN cc_subscription_fee AS cf ON cf.id = cs.id_subscription_fee".
-						" WHERE creationdate >= '$this->cover_charge_startdate' AND creationdate < '$this->cover_charge_enddate'";
-		if (isset($this->customer_cardid))
-			$QUERY_CHARGE .= " AND cc.id_cc_card='$this->customer_cardid'";
-		if ($this->verbose_level >= 1)	echo "\n QUERY_CHARGE = $QUERY_CHARGE";
-			
-		$this->list_total_charge = $this->instance_table -> SQLExec ($this->DB_Handle, $QUERY_CHARGE, 1);
-
-		if (! is_array($this->list_total_charge))
-			throw new Exception('Unable to list charges');
-		if ($this->verbose_level >= 2)	print_r($this->list_total_charge); 
-		
-		if ($this->verbose_level >= 1)	echo "\n Number of Charge for '$this->customer_username' Found: ".count($this->list_total_charge);
-	}
-	
-	// Retrieve customer information from database, 
-	// with $customer_cardid, if doesn't exist
-	// with	$customer_username, if doesn't exist, exit	
-	function ReadCardInfo($customer_cardid, $customer_username) {
-		
-		$QUERY = "SELECT creationdate, lastname, firstname, address, city, state, co.countryname, zipcode, phone, email, fax, vat, username, ca.id, template_invoice, template_outstanding, credit, currency".
-				" FROM cc_card AS ca JOIN cc_country AS co ON ca.country = co.countrycode ";
-
-		// If this invoice is not for only one customer
-		if (isset($customer_cardid) && $customer_cardid != '')
-			$QUERY .= "WHERE ca.id = '$customer_cardid'";
-		elseif (isset($customer_username) && $customer_username != '')
-			$QUERY .= "WHERE ca.username = '$customer_username'";
-		else	
-			throw new Exception('Unable to retrieve information on customer since his id is unknown'); 
-			
-		if ($this->verbose_level >= 1) echo "\nQUERY_CARD = $QUERY";
-		
-		$rescard = $this->instance_table->SQLExec($this->DB_Handle, $QUERY);
-
-		if (!is_array($rescard) || count($rescard) != 1) 
-			throw new Exception("Cannot find card with id=".$customer_cardid);
-		
-		if ($this->verbose_level >= 2)	print_r($rescard);
-		
-		$this->customer_creationdate		= $rescard[0][0];
-		$this->customer_lastname			= $rescard[0][1];
-		$this->customer_firstname			= $rescard[0][2];
-		$this->customer_address				= $rescard[0][3];
-		$this->customer_city				= $rescard[0][4];
-		$this->customer_state 				= $rescard[0][5];
-		$this->customer_country 			= $rescard[0][6];
-		$this->customer_zipcode 			= $rescard[0][7];
-		$this->customer_phone 				= $rescard[0][8];
-		$this->customer_email 				= $rescard[0][9];
-		$this->customer_fax 				= $rescard[0][10];
-		$this->customer_VAT 				= $rescard[0][11];
-		$this->customer_username			= $rescard[0][12];
-		$this->customer_cardid				= $rescard[0][13];
-		$this->customer_invoicetemplate		= $rescard[0][14];
-		$this->customer_outstandingtemplate	= $rescard[0][15];
-		$this->customer_currentbalance 		= $rescard[0][16];
-		$this->customer_currency	 		= $rescard[0][17];		
-	}
-////
-////	Piece of information about gathered information
-////	All of them return booleans
-////
-	// Means that it can be billed
-	function IsOfficial() {
-		return (	!(isset($this->filter_provider) ||	isset($this->filter_trunk) 	||	isset($this->filter_destination) ||	isset($this->filter_source)) 
-				&&	isset($this->customer_username)
-				);
-	}
-
-	// Calls are covered 
-	function IsCoveringCalls() {
-		return (isset($this->cover_call_startdate) && isset($this->cover_call_enddate) && ($this->cover_call_startdate != $this->cover_call_enddate));
-	}
-	
-	// Charges are covered
-	function IsCoveringCharges() {
-		return (isset($this->cover_charge_startdate) && isset($this->cover_charge_enddate) && ($this->cover_charge_startdate != $this->cover_charge_enddate));
-	}
-	
-	// Is it a billed invoice ?
-	function IsBilled() {
-		return (isset($this->billedinvoice_id));
-	}
-	
-////
-////	Generate Invoice
-////
-	// Create an invoice from current information:
-	//  * card
-	//	* list of calls
-	//	* list of charges
-	//	* invoice_currency	
-	function CreateInvoice($invoice_currency = '') {
-			
-		$this->ResetInvoice($invoice_currency);
-		$this->GenerateCallItems();
-		$this->GenerateChargeItems();		
-		$this->ComputeTotal();
-		
-		$this->SortItems();
-	}
-
-	// Prepare the invoice
-	function ResetInvoice($invoice_currency) {
-	
-		if ($invoice_currency != '') {
-			
-			$this->invoice_currency = $invoice_currency;
-			if ($this->verbose_level >=1)	echo "\n Using custom currency";
-			
-		} elseif (isset($this->customer_currency) && $this->customer_currency!='') {
-			
-			$this->invoice_currency = $this->customer_currency;
-			if ($this->verbose_level >=1)	echo "\n Using customer currency";
-			
-		} else {
-			
-			global $A2B;					
-			$this->invoice_currency	= $A2B->config['global']['base_currency'];
-			if ($this->verbose_level >=1)	echo "\n Using base currency";
+	if ( $invoice_type == 2)
+	{
+		if(($id == "" || !is_numeric($id)))
+		{
+			exit(gettext("Invalid ID"));
 		}
-		
-		
-		if ($this->verbose_level >=1) echo "\nInvoice Currency is : $this->invoice_currency";
-		
-		$this->list_items 	= Array();
+	}
+	if ($invoice_type == 1)
+	{
+		$invoice_heading = gettext("Unbilled Details");
+		$invocie_top_heading = gettext("Unbilled Invoice Details for Card Number");	
+	}
+	else
+	{
+		$invoice_heading = gettext("Billed Details");
+		$invocie_top_heading = gettext("Billed Invoice Details for Card Number");	
 	}
 	
-	// Add Call Items 
-	function GenerateCallItems() {
-			
-		if (! $this->IsCoveringCalls())	{
-			
-			if ($this->verbose_level >= 1) echo "\nCalls not covered. Skipping CallItems generation.";
-			return;
-		}
-		
-		$nb_items = count($this->list_items);
-		
-		//Get the calls destination wise and calculate total cost			
-		if (is_array($this->list_total_destination)) {
-			
-			foreach ($this->list_total_destination as $data)
-				$this->list_items[] = Array(
-											gettext('Calls'),	// invoicesection
-											$data[0],			// designation
-											'',					// sub_designation
-											'',					// start_date
-											'',					// end_date
-											'',					// bill_date
-											$data[1],			// calltime		
-											$data[3],			// nbcalls
-											1, 					// quantity
-											convert_currency($this->currencies_list, $data[4], strtoupper($this->base_currency), strtoupper($this->invoice_currency)),		// buy_price 
-											convert_currency($this->currencies_list, $data[2], strtoupper($this->base_currency), strtoupper($this->invoice_currency))			// price
-											);
-
-		} else throw new Exception('Unable to generate Call Items because Calls were not listed');
-		
-		if ($this->verbose_level >= 1)	echo "\n".(count($this->list_items) - $nb_items).' call items generated';
-	}
-
-	// Add Charge Items 
-	function GenerateChargeItems() {
 	
-		if (! $this->IsCoveringCharges())	{
-			
-			if ($this->verbose_level >= 1) echo "\nCharges not covered. Skipping ChargeItems generation.";
-			return;
+	$DBHandle = DbConnect();
+	$num = 0;
+	if ($invoice_type == 1)
+	{
+		$QUERY = "Select username, vat, t1.id from cc_card t1 where t1.id = $cardid";
+	}
+	else
+	{
+		$QUERY = "Select username, vat, t1.id from cc_card t1, cc_invoices t2 where t1.id = t2.cardid and t2.id = $id";
+	}
+	$res_user = $DBHandle -> Execute($QUERY);
+	if ($res_user)
+		$num = $res_user -> RecordCount();
+	
+	if($num > 0)
+	{
+		$userRecord = $res_user -> fetchRow();
+		$customer = $userRecord[0];
+		$vat = $userRecord[1];
+		$customerID = $userRecord[2];	
+	}
+	else
+	{
+		exit(gettext("No User found"));
+	}
+	
+	if (!isset ($current_page) || ($current_page == "")){	
+			$current_page=0; 
 		}
+	
+	
+	// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
+	$FG_DEBUG = 0;
+	
+	// The variable FG_TABLE_NAME define the table name to use
+	$FG_TABLE_NAME="cc_call t1";
+	
+	// The variable Var_col would define the col that we want show in your table
+	// First Name of the column in the html page, second name of the field
+	$FG_TABLE_COL = array();
+	
+	$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
+	$FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
+	$FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
+	$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+	$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+	
+	if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
+		$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
+	}
+	$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
+	
+	$FG_TABLE_DEFAULT_ORDER = "t1.starttime";
+	$FG_TABLE_DEFAULT_SENS = "DESC";
 		
-		global $chargetype_list;
-		
-		$nb_items = count($this->list_items);
-		
-		//Get the calls destination wise and calculate total cost			
-		if (is_array($this->list_total_charge)) {
-			
-			foreach ($this->list_total_charge as $data) {
-				
-				 $chargeitem = Array(
-											$chargetype_list[$data[6]],				// invoicesection
-											($data[11] > 0)? $data[13] : $data[7],	// designation
-											($data[11] > 0)? $data[12] : '',		// sub_designation
-											$data[10],								// start_date
-											$data[9],								// end_date
-											$data[3],								// bill_date
-											0,										// calltime		
-											0,										// nbcalls
-											1, 										// quantity
-											0,										// buy_price 
-											convert_currency($this->currencies_list, $data[4], strtoupper($data[5]), strtoupper($this->invoice_currency))			// price
-											);
-
-				// look for identical item
-				$found = false;
-				foreach ($this->list_items as &$item)
-					if ($found = ($item[0] == $chargeitem[0] 
-								&& $item[1] == $chargeitem[1] 
-								&& $item[3] == $chargeitem[3] 
-								&& $item[4] == $chargeitem[4] 
-								&& $item[9] == $chargeitem[9]
-								&& $item[10]== $chargeitem[10])) 
-						{
-							$item[2] = '';
-							$item[8]++;
-														
-							if ($this->verbose_level >= 2) {
-		
-								echo "\n #Similar Item: ";
-								print_r($item);
-							}						
-							break;
-						}
-										
-				if (! $found) {
-					
-					if ($this->verbose_level >= 2) {
-						
-						echo "\n #Item: ";
-						print_r($chargeitem);
-					}					
-					$this->list_items[] = $chargeitem;
-				}
+	// This Variable store the argument for the SQL query
+	
+	$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
+	if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
+		$FG_COL_QUERY.=', t1.username';
+	}
+	$FG_COL_QUERY.=', t1.sessionbill';
+	if (LINK_AUDIO_FILE == 'YES') 
+		$FG_COL_QUERY .= ', t1.uniqueid';
+	
+	$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
+	
+	// The variable LIMITE_DISPLAY define the limit of record to display by page
+	$FG_LIMITE_DISPLAY=500;
+	
+	// Number of column in the html table
+	$FG_NB_TABLE_COL=count($FG_TABLE_COL);
+	
+	
+	//This variable will store the total number of column
+	$FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
+	if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
+	
+		if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+		$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+		$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+	
+	
+	if ( is_null ($order) || is_null($sens) ){
+		$order = $FG_TABLE_DEFAULT_ORDER;
+		$sens  = $FG_TABLE_DEFAULT_SENS;
+	}
+	
+	if ($posted==1){
+	  
+	  function do_field($sql,$fld,$dbfld){
+			$fldtype = $fld.'type';
+			global $$fld;
+			global $$fldtype;		
+			if ($$fld){
+					if (strpos($sql,'WHERE') > 0){
+							$sql = "$sql AND ";
+					}else{
+							$sql = "$sql WHERE ";
+					}
+					$sql = "$sql t1.$dbfld";
+					if (isset ($$fldtype)){                
+							switch ($$fldtype) {							
+								case 1:	$sql = "$sql='".$$fld."'";  break;
+								case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
+								case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
+								case 4: $sql = "$sql LIKE '%".$$fld."'";  break;
+								case 5:	$sql = "$sql <> '".$$fld."'";  
+							}
+					}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
 			}
-											
-		} else throw new Exception('Unable to generate Call Items because Calls were not listed');
+			return $sql;
+	  }  
+	  $SQLcmd = '';
+	  
+	  $SQLcmd = do_field($SQLcmd, 'src', 'src');
+	  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 		
-		if ($this->verbose_level >= 1)	echo "\n".(count($this->list_items) - $nb_items).' charge items generated';
-	}
-
-	// Sort Items according to their category: generate $list_category_items with $list_items
-	function SortItems() {
-
-		$this->list_category_items = Array();
-		
-		foreach($this->list_items as &$item) {
-			
-			// name fiels
-			list($item['invoicesection'],$item['designation'],$item['sub_designation'],$item['start_date'],$item['end_date'],
-			$item['bill_date'],$item['calltime'],$item['nbcalls'],$item['quantity'],$item['buy_price'], $item['price']) = $item;
-			
-			// sort it in correct category
-			$this->list_category_items[$item[0]][] = $item; 
-		}
-		
-		if ($this->verbose_level >= 3)	print_r($this->list_category_items);
+	  
 	}
 	
-	// Sum all invoice Items. Compute tax
-	function ComputeTotal() {
-		
-		$this->invoice_subtotal	= 0;
-		
-		foreach($this->list_items as $item) 
-			$this->invoice_subtotal += $item[8] * $item[10];	// quantity * price 
-				
-		$this->invoice_tax		= $this->invoice_subtotal * $this->customer_VAT / 100;
-		$this->invoice_total	= $this->invoice_subtotal + $this->invoice_tax;
-
-		if ($this->verbose_level >=1)
-				echo "\nTotal $this->invoice_subtotal + VAT( $this->customer_VAT % ) : $this->invoice_tax = $this->invoice_total $this->invoice_currency";
+	
+	$date_clause='';
+	// Period (Month-Day)
+	if (DB_TYPE == "postgres"){		
+			$UNIX_TIMESTAMP = "";
+	}else{
+			$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 	}
-
-////
-////	Bill Invoice
-////
-	//	Write Invoice & Items
-	//	If minimal amount is reached
-	function BillInvoice($enable_minimal_amount = false, $minimal_amount = 0, $custom_template = '') {
-		
-		if ($enable_minimal_amount == true && $this->invoice_total < $minimal_amount)	{
+	
+	
+	$lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
+	
+	if ($Period=="Month"){
 			
-			if ($this->verbose_level >=1)	echo "\nAmount $this->invoice_total <  $minimal_amount , skipping this invoice";
-			return;
-		}
-		
-		if (! $this->IsOfficial())
-			throw new Exception('Cannot bill invoice that filters calls');
-				
-		$this->billedinvoice_id = 0;
-		$this->billedinvoice_filename = '';
-		$this->billedinvoice_paymentstatus = 0;
-		$this->billedinvoice_creationdate = date('c');
-		$this->billedinvoice_default_template = ($custom_template == '')? $this->customer_invoicetemplate : $custom_template;		
-		
-		if ($this->verbose_level >= 1)	echo "\n Template for this invoice is:".$this->billedinvoice_default_template;
-		
-		$this->WriteInvoice();
+			
+			if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+			if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
+			
+	}else{
+			if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
+			if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 	}
 	
-	//	Write Invoice in Database
-	function WriteInvoice() {
-		
-		if (! $this->IsBilled())
-			throw new Exception('Cannot write an invoice that is not billed');
-		
-		// Here we have to Create a Insert Statement to insert Records into the Invoices Table.
-		$Query_Invoices = "INSERT INTO cc_invoice (".
-			" cardid, invoicecreated_date, amount, tax, total, filename, payment_status,".
-			" cover_call_startdate, cover_call_enddate, cover_charge_startdate, cover_charge_enddate,".
-			" currency, previous_balance, current_balance, templatefile, ".
-			" username, lastname, firstname, address, city, state, country, ".
-			" zipcode, phone, email, fax, vat ".
-			" ) VALUES (".
-			"'$this->customer_cardid', '$this->billedinvoice_creationdate', $this->invoice_subtotal, $this->invoice_tax, $this->invoice_total, '$this->billedinvoice_filename', $this->billedinvoice_paymentstatus,".
-			"'$this->cover_call_startdate', '$this->cover_call_enddate', '$this->cover_charge_startdate', '$this->cover_charge_enddate',".
-			"'$this->invoice_currency', '$this->previous_balance', $this->customer_currentbalance, '$this->billedinvoice_default_template',".
-			"'$this->customer_username', '$this->customer_lastname', '$this->customer_firstname', '$this->customer_address', '$this->customer_city', '$this->customer_state', '$this->customer_country',".
-			"'$this->customer_zipcode','$this->customer_phone','$this->customer_email','$this->customer_fax','$this->customer_VAT');";			
-		if ($this->verbose_level >= 1) echo "\n Query_Write_Invoices = $Query_Invoices \n";
-		
-		if (! $this->instance_table -> SQLExec ($this->DB_Handle, $Query_Invoices, 0))
-			throw new Exception('Failed to write invoice in Database');
-		
-		$QUERY = "Select Max(id) from cc_invoice";
-		$result = $this->instance_table -> SQLExec ($this->DB_Handle, $QUERY);
-		
-		if (! is_array($result) || count($result) == 0)
-			throw new Exception('Unable to find invoice again');			
-		
-		$this->billedinvoice_id = $result[0][0];
-
-		if (count($this->list_items)) {
-			$QUERY = "INSERT INTO cc_invoice_items(invoiceid, invoicesection, designation, sub_designation, start_date, end_date, bill_date, calltime, nbcalls, quantity, buy_price, price) VALUES ";
+	if (strpos($SQLcmd, 'WHERE') > 0) { 
+		$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
+	}elseif (strpos($date_clause, 'AND') > 0){
+		$FG_TABLE_CLAUSE = substr($date_clause,5); 
+	}
 	
-			$first = true;
-			foreach($this->list_items as $item) {
-				
-				if (! $first) $QUERY .= ", ";			
-				$QUERY .= "('$this->billedinvoice_id','$item[0]','$item[1]','$item[2]','$item[3]','$item[4]','$item[5]','$item[6]','$item[7]','$item[8]','$item[9]','$item[10]')";
-				$first = false;			
-			}
-			if ($this->verbose_level >= 2)	echo "\n QUERY_WRITE_ITEMS = $QUERY";
-		
-			if (! $this->instance_table-> SQLExec ($this->DB_Handle, $QUERY,0))
-				throw new Exception('Failed to write invoice items in Database');	
-		} else if ($this->verbose_level >= 1) echo "\n no items in this invoice";
-		
-		if ($this->verbose_level >= 1)	echo "\n ################################################################################# \n\n";
-	}
-////
-////	Load Billed Invoice
-////
-	// Fills its attributes according to database
-	function LoadInvoice($invoice_id) {
-
-		$this->billedinvoice_id = $invoice_id;
-		$this->list_total_charge = NULL;
-		$this->list_total_destination = NULL;
-		
-		// First get info about invoice
-		$QUERY = "SELECT cardid, invoicecreated_date, amount, tax, total, filename, payment_status,".
-			" cover_call_startdate, cover_call_enddate, cover_charge_startdate, cover_charge_enddate,".
-			" currency, previous_balance, current_balance, templatefile, ".
-			" username, lastname, firstname, address, city, state, country, ".
-			" zipcode, phone, email, fax, vat ".
-			" FROM cc_invoice WHERE id = $invoice_id";
-		if ($this->verbose_level>=1) echo "\nQUERY_INVOICE = $QUERY";
-		
-		$resinvoice = $this->instance_table -> SQLExec ($this-> DB_Handle, $QUERY);
-		if (!is_array($resinvoice) || count($resinvoice) != 1)
-			throw new Exception("\nInvoice with id=".$this->invoice_id." not found.");
-		if ($this->verbose_level>=2) print_r($resinvoice);
-		
-		// TODO: réecrire avec list(...) = $resinvoice[0]
-		$this->customer_cardid					= $resinvoice[0][0];
-		$this->billedinvoice_creationdate		= $resinvoice[0][1];
-		$this->invoice_subtotal					= $resinvoice[0][2];
-		$this->invoice_tax						= $resinvoice[0][3];
-		$this->invoice_total					= $resinvoice[0][4];
-		$this->billedinvoice_filename			= $resinvoice[0][5];
-		$this->billedinvoice_paymentstatus		= $resinvoice[0][6];
-		$this->cover_call_startdate				= $resinvoice[0][7];
-		$this->cover_call_enddate				= $resinvoice[0][8];
-		$this->cover_charge_startdate			= $resinvoice[0][9];
-		$this->cover_charge_enddate				= $resinvoice[0][10];
-		$this->invoice_currency					= $resinvoice[0][11];
-		$this->previous_balance					= $resinvoice[0][12];
-		$this->customer_currentbalance			= $resinvoice[0][13];
-		$this->billedinvoice_default_template	= $resinvoice[0]['templatefile'];
-		$this->customer_username				= $resinvoice[0][15];
-		$this->customer_lastname				= $resinvoice[0][16];
-		$this->customer_firstname				= $resinvoice[0][17];
-		$this->customer_address					= $resinvoice[0][18];
-		$this->customer_city					= $resinvoice[0][19];
-		$this->customer_state					= $resinvoice[0][20];
-		$this->customer_country					= $resinvoice[0][21];
-		$this->customer_zipcode					= $resinvoice[0][22];
-		$this->customer_phone					= $resinvoice[0][23];
-		$this->customer_email					= $resinvoice[0][24];
-		$this->customer_fax						= $resinvoice[0][25];
-		$this->customer_VAT						= $resinvoice[0][26];
-		
-		// get invoice items
-		$QUERY = "SELECT invoicesection, designation, sub_designation, start_date, end_date, bill_date, calltime, nbcalls, quantity, buy_price, price".
-				" FROM cc_invoice_items WHERE invoiceid = $this->billedinvoice_id";
-		if ($this->verbose_level >= 1)	echo "\n QUERY_READ_ITEMS = $QUERY";
-				
-		$this->list_items = $this->instance_table-> SQLExec ($this->DB_Handle, $QUERY);
-				
-		if (!is_array($this->list_items))
-			throw new Exception("Cannot list invoice items for invoice id=".$this->billedinvoice_id);
-		if ($this->verbose_level >= 2)	print_r($this->list_items);
-		
-		// Sort items
-		$this->SortItems();
-	}
-////
-////	Display Invoice
-////
-	// Gives default values if some fiels are left blank
-	function GetTemplateFullPath($invoicetype, $template) {
-		
-		global	$A2B;
-		
-		if ($template == '') {
-			if ($this->billedinvoice_default_template != '')
-				$template = $this->billedinvoice_default_template;
-			else
-				switch ($invoicetype) {
-					case 'billed':
-						$template = $this->customer_invoicetemplate;
-						break;
-					case 'outstanding':
-						$template = $this->customer_outstandingtemplate;
-						break;
-					default:
-						throw new Exception('Unable to choose a template file');			
-				}			
-		}
-				
-		switch ($invoicetype) {
-			case 'billed':
-				return $A2B->config['global']['invoice_template_path'].$template;
-			case 'outstanding':
-				return $A2B->config['global']['outstanding_template_path'].$template;
-			case 'sales':
-				return $A2B->config['global']['sales_template_path'].$template;
-			default:
-				throw new Exception('Unknown invoice type');			
+	if (isset($customer)  &&  ($customer>0)){
+		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+		$FG_TABLE_CLAUSE.="t1.username='$customer'";
+	}else{
+		if (isset($entercustomer)  &&  ($entercustomer>0)){
+			if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+			$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
 		}
 	}
-	
-	function DisplayHTML($smarty, $invoicetype, $template = '') {
-		
-		$smarty->assign("invoice", $this);
-		$smarty->debugging = ($this->verbose_level);
-		
-		$template_path = $this->GetTemplateFullPath($invoicetype, $template);
-		if ($this->verbose_level >= 1)
-			echo "\nTemplate Path: ".$template_path;
-		
-		$smarty->display($template_path);
+	if (strlen($FG_TABLE_CLAUSE)>0)
+	{
+		$FG_TABLE_CLAUSE.=" AND ";
 	}
 	
-	function GetHTML($smarty, $invoicetype, $template = '') {
-		
-		$smarty->assign("invoice", $this);
-		$smarty->debugging = ($this->verbose_level);
-		
-		$template_path = $this->GetTemplateFullPath($invoicetype, $template);
-		if ($this->verbose_level >= 1)
-			echo "\nTemplate Path: ".$template_path;
-		
-		return $smarty->fetch($template_path);
+	if ($invoice_type == 1)
+	{
+		$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = '$cardid')";
 	}
-	
-	function GetPDF($smarty, $invoicetype, $template = '') {
-		
-		require_once('pdf-invoices/html2pdf/html2fpdf.php');
-		
-		$pdf = new HTML2FPDF();
-		$pdf -> DisplayPreferences('HideWindowUI');
-		$pdf -> AddPage();
-		$pdf -> WriteHTML($this->GetHTML($smarty, $invoicetype, $template));	
-		
-		return $pdf->Output('Invoice_'.date("d/m/Y-H:i").'.pdf', 'S');
+	else
+	{
+		$FG_TABLE_CLAUSE.="t1.starttime >(Select cover_startdate  from cc_invoices where id ='$id') AND t1.stoptime <(Select cover_enddate from cc_invoices where id ='$id') ";
 	}
-	
-	function DisplayPDF($smarty, $invoicetype, $template) {
-		
-		require_once('pdf-invoices/html2pdf/html2fpdf.php');
-		
-		$pdf = new HTML2FPDF();
-		$pdf -> DisplayPreferences('HideWindowUI');
-		$pdf -> AddPage();
-		$pdf -> WriteHTML($this->GetHTML($smarty, $invoicetype, $template));	
-		
-		// TODO: find a better name
-		return $pdf->Output('Invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
+	if (!$nodisplay){
+		$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 	}
+	$_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 	
-	function SendEMail($smarty, $template = '') {
-		
-		// Render Invoice to a PDF
-		$stream = $this->GetPDF($smarty, 'billed', $template);
-		
-		// Get Mail template
-		$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='invoice' ";
-		if($this->verbose_level >= 1)
-			echo "\nQuery Mail Template : $QUERY";
-		
-		$res = $this->instance_table -> SQLExec ($this->DB_Handle, $QUERY);
-		if (!is_array($res) || count($res) != 1)
-			throw new Exception("\nUnable to find mail template=".$this->invoice_id." not found.");
-		
-		list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $res [0];
-		
-		// Sent Email	
-		$ok = send_email_attachment($from, $this->customer_email, $subject, $messagetext,'Invoice_'.date("d/m/Y-H:i").'.pdf', $stream );
-		
-		if ($this->invoice_id) {
-
-			// Write it in invoice history
-			$currentdate = date("Y-m-d h:i:s");
-			
-			$QUERY = "INSERT INTO cc_invoice_history (invoiceid,invoicesent_date,invoicestatus) VALUES('$this->invoice_id', '$currentdate', '".(($ok)?1:0)."')";
-			$this->instance_table -> SQLExec ($this->DB_Handle, $QUERY,0);
-			
-			if($this->verbose_level >= 1)
-				echo "\nWrite Invoice History : $QUERY";
+	/************************/
+	
+	$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
+	
+	if (!$nodisplay){		
+		$list_total_day = $instance_table->SQLExec ($DBHandle, $QUERY);		
+		$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);	
+	}//end IF nodisplay
+	
+	
+	// GROUP BY DESTINATION FOR THE INVOICE
+	$QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
+	sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY destination";
+	if (!$nodisplay)
+	{
+		$list_total_destination =  $instance_table->SQLExec ($DBHandle, $QUERY);
+	}//end IF nodisplay
+	
+	/************************************************ DID Billing Section *********************************************/
+	// Fixed + Dial = 0
+	// Fixed = 1
+	// Dail = 2
+	// Free = 3
+	
+	
+	// 1. Billing Type:: All DID Calls that have DID Type 0 and 2
+	// 1. Billing Type:: All DID Calls that have DID Type 0 and 2
+	if ($invoice_type == 1)
+	{
+		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
+		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+		" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$cardid.
+		" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+	}
+	else
+	{
+		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
+		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+		" WHERE (t1.chargetype = 2 OR t1.chargetype = 1) AND t1.id_cc_card = ".$customerID.
+		" AND t1.creationdate > (Select cover_startdate  from cc_invoices where id ='$id') AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";
+	}
+	 
+	 
+	if (!$nodisplay)
+	{
+		$list_total_did  = $instance_table->SQLExec ($DBHandle, $QUERY);
+	}//end IF nodisplay
+	
+	/************************************************ END DID Billing Section *********************************************/
+	/*************************************************CHARGES SECTION START ************************************************/
+	
+	// Charge Types
+	
+	// Connection charge for DID setup = 1
+	// Monthly Charge for DID use = 2
+	// Subscription fee = 3
+	// Extra charge =  4
+	if ($invoice_type == 1)
+	{
+		$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+		" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) " .
+		" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+		" THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+	}
+	else
+	{
+		$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+		" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 2 AND t1.chargetype <> 1)" .
+		" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
+		" t1.creationdate >(Select cover_startdate  from cc_invoices where id ='$id') " .
+		" AND t1.creationdate <(Select cover_enddate  from cc_invoices where id ='$id')";
+	}
+	//echo "<br>".$QUERY."<br>";
+	
+	if (!$nodisplay)
+	{
+		$list_total_charges = $instance_table->SQLExec ($DBHandle, $QUERY);
+	}//end IF nodisplay
+	/*************************************************CHARGES SECTION END ************************************************/
+	
+	if ($nb_record<=$FG_LIMITE_DISPLAY){
+		$nb_record_max=1;
+	}else{ 
+		if ($nb_record % $FG_LIMITE_DISPLAY == 0){
+			$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
+		}else{
+			$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 		}	
-		return (($ok)? true : false);
 	}
+	if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
+	if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
+	
+	/*************************************************************/
+	if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
+	
+		$FG_TABLE_CLAUSE = "";
+		if (isset($customer)  &&  ($customer>0)){		
+			$FG_TABLE_CLAUSE =" username='$customer' ";
+		}elseif (isset($entercustomer)  &&  ($entercustomer>0)){
+			$FG_TABLE_CLAUSE =" username='$entercustomer' ";
+		}
+	
+		$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated, creationdate");
+		$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
+	
+	}
+	
+	if($invoice_type == 1)
+	{
+		$QUERY = "Select CASE WHEN max(cover_enddate) is NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$cardid;
+	}
+	else
+	{
+		$QUERY = "Select cover_enddate,cover_startdate  from cc_invoices where id ='$id'";
+	}
+	if (!$nodisplay){
+		$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			
+		if ($invoice_dates[0][0] == '0001-01-01 01:00:00')
+		{
+			$invoice_dates[0][0] = $info_customer[0][13];
+		}
+	}//end IF nodisplay
+	?>
+	<?php
+
+		require('../Public/pdf-invoices/html2pdf/html2fpdf.php');
+		ob_start();
+	
+	?>
+	<?php 
+	$currencies_list = get_currencies();
+	
+	//For DID DIAL & Fixed + Dial
+	$totalcost = 0;
+	if (is_array($list_total_destination) && count($list_total_destination)>0){
+		$mmax=0;
+		$totalcall=0;
+		$totalminutes=0;	
+		foreach ($list_total_destination as $data){	
+			if ($mmax < $data[1]) $mmax=$data[1];
+			$totalcall+=$data[3];
+			$totalminutes+=$data[1];
+			$totalcost+=$data[2];	
+		}
+	}
+	?>
+	<table cellpadding="0"  align="center">
+	<tr>
+	<td align="center">
+	<img src="<?php echo Images_Path;?>/asterisk01.jpg" align="middle">
+	</td>
+	</tr>
+	</table>
+	<br>
+	<center><h4><font color="#FF0000"><?php echo $invocie_top_heading; ?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
+	<br>
+	<br>
+		
+		<table cellspacing="0" cellpadding="2" align="center" width="80%" >
+		 
+		  <tr>
+			<td colspan="2" bgcolor="#FFFFCC"><font size="5" color="#FF0000"><?php echo $invoice_heading; ?></font></td>
+		  </tr>
+		  <tr>
+			<td valign="top" colspan="2"></td>
+		  </tr>	 
+		<tr>
+		  <td width="35%">&nbsp; </td>
+		  <td >&nbsp; </td>
+		</tr>
+		<tr>
+		  <td width="35%" ><font color="#003399"><?php echo gettext("Name")?>&nbsp; :</font> </td>
+		  <td  ><font color="#003399"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
+		</tr>
+		<tr>
+		  <td width="35%" ><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
+		  <td  ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
+		</tr>
+		<?php if ($invoice_type == 1){ ?>
+		<tr>
+		  <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
+		  <td><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+		</tr>  		
+		  <?php }else{ ?>
+		<tr>
+		 <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
+		 <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][1]);?> </font></td>
+		</tr>
+		<tr>
+		  <td width="35%" ><font color="#003399"><?php echo gettext("To Date")?>&nbsp; :</font></td>
+		  <td><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+		</tr>  
+		  <?php } ?>
+		  </table>
+		  <table align="center" width="80%">
+		  	<?php 
+			if (is_array($list_total_destination) && count($list_total_destination)>0){
+			?>
+				<tr>
+					<td colspan="4" align="center"><font> <b><?php echo gettext("By Destination")?></b></font> </td>
+				</tr>
+				<tr bgcolor="#CCCCCC">
+				  <td  width="29%"><font color="#003399"><b><?php echo gettext("Destination")?> </b></font></td>
+				  <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b></font> </td>
+				 
+				  <td width="12%" align="center" ><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
+				  <td   align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </b></font></td>
+				</tr>
+				<?php  		
+					$i=0;
+					
+					foreach ($list_total_destination as $data){	
+					$i=($i+1)%2;		
+					$tmc = $data[1]/$data[3];
+					
+					if ((!isset($resulttype)) || ($resulttype=="min")){  
+						$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+					}else{
+					
+						$tmc =intval($tmc);
+					}				
+					if ((!isset($resulttype)) || ($resulttype=="min")){  
+							$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+					}else{
+							$minutes = $data[1];
+					}
+					if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 		
+				?>
+				<tr class="invoice_rows">
+				  <td width="29%" ><font color="#003399"><?php echo $data[0]?></font></td>
+				  <td width="38%" ><font color="#003399"><?php echo $minutes?> </font></td>
+				  
+				  <td width="12%" align="right" ><font color="#003399"><?php echo $data[3]?></font> </td>
+				  <td  align="right" ><font color="#003399"><?php  display_2bill($data[2]) ?></font></td>
+				</tr>
+				<?php 	 }	 	 	
+			
+				if ((!isset($resulttype)) || ($resulttype=="min")){  
+					$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
+					$totalminutes = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
+				}else{
+					$total_tmc = intval($totalminutes/$totalcall);			
+				}
+				 ?>   
+				 <tr >
+				  <td width="29%" >&nbsp;</td>
+				  <td width="38%" >&nbsp;</td>              
+				  <td width="12%" >&nbsp; </td>
+				  <td  >&nbsp; </td>
+				  
+				</tr>
+				<tr bgcolor="#CCCCCC">
+				  <td width="29%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+				  <td width="38%" ><font color="#003399"><?php echo $totalminutes?></font></td>			  
+				  <td width="12%"  align="right"><font color="#003399"><?php echo $totalcall?> </font></td>
+				  <td  align="right" ><font color="#003399"><?php  display_2bill($totalcost - $totalcost_did) ?></font> </td>
+				</tr> 			  
+				<tr >
+				  <td width="29%">&nbsp;</td>
+				  <td width="38%">&nbsp;</td>
+				  
+				  <td width="12%">&nbsp; </td>
+				  <td >&nbsp; </td>
+				  
+				</tr>			
+				<?php }?>
+				</table>
+				
+				<table align="center" width="80%">
+				<!-- Start Here ****************************************-->
+				<?php 
+					$mmax=0;
+					$totalcall=0;
+					$totalminutes=0;
+					$totalcost_day=0;
+					if (is_array($list_total_day) && count($list_total_day)>0)
+					{
+					foreach ($list_total_day as $data){	
+						if ($mmax < $data[1]) $mmax=$data[1];
+						$totalcall+=$data[3];
+						$totalminutes+=$data[1];
+						$totalcost_day+=$data[2];
+					}
+					?>
+					
+					<tr>
+					<td colspan="4" align="center"><b><?php echo gettext("By Date")?></b> </td>
+					</tr>
+				  <tr bgcolor="#CCCCCC">
+				  <td  width="29%"><font color="#003399"><b><?php echo gettext("Date")?></b> </font></td>
+				  <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b> </font></td>
+				  
+				  <td width="12%" align="center" ><font color="#003399"><b><?php echo gettext("Calls")?></b> </font></td>
+				  <td width="21%"  align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?></b> </font></td>
+				</tr>
+				<?php  		
+					$i=0;
+					
+					foreach ($list_total_day as $data){	
+					$i=($i+1)%2;		
+					$tmc = $data[1]/$data[3];
+					
+					if ((!isset($resulttype)) || ($resulttype=="min")){  
+						$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+					}else{
+					
+						$tmc =intval($tmc);
+					}
+					
+					if ((!isset($resulttype)) || ($resulttype=="min")){  
+							$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+					}else{
+							$minutes = $data[1];
+					}
+					if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
+				
+				?>
+				<tr class="invoice_rows">
+				  <td width="29%" ><font color="#003399"><?php echo $data[0]?></font></td>
+				  <td width="38%" ><font color="#003399"><?php echo $minutes?> </font></td>
+				  
+				  <td width="12%"  align="right"><font color="#003399"><?php echo $data[3]?> </font></td>
+				  <td width="21%" align="right" ><font color="#003399"><?php  display_2bill($data[2]) ?></font></td>
+				</tr>
+				 <?php 	 }	 	 	
+			
+					if ((!isset($resulttype)) || ($resulttype=="min")){  
+						$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
+						$totalminutes = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
+					}else{
+						$total_tmc = intval($totalminutes/$totalcall);			
+					}
+				 
+				 ?>               
+				 <tr >
+				  <td width="29%" >&nbsp;</td>
+				  <td width="38%" >&nbsp;</td>
+				  
+				  <td width="12%" >&nbsp; </td>
+				  <td width="21%" >&nbsp; </td>
+				  
+				</tr>
+				<tr bgcolor="#CCCCCC">
+				  <td width="29%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+				  <td width="38%" ><font color="#003399"><?php echo $totalminutes?></font></td>			  
+				  <td width="12%" align="right" ><font color="#003399"><?php echo $totalcall?></font> </td>
+				  <td width="21%" align="right" ><font color="#003399"><?php  display_2bill($totalcost_day) ?> </font></td>
+				</tr>        
+				<tr >
+				  <td width="29%">&nbsp;</td>
+				  <td width="38%">&nbsp;</td>
+				 
+				  <td width="12%">&nbsp; </td>
+				  <td width="21%">&nbsp; </td>
+				  
+				</tr>				
+					<?php }?>    
+				
+				<!-- END HERE ******************************************-->
+		 
+		</table>
+		 <table align="center" width="80%">
+		 <?php
+		 if (is_array($list_total_did) && count($list_total_did)>0)
+					{ 
+		 ?>
+			   <tr>
+		  <td>
+		  <!------------------------ DID Billing Here Starts ----------------------->
+			
+			<table width="100%" align="left" cellpadding="0" cellspacing="0">
+					<tr>
+					<td colspan="5" align="center"><font><b><?php echo gettext("DID Billing")?></b></font> </td>
+					</tr>
+				<tr  bgcolor="#CCCCCC">
+				  <td  width="20%"> <font color="#003399"><b><?php echo gettext("Charge Date")?> </b></font></td>
+				  <td width="13%" ><font color="#003399"><b><?php echo gettext("DID")?> </b></font></td>
+				  <td width="14%" ><font color="#003399"><b><?php echo gettext("Country")?></b></font> </td>
+				  <td width="41%" ><font color="#003399"><b><?php echo gettext("Description")?> </b></font></td>  			  
+				  <td width="12%"  align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?></b></font> </td>
+				</tr>
+				<?php  		
+					$i=0;
+					$totaldidcost = 0;
+									
+						foreach ($list_total_did as $data)
+						{	
+							$totaldidcost = $totaldidcost + convert_currency($currencies_list, $data[0], $data[5], BASE_CURRENCY);					
+				
+				?>
+				 <tr class="invoice_rows">
+				  <td width="20%" ><font color="#003399"><?php echo $data[1]?></font></td>
+				  <td width="13%" ><font color="#003399">&nbsp;<?php  echo $data[4]; ?></font> </td>
+				  <td width="14%" ><font color="#003399">&nbsp;<?php  echo $data[3]; ?> </font></td>
+				  <td width="41%" ><font color="#003399"><?php echo $data[2]?></font> </td>			  
+				  <td width="12%" align="right" ><font color="#003399"><?php  convert_currency($currencies_list, $data[0], $data[5], BASE_CURRENCY)." ".BASE_CURRENCY ?></font></td>
+				</tr>
+				 <?php  }	 	
+					$totalcost = $totalcost  + $totaldidcost; 
+				 ?>   
+				 <tr >
+				  <td width="20%" >&nbsp;</td>
+				  <td width="13%" >&nbsp;</td>
+				  <td width="14%" >&nbsp; </td>
+				  <td width="41%" >&nbsp; </td>			 
+				  <td width="12%" >&nbsp; </td>			  
+				</tr>
+				<tr bgcolor="#CCCCCC" >
+				  <td width="20%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+				  <td ><font color="#003399">&nbsp;</font></td>			  
+				  <td width="14%" ><font color="#003399">&nbsp;</font> </td>
+				  <td width="41%" ><font color="#003399">&nbsp;</font> </td>			  
+				  <td width="12%" align="right" ><font color="#003399"><?php  display_2bill($totaldidcost) ?></font> </td>
+				</tr>  
+				<tr>
+				  <td width="20%">&nbsp;</td>
+				  <td width="13%">&nbsp;</td>
+				  <td width="14%">&nbsp; </td>
+				  <td width="41%">&nbsp; </td>			 
+				  <td width="12%">&nbsp; </td>
+				</tr>
+			
+			</table>
+			
+			<!------------------------DID Billing ENDS Here ----------------------------->
+		  </td>
+		  </tr>
+		  <?php			 
+				 }
+				 ?>
+		   <tr>
+			<td>
+					
+	<!-------------------------EXTRA CHARGE START HERE ---------------------------------->
+		
+		 <?php  		
+			$i=0;				
+			$extracharge_total = 0;
+			if (is_array($list_total_charges) && count($list_total_charges)>0)
+			{
+						
+		  ?>	
+			
+			<table width="100%" align="left" cellpadding="0" cellspacing="0">
+					<tr>
+					<td colspan="4" align="center"><font><b><?php echo gettext("Extra Charges")?></b></font> </td>
+					</tr>
+				<tr  bgcolor="#CCCCCC">
+				  <td  width="20%"> <font color="#003399"><b><?php echo gettext("Date")?> </b></font></td>
+				  <td width="19%" ><font color="#003399"><b><?php echo gettext("Type")?> </b></font></td>
+				  <td width="43%" ><font color="#003399"><b><?php echo gettext("Description")?></b></font> </td>			
+				  <td width="18%"  align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?></b></font> </td>
+				</tr>
+				<?php  		
+				
+				foreach ($list_total_charges as $data)
+				{	
+					$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
+			
+				?>
+				 <tr class="invoice_rows">
+				  <td width="20%" ><font color="#003399"><?php echo $data[2]?></font></td>
+				  <td width="19%" ><font color="#003399">
+				  <?php 
+				  if($data[4] == 1) //connection setup charges
+					{
+						echo gettext("Setup Charges");
+					}
+					if($data[4] == 2) //DID Montly charges
+					{
+						echo gettext("DID Montly Use");
+					}
+					if($data[4] == 3) //Subscription fee charges
+					{
+						echo gettext("Subscription Fee");
+					}
+					if($data[4] == 4) //Extra Misc charges
+					{
+						echo gettext("Extra Charges");
+					}
+				  ?>
+				  </font> </td>
+				  <td width="43%" ><font color="#003399"><?php  echo $data[7];?></font></td>			 
+				  <td width="18%" align="right" ><font color="#003399"><?php echo convert_currency($currencies_list,$data[3], $data[6],BASE_CURRENCY)." ".BASE_CURRENCY ?></font></td>
+				</tr>
+				 <?php
+				  }
+				  //for loop end here
+				   ?>
+				 <tr >
+				  <td width="20%" >&nbsp;</td>
+				  <td width="19%" >&nbsp;</td>
+				  <td width="43%" >&nbsp; </td>			 
+				  <td width="18%" >&nbsp; </td>
+				  
+				</tr>
+				<tr bgcolor="#CCCCCC" >
+				  <td width="20%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+				  <td ><font color="#003399">&nbsp;</font></td>			  
+				  <td width="43%" ><font color="#003399">&nbsp;</font> </td>			  
+				  <td width="18%" align="right" ><font color="#003399"><?php echo display_2bill($extracharge_total) ?></font> </td>
+				</tr>    			        
+				<tr >
+				  <td width="20%">&nbsp;</td>
+				  <td width="19%">&nbsp;</td>
+				  <td width="43%">&nbsp; </td>			  
+				  <td width="18%">&nbsp; </td>			  
+				</tr>		
+			</table>		
+			<?php
+		   }
+		   //if check end here
+		   $totalcost = $totalcost + $extracharge_total;
+		   ?><!-----------------------------EXTRA CHARGE END HERE ------------------------------->		
+			
+			</td>
+			</tr>
+		  
+		 <tr>
+		 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle" height="30px"></td>
+		 </tr>
+		 <tr bgcolor="#CCCCCC" >
+		 <td  align="right" width="100%"><font color="#003399"><b><?php echo gettext("Total")?> = <?php 
+		
+		 display_2bill($totalcost);?>&nbsp;</b></font></td>
+		 </tr>
+		 <tr bgcolor="#CCCCCC" >
+		 <td  align="right" width="100%"><font color="#003399"><b><?php echo gettext("VAT")?> = <?php 
+		 $prvat = ($vat / 100) * $totalcost;
+		 display_2bill($prvat);?>&nbsp;</b></font></td>
+		 </tr>
+		 <tr>
+		 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle" height="30px"></td>
+		 </tr>
+		 <tr bgcolor="#CCCCCC" >
+		 <td  align="right" width="100%"><font color="#003399"><b><?php echo gettext("Grand Total")?> = <?php echo display_2bill($totalcost + $prvat);?>&nbsp;</b></font></td>
+		 </tr>
+		 <tr>
+		 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle" height="30px"></td>
+		 </tr>
+		 </table>
+		
+	<table cellspacing="0" cellpadding="2" width="80%" align="center">
+	<tr>
+				<td colspan="3">&nbsp;</td>
+				</tr>           			
+				<tr>
+				  <td  align="left">Status :&nbsp;<?php if($info_customer[0][12] == 't') {?>
+				  <img src="<?php echo Images_Path;?>/connected.jpg">
+				  <?php }
+				  else
+				  {
+				  ?>
+				  <img src="<?php echo Images_Path;?>/terminated.jpg">
+				  <?php }?> </td>              
+				</tr>      
+		  <tr>	  
+		  <td  align="left">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp;<?php echo gettext("Connected")?> 
+		  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp;<?php echo gettext("Disconnected")?> 
+		  
+		  </td>
+	</table>
+		
+	
+	
+	<?php 
+		$html = ob_get_contents();
+		// delete output-Buffer
+		ob_end_clean();
+		
+		$pdf = new HTML2FPDF();
+		
+		$pdf -> DisplayPreferences('HideWindowUI');
+		
+		$pdf -> AddPage();
+		$pdf -> WriteHTML($html);	
+		$stream = $pdf->Output('UnBilledDetails_'.date("d/m/Y-H:i").'.pdf', 'S');	
+		
+		//================================Email Template Retrival Code ===================================
+		
+		$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='invoice' ";
+		$res = $DBHandle -> Execute($QUERY);
+		$num = 0;	
+		if ($res)
+			$num = $res -> RecordCount();
+	
+		if (!$num)
+		{
+			echo "<br>Error : No email Template Found";
+			exit();
+		}
+	
+		for($i=0;$i<$num;$i++)
+		{
+			$listtemplate[] = $res->fetchRow();
+		}
+	
+		list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
+		if ($FG_DEBUG == 1)
+		{
+			echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
+		}
+		
+		//================================================================================================
+	$ok = send_email_attachment($from, $info_customer[0][10], $subject, $messagetext,'UnBilledDetails_'.date("d/m/Y-H:i").'.pdf', $stream );
+	
+	return $ok;
+	
 }
+
+?>

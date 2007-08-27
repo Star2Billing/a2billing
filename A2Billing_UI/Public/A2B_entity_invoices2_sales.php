@@ -2,7 +2,7 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/smarty.php");
-include ("../lib/invoice.php");
+include ("../lib/A2B_invoice.php");
 
 session_start();
 

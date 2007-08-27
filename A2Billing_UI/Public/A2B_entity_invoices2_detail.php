@@ -3,7 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/smarty.php");
-include ("../lib/invoice.php");
+include ("../lib/A2B_invoice.php");
 
 if (! has_rights (ACX_INVOICING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
