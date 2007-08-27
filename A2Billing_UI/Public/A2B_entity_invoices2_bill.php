@@ -29,7 +29,7 @@ getpost_ifset(array('tocustomer',
 $HD_Form -> setDBHandler (DbConnect());
 
 $nowdate = date('Y-m-d H:i:s');
-$verbose_level = 2;
+$verbose_level = 0;
 $groupcard = 100;
 
 $instance_table = new Table();

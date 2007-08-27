@@ -1,5 +1,5 @@
 <?php
-getpost_ifset(array('id', 'id_cc_card', 'id_subscription_fee', 'datestart', 'datestop', 'description'));
+getpost_ifset(array('id', 'id_cc_card', 'id_subscription_fee', 'datestart', 'datestop', 'product_name'));
 
 $HD_Form = new FormHandler("cc_card_subscription","Subscriber");
 
@@ -12,11 +12,11 @@ $HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "15%", "center",
 $HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription_fee", "20%", "center", "sort", "15", "lie", "cc_subscription_fee", "label", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("DATESTART"), "startdate", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATESTOP"), "stopdate", "15%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "20%", "center", "sort", "25");
+$HD_Form -> AddViewElement(gettext("PRODUCT"), "product_name", "20%", "center", "sort", "25");
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id_cc_card, id_subscription_fee, startdate, stopdate, description');
+$HD_Form -> FieldViewElement ('id_cc_card, id_subscription_fee, startdate, stopdate, product_name');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." MADE!");  
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -76,16 +76,16 @@ $HD_Form -> AddEditElement (gettext("STOP DATE"),
 				gettext("Insert the stop date"),
 				"" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 		
-$HD_Form -> AddEditElement (gettext("DESCRIPTION"),
-				"description",		
+$HD_Form -> AddEditElement (gettext("PRODUCT NAME"),
+				"product_name",		
 				'',	
 				"TEXTAREA",	
 				"cols=50 rows=4",	
 				"",	
-				gettext("Enter the description of this subscription"),
+				gettext("Enter the name of the product wich is subscribed"),
 				"" , "", "",	"", "" , "", "", "");
 
-$HD_Form -> FieldEditElement ('id_cc_card, id_subscription_fee, startdate, stopdate, description');
+$HD_Form -> FieldEditElement ('id_cc_card, id_subscription_fee, startdate, stopdate, product_name');
 
 if (DB_TYPE == "postgres"){
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";

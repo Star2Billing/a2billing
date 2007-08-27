@@ -136,8 +136,7 @@ if (!($popup_select>=1)){
 }
 // Code here for adding the fields in the Export File
 
-
-$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused, mac_addr');
+$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused, mac_addr, template_invoice, template_outstanding');
 
 // Code ends here for Export
 

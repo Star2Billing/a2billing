@@ -156,7 +156,7 @@ function display_dateformat($mydate){
  */
 function display_dateonly($mydate)
 {
-	if (strlen($mydate)!="NULL"){
+	if (strlen($mydate) > 0 && $mydate != '0000-00-00'){
 		echo date("m/d/Y", strtotime($mydate));
 	}
 }
@@ -165,7 +165,7 @@ function display_dateonly($mydate)
  * function res_display_dateformat
  */
 function res_display_dateformat($mydate){
-	if (DB_TYPE == "mysql"){			
+	if (DB_TYPE == "mysql"){
 		if (strlen($mydate)==14){
 			// YYYY-MM-DD HH:MM:SS 20300331225242
 			$res= substr($mydate,0,4).'-'.substr($mydate,4,2).'-'.substr($mydate,6,2);
