@@ -530,3 +530,7 @@ INSERT INTO cc_status (id, status) VALUES (5, 'Expired');
 
 
 ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
+ALTER TABLE cc_ratecard ADD COLUMN rounding_calltime INT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN rounding_threshold INT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge NUMERIC(12,4) NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEFAULT 0;
