@@ -12,123 +12,158 @@ if (! has_rights (ACX_MISC)){
 
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'lst_time','trunks'));
 
-
 $DBHandle  = DbConnect();
+$instance_table = new Table();
 
-$date_clause = "";
+///////////////////////////////////////////////////////////////////
+//     Initialization of variables	///////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+$condition = "";
 $QUERY = '';
-if (DB_TYPE == "postgres") 
-{
-	$UNIX_TIMESTAMP = "";
-} else {
-	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-}
+$ALOC = 0;
+$ASR = 0;
+$CIC = 0;
+$Total_calls = 0;
+$CIC_TIME_DIFF = 10;
+$from_to = '';
+$bool = false;
+
+///////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////
+//     Generating WHERE CLAUSE		///////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-
-if ($Period=="Month")
+if ($Period=="Month" && $frommonth && $tomonth)
 {
-	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(t.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($frommonth && isset($fromstatsmonth)) {
+		$condition.=" $UNIX_TIMESTAMP(c.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	}
 	if ($tomonth && isset($tostatsmonth))
 	{
-		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(t.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
+		if (strlen($condition)>0) $condition.=" AND ";
+		$condition.=" $UNIX_TIMESTAMP(c.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')";
 	}
-} else if($Period=="Time") {
-	if ($lst_time != "") 
-	{
-		if (strlen($date_clause)>0) $date_clause.=" AND ";
+
+} else if($Period=="Time" && $lst_time != "") {
+		if (strlen($condition)>0) $condition.=" AND ";
 			if(DB_TYPE == "postgres"){
 				switch($lst_time){
 					case 1:
-						$date_clause .= "CURRENT_TIMESTAMP - interval '1 hour' <= t.creationdate";
+						$condition .= "CURRENT_TIMESTAMP - interval '1 hour' <= c.starttime";
 					break;
 					case 2:
-						$date_clause .= "CURRENT_TIMESTAMP - interval '6 hours' <= t.creationdate";
+						$condition .= "CURRENT_TIMESTAMP - interval '6 hours' <= c.starttime";
 					break;
 					case 3:
-						$date_clause .= "CURRENT_TIMESTAMP - interval '1 day' <= t.creationdate";
+						$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= c.starttime";
 					break;
 					case 4:
-						$date_clause .= "CURRENT_TIMESTAMP - interval '7 days' <= t.creationdate";
+						$condition .= "CURRENT_TIMESTAMP - interval '7 days' <= c.starttime";
 					break;
 				}
 			}else{
 				switch($lst_time){
 					case 1:
-						$date_clause .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (t.creationdate)";
+						$condition .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (c.starttime)";
 					break;
 					case 2:
-						$date_clause .= "DATE_SUB(NOW(),INTERVAL 6 HOUR) <= (t.creationdate)";
+						$condition .= "DATE_SUB(NOW(),INTERVAL 6 HOUR) <= (c.starttime)";
 					break;
 					case 3:
-						$date_clause .= "DATE_SUB(NOW(),INTERVAL 1 DAY) <= (t.creationdate)";
+						$condition .= "DATE_SUB(NOW(),INTERVAL 1 DAY) <= (c.starttime)";
 					break;
 					case 4:
-						$date_clause .= "DATE_SUB(NOW(),INTERVAL 7 DAY) <= (t.creationdate)";
+						$condition .= "DATE_SUB(NOW(),INTERVAL 7 DAY) <= (c.starttime)";
 					break;
 				}
-			}
-				
 	}	
-}else{
+}else if($Period=="Day" && $fromday && $today){
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
 	{
-		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(t.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+		if (strlen($condition)>0) $condition.=" AND ";
+		$condition.=" $UNIX_TIMESTAMP(c.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
 	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
 	{
-		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(t.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+		if (strlen($condition)>0) $condition.=" AND ";
+		$condition.=" $UNIX_TIMESTAMP(c.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+	}
+}else{
+	$bool = true;
+	if(DB_TYPE == "postgres"){
+		$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= c.starttime";
+	}
+	else {
+		$condition .= "DATE_SUB( NOW( ) , INTERVAL 1 DAY ) <= c.starttime";
 	}
 }
+
+
+
+if($trunks != ""){
+	if (strlen($condition) > 0 && !$bool){
+		$condition .=" AND ";
+		$condition .="c.id_trunk = '$trunks'";		
+	}else{
+		$condition ="c.id_trunk = '$trunks'";
+	}
+}
+
+///////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////
+//     QUERIES FOR GETTING ALOC AND CIC  //////////////////////////
+///////////////////////////////////////////////////////////////////
+
 
 if(DB_TYPE == "postgres"){
+	$QUERY_ALOC = "SELECT (SUM(extract(epoch from (stoptime - starttime))/60) / Count(c.id)) AS ALOC,  count(c.id ) AS total_calls FROM cc_call c WHERE ". $condition;
+	$QUERY_CIC = "SELECT count( c.id ) AS CIC FROM cc_call c WHERE (extract(epoch from (stoptime - starttime))/60) <= $CIC_TIME_DIFF AND ". $condition;	
+}
+else
+{
+	$QUERY_ALOC = "SELECT (SUM( TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) ) / count( c.id ))ALOC, count( c.id ) total_calls 
+	FROM cc_call c WHERE ". $condition;
+	$QUERY_CIC = "SELECT count( c.id ) AS CIC FROM cc_call c WHERE TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) <= $CIC_TIME_DIFF AND ". $condition;
+}
+$res_ALOC  = $instance_table->SQLExec ($DBHandle, $QUERY_ALOC);		
+foreach($res_ALOC as $val){
+	$ALOC =  $val[0];
+	$Total_calls = $val[1];
+}
 
-	$QUERY = "SELECT c.id_trunk,t.providerip, t.trunkcode, (SUM(extract(epoch from (stoptime - starttime))/60) / Count(c.id_trunk)) AS ALOC,  count(c.id_trunk ) AS total_calls, t.creationdate FROM cc_call c, cc_trunk t WHERE c.id_trunk = t.id_trunk";
-	
-	if($trunks != "")
-	{
-		$QUERY.=" AND c.id_trunk = '$trunks'";
+$res_CIC  = $instance_table->SQLExec ($DBHandle, $QUERY_CIC);		
+foreach($res_CIC as $val){
+	$CIC =  $val[0];
+}
+
+///////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////
+//     QUERIES FOR GETTING ASR      ///////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+if($Total_calls > 0){
+	$QUERY_ASR = "SELECT (count( c.id ) / $Total_calls) AS ASR FROM cc_call c WHERE c.terminatecause = 'ANSWER' AND ". $condition;
+	$res_ASR  = $instance_table->SQLExec ($DBHandle, $QUERY_ASR);		
+	foreach($res_ASR as $val){
+		$ASR =  $val[0];
 	}
-	
-	if($date_clause != "")
-	{
-		$QUERY.=" AND ".$date_clause;
-	}
-	
-	$QUERY .= " GROUP BY c.id_trunk,  t.providerip, t.trunkcode, c.stoptime, c.starttime, t.creationdate";
-	
 }else{
-
-	$QUERY = "SELECT t.id_trunk, t.providerip, t.trunkcode, (SUM( TIME_TO_SEC( TIMEDIFF(c.stoptime, c.starttime ) ) ) / count(c.id_trunk )
-	) ALOC, count(c.id_trunk ) total_calls, t.creationdate FROM cc_call c, cc_trunk t WHERE c.id_trunk = t.id_trunk";
-	
-	if($trunks != "")
-	{
-		$QUERY.=" AND c.id_trunk = '$trunks'";
-	}
-	
-	if($date_clause != "")
-	{
-		$QUERY.=" AND ".$date_clause;
-	}
-	
-	$QUERY .= " GROUP BY c.id_trunk";
-
+	$ASR = 0;
 }
 
-$res = $DBHandle -> Execute($QUERY);
-if ($res){
-	$num = $res -> RecordCount( );		
-	for($i=0;$i<$num;$i++)
-	{		
-		$trunk_calls [] =$res -> fetchRow();
-	}
-}
+///////////////////////////////////////////////////////////////////
 
-echo $QUERY;
+if($ASR == NULL){
+	$ASR = 0;
+}
+	
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
@@ -287,10 +322,8 @@ if (strlen($_GET["menu"])>0)
 				</td>				
 				<td class="bgcolor_003" align="left">
 				<?php
-				  $DBHandle  = DbConnect();
-				  $instance_table = new Table();
-				    $QUERY = "SELECT id_trunk, trunkcode from cc_trunk"; 					
-					$list_trunks  = $instance_table->SQLExec ($DBHandle, $QUERY);		
+				$QUERY = "SELECT id_trunk, trunkcode from cc_trunk"; 					
+				$list_trunks  = $instance_table->SQLExec ($DBHandle, $QUERY);		
 				 ?>
 				<select name="trunks" class="form_input_select">
 				<option value="" selected ><?php echo gettext("Select Trunk");?></option>
@@ -318,18 +351,8 @@ if (strlen($_GET["menu"])>0)
 
 			<table border="0" cellpadding="2" cellspacing="2" width="90%" align="center">
 				<tbody>
-				<?php if($num > 0){?>
+				<?php $num = 1; if($num > 0){?>
 					<tr class="form_head"> 
-					 <td class="tableBody" style="padding: 2px;" align="center" width="4%"> 				
-						<strong> 
-							<font color="#ffffff">Trunk Name</font>
-						</strong>
-					</td>
-					 <td class="tableBody" style="padding: 2px;" align="center" width="4%"> 				
-						<strong> 
-							<font color="#ffffff">Trunk IP</font>
-						</strong>
-					</td>
 					 <td class="tableBody" style="padding: 2px;" align="center" width="4%"> 				
 						<strong> 
 							<font color="#ffffff">ASR</font>
@@ -345,39 +368,26 @@ if (strlen($_GET["menu"])>0)
 							<font color="#ffffff">CIC</font>
 						</strong>
 					</td>
+					 <td class="tableBody" style="padding: 2px;" align="center" width="4%"> 				
+						<strong> 
+							<font color="#ffffff">Total Calls</font>
+						</strong>
+					</td>
+
                 </tr>
-		<?php
-			$i = 0;
-			foreach($trunk_calls as $key => $cur_val){
-			$trunk_id = $cur_val[0];
-			if(DB_TYPE == "postgres")
-			{
-				$QUERY_CIC = "SELECT count(c.id_trunk) AS CIC FROM cc_call c, cc_trunk t WHERE (extract(epoch from (stoptime - starttime))/60) <= 10 AND c.id_trunk = t.id_trunk AND c.id_trunk = $trunk_id group by c.id_trunk";
-			} else {
-				$QUERY_CIC = "SELECT count(c.id_trunk) AS CIC FROM cc_call c, cc_trunk t WHERE TIME_TO_SEC( TIMEDIFF(c.stoptime, c.starttime )) <= 10 AND c.id_trunk = t.id_trunk AND c.id_trunk = $trunk_id group by c.id_trunk";
-			}
-			$res_CIC = $DBHandle -> Execute($QUERY_CIC);
-			$row_CIC = $res_CIC->fetchRow();
-			$total_calls = $cur_val[4];
-			$QUERY_ASR = "SELECT (count(c.id_trunk )/ $total_calls) AS ASR FROM cc_call c, cc_trunk t WHERE c.id_trunk = t.id_trunk AND c.terminatecause = 'ANSWER' AND c.id_trunk = $cur_val[0]";
-			$res = $DBHandle -> Execute($QUERY_ASR);
-			$row = $res->fetchRow();
-			
-			if($i % 2 == 0)
-			{
-				$bgcolor = "bgcolor='#F2F2EE'";$mouseout = "bgColor='#F2F2EE'";}else{$bgcolor = "bgcolor='#FCFBFB'";$mouseout = "bgColor='#FCFBFB'";
-			}
-			?>
+                <?php
+                $i=0;
+                if($i % 2 == 0){
+					$bgcolor = "bgcolor='#F2F2EE'";$mouseout = "bgColor='#F2F2EE'";}else{$bgcolor = "bgcolor='#FCFBFB'";$mouseout = "bgColor='#FCFBFB'";
+				}
+				?>
                	 <tr onmouseover="bgColor='#FFDEA6'" onmouseout=<?=$mouseout?> <?=$bgcolor?>> 
-					<td class="tableBody" align="center" valign="top"><?=$cur_val[1]?></td>
-					<td class="tableBody" align="center" valign="top"><?=$cur_val[2]?></td>
-					<td class="tableBody" align="center" valign="top"><?=$row[0]?></td>
-					<td class="tableBody" align="center" valign="top"><?=round($cur_val[3])?>&nbsp;sec</td>
-					<td class="tableBody" align="center" valign="top"><?=$row_CIC[0]?></td>
+					<td class="tableBody" align="center" valign="top"><?=$ASR?></td>
+					<td class="tableBody" align="center" valign="top"><?=round($ALOC)?>&nbsp;sec</td>
+					<td class="tableBody" align="center" valign="top"><?=$CIC?></td>
+					<td class="tableBody" align="center" valign="top"><?=$Total_calls?></td>
 					</tr>
-			<?php $i++;}?>
                	 <tr bgcolor="#fcfbfb"> 
-					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
@@ -388,17 +398,15 @@ if (strlen($_GET["menu"])>0)
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
-					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 				</tr>
                	 <tr bgcolor="#fcfbfb"> 
-					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>
 				</tr>
                 <tr>
-					<td class="tableDivider" colspan="5"><img src="../Public/templates/default/images/clear.gif" height="1" width="1"></td>
+					<td class="tableDivider" colspan="4"><img src="../Public/templates/default/images/clear.gif" height="1" width="1"></td>
 				</tr>
 			<?php }else{?>
 				<tr>

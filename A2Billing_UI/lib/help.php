@@ -906,6 +906,17 @@ $CC_help_payment_log = '<div class="toggle_show2hide">
 </div></div>
 '; 
 
+$CC_help_mass_mail = '<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("Here you can email a message to all of your users. To do this, an email will be sent out to the administrative email address supplied, with a blind carbon copy sent to all recipients. If you are emailing a large group of people please be patient after submitting and do not stop the page halfway through. It is normal for a mass emailing to take a long time and you will be notified when the script has completed.").'
+<br/><br/><br>
+</div></div></div>
+</div></div>
+'; 
 
 } //ENDIF SHOW_HELP
 
