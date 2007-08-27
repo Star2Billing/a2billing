@@ -168,7 +168,7 @@ $payment_methods  = $instance_table->SQLExec ($DBHandle, $QUERY);
 $show_logo = '';
 
 if( $payment_methods[1][0] == "MODULE_PAYMENT_PAYPAL_STATUS" && $payment_methods[1][1] == "True") {
-	$show_logo = '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>&nbsp;&nbsp; &nbsp;';
+	$show_logo = '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>&nbsp;&nbsp; &nbsp;';
 }
 
 if( $payment_methods[0][0] == "MODULE_PAYMENT_AUTHORIZENET_STATUS" && $payment_methods[0][1] == "True") {

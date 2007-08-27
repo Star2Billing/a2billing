@@ -183,7 +183,7 @@ $CC_help_view_paypal ='
 	<img src="'.KICON_PATH.'/paypal.gif" class="kikipic"/>
 	<div class="w2"><br>
 '.gettext("Paypal History - The section below shows all paypal receipts.").'
-<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU">PayPal</a>
+<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU">PayPal</a>
 <br/><br/>
 <br/>
 </div></div></div>
@@ -956,7 +956,7 @@ $CC_help_payment_log = '<div class="toggle_show2hide">
 
 } //ENDIF SHOW_HELP
 
-$SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';
+$SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';
 $SPOT['MONEYBOOKERS'] 	= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
 $SPOT['AUTHORIZENET'] 	= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a>';
 
