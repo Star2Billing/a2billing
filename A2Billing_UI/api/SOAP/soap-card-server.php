@@ -15,7 +15,7 @@ class Cards
 		
         $this->__dispatch_map['Create_Card'] =
              array('in' => array('security_key' => 'string', 'transaction_code' => 'string', 'account_number' => 'string',
-								'tariff' => 'integer', 'uipass' => 'string', 'credit' => 'float', 'language' => 'string', 'activated' => 'integer', 
+								'tariff' => 'integer', 'uipass' => 'string', 'credit' => 'float', 'language' => 'string', 'activated' => 'integer', 'status' => 'integer',
 								'simultaccess' => 'integer', 'currency' => 'string', 'runservice' => 'integer', 'typepaid' => 'integer', 'creditlimit' => 'integer', 
 								'enableexpire' => 'integer', 'expirationdate' => 'string', 'expiredays' => 'integer', 'lastname' => 'string',  
 								'firstname' => 'string', 'address' => 'string', 'city' => 'string', 'state' => 'string', 'country' => 'string', 
@@ -231,7 +231,7 @@ class Cards
 	 /*
 	  *		Function for the Service Create_Card : create a new card, also can create the sip/iax friends and the additional asterisk conf files
 	  */ 
-     function Create_Card($security_key, $transaction_code, $account_number, $tariff, $uipass, $credit, $language, $activated, $simultaccess, $currency, $runservice, 
+     function Create_Card($security_key, $transaction_code, $account_number, $tariff, $uipass, $credit, $language, $activated, $status,  $simultaccess, $currency, $runservice, 
 	 $typepaid, $creditlimit, $enableexpire, $expirationdate, $expiredays, $lastname, $firstname, $address, $city, $state, $country, $zipcode, $phone, $fax, 
 	 $callerid_list, $iax_friend, $sip_friend){ 
 	 
@@ -256,7 +256,7 @@ class Cards
 			   
 			// Create new account			
 			$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
-			$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, id_didgroup, activated, lastname, firstname, email, address, city, state, country,".
+			$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, id_didgroup, activated, status, lastname, firstname, email, address, city, state, country,".
 			"zipcode, phone, fax, userpass, simultaccess, currency, typepaid, creditlimit, language, runservice, enableexpire, expirationdate, expiredays, uipass, sip_buddy, iax_buddy";
 			
 			
@@ -281,7 +281,7 @@ class Cards
 				$DBHandle  = DbConnect();
 				
 				$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
-				$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '".$credit."', '".$tariff."', '0', '$activated', '$lastname', '$firstname', '$email', '$address', '$city', "
+				$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '".$credit."', '".$tariff."', '0', '$activated', '$status', '$lastname', '$firstname', '$email', '$address', '$city', "
 				."'$state', '$country', '$zipcode', '$phone', '$fax', '$cardnum', ".$simultaccess.", '".$currency."', '".$typepaid."','".$creditlimit."', '".$language."', '".$runservice."', '"
 				.$enableexpire."', $expirationdate, '$expiredays', '$uipass', '$iax_friend', '$sip_friend'";
 				
