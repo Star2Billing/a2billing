@@ -17,6 +17,14 @@
 	** take note that if the call last 7 minutes if the rounding_calltime is less than the current 
 		calltime we dont round down the calltime
 	
+	Example :
+	I make a call of 5 minutes to Belgium,  the rate is 0.1$ per minutes, I have normally to pay 0.5 for this call
+	now the ratecard will be configure with  rounding_calltime = 360 - 6min
+	and rounding_threshold will be set to 240, so 4min, the rateengine will see that my current calltime (300) is upper than the defined rounding_threshold 
+	and so it will round the call to the new calltime, rounding_calltime = 360
+	so my call will be rated to 0.6$ instead of 0.5
+	
+	
 2) Additional Block charge
 	
 	This is an additional charge that will be apply according to the duration of the call and 
