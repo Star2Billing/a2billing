@@ -17,7 +17,6 @@ if(isset($submit)){
 	$error_msg = '';
 
 	$group_id = intval($HTTP_POST_VARS[POST_GROUPS_URL]);
-
 		$QUERY = "Select email from cc_card";
 		$res_ALOC  = $instance_table->SQLExec ($DBHandle, $QUERY);		
 		$i = 0;
@@ -46,8 +45,8 @@ if(isset($submit)){
 
 		$emailer = new emailer($board_config['smtp_delivery']);
 	
-		$emailer->from(ADMIN_EMAIL);
-		$emailer->replyto(ADMIN_EMAIL);
+		$emailer->from(EMAIL_ADMIN);
+		$emailer->replyto(EMAIL_ADMIN);
 
 		for ($i = 0; $i < count($bcc_list); $i++)
 		{
@@ -60,13 +59,13 @@ if(isset($submit)){
 		$email_headers .= 'X-AntiAbuse: User IP - 192.168.1.241\n';
 
 		$emailer->use_template($message);
-		$emailer->email_address(ADMIN_EMAIL);
+		$emailer->email_address(EMAIL_ADMIN);
 		$emailer->set_subject($subject);
 		$emailer->extra_headers($email_headers);
 
 		$emailer->assign_vars(array(
 			'SITENAME' => 'a2billing', 
-			'BOARD_EMAIL' => ADMIN_EMAIL, 
+			'BOARD_EMAIL' => EMAIL_ADMIN, 
 			'MESSAGE' => 'Hey it is a message, just to watch working')
 		);
 		$result = $emailer->send();
