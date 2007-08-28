@@ -10,7 +10,6 @@ if (! has_rights (ACX_MISC)){
 }
 $DBHandle  = DbConnect();
 $instance_table = new Table();
-
 /***********************************************************************************/
 getpost_ifset(array('subject', 'message','atmenu','submit'));
 if(isset($submit)){
@@ -28,7 +27,6 @@ if(isset($submit)){
 				$i++;
 			}
 		}
-
 		include('../lib/emailer.php');
 
 		//
@@ -48,8 +46,8 @@ if(isset($submit)){
 
 		$emailer = new emailer($board_config['smtp_delivery']);
 	
-		$emailer->from('atifali@palmchip.com');
-		$emailer->replyto('atifali@palmchip.com');
+		$emailer->from(ADMIN_EMAIL);
+		$emailer->replyto(ADMIN_EMAIL);
 
 		for ($i = 0; $i < count($bcc_list); $i++)
 		{
@@ -62,13 +60,13 @@ if(isset($submit)){
 		$email_headers .= 'X-AntiAbuse: User IP - 192.168.1.241\n';
 
 		$emailer->use_template($message);
-		$emailer->email_address('atifali@palmchip.com');
+		$emailer->email_address(ADMIN_EMAIL);
 		$emailer->set_subject($subject);
 		$emailer->extra_headers($email_headers);
 
 		$emailer->assign_vars(array(
 			'SITENAME' => 'a2billing', 
-			'BOARD_EMAIL' => 'atifali@palmchip.com', 
+			'BOARD_EMAIL' => ADMIN_EMAIL, 
 			'MESSAGE' => 'Hey it is a message, just to watch working')
 		);
 		$result = $emailer->send();

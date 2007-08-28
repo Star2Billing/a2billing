@@ -130,7 +130,6 @@ class Table {
 	function Get_list ($DBHandle, $clause = NULL, $order = NULL, $sens = NULL, $field_order_letter = NULL, $letters = NULL, $limite = NULL, $current_record = NULL, $sql_group= NULL, $cache = 0)
 	{
 		$sql = 'SELECT '.$this -> fields.' FROM '.trim($this -> table);
-		
 		$sql_clause='';
 		if ($clause!='') {
 			$sql_clause=' WHERE '.$clause;

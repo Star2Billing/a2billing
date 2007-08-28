@@ -102,8 +102,6 @@ if ($Period=="Month" && $frommonth && $tomonth)
 	}
 }
 
-
-
 if($trunks != ""){
 	if (strlen($condition) > 0 && !$bool){
 		$condition .=" AND ";
@@ -126,8 +124,7 @@ if(DB_TYPE == "postgres"){
 }
 else
 {
-	$QUERY_ALOC = "SELECT (SUM( TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) ) / count( c.id ))ALOC, count( c.id ) total_calls 
-	FROM cc_call c WHERE ". $condition;
+	$QUERY_ALOC = "SELECT (SUM( TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) ) / count( c.id ))ALOC, count( c.id ) total_calls FROM cc_call c WHERE ". $condition;
 	$QUERY_CIC = "SELECT count( c.id ) AS CIC FROM cc_call c WHERE TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) <= $CIC_TIME_DIFF AND ". $condition;
 }
 $res_ALOC  = $instance_table->SQLExec ($DBHandle, $QUERY_ALOC);		

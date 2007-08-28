@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
-'starttime', 'endtime', 'id_trunk', 'freetimetocall_package_offer', 'musiconhold','tariffplan','posted','id_outbound_cidgroup'));
+'starttime', 'endtime', 'id_trunk', 'freetimetocall_package_offer', 'musiconhold','tariffplan','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time'));
 
 
 $HD_Form = new FormHandler("cc_ratecard","Rates");
@@ -363,6 +363,42 @@ $HD_Form -> AddEditElement(gettext("END TIME"),
    gettext("Insert the end time"),
    "" , "", "", "", "",  "", "", gettext("Set the time and the day of the week that the rate is no longer valid. (ie Sunday 23:59 is 10079)") );
 
+$HD_Form -> AddEditElement(gettext("ROUNDING CALLTIME"),
+   "rounding_calltime",
+   '$value',
+   "INPUT",
+   "size=40 maxlength=40",
+   "",
+   gettext("Insert the rounding calltime"),
+   "", "", "", "", "", "", "", gettext("Set the rounding calltime"));
+
+$HD_Form -> AddEditElement(gettext("ROUNDING THRESHOLD"),
+   "rounding_threshold",
+   '$value',
+   "INPUT",
+   "size=40 maxlength=40",
+   "",
+   gettext("Insert the rounding threshold"),
+   "", "", "", "", "", "", "", gettext("Set the rounding threshold"));
+
+$HD_Form -> AddEditElement(gettext("ADDITIONAL BLOCK CHARGE"),
+   "additional_block_charge",
+   '$value',
+   "INPUT",
+   "size=40 maxlength=40",
+   "",
+   gettext("Insert the additional block charge"),
+   "", "", "", "", "", "", "", gettext("Set the initial block charge"));
+
+$HD_Form -> AddEditElement(gettext("ADDITIONAL BLOCK CHARGE TIME"),
+   "additional_block_charge_time",
+   '$value',
+   "INPUT",
+   "size=40 maxlength=40",
+   "",
+   gettext("Insert the additional block charge time"),
+   "", "", "", "", "", "", "", gettext("Set the initial block charge time"));
+
 $HD_Form -> AddEditElement(gettext("TRUNK"),
    "id_trunk",
    '$value',
@@ -404,13 +440,12 @@ if (ADVANCED_MODE){
 	   "list" , "", "", "", $musiconhold_list, "%1", "", "" );
 }
 
-
 if (ADVANCED_MODE){
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup, musiconhold');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup, musiconhold');
 }else{
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup');
 }
 
 
