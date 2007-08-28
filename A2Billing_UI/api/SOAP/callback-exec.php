@@ -66,10 +66,6 @@ class Callback
 								'cardnumber' => 'string'),
                    'out' => array('transaction_code' => 'string', 'account_number' => 'string', 'card_number' => 'string', 'result' => 'string', 'details' => 'string')
                    );
-        $this->__dispatch_map['Reservation_Card'] =
-             array('in' => array('security_key' => 'string', 'uniqueid' => 'string'),
-                   'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
-                   );
      }
 	 
 

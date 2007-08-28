@@ -58,7 +58,7 @@ $insert_id_callback = $ans[0];
 //	#############   Check Status   #############   
 echo "<hr>#############   Check Status  #############   </hr>";
 $method = 'Status';
-$insert_id_callback = 1;
+//$insert_id_callback = 1;
 // array('in' => array('security_key' => 'string', 'id' => 'string'),
 //				'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
 $params = array('security_key' => md5($security_key), 'id' => $insert_id_callback);
