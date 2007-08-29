@@ -299,10 +299,10 @@ class A2Billing {
 		foreach ($config_res as $conf)
 		{
 			// FOR DEBUG
-			if ($conf['cfgkey'] == 'ivr_voucher') {
+			/* if ($conf['cfgkey'] == 'ivr_voucher') {
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "\n\n conf :".$conf['cfgkey']);	
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "\n\n conf :".$conf['cfgvalue']);	
-			}
+			}*/
 			if($conf['cfgtype'] == 0) // if its type is text
 			{
 				$this->config[$conf['cfggname']][$conf['cfgkey']] = $conf['cfgvalue'];
