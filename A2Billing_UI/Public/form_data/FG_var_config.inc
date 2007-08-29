@@ -34,17 +34,17 @@ $QUERY =  "SELECT config_value, config_valuetype from cc_config order by id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);
 
 foreach($result as $key => $cur_value) {
-		if($cur_value[1] == "1"){
-			if($cur_value[0] == "1"){
-				$yesno[$cur_value[0]] = array('Yes',$key);
-			}else if($cur_value[0] == "0"){
-				$yesno[$cur_value[0]] = array('No', $key);						
-			}else{
-				$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
-			}
+	if($cur_value[1] == "1"){
+		if($cur_value[0] == "1"){
+			$yesno[$cur_value[0]] = array('Yes',$key);
+		}else if($cur_value[0] == "0"){
+			$yesno[$cur_value[0]] = array('No', $key);						
 		}else{
 			$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
 		}
+	}else{
+		$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
+	}
 	
 }
 
@@ -123,32 +123,34 @@ $HD_Form -> AddEditElement (gettext("KEY"),
 	"",
 	gettext("Insert the TITLE"),
 	"" , "", "", "", "" , "", "" ,gettext("Key name of the configuration variable"));
-if($setbool){
-$HD_Form -> AddEditElement (gettext("VALUE"),
-			   "config_value",
-			   "",
-			   "SELECT",
-			   "","","",
-			   "list" , "", "",	"", $value_list, "", "", "" );
 	
-}else{
-$HD_Form -> AddEditElement (gettext("VALUE"),
-	"config_value",
-	'$value',
-	"INPUT",
-	"size=30 ",
-	"","",
-	"" , "", "", "", "", "", "", gettext("Insert the Value"));
+if($setbool) {
+	$HD_Form -> AddEditElement (gettext("VALUE"),
+	   "config_value",
+	   "",
+	   "SELECT",
+	   "","","",
+	   "list" , "", "",	"", $value_list, "", "", "" );
+	
+} else {
+	$HD_Form -> AddEditElement (gettext("VALUE"),
+		"config_value",
+		'$value',
+		"INPUT",
+		"size=30 ",
+		"","",
+		"" , "", "", "", "", "", "", gettext("Insert the Value"));
 }
-if(LIST_OF_VALUES){
-$HD_Form -> AddEditElement (gettext("LIST OF VALUES"),
-	"config_listvalues",
-	'$value',
-	"INPUT",
-	"size=30 ",
-	"",
-	"",
-	"" , "", "", "", "", "", "", gettext("Insert the List of values, comma separated"));
+
+if(LIST_OF_VALUES) {
+	$HD_Form -> AddEditElement (gettext("LIST OF VALUES"),
+		"config_listvalues",
+		'$value',
+		"INPUT",
+		"size=30 ",
+		"",
+		"",
+		"" , "", "", "", "", "", "", gettext("Insert the List of values, comma separated"));
 }
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
@@ -160,9 +162,9 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the Description"),
 	"" , "", "", "", "" , "", "", "");
 
-if(LIST_OF_VALUES){
-	$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value ,config_listvalues,config_description');
-}else{
+if(LIST_OF_VALUES) {
+	$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value ,config_listvalues, config_description');
+} else {
 	$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value ,config_description');
 }
 
@@ -172,6 +174,3 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-
-
-?>
