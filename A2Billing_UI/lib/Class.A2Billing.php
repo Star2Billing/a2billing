@@ -179,16 +179,17 @@ class A2Billing {
 	
 	/* CONSTRUCTOR */
 
-	function A2Billing() {     
-		
+	function A2Billing()
+	{
+		$this -> agiconfig['debug'] = true;
 		//$this -> DBHandle = $DBHandle;
-		
 	}
 	
 	
 	/* Init */
 	
-	function Reinit () {  
+	function Reinit()
+	{  
 		$this -> countrycode='';
 		$this -> subcode='';
 		$this -> myprefix='';
@@ -204,17 +205,17 @@ class A2Billing {
 	 *
 	 * usage : $A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $buffer_debug);
 	 */
-	function debug( $debug, $agi, $file, $line, $buffer_debug){
-		
+	function debug( $debug, $agi, $file, $line, $buffer_debug)
+	{
 		$file = basename($file);
 		
 		// RUN VERBOSE ON CLI
-		if ($debug & VERBOSE){
+		if ($debug & VERBOSE) {
 			if ($this->agiconfig['debug']>=1)   $agi->verbose('file:'.$file.' - line:'.$line.' - '.$buffer_debug);
 		}
 		
 		// RIGHT DEBUG IN LOG FILE
-		if ($debug & WRITELOG){
+		if ($debug & WRITELOG) {
 			$this -> write_log($buffer_debug, 1, "[file:$file - line:$line]:");
 		}
 	}
@@ -222,48 +223,57 @@ class A2Billing {
 	/* 
 	 * Write log into file 
 	 */
-	function write_log($output, $tobuffer = 1, $line_file_info = ''){
+	function write_log($output, $tobuffer = 1, $line_file_info = '')
+	{
 		//$tobuffer = 0;
 		
-		if (strlen($this->log_file) > 1){
-			
+		if (strlen($this->log_file) > 1) {
 			$string_log = "[".date("d/m/Y H:i:s")."]:".$line_file_info."[CallerID:".$this->CallerID."]:[CN:".$this->cardnumber."]:[$output]\n";
 			if ($this->CC_TESTING) echo $string_log;
 			
 			$this -> BUFFER .= $string_log;				
-			if (!$tobuffer || $this->CC_TESTING){
+			if (!$tobuffer || $this->CC_TESTING) {
 				error_log ($this -> BUFFER, 3, $this->log_file);
 				$this-> BUFFER = '';
 			}
 		}
 	}
 	
-	/* set the DB handler */ 
-	function set_dbhandler ($DBHandle){
+	/* 
+	 * set the DB handler  
+	 */
+	function set_dbhandler ($DBHandle)
+	{
 		$this->DBHandle	= $DBHandle;
 	}
 	
-	function set_instance_table ($instance_table){
-		$this->instance_table	= $instance_table;
+	/* 
+	 * set_instance_table 
+	 */
+	function set_instance_table ($instance_table)
+	{
+		$this->instance_table = $instance_table;
 	}
-
+	
+	/* 
+	 * load_conf 
+	 */
 	function load_conf( &$agi, $config=NULL, $webui=0, $idconfig=1, $optconfig=array())
     {
-	  
 		$this -> idconfig = $idconfig;
 		// load config
-		if(!is_null($config) && file_exists($config))
+		if(!is_null($config) && file_exists($config)) {
 			$this->config = parse_ini_file($config, true);
-		elseif(file_exists(DEFAULT_A2BILLING_CONFIG)){
+		} elseif(file_exists(DEFAULT_A2BILLING_CONFIG)) {
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);		
 		}
 	  
 	  
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
-		foreach($optconfig as $var=>$val)
+		foreach($optconfig as $var=>$val) {
 			$this->config["agi-conf$idconfig"][$var] = $val;
+		}
 		
-		       
 		// conf for the database connection
 		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
 		if(!isset($this->config['database']['port']))		$this->config['database']['port'] = '5432';
@@ -275,10 +285,11 @@ class A2Billing {
 		$this->load_conf_db($agi, NULL, 0, $idconfig);
     }
 	
-	//Load config from Database
+	/* 
+	 * Load config from Database 
+	 */
 	function load_conf_db( &$agi, $config=NULL, $webui=0, $idconfig=1, $optconfig=array())
     {
-	  
 		$this -> idconfig = $idconfig;
 		// load config
 		$config_table = new Table("cc_config ccc, cc_config_group ccg", "ccc.config_key as cfgkey, ccc.config_value as cfgvalue, ccg.group_title as cfggname, ccc.config_valuetype as cfgtype");
@@ -287,6 +298,11 @@ class A2Billing {
 		
 		foreach ($config_res as $conf)
 		{
+			// FOR DEBUG
+			if ($conf['cfgkey'] == 'ivr_voucher') {
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "\n\n conf :".$conf['cfgkey']);	
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "\n\n conf :".$conf['cfgvalue']);	
+			}
 			if($conf['cfgtype'] == 0) // if its type is text
 			{
 				$this->config[$conf['cfggname']][$conf['cfgkey']] = $conf['cfgvalue'];
@@ -302,12 +318,14 @@ class A2Billing {
 					$this->config[$conf['cfggname']][$conf['cfgkey']] = 0;
 				}
 			}	
-		}		
+		}
 		$this->DbDisconnect($this->DBHandle);
 		
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
 		foreach($optconfig as $var=>$val)
+		{
 			$this->config["agi-conf$idconfig"][$var] = $val;
+		}
 		
 		// add default values to config for uninitialized values
 		//Card Number Length Code
@@ -344,8 +362,6 @@ class A2Billing {
 		if(!isset($this->config['callback']['predictivedialer_maxtime_tocall']))	$this->config['callback']['predictivedialer_maxtime_tocall'] = '5400';		
 		if(!isset($this->config['callback']['sec_wait_before_callback']))	$this->config['callback']['sec_wait_before_callback'] = '10';		
 		
-		
-		
 		// Conf for the signup 
 		if(!isset($this->config['signup']['enable_signup']))$this->config['signup']['enable_signup'] = '1';
 		if(!isset($this->config['signup']['credit']))		$this->config['signup']['credit'] = '0';
@@ -372,7 +388,6 @@ class A2Billing {
 		if(!isset($this->config['backup']['pg_dump']))		$this->config['backup']['pg_dump'] ='/usr/bin/pg_dump';
 		if(!isset($this->config['backup']['mysql']))		$this->config['backup']['mysql'] ='/usr/bin/mysql';
 		if(!isset($this->config['backup']['psql']))		$this->config['backup']['psql'] ='/usr/bin/psql';
-	
 		
 		// Conf for Customer Web UI
 		if(!isset($this->config['webcustomerui']['customerinfo']))	$this->config['webcustomerui']['customerinfo'] = '1';
@@ -405,7 +420,7 @@ class A2Billing {
 		if(!isset($this->config['webui']['my_max_file_size_import']))	$this->config['webui']['my_max_file_size_import'] = 1024000;
 		if(!isset($this->config['webui']['dir_store_audio']))		$this->config['webui']['dir_store_audio'] = '/var/lib/asterisk/sounds/a2billing';
 		if(!isset($this->config['webui']['my_max_file_size_audio']))	$this->config['webui']['my_max_file_size_audio'] = 3072000;
-
+		
 		if(isset($this->config['webui']['file_ext_allow']))		$this->config['webui']['file_ext_allow'] = explode(",", $this->config['webui']['file_ext_allow']);
 		else $this->config['webui']['file_ext_allow'] = explode(",", "gsm, mp3, wav");
 		
@@ -418,8 +433,7 @@ class A2Billing {
 		if(!isset($this->config['webui']['voucher_export_field_list']))	$this->config['webui']['voucher_export_field_list'] = 'id, voucher, credit, tag, activated, usedcardnumber, usedate, currency';
 		if(!isset($this->config['webui']['advanced_mode']))				$this->config['webui']['advanced_mode'] = 0;
 		if(!isset($this->config['webui']['delete_fk_card']))			$this->config['webui']['delete_fk_card'] = 1;	
-
-		  
+		
 		// conf for the recurring process
 		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
 		
@@ -433,24 +447,7 @@ class A2Billing {
 		if(!isset($this->config['peer_friend']['host'])) 		$this->config['peer_friend']['host'] = 'dynamic';
 		if(!isset($this->config['peer_friend']['dtmfmode'])) 	$this->config['peer_friend']['dtmfmode'] = 'RFC2833';
 		
-		
 		// conf for the log-files
-		/*
-		if(!isset($this->config['log-files']['cront_alarm'])) $this->config['log-files']['cront_alarm'] = '/tmp/cront_a2b_alarm.log';
-		if(!isset($this->config['log-files']['cront_autorefill'])) $this->config['log-files']['cront_autorefill'] = '/tmp/cront_a2b_autorefill.log';
-		if(!isset($this->config['log-files']['cront_batch_process'])) $this->config['log-files']['cront_batch_process'] = '/tmp/cront_a2b_batch_process.log';
-		if(!isset($this->config['log-files']['cront_bill_diduse'])) $this->config['log-files']['cront_bill_diduse'] = '/tmp/cront_a2b_bill_diduse.log';
-		if(!isset($this->config['log-files']['cront_subscriptionfee'])) $this->config['log-files']['cront_subscriptionfee'] = '/tmp/cront_a2b_subscriptionfee.log';
-		if(!isset($this->config['log-files']['cront_currency_update'])) $this->config['log-files']['cront_currency_update'] = '/tmp/cront_a2b_currency_update.log';
-		if(!isset($this->config['log-files']['cront_invoice'])) $this->config['log-files']['cront_invoice'] = '/tmp/cront_a2b_invoice.log';
-		
-		if(!isset($this->config['log-files']['paypal'])) $this->config['log-files']['paypal'] = '/tmp/a2billing_paypal.log';
-		if(!isset($this->config['log-files']['epayment'])) $this->config['log-files']['epayment'] = '/tmp/a2billing_epayment.log';
-		if(!isset($this->config['log-files']['ecommerce_api'])) $this->config['log-files']['ecommerce_api'] = '/tmp/api_ecommerce_request.log';
-		if(!isset($this->config['log-files']['soap_api'])) $this->config['log-files']['soap_api'] = '/tmp/api_soap_request.log';
-		if(!isset($this->config['log-files']['callback_api'])) $this->config['log-files']['callback_api'] = '/tmp/api_callback_request.log';
-		if(!isset($this->config['log-files']['agi'])) $this->config['log-files']['agi'] = '/tmp/a2billing_agi.log';
-		*/
 		if(isset($this->config['log-files']['agi']) && strlen ($this->config['log-files']['agi']) > 1)
 		{
 			$this -> log_file = $this -> config['log-files']['agi'];
@@ -524,7 +521,7 @@ class A2Billing {
 			$cur_val = explode(":",$cur_val);
 			$this->config["agi-conf$idconfig"]['currency_association_internal'][$cur_val[0]]=$cur_val[1];
 		}
-					
+		
 		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_destination']))	$this->config["agi-conf$idconfig"]['file_conf_enter_destination'] = 'prepaid-enter-number-u-calling-1-or-011';
 		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_menulang']))	$this->config["agi-conf$idconfig"]['file_conf_enter_menulang'] = 'prepaid-menulang';		
 		if(!isset($this->config["agi-conf$idconfig"]['send_reminder'])) $this->config["agi-conf$idconfig"]['send_reminder'] = 0;
@@ -534,10 +531,13 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
 		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
 		
+		// Define the agiconfig property
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
 		
-		if (!$webui) $this->conlog('A2Billing AGI internal configuration:');
-      	if (!$webui) $this->conlog(print_r($this->agiconfig, true));
+		// Print out on CLI for debug purpose
+		if (!$webui) $this->conlog ('A2Billing AGI internal configuration:');
+      	if (!$webui) $this->conlog (print_r($this->agiconfig, true));
+		
     }
 	
 	
@@ -551,9 +551,8 @@ class A2Billing {
     */
     function conlog($str, $vbl=1)
     {
-		static $busy = false;
 		global $agi;
-		
+		static $busy = false;
 		
 		if($this->agiconfig['debug'] != false)
 		{
@@ -565,13 +564,12 @@ class A2Billing {
 			}
 		}
     }
-
-
+	
 	/* 
 	 * Function to create a menu to select the language
 	 */
-	function play_menulanguage ($agi){	
-	
+	function play_menulanguage ($agi)
+	{
 		// MENU LANGUAGE
 		if ($this->agiconfig['play_menulanguage']==1){
 			$prompt_menulang = $this->agiconfig['file_conf_enter_menulang'];
@@ -579,41 +577,34 @@ class A2Billing {
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES Menu Language DTMF : ".$res_dtmf ["result"]);
 			
 			$this -> languageselected = $res_dtmf ["result"];
-			
-			if ($this->languageselected=="2")
+			if ($this->languageselected=="2") {
 				$language = 'es';
-			elseif 	($this->languageselected=="3")		
+			} elseif 	($this->languageselected=="3") {
 				$language = 'fr';
-			else									
+			} else {
 				$language = 'en';
-			
-			if($this->agiconfig['asterisk_version'] == "1_2")
-			{
-				$lg_var_set = 'LANGUAGE()';				
 			}
-			else
-			{
+			
+			if($this->agiconfig['asterisk_version'] == "1_2") {
+				$lg_var_set = 'LANGUAGE()';				
+			} else {
 				$lg_var_set = 'CHANNEL(language)';
 			}
 			$agi -> set_variable($lg_var_set, $language);
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 			
-		}elseif (strlen($this->agiconfig['force_language'])==2){
+		} elseif (strlen($this->agiconfig['force_language'])==2) {
 			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FORCE LANGUAGE : ".$this->agiconfig['force_language']);	
 			$this->languageselected = 1;
 			$language = strtolower($this->agiconfig['force_language']);
-			if($this->agiconfig['asterisk_version'] == "1_2")
-			{
+			if($this->agiconfig['asterisk_version'] == "1_2") {
 				$lg_var_set = 'LANGUAGE()';				
-			}
-			else
-			{
+			} else {
 				$lg_var_set = 'CHANNEL(language)';
 			}
 			$agi -> set_variable($lg_var_set, $language);
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
-			
 		}
 	}
 	
@@ -622,8 +613,8 @@ class A2Billing {
 	/*
 	 * intialize evironement variables from the agi values
 	 */
-	function get_agi_request_parameter($agi){
-	
+	function get_agi_request_parameter($agi)
+	{
 		$this->CallerID 	= $agi->request['agi_callerid'];
 		$this->channel		= $agi->request['agi_channel'];
 		$this->uniqueid		= $agi->request['agi_uniqueid'];
@@ -642,14 +633,14 @@ class A2Billing {
 	/*
 	 *	function to find the cid number
 	 */
-	function isolate_cid(){
-		
+	function isolate_cid()
+	{
 		$pos_lt = strpos($this->CallerID, '<');
 		$pos_gt = strpos($this->CallerID, '>');
-			
-		if (($pos_lt !== false) && ($pos_gt !== false)){
-		   $len_gt = $pos_gt - $pos_lt - 1;
-		   $this->CallerID = substr($this->CallerID,$pos_lt+1,$len_gt);
+		
+		if (($pos_lt !== false) && ($pos_gt !== false)) {
+			$len_gt = $pos_gt - $pos_lt - 1;
+			$this->CallerID = substr($this->CallerID,$pos_lt+1,$len_gt);
 		}
 	}
 	
@@ -657,12 +648,12 @@ class A2Billing {
 	/*
 	 *	function would set when the card is used or when it release
 	 */
-	function callingcard_acct_start_inuse($agi, $inuse){
-		
-		if ($inuse){		
+	function callingcard_acct_start_inuse($agi, $inuse)
+	{
+		if ($inuse) {		
 			$QUERY = "UPDATE cc_card SET inuse=inuse+1 WHERE username='".$this->username."'";
 			$this -> set_inuse = 1;
-		}else{ 			
+		} else {
 			$QUERY = "UPDATE cc_card SET inuse=inuse-1 WHERE username='".$this->username."'";
 			$this -> set_inuse = 0;
 		}
@@ -684,8 +675,7 @@ class A2Billing {
 	**/
 	function callingcard_ivr_authorize($agi, &$RateEngine, $try_num){
 		$res=0;
-			
-			
+		
 		/************** 	ASK DESTINATION 	******************/
 		$prompt_enter_dest = $this->agiconfig['file_conf_enter_destination'];
 		
