@@ -39,7 +39,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 ?>
 <br>
-<form name="searchform" id="searchform" method="post" action="A2B_entity_invoices_period.php">
+<form name="searchform" id="searchform" method="post" action="A2B_entity_invoices2_period.php">
 <table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>
 			<?php 	
