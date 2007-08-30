@@ -334,9 +334,9 @@ class A2Billing {
 		
 		if(is_array($this -> cardnumber_range) && ($this -> cardnumber_range[0] >= 4))
 		{
-			define ("CARDNUMBER_LENGTH_MIN", $this -> cardnumber_range[0]);
-			define ("CARDNUMBER_LENGTH_MAX", $this -> cardnumber_range[count($this -> cardnumber_range)-1]);
-			define ("LEN_CARDNUMBER", CARDNUMBER_LENGTH_MIN);
+			if (!defined('CARDNUMBER_LENGTH_MIN'))	define ('CARDNUMBER_LENGTH_MIN', $this -> cardnumber_range[0]);
+			if (!defined('CARDNUMBER_LENGTH_MAX'))	define ('CARDNUMBER_LENGTH_MAX', $this -> cardnumber_range[count($this -> cardnumber_range)-1]);
+			if (!defined('LEN_CARDNUMBER'))			define ('LEN_CARDNUMBER', CARDNUMBER_LENGTH_MIN);
 		}
 		else
 		{
@@ -452,24 +452,23 @@ class A2Billing {
 		{
 			$this -> log_file = $this -> config['log-files']['agi'];
 		}
-		define ("LOGFILE_CRONT_ALARM", 			isset($this->config['log-files']['cront_alarm'])			?$this->config['log-files']['cront_alarm']:null);
-		define ("LOGFILE_CRONT_AUTOREFILL", 	isset($this->config['log-files']['cront_autorefill'])		?$this->config['log-files']['cront_autorefill']:null);
-		define ("LOGFILE_CRONT_BATCH_PROCESS", 	isset($this->config['log-files']['cront_batch_process'])	?$this->config['log-files']['cront_batch_process']:null);
-		define ("LOGFILE_CRONT_BILL_DIDUSE", 	isset($this->config['log-files']['cront_bill_diduse'])		?$this->config['log-files']['cront_bill_diduse']:null);
-		define ("LOGFILE_CRONT_SUBSCRIPTIONFEE",isset($this->config['log-files']['cront_subscriptionfee'])	?$this->config['log-files']['cront_subscriptionfee']:null);
-		define ("LOGFILE_CRONT_CURRENCY_UPDATE",isset($this->config['log-files']['cront_currency_update'])	?$this->config['log-files']['cront_currency_update']:null);
-		define ("LOGFILE_CRONT_INVOICE",		isset($this->config['log-files']['cront_invoice'])			?$this->config['log-files']['cront_invoice']:null);
-		define ("LOGFILE_CRONT_CHECKACCOUNT",	isset($this->config['log-files']['cront_check_account'])	?$this->config['log-files']['cront_check_account']:null);
+		if (!defined('LOGFILE_CRONT_ALARM'))				define ('LOGFILE_CRONT_ALARM', 			isset($this->config['log-files']['cront_alarm'])			?$this->config['log-files']['cront_alarm']:null);
+		if (!defined('LOGFILE_CRONT_AUTOREFILL'))			define ('LOGFILE_CRONT_AUTOREFILL', 	isset($this->config['log-files']['cront_autorefill'])		?$this->config['log-files']['cront_autorefill']:null);
+		if (!defined('LOGFILE_CRONT_BATCH_PROCESS'))		define ('LOGFILE_CRONT_BATCH_PROCESS', 	isset($this->config['log-files']['cront_batch_process'])	?$this->config['log-files']['cront_batch_process']:null);
+		if (!defined('LOGFILE_CRONT_BILL_DIDUSE'))			define ('LOGFILE_CRONT_BILL_DIDUSE', 	isset($this->config['log-files']['cront_bill_diduse'])		?$this->config['log-files']['cront_bill_diduse']:null);
+		if (!defined('LOGFILE_CRONT_SUBSCRIPTIONFEE'))		define ('LOGFILE_CRONT_SUBSCRIPTIONFEE',isset($this->config['log-files']['cront_subscriptionfee'])	?$this->config['log-files']['cront_subscriptionfee']:null);
+		if (!defined('LOGFILE_CRONT_CURRENCY_UPDATE'))		define ('LOGFILE_CRONT_CURRENCY_UPDATE',isset($this->config['log-files']['cront_currency_update'])	?$this->config['log-files']['cront_currency_update']:null);
+		if (!defined('LOGFILE_CRONT_INVOICE'))				define ('LOGFILE_CRONT_INVOICE',		isset($this->config['log-files']['cront_invoice'])			?$this->config['log-files']['cront_invoice']:null);
+		if (!defined('LOGFILE_CRONT_CHECKACCOUNT'))			define ('LOGFILE_CRONT_CHECKACCOUNT',	isset($this->config['log-files']['cront_check_account'])	?$this->config['log-files']['cront_check_account']:null);
 		
-		define ("LOGFILE_API_ECOMMERCE", 		isset($this->config['log-files']['api_ecommerce'])			?$this->config['log-files']['api_ecommerce']:null);
-		define ("LOGFILE_API_CALLBACK", 		isset($this->config['log-files']['api_callback'])			?$this->config['log-files']['api_callback']:null);
-		define ("LOGFILE_PAYPAL", 				isset($this->config['log-files']['paypal'])					?$this->config['log-files']['paypal']:null);
-		define ("LOGFILE_EPAYMENT", 			isset($this->config['log-files']['epayment'])				?$this->config['log-files']['epayment']:null);
-		
-		
+		if (!defined('LOGFILE_API_ECOMMERCE'))				define ('LOGFILE_API_ECOMMERCE', 		isset($this->config['log-files']['api_ecommerce'])			?$this->config['log-files']['api_ecommerce']:null);
+		if (!defined('LOGFILE_API_CALLBACK'))				define ('LOGFILE_API_CALLBACK', 		isset($this->config['log-files']['api_callback'])			?$this->config['log-files']['api_callback']:null);
+		if (!defined('LOGFILE_PAYPAL'))						define ('LOGFILE_PAYPAL', 				isset($this->config['log-files']['paypal'])					?$this->config['log-files']['paypal']:null);
+		if (!defined('LOGFILE_EPAYMENT'))					define ('LOGFILE_EPAYMENT', 			isset($this->config['log-files']['epayment'])				?$this->config['log-files']['epayment']:null);
+				
 		// conf for the AGI
 		if(!isset($this->config["agi-conf$idconfig"]['play_audio'])) 	$this->config["agi-conf$idconfig"]['play_audio'] = 1;
-		define ("PLAY_AUDIO", 											$this->config["agi-conf$idconfig"]['play_audio']);
+		if (!defined('PLAY_AUDIO'))										define ('PLAY_AUDIO', $this->config["agi-conf$idconfig"]['play_audio']);
 		
 		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
 		if(!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;

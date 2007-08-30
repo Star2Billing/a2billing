@@ -151,6 +151,7 @@ class Table {
 			$sql_orderby = " ORDER BY $sp".$order."$sp $sens";
 		}
 		
+		$sql_limit ='';
 		if (!is_null ($limite) && (is_numeric($limite)) && !is_null ($current_record) && (is_numeric($current_record)) ) {
 			if (DB_TYPE == "postgres") {
 				$sql_limit = " LIMIT $limite OFFSET $current_record";
