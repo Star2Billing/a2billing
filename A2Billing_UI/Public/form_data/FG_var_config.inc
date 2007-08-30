@@ -17,36 +17,25 @@ if($result[0][1] == "yes,no" || $result[0][1] == "no,yes"){
 	$setbool = true;
 }
 
-$value_list[0][0] = "no";
-$value_list[0][1] = 0;
-$value_list[1][0] = "yes";
-$value_list[1][1] = 1;
-foreach($value_list as $key => $cur_value) {
-	if(in_array($result[0][0],$cur_value)){
-		$value_list[$key]  = array( $cur_value[0], $key." selected");
-	}else{
-		$value_list[$key]  = array( $cur_value[0], $key);
-	}
-}
-$yesno = array();
+$value_list = array();
+$value_list["1"] = array( gettext("yes"), 1);
+$value_list["2"] = array( gettext("no"), 0);
 
+
+$yesno = array();
 $QUERY =  "SELECT config_value, config_valuetype from cc_config order by id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);
 
 foreach($result as $key => $cur_value) {
-	if($cur_value[1] == "1"){
-		if($cur_value[0] == "1"){
-			$yesno[$cur_value[0]] = array('Yes',$key);
-		}else if($cur_value[0] == "0"){
-			$yesno[$cur_value[0]] = array('No', $key);						
-		}else{
-			$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
-		}
+	if($cur_value[0] == "1"){
+		$yesno[$cur_value[0]] = array('Yes',$key);
+	}else if($cur_value[0] == "0"){
+		$yesno[$cur_value[0]] = array('No', $key);						
 	}else{
 		$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
 	}
-	
 }
+	
 
 $HD_Form = new FormHandler("cc_config ccc, cc_config_group ccg","Configuration");
 
@@ -130,7 +119,7 @@ if($setbool) {
 	   "",
 	   "SELECT",
 	   "","","",
-	   "list" , "", "",	"", $value_list, "", "", "" );
+	   "list" , "", "",	"", $value_list, "%1", "", "" );
 	
 } else {
 	$HD_Form -> AddEditElement (gettext("VALUE"),
