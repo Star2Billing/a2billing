@@ -9,7 +9,7 @@ $HD_Form = new FormHandler("cc_invoices","Invoice");
 
 $HD_Form -> FG_TABLE_NAME = "cc_invoices inv";
 
-if($searchenabled <> "" && $searchenabled == "yes")
+if(isset($searchenabled) && $searchenabled == "yes")
 {
 	if ($filterradio == "date")
 	{
