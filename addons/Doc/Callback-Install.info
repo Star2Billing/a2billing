@@ -19,6 +19,8 @@ REQUERIMENTS
 	> install Config::IniFiles
 	> reload
 	
+	; for webservice
+	pear install --alldeps SOAP-0.9.4
 
 INSTALL
 
