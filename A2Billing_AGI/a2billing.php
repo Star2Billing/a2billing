@@ -166,8 +166,8 @@ if ($mode == 'standard'){
 			
 			// RETRIEVE THE CHANNEL STATUS AND LOG : STATUS - CREIT - MIN_CREDIT_2CALL 
 			$stat_channel = $agi->channel_status($A2B-> channel);
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
+						   "\n[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 			
 			// CHECK IF THE CHANNEL IS UP
 			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
@@ -181,7 +181,6 @@ if ($mode == 'standard'){
 			if ($i>0){
 				$A2B-> uniqueid=$A2B-> uniqueid+ 1000000000 ;
 			}
-			
 			
 			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0 && $A2B->agiconfig['jump_voucher_if_min_credit']==1) {
 				

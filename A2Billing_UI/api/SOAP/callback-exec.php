@@ -262,7 +262,7 @@ class Callback
 				$status = 'PENDING';
 				$server_ip = 'localhost';
 				$num_attempt = 0;
-				$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|TARIFF=".$A2B ->tariff;
+				$variable = "MODE=CID|CALLED=$called|CALLING=$calling|CBID=$uniqueid|TARIFF=".$A2B ->tariff;
 				
 				if (is_numeric($A2B -> config["callback"]['sec_wait_before_callback']) && $A2B -> config["callback"]['sec_wait_before_callback']>=1){
 					$sec_wait_before_callback = $A2B -> config["callback"]['sec_wait_before_callback'];
