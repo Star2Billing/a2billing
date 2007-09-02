@@ -299,7 +299,7 @@ class A2Billing {
 		foreach ($config_res as $conf)
 		{
 			// FOR DEBUG
-			/* if ($conf['cfgkey'] == 'ivr_voucher') {
+			/*if ($conf['cfgkey'] == 'sip_iax_pstn_direct_call_prefix') {
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "\n\n conf :".$conf['cfgkey']);	
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "\n\n conf :".$conf['cfgvalue']);	
 			}*/
@@ -334,9 +334,9 @@ class A2Billing {
 		
 		if(is_array($this -> cardnumber_range) && ($this -> cardnumber_range[0] >= 4))
 		{
-			if (!defined('CARDNUMBER_LENGTH_MIN'))	define ('CARDNUMBER_LENGTH_MIN', $this -> cardnumber_range[0]);
-			if (!defined('CARDNUMBER_LENGTH_MAX'))	define ('CARDNUMBER_LENGTH_MAX', $this -> cardnumber_range[count($this -> cardnumber_range)-1]);
-			if (!defined('LEN_CARDNUMBER'))			define ('LEN_CARDNUMBER', CARDNUMBER_LENGTH_MIN);
+			define ("CARDNUMBER_LENGTH_MIN", $this -> cardnumber_range[0]);
+			define ("CARDNUMBER_LENGTH_MAX", $this -> cardnumber_range[count($this -> cardnumber_range)-1]);
+			define ("LEN_CARDNUMBER", CARDNUMBER_LENGTH_MIN);
 		}
 		else
 		{
@@ -452,23 +452,24 @@ class A2Billing {
 		{
 			$this -> log_file = $this -> config['log-files']['agi'];
 		}
-		if (!defined('LOGFILE_CRONT_ALARM'))				define ('LOGFILE_CRONT_ALARM', 			isset($this->config['log-files']['cront_alarm'])			?$this->config['log-files']['cront_alarm']:null);
-		if (!defined('LOGFILE_CRONT_AUTOREFILL'))			define ('LOGFILE_CRONT_AUTOREFILL', 	isset($this->config['log-files']['cront_autorefill'])		?$this->config['log-files']['cront_autorefill']:null);
-		if (!defined('LOGFILE_CRONT_BATCH_PROCESS'))		define ('LOGFILE_CRONT_BATCH_PROCESS', 	isset($this->config['log-files']['cront_batch_process'])	?$this->config['log-files']['cront_batch_process']:null);
-		if (!defined('LOGFILE_CRONT_BILL_DIDUSE'))			define ('LOGFILE_CRONT_BILL_DIDUSE', 	isset($this->config['log-files']['cront_bill_diduse'])		?$this->config['log-files']['cront_bill_diduse']:null);
-		if (!defined('LOGFILE_CRONT_SUBSCRIPTIONFEE'))		define ('LOGFILE_CRONT_SUBSCRIPTIONFEE',isset($this->config['log-files']['cront_subscriptionfee'])	?$this->config['log-files']['cront_subscriptionfee']:null);
-		if (!defined('LOGFILE_CRONT_CURRENCY_UPDATE'))		define ('LOGFILE_CRONT_CURRENCY_UPDATE',isset($this->config['log-files']['cront_currency_update'])	?$this->config['log-files']['cront_currency_update']:null);
-		if (!defined('LOGFILE_CRONT_INVOICE'))				define ('LOGFILE_CRONT_INVOICE',		isset($this->config['log-files']['cront_invoice'])			?$this->config['log-files']['cront_invoice']:null);
-		if (!defined('LOGFILE_CRONT_CHECKACCOUNT'))			define ('LOGFILE_CRONT_CHECKACCOUNT',	isset($this->config['log-files']['cront_check_account'])	?$this->config['log-files']['cront_check_account']:null);
+		define ("LOGFILE_CRONT_ALARM", 			isset($this->config['log-files']['cront_alarm'])			?$this->config['log-files']['cront_alarm']:null);
+		define ("LOGFILE_CRONT_AUTOREFILL", 	isset($this->config['log-files']['cront_autorefill'])		?$this->config['log-files']['cront_autorefill']:null);
+		define ("LOGFILE_CRONT_BATCH_PROCESS", 	isset($this->config['log-files']['cront_batch_process'])	?$this->config['log-files']['cront_batch_process']:null);
+		define ("LOGFILE_CRONT_BILL_DIDUSE", 	isset($this->config['log-files']['cront_bill_diduse'])		?$this->config['log-files']['cront_bill_diduse']:null);
+		define ("LOGFILE_CRONT_SUBSCRIPTIONFEE",isset($this->config['log-files']['cront_subscriptionfee'])	?$this->config['log-files']['cront_subscriptionfee']:null);
+		define ("LOGFILE_CRONT_CURRENCY_UPDATE",isset($this->config['log-files']['cront_currency_update'])	?$this->config['log-files']['cront_currency_update']:null);
+		define ("LOGFILE_CRONT_INVOICE",		isset($this->config['log-files']['cront_invoice'])			?$this->config['log-files']['cront_invoice']:null);
+		define ("LOGFILE_CRONT_CHECKACCOUNT",	isset($this->config['log-files']['cront_check_account'])	?$this->config['log-files']['cront_check_account']:null);
 		
-		if (!defined('LOGFILE_API_ECOMMERCE'))				define ('LOGFILE_API_ECOMMERCE', 		isset($this->config['log-files']['api_ecommerce'])			?$this->config['log-files']['api_ecommerce']:null);
-		if (!defined('LOGFILE_API_CALLBACK'))				define ('LOGFILE_API_CALLBACK', 		isset($this->config['log-files']['api_callback'])			?$this->config['log-files']['api_callback']:null);
-		if (!defined('LOGFILE_PAYPAL'))						define ('LOGFILE_PAYPAL', 				isset($this->config['log-files']['paypal'])					?$this->config['log-files']['paypal']:null);
-		if (!defined('LOGFILE_EPAYMENT'))					define ('LOGFILE_EPAYMENT', 			isset($this->config['log-files']['epayment'])				?$this->config['log-files']['epayment']:null);
-				
+		define ("LOGFILE_API_ECOMMERCE", 		isset($this->config['log-files']['api_ecommerce'])			?$this->config['log-files']['api_ecommerce']:null);
+		define ("LOGFILE_API_CALLBACK", 		isset($this->config['log-files']['api_callback'])			?$this->config['log-files']['api_callback']:null);
+		define ("LOGFILE_PAYPAL", 				isset($this->config['log-files']['paypal'])					?$this->config['log-files']['paypal']:null);
+		define ("LOGFILE_EPAYMENT", 			isset($this->config['log-files']['epayment'])				?$this->config['log-files']['epayment']:null);
+		
+		
 		// conf for the AGI
 		if(!isset($this->config["agi-conf$idconfig"]['play_audio'])) 	$this->config["agi-conf$idconfig"]['play_audio'] = 1;
-		if (!defined('PLAY_AUDIO'))										define ('PLAY_AUDIO', $this->config["agi-conf$idconfig"]['play_audio']);
+		define ("PLAY_AUDIO", 											$this->config["agi-conf$idconfig"]['play_audio']);
 		
 		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
 		if(!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;
@@ -845,37 +846,45 @@ class A2Billing {
 		}
 		
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "SIP o IAX DESTINATION : ".$this->destination);
+		$sip_buddies = 0;
+		$iax_buddies = 0;
 		
-		$sip_buddies = 0; $iax_buddies = 0;
-		
-		
-		//$QUERY =  "SELECT name FROM cc_iax_buddies WHERE name='".$this->destination."'";
 		$QUERY = "SELECT name FROM cc_iax_buddies, cc_card WHERE cc_iax_buddies.name=cc_card.username AND useralias='".$this->destination."'";			
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);										
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $result);		
 		
-		if( is_array($result)){	$iax_buddies = 1; $destiax=$result[0][0];}
+		if( is_array($result) && count($result) > 0) {
+			$iax_buddies = 1;
+			$destiax=$result[0][0];
+		}
 		
-			
-		//$QUERY =  "SELECT name FROM cc_sip_buddies WHERE name='".$this->destination."'";
+		$card_alias = $this->destination;
 		$QUERY = "SELECT name FROM cc_sip_buddies, cc_card WHERE cc_sip_buddies.name=cc_card.username AND useralias='".$this->destination."'";
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".print_r($result,true));
 		
-		if( is_array($result)){	$sip_buddies = 1; $destsip=$result[0][0];}
+		if( is_array($result) && count($result) > 0) {
+			$sip_buddies = 1;
+			$destsip=$result[0][0];
+		}
 		
 		if (!$sip_buddies && !$iax_buddies){
 			$agi-> stream_file('prepaid-sipiax-num-nomatch', '#');				
 			return -1;
 		}
 		
-		if ($this -> CC_TESTING) $this->destination="kphone";
-		
-		for ($k=0;$k< $sip_buddies+$iax_buddies;$k++){
-			if ($k==0 && $sip_buddies){ $this->tech = 'SIP'; $this->destination= $destsip; }
-			else{ $this->tech = 'IAX2'; $this->destination = $destiax; }
-				
+		for ($k=0;$k< $sip_buddies+$iax_buddies;$k++)
+		{
+			if ($k==0 && $sip_buddies) {
+				$this->tech = 'SIP';
+				$this->destination= $destsip;
+			} else {
+				$this->tech = 'IAX2';
+				$this->destination = $destiax;
+			}
+			if ($this -> CC_TESTING) $this->destination = "kphone";
+			
 			if ($this->agiconfig['record_call'] == 1){
 				$myres = $agi->exec("MONITOR ".$this->agiconfig['monitor_formatfile']."|".$this->uniqueid."|mb");
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MONITOR ".$this->agiconfig['monitor_formatfile']."|".$this->uniqueid."|mb");
@@ -886,7 +895,7 @@ class A2Billing {
 			
 			$dialparams = $this->agiconfig['dialcommand_param_sipiax_friend'];
 			$dialstr = $this->tech."/".$this->destination.$dialparams;
-
+			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "app_callingcard sip/iax friend: Dialing '$dialstr' ".$this->tech." Friend.\n");
 			
 			//# Channel: technology/number@ip_of_gw_to PSTN
@@ -898,8 +907,7 @@ class A2Billing {
 			$answeredtime = $answeredtime['data'];
 			$dialstatus = $agi->get_variable("DIALSTATUS");
 			$dialstatus = $dialstatus['data'];
-				
-				
+			
 			if ($this->agiconfig['record_call'] == 1){
 				// Monitor(wav,kiki,m)					
 				$myres = $agi->exec("STOPMONITOR");
@@ -926,7 +934,7 @@ class A2Billing {
 			
 			if (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION"))	continue;
 				
-			if ($answeredtime >0){ 
+			if ($answeredtime > 0){ 
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
 				$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,username,nasipaddress,starttime,sessiontime, calledstation, ".						
 					" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
@@ -936,7 +944,7 @@ class A2Billing {
 				}else{
 					$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 				}						
-				$QUERY .= ", '$answeredtime', '".$this->destination."', '$dialstatus', now(), '0', '0', ".
+				$QUERY .= ", '$answeredtime', '".$card_alias."', '$dialstatus', now(), '0', '0', ".
 					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', '$this->CallerID', '1' )";
 				
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
@@ -945,7 +953,6 @@ class A2Billing {
 			}
 		}
 		return -1;
-	
 	}
 	
 	

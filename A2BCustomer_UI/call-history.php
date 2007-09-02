@@ -46,18 +46,6 @@ $FG_DEBUG = 0;
 $FG_TABLE_NAME="cc_call t1";
 
 
-
-
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_HEAD_COLOR = "#D1D9E7";
-
-
-$FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
-$FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
-
-
-
-
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
@@ -78,7 +66,7 @@ $FG_TABLE_COL = array();
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "14%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "source", "12%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("CardNumber"), "calledstation", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");

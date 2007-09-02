@@ -895,7 +895,7 @@ class A2Billing {
 			
 			$dialparams = $this->agiconfig['dialcommand_param_sipiax_friend'];
 			$dialstr = $this->tech."/".$this->destination.$dialparams;
-
+			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "app_callingcard sip/iax friend: Dialing '$dialstr' ".$this->tech." Friend.\n");
 			
 			//# Channel: technology/number@ip_of_gw_to PSTN
@@ -953,7 +953,6 @@ class A2Billing {
 			}
 		}
 		return -1;
-	
 	}
 	
 	
