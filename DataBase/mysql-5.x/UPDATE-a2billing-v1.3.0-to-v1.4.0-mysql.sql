@@ -101,8 +101,8 @@ INSERT INTO cc_config_group (group_title, group_description) VALUES ('agi-conf1'
 
 CREATE TABLE cc_config (
   	id 								INT NOT NULL auto_increment,
-	config_title		 			VARCHAR(64) NOT NULL,
-	config_key 						VARCHAR(64) NOT NULL,
+	config_title		 			TEXT NOT NULL,
+	config_key 						TEXT NOT NULL,
 	config_value 					TEXT NOT NULL,
 	config_description 				TEXT NOT NULL,
 	config_valuetype				INT NOT NULL DEFAULT 0,	
