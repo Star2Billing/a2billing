@@ -3,6 +3,19 @@
 ********************************************************************************
 
 
+#### FEATURE : CUSTOMER SERVICES FRIENDLY
+********************************************************************
+ 
+1. Make the customer account number a link everywhere that it is displayed, so that if you see a customer number, you click on it, and it takes you to the customer details screen.
+
+2. Within the customer accounts screen, have a link to click to bring up to the login screen A2BCustomer_UI - but without the requirement to fill again the user's name and password.
+
+3. A notes field against the customer - simply a free text field.
+
+4. A customer history, would include date stamped notes added by the Customer services, and may even display an element of the automatic history already displayed on the system.
+
+5. A Customer Dashboard - showing services, payments etc.
+
 
 #### ADDITIONAL CHARGES ON REALTIME BILLING
 ********************************************************************
