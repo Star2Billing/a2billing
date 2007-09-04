@@ -1868,7 +1868,7 @@ class A2Billing {
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 					continue;
 				}
-				$this->username = $this->cardnumber;
+				$this->accountcode = $this->username = $this->cardnumber;
 				
 				$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 				if ($this->config['database']['dbtype'] == "postgres"){
