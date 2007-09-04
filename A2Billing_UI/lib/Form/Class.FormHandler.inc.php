@@ -112,7 +112,10 @@ class FormHandler{
 	var $FG_OTHER_BUTTON1_IMG = '';
 	var $FG_OTHER_BUTTON2_IMG = '';
 	
-
+	var $FG_EDIT_PAGE_CONFIRM_BUTTON	= '';
+	var $FG_DELETE_PAGE_CONFIRM_BUTTON	= '';
+	var $FG_ADD_PAGE_CONFIRM_BUTTON		= '';
+	
 	/**
     * Sets the number of record to show by page
     * @public	-	@type integer
@@ -461,7 +464,12 @@ class FormHandler{
         $this -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("has been inserted. <br>");
         $this -> FG_TEXT_ERROR_DUPLICATION = gettext("You cannot choose more than one !");
 
-        $this -> FG_FK_DELETE_MESSAGE = "Are you sure to delete all records connected to this instance.";
+        $this -> FG_FK_DELETE_MESSAGE = gettext("Are you sure to delete all records connected to this instance.");
+		
+		$this -> FG_EDIT_PAGE_CONFIRM_BUTTON	= gettext("CONFIRM DATA");
+		$this -> FG_DELETE_PAGE_CONFIRM_BUTTON	= gettext('DELETE');
+		$this -> FG_ADD_PAGE_CONFIRM_BUTTON		= gettext('CONFIRM DATA');
+		
 		if($this -> FG_ENABLE_LOG == 1)
 		{
 			$this -> logger = new Logger();
