@@ -9,16 +9,16 @@
 // ************************************************************************
 
 
-class FormHandler{
+class FormHandler
+{	
 	var $_action = '';
 	var $_vars = null;
 	var $_processed = array();
 	var $DBHandle;
 	var $VALID_SQL_REG_EXP = true;
 	var $RESULT_QUERY = false;
-
-
-
+	
+	
 	/* CONFIG THE VIEWER : CV */
 	var $CV_TOPVIEWER = '';
 	var $CV_NO_FIELDS = "THERE IS NO RECORD !";
@@ -27,6 +27,9 @@ class FormHandler{
 	var $CV_DISPLAY_FILTER_ABOVE_TABLE = true;
 	var $CV_FILTER_ABOVE_TABLE_PARAM = "?id=";
 	var $CV_FOLLOWPARAMETERS = '';
+	
+	var $CV_DISPLAY_RECORD_LIMIT = true;
+	var $CV_DISPLAY_BROWSE_PAGE = true;
 
 	var $CV_CURRENT_PAGE = 0;
 
