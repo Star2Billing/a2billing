@@ -630,7 +630,11 @@ class RateEngine {
 		// Initialization additional block charge and additional block charge time variables
 		$additional_block_charge 		= $this->ratecard_obj[$K][61];   
 		$additional_block_charge_time 	= $this->ratecard_obj[$K][62];
-
+		
+		if (!is_numeric($rounding_calltime))			$rounding_calltime = 0;
+		if (!is_numeric($rounding_threshold))			$rounding_threshold = 0;
+		if (!is_numeric($additional_block_charge))		$additional_block_charge = 0;
+		if (!is_numeric($additional_block_charge_time))	$additional_block_charge_time = 0;
 		
 		if (!is_numeric($freetimetocall_used)) $freetimetocall_used=0;		
 		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$freetimetocall_used\n\n";
