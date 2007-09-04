@@ -14,7 +14,7 @@ if(isset($searchenabled) && $searchenabled == "yes")
 	if ($filterradio == "date")
 	{
 		$inv_create_startdate = date('Y-m-d',mktime(0,0,0, $monthselect,1, $yearselect));
-		if ($monthselect == 12)
+		if ($monthselect == 12){
 			$inv_create_enddate = date('Y-m-d',mktime(0,0,0, 1,1, $yearselect + 1));
 		} else {
 			$inv_create_enddate = date('Y-m-d',mktime(0,0,0, $monthselect + 1,1, $yearselect));
