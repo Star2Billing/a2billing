@@ -39,7 +39,7 @@
 	
 	
 2) Additional Block charge
-	
+
 	This is an additional charge that will be apply according to the duration of the call and 
 	the amount of "time block" inside the the calltime.
 	We will need 2 new fields in the ratecard to define this, 

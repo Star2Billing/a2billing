@@ -163,7 +163,11 @@ class RateEngine {
 		tp_trunk.maxuse, 
 		rt_trunk.maxuse,
 		tp_trunk.if_max_use, 
-		rt_trunk.if_max_use
+		rt_trunk.if_max_use,
+		cc_ratecard.rounding_calltime AS rounding_calltime,
+		cc_ratecard.rounding_threshold AS rounding_threshold,
+		cc_ratecard.additional_block_charge AS additional_block_charge,
+		cc_ratecard.additional_block_charge_time AS additional_block_charge_time
 		
 		FROM cc_tariffgroup 
 		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id=$tariffgroupid
@@ -591,7 +595,6 @@ class RateEngine {
 		RETURN $TIMEOUT + $this -> freetimetocall_left[$K];
 	}
 
-
 	/*
 		RATE ENGINE - CALCUL COST OF THE CALL
 		* CALCUL THE CREDIT COSUMED BY THE CALL
@@ -599,6 +602,13 @@ class RateEngine {
 	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used){
 	
 		$K = $this->usedratecard;
+		// Initialization rounding calltime and rounding threshold variables
+		$rounding_calltime = 0;   
+		$rounding_threshold = 0;
+		// Initialization additional block charge and additional block charge time variables
+		$additional_block_charge = 0;
+		$additional_block_charge_time = 0;
+
 		$buyrate = round(abs($this -> ratecard_obj[$K][9]),4);
 		$buyrateinitblock = $this -> ratecard_obj[$K][10];
 		$buyrateincrement = $this -> ratecard_obj[$K][11];
@@ -614,6 +624,10 @@ class RateEngine {
 		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
 		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
 		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
+		$rounding_calltime = $this->ratecard_obj[$K][59];   $rounding_threshold = $this->ratecard_obj[$K][60];
+		$additional_block_charge = $this->ratecard_obj[$K][61];   
+		$additional_block_charge_time = $this->ratecard_obj[$K][62];
+
 		
 		if (!is_numeric($freetimetocall_used)) $freetimetocall_used=0;		
 		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$freetimetocall_used\n\n";
@@ -622,6 +636,26 @@ class RateEngine {
 		$cost =0;
 		$cost -= $connectcharge;
 		$cost -= $disconnectcharge;
+		
+		/*
+		 * Following condition will append cost of call 
+		 * according to the the additional_block_charge and additional_block_charge_time
+		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 2
+		 */
+		// If call duration is greater then block charge time
+		if($callduration >= $additional_block_charge_time){
+			$block_charge = intval($callduration / $additional_block_charge_time);
+			$cost += $block_charge * $additional_block_charge;
+		}
+		
+		/*
+		 * In following condition callduration will be updated 
+		 * according to the the rounding_calltime and rounding_threshold
+		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 1
+		 */
+		if($rounding_calltime > 0 && $rounding_threshold > 0 && $rounding_threshold > $callduration && $rounding_calltime > $callduration){
+			$callduration = $rounding_calltime;
+		}
 		
 		// CALCULATION BUYRATE COST
 		$buyratecallduration = $callduration;
