@@ -678,13 +678,12 @@ class RateEngine {
 
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
+		if ($callduration < $initblock) $callduration = $initblock;
 		$callduration = $callduration - $freetimetocall_used;
 		
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
-		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
-		
-			if ($callduration<$initblock) $callduration=$initblock;
+		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0) {
 			
 			if ($billingblock > 0) {	
 				$mod_sec = $callduration % $billingblock;  
@@ -702,7 +701,10 @@ class RateEngine {
 			$cost -= $stepchargea;
 			if ($this -> debug_st)  echo "1.A cost: $cost\n\n";
 			
-			if ($callduration>$timechargea){ $duration_report = $callduration-$timechargea; $callduration=$timechargea; }
+			if ($callduration > $timechargea) {
+				$duration_report = $callduration - $timechargea;
+				$callduration = $timechargea;
+			}
 			
 			if ($billingblocka > 0) {	
 				$mod_sec = $callduration % $billingblocka;  
@@ -712,15 +714,15 @@ class RateEngine {
 			
 			if (($duration_report>0) && !(empty($chargeb) || $chargeb==0 || empty($timechargeb) || $timechargeb==0) )
 			{
-				$callduration=$duration_report;
-				$duration_report=0;				
+				$callduration = $duration_report;
+				$duration_report = 0;				
 				
 				// CYCLE B
 				$cost -= $stepchargeb;
 				if ($this -> debug_st)  echo "1.B cost: $cost\n\n";
 					
-				if ($callduration>$timechargeb){ 
-					$duration_report = $callduration-$timechargeb; 
+				if ($callduration > $timechargeb){ 
+					$duration_report = $callduration - $timechargeb; 
 					$callduration=$timechargeb;
 				}
 					
@@ -740,8 +742,8 @@ class RateEngine {
 					$cost -= $stepchargec;
 					if ($this -> debug_st)  echo "1.C cost: $cost\n\n";
 							
-					if ($callduration>$timechargec){ 
-						$duration_report = $callduration-$timechargec; 
+					if ($callduration > $timechargec){ 
+						$duration_report = $callduration - $timechargec; 
 						$callduration=$timechargec; 
 					}
 							
@@ -754,10 +756,8 @@ class RateEngine {
 				}
 			}
 			
-			if ($duration_report>0){
-			
-				if ($duration_report<$initblock) $duration_report=$initblock;
-		
+			if ($duration_report > 0){
+				
 				if ($billingblock > 0) {	
 					$mod_sec = $duration_report % $billingblock;  
 					if ($mod_sec>0) $duration_report += ($billingblock - $mod_sec);
