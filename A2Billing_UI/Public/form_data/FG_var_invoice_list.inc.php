@@ -13,9 +13,13 @@ if(isset($searchenabled) && $searchenabled == "yes")
 {
 	if ($filterradio == "date")
 	{
-		$inv_create_date = date('Y-m-d',mktime(0,0,0, $monthselect,8, $yearselect));
-		
-		$HD_Form -> FG_TABLE_CLAUSE = "inv.cardid = $cardid AND inv.cover_enddate = '".$inv_create_date."'";
+		$inv_create_startdate = date('Y-m-d',mktime(0,0,0, $monthselect,1, $yearselect));
+		if ($monthselect == 12)
+			$inv_create_enddate = date('Y-m-d',mktime(0,0,0, 1,1, $yearselect + 1));
+		} else {
+			$inv_create_enddate = date('Y-m-d',mktime(0,0,0, $monthselect + 1,1, $yearselect));
+		}
+		$HD_Form -> FG_TABLE_CLAUSE = "inv.cardid = $cardid AND inv.cover_enddate >= '".$inv_create_startdate."' AND inv.cover_enddate < '".$inv_create_enddate."'";
 	}
 	if ($filterradio == "payment")
 	{
