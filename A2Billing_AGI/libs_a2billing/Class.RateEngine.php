@@ -599,34 +599,37 @@ class RateEngine {
 		RATE ENGINE - CALCUL COST OF THE CALL
 		* CALCUL THE CREDIT COSUMED BY THE CALL
 	*/
-	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used){
-	
+	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used)
+	{	
 		$K = $this->usedratecard;
-		// Initialization rounding calltime and rounding threshold variables
-		$rounding_calltime = 0;   
-		$rounding_threshold = 0;
-		// Initialization additional block charge and additional block charge time variables
-		$additional_block_charge = 0;
-		$additional_block_charge_time = 0;
-
-		$buyrate = round(abs($this -> ratecard_obj[$K][9]),4);
-		$buyrateinitblock = $this -> ratecard_obj[$K][10];
-		$buyrateincrement = $this -> ratecard_obj[$K][11];
 		
-		$rateinitial = round(abs($this -> ratecard_obj[$K][12]),4);
-		$initblock = $this -> ratecard_obj[$K][13];
-		$billingblock = $this -> ratecard_obj[$K][14];	
-		$connectcharge = round(abs($this -> ratecard_obj[$K][15]),4);
-		$disconnectcharge = round(abs($this -> ratecard_obj[$K][16]),4);	
-		$stepchargea = $this -> ratecard_obj[$K][17]; 		$chargea = round(abs($this -> ratecard_obj[$K][18]),4);
-		$timechargea = $this -> ratecard_obj[$K][19];		$billingblocka = $this -> ratecard_obj[$K][20];	
-		$stepchargeb = $this -> ratecard_obj[$K][21];		$chargeb = round(abs($this -> ratecard_obj[$K][22]),4);
-		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
-		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
-		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
-		$rounding_calltime = $this->ratecard_obj[$K][59];   $rounding_threshold = $this->ratecard_obj[$K][60];
-		$additional_block_charge = $this->ratecard_obj[$K][61];   
-		$additional_block_charge_time = $this->ratecard_obj[$K][62];
+		$buyrate 						= round(abs($this -> ratecard_obj[$K][9]),4);
+		$buyrateinitblock 				= $this -> ratecard_obj[$K][10];
+		$buyrateincrement 				= $this -> ratecard_obj[$K][11];
+		
+		$rateinitial 					= round(abs($this -> ratecard_obj[$K][12]),4);
+		$initblock 						= $this -> ratecard_obj[$K][13];
+		$billingblock 					= $this -> ratecard_obj[$K][14];	
+		$connectcharge 					= round(abs($this -> ratecard_obj[$K][15]),4);
+		$disconnectcharge 				= round(abs($this -> ratecard_obj[$K][16]),4);	
+		$stepchargea 					= $this -> ratecard_obj[$K][17];
+		$chargea 						= round(abs($this -> ratecard_obj[$K][18]),4);
+		$timechargea 					= $this -> ratecard_obj[$K][19];
+		$billingblocka 					= $this -> ratecard_obj[$K][20];	
+		$stepchargeb 					= $this -> ratecard_obj[$K][21];
+		$chargeb 						= round(abs($this -> ratecard_obj[$K][22]),4);
+		$timechargeb 					= $this -> ratecard_obj[$K][23];
+		$billingblockb 					= $this -> ratecard_obj[$K][24];	
+		$stepchargec 					= $this -> ratecard_obj[$K][25];
+		$chargec 						= round(abs($this -> ratecard_obj[$K][26]),4);	
+		$timechargec 					= $this -> ratecard_obj[$K][27];
+		$billingblockc 					= $this -> ratecard_obj[$K][28];
+		// Initialization rounding calltime and rounding threshold variables
+		$rounding_calltime 				= $this->ratecard_obj[$K][59];   
+		$rounding_threshold 			= $this->ratecard_obj[$K][60];
+		// Initialization additional block charge and additional block charge time variables
+		$additional_block_charge 		= $this->ratecard_obj[$K][61];   
+		$additional_block_charge_time 	= $this->ratecard_obj[$K][62];
 
 		
 		if (!is_numeric($freetimetocall_used)) $freetimetocall_used=0;		
