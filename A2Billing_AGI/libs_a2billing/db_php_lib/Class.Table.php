@@ -97,10 +97,15 @@ class Table {
 	// If $select is not supplied then function check numrows
 	// so expect a SELECT query.
 	
-	function SQLExec ($DBHandle, $QUERY, $select = 1)
+	function SQLExec ($DBHandle, $QUERY, $select = 1, $cache = 0)
 	{
+
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
-		$res = $DBHandle -> Execute($QUERY);
+		if ($cache > 0) {
+			$res = $DBHandle -> CacheExecute($cache, $QUERY);
+		} else {
+			$res = $DBHandle -> Execute($QUERY);
+		}
 		
 		if (!$res) {
 			$this -> errstr = "Could not do a select count on the table '".$this -> table."'";
@@ -123,10 +128,9 @@ class Table {
 	}
 	
 	
-	function Get_list ($DBHandle, $clause=null, $order=null, $sens=null, $field_order_letter=null, $letters = null, $limite=null, $current_record=NULL, $sql_group= NULL)
-	{	
+	function Get_list ($DBHandle, $clause = NULL, $order = NULL, $sens = NULL, $field_order_letter = NULL, $letters = NULL, $limite = NULL, $current_record = NULL, $sql_group= NULL, $cache = 0)
+	{
 		$sql = 'SELECT '.$this -> fields.' FROM '.trim($this -> table);
-		
 		$sql_clause='';
 		if ($clause!='') {
 			$sql_clause=' WHERE '.$clause;
@@ -148,6 +152,7 @@ class Table {
 			$sql_orderby = " ORDER BY $sp".$order."$sp $sens";
 		}
 		
+		$sql_limit ='';
 		if (!is_null ($limite) && (is_numeric($limite)) && !is_null ($current_record) && (is_numeric($current_record)) ) {
 			if (DB_TYPE == "postgres") {
 				$sql_limit = " LIMIT $limite OFFSET $current_record";
@@ -157,13 +162,17 @@ class Table {
 		}
 		
 		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
-		print $QUERY;
+		//print $QUERY;
 		
 		if ($this -> debug_st) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		}
 		
-		$res = $DBHandle -> Execute($QUERY);
+		if ($cache > 0) {
+			$res = $DBHandle -> CacheExecute($cache, $QUERY);
+		} else {
+			$res = $DBHandle -> Execute($QUERY);
+		}
 		if (!$res) {
 			$this -> errstr = "Could not do a select on the table '".$this -> table."'";
 			return (false);
@@ -210,7 +219,6 @@ class Table {
 	
 	
 	function Add_table ($DBHandle, $value, $func_fields = null, $func_table = null, $id_name = null, $subquery = false) {
-		
 		if ($func_fields!="") {
 			$this -> fields = $func_fields;
 		}
@@ -218,7 +226,6 @@ class Table {
 		if ($func_table !="") {
 			$this -> table = $func_table;
 		}
-		
 		if ($subquery) {
 			$QUERY = "INSERT INTO $sp".$this -> table."$sp (".$this -> fields.") (".trim ($value).")";	
 		} else {
@@ -230,6 +237,7 @@ class Table {
 		if ($this -> debug_stop_add) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); 
 		}
+//		print $QUERY;exit;
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res) {
