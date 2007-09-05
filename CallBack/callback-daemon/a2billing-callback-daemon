@@ -21,6 +21,14 @@ my $conf_file = "/etc/asterisk/a2billing.conf";
 # Read the config file
 my $cfg = Config::IniFiles->new( -file => $conf_file );
 
+if (not defined $cfg) {
+       print "Failed to parse $conf_file: \n";
+       foreach(@Config::IniFiles::errors) {
+               print "Error: $_\n" ;
+       }
+       exit(1);
+}
+
 ######################### DB PARAMETER ########################
 my $dbname = $cfg->val('database', 'dbname');
 my $dbhost = $cfg->val('database', 'hostname');
