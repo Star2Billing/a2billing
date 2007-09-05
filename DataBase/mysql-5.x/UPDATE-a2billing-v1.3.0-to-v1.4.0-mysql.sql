@@ -553,10 +553,10 @@ update cc_card set status = 1 where activated = 't';
 update cc_card set status = 0 where activated = 'f';
 
 CREATE TABLE cc_status_log (
-	id bigint(20) NOT NULL auto_increment,
-	status int(11) NOT NULL,
-	id_cc_card bigint(20) NOT NULL,
-	updated_date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	id 				BIGINT(20) NOT NULL AUTO_INCREMENT,
+	status 			INT(11) NOT NULL,
+	id_cc_card 		BIGINT(20) NOT NULL,
+	updated_date 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -583,9 +583,9 @@ ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
 ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
 
 CREATE TABLE cc_card_history (
-id BIGINT NOT NULL AUTO_INCREMENT,
-id_cc_card BIGINT ,
-datecreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-description	TEXT,
-PRIMARY KEY (id)
-)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+	id 					BIGINT NOT NULL AUTO_INCREMENT,
+	id_cc_card 			BIGINT,
+	datecreated 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	description			TEXT,
+	PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
