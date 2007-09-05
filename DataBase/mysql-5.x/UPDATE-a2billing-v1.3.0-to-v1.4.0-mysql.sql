@@ -1,50 +1,50 @@
-CREATE TABLE `cc_invoice_items` (
-  `id` bigint(20) NOT NULL auto_increment,
-  `invoiceid` int(11) NOT NULL,
-  `invoicesection` text,
-  `designation` text,
-  `sub_designation` text,
-  `start_date` date default NULL,
-  `end_date` date default NULL,
-  `bill_date` date default NULL,
-  `calltime` int(11) default NULL,
-  `nbcalls` int(11) default NULL,
-  `quantity` int(11) default NULL,
-  `price` decimal(15,5) default NULL,
-  `buy_price` decimal(15,5) default NULL,
-  PRIMARY KEY  (`id`)
+CREATE TABLE cc_invoice_items (
+	id bigint(20) NOT NULL auto_increment,
+	invoiceid int(11) NOT NULL,
+	invoicesection text,
+	designation text,
+	sub_designation text,
+	start_date date default NULL,
+	end_date date default NULL,
+	bill_date date default NULL,
+	calltime int(11) default NULL,
+	nbcalls int(11) default NULL,
+	quantity int(11) default NULL,
+	price decimal(15,5) default NULL,
+	buy_price decimal(15,5) default NULL,
+	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-CREATE TABLE `cc_invoice` (
-  `id` int(11) NOT NULL auto_increment,
-  `cardid` bigint(20) NOT NULL,
-  `invoicecreated_date` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `amount` decimal(15,5) default '0.00000',
-  `tax` decimal(15,5) default '0.00000',
-  `total` decimal(15,5) default '0.00000',
-  `filename` varchar(250) collate utf8_bin default NULL,
-  `payment_status` int(11) default '0',
-  `cover_call_startdate` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `cover_call_enddate` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `cover_charge_startdate` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `cover_charge_enddate` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `currency` varchar(3) collate utf8_bin default NULL,
-  `previous_balance` decimal(15,5) default NULL,
-  `current_balance` decimal(15,5) default NULL,
-  `templatefile` varchar(250) collate utf8_bin default NULL,
-  `username` char(50) collate utf8_bin default NULL,
-  `lastname` char(50) collate utf8_bin default NULL,
-  `firstname` char(50) collate utf8_bin default NULL,
-  `address` char(100) collate utf8_bin default NULL,
-  `city` char(40) collate utf8_bin default NULL,
-  `state` char(40) collate utf8_bin default NULL,
-  `country` char(40) collate utf8_bin default NULL,
-  `zipcode` char(20) collate utf8_bin default NULL,
-  `phone` char(20) collate utf8_bin default NULL,
-  `email` char(70) collate utf8_bin default NULL,
-  `fax` char(20) collate utf8_bin default NULL,
-  `vat` float default NULL,
-  PRIMARY KEY  (`id`)
+CREATE TABLE cc_invoice (
+	id int(11) NOT NULL auto_increment,
+	cardid bigint(20) NOT NULL,
+	invoicecreated_date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	amount decimal(15,5) default '0.00000',
+	tax decimal(15,5) default '0.00000',
+	total decimal(15,5) default '0.00000',
+	filename varchar(250) collate utf8_bin default NULL,
+	payment_status int(11) default '0',
+	cover_call_startdate timestamp NOT NULL default '0000-00-00 00:00:00',
+	cover_call_enddate timestamp NOT NULL default '0000-00-00 00:00:00',
+	cover_charge_startdate timestamp NOT NULL default '0000-00-00 00:00:00',
+	cover_charge_enddate timestamp NOT NULL default '0000-00-00 00:00:00',
+	currency varchar(3) collate utf8_bin default NULL,
+	previous_balance decimal(15,5) default NULL,
+	current_balance decimal(15,5) default NULL,
+	templatefile varchar(250) collate utf8_bin default NULL,
+	username char(50) collate utf8_bin default NULL,
+	lastname char(50) collate utf8_bin default NULL,
+	firstname char(50) collate utf8_bin default NULL,
+	address char(100) collate utf8_bin default NULL,
+	city char(40) collate utf8_bin default NULL,
+	state char(40) collate utf8_bin default NULL,
+	country char(40) collate utf8_bin default NULL,
+	zipcode char(20) collate utf8_bin default NULL,
+	phone char(20) collate utf8_bin default NULL,
+	email char(70) collate utf8_bin default NULL,
+	fax char(20) collate utf8_bin default NULL,
+	vat float default NULL,
+	PRIMARY KEY  (id)
 ) ENGINE=MyISAM AUTO_INCREMENT=363 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_charge DROP COLUMN id_cc_subscription_fee;
@@ -72,10 +72,8 @@ PRIMARY KEY (id)
 
 
 ALTER TABLE cc_card DROP id_subscription_fee;
-
 ALTER TABLE cc_card ADD COLUMN id_timezone INT DEFAULT 0;
-ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
-ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
+
 
 CREATE TABLE cc_config_group (
   	id 								INT NOT NULL auto_increment,
@@ -548,19 +546,22 @@ ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL ;
 ALTER TABLE cc_templatemail DROP PRIMARY KEY;
 ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language ); 
 
+
 ALTER TABLE cc_card ADD status INT NOT NULL DEFAULT '2' AFTER activated ;
 update cc_card set status = 1 where activated = 't';
 update cc_card set status = 0 where activated = 'f';
+
 CREATE TABLE cc_status_log (
-  id bigint(20) NOT NULL auto_increment,
-  status int(11) NOT NULL,
-  id_cc_card bigint(20) NOT NULL,
-  updated_date timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (id)
+	id bigint(20) NOT NULL auto_increment,
+	status int(11) NOT NULL,
+	id_cc_card bigint(20) NOT NULL,
+	updated_date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 CREATE TABLE cc_status (
-  id int(11) NOT NULL,
-  status varchar(255) NOT NULL
+	id int(11) NOT NULL,
+	status varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_status (id, status) VALUES (0, 'Cancelled');
@@ -573,5 +574,9 @@ INSERT INTO cc_status (id, status) VALUES (5, 'Expired');
 ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
 ALTER TABLE cc_ratecard ADD COLUMN rounding_calltime INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN rounding_threshold INT NOT NULL DEFAULT 0;
-ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge FLOAT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge DECIMAL(15,5) NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEFAULT 0;
+
+
+ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
+ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;

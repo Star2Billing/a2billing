@@ -1,4 +1,63 @@
 
+CREATE TABLE cc_invoice_items (
+	id 						BIGSERIAL NOT NULL,
+	invoiceid 				INTEGER NOT NULL,
+	invoicesection 			TEXT,
+	designation 			TEXT,
+	sub_designation 		TEXT,
+	start_date 				DATE DEFAULT NULL,
+	end_date 				date default NULL,
+	bill_date 				date default NULL,
+	calltime 				INTEGER DEFAULT NULL,
+	nbcalls 				INTEGER DEFAULT NULL,
+	quantity 				INTEGER DEFAULT NULL,
+	price 					DECIMAL(15,5) DEFAULT NULL,
+	buy_price				DECIMAL(15,5) DEFAULT NULL
+);
+ALTER TABLE ONLY cc_invoice_items
+ADD CONSTRAINT cc_invoice_items_pkey PRIMARY KEY (id);
+
+
+CREATE TABLE cc_invoice (
+	id 						BIGSERIAL NOT NULL,
+	cardid 					BIGINT DEFAULT 0 NOT NULL,
+	invoicecreated_date 	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	amount 					DECIMAL(15,5) DEFAULT '0.00000',
+	tax						DECIMAL(15,5) DEFAULT '0.00000',
+	total					DECIMAL(15,5) DEFAULT '0.00000',
+	filename				CHARACTER VARYING(255) NOT NULL,
+	payment_status 			INT DEFAULT 0 NOT NULL,
+	cover_call_startdate 	TIMESTAMP WITHOUT TIME ZONE,
+	cover_call_enddate 		TIMESTAMP WITHOUT TIME ZONE,
+	cover_charge_startdate 	TIMESTAMP WITHOUT TIME ZONE,
+	cover_charge_enddate 	TIMESTAMP WITHOUT TIME ZONE,
+	currency 				CHARACTER VARYING(3) NOT NULL,
+	previous_balance 		DECIMAL(15,5) DEFAULT '0.00000',
+	current_balance 		DECIMAL(15,5) DEFAULT '0.00000',
+	templatefile 			CHARACTER VARYING(255) NOT NULL,
+	username 				CHARACTER VARYING(50) NOT NULL,
+	lastname 				CHARACTER VARYING(50) NOT NULL,
+	firstname 				CHARACTER VARYING(50) NOT NULL,
+	address 				CHARACTER VARYING(100) NOT NULL,
+	city					CHARACTER VARYING(40) NOT NULL,
+	state					CHARACTER VARYING(40) NOT NULL,
+	country					CHARACTER VARYING(40) NOT NULL,
+	zipcode 				CHARACTER VARYING(20) NOT NULL,
+	phone					CHARACTER VARYING(20) NOT NULL,
+	email					CHARACTER VARYING(70) NOT NULL,
+	fax						CHARACTER VARYING(20) NOT NULL,
+	vat						FLOAT DEFAULT NULL
+);
+ALTER TABLE ONLY cc_invoice
+ADD CONSTRAINT cc_invoice_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE cc_charge DROP COLUMN id_cc_subscription_fee;
+
+ALTER TABLE cc_charge ADD COLUMN id_cc_card_subscription BIGINT;
+ALTER TABLE cc_charge ADD COLUMN cover_from DATE;
+ALTER TABLE cc_charge ADD COLUMN cover_to 	DATE;
+
 
 ALTER TABLE cc_trunk ADD COLUMN inuse INT DEFAULT 0;
 ALTER TABLE cc_trunk ADD COLUMN maxuse INT DEFAULT -1;
@@ -14,8 +73,9 @@ CREATE TABLE cc_card_subscription (
     stopdate 						TIMESTAMP WITHOUT TIME ZONE,
 	description 					TEXT
 );
+ALTER TABLE ONLY cc_card_subscription
+ADD CONSTRAINT cc_card_subscription_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY cc_card_subscription    ADD CONSTRAINT cc_card_subscription_pkey PRIMARY KEY (id);
 
 ALTER TABLE cc_card DROP id_subscription_fee;
 ALTER TABLE cc_card ADD COLUMN id_timezone INTEGER DEFAULT 0;
@@ -534,3 +594,7 @@ ALTER TABLE cc_ratecard ADD COLUMN rounding_calltime INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN rounding_threshold INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge NUMERIC(12,4) NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEFAULT 0;
+
+
+ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
+ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
