@@ -15,8 +15,8 @@ $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
-$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid');
-$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card");
+$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid', 'cc_card_history');
+$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card", "id_cc_card");
 // DEFINE IF WE WANT TO DELETE THE CARD OR NOT
 $HD_Form -> FG_FK_WARNONLY = DELETE_FK_CARD;
 
@@ -657,6 +657,17 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "label, id",
 			   "", "", "%1 : (%2)", "", "", "cc_callerid:cid:cc_callerid:cid, cid, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card='%1':18");
 
+$HD_Form -> AddEditElement (gettext("CARD HISTORY"),
+			   "description",
+			   '$value',
+			   "INSERT",
+			   "multiline",
+			   "",
+			   "",
+			   "sql",
+			   "card_history",
+			   "description, id",
+			   "", "", "%2", "", "", "cc_card_history:description:cc_card_history:description, description, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:'%1':id_cc_card='%1':18");
 
 
 

@@ -1,4 +1,3 @@
-
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -440,7 +439,7 @@ function sendtolittle(direction){
                             <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px" class="form_head">
                             	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 	<TR>
-                                		<TD class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?><?php echo gettext("LIST");?> </TD>
+                                		<TD class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?>&nbsp;<?php echo gettext("LIST");?> </TD>
                                 	</TR>
                             	</TABLE>
 							</TD>
@@ -473,7 +472,12 @@ function sendtolittle(direction){
                                   <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
                                     <TD vAlign="top" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" class="tableBody">
                                       <font face="Verdana" size="2">
-                                      <b><?php echo $split_select_list[$j][$table_split[7]]?></b> : <?php echo $split_select_list[$j][0]?>
+                                      <?php if(!empty($split_select_list[$j][$table_split[7]]))
+                                      {
+                                      ?>
+                                      <b><?php echo $split_select_list[$j][$table_split[7]]?></b> : 
+                                      <?php }?>
+                                      <?php echo $split_select_list[$j][0]?>
                                       </font> </TD>
                                     <TD align="center" vAlign="top2" class="tableBodyRight">
                                       <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_split[1]?>','<?php echo $split_select_list[$j][1]?>');" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
@@ -528,13 +532,17 @@ function sendtolittle(direction){
 								<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
 									<TR> 
 										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
-										<TD width="516"><div align="center"> 				
+										<TD width="516"><div align="left"> 	
+										<?php if($this->FG_TABLE_EDITION[$i][4] == "multiline"){?>
+							  				<textarea name=<?php echo $table_split[1]?> class="form_input_text"  col="20" rows="5"></textarea>
+										<?php }else{?>
 											<INPUT TYPE="TEXT" name=<?php echo $table_split[1]?> class="form_input_text"  size="20" maxlength="20">
+										<?php }?>
 										</TD>
-                                    </TR>                                    
+                                    </TR>
                                     <TR> 
 										<TD colspan="2" align="center">									  	
-											<input onClick="sendto('add-content','<?php echo $i?>');" alt="add new a <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="<?php echo Images_Path_Main;?>/btn_Add_94x20.gif" type=image width=94 value="add-split">
+											<input onClick="sendto('add-content','<?=$i?>');" alt="add new a <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="<?php echo Images_Path_Main;?>/btn_Add_94x20.gif" type=image width=94 value="add-split">
 										</TD>
                                     </TR>
                                     <TR> 

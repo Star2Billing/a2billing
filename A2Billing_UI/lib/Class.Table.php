@@ -99,6 +99,7 @@ class Table {
 	
 	function SQLExec ($DBHandle, $QUERY, $select = 1, $cache = 0)
 	{
+
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($cache > 0) {
 			$res = $DBHandle -> CacheExecute($cache, $QUERY);
@@ -218,7 +219,6 @@ class Table {
 	
 	
 	function Add_table ($DBHandle, $value, $func_fields = null, $func_table = null, $id_name = null, $subquery = false) {
-		
 		if ($func_fields!="") {
 			$this -> fields = $func_fields;
 		}
@@ -226,7 +226,6 @@ class Table {
 		if ($func_table !="") {
 			$this -> table = $func_table;
 		}
-		
 		if ($subquery) {
 			$QUERY = "INSERT INTO $sp".$this -> table."$sp (".$this -> fields.") (".trim ($value).")";	
 		} else {
@@ -238,6 +237,7 @@ class Table {
 		if ($this -> debug_stop_add) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); 
 		}
+//		print $QUERY;exit;
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res) {

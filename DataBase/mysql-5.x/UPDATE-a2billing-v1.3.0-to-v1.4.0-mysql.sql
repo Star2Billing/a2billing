@@ -580,3 +580,11 @@ ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEF
 
 ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
 ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
+
+CREATE TABLE cc_card_history (
+id BIGINT NOT NULL AUTO_INCREMENT,
+id_cc_card BIGINT ,
+datecreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+description	TEXT,
+PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

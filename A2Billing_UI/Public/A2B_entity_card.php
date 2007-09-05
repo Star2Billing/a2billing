@@ -125,6 +125,8 @@ $list = $HD_Form -> perform_action($form_action);
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
+
+
 if ($popup_select){
 ?>
 <SCRIPT LANGUAGE="javascript">
@@ -142,6 +144,7 @@ function sendValue(selvalue){
 // #### HELP SECTION
 if ($form_action=='list' && !($popup_select>=1)){
 echo $CC_help_list_customer;
+
 
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
@@ -485,6 +488,18 @@ if (!$popup_select && $form_action == "ask-add"){
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+if ($form_action=='ask-edit')
+{
+	$inst_table = new Table("cc_card", "useralias, uipass");
+	$FG_TABLE_CLAUSE = "id = $id";
+	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
+	$username = $list_card_info[0][0];
+	$password = base64_encode($list_card_info[0][1]);
+	
+?>
+
+		<div align="right" style="padding-right:20px;"><a href="../../A2BCustomer_UI/index.php?username=<?=$username?>&password=<?=$password?>" target="_blank">GO TO CUSTOMER ACCOUNT</a></div>
+<?php }
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 

@@ -598,3 +598,13 @@ ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEF
 
 ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
 ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
+
+
+CREATE TABLE cc_card_history (
+	id 								BIGSERIAL NOT NULL,
+	id_cc_card 						BIGINT DEFAULT 0 NOT NULL,
+    datecreated						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	description 					TEXT
+);
+ALTER TABLE ONLY cc_card_history    ADD CONSTRAINT cc_card_history_pkey PRIMARY KEY (id);
+

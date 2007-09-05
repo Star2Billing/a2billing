@@ -87,12 +87,12 @@
 				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="templates/{$SKIN_NAME}/images/password.png"></td>
 				<td></td>
 				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>User:</b></font></td>
-				<td><input class="form_input_text" type="text" name="pr_login"></td>
+				<td><input class="form_input_text" type="text" name="pr_login" value="{$username}"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
 				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>Password:</b></font></td>
-				<td><input class="form_input_text" type="password" name="pr_password"></td>
+				<td><input class="form_input_text" type="password" name="pr_password" value="{$password}"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
