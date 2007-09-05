@@ -1,3 +1,4 @@
+
 CREATE TABLE cc_invoice_items (
 	id bigint(20) NOT NULL auto_increment,
 	invoiceid int(11) NOT NULL,
@@ -13,7 +14,7 @@ CREATE TABLE cc_invoice_items (
 	price decimal(15,5) default NULL,
 	buy_price decimal(15,5) default NULL,
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE cc_invoice (
 	id int(11) NOT NULL auto_increment,
@@ -45,7 +46,7 @@ CREATE TABLE cc_invoice (
 	fax char(20) collate utf8_bin default NULL,
 	vat float default NULL,
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM AUTO_INCREMENT=363 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_charge DROP COLUMN id_cc_subscription_fee;
 
@@ -60,14 +61,14 @@ ALTER TABLE cc_trunk ADD COLUMN if_max_use INT DEFAULT 0;
 
 
 CREATE TABLE cc_card_subscription (
-id BIGINT NOT NULL AUTO_INCREMENT,
-id_cc_card BIGINT ,
-id_subscription_fee INT,
-startdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-stopdate TIMESTAMP,
-product_id TINYTEXT,
-product_name TEXT,
-PRIMARY KEY (id)
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	id_cc_card BIGINT ,
+	id_subscription_fee INT,
+	startdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	stopdate TIMESTAMP,
+	product_id TINYTEXT,
+	product_name TEXT,
+	PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
@@ -80,7 +81,7 @@ CREATE TABLE cc_config_group (
 	group_title 					VARCHAR(64) NOT NULL,	
 	group_description 				VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_config_group (group_title, group_description) VALUES ('global', 'This configuration group handles the global settings for application.');
 INSERT INTO cc_config_group (group_title, group_description) VALUES ('callback', 'This configuration group handles calllback settings.');
@@ -107,7 +108,7 @@ CREATE TABLE cc_config (
 	config_group_id 				INT NOT NULL,
 	config_listvalues				TEXT,
 	PRIMARY KEY (id)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Number length', 'interval_len_cardnumber', '11-15', 'Card Number length, You can define a Range e.g:10-15.', 0, 1, '10-15,11-15,12-15');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Alias Length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, 1, NULL);
@@ -540,7 +541,7 @@ INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('za', 'Zhuang        
 INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('zu', 'Zulu            ', '                ', 'ISO-8859-1      ');
 
 ALTER TABLE cc_templatemail DROP INDEX cons_cc_templatemail_mailtype;
-ALTER TABLE cc_templatemail ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST ,
+ALTER TABLE cc_templatemail ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST,
 ADD id_language CHAR( 20 ) NOT NULL DEFAULT 'en' AFTER id ;
 ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL ;
 ALTER TABLE cc_templatemail DROP PRIMARY KEY;
