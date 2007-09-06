@@ -5,11 +5,10 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_statuslog.inc");
 include ("../lib/smarty.php");
 
-if (! has_rights (ACX_ADMINISTRATOR)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-
+if (! has_rights (ACX_CUSTOMER)){ 
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 /***********************************************************************************/
@@ -56,7 +55,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 				<td class="bgcolor_005" align="left">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 					<td class="fontstyle_searchoptions">
-					<INPUT TYPE="text" NAME="enteradmin" value="<?php echo $enteradmin?>" class="form_input_text">
+					<INPUT TYPE="text" NAME="id_cc_card" value="<?php echo $id_cc_card?>" class="form_input_text">
 						<a href="#" onclick="window.open('A2B_entity_card.php?nodisplay=1&popup_select=1&popup_formname=theForm&popup_fieldname=choose_list' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 					</td>					
 				</tr></table></td>

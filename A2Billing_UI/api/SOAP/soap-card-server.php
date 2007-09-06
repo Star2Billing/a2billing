@@ -121,13 +121,12 @@ class Cards
 			return array($transaction_code, 'result=500', " ERROR - Update : $card_id");
 		}
 		return array($transaction_code, 'result=200', " - Activate card : $card_id");
-	 }
+	}
 
 	function Batch_Activation_Card($security_key, $transaction_code, $begin_card_id, $end_card_id)
 	{
 		// BATCH ACTIVATE
 		$DBHandle  = DbConnect();
-
 		$instance_table_card = new Table("cc_card", "id");
 		
 		// initialization variables

@@ -3,6 +3,15 @@
 ********************************************************************************
 
 
+#### TRUNK CHANGE : UPDATE DAEMON TO USE THE DB CONF
+********************************************************************
+read conf from the DB
+
+	my $manager_host = $cfg->val('global', 'manager_host');
+	my $manager_username = $cfg->val('global', 'manager_username');
+	my $manager_secret = $cfg->val('global', 'manager_secret');
+
+
 #### FEATURE : CUSTOMER SERVICES FRIENDLY
 ********************************************************************
  
