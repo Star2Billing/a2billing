@@ -1,0 +1,3355 @@
+<?xml version="1.0" ?>
+<!-- WWWSQLEditor XML export -->
+<sql>
+	<table id="0" title="cc_prefix" x="10" y="110" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk">
+			<title>id_cc_country</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>prefixe</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>destination</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="1" title="cc_ratecard" x="206" y="110" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="2" fk="fk" nn="nn">
+			<title>idtariffplan</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn">
+			<title>dialprefix</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>destination</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>buyrate</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>buyrateinitblock</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>buyrateincrement</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>rateinitial</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>initblock</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>billingblock</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="10" nn="nn">
+			<title>connectcharge</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="11" nn="nn">
+			<title>disconnectcharge</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="12" nn="nn">
+			<title>stepchargea</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="13" nn="nn">
+			<title>chargea</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="14" nn="nn">
+			<title>timechargea</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="15" nn="nn">
+			<title>billingblocka</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="16" nn="nn">
+			<title>stepchargeb</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="17" nn="nn">
+			<title>chargeb</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="18" nn="nn">
+			<title>timechargeb</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="19" nn="nn">
+			<title>billingblockb</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="20" nn="nn">
+			<title>stepchargec</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="21" nn="nn">
+			<title>chargec</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="22" nn="nn">
+			<title>timechargec</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="23" nn="nn">
+			<title>billingblockc</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="24">
+			<title>startdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="25">
+			<title>stopdate</title>
+			<default></default>
+			<type>Timestamp</type>
+		</row>
+		<row id="26" nn="nn">
+			<title>starttime</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="27" nn="nn">
+			<title>endtime</title>
+			<default>10079</default>
+			<type>Integer</type>
+		</row>
+		<row id="29" fk="fk">
+			<title>id_cc_trunk</title>
+			<default>-1</default>
+			<type>Integer</type>
+		</row>
+		<row id="28" special="100">
+			<title>musiconhold</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="30" nn="nn">
+			<title>freetimetocall_package_offer</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="31" fk="fk">
+			<title>id_outbound_cidgroup</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="2" title="cc_didgroup" x="522" y="110" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>iduser</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>didgroupname</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="3" title="cc_tariffplan" x="710" y="110" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk" index="index" nn="nn">
+			<title>iduser</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" index="index" nn="nn">
+			<title>tariffname</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="4">
+			<title>startingdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="5">
+			<title>expirationdate</title>
+			<default></default>
+			<type>Timestamp</type>
+		</row>
+		<row id="6">
+			<title>description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="8" fk="fk">
+			<title>id_cc_trunk</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="7">
+			<title>secondusedreal</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>secondusedcarrier</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="10">
+			<title>secondusedratecard</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="11">
+			<title>reftariffplan</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="12">
+			<title>idowner</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="13" nn="nn">
+			<title>dnidprefix</title>
+			<default>all</default>
+			<type>Text</type>
+		</row>
+		<row id="14" nn="nn">
+			<title>calleridprefix</title>
+			<default>all</default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="4" title="cc_tariffgroup_plan" x="10" y="878" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>idtariffgroup</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk" nn="nn">
+			<title>idtariffplan</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="5" title="cc_autorefill_report" x="254" y="878" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>daterun</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2">
+			<title>totalcardperform</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="3">
+			<title>totalcredit</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+	</table>
+	<table id="6" title="cc_currencies" x="506" y="878" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn" special="3">
+			<title>currency</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="2" nn="nn" special="30">
+			<title>name</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>value</title>
+			<default>0.00000</default>
+			<type>Double precision</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>lastupdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="5" nn="nn" special="3">
+			<title>basecurrency</title>
+			<default>USD</default>
+			<type>String</type>
+		</row>
+	</table>
+	<table id="7" title="cc_alarm_report" x="702" y="878" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="2" fk="fk" nn="nn">
+			<title>cc_alarm_id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>calculatedvalue</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="3">
+			<title>daterun</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+	</table>
+	<table id="8" title="cc_alarm" x="10" y="1048" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>periode</title>
+			<default>1</default>
+			<type>Integer</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>type</title>
+			<default>1</default>
+			<type>Integer</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>maxvalue</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>minvalue</title>
+			<default>-1</default>
+			<type>Double precision</type>
+		</row>
+		<row id="7" fk="fk">
+			<title>id_trunk</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>status</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>numberofrun</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>numberofalarm</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="10" nn="nn">
+			<title>datecreate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="11" nn="nn">
+			<title>datelastrun</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="12">
+			<title>emailreport</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="9" title="cc_call" x="206" y="1048" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>sessionid</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>uniqueid</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>username</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>nasipaddress</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5">
+			<title>starttime</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="6">
+			<title>stoptime</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="7">
+			<title>sessiontime</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="8">
+			<title>calledstation</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="9">
+			<title>startdelay</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="10">
+			<title>stopdelay</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="11">
+			<title>terminatecause</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="12">
+			<title>usertariff</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="13">
+			<title>calledprovider</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="14">
+			<title>calledcountry</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="15">
+			<title>calledsub</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="16">
+			<title>calledrate</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="17">
+			<title>sessionbill</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="18">
+			<title>destination</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="19" fk="fk" nn="nn">
+			<title>id_tariffgroup</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="20" fk="fk">
+			<title>id_tariffplan</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="21" fk="fk" nn="nn">
+			<title>id_ratecard</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="22" fk="fk">
+			<title>id_trunk</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="23">
+			<title>sipiax</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="24">
+			<title>src</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="25" fk="fk" nn="nn">
+			<title>id_did</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="26">
+			<title>buyrate</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="27">
+			<title>id_card_package_offer</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+	</table>
+	<table id="10" title="cc_backup" x="466" y="1048" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn" special="255">
+			<title>name</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="2" nn="nn" special="255">
+			<title>path</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+	</table>
+	<table id="11" title="cc_did_destination" x="654" y="1048" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>destination</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>priority</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="3" fk="fk">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="4" fk="fk">
+			<title>id_cc_did</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>activated</title>
+			<default>1</default>
+			<type>Integer</type>
+		</row>
+		<row id="7">
+			<title>secondusedreal</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="8">
+			<title>voip_call</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="12" title="cc_did_use" x="1442" y="120" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" fk="fk">
+			<title>id_did</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>reservationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="4">
+			<title>releasedate</title>
+			<default></default>
+			<type>Timestamp</type>
+		</row>
+		<row id="5">
+			<title>activated</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6">
+			<title>month_payed</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="13" title="cc_iax_buddies" x="1073" y="117" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="37" fk="fk">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn" special="80">
+			<title>name</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="4" special="20">
+			<title>accountcode</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="5" special="20">
+			<title>regexten</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="7" special="7">
+			<title>amaflags</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="17" special="10">
+			<title>callgroup</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="6" nn="nn" special="80">
+			<title>callerid</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="16" nn="nn" special="3">
+			<title>canreinvite</title>
+			<default>yes</default>
+			<type>String</type>
+		</row>
+		<row id="18" special="80">
+			<title>context</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="19" special="15">
+			<title>DEFAULTip</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="11" nn="nn" special="7">
+			<title>dtmfmode</title>
+			<default>RFC2833</default>
+			<type>String</type>
+		</row>
+		<row id="20" special="80">
+			<title>fromuser</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="21" special="80">
+			<title>fromdomain</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="14" nn="nn" special="31">
+			<title>host</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="22" special="4">
+			<title>insecure</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="23" special="2">
+			<title>"language"</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="24" special="50">
+			<title>mailbox</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="9" nn="nn" special="80">
+			<title>md5secret</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="10" nn="nn" special="3">
+			<title>nat</title>
+			<default>yes</default>
+			<type>String</type>
+		</row>
+		<row id="25" special="95">
+			<title>permit</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="26" special="95">
+			<title>deny</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="27" special="95">
+			<title>mask</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="28" special="10">
+			<title>pickupgroup</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="29" nn="nn" special="5">
+			<title>port</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="15" nn="nn" special="3">
+			<title>qualify</title>
+			<default>yes</default>
+			<type>String</type>
+		</row>
+		<row id="30" special="1">
+			<title>restrictcid</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="31" special="3">
+			<title>rtptimeout</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="32" special="3">
+			<title>rtpholdtimeout</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="8" special="80">
+			<title>secret</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="2" nn="nn" special="6">
+			<title>"type"</title>
+			<default>friend</default>
+			<type>String</type>
+		</row>
+		<row id="3" nn="nn" special="80">
+			<title>username</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="12" nn="nn" special="100">
+			<title>disallow</title>
+			<default>all</default>
+			<type>String</type>
+		</row>
+		<row id="13" nn="nn" special="100">
+			<title>allow</title>
+			<default>gsm</default>
+			<type>String</type>
+		</row>
+		<row id="33" special="100">
+			<title>musiconhold</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="34" nn="nn">
+			<title>regseconds</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="35" nn="nn" special="15">
+			<title>ipaddr</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="36" nn="nn" special="3">
+			<title>cancallforward</title>
+			<default>yes</default>
+			<type>String</type>
+		</row>
+	</table>
+	<table id="14" title="cc_callerid" x="1732" y="494" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn">
+			<title>cid</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" fk="fk">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>activated</title>
+			<default>1</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="15" title="cc_campaign" x="1445" y="323" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn">
+			<title>campaign_name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3">
+			<title>startingdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="4" special="32">
+			<title>expirationdate</title>
+			<default>now()</default>
+			<type>String</type>
+		</row>
+		<row id="5">
+			<title>description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="6" fk="fk">
+			<title>id_trunk</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="7">
+			<title>secondusedreal</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="8">
+			<title>nb_callmade</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>enable</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="16" title="cc_card" x="869" y="728" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2">
+			<title>firstusedate</title>
+			<default></default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3">
+			<title>expirationdate</title>
+			<default></default>
+			<type>Timestamp</type>
+		</row>
+		<row id="4">
+			<title>enableexpire</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5">
+			<title>expiredays</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" index="index" nn="nn">
+			<title>username</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="7" index="index" nn="nn">
+			<title>useralias</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>userpass</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>uipass</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="10" nn="nn">
+			<title>credit</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="11">
+			<title>tariff</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="13" fk="fk">
+			<title>id_didgroup</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="12" nn="nn">
+			<title>activated</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="14">
+			<title>lastname</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="15">
+			<title>firstname</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="16">
+			<title>address</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="17">
+			<title>city</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="18">
+			<title>state</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="19">
+			<title>country</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="20">
+			<title>zipcode</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="21">
+			<title>phone</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="22">
+			<title>email</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="23">
+			<title>fax</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="24">
+			<title>inuse</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="25">
+			<title>simultaccess</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="26" special="3">
+			<title>currency</title>
+			<default>USD</default>
+			<type>String</type>
+		</row>
+		<row id="27">
+			<title>lastuse</title>
+			<default>now()</default>
+			<type>Date</type>
+		</row>
+		<row id="28">
+			<title>nbused</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="29">
+			<title>typepaid</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="30" nn="nn">
+			<title>creditlimit</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="31">
+			<title>voipcall</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="32">
+			<title>sip_buddy</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="33">
+			<title>iax_buddy</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="34">
+			<title>language</title>
+			<default>en</default>
+			<type>Text</type>
+		</row>
+		<row id="35">
+			<title>redial</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="36">
+			<title>runservice</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="37">
+			<title>nbservice</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="38">
+			<title>id_campaign</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="39">
+			<title>num_trials_done</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="40">
+			<title>callback</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="41">
+			<title>vat</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="42">
+			<title>servicelastrun</title>
+			<default></default>
+			<type>Timestamp</type>
+		</row>
+		<row id="43" nn="nn">
+			<title>initialbalance</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="44">
+			<title>invoiceday</title>
+			<default>1</default>
+			<type>Integer</type>
+		</row>
+		<row id="45">
+			<title>autorefill</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="46">
+			<title>loginkey</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="47" nn="nn">
+			<title>activatedbyuser</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="48" nn="nn">
+			<title>id_subscription_fee</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="49" nn="nn">
+			<title>mac_addr</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="50" nn="nn">
+			<title>id_timezone</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="17" title="cc_charge" x="1149" y="1131" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>iduser</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="3">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>amount</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="5">
+			<title>chargetype</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="7">
+			<title>description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="6" fk="fk">
+			<title>id_cc_did</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>currency</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>id_cc_subscription_fee</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="18" title="cc_country" x="949" y="1100" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>countrycode</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>countryprefix</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>countryname</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="19" title="cc_did" x="1733" y="138" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk">
+			<title>id_cc_didgroup</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" fk="fk">
+			<title>id_cc_country</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>activated</title>
+			<default>1</default>
+			<type>Integer</type>
+		</row>
+		<row id="13" nn="nn">
+			<title>reserved</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>iduser</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5" index="index" nn="nn">
+			<title>did</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="6">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="7">
+			<title>startingdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="8">
+			<title>expirationdate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="9">
+			<title>description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="10">
+			<title>secondusedreal</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="11">
+			<title>billingtype</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="12" nn="nn">
+			<title>fixrate</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+	</table>
+	<table id="20" title="cc_ecommerce_product" x="-4" y="1178" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>product_name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3">
+			<title>description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4">
+			<title>expirationdate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="5">
+			<title>enableexpire</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6">
+			<title>expiredays</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="10" nn="nn" special="50">
+			<title>mailtype</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>credit</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="8">
+			<title>tariff</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9" fk="fk">
+			<title>id_didgroup</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="11" nn="nn">
+			<title>activated</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="12">
+			<title>simultaccess</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="13" special="3">
+			<title>currency</title>
+			<default>USD</default>
+			<type>String</type>
+		</row>
+		<row id="14">
+			<title>typepaid</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="15">
+			<title>creditlimit</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="16">
+			<title>"language"</title>
+			<default>en</default>
+			<type>Text</type>
+		</row>
+		<row id="17" nn="nn">
+			<title>runservice</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="18">
+			<title>sip_friend</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="19">
+			<title>iax_friend</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="21" title="cc_logpayment" x="651" y="1918" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>date</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>payment</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="3" fk="fk" nn="nn">
+			<title>card_id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="4">
+			<title>reseller_id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="22" title="cc_logrefill" x="637" y="1580" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>date</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>credit</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="3" fk="fk">
+			<title>card_id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="4">
+			<title>reseller_id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="23" title="cc_paypal" x="599" y="3579" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" special="60">
+			<title>payer_id</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="2" special="50">
+			<title>payment_date</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="3" index="index" special="50">
+			<title>txn_id</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="4" special="50">
+			<title>first_name</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="5" special="50">
+			<title>last_name</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="6" special="75">
+			<title>payer_email</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="7" special="50">
+			<title>payer_status</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="8" special="50">
+			<title>payment_type</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="9">
+			<title>memo</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="10" special="127">
+			<title>item_name</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="11" special="127">
+			<title>item_number</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="12" nn="nn">
+			<title>quantity</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="13">
+			<title>mc_gross</title>
+			<default>NULL</default>
+			<type>Double precision</type>
+		</row>
+		<row id="14">
+			<title>mc_fee</title>
+			<default>NULL</default>
+			<type>Double precision</type>
+		</row>
+		<row id="15">
+			<title>tax</title>
+			<default>NULL</default>
+			<type>Double precision</type>
+		</row>
+		<row id="16" special="3">
+			<title>mc_currency</title>
+			<default>NULL</default>
+			<type>String</type>
+		</row>
+		<row id="17" nn="nn" special="255">
+			<title>rowaddress_name</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="18" nn="nn" special="255">
+			<title>address_street</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="19" nn="nn" special="255">
+			<title>address_city</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="20" nn="nn" special="255">
+			<title>address_state</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="21" nn="nn" special="255">
+			<title>address_zip</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="22" nn="nn" special="255">
+			<title>address_country</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="23" nn="nn" special="255">
+			<title>address_status</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="24" nn="nn" special="255">
+			<title>payer_business_name</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="25" nn="nn" special="255">
+			<title>payment_status</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="26" nn="nn" special="255">
+			<title>pending_reason</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="27" nn="nn" special="255">
+			<title>reason_code</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="28" nn="nn" special="255">
+			<title>txn_type</title>
+			<default></default>
+			<type>String</type>
+		</row>
+	</table>
+	<table id="24" title="cc_phonelist" x="29" y="4253" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="3" fk="fk">
+			<title>id_cc_campaign</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" fk="fk">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn">
+			<title>numbertodial</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5">
+			<title>inuse</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>enable</title>
+			<default>1</default>
+			<type>Integer</type>
+		</row>
+		<row id="7">
+			<title>num_trials_done</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="8">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="9">
+			<title>last_attemp</title>
+			<default>0now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="10">
+			<title>secondusedreal</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="11" nn="nn">
+			<title>additionalinfo</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="25" title="cc_provider" x="222" y="4534" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn">
+			<title>provider_name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3">
+			<title>description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="26" title="cc_service" x="418" y="4534" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>amount</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>period</title>
+			<default>1</default>
+			<type>Integer</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>rule</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>daynumber</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>stopmode</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>maxnumbercycle</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>status</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>numberofrun</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="10">
+			<title>datecreate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="11">
+			<title>datelastrun</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="12">
+			<title>emailreport</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="13" nn="nn">
+			<title>totalcredit</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+		<row id="14" nn="nn">
+			<title>totalcardperform</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="27" title="cc_service_report" x="638" y="4534" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" fk="fk">
+			<title>cc_service_id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1">
+			<title>daterun</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3">
+			<title>totalcardperform</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="4">
+			<title>totalcredit</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+	</table>
+	<table id="28" title="cc_sip_buddies" x="10" y="4911" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn" special="80">
+			<title>name</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="2" nn="nn" special="6">
+			<title>"type"</title>
+			<default>friend</default>
+			<type>String</type>
+		</row>
+		<row id="3" nn="nn" special="80">
+			<title>username</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="4" special="20">
+			<title>accountcode</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="5" special="20">
+			<title>regexten</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="6" nn="nn" special="80">
+			<title>callerid</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="7" special="7">
+			<title>amaflags</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="8" special="80">
+			<title>secret</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="9" nn="nn" special="80">
+			<title>md5secret</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="10" nn="nn" special="3">
+			<title>nat</title>
+			<default>yes</default>
+			<type>String</type>
+		</row>
+		<row id="11" nn="nn" special="7">
+			<title>dtmfmode</title>
+			<default>RFC2833</default>
+			<type>String</type>
+		</row>
+		<row id="12" nn="nn" special="100">
+			<title>disallow</title>
+			<default>all</default>
+			<type>String</type>
+		</row>
+		<row id="13" nn="nn" special="100">
+			<title>allow</title>
+			<default>gsm</default>
+			<type>String</type>
+		</row>
+		<row id="14" nn="nn" special="31">
+			<title>host</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="15" nn="nn" special="3">
+			<title>qualify</title>
+			<default>yes</default>
+			<type>String</type>
+		</row>
+		<row id="16" nn="nn" special="3">
+			<title>canreinvite</title>
+			<default>yes</default>
+			<type>String</type>
+		</row>
+		<row id="17" special="10">
+			<title>callgroup</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="18" special="80">
+			<title>context</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="19" special="15">
+			<title>defaultip</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="20" special="80">
+			<title>fromuser</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="21" special="80">
+			<title>fromdomain</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="22" special="4">
+			<title>insecure</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="23" special="2">
+			<title>"language"</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="24" special="50">
+			<title>mailbox</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="25" special="95">
+			<title>permit</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="26" special="95">
+			<title>deny</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="27" special="95">
+			<title>mask</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="28" special="10">
+			<title>pickupgroup</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="29" nn="nn" special="5">
+			<title>port</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="30" special="1">
+			<title>restrictcid</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="31" special="3">
+			<title>rtptimeout</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="32" special="3">
+			<title>rtpholdtimeout</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="33" special="100">
+			<title>musiconhold</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="34" nn="nn">
+			<title>regseconds</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="35" nn="nn" special="15">
+			<title>ipaddr</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="36" nn="nn" special="3">
+			<title>cancallforward</title>
+			<default>yes</default>
+			<type>String</type>
+		</row>
+		<row id="37" special="80">
+			<title>fullcontact</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="38" nn="nn" special="100">
+			<title>setvar</title>
+			<default></default>
+			<type>String</type>
+		</row>
+		<row id="39" fk="fk">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="29" title="cc_speeddial" x="214" y="4911" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk" index="index" nn="nn">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>phone</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" index="index">
+			<title>speeddial</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+	</table>
+	<table id="30" title="cc_templatemail" x="402" y="4911" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index">
+			<title>mailtype</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2">
+			<title>fromemail</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3">
+			<title>fromname</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4">
+			<title>subject</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5">
+			<title>messagetext</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="6">
+			<title>messagehtml</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="31" title="cc_trunk" x="614" y="4911" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id_trunk</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>trunkcode</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2">
+			<title>trunkprefix</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3">
+			<title>providertech</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>providerip</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5">
+			<title>removeprefix</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="6">
+			<title>secondusedreal</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="7">
+			<title>secondusedcarrier</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="8">
+			<title>secondusedratecard</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="10">
+			<title>failover_trunk</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="11">
+			<title>addparameter</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="12" fk="fk">
+			<title>id_provider</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="32" title="cc_ui_authen" x="10" y="5863" >
+		<row id="0" pk="pk" index="index">
+			<title>userid</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" index="index" nn="nn">
+			<title>login</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>"pasword"</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3">
+			<title>groupid</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="4">
+			<title>perms</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="5">
+			<title>confaddcust</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="6">
+			<title>name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="7">
+			<title>direction</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="8">
+			<title>zipcode</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="9">
+			<title>state</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="10">
+			<title>phone</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="11">
+			<title>fax</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="12">
+			<title>datecreation</title>
+			<default>nox()</default>
+			<type>Timestamp</type>
+		</row>
+	</table>
+	<table id="33" title="cc_voucher" x="198" y="5863" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2">
+			<title>usedate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3">
+			<title>expirationdate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="4" index="index" nn="nn">
+			<title>voucher</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5">
+			<title>usedcardnumber</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="6">
+			<title>tag</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>credit</title>
+			<default></default>
+			<type>Double precision</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>activated</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9">
+			<title>used</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="10" nn="nn" special="3">
+			<title>currency</title>
+			<default>USD</default>
+			<type>String</type>
+		</row>
+	</table>
+	<table id="34" title="cc_tariffgroup" x="402" y="5863" >
+		<row id="0" pk="pk" index="index" nn="nn">
+			<title>id</title>
+			<default></default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk">
+			<title>iduser</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" fk="fk" index="index">
+			<title>idtariffplan</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="3" index="index" nn="nn">
+			<title>tariffgroupname</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>lcrtype</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5">
+			<title>creationdate</title>
+			<default>now()</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>removeinterprefix</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="35" title="cc_callback_spool" x="630" y="5863" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>uniqueid</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>entry_time</title>
+			<default></default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>status</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>server_ip</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>num_attempt</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>last_attempt_time</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>manager_result</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>agi_result</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>callback_time</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="10" nn="nn">
+			<title>channel</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="11" nn="nn">
+			<title>exten</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="12" nn="nn">
+			<title>context</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="13" nn="nn">
+			<title>priority</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="14" nn="nn">
+			<title>application</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="15" nn="nn">
+			<title>data</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="16" nn="nn">
+			<title>timeout</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="17" nn="nn">
+			<title>callerid</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="18" nn="nn">
+			<title>variable</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="19" nn="nn">
+			<title>account</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="20" nn="nn">
+			<title>async</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="21" nn="nn">
+			<title>actionid</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="36" title="cc_card_package_offer" x="10" y="6401" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>id_cc_package_offer</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>date_consumption</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>used_secondes</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="37" title="cc_config" x="270" y="6401" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>config_title</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>config_key</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>config_value</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>config_description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>config_valuetype</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>config_listvalues</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="8" fk="fk">
+			<title>config_group_id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="38" title="cc_configuration" x="506" y="6401" >
+		<row id="0" pk="pk" index="index">
+			<title>configuration_id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>configuration_title</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>rowconfiguration_key</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>configuration_value</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>configuration_description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>configuration_type</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>use_function</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>set_function</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="39" title="cc_config_group" x="10" y="6617" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>group_title</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>group_description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="40" title="cc_epayment_log" x="238" y="6617" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="10" fk="fk">
+			<title>cardid</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>amount</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>vat</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>paymentmethod</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>cc_owner</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>cc_number</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>cc_expires</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>creationdate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>status</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="41" title="cc_invoices" x="450" y="6617" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="13" fk="fk">
+			<title>cardid</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1">
+			<title>orderref</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>invoicecreated_date</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>cover_startdate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>cover_enddate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="5" nn="nn" special="32">
+			<title>amount</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+		<row id="6" nn="nn" special="32">
+			<title>tax</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+		<row id="7" nn="nn" special="32">
+			<title>total</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>invoicetype</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>filename</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="10" nn="nn">
+			<title>payment_date</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="11" nn="nn">
+			<title>payment_status</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="42" title="cc_invoice_history" x="694" y="6617" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>invoicesent_date</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>invoicestatus</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="3" fk="fk">
+			<title>invoiceid</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="43" title="cc_outbound_cid_group" x="10" y="6948" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>creationdate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>group_name</title>
+			<default>0</default>
+			<type>Double precision</type>
+		</row>
+	</table>
+	<table id="44" title="cc_outbound_cid_list" x="270" y="6948" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" fk="fk">
+			<title>outbound_cid_group</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>cid</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>activated</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>creationdate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+	</table>
+	<table id="45" title="cc_package_offer" x="522" y="6948" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>creationdate</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>label</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>packagetype</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>billingtype</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>startday</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>freetimetocall</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="46" title="cc_payment" x="10" y="7141" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="19" fk="fk">
+			<title>customers_id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>customers_name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>customers_email_address</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>item_name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>item_id</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>item_quantity</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>payment_method</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>cc_type</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>cc_owner</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="9" nn="nn">
+			<title>cc_number</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="10" nn="nn">
+			<title>cc_expires</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="11" nn="nn">
+			<title>orders_status</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="12" nn="nn" special="32">
+			<title>orders_amount</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+		<row id="13" nn="nn">
+			<title>last_modified</title>
+			<default>1900-01-01 00:00:00</default>
+			<type>Datetime</type>
+		</row>
+		<row id="14" nn="nn">
+			<title>date_purchased</title>
+			<default>1900-01-01 00:00:00</default>
+			<type>Datetime</type>
+		</row>
+		<row id="15" nn="nn">
+			<title>orders_date_finished</title>
+			<default>1900-01-01 00:00:00</default>
+			<type>Datetime</type>
+		</row>
+		<row id="16" nn="nn">
+			<title>currency</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="17" nn="nn" special="32">
+			<title>currency_value</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+	</table>
+	<table id="47" title="cc_payments_status" x="286" y="7141" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>status_id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>status_name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="48" title="cc_payment_methods" x="522" y="7141" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>payment_method</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>payment_filename</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>status</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="49" title="cc_server_group" x="758" y="7141" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>name</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>description</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="50" title="cc_server_manager" x="10" y="7610" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>server_ip</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn">
+			<title>manager_host</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>manager_username</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>manager_secret</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+	</table>
+	<table id="51" title="cc_subscription_fee" x="238" y="7610" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>label</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="2" nn="nn" special="32">
+			<title>fee</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+		<row id="3" nn="nn">
+			<title>currency</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="4" nn="nn">
+			<title>status</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5" nn="nn">
+			<title>numberofrun</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" nn="nn">
+			<title>datecreate</title>
+			<default>1900-01-01 00:00:00</default>
+			<type>Datetime</type>
+		</row>
+		<row id="7" nn="nn">
+			<title>datelastrun</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="8" nn="nn">
+			<title>emailreport</title>
+			<default></default>
+			<type>Text</type>
+		</row>
+		<row id="9" nn="nn" special="32">
+			<title>totalcredit</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+		<row id="10" nn="nn">
+			<title>totalcardperform</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+	</table>
+	<table id="52" title="cc_subscription_fee_card" x="508" y="7603" >
+		<row id="0" pk="pk" index="index">
+			<title>id</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="5" fk="fk">
+			<title>id_cc_card</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="6" fk="fk">
+			<title>id_cc_subscription_fee</title>
+			<default>0</default>
+			<type>Integer</type>
+		</row>
+		<row id="1" nn="nn">
+			<title>datefee</title>
+			<default>0</default>
+			<type>Timestamp</type>
+		</row>
+		<row id="2" nn="nn" special="32">
+			<title>fee</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+		<row id="3" nn="nn" special="32">
+			<title>fee_converted</title>
+			<default>0</default>
+			<type>Decimal</type>
+		</row>
+		<row id="4" nn="nn" special="32">
+			<title>currency</title>
+			<default></default>
+			<type>String</type>
+		</row>
+	</table>
+	<relation>
+		<table_1>15</table_1>
+		<row_1>0</row_1>
+		<table_2>24</table_2>
+		<row_2>3</row_2>
+	</relation>
+	<relation>
+		<table_1>31</table_1>
+		<row_1>0</row_1>
+		<table_2>15</table_2>
+		<row_2>6</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>24</table_2>
+		<row_2>2</row_2>
+	</relation>
+	<relation>
+		<table_1>2</table_1>
+		<row_1>0</row_1>
+		<table_2>19</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>18</table_1>
+		<row_1>0</row_1>
+		<table_2>19</table_2>
+		<row_2>2</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>11</table_2>
+		<row_2>3</row_2>
+	</relation>
+	<relation>
+		<table_1>19</table_1>
+		<row_1>0</row_1>
+		<table_2>11</table_2>
+		<row_2>4</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>17</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>19</table_1>
+		<row_1>0</row_1>
+		<table_2>17</table_2>
+		<row_2>6</row_2>
+	</relation>
+	<relation>
+		<table_1>26</table_1>
+		<row_1>0</row_1>
+		<table_2>27</table_2>
+		<row_2>2</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>14</table_2>
+		<row_2>3</row_2>
+	</relation>
+	<relation>
+		<table_1>34</table_1>
+		<row_1>0</row_1>
+		<table_2>9</table_2>
+		<row_2>19</row_2>
+	</relation>
+	<relation>
+		<table_1>3</table_1>
+		<row_1>0</row_1>
+		<table_2>9</table_2>
+		<row_2>20</row_2>
+	</relation>
+	<relation>
+		<table_1>1</table_1>
+		<row_1>0</row_1>
+		<table_2>9</table_2>
+		<row_2>21</row_2>
+	</relation>
+	<relation>
+		<table_1>31</table_1>
+		<row_1>0</row_1>
+		<table_2>9</table_2>
+		<row_2>22</row_2>
+	</relation>
+	<relation>
+		<table_1>19</table_1>
+		<row_1>0</row_1>
+		<table_2>9</table_2>
+		<row_2>25</row_2>
+	</relation>
+	<relation>
+		<table_1>32</table_1>
+		<row_1>0</row_1>
+		<table_2>34</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>3</table_1>
+		<row_1>0</row_1>
+		<table_2>34</table_2>
+		<row_2>2</row_2>
+	</relation>
+	<relation>
+		<table_1>3</table_1>
+		<row_1>0</row_1>
+		<table_2>4</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>32</table_1>
+		<row_1>0</row_1>
+		<table_2>3</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>31</table_1>
+		<row_1>0</row_1>
+		<table_2>3</table_2>
+		<row_2>8</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>40</table_2>
+		<row_2>10</row_2>
+	</relation>
+	<relation>
+		<table_1>2</table_1>
+		<row_1>0</row_1>
+		<table_2>16</table_2>
+		<row_2>13</row_2>
+	</relation>
+	<relation>
+		<table_1>3</table_1>
+		<row_1>0</row_1>
+		<table_2>1</table_2>
+		<row_2>2</row_2>
+	</relation>
+	<relation>
+		<table_1>31</table_1>
+		<row_1>0</row_1>
+		<table_2>1</table_2>
+		<row_2>29</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>22</table_2>
+		<row_2>3</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>21</table_2>
+		<row_2>3</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>12</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>19</table_1>
+		<row_1>0</row_1>
+		<table_2>12</table_2>
+		<row_2>2</row_2>
+	</relation>
+	<relation>
+		<table_1>18</table_1>
+		<row_1>0</row_1>
+		<table_2>0</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>25</table_1>
+		<row_1>0</row_1>
+		<table_2>31</table_2>
+		<row_2>12</row_2>
+	</relation>
+	<relation>
+		<table_1>2</table_1>
+		<row_1>0</row_1>
+		<table_2>20</table_2>
+		<row_2>9</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>29</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>31</table_1>
+		<row_1>0</row_1>
+		<table_2>8</table_2>
+		<row_2>7</row_2>
+	</relation>
+	<relation>
+		<table_1>8</table_1>
+		<row_1>0</row_1>
+		<table_2>7</table_2>
+		<row_2>2</row_2>
+	</relation>
+	<relation>
+		<table_1>39</table_1>
+		<row_1>0</row_1>
+		<table_2>37</table_2>
+		<row_2>8</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>13</table_2>
+		<row_2>37</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>41</table_2>
+		<row_2>13</row_2>
+	</relation>
+	<relation>
+		<table_1>41</table_1>
+		<row_1>0</row_1>
+		<table_2>42</table_2>
+		<row_2>3</row_2>
+	</relation>
+	<relation>
+		<table_1>43</table_1>
+		<row_1>0</row_1>
+		<table_2>44</table_2>
+		<row_2>1</row_2>
+	</relation>
+	<relation>
+		<table_1>43</table_1>
+		<row_1>0</row_1>
+		<table_2>1</table_2>
+		<row_2>31</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>46</table_2>
+		<row_2>19</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>28</table_2>
+		<row_2>39</row_2>
+	</relation>
+	<relation>
+		<table_1>16</table_1>
+		<row_1>0</row_1>
+		<table_2>52</table_2>
+		<row_2>5</row_2>
+	</relation>
+	<relation>
+		<table_1>51</table_1>
+		<row_1>0</row_1>
+		<table_2>52</table_2>
+		<row_2>6</row_2>
+	</relation>
+</sql>
