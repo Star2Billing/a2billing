@@ -3,6 +3,11 @@
 ********************************************************************************
 
 
+#### FIX : Web service - status log dont work, check Activation_Card
+********************************************************************
+Web service - status log dont work, check Activation_Card
+
+
 #### TRUNK CHANGE : UPDATE DAEMON TO USE THE DB CONF
 ********************************************************************
 read conf from the DB

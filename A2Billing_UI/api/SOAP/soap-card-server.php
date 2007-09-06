@@ -4,11 +4,14 @@ include ("../../lib/regular_express.inc");
 require_once('SOAP/Server.php');
 require_once('SOAP/Disco.php');
 
+define ("LOG_WEBSERVICE", isset($A2B->config["log-files"]['api_card'])?$A2B->config["log-files"]['api_card']:null); 
+
+
 class Cards
 {
-     var $__dispatch_map = array();
-
-     function Cards() {
+	var $__dispatch_map = array();
+	
+	function Cards() {
         // Define the signature of the dispatch map on the Web servicesmethod
 
         // Necessary for WSDL creation
@@ -45,150 +48,152 @@ class Cards
              array('in' => array('security_key' => 'string', 'transaction_code' => 'string', 'begin_card_id' => 'string', 'end_card_id' => 'string'),
                    'out' => array('transaction_code' => 'string', 'result' => 'string', 'details' => 'string')
                    );
-
+		
         $this->__dispatch_map['Reservation_Card'] =
-             array('in' => array('security_key' => 'string', 'transaction_code' => 'string', 'card_id' => 'string'),
+             array('in' => array('security_key' => 'string', 'transaction_code' => 'string', 'card_id' => 'string', 'cardnumber' => 'string'),
                    'out' => array('transaction_code' => 'string', 'result' => 'string', 'details' => 'string')
                    );
+	
+    }
 
-     }
-	 
-	 /*		ACTUALIZAR CLIENTES
+
+	/*
+	 *		Function for the Service Update_CallerID : Update the callerID list from an existing card 
+	 */ 
+	function Update_CallerID($security_key, $transaction_code, $account_number, $cardnumber, $callerid_list){ 
 		
-		Actualizar Caller ID’s en A2Billing .		
-		Web service: actualizar_cliente_callerID()		
-		Parámetros		
+		// The wrapper variables for security
+		// $security_key = API_SECURITY_KEY;
+		$logfile = LOG_WEBSERVICE;	
 		
-		1.Código de transacción = ACTUCTEID
-		2.Account Number
-		3.Numero de tarjeta
-		4.Lista Caller ID’s  *
+		$mysecurity_key = API_SECURITY_KEY;
 		
-		*  Se envían todos los callerID nuevamente para ser actualizados.		
-		Como respuesta se debe recibir de  A2Billing  la siguiente información:
+		$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Remove_Card [$transaction_code, $account_number, $cardnumber]";
 		
-		1.Código de transacción= RACTUCTEID
-		2.Account Number
-		3.Numero de tarjeta
-		4.Resultado de la transacción (Error / OK)
+		// CHECK SECURITY KEY
+		if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
+		{
+			mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
+			error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
+			sleep(2);
+			return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
+		} 
+		
+		return array($transaction_code, $account_number, $cardnumber, 'result=OK', '');
+	}
+	
+	/*
+	 *		Function for the Service Activation_Card : Activate an existing card
 	 */
-	 
-	  /*
-	  *		Function for the Service Update_CallerID : Update the callerID list from an existing card 
-	  */ 
-     function Update_CallerID($security_key, $transaction_code, $account_number, $cardnumber, $callerid_list){ 
-	 
-	 		// The wrapper variables for security
- 			// $security_key = API_SECURITY_KEY;
-			$logfile=SOAP_LOGFILE;	
-
-			$mysecurity_key = API_SECURITY_KEY;
-						
-			$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Remove_Card [$transaction_code, $account_number, $cardnumber]";
-			
-			// CHECK SECURITY KEY
-			 if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
-			 {
-				  mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
-				  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
-				  sleep(2);
-				  return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
-			 } 
-			 
-			 return array($transaction_code, $account_number, $cardnumber, 'result=OK', '');
-	 
-	 }
-	 /*
-	  *		Function for the Service Activation_Card : Activate an existing card
-	  */
 	function Activation_Card($security_key, $transaction_code, $card_id, $cardnumber)
-	{ 
+	{
 		// Activate the card
 		$FG_TABLE  = "cc_card";
 		$DBHandle  = DbConnect();
 		$instance_sub_table = new Table($FG_TABLE);
 		
-		$status_activate = 2;
+		$status_activate = 1;
 		$param_update = "status = $status_activate";
-		$clause = " id = $card_id AND username = '$cardnumber' ";
+		if (is_numeric($card_id) && $card_id > 0 ) {
+			$clause = " id = $card_id ";
+		} else {
+			$clause = " username = '$cardnumber' ";
+		}
+		
+		$QUERY = "SELECT count(*) FROM $FG_TABLE WHERE ".$clause;
+		$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY);
+		if ( !is_array($result) || $result[0][0] <= 0 )
+		{
+			// FAIL FOUND CARD
+			write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> QUERY");
+			sleep(2);
+			return array($transaction_code, 'result=500', ' ERROR - SELECT DB NO CARD WITH THIS ID OR CARDNUMBER');
+		}
+		
 		$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
 		
 		if(!is_array($update) && count($update) == 0)
 		{
 			// FAIL SELECT
-			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+			write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 			sleep(2);
-			return array($transaction_code, 'result=500', " ERROR - Update : $card_id");
+			return array($transaction_code, 'result=500', " ERROR - Update : card_id=$card_id ; cardnumber=$cardnumber");
 		}
-		return array($transaction_code, 'result=200', " - Activate card : $card_id");
+		return array($transaction_code, 'result=200', " - card Activated : card_id=$card_id ; cardnumber=$cardnumber");
 	}
 
+	/*
+	 *		Function for the Service Batch_Activation_Card : Activate sequence of existing cards
+	 */
 	function Batch_Activation_Card($security_key, $transaction_code, $begin_card_id, $end_card_id)
 	{
 		// BATCH ACTIVATE
 		$DBHandle  = DbConnect();
 		$instance_table_card = new Table("cc_card", "id");
 		
-		// initialization variables
-		$nb_begin_card = 0;
-		$nb_end_card = 0;
-		
-		// If begin_card_id exist in table
-		$FG_TABLE_CLAUSE = "id = $begin_card_id";
-		$list_card = $instance_table_card -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);
-		$nb_begin_card = count($list_card);
-			
-		// If end_card_id exist in table
-		$FG_TABLE_CLAUSE = "id = $end_card_id";
-		$list_card = $instance_table_card -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);
-		$nb_end_card = count($list_card);
-
-		if($nb_begin_card <= 0 && $nb_end_card <= 0){
-			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> QUERY");
+		$QUERY = "SELECT count(*) FROM cc_card WHERE id between $begin_card_id and $end_card_id";
+		$result = $instance_table_card -> SQLExec ($DBHandle, $QUERY);
+		if ( !is_array($result) || $result[0][0] <= 0 ){
+			write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> QUERY");
 			sleep(2);
-			return array($transaction_code, 'result=500', ' ERROR - SELECT DB');
-		}
-		else {
-			$FG_TABLE  = "cc_card";
-			$instance_sub_table = new Table($FG_TABLE);
-			$status_activate = 2;
+			return array($transaction_code, 'result=500', ' ERROR - SELECT DB NO CARD BETWEEN THOSE IDs');
+		} else {
+			
+			$status_activate = 1;
 			$param_update = "status = $status_activate";
 			$clause = " id between $begin_card_id and $end_card_id";
-			$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
-	
+			$update = $instance_table_card -> Update_table ($DBHandle, $param_update, $clause);
+			
 			if(!is_array($update) && count($update) == 0)
 			{
 				// FAIL SELECT
-				write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+				write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 				sleep(2);
-				return array($transaction_code, 'result=500', ' ERROR - SELECT DB');
+				return array($transaction_code, 'result=500', ' ERROR - UPDATE DB');
 			}
-			return array($transaction_code, 'result=200', " - Callback request found");
+			return array($transaction_code, 'result=200', " - cards Activated - Amount of cards updated = ".$result[0][0]);
 		}
-	 }
+	}
 
-
-	function Reservation_Card($security_key, $transaction_code, $card_id)
-	{ 
-		// RESERVE THE CARD
+	/*
+	 *		Function for the Service Reservation_Card : Reserve an existing card
+	 */
+	function Reservation_Card($security_key, $transaction_code, $card_id, $cardnumber)
+	{
+		// Activate the card
 		$FG_TABLE  = "cc_card";
 		$DBHandle  = DbConnect();
 		$instance_sub_table = new Table($FG_TABLE);
 		
 		$status_reserved = 4;
 		$param_update = "status = $status_reserved";
-		$clause = " id = $card_id";
+		if (is_numeric($card_id) && $card_id > 0 ) {
+			$clause = " id = $card_id ";
+		} else {
+			$clause = " username = '$cardnumber' ";
+		}
+		
+		$QUERY = "SELECT count(*) FROM $FG_TABLE WHERE ".$clause;
+		$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY);
+		if ( !is_array($result) || $result[0][0] <= 0 )
+		{
+			// FAIL FOUND CARD
+			write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> QUERY");
+			sleep(2);
+			return array($transaction_code, 'result=500', ' ERROR - SELECT DB NO CARD WITH THIS ID OR CARDNUMBER');
+		}
+		
 		$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
 		
 		if(!is_array($update) && count($update) == 0)
 		{
 			// FAIL SELECT
-			write_log( LOG_CALLBACK, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
+			write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 			sleep(2);
-			return array($transaction_code, 'result=500', ' ERROR - SELECT DB');
+			return array($transaction_code, 'result=500', " ERROR - Update : card_id=$card_id ; cardnumber=$cardnumber");
 		}
-		return array($transaction_code, 'result=200', " - Callback request found");
-	 }
+		return array($transaction_code, 'result=200', " - Card Reserved : card_id=$card_id ; cardnumber=$cardnumber");
+	}
 	 
 	 
 	 /*

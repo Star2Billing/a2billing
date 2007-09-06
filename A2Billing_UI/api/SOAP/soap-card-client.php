@@ -29,11 +29,9 @@ require('SOAP/Client.php');
 
 exit;
 $security_key = API_SECURITY_KEY;
-$endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/soap-card-server.php';
+$endpoint = 'http://localhost/~areski/svn/asterisk2billing/trunk/A2Billing_UI/api/SOAP/soap-card-server.php';
 // ADD ON THE SPEC SECURITY KEY
 $card = new SOAP_Client($endpoint);
-
-
 
 
 //	#############   Reservation_Card   #############   
@@ -41,21 +39,33 @@ $card = new SOAP_Client($endpoint);
 echo "<hr>#############   Reservation_Card : $ans[2]  #############   </hr>";
 $method = 'Reservation_Card';   
 
-$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'cardnumber' => $ans[2], 
-				'card_id' => 'mycard_id');
+$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'card_id' => '', 'cardnumber' => '8995713909' );
 
 $ans = $card->call($method, $params);
 
 print_r($ans);
 exit;
+
+//	#############   Activation_Card   #############   
+
+echo "<hr>#############   Activation_CARD : $ans[2]  #############   </hr>";
+$method = 'Activation_Card';   
+//Activation_Card($security_key, $transaction_code, $card_id, $cardnumber)
+$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'card_id' => '', 'cardnumber' => '8995713909' );
+
+$ans = $card->call($method, $params);
+
+print_r($ans);
+exit;
+
 
 //	#############  Batch_Activation_Card   #############   
 
 echo "<hr>#############   Batch_Activation_Card : $ans[2]  #############   </hr>";
 $method = 'Batch_Activation_Card';   
 
-$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'begin_card_id' => '31', 
-				'end_card_id' => '50');
+$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'begin_card_id' => '2', 
+				'end_card_id' => '4');
 
 $ans = $card->call($method, $params);
 
@@ -64,18 +74,14 @@ exit;
 
 
 
-//	#############   Activation_Card   #############   
 
-echo "<hr>#############   Activation_CARD : $ans[2]  #############   </hr>";
-$method = 'Activation_Card';   
 
-$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'cardnumber' => $ans[2], 
-				'card_id' => 'mycard_id');
 
-$ans = $card->call($method, $params);
 
-print_r($ans);
-exit;
+
+
+
+
 
 
 //	#############   CREATE_CARD   #############   
