@@ -933,6 +933,7 @@ CREATE TABLE cc_campaign (
 CREATE TABLE cc_phonelist (
     id 							INT NOT NULL AUTO_INCREMENT,
     id_cc_campaign 				INT DEFAULT 0 NOT NULL,
+    id_cc_card 					INT DEFAULT 0 NOT NULL,
     numbertodial 				CHAR(50) NOT NULL,
     name 						CHAR(60) NOT NULL,
     inuse 						INT DEFAULT 0,

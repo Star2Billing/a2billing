@@ -146,9 +146,9 @@ CREATE TABLE cc_charge (
     amount 					NUMERIC(12,4) NOT NULL,
 	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING,
     chargetype 				INTEGER DEFAULT 0,    
+    description 			TEXT,
     id_cc_did 				BIGINT DEFAULT 0,
-	id_cc_subscription_fee 	BIGINT DEFAULT 0,
-    description 			TEXT
+	id_cc_subscription_fee 	BIGINT DEFAULT 0
 );
 
 ALTER TABLE ONLY cc_charge
@@ -247,7 +247,7 @@ ADD CONSTRAINT cc_service_pkey PRIMARY KEY (id);
 	
 CREATE TABLE cc_service_report (
     id 									BIGSERIAL NOT NULL,
-    cc_service_id 						BIGSERIAL NOT NULL,
+    cc_service_id 						BIGINT NOT NULL,
     daterun 							TIMESTAMP(0) without time zone DEFAULT NOW(),
     totalcardperform 					INTEGER,
     totalcredit 						double precision
@@ -286,7 +286,7 @@ CREATE TABLE cc_ui_authen (
     state 								TEXT ,
     phone	 							TEXT ,
     fax 								TEXT ,
-    datecreation 						TIMESTAMP with time zone DEFAULT NOW()
+    datecreation 						TIMESTAMP without time zone DEFAULT NOW()
 );
 
 ALTER TABLE ONLY cc_ui_authen
@@ -433,6 +433,13 @@ CREATE TABLE cc_card (
 	id_subscription_fee 				INTEGER DEFAULT 0,
 	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL
 );
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);
+
 
 CREATE TABLE cc_ratecard (
     id 									serial NOT NULL,
@@ -468,7 +475,7 @@ CREATE TABLE cc_ratecard (
     freetimetocall_package_offer 		INTEGER NOT NULL DEFAULT 0,
     id_outbound_cidgroup 				INTEGER NOT NULL DEFAULT -1
 );
-
+CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
 
 
 CREATE TABLE cc_trunk (
@@ -595,11 +602,11 @@ CREATE TABLE cc_logpayment (
 );
 
 create table cc_did_use (
-    id 									serial not null ,
+    id 									bigserial not null ,
     id_cc_card 							BIGINT,
     id_did 								BIGINT not null,
-    reservationdate						TIMESTAMP not null default NOW(),
-    releasedate 						TIMESTAMP,
+    reservationdate						TIMESTAMP WITHOUT TIME ZONE not null default NOW(),
+    releasedate 						TIMESTAMP WITHOUT TIME ZONE,
     activated 							INTEGER default 0,
     month_payed 						INTEGER default 0
 );
@@ -718,13 +725,10 @@ Call Labs
 INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
 
 
-CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
 
 
 
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cc_card_pkey PRIMARY KEY (id);
-	
+
 ALTER TABLE ONLY cc_card
     ADD CONSTRAINT cons_username_cc_card UNIQUE (username);
 
@@ -796,7 +800,7 @@ SELECT pg_catalog.setval('cc_trunk_id_trunk_seq', 2, true);
 CREATE TABLE cc_country (
     id 									serial NOT NULL,
     countrycode 						TEXT NOT NULL,
-    countryprefix 						TEXT NOT NULL,
+    countryprefix 						TEXT NOT NULL DEFAULT '0',
     countryname 						TEXT NOT NULL
 );
 
@@ -1636,7 +1640,7 @@ ALTER TABLE ONLY cc_alarm
 
 CREATE TABLE cc_alarm_report (
     id 								BIGSERIAL NOT NULL,
-    cc_alarm_id 					BIGSERIAL NOT NULL,
+    cc_alarm_id 					BIGINT NOT NULL,
     calculatedvalue 				numeric NOT NULL,
     daterun 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 );
@@ -1650,7 +1654,7 @@ CREATE TABLE cc_callback_spool (
     entry_time 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
     status 							TEXT ,
     server_ip 						TEXT ,	
-    num_attempt 					int,
+    num_attempt 					int NOT NULL DEFAULT 0,
     last_attempt_time 				TIMESTAMP WITHOUT TIME ZONE,
     manager_result 					TEXT ,
     agi_result 						TEXT ,
@@ -1672,6 +1676,8 @@ CREATE TABLE cc_callback_spool (
 ) WITH OIDS;
 
 ALTER TABLE ONLY cc_callback_spool
+    ADD CONSTRAINT cc_callback_spool_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_callback_spool
     ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
 
 
@@ -1684,6 +1690,8 @@ CREATE TABLE cc_server_manager (
     manager_secret 					TEXT ,
 	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 ) WITH OIDS;
+ALTER TABLE ONLY cc_server_manager
+    ADD CONSTRAINT cc_server_manager_pkey PRIMARY KEY (id);
 INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
 
 
@@ -1692,6 +1700,8 @@ CREATE TABLE cc_server_group (
 	name							TEXT ,
 	description						TEXT
 ) WITH OIDS;
+ALTER TABLE ONLY cc_server_group
+    ADD CONSTRAINT cc_server_group_pkey PRIMARY KEY (id);
 INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
 
 
@@ -1846,9 +1856,9 @@ CREATE TABLE cc_payments (
   cc_expires 							CHARACTER VARYING(6),
   orders_status 						INTEGER NOT NULL,
   orders_amount 						NUMERIC(14,6),
-  last_modified 						TIMESTAMP,
-  date_purchased 						TIMESTAMP,
-  orders_date_finished 					TIMESTAMP,
+  last_modified 						TIMESTAMP WITHOUT TIME ZONE,
+  date_purchased 						TIMESTAMP WITHOUT TIME ZONE,
+  orders_date_finished 					TIMESTAMP WITHOUT TIME ZONE,
   currency 								CHARACTER VARYING(3),
   currency_value 						decimal(14,6)
 );
