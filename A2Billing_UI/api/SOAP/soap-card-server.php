@@ -109,7 +109,6 @@ class Cards
 			sleep(2);
 			return array($transaction_code, 'result=500', ' ERROR - SELECT DB NO CARD WITH THIS ID OR CARDNUMBER');
 		}
-		
 		$update = $instance_sub_table -> Update_table ($DBHandle, $param_update, $clause);
 		
 		if(!is_array($update) && count($update) == 0)
@@ -118,6 +117,17 @@ class Cards
 			write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 			sleep(2);
 			return array($transaction_code, 'result=500', " ERROR - Update : card_id=$card_id ; cardnumber=$cardnumber");
+		}else{
+			if (empty($card_id) && $card_id <= 0 ) {
+				$clause = " username = '$cardnumber' ";
+				$QUERY = "SELECT id FROM $FG_TABLE WHERE ".$clause;
+				$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY);
+				$card_id = $result[0][0];
+			}
+			$field_insert = "status, id_cc_card";
+			$value_insert = "'$status_activate', '$card_id'";
+			$instance_status_table = new Table("cc_status_log",$field_insert);
+			$result_query = $instance_status_table -> Add_table ($DBHandle, $value_insert, null, null);	
 		}
 		return array($transaction_code, 'result=200', " - card Activated : card_id=$card_id ; cardnumber=$cardnumber");
 	}
@@ -150,6 +160,18 @@ class Cards
 				write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 				sleep(2);
 				return array($transaction_code, 'result=500', ' ERROR - UPDATE DB');
+			}else{
+				for($card_id = $begin_card_id ; $card_id <= $end_card_id; $card_id++){
+					$QUERY = "SELECT id FROM cc_card WHERE id = $card_id";
+					$rec_card = $instance_table_card -> SQLExec ($DBHandle, $QUERY);
+					$id = $rec_card[0][0];
+					if ( is_array($rec_card) && $id > 0 ){
+						$field_insert = "status, id_cc_card";
+						$value_insert = "'$status_activate', '$id'";
+						$instance_status_table = new Table("cc_status_log",$field_insert);
+						$result_query = $instance_status_table -> Add_table ($DBHandle, $value_insert, null, null);
+					}	
+				}
 			}
 			return array($transaction_code, 'result=200', " - cards Activated - Amount of cards updated = ".$result[0][0]);
 		}
@@ -191,6 +213,17 @@ class Cards
 			write_log( LOG_WEBSERVICE, basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR SELECT -> \n QUERY=".$update);
 			sleep(2);
 			return array($transaction_code, 'result=500', " ERROR - Update : card_id=$card_id ; cardnumber=$cardnumber");
+		}else{
+			if (empty($card_id) && $card_id <= 0 ) {
+				$clause = " username = '$cardnumber' ";
+				$QUERY = "SELECT id FROM $FG_TABLE WHERE ".$clause;
+				$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY);
+				$card_id = $result[0][0];
+			}
+			$field_insert = "status, id_cc_card";
+			$value_insert = "'$status_reserved', '$card_id'";
+			$instance_status_table = new Table("cc_status_log",$field_insert);
+			$result_query = $instance_status_table -> Add_table ($DBHandle, $value_insert, null, null);	
 		}
 		return array($transaction_code, 'result=200', " - Card Reserved : card_id=$card_id ; cardnumber=$cardnumber");
 	}
