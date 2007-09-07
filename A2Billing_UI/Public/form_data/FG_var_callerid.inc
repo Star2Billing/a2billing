@@ -15,7 +15,7 @@ $yesno["0"] = array( gettext("No"), "0");
 
 
 $HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
+$HD_Form -> AddViewElement("CARDNUMBER", "id_cc_card", "20%", "center", "sort", "", "lie", "cc_card", "username", "id='%id'", "%1", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "25%", "center", "sort", "", "list", $actived_list);
 
 

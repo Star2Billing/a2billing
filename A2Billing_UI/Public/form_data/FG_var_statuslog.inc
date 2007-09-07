@@ -53,7 +53,7 @@ if($id_cc_card != "")
 
 
 $HD_Form -> AddViewElement(gettext("ID CARD"), "id_cc_card", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARD NUMBER"), "id_cc_card", "20%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
+$HD_Form -> AddViewElement("USERNAME", "id_cc_card", "20%", "center", "sort", "", "lie", "cc_card", "username", "id='%id'", "%1", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("Last Name"), "id_cc_card", "20%", "center", "sort", "15", "lie", "cc_card", "lastname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("Status"), "status", "20%", "center", "sort", "15", "lie", "cc_status", "status", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("DATE"), "updated_date", "20%", "center", "sort", "16");

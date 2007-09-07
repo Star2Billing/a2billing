@@ -5,7 +5,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list', 
-'status', 'template_invoice', 'template_outstanding' ));
+'status', 'template_invoice', 'template_outstanding', 'description' ));
 
 $HD_Form = new FormHandler("cc_card","Card");
 $HD_Form -> FG_DEBUG = 0;
@@ -108,11 +108,12 @@ $yesno["0"] = array( gettext("No"), "0");
 $invoiceday_list = array();
 for ($k=0;$k<=28;$k++)
 	$invoiceday_list["$k"]  = array( "$k", "$k");
+	
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
-if(substr($_SERVER['REQUEST_URI'],-47,25) == 'A2B_entity_card_multi.php')
+if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "11%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARD NUMBER"), "username", "11%", "center", "sort");
+$HD_Form -> AddViewElement("Card Number", "username", "11%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1))  $HD_Form -> AddViewElement("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
@@ -126,7 +127,7 @@ if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement("<acronym title=\"NUM CALLS DONE\">".gettext("NT")."</acronym>", "nbused", "4%", "center", "sort");
-	if(substr($_SERVER['REQUEST_URI'],-47,25) == 'A2B_entity_card_multi.php') {
+	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
 		$FG_COL_QUERY='id, tag, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 	} else {
 		$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
@@ -665,9 +666,9 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   "",
 			   "",
 			   "sql",
-			   "card_history",
+			   "call_tariff",
 			   "description, id",
-			   "", "", "%2", "", "", "cc_card_history:description:cc_card_history:description, description, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:'%1':id_cc_card='%1':18");
+			   "", "", "%2", "", "", "cc_card_history:description:cc_card_history:description, description, id_cc_card:id_cc_card = %id:id_cc_card:%2 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card=%1:18");
 
 
 

@@ -223,7 +223,7 @@ function openURLFilter(theLINK)
 						$list[$ligne_number][$i-$k] = $record_display;
 
 						if (isset ($this->FG_TABLE_COL[$i][11]) && strlen($this->FG_TABLE_COL[$i][11])>1){
-							call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
+							print call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
 						}else{
 							echo stripslashes($record_display);
 						}

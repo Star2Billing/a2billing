@@ -232,6 +232,17 @@ function linkonmonitorfile($value){
    
 }
 
+function linktocustomer($value){
+	$handle = DbConnect();
+	$inst_table = new Table("cc_card", "id");
+	$FG_TABLE_CLAUSE = "username = '$value'";
+	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE);			
+	$id = $list_customer[0][0];
+    echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";
+}
+
+
+
 /*
  * function MDP_STRING
  */

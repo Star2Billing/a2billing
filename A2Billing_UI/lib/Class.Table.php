@@ -237,7 +237,6 @@ class Table {
 		if ($this -> debug_stop_add) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); 
 		}
-//		print $QUERY;exit;
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res) {
