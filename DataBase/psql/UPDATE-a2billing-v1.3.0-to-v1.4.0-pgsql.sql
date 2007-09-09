@@ -578,18 +578,6 @@ ALTER TABLE ONLY cc_status_log
     ADD CONSTRAINT cc_status_log_pkey PRIMARY KEY (id);
 
 
-CREATE TABLE cc_status (
-  id 	INT NOT NULL,
-  status 				CHARACTER VARYING(255) NOT NULL
-);
-INSERT INTO cc_status (id, status) VALUES (0, 'Cancelled');
-INSERT INTO cc_status (id, status) VALUES (1, 'Active');
-INSERT INTO cc_status (id, status) VALUES (2, 'New');
-INSERT INTO cc_status (id, status) VALUES (3, 'Waiting-MailConfirmation');
-INSERT INTO cc_status (id, status) VALUES (4, 'Reserved');
-INSERT INTO cc_status (id, status) VALUES (5, 'Expired');
-
-
 ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
 ALTER TABLE cc_ratecard ADD COLUMN rounding_calltime INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN rounding_threshold INT NOT NULL DEFAULT 0;

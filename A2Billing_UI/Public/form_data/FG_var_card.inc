@@ -62,10 +62,26 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 
+$cardstatus_list = array();
+$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
+$cardstatus_list["1"]  = array( gettext("ACTIVE"), "1");
+$cardstatus_list["2"]  = array( gettext("NEW"), "2");
+$cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
+$cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
+$cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
+
+$cardstatus_list_acronym = array();
+$cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCEL\">".gettext("CANCELLED")."</acronym>"), "0");
+$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIV\">".gettext("ACTIVE")."</acronym>"), "1");
+$cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettext("NEW")."</acronym>"), "2");
+$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAIT\">".gettext("WAITING-MAILCONFIRMATION")."</acronym>"), "3");
+$cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERV\">".gettext("RESERVED")."</acronym>"), "4");
+$cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIR\">".gettext("EXPIRED")."</acronym>"), "5");
+
+
 $typepaid_list = array();
 $typepaid_list["0"]  = array( gettext("PREPAID CARD"), "0");
 $typepaid_list["1"]  = array( gettext("POSTPAY CARD"), "1");
-
 
 $expire_list = array();
 $expire_list["0"]  = array( gettext("NO EXPIRY"), "0");
@@ -120,7 +136,8 @@ $HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acrony
 
 if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("Call Plan"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
-	$HD_Form -> AddViewElement("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>", "activated", "4%", "center", "sort", "", "list", $actived_list);
+	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
+
 	$HD_Form -> AddViewElement(gettext("LG"), "language", "3%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("USE"), "inuse", "3%", "center", "sort");
 	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
@@ -128,9 +145,9 @@ if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement("<acronym title=\"NUM CALLS DONE\">".gettext("NT")."</acronym>", "nbused", "4%", "center", "sort");
 	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
-		$FG_COL_QUERY='id, tag, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+		$FG_COL_QUERY='id, tag, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 	} else {
-		$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+		$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 	}
 }else{
 	$FG_COL_QUERY='id, username, lastname, credit';
@@ -322,11 +339,10 @@ $HD_Form -> AddEditElement (gettext("STATUS"),
 			   "status",
 			   "",
 			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_status",
-			   "status, id",
-			   "", "", "%1", "", "");
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $cardstatus_list, "%1", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMATION"),

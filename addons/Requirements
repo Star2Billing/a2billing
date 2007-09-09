@@ -15,6 +15,9 @@ REQUIREMENTS :
 	* Perl (CallBack Daemon)
 		o Perl >= 5.6.1
 		Perl module DBD::Pg
+		Perl module DBD::MySQL
 		Perl module Config::IniFiles
+		
+		yum install perl-DBD-MySQL perl-DBD-Pg perl-DBI
 	
 	* etc...

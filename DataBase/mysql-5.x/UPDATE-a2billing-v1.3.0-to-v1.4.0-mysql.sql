@@ -561,17 +561,6 @@ CREATE TABLE cc_status_log (
 	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-CREATE TABLE cc_status (
-	id int(11) NOT NULL,
-	status varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
-
-INSERT INTO cc_status (id, status) VALUES (0, 'Cancelled');
-INSERT INTO cc_status (id, status) VALUES (1, 'Active');
-INSERT INTO cc_status (id, status) VALUES (2, 'New');
-INSERT INTO cc_status (id, status) VALUES (3, 'Waiting-MailConfirmation');
-INSERT INTO cc_status (id, status) VALUES (4, 'Reserved');
-INSERT INTO cc_status (id, status) VALUES (5, 'Expired');
 
 ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
 ALTER TABLE cc_ratecard ADD COLUMN rounding_calltime INT NOT NULL DEFAULT 0;
