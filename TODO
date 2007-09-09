@@ -3,6 +3,13 @@
 ********************************************************************************
 
 
+#### CHECK : Check AGI use the Status
+********************************************************************
+in AGI Class.A2Billing, function authentication, 
+when we check card is valid or not, we still use cc_card.activated
+we need to replace this by cc_card.status
+
+
 #### FIX : Web service - status log dont work, check Activation_Card
 ********************************************************************
 Web service - status log dont work, check Activation_Card
