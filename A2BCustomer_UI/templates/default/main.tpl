@@ -46,10 +46,6 @@
 		<ul><li><a href="call-history.php?section=2"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li></ul>
 		{/if}
 
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="card-history.php?section=2"><strong>{php} echo gettext("CARD HISTORY");{/php}</strong></a></li></ul>
-
-		
 		{if $A2Bconfig.webcustomerui.voucher==1 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=3"><strong>{php} echo gettext("VOUCHER");{/php}</strong></a></li></ul>
