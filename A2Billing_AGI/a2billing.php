@@ -490,9 +490,9 @@ if ($mode == 'standard'){
 					$id_server_group = $A2B -> config["callback"]['id_server_group'];
 					$priority = 1;
 					$timeout = $A2B -> config["callback"]['timeout']*1000;
-					$callerid = $A2B -> config["callback"]['callerid'];
+					//$callerid = $A2B -> config["callback"]['callerid'];
+					$callerid=$A2B->CallerID;
 					$application='';
-					//$callerid=$A2B->CallerID;
 					$account = $A2B -> accountcode;
 					
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
