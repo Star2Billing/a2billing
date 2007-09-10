@@ -65,9 +65,7 @@ if ((!isset($field)) && (count($field)<=1)){
 	$field[0]="CARD ID";
 	$field[1]="username";	}
 
-
-
-$FG_TABLE_COL[]=array (gettext($field[0]), $field[1], "20%", "center","SORT");
+$FG_TABLE_COL[]=array (gettext($field[0]), $field[1], "20%", "center","SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("Duration"), "calltime", "20%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("Buy"), "buy", "25%", "center","sort","","","","","","","display_2bill");
 $FG_TABLE_COL[]=array (gettext("Sell"), "cost", "25%", "center","sort","","","","","","","display_2bill");

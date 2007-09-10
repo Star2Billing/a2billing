@@ -81,12 +81,13 @@ $DBHandle  = DbConnect();
 
 $FG_TABLE_COL = array();
 
+
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "7%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "10%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "10%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "6%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "6%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "6%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("Trunk"), "trunkcode", "6%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecause", "7%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);

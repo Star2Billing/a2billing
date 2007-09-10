@@ -8,15 +8,13 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-
-
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ORDER DATE"), "date_purchased", "10%", "center", "sort", "19", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("CARDID"), "customers_id", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "customers_name", "10%", "center", "sort");
 //$HD_Form -> AddViewElement(gettext("EMAIL"), "customers_email_address", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ITEM NAME"), "item_name", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ITEM ID"), "item_id", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ITEM ID"), "item_id", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("METHOD"), "payment_method", "9%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CC NUMBER"), "cc_number", "10%", "center", "sort");
 //$HD_Form -> AddViewElement(gettext("CC EXPIRES"), "cc_expires", "7%", "center", "sort");

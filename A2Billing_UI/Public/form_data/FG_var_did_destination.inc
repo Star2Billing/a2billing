@@ -25,11 +25,10 @@ for ($k=1;$k<=5;$k++)
         $priority_list["$k"]  = array( "$k", "$k");
 
 
-
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "10%", "center", "sort", "26");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DID"), "id_cc_did", "12%", "center", "sort", "15", "lie", "cc_did", "did", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "12%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("ACTIVE"), "activated", "5%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("VOIP"), "voip_call", "5%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("PRIOR"), "priority", "5%", "center", "sort", "", "list", $priority_list);

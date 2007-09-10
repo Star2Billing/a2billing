@@ -119,7 +119,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 // View
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 if (!isset($oncard))
-	$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "4%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "4%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("INVOICEDATE"), "invoicecreated_date", "6%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("COVERCALLSTART"), "call_startdate", "6%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("COVERCALLEND"), "call_enddate", "6%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");

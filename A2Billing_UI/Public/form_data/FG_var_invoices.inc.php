@@ -8,8 +8,7 @@ $HD_Form = new FormHandler("cc_card","Card");
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
 
-
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "7%", "center", "sort", "15");
+$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "7%", "center", "sort", "", "15", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"CARDALIAS\">ALIAS</acronym>"), "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "7%", "center", "sort", "15");

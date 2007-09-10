@@ -40,8 +40,7 @@ foreach($currencies_list as $key => $cur_value) {
 
 
 
-
-$HD_Form_c -> AddViewElement(gettext("CARDNUMBER"), "username", "12%", "center", "sort");
+$HD_Form_c -> AddViewElement(gettext("CARDNUMBER"), "username", "12%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form_c -> AddViewElement(gettext("DATE"), "cc_charge.creationdate", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form_c -> AddViewElement(gettext("AMOUNT"), "amount", "10%", "center", "sort");
 $HD_Form_c -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);

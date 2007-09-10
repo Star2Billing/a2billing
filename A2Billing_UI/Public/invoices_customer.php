@@ -90,7 +90,7 @@ if ($entercustomer != "")
 	$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 	
 	if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
-		$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "30");
+		$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 	}
 	
 	$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");

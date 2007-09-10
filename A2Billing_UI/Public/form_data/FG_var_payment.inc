@@ -16,8 +16,7 @@ $HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
-
-$HD_Form -> AddViewElement(gettext("CARD"), "username", "25%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CARD"), "username", "25%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "30%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "30%", "center", "sort");
 

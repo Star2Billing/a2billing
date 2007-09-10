@@ -62,7 +62,7 @@ $payment_status_list["2"] = array( gettext("SENT-PAID"),  "2");
 $payment_status_list["3"] = array( gettext("PAID"),  "3");
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "4%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "4%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("INVOICEDATE"), "invoicecreated_date", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("COVERSTART"), "cover_startdate", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("COVEREND"), "cover_enddate", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");

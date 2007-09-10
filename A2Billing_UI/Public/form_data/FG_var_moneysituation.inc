@@ -9,7 +9,7 @@ $HD_Form -> FG_LIMITE_DISPLAY = 10;
 //$QUERY_REFILL="SELECT t1.id, sum(t3.credit) from cc_card as t1, cc_logrefill as t3 WHERE t1.id=t3.card_id GROUP BY t1.id";
 //$QUERY_PAYMENT="SELECT t1.id, SUM(t2.payment) from cc_card as t1, cc_logpayment as t2 WHERE t1.id=t2.card_id GROUP BY t1.id";
 
-$HD_Form -> AddViewElement(gettext("CardNumber"), "username", "7%", "center", "sort", "15");
+$HD_Form -> AddViewElement(gettext("CardNumber"), "username", "7%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"CARDALIAS\">ALIAS</acronym>"), "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 
