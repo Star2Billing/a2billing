@@ -51,11 +51,21 @@ if($id_cc_card != "")
 	$HD_Form -> FG_TABLE_CLAUSE.=" sl.id_cc_card = '$id_cc_card'";
 }	
 
+$cardstatus_list = array();
+$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
+$cardstatus_list["1"]  = array( gettext("ACTIVE"), "1");
+$cardstatus_list["2"]  = array( gettext("NEW"), "2");
+$cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
+$cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
+$cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
+
+
 
 $HD_Form -> AddViewElement(gettext("ID CARD"), "id_cc_card", "10%", "center", "sort");
 $HD_Form -> AddViewElement("CARDNUMBER", "id_cc_card", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
-$HD_Form -> AddViewElement(gettext("Last Name"), "id_cc_card", "20%", "center", "sort", "15", "lie", "cc_card", "lastname", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("Status"), "status", "20%", "center", "sort", "15", "lie", "cc_status", "status", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("LAST NAME"), "id_cc_card", "20%", "center", "sort", "15", "lie", "cc_card", "lastname", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("STATUS"), "status", "20%", "center", "sort", "", "list", $cardstatus_list);
+
 $HD_Form -> AddViewElement(gettext("DATE"), "updated_date", "20%", "center", "sort", "16");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
