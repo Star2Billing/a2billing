@@ -123,6 +123,7 @@ class A2Billing {
 	var $credit;
 	var $tariff;
 	var $active;
+	var $status;
 	var $hostname='';
 	var $currency='usd';
     
@@ -1529,7 +1530,7 @@ class A2Billing {
 				$QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
 			}
 			
-			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias ".
+			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, cc_card.status ".
 						" FROM cc_callerid ".
 						" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 						" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
@@ -1564,8 +1565,8 @@ class A2Billing {
 					// INSERT INTO cc_card (username, useralias, userpass, credit, language, tariff, activated, 
 					// typepaid, creditlimit, inuse) VALUES ('123444','123444','123444','10.00','en','1','t','1','0','0');
 					//CREATE A CARD AND AN INSTANCE IN CC_CARD
-					$QUERY_FIELS = 'username, useralias, userpass, credit, language, tariff, activated, typepaid, creditlimit, inuse';
-					$QUERY_VALUES = "'$card_gen', '$card_gen', '$card_gen', '".$this->agiconfig['cid_auto_create_card_credit']."', 'en', '".$this->agiconfig['cid_auto_create_card_tariffgroup']."', 't','$ttcard', '".$this->agiconfig['cid_auto_create_card_credit_limit']."', '0'";
+					$QUERY_FIELS = 'username, useralias, userpass, credit, language, tariff, activated, typepaid, creditlimit, inuse, status';
+					$QUERY_VALUES = "'$card_gen', '$card_gen', '$card_gen', '".$this->agiconfig['cid_auto_create_card_credit']."', 'en', '".$this->agiconfig['cid_auto_create_card_tariffgroup']."', 't','$ttcard', '".$this->agiconfig['cid_auto_create_card_credit_limit']."', '0', '1'";
 					$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card', 'id');
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CARDNUMBER: $card_gen]:[CARDID CREATED : $result]");
 					
@@ -1636,6 +1637,7 @@ class A2Billing {
 				$this->id_campaign  = $result[0][25];
 				$this->id_card  = $result[0][26];
 				$this->useralias = $result[0][27];
+				$this->status = $result[0][28];
 				
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
@@ -1645,7 +1647,7 @@ class A2Billing {
 				// CHECK credit < min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-				if( $this->active != "t" && $this->active != "1" ) 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
@@ -1714,9 +1716,9 @@ class A2Billing {
 					
 					$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 					if ($this->config['database']['dbtype'] == "postgres"){
-						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias FROM cc_card ";
+						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status FROM cc_card ";
 					}else{
-						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias FROM cc_card ";
+						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status FROM cc_card ";
 					}
 					
 					$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
@@ -1779,6 +1781,7 @@ class A2Billing {
 					$this->id_campaign  = $result[0][21];
 					$this->id_card  = $result[0][22];
 					$this->useralias = $result[0][23];
+					$this->status = $result[0][24];
 							
 					if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				}
@@ -1797,7 +1800,7 @@ class A2Billing {
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 				}
 				
-				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[credit=".$this->credit." :: tariff=".$this->tariff." :: active=".$this->active." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");
+				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[credit=".$this->credit." :: tariff=".$this->tariff." :: status=".$this->status." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");
 				
 				
 				
@@ -1805,7 +1808,7 @@ class A2Billing {
 				// CHECK credit > min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-				if( $this->active != "t" && $this->active != "1" ) 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
@@ -1872,9 +1875,9 @@ class A2Billing {
 				
 				$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 				if ($this->config['database']['dbtype'] == "postgres"){
-					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
+					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 				}else{
-					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
+					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 				}
 				
 				$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
@@ -1933,6 +1936,7 @@ class A2Billing {
 				$this->id_campaign  = $result[0][22];
 				$this->id_card  = $result[0][23];
 				$this->useralias = $result[0][24];
+				$this->status = $result[0][25];
 				
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
@@ -1956,7 +1960,7 @@ class A2Billing {
 				// CHECK credit > min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-				if( $this->active != "t" && $this->active != "1" ) 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
@@ -2041,9 +2045,9 @@ class A2Billing {
 		
 		$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 		if ($this->config['database']['dbtype'] == "postgres")
-			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign FROM cc_card ";
+			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status FROM cc_card ";
 		else
-			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign FROM cc_card ";
+			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status FROM cc_card ";
 		
 		$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 			
@@ -2076,6 +2080,7 @@ class A2Billing {
 		$this->cardholder_email = $result[0][19];
 		$this->cardholder_uipass = $result[0][20];
 		$this->id_campaign  = $result[0][21];
+		$this->status  = $result[0][22];
 		
 		if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 		
@@ -2091,7 +2096,7 @@ class A2Billing {
 		}
 		
 		// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-		if( $this->active != "t" && $this->active != "1" ){
+		if( $this->status != "1"){
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card is not active!!!").'</b></font><br>';
 			return 0;
 		}
