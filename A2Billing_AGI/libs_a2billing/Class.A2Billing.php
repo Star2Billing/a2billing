@@ -1732,11 +1732,11 @@ class A2Billing {
 						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 						$res = -2;
 						break;
-					}else{
+					} else {
 						// -%-%-%-	WE ARE GOING TO CHECK IF THE CALLERID IS CORRECT FOR THIS CARD	-%-%-%-
-						if ($this->agiconfig['callerid_authentication_over_cardnumber']==1){
+						if ($this->agiconfig['callerid_authentication_over_cardnumber']==1) {
 							
-							if (!is_numeric($this->CallerID) && $this->CallerID<=0){
+							if (!is_numeric($this->CallerID) && $this->CallerID<=0) {
 								$res = -2;
 								break;
 							}
