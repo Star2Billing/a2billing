@@ -684,7 +684,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   "sql",
 			   "call_tariff",
 			   "description, id",
-			   "", "", "%2", "", "", "cc_card_history:description:cc_card_history:description, description, id_cc_card:id_cc_card = %id:id_cc_card:%2 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card='%1':18");
+			   "", "", "%1 : (%2)", "", "", "cc_card_history:description:cc_card_history:description, description, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card='%1':18");
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, '.
 'callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
