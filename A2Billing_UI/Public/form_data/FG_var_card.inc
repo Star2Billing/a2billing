@@ -71,12 +71,12 @@ $cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
 $cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
 
 $cardstatus_list_acronym = array();
-$cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCEL\">".gettext("CANCELLED")."</acronym>"), "0");
-$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIV\">".gettext("ACTIVE")."</acronym>"), "1");
+$cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
+$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVE\">".gettext("ACTIV")."</acronym>"), "1");
 $cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettext("NEW")."</acronym>"), "2");
-$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAIT\">".gettext("WAITING-MAILCONFIRMATION")."</acronym>"), "3");
-$cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERV\">".gettext("RESERVED")."</acronym>"), "4");
-$cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIR\">".gettext("EXPIRED")."</acronym>"), "5");
+$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAIT")."</acronym>"), "3");
+$cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERVED\">".gettext("RESERV")."</acronym>"), "4");
+$cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIRED\">".gettext("EXPIR")."</acronym>"), "5");
 
 
 $typepaid_list = array();
@@ -137,7 +137,6 @@ $HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acrony
 if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("Call Plan"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
-
 	$HD_Form -> AddViewElement(gettext("LG"), "language", "3%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("USE"), "inuse", "3%", "center", "sort");
 	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
