@@ -562,6 +562,129 @@ function sendtolittle(direction){
                         </TABLE>
                         <br></TD>
                     </TR>					
+					<?php  }elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("HAS_MANY")){
+							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
+							$table_col = split(",", $table_split[2]);
+					?>
+					<TR>
+					  <!-- ******************** PARTIE EXTERN : HAS_MANY ***************** -->
+                      	<TD width="122" class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
+                      	<TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
+                        <!-- Table with list instance already inserted -->
+                        <table cellspacing="0" class="editform_table2">
+                          <TR bgcolor="#ffffff">
+                            <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px" class="form_head">
+                            	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+                                	<TR>
+                                		<TD class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?>&nbsp;<?php echo gettext("LIST");?> </TD>
+                                	</TR>
+                            	</TABLE>
+							</TD>
+                          </TR>
+                          <TR>
+                            <TD>
+								<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+                                <TR>
+                                	<TD bgColor=#e1e1e1 colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                                </TR>
+                                <?php
+								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[3]);
+								$instance_sub_table = new Table($table_split[0], $table_split[2]);
+								$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);
+								if (!is_array($split_select_list)){
+									$num=0;
+								}else{
+									$num = count($split_select_list);
+								}
+								if($num>0){
+								for($j=0;$j<$num;$j++){
+								?>
+                                  <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
+                                    <TD vAlign="top" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" class="tableBody">
+                                      <font face="Verdana" size="2">
+                                      <?php echo $split_select_list[$j][0]?>
+                                      </font> </TD>
+                                    <TD align="center" vAlign="top2" class="tableBodyRight">
+                                      <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_col[0]?>','<?php echo $split_select_list[$j][0]?>');" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
+                                    </TD>
+                                  </TR>
+                                  <?php
+								  }//end_for
+								}else{
+								?>
+                                  <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
+                                    <TD colspan="2" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" vAlign="top" class="tableBody">
+                                      <div align="center" class="liens">No <?php echo $this->FG_TABLE_EDITION[$i][0]?></div></TD>
+                                  </TR>
+                               <?php }?>
+                                  <TR> 
+                                    <TD class="tableDivider" colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                                  </TR>
+                              </TABLE></td>
+                          </tr>
+                          <TR class="bgcolor_016"> 
+                            <TD class="editform_table3_td2"> 
+                            	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+                                	<TR><TD height="4" align="right"></TD></TR>
+                              	</TABLE>
+							</TD>
+                          </TR>
+                        </table><br>
+</TD>
+                    </TR>
+                    <TR>
+					  <!-- *******************   Select to ADD new instances  ****************************** -->					  
+                      <TD class="form_head">&nbsp;</TD>
+                      <TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
+                        <TABLE width="300" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
+                            <TR> 
+                            	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
+									<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+										<TR> 
+											<TD class="form_head"><?php echo gettext("Add a new");?> <?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
+										</TR>
+									</TABLE>
+								</TD>
+                            </TR>
+							
+                            <TR> 
+								<TD class="form_head"> <IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1>
+								</TD>
+								<TD class="editform_table4_td1"> 
+                                
+								<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
+									<TR> 
+										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
+										<TD width="516"><div align="left"> 	
+										<?php if($this->FG_TABLE_EDITION[$i][4] == "multiline"){?>
+							  				<textarea name=<?php echo $table_col[0]?> class="form_input_text"  cols="20" rows="5"></textarea>
+										<?php }else{?>
+											<INPUT TYPE="TEXT" name=<?php echo $table_col[0]?> class="form_input_text"  size="20" maxlength="20">
+										<?php }?>
+										</TD>
+                                    </TR>
+                                    <TR> 
+										<TD colspan="2" align="center">									  	
+											<input onClick="sendto('add-content','<?=$i?>');" alt="add new a <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="<?php echo Images_Path_Main;?>/btn_Add_94x20.gif" type=image width=94 value="add-split">
+										</TD>
+                                    </TR>
+                                    <TR> 
+                                      <TD colSpan=2 height=4></TD>
+                                    </TR>
+                                    <TR> 
+                                      <TD colSpan=2> <div align="right"></div></TD>
+                                    </TR>
+                                </TABLE>
+								</TD>
+								<TD class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1>
+								</TD>
+                            </TR>
+                            <TR> 
+                              <TD colSpan=3 class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                            </TR>
+                        </TABLE>
+                        <br></TD>
+                    </TR>					
 					<?php  }elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("CHECKBOX")){
 							
 							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
