@@ -82,7 +82,7 @@ CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numberto
 
 CREATE TABLE cc_didgroup (
     id 							BIGSERIAL NOT NULL,
-    idreseller 					INTEGER DEFAULT 0 NOT NULL,	
+    iduser 					INTEGER DEFAULT 0 NOT NULL,	
     creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
     didgroupname 				TEXT NOT NULL
 );
@@ -98,12 +98,12 @@ CREATE TABLE cc_did (
     id_cc_country 				INTEGER NOT NULL,    
     activated 					INTEGER DEFAULT 1 NOT NULL,
     reserved 					INTEGER DEFAULT 0,
-    iduser 						INTEGER DEFAULT 0 NOT NULL,
-    did 						TEXT NOT NULL,
+    iduser 					BIGINT DEFAULT 0 NOT NULL,
+    did 					TEXT NOT NULL,
     creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
     startingdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
     expirationdate 				TIMESTAMP WITHOUT TIME ZONE,
-    description 				TEXT ,
+    description 				TEXT,
     secondusedreal 				INTEGER DEFAULT 0,
     billingtype 				INTEGER DEFAULT 0,
     fixrate 					NUMERIC(12,4) NOT NULL
@@ -610,7 +610,8 @@ create table cc_did_use (
     activated 							INTEGER default 0,
     month_payed 						INTEGER default 0
 );
-
+ALTER TABLE cc_did_use
+ADD CONSTRAINT cc_did_use_pkey PRIMARY KEY (id);
 
 INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
 INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
