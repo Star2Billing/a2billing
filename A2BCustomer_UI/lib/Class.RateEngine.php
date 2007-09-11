@@ -163,7 +163,11 @@ class RateEngine {
 		tp_trunk.maxuse, 
 		rt_trunk.maxuse,
 		tp_trunk.if_max_use, 
-		rt_trunk.if_max_use
+		rt_trunk.if_max_use,
+		cc_ratecard.rounding_calltime AS rounding_calltime,
+		cc_ratecard.rounding_threshold AS rounding_threshold,
+		cc_ratecard.additional_block_charge AS additional_block_charge,
+		cc_ratecard.additional_block_charge_time AS additional_block_charge_time
 		
 		FROM cc_tariffgroup 
 		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id=$tariffgroupid
@@ -261,7 +265,7 @@ class RateEngine {
 				$mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][34];
 			}			
 			
-			// Check if we already have the same trunk in the ratecard and if the trunk is enabled	
+			// Check if we already have the same trunk in the ratecard 	
 			if (($i==0 || !in_array ($mycurrenttrunk , $mylistoftrunk)) && $status == 1) {
 				$distinct_result[] = $result[$i];			
 			}	
@@ -591,29 +595,46 @@ class RateEngine {
 		RETURN $TIMEOUT + $this -> freetimetocall_left[$K];
 	}
 
-
 	/*
 		RATE ENGINE - CALCUL COST OF THE CALL
 		* CALCUL THE CREDIT COSUMED BY THE CALL
 	*/
-	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used){
-	
+	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used)
+	{	
 		$K = $this->usedratecard;
-		$buyrate = round(abs($this -> ratecard_obj[$K][9]),4);
-		$buyrateinitblock = $this -> ratecard_obj[$K][10];
-		$buyrateincrement = $this -> ratecard_obj[$K][11];
 		
-		$rateinitial = round(abs($this -> ratecard_obj[$K][12]),4);
-		$initblock = $this -> ratecard_obj[$K][13];
-		$billingblock = $this -> ratecard_obj[$K][14];	
-		$connectcharge = round(abs($this -> ratecard_obj[$K][15]),4);
-		$disconnectcharge = round(abs($this -> ratecard_obj[$K][16]),4);	
-		$stepchargea = $this -> ratecard_obj[$K][17]; 		$chargea = round(abs($this -> ratecard_obj[$K][18]),4);
-		$timechargea = $this -> ratecard_obj[$K][19];		$billingblocka = $this -> ratecard_obj[$K][20];	
-		$stepchargeb = $this -> ratecard_obj[$K][21];		$chargeb = round(abs($this -> ratecard_obj[$K][22]),4);
-		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
-		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
-		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
+		$buyrate 						= round(abs($this -> ratecard_obj[$K][9]),4);
+		$buyrateinitblock 				= $this -> ratecard_obj[$K][10];
+		$buyrateincrement 				= $this -> ratecard_obj[$K][11];
+		
+		$rateinitial 					= round(abs($this -> ratecard_obj[$K][12]),4);
+		$initblock 						= $this -> ratecard_obj[$K][13];
+		$billingblock 					= $this -> ratecard_obj[$K][14];	
+		$connectcharge 					= round(abs($this -> ratecard_obj[$K][15]),4);
+		$disconnectcharge 				= round(abs($this -> ratecard_obj[$K][16]),4);	
+		$stepchargea 					= $this -> ratecard_obj[$K][17];
+		$chargea 						= round(abs($this -> ratecard_obj[$K][18]),4);
+		$timechargea 					= $this -> ratecard_obj[$K][19];
+		$billingblocka 					= $this -> ratecard_obj[$K][20];	
+		$stepchargeb 					= $this -> ratecard_obj[$K][21];
+		$chargeb 						= round(abs($this -> ratecard_obj[$K][22]),4);
+		$timechargeb 					= $this -> ratecard_obj[$K][23];
+		$billingblockb 					= $this -> ratecard_obj[$K][24];	
+		$stepchargec 					= $this -> ratecard_obj[$K][25];
+		$chargec 						= round(abs($this -> ratecard_obj[$K][26]),4);	
+		$timechargec 					= $this -> ratecard_obj[$K][27];
+		$billingblockc 					= $this -> ratecard_obj[$K][28];
+		// Initialization rounding calltime and rounding threshold variables
+		$rounding_calltime 				= $this->ratecard_obj[$K][59];   
+		$rounding_threshold 			= $this->ratecard_obj[$K][60];
+		// Initialization additional block charge and additional block charge time variables
+		$additional_block_charge 		= $this->ratecard_obj[$K][61];   
+		$additional_block_charge_time 	= $this->ratecard_obj[$K][62];
+		
+		if (!is_numeric($rounding_calltime))			$rounding_calltime = 0;
+		if (!is_numeric($rounding_threshold))			$rounding_threshold = 0;
+		if (!is_numeric($additional_block_charge))		$additional_block_charge = 0;
+		if (!is_numeric($additional_block_charge_time))	$additional_block_charge_time = 0;
 		
 		if (!is_numeric($freetimetocall_used)) $freetimetocall_used=0;		
 		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$freetimetocall_used\n\n";
@@ -622,6 +643,27 @@ class RateEngine {
 		$cost =0;
 		$cost -= $connectcharge;
 		$cost -= $disconnectcharge;
+		
+		/*
+		 * Following condition will append cost of call 
+		 * according to the the additional_block_charge and additional_block_charge_time
+		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 2
+		 */
+		// If call duration is greater then block charge time
+		if($callduration >= $additional_block_charge_time){
+			$block_charge = intval($callduration / $additional_block_charge_time);
+			$cost -= $block_charge * $additional_block_charge;
+		}
+		
+		/*
+		 * In following condition callduration will be updated 
+		 * according to the the rounding_calltime and rounding_threshold
+		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 1
+		 */
+		if($rounding_calltime > 0 && $rounding_threshold > 0 && $callduration > $rounding_threshold && $rounding_calltime > $callduration){
+			$callduration = $rounding_calltime;
+			$this -> answeredtime = $rounding_calltime;
+		}
 		
 		// CALCULATION BUYRATE COST
 		$buyratecallduration = $callduration;
@@ -637,13 +679,12 @@ class RateEngine {
 
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
+		if ($callduration < $initblock) $callduration = $initblock;
 		$callduration = $callduration - $freetimetocall_used;
 		
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
-		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
-		
-			if ($callduration<$initblock) $callduration=$initblock;
+		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0) {
 			
 			if ($billingblock > 0) {	
 				$mod_sec = $callduration % $billingblock;  
@@ -661,7 +702,10 @@ class RateEngine {
 			$cost -= $stepchargea;
 			if ($this -> debug_st)  echo "1.A cost: $cost\n\n";
 			
-			if ($callduration>$timechargea){ $duration_report = $callduration-$timechargea; $callduration=$timechargea; }
+			if ($callduration > $timechargea) {
+				$duration_report = $callduration - $timechargea;
+				$callduration = $timechargea;
+			}
 			
 			if ($billingblocka > 0) {	
 				$mod_sec = $callduration % $billingblocka;  
@@ -671,18 +715,18 @@ class RateEngine {
 			
 			if (($duration_report>0) && !(empty($chargeb) || $chargeb==0 || empty($timechargeb) || $timechargeb==0) )
 			{
-				$callduration=$duration_report;
-				$duration_report=0;				
+				$callduration = $duration_report;
+				$duration_report = 0;				
 				
 				// CYCLE B
 				$cost -= $stepchargeb;
 				if ($this -> debug_st)  echo "1.B cost: $cost\n\n";
 					
-				if ($callduration>$timechargeb){ 
-					$duration_report = $callduration-$timechargeb; 
+				if ($callduration > $timechargeb){ 
+					$duration_report = $callduration - $timechargeb; 
 					$callduration=$timechargeb;
 				}
-					
+				
 				if ($billingblockb > 0) {	
 					$mod_sec = $callduration % $billingblockb;  
 					if ($mod_sec>0) $callduration += ($billingblockb - $mod_sec);
@@ -691,32 +735,28 @@ class RateEngine {
 					
 				if (($duration_report>0) && !(empty($chargec) || $chargec==0 || empty($timechargec) || $timechargec==0) )
 				{
-						
 					$callduration=$duration_report;
 					$duration_report=0;						
-						
+					
 					// CYCLE C
 					$cost -= $stepchargec;
 					if ($this -> debug_st)  echo "1.C cost: $cost\n\n";
-							
-					if ($callduration>$timechargec){ 
-						$duration_report = $callduration-$timechargec; 
+					
+					if ($callduration > $timechargec){ 
+						$duration_report = $callduration - $timechargec; 
 						$callduration=$timechargec; 
 					}
-							
+					
 					if ($billingblockc > 0) {	
 						$mod_sec = $callduration % $billingblockc;  
 						if ($mod_sec>0) $callduration += ($billingblockc - $mod_sec);
 					}
 					$cost -= ($callduration/60) * $chargec;
-							
 				}
 			}
 			
-			if ($duration_report>0){
-			
-				if ($duration_report<$initblock) $duration_report=$initblock;
-		
+			if ($duration_report > 0){
+				
 				if ($billingblock > 0) {	
 					$mod_sec = $duration_report % $billingblock;  
 					if ($mod_sec>0) $duration_report += ($billingblock - $mod_sec);
@@ -784,7 +824,7 @@ class RateEngine {
 		}
 		
 		$id_card_package_offer = 0;
-		if ($sessiontime > 0){ 
+		if ($sessiontime > 0) {
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
 			$freetimetocall_used = 0;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ft2c_package_offer : $freetimetocall_package_offer ; $freetimetocall ; ".$this -> freetimetocall_left[$K]);
@@ -805,6 +845,9 @@ class RateEngine {
 			}
 			
 			$this->rate_engine_calculcost($A2B, $sessiontime, 0, $freetimetocall_used);
+			
+			// rate_engine_calculcost could have change the duration of the call
+			$sessiontime = $this -> answeredtime;
 			
 		}else{
 			$sessiontime=0;

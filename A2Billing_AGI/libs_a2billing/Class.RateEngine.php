@@ -652,7 +652,7 @@ class RateEngine {
 		// If call duration is greater then block charge time
 		if($callduration >= $additional_block_charge_time){
 			$block_charge = intval($callduration / $additional_block_charge_time);
-			$cost += $block_charge * $additional_block_charge;
+			$cost -= $block_charge * $additional_block_charge;
 		}
 		
 		/*
@@ -660,8 +660,9 @@ class RateEngine {
 		 * according to the the rounding_calltime and rounding_threshold
 		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 1
 		 */
-		if($rounding_calltime > 0 && $rounding_threshold > 0 && $rounding_threshold > $callduration && $rounding_calltime > $callduration){
+		if($rounding_calltime > 0 && $rounding_threshold > 0 && $callduration > $rounding_threshold && $rounding_calltime > $callduration){
 			$callduration = $rounding_calltime;
+			$this -> answeredtime = $rounding_calltime;
 		}
 		
 		// CALCULATION BUYRATE COST
@@ -823,7 +824,7 @@ class RateEngine {
 		}
 		
 		$id_card_package_offer = 0;
-		if ($sessiontime > 0){ 
+		if ($sessiontime > 0) {
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
 			$freetimetocall_used = 0;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ft2c_package_offer : $freetimetocall_package_offer ; $freetimetocall ; ".$this -> freetimetocall_left[$K]);
@@ -844,6 +845,9 @@ class RateEngine {
 			}
 			
 			$this->rate_engine_calculcost($A2B, $sessiontime, 0, $freetimetocall_used);
+			
+			// rate_engine_calculcost could have change the duration of the call
+			$sessiontime = $this -> answeredtime;
 			
 		}else{
 			$sessiontime=0;
