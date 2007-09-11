@@ -28,8 +28,8 @@ $FG_TABLE_NAME="cc_card_history ch";
 
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
+$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F2EE";
+$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 
 
 //$link = DbConnect();
@@ -134,16 +134,6 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 /*************************************************************/
 
 ?>
-
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-//-->
-</script>
-
 <?php
 	$smarty->display( 'main.tpl');
 	
@@ -310,29 +300,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 <TBODY>
-                <TR class="bgcolor_008"> 
-				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
+                <TR class="form_head"> 
+				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px;"></TD>					
 				  
                   <?php 
 				  	if (is_array($list) && count($list)>0){
 				  	for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
 					?>				
-				  <TD width="<?php echo $FG_TABLE_COL[$i][2]?>" align=middle class="tableBody" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"> 
-                    <center><strong> 
-                    <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-                    	<a href="<?php  echo $PHP_SELF."?customer=$customer&s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} 
-							echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday";?>"> 
-                    <span class="liens"><?php  } ?>
-                    <?php echo $FG_TABLE_COL[$i][0]?> 
-                    <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
-                    &nbsp;<img src="<?php echo Images_Path_Main ?>/icon_up_12x12.GIF" width="12" height="12" border="0"> 
-                    <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
-                    &nbsp;<img src="<?php echo Images_Path_Main ?>/icon_down_12x12.GIF" width="12" height="12" border="0"> 
-                    <?php }?>
-                    <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-                    </span></a> 
-                    <?php }?>
-                    </strong></center></TD>
+				   <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $FG_TABLE_COL[$i][2]?>" > 				
+						<strong> 
+						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
+						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} 
+						echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday";?>"> 
+						<font color="#FFFFFF"><?php  } ?>
+						<?php echo $FG_TABLE_COL[$i][0]?> 
+						<?php if ($FG_ORDER==$FG_TABLE_COL[$i][1] && $FG_SENS=="ASC"){?>
+						&nbsp;<img src="<?php echo Images_Path_Main;?>/icon_up_12x12.GIF" border="0">
+						<?php }elseif ($FG_ORDER==$FG_TABLE_COL[$i][1] && $FG_SENS=="DESC"){?>
+						&nbsp;<img src="<?php echo Images_Path_Main;?>/icon_down_12x12.GIF" border="0">
+						<?php }?>
+						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
+						</font></a> 
+						<?php }?>
+						</strong></TD>
 				   <?php } ?>		
 				   <?php if ($FG_DELETION || $FG_EDITION){ ?>
 				   
@@ -341,7 +331,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				   
                 </TR>
                 <TR> 
-                  <TD bgColor=#e1e1e1 colSpan=4 height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
+                  <TD bgColor=#e1e1e1 colSpan="<?=$FG_NB_TABLE_COL?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
                 </TR>
 				<?php
 				  	 $ligne_number=0;					 
@@ -350,8 +340,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						 $recordset[1] = display_GMT($recordset[1], $_SESSION["gmtoffset"], 1);
 				?>
 				
-               		 <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'"> 
-				  		<TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY.".&nbsp;"; ?></TD>
+               		 <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onmouseover="bgColor='#FFDEA6'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'"> 
+				  		<TD vAlign="top" align="<?php echo $FG_TABLE_COL[$i][3]?>" class="tableBody"><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY.".&nbsp;"; ?></TD>
 				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ ?>
 				  			<TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody>
 						<?php 				

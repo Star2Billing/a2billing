@@ -237,6 +237,7 @@ class Table {
 		if ($this -> debug_stop_add) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); 
 		}
+		//print $QUERY;
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res) {
@@ -335,6 +336,7 @@ class Table {
 		if ($this -> debug_stop_delete) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit();
 		}
+		
 		$res = $DBHandle -> Execute($QUERY);
 		if (!$res) {
 			$this -> errstr = "Could not delete the instances of the table '".$this -> table."'";
