@@ -54,7 +54,7 @@ if (!$A2B -> DbConnect()){
 $instance_table = new Table();
 
 // CHECK THE CARD WITH DID'S
-$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate = '0000-00-00 00:00:00') AND cc_did_use.activated=1";
+$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1";
 
 if ($verbose_level>=1) echo "==> SELECT CARD WIHT DID'S QUERY : $QUERY\n";
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
@@ -107,7 +107,7 @@ foreach ($result as $mydids){
 				if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 				
 				$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0].
-						"' AND activated = 1 AND ( releasedate IS NULL OR releasedate = '0000-00-00 00:00:00') " ;
+						"' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') " ;
 				if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
 				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				
