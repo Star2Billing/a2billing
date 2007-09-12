@@ -28,6 +28,7 @@ define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->conf
 define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
 define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
 define ("SERVER_GMT", isset($A2B->config['global']['server_GMT'])?$A2B->config['global']['server_GMT']:null);
+define ("GO_TO_CUSTOMER", isset($A2B->config['global']['go_to_customer'])?$A2B->config['global']['go_to_customer']:null);
 
 
 define ("BUDDY_SIP_FILE", isset($A2B->config['webui']['buddy_sip_file'])?$A2B->config['webui']['buddy_sip_file']:null);
@@ -251,5 +252,5 @@ if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/inde
 $log = null;
 
 //Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
-define("LIST_OF_VALUES",true)
+define("LIST_OF_VALUES",true);
 ?>

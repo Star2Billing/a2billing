@@ -496,11 +496,9 @@ if ($form_action=='ask-edit')
 	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
 	$username = $list_card_info[0][0];
 	$password = base64_encode($list_card_info[0][1]);
-	
-?>
-
-		<div align="right" style="padding-right:20px;"><a href="../../A2BCustomer_UI/index.php?username=<?=$username?>&password=<?=$password?>" target="_blank">GO TO CUSTOMER ACCOUNT</a></div>
-<?php }
+	$link = GO_TO_CUSTOMER;
+	echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?username=$username&password=$password\" target=\"_blank\">GO TO CUSTOMER ACCOUNT</a></div>";
+}
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
