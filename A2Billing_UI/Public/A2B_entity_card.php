@@ -496,7 +496,7 @@ if ($form_action=='ask-edit')
 	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
 	$username = $list_card_info[0][0];
 	$password = base64_encode($list_card_info[0][1]);
-	$link = GO_TO_CUSTOMER;
+	$link = CUSTOMER_UI_URL;
 	echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?username=$username&password=$password\" target=\"_blank\">GO TO CUSTOMER ACCOUNT</a></div>";
 }
 
