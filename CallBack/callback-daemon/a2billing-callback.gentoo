@@ -5,7 +5,7 @@
 # 
 
 depend() {
-	need net logger
+	need net logger asterisk
 }
 
 start() {
