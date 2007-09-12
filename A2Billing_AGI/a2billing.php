@@ -400,7 +400,12 @@ if ($mode == 'standard'){
 
 	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[MODE : CALLERID-CALLBACK - '.$A2B->CallerID.']');
 	// END
-	$agi->hangup();
+	if ($A2B->agiconfig['answer_call'] == 1) {
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[HANGUP CLI CALLBACK TRIGGER]');
+		$agi->hangup();
+	} else {
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CLI CALLBACK TRIGGER RINGING]');
+	}
 	
 	// MAKE THE AUTHENTICATION ACCORDING TO THE CALLERID
 	$A2B->agiconfig['cid_enable']=1;
@@ -545,7 +550,12 @@ if ($mode == 'standard'){
 	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[MODE : ALL-CALLBACK - '.$A2B->CallerID.']');
 	
 	// END
-	$agi->hangup();
+	if ($A2B->agiconfig['answer_call'] == 1) {
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[HANGUP ALL CALLBACK TRIGGER]');
+		$agi->hangup();
+	} else {
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[ALL CALLBACK TRIGGER RINGING]');
+	}
 	
 	$A2B ->credit = 1000;
 	$A2B ->tariff = $A2B -> config["callback"]['all_callback_tariff'];
@@ -1002,7 +1012,11 @@ if ($charge_callback){
 
 
 // END
-$agi->hangup();
+if ($mode != 'cid-callback' && $mode != 'all-callback') {
+	$agi->hangup();
+} elseif ($A2B->agiconfig['answer_call'] == 1) {
+	$agi->hangup();
+}
 
 
 // SEND MAIL REMINDER WHEN CREDIT IS TOO LOW
