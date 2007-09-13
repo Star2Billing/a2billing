@@ -3,6 +3,23 @@
 ********************************************************************************
 
 
+### ITALIAN
+********************************************************************
+http://trac.asterisk2billing.org/cgi-bin/trac.cgi/ticket/109
+
+
+### STORAGE & DISCLOSURE
+********************************************************************
+If you are a proper telecom company, in most countries, those details are classified. So, you have to be careful about their storage and disclosure.
+One thing is that for customers, resellers and some ACL admins, I try to hide the last 3 digits of the call.
+Other is that logging in /tmp etc. should *not* contain the full call details. 
+It is easier to only have the full details in the database, and then be careful about not letting the db data in public.
+
+
+#### FIX : ADODB cache dir
+********************************************************************
+Put the adodb cache in /tmp , too
+
 #### CHECK : Check AGI use the Status
 ********************************************************************
 in AGI Class.A2Billing, function authentication, 
