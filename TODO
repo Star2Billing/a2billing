@@ -3,7 +3,15 @@
 ********************************************************************************
 
 
-### ITALIAN
+### BUG
+********************************************************************
+CONFIG DB SHOW :
+-> Callback CallPlan ID  	all_callback_tariff  	Yes 
+it should be 
+-> Callback CallPlan ID  	all_callback_tariff  	1
+
+### ITA
+LIAN
 ********************************************************************
 http://trac.asterisk2billing.org/cgi-bin/trac.cgi/ticket/109
 

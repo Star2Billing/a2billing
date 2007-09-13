@@ -387,11 +387,19 @@
     * @link http://www.voip-info.org/wiki-get+variable
     * @link http://www.voip-info.org/wiki-Asterisk+variables
     * @param string $variable name
-    * @return array, see evaluate for return information. ['result'] is 0 if variable hasn't been set, 1 if it has. ['data'] holds the value.
+    * @param boolean $get_value
+    * @return array if $get_value is not set or set to false. 
+		*	If $get_value is set to true, the value of the variable is returned. 
+		* See evaluate for return information. ['result'] is 0 if variable hasn't been set, 1 if it has. ['data'] holds the value.
     */
-    function get_variable($variable)
+    function get_variable($variable, $get_value = false)
     {
-      return $this->evaluate("GET VARIABLE $variable");
+			$var = $this->evaluate("GET VARIABLE $variable");
+      if(isset($get_value) && $get_value){
+				return $var['data'];
+			} else {
+				return $var;
+			}
     }
 
    /**
