@@ -3,12 +3,18 @@
 ********************************************************************************
 
 
+### FORCE LANGUAGE 
+********************************************************************
+Force language is not working in trunk version
+
+
 ### BUG
 ********************************************************************
 CONFIG DB SHOW :
 -> Callback CallPlan ID  	all_callback_tariff  	Yes 
 it should be 
 -> Callback CallPlan ID  	all_callback_tariff  	1
+
 
 ### ITALIAN
 ********************************************************************
@@ -28,6 +34,7 @@ data in public.
 #### FIX : ADODB cache dir
 ********************************************************************
 Put the adodb cache in /tmp , too
+
 
 #### CHECK : Check AGI use the Status
 ********************************************************************
