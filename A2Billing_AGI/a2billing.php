@@ -412,8 +412,7 @@ if ($mode == 'standard'){
 	$A2B->agiconfig['cid_enable']=1;
 	$A2B->agiconfig['cid_askpincode_ifnot_callerid']=0;
 	
-	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)){
-	
+	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)) {
 		
 		/* WE START ;) */	
 		$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
@@ -425,13 +424,9 @@ if ($mode == 'standard'){
 			$A2B -> agiconfig['use_dnid']=1;
 			$A2B -> agiconfig['say_timetocall']=0;
 			
-			if (substr($A2B->CallerID,0,1)=='0'){
+			// We arent removing leading zero in front of the callerID if needed this might be done over the dialplan
+			$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
 			
-				$A2B -> dnid = $A2B -> destination = $caller_areacode.substr($A2B->CallerID,1);
-			}else{
-			
-				$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
-			}
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[destination: - '.$A2B->destination.']');
 			
 			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
