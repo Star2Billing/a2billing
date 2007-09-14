@@ -23,10 +23,9 @@ $value_list["2"] = array( gettext("no"), 0);
 
 
 $yesno = array();
-$QUERY =  "SELECT config_value, config_valuetype, config_listvalues from cc_config order by id";
+$QUERY =  "SELECT config_value, config_valuetype from cc_config order by id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);
 foreach($result as $key => $cur_value) {
-	if(empty($cur_value[2])){
 		if($cur_value[0] == "1"){
 			$yesno[$cur_value[0]] = array('Yes',$key);
 		}else if($cur_value[0] == "0"){
@@ -34,9 +33,6 @@ foreach($result as $key => $cur_value) {
 		}else{
 			$yesno[$cur_value[0]] = array($cur_value[0], $key);	
 		}
-	}else{
-		$yesno[$cur_value[0]] = array($cur_value[0], $key);
-	}
 }
 
 $HD_Form = new FormHandler("cc_config ccc, cc_config_group ccg","Configuration");
