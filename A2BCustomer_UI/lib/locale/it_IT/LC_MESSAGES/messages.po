@@ -90,9 +90,8 @@ msgstr ""
 #: A2B_entity_invoice_summary_pdf.php:380 A2B_entity_invoice_detail.php:353
 #: A2B_entity_call_details.php:608 A2B_entity_call_details_pdf.php:321
 #: invoices_customer.php:378 invoices_customer.php:779
-#, fuzzy
 msgid "Card Number"
-msgstr "Numero chiamato"
+msgstr "Card Numero"
 
 #: A2B_entity_invoice_summary.php:351 A2B_entity_invoice_summary_pdf.php:385
 #: A2B_entity_call_details.php:612 A2B_entity_call_details_pdf.php:325
@@ -103,9 +102,8 @@ msgstr ""
 #: A2B_entity_invoice_detail_pdf.php:665
 #: A2B_entity_invoice_summary_pdf.php:392 A2B_entity_invoice_detail.php:575
 #: A2B_entity_invoice_detail.php:650
-#, fuzzy
 msgid "Description"
-msgstr "Destinazione"
+msgstr "Descrizione"
 
 #: A2B_entity_invoice_summary.php:368 A2B_entity_invoice_detail_pdf.php:402
 #: A2B_entity_invoice_detail_pdf.php:499 A2B_entity_invoice_detail_pdf.php:593
@@ -185,7 +183,7 @@ msgstr "CODICE POSTALE"
 #: userinfo.php:73 form_data/FG_var_card.inc:53
 #: frontoffice_data/CC_var_base.inc:206
 msgid "CITY"
-msgstr "CITTÀ"
+msgstr "CITT&Agrave;"
 
 #: userinfo.php:74
 msgid "STATE"
@@ -235,13 +233,12 @@ msgid "CardNumber"
 msgstr "Numero chiamato"
 
 #: call-history.php:97
-#, fuzzy
 msgid "Terminate Cause"
-msgstr "Causa terminazione"
+msgstr "Causa Terminazione"
 
 #: call-history.php:97
 msgid "TC"
-msgstr ""
+msgstr "CT"
 
 #: call-history.php:98
 msgid "Calltype"
@@ -249,16 +246,19 @@ msgstr "Tipo chiamata"
 
 #: call-history.php:105
 msgid "InitalRate"
-msgstr "Tariffa iniziale"
+msgstr "Tariffa al minuto"
 
 #: call-history.php:134
 msgid "Call Logs"
 msgstr "Dettaglio Chiamate"
 
+##: call-history.php:328 A2B_entity_call_details.php:342
+#msgid "SELECT BY MONTH"
+#msgstr "SELEZIONA PER MESE"
+
 #: call-history.php:328 A2B_entity_call_details.php:342
-#, fuzzy
-msgid "SELECT BY MONTH"
-msgstr "RUBRICA VELOCE"
+msgid "selectByMonth"
+msgstr "SELEZIONA PER MESE"
 
 #: call-history.php:334 call-history.php:385 A2B_entity_call_details.php:348
 #: A2B_entity_call_details.php:397 invoices.php:349 invoices.php:398
@@ -366,10 +366,13 @@ msgstr "Dicembre"
 msgid "TO"
 msgstr "A"
 
-#: call-history.php:380 A2B_entity_call_details.php:392
-#, fuzzy
-msgid "SELECT BY DAY"
-msgstr "RUBRICA VELOCE"
+##: call-history.php:380 A2B_entity_call_details.php:392
+#msgid "SELECT BY DAY"
+#msgstr "SELEZIONA PER GIORNO"
+
+##: call-history.php:380 A2B_entity_call_details.php:392
+msgid "selectByDay"
+msgstr "SELEZIONA PER GIORNO"
 
 #: call-history.php:445 A2B_entity_call_details.php:491 invoices.php:492
 #: invoices.php:729 simulator.php:211 form_data/FG_var_ratecard.inc:34
@@ -403,25 +406,24 @@ msgstr "Finisce per"
 
 #: call-history.php:458 A2B_entity_call_details.php:518 invoices.php:519
 #: invoices_customer.php:294
-#, fuzzy
 msgid "OPTIONS"
-msgstr "AZIONE"
+msgstr "OPZIONI"
 
 #: call-history.php:463 A2B_entity_call_details.php:542
 msgid "SHOW"
-msgstr ""
+msgstr "MOSTRA"
 
 #: call-history.php:466 A2B_entity_call_details.php:545
 msgid "Answered Calls"
-msgstr ""
+msgstr "Chiamate Risposte"
 
 #: call-history.php:468 A2B_entity_call_details.php:547
 msgid "All Calls"
-msgstr ""
+msgstr "Tutte le Chiamate"
 
 #: call-history.php:475
 msgid "RESUTL"
-msgstr ""
+msgstr "RISULTATO"
 
 #: call-history.php:478 A2B_entity_call_details.php:528 invoices.php:529
 #: simulator.php:218 invoices_customer.php:302
@@ -436,7 +438,7 @@ msgstr "Secondi"
 #: call-history.php:483 A2B_entity_call_details.php:554 invoices.php:543
 #: invoices_customer.php:316
 msgid "CURRENCY"
-msgstr ""
+msgstr "VALUTA"
 
 #: call-history.php:505 A2B_entity_call_details.php:578 invoices.php:567
 #: invoices_customer.php:340
@@ -478,9 +480,8 @@ msgid "Total Cost"
 msgstr "COSTO TOTALE"
 
 #: call-history.php:727
-#, fuzzy
 msgid "SUMMARY"
-msgstr "Maggio"
+msgstr "SOMMARIO"
 
 #: call-history.php:739
 msgid "CALLING CARD MINUTES"
@@ -507,11 +508,11 @@ msgstr "CHIAMATE"
 
 #: call-history.php:746
 msgid "AVERAGE LENGTH OF CALL"
-msgstr ""
+msgstr "TEMPO MEDIO DI CHIAMATA"
 
 #: call-history.php:746
 msgid "ALOC"
-msgstr ""
+msgstr "TMDC"
 
 #: call-history.php:747 invoices.php:733 invoices.php:837
 msgid "TOTAL COST"
@@ -531,7 +532,7 @@ msgstr "TOTALE"
 
 #: call-history.php:811
 msgid "No calls in your selection"
-msgstr "ssuna chiamata nella selezione corrente!"
+msgstr "Nessuna chiamata nella selezione corrente!"
 
 #: A2B_entity_voucher.php:40
 msgid "System Error : No currency table complete !!!"
@@ -565,64 +566,64 @@ msgstr "UTILIZZA RICEVUTE"
 
 #: A2B_entity_view_invoice.php:89 invoices.php:343
 msgid "SELECT MONTH"
-msgstr ""
+msgstr "SELEZIONE MESE"
 
 #: A2B_entity_view_invoice.php:95
 msgid "From"
-msgstr ""
+msgstr "Da"
 
 #: A2B_entity_view_invoice.php:97 A2B_entity_view_invoice.php:114
 #: lib/Form/Class.SearchHandler.inc.php:36
 msgid "January"
-msgstr ""
+msgstr "Gennaio"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "February"
-msgstr ""
+msgstr "Febbraio"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "March"
-msgstr ""
+msgstr "Marzo"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "April"
-msgstr ""
+msgstr "Aprile"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "May"
-msgstr ""
+msgstr "Maggio"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "June"
-msgstr ""
+msgstr "Giugno"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "July"
-msgstr ""
+msgstr "Luglio"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "August"
-msgstr ""
+msgstr "Agosto"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "September"
-msgstr ""
+msgstr "Settembre"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "October"
-msgstr ""
+msgstr "Ottobre"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "November"
-msgstr ""
+msgstr "Novembre"
 
 #: A2B_entity_view_invoice.php:97 lib/Form/Class.SearchHandler.inc.php:36
 msgid "December"
-msgstr ""
+msgstr "Dicembre"
 
 #: A2B_entity_view_invoice.php:118
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #: webphone.php:57
 msgid "Account/Phone"
@@ -833,7 +834,7 @@ msgstr ""
 
 #: A2B_entity_sipiax_info.php:35
 msgid "SIP Config"
-msgstr ""
+msgstr "Configurazione SIP"
 
 #: A2B_entity_sipiax_info.php:36
 msgid "sip.conf"
@@ -850,7 +851,7 @@ msgstr "CHIAMATA"
 
 #: A2B_entity_sipiax_info.php:65
 msgid "CONFIGURATION TYPE"
-msgstr ""
+msgstr "TIPO DI CONFIGURAZIONE"
 
 #: A2B_entity_sipiax_info.php:68
 #, fuzzy
@@ -935,7 +936,7 @@ msgstr "RUBRICA VELOCE"
 #: lib/Form/Class.SearchHandler.inc.php:315 templates/design1/main.tpl:271
 #: templates/default/main.tpl:284
 msgid "RATECARD"
-msgstr "TARIFFA"
+msgstr "TARIFFE"
 
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:304
 #: templates/design1/main.tpl:276 templates/default/main.tpl:289
@@ -1069,9 +1070,8 @@ msgstr ""
 #: CC_entity_edit_did_destination.php:844
 #: lib/Form/Class.FormHandler.EditForm.inc.php:417
 #: CC_entity_edit_speeddial.php:532 CC_entity_edit_speeddial.php:701
-#, fuzzy
 msgid "LIST"
-msgstr "LISTA NUMERI DI TELEFONO"
+msgstr "ELENCO"
 
 #: CC_entity_edit_did_destination.php:708
 #: lib/Form/Class.FormHandler.EditForm.inc.php:293
@@ -1295,6 +1295,12 @@ msgstr ""
 #: lib/Form/Class.SearchHandler.inc.php:286
 msgid "There is"
 msgstr ""
+
+msgid "thereIsNo "
+msgstr "Non c&quot;&egrave; nessuna "
+
+msgid " created"
+msgstr " creata"
 
 #: lib/Form/Class.SearchHandler.inc.php:286
 msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
@@ -1741,7 +1747,7 @@ msgstr "TARIFFA ATTUALE"
 #: lib/Form/Class.FormHandler.inc.php:1913
 #: lib/Form/Class.FormHandler.inc.php:1966
 msgid "R A T E C A R D"
-msgstr "R A T E C A R D"
+msgstr "T A R I F F E"
 
 #: lib/Form/Class.FormHandler.inc.php:1919
 #: lib/Form/Class.FormHandler.inc.php:1972
@@ -1770,9 +1776,8 @@ msgid "Sort"
 msgstr ""
 
 #: lib/Form/Class.ViewHandler.inc.php:80
-#, fuzzy
 msgid "Records"
-msgstr "Secondi"
+msgstr "Risultati"
 
 #: lib/Form/Class.ViewHandler.inc.php:100
 msgid "FILTER ON "
@@ -1840,7 +1845,7 @@ msgstr ""
 
 #: lib/help.php:28
 msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
-msgstr ""
+msgstr "Tutte le chiamate sono elencate qui sotto. Ricercare per mese, giorno o stato. In pi&ugrave;, &egrave; possibile visualizzare la tariffa ed il prezzo"
 
 #: lib/help.php:44
 msgid "You can update your personal information here."
@@ -1848,11 +1853,15 @@ msgstr ""
 
 #: lib/help.php:59
 msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
-msgstr ""
+msgstr "Simulatore di chiamate: per conoscerne il costo al minuto e la durata complessiva massima, rispetto al proprio credito attuale."
+
+##: lib/help.php:74
+#msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessory modifications."
+#msgstr "Configurazione per i clients SIP e IAX. &Egrave; possibile copiare questa configurazione e modificarla secondo le proprie necessit&agrave;."
 
 #: lib/help.php:74
-msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessory modifications."
-msgstr ""
+msgid "SIPeIAXcl"
+msgstr "Configurazione per i clients SIP e IAX."
 
 #: lib/help.php:90
 msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
@@ -1860,7 +1869,7 @@ msgstr ""
 
 #: lib/help.php:105
 msgid "Here you can view your ratecards"
-msgstr ""
+msgstr "Qui &egrave; possibile consultare le tariffe"
 
 #: lib/help.php:120
 msgid "Enter your voucher number to top up your card."
@@ -1901,15 +1910,15 @@ msgstr ""
 
 #: lib/company_info.php:2
 msgid "This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"
-msgstr ""
+msgstr "Questo software &egrave; stato creato da Areski e distribuito sotto la licenza GPL. Per maggiori informazioni, contattarmi pure:"
 
 #: lib/company_info.php:4
 msgid " This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"
-msgstr ""
+msgstr " Questo software &egrave; sotto la licenza GPL. Per maggiori informazioni, visitare : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"
 
 #: lib/company_info.php:5
 msgid "Asterisk2Billing : CallingCard platform"
-msgstr ""
+msgstr "Asterisk2Billing : piattaforma di CallingCard"
 
 #: invoices.php:30 invoices_customer.php:31
 msgid "ERROR: Cannot download file"
@@ -2077,38 +2086,36 @@ msgid "Error card !!!"
 msgstr ""
 
 #: simulator.php:147
-#, fuzzy
 msgid "Call"
-msgstr "Dettaglio Chiamate"
+msgstr "Chiamata"
 
 #: simulator.php:147
 msgid "Simulator"
-msgstr ""
+msgstr "Simulatore"
 
 #: simulator.php:153
-#, fuzzy
 msgid "Enter the number you wish to call"
-msgstr "Digitare il numero di telefono da assegnare al codice Rubrica Veloce"
+msgstr "Digitare il numero di telefono del quale si vuole simulare la chiamata"
 
 #: simulator.php:158
 msgid "YOUR BALANCE"
-msgstr ""
+msgstr "SUO CREDITO"
 
 #: simulator.php:194
 msgid "Simulator found a rate for your destination"
-msgstr ""
+msgstr "Il simulatore ha trovato una tariffa per la destinazione inserita"
 
 #: simulator.php:200
 msgid "We found several destinations:"
-msgstr ""
+msgstr "Trovate pi&ugrave; destinazioni:"
 
 #: simulator.php:216
 msgid "CallTime available"
-msgstr ""
+msgstr "Durata massima della chiamata"
 
 #: simulator.php:266
 msgid "The number, you have entered, is not correct!"
-msgstr ""
+msgstr "Il numero inserito non &egrave; corretto!"
 
 #: predictivedialer.php:70
 #, fuzzy
@@ -2189,7 +2196,7 @@ msgstr "Destinazione"
 
 #: A2B_entity_call_details_pdf.php:338 A2B_entity_call_details_pdf.php:431
 msgid "Sr"
-msgstr ""
+msgstr "Pr"
 
 #: A2B_entity_call_details_pdf.php:428
 #, fuzzy
@@ -2198,25 +2205,25 @@ msgstr "Numero di chiamate"
 
 #: form_data/FG_var_ratecard.inc:35
 msgid "PREFIX"
-msgstr ""
+msgstr "PREFISSO"
 
 #: form_data/FG_var_ratecard.inc:36
 msgid "SR"
-msgstr ""
+msgstr "PR"
 
 #: form_data/FG_var_ratecard.inc:42 form_data/FG_var_view_invoice.inc:69
 #: form_data/FG_var_voucher.inc:23
-msgid "THERE IS NO "
+msgid "NESSUNA "
 msgstr ""
 
 #: form_data/FG_var_ratecard.inc:42 form_data/FG_var_view_invoice.inc:69
 #: form_data/FG_var_speeddial.inc:37 form_data/FG_var_voucher.inc:23
 msgid " CREATED!"
-msgstr ""
+msgstr " CREATA!"
 
 #: form_data/FG_var_ratecard.inc:49
 msgid "DIALPREFIX"
-msgstr ""
+msgstr "PREFISSO"
 
 #: form_data/FG_var_ratecard.inc:55
 msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
@@ -2248,7 +2255,7 @@ msgstr ""
 
 #: form_data/FG_var_ratecard.inc:68
 msgid "SELLING RATE"
-msgstr ""
+msgstr "PREZZO"
 
 #: form_data/FG_var_ratecard.inc:74
 msgid "Insert the initial rate"
@@ -2448,9 +2455,8 @@ msgid "USED MINUTE"
 msgstr "MINUTI USATI"
 
 #: form_data/FG_var_did.inc:60
-#, fuzzy
 msgid "CREATED!"
-msgstr "TARIFFA"
+msgstr "CREATA!"
 
 #: form_data/FG_var_did.inc:76
 msgid "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "
@@ -2805,9 +2811,8 @@ msgid " has been inserted. <br>Thanks to trust to these system !"
 msgstr ""
 
 #: A2B_entity_ratecard.php:72
-#, fuzzy
 msgid "NONE"
-msgstr "Non esiste"
+msgstr "NESSUNA"
 
 #: A2B_entity_did.php:62
 msgid "The following Destinaton-DID has been relesed:"
@@ -2871,7 +2876,7 @@ msgstr ""
 
 #: A2B_entity_did.php:580 CC_entity_phonelist.php:248
 msgid "Next"
-msgstr ""
+msgstr "Prossimo"
 
 #: A2B_entity_did.php:582
 #, fuzzy

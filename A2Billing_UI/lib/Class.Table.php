@@ -42,7 +42,7 @@
 * @version    CVS: $Id:$
 * @since      File available since Release 1.0
 */
-
+$ADODB_CACHE_DIR = '/tmp'; 
 class Table {
 	
 	var $fields = "*";
