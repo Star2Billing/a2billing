@@ -307,6 +307,7 @@ class RateEngine {
 	*/
 	function rate_engine_all_calcultimeout (&$A2B, $credit){
 			
+		global $agi;
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT ($credit)]");
 		if (!is_array($this -> ratecard_obj) || count($this -> ratecard_obj)==0) return false;
 		
