@@ -492,7 +492,15 @@ class A2Billing {
 		// Explode the international_prefixes, extracharge_did and extracharge_fee strings
 		if(isset($this->config["agi-conf$idconfig"]['extracharge_did'])) $this->config["agi-conf$idconfig"]['extracharge_did'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_did']);
 		if(isset($this->config["agi-conf$idconfig"]['extracharge_fee'])) $this->config["agi-conf$idconfig"]['extracharge_fee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_fee']);
-		if(isset($this->config["agi-conf$idconfig"]['international_prefixes'])) $this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",",$this->config["agi-conf$idconfig"]['international_prefixes']);
+
+		if(isset($this->config["agi-conf$idconfig"]['international_prefixes'])) {
+			$this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",",$this->config["agi-conf$idconfig"]['international_prefixes']);
+		} else {
+			// to retain config file compatibility assume a default unless config option is set
+			$this->agiconfig['international_prefixes'] = explode(",","011,09,00,1");
+		}
+
+
 
 		if(!isset($this->config["agi-conf$idconfig"]['number_try'])) $this->config["agi-conf$idconfig"]['number_try'] = 3;
 		if(!isset($this->config["agi-conf$idconfig"]['say_balance_after_auth'])) $this->config["agi-conf$idconfig"]['say_balance_after_auth'] = 1;
@@ -1359,11 +1367,6 @@ class A2Billing {
 	 * Function apply_rules to the phonenumber : Remove internation prefix
 	 */	
 	function apply_rules ($phonenumber) {
-
-		// to retain config file compatibility assume a default unless config option is set
-		if (!isset($this->agiconfig['international_prefixes'])) {
-			$this->agiconfig['international_prefixes'] = explode(",","011,09,00,1");
-		}
 
 		if (is_array($this->agiconfig['international_prefixes']) && (count($this->agiconfig['international_prefixes'])>0)) {
 			foreach ($this->agiconfig['international_prefixes'] as $testprefix) {
