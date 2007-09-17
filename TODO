@@ -2,6 +2,14 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+### DB CONFIG - SHOW WRONG
+********************************************************************
+CLICK ON ALL ->
+SELECT config_title, config_key, config_value, config_description, group_title, ccc.id FROM cc_config ccc, cc_config_group ccg ORDER BY config_group_id ASC LIMIT 0,5000
+
+should use 
+LEFT JOIN 
+
 
 ### FORCE LANGUAGE 
 ********************************************************************

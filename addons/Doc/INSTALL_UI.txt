@@ -114,3 +114,17 @@ secret = mycode
 ;permit=209.16.236.73/255.255.255.0
 read = system,call,log,verbose,command,agent,user
 write = system,call,log,verbose,command,agent,user
+
+
+
+
+------------------- WEB SERVICE --------------
+
+* Install php Pear module
+
+	yum install php-pear
+	
+	
+ * PEAR SOAP class
+
+	pear install --alldeps SOAP-0.9.4
