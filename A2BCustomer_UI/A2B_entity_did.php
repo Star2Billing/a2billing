@@ -258,7 +258,7 @@ if (isset($choose_country)){
 }elseif ($assign>=2){
 		// LIST USED DID TO ADD PHONENUMBER
 		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_use ON id_did=cc_did.id", "cc_did.id, did, fixrate");
-		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and id_cc_card='".$_SESSION["card_id"]."' and cc_did_use.activated=1 AND ( releasedate IS NULL OR releasedate = '0000-00-00 00:00:00')  GROUP BY cc_did.id, did, fixrate ";
+		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and id_cc_card='".$_SESSION["card_id"]."' and cc_did_use.activated=1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00')  GROUP BY cc_did.id, did, fixrate ";
 		//$instance_table_did -> debug_st = 1;
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
