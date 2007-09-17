@@ -1360,6 +1360,11 @@ class A2Billing {
 	 */	
 	function apply_rules ($phonenumber) {
 
+		// to retain config file compatibility assume a default unless config option is set
+		if (!isset($this->agiconfig['international_prefixes'])) {
+			$this->agiconfig['international_prefixes'] = explode(",","011,09,00,1");
+		}
+
 		if (is_array($this->agiconfig['international_prefixes']) && (count($this->agiconfig['international_prefixes'])>0)) {
 			foreach ($this->agiconfig['international_prefixes'] as $testprefix) {
 				if (substr($phonenumber,0,strlen($testprefix))==$testprefix) {
