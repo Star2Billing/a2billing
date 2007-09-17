@@ -489,9 +489,10 @@ class A2Billing {
 		// Explode the no_auth_dnid string 
 		if(isset($this->config["agi-conf$idconfig"]['no_auth_dnid'])) $this->config["agi-conf$idconfig"]['no_auth_dnid'] = explode(",",$this->config["agi-conf$idconfig"]['no_auth_dnid']);
 		
-		// Explode the extracharge_did and extracharge_fee strings
+		// Explode the international_prefixes, extracharge_did and extracharge_fee strings
 		if(isset($this->config["agi-conf$idconfig"]['extracharge_did'])) $this->config["agi-conf$idconfig"]['extracharge_did'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_did']);
 		if(isset($this->config["agi-conf$idconfig"]['extracharge_fee'])) $this->config["agi-conf$idconfig"]['extracharge_fee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_fee']);
+		if(isset($this->config["agi-conf$idconfig"]['international_prefixes'])) $this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",",$this->config["agi-conf$idconfig"]['international_prefixes']);
 
 		if(!isset($this->config["agi-conf$idconfig"]['number_try'])) $this->config["agi-conf$idconfig"]['number_try'] = 3;
 		if(!isset($this->config["agi-conf$idconfig"]['say_balance_after_auth'])) $this->config["agi-conf$idconfig"]['say_balance_after_auth'] = 1;
@@ -1357,68 +1358,19 @@ class A2Billing {
 	/*
 	 * Function apply_rules to the phonenumber : Remove internation prefix
 	 */	
-	function apply_rules ($phonenumber){
-						
-		// BEGIN
-		if (substr($phonenumber,0,3)=="011"){
-			$this->myprefix='011';
-			return substr($phonenumber,3);		
-		}	
-		if (substr($phonenumber,0,1)=="1"){
-			$this->myprefix='1';
-			return $phonenumber;		
-		}
-		if (substr($phonenumber,0,2)=="00"){
-			$this->myprefix='00';
-			return substr($phonenumber,2);		
-		}
-		if (substr($phonenumber,0,2)=="09"){
-			$this->myprefix='09';
-			return substr($phonenumber,2);		
-		}
-			
-		$this->myprefix='';
-		return $phonenumber;
-		// END
-		
+	function apply_rules ($phonenumber) {
 
-		// THIS PART IS DEPRECIATE : IT WAS DONE TO MANAGE THE CANADIAN LOCAL CALL 
-		// (NOT USEFUL ANYMORE AS WE CAN MANAGE THIS FROM THE RATECARD PROPERTIES)
-		
-		/*
-		// EUROPE CALL TO THE CANADIAN SYSTEM
-		if (substr($phonenumber,0,2)=="00"){
-			$this->myprefix='011';
-			return "011".substr($phonenumber,2);		
-		}		
-		// CALL TO US / OR US CALL IN CANADA
-		if (substr($phonenumber,0,1)=="1"){
-			$this->myprefix='';
-			return "011".$phonenumber;		
-		}
-		
-		// LOCAL CALL WITH 1
-		$canada[]="1403";	$canada[]="1780";	$canada[]="1250";	$canada[]="1604";	$canada[]="1778";	
-		$canada[]="1204";   $canada[]="1506";	$canada[]="1709";	$canada[]="1902";	$canada[]="1289";  $canada[]="1416";	
-		$canada[]="1519";	$canada[]="1613";	$canada[]="1647";	$canada[]="1705";	$canada[]="1807";	$canada[]="1905";	
-		$canada[]="1418";	$canada[]="1450";	$canada[]="1514";	$canada[]="1819";	$canada[]="1306";	$canada[]="1867";
-		
-		// LOCAL CALL WITHOUT 1
-		$localcanada[]="403";	$localcanada[]="780";	$localcanada[]="250";	$localcanada[]="604";	$localcanada[]="778";	
-		$localcanada[]="204";   $localcanada[]="506";	$localcanada[]="709";	$localcanada[]="902";	$localcanada[]="289";  $localcanada[]="416";	
-		$localcanada[]="519";	$localcanada[]="613";	$localcanada[]="647";	$localcanada[]="705";	$localcanada[]="807";	$localcanada[]="905";	
-		$localcanada[]="418";	$localcanada[]="450";	$localcanada[]="514";	$localcanada[]="819";	$localcanada[]="306";	$localcanada[]="867";
-		
-		foreach ($localcanada as $pn){
-			if ($pn == substr($phonenumber,0,3)){
-				$this->myprefix='';
-				return "011"."1".$phonenumber;
+		if (is_array($this->agiconfig['international_prefixes']) && (count($this->agiconfig['international_prefixes'])>0)) {
+			foreach ($this->agiconfig['international_prefixes'] as $testprefix) {
+				if (substr($phonenumber,0,strlen($testprefix))==$testprefix) {
+					$this->myprefix = $testprefix;
+					return substr($phonenumber,strlen($testprefix));
+				}
 			}
 		}
-		
-		// NO CHANGE
-		$this->myprefix='011';
-		return $phonenumber;*/
+
+		$this->myprefix='';
+		return $phonenumber;
 	}
 	
 	
