@@ -45,6 +45,9 @@ $HD_Form -> FG_TABLE_CLAUSE = "ccg.id = ccc.config_group_id";
 $HD_Form -> FG_JOIN = true;
 
 if ($groupselect != ""){
+	$HD_Form = new FormHandler("cc_config ccc ,cc_config_group ccg","Configuration");
+	$HD_Form -> FG_TABLE_ID="ccc.id";
+	$HD_Form -> FG_TABLE_CLAUSE = "ccg.id = ccc.config_group_id";
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
@@ -58,6 +61,7 @@ if($form_action == "list"){
 }else{
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }
+
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");
