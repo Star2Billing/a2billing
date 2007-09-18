@@ -73,6 +73,7 @@ $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define the criteria to search")
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Start Date / Month");
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Start Date / Day");
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'startdate';
+$HD_Form -> AddSearchElement_C1(gettext("TAG"), 'tag','tagtype');
 $HD_Form -> AddSearchElement_C1(gettext("DESTINATION"), 'destination','destinationtype');
 $HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
 $HD_Form -> AddSearchElement_C2(gettext("BUYRATE"),'buyrate1','buyrate1type','buyrate2','buyrate2type','buyrate');
@@ -98,6 +99,14 @@ $HD_Form -> AddEditElement(gettext("RATECARD"),
    "tariffname, id",		
    "", "", "%1", "", "");
 
+$HD_Form -> AddEditElement(gettext("TAG"),
+   "tag",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=40",
+   "11",
+   "",
+   "" , "", "",	"", "", "", "", gettext("Set a tag on this rate"));
 
 $dialprefix_regexpress = '9';
 
@@ -442,10 +451,10 @@ if (ADVANCED_MODE){
 
 if (ADVANCED_MODE){
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup, musiconhold');
+	$HD_Form -> FieldEditElement ('idtariffplan, tag, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup, musiconhold');
 }else{
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup');
+	$HD_Form -> FieldEditElement ('idtariffplan, tag, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup');
 }
 
 

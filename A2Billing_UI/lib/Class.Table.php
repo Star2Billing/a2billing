@@ -128,8 +128,14 @@ class Table {
 	}
 	
 	
-	function Get_list ($DBHandle, $clause = NULL, $order = NULL, $sens = NULL, $field_order_letter = NULL, $letters = NULL, $limite = NULL, $current_record = NULL, $sql_group= NULL, $cache = 0, $join = false)
+	function Get_list ($DBHandle, $clause = NULL, $order = NULL, $sens = NULL, $field_order_letter = NULL, $letters = NULL, $limite = NULL, $current_record = NULL, $sql_group= NULL, $cache = 0)
 	{
+		if(stristr($this->table, 'join')){
+			$join = true;
+		}else{
+			$join = false;
+		}
+			
 		$sql = 'SELECT '.$this -> fields.' FROM '.trim($this -> table);
 		$sql_clause='';
 		
@@ -198,8 +204,14 @@ class Table {
 	}
 	
 	
-	function Table_count ($DBHandle, $clause=null, $id_Value = null, $join = false)
+	function Table_count ($DBHandle, $clause=null, $id_Value = null)
 	{
+		if(stristr($this->table, 'join')){
+			$join = true;
+		}else{
+			$join = false;
+		}
+		
 		$sql = 'SELECT count(*) FROM '.trim($this -> table);
 		
 		$sql_clause='';

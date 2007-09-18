@@ -15,7 +15,7 @@ if (! has_rights (ACX_RATECARD)){
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'tariffplan', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_buyrate', 'upd_buyrateinitblock', 'upd_buyrateincrement', 'upd_rateinitial', 'upd_initblock', 'upd_billingblock', 'upd_connectcharge', 'upd_disconnectcharge', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', "filterprefix"));
+getpost_ifset(array('batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_buyrate', 'upd_buyrateinitblock', 'upd_buyrateincrement', 'upd_rateinitial', 'upd_initblock', 'upd_billingblock', 'upd_connectcharge', 'upd_disconnectcharge', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', "filterprefix",'upd_tag'));
 
 
 /***********************************************************************************/
@@ -324,6 +324,17 @@ if ($form_action == "list"){
 				<input type="radio" NAME="type[upd_disconnectcharge]" value="2" <?php if($type[upd_disconnectcharge]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
 				<input type="radio" NAME="type[upd_disconnectcharge]" value="3" <?php if($type[upd_disconnectcharge]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				</font>
+			</td>
+		</tr>
+		<tr>		
+          <td align="left" class="bgcolor_001">
+		  		<input name="check[upd_tag]" type="checkbox" <?php if ($check["upd_tag"]=="on") echo "checked"?>>
+				<input name="mode[upd_tag]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  class="bgcolor_001">	
+				
+				<font class="fontstyle_009">11) <?php echo gettext("TAG");?> :</font>
+				 	<input class="form_input_text" name="upd_tag" size="10" maxlength="10"  value="<?php if (isset($upd_tag)) echo $upd_tag; else echo '';?>" >
 			</td>
 		</tr>
 		<tr>		
