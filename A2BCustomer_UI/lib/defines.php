@@ -230,8 +230,8 @@ define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->co
 define ("ADMIN_EMAIL", isset($A2B->config["global"]['admin_email'])?$A2B->config["global"]['admin_email']:null);
 
 // A2BILLING INFO
-define ("WEBUI_DATE", 'Release : May 2007');	 
-define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
+define ("WEBUI_DATE", 'Release : no date');
+define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.4 - Trunk');
 // A2BILLING COPYRIGHT & CONTACT
 define ("TEXTCONTACT", gettext("This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"));
 define ("EMAILCONTACT", "areski@gmail.com");
