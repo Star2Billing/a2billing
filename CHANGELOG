@@ -73,17 +73,6 @@ when we check card is valid or not, we still use cc_card.activated
 we need to replace this by cc_card.status
 
 
-#### TODO : TAG IN RATECARD
-********************************************************************
-We need a tag field into the ratecard!
-this allow us to tag and filter some rates from a ratecard.
-For instance, if we want to tag all the proper line prefix, so that we can then
-apply batch update only for them.
-
-We can add a new field in cc_ratecard for this :
-ALTER TABLE cc_ratecad ADD COLUMN tag CHAR(50);
-- We should add a reseach by tag on "Browse Rates".
-
 
 #### TODO : GENERATE VOUCHER & GENERATE CARD
 ********************************************************************
