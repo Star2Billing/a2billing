@@ -128,12 +128,17 @@ class Table {
 	}
 	
 	
-	function Get_list ($DBHandle, $clause = NULL, $order = NULL, $sens = NULL, $field_order_letter = NULL, $letters = NULL, $limite = NULL, $current_record = NULL, $sql_group= NULL, $cache = 0)
+	function Get_list ($DBHandle, $clause = NULL, $order = NULL, $sens = NULL, $field_order_letter = NULL, $letters = NULL, $limite = NULL, $current_record = NULL, $sql_group= NULL, $cache = 0, $join = false)
 	{
 		$sql = 'SELECT '.$this -> fields.' FROM '.trim($this -> table);
 		$sql_clause='';
+		
 		if ($clause!='') {
-			$sql_clause=' WHERE '.$clause;
+			if($join){
+				$sql_clause=' ON '.$clause;	
+			}else{
+				$sql_clause=' WHERE '.$clause;
+			}
 		}
 		
 		$sqlletters = "";
@@ -143,7 +148,11 @@ class Table {
 			if ($sql_clause != "") {
 				$sql_clause .= " AND ";
 			} else {
-				$sql_clause .= " WHERE ";
+				if($join){
+					$sql_clause=' ON '.$clause;	
+				}else{
+					$sql_clause=' WHERE '.$clause;
+				}
 			}
 		}
 		
@@ -189,16 +198,24 @@ class Table {
 	}
 	
 	
-	function Table_count ($DBHandle, $clause=null, $id_Value = null)
+	function Table_count ($DBHandle, $clause=null, $id_Value = null, $join = false)
 	{
 		$sql = 'SELECT count(*) FROM '.trim($this -> table);
 		
 		$sql_clause='';
 		if ($clause!='') {
             if ($id_Value == null || $id_Value == '') {
-			    $sql_clause=' WHERE '.$clause;
+				if($join){
+					$sql_clause=' ON '.$clause;	
+				}else{
+					$sql_clause=' WHERE '.$clause;
+				}
             } else {
-                $sql_clause=' WHERE '.$clause." = ".$id_Value;
+                if($join){
+					$sql_clause=' ON '.$clause." = ".$id_Value;	
+				}else{
+					$sql_clause=' WHERE '.$clause." = ".$id_Value;				
+				}
             }
         }
 		

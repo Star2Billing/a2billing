@@ -84,7 +84,12 @@ class FormHandler
 	var $FG_NB_TABLE_COL=0;
 	var $FG_TOTAL_TABLE_COL=0;
 	
-	
+	/**
+	 * Use to define joining tables
+	 */
+	var $FG_JOIN = false;
+	 
+	 
 	/**
     * Keep the ID of the table
     * @public	-	@type string
@@ -1069,7 +1074,6 @@ class FormHandler
 			}
 			
 			if ( $form_action == "list" ){
-				
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 	
 				$this->prepare_list_subselection($form_action);
@@ -1089,9 +1093,9 @@ class FormHandler
 				}
 				
 				$list = $instance_table -> Get_list ($this -> DBHandle, $this -> FG_TABLE_CLAUSE, $this->FG_ORDER, $this->FG_SENS, null, null,
-													 $this -> FG_LIMITE_DISPLAY, $this -> CV_CURRENT_PAGE * $this -> FG_LIMITE_DISPLAY, $this -> SQL_GROUP);
+													 $this -> FG_LIMITE_DISPLAY, $this -> CV_CURRENT_PAGE * $this -> FG_LIMITE_DISPLAY, $this -> SQL_GROUP, 0, $this -> FG_JOIN);
 				if ($this->FG_DEBUG == 3) echo "<br>Clause : ".$this -> FG_TABLE_CLAUSE;
-				$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE);
+				$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE,"", $this -> FG_JOIN);
 				if ($this->FG_DEBUG >= 1) var_dump ($list);
 				
 				if ($this -> FG_NB_RECORD <=$this -> FG_LIMITE_DISPLAY){
