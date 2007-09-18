@@ -3,25 +3,15 @@
 ********************************************************************************
 
 
-#### TODO : TAG IN RATECARD
+#### MASS MAIL FEATURE
 ********************************************************************
-We need a tag field into the ratecard!
-this allow us to tag and filter some rates from a ratecard.
-For instance, if we want to tag all the proper line prefix, so that we can then
-apply batch update only for them.
+option to let send an email to all the a2billing user
+- check how is it done on phpBB
+if we have several thousand of mail to send this can be an issue with normal php scripts
+maybe a daemon is needed
 
-We can add a new field in cc_ratecard for this :
-ALTER TABLE cc_ratecad ADD COLUMN tag CHAR(50);
-- We should add a reseach by tag on "Browse Rates".
-
-
-### DB CONFIG - SHOW WRONG
-********************************************************************
-CLICK ON ALL ->
-SELECT config_title, config_key, config_value, config_description, group_title, ccc.id FROM cc_config ccc, cc_config_group ccg ORDER BY config_group_id ASC LIMIT 0,5000
-
-should use 
-LEFT JOIN 
+* We should be able to define the search Criteria as in View Card in order to preselect
+only some customer to which u want to run the massmail
 
 
 ### FORCE LANGUAGE 
@@ -47,22 +37,6 @@ It is easier to only have the full details in the database, and then be careful 
 data in public.
 
 
-#### FIX : ADODB cache dir
-********************************************************************
-Put the adodb cache in /tmp , too
-
-
-#### CHECK : Check AGI use the Status
-********************************************************************
-in AGI Class.A2Billing, function authentication, 
-when we check card is valid or not, we still use cc_card.activated
-we need to replace this by cc_card.status
-
-
-#### FIX : Web service - status log dont work, check Activation_Card
-********************************************************************
-Web service - status log dont work, check Activation_Card
-
 
 #### TRUNK CHANGE : UPDATE DAEMON TO USE THE DB CONF
 ********************************************************************
@@ -75,55 +49,7 @@ read conf from the DB
 
 #### FEATURE : CUSTOMER SERVICES FRIENDLY
 ********************************************************************
- 
-1. Make the customer account number a link everywhere that it is displayed, 
-so that if you see a customer number, you click on it, and it takes you to the customer details screen.
-
-2. Within the customer accounts screen, have a link to click to bring up to 
-the login screen A2BCustomer_UI - but without the requirement to fill again the user's name and password.
-
-3. A notes field against the customer - simply a free text field.
-
-4. A customer history, would include date stamped notes added by the 
-Customer services, and may even display an element of the automatic history already displayed on the system.
-
-5. A Customer Dashboard - showing services, payments etc.
-
-
-#### ADDITIONAL CHARGES ON REALTIME BILLING
-********************************************************************
-1) Rouding calltime
-
-	We will need 2 new fields in the ratecard to define this, 
-	
-	- rounding_calltime will define the new calltime that will be assigned to this call, for instance 360 (6 minutes)
-	- rounding_threshold that will define the amount in seconds from which the rounding calltime will apply
-	for instance 300 (5 minutes)
-	
-	** take note that if the call last 7 minutes if the rounding_calltime is less than the current 
-		calltime we dont round down the calltime
-	
-	Example :
-	I make a call of 5 minutes to Belgium,  the rate is 0.1$ per minutes, I have normally to pay 0.5 for this call
-	now the ratecard will be configure with  rounding_calltime = 360 - 6min
-	and rounding_threshold will be set to 240, so 4min, the rateengine will see that my current calltime (300) is upper than the defined rounding_threshold 
-	and so it will round the call to the new calltime, rounding_calltime = 360
-	so my call will be rated to 0.6$ instead of 0.5
-	
-	
-2) Additional Block charge
-
-	This is an additional charge that will be apply according to the duration of the call and 
-	the amount of "time block" inside the the calltime.
-	We will need 2 new fields in the ratecard to define this, 
-	- additional_block_charge that will define the charge amount, ie 0.50 cents
-	- additional_block_charge_time that will define the amount of seconds from which we have to apply this 
-	  new charge, we will count the amount of time this block of time can be contain inside 
-	  the calltime and apply the charge accordingly to this.
-	Example, additional_block_charge_time = 300 (5 minutes) if the call last 360 seconds, the 
-	additional_block_charge_time is contains 1 time so we apply this charge once. 
-	If the call last now 660 seconds (11 minutes), the additional_block_charge_time (5min) is contains 
-	2 time so we will apply this charge 2 time too (2 time 0.50 cents)
+A Customer Dashboard - showing services, payments etc.
 
 
 #### TODO : TRANSLATION - CANCEL, ANSWERED, CONGESTION
@@ -134,46 +60,7 @@ Explaining: When a customer log in in the a2customer control panel and click in 
 the status of the call, if was CANCEL, ANSWERED, CONGESTION... 
 ewrtwet
 
-#### TODO : GENERATE VOUCHER & GENERATE CARD
-********************************************************************
-In the generate option, the tag value is set to a random ID : 1181897201
-this allow us to see exactly after the generation those that has been created!
-If someone really use the tag feature to classify his voucher, this can be bit annoying! 
-we need to give the option to define the tag to a specific value or to use the random number.
 
-We can add a new field in cc_card for this :
-ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
-We should add a reseach by tag too on View card.
-
-
-#### GENERAL : replace activated by status
-********************************************************************
-we need to review where we use activated and replace it by status everywhere in the code or we are duplicating the need on this field.
-
-
-#### BILLING : ADD VIEW AND SEARCH ON TABLE cc_epayment_log
-********************************************************************
-ADD VIEW AND SEARCH ON TABLE cc_epayment_log
-status -> 0 : New ; 1 : proceed ; 2 ; in process
-
-
-
-#### CHECK BACKUP & RESTORE FEATURE
-********************************************************************
-user posted that is broken.
-
-
-#### UPDATE CSS Menu : menu.css
-********************************************************************
-With some translation the text in the menu overpass the size of the cell.
-changing has below the height change the design we need to wrap the text and make it 
-fit according to the amount of text.
-
- #nav ul li span,#nav ul li a {
-      padding: 2px 18px 2px 20px;
-      font-size: 10px;
--       height : 11px;
- }
 
 #### UPDATE : MAIL TEMPLATE TAG HTML - Add a plaintext versions
 ********************************************************************
@@ -204,14 +91,6 @@ $HD_Form -> AddViewElement(gettext("Call Plan"), "tariff", "10%", "center", "sor
 you have a LIE here to see the tariffgroup name so if you view lot of card, you will do a lot of sql query 
 
 
-#### MASS MAIL FEATURE
-********************************************************************
-option to let send an email to all the a2billing user
-- check how is it done on phpBB
-if we have several thousand of mail to send this can be an issue with normal php scripts
-maybe a daemon is needed
-
-
 #### NEW TASK - NEW button style []
 ********************************************************************
 Replace all the big button on view by a cute icons.
@@ -220,7 +99,6 @@ Replace all the big button on view by a cute icons.
 #### FEATURE : BILLING ON VOIP CALL - DID VOIP CALL
 ********************************************************************
 add billing for voip/call
-
 
 
 #### FEATURE : AGI
@@ -233,7 +111,6 @@ Showing Balance on Softphone....
 Laod balancing not role over or fail over but load balancing. Expl.
 If you have 3 GSM gtwy of 90 port each, we want to send one call to the first gtwy 
 then the second call to the next gtwy and then the next call to the next gtwy.
-
 
 
 
@@ -250,7 +127,6 @@ When dialing 0123456789 the call is presented to trunk #1 as it should be:
 
 If the call fails over each of the successive attempts will add the correct prefix, but not remove the desired digits:
 88890123456789
-
 
 
 #### BUG : SIGNUP
@@ -272,9 +148,6 @@ to have a CallerID prefix for DIDs, so that you might want to allocate the same 
 
 
 
-
-
-
 #### MAILTYPE : EPAYMENT GATEWAY SECURITY 
 ********************************************************************
 Can you add a Mailtype to Epayment Gateway Security Verification Failed so that it can be edited?
@@ -290,32 +163,18 @@ user interface ability to set up the codec, etc..
 then we could say in the customer signup email - 
 IAX details : Username = $card_gen, Password = $password CID = $cardalias
 
-
 Thank you for registering with Call-Labs
 
 Please credit your account by paying via the customer interface at http://myaccount.call-labs.com/
-
 To log into your account please use your email address or card-alias ($cardalias) as your username and your password ($password) to login.
-
 Configure your VoIP phone with the following settings.
-
 Host / SIP proxy = voip.call-labs.com
-
 Account Number = $card_gen
-
 Password = $password
-
 CallerID = $cardalias
 
- 
-
 Kind regards,
-
 The Call Labs Team
-
-
-
-
 
 
 #### GMT : REPORT & INVOICING
@@ -323,15 +182,9 @@ The Call Labs Team
 Suppot GMT : report & invoicing
 
 
-#### move a2billing.conf in DB
-********************************************************************
-move a2billing.conf in DB
-
-
 #### CallerID Name
 ********************************************************************
 Support callerID name for authentication
-
 
 
 #### Add VoiceMail
@@ -354,16 +207,12 @@ exten => *97,n,Hangup
 
 
 
-
-
 #### ACL : Access Control List
 ********************************************************************
 try to improve for a complex ACL,
 for each pages / Section
 
 Access Right like Edit ; Delete ; Add
-
-
 
 
 
@@ -396,8 +245,6 @@ sometimes u can hear (durring the other party phone rings) a voice with "and the
 
 
 
-
-
 #### UPDATE STATUS IN PAYPAL AND MONEY BOOKERS
 ********************************************************************
 We should have the way to manage the Pending transactions !!!
@@ -423,11 +270,6 @@ is there anything in framework that support like this?
 add a parameter to not bill 1st if not connected
 callback_bill_1stleg_ifcall_notconnected = YES / NO
 
-
-#### multi-langague on email template
-********************************************************************
-multiple email templates based on location signup
-ie, if some one is from india, they will recieve their email in indian language
 
 
 #### Check voice one 
@@ -470,9 +312,6 @@ Morten Isaksen <misak _at misak.dk>
 http://misak.dk/download/a2billing/CC_ratecard_import_analyse.php.diff
 
 
-
-
-
 #### BUGS
 ********************************************************************
 1. The notify user (send_reminder) when min_credit_2call is reached doesn't seem to work. I have made the changes in a2billing.conf but still no email is sent to user, how do i get this working?
@@ -483,24 +322,9 @@ http://misak.dk/download/a2billing/CC_ratecard_import_analyse.php.diff
 Reason for this is, I would like a reminder to be sent when a user has £x credit left in their account but the user should still be able to use the account with the current balance. At the moment the only way to achieve this is to set the min_credit_2call=0 (this way the user gets to use every penny in their account) but by this time i think the reminder that is being sent when credit=0 is too late.
 
 
-
-
-
-
-
 #### OnLine Payment 
 ********************************************************************
 Checkout Google
-
-
-
-
-
-
-
-
-
-
 
 
 #### BUG : DID BILLING
@@ -633,82 +457,8 @@ make it more easily customizable
 
 
 
-#### BUG []
-********************************************************************
 
-	Line 382 in a2billing.php has:
-					   if (substr($A2B->CallerID,0,1)=='0'){
-						   $A2B ->dnid = $A2B ->destination =
-	$caller_areacode.substr($A2B->CallerID,1);
-					   }else{
-						   $A2B ->dnid = $A2B ->destination =
-	$caller_areacode.$A2B->CallerID;
-					   }
-					   $agi->verbose('line:'.__LINE__.' - '.'[destination:
-	- '.$A2B->destination.']');
-	
-	[a2billing-cid-callback]
-	exten => _X.,1,DeadAGI(a2billing.php|1|cid-callback|34) ;last
-	parameter is the callback area code
-	exten => _X.,2,Hangup
-	
-	As u see the last parameter is the area code and from instance :
-	if I am in Belgium and use a local DID for callback but my server are
-	in UK, the system will probably not know that it needs to call me back
-	over the prefix 32, that's why is needed.
-	So in this case my cell number 0473510969, a2b will be call me as 32473510969.
-	That s the meaning of the remaining zero and it makes sense to set a parameter 
-	for the leading zero if you are
-	already in the local country.
-
-
-
-
-#### []
-********************************************************************
-Improve invoices system : let us store the generate invoice on the 
-server. Define rules to send invoice at scheduled period
-
-
-
-#### []
-********************************************************************
-Suggestion from Vahan
-	1. First of all I'd suggest to introduce one single yet simple config
-	option in a2billing.conf: silent=yes|no that allows to turn off all the
-	voice prompts in the case a2billing.php has successfully authenticated
-	the caller-id/card number and if the assosiated card number has enough
-	credit. Currently you have to disable several announce configs for this.
-
-	2. add an option to filter by first name / last name too in the card picker.
-
-	3. Please first name to the list to as a separate column or merged with
-	last name. It's difficult to track people by their lastnames only.
-	Areski : I propose more to get rid of lastname and include a new feature to 
-	roll over the row and get more info. it will keep up a clear design
-
-
-
-
-#### []
-********************************************************************
-EXPORT CSV - REALLY CUSTOMIZABLE
-EXPORT VOUCHER & EXPORT CARD
-DEFINE CARD AND FIELD TO EXPORT ON FRAMEWORK
-
-
-#### []
-********************************************************************
-BATCH UPDATE
-
-
-
-#### []
-********************************************************************
-Edit card : date format
-
-
-#### []
+#### Improvement []
 ********************************************************************
 There are problems with multiple calls if the credit is running low.
 The system should secure a certain amount from the credit once the
@@ -717,60 +467,10 @@ user is logged in.
 
 #### []
 ********************************************************************
-2. auto-generation of both sip/iax accounts - think it cannot do
-3. choice (in a2billing.conf) - friends in files or in asterisk realtime
-4 - later - for realtime - link to existing users/peers (voiceone etc)
-
-
-
-#### []
-********************************************************************
-- INVOICES MODULES (STORE ON SERVER - PRECOFIGURE RULES TO CREATE THEM)
-
-Upgrade of the invoices html2pdf 
-Store invoices on the server for different periode of time
-
-
-
-#### []
-********************************************************************
-Move all the a2billing conf into the DB
-
-
-
-
-
-#### []
-********************************************************************
 //// IMPORTANT 
 Ben Pintilie <ben@energyradio.co.uk>
 Going to offer professional recording :D
 - rework on the IVR text 
-
-
-#### [done-recheck]
-********************************************************************
-//// IMPORTANT 
-
-Bug with DID in the customer interface
-with mysql < 4 sub-select doesnt working
-Replace the query
-
-Database error: Invalid SQL: SELECT id, did, fixrate FROM cc_did WHERE id_cc_country=225 and id_cc_didgroup='1' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination) ORDER BY did ASC
-MySQL Error: 1064 (You have an error in your SQL syntax near 'select id_cc_did from cc_did_destination) ORDER BY did ASC' at line 1)
-
-
-
-
-#### []
-********************************************************************
-Feature requests :
-Print Voucher(s) (PDF ?)
-Print Anonymous Prepaid Card (PDF ?)
-Print Personal Prepaid/PostPaid Card (PDF ?)
-Print Rates/Ratecard (adminUI)
-Export Rates->PDF (customerUI)
-Printing with custom company logo.
 
 
 
@@ -783,32 +483,6 @@ e.) at the form of adding/changing SIP/IAX user there should be a possibilty to 
 ********************************************************************
 
 d) different SIP/IAX files for each administrator/account- so with this there would be a possibility for a better differnece of two persons which handle the system and don't overwrite any manual config or/and a better usefull possibility for special definitions for the caller if he want to change like the "callerid" or anything else
-
-#### []
-********************************************************************
-5.) BUG : if the debug level in /etc/asterisk/a2billing.conf will be activated to 1, 2 or 3 there sould be a DEBUG from the AGI-scripts to the log_file. But I've seen, that many debugging information will not be printed to the logfile.
- 
-So the statments "if ($A2B->agiconfig['debug']>=1) " don't work even the debug is set (i printed out the debug and I've seen it that the entry is correct. Maybe there is a mistake in the $agi->verbose but I don't looked there because it isn't so urgent to fix it.
- 
-Here is a example (the first line is from me and will printed out, the $A2B->agiconfig['debug'] = 2 but the two verbose don't will be printed to the log_file) :
- 
-# diff /var/lib/asterisk/agi-bin/a2billing.php
-122c124
-                                        $A2B -> write_log("[CREDIT STATUS : ".$A2B-> credit."]");
-                                        if ($A2B->agiconfig['debug']>=1) $agi->verbose("[CREDIT STATUS : ".$A2B-> credit."]");
-                                        if ($A2B->agiconfig['debug']>=1) $agi->verbose("[CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
-
-
-
-#### []
-********************************************************************
-//// IMPORTANT 
-Create a parameter in a2billing.conf format the number of decimal to display
-in Misc.php -> number_format($var,2);
-
-SWITCH ALL THE FLOAT IN MYSQL TO DECIMAL(12,6)
-SWITCH ALL THE FLOAT IN POSTGRESQL TO NUMERIC(12,6)
-ALTER TABLE cc_ratecard CHANGE buyrate buyrate DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
 
 
 
@@ -832,15 +506,6 @@ destination 338 puis je n'ouvre que les routes 338x que je veux ;-)
 
 
 
-#### []
-********************************************************************
-
-> Since you support simultaneous calls on the same acountcode, It would be
-> nice if the CustomerUI displayed CallerID and also be able to search on and
-> sort on that column. Would be nice.  This way we can segegrate within the
-> same account.
-
-
 #### CURRENCY BY RATECARD 
 ********************************************************************
 Rates : it should be possible to enter rates in different currencies for each ratecard.
@@ -855,10 +520,20 @@ Needed DID improvement :
 did_not_assigned_snd=
 
 
-#### FRIEND SIP/IAX - CHARGE CALLS
+#### []
 ********************************************************************
-ability to charge a fixed amount eg: 5cents per minute. for sip to sip calls
 
+- CUSTOM ALL THE MESSAGE FROM WEB
+- CALLSHOP
+- RESELLERS MODULE
+	http://www.voipswitch.com/reselleapplication.htm
+- C MODULE (NON_AGI BASED) OR AEL
+- WHOLESALES (http://admin.coreswitch.com)
+
+
+#### []
+********************************************************************
+ - Create a web base installation like many php projects do . ( no hurry at all ).
 
 
 
@@ -897,115 +572,3 @@ define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR .
 etc...
 
 /////////////////////////////////////////////////////
-
-
-
-
-
-********************************************************************
-                   TODO LIST - GENERAL
-********************************************************************
-
-
- 
-- MULTI CURRENCY FOR THE RECURRING SERVICE (maybe better to leave it like that)
-
-- CUSTOM WELCOM MESSAGE
-
-- CUSTOM ALL THE MESSAGE FROM WEB
-
-- PASS PART OF THE CONFIGURATION ON THE DB
-
-- CALLSHOP
-
-- RESELLERS MODULE
-http://www.voipswitch.com/reselleapplication.htm
-
-- C MODULE (NON_AGI BASED) OR AEL
-
-- CLASS_ENTITY
-
-- KEEP TRACK OF THE COST - CALCULATE EARNING
-
-- MAKE A GLOBAL VISUALISATION OF ASR - GLOBAL COST - EARNINGS (AGILE BILLING)
-  REPORT ASR 
-  
-- SUPPORT ARA
-
-- EXPORT RATES
-
-- WHOLESALES (http://admin.coreswitch.com)
-
-- Flash Operator Panel integration of additional_a2billing_SIP/IAX.conf
-
-- Cront Manager 
-
-
-
-2) In most billing systems identification of customer is not associated with
-PIN code. Most usual and flexible way is to add the term of account.  The
-account has associated with it PIN codes, CLIDs and other methods of
-providing services. For example you have a corporative customer that is
-company with 15 employees. These all people use PIN codes, their cell phones
-callerids also used for access. They just call and call but money for calls
-everytime taken from ONE account and they don't have to think about their
-personal account balance, the company has one account for all PINs and
-CLIDs. This is usual practise for most billing systems. This
-company-customer can get the report in any time and look how many calls were
-made by employees and how much money they spent from the account and how
-many money were spent by all employees instead of looking the personal
-accounts of all employees.
-
-#### [work-in-progress]
-********************************************************************
-//// IMPORTANT BUT WE WAIT FOR THE WIKI
- - Review Documentation about installation ( many missing , errors ) ? ( or maybe not ... :-D ).
-
-#### []
-********************************************************************
-
- - Make a javascript wrappers to be sure that correct selections have been done for all script
-   where there's a search button . Also avoid or just warn to user when it select a Range but use
-   check out checkboxes from other selection i.ex :
-
-   Selection of the month ( selected ) but check out checkboxes from Selection of the day .
-
-#### []
-********************************************************************
-
- - Allow set timezone in a2billing 
-
-#### []
-********************************************************************
- - Add a .htaccess with php options i.ex : register_globals off , etc ... ( and also to protect the site maybe ? ).
-
-#### []
-********************************************************************
- - Create a web base installation like many php projects do . ( no hurry at all ).
-
-#### []
-*******************************************************************
-//// IMPORTANT 
- - Verify the design in IE , seems that doesn't like some CSS.
-
-#### [done-check-postgresql]
- - Need to check possible problems with differents versions of MYSQL , the inserts for timestamps has been
- fixeds but not update and others.
-
-
-#### []
-*******************************************************************
-//// IMPORTANT
-
-Check Call Report.
-
-#### []
-*******************************************************************
-
-Fix the generation of pdf avoid to use ob_* functions and generate the pdf to disk
-so we avoid the problem of php memory exausting.
-
-#### [LEFT MENUS OF ADMIN AND CUSTOMER UI]
-*******************************************************************
-While browsing Admin and customer ui on clicking menus, page move upward to the top.
-It should not move upward when someone want to open the menus.

@@ -3,6 +3,141 @@
 ********************************************************************
 
 
+
+#### ADDITIONAL CHARGES ON REALTIME BILLING
+********************************************************************
+1) Rouding calltime
+
+	We will need 2 new fields in the ratecard to define this, 
+	
+	- rounding_calltime will define the new calltime that will be assigned to this call, for instance 360 (6 minutes)
+	- rounding_threshold that will define the amount in seconds from which the rounding calltime will apply
+	for instance 300 (5 minutes)
+	
+	** take note that if the call last 7 minutes if the rounding_calltime is less than the current 
+		calltime we dont round down the calltime
+	
+	Example :
+	I make a call of 5 minutes to Belgium,  the rate is 0.1$ per minutes, I have normally to pay 0.5 for this call
+	now the ratecard will be configure with  rounding_calltime = 360 - 6min
+	and rounding_threshold will be set to 240, so 4min, the rateengine will see that my current calltime (300) is upper than the defined rounding_threshold 
+	and so it will round the call to the new calltime, rounding_calltime = 360
+	so my call will be rated to 0.6$ instead of 0.5
+	
+	
+2) Additional Block charge
+
+	This is an additional charge that will be apply according to the duration of the call and 
+	the amount of "time block" inside the the calltime.
+	We will need 2 new fields in the ratecard to define this, 
+	- additional_block_charge that will define the charge amount, ie 0.50 cents
+	- additional_block_charge_time that will define the amount of seconds from which we have to apply this 
+	  new charge, we will count the amount of time this block of time can be contain inside 
+	  the calltime and apply the charge accordingly to this.
+	Example, additional_block_charge_time = 300 (5 minutes) if the call last 360 seconds, the 
+	additional_block_charge_time is contains 1 time so we apply this charge once. 
+	If the call last now 660 seconds (11 minutes), the additional_block_charge_time (5min) is contains 
+	2 time so we will apply this charge 2 time too (2 time 0.50 cents)
+
+
+
+#### FEATURE : CUSTOMER SERVICES FRIENDLY
+********************************************************************
+ 
+1. Make the customer account number a link everywhere that it is displayed, 
+so that if you see a customer number, you click on it, and it takes you to the customer details screen.
+
+2. Within the customer accounts screen, have a link to click to bring up to 
+the login screen A2BCustomer_UI - but without the requirement to fill again the user's name and password.
+
+3. A notes field against the customer - simply a free text field.
+
+4. A customer history, would include date stamped notes added by the 
+Customer services, and may even display an element of the automatic history already displayed on the system.
+
+
+#### FIX : Web service - status log dont work, check Activation_Card
+********************************************************************
+Web service - status log dont work, check Activation_Card
+
+
+#### FIX : ADODB cache dir
+********************************************************************
+Put the adodb cache in /tmp , too
+
+
+#### CHECK : Check AGI use the Status
+********************************************************************
+in AGI Class.A2Billing, function authentication, 
+when we check card is valid or not, we still use cc_card.activated
+we need to replace this by cc_card.status
+
+
+#### TODO : TAG IN RATECARD
+********************************************************************
+We need a tag field into the ratecard!
+this allow us to tag and filter some rates from a ratecard.
+For instance, if we want to tag all the proper line prefix, so that we can then
+apply batch update only for them.
+
+We can add a new field in cc_ratecard for this :
+ALTER TABLE cc_ratecad ADD COLUMN tag CHAR(50);
+- We should add a reseach by tag on "Browse Rates".
+
+
+#### TODO : GENERATE VOUCHER & GENERATE CARD
+********************************************************************
+In the generate option, the tag value is set to a random ID : 1181897201
+this allow us to see exactly after the generation those that has been created!
+If someone really use the tag feature to classify his voucher, this can be bit annoying! 
+we need to give the option to define the tag to a specific value or to use the random number.
+
+We can add a new field in cc_card for this :
+ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
+We should add a reseach by tag too on View card.
+
+
+#### GENERAL : replace activated by status
+********************************************************************
+we need to review where we use activated and replace it by status everywhere in the code or we are duplicating the need on this field.
+
+
+#### BILLING : ADD VIEW AND SEARCH ON TABLE cc_epayment_log
+********************************************************************
+ADD VIEW AND SEARCH ON TABLE cc_epayment_log
+status -> 0 : New ; 1 : proceed ; 2 ; in process
+
+
+
+#### CHECK BACKUP & RESTORE FEATURE
+********************************************************************
+user posted that is broken.
+
+
+
+#### UPDATE CSS Menu : menu.css
+********************************************************************
+With some translation the text in the menu overpass the size of the cell.
+changing has below the height change the design we need to wrap the text and make it 
+fit according to the amount of text.
+
+ #nav ul li span,#nav ul li a {
+      padding: 2px 18px 2px 20px;
+      font-size: 10px;
+-       height : 11px;
+ }
+
+
+### DB CONFIG - SHOW WRONG
+********************************************************************
+CLICK ON ALL ->
+SELECT config_title, config_key, config_value, config_description, group_title, ccc.id FROM cc_config ccc, cc_config_group ccg ORDER BY config_group_id ASC LIMIT 0,5000
+
+should use 
+LEFT JOIN 
+
+
+
 #### FEATURE : ADD CSV EXPORT ON THE CDR REPORT
 ********************************************************************
 Add CSV & XML Export on the cdr report
@@ -93,6 +228,47 @@ this will do a SELECT of the AGI-Conf-Base and show the parameter that has been 
 ********************************************************************
 problem on calling card language selection. once select 1 or 2 or 3 in the language selection IVR, it dropped rightaway. 
 it was good on my original version. 
+
+
+#### move a2billing.conf in DB
+********************************************************************
+move a2billing.conf in DB
+
+
+#### multi-langague on email template
+********************************************************************
+multiple email templates based on location signup
+ie, if some one is from india, they will recieve their email in indian language
+
+
+
+#### BUG []
+********************************************************************
+
+Line 382 in a2billing.php has:
+				   if (substr($A2B->CallerID,0,1)=='0'){
+					   $A2B ->dnid = $A2B ->destination =
+$caller_areacode.substr($A2B->CallerID,1);
+				   }else{
+					   $A2B ->dnid = $A2B ->destination =
+$caller_areacode.$A2B->CallerID;
+				   }
+				   $agi->verbose('line:'.__LINE__.' - '.'[destination:
+- '.$A2B->destination.']');
+
+[a2billing-cid-callback]
+exten => _X.,1,DeadAGI(a2billing.php|1|cid-callback|34) ;last
+parameter is the callback area code
+exten => _X.,2,Hangup
+
+As u see the last parameter is the area code and from instance :
+if I am in Belgium and use a local DID for callback but my server are
+in UK, the system will probably not know that it needs to call me back
+over the prefix 32, that's why is needed.
+So in this case my cell number 0473510969, a2b will be call me as 32473510969.
+That s the meaning of the remaining zero and it makes sense to set a parameter 
+for the leading zero if you are
+already in the local country.
 
 
 ********************************************************************

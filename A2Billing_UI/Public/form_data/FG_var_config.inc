@@ -25,12 +25,17 @@ $value_list["2"] = array( gettext("no"), 0);
 $yesno = array();
 $QUERY =  "SELECT config_value, config_valuetype, config_title, config_listvalues, id from cc_config order by id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);
+
 foreach($result as $key => $cur_value) 
 {
-	if($cur_value[0] == "1"){
-		$yesno[$cur_value[0]] = array("Yes",$key);
-	}else if($cur_value[0] == "0"){
-		$yesno[$cur_value[0]] = array("No",$key);
+	if($cur_value[1] == 0){
+		if($cur_value[0] == 1){
+			$yesno[$cur_value[0]] = array("Yes",$key);
+		}else if($cur_value[0] == "0"){
+			$yesno[$cur_value[0]] = array("No",$key);
+		}else{
+			$yesno[$cur_value[0]] = array($cur_value[0],$key);
+		}
 	}else{
 		$yesno[$cur_value[0]] = array($cur_value[0],$key);
 	}
