@@ -56,7 +56,7 @@ if (isset($posted)){
 }
 
 if($form_action == "list"){
-		$_SESSION['ss_groupselect'] = '';
+	$_SESSION['ss_groupselect'] = '';
 }else{
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }
