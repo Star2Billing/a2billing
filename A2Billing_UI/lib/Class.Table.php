@@ -42,7 +42,7 @@
 * @version    CVS: $Id:$
 * @since      File available since Release 1.0
 */
-$ADODB_CACHE_DIR = '/tmp'; 
+$ADODB_CACHE_DIR = '/tmp';
 class Table {
 	
 	var $fields = "*";
@@ -130,21 +130,10 @@ class Table {
 	
 	function Get_list ($DBHandle, $clause = NULL, $order = NULL, $sens = NULL, $field_order_letter = NULL, $letters = NULL, $limite = NULL, $current_record = NULL, $sql_group= NULL, $cache = 0)
 	{
-		if(stristr($this->table, 'join')){
-			$join = true;
-		}else{
-			$join = false;
-		}
-			
 		$sql = 'SELECT '.$this -> fields.' FROM '.trim($this -> table);
 		$sql_clause='';
-		
 		if ($clause!='') {
-			if($join){
-				$sql_clause=' ON '.$clause;	
-			}else{
-				$sql_clause=' WHERE '.$clause;
-			}
+			$sql_clause=' WHERE '.$clause;
 		}
 		
 		$sqlletters = "";
@@ -154,11 +143,7 @@ class Table {
 			if ($sql_clause != "") {
 				$sql_clause .= " AND ";
 			} else {
-				if($join){
-					$sql_clause=' ON '.$clause;	
-				}else{
-					$sql_clause=' WHERE '.$clause;
-				}
+				$sql_clause .= " WHERE ";
 			}
 		}
 		
@@ -206,28 +191,14 @@ class Table {
 	
 	function Table_count ($DBHandle, $clause=null, $id_Value = null)
 	{
-		if(stristr($this->table, 'join')){
-			$join = true;
-		}else{
-			$join = false;
-		}
-		
 		$sql = 'SELECT count(*) FROM '.trim($this -> table);
 		
 		$sql_clause='';
 		if ($clause!='') {
             if ($id_Value == null || $id_Value == '') {
-				if($join){
-					$sql_clause=' ON '.$clause;	
-				}else{
-					$sql_clause=' WHERE '.$clause;
-				}
+			    $sql_clause=' WHERE '.$clause;
             } else {
-                if($join){
-					$sql_clause=' ON '.$clause." = ".$id_Value;	
-				}else{
-					$sql_clause=' WHERE '.$clause." = ".$id_Value;				
-				}
+                $sql_clause=' WHERE '.$clause." = ".$id_Value;
             }
         }
 		
@@ -266,7 +237,7 @@ class Table {
 		if ($this -> debug_stop_add) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); 
 		}
-		//print $QUERY;
+//		print $QUERY;exit;
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res) {
@@ -365,7 +336,6 @@ class Table {
 		if ($this -> debug_stop_delete) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit();
 		}
-		
 		$res = $DBHandle -> Execute($QUERY);
 		if (!$res) {
 			$this -> errstr = "Could not delete the instances of the table '".$this -> table."'";

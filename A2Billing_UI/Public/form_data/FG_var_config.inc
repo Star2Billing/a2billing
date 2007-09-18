@@ -36,12 +36,11 @@ foreach($result as $key => $cur_value)
 	}
 }
 
-$HD_Form = new FormHandler("cc_config ccc LEFT JOIN cc_config_group ccg","Configuration");
+$HD_Form = new FormHandler("cc_config ccc LEFT JOIN cc_config_group ccg ON ccg.id = ccc.config_group_id","Configuration");
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="ccc.id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
-$HD_Form -> FG_TABLE_CLAUSE = "ccg.id = ccc.config_group_id";
 $HD_Form -> FG_JOIN = true;
 
 if ($groupselect != ""){
