@@ -2,6 +2,18 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### TODO : ARCHIVE CDRs
+********************************************************************
+We will create cc_call_archive
+table with the same structure cc_call where id will be primary key.
+So we can build a cront application that will weekly, retrieve all the CDRs
+older than X months move them to cc_call_archive and then
+explain the Database and rebuild index so that it start to be fast again.
+X Month will be in parameter in config
+
+Think to better solution maybe !?
+
+
 #### TODO : TAG IN RATECARD
 ********************************************************************
 We could create cc_call_archive
