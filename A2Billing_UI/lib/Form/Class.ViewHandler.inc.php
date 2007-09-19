@@ -210,6 +210,10 @@ function openURLFilter(theLINK)
 					}elseif ($this->FG_TABLE_COL[$i][6]=="list"){
 						$select_list = $this->FG_TABLE_COL[$i][7];
 						$record_display = $select_list[$list[$ligne_number][$i-$k]][0];
+					}elseif ($this->FG_TABLE_COL[$i][6]=="list-conf"){
+						$select_list = $this->FG_TABLE_COL[$i][7];
+						$key_config =  $list[$ligne_number][$i-$k + 3] - 1;
+						$record_display = $select_list[$key_config][0];
 					}elseif ($this->FG_TABLE_COL[$i][6]=="value"){
 						$record_display = $this->FG_TABLE_COL[$i][7];
 						$k++;

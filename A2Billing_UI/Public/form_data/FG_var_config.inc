@@ -21,23 +21,24 @@ $value_list = array();
 $value_list["1"] = array( gettext("yes"), 1);
 $value_list["2"] = array( gettext("no"), 0);
 
-
 $yesno = array();
-$QUERY =  "SELECT config_value, config_valuetype, config_title, config_listvalues, id from cc_config order by id";
-$result = $instance_table -> SQLExec ($handle, $QUERY);
 
-foreach($result as $key => $cur_value) 
+$instance_config_table = new Table("cc_config", "config_value, config_valuetype, id");
+$config_list = $instance_config_table -> Get_list ($handle, "", "id", "ASC");
+
+foreach($config_list as $key => $cur_value) 
 {
-	if($cur_value[1] == 0){
-		if($cur_value[0] == 1){
-			$yesno[$cur_value[0]] = array("Yes",$key);
-		}else if($cur_value[0] == "0"){
-			$yesno[$cur_value[0]] = array("No",$key);
-		}else{
-			$yesno[$cur_value[0]] = array($cur_value[0],$key);
-		}
+
+	if($cur_value[1] != '1'){
+		$yesno[$key] = array($cur_value[0],$cur_value[2]);
 	}else{
-		$yesno[$cur_value[0]] = array($cur_value[0],$key);
+		if($cur_value[0] == '1'){
+			$yesno[$key] = array("Yes",$cur_value[2]);
+		}else if($cur_value[0] == '0'){
+			$yesno[$key] = array("No",$cur_value[2]);
+		}else{
+			$yesno[$key] = array($cur_value[0],$cur_value[2]);
+		}
 	}
 }
 
@@ -46,7 +47,6 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="ccc.id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
-$HD_Form -> FG_JOIN = true;
 
 if ($groupselect != ""){
 	$HD_Form = new FormHandler("cc_config ccc ,cc_config_group ccg","Configuration");
@@ -69,7 +69,7 @@ if($form_action == "list"){
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");
-$HD_Form -> AddViewElement(gettext("Value"), "config_value", "10%", "center","","","list",$yesno);
+$HD_Form -> AddViewElement(gettext("Value"), "config_value", "10%", "center","","","list-conf",$yesno);
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "config_description", "40%", "left");
 $HD_Form -> AddViewElement(gettext("GROUP"), "group_title", "5%", "center");
 
