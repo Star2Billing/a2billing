@@ -12,7 +12,7 @@ if (! has_rights (ACX_RATECARD)){
 	die();	   
 }
 
-getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','currencytype','uploadedfile_name','uploadedfile_name'));
+getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','currencytype','tag','uploadedfile_name','uploadedfile_name'));
 
 
 //print_r ($_POST);
@@ -204,6 +204,10 @@ if ($task=='upload'){
 				$FG_ADITION_SECOND_ADD_FIELDS .= ', stopdate';
 				$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date_plus.$end_date."'";
 			}
+			if ($tag != ""){
+				$FG_ADITION_SECOND_ADD_FIELDS .= ', tag';
+				$FG_ADITION_SECOND_ADD_VALUE .= ", '".$tag."'";
+			}
 				
 			$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
 			
@@ -333,6 +337,7 @@ if ($status=="ok"){
 		<INPUT type="hidden" name="trunk" value="<?php echo $trunk?>">
 		<INPUT type="hidden" name="currencytype" value="<?php echo $currencytype?>">
 		<INPUT type="hidden" name="search_sources" value="<?php echo $search_sources?>">
+		<INPUT TYPE="hidden" VALUE="<?php echo $tag?>" NAME="tag">
 		
 		<tr> 
 		  <td colspan="2"> 
