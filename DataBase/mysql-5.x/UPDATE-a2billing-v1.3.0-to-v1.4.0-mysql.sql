@@ -588,6 +588,9 @@ ALTER TABLE cc_callback_spool CHANGE variable variable VARCHAR( 300 ) DEFAULT NU
 
 
 
+ALTER TABLE cc_call ADD COLUMN real_sessiontime INT (11) DEFAULT NULL;
+
+
 -- Never too late to add some indexes :D
 
 ALTER TABLE `cc_call` ADD INDEX ( `username` );

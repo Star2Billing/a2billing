@@ -1139,9 +1139,9 @@ class RateEngine {
 			}
 			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
-			$this->answeredtime = $answeredtime['data'];
+			$this -> real_answeredtime = $this -> answeredtime = $answeredtime['data'];
 			$dialstatus = $agi->get_variable("DIALSTATUS");
-			$this->dialstatus = $dialstatus['data'];
+			$this -> dialstatus = $dialstatus['data'];
 			
 			//$this->answeredtime='60';
 			//$this->dialstatus='ANSWERED';
@@ -1150,7 +1150,7 @@ class RateEngine {
 			$loop_failover = 0;
 			while ( $loop_failover <= $A2B->agiconfig['failover_recursive_limit'] && is_numeric($failover_trunk) && $failover_trunk>=0 && (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION") || ($inuse>=$maxuse && $maxuse!=-1)) ){
 				$loop_failover++;
-				$this->answeredtime=0;
+				$this -> real_answeredtime = $this -> answeredtime = 0;
 				$this -> usedtrunk = $failover_trunk;
 				
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[K=$k]:[ANSWEREDTIME=".$this->answeredtime."-DIALSTATUS=".$this->dialstatus."]");			
@@ -1231,9 +1231,9 @@ class RateEngine {
 					$this -> trunk_start_inuse($agi, $A2B, 0);
 			
 					$answeredtime = $agi->get_variable("ANSWEREDTIME");
-					$this->answeredtime = $answeredtime['data'];
-					$dialstatus = $agi->get_variable("DIALSTATUS");
-					$this->dialstatus = $dialstatus['data'];
+					$this -> real_answeredtime = $this -> answeredtime = $answeredtime['data'];
+					$dialstatus = $agi -> get_variable("DIALSTATUS");
+					$this -> dialstatus = $dialstatus['data'];
 					
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[FAILOVER K=$k]:[ANSTIME=".$this->answeredtime."-DIALSTATUS=".$this->dialstatus."]");
 					
@@ -1247,32 +1247,28 @@ class RateEngine {
 				continue;
 				
 			//# Ooh, something actually happend! 
-			if ($this->dialstatus  == "BUSY") {										
-				$this->answeredtime=0;					
-				//$agi->agi_exec("STREAM FILE prepaid-isbusy #");
+			if ($this->dialstatus  == "BUSY") {
+				$this -> real_answeredtime = $this -> answeredtime = 0;
 				$agi-> stream_file('prepaid-isbusy', '#');
-			} elseif ($this->dialstatus == "NOANSWER") {										
-				$this->answeredtime=0;
-				//$agi->agi_exec("STREAM FILE prepaid-noanswer #");
+			} elseif ($this->dialstatus == "NOANSWER") {
+				$this -> real_answeredtime = $this -> answeredtime = 0;
 				$agi-> stream_file('prepaid-noanswer', '#');
 			} elseif ($this->dialstatus == "CANCEL") {
-				$this->answeredtime=0;
+				$this -> real_answeredtime = $this -> answeredtime = 0;
 			} elseif ($this->dialstatus == "ANSWER") {
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "-> dialstatus : ".$this->dialstatus.", answered time is ".$this->answeredtime." \n");
 			}
 			
 			$this->usedratecard = $k;
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD=".$this->usedratecard."]");
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD=".$this -> usedratecard."]");
 			return true;
 		} // End for
 		
-		$this->usedratecard=$k-1;
-		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD - FAIL =".$this->usedratecard."]");
+		$this -> usedratecard = $k-1;
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD - FAIL =".$this -> usedratecard."]");
 		return false;
-
+		
 	}
 	
 
 };
-
-?>

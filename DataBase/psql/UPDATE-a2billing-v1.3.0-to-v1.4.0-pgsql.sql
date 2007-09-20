@@ -603,6 +603,9 @@ CREATE TABLE cc_card_history (
 ALTER TABLE ONLY cc_card_history    ADD CONSTRAINT cc_card_history_pkey PRIMARY KEY (id);
 
 
+ALTER TABLE cc_call ADD COLUMN real_sessiontime INTEGER;
+
+
 
 -- Never too late to add some indexes :D
 
