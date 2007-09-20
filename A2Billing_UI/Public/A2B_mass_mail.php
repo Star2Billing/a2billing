@@ -189,9 +189,9 @@ if(isset($submit)){
 		    <?php $link_to_customer = CUSTOMER_UI_URL; 
 		    	if(is_array($list_customer)){
 					foreach($list_customer as $key => $value){
-						echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$value[1]." target=\"_blank\">".$value[0]."</a> ,&nbsp;";
+						echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$value[1]." target=\"_blank\">".$value[0]."</a>";
+						if($key + 1 != $nb_customer) echo " ,&nbsp;";
 						echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$value[0].">";
-						
 					}
 				}?><span class="liens"></span>&nbsp;<br>
 		     </TD>
