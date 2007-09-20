@@ -415,7 +415,7 @@
 				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&stitle=ConfigGroup&section=8">{php} echo gettext("List Global  Config");{/php}</a></li>
 				<li><a href="A2B_entity_config_generate_confirm.php">{php} echo gettext("ADD agi-conf");{/php}</a></li>
 				<li><a href="A2B_entity_config.php?form_action=list&atmenu=config&stitle=Configuration&section=8">{php} echo gettext("List Configuration");{/php}</a></li>
-				<li><a href="A2B_mass_mail.php?&atmenu=massmail&stitle=Mass+Mail&section=8">{php} echo gettext("Mass Mail");{/php}</a></li>
+				<li><a href="A2B_mass_mail.php">{php} echo gettext("Mass Mail");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

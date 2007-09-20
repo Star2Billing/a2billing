@@ -352,7 +352,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				</font>
 		  </td>
 		</tr>
-		<tr>$HD_Form -> DBHandle
+		<tr>
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_enableexpire]" type="checkbox" <?php if ($check["upd_enableexpire"]=="on") echo "checked"?>>
 		  </td>
