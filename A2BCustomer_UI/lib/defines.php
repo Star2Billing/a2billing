@@ -1,6 +1,6 @@
 <?php
-include (dirname(__FILE__)."/Class.A2Billing.php");
-include (dirname(__FILE__)."/Class.Table.php");
+include_once (dirname(__FILE__)."/Class.A2Billing.php");
+include_once (dirname(__FILE__)."/Class.Table.php");
 //	require_once('DB.php'); // PEAR
 require_once('adodb/adodb.inc.php'); // AdoDB
 
@@ -9,7 +9,6 @@ $A2B = new A2Billing();
 // SELECT THE FILES TO LOAD THE CONFIGURATION
 $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 
-
 // DEFINE FOR THE DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
 define ("PORT", isset($A2B->config['database']['port'])?$A2B->config['database']['port']:null);
@@ -17,10 +16,6 @@ define ("USER", isset($A2B->config['database']['user'])?$A2B->config['database']
 define ("PASS", isset($A2B->config['database']['password'])?$A2B->config['database']['password']:null);
 define ("DBNAME", isset($A2B->config['database']['dbname'])?$A2B->config['database']['dbname']:null);
 define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null); 	
-
-//Loading Configuration from DB
-
-$A2B -> load_conf_db($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 
 define ("LEN_ALIASNUMBER", isset($A2B->config["global"]['len_aliasnumber'])?$A2B->config["global"]['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config["global"]['len_voucher'])?$A2B->config["global"]['len_voucher']:null);
@@ -211,8 +206,6 @@ define ("ENABLE_SSL", isset($A2B->config["epayment_method"]['enable_ssl'])?$A2B-
 define ("EPAYMENT_TRANSACTION_KEY", isset($A2B->config["epayment_method"]['transaction_key'])?$A2B->config["epayment_method"]['transaction_key']:null);
 define ("PAYPAL_VERIFY_URL", isset($A2B->config["epayment_method"]['paypal_verify_url'])?$A2B->config["epayment_method"]['paypal_verify_url']:null);
 define ("MONEYBOOKERS_SECRETWORD", isset($A2B->config["epayment_method"]['moneybookers_secretword'])?$A2B->config["epayment_method"]['moneybookers_secretword']:null);
-
-define ("LOGFILE_EPAYMENT",isset($A2B->config['log-files']['epayment'])?$A2B->config['log-files']['epayment']:null);
 
 //SIP/IAX Info
 define ("SIP_IAX_INFO_TRUNKNAME",isset($A2B->config['sip-iax-info']['sip_iax_info_trunkname'])?$A2B->config['sip-iax-info']['sip_iax_info_trunkname']:null);

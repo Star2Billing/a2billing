@@ -1,7 +1,7 @@
 <?php
-include (dirname(__FILE__)."/Class.A2Billing.php");
+include_once (dirname(__FILE__)."/Class.A2Billing.php");
 require_once('adodb/adodb.inc.php'); // AdoDB
-include (dirname(__FILE__)."/Class.Table.php");
+include_once (dirname(__FILE__)."/Class.Table.php");
 
 $A2B = new A2Billing();
 
@@ -17,9 +17,8 @@ define ("PORT", isset($A2B->config['database']['port'])?$A2B->config['database']
 define ("USER", isset($A2B->config['database']['user'])?$A2B->config['database']['user']:null);
 define ("PASS", isset($A2B->config['database']['password'])?$A2B->config['database']['password']:null);
 define ("DBNAME", isset($A2B->config['database']['dbname'])?$A2B->config['database']['dbname']:null);
-define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null); 	
+define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null);
 
-$A2B -> load_conf_db($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 
 define ("LEN_ALIASNUMBER", isset($A2B->config['global']['len_aliasnumber'])?$A2B->config['global']['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config['global']['len_voucher'])?$A2B->config['global']['len_voucher']:null);
@@ -245,7 +244,7 @@ include (FSROOT."lib/help.php");
 // signup/index.php
 $URI = $_SERVER['REQUEST_URI'];
 $restircted_url = substr($URI,-16);
-if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") ){
+if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
 	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 }
 $log = null;
