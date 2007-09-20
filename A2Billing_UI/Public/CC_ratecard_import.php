@@ -286,7 +286,10 @@ function moveSourceDown()
 				<option value="starttime"><?php echo gettext("starttime");?></option>
 				<option value="endtime"><?php echo gettext("endtime");?></option>
 				<option value="tag"><?php echo gettext("tag");?></option>
-				
+				<option value="rounding_calltime"><?php echo gettext("rounding calltime");?></option>
+				<option value="rounding_threshold"><?php echo gettext("rounding threshold");?></option>
+ 				<option value="additional_block_charge"><?php echo gettext("additional block charge");?></option>
+				<option value="additional_block_charge_time"><?php echo gettext("additional block charge time");?></option>
 			</select>
         </td>
 
