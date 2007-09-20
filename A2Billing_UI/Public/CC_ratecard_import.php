@@ -285,6 +285,8 @@ function moveSourceDown()
 
 				<option value="starttime"><?php echo gettext("starttime");?></option>
 				<option value="endtime"><?php echo gettext("endtime");?></option>
+				<option value="tag"><?php echo gettext("tag");?></option>
+				
 			</select>
         </td>
 
@@ -347,14 +349,6 @@ function moveSourceDown()
 					  
                   </td>
                 </tr>
-                <tr><td>&nbsp;</td></tr>                
-                <tr> 
-                <td>&nbsp;</td>
-                  <td align="center"> 
-	                  <?php echo gettext("Set a tag");?>:&nbsp;&nbsp;<input  TYPE="text" VALUE="" NAME="tag" SIZE="50" MAXLENGTH="50" class="form_input_text">
-                  </td>
-                </tr>
-
                 <tr> 
                   <td colspan="2"> 
                     <p align="center"><span class="textcomment"> 
