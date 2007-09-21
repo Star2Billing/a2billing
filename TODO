@@ -22,6 +22,12 @@ maybe a daemon is needed
 * We should be able to define the search Criteria as in View Card in order to preselect
 only some customer to which u want to run the massmail
 
+#### TODO : MOVE CAPTCHA Directory to signup directory
+********************************************************************
+lib/captcha
+due to htaccess in lib/ it s an issue on most installation, as the pictures is not accessable 
+so move 	A2Billing_UI/lib/captcha
+to 			A2Billing_UI/signup/captcha
 
 
 #### TODO : ARCHIVE CDRs
