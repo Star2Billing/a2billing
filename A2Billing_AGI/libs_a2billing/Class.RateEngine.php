@@ -699,25 +699,25 @@ class RateEngine
 		$this -> real_answeredtime = $callduration;
 		
 		/*
+		 * In following condition callduration will be updated 
+		 * according to the the rounding_calltime and rounding_threshold
+		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 1
+		 */
+		if($rounding_calltime > 0 && $rounding_threshold > 0 && $callduration > $rounding_threshold && $rounding_calltime > $callduration) {
+			$callduration = $rounding_calltime;
+			// RESET THE SESSIONTIME FOR CDR 
+			$this -> answeredtime = $rounding_calltime;
+		}
+		
+		/*
 		 * Following condition will append cost of call 
 		 * according to the the additional_block_charge and additional_block_charge_time
 		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 2
 		 */
 		// If call duration is greater then block charge time
-		if ($callduration >= $additional_block_charge_time){
+		if ($callduration >= $additional_block_charge_time) {
 			$block_charge = intval($callduration / $additional_block_charge_time);
 			$cost -= $block_charge * $additional_block_charge;
-		}
-		
-		/*
-		 * In following condition callduration will be updated 
-		 * according to the the rounding_calltime and rounding_threshold
-		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 1
-		 */
-		if($rounding_calltime > 0 && $rounding_threshold > 0 && $callduration > $rounding_threshold && $rounding_calltime > $callduration){
-			$callduration = $rounding_calltime;
-			// RESET THE SESSIONTIME FOR CDR 
-			$this -> answeredtime = $rounding_calltime;
 		}
 		
 		// #### 	CALCUL BUYRATE COST   #####

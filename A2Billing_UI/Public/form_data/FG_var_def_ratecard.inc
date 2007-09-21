@@ -369,7 +369,7 @@ $HD_Form -> AddEditElement(gettext("ROUNDING CALLTIME"),
    "size=40 maxlength=40",
    "",
    gettext("Insert the rounding calltime"),
-   "", "", "", "", "", "", "", gettext("Set the rounding calltime"));
+   "", "", "", "", "", "", "", gettext("Set the rounding calltime. All the selling rules will apply over this new calltime."));
 
 $HD_Form -> AddEditElement(gettext("ROUNDING THRESHOLD"),
    "rounding_threshold",
