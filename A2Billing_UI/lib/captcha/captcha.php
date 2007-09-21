@@ -1,6 +1,8 @@
 <?php
-session_name("UISIGNUP");
-session_start();
+if (!isset($_SESSION)) {
+	session_name("UISIGNUP");
+	session_start();
+}
 include("../defines.php");
 $code = MDP_STRING(6);
 $_SESSION["captcha_code"] = $code;

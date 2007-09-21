@@ -36,9 +36,11 @@ define ("ACX_INVOICING",				16384);		// 1 << 13
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
-session_name("UIADMINSESSION");
-session_start();
 
+if (!isset($_SESSION)) {
+	session_name("UIADMINSESSION");
+	session_start();
+}
 
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {   
@@ -53,7 +55,8 @@ if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 }
 	
    
-function access_sanitize_data($data){
+function access_sanitize_data($data)
+{
 	$lowerdata = strtolower ($data);
 	$data = str_replace('--', '', $data);	
 	$data = str_replace("'", '', $data);
