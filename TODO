@@ -2,33 +2,15 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-
-#### TODO : BATCH UPDATE  FOR TAG ; ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
+#### TODO : CRITERIA CALLPLAN
 ********************************************************************
-Batch update for 
-TAG ; ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
+I added Callplan on CDR report, see revision 303, we need to add the same on the 3 pages :
+(Section Call Report)
+# Calls Compare
+# Monthly Traffic
+# Daily Load
 
-
-#### IMPORT : ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
-********************************************************************
-Add ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
-on the import ratecard tool
-
-
-#### TODO : TAG IN RATECARD
-********************************************************************
-We need a tag field into the ratecard!
-this allow us to tag and filter some rates from a ratecard.
-For instance, if we want to tag all the proper line prefix, so that we can then
-apply batch update only for them.
-
-We can add a new field in cc_ratecard for this :
-ALTER TABLE cc_ratecad ADD COLUMN tag CHAR(50);
-- We should add a reseach by tag on "Browse Rates".
-
-
-** ADD TAG IN THE IMPORT RATECARD **
-
+If graph we need to pass the parameter there too.
 
 #### MASS MAIL FEATURE
 ********************************************************************
