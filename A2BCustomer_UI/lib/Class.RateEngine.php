@@ -17,32 +17,33 @@
  ****************************************************************************/
  
  
-class RateEngine {
+class RateEngine
+{
 	var $debug_st = 0;
 	
 	var $ratecard_obj = array();
 	
 	var $freetimetocall_left = array();
 	
-	var $number_trunk=0;
-	var $lastcost=0;
-	var $lastbuycost=0;
-	var $answeredtime;
-	var $dialstatus;
-	var $usedratecard;
-	var $webui = 1;
-	var $usedtrunk;
+	var $number_trunk		= 0;
+	var $lastcost			= 0;
+	var $lastbuycost		= 0;
+	var $answeredtime 		= 0;
+	var $real_answeredtime	= 0;
+	var $dialstatus			= 0;
+	var $usedratecard		= 0;
+	var $webui 				= 1;
+	var $usedtrunk			= 0;
 
 	/* CONSTRUCTOR */
-
-	function RateEngine () {     
+	function RateEngine ()
+	{
 		
 	}
 	
-	
-	/* CONSTRUCTOR */
-	function Reinit () {     
-		
+	/* Reinit */
+	function Reinit ()
+	{
 		$this -> number_trunk = 0;
 		$this -> answeredtime = 0;	
 		$this -> dialstatus = '';
@@ -50,16 +51,14 @@ class RateEngine {
 		$this -> usedtrunk = '';
 		$this -> lastcost = '';
 		$this -> lastbuycost = '';
-		
 	}
-	
 	
 	/*
 		RATE ENGINE
 		CALCUL THE RATE ACCORDING TO THE RATEGROUP, LCR - RATECARD
 	*/
-	function rate_engine_findrates (&$A2B, $phonenumber, $tariffgroupid){
-		
+	function rate_engine_findrates (&$A2B, $phonenumber, $tariffgroupid)
+	{
 		global $agi;
 		
 		// Check if we want to force the call plan
@@ -224,7 +223,7 @@ class RateEngine {
 		
 		//1) REMOVE THOSE THAT HAVE A SMALLER DIALPREFIX
 		$max_len_prefix = strlen($result[0][7]);
-		for ($i=1;$i<count($result);$i++){
+		for ($i=1;$i<count($result);$i++) {
 			if ( strlen($result[$i][7]) < $max_len_prefix) break;
 		}	
 		$result = array_slice ($result, 0, $i);
@@ -237,17 +236,17 @@ class RateEngine {
 		$LCtype = $result[0][1];
 		
 		// Thanks for the fix from the wiki :D next time email me, lol
-		if ($LCtype==0){
+		if ($LCtype==0) {
 			//$result = $this -> array_csort($result,'6',SORT_ASC); GOTTYA!
 			$result = $this -> array_csort($result,'9',SORT_ASC); //1
-		}else{
+		} else {
 			//$result = $this -> array_csort($result,'9',SORT_ASC); GOTTYA!
 			$result = $this -> array_csort($result,'12',SORT_ASC); //1
 		} 
 	
 		
 		// WE ADD THE DEFAULTPREFIX WE REMOVE BEFORE
-		if ($ind_stop_default>0) {
+		if ($ind_stop_default > 0) {
 			$result = array_merge ($result, $result_defaultprefix);
 		}
 	
@@ -255,9 +254,9 @@ class RateEngine {
 		// 3) REMOVE THOSE THAT USE THE SAME TRUNK - MAKE A DISTINCT 
 		//    AND THOSE THAT ARE DISABLED.
 		$mylistoftrunk = array();
-		for ($i=0;$i<count($result);$i++){
+		for ($i=0;$i<count($result);$i++) {
 			
-			if ($result[$i][34]==-1) {
+			if ($result[$i][34] == -1) {
 				$status = $result[$i][51];
 				$mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][29];
 			} else {
@@ -305,8 +304,8 @@ class RateEngine {
 		RATE ENGINE - CALCUL TIMEOUT
 		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
 	*/
-	function rate_engine_all_calcultimeout (&$A2B, $credit){
-			
+	function rate_engine_all_calcultimeout (&$A2B, $credit)
+	{
 		global $agi;
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT ($credit)]");
 		if (!is_array($this -> ratecard_obj) || count($this -> ratecard_obj)==0) return false;
@@ -316,8 +315,8 @@ class RateEngine {
 			if ($this->webui) 
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT: k=$k - res_calcultimeout:$res_calcultimeout]");
 			if (substr($res_calcultimeout,0,5)=='ERROR')	return false;
-		}	
-			
+		}
+		
 		return true;
 	}
 	
@@ -697,41 +696,43 @@ class RateEngine {
 		$cost -= $connectcharge;
 		$cost -= $disconnectcharge;
 		
-		/*
-		 * Following condition will append cost of call 
-		 * according to the the additional_block_charge and additional_block_charge_time
-		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 2
-		 */
-		// If call duration is greater then block charge time
-		if($callduration >= $additional_block_charge_time){
-			$block_charge = intval($callduration / $additional_block_charge_time);
-			$cost -= $block_charge * $additional_block_charge;
-		}
+		$this -> real_answeredtime = $callduration;
 		
 		/*
 		 * In following condition callduration will be updated 
 		 * according to the the rounding_calltime and rounding_threshold
 		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 1
 		 */
-		if($rounding_calltime > 0 && $rounding_threshold > 0 && $callduration > $rounding_threshold && $rounding_calltime > $callduration){
+		if($rounding_calltime > 0 && $rounding_threshold > 0 && $callduration > $rounding_threshold && $rounding_calltime > $callduration) {
 			$callduration = $rounding_calltime;
+			// RESET THE SESSIONTIME FOR CDR 
 			$this -> answeredtime = $rounding_calltime;
 		}
 		
-		// CALCULATION BUYRATE COST
-		$buyratecallduration = $callduration;
+		/*
+		 * Following condition will append cost of call 
+		 * according to the the additional_block_charge and additional_block_charge_time
+		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 2
+		 */
+		// If call duration is greater then block charge time
+		if ($callduration >= $additional_block_charge_time) {
+			$block_charge = intval($callduration / $additional_block_charge_time);
+			$cost -= $block_charge * $additional_block_charge;
+		}
+		
+		// #### 	CALCUL BUYRATE COST   #####
+		$buyratecallduration = $this -> real_answeredtime;
 		
 		$buyratecost =0;
-		if ($buyratecallduration<$buyrateinitblock) $buyratecallduration=$buyrateinitblock;
-		if ($buyrateincrement > 0) {	
+		if ($buyratecallduration < $buyrateinitblock) $buyratecallduration = $buyrateinitblock;
+		if ($buyrateincrement > 0) {
 			$mod_sec = $buyratecallduration % $buyrateincrement;
 			if ($mod_sec>0) $buyratecallduration += ($buyrateincrement - $mod_sec);
 		}
-		
 		$buyratecost -= ($buyratecallduration/60) * $buyrate;
-
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
+		// #### 	CALCUL SELLRATE COST   #####
 		if ($callduration < $initblock) $callduration = $initblock;
 		$callduration = $callduration - $freetimetocall_used;
 		
@@ -747,9 +748,9 @@ class RateEngine {
 			$cost -= ($callduration/60) * $rateinitial;	
 			if ($this -> debug_st)  echo "1.a cost: $cost\n";
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[TEMP - CC_RATE_ENGINE_CALCULCOST: 1. COST: $cost]:[ ($callduration/60) * $rateinitial ]");
-		
+			
 		// IF PROGRESSIVE RATE 
-		}else{
+		} else {
 			if ($this -> debug_st) echo "CYCLE A	COST:$cost\n";
 			// CYCLE A
 			$cost -= $stepchargea;
@@ -766,16 +767,15 @@ class RateEngine {
 			}
 			$cost -= ($callduration/60) * $chargea;
 			
-			if (($duration_report>0) && !(empty($chargeb) || $chargeb==0 || empty($timechargeb) || $timechargeb==0) )
-			{
+			if (($duration_report>0) && !(empty($chargeb) || $chargeb==0 || empty($timechargeb) || $timechargeb==0)) {
 				$callduration = $duration_report;
-				$duration_report = 0;				
+				$duration_report = 0;
 				
 				// CYCLE B
 				$cost -= $stepchargeb;
 				if ($this -> debug_st)  echo "1.B cost: $cost\n\n";
 					
-				if ($callduration > $timechargeb){ 
+				if ($callduration > $timechargeb) {
 					$duration_report = $callduration - $timechargeb; 
 					$callduration=$timechargeb;
 				}
@@ -897,13 +897,15 @@ class RateEngine {
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
 			}
 			
-			$this->rate_engine_calculcost($A2B, $sessiontime, 0, $freetimetocall_used);
+			$this -> rate_engine_calculcost ($A2B, $sessiontime, 0, $freetimetocall_used);
 			
 			// rate_engine_calculcost could have change the duration of the call
 			$sessiontime = $this -> answeredtime;
 			
-		}else{
-			$sessiontime=0;
+		} else {
+			
+			$sessiontime = 0;
+			
 		}
 		
 		$calldestination = $this -> ratecard_obj[$K][5];
@@ -937,12 +939,8 @@ class RateEngine {
 		elseif ($callback) $calltype = 4;
 		else $calltype = 0;
 		
-		
-		// MYSQL SELECT now() - INTERVAL 300 SECOND;
-		// PGSQL SELECT now() - interval '300 seconds'
-		$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,username,nasipaddress,starttime,sessiontime, calledstation, ".
-			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer) VALUES ".
-			"('".$A2B->uniqueid."', '".$A2B->channel."',  '".$A2B->username."', '".$A2B->hostname."', ";
+		$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, username, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
+			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."',  '".$A2B->username."', '".$A2B->hostname."', ";
 			
 		if ($A2B->config["database"]['dbtype'] == "postgres"){			
 			$QUERY .= "CURRENT_TIMESTAMP - interval '$sessiontime seconds' ";
@@ -950,9 +948,8 @@ class RateEngine {
 			$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
 		}
 		
-		$QUERY .= ", '$sessiontime', '$calledstation', '$dialstatus', now(), '$rateapply', '$signe_cc_call".round(abs($cost),4)."', ".
+		$QUERY .= ", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$dialstatus', now(), '$rateapply', '$signe_cc_call".round(abs($cost),4)."', ".
 			" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', '$buyrateapply', '$buycost', '$id_card_package_offer')";
-		
 		
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_stop  QUERY = $QUERY]");
 		

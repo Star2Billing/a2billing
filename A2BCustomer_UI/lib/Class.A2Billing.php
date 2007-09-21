@@ -390,6 +390,7 @@ class A2Billing {
 		if(!isset($this->config['backup']['pg_dump']))		$this->config['backup']['pg_dump'] ='/usr/bin/pg_dump';
 		if(!isset($this->config['backup']['mysql']))		$this->config['backup']['mysql'] ='/usr/bin/mysql';
 		if(!isset($this->config['backup']['psql']))		$this->config['backup']['psql'] ='/usr/bin/psql';
+		if(!isset($this->config['backup']['archive_data_x_month']))		$this->config['backup']['archive_data_x_month'] ='3';
 		
 		// Conf for Customer Web UI
 		if(!isset($this->config['webcustomerui']['customerinfo']))	$this->config['webcustomerui']['customerinfo'] = '1';
