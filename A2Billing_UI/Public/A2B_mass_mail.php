@@ -181,7 +181,7 @@ if(isset($submit)){
 <?php if($nb_customer > 0){?>
        <tr> 
 	       <td><span class="viewhandler_span1">&nbsp;</span></td>
-           <td align="right"> <span class="viewhandler_span1"><?php echo $nb_customer;?> Records</span></td>
+           <td align="right"> <span class="viewhandler_span1"><?php echo $nb_customer;?> <?php echo gettext("Record(s)");?></span></td>
        </tr>
        <TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("TO");?></TD>  

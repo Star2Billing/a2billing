@@ -15,7 +15,7 @@ if (! has_rights (ACX_RATECARD)){
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'tariffplan', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_buyrate', 'upd_buyrateinitblock', 'upd_buyrateincrement', 'upd_rateinitial', 'upd_initblock', 'upd_billingblock', 'upd_connectcharge', 'upd_disconnectcharge', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', "filterprefix",'upd_roundingcalltime' ,'upd_roundingthreshold' ,'upd_additionalblockcharge' ,'upd_additionalblockchargetime','upd_tag'));
+getpost_ifset(array('batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_buyrate', 'upd_buyrateinitblock', 'upd_buyrateincrement', 'upd_rateinitial', 'upd_initblock', 'upd_billingblock', 'upd_connectcharge', 'upd_disconnectcharge', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', "filterprefix",'upd_rounding_calltime' ,'upd_rounding_threshold' ,'upd_additional_block_charge' ,'upd_additional_block_charge_time','upd_tag'));
 
 
 /***********************************************************************************/
@@ -320,7 +320,7 @@ if ($form_action == "list"){
 				<font class="fontstyle_009">10) <?php echo gettext("DISCONNECT CHARGE");?> :</font>
 				 	<input class="form_input_text" name="upd_disconnectcharge" size="10" maxlength="10"  value="<?php if (isset($upd_disconnectcharge)) echo $upd_disconnectcharge; else echo '0';?>" >
 				<font class="version">
-				<input type="radio" NAME="type[upd_disconnectcharge]" value="1" <?php if((!isset($type[upd_disconnectcharge]))|| ($type[upd_disconnectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				<input type="radio" NAME="type[upd_disconnectcharge]" value="1" <?php if((!isset($type[upd_disconnectcharge]))|| ($type[upd_disconnectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
 				<input type="radio" NAME="type[upd_disconnectcharge]" value="2" <?php if($type[upd_disconnectcharge]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
 				<input type="radio" NAME="type[upd_disconnectcharge]" value="3" <?php if($type[upd_disconnectcharge]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				</font>
@@ -328,65 +328,65 @@ if ($form_action == "list"){
 		</tr>
 		<tr>		
           <td align="left" class="bgcolor_001">
-		  		<input name="check[upd_roundingcalltime]" type="checkbox" <?php if ($check["upd_roundingcalltime"]=="on") echo "checked"?>>
-				<input name="mode[upd_roundingcalltime]" type="hidden" value="2">
+		  		<input name="check[upd_rounding_calltime]" type="checkbox" <?php if ($check["upd_rounding_calltime"]=="on") echo "checked"?>>
+				<input name="mode[upd_rounding_calltime]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">	
 				
 				<font class="fontstyle_009">11) <?php echo gettext("ROUNDING CALLTIME");?> :</font>
-				 	<input class="form_input_text" name="upd_roundingcalltime" size="10" maxlength="10"  value="<?php if (isset($upd_roundingcalltime)) echo $upd_roundingcalltime; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_rounding_calltime" size="10" maxlength="10"  value="<?php if (isset($upd_rounding_calltime)) echo $upd_rounding_calltime; else echo '0';?>" >
 				<font class="version">
-				<input type="radio" NAME="type[upd_roundingcalltime]" value="1" <?php if((!isset($type[upd_roundingcalltime]))|| ($type[upd_roundingcalltime]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
-				<input type="radio" NAME="type[upd_roundingcalltime]" value="2" <?php if($type[upd_roundingcalltime]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
-				<input type="radio" NAME="type[upd_roundingcalltime]" value="3" <?php if($type[upd_roundingcalltime]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				<input type="radio" NAME="type[upd_rounding_calltime]" value="1" <?php if((!isset($type[upd_rounding_calltime]))|| ($type[upd_rounding_calltime]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_rounding_calltime]" value="2" <?php if($type[upd_rounding_calltime]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_rounding_calltime]" value="3" <?php if($type[upd_rounding_calltime]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				</font>
 			</td>
 		</tr>
 		<tr>		
           <td align="left" class="bgcolor_001">
-		  		<input name="check[upd_roundingthreshold]" type="checkbox" <?php if ($check["upd_roundingthreshold"]=="on") echo "checked"?>>
-				<input name="mode[upd_roundingthreshold]" type="hidden" value="2">
+		  		<input name="check[upd_rounding_threshold]" type="checkbox" <?php if ($check["upd_rounding_threshold"]=="on") echo "checked"?>>
+				<input name="mode[upd_rounding_threshold]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">	
 				
-				<font class="fontstyle_009">12) <?php echo gettext("ROUNDING CALLTIME");?> :</font>
-				 	<input class="form_input_text" name="upd_roundingthreshold" size="10" maxlength="10"  value="<?php if (isset($upd_roundingthreshold)) echo $upd_roundingthreshold; else echo '0';?>" >
+				<font class="fontstyle_009">12) <?php echo gettext("ROUNDING THRESHOLD");?> :</font>
+				 	<input class="form_input_text" name="upd_rounding_threshold" size="10" maxlength="10"  value="<?php if (isset($upd_rounding_threshold)) echo $upd_rounding_threshold; else echo '0';?>" >
 				<font class="version">
-				<input type="radio" NAME="type[upd_roundingthreshold]" value="1" <?php if((!isset($type[upd_roundingthreshold]))|| ($type[upd_roundingthreshold]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
-				<input type="radio" NAME="type[upd_roundingthreshold]" value="2" <?php if($type[upd_roundingthreshold]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
-				<input type="radio" NAME="type[upd_roundingthreshold]" value="3" <?php if($type[upd_roundingthreshold]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				<input type="radio" NAME="type[upd_rounding_threshold]" value="1" <?php if((!isset($type[upd_rounding_threshold]))|| ($type[upd_roundingthreshold]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_rounding_threshold]" value="2" <?php if($type[upd_rounding_threshold]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_rounding_threshold]" value="3" <?php if($type[upd_rounding_threshold]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				</font>
 			</td>
 		</tr>
 		<tr>		
           <td align="left" class="bgcolor_001">
-		  		<input name="check[upd_additionalblockcharge]" type="checkbox" <?php if ($check["upd_additionalblockcharge"]=="on") echo "checked"?>>
-				<input name="mode[upd_additionalblockcharge]" type="hidden" value="2">
+		  		<input name="check[upd_additional_block_charge]" type="checkbox" <?php if ($check["upd_additional_block_charge"]=="on") echo "checked"?>>
+				<input name="mode[upd_additional_block_charge]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">	
 				
 				<font class="fontstyle_009">13) <?php echo gettext("ADDITIONAL BLOCK CHARGE");?> :</font>
-				 	<input class="form_input_text" name="upd_additionalblockcharge" size="10" maxlength="10"  value="<?php if (isset($upd_additionalblockcharge)) echo $upd_additionalblockcharge; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_additional_block_charge" size="10" maxlength="10"  value="<?php if (isset($upd_additional_block_charge)) echo $upd_additional_block_charge; else echo '0';?>" >
 				<font class="version">
-				<input type="radio" NAME="type[upd_additionalblockcharge]" value="1" <?php if((!isset($type[upd_additionalblockcharge]))|| ($type[upd_roundingthreshold]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
-				<input type="radio" NAME="type[upd_additionalblockcharge]" value="2" <?php if($type[upd_additionalblockcharge]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
-				<input type="radio" NAME="type[upd_additionalblockcharge]" value="3" <?php if($type[upd_additionalblockcharge]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				<input type="radio" NAME="type[upd_additional_block_charge]" value="1" <?php if((!isset($type[upd_additional_block_charge]))|| ($type[upd_additional_block_charge]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_additional_block_charge]" value="2" <?php if($type[upd_additional_block_charge]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_additional_block_charge]" value="3" <?php if($type[upd_additional_block_charge]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				</font>
 			</td>
 		</tr>
 		<tr>		
           <td align="left" class="bgcolor_001">
-		  		<input name="check[upd_additionalblockchargetime]" type="checkbox" <?php if ($check["upd_additionalblockchargetime"]=="on") echo "checked"?>>
-				<input name="mode[upd_additionalblockchargetime]" type="hidden" value="2">
+		  		<input name="check[upd_additional_block_charge_time]" type="checkbox" <?php if ($check["upd_additional_block_charge_time"]=="on") echo "checked"?>>
+				<input name="mode[upd_additional_block_charge_time]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">	
 				
 				<font class="fontstyle_009">14) <?php echo gettext("ADDITIONAL BLOCK CHARGE TIME");?> :</font>
-				 	<input class="form_input_text" name="upd_additionalblockchargetime" size="10" maxlength="10"  value="<?php if (isset($upd_additionalblockchargetime)) echo $upd_additionalblockchargetime; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_additional_block_charge_time" size="10" maxlength="10"  value="<?php if (isset($upd_additional_block_charge_time)) echo $upd_additional_block_charge_time; else echo '0';?>" >
 				<font class="version">
-				<input type="radio" NAME="type[upd_additionalblockchargetime]" value="1" <?php if((!isset($type[upd_additionalblockchargetime]))|| ($type[upd_roundingthreshold]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
-				<input type="radio" NAME="type[upd_additionalblockchargetime]" value="2" <?php if($type[upd_additionalblockchargetime]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
-				<input type="radio" NAME="type[upd_additionalblockchargetime]" value="3" <?php if($type[upd_additionalblockchargetime]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				<input type="radio" NAME="type[upd_additional_block_charge_time]" value="1" <?php if((!isset($type[upd_additional_block_charge_time]))|| ($type[upd_additional_block_charge_time]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_additional_block_charge_time]" value="2" <?php if($type[upd_additional_block_charge_time]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_additional_block_charge_time]" value="3" <?php if($type[upd_additional_block_charge_time]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				</font>
 			</td>
 		</tr>
@@ -398,7 +398,7 @@ if ($form_action == "list"){
 		  <td align="left"  class="bgcolor_001">	
 				
 				<font class="fontstyle_009">15) <?php echo gettext("TAG");?> :</font>
-				 	<input class="form_input_text" name="upd_tag" size="10" maxlength="10"  value="<?php if (isset($upd_tag)) echo $upd_tag; else echo '';?>" >
+				 	<input class="form_input_text" name="upd_tag" size="20"  value="<?php if (isset($upd_tag)) echo $upd_tag; else echo '';?>" >
 			</td>
 		</tr>
 		<tr>		

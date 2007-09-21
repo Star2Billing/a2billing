@@ -205,6 +205,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PGSql Dump Path', 'pg_dump', '/usr/bin/pg_dump', 'path for pg_dump.', 0, 7, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('MySql Path', 'mysql', '/usr/bin/mysql', 'Path for MySql.', 0, 7, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PSql Path', 'psql', '/usr/bin/psql', 'Path for PSql.', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Archive Data for x months', 'archive_data_x_month', '3', 'Archive Call dial record for x months', 0, 7, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP File Path', 'buddy_sip_file', '/etc/asterisk/additional_a2billing_sip.conf', 'Path to store the asterisk configuration files SIP.', 0, 8, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IAX File Path', 'buddy_iax_file', '/etc/asterisk/additional_a2billing_iax.conf', 'Path to store the asterisk configuration files IAX.', 0, 8, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('API Security Key', 'api_security_key', 'Ae87v56zzl34v', 'API have a security key to validate the http request, the key has to be sent after applying md5, Valid characters are [a-z,A-Z,0-9].', 0, 8, NULL);
@@ -606,3 +607,43 @@ ALTER TABLE `cc_card` ADD INDEX ( `username` );
 
 OPTIMIZE TABLE cc_card;
 OPTIMIZE TABLE cc_call;
+
+
+CREATE TABLE cc_call_archive (
+    id 									bigINT (20) NOT NULL AUTO_INCREMENT,
+    sessionid 							char(40) NOT NULL,
+    uniqueid 							char(30) NOT NULL,
+    username 							char(40) NOT NULL,
+    nasipaddress 						char(30) DEFAULT NULL,
+    starttime 							timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    stoptime 							timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    sessiontime 						INT (11) DEFAULT NULL,
+    calledstation 						char(30) DEFAULT NULL,
+    startdelay 							INT (11) DEFAULT NULL,
+    stopdelay 							INT (11) DEFAULT NULL,
+    terminatecause 						char(20) DEFAULT NULL,
+    usertariff 							char(20) DEFAULT NULL,
+    calledprovider 						char(20) DEFAULT NULL,
+    calledcountry 						char(30) DEFAULT NULL,
+    calledsub 							char(20) DEFAULT NULL,
+    calledrate 							FLOAT DEFAULT NULL,
+    sessionbill 						FLOAT DEFAULT NULL,
+    destination 						char(40) DEFAULT NULL,
+    id_tariffgroup 						INT (11) DEFAULT NULL,
+    id_tariffplan 						INT (11) DEFAULT NULL,
+    id_ratecard 						INT (11) DEFAULT NULL,
+    id_trunk 							INT (11) DEFAULT NULL,
+    sipiax 								INT (11) DEFAULT '0',
+    src 								char(40) DEFAULT NULL,
+    id_did 								INT (11) DEFAULT NULL,
+    buyrate 							DECIMAL(15,5) DEFAULT 0,
+    buycost 							DECIMAL(15,5) DEFAULT 0,
+	id_card_package_offer 				INT (11) DEFAULT 0,
+	real_sessiontime					INT (11) DEFAULT NULL,
+    PRIMARY KEY  (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+ALTER TABLE `cc_call_archive` ADD INDEX ( `username` );
+ALTER TABLE `cc_call_archive` ADD INDEX ( `starttime` ); 
+ALTER TABLE `cc_call_archive` ADD INDEX ( `terminatecause` );
+ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );

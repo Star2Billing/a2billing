@@ -210,6 +210,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PGSql Dump Path', 'pg_dump', '/usr/bin/pg_dump', 'path for pg_dump.', 0, 7, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('MySql Path', 'mysql', '/usr/bin/mysql', 'Path for MySql.', 0, 7, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PSql Path', 'psql', '/usr/bin/psql', 'Path for PSql.', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Archive Data for x months', 'archive_data_x_month', '3', 'Archive Call dial record for x months', 0, 7, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP File Path', 'buddy_sip_file', '/etc/asterisk/additional_a2billing_sip.conf', 'Path to store the asterisk configuration files SIP.', 0, 8, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IAX File Path', 'buddy_iax_file', '/etc/asterisk/additional_a2billing_iax.conf', 'Path to store the asterisk configuration files IAX.', 0, 8, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('API Security Key', 'api_security_key', 'Ae87v56zzl34v', 'API have a security key to validate the http request, the key has to be sent after applying md5, Valid characters are [a-z,A-Z,0-9].', 0, 8, NULL);
@@ -622,3 +623,43 @@ CREATE INDEX cc_card_username_ind ON cc_card USING btree (username);
 VACUUM FULL ANALYZE;
 -- Change bellow your dbname & uncomment
 -- REINDEX DATABASE a2billing;
+
+
+CREATE TABLE cc_call_archive (
+    id 									BIGSERIAL NOT NULL,
+    sessionid 							TEXT NOT NULL,
+    uniqueid 							TEXT NOT NULL,
+    username 							TEXT NOT NULL,
+    nasipaddress 						TEXT ,
+    starttime 							TIMESTAMP WITHOUT TIME ZONE,
+    stoptime 							TIMESTAMP WITHOUT TIME ZONE,
+    sessiontime 						INTEGER,
+    calledstation 						TEXT ,
+    startdelay 							INTEGER,
+    stopdelay 							INTEGER,
+    terminatecause 						TEXT ,
+    usertariff 							TEXT ,
+    calledprovider 						TEXT ,
+    calledcountry 						TEXT ,
+    calledsub 							TEXT ,
+    calledrate 							double precision,
+    sessionbill 						double precision,
+    destination 						TEXT ,
+    id_tariffgroup 						INTEGER,
+    id_tariffplan 						INTEGER,
+    id_ratecard 						INTEGER,
+    id_trunk 							INTEGER,
+    sipiax 								INTEGER DEFAULT 0,
+    src 								TEXT ,
+    id_did 								INTEGER,
+    buyrate 							NUMERIC(15,5) DEFAULT 0,
+    buycost 							NUMERIC(15,5) DEFAULT 0,
+	id_card_package_offer 				INTEGER DEFAULT 0
+);
+ALTER TABLE ONLY cc_call_archive
+    ADD CONSTRAINT cc_call_archive_pkey PRIMARY KEY (id);
+
+CREATE INDEX cc_call_username_ind ON cc_call_archive USING btree (username); 	
+CREATE INDEX cc_call_starttime_ind ON cc_call_archive USING btree (starttime);	
+CREATE INDEX cc_call_terminatecause_ind ON cc_call_archive USING btree (terminatecause); 	
+CREATE INDEX cc_call_calledstation_ind ON cc_call_archive USING btree (calledstation); 	
