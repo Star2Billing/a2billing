@@ -2,6 +2,12 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### TODO : add call-limit
+********************************************************************
+Add call-limit on sip/iax parameters
+
+
 #### TODO : CRITERIA CALLPLAN
 ********************************************************************
 I added Callplan on CDR report, see revision 303, we need to add the same on the 3 pages :

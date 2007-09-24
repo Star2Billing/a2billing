@@ -726,8 +726,8 @@ class RateEngine
 		$buyratecost =0;
 		if ($buyratecallduration < $buyrateinitblock) $buyratecallduration = $buyrateinitblock;
 		if ($buyrateincrement > 0) {
-			$mod_sec = $buyratecallduration % $buyrateincrement;
-			if ($mod_sec>0) $buyratecallduration += ($buyrateincrement - $mod_sec);
+			$mod_sec = $buyratecallduration % $buyrateincrement; // 12 = 30 % 18
+			if ($mod_sec>0) $buyratecallduration += ($buyrateincrement - $mod_sec); // 30 += 18 - 12
 		}
 		$buyratecost -= ($buyratecallduration/60) * $buyrate;
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
