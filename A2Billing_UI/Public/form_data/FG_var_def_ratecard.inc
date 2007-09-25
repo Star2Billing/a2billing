@@ -38,28 +38,51 @@ $yesno = array();
 $yesno["1"] = array( gettext("Yes"), "1");
 $yesno["0"] = array( gettext("No"), "0");
 
-
+if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "");
 $HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "10%", "center", "sort", "");
 //$HD_Form -> AddViewElement(gettext("PACKAGE"), "id_cc_package_offer", "11%", "center", "sort", "15", "lie", "cc_package_offer", "label", "id='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"BUYING RATE\">".gettext("BR")."</acronym>", "buyrate", "4%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement("<acronym title=\"INITBLOCK\">".gettext("INITB")."</acronym>", "initblock", "4%", "center", "sort");
-$HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"FREE TIME TO CALL\">".gettext("FTC")."</acronym>"), "freetimetocall_package_offer", "3%", "center", "sort", "", "list", $yesno);
+if (!$popup_select) $HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+if (!$popup_select) $HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+if (!$popup_select) $HD_Form -> AddViewElement("<acronym title=\"INITBLOCK\">".gettext("INITB")."</acronym>", "initblock", "4%", "center", "sort");
+if (!$popup_select) $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
+if (!$popup_select) $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
+if (!$popup_select) $HD_Form -> AddViewElement(gettext("<acronym title=\"FREE TIME TO CALL\">".gettext("FTC")."</acronym>"), "freetimetocall_package_offer", "3%", "center", "sort", "", "list", $yesno);
 //$HD_Form -> AddViewElement(gettext("CIDGroup"), "id_outbound_cidgroup", "12%", "center", "sort", "15", "lie", "cc_outbound_cid_group", "group_name", "id='%id'", "%1");
 
 
+if (!$popup_select){
+	$HD_Form -> FieldViewElement ('destination, dialprefix, buyrate, rateinitial, startdate, stopdate, initblock, connectcharge, id_trunk, freetimetocall_package_offer');
+}
+else{
+	$HD_Form -> FieldViewElement ('id,destination, dialprefix, buyrate, rateinitial');
+}
 
-$HD_Form -> FieldViewElement ('destination, dialprefix, buyrate, rateinitial, startdate, stopdate, initblock, connectcharge, id_trunk, freetimetocall_package_offer');
+if ($popup_select) {
+	$HD_Form -> FG_LIMITE_DISPLAY = 7;
+	$HD_Form -> CV_FOLLOWPARAMETERS = "&popup_select=" . $_GET['popup_select'] . "&popup_formname=" . $_GET['popup_formname'] . "&popup_fieldname=" . $_GET['popup_fieldname'];
 
-$HD_Form -> FieldExportElement('destination, dialprefix, rateinitial');
-$HD_Form -> FG_EXPORT_CSV = true;
-$HD_Form -> FG_EXPORT_XML = true;
-$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_rates";
+	$HD_Form -> FG_OTHER_BUTTON1 = true;
+	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
+	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
+
+	//echo $popup_select;
+	if ($popup_select == 1)
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
+	elseif ($popup_select == 2)
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
+}
+else
+{
+	$HD_Form -> FieldExportElement('destination, dialprefix, rateinitial');
+	$HD_Form -> FG_EXPORT_CSV = true;
+	$HD_Form -> FG_EXPORT_XML = true;
+	$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_rates";
+	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_DELETION = true;
+}
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED."); 
@@ -83,8 +106,6 @@ $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = 'TRUNK';
 $HD_Form -> AddSearchElement_Select('SELECT TRUNK',"cc_trunk","id_trunk, trunkcode, providerip","","trunkcode","ASC","id_trunk");
 
 
-$HD_Form -> FG_EDITION = true;
-$HD_Form -> FG_DELETION = true;
 
 
 

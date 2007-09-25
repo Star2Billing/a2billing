@@ -12,7 +12,7 @@ if (! has_rights (ACX_RATECARD)){
 }
 
 
-getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'tariffplan', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname','posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'tariffplan', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
 
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array('batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_buyrate', 'upd_buyrateinitblock', 'upd_buyrateincrement', 'upd_rateinitial', 'upd_initblock', 'upd_billingblock', 'upd_connectcharge', 'upd_disconnectcharge', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', "filterprefix",'upd_rounding_calltime' ,'upd_rounding_threshold' ,'upd_additional_block_charge' ,'upd_additional_block_charge_time','upd_tag'));
@@ -114,15 +114,25 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
+if (!$popup_select){
 if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo $CC_help_add_rate;
 else echo $CC_help_def_ratecard;
-
+}
 // DISPLAY THE UPDATE MESSAGE
 if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
 
+if ($popup_select){
 ?>
-
-
+<SCRIPT LANGUAGE="javascript">
+<!-- Begin
+function sendValue(selvalue){
+	window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
+	window.close();
+}
+// End -->
+</script>
+<?php }?>
+<?php if(!$popup_select){?>
 <div class="toggle_hide2show">
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH RATES");?> </font></a></center>
 	<div class="tohide" style="display:none;">
@@ -134,12 +144,10 @@ if ($form_action == "list"){
 ?>
 	</div>
 </div>
-
-
-<?php
+<?php }
 
 /********************************* BATCH UPDATE ***********************************/
-if ($form_action == "list"){
+if ($form_action == "list" && !$popup_select){
 	
 	$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
 	$FG_TABLE_CLAUSE = "";
