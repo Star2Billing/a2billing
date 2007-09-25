@@ -15,7 +15,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 //echo "<b>def_ratecard = ".$_SESSION['def_ratecard']."</b><br><br>";
-if (isset($posted)){
+if (isset($posted) && !$popup_select){
 	$idtariff = explode('-:-',$tariffplan);
 	$HD_Form->FG_TOP_FILTER_NAME = str_replace ("-:-","",$idtariff[1]);
 	//echo "Debug hey ->".$HD_Form->FG_TOP_FILTER_NAME."<br>";
