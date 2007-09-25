@@ -230,7 +230,6 @@ if ($_SESSION["is_admin"] == 1)
 			if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
 			$SQLcmd .= "t1.id_ratecard = '$enterratecard'";
 		}
-
 }
 
 //print $SQLcmd;  

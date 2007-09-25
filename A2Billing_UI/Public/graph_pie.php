@@ -31,7 +31,7 @@ cdrasterisk=> SELECT sum(duration) FROM cdr WHERE calldate < date '2005-02-01'  
 (1 row)
 */
 
-getpost_ifset(array('months_compare', 'min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'graphtype'));
+getpost_ifset(array('months_compare', 'min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'enterratecard', 'entertariffgroup', 'graphtype'));
 
 // graphtype = 1, 2, 3  
 // 1 : traffic
@@ -150,6 +150,14 @@ if ($_SESSION["is_admin"] == 1)
 	if (isset($entertrunk) && $entertrunk > 0) {
 		if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
 		$SQLcmd .= " t3.id_trunk = '$entertrunk' ";
+	}
+	if (isset($entertariffgroup) && $entertariffgroup > 0) {
+		if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
+		$FG_TABLE_CLAUSE .= "t1.id_tariffgroup = '$entertariffgroup'";
+	}
+	if (isset($enterratecard) && $enterratecard > 0) {
+		if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
+		$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
 	}
 }
 

@@ -16,7 +16,7 @@ if (! has_rights (ACX_CALL_REPORT)){
 $FG_DEBUG = 0;
 
 
-getpost_ifset(array('min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk'));
+getpost_ifset(array('min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard'));
 
 
 // http://localhost/Asterisk/asterisk-stat-v1_4/graph_stat.php?min_call=0&fromstatsday_sday=11&days_compare=2&fromstatsmonth_sday=2005-02&dsttype=1&srctype=1&clidtype=1&channel=&resulttype=&dst=1649&src=&clid=&userfieldtype=1&userfield=&accountcodetype=1&accountcode=
@@ -155,6 +155,14 @@ if ($_SESSION["is_admin"] == 1)
 	if (isset($entertrunk) && $entertrunk > 0) {
 		if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
 		$SQLcmd .= " t3.id_trunk = '$entertrunk' ";
+	}
+	if (isset($entertariffgroup) && $entertariffgroup > 0) {
+		if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
+		$SQLcmd .= "t1.id_tariffgroup = '$entertariffgroup'";
+	}
+	if (isset($enterratecard) && $enterratecard > 0) {
+		if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
+		$SQLcmd .= "t1.id_ratecard = '$enterratecard'";
 	}
 }
 
