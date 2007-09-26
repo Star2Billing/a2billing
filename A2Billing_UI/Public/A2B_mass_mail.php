@@ -65,14 +65,16 @@ $nb_customer = 0;
 if(!empty($HD_Form -> FG_TABLE_CLAUSE)){
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND email <> ''";
 	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $HD_Form -> FG_TABLE_CLAUSE, null, null, null, null, null, null);			
-	$nb_customer = count($list_customer);
+}else{
+	$sql_clause = "email <> ''";
+	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $sql_clause);
 }
-
+$nb_customer = sizeof($list_customer);
 $DBHandle  = DbConnect();
 $instance_table = new Table();
 
 /***********************************************************************************/
-getpost_ifset(array('subject', 'message','atmenu','submit','hd_email'));
+getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_customer'));
 
 
 if(isset($submit)){
@@ -169,7 +171,7 @@ if (strlen($_GET["menu"])>0)
 if(isset($submit)){
 			if($result){?>
 				<tr> 
-           			<td align="center" colspan="2"><?php echo gettext("The e-mail has been sent.");?></td>
+           			<td align="center" colspan="2"><?php echo gettext("The e-mail has been sent to "); echo $total_customer; echo gettext(" customer(s)!")?></td>
 		       </tr>
 			<?php }else{?>
 				<tr> 
@@ -178,20 +180,24 @@ if(isset($submit)){
 			<?php }?>	
 	
 <?php }else{?>
-<?php if($nb_customer > 0){?>
+       <?php if(is_array($list_customer) || $nb_customer > 1){?>
        <tr> 
 	       <td><span class="viewhandler_span1">&nbsp;</span></td>
            <td align="right"> <span class="viewhandler_span1"><?php echo $nb_customer;?> <?php echo gettext("Record(s)");?></span></td>
        </tr>
+<?php if(!empty($HD_Form -> FG_TABLE_CLAUSE) && is_array($list_customer)){?>
        <TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("TO");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
 		    <?php $link_to_customer = CUSTOMER_UI_URL; 
 		    	if(is_array($list_customer)){
-					foreach($list_customer as $key => $value){
-						echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$value[1]." target=\"_blank\">".$value[0]."</a>";
+					for($key=0; $key < $nb_customer && $key <= 19; $key++){
+						echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$list_customer[$key][1]." target=\"_blank\">".$list_customer[$key][0]."</a>";
 						if($key + 1 != $nb_customer) echo " ,&nbsp;";
-						echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$value[0].">";
+							echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$list_customer[$key][0].">";
+						if($key == 19){
+							echo "<br><a href=\"A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1\" target=\"_blank\">".gettext("Click on list customer to see them all")."</a>";
+						}
 					}
 				}?><span class="liens"></span>&nbsp;<br>
 		     </TD>
@@ -210,18 +216,23 @@ if(isset($submit)){
 					<span class="liens"></span>&nbsp; </TD>
          </TR>
          
-  </TABLE>
-	<TABLE cellspacing="0" class="editform_table8">
 		<tr>
 		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);">&nbsp; </td>
 		</tr>
 		<tr>
+			<td>&nbsp;</td>
 			<td align="right">
 			<input class="form_input_button" name="submit"  TYPE="submit" VALUE="<?=gettext("EMAIL");?>"></td>
 		</tr>
-<? }?>
-
-	  </TABLE>
+			<? }else{?>
+		<tr>
+			 <td colspan="2" align="center"><?php echo gettext("No Record Found!");?></td>
+		</tr>
+		<?php }
+		}
+		?>
+		</table>
+	  	<input type = "hidden" name="total_customer" value="<?=$nb_customer?>">
      </FORM>
 <?php 	
 // #### FOOTER SECTION
