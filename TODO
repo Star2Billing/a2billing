@@ -3,10 +3,19 @@
 ********************************************************************************
 
 
-#### TODO : add call-limit
-********************************************************************
-Add call-limit on sip/iax parameters
 
+#### TODO : ARCHIVE CDRs
+********************************************************************
+We will create cc_call_archive
+table with the same structure cc_call where id will be primary key.
+So we can build a cront application that will weekly, retrieve all the CDRs
+older than X months move them to cc_call_archive and then
+explain the Database and rebuild index so that it start to be fast again.
+X Month will be in parameter in config
+
+Think to better solution maybe !?
++
+Web interface for it
 
 #### MASS MAIL FEATURE
 ********************************************************************
@@ -19,17 +28,17 @@ maybe a daemon is needed
 only some customer to which u want to run the massmail
 
 
-
-#### TODO : ARCHIVE CDRs
+#### TODO : Detach Selling ratecard from Buying ratecard
 ********************************************************************
-We will create cc_call_archive
-table with the same structure cc_call where id will be primary key.
-So we can build a cront application that will weekly, retrieve all the CDRs
-older than X months move them to cc_call_archive and then
-explain the Database and rebuild index so that it start to be fast again.
-X Month will be in parameter in config
+- you need to update the selling prices multiple times
+- you cannot really remove the sorter matching prefixes as you do right now, since one provider can have more granularity than other
 
-Think to better solution maybe !?
+
+#### TODO : add call-limit
+********************************************************************
+Add call-limit on sip/iax parameters
+
+
 
 
 
@@ -42,15 +51,6 @@ Other is that logging in /tmp etc. should *not* contain the full call details.
 It is easier to only have the full details in the database, and then be careful about not letting the db 
 data in public.
 
-
-
-#### TRUNK CHANGE : UPDATE DAEMON TO USE THE DB CONF
-********************************************************************
-read conf from the DB
-
-	my $manager_host = $cfg->val('global', 'manager_host');
-	my $manager_username = $cfg->val('global', 'manager_username');
-	my $manager_secret = $cfg->val('global', 'manager_secret');
 
 
 #### FEATURE : CUSTOMER SERVICES FRIENDLY
@@ -141,11 +141,6 @@ http://forum.asterisk2billing.org/viewtopic.php?p=7406#7406
  we shouldn't deactivate magic_quotes_gpc at all.
  
 
-
-#### TODO : Detach Selling ratecard from Buying ratecard
-********************************************************************
-- you need to update the selling prices multiple times
-- you cannot really remove the sorter matching prefixes as you do right now, since one provider can have more granularity than other
 
 
 #### TODO : CallerID prefix for DIDs
