@@ -3,6 +3,38 @@
 ********************************************************************
 
 
+#### TODO : CRITERIA CALLPLAN
+********************************************************************
+I added Callplan on CDR report, see revision 303, we need to add the same on the 3 pages :
+(Section Call Report)
+# Calls Compare
+# Monthly Traffic
+# Daily Load
+
+If graph we need to pass the parameter there too.
+
+
+#### TODO : CRITERIA RATECARD ID
+********************************************************************
+Same as for the CallPlan but now for the ratecard ID, normally already same in CDR :
+(Section Call Report)
+# CDR report
+# Calls Compare
+# Monthly Traffic
+# Daily Load
+
+If graph we need to pass the parameter there too.
+
+
+
+#### TODO : MOVE CAPTCHA Directory to signup directory
+********************************************************************
+lib/captcha
+due to htaccess in lib/ it s an issue on most installation, as the pictures is not accessable 
+so move 	A2Billing_UI/lib/captcha
+to 			A2Billing_UI/signup/captcha
+
+
 #### TODO : BATCH UPDATE  FOR TAG ; ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
 ********************************************************************
 Batch update for 

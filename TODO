@@ -8,16 +8,6 @@
 Add call-limit on sip/iax parameters
 
 
-#### TODO : CRITERIA CALLPLAN
-********************************************************************
-I added Callplan on CDR report, see revision 303, we need to add the same on the 3 pages :
-(Section Call Report)
-# Calls Compare
-# Monthly Traffic
-# Daily Load
-
-If graph we need to pass the parameter there too.
-
 #### MASS MAIL FEATURE
 ********************************************************************
 option to let send an email to all the a2billing user
@@ -28,12 +18,6 @@ maybe a daemon is needed
 * We should be able to define the search Criteria as in View Card in order to preselect
 only some customer to which u want to run the massmail
 
-#### TODO : MOVE CAPTCHA Directory to signup directory
-********************************************************************
-lib/captcha
-due to htaccess in lib/ it s an issue on most installation, as the pictures is not accessable 
-so move 	A2Billing_UI/lib/captcha
-to 			A2Billing_UI/signup/captcha
 
 
 #### TODO : ARCHIVE CDRs
