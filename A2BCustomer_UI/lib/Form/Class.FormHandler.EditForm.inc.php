@@ -534,7 +534,7 @@ function sendtolittle(direction){
 										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
 										<TD width="516"><div align="left"> 	
 										<?php if($this->FG_TABLE_EDITION[$i][4] == "multiline"){?>
-							  				<textarea name=<?php echo $table_split[1]?> class="form_input_text"  col="20" rows="5"></textarea>
+							  				<textarea name=<?php echo $table_split[1]?> class="form_input_text"  cols="20" rows="5"></textarea>
 										<?php }else{?>
 											<INPUT TYPE="TEXT" name=<?php echo $table_split[1]?> class="form_input_text"  size="20" maxlength="20">
 										<?php }?>
