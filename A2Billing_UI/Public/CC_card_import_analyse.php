@@ -6,7 +6,7 @@ include ("../lib/smarty.php");
 
 set_time_limit(0);
 
-if (! has_rights (ACX_CUSTOMER)){
+if (! has_rights (ACX_CUSTOMER)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -14,9 +14,7 @@ if (! has_rights (ACX_CUSTOMER)){
 
 getpost_ifset(array('search_sources', 'task', 'status','uploadedfile_name'));
 
-if ($search_sources!='nochange'){
-
-	//echo "<br>---$search_sources";
+if ($search_sources!='nochange') {
 	$fieldtoimport= split("\t", $search_sources);
 	$fieldtoimport_sql = str_replace("\t", ", ", $search_sources);
 	$fieldtoimport_sql = trim ($fieldtoimport_sql);
@@ -55,12 +53,8 @@ $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 if ($FG_DEBUG == 1) echo "<br> Task :: $task";
 
-if ($task=='upload'){
-
-	//---------------------------------------------------------
-	//		 Effacer tout les fichiers du repertoire cache.
-	//---------------------------------------------------------
-
+if ($task=='upload') {
+	
 	$the_file_name = $_FILES['the_file']['name'];
 	$the_file_type = $_FILES['the_file']['type'];
 	$the_file = $_FILES['the_file']['tmp_name'];
@@ -95,119 +89,106 @@ if ($task=='upload'){
 
 	if ($FG_DEBUG == 1) echo "<br> FILE  ::> ".$the_file_name;
 	if ($FG_DEBUG == 1) echo "<br> THE_FILE:$the_file <br>THE_FILE_TYPE:$the_file_type";
-
-	 $fp = fopen($the_file,  "r");
-	 if (!$fp){  /* THE FILE DOESN'T EXIST */
-		 echo  gettext('THE FILE DOESNOT EXIST');
-		 exit();
-	 }
-
-	 $chaine1 = '"\'';
+	
+	$fp = fopen($the_file,  "r");
+	if (!$fp){
+		echo  gettext('THE FILE DOESNOT EXIST');
+		exit();
+	}
+	
+	$chaine1 = '"\'';
 
  	$nb_imported=0;
 	$nb_to_import=0;
 	$DBHandle  = DbConnect();
     $find_createdate = 0 ;
-
-	while (!feof($fp)){
-
-			 //if ($nb_imported==1000) break;
-             $ligneoriginal = fgets($fp,4096);  /* On se déplace d'une ligne */
-             if($ligneoriginal == "")
-             {
-                 break;
-             }
-			 $ligneoriginal = trim ($ligneoriginal);
-			 $ligneoriginal = strtolower($ligneoriginal);
-
-
-			 for ($i = 0; $i < strlen($chaine1); $i++)
-					$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
-
-			 $ligne = str_replace(',', '.', $ligne);
-			 $val= split(';', $ligne);
-			 $val[0]=str_replace('"', '', $val[0]); //DH
-			 $val[1]=str_replace('"', '', $val[1]); //DH
-             $val[2]=str_replace('"', '', $val[2]); //DH
-			 $val[0]=str_replace("'", '', $val[0]); //DH
-			 $val[1]=str_replace("'", '', $val[1]); //DH
-             $val[2]=str_replace("'", '', $val[2]); //DH
-
-			 if ($status!="ok") break;
-			 //if ($val[2]!='' && strlen($val[2])>0){
-			 if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#'){
-
-				 $FG_ADITION_SECOND_ADD_TABLE  = 'cc_card';
-				 $FG_ADITION_SECOND_ADD_FIELDS = 'username, useralias, uipass, credit, lastname, firstname, activated, status'; //$fieldtoimport_sql
-				 $FG_ADITION_SECOND_ADD_VALUE  = "'".$val[0]."', '".$val[1]."', '".$val[2]."', '".$val[3]."', '".$val[4]."', '".$val[5]."', '".$val[6]."', '".$val[7]."'";
-
-				 for ($k=0;$k<count($fieldtoimport);$k++)
-                 {
-
-					if (!empty($val[$k + 8]) || $val[$k + 8]=='0')
-					{
-						$val[$k+3]=str_replace('"', '', $val[$k + 8]); //DH
-						$val[$k+3]=str_replace("'", '', $val[$k + 8]); //DH
-
-						if ($fieldtoimport[$k]=="startdate" && ($val[$k + 8]=='0' || $val[$k + 8]=='')) continue;
-						if ($fieldtoimport[$k]=="stopdate" && ($val[$k + 8]=='0' || $val[$k + 8]=='')) continue;
-
-						$FG_ADITION_SECOND_ADD_FIELDS .= ', '.$fieldtoimport[$k];
-
-						if (is_numeric($val[$k + 8])) {
-							$FG_ADITION_SECOND_ADD_VALUE .= ", ".$val[$k + 8]."";
-						}else{
-							$FG_ADITION_SECOND_ADD_VALUE .= ", '".$val[$k + 8]."'";
-						}
-
-						if ($fieldtoimport[$k] == "creationdate")  $find_createdate = 1;
-
-					}
-				 }
-
-                 $begin_date = date("Y");
-                 $begin_date_plus = date("Y") + 25;
-	             $end_date = date("-m-d H:i:s");
-	             $comp_date = "'".$begin_date.$end_date."'";
-                 $comp_date_plus = "'".$begin_date_plus.$end_date."'";
-
-				 if ($find_createdate != 1 ){
-					$FG_ADITION_SECOND_ADD_FIELDS .= ', creationdate';
-			 		$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date.$end_date."'";
-				 }
-
-				 $TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
-				 $nb_to_import++;
-			}
-
-			if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import==1) ){
-
-				$nb_to_import=0;
-				$result_query =  $DBHandle -> Execute($TT_QUERY);
-				if ($result_query){ $nb_imported = $nb_imported + 1;
-				}else{$buffer_error.= $ligneoriginal.'<br/>';}
-				$TT_QUERY='';
-
-			}
-
-
-		} // END WHILE EOF
-
-
-		if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0) ){
-				
-				$result_query = @ $DBHandle -> Execute($TT_QUERY);
-				if ($result_query) $nb_imported = $nb_imported + $nb_to_import;
+	
+	while (!feof($fp)) {
+		//if ($nb_imported==1000) break;
+		$ligneoriginal = fgets($fp,4096);  /* On se déplace d'une ligne */
+		if($ligneoriginal == ""){
+			break;
 		}
-
+		$ligneoriginal = trim ($ligneoriginal);
+		$ligneoriginal = strtolower($ligneoriginal);
+		
+		for ($i = 0; $i < strlen($chaine1); $i++)
+			$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
+		
+		$ligne = str_replace(',', '.', $ligne);
+		$val= split(';', $ligne);
+		$val[0]=str_replace('"', '', $val[0]); //DH
+		$val[1]=str_replace('"', '', $val[1]); //DH
+		$val[2]=str_replace('"', '', $val[2]); //DH
+		$val[0]=str_replace("'", '', $val[0]); //DH
+		$val[1]=str_replace("'", '', $val[1]); //DH
+		$val[2]=str_replace("'", '', $val[2]); //DH
+		
+		if ($status!="ok") break;
+		if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#'){
+			
+			$FG_ADITION_SECOND_ADD_TABLE  = 'cc_card';
+			$useralias_val = ($val[1] == '') ? $val[0]: $val[1];
+			$FG_ADITION_SECOND_ADD_FIELDS = 'username, useralias, uipass, credit, lastname, firstname, activated, status'; //$fieldtoimport_sql
+			$FG_ADITION_SECOND_ADD_VALUE  = "'".$val[0]."', '$useralias_val', '".$val[2]."', '".$val[3]."', '".$val[4]."', '".$val[5]."', '".$val[6]."', '".$val[7]."'";
+			
+			for ($k=0;$k<count($fieldtoimport);$k++)
+			{
+				if (!empty($val[$k + 8]) || $val[$k + 8]=='0')
+				{
+					$val[$k+3]=str_replace('"', '', $val[$k + 8]); //DH
+					$val[$k+3]=str_replace("'", '', $val[$k + 8]); //DH
+					if ($fieldtoimport[$k]=="startdate" && ($val[$k + 8]=='0' || $val[$k + 8]=='')) continue;
+					if ($fieldtoimport[$k]=="stopdate" && ($val[$k + 8]=='0' || $val[$k + 8]=='')) continue;
+					$FG_ADITION_SECOND_ADD_FIELDS .= ', '.$fieldtoimport[$k];
+					if (is_numeric($val[$k + 8])) {
+						$FG_ADITION_SECOND_ADD_VALUE .= ", ".$val[$k + 8]."";
+					}else{
+						$FG_ADITION_SECOND_ADD_VALUE .= ", '".$val[$k + 8]."'";
+					}
+					if ($fieldtoimport[$k] == "creationdate")  $find_createdate = 1;
+				}
+			}
+			
+			$begin_date = date("Y");
+			$begin_date_plus = date("Y") + 25;
+			$end_date = date("-m-d H:i:s");
+			$comp_date = "'".$begin_date.$end_date."'";
+			$comp_date_plus = "'".$begin_date_plus.$end_date."'";
+			
+			if ($find_createdate != 1 ){
+				$FG_ADITION_SECOND_ADD_FIELDS .= ', creationdate';
+				$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date.$end_date."'";
+			}
+			
+			$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
+			$nb_to_import++;
+		}
+		
+		if ($TT_QUERY != '' && strlen($TT_QUERY) > 0 && ($nb_to_import == 1)) {
+			
+			$nb_to_import=0;
+			$result_query =  $DBHandle -> Execute($TT_QUERY);
+			if ($result_query) {
+				$nb_imported = $nb_imported + 1;
+			} else {
+				$buffer_error.= $ligneoriginal.'<br/>';
+			}
+			$TT_QUERY='';
+		}
+		
+	} // END WHILE EOF
+	
+	
+	if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0)){
+		$result_query = @ $DBHandle -> Execute($TT_QUERY);
+		if ($result_query) $nb_imported = $nb_imported + $nb_to_import;
+	}
 
 }
 
 $Temps2 = time();
 $Temps = $Temps2 - $Temps1;
-//echo "<br>".$Temps2;
-//echo "<br>Script Time :".$Temps."<br>";
-
 
 
 // #### HEADER SECTION
