@@ -458,6 +458,7 @@ class A2Billing {
 		define ("LOGFILE_CRONT_ALARM", 			isset($this->config['log-files']['cront_alarm'])			?$this->config['log-files']['cront_alarm']:null);
 		define ("LOGFILE_CRONT_AUTOREFILL", 	isset($this->config['log-files']['cront_autorefill'])		?$this->config['log-files']['cront_autorefill']:null);
 		define ("LOGFILE_CRONT_BATCH_PROCESS", 	isset($this->config['log-files']['cront_batch_process'])	?$this->config['log-files']['cront_batch_process']:null);
+		define ("LOGFILE_CRONT_ARCHIVE_DATA", 	isset($this->config['log-files']['cront_archive_data'])	?$this->config['log-files']['cront_archive_data']:null);
 		define ("LOGFILE_CRONT_BILL_DIDUSE", 	isset($this->config['log-files']['cront_bill_diduse'])		?$this->config['log-files']['cront_bill_diduse']:null);
 		define ("LOGFILE_CRONT_SUBSCRIPTIONFEE",isset($this->config['log-files']['cront_subscriptionfee'])	?$this->config['log-files']['cront_subscriptionfee']:null);
 		define ("LOGFILE_CRONT_CURRENCY_UPDATE",isset($this->config['log-files']['cront_currency_update'])	?$this->config['log-files']['cront_currency_update']:null);
@@ -1345,12 +1346,11 @@ class A2Billing {
 	/*
 	 * Function to generate a cardnumber
 	 */	 
-	function MDP()
+	function MDP( $chrs = 10 )
 	{
-		$chrs = $this->agiconfig['cid_auto_create_card_len'];  
 		$pwd = "";
 		 mt_srand ((double) microtime() * 1000000);
-		 while (strlen($pwd)<$chrs)
+		 while (strlen($pwd) < $chrs)
 		 {
 			$chr = chr(mt_rand (0,255));
 			if (eregi("^[0-9]$", $chr))
@@ -1501,7 +1501,7 @@ class A2Billing {
 			
 			if( !is_array($result)) {
 				
-				if ($this->agiconfig['cid_auto_create_card']==1){
+				if ($this->agiconfig['cid_auto_create_card']==1) {
 					
 					for ($k=0;$k<=20;$k++){
 						if ($k==20){
@@ -1511,7 +1511,7 @@ class A2Billing {
 							$agi-> stream_file($prompt, '#');
 							return -2;
 						}
-						$card_gen = MDP();
+						$card_gen = $this -> MDP ($this->agiconfig['cid_auto_create_card_len']);
 						//echo "SELECT username FROM card where username='$card_gen'<br>";
 						$numrow = 0;
 						$resmax = $this->DBHandle -> Execute("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
@@ -1521,13 +1521,13 @@ class A2Billing {
 						if ($numrow!=0) continue;
 						break;		
 					}
-					
+					$card_alias = $this -> MDP ($this->agiconfig['cid_auto_create_card_len']);
+					$uipass = $this -> MDP (5);
 					$ttcard = ($this->agiconfig['cid_auto_create_card_typepaid']=="POSTPAY") ? 1 : 0;
-					// INSERT INTO cc_card (username, useralias, userpass, credit, language, tariff, activated, 
-					// typepaid, creditlimit, inuse) VALUES ('123444','123444','123444','10.00','en','1','t','1','0','0');
-					//CREATE A CARD AND AN INSTANCE IN CC_CARD
-					$QUERY_FIELS = 'username, useralias, userpass, credit, language, tariff, activated, typepaid, creditlimit, inuse, status';
-					$QUERY_VALUES = "'$card_gen', '$card_gen', '$card_gen', '".$this->agiconfig['cid_auto_create_card_credit']."', 'en', '".$this->agiconfig['cid_auto_create_card_tariffgroup']."', 't','$ttcard', '".$this->agiconfig['cid_auto_create_card_credit_limit']."', '0', '1'";
+					
+					//CREATE A CARD
+					$QUERY_FIELS = 'username, useralias, uipass, credit, language, tariff, activated, typepaid, creditlimit, inuse, status';
+					$QUERY_VALUES = "'$card_gen', '$card_alias', '$uipass', '".$this->agiconfig['cid_auto_create_card_credit']."', 'en', '".$this->agiconfig['cid_auto_create_card_tariffgroup']."', 't','$ttcard', '".$this->agiconfig['cid_auto_create_card_credit_limit']."', '0', '1'";
 					$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card', 'id');
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CARDNUMBER: $card_gen]:[CARDID CREATED : $result]");
 					
@@ -1536,7 +1536,7 @@ class A2Billing {
 					$QUERY_VALUES = "'".$this->CallerID."','$result'";
 							
 					$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
-					if (!$result){
+					if (!$result) {
 						$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
 						$prompt="prepaid-auth-fail";
 						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
@@ -1554,51 +1554,45 @@ class A2Billing {
 					$language = 'en';
 					$this->accountcode = $card_gen;
 					if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
-				}else{
+				} else {
 					
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CID_CONTROL - STOP - NO CALLERID]");
-							
 					// $callerID_enable=1; -> we are checking later if the callerID/accountcode has been define if not ask for pincode
-					if ($this->agiconfig['cid_askpincode_ifnot_callerid']==1) { $this->accountcode=''; $callerID_enable=0;}
-								
-					// REMOVE THE COMMAND BELOW IF YOU WANT TO STOP THE APP IF NO CALLERID IS AUTHENTICATE
-					/*$prompt="prepaid-auth-fail";
-					if ($this->agiconfig['debug']>=1) $this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-					$agi->agi_exec("STREAM FILE $prompt #");
-					$agi-> stream_file($prompt, '#');
-					return -2;*/
-					
+					if ($this -> agiconfig['cid_askpincode_ifnot_callerid']==1) {
+						$this -> accountcode = '';
+						$callerID_enable = 0;
+					}
 				}
-			}else{
+			} else {
 				// We found a card for this callerID 
 				
-				$this->credit = $result[0][3];
-				$this->tariff = $result[0][4];
-				$this->active = $result[0][5];
-				$isused = $result[0][6];
-				$simultaccess = $result[0][7];
-				$this->typepaid = $result[0][8];
-				$creditlimit = $result[0][9];
-				$language = $result[0][10];
-				$this->accountcode = $result[0][11];
-				$this->removeinterprefix = $result[0][12];
-				$this->redial = $result[0][13];
+				$this->credit 				= $result[0][3];
+				$this->tariff 				= $result[0][4];
+				$this->active 				= $result[0][5];
+				$isused 					= $result[0][6];
+				$simultaccess 				= $result[0][7];
+				$this->typepaid 			= $result[0][8];
+				$creditlimit 				= $result[0][9];
+				$language 					= $result[0][10];
+				$this->accountcode 			= $result[0][11];
+				$this->removeinterprefix 	= $result[0][12];
+				$this->redial 				= $result[0][13];
 					
-				$this->enableexpire = $result[0][14];
-				$this->expirationdate = $result[0][15];
-				$this->expiredays = $result[0][16];
-				$this->nbused = $result[0][17];
-				$this->firstusedate = $result[0][18];
-				$this->creationdate = $result[0][19];
-				$this->currency = $result[0][20];
-				$this->cardholder_lastname = $result[0][21];
+				$this->enableexpire 		= $result[0][14];
+				$this->expirationdate 		= $result[0][15];
+				$this->expiredays 			= $result[0][16];
+				$this->nbused 				= $result[0][17];
+				$this->firstusedate 		= $result[0][18];
+				$this->creationdate 		= $result[0][19];
+				$this->currency 			= $result[0][20];
+				$this->cardholder_lastname 	= $result[0][21];
 				$this->cardholder_firstname = $result[0][22];
-				$this->cardholder_email = $result[0][23];
-				$this->cardholder_uipass = $result[0][24];
-				$this->id_campaign  = $result[0][25];
-				$this->id_card  = $result[0][26];
-				$this->useralias = $result[0][27];
-				$this->status = $result[0][28];
+				$this->cardholder_email 	= $result[0][23];
+				$this->cardholder_uipass 	= $result[0][24];
+				$this->id_campaign 			= $result[0][25];
+				$this->id_card 				= $result[0][26];
+				$this->useralias 			= $result[0][27];
+				$this->status 				= $result[0][28];
 				
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
@@ -1613,18 +1607,18 @@ class A2Billing {
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
 				if ($this->enableexpire>0){
-					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
+					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5) {
 						// expire date						
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(				
 							$prompt = "prepaid-card-expired";	
 						
-					}elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)) {
 						// expire days since first use			
 						$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
 							
-					}elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)) {
 						// expire days since creation
 						$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays); 
 						if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
@@ -1632,20 +1626,20 @@ class A2Billing {
 					}
 				}
 				
-				if (strlen($prompt)>0){ 
+				if (strlen($prompt)>0) { 
 					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt 
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
 					
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
 					
-					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance"){
+					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance") {
 					
 						$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher] ");
 						$vou_res = $this -> refill_card_with_voucher($agi,2);
-						if ($vou_res==1){
+						if ($vou_res==1) {
 							return 0;
-						}else {
+						} else {
 							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
@@ -1653,19 +1647,19 @@ class A2Billing {
 						$this->accountcode=''; $callerID_enable=0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
 						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) $this -> ask_other_cardnumber=1;
-					}else{
+					} else {
 						return -2;
 					}
 				}
 				
 			} // elseif We -> found a card for this callerID
 			
-		}else{
+		} else {
 			// NO CALLERID AUTHENTICATION
 			$callerID_enable=0;
 		}
 		
-		// 		  -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
+		// 		 -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
 		
 		$prompt_entercardnum= "prepaid-enter-pin-number";
 		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, ' - Account code - '.$this->accountcode);
@@ -1718,35 +1712,35 @@ class A2Billing {
 						}			
 					}
 					
-					$this->credit = $result[0][0];
-					$this->tariff = $result[0][1];
-					$this->active = $result[0][2];
-					$isused = $result[0][3];
-					$simultaccess = $result[0][4];
-					$this->typepaid = $result[0][5];
-					$creditlimit = $result[0][6];
-					$language = $result[0][7];
-					$this->removeinterprefix = $result[0][8];
-					$this->redial = $result[0][9];
-					$this->enableexpire = $result[0][10];
-					$this->expirationdate = $result[0][11];
-					$this->expiredays = $result[0][12];
-					$this->nbused = $result[0][13];
-					$this->firstusedate = $result[0][14];
-					$this->creationdate = $result[0][15];
-					$this->currency = $result[0][16];
-					$this->cardholder_lastname = $result[0][17];
+					$this->credit 				= $result[0][0];
+					$this->tariff 				= $result[0][1];
+					$this->active 				= $result[0][2];
+					$isused 					= $result[0][3];
+					$simultaccess 				= $result[0][4];
+					$this->typepaid 			= $result[0][5];
+					$creditlimit 				= $result[0][6];
+					$language 					= $result[0][7];
+					$this->removeinterprefix 	= $result[0][8];
+					$this->redial 				= $result[0][9];
+					$this->enableexpire 		= $result[0][10];
+					$this->expirationdate 		= $result[0][11];
+					$this->expiredays 			= $result[0][12];
+					$this->nbused 				= $result[0][13];
+					$this->firstusedate 		= $result[0][14];
+					$this->creationdate 		= $result[0][15];
+					$this->currency 			= $result[0][16];
+					$this->cardholder_lastname 	= $result[0][17];
 					$this->cardholder_firstname = $result[0][18];
-					$this->cardholder_email = $result[0][19];
-					$this->cardholder_uipass = $result[0][20];
-					$this->id_campaign  = $result[0][21];
-					$this->id_card  = $result[0][22];
-					$this->useralias = $result[0][23];
-					$this->status = $result[0][24];
-							
+					$this->cardholder_email 	= $result[0][19];
+					$this->cardholder_uipass 	= $result[0][20];
+					$this->id_campaign  		= $result[0][21];
+					$this->id_card  			= $result[0][22];
+					$this->useralias 			= $result[0][23];
+					$this->status 				= $result[0][24];
+					
 					if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				}
-							
+				
 				if (strlen($language)==2 && !($this->languageselected>=1)){								
 					
 					if($this->agiconfig['asterisk_version'] == "1_2")
@@ -1797,7 +1791,7 @@ class A2Billing {
 					$res = -2;
 					break;
 				}
-							
+				
 			} // For end			
 		}elseif ($callerID_enable==0){
 		
