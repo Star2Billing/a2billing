@@ -7,9 +7,9 @@ include ("../lib/smarty.php");
 set_time_limit(0);
 
 if (! has_rights (ACX_CUSTOMER)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 getpost_ifset(array('search_sources', 'task', 'status','uploadedfile_name'));
@@ -23,14 +23,14 @@ if ($search_sources!='nochange'){
 	if (strlen($fieldtoimport_sql)>0) $fieldtoimport_sql = ', '.$fieldtoimport_sql;
 }
 
-	 $field[0]="username";
-	 $field[1]="useralias";
-     $field[2]="userpass";
-     $field[3]="uipass";
-     $field[4]="credit";
-     $field[5]="lastname";
-     $field[6]="firstname";
-     $field[7]="activated";
+$field[0]="username";
+$field[1]="useralias";
+$field[2]="uipass";
+$field[3]="credit";
+$field[4]="lastname";
+$field[5]="firstname";
+$field[6]="activated";
+$field[7]="status";
 
 $FG_DEBUG = 0;
 
@@ -138,7 +138,7 @@ if ($task=='upload'){
 			 if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#'){
 
 				 $FG_ADITION_SECOND_ADD_TABLE  = 'cc_card';
-				 $FG_ADITION_SECOND_ADD_FIELDS = 'username, useralias, userpass, uipass, credit, lastname, firstname, activated'; //$fieldtoimport_sql
+				 $FG_ADITION_SECOND_ADD_FIELDS = 'username, useralias, uipass, credit, lastname, firstname, activated, status'; //$fieldtoimport_sql
 				 $FG_ADITION_SECOND_ADD_VALUE  = "'".$val[0]."', '".$val[1]."', '".$val[2]."', '".$val[3]."', '".$val[4]."', '".$val[5]."', '".$val[6]."', '".$val[7]."'";
 
 				 for ($k=0;$k<count($fieldtoimport);$k++)
