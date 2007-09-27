@@ -32,6 +32,14 @@ $A2B -> load_conf($agi, NULL, 0, $idconfig);
 $instance_table = new Table();
 
 $from_month = $A2B->config["backup"]['archive_data_x_month'];
+print LOGFILE_CRONT_ARCHIVE_DATA;exit;
+
+write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[#### ARCHIVING DATA BEGIN ####]");
+if (!$A2B -> DbConnect()){				
+	echo "[Cannot connect to the database]\n";
+	write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
+	exit;
+}
 
 if($A2B->config["database"]['dbtype'] == "postgres"){
 	$condition = "CURRENT_TIMESTAMP - interval '$from_month months' > c.starttime";
@@ -50,6 +58,6 @@ $result = $instance_table -> Add_table ($A2B -> DBHandle, $value, $func_fields, 
 $fun_table = "cc_call";
 $result = $instance_table -> Delete_table ($A2B -> DBHandle, $condition, $fun_table);
 
-
+write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[#### ARCHIVING DATA END ####]");
 
 ?>
