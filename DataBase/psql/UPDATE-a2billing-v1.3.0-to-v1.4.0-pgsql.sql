@@ -665,3 +665,7 @@ CREATE INDEX cc_call_username_ind ON cc_call_archive USING btree (username);
 CREATE INDEX cc_call_starttime_ind ON cc_call_archive USING btree (starttime);	
 CREATE INDEX cc_call_terminatecause_ind ON cc_call_archive USING btree (terminatecause); 	
 CREATE INDEX cc_call_calledstation_ind ON cc_call_archive USING btree (calledstation);
+
+
+
+ALTER TABLE cc_charge DROP COLUMN userpass;

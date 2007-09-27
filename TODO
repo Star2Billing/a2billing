@@ -4,9 +4,9 @@
 
 
 
-#### TODO : ARCHIVE CDRs
+#### TODO : ARCHIVE CDRs & Cards
 ********************************************************************
-We will create cc_call_archive
+We will create cc_call_archive && cc_card_archive
 table with the same structure cc_call where id will be primary key.
 So we can build a cront application that will weekly, retrieve all the CDRs
 older than X months move them to cc_call_archive and then

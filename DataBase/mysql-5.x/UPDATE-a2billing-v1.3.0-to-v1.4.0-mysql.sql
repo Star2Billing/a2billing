@@ -649,3 +649,8 @@ ALTER TABLE `cc_call_archive` ADD INDEX ( `username` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `starttime` ); 
 ALTER TABLE `cc_call_archive` ADD INDEX ( `terminatecause` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );
+
+
+-- Areski ** Mark update
+
+ALTER TABLE cc_charge DROP COLUMN userpass;
