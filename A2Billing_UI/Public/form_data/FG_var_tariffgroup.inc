@@ -13,7 +13,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
-$HD_Form -> FG_FK_WARNONLY = true;
+$HD_Form -> FG_FK_WARNONLY = false;
 $HD_Form -> FG_FK_TABLENAMES = array("cc_card");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" tariff ");
 

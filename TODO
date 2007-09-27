@@ -5,8 +5,7 @@
 
 #### BUG : REMOVING A CALLPLAN
 ********************************************************************
-When removing a CallPlan, the card assigned are removed as well
-Arghhhh, pas bien !!!
+When removing a CallPlan, the card assigned are removed as well...
 
 
 #### TODO : ARCHIVE CDRs & Cards

@@ -1,12 +1,10 @@
 <?php
-getpost_ifset(array('id', 'didgroupname'));
 
-$plang='en';
+getpost_ifset(array('id', 'didgroupname'));
 
 $HD_Form = new FormHandler("cc_didgroup","Did Group");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "didgroupname";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 

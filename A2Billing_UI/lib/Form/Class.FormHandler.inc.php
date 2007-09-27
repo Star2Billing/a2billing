@@ -379,7 +379,7 @@ class FormHandler
     var $FG_FK_DELETE_ALLOWED = false;
 
 	// if it is set to true and Allowed flag is true all dependent records will be deleted.
-	var $FG_FK_DELETE_OR_UPDATE = false;
+	var $FG_FK_DELETE = false;
 	
     // Foreign Key Tables
     var $FG_FK_TABLENAMES = array();
@@ -1761,7 +1761,7 @@ class FormHandler
         {
 		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
         }
-		$instance_table->FK_DELETE_OR_UPDATE = $this->FG_FK_WARNONLY;
+		$instance_table->FK_DELETE = ($this->FG_FK_WARNONLY ? false : true);
 		
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
@@ -1770,7 +1770,7 @@ class FormHandler
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
 		if($this -> FG_ENABLE_LOG == 1)
 		{
-			$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
+			$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CLAUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		}	
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
 		

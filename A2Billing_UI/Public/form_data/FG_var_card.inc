@@ -18,7 +18,7 @@ $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid', 'cc_card_history');
 $HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card", "id_cc_card");
 // DEFINE IF WE WANT TO DELETE THE CARD OR NOT
-$HD_Form -> FG_FK_WARNONLY = DELETE_FK_CARD;
+$HD_Form -> FG_FK_WARNONLY = (DELETE_FK_CARD == true) ? false: true;
 
 if (DELETE_FK_CARD){
 	// WE WILL DELETE THE FK
@@ -207,12 +207,11 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, 
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 
 
-if (($popup_select>=1)){
+if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 	
-	//echo $popup_select;
 	if ($popup_select==1){
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[$FG_NB_TABLE_COL]."');\">&lt;Select Card&gt;</a>";						
@@ -221,7 +220,7 @@ if (($popup_select>=1)){
 		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[1]."');\">&lt;Select Card&gt;</a>";					
 	}	
 	
-}else{
+} else {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
