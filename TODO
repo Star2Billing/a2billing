@@ -15,7 +15,13 @@ X Month will be in parameter in config
 
 Think to better solution maybe !?
 +
-Web interface for it
+** WEB INTERFACE **
+
+Maybe aweb interface similar at the massmail 
+Archive, with 2 options for customer and CDR
+so we should be able to make a selection of the USER and move them to the archive table
+same for the CDR cc_call
+
 
 #### MASS MAIL FEATURE
 ********************************************************************

@@ -29,11 +29,11 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 
 	if ( $form_action == "add_sip" ) { 
 		$friend_param_update=" sip_buddy='1' ";
-		$_SESSION["is_sip_changed"]=1;
+		$_SESSION["is_sip_changed"] = 1;
 	}	
 	else {
 		$friend_param_update=" iax_buddy='1' ";
-		$_SESSION["is_iax_changed"]=1;
+		$_SESSION["is_iax_changed"] = 1;
 	}	
 	
 	$instance_table_friend = new Table('cc_card');
