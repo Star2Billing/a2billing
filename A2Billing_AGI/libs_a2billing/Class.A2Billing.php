@@ -1757,8 +1757,6 @@ class A2Billing {
 				
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[credit=".$this->credit." :: tariff=".$this->tariff." :: status=".$this->status." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");
 				
-				
-				
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";

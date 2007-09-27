@@ -116,7 +116,7 @@ function login ($user, $pass) {
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	
-	$QUERY = "SELECT cc.username, cc.credit, cc.activated, cc.id, cc.id_didgroup, cc.tariff, cc.vat, cc.activatedbyuser, ct.gmtoffset FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
+	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, cc.activatedbyuser, ct.gmtoffset FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
 	$res = $DBHandle -> Execute($QUERY);
 	
 	if (!$res) {

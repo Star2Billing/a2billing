@@ -16,7 +16,7 @@ if (!$A2B->config["webcustomerui"]['cdr']) exit();
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 
-$DBHandle_max  = DbConnect();
+$DBHandle_max = DbConnect();
 $numrow = 0;
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax)
