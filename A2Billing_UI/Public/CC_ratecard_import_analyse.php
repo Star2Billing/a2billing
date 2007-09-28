@@ -1,5 +1,4 @@
 <?php
-// Common includes
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/smarty.php");
@@ -151,14 +150,11 @@ if ($task=='upload'){
 			
 			$FG_ADITION_SECOND_ADD_TABLE  = 'cc_ratecard';		
 			$FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql				
-			if($currencytype == "cent")
-			{
-			$val[2] = $val[2] / 100;
+			if ($currencytype == "cent") {
+				$val[2] = $val[2] / 100;
 			}
 			
-			$FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".$val[1]."', '".$val[2]."'"; //, '".$val[5]."', '".$val[6]."', '".$val[7]."', '".$val[8]."', '".$val[9]."', '".$val[10]."', '".$val[11]."', '".$val[12]."', '".$val[13]."', '".$val[14]."', '".$val[15]."', '".$val[16]."', '".$val[17]."', '".$val[18]."', '".$val[19]."', '".$val[20]."', '".$val[21]."'";
-			
-			
+			$FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".$val[1]."', '".$val[2]."'"; 
 			
 			for ($k=0;$k<count($fieldtoimport);$k++){
 				
@@ -191,7 +187,7 @@ if ($task=='upload'){
 				}
 			}
 			 
-			if ($find_stardate!=1){
+			if ($find_stardate!=1) {
 				$begin_date = date("Y");	
 				$end_date = date("-m-d H:i:s");					
 				$FG_ADITION_SECOND_ADD_FIELDS .= ', startdate';
@@ -214,9 +210,6 @@ if ($task=='upload'){
 			
 			$nb_to_import=0;
 			$result_query =  $DBHandle -> Execute($TT_QUERY);
-			//echo "<br>TT_QUERY:".$TT_QUERY;
-			//echo "<br>ERROR:".$DBHandle -> Error;
-			//echo "<br>RESULT_QUERY:".$result_query;
 			
 			if ($result_query){ 
 				$nb_imported = $nb_imported + 1;

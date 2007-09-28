@@ -658,7 +658,7 @@ ALTER TABLE cc_charge DROP COLUMN userpass;
 
 CREATE TABLE cc_card_archive (
     id 								BIGINT NOT NULL,
-    creationdate 					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    creationdate 					TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL,
     firstusedate 					TIMESTAMP,
     expirationdate 					TIMESTAMP,
     enableexpire 					INT DEFAULT 0,
