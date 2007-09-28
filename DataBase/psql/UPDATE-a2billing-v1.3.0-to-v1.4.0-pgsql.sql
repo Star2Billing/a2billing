@@ -42,11 +42,125 @@ CREATE TABLE cc_invoice (
 	city					CHARACTER VARYING(40) NOT NULL,
 	state					CHARACTER VARYING(40) NOT NULL,
 	country					CHARACTER VARYING(40) NOT NULL,
-	zipcode 				CHARACTER VARYING(20) NOT NULL,
+	zipcode 				CHARACCREATE TABLE cc_card (
+    id 									BIGSERIAL NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    firstusedate 						TIMESTAMP WITHOUT TIME ZONE,
+    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,
+    enableexpire 						INTEGER DEFAULT 0,
+    expiredays 							INTEGER DEFAULT 0,
+    username 							TEXT NOT NULL,
+    useralias 							TEXT NOT NULL,
+    userpass 							TEXT NOT NULL,
+    uipass 								TEXT ,
+    credit 								NUMERIC(12,4) NOT NULL,
+    tariff 								INTEGER DEFAULT 0,
+    id_didgroup 						INTEGER DEFAULT 0,
+    activated 							BOOLEAN DEFAULT false NOT NULL,
+    lastname 							TEXT ,
+    firstname 							TEXT ,
+    address 							TEXT ,
+    city 								TEXT ,
+    state 								TEXT ,
+    country 							TEXT ,
+    zipcode 							TEXT ,
+    phone 								TEXT ,
+    email 								TEXT ,
+    fax 								TEXT ,
+    inuse 								INTEGER DEFAULT 0,
+    simultaccess 						INTEGER DEFAULT 0,
+    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
+    lastuse 							date DEFAULT NOW(),
+    nbused 								INTEGER DEFAULT 0,
+    typepaid 							INTEGER DEFAULT 0,
+    creditlimit 						INTEGER DEFAULT 0,
+    voipcall 							INTEGER DEFAULT 0,
+    sip_buddy 							INTEGER DEFAULT 0,
+    iax_buddy 							INTEGER DEFAULT 0,
+    "language" 							TEXT DEFAULT 'en'::text,
+    redial 								TEXT ,
+    runservice 							INTEGER DEFAULT 0,
+    nbservice 							INTEGER DEFAULT 0,
+    id_campaign 						INTEGER DEFAULT 0,
+    num_trials_done 					INTEGER DEFAULT 0,
+    callback 							TEXT ,
+    vat 								NUMERIC(6,3) DEFAULT 0,
+    servicelastrun 						TIMESTAMP WITHOUT TIME ZONE,
+    initialbalance 						NUMERIC(12,4) NOT NULL DEFAULT 0,
+    invoiceday 							INTEGER DEFAULT 1,
+    autorefill 							INTEGER DEFAULT 0,
+    loginkey 							TEXT ,
+    activatedbyuser 					BOOLEAN DEFAULT false NOT NULL,
+	id_subscription_fee 				INTEGER DEFAULT 0,
+	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL
+);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);TER VARYING(20) NOT NULL,
 	phone					CHARACTER VARYING(20) NOT NULL,
 	email					CHARACTER VARYING(70) NOT NULL,
 	fax						CHARACTER VARYING(20) NOT NULL,
-	vat						FLOAT DEFAULT NULL
+	vat						FLOAT DECREATE TABLE cc_card (
+    id 									BIGSERIAL NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    firstusedate 						TIMESTAMP WITHOUT TIME ZONE,
+    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,
+    enableexpire 						INTEGER DEFAULT 0,
+    expiredays 							INTEGER DEFAULT 0,
+    username 							TEXT NOT NULL,
+    useralias 							TEXT NOT NULL,
+    userpass 							TEXT NOT NULL,
+    uipass 								TEXT ,
+    credit 								NUMERIC(12,4) NOT NULL,
+    tariff 								INTEGER DEFAULT 0,
+    id_didgroup 						INTEGER DEFAULT 0,
+    activated 							BOOLEAN DEFAULT false NOT NULL,
+    lastname 							TEXT ,
+    firstname 							TEXT ,
+    address 							TEXT ,
+    city 								TEXT ,
+    state 								TEXT ,
+    country 							TEXT ,
+    zipcode 							TEXT ,
+    phone 								TEXT ,
+    email 								TEXT ,
+    fax 								TEXT ,
+    inuse 								INTEGER DEFAULT 0,
+    simultaccess 						INTEGER DEFAULT 0,
+    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
+    lastuse 							date DEFAULT NOW(),
+    nbused 								INTEGER DEFAULT 0,
+    typepaid 							INTEGER DEFAULT 0,
+    creditlimit 						INTEGER DEFAULT 0,
+    voipcall 							INTEGER DEFAULT 0,
+    sip_buddy 							INTEGER DEFAULT 0,
+    iax_buddy 							INTEGER DEFAULT 0,
+    "language" 							TEXT DEFAULT 'en'::text,
+    redial 								TEXT ,
+    runservice 							INTEGER DEFAULT 0,
+    nbservice 							INTEGER DEFAULT 0,
+    id_campaign 						INTEGER DEFAULT 0,
+    num_trials_done 					INTEGER DEFAULT 0,
+    callback 							TEXT ,
+    vat 								NUMERIC(6,3) DEFAULT 0,
+    servicelastrun 						TIMESTAMP WITHOUT TIME ZONE,
+    initialbalance 						NUMERIC(12,4) NOT NULL DEFAULT 0,
+    invoiceday 							INTEGER DEFAULT 1,
+    autorefill 							INTEGER DEFAULT 0,
+    loginkey 							TEXT ,
+    activatedbyuser 					BOOLEAN DEFAULT false NOT NULL,
+	id_subscription_fee 				INTEGER DEFAULT 0,
+	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL
+);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);FAULT NULL
 );
 ALTER TABLE ONLY cc_invoice
 ADD CONSTRAINT cc_invoice_pkey PRIMARY KEY (id);
@@ -119,7 +233,64 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Alias Length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Voucher Lenght', 'len_voucher', '15', 'Voucher Number Length.', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Base Currency', 'base_currency', 'usd', 'Base Currency to use for application.', 0, 1, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Image', 'invoice_image', 'asterisk01.jpg', 'Image to Display on the Top of Invoice', 0, 1, NULL);
+INSERT INTO cc_config (config_title, conCREATE TABLE cc_card (
+    id 									BIGSERIAL NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    firstusedate 						TIMESTAMP WITHOUT TIME ZONE,
+    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,
+    enableexpire 						INTEGER DEFAULT 0,
+    expiredays 							INTEGER DEFAULT 0,
+    username 							TEXT NOT NULL,
+    useralias 							TEXT NOT NULL,
+    userpass 							TEXT NOT NULL,
+    uipass 								TEXT ,
+    credit 								NUMERIC(12,4) NOT NULL,
+    tariff 								INTEGER DEFAULT 0,
+    id_didgroup 						INTEGER DEFAULT 0,
+    activated 							BOOLEAN DEFAULT false NOT NULL,
+    lastname 							TEXT ,
+    firstname 							TEXT ,
+    address 							TEXT ,
+    city 								TEXT ,
+    state 								TEXT ,
+    country 							TEXT ,
+    zipcode 							TEXT ,
+    phone 								TEXT ,
+    email 								TEXT ,
+    fax 								TEXT ,
+    inuse 								INTEGER DEFAULT 0,
+    simultaccess 						INTEGER DEFAULT 0,
+    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
+    lastuse 							date DEFAULT NOW(),
+    nbused 								INTEGER DEFAULT 0,
+    typepaid 							INTEGER DEFAULT 0,
+    creditlimit 						INTEGER DEFAULT 0,
+    voipcall 							INTEGER DEFAULT 0,
+    sip_buddy 							INTEGER DEFAULT 0,
+    iax_buddy 							INTEGER DEFAULT 0,
+    "language" 							TEXT DEFAULT 'en'::text,
+    redial 								TEXT ,
+    runservice 							INTEGER DEFAULT 0,
+    nbservice 							INTEGER DEFAULT 0,
+    id_campaign 						INTEGER DEFAULT 0,
+    num_trials_done 					INTEGER DEFAULT 0,
+    callback 							TEXT ,
+    vat 								NUMERIC(6,3) DEFAULT 0,
+    servicelastrun 						TIMESTAMP WITHOUT TIME ZONE,
+    initialbalance 						NUMERIC(12,4) NOT NULL DEFAULT 0,
+    invoiceday 							INTEGER DEFAULT 1,
+    autorefill 							INTEGER DEFAULT 0,
+    loginkey 							TEXT ,
+    activatedbyuser 					BOOLEAN DEFAULT false NOT NULL,
+	id_subscription_fee 				INTEGER DEFAULT 0,
+	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL
+);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);fig_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Image', 'invoice_image', 'asterisk01.jpg', 'Image to Display on the Top of Invoice', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Admin Email', 'admin_email', 'areski@gmail.com', 'Web Administrator Email Address.', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DID Bill Payment Day', 'didbilling_daytopay', '5', 'DID Bill Payment Day of Month', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Manager Host', 'manager_host', 'localhost', 'Manager Host Address', 0, 1, NULL);
@@ -571,7 +742,7 @@ ALTER TABLE ONLY cc_templatemail
 
     
     
-ALTER TABLE ONLY cc_card ADD COLUMN status INT NOT NULL DEFAULT '2';
+ALTER TABLE ONLY cc_card ADD COLUMN status INT NOT NULL DEFAULT '1';
 update cc_card set status = 1 where activated = 't';
 update cc_card set status = 0 where activated = 'f';
 
@@ -669,3 +840,64 @@ CREATE INDEX cc_call_calledstation_ind ON cc_call_archive USING btree (calledsta
 
 
 ALTER TABLE cc_charge DROP COLUMN userpass;
+
+
+CREATE TABLE cc_card_archive (
+    id 									BIGSERIAL NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    firstusedate 						TIMESTAMP WITHOUT TIME ZONE,
+    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,
+    enableexpire 						INTEGER DEFAULT 0,
+    expiredays 							INTEGER DEFAULT 0,
+    username 							TEXT NOT NULL,
+    useralias 							TEXT NOT NULL,
+    userpass 							TEXT NOT NULL,
+    uipass 								TEXT ,
+    credit 								NUMERIC(12,4) NOT NULL,
+    tariff 								INTEGER DEFAULT 0,
+    id_didgroup 						INTEGER DEFAULT 0,
+    activated 							BOOLEAN DEFAULT false NOT NULL,
+    status								INTEGER DEFAULT 1,
+    lastname 							TEXT ,
+    firstname 							TEXT ,
+    address 							TEXT ,
+    city 								TEXT ,
+    state 								TEXT ,
+    country 							TEXT ,
+    zipcode 							TEXT ,
+    phone 								TEXT ,
+    email 								TEXT ,
+    fax 								TEXT ,
+    inuse 								INTEGER DEFAULT 0,
+    simultaccess 						INTEGER DEFAULT 0,
+    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
+    lastuse 							date DEFAULT NOW(),
+    nbused 								INTEGER DEFAULT 0,
+    typepaid 							INTEGER DEFAULT 0,
+    creditlimit 						INTEGER DEFAULT 0,
+    voipcall 							INTEGER DEFAULT 0,
+    sip_buddy 							INTEGER DEFAULT 0,
+    iax_buddy 							INTEGER DEFAULT 0,
+    "language" 							TEXT DEFAULT 'en'::text,
+    redial 								TEXT ,
+    runservice 							INTEGER DEFAULT 0,
+    nbservice 							INTEGER DEFAULT 0,
+    id_campaign 						INTEGER DEFAULT 0,
+    num_trials_done 					INTEGER DEFAULT 0,
+    callback 							TEXT ,
+    vat 								NUMERIC(6,3) DEFAULT 0,
+    servicelastrun 						TIMESTAMP WITHOUT TIME ZONE,
+    initialbalance 						NUMERIC(12,4) NOT NULL DEFAULT 0,
+    invoiceday 							INTEGER DEFAULT 1,
+    autorefill 							INTEGER DEFAULT 0,
+    loginkey 							TEXT ,
+    activatedbyuser 					BOOLEAN DEFAULT false NOT NULL,
+	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
+	id_timezone							INTEGER DEFAULT 0,
+	tag									character(50),
+	template_invoice					TEXT,
+	template_outstanding				TEXT
+	
+);
+ALTER TABLE ONLY cc_card_archive
+    ADD CONSTRAINT cons_cc_card_archive_username UNIQUE (username);

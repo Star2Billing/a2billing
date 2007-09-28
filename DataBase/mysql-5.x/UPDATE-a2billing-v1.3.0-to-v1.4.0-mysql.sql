@@ -554,7 +554,7 @@ ALTER TABLE cc_templatemail DROP PRIMARY KEY;
 ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language ); 
 
 
-ALTER TABLE cc_card ADD status INT NOT NULL DEFAULT '2' AFTER activated ;
+ALTER TABLE cc_card ADD status INT NOT NULL DEFAULT '1' AFTER activated ;
 update cc_card set status = 1 where activated = 't';
 update cc_card set status = 0 where activated = 'f';
 
@@ -654,3 +654,62 @@ ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );
 -- Areski ** Mark update
 
 ALTER TABLE cc_charge DROP COLUMN userpass;
+
+
+CREATE TABLE cc_card_archive (
+    id 								BIGINT NOT NULL,
+    creationdate 					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    firstusedate 					TIMESTAMP,
+    expirationdate 					TIMESTAMP,
+    enableexpire 					INT DEFAULT 0,
+    expiredays 						INT DEFAULT 0,
+    username 						CHAR(50) NOT NULL,
+    useralias 						CHAR(50) NOT NULL,
+    userpass 						CHAR(50) NOT NULL,
+    uipass 							CHAR(50),
+    credit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,
+    tariff 							INT DEFAULT 0,
+    id_didgroup 					INT DEFAULT 0,
+    activated 						CHAR(1) DEFAULT 'f' NOT NULL,
+    status							INT DEFAULT 1,
+    lastname 						CHAR(50),
+    firstname 						CHAR(50),
+    address 						CHAR(100),
+    city 							CHAR(40),
+    state 							CHAR(40),
+    country 						CHAR(40),
+    zipcode 						CHAR(20),
+    phone 							CHAR(20),
+    email 							CHAR(70),
+    fax 							CHAR(20),
+    inuse 							INT DEFAULT 0,
+    simultaccess 					INT DEFAULT 0,
+    currency 						CHAR(3) DEFAULT 'USD',
+    lastuse  						TIMESTAMP,
+    nbused 							INT DEFAULT 0,
+    typepaid 						INT DEFAULT 0,
+    creditlimit 					INT DEFAULT 0,
+    voipcall 						INT DEFAULT 0,
+    sip_buddy 						INT DEFAULT 0,
+    iax_buddy 						INT DEFAULT 0,
+    language 						CHAR(5) DEFAULT 'en',
+    redial 							CHAR(50),
+    runservice 						INT DEFAULT 0,
+	nbservice 						INT DEFAULT 0,
+    id_campaign						INT DEFAULT 0,
+    num_trials_done 				BIGINT DEFAULT 0,
+    callback 						CHAR(50),
+	vat 							FLOAT DEFAULT 0 NOT NULL,
+	servicelastrun 					TIMESTAMP,
+	initialbalance 					DECIMAL(15,5) DEFAULT 0 NOT NULL,
+	invoiceday 						INT DEFAULT 1,
+	autorefill 						INT DEFAULT 0,
+    loginkey 						CHAR(40),
+    activatedbyuser 				CHAR(1) DEFAULT 't' NOT NULL,
+    id_timezone 					INT DEFAULT 0,
+	tag char(50) 					collate utf8_bin default NULL,
+  	template_invoice 				text collate utf8_bin,
+  	template_outstanding			text collate utf8_bin,
+	mac_addr						CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
+    PRIMARY KEY (id),
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

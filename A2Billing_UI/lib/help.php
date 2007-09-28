@@ -965,6 +965,17 @@ $CC_help_mass_mail = '<div class="toggle_show2hide">
 </div></div>
 '; 
 
+$CC_help_data_archive = '<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("Here you can archive the data. By Default listing will show you 3 months earlier data. But you can also search data and make it archive.").'
+<br/><br/><br>
+</div></div></div>
+</div></div>
+';
 } //ENDIF SHOW_HELP
 
 $SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';

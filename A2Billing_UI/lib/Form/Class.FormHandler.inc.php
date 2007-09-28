@@ -27,6 +27,8 @@ class FormHandler
 	var $CV_DISPLAY_FILTER_ABOVE_TABLE = true;
 	var $CV_FILTER_ABOVE_TABLE_PARAM = "?id=";
 	var $CV_FOLLOWPARAMETERS = '';
+	var $CV_DO_ARCHIVE_ALL = false;
+		
 	
 	var $CV_DISPLAY_RECORD_LIMIT = true;
 	var $CV_DISPLAY_BROWSE_PAGE = true;

@@ -42,7 +42,7 @@ $from_month = $A2B->config["backup"]['archive_data_x_month'];
 
 
 if($A2B->config["database"]['dbtype'] == "postgres"){
-	$condition = "CURRENT_TIMESTAMP - interval '$from_month months' > c.starttime";
+	$condition = "CURRENT_TIMESTAMP - interval '$from_month months' > starttime";
 }else{
 	$condition = "DATE_SUB(NOW(),INTERVAL $from_month MONTH) > starttime";
 }

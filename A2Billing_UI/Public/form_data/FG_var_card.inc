@@ -722,7 +722,6 @@ if (DB_TYPE == "postgres"){
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$myusername',now() ";
 }
 
-
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';
