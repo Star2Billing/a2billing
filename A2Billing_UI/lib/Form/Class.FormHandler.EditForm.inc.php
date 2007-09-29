@@ -534,7 +534,7 @@ function sendtolittle(direction){
 										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
 										<TD width="516"><div align="left"> 	
 										<?php if($this->FG_TABLE_EDITION[$i][4] == "multiline"){?>
-							  				<textarea name=<?php echo $table_split[1]?> class="form_input_text"  cols="20" rows="5"></textarea>
+							  				<textarea name=<?php echo $table_split[1]?> class="form_input_text"  cols="40" rows="5"></textarea>
 										<?php }else{?>
 											<INPUT TYPE="TEXT" name=<?php echo $table_split[1]?> class="form_input_text"  size="20" maxlength="20">
 										<?php }?>
@@ -657,7 +657,7 @@ function sendtolittle(direction){
 										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
 										<TD width="516"><div align="left"> 	
 										<?php if($this->FG_TABLE_EDITION[$i][4] == "multiline"){?>
-							  				<textarea name=<?php echo $table_col[0]?> class="form_input_text"  cols="20" rows="5"></textarea>
+							  				<textarea name=<?php echo $table_col[0]?> class="form_input_text"  cols="40" rows="5"></textarea>
 										<?php }else{?>
 											<INPUT TYPE="TEXT" name=<?php echo $table_col[0]?> class="form_input_text"  size="20" maxlength="20">
 										<?php }?>
@@ -665,7 +665,7 @@ function sendtolittle(direction){
                                     </TR>
                                     <TR> 
 										<TD colspan="2" align="center">									  	
-											<input onClick="sendto('add-content','<?=$i?>');" alt="add new a <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="<?php echo Images_Path_Main;?>/btn_Add_94x20.gif" type=image width=94 value="add-split">
+											<a href="#" onClick="sendto('add-content','<?=$i?>');"> <span class="cssbutton">ADD <?php echo $this->FG_TABLE_EDITION[$i][0]?></span></a>
 										</TD>
                                     </TR>
                                     <TR> 
