@@ -21,9 +21,7 @@ function sendtolittle(direction){
 //-->
 </script>
 
-
 <table class="editform_table1" cellspacing="2">
-			
 	<FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm"> 
 		<INPUT type="hidden" name="id" value="<?php echo $id?>">
 		<INPUT type="hidden" name="form_action" value="edit">
@@ -39,28 +37,26 @@ function sendtolittle(direction){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
 		}		
 	}
-?>			  
-            <TBODY>
-<?php 
-	for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
+
+	for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++) { 
 		$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY		
-		if (strlen($this->FG_TABLE_EDITION[$i][16])>1){
+		if (strlen($this->FG_TABLE_EDITION[$i][16])>1) {
 			echo '<TR><TD width="%25" valign="top" bgcolor="#FEFEEE" colspan="2" class="tableBodyRight" ><i>';				
 			echo $this->FG_TABLE_EDITION[$i][16];
 			echo '</i></TD></TR>';
 		}
 		
-		if (!$pos){			
+		if (!$pos) {			
 ?>
-                    <TR> 		
+		<TR> 		
 		<?php if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){ ?>
 			<TD width="%25" valign="middle" class="form_head_red"> 		<?php echo $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
 		  	<TD width="%75" valign="top" class="tableBodyRight" background="<?php echo Images_Path;?>/background_cells_red.gif" >
-        <?php }else{ ?>
+        <?php } else { ?>
 			<TD width="%25" valign="middle" class="form_head"> 		<?php echo $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="<?php echo Images_Path;?>/background_cells.gif" >
-		<?php } ?>
-                        <?php 
+		<?php }
+		
 			if ($this->FG_DEBUG == 1) print($this->FG_TABLE_EDITION[$i][3]);
 				if(($this->FG_DISPLAY_SELECT == true) && (strlen($this->FG_SELECT_FIELDNAME)>0) && (strlen($list[0][$this->FG_SELECT_FIELDNAME])>0) && ($this->FG_CONF_VALUE_FIELDNAME == $this->FG_TABLE_EDITION[$i][1]))
 				{
@@ -259,16 +255,13 @@ function sendtolittle(direction){
 								<TR class="editform_table2_td1"> 
 								<TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px" class="form_head"> 
 								  <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-									<TBODY>
 									  <TR> 
 										<TD class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?> <?php echo gettext("LIST ");?></TD>
 									  </TR>
-									</TBODY>
 								  </TABLE></TD>
 							  </TR>
 							  <TR> 
 								<TD> <TABLE class="editform_table3" cellSpacing=0>
-									<TBODY>
 									  <TR> 
 										<TD class="editform_table3_td1" colspan=<?php echo $this->FG_TOTAL_TABLE_COL?> ><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
 									  </TR>
@@ -322,7 +315,6 @@ function sendtolittle(direction){
                                   <TR> 
                                     <TD class=tableDivider colspan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                                   </TR>
-                                </TBODY>
                               </TABLE></td>
                           </tr>
                           <TR class="bgcolor_016"> 
@@ -661,10 +653,10 @@ function sendtolittle(direction){
                                     </TR>
                                     <TR> 
 										<TD colspan="2" align="center">									  	
-											<a href="#" onClick="sendto('add-content','<?=$i?>');"> <span class="cssbutton">ADD <?php echo $this->FG_TABLE_EDITION[$i][0]?></span></a>
+											<a href="#" onClick="sendto('add-content','<?php echo $i; ?>');"> <span class="cssbutton">ADD <?php echo $this->FG_TABLE_EDITION[$i][0]?></span></a>
 										</TD>
                                     </TR>
-                                    <TR> 
+                                    <TR>
                                       <TD colspan=2 height=4></TD>
                                     </TR>
                                     <TR> 
