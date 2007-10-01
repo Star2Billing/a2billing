@@ -2,6 +2,28 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### TODO : RATECARD MERGING TOOL
+********************************************************************
+
+Goal of the tool, Example :
+- we have 2 ratecard : R1 & R2
+we have R1 already well configured with 2000 prefix-rates, buying rate, selling rates defined as willing.
+We created a new ratecard "R2" for a new provider/or provider update, so we have new "buying rates"!
+As we defined already in "R1" our selling rates, we would like to be able to reuse that quickly on "R2" and save the time of reconfiguring all.
+On retail in most cases, we keep always the same Selling values but we update our buying accordingly to changes from your provider. 
+This tool should help us create new ratecard and importing some data from an other ratecard.
+
+# Select the ratecard u want to merge together
+R1 <<-->> R2
+Define search criteria if only some need to be update !!!
+Define the fields that will be update : Destination name, minimum duration, billing increment, selling rate
+
+use as key-update the Prefix (ie, 32472)
+** UPDATE on R1 (fields) WHERE R1.prefix = R2.prefix
+
+
+
 #### TODO : function do_field
 ********************************************************************
 function do_field($sql,$fld,$dbfld){
@@ -28,11 +50,11 @@ so we should be able to make a selection of the USER and move them to the archiv
 same for the CDR cc_call
 
 
-#### TODO : add call-limit
+
+%%%% DEPRECIATE FOR NOW 
+#### TODO : add call-limit (check if asterisk work with this parameter on RealTime)
 ********************************************************************
 Add call-limit on sip/iax parameters
-
-
 
 
 
