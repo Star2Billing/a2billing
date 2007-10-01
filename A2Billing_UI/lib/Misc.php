@@ -759,14 +759,14 @@ function archive_data($condition, $entity = ""){
 	$instance_table = new Table();
 	if(!empty($entity)){
 		if($entity == "card"){
-			$value = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, useralias, userpass, uipass, credit, tariff, id_didgroup, activated, status, lastname, firstname, address, city, state, country, zipcode, phone, email,fax, inuse, simultaccess, currency, lastuse,nbused, typepaid, creditlimit, voipcall, sip_buddy, iax_buddy, language, redial, runservice, nbservice, id_campaign, num_trials_done, callback, vat, servicelastrun, initialbalance, invoiceday,autorefill, loginkey, activatedbyuser, mac_addr, id_timezone, tag, template_invoice, template_outstanding FROM cc_card where $condition";
+			$value = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, useralias, userpass, uipass, credit, tariff, id_didgroup, activated, status, lastname, firstname, address, city, state, country, zipcode, phone, email,fax, inuse, simultaccess, currency, lastuse,nbused, typepaid, creditlimit, voipcall, sip_buddy, iax_buddy, language, redial, runservice, nbservice, id_campaign, num_trials_done, callback, vat, servicelastrun, initialbalance, invoiceday,autorefill, loginkey, activatedbyuser, mac_addr, id_timezone, tag, template_invoice, template_outstanding FROM cc_card $condition";
 			$func_fields = "id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, useralias, userpass, uipass, credit, tariff, id_didgroup, activated, status, lastname, firstname, address, city, state, country, zipcode, phone, email,fax, inuse, simultaccess, currency, lastuse,nbused, typepaid, creditlimit, voipcall, sip_buddy, iax_buddy, language, redial, runservice, nbservice, id_campaign, num_trials_done, callback, vat, servicelastrun, initialbalance, invoiceday,autorefill, loginkey, activatedbyuser, mac_addr, id_timezone, tag, template_invoice, template_outstanding";
 			$func_table = 'cc_card_archive';
 			$id_name = "";
 			$subquery = true;
 			$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
 			$fun_table = "cc_card";
-			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
+		//	$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		}else if($entity == "call"){
 			$value = "SELECT id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call $condition";
 			$func_fields = "id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime";
@@ -775,7 +775,7 @@ function archive_data($condition, $entity = ""){
 			$subquery = true;
 			$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
 			$fun_table = "cc_call";
-			//$result = $instance_table -> Delete_table ($A2B -> DBHandle, $condition, $fun_table);
+		//	$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		}
 	}
 }

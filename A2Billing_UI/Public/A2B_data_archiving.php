@@ -19,8 +19,13 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
+$from_month = 3;
+if(DB_TYPE == "postgres"){
+	$HD_Form -> FG_TABLE_CLAUSE = "CURRENT_TIMESTAMP - interval '$from_month months' > creationdate";
+}else{
+	$HD_Form -> FG_TABLE_CLAUSE = "DATE_SUB(NOW(),INTERVAL $from_month MONTH) > creationdate";
+}
 
-// TODO Unify order of parameters
 
 $language_list = array();
 $language_list["0"] = array( gettext("ENGLISH"), "en");
@@ -158,12 +163,20 @@ $nb_customer = 0;
 
 /***********************************************************************************/
 getpost_ifset(array('archive', 'id'));
+
 if(isset($archive) && !empty($archive)){
 	if(isset($id) && !empty($id)){
 		$condition = "id = $id";
 	}else{
 		$condition = $HD_Form -> FG_TABLE_CLAUSE;
+		if(empty($condition)){
+			$condition = 1;
+		}
+		if (strpos($condition,'WHERE') <= 0){
+		        $condition = " WHERE $condition";
+		}
 	}
+	
 archive_data($condition, "card");
 $archive_message = "The data has been successfully archived";
 }
@@ -197,12 +210,7 @@ if(!isset($submit)){?>
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) 
 	$_SESSION["menu"] = $_GET["menu"];
-	
-
-if(isset($archive) && !empty($archive)){
-	$HD_Form -> CV_NO_FIELDS = "";
-	print "<div align=\"center\">".$archive_message."</div>";
-}?>
+?>
 <center>
 <form name="frm_archive" id="frm_archive" method="post" action="A2B_call_archiving.php">
 <table class="bar-status" width="50%" border="0" cellspacing="1" cellpadding="2" align="center">
@@ -226,7 +234,10 @@ if(isset($archive) && !empty($archive)){
 </center>
 
 <?php 	
-	
+if(isset($archive) && !empty($archive)){
+	$HD_Form -> CV_NO_FIELDS = "";
+	print "<div align=\"center\">".$archive_message."</div>";
+}	
 $HD_Form -> create_form ($form_action, $list, $id=null);
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
