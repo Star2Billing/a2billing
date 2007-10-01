@@ -73,9 +73,7 @@ if ($popup_select) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
-}
-else
-{
+} else {
 	$HD_Form -> FieldExportElement('destination, dialprefix, rateinitial');
 	$HD_Form -> FG_EXPORT_CSV = true;
 	$HD_Form -> FG_EXPORT_XML = true;
@@ -123,7 +121,7 @@ $HD_Form -> AddEditElement(gettext("RATECARD"),
 
 $dialprefix_regexpress = '9';
 
-if ($form_action=="ask-edit" || $form_action=="edit"){
+if ($form_action=="ask-edit" || $form_action=="edit") {
 	$dialprefix_regexpress = '13';
 }
 
@@ -456,9 +454,9 @@ $HD_Form -> AddEditElement(gettext("TAG"),
    "size=30 maxlength=40",
    "11",
    "",
-   "" , "", "",	"", "", "", "", gettext("Set a tag on this rate"));
+   "" , "", "",	"", "", "", "NO", gettext("Set a tag on this rate"));
 
-if (ADVANCED_MODE){
+if (ADVANCED_MODE) {
 	$HD_Form -> AddEditElement(gettext("MUSICONHOLD"),
 	   "musiconhold",
 	   '$value',
@@ -469,7 +467,7 @@ if (ADVANCED_MODE){
 	   "list" , "", "", "", $musiconhold_list, "%1", "", "" );
 }
 
-if (ADVANCED_MODE){
+if (ADVANCED_MODE) {
 	// This Variable store the argument for the SQL query
 	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup, tag, musiconhold');
 }else{
@@ -498,10 +496,8 @@ $HD_Form -> FG_FILTERFIELD = 'dialprefix';
 $HD_Form -> FG_FILTERFIELDNAME = 'dialprefix';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0))
-{
-	if (strlen($HD_Form -> FG_TABLE_CLAUSE) > 0)
-    {
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE) > 0) {
         $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
     }
 	$HD_Form -> FG_TABLE_CLAUSE.="dialprefix like '$filterprefix%'";
@@ -510,4 +506,3 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0))
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
