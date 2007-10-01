@@ -2,10 +2,12 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-
-#### BUG : REMOVING A CALLPLAN
+#### TODO : function do_field
 ********************************************************************
-When removing a CallPlan, the card assigned are removed as well...
+function do_field($sql,$fld,$dbfld){
+
+This function is defined in many places, need to create in misc.php
+and remove it from other page where it s used (mainly in report section)
 
 
 #### TODO : ARCHIVE CDRs & Cards
@@ -24,23 +26,6 @@ Think to better solution maybe !?
 Maybe a web interface similar at the massmail Archive, with 2 options for customer and CDR
 so we should be able to make a selection of the USER and move them to the archive table
 same for the CDR cc_call
-
-
-#### MASS MAIL FEATURE
-********************************************************************
-option to let send an email to all the a2billing user
-- check how is it done on phpBB
-if we have several thousand of mail to send this can be an issue with normal php scripts
-maybe a daemon is needed
-
-* We should be able to define the search Criteria as in View Card in order to preselect
-only some customer to which u want to run the massmail
-
-
-#### TODO : Detach Selling ratecard from Buying ratecard
-********************************************************************
-- you need to update the selling prices multiple times
-- you cannot really remove the sorter matching prefixes as you do right now, since one provider can have more granularity than other
 
 
 #### TODO : add call-limit

@@ -16,8 +16,8 @@ getpost_ifset(array('current_page', 'fromstatsday_sday', 'fromstatsmonth_sday', 
 
 
 if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
-	}
+	$current_page=0; 
+}
 
 $HD_Form = new FormHandler("cc_call LEFT OUTER JOIN cc_trunk t3 ON cc_call.id_trunk = t3.id_trunk","Calls");
 $HD_Form -> setDBHandler (DbConnect());

@@ -3,6 +3,30 @@
 ********************************************************************
 
 
+
+
+#### TODO : Detach Selling ratecard from Buying ratecard - DEPRECIATED 
+********************************************************************
+- you need to update the selling prices multiple times
+- you cannot really remove the sorter matching prefixes as you do right now, since one provider can have more granularity than other
+
+
+#### MASS MAIL FEATURE
+********************************************************************
+option to let send an email to all the a2billing user
+- check how is it done on phpBB
+if we have several thousand of mail to send this can be an issue with normal php scripts
+maybe a daemon is needed
+
+* We should be able to define the search Criteria as in View Card in order to preselect
+only some customer to which u want to run the massmail
+
+
+#### BUG : REMOVING A CALLPLAN
+********************************************************************
+When removing a CallPlan, the card assigned are removed as well...
+
+
 #### TRUNK CHANGE : UPDATE DAEMON TO USE THE DB CONF
 ********************************************************************
 read conf from the DB
