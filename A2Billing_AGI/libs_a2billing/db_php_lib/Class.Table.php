@@ -43,24 +43,26 @@
 * @since      File available since Release 1.0
 */
 
+$ADODB_CACHE_DIR = '/tmp';
+
 class Table {
 	
-	var $fields = "*";
-	var $table  = "";
-	var $errstr = "";
-	var $debug_st 			= 0;
-	var $debug_stop_add 	= 0;
-	var $debug_stop_update 	= 0;
-	var $debug_stop_delete 	= 0;
-	var $sp                 = "`"; //bound_caract
-	var $start_message_debug = '<table width="100%" align="right" style="float : left;"><tr><td>QUERY:';
-	var $end_message_debug = '</td></tr></table><br><br><br>';
+	var $fields 				= '*';
+	var $table  				= '';
+	var $errstr 				= '';
+	var $debug_st 				= 0;
+	var $debug_stop_add 		= 0;
+	var $debug_stop_update 		= 0;
+	var $debug_stop_delete 		= 0;
+	var $sp                 	= "`"; //bound_caract
+	var $start_message_debug 	= '<table width="100%" align="right" style="float : left;"><tr><td>QUERY:';
+	var $end_message_debug 		= '</td></tr></table><br><br><br>';
 	
-    var $FK_TABLES ;
-    var $FK_EDITION_CLAUSE ;
+    var $FK_TABLES;
+    var $FK_EDITION_CLAUSE;
     // FALSE if you want to delete the dependent Records, TRUE if you want to update
     // Dependent Records to -1
-    var $FK_DELETE_OR_UPDATE = true;
+    var $FK_DELETE = true;
     var $FK_ID_VALUE = 0;
 
 	
@@ -73,7 +75,7 @@ class Table {
 		if ((count($fk_Tables) == count($fk_Fields)) && (count($fk_Fields) > 0)) {
 			$this -> FK_TABLES = $fk_Tables;
 			$this -> FK_EDITION_CLAUSE = $fk_Fields;
-			$this -> FK_DELETE_OR_UPDATE = $fk_del_upd;
+			$this -> FK_DELETE = $fk_del_upd;
 			$this -> FK_ID_VALUE = $id_Value;
 		}
 	}
@@ -317,7 +319,7 @@ class Table {
 		
         $countFK = count($this->FK_TABLES);
         for ($i = 0; $i < $countFK; $i++) {
-            if ($this -> FK_DELETE_OR_UPDATE == false) {
+            if ($this -> FK_DELETE == false) {
             	$QUERY = "UPDATE $sp".$this -> FK_TABLES[$i]."$sp SET ".
 							trim ($this -> FK_EDITION_CLAUSE[$i])." = -1 WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             } else {
