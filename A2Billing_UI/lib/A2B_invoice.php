@@ -813,3 +813,5 @@ Class	A2B_Invoice {
 		return (($ok)? true : false);
 	}
 }
+
+?>

@@ -1266,3 +1266,5 @@ class RateEngine
 	
 
 };
+
+?>
