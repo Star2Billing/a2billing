@@ -5,21 +5,21 @@ include_once(dirname(__FILE__) . "/../lib/module.access.php");
 include ("../lib/smarty.php");
 
 
-if (! has_rights (ACX_CALL_REPORT)){ 
+if (! has_rights (ACX_MISC)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
 }
 
 
-getpost_ifset(array('current_page', 'fromstatsday_sday', 'fromstatsmonth_sday', 'days_compare', 'min_call', 'posted',  'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider','entertariffgroup', 'entertrunk', 'enterratecard','archive', 'id'));
-
+getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause','archive', 'id'));
 
 if (!isset ($current_page) || ($current_page == "")){	
 	$current_page=0; 
 }
 
-$HD_Form = new FormHandler("cc_call LEFT OUTER JOIN cc_trunk t3 ON cc_call.id_trunk = t3.id_trunk","Calls");
+$HD_Form = new FormHandler("cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk","Calls");
+
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
@@ -55,122 +55,121 @@ $HD_Form -> FG_OTHER_BUTTON1_LINK= $_SERVER['PHP_SELF']."?archive=true&id=|col0|
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/bluearrow.gif";
 $HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("ARCHIVE");
 
-
 if ($posted==1){
-	
-
-  function do_field($sql,$fld,$dbfld){
-  		$fldtype = $fld.'type';
+	function do_field($sql,$fld,$dbfld){
+		$fldtype = $fld.'type';
 		global $$fld;
 		global $$fldtype;		
-        if ($$fld){
-                if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
+		if ($$fld){
+				if (strpos($sql,'WHERE') > 0){
+						$sql = "$sql AND ";
+				}else{
+						$sql = "$sql WHERE ";
+				}
 				$sql = "$sql $dbfld";
 				if (isset ($$fldtype)){                
-                        switch ($$fldtype) {
+						switch ($$fldtype) {
 							case 1:	$sql = "$sql='".$$fld."'";  break;
 							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
 							case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
 							case 4: $sql = "$sql LIKE '%".$$fld."'";
 						}
-                }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
+				}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
 		}
-        return $sql;
-  }  
-  $SQLcmd = '';
-  
-  $SQLcmd = do_field($SQLcmd, 'src', 'src');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-
-  if ($_POST['before']) {
-    if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
-    }else{     								$SQLcmd = "$SQLcmd WHERE "; }
-    $SQLcmd = "$SQLcmd starttime <'".$_POST['before']."'";
-  }
-  if ($_POST['after']) {    if (strpos($SQLcmd, 'WHERE') > 0) {      $SQLcmd = "$SQLcmd AND ";
-  } else {      $SQLcmd = "$SQLcmd WHERE ";    }
-    $SQLcmd = "$SQLcmd starttime >'".$_POST['after']."'";
-  }
-  
-  
+		return $sql;
+	}  
+	$SQLcmd = '';
+	$SQLcmd = do_field($SQLcmd, 'src', 'src');
+	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 }
 
-//echo "SQLcmd:$SQLcmd<br>";
 
 $date_clause='';
-// Period (Month-Day)
-
-
-if (!isset($fromstatsday_sday)){	
-	$fromstatsday_sday = date("d");
-	$fromstatsmonth_sday = date("Y-m");	
-}
-
-
-if (!isset($days_compare)){		
-	$days_compare=2;
-}
-
-
-
-//if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND calldate <= '$fromstatsmonth_sday-$fromstatsday_sday+23' AND calldate >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $days_compare DAY)";
-
-if (DB_TYPE == "postgres"){	
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND starttime >= date'$fromstatsmonth_sday-$fromstatsday_sday' - INTERVAL '$days_compare DAY'";
+if (DB_TYPE == "postgres"){		
+	$UNIX_TIMESTAMP = "";
 }else{
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND starttime >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $days_compare DAY)";  
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
-
-if (isset($customer)  &&  ($customer>0)){
-	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
-	else $SQLcmd.=" WHERE ";
-	$SQLcmd.=" username='$customer' ";
+$lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
+if ($Period=="Month"){
+	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 }else{
-	if (isset($entercustomer)  &&  ($entercustomer>0)){
-		if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
-		else $SQLcmd.=" WHERE ";
-		$SQLcmd.=" username='$entercustomer' ";
-	}
-}
-if ($_SESSION["is_admin"] == 1)
-{
-        if (isset($enterprovider) && $enterprovider > 0) {
-			if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-			$SQLcmd .= " t3.id_provider = '$enterprovider' ";
-        }
-        if (isset($entertrunk) && $entertrunk > 0) {
-			if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-			$SQLcmd .= " t3.id_trunk = '$entertrunk' ";
-        }
-		if (isset($entertariffgroup) && $entertariffgroup > 0) {
-			if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-			$SQLcmd .= "id_tariffgroup = '$entertariffgroup'";
-		}
-		if (isset($enterratecard) && $enterratecard > 0) {
-			if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-			$SQLcmd .= "id_ratecard = '$enterratecard'";
-		}
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 }
 
+
+  
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$HD_Form -> FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
 }elseif (strpos($date_clause, 'AND') > 0){
 	$HD_Form -> FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
+
+
+if (!isset ($HD_Form -> FG_TABLE_CLAUSE) || strlen($HD_Form -> FG_TABLE_CLAUSE)==0){
+	$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d"));
+	$HD_Form -> FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
+}
+
+
+if (isset($customer)  &&  ($customer>0)){
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$HD_Form -> FG_TABLE_CLAUSE.="username='$customer'";
+}else{
+	if (isset($entercustomer)  &&  ($entercustomer>0)){
+		if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+		$HD_Form -> FG_TABLE_CLAUSE.="username='$entercustomer'";
+	}
+}
+if ($_SESSION["is_admin"] == 1)
+{
+	if (isset($enterprovider) && $enterprovider > 0) {
+		if (strlen($HD_Form -> FG_TABLE_CLAUSE) > 0) $HD_Form -> FG_TABLE_CLAUSE .= " AND ";
+		$HD_Form -> FG_TABLE_CLAUSE .= "t3.id_provider = '$enterprovider'";
+	}
+	if (isset($entertrunk) && $entertrunk > 0) {
+		if (strlen($HD_Form -> FG_TABLE_CLAUSE) > 0) $HD_Form -> FG_TABLE_CLAUSE .= " AND ";
+		$HD_Form -> FG_TABLE_CLAUSE .= "t3.id_trunk = '$entertrunk'";
+	}
+	if (isset($entertariffgroup) && $entertariffgroup > 0) {
+		if (strlen($HD_Form -> FG_TABLE_CLAUSE) > 0) $HD_Form -> FG_TABLE_CLAUSE .= " AND ";
+		$HD_Form -> FG_TABLE_CLAUSE .= "id_tariffgroup = '$entertariffgroup'";
+	}
+	if (isset($enterratecard) && $enterratecard > 0) {
+		if (strlen($HD_Form -> FG_TABLE_CLAUSE) > 0) $HD_Form -> FG_TABLE_CLAUSE .= " AND ";
+		$HD_Form -> FG_TABLE_CLAUSE .= "id_ratecard = '$enterratecard'";
+	}
+
+}
+
+if ($_SESSION["is_admin"]==0){ 	
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$HD_Form -> FG_TABLE_CLAUSE.="cardID=t2.IDCust AND t2.IDmanager='".$_SESSION["pr_reseller_ID"]."'";
+}
+
+//To select just terminatecause=ANSWER
+if (!isset($terminatecause)){
+	$terminatecause="ANSWER";
+}
+if ($terminatecause=="ANSWER") {
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$HD_Form -> FG_TABLE_CLAUSE .= " (terminatecause='ANSWER' OR terminatecause='ANSWERED') ";
+}
+if($posted == 1){
+	$_SESSION['ss_calllist'] = '';
+	$_SESSION['ss_calllist'] = $HD_Form -> FG_TABLE_CLAUSE;
+}
 if(isset($archive) && !empty($archive)){
 	if(isset($id) && !empty($id)){
 		$condition = "id = $id";
 	}else{
-		$condition = $HD_Form -> FG_TABLE_CLAUSE;
+		$condition = $_SESSION['ss_calllist'];
 	}
 	if (strpos($condition,'WHERE') <= 0){
 	        $condition = " WHERE $condition";
 	}
-
 archive_data($condition, "call");
 $archive_message = "The data has been successfully archived";
 }
@@ -189,16 +188,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 
 
+
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<center>
-	<FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=<?php echo $s?>&t=<?php echo $t?>&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-	<INPUT TYPE="hidden" NAME="posted" value=1>
-		<table class="bar-status" width="80%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>
-			<tr>
-				<td align="left" valign="top"  class="bgcolor_004">					
-					<font  class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
-				</td>
+<center>
+<FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+<INPUT TYPE="hidden" NAME="posted" value=1>
+<INPUT TYPE="hidden" NAME="current_page" value=0>	
+	<TABLE class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
+		<?php  if ($_SESSION["pr_groupID"]==2 && is_numeric($_SESSION["pr_IDCust"])){ ?>
+		<?php  }else{ ?>
+		<tr>
+			<td align="left" valign="top" class="bgcolor_004">					
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
+			</td>				
 			<td class="bgcolor_005" align="left">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
@@ -224,114 +226,217 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				</tr>
 			</table>
 			</td>
-			</tr>
-			<tr>
-        		<td align="left" class="bgcolor_002">					
-					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SELECT DAY");?></font>
-				</td>
-      			<td align="left" class="bgcolor_003">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-					<tr><td class="fontstyle_searchoptions">
-	  				<?php echo gettext("From");?> : <select name="fromstatsday_sday" class="form_input_select">
+		</tr>			
+		<?php  }?>
+		<tr>
+			<td class="bgcolor_002" align="left">
+
+				<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
+				<font class="fontstyle_003"><?php echo gettext("SELECT MONTH");?></font>
+			</td>
+			<td class="bgcolor_003" align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr><td class="fontstyle_searchoptions">
+				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
+				<?php echo gettext("From");?> : <select name="fromstatsmonth" class="form_input_select">
+				<?php
+					$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
+					$year_actual = date("Y");  	
+					for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					{		   
+					   if ($year_actual==$i){
+						$monthnumber = date("n")-1; // Month number without lead 0.
+					   }else{
+						$monthnumber=11;
+					   }		   
+					   for ($j=$monthnumber;$j>=0;$j--){	
+						$month_formated = sprintf("%02d",$j+1);
+						if ($fromstatsmonth=="$i-$month_formated")	$selected="selected";
+						else $selected="";
+						echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
+					   }
+					}
+				?>		
+				</select>
+				</td><td  class="fontstyle_searchoptions">&nbsp;&nbsp;
+				<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
+				<?php echo gettext("To");?> : <select name="tostatsmonth" class="form_input_select">
+				<?php 	$year_actual = date("Y");  	
+					for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					{		   
+					   if ($year_actual==$i){
+						$monthnumber = date("n")-1; // Month number without lead 0.
+					   }else{
+						$monthnumber=11;
+					   }		   
+					   for ($j=$monthnumber;$j>=0;$j--){	
+						$month_formated = sprintf("%02d",$j+1);
+						if ($tostatsmonth=="$i-$month_formated") $selected="selected";
+						else $selected="";
+						echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
+					   }
+					}
+				?>
+				</select>
+				</td></tr></table>
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left" class="bgcolor_004">
+				<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
+				<font class="fontstyle_003"><?php echo gettext("SELECT DAY");?></font>
+			</td>
+			<td align="left" class="bgcolor_005">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr><td class="fontstyle_searchoptions">
+				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("From");?> :
+				<select name="fromstatsday_sday" class="form_input_select">
 					<?php  
-						for ($i=1;$i<=31;$i++){
-							if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
-							echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+					for ($i=1;$i<=31;$i++){
+						if ($fromstatsday_sday==sprintf("%02d",$i)) $selected="selected";
+						else	$selected="";
+						echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+					}
+					?>	
+				</select>
+				<select name="fromstatsmonth_sday" class="form_input_select">
+				<?php 	$year_actual = date("Y");  	
+					for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					{		   
+						if ($year_actual==$i){
+							$monthnumber = date("n")-1; // Month number without lead 0.
+						}else{
+							$monthnumber=11;
+						}		   
+						for ($j=$monthnumber;$j>=0;$j--){	
+							$month_formated = sprintf("%02d",$j+1);
+							if ($fromstatsmonth_sday=="$i-$month_formated") $selected="selected";
+							else $selected="";
+							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
 						}
-					?>					
-					</select>
-				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	
-						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
-						$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}		   
-						   	for ($j=$monthnumber;$j>=0;$j--){	
-								$month_formated = sprintf("%02d",$j+1);
-								if ($fromstatsmonth_sday=="$i-$month_formated") $selected="selected";
-								else $selected="";
-								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-							}
-						}								
-					?>										
-					</select>
-					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<?php echo gettext("Number of days to compare");?> :
-				 	<select name="days_compare" class="form_input_select">
-					<option value="4" <?php if ($days_compare=="4"){ echo "selected";}?>>- 4 <?php echo gettext("days");?></option>
-					<option value="3" <?php if ($days_compare=="3"){ echo "selected";}?>>- 3 <?php echo gettext("days");?></option>
-					<option value="2" <?php if (($days_compare=="2")|| !isset($days_compare)){ echo "selected";}?>>- 2 <?php echo gettext("days");?></option>
-					<option value="1" <?php if ($days_compare=="1"){ echo "selected";}?>>- 1 <?php echo gettext("days");?></option>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>	
-			
+					}
+				?>
+				</select>
+				</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
+				<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> 
+				<?php echo gettext("To");?>  :
+				<select name="tostatsday_sday" class="form_input_select">
+				<?php  
+					for ($i=1;$i<=31;$i++){
+						if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+						echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>						
+				</select>
+				<select name="tostatsmonth_sday" class="form_input_select">
+				<?php 	$year_actual = date("Y");  	
+					for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					{		   
+						if ($year_actual==$i){
+							$monthnumber = date("n")-1; // Month number without lead 0.
+						}else{
+							$monthnumber=11;
+						}		   
+						for ($j=$monthnumber;$j>=0;$j--){	
+							$month_formated = sprintf("%02d",$j+1);
+							if ($tostatsmonth_sday=="$i-$month_formated") $selected="selected";
+							else	$selected="";
+							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
+						}
+					}
+				?>
+				</select>
+				</td></tr></table>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgcolor_002" align="left">			
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
+			</td>				
+			<td class="bgcolor_003" align="left">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+				</tr>
+			</table></td>
+		</tr>			
+		<tr>
+			<td align="left" class="bgcolor_004">					
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SOURCE");?></font>
+			</td>				
+			<td class="bgcolor_005" align="left">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+			<tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>" class="form_input_text"></td>
+			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+			</tr></table></td>
+		</tr>
+		
+		
+		<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
+		<tr>
+		  <td class="bgcolor_002" align="left" ><font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("OPTIONS");?></font></td>
+		  <td class="bgcolor_003" align="center"><div align="left">
+		  
+		  <table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td class="bgcolor_004" align="left">			
-					<font  class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
-				</td>				
-				<td class="bgcolor_005" align="left" >
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
-				<td  align="center" class="fontstyle_searchoptions" ><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
-				</tr></table></td>
-			</tr>			
-			<tr>
-				<td align="left" class="bgcolor_002">					
-					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SOURCE");?></font>
-				</td>				
-				<td class="bgcolor_003" align="left">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>"></td>
-				<td  align="center" class="fontstyle_searchoptions" ><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
-				</tr></table></td>
-			</tr>
-
-			<tr>
-        		<td class="bgcolor_004" align="left"> </td>
-
-				<td class="bgcolor_005" align="center" >
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005">
-					<tr><td class="fontstyle_searchoptions">				
-						<?php echo gettext("Graph");?> :
-							<select name="min_call" class="form_input_select">					
-							<option value=1 <?php  if ($min_call==1){ echo "selected";}?>><?php echo gettext("Minutes by hours");?></option>
-							<option value=0 <?php  if (($min_call==0) || !isset($min_call)){ echo "selected";}?>><?php echo gettext("Number of calls by hours");?></option>
-							<option value=2 <?php  if ($min_call==2){ echo "selected";}?>><?php echo gettext("Profits by hours");?></option>
-							<option value=3 <?php  if ($min_call==3){ echo "selected";}?>><?php echo gettext("Sells by hours");?></option>
-							<option value=4 <?php  if ($min_call==4){ echo "selected";}?>><?php echo gettext("Buys by hours");?></option>
-							</select>
-						</td>
-						<td align="right">							
-							
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					</td></tr></table>
-	  			</td>
-    		</tr>
-			<tr>
-				<td align="left" class="bgcolor_002">					
-					
-				</td>				
-				<td class="bgcolor_003" align="left">
-				<center><input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
-				</center>
+				<td width="20%"  class="fontstyle_searchoptions">
+					<?php echo gettext("SHOW");?> :  						
+			   </td>
+			   <td width="80%"  class="fontstyle_searchoptions">
+					<?php echo gettext("Answered Calls");?>  
+					<input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
+					<?php echo gettext("All Calls");?>  
+					<input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
 				</td>
 			</tr>
-		</tbody></table>
-	</FORM>
+			<tr class="bgcolor_005">
+				<td  class="fontstyle_searchoptions">
+					<?php echo gettext("RESULT");?> : 
+			   </td>
+			   <td  class="fontstyle_searchoptions">
+					<?php echo gettext("mins");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("secs")?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
+				</td>
+			</tr>
+			<tr>
+				<td  class="fontstyle_searchoptions">
+					<?php echo gettext("CURRENCY");?> :
+				</td>
+				<td  class="fontstyle_searchoptions">
+					<select NAME="choose_currency" size="1" class="form_input_select">
+						<?php
+							$currencies_list = get_currencies();
+							foreach($currencies_list as $key => $cur_value) {
+						?>
+							<option value='<?php echo $key ?>' <?php if (($choose_currency==$key) || (!isset($choose_currency) && $key==strtoupper(BASE_CURRENCY))){?>selected<?php } ?>><?php echo $cur_value[1].' ('.$cur_value[2].')' ?>
+							</option>
+						<?php 	} ?>
+					</select>
+				</td>
+			</tr>
+			</table>
+		</td>
+		</tr>
+		<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
+		
+		<tr>
+			<td class="bgcolor_004" align="left" > </td>
+			<td class="bgcolor_005" align="center" >
+				<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif"/>
+			</td>
+		</tr>
+	</table>
+</FORM>
 </center>
+
+
+<!-- ** ** ** ** ** Displaying the Archiving options ** ** ** ** ** -->
 <center>
 <form name="frm_archive" id="frm_archive" method="post" action="A2B_data_archiving.php">
 <table class="bar-status" width="50%" border="0" cellspacing="1" cellpadding="2" align="center">
@@ -353,6 +458,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		</tbody></table>
 </FORM>
 </center>
+
+
+<!-- ** ** ** ** ** Displaying the Archiving message, calls list and Archive action button and link ** ** ** ** ** -->
 <?php
 if(isset($archive) && !empty($archive)){
 	$HD_Form -> CV_NO_FIELDS = "";

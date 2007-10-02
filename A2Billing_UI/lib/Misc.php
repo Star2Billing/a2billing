@@ -238,7 +238,11 @@ function linktocustomer($value){
 	$FG_TABLE_CLAUSE = "username = '$value'";
 	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);			
 	$id = $list_customer[0][0];
-    echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";
+    if($id > 0){
+    	echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";	
+    }else{
+    	echo $value;
+    }    
 }
 
 
