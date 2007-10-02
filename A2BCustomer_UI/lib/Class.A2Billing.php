@@ -109,7 +109,6 @@ class A2Billing {
 	var $uniqueid;
 	var $accountcode;
 	var $dnid;
-		
 	
 	// from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
 	
@@ -128,7 +127,6 @@ class A2Billing {
 	var $currency='usd';
     
 	var $mode = '';
-        
 	var $timeout;
 	var $newdestination;
 	var $tech;
@@ -213,12 +211,12 @@ class A2Billing {
 		
 		// RUN VERBOSE ON CLI
 		if ($debug & VERBOSE) {
-			if ($this->agiconfig['debug']>=1)   $agi->verbose('file:'.$file.' - line:'.$line.' - '.$buffer_debug);
+			if ($this->agiconfig['debug']>=1)   $agi->verbose('file:'.$file.' - line:'.$line.' - uniqueid:'.$this->uniqueid.' - '.$buffer_debug);
 		}
 		
 		// RIGHT DEBUG IN LOG FILE
 		if ($debug & WRITELOG) {
-			$this -> write_log($buffer_debug, 1, "[file:$file - line:$line]:");
+			$this -> write_log ($buffer_debug, 1, "[file:$file - line:$line - uniqueid:".$this->uniqueid."]:");
 		}
 	}
 	
@@ -1482,6 +1480,7 @@ class A2Billing {
 			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 			
+			// NOT USE A LEFT JOIN HERE - In case the callerID is alone without card bound
 			$QUERY =  "SELECT cc_callerid.cid, cc_callerid.id_cc_card, cc_callerid.activated, cc_card.credit, ".
 				  " cc_card.tariff, cc_card.activated, cc_card.inuse, cc_card.simultaccess,  ".
 				  " cc_card.typepaid, cc_card.creditlimit, cc_card.language, cc_card.username, removeinterprefix, cc_card.redial, ";
@@ -1499,12 +1498,12 @@ class A2Billing {
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".print_r($result,true));
 			
-			if( !is_array($result)) {
+			if (!is_array($result)) {
 				
 				if ($this->agiconfig['cid_auto_create_card']==1) {
 					
-					for ($k=0;$k<=20;$k++){
-						if ($k==20){
+					for ($k=0 ; $k <= 20 ; $k++) {
+						if ($k == 20) {
 							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "ERROR : Impossible to generate a cardnumber not yet used!");
 							$prompt="prepaid-auth-fail";
 							$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
@@ -1512,7 +1511,6 @@ class A2Billing {
 							return -2;
 						}
 						$card_gen = $this -> MDP ($this->agiconfig['cid_auto_create_card_len']);
-						//echo "SELECT username FROM card where username='$card_gen'<br>";
 						$numrow = 0;
 						$resmax = $this->DBHandle -> Execute("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
 						if ($resmax)
@@ -2147,3 +2145,5 @@ class A2Billing {
 
 
 };
+
+?>

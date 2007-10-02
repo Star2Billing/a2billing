@@ -606,19 +606,18 @@ class RateEngine
 							$mod_sec = $num_sec % $billingblock;
 							$num_sec=$num_sec-$mod_sec; 
 						}
-							
-							$TIMEOUT += $num_sec;								
-							// THIS IS THE END
 						
-					}else{
 						$TIMEOUT += $num_sec;
-					}	
+						// THIS IS THE END
 						
+					} else {
+						$TIMEOUT += $num_sec;
+					}
 				}
-			
-			}else{
 				
-				if (($num_sec>$timechargea)){				
+			} else {
+				
+				if (($num_sec>$timechargea)) {
 					$TIMEOUT += $timechargea;
 					if ($this -> debug_st) echo "		OUT CYCLE A		TIMEOUT:$TIMEOUT\n";
 					$credit -= ($chargea/60) * $timechargea;
@@ -633,24 +632,23 @@ class RateEngine
 						$num_sec=$num_sec-$mod_sec; 
 					}
 					
-					$TIMEOUT += $num_sec;								
-					// THIS IS THE END
-				
-				}else{
 					$TIMEOUT += $num_sec;
-				}	
-		
-			}		
+					// THIS IS THE END
+					
+				} else {
+					$TIMEOUT += $num_sec;
+				}
+			}
 		}
 		$this -> ratecard_obj[$K]['timeout']=$TIMEOUT + $this -> freetimetocall_left[$K];
 		if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
 		RETURN $TIMEOUT + $this -> freetimetocall_left[$K];
 	}
-
+	
 	/*
-		RATE ENGINE - CALCUL COST OF THE CALL
-		* CALCUL THE CREDIT COSUMED BY THE CALL
-	*/
+	 * RATE ENGINE - CALCUL COST OF THE CALL
+	 * - calcul the credit consumed by the call
+	 */
 	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used)
 	{	
 		$K = $this->usedratecard;
@@ -751,6 +749,7 @@ class RateEngine
 			
 		// IF PROGRESSIVE RATE 
 		} else {
+			
 			if ($this -> debug_st) echo "CYCLE A	COST:$cost\n";
 			// CYCLE A
 			$cost -= $stepchargea;
@@ -774,7 +773,7 @@ class RateEngine
 				// CYCLE B
 				$cost -= $stepchargeb;
 				if ($this -> debug_st)  echo "1.B cost: $cost\n\n";
-					
+				
 				if ($callduration > $timechargeb) {
 					$duration_report = $callduration - $timechargeb; 
 					$callduration=$timechargeb;
@@ -785,7 +784,7 @@ class RateEngine
 					if ($mod_sec>0) $callduration += ($billingblockb - $mod_sec);
 				}
 				$cost -= ($callduration/60) * $chargeb; // change chargea -> chargeb thanks to Abbas :D
-					
+				
 				if (($duration_report>0) && !(empty($chargec) || $chargec==0 || empty($timechargec) || $timechargec==0) )
 				{
 					$callduration=$duration_report;
@@ -857,11 +856,11 @@ class RateEngine
 	
 	
 	/*
-		RATE ENGINE - UPDATE SYSTEM (DURATIONCALL)
-		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
-	*/
-	function rate_engine_updatesystem (&$A2B, &$agi, $calledstation, $doibill = 1, $didcall=0, $callback=0){
-		
+	 * RATE ENGINE - UPDATE SYSTEM (DURATIONCALL)
+	 * Calcul the duration allowed for the caller to this number
+	 */
+	function rate_engine_updatesystem (&$A2B, &$agi, $calledstation, $doibill = 1, $didcall=0, $callback=0)
+	{
 		$K = $this->usedratecard;
 		// ****************  PACKAGE PARAMETERS ****************  
 		$freetimetocall_package_offer = $this -> ratecard_obj[$K][45];
@@ -871,7 +870,7 @@ class RateEngine
 		if ($A2B -> CC_TESTING){ 
 			$sessiontime = 120;
 			$dialstatus = 'ANSWERED';
-		}else{
+		} else {
 			$sessiontime = $this -> answeredtime;
 			$dialstatus = $this -> dialstatus;
 		}
@@ -903,9 +902,7 @@ class RateEngine
 			$sessiontime = $this -> answeredtime;
 			
 		} else {
-			
 			$sessiontime = 0;
-			
 		}
 		
 		$calldestination = $this -> ratecard_obj[$K][5];
@@ -914,17 +911,17 @@ class RateEngine
 		$id_ratecard = $this -> ratecard_obj[$K][6];
 		
 		$buycost = 0;
-		if ($doibill==0 || $sessiontime < $A2B->agiconfig['min_duration_2bill']) $cost = 0;		
-		else{ 
+		if ($doibill==0 || $sessiontime < $A2B->agiconfig['min_duration_2bill']) {
+			$cost = 0;
+		} else{ 
 			$cost = $this -> lastcost;
 			$buycost = abs($this -> lastbuycost);
 		}
-		//else $cost = abs($this -> lastcost);
 		
-		if ($cost<0){ 
+		if ($cost<0) { 
 			$signe='-';
 			$signe_cc_call ='+';
-		}else{ 
+		} else { 
 			$signe='+';  
 			$signe_cc_call ='-';
 		}
