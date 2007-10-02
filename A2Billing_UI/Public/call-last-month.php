@@ -92,30 +92,7 @@ if ( is_null ($order) || is_null($sens) ){
 
 if ($_POST['posted']==1){
 	
-	function do_field($sql,$fld){
-		$fldtype = $fld.'type';
-		global $$fld;
-		global $$fldtype;
-		if (isset($$fld) && ($$fld!='')){
-				if (strpos($sql,'WHERE') > 0){
-					$sql = "$sql AND ";
-				}else{
-					$sql = "$sql WHERE ";
-				}
-				$sql = "$sql $fld";
-				if (isset ($$fldtype)){                
-					switch ($$fldtype) {
-						case 1:	$sql = "$sql='".$$fld."'";  break;
-						case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
-						case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
-						case 4: $sql = "$sql LIKE '%".$$fld."'";
-					}
-				}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
-		}
-		return $sql;
-	}  
 	$SQLcmd = '';
-	
 	if ($_POST['before']) {
 	if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
 	}else{     								$SQLcmd = "$SQLcmd WHERE "; }

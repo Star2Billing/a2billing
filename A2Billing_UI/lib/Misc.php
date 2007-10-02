@@ -758,6 +758,15 @@ function get_db_languages($handle = null)
 	return $result;
 }
 
+/*
+ * Function use to archive data and call records
+ * Insert in cc_call_archive and cc_card_archive on seletion criteria
+ * Delete from cc_call and cc_card
+ * Used in 
+ * 1. A2Billing_UI/Public/A2B_data_archving.php
+ * 2. A2Billing_UI/Public/A2B_call_archiving.php
+ */
+
 function archive_data($condition, $entity = ""){
 	$handle = DbConnect();
 	$instance_table = new Table();
@@ -782,5 +791,32 @@ function archive_data($condition, $entity = ""){
 		//	$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		}
 	}
+}
+
+/*
+ * Function use to define exact sql statement for 
+ * different criteria selection
+ */
+function do_field($sql,$fld,$dbfld){
+	$fldtype = $fld.'type';
+	global $$fld;
+	global $$fldtype;		
+	if ($$fld){
+			if (strpos($sql,'WHERE') > 0){
+					$sql = "$sql AND ";
+			}else{
+					$sql = "$sql WHERE ";
+			}
+			$sql = "$sql $dbfld";
+			if (isset ($$fldtype)){                
+					switch ($$fldtype) {
+						case 1:	$sql = "$sql='".$$fld."'";  break;
+						case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
+						case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
+						case 4: $sql = "$sql LIKE '%".$$fld."'";
+					}
+			}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
+	}
+	return $sql;
 }
 ?>

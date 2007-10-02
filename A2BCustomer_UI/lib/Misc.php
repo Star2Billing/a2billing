@@ -533,6 +533,28 @@ function display_GMT($currDate, $number, $fulldate = 1)
 	}
 	return $gmdate;
 }
+function do_field($sql,$fld,$dbfld){
+	$fldtype = $fld.'type';
+	global $$fld;
+	global $$fldtype;		
+	if ($$fld){
+			if (strpos($sql,'WHERE') > 0){
+					$sql = "$sql AND ";
+			}else{
+					$sql = "$sql WHERE ";
+			}
+			$sql = "$sql $dbfld";
+			if (isset ($$fldtype)){                
+					switch ($$fldtype) {
+						case 1:	$sql = "$sql='".$$fld."'";  break;
+						case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
+						case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
+						case 4: $sql = "$sql LIKE '%".$$fld."'";
+					}
+			}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
+	}
+	return $sql;
+}
 
 
 ?>
