@@ -86,8 +86,7 @@ define ("DB_TYPE", isset($A2B->config["database"]['dbtype'])?$A2B->config["datab
 // if ($A2B -> CC_TESTING) $mode = 'did';
 
 //-- Print header
-$A2B -> debug( VERBOSE , $agi, __FILE__, __LINE__, 'AGI Request:');
-$A2B -> debug( VERBOSE , $agi, __FILE__, __LINE__, print_r($agi->request, true));
+$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "AGI Request:\n".print_r($agi->request, true));
 
 
 /* GET THE AGI PARAMETER */
