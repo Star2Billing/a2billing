@@ -115,7 +115,7 @@ class Table {
 		if ($select) {
 			$num = $res -> RecordCount();
 			if ($num==0) {
-				return Array();
+				return false;
 			}
 			
 			for($i=0;$i<$num;$i++) {
