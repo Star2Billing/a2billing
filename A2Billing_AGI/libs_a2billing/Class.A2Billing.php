@@ -109,7 +109,6 @@ class A2Billing {
 	var $uniqueid;
 	var $accountcode;
 	var $dnid;
-		
 	
 	// from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
 	
@@ -128,7 +127,6 @@ class A2Billing {
 	var $currency='usd';
     
 	var $mode = '';
-        
 	var $timeout;
 	var $newdestination;
 	var $tech;
@@ -213,12 +211,12 @@ class A2Billing {
 		
 		// RUN VERBOSE ON CLI
 		if ($debug & VERBOSE) {
-			if ($this->agiconfig['debug']>=1)   $agi->verbose('file:'.$file.' - line:'.$line.' - '.$buffer_debug);
+			if ($this->agiconfig['debug']>=1)   $agi->verbose('file:'.$file.' - line:'.$line.' - uniqueid:'.$this->uniqueid.' - '.$buffer_debug);
 		}
 		
 		// RIGHT DEBUG IN LOG FILE
 		if ($debug & WRITELOG) {
-			$this -> write_log($buffer_debug, 1, "[file:$file - line:$line]:");
+			$this -> write_log ($buffer_debug, 1, "[file:$file - line:$line - uniqueid:".$this->uniqueid."]:");
 		}
 	}
 	

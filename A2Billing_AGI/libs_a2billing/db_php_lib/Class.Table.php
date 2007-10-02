@@ -99,7 +99,6 @@ class Table {
 	
 	function SQLExec ($DBHandle, $QUERY, $select = 1, $cache = 0)
 	{
-
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($cache > 0) {
 			$res = $DBHandle -> CacheExecute($cache, $QUERY);
@@ -115,7 +114,7 @@ class Table {
 		if ($select) {
 			$num = $res -> RecordCount();
 			if ($num==0) {
-				return false;
+				return Array();
 			}
 			
 			for($i=0;$i<$num;$i++) {

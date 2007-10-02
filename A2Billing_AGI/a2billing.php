@@ -180,7 +180,7 @@ if ($mode == 'standard'){
 			
 			// CREATE A DIFFERENT UNIQUEID FOR EACH TRY
 			if ($i>0){
-				$A2B-> uniqueid=$A2B-> uniqueid+ 1000000000 ;
+				$A2B-> uniqueid = $A2B-> uniqueid + 1000000000 ;
 			}
 			
 			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0 && $A2B->agiconfig['jump_voucher_if_min_credit']==1) {
