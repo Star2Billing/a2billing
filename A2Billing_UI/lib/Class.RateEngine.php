@@ -71,7 +71,6 @@ class RateEngine
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: ($tariffgroupid, $phonenumber)]");	
 		}
 		
-		
 		/***  0 ) CODE TO RETURN THE DAY OF WEEK + CREATE THE CLAUSE  ***/
 		
 		$daytag = date("w", time()); // Day of week ( Sunday = 0 .. Saturday = 6 )

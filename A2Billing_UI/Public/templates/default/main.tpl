@@ -126,6 +126,7 @@
 				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Browse Rates");{/php}</a></li>
 				<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Add Rate");{/php}</a></li>
 				<li><a href="CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Import RateCard");{/php}</a></li>
+				<li><a href="CC_ratecard_merging.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Merge RateCard");{/php}</a></li>
 				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator&section=3">{php} echo gettext("Ratecard Simulator");{/php}</a></li>
 			</ul></li>
 		</ul>

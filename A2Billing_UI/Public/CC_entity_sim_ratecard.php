@@ -34,7 +34,7 @@ if ($FG_DEBUG == 1)  echo "sim_mytariffname:$sim_mytariffname<br>";
 
 
 if ($called  && $id_cc_card){
-
+		
 		
 		$calling=ereg_replace("^\+","011",$called);	
 		$calling=ereg_replace("[^0-9]","",$calling);	
@@ -48,7 +48,8 @@ if ($called  && $id_cc_card){
 			$instance_table = new Table();
 			$A2B -> set_instance_table ($instance_table);
 			$num = 0;
-			$resmax = $DBHandle -> Execute("SELECT username, tariff, credit FROM cc_card where id='$id_cc_card'");
+			$QUERY = "SELECT username, tariff, credit FROM cc_card where id='$id_cc_card'";
+			$resmax = $DBHandle -> Execute($QUERY);
 			if ($resmax)
 				$num = $resmax -> RecordCount( );
 			
@@ -219,7 +220,6 @@ function openURL(theLINK)
 	  
 	  
 <?php if ( (is_array($RateEngine->ratecard_obj)) && (!empty($RateEngine->ratecard_obj)) ){
-
 if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
 
 $arr_ratecard=array('tariffgroupname', 'lcrtype', 'idtariffgroup', 'cc_tariffgroup_plan.idtariffplan', 'tariffname', 'destination', 'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock', 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge', 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb', 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'tp_id_trunk', 'tp_trunk', 'providertech', 'tp_providerip', 'tp_removeprefix');

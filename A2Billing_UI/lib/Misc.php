@@ -779,7 +779,7 @@ function archive_data($condition, $entity = ""){
 			$subquery = true;
 			$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
 			$fun_table = "cc_card";
-		//	$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
+			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		}else if($entity == "call"){
 			$value = "SELECT id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call $condition";
 			$func_fields = "id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime";
@@ -788,7 +788,7 @@ function archive_data($condition, $entity = ""){
 			$subquery = true;
 			$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
 			$fun_table = "cc_call";
-		//	$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
+			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		}
 	}
 }
