@@ -337,10 +337,8 @@ if($exporttype!="pdf"){
 				$totalcharge=0;
 				$totalcost=0;
 				$total_extra_charges = 0;
-				foreach ($list_total_day_charge as $data){	
-					if ($mmax < $data[1]) $mmax=$data[1];
+				foreach ($list_total_day_charge as $data){
 					$totalcharge+=$data[2];
-					$totalcost+=$data[1];
 					$total_extra_charges += convert_currency($currencies_list,$data[1], $data[3], $selected_currency);
 				}
 				

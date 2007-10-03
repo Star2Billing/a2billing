@@ -4,9 +4,9 @@ include ("../lib/module.access.php");
 include ("../lib/smarty.php");
 
 
-if (! has_rights (ACX_INVOICING)){
+if (! has_rights (ACX_INVOICING)) {
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
+	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
@@ -15,8 +15,7 @@ session_start();
 getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertrunk', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'fromstatsmonth_smin', '','tostatsmonth_smin', 'src', 'choose_currency','exporttype'));
 
 $error_message = "";
-if ($entercustomer != "")
-{
+if ($entercustomer != "") {
 	//$link = DbConnect();
 	$DBHandle  = DbConnect();
 	
@@ -24,17 +23,13 @@ if ($entercustomer != "")
 	$res_user = $DBHandle -> Execute($QUERY);
 	if (count($res_user) > 0 &&  isset($res_user))
 		$num = $res_user -> RecordCount();
-	if($num > 0)
-	{	
+	if($num > 0) {	
 		$userRecord = $res_user -> fetchRow();
 		$customerID = $userRecord[0];	
-	}
-	else
-	{
+	} else {
 		$error_message = "No such card number found. Please check your card number!";
 	}	
-	if (($_GET[download]=="file") && $_GET[file] ) 
-	{
+	if ( ($_GET[download]=="file") && $_GET[file] ) {
 		$value_de=base64_decode($_GET[file]);
 		$dl_full = MONITOR_PATH."/".$value_de;
 		$dl_name=$value_de;
@@ -53,16 +48,14 @@ if ($entercustomer != "")
 		header("Expires: 0");
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 		header("Content-transfer-encoding: binary");
-				
+		
 		@readfile($dl_full);
 		exit();
 	}
 	
-	
 	if (!isset ($current_page) || ($current_page == "")){	
 		$current_page=0; 
 	}
-	
 	
 	// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 	$FG_DEBUG = 0;
@@ -70,19 +63,11 @@ if ($entercustomer != "")
 	// The variable FG_TABLE_NAME define the table name to use
 	$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 	
-	if ($_SESSION["is_admin"]==0){
+	if ($_SESSION["is_admin"]==0) {
 		$FG_TABLE_NAME.=", cc_card t2";
 	}
 	
-	// The variable Var_col would define the col that we want show in your table
-	// First Name of the column in the html page, second name of the field
 	$FG_TABLE_COL = array();
-	
-	
-	/*******
-	Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-	*******/
-	
 	$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 	$FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
 	$FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
@@ -94,20 +79,19 @@ if ($entercustomer != "")
 	}
 	
 	$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
-	// ??? cardID
+	
 	$FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 	$FG_TABLE_DEFAULT_SENS = "DESC";
-		
-	// This Variable store the argument for the SQL query
 	
+	// This Variable store the argument for the SQL query
 	$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
-	if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
+	if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))) {
 		$FG_COL_QUERY.=', t1.username';
 	}
 	$FG_COL_QUERY.=', t1.sessionbill';
-	// t1.stoptime,
-	if (LINK_AUDIO_FILE == 'YES') 
+	if (LINK_AUDIO_FILE == 'YES') {
 		$FG_COL_QUERY .= ', t1.uniqueid';
+	}
 	
 	$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 	
@@ -130,9 +114,9 @@ if ($entercustomer != "")
 	//This variable define the width of the HTML table
 	$FG_HTML_TABLE_WIDTH="70%";
 	
-		if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-		$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-		$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 	
 	
 	if ( is_null ($order) || is_null($sens) ){
@@ -140,25 +124,21 @@ if ($entercustomer != "")
 		$sens  = $FG_TABLE_DEFAULT_SENS;
 	}
 	
-	if ($posted==1){
-	  
-	  $SQLcmd = '';
-	  
-	  $SQLcmd = do_field($SQLcmd, 'src', 'src');
-	  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	  
+	if ($posted==1) {
+		$SQLcmd = '';
+		$SQLcmd = do_field($SQLcmd, 'src', 'src');
+		$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 	}
 	
 	$date_clause='';
 	// Period (Month-Day)
-	if (DB_TYPE == "postgres"){		
-			$UNIX_TIMESTAMP = "";
-	}else{
-			$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+	if (DB_TYPE == "postgres") {
+		$UNIX_TIMESTAMP = "";
+	} else {
+		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 	}
 	
-	  
-	if (strpos($SQLcmd, 'WHERE') > 0) { 
+	if (strpos($SQLcmd, 'WHERE') > 0) {
 		$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
 	}elseif (strpos($date_clause, 'AND') > 0){
 		$FG_TABLE_CLAUSE = substr($date_clause,5); 
@@ -185,21 +165,15 @@ if ($entercustomer != "")
 	}
 	$_SESSION["pr_sql_export"]= "SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 	
-	/************************/
-	//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate) 
-	
 	
 	$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate) 
 	
-	if (!$nodisplay)
-	{
+	if (!$nodisplay) {
 		$list_total_day  = $instance_table->SQLExec ($DBHandle, $QUERY);
 		$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-	
-	}//end IF nodisplay
+	}
 	
 	// GROUP BY DESTINATION FOR THE INVOICE
-	
 	$QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 	sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination"; 
 	
@@ -256,44 +230,41 @@ if ($entercustomer != "")
 	$tclause = (strlen($date_clause)>1)?'AND':'WHERE';
 	$date_clause .= " $tclause t1.id_cc_card = t2.id AND t2.username = '$entercustomer' AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL ";
 	$date_clause .= " THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) ";
-	$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge, t1.currency FROM cc_charge t1, cc_card t2 ".$date_clause." GROUP BY substring(t1.creationdate,1,10),t1.currency  ORDER BY day"; //extract(DAY from calldate) 
+	// $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge, t1.currency FROM cc_charge t1, cc_card t2 ".$date_clause." GROUP BY substring(t1.creationdate,1,10),t1.currency  ORDER BY day"; //extract(DAY from calldate) 
+	$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, t1.amount AS cost, t1.currency, t1.description FROM cc_charge t1, cc_card t2 ".$date_clause." GROUP BY substring(t1.creationdate,1,10),t1.currency  ORDER BY day"; //extract(DAY from calldate) 
 	
-	if (!$nodisplay)
-	{
+	if (!$nodisplay) {
 		$list_total_day_charge = $instance_table->SQLExec ($DBHandle, $QUERY);			 
-	}//end IF nodisplay
+	}
 	
 	$QUERY = "Select CASE WHEN max(cover_enddate) is NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$info_customer[0][0];
-	if (!$nodisplay)
-	{
+	if (!$nodisplay) {
 		$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			 
-	}//end IF nodisplay
-	if ($invoice_dates[0][0] == '0001-01-01 01:00:00')
-	{
+	}
+	if ($invoice_dates[0][0] == '0001-01-01 01:00:00') {
 		$invoice_dates[0][0] = $info_customer[0][14];
 	}
+}
 
+if ($choose_currency == "") {
+	$selected_currency = BASE_CURRENCY;
+} else {
+	$selected_currency = $choose_currency;
 }
 
 $currencies_list = get_currencies();
 if($exporttype!="pdf"){
+	
 	$smarty->display('main.tpl');
+	
 ?>
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-//-->
-</script>
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>
 	<FORM name="myForm"  METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
-	<?php if (strlen($error_message)>0){ ?>
+	<?php if (strlen($error_message)>0) { ?>
 	<center><font color="#FF0000"><?php echo $error_message ?></center>
 	<?php }?>	
 		<table  width="95%" border="0" cellspacing="1" cellpadding="2" align="center">
@@ -312,9 +283,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			</tr>			
 			<tr>
         		<td class="bgcolor_004" align="left"><font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("OPTIONS");?></b></font> </td>
-
 				<td class="bgcolor_005" align="center" >
-
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="20%"  class="fontstyle_searchoptions">
@@ -426,73 +395,67 @@ if ((is_array($list_total_day_charge) && count($list_total_day_charge)>0 ) || (i
 				$totalcharge=0;
 				$totalcost=0;
 				$total_extra_charges = 0;
-				foreach ($list_total_day_charge as $data){	
-					if ($mmax < $data[1]) $mmax=$data[1];
-					$totalcharge+=$data[2];
-					$totalcost+=$data[1];
-					$total_extra_charges += convert_currency($currencies_list,$data[1], $data[3],BASE_CURRENCY);
+				foreach ($list_total_day_charge as $data){
+					$totalcharge+=1;
+					$total_extra_charges += convert_currency($currencies_list,$data[1], $data[2],BASE_CURRENCY);
 				}
-				
 				?>
 				<!-- FIN TITLE GLOBAL MINUTES //-->
 				<table border="0" cellspacing="0" cellpadding="0" width="100%" align="center">
 					<tr>	
-						 <td colspan="5" align="center"><b><?php echo gettext("Extra Charges");?></b></font></td>
+						<td colspan="5" align="center"><b><?php echo gettext("Extra Charges");?></b></font></td>
 					</tr>
 					<tr class="invoice_subheading">
-						<td  class="invoice_td" align="center"><?php echo gettext("DATE");?></td>
-						<td class="invoice_td" align="center"><?php echo gettext("NB CHARGE");?></td>
-						<td class="invoice_td" align="center"><?php echo gettext("TOTALCOST");?></td>
-				
-					</tr><?php  		
+						<td class="invoice_td" align="center" width="20%"><?php echo gettext("DATE");?></td>
+						<td class="invoice_td" align="center" width="60%"><?php echo gettext("DESCRIPTION");?></td>
+						<td class="invoice_td" align="right" width="20%"><?php echo gettext("TOTALCOST");?></td>
+					</tr>
+					<?php  		
 						$i=0;
 						foreach ($list_total_day_charge as $data){	
 						$i=($i+1)%2;		
 					?>
 					<tr class="invoice_rows">
-						<td align="center" class="invoice_td"><?php echo $data[0]?></td>
-						<td class="invoice_td" align="right"><?php echo $data[2]?></td>
-						<td  class="invoice_td" align="right"><?php echo convert_currency($currencies_list, $data[1], $data[3], BASE_CURRENCY)." ".BASE_CURRENCY ?></td>
-					                 	
-					</tr>	 
+						<td align="center" class="invoice_td"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0);?></td>
+						<td class="invoice_td" align="center"><?php echo $data[3]?></td>
+						<td  class="invoice_td" align="right"><?php echo number_format(convert_currency($currencies_list, $data[1], $data[2], $selected_currency),3)." ".$selected_currency ?></td>
+					</tr> 
 					<?php 
-						 }	 	 	
-					 ?>  
+						}	 	
+					?>
 					<tr>
 						<td class="invoice_td">&nbsp;</td>
 						<td class="invoice_td">&nbsp;</td>
 						<td class="invoice_td">&nbsp;</td>
-					</tr> 
+					</tr>
 					<tr class="invoice_subheading">
 						<td class="invoice_td"><?php echo gettext("TOTAL");?></td>
-						<td class="invoice_td" align="right"><?php echo $totalcharge?></td>
+						<td class="invoice_td" align="center"><?php echo gettext("NB CHARGE");?> : <?php echo $totalcharge?></td>
 						<td class="invoice_td" align="right"><?php  display_2bill($total_extra_charges)?></td>
 					</tr>
 				</table>
-					  
-				<?php  } ?>			
-				
+				<?php  } ?>
 		  </td>
-	  </tr>
-	  <?php 
-				$mmax=0;
-				$totalcall=0;
-				$totalminutes=0;
-				$totalcost=0;
-				if (is_array($list_total_destination) && count($list_total_destination)>0){
-				foreach ($list_total_destination as $data){	
-					if ($mmax < $data[1]) $mmax=$data[1];
-					$totalcall+=$data[3];
-					$totalminutes+=$data[1];
-					$totalcost+=$data[2];
-				}
-				
-				?>
-	  <tr>
-	  <td>&nbsp;</td>
-	  </tr>
-	  <tr>
-	  <td>	  
+	  	</tr>
+		<?php 
+			$mmax=0;
+			$totalcall=0;
+			$totalminutes=0;
+			$totalcost=0;
+			if (is_array($list_total_destination) && count($list_total_destination)>0){
+			foreach ($list_total_destination as $data){	
+				if ($mmax < $data[1]) $mmax=$data[1];
+				$totalcall+=$data[3];
+				$totalminutes+=$data[1];
+				$totalcost+=$data[2];
+			}
+			
+		?>
+		<tr>
+		<td>&nbsp;</td>
+		</tr>
+		<tr>
+		<td>
 	  		<table border="0" cellspacing="0" cellpadding="0" width="100%" align="center">
 			<tr>				
 				<td  align="center" colspan="5"><b><?php echo gettext("CALLS PER DESTINATION");?></b></td>
