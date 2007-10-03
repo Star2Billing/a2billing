@@ -39,16 +39,16 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 
-
+$HD_Form_c -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
 $HD_Form_c -> AddViewElement(gettext("CARDNUMBER"), "username", "12%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form_c -> AddViewElement(gettext("DATE"), "cc_charge.creationdate", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form_c -> AddViewElement(gettext("AMOUNT"), "amount", "10%", "center", "sort");
+$HD_Form_c -> AddViewElement(gettext("AMOUNT"), "amount", "7%", "center", "sort");
 $HD_Form_c -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 $HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "chargetype", "20%", "center", "sort", "30", "list", $chargetype_list);
-$HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "20%", "center", "SORT", "30");
+$HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "SORT", "40");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form_c -> FieldViewElement ('username, cc_charge.creationdate, amount, cc_charge.currency, chargetype, description');
+$HD_Form_c -> FieldViewElement ('id_cc_card, username, cc_charge.creationdate, amount, cc_charge.currency, chargetype, description');
 
 
 $HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form_c->FG_INSTANCE_NAME)." CREATED!");  
@@ -65,13 +65,13 @@ $HD_Form_c -> FG_DELETION = true;
 // TODO integrate in Framework 
 if ($form_action=='ask-add'){
 	$DBHandle_max  = DbConnect();
-	if ($username){
+	if ($username) {
 		$resmax = $DBHandle_max -> Execute("SELECT id FROM cc_card where username='$username'");
 		$numrow = 0;
 		if ($resmax) 
 			$numrow = $resmas -> RecordCount( );
-
-		if ($numrow!=0){
+		
+		if ($numrow!=0) {
 			$db_row [] = $resmax -> fetchRow();
 			$val_default = "value='".$db_row[0][0]."'";
 		}

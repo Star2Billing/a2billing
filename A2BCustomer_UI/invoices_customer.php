@@ -6,7 +6,7 @@ include ("lib/smarty.php");
 
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
-if (! has_rights (ACX_ACCESS)){ 
+if (! has_rights (ACX_ACCESS)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -40,9 +40,7 @@ if (($_GET[download]=="file") && $_GET[file] )
 	header("Content-transfer-encoding: binary");
 	
 	@readfile($dl_full);
-	
 	exit();
-
 }
 
 
@@ -59,15 +57,7 @@ $FG_TABLE_NAME="cc_call t1";
 
 $DBHandle  = DbConnect();
 
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-
-
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
-
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
@@ -79,12 +69,11 @@ if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($ent
 }
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-// ??? cardID
+
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-
 $FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
 if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
 	$FG_COL_QUERY.=', t1.username';
@@ -198,60 +187,51 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 }
 /************************************************************/
 
-$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge, t1.currency FROM cc_charge t1 ".
+/*
+$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge, t1.currency, t1.description FROM cc_charge t1 ".
 		 " WHERE id_cc_card='".$_SESSION["card_id"]."' AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL  THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
+*/
+$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, t1.amount AS cost, t1.currency, t1.currency, t1.description FROM cc_charge t1 ".
+		 " WHERE id_cc_card='".$_SESSION["card_id"]."' AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL  THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) ORDER BY day"; //extract(DAY from calldate)
 
-if (!$nodisplay)
-{
+if (!$nodisplay) {
 	$list_total_day_charge  = $instance_table->SQLExec ($DBHandle, $QUERY);
-}//end IF nodisplay
+}
 
 $QUERY = "Select CASE WHEN max(cover_enddate) is NULL  THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$info_customer[0][0];
 
-if (!$nodisplay)
-{
+if (!$nodisplay) {
 	$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			 
 }//end IF nodisplay
-if ($invoice_dates[0][0] == '0001-01-01 01:00:00')
-{
+if ($invoice_dates[0][0] == '0001-01-01 01:00:00') {
 	$invoice_dates[0][0] = $info_customer[0][14];
 }
 
-if ($choose_currency == "")
-{
+if ($choose_currency == "") {
 	$selected_currency = BASE_CURRENCY;
-}
-else
-{
+} else {
 	$selected_currency = $choose_currency;
 }
 if($exporttype!="pdf"){
 $currencies_list = get_currencies();
 $smarty->display( 'main.tpl');
-?>
 
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
 
-//-->
-</script>
-
-<?php  
-}else{
+} else {
    require('pdf-invoices/html2pdf/html2fpdf.php');
    ob_start();
 
-} ?>
-<?php  if($exporttype!="pdf"){ ?>
+}
+
+
+if($exporttype!="pdf"){
+
+?>
 <center>
 	<FORM METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
-		<table class="invoices_table1">
-			<tbody>		
+		<table class="invoices_table1">	
 			<tr>
 				<td class="bgcolor_004" align="left"><font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("OPTIONS");?></b></font> </td>
 				<td class="bgcolor_005" align="center">
@@ -303,8 +283,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				</center>
 				</td>
 			</tr>			
-		
-		</tbody></table>
+		</table>
 	</FORM>
 </center>
 
@@ -323,9 +302,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <table  class="invoice_main_table">
  <tr>
-        <td class="invoice_heading" ><?php echo gettext("Invoice Details"); ?></td>
+	<td class="invoice_heading" ><?php echo gettext("Invoice Details"); ?></td>
  </tr>
- 
  <tr>
         <td valign="top"><table width="60%" align="left" cellpadding="0" cellspacing="0">
             <tr>
@@ -370,27 +348,26 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<!-- FIN TITLE GLOBAL MINUTES //-->
 				<table border="0" cellspacing="0" cellpadding="0" width="100%" align="center">
 					<tr>	
-						 <td colspan="5" align="center"><b><?php echo gettext("Extra Charges");?></b></font></td>
+						<td colspan="3" align="center"><b><?php echo gettext("Extra Charges");?></b></font></td>
 					</tr>
 					<tr class="invoice_subheading">
-						<td  class="invoice_td" align="center"><?php echo gettext("DATE");?></td>
-						<td class="invoice_td" align="center"><?php echo gettext("NB CHARGE");?></td>
-						<td class="invoice_td" align="center"><?php echo gettext("TOTALCOST");?></td>
-				
-					</tr><?php  		
+						<td class="invoice_td" align="center" width="20%"><?php echo gettext("DATE");?></td>
+						<td class="invoice_td" align="center" width="60%"><?php echo gettext("DESCRIPTION");?></td>
+						<td class="invoice_td" align="right" width="20%"><?php echo gettext("TOTALCOST");?></td>
+					</tr>
+					<?php
 						$i=0;
-						foreach ($list_total_day_charge as $data){	
+						foreach ($list_total_day_charge as $data) {	
 						$i=($i+1)%2;		
 					?>
 					<tr class="invoice_rows">
 						<td align="center" class="invoice_td"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0);?></td>
-						<td class="invoice_td" align="right"><?php echo $data[2]?></td>
+						<td class="invoice_td" align="center"><?php echo $data[4]?></td>
 						<td  class="invoice_td" align="right"><?php echo number_format(convert_currency($currencies_list, $data[1], $data[3], $selected_currency),3)." ".$selected_currency ?></td>
-					                 	
 					</tr>	 
 					<?php 
-						 }	 	 	
-					 ?>  
+						}	 	 	
+					?>  
 					<tr>
 						<td class="invoice_td">&nbsp;</td>
 						<td class="invoice_td">&nbsp;</td>
@@ -398,7 +375,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</tr> 
 					<tr class="invoice_subheading">
 						<td class="invoice_td"><?php echo gettext("TOTAL");?></td>
-						<td class="invoice_td" align="right"><?php echo $totalcharge?></td>
+						<td class="invoice_td" align="center"><?php echo gettext("NB CHARGE");?> : <?php echo $totalcharge?></td>
 						<td class="invoice_td" align="right"><?php  display_2bill($total_extra_charges)?></td>
 					</tr>
 				</table>
