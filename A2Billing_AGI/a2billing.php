@@ -24,7 +24,7 @@ if (function_exists('pcntl_signal')) {
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 	
-include_once (dirname(__FILE__)."/libs_a2billing/db_php_lib/Class.Table.php");
+include_once (dirname(__FILE__)."/libs_a2billing/Class.Table.php");
 include (dirname(__FILE__)."/libs_a2billing/Class.A2Billing.php");
 include (dirname(__FILE__)."/libs_a2billing/Class.RateEngine.php");   
 include (dirname(__FILE__)."/libs_a2billing/phpagi_2_14/phpagi.php");

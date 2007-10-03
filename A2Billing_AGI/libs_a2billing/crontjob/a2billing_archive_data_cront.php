@@ -23,7 +23,7 @@
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-include_once (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
+include_once (dirname(__FILE__)."/../Class.Table.php");
 include (dirname(__FILE__)."/../Class.A2Billing.php");
 
 write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[#### ARCHIVING DATA BEGIN ####]");
