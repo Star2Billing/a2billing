@@ -588,7 +588,9 @@ class A2Billing {
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES Menu Language DTMF : ".$res_dtmf ["result"]);
 			
 			$this -> languageselected = $res_dtmf ["result"];
-			if ($this->languageselected=="2") {
+			if ($this->languageselected=="1") {
+				$language = 'en';
+			} elseif 	($this->languageselected=="2") {
 				$language = 'es';
 			} elseif 	($this->languageselected=="3") {
 				$language = 'fr';
