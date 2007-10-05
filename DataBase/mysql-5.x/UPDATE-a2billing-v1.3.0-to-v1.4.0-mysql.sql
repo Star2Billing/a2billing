@@ -710,7 +710,7 @@ CREATE TABLE cc_card_archive (
 	template_invoice 				text collate utf8_bin,
 	template_outstanding			text collate utf8_bin,
 	mac_addr						CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
