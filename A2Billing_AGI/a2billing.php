@@ -253,7 +253,7 @@ if ($mode == 'standard'){
 			
 						$A2B -> destination = $A2B->dnid;
 						
-					}else{
+					} elseif ($i == 0) {
 	
 						$prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
 						$res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
