@@ -652,8 +652,7 @@ ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );
 
 -- Areski ** Mark update
 
-ALTER TABLE cc_charge DROP COLUMN userpass;
-
+ALTER TABLE cc_card DROP COLUMN userpass;
 
 CREATE TABLE cc_card_archive (
 	id 								BIGINT NOT NULL,
@@ -664,7 +663,6 @@ CREATE TABLE cc_card_archive (
 	expiredays 						INT DEFAULT 0,
 	username 						CHAR(50) NOT NULL,
 	useralias 						CHAR(50) NOT NULL,
-	userpass 						CHAR(50) NOT NULL,
 	uipass 							CHAR(50),
 	credit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,
 	tariff 							INT DEFAULT 0,

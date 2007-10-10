@@ -4,6 +4,13 @@
 
 
 
+#### TODO : function do_field
+********************************************************************
+function do_field($sql,$fld,$dbfld){
+
+This function is defined in many places, need to create in misc.php
+and remove it from other page where it s used (mainly in report section)
+
 
 #### TODO : Detach Selling ratecard from Buying ratecard - DEPRECIATED 
 ********************************************************************

@@ -1,3 +1,4 @@
+
 *******************************************************************************
                    			TODO LIST - SPECIFIC
 ********************************************************************************
@@ -6,7 +7,8 @@
 
 #### RATECARD : SIMULATOR
 ********************************************************************
-test the ratecard simulator 
+test the ratecard simulator - I tested it seems to work
+
 
 
 #### TODO : RATECARD MERGING TOOL
@@ -22,20 +24,12 @@ This tool should help us create new ratecard and importing some data from an oth
 
 # Select the ratecard u want to merge together
 R1 <<-->> R2
-Define search criteria if only some need to be update !!!
+Define search criteria if only some rates (not all) have to be updated !!!
 Define the fields that will be update : Destination name, minimum duration, billing increment, selling rate
 
 use as key-update the Prefix (ie, 32472)
 ** UPDATE on R1 (fields) WHERE R1.prefix = R2.prefix
 
-
-
-#### TODO : function do_field
-********************************************************************
-function do_field($sql,$fld,$dbfld){
-
-This function is defined in many places, need to create in misc.php
-and remove it from other page where it s used (mainly in report section)
 
 
 #### TODO : ARCHIVE CDRs & Cards
@@ -55,6 +49,16 @@ Maybe a web interface similar at the massmail Archive, with 2 options for custom
 so we should be able to make a selection of the USER and move them to the archive table
 same for the CDR cc_call
 
+
+%%% I guess we didnt understand the goal of archiving, it dont have to be a archiving one by one!
+Once the selection is made we should be able to archive the whole selection by a single click.
+Once it s archived the record may dissapear from the cc_card or cc_call table
+
+
+#### TODO : MENU TOP
+********************************************************************
+The menu is getting really too long, we may try to find a way to reduce huge page we produce each time.
+an other design with an horizontal bar may do the trick and again hidded menu!
 
 
 %%%% DEPRECIATE FOR NOW 
@@ -86,8 +90,6 @@ I am puting all the a2customer and a2billing in correct portuguese grammar and i
 I need to know the file or where I can change the status of the call from english to portuguese?
 Explaining: When a customer log in in the a2customer control panel and click in historic call the customer see 
 the status of the call, if was CANCEL, ANSWERED, CONGESTION... 
-ewrtwet
-
 
 
 #### UPDATE : MAIL TEMPLATE TAG HTML - Add a plaintext versions
@@ -260,9 +262,9 @@ Maybe the account should be setup in the Base currency by default ?
 1. Voice over ring tone.
 how to simulate:  Set up multiaccess on the user account,  answer=no (in a2billing.conf). 
 sometimes u can hear (durring the other party phone rings) a voice with "and then pres pound key" over the ring tone.
- 
+
 2. Can not call users alias with 9+alias  , again answer=no in a2billing.conf
- 
+
 3. Soft Phone dont work.
 
 

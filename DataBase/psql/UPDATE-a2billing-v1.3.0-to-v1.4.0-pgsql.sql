@@ -725,7 +725,7 @@ CREATE INDEX cc_call_calledstation_ind ON cc_call_archive USING btree (calledsta
 
 
 
-ALTER TABLE cc_charge DROP COLUMN userpass;
+ALTER TABLE cc_card DROP COLUMN userpass;
 
 
 CREATE TABLE cc_card_archive (
@@ -737,7 +737,6 @@ CREATE TABLE cc_card_archive (
 	expiredays 							INTEGER DEFAULT 0,
 	username 							TEXT NOT NULL,
 	useralias 							TEXT NOT NULL,
-	userpass 							TEXT NOT NULL,
 	uipass 								TEXT ,
 	credit 								NUMERIC(12,4) NOT NULL,
 	tariff 								INTEGER DEFAULT 0,

@@ -702,8 +702,8 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 3. Third will get all the columns (but first should be joining column)
 			   // 4. Fourth param generates the where cluase
 			   // 5. Last, Sixth param is the FK column  
-			   
-			   
+
+
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, '.
 'callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
@@ -714,12 +714,9 @@ $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, ta
 
 if(!isset($myusername)) $myusername='';
 
-if (DB_TYPE == "postgres"){
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "userpass";
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$myusername'";
-}else{
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "userpass ,creationdate ";
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$myusername',now() ";
+if (DB_TYPE != "postgres") {
+	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
+	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "now() ";
 }
 
 $HD_Form -> FG_FILTER_APPLY = true;
