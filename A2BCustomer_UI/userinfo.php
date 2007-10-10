@@ -11,22 +11,19 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 
-$DBHandle_max  = DbConnect();
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
-
-$numrow = 0;	
+$DBHandle_max = DbConnect();
+$numrow = 0;
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax)
 	$numrow = $resmax -> RecordCount();
 
 if ($numrow == 0) exit();
-
-
 $customer_info =$resmax -> fetchRow();
 
-if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
-	 exit();
+if($customer_info [14] != "1" ) {
+	exit();
 }
 
 $customer = $_SESSION["pr_login"];

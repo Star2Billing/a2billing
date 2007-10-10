@@ -5,33 +5,32 @@ include ("lib/Class.RateEngine.php");
 include ("lib/smarty.php");
 
 if (! has_rights (ACX_ACCESS)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 if (!$A2B->config["webcustomerui"]['simulator']) exit;
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, id,tariff FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, id, tariff FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
-//echo $QUERY."<br>";
-$DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> Execute($QUERY);
+$DBHandle_max = DbConnect();
 $numrow = 0;
-if ($resmax)	
+$resmax = $DBHandle_max -> Execute($QUERY);
+if ($resmax)
 	$numrow = $resmax -> RecordCount();
 
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
-if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
-			 exit();
-	}
+if($customer_info [14] != "1" ) {
+	exit();
+}
 
 
 getpost_ifset(array('posted', 'tariffplan', 'balance', 'id_cc_card', 'called'));
-$id_cc_card = $customer_info[14];
-$tariffplan = $customer_info[15];
+$id_cc_card = $customer_info[15];
+$tariffplan = $customer_info[16];
 $balance = $customer_info[1];
 
 $FG_DEBUG = 0;
@@ -51,7 +50,7 @@ if ($called  && $id_cc_card){
 				$instance_table = new Table();
 				$A2B -> set_instance_table ($instance_table);
 				$num = 0;				
-				$resmax = $A2B -> DBHandle -> Execute("SELECT username, tariff FROM cc_card where id='$customer_info[14]'");
+				$resmax = $A2B -> DBHandle -> Execute("SELECT username, tariff FROM cc_card where id='$customer_info[15]'");
 				if ($resmax) 
 					$num = $resmax -> RecordCount();
 

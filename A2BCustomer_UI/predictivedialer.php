@@ -22,72 +22,66 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, callback FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, callback FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
-$DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> Execute($QUERY);
+$DBHandle_max = DbConnect();
 $numrow = 0;
-if ($resmax)	
+$resmax = $DBHandle_max -> Execute($QUERY);
+if ($resmax)
 	$numrow = $resmax -> RecordCount();
 
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
-if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
-	 exit();
+if($customer_info [14] != "1" ) {
+	exit();
 }
 
 
-if ($callback){
-		//$called='0013256474747';
-		if (strlen($called)>2){
-				$A2B -> cardnumber = $_SESSION["pr_login"];
-				
-			
-					
-							$dialstr = $called;
-				
-							$as = new AGI_AsteriskManager();
-							
-							// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
-							
-							$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);
-								
-							
-							if	($res){						
-									
-								$channel= $dialstr;
-								$exten = $calling;
-								$context = $A2B -> config["callback"]['context_preditctivedialer'];
-								$priority = 1;
-								$timeout = $A2B -> config["callback"]['timeout']*1000;
-								$application='';
-								$callerid=$A2B -> config["callback"]['callerid'];
-								$account=$_SESSION["pr_login"];
 
-								$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
-								if($res["Response"]=='Error'){
-										$error_msg = "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>".gettext("Error : The system cannot call you back, please inform the administrator")."  !!!</b></font><br>";
-								}
-								
-								
-								
-								// && DISCONNECTING	
-								$as->disconnect();
-										
-							
-							}else{
-									$error_msg= gettext("Cannot connect to the asterisk manager!")."<br>".gettext("Please check the manager configuration...");
-								
-							}
-						
-							
-					
+if ($callback){
+	//$called='0013256474747';
+	if (strlen($called)>2){
+			$A2B -> cardnumber = $_SESSION["pr_login"];
+			
+			$dialstr = $called;
+			
+			$as = new AGI_AsteriskManager();
+			
+			// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
+			
+			$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);
+			if	($res){
 				
-		}else{
-			$error_msg = "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>".gettext("Error : You have to specify your phonenumber and the number you wish to call")." !!!</b></font><br>";
-		
-		}
+				$channel= $dialstr;
+				$exten = $calling;
+				$context = $A2B -> config["callback"]['context_preditctivedialer'];
+				$priority = 1;
+				$timeout = $A2B -> config["callback"]['timeout']*1000;
+				$application='';
+				$callerid=$A2B -> config["callback"]['callerid'];
+				$account=$_SESSION["pr_login"];
+
+				$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
+				if($res["Response"]=='Error'){
+						$error_msg = "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>".gettext("Error : The system cannot call you back, please inform the administrator")."  !!!</b></font><br>";
+				}
+				
+				
+				
+				// && DISCONNECTING	
+				$as->disconnect();
+						
+			
+			}else{
+					$error_msg= gettext("Cannot connect to the asterisk manager!")."<br>".gettext("Please check the manager configuration...");
+				
+			}
+			
+	}else{
+		$error_msg = "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>".gettext("Error : You have to specify your phonenumber and the number you wish to call")." !!!</b></font><br>";
+	
+	}
 }
 
 $customer = $_SESSION["pr_login"];
@@ -156,7 +150,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<br/>
 				<?php echo gettext("Your PhoneNumber / Location");?> :
 				
-				<input class="form_input_text" name="called" value="<?php echo $customer_info [14]; ?>" size="30" maxlength="40" readonly="readonly" >
+				<input class="form_input_text" name="called" value="<?php echo $customer_info[15]; ?>" size="30" maxlength="40" readonly="readonly" >
 				<br/><br/>
 			</td>	
 			<td align="center" valign="middle"> 

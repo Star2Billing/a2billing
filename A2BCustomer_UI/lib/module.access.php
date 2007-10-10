@@ -9,7 +9,7 @@ If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(
 
 
 */
-$FG_DEBUG = 0;
+$FG_DEBUG = 1;
 error_reporting(E_ALL & ~E_NOTICE);
 
 // Zone strings
