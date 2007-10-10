@@ -43,8 +43,8 @@ $HD_Form -> AddEditElement (gettext("SERVER HOSTNAME"),
 			   '$value',	
 			   "INPUT",	
 			   "size=30 maxlength=40",	
-			   "3",	
-			   "Insert the server_ip", 
+			   "3",
+			   gettext("Insert the server hostname"),
 			   "" , "", "",	"", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("MANAGER HOST"),	
@@ -52,8 +52,8 @@ $HD_Form -> AddEditElement (gettext("MANAGER HOST"),
 			   '$value',	
 			   "INPUT",	
 			   "size=30 maxlength=40",	
-			   "3",	
-			   "Insert the server_ip", 
+			   "9",
+			   gettext("Insert the manager host"),
 			   "" , "", "",	"", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("MANAGER USERNAME"),
@@ -61,8 +61,8 @@ $HD_Form -> AddEditElement (gettext("MANAGER USERNAME"),
 			   '$value',	
 			   "INPUT",	
 			   "size=30 maxlength=40",	
-			   "3",	
-			   "Insert the server_ip", 
+			   "9",	
+			   gettext("Insert the manager username"),
 			   "" , "", "",	"", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("MANAGER SECRET"),
@@ -70,8 +70,8 @@ $HD_Form -> AddEditElement (gettext("MANAGER SECRET"),
 			   '$value',	
 			   "INPUT",	
 			   "size=30 maxlength=40",	
-			   "3",	
-			   "Insert the server_ip", 
+			   "",	
+			   gettext("Insert the manager secret"),
 			   "" , "", "",	"", "" , "", "", "");
 
 $HD_Form -> FieldEditElement ('id_group, server_ip, manager_host, manager_username, manager_secret');

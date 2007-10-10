@@ -877,7 +877,7 @@ $CC_help_server='<div class="toggle_show2hide">
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("Server are used by the callback system through the asterisk manager in order to initiate the callback and outbound a call to your customers. You can add/modify the callback server here that are going to be use here. The AGI and callback mode need to be install on those machine.").'
-<br/>
+<br/><br/><br/>
 </div></div></div>
 </div></div>
 ';
