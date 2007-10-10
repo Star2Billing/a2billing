@@ -759,10 +759,9 @@ function get_db_languages($handle = null)
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
-	$QUERY =  "SELECT code,name from cc_iso639 order by code";
+	$QUERY =  "SELECT code, name from cc_iso639 order by code";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 	
-
 	return $result;
 }
 

@@ -10,17 +10,6 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
 
-// TODO Unify order of parameters
-$language_list = array();
-$language_list["0"] = array( "ENGLISH", "en");
-$language_list["1"] = array( "SPANISH", "es");
-$language_list["2"] = array( "FRENCH",  "fr");
-
-$language_list_r = array();
-$language_list_r["0"] = array("en", "ENGLISH");
-$language_list_r["1"] = array("es", "SPANISH");
-$language_list_r["2"] = array("fr", "FRENCH");
-
 $callPlan_idlist = isset($A2B->config["signup"]['callplan_id_list'])?$A2B->config["signup"]['callplan_id_list']:null; 
 if(strlen($callPlan_idlist) == 0)
 {
@@ -88,18 +77,20 @@ if (isset($form_action) && $form_action=="add") {
 $languages_db_list = get_db_languages();  
 
 foreach($languages_db_list as $key => $cur_value) {
-	if(in_array('en', $cur_value)){
-		$lang_list[$key]  = array( $cur_value[1], $key." selected");
-	}else{
-		$lang_list[$key]  = array( $cur_value[1], $key);
+	if (in_array('en', $cur_value)) {
+		$lang_list[$key]  = array( $cur_value[1], $cur_value[0]);
+	} else {
+		$lang_list[$key]  = array( $cur_value[1], $cur_value[0]);
 	}
 }
+
 $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "language",
 			   "",
 			   "SELECT",
 			   "","","",
 			   "list" , "", "",	"", $lang_list, "%1", "", "" );
+
 $HD_Form -> AddEditElement ("CURRENCY",
 			   "currency",
 			   "",
