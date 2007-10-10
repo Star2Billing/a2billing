@@ -3,15 +3,14 @@ include ("lib/defines.php");
 include ("lib/module.access.php");
 include ("lib/smarty.php");
 
-if (! has_rights (ACX_ACCESS)){ 
+
+if (! has_rights (ACX_ACCESS)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
 }
 
-
 if (!$A2B->config["webcustomerui"]['cdr']) exit();
-
 
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
@@ -72,7 +71,7 @@ $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT
 $FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecause", "9%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
-$FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
+$FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 

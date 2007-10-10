@@ -263,87 +263,88 @@ $nb_tariff = count($list_tariff);
 		<option class="input" value="5000"><?php echo gettext("5000 Cards");?></option>
 	</select>
 	<br/>
-			
+		
 		<strong>3)</strong> 
-			<select NAME="choose_tariff" size="1" class="form_input_select" >
-				<option value=''><?php echo gettext("Choose a Tariff");?></option>
-			
-			<?php					 
-			 foreach ($list_tariff as $recordset){ 						 
+		<select NAME="choose_tariff" size="1" class="form_input_select" >
+			<option value=''><?php echo gettext("Choose a Tariff");?></option>
+		
+		<?php					 
+		 foreach ($list_tariff as $recordset){ 						 
+		?>
+			<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>                        
+		<?php 	 }
 			?>
-				<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>                        
-			<?php 	 }
-				?>
-			</select>
-			<br/>
-			
-			<strong>4)</strong> 
-			<?php echo gettext("Initial amount of credit");?> : 	<input class="form_input_text" name="addcredit" size="10" maxlength="10" >
-			<?php echo strtoupper(BASE_CURRENCY) ?>
-			<br/>
-			
-			<strong>5)</strong> 
-			<?php echo gettext("Simultaneous access");?> : 
-			<select NAME="choose_simultaccess" size="1" class="form_input_select" >
-				<option value='0' selected><?php echo gettext("INDIVIDUAL ACCESS");?></option>
-				<option value='1'><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
-			   </select>
-			<br/>
-			
-			<strong>6)</strong> 
-			<?php echo gettext("Currency");?> :
-			<select NAME="choose_currency" size="1" class="form_input_select" >
-			<?php 
-				foreach($currencies_list as $key => $cur_value) {											
-			?>
-				<option value='<?php echo $key ?>'><?php echo $cur_value[1].' ('.$cur_value[2].')' ?></option>
-			<?php } ?>			
-			</select>
-			<br/>
-			<strong>7)</strong>
-			<?php echo gettext("Card type");?> :
-			<select NAME="choose_typepaid" size="1" class="form_input_select" >
-				<option value='0' selected><?php echo gettext("PREPAID CARD");?></option>
-				<option value='1'><?php echo gettext("POSTPAY CARD");?></option>
-			   </select>
-			<br/>
-			<strong>8)</strong>
-			<?php echo gettext("Credit Limit of postpay");?> : <input class="form_input_text" name="creditlimit" size="10" maxlength="16" >
-			<br/>
-			<strong>9)</strong>
-		   <?php echo gettext("Enable expire");?>&nbsp;: <select name="enableexpire" class="form_input_select" >
-							<option value="0" selected="selected">
-											   <?php echo gettext("NO EXPIRATION");?>                            </option><option value="1">
-												 <?php echo gettext("EXPIRE DATE");?>                          </option><option value="2">
-												<?php echo gettext("EXPIRE DAYS SINCE FIRST USE");?>                           </option><option value="3">
-												<?php echo gettext("EXPIRE DAYS SINCE CREATION");?>                           </option></select>
-			<br/>
-			<?php 
-				$begin_date = date("Y");
-				$begin_date_plus = date("Y")+10;	
-				$end_date = date("-m-d H:i:s");
-				$comp_date = "value='".$begin_date.$end_date."'";
-				$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
-			?>
-			<strong>10)</strong>
-			<?php echo gettext("Expiry Date");?>&nbsp;: <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
-			<br/>
-			<strong>11)</strong>
-		   <?php echo gettext("Expiry days");?>&nbsp;: <input class="form_input_text"  name="expiredays" size="10" maxlength="6" value="0">
-			<br/>
-			<strong>12)</strong>
-			<?php echo gettext("Run service");?>&nbsp; : 
-			<?php echo gettext("Yes");?> <input name="runservice" value="1" type="radio"> - <?php echo gettext("No");?> <input name="runservice" value="0" checked="checked"  type="radio">
-			<br/>
-			<strong>13)</strong>
-		   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: <?php echo gettext("SIP")?> <input type="checkbox" name="sip" value="1" checked> <?php echo gettext("IAX")?> : <input type="checkbox" name="iax" value="1" checked>
-			<br/>
-			<strong>14)</strong>
-			<?php echo gettext("Tag");?> : <input class="form_input_text"  name="tag" size="40" maxlength="40" > 
-			
+		</select>
+		<br/>
+		
+		<strong>4)</strong> 
+		<?php echo gettext("Initial amount of credit");?> : 	<input class="form_input_text" name="addcredit" size="10" maxlength="10" >
+		<?php echo strtoupper(BASE_CURRENCY) ?>
+		<br/>
+		
+		<strong>5)</strong> 
+		<?php echo gettext("Simultaneous access");?> : 
+		<select NAME="choose_simultaccess" size="1" class="form_input_select" >
+			<option value='0' selected><?php echo gettext("INDIVIDUAL ACCESS");?></option>
+			<option value='1'><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
+		   </select>
+		<br/>
+		
+		<strong>6)</strong> 
+		<?php echo gettext("Currency");?> :
+		<select NAME="choose_currency" size="1" class="form_input_select" >
+		<?php 
+			foreach($currencies_list as $key => $cur_value) {											
+		?>
+			<option value='<?php echo $key ?>'><?php echo $cur_value[1].' ('.$cur_value[2].')' ?></option>
+		<?php } ?>			
+		</select>
+		<br/>
+		<strong>7)</strong>
+		<?php echo gettext("Card type");?> :
+		<select NAME="choose_typepaid" size="1" class="form_input_select" >
+			<option value='0' selected><?php echo gettext("PREPAID CARD");?></option>
+			<option value='1'><?php echo gettext("POSTPAY CARD");?></option>
+		   </select>
+		<br/>
+		<strong>8)</strong>
+		<?php echo gettext("Credit Limit of postpay");?> : <input class="form_input_text" name="creditlimit" size="10" maxlength="16" >
+		<br/>
+		<strong>9)</strong>
+	   	<?php echo gettext("Enable expire");?>&nbsp;: 
+		<select name="enableexpire" class="form_input_select" >
+			<option value="0" selected="selected"> <?php echo gettext("NO EXPIRATION");?> </option>
+			<option value="1"> <?php echo gettext("EXPIRE DATE");?> </option>
+			<option value="2"> <?php echo gettext("EXPIRE DAYS SINCE FIRST USE");?> </option>
+			<option value="3"> <?php echo gettext("EXPIRE DAYS SINCE CREATION");?> </option>
+		</select>
+		<br/>
+		<?php 
+			$begin_date = date("Y");
+			$begin_date_plus = date("Y")+10;	
+			$end_date = date("-m-d H:i:s");
+			$comp_date = "value='".$begin_date.$end_date."'";
+			$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
+		?>
+		<strong>10)</strong>
+		<?php echo gettext("Expiry Date");?>&nbsp;: <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
+		<br/>
+		<strong>11)</strong>
+	   <?php echo gettext("Expiry days");?>&nbsp;: <input class="form_input_text"  name="expiredays" size="10" maxlength="6" value="0">
+		<br/>
+		<strong>12)</strong>
+		<?php echo gettext("Run service");?>&nbsp; : 
+		<?php echo gettext("Yes");?> <input name="runservice" value="1" type="radio"> - <?php echo gettext("No");?> <input name="runservice" value="0" checked="checked"  type="radio">
+		<br/>
+		<strong>13)</strong>
+	   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: <?php echo gettext("SIP")?> <input type="checkbox" name="sip" value="1" checked> <?php echo gettext("IAX")?> : <input type="checkbox" name="iax" value="1" checked>
+		<br/>
+		<strong>14)</strong>
+		<?php echo gettext("Tag");?> : <input class="form_input_text"  name="tag" size="40" maxlength="40" > 
+		
 	</td>	
 	<td align="left" valign="bottom"> 
-			<input class="form_input_button"  value=" GENERATE CARDS " type="submit"> 
+		<input class="form_input_button"  value=" GENERATE CARDS " type="submit"> 
 	</td>
 	</form>
 </tr>

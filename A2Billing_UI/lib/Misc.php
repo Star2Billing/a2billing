@@ -43,11 +43,12 @@ function get_currencies($handle = null)
 * @param $from_cur Source Currency
 * @param $to_cur Destination Currecny
 */
-function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
-	if (!is_numeric($amount) || ($amount == 0)){
+function convert_currency ($currencies_list, $amount, $from_cur, $to_cur)
+{
+	if (!is_numeric($amount) || ($amount == 0)) {
 		return 0;
 	}
-	if ($from_cur == $to_cur){
+	if ($from_cur == $to_cur) {
 		return $amount;
 	}
 	// EUR -> 1.19175 : MAD -> 0.10897		
@@ -64,7 +65,8 @@ function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
 /* 
  * sort_currencies_list
  */
-function sort_currencies_list(&$currencies_list){
+function sort_currencies_list(&$currencies_list)
+{
 	$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
 	foreach ($first_array as $element_first_array){
 		if (isset($currencies_list[$element_first_array])){	
@@ -79,7 +81,8 @@ function sort_currencies_list(&$currencies_list){
 /* 
  * Write log into file 
  */
-function write_log($logfile, $output){
+function write_log($logfile, $output)
+{
 	if (strlen($logfile) > 1){
 		$string_log = "[".date("d/m/Y H:i:s")."]:[$output]\n";
 		error_log ($string_log."\n", 3, $logfile);
@@ -90,9 +93,9 @@ function write_log($logfile, $output){
 /*
  * function sanitize_data
  */
-function sanitize_data($data){
+function sanitize_data($data)
+{
 	$lowerdata = strtolower ($data);
-	//echo "----> $data ";
 	$data = str_replace('--', '', $data);	
 	$data = str_replace("'", '', $data);
 	$data = str_replace('=', '', $data);
@@ -101,7 +104,6 @@ function sanitize_data($data){
 	//$lowerdata = str_replace(' or ', '', $data);
 	if (!(strpos($lowerdata, ' or ')===FALSE)){ return false;}
 	if (!(strpos($lowerdata, 'table')===FALSE)){ return false;}
-	//echo "----> $data<br>";
 	return $data;
 }
 
