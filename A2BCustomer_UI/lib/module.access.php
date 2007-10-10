@@ -9,16 +9,13 @@ If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(
 
 
 */
-$FG_DEBUG = 1;
+$FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
-// Zone strings
 define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
-
 define ("ACX_ACCESS",					1);
-
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
@@ -34,7 +31,8 @@ if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	die();
 }
 	
-function access_sanitize_data($data){
+function access_sanitize_data($data)
+{
 	$lowerdata = strtolower ($data);
 	$data = str_replace('--', '', $data);	
 	$data = str_replace("'", '', $data);
@@ -50,10 +48,9 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 
 	if ($FG_DEBUG == 1) echo "<br>0. HERE WE ARE";
 
-	if ($_POST["done"]=="submit_log"){
+	if ($_POST["done"]=="submit_log") {
 		
 		$DBHandle  = DbConnect();
-		
 		if ($FG_DEBUG == 1) echo "<br>1. ".$_POST["pr_login"].$_POST["pr_password"];
 		$_POST["pr_login"] = access_sanitize_data($_POST["pr_login"]);
 		$_POST["pr_password"] = access_sanitize_data($_POST["pr_password"]);
@@ -62,23 +59,17 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		if ($FG_DEBUG == 1) print_r($return);
 		if ($FG_DEBUG == 1) echo "==>".$return[1];
 		
-		if (!is_array($return))
-        {		
+		if (!is_array($return)) {		
 			sleep(2);
 			header ("HTTP/1.0 401 Unauthorized");
             if(is_int($return))
             {
-                if($return == -1)
-                {
+                if($return == -1) {
 			        Header ("Location: index.php?error=3");
-                }
-                else
-                {
+                } else {
                     Header ("Location: index.php?error=2");
                 }
-            }
-            else
-            {
+            } else {
                 Header ("Location: index.php?error=1");
             }
 			die();
@@ -86,7 +77,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		
 		$cus_rights = 1;
 		
-		if ($_POST["pr_login"]){
+		if ($_POST["pr_login"]) {
 			$pr_login = $return[0]; //$_POST["pr_login"];
 			$pr_password = $_POST["pr_password"];
 			
@@ -101,16 +92,16 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["gmtoffset"]=$return[8];
 		}
 		
-	}else{
+	} else {
 		$_SESSION["cus_rights"]=0;
 	}
-
 }
 
 
 // Functions
 
-function login ($user, $pass) {
+function login ($user, $pass)
+{
 	global $DBHandle;
 	$user = trim($user);
 	$pass = trim($pass);
@@ -139,8 +130,7 @@ function login ($user, $pass) {
 
 
 
-function has_rights ($condition) {
+function has_rights ($condition)
+{
 	return ($_SESSION['cus_rights'] & $condition);
 }
-
-?>
