@@ -21,7 +21,7 @@ Define search criteria if only some rates (not all) have to be updated !!!
 Define the fields that will be update : Destination name, minimum duration, billing increment, selling rate
 
 use as key-update the Prefix (ie, 32472)
-** UPDATE on R1 (fields) WHERE R1.prefix = R2.prefix
+** UPDATE on R1 (fields) WHERE R1.prefix = R2.prefix AND R1.starttime = R2.starttime AND R1.endtime = R2.endtime 
 
 
 
