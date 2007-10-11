@@ -1,6 +1,7 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
+include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/smarty.php");
 
 set_time_limit(0);
@@ -11,82 +12,108 @@ if (! has_rights (ACX_RATECARD)) {
 	die();
 }
 
-$FG_DEBUG = 0;
+$HD_Form = new FormHandler();
+$HD_Form -> setDBHandler (DbConnect());
+$HD_Form -> init();
+$HD_Form -> FG_DEBUG = 0;
+$HD_Form -> FG_TABLE_ID="id";
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
-$DBHandle  = DbConnect();
+getpost_ifset(array('posted' ,'ratecard_source' ,'ratecard_destination', 'search_sources'));
+if($posted == 1){
+
 $instance_table = new Table();
 $bool = false;
-getpost_ifset(array('posted','tariffplan','trunk', 'search_sources','enterratecard'));
-if($posted == 1){
 	
-	if (!is_numeric($enterratecard)){ 
-		$msg = gettext("No ratecard defined !");
-		$bool = true; 
-	}
-	
-	$tariffplanval= split('-:-', $tariffplan);
-	if (!is_numeric($tariffplanval[0])){ 
+	$ratecard_src_val = $ratecard_source;
+	if (!is_numeric($ratecard_src_val)){ 
 		if($bool) $msg .= "<br>";
 		$bool = true; 
-		$msg .= gettext("No tariffplan defined !"); 
+		$msg .= gettext("No Source ratecard selected !"); 
 	}
 	
-	$trunkval= split('-:-', $trunk);
-	if (!is_numeric($trunkval[0])){ 
+	$ratecard_des_val = $ratecard_destination;
+	if (!is_numeric($ratecard_des_val)){ 
 		if($bool) $msg .= "<br>";
 		$bool = true; 
-		$msg .= gettext("No Trunk defined !"); 
+		$msg .= gettext("No Destination ratecard selected !"); 
 	}
-	
-	if ($search_sources!='nochange'){
-		//echo "<br>---$search_sources";
+
+	if ($ratecard_des_val == $ratecard_src_val){ 
+		if($bool) $msg .= "<br>";
+		$bool = true; 
+		$msg .= gettext("Source Ratecard Should be different from Destination ratecard!"); 
+	}
+
+
+	if ($search_sources != 'nochange'){
 		$fieldtomerge= split("\t", $search_sources);
 		$fieldtomerge_sql = str_replace("\t", ", ", $search_sources);
 		$fieldtomerge_sql = trim ($fieldtomerge_sql);
 		if (strlen($fieldtomerge_sql)>0) $fieldtomerge_sql = ', '.$fieldtomerge_sql;
 	}
 	
-	$fields = "idtariffplan, id_trunk, dialprefix, destination, rateinitial";
-	$fields .= $fieldtomerge_sql;
-	$value = "SELECT $fields FROM cc_ratecard where id = $enterratecard";
-	$func_fields = $fields;
-	$func_table = 'cc_ratecard';
-	$id_name = "";
-	$subquery = true;
-	$result = $instance_table -> Add_table ($DBHandle, $value, $func_fields, $func_table, $id_name,$subquery);
-	if($result == 1){
-		if($bool) $msg .= "<br>";
-		$bool = true; 
-		$msg .= "Ratecard is successfully merged.";
+	if(!$bool){
+		$fields = "$ratecard_des_val, id_trunk, dialprefix, destination, rateinitial";
+		$fields .= $fieldtomerge_sql; 
+		
+		$fun_fields = "idtariffplan, id_trunk, dialprefix, destination, rateinitial";
+		$fun_fields .= $fieldtomerge_sql;
+		
+		$condition_del = "idtariffplan = $ratecard_des_val";
+		if(!empty($_SESSION['search_ratecard'])){
+			$condition_del .= " AND ".$_SESSION['search_ratecard'];
+		}
+		
+		$condition_insert = "idtariffplan = $ratecard_src_val";
+		if(!empty($_SESSION['search_ratecard'])){
+			$condition_insert .= " AND ".$_SESSION['search_ratecard'];
+		}
+
+		$fun_table = "cc_ratecard";
+		$result = $instance_table -> Delete_table ($HD_Form -> DBHandle, $condition_del, $fun_table);
+		
+		
+		$value = "SELECT $fields FROM cc_ratecard where $condition_insert";
+		$func_fields = $fun_fields;
+		$func_table = 'cc_ratecard';
+		$id_name = "";
+		$subquery = true;
+		$result = $instance_table -> Add_table ($HD_Form -> DBHandle, $value, $func_fields, $func_table, $id_name,$subquery);
+		if($result == 1){
+			$msg = "Ratecard is successfully merged.";
+		}else{
+			$msg = "Merge is unsuccessfull, please try again later .";
+		}
 	}
-	if($result != 1){
-		if($bool) $msg .= "<br>";
-		$bool = true; 
-		$msg .= "Merge is unsuccessfull, please try again later .";
-	}
+	$_SESSION['search_ratecard'] = "";
 }
 
+$HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define the criteria to search");
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Start Date / Month");
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Start Date / Day");
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'startdate';
+$HD_Form -> AddSearchElement_C1(gettext("TAG"), 'tag','tagtype');
+$HD_Form -> AddSearchElement_C1(gettext("DESTINATION"), 'destination','destinationtype');
+$HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
+$HD_Form -> AddSearchElement_C2(gettext("BUYRATE"),'buyrate1','buyrate1type','buyrate2','buyrate2type','buyrate');
+$HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinitial1type','rateinitial2','rateinitial2type','rateinitial');
+$HD_Form -> prepare_list_subselection('list');
+$HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = 'TRUNK';
+$HD_Form -> AddSearchElement_Select('SELECT TRUNK',"cc_trunk","id_trunk, trunkcode, providerip","","trunkcode","ASC","id_trunk");
+$_SESSION['search_ratecard'] = $HD_Form -> FG_TABLE_CLAUSE;
 
 
 /*************************************************************/
 
 $instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
 
-$FG_TABLE_CLAUSE = "";
+$con = "";
 
-$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
+$list_tariffname = $instance_table_tariffname  -> Get_list ($HD_Form -> DBHandle, $con, "tariffname", "ASC", null, null, null, null);
 
 $nb_tariffname = count($list_tariffname);
-
-/*************************************************************/
-
-$instance_table_trunk = new Table("cc_trunk", "id_trunk, trunkcode");
-
-$FG_TABLE_CLAUSE = "";
-
-$list_trunk = $instance_table_trunk  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id_trunk", "ASC", null, null, null, null);
-
-$nb_trunk = count($list_trunk);
 
 
 ?>
@@ -94,17 +121,6 @@ $nb_trunk = count($list_trunk);
 $smarty->display('main.tpl');
 
 ?>
-<script type="text/javascript">
-<!--
-
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-//-->
-</script>
-
-
 <script language="JavaScript" type="text/javascript">
 <!--
 function deselectHeaders()
@@ -154,8 +170,19 @@ function removeSource()
 </script>
 
 <?php //echo $CC_help_import_ratecard;?>
+<script language="JavaScript" src="javascript/card.js"></script>
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH RATES");?> </font></a></center>
+	<div class="tohide" style="display:none;">
+
+<?php
+// #### CREATE SEARCH FORM
+	$HD_Form -> create_search_form();
+?>
+
+	</div>
+</div>
 <center>
-		<b><?php echo gettext("New rate cards have to be merged form the existing");?>.</b></br></br>
 		<table width="95%" border="0" cellspacing="2" align="center" class="editform_table1">
               <form name="prefs" action="<?=$_SERVER['PHP_SELF']?>" method="post">
 				<?php if($posted){?>
@@ -166,34 +193,28 @@ function removeSource()
 				</tr>
 				<?php }?>
 				<tr>
-					<td width="30%" valign="middle" class="form_head"><?php echo gettext("Select ratecard you want to merge together");?> :</td>
-					<td width="70%" valign="top" class="tableBodyRight"><INPUT TYPE="text" NAME="enterratecard" value="<?php echo $enterratecard?>" size="8" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_def_ratecard.php?popup_select=2&popup_formname=prefs&popup_fieldname=enterratecard' , 'RatecardSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
-				</tr>
-				<tr>
-					<td width="30%" valign="middle" class="form_head"><?php echo gettext("Choose the ratecard");?> :</td>
+					<td width="30%" valign="middle" class="form_head"><?php echo gettext("RATECARD SOURCE");?> :</td>
                   	<td width="70%" valign="top" class="tableBodyRight">
-				  		<select NAME="tariffplan" size="1"  style="width=250" class="form_input_select">
-							<option value=''><?php echo gettext("Choose a ratecard");?></option>
+				  		<select NAME="ratecard_source" size="1"  style="width=250" class="form_input_select">
+							<option value=''><?php echo gettext("SOURCE RATECARD");?></option>
 							<?php foreach ($list_tariffname as $recordset){?>
-								<option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]==$tariffplan) echo "selected";?>><?php echo $recordset[1]?></option>                        
+								<option class=input value='<?php  echo $recordset[0]?>' <?php if ($recordset[0]==$tariffplan) echo "selected";?>><?php echo $recordset[1]?></option>                        
 							<?php }?>
 						</select>
 					 </td>
 				</tr>
-				<tr>	
-				  <td width="30%" valign="middle" class="form_head"><?php echo gettext("Choose the trunk to use");?> :</td>
-				  <td width="70%" valign="top" class="tableBodyRight">
-				  	<select NAME="trunk" size="1"  style="width=250" class="form_input_select">
-					<?php foreach ($list_trunk as $recordset){?>
-						<option class=input value='<?php  echo $recordset[0]?>-:-<?php  echo $recordset[1]?>' <?php if ($recordset[0]==$trunk) echo "selected";?>><?php echo $recordset[1]?></option>                        
-					<?php }?>
-				  	</select>
-				  </td>
+				<tr>
+					<td width="30%" valign="middle" class="form_head"><?php echo gettext("RATECARD TO UPDATE");?> :</td>
+                  	<td width="70%" valign="top" class="tableBodyRight">
+				  		<select NAME="ratecard_destination" size="1"  style="width=250" class="form_input_select">
+							<option value=''><?php echo gettext("DESTINATION RATECARD");?></option>
+							<?php foreach ($list_tariffname as $recordset){?>
+								<option class=input value='<?php  echo $recordset[0]?>' <?php if ($recordset[0]==$tariffplan) echo "selected";?>><?php echo $recordset[1]?></option>                        
+							<?php }?>
+						</select>
+					 </td>
 				</tr>
-				<tr>	
-				  <td width="30%" valign="middle" class="form_head"><?php echo gettext("These fields are mandatory");?> :</td>
-				  <td width="70%" valign="top" class="tableBodyRight"><strong>Dialprefix, Destination and Rateinitial</strong></td>
-				</tr>
+
 				<tr>
 					<td width="30%" valign="middle" class="form_head"><?php echo gettext("Choose the additional fields to merge");?> :</td> 
 					<td width="70%" valign="top" class="tableBodyRight">
