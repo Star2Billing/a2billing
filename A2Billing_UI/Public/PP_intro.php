@@ -37,15 +37,24 @@ $smarty->display('main.tpl');
 		
 		<center>
 			<?php echo gettext("If you find A2Billing useful, please donate to the A2Billing project by clicking the Donate button :");?>  
+			
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="blank">
-			<input type="hidden" name="cmd" value="_xclick">
-			<input type="hidden" name="business" value="info@areski.net">
-			<input type="hidden" name="no_note" value="1">
-			<input type="hidden" name="currency_code" value="EUR">
-			<input type="hidden" name="tax" value="0">
-			<input type="hidden" name="LC" value="US">		
-			<input type="hidden" name="country" value="USA">
-			<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" border="0" name="submit" alt="Make Donation with PayPal - it's fast, free and secure!">
+				<input type="hidden" name="cmd" value="_xclick">
+				<input type="hidden" name="business" value="info@areski.net">
+				<input type="hidden" name="item_name" value="Asterisk2Billing">
+				<input type="hidden" name="buyer_credit_promo_code" value="">
+				<input type="hidden" name="buyer_credit_product_category" value="">
+				<input type="hidden" name="buyer_credit_shipping_method" value="">
+				<input type="hidden" name="buyer_credit_user_address_change" value="">
+				<input type="hidden" name="no_shipping" value="0">
+				<input type="hidden" name="no_note" value="1">
+				<input type="hidden" name="currency_code" value="USD">
+				<input type="hidden" name="tax" value="0">
+				<input type="hidden" name="lc" value="US">
+				<input type="hidden" name="country" value="USA">
+				<input type="hidden" name="bn" value="PP-DonationsBF">
+				<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but04.gif" border="0" name="submit" alt="Make Donation with PayPal - it's fast, free and secure!">
+				<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 			</form>
 		</center>
 			 <br>
