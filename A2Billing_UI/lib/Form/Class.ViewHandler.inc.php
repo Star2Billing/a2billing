@@ -50,8 +50,17 @@ function openURLFilter(theLINK)
         </TR>
 	   <?php  } //END IF ?>
 	  <?php  IF ($this -> CV_DO_ARCHIVE_ALL){ ?>
-		<TR> 
-		  <TD><span><a href="<?php  echo $_SERVER['PHP_SELF']?>?archive=true">Archive All</a></span></TD>
+		<TR>
+			<FORM NAME="theFormFilter" action="<?php echo $_SERVER['PHP_SELF']?>">	
+			<input type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
+			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
+			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
+			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
+			<input type="hidden" name="archive" value="true">
+            <td class="viewhandler_filter_td1">
+				<input type="SUBMIT" value="<?php echo gettext("Archiving All ");?>" class="form_input_button"/>
+			</td>
+			</FORM>
         </TR>
 	   <?php  } //END IF ?>
 	   <?php  IF ($this -> CV_DISPLAY_FILTER_ABOVE_TABLE){ ?>

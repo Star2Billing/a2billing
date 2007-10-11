@@ -140,16 +140,13 @@ if($posted == 1){
 	$_SESSION['ss_calllist'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
 if(isset($archive) && !empty($archive)){
-	if(isset($id) && !empty($id)){
-		$condition = "id = $id";
-	}else{
-		$condition = $_SESSION['ss_calllist'];
-	}
+	$condition = $_SESSION['ss_calllist'];
 	if (strpos($condition,'WHERE') <= 0){
 	        $condition = " WHERE $condition";
 	}
-archive_data($condition, "call");
-$archive_message = "The data has been successfully archived";
+$rec = archive_data($condition, "call");
+if($rec > 0)
+	$archive_message = "The data has been successfully archived";
 }
 
 $smarty->display('main.tpl');

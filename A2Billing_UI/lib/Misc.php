@@ -775,6 +775,10 @@ function get_db_languages($handle = null)
  */
 
 function archive_data($condition, $entity = ""){
+	if(empty($condition)){
+		return 0;
+		exit;
+	}
 	$handle = DbConnect();
 	$instance_table = new Table();
 	if(!empty($entity)) {
@@ -786,6 +790,10 @@ function archive_data($condition, $entity = ""){
 			$subquery = true;
 			$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
 			$fun_table = "cc_card";
+			if (strpos($condition,'WHERE') > 0){
+		        $condition = str_replace("WHERE", "", $condition);
+			}
+			
 			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		} else if($entity == "call") {
 			$value = "SELECT id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call $condition";
@@ -794,10 +802,14 @@ function archive_data($condition, $entity = ""){
 			$id_name = "";
 			$subquery = true;
 			$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
+			if (strpos($condition,'WHERE') > 0){
+		        $condition = str_replace("WHERE", "", $condition);
+			}
 			$fun_table = "cc_call";
 			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		}
 	}
+	return 1;
 }
 
 /*
