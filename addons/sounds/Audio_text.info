@@ -215,6 +215,61 @@ prepaid-callback_intro							Your call is now being connected, Please hold
 prepaid-cost-call 								El coste de la llamade es de
 prepaid-per-minutes								por minutos
 
+
+---------------------------  PORTUGUES / BRAZILIAN --------------------------
+
+prepaid-welcome                        			Bem vindo ao sistema de cartão de chamda
+prepaid-enter-card-num                    		Entre com os dez numéros do seu cartão e em seguida pressione quadrado
+prepaid-enter-pin-number                    	Entre com seu código PIN
+prepaid-no-card-entered                    		Não foi colocado nenhum número de cartão
+prepaid-invalid-digits                    		Números incorretos
+prepaid-auth-fail                        		Desculpe sua autenticação falhou
+prepaid-zero-balance                    		Desculpe, não há crédito no seu cartão
+prepaid-card-expired                    		Desculpe, seu cartão expirou
+prepaid-no-enough-credit                    	Desculpe, não há credito suficente para esta ligação
+prepaid-no-enough-credit-stop                	Desculpe, não há crédito suficiente
+prepaid-card-in-use                        		Seu cartão já está sendo usado neste momento!
+prepaid-you-have                        		você tem
+prepaid-cents                            		centavos
+vm-and                                			e
+prepaid-sipiax-press9                    		Se você quer ligar para um SIP Friend ou IAX Friend, tecle 9
+prepaid-sipiax-enternumber                		Por favor, entre com o número do SIP Friend ou IAX Friend que deseja ligar e em seguida pressione quadrado
+prepaid-sipiax-num-nomatch                		Desculpe, não há nenhum SIP Friend ou IAX Friend com este número
+prepaid-isbusy                            		O número está ocupado nomento
+prepaid-noanswer                        		O número não responde
+prepaid-enter-dest                        		Por favor, entre com o número que deseja ligar e em seguida pressione quadrado
+prepaid-enter-dest-europe                		Por favor disque 00, seguido do prefixo do país e o número que deseja ligar, em seguida pressione quadrado
+prepaid-enter-number-u-calling-1-or-011        	Por favor entre com o número que deseja ligar começando com por 1 se a chamda é doméstica, 
+												ou começando por 011 para chamdas internacionais, e em seguida pressione quadrado
+prepaid-dest-unreachable                    	O número discado está atualmente indisponível
+prepaid-minute                            		minuto
+prepaid-minutes                        			minutos
+prepaid-second                            		segundo
+prepaid-seconds                        			segundos
+prepaid-final                            		Até logo
+prepaid-dollar                            		dólar
+prepaid-dollars                        			dólares
+prepaid-euro                            		euro
+prepaid-euros                            		euros
+prepaid-real                            		real
+prepaid-reais                            		reais
+
+; Voucher
+prepaid-account_refill                    		sua conta teve um reenchimento de
+prepaid-refill_card_with_voucher            	se você quer reencher seu cartão com um voucher, por favor pressione 8 agora
+prepaid-unknow_used_currencie                	Desculpe, moeda usada desconhecida  # sorry unknow used currency
+prepaid-voucher_does_not_exist            		o voucher não existe 
+prepaid-voucher_enter_number                	por favor entre com o número do voucher e em seguida pressione quadrado 
+
+; Callback
+prepaid-callback_intro                    		Sua ligação está agora sendo conectada, Por favor aguarde
+
+; Say Rate initial
+prepaid-cost-call                        		O custo da chamda é de
+prepaid-per-minutes                        		por minuto
+
+
+
 ---------------------------  Recorded by Allison ------------------------
 English :
 	prepaid-enter-pin-number.wav
