@@ -1236,10 +1236,8 @@ class RateEngine
 				else $failover_trunk = $next_failover_trunk;
 				
 			} // END FOR LOOP FAILOVER 
-			if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) 
-				continue;
-				
-			//# Ooh, something actually happend! 
+
+			//# Ooh, something actually happened!
 			if ($this->dialstatus  == "BUSY") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
 				$agi-> stream_file('prepaid-isbusy', '#');
@@ -1248,10 +1246,13 @@ class RateEngine
 				$agi-> stream_file('prepaid-noanswer', '#');
 			} elseif ($this->dialstatus == "CANCEL") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
+			} elseif (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) {
+				$this -> real_answeredtime = $this -> answeredtime = 0;
+				continue;
 			} elseif ($this->dialstatus == "ANSWER") {
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "-> dialstatus : ".$this->dialstatus.", answered time is ".$this->answeredtime." \n");
 			}
-			
+
 			$this->usedratecard = $k;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD=".$this -> usedratecard."]");
 			return true;
