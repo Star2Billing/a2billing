@@ -594,6 +594,8 @@ class A2Billing {
 				$language = 'es';
 			} elseif 	($this->languageselected=="3") {
 				$language = 'fr';
+			} elseif 	($this->languageselected=="4") {
+				$language = 'br';
 			} else {
 				if (strlen($this->agiconfig['force_language'])==2) {
 					$language = strtolower($this->agiconfig['force_language']);
