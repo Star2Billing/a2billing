@@ -20,11 +20,10 @@ $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
 getpost_ifset(array('posted' ,'ratecard_source' ,'ratecard_destination', 'search_sources'));
-if($posted == 1){
 
-$instance_table = new Table();
-$bool = false;
-	
+if($posted == 1){
+	$instance_table = new Table();
+	$bool = false;
 	$ratecard_src_val = $ratecard_source;
 	if (!is_numeric($ratecard_src_val)){ 
 		if($bool) $msg .= "<br>";
@@ -38,53 +37,61 @@ $bool = false;
 		$bool = true; 
 		$msg .= gettext("No Destination ratecard selected !"); 
 	}
-
+	
 	if ($ratecard_des_val == $ratecard_src_val){ 
 		if($bool) $msg .= "<br>";
 		$bool = true; 
 		$msg .= gettext("Source Ratecard Should be different from Destination ratecard!"); 
 	}
-
-
+	
 	if ($search_sources != 'nochange'){
 		$fieldtomerge= split("\t", $search_sources);
 		$fieldtomerge_sql = str_replace("\t", ", ", $search_sources);
 		$fieldtomerge_sql = trim ($fieldtomerge_sql);
-		if (strlen($fieldtomerge_sql)>0) $fieldtomerge_sql = ', '.$fieldtomerge_sql;
+		//if (strlen($fieldtomerge_sql)>0) $fieldtomerge_sql = ', '.$fieldtomerge_sql;
 	}
 	
 	if(!$bool){
-		$fields = "$ratecard_des_val, id_trunk, dialprefix, destination, rateinitial";
+		$count = 0;
+		$fields = "dialprefix, ";
 		$fields .= $fieldtomerge_sql; 
-		
-		$fun_fields = "idtariffplan, id_trunk, dialprefix, destination, rateinitial";
-		$fun_fields .= $fieldtomerge_sql;
-		
-		$condition_del = "idtariffplan = $ratecard_des_val";
+		$fields_array = split(',', $fields);
+	
 		if(!empty($_SESSION['search_ratecard'])){
-			$condition_del .= " AND ".$_SESSION['search_ratecard'];
+			$condition .= " AND ".$_SESSION['search_ratecard'];
 		}
-		
-		$condition_insert = "idtariffplan = $ratecard_src_val";
-		if(!empty($_SESSION['search_ratecard'])){
-			$condition_insert .= " AND ".$_SESSION['search_ratecard'];
+	
+		$sql = "select $fields from cc_ratecard where idtariffplan = $ratecard_src_val $condition order by dialprefix,id";
+		$result  = $instance_table->SQLExec ($HD_Form -> DBHandle, $sql);
+		$q = "";
+		$q_update = "";
+		for ($i=0; $i<count($result); $i++){
+			$Update = "";
+			for($k=0; $k<count($fields_array); $k++){
+		    	$val = $result[$i][$k];
+		    	if($k == 0){
+		    		$dialprefix = $result[$i][$k];
+		    	}else{
+		    		$Update .= ",";
+		    	}
+		    		$Update .= "$fields_array[$k] = '$val'";
+		    }
+			$replac_able = "dialprefix = '".$dialprefix."',";
+			$Update = str_replace($replac_able, "",$Update);
+		    $sql_target = "select id from cc_ratecard where idtariffplan = $ratecard_des_val and dialprefix = $dialprefix and is_merged = 0 $condition order by dialprefix, id";
+			$q .= "<br>SQL Target". $sql_target;
+			$result_target  = $instance_table->SQLExec ($HD_Form -> DBHandle, $sql_target);
+			$id = $result_target[0][0];
+		   if(!empty($id)){
+				$count++;
+				$Update1 = "update cc_ratecard set $Update, is_merged = 1 where id = $id";
+				$result_updated  = $instance_table->SQLExec ($HD_Form -> DBHandle, $Update1);
+		   }
 		}
-
-		$fun_table = "cc_ratecard";
-		$result = $instance_table -> Delete_table ($HD_Form -> DBHandle, $condition_del, $fun_table);
-		
-		
-		$value = "SELECT $fields FROM cc_ratecard where $condition_insert";
-		$func_fields = $fun_fields;
-		$func_table = 'cc_ratecard';
-		$id_name = "";
-		$subquery = true;
-		$result = $instance_table -> Add_table ($HD_Form -> DBHandle, $value, $func_fields, $func_table, $id_name,$subquery);
-		if($result == 1){
-			$msg = "Ratecard is successfully merged.";
-		}else{
-			$msg = "Merge is unsuccessfull, please try again later .";
-		}
+	    $reset_table = "update cc_ratecard set is_merged = 0";
+		$result_reset  = $instance_table->SQLExec ($HD_Form -> DBHandle, $reset_table);
+			
+		$msg = "Ratecard is successfully merged.";
 	}
 	$_SESSION['search_ratecard'] = "";
 }
@@ -169,26 +176,22 @@ function removeSource()
 // -->
 </script>
 
-<?php //echo $CC_help_import_ratecard;?>
-<script language="JavaScript" src="javascript/card.js"></script>
-<div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH RATES");?> </font></a></center>
-	<div class="tohide" style="display:none;">
-
-<?php
+<?php //echo $CC_help_import_ratecard;
 // #### CREATE SEARCH FORM
 	$HD_Form -> create_search_form();
 ?>
-
-	</div>
-</div>
 <center>
 		<table width="95%" border="0" cellspacing="2" align="center" class="editform_table1">
               <form name="prefs" action="<?=$_SERVER['PHP_SELF']?>" method="post">
 				<?php if($posted){?>
 				<tr>
 					<td align="center" colspan="2">
-						<?php echo $msg;?>
+						<table width="100%">
+							<tr>
+								<td align="center" width = "90%"><?php echo $msg;?></td>
+								<td width="10%" align="right"><?=$count?> <?php echo gettext("Record(s)");?></td>
+							</tr>
+						</table>
 					</td>
 				</tr>
 				<?php }?>
@@ -216,7 +219,7 @@ function removeSource()
 				</tr>
 
 				<tr>
-					<td width="30%" valign="middle" class="form_head"><?php echo gettext("Choose the additional fields to merge");?> :</td> 
+					<td width="30%" valign="middle" class="form_head"><?php echo gettext("Choose fields to merge");?> :</td> 
 					<td width="70%" valign="top" class="tableBodyRight">
 						<input name="search_sources" value="nochange" type="hidden">
 						<table>
@@ -224,10 +227,12 @@ function removeSource()
 						        <td>
 						            <select name="unselected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders()" class="form_input_select">
 										<option value=""><?php echo gettext("Unselected Fields...");?></option>
+										<option value="destination"><?php echo gettext("destination");?></option>
 										<option value="buyrate"><?php echo gettext("buyrate");?></option>
+										<option value="rateinitial"><?php echo gettext("rateinitial");?></option>
 										<option value="buyrateinitblock"><?php echo gettext("buyrateinitblock");?></option>
 										<option value="buyrateincrement"><?php echo gettext("buyrateincrement");?></option>
-						
+										<option value="id_trunk"><?php echo gettext("trunk");?></option>
 										<option value="initblock"><?php echo gettext("initblock");?></option>
 										<option value="billingblock"><?php echo gettext("billingblock");?></option>
 										<option value="connectcharge"><?php echo gettext("connectcharge");?></option>

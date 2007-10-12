@@ -715,3 +715,4 @@ CREATE TABLE cc_card_archive (
 
 ALTER TABLE `cc_card_archive` ADD INDEX ( `creationdate` );
 ALTER TABLE `cc_card_archive` ADD INDEX ( `username` );
+ALTER TABLE cc_ratecard ADD COLUMN is_merged INT DEFAULT 0;

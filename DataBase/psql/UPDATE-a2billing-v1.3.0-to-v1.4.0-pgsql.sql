@@ -788,3 +788,4 @@ ALTER TABLE ONLY cc_card_archive
 
 CREATE INDEX cc_card_archive_creationdate_ind ON cc_card_archive USING btree (creationdate);
 CREATE INDEX cc_card_archive_username_ind ON cc_card_archive USING btree (username);
+ALTER TABLE cc_ratecard ADD COLUMN is_merged INT DEFAULT 0;

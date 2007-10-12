@@ -27,7 +27,7 @@
 include ("../../lib/defines.php");
 require('SOAP/Client.php');
 
-exit;
+
 $security_key = API_SECURITY_KEY;
 $endpoint = 'http://localhost/~areski/svn/asterisk2billing/trunk/A2Billing_UI/api/SOAP/soap-card-server.php';
 // ADD ON THE SPEC SECURITY KEY
