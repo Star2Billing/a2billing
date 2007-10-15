@@ -377,7 +377,7 @@ class RateEngine
 					$dayofweek = date("w"); // Numeric representation of the day of the week 0 (for Sunday) through 6 (for Saturday)
 					if ($dayofweek==0) $dayofweek=7;
 					if ($dayofweek < $startday) $dayofweek = $dayofweek + 7;
-					$diffday = $dayofweek < $startday;
+					$diffday = $dayofweek - $startday;
 					if ($A2B->config["database"]['dbtype'] == "postgres"){
 	 					$UNIX_TIMESTAMP = " (now() - interval '$diffday day') ";
 					}else{
