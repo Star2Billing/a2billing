@@ -4,6 +4,24 @@
 *******************************************************************************
 
 
+#### Add VoiceMail
+********************************************************************
+
+http://www.ecualug.org/?q=2006/12/12/comos/configurar_a2billing_en_menos_de_10_minutos
+http://forum.asterisk2billing.org/viewtopic.php?t=93&highlight=voicemail
+
+
+You need to create the appropiated line for each extension at the voicemail.conf file. Add the following lines to your a2billing context to give your clients the voicemail feature:
+
+Code:
+
+[vmmain]
+exten => *97,1,Answer
+exten => *97,n,Wait(1)
+exten => *97,n,VoiceMailMain(${CALLERID(num)}@default)
+exten => *97,n,Hangup 
+
+
 #### TODO : RATECARD MERGING TOOL
 ********************************************************************
 
@@ -204,23 +222,6 @@ Suppot GMT : report & invoicing
 ********************************************************************
 Support callerID name for authentication
 
-
-#### Add VoiceMail
-********************************************************************
-
-http://www.ecualug.org/?q=2006/12/12/comos/configurar_a2billing_en_menos_de_10_minutos
-http://forum.asterisk2billing.org/viewtopic.php?t=93&highlight=voicemail
-
-
-You need to create the appropiated line for each extension at the voicemail.conf file. Add the following lines to your a2billing context to give your clients the voicemail feature:
-
-Code:
-
-[vmmain]
-exten => *97,1,Answer
-exten => *97,n,Wait(1)
-exten => *97,n,VoiceMailMain(${CALLERID(num)}@default)
-exten => *97,n,Hangup 
 
 
 
