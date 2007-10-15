@@ -497,7 +497,7 @@ class A2Billing {
 			$this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",",$this->config["agi-conf$idconfig"]['international_prefixes']);
 		} else {
 			// to retain config file compatibility assume a default unless config option is set
-			$this->agiconfig['international_prefixes'] = explode(",","011,09,00,1");
+			$this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",","011,09,00,1");
 		}
 
 
@@ -588,10 +588,14 @@ class A2Billing {
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES Menu Language DTMF : ".$res_dtmf ["result"]);
 			
 			$this -> languageselected = $res_dtmf ["result"];
-			if ($this->languageselected=="2") {
+			if ($this->languageselected=="1") {
+				$language = 'en';
+			} elseif 	($this->languageselected=="2") {
 				$language = 'es';
 			} elseif 	($this->languageselected=="3") {
 				$language = 'fr';
+			} elseif 	($this->languageselected=="4") {
+				$language = 'br';
 			} else {
 				if (strlen($this->agiconfig['force_language'])==2) {
 					$language = strtolower($this->agiconfig['force_language']);

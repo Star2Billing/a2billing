@@ -497,7 +497,7 @@ class A2Billing {
 			$this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",",$this->config["agi-conf$idconfig"]['international_prefixes']);
 		} else {
 			// to retain config file compatibility assume a default unless config option is set
-			$this->agiconfig['international_prefixes'] = explode(",","011,09,00,1");
+			$this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",","011,09,00,1");
 		}
 
 
