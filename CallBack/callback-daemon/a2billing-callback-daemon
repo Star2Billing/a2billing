@@ -22,20 +22,20 @@ my $conf_file = "/etc/asterisk/a2billing.conf";
 my $cfg = Config::IniFiles->new( -file => $conf_file );
 
 if (not defined $cfg) {
-       print "Failed to parse $conf_file: \n";
-       foreach(@Config::IniFiles::errors) {
-               print "Error: $_\n" ;
-       }
-       exit(1);
+	print "Failed to parse $conf_file: \n";
+	foreach(@Config::IniFiles::errors) {
+		print "Error: $_\n" ;
+	}
+	exit(1);
 }
 
 ######################### DB PARAMETER ########################
-my $dbname = $cfg->val('database', 'dbname');
-my $dbhost = $cfg->val('database', 'hostname');
-my $dbport = $cfg->val('database', 'port');
-my $login = $cfg->val('database', 'user');
-my $pwd = $cfg->val('database', 'password');
-my $dbtype = $cfg->val('database', 'dbtype');
+my $dbname 	= $cfg->val('database', 'dbname');
+my $dbhost	= $cfg->val('database', 'hostname');
+my $dbport	= $cfg->val('database', 'port');
+my $login	= $cfg->val('database', 'user');
+my $pwd		= $cfg->val('database', 'password');
+my $dbtype	= $cfg->val('database', 'dbtype');
 
 ######################### LOG FILE ########################
 my $log_file = "/var/log/asterisk/a2billing-daemon-callback.log";
@@ -55,8 +55,8 @@ my @childs; # define child in the daemon
 
 if (($path_daemon eq "") or ($daemon eq ""))
 {
-  print "Error in Config File check it!!\n";
-  exit(0);
+	print "Error in Config File check it!!\n";
+	exit(0);
 }
 
 
@@ -91,7 +91,7 @@ close LOGFILE;
 while(1) {
 
 	# check if there're changes
-	&func_callback_processing();
+	my $res_func_callback = &func_callback_processing();
  
 	# wait for 5 secondes
 	sleep(10);
@@ -133,7 +133,7 @@ sub daemonize {
 ###
 # This Subroutine check if there new emails to import
 ###
-sub func_callback_processing{ 
+sub func_callback_processing {
 
 	my ($direlem,$LINES);
 	my ($dbh, $sth, $sth2 , $sth3, $res);
@@ -162,7 +162,9 @@ sub func_callback_processing{
 		$timestamp = &longfmt();
 		print LOGFILE "[$timestamp]";
 		print LOGFILE "ERR: Couldn't open connection: ".$DBI::errstr."\n";
-		die "ERR: Couldn't open connection: ".$DBI::errstr."\n";
+		# die "ERR: Couldn't open connection: ".$DBI::errstr."\n";
+		sleep (10);
+		return 1;
 	}
 	
 	if ($dbtype eq "mysql")
@@ -336,6 +338,8 @@ sub func_callback_processing{
 	
 	# print LOGFILE "   ++++ \n";
 	close LOGFILE;
+	
+	return 1;
 }
 
 
