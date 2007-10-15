@@ -6,7 +6,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	0 0 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_alarm.php
+	0 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_alarm.php
 	
 	field	 allowed values
 	-----	 --------------
