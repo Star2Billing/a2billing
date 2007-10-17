@@ -172,6 +172,16 @@ class FormHandler
 	var $FG_FILTER_SEARCH_2_TIME = true;
 	var $FG_FILTER_SEARCH_2_TIME_TEXT = '';
 	var $FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
+	
+	// to display the number of months 
+	// will show the select on search with options like 
+	// Select card older than : 3 Months, 4 Months, 5.... 12 Months
+	var $FG_FILTER_SEARCH_3_TIME = false;
+	var $FG_FILTER_SEARCH_3_TIME_TEXT = '';
+	var $FG_FILTER_SEARCH_3_TIME_FIELD = 'creationdate';
+
+	
+	
 	var $FG_FILTER_SEARCH_FORM_1C = array();
 	var $FG_FILTER_SEARCH_FORM_2C = array();
 	var $FG_FILTER_SEARCH_FORM_SELECT = array();
@@ -1210,6 +1220,14 @@ function do_field($sql,$fld, $simple=0){
 								$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth_sday]-".sprintf("%02d",intval($processed[tostatsday_sday])/*+1*/)." 23:59:59')";
 					}
 
+					if ($processed[Period]=="month_older_rad"){
+						$from_month = $processed[month_earlier];
+						if(DB_TYPE == "postgres"){
+							$date_clause .= " AND CURRENT_TIMESTAMP - interval '$from_month months' > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
+						}else{
+							$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
+						}
+					}
 
 					if (strpos($SQLcmd, 'WHERE') > 0) {
 						if (strlen($this->FG_TABLE_CLAUSE)>0) $this->FG_TABLE_CLAUSE .=" AND ";

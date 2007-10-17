@@ -19,13 +19,6 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
-$from_month = 3;
-if(DB_TYPE == "postgres"){
-	$HD_Form -> FG_TABLE_CLAUSE = "CURRENT_TIMESTAMP - interval '$from_month months' > creationdate";
-}else{
-	$HD_Form -> FG_TABLE_CLAUSE = "DATE_SUB(NOW(),INTERVAL $from_month MONTH) > creationdate";
-}
-
 
 $language_list = array();
 $language_list["0"] = array( gettext("ENGLISH"), "en");
@@ -134,6 +127,12 @@ $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to sea
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
+
+$HD_Form -> FG_FILTER_SEARCH_3_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_3_TIME_TEXT = gettext('Select card older than');
+$HD_Form -> FG_FILTER_SEARCH_3_TIME_FIELD = 'creationdate';
+
+//Select card older than : 3 Months, 4 Months, 5.... 12 Months
 $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("CARDALIAS"),'useralias','useraliastype');

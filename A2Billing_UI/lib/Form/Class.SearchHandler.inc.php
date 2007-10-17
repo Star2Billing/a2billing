@@ -134,7 +134,27 @@ if ($this->FG_FILTER_SEARCH_FORM){
 	  			</td>
     		</tr>
 		<?php } ?>
-		
+		<?php if ($this -> FG_FILTER_SEARCH_3_TIME){ ?>
+			<tr>
+        		<td align="left" class="bgcolor_002">
+					<input type="radio" name="Period" value="month_older_rad" <?php  if ($processed['Period']=="month_older_rad"){ ?>checked="checked" <?php  } ?>>
+					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_3_TIME_TEXT?></font>
+				</td>
+      			<td align="left" class="bgcolor_003">
+					<table  border="0" cellspacing="0" cellpadding="0" width="100%">
+					<tr><td class="fontstyle_searchoptions">&nbsp;
+					<select name="month_earlier" class="form_input_select">
+						<?php
+							for ($i=3;$i<=12;$i++){
+								if ($processed['month_earlier']==$i){$selected="selected";}else{$selected="";}
+								echo '<option value="'.$i."\"$selected>".$i.' Months</option>';
+							}
+						?>
+					</select>
+					</td></tr></table>
+	  			</td>
+    		</tr>
+		<?php } ?>
 		<!-- compare with a value //-->
 		<?php
 		$nu = 0;

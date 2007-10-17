@@ -79,7 +79,7 @@ if($posted == 1){
 			$replac_able = "dialprefix = '".$dialprefix."',";
 			$Update = str_replace($replac_able, "",$Update);
 		    $sql_target = "select id from cc_ratecard where idtariffplan = $ratecard_des_val and dialprefix = $dialprefix and is_merged = 0 $condition order by dialprefix, id";
-			$q .= "<br>SQL Target". $sql_target;
+			//$q .= "<br>SQL Target". $sql_target;
 			$result_target  = $instance_table->SQLExec ($HD_Form -> DBHandle, $sql_target);
 			$id = $result_target[0][0];
 		   if(!empty($id)){
@@ -90,8 +90,11 @@ if($posted == 1){
 		}
 	    $reset_table = "update cc_ratecard set is_merged = 0";
 		$result_reset  = $instance_table->SQLExec ($HD_Form -> DBHandle, $reset_table);
-			
-		$msg = "Ratecard is successfully merged.";
+		
+		if($count > 0)	
+			$msg = "Ratecard is successfully merged.";
+		else
+			$msg = "Ratecard is not merged, please try again with different search criteria.";
 	}
 	$_SESSION['search_ratecard'] = "";
 }

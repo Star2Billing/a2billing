@@ -35,7 +35,6 @@ function openURLFilter(theLINK)
 	goURL = document.theFormFilter.choose_list.options[selInd].value;      
 	this.location.href = theLINK + goURL;
 }
-
 //-->
 </script>
   
@@ -58,7 +57,7 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
 			<input type="hidden" name="archive" value="true">
             <td class="viewhandler_filter_td1">
-				<input type="SUBMIT" value="<?php echo gettext("Archiving All ");?>" class="form_input_button"/>
+				<input type="SUBMIT" value="<?php echo gettext("Archiving All ");?>" class="form_input_button" onclick="return confirm('This action will archive the data, Are you sure?');"/>
 			</td>
 			</FORM>
         </TR>
