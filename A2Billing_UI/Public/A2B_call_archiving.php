@@ -49,10 +49,6 @@ $HD_Form -> AddViewElement(gettext("Cost"), "sessionbill", "10%", "center", "SOR
 $FG_COL_QUERY='id, starttime, calledstation, destination, sessiontime, username, terminatecause, sipiax, calledrate, sessionbill';
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
-$HD_Form -> FG_OTHER_BUTTON1 = true;
-$HD_Form -> FG_OTHER_BUTTON1_LINK= $_SERVER['PHP_SELF']."?archive=true&id=|col0|";
-$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/bluearrow.gif";
-$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("ARCHIVE");
 
 if ($posted==1){
 	$SQLcmd = '';
