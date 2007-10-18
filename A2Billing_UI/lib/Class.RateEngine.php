@@ -379,9 +379,9 @@ class RateEngine
 					if ($dayofweek < $startday) $dayofweek = $dayofweek + 7;
 					$diffday = $dayofweek - $startday;
 					if ($A2B->config["database"]['dbtype'] == "postgres"){
-	 					$UNIX_TIMESTAMP = " (now() - interval '$diffday day') ";
+	 					$CLAUSE_DATE = "date_consumption >= (now() - interval '$diffday day') ";
 					}else{
-						$UNIX_TIMESTAMP = " DATE_SUB(NOW(), INTERVAL $diffday DAY) ";
+						$CLAUSE_DATE = "date_consumption >= DATE_SUB(NOW(), INTERVAL $diffday DAY) ";
 					}
 				}
 				$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
