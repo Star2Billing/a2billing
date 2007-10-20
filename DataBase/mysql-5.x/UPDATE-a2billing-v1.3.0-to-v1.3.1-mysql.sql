@@ -1,16 +1,5 @@
-INSERT INTO cc_templatemail VALUES ('epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
 
-Please check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.
-
-Time of Transaction: $time
-Payment Gateway: $paymentgateway
-Amount: $amount
-
-
-
-Kind regards,
-Call Labs
-', '');
+ALTER TABLE cc_callback_spool CHANGE variable variable VARCHAR( 300 ) DEFAULT NULL;
 
 -- fix various uses of ISO-3166-1 alpha-2 rather than alpha-3
 UPDATE cc_country SET countryprefix='BVT' WHERE countryprefix='BV';
