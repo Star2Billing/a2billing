@@ -293,7 +293,8 @@ class A2Billing {
 		$this -> idconfig = $idconfig;
 		// load config
 		$config_table = new Table("cc_config ccc, cc_config_group ccg", "ccc.config_key as cfgkey, ccc.config_value as cfgvalue, ccg.group_title as cfggname, ccc.config_valuetype as cfgtype");
-		$this->DbConnect();		
+		$this->DbConnect();
+		
 		$config_res = $config_table -> Get_list($this->DBHandle, "ccc.config_group_id = ccg.id");
 		
 		foreach ($config_res as $conf)
@@ -2094,7 +2095,7 @@ class A2Billing {
 
 	function DbConnect()
 	{
-		$ADODB_CACHE_DIR = dirname(__FILE__)."/ADODB_cache";
+		$ADODB_CACHE_DIR = '/tmp';
 		/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
 		require_once('adodb/adodb.inc.php');
 		
@@ -2102,9 +2103,9 @@ class A2Billing {
 			$datasource = 'pgsql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
 		}else{
 			$datasource = 'mysql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
-		}		
+		}
 		$this->DBHandle = NewADOConnection($datasource);
-		if (!$this->DBHandle) return false;
+		if (!$this->DBHandle) die("Connection failed");
 		
 		return true;
 	}

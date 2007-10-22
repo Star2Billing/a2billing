@@ -132,7 +132,7 @@ SetLocalLanguage();
  
 function DbConnect($db= NULL)
 {
-	$ADODB_CACHE_DIR = dirname(__FILE__)."/ADODB_cache";
+	$ADODB_CACHE_DIR = '/tmp';
 	/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
 	
 	if (DB_TYPE == "postgres"){
