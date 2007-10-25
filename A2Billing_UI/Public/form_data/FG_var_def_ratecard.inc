@@ -74,7 +74,7 @@ if ($popup_select) {
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
 } else {
-	$HD_Form -> FieldExportElement('destination, dialprefix, rateinitial');
+	$HD_Form -> FieldExportElement ('dialprefix , destination , buyrate , buyrateinitblock , buyrateincrement , rateinitial , initblock , billingblock , connectcharge , disconnectcharge , stepchargea , chargea , timechargea , billingblocka , stepchargeb , chargeb , timechargeb , billingblockb , stepchargec , chargec , timechargec , billingblockc , startdate , stopdate , starttime , endtime , id_trunk , musiconhold , freetimetocall_package_offer , id_outbound_cidgroup , rounding_calltime , rounding_threshold , additional_block_charge , additional_block_charge_time , tag');
 	$HD_Form -> FG_EXPORT_CSV = true;
 	$HD_Form -> FG_EXPORT_XML = true;
 	$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_rates";
