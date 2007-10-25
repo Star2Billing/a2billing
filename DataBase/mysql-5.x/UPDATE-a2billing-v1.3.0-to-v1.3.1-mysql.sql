@@ -1,4 +1,5 @@
 
+
 ALTER TABLE cc_callback_spool CHANGE variable variable VARCHAR( 300 ) DEFAULT NULL;
 
 -- fix various uses of ISO-3166-1 alpha-2 rather than alpha-3

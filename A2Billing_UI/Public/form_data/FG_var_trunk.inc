@@ -12,8 +12,9 @@ $HD_Form -> FG_EDITION_CLAUSE = " id_trunk='%id' ";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $actived_list = array();
-$actived_list["0"] = array( gettext("Inactive"), "0");
 $actived_list["1"] = array( gettext("Active"), "1");
+$actived_list["0"] = array( gettext("Inactive"), "0");
+
 
 $maxuse_behaviour_list = array();
 $maxuse_behaviour_list["0"] = array( gettext("Use failover trunk"), "0");
@@ -78,6 +79,12 @@ else {
 	$HD_Form -> FG_DELETION = true;
 }
 
+$def_value_inuse = '';
+$def_value_maxuse = '';
+if (isset($form_action) && $form_action=="ask-add"){
+	$def_value_inuse = "value='0'";
+	$def_value_maxuse = "value='-1'";
+}
 
 $HD_Form -> AddEditElement (gettext("VOIP-PROVIDER"),
 	"id_provider",
@@ -157,7 +164,7 @@ $HD_Form -> AddEditElement (gettext("CURRENT CONNECTIONS"),
 	"inuse",
 	"",
 	"INPUT",
-	"size=30 maxlength=30",
+	"size=30 $def_value_inuse maxlength=30",
 	"12",
 	gettext("Number of current connections"),
 	"" , "", "", "", "", "", "", gettext("Define the number of use of this trunk. If a non-standard stop of the application occurs it maybe that the trunk is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this trunk.") );
@@ -166,7 +173,7 @@ $HD_Form -> AddEditElement (gettext("MAXIMUM CONNECTIONS"),
 	"maxuse",
 	"",
 	"INPUT",
-	"size=30 maxlength=30",
+	"size=30 $def_value_maxuse maxlength=30",
 	"12",
 	gettext("Number of maximum simultaneous connections"),
 	"" , "", "", "", "", "", "", gettext("Define the number of simultaneous connections on this trunk. Set to -1 in order to have an unlimited number of connections") );
@@ -177,7 +184,7 @@ $HD_Form -> AddEditElement ("IFMAXUSED",
 	"SELECT",
 	"",
 	"",
-	gettext("Define the behaviour when the maximum of connections is reached"),
+	"",
 	"list" , "", "", "", $maxuse_behaviour_list, "%1" , "", gettext("Specifies which trunk to use when the maximum number of connections is reached"));
 	
 $HD_Form -> AddEditElement ("STATUS",
@@ -186,8 +193,8 @@ $HD_Form -> AddEditElement ("STATUS",
 	"SELECT",
 	"",
 	"",
-	gettext("Define if this trunk is active or not"),
-	"list" , "", "", "", $actived_list, "%1" , "", "");
+	"",
+	"list" , "", "", "", $actived_list, "%1" , "", gettext("Define if this trunk is active or not"));
 
 
 $HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status');

@@ -197,7 +197,7 @@ class RateEngine
 		
 		if (!is_array($result) || count($result)==0) return 0; // NO RATE FOR THIS NUMBER
 	
-		if ($this -> debug_st) echo "::> Count Total result ".count($result)."\n\n";
+		if ($this->debug_st) echo "::> Count Total result ".count($result)."\n\n";
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[rate-engine: Count Total result ".count($result)."]");	
 		
 		// CHECK IF THERE IS OTHER RATE THAT 'DEFAULT', IF YES REMOVE THE DEFAULT RATES
@@ -292,7 +292,7 @@ class RateEngine
 			}
 		}
 		
-		if ($this -> debug_st)echo "::> Count Total result ".count($distinct_result)."\n\n";
+		if ($this->debug_st) echo "::> Count Total distinct_result ".count($distinct_result)."\n\n";
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: Count Total result ".count($distinct_result)."]");	
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: number_trunk ".$this -> number_trunk."]");
 		
@@ -307,6 +307,7 @@ class RateEngine
 	function rate_engine_all_calcultimeout (&$A2B, $credit)
 	{
 		global $agi;
+		
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT ($credit)]");
 		if (!is_array($this -> ratecard_obj) || count($this -> ratecard_obj)==0) return false;
 		
@@ -314,6 +315,7 @@ class RateEngine
 			$res_calcultimeout = $this -> rate_engine_calcultimeout ($A2B,$credit,$k);
 			if ($this->webui) 
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT: k=$k - res_calcultimeout:$res_calcultimeout]");
+			
 			if (substr($res_calcultimeout,0,5)=='ERROR')	return false;
 		}
 		
@@ -324,28 +326,34 @@ class RateEngine
 		RATE ENGINE - CALCUL TIMEOUT
 		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
 	*/
-	function rate_engine_calcultimeout (&$A2B, $credit, $K=0){
-
+	function rate_engine_calcultimeout (&$A2B, $credit, $K=0)
+	{
 		global $agi;
-		$rateinitial = round(abs($this -> ratecard_obj[$K][12]),4);
-		$initblock = $this -> ratecard_obj[$K][13];
-		$billingblock = $this -> ratecard_obj[$K][14];	
-		$connectcharge = round(abs($this -> ratecard_obj[$K][15]),4);
-		$disconnectcharge = round(abs($this -> ratecard_obj[$K][16]),4);	
-		$stepchargea = $this -> ratecard_obj[$K][17]; 		$chargea = round(abs($this -> ratecard_obj[$K][18]),4);
-		$timechargea = $this -> ratecard_obj[$K][19];		$billingblocka = $this -> ratecard_obj[$K][20];	
-		$stepchargeb = $this -> ratecard_obj[$K][21];		$chargeb = round(abs($this -> ratecard_obj[$K][22]),4);
-		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
-		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
-		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
 		
+		$rateinitial 					= round (abs($this -> ratecard_obj[$K][12]),4);
+		$initblock 						= $this -> ratecard_obj[$K][13];
+		$billingblock 					= $this -> ratecard_obj[$K][14];	
+		$connectcharge 					= round (abs($this -> ratecard_obj[$K][15]),4);
+		$disconnectcharge 				= round (abs($this -> ratecard_obj[$K][16]),4);	
+		$stepchargea 					= $this -> ratecard_obj[$K][17];
+		$chargea 						= round (abs($this -> ratecard_obj[$K][18]),4);
+		$timechargea 					= $this -> ratecard_obj[$K][19];
+		$billingblocka 					= $this -> ratecard_obj[$K][20];	
+		$stepchargeb 					= $this -> ratecard_obj[$K][21];
+		$chargeb 						= round (abs($this -> ratecard_obj[$K][22]),4);
+		$timechargeb 					= $this -> ratecard_obj[$K][23];
+		$billingblockb 					= $this -> ratecard_obj[$K][24];	
+		$stepchargec 					= $this -> ratecard_obj[$K][25];
+		$chargec 						= round (abs($this -> ratecard_obj[$K][26]),4);	
+		$timechargec 					= $this -> ratecard_obj[$K][27];
+		$billingblockc 					= $this -> ratecard_obj[$K][28];
 		// ****************  PACKAGE PARAMETERS ****************  
-		$freetimetocall_package_offer = $this -> ratecard_obj[$K][45];
-		$freetimetocall = $this -> ratecard_obj[$K][46];
-		$packagetype = $this -> ratecard_obj[$K][47];
-		$billingtype = $this -> ratecard_obj[$K][48];
-		$startday = $this -> ratecard_obj[$K][49];
-		$id_cc_package_offer = $this -> ratecard_obj[$K][50];
+		$freetimetocall_package_offer 	= $this -> ratecard_obj[$K][45];
+		$freetimetocall 				= $this -> ratecard_obj[$K][46];
+		$packagetype 					= $this -> ratecard_obj[$K][47];
+		$billingtype 					= $this -> ratecard_obj[$K][48];
+		$startday 						= $this -> ratecard_obj[$K][49];
+		$id_cc_package_offer 			= $this -> ratecard_obj[$K][50];
 		
 		// CHANGE THIS - ONLY ALLOW FREE TIME FOR CUSTOMER THAT HAVE MINIMUM CREDIT TO CALL A DESTINATION
 		

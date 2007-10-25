@@ -4,6 +4,47 @@
 *******************************************************************************
 
 
+
+#### dial_announcement_called_party
+********************************************************************
+add a new parameter on the AGI-conf
+dial_announcement_called_party = prison_announcement.gsm
+We will include this in our dial command so that,
+It will play the announcement to the called party.
+use Dial with A()
+
+
+#### EXPORT RATECARD
+********************************************************************
+Add all field on the export csv
+
+
+#### OPTIMIZE RATE-ENGINE
+********************************************************************
+1)
+check with Stavros his suggestion
+http://forum.asterisk2billing.org/viewtopic.php?t=2666&postdays=0&postorder=asc&start=0
+
+2)
+to have startdate/stopdate for each ratecard? Shouldn't we just have them only at the tariffplan?
+And then, you can split the ratecards according to start/stopdate.
+
+
+3)
+you should first try the '1234' entry and if the trunk fails the '123' ..
+my idea was to ensure if the dialprefix match always to something on failover
+for belgium we have : 
+1# 32 475 	Mobile belgium
+2# 32 495 	Mobile belgium
+3# 32		Landline + Mobile trunk (mix)
+
+if 32 455 is dialed we use 3#
+if 32 495 is dialed we will use 2# but probably the failover dont have to go to 3# as it will get wrong the rating
+
+
+that's the point: we should better not fallback to entries from the same tariffplan..
+
+
 #### Add VoiceMail
 ********************************************************************
 
