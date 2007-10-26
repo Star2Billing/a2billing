@@ -297,7 +297,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						<tr>
 							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Trunk");?> :</td>
 							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
-							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Ratecard ID");?> :</td>
+							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Rate");?> :</td>
 							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="enterratecard" value="<?php echo $enterratecard?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_def_ratecard.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterratecard' , 'RatecardSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
 						</tr>
 					</table>
@@ -354,7 +354,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			
 			<tr>
 				<td class="bgcolor_004" align="left">			
-					<font  class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
+					<font  class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CALLEDNUMBER");?></font>
 				</td>				
 				<td class="bgcolor_005" align="left" >
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">

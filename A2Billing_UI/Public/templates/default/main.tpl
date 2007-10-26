@@ -119,8 +119,8 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group&section=3">{php} echo gettext("Create Call Plan");{/php}</a></li>
 				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&stitle=TariffGroup&section=3">{php} echo gettext("List Call Plan");{/php}</a></li>
+				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group&section=3">{php} echo gettext("Create Call Plan");{/php}</a></li>
 				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&stitle=Tariffplan&section=3">{php} echo gettext("List RateCard");{/php}</a></li>
 				<li><a href="A2B_entity_tariffplan.php?form_action=ask-add&atmenu=tariffplan&stitle=RateCard&section=3">{php} echo gettext("Create new RateCard");{/php}</a></li>
 				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Browse Rates");{/php}</a></li>
