@@ -441,7 +441,7 @@ class A2Billing {
 		
 		// conf for the peer_friend
 		if(!isset($this->config['peer_friend']['type'])) 		$this->config['peer_friend']['type'] = 'friend';
-		if(!isset($this->config['peer_friend']['allow'])) 		$this->config['peer_friend']['allow'] = 'ulaw, alaw, gsm, g729';
+		if(!isset($this->config['peer_friend']['allow'])) 		$this->config['peer_friend']['allow'] = 'ulaw,alaw,gsm,g729';
 		if(!isset($this->config['peer_friend']['context'])) 	$this->config['peer_friend']['context'] = 'a2billing';
 		if(!isset($this->config['peer_friend']['nat'])) 		$this->config['peer_friend']['nat'] = 'yes';
 		if(!isset($this->config['peer_friend']['amaflags'])) 	$this->config['peer_friend']['amaflags'] = 'billing';
