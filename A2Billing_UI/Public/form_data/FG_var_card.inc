@@ -164,11 +164,6 @@ if (!($popup_select>=1)){
 }else{
 	$FG_COL_QUERY='id, username, lastname, credit';
 }
-// Code here for adding the fields in the Export File
-
-$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused, mac_addr, template_invoice, template_outstanding');
-
-// Code ends here for Export
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 
@@ -178,6 +173,10 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
+
+
+// Code here for adding the fields in the Export File
+$HD_Form -> FieldExportElement(CARD_EXPORT_FIELD_LIST);
 if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_CSV = true;
 if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_XML = true;
 $HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_card";

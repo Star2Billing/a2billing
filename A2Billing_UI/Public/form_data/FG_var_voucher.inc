@@ -55,8 +55,9 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_voucher";
-$HD_Form -> FG_EXPORT_FIELD_LIST = "id, voucher, usedcardnumber, creationdate, usedate, credit, activated, used";
+$HD_Form -> FG_EXPORT_FIELD_LIST = VOUCHER_EXPORT_FIELD_LIST;
 $HD_Form -> FG_EXPORT_CSV = true;
+$HD_Form -> FG_EXPORT_XML = true;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
@@ -70,52 +71,52 @@ if ($form_action=="ask-add"){
 }
 
 $HD_Form -> AddEditElement (gettext("VOUCHER"),
-			   "voucher",			
-			   "$value",	
-			   "INPUT",
-			    "size=20 $maxi readonly maxlength=40",	 
-			   "4",	
-			   gettext("Insert the voucher"),
-			   "" , "", "",	"", "" , "", "", "");
-			   
+   "voucher",			
+   "$value",	
+   "INPUT",
+	"size=20 $maxi readonly maxlength=40",	 
+   "4",	
+   gettext("Insert the voucher"),
+   "" , "", "",	"", "" , "", "", "");
+
 
 $HD_Form -> AddEditElement (gettext("AMOUNT"),
-			   "credit",
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=30",	
-			   "12",
-			   gettext("Insert the number of credit"),
-			   "" , "", "",	"", "", "",	"", "" );
+   "credit",
+   '$value',	
+   "INPUT",	
+   "size=30 maxlength=30",	
+   "12",
+   gettext("Insert the number of credit"),
+   "" , "", "",	"", "", "",	"", "" );
 
 
 $HD_Form -> AddEditElement (gettext("TAG"),
-			   "tag",			
-			   '$value',	
-			   "INPUT",
-			   "size=30 maxlength=30",	
-			   "11",	
-			   gettext("Insert the tag"),
-			   "" , "", "",	"", "", "", "NO-NULL", "" );
+   "tag",			
+   '$value',	
+   "INPUT",
+   "size=30 maxlength=30",	
+   "11",	
+   gettext("Insert the tag"),
+   "" , "", "",	"", "", "", "NO-NULL", "" );
 
 
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
-				   "activated",
-				   't',
-				   "RADIOBUTTON",	
-				   "",	
-				   "",
-				  gettext("Choose if you want to activate this card"),
-				   "" , "", "" ,"Yes :t, - No:f", "", "" , "" , "");
+	"activated",
+	't',
+	"RADIOBUTTON",	
+	"",	
+	"",
+	gettext("Choose if you want to activate this card"),
+	"" , "", "" ,"Yes :t, - No:f", "", "" , "" , "");
 
 $HD_Form -> AddEditElement (gettext("CURRENCY"),
-				   "currency",
-				   '$value',
-				   "SELECT",
-				   "",
-				   "",
-				   "",
-				   "list" , "", "",	"", $currency_list, "%1", "", "" );
+	"currency",
+	'$value',
+	"SELECT",
+	"",
+	"",
+	"",
+	"list" , "", "",	"", $currency_list, "%1", "", "" );
 
 
 if ($form_action=="ask-add"){
@@ -128,14 +129,14 @@ if ($form_action=="ask-add"){
 }
 
 $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
-			   "expirationdate",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=40  $comp_date_plus",	
-			   "10",
-			   gettext("Insert the expiration date"),
-			   "" , "", "",	"", "", "", "", gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), null, "res_display_dateformat" );
-			   
+	"expirationdate",
+	'$value',
+	"INPUT",
+	"size=40 maxlength=40  $comp_date_plus",	
+	"10",
+	gettext("Insert the expiration date"),
+	"" , "", "",	"", "", "", "", gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), null, "res_display_dateformat" );
+
 
 $HD_Form -> FieldEditElement ('voucher, credit, tag, activated, currency, expirationdate ');
 
@@ -169,7 +170,6 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form
 
 
 
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
@@ -179,8 +179,7 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 
 
 
-
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+
