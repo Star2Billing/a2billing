@@ -1,3 +1,4 @@
+
 ALTER TABLE cc_card ALTER COLUMN credit TYPE DECIMAL( 15, 5 );
 ALTER TABLE cc_card ALTER COLUMN credit SET DEFAULT '0';
 
