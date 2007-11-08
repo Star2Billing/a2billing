@@ -3,6 +3,25 @@
 ********************************************************************
 
 
+
+#### TODO : ARCHIVE CDRs & Cards
+********************************************************************
+We will create cc_call_archive && cc_card_archive
+table with the same structure cc_call where id will be primary key.
+So we can build a cront application that will weekly, retrieve all the CDRs
+older than X months move them to cc_call_archive and then
+explain the Database and rebuild index so that it start to be fast again.
+X Month will be in parameter in config
+
+Think to better solution maybe !?
++
+** WEB INTERFACE **
+
+Maybe a web interface similar at the massmail Archive, with 2 options for customer and CDR
+so we should be able to make a selection of the USER and move them to the archive table
+same for the CDR cc_call
+
+
 #### EXPORT RATECARD
 ********************************************************************
 Add all field on the export csv

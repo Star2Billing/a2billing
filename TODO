@@ -4,6 +4,27 @@
 *******************************************************************************
 
 
+#### no answer on followme
+********************************************************************
+a2billing.php|2|did: file:Class.A2Billing.php - line:952 - [A2Billing] DID call friend: FOLLOWME=2 (cardnumber:7909954270|destination:5995815170|tariff:21)
+
+make a new voice promoted to replace the one called prepaid-noanswerand make a new one called prepaid-callfollowme
+
+prepaid-callfollowme : 
+"The person you are trying to reach did not answer. Please wait as the called party has the feature call follow me activated and we will route your call to the called party"
+
+"la persona a la que ustede llamo no se encuentra disponible, porfavor espere on momento el servicio sigueme enrutara su llamada"
+
+"La personne que vous essayez de contacter n est pas disponible, restez en ligne pendant que notre service fait suivre votre appel"
+
+
+#### disable sip/iax conf files generation by default
+********************************************************************
+issues if u handle tons of card, the files creation will fails with 50k cards.
+need lot of memomry
+
+
+
 #### OPTIMIZE RATE-ENGINE
 ********************************************************************
 1)
@@ -69,28 +90,6 @@ use as key-update the Prefix (ie, 32472)
 ** UPDATE on R1 (fields) WHERE R1.prefix = R2.prefix AND R1.starttime = R2.starttime AND R1.endtime = R2.endtime 
 
 
-
-#### TODO : ARCHIVE CDRs & Cards
-********************************************************************
-We will create cc_call_archive && cc_card_archive
-table with the same structure cc_call where id will be primary key.
-So we can build a cront application that will weekly, retrieve all the CDRs
-older than X months move them to cc_call_archive and then
-explain the Database and rebuild index so that it start to be fast again.
-X Month will be in parameter in config
-
-Think to better solution maybe !?
-+
-** WEB INTERFACE **
-
-Maybe a web interface similar at the massmail Archive, with 2 options for customer and CDR
-so we should be able to make a selection of the USER and move them to the archive table
-same for the CDR cc_call
-
-
-%%% I guess we didnt understand the goal of archiving, it dont have to be a archiving one by one!
-Once the selection is made we should be able to archive the whole selection by a single click.
-Once it s archived the record may dissapear from the cc_card or cc_call table
 
 
 #### TODO : MENU TOP
