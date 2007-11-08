@@ -33,6 +33,8 @@ prepaid-sipiax-num-nomatch						Sorry, there is none SIP or IAX friend that matc
 
 prepaid-isbusy									the number is currently busy
 prepaid-noanswer								the number is not answering
+prepaid-callfollowme							The person you are trying to reach did not answer. Please wait as the called party has the feature 
+												call follow me activated and we will route your call to the called party
 
 prepaid-enter-dest								Please, enter the number you wish to call and then press the pound key...
 ? EUROPE
@@ -97,6 +99,8 @@ vm-and											et
 
 prepaid-isbusy									Ce numéro est occupé.
 prepaid-noanswer								Ce numéro ne répond pas.
+prepaid-callfollowme							La personne que vous essayez de contacter n est pas disponible,
+												restez en ligne pendant que notre service fait suivre votre appel
 
 prepaid-enter-dest								Composez le numéro que vous souhaitez appeler suivit de la touche dièse.
 prepaid-enter-dest-europe						Composez le numéro que vous souhaitez appeler précédé par 00 
@@ -175,6 +179,9 @@ prepaid-sipiax-num-nomatch						Lo sentimos, no hay ningún  SIP Friend o I A X 
 prepaid-isbusy									El número marcado está comunicando
 
 prepaid-noanswer								El número marcado no contesta
+
+prepaid-callfollowme							la persona a la que ustede llamo no se encuentra disponible, 
+												porfavor espere on momento el servicio sigueme enrutara su llamada
 
 prepaid-enter-dest								Introduzca el número que desea llamar seguido de almohadilla
 
