@@ -996,20 +996,23 @@ class A2Billing {
 		$this->agiconfig['say_timetocall']=0;
 		
 		
-		if (($listdestination[0][2]==0) || ($listdestination[0][2]==2)) $doibill = 1;
-		else $doibill = 0;
-
+		if (($listdestination[0][2]==0) || ($listdestination[0][2]==2)) {
+			$doibill = 1;
+		} else {
+			$doibill = 0;
+		}
+		
 		$callcount=0;
-		foreach ($listdestination as $inst_listdestination){
+		foreach ($listdestination as $inst_listdestination) {
 			$callcount++;
 			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: FOLLOWME=$callcount (cardnumber:".$inst_listdestination[6]."|destination:".$inst_listdestination[4]."|tariff:".$inst_listdestination[3].")\n");
 			
-			$this->agiconfig['cid_enable']= 0;
-			$this->accountcode = $inst_listdestination[6];
-			$this->tariff = $inst_listdestination[3];
-			$this->destination = $inst_listdestination[4];
-			$this->username = $inst_listdestination[6];
+			$this->agiconfig['cid_enable']	= 0;
+			$this->accountcode 				= $inst_listdestination[6];
+			$this->tariff 					= $inst_listdestination[3];
+			$this->destination 				= $inst_listdestination[4];
+			$this->username 				= $inst_listdestination[6];
 			
 			// MAKE THE AUTHENTICATION TO GET ALL VALUE : CREDIT - EXPIRATION - ...
 			if ($this -> callingcard_ivr_authenticate($agi)!=0){
@@ -1028,7 +1031,7 @@ class A2Billing {
 					}
 						
 					$dialparams = $this->agiconfig['dialcommand_param_sipiax_friend'];
-					$dialstr = $inst_listdestination[4].$dialparams;
+					$dialstr 	= $inst_listdestination[4].$dialparams;
 					
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: Dialing '$dialstr' Friend.\n");
 					
@@ -1038,10 +1041,10 @@ class A2Billing {
 					$myres = $agi->exec("DIAL $dialstr");
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL");
 				
-					$answeredtime = $agi->get_variable("ANSWEREDTIME");
-					$answeredtime = $answeredtime['data'];
-					$dialstatus = $agi->get_variable("DIALSTATUS");
-					$dialstatus = $dialstatus['data'];
+					$answeredtime 	= $agi->get_variable("ANSWEREDTIME");
+					$answeredtime 	= $answeredtime['data'];
+					$dialstatus 	= $agi->get_variable("DIALSTATUS");
+					$dialstatus 	= $dialstatus['data'];
 					
 					if ($this->agiconfig['record_call'] == 1){				
 						$myres = $agi->exec("STOPMONITOR");
@@ -1059,7 +1062,7 @@ class A2Billing {
 						if (count($listdestination)>$callcount) continue;
 					} elseif ($this->dialstatus == "NOANSWER") {
 						$answeredtime=0;
-						$agi-> stream_file('prepaid-noanswer', '#');
+						$agi-> stream_file('prepaid-callfollowme', '#');
 						// FOR FOLLOWME IF THERE IS MORE WE PASS TO THE NEXT ONE OTHERWISE WE NEED TO LOG THE CALL MADE
 						if (count($listdestination)>$callcount) continue;
 					} elseif ($dialstatus == "CANCEL") {
@@ -1073,7 +1076,7 @@ class A2Billing {
 						// FOR FOLLOWME IF THERE IS MORE WE PASS TO THE NEXT ONE OTHERWISE WE NEED TO LOG THE CALL MADE
 						if (count($listdestination)>$callcount) continue;
 					} else{
-						$agi-> stream_file('prepaid-noanswer', '#');
+						$agi-> stream_file('prepaid-callfollowme', '#');
 						// FOR FOLLOWME IF THERE IS MORE WE PASS TO THE NEXT ONE OTHERWISE WE NEED TO LOG THE CALL MADE
 						if (count($listdestination)>$callcount) continue;
 					}	
@@ -1108,44 +1111,44 @@ class A2Billing {
 						return 1;
 					}			
 					
-					// ELSEIF NOT VOIP CALL
-					} else {
-						
-						$this->agiconfig['use_dnid']=1;
-						$this->agiconfig['say_timetocall']=0;
-						
-						$this->dnid = $this->destination = $inst_listdestination[4];
-						if ($this->CC_TESTING) $this->dnid = $this->destination="011324885";
-						
-						
-						if ($this -> callingcard_ivr_authorize($agi, $RateEngine, 0)==1){
-								
-							// PERFORM THE CALL	
-							$result_callperf = $RateEngine->rate_engine_performcall ($agi, $this -> destination, $this);
-							if (!$result_callperf) {
-								$prompt="prepaid-noanswer.gsm"; 
-								$agi-> stream_file($prompt, '#');
-								continue;
-							}
+				// ELSEIF NOT VOIP CALL
+				} else {
+					
+					$this->agiconfig['use_dnid']=1;
+					$this->agiconfig['say_timetocall']=0;
+					
+					$this->dnid = $this->destination = $inst_listdestination[4];
+					if ($this->CC_TESTING) $this->dnid = $this->destination="011324885";
+					
+					
+					if ($this -> callingcard_ivr_authorize($agi, $RateEngine, 0)==1){
 							
-							if (($RateEngine->dialstatus == "NOANSWER") || ($RateEngine->dialstatus == "CANCEL") || ($RateEngine->dialstatus == "BUSY") || ($RateEngine->dialstatus == "CHANUNAVAIL") || ($RateEngine->dialstatus == "CONGESTION")) continue;
-								
-							// INSERT CDR  & UPDATE SYSTEM
-							$RateEngine->rate_engine_updatesystem($this, $agi, $this-> destination, $doibill, 1);
-							// CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id							
-							$QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + ".$RateEngine->answeredtime." WHERE id='".$inst_listdestination[0]."'";
-							$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-							$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID: SQL: $QUERY]:[result:$result]");
-							
-							$QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + ".$RateEngine->answeredtime." WHERE id='".$inst_listdestination[1]."'";
-							$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-							$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION: SQL: $QUERY]:[result:$result]");
-							
-							// THEN STATUS IS ANSWER
-							break;
+						// PERFORM THE CALL	
+						$result_callperf = $RateEngine->rate_engine_performcall ($agi, $this -> destination, $this);
+						if (!$result_callperf) {
+							$prompt="prepaid-callfollowme"; 
+							$agi-> stream_file($prompt, '#');
+							continue;
 						}
 						
+						if (($RateEngine->dialstatus == "NOANSWER") || ($RateEngine->dialstatus == "CANCEL") || ($RateEngine->dialstatus == "BUSY") || ($RateEngine->dialstatus == "CHANUNAVAIL") || ($RateEngine->dialstatus == "CONGESTION")) continue;
+							
+						// INSERT CDR  & UPDATE SYSTEM
+						$RateEngine->rate_engine_updatesystem($this, $agi, $this-> destination, $doibill, 1);
+						// CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id							
+						$QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + ".$RateEngine->answeredtime." WHERE id='".$inst_listdestination[0]."'";
+						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID: SQL: $QUERY]:[result:$result]");
+						
+						$QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + ".$RateEngine->answeredtime." WHERE id='".$inst_listdestination[1]."'";
+						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION: SQL: $QUERY]:[result:$result]");
+						
+						// THEN STATUS IS ANSWER
+						break;
 					}
+					
+				}
 			} // END IF AUTHENTICATE
 		}// END FOR
 	}
