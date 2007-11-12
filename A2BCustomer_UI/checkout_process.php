@@ -207,7 +207,7 @@ if ($numrow == 0)
     exit(gettext("No Such Customer exists."));
 }
 $customer_info =$resmax -> fetchRow();
-$nowDate = date("y-m-d H:i:s");
+$nowDate = date("Y-m-d H:i:s");
 
 
 $pmodule = $transaction_data[0][4];
