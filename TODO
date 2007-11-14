@@ -70,6 +70,26 @@ exten => *97,n,VoiceMailMain(${CALLERID(num)}@default)
 exten => *97,n,Hangup 
 
 
+
+#### USE SMTP CLASS SERVER ON THE WHOLE A2BILLING
+********************************************************************
+replace all the mail function in php that use sendmail and replace by 
+using PHPMAILER
+
+
+
+#### Add Description for AGI-CONF X configuration
+********************************************************************
+if we have many it will be handy to have a little description to remind what is it for and where is it used.
+ie, IVR voice promt for callign card service
+
+
+#### UPDATE : Move the language selection on the login screen
+********************************************************************
+Move the language selection on the login screen
+
+
+
 #### TODO : RATECARD MERGING TOOL
 ********************************************************************
 
