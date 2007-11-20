@@ -108,6 +108,8 @@ define ("ACTIVATEDBYUSER", isset($A2B->config["signup"]['activatedbyuser'])?$A2B
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
 define ("LIBDIR", FSROOT."lib/");
 include (FSROOT."lib/Misc.php");
+// USE PHPMAILER
+include_once (FSROOT."lib/mail/class.phpmailer.php");
 
 /*
  *		GLOBAL USED VARIABLE

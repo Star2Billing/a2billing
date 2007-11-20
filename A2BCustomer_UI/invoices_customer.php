@@ -17,15 +17,13 @@ getpost_ifset(array('customer', 'posted', 'Period', 'frommonth', 'fromstatsmonth
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
 
-if (($_GET[download]=="file") && $_GET[file] ) 
-{
+if (($_GET[download]=="file") && $_GET[file] ) {
 	
 	$value_de=base64_decode($_GET[file]);
 	$dl_full = MONITOR_PATH."/".$value_de;
 	$dl_name=$value_de;
 
-	if (!file_exists($dl_full))
-	{ 
+	if (!file_exists($dl_full)) { 
 		echo gettext("ERROR: Cannot download file"). $dl_full.", ".gettext("it does not exist").'<br>';
 		exit();
 	}
@@ -155,19 +153,18 @@ if (!$nodisplay)
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination";
 
-if (!$nodisplay)
-{
+if (!$nodisplay) {
 	$list_total_destination  = $instance_table->SQLExec ($DBHandle, $QUERY);
-}//end IF nodisplay
+}
 
-if ($nb_record<=$FG_LIMITE_DISPLAY){
+if ($nb_record<=$FG_LIMITE_DISPLAY) {
 	$nb_record_max=1;
-}else{ 
-	if ($nb_record % $FG_LIMITE_DISPLAY == 0){
+} else { 
+	if ($nb_record % $FG_LIMITE_DISPLAY == 0) {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
-	}else{
+	} else {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
-	}	
+	}
 }
 
 if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
@@ -176,9 +173,9 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 
 	$FG_TABLE_CLAUSE = "";
-	if (isset($customer)  &&  ($customer>0)){		
+	if (isset($customer)  &&  ($customer>0)) {
 		$FG_TABLE_CLAUSE =" username='$customer' ";
-	}elseif (isset($entercustomer)  &&  ($entercustomer>0)){
+	}  elseif (isset($entercustomer)  &&  ($entercustomer>0)) {
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
 
@@ -202,7 +199,8 @@ $QUERY = "Select CASE WHEN max(cover_enddate) is NULL  THEN '0001-01-01 01:00:00
 
 if (!$nodisplay) {
 	$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			 
-}//end IF nodisplay
+}
+
 if ($invoice_dates[0][0] == '0001-01-01 01:00:00') {
 	$invoice_dates[0][0] = $info_customer[0][14];
 }
@@ -224,7 +222,7 @@ $smarty->display( 'main.tpl');
 }
 
 
-if($exporttype!="pdf"){
+if($exporttype!="pdf") {
 
 ?>
 <center>
@@ -1050,30 +1048,26 @@ if($exporttype!="pdf"){
 <?php  } ?>
 <br><br>
 
-<?php  if($exporttype!="pdf"){ ?>
-
 <?php
+
+if ($exporttype!="pdf") {
+
 	$smarty->display('footer.tpl');
-?>
 
-<?php  }else{
-// EXPORT TO PDF
-
+} else {
+	
+	// EXPORT TO PDF
 	$html = ob_get_contents();
 	// delete output-Buffer
 	ob_end_clean();
 	
 	$pdf = new HTML2FPDF();
-	
 	$pdf -> DisplayPreferences('HideWindowUI');
-	
 	$pdf -> AddPage();
 	$pdf -> WriteHTML($html);
-	
 	$html = ob_get_contents();
 	
 	$pdf->Output('CC_invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
+}
 
-
-
-} ?>
+?>

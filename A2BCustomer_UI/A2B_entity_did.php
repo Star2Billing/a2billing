@@ -5,14 +5,13 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_did.inc");
 include ("./lib/smarty.php");
 
-if (! has_rights (ACX_ACCESS)){
+if (! has_rights (ACX_ACCESS)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-if (!$A2B->config["webcustomerui"]['did'])
-{
+if (!$A2B->config["webcustomerui"]['did']) {
     exit();
 }
 
@@ -82,12 +81,21 @@ if ($action_release=="confirm_release"){
 	$message .= "DELETE all DID destination: $QUERY \n\n";
 
 	$date = date("D M j G:i:s T Y", time());
-		// email header
-	$em_headers  = "From: A2BILLING ALERT <a2billing_alert@localhost>\n";
-	$em_headers .= "X-Priority: 3\n";
-	if (strlen($A2B->config["webcustomerui"]['error_email'])>3)
-	mail($A2B->config["webcustomerui"]['error_email'], "[$date] Release-DID notification", $message, $em_headers);
-
+	
+	// USE PHPMAILER
+	include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
+	
+	$mail = new phpmailer();
+	$mail -> From     = 'a2billing_alert@localhost';
+	$mail -> FromName = 'A2BILLING ALERT';
+	//$mail -> IsSendmail();
+	$mail -> IsSMTP();
+	$mail -> Subject  = "[$date] Release-DID notification";
+	$mail -> Body    = $messagetext ; //$HTML;
+	$mail -> AltBody = $messagetext; // Plain text body (for mail clients that cannot read 	HTML)
+	$mail -> ContentType = "multipart/alternative";
+	$mail -> AddAddress(ADMIN_EMAIL);				
+	$mail -> Send();
 }
 
 /***********************************************************/

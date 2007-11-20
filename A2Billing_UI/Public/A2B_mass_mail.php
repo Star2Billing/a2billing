@@ -4,7 +4,8 @@ include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/smarty.php");
 
-if (! has_rights (ACX_MISC)){
+
+if (! has_rights (ACX_MISC)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -62,13 +63,15 @@ $HD_Form -> prepare_list_subselection('list');
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $nb_customer = 0;
-if(!empty($HD_Form -> FG_TABLE_CLAUSE)){
+
+if(!empty($HD_Form -> FG_TABLE_CLAUSE)) {
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND email <> ''";
 	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $HD_Form -> FG_TABLE_CLAUSE, null, null, null, null, null, null);			
-}else{
+} else {
 	$sql_clause = "email <> ''";
 	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $sql_clause);
 }
+
 $nb_customer = sizeof($list_customer);
 $DBHandle  = DbConnect();
 $instance_table = new Table();
@@ -77,73 +80,74 @@ $instance_table = new Table();
 getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_customer'));
 
 
-if(isset($submit)){
+if(isset($submit)) {
 	$error = FALSE;
 	$error_msg = '';
 	$group_id = intval($HTTP_POST_VARS[POST_GROUPS_URL]);
-		if(isset($hd_email) && !empty($hd_email)){
-			$bcc_list  = $hd_email;		
-		}else{
-			$QUERY = "Select email from cc_card WHERE email <> ''";
-			$res_ALOC  = $instance_table->SQLExec ($HD_Form -> DBHandle, $QUERY);		
-			foreach($res_ALOC as $key => $val){
-				if($val[0] != '' ){
-					$bcc_list[$key] =  $val[0];
-				}
+	
+	if(isset($hd_email) && !empty($hd_email)){
+		$bcc_list  = $hd_email;		
+	}else{
+		$QUERY = "Select email from cc_card WHERE email <> ''";
+		$res_ALOC  = $instance_table->SQLExec ($HD_Form -> DBHandle, $QUERY);		
+		foreach($res_ALOC as $key => $val){
+			if($val[0] != '' ){
+				$bcc_list[$key] =  $val[0];
 			}
 		}
-		include('../lib/emailer.php');
+	}
+	include('../lib/emailer.php');
 
-		//
-		// Let's do some checking to make sure that mass mail functions
-		// are working in win32 versions of php.
-		//
-		$board_config['smtp_delivery'] = 0;
-		if ( preg_match('/[c-z]:\\\.*/i', getenv('PATH')) && !$board_config['smtp_delivery'])
-		{
-			$ini_val = ( @phpversion() >= '4.0.0' ) ? 'ini_get' : 'get_cfg_var';
+	//
+	// Let's do some checking to make sure that mass mail functions
+	// are working in win32 versions of php.
+	//
+	$board_config['smtp_delivery'] = 0;
+	if ( preg_match('/[c-z]:\\\.*/i', getenv('PATH')) && !$board_config['smtp_delivery'])
+	{
+		$ini_val = ( @phpversion() >= '4.0.0' ) ? 'ini_get' : 'get_cfg_var';
 
-			// We are running on windows, force delivery to use our smtp functions
-			// since php's are broken by default
-			$board_config['smtp_delivery'] = 1;
-			$board_config['smtp_host'] = @$ini_val('SMTP');
-		}
+		// We are running on windows, force delivery to use our smtp functions
+		// since php's are broken by default
+		$board_config['smtp_delivery'] = 1;
+		$board_config['smtp_host'] = @$ini_val('SMTP');
+	}
 
-		$emailer = new emailer($board_config['smtp_delivery']);
-	
-		$emailer->from(EMAIL_ADMIN);
-		$emailer->replyto(EMAIL_ADMIN);
+	$emailer = new emailer($board_config['smtp_delivery']);
 
-		for ($i = 0; $i < count($bcc_list); $i++)
-		{
-			$emailer->bcc($bcc_list[$i]);
-		}
+	$emailer->from(EMAIL_ADMIN);
+	$emailer->replyto(EMAIL_ADMIN);
 
-		$email_headers = 'X-AntiAbuse: Board servername - Asterisk 2 billing\n';
-		$email_headers .= 'X-AntiAbuse: User_id - 1\n';
-		$email_headers .= 'X-AntiAbuse: Username - Areski\n';
-		$email_headers .= 'X-AntiAbuse: User IP - 192.168.1.241\n';
+	for ($i = 0; $i < count($bcc_list); $i++)
+	{
+		$emailer->bcc($bcc_list[$i]);
+	}
 
-		$emailer->use_template($message);
-		$emailer->email_address(EMAIL_ADMIN);
-		$emailer->set_subject($subject);
-		$emailer->extra_headers($email_headers);
+	$email_headers = 'X-AntiAbuse: Board servername - Asterisk 2 billing\n';
+	$email_headers .= 'X-AntiAbuse: User_id - 1\n';
+	$email_headers .= 'X-AntiAbuse: Username - Areski\n';
+	$email_headers .= 'X-AntiAbuse: User IP - 192.168.1.241\n';
 
-		$emailer->assign_vars(array(
-			'SITENAME' => 'a2billing', 
-			'BOARD_EMAIL' => EMAIL_ADMIN, 
-			'MESSAGE' => 'Hey it is a message, just to watch working')
-		);
-		$result = $emailer->send();
-		$emailer->reset();
+	$emailer->use_template($message);
+	$emailer->email_address(EMAIL_ADMIN);
+	$emailer->set_subject($subject);
+	$emailer->extra_headers($email_headers);
+
+	$emailer->assign_vars(array(
+		'SITENAME' => 'a2billing', 
+		'BOARD_EMAIL' => EMAIL_ADMIN, 
+		'MESSAGE' => 'Hey it is a message, just to watch working')
+	);
+	$result = $emailer->send();
+	$emailer->reset();
 }
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 echo $CC_help_mass_mail;
 
-
-if(!isset($submit)){?>
+if(!isset($submit)) {
+?>
 <script language="JavaScript" src="javascript/card.js"></script>
 <div class="toggle_hide2show">
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CUSTOMERS");?> </font></a></center>
@@ -157,35 +161,40 @@ if(!isset($submit)){?>
 	</div>
 </div>
 
-<?php }
+<?php 
+	}
 
 // #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) 
+if (strlen($_GET["menu"])>0) {
 	$_SESSION["menu"] = $_GET["menu"];
-
+}
 ?>
 <FORM action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="mass_mail"> 
-<table class="editform_table1" cellspacing="2">
+	<table class="editform_table1" cellspacing="2">
 <?php
 if(isset($submit)){
-			if($result){?>
-				<tr> 
-           			<td align="center" colspan="2"><?php echo gettext("The e-mail has been sent to "); echo $total_customer; echo gettext(" customer(s)!")?></td>
-		       </tr>
-			<?php }else{?>
-				<tr> 
-           			<td align="center" colspan="2"><?php echo gettext("There is some error sending e-mail, please try later.");?></td>
-		       </tr>
-			<?php }?>	
+		if($result){
+?>
+		<TR> 
+		 <td align="center" colspan="2"><?php echo gettext("The e-mail has been sent to "); echo $total_customer; echo gettext(" customer(s)!")?></td>
+		</TR>
+	<?php }else{?>
+		<tr> 
+		 <td align="center" colspan="2"><?php echo gettext("There is some error sending e-mail, please try later.");?></td>
+	   </tr>
+	<?php }?>	
 	
-<?php }else{?>
-       <?php if(is_array($list_customer) || $nb_customer > 1){?>
-       <tr> 
-	       <td><span class="viewhandler_span1">&nbsp;</span></td>
-           <td align="right"> <span class="viewhandler_span1"><?php echo $nb_customer;?> <?php echo gettext("Record(s)");?></span></td>
-       </tr>
-<?php if(!empty($HD_Form -> FG_TABLE_CLAUSE) && is_array($list_customer)){?>
+<?php 
+	} else {
+		if(is_array($list_customer) || $nb_customer > 1) {
+?>
+	<tr> 
+		<td><span class="viewhandler_span1">&nbsp;</span></td>
+		<td align="right"> <span class="viewhandler_span1"><?php echo $nb_customer;?> <?php echo gettext("Record(s)");?></span></td>
+	</tr>
+<?php
+	if(!empty($HD_Form -> FG_TABLE_CLAUSE) && is_array($list_customer)) {
+?>
        <TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("TO");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
@@ -202,20 +211,22 @@ if(isset($submit)){
 				}?><span class="liens"></span>&nbsp;<br>
 		     </TD>
        </TR>
-<?php }?>
-       <TR> 		
+<?php 
+	}
+?>
+		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("SUBJECT");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-		        <INPUT class="form_input_text" name="subject"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp; 
-		     </TD>
-       </TR>
+				<INPUT class="form_input_text" name="subject"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp; 
+			 </TD>
+		</TR>
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("MESSAGE");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
 				<textarea class="form_input_textarea" name="message"  cols="70" rows="10""></textarea> 
 					<span class="liens"></span>&nbsp; </TD>
-         </TR>
-         
+		 </TR>
+		 
 		<tr>
 		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);">&nbsp; </td>
 		</tr>
@@ -232,10 +243,12 @@ if(isset($submit)){
 		}
 		?>
 		</table>
-	  	<input type = "hidden" name="total_customer" value="<?=$nb_customer?>">
-     </FORM>
-<?php 	
+		<input type = "hidden" name="total_customer" value="<?=$nb_customer?>">
+	</FORM>
+
+<?php
+
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-		
+
 ?>

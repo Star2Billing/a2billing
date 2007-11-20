@@ -1027,16 +1027,18 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 			$messagetext = str_replace('$password', $A2B -> cardholder_uipass, $messagetext);
 			$messagetext = str_replace('$min_credit', $A2B->agiconfig['min_credit_2call'], $messagetext);
 			
+			/*
 			$em_headers  = "From: ".$fromname." <".$from.">\n";		
 			$em_headers .= "Reply-To: ".$from."\n";
 			$em_headers .= "Return-Path: ".$from."\n";
 			$em_headers .= "X-Priority: 3\n";
 			
 			mail($A2B -> cardholder_email, $subject, $messagetext, $em_headers);
+			*/
 			
-			/* USE PHPMAILER
-			include (dirname(__FILE__)."/libs_a2billing/mail/class.phpmailer.php");
-			//  change class.phpmailer.php - hostname
+			// USE PHPMAILER
+			include_once (dirname(__FILE__)."/libs_a2billing/mail/class.phpmailer.php");
+			
 			$mail = new phpmailer();
 			$mail -> From     = $from;
 			$mail -> FromName = $fromname;
@@ -1044,11 +1046,11 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 			$mail -> IsSMTP();
 			$mail -> Subject  = $subject;
 			$mail -> Body    = $messagetext ; //$HTML;
-			//$mail -> AltBody = $messagetext;	// Plain text body (for mail clients that cannot read 	HTML)
-			//$mail -> ContentType = "multipart/alternative";
-			$mail->AddAddress($A2B -> cardholder_email);				
-			$mail->Send();
-			*/
+			$mail -> AltBody = $messagetext; // Plain text body (for mail clients that cannot read 	HTML)
+			$mail -> ContentType = "multipart/alternative";
+			$mail -> AddAddress($A2B -> cardholder_email);				
+			$mail -> Send();
+			
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SEND-MAIL REMINDER]:[TO:".$A2B -> cardholder_email." - FROM:$from - SUBJECT:$subject]");
 		}
 	}

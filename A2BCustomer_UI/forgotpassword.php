@@ -9,14 +9,12 @@ $error = 0; //$error = 0 No Error; $error=1 No such User; $error = 2 Wrong Actio
 $show_message = false;
 $login_message = "";
 
-if(isset($pr_email) && isset($action))
-{
-    if($action == "email")
-    {
+if(isset($pr_email) && isset($action)) {
+    if($action == "email") {
 		
-		if (!isset($_SESSION["date_forgot"]) || (time()-$_SESSION["date_forgot"]) > 60){
+		if (!isset($_SESSION["date_forgot"]) || (time()-$_SESSION["date_forgot"]) > 60) {
 			$_SESSION["date_forgot"]=time();
-		}else{
+		} else {
 			sleep(3);
 			echo gettext("Please wait 1 minutes before making any other request for the forgot password!");
 			exit();
@@ -31,14 +29,12 @@ if(isset($pr_email) && isset($action))
 	        $num = $res -> RecordCount();
 		
         if (!$num) exit();
-        for($i=0;$i<$num;$i++)
-        {
+        for($i=0;$i<$num;$i++) {
         	$listtemplate[] = $res->fetchRow();
         }
 
         list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-        if ($FG_DEBUG == 1)
-        {
+        if ($FG_DEBUG == 1) {
             echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
         }
         $QUERY = "SELECT username, lastname, firstname, email, uipass, useralias FROM cc_card WHERE email='".$pr_email."' ";
@@ -48,15 +44,12 @@ if(isset($pr_email) && isset($action))
 	if ($res)
 	        $num = $res -> RecordCount();
 
-        if (!$num)
-        {
+        if (!$num) {
             $error = 1;
 			sleep(4);
         }
-        if($error == 0)
-        {
-            for($i=0;$i<$num;$i++)
-            {
+        if($error == 0) {
+            for($i=0;$i<$num;$i++) {
             	$list[] = $res->fetchRow();
             }
             $keepmessagetext = $messagetext;
@@ -64,17 +57,27 @@ if(isset($pr_email) && isset($action))
             {
             	$messagetext = $keepmessagetext;
             	list($username, $lastname, $firstname, $email, $uipass, $cardalias) = $recordset;
-
+				
             	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
-
+				
 				$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
             	$messagetext = str_replace('$card_gen', $username, $messagetext);
             	$messagetext = str_replace('$password', $uipass, $messagetext);
-            	$em_headers  = "From: ".$fromname." <".$from.">\n";
-            	$em_headers .= "Reply-To: ".$from."\n";
-            	$em_headers .= "Return-Path: ".$from."\n";
-            	$em_headers .= "X-Priority: 3\n";
-            	mail($recordset[3], $subject, $messagetext, $em_headers);
+				
+				// USE PHPMAILER
+				include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
+				
+				$mail = new phpmailer();
+				$mail -> From     = $from;
+				$mail -> FromName = $fromname;
+				//$mail -> IsSendmail();
+				$mail -> IsSMTP();
+				$mail -> Subject  = $subject;
+				$mail -> Body    = $messagetext ; //$HTML;
+				$mail -> AltBody = $messagetext; // Plain text body (for mail clients that cannot read 	HTML)
+				$mail -> ContentType = "multipart/alternative";
+				$mail -> AddAddress($recordset[3]);				
+				$mail -> Send();
             }
         }
     }

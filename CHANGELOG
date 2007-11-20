@@ -3,6 +3,19 @@
 ********************************************************************
 
 
+#### no answer on followme
+********************************************************************
+a2billing.php|2|did: file:Class.A2Billing.php - line:952 - [A2Billing] DID call friend: FOLLOWME=2 (cardnumber:7909954270|destination:5995815170|tariff:21)
+
+make a new voice promoted to replace the one called prepaid-noanswerand make a new one called prepaid-callfollowme
+
+prepaid-callfollowme : 
+"The person you are trying to reach did not answer. Please wait as the called party has the feature call follow me activated and we will route your call to the called party"
+
+"la persona a la que ustede llamo no se encuentra disponible, porfavor espere on momento el servicio sigueme enrutara su llamada"
+
+"La personne que vous essayez de contacter n est pas disponible, restez en ligne pendant que notre service fait suivre votre appel"
+
 
 #### TODO : ARCHIVE CDRs & Cards
 ********************************************************************

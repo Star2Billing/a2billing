@@ -4,18 +4,18 @@
 *******************************************************************************
 
 
-#### no answer on followme
+
+#### USE SMTP CLASS SERVER ON THE WHOLE A2BILLING
 ********************************************************************
-a2billing.php|2|did: file:Class.A2Billing.php - line:952 - [A2Billing] DID call friend: FOLLOWME=2 (cardnumber:7909954270|destination:5995815170|tariff:21)
+replace all the mail function in php that use sendmail and replace by 
+using PHPMAILER
 
-make a new voice promoted to replace the one called prepaid-noanswerand make a new one called prepaid-callfollowme
+add parameter in global to configure SMTP server
+ * use_sendmail
+ * smpt_host
 
-prepaid-callfollowme : 
-"The person you are trying to reach did not answer. Please wait as the called party has the feature call follow me activated and we will route your call to the called party"
-
-"la persona a la que ustede llamo no se encuentra disponible, porfavor espere on momento el servicio sigueme enrutara su llamada"
-
-"La personne que vous essayez de contacter n est pas disponible, restez en ligne pendant que notre service fait suivre votre appel"
+in /home/areski/public_html/svn/asterisk2billing/trunk/A2Billing_UI/Public, the only one is :
+Big changes in A2B_mass_mail.php, be sure to test well
 
 
 #### disable sip/iax conf files generation by default
@@ -71,10 +71,10 @@ exten => *97,n,Hangup
 
 
 
-#### USE SMTP CLASS SERVER ON THE WHOLE A2BILLING
+#### IMPROVE IN RIGHT / PERMISSION MANAGEMENT
 ********************************************************************
-replace all the mail function in php that use sendmail and replace by 
-using PHPMAILER
+recommendation : Admin interface is sometimes too messed, we need to restructure
+the menu in an intelligement way so that not all the features appears.
 
 
 
