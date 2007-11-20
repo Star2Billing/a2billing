@@ -274,13 +274,13 @@ if ($mode == 'standard'){
 						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "TRUNK - dnid : ".$A2B->dnid." (".$A2B->agiconfig['use_dnid'].")");
 					}
 				} else {
-					$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 2000, 1);
+					$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 4000, 1);
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
 					$A2B-> sip_iax_buddy = $res_dtmf ["result"];
 				}
 			}
 			
-			if ( isset($A2B-> sip_iax_buddy) && ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
+			if ( isset($A2B-> sip_iax_buddy) || ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
 				
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, 'CALL SIP_IAX_BUDDY');
 				$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine,$i);
