@@ -4,6 +4,7 @@ include ("../../lib/regular_express.inc");
 require_once('SOAP/Server.php');
 require_once('SOAP/Disco.php');
 
+
 define ("LOG_WEBSERVICE", isset($A2B->config["log-files"]['api_card'])?$A2B->config["log-files"]['api_card']:null); 
 
 
@@ -13,7 +14,7 @@ class Cards
 	
 	function Cards() {
         // Define the signature of the dispatch map on the Web servicesmethod
-
+		
         // Necessary for WSDL creation
 		
         $this->__dispatch_map['Create_Card'] =
@@ -73,11 +74,11 @@ class Cards
 		// CHECK SECURITY KEY
 		if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
 		{
-			mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
+			a2b_mail (EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
 			error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
 			sleep(2);
 			return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
-		} 
+		}
 		
 		return array($transaction_code, $account_number, $cardnumber, 'result=OK', '');
 	}
@@ -229,229 +230,220 @@ class Cards
 	}
 	 
 	 
-	 /*
-	  *		Function for the Service Remove_Card : remove an existing card for the database
-	  */ 
-     function Remove_Card($security_key, $transaction_code, $account_number, $cardnumber){ 
-	 		
-			// The wrapper variables for security
- 			// $security_key = API_SECURITY_KEY;
-			$logfile=SOAP_LOGFILE;	
-
-			$mysecurity_key = API_SECURITY_KEY;
-						
-			$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Remove_Card [$transaction_code, $account_number, $cardnumber]";
-			
-			// CHECK SECURITY KEY
-			 if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
-			 {
-				  mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
-				  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
-				  sleep(2);
-				  return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
-			 } 
-			   
-			// Create new account			
-			$FG_TABLE  = "cc_card";
-			$DBHandle  = DbConnect();
-			$instance_sub_table = new Table($FG_TABLE);
-			$FG_EDITION_CLAUSE = " username = '$cardnumber' ";
-			$res_delete = $instance_sub_table -> Delete_table ($DBHandle, $FG_EDITION_CLAUSE);
-			if (!$res_delete){
-				return array($transaction_code, $account_number, $cardnumber, 'result=ERROR', 'Cannot remove this cardnumber');
-			}else{
-				return array($transaction_code, $account_number, $cardnumber, 'result=OK', '');
-			}
-	 }
-	 
-	 
+	/*
+	 *		Function for the Service Remove_Card : remove an existing card for the database
+	 */ 
+	function Remove_Card($security_key, $transaction_code, $account_number, $cardnumber){ 
+		
+		// The wrapper variables for security
+		// $security_key = API_SECURITY_KEY;
+		$logfile=SOAP_LOGFILE;	
+		
+		$mysecurity_key = API_SECURITY_KEY;
+		
+		$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Remove_Card [$transaction_code, $account_number, $cardnumber]";
+		
+		// CHECK SECURITY KEY
+		if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
+		{
+			a2b_mail (EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
+			error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
+			sleep(2);
+			return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
+		} 
+		
+		// Create new account			
+		$FG_TABLE  = "cc_card";
+		$DBHandle  = DbConnect();
+		$instance_sub_table = new Table($FG_TABLE);
+		$FG_EDITION_CLAUSE = " username = '$cardnumber' ";
+		$res_delete = $instance_sub_table -> Delete_table ($DBHandle, $FG_EDITION_CLAUSE);
+		if (!$res_delete){
+			return array($transaction_code, $account_number, $cardnumber, 'result=ERROR', 'Cannot remove this cardnumber');
+		}else{
+			return array($transaction_code, $account_number, $cardnumber, 'result=OK', '');
+		}
+	}
+	
+	
 	 /*
 	  *		Function for the Service Create_Card : create a new card, also can create the sip/iax friends and the additional asterisk conf files
 	  */ 
-     function Create_Card($security_key, $transaction_code, $account_number, $tariff, $uipass, $credit, $language, $activated, $status,  $simultaccess, $currency, $runservice, 
-	 $typepaid, $creditlimit, $enableexpire, $expirationdate, $expiredays, $lastname, $firstname, $address, $city, $state, $country, $zipcode, $phone, $fax, 
-	 $callerid_list, $iax_friend, $sip_friend){ 
-	 
-	 		
-			// The wrapper variables for security
- 			// $security_key = API_SECURITY_KEY;
-			$logfile=SOAP_LOGFILE;	
-
-			$mysecurity_key = API_SECURITY_KEY;
-						
-			$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Create_Card [$transaction_code, $account_number, $tariff, $uipass, $credit, $language, $activated, $simultaccess, $currency, $runservice, $typepaid, $creditlimit, $enableexpire, $expirationdate, $expiredays, $lastname, $firstname, $address, $city, $state, $country, $zipcode, $phone, $fax, $callerid_list, $iax_friend, $sip_friend]";
+    function Create_Card($security_key, $transaction_code, $account_number, $tariff, $uipass, $credit, $language, $activated, $status,  $simultaccess, $currency, $runservice, $typepaid, $creditlimit, $enableexpire, $expirationdate, $expiredays, $lastname, $firstname, $address, $city, $state, $country, $zipcode, $phone, $fax, $callerid_list, $iax_friend, $sip_friend){ 
+		
+		// The wrapper variables for security
+		// $security_key = API_SECURITY_KEY;
+		$logfile=SOAP_LOGFILE;	
+		
+		$mysecurity_key = API_SECURITY_KEY;
+		
+		$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Create_Card [$transaction_code, $account_number, $tariff, $uipass, $credit, $language, $activated, $simultaccess, $currency, $runservice, $typepaid, $creditlimit, $enableexpire, $expirationdate, $expiredays, $lastname, $firstname, $address, $city, $state, $country, $zipcode, $phone, $fax, $callerid_list, $iax_friend, $sip_friend]";
+		
+		// CHECK SECURITY KEY
+		if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
+		{
+			a2b_mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
+			error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
+			sleep(2);
+			return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
+		} 
+		  
+		// Create new account			
+		$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
+		$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, id_didgroup, activated, status, lastname, firstname, email, address, city, state, country, zipcode, phone, fax, userpass, simultaccess, currency, typepaid, creditlimit, language, runservice, enableexpire, expirationdate, expiredays, uipass, sip_buddy, iax_buddy";
+		
+		
+		$arr_card_alias = gen_card_with_alias('cc_card', 1);
+		$cardnum = $arr_card_alias[0];
+		$useralias = $arr_card_alias[1];
+		if ($uipass=='' || 	strlen($uipass)==0)		$uipass = MDP_STRING();
+		
+		// CHECK PARAMETERS LASTNAME ; FIRSTNAME ; ADDRESS ; ....
+		if (!is_numeric($credit) || !is_numeric($creditlimit) || !is_numeric($expiredays) || ($activated!=0 && $activated!=1) || ($simultaccess!=0 && $simultaccess!=1) || ($runservice!=0 && $runservice!=1) || strlen($lastname)>40 || strlen($firstname)>40 || strlen($address)>100 || strlen($city)>40 || strlen($state)>40 || strlen($country)>40 || strlen($zipcode)>40 || strlen($phone)>40 || strlen($email)>60 || strlen($fax)>40)
+		{
+			a2b_mail(EMAIL_ADMIN, "ALARM : API  - BAD PARAMETER ", $mail_content);	  			
+			error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." - BAD PARAMETER "."\n", 3, $logfile);
+			return array($transaction_code, '', '', '', '', 'Error', 'BAD PARAMETER');
+		} else {
 			
-			// CHECK SECURITY KEY
-			 if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
-			 {
-				  mail(EMAIL_ADMIN, "ALARM : API - CODE_ERROR SECURITY_KEY ", $mail_content);
-				  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $logfile);
-				  sleep(2);
-				  return array($transaction_code, '', '', '', '', 'Error', 'KEY - BAD PARAMETER'."$security_key - $mysecurity_key");				  
-			 } 
-			   
-			   
-			// Create new account			
-			$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
-			$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, id_didgroup, activated, status, lastname, firstname, email, address, city, state, country,".
-			"zipcode, phone, fax, userpass, simultaccess, currency, typepaid, creditlimit, language, runservice, enableexpire, expirationdate, expiredays, uipass, sip_buddy, iax_buddy";
+			if ($expirationdate=='') $expirationdate="now()";
+			else $expirationdate="'$expirationdate'";
+			$DBHandle  = DbConnect();
+			
+			$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
+			$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '".$credit."', '".$tariff."', '0', '$activated', '$status', '$lastname', '$firstname', '$email', '$address', '$city', "
+			."'$state', '$country', '$zipcode', '$phone', '$fax', '$cardnum', ".$simultaccess.", '".$currency."', '".$typepaid."','".$creditlimit."', '".$language."', '".$runservice."', '"
+			.$enableexpire."', $expirationdate, '$expiredays', '$uipass', '$iax_friend', '$sip_friend'";
+			
+			$result_query = $instance_sub_table -> Add_table ($DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null,  null, 'id');			
 			
 			
-			
-			$arr_card_alias = gen_card_with_alias('cc_card', 1);
-			$cardnum = $arr_card_alias[0];
-			$useralias = $arr_card_alias[1];
-			if ($uipass=='' || 	strlen($uipass)==0)		$uipass = MDP_STRING();
-			
-			
-			
-		  	// CHECK PARAMETERS LASTNAME ; FIRSTNAME ; ADDRESS ; ....
- 		   	if (!is_numeric($credit) || !is_numeric($creditlimit) || !is_numeric($expiredays) || ($activated!=0 && $activated!=1) || ($simultaccess!=0 && $simultaccess!=1) || ($runservice!=0 && $runservice!=1) || strlen($lastname)>40 || strlen($firstname)>40 || strlen($address)>100 || strlen($city)>40 || strlen($state)>40 || strlen($country)>40 || strlen($zipcode)>40 || strlen($phone)>40 || strlen($email)>60 || strlen($fax)>40)
- 			{
-	  			mail(EMAIL_ADMIN, "ALARM : API  - BAD PARAMETER ", $mail_content);	  			
-	  			error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." - BAD PARAMETER "."\n", 3, $logfile);
-				return array($transaction_code, '', '', '', '', 'Error', 'BAD PARAMETER');
- 			}else{
- 				
-				if ($expirationdate=='') $expirationdate="now()";
-				else $expirationdate="'$expirationdate'";
-				$DBHandle  = DbConnect();
+			if ($result_query){	
 				
-				$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
-				$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '".$credit."', '".$tariff."', '0', '$activated', '$status', '$lastname', '$firstname', '$email', '$address', '$city', "
-				."'$state', '$country', '$zipcode', '$phone', '$fax', '$cardnum', ".$simultaccess.", '".$currency."', '".$typepaid."','".$creditlimit."', '".$language."', '".$runservice."', '"
-				.$enableexpire."', $expirationdate, '$expiredays', '$uipass', '$iax_friend', '$sip_friend'";
+				$id_cc_card = $result_query;
 				
-				$result_query = $instance_sub_table -> Add_table ($DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null,  null, 'id');			
-				
-				
-				if ($result_query){	
-					
-					$id_cc_card = $result_query;
-					
-					if (strlen($callerid_list)>1){
-						$callerid_list = split(',',$callerid_list);
-						if (count($callerid_list)>0){
-							$k=0;
-							foreach ($callerid_list as $mycallerid){
-								$k++;
-								if (strlen($mycallerid)>1){
-									$QUERY = "SELECT * FROM cc_callerid WHERE cid='$mycallerid'";
-									$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY);
-									if (!is_array($result)){
-										$QUERY = "INSERT INTO cc_callerid (cid, id_cc_card) VALUES ('$mycallerid', '$id_cc_card')";
-										$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
-										if ($result==false)
-											$callerid_result .= "|callerid$k-$mycallerid=NOK"; 
-										else
-											$callerid_result .= "|callerid$k-$mycallerid=OK"; 
-									}else{
+				if (strlen($callerid_list)>1){
+					$callerid_list = split(',',$callerid_list);
+					if (count($callerid_list)>0){
+						$k=0;
+						foreach ($callerid_list as $mycallerid){
+							$k++;
+							if (strlen($mycallerid)>1){
+								$QUERY = "SELECT * FROM cc_callerid WHERE cid='$mycallerid'";
+								$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY);
+								if (!is_array($result)){
+									$QUERY = "INSERT INTO cc_callerid (cid, id_cc_card) VALUES ('$mycallerid', '$id_cc_card')";
+									$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
+									if ($result==false)
 										$callerid_result .= "|callerid$k-$mycallerid=NOK"; 
-									}
+									else
+										$callerid_result .= "|callerid$k-$mycallerid=OK"; 
+								}else{
+									$callerid_result .= "|callerid$k-$mycallerid=NOK"; 
 								}
 							}
 						}
 					}
-					
-					
-					
-					//return array('transaction_code', 'account_number', 'card_number', $useralias, 'uipass', 'result', "IDCARD_CREATED=$id_cc_card"."$callerid_result");
-					//|LASTQUERY=$QUERY
-					
-					// CHECK IF THERE IS A FRIEND TO CREATE
-					if ($iax_friend || $sip_friend){
-					
-						// NEW ACCOUNT CREATED 					
-						$type = FRIEND_TYPE;
-						$allow = FRIEND_ALLOW;
-						$context = FRIEND_CONTEXT;
-						$nat = FRIEND_NAT;
-						$amaflags = FRIEND_AMAFLAGS;
-						$qualify = FRIEND_QUALIFY;
-						$host = FRIEND_HOST;   
-						$dtmfmode = FRIEND_DTMFMODE;
-						$uipass = MDP_STRING();
-						
-						
-						$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
-						
-						// For IAX and SIP
-						$param_add_fields = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host,  type, username, allow, secret";
-						$param_add_value = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$uipass."', '$id_cc_card', '$nat', '$qualify'";
-						$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
-						$FG_TABLE_SIP_NAME="cc_sip_buddies";
-						$FG_TABLE_IAX_NAME="cc_iax_buddies";
-						
-						
-						for ($ki=0;$ki<2;$ki++){
-						
-							if ($ki==0){
-								if (!$sip_friend) continue;
-								$cfriend='sip'; $FG_TABLE_NAME="cc_sip_buddies";
-								$buddyfile = BUDDY_SIP_FILE;
-							}else{
-								if (!$iax_friend) continue;
-								$cfriend='iax'; $FG_TABLE_NAME="cc_iax_buddies";
-								$buddyfile = BUDDY_IAX_FILE;
-							}							
-							
-							// Insert Sip/Iax account info
-							if (($ki==0 && $sip_friend) || ($ki==1 && $iax_friend)){
-								$instance_table1 = new Table($FG_TABLE_NAME, $FG_QUERY_ADITION_SIP_IAX);
-								$result_query1=$instance_table1 -> Add_table ($DBHandle, $param_add_value, $param_add_fields, null, null);
-								
-								$instance_table_friend = new Table($FG_TABLE_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
-								$list_friend = $instance_table_friend -> Get_list ($DBHandle, '', null, null, null, null);
-							
-								$fd=fopen($buddyfile,"w");
-								if (!$fd){		
-									mail($email_alarm, "ALARM : SOAP-API  - Could not open buddy file '$buddyfile'", $mail_content);
-									error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[Could not open buddy file '$buddyfile'] - SOAP-API "."\n", 3, $logfile);
-									return array($transaction_code, '', '', '', '', 'Error', 'SOAP-API  - Could not open buddy file $buddyfile');
-								}else{
-									 foreach ($list_friend as $data){
-										$line="\n\n[".$data[1]."]\n";
-										if (fwrite($fd, $line) === FALSE) {				
-											error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[Impossible to write to the file ($buddyfile)] - CODE_ERROR 8"."\n", 3, $logfile);										
-											return array($transaction_code, '', '', '', '', 'Error', 'SOAP-API Impossible to write to the file ($buddyfile)');
-										}else{
-											for ($i=1;$i<count($data)-1;$i++){
-												if (strlen($data[$i+1])>0){
-													if (trim($list_names[$i]) == 'allow'){
-														$codecs = explode(",",$data[$i+1]);
-														$line = "";
-														foreach ($codecs as $value)
-															$line .= trim($list_names[$i]).'='.$value."\n";
-													}
-													else	$line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
-														
-													if (fwrite($fd, $line) === FALSE){ 
-														error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[Impossible to write to the file ($buddyfile)] - CODE_ERROR 8"."\n", 3, $logfile);
-														return array($transaction_code, '', '', '', '', 'Error', 'SOAP-API ERROR : Card created in the DB but Impossible to write to the file ($buddyfile)');
-													}
-												}
-											}	
-										}
-										
-									}
-									fclose($fd);
-								}	
-							}
-						
-						} // END OF FOR - KI
-						
-					} // END if ($iax_friend || $sip_friend)
-					
-					return array($transaction_code, $account_number, $cardnum, $useralias, $uipass, 'result=OK', "ID CARD_CREATED=$result_query$callerid_result");
-					
-				}else{				
-					mail(EMAIL_ADMIN, "ALARM : SOAP-API (Add_table)", "$FG_ADITION_SECOND_ADD_VALUE\n\n".$mail_content);
-					error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[SOAP-API CODE_ERROR Add_table "."\n", 3, $logfile);
-					return array($transaction_code, '', '', '', '', 'Error', 'SOAP-API CODE_ERROR Add_table');
 				}
+				
+				
+				
+				//return array('transaction_code', 'account_number', 'card_number', $useralias, 'uipass', 'result', "IDCARD_CREATED=$id_cc_card"."$callerid_result");
+				//|LASTQUERY=$QUERY
+				
+				// CHECK IF THERE IS A FRIEND TO CREATE
+				if ($iax_friend || $sip_friend){
+				
+					// NEW ACCOUNT CREATED 					
+					$type = FRIEND_TYPE;
+					$allow = FRIEND_ALLOW;
+					$context = FRIEND_CONTEXT;
+					$nat = FRIEND_NAT;
+					$amaflags = FRIEND_AMAFLAGS;
+					$qualify = FRIEND_QUALIFY;
+					$host = FRIEND_HOST;   
+					$dtmfmode = FRIEND_DTMFMODE;
+					$uipass = MDP_STRING();
+					
+					
+					$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
+					
+					// For IAX and SIP
+					$param_add_fields = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host,  type, username, allow, secret";
+					$param_add_value = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$uipass."', '$id_cc_card', '$nat', '$qualify'";
+					$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
+					$FG_TABLE_SIP_NAME="cc_sip_buddies";
+					$FG_TABLE_IAX_NAME="cc_iax_buddies";
+					
+					
+					for ($ki=0;$ki<2;$ki++){
+					
+						if ($ki==0){
+							if (!$sip_friend) continue;
+							$cfriend='sip'; $FG_TABLE_NAME="cc_sip_buddies";
+							$buddyfile = BUDDY_SIP_FILE;
+						}else{
+							if (!$iax_friend) continue;
+							$cfriend='iax'; $FG_TABLE_NAME="cc_iax_buddies";
+							$buddyfile = BUDDY_IAX_FILE;
+						}							
+						
+						// Insert Sip/Iax account info
+						if (($ki==0 && $sip_friend) || ($ki==1 && $iax_friend)){
+							$instance_table1 = new Table($FG_TABLE_NAME, $FG_QUERY_ADITION_SIP_IAX);
+							$result_query1=$instance_table1 -> Add_table ($DBHandle, $param_add_value, $param_add_fields, null, null);
+							
+							$instance_table_friend = new Table($FG_TABLE_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
+							$list_friend = $instance_table_friend -> Get_list ($DBHandle, '', null, null, null, null);
+						
+							$fd=fopen($buddyfile,"w");
+							if (!$fd){		
+								a2b_mail($email_alarm, "ALARM : SOAP-API  - Could not open buddy file '$buddyfile'", $mail_content);
+								error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[Could not open buddy file '$buddyfile'] - SOAP-API "."\n", 3, $logfile);
+								return array($transaction_code, '', '', '', '', 'Error', 'SOAP-API  - Could not open buddy file $buddyfile');
+							}else{
+								 foreach ($list_friend as $data){
+									$line="\n\n[".$data[1]."]\n";
+									if (fwrite($fd, $line) === FALSE) {				
+										error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[Impossible to write to the file ($buddyfile)] - CODE_ERROR 8"."\n", 3, $logfile);										
+										return array($transaction_code, '', '', '', '', 'Error', 'SOAP-API Impossible to write to the file ($buddyfile)');
+									}else{
+										for ($i=1;$i<count($data)-1;$i++){
+											if (strlen($data[$i+1])>0){
+												if (trim($list_names[$i]) == 'allow'){
+													$codecs = explode(",",$data[$i+1]);
+													$line = "";
+													foreach ($codecs as $value)
+														$line .= trim($list_names[$i]).'='.$value."\n";
+												}
+												else	$line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
+													
+												if (fwrite($fd, $line) === FALSE){ 
+													error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[Impossible to write to the file ($buddyfile)] - CODE_ERROR 8"."\n", 3, $logfile);
+													return array($transaction_code, '', '', '', '', 'Error', 'SOAP-API ERROR : Card created in the DB but Impossible to write to the file ($buddyfile)');
+												}
+											}
+										}	
+									}
+									
+								}
+								fclose($fd);
+							}	
+						}
+					
+					} // END OF FOR - KI
+					
+				} // END if ($iax_friend || $sip_friend)
+				
+				return array($transaction_code, $account_number, $cardnum, $useralias, $uipass, 'result=OK', "ID CARD_CREATED=$result_query$callerid_result");
+				
+			} else {			
+				a2b_mail(EMAIL_ADMIN, "ALARM : SOAP-API (Add_table)", "$FG_ADITION_SECOND_ADD_VALUE\n\n".$mail_content);
+				error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[SOAP-API CODE_ERROR Add_table "."\n", 3, $logfile);
+				return array($transaction_code, '', '', '', '', 'Error', 'SOAP-API CODE_ERROR Add_table');
+			}
 			
-			} // END - CHECK PARAMETERS LASTNAME ; FIRSTNAME ; ADDRESS ; ....
-     
+		} // END - CHECK PARAMETERS LASTNAME ; FIRSTNAME ; ADDRESS ; ....
     }
 }
 

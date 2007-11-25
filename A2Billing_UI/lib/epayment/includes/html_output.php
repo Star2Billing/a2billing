@@ -1,14 +1,5 @@
 <?php
-/*
-  $Id: html_output.php,v 1.56 2003/07/09 01:15:48 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
 ////
 // The HTML href link wrapper function

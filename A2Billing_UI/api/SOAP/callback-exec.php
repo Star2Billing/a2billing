@@ -129,8 +129,6 @@ class Callback
 		write_log( LOG_CALLBACK, " Service_Callback( security_key=$security_key, called=$called, calling=$calling, callerid=$callerid, uniqueid=$uniqueid, callback_time=$callback_time)");
 		$mysecurity_key = API_SECURITY_KEY;
 		
-		$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."SOAP API - Request asked: Callback [$phone_number, callback_time=$callback_time]";
-		
 		// CHECK CALLERID
 		if (strlen($callerid)<1)
 		{

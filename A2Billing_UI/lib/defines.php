@@ -89,9 +89,13 @@ define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->
 // INCLUDE FILES
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
 define ("LIBDIR", FSROOT."lib/");	
-include (FSROOT."lib/Misc.php");
+
 // USE PHPMAILER
 include_once (FSROOT."lib/mail/class.phpmailer.php");
+
+// INCLUDE MISC
+include (FSROOT."lib/Misc.php");
+
 
 /*
  *		GLOBAL USED VARIABLE

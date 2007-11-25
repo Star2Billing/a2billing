@@ -1,14 +1,4 @@
 <?php
-/*
-  $Id: general.php,v 1.231 2003/07/09 01:15:48 hpdl Exp $
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
 ////
 // Stop from parsing any further PHP code
@@ -1013,7 +1003,7 @@
     if (SEND_EMAILS != 'true') return false;
 
     // Instantiate a new mail object
-    $message = new email(array('X-Mailer: osCommerce Mailer'));
+    $message = new email(array('X-Mailer: Mailer'));
 
     // Build the text version
     $text = strip_tags($email_text);

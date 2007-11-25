@@ -113,9 +113,9 @@ function EmailInvoice($id, $invoice_type = 1)
 	$FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 	if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 	
-		if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-		$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-		$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 	
 	
 	if ( is_null ($order) || is_null($sens) ){
@@ -123,14 +123,11 @@ function EmailInvoice($id, $invoice_type = 1)
 		$sens  = $FG_TABLE_DEFAULT_SENS;
 	}
 	
-	if ($posted==1){
-	  
-	  $SQLcmd = '';
-	  
-	  $SQLcmd = do_field($SQLcmd, 'src', 'src');
-	  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
+	if ($posted==1){	  
+		$SQLcmd = '';
 		
-	  
+		$SQLcmd = do_field($SQLcmd, 'src', 'src');
+		$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 	}
 	
 	
@@ -145,15 +142,12 @@ function EmailInvoice($id, $invoice_type = 1)
 	
 	$lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 	
-	if ($Period=="Month"){
-			
-			
-			if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-			if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-			
-	}else{
-			if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-			if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
+	if ($Period=="Month"){		
+		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')";
+	} else {
+		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
+		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 	}
 	
 	if (strpos($SQLcmd, 'WHERE') > 0) { 
@@ -171,22 +165,20 @@ function EmailInvoice($id, $invoice_type = 1)
 			$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
 		}
 	}
-	if (strlen($FG_TABLE_CLAUSE)>0)
-	{
+	if (strlen($FG_TABLE_CLAUSE)>0) {
 		$FG_TABLE_CLAUSE.=" AND ";
 	}
 	
-	if ($invoice_type == 1)
-	{
+	if ($invoice_type == 1) {
 		$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = '$cardid')";
-	}
-	else
-	{
+	} else {
 		$FG_TABLE_CLAUSE.="t1.starttime >(Select cover_startdate  from cc_invoices where id ='$id') AND t1.stoptime <(Select cover_enddate from cc_invoices where id ='$id') ";
 	}
+	
 	if (!$nodisplay){
 		$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 	}
+	
 	$_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 	
 	/************************/
@@ -196,129 +188,101 @@ function EmailInvoice($id, $invoice_type = 1)
 	if (!$nodisplay){		
 		$list_total_day = $instance_table->SQLExec ($DBHandle, $QUERY);		
 		$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);	
-	}//end IF nodisplay
-	
+	}
 	
 	// GROUP BY DESTINATION FOR THE INVOICE
 	$QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 	sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY destination";
-	if (!$nodisplay)
-	{
+	if (!$nodisplay) {
 		$list_total_destination =  $instance_table->SQLExec ($DBHandle, $QUERY);
 	}//end IF nodisplay
 	
 	/************************************************ DID Billing Section *********************************************/
-	// Fixed + Dial = 0
-	// Fixed = 1
-	// Dail = 2
-	// Free = 3
-	
+	// Fixed + Dial = 0 ; Fixed = 1 ; Dail = 2 ; Free = 3
 	
 	// 1. Billing Type:: All DID Calls that have DID Type 0 and 2
-	// 1. Billing Type:: All DID Calls that have DID Type 0 and 2
-	if ($invoice_type == 1)
-	{
+	if ($invoice_type == 1) {
 		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
 		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
 		" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$cardid.
 		" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
-	}
-	else
-	{
+	} else {
 		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
 		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
 		" WHERE (t1.chargetype = 2 OR t1.chargetype = 1) AND t1.id_cc_card = ".$customerID.
 		" AND t1.creationdate > (Select cover_startdate  from cc_invoices where id ='$id') AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";
 	}
-	 
-	 
-	if (!$nodisplay)
-	{
+	
+	if (!$nodisplay) {
 		$list_total_did  = $instance_table->SQLExec ($DBHandle, $QUERY);
-	}//end IF nodisplay
+	}
 	
-	/************************************************ END DID Billing Section *********************************************/
 	/*************************************************CHARGES SECTION START ************************************************/
-	
 	// Charge Types
 	
 	// Connection charge for DID setup = 1
 	// Monthly Charge for DID use = 2
 	// Subscription fee = 3
 	// Extra charge =  4
-	if ($invoice_type == 1)
-	{
+	if ($invoice_type == 1) {
 		$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
 		" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) " .
 		" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
 		" THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
-	}
-	else
-	{
+	} else {
 		$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
 		" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 2 AND t1.chargetype <> 1)" .
 		" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 		" t1.creationdate >(Select cover_startdate  from cc_invoices where id ='$id') " .
 		" AND t1.creationdate <(Select cover_enddate  from cc_invoices where id ='$id')";
 	}
-	//echo "<br>".$QUERY."<br>";
 	
-	if (!$nodisplay)
-	{
+	if (!$nodisplay) {
 		$list_total_charges = $instance_table->SQLExec ($DBHandle, $QUERY);
-	}//end IF nodisplay
+	}
 	/*************************************************CHARGES SECTION END ************************************************/
+	
 	
 	if ($nb_record<=$FG_LIMITE_DISPLAY){
 		$nb_record_max=1;
-	}else{ 
-		if ($nb_record % $FG_LIMITE_DISPLAY == 0){
+	} else { 
+		if ($nb_record % $FG_LIMITE_DISPLAY == 0) {
 			$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
-		}else{
+		} else {
 			$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
-		}	
+		}
 	}
-	if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
-	if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 	
 	/*************************************************************/
 	if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
-	
+		
 		$FG_TABLE_CLAUSE = "";
-		if (isset($customer)  &&  ($customer>0)){		
+		if (isset($customer)  &&  ($customer>0)) {
 			$FG_TABLE_CLAUSE =" username='$customer' ";
 		}elseif (isset($entercustomer)  &&  ($entercustomer>0)){
 			$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 		}
-	
+		
 		$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated, creationdate");
 		$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
-	
 	}
 	
-	if($invoice_type == 1)
-	{
+	if($invoice_type == 1) {
 		$QUERY = "Select CASE WHEN max(cover_enddate) is NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$cardid;
-	}
-	else
-	{
+	} else {
 		$QUERY = "Select cover_enddate,cover_startdate  from cc_invoices where id ='$id'";
 	}
-	if (!$nodisplay){
+	
+	if (!$nodisplay) {
 		$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			
-		if ($invoice_dates[0][0] == '0001-01-01 01:00:00')
-		{
+		if ($invoice_dates[0][0] == '0001-01-01 01:00:00') {
 			$invoice_dates[0][0] = $info_customer[0][13];
 		}
-	}//end IF nodisplay
-	?>
-	<?php
+	}
 
-		require('../Public/pdf-invoices/html2pdf/html2fpdf.php');
-		ob_start();
+	require('../Public/pdf-invoices/html2pdf/html2fpdf.php');
+	ob_start();
 	
-	?>
-	<?php 
 	$currencies_list = get_currencies();
 	
 	//For DID DIAL & Fixed + Dial
@@ -346,7 +310,6 @@ function EmailInvoice($id, $invoice_type = 1)
 	<center><h4><font color="#FF0000"><?php echo $invocie_top_heading; ?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
 	<br>
 	<br>
-		
 		<table cellspacing="0" cellpadding="2" align="center" width="80%" >
 		 
 		  <tr>
@@ -552,13 +515,11 @@ function EmailInvoice($id, $invoice_type = 1)
 		</table>
 		 <table align="center" width="80%">
 		 <?php
-		 if (is_array($list_total_did) && count($list_total_did)>0)
-					{ 
+		 if (is_array($list_total_did) && count($list_total_did)>0) { 
 		 ?>
-			   <tr>
+		 <tr>
 		  <td>
-		  <!------------------------ DID Billing Here Starts ----------------------->
-			
+		  
 			<table width="100%" align="left" cellpadding="0" cellspacing="0">
 					<tr>
 					<td colspan="5" align="center"><font><b><?php echo gettext("DID Billing")?></b></font> </td>
@@ -613,41 +574,36 @@ function EmailInvoice($id, $invoice_type = 1)
 			
 			</table>
 			
-			<!------------------------DID Billing ENDS Here ----------------------------->
 		  </td>
 		  </tr>
 		  <?php			 
-				 }
-				 ?>
+				}
+				?>
 		   <tr>
 			<td>
-					
-	<!-------------------------EXTRA CHARGE START HERE ---------------------------------->
+			<!-------------------------EXTRA CHARGE START HERE ---------------------------------->
 		
 		 <?php  		
 			$i=0;				
 			$extracharge_total = 0;
-			if (is_array($list_total_charges) && count($list_total_charges)>0)
-			{
-						
-		  ?>	
-			
+			if (is_array($list_total_charges) && count($list_total_charges)>0) {
+		  ?>
 			<table width="100%" align="left" cellpadding="0" cellspacing="0">
-					<tr>
-					<td colspan="4" align="center"><font><b><?php echo gettext("Extra Charges")?></b></font> </td>
-					</tr>
+				<tr>
+				<td colspan="4" align="center"><font><b><?php echo gettext("Extra Charges")?></b></font> </td>
+				</tr>
 				<tr  bgcolor="#CCCCCC">
 				  <td  width="20%"> <font color="#003399"><b><?php echo gettext("Date")?> </b></font></td>
 				  <td width="19%" ><font color="#003399"><b><?php echo gettext("Type")?> </b></font></td>
 				  <td width="43%" ><font color="#003399"><b><?php echo gettext("Description")?></b></font> </td>			
 				  <td width="18%"  align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?></b></font> </td>
 				</tr>
-				<?php  		
+				<?php
 				
 				foreach ($list_total_charges as $data)
 				{	
 					$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
-			
+					
 				?>
 				 <tr class="invoice_rows">
 				  <td width="20%" ><font color="#003399"><?php echo $data[2]?></font></td>
@@ -733,70 +689,66 @@ function EmailInvoice($id, $invoice_type = 1)
 		
 	<table cellspacing="0" cellpadding="2" width="80%" align="center">
 	<tr>
-				<td colspan="3">&nbsp;</td>
-				</tr>           			
-				<tr>
-				  <td  align="left">Status :&nbsp;<?php if($info_customer[0][12] == 't') {?>
-				  <img src="<?php echo Images_Path;?>/connected.jpg">
-				  <?php }
-				  else
-				  {
-				  ?>
-				  <img src="<?php echo Images_Path;?>/terminated.jpg">
-				  <?php }?> </td>              
-				</tr>      
-		  <tr>	  
+		<td colspan="3">&nbsp;</td>
+		</tr>           			
+		<tr>
+		  <td  align="left">Status :&nbsp;<?php if($info_customer[0][12] == 't') {?>
+		  <img src="<?php echo Images_Path;?>/connected.jpg">
+		  <?php }
+		  else
+		  {
+		  ?>
+		  <img src="<?php echo Images_Path;?>/terminated.jpg">
+		  <?php }?> </td>              
+		</tr>
+		<tr>	  
 		  <td  align="left">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp;<?php echo gettext("Connected")?> 
 		  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp;<?php echo gettext("Disconnected")?> 
-		  
 		  </td>
 	</table>
-		
+
+<?php 
 	
+	$html = ob_get_contents();
+	// delete output-Buffer
+	ob_end_clean();
 	
-	<?php 
-		$html = ob_get_contents();
-		// delete output-Buffer
-		ob_end_clean();
-		
-		$pdf = new HTML2FPDF();
-		
-		$pdf -> DisplayPreferences('HideWindowUI');
-		
-		$pdf -> AddPage();
-		$pdf -> WriteHTML($html);	
-		$stream = $pdf->Output('UnBilledDetails_'.date("d/m/Y-H:i").'.pdf', 'S');	
-		
-		//================================Email Template Retrival Code ===================================
-		
-		$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='invoice' ";
-		$res = $DBHandle -> Execute($QUERY);
-		$num = 0;	
-		if ($res)
-			$num = $res -> RecordCount();
+	$pdf = new HTML2FPDF();
 	
-		if (!$num)
-		{
-			echo "<br>Error : No email Template Found";
-			exit();
-		}
+	$pdf -> DisplayPreferences('HideWindowUI');
 	
-		for($i=0;$i<$num;$i++)
-		{
-			$listtemplate[] = $res->fetchRow();
-		}
+	$pdf -> AddPage();
+	$pdf -> WriteHTML($html);	
+	$stream = $pdf->Output('UnBilledDetails_'.date("d/m/Y-H:i").'.pdf', 'S');	
 	
-		list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-		if ($FG_DEBUG == 1)
-		{
-			echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
-		}
-		
-		//================================================================================================
+	//================================Email Template Retrival Code ===================================
+	
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='invoice' ";
+	$res = $DBHandle -> Execute($QUERY);
+	$num = 0;	
+	if ($res)
+		$num = $res -> RecordCount();
+	
+	if (!$num) {
+		echo "<br>Error : No email Template Found";
+		exit();
+	}
+	
+	for($i=0;$i<$num;$i++) {
+		$listtemplate[] = $res->fetchRow();
+	}
+	
+	list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
+	if ($FG_DEBUG == 1) {
+		echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
+	}
+	
+	//================================================================================================
+	
 	$ok = send_email_attachment($from, $info_customer[0][10], $subject, $messagetext,'UnBilledDetails_'.date("d/m/Y-H:i").'.pdf', $stream );
 	
 	return $ok;
-	
+
 }
 
 ?>

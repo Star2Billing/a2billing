@@ -68,16 +68,16 @@ $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$
 
 // CHECK KEY
 if ($FG_DEBUG > 0) echo "<br> md5(".md5($security_key).") !== $key";
-if (md5($security_key) !== $key  || strlen($security_key)==0)
- {
-	  mail($email_alarm, "ALARM : RATE CARD API - CODE_ERROR 2", $mail_content);
-	  if ($FG_DEBUG > 0) echo ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[$productid] - CODE_ERROR 2"."\n");
-	  //error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
-	  echo("400 Bad Request");
-	  exit();  
- } 
 
-//**
+if (md5($security_key) !== $key  || strlen($security_key)==0){
+	a2b_mail ($email_alarm, "ALARM : RATE CARD API - CODE_ERROR 2", $mail_content);
+	if ($FG_DEBUG > 0) echo ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[$productid] - CODE_ERROR 2"."\n");
+	//error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
+	echo("400 Bad Request");
+	exit();
+} 
+
+
 //set  default values if not isset vars
 
 if (!isset($nb_display_lines) || strlen($nb_display_lines)==0) $nb_display_lines=1;

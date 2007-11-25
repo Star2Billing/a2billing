@@ -56,7 +56,7 @@ $mail_content = "Request asked: $list_params]";
 $ip_remote = getenv('REMOTE_ADDR'); 
 if (!in_array($ip_remote,$IP_AUTH))
 {  
-	mail($email_alarm, "ALARM : API (IP_AUTH:$ip_remote) . CODE_ERROR 1", $mail_content);
+	a2b_mail($email_alarm, "ALARM : API (IP_AUTH:$ip_remote) . CODE_ERROR 1", $mail_content);
 	if ($FG_DEBUG > 0) echo ("[productid=$productid - ip_remote=$ip_remote] CODE_ERROR 1");
 	write_log(LOGFILE_API_ECOMMERCE, "[productid=$productid] CODE_ERROR 1");
 	echo("400 Bad Request");
@@ -67,7 +67,7 @@ if (!in_array($ip_remote,$IP_AUTH))
 if ($FG_DEBUG > 0) echo "<br> md5(".md5($security_key).") !== $key";
 if (md5($security_key) !== $key  || strlen($security_key)==0)
 {
-	mail($email_alarm, "ALARM : API - CODE_ERROR 2", $mail_content);
+	a2b_mail($email_alarm, "ALARM : API - CODE_ERROR 2", $mail_content);
 	if ($FG_DEBUG > 0) echo ("[productid=$productid] - CODE_ERROR 2");
 	write_log(LOGFILE_API_ECOMMERCE, "[productid=$productid] - CODE_ERROR 2");
 	echo("400 Bad Request");
@@ -76,7 +76,7 @@ if (md5($security_key) !== $key  || strlen($security_key)==0)
 // CHECK PRODUCTID
 if (!is_numeric($productid) || $productid<0)
 {
-	mail($email_alarm, "ALARM : API  - CODE_ERROR 3", $mail_content);
+	a2b_mail ($email_alarm, "ALARM : API  - CODE_ERROR 3", $mail_content);
 	if ($FG_DEBUG > 0) echo ("[productid=$productid] - CODE_ERROR 3");
 	write_log (LOGFILE_API_ECOMMERCE, "[productid=$productid] - CODE_ERROR 3");
 	echo("400 Bad Request");
@@ -86,7 +86,7 @@ if (!is_numeric($productid) || $productid<0)
 // CHECK FORCEID
 if (strlen($forceid)>0 && !is_numeric($forceid))
 {
-	mail($email_alarm, "ALARM : API  - CODE_ERROR 5 - forceid=[$forceid]", $mail_content);
+	a2b_mail ($email_alarm, "ALARM : API  - CODE_ERROR 5 - forceid=[$forceid]", $mail_content);
 	if ($FG_DEBUG > 0) echo ("[$forceid] - CODE_ERROR 5");
 	write_log (LOGFILE_API_ECOMMERCE, "[$forceid] - CODE_ERROR 5");
 	echo("400 Bad Request");
@@ -96,7 +96,7 @@ if (strlen($forceid)>0 && !is_numeric($forceid))
 // CHECK LASTNAME ; FIRSTNAME ; ADDRESS ; ....
 if (strlen($lastname)>40 || strlen($firstname)>40 || strlen($address)>100 || strlen($city)>40 || strlen($state)>40 || strlen($country)>40 || strlen($zipcode)>40 || strlen($phone)>40 || strlen($email)>60 || strlen($fax)>40)
 {
-	mail($email_alarm, "ALARM : API  - CODE_ERROR 6 - [$lastname;$firstname;$address;$city;$state;$country;$zipcode;$phone;$email;$fax]", $mail_content);
+	a2b_mail ($email_alarm, "ALARM : API  - CODE_ERROR 6 - [$lastname;$firstname;$address;$city;$state;$country;$zipcode;$phone;$email;$fax]", $mail_content);
 	if ($FG_DEBUG > 0) echo (
 						"[$lastname;$firstname;$address;$city;$state;$country;$zipcode;$phone;$email;$fax] - CODE_ERROR 6");
 	write_log (LOGFILE_API_ECOMMERCE, "[$lastname;$firstname;$address;$city;$state;$country;$zipcode;$phone;$email;$fax] - CODE_ERROR 6");
@@ -106,7 +106,7 @@ if (strlen($lastname)>40 || strlen($firstname)>40 || strlen($address)>100 || str
 
 // CHECK EMAIL FORMAT
 if (!ereg($regular[1][0], $email)){
-	mail($email_alarm, "ALARM : API  - CODE_ERROR 7 - email=[$email]", $mail_content);
+	a2b_mail ($email_alarm, "ALARM : API  - CODE_ERROR 7 - email=[$email]", $mail_content);
 	if ($FG_DEBUG > 0) echo ("[$email] - CODE_ERROR 7");
 	write_log (LOGFILE_API_ECOMMERCE, "[$email] - CODE_ERROR 7");
 	echo("400 Bad Request");
@@ -154,7 +154,7 @@ $result_query = $instance_sub_table -> Add_table ($DBHandle, $FG_ADITION_SECOND_
 
 if (!$result_query){
 	if ($FG_DEBUG > 0) echo "<br>ALARM : API (Add_table)", "$FG_ADITION_SECOND_ADD_VALUE<hr><br>";
-	mail($email_alarm, "ALARM : API (Add_table)", "$FG_ADITION_SECOND_ADD_VALUE\n\n".$mail_content);
+	a2b_mail ($email_alarm, "ALARM : API (Add_table)", "$FG_ADITION_SECOND_ADD_VALUE\n\n".$mail_content);
 	write_log (LOGFILE_API_ECOMMERCE, "[productid=$productid] CODE_ERROR Add_table0");
 	echo("500 Internal server error");
 	exit();	
@@ -208,7 +208,7 @@ for ($ki=0;$ki<2;$ki++){
 		
 		$fd=fopen($buddyfile,"w");
 		if (!$fd){
-			mail($email_alarm, "ALARM : API  - CODE_ERROR 8 - Could not open buddy file '$buddyfile'", $mail_content);
+			a2b_mail ($email_alarm, "ALARM : API  - CODE_ERROR 8 - Could not open buddy file '$buddyfile'", $mail_content);
 			write_log (LOGFILE_API_ECOMMERCE, "[Could not open buddy file '$buddyfile'] - CODE_ERROR 8");
 		}else{
 			 foreach ($list_friend as $data){
@@ -260,18 +260,14 @@ $messagetext = str_replace('$password', $uipass, $messagetext);
 $messagetext = str_replace('$cardalias', $cardalias, $messagetext);
 
 
-$em_headers  = "From: ".$fromname." <".$from.">\n";
-$em_headers .= "Reply-To: ".$from;
-$em_headers .= "Return-Path: ".$from;
-$em_headers .= "X-Priority: 3\n";
 
 if ($FG_DEBUG > 0) echo "SEND MAIL TO THE CUSTOMER<br>$messagetext<hr></hr><br>";
-mail($email, $subject, $messagetext, $em_headers);
+a2b_mail ($email, $subject, $messagetext, $from, $fromname);
 
 
 // WARN THE ADMIN ABOUT THE NEW CUSTOMER
 $messagetext="Notification that a new card has been created through the E-Commerce API\n\n  productid=$productid\n  name=$lastname $firstname\n cardnum:$cardnum\n";
-mail(EMAIL_ADMIN, "[A2Billing : NEW CUSTOMER THROUGH THE E-COMMERCE API - cardnum:$cardnum]", $messagetext, $em_headers);
+a2b_mail (EMAIL_ADMIN, "[A2Billing : NEW CUSTOMER THROUGH THE E-COMMERCE API - cardnum:$cardnum]", $messagetext, $from, $fromname);
 if ($FG_DEBUG > 0) echo "WARN THE ADMIN ABOUT THE NEW CUSTOMER<br>$messagetext<hr></hr><br>";
 
 

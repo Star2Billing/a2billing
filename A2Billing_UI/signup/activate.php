@@ -3,12 +3,9 @@ session_name("UISIGNUP");
 session_start();
 
 
-if (!isset($_SESSION["date_activation"]) || (time()-$_SESSION["date_activation"]) > 60)
-{
+if (!isset($_SESSION["date_activation"]) || (time()-$_SESSION["date_activation"]) > 60) {
 	$_SESSION["date_activation"]=time();
-}
-else
-{
+} else {
 	sleep(3);
 	echo gettext("Sorry the activation has been sent already, please wait 1 minute before making any other try !");
 	exit();
@@ -57,23 +54,22 @@ if( $list[0][8] != "t" && isset($result) && $result != null){
 	if ($res)
 		$num = $res -> RecordCount();
 
-	if (!$num)
-	{
+	if (!$num) {
 		echo "<br>Error : No email Template Found <br>";        
-	}else{
-	
+	} else {
+		
 		for($i=0;$i<$num;$i++){
 			$listtemplate[] = $res->fetchRow();
 		}
+		
 		list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
 		if ($FG_DEBUG == 1) echo "</br><b>BELOW THE CARD PROPERTIES </b><hr></br>";
 		$keepmessagetext = $messagetext;
 		
-	
 		$messagetext = $keepmessagetext;	
 		list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey) = $list[0];	
 		if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";	
-
+		
 		$messagetext = str_replace('$name', $lastname, $messagetext);
 		//$message = str_replace('$username', $form->getValue('username'), $messagetext);
 		$messagetext = str_replace('$card_gen', $username, $messagetext);
@@ -82,13 +78,8 @@ if( $list[0][8] != "t" && isset($result) && $result != null){
 		$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
 		$messagetext = str_replace('=$loginkey', "=$loginkey", $messagetext);
 		$messagetext = str_replace('$loginkey', "=$loginkey", $messagetext);
-
-		$em_headers  = "From: ".$fromname." <".$from.">\n";
-		$em_headers .= "Reply-To: ".$from."\n";
-		$em_headers .= "Return-Path: ".$from."\n";
-		$em_headers .= "X-Priority: 3\n";
-
-		mail($email, $subject, $messagetext, $em_headers);
+		
+		a2b_mail($email, $subject, $messagetext, $from, $fromname);
 	}
 
 ?>
@@ -115,7 +106,9 @@ if( $list[0][8] != "t" && isset($result) && $result != null){
 </blockquote>
 
 
-<?php }else{ ?>
+<?php 
+} else {
+?>
 
 <center>
 <br></br><br></br>
@@ -132,18 +125,15 @@ if( $list[0][8] != "t" && isset($result) && $result != null){
 <b>
 
 <?php
-if( $records[0][8] == "t")
-{
+
+if( $records[0][8] == "t") {
 	echo gettext("Your account is already activated.")." <br>";
-}
-elseif(isset($result) || $result != null)
-{
-	// nada
-}
-else
-{
+} elseif(isset($result) || $result != null) {
+	// nothing
+} else {
 	echo gettext("Your account cannot be activated please contact <br> the website administrator or retry later.")." <br>";
 }
+
 ?>
 
 </b>
