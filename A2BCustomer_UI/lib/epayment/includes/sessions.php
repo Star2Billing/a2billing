@@ -1,14 +1,4 @@
 <?php
-/*
-  $Id: sessions.php,v 1.19 2003/07/02 22:10:34 hpdl Exp $
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
   if (STORE_SESSIONS == 'mysql') {
     if (!$SESS_LIFE = get_cfg_var('session.gc_maxlifetime')) {

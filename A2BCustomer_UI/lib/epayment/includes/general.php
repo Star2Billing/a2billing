@@ -1,5 +1,6 @@
 <?php
 
+
 ////
 // Stop from parsing any further PHP code
   function tep_exit() {
@@ -1003,7 +1004,7 @@
     if (SEND_EMAILS != 'true') return false;
 
     // Instantiate a new mail object
-    $message = new email(array('X-Mailer: osCommerce Mailer'));
+    $message = new email(array('X-Mailer: Mailer'));
 
     // Build the text version
     $text = strip_tags($email_text);
@@ -1294,5 +1295,35 @@
     }
   }
 
- 
+  function tep_db_prepare_input($string) {
+    if (is_string($string)) {
+      return trim(stripslashes($string));
+    } elseif (is_array($string)) {
+      reset($string);
+      while (list($key, $value) = each($string)) {
+        $string[$key] = tep_db_prepare_input($value);
+      }
+      return $string;
+    } else {
+      return $string;
+    }
+  }
+
+   ////
+// Alias function for Store configuration values in the Administration Tool
+  function tep_cfg_select_option($select_array, $key_value, $key = '') {
+    $string = '';
+
+    for ($i=0, $n=sizeof($select_array); $i<$n; $i++) {
+      $name = ((tep_not_null($key)) ? 'configuration[' . $key . ']' : 'configuration_value');
+
+      $string .= '<br><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
+
+      if ($key_value == $select_array[$i]) $string .= ' CHECKED';
+
+      $string .= '> ' . $select_array[$i];
+    }
+
+    return $string;
+  }
 ?>
