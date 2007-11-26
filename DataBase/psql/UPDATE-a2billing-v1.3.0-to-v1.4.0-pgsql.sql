@@ -46,64 +46,7 @@ CREATE TABLE cc_invoice (
 	phone					CHARACTER VARYING(20) NOT NULL,
 	email					CHARACTER VARYING(70) NOT NULL,
 	fax						CHARACTER VARYING(20) NOT NULL,
-	vat						FLOAT DECREATE TABLE cc_card (
-    id 									BIGSERIAL NOT NULL,
-    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    firstusedate 						TIMESTAMP WITHOUT TIME ZONE,
-    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,
-    enableexpire 						INTEGER DEFAULT 0,
-    expiredays 							INTEGER DEFAULT 0,
-    username 							TEXT NOT NULL,
-    useralias 							TEXT NOT NULL,
-    userpass 							TEXT NOT NULL,
-    uipass 								TEXT ,
-    credit 								NUMERIC(12,4) NOT NULL,
-    tariff 								INTEGER DEFAULT 0,
-    id_didgroup 						INTEGER DEFAULT 0,
-    activated 							BOOLEAN DEFAULT false NOT NULL,
-    lastname 							TEXT ,
-    firstname 							TEXT ,
-    address 							TEXT ,
-    city 								TEXT ,
-    state 								TEXT ,
-    country 							TEXT ,
-    zipcode 							TEXT ,
-    phone 								TEXT ,
-    email 								TEXT ,
-    fax 								TEXT ,
-    inuse 								INTEGER DEFAULT 0,
-    simultaccess 						INTEGER DEFAULT 0,
-    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
-    lastuse 							date DEFAULT NOW(),
-    nbused 								INTEGER DEFAULT 0,
-    typepaid 							INTEGER DEFAULT 0,
-    creditlimit 						INTEGER DEFAULT 0,
-    voipcall 							INTEGER DEFAULT 0,
-    sip_buddy 							INTEGER DEFAULT 0,
-    iax_buddy 							INTEGER DEFAULT 0,
-    "language" 							TEXT DEFAULT 'en'::text,
-    redial 								TEXT ,
-    runservice 							INTEGER DEFAULT 0,
-    nbservice 							INTEGER DEFAULT 0,
-    id_campaign 						INTEGER DEFAULT 0,
-    num_trials_done 					INTEGER DEFAULT 0,
-    callback 							TEXT ,
-    vat 								NUMERIC(6,3) DEFAULT 0,
-    servicelastrun 						TIMESTAMP WITHOUT TIME ZONE,
-    initialbalance 						NUMERIC(12,4) NOT NULL DEFAULT 0,
-    invoiceday 							INTEGER DEFAULT 1,
-    autorefill 							INTEGER DEFAULT 0,
-    loginkey 							TEXT ,
-    activatedbyuser 					BOOLEAN DEFAULT false NOT NULL,
-	id_subscription_fee 				INTEGER DEFAULT 0,
-	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL
-);
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);FAULT NULL
+	vat						FLOAT DEFAULT NULL
 );
 ALTER TABLE ONLY cc_invoice
 ADD CONSTRAINT cc_invoice_pkey PRIMARY KEY (id);
