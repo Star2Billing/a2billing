@@ -3,7 +3,7 @@
 getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk', 'choose_country', 'choose_did', 'assign', 'countrycode', 'arecode', 'phonenumber', 'voip_call', 'destination', 'choose_did_rate', 'new_did_page', 'confirm_buy_did', 'action_release'));
 
 
-$HD_Form = new FormHandler("cc_did_destination","did");
+$HD_Form = new FormHandler("cc_did_destination","destination");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "did";
@@ -38,12 +38,12 @@ for ($k=1;$k<=5;$k++)
 }
 $actived_list = array(); $actived_list["1"]  = array( gettext("Active"), "1"); $actived_list["0"]  = array( gettext("Inactive"), "0");
 
-$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "15%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DID"), "id_cc_did", "12%", "center", "sort", "15", "lie", "cc_did", "did", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("ACTIVATED"), "t1.activated", "5%", "center", "sort", "", "list", $actived_list);
-$HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "5%", "center", "sort", "", "list", $priority_list);
+$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "20%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DID"), "id_cc_did", "15%", "center", "sort", "15", "lie", "cc_did", "did", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("ACTIVATED"), "t1.activated", "10%", "center", "sort", "", "list", $actived_list);
+$HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "sort", "", "list", $priority_list);
 $HD_Form -> AddViewElement(gettext("USED MINUTE"), "t1.secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "12%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "15%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('destination, id_cc_did, activated, priority ,secondusedreal id_cc_country');
@@ -75,6 +75,7 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	"Insert the Destination",
 	"" , "", "", "", "" , "", "", gettext("Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "));
 
+/*
 $HD_Form -> AddEditElement (gettext("DID"),
 	"id_cc_did",
 	'$value',
@@ -83,7 +84,8 @@ $HD_Form -> AddEditElement (gettext("DID"),
 	"sql",
 	"cc_did",
 	"did, id",
-	"id_cc_didgroup = '".$_SESSION["id_didgroup"]."'", "", "%1", "" , "");
+	"(iduser='".$_SESSION["card_id"]."') AND (id_cc_didgroup = '".$_SESSION["id_didgroup"]."')", "", "%1", "" , "");
+*/
 
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"activated",
@@ -114,7 +116,8 @@ $HD_Form -> AddEditElement (gettext("VOIP_CALL"),
 	"" , "",  "", "Yes :1, - No:0",  "", "" , "" , "");
 
 
-$HD_Form -> FieldEditElement ('destination, id_cc_did, activated, priority, voip_call');
+//$HD_Form -> FieldEditElement ('destination, id_cc_did, activated, priority, voip_call');
+$HD_Form -> FieldEditElement ('destination, activated, priority, voip_call');
 
 
 if (DB_TYPE == "postgres"){
@@ -136,7 +139,7 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path."/cormfirmboton.gif";
-$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Setup those values to create the new")." ".$HD_Form->FG_INSTANCE_NAME;
+$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Setup those values to create or edit the ")." ".$HD_Form->FG_INSTANCE_NAME;
 
 
 
