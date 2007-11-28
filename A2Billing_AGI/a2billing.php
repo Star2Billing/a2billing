@@ -280,7 +280,7 @@ if ($mode == 'standard'){
 				}
 			}
 			
-			if ( isset($A2B-> sip_iax_buddy) || ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
+			if ( strlen($A2B-> sip_iax_buddy) > 0 || ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
 				
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, 'CALL SIP_IAX_BUDDY');
 				$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine,$i);

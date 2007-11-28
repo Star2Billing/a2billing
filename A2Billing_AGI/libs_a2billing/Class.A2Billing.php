@@ -196,7 +196,6 @@ class A2Billing {
 		$this -> ipaddress='';
 		$this -> rate='';
 		$this -> destination='';
-		$this -> sip_iax_buddy='';
 	}
 	
 	
