@@ -10,7 +10,7 @@
 /* 
  * a2b_mail
  */
-function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = 'multipart/alternative')
+function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = '')
 {
 	$mail = new phpmailer();
 	$mail -> From     = $from;
@@ -20,6 +20,7 @@ function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $from
 	$mail -> Subject = $subject;
 	$mail -> Body    = $mail_content ; //$HTML;
 	$mail -> AltBody = $mail_content;  // Plain text body (for mail clients that cannot read 	HTML)
+	// if ContentType = multipart/alternative -> HTML will be send
 	$mail -> ContentType = $contenttype;
 	$mail -> AddAddress ($to);				
 	$mail -> Send();
