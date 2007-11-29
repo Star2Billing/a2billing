@@ -160,14 +160,6 @@ class phpmailer
 
     var $Host       = "localhost";		    
 
-	
-    /** FORGET THAT IS SHITTTTTTTTTTTT
-     * Number of SMTP server
-	 * this value will be automaticly update
-     * @public
-     * @type int
-     */
-    var $Nb_SMTP_Server          = 1;
 
     /**
      * Number of the curent SMTP server 
@@ -310,11 +302,19 @@ class phpmailer
     /////////////////////////////////////////////////
 
 	function phpmailer () {         
-
-		  
-		  
-		  if ($this->Debug_Roll) echo $this -> Host;
-
+		
+		if (SMTP_SERVER) {
+			$this->Mailer = "smtp";
+		}
+		echo "Mailer : ".$this->Mailer;
+		if ($this->Debug_Roll) echo $this -> Host;
+		
+		$this -> Host = SMTP_HOST;
+		$this -> Username = SMTP_USERNAME;
+		$this -> Password = SMTP_PASSWORD;
+		
+		if (strlen(SMTP_USERNAME) > 0)	$this -> SMTPAuth = true;
+		
 	}
 
     /////////////////////////////////////////////////
@@ -482,6 +482,7 @@ class phpmailer
 
 		  while($this -> nb_try < count($hosts) && !$sendOKAY )
 	        {
+				$this->Debug_Roll = 1;
 			  if ($this->Debug_Roll) echo "<br><br> ---> TRY : ".$this -> nb_try;
 
 	          if(!$this->smtp_send($header, $body)){
@@ -599,7 +600,7 @@ class phpmailer
 		//$this -> Curent_SMTP_Server = $this -> Curent_SMTP_Server + $this -> nb_try;
 
 
-		if ($this->Debug_Roll) echo "<br>Nombre de HOST :".count($hosts)."<br><br>";		
+		if ($this->Debug_Roll) echo "<br>amount of HostName :".count($hosts)."<br><br>";		
 		if ($this->Debug_Roll) echo "<br>Curent_SMTP_Server : ".$this -> Curent_SMTP_Server;
 		$this -> Curent_SMTP_Server= ($this -> Curent_SMTP_Server + 1) % count($hosts);
 		if ($this->Debug_Roll) echo "<br><br>Curent_SMTP_Server : ".$this -> Curent_SMTP_Server."<br>";
@@ -625,9 +626,6 @@ class phpmailer
         while($this -> nb_try < count($hosts) && $connection == false)
         {
 			$this -> nb_try++;
-
-
-
 			
             if(strstr($hosts[$index], ":"))
                 list($host, $port) = explode(":", $hosts[$index]);
@@ -660,15 +658,16 @@ class phpmailer
         $smtp->Hello($this->Helo);
 
         // If user requests SMTP authentication
-        /*if($this->SMTPAuth)
+        if($this->SMTPAuth)
         {
             if(!$smtp->Authenticate($this->Username, $this->Password))
             {
-                $this->error_handler("SMTP Error: Could not authenticate");
+				if ($this->Debug_Roll) echo "<br> SMTP Error: Could not authenticate ($this->Username, $this->Password)";
+                $this->error_handler("SMTP Error: Could not authenticate ($this->Username, $this->Password)");
 				//echo "<br>SMTP Error: Could not authenticate";
                 return false;
             }
-        }*/
+        }
 
         if ($this->Sender == "")
             $smtp_from = $this->From;
@@ -678,8 +677,8 @@ class phpmailer
         if(!$smtp->Mail(sprintf("<%s>", $smtp_from)))
         {			
             $e = sprintf("SMTP Error: From address [%s] failed", $smtp_from);
+			if ($this->Debug_Roll) echo "<br> $e";
             $this->error_handler($e);
-			//echo "<br>$e";
             return false;
         }
 
@@ -724,7 +723,7 @@ class phpmailer
             }
             $e = sprintf("SMTP Error: The following recipients failed [%s]", $e);
             $this->error_handler($e);
-			//echo "<br>$e";
+			if ($this->Debug_Roll) echo "<br>$e";
 			
 
             return false;
@@ -734,11 +733,12 @@ class phpmailer
         if(!$smtp->Data(sprintf("%s%s", $header, $body)))
         {
             $this->error_handler("SMTP Error: Data not accepted");
-			//echo "<br>SMTP Error: Data not accepted";
+			if ($this->Debug_Roll) echo "<br>SMTP Error: Data not accepted";
             return false;
         }
         $smtp->Quit();
-
+		
+		if ($this->Debug_Roll) echo "<br> SUCCESS !!!";
         return true;
     }
 
@@ -883,23 +883,17 @@ class phpmailer
         
 		// mail() sets the subject itself
         if($this->Mailer != "mail"){
-	
-				if ($this->Subject_CharSet){	
-					//Subject: =?shift_jis?B?k5aO0ILMg0WDRoN1g32DWINegVuDdoONg0+DiYOAgsmOUYKpgrWCxIm6?=
-					//	=?shift_jis?B?grOCog==?=
-					//Subject: =?iso-2022-jp?B?IBskQjxMPz8hKiEqISobKEI=?=
-					//Subject: =?shift_jis?B?k5aO0ILMg0WDRoN1g32DWINegVuDdoONg0+DiYOAgsmOUYKpgrWCxIm6?=
-					//=?shift_jis?B?grOCog==?=
-					//Subject: =?shift_jis?B?g2qDhYFbg1iDjINegVuC8JGXkE2CtYK9gqI
-					$header[] = sprintf("Subject: =?%s?B?%s=?=\r\n",trim($this->CharSet), trim($this->Subject));		
-				}else{
-					$header[] = sprintf("Subject: %s\r\n", trim($this->Subject));		
-				}
-
+			
+			if ($this->Subject_CharSet){
+				$header[] = sprintf("Subject: =?%s?B?%s=?=\r\n",trim($this->CharSet), trim($this->Subject));		
+			}else{
+				$header[] = sprintf("Subject: %s\r\n", trim($this->Subject));		
+			}
+			
 		}
 
         $header[] = sprintf("X-Priority: %d\r\n", $this->Priority);
-        $header[] = sprintf("X-Mailer: Mailing-List System [Version %s]\r\n", $this->Version);
+        $header[] = sprintf("X-Mailer: Mail System [Version %s]\r\n", $this->Version);
         //$header[] = sprintf("Return-Path: %s\r\n", trim($this->From));
 		$header[] = sprintf("Return-Path: %s\r\n", $this -> Sender);
 		//print_r ($header);
