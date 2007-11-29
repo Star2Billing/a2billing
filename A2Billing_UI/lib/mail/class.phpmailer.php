@@ -160,14 +160,6 @@ class phpmailer
 
     var $Host       = "localhost";		    
 
-	
-    /** FORGET THAT IS SHITTTTTTTTTTTT
-     * Number of SMTP server
-	 * this value will be automaticly update
-     * @public
-     * @type int
-     */
-    var $Nb_SMTP_Server          = 1;
 
     /**
      * Number of the curent SMTP server 
@@ -316,7 +308,13 @@ class phpmailer
 		}
 		echo "Mailer : ".$this->Mailer;
 		if ($this->Debug_Roll) echo $this -> Host;
-
+		
+		$this -> Host = SMTP_HOST;
+		$this -> Username = SMTP_USERNAME;
+		$this -> Password = SMTP_PASSWORD;
+		
+		if (strlen(SMTP_USERNAME) > 0)	$this -> SMTPAuth = true;
+		
 	}
 
     /////////////////////////////////////////////////
@@ -602,7 +600,7 @@ class phpmailer
 		//$this -> Curent_SMTP_Server = $this -> Curent_SMTP_Server + $this -> nb_try;
 
 
-		if ($this->Debug_Roll) echo "<br>Nombre de HOST :".count($hosts)."<br><br>";		
+		if ($this->Debug_Roll) echo "<br>amount of HostName :".count($hosts)."<br><br>";		
 		if ($this->Debug_Roll) echo "<br>Curent_SMTP_Server : ".$this -> Curent_SMTP_Server;
 		$this -> Curent_SMTP_Server= ($this -> Curent_SMTP_Server + 1) % count($hosts);
 		if ($this->Debug_Roll) echo "<br><br>Curent_SMTP_Server : ".$this -> Curent_SMTP_Server."<br>";
