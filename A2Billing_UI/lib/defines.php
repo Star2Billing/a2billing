@@ -264,4 +264,3 @@ $log = null;
 //Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
 define("LIST_OF_VALUES",true);
 
-

@@ -16,7 +16,7 @@ function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $from
 	$mail -> From     = $from;
 	$mail -> FromName = $fromname;
 	//$mail -> IsSendmail();
-	$mail -> IsSMTP();
+	//$mail -> IsSMTP();
 	$mail -> Subject = $subject;
 	$mail -> Body    = nl2br($mail_content); //$HTML;
 	$mail -> AltBody = $mail_content;  // Plain text body (for mail clients that cannot read 	HTML)

@@ -310,10 +310,11 @@ class phpmailer
     /////////////////////////////////////////////////
 
 	function phpmailer () {         
-
-		  
-		  
-		  if ($this->Debug_Roll) echo $this -> Host;
+		
+		if (SMTP_SERVER) {
+			$this->Mailer = "smtp";
+		}
+		if ($this->Debug_Roll) echo $this -> Host;
 
 	}
 
