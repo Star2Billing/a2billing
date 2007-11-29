@@ -345,21 +345,7 @@ if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+
 		$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
 		$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
 		
-		
-		// USE PHPMAILER
-		include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
-		
-		$mail = new phpmailer();
-		$mail -> From     = $from;
-		$mail -> FromName = $fromname;
-		//$mail -> IsSendmail();
-		$mail -> IsSMTP();
-		$mail -> Subject = $subject;
-		$mail -> Body    = $messagetext ; //$HTML;
-		$mail -> AltBody = $messagetext;  // Plain text body (for mail clients that cannot read 	HTML)
-		$mail -> ContentType = "multipart/alternative";
-		$mail -> AddAddress(ADMIN_EMAIL);				
-		$mail -> Send();
+		a2b_mail (ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
 		
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=$subject, mtext=$messagetext");
 	}

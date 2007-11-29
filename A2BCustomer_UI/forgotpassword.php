@@ -64,20 +64,7 @@ if(isset($pr_email) && isset($action)) {
             	$messagetext = str_replace('$card_gen', $username, $messagetext);
             	$messagetext = str_replace('$password', $uipass, $messagetext);
 				
-				// USE PHPMAILER
-				include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
-				
-				$mail = new phpmailer();
-				$mail -> From     = $from;
-				$mail -> FromName = $fromname;
-				//$mail -> IsSendmail();
-				$mail -> IsSMTP();
-				$mail -> Subject  = $subject;
-				$mail -> Body    = $messagetext ; //$HTML;
-				$mail -> AltBody = $messagetext; // Plain text body (for mail clients that cannot read 	HTML)
-				$mail -> ContentType = "multipart/alternative";
-				$mail -> AddAddress($recordset[3]);				
-				$mail -> Send();
+				a2b_mail ($recordset[3], $subject, $messagetext, $from, $fromname);
             }
         }
     }

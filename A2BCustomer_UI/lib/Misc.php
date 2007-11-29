@@ -8,6 +8,25 @@
 
 
 /* 
+ * a2b_mail
+ */
+function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = 'multipart/alternative')
+{
+	$mail = new phpmailer();
+	$mail -> From     = $from;
+	$mail -> FromName = $fromname;
+	//$mail -> IsSendmail();
+	//$mail -> IsSMTP();
+	$mail -> Subject = $subject;
+	$mail -> Body    = nl2br($mail_content); //$HTML;
+	$mail -> AltBody = $mail_content;  // Plain text body (for mail clients that cannot read 	HTML)
+	// if ContentType = multipart/alternative -> HTML will be send
+	$mail -> ContentType = $contenttype;
+	$mail -> AddAddress ($to);				
+	$mail -> Send();
+}
+
+/* 
  * get_currencies 
  */
 function get_currencies($handle = null)

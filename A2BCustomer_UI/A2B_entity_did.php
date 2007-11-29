@@ -81,21 +81,11 @@ if ($action_release=="confirm_release"){
 	$message .= "DELETE all DID destination: $QUERY \n\n";
 
 	$date = date("D M j G:i:s T Y", time());
+	$from     = 'a2billing_alert@localhost';
+	$fromname = 'A2BILLING ALERT';
+	$subject  = "[$date] Release-DID notification";
 	
-	// USE PHPMAILER
-	include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
-	
-	$mail = new phpmailer();
-	$mail -> From     = 'a2billing_alert@localhost';
-	$mail -> FromName = 'A2BILLING ALERT';
-	//$mail -> IsSendmail();
-	$mail -> IsSMTP();
-	$mail -> Subject  = "[$date] Release-DID notification";
-	$mail -> Body    = $messagetext ; //$HTML;
-	$mail -> AltBody = $messagetext; // Plain text body (for mail clients that cannot read 	HTML)
-	$mail -> ContentType = "multipart/alternative";
-	$mail -> AddAddress(ADMIN_EMAIL);				
-	$mail -> Send();
+	a2b_mail (ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
 }
 
 /***********************************************************/

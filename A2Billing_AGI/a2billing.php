@@ -1035,17 +1035,7 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 			// USE PHPMAILER
 			include_once (dirname(__FILE__)."/libs_a2billing/mail/class.phpmailer.php");
 			
-			$mail = new phpmailer();
-			$mail -> From     = $from;
-			$mail -> FromName = $fromname;
-			//$mail -> IsSendmail();
-			$mail -> IsSMTP();
-			$mail -> Subject  = $subject;
-			$mail -> Body    = $messagetext ; //$HTML;
-			$mail -> AltBody = nl2br($messagetext); // Plain text body (for mail clients that cannot read 	HTML)
-			$mail -> ContentType = "multipart/alternative";
-			$mail -> AddAddress($A2B -> cardholder_email);				
-			$mail -> Send();
+			a2b_mail ($A2B -> cardholder_email, $subject, $messagetext, $from, $fromname);
 			
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SEND-MAIL REMINDER]:[TO:".$A2B -> cardholder_email." - FROM:$from - SUBJECT:$subject]");
 		}
