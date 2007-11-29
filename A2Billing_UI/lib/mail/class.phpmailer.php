@@ -626,9 +626,6 @@ class phpmailer
         while($this -> nb_try < count($hosts) && $connection == false)
         {
 			$this -> nb_try++;
-
-
-
 			
             if(strstr($hosts[$index], ":"))
                 list($host, $port) = explode(":", $hosts[$index]);
@@ -661,15 +658,16 @@ class phpmailer
         $smtp->Hello($this->Helo);
 
         // If user requests SMTP authentication
-        /*if($this->SMTPAuth)
+        if($this->SMTPAuth)
         {
             if(!$smtp->Authenticate($this->Username, $this->Password))
             {
+				if ($this->Debug_Roll) echo "<br> SMTP Error: Could not authenticate";
                 $this->error_handler("SMTP Error: Could not authenticate");
 				//echo "<br>SMTP Error: Could not authenticate";
                 return false;
             }
-        }*/
+        }
 
         if ($this->Sender == "")
             $smtp_from = $this->From;
@@ -679,8 +677,8 @@ class phpmailer
         if(!$smtp->Mail(sprintf("<%s>", $smtp_from)))
         {			
             $e = sprintf("SMTP Error: From address [%s] failed", $smtp_from);
+			if ($this->Debug_Roll) echo "<br> $e";
             $this->error_handler($e);
-			//echo "<br>$e";
             return false;
         }
 
@@ -725,7 +723,7 @@ class phpmailer
             }
             $e = sprintf("SMTP Error: The following recipients failed [%s]", $e);
             $this->error_handler($e);
-			//echo "<br>$e";
+			if ($this->Debug_Roll) echo "<br>$e";
 			
 
             return false;
@@ -735,11 +733,12 @@ class phpmailer
         if(!$smtp->Data(sprintf("%s%s", $header, $body)))
         {
             $this->error_handler("SMTP Error: Data not accepted");
-			//echo "<br>SMTP Error: Data not accepted";
+			if ($this->Debug_Roll) echo "<br>SMTP Error: Data not accepted";
             return false;
         }
         $smtp->Quit();
-
+		
+		if ($this->Debug_Roll) echo "<br> SUCCESS !!!";
         return true;
     }
 
