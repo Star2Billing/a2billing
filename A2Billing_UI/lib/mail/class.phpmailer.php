@@ -314,6 +314,7 @@ class phpmailer
 		if (SMTP_SERVER) {
 			$this->Mailer = "smtp";
 		}
+		echo "Mailer : ".$this->Mailer;
 		if ($this->Debug_Roll) echo $this -> Host;
 
 	}
@@ -483,6 +484,7 @@ class phpmailer
 
 		  while($this -> nb_try < count($hosts) && !$sendOKAY )
 	        {
+				$this->Debug_Roll = 1;
 			  if ($this->Debug_Roll) echo "<br><br> ---> TRY : ".$this -> nb_try;
 
 	          if(!$this->smtp_send($header, $body)){
