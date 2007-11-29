@@ -662,7 +662,7 @@ class phpmailer
         {
             if(!$smtp->Authenticate($this->Username, $this->Password))
             {
-				if ($this->Debug_Roll) echo "<br> SMTP Error: Could not authenticate";
+				if ($this->Debug_Roll) echo "<br> SMTP Error: Could not authenticate ($this->Username, $this->Password)";
                 $this->error_handler("SMTP Error: Could not authenticate ($this->Username, $this->Password)");
 				//echo "<br>SMTP Error: Could not authenticate";
                 return false;
