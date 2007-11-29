@@ -81,6 +81,11 @@ $A2B -> CC_TESTING = isset($A2B->agiconfig['debugshell']) && $A2B->agiconfig['de
 //$A2B -> CC_TESTING = true;
 
 define ("DB_TYPE", isset($A2B->config["database"]['dbtype'])?$A2B->config["database"]['dbtype']:null); 	
+define ("SMTP_SERVER", isset($A2B->config['global']['smtp_server'])?$A2B->config['global']['smtp_server']:null);
+define ("SMTP_HOST", isset($A2B->config['global']['smtp_host'])?$A2B->config['global']['smtp_host']:null);
+define ("SMTP_USERNAME", isset($A2B->config['global']['smtp_username'])?$A2B->config['global']['smtp_username']:null);
+define ("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password'])?$A2B->config['global']['smtp_password']:null);
+
 	
 // TEST DID
 // if ($A2B -> CC_TESTING) $mode = 'did';
@@ -1027,15 +1032,6 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 			$messagetext = str_replace('$password', $A2B -> cardholder_uipass, $messagetext);
 			$messagetext = str_replace('$min_credit', $A2B->agiconfig['min_credit_2call'], $messagetext);
 			
-			/*
-			$em_headers  = "From: ".$fromname." <".$from.">\n";		
-			$em_headers .= "Reply-To: ".$from."\n";
-			$em_headers .= "Return-Path: ".$from."\n";
-			$em_headers .= "X-Priority: 3\n";
-			
-			mail($A2B -> cardholder_email, $subject, $messagetext, $em_headers);
-			*/
-			
 			// USE PHPMAILER
 			include_once (dirname(__FILE__)."/libs_a2billing/mail/class.phpmailer.php");
 			
@@ -1046,7 +1042,7 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 			$mail -> IsSMTP();
 			$mail -> Subject  = $subject;
 			$mail -> Body    = $messagetext ; //$HTML;
-			$mail -> AltBody = $messagetext; // Plain text body (for mail clients that cannot read 	HTML)
+			$mail -> AltBody = nl2br($messagetext); // Plain text body (for mail clients that cannot read 	HTML)
 			$mail -> ContentType = "multipart/alternative";
 			$mail -> AddAddress($A2B -> cardholder_email);				
 			$mail -> Send();
