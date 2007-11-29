@@ -883,23 +883,17 @@ class phpmailer
         
 		// mail() sets the subject itself
         if($this->Mailer != "mail"){
-	
-				if ($this->Subject_CharSet){	
-					//Subject: =?shift_jis?B?k5aO0ILMg0WDRoN1g32DWINegVuDdoONg0+DiYOAgsmOUYKpgrWCxIm6?=
-					//	=?shift_jis?B?grOCog==?=
-					//Subject: =?iso-2022-jp?B?IBskQjxMPz8hKiEqISobKEI=?=
-					//Subject: =?shift_jis?B?k5aO0ILMg0WDRoN1g32DWINegVuDdoONg0+DiYOAgsmOUYKpgrWCxIm6?=
-					//=?shift_jis?B?grOCog==?=
-					//Subject: =?shift_jis?B?g2qDhYFbg1iDjINegVuC8JGXkE2CtYK9gqI
-					$header[] = sprintf("Subject: =?%s?B?%s=?=\r\n",trim($this->CharSet), trim($this->Subject));		
-				}else{
-					$header[] = sprintf("Subject: %s\r\n", trim($this->Subject));		
-				}
-
+			
+			if ($this->Subject_CharSet){
+				$header[] = sprintf("Subject: =?%s?B?%s=?=\r\n",trim($this->CharSet), trim($this->Subject));		
+			}else{
+				$header[] = sprintf("Subject: %s\r\n", trim($this->Subject));		
+			}
+			
 		}
 
         $header[] = sprintf("X-Priority: %d\r\n", $this->Priority);
-        $header[] = sprintf("X-Mailer: Mailing-List System [Version %s]\r\n", $this->Version);
+        $header[] = sprintf("X-Mailer: Mail System [Version %s]\r\n", $this->Version);
         //$header[] = sprintf("Return-Path: %s\r\n", trim($this->From));
 		$header[] = sprintf("Return-Path: %s\r\n", $this -> Sender);
 		//print_r ($header);

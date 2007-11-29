@@ -1661,7 +1661,7 @@ CREATE TABLE cc_subscription_fee (
     label 							TEXT NOT NULL,
     fee 							FLOAT DEFAULT 0 NOT NULL,
 	currency 						CHAR(3) DEFAULT 'USD',
-    status 							INT DEFAULT '0' NOT NULL,
+    `status` 							INT DEFAULT '0' NOT NULL,
     numberofrun 					INT DEFAULT '0' NOT NULL,
     datecreate 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     datelastrun 					TIMESTAMP,

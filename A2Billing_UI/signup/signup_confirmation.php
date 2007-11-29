@@ -55,25 +55,20 @@ if (!$num)
 	if ($res)
 		$num = $res -> RecordCount();
 	
-	if (!$num)
-	{
+	if (!$num) {
 		echo "<br>".gettext("Error : No email Template Found");
 		exit();
 	}
 }
 
 
-
-
-for($i=0;$i<$num;$i++)
-{
+for($i=0;$i<$num;$i++) {
 	$listtemplate[] = $res->fetchRow();
 }
 
 list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
 
-if ($FG_DEBUG == 1)
-{
+if ($FG_DEBUG == 1) {
 	echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
 }
 
