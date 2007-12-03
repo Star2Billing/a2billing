@@ -1943,18 +1943,27 @@ class A2Billing {
 				
 				//CREATE AN INSTANCE IN CC_CALLERID
 				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1){
-					$QUERY_FIELS = 'cid, id_cc_card';
-					$QUERY_VALUES = "'".$this->CallerID."','$the_card_id'";
 					
-					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CREATE AN INSTANCE IN CC_CALLERID -  QUERY_VALUES:$QUERY_VALUES, QUERY_FIELS:$QUERY_FIELS]");
-					$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
-					
-					if (!$result){
-						$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
-						$prompt="prepaid-auth-fail";
-						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-						$agi-> stream_file($prompt, '#');
-						return -2;
+					$QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card='$the_card_id'"; 
+					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 1); 
+					// CHECK IF THE AMOUNT OF CALLERID IS LESS THAN THE LIMIT 
+					if ($result[0][0] < $A2B->config["webcustomerui"]['limit_callerid']) {
+						
+						$QUERY_FIELS = 'cid, id_cc_card';
+						$QUERY_VALUES = "'".$this->CallerID."','$the_card_id'";
+						
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CREATE AN INSTANCE IN CC_CALLERID -  QUERY_VALUES:$QUERY_VALUES, QUERY_FIELS:$QUERY_FIELS]");
+						$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
+						
+						if (!$result){
+							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
+							$prompt="prepaid-auth-fail";
+							$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+							$agi-> stream_file($prompt, '#');
+							return -2;
+						}
+					} else {
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[NOT ADDING NEW CID IN CC_CALLERID : CID LIMIT]");
 					}
 				}
 				
