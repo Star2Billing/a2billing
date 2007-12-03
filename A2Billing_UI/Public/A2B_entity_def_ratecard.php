@@ -52,9 +52,17 @@ if ($batchupdate == 1 && is_array($check)){
 				if ($type["$ind_field"] == 1){
 					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
 				}elseif ($type["$ind_field"] == 2){
-					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
+					if (substr($$ind_field,-1) == "%") {
+						$SQL_UPDATE .= " $myfield = ROUND($myfield + (($myfield * ".substr($$ind_field,0,-1).") / 100)+0.00005,4)";
+					} else {
+						$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
+					}
 				}else{
-					$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
+					if (substr($$ind_field,-1) == "%") {
+						$SQL_UPDATE .= " $myfield = ROUND($myfield - (($myfield * ".substr($$ind_field,0,-1).") / 100)+0.00005,4)";
+					} else {
+						$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
+					}
 				}
 			}
 		}
