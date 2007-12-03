@@ -34,6 +34,7 @@ class RateEngine
 	var $usedratecard		= 0;
 	var $webui 				= 1;
 	var $usedtrunk			= 0;
+	var $freetimetocall_used= 0;
 
 	/* CONSTRUCTOR */
 	function RateEngine ()
@@ -197,7 +198,7 @@ class RateEngine
 		
 		if (!is_array($result) || count($result)==0) return 0; // NO RATE FOR THIS NUMBER
 	
-		if ($this -> debug_st) echo "::> Count Total result ".count($result)."\n\n";
+		if ($this->debug_st) echo "::> Count Total result ".count($result)."\n\n";
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[rate-engine: Count Total result ".count($result)."]");	
 		
 		// CHECK IF THERE IS OTHER RATE THAT 'DEFAULT', IF YES REMOVE THE DEFAULT RATES
@@ -292,7 +293,7 @@ class RateEngine
 			}
 		}
 		
-		if ($this -> debug_st)echo "::> Count Total result ".count($distinct_result)."\n\n";
+		if ($this->debug_st) echo "::> Count Total distinct_result ".count($distinct_result)."\n\n";
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: Count Total result ".count($distinct_result)."]");	
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: number_trunk ".$this -> number_trunk."]");
 		
@@ -307,6 +308,7 @@ class RateEngine
 	function rate_engine_all_calcultimeout (&$A2B, $credit)
 	{
 		global $agi;
+		
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT ($credit)]");
 		if (!is_array($this -> ratecard_obj) || count($this -> ratecard_obj)==0) return false;
 		
@@ -314,6 +316,7 @@ class RateEngine
 			$res_calcultimeout = $this -> rate_engine_calcultimeout ($A2B,$credit,$k);
 			if ($this->webui) 
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT: k=$k - res_calcultimeout:$res_calcultimeout]");
+			
 			if (substr($res_calcultimeout,0,5)=='ERROR')	return false;
 		}
 		
@@ -324,28 +327,34 @@ class RateEngine
 		RATE ENGINE - CALCUL TIMEOUT
 		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
 	*/
-	function rate_engine_calcultimeout (&$A2B, $credit, $K=0){
-
+	function rate_engine_calcultimeout (&$A2B, $credit, $K=0)
+	{
 		global $agi;
-		$rateinitial = round(abs($this -> ratecard_obj[$K][12]),4);
-		$initblock = $this -> ratecard_obj[$K][13];
-		$billingblock = $this -> ratecard_obj[$K][14];	
-		$connectcharge = round(abs($this -> ratecard_obj[$K][15]),4);
-		$disconnectcharge = round(abs($this -> ratecard_obj[$K][16]),4);	
-		$stepchargea = $this -> ratecard_obj[$K][17]; 		$chargea = round(abs($this -> ratecard_obj[$K][18]),4);
-		$timechargea = $this -> ratecard_obj[$K][19];		$billingblocka = $this -> ratecard_obj[$K][20];	
-		$stepchargeb = $this -> ratecard_obj[$K][21];		$chargeb = round(abs($this -> ratecard_obj[$K][22]),4);
-		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
-		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
-		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
 		
+		$rateinitial 					= round (abs($this -> ratecard_obj[$K][12]),4);
+		$initblock 						= $this -> ratecard_obj[$K][13];
+		$billingblock 					= $this -> ratecard_obj[$K][14];	
+		$connectcharge 					= round (abs($this -> ratecard_obj[$K][15]),4);
+		$disconnectcharge 				= round (abs($this -> ratecard_obj[$K][16]),4);	
+		$stepchargea 					= $this -> ratecard_obj[$K][17];
+		$chargea 						= round (abs($this -> ratecard_obj[$K][18]),4);
+		$timechargea 					= $this -> ratecard_obj[$K][19];
+		$billingblocka 					= $this -> ratecard_obj[$K][20];	
+		$stepchargeb 					= $this -> ratecard_obj[$K][21];
+		$chargeb 						= round (abs($this -> ratecard_obj[$K][22]),4);
+		$timechargeb 					= $this -> ratecard_obj[$K][23];
+		$billingblockb 					= $this -> ratecard_obj[$K][24];	
+		$stepchargec 					= $this -> ratecard_obj[$K][25];
+		$chargec 						= round (abs($this -> ratecard_obj[$K][26]),4);	
+		$timechargec 					= $this -> ratecard_obj[$K][27];
+		$billingblockc 					= $this -> ratecard_obj[$K][28];
 		// ****************  PACKAGE PARAMETERS ****************  
-		$freetimetocall_package_offer = $this -> ratecard_obj[$K][45];
-		$freetimetocall = $this -> ratecard_obj[$K][46];
-		$packagetype = $this -> ratecard_obj[$K][47];
-		$billingtype = $this -> ratecard_obj[$K][48];
-		$startday = $this -> ratecard_obj[$K][49];
-		$id_cc_package_offer = $this -> ratecard_obj[$K][50];
+		$freetimetocall_package_offer 	= $this -> ratecard_obj[$K][45];
+		$freetimetocall 				= $this -> ratecard_obj[$K][46];
+		$packagetype 					= $this -> ratecard_obj[$K][47];
+		$billingtype 					= $this -> ratecard_obj[$K][48];
+		$startday 						= $this -> ratecard_obj[$K][49];
+		$id_cc_package_offer 			= $this -> ratecard_obj[$K][50];
 		
 		// CHANGE THIS - ONLY ALLOW FREE TIME FOR CUSTOMER THAT HAVE MINIMUM CREDIT TO CALL A DESTINATION
 		
@@ -387,19 +396,18 @@ class RateEngine
 				}
 				$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
 						" WHERE $CLAUSE_DATE AND id_cc_card = '".$A2B->id_card."' AND id_cc_package_offer = '$id_cc_package_offer' ";
-				
 				$pack_result = $A2B -> instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
-								
-				if (is_array($pack_result) && count($pack_result)>0){
-					$freetimetocall_used = $pack_result[0][0];
-				}else{
-					$freetimetocall_used = 0;
+				
+				if (is_array($pack_result) && count($pack_result)>0) {
+					$this->freetimetocall_used = $pack_result[0][0];
+				} else {
+					$this->freetimetocall_used = 0;
 				}
 				
-				$A2B -> write_log ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $freetimetocall_used");
-				if ($this -> debug_st) echo ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $freetimetocall_used");
+				$A2B -> write_log ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $this->freetimetocall_used");
+				if ($this -> debug_st) echo ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $this->freetimetocall_used");
 				
-				$this -> freetimetocall_left[$K] = $freetimetocall - $freetimetocall_used;
+				$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
 				if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
 				
 			}
@@ -649,7 +657,7 @@ class RateEngine
 	 * RATE ENGINE - CALCUL COST OF THE CALL
 	 * - calcul the credit consumed by the call
 	 */
-	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used)
+	function rate_engine_calculcost (&$A2B, $callduration, $K=0)
 	{	
 		$K = $this->usedratecard;
 		
@@ -686,11 +694,11 @@ class RateEngine
 		if (!is_numeric($additional_block_charge))		$additional_block_charge = 0;
 		if (!is_numeric($additional_block_charge_time))	$additional_block_charge_time = 0;
 		
-		if (!is_numeric($freetimetocall_used)) $freetimetocall_used=0;		
-		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$freetimetocall_used\n\n";
-		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration - freetimetocall_used=$freetimetocall_used]");
+		if (!is_numeric($this->freetimetocall_used))	$this->freetimetocall_used = 0;		
+		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$this->freetimetocall_used\n\n";
+		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration - freetimetocall_used=$this->freetimetocall_used]");
 		
-		$cost =0;
+		$cost = 0;
 		$cost -= $connectcharge;
 		$cost -= $disconnectcharge;
 		
@@ -732,7 +740,11 @@ class RateEngine
 		
 		// #### 	CALCUL SELLRATE COST   #####
 		if ($callduration < $initblock) $callduration = $initblock;
-		$callduration = $callduration - $freetimetocall_used;
+		if ($this -> freetimetocall_left[$K] >= $callduration) {
+			$this -> freetimetocall_used = $callduration;
+		}
+		
+		$callduration = $callduration - $this->freetimetocall_used;
 		
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
@@ -878,28 +890,34 @@ class RateEngine
 		$id_card_package_offer = 0;
 		if ($sessiontime > 0) {
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
-			$freetimetocall_used = 0;
+			$this->freetimetocall_used = 0;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ft2c_package_offer : $freetimetocall_package_offer ; $freetimetocall ; ".$this -> freetimetocall_left[$K]);
 			if ($this -> debug_st) print_r($this -> freetimetocall_left[$K]);
 			
 			if (($freetimetocall_package_offer==1) && ($freetimetocall > 0) && ($this -> freetimetocall_left[$K] > 0)){
 				
 				if ($this -> freetimetocall_left[$K] >= $sessiontime){ 
-					$freetimetocall_used = $sessiontime;
+					$this->freetimetocall_used = $sessiontime;
 				}else{
-					$freetimetocall_used = $this -> freetimetocall_left[$K];
+					$this->freetimetocall_used = $this -> freetimetocall_left[$K];
 				}
 				
-				$QUERY_FIELS = 'id_cc_card,id_cc_package_offer,used_secondes';
-				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_cc_package_offer', '$freetimetocall_used'";
+				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
+				// rate_engine_calculcost could have change the duration of the call
+				$sessiontime = $this -> answeredtime;
+				
+				$QUERY_FIELS = 'id_cc_card, id_cc_package_offer, used_secondes';
+				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_cc_package_offer', '$this->freetimetocall_used'";
 				$id_card_package_offer = $A2B -> instance_table -> Add_table ($A2B -> DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card_package_offer', 'id');
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
+			} else {
+				
+				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
+				
+				// rate_engine_calculcost could have change the duration of the call
+				$sessiontime = $this -> answeredtime;
 			}
 			
-			$this -> rate_engine_calculcost ($A2B, $sessiontime, 0, $freetimetocall_used);
-			
-			// rate_engine_calculcost could have change the duration of the call
-			$sessiontime = $this -> answeredtime;
 			
 		} else {
 			$sessiontime = 0;
