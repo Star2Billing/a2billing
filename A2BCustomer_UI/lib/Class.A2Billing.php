@@ -906,8 +906,8 @@ class A2Billing {
 			if ($this -> CC_TESTING) $this->destination = "kphone";
 			
 			if ($this->agiconfig['record_call'] == 1){
-				$myres = $agi->exec("MONITOR ".$this->agiconfig['monitor_formatfile']."|".$this->uniqueid."|mb");
-				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MONITOR ".$this->agiconfig['monitor_formatfile']."|".$this->uniqueid."|mb");
+				$myres = $agi->exec("MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
+				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
 			}
 			
 			$agi->set_callerid($this->useralias);
@@ -1023,10 +1023,10 @@ class A2Billing {
 				// IF VOIP CALL
 				if ($inst_listdestination[5]==1){
 					
-					// RUN MONITOR TO RECORD CALL
+					// RUN MIXMONITOR TO RECORD CALL
 					if ($this->agiconfig['record_call'] == 1){
-						$myres = $agi->exec("MONITOR ".$this->agiconfig['monitor_formatfile']."|".$this->uniqueid."|mb");
-						$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MONITOR ".$this->agiconfig['monitor_formatfile']."|".$this->uniqueid."|mb");
+						$myres = $agi->exec("MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
+						$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
 					}
 						
 					$dialparams = $this->agiconfig['dialcommand_param_sipiax_friend'];

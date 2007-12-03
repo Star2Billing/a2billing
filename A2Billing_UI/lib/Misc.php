@@ -246,12 +246,14 @@ function remove_prefix($phonenumber){
  * function linkonmonitorfile
  */
 function linkonmonitorfile($value){
-			  
-   $myfile = $value.".".MONITOR_FORMATFILE;
-   $myfile = base64_encode($myfile);
-   echo "<a target=_blank href=\"call-log-customers.php?download=file&file=".$myfile."\">";
-   echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';
-   
+	$myfile = $value.".".MONITOR_FORMATFILE;
+	$dl_full = MONITOR_PATH."/".$myfile;
+	if (!file_exists($dl_full)){
+		return;
+	}
+	$myfile = base64_encode($myfile);
+	echo "<a target=_blank href=\"call-log-customers.php?download=file&file=".$myfile."\">";
+	echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';   
 }
 
 function linktocustomer($value){

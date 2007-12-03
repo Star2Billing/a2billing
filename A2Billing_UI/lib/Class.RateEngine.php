@@ -1068,8 +1068,8 @@ class RateEngine
 			}
 				
 			if ($A2B -> agiconfig['record_call'] == 1){
-				$myres = $agi->exec("MONITOR ".$A2B->agiconfig['monitor_formatfile']."|".$A2B->uniqueid."|mb");
-				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MONITOR ".$A2B->agiconfig['monitor_formatfile']."|".$A2B->uniqueid."|mb");
+				$myres = $agi->exec("MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
+				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
 			}
 
 				
