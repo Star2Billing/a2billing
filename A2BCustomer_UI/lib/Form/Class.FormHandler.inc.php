@@ -342,20 +342,16 @@ class FormHandler
     */
 
 	var $FG_ADITION_GO_EDITION = "no";
+	
 	var $FG_ADITION_GO_EDITION_MESSAGE = "The document has been created correctly. Now, you can define the different tariff that you want to associate.";
 
 
 	// ------------------- ## MESSAGE SECTION  ## -------------------
 
-
-	//This variable define the text that you should put over the table .
-	//To explain what to do or how is works  ;)
-
 	var $FG_INTRO_TEXT_EDITION="You can modify, through the following form, the different properties of your #FG_INSTANCE_NAME#<br>";
 
 	var $FG_INTRO_TEXT_ASK_DELETION = "If you really want remove this #FG_INSTANCE_NAME#, click on the delete button.";
-
-	//var $FG_INTRO_TEXT_DELETION = "One #FG_INSTANCE_NAME# of the %table table has been deleted. <br> (Record with the id : %id)";
+	
 	var $FG_INTRO_TEXT_DELETION = "A #FG_INSTANCE_NAME# has been deleted!";
 
 	var $FG_INTRO_TEXT_ADD = "you can add easily a new #FG_INSTANCE_NAME#.<br>Fill the following fields and confirm by clicking on the button add.";
@@ -421,11 +417,11 @@ class FormHandler
     //Selection List Field Name to get from Database
     var $FG_SELECT_FIELDNAME  = "";
 
-	//Configuration Key value Field Name
+	// Configuration Key value Field Name
     var $FG_CONF_VALUE_FIELDNAME  = "";
-    //*****************************
-    // For Pre Selected Delete
-    //Pre Selected Records Count
+    
+	// For Pre Selected Delete
+    // Pre Selected Records Count
     var $FG_PRE_COUNT = 0;
 
     //*****************************
@@ -436,7 +432,10 @@ class FormHandler
 	var $lang = array('strfirst' => '&lt;&lt; First', 'strprev' => '&lt; Prev', 'strnext' => 'Next &gt;', 'strlast' => 'Last &gt;&gt;' );
 
 	var $logger = null;
+	
 	var $FG_ENABLE_LOG = ENABLE_LOG;
+	
+	
 	// ----------------------------------------------
 	// CLASS CONSTRUCTOR : FormHandler
 	//	@public
@@ -444,25 +443,23 @@ class FormHandler
 	//	@ $tablename + $instance_name
 	// ----------------------------------------------
 
-	function FormHandler ($tablename=null, $instance_name=null, $action=null) {
+	function FormHandler ($tablename=null, $instance_name=null, $action=null)
+	{
 		$this->FG_TABLE_NAME = $tablename;
 		$this->FG_INSTANCE_NAME = $instance_name;
-
+		
 	  	if ($this->FG_DEBUG) echo "".$this -> Host."";
-
+		
 		$this -> set_regular_expression();
-
+		
 		$this->_action = $action ? $action : $_SERVER['PHP_SELF'];
-		//$this->_vars =& $_GET;
-
+		
 		$this->_vars = array_merge($_GET, $_POST);
-
-		//error_log(print_r($this->_vars,1), 3, "/tmp/my-errors.log");
+		
 		$this -> def_list();
-
+		
         //initializing variables with gettext
-
-        $this -> CV_NO_FIELDS = gettext("THERE IS NO RECORD !!!");
+		$this -> CV_NO_FIELDS = gettext("THERE IS NO RECORD !!!");
         $this -> CV_TEXT_TITLE_ABOVE_TABLE = gettext("DIRECTORY");
         $this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define criteria to make a precise search");
         $this -> FG_INTRO_TEXT = gettext("You can browse through our")." #FG_INSTANCE_NAME# ".gettext("and modify their different properties<br>");
@@ -471,8 +468,7 @@ class FormHandler
         $this -> FG_ADITION_GO_EDITION_MESSAGE = gettext("The document has been created correctly. Now, you can define the different tariff that you want to associate.");
         $this -> FG_INTRO_TEXT_EDITION = gettext("You can modify, through the following form, the different properties of your")." #FG_INSTANCE_NAME#<br>";
         $this -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." #FG_INSTANCE_NAME#, ".gettext("Click on the delete button.");
-        //$this -> FG_INTRO_TEXT_DELETION = gettext("One")." #FG_INSTANCE_NAME# ".gettext("of the %table table has been deleted. <br> (Record with the id")." : %id)";
-		$this -> FG_INTRO_TEXT_DELETION = gettext("One")." #FG_INSTANCE_NAME# ".gettext("has been deleted!");
+        $this -> FG_INTRO_TEXT_DELETION = gettext("One")." #FG_INSTANCE_NAME# ".gettext("has been deleted!");
 		
         $this -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." #FG_INSTANCE_NAME#.<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
         $this -> FG_INTRO_TEXT_ADITION = gettext("Add a")." \"#FG_INSTANCE_NAME#\" ".gettext("now.");
@@ -485,14 +481,14 @@ class FormHandler
 		$this -> FG_DELETE_PAGE_CONFIRM_BUTTON	= gettext('DELETE');
 		$this -> FG_ADD_PAGE_CONFIRM_BUTTON		= gettext('CONFIRM DATA');
 		
-		if($this -> FG_ENABLE_LOG == 1)
-		{
+		if($this -> FG_ENABLE_LOG == 1) {
 			$this -> logger = new Logger();
 		}
 	}
 
 
-	function setDBHandler  ($DBHandle=null){
+	function setDBHandler  ($DBHandle=null)
+	{
 		$this->DBHandle = $DBHandle;
 	}
 
@@ -500,7 +496,8 @@ class FormHandler
      * Perform the execution of some actions to prepare the form generation
      * @public     	 
      */	
-	function init () {         
+	function init ()
+	{      
 		global $_SERVER;		
 		if($_GET["section"]!="")
 		{
@@ -513,12 +510,10 @@ class FormHandler
 		}
 		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id=";
 		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&id=";
-
- 
-
+		
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
-
+		
 		$this -> FG_INTRO_TEXT 	= str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT);
 		$this -> FG_INTRO_TEXT_EDITION 	= str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_EDITION);
 		$this -> FG_INTRO_TEXT_ASK_DELETION = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ASK_DELETION);
@@ -527,16 +522,14 @@ class FormHandler
 		$this -> FG_INTRO_TEXT_ADITION 	= str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADITION);
 		$this -> FG_TEXT_ADITION_CONFIRMATIONi = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_TEXT_ADITION_CONFIRMATION);
 		$this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define criteria to make a precise search");
-
-		//$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#E2E2D3";
-		//$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F0F0E8";
+		
 		$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F2EE";
 		$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
-
 		
 		$this -> FG_TOTAL_TABLE_COL = $this -> FG_NB_TABLE_COL;
-		if ($this -> FG_DELETION || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2) 
+		if ($this -> FG_DELETION || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2) {
 			$this -> FG_TOTAL_TABLE_COL++;
+		}
 	}
 	
 	/**
@@ -545,71 +538,24 @@ class FormHandler
      */	
 	function def_list () {
 		
-		$this -> tablelist['billtype']["1"]  = array( gettext("ONESHOT"), "1");
-		$this -> tablelist['billtype']["2"]  = array( gettext("PER MINUTE"), "2");
-		
-		$this -> tablelist['status_trans']["1"]  = array( gettext("IN PROCESS"), "1");
-		$this -> tablelist['status_trans']["2"]  = array( gettext("WORKING"), "2");
-		$this -> tablelist['status_trans']["3"]  = array( gettext("ISSUE"), "3");
-
-		$this -> tablelist['status_number']["1"]  = array( gettext("ALRIGHT"), "1");
-		$this -> tablelist['status_number']["2"]  = array( gettext("NOT USED"), "2");
-		$this -> tablelist['status_number']["3"]  = array( gettext("NO ATTRIBUED"), "3");
-		$this -> tablelist['status_number']["4"]  = array( gettext("WORK IN PROCESS"), "4");
-		
-		$this -> tablelist['status_newsolution']["1"]  = array( gettext("CREATION"), "1");
-		$this -> tablelist['status_newsolution']["2"]  = array( gettext("IN PROCESS"), "2");
-		$this -> tablelist['status_newsolution']["3"]  = array( gettext("IVR INTREGRATION"), "3");
-		$this -> tablelist['status_newsolution']["4"]  = array( gettext("CLOSE"), "4");
-		
-		$this -> tablelist['solution_priority']["1"]  = array( gettext("URGENT"), "1");
-		$this -> tablelist['solution_priority']["2"]  = array( gettext("NORMAL"), "2");
-		$this -> tablelist['solution_priority']["3"]  = array( gettext("LOW"), "3");
-		
-		$this -> tablelist['status_newsolution_followup']["1"]  = array( gettext("NEW"), "1");
-		$this -> tablelist['status_newsolution_followup']["2"]  = array( gettext("UPDATE"), "2");
-		$this -> tablelist['status_newsolution_followup']["3"]  = array( gettext("ANSWER"), "3");
-		$this -> tablelist['status_newsolution_followup']["4"]  = array( gettext("ASSIGN"), "4");
-		$this -> tablelist['status_newsolution_followup']["5"]  = array( gettext("CLOSE"), "5");
-
 		$this -> tablelist['status_list']["1"] = array( gettext("INSERTED"), "1");
 		$this -> tablelist['status_list']["2"] = array( gettext("ENABLE"), "2");
 		$this -> tablelist['status_list']["3"] = array( gettext("DISABLE"), "3");
 		$this -> tablelist['status_list']["4"] = array( gettext("FREE"), "4");
-
-		$this -> tablelist['media_list']["P"]  = array( gettext("PHONE"), "1");
-		$this -> tablelist['media_list']["SMS"]  = array( gettext("SMS"), "2");
-
-		$this -> tablelist['validity_list']["1"]  = array( gettext("CODE VALID 1 TIME"), "1");
-		$this -> tablelist['validity_list']["2"]  = array( gettext("CODE VALID 2 TIMES"), "2");
-		$this -> tablelist['validity_list']["3"]  = array( gettext("CODE VALID 3 TIMES"), "3");
-		$this -> tablelist['validity_list']["4"]  = array( gettext("CODE VALID 4 TIMES"), "4");
-		$this -> tablelist['validity_list']["5"]  = array( gettext("CODE VALID 5 TIMES"), "5");
-		$this -> tablelist['validity_list']["6"]  = array( gettext("CODE VALID 6 TIMES"), "6");
-		$this -> tablelist['validity_list']["7"]  = array( gettext("CODE VALID 7 TIMES"), "7");
-		$this -> tablelist['validity_list']["8"]  = array( gettext("CODE VALID 8 TIMES"), "8");
-		$this -> tablelist['validity_list']["9"]  = array( gettext("CODE VALID 9 TIMES"), "9");
-		$this -> tablelist['validity_list']["10"]  = array( gettext("CODE VALID 10 TIMES"), "10");
-		
-		
-		$this -> tablelist['nbcode_list']["1"]  = array( "1 ".gettext("CODE"), "1");
-		$this -> tablelist['nbcode_list']["2"]  = array( "2 ".gettext("CODES"), "2");
-		$this -> tablelist['nbcode_list']["3"]  = array( "3 ".gettext("CODES"), "3");
-		$this -> tablelist['nbcode_list']["4"]  = array( "4 ".gettext("CODES"), "4");
-		$this -> tablelist['nbcode_list']["5"]  = array( "5 ".gettext("CODES"), "5");
 		
 	}
 
 
 	function &getProcessed() {
 		foreach ($this->_vars as $key => $value) {
-				$this->_processed[$key] = $this -> sanitize_data($value);
+			$this->_processed[$key] = $this -> sanitize_data($value);
 		}
 		return $this->_processed;
 	}
 
 
-	function sanitize_data($data){
+	function sanitize_data($data)
+	{
 		if(is_array($data)){
 			return $data; //Need to sanatize this later
 		}
@@ -670,7 +616,7 @@ class FormHandler
         *fieldname is the Field Name which will be included in the export file
 
     */
-
+	
     function FieldExportElement($fieldname)
     {
         if(strlen($fieldname)>0)
@@ -693,11 +639,13 @@ class FormHandler
 	}
 
 
-	function Is_EDITION() {
+	function Is_EDITION()
+	{
 		$this->FG_EDITION = true;
 	}
 
-	function Is_DELETION() {
+	function Is_DELETION()
+	{
 		$this->FG_DELETION = true;
 	}
 
@@ -706,7 +654,8 @@ class FormHandler
      * Sets the TEXT to display above the records displayed
      * @public   -  @string
      */
-	function set_toptext ($text=null){
+	function set_toptext ($text=null)
+	{
 		if (isset($text)){
 			$this->FG_INTRO_TEXT= gettext("You can browse through our ").$text.gettext(" and modify their different properties<br>");
 		}else{
@@ -719,7 +668,8 @@ class FormHandler
      * Sets the HIDDEN value for the FORM
      * @public   -  @string
      */
-	function set_hidden_value ($query_adition_hidden_fields, $query_adition_hidden_value, $query_sql_hidden){
+	function set_hidden_value ($query_adition_hidden_fields, $query_adition_hidden_value, $query_sql_hidden)
+	{
 	 	$this->FG_QUERY_ADITION_HIDDEN_FIELDS = $query_adition_hidden_fields;
 		$this->FG_QUERY_ADITION_HIDDEN_VALUE = $query_adition_hidden_value;
 		$this->FG_QUERY_SQL_HIDDEN = $query_sql_hidden;
@@ -729,17 +679,18 @@ class FormHandler
      * Sets the ALT of the button view
      * @public   -  @string
      */
-	function set_alttext ($alttext_edit=null, $alttext_delete=null){
-		if (isset($alttext_edit)){
-			 $this->FG_EDIT_ALT = gettext("Edit this ").$this->FG_INSTANCE_NAME;
-		}else{
-			 $this->FG_EDIT_ALT	= $alttext_edit;
+	function set_alttext ($alttext_edit=null, $alttext_delete=null)
+	{
+		if (isset($alttext_edit)) {
+			$this->FG_EDIT_ALT = gettext("Edit this ").$this->FG_INSTANCE_NAME;
+		} else {
+			$this->FG_EDIT_ALT= $alttext_edit;
 		}
 
-		if (isset($alttext_delete)){
-			 $this->FG_DELETE_ALT = gettext("Delete this ").$this->FG_INSTANCE_NAME;
+		if (isset($alttext_delete)) {
+			$this->FG_DELETE_ALT = gettext("Delete this ").$this->FG_INSTANCE_NAME;
 		}else{
-			 $this->FG_DELETE_ALT	= $alttext_delete;
+			$this->FG_DELETE_ALT = $alttext_delete;
 		}
 	}
 
@@ -825,12 +776,14 @@ class FormHandler
      * @public     
 	 * @ $displayname , $fieldname, $fieldvar	 
      */
-	function AddSearchElement_C1($displayname, $fieldname, $fieldvar ){
+	function AddSearchElement_C1($displayname, $fieldname, $fieldvar)
+	{
 		$cur = count($this->FG_FILTER_SEARCH_FORM_1C);
 		$this->FG_FILTER_SEARCH_FORM_1C[$cur] = array($displayname, $fieldname, $fieldvar);
 	}
 	
-	function AddSearchElement_C2($displayname, $fieldname1 , $fielvar1 , $fieldname2 , $fielvar2, $sqlfield){
+	function AddSearchElement_C2($displayname, $fieldname1 , $fielvar1 , $fieldname2 , $fielvar2, $sqlfield)
+	{
 		$cur = count($this->FG_FILTER_SEARCH_FORM_2C);
 		$this->FG_FILTER_SEARCH_FORM_2C[$cur] = array($displayname, $fieldname1 , $fielvar1 , $fieldname2 , $fielvar2, $sqlfield);
 	}
@@ -840,16 +793,15 @@ class FormHandler
      * @public
 	 * @ $displayname , SQL or array to fill select and the name of select box
      */
-	
 	function AddSearchElement_Select($displayname, $table = null, $fields = null, $clause = null,
 			$order = null ,$sens = null , $select_name, $sql_type = 1, $array_content = null){
 			
 		$cur = count($this->FG_FILTER_SEARCH_FORM_SELECT);
 		
-		if ($sql_type){
+		if ($sql_type) {
 			$sql = array($table, $fields, $clause, $order ,$sens);
 			$this->FG_FILTER_SEARCH_FORM_SELECT[$cur] = array($displayname, $sql, $select_name);
-		}else{
+		} else {
 			$this->FG_FILTER_SEARCH_FORM_SELECT[$cur] = array($displayname, 0, $select_name, $array_content);
 		}		
 	}
@@ -860,8 +812,8 @@ class FormHandler
      * @public     
 	 * @ $col_query	 
      */
-	 
-	function FieldEditElement ($fieldname) {     
+	function FieldEditElement ($fieldname)
+	{     
 		if($this->FG_DISPLAY_SELECT == true)
 		{
 			if(strlen($this->FG_SELECT_FIELDNAME)>0)
@@ -874,8 +826,8 @@ class FormHandler
 	}
 	
 	
-	function set_regular_expression(){
-	
+	function set_regular_expression()
+	{
 		// 0.  A STRING WITH EXACTLY 3 CHARACTERS.			
 		$this -> FG_regular[]  = array(	"^.{3}", 
 						gettext("(at least 3 characters)"));
@@ -974,10 +926,6 @@ class FormHandler
 	$FG_SEARCH_ENGINE=false;
 	*/
 	
-
-	
-	
-
 	
 	
 
@@ -1129,122 +1077,116 @@ function do_field($sql,$fld, $simple=0){
      * Function to prepare the clause from the session filter
      * @public
      */
-	function prepare_list_subselection($form_action){
+	function prepare_list_subselection($form_action)
+	{
 	
 
-			$processed = $this->getProcessed();  //$processed['firstname']
+		$processed = $this->getProcessed();  //$processed['firstname']
 
 
-			if ( $form_action == "list" && $this->FG_FILTER_SEARCH_FORM){
-				if (isset($processed['cancelsearch']) && ($processed['cancelsearch'] == true)){
-					$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = '';
-				}
-
-				// RETRIEVE THE CONTENT OF THE SEARCH SESSION AND
-				if (strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>5 && ($processed['posted_search'] != 1 )){
-					$element_arr = split("\|", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
-					foreach ($element_arr as $val_element_arr){
-							$pos = strpos($val_element_arr, '=');				
-							if ($pos !== false) {
-								$entity_name = substr($val_element_arr,0,$pos);
-								$entity_value = substr($val_element_arr,$pos+1);
-								//echo "entity_name=$entity_name :: entity_value=$entity_value <br>";
-								$this->_processed[$entity_name]=$entity_value;
-								//$_POST[$entity_name]=$entity_value;
-							}
-					}
-				}
-									
-				if (($processed['posted_search'] != 1 && isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 )){
-					$arr_session_var = split("\|", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
-					foreach ($arr_session_var as $arr_val){
-						list($namevar,$valuevar) = split("=", $arr_val);	
-						$this->_processed[$namevar]=$valuevar;
-						$processed[$namevar]=$valuevar;
-						$_POST[$namevar]=$valuevar;
-
-					}
-					$processed['posted_search'] = 1;
-				}
-
-				// Search Form On
-				if (($processed['posted_search'] == 1 )){
-										
-					$SQLcmd = '';
-					
-					$search_parameters = "Period=$processed[Period]|frommonth=$processed[frommonth]|fromstatsmonth=$processed[fromstatsmonth]|tomonth=$processed[tomonth]";
-					$search_parameters .= "|tostatsmonth=$processed[tostatsmonth]|fromday=$processed[fromday]|fromstatsday_sday=$processed[fromstatsday_sday]";
-					$search_parameters .= "|fromstatsmonth_sday=$processed[fromstatsmonth_sday]|today=$processed[today]|tostatsday_sday=$processed[tostatsday_sday]";
-					$search_parameters .= "|tostatsmonth_sday=$processed[tostatsmonth_sday]";
-					
-					
-					foreach ($this->FG_FILTER_SEARCH_FORM_1C as $r){							
-						$search_parameters .= "|$r[1]=".$processed[$r[1]]."|$r[2]=".$processed[$r[2]];
-						$SQLcmd = $this->do_field($SQLcmd, $r[1]);
-					}
-					
-
-					foreach ($this->FG_FILTER_SEARCH_FORM_2C as $r){
-						$search_parameters .= "|$r[1]=".$processed[$r[1]]."|$r[2]=".$processed[$r[2]];
-						$search_parameters .= "|$r[3]=".$processed[$r[3]]."|$r[4]=".$processed[$r[4]];
-						$SQLcmd = $this->do_field_duration($SQLcmd,$r[1],$r[5]);
-						$SQLcmd = $this->do_field_duration($SQLcmd,$r[3],$r[5]);
-					}
-
-					
-					foreach ($this->FG_FILTER_SEARCH_FORM_SELECT  as $r){
-						$search_parameters .= "|$r[2]=".$processed[$r[2]];
-						$SQLcmd = $this->do_field($SQLcmd, $r[2], 1);
-					}
-
-					$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = $search_parameters;
-					//echo "DEBUG search on<br>";
-					//print_r($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
-					//echo "<br>";
-
-					$date_clause='';
-					
-					if (DB_TYPE == "postgres")		$UNIX_TIMESTAMP = "";
-					else 							$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-					
-
-					if ($processed[Period]=="Month"){
-						if ($processed[frommonth] && isset($processed[fromstatsmonth]))
-							$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") >= $UNIX_TIMESTAMP('$processed[fromstatsmonth]-01')";
-						if ($processed[tomonth] && isset($processed[tostatsmonth]))
-							$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth]-31 23:59:59')";
-						}else{
-							if ($processed[fromday] && isset($processed[fromstatsday_sday]) && isset($processed[fromstatsmonth_sday]))
-								$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") >= $UNIX_TIMESTAMP('$processed[fromstatsmonth_sday]-$processed[fromstatsday_sday]')";
-							if ($processed[today] && isset($processed[tostatsday_sday]) && isset($processed[tostatsmonth_sday]))
-								$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth_sday]-".sprintf("%02d",intval($processed[tostatsday_sday])/*+1*/)." 23:59:59')";
-					}
-
-					if ($processed[Period]=="month_older_rad"){
-						$from_month = $processed[month_earlier];
-						if(DB_TYPE == "postgres"){
-							$date_clause .= " AND CURRENT_TIMESTAMP - interval '$from_month months' > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
-						}else{
-							$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
-						}
-					}
-
-					if (strpos($SQLcmd, 'WHERE') > 0) {
-						if (strlen($this->FG_TABLE_CLAUSE)>0) $this->FG_TABLE_CLAUSE .=" AND ";
-						$this -> FG_TABLE_CLAUSE .= substr($SQLcmd,6).$date_clause;
-					}elseif (strpos($date_clause, 'AND') > 0){
-						if (strlen($this->FG_TABLE_CLAUSE)>0) $this->FG_TABLE_CLAUSE .=" AND ";
-						$this -> FG_TABLE_CLAUSE .= substr($date_clause,5);
-					}
-
-				   	//echo "SQL Search form [".$SQLcmd."] [".$date_clause."]<br>";
-
-					
-				}
-
+		if ( $form_action == "list" && $this->FG_FILTER_SEARCH_FORM){
+			if (isset($processed['cancelsearch']) && ($processed['cancelsearch'] == true)){
+				$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = '';
 			}
-	
+
+			// RETRIEVE THE CONTENT OF THE SEARCH SESSION AND
+			if (strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>5 && ($processed['posted_search'] != 1 )){
+				$element_arr = split("\|", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
+				foreach ($element_arr as $val_element_arr){
+					$pos = strpos($val_element_arr, '=');
+					if ($pos !== false) {
+						$entity_name = substr($val_element_arr,0,$pos);
+						$entity_value = substr($val_element_arr,$pos+1);
+						//echo "entity_name=$entity_name :: entity_value=$entity_value <br>";
+						$this->_processed[$entity_name]=$entity_value;
+						//$_POST[$entity_name]=$entity_value;
+					}
+				}
+			}
+			
+			if (($processed['posted_search'] != 1 && isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 )){
+				$arr_session_var = split("\|", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
+				foreach ($arr_session_var as $arr_val){
+					list($namevar,$valuevar) = split("=", $arr_val);	
+					$this->_processed[$namevar]=$valuevar;
+					$processed[$namevar]=$valuevar;
+					$_POST[$namevar]=$valuevar;
+				}
+				$processed['posted_search'] = 1;
+			}
+
+			// Search Form On
+			if (($processed['posted_search'] == 1 )) {
+				
+				$SQLcmd = '';
+				
+				$search_parameters = "Period=$processed[Period]|frommonth=$processed[frommonth]|fromstatsmonth=$processed[fromstatsmonth]|tomonth=$processed[tomonth]";
+				$search_parameters .= "|tostatsmonth=$processed[tostatsmonth]|fromday=$processed[fromday]|fromstatsday_sday=$processed[fromstatsday_sday]";
+				$search_parameters .= "|fromstatsmonth_sday=$processed[fromstatsmonth_sday]|today=$processed[today]|tostatsday_sday=$processed[tostatsday_sday]";
+				$search_parameters .= "|tostatsmonth_sday=$processed[tostatsmonth_sday]";
+				
+				
+				foreach ($this->FG_FILTER_SEARCH_FORM_1C as $r){							
+					$search_parameters .= "|$r[1]=".$processed[$r[1]]."|$r[2]=".$processed[$r[2]];
+					$SQLcmd = $this->do_field($SQLcmd, $r[1]);
+				}
+				
+				foreach ($this->FG_FILTER_SEARCH_FORM_2C as $r){
+					$search_parameters .= "|$r[1]=".$processed[$r[1]]."|$r[2]=".$processed[$r[2]];
+					$search_parameters .= "|$r[3]=".$processed[$r[3]]."|$r[4]=".$processed[$r[4]];
+					$SQLcmd = $this->do_field_duration($SQLcmd,$r[1],$r[5]);
+					$SQLcmd = $this->do_field_duration($SQLcmd,$r[3],$r[5]);
+				}
+				
+				foreach ($this->FG_FILTER_SEARCH_FORM_SELECT  as $r){
+					$search_parameters .= "|$r[2]=".$processed[$r[2]];
+					$SQLcmd = $this->do_field($SQLcmd, $r[2], 1);
+				}
+				
+				$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = $search_parameters;
+				//echo "DEBUG search on<br>";
+				//print_r($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
+				//echo "<br>";
+
+				$date_clause='';
+				
+				if (DB_TYPE == "postgres")		$UNIX_TIMESTAMP = "";
+				else 							$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+				
+				
+				if ($processed[Period]=="Month"){
+					if ($processed[frommonth] && isset($processed[fromstatsmonth]))
+						$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") >= $UNIX_TIMESTAMP('$processed[fromstatsmonth]-01')";
+					if ($processed[tomonth] && isset($processed[tostatsmonth]))
+						$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth]-31 23:59:59')";
+					}else{
+						if ($processed[fromday] && isset($processed[fromstatsday_sday]) && isset($processed[fromstatsmonth_sday]))
+							$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") >= $UNIX_TIMESTAMP('$processed[fromstatsmonth_sday]-$processed[fromstatsday_sday]')";
+						if ($processed[today] && isset($processed[tostatsday_sday]) && isset($processed[tostatsmonth_sday]))
+							$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth_sday]-".sprintf("%02d",intval($processed[tostatsday_sday])/*+1*/)." 23:59:59')";
+				}
+
+				if ($processed[Period]=="month_older_rad"){
+					$from_month = $processed[month_earlier];
+					if(DB_TYPE == "postgres"){
+						$date_clause .= " AND CURRENT_TIMESTAMP - interval '$from_month months' > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
+					}else{
+						$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
+					}
+				}
+				
+				if (strpos($SQLcmd, 'WHERE') > 0) {
+					if (strlen($this->FG_TABLE_CLAUSE)>0) $this->FG_TABLE_CLAUSE .=" AND ";
+					$this -> FG_TABLE_CLAUSE .= substr($SQLcmd,6).$date_clause;
+				}elseif (strpos($date_clause, 'AND') > 0){
+					if (strlen($this->FG_TABLE_CLAUSE)>0) $this->FG_TABLE_CLAUSE .=" AND ";
+					$this -> FG_TABLE_CLAUSE .= substr($date_clause,5);
+				}
+				//echo "SQL Search form [".$SQLcmd."] [".$date_clause."]<br>";
+			}
+		}
 	}
+	
     /****************************************
     Function to delete all pre selected records,
     This Function Gets the selected records and delete them from DB
@@ -1412,7 +1354,8 @@ function do_field($sql,$fld, $simple=0){
 	* Function to add/modify cc_did_use and cc_did_destination if records existe
 	*
 	*/
-	function is_did_in_use(){
+	function is_did_in_use()
+	{
 		$processed = $this->getProcessed();
 		$did_id=$processed['id'];
 		$instance_did_use_table = new Table();
@@ -1423,7 +1366,8 @@ function do_field($sql,$fld, $simple=0){
 	}
 	
 	
-	function did_use_delete(){
+	function did_use_delete()
+	{
 		$processed = $this->getProcessed();
 		$did_id=$processed['id'];
 		$FG_TABLE_DID_USE_NAME = "cc_did_use";
@@ -1438,7 +1382,8 @@ function do_field($sql,$fld, $simple=0){
 	}
 	
 	
-	function add_did_use(){
+	function add_did_use()
+	{
 		$processed = $this->getProcessed();
 		$did=$processed['did'];
 		$FG_TABLE_DID_USE_NAME = "cc_did_use";
@@ -1447,13 +1392,36 @@ function do_field($sql,$fld, $simple=0){
 		$id=$this -> RESULT_QUERY;
 		$result_query= $instance_did_use_table -> Add_table ($this->DBHandle, $id, null, null, null);
 	}
-	 
-	/*
-	****End
-	*/
-	function create_sipiax_friends_reload(){
-		$this -> create_sipiax_friends();
+	
+	
+	/**
+     * Function create_status_log
+     * @public
+     */
+	function create_status_log()
+	{
+		$processed = $this->getProcessed();
+		$status = $processed['status'];
+		if($this -> RESULT_QUERY != '')
+			$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+		else
+			$id = $processed['id']; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
 		
+		$value = "'$status','$id'";
+		$func_fields = "status,id_cc_card";
+		$func_table = 'cc_status_log';
+		$id_name = "";
+		$instance_table = new Table();
+		$inserted_id = $instance_table -> Add_table ($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+	}
+	
+	/**
+     * Function create_sipiax_friends_reload
+     * @public
+     */
+	function create_sipiax_friends_reload()
+	{
+		$this -> create_sipiax_friends();
 		
 		// RELOAD SIP & IAX CONF
 		include_once ("../lib/phpagi/phpagi-asmanager.php");
@@ -1469,56 +1437,41 @@ function do_field($sql,$fld, $simple=0){
 		}
 	}
 	
-	function create_status_log(){
-		$processed = $this->getProcessed();
-		$status = $processed['status'];
-		if($this -> RESULT_QUERY != '')
-			$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
-		else
-			$id = $processed['id']; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
-
-		$value = "'$status','$id'";
-		$func_fields = "status,id_cc_card";
-		$func_table = 'cc_status_log';
-		$id_name = "";
-		$instance_table = new Table();
-		$inserted_id = $instance_table -> Add_table ($this->DBHandle, $value, $func_fields, $func_table, $id_name);
-	} 
 	/**
      * Function to edit the fields
      * @public
      */
-	function create_sipiax_friends(){
+	function create_sipiax_friends()
+	{
 		global $A2B;
 		$processed = $this->getProcessed();
 		
 		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
-		$sip_buddy = $processed['sip_buddy'];
-		$iax_buddy = $processed['iax_buddy'];
+		$sip_buddy = stripslashes($processed['sip_buddy']);
+		$iax_buddy = stripslashes($processed['iax_buddy']);
 		
 		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
-		
-		if (strlen($this -> FG_QUERY_EXTRA_HIDDED[0])>0){
-			$username = $this -> FG_QUERY_EXTRA_HIDDED[0];
-			$uipass = $this -> FG_QUERY_EXTRA_HIDDED[2];
-			$useralias = $this -> FG_QUERY_EXTRA_HIDDED[1];
-		}else{
-			$username = $processed['username'];
-			$uipass = $processed['uipass'];
-			$useralias = $processed['useralias'];
+		if (strlen($this -> FG_QUERY_EXTRA_HIDDED[0])>0) {
+			$username 	= $this -> FG_QUERY_EXTRA_HIDDED[0];
+			$uipass 	= $this -> FG_QUERY_EXTRA_HIDDED[2];
+			$useralias 	= $this -> FG_QUERY_EXTRA_HIDDED[1];
+		} else {
+			$username 	= $processed['username'];
+			$uipass 	= $processed['uipass'];
+			$useralias 	= $processed['useralias'];
 		}
 		
-		$FG_TABLE_SIP_NAME="cc_sip_buddies";
-		$FG_TABLE_IAX_NAME="cc_iax_buddies";
+		$FG_TABLE_SIP_NAME = "cc_sip_buddies";
+		$FG_TABLE_IAX_NAME = "cc_iax_buddies";
 		
 		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
 		
 		$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
 
-		if (($sip_buddy == 1) || ($iax_buddy == 1)){
-			$_SESSION["is_sip_iax_change"]=1;
-			$_SESSION["is_sip_changed"]=1;
-			$_SESSION["is_iax_changed"]=1;
+		if (($sip_buddy == 1) || ($iax_buddy == 1)) {
+			$_SESSION["is_sip_iax_change"]	= 1;
+			$_SESSION["is_sip_changed"]		= 1;
+			$_SESSION["is_iax_changed"]		= 1;
 			
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
 			
@@ -1533,9 +1486,9 @@ function do_field($sql,$fld, $simple=0){
 			
             $this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflags', '$useralias', '$context', '$dtmfmode','$host', '$type', '$username', '$allow', '".$uipass."', '$id', '$nat', '$qualify'";			
 		}
-
+		
 		// Save info in table and in sip file
-		if ($sip_buddy == 1){
+		if ($sip_buddy == 1) {
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			
@@ -1568,7 +1521,6 @@ function do_field($sql,$fld, $simple=0){
 									}
 								}
 							}
-
 						}
 					}
 					fclose($fd);
@@ -1622,43 +1574,42 @@ function do_field($sql,$fld, $simple=0){
      * Function to edit the fields
      * @public
      */
-	function perform_edit (&$form_action){
+	function perform_edit (&$form_action)
+	{
 		include_once (FSROOT."lib/Class.Table.php");
 		
 		$processed = $this->getProcessed();  //$processed['firstname']
-
+		
 		$this->VALID_SQL_REG_EXP = true;
-			
+		
 		$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
-			
-			
+		
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
 		}
-			
-			
-		for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
+		
+		for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++) {
 			
 			$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY		
 			$pos_mul = strpos($this->FG_TABLE_EDITION[$i][4], "multiple");
 			if (!$pos){
 				$fields_name = $this->FG_TABLE_EDITION[$i][1];								
 				$regexp = $this->FG_TABLE_EDITION[$i][5];
-
+				
 				if ($pos_mul && is_array($processed[$fields_name])){
 					$total_mult_select=0;
 					foreach ($processed[$fields_name] as $value){
-							$total_mult_select += $value;
+						$total_mult_select += $value;
 					}
 					
 					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$total_mult_select;
 					if ($i>0) $param_update .= ", ";				
 					$param_update .= $sp . "$fields_name".$sp ." = '".addslashes(trim($total_mult_select))."'";
-				
-				}else{
 					
-					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){						
-						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
+				} else {
+					
+					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ) {
+						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);
 						if ($this->FG_DEBUG == 1)  echo "<br>->  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
@@ -1670,68 +1621,63 @@ function do_field($sql,$fld, $simple=0){
 					if ($i>0 && $this->FG_TABLE_EDITION[$i][3]!= "SPAN") $param_update .= ", ";
 					if (empty($processed[$fields_name]) && strtoupper(substr($this->FG_TABLE_ADITION[$i][13],3,4))=="NULL"){
 						$param_update .= $fields_name." = NULL ";
-					}else{
-						if($this->FG_TABLE_EDITION[$i][3]!= "SPAN")
-						{
+					} else {
+						if($this->FG_TABLE_EDITION[$i][3]!= "SPAN") {
 							$param_update .= $fields_name." = '".addslashes(trim($processed[$fields_name]))."' ";
 						}
 					}
 				}
-
-			}else{
-				if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("CHECKBOX")){
+				
+			} else {
+				if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("CHECKBOX")) {
 					$table_split = split(":",$this->FG_TABLE_EDITION[$i][1]);
 					$checkbox_data = $table_split[0];	//doc_tariff			
 					$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);
 					$SPLIT_FG_DELETE_CLAUSE = $table_split[5]."='".trim($processed['id'])."'";	
-					$instance_sub_table -> Delete_table ($this -> DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);	
-					if (!is_array($processed[$checkbox_data])){	
+					$instance_sub_table -> Delete_table ($this -> DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);
+					
+					if (!is_array($processed[$checkbox_data])) {
 						$snum=0;
 						$this -> VALID_SQL_REG_EXP = false;
 						$this-> FG_fit_expression[$i] = false;
-					}else{									
+					} else {									
 						$snum = count($processed[$checkbox_data]);
 					}
-								
+					
 					$checkbox_data_tab = $processed[$checkbox_data];
 					for($j=0;$j<$snum;$j++){
 						$this -> RESULT_QUERY = $instance_sub_table -> Add_table ($this-> DBHandle, "'".addslashes(trim($checkbox_data_tab[$j]))."', '".addslashes(trim($processed['id']))."'", null, null);
-						if (!$this -> RESULT_QUERY){
-							//echo "<br><b>OOOOOOOOOO".$instance_sub_table -> errstr."</b><br>";
+						if (!$this -> RESULT_QUERY) {
 							$findme   = 'duplicate';
 							$pos_find = strpos($instance_sub_table -> errstr, $findme);	
-												
+							
 							// Note our use of ===.  Simply == would not work as expected
 							// because the position of 'a' was the 0th (first) character.
 							if ($pos_find === false) {
 								echo $instance_sub_table -> errstr;	
-							}else{
+							} else {
 								//echo $FG_TEXT_ERROR_DUPLICATION;
 								$alarm_db_error_duplication = true;
 							}								
 						}						
-					}			
-							
-				}	
-						
+					}
+				}
 			}			
 		}
-			
-			
+		
 		if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){
 			
 			$table_split_field = split(",",$this->FG_QUERY_EDITION_HIDDEN_FIELDS);
 			$table_split_value = split(",",$this->FG_QUERY_EDITION_HIDDEN_VALUE);
-				
+			
 			for($k=0;$k<count($table_split_field);$k++){
 				$param_update .= ", ";
 				$param_update .= "$table_split_field[$k] = '".addslashes(trim($table_split_value[$k]))."'";
 			}				
 		}
-			
-			
+		
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE;
-			
+		
 		if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
 		if($this -> FG_ENABLE_LOG == 1)
 		{
@@ -1754,7 +1700,8 @@ function do_field($sql,$fld, $simple=0){
      * Function to delete a record
      * @public
      */
-	function perform_delete (&$form_action){
+	function perform_delete (&$form_action)
+	{
 		include_once (FSROOT."lib/Class.Table.php");
 		
 		if (strlen($this -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE) > 0)
@@ -1767,15 +1714,11 @@ function do_field($sql,$fld, $simple=0){
         $tableCount = count($this -> FG_FK_TABLENAMES);
         $clauseCount = count($this -> FG_FK_EDITION_CLAUSE);
 
-        if(($tableCount == $clauseCount) && $clauseCount > 0 && $this-> FG_FK_DELETE_ALLOWED)
-        {
-            if ($processed['id']!="" || !is_null($processed['id']))
-            {
+        if(($tableCount == $clauseCount) && $clauseCount > 0 && $this-> FG_FK_DELETE_ALLOWED) {
+            if ($processed['id']!="" || !is_null($processed['id'])) {
                 $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION, $this -> FG_FK_TABLENAMES, $this -> FG_FK_EDITION_CLAUSE, $processed['id'], $this -> FG_FK_WARNONLY);
             }
-        }
-        else
-        {
+        } else {
 		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
         }
 		$instance_table->FK_DELETE = ($this->FG_FK_WARNONLY ? false : true);
@@ -1785,8 +1728,7 @@ function do_field($sql,$fld, $simple=0){
 		}
 		
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
-		if($this -> FG_ENABLE_LOG == 1)
-		{
+		if($this -> FG_ENABLE_LOG == 1) {
 			$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CLAUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		}	
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
@@ -1889,7 +1831,8 @@ function do_field($sql,$fld, $simple=0){
 	* Function to del_content
 	* @public     	 
 	*/
-	function perform_del_content($sub_action,$id){
+	function perform_del_content($sub_action,$id)
+	{
 		$processed = $this->getProcessed();
 		$table_split = split(":",$this->FG_TABLE_EDITION[$sub_action][14]);
 		if(array_key_exists($table_split[1].'_hidden', $processed)){
@@ -1906,8 +1849,8 @@ function do_field($sql,$fld, $simple=0){
      * Function to create the top page section
      * @public     	 
      */
-	function create_toppage ($form_action){
-	
+	function create_toppage ($form_action)
+	{
 		$processed = $this->getProcessed();
 		if ($form_action=="ask-edit" || $form_action=="edit" || $form_action == "add-content" ||
 			$form_action == "del-content"){ ?>
@@ -1955,7 +1898,8 @@ function do_field($sql,$fld, $simple=0){
      * CREATE_ACTIONFINISH : Function to display result
      * @public     	 
      */
-	function create_actionfinish ($form_action){
+	function create_actionfinish ($form_action)
+	{
 		$processed = $this->getProcessed();
 		?>
 		
@@ -2124,7 +2068,8 @@ function do_field($sql,$fld, $simple=0){
 	* Function to create the search form
 	* @public
 	*/
-	function create_search_form(){
+	function create_search_form()
+	{
 		$processed = $this->getProcessed();
 		$cur = 0;
 		foreach ($this->FG_FILTER_SEARCH_FORM_SELECT as $select){
@@ -2140,23 +2085,23 @@ function do_field($sql,$fld, $simple=0){
 			}
 			$cur++;
 		}
-
 		include ("Class.SearchHandler.inc.php");
 	}
-
+	
 	/**
      * Function to create the form
      * @public
      */
-	function create_form ($form_action, $list, $id=null){
+	function create_form ($form_action, $list, $id=null)
+	{
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();
-
-		if ($_GET['id']==''){
+		
+		if ($_GET['id']=='') {
 			$id = $_POST['id'];
 			if (isset($_POST['atmenu'])) $atmenu =  $_POST['atmenu'];
 			else $atmenu = $_GET['atmenu'];
-
+			
 			if (isset($_POST['stitle']))  $stitle = $_POST['stitle'];
 			else $stitle = $_GET['stitle'];
 			
@@ -2165,7 +2110,7 @@ function do_field($sql,$fld, $simple=0){
 			
 			if (isset($_POST['sub_action'])) $sub_action = $_POST['sub_action'];
 			else $sub_action = $_GET['sub_action'];	
-		}else{
+		} else {
 			$id = $_GET['id'];
 			$atmenu = $_GET['atmenu'];
 			$stitle = $_GET['stitle'];
