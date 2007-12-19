@@ -131,11 +131,6 @@ switch($error)
 	<form name="form" method="POST" action="forgotpassword.php?action=email" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
-  	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
-		<font class="error_message">
-			<?php echo gettext("AUTHENTICATION REFUSED, please check your user/password!")?>
-		</font>
-	<?php } ?><br><br>
     <?php if($show_message== false){ ?>
 	<table  class="forgetpassword_maintable">
 	<tr>
