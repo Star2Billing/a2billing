@@ -7,9 +7,9 @@ include ("./lib/smarty.php");
 
 
 if (! has_rights (ACX_ACCESS)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 if (!$A2B->config["webcustomerui"]['voucher']) exit();
@@ -22,25 +22,22 @@ $HD_Form -> init();
 
 $currencies_list = get_currencies();
 
-if (strlen($voucher)>0 && is_numeric($voucher))
-{
-    sleep(2);
-	$FG_VOUCHER_TABLE  = "cc_voucher";
-    $FG_VOUCHER_FIELDS = "voucher, credit, activated, tag, currency, expirationdate";
+if (strlen($voucher)>0) {
+	if (is_numeric($voucher)) {
+		
+		sleep(2);
+		$FG_VOUCHER_TABLE  = "cc_voucher";
+		$FG_VOUCHER_FIELDS = "voucher, credit, activated, tag, currency, expirationdate";
 		$instance_sub_table = new Table($FG_VOUCHER_TABLE, $FG_VOUCHER_FIELDS);
 
 		$FG_TABLE_CLAUSE_VOUCHER = "expirationdate >= CURRENT_TIMESTAMP AND activated='t' AND voucher='$voucher'";
 
 		$list_voucher = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_VOUCHER, $order, $sens, null, null, $limite, $current_record);
 
-		if ($list_voucher[0][0]==$voucher)
-        {
-			if (!isset ($currencies_list[strtoupper($list_voucher[0][4])][2]))
-            {
+		if ($list_voucher[0][0]==$voucher) {
+			if (!isset ($currencies_list[strtoupper($list_voucher[0][4])][2])) {
 				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("System Error : No currency table complete !!!").'</b></font><br><br>';
-			}
-            else
-            {
+			} else {
 				$add_credit = $list_voucher[0][1]*$currencies_list[strtoupper($list_voucher[0][4])][2];
 				$QUERY = "UPDATE cc_voucher SET activated='f', usedcardnumber='".$_SESSION["pr_login"]."', usedate=now() WHERE voucher='".$voucher."'";
 				$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
@@ -48,13 +45,14 @@ if (strlen($voucher)>0 && is_numeric($voucher))
 				$QUERY = "UPDATE cc_card SET credit=credit+'".$add_credit."' WHERE username='".$_SESSION["pr_login"]."'";
 				$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 
-				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="green"><b>'.gettext("The Voucher").'('.$voucher.') '.gettext("has been used, We added").' '.$add_credit.' '.gettext("credit on your account!").'</b></font><br><br>';
+				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="green"><b>'.gettext("The voucher").'('.$voucher.') '.gettext("has been used, We added").' '.$add_credit.' '.gettext("credit on your account!").'</b></font><br><br>';
 			}
+		} else {
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("This voucher doesn't exist !").'</b></font><br><br>';
 		}
-        else
-        {
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("This Voucher doesn't exist !").'</b></font><br><br>';
-		}
+	} else {
+		$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("The voucher should be a number !").'</b></font><br><br>';
+	}
 }
 
 if ($id!="" || !is_null($id)){

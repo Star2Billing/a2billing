@@ -1,9 +1,7 @@
 <?php
 
-
 getpost_ifset(array('voucher'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_voucher","Voucher");
 
@@ -20,7 +18,7 @@ $HD_Form -> FieldViewElement ('voucher, credit, currency');
 
 $HD_Form -> FG_TABLE_CLAUSE = "usedcardnumber='".$_SESSION["pr_login"]."'";
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." USED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
