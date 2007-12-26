@@ -6,6 +6,8 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
 'starttime', 'endtime', 'id_trunk', 'freetimetocall_package_offer', 'musiconhold','tariffplan','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time'));
 
+// put all the destination name to lowercase
+$_POST["destination"] = strtolower ($_POST["destination"]);
 
 $HD_Form = new FormHandler("cc_ratecard","Rates");
 

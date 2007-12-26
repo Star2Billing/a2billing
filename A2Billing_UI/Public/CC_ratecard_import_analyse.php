@@ -154,7 +154,7 @@ if ($task=='upload'){
 				$val[2] = $val[2] / 100;
 			}
 			
-			$FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".$val[1]."', '".$val[2]."'"; 
+			$FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".strtolower($val[1])."', '".$val[2]."'"; 
 			
 			for ($k=0;$k<count($fieldtoimport);$k++){
 				

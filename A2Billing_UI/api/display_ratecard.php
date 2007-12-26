@@ -130,8 +130,9 @@ for ($i=0;$i<count($fltr);$i++){
 		case "countryname":
 			$FILTER_COUNTRY=true;
 			if (isset ($choose_country) && strlen($choose_country) != 0){
+				$choose_country = strtolower($choose_country);
 				add_clause($FG_TABLE_CLAUSE,"t1.destination $REG_EXP '$choose_country'");
-				$current_page=0; 
+				$current_page=0;
 			}
 		break;
 		case "prefix":
