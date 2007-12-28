@@ -140,6 +140,15 @@ class RateEngine
 			$CID_SUB_QUERY = "AND 0 = (SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) ) ";
 		}
 		
+		// $prefixclause to allow good DB servers to use an index rather than sequential scan
+		// justification at http://forum.asterisk2billing.org/viewtopic.php?p=9620#9620
+		$max_len_prefix = min(strlen($phonenumber), 25);	// don't match more than 25 digits
+		$prefixclause = '';
+		while ($max_len_prefix > 0 ) {
+			$prefixclause .= "dialprefix LIKE '".substr($phonenumber,0,$max_len_prefix)."%' OR ";
+			$max_len_prefix--;
+		}; $prefixclause .= "dialprefix='defaultprefix'";
+
 		$QUERY = "SELECT tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,
 		
 		cc_ratecard.id,	dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, 
@@ -179,7 +188,7 @@ class RateEngine
 		LEFT JOIN cc_trunk AS tp_trunk ON cc_tariffplan.id_trunk=tp_trunk.id_trunk
 		LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer
 		
-		WHERE (dialprefix=SUBSTRING('$phonenumber',1,length(dialprefix)) OR dialprefix='defaultprefix')
+		WHERE ($prefixclause)
 		AND startingdate<= CURRENT_TIMESTAMP AND (expirationdate > CURRENT_TIMESTAMP OR expirationdate IS NULL OR LENGTH(expirationdate)<5)
 		AND startdate<= CURRENT_TIMESTAMP AND (stopdate > CURRENT_TIMESTAMP OR stopdate IS NULL OR LENGTH(stopdate)<5)
 		$sql_clause_days
