@@ -43,7 +43,7 @@ getpost_ifset(array(
 	
 	'srctype',				// condition on src
 	'src',					// source filter 
-	 
+	
 	'choose_currency',
 	'exporttype',			// ('html', 'pdf') view result as
 	'templatefile'			// name of Smarty template to use to display result 
@@ -77,7 +77,7 @@ if ($posted == 1) {
 		$invoice->ReadCardInfo('', $entercustomer);
 		$invoice->FindCoverDates(($billcalls == 'on'),($billcharges == 'on'), $nowdate);
 	}
-	
+	$invoice->FindCoverDates(($billcalls == 'on'),($billcharges == 'on'), $nowdate);
 	// Filter on source & destination
 	if ($src != "") {
 		$invoice->filter_source			= $src;
@@ -136,6 +136,7 @@ if ($posted == 1) {
 if ($exporttype != 'pdf') {
 	
 	$templatepath = $A2B->config['global']['sales_template_path'];
+	
 ?>
 <center>
 <FORM name="myForm"  METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">

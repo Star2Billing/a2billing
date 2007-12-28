@@ -258,14 +258,14 @@ Class	A2B_Invoice {
  	    	
 		if (isset($this->filter_source))
 			switch ($this->filter_source_op) {
-	                case 1: $Query_Destinations .= " AND ca.src = '".    $this->filter_source. "'"; break;
-	                case 2: $Query_Destinations .= " AND ca.src LIKE '". $this->filter_source."%'"; break;
- 	                case 4: $Query_Destinations .= " AND ca.src LIKE '%".$this->filter_source. "'"; break;
- 	                case 5: $Query_Destinations .= " AND ca.src <> '".   $this->filter_source. "'"; break;
-	                default:
-	                case 3: $Query_Destinations .= " AND ca.src LIKE '%".$this->filter_source."%'"; break;
+				case 1: $Query_Destinations .= " AND ca.src = '".    $this->filter_source. "'"; break;
+				case 2: $Query_Destinations .= " AND ca.src LIKE '". $this->filter_source."%'"; break;
+				case 4: $Query_Destinations .= " AND ca.src LIKE '%".$this->filter_source. "'"; break;
+				case 5: $Query_Destinations .= " AND ca.src <> '".   $this->filter_source. "'"; break;
+				default:
+				case 3: $Query_Destinations .= " AND ca.src LIKE '%".$this->filter_source."%'"; break;
  	    	}
- 	    												  
+		
 		$Query_Destinations .= " GROUP BY destination";
 		if($this->verbose_level >= 1)	echo "\n Query_Destinations = $Query_Destinations";
 		

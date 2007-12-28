@@ -36,7 +36,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action=='list') echo $CC_help_list_did;
+if ($form_action=='list') echo $CC_help_list_configuration;
 else echo $CC_help_edit_did;
 
 

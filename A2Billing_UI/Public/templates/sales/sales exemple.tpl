@@ -17,7 +17,7 @@ Period from <STRONG>{$invoice->cover_call_startdate}</STRONG> to <STRONG>{$invoi
 {assign var='sectionlength' value=0}
 {if $key == 'Calls'}
 	<h2>Calls</h2>	
-		<table width="100%">
+		<table width="90%">
 		  <tr>
 		    <th width="50%" align="left">Destination</th>
 		    <th width="10%">Nb calls</th>

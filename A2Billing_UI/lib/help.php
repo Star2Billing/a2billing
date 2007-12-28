@@ -941,6 +941,30 @@ $CC_help_add_agi_confx = '<div class="toggle_show2hide">
 </div></div>
 '; 
 
+$CC_help_list_global_config = '<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/pinguim-root3.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("Here is a list of all configuration groups. You can pick one and see its members").'
+<br/><br/><br>
+</div></div></div>
+</div></div>
+'; 
+
+$CC_help_list_configuration = '<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/pinguim-root3.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("Here you can see and modify values of every parameters.").'
+<br/><br/><br>
+</div></div></div>
+</div></div>
+'; 
+
 $CC_help_payment_log = '<div class="toggle_show2hide">
 <a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 <div class="tohide" style="display:visible;">
