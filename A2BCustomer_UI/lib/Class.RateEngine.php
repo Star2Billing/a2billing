@@ -140,14 +140,19 @@ class RateEngine
 			$CID_SUB_QUERY = "AND 0 = (SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) ) ";
 		}
 		
-		// $prefixclause to allow good DB servers to use an index rather than sequential scan
-		// justification at http://forum.asterisk2billing.org/viewtopic.php?p=9620#9620
-		$max_len_prefix = min(strlen($phonenumber), 25);	// don't match more than 25 digits
-		$prefixclause = '';
-		while ($max_len_prefix > 0 ) {
-			$prefixclause .= "dialprefix LIKE '".substr($phonenumber,0,$max_len_prefix)."%' OR ";
-			$max_len_prefix--;
-		}; $prefixclause .= "dialprefix='defaultprefix'";
+		if ($A2B->config["database"]['dbtype'] != "postgres"){
+			// apparently this doesn't work on MySQL.  Thanks to Joe L. for testing it
+			$prefixclause="dialprefix=SUBSTRING('$phonenumber',1,length(dialprefix)) OR dialprefix='defaultprefix'";
+		} else {
+			// $prefixclause to allow good DB servers to use an index rather than sequential scan
+			// justification at http://forum.asterisk2billing.org/viewtopic.php?p=9620#9620
+			$max_len_prefix = min(strlen($phonenumber), 25);	// don't match more than 25 digits
+			$prefixclause = '';
+			while ($max_len_prefix > 0 ) {
+				$prefixclause .= "dialprefix LIKE '".substr($phonenumber,0,$max_len_prefix)."%' OR ";
+				$max_len_prefix--;
+			}; $prefixclause .= "dialprefix='defaultprefix'";
+		}
 
 		$QUERY = "SELECT tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,
 		
