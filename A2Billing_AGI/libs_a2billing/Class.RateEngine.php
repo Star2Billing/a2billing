@@ -143,10 +143,10 @@ class RateEngine
 		
 		// $prefixclause to allow good DB servers to use an index rather than sequential scan
 		// justification at http://forum.asterisk2billing.org/viewtopic.php?p=9620#9620
-		$max_len_prefix = min(strlen($phonenumber), 15);	// don't match more than 15 digits (more I have on my side it s 8 digits for a prefix)
+		$max_len_prefix = min(strlen($phonenumber), 15);	// don't match more than 15 digits (the most I have on my side is 8 digit prefixes)
 		$prefixclause = '';
 		while ($max_len_prefix > 0 ) {
-			$prefixclause .= "dialprefix = '".substr($phonenumber,0,$max_len_prefix)."' OR ";
+			$prefixclause .= "dialprefix LIKE '".substr($phonenumber,0,$max_len_prefix)."%' OR ";
 			$max_len_prefix--;
 		};
 		$prefixclause .= "dialprefix='defaultprefix'";
