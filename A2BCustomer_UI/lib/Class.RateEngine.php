@@ -140,44 +140,32 @@ class RateEngine
 			$CID_SUB_QUERY = "AND 0 = (SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) ) ";
 		}
 		
-		if ($A2B->config["database"]['dbtype'] != "postgres"){
-			// apparently this doesn't work on MySQL.  Thanks to Joe L. for testing it
-			$prefixclause="dialprefix=SUBSTRING('$phonenumber',1,length(dialprefix)) OR dialprefix='defaultprefix'";
-		} else {
-			// $prefixclause to allow good DB servers to use an index rather than sequential scan
-			// justification at http://forum.asterisk2billing.org/viewtopic.php?p=9620#9620
-			$max_len_prefix = min(strlen($phonenumber), 25);	// don't match more than 25 digits
-			$prefixclause = '';
-			while ($max_len_prefix > 0 ) {
-				$prefixclause .= "dialprefix LIKE '".substr($phonenumber,0,$max_len_prefix)."%' OR ";
-				$max_len_prefix--;
-			}; $prefixclause .= "dialprefix='defaultprefix'";
-		}
-
-		$QUERY = "SELECT tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,
 		
+		// $prefixclause to allow good DB servers to use an index rather than sequential scan
+		// justification at http://forum.asterisk2billing.org/viewtopic.php?p=9620#9620
+		$max_len_prefix = min(strlen($phonenumber), 15);	// don't match more than 15 digits (the most I have on my side is 8 digit prefixes)
+		$prefixclause = '';
+		while ($max_len_prefix > 0 ) {
+			$prefixclause .= "dialprefix LIKE '".substr($phonenumber,0,$max_len_prefix)."%' OR ";
+			$max_len_prefix--;
+		};
+		$prefixclause .= "dialprefix='defaultprefix'";
+		
+		
+		$QUERY = "SELECT 
+		tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,
 		cc_ratecard.id,	dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, 
 		connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, 
 		timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,
 		cc_tariffplan.id_trunk AS tp_id_trunk, tp_trunk.trunkprefix AS tp_trunk, tp_trunk.providertech AS tp_providertech, 
 		tp_trunk.providerip AS tp_providerip, tp_trunk.removeprefix AS tp_removeprefix,
 		cc_ratecard.id_trunk AS rc_id_trunk, rt_trunk.trunkprefix AS rc_trunkprefix, rt_trunk.providertech AS rc_providertech, 
-		rt_trunk.providerip AS rc_providerip, rt_trunk.removeprefix AS rc_removeprefix,
-		musiconhold,
-		tp_trunk.failover_trunk AS tp_failover_trunk,
-		rt_trunk.failover_trunk AS rt_failover_trunk,
-		tp_trunk.addparameter AS tp_addparameter_trunk,
-		rt_trunk.addparameter AS rt_addparameter_trunk,
-		id_outbound_cidgroup,
-		freetimetocall_package_offer, freetimetocall, packagetype, billingtype, startday, id_cc_package_offer,
-		tp_trunk.status, 
-		rt_trunk.status,
-		tp_trunk.inuse, 
-		rt_trunk.inuse,
-		tp_trunk.maxuse, 
-		rt_trunk.maxuse,
-		tp_trunk.if_max_use, 
-		rt_trunk.if_max_use,
+		rt_trunk.providerip AS rc_providerip, rt_trunk.removeprefix AS rc_removeprefix, musiconhold,
+		tp_trunk.failover_trunk AS tp_failover_trunk, rt_trunk.failover_trunk AS rt_failover_trunk,
+		tp_trunk.addparameter AS tp_addparameter_trunk, rt_trunk.addparameter AS rt_addparameter_trunk,
+		id_outbound_cidgroup, freetimetocall_package_offer, freetimetocall, packagetype, billingtype, startday, id_cc_package_offer,
+		tp_trunk.status, rt_trunk.status, tp_trunk.inuse, rt_trunk.inuse, tp_trunk.maxuse,  rt_trunk.maxuse,
+		tp_trunk.if_max_use, rt_trunk.if_max_use,
 		cc_ratecard.rounding_calltime AS rounding_calltime,
 		cc_ratecard.rounding_threshold AS rounding_threshold,
 		cc_ratecard.additional_block_charge AS additional_block_charge,
@@ -185,9 +173,7 @@ class RateEngine
 		
 		FROM cc_tariffgroup 
 		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id=$tariffgroupid
-		
 		INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan )
-		
 		LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
 		LEFT JOIN cc_trunk AS rt_trunk ON cc_ratecard.id_trunk=rt_trunk.id_trunk
 		LEFT JOIN cc_trunk AS tp_trunk ON cc_tariffplan.id_trunk=tp_trunk.id_trunk
@@ -202,16 +188,14 @@ class RateEngine
 		AND ( calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) OR (calleridprefix='all' $CID_SUB_QUERY)) 
 		ORDER BY LENGTH(dialprefix) DESC";
 		
-		//-- if ($this -> debug_st) echo $QUERY."\n\n";
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[RATE ENGINE QUERY]\n".$QUERY."\n",0);	
-		
 		
 		$A2B->instance_table = new Table();
 		$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 		
 		
 		if (!is_array($result) || count($result)==0) return 0; // NO RATE FOR THIS NUMBER
-	
+		
 		if ($this->debug_st) echo "::> Count Total result ".count($result)."\n\n";
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[rate-engine: Count Total result ".count($result)."]");	
 		
