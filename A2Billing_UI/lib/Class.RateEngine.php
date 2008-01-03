@@ -146,9 +146,9 @@ class RateEngine
 		$max_len_prefix = min(strlen($phonenumber), 15);	// don't match more than 15 digits (the most I have on my side is 8 digit prefixes)
 		$prefixclause = '';
 		while ($max_len_prefix > 0 ) {
-			$prefixclause .= "dialprefix LIKE '".substr($phonenumber,0,$max_len_prefix)."%' OR ";
+			$prefixclause .= "dialprefix='".substr($phonenumber,0,$max_len_prefix)."' OR ";
 			$max_len_prefix--;
-		};
+		}
 		$prefixclause .= "dialprefix='defaultprefix'";
 		
 		
