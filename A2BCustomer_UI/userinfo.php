@@ -97,7 +97,7 @@ $smarty->display( 'main.tpl');
 			<font class="fontstyle_002"><?php echo gettext("CALLING PACKAGE");?> :</font><br><font class="fontstyle_007"> <?php echo $customer_info[16]; ?> </font>
 			</td>
 			<td width="50%">
-			<font class="fontstyle_002"><?php if ($customer_info[17]==1) {	
+			<font class="fontstyle_002"><?php if (($customer_info[17]==0) || ($customer_info[17]==1)) {	
 					echo gettext("PACKAGE MINUTES REMAINING");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d of %d:%02d",intval(($customer_info[15]-$freetimetocall_used) / 60),($customer_info[15]-$freetimetocall_used) % 60,intval($customer_info[15]/60),$customer_info[15] % 60);
 				} else {
 					echo gettext("PACKAGE MINUTES USED");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d",intval($freetimetocall_used / 60),$freetimetocall_used % 60);
