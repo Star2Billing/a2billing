@@ -1947,7 +1947,7 @@ class A2Billing {
 					$QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card='$the_card_id'"; 
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 1); 
 					// CHECK IF THE AMOUNT OF CALLERID IS LESS THAN THE LIMIT 
-					if ($result[0][0] < $A2B->config["webcustomerui"]['limit_callerid']) {
+					if ($result[0][0] < $this->config["webcustomerui"]['limit_callerid']) {
 						
 						$QUERY_FIELS = 'cid, id_cc_card';
 						$QUERY_VALUES = "'".$this->CallerID."','$the_card_id'";
