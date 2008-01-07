@@ -11,7 +11,7 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff RIGHT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle_max = DbConnect();
 $numrow = 0;
@@ -91,6 +91,19 @@ $smarty->display( 'main.tpl');
 			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$customer_info[14]; ?> </font>
 			<br></br>
 			</td>
+			<?php if ($customer_info[16]>0) {
+				$freetimetocall_used = $A2B->FT2C_used_seconds($DBHandle_max, $customer_info[22], $customer_info[21], $customer_info[19], $customer_info[20]);?>
+			</tr><tr><td /><td width="50%">
+			<font class="fontstyle_002"><?php echo gettext("CALLING PACKAGE");?> :</font><br><font class="fontstyle_007"> <?php echo $customer_info[17]; ?> </font>
+			</td>
+			<td width="50%">
+			<font class="fontstyle_002"><?php if ($customer_info[18]==1) {	
+					echo gettext("PACKAGE MINUTES REMAINING");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d of %d:%02d",intval(($customer_info[16]-$freetimetocall_used) / 60),($customer_info[16]-$freetimetocall_used) % 60,intval($customer_info[16]/60),$customer_info[16] % 60);
+				} else {
+					echo gettext("PACKAGE MINUTES USED");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d",intval($freetimetocall_used / 60),$freetimetocall_used % 60);
+				}?> </font>
+			</tr><tr><td /><td width="50%" /><td width="50%" />
+			<?php }?>
 			<td valign="bottom" align="right"><img src="<?php echo KICON_PATH ?>/help_index.gif" class="kikipic"></td>
 		</tr>
 		</table>

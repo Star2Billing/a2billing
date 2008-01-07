@@ -734,11 +734,68 @@ class A2Billing {
 		// it should be safe for normal use
 		$this->destination = rtrim($this->destination, "#");
 		
-		// SAY BALANCE
+		// SAY BALANCE AND FT2C PACKAGE IF APPLICABLE
 		// this is hardcoded for now but we might have a setting in a2billing.conf for the combination
 		if ($this->destination=='*0'){
 			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SAY BALANCE ::> ".$this->credit."]");
 			$this -> fct_say_balance ($agi, $this->credit);
+
+			// Retrieve this customer's FT2C package details
+			$QUERY = "SELECT freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff RIGHT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer WHERE cc_card.id='".$this->id_card."'";
+			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
+			if (is_array($result) && ($result[0][0] > 0) ) {
+				$freetime = $result[0][0];
+				$label = $result[0][1];
+				$packagetype = $result[0][2];
+				$billingtype = $result[0][3];
+				$startday = $result[0][4];
+				$id_cc_package_offer = $result[0][5];
+				$freetimetocall_used = $this->FT2C_used_seconds($this->DBHandle, $this->id_card, $id_cc_package_offer, $billingtype, $startday);
+				if ($packagetype == 1) {
+					$minutes=intval(($freetime-$freetimetocall_used)/60);
+					$seconds=($freetime-$freetimetocall_used) % 60;
+				} else {
+					$minutes=intval($freetimetocall_used/60);
+					$seconds=$freetimetocall_used % 60;
+				}
+				// Now say either "You have X minutes and Y seconds of free package calls remaining this week/month"
+				// or "You have dialed X minutes and Y seconds of free package calls this week/month"
+				if ($packagetype == 1) {
+					$agi-> stream_file('prepaid-you-have', '#');
+				} else {
+					$agi-> stream_file('you-have-dialed', '#');
+				}
+				if (($minutes > 0) || ($seconds == 0)) {
+					$agi->say_number($minutes);
+					if ($minutes==1){
+						$agi-> stream_file('prepaid-minute', '#');
+					}else{
+						$agi-> stream_file('prepaid-minutes', '#');
+					}
+				}
+				if ($seconds > 0) {
+					if ($minutes > 0) $agi-> stream_file('vm-and', '#');
+					$agi->say_number($seconds);
+					if ($seconds == 1) {
+						$agi-> stream_file('prepaid-second', '#');
+					} else {
+						$agi-> stream_file('prepaid-seconds', '#');
+					}
+				}
+				$agi-> stream_file('prepaid-of-free-package-calls', '#');
+				if ($packagetype == 1) {
+					$agi-> stream_file('prepaid-remaining', '#');
+					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SAY FT2C REMAINING ::> ".$minutes.":".$seconds."]");
+				} else {
+					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SAY FT2C USED ::> ".$minutes.":".$seconds."]");
+				}
+				$agi-> stream_file('this', '#');
+				if ($billingtype == 0) {
+					$agi-> stream_file('month', '#');
+				} else {
+					$agi-> stream_file('weeks', '#');
+				}
+			}
 			return -1;
 		}
 	
@@ -1364,6 +1421,60 @@ class A2Billing {
 				$pwd = $pwd.$chr;
 		 };
 		 return $pwd;
+	}
+
+
+	/** Function to retrieve the amount of used package FT2C seconds for a customer
+	 * according to billingtype (Monthly ; Weekly) & Startday
+	 *
+	 *  @param object $DBHandle
+	 *  @param integer $id_cc_card
+	 *  @param integer $id_cc_package_offer
+	 *  @param integer $billingtype
+	 *  @param integer $startday
+	 *  @return integer number of seconds used of FT2C package so far in this period
+	 **/
+	function FT2C_used_seconds($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday) {
+		if ($billingtype == 0){
+			// PROCESSING FOR MONTHLY
+			// if > last day of the month
+			if ($startday > date("t")) $startday = date("t");
+			if ($startday <= 0 ) $startday = 1;
+			
+			// Check if the startday is upper that the current day
+			if ($startday > date("j")) $year_month = date('Y-m', strtotime('-1 month'));
+			else $year_month = date('Y-m');
+			
+			$yearmonth = sprintf("%s-%02d",$year_month,$startday);
+			if ($this->config["database"]['dbtype'] == "postgres"){
+				$UNIX_TIMESTAMP = "";
+			}else{
+				$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+			}
+			$CLAUSE_DATE=" $UNIX_TIMESTAMP(date_consumption) >= $UNIX_TIMESTAMP('$yearmonth')";
+		}else{
+			// PROCESSING FOR WEEKLY
+			$startday = $startday % 7;
+			$dayofweek = date("w"); // Numeric representation of the day of the week 0 (for Sunday) through 6 (for Saturday)
+			if ($dayofweek==0) $dayofweek=7;
+			if ($dayofweek < $startday) $dayofweek = $dayofweek + 7;
+			$diffday = $dayofweek - $startday;
+			if ($this->config["database"]['dbtype'] == "postgres"){
+				$CLAUSE_DATE = "date_consumption >= (CURRENT_DATE - interval '$diffday day') ";
+			}else{
+				$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
+			}
+		}
+		$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
+				" WHERE $CLAUSE_DATE AND id_cc_card = '$id_cc_card' AND id_cc_package_offer = '$id_cc_package_offer' ";
+		$pack_result = $DBHandle -> Execute($QUERY);
+		if ($pack_result && ($pack_result -> RecordCount() > 0)) {
+			$result = $pack_result -> fetchRow();
+			$freetimetocall_used = $result[0];
+		} else {
+			$freetimetocall_used = 0;
+		}
+		return $freetimetocall_used;
 	}
 
 	
