@@ -91,14 +91,14 @@ $smarty->display( 'main.tpl');
 			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$customer_info[14]; ?> </font>
 			<br></br>
 			</td>
-			<?php if ($customer_info[16]>0) {
-				$freetimetocall_used = $A2B->FT2C_used_seconds($DBHandle_max, $customer_info[22], $customer_info[21], $customer_info[19], $customer_info[20]);?>
+			<?php if ($customer_info[15]>0) {
+				$freetimetocall_used = $A2B->FT2C_used_seconds($DBHandle_max, $customer_info[21], $customer_info[20], $customer_info[18], $customer_info[19]);?>
 			</tr><tr><td /><td width="50%">
-			<font class="fontstyle_002"><?php echo gettext("CALLING PACKAGE");?> :</font><br><font class="fontstyle_007"> <?php echo $customer_info[17]; ?> </font>
+			<font class="fontstyle_002"><?php echo gettext("CALLING PACKAGE");?> :</font><br><font class="fontstyle_007"> <?php echo $customer_info[16]; ?> </font>
 			</td>
 			<td width="50%">
-			<font class="fontstyle_002"><?php if ($customer_info[18]==1) {	
-					echo gettext("PACKAGE MINUTES REMAINING");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d of %d:%02d",intval(($customer_info[16]-$freetimetocall_used) / 60),($customer_info[16]-$freetimetocall_used) % 60,intval($customer_info[16]/60),$customer_info[16] % 60);
+			<font class="fontstyle_002"><?php if ($customer_info[17]==1) {	
+					echo gettext("PACKAGE MINUTES REMAINING");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d of %d:%02d",intval(($customer_info[15]-$freetimetocall_used) / 60),($customer_info[15]-$freetimetocall_used) % 60,intval($customer_info[15]/60),$customer_info[15] % 60);
 				} else {
 					echo gettext("PACKAGE MINUTES USED");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d",intval($freetimetocall_used / 60),$freetimetocall_used % 60);
 				}?> </font>
