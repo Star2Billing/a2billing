@@ -751,7 +751,7 @@ class A2Billing {
 				$startday = $result[0][4];
 				$id_cc_package_offer = $result[0][5];
 				$freetimetocall_used = $this->FT2C_used_seconds($this->DBHandle, $this->id_card, $id_cc_package_offer, $billingtype, $startday);
-				if ($packagetype == 1) {
+				if (($packagetype == 0) || ($packagetype == 1)) {
 					$minutes=intval(($freetime-$freetimetocall_used)/60);
 					$seconds=($freetime-$freetimetocall_used) % 60;
 				} else {
@@ -760,7 +760,7 @@ class A2Billing {
 				}
 				// Now say either "You have X minutes and Y seconds of free package calls remaining this week/month"
 				// or "You have dialed X minutes and Y seconds of free package calls this week/month"
-				if ($packagetype == 1) {
+				if (($packagetype == 0) || ($packagetype == 1)) {
 					$agi-> stream_file('prepaid-you-have', '#');
 				} else {
 					$agi-> stream_file('you-have-dialed', '#');
@@ -783,7 +783,7 @@ class A2Billing {
 					}
 				}
 				$agi-> stream_file('prepaid-of-free-package-calls', '#');
-				if ($packagetype == 1) {
+				if (($packagetype == 0) || ($packagetype == 1)) {
 					$agi-> stream_file('prepaid-remaining', '#');
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SAY FT2C REMAINING ::> ".$minutes.":".$seconds."]");
 				} else {
