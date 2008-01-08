@@ -231,7 +231,6 @@ sub func_callback_processing {
 		
 		# my $dbh_child ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$pghost;port=$pgport", "$login");
 		
-		$id_server_group = 1;
 		@server_manager = &get_server($dbh_child, $id_server_group);		
 		
 		if (!(@server_manager)){
