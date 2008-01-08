@@ -4,6 +4,11 @@
 *******************************************************************************
 
 
+#### Callback init script
+********************************************************************
+for Debian and CentOs
+
+
 #### NEW INTERFACE
 ********************************************************************
 Also when do you think you can help with the interface to search client cards by ID, PIN, OR Caller ID?  I think that the Customer interface would work if you could fix it to log in by ID,PIN or CID Instead of username and password.  From the Customer interface, call center can see everything important, CDR, and remove CID and shows balance.  At present, The only place to locate username and password is the section of a2billing that we dont want to give access. 
