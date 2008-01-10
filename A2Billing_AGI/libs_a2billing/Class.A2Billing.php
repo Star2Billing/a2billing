@@ -775,7 +775,7 @@ class A2Billing {
 				if (($packagetype == 0) || ($packagetype == 1)) {
 					$agi-> stream_file('prepaid-you-have', '#');
 				} else {
-					$agi-> stream_file('you-have-dialed', '#');
+					$agi-> stream_file('prepaid-you-have-dialed', '#');
 				}
 				if (($minutes > 0) || ($seconds == 0)) {
 					$agi->say_number($minutes);
