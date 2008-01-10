@@ -267,11 +267,11 @@ class A2Billing {
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);		
 		}
 	  
-	  
+	  	/*  We don't need to do this twice.  load_conf_db() will do it
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
 		foreach($optconfig as $var=>$val) {
 			$this->config["agi-conf$idconfig"][$var] = $val;
-		}
+		}*/
 		
 		// conf for the database connection
 		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
@@ -281,7 +281,7 @@ class A2Billing {
 		if(!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
 		if(!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
 		
-		$this->load_conf_db($agi, NULL, 0, $idconfig);
+		$this->load_conf_db($agi, NULL, 0, $idconfig, $optconfig);
     }
 	
 	/* 
