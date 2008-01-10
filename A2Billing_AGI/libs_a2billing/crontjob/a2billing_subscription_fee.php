@@ -131,7 +131,7 @@ foreach ($result as $myservice) {
 			
 			if ($verbose_level>=1) echo "AMOUNT TO REMOVE FROM THE CARD ->".$amount_converted;
 			if (abs($amount_converted) > 0){	// CHECK IF WE HAVE AN AMOUNT TO REMOVE
-				$QUERY = "UPDATE cc_card SET credit=credit-'".$amount_converted."' WHERE id=".$mycard[0];	
+				$QUERY = "UPDATE cc_card SET credit=credit-'".$myservice_fee."' WHERE id=".$mycard[0];	
 				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 				
