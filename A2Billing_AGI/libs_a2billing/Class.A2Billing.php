@@ -320,18 +320,6 @@ class A2Billing {
 			}	
 		}
 		$this->DbDisconnect($this->DBHandle);
-
-		// allow cascading configurations, if a parent_config is set
-		$pc=isset($this->config["agi-conf$idconfig"]["parent_config"]) ? $this->config["agi-conf$idconfig"]["parent_config"] : 0;
-		while ($pc != 0 ) {
-			foreach ($this->config["agi-conf$pc"] as $var=>$val) {
-				if ($var != "parent_config" && !isset($this->config["agi-conf$idconfig"][$var])) {
-					$this->config["agi-conf$idconfig"][$var] = $val;
-				}
-			}
-			$pc = isset($this->config["agi-conf$pc"]["parent_config"]) ? $this->config["agi-conf$pc"]["parent_config"] : 0;
-		}
-		unset($pc);
 		
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
 		foreach($optconfig as $var=>$val)
