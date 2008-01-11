@@ -57,7 +57,7 @@ INSTALLATION GUIDE OF THE ASTERISK APPLICATION:
 	Edit extensions.conf (/etc/asterisk/extensions.conf)
 	Add the following link to the appropriate context
 	
-	
+
 [a2billing]
 exten => _X.,1,Answer
 exten => _X.,n,Wait(1)
@@ -87,6 +87,21 @@ exten => _X.,2,Hangup
 [a2billing-voucher]
 exten => _X.,1,DeadAgi(a2billing.php|1|voucher)
 exten => _X.,n,Hangup	
+
+[a2billing_dispatch]
+exten => _X.,1,Gotoif($[${RAND(0,100)} < 50]?${EXTEN}|3:${EXTEN}|5)
+exten => _X.,2,Hangup
+; REDIRECT TO A2BILLING
+exten => _X.,3,Goto(a2billing,${EXTEN},1)
+exten => _X.,4,Hangup
+; REDIRECT TO OTHER SERVER WITH A2BILLING
+exten => _X.,5,Goto(a2billing-second-server,${EXTEN},1)
+exten => _X.,6,Hangup
+
+[a2billing-second-server]
+;exten => _X.,1,Dial(IAX2/${EXTEN}@IP_SECOND_SERVER)
+exten => _X.,1,Dial(SIP/${EXTEN}@IP_SECOND_SERVER)
+; Use canreinvite to not pass the media through the first box
 
 
 8. sip.conf add the line at the end	
