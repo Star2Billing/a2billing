@@ -44,7 +44,7 @@ $A2B -> load_conf($agi, DEFAULT_A2BILLING_CONFIG, 1);
 define ("BASE_CURRENCY", strtoupper($A2B->config["global"]['base_currency']));
 
 // get in a csv file USD to EUR and USD to CAD
-// http://finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=l1
+// http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=l1
 
 
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
@@ -65,7 +65,7 @@ $A2B -> set_instance_table ($instance_table);
 $QUERY =  "SELECT id,currency,basecurrency FROM cc_currencies ORDER BY id";
 $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
 	
-$url = "http://finance.yahoo.com/d/quotes.csv?s=";
+$url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 
 /* result[index_result][field] */
 

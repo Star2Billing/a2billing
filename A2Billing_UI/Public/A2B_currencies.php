@@ -26,7 +26,7 @@ if ($updatecurrency == 1){
 	$QUERY =  "SELECT id,currency,basecurrency FROM cc_currencies ORDER BY id";
 	$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
 		
-	$url = "http://finance.yahoo.com/d/quotes.csv?s=";
+	$url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 	
 	/* result[index_result][field] */
 	
