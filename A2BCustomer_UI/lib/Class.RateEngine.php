@@ -871,6 +871,7 @@ class RateEngine
 	 */
 	function rate_engine_updatesystem (&$A2B, &$agi, $calledstation, $doibill = 1, $didcall=0, $callback=0)
 	{
+		global $agi;
 		$K = $this->usedratecard;
 		// ****************  PACKAGE PARAMETERS ****************  
 		$freetimetocall_package_offer = $this -> ratecard_obj[$K][45];
