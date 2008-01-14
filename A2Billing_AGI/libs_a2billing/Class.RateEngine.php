@@ -657,6 +657,7 @@ class RateEngine
 	 */
 	function rate_engine_calculcost (&$A2B, $callduration, $K=0)
 	{	
+		global $agi;
 		$K = $this->usedratecard;
 		
 		$buyrate 						= round(abs($this -> ratecard_obj[$K][9]),4);
@@ -871,7 +872,6 @@ class RateEngine
 	 */
 	function rate_engine_updatesystem (&$A2B, &$agi, $calledstation, $doibill = 1, $didcall=0, $callback=0)
 	{
-		global $agi;
 		$K = $this->usedratecard;
 		// ****************  PACKAGE PARAMETERS ****************  
 		$freetimetocall_package_offer = $this -> ratecard_obj[$K][45];
