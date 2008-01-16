@@ -721,3 +721,37 @@ ALTER TABLE cc_ratecard ADD COLUMN is_merged INT DEFAULT 0;
 
 UPDATE cc_config SET config_title='Dial Command Params', config_description='More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>g: When the called party hangs up, exit to execute more commands in the current context. (new in 1.4)<br>i: Asterisk will ignore any forwarding (302 Redirect) requests received. Essential for DID usage to prevent fraud. (new in 1.4)<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.' WHERE  config_key='dialcommand_param';
 UPDATE cc_config SET config_title='SIP/IAX Dial Command Params', config_value='|60|HiL(3600000:61000:30000)' WHERE config_key='dialcommand_param_sipiax_friend';
+
+
+
+
+
+
+CREATE TABLE voicemail_users (
+	uniqueid int(11) NOT NULL auto_increment,
+	customer_id int(11) NOT NULL default '0',
+	context varchar(50) NOT NULL default '',
+	mailbox varchar(15) NOT NULL default '0',
+	password varchar(15) NOT NULL default '8888',
+	fullname varchar(50)  ,
+	email varchar(50)  ,
+	pager varchar(50)  ,
+	stamp timestamp(14) NOT NULL,
+	PRIMARY KEY (uniqueid),
+	KEY mailbox_context (mailbox, context)
+) TYPE=MyISAM; 
+
+ 
+
+
+delimiter |
+
+	create trigger  after_ins_cc_card  after insert on cc_card
+
+	for each row begin
+
+		insert into voicemail_users(context,mailbox,password,fullname,email) 
+		values('default',NEW.useralias,NEW.uipass,concat(NEW.lastname,NEW.firstname),NEW.email);
+		
+	end
+|

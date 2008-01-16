@@ -926,8 +926,9 @@ class A2Billing {
 		$sip_buddies = 0;
 		$iax_buddies = 0;
 		
-		$QUERY = "SELECT name FROM cc_iax_buddies, cc_card WHERE cc_iax_buddies.name=cc_card.username AND useralias='".$this->destination."'";			
-		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);										
+		$QUERY = "SELECT name FROM cc_iax_buddies, cc_card WHERE cc_iax_buddies.name=cc_card.username AND useralias='".$this->destination."'";
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);
+		
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $result);		
 		
@@ -1029,6 +1030,24 @@ class A2Billing {
 				return 1;
 			}
 		}
+		
+		if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
+			// The following section will send the caller to VoiceMail with the unavailable priority.
+			// $dest = "u".$card_alias;
+			$dest = $card_alias;
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest)");
+			$agi-> exec(VoiceMail,$dest);
+		}
+		
+		if (($dialstatus =="BUSY")) {
+			// The following section will send the caller to VoiceMail with the busy priority.
+			// $dest = "b".$card_alias;
+			$dest = $card_alias;
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest)");
+			$agi-> exec(VoiceMail,$dest);
+		}
+		
+		
 		return -1;
 	}
 	
@@ -1064,14 +1083,15 @@ class A2Billing {
 			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: FOLLOWME=$callcount (cardnumber:".$inst_listdestination[6]."|destination:".$inst_listdestination[4]."|tariff:".$inst_listdestination[3].")\n");
 			
-			$this->agiconfig['cid_enable']	= 0;
+			$this->agiconfig['cid_enable']			= 0;
 			$this->accountcode 				= $inst_listdestination[6];
 			$this->tariff 					= $inst_listdestination[3];
 			$this->destination 				= $inst_listdestination[4];
 			$this->username 				= $inst_listdestination[6];
+			$this->useralias 				= $inst_listdestination[7];
 			
 			// MAKE THE AUTHENTICATION TO GET ALL VALUE : CREDIT - EXPIRATION - ...
-			if ($this -> callingcard_ivr_authenticate($agi)!=0){
+			if ($this -> callingcard_ivr_authenticate($agi)!=0) {
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: AUTHENTICATION FAILS !!!\n");
 			} else {				
 				// CHECK IF DESTINATION IS SET
@@ -1187,6 +1207,7 @@ class A2Billing {
 							continue;
 						}
 						
+						$dialstatus = $RateEngine->dialstatus;
 						if (($RateEngine->dialstatus == "NOANSWER") || ($RateEngine->dialstatus == "CANCEL") || ($RateEngine->dialstatus == "BUSY") || ($RateEngine->dialstatus == "CHANUNAVAIL") || ($RateEngine->dialstatus == "CONGESTION")) continue;
 							
 						// INSERT CDR  & UPDATE SYSTEM
@@ -1207,6 +1228,22 @@ class A2Billing {
 				}
 			} // END IF AUTHENTICATE
 		}// END FOR
+		
+		if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
+			// The following section will send the caller to VoiceMail with the unavailable priority.
+			// $dest = "u".$this->useralias;
+			$dest = $this->useralias;
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest)");
+			$agi-> exec(VoiceMail,$dest);
+		}
+		
+		if (($dialstatus =="BUSY")) {
+			// The following section will send the caller to VoiceMail with the busy priority.
+			// $dest = "b".$this->useralias;
+			$dest = $this->useralias;
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest)");
+			$agi-> exec(VoiceMail,$dest);
+		}
 	}
 	
 	
