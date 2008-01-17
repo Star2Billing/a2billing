@@ -5,7 +5,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list', 
-'status', 'template_invoice', 'template_outstanding', 'description' ));
+'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated' ));
 
 $HD_Form = new FormHandler("cc_card","Card");
 $HD_Form -> FG_DEBUG = 0;
@@ -482,6 +482,16 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
 			   "" , "", "",	"", "", "", "", gettext("The number of days after which the card will expire."));
 
 
+$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
+			   "voicemail_activated",
+			   '1',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to enable the voicemail for this card"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail for this card."));
+
+
 $HD_Form -> AddEditElement (gettext("INVOICE DAY"),
 			   "invoiceday",
 			   '$value',	
@@ -707,10 +717,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 5. Last, Sixth param is the FK column  
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, '.
-'callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
-'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
-'fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding');
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding');
 
 
 
