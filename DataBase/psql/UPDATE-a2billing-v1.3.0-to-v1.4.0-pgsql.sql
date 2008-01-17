@@ -578,10 +578,10 @@ update cc_card set status = 0 where activated = 'f';
 
 
 CREATE TABLE cc_status_log (
-  id		BIGSERIAL DEFAULT 0 NOT NULL,
-  status 	INT NOT NULL,
-  id_cc_card INT NOT NULL,
-  updated_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+  id					BIGSERIAL DEFAULT 0 NOT NULL,
+  status 				INT NOT NULL,
+  id_cc_card 				INT NOT NULL,
+  updated_date 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 );
 ALTER TABLE ONLY cc_status_log
     ADD CONSTRAINT cc_status_log_pkey PRIMARY KEY (id);
@@ -599,10 +599,10 @@ ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
 
 
 CREATE TABLE cc_card_history (
-	id 								BIGSERIAL NOT NULL,
+	id 							BIGSERIAL NOT NULL,
 	id_cc_card 						BIGINT DEFAULT 0 NOT NULL,
-    datecreated						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-	description 					TEXT
+    	datecreated						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	description 						TEXT
 );
 ALTER TABLE ONLY cc_card_history    ADD CONSTRAINT cc_card_history_pkey PRIMARY KEY (id);
 
@@ -629,35 +629,35 @@ VACUUM FULL ANALYZE;
 
 
 CREATE TABLE cc_call_archive (
-	id 									BIGSERIAL NOT NULL,
-	sessionid 							TEXT NOT NULL,
-	uniqueid 							TEXT NOT NULL,
-	username 							TEXT NOT NULL,
+	id 							BIGSERIAL NOT NULL,
+	sessionid 						TEXT NOT NULL,
+	uniqueid 						TEXT NOT NULL,
+	username 						TEXT NOT NULL,
 	nasipaddress 						TEXT ,
-	starttime 							TIMESTAMP WITHOUT TIME ZONE,
-	stoptime 							TIMESTAMP WITHOUT TIME ZONE,
+	starttime 						TIMESTAMP WITHOUT TIME ZONE,
+	stoptime 						TIMESTAMP WITHOUT TIME ZONE,
 	sessiontime 						INTEGER,
 	calledstation 						TEXT ,
-	startdelay 							INTEGER,
-	stopdelay 							INTEGER,
+	startdelay 						INTEGER,
+	stopdelay 						INTEGER,
 	terminatecause 						TEXT ,
-	usertariff 							TEXT ,
+	usertariff 						TEXT ,
 	calledprovider 						TEXT ,
 	calledcountry 						TEXT ,
-	calledsub 							TEXT ,
-	calledrate 							double precision,
+	calledsub 						TEXT ,
+	calledrate 						double precision,
 	sessionbill 						double precision,
 	destination 						TEXT ,
 	id_tariffgroup 						INTEGER,
 	id_tariffplan 						INTEGER,
 	id_ratecard 						INTEGER,
-	id_trunk 							INTEGER,
-	sipiax 								INTEGER DEFAULT 0,
-	src 								TEXT ,
-	id_did 								INTEGER,
-	buyrate 							NUMERIC(15,5) DEFAULT 0,
-	buycost 							NUMERIC(15,5) DEFAULT 0,
-	id_card_package_offer 				INTEGER DEFAULT 0
+	id_trunk 						INTEGER,
+	sipiax 							INTEGER DEFAULT 0,
+	src 							TEXT ,
+	id_did 							INTEGER,
+	buyrate 						NUMERIC(15,5) DEFAULT 0,
+	buycost 						NUMERIC(15,5) DEFAULT 0,
+	id_card_package_offer 					INTEGER DEFAULT 0
 );
 ALTER TABLE ONLY cc_call_archive
     ADD CONSTRAINT cc_call_archive_pkey PRIMARY KEY (id);
@@ -673,59 +673,59 @@ ALTER TABLE cc_card DROP COLUMN userpass;
 
 
 CREATE TABLE cc_card_archive (
-	id 									BIGSERIAL NOT NULL,
+	id 							BIGSERIAL NOT NULL,
 	creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
 	firstusedate 						TIMESTAMP WITHOUT TIME ZONE,
 	expirationdate 						TIMESTAMP WITHOUT TIME ZONE,
 	enableexpire 						INTEGER DEFAULT 0,
-	expiredays 							INTEGER DEFAULT 0,
-	username 							TEXT NOT NULL,
-	useralias 							TEXT NOT NULL,
-	uipass 								TEXT ,
-	credit 								NUMERIC(12,4) NOT NULL,
-	tariff 								INTEGER DEFAULT 0,
+	expiredays 						INTEGER DEFAULT 0,
+	username 						TEXT NOT NULL,
+	useralias 						TEXT NOT NULL,
+	uipass 							TEXT ,
+	credit 							NUMERIC(12,4) NOT NULL,
+	tariff 							INTEGER DEFAULT 0,
 	id_didgroup 						INTEGER DEFAULT 0,
-	activated 							BOOLEAN DEFAULT false NOT NULL,
-	status								INTEGER DEFAULT 1,
-	lastname 							TEXT ,
-	firstname 							TEXT ,
-	address 							TEXT ,
-	city 								TEXT ,
-	state 								TEXT ,
-	country 							TEXT ,
-	zipcode 							TEXT ,
-	phone 								TEXT ,
-	email 								TEXT ,
-	fax 								TEXT ,
-	inuse 								INTEGER DEFAULT 0,
+	activated 						BOOLEAN DEFAULT false NOT NULL,
+	status							INTEGER DEFAULT 1,
+	lastname 						TEXT ,
+	firstname 						TEXT ,
+	address 						TEXT ,
+	city 							TEXT ,
+	state 							TEXT ,
+	country 						TEXT ,
+	zipcode 						TEXT ,
+	phone 							TEXT ,
+	email 							TEXT ,
+	fax 							TEXT ,
+	inuse 							INTEGER DEFAULT 0,
 	simultaccess 						INTEGER DEFAULT 0,
-	currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
-	lastuse 							date DEFAULT NOW(),
-	nbused 								INTEGER DEFAULT 0,
-	typepaid 							INTEGER DEFAULT 0,
+	currency 						CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
+	lastuse 						date DEFAULT NOW(),
+	nbused 							INTEGER DEFAULT 0,
+	typepaid 						INTEGER DEFAULT 0,
 	creditlimit 						INTEGER DEFAULT 0,
-	voipcall 							INTEGER DEFAULT 0,
-	sip_buddy 							INTEGER DEFAULT 0,
-	iax_buddy 							INTEGER DEFAULT 0,
-	"language" 							TEXT DEFAULT 'en'::text,
-	redial 								TEXT ,
-	runservice 							INTEGER DEFAULT 0,
-	nbservice 							INTEGER DEFAULT 0,
+	voipcall 						INTEGER DEFAULT 0,
+	sip_buddy 						INTEGER DEFAULT 0,
+	iax_buddy 						INTEGER DEFAULT 0,
+	"language" 						TEXT DEFAULT 'en'::text,
+	redial 							TEXT ,
+	runservice 						INTEGER DEFAULT 0,
+	nbservice 						INTEGER DEFAULT 0,
 	id_campaign 						INTEGER DEFAULT 0,
 	num_trials_done 					INTEGER DEFAULT 0,
-	callback 							TEXT ,
-	vat 								NUMERIC(6,3) DEFAULT 0,
+	callback 						TEXT ,
+	vat 							NUMERIC(6,3) DEFAULT 0,
 	servicelastrun 						TIMESTAMP WITHOUT TIME ZONE,
 	initialbalance 						NUMERIC(12,4) NOT NULL DEFAULT 0,
-	invoiceday 							INTEGER DEFAULT 1,
-	autorefill 							INTEGER DEFAULT 0,
-	loginkey 							TEXT ,
+	invoiceday 						INTEGER DEFAULT 1,
+	autorefill 						INTEGER DEFAULT 0,
+	loginkey 						TEXT ,
 	activatedbyuser 					BOOLEAN DEFAULT false NOT NULL,
-	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
-	id_timezone							INTEGER DEFAULT 0,
-	tag									character(50),
+	mac_addr						VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
+	id_timezone						INTEGER DEFAULT 0,
+	tag							character(50),
 	template_invoice					TEXT,
-	template_outstanding				TEXT
+	template_outstanding					TEXT
 );
 ALTER TABLE ONLY cc_card_archive
     ADD CONSTRAINT cons_cc_card_archive_username UNIQUE (username);
@@ -737,7 +737,21 @@ ALTER TABLE cc_ratecard ADD COLUMN is_merged INT DEFAULT 0;
 UPDATE cc_config SET config_title='Dial Command Params', config_description='More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>g: When the called party hangs up, exit to execute more commands in the current context. (new in 1.4)<br>i: Asterisk will ignore any forwarding (302 Redirect) requests received. Essential for DID usage to prevent fraud. (new in 1.4)<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.' WHERE  config_key='dialcommand_param';
 UPDATE cc_config SET config_title='SIP/IAX Dial Command Params', config_value='|60|HiL(3600000:61000:30000)' WHERE config_key='dialcommand_param_sipiax_friend';
 
+
+
+
+
+-- VOICEMAIL CHANGES
+
 CREATE OR REPLACE VIEW voicemail_users AS (
 	SELECT id AS uniqueid, id AS customer_id, 'default'::varchar(50) AS context, useralias AS mailbox, uipass AS password,
-	 lastname || ' ' || firstname AS fullname, email AS email, ''::varchar(50) AS pager, '1984-01-01 00:00:00'::timestamp AS stamp 
-	 FROM cc_card );
+	lastname || ' ' || firstname AS fullname, email AS email, ''::varchar(50) AS pager, '1984-01-01 00:00:00'::timestamp AS stamp 
+	FROM cc_card WHERE voicemail_activated = '1'
+);
+
+
+ALTER TABLE cc_card ADD voicemail_activated INTEGER DEFAULT 0 NOT NULL;
+
+
+
+

@@ -726,32 +726,17 @@ UPDATE cc_config SET config_title='SIP/IAX Dial Command Params', config_value='|
 
 
 
+-- VOICEMAIL CHANGES
 
-CREATE TABLE voicemail_users (
-	uniqueid int(11) NOT NULL auto_increment,
-	customer_id int(11) NOT NULL default '0',
-	context varchar(50) NOT NULL default '',
-	mailbox varchar(15) NOT NULL default '0',
-	password varchar(15) NOT NULL default '8888',
-	fullname varchar(50)  ,
-	email varchar(50)  ,
-	pager varchar(50)  ,
-	stamp timestamp(14) NOT NULL,
-	PRIMARY KEY (uniqueid),
-	KEY mailbox_context (mailbox, context)
-) TYPE=MyISAM; 
-
- 
+CREATE OR REPLACE VIEW voicemail_users AS (
+	SELECT id AS uniqueid, id AS customer_id, 'default' AS context, useralias AS mailbox, uipass AS password,
+	lastname || ' ' || firstname AS fullname, email AS email, '' AS pager,  '1984-01-01 00:00:00' AS stamp
+	FROM cc_card WHERE voicemail_activated = '1'
+);
 
 
-delimiter |
+ALTER TABLE cc_card ADD voicemail_activated SMALLINT DEFAULT 0 NOT NULL,
 
-	create trigger  after_ins_cc_card  after insert on cc_card
 
-	for each row begin
 
-		insert into voicemail_users(context,mailbox,password,fullname,email) 
-		values('default',NEW.useralias,NEW.uipass,concat(NEW.lastname,NEW.firstname),NEW.email);
-		
-	end
-|
+
