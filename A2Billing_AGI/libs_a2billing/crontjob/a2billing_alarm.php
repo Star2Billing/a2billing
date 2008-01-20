@@ -181,8 +181,8 @@ foreach ($result as $myalarm) {
 		
 		if ($max_fail == 1)	$max_fail = 0;
 	
-		$ASR = $totalsuccess / $totalsuccess + $totalfail;
-		$ALOC = $totaltime / $totalsuccess + $totalfail;
+		$ASR = $totalsuccess / ($totalsuccess + $totalfail);
+		$ALOC = $totaltime / ($totalsuccess + $totalfail);
 		
 		$send_alarm = false;		
 		
