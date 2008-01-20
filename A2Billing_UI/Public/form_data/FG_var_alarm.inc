@@ -99,7 +99,7 @@ $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"$value",
 	"INPUT",
 	"",
-	"4",
+	"",
 	gettext("Insert the maximu value in") ,
 	"" , "", "", "yes", "", "", "", gettext("Input the maximum value (between 0 and 1 for ASR ; > 0 for ALOC in sec ; > 0 for CIC)"));
 
