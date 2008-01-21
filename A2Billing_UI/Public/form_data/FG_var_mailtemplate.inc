@@ -98,34 +98,32 @@ $HD_Form -> AddEditElement (gettext("MESSAGETEXT"),
 	gettext("Insert the user subject"),
 	"" , "", "", "", "" , "", "", "");
 
-	$HD_Form -> FieldEditElement ('mailtype, fromemail, fromname, subject, messagetext');
+$HD_Form -> FieldEditElement ('mailtype, fromemail, fromname, subject, messagetext');
 
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "id";
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "$latest_id";
+$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "id";
+$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "$latest_id";
 
 
-	$HD_Form ->FG_QUERY_EDITION_HIDDEN_FIELDS = "id_language";
-	$HD_Form ->FG_QUERY_EDITION_HIDDEN_VALUE  = "$id_language";
-	
-	$HD_Form -> FG_EDITION_CLAUSE = "id ='%id' ";
-	if($id_language != '' || !is_null($id_language)){
-		$HD_Form -> FG_EDITION_CLAUSE .= "and id_language = '$id_language'";
-	}	
-	
+$HD_Form ->FG_QUERY_EDITION_HIDDEN_FIELDS = "id_language";
+$HD_Form ->FG_QUERY_EDITION_HIDDEN_VALUE  = "$id_language";
+
+$HD_Form -> FG_EDITION_CLAUSE = "id ='%id' ";
+if($id_language != '' || !is_null($id_language)){
+	$HD_Form -> FG_EDITION_CLAUSE .= "AND id_language = '$id_language'";
+}
+
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the contents of the email template below.");
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this").$HD_Form->FG_INSTANCE_NAME." ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
+
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a new mail template");
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Variables can be set within the email will be replaced when the email is sent. Variables are:")." \$name; \$card_gen; \$password ; \$cardalias.";
-
-
-
+$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Then MailType is signupconfirmed, some variables can be set within the email that will be replaced when the email is sent. Variables are:")." \$name; \$card_gen; \$password ; \$cardalias ; \$loginkey ; \$email.";
 
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&languages=en&id=";

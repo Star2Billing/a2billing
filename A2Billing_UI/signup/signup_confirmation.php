@@ -99,13 +99,13 @@ foreach ($list as $recordset)
 	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
 	
 	$messagetext = str_replace('$name', $lastname, $messagetext);
-	//$message = str_replace('$username', $form->getValue('username'), $messagetext);
 	$messagetext = str_replace('$card_gen', $username, $messagetext);
 	$messagetext = str_replace('$password', $uipass, $messagetext);
 	$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
 	$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
 	$messagetext = str_replace('=$loginkey', "=$loginkey", $messagetext);
 	$messagetext = str_replace('$loginkey', "=$loginkey", $messagetext);
+	$messagetext = str_replace('$email', "$email", $messagetext);
 
 	a2b_mail($recordset[3], $subject, $messagetext, $from, $fromname);
 	if ($FG_DEBUG == 1) echo "</br><b>".$recordset[3]."<br> subject=$subject,<br> messagetext=$messagetext,</br> em_headers=$em_headers</b><hr></br>";
