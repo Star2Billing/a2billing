@@ -231,7 +231,7 @@ class Login {
                   $voicemail_enabled = 1;
                   $voicemail_email_address = $results[0][6];
                   $voicemail_pager_address = $results[0][7];
-                  echo "extension= $extension ; displayname=$displayname ; default_page=$default_page ; context=$context ; voicemail_email_address=$voicemail_email_address <br>";
+                  // echo "extension= $extension ; displayname=$displayname ; default_page=$default_page ; context=$context ; voicemail_email_address=$voicemail_email_address <br>";
                   if ($voicemail_email_address || $voicemail_pager_address) {
                     $voicemail_email_enable = 1;
                   }
