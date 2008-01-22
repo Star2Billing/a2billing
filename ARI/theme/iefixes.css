@@ -1,0 +1,16 @@
+/*
+ * IE Fixes
+ */
+
+/*Win IE fix \*/
+* html .minwidth { border-left: 760px solid #fff; position: relative; float: left; z-index: 1; }
+
+/*End Win IE fix*/
+
+/*Win IE fix \*/
+* html .container { margin-left: -760px; position: relative; float: left; z-index :2; }
+/*End Win IE fix*/
+
+
+
+

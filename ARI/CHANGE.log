@@ -1,0 +1,271 @@
+
+
+Change log - 05/02/2006
+
+ * update of french translation (submitted by Xavier Ourcière)
+
+Change log - 04/28/2006
+
+ * changed PEAR portability flags to try and fix a bug a user is having (maybe a buggy or old version of PEAR on users machine)
+ * fixed no voicemail message to be more intuitive
+ * fixed ajax bug
+ * fixed German i18n translation bug (requested by Wanninger)
+ * fixed settings recording format bug
+ * fixed settings call forward bug
+
+Change log - 04/10/2006
+
+ * added autoplay of recordings (requested by Robert LaPoint)
+ * refactored the response from the asterisk manager interface so do not always have to strip off "value:" from the response
+
+Change log - 04/04/2006
+
+ * abstracted the doc_root (PHP_SELF) to a variable to handle cases where it is not set properly (requested by Diego Iastrubni)
+ * removed error message about user voicemail directory (submitted by Diego Iastrubni)
+ * added feature to login to allow voicemail include files with wildcards (submitted by Diego Iastrubni)
+ * made voicemail password length message more accurate and descriptive on settings page (submitte by Robert Colbert)
+ * added outbound caller id record matching for call monitor page for results returned to individual users (requested by Robert LaPoint) 
+ * fixed AJAX bug that kept giving javascript errors.  Now form, pass, and parse a full xml doc
+ * fixed bug in description of dial code in help settings page (submitte by Robert Colbert)
+ * fixed bug to disable AJAX if using a browser that does not support AJAX
+ * updated Italian Translation (contributed by Francesco Romano: alteclab.it)
+
+Change log - 03/31/2006
+
+ * updated Spanish Translation (contributed by Antonio Cano damas: igestec.com)
+
+Change log - 03/29/2006
+
+ * added support for voicemail.conf include files (requested by Diego Iastrubni)
+ * updated database connection to support sqlite (and other databases using a connect file) (requested by Diego Iastrubni)
+
+Change log - 03/28/2006
+
+ * updated for PHP5 support
+ * fixed bug in AJAX javascript (fix submitted by Mahmud Fatafta - voicemetro.com)
+
+Change log - 03/23/2006
+
+ * remove variable references in function calls for PHP5 support (PHP4 supports, PHP5 does not, go figure)
+
+Change log - 03/18/2006
+
+ * fixed setting page voicemail options bug (submitted by Dave Vaughn: techcompinc.com)
+ * fixed settings page record settings FreePBX version bug (submitted by Luca Pandolfini)
+
+Change log - 03/13/2006
+
+ * added navigation menus to ajax update
+ * changed voicemail password on settings page so it can be variable length (submitted by vgster)
+ * fixed bug with settings page check boxes
+
+Change log - 03/09/2006
+
+ * fixed bug in error reporting for asterisk config files or recording file directories missing
+ * fixed bug for voicemail message move to perserve permissions, group, and user
+ * fixed bug in .inc and .conf file security (submitted by Diego Iastrubni, François Harvey: securiweb.net, and Adam Gray: novacoast.com)
+
+Change log - 03/07/2006
+
+ * added ajax seemless page refresh to callmonitor and voicemail 
+ * added recording playback encryption (requested by François Harvey: securiweb.net)
+ * added ajax page refresh for voicemail and callmonitor (will seemlessly update page realtime)
+ * fixed bug in file permissions when a voicemail was moved (submitted by ?)
+
+Change log - 02/22/2006
+
+ * added filter to not load code not needed if a module is not loaded (submitted by Diego Iastrubni)
+ * refactored asterisk manager interface class to not require password lookup in common and asi files
+ * fixed module admin bug (submitted by serger)
+
+Change log - 02/14/2006
+
+ * added callmonitor duration filter to filter out short length calls (sponsored by John Cardner, Phonoscope, Inc)
+
+Change log - 02/09/2006
+
+ * added voicemail email and pager settings
+ * more rework of callmonitor recording match to handle large volumes of recordings (sponsored by John Cardner, Phonoscope, Inc)
+
+Change log - 02/07/2006
+
+ * added check for PHP PEAR installation
+ * added check for proper communication with the Asterisk Manager
+ * fixed class coding standard (ie ClassName)
+ * fixed method coding standard (ie methodName)
+ * fixed variable coding standard (ie variable_name)
+ * fixed constant coding standard (ie CONSTANT_NAME)
+ * added config option for voicemail password length  (submitted by Chuck Bunn)
+    - set with $SETTINGS_VOICEMAIL_PASSWORD_LENGTH in /includes/main.conf
+ * added voicemail audio format admin option in settings page (submitted by Chuck Bunn) 
+    - set with $ARI_VOICEMAIL_AUDIO_FORMAT_DEFAULT in /includes/main.conf
+ * fixed bug to separate voicemail password set in settings page (submitted by Chuck Bunn) 
+
+Change log - 02/05/2006
+
+ * added call forward setting
+ * added Hebrew Translation (submitted by Diego Iastrubni)
+ * fixed i18n translation best practices and bugs (submitted by Diego Iastrubni)
+ * fixed voicemail message move bug (submitted by Steve Davies)
+ * fixed voicemail folder creation permissions issue (submitted by Steve Davies) 
+
+Change log - 01/31/2006
+
+ * added help page
+ * added file lookup limiting code to prevent hanging when extremely large numbers of files are found in a directory
+ * added database type global variable
+
+Change log - 01/26/2006
+
+ * added php 4 or later version checking
+ * fixed php pre 4.3 version compatability
+ * fixed buy in call manager file matching recursively searching directories (submitted by Adrian Carter)
+
+Change log - 01/20/2006
+
+ * added call monitor aggressive matching option
+
+Change log - 01/18/2006
+
+ * added Hungarian Translation (submitted by Diego Imre Csaba Varasdy)
+ * fixed bug for Asterisk Manager change in Asterisk 1.2
+
+Change log - 01/12/2006
+
+ * added column sort to voicemail page (requested by Diego Elias Sofronas)
+ * added column sort to call monitor page (requested by Elias Sofronas)
+ * added i18n lang select to login page (requested by Diego Iastrubni)
+
+Change log - 12/09/2005
+
+ * another fix to the on-demand call monitor recordings (submitted by Blake Krone)
+
+Change log - 12/09/2005
+
+ * fix to recognize on-demand call monitor recordings (identified as auto-...) (submitted by Francesco Romano, Antonio Cano Damas, and Jason P. Meyer)
+ * added German Translation (submitted by Till Stoermer)
+
+Change log - 12/07/2005
+
+ * fixed search bug (submitted by Francesco Romano)
+ * fixed formating bugs
+
+Change log - 12/01/2005
+
+ * fix delete, move_to, and forward_to voicemail buttons for i18n translations
+ * fix delete call monitor button for i18n translations
+ * fix call monitor file matching problem if call time is a second or two later than time recorded in database log (submitted by Will Prater, Steve D, and others)
+ * changed to get call recording settings from asterisk and not the mysql database to support ARI standalone 
+ * fix i18n for recording popup (submitted by Antonio Cano Damas)
+ * added search for voicemail
+ * added class to handle Asterisk Manager Interface (phpagi-asmanager.php would need error handling added)
+ * moved i18n language functions to own file so can support i18n in recording popup
+ * added Italian (submitted by Francesco Romano)
+ * updated Spanish translation (submitted by Antonio Cano Damas)
+ * fixed bugs in standalone code (sponsored by Hugh Buitano and also submitted by John Biundo)
+ * fixed logo (submitted by John Biundo)
+ * cleaned up css for misc/audio.php
+
+Change log - 11/17/2005
+
+ * added protocol multi-config_file (iax,sip,zap) support (sponsored by Hugh Buitano, Infosecure Systems)
+ * add global variables for asterisk and asteriskcdr database hosts and names (sponsored by Hugh Buitano, Infosecure Systems)
+ * added French translation (submitted by Joachim Buron-Pilatre, Phileas Com)
+ * fixed bug (submitted by Joachim Buron-Pilatre, Phileas Com)
+
+Change log - 11/13/2005
+
+ * refactored login context support 
+ * added voicemail context support (submitted by Todd Courtnage)
+ * fixed voicemail sub nav folders to allow i18n translation (submitted by Elias Sofronas)
+ * fixed voicemail finding messages in different contexts (sponsored by Brian Connelly, Connelly Management)
+
+Change log - 11/09/2005
+
+ * fixed utf-8 translation in Greek (submitted by Elias Sofronas)
+ * added admin only access to specific modules (submitted by Julian J. M.)
+ * rework handler module code so that each module is only build one time
+ * added download message link on recording playback popup (sponsored by John Cardner, Phonoscope, Inc)
+ * converted i18n translation to utf-8 (submitted by Niklas Larsson and Elias Sofronas)
+ * fix more bugs in i18n translation (submitted by Niklas Larsson)
+ * fixed security bug that allowed access to all files (Edwin Eefting, syn-3.nl)
+
+Change log - 11/04/2005
+
+ * fixed bug to reload asterisk voicemail after voicemail password setting change (submitted by Jason Becker)
+
+Change log - 11/03/2005
+
+ * Highlight which voicemail sub-folder in use (submitted by Elias Sofronas)
+ * set default i18n page (suggested by Niklas Larsson)
+ * admin only account for call monitor (submitted by Julian J. M.)
+ * enhanced pattern matching call monitor unique id from database (submitted by Julian J. M.)
+ * updated Spanish translation (submitted by Diego Iastrubni)
+ * added Swedish translation (submitted by Niklas Larsson)
+ * added Greek translation (submitted by Elias Sofronas)
+ * fixed bug in call recording settings method (changed in AMP 1.10.009)
+ * fix bugs in i18n translation (submitted by Niklas Larsson)
+   - buttons, left menus, select  all | none, Call Monitor (heading), Login page.
+
+Change log - 10/21/2005
+
+ * fixed bug in voicemail navigation (submitted by Elias Sofronas)
+ * added version cleanup
+ * added Spanish translation (submitted by Susana Castillo)
+ * added Portuguese translation (submitted by Alejandro Duplat)
+ * added admin setting for call recording
+
+Change log - 09/30/2005
+
+ * added i18n language support
+ * fixed bug if no folder or extension was selected and "move_to" or 
+   "forward_to" clicked (bug submitted by Elias Sofronas)
+ * converted modules to a OO plugin architecture
+ * added version to footer
+ * add theme customization
+ * added recording type support (.WAV, .GSM) on settings page
+ * fixed bug to find call recording files better (patch submitted by Mark Voevodin)
+ * fixed bug for navigation and search controls to link to correct folder (bug submitted by Elias Sofronas)
+ * added voicemail password change to settings page
+ * added call monitor delete recording functionality (does not delete database entry)
+ * added call recording settings on settings page
+
+Change log - 09/15/2005
+
+ * added settings page
+ * added call monitor record options on settings page
+ * fixed bug to view src and dst calls in call monitor when restricted (submitted by Elias Sofronas and Thomas Stalder)
+
+Change log - 08/25/2005
+
+ * added SIP authentication login (this does not allow voicemail access)
+ * added persistent passwords (cookies)
+ * added encryption for cookies 
+
+Change log - 08/23/2005
+
+ * Fixed $_SESSION['user'] bug conflict with AMP
+   -> changed to $_SESSION['ari_user']
+ * Fixed recording file lookup bug.
+
+Change log - 08/16/2005
+
+ * Fixed formating bug in css
+ * Added multipath to call monitor recordings
+    - set with $asterisk_callmonitor_path in /includes/main.conf
+ * added authentication
+    - use voicemail password
+       - access mailbox voicemail
+       - access call monitor for mailbox
+    - use AMP password
+       - access call monitor for all users
+    - config to allow voicemail to have call monitor access to all users
+  * voicemail access
+     - search of mailbox
+     - easy to delete voicemail interface
+     - move voicemail interface
+     - forward voicemail interface
+ 
+
+
+    

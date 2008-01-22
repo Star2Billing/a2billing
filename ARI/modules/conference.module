@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * Functions for the interface to the meetme conferences
+ *
+ * Author: Xavier Ourciere (xourciere@propolys.com)
+ * WebMeetMe module for ARI
+ * You just need a working WebMeetMe and a smart MeetMe dialplan
+ *
+ * I made a little module to let our users access and to manage their own conference rooms.
+ * We like the old AMP MeetMe dialplan (each users have their own meetme room with a prefix number) 
+ *   so we still use this trick (moreover the meetme rooms must be defined as this {prefix}{extension}).
+ */
+
+/**
+  * Class for meetme conferences
+  */
+class Conference {
+
+  /*
+   * Config
+   */
+  var $conf_prefix = '7';
+  var $webmeetme_url = 'http://example.mycompany.com/webmeetme';
+
+  /*
+   * rank (for prioritizing modules)
+   */
+  function rank() {
+
+    $rank = 4;
+    return $rank;
+  }
+
+  /*
+   * init
+   */
+  function init() {
+  }
+
+  /*
+   * Adds menu item to nav menu
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function navMenu($args) {
+
+    global $CONFERENCE_WEBMEETME_PREFIX;
+    global $CONFERENCE_WEBMEETME_URL;
+    
+    if ($CONFERENCE_WEBMEETME_PREFIX && $CONFERENCE_WEBMEETME_URL) {
+      $ret .= "
+        <p><small><small><a href='" . $_SERVER['PHP_SELF'] . "?m=Conference&f=display'>" . _("My Conference room") . "</a></small></small></p>";
+      return $ret;
+    }
+  }
+
+  /*
+   * Displays Conference page
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function display($args) {
+
+    global $CONFERENCE_WEBMEETME_PREFIX;
+    global $CONFERENCE_WEBMEETME_URL;
+
+    $ret = '';
+    if ($CONFERENCE_WEBMEETME_PREFIX && $CONFERENCE_WEBMEETME_URL) {
+
+      $display = new Display();
+
+      $displayname = $_SESSION['ari_user']['displayname'];
+      $extension = $_SESSION['ari_user']['extension'];
+      $header_text = sprintf(_("Conference for %s (%s%s)"), $displayname, $CONFERENCE_WEBMEETME_PREFIX, $extension);
+      $url = $CONFERENCE_WEBMEETME_URL . '/conf_control.php?confno=' . $CONFERENCE_WEBMEETME_PREFIX. $extension;
+
+      // build page
+      $ret .= checkErrorMessage();                                                                                                                        
+      $ret .= $display->displayHeaderText($header_text);
+      $ret .= $display->displayLine();
+      $ret .= '<iframe src="' . $url . '" width="600px" height="400px"></iframe>';
+    }
+    return $ret;
+  }
+
+
+}

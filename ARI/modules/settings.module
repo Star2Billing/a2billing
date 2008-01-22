@@ -1,0 +1,928 @@
+<?php
+
+/**
+ * @file
+ * Functions for the interface to the call monitor recordings
+ */
+
+/**
+  * Class for settings
+  */
+class Settings {
+
+  var $protocol_table;
+  var $protocol_config_files;
+
+  /*
+   * rank (for prioritizing modules)
+   */
+  function rank() {
+
+    $rank = 100000;
+    return $rank;
+  }
+
+  /*
+   * init
+   */
+  function init() {
+
+    // determine what protocol user is using
+    global $ASTERISK_PROTOCOLS;
+
+    foreach ($ASTERISK_PROTOCOLS as $protocol => $value) {
+      $data = $this->getProtocolRecordSettings($value['table'],$_SESSION['ari_user']['extension']);
+      if (count($data)) {
+        $this->protocol_table = $value['table'];  
+        $this->protocol_config_files = $value['config_files'];  
+        break;
+      }  
+    }
+  }
+
+  /*
+   * Adds menu item to nav menu
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function navMenu($args) {
+
+    global $ARI_NO_LOGIN;
+
+    // check logout
+    if ($_SESSION['ari_user'] && !$ARI_NO_LOGIN) {
+      $logout = 1;
+    }
+
+    if ($logout!='') { 
+      $ret .= "
+        <br>
+        <p><small><small><a href='" . $_SESSION['ARI_ROOT'] . "?m=Settings&f=display'>" . _("Settings") . "</a></small></small></p>";
+    } 
+
+    return $ret;
+  }
+
+  /*
+   * Acts on the user settings
+   *
+   * @param $args
+   *   Common arguments
+   * @param $a
+   *   action
+   */
+  function action($args) {
+
+    global $STANDALONE;
+    global $ARI_ADMIN_USERNAME;
+    global $ASTERISK_VOICEMAIL_CONF;
+    global $SETTINGS_ALLOW_VOICEMAIL_PASSWORD_SET;
+    global $SETTINGS_VOICEMAIL_PASSWORD_LENGTH;
+    global $SETTINGS_VOICEMAIL_PASSWORD_EXACT;
+    global $SETTINGS_ALLOW_CALL_RECORDING_SET;
+
+    // args
+    $m = getArgument($args,'m');
+    $a = getArgument($args,'a');
+
+    $lang_code = getArgument($args,'lang_code');
+
+    $call_forward_enable  = getArgument($args,'call_forward_enable');
+    $call_forward_number  = getArgument($args,'call_forward_number');
+
+    $voicemail_password = getArgument($args,'voicemail_password');
+    $voicemail_password_confirm = getArgument($args,'voicemail_password_confirm');
+    $voicemail_email_address = getArgument($args,'voicemail_email_address');
+    $voicemail_pager_address = getArgument($args,'voicemail_pager_address');
+    $voicemail_email_enable = getArgument($args,'voicemail_email_enable');
+
+    if (isset($_SESSION['ari_user']['voicemail_email'])) {
+      foreach (array_keys($_SESSION['ari_user']['voicemail_email']) as $key) {
+        $var = "voicemail_email_$key"; 
+        $$var = getArgument($args,$var);
+      }
+    }
+
+    $voicemail_audio_format = getArgument($args,'voicemail_audio_format');
+
+    $record_in = getArgument($args,'record_in');
+    $record_out = getArgument($args,'record_out');
+
+    $language = new Language();
+
+    if ($a=='update') {
+
+      $exten = $_SESSION['ari_user']['extension'];
+      if ($exten!=$ARI_ADMIN_USERNAME) {
+
+        // update call forward number
+        if (!$STANDALONE['use']) {
+
+          $stripped_call_forward_number = preg_replace('/-|\(|\)|\s/','',$call_forward_number);
+          if ($call_forward_enable && !is_numeric($stripped_call_forward_number)) {
+            $_SESSION['ari_error'] = 
+              _("Call forward number not changed") . "<br>" .
+              sprintf(_("Number %s must contain dial numbers (characters like '(', '-', and ')' are ok)"),$call_forward_number);
+          }
+          else {
+
+            // set database
+            $this->setCallForward($exten,$call_forward_enable,$stripped_call_forward_number);
+
+            // store cookie
+            $stripped = preg_replace('/-|\(|\)|\s/','',$_COOKIE['ari_call_forward_number']);
+            if ($call_forward_number && $stripped!=$stripped_call_forward_number) {
+              setcookie("ari_call_forward_number", $call_forward_number, time()+365*24*60*60);
+            }
+          }
+        }
+
+        // voicemail settings
+        if ($_SESSION['ari_user']['voicemail_enabled']==1) {
+
+
+          // update voicemail password
+          if ($SETTINGS_ALLOW_VOICEMAIL_PASSWORD_SET) {
+
+            // update voicemail password
+            if ($voicemail_password=='' || $voicemail_password_confirm=='') {
+              $_SESSION['ari_error'] = 
+                _("Voicemail password not changed") . "<br>" .
+                _("Password and password confirm must not be blank");
+            }  
+            else if ((strlen($voicemail_password)<$SETTINGS_VOICEMAIL_PASSWORD_LENGTH) || !is_numeric($voicemail_password)) {
+              $_SESSION['ari_error'] = 
+                _("Voicemail password not changed") . "<br>" .
+                sprintf(_("Passwords must be all numbers and greater than %d digits"),$SETTINGS_VOICEMAIL_PASSWORD_LENGTH);
+            }
+            else if (strlen($voicemail_password)!=$SETTINGS_VOICEMAIL_PASSWORD_LENGTH && $SETTINGS_VOICEMAIL_PASSWORD_EXACT || !is_numeric($voicemail_password)) {
+              $_SESSION['ari_error'] = 
+                _("Voicemail password not changed") . "<br>" .
+                sprintf(_("Passwords must be all numbers and only %d digits"),$SETTINGS_VOICEMAIL_PASSWORD_LENGTH);
+            }
+            else if ($voicemail_password!=$voicemail_password_confirm) {
+              $_SESSION['ari_error'] = 
+                _("Voicemail password not changed") . "<br>" .
+                _("Password and password confirm do not match");
+            }
+            else {
+
+              // check for writable the files
+              $temp_file = $ASTERISK_VOICEMAIL_CONF . ".tmp";
+              $fp = fopen($temp_file, "w");
+              if (!$fp) {
+                $_SESSION['ari_error'] = 
+                  _("Voicemail password not changed") . "<br>" .
+                  sprintf(_("%s does not exist or is not writable"),$temp_file);
+              }
+              else if (!is_writable($ASTERISK_VOICEMAIL_CONF)) {
+                $_SESSION['ari_error'] = 
+                  _("Voicemail password not changed") . "<br>" .
+                  sprintf(_("%s does not exist or is not writable"),$ASTERISK_VOICEMAIL_CONF);
+              }
+              else {
+
+                // update session
+                $_SESSION['ari_user']['voicemail_password'] = $voicemail_password;
+
+                // save password
+                $lines = file($ASTERISK_VOICEMAIL_CONF);
+                foreach ($lines as $key => $line) {
+                  unset($value);
+                  list($var,$value) = split('=>',$line);
+                  $var = trim($var);
+                  if ($var==$exten && $value) {
+
+                    // write out line with password change
+                    $buf = split(',',$value);
+                    $buf[0] = $voicemail_password;
+                    $line = $var . " => " . join(',', $buf);
+
+                    fwrite($fp, $line);
+                  }
+                  else {
+
+                    // write out original line with no changes
+                    fwrite($fp, $line);
+                  }
+                }
+                fclose($fp);
+                unlink($ASTERISK_VOICEMAIL_CONF);
+                rename($temp_file,$ASTERISK_VOICEMAIL_CONF);
+ 
+                $voicemail_reload = 1;
+              }
+            }
+
+            // voicemail email address
+            if ($voicemail_email_enable && 
+                 ($voicemail_email_address && !preg_match('/@/',$voicemail_email_address) || 
+                 ($voicemail_pager_address && !preg_match('/@/',$voicemail_pager_address)))) {
+              $_SESSION['ari_error'] = 
+                _("Voicemail email and pager address not changed") . "<br>" .
+                ("'$voicemail_email_address' and '$voicemail_pager_address' must be a valid email addresses");
+            }
+            else {
+
+              // check for writable the files
+              $temp_file = $ASTERISK_VOICEMAIL_CONF . ".tmp";
+              $fp = fopen($temp_file, "w");
+              if (!$fp) {
+                $_SESSION['ari_error'] = 
+                  _("Voicemail email settings not changed") . "<br>" .
+                  sprintf(_("%s does not exist or is not writable"),$temp_file);
+              }
+              else if (!is_writable($ASTERISK_VOICEMAIL_CONF)) {
+                $_SESSION['ari_error'] = 
+                  _("Voicemail email settings not changed") . "<br>" .
+                  sprintf(_("%s does not exist or is not writable"),$ASTERISK_VOICEMAIL_CONF);
+              }
+              else {
+
+                // store cookie
+                if ($voicemail_email_enable) {
+                  setcookie("ari_voicemail_email_address", $voicemail_email_address, time()+365*24*60*60);
+                  setcookie("ari_voicemail_pager_address", $voicemail_pager_address, time()+365*24*60*60);
+                  foreach (array_keys($_SESSION['ari_user']['voicemail_email']) as $key) {
+                    $var = "voicemail_email_$key";
+                    $var_cookie = "ari_" . $var;
+                    setcookie("$var_cookie", $$var, time()+365*24*60*60);
+                  }
+                }
+        
+                // update session
+                $_SESSION['ari_user']['voicemail_email_enable'] = $voicemail_email_enable;
+                if ($voicemail_email_enable) {
+                  $_SESSION['ari_user']['voicemail_email_address'] = $voicemail_email_address;
+                  $_SESSION['ari_user']['voicemail_pager_address'] = $voicemail_pager_address;
+                  foreach (array_keys($_SESSION['ari_user']['voicemail_email']) as $key) {
+                    $option = "voicemail_email_$key";
+                    $_SESSION['ari_user']['voicemail_email'][$key] = $$option;
+                  }
+                }
+
+                // save settings
+                if (!$voicemail_email_enable) {
+                  $voicemail_email_address = '';
+                  $voicemail_pager_address = '';
+                }
+
+                $lines = file($ASTERISK_VOICEMAIL_CONF);
+                foreach ($lines as $key => $line) {
+                  unset($value);
+                  list($var,$value) = split('=>',$line);
+                  $var = trim($var);
+                  if ($var==$exten && $value) {
+
+                    // write out line with voicemail email change
+                    $buf = split(',',$value);
+                    $buf[2] = $voicemail_email_address;
+                    $buf[3] = $voicemail_pager_address;
+
+                    foreach ($_SESSION['ari_user']['voicemail_email'] as $key => $value) {
+                      $option = "voicemail_email_$key";
+                      if ($$option && $key) {
+                        $options .= $key . "=" . $value;
+                      }
+                      else {
+                        $options .= $key . "=no";
+                      }
+                      $options .= "|";
+                    }
+                    $buf[4] = substr($options, 0, -1);
+
+                    $line = $var . " =>" . join(',', $buf);
+                    if (substr($line, 0, -1)!="\n") {
+                      $line .= "\n";
+                    }
+ 
+                    fwrite($fp, $line);
+                  }
+                  else {
+
+                    // write out original line with no changes
+                    fwrite($fp, $line);
+                  }
+                }
+                fclose($fp);
+                unlink($ASTERISK_VOICEMAIL_CONF);
+                rename($temp_file,$ASTERISK_VOICEMAIL_CONF);
+
+                $voicemail_reload = 1;
+              }
+            }
+
+            // reload asterisk voicemail
+            if ($voicemail_reload) {
+              $this->reloadAsteriskVoicemail();
+            }
+          }
+
+          // update voicemail audio format setting
+          setcookie("ari_voicemail_audio_format", $voicemail_audio_format, time()+365*24*60*60);
+        }
+
+        // update call monitor record setting
+        if ($SETTINGS_ALLOW_CALL_RECORDING_SET) {
+          if ($record_in && $record_out) {
+            $this->setRecordSettings($exten,$record_in,$record_out);
+          }
+        }
+      }
+    }
+
+    // redirect to see updated page
+    $ret .= "
+      <head>
+        <script>
+        <!--
+          window.location = \"" . $_SESSION['ARI_ROOT'] . "?m=" . $m . "\"
+        // -->
+        </script>
+    </head>";
+  
+    return $ret;
+  }
+
+  /*
+   * Displays stats page
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function display($args) {
+
+    global $STANDALONE;
+    global $ARI_ADMIN_USERNAME;
+    global $SETTINGS_ALLOW_VOICEMAIL_PASSWORD_SET;
+    global $SETTINGS_VOICEMAIL_PASSWORD_LENGTH;
+    global $SETTINGS_VOICEMAIL_EMAIL_OPTION_DESCRIPTIONS;
+    global $ARI_VOICEMAIL_AUDIO_FORMAT_DEFAULT;
+    global $SETTINGS_ALLOW_CALL_RECORDING_SET;
+
+    global $loaded_modules;
+
+    // args
+    $m = getArgument($args,'m');
+    $q = getArgument($args,'q');
+    $start = getArgument($args,'start');
+    $span = getArgument($args,'span');
+
+    $displayname = $_SESSION['ari_user']['displayname'];
+    $exten = $_SESSION['ari_user']['extension'];
+
+    $language = new Language();
+    $display = new DisplaySearch();
+
+    // get data
+    $data = $this->getRecordSettings($_SESSION['ari_user']['extension']);
+
+    // lang setting options
+    if (extension_loaded('gettext')) { 
+      $setLangText = "
+          <p class='lang'>
+ 	    " . _("Language:") . "
+	    " . $language->GetForm() . "
+          </p>";
+    } 
+
+    // build controls
+    if ($exten!=$ARI_ADMIN_USERNAME) {
+
+      // call forward settings
+      if (!$STANDALONE['use']) {
+
+        $call_forward_number = $this->getCallForwardNumber($exten);
+        if ($call_forward_number) { 
+          $call_forward_enable = 'checked';
+        }
+        else {
+          $call_forward_number = $_COOKIE['ari_call_forward_number'];
+          $call_forward_text_box_options = "disabled style='background: #DDD;'";
+        }
+
+        $set_call_forward_text = "
+          <table class='settings'>
+	    <tr>
+              <td><h3>" . _("Call Routing") . "</h3></td>
+	    </tr>
+	    <tr>
+              <td>" . _("Call Forwarding:") . "</td>
+              <td>
+                <input " . $call_forward_text_box_options . " name='call_forward_number' type='text' size=24 value='" . $call_forward_number . "'>
+              </td>
+	    <tr>
+              <td></td>
+              <td>
+                <input " . $call_forward_enable . " type=checkbox name='call_forward_enable' value='checked' OnClick=\"disable_fields(); return true;\">
+                <small>" . _("Enable") . "</small>
+              </td>
+	    </tr>
+          </table>";
+      }
+
+      // voicemail settings
+      if ($_SESSION['ari_user']['voicemail_enabled']==1 && 
+            in_array('voicemail',array_keys($loaded_modules))) {
+        if ($SETTINGS_ALLOW_VOICEMAIL_PASSWORD_SET) {
+
+          if ($SETTINGS_VOICEMAIL_PASSWORD_EXACT) {
+            $voicemail_password_length_message = sprintf(_("Passwords must be all numbers and only %s digits"),$SETTINGS_VOICEMAIL_PASSWORD_LENGTH);
+          }
+          else {
+            $voicemail_password_length_message = sprintf(_("Passwords must be all numbers and at least %s digits"),$SETTINGS_VOICEMAIL_PASSWORD_LENGTH);
+          }
+
+          $set_voicemail_password_text = "
+	    <tr>
+              <td>" . _("Voicemail Password:") . "</td>
+              <td>
+                <input name='voicemail_password' type='password' size=16 value=" . $_SESSION['ari_user']['voicemail_password'] . ">
+              </td>
+	    </tr>
+	    <tr>
+              <td>" . _("Enter again to confirm:") . "</td>
+              <td>
+                <input name='voicemail_password_confirm' type='password' size=16 value=" . $_SESSION['ari_user']['voicemail_password'] . ">
+              </td>
+	    </tr>
+	    <tr>
+             <td class='note' colspan=2><small>" . $voicemail_password_length_message . "</small></td>
+	    </tr>";
+        }
+
+        if (isset($_SESSION['ari_user']['voicemail_email'])) {
+
+          if ($_SESSION['ari_user']['voicemail_email_enable']) { 
+            $voicemail_email_address = $_SESSION['ari_user']['voicemail_email_address'];
+            $voicemail_pager_address = $_SESSION['ari_user']['voicemail_pager_address'];
+            $voicemail_email_enable = 'checked';
+
+            foreach (array_keys($_SESSION['ari_user']['voicemail_email']) as $key) {
+              $var = "voicemail_email_$key";
+              $var_enable = $var . "enable";
+              if ($_SESSION['ari_user']['voicemail_email'][$key]=='yes') {
+                $$var_enable = 'checked';
+              }
+            }
+          }
+          else {
+
+            $voicemail_email_address = $_COOKIE['ari_voicemail_email_address'];
+            $voicemail_email_text_box_options = "disabled style='background: #DDD;'";
+            $voicemail_pager_address = $_COOKIE['ari_voicemail_pager_address'];
+            $voicemail_pager_text_box_options = "disabled style='background: #DDD;'";
+
+            foreach ($_SESSION['ari_user']['voicemail_email'] as $key => $value) {
+              $var = "voicemail_email_$key";
+              $var_cookie = "ari_" . $var;
+              $var_enable = $var . "enable";
+              $var_text_box_options = $var . "text_box_options";
+
+              $$var_text_box_options = "disabled";
+              if ($_COOKIE[$var_cookie]=='yes') {
+                $$var_enable = 'checked';
+              }
+            }
+          }
+
+          $set_voicemail_email_text = "
+	    <tr>
+              <td>" . _("Email Voicemail To:") . "</td>
+              <td>
+                <input " . $voicemail_email_text_box_options . " name='voicemail_email_address' type='text' size=48 value='" . $voicemail_email_address . "'>
+              </td>
+	    </tr>
+	    <tr>
+              <td>" . _("Pager Voicemail To:") . "</td>
+              <td>
+                <input " . $voicemail_pager_text_box_options . " name='voicemail_pager_address' type='text' size=48 value='" . $voicemail_pager_address . "'>
+              </td>
+	    </tr>
+            <tr>
+              <td></td>
+              <td>
+                <input " . $voicemail_email_enable . " type=checkbox name='voicemail_email_enable' value='1' OnClick=\"disable_fields(); return true;\">
+                <small>" . _("Enable") . "</small>
+              </td>
+           </tr>";
+
+          foreach ($_SESSION['ari_user']['voicemail_email'] as $key => $value) {
+
+            $var = "voicemail_email_$key";
+            $var_enable = $var . "enable";
+            $var_text_box_options = $var . "text_box_options";
+            if ($SETTINGS_VOICEMAIL_EMAIL_OPTION_DESCRIPTIONS[$key]) {
+              $var_text = $SETTINGS_VOICEMAIL_EMAIL_OPTION_DESCRIPTIONS[$key];
+            }
+            else {
+              $var_text = $key;
+            }
+
+            if ($value != 'yes' && $value != 'no' && $value !='') {
+
+              $size = strlen($value) - 1;
+              $set_voicemail_email_text .= "
+                <tr>
+                  <td></td>
+                  <td>
+                    <input type=text size='" . $size . "' name='" . $var . "' value='" . $value . "' OnClick=\"disable_fields(); return true;\">
+                    <small>" . $var_text . "</small>
+                  </td>
+                </tr>";
+            } 
+            else {
+
+              $set_voicemail_email_text .= "
+                <tr>
+                  <td></td>
+                  <td>
+                    <input " . $$var_enable . " " . $$var_text_box_options . " type=checkbox name='" . $var . "' value='yes' OnClick=\"disable_fields(); return true;\">
+                    <small>" . $var_text . "</small>
+                  </td>
+                </tr>";
+            }
+          }
+        }
+ 
+        $wav_enable = 'selected';
+        if ($_COOKIE['ari_voicemail_audio_format']=='.gsm'|| 
+              ($_COOKIE['ari_voicemail_audio_format']=='' && $ARI_VOICEMAIL_AUDIO_FORMAT_DEFAULT='.gsm')) {
+          $wav_enable = '';
+          $gsm_enable = 'selected';
+        } 
+
+        $set_voicemail_audio_format_text = "
+	  <tr>
+            <td>" . _("Audio Format:") . "</td>
+            <td>
+              <select name='voicemail_audio_format'>
+                <option value='.wav' " . $wav_enable .  ">" . _("Best Quality") . " (.wav)</option>
+                <option value='.gsm' " . $gsm_enable .  ">" . _("Smallest Download") . " (.gsm)</option>
+              </select>
+            </td>
+          </tr>";
+
+        $set_voicemail_text = "
+          <table class='settings'>
+            <tr>
+              <td><h3>" . _("Voicemail Settings") . "</h3></td>
+	    </tr>
+            " . $set_voicemail_password_text . "
+            " . $set_voicemail_email_text . "
+            " . $set_voicemail_audio_format_text . "
+          </table>";
+      }
+
+      // call monitor settings
+      if ($this->getFreePBXVersion() &&
+            $SETTINGS_ALLOW_CALL_RECORDING_SET && 
+            in_array('callmonitor',array_keys($loaded_modules))) {
+
+        foreach($data as $key=>$value) {
+          if ($key=='record_in') {
+            if ($value=='Always') {
+              $ri_always = 'checked=checked';
+            }
+            elseif ($value=='Never') {
+              $ri_never = 'checked=checked';
+            }
+            elseif ($value=='Adhoc') {
+              $ri_on_demand = 'checked=checked';
+            }
+          }
+          if ($key=='record_out') {
+            if ($value=='Always') {
+              $ro_always = 'checked=checked';
+            }
+            elseif ($value=='Never') {
+              $ro_never = 'checked=checked';
+            }
+            elseif ($value=='Adhoc') {
+              $ro_on_demand = 'checked=checked';
+            }
+          }
+        }
+
+        $set_callmonitor_text = "
+          <table class='settings'>
+	    <tr>
+              <td><h3>" . _("Call Monitor Settings") . "</h3></td>
+	    </tr>
+	    <tr>
+              <td>" . _("Record INCOMING:") . " </td>
+              <td>
+                <input type='radio' name='record_in' value='Always' " . $ri_always . "/> " . _("Always") . " 
+                <input type='radio' name='record_in' value='Never' " . $ri_never . "/> " . _("Never") . "				
+                <input type='radio' name='record_in' value='Adhoc' " . $ri_on_demand . "/> " . _("On-Demand") . "
+              </td>
+            </tr>
+            <tr>
+              <td>" . _("Record OUTGOING:") . " </td>
+              <td>
+                <input type='radio' name='record_out' value='Always' " . $ro_always . "/> " . _("Always") . "
+                <input type='radio' name='record_out' value='Never' " . $ro_never . "/> " . _("Never") . "				
+                <input type='radio' name='record_out' value='Adhoc' " . $ro_on_demand . "/> " . _("On-Demand") . "
+              </td>
+            </tr>
+          </table>";
+      }
+    }
+
+    // javascript enable options
+    if (isset($_SESSION['ari_user']['voicemail_email']) &&
+          in_array('voicemail',array_keys($loaded_modules))) {
+      foreach ($_SESSION['ari_user']['voicemail_email'] as $key => $value) {
+        $var = "voicemail_email_$key";
+        $js_voicemail_email_disable .= "
+          document.ari_settings.$var.disabled = false;";
+        $js_voicemail_email_enable .= "
+          document.ari_settings.$var.disabled = true;";
+      }
+
+      $js_voicemail_script = "
+          if (document.ari_settings.voicemail_email_enable.checked) {
+            document.ari_settings.voicemail_email_address.style.backgroundColor = '#FFF';
+            document.ari_settings.voicemail_email_address.disabled = false;
+            document.ari_settings.voicemail_email_address.value='" . $voicemail_email_address . "';
+            document.ari_settings.voicemail_pager_address.style.backgroundColor = '#FFF';
+            document.ari_settings.voicemail_pager_address.disabled = false;
+            document.ari_settings.voicemail_pager_address.value='" . $voicemail_pager_address . "';
+            " . $js_voicemail_email_disable . "
+          }
+          else {
+            document.ari_settings.voicemail_email_address.style.backgroundColor = '#DDD';
+            document.ari_settings.voicemail_email_address.disabled = true;
+            document.ari_settings.voicemail_pager_address.style.backgroundColor = '#DDD';
+            document.ari_settings.voicemail_pager_address.disabled = true;
+            " . $js_voicemail_email_enable . "
+          }";
+    }
+
+    // build page content
+    $ret .= checkErrorMessage();
+
+    if ($_SESSION['ari_user']['admin_settings']) {
+      $headerText = _("Settings");
+    } else {
+      $headerText = sprintf(_("Settings for %s (%s)"),$displayname,$exten);
+    }
+
+    $ret .= $display->displayHeaderText($headerText);
+    $ret .= $display->displayLine();
+
+    $ret .= "
+      <SCRIPT LANGUAGE='JavaScript'>
+      <!-- Begin
+        function disable_fields() {
+          if (document.ari_settings.call_forward_enable.checked) {
+            document.ari_settings.call_forward_number.style.backgroundColor = '#FFF';
+            document.ari_settings.call_forward_number.disabled = false;
+          }
+          else {
+            document.ari_settings.call_forward_number.style.backgroundColor = '#DDD';
+            document.ari_settings.call_forward_number.disabled = true;
+          }
+          " . $js_voicemail_script . "
+        }
+      // End -->
+      </script>";
+
+    $ret .= "
+      " . $setLangText . "
+      <form class='settings' name='ari_settings' action='' method='GET'>
+        <input type=hidden name=m value=" . $m . ">
+        <input type=hidden name=f value='action'>
+        <input type=hidden name=a value='update'>
+        <br>
+        " . $set_call_forward_text . "
+        <br>
+        " . $set_voicemail_text . "
+        <br>
+        " . $set_callmonitor_text . "
+        <br>
+        <input name='submit' type='submit' value='" . _("Update") . "'>
+      </form>";
+
+    return $ret;
+  }
+
+  /*
+   * Sets Asterisk call forward setting
+   *
+   * @param $exten
+   *   Extension to modify
+   * @param $state
+   *   Call forward enable or disable
+   * @param $call_forward_number
+   *   Call forward number
+   */
+  function setCallForward($exten,$state,$call_forward_number) {
+
+    global $asterisk_manager_interface;
+
+    if ($state) {
+      $type_opt = "put";
+      $value_opt = $call_forward_number;
+    }
+    else {
+      $type_opt = "del";
+    }
+
+    $variable_opt = "CF";
+
+    $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: database $type_opt $variable_opt $exten $value_opt\r\n\r\n");
+  }
+
+  /*
+   * Gets call forward number if set
+   *
+   * @param $exten
+   *   Extension to get information about
+   * @return $number
+   *   call forward number returned if set
+   */
+  function getCallForwardNumber($exten) {
+
+    global $asterisk_manager_interface;
+
+    $number = '';
+
+    $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: database get CF $exten\r\n\r\n");
+    if (is_numeric($response)) {
+      $number = $response;
+    }
+
+    $stripped = preg_replace('/-|\(|\)|\s/','',$_COOKIE['ari_call_forward_number']);
+    if ($stripped==$number) {
+      $number = $_COOKIE['ari_call_forward_number'];
+    }
+
+    return $number;
+  }
+
+  /*
+   * Sets Asterisk call recording setting
+   *
+   * @param $exten
+   *   Extension to modify
+   * @param $direction
+   *   Call direction
+   * @param $state
+   *   State to set to
+   */
+  function setRecordSettings($exten,$state_in,$state_out) {
+
+    global $asterisk_manager_interface;
+
+    if (version_compare($this->getFreePBXVersion(), '1.10', '<')) {
+
+      if ($state_in=="Always") {
+        $type_opt = "put";
+        $value_opt = " " . "ENABLED";
+      }
+      elseif ($state_in=="Never") {
+        $type_opt = "put";
+        $value_opt = " " . "DISABLED";
+      }
+      else {
+        $type_opt = "del";
+        $value_opt = "";
+      }
+      $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: database $type_opt RECORD-IN $exten $value_opt\r\n\r\n");
+
+      if ($state_out=="Always") {
+        $type_opt = "put";
+        $value_opt = " " . "ENABLED";
+      }
+      elseif ($state_out=="Never") {
+        $type_opt = "put";
+        $value_opt = " " . "DISABLED";
+      }
+      else {
+        $type_opt = "del";
+        $value_opt = "";
+      }
+      $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: database $type_opt RECORD-OUT $exten $value_opt\r\n\r\n");
+    }
+    else {
+
+      $value_opt= "out=".$state_out."|in=".$state_in;
+      $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: database put AMPUSER $exten/recording $value_opt\r\n\r\n");
+    }
+  }
+
+  /*
+   * Gets record settings for a protocol
+   *
+   * @param $table
+   *   Table to pull information from
+   * @param $exten
+   *   Extension to get information about
+   * @return $data
+   *   call monitor record settings 
+   */
+  function getProtocolRecordSettings($table,$exten) {
+
+    global $asterisk_manager_interface;
+
+    $data = array();
+
+    if (version_compare($this->getFreePBXVersion(), '1.10', '<')) {
+
+      $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: database get RECORD-IN $exten\r\n\r\n");
+      if (preg_match("/ENABLED/",$response)) {
+        $data['record_in'] = 'Always';
+      }
+      elseif (preg_match("/DISABLED/",$response)) { 
+        $data['record_in'] = 'Never';
+      }
+      else {
+        $data['record_in'] = 'Adhoc';
+      }
+
+      $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: database get RECORD-OUT $exten\r\n\r\n");
+      if (preg_match("/ENABLED/",$response)) {
+        $data['record_out'] = 'Always';
+      }
+      elseif (preg_match("/DISABLED/",$response)) { 
+        $data['record_out'] = 'Never';
+      }
+      else {
+        $data['record_out'] = 'Adhoc';
+      }
+    }
+    else {
+
+      $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: database get AMPUSER $exten/recording\r\n\r\n");
+      if (strstr($response,"in=Always")) {
+        $data['record_in'] = 'Always';
+      }
+      elseif (strstr($response,"in=Never")) { 
+        $data['record_in'] = 'Never';
+      }
+      else {
+        $data['record_in'] = 'Adhoc';
+      }
+      if (strstr($response,"out=Always")) {
+        $data['record_out'] = 'Always';
+      }
+      elseif (strstr($response,"out=Never")) { 
+        $data['record_out'] = 'Never';
+      }
+      else {
+        $data['record_out'] = 'Adhoc';
+      }
+    }
+
+    return $data;
+  }
+
+  /*
+   * Gets record settings
+   *
+   * @param $exten
+   *   Extension to get information about
+   * @param $data
+   *   Reference to the variable to store the data in
+   */
+  function getRecordSettings($exten) {
+
+    // check protocol tables first
+    $data = $this->getProtocolRecordSettings($this->protocol_table,$exten);
+
+    return $data;
+  }
+
+  /*
+   * Reloads Asterisk Configuration
+   */
+  function reloadAsteriskVoicemail() {
+
+    global $asterisk_manager_interface;
+
+    $response = $asterisk_manager_interface->Command("Action: Command\r\nCommand: Reload app_voicemail.so\r\n\r\n");
+  }
+
+  /*
+   * Gets FreePBX Version
+   */
+  function getFreePBXVersion() {
+
+    if (isset($_SESSION['dbh_asterisk'])) {
+      $sql = "SELECT * FROM admin WHERE variable = 'version'";
+      $results = $_SESSION['dbh_asterisk']->getAll($sql);
+      if(DB::IsError($results)) {
+        $_SESSION['ari_error'] = $results->getMessage();
+      }
+
+      return $results[0][1];
+    }
+  }
+
+
+}
+
+
+?>

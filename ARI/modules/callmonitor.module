@@ -1,0 +1,670 @@
+<?php
+
+/**
+ * @file
+ * Functions for the interface to the call monitor recordings
+ */
+
+/**
+  * Class for Callmonitor
+  */
+class Callmonitor {
+
+  /*
+   * rank (for prioritizing modules)
+   */
+  function rank() {
+
+    $rank = 2;
+    return $rank;
+  }
+
+  /*
+   * init
+   */
+  function init() {
+  }
+
+  /*
+   * Adds menu item to nav menu
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function navMenu($args) {
+
+    $ret .= "
+      <p><small><small><a href='" . $_SESSION['ARI_ROOT'] . "?m=Callmonitor&f=display'>" . _("Call Monitor") . "</a></small></small></p>";
+
+    return $ret;
+  }
+
+  /*
+   * Acts on the selected call monitor recordings in the method indicated by the action and updates page
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function recAction($args) {
+
+    // args
+    $m = getArgument($args,'m');
+    $a = getArgument($args,'a');
+    $q = getArgument($args,'q');
+    $start = getArgument($args,'start');
+    $span = getArgument($args,'span');
+    $order = getArgument($args,'order');
+    $sort = getArgument($args,'sort');
+    $duration_filter = getArgument($args,'duration_filter');
+
+    // get files
+    $files = array();
+    foreach($_REQUEST as $key => $value) {
+      if (preg_match('/selected/',$key)) {
+        array_push($files, $value);
+      }
+    }
+
+    if ($a=='delete') {
+      $this->deleteRecData($files);
+    }
+
+    if ($a=='ignore') {
+
+      $start = 0;
+
+      setcookie("ari_duration_filter", $duration_filter, time()+365*24*60*60);
+    }
+
+    // redirect to see updated page
+    $ret .= "
+      <head>
+        <script>
+        <!--
+          window.location = \"" . $_SESSION['ARI_ROOT'] . "?m=" . $m . "&q=" . $q . "&start=" . $start . "&span=" . $span . "&order=" . $order . "&sort=" . $sort . "&duration_filter=" . $duration_filter . "\"
+        // -->
+        </script>
+      </head>";
+
+    return $ret;
+  }
+
+  /*
+   * Displays stats page
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function display($args) {
+
+    global $ASTERISK_CALLMONITOR_PATH;
+    global $CALLMONITOR_ALLOW_DELETE;
+    global $AJAX_PAGE_REFRESH_ENABLE;
+
+    $display = new DisplaySearch();
+
+    // get the search string
+    $m = getArgument($args,'m');
+    $f = getArgument($args,'f');
+    $q = getArgument($args,'q');
+    $start = getArgument($args,'start');
+    $span = getArgument($args,'span');
+    $order = getArgument($args,'order');
+    $sort = getArgument($args,'sort');
+    $duration_filter = getArgument($args,'duration_filter');
+
+    $start = $start=='' ? 0 : $start;
+    $span = $span=='' ? 15 : $span;
+    $order = $order=='' ? 'calldate' : $order;
+    $sort = $sort=='' ? 'desc' : $sort;
+
+    $displayname = $_SESSION['ari_user']['displayname'];
+    $extension = $_SESSION['ari_user']['extension'];
+
+    // get data
+    $record_count = $this->getCdrCount($q,$duration_filter);
+    $data = $this->getCdrData($q,$duration_filter,$start,$span,$order,$sort);
+
+    // get the call monitor recording files
+    $paths = split(';',$ASTERISK_CALLMONITOR_PATH);
+    foreach($paths as $key => $path) {
+      if (!is_dir($path)) {
+        $_SESSION['ari_error'] .= sprintf(_("Path is not a directory: %s"),$path) . "<br>";
+      }
+    }
+    $recordings = $this->getRecordings($ASTERISK_CALLMONITOR_PATH,$data);
+
+    // build controls
+    if ($CALLMONITOR_ALLOW_DELETE) {
+      $controls .= "
+        <button class='infobar' type='submit' onclick=\"document.callmonitor_form.a.value='delete'\">
+        " . _("delete") . "
+        </button>
+        &nbsp;";
+    }
+
+    $controls .= " 
+      <small>" . _("duration") . "</small>
+      <input name='duration_filter' type='text' size=4 maxlength=8 value='" . $_COOKIE['ari_duration_filter'] . "'>
+      <button class='infobar' type='submit' onclick=\"document.callmonitor_form.a.value='ignore'\">
+      " . _("ignore") . "
+      </button>";
+
+    // table header
+    if ($CALLMONITOR_ALLOW_DELETE) {
+      $recording_delete_header = "<th></th>";
+    }
+
+    $fields[0]['field'] = "calldate";
+    $fields[0]['text'] = _("Date");
+    $fields[1]['field'] = "calldate";
+    $fields[1]['text'] = _("Time");
+    $fields[2]['field'] = "clid";
+    $fields[2]['text'] = _("Caller ID");
+    $fields[3]['field'] = "src";
+    $fields[3]['text'] = _("Source");
+    $fields[4]['field'] = "dst";
+    $fields[4]['text'] = _("Destination");
+    $fields[5]['field'] = "dcontext";
+    $fields[5]['text'] = _("Context");
+    $fields[6]['field'] = "duration";
+    $fields[6]['text'] = _("Duration");
+
+    $i = 0;
+    while ($fields[$i]) {
+
+      $field = $fields[$i]['field'];
+      $text = $fields[$i]['text'];
+      if ($order==$field) { 
+        if ($sort=='asc') {
+          $currentSort = 'desc';
+          $arrowImg = "<img src='theme/images/arrow-asc.gif' alt='sort'>";
+        }
+        else {
+          $currentSort = 'asc';
+          $arrowImg = "<img src='theme/images/arrow-desc.gif' alt='sort'>";
+        }   
+
+        if ($i==1) {
+          $arrowImg = '';
+        }    
+      }
+      else {
+        $arrowImg = '';
+        $currentSort = 'desc';
+      }
+
+      $unicode_q = urlencode($q);
+      $recording_header .= "<th><a href=" .  $_SESSION['ARI_ROOT'] . "?m=" . $m . "&f=" . $f . "&q=" . $unicode_q . "&order=" . $field . "&sort=" . $currentSort . ">" . $text . $arrowImg . "</a></th>";
+
+      $i++;
+    }
+    $recording_header .= "<th>" . _("Monitor") . "</th>";
+
+    // table body
+    foreach($data as $key=>$value) {
+
+      // recording file
+      $recording = $recordings[$value['uniqueid'] . $value['calldate']];
+
+      // date and time
+      $buf = split(' ', $value[calldate]);
+      $date = $buf[0];
+      $time = $buf[1];
+
+      // recording delete checkbox
+      if ($CALLMONITOR_ALLOW_DELETE) {
+        $recording_delete_checkbox = "<td class='checkbox'><input type=checkbox name='selected" . ++$i . "' value=" . $recording . "></td>";
+      }
+
+      $recordingLink = '';
+      if (is_file($recordings[$value['uniqueid'] . $value['calldate']])) {
+        $recordingLink = "<a href='#' onClick=\"javascript:popUp('misc/recording_popup.php?recording=" . $recording . "&date=" . $date . "&time=" . $time . "'); return false;\">" . _("play") . "</a>";
+      }
+    
+      $recording_body .= "<tr>
+                       " . $recording_delete_checkbox . "
+	               <td width=70>" . $date . "</td>
+	               <td>" . $time . "</td>
+	               <td>" . $value[clid] . "</td>
+	               <td>" . $value[src] . "</td>
+	               <td>" . $value[dst] . "</td>
+	               <td>" . $value[dcontext] . "</td>
+	               <td width=90>" . $value[duration] . " sec</td>
+	               <td>" . $recordingLink . "</td>
+	             </tr>";
+    }
+    if (!count($data)) {
+      $recording_body .= "<tr></tr>";
+    }
+
+    // options
+    $url_opts = array();
+    $url_opts['sort'] = $sort;
+    $url_opts['order'] = $order;
+    $url_opts['duration_filter'] = $duration_filter;
+
+    // build page content
+    $ret .= checkErrorMessage();
+
+    // ajax page refresh script
+    if ($AJAX_PAGE_REFRESH_ENABLE) {
+      $ret .= ajaxRefreshScript($args);
+    }
+
+    // header
+    if ($_SESSION['ari_user']['admin_callmonitor']) {
+      $header_text = _("Call Monitor");
+    } else {
+      $header_text = sprintf(_("Call Monitor for %s (%s)"),$displayname,$extension);
+    }
+    $ret .= $display->displayHeaderText($header_text);
+    $ret .= $display->displaySearchBlock('left',$m,$q,$url_opts,true);
+
+    // start form
+    if ($CALLMONITOR_ALLOW_DELETE) {
+
+      $ret .= "
+        <form  name='callmonitor_form' action='" . $_SESSION['ARI_ROOT'] . "' method='GET'>
+          <input type=hidden name=m value=" . $m . ">	
+          <input type=hidden name=f value=recAction>
+          <input type=hidden name=a value=''>
+          <input type=hidden name=q value=" . $q . ">
+          <input type=hidden name=start value=" . $start . ">
+          <input type=hidden name=span value=" . $span . ">
+          <input type=hidden name=order value=" . $order . ">
+          <input type=hidden name=sort value=" . $sort . ">";
+    }
+
+    $ret .= $display->displayInfoBarBlock($controls,$q,$start,$span,$record_count);
+
+    // javascript for popup and message actions
+    $ret .= "
+      <SCRIPT LANGUAGE='JavaScript'>
+      <!-- Begin
+      function popUp(URL) {
+        eval(\"page = window.open(URL, 'play', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=324,height=110');\");
+      }
+
+      function checkAll(form,set) {
+        var elem = 0;
+        var i = 0;
+        while (elem = form.elements[i]) {
+          if (set) {
+            elem.checked = true;
+          } else {
+            elem.checked = false;
+          }
+          i++;
+        }
+        return true;
+      }
+      // End -->
+      </script>";
+
+    // call monitor delete recording controls
+    if ($CALLMONITOR_ALLOW_DELETE) {
+      $ret .= "
+        <table>
+          <tr>
+            <td>
+              <small>" . _("select") . ": </small>
+              <small><a href='' OnClick=\"checkAll(document.callmonitor_form,true); return false;\">" . _("all") . "</a></small>
+              <small><a href='' OnClick=\"checkAll(document.callmonitor_form,false); return false;\">" . _("none") . "</a></small>
+            </td>
+          </tr>
+        </table>";
+    }
+    else {
+      $ret .= "<br>";
+    }
+
+    // table
+    $ret .= "
+      <table class='callmonitor'>
+        <tr>
+          " . $recording_delete_header . "
+          " . $recording_header . "
+        </tr>
+        " . $recording_body . "
+      </table>";
+
+    $start = getArgument($args,'start');
+    $span = getArgument($args,'span');
+    $order = getArgument($args,'order');
+    $sort = getArgument($args,'sort');
+
+    // end form
+    if ($CALLMONITOR_ALLOW_DELETE) {
+      $ret .= "</form>";
+    }
+
+    $ret .= $display->displaySearchBlock('center',$m,$q,$url_opts,false);
+    $ret .= $display->displayNavigationBlock($m,$q,$url_opts,$start,$span,$record_count);
+
+    return $ret;
+  }
+
+  /*
+   * Checks for a recording file
+   *
+   * @param $asterisk_callmonitor_path
+   *   path call monitor recording directory on the asterisk server
+   * @param $data
+   *   current call monitor recordings on the asterisk server
+   * @return $recording
+   *   returns an array of $recording file names if found
+   */
+  function getRecordings($asterisk_callmonitor_path,$data) {
+
+    global $CALLMONITOR_ONLY_EXACT_MATCHING;
+    global $CALLMONITOR_AGGRESSIVE_MATCHING;
+
+    $recordings = array();
+
+    $extension = $_SESSION['ari_user']['extension'];
+
+    $paths = split(';',$asterisk_callmonitor_path);
+    foreach($paths as $key => $path) {
+      $paths[$key] = fixPathSlash($paths[$key]);
+    }
+
+    $files = array();
+    if (!$CALLMONITOR_ONLY_EXACT_MATCHING) {
+      $filter = '';
+      $recursiveMax = 6;
+      $recursiveCount = 0;
+      foreach($paths as $key => $path) {
+        $path_files = getFiles($path,$filter,$recursiveMax,$recursiveCount);
+        if ($path_files) {
+          $files = array_merge($files,$path_files);
+        }
+      }
+      rsort($files);
+    }
+
+    foreach($data as $data_key => $data_value) {
+
+      $recording='';
+
+      $calldate = $data_value['calldate'];
+      $duration = $data_value['duration'];
+      $lastdata = $data_value['lastdata'];
+      $uniqueid = $data_value['uniqueid'];
+      $userfield = $data_value['userfield'];
+
+      // timestamps
+      $st = trim(strtotime($calldate));
+      $et = trim(strtotime($calldate) + $duration);   // for on-demand call recordings
+
+      // unique file key
+      if ($uniqueid) {
+        $buf = preg_replace('/\-|\:/', '', $calldate);
+        $calldate_key = preg_replace('/\s+/', '-', $buf);
+        $unique_file_key = $calldate_key . "-" . $uniqueid;
+      }
+      if ($unique_file_key=='') {
+        $buf = preg_split("/\|/", $lastdata);
+        $unique_file_key = $buf[1];
+      }
+
+      $recordingLink = '';
+      foreach($paths as $callmonitor_key => $path) {
+
+        // try to find an exact match using the uniqueid
+        if (isset($uniqueid)) {
+
+          $check_files = array();
+          array_push($check_files,$path . $uniqueid . ".WAV");
+          array_push($check_files,$path . $uniqueid . ".wav");
+          array_push($check_files,$path . $uniqueid . ".gsm");
+
+          array_push($check_files,$path . $unique_file_key . ".WAV");
+          array_push($check_files,$path . $unique_file_key . ".wav");
+          array_push($check_files,$path . $unique_file_key . ".gsm");
+
+          array_push($check_files,$path . "g" . $extension . "-" . $unique_file_key . ".WAV");
+          array_push($check_files,$path . "g" . $extension . "-" . $unique_file_key . ".wav");
+          array_push($check_files,$path . "g" . $extension . "-" . $unique_file_key . ".gsm");
+
+          array_push($check_files,$path . "q" . $extension . "-" . $unique_file_key . ".WAV");
+          array_push($check_files,$path . "q" . $extension . "-" . $unique_file_key . ".wav");
+          array_push($check_files,$path . "q" . $extension . "-" . $unique_file_key . ".gsm");
+
+          array_push($check_files,$path . "OUT" . $extension . "-" . $unique_file_key . ".WAV");
+          array_push($check_files,$path . "OUT" . $extension . "-" . $unique_file_key . ".wav");
+          array_push($check_files,$path . "OUT" . $extension . "-" . $unique_file_key . ".gsm");
+
+          array_push($check_files,$path . $userfield);
+
+          // try to match 
+          foreach($check_files as $check_file) {
+            if (is_file($check_file)) {
+              $recording = $check_file;
+              break;
+            }
+          }
+        } 
+
+        // if found do not need to check the rest of the paths
+        if ($recording!='') {
+          break;
+        }
+      }
+
+      // get all the callmonitor recordings on server and try to find a non-exact match for this log entry
+      if (!$CALLMONITOR_ONLY_EXACT_MATCHING) {
+
+        // try to find a file using the uniqueid
+        if (!$recording) {
+
+          // try and match the unique id
+          if (!$recording) { 
+            foreach($files as $key => $path) {
+              if (strlen($uniqueid)>1 && strpos($path,$uniqueid)!==FALSE) {
+                $recording = $path;
+                $files[$key] = '';  // remove it from the recording files so it will not be matched twice
+                break;
+              }
+            } 
+          }
+        } 
+
+        // try and match a file using the calldate (if no unique number from database) 
+        if (!$recording) { 
+
+          foreach($files as $key => $path) {
+            $parts = split("-", $path);
+            if (strlen($st)>1 && 
+                   (strpos($path,$st)!==FALSE) || 
+                   (strpos($path,"auto")!==FALSE && $parts[1] >= $st && $parts[1] <= $et)) {
+              $recording = $path;
+              $files[$key] = '';  // remove it from the recording files so it will not be matched twice
+              break;
+            }
+          } 
+        }
+
+        if ($CALLMONITOR_AGGRESSIVE_MATCHING) {
+
+          // one last stab at finding a recording by adding one or two seconds to the call time 
+          if (!$recording) { 
+            $st_1 = trim($st+1);
+            $st_2 = trim($st+2);
+            $et_1 = trim($et+1);
+            $et_2 = trim($et+2);
+            foreach($files as $key => $path) {
+              $split = explode("-", $path);
+              if (strlen($st)>1 
+                    && ((strpos($path,$st_1)!==FALSE) || 
+                        (strpos($path,$st_2)!==FALSE) ||
+                        (strpos($path,"auto")!==FALSE && $parts[1] >= $st_1 && $parts[1] <= $et_1) ||
+                        (strpos($path,"auto")!==FALSE && $parts[1] >= $st_2 && $parts[1] <= $et_2))) {
+                $recording = $path;
+                $files[$key] = '';  // remove it from the recording files so it will not be matched twice
+                break;
+              }
+            } 
+          }
+        }
+      }
+
+      // add to array to be returned
+      if ($recording) {
+        $recordings[$uniqueid . $calldate] = $recording;
+      }
+    }
+
+    return $recordings;
+  }
+
+  /*
+   * Deletes selected call monitor recordings
+   *
+   * @param $files
+   *   Array of files to delete
+   */
+  function deleteRecData($files) {
+
+    foreach($files as $key => $file) {
+      if (is_writable($file)) {
+        unlink($file);
+      } else {
+        $_SESSION['ari_error'] = _("Only deletes recording files, not cdr log");
+      }
+    }
+  }
+
+  /*
+   * Gets cdr record count
+   *
+   * @param $q
+   *   query text
+   */
+  function getSearchText($q,$duration_filter) {
+
+    // search text
+    if ($q!='*' && $q!=NULL) {
+      $searchText .= "WHERE ";
+      $tok = strtok($q," \n\t");
+      while ($tok) {
+        $searchText .= " (calldate regexp '" . $tok . "'
+                         OR clid regexp '" . $tok . "'
+                         OR src regexp '" . $tok . "'
+                         OR dst regexp '" . $tok . "'
+                         OR dstchannel regexp '" . $tok . "'
+                         OR dcontext regexp '" . $tok . "'
+                         OR duration regexp '" . $tok . "'
+                         OR disposition regexp '" . $tok . "'
+                         OR uniqueid regexp '" . $tok . "'
+                         OR userfield regexp '" . $tok . "'
+                       )";
+        $tok = strtok(" \n\t");
+        if ($tok) {
+          $searchText .= " AND";
+        }
+      }
+    }
+
+    // duration_filter
+    if ($duration_filter) {
+      if (!$searchText) {
+        $searchText .= "WHERE ";
+      } else {
+        $searchText .= "AND ";
+      }
+      $searchText .= "duration>" . $duration_filter . " "; 
+    }
+
+    // admin
+    if (!$_SESSION['ari_user']['admin_callmonitor']) {
+      if (!$searchText) {
+        $searchText .= "WHERE ";
+      } else {
+        $searchText .= "AND ";
+      }
+
+      // allow entries to be viewed with users extension
+      $searchText .= "(src = '" . $_SESSION['ari_user']['extension'] . "'
+                      OR dst = '" . $_SESSION['ari_user']['extension'] . "')";
+
+      // allow entries to be viewed with users outbound CID
+      if (isset($_SESSION['ari_user']['outboundCID'])) {
+        $searchText .= "OR (src = '" . $_SESSION['ari_user']['outboundCID'] . "'
+                        OR dst = '" . $_SESSION['ari_user']['outboundCID'] . "')";
+      }
+    }
+
+    return $searchText;
+  }
+
+  /*
+   * Gets cdr record count
+   *
+   * @param $q
+   *   query text
+   * @return $count
+   *   Number of cdr records counted
+   */
+  function getCdrCount($q,$duration_filter) {
+
+    global $ASTERISKCDR_DBTABLE;
+
+    $searchText = $this->getSearchText($q,$duration_filter);
+
+    $dbh = $_SESSION['dbh_cdr'];
+    $sql = "SELECT count(*) 
+            FROM " . $ASTERISKCDR_DBTABLE . "
+            " . $searchText;
+
+    $result = $dbh->getAll($sql);
+    if (DB::isError($result)) {
+      $_SESSION['ari_error'] = $result->getMessage();
+      return;
+    }
+    $count = $result[0][0];
+
+    return $count;
+  }
+
+  /*
+   * Gets cdr data
+   *
+   * @param $q
+   *   query text
+   * @param $start
+   *   start record
+   * @param $span
+   *   number of records to return
+   * @return $data
+   *   cdr data to be returned
+   */
+  function getCdrData($q,$duration_filter,$start,$span,$order,$sort) {
+
+    global $ASTERISKCDR_DBTABLE;
+
+    $data = array();
+
+    $searchText = $this->getSearchText($q,$duration_filter);
+
+    $dbh = $_SESSION['dbh_cdr'];
+    $sql = "SELECT *
+            FROM " . $ASTERISKCDR_DBTABLE . " 
+            " . $searchText . "
+            ORDER BY " . $order . " " . $sort . "
+            LIMIT " . $start . "," . $span;
+    $result = $dbh->getAll($sql,DB_FETCHMODE_ASSOC);
+    if (DB::isError($result)) {
+      $_SESSION['ari_error'] = $result->getMessage();
+      return;
+    }
+    $data = $result;
+
+    return $data;
+  }
+
+
+}
+
+
+?>
