@@ -1,0 +1,12 @@
+
+
+made changes on 
+- main.conf.php
+- common.php
+- login.php
+
+fix in recording_popup.php
+ - replace 
+ 	echo("<a class='popup_download' href=/recordings/misc/audio.php?recording="  . $path . ">" . _("download") . "</a><br>");
+   by
+	echo("<a class='popup_download' href=audio.php?recording="  . $path . ">" . _("download") . "</a><br>");

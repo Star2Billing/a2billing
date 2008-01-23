@@ -202,7 +202,19 @@ function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessag
 	unset($fileatt);
 	unset($fileatt_type);
 	unset($fileatt_name);
-	$ok = @mail($email_to, $email_subject, $email_message, $headers);
+	
+	if (email_from != "" && PHP_VERSION >= "4.0") {
+		$old_from = ini_get("sendmail_from");
+		ini_set("sendmail_from", $email_from);
+	}
+
+	if (email_from != "" && PHP_VERSION >= "4.0.5") {
+		// The fifth parameter to mail is only available in PHP >= 4.0.5
+		$params = sprintf("-oi -f %s", $email_from);
+		$ok = @mail($email_to, $email_subject, $email_message, $headers, $params);
+	} else {
+		$ok = @mail($email_to, $email_subject, $email_message, $headers);
+	}
 	return $ok;
 }
 getpost_ifset(array('cssname'));

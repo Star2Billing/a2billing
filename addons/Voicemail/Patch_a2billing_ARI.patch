@@ -1,0 +1,366 @@
+diff -Naur a2b_recordings/ARESKI_CHANGES ari_00.11.11/recordings/ARESKI_CHANGES
+--- a2b_recordings/ARESKI_CHANGES	2008-01-22 11:30:28.000000000 +0100
++++ ari_00.11.11/recordings/ARESKI_CHANGES	1970-01-01 01:00:00.000000000 +0100
+@@ -1,12 +0,0 @@
+-
+-
+-made changes on 
+-- main.conf.php
+-- common.php
+-- login.php
+-
+-fix in recording_popup.php
+- - replace 
+- 	echo("<a class='popup_download' href=/recordings/misc/audio.php?recording="  . $path . ">" . _("download") . "</a><br>");
+-   by
+-	echo("<a class='popup_download' href=audio.php?recording="  . $path . ">" . _("download") . "</a><br>");
+diff -Naur a2b_recordings/includes/asi.php ari_00.11.11/recordings/includes/asi.php
+--- a2b_recordings/includes/asi.php	2008-01-18 19:44:52.000000000 +0100
++++ ari_00.11.11/recordings/includes/asi.php	2006-05-03 14:38:11.000000000 +0200
+@@ -120,4 +120,4 @@
+ }  
+ 
+ 
+-?>
++?>
+\ No newline at end of file
+diff -Naur a2b_recordings/includes/common.php ari_00.11.11/recordings/includes/common.php
+--- a2b_recordings/includes/common.php	2008-01-22 10:35:58.000000000 +0100
++++ ari_00.11.11/recordings/includes/common.php	2006-05-03 14:38:11.000000000 +0200
+@@ -103,11 +103,6 @@
+   global $LEGACY_AMP_DBFILE;
+   global $LEGACY_AMP_DBHOST;
+   global $LEGACY_AMP_DBNAME;
+-  
+-  global $LEGACY_A2BILLING_DBENGINE;
+-  global $LEGACY_A2BILLING_DBFILE;
+-  global $LEGACY_A2BILLING_DBHOST;
+-  global $LEGACY_A2BILLING_DBNAME;
+ 
+   global $ASTERISKCDR_DBENGINE;
+   global $ASTERISKCDR_DBFILE;
+@@ -133,64 +128,39 @@
+     $asteriskcdr_dbname = $ASTERISKCDR_DBNAME;
+   } 
+   else {
+-	
+-    if ($STANDALONE['a2billing']) {
+-	    
+-	    $mgrhost = $ASTERISKMGR_DBHOST;
+-	    $mgruser = $STANDALONE['asterisk_mgruser'];
+-	    $mgrpass = $STANDALONE['asterisk_mgrpass'];
+-
+-	    $asteriskcdr_dbengine = $ASTERISKCDR_DBENGINE;
+-	    $asteriskcdr_dbfile = $ASTERISKCDR_DBFILE;
+-	    $asteriskcdr_dbuser = $STANDALONE['asteriskcdr_dbuser'];
+-	    $asteriskcdr_dbpass = $STANDALONE['asteriskcdr_dbpass'];
+-	    $asteriskcdr_dbhost = $ASTERISKCDR_DBHOST;
+-	    $asteriskcdr_dbname = $ASTERISKCDR_DBNAME;
+-	    
+-	    
+-	    $a2b_dbengine = $LEGACY_A2BILLING_DBENGINE;
+-	    $a2b_dbfile = $LEGACY_A2BILLING_DBFILE;
+-	    $a2b_dbuser = $STANDALONE['a2billing_dbuser'];
+-	    $a2b_dbpass = $STANDALONE['a2billing_dbpass'];
+-	    $a2b_dbhost = $LEGACY_A2BILLING_DBHOST;
+-	    $a2b_dbname = $LEGACY_A2BILLING_DBNAME;
+-	    
++
++    $include = 0;
++    $files = split(';',$AMP_FUNCTIONS_FILES);
++    foreach ($files as $file) {
++      if (is_file($file)) {
++        include_once($file);
++        $include = 1;
++      }
++    }
++
++    if ($include) {
++      $amp_conf = parse_amportal_conf($AMPORTAL_CONF_FILE);
++
++      $mgrhost = $ASTERISKMGR_DBHOST;
++      $mgruser = $amp_conf['AMPMGRUSER'];
++      $mgrpass = $amp_conf['AMPMGRPASS'];
++
++      $amp_dbengine = isset($amp_conf["AMPDBENGINE"]) ? $amp_conf["AMPDBENGINE"] : $LEGACY_AMP_DBENGINE;
++      $amp_dbfile = isset($amp_conf["AMPDBFILE"]) ? $amp_conf["AMPDBFILE"] : $LEGACY_AMP_DBFILE;
++      $amp_dbuser = $amp_conf["AMPDBUSER"];
++      $amp_dbpass = $amp_conf["AMPDBPASS"];
++      $amp_dbhost = isset($amp_conf["AMPDBHOST"]) ? $amp_conf["AMPDBHOST"] : $LEGACY_AMP_DBHOST;
++      $amp_dbname = isset($amp_conf["AMPDBNAME"]) ? $amp_conf["AMPDBNAME"] : $LEGACY_AMP_DBNAME;
++
++      $asteriskcdr_dbengine = $ASTERISKCDR_DBENGINE;
++      $asteriskcdr_dbfile = $ASTERISKCDR_DBFILE;
++      $asteriskcdr_dbuser = $amp_conf["AMPDBUSER"];
++      $asteriskcdr_dbpass = $amp_conf["AMPDBPASS"];
++      $asteriskcdr_dbhost = $ASTERISKCDR_DBHOST;
++      $asteriskcdr_dbname = $ASTERISKCDR_DBNAME;
++
++      unset($amp_conf);
+     } 
+-    else {
+-    
+-	    $include = 0;
+-	    $files = split(';',$AMP_FUNCTIONS_FILES);
+-	    foreach ($files as $file) {
+-	      if (is_file($file)) {
+-		include_once($file);
+-		$include = 1;
+-	      }
+-	    }
+-
+-	    if ($include) {
+-	      $amp_conf = parse_amportal_conf($AMPORTAL_CONF_FILE);
+-
+-	      $mgrhost = $ASTERISKMGR_DBHOST;
+-	      $mgruser = $amp_conf['AMPMGRUSER'];
+-	      $mgrpass = $amp_conf['AMPMGRPASS'];
+-
+-	      $amp_dbengine = isset($amp_conf["AMPDBENGINE"]) ? $amp_conf["AMPDBENGINE"] : $LEGACY_AMP_DBENGINE;
+-	      $amp_dbfile = isset($amp_conf["AMPDBFILE"]) ? $amp_conf["AMPDBFILE"] : $LEGACY_AMP_DBFILE;
+-	      $amp_dbuser = $amp_conf["AMPDBUSER"];
+-	      $amp_dbpass = $amp_conf["AMPDBPASS"];
+-	      $amp_dbhost = isset($amp_conf["AMPDBHOST"]) ? $amp_conf["AMPDBHOST"] : $LEGACY_AMP_DBHOST;
+-	      $amp_dbname = isset($amp_conf["AMPDBNAME"]) ? $amp_conf["AMPDBNAME"] : $LEGACY_AMP_DBNAME;
+-
+-	      $asteriskcdr_dbengine = $ASTERISKCDR_DBENGINE;
+-	      $asteriskcdr_dbfile = $ASTERISKCDR_DBFILE;
+-	      $asteriskcdr_dbuser = $amp_conf["AMPDBUSER"];
+-	      $asteriskcdr_dbpass = $amp_conf["AMPDBPASS"];
+-	      $asteriskcdr_dbhost = $ASTERISKCDR_DBHOST;
+-	      $asteriskcdr_dbname = $ASTERISKCDR_DBNAME;
+-
+-	      unset($amp_conf);
+-	    }
+-    }    
+   }
+ 
+   // asterisk manager interface (berkeley database I think)
+@@ -212,34 +182,16 @@
+ 
+   // AMP asterisk database
+   if (!$STANDALONE['use']) {
+-    if ($STANDALONE['a2billing']) {
+-    	    // --- echo "---- $a2b_dbengine, $a2b_dbfile, $a2b_dbuser,  $a2b_dbpass, $a2b_dbhost, $a2b_dbname";
+-    	    $_SESSION['dbh_asterisk'] = $db->logon($a2b_dbengine,
+-						   $a2b_dbfile,
+-						   $a2b_dbuser, 
+-						   $a2b_dbpass,
+-						   $a2b_dbhost,
+-						   $a2b_dbname);
+-	    
+-	    if (!isset($_SESSION['dbh_asterisk'])) {
+-	      $_SESSION['ari_error'] .= _("Cannot connect to the $amp_dbname database") . "<br>" .
+-				       _("Check AMP installation, asterisk, and ARI main.conf");
+-	      return FALSE;
+-	    }
+-    }
+-    else{
+-    	    $_SESSION['dbh_asterisk'] = $db->logon($amp_dbengine,
+-						   $amp_dbfile,
+-						   $amp_dbuser, 
+-						   $amp_dbpass,
+-						   $amp_dbhost,
+-						   $amp_dbname);;
+-	    if (!isset($_SESSION['dbh_asterisk'])) {
+-	      $_SESSION['ari_error'] .= _("Cannot connect to the $amp_dbname database") . "<br>" .
+-				       _("Check AMP installation, asterisk, and ARI main.conf");
+-	      return FALSE;
+-	    }
+-
++    $_SESSION['dbh_asterisk'] = $db->logon($amp_dbengine,
++                                           $amp_dbfile,
++                                           $amp_dbuser, 
++                                           $amp_dbpass,
++                                           $amp_dbhost,
++                                           $amp_dbname);
++    if (!isset($_SESSION['dbh_asterisk'])) {
++      $_SESSION['ari_error'] .= _("Cannot connect to the $amp_dbname database") . "<br>" .
++                               _("Check AMP installation, asterisk, and ARI main.conf");
++      return FALSE;
+     }
+   }
+ 
+@@ -471,4 +423,4 @@
+ include_once("./includes/ajax.php");
+ 
+ 
+-?>
++?>
+\ No newline at end of file
+diff -Naur a2b_recordings/includes/login.php ari_00.11.11/recordings/includes/login.php
+--- a2b_recordings/includes/login.php	2008-01-22 11:20:42.000000000 +0100
++++ ari_00.11.11/recordings/includes/login.php	2006-05-03 14:38:11.000000000 +0200
+@@ -17,8 +17,6 @@
+     */
+   function Auth() {
+ 
+-    global $STANDALONE;
+-    
+     global $ARI_ADMIN_USERNAME;
+     global $ARI_ADMIN_PASSWORD;
+     global $ARI_ADMIN_EXTENSIONS;
+@@ -205,41 +203,7 @@
+           return;
+         }
+       }
+-      
+-      // A2Billing
+-      if (!$auth) {
+-      	if ($STANDALONE['a2billing']) {
+-	      if (isset($_SESSION['dbh_asterisk'])) {
+-	        $sql = "SELECT * FROM voicemail_users WHERE mailbox = '55555' AND password='55555'";
+-	        $results = $_SESSION['dbh_asterisk']->getAll($sql);
+-	        if(DB::IsError($results)) {
+-	 	  $_SESSION['ari_error'] = $results->getMessage();
+-	        }
+-		// print_r ($results[0]);
+-		// exit;
+-		// SELECT id AS uniqueid, id AS customer_id, 'default' AS context, useralias AS mailbox, uipass AS password, lastname || ' ' || firstname AS fullname, email AS email, '' AS pager,  '1984-01-01 00:00:00' AS stamp FROM cc_card WHERE voicemail_activated = '1'
+-
+-                if ($results[0][3]==$username && $results[0][4]==$password) {
+-                 
+-                  // authenticated
+-                  $auth = true;
+-                  $extension = $username;
+-                  $displayname = $results[0][5];
+-                  $vm_password = $results[0][4];
+-                  $default_page = $ARI_DEFAULT_USER_PAGE;
+-                  $context = $results[0][2];
+-                  $voicemail_enabled = 1;
+-                  $voicemail_email_address = $results[0][6];
+-                  $voicemail_pager_address = $results[0][7];
+-                  echo "extension= $extension ; displayname=$displayname ; default_page=$default_page ; context=$context ; voicemail_email_address=$voicemail_email_address <br>";
+-                  if ($voicemail_email_address || $voicemail_pager_address) {
+-                    $voicemail_email_enable = 1;
+-                  }
+-		} // if username / password
+-	      }
+-	}
+-      }
+-      
++
+       // check sip login
+       if (!$auth) {
+ 
+@@ -508,4 +472,4 @@
+ }
+ 
+ 
+-?>
++?>
+\ No newline at end of file
+diff -Naur a2b_recordings/includes/main.conf.php ari_00.11.11/recordings/includes/main.conf.php
+--- a2b_recordings/includes/main.conf.php	2008-01-22 11:37:43.000000000 +0100
++++ ari_00.11.11/recordings/includes/main.conf.php	2006-05-03 14:38:11.000000000 +0200
+@@ -14,8 +14,6 @@
+ $AMP_FUNCTIONS_FILES = "../admin/functions.php;../admin/functions.inc.php";
+ $AMPORTAL_CONF_FILE = "/etc/amportal.conf";
+ 
+-
+-
+ #
+ # Host for Asterisk Manager Interface
+ #
+@@ -30,25 +28,6 @@
+ $LEGACY_AMP_DBFILE = "";
+ $LEGACY_AMP_DBNAME = "asterisk";
+ 
+-
+-###############################
+-# A2Billing or standalone settings
+-###############################
+-#
+-# From A2Billing.  Used for logon to database.
+-#
+-$A2BILLING_CONF_FILE = "/etc/asterisk/a2billing.conf";
+-
+-#
+-# Database options for older legacy AMP installations (pre-FreePBX)
+-#   - $LEGACY_AMP_DBFILE only needs to be set if using a database like sqlite 
+-#
+-$LEGACY_A2BILLING_DBHOST = "localhost";
+-$LEGACY_A2BILLING_DBENGINE = "mysql";
+-$LEGACY_A2BILLING_DBFILE = "";
+-$LEGACY_A2BILLING_DBNAME = "a2billing";
+-
+-
+ #
+ # Database cdr settings
+ #   - Only need to update these settings if standalone or an older AMP version (pre-FreePBX) is used
+@@ -62,23 +41,20 @@
+ $ASTERISKCDR_DBHOST = "localhost";
+ $ASTERISKCDR_DBENGINE = "mysql";
+ $ASTERISKCDR_DBFILE = "";
+-$ASTERISKCDR_DBNAME = "asteriskcdr";
++$ASTERISKCDR_DBNAME = "asteriskcdrdb";
+ $ASTERISKCDR_DBTABLE = "cdr";
+ 
+ #
+-# Standalone, for use without AMP / A2Billing
++# Standalone, for use without AMP
+ #   set use = true;
+ #   set asterisk_mgruser to Asterisk Call Manager username
+ #   set asterisk_mgrpass to Asterisk Call Manager password
+ #
+ $STANDALONE['use'] = false;
+-$STANDALONE['a2billing'] = true;
+-$STANDALONE['asterisk_mgruser'] = "myasterisk";
+-$STANDALONE['asterisk_mgrpass'] = "mycode";
++$STANDALONE['asterisk_mgruser'] = "";
++$STANDALONE['asterisk_mgrpass'] = "";
+ $STANDALONE['asteriskcdr_dbuser'] = "";
+ $STANDALONE['asteriskcdr_dbpass'] = "";
+-$STANDALONE['a2billing_dbuser'] = "root";
+-$STANDALONE['a2billing_dbpass'] = "password";
+ 
+ ###############################
+ # authentication settings
+@@ -120,13 +96,13 @@
+ # disable modules (you can also just delete them from /recordings/modules without problems)
+ #   option: Comma delimited list of module names (ie voicemail,callmonitor,help,settings)
+ #
+-$ARI_DISABLED_MODULES = "callmonitor,settings,help";
++$ARI_DISABLED_MODULES = "";
+ 
+ #
+ # sets the default admin page
+ #   option: Comma delimited list of module names (ie voicemail,callmonitor,help,settings)
+ #
+-$ARI_DEFAULT_ADMIN_PAGE = "voicemail";
++$ARI_DEFAULT_ADMIN_PAGE = "callmonitor";
+ 
+ #
+ # sets the default user page
+@@ -288,7 +264,7 @@
+ #   option: 0 - do not show controls
+ #           1 - show controls
+ #
+-$SETTINGS_ALLOW_VOICEMAIL_PASSWORD_SET = 0;
++$SETTINGS_ALLOW_VOICEMAIL_PASSWORD_SET = 1;
+ 
+ #
+ # password length 
+@@ -327,7 +303,7 @@
+ #   option: 0 - do not show controls
+ #           1 - show controls
+ #
+-$SETTINGS_ALLOW_CALL_RECORDING_SET = 0;
++$SETTINGS_ALLOW_CALL_RECORDING_SET = 1;
+ 
+ 
+-?>
++?>
+\ No newline at end of file
+diff -Naur a2b_recordings/misc/recording_popup.php ari_00.11.11/recordings/misc/recording_popup.php
+--- a2b_recordings/misc/recording_popup.php	2008-01-22 11:30:32.000000000 +0100
++++ ari_00.11.11/recordings/misc/recording_popup.php	2006-05-03 14:38:11.000000000 +0200
+@@ -36,7 +36,7 @@
+     }
+     echo("<br>");
+     echo("<embed src='audio.php?recording=" . $path . "' width=300, height=20 autoplay=true loop=false></embed><br>");
+-    echo("<a class='popup_download' href=audio.php?recording="  . $path . ">" . _("download") . "</a><br>");
++    echo("<a class='popup_download' href=/recordings/misc/audio.php?recording="  . $path . ">" . _("download") . "</a><br>");
+   }
+ 
+ ?>

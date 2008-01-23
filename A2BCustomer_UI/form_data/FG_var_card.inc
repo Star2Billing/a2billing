@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode','id_timezone', 'phone', 'fax','message'));
+getpost_ifset(array('id', 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode','id_timezone', 'phone', 'fax','message', 'voicemail_activated'));
 
 
 $HD_Form = new FormHandler("cc_card","Card");
@@ -108,8 +108,17 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   gettext("Insert the fax number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode,id_timezone, phone,'.
-'fax');
+
+$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
+			   "voicemail_activated",
+			   '0',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Customer can choose to enable the voicemail for this card"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this card."));
+
+$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode,id_timezone, phone, fax, voicemail_activated');
 
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily update your information clicking on the button.");
 

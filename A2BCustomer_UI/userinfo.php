@@ -64,15 +64,20 @@ $smarty->display( 'main.tpl');
 	<br/><font class="fontstyle_002"><?php echo gettext("COUNTRY");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[7]; ?></font> 
 	</td>
 </tr>
-<?php if ($A2B->config["webcustomerui"]['personalinfo']){ ?>
+
 <tr>
 	<td></td>
-	<td></td>
 	<td align="right">
-	<a href="A2B_entity_card.php?atmenu=password&form_action=ask-edit&stitle=Personal+Information"><span class="cssbutton"><font color="red"><?php echo gettext("EDIT PERSONAL INFORMATION");?></font></span></a>
+		<?php if ($_SESSION["cc_voicemail"]){ ?>
+		<a href="../ARI/"><span class="cssbutton"><font color="red"><?php echo gettext("GO TO VOICEMAIL");?></font></span></a>
+		<?php } ?>
+	</td>
+	<td align="right">
+		<?php if ($A2B->config["webcustomerui"]['personalinfo']){ ?>
+		<a href="A2B_entity_card.php?atmenu=password&form_action=ask-edit&stitle=Personal+Information"><span class="cssbutton"><font color="red"><?php echo gettext("EDIT PERSONAL INFORMATION");?></font></span></a>
+		<?php } ?>
 	</td>
 </tr>
-<?php } ?>
 </table>
 
 <?php } ?>

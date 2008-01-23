@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * Functions for the interface to the help page
+ */
+
+/**
+  * Class for help
+  */
+class Help {
+
+  /*
+   * rank (for prioritizing modules)
+   */
+  function rank() {
+
+    $rank = 4;
+    return $rank;
+  }
+
+  /*
+   * init
+   */
+  function init() {
+  }
+
+  /*
+   * Adds menu item to nav menu
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function navMenu($args) {
+
+    // put if statement in return string, because do not know $logout until page is built
+    $ret .= "
+      <?php if ($logout !='') { ?>
+        <p><small><small><a href='" . $_SESSION['ARI_ROOT'] . "?m=Help&f=display'>" . _("Help") . "</a></small></small></p>
+      <?php } ?>";
+
+    return $ret;
+  }
+
+  /*
+   * Displays stats page
+   *
+   * @param $args
+   *   Common arguments
+   */
+  function display($args) {
+
+    global $ARI_HELP_FEATURE_CODES;
+
+    $display = new Display();
+
+    // args
+    $m = getArgument($args,'m');
+    $q = getArgument($args,'q');
+
+    $displayname = $_SESSION['ari_user']['displayname'];
+    $extension = $_SESSION['ari_user']['extension'];
+
+    // build page content
+    $ret .= checkErrorMessage();
+
+    if ($_SESSION['ari_user']['admin_help']) {
+      $header_text = _("Help");
+    } else {
+      $header_text = sprintf(_("Help for %s (%s)"),$displayname,$extension);
+    }
+
+    // handset feature code header
+    $handset_feature_codes_header =
+      "<tr>
+         <th class='feature_codes'>
+           " . _("Handset Feature Code") . "
+         </th>
+         <th>
+           " . _("Action") . "
+         </th>
+       </tr>";
+
+    // handset feature code body
+    foreach($ARI_HELP_FEATURE_CODES as $key => $feature_code) {
+
+      $handset_feature_codes_body .= 
+        "<tr>
+           <td class='feature_codes'>
+             " . $key . "
+           </td>
+           <td>
+             " . $feature_code . "
+           </td>
+         </tr>";
+    }
+
+    // build page content
+    $ret .= checkErrorMessage();
+
+    $ret .= $display->displayHeaderText($header_text);
+    $ret .= $display->displayLine();
+
+    // table 
+    $ret .= "
+      <table class='help'>
+        " . $handset_feature_codes_header . "
+        " . $handset_feature_codes_body . "
+      </table>";
+
+    return $ret;
+  }
+
+}
+
+
+?>
