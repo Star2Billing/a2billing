@@ -5,48 +5,48 @@ include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_FILE_MANAGER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 getpost_ifset(array('acc'));
 
-  //Show the number of files to upload
-  $files_to_upload = 1;
+//Show the number of files to upload
+$files_to_upload = 1;
 
-  //Directory where the uploaded files have to come
-  //RECOMMENDED TO SET ANOTHER DIRECTORY THEN THE DIRECTORY WHERE THIS SCRIPT IS IN!!
-  # the upload store directory (chmod 777)
-  $upload_dir = DIR_STORE_AUDIO; //"/var/www/html/all/divers/simpleupload/upload";
-  
-
+//Directory where the uploaded files have to come
+//RECOMMENDED TO SET ANOTHER DIRECTORY THEN THE DIRECTORY WHERE THIS SCRIPT IS IN!!
+# the upload store directory (chmod 777)
+$upload_dir = DIR_STORE_AUDIO; //"/var/www/html/all/divers/simpleupload/upload";
 
 
-  # Handle the MusicOnHold
-	if (isset($acc) && ($acc>0)){
-		$file_ext_allow = $file_ext_allow_musiconhold;
-		$pass_param = "acc=$acc";
-		
-		$upload_dir = DIR_STORE_MOHMP3."/acc_$acc";
-	}
-	
-  # individual file size limit - in bytes (102400 bytes = 100KB)
-  $file_size_ind = MY_MAX_FILE_SIZE_AUDIO;
-
-  # PHP.INI
-  # ; Maximum allowed size for uploaded files.
-  # upload_max_filesize = 8M
 
 
-  # the images directory
-  $dir_img= "img";
-  
- 
-  
-  // -------------------------------- //
-  //     SCRIPT UNDER THIS LINE!      //
-  // -------------------------------- //
+# Handle the MusicOnHold
+if (isset($acc) && ($acc>0)){
+	$file_ext_allow = $file_ext_allow_musiconhold;
+	$pass_param = "acc=$acc";
+
+	$upload_dir = DIR_STORE_MOHMP3."/acc_$acc";
+}
+
+# individual file size limit - in bytes (102400 bytes = 100KB)
+$file_size_ind = MY_MAX_FILE_SIZE_AUDIO;
+
+# PHP.INI
+# ; Maximum allowed size for uploaded files.
+# upload_max_filesize = 8M
+
+
+# the images directory
+$dir_img= "images";
+
+
+
+// -------------------------------- //
+//     SCRIPT UNDER THIS LINE!      //
+// -------------------------------- //
   
 function getlast($toget)
 {
