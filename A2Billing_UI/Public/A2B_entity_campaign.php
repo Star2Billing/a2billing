@@ -1,7 +1,7 @@
 <?php
 exit;
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
+include ("../lib/admin.defines.php");
+include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_campaign.inc");
 include ("../lib/smarty.php");

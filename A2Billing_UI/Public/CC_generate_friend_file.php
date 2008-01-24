@@ -1,6 +1,6 @@
 <?php 
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
+include ("../lib/admin.defines.php");
+include ("../lib/admin.module.access.php");
 include ("../lib/regular_express.inc");
 include ("../lib/phpagi/phpagi-asmanager.php");
 include ("../lib/smarty.php");

@@ -1,6 +1,6 @@
 <?php
-include ("../lib/defines.php");
-include_once("../lib/module.access.php");
+include ("../lib/admin.defines.php");
+include_once ("../lib/admin.module.access.php");
 include ("../lib/smarty.php");
 
 $smarty->display('main.tpl');

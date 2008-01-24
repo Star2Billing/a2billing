@@ -1,7 +1,7 @@
 <?php
-include_once(dirname(__FILE__) . "/../lib/defines.php");
+include_once(dirname(__FILE__) . "/../lib/admin.defines.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include_once(dirname(__FILE__) . "/../lib/module.access.php");
+include_once(dirname(__FILE__) . "/../lib/admin.module.access.php");
 include ("../lib/smarty.php");
 
 
