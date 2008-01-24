@@ -147,7 +147,7 @@ function sendtolittle(direction){
 						 if ($this->FG_DEBUG >= 2) print_r ($list);			 
 						 if ($this->FG_DEBUG >= 2) echo "<br>#$i<br>::>".$this->VALID_SQL_REG_EXP;
 						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$list[0][$i];
-						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$$this->FG_TABLE_ADITION[$i][1];											
+						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$this->FG_TABLE_ADITION[$i][1];											
 			  			?>
 						<SELECT name='<?php echo $this->FG_TABLE_EDITION[$i][1]?><?php if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")) echo "[]";?>' class="form_input_select" <?php echo $this->FG_TABLE_EDITION[$i][4]?>>
                         <?php
