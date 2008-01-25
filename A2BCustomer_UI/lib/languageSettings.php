@@ -57,10 +57,10 @@ function SetLocalLanguage()
 			$charEncoding = "iso88591";
 			break;
 		case "russian":
-                	$languageEncoding = "ru_RU.UTF-8";
-                	$slectedLanguage = "ru_RU";
-                	$charEncoding = "UTF-8";
-            		break;
+			$languageEncoding = "ru_RU.UTF-8";
+			$slectedLanguage = "ru_RU";
+			$charEncoding = "UTF-8";
+			break;
 		case "turkish":
 			$languageEncoding = "tr_TR.iso88599";
 			$slectedLanguage = "tr_TR";
