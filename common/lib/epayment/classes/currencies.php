@@ -1,14 +1,5 @@
 <?php
-/*
-  $Id: currencies.php,v 1.16 2003/06/05 23:16:46 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
 ////
 // Class to handle currencies

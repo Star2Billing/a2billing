@@ -1,14 +1,4 @@
 <?php
-/*
-  $Id: order.php,v 1.33 2003/06/09 22:25:35 hpdl Exp $
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
   class order {
     var $info, $totals, $products, $customer, $delivery, $content_type;
@@ -30,15 +20,12 @@
     function query($order_amount)
     {
         global $languages_id;
-	$numrow = 0;
 
         $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
         $DBHandle_max  = DbConnect();
-        $resmax = $DBHandle_max -> Execute($QUERY);
-	if ($resmax)
-	        $numrow = $resmax -> RecordCount( );
-
+        $resmax = $DBHandle_max -> query($QUERY);
+        $numrow = $resmax -> numRows();
         if ($numrow == 0) exit();
         $customer_info =$resmax -> fetchRow();
         if( $customer_info [13] != "t" && $customer_info [13] != "1" )

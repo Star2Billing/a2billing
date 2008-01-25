@@ -1,14 +1,5 @@
 <?php
-/*
-  $Id: cc_validation.php,v 1.3 2003/02/12 20:43:41 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
   class cc_validation {
     var $cc_type, $cc_number, $cc_expiry_month, $cc_expiry_year;
