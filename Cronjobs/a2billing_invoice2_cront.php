@@ -27,10 +27,10 @@ set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 //dl("pgsql.so"); // remove "extension= pgsql.so !
 
-include_once (dirname(__FILE__)."/../Class.Table.php");
-include (dirname(__FILE__)."/../Class.A2Billing.php");
-include (dirname(__FILE__)."/../Misc.php");
-include (dirname(__FILE__)."/../A2B_invoice.php");
+include_once (dirname(__FILE__)."/lib/Class.Table.php");
+include (dirname(__FILE__)."/lib/Class.A2Billing.php");
+include (dirname(__FILE__)."/lib/Misc.php");
+include (dirname(__FILE__)."/lib/A2B_invoice.php");
 
 //Flag to show the debuging information
 $verbose_level=2;

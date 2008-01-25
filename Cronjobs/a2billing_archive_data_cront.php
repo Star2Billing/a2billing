@@ -23,10 +23,17 @@
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-include_once (dirname(__FILE__)."/../Class.Table.php");
-include (dirname(__FILE__)."/../Class.A2Billing.php");
+
+include_once (dirname(__FILE__)."/lib/Class.Table.php");
+include (dirname(__FILE__)."/lib/Class.A2Billing.php");
+include (dirname(__FILE__)."/lib/Misc.php");
+
+
+$A2B = new A2Billing();
+$A2B -> load_conf($agi, NULL, 0, $idconfig);
 
 write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[#### ARCHIVING DATA BEGIN ####]");
+
 if (!$A2B -> DbConnect()){				
 	echo "[Cannot connect to the database]\n";
 	write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
