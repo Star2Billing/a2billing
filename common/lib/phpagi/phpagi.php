@@ -387,11 +387,19 @@
     * @link http://www.voip-info.org/wiki-get+variable
     * @link http://www.voip-info.org/wiki-Asterisk+variables
     * @param string $variable name
-    * @return array, see evaluate for return information. ['result'] is 0 if variable hasn't been set, 1 if it has. ['data'] holds the value.
+    * @param boolean $get_value
+    * @return array if $get_value is not set or set to false. 
+		*	If $get_value is set to true, the value of the variable is returned. 
+		* See evaluate for return information. ['result'] is 0 if variable hasn't been set, 1 if it has. ['data'] holds the value.
     */
-    function get_variable($variable)
+    function get_variable($variable, $get_value = false)
     {
-      return $this->evaluate("GET VARIABLE $variable");
+			$var = $this->evaluate("GET VARIABLE $variable");
+      if(isset($get_value) && $get_value){
+				return $var['data'];
+			} else {
+				return $var;
+			}
     }
 
    /**
@@ -473,7 +481,9 @@
     */
     function say_digits($digits, $escape_digits='')
     {
-      return $this->evaluate("SAY DIGITS $digits \"$escape_digits\"");
+	  if (PLAY_AUDIO){
+        return $this->evaluate("SAY DIGITS $digits \"$escape_digits\"");
+	  }
     }
 
    /**
@@ -487,7 +497,9 @@
     */
     function say_number($number, $escape_digits='')
     {
-      return $this->evaluate("SAY NUMBER $number \"$escape_digits\"");
+	  if (PLAY_AUDIO){
+        return $this->evaluate("SAY NUMBER $number \"$escape_digits\"");
+	  }
     }
 
    /**
@@ -501,7 +513,9 @@
     */
     function say_phonetic($text, $escape_digits='')
     {
-      return $this->evaluate("SAY PHONETIC $text \"$escape_digits\"");
+	  if (PLAY_AUDIO){
+      	return $this->evaluate("SAY PHONETIC $text \"$escape_digits\"");
+	  }
     }
 
    /**
@@ -515,8 +529,10 @@
     */
     function say_time($time=NULL, $escape_digits='')
     {
-      if(is_null($time)) $time = time();
-      return $this->evaluate("SAY TIME $time \"$escape_digits\"");
+	  if (PLAY_AUDIO){
+        if(is_null($time)) $time = time();
+        return $this->evaluate("SAY TIME $time \"$escape_digits\"");
+	  }
     }
 
    /**
@@ -682,7 +698,9 @@
     */
     function stream_file($filename, $escape_digits='', $offset=0)
     {
-      return $this->evaluate("STREAM FILE $filename \"$escape_digits\" $offset");
+		if (PLAY_AUDIO){
+      		return $this->evaluate("STREAM FILE $filename \"$escape_digits\" $offset");
+		}
     }
 
    /**
@@ -770,15 +788,12 @@
       return $this->exec("AGI $command", $args);
     }
 
-    function ChangeLanguage($lang)
-    {
-	return $this->exec("AGI SET VARIABLE LANGUAGE()",$lang);
-    }
-   /**
+    /**
     * Set Language.
     *
     * @param string $language code
     * @return array, see evaluate for return information.
+	* !! Depreciate on asterisk 1.2 & 1.4
     */
     function exec_setlanguage($language='en')
     {
@@ -1777,21 +1792,21 @@
  *   $writetype = 0  - write to file
  */
 function write_log2($output, $writetype = 1){ // 
-		global $DNID;
-		global $CallerID;
-		global $log_file;		
-		global $BUFFER;
-		
-		
-		//verbose("BUFFER: $BUFFER");	
-		$string_log = "[".date("d/m/Y H:i:s")."]:[CallerID:$CallerID]:[DNID:$DNID]:$output";
-		if ($writetype){ // write to buffer
-			$BUFFER	= $BUFFER.$string_log."\n";
-		}else{		// write to file			
-			error_log ($BUFFER.$string_log."\n", 3, $log_file);
-			$BUFFER='';
-		}
-		//verbose("BUFFER: $BUFFER");	
+	global $DNID;
+	global $CallerID;
+	global $log_file;		
+	global $BUFFER;
+	
+	
+	//verbose("BUFFER: $BUFFER");	
+	$string_log = "[".date("d/m/Y H:i:s")."]:[CallerID:$CallerID]:[DNID:$DNID]:$output";
+	if ($writetype){ // write to buffer
+		$BUFFER	= $BUFFER.$string_log."\n";
+	}else{		// write to file			
+		error_log ($BUFFER.$string_log."\n", 3, $log_file);
+		$BUFFER='';
+	}
+	//verbose("BUFFER: $BUFFER");	
 }
 
 
@@ -1799,39 +1814,40 @@ function write_log2($output, $writetype = 1){ //
  *   Write data into the Trans file
  */
 function write_stat($output){		
-		global $stat_file;		
-		
-		$string_log = "[".date("d/m/Y H:i:s")."]:$output";
-		error_log ($string_log."\n", 3, $stat_file);		
+	global $stat_file;		
+	
+	$string_log = "[".date("d/m/Y H:i:s")."]:$output";
+	error_log ($string_log."\n", 3, $stat_file);
 }
-
 
 
 /*
  *   Write data into the Error file
  */
-function write_error($output){		
-		global $error_file;				
-		$string_log = "[".date("d/m/Y H:i:s")."]:$output";		
-		error_log ($string_log."\n", 3, $error_file);		
+function write_error($output)
+{		
+	global $error_file;				
+	$string_log = "[".date("d/m/Y H:i:s")."]:$output";		
+	error_log ($string_log."\n", 3, $error_file);		
 }
 
 /*
  *   Detect the Hangup and call the callback function
  */
-function hangup_check($agi){		
-		if ($agi->response['code']==false){		
-			//my_callback();
-		}
+function hangup_check($agi)
+{
+	if ($agi->response['code']==false){		
+		//my_callback();
+	}
 }
 
 function iferrorexec($result,$callback)
 {
-        /*if ($agi->response['code']==false){             
-                $callback();
-        } */		
-		if ($result['result']=='-1'){  //$result['code']=='500' && 
-				$callback();
-		}		
+	/*if ($agi->response['code']==false){             
+		$callback();
+	} */		
+	if ($result['result']=='-1'){  //$result['code']=='500' && 
+		$callback();
+	}		
 }
 ?>
