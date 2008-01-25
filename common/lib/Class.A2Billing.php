@@ -155,6 +155,9 @@ class A2Billing {
 	var $id_card;
 	var $useralias;
 	
+	// Enable voicemail for this card. For DID and SIP/IAX call
+	var $voicemail = 0;
+	
 	// Flag to know that we ask for an othercardnumber when for instance we doesnt have enough credit to make a call
 	var $ask_other_cardnumber=0;
 	
@@ -267,11 +270,11 @@ class A2Billing {
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);		
 		}
 	  
-	  
+	  	/*  We don't need to do this twice.  load_conf_db() will do it
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
 		foreach($optconfig as $var=>$val) {
 			$this->config["agi-conf$idconfig"][$var] = $val;
-		}
+		}*/
 		
 		// conf for the database connection
 		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
@@ -281,7 +284,7 @@ class A2Billing {
 		if(!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
 		if(!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
 		
-		$this->load_conf_db($agi, NULL, 0, $idconfig);
+		$this->load_conf_db($agi, NULL, 0, $idconfig, $optconfig);
     }
 	
 	/* 
@@ -320,18 +323,6 @@ class A2Billing {
 			}	
 		}
 		$this->DbDisconnect($this->DBHandle);
-
-		// allow cascading configurations, if a parent_config is set
-		$pc=isset($this->config["agi-conf$idconfig"]["parent_config"]) ? $this->config["agi-conf$idconfig"]["parent_config"] : 0;
-		while ($pc != 0 ) {
-			foreach ($this->config["agi-conf$pc"] as $var=>$val) {
-				if ($var != "parent_config" && !isset($this->config["agi-conf$idconfig"][$var])) {
-					$this->config["agi-conf$idconfig"][$var] = $val;
-				}
-			}
-			$pc = isset($this->config["agi-conf$pc"]["parent_config"]) ? $this->config["agi-conf$pc"]["parent_config"] : 0;
-		}
-		unset($pc);
 		
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
 		foreach($optconfig as $var=>$val)
@@ -775,7 +766,7 @@ class A2Billing {
 				if (($packagetype == 0) || ($packagetype == 1)) {
 					$agi-> stream_file('prepaid-you-have', '#');
 				} else {
-					$agi-> stream_file('you-have-dialed', '#');
+					$agi-> stream_file('prepaid-you-have-dialed', '#');
 				}
 				if (($minutes > 0) || ($seconds == 0)) {
 					$agi->say_number($minutes);
@@ -938,8 +929,9 @@ class A2Billing {
 		$sip_buddies = 0;
 		$iax_buddies = 0;
 		
-		$QUERY = "SELECT name FROM cc_iax_buddies, cc_card WHERE cc_iax_buddies.name=cc_card.username AND useralias='".$this->destination."'";			
-		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);										
+		$QUERY = "SELECT name FROM cc_iax_buddies, cc_card WHERE cc_iax_buddies.name=cc_card.username AND useralias='".$this->destination."'";
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);
+		
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $result);		
 		
@@ -1041,6 +1033,24 @@ class A2Billing {
 				return 1;
 			}
 		}
+		if ($this->voicemail) {
+			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
+				// The following section will send the caller to VoiceMail with the unavailable priority.
+				// $dest = "u".$card_alias;
+				$dest = $card_alias;
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest)");
+				$agi-> exec(VoiceMail,$dest);
+			}
+			
+			if (($dialstatus =="BUSY")) {
+				// The following section will send the caller to VoiceMail with the busy priority.
+				// $dest = "b".$card_alias;
+				$dest = $card_alias;
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest)");
+				$agi-> exec(VoiceMail,$dest);
+			}
+		}
+		
 		return -1;
 	}
 	
@@ -1076,14 +1086,15 @@ class A2Billing {
 			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: FOLLOWME=$callcount (cardnumber:".$inst_listdestination[6]."|destination:".$inst_listdestination[4]."|tariff:".$inst_listdestination[3].")\n");
 			
-			$this->agiconfig['cid_enable']	= 0;
+			$this->agiconfig['cid_enable']			= 0;
 			$this->accountcode 				= $inst_listdestination[6];
 			$this->tariff 					= $inst_listdestination[3];
 			$this->destination 				= $inst_listdestination[4];
 			$this->username 				= $inst_listdestination[6];
+			$this->useralias 				= $inst_listdestination[7];
 			
 			// MAKE THE AUTHENTICATION TO GET ALL VALUE : CREDIT - EXPIRATION - ...
-			if ($this -> callingcard_ivr_authenticate($agi)!=0){
+			if ($this -> callingcard_ivr_authenticate($agi)!=0) {
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: AUTHENTICATION FAILS !!!\n");
 			} else {				
 				// CHECK IF DESTINATION IS SET
@@ -1199,6 +1210,7 @@ class A2Billing {
 							continue;
 						}
 						
+						$dialstatus = $RateEngine->dialstatus;
 						if (($RateEngine->dialstatus == "NOANSWER") || ($RateEngine->dialstatus == "CANCEL") || ($RateEngine->dialstatus == "BUSY") || ($RateEngine->dialstatus == "CHANUNAVAIL") || ($RateEngine->dialstatus == "CONGESTION")) continue;
 							
 						// INSERT CDR  & UPDATE SYSTEM
@@ -1219,6 +1231,24 @@ class A2Billing {
 				}
 			} // END IF AUTHENTICATE
 		}// END FOR
+		
+		if ($this->voicemail) {
+			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
+				// The following section will send the caller to VoiceMail with the unavailable priority.
+				// $dest = "u".$this->useralias;
+				$dest = $this->useralias;
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest)");
+				$agi-> exec(VoiceMail,$dest);
+			}
+			
+			if (($dialstatus =="BUSY")) {
+				// The following section will send the caller to VoiceMail with the busy priority.
+				// $dest = "b".$this->useralias;
+				$dest = $this->useralias;
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest)");
+				$agi-> exec(VoiceMail,$dest);
+			}
+		}
 	}
 	
 	
@@ -1620,7 +1650,7 @@ class A2Billing {
 				$QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
 			}
 			
-			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, cc_card.status ".
+			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, cc_card.status, cc_card.voicemail_permitted, cc_card.voicemail_activated ".
 						" FROM cc_callerid ".
 						" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 						" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
@@ -1720,6 +1750,7 @@ class A2Billing {
 				$this->id_card 				= $result[0][26];
 				$this->useralias 			= $result[0][27];
 				$this->status 				= $result[0][28];
+				$this->voicemail		= ($result[0][29] && $result[0][30]) ? 1 : 0;
 				
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
@@ -1798,9 +1829,9 @@ class A2Billing {
 					
 					$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 					if ($this->config['database']['dbtype'] == "postgres"){
-						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status FROM cc_card ";
+						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated FROM cc_card ";
 					}else{
-						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status FROM cc_card ";
+						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated FROM cc_card ";
 					}
 					
 					$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
@@ -1864,6 +1895,7 @@ class A2Billing {
 					$this->id_card  			= $result[0][22];
 					$this->useralias 			= $result[0][23];
 					$this->status 				= $result[0][24];
+					$this->voicemail		= ($result[0][25] && $result[0][26]) ? 1 : 0;
 					
 					if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				}
@@ -1955,9 +1987,9 @@ class A2Billing {
 				
 				$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 				if ($this->config['database']['dbtype'] == "postgres"){
-					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
+					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 				}else{
-					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
+					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 				}
 				
 				$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
@@ -2017,6 +2049,7 @@ class A2Billing {
 				$this->id_card  = $result[0][23];
 				$this->useralias = $result[0][24];
 				$this->status = $result[0][25];
+				$this->voicemail = ($result[0][26] && $result[0][27]) ? 1 : 0;
 				
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
@@ -2134,9 +2167,9 @@ class A2Billing {
 		
 		$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 		if ($this->config['database']['dbtype'] == "postgres")
-			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status FROM cc_card ";
+			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, voicemail_permitted, voicemail_activated FROM cc_card ";
 		else
-			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status FROM cc_card ";
+			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, voicemail_permitted, voicemail_activated FROM cc_card ";
 		
 		$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 			
@@ -2170,6 +2203,7 @@ class A2Billing {
 		$this->cardholder_uipass = $result[0][20];
 		$this->id_campaign  = $result[0][21];
 		$this->status  = $result[0][22];
+		$this->voicemail = ($result[0][23] && $result[0][24]) ? 1 : 0;
 		
 		if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 		
