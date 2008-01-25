@@ -1,0 +1,12 @@
+
+## Class Changes :
+
+
+The php-agi class has been slightly altered :
+- PLAY_AUDIO
+- write logs function
+
+
+TODO :
+- try to consolidate properly and share with the author
+

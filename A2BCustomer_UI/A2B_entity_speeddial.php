@@ -1,9 +1,9 @@
 <?php
-include ("./lib/defines.php");
-include ("./lib/module.access.php");
+include ("./lib/customer.defines.php");
+include ("./lib/customer.module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_speeddial.inc");
-include ("./lib/smarty.php");
+include ("./lib/customer.smarty.php");
 
 if (! has_rights (ACX_ACCESS)){
 	   Header ("HTTP/1.0 401 Unauthorized");

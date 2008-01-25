@@ -1,8 +1,8 @@
 <?php
-include_once ("../lib/defines.php");
-include_once ("../lib/module.access.php");
+include_once ("../lib/admin.defines.php");
+include_once ("../lib/admin.module.access.php");
 include_once ("../lib/Form/Class.FormHandler.inc.php");
-include_once ("../lib/smarty.php");
+include_once ("../lib/admin.smarty.php");
 include_once ("./form_data/FG_var_diduse.inc");
 
 

@@ -1,10 +1,10 @@
 <?php
 exit;
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
+include ("../lib/admin.defines.php");
+include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_phonelist.inc");
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 
 if (! has_rights (ACX_PREDICTIVE_DIALER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");

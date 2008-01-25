@@ -1,9 +1,9 @@
 <?php
-include ("./lib/defines.php");
-include ("./lib/module.access.php");
+include ("./lib/customer.defines.php");
+include ("./lib/customer.module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_sipiax_info.inc");
-include ("./lib/smarty.php");
+include ("./lib/customer.smarty.php");
 
 
 if (! has_rights (ACX_ACCESS)){

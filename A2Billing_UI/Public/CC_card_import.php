@@ -1,9 +1,9 @@
 <?php
 // Common includes
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
+include ("../lib/admin.defines.php");
+include ("../lib/admin.module.access.php");
 //include ("../lib/Class.Table.php");
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 
 set_time_limit(0);
 

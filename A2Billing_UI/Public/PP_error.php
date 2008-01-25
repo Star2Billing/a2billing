@@ -1,5 +1,5 @@
 <?php
-include ("../lib/defines.php");
+include ("../lib/admin.defines.php");
 
 getpost_ifset(array('err_type','c'));
 
@@ -12,9 +12,9 @@ if (!isset($err_type)) {
 if($err_type == 0) {
 	$popup_select=1;
 } else {
-	include ("../lib/module.access.php");
+	include ("../lib/admin.module.access.php");
 }
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 
 $smarty->display('main.tpl');
 

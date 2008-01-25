@@ -1,7 +1,7 @@
 <?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
-include ("lib/smarty.php");
+include ("lib/customer.defines.php");
+include ("lib/customer.module.access.php");
+include ("lib/customer.smarty.php");
 
 
 $smarty->assign("error", $_GET["error"]);

@@ -1,8 +1,8 @@
 <?php
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
+include ("../lib/admin.defines.php");
+include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 
 if (! has_rights (ACX_MISC)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
