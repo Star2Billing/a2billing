@@ -1,6 +1,6 @@
 <?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
+include ("lib/customer.defines.php");
+include ("lib/customer.module.access.php");
 
 
 if (! has_rights (ACX_ACCESS)){ 

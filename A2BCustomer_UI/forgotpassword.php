@@ -2,7 +2,7 @@
 // session_name("FORGOT");
 // session_start();
 
-include ("./lib/defines.php");
+include ("./lib/customer.defines.php");
 
 getpost_ifset(array('pr_email','action'));
 $error = 0; //$error = 0 No Error; $error=1 No such User; $error = 2 Wrong Action

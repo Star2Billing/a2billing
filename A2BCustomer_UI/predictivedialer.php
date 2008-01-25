@@ -1,8 +1,8 @@
 <?php
 exit();
-include ("lib/defines.php");
-include ("lib/module.access.php");
-include ("lib/smarty.php");
+include ("lib/customer.defines.php");
+include ("lib/customer.module.access.php");
+include ("lib/customer.smarty.php");
 include ("lib/Class.RateEngine.php");	 
 include ("lib/phpagi/phpagi-asmanager.php");
 include ("frontoffice_data/CC_var_phonelist.inc");

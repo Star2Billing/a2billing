@@ -1,6 +1,6 @@
 <?php
-include ("./lib/defines.php");
-include ("./lib/module.access.php");
+include ("./lib/customer.defines.php");
+include ("./lib/customer.module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./lib/epayment/classes/payment.php");
 include ("./lib/epayment/classes/order.php");
@@ -10,7 +10,7 @@ include ("./lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/sessions.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
 include ("./lib/epayment/includes/configure.php");
-include ("./lib/smarty.php");
+include ("./lib/customer.smarty.php");
 
 if (! has_rights (ACX_ACCESS)){
 	Header ("HTTP/1.0 401 Unauthorized");

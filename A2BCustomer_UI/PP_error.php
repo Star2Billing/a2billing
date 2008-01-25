@@ -1,8 +1,8 @@
 <?php
-include ("lib/defines.php");
+include ("lib/customer.defines.php");
 
 $popup_select=1;
-include ("lib/smarty.php");
+include ("lib/customer.smarty.php");
 
 $smarty->display('main.tpl');
 

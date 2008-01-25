@@ -1,8 +1,8 @@
 <?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
+include ("lib/customer.defines.php");
+include ("lib/customer.module.access.php");
 include ("lib/Class.RateEngine.php");	 
-include ("lib/smarty.php");
+include ("lib/customer.smarty.php");
 
 include (dirname(__FILE__)."/lib/phpagi/phpagi-asmanager.php");
 

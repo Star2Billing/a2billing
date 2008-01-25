@@ -1,5 +1,5 @@
 <?php
-include ("./lib/defines.php");
+include ("./lib/customer.defines.php");
 
 
 getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','currency','md5sig','merchant_id','mb_amount','status','mb_currency','transaction_id'));
@@ -19,7 +19,7 @@ if($transactionID == "") {
 }
 
 
-include ("./lib/module.access.php");
+include ("./lib/customer.module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./lib/epayment/classes/payment.php");
 include ("./lib/epayment/classes/order.php");
