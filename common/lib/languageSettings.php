@@ -56,6 +56,11 @@ function SetLocalLanguage()
 			$slectedLanguage = "ro_RO";
 			$charEncoding = "iso88591";
 			break;
+		case "russian":
+			$languageEncoding = "ru_RU.UTF-8";
+			$slectedLanguage = "ru_RU";
+			$charEncoding = "UTF-8";
+			break;
 		case "turkish":
 			$languageEncoding = "tr_TR.iso88599";
 			$slectedLanguage = "tr_TR";
@@ -81,7 +86,7 @@ function SetLocalLanguage()
 	putenv("LANGUAGE=$slectedLanguage");
 	setlocale(LC_MESSAGES, $slectedLanguage);
 	$domain = 'messages';
-	bindtextdomain("messages", "../lib/locale");
+	bindtextdomain("messages", "./lib/locale");
 	textdomain($domain);
 	bind_textdomain_codeset($domain, $charEncoding);
 	define('CHARSET', $charEncoding);
