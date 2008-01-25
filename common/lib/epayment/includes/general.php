@@ -1,5 +1,6 @@
 <?php
 
+
 ////
 // Stop from parsing any further PHP code
   function tep_exit() {

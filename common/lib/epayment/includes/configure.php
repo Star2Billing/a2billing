@@ -1,7 +1,5 @@
 <?php
 
-	// THIS FILE SHOULD NOT BE NEEDED ON THE ADMIN INTERFACE
-
 	// Define the webserver and path parameters
 	// * DIR_FS_* = Filesystem directories (local/physical)
 	// * DIR_WS_* = Webserver directories (virtual/URL)
@@ -29,8 +27,6 @@
 	define('DIR_WS_CLASSES', DIR_WS_INCLUDES . 'classes/');
 	define('DIR_WS_MODULES', DIR_WS_INCLUDES . 'modules/');
 	define('DIR_WS_LANGUAGES', DIR_WS_INCLUDES . 'languages/');
-
-
 
 	define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
 

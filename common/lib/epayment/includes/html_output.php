@@ -109,7 +109,7 @@
   function tep_image_submit($image, $alt = '', $parameters = '') {
     global $language;
 
-    $image_submit = '<input type="image" src="' . tep_output_string('../Images/' . $image) . '" border="0" alt="' . tep_output_string($alt) . '"';
+    $image_submit = '<input type="image" src="' . tep_output_string(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image) . '" border="0" alt="' . tep_output_string($alt) . '"';
 
     if (tep_not_null($alt)) $image_submit .= ' title=" ' . tep_output_string($alt) . ' "';
 
@@ -125,7 +125,7 @@
   function tep_image_button($image, $alt = '', $parameters = '') {
     global $language;
 
-    return tep_image('../Images/' . $image, $alt, '', '', $parameters);
+    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $parameters);
   }
 
 ////
@@ -149,7 +149,7 @@
 ////
 // Output a form input field
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
-    $field = '<input class="form_input_text" size=30 type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+    $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
 
     if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
       $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
@@ -223,7 +223,7 @@
 ////
 // Output a form hidden field
   function tep_draw_hidden_field($name, $value = '', $parameters = '') {
-    $field = '<input type="hidden" name="' . tep_output_string($name) . '"';
+    $field = "\n".'<input type="hidden" name="' . tep_output_string($name) . '"';
 
     if (tep_not_null($value)) {
       $field .= ' value="' . tep_output_string($value) . '"';
@@ -251,7 +251,7 @@
 ////
 // Output a form pull down menu
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
-    $field = '<select class="form_input_select" name="' . tep_output_string($name) . '"';
+    $field = '<select name="' . tep_output_string($name) . '"';
 
     if (tep_not_null($parameters)) $field .= ' ' . $parameters;
 
