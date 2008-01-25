@@ -24,12 +24,12 @@ if (function_exists('pcntl_signal')) {
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 	
-include_once (dirname(__FILE__)."/libs_a2billing/Class.Table.php");
-include (dirname(__FILE__)."/libs_a2billing/Class.A2Billing.php");
-include (dirname(__FILE__)."/libs_a2billing/Class.RateEngine.php");   
-include (dirname(__FILE__)."/libs_a2billing/phpagi_2_14/phpagi.php");
-include (dirname(__FILE__)."/libs_a2billing/phpagi_2_14/phpagi-asmanager.php");
-include (dirname(__FILE__)."/libs_a2billing/Misc.php");
+include_once (dirname(__FILE__)."/lib/Class.Table.php");
+include (dirname(__FILE__)."/lib/Class.A2Billing.php");
+include (dirname(__FILE__)."/lib/Class.RateEngine.php");   
+include (dirname(__FILE__)."/lib/phpagi/phpagi.php");
+include (dirname(__FILE__)."/lib/phpagi/phpagi-asmanager.php");
+include (dirname(__FILE__)."/lib/Misc.php");
 
 $charge_callback=0;
 $G_startime = time();
