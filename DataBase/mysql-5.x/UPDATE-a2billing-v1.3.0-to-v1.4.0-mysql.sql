@@ -738,6 +738,6 @@ CREATE OR REPLACE VIEW voicemail_users AS (
 );
 
 ALTER TABLE cc_card ADD voicemail_permitted INTEGER DEFAULT 0 NOT NULL;
-ALTER TABLE cc_card ADD voicemail_activated SMALLINT DEFAULT 0 NOT NULL,
+ALTER TABLE cc_card ADD voicemail_activated SMALLINT DEFAULT 0 NOT NULL;
 
 
