@@ -334,7 +334,7 @@ $HD_Form -> AddEditElement (gettext("INSECURE"),
 						   "insecure",		
 						   '',	
 						   "INPUT",	
-						   "size=10 maxlength=4",	
+						   "size=20 maxlength=30",	
 						   "",	
 						   gettext("Insert the insecure"),
 						   "" , "", "",	"", "", "",	"", "" );
