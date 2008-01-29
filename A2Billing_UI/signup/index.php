@@ -3,7 +3,7 @@ session_name("UISIGNUP");
 session_start();
 
 include ("../lib/admin.defines.php");
-include ("../lib/module.access.php");
+include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_index.inc");
 include ("../lib/admin.smarty.php");

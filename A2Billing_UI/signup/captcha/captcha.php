@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
 	session_name("UISIGNUP");
 	session_start();
 }
-include("../../lib/defines.php");
+include("../../lib/admin.defines.php");
 $code = MDP_STRING(6);
 $_SESSION["captcha_code"] = $code;
 $seed = MDP_NUMERIC(6);

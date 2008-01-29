@@ -262,7 +262,7 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();
-include ("help.php");
+include (LIBDIR."admin.help.php");
 // 
 // The system will not log for Public/index.php and 
 // signup/index.php

@@ -138,7 +138,7 @@ class captcha
 		if (!sizeof($fonts))
 		{
 			global $phpbb_root_path;
-			$dr = @opendir(FSROOT.'/signup/captcha/fonts/');
+			$dr = @opendir(dirname(__FILE__).'/fonts/');
 
 			if (!$dr)
 			{
@@ -149,7 +149,7 @@ class captcha
 			{
 				if (strtolower(pathinfo($entry, PATHINFO_EXTENSION)) == 'ttf')
 				{
-					$fonts[] = FSROOT.'/signup/captcha/fonts/' . $entry;
+					$fonts[] = dirname(__FILE__).'/fonts/' . $entry;
 				}
 			}
 			closedir($dr);
