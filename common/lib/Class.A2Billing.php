@@ -1274,11 +1274,7 @@ class A2Billing {
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 		$credit_cur = $credit / $mycur;
 		
-		list($units,$cents)=split('[.]', $credit_cur);
-		if (strlen($cents)>2) $cents=substr($cents,0,2);
-		if ($units=='') $units=0;
-		if ($cents=='') $cents=0;
-		elseif (strlen($cents)==1) $cents.= '0';
+		list($units, $cents)=split('[.]', sprintf('%01.2f', $credit_cur));
 		
 		if (isset($this->agiconfig['currency_association_internal'][strtolower($this->currency)])){
 			$unit_audio = $this->agiconfig['currency_association_internal'][strtolower($this->currency)];
