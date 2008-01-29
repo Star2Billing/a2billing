@@ -1,8 +1,8 @@
 <?php
 session_name("UISIGNUP");
 session_start();
-require_once ("../lib/defines.php");
-include ("../lib/smarty.php");
+require_once ("../lib/admin.defines.php");
+include ("../lib/admin.smarty.php");
 if (!$A2B->config["signup"]['enable_signup']) {
 	exit;
 }

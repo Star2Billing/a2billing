@@ -1,5 +1,5 @@
 <?php
-include ("../../lib/defines.php");
+include ("../../lib/admin.defines.php");
 include ("../../lib/regular_express.inc");
 require_once('SOAP/Server.php');
 require_once('SOAP/Disco.php');

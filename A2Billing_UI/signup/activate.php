@@ -12,10 +12,10 @@ if (!isset($_SESSION["date_activation"]) || (time()-$_SESSION["date_activation"]
 }
 
 
-include ("../lib/defines.php");
+include ("../lib/admin.defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 /***********************************************************************************/
 $HD_Form = new FormHandler("cc_card","User");
 $HD_Form -> setDBHandler (DbConnect());
