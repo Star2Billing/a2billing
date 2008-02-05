@@ -53,7 +53,9 @@ if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0){
 	$idconfig = 1;
 }
 
-
+if($dynamic_idconfig = intval($agi->get_variable("IDCONF", true))){
+	$idconfig = $dynamic_idconfig;
+}
 
 if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')			$mode = 'did';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')		$mode = 'callback';
@@ -415,6 +417,7 @@ if ($mode == 'standard'){
 	// MAKE THE AUTHENTICATION ACCORDING TO THE CALLERID
 	$A2B->agiconfig['cid_enable']=1;
 	$A2B->agiconfig['cid_askpincode_ifnot_callerid']=0;
+	$A2B->agiconfig['say_balance_after_auth']=0;
 	
 	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)) {
 		
@@ -502,7 +505,7 @@ if ($mode == 'standard'){
 					$account = $A2B -> accountcode;
 					
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
-					$variable = "CALLED=".$A2B ->destination."|MODE=CID|CBID=$uniqueid|LEG=".$A2B -> username;
+					$variable = "IDCONF=$idconfig|CALLED=".$A2B ->destination."|MODE=CID|CBID=$uniqueid|LEG=".$A2B -> username;
 					foreach($callbackrate as $key => $value){
 						$variable .= '|'.strtoupper($key).'='.$value;
 					}
@@ -575,6 +578,7 @@ if ($mode == 'standard'){
 			
 			$A2B ->agiconfig['use_dnid']=1;
 			$A2B ->agiconfig['say_timetocall']=0;						
+			$A2B ->agiconfig['say_balance_after_auth']=0;
 			$A2B ->dnid = $A2B ->destination = $caller_areacode.$A2B->CallerID;
 			
 			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
@@ -641,7 +645,7 @@ if ($mode == 'standard'){
 					$account = $A2B -> accountcode;
 					
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
-					$variable = "CALLED=".$A2B ->destination."|MODE=ALL|CBID=$uniqueid|TARIFF=".$A2B ->tariff.'|LEG='.$A2B -> username;
+					$variable = "IDCONF=$idconfig|CALLED=".$A2B ->destination."|MODE=ALL|CBID=$uniqueid|TARIFF=".$A2B ->tariff.'|LEG='.$A2B -> username;
 					
 					$status = 'PENDING';
 					$server_ip = 'localhost';
