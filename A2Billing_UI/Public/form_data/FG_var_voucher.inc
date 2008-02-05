@@ -22,8 +22,20 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 $actived_list = array(); 
-$actived_list["t"] = array( gettext("Active"), "t");
-$actived_list["f"] = array( gettext("Inactive"), "f");
+$actived_list["t"] = array( gettext("Active"), "t" );
+$actived_list["f"] = array( gettext("Inactive"), "f" );
+
+$actived_list_r = array(); 
+$actived_list_r["t"] = array( "t", gettext("Active") );
+$actived_list_r["f"] = array( "f", gettext("Inactive") );
+
+$used_list = array();
+$used_list["0"] = array( gettext("NO USED"), "0");
+$used_list["1"] = array( gettext("USED"), "1");
+
+$used_list_r = array();
+$used_list_r["0"] = array( "0", gettext("NO USED"));
+$used_list_r["1"] = array( "1", gettext("USED"));
 
 $yesno = array();
 $yesno["1"] = array( "Yes", "1");
@@ -38,16 +50,38 @@ foreach($currencies_list as $key => $cur_value) {
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("VOUCHER"), "voucher", "13%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("TAG"), "tag", "15%", "center", "sort", "30");
-$HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "7%", "center", "sort", "", "list", $actived_list);
-$HD_Form -> AddViewElement(gettext("USEDCARDNUMBER"), "usedcardnumber", "13%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("USEDATE"), "usedate", "13%", "center", "sort", "16");
-$HD_Form -> AddViewElement(gettext("CURRENCY"), "currency", "7%", "center", "sort", "", "list", $currency_list_key);
+$HD_Form -> AddViewElement(gettext("VOUCHER"), "voucher", "12%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "6%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("TAG"), "tag", "13%", "center", "sort", "30");
+$HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "6%", "center", "sort", "", "list", $actived_list);
+$HD_Form -> AddViewElement(gettext("USED"), "used", "6%", "center", "sort", "", "list", $used_list);
+$HD_Form -> AddViewElement(gettext("USEDCARDNUMBER"), "usedcardnumber", "12%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CREATED DATE"), "creationdate", "12%", "center", "sort", "16");
+$HD_Form -> AddViewElement(gettext("USED DATE"), "usedate", "13%", "center", "sort", "16");
+$HD_Form -> AddViewElement(gettext("CURRENCY"), "currency", "6%", "center", "sort", "", "list", $currency_list_key);
 
 
-$HD_Form -> FieldViewElement ('id, voucher, credit, tag, activated, usedcardnumber, usedate, currency');
+$HD_Form -> FieldViewElement ('id, voucher, credit, tag, activated, used, usedcardnumber, creationdate, usedate, currency');
+
+
+
+// Search form
+if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for vouchers created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
+$HD_Form -> AddSearchElement_C1 (gettext("VOUCHER"), 'voucher','vouchertype');
+$HD_Form -> AddSearchElement_C1 (gettext("CARDNUMBER"),'usedcardnumber','usedcardnumbertype');
+$HD_Form -> AddSearchElement_C1 (gettext("TAG"),'tag','tagtype');
+$HD_Form -> AddSearchElement_C2 (gettext("CREDIT"),'credit1','credit1type','credit2','credit2type','credit');
+
+$HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
+$HD_Form -> AddSearchElement_Select (gettext("SELECT STATUS"), null, null, null, null,null , "activated", 0, $actived_list_r);
+$HD_Form -> AddSearchElement_Select (gettext("SELECT USED"), null, null, null, null,null , "used", 0, $used_list_r);
+$HD_Form -> AddSearchElement_Select (gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
+
+
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED.");
