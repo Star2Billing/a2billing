@@ -1,0 +1,463 @@
+#!/bin/bash
+# GPL (c) 2007 stavros@phreaker.net
+# Asterisk2Billing install script
+
+########################################################################
+# to save having to provide the path each time on the command line you can
+# set SRC to the path to the version of A2B you're trying to install. I run this script
+# in the 'asterisk2billing' folder created by svn checkout so I use "branches/1.3"
+#SRC="branches/1.3"
+#SRC="trunk"			# if you're feeling adventurous ;-)
+#SRC="."			# if the version to install is in the current directory
+
+########################################################################
+# Overwrite templates? For a clean upgrade you might need to set this to "YES"
+# If you customise the templates set "NO" and merge changes from SVN yourself 
+OVERWRITETEMPLATES="NO"
+
+########################################################################
+# Destination folders
+# I put things in non-standard locations.
+LOGPATH="/var/log/a2billing"
+ADMINPATH="/var/www/a2badmin"
+LOGINPATH="/var/www/a2b"
+SIGNUPPATH="/var/www/a2bsignup"
+# You might prefer to install to other locations by uncommenting these
+#LOGPATH="/tmp/"
+#ADMINPATH="/var/www/html/A2Billing_UI"
+#LOGINPATH="/var/www/html/A2BCustomer_UI"
+#SIGNUPPATH="/var/www/html/A2Billing_UI/Signup"
+
+########################################################################
+# You shouldn't need to edit below this line but you should read it
+# so you have an idea what's going on
+########################################################################
+
+# Grab the first command line parameter if any
+if [[ "x${SRC}" == "x" && "x$1" != "x" ]]; then
+	SRC="$1"
+fi
+
+# If still no install path print usage help and exit
+if [[ "x${SRC}" == "x" ]]; then
+	echo "
+This installer copies the A2B web UIs, sets file permissions, installs the
+callback daemon & adds any missing A2Billing config to /etc/asterisk and cron.
+You MUST configure your database server, Apache, logrotate & email, and
+install the libraries as described on the wiki and forum before running this.
+
+Once you are happy you have satisfied all the pre-requisites, choose the 
+version of A2B you want to run and obtain a copy of it:
+
+* download and extract an A2B release from http://www.asterisk2billing.org/
+  # wget http://a2billing.net/downloads/A2Billing_1.3.0.tar.gz
+  # tar xvzpf A2Billing_1.3.0.tar.gz
+  # ./install_a2b A2Billing_1.3.0
+
+* run the latest code straight from the Subversion repository:
+  # svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/
+  # cd asterisk2billing
+  # ../install_a2b branches/1.3
+
+* upgrading a previously installed SVN install to the latest version is easy:
+  # cd asterisk2billing
+  # svn up 
+  # ../install-a2b branches/1.3
+It will not change your configs if they already mention a2billing.
+" ; exit 1
+fi
+
+########################################################################
+# Detect what distro we're running on
+DISTRO="Other"
+[[ -e /etc/gentoo-release ]] && DISTRO="Gentoo"
+[[ -e /etc/trixbox/trixbox-version ]] && DISTRO="trixbox"
+[[ -e /root/install_pbx.log ]] && DISTRO="PBXinaFlash"
+
+########################################################################
+# Define distribution specific users, groups and paths
+CRONTAB="/var/spool/cron/crontabs/asterisk"
+WEBUSR="apache" ; WEBGRP="apache"
+ASTUSR="asterisk" ; ASTGRP="asterisk"
+if [[ ${DISTRO} == "trixbox" || ${DISTRO} == "PBXinaFlash" ]]; then
+	WEBUSR="asterisk" ; WEBGRP="asterisk"
+	CUSTOM="_custom"
+	CRONTAB="/var/spool/cron/asterisk"
+fi
+SIPCONF="/etc/asterisk/sip${CUSTOM}.conf"
+IAXCONF="/etc/asterisk/iax${CUSTOM}.conf"
+EXTENSIONSCONF="/etc/asterisk/extensions${CUSTOM}.conf"
+MANAGERCONF="/etc/asterisk/manager_custom.conf"
+
+########################################################################
+# Check sanity of source folder
+( [[ -d ${SRC} ]] && [[ -r ${SRC} ]] ) || ( echo "Folder '${SRC}' doesn't exist or is not readable." ; exit 1 )
+( [[ -e ${SRC}/a2billing.conf ]] && [[ -e ${SRC}/A2Billing_AGI ]] ) || ( echo "The folder '${SRC}' doesn't contain a copy of A2B." ; exit 1 )
+
+########################################################################
+# Determine if this is a Subversion working copy
+PREVSVNREV="0"
+[[ -e /etc/a2billing-version ]] && PREVSVNREV=`cat /etc/a2billing-version | cut -d ' ' -f 1`
+
+if [[ -d ${SRC}/.svn ]]; then
+	COPY="svn export --force --quiet --non-recursive"
+	RCOPY="svn export --force --quiet"
+	COPYSUFFIX=""
+	THISSVNREV=`svn info ${SRC} | grep Revision | cut -d ' ' -f 2`
+else
+	COPY="cp --force"
+	RCOPY="cp --force --recursive"
+	COPYSUFFIX="/*"
+	THISSVNREV="0"
+fi
+echo "${THISSVNREV} "`php ${SRC}/A2Billing_AGI/a2billing.php -v` > /etc/a2billing-version
+
+########################################################################
+# Find the date A2B was last installed, to improve svn usage user hints
+if [[ -e ${LOGINPATH}/form_data ]]; then
+	FROMREV="{"`date -r ${LOGINPATH}/form_data +"%Y-%m-%d %H:%M:%S"`"}"
+else
+	FROMREV="{2007-07-04 00:00:00}" # assume it's an upgrade from v1.3.0 4th July svn tag
+fi
+
+# if we're upgrading from one SVN revision to another we can be even more exact
+if [[ $PREVSVNREV != 0 ]]; then
+	FROMREV="${PREVSVNREV}"
+fi
+
+########################################################################
+# Make all needed folders
+mkdir -p /var/lib/asterisk/a2billing
+mkdir -p ${LOGPATH}
+mkdir -p ${ADMINPATH}
+mkdir -p ${SIGNUPPATH}
+mkdir -p ${SIGNUPPATH}/lib
+mkdir -p ${SIGNUPPATH}/signup
+mkdir -p ${SIGNUPPATH}/templates_c
+mkdir -p ${SIGNUPPATH}/Public/templates
+mkdir -p ${LOGINPATH}/form_data
+mkdir -p ${LOGINPATH}/frontoffice_data
+mkdir -p ${LOGINPATH}/javascript
+mkdir -p ${LOGINPATH}/jiaxclient
+mkdir -p ${LOGINPATH}/lib
+mkdir -p ${LOGINPATH}/pdf-invoices
+mkdir -p ${LOGINPATH}/templates_c
+mkdir -p /var/lib/asterisk/sounds/a2billing
+for i in `seq 1 10`
+do
+  mkdir -p /var/lib/asterisk/mohmp3/acc_${i}
+done
+
+########################################################################
+# Ensure all log files exist so we can set their permissions correctly
+#touch /var/log/asterisk/a2billing-daemon-callback.log
+touch ${LOGPATH}/a2billing-daemon-callback.log
+touch ${LOGPATH}/cront_a2b_alarm.log
+touch ${LOGPATH}/cront_a2b_autorefill.log
+touch ${LOGPATH}/cront_a2b_batch_process.log
+touch ${LOGPATH}/cront_a2b_bill_diduse.log
+touch ${LOGPATH}/cront_a2b_subscription_fee.log
+touch ${LOGPATH}/cront_a2b_currency_update.log
+touch ${LOGPATH}/cront_a2b_invoice.log
+touch ${LOGPATH}/cront_a2b_check_account.log
+touch ${LOGPATH}/a2billing_paypal.log
+touch ${LOGPATH}/a2billing_epayment.log
+touch ${LOGPATH}/api_ecommerce_request.log
+touch ${LOGPATH}/api_callback_request.log
+touch ${LOGPATH}/a2billing_agi.log
+
+########################################################################
+# Install the sounds
+$RCOPY ${SRC}/addons/sounds${COPYSUFFIX} /var/lib/asterisk/sounds
+
+########################################################################
+# Install the AGI and cron scripts
+$RCOPY ${SRC}/A2Billing_AGI${COPYSUFFIX} /var/lib/asterisk/agi-bin
+
+########################################################################
+# Install the admin interface
+$RCOPY ${SRC}/A2Billing_UI${COPYSUFFIX} ${ADMINPATH}
+
+########################################################################
+# Copy signup to a seperate folder for Apache vhost permissions
+$RCOPY ${SRC}/A2Billing_UI/signup${COPYSUFFIX} ${SIGNUPPATH}/signup
+$RCOPY ${SRC}/A2Billing_UI/Public/templates${COPYSUFFIX} ${SIGNUPPATH}/Public/templates
+$RCOPY ${SRC}/A2Billing_UI/lib${COPYSUFFIX} ${SIGNUPPATH}/lib
+echo "<?php header('Location: signup/index.php'); ?>" > ${SIGNUPPATH}/index.php
+
+########################################################################
+# Install the customer interface, except the templates
+# workaround the prehistoric svn 1.1 client on trixbox 2.2
+if [[ `svn --version | head -n 1 | cut -d ' ' -f 3 | grep -e '^1.1' | wc -l` == 1 ]]; then
+	cp --force ${SRC}/A2BCustomer_UI/* ${LOGINPATH}/ 2> /dev/null
+else
+	$COPY ${SRC}/A2BCustomer_UI${COPYSUFFIX} ${LOGINPATH}/
+fi
+$RCOPY ${SRC}/A2BCustomer_UI/form_data${COPYSUFFIX} ${LOGINPATH}/form_data
+$RCOPY ${SRC}/A2BCustomer_UI/frontoffice_data${COPYSUFFIX} ${LOGINPATH}/frontoffice_data
+$RCOPY ${SRC}/A2BCustomer_UI/javascript${COPYSUFFIX} ${LOGINPATH}/javascript
+$RCOPY ${SRC}/A2BCustomer_UI/jiaxclient${COPYSUFFIX} ${LOGINPATH}/jiaxclient
+$RCOPY ${SRC}/A2BCustomer_UI/lib${COPYSUFFIX} ${LOGINPATH}/lib
+$RCOPY ${SRC}/A2BCustomer_UI/pdf-invoices${COPYSUFFIX} ${LOGINPATH}/pdf-invoices
+
+########################################################################
+# Install the templates if they're not there or aren't being customised
+if [[ ( ! -d ${LOGINPATH}/templates ) ]] || [[ "${OVERWRITETEMPLATES}" == "YES" ]] ; then
+	mkdir -p ${LOGINPATH}/templates
+	$RCOPY ${SRC}/A2BCustomer_UI/templates${COPYSUFFIX} ${LOGINPATH}/templates
+fi
+
+########################################################################
+# Install the config files
+if [[ -e /etc/asterisk/a2billing.conf ]]; then
+	cp --force ${SRC}/a2billing.conf /etc/asterisk/._cfg0000_a2billing.conf
+	A2BCONF="YES"
+else
+	cp ${SRC}/a2billing.conf /etc/asterisk/a2billing.conf
+fi
+touch /etc/asterisk/additional_a2billing_sip.conf
+touch /etc/asterisk/additional_a2billing_iax.conf
+
+########################################################################
+# add the #includes if they're not already present
+if [[ -e ${SIPCONF} ]]; then
+	[[ `grep additional_a2billing_sip.conf ${SIPCONF} | wc -l` == 0 ]] && echo "#include additional_a2billing_sip.conf" >> ${SIPCONF}
+fi
+
+if [[ -e ${IAXCONF} ]]; then
+	[[ `grep additional_a2billing_iax.conf ${IAXCONF} | wc -l` == 0 ]] && echo "#include additional_a2billing_iax.conf" >> ${IAXCONF}
+fi
+
+if [[ -e ${EXTENSIONSCONF} ]]; then
+	[[ `grep extensions_a2billing.conf ${EXTENSIONSCONF} | wc -l` == 0 ]] && echo "#include extensions_a2billing.conf" >> ${EXTENSIONSCONF}
+fi
+
+if [[ -e /etc/asterisk/extensions_a2billing.conf ]]; then
+	[[ `grep "a2billing.php" /etc/asterisk/extensions_a2billing.conf | wc -l` == 0 ]] && echo "
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; A2Billing configuration
+[a2billing]
+; test numbers
+exten => 600,1,Ringing()
+exten => 600,n,Wait(3)
+exten => 600,n,Answer()
+exten => 600,n,Wait(0.25)
+exten => 600,n,Playback(demo-echotest)  ; Let them know what's going on
+exten => 600,n,Echo                     ; Do the echo test
+exten => 600,n,Playback(demo-echodone)  ; Let them know it's over
+exten => 600,n,Wait(1)
+exten => 600,n,Hangup           ; Start over
+
+; CallerID test number
+exten => 601,1,Ringing()
+exten => 601,n,Wait(3)
+;exten => 601,n,Set(CALLERID(num)=${IF($[${LEN(${CALLERIDNUM})} = 10]?44:)}${CALLERIDNUM})
+exten => 601,n,Answer()
+exten => 601,n,Wait(0.25)
+exten => 601,n,SayDigits(${CALLERIDNUM})
+exten => 601,n,Wait(2)
+exten => 601,n,SayDigits(${CALLERIDNUM})
+exten => 601,n,Wait(2)
+exten => 601,n,SayDigits(${CALLERIDNUM})
+exten => 601,n,Hangup
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ACCESS NUMBERS
+; exten => 441212121212,1,DeadAGI(a2billing.php|1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; CLI CALL BACK
+; exten => 441212121213,1,Goto(a2billing-cid-callback,${EXTEN},1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; VOUCHER TOPUP LINE
+; exten => 441212121214,1,Goto(a2billing-voucher,${EXTEN},1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ANSWER DIDs
+; exten => 441212121215,1,Goto(a2billing-did,${EXTEN},1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; answer everything else as one-stage-dial
+exten => _X.,1,Answer
+exten => _X.,n,Wait(0.25)
+exten => _X.,n,DeadAGI(a2billing.php|1)
+exten => _X.,n,Wait(.25)
+exten => _X.,n,Hangup
+exten => s,1,Hangup
+exten => s,n,Hangup
+exten => i,1,Hangup
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; A2B contexts
+[a2billing-did]
+exten => _X.,1,Noop(a2billing-did ${EXTEN})
+;exten => _X.,n,Set(CALLERID(num)=${IF($[${LEN(${CALLERIDNUM})} = 10]?44:)}${CALLERIDNUM})
+exten => _X.,n,DeadAGI(a2billing.php|1|did)
+exten => _X.,n,Hangup
+
+[a2billing-callback]
+exten => _X.,1,Noop(a2billing-callback ${EXTEN})
+exten => _X.,n,Answer
+exten => _X.,n,DeadAGI(a2billing.php|1|callback)
+exten => _X.,n,Hangup
+
+[a2billing-cid-callback]
+exten => _X.,1,Noop(a2billing-cid-callback ${EXTEN})
+exten => _X.,n,Ringing
+;exten => _X.,n,Set(CALLERID(num)=${IF($[${LEN(${CALLERIDNUM})} = 10]?44:)}${CALLERIDNUM})
+exten => _X.,n,DeadAGI(a2billing.php|1|cid-callback|34) ;last parameter is the callback area code
+exten => _X.,n,Wait(2)
+exten => _X.,n,Hangup
+
+[a2billing-all-callback]
+exten => _X.,1,Noop(a2billing-all-callback ${EXTEN})
+exten => _X.,n,Ringing
+;exten => _X.,n,Set(CALLERID(num)=${IF($[${LEN(${CALLERIDNUM})} = 10]?44:)}${CALLERIDNUM})
+exten => _X.,n,DeadAGI(a2billing.php|1|all-callback|34) ;last parameter is the callback area code
+exten => _X.,n,Wait(2)
+exten => _X.,n,Hangup
+
+[a2billing-voucher]
+exten => _X.,1,Noop(a2billing-voucher ${EXTEN})
+;exten => _X.,n,Set(CALLERID(num)=${IF($[${LEN(${CALLERIDNUM})} = 10]?44:)}${CALLERIDNUM})
+exten => _X.,n,DeadAGI(a2billing.php|1|voucher)
+exten => _X.,n,Hangup
+
+[a2billing-predictivedialer]
+exten => _X.,1,DeadAGI(a2billing.php|1|predictivedialer)
+exten => _X.,n,Hangup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+" >> /etc/asterisk/extensions_a2billing.conf
+fi
+
+if [[ -e ${MANAGERCONF} ]]; then
+	[[ `grep "user added for a2billing" ${MANAGERCONF} | wc -l` == 0 ]] && echo "
+; user added for a2billing
+[a2billinguser]
+secret = a2billing
+deny=0.0.0.0/0.0.0.0
+permit=127.0.0.1/255.255.255.0
+read = system,call,log,verbose,command,agent,user
+write = system,call,log,verbose,command,agent,user
+" >> ${MANAGERCONF}
+fi
+
+########################################################################
+# Copy the callback daemon, install the service and make it start at boot time
+$RCOPY ${SRC}/CallBack${COPYSUFFIX} /var/lib/asterisk/a2billing
+
+CBSRC="${SRC}/CallBack/callback-daemon/a2billing-callback.gentoo"
+CBDST="/etc/init.d/a2bcallback"
+if [[ ${DISTRO} == "trixbox" || ${DISTRO} == "PBXinaFlash" ]]; then
+	CBSRC="${SRC}/CallBack/callback-daemon/a2billing-callback-daemon.rc"
+	CBDST="/etc/rc.d/init.d/a2billing-callback-daemon"
+fi
+
+if [[ ! -e ${CBDST} ]];then
+	ADDSERVICE="YES"
+fi
+if [[ ${DISTRO} == "Gentoo" ]]; then
+	cp --force ${CBSRC} ${CBDST}
+	[[ "${ADDSERVICE}" == "YES" ]] && rc-update add a2bcallback default
+fi
+if [[ ${DISTRO} == "trixbox" || ${DISTRO} == "PBXinaFlash" ]]; then
+	install --owner=root --group=root --mode=700  ${CBSRC} ${CBDST}
+	[[ "${ADDSERVICE}" == "YES" ]] && chkconfig --add a2billing-callback-daemon && chkconfig a2billing-callback-daemon on
+fi
+
+########################################################################
+# Ensure the crontab has been installed
+if [[ ( ! -e ${CRONTAB} ) || ( `grep a2billing ${CRONTAB} | wc -l` == 0 ) ]]; then
+	echo "
+########################################################################
+# Automatically added for A2Billing
+
+# Run the Alarms report each hour at :00
+0 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_alarm.php
+# Bill DID usage at 00:00 each day
+0 0 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_bill_diduse.php
+# Batch process at 00:20 each day
+20 0 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_batch_process.php
+# Generate invoices each day at 07:00
+0 7 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_invoice_cront.php
+# Remind users of low balance every 7 days at 06:00
+0 6 */7 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_check_account.php
+# Charge subscriptions at 06:05 on the 1st of each month
+0 6 1 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_subscription_fee.php
+# Run Autorefill at 00:15 on the 1st of each month
+15 0 1 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_autorefill.php
+# Update currencies at 06:00 each day
+0 6 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/cron
+" >> ${CRONTAB}
+fi
+
+########################################################################
+# Fix up permissions
+
+# Web interfaces
+chown -R ${WEBUSR}:${WEBGRP} ${LOGINPATH}
+chown -R ${WEBUSR}:${WEBGRP} ${ADMINPATH}
+chown -R ${WEBUSR}:${WEBGRP} ${SIGNUPPATH}
+chmod ug+xwr ${LOGINPATH}/templates_c
+chmod ug+xwr ${ADMINPATH}/templates_c
+chmod ug+xwr ${SIGNUPPATH}/templates_c
+chmod -R ug+r ${LOGINPATH}/templates
+chmod -R ug+r ${ADMINPATH}/Public/templates
+chmod -R ug+r ${SIGNUPPATH}/Public/templates
+
+# Config files
+chown -R ${ASTUSR}:${ASTGRP} /etc/asterisk
+chmod -R ug+wr /etc/asterisk/additional_a2billing*
+
+# Scripts
+chown -R ${ASTUSR}:${ASTGRP} /var/lib/asterisk/a2billing
+chmod +x /var/lib/asterisk/agi-bin/a2billing.php
+chown -R ${ASTUSR}:${ASTGRP} /var/lib/asterisk/agi-bin
+chmod +x ${CBDST}
+
+# Logfiles
+chown -R ${ASTUSR}:${ASTGRP} ${LOGPATH}
+chmod ug+x ${LOGPATH}
+chmod -R ug+wr ${LOGPATH}
+
+# Sounds
+chown -R ${ASTUSR}:${ASTGRP} /var/lib/asterisk/mohmp3
+chown -R ${ASTUSR}:${ASTGRP} /var/lib/asterisk/sounds
+chmod ug+xrw /var/lib/asterisk/mohmp3/acc_*
+chmod -R ug+r /var/lib/asterisk/sounds
+chmod -R ug+rw /var/lib/asterisk/sounds/a2billing
+
+
+########################################################################
+# add the Asterisk and Apache users to each other's groups
+# so A2B can write to /etc/asterisk and Apache write to templates_c
+usermod -a -G ${WEBGRP} ${ASTUSR}
+usermod -a -G ${ASTGRP} ${WEBUSR}
+# add the Asterisk user to the cron group
+usermod -a -G cron ${ASTUSR}
+
+########################################################################
+# We're done installing!
+echo "A2B installed"
+if [[ "${A2BCONF}" == "YES" ]]; then
+	if [[ ${DISTRO} == "Gentoo" ]]; then
+		echo		
+		echo "* You need to run etc-update or dispatch-conf and merge any changes to"
+		echo "  a2billing.conf into every agi-confX section"
+	else
+		echo
+		echo "* Existing a2billing.conf was not touched;  you might need to apply updates."
+		echo "  See: svn diff -r \"${FROMREV}:HEAD\" ${SRC}/a2billing.conf"
+		echo "  or: diff /etc/asterisk/a2billing.conf /etc/asterisk/._cfg0000_a2billing.conf"
+	fi
+	echo
+	echo "* When upgrading A2B you may need to find and apply DB schema updates yourself."
+	echo "  See these changesets: svn log -r \"${FROMREV}:HEAD\" ${SRC}/DataBase/"
+	echo
+fi
+
+
+
+########################################################################
+exit 0
