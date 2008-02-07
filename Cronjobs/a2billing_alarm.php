@@ -121,9 +121,9 @@ foreach ($result as $myalarm) {
 		if (isset($myalarm[6]) && $myalarm[6] != "") $SQL_CLAUSE.=" AND id_trunk = '".$myalarm[6]."'";
 		write_log(LOGFILE_CRONT_ALARM, basename(__FILE__).' line:'.__LINE__."[Alarm : ".$myalarm[1]." ]");
 
-		$QUERY =	"SELECT COUNT(*) FROM cc_call $SQL_CLAUSE";		
+		$QUERY =	"SELECT COUNT(*) FROM cc_call $SQL_CLAUSE";
 		if ($verbose_level>=1) echo "\n===> QUERY = $QUERY\n";
-		$calls = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY,1);			
+		$calls = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY,1);
 		$nb_card = $calls[0][0];
 		$nbpagemax=(intval($nb_card/$groupcalls));
 		if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
@@ -140,7 +140,7 @@ foreach ($result as $myalarm) {
 		$max_fail=0;
 		$max=0;
 		$update=array();
-		for ($page = 0; $page <= $nbpagemax; $page++) 
+		for ($page = 0; $page <= $nbpagemax; $page++)
 		{
 			// REST AFTER $groupcalls CARD HANDLED
 			if ($page > 0) sleep(15);
@@ -165,7 +165,7 @@ foreach ($result as $myalarm) {
 				$totalsuccess+=$res[$i][0];
 				$totalfail+=$res[$i][1];
 				$totaltime+=$res[$i][2];
-				// FIND THE CIC (Consecutive Incomplete Calls)  
+				// FIND THE CIC (Consecutive Incomplete Calls)
 				if($res[$i][1] == 1)	$max++;	
 				if($res[$i][1] == 0)
 				{
@@ -174,9 +174,9 @@ foreach ($result as $myalarm) {
 					$max = 0;
 				}
 			}
-			if($max > $max_fail)	$max_fail = $max;		
+			if($max > $max_fail)	$max_fail = $max;
 			
-		} // LOOP FOR THE CALLS	
+		} // LOOP FOR THE CALLS
 	
 		
 		if ($max_fail == 1)	$max_fail = 0;
@@ -184,31 +184,31 @@ foreach ($result as $myalarm) {
 		$ASR = $totalsuccess / ($totalsuccess + $totalfail);
 		$ALOC = $totaltime / ($totalsuccess + $totalfail);
 		
-		$send_alarm = false;		
+		$send_alarm = false;
 		
 		//$type_list   ["0" ALOC, "1" ASR, "2" CIC]
 		switch ($myalarm[3]) {
 			case 1:
-				if ( $ALOC >= $myalarm[4] || $ALOC <= $myalarm[5]){
+				if ( $ALOC > $myalarm[4] || $ALOC < $myalarm[5]){
 					$value=$ALOC;
 					$send_alarm=true;
 				}
-				$content="\n\n The ALOC $ALOC seconde is too low or too hight than the max: ".$myalarm[4]." min:".$myalarm[5]." defined in the alarm";
-			break;			
+				$content="\n\n The ALOC $ALOC seconds is outside the range max: ".$myalarm[4]." min:".$myalarm[5]." defined in the alarm";
+			break;
 			case 2:
-				if ($ASR >= $myalarm[4] || $ASR <= $myalarm[5]){
+				if ($ASR > $myalarm[4] || $ASR < $myalarm[5]){
 					$value = $ASR;
 					$send_alarm=true;
 				}
-				$content="\n\n The ASR $ASR is too low or too hight than the max: ".$myalarm[4]." min:".$myalarm[5]." defined in the alarm";				
+				$content="\n\n The ASR ".$ASR."% is outside the range max: ".$myalarm[4]." min:".$myalarm[5]." defined in the alarm";
 			break;
 			
 			case 3:
-				if ($max_fail >= $myalarm[4]){					
+				if ($max_fail >= $myalarm[4]){	
 					$value=$max_fail;
 					$send_alarm=true;
 				}
-				$content="\n\n The Max Consecutive Incomplete Calls : ".$max_fail." calls is too hight than the max: ".$myalarm[4]." defined in the alarm";
+				$content="\n\n The Max Consecutive Incomplete Calls : ".$max_fail." calls is greater than the max: ".$myalarm[4]." defined in the alarm";
 			break;
 		}
 		if ($verbose_level>=1) echo "content = $content\n";
@@ -220,7 +220,7 @@ foreach ($result as $myalarm) {
 		
 		write_log(LOGFILE_CRONT_ALARM, basename(__FILE__).' line:'.__LINE__."[Alarm report : 'Alarm name=$myalarm[1]', 'Alarm type=$myalarm[3]', 'Calculated value=$value']");
 		
-		// UPDATE THE ALARM		
+		// UPDATE THE ALARM
 		if ($send_alarm) $add_field=", numberofalarm=numberofalarm+1";
 		else $add_field="";
 		$QUERY = "UPDATE cc_alarm SET datelastrun=now(), numberofrun=numberofrun+1 $add_field WHERE id=".$myalarm[0];
