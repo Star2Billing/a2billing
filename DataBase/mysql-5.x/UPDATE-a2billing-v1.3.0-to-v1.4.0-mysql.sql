@@ -730,6 +730,9 @@ UPDATE cc_config SET config_title='SIP/IAX Dial Command Params', config_value='|
 
 
 -- VOICEMAIL CHANGES
+ALTER TABLE cc_card ADD voicemail_permitted INTEGER DEFAULT 0 NOT NULL;
+ALTER TABLE cc_card ADD voicemail_activated SMALLINT DEFAULT 0 NOT NULL;
+
 
 CREATE OR REPLACE VIEW voicemail_users AS (
 	SELECT id AS uniqueid, id AS customer_id, 'default' AS context, useralias AS mailbox, uipass AS password,
@@ -737,7 +740,6 @@ CREATE OR REPLACE VIEW voicemail_users AS (
 	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
 );
 
-ALTER TABLE cc_card ADD voicemail_permitted INTEGER DEFAULT 0 NOT NULL;
-ALTER TABLE cc_card ADD voicemail_activated SMALLINT DEFAULT 0 NOT NULL;
+
 
 
