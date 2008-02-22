@@ -235,7 +235,7 @@ if(isset($submit)){
 			<td align="right">
 			<input class="form_input_button" name="submit"  TYPE="submit" VALUE="<?php echo gettext("EMAIL");?>"></td>
 		</tr>
-			<? }else{?>
+			<?php }else{?>
 		<tr>
 			 <td colspan="2" align="center"><?php echo gettext("No Record Found!");?></td>
 		</tr>

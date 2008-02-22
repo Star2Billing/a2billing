@@ -45,7 +45,7 @@
           <div><img height=14 src="theme/spacer.gif" alt=""></div> 
           <?php if ($subnav_menu != '') { ?>
             <div class="subnav">
-              <div class="subnav_title"><?echo _("Folders")?>:</div>
+              <div class="subnav_title"><?php echo _("Folders")?>:</div>
               <b class='subnav_b1'></b><b class='subnav_b2'></b><b class='subnav_b3'></b><b class='subnav_b4'></b>
               <div id='subnav_menu'>
                 <?php print($subnav_menu) ?>
@@ -74,8 +74,8 @@
     <!--begin footer-->
     <div id="ariFooter">
       <small>
-        &nbsp;&nbsp;<?echo _("Version")?> <?php print($ari_version) ?><br>
-        &middot;&nbsp;<a href="http<? print(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=''?'s':''); ?>://www.littlejohnconsulting.com">Littlejohn Consulting</a>
+        &nbsp;&nbsp;<?php echo _("Version")?> <?php print($ari_version) ?><br>
+        &middot;&nbsp;<a href="http<?php print(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=''?'s':''); ?>://www.littlejohnconsulting.com">Littlejohn Consulting</a>
       </small>
     </div>
     <!-- end footer -->

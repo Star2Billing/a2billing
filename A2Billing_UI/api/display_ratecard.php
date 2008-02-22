@@ -371,7 +371,7 @@ function Search(Source){
 					if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
 						$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";  
 					} ?>
-                 			<TD class="tabletr_<?echo $alternate;?>" vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>"><?php 
+                 			<TD class="tabletr_<?php echo $alternate;?>" vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>"><?php 
 					if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						call_user_func($FG_TABLE_COL[$i][11], $record_display);
 					}else{

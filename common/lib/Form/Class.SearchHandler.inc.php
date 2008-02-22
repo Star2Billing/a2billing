@@ -75,7 +75,7 @@ if ($this->FG_FILTER_SEARCH_FORM){
       			<td align="left" class="bgcolor_003">
 					<table  border="0" cellspacing="0" cellpadding="0" width="100%">
 					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="fromday" value="true" <?php  if ($processed['fromday']){ ?>checked<?php }?>> <? echo gettext("From :");?>
+	  				<input type="checkbox" name="fromday" value="true" <?php  if ($processed['fromday']){ ?>checked<?php }?>> <?php echo gettext("From :");?>
 					<select name="fromstatsday_sday" class="form_input_select">
 						<?php
 							for ($i=1;$i<=31;$i++){
