@@ -86,7 +86,7 @@ function formRRadd(rid,raction){
 		if (! $res){
 			if ($this->debug_st) {
 				?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-				Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+				Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No data found!");
@@ -150,7 +150,7 @@ class RevRefcmb extends RevRef {
 		if (! $res){
 			if ($this->debug_st) {
 				?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-				Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+				Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No additional data found!");
@@ -180,7 +180,7 @@ class RevRefcmb extends RevRef {
 			if (! $res){
 				if ($this->debug_st) {
 					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+					Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not add!");
@@ -196,7 +196,7 @@ class RevRefcmb extends RevRef {
 			if (! $res){
 				if ($this->debug_st) {
 					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+					Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not delete!");
@@ -250,7 +250,7 @@ class RevReftxt extends RevRef {
 			if (! $res){
 				if ($this->debug_st) {
 					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+					Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not add!");
@@ -274,7 +274,7 @@ class RevReftxt extends RevRef {
 			if (! $res){
 				if ($this->debug_st) {
 					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+					Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not delete!");

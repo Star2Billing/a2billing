@@ -28,7 +28,7 @@ class RevRef2 {
 		if (! $res){
 			if ($this->debug_st) {
 				?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-				Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+				Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No data found!");
@@ -57,7 +57,7 @@ class RevRef2 {
 		if (! $res){
 			if ($this->debug_st) {
 				?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-				Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+				Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No additional data found!");
@@ -135,7 +135,7 @@ function formRR2add(rid,raction){
 			if (! $res){
 				if ($this->debug_st) {
 					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+					Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not add!");
@@ -151,7 +151,7 @@ function formRR2add(rid,raction){
 			if (! $res){
 				if ($this->debug_st) {
 					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
-					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
+					Error: <?php echo $DBHandle->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not delete!");
