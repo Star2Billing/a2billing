@@ -185,14 +185,14 @@ function removeSource()
 ?>
 <center>
 		<table width="95%" border="0" cellspacing="2" align="center" class="editform_table1">
-              <form name="prefs" action="<?=$_SERVER['PHP_SELF']?>" method="post">
+              <form name="prefs" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 				<?php if($posted){?>
 				<tr>
 					<td align="center" colspan="2">
 						<table width="100%">
 							<tr>
 								<td align="center" width = "90%"><?php echo $msg;?></td>
-								<td width="10%" align="right"><?=$count?> <?php echo gettext("Record(s)");?></td>
+								<td width="10%" align="right"><?php echo $count?> <?php echo gettext("Record(s)");?></td>
 							</tr>
 						</table>
 					</td>

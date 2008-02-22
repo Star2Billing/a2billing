@@ -15,9 +15,9 @@ class TextField extends BaseField{
 	}
 	
 	public function DispAddEdit(&$val,&$form){
-	?><input type="text" name="<?= $this->fieldname ?>" value="<?=
+	?><input type="text" name="<?php echo $this->fieldname ?>" value="<?php echo 
 		htmlspecialchars($val);?>" />
-	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
+	<div class="descr"><?php echo htmlspecialchars($this->editDescr)?></div>
 	<?php
 	}
 
@@ -59,9 +59,9 @@ class TextAreaField extends TextField{
 	}
 	
 	public function DispAddEdit(&$val,&$form){
-	?><textarea name="<?= $this->fieldname ?>" rows=5 cols=40><?=
+	?><textarea name="<?php echo $this->fieldname ?>" rows=5 cols=40><?php echo 
 		htmlspecialchars($val);?></textarea>
-	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
+	<div class="descr"><?php echo htmlspecialchars($this->editDescr)?></div>
 	<?php
 	}
 

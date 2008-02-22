@@ -331,7 +331,7 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 				   
                 </TR>
                 <TR> 
-                  <TD bgColor=#e1e1e1 colSpan="<?=$FG_NB_TABLE_COL?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
+                  <TD bgColor=#e1e1e1 colSpan="<?php echo $FG_NB_TABLE_COL?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
                 </TR>
 				<?php
 				  	 $ligne_number=0;					 

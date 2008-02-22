@@ -233,7 +233,7 @@ if(isset($submit)){
 		<tr>
 			<td>&nbsp;</td>
 			<td align="right">
-			<input class="form_input_button" name="submit"  TYPE="submit" VALUE="<?=gettext("EMAIL");?>"></td>
+			<input class="form_input_button" name="submit"  TYPE="submit" VALUE="<?php echo gettext("EMAIL");?>"></td>
 		</tr>
 			<? }else{?>
 		<tr>
@@ -243,7 +243,7 @@ if(isset($submit)){
 		}
 		?>
 		</table>
-		<input type = "hidden" name="total_customer" value="<?=$nb_customer?>">
+		<input type = "hidden" name="total_customer" value="<?php echo $nb_customer?>">
 	</FORM>
 
 <?php

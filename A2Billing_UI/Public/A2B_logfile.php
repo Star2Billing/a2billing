@@ -83,8 +83,8 @@ $nb = $nb?$nb:50;
 ?>
 
 <form method="get">
-<?php echo gettext("Browse log file")?>&nbsp; : <?=array2drop_down('view_log', $view_log, $arr_log)?> - 
-<?=array2drop_down('nb', $nb, $arr_nb)?>
+<?php echo gettext("Browse log file")?>&nbsp; : <?php echo array2drop_down('view_log', $view_log, $arr_log)?> - 
+<?php echo array2drop_down('nb', $nb, $arr_nb)?>
 
 <?php echo gettext("Filter")?> : <input class="form_enter" name="filter" size="20" maxlength="30" value="<?php echo $filter; ?>">
 

@@ -19,7 +19,7 @@ class RevRef2 {
 		$assocleft= $this->assoctable . '.' . $this->assocleft;
 		$assocright= $this->assoctable . '.' . $this->assocright;
 		
-		?><input type="hidden" name="<?= $sparams[5] . '_action' ?>" value="">
+		?><input type="hidden" name="<?php echo $sparams[5] . '_action' ?>" value="">
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $presentid, $presentname FROM $this->presenttable, $this->assoctable ".
 			"WHERE $assocleft= %1 AND $assocright = $presentid ; ",array($svalue));
@@ -27,25 +27,25 @@ class RevRef2 {
 		$res = $DBHandle->Execute ($QUERY);
 		if (! $res){
 			if ($this->debug_st) {
-				?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-				Error: <?= $DBHanlde->ErrorMsg() ?><br>
+				?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+				Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No data found!");
 		}else{
 		?> <table class="FormRR2t1">
 		<thead>
-		<tr><td><?= $sparams[0] ?></td><td><?= _("Action") ?></td></tr>
+		<tr><td><?php echo $sparams[0] ?></td><td><?php echo _("Action") ?></td></tr>
 		</thead>
 		<tbody>
 		<?php while ($row = $res->fetchRow()){ ?>
-			<tr><td><?= htmlspecialchars($row[1]) ?></td>
-			    <td><a onClick="formRR2delete('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			<tr><td><?php echo htmlspecialchars($row[1]) ?></td>
+			    <td><a onClick="formRR2delete('<?php echo $scol ?>','<?php echo $sparams[5]. '_action' ?>','<?php echo $sparams[5] .'_del' ?>','<?php echo $row[0] ?>')" > <img src="../Images/icon-del.png" alt="<?php echo _("Remove this") ?>" /></a></td>
 			</tr>
 		<?php } ?>
 		</tbody>
 		</table>
-		<input type="hidden" name="<?= $sparams[5] . '_del' ?>" value="">
+		<input type="hidden" name="<?php echo $sparams[5] . '_del' ?>" value="">
 		<?php
 		}
 		
@@ -56,8 +56,8 @@ class RevRef2 {
 		$res = $DBHandle->Execute ($QUERY);
 		if (! $res){
 			if ($this->debug_st) {
-				?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-				Error: <?= $DBHanlde->ErrorMsg() ?><br>
+				?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+				Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No additional data found!");
@@ -68,7 +68,7 @@ class RevRef2 {
 			}
 			gen_Combo($sparams[5]. '_add','',$add_combos);
 			 ?>
-			 <a onClick="formRR2add('<?= $scol ?>','<?=$sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
+			 <a onClick="formRR2add('<?php echo $scol ?>','<?php echo $sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?php echo _("Add this") ?>" /></a>
 		<?php
 		}
 		
@@ -134,8 +134,8 @@ function formRR2add(rid,raction){
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
-					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-					Error: <?= $DBHanlde->ErrorMsg() ?><br>
+					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not add!");
@@ -150,8 +150,8 @@ function formRR2add(rid,raction){
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
-					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-					Error: <?= $DBHanlde->ErrorMsg() ?><br>
+					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not delete!");

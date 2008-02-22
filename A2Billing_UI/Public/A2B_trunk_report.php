@@ -377,11 +377,11 @@ if (strlen($_GET["menu"])>0)
 					$bgcolor = "bgcolor='#F2F2EE'";$mouseout = "bgColor='#F2F2EE'";}else{$bgcolor = "bgcolor='#FCFBFB'";$mouseout = "bgColor='#FCFBFB'";
 				}
 				?>
-               	 <tr onmouseover="bgColor='#FFDEA6'" onmouseout=<?=$mouseout?> <?=$bgcolor?>> 
-					<td class="tableBody" align="center" valign="top"><?=$ASR?></td>
-					<td class="tableBody" align="center" valign="top"><?=round($ALOC)?>&nbsp;sec</td>
-					<td class="tableBody" align="center" valign="top"><?=$CIC?></td>
-					<td class="tableBody" align="center" valign="top"><?=$Total_calls?></td>
+               	 <tr onmouseover="bgColor='#FFDEA6'" onmouseout=<?php echo $mouseout?> <?php echo $bgcolor?>> 
+					<td class="tableBody" align="center" valign="top"><?php echo $ASR?></td>
+					<td class="tableBody" align="center" valign="top"><?php echo round($ALOC)?>&nbsp;sec</td>
+					<td class="tableBody" align="center" valign="top"><?php echo $CIC?></td>
+					<td class="tableBody" align="center" valign="top"><?php echo $Total_calls?></td>
 					</tr>
                	 <tr bgcolor="#fcfbfb"> 
 					<td class="tableBody" align="center" valign="top">&nbsp;</td>

@@ -77,7 +77,7 @@ function formRRadd(rid,raction){
 			$refkey = $this->refkey ;
 		else
 			$refkey = $this->refid;
-		?><input type="hidden" name="<?= $sparams[5] . '_action' ?>" value="">
+		?><input type="hidden" name="<?php echo $sparams[5] . '_action' ?>" value="">
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $refkey, $refname FROM $this->reftable ".
 			"WHERE $refid = %1 ; ",array($svalue));
@@ -85,31 +85,31 @@ function formRRadd(rid,raction){
 		$res = $DBHandle->Execute ($QUERY);
 		if (! $res){
 			if ($this->debug_st) {
-				?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-				Error: <?= $DBHanlde->ErrorMsg() ?><br>
+				?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+				Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No data found!");
 		}else{
 		?> <table class="FormRRt1">
 		<thead>
-		<tr><td><?= $sparams[0] ?></td><td><?= _("Action") ?></td></tr>
+		<tr><td><?php echo $sparams[0] ?></td><td><?php echo _("Action") ?></td></tr>
 		</thead>
 		<tbody>
 		<?php while ($row = $res->fetchRow()){ ?>
-			<tr><td><?= htmlspecialchars($row[1]) ?></td>
+			<tr><td><?php echo htmlspecialchars($row[1]) ?></td>
 			<?php if ($this->refkey !=NULL){ ?>
-			    <td><a onClick="formRRdelete('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			    <td><a onClick="formRRdelete('<?php echo $scol ?>','<?php echo $sparams[5]. '_action' ?>','<?php echo $sparams[5] .'_del' ?>','<?php echo $row[0] ?>')" > <img src="../Images/icon-del.png" alt="<?php echo _("Remove this") ?>" /></a></td>
 			   <?php } else { ?>
-			    <td><a onClick="formRRdelete2('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>','<?= $row[1] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			    <td><a onClick="formRRdelete2('<?php echo $scol ?>','<?php echo $sparams[5]. '_action' ?>','<?php echo $sparams[5] .'_del' ?>','<?php echo $row[0] ?>','<?php echo $row[1] ?>')" > <img src="../Images/icon-del.png" alt="<?php echo _("Remove this") ?>" /></a></td>
 			</tr>
 		<?php		}
 			} ?>
 		</tbody>
 		</table>
-		<input type="hidden" name="<?= $sparams[5] . '_del' ?>" value="">
+		<input type="hidden" name="<?php echo $sparams[5] . '_del' ?>" value="">
 		<?php if ($this->refkey ==NULL) { ?>
-		<input type="hidden" name="<?= $sparams[5] . '_del2' ?>" value="">
+		<input type="hidden" name="<?php echo $sparams[5] . '_del2' ?>" value="">
 		<?php }
 		}
 		
@@ -149,8 +149,8 @@ class RevRefcmb extends RevRef {
 		$res = $DBHandle->Execute ($QUERY);
 		if (! $res){
 			if ($this->debug_st) {
-				?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-				Error: <?= $DBHanlde->ErrorMsg() ?><br>
+				?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+				Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No additional data found!");
@@ -161,7 +161,7 @@ class RevRefcmb extends RevRef {
 			}
 			gen_Combo($sparams[5]. '_add','',$add_combos);
 			 ?>
-			 <a onClick="formRRadd('<?= $scol ?>','<?=$sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
+			 <a onClick="formRRadd('<?php echo $scol ?>','<?php echo $sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?php echo _("Add this") ?>" /></a>
 		<?php
 		}
 	}
@@ -179,8 +179,8 @@ class RevRefcmb extends RevRef {
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
-					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-					Error: <?= $DBHanlde->ErrorMsg() ?><br>
+					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not add!");
@@ -195,8 +195,8 @@ class RevRefcmb extends RevRef {
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
-					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-					Error: <?= $DBHanlde->ErrorMsg() ?><br>
+					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not delete!");
@@ -226,8 +226,8 @@ class RevReftxt extends RevRef {
 	public function dispAddbox($scol, $sparams, $svalue, $DBHandle){
 			// Now, find those refs NOT already in the list!
 		?>
-		<input class="form_enter" type="INPUT" name="<?=$sparams[5]. '_new'. $this->refname ?>" value="<?= $this->addval ?>" <?= $this->addprops ?> />
-		<a onClick="formRRadd('<?= $scol ?>','<?=$sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
+		<input class="form_enter" type="INPUT" name="<?php echo $sparams[5]. '_new'. $this->refname ?>" value="<?php echo $this->addval ?>" <?php echo $this->addprops ?> />
+		<a onClick="formRRadd('<?php echo $scol ?>','<?php echo $sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?php echo _("Add this") ?>" /></a>
 		<?php
 		
 	}
@@ -249,8 +249,8 @@ class RevReftxt extends RevRef {
 			}$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
-					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-					Error: <?= $DBHanlde->ErrorMsg() ?><br>
+					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not add!");
@@ -273,8 +273,8 @@ class RevReftxt extends RevRef {
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
-					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-					Error: <?= $DBHanlde->ErrorMsg() ?><br>
+					?> Query failed: <?php echo htmlspecialchars($QUERY) ?><br>
+					Error: <?php echo $DBHanlde->ErrorMsg() ?><br>
 					<?php
 				}
 				echo _("Could not delete!");

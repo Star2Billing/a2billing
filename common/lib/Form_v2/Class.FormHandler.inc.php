@@ -168,7 +168,7 @@ class FormHandler
 		
 		foreach($arr as $key => $value)
 			if ($do_nulls || $value !=NULL){
-		?><input type="hidden" name="<?= $key ?>" value="<?= htmlspecialchars($value) ?>" >
+		?><input type="hidden" name="<?php echo $key ?>" value="<?php echo htmlspecialchars($value) ?>" >
 		<?php
 		}
 	}

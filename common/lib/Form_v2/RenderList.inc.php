@@ -101,7 +101,7 @@ table.cclist tbody tr:hover {
 	} else {
 		// now, DO render the table!
 		?>
-	<TABLE cellPadding="2" cellSpacing="2" align='center' class="<?= $this->list_class?>">
+	<TABLE cellPadding="2" cellSpacing="2" align='center' class="<?php echo $this->list_class?>">
 		<thead><tr>
 		<?php
 		foreach ($this->model as $fld)

@@ -13,7 +13,7 @@
     <div id="ariHeader">
       <div class="spacer"></div>
       <span id="left">
-        <a href="<?=$_SERVER['PHP_SELF']?>" alt="ARI"><img src="theme/logo.gif" height=72 alt="" /></a>
+        <a href="<?php echo $_SERVER['PHP_SELF']?>" alt="ARI"><img src="theme/logo.gif" height=72 alt="" /></a>
       </span>
       <span id="right"></span>
       <div class="spacer"></div>

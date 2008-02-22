@@ -46,17 +46,17 @@ $group_description = $config_group[2];
 			<table width="100%" style="border:1px solid">
 			<thead>
 				<tr>
-					<td colspan="2"  class="bgcolor_005"><font style="color:#FFFFFF;padding-left:3px"><strong><?=gettext("Group Configurations");?></strong></font></td>
+					<td colspan="2"  class="bgcolor_005"><font style="color:#FFFFFF;padding-left:3px"><strong><?php echo gettext("Group Configurations");?></strong></font></td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr class="form_head">
-					<th class="tableBody" style="padding: 2px;" align="center"><?=gettext("Title")?></th>
-					<th class="tableBody" style="padding: 2px;" align="center"><?=gettext("Description")?></th>
+					<th class="tableBody" style="padding: 2px;" align="center"><?php echo gettext("Title")?></th>
+					<th class="tableBody" style="padding: 2px;" align="center"><?php echo gettext("Description")?></th>
 				</tr>
 				<tr bgcolor="#FCFBFB"  onmouseover="bgColor='#FFDEA6'" onMouseOut="bgColor='#FCFBFB'">
-					<td class="tableBody"><?=$group_title?></td>
-					<td class="tableBody"><?=$group_description?></td>
+					<td class="tableBody"><?php echo $group_title?></td>
+					<td class="tableBody"><?php echo $group_description?></td>
 				</tr>
 			</tbody>
 			</table>
@@ -70,16 +70,16 @@ $group_description = $config_group[2];
 			<table width="100%" style="border:1px solid">
 			<thead>
 				<tr>
-					<td colspan="5" class="bgcolor_005"><font style="color:#FFFFFF;padding-left:3px"><strong><?=gettext("List of Configurations")?></strong></font></td>
+					<td colspan="5" class="bgcolor_005"><font style="color:#FFFFFF;padding-left:3px"><strong><?php echo gettext("List of Configurations")?></strong></font></td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr class="form_head">
-					<th align="center" width="15%" class="tableBody" style="padding: 2px;" ><?=gettext("Title")?></th>
-					<th class="tableBody" style="padding: 2px;" align="center" width="10%"><?=gettext("Key")?></th>
-					<th class="tableBody" style="padding: 2px;" align="center" width="10%"><?=gettext("Value")?></th>
-					<th class="tableBody" style="padding: 2px;" align="center" width="50%"><?=gettext("Description")?></th>
-					<th class="tableBody" style="padding: 2px;" align="center" width="5%"><?=gettext("Group")?></th>
+					<th align="center" width="15%" class="tableBody" style="padding: 2px;" ><?php echo gettext("Title")?></th>
+					<th class="tableBody" style="padding: 2px;" align="center" width="10%"><?php echo gettext("Key")?></th>
+					<th class="tableBody" style="padding: 2px;" align="center" width="10%"><?php echo gettext("Value")?></th>
+					<th class="tableBody" style="padding: 2px;" align="center" width="50%"><?php echo gettext("Description")?></th>
+					<th class="tableBody" style="padding: 2px;" align="center" width="5%"><?php echo gettext("Group")?></th>
 				</tr>
 <?
 $DBHandle  = DbConnect();
@@ -100,12 +100,12 @@ foreach($config as $values){
 	}
 	
 ?>				
-				<tr <?=$bgcolor?> onmouseover="bgColor='#FFDEA6'" onMouseOut="<?=$bgcolor?>">
-					<td align="left" class="tableBody"><?=$config_title?></td>
-					<td align="left" class="tableBody"><?=$config_key?></td>
-					<td align="left" class="tableBody"><?=$config_value?></td>
-					<td align="left" class="tableBody"><?=$config_description?></td>
-					<td align="left" class="tableBody"><?=$group_title?></td>
+				<tr <?php echo $bgcolor?> onmouseover="bgColor='#FFDEA6'" onMouseOut="<?php echo $bgcolor?>">
+					<td align="left" class="tableBody"><?php echo $config_title?></td>
+					<td align="left" class="tableBody"><?php echo $config_key?></td>
+					<td align="left" class="tableBody"><?php echo $config_value?></td>
+					<td align="left" class="tableBody"><?php echo $config_description?></td>
+					<td align="left" class="tableBody"><?php echo $group_title?></td>
 				</tr>
 <?php $i++;}?>				
 			</tbody>
@@ -121,7 +121,7 @@ foreach($config as $values){
 		<td align="right">
 		<form name="theform">
 		<input class="form_input_button" 
-				TYPE="button" VALUE="<?=$group_title;?>" onClick="window.open('<?=$link?>')">
+				TYPE="button" VALUE="<?php echo $group_title;?>" onClick="window.open('<?php echo $link?>')">
 		</form></td>
 	</tr>
 </table>

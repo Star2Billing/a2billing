@@ -92,7 +92,7 @@ table.editForm div.descr {
 		// do the table..
 		$row=$res->fetchRow();
 		?>
-	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $this->prefix?>Frm" id="<?= $this->prefix ?>Frm">
+	<form action=<?php echo $_SERVER['PHP_SELF']?> method=post name="<?php echo $this->prefix?>Frm" id="<?php echo $this->prefix ?>Frm">
 	<?php $this->gen_PostParams(array( action => 'edit', sub_action => ''),true); ?>
 	<table class="editForm" cellspacing="2">
 	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
