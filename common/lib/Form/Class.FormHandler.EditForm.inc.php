@@ -71,7 +71,7 @@ function sendtolittle(direction){
 					<option value="<?php echo $listval;?>" <?php  if($listval == $list[0][$i]) echo " selected";?>><?php echo $listval;?></option>
 					<?php }?>
 					</select>
-				<?
+				<?php
 				}
 		  		elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
 				{								
@@ -88,7 +88,7 @@ function sendtolittle(direction){
                         <?php 
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUE")){
 			?>
-				<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?
+				<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php
 					if($this->VALID_SQL_REG_EXP){ 
 						echo stripslashes($list[0][$i]);
 					}else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">

@@ -84,7 +84,7 @@ if ($form_action == "list")
 	</form>
       </table>
 	  <br>
-	<?
+	<?php
     // END END END My code for Creating two functionalities in a page
 }
 

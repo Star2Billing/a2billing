@@ -81,7 +81,7 @@ $group_description = $config_group[2];
 					<th class="tableBody" style="padding: 2px;" align="center" width="50%"><?php echo gettext("Description")?></th>
 					<th class="tableBody" style="padding: 2px;" align="center" width="5%"><?php echo gettext("Group")?></th>
 				</tr>
-<?
+<?php
 $DBHandle  = DbConnect();
 $instance_table = new Table();
 
@@ -126,7 +126,7 @@ foreach($config as $values){
 	</tr>
 </table>
 
-<?
+<?php
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 ?>

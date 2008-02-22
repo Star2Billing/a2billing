@@ -141,7 +141,7 @@ echo $PAYMENT_METHOD;
 
 
 
-<?
+<?php
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');

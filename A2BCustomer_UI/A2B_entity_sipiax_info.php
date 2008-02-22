@@ -141,7 +141,7 @@ if (count($additional_sip) > 0)
   </table>
 
 </form>
-<?
+<?php
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');

@@ -200,7 +200,7 @@ if (strlen($_GET["menu"])>0)
 		</tbody></table>
 </FORM>
 	
-	<?
+	<?php
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION

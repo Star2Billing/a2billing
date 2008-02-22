@@ -411,7 +411,7 @@ if (strlen($_GET["menu"])>0)
 			<?php }?>
 			</tbody>
 </table>	
-	<?
+	<?php
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');

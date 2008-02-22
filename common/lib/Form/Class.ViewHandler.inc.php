@@ -306,7 +306,7 @@ function openURLFilter(theLINK)
 									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON1_ALT.'</span>';
 									// onclick="location.href='http://www.google.com'"
 								}else{
-									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON1_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON1_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON1_ALT?>"><?
+									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON1_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON1_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON1_ALT?>"><?php
 								}
 								?></a>
 						<?php } ?>
@@ -347,7 +347,7 @@ function openURLFilter(theLINK)
 								if (strlen($this -> FG_OTHER_BUTTON2_IMG)==0){
 									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON2_ALT.'</span>';
 								}else{
-									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON2_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON2_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON2_ALT?>"><?
+									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON2_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON2_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON2_ALT?>"><?php
 
 								}
 								?></a>

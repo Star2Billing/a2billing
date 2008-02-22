@@ -42,7 +42,7 @@ echo $CC_help_callback;
 
 
 <script language="JavaScript" src="./javascript/calendar2.js"></script>
-<?
+<?php
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
