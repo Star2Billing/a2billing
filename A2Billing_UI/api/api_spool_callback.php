@@ -17,7 +17,7 @@ Paremeters :
 http://hostname/api/api_spool_callback.php?security_key=XXXX&phone_number=XXX&callerid=XXXX
 */
 
-include ("../lib/defines.php");
+include ("../lib/admin.defines.php");
 
 	
 	

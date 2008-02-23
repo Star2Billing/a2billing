@@ -24,8 +24,8 @@ include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67
 
  ****************************************************************************/
 
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
+include ("../lib/admin.defines.php");
+include ("../lib/admin.module.access.php");
 
 
 // The wrapper variables for security
