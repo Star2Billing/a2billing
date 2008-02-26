@@ -67,6 +67,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 
 $payment_modules = new payment($paymentMethod);
+
 $module_keys = $payment_modules->keys();
 
 $keys_extra = array();
