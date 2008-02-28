@@ -283,10 +283,11 @@ class RateEngine
 		if (strlen($A2B->dnid)>2 && is_array($A2B->agiconfig['extracharge_did']) && in_array($A2B->dnid, $A2B->agiconfig['extracharge_did']))
 		{
 			$fee=$A2B->agiconfig['extracharge_fee'][array_search($A2B->dnid, $A2B->agiconfig['extracharge_did'])];
-			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: Extracharge DID found: ".$A2B->dnid.", extra fee: ".$fee."]");
+			$buyfee=$A2B->agiconfig['extracharge_buyfee'][array_search($A2B->dnid, $A2B->agiconfig['extracharge_did'])];
+			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: Extracharge DID found: ".$A2B->dnid.", extra fee: ".$fee.", extra buy fee: ".$buyfee."]");
 			for ($i=0; $i<count($this->ratecard_obj); $i++)
 			{
-				$this->ratecard_obj[$i][9] +=$fee;
+				$this->ratecard_obj[$i][9] +=$buyfee;
 				$this->ratecard_obj[$i][12]+=$fee;
 			}
 		}

@@ -495,6 +495,7 @@ class A2Billing {
 		// Explode the international_prefixes, extracharge_did and extracharge_fee strings
 		if(isset($this->config["agi-conf$idconfig"]['extracharge_did'])) $this->config["agi-conf$idconfig"]['extracharge_did'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_did']);
 		if(isset($this->config["agi-conf$idconfig"]['extracharge_fee'])) $this->config["agi-conf$idconfig"]['extracharge_fee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_fee']);
+		if(isset($this->config["agi-conf$idconfig"]['extracharge_buyfee'])) $this->config["agi-conf$idconfig"]['extracharge_buyfee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_buyfee']);
 
 		if(isset($this->config["agi-conf$idconfig"]['international_prefixes'])) {
 			$this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",",$this->config["agi-conf$idconfig"]['international_prefixes']);
