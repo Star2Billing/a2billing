@@ -363,49 +363,7 @@ class RateEngine
 			// CHECK IF WE HAVE A FREETIME THAT CAN APPLY FOR THIS DESTINATION
 			if ($freetimetocall_package_offer==1 && $freetimetocall>0){
 				// WE NEED TO RETRIEVE THE AMOUNT OF USED MINUTE FOR THIS CUSTOMER ACCORDING TO BILLINGTYPE (Monthly ; Weekly) & STARTDAY
-				if ($billingtype == 0){
-					// PROCESSING FOR MONTHLY
-					// if > last day of the month
-					if ($startday > date("t")) $startday = date("t");
-					if ($startday <= 0 ) $startday = 1;
-					
-					// Check if the startday is upper that the current day
-					if ($startday > date("j")) $year_month = date('Y-m', strtotime('-1 month'));
-					else $year_month = date('Y-m');
-					
-					$yearmonth = sprintf("%s-%02d",$year_month,$startday);
-					if ($A2B->config["database"]['dbtype'] == "postgres"){
-	 					$UNIX_TIMESTAMP = "";
-					}else{
-						$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-					}
-					$CLAUSE_DATE=" $UNIX_TIMESTAMP(date_consumption) >= $UNIX_TIMESTAMP('$yearmonth')";
-				}else{
-					// PROCESSING FOR WEEKLY
-					$startday = $startday % 7;
-					$dayofweek = date("w"); // Numeric representation of the day of the week 0 (for Sunday) through 6 (for Saturday)
-					if ($dayofweek==0) $dayofweek=7;
-					if ($dayofweek < $startday) $dayofweek = $dayofweek + 7;
-					$diffday = $dayofweek - $startday;
-					if ($A2B->config["database"]['dbtype'] == "postgres"){
-	 					$CLAUSE_DATE = "date_consumption >= (CURRENT_DATE - interval '$diffday day') ";
-					}else{
-						$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
-					}
-				}
-				$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
-						" WHERE $CLAUSE_DATE AND id_cc_card = '".$A2B->id_card."' AND id_cc_package_offer = '$id_cc_package_offer' ";
-				$pack_result = $A2B -> instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
-				
-				if (is_array($pack_result) && count($pack_result)>0) {
-					$this->freetimetocall_used = $pack_result[0][0];
-				} else {
-					$this->freetimetocall_used = 0;
-				}
-				
-				$A2B -> write_log ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $this->freetimetocall_used");
-				if ($this -> debug_st) echo ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $this->freetimetocall_used");
-				
+				$this -> freetimetocall_used = $A2B -> FT2C_used_seconds($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
 				$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
 				if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
 				
