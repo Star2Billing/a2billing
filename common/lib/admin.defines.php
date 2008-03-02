@@ -3,12 +3,43 @@ include_once (dirname(__FILE__)."/Class.A2Billing.php");
 require_once('adodb/adodb.inc.php'); // AdoDB
 include_once (dirname(__FILE__)."/Class.Table.php");
 
+define ("FSROOT", substr(dirname(__FILE__),0,-3));
+define ("LIBDIR", FSROOT."lib/");	
+
+// USE PHPMAILER
+include_once (FSROOT."lib/mail/class.phpmailer.php");
+// INCLUDE MISC
+include (FSROOT."lib/Misc.php");
+
+// A2B INSTANCE
 $A2B = new A2Billing();
 
 $_START_TIME = time();
 
-// SELECT THE FILES TO LOAD THE CONFIGURATION
-$A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);	
+define ("ENABLE_LOG", 1);
+include (FSROOT."lib/Class.Logger.php");
+$log = new Logger();
+
+// INCLUDE HELP
+include (LIBDIR."admin.help.php");
+
+// The system will not log for Public/index.php and 
+// signup/index.php
+$URI = $_SERVER['REQUEST_URI'];
+$restircted_url = substr($URI,-16);
+if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
+	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+}
+$log = null;
+
+//Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
+define("LIST_OF_VALUES",true);
+
+if (!($restircted_url == "Public/index.php")) {
+	// SELECT THE FILES TO LOAD THE CONFIGURATION
+	$res_load_conf = $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
+	if (!$res_load_conf) exit;
+}
 
 
 // DEFINE FOR THE DATABASE CONNECTION
@@ -89,16 +120,6 @@ define ("FRIEND_AMAFLAGS", isset($A2B->config['peer_friend']['amaflags'])?$A2B->
 define ("FRIEND_QUALIFY", isset($A2B->config['peer_friend']['qualify'])?$A2B->config['peer_friend']['qualify']:null);
 define ("FRIEND_HOST", isset($A2B->config['peer_friend']['host'])?$A2B->config['peer_friend']['host']:null);
 define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->config['peer_friend']['dtmfmode']:null);
-
-// INCLUDE FILES
-define ("FSROOT", substr(dirname(__FILE__),0,-3));
-define ("LIBDIR", FSROOT."lib/");	
-
-// USE PHPMAILER
-include_once (FSROOT."lib/mail/class.phpmailer.php");
-
-// INCLUDE MISC
-include (FSROOT."lib/Misc.php");
 
 
 /*
@@ -259,20 +280,4 @@ define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
 
 
-define ("ENABLE_LOG", 1);
-include (FSROOT."lib/Class.Logger.php");
-$log = new Logger();
-include (LIBDIR."admin.help.php");
-// 
-// The system will not log for Public/index.php and 
-// signup/index.php
-$URI = $_SERVER['REQUEST_URI'];
-$restircted_url = substr($URI,-16);
-if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
-	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
-}
-$log = null;
-
-//Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
-define("LIST_OF_VALUES",true);
 

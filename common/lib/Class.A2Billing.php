@@ -284,7 +284,7 @@ class A2Billing {
 		if(!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
 		if(!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
 		
-		$this->load_conf_db($agi, NULL, 0, $idconfig, $optconfig);
+		return $this->load_conf_db($agi, NULL, 0, $idconfig, $optconfig);
     }
 	
 	/* 
@@ -298,6 +298,10 @@ class A2Billing {
 		$this->DbConnect();
 		
 		$config_res = $config_table -> Get_list($this->DBHandle, "ccc.config_group_id = ccg.id");
+		if (!$config_res) {
+			echo 'Error : cannot load conf : load_conf_db';
+			return false;
+		}
 		
 		foreach ($config_res as $conf)
 		{
@@ -552,7 +556,7 @@ class A2Billing {
 		// Print out on CLI for debug purpose
 		if (!$webui) $this->conlog ('A2Billing AGI internal configuration:');
       	if (!$webui) $this->conlog (print_r($this->agiconfig, true));
-		
+		return true;
     }
 	
 	
