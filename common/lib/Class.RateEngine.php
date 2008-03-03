@@ -144,13 +144,23 @@ class RateEngine
 		// $prefixclause to allow good DB servers to use an index rather than sequential scan
 		// justification at http://forum.asterisk2billing.org/viewtopic.php?p=9620#9620
 		$max_len_prefix = min(strlen($phonenumber), 15);	// don't match more than 15 digits (the most I have on my side is 8 digit prefixes)
-		$prefixclause = '';
+		$prefixclause = '(';
 		while ($max_len_prefix > 0 ) {
 			$prefixclause .= "dialprefix='".substr($phonenumber,0,$max_len_prefix)."' OR ";
 			$max_len_prefix--;
 		}
-		$prefixclause .= "dialprefix='defaultprefix'";
+		$prefixclause .= "dialprefix='defaultprefix')";
 		
+		// match Asterisk/POSIX regex prefixes,  rewrite the Asterisk '_XZN.' characters to
+		// POSIX equivalents, and test each of them against the dialed number
+		$prefixclause .= " OR (dialprefix LIKE '&_%' ESCAPE '&' AND '$phonenumber' ";
+		if ($A2B->config["database"]['dbtype'] != "postgres"){
+			$prefixclause .= "REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', dialprefix, '$'), ";
+			$prefixclause .= "'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', ''))";
+		} else {
+			$prefixclause .= "~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE('^' || dialprefix || '$', ";
+			$prefixclause .= "'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\\\.', '+', 'g'), '_', '', 'g'))";
+		}
 		
 		$QUERY = "SELECT 
 		tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,

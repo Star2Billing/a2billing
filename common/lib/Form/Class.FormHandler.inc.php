@@ -881,8 +881,8 @@ class FormHandler
 					gettext("(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"));
 		
 		// 13  - RATECARD
-		$this -> FG_regular[]  = array(    "^(defaultprefix|[0-9]+)$",
-					"(NUMBER FORMAT OR 'defaultprefix')");
+		$this -> FG_regular[]  = array(    "^(defaultprefix|[-,0-9]+|_[-[.[.][.].]0-9XZN(){}|.,]+)$",
+					"(NUMBER FORMAT OR 'defaultprefix' OR ASTERISK/POSIX REGEX FORMAT)");
 		
 		// 14  - DNID PREFIX FOR RATECARD
 		$this -> FG_regular[]  = array(    "^(all|[0-9]+)$",
@@ -1252,7 +1252,7 @@ function do_field($sql,$fld, $simple=0){
 						}
 					}
 					// CHECK IF THIS IS A SPLITABLE FIELD :D like 12-14 or 15;16;17
-				 	if ($fields_name == $this -> FG_SPLITABLE_FIELD){
+				 	if ($fields_name == $this -> FG_SPLITABLE_FIELD && substr($processed[$fields_name],0,1) != '_' ){
 						$splitable_value = $processed[$fields_name];
 						$arr_splitable_value = explode(",", $splitable_value);
 						foreach ($arr_splitable_value as $arr_value){

@@ -2,6 +2,15 @@
 						V1.4
 ********************************************************************
 
+#### Regular expressions dialprefixes for ratecards
+********************************************************************
+You can use now a mix of Asterisk and POSIX regular expression syntax to match rates, eg
+_447[7-9]XXXXXXXX	matches UK mobile numbers
+_X{0,3}(112|999|911)	matches any 0-3 digits followed by a common emergency number
+_XXX			matches any 3 digit numbers
+_NX.			match numbers starting with 2-9, followed by at least one more digit
+You can use more '_' (anywhere in the string) to pad the length, and therefore increase the match priority.
+
 
 #### no answer on followme
 ********************************************************************

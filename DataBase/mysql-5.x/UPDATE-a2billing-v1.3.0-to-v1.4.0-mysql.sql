@@ -746,3 +746,22 @@ CREATE OR REPLACE VIEW voicemail_users AS (
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DIDs', 'extracharge_did', '1800,1900', 'Add extra per-minute charges to this comma-separated list of DNIDs; needs "extracharge_fee" and "extracharge_buyfee"', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DID fees', 'extracharge_fee', '0.05,0.15', 'Comma-separated list of extra sell-rate charges corresponding to the DIDs in "extracharge_did"', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DID buy fees', 'extracharge_buyfee', '0.04,0.13', 'Comma-separated list of extra buy-rate charges corresponding to the DIDs in "extracharge_did"', 0, 11, NULL);
+
+
+-- These triggers are to prevent bogus regexes making it into the database
+DELIMITER //
+CREATE TRIGGER cc_ratecard_validate_regex_ins BEFORE INSERT ON cc_ratecard
+FOR EACH ROW
+BEGIN
+  DECLARE valid INTEGER;
+  SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '') INTO valid;
+END
+//
+CREATE TRIGGER cc_ratecard_validate_regex_upd BEFORE UPDATE ON cc_ratecard
+FOR EACH ROW
+BEGIN
+  DECLARE valid INTEGER;
+  SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '') INTO valid;
+END
+//
+DELIMITER ;

@@ -121,20 +121,14 @@ $HD_Form -> AddEditElement(gettext("RATECARD"),
    "", "", "%1", "", "");
 
 
-$dialprefix_regexpress = '9';
-
-if ($form_action=="ask-edit" || $form_action=="edit") {
-	$dialprefix_regexpress = '13';
-}
-
 $HD_Form -> AddEditElement(gettext("DIALPREFIX"),
    "dialprefix",
    '$value',	
    "POPUPVALUE",	
    "size=50 maxlength=80",	
-   "$dialprefix_regexpress",
+   "13",
    gettext("Insert the dialing prefix, such as for UK '44' or for US '1' "),
-   "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=1&", ", 'prefix','width=550,height=340,top=20,left=100,scrollbars=1'", gettext("Define the destination prefix. i.e. 441 for UK Landlines. Use 'defaultprefix' to setup a rate for all destinations where a specific rate is is not provided. If you ADD a rate, NOT an EDIT, you can define a range of prefixes. <br>32484-32487 would match all dialled digits between 32484 and 32487, whereas prefixes separated by a comma e.g. 32484,32386,32488 would only match the individual prefixes listed."));
+   "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=1&", ", 'prefix','width=550,height=340,top=20,left=100,scrollbars=1'", gettext("A) Add destination prefixes, ie '441' for UK Landlines.<br>B) Use 'defaultprefix' to setup a rate for all destinations where a specific rate is not provided.<br>C) if you ADD a rate, NOT an EDIT, you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed.<br>D) Asterisk extensions style + POSIX regex syntaxes are supported. '_447[7-9]XXXXXXXX' matches 12-digit UK mobiles. '_X{0,3}(112|999|911)' matches any 0-3 digits followed an emergency number. '_' can be used to add length, and raise the priority."));
 
 $HD_Form -> AddEditElement(gettext("DESTINATION"),
    "destination",

@@ -112,8 +112,6 @@ if ($task=='upload'){
 		exit(); 
 	} 
 	
-	$chaine1 = '"\'';
-	
 	$nb_imported=0;
 	$nb_to_import=0;
 	$DBHandle  = DbConnect();
@@ -123,20 +121,13 @@ if ($task=='upload'){
 		//if ($nb_imported==1000) break;
 		$ligneoriginal = fgets($fp,4096);  /* On se dplace d'une ligne */   
 		$ligneoriginal = trim ($ligneoriginal);
-		$ligneoriginal = strtolower($ligneoriginal);
 		
-		
-		for ($i = 0; $i < strlen($chaine1); $i++)   
-			$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
-		
-		$ligne = str_replace(',', '.', $ligne);
-		$val= split('[;:]', $ligne);
-		$val[0]=str_replace('"', '', $val[0]); //DH
-		$val[1]=str_replace('"', '', $val[1]); //DH
-		$val[2]=str_replace('"', '', $val[2]); //DH
-		$val[0]=str_replace("'", '', $val[0]); //DH
-		$val[1]=str_replace("'", '', $val[1]); //DH
-		$val[2]=str_replace("'", '', $val[2]); //DH
+		// strip out ' and " and, with the exception of dialprefix field,
+		// substitute , for . to allow European style floats, eg: 0,1 == 0.1
+		$ligne = str_replace(array('"',"'"), '', $ligneoriginal);
+		$val=split('[;:]', $ligne);
+		for ($i = 1; $i < count($val); $i++)
+			 $val[$i]=str_replace(',', '.', $val[$i]);
 		
 		if ($status!="ok"){ 
 			if($currencytype == "cent")
@@ -145,8 +136,7 @@ if ($task=='upload'){
 			}
 			break;
 		}
-		//if ($val[2]!='' && strlen($val[2])>0){
-		if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#' && $val[2]!='' && strlen($val[2])>0){
+		if (substr($ligne,0,1)!='#' && $val[2]!='' && strlen($val[2])>0){
 			
 			$FG_ADITION_SECOND_ADD_TABLE  = 'cc_ratecard';		
 			$FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql				
@@ -154,15 +144,12 @@ if ($task=='upload'){
 				$val[2] = $val[2] / 100;
 			}
 			
-			$FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".strtolower($val[1])."', '".$val[2]."'"; 
+			$FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".$val[1]."', '".$val[2]."'";
 			
 			for ($k=0;$k<count($fieldtoimport);$k++){
 				
 				if (!empty($val[$k+3]) || $val[$k+3]=='0')
 				{
-					$val[$k+3]=str_replace('"', '', $val[$k+3]); //DH
-					$val[$k+3]=str_replace("'", '', $val[$k+3]); //DH
-					
 					if ($fieldtoimport[$k]=="startdate" && ($val[$k+3]=='0' || $val[$k+3]=='')) continue;
 					if ($fieldtoimport[$k]=="stopdate" && ($val[$k+3]=='0' || $val[$k+3]=='')) continue;
 					
@@ -179,7 +166,7 @@ if ($task=='upload'){
 					if (is_numeric($val[$k+3])) {
 						$FG_ADITION_SECOND_ADD_VALUE .= ", ".$val[$k+3]."";
 					}else{
-						$FG_ADITION_SECOND_ADD_VALUE .= ", '".$val[$k+3]."'";
+						$FG_ADITION_SECOND_ADD_VALUE .= ", '".trim($val[$k+3])."'";
 					}
 					
 					if ($fieldtoimport[$k]=="startdate") $find_stardate = 1;
@@ -188,20 +175,20 @@ if ($task=='upload'){
 			}
 			 
 			if ($find_stardate!=1) {
-				$begin_date = date("Y");	
-				$end_date = date("-m-d H:i:s");					
+				$begin_date = date("Y");
+				$end_date = date("-m-d H:i:s");
 				$FG_ADITION_SECOND_ADD_FIELDS .= ', startdate';
 				$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date.$end_date."'";
 			}
 			 
 			if ($find_stopdate!=1){
-				$begin_date_plus = date("Y")+10;	
-				$end_date = date("-m-d H:i:s");					
+				$begin_date_plus = date("Y")+10;
+				$end_date = date("-m-d H:i:s");
 				$FG_ADITION_SECOND_ADD_FIELDS .= ', stopdate';
 				$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date_plus.$end_date."'";
 			}
 				
-			$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
+			$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".$FG_ADITION_SECOND_ADD_VALUE.") ";
 			
 			$nb_to_import++;
 		}
@@ -222,7 +209,7 @@ if ($task=='upload'){
 	
 	if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0) ){
 		$result_query = @ $DBHandle -> Execute($TT_QUERY);
-		if ($result_query) $nb_imported = $nb_imported + $nb_to_import;				
+		if ($result_query) $nb_imported = $nb_imported + $nb_to_import;
 	}
 }
 
@@ -232,7 +219,7 @@ $Temps = $Temps2 - $Temps1;
 //echo "<br>Script Time :".$Temps."<br>";
 
 
-$smarty->display('main.tpl');	 
+$smarty->display('main.tpl');
 
 ?>
 
