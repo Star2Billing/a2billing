@@ -881,7 +881,7 @@ class FormHandler
 					gettext("(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"));
 		
 		// 13  - RATECARD
-		$this -> FG_regular[]  = array(    "^(defaultprefix|[-,0-9]+|_[-[.[.][.].]0-9XZN(){}|.,]+)$",
+		$this -> FG_regular[]  = array(    "^(defaultprefix|[-,0-9]+|_[-[.[.][.].]0-9XZN(){}|.,_]+)$",
 					"(NUMBER FORMAT OR 'defaultprefix' OR ASTERISK/POSIX REGEX FORMAT)");
 		
 		// 14  - DNID PREFIX FOR RATECARD
