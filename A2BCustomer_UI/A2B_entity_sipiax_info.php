@@ -93,7 +93,7 @@ secret=<?php echo $sip_iax_data[0][2]?>
 host=<?php echo SIP_IAX_INFO_HOST; ?>
 
 disallow=all
-context=from-trunk ; change for proper context
+context=<?php echo $sip_iax_data[0][7]?> ; change for proper context
 allow=<?php echo SIP_IAX_INFO_ALLOWCODEC?> ; we support ulaw,alaw,ilbc,gsm,g723.1,g726,g729a
 <?php 
 if (count($additional_iax) > 0)
@@ -114,7 +114,7 @@ host=<?php echo SIP_IAX_INFO_HOST; ?>
 
 fromuser=<?php echo $sip_iax_data[0][1]?>
 
-context=from-trunk ; change for proper context
+context=<?php echo $sip_iax_data[0][7]?> ; change for proper context
 allow=<?php echo SIP_IAX_INFO_ALLOWCODEC?> ; we support ulaw,alaw,ilbc,gsm,g723.1,g726,g729a
 <?php 
 if (count($additional_sip) > 0)
