@@ -2,13 +2,9 @@
 
 getpost_ifset(array('id', 'speeddial', 'id_cc_card', 'name', 'phone','popup_select','popup_formname','popup_fieldname'));
 
-
-$plang='en';
-
 $HD_Form = new FormHandler("cc_speeddial","speeddial");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -16,7 +12,6 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $speeddial_list = array();
 for ($k=0;$k<=9;$k++)
 	$speeddial_list["$k"]  = array( "$k", "$k");
-
 
 
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
@@ -39,13 +34,13 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 $HD_Form -> AddEditElement (gettext("SPEEDDIAL"),
-				   "speeddial",			
-				   "",	
-				   "SELECT",	
-				   "",	
-				   "",	
-				   "", 
-				   "list" , "", "",	"", $speeddial_list, "%1", "", "" );
+			   "speeddial",			
+			   "",	
+			   "SELECT",	
+			   "",	
+			   "",	
+			   "", 
+			   "list" , "", "",	"", $speeddial_list, "%1", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("NAME"),
@@ -111,8 +106,6 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form
 
 
 
-
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
@@ -121,8 +114,8 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click Confirm Data.");
 
 
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+
+
+
