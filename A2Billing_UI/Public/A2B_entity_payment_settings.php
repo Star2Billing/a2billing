@@ -65,9 +65,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 ///**************************************************
 
-
 $payment_modules = new payment($paymentMethod);
-
+$GLOBALS['paypal']->enabled = true;
 $module_keys = $payment_modules->keys();
 
 $keys_extra = array();
@@ -87,6 +86,7 @@ for ($j=0, $k=sizeof($module_keys); $j<$k; $j++)
 
 $module_info['keys'] = $keys_extra;
 $mInfo = new objectInfo($module_info);
+
 
 $keys = '';
 reset($mInfo->keys);
