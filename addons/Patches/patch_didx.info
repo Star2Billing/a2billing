@@ -1,0 +1,24 @@
+
+
+http://support.didx.net/tiki-index.php?page=a2billing
+-------------------------------------------------------------
+
+
+DIDX is proud to announce the patch for a2billing now available for use free of charge.
+
+
+
+The patch allows a2billing admin to purchase DIDs on DIDx with automatic entering to a2billing database. The code requires php 5.2.X with built-in SOAP support to run.
+
+Instructions:
+
+1. Apply the patch to A2Billing_UI? Click Here to download patch
+
+2. At the beginning of A2Billing_UI/lib/didx.php edit DIDX_ID,DIDX_PASS and RING_TO values.
+
+3. MIN_RATING can be adjusted to show by default DIDs from the vendors with rating no lower than specified.
+
+4. functions setupcost(), monthly(), minutecharge() and freeminutes() in
+didx.php can be adjusted for profit margins.
+
+
