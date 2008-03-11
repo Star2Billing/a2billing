@@ -234,7 +234,8 @@
 				<li><a href="A2B_entity_didgroup.php?stitle=DID+Group&form_action=ask-add&section=5">{php} echo gettext("Add DID Group");{/php}</a></li>
 				<li><a href="A2B_entity_did.php?stitle=DID&section=5">{php} echo gettext("List DID");{/php}</a></li>
 				<li><a href="A2B_entity_did.php?stitle=DID&form_action=ask-add&section=5">{php} echo gettext("Add DID");{/php}</a></li>
-                <li><a href="A2B_entity_did_import.php?stitle=DID&section=5">{php} echo gettext("Import DID");{/php}</a></li>
+				<li><a href="A2B_entity_didx.php?stitle=DID&section=5">{php} echo gettext("Add DID from DIDX");{/php}</a></li>
+				<li><a href="A2B_entity_did_import.php?stitle=DID&section=5">{php} echo gettext("Import DID");{/php}</a></li>
 				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&section=5">{php} echo gettext("List Destination");{/php}</a></li>
 				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&form_action=ask-add&section=5">{php} echo gettext("Add Destination");{/php}</a></li>
 				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&stitle=DID+BILLING&section=5">{php} echo gettext("DID Billing");{/php}</a></li>

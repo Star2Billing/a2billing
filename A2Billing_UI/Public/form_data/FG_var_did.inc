@@ -58,12 +58,17 @@ $HD_Form -> FG_SPLITABLE_FIELD = 'did';
 
 
 // TODO integrate in Framework
-if ($form_action=="ask-add"){
+if ($form_action=="ask-add" || $form_action=="purchase"){
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+25;
 	$end_date = date("-m-d H:i:s");
 	$comp_date = "value='".$begin_date.$end_date."'";
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
+}
+
+if ($form_action=="purchase"){
+	$didval = "value='".$did."'";
+	$fixval = "value='".$fixrate."'";
 }
 
 $did_regexpress = '9';
@@ -75,7 +80,7 @@ $HD_Form -> AddEditElement (gettext("DID"),
 	"did",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=30",
+	"size=30 maxlength=30 $didval",
 	"$did_regexpress",
 	gettext("Insert the DID"),
 	"" , "", "", "", "" , "", "" ,"Insert DID");
@@ -141,7 +146,7 @@ $HD_Form -> AddEditElement (gettext("MONTHLY RATE"),
 	"fixrate",
 	'$value',
 	"INPUT",
-	"size=20  maxlength=20",
+	"size=20  maxlength=20 $fixval",
 	"12",
 	gettext("Insert the monthly rate"),
 	"" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );

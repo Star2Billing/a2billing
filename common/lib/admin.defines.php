@@ -20,9 +20,6 @@ define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();
 
-// INCLUDE HELP
-include (LIBDIR."admin.help.php");
-
 // The system will not log for Public/index.php and 
 // signup/index.php
 $URI = $_SERVER['REQUEST_URI'];
@@ -266,6 +263,8 @@ define ("Images_Path_Main","../Public/templates/".$_SESSION["stylefile"]."/image
 define ("KICON_PATH","../Public/templates/".$_SESSION["stylefile"]."/images/kicons");
 define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->config["global"]['invoice_image']:null);
 
+// INCLUDE HELP
+include (LIBDIR."admin.help.php");
 
 // A2BILLING INFO
 define ("WEBUI_DATE", 'Release : no date');
