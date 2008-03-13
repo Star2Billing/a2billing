@@ -280,7 +280,7 @@ function EmailInvoice($id, $invoice_type = 1)
 		}
 	}
 
-	require('../Public/pdf-invoices/html2pdf/html2fpdf.php');
+	require_once('../Public/pdf-invoices/html2pdf/html2fpdf.php');
 	ob_start();
 	
 	$currencies_list = get_currencies();
