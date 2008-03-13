@@ -420,21 +420,9 @@ $CC_help_list_voucher='
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2"><br>'
 .gettext("Listed below are the vouchers created on the system,.<br/>")
-.gettext("Each row corresponds to a voucher and shows it's status, value and currency..").'
-<br/><br/>
-</div></div></div>
-</div></div>';
-
-$CC_help_create_voucher='
-<div class="toggle_show2hide">
-<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
-	<div class="w2">
-<br/>'
-.gettext("Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credit to their card via the customer interface or via an IVR menu.").'
-<br/><br/>
+.gettext("Each row corresponds to a voucher and shows it's status, value and currency..")
+.gettext("Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credit to their card via the customer interface or via an IVR menu.").
+'<br/><br/>
 </div></div></div>
 </div></div>';
 
