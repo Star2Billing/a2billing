@@ -1945,9 +1945,28 @@ class A2Billing {
 				}
 				
 				if (strlen($prompt)>0){
+					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt 
+					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
+					
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
-					$res = -2;
-					break;
+					
+					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance"){
+					
+						$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher] ");
+						$vou_res = $this -> refill_card_with_voucher($agi,2);
+						if ($vou_res==1){
+							return 0;
+						}else {
+							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
+						}
+					}
+					if ($prompt == "prepaid-zero-balance" && $this->agiconfig['notenoughcredit_cardnumber']==1) { 
+						$this->accountcode='';
+						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
+						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) $this -> ask_other_cardnumber=1;
+					}else{
+						return -2;
+					}
 				}
 				
 			} // For end			
