@@ -39,7 +39,7 @@ $email_alarm = EMAIL_ADMIN;
 
 $FG_DEBUG = 0;
 
-
+$caching_query = 300; // caching for 5 minutes
 
 getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage'));
 /**variable to set rate display option
@@ -223,14 +223,14 @@ if ( is_null ($order) || is_null($sens) ){
 }
 
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY, NULL, $caching_query);
 
 $country_table = new Table("cc_country","countryname");
 $country_list = $country_table -> Get_list ($DBHandle);
 
 $QUERY="SELECT count(*) from $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 
-$list_nrecord=$instance_table->SQLExec($DBHandle,$QUERY,1);
+$list_nrecord=$instance_table->SQLExec($DBHandle,$QUERY,1,$caching_query);
 $nb_record = $list_nrecord[0][0];
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){ 
