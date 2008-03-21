@@ -327,19 +327,6 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
-$instance_table_customer = new Table("cc_card", "id,  username, lastname");
-
-$FG_TABLE_CLAUSE = "";
-if ($_SESSION["is_admin"]==0){ 	
-	$FG_TABLE_CLAUSE =" IDmanager='".$_SESSION["pr_reseller_ID"]."'";	
-}
-
-
-$list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
-
-$nb_customer = count($list_customer);
-
-
 $smarty->display('main.tpl');
 
 ?>
