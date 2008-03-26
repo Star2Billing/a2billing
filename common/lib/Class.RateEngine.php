@@ -992,6 +992,7 @@ class RateEngine
 	*/
 	function rate_engine_performcall ($agi, $destination, &$A2B, $typecall=0){
 
+		$max_long = 2147483647; //Maximum value for long type in C++. This will be used to avoid overflow when sending large numbers to Asterisk
 		$old_destination = $destination;
 		
 		for ($k=0;$k<count($this -> ratecard_obj);$k++){
@@ -1023,12 +1024,12 @@ class RateEngine
 			
 			if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
 				$destination= substr($destination, strlen($removeprefix));
-				
+			
 			if ($typecall==1) $timeout = $A2B -> config["callback"]['predictivedialer_maxtime_tocall']; 
-				
-			$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
+			
+			$dialparams = str_replace("%timeout%", min($timeout * 1000, $max_long), $A2B->agiconfig['dialcommand_param']);
 			//$dialparams = "|30|HS($timeout)"; // L(".$timeout*1000.":61000:30000)
-				
+			
 			if (strlen($musiconhold)>0 && $musiconhold!="selected"){
 				$dialparams.= "m";
 				$myres = $agi->exec("SETMUSICONHOLD $musiconhold");
@@ -1095,12 +1096,12 @@ class RateEngine
 			if ($maxuse == -1 || $inuse < $maxuse) {
 				// Count this call on the trunk
 				$this -> trunk_start_inuse($agi, $A2B, 1);
-							
+				
 				$myres = $agi->exec("Dial $dialstr");	
-	    		//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
-				    		
-	    		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL $dialstr");
-									
+	    			//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
+				
+	    			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL $dialstr");
+				
 				// Count this call on the trunk
 				$this -> trunk_start_inuse($agi, $A2B, 0);
 			} else {
@@ -1109,8 +1110,8 @@ class RateEngine
 					continue 1;
 				} else {
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use failover trunk\n");
-				}				
-			}			
+				}
+			}
 			
 			if ($A2B -> agiconfig['record_call'] == 1){
 				// Monitor(wav,kiki,m)					
@@ -1164,7 +1165,7 @@ class RateEngine
 						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because it is disabled. Now use next trunk\n");
 						continue 2;
 					}
-
+					
 					if ($maxuse!=-1 && $inuse >= $maxuse) {
 						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because maximum number of connections on this trunk is already reached.\n");
 						
@@ -1174,20 +1175,20 @@ class RateEngine
 							continue 1;
 						} else {
 							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Now using next trunk\n");
-							continue 2;							
-						}						
+							continue 2;
+						}
 					}
 					
 					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 					
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
-						
+					
 					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0){
 						$destination= substr($destination, strlen($removeprefix));
 					}
 					
-					$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
+					$dialparams = str_replace("%timeout%", min($timeout * 1000, $max_long), $A2B->agiconfig['dialcommand_param']);
 					
 					if ($pos_dialingnumber !== false){					   
 						$dialstr = "$tech/$ipaddress".$dialparams;
@@ -1197,19 +1198,19 @@ class RateEngine
 						}else{
 							$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
 						}
-					}	
+					}
 					
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
 					
 					// Count this call on the trunk
 					$this -> trunk_start_inuse($agi, $A2B, 1);
-			
+					
 					$myres = $agi->exec("DIAL $dialstr");
 					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL FAILOVER $dialstr");
 					
 					// Count this call on the trunk
 					$this -> trunk_start_inuse($agi, $A2B, 0);
-			
+					
 					$answeredtime = $agi->get_variable("ANSWEREDTIME");
 					$this -> real_answeredtime = $this -> answeredtime = $answeredtime['data'];
 					$dialstatus = $agi -> get_variable("DIALSTATUS");
@@ -1223,7 +1224,7 @@ class RateEngine
 				else $failover_trunk = $next_failover_trunk;
 				
 			} // END FOR LOOP FAILOVER 
-
+			
 			//# Ooh, something actually happened!
 			if ($this->dialstatus  == "BUSY") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
