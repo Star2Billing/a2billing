@@ -39,7 +39,7 @@ $list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
 if(isset($key) && $list[0][8]=="f")
 {
 
-    $QUERY = "UPDATE cc_card SET  activatedbyuser = 't' WHERE ( loginkey = '".$key."' ) ";
+    $QUERY = "UPDATE cc_card SET  activatedbyuser = 't', status = 1 WHERE ( loginkey = '".$key."' ) ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
 
