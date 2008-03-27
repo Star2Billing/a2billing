@@ -36,16 +36,14 @@ $QUERY = "( loginkey = '".$key."' )" ;
 
 $list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
 
-if(isset($key) && $list[0][8]!="1")
+if(isset($key) && $list[0][9]!="1")
 {
     $QUERY = "UPDATE cc_card SET  activatedbyuser = 't', status = 1 WHERE ( loginkey = '".$key."' ) ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
 
 
-if( $list[0][8] != "t" && isset($result) && $result != null){
-
-
+if( $list[0][9] != "1" && isset($result) && $result != null) {
 
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
 	$res = $HD_Form -> DBHandle -> Execute($QUERY);
@@ -125,7 +123,7 @@ if( $list[0][8] != "t" && isset($result) && $result != null){
 
 <?php
 
-if( $records[0][8] == "t") {
+if( $records[0][9] == "1") {
 	echo gettext("Your account is already activated.")." <br>";
 } elseif(isset($result) || $result != null) {
 	// nothing
