@@ -286,14 +286,15 @@ $iax_account = $A2B->config["signup"]['iax_account'] ? 1 : 0;
 $amaflag = $A2B->config["signup"]['amaflag'];
 $context = $A2B->config["signup"]['context'];
 $activatedbyuser = $A2B->config["signup"]['activatedbyuser'] ? 't' : 'f';
+$status = $A2B->config["signup"]['activatedbyuser'] ? '1' : '3';
 
 //END END END  Code here for getting data from configuration files
 
 
 //$HD_Form ->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$maxi', '$maxi', '$maxi', '$amaflag', '$maxi2', '$context', 'RFC2833','dynamic', 'friend', '$maxi', 'g729,ulaw,alaw,gsm','$pass'";
 
-$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, activatedbyuser";
-$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass','$loginkey','$activatedbyuser'";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, activatedbyuser, status";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass','$loginkey','$activatedbyuser','$status'";
 
 // username, useralias, uipass, loginkey
 $HD_Form -> FG_QUERY_EXTRA_HIDDED = array($maxi, $maxi2, $pass, $loginkey);
