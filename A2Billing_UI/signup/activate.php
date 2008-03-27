@@ -29,16 +29,15 @@ $key = $_GET["key"];
 
 
 $result = null;
-$instance_sub_table = new Table('cc_card',"username, lastname, firstname, email, uipass, credit, useralias, loginkey, activatedbyuser");
+$instance_sub_table = new Table('cc_card',"username, lastname, firstname, email, uipass, credit, useralias, loginkey, activatedbyuser, status");
 
 
 $QUERY = "( loginkey = '".$key."' )" ;
 
 $list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
 
-if(isset($key) && $list[0][8]=="f")
+if(isset($key) && $list[0][8]!="1")
 {
-
     $QUERY = "UPDATE cc_card SET  activatedbyuser = 't', status = 1 WHERE ( loginkey = '".$key."' ) ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
