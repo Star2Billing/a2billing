@@ -123,7 +123,7 @@ if( $list[0][9] != "1" && isset($result) && $result != null) {
 
 <?php
 
-if( $records[0][9] == "1") {
+if( $list[0][9] == "1") {
 	echo gettext("Your account is already activated.")." <br>";
 } elseif(isset($result) || $result != null) {
 	// nothing
