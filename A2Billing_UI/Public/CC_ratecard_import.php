@@ -288,6 +288,7 @@ function moveSourceDown()
 				<option value="rounding_threshold"><?php echo gettext("rounding threshold");?></option>
  				<option value="additional_block_charge"><?php echo gettext("additional block charge");?></option>
 				<option value="additional_block_charge_time"><?php echo gettext("additional block charge time");?></option>
+				<option value="freetimetocall_package_offer"><?php echo gettext("free time to call package offer");?></option>
 			</select>
         </td>
 
