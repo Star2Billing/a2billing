@@ -190,26 +190,26 @@ $table_graph=array();
 $table_graph_hours=array();
 $numm=0;
 foreach ($list_total as $recordset){
-		$numm++;
-		$mydate= substr($recordset[0],0,10);
-		$mydate_hours= substr($recordset[0],0,13);
-		//echo "$mydate<br>";
-		if (is_array($table_graph_hours[$mydate_hours])){
-			$table_graph_hours[$mydate_hours][0]++;
-			$table_graph_hours[$mydate_hours][1]=$table_graph_hours[$mydate_hours][1]+$recordset[1];
-		}else{
-			$table_graph_hours[$mydate_hours][0]=1;
-			$table_graph_hours[$mydate_hours][1]=$recordset[1];
-		}
-		
-		
-		if (is_array($table_graph[$mydate])){
-			$table_graph[$mydate][0]++;
-			$table_graph[$mydate][1]=$table_graph[$mydate][1]+$recordset[1];
-		}else{
-			$table_graph[$mydate][0]=1;
-			$table_graph[$mydate][1]=$recordset[1];
-		}		
+	$numm++;
+	$mydate= substr($recordset[0],0,10);
+	$mydate_hours= substr($recordset[0],0,13);
+	//echo "$mydate<br>";
+	if (is_array($table_graph_hours[$mydate_hours])){
+		$table_graph_hours[$mydate_hours][0]++;
+		$table_graph_hours[$mydate_hours][1]=$table_graph_hours[$mydate_hours][1]+$recordset[1];
+	}else{
+		$table_graph_hours[$mydate_hours][0]=1;
+		$table_graph_hours[$mydate_hours][1]=$recordset[1];
+	}
+	
+	
+	if (is_array($table_graph[$mydate])){
+		$table_graph[$mydate][0]++;
+		$table_graph[$mydate][1]=$table_graph[$mydate][1]+$recordset[1];
+	}else{
+		$table_graph[$mydate][0]=1;
+		$table_graph[$mydate][1]=$recordset[1];
+	}
 }
 
 //print_r($table_graph_hours);
@@ -364,7 +364,7 @@ $graph->ygrid->SetFill(true,'#EFEFEF@0.5','#CDDEFF@0.5');
 
 // initialisaton fixe de AXE X
 $tableau_hours[0] = array("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
-$graph->xaxis->SetTickLabels($tableau_hours[0]);  
+$graph->xaxis->SetTickLabels($tableau_hours[0]);
 
 
 // Setup X-scale

@@ -6,12 +6,12 @@ include ("lib/customer.smarty.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle_max = DbConnect();
 $numrow = 0;
@@ -32,15 +32,15 @@ getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth'
 
 $currencies_list = get_currencies();
 
-if (!isset($currencies_list[strtoupper($customer_info [14])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [14])][2])) $mycur = 1;
-else $mycur = $currencies_list[strtoupper($customer_info [14])][2];
+if (!isset($currencies_list[strtoupper($customer_info [22])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [22])][2])) $mycur = 1;
+else $mycur = $currencies_list[strtoupper($customer_info [22])][2];
 $credit_cur = $customer_info[1] / $mycur;
 $credit_cur = round($credit_cur,3);
 
 
 
 $smarty->display( 'main.tpl');
-	
+
 ?>
 
 
@@ -93,7 +93,7 @@ $smarty->display( 'main.tpl');
 			<br></br>
 			</td>
 			<td width="50%">
-			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$customer_info[14]; ?> </font>
+			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$customer_info[22]; ?> </font>
 			<br></br>
 			</td>
 			<?php if ($customer_info[15]>0) {
