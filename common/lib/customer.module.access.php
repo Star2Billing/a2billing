@@ -23,11 +23,17 @@ session_name("UICSESSION");
 session_start();
 
 
+if(strlen(RETURN_URL_DISTANT_LOGIN)>1)
+	$C_RETURN_URL_DISTANT_LOGIN = RETURN_URL_DISTANT_LOGIN; 
+else 
+	$C_RETURN_URL_DISTANT_LOGIN = 'index.php';
+
+
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") { 
 	session_destroy();
 	$cus_rights=0;
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: index.php");	   
+	Header ("Location: $C_RETURN_URL_DISTANT_LOGIN");	   
 	die();
 }
 	
@@ -43,11 +49,6 @@ function access_sanitize_data($data)
 
 	return $data;
 }
-
-if(strlen(RETURN_URL_DISTANT_LOGIN)>1)
-	$C_RETURN_URL_DISTANT_LOGIN = RETURN_URL_DISTANT_LOGIN; 
-else 
-	$C_RETURN_URL_DISTANT_LOGIN = 'index.php';
 
 
 if ((!session_is_registered('pr_login') || !session_is_registered('pr_password') || !session_is_registered('cus_rights') || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){

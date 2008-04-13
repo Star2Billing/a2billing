@@ -327,8 +327,10 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = "<font>".gettext("Thanks for register
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONFIRM DATA button.");
+//$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONFIRM DATA button.");
+$HD_Form -> FG_ADD_PAGE_CONFIRM_BUTTON	= gettext("SIGNUP");
 
+		
 if(RELOAD_ASTERISK_IF_SIPIAX_CREATED) {
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends_reload';
 } else {
