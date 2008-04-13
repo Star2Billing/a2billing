@@ -78,6 +78,12 @@ else
     $error = 3;
 }
 
+if(strlen(RETURN_URL_DISTANT_FORGETPASSWORD)>1 && $show_message){
+	Header ("Location: $URL_CALLBACK_FORGETPASSWORD?error=$error");
+	die();
+}
+
+
 switch($error)
 {
     case 0:

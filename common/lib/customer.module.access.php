@@ -44,6 +44,12 @@ function access_sanitize_data($data)
 	return $data;
 }
 
+if(strlen(RETURN_URL_DISTANT_LOGIN)>1)
+	$C_RETURN_URL_DISTANT_LOGIN = RETURN_URL_DISTANT_LOGIN; 
+else 
+	$C_RETURN_URL_DISTANT_LOGIN = 'index.php';
+
+
 if ((!session_is_registered('pr_login') || !session_is_registered('pr_password') || !session_is_registered('cus_rights') || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
 
 	if ($FG_DEBUG == 1) echo "<br>0. HERE WE ARE";
@@ -65,12 +71,12 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
             if(is_int($return))
             {
                 if($return == -1) {
-			        Header ("Location: index.php?error=3");
+			        Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=3");
                 } else {
-                    Header ("Location: index.php?error=2");
+                    Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=2");
                 }
             } else {
-                Header ("Location: index.php?error=1");
+                Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=1");
             }
 			die();
 		}

@@ -107,7 +107,8 @@ define ("PAYPAL_LOGFILE", isset($A2B->config['paypal']['paypal_logfile'])?$A2B->
 
 define ("SIGNUP_LINK", isset($A2B->config["webcustomerui"]['signup_page_url'])?$A2B->config["webcustomerui"]['signup_page_url']:null);	
 define ("ACTIVATEDBYUSER", isset($A2B->config["signup"]['activatedbyuser'])?$A2B->config["signup"]['activatedbyuser']:null);
-
+define ("RETURN_URL_DISTANT_LOGIN", isset($A2B->config["webcustomerui"]['return_url_distant_login'])?$A2B->config["webcustomerui"]['return_url_distant_login']:null);
+define ("RETURN_URL_DISTANT_FORGETPASSWORD", isset($A2B->config["webcustomerui"]['return_url_distant_forgetpassword'])?$A2B->config["webcustomerui"]['return_url_distant_forgetpassword']:null);
 
 // INCLUDE FILES
 define ("FSROOT", substr(dirname(__FILE__),0,-3));

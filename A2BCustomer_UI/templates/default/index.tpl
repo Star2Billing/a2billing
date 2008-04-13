@@ -1,20 +1,18 @@
 <HTML>
 <HEAD>
-	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
-	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
-	
-	<title>..:: {$CCMAINTITLE} ::..</title>
-	
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		{if ($CSS_NAME!="" && $CSS_NAME!="default")}
-			   <link href="templates/default/css/{$CSS_NAME}.css" rel="stylesheet" type="text/css">
-		{else}
-			   <link href="templates/default/css/main.css" rel="stylesheet" type="text/css">
-			   <link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
-			   <link href="templates/default/css/style-def.css" rel="stylesheet" type="text/css">
-		{/if}
-			   
-			
+<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
+<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
+
+<title>..:: {$CCMAINTITLE} ::..</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	{if ($CSS_NAME!="" && $CSS_NAME!="default")}
+		   <link href="templates/default/css/{$CSS_NAME}.css" rel="stylesheet" type="text/css">
+	{else}
+		   <link href="templates/default/css/main.css" rel="stylesheet" type="text/css">
+		   <link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
+		   <link href="templates/default/css/style-def.css" rel="stylesheet" type="text/css">
+	{/if}		
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
@@ -56,22 +54,21 @@
 	<form name="form" method="POST" action="userinfo.php" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
-	{if ($error == 1)}
-	  	
+{if ($error == 1)}
+	<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
+		<b>AUTHENTICATION REFUSED, please check your user/password!</b>
+	</font>
+{elseif ($error==2)}
+	e="Arial, Helvetica, Sans-serif" size="2" color="red">
+		<b>INACTIVE ACCOUNT, Please activate your account!</b>
+	</font>
+{elseif ($error==3)}
+	<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
+		<b>BLOCKED ACCOUNT, Please contact your administrator!</b>
+	</font>
+{/if}
 
-		<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>AUTHENTICATION REFUSED, please check your user/password!</b>
-		</font>
-    {elseif ($error==2)}
-        <font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>INACTIVE ACCOUNT, Please activate your account!</b>
-		</font>
-    {elseif ($error==3)}
-        <font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>BLOCKED ACCOUNT, Please contact your administrator!</b>
-		</font>
-    {/if}
-    <br><br>
+    	<br><br>
 
 	<table style="border: 1px solid #C1C1C1">
 	<tr>
