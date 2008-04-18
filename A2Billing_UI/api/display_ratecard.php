@@ -39,8 +39,7 @@ $email_alarm = EMAIL_ADMIN;
 
 $FG_DEBUG = 0;
 
-//$caching_query = 300; // caching for 5 minutes
-$caching_query = 0;
+$caching_query = 300; // caching for 5 minutes
 
 getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage', 'lcr'));
 /**variable to set rate display option
