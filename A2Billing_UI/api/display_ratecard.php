@@ -315,9 +315,6 @@ function Search(Source){
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form;?>>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
-	<div class="title"  align="left">
-		<H1><?php echo gettext("Rate search");?></H1>
-	</div>
 	<div class="search">	
 		<?php if ($FILTER_COUNTRY){ ?>
 		<div class="searchelement"  align="left">
