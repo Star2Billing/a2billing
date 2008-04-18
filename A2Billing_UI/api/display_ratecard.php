@@ -39,17 +39,19 @@ $email_alarm = EMAIL_ADMIN;
 
 $FG_DEBUG = 0;
 
-$caching_query = 300; // caching for 5 minutes
+//$caching_query = 300; // caching for 5 minutes
+$caching_query = 0;
 
-getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage'));
+getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage', 'lcr'));
 /**variable to set rate display option
 
 	?key 
 	&ratecardid  "dispaly only this ratecard
+	$tariffgroupid "dispaly only this Call plan
 	&css_url
 	&nb_display_lines (maximum lignes per page)
 	&filter (coutryname,prefix)
-	&field_to_display i.e (countryname,sellingrate=money,buyrate=money, etc...)
+	// removed &field_to_display i.e (countryname,sellingrate=money,buyrate=money, etc...)
 	&field_type i.e ( ,money,money) (date or money ) is used for display
 	&column_name      i.e (countryname,sellingrate,buyrate, etc...)
 	&browse_letter  yes or no (A, B, C)
@@ -58,6 +60,9 @@ getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display
 	&page_url i.e http://mysite.com/rates.php
 	&merge_form (0 or 1) 1 for merge form search and 1 seaparated search form by default 0
 	&fullhtmlpage (0 or 1)
+	
+	&resulttitle : tible that will show up above the rates array : can set to &nbsp; to not display anything
+	&lcr : (0 or 1) to enable or disable the LCR, by default 0
 */
 
 
@@ -81,10 +86,9 @@ if (md5($security_key) !== $key  || strlen($security_key)==0){
 //set  default values if not isset vars
 
 if (!isset($nb_display_lines) || strlen($nb_display_lines)==0) $nb_display_lines=1;
-if (!isset($field_to_display) || strlen($field_to_display)==0) $field_to_display="t1.destination,t1.dialprefix,t1.rateinitial";
+//if (!isset($field_to_display) || strlen($field_to_display)==0) $field_to_display="t1.destination,t1.dialprefix,t1.rateinitial";
 if (!isset($resulttitle) || strlen($resulttitle)==0) $resulttitle="Rate list";
 if (!isset($filter) || strlen($filter)==0) $filter="countryname,prefix";
-//if (!isset($field_to_display) || strlen ($field_to_display)==0) $field_to_display="t1.destination,t1.dialprefix,t1.rateinitial";
 if (!isset($field_type) || strlen ($field_type)==0) $field_type=",,money";
 //if (!isset($column_name) || strlen($column_name)==0) $column_name="Destination,Prefix,Rate/Min";
 if (!isset($browse_letter) || strlen($browse_letter)==0) $browse_letter="yes";
@@ -97,12 +101,36 @@ if (!isset($fullhtmlpage) || strlen($fullhtmlpage)==0) $fullhtmlpage=1;
 
 if (!isset($page_url) || strlen($page_url)==0){ echo "Error : need to define page_url !!!"; exit; }
 if ( (substr($page_url,0,7)!='http://') && (substr($page_url,0,8)!='https://') ){ echo "Error : page_url need to start by http:// or https:// "; exit; }
+if (!isset($lcr) || strlen($lcr)==0) $lcr=0;
 
 
-function add_clause(&$sqlclause,$addclause){
+function add_clause(&$sqlclause,$addclause)
+{
 	if (strlen($sqlclause)==0) $sqlclause=$addclause;
 	else $sqlclause.=" AND ".$addclause;
 }
+
+
+/* 	ENABLE LCR
+	SELECT t1.destination, min(t1.rateinitial), t1.dialprefix FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, 
+	cc_tariffgroup_plan t6 
+	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' 
+	GROUP BY t1.dialprefix
+	 * 
+	SELECT DISTINCT t1.destination,t1.dialprefix,t1.rateinitial 
+	FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6 
+	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3'
+	AND t1.rateinitial = (SELECT min(f1.rateinitial) FROM cc_ratecard f1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6 
+	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' AND t1.dialprefix=f1.dialprefix)
+*/
+if ($lcr){
+	$field_to_display="t1.destination,t1.dialprefix,min(t1.rateinitial)";
+	$sql_group = ' GROUP BY t1.dialprefix';
+} else {
+	$field_to_display="t1.destination,t1.dialprefix,t1.rateinitial";
+	$sql_group = null;
+}	
+
 //end set default
 trim($field_to_display);
 trim($field_type);
@@ -151,6 +179,7 @@ if (isset($letter) && strlen($letter)!=0) add_clause($FG_TABLE_CLAUSE,"t1.destin
 if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
 	$FG_TABLE_NAME="cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6";
 	add_clause($FG_TABLE_CLAUSE,"t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '$tariffgroupid'");
+	
 }else{
 	$FG_TABLE_NAME="cc_ratecard t1";
 	
@@ -159,6 +188,8 @@ if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
 		add_clause($FG_TABLE_CLAUSE,"t4.id = '$ratecardid' AND t1.idtariffplan = t4.id");
 	}
 }
+
+
 
 if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
 	$nb_display_lines=100;
@@ -222,8 +253,9 @@ if ( is_null ($order) || is_null($sens) ){
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
+
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY, NULL, $caching_query);
+$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY, $sql_group, $caching_query);
 
 $country_table = new Table("cc_country","countryname");
 $country_list = $country_table -> Get_list ($DBHandle);
