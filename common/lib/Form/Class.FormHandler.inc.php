@@ -1967,12 +1967,15 @@ function do_field($sql,$fld, $simple=0){
 	 	include_once (FSROOT."lib/Class.Table.php");
 		$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
 		$FG_TABLE_CLAUSE = "";
-
 		$list_tariffname = $instance_table_tariffname  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 
+		$instance_table_tariffgroup = new Table("cc_tariffgroup", "id, tariffgroupname, lcrtype");
+		$FG_TABLE_CLAUSE = "";
+		$list_tariffgroup = $instance_table_tariffgroup  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
+		
 	 ?>
 	<center>
-	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
+	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\"><b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
 
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
 
@@ -1980,10 +1983,37 @@ function do_field($sql,$fld, $simple=0){
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
 		<table class="form_selectform" cellspacing="1">
-			<tbody>
+			
 			<tr>
 				<td align="left" valign="top" class="form_selectform_td1">
-					&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?>
+					&nbsp;&nbsp;<?php echo gettext("Call Plan");?>
+				</td>
+				<td class="bgcolor_005" align="left">
+				<table class="form_selectform_table1"><tr>
+					<td width="50%" align="center">&nbsp;&nbsp;
+						<select NAME="tariffgroup" size="1"  class="form_input_select" width=250">
+								<option value=''><?php echo gettext("Choose a call plan");?></option>
+
+								<?php
+								 foreach ($list_tariffgroup as $recordset){
+								?>
+									<option class=input value='<?php  echo $recordset[0]."-:-".$recordset[1]."-:-".$recordset[2]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE2) echo "selected";?>><?php echo $recordset[1]?></option>
+								<?php 	 }
+								?>
+						</select>
+						 
+					</td>
+					<td class="form_selectform_table1_td1">
+					<?php echo gettext("This option will enable LCR/LCD");?>
+	  			</td>
+
+				</tr></table>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="left" valign="top" class="form_selectform_td1">
+					&nbsp;&nbsp;<?php echo gettext("Rate Card");?>
 				</td>
 				<td class="bgcolor_005" align="left">
 				<table class="form_selectform_table1"><tr>
@@ -1999,13 +2029,17 @@ function do_field($sql,$fld, $simple=0){
 								?>
 						</select>
 					</td>
-					<td class="form_selectform_table1_td1">
+					<td>
+					
+	  			</td>
+				<td class="form_selectform_table1_td1">
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
 	  			</td>
-
-				</tr></table></td>
+				</tr></table>
+				</td>
 			</tr>
-		</tbody></table>
+			
+		</table>
 	</FORM>
 </center>
 	<?php
