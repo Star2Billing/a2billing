@@ -12,7 +12,7 @@ if (! has_rights (ACX_RATECARD)){
 }
 
 
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname','posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'tariffplan', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname','posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
 
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array('batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_buyrate', 'upd_buyrateinitblock', 'upd_buyrateincrement', 'upd_rateinitial', 'upd_initblock', 'upd_billingblock', 'upd_connectcharge', 'upd_disconnectcharge', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', "filterprefix",'upd_rounding_calltime' ,'upd_rounding_threshold' ,'upd_additional_block_charge' ,'upd_additional_block_charge_time','upd_tag'));
@@ -99,20 +99,30 @@ if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 
-if (is_string ($tariffplan) && strlen(trim($tariffplan))>0) {		
-	list($mytariff_id, $mytariffname) = split('-:-', $tariffplan);
-	$_SESSION["mytariff_id"]= $mytariff_id;
-	$_SESSION["mytariffname"]= $mytariffname;
-	//$_SESSION["basetariffgroup"]= $basetariffgroup;
+if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {		
+	list($mytariffgroup_id, $mytariffgroupname, $mytariffgrouplcrtype) = split('-:-', $tariffgroup);
+	$_SESSION["mytariffgroup_id"]= $mytariffgroup_id;
+	$_SESSION["mytariffgroupname"]= $mytariffgroupname;
+	$_SESSION["tariffgrouplcrtype"]= $mytariffgrouplcrtype;
 } else {
-	$mytariff_id = $_SESSION["mytariff_id"];
-	$mytariffname = $_SESSION["mytariffname"];
-	//$basetariffgroup = $_SESSION["basetariffgroup"];
+	$mytariffgroup_id = $_SESSION["mytariffgroup_id"];
+	$mytariffgroupname = $_SESSION["mytariffgroupname"];
+	$mytariffgrouplcrtype = $_SESSION["tariffgrouplcrtype"];
 }
 
 
-if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1 ) && is_numeric($mytariff_id)) {
+
+if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1 ) && is_numeric($mytariffgroup_id)) {
+	if (!empty($HD_Form->FG_TABLE_CLAUSE)) $HD_Form->FG_TABLE_CLAUSE .= ' AND ';
+	
 	$HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
+	
+	/*
+	SELECT t1.destination, min(t1.rateinitial), t1.dialprefix FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, 
+	cc_tariffgroup_plan t6 
+	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' 
+	GROUP BY t1.dialprefix
+	*/
 }
 
 $list = $HD_Form -> perform_action($form_action);

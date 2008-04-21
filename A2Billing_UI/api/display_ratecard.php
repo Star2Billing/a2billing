@@ -116,7 +116,7 @@ function add_clause(&$sqlclause,$addclause)
 	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' 
 	GROUP BY t1.dialprefix
 	 * 
-	SELECT DISTINCT t1.destination,t1.dialprefix,t1.rateinitial 
+	SELECT DISTINCT t1.id, t1.destination,t1.dialprefix,t1.rateinitial 
 	FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6 
 	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3'
 	AND t1.rateinitial = (SELECT min(f1.rateinitial) FROM cc_ratecard f1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6 
