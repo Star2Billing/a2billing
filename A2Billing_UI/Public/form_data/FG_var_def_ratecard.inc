@@ -32,27 +32,25 @@ if (isset($posted) && !$popup_select){
 		$HD_Form->FG_TOP_FILTER_NAME = gettext("THE CURRENT CALL PLAN").' : '.str_replace ("-:-","",$tariffgroup[1]);
 		$HD_Form->FG_TOP_FILTER_VALUE2 = $tariffgroup[0];
 		
-		//$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE2' ";
-		$HD_Form -> FG_TABLE_NAME = 'cc_ratecard, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3';
-		$HD_Form -> FG_TABLE_CLAUSE = " t1.id = t3.idtariffplan AND t3.idtariffplan = cc_ratecard.idtariffplan AND t3.idtariffgroup = '$HD_Form->FG_TOP_FILTER_VALUE2' ";
+		$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id";
 		if ($tariffgroup[2]==1)
-			$HD_Form -> FG_TABLE_CLAUSE .= "AND cc_ratecard.buyrate = (SELECT min(f1.buyrate) FROM cc_ratecard f1, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3 WHERE t1.id = t3.idtariffplan AND t3.idtariffplan=cc_ratecard.idtariffplan AND t3.idtariffgroup = '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=f1.dialprefix)";
+			$HD_Form -> FG_TABLE_CLAUSE = "cc_ratecard.buyrate = (SELECT min(c1.buyrate) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
+WHERE cc_ratecard.dialprefix=c1.dialprefix)";
 		else
-			$HD_Form -> FG_TABLE_CLAUSE .= "AND cc_ratecard.rateinitial = (SELECT min(f1.rateinitial) FROM cc_ratecard f1, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3 WHERE t1.id = t3.idtariffplan AND t3.idtariffplan=cc_ratecard.idtariffplan AND t3.idtariffgroup = '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=f1.dialprefix)";
+			$HD_Form -> FG_TABLE_CLAUSE = "cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
+WHERE cc_ratecard.dialprefix=c1.dialprefix)";
+		
 		$_SESSION['def_ratecard_tariffgroup']=$HD_Form -> FG_TABLE_CLAUSE;
 		
 		/*	Query for LCR 
-			SELECT cc_ratecard.id, cc_ratecard.destination,cc_ratecard.dialprefix,cc_ratecard.rateinitial 
-			FROM cc_ratecard cc_ratecard, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3 
-			WHERE t1.id = t3.idtariffplan AND t3.idtariffplan=cc_ratecard.idtariffplan AND t3.idtariffgroup = '3'
-			AND cc_ratecard.rateinitial = (SELECT min(f1.rateinitial) FROM cc_ratecard f1, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3 WHERE t1.id = t3.idtariffplan AND t3.idtariffplan=cc_ratecard.idtariffplan AND t3.idtariffgroup = '3' AND cc_ratecard.dialprefix=f1.dialprefix)
+			SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk, cc_ratecard.freetimetocall_package_offer, cc_ratecard.id 
+
+			FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
 			
-			SELECT idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, 
-			billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, 
-			additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup, tag 
-			FROM cc_ratecard, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3 WHERE  id='10267'  LIMIT 0,1</td></tr></table><br><br><br><HTML>
-<HEAD>
-	<link rel="shortcut icon" href="templates/default/images/favicon.ico">
+			WHERE 
+			
+			cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
+			WHERE cc_ratecard.dialprefix=c1.dialprefix) ORDER BY  destination ASC LIMIT 0,10;
 		 */
 	}
 }else{
