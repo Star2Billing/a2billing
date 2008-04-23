@@ -182,14 +182,14 @@ class RateEngine
 		cc_ratecard.additional_block_charge_time AS additional_block_charge_time
 		
 		FROM cc_tariffgroup 
-		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id=$tariffgroupid
+		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id
 		INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan )
 		LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
 		LEFT JOIN cc_trunk AS rt_trunk ON cc_ratecard.id_trunk=rt_trunk.id_trunk
 		LEFT JOIN cc_trunk AS tp_trunk ON cc_tariffplan.id_trunk=tp_trunk.id_trunk
 		LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer
 		
-		WHERE ($prefixclause)
+		WHERE cc_tariffgroup.id=$tariffgroupid AND ($prefixclause)
 		AND startingdate<= CURRENT_TIMESTAMP AND (expirationdate > CURRENT_TIMESTAMP OR expirationdate IS NULL OR LENGTH(expirationdate)<5)
 		AND startdate<= CURRENT_TIMESTAMP AND (stopdate > CURRENT_TIMESTAMP OR stopdate IS NULL OR LENGTH(stopdate)<5)
 		$sql_clause_days
