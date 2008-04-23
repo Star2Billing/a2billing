@@ -48,7 +48,7 @@ $(document).ready(
 			div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
 		});
 		
-		$("div.toggle_show2hide a").toggle(function(){
+		$("div.toggle_show2hide a.toggle_menu").toggle(function(){
 			$(this).find("img").each(function(i) {
 				newimage = $(this).attr('src');
 				$(this).attr('src', newimage.substr(0,newimage.length-7) + '.png');
