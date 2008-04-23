@@ -54,7 +54,7 @@ if (!$A2B -> DbConnect()){
 $instance_table = new Table();
 
 // CHECK THE CARD WITH DID'S
-$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1";
+$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, typepaid, creditlimit FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1";
 
 if ($verbose_level>=1) echo "==> SELECT CARD WIHT DID'S QUERY : $QUERY\n";
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
@@ -99,7 +99,7 @@ foreach ($result as $mydids){
 		{
 			// THE USER HAVE TO PAY FOR HIS DID NOW
 			
-			if ($mydids[5] >= $mydids[3])
+			if (($mydids[5] + $mydids[8] * $mydids[9]) >= $mydids[3])
 			{
 				// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID 
 				$QUERY = "UPDATE cc_card SET credit=credit-'".$mydids[3]."' WHERE id=".$mydids[4];	
