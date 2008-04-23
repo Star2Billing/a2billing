@@ -2004,7 +2004,7 @@ function do_field($sql,$fld, $simple=0){
 						 
 					</td>
 					<td class="form_selectform_table1_td1">
-					<?php echo gettext("This option will enable LCR/LCD");?>
+					<?php echo gettext("This option will enable LCR/LCD - very costy dont use in production");?>
 	  			</td>
 
 				</tr></table>
