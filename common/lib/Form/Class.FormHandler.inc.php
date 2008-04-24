@@ -1476,7 +1476,7 @@ function do_field($sql,$fld, $simple=0){
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
 			
 			$type = FRIEND_TYPE;
-			$allow = FRIEND_ALLOW;
+			$allow = str_replace(' ', '', FRIEND_ALLOW);
 			$context = FRIEND_CONTEXT;
 			$nat = FRIEND_NAT;
 			$amaflags = FRIEND_AMAFLAGS;
