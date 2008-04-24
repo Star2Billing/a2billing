@@ -71,6 +71,11 @@ function SetLocalLanguage()
 			$slectedLanguage = "ur_PK";
 			$charEncoding = "UTF-8";
 			break;
+		case "ukrainian":
+			$languageEncoding = "uk_UA.UTF8";
+			$slectedLanguage = "uk_UA";
+			$charEncoding = "UTF8";
+			break;
 		default:
 			$languageEncoding = "en_US.iso88591";
 			$slectedLanguage = "en_US";
@@ -92,4 +97,3 @@ function SetLocalLanguage()
 	define('CHARSET', $charEncoding);
 }
 
-?>
