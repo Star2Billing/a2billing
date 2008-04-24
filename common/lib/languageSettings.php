@@ -71,7 +71,7 @@ function SetLocalLanguage()
 			$slectedLanguage = "ur_PK";
 			$charEncoding = "UTF-8";
 			break;
-		case "ukrainian":
+		case "ukrainian": // provided by Oleh Miniv  email: oleg-min@ukr.net
 			$languageEncoding = "uk_UA.UTF8";
 			$slectedLanguage = "uk_UA";
 			$charEncoding = "UTF8";
