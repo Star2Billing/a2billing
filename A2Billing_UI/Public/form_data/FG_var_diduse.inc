@@ -6,8 +6,11 @@ $HD_Form = new FormHandler("cc_did_use", "DID in use");
 $HD_Form -> FG_DEBUG = 0;
 if ($posted){
 	
-	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	if (isset($did) && strlen($did)>0) $HD_Form -> FG_TABLE_CLAUSE.="id_did = '$did'";
+	if (isset($did) && strlen($did)>0) {
+		if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+		$HD_Form -> FG_TABLE_CLAUSE.="id_did = '$did'";
+	}
+
 	if ($inuse) {
 		if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 		$HD_Form -> FG_TABLE_CLAUSE.=" (releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') and activated=1";
