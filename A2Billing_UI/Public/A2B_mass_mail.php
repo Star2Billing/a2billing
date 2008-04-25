@@ -11,11 +11,13 @@ if (! has_rights (ACX_MISC)) {
 	die();
 }
 
+
+
 $HD_Form = new FormHandler("cc_card");
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
-$instance_cus_table = new Table("cc_card","email, id");
+$instance_cus_table = new Table("cc_card","id, email, credit, currency, lastname, firstname, loginkey, username, useralias, uipass");
 $cardstatus_list_r = array();
 $cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
 $cardstatus_list_r["1"]  = array("1", gettext("ACTIVE"));
@@ -76,70 +78,47 @@ $nb_customer = sizeof($list_customer);
 $DBHandle  = DbConnect();
 $instance_table = new Table();
 
+
+
 /***********************************************************************************/
-getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_customer'));
+getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_customer', 'from', 'fromname'));
 
 
 if(isset($submit)) {
-	$error = FALSE;
-	$error_msg = '';
-	$group_id = intval($HTTP_POST_VARS[POST_GROUPS_URL]);
 	
-	if(isset($hd_email) && !empty($hd_email)){
-		$bcc_list  = $hd_email;		
-	}else{
-		$QUERY = "Select email from cc_card WHERE email <> ''";
-		$res_ALOC  = $instance_table->SQLExec ($HD_Form -> DBHandle, $QUERY);		
-		foreach($res_ALOC as $key => $val){
-			if($val[0] != '' ){
-				$bcc_list[$key] =  $val[0];
-			}
-		}
+	$messagetext = $message;
+	
+	
+	
+	foreach ($list_customer as $cc_customer){
+	
+		$email = $cc_customer[1];
+		$credit = $cc_customer[2];
+		$currency = $cc_customer[3];
+		$lastname = $cc_customer[4];
+		$firstname = $cc_customer[5];
+		$loginkey = $cc_customer[6];
+		$username = $cc_customer[7];
+		$useralias = $cc_customer[8];
+		$uipass = $cc_customer[9];
+		
+		
+		$messagetext = str_replace('$email', $email, $messagetext);
+		$messagetext = str_replace('$lastname', $lastname, $messagetext);
+		$messagetext = str_replace('$firstname', $firstname, $messagetext);
+		$messagetext = str_replace('$credit', $credit, $messagetext);
+		$messagetext = str_replace('$currency', $currency, $messagetext);
+		$messagetext = str_replace('$cardnumber', $username, $messagetext);
+		$messagetext = str_replace('$cardalias', $useralias, $messagetext);
+		$messagetext = str_replace('$password', $uipass, $messagetext);
+		$messagetext = str_replace('$loginkey', "$loginkey", $messagetext);
+		
+		
+		a2b_mail($email, $subject, $messagetext, $from, $fromname);
+		
+		$result = true;
 	}
-	include('../lib/emailer.php');
-
-	//
-	// Let's do some checking to make sure that mass mail functions
-	// are working in win32 versions of php.
-	//
-	$board_config['smtp_delivery'] = 0;
-	if ( preg_match('/[c-z]:\\\.*/i', getenv('PATH')) && !$board_config['smtp_delivery'])
-	{
-		$ini_val = ( @phpversion() >= '4.0.0' ) ? 'ini_get' : 'get_cfg_var';
-
-		// We are running on windows, force delivery to use our smtp functions
-		// since php's are broken by default
-		$board_config['smtp_delivery'] = 1;
-		$board_config['smtp_host'] = @$ini_val('SMTP');
-	}
-
-	$emailer = new emailer($board_config['smtp_delivery']);
-
-	$emailer->from(EMAIL_ADMIN);
-	$emailer->replyto(EMAIL_ADMIN);
-
-	for ($i = 0; $i < count($bcc_list); $i++)
-	{
-		$emailer->bcc($bcc_list[$i]);
-	}
-
-	$email_headers = 'X-AntiAbuse: Board servername - Asterisk 2 billing\n';
-	$email_headers .= 'X-AntiAbuse: User_id - 1\n';
-	$email_headers .= 'X-AntiAbuse: Username - Areski\n';
-	$email_headers .= 'X-AntiAbuse: User IP - 192.168.1.241\n';
-
-	$emailer->use_template($message);
-	$emailer->email_address(EMAIL_ADMIN);
-	$emailer->set_subject($subject);
-	$emailer->extra_headers($email_headers);
-
-	$emailer->assign_vars(array(
-		'SITENAME' => 'a2billing', 
-		'BOARD_EMAIL' => EMAIL_ADMIN, 
-		'MESSAGE' => 'Hey it is a message, just to watch working')
-	);
-	$result = $emailer->send();
-	$emailer->reset();
+	
 }
 // #### HEADER SECTION
 $smarty->display('main.tpl');
@@ -215,6 +194,18 @@ if(isset($submit)){
 	}
 ?>
 		<TR> 		
+			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("EMAIL FROM");?></TD>  
+			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
+				<INPUT class="form_input_text" name="from"  size="20" maxlength="80" value="<?php echo EMAIL_ADMIN; ?>"><span class="liens"></span>&nbsp; 
+			 </TD>
+		</TR>
+		<TR> 		
+			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("FROM NAME");?></TD>  
+			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
+				<INPUT class="form_input_text" name="fromname"  size="20" maxlength="80" value=""><span class="liens"></span>&nbsp; 
+			 </TD>
+		</TR>
+		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("SUBJECT");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
 				<INPUT class="form_input_text" name="subject"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp; 
@@ -228,7 +219,7 @@ if(isset($submit)){
 		 </TR>
 		 
 		<tr>
-		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);">&nbsp; </td>
+		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);"> <?php echo gettext("The followings tag will be replaced in the message by the value in the database");?>  : $email, $lastname, $firstname, $credit, $currency, $cardnumber, $cardalias, $password, $loginkey </td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
