@@ -60,6 +60,6 @@ if (!$A2B -> DbConnect()){
 $instance_table = new Table();
 $A2B -> set_instance_table ($instance_table);
 $return = $A2B -> currencies_update_yahoo();
-write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__.$return."\n", 0);
+write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__.$return, 0);
 
 ?>
