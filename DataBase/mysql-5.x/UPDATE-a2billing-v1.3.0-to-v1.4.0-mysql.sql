@@ -765,3 +765,5 @@ BEGIN
 END
 //
 DELIMITER ;
+
+ALTER TABLE cc_currencies CHANGE value value NUMERIC (12,5) unsigned NOT NULL DEFAULT '0.00000';
