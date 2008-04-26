@@ -2336,6 +2336,117 @@ class A2Billing {
 	}
 
 
+	// Update currency exchange rate list from finance.yahoo.com.
+	// To work around yahoo truncating to 4 decimal places before
+	// doing a division, leading to >10% errors with weak base_currency,
+	// we always request in a strong currency and convert ourselves.
+	// We use ounces of silver,  as if silver ever devalues significantly
+	// we'll all be pretty much boned anyway,  wouldn't you say?
+	function currencies_update_yahoo () {
+		$strong_currency = 'XAG';
+		$url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
+		$return = "";
+		
+		$QUERY =  "SELECT id,currency,basecurrency FROM cc_currencies ORDER BY id";
+		$old_currencies = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		
+		// we will retrieve a .CSV file e.g. USD to EUR and USD to CAD with a URL like:
+		// http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=l1
+		if (is_array($old_currencies)) {
+			$num_cur = count($old_currencies);
+			if ($FG_DEBUG >= 1) $return .= basename(__FILE__).' line:'.__LINE__."[CURRENCIES TO UPDATE = $num_cur]\n";
+			for ($i = 0; $i < $num_cur; $i++) {
+				if ($FG_DEBUG >= 1) $return .= $old_currencies[$i][0].' - '.$old_currencies[$i][1].' - '.$old_currencies[$i][2]."\n";
+				// Finish and add termination ? 
+				if ($i+1 == $num_cur) {
+					$url .= $strong_currency.$old_currencies[$i][1]."=X&f=l1";
+				} else {
+					$url .= $strong_currency.$old_currencies[$i][1]."=X+";
+				}
+				
+				// Save the index of base_currency when we find it
+				if (strcasecmp(BASE_CURRENCY, $old_currencies[$i][1]) == 0) {
+					$index_base_currency = $i;
+				}
+			}
+			
+			// Check we found the index of base_currency
+			if (!isset($index_base_currency)) {
+				return gettext("Can't find our base_currency in cc_currencies.").' '.gettext('Currency update ABORTED.');
+			}
+			
+			// Call wget to download the URL to the .CVS file
+			exec("wget '".$url."' -O /tmp/currencies.cvs  2>&1", $output);
+			if ($FG_DEBUG >= 1) $return .= "wget '".$url."' -O /tmp/currencies.cvs\n".$output;
+			
+			// get the file with the currencies to update the database
+			$currencies = file("/tmp/currencies.cvs");
+			
+			// trim off any leading/trailing comments/headers that may have been added
+			$i = 0;
+			while (!is_numeric(trim($currencies[$i]))) {
+				$i++;
+			}
+			$currencies = array_slice($currencies,$i,$num_cur);
+			
+			// do some simple checks to try to verify we've received exactly one
+			// valid response for each currency we requested
+			$num_res = count($currencies);
+			if ($num_res < $num_cur) {
+				return gettext("The CSV file doesn't contain all the currencies we requested.").' '.gettext('Currency update ABORTED.');
+			}
+			for ($i = 0; $i < $num_cur; $i++) {
+				if (!is_numeric(trim($currencies[$i]))) {
+					return gettext("At least one of the entries in the CSV file isn't a number.").' '.gettext('Currency update ABORTED.');
+				}
+			}
+			
+			// Find base_currency's value in $strong_currency to help avoid Yahoo's
+			// early truncation,  and therefore win back a lot of accuracy
+			$base_value = $currencies[$index_base_currency];
+			
+			// Check our base_currency will still fund our addiction to tea and biscuits
+			if (round($base_value,5) < 0.00001) {
+				return gettext('Our base_currency seems to be worthless.').' '.gettext('Currency update ABORTED.');
+			}
+			
+			// update each row we originally retrieved from cc_currencies
+			$i = 0;
+			foreach ($currencies as $currency){
+				
+				$currency = trim($currency);
+				
+				if ($currency != 0) {
+					$currency = $base_value / $currency;
+				}
+				
+				//  extremely weak currencies are assigned the smallest value the schema permits
+				if (round($currency, 5) < 0.00001) {
+					$currency = '0.00001';
+				}
+				
+				// if the currency is base_currency then set to exactly 1.00000
+				if ($i == $index_base_currency) $currency = 1;
+				
+				$QUERY = "UPDATE cc_currencies SET value='$currency'";
+				
+				// if we've changed base_currency,  update each SQL row to reflect this
+				if (BASE_CURRENCY != $old_currencies[$i][2]) {
+					$QUERY .= ", basecurrency='".BASE_CURRENCY."'";
+				}
+				
+				$QUERY .= " , lastupdate = CURRENT_TIMESTAMP WHERE id ='".$old_currencies[$i][0]."'";
+				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+				if ($FG_DEBUG >= 1) $return .= "$QUERY -> [$result]\n";
+				
+				$i++;
+			}
+			$return .= gettext('Success! All currencies are now updated.');
+		}
+		return $return;
+	}
+
+// End Class A2Billing
 };
 
 ?>
