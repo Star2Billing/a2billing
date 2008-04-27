@@ -86,12 +86,11 @@ getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_cu
 
 if(isset($submit)) {
 	
-	$messagetext = $message;
-	
-	
 	
 	foreach ($list_customer as $cc_customer){
-	
+		
+		$messagetext = $message;
+		
 		$email = $cc_customer[1];
 		$credit = $cc_customer[2];
 		$currency = $cc_customer[3];
