@@ -22,7 +22,7 @@ $A2B -> DBHandle = $HD_Form -> DBHandle;
 if ($updatecurrency == 1){
 	$instance_table = new Table();
 	$A2B -> set_instance_table ($instance_table);
-	$return = $A2B -> currencies_update_yahoo();
+	$return = $A2B -> currencies_update_yahoo($A2B -> DBHandle, $A2B -> instance_table);
 	$update_msg = '<center><font color="green"><b>'.$return.'</b></font></center>';
 }
 /***********************************************************************************/
