@@ -76,8 +76,8 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_LIMITE_DISPLAY = 25;
 
-$HD_Form -> FG_EDITION = false;
-$HD_Form -> FG_DELETION = false;
+$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_DELETION = true;
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
