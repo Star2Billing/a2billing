@@ -65,9 +65,10 @@ $HD_Form -> AddViewElement(gettext("Status"), "status", "15%", "center", "sort",
 $HD_Form -> AddViewElement(gettext("Owner"), "cc_owner", "15%", "center");
 $HD_Form -> AddViewElement(gettext("Amount"), "amount", "10%", "center");
 $HD_Form -> AddViewElement(gettext("CardID"), "cardid", "10%", "center");
+$HD_Form -> AddViewElement(gettext("Cardnumber"), "cardid", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id, creationdate, paymentmethod, status, cc_owner, amount, cardid ');
+$HD_Form -> FieldViewElement ('id, creationdate, paymentmethod, status, cc_owner, amount, cardid, cardid ');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
