@@ -109,7 +109,7 @@ if(isset($submit)) {
 		$credit_currency = $credit / $mycur;
 		$credit_currency = round($credit_currency,3);
 		
-		// replace tags
+		// replace tags in message
 		$messagetext = str_replace('$email', $email, $messagetext);
 		$messagetext = str_replace('$lastname', $lastname, $messagetext);
 		$messagetext = str_replace('$firstname', $firstname, $messagetext);
@@ -122,8 +122,22 @@ if(isset($submit)) {
 		$messagetext = str_replace('$loginkey', "$loginkey", $messagetext);
 		$messagetext = str_replace('$base_currency', BASE_CURRENCY, $messagetext);
 		
+		$subject_replaced = $subject;
 		
-		a2b_mail($email, $subject, $messagetext, $from, $fromname);
+		// replace tags in subject
+		$subject_replaced = str_replace('$email', $email, $subject_replaced);
+		$subject_replaced = str_replace('$lastname', $lastname, $subject_replaced);
+		$subject_replaced = str_replace('$firstname', $firstname, $subject_replaced);
+		$subject_replaced = str_replace('$credit_currency', "$credit_currency", $subject_replaced);
+		$subject_replaced = str_replace('$credit', $credit, $subject_replaced);
+		$subject_replaced = str_replace('$currency', $currency, $subject_replaced);
+		$subject_replaced = str_replace('$cardnumber', $username, $subject_replaced);
+		$subject_replaced = str_replace('$cardalias', $useralias, $subject_replaced);
+		$subject_replaced = str_replace('$password', $uipass, $subject_replaced);
+		$subject_replaced = str_replace('$loginkey', "$loginkey", $subject_replaced);
+		$subject_replaced = str_replace('$base_currency', BASE_CURRENCY, $subject_replaced);
+		
+		a2b_mail($email, $subject_replaced, $messagetext, $from, $fromname);
 		
 		$result = true;
 	}
