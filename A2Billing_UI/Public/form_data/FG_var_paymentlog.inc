@@ -59,13 +59,15 @@ $status_list["2"] = array( gettext("In Process"), "2");
 
 
 $HD_Form -> AddViewElement(gettext("Id"), "ID", "10%", "center");
+$HD_Form -> AddViewElement(gettext("Created At"), "creationdate", "15%", "center");
 $HD_Form -> AddViewElement(gettext("Payment Method"), "paymentmethod", "15%", "center");
 $HD_Form -> AddViewElement(gettext("Status"), "status", "15%", "center", "sort", "", "list", $status_list);
 $HD_Form -> AddViewElement(gettext("Owner"), "cc_owner", "15%", "center");
-$HD_Form -> AddViewElement(gettext("Created At"), "creationdate", "15%", "center");
+$HD_Form -> AddViewElement(gettext("Amount"), "amount", "10%", "center");
+$HD_Form -> AddViewElement(gettext("CardID"), "cardid", "10%", "center");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id, paymentmethod, status, cc_owner, creationdate ');
+$HD_Form -> FieldViewElement ('id, creationdate, paymentmethod, status, cc_owner, amount, cardid ');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -83,4 +85,3 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
 
-?>
