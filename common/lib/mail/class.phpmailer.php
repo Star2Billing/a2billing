@@ -21,7 +21,6 @@ class phpmailer
      * @public
      * @type string
      */
-    //var $CharSet           = "iso-8859-1";
 	var $CharSet           = "UTF-8";
 	
 
@@ -74,9 +73,7 @@ class phpmailer
      * @public
      * @type string
      */
-    var $Sender            = ""; //server01.us2.egwn.net
-
-	// mailing.electronic-group.com
+    var $Sender            = "";
 
     /**
      * Sets the Subject of the message. Default value is "".

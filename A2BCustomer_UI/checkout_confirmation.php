@@ -12,7 +12,6 @@ include ("./lib/epayment/includes/sessions.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
 include ("./lib/customer.smarty.php");
 
-//include ("./form_data/FG_var_callerid.inc");
 
 if (! has_rights (ACX_ACCESS)){
 	Header ("HTTP/1.0 401 Unauthorized");
