@@ -33,16 +33,14 @@ $_SESSION["p_amount"] = $amount;
 
 $paymentTable = new Table();
 $time_stamp = date("Y-m-d h:i:s"); 
-$QUERY = "INSERT INTO cc_epayment_log (cardid,amount,vat,paymentmethod,cc_owner,cc_number,cc_expires,creationdate) VALUES ('".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp')";
-$paymentTable->SQLExec($HD_Form -> DBHandle, $QUERY);
 
-$QUERY = "SELECT max(id) from cc_epayment_log";
-$transaction_no = $paymentTable->SQLExec ($DBHandle, $QUERY);
+$QUERY_FIELDS = "cardid,amount,vat,paymentmethod,cc_owner,cc_number,cc_expires,creationdate";
+$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp'";
+$transaction_no = $paymentTable->Add_table ($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log', 'id');
 
-$key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no[0][0]."^".$amount."^".$_SESSION["card_id"]);
+$key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no."^".$amount."^".$_SESSION["card_id"]);
 
-if($transaction_no[0][0] == null)
-{
+if(empty($transaction_no)) {
 	exit(gettext("No Transaction ID found"));
 }
 
@@ -52,10 +50,10 @@ $payment_modules = new payment($payment);
 $order = new order($amount);
 
 if (is_array($payment_modules->modules)) {
-    $payment_modules->pre_confirmation_check();
-  }
-// #### HEADER SECTION
+	$payment_modules->pre_confirmation_check();
+}
 
+// #### HEADER SECTION
 
 $smarty->display( 'main.tpl');
 ?>
@@ -71,7 +69,7 @@ echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
 ?>
 <?php
   if (is_array($payment_modules->modules)) {
-    echo $payment_modules->process_button($transaction_no[0][0], $key);    
+    echo $payment_modules->process_button($transaction_no, $key);    
   }
 ?>
  <br>
