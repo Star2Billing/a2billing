@@ -90,6 +90,8 @@ if(isset($submit)) {
 	foreach ($list_customer as $cc_customer){
 		
 		$messagetext = $message;
+		//  $email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency
+		
 		
 		$email = $cc_customer[1];
 		$credit = $cc_customer[2];
@@ -101,16 +103,24 @@ if(isset($submit)) {
 		$useralias = $cc_customer[8];
 		$uipass = $cc_customer[9];
 		
+		// convert credit to currency
+		if (!isset($currencies_list[strtoupper($currency)][2]) || !is_numeric($currencies_list[strtoupper($currency)][2])) $mycur = 1;
+		else $mycur = $currencies_list[strtoupper($currency)][2];
+		$credit_currency = $credit / $mycur;
+		$credit_currency = round($credit_currency,3);
 		
+		// replace tags
 		$messagetext = str_replace('$email', $email, $messagetext);
 		$messagetext = str_replace('$lastname', $lastname, $messagetext);
 		$messagetext = str_replace('$firstname', $firstname, $messagetext);
+		$messagetext = str_replace('$credit_currency', "$credit_currency", $messagetext);
 		$messagetext = str_replace('$credit', $credit, $messagetext);
 		$messagetext = str_replace('$currency', $currency, $messagetext);
 		$messagetext = str_replace('$cardnumber', $username, $messagetext);
 		$messagetext = str_replace('$cardalias', $useralias, $messagetext);
 		$messagetext = str_replace('$password', $uipass, $messagetext);
 		$messagetext = str_replace('$loginkey', "$loginkey", $messagetext);
+		$messagetext = str_replace('$base_currency', BASE_CURRENCY, $messagetext);
 		
 		
 		a2b_mail($email, $subject, $messagetext, $from, $fromname);
@@ -218,7 +228,7 @@ if(isset($submit)){
 		 </TR>
 		 
 		<tr>
-		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);"> <?php echo gettext("The followings tag will be replaced in the message by the value in the database");?>  : $email, $lastname, $firstname, $credit, $currency, $cardnumber, $cardalias, $password, $loginkey </td>
+		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);"> <?php echo gettext("The followings tag will be replaced in the message by the value in the database");?>  : $email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency </td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
