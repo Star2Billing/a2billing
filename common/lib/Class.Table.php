@@ -235,17 +235,19 @@ class Table {
 		if ($this -> debug_st) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		}
+		
+		$res = $DBHandle -> Execute($QUERY);
+		
+		if (!$res) {
+			$this -> errstr = $DBHandle->ErrorMsg();
+			if ($this -> debug_st) {
+				echo $DBHandle->ErrorMsg();
+			}
+			return (false);
+		}
 		if ($this -> debug_stop_add) {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); 
 		}
-		
-		$res = $DBHandle -> Execute($QUERY);
-
-		if (!$res) {
-			$this -> errstr = "Could not create a new instance in the table '".$this -> table."'";
-			return (false);
-		}
-		
 		// Fix that , make PEAR complaint
 		if ($id_name!="") {
 			
@@ -296,8 +298,12 @@ class Table {
 			echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit();
 		}
 		$res = $DBHandle -> Execute($QUERY);
+		
 		if (!$res) {
-			$this -> errstr = "Could not update the instances of the table '".$this -> table."'";
+			$this -> errstr = $DBHandle->ErrorMsg();
+			if ($this -> debug_st) {
+				echo $DBHandle->ErrorMsg();
+			}
 			return (false);
 		}
 		
@@ -339,7 +345,10 @@ class Table {
 		}
 		$res = $DBHandle -> Execute($QUERY);
 		if (!$res) {
-			$this -> errstr = "Could not delete the instances of the table '".$this -> table."'";
+			$this -> errstr = $DBHandle->ErrorMsg();
+			if ($this -> debug_st) {
+				echo $DBHandle->ErrorMsg();
+			}
 			return (false);
 		}
 		return (true);
