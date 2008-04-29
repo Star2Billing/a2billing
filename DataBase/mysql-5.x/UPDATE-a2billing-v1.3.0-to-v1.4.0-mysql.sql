@@ -767,3 +767,19 @@ END
 DELIMITER ;
 
 ALTER TABLE cc_currencies CHANGE value value NUMERIC (12,5) unsigned NOT NULL DEFAULT '0.00000';
+
+
+
+
+-- ??????? got to do the same for postgresql, anyone :D
+DELIMITER //
+CREATE TRIGGER `a2billing`.`after_ins_cc_card` AFTER INSERT ON `a2billing`.`cc_card`
+ FOR EACH ROW begin
+    
+
+    insert into cc_logrefill(credit,card_id,reseller_id) values(NEW.credit,NEW.id,NEW.reseller);
+  end
+//
+DELIMITER ;
+
+
