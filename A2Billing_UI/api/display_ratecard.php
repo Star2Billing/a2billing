@@ -197,19 +197,13 @@ if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
-
-// The variable FG_TABLE_NAME define the table name to use
-
-
-//$link = DbConnect();
 $DBHandle  = DbConnect();
-
 
 // First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
 
-if (count($column)==count($field) && count($field)==count($type) && count($column) != 0)
-{	for ($i=0; $i<count($column); $i++){
+if (count($column)==count($field) && count($field)==count($type) && count($column) != 0){
+	for ($i=0; $i<count($column); $i++){
 		switch ($type[$i]) {
 			case "money":
 				$bill="display_2bill"; 
@@ -264,12 +258,12 @@ $QUERY="SELECT count(*) from $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 $list_nrecord=$instance_table->SQLExec($DBHandle,$QUERY,1,$caching_query);
 $nb_record = $list_nrecord[0][0];
 
-if ($nb_record<=$FG_LIMITE_DISPLAY){ 
+if ($nb_record<=$FG_LIMITE_DISPLAY) {
 	$nb_record_max=1;
-}else{ 
-	if ($nb_record % $FG_LIMITE_DISPLAY == 0){
+} else {
+	if ($nb_record % $FG_LIMITE_DISPLAY == 0) {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
-	}else{
+	} else {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 	}	
 }
@@ -296,7 +290,7 @@ function Search(Source){
 //-->
 </script>
 
-<?php if ($fullhtmlpage){ ?>
+<?php if ($fullhtmlpage) { ?>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
