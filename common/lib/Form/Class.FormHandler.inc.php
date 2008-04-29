@@ -1319,7 +1319,7 @@ function do_field($sql,$fld, $simple=0){
 		if($this -> FG_ENABLE_LOG == 1)
 		{
 			$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
-		}	
+		}
 		if (!$this -> RESULT_QUERY ){					
 			$findme   = 'duplicate';
 			$pos_find = strpos($instance_sub_table -> errstr, $findme);								
@@ -1445,7 +1445,6 @@ function do_field($sql,$fld, $simple=0){
 	{
 		global $A2B;
 		$processed = $this->getProcessed();
-		
 		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
 		$sip_buddy = stripslashes($processed['sip_buddy']);
 		$iax_buddy = stripslashes($processed['iax_buddy']);
