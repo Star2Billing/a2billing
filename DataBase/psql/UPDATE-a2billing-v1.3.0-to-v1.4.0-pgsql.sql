@@ -776,7 +776,8 @@ CREATE TRIGGER cc_ratecard_validate_regex BEFORE INSERT OR UPDATE ON cc_ratecard
 
 CREATE OR REPLACE FUNCTION after_ins_cc_card_logrefill() RETURNS TRIGGER AS $$
   BEGIN
-	INSERT INTO cc_logrefill (credit,card_id,reseller_id) VALUES (NEW.credit,NEW.id,NEW.reseller);
+	INSERT INTO cc_logrefill (credit,card_id,reseller_id) VALUES (new.credit,new.id,new.reseller);
+	RETURN new;
   END
 $$ LANGUAGE plpgsql;
 
