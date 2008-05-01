@@ -7,7 +7,7 @@ function help_wiki_link($wiki_article_name)
 
 
 if (SHOW_HELP){
-	
+
 $CC_help_invoices_unbilled='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -30,7 +30,7 @@ $CC_help_invoices_card='
 	<br/>'.help_wiki_link('Invoices').'
 </div></div></div>
 </div></div>';
-	
+
 $CC_help_invoices_period='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -149,7 +149,7 @@ $CC_help_callerid_list ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
   <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
-  <div class="w2"> 
+  <div class="w2">
 '.gettext("Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with account number").'<br>
 <br/>'.help_wiki_link('ListCallerID').'<br/>
 </div></div></div>
@@ -226,7 +226,7 @@ $CC_help_add_tariffgroup ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network.gif" class="kikipic"/>
-	<div class="w2"> 
+	<div class="w2">
 '.gettext("A Call Plan is a collection of ratecards.")
 .gettext("The calling card system will choose the most appropriate rate according to the Call Plan settings (LCR or LCD).<br/>")
 .gettext("LCR : Least Cost Routing - Find the trunk with the cheapest carrier cost. (buying rate)<br>")
@@ -348,7 +348,7 @@ $CC_help_trunk_list ='
  <br/>
 '.gettext("Trunks can be modified by clicking the edit button").'
  <br/>'.help_wiki_link('ListTrunk').'
- 
+
 <br/>
 </div></div></div>
 </div></div>';
@@ -723,7 +723,7 @@ $CC_help_database_backup='
 		<br/>'.help_wiki_link('DatabaseBackup').'
 </div></div></div>
 </div></div>';
-				
+
 $CC_help_ecommerce ='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -921,7 +921,7 @@ $CC_help_list_payment_methods = '<div class="toggle_show2hide">
 <br/><br/><br>
 </div></div></div>
 </div></div>
-'; 
+';
 
 $CC_help_add_agi_confx = '<div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -933,7 +933,7 @@ $CC_help_add_agi_confx = '<div class="toggle_show2hide">
 <br/><br/><br>
 </div></div></div>
 </div></div>
-'; 
+';
 
 $CC_help_list_global_config = '<div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -945,7 +945,7 @@ $CC_help_list_global_config = '<div class="toggle_show2hide">
 <br/><br/><br>
 </div></div></div>
 </div></div>
-'; 
+';
 
 $CC_help_list_configuration = '<div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -957,7 +957,7 @@ $CC_help_list_configuration = '<div class="toggle_show2hide">
 <br/><br/><br>
 </div></div></div>
 </div></div>
-'; 
+';
 
 $CC_help_payment_log = '<div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -969,7 +969,7 @@ $CC_help_payment_log = '<div class="toggle_show2hide">
 <br/><br/><br>
 </div></div></div>
 </div></div>
-'; 
+';
 
 $CC_help_mass_mail = '<div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -981,7 +981,32 @@ $CC_help_mass_mail = '<div class="toggle_show2hide">
 <br/>
 </div></div></div>
 </div></div>
-'; 
+';
+
+$CC_help_support_list='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("Support Box, etc...").'
+<br/><br/><br/>
+</div></div></div>
+</div></div>
+';
+
+$CC_help_support_component='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("Support Component, etc...").'
+<br/><br/><br/>
+</div></div></div>
+</div></div>
+';
+
 
 $CC_help_data_archive = '<div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -999,20 +1024,21 @@ $CC_help_data_archive = '<div class="toggle_show2hide">
 $SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';
 $SPOT['MONEYBOOKERS'] 	= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
 $SPOT['AUTHORIZENET'] 	= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a>';
-
+$SPOT['WORLDPAY'] = '<a href="http://www.worldpay.com/" target="_blank"><img src="'.KICON_PATH.'/worldpay.gif" alt="worldpay.com"/></a>';
 $PAYMENT_METHOD ='
 <table width="70%" align="center">
 	<tr>
 		<TD valign="top" align="center" class="tableBodyRight">
 			'.$SPOT['PAYPAL'].'
-			&nbsp;&nbsp; &nbsp; 
+			&nbsp;&nbsp; &nbsp;
 			'.$SPOT['MONEYBOOKERS'].'
 			&nbsp;&nbsp; &nbsp;
 			'.$SPOT['AUTHORIZENET'].'
+                        &nbsp;&nbsp; &nbsp;
+			'.$SPOT['WORLDPAY'].'
 		</td>
 	</tr>
 </table>';
-
 
 $CALL_LABS ='
 <table width="70%" align="center">

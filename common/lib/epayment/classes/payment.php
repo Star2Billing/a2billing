@@ -31,13 +31,15 @@ Class payment {
               array_push($this ->modules, $value["payment_filename"]);
           }
       }
-
+      
+      
       //if (defined('MODULE_PAYMENT_INSTALLED') && tep_not_null(MODULE_PAYMENT_INSTALLED)) {
       //$this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
 
       $include_modules = array();
       if ((!is_null($module)) && (in_array($module . '.' . substr($PHP_SELF, (strrpos($PHP_SELF, '.')+1)), $this->modules)) ) {
           $this->selected_module = $module;
+         
           $include_modules[] = array('class' => $module, 'file' => $module . '.php');
         } else {
           reset($this->modules);
@@ -175,7 +177,7 @@ Class payment {
       }
     }
     function keys()
-    {
+    {  
         if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
           return $GLOBALS[$this->selected_module]->keys();

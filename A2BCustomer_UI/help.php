@@ -25,7 +25,7 @@ $CC_help_balance_customer='
 <tr>
 <td width="100%">
 
-'.gettext("All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price.").' 
+'.gettext("All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price.").'
 <br></br>
 </td>
 </tr>
@@ -161,22 +161,34 @@ $CC_help_release_did ='
 $DBHandle  = DbConnect();
 $instance_table = new Table();
 
-$QUERY = "SELECT configuration_key, configuration_value FROM cc_configuration where configuration_key in ('MODULE_PAYMENT_AUTHORIZENET_STATUS','MODULE_PAYMENT_PAYPAL_STATUS','MODULE_PAYMENT_MONEYBOOKERS_STATUS')";
-$payment_methods  = $instance_table->SQLExec ($DBHandle, $QUERY);	
+$QUERY = "SELECT configuration_key, configuration_value FROM cc_configuration where configuration_key in ('MODULE_PAYMENT_AUTHORIZENET_STATUS','MODULE_PAYMENT_PAYPAL_STATUS','MODULE_PAYMENT_MONEYBOOKERS_STATUS','MODULE_PAYMENT_WORLDPAY_STATUS')";
+$payment_methods  = $instance_table->SQLExec ($DBHandle, $QUERY);
 
 
 $show_logo = '';
 
-if( $payment_methods[1][0] == "MODULE_PAYMENT_PAYPAL_STATUS" && $payment_methods[1][1] == "True") {
-	$show_logo = '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>&nbsp;&nbsp; &nbsp;';
+
+
+for ($index = 0; $index < sizeof($payment_methods); $index++) {
+
+if( $payment_methods[$index][0] == "MODULE_PAYMENT_PAYPAL_STATUS" && $payment_methods[$index][1] == "True") {
+	$show_logo = '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';
 }
 
-if( $payment_methods[0][0] == "MODULE_PAYMENT_AUTHORIZENET_STATUS" && $payment_methods[0][1] == "True") {
-	$show_logo .= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a>&nbsp;&nbsp; &nbsp; ';
+if( $payment_methods[$index][0] == "MODULE_PAYMENT_AUTHORIZENET_STATUS" && $payment_methods[$index][1] == "True") {
+	$show_logo .= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a>  ';
 }
 
-if( $payment_methods[2][0] == "MODULE_PAYMENT_MONEYBOOKERS_STATUS" && $payment_methods[2][1] == "True") {
+if( $payment_methods[$index][0] == "MODULE_PAYMENT_MONEYBOOKERS_STATUS" && $payment_methods[$index][1] == "True") {
 $show_logo .= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
+}
+
+if( $payment_methods[$index][0] == "MODULE_PAYMENT_PAYPAL_STATUS" && $payment_methods[$index][1] == "True") {
+$show_logo .= '<a href="http://www.worldpay.com/" target="_blank"><img src="'.KICON_PATH.'/worldpay.gif" alt="worldpay.com"/></a>';
+}
+
+
+
 }
 
 

@@ -1,4 +1,57 @@
 
+CREATE TABLE cc_ticket_comment
+(
+  id bigserial NOT NULL,
+  date timestamp without time zone NOT NULL DEFAULT now(),
+  id_ticket bigserial NOT NULL,
+  description text,
+  creator bigserial NOT NULL,
+  is_admin boolean NOT NULL DEFAULT false,
+  CONSTRAINT cc_ticket_comment_pkey PRIMARY KEY (id),
+  CONSTRAINT cc_ticket_id_fkey FOREIGN KEY (id_ticket)
+      REFERENCES cc_ticket (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (OIDS=TRUE);
+
+CREATE TABLE cc_ticket
+(
+  id bigserial NOT NULL,
+  id_component bigint NOT NULL,
+  title character varying(100) NOT NULL,
+  description text,
+  priority integer NOT NULL DEFAULT 0,
+  creationdate timestamp without time zone NOT NULL DEFAULT now(),
+  creator bigserial NOT NULL,
+  status integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_ticket_pkey PRIMARY KEY (id)
+)
+WITH (OIDS=TRUE);
+
+
+CREATE TABLE cc_support
+(
+  id bigserial NOT NULL,
+  "name" character varying(255) NOT NULL,
+  activated integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_support_pkey PRIMARY KEY (id)
+)
+WITH (OIDS=TRUE);
+
+CREATE TABLE cc_support_component
+(
+  id bigserial NOT NULL,
+  id_support bigserial NOT NULL,
+  "name" character varying(100) NOT NULL DEFAULT ''::character varying,
+  activated integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_support_component_pkey PRIMARY KEY (id),
+  CONSTRAINT cc_support_id_fkey FOREIGN KEY (id_support)
+      REFERENCES cc_support (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (OIDS=TRUE);
+
+
 CREATE TABLE cc_invoice_items (
 	id 						BIGSERIAL NOT NULL,
 	invoiceid 				INTEGER NOT NULL,
@@ -82,7 +135,7 @@ ALTER TABLE cc_card ADD COLUMN id_timezone INTEGER DEFAULT 0;
 
 CREATE TABLE cc_config_group (
   	id 								BIGSERIAL NOT NULL,
-	group_title 					CHARACTER VARYING(64) NOT NULL,	
+	group_title 					CHARACTER VARYING(64) NOT NULL,
 	group_description 				CHARACTER VARYING(255) NOT NULL
 );
 ALTER TABLE ONLY cc_config_group
@@ -108,7 +161,7 @@ CREATE TABLE cc_config (
 	config_key 					TEXT NOT NULL,
 	config_value 					TEXT NOT NULL,
 	config_description 				TEXT NOT NULL,
-	config_valuetype				INTEGER NOT NULL DEFAULT 0,	
+	config_valuetype				INTEGER NOT NULL DEFAULT 0,
 	config_group_id 				INTEGER NOT NULL,
 	config_listvalues				TEXT
 );
@@ -325,7 +378,7 @@ CREATE TABLE cc_timezone (
     id 								BIGSERIAL NOT NULL,
     gmtzone							CHARACTER VARYING(255),
     gmttime		 					CHARACTER VARYING(255),
-	gmtoffset						INTEGER NOT NULL DEFAULT 0 
+	gmtoffset						INTEGER NOT NULL DEFAULT 0
 );
 ALTER TABLE ONLY cc_timezone
 ADD CONSTRAINT cc_timezone_pkey PRIMARY KEY (id);
@@ -411,7 +464,7 @@ CREATE TABLE cc_iso639 (
     code character(2) NOT NULL,
     name character(16) NOT NULL,
     lname character(16),
-    charset character(16) NOT NULL DEFAULT 'ISO-8859-1'); 
+    charset character(16) NOT NULL DEFAULT 'ISO-8859-1');
 ALTER TABLE ONLY cc_iso639
     ADD CONSTRAINT cc_iso639_pkey PRIMARY KEY (code);
 ALTER TABLE ONLY cc_iso639
@@ -573,8 +626,8 @@ ALTER TABLE ONLY cc_templatemail DROP CONSTRAINT cc_templatemail_pkey;
 ALTER TABLE ONLY cc_templatemail
     ADD CONSTRAINT cons_cc_templatemail_mailtype UNIQUE (id,id_language);
 
-    
-    
+
+
 ALTER TABLE ONLY cc_card ADD COLUMN status INT NOT NULL DEFAULT '1';
 update cc_card set status = 1 where activated = 't';
 update cc_card set status = 0 where activated = 'f';
@@ -616,10 +669,10 @@ ALTER TABLE cc_call ADD COLUMN real_sessiontime INTEGER;
 
 -- Never too late to add some indexes :D
 
-CREATE INDEX cc_call_username_ind ON cc_call USING btree (username); 	
-CREATE INDEX cc_call_starttime_ind ON cc_call USING btree (starttime);	
-CREATE INDEX cc_call_terminatecause_ind ON cc_call USING btree (terminatecause); 	
-CREATE INDEX cc_call_calledstation_ind ON cc_call USING btree (calledstation); 	
+CREATE INDEX cc_call_username_ind ON cc_call USING btree (username);
+CREATE INDEX cc_call_starttime_ind ON cc_call USING btree (starttime);
+CREATE INDEX cc_call_terminatecause_ind ON cc_call USING btree (terminatecause);
+CREATE INDEX cc_call_calledstation_ind ON cc_call USING btree (calledstation);
 
 
 CREATE INDEX cc_card_creationdate_ind ON cc_card USING btree (creationdate);
@@ -665,9 +718,9 @@ CREATE TABLE cc_call_archive (
 ALTER TABLE ONLY cc_call_archive
     ADD CONSTRAINT cc_call_archive_pkey PRIMARY KEY (id);
 
-CREATE INDEX cc_call_username_ind ON cc_call_archive USING btree (username); 	
-CREATE INDEX cc_call_starttime_ind ON cc_call_archive USING btree (starttime);	
-CREATE INDEX cc_call_terminatecause_ind ON cc_call_archive USING btree (terminatecause); 	
+CREATE INDEX cc_call_username_ind ON cc_call_archive USING btree (username);
+CREATE INDEX cc_call_starttime_ind ON cc_call_archive USING btree (starttime);
+CREATE INDEX cc_call_terminatecause_ind ON cc_call_archive USING btree (terminatecause);
 CREATE INDEX cc_call_calledstation_ind ON cc_call_archive USING btree (calledstation);
 
 
@@ -751,7 +804,7 @@ ALTER TABLE cc_card ADD voicemail_activated INTEGER DEFAULT 0 NOT NULL;
 
 CREATE OR REPLACE VIEW voicemail_users AS (
 	SELECT id AS uniqueid, id AS customer_id, 'default'::varchar(50) AS context, useralias AS mailbox, uipass AS password,
-	lastname || ' ' || firstname AS fullname, email AS email, ''::varchar(50) AS pager, '1984-01-01 00:00:00'::timestamp AS stamp 
+	lastname || ' ' || firstname AS fullname, email AS email, ''::varchar(50) AS pager, '1984-01-01 00:00:00'::timestamp AS stamp
 	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
 );
 

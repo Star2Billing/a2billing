@@ -51,7 +51,7 @@ $HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "cent
 $HD_Form_c -> FieldViewElement ('id_cc_card, username, cc_charge.creationdate, amount, cc_charge.currency, chargetype, description');
 
 
-$HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form_c->FG_INSTANCE_NAME)." CREATED!");  
+$HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form_c->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form_c -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form_c -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form_c -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -62,15 +62,15 @@ $HD_Form_c -> FG_DELETION = true;
 
 
 
-// TODO integrate in Framework 
+// TODO integrate in Framework
 if ($form_action=='ask-add'){
 	$DBHandle_max  = DbConnect();
 	if ($username) {
 		$resmax = $DBHandle_max -> Execute("SELECT id FROM cc_card where username='$username'");
 		$numrow = 0;
-		if ($resmax) 
+		if ($resmax)
 			$numrow = $resmas -> RecordCount( );
-		
+
 		if ($numrow!=0) {
 			$db_row [] = $resmax -> fetchRow();
 			$val_default = "value='".$db_row[0][0]."'";
@@ -90,7 +90,7 @@ if ($form_action=='ask-add'){
 	}
 }
 
-	
+
 $HD_Form_c -> AddEditElement (gettext("ID CARD"),
 	"id_cc_card",
 	'',

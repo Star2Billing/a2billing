@@ -7,12 +7,12 @@
 	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
-	
+
 	<script type="text/javascript" src="./javascript/jquery/jquery.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/handler_jquery.js"></script>
-	
+
 </HEAD>
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
@@ -30,14 +30,14 @@
 	{if ($ACXCUSTOMER > 0) }
 	<div class="toggle_menu">
 	<li>
-	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"  
+	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
 	{if ($section == "1")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></li>
-	<div class="tohide" 
+	<div class="tohide"
 	{if ($section =="1")}
 	style="">
 	{else}
@@ -63,10 +63,10 @@
 	</div>
 	</div>
 	{/if}
-		
+
 	{if ($ACXBILLING > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2"
 	{if ($section =="2")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -75,19 +75,19 @@
 	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="2")}
-	
+
 	style="">
 	{else}
-	style="display:none;">	
+	style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment&section=2">{php} echo gettext("View Payment Methods");{/php}</a></li>
-                <li><a href="A2B_entity_transactions.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Transactions");{/php}</a></li>				
+                <li><a href="A2B_entity_transactions.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Transactions");{/php}</a></li>
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&stitle=Money_Situation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Payment");{/php}</a></li>
-				<li><a href="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&section=2">{php} echo gettext("Add new Payment");{/php}</a></li>				
-				<li><a href="A2B_entity_paymentlog.php?stitle=Payment_log&section=2">{php} echo gettext("Payment Log");{/php}</a></li>				
+				<li><a href="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&section=2">{php} echo gettext("Add new Payment");{/php}</a></li>
+				<li><a href="A2B_entity_paymentlog.php?stitle=Payment_log&section=2">{php} echo gettext("Payment Log");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher&section=2">{php} echo gettext("List Voucher");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher_add&form_action=ask-add&section=2">{php} echo gettext("Create Voucher");{/php}</a></li>
 				<li><a href="A2B_entity_voucher_multi.php?stitle=Voucher_Generate&section=2">{php} echo gettext("Generate Vouchers");{/php}</a></li>
@@ -101,10 +101,10 @@
 	</div>
 	</div>
 	{/if}
-	
+
 	{if ($ACXRATECARD > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3"
 	{if ($section =="3")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -133,14 +133,14 @@
 	</div>
 	</div>
 	{/if}
-	
-	{if ($ACXPACKAGEOFFER > 0)}	
+
+	{if ($ACXPACKAGEOFFER > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_3" 
-	{if ($section =="3_3")}	
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_3"
+	{if ($section =="3_3")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"	
+	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
 	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PACKAGE OFFER");{/php}</strong></a></li>
 		<div class="tohide"
@@ -150,7 +150,7 @@
 		style="display:none;">
 	{/if}
 		<ul>
-			<li><ul>				
+			<li><ul>
 				<li><a href="A2B_entity_package.php?atmenu=prefixe&stitle=Prefix&section=3_3">{php} echo gettext("List Offer Package");{/php}</a></li>
 				<li><a href="A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3_3">{php} echo gettext("Add Offer Package");{/php}</a></li>
 				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Details Package");{/php}</a></li>
@@ -159,14 +159,14 @@
 	</div>
 	</div>
 	{/if}
-	
-	{if ($ACXOUTBOUNDCID > 0)}	
-	<div class="toggle_menu">	
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_5" 
-	{if ($section =="3_5")}	
+
+	{if ($ACXOUTBOUNDCID > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_5"
+	{if ($section =="3_5")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"	
+	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
 	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("OUTBOUND CID");{/php}</strong></a></li>
 		<div class="tohide"
@@ -186,10 +186,10 @@
 	</div>
 	</div>
 	{/if}
-	
+
 	{if ($ACXTRUNK > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img4"  
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img4"
 	{if ($section =="4")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -212,10 +212,10 @@
 	</div>
 	</div>
 	{/if}
-	
+
 	{if ($ACXDID > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img41"  
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img41"
 	{if ($section == "5")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -245,10 +245,10 @@
 	</div>
 	</div>
 	{/if}
-	
+
 	{if ($ACXCALLREPORT > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img5" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img5"
 	{if ($section == "6")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -273,10 +273,10 @@
 	</div>
 	</div>
 	{/if}
-	
+
 	{if ($ACXINVOICING > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2"
 	{if ($section =="13")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -287,7 +287,7 @@
 	{if ($section =="13")}
 	style="">
 	{else}
-	style="display:none;">	
+	style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -296,16 +296,16 @@
 				<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=13">{php} echo gettext("Invoice");{/php}</a></li>
 				<li><a href="invoices_customer.php?stitle=Invoice&nodisplay=1&section=13">{php} echo gettext("Invoices Customer");{/php}</a></li>
 				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>				
+				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
 	</div>
 	{/if}
-	
+
 	{if ($ACXINVOICING2 > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2"
 	{if ($section =="14")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -316,7 +316,7 @@
 	{if ($section =="14")}
 	style="">
 	{else}
-	style="display:none;">	
+	style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -330,11 +330,11 @@
 	</div>
 	</div>
 	{/if}
-	
-	
+
+
 	{if ($ACXCRONTSERVICE  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img9" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img9"
 	{if ($section =="7")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -356,17 +356,17 @@
 				<li><a href="A2B_entity_subscription.php?stitle=Subscription&section=7">{php} echo gettext("List Subscription");{/php}</a></li>
 				<li><a href="A2B_entity_subscription.php?stitle=Subscription&form_action=ask-add&section=7">{php} echo gettext("Add Subscription");{/php}</a></li>
 				<li><a href="A2B_entity_subscriber.php?stitle=Subscriber&section=7">{php} echo gettext("List Suscriber");{/php}</a></li>
-				<li><a href="A2B_entity_subscriber.php?stitle=Subscriber&form_action=ask-add&section=7">{php} echo gettext("Add Suscriber");{/php}</a></li>				
+				<li><a href="A2B_entity_subscriber.php?stitle=Subscriber&form_action=ask-add&section=7">{php} echo gettext("Add Suscriber");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
 	</div>
 	{/if}
-	
-	
+
+
 	{if ($ACXCALLBACK  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img10" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img10"
 	{if ($section =="12")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -391,11 +391,11 @@
 	</div>
 	</div>
 	{/if}
-	
+
 
 	{if ($ACXMISC  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img6" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img6"
 	{if ($section =="8")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -424,10 +424,10 @@
 	</div>
 	</div>
 	{/if}
-	
+
 	{if ($ACXADMINISTRATOR  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img7" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img7"
 	{if ($section =="10")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -454,10 +454,10 @@
 	</div>
 	</div>
 	{/if}
-	
+
 	{if ($ACXFILEMANAGER  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8" 
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
 	{if ($section == "11")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -478,6 +478,35 @@
 	</div>
 	</div>
 	{/if}
+
+	{if ($ACXSUPPORT  > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
+	{if ($section == "13")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="13")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="CC_ticket.php?section=13">{php} echo gettext("View Tickets");{/php}</a></li>
+				<li><a href="CC_ticket.php?form_action=ask-add&section=13">{php} echo gettext("Create Ticket");{/php}</a></li>
+				<li><a href="CC_support.php?section=13">{php} echo gettext("View Support Box");{/php}</a></li>
+				<li><a href="CC_support.php?form_action=ask-add&section=13">{php} echo gettext("Create Support Box");{/php}</a></li>
+				<li><a href="CC_support_component.php?section=13">{php} echo gettext("View Components");{/php}</a></li>
+				<li><a href="CC_support_component.php?form_action=ask-add&section=13">{php} echo gettext("Create Component");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
 
 	<li><a href="#" target="_self"></a></a></li>
 	<ul>

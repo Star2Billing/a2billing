@@ -1,5 +1,4 @@
 <?php
-include ("../lib/support/classes/comment.php");
 class Ticket
 {
    private $id;
@@ -9,6 +8,14 @@ class Ticket
    private $priority;
    private $creationdate;
    private $status;
+
+
+
+   public static $NEW = 0;
+   public static $FIXED =1;
+   public static $REOPEN =2;
+   public static $CLOSED =3;
+   public static $INVALID =4;
 
 	function __construct($id){
 
@@ -73,6 +80,8 @@ class Ticket
    function getStatus(){
 
    	 return $this->status;
+
+
    }
 
     function getPriorityDisplay(){
@@ -156,6 +165,83 @@ class Ticket
 	 $QUERY_VALUES = "'$this->id', '$desc','$creator', '$isadmin'";
 	 $return = $instance_sub_table-> Add_table ($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_ticket_comment', 'id');
 
+
+
+   }
+
+   public static function getStatusDisplay($status){
+
+		switch($status){
+			case 0: return "NEW";
+			case 1: return "FIXED";
+			case 2: return "REOPEN";
+			case 3: return "CLOSED";
+			case 4: return "INVALID";
+
+		}
+
+   }
+
+   public static function getAllStatus(){
+   	$result = array();
+   	$result[0] = "NEW";
+   	$result[1] = "FIXED";
+   	$result[2] = "REOPEN";
+   	$result[3] = "CLOSED";
+   	$result[4] = "INVALID";
+   	return $result;
+
+   }
+
+	 public static function getPossibleStatus($initialStatus,$isadmin){
+   	$result = array();
+   	$result[0] = array();
+   	$result[0]["id"]=$initialStatus;
+   	$result[0]["name"]=	Ticket::getStatusDisplay($initialStatus);
+
+   	switch($initialStatus){
+   			//NEW
+   			case 0:
+			//REOPEN
+			case 2: if($isadmin){
+					$result[1] = array();
+					$result[1]["id"]= Ticket::$FIXED;
+   					$result[1]["name"]=	"FIXED";
+   					$result[2] = array();
+					$result[2]["id"]= Ticket::$INVALID;
+   					$result[2]["name"]=	"INVALID";
+			}else {
+				$result[1] = array();
+				$result[1]["id"]= Ticket::$CLOSED;
+   				$result[1]["name"]=	"CLOSED";
+			}
+				return $result;
+			// FIXED
+			case 1:
+
+				$result[1] = array();
+				$result[1]["id"]= Ticket::$REOPEN;
+				$result[1]["name"]=	"REOPEN";
+
+			// CLOSED .... ADD CLOSED BEHAVIOR TO FIXED BEHAVIOR
+			case 3: if(!$isadmin){
+						$result[1] = array();
+						$result[1]["id"]= Ticket::$CLOSED;
+		   				$result[1]["name"]=	"CLOSED";
+					}
+					return $result;
+			case 4:if($isadmin){
+   					$result[1] = array();
+					$result[1]["id"]= Ticket::$REOPEN;
+   					$result[1]["name"]=	"REOPEN";
+					$result[2] = array();
+					$result[2]["id"]= Ticket::$FIXED;
+   					$result[2]["name"]=	"FIXED";
+			}
+					return $result;
+			default : return $result;
+
+		}
 
 
    }

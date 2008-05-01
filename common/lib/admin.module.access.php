@@ -1,5 +1,5 @@
 <?php /* file module.access.php
-	
+
 	Module access - an access control module for back office areas
 
 
@@ -32,6 +32,7 @@ define ("ACX_OUTBOUNDCID",				2048);		// 1 << 11
 define ("ACX_PACKAGEOFFER",				4096);		// 1 << 12
 define ("ACX_PREDICTIVE_DIALER",		8192);		// 1 << 13
 define ("ACX_INVOICING",				16384);		// 1 << 13
+define ("ACX_SUPPORT",				32768);
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
@@ -43,105 +44,109 @@ if (!isset($_SESSION)) {
 }
 
 
-if (isset($_GET["logout"]) && $_GET["logout"]=="true") {   
-	$log = new Logger();			
+if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
+	$log = new Logger();
 	$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
-	$log = null;   
+	$log = null;
 	session_destroy();
 	$rights=0;
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: index.php");	   
-	die();	   
+	Header ("Location: index.php");
+	die();
 }
-	
-   
+
+
 function access_sanitize_data($data)
 {
 	$lowerdata = strtolower ($data);
-	$data = str_replace('--', '', $data);	
+	$data = str_replace('--', '', $data);
 	$data = str_replace("'", '', $data);
 	$data = str_replace('=', '', $data);
 	$data = str_replace(';', '', $data);
 	if (!(strpos($lowerdata, ' or ')===FALSE)){ return false;}
 	if (!(strpos($lowerdata, 'table')===FALSE)){ return false;}
-	
+
 	return $data;
 }
-   
+
 if ((!session_is_registered('pr_login') || !session_is_registered('pr_password') || !session_is_registered('rights') || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
 
 	if ($FG_DEBUG == 1) echo "<br>0. HERE WE ARE";
-	
+
+
 	if ($_POST["done"]=="submit_log"){
-	
+
 		$DBHandle  = DbConnect();
-		
+
 		if ($FG_DEBUG == 1) echo "<br>1. ".$_POST["pr_login"].$_POST["pr_password"];
 		$_POST["pr_login"] = access_sanitize_data($_POST["pr_login"]);
 		$_POST["pr_password"] = access_sanitize_data($_POST["pr_password"]);
-		
+
 		$return = login ($_POST["pr_login"], $_POST["pr_password"]);
-		
+
 		if ($FG_DEBUG == 1) print_r($return);
 		if ($FG_DEBUG == 1) echo "==>".$return[1];
+
+
+
 		if (!is_array($return) || $return[1]==0 ) {
 			header ("HTTP/1.0 401 Unauthorized");
-			Header ("Location: index.php?error=1");	   
+			Header ("Location: index.php?error=1");
 			die();
-		}	
+		}
 		// if groupID egal 1, this user is a root
-		
+
 		if ($return[3]==0){
 			$admin_id = $return[0];
 			$return = true;
-			$rights = 32767;	
-			
+			$rights = 65535;
+
 			$is_admin = 1;
 			$pr_groupID = $return[3];
-		}else{				
+		}else{
 			$pr_reseller_ID = $return[0];
 			$admin_id = $return[0];
 			$rights = $return[1];
 			if ($return[3]==1) $is_admin=1;
 			else $is_admin=0;
-			
+
 			if ($return[3] == 3) $pr_reseller_ID = $return[4];
-			
-			$pr_groupID = $return[3];			
+
+			$pr_groupID = $return[3];
 		}
-				
+
 		if ($_POST["pr_login"]) {
-			
+
 			$pr_login = $_POST["pr_login"];
 			$pr_password = $_POST["pr_password"];
-			
-			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$rights-$conf_addcust";			
+
+			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$rights-$conf_addcust";
 			$_SESSION["pr_login"]=$pr_login;
 			$_SESSION["pr_password"]=$pr_password;
 			$_SESSION["rights"]=$rights;
-			$_SESSION["is_admin"]=$is_admin;	
+			$_SESSION["is_admin"]=$is_admin;
 			$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
 			$_SESSION["pr_groupID"]=$pr_groupID;
 			$_SESSION["admin_id"] = $admin_id;
-			$log = new Logger();			
+			$log = new Logger();
 			$log -> insertLog($admin_id, 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
 			$log = null;
-		}	
-		
+		}
+
 	} else {
-		$rights=0;	
-		
-	}	
-	
+		$rights=0;
+
+	}
+
 }
 
 
 // 					FUNCTIONS
 //////////////////////////////////////////////////////////////////////////////
 
-function login ($user, $pass) { 
+function login ($user, $pass) {
 	global $DBHandle;
-	
+
 	$user = trim($user);
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
@@ -159,7 +164,7 @@ function login ($user, $pass) {
 }
 
 
-function has_rights ($condition) {	
+function has_rights ($condition) {
 	return ($_SESSION["rights"] & $condition);
 }
 
@@ -167,7 +172,7 @@ function has_rights ($condition) {
 $ACXCUSTOMER 	= has_rights (ACX_CUSTOMER);
 $ACXBILLING 	= has_rights (ACX_BILLING);
 $ACXRATECARD 	= has_rights (ACX_RATECARD);
-$ACXTRUNK		= has_rights (ACX_TRUNK); 
+$ACXTRUNK		= has_rights (ACX_TRUNK);
 $ACXDID			= has_rights (ACX_DID);
 $ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
 $ACXCRONTSERVICE= has_rights (ACX_CRONT_SERVICE);
@@ -180,4 +185,6 @@ $ACXPACKAGEOFFER = has_rights (ACX_PACKAGEOFFER);
 $ACXPREDICTIVEDIALER = has_rights (ACX_PREDICTIVE_DIALER);
 $ACXINVOICING = has_rights (ACX_INVOICING);
 $ACXINVOICING2 = has_rights (ACX_INVOICING);
+$ACXSUPPORT = has_rights (ACX_SUPPORT);
+
 ?>
