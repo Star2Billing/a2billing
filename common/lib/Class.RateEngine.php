@@ -1029,7 +1029,7 @@ class RateEngine
 			
 			//$dialparams = "|30|HS($timeout)"; // L(".$timeout*1000.":61000:30000)
 			$dialparams = str_replace("%timeout%", min($timeout * 1000, $max_long), $A2B->agiconfig['dialcommand_param']);
-			$dialparams = str_replace("%timeoutsec%", min($timeout, $max_long), $A2B->agiconfig['dialcommand_param']);
+			$dialparams = str_replace("%timeoutsec%", min($timeout, $max_long), $dialparams);
 			
 			if (strlen($musiconhold)>0 && $musiconhold!="selected"){
 				$dialparams.= "m";
