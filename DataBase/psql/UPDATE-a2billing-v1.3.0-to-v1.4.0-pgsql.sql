@@ -1,57 +1,4 @@
 
-CREATE TABLE cc_ticket_comment
-(
-  id bigserial NOT NULL,
-  date timestamp without time zone NOT NULL DEFAULT now(),
-  id_ticket bigserial NOT NULL,
-  description text,
-  creator bigserial NOT NULL,
-  is_admin boolean NOT NULL DEFAULT false,
-  CONSTRAINT cc_ticket_comment_pkey PRIMARY KEY (id),
-  CONSTRAINT cc_ticket_id_fkey FOREIGN KEY (id_ticket)
-      REFERENCES cc_ticket (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE CASCADE
-)
-WITH (OIDS=TRUE);
-
-CREATE TABLE cc_ticket
-(
-  id bigserial NOT NULL,
-  id_component bigint NOT NULL,
-  title character varying(100) NOT NULL,
-  description text,
-  priority integer NOT NULL DEFAULT 0,
-  creationdate timestamp without time zone NOT NULL DEFAULT now(),
-  creator bigserial NOT NULL,
-  status integer NOT NULL DEFAULT 0,
-  CONSTRAINT cc_ticket_pkey PRIMARY KEY (id)
-)
-WITH (OIDS=TRUE);
-
-
-CREATE TABLE cc_support
-(
-  id bigserial NOT NULL,
-  "name" character varying(255) NOT NULL,
-  activated integer NOT NULL DEFAULT 0,
-  CONSTRAINT cc_support_pkey PRIMARY KEY (id)
-)
-WITH (OIDS=TRUE);
-
-CREATE TABLE cc_support_component
-(
-  id bigserial NOT NULL,
-  id_support bigserial NOT NULL,
-  "name" character varying(100) NOT NULL DEFAULT ''::character varying,
-  activated integer NOT NULL DEFAULT 0,
-  CONSTRAINT cc_support_component_pkey PRIMARY KEY (id),
-  CONSTRAINT cc_support_id_fkey FOREIGN KEY (id_support)
-      REFERENCES cc_support (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE CASCADE
-)
-WITH (OIDS=TRUE);
-
-
 CREATE TABLE cc_invoice_items (
 	id 						BIGSERIAL NOT NULL,
 	invoiceid 				INTEGER NOT NULL,
@@ -634,8 +581,8 @@ update cc_card set status = 0 where activated = 'f';
 
 
 CREATE TABLE cc_status_log (
-  id					BIGSERIAL DEFAULT 0 NOT NULL,
-  status 				INT NOT NULL,
+  id						BIGSERIAL NOT NULL,
+  status 					INT NOT NULL,
   id_cc_card 				INT NOT NULL,
   updated_date 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 );
@@ -656,9 +603,9 @@ ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
 
 CREATE TABLE cc_card_history (
 	id 							BIGSERIAL NOT NULL,
-	id_cc_card 						BIGINT DEFAULT 0 NOT NULL,
-    	datecreated						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-	description 						TEXT
+	id_cc_card 					BIGINT DEFAULT 0 NOT NULL,
+    datecreated					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	description 				TEXT
 );
 ALTER TABLE ONLY cc_card_history    ADD CONSTRAINT cc_card_history_pkey PRIMARY KEY (id);
 
@@ -813,6 +760,9 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DID fees', 'extracharge_fee', '0.05,0.15', 'Comma-separated list of extra sell-rate charges corresponding to the DIDs in "extracharge_did"', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DID buy fees', 'extracharge_buyfee', '0.04,0.13', 'Comma-separated list of extra buy-rate charges corresponding to the DIDs in "extracharge_did"', 0, 11, NULL);
 
+
+CREATE LANGUAGE plpgsql;
+
 -- This trigger is to prevent bogus regexes making it into the database
 CREATE OR REPLACE FUNCTION cc_ratecard_validate_regex() RETURNS TRIGGER AS $$
   BEGIN
@@ -835,3 +785,57 @@ CREATE OR REPLACE FUNCTION after_ins_cc_card_logrefill() RETURNS TRIGGER AS $$
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER after_ins_cc_card AFTER INSERT ON cc_card FOR EACH ROW EXECUTE PROCEDURE after_ins_cc_card_logrefill();
+
+
+
+
+
+-- Support / Ticket section
+
+CREATE TABLE cc_ticket
+(
+  id bigserial NOT NULL,
+  id_component bigint NOT NULL,
+  title character varying(100) NOT NULL,
+  description text,
+  priority integer NOT NULL DEFAULT 0,
+  creationdate timestamp without time zone NOT NULL DEFAULT now(),
+  creator bigserial NOT NULL,
+  status integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_ticket_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE cc_ticket_comment
+(
+  id bigserial NOT NULL,
+  date timestamp without time zone NOT NULL DEFAULT now(),
+  id_ticket bigserial NOT NULL,
+  description text,
+  creator bigserial NOT NULL,
+  is_admin boolean NOT NULL DEFAULT false,
+  CONSTRAINT cc_ticket_comment_pkey PRIMARY KEY (id),
+  CONSTRAINT cc_ticket_id_fkey FOREIGN KEY (id_ticket)
+      REFERENCES cc_ticket (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
+
+CREATE TABLE cc_support
+(
+  id bigserial NOT NULL,
+  "name" character varying(255) NOT NULL,
+  activated integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_support_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE cc_support_component
+(
+  id bigserial NOT NULL,
+  id_support bigserial NOT NULL,
+  "name" character varying(100) NOT NULL DEFAULT ''::character varying,
+  activated integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_support_component_pkey PRIMARY KEY (id),
+  CONSTRAINT cc_support_id_fkey FOREIGN KEY (id_support)
+      REFERENCES cc_support (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+);

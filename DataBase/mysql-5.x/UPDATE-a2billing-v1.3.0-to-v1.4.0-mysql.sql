@@ -770,15 +770,81 @@ ALTER TABLE cc_currencies CHANGE value value NUMERIC (12,5) unsigned NOT NULL DE
 
 
 
+-- add reseller field in cc_card
+--DELIMITER //
+--CREATE TRIGGER `after_ins_cc_card` AFTER INSERT ON `cc_card`
+-- FOR EACH ROW begin
+--    
+--
+--    insert into cc_logrefill(credit,card_id,reseller_id) values(NEW.credit,NEW.id,NEW.reseller);
+--  end
+--//
+--DELIMITER ;
 
-DELIMITER //
-CREATE TRIGGER `a2billing`.`after_ins_cc_card` AFTER INSERT ON `a2billing`.`cc_card`
- FOR EACH ROW begin
-    
-
-    insert into cc_logrefill(credit,card_id,reseller_id) values(NEW.credit,NEW.id,NEW.reseller);
-  end
-//
-DELIMITER ;
 
 
+
+
+-- Support / Ticket section
+CREATE TABLE cc_card_archive (
+	id 								BIGINT NOT NULL,
+	creationdate 					TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL,
+	firstusedate 					TIMESTAMP,
+	expirationdate 					TIMESTAMP,
+	enableexpire 					INT DEFAULT 0,
+	expiredays 						INT DEFAULT 0,
+	username 						CHAR(50) NOT NULL,
+	useralias 						CHAR(50) NOT NULL,
+	uipass 							CHAR(50),
+	credit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,
+	tariff 							INT DEFAULT 0,
+
+
+CREATE TABLE cc_ticket (
+	id 								BIGINT NOT NULL AUTO_INCREMENT,
+	id_component 					BIGINT NOT NULL,
+	title							CHAR(100) NOT NULL,
+	description						TEXT,
+	priority						INT NOT NULL DEFAULT 0,
+	creationdate					TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL,
+	creator							BIGINT NOT NULL,
+	status							INT NOT NULL DEFAULT 0,
+	PRIMARY KEY  (id)
+);
+
+CREATE TABLE cc_ticket_comment (
+  id 								BIGINT NOT NULL AUTO_INCREMENT,
+  date								TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL,
+  id_ticket							BIGINT NOT NULL,
+  description						TEXT,
+  creator							BIGINT NOT NULL,
+  is_admin							INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (id),
+  CONSTRAINT cc_ticket_id_fkey FOREIGN KEY (id_ticket)
+      REFERENCES cc_ticket (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (OIDS=TRUE);
+
+
+CREATE TABLE cc_support
+(
+  id bigserial NOT NULL,
+  "name" character varying(255) NOT NULL,
+  activated integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_support_pkey PRIMARY KEY (id)
+)
+WITH (OIDS=TRUE);
+
+CREATE TABLE cc_support_component
+(
+  id bigserial NOT NULL,
+  id_support bigserial NOT NULL,
+  "name" character varying(100) NOT NULL DEFAULT ''::character varying,
+  activated integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_support_component_pkey PRIMARY KEY (id),
+  CONSTRAINT cc_support_id_fkey FOREIGN KEY (id_support)
+      REFERENCES cc_support (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (OIDS=TRUE);
