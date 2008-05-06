@@ -1115,7 +1115,6 @@ class RateEngine
 			}
 			
 			if ($A2B -> agiconfig['record_call'] == 1){
-				// Monitor(wav,kiki,m)					
 				$myres = $agi->exec("STOPMONITOR");
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$A2B->uniqueid."-".$A2B->cardnumber.")");
 			}
@@ -1237,7 +1236,11 @@ class RateEngine
 				$this -> real_answeredtime = $this -> answeredtime = 0;
 			} elseif (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
-				continue;
+				// Check if we will failover for LCR/LCD prefix - better false for an exact billing on resell
+				if ($A2B->agiconfig['failover_lc_prefix']) {
+					continue;
+				}
+				return false;
 			} elseif ($this->dialstatus == "ANSWER") {
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "-> dialstatus : ".$this->dialstatus.", answered time is ".$this->answeredtime." \n");
 			}

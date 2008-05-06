@@ -299,7 +299,6 @@ if ($mode == 'standard'){
 					
 					if (!$result_callperf) {
 						$prompt="prepaid-dest-unreachable";
-						//$agi->agi_exec("STREAM FILE $prompt #");
 						$agi-> stream_file($prompt, '#');
 					}
 					// INSERT CDR  & UPDATE SYSTEM

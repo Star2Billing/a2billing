@@ -549,6 +549,7 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
 		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
+		if(!isset($this->config["agi-conf$idconfig"]['failover_lc_prefix'])) $this->config["agi-conf$idconfig"]['failover_lc_prefix'] = 0;
 		
 		// Define the agiconfig property
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
