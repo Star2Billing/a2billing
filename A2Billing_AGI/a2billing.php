@@ -108,18 +108,10 @@ if (!$A2B -> DbConnect()){
 
 $instance_table = new Table();
 $A2B -> set_instance_table ($instance_table);
-	
 
 //GET CURRENCIES FROM DATABASE 
-
 $QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
 $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
-
-/*
-	$currencies_list['ADF'][1]="Andorran Franc";
-	$currencies_list['ADF'][2]="0.1339";
-	[ADF] => Array ( [1] => Andorran Franc (ADF), [2] => 0.1339 )
-*/
 
 if (is_array($result)){
 	$num_cur = count($result);
@@ -379,7 +371,9 @@ if ($mode == 'standard'){
 	/*************************   PLAY INTRO MESSAGE   ************************/
 	if (strlen($A2B->agiconfig['intro_prompt'])>0) 		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');		
 	
-	
+	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)) {
+		$A2B->CallerID = $caller_areacode.$A2B->CallerID;
+	}
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
 	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[TRY : callingcard_ivr_authenticate]");
 
