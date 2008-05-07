@@ -480,6 +480,7 @@ function validate_upload($the_file, $the_file_type) {
 						"application/vnd.ms-excel"              => ".xls",
 						"application/octet-stream"              => ".exe, .fla (etc)",
 						"text/x-comma-separated-values"			=> ".csv",
+						"text/comma-separated-values"			=> ".csv",
 						"text/csv"								=> ".csv"
 						); # these are only a few examples, you can find many more!
 
