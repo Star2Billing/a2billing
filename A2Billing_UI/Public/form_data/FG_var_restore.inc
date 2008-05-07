@@ -82,7 +82,7 @@ $HD_Form -> FG_OTHER_BUTTON1_LINK = $_SERVER['PHP_SELF']."?form_action=restore&a
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-restore.gif";
 
 $HD_Form -> FG_OTHER_BUTTON2_LINK = $_SERVER['PHP_SELF']."?form_action=download&atmenu=$HD_Form->FG_INSTANCE_NAME&id=";
-$HD_Form -> FG_OTHER_BUTTON2_IMG = "img/dl.gif";
+$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/dl.gif";
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a")." ". $HD_Form->FG_INSTANCE_NAME." ".gettext("now.");
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
