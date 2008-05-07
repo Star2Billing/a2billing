@@ -66,8 +66,8 @@ CREATE TABLE cc_card_subscription (
 	id_subscription_fee INT,
 	startdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	stopdate TIMESTAMP,
-	product_id TINYTEXT,
-	product_name TEXT,
+	product_id VARCHAR( 100 ),
+	product_name VARCHAR( 100 ),
 	PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -99,13 +99,13 @@ INSERT INTO cc_config_group (group_title, group_description) VALUES ('agi-conf1'
 
 CREATE TABLE cc_config (
   	id 								INT NOT NULL auto_increment,
-	config_title		 			TEXT NOT NULL,
-	config_key 						TEXT NOT NULL,
-	config_value 					TEXT NOT NULL,
-	config_description 				TEXT NOT NULL,
+	config_title		 			VARCHAR( 100 )  NOT NULL,
+	config_key 						VARCHAR( 100 )  NOT NULL,
+	config_value 					VARCHAR( 100 )  NOT NULL,
+	config_description 				VARCHAR( 255 )  NOT NULL,
 	config_valuetype				INT NOT NULL DEFAULT 0,	
 	config_group_id 				INT NOT NULL,
-	config_listvalues				TEXT,
+	config_listvalues				VARCHAR( 100 ) ,
 	PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -579,8 +579,8 @@ ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge DECIMAL(15,5) NOT NUL
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN tag CHAR(50);
 
-ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
-ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
+ALTER TABLE cc_card ADD COLUMN template_invoice VARCHAR( 100 ) ;
+ALTER TABLE cc_card ADD COLUMN template_outstanding VARCHAR( 100 ) ;
 
 CREATE TABLE cc_card_history (
 	id 					BIGINT NOT NULL AUTO_INCREMENT,
