@@ -86,6 +86,7 @@ exten => _X.,2,Hangup
 
 [a2billing-voucher]
 exten => _X.,1,DeadAgi(a2billing.php|1|voucher)
+;exten => _X.,1,AGI(a2billing.php|1|voucher|44) ; will add 44 in front of the callerID for the CID authentication
 exten => _X.,n,Hangup	
 
 [a2billing_dispatch]
