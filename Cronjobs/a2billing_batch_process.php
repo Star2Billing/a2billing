@@ -207,7 +207,7 @@ foreach ($result as $myservice) {
 		$mail_content = "SERVICE NAME = ".$myservice[1];
 		$mail_content .= "\n\nTotal card updated = ".$totalcardperform;
 		$mail_content .= "\nTotal credit removed = ".$totalcredit;
-		mail($myservice[12], "A2BILLING RECURSING SERVICES : REPORT", $mail_content);
+		mail($myservice[12], "RECURRING SERVICES : REPORT", $mail_content);
 	}
 
 } // END FOREACH SERVICES
