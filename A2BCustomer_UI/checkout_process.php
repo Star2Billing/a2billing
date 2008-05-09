@@ -7,6 +7,7 @@ getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','currency','m
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionKey=$key"." ----EPAYMENT TRANSACTION KEY----");
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-POST Var \n".print_r($_POST, true));
 
 if ($sess_id =="") {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
@@ -39,6 +40,7 @@ if (DB_TYPE == "postgres") {
 	$NOW_2MIN = " creationdate <= DATE_SUB(NOW(), INTERVAL 2 MINUTE) ";
 }
 
+// Status - New 0 ; Proceed 1 ; In Process 2
 $QUERY = "SELECT * from cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
@@ -60,7 +62,7 @@ $security_verify = true;
 
 switch($transaction_data[0][4])
 {
-	case "paypal":	
+	case "paypal":
 		$currCurrency = $mc_currency;
 		$postvars = array();
 		$req = 'cmd=_notify-validate';
