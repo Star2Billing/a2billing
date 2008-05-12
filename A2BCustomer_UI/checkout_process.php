@@ -2,7 +2,7 @@
 include ("./lib/customer.defines.php");
 
 
-getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','currency','md5sig','merchant_id','mb_amount','status','mb_currency','transaction_id'));
+getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','currency','md5sig','merchant_id','mb_amount','status','mb_currency','transaction_id', 'mc_fee'));
 
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
@@ -64,11 +64,13 @@ switch($transaction_data[0][4])
 {
 	case "paypal":
 		$currCurrency = $mc_currency;
+		$currAmount = $transaction_data[0][2] - $mc_fee;
 		$postvars = array();
 		$req = 'cmd=_notify-validate';
 		foreach ($_POST as $vkey => $Value) {
 			$req .= "&" . $vkey . "=" . urlencode ($Value);
-		}				
+		}
+		
 		$header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
 		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 		$header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
@@ -104,6 +106,7 @@ switch($transaction_data[0][4])
 		break;
 		
 	case "moneybookers":
+		$currAmount = $transaction_data[0][2];
 		$sec_string = $merchant_id.$transaction_id.strtoupper(md5(MONEYBOOKERS_SECRETWORD)).$mb_amount.$mb_currency.$status;
 		$sig_string = strtoupper(md5($sec_string));
 		
@@ -117,6 +120,7 @@ switch($transaction_data[0][4])
 		break;
 		
 	case "authorizenet":
+		$currAmount = $transaction_data[0][2];
 		$currCurrency = BASE_CURRENCY;
 		break;
 		
@@ -128,7 +132,7 @@ switch($transaction_data[0][4])
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 $currencyObject 	= new currencies();
 $currencies_list 	= get_currencies();
-$amount_paid 		= convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY);
+$amount_paid 		= convert_currency($currencies_list,$currAmount, $currCurrency, BASE_CURRENCY);
 
 if ($security_verify == false) {
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='epaymentverify' ";
