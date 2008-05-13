@@ -835,4 +835,6 @@ CREATE TABLE cc_ticket_comment (
 INSERT INTO `cc_config` ( `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_group_id`, `config_listvalues`)
  VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
 
+-- change charset to use LIKE without "casse"
 
+ ALTER TABLE `cc_ratecard` CHANGE `dialprefix` `dialprefix` CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL

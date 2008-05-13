@@ -8,7 +8,7 @@
  * Copyright (C) 2004, 2007 Belaid Arezqui <areski _atl_ gmail com>
  *
  * See http://www.asterisk2billing.org for more information about
- * the A2Billing project. 
+ * the A2Billing project.
  * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
  *
  * This software is released under the terms of the GNU Lesser General Public License v2.1
@@ -28,6 +28,7 @@ include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 
 
+
 // The wrapper variables for security
 $security_key = API_SECURITY_KEY;
 
@@ -35,7 +36,7 @@ $security_key = API_SECURITY_KEY;
 $logfile = API_LOGFILE;
 
 // recipient email to send the alarm
-$email_alarm = EMAIL_ADMIN;	
+$email_alarm = EMAIL_ADMIN;
 
 $FG_DEBUG = 0;
 
@@ -44,7 +45,7 @@ $caching_query = 300; // caching for 5 minutes
 getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage', 'lcr'));
 /**variable to set rate display option
 
-	?key 
+	?key
 	&ratecardid  "dispaly only this ratecard
 	$tariffgroupid "dispaly only this Call plan
 	&css_url
@@ -59,14 +60,14 @@ getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display
 	&page_url i.e http://mysite.com/rates.php
 	&merge_form (0 or 1) 1 for merge form search and 1 seaparated search form by default 0
 	&fullhtmlpage (0 or 1)
-	
+
 	&resulttitle : tible that will show up above the rates array : can set to &nbsp; to not display anything
 	&lcr : (0 or 1) to enable or disable the LCR, by default 0
 */
 
 
 
-$ip_remote = getenv('REMOTE_ADDR'); 
+$ip_remote = getenv('REMOTE_ADDR');
 $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
 
 
@@ -79,7 +80,7 @@ if (md5($security_key) !== $key  || strlen($security_key)==0){
 	//error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
 	echo("400 Bad Request");
 	exit();
-} 
+}
 
 
 //set  default values if not isset vars
@@ -111,15 +112,15 @@ function add_clause(&$sqlclause,$addclause)
 
 
 /* 	ENABLE LCR
-	SELECT t1.destination, min(t1.rateinitial), t1.dialprefix FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, 
-	cc_tariffgroup_plan t6 
-	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' 
-	GROUP BY t1.dialprefix
-	 * 
-	SELECT DISTINCT t1.id, t1.destination,t1.dialprefix,t1.rateinitial 
-	FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6 
+	SELECT t1.destination, min(t1.rateinitial), t1.dialprefix FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5,
+	cc_tariffgroup_plan t6
 	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3'
-	AND t1.rateinitial = (SELECT min(f1.rateinitial) FROM cc_ratecard f1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6 
+	GROUP BY t1.dialprefix
+	 *
+	SELECT DISTINCT t1.id, t1.destination,t1.dialprefix,t1.rateinitial
+	FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6
+	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3'
+	AND t1.rateinitial = (SELECT min(f1.rateinitial) FROM cc_ratecard f1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6
 	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' AND t1.dialprefix=f1.dialprefix)
 */
 if ($lcr){
@@ -128,7 +129,7 @@ if ($lcr){
 } else {
 	$field_to_display="t1.destination,t1.dialprefix,t1.rateinitial";
 	$sql_group = null;
-}	
+}
 
 //end set default
 trim($field_to_display);
@@ -138,15 +139,15 @@ $type=explode(",",$field_type);
 $column=explode(",",$column_name);
 $fltr=explode(",",$filter);
 
-if (!isset ($current_page) || ($current_page == "")){	
-	$current_page=0; 
+if (!isset ($current_page) || ($current_page == "")){
+	$current_page=0;
 }
 
 $FILTER_COUNTRY=false;
 $FILTER_PREFIX=false;
 $DISPLAY_LETTER=false;
 
-if (DB_TYPE == "postgres"){		
+if (DB_TYPE == "postgres"){
 	 	$REG_EXP = "~*";
 }else{
 		$REG_EXP = "REGEXP";
@@ -166,23 +167,30 @@ for ($i=0;$i<count($fltr);$i++){
 			$FILTER_PREFIX=true;
 			if (isset ($searchpre) && strlen($searchpre) != 0){
 				add_clause($FG_TABLE_CLAUSE,"t1.dialprefix $REG_EXP '^$searchpre'");
-				$current_page=0; 
+				$current_page=0;
 			}
 		break;
 	}
 }
 if (isset($browse_letter) && strtoupper($browse_letter)=="YES") $DISPLAY_LETTER=true;
-if (isset($letter) && strlen($letter)!=0) add_clause($FG_TABLE_CLAUSE,"t1.destination LIKE '".strtolower ($letter)."%'");
+if (isset($letter) && strlen($letter)!=0) {
+	if (DB_TYPE == "postgres"){
+		 	$LIKE = "ILIKE";
+	}else{
+			$LIKE = "LIKE";
+	}
+	add_clause($FG_TABLE_CLAUSE,"t1.dialprefix ".$LIKE." '".strtolower ($letter)."%'");
+}
 
 
 if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
 	$FG_TABLE_NAME="cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6";
 	add_clause($FG_TABLE_CLAUSE,"t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '$tariffgroupid'");
-	
+
 }else{
 	$FG_TABLE_NAME="cc_ratecard t1";
-	
-	if (isset($ratecardid) && strlen($ratecardid)!=0){ 
+
+	if (isset($ratecardid) && strlen($ratecardid)!=0){
 		$FG_TABLE_NAME="cc_ratecard t1, cc_tariffplan t4";
 		add_clause($FG_TABLE_CLAUSE,"t4.id = '$ratecardid' AND t1.idtariffplan = t4.id");
 	}
@@ -206,7 +214,7 @@ if (count($column)==count($field) && count($field)==count($type) && count($colum
 	for ($i=0; $i<count($column); $i++){
 		switch ($type[$i]) {
 			case "money":
-				$bill="display_2bill"; 
+				$bill="display_2bill";
 			break;
 			case "date":
 				$bill="display_dateformat";
@@ -223,7 +231,7 @@ $FG_COL_QUERY='DISTINCT '.$field_to_display;
 
 $FG_TABLE_DEFAULT_ORDER = $field[0];
 $FG_TABLE_DEFAULT_SENS = "ASC";
-	
+
 // The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=$nb_display_lines;
 
@@ -265,21 +273,21 @@ if ($nb_record<=$FG_LIMITE_DISPLAY) {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
 	} else {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
-	}	
+	}
 }
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
 function Search(Source){
-	
-	if (Source == 'btn01') 
-	{	
+
+	if (Source == 'btn01')
+	{
 		if (document.myForm.merge_form.value == 0){
 			document.myForm.searchpre.value="";
 		}
 	}
-	if (Source == 'btn02') 
-	{	
+	if (Source == 'btn02')
+	{
 		if (document.myForm.merge_form.value == 0){
 			var index = document.myForm.choose_country.selectedIndex;
 			document.myForm.choose_country.options[index].value="";
@@ -308,7 +316,7 @@ function Search(Source){
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form;?>>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
-	<div class="search">	
+	<div class="search">
 		<?php if ($FILTER_COUNTRY){ ?>
 		<div class="searchelement"  align="left">
 			<select NAME="choose_country" class="select" >
@@ -358,8 +366,8 @@ function Search(Source){
 
 	<div class="result" align="left">
 	<table width="100%" border=0 cellPadding=0 cellSpacing=0>
-	<TR> 
-		<TD> 
+	<TR>
+		<TD>
 			<?php echo $FG_HTML_TABLE_TITLE?>
 		</TD>
 	</TR>
@@ -367,33 +375,33 @@ function Search(Source){
 		<TD>
 		<TABLE width="100%" border=0 cellPadding=0 cellSpacing=0>
 		<TBODY>
-			<TR> 
+			<TR>
 				<?php if (is_array($list) && count($list)>0){
 					for($i=0;$i<$FG_NB_TABLE_COL;$i++){ ?>
-						<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title"> 
-						<center><strong> 
+						<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title">
+						<center><strong>
 						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-						<a href="<?php  echo "$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url";?>"> 
+						<a href="<?php  echo "$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url";?>">
 						<?php  } ?>
-						<?php echo $FG_TABLE_COL[$i][0]?> 
+						<?php echo $FG_TABLE_COL[$i][0]?>
 						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-							</a> 
+							</a>
 						<?php }?>
 						</strong></center></TH>
-				   	<?php } ?>		
+				   	<?php } ?>
 			</TR>
 			<?php
 				 $alternate=0;
-				 foreach ($list as $recordset){ 
+				 foreach ($list as $recordset){
 				 $alternate=($alternate+1) % 2;
 			?>
-			<TR> 
+			<TR>
 				<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){
 					$record_display = $recordset[$i];
 					if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
-						$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";  
+						$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";
 					} ?>
-                 			<TD class="tabletr_<?php echo $alternate;?>" vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>"><?php 
+                 			<TD class="tabletr_<?php echo $alternate;?>" vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>"><?php
 					if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						call_user_func($FG_TABLE_COL[$i][11], $record_display);
 					}else{
@@ -413,10 +421,10 @@ function Search(Source){
 	</td>
 	</tr>
 	<TR>
-	<TD> 
+	<TD>
 		<?php
 		$c_url="$page_url?stitle=$stitle&order=$order&sens=$sens&current_page=%s&posted=$posted&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url";
-		printPages($current_page+1, $nb_record_max, $c_url); 
+		printPages($current_page+1, $nb_record_max, $c_url);
 		?>
 	</TD>
 	</TD>
