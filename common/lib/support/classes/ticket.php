@@ -1,6 +1,7 @@
 <?php
 class Ticket
 {
+
    private $id;
    private $title;
    private $description;
