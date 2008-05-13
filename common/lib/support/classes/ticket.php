@@ -153,7 +153,7 @@ class Ticket
 	     		 $subreturn = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
 	     		 $subvalue = $subreturn[0];
 		        if(!is_null($subvalue)){
-		        	$comment->setCreatorname( $subvalue["name"]);
+		        	$comment->setCreatorname( gettext("(ADMINISTRATOR) ").$subvalue["name"]);
 		        }
         	}else{
 
