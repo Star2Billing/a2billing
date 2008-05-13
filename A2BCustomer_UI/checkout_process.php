@@ -286,11 +286,11 @@ if ($id > 0 ){
 	$field_insert = "date, credit, card_id";
 	$value_insert = "'$nowDate', '".$amount_paid."', '$id'";
 	$instance_sub_table = new Table("cc_logrefill", $field_insert);
-	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
+	$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
-
-	$field_insert = "date, payment, card_id";
-	$value_insert = "'$nowDate', '".$amount_paid."', '$id'";
+	
+	$field_insert = "date, payment, card_id, id_logrefill";
+	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill'";
 	$instance_sub_table = new Table("cc_logpayment", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");

@@ -1,26 +1,25 @@
 <?php
 
-getpost_ifset(array('id', 'card_id', 'date', 'payment'));
+getpost_ifset(array('id', 'card_id', 'date', 'credit'));
 
 
 if (!isset($form_action) || $form_action=="list"){
-	$HD_Form = new FormHandler("cc_logpayment LEFT JOIN cc_card ON cc_card.id=card_id","payment");
+	$HD_Form = new FormHandler("cc_logrefill LEFT JOIN cc_card ON cc_card.id=card_id","Refill");
 }else{
-	$HD_Form = new FormHandler("cc_logpayment","payment");
+	$HD_Form = new FormHandler("cc_logrefill","Refill");
 }
 
-$HD_Form -> FG_TABLE_ID = 'cc_logpayment.id';
+$HD_Form -> FG_TABLE_ID = 'cc_logrefill.id';
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-$HD_Form -> AddViewElement(gettext("ID"), "cc_logpayment.id", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CARD"), "username", "25%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "30%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "30%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "20%", "center", "sort", "", "lie_link", "cc_logrefill", "credit, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_logrefill.php");
+$HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "30%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "30%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('cc_logpayment.id, username, date, payment, id_logrefill');
+$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date, cc_logrefill.credit	');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -61,18 +60,18 @@ $HD_Form -> AddEditElement (gettext("PAYMENT DATE"),
 			   gettext("Insert the current date"),
 			   "" , "", "",	"", "", "", "", "" );
 
-$HD_Form -> AddEditElement (gettext("PAYMENT AMOUNT"),
-			   "payment",		
+$HD_Form -> AddEditElement (gettext("REFILL AMOUNT"),
+			   "credit",		
 			   '$value',	
 			   "INPUT",	
 			   "size=60 maxlength=10",	
 			   "12",	
-			   gettext("Insert the payment amount"),
+			   gettext("Insert the credit amount"),
 			   "" , "", "",	"", "" , "", "", gettext("Enter the amount in the currency base : ").BASE_CURRENCY );
 
 
 
-$HD_Form -> FieldEditElement ('card_id, date, payment');
+$HD_Form -> FieldEditElement ('card_id, date, credit');
 
 
 

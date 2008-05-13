@@ -789,6 +789,8 @@ CREATE TRIGGER after_ins_cc_card AFTER INSERT ON cc_card FOR EACH ROW EXECUTE PR
 
 
 
+-- More info into log payment
+ALTER TABLE cc_logpayment ADD COLUMN id_logrefill BIGINT DEFAULT NULL;
 
 
 -- Support / Ticket section

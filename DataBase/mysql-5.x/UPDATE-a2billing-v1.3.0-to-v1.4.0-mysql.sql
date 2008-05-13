@@ -783,7 +783,8 @@ ALTER TABLE cc_currencies CHANGE value value NUMERIC (12,5) unsigned NOT NULL DE
 --DELIMITER ;
 
 
-
+-- More info into log payment
+ALTER TABLE cc_logpayment ADD COLUMN id_logrefill BIGINT DEFAULT NULL;
 
 
 -- Support / Ticket section

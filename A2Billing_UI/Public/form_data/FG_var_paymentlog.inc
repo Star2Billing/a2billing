@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'status', 'Period', 'frommonth', 'fromstatsmonth', 'to
 $HD_Form = new FormHandler("cc_epayment_log");
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID="id";
+$HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
