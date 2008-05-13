@@ -843,5 +843,5 @@ CREATE TABLE cc_support_component
 INSERT INTO cc_config(
              config_title, config_key, config_value, config_description,
             config_valuetype, config_group_id, config_listvalues)
-    VALUES ( 'Support Modules', 'support', '0', 'Enable or Disable the module of support', 1, 3, 'yes,no');
+    VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
 
