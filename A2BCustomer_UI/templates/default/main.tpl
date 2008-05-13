@@ -121,7 +121,7 @@
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li></ul>
 		{/if}
-		{if true }
+		{if $A2Bconfig.webcustomerui.support==1 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_support.php?section=14"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li></ul>
 		{/if}

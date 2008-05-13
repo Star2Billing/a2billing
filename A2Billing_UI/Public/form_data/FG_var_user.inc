@@ -26,7 +26,7 @@ if (is_numeric($groupID)){
 }else{
 	$FG_TABLE_CLAUSE = "groupid='1'";
 }
-		
+
 $HD_Form -> FG_TABLE_CLAUSE = $FG_TABLE_CLAUSE;
 
 $right_list = array();
@@ -46,6 +46,8 @@ $right_list["12"] = array( gettext("OUTBOUND CID"), "2048");
 $right_list["13"] = array( gettext("PACKAGE OFFER"), "4096");
 //$right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
 $right_list["14"] = array( gettext("INVOICES"), "16384");
+$right_list["15"] = array( gettext("SUPPORT"), "32768");
+
 $len_right_list = count($right_list);
 
 
@@ -56,7 +58,7 @@ $HD_Form -> AddViewElement(gettext("PASSWORD"), "password", "24%", "center", "so
 
 $HD_Form -> FieldViewElement ('userid, datecreation, login, password');
 
-$HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -104,10 +106,10 @@ if ($groupID!="0"){
 		"SELECT",
 		"size=\"$len_right_list\" multiple=\"multiple\"",
 		"", "",
-		"list", "", "description, id", "", $right_list, "%1" , "", 
+		"list", "", "description, id", "", $right_list, "%1" , "",
 		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 }
-	
+
 
 $HD_Form -> AddEditElement (gettext("NAME"),
 	"name",
@@ -117,7 +119,7 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	"",
 	gettext("Insert the name"),
 	"" , "", "", "", "", "", "", "");
-		
+
 $HD_Form -> AddEditElement (gettext("ADDRESS"),
 	"direction",
 	'$value',
@@ -126,7 +128,7 @@ $HD_Form -> AddEditElement (gettext("ADDRESS"),
 	"",
 	gettext("Insert the direction"),
 	"" , "", "", "", "", "", "", "");
-	
+
 $HD_Form -> AddEditElement (gettext("ZIPCODE"),
 	"zipcode",
 	'$value',
@@ -153,7 +155,7 @@ $HD_Form -> AddEditElement (gettext("PHONE"),
 	"",
 	gettext("Insert the telephone number"),
 	"" , "", "", "", "" , "", "", "");
-	
+
 $HD_Form -> AddEditElement (gettext("FAX"),
 	"fax",
 	'$value',
@@ -162,7 +164,7 @@ $HD_Form -> AddEditElement (gettext("FAX"),
 	"",
 	gettext("Insert the fax number"),
 	"" , "", "", "", "" , "", "", "");
-	
+
 
 if (($groupID=="2") || ($groupID=="3")){
 	if ($groupID=="2"){
@@ -186,12 +188,12 @@ if (($groupID=="2") || ($groupID=="3")){
 			"login, userID",
 			"groupID='1'", "", "%2 (%1)", "", "" );
 	}
-}	
-																											
+}
+
 if ($form_action!="ask-add" && $form_action!="add"){
         $FG_QUERY_EDITION='userid, ';
 }
-	
+
 $FG_QUERY_EDITION .= 'login, password, ';
 
 if ($groupID!="0"){
@@ -206,10 +208,10 @@ $HD_Form -> FG_EDITION_CLAUSE = " userid='%id'";
 
 if (DB_TYPE == "postgres"){
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";	
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
 }else{
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreation, ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now(), ";	
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now(), ";
 }
 
 if (is_numeric($groupID)){
@@ -218,7 +220,7 @@ if (is_numeric($groupID)){
 
 	$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS  = "groupID";
 	$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE   = "$groupID";
-	
+
 	if ($groupID=="0"){
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= ", perms";
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= ", 1023";
@@ -235,13 +237,13 @@ if (($popup_select>=1)){
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
-	
+
 //echo $popup_select;
 if ($popup_select==1){
-	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";	
+	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 }
 }
-						 
+
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");

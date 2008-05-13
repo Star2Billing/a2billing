@@ -79,6 +79,12 @@ $smarty->display('main.tpl');
 	</tr>
 	<tr>
 		<td colspan="2">
+		 <font style="font-weight:bold; " ><?php echo gettext("COMPONENT : "); ?></font>  <?php echo $ticket->getComponentname();  ?>
+
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
 		<br/>
 		<font style="font-weight:bold; " ><?php echo gettext("DESCRIPTION : "); ?></font>  <br/> <?php echo $ticket->getDescription();  ?></td>
 	</tr>
@@ -96,7 +102,9 @@ $smarty->display('main.tpl');
 	<table class="epayment_conf_table">
 	  <?php
 	   $return_status = Ticket::getPossibleStatus($ticket->getStatus(),true);
-	  if(!is_null($return_status)) {  ?>
+	  if(!is_null($return_status)) {
+
+	  	 ?>
 		<tr>
 			<td colspan="2">	<font style="font-weight:bold; " ><?php echo gettext("STATUS : "); ?></font>
 
@@ -131,7 +139,7 @@ $smarty->display('main.tpl');
 
 		<tr>
 			<td colspan="2" align="center">
-			 <textarea name="comment" cols="100" rows="10"></textarea>
+			 <textarea class="form_input_textarea" name="comment" cols="100" rows="10"></textarea>
 
 			 </td>
 		</tr>

@@ -1,5 +1,5 @@
 <?php
- 
+
 // Hack to allow PHP4 use stripos() that is only supported in PHP5
 if (!function_exists("stripos")) {
 	function stripos($str,$needle) {
@@ -32,17 +32,17 @@ function openURLFilter(theLINK)
 {
 	selInd = document.theFormFilter.choose_list.selectedIndex;
 	if(selInd==0){return false;}
-	goURL = document.theFormFilter.choose_list.options[selInd].value;      
+	goURL = document.theFormFilter.choose_list.options[selInd].value;
 	this.location.href = theLINK + goURL;
 }
 //-->
 </script>
-  
-	  
-	  
+
+
+
       <table width="<?php echo $this->FG_VIEW_TABLE_WITDH; ?>" border="0" align="center" cellpadding="0" cellspacing="0">
 	  <?php  IF ($this -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE){ ?>
-		<TR> 
+		<TR>
 		  <TD class="tdstyle_002"><span>
           	  <b><?php echo $this -> CV_TEXT_TITLE_ABOVE_TABLE?></b></span>
 		  </TD>
@@ -50,7 +50,7 @@ function openURLFilter(theLINK)
 	   <?php  } //END IF ?>
 	  <?php  IF ($this -> CV_DO_ARCHIVE_ALL){ ?>
 		<TR>
-			<FORM NAME="theFormFilter" action="<?php echo $_SERVER['PHP_SELF']?>">	
+			<FORM NAME="theFormFilter" action="<?php echo $_SERVER['PHP_SELF']?>">
 			<input type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
 			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
 			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
@@ -69,54 +69,54 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
             <TD class="tdstyle_002"><span >
 				<SELECT name="choose_list" size="1" class="form_input_select" style="width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
-				
+
 					<OPTION><?php echo gettext("Sort");?></OPTION>
-				
-					<?php	
-						// TODO not sure for what should be used that, because exist already a filter.	
+
+					<?php
+						// TODO not sure for what should be used that, because exist already a filter.
 						if (!isset($list_site)) $list_site = $list;
-						foreach ($list_site as $recordset){ 						 
+						foreach ($list_site as $recordset){
 					?>
 					<OPTION class=input value='<?php echo $recordset[0]?>'  <?php if ($recordset[0]==$site_id) echo "selected";?>><?php echo $recordset[1]?></OPTION>
 					<?php 	 }
 					?>
 				</SELECT>
-			  </SPAN></TD></FORM>	
+			  </SPAN></TD></FORM>
         </TR>
 		<?php  } //END IF ?>
-		
-		<tr> 
-          <td class="viewhandler_table2_td3"> 
+
+		<tr>
+          <td class="viewhandler_table2_td3">
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tr> 
+                <tr>
                   <td><span class="viewhandler_span1"> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </span></td>
                   <td align="right"> <span class="viewhandler_span1"> <?php echo $this -> FG_NB_RECORD.' '.gettext("Records"); ?></span></td>
                 </tr>
             </table></td>
         </tr>
-		
+
 		<?php
 		// Add filter  FG_FILTER_APPLY , FG_FILTERFIELD and FG_FILTER_FORM_ACTION
 		if ($this -> FG_FILTER_APPLY || $this -> FG_FILTER_APPLY2){
 		?>
-		<tr><FORM NAME="theFormFilter" action="<?php echo $_SERVER['PHP_SELF']?>">	
+		<tr><FORM NAME="theFormFilter" action="<?php echo $_SERVER['PHP_SELF']?>">
 			<input type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
 			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
 			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-			
+
 			<INPUT type="hidden" name="form_action"	value="<?php echo $this->FG_FILTER_FORM_ACTION ?>">
             <td class="viewhandler_filter_td1">
-			<span >		
+			<span >
 			<?php if ($this -> FG_FILTER_APPLY){ ?>
-				   		
+
 				<font class="viewhandler_filter_on"><?php echo gettext("FILTER ON ");?> <?php echo strtoupper($this->FG_FILTERFIELDNAME)?> :</font>
 				<INPUT type="text" name="filterprefix" value="" class="form_input_text">
-				
+
 				<INPUT type="hidden" name="filterfield"	value="<?php echo $this->FG_FILTERFIELD?>">
 				<?php
 				if ($this -> FG_FILTERTYPE == 'INPUT'){
-					// IT S OK 
+					// IT S OK
 				}elseif ($this -> FG_FILTERTYPE == 'POPUPVALUE'){
 				?>
 					<a href="#" onclick="window.open('<?php echo $this->FG_FILTERPOPUP[0]?>popup_formname=theFormFilter&popup_fieldname=filterprefix' <?php echo $this->FG_FILTERPOPUP[1]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
@@ -124,90 +124,90 @@ function openURLFilter(theLINK)
 				}
 
 			}
-			
+
 			if ($this -> FG_FILTER_APPLY2){ ?>
-				&nbsp;&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;&nbsp; 
+				&nbsp;&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;&nbsp;
 				<font class="viewhandler_filter_on"><?php echo gettext("FILTER ON");?><?php echo strtoupper($this->FG_FILTERFIELDNAME2)?> :</font>
-				<INPUT type="text" name="filterprefix2" value="" class="form_input_text">				
+				<INPUT type="text" name="filterprefix2" value="" class="form_input_text">
 				<INPUT type="hidden" name="filterfield2"	value="<?php echo $this->FG_FILTERFIELD2?>">
 				<?php
 				if ($this -> FG_FILTERTYPE2 == 'INPUT'){
-					// IT S OK 
+					// IT S OK
 				}elseif ($this -> FG_FILTERTYPE2 == 'POPUPVALUE'){
 				?>
 					<a href="#" onclick="window.open('<?php echo $this->FG_FILTERPOPUP2[0]?>popup_formname=theFormFilter&popup_fieldname=filterprefix2' <?php echo $this->FG_FILTERPOPUP2[1]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 				<?php
 				}
-			} 
+			}
 			?>
 				<input type="SUBMIT" value="<?php echo gettext("APPLY FILTER ");?>" class="form_input_button"/>
 			</span>
-			</td></FORM>	
+			</td></FORM>
         </tr>
 		<?php } ?>
-		
-        <TR> 
-          <TD> 
+
+        <TR>
+          <TD>
 
 			<TABLE border="0" cellPadding="2" cellSpacing="2" width="100%">
-				<TR class="form_head"> 
-				<?php 
-					  for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){ 
-				?>				
-				 <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $this->FG_TABLE_COL[$i][2]?>" > 				
-						<strong> 
+				<TR class="form_head">
+				<?php
+					  for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){
+				?>
+				 <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $this->FG_TABLE_COL[$i][2]?>" >
+						<strong>
 						<?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
-						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>"> 
+						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>">
 						<font color="#FFFFFF"><?php  } ?>
-						<?php echo $this->FG_TABLE_COL[$i][0]?> 
+						<?php echo $this->FG_TABLE_COL[$i][0]?>
 						<?php if ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="ASC"){?>
 						&nbsp;<img src="<?php echo Images_Path_Main;?>/icon_up_12x12.GIF" border="0">
 						<?php }elseif ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="DESC"){?>
 						&nbsp;<img src="<?php echo Images_Path_Main;?>/icon_down_12x12.GIF" border="0">
 						<?php }?>
 						<?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
-						</font></a> 
+						</font></a>
 						<?php }?>
 						</strong></TD>
-			   <?php } 		
+			   <?php }
 				 if ($this->FG_DELETION || $this->FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){ ?>
 					 <td width="<?php echo $this->FG_ACTION_SIZE_COLUMN?>" align="center" class="tableBody" ><strong> <?php echo gettext("ACTION");?></strong> </td>
-			   <?php } ?>		
+			   <?php } ?>
                 </TR>
-		<?php			
+		<?php
 			 /**********************   START BUILDING THE TABLE WITH BROWSING VALUES ************************/
 			 for ($ligne_number=0;$ligne_number<count($list);$ligne_number++){
 
 		?>
 
-               	 <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onmouseover="bgColor='#FFDEA6'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'"> 
-		  		<?php 
+               	 <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onmouseover="bgColor='#FFDEA6'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'">
+		  		<?php
 				$k=0;
-				for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){ 
+				for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){
 					/**********************   select the mode to browse define the column value : lie, list, value, eval.... ************************/
 					if ($this->FG_TABLE_COL[$i][6]=="lie"){
 						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
 						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
-						
+
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
-								
-						for ($l=1;$l<=count($field_list_sun);$l++){													
+
+						for ($l=1;$l<=count($field_list_sun);$l++){
 							$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);
-						}						
-						
+						}
+
 					}elseif($this->FG_TABLE_COL[$i][6]=="lie_link"){
 						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
 						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
-						$link = $this->FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];		
-						for ($l=1;$l<=count($field_list_sun);$l++){													
+						$link = $this->FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];
+						for ($l=1;$l<=count($field_list_sun);$l++){
 							$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
 							$record_display = "<a href='$link'>$val</a>";
-						}						
+						}
 
 					}
 					elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
@@ -219,7 +219,7 @@ function openURLFilter(theLINK)
 						eval("\$eval_res = $string_to_eval;");
 						$record_display = $eval_res;
 						//$record_display = "\$eval_res = $string_to_eval";
-						
+
 					}elseif ($this->FG_TABLE_COL[$i][6]=="list"){
 						$select_list = $this->FG_TABLE_COL[$i][7];
 						$record_display = $select_list[$list[$ligne_number][$i-$k]][0];
@@ -233,7 +233,7 @@ function openURLFilter(theLINK)
 					}else{
 						$record_display = $list[$ligne_number][$i-$k];
 					}
-					
+
 					/**********************   IF LENGHT OF THE VALUE IS TOO LONG IT MIGHT BE CUT ************************/
 					if ( is_numeric($this->FG_TABLE_COL[$i][5]) && (strlen($record_display) > $this->FG_TABLE_COL[$i][5])  ){
 						$record_display = substr($record_display, 0, $this->FG_TABLE_COL[$i][5])."";
@@ -277,7 +277,7 @@ function openURLFilter(theLINK)
 								if (strpos($this -> FG_OTHER_BUTTON1_LINK,"|param1|")){
 									$new_FG_OTHER_BUTTON1_LINK = str_replace("|param1|",$list[$ligne_number][$this->FG_NB_TABLE_COL-1],$this -> FG_OTHER_BUTTON1_LINK);
 								}
-								
+
 								// REPLACE |colX|  where is a numero of the column by the column value
 								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON1_LINK)) {
 									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
@@ -288,7 +288,7 @@ function openURLFilter(theLINK)
 										}
 									}
 								}
-								
+
 								// REPLACE |col_origX|  where is a numero of the column by the column value
 								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON1_LINK)) {
 									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
@@ -299,7 +299,7 @@ function openURLFilter(theLINK)
 										}
 									}
 								}
-								
+
 								echo $new_FG_OTHER_BUTTON1_LINK;
 								if (substr($new_FG_OTHER_BUTTON1_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
 								if (strlen($this -> FG_OTHER_BUTTON1_IMG)==0){
@@ -311,7 +311,7 @@ function openURLFilter(theLINK)
 								?></a>
 						<?php } ?>
 						<?php if($this->FG_OTHER_BUTTON2){ ?>
-							<a href="<?php 
+							<a href="<?php
 								$new_FG_OTHER_BUTTON2_LINK = $this -> FG_OTHER_BUTTON2_LINK;
 								if (strpos($this -> FG_OTHER_BUTTON2_LINK,"|param|")){
 									$new_FG_OTHER_BUTTON2_LINK = str_replace("|param|",$list[$ligne_number][$this->FG_NB_TABLE_COL],$this -> FG_OTHER_BUTTON2_LINK);
@@ -320,7 +320,7 @@ function openURLFilter(theLINK)
 								if (strpos($this -> FG_OTHER_BUTTON2_LINK,"|param1|")){
 									$new_FG_OTHER_BUTTON2_LINK = str_replace("|param1|",$list[$ligne_number][$this->FG_NB_TABLE_COL-1],$this -> FG_OTHER_BUTTON2_LINK);
 								}
-								
+
 								// REPLACE |colX|  where is a numero of the column by the column value
 								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON2_LINK)) {
 									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
@@ -331,7 +331,7 @@ function openURLFilter(theLINK)
 										}
 									}
 								}
-								
+
 								// REPLACE |col_origX|  where is a numero of the column by the column value
 								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON2_LINK)) {
 									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
@@ -388,7 +388,7 @@ function openURLFilter(theLINK)
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                 <TR>
                   <TD align="right" valign="bottom"><span class="viewhandler_span2">
-					<?php					
+					<?php
 					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$_GET['order']."&sens=".$_GET['sens']."&mydisplaylimit=".$_GET['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
 					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$_GET['letter'];
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;
@@ -398,7 +398,7 @@ function openURLFilter(theLINK)
             </TABLE></TD>
         </TR>
 		<?php  	} 	?>
-		
+
 		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
 		<tr><td>
 		<?php if ($this->CV_DISPLAY_RECORD_LIMIT){ ?>
@@ -414,7 +414,7 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
 			<input type="hidden" name="type" value="<?php echo $_GET['type']?>">
 			<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
-			
+
 			<select name="mydisplaylimit" size="1" class="form_input_select">
 				<option value="10" selected>10</option>
 				<option value="50">50</option>

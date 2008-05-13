@@ -1,6 +1,7 @@
 <?php
+include (LIBDIR."/support/classes/ticket.php");
 
-getpost_ifset(array('id', 'title', 'id_component','description','priority','creator','username' ));
+getpost_ifset(array('id', 'title', 'id_component','description','priority','status','creator','username' ));
 
 if (($form_action=='ask-edit') || ($form_action=='ask-add') || ($form_action=='add') || ($form_action=='edit') || ($form_action=='ask-delete') || ($form_action=='delete')){
 	 $HD_Form = new FormHandler("cc_ticket","Ticket");
@@ -27,15 +28,20 @@ $priority_list["2"] = array( gettext("MEDIUM"), "2");
 $priority_list["3"] = array( gettext("HIGH"), "3");
 
 
+$status_list = Ticket::getAllStatusListView();
+
+
+
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("HOLDER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "12%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("TITLE"), "title", "20%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("COMPONENT"), "id_component", "10%", "center", "sort", "15", "lie", "cc_support_component", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "sort", "", "list", $priority_list);
+$HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort", "", "list", $status_list);
 
-$HD_Form -> FieldViewElement ('cc_ticket.id, creator, username, title, cc_ticket.creationdate, id_component , priority');
+$HD_Form -> FieldViewElement ('cc_ticket.id, creator, username, title, cc_ticket.creationdate, id_component , priority , cc_ticket.status');
 
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "CC_ticket_view.php?id=";

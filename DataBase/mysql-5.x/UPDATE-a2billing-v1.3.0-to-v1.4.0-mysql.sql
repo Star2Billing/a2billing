@@ -78,7 +78,7 @@ ALTER TABLE cc_card ADD COLUMN id_timezone INT DEFAULT 0;
 
 CREATE TABLE cc_config_group (
   	id 								INT NOT NULL auto_increment,
-	group_title 					VARCHAR(64) NOT NULL,	
+	group_title 					VARCHAR(64) NOT NULL,
 	group_description 				VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -103,7 +103,7 @@ CREATE TABLE cc_config (
 	config_key 						VARCHAR( 100 )  NOT NULL,
 	config_value 					VARCHAR( 100 )  NOT NULL,
 	config_description 				VARCHAR( 255 )  NOT NULL,
-	config_valuetype				INT NOT NULL DEFAULT 0,	
+	config_valuetype				INT NOT NULL DEFAULT 0,
 	config_group_id 				INT NOT NULL,
 	config_listvalues				VARCHAR( 100 ) ,
 	PRIMARY KEY (id)
@@ -556,7 +556,7 @@ ALTER TABLE cc_templatemail ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST
 ADD id_language CHAR( 20 ) NOT NULL DEFAULT 'en' AFTER id ;
 ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL ;
 ALTER TABLE cc_templatemail DROP PRIMARY KEY;
-ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language ); 
+ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language );
 
 
 ALTER TABLE cc_card ADD status INT NOT NULL DEFAULT '1' AFTER activated ;
@@ -602,7 +602,7 @@ ALTER TABLE cc_call ADD COLUMN real_sessiontime INT (11) DEFAULT NULL;
 -- Never too late to add some indexes :D
 
 ALTER TABLE `cc_call` ADD INDEX ( `username` );
-ALTER TABLE `cc_call` ADD INDEX ( `starttime` ); 
+ALTER TABLE `cc_call` ADD INDEX ( `starttime` );
 ALTER TABLE `cc_call` ADD INDEX ( `terminatecause` );
 ALTER TABLE `cc_call` ADD INDEX ( `calledstation` );
 
@@ -651,7 +651,7 @@ CREATE TABLE cc_call_archive (
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 ALTER TABLE `cc_call_archive` ADD INDEX ( `username` );
-ALTER TABLE `cc_call_archive` ADD INDEX ( `starttime` ); 
+ALTER TABLE `cc_call_archive` ADD INDEX ( `starttime` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `terminatecause` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );
 
@@ -775,7 +775,7 @@ ALTER TABLE cc_currencies CHANGE value value NUMERIC (12,5) unsigned NOT NULL DE
 --DELIMITER //
 --CREATE TRIGGER `after_ins_cc_card` AFTER INSERT ON `cc_card`
 -- FOR EACH ROW begin
---    
+--
 --
 --    insert into cc_logrefill(credit,card_id,reseller_id) values(NEW.credit,NEW.id,NEW.reseller);
 --  end
@@ -801,51 +801,52 @@ CREATE TABLE cc_card_archive (
 	tariff 							INT DEFAULT 0,
 
 
+
+
+CREATE TABLE cc_support (
+  id smallint(5) NOT NULL auto_increment,
+  `name` varchar(50) collate utf8_bin NOT NULL,
+  PRIMARY KEY  (id)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
+CREATE TABLE cc_support_component (
+  id smallint(5) NOT NULL auto_increment,
+  id_support smallint(5) NOT NULL,
+  `name` varchar(50) collate utf8_bin NOT NULL,
+  activated smallint(6) NOT NULL default '1',
+  PRIMARY KEY  (id)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
 CREATE TABLE cc_ticket (
-	id 								BIGINT NOT NULL AUTO_INCREMENT,
-	id_component 					BIGINT NOT NULL,
-	title							CHAR(100) NOT NULL,
-	description						TEXT,
-	priority						INT NOT NULL DEFAULT 0,
-	creationdate					TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL,
-	creator							BIGINT NOT NULL,
-	status							INT NOT NULL DEFAULT 0,
-	PRIMARY KEY  (id)
-);
+  id bigint(10) NOT NULL auto_increment,
+  id_component smallint(5) NOT NULL,
+  title varchar(100) collate utf8_bin NOT NULL,
+  description text collate utf8_bin,
+  priority smallint(6) NOT NULL default '0',
+  creationdate timestamp NOT NULL default CURRENT_TIMESTAMP,
+  creator bigint(20) NOT NULL,
+  `status` smallint(6) NOT NULL default '0',
+  PRIMARY KEY  (id)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
 
 CREATE TABLE cc_ticket_comment (
-  id 								BIGINT NOT NULL AUTO_INCREMENT,
-  date								TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL,
-  id_ticket							BIGINT NOT NULL,
-  description						TEXT,
-  creator							BIGINT NOT NULL,
-  is_admin							INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (id),
-  CONSTRAINT cc_ticket_id_fkey FOREIGN KEY (id_ticket)
-      REFERENCES cc_ticket (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE CASCADE
-)
-WITH (OIDS=TRUE);
+  id bigint(20) NOT NULL auto_increment,
+  `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  id_ticket bigint(10) NOT NULL,
+  description text collate utf8_bin,
+  creator bigint(20) NOT NULL,
+  is_admin char(1) collate utf8_bin NOT NULL default 'f',
+  PRIMARY KEY  (id)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-CREATE TABLE cc_support
-(
-  id bigserial NOT NULL,
-  "name" character varying(255) NOT NULL,
-  activated integer NOT NULL DEFAULT 0,
-  CONSTRAINT cc_support_pkey PRIMARY KEY (id)
-)
-WITH (OIDS=TRUE);
+INSERT INTO `cc_config` ( `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_group_id`, `config_listvalues`)
+ VALUES ( 'Support Modules', 'support', '0', 'Enable or Disable the module of support', 1, 3, 'yes,no');
 
-CREATE TABLE cc_support_component
-(
-  id bigserial NOT NULL,
-  id_support bigserial NOT NULL,
-  "name" character varying(100) NOT NULL DEFAULT ''::character varying,
-  activated integer NOT NULL DEFAULT 0,
-  CONSTRAINT cc_support_component_pkey PRIMARY KEY (id),
-  CONSTRAINT cc_support_id_fkey FOREIGN KEY (id_support)
-      REFERENCES cc_support (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE CASCADE
-)
-WITH (OIDS=TRUE);
+

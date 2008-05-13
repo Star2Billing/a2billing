@@ -76,6 +76,12 @@ $smarty->display('main.tpl');
 	</tr>
 	<tr>
 		<td colspan="2">
+		 <font style="font-weight:bold; " ><?php echo gettext("COMPONENT : "); ?></font>  <?php echo $ticket->getComponentname();  ?>
+
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
 		<br/>
 		<font style="font-weight:bold; " ><?php echo gettext("DESCRIPTION : "); ?></font>  <br/> <?php echo $ticket->getDescription();  ?></td>
 	</tr>
@@ -131,7 +137,7 @@ $smarty->display('main.tpl');
 
 		<tr>
 			<td colspan="2" align="center">
-			 <textarea name="comment" cols="100" rows="10"></textarea>
+			 <textarea class="form_input_textarea" name="comment" cols="100" rows="10"></textarea>
 
 			 </td>
 		</tr>

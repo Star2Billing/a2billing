@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'name', 'activated' , 'popup_select'));
+getpost_ifset(array('id', 'name', 'popup_select'));
 
 
 
@@ -23,15 +23,11 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_support ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some components using this Support Box! Please comfirm that you really want to remove this Support Box? ");
 
 
-$activated_list = array();
-$activated_list["0"] = array( gettext("Desactivate"), "0");
-$activated_list["1"] = array( gettext("Activate"), "1");
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "20%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "15%", "center", "sort", "", "list", $activated_list);
 
-$HD_Form -> FieldViewElement ('id, name, activated');
+$HD_Form -> FieldViewElement ('id, name');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -51,19 +47,8 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	gettext("Insert the Support Box name "),
 	"" , "", "", "", "", "", "", "" );
 
-$HD_Form -> AddEditElement (gettext("ACTIVATED"),
-	"activated",
-	'$value',
-	"SELECT",
-	"",
-	"",
-	"",
-	"list" , "", "", "", $activated_list, "%1", "", "");
 
-
-
-
-$HD_Form -> FieldEditElement ('name, activated');
+$HD_Form -> FieldEditElement ('name');
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'name', 'activated' ,'id_support', 'popup_select'));
+getpost_ifset(array('id', 'name', 'activated' ,'id_support'));
 
 
 
@@ -32,7 +32,7 @@ $HD_Form -> AddViewElement(gettext("NAME"), "name", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "15%", "center", "sort", "", "list", $activated_list);
 $HD_Form -> AddViewElement(gettext("SUPPORT BOX"), "id_support", "10%", "center", "sort", "15", "lie", "cc_support", "name", "id='%id'", "%1");
 
-$HD_Form -> FieldViewElement ('id, name,activated');
+$HD_Form -> FieldViewElement ('id, name, activated, id_support ');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -54,12 +54,12 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"activated",
-	'$value',
-	"SELECT",
+	'1',
+	"RADIOBUTTON",
 	"",
 	"",
-	"",
-	"list" , "", "", "", $activated_list, "%1", "", "");
+	gettext("Choose if you want to activate this component"),
+	"" , "", "", "Yes :1, - No:0", "", "", "" , "" );
 
 $HD_Form -> AddEditElement (gettext("Support Box"),
 			   "id_support",

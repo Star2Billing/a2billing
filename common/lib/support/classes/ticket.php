@@ -8,6 +8,8 @@ class Ticket
    private $priority;
    private $creationdate;
    private $status;
+   private $componentid;
+   private $componentname;
 
 
 
@@ -34,6 +36,7 @@ class Ticket
         	$this->title =$value["title"];
         	$this->status =$value["status"];
         	$this->creationdate = $value["creationdate"];
+        	$this->componentid = $value["id_component"];
         }
 
      if(!is_null($this->creatorid)){
@@ -45,6 +48,18 @@ class Ticket
 
         if(!is_null($value)){
         	$this->creatorname = $value["lastname"]." ".$value["firstname"];
+        }
+     }
+
+     if(!is_null($this->componentid)){
+   	 $instance_comp_table = new Table("cc_support_component", "name");
+	 $QUERY = " id = ".$this->componentid;
+	 $return = null;
+     $return = $instance_comp_table -> Get_list($DBHandle, $QUERY, 0);
+     $value = $return[0];
+
+        if(!is_null($value)){
+        	$this->componentname = $value["name"];
         }
      }
 
@@ -96,9 +111,19 @@ class Ticket
 
    }
 
+   function getComponentid(){
+   		 return $this->componentid;
+   }
+
+   function getComponentname(){
+   		 return $this->componentname;
+
+
+   }
+
    function getCreationdate(){
 
-   	 return $this->creationdate;
+   	 return substr($this->creationdate,0,19);
    }
 
    function getCreatorname(){
@@ -161,8 +186,13 @@ class Ticket
 
    	$DBHandle  = DbConnect();
    	 $instance_sub_table = new Table("cc_ticket_comment", "*");
-   	 $QUERY_FIELDS = 'id_ticket, description,creator, is_admin';
-	 $QUERY_VALUES = "'$this->id', '$desc','$creator', '$isadmin'";
+   	 if (DB_TYPE == "postgres") {
+		 $QUERY_FIELDS = 'id_ticket, description,creator, is_admin';
+	 	 $QUERY_VALUES = "'$this->id', '$desc','$creator', '$isadmin'";
+	}else{
+		$QUERY_FIELDS = 'id_ticket, description,creator, is_admin , date';
+		$QUERY_VALUES = "'$this->id', '$desc','$creator', '$isadmin', now() ";
+	}
 	 $return = $instance_sub_table-> Add_table ($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_ticket_comment', 'id');
 
 
@@ -189,6 +219,17 @@ class Ticket
    	$result[2] = "REOPEN";
    	$result[3] = "CLOSED";
    	$result[4] = "INVALID";
+   	return $result;
+
+   }
+
+    public static function getAllStatusListView(){
+   	$result = array();
+   	$result[0] = array( gettext("NEW"), "0");
+   	$result[1] = array( gettext("FIXED"), "1");
+   	$result[2] = array( gettext("REOPEN"), "2");
+   	$result[3] = array( gettext("CLOSED"), "3");
+   	$result[4] = array( gettext("INVALID"), "4");
    	return $result;
 
    }

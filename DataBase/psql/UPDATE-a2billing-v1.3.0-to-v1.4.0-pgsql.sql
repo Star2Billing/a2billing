@@ -793,10 +793,24 @@ CREATE TRIGGER after_ins_cc_card AFTER INSERT ON cc_card FOR EACH ROW EXECUTE PR
 
 -- Support / Ticket section
 
+CREATE TABLE cc_ticket_comment
+(
+  id bigserial NOT NULL,
+  date timestamp without time zone NOT NULL DEFAULT now(),
+  id_ticket bigserial NOT NULL,
+  description text,
+  creator bigserial NOT NULL,
+  is_admin smallint NOT NULL DEFAULT 0,
+  CONSTRAINT cc_ticket_comment_pkey PRIMARY KEY (id),
+  CONSTRAINT cc_ticket_id_fkey FOREIGN KEY (id_ticket)
+      REFERENCES cc_ticket (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
 CREATE TABLE cc_ticket
 (
   id bigserial NOT NULL,
-  id_component bigint NOT NULL,
+  id_component integer NOT NULL,
   title character varying(100) NOT NULL,
   description text,
   priority integer NOT NULL DEFAULT 0,
@@ -806,37 +820,28 @@ CREATE TABLE cc_ticket
   CONSTRAINT cc_ticket_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE cc_ticket_comment
-(
-  id bigserial NOT NULL,
-  date timestamp without time zone NOT NULL DEFAULT now(),
-  id_ticket bigserial NOT NULL,
-  description text,
-  creator bigserial NOT NULL,
-  is_admin boolean NOT NULL DEFAULT false,
-  CONSTRAINT cc_ticket_comment_pkey PRIMARY KEY (id),
-  CONSTRAINT cc_ticket_id_fkey FOREIGN KEY (id_ticket)
-      REFERENCES cc_ticket (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE CASCADE
-);
-
 
 CREATE TABLE cc_support
 (
   id bigserial NOT NULL,
-  "name" character varying(255) NOT NULL,
-  activated integer NOT NULL DEFAULT 0,
+  "name" character varying(50) NOT NULL,
   CONSTRAINT cc_support_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE cc_support_component
 (
   id bigserial NOT NULL,
-  id_support bigserial NOT NULL,
-  "name" character varying(100) NOT NULL DEFAULT ''::character varying,
-  activated integer NOT NULL DEFAULT 0,
+  id_support integer NOT NULL,
+  "name" character varying(50) NOT NULL DEFAULT ''::character varying,
+  activated smallint NOT NULL DEFAULT 0,
   CONSTRAINT cc_support_component_pkey PRIMARY KEY (id),
   CONSTRAINT cc_support_id_fkey FOREIGN KEY (id_support)
       REFERENCES cc_support (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE
 );
+
+INSERT INTO cc_config(
+             config_title, config_key, config_value, config_description,
+            config_valuetype, config_group_id, config_listvalues)
+    VALUES ( 'Support Modules', 'support', '0', 'Enable or Disable the module of support', 1, 3, 'yes,no');
+

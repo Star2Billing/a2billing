@@ -19,7 +19,7 @@ class Comment
 
    function getCreationdate(){
 
-   	 return $this->creationdate;
+   	 return substr($this->creationdate,0,19);
    }
 
    function setCreatorname($creatorname){
