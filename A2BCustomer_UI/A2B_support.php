@@ -19,7 +19,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
-/************************************  ADD SPEED DIAL  ***********************************************/
+/************************************  ADD TICKET  ***********************************************/
 if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_numeric($component)){
 
 		$FG_SPEEDDIAL_TABLE  = "cc_ticket";
@@ -28,7 +28,7 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		if (DB_TYPE == "postgres"){
 			$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."')";
 		}else{
-			$QUERY = "INSERT INTO cc_speeddial (creator,title, description, id_component, priority, creationdate) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."', 'now()')";
+			$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, creationdate) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."', now())";
 		}
 
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
