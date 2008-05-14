@@ -179,7 +179,7 @@ if (isset($letter) && strlen($letter)!=0) {
 	}else{
 			$LIKE = "LIKE";
 	}
-	add_clause($FG_TABLE_CLAUSE,"t1.dialprefix ".$LIKE." '".strtolower ($letter)."%'");
+	add_clause($FG_TABLE_CLAUSE,"t1.destination ".$LIKE." '".strtolower ($letter)."%'");
 }
 
 
