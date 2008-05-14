@@ -1,6 +1,15 @@
-********************************************************************
-						V1.4
-********************************************************************
+
+
+14 May 2008	- Belaid Arezqui <areski@gmail.com>
+
+	* Fix on Ratecard APIs - display right number of page and remove current page on link Letter
+
+
+13 May 2008	- Belaid Arezqui <areski@gmail.com>
+	
+	* correct the search by letter for the api display_ratecard
+	* fixes for support module
+
 
 #### Regular expressions dialprefixes for ratecards
 ********************************************************************
