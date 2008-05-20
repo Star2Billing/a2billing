@@ -4,8 +4,8 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'id_didgroup','id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list', 
-'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 'voicemail_permitted' ));
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
+'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 'voicemail_permitted','email_notification','credit_notification','notify_email' ));
 
 $HD_Form = new FormHandler("cc_card","Card");
 $HD_Form -> FG_DEBUG = 0;
@@ -48,6 +48,21 @@ $simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
 $simultaccess_list_r = array();
 $simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
 $simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
+
+
+// Possible value to notify the user
+ $DBHandle  = DbConnect();
+ $instance_config_table = new Table("cc_config", "id, config_value");
+ $QUERY = " config_key = 'values_notifications' ";
+ $return = null;
+ $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
+ $values = explode(":",$return[0]["config_value"]);
+ $limits_notify = array();
+ $idx =0;
+  foreach ($values as $val)
+	{ 	$limits_notify [$idx] = array($val,$val);
+		$idx++;
+	}
 
 
 $currency_list = array();
@@ -137,7 +152,7 @@ $yesno["0"] = array( gettext("No"), "0");
 $invoiceday_list = array();
 for ($k=0;$k<=28;$k++)
 	$invoiceday_list["$k"]  = array( "$k", "$k");
-	
+
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
 if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
@@ -159,7 +174,7 @@ if (!($popup_select>=1)){
 	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
 		$FG_COL_QUERY='id, tag, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 	} else {
-		$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+		$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused ';
 	}
 }else{
 	$FG_COL_QUERY='id, username, lastname, credit';
@@ -215,15 +230,15 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
-	
+
 	if ($popup_select==1){
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
-		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[$FG_NB_TABLE_COL]."');\">&lt;Select Card&gt;</a>";						
-	}elseif ($popup_select==2){					
+		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[$FG_NB_TABLE_COL]."');\">&lt;Select Card&gt;</a>";
+	}elseif ($popup_select==2){
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col1|');";
-		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[1]."');\">&lt;Select Card&gt;</a>";					
-	}	
-	
+		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[1]."');\">&lt;Select Card&gt;</a>";
+	}
+
 } else {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
@@ -233,7 +248,7 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iaxfriend&form_action=add_iax&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
-	
+
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
 }
@@ -502,11 +517,11 @@ $HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 
 $HD_Form -> AddEditElement (gettext("INVOICE DAY"),
 			   "invoiceday",
-			   '$value',	
+			   '$value',
 			   "SELECT",
-			   "",	
-			   "",	
-			   "", 
+			   "",
+			   "",
+			   "",
 			   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice.") );
 
 
@@ -571,10 +586,10 @@ $HD_Form -> AddEditElement (gettext("CITY"),
 
 $HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
 			   "state",
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=40",	
-			   "11",	
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=40",
+			   "11",
 			   gettext("Insert the state"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
@@ -589,15 +604,15 @@ $HD_Form -> AddEditElement (gettext("COUNTRY"),
 			   "", "", "%1", "", "", "", '' );
 
 $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
-			   "zipcode",			
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=20",	
+			   "zipcode",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=20",
 			   "0",
 			   gettext("Insert the zipcode"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-$timezone_list = get_timezones();  
+$timezone_list = get_timezones();
 foreach($timezone_list as $key => $cur_value) {
 	if(in_array(SERVER_GMT,$cur_value)){
 		$timezone_list[$key]  = array( $cur_value[2], $key." selected");
@@ -613,23 +628,23 @@ $HD_Form -> AddEditElement (gettext("TIMEZONE"),
 			   "SELECT",
 			   "","","",
 			   "list" , "", "",	"", $timezone_list, "%1", "", "" );
-			   
+
 $HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
-			   "phone",			
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=20",	
-			   "7",	
+			   "phone",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=20",
+			   "7",
 			   gettext("Insert the phone number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
 $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
-			   "fax",			
-			   '$value',	
-			   "INPUT",	
+			   "fax",
+			   '$value',
+			   "INPUT",
 			   "size=30 maxlength=20",
-			   "",	
+			   "",
 			   gettext("Insert the fax number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
@@ -652,44 +667,81 @@ $HD_Form -> AddEditElement (gettext("IAX ACCOUNT"),
 			   "",
 			   gettext("Choose if you want to enable the iax account"),
 			   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable IAX account"));
-			   
+
 $HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
-			   "mac_addr",			
-			   '$value',	
-			   "INPUT",	
+			   "mac_addr",
+			   '$value',
+			   "INPUT",
 			   "size=20 maxlength=17",
-			   "",	
+			   "",
 			   gettext("Insert the MAC address customers' device"),
 			   "" , "", "",	"", "", "" , "NO", gettext("FORMAT: 00-08-74-4C-7F-1D"));
 
 
 $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "inuse",
-			   '$value',	
+			   '$value',
 			   "SELECT",
 			   "",
 			   "",
-			   "", 
+			   "",
 			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Define the number of use of this cardnumber. If a non-standard stop of the application occurs it maybe that the card is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this card.") );
 
 $HD_Form -> AddEditElement (gettext("INVOICE TEMPLATE"),
 			   "template_invoice",
-			   '',	
+			   '',
 			   "SELECT",
-			   "",	
-			   "",	
-			   "", 
+			   "",
+			   "",
+			   "",
 			   "list" , "", "",	"", $template_invoice_list, "%1", "", gettext("Define the default template to use to display invoice.") );
-			   
+
 $HD_Form -> AddEditElement (gettext("INCUR TEMPLATE"),
 			   "template_outstanding",
-			   '',	
+			   '',
 			   "SELECT",
-			   "",	
-			   "",	
-			   "", 
-			   "list" , "", "",	"", $template_outstanding_list, "%1", "", gettext("Define the default template to use to display incur.") );		
-			   
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $template_outstanding_list, "%1", "", gettext("Define the default template to use to display incur.") );
+
+
+$HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
+			   "credit_notification",
+			   '',
+			   "SELECT",
+			   "",
+			   "",
+			   gettext("Insert the number of credit when the customer receive a notification"),
+			   "list" , "", "", "", $limits_notify , "%1", "", gettext("currency : ").strtoupper(BASE_CURRENCY),"", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>'  );
+
+
+
+
+$HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
+			   "notify_email",
+			   '0',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to enable the notification by email for this card"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the notification by mail for this card."));
+
+$HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
+			   "email_notification",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=70",
+			   "1",
+			   gettext("Insert the email to notify the customers"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+
+
+
+
+
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "callerid",
 			   '$value',
@@ -701,6 +753,8 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "",
 			   "",
 			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card");
+
+
 
 $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   "description",
@@ -722,10 +776,10 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 2. Second param is the join condition coloumn
 			   // 3. Third will get all the columns (but first should be joining column)
 			   // 4. Fourth param generates the where cluase
-			   // 5. Last, Sixth param is the FK column  
+			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding');
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification ' );
 
 
 
@@ -780,3 +834,8 @@ if (isset($form_action) && $form_action=='delete'){
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
+
+
+
+

@@ -125,6 +125,11 @@
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_support.php?section=14"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li></ul>
 		{/if}
+		{if $A2Bconfig.webcustomerui.notification ==1 }
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="A2B_notification.php?section=15&form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></ul>
+		{/if}
+
 
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong>{php} echo gettext("LOGOUT");{/php}</strong></font></a></li></ul>
