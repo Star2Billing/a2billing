@@ -847,3 +847,54 @@ INSERT INTO cc_config(
             config_valuetype, config_group_id, config_listvalues)
     VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
 
+
+INSERT INTO cc_config_group (group_title ,group_description) VALUES
+ ( 'notifications', 'This configuration group handles the notifcations configuration');
+
+ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'List of possible values to notify', 'values_notifications', '10:20:50:100:500:1000', 'Possible values to choose when the user receive a notification. You can define a List e.g: 10:20:100.', '0', '12', NULL);
+
+ALTER TABLE cc_card ADD COLUMN email_notification text;
+
+ALTER TABLE cc_card ADD COLUMN notify_email smallint NOT NULL DEFAULT 0;
+
+ALTER TABLE cc_card ADD COLUMN credit_notification numeric(15, 5) DEFAULT -1;
+
+UPDATE cc_templatemail SET messagetext = '----------------------------
+Your Call-Labs account $cardnumber is low on credit ($currency $credit_currency)
+----------------------------
+
+
+Your Call-Labs Account number $cardnumber is running low on credit.
+
+There is currently only $credit_currency $currency left on your account which is lower than the warning level defined ($credit_notification)
+
+
+Please top up your account ASAP to ensure continued service
+
+If you no longer wish to receive these notifications or would like to change the balance amount at which these warnings are generated,
+please connect on your myaccount panel and change the appropriate parameters
+
+
+your account information :
+Your account number for VOIP authentication : $cardnumber
+
+http://myaccount.call-labs.com/
+Your account login : $cardalias
+Your account password : $password
+
+
+Thanks,
+/Call-Labs Team
+-------------------------------------
+http://www.call-labs.com
+ '
+WHERE cc_templatemail.mailtype ='reminder' ;
+
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
+ VALUES ( 'Notifications Modules', 'notification', '1', 'Enable or Disable the module of notification for the customers', 1, 3, 'yes,no');
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disable the cron module of notification for the customers. If it correctly configured in the crontab', '0', '12', 'yes,no');
+
+

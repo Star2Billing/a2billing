@@ -847,7 +847,7 @@ INSERT INTO cc_config_group (group_title ,group_description) VALUES
  INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'List of possible values to notify', 'values_notifications', '10:20:50:100:500:1000', 'Possible values to choose when the user receive a notification. You can define a List e.g: 10:20:100.', '0', '12', NULL);
 
-ALTER TABLE cc_card ADD email_notification VARCHAR( 70 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+ALTER TABLE cc_card ADD email_notification CHAR( 70 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 
 ALTER TABLE cc_card
 ADD notify_email SMALLINT NOT NULL DEFAULT '0';
@@ -886,5 +886,8 @@ http://www.call-labs.com
 WHERE cc_templatemail.mailtype ='reminder' AND CONVERT( cc_templatemail.id_language USING utf8 ) = 'en' LIMIT 1 ;
 
 INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
- VALUES ( 'Notifications Modules', 'notification', '1', 'Enable or Disable the module of notification', 1, 3, 'yes,no');
+ VALUES ( 'Notifications Modules', 'notification', '1', 'Enable or Disable the module of notification for the customers', 1, 3, 'yes,no');
 
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disable the cron module of notification for the customers. If it correctly configured in the crontab', '0', '12', 'yes,no');

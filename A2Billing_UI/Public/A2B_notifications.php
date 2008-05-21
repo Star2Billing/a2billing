@@ -55,27 +55,24 @@ $smarty->display('main.tpl');
  $id_config = $return[0]["id"];
 ?>
 
+   <?php if(!is_null($return)&& (!empty($return)>0) ){
+	$values = explode(":",$return[0]["config_value"]);
+ ?>
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 
-	 	   <?php if(!is_null($return)&& (!empty($return)>0) ){
-	 	   		$values = explode(":",$return[0]["config_value"]);
-	 	   	 ?>
 
 			<tr>
 			 	<td width="70%"><?php echo gettext("Possible values to choose when the user receive a notification");?>
 				<br/>
 				<br/>
-				<?php if ( has_rights (ACX_MISC)){ ?>
+			<?php if ( has_rights (ACX_MISC)){
+						echo gettext("To modify the list of values that the users can choose follow the link to access to configuration section.");
+						echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'&section=8">';
+						echo gettext("Modify") ."</a>";
+					 }else{
+						echo gettext("You don't have enough right to modify the list of values. Ask your administrator");
 
-						 	<?php echo gettext("To modify the list of values that the users can choose follow the link to access to configuration section.");
-
-					 			echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'&section=8">';
-						 		echo gettext("Modify") ."</a>";
-						      }else{ ?>
-								 	<?php echo gettext("You don't have enough right to modify the list of values. Ask your administrator");?>
-
-							<?php
-							} ?>
+					 } ?>
 
 			 	</td>
 			 	<td align="center">
@@ -91,8 +88,50 @@ $smarty->display('main.tpl');
 			</tr>
 
 
+
+
+</table>
 		<?php }?>
+<br/>
+
+<?php
+// Load the list of values in the config table ! key=values_notifications
+ $key= "cron_notifications";
+ $DBHandle  = DbConnect();
+ $instance_config_table = new Table("cc_config", "id, config_value");
+ $QUERY = " config_key = '".$key."' ";
+ $return = null;
+ $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
+ $id_config = $return[0]["id"];
+
+if(!is_null($return)&& (!empty($return)>0) ){
+ ?>
+
+<table align="center"  class="bgcolor_001" border="0" width="65%">
+<tr>
+	<td>
+
+
+	<?php
+		if($return[0]["config_value"]) echo gettext(" Actually , the cron process of notification is activated.");
+		else echo gettext(" Actually , the cron process of notification is desactivated.");
+		echo gettext(" If the cron process is correctly activated in the crontab ");
+
+		if ( has_rights (ACX_MISC)){
+
+		echo gettext("To Enable or Disable the process of notification follow the link to access to configuration section.");
+
+	    echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'&section=8">';
+		echo gettext("Modify") ."</a>";
+		}else{  echo gettext("You don't have enough right To Enable or Disable the process of notification. Ask your administrator");
+
+
+		} ?>
+
+ 	</td>
+</tr>
 
 </table>
 
+<?php }?>
 

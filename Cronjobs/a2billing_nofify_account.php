@@ -32,13 +32,8 @@ include_once (dirname(__FILE__)."/lib/Class.Table.php");
 include (dirname(__FILE__)."/lib/Class.A2Billing.php");
 include (dirname(__FILE__)."/lib/Misc.php");
 
-$test = "A B C";
-$test2 = $test;
-$test= str_replace('A', 'Z', $test);
-echo $test;
-echo $test2;
 
-$verbose_level=1;
+$verbose_level=0;
 $groupcard=5000;
 
 //$min_credit = 5;
@@ -54,6 +49,19 @@ if (!$A2B -> DbConnect()){
 	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
 	exit;
 }
+
+//Check if the notifications is Enable or Disable
+ $key= "cron_notifications";
+ $instance_config_table = new Table("cc_config", "config_value");
+ $QUERY_config = " config_key = '".$key."' ";
+ $return_config = null;
+ $return_config = $instance_config_table -> Get_list($A2B -> DBHandle, $QUERY_config, 0);
+if(empty($return_config[0]["config_value"])) {
+	echo "[The cron of notification is disactived]\n";
+	exit;
+}
+
+
 //$A2B -> DBHandle
 $instance_table = new Table();
 
@@ -103,12 +111,6 @@ for ($page = 0; $page <= $nbpagemax; $page++) {
 	}
 	if ($verbose_level>=1) echo "==> SELECT CARD QUERY : $sql\n";
 	$result_card = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
-
-	print_r($result_card);
-
-
-
-
 
 	foreach ($result_card as $mycard){
 		$messagetextuser = $messagetext;
