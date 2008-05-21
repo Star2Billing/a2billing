@@ -778,14 +778,14 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER cc_ratecard_validate_regex BEFORE INSERT OR UPDATE ON cc_ratecard FOR EACH ROW EXECUTE PROCEDURE cc_ratecard_validate_regex();
 
 
-CREATE OR REPLACE FUNCTION after_ins_cc_card_logrefill() RETURNS TRIGGER AS $$
-  BEGIN
-	INSERT INTO cc_logrefill (credit,card_id,reseller_id) VALUES (new.credit,new.id,new.reseller);
-	RETURN new;
-  END
-$$ LANGUAGE plpgsql;
+-- CREATE OR REPLACE FUNCTION after_ins_cc_card_logrefill() RETURNS TRIGGER AS $$
+--  BEGIN
+--	INSERT INTO cc_logrefill (credit,card_id,reseller_id) VALUES (new.credit,new.id,new.reseller);
+--	RETURN new;
+--  END
+-- $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER after_ins_cc_card AFTER INSERT ON cc_card FOR EACH ROW EXECUTE PROCEDURE after_ins_cc_card_logrefill();
+-- CREATE TRIGGER after_ins_cc_card AFTER INSERT ON cc_card FOR EACH ROW EXECUTE PROCEDURE after_ins_cc_card_logrefill();
 
 
 
