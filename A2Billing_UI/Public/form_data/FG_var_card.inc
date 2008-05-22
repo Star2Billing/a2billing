@@ -51,20 +51,14 @@ $simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
 
 
 // Possible value to notify the user
-$DBHandle  = DbConnect();
-$instance_config_table = new Table("cc_config", "id, config_value");
-$QUERY = " config_key = 'values_notifications' ";
-$return = null;
-$return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
-$values = explode(":",$return[0]["config_value"]);
+
+$values = explode(":",$A2B->config['notifications']['values_notifications']);
 $limits_notify = array();
 $idx =0;
-foreach ($values as $val)
-{ 	
-	$limits_notify [$idx] = array($val,$val);
+foreach ($values as $val){
+ 	$limits_notify [$idx] = array($val,$val);
 	$idx++;
 }
-
 
 $currency_list = array();
 $currency_list_r = array();

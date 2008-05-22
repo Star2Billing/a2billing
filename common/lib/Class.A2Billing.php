@@ -457,6 +457,11 @@ class A2Billing {
 		if(!isset($this->config['peer_friend']['host'])) 		$this->config['peer_friend']['host'] = 'dynamic';
 		if(!isset($this->config['peer_friend']['dtmfmode'])) 	$this->config['peer_friend']['dtmfmode'] = 'RFC2833';
 
+
+		//conf for the notifications
+		if(!isset($this->config['notifications']['values_notifications'])) $this->config['notifications']['values_notifications'] = '0';
+		if(!isset($this->config['notifications']['cron_notifications'])) $this->config['notifications']['cron_notifications'] = '1';
+
 		// conf for the log-files
 		if(isset($this->config['log-files']['agi']) && strlen ($this->config['log-files']['agi']) > 1)
 		{

@@ -50,13 +50,11 @@ if (!$A2B -> DbConnect()){
 	exit;
 }
 
+
+
 //Check if the notifications is Enable or Disable
- $key= "cron_notifications";
- $instance_config_table = new Table("cc_config", "config_value");
- $QUERY_config = " config_key = '".$key."' ";
- $return_config = null;
- $return_config = $instance_config_table -> Get_list($A2B -> DBHandle, $QUERY_config, 0);
-if(empty($return_config[0]["config_value"])) {
+
+if(empty($A2B->config['notifications']['cron_notifications'])) {
 	echo "[The cron of notification is disactived]\n";
 	exit;
 }
