@@ -115,8 +115,9 @@ if(!is_null($return)&& (!empty($return)>0) ){
 	<?php
 		if($return[0]["config_value"]) echo gettext(" Actually , the cron process of notification is activated.");
 		else echo gettext(" Actually , the cron process of notification is desactivated.");
-		echo gettext(" If the cron process is correctly activated in the crontab ");
-
+		echo '<br/>';
+		echo gettext(" If the cron process is correctly activated in the crontab ! ");
+		echo '<br/>';
 		if ( has_rights (ACX_MISC)){
 
 		echo gettext("To Enable or Disable the process of notification follow the link to access to configuration section.");
@@ -134,4 +135,49 @@ if(!is_null($return)&& (!empty($return)>0) ){
 </table>
 
 <?php }?>
+<br/>
+
+<?php
+// Load the list of values in the config table ! key=values_notifications
+ $key= "delay_notifications";
+ $DBHandle  = DbConnect();
+ $instance_config_table = new Table("cc_config", "id, config_value");
+ $QUERY = " config_key = '".$key."' ";
+ $return = null;
+ $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
+ $id_config = $return[0]["id"];
+
+if(!is_null($return)&& (!empty($return)>0) ){
+ ?>
+
+<table align="center"  class="bgcolor_001" border="0" width="65%">
+<tr>
+	<td>
+
+
+	<?php
+		$msg= gettext("Actually , the delay of notification is ").$return[0]["config_value"];
+		if($return[0]["config_value"] == 1) $msg.=gettext(" day");
+		else $msg.=gettext(" days");
+		$msg.='.';
+		echo $msg;
+
+		echo '<br/>';
+		if ( has_rights (ACX_MISC)){
+		echo gettext("To Modify the delay of notification follow the link to access to configuration section.");
+
+	    echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'&section=8">';
+		echo gettext("Modify") ."</a>";
+		}else{  echo gettext("You don't have enough right To Modify the delay of notification. Ask your administrator");
+
+
+		} ?>
+
+ 	</td>
+</tr>
+
+</table>
+
+<?php }?>
+
 

@@ -461,6 +461,7 @@ class A2Billing {
 		//conf for the notifications
 		if(!isset($this->config['notifications']['values_notifications'])) $this->config['notifications']['values_notifications'] = '0';
 		if(!isset($this->config['notifications']['cron_notifications'])) $this->config['notifications']['cron_notifications'] = '1';
+		if(!isset($this->config['notifications']['delay_notifications'])) $this->config['notifications']['delay_notifications'] = '1';
 
 		// conf for the log-files
 		if(isset($this->config['log-files']['agi']) && strlen ($this->config['log-files']['agi']) > 1)
