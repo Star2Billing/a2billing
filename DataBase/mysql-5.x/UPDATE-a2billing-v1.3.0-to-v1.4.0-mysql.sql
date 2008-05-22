@@ -841,6 +841,8 @@ INSERT INTO `cc_config` ( `config_title`, `config_key`, `config_value`, `config_
 ALTER TABLE `cc_ratecard` CHANGE `destination` `destination` CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 
 
+-- section for notification
+
 INSERT INTO cc_config_group (group_title ,group_description) VALUES
  ( 'notifications', 'This configuration group handles the notifcations configuration');
 
@@ -891,3 +893,9 @@ INSERT INTO cc_config ( config_title, config_key, config_value, config_descripti
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disable the cron module of notification for the customers. If it correctly configured in the crontab', '0', '12', 'yes,no');
+
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Notications Delay', 'delay_notifications', '1', 'Delay in number of days to send an other notification for the customers. If they have to be notify', '0', '12', NULL);
+
+ALTER TABLE cc_card ADD last_notification TIMESTAMP NULL DEFAULT NULL ;
