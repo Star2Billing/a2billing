@@ -716,8 +716,6 @@ $HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
 			   gettext("Insert the number of credit when the customer receive a notification"),
 			   "list" , "", "", "", $limits_notify , "%1", "", gettext("currency : ").strtoupper(BASE_CURRENCY),"", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>'  );
 
-print_r ( $limits_notify);
-
 
 $HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
 			   "notify_email",
