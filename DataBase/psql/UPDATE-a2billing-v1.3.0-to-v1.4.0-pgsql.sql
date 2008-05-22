@@ -898,3 +898,43 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ( 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disable the cron module of notification for the customers. If it correctly configured in the crontab', '0', '12', 'yes,no');
 
 
+
+
+
+-- Section for Agent
+
+CREATE TABLE cc_agent (
+    id serial 							NOT NULL PRIMARY KEY,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    name 							text NOT NULL,
+    active 							boolean NOT NULL DEFAULT true,
+    login 							VARCHAR(20) NOT NULL,
+    passwd 							VARCHAR(40) NOT NULL,
+    location 							text,
+    datecreation 						timestamp without time zone DEFAULT now(),
+    "language" 							text DEFAULT 'en'::text,
+    tariffgroup 						integer REFERENCES cc_tariffgroup(id),
+    options 							integer NOT NULL DEFAULT 0,
+    credit 							NUMERIC(12,4) NOT NULL DEFAULT 0,
+    climit 							NUMERIC(12,4) NOT NULL DEFAULT 0,
+    currency 							CHARACTER(3) NOT NULL DEFAULT 'EUR',
+    locale 							VARCHAR(10) DEFAULT 'C',
+    commission 							NUMERIC(4,4),
+    vat 							numeric(6,3) NOT NULL DEFAULT 0,
+    email 							TEXT,
+    banner 							TEXT,
+    lastname 							TEXT,
+    firstname 							TEXT,
+    address 							TEXT,
+    city 							TEXT,
+    state 							TEXT,
+    country 							TEXT,
+    zipcode 							TEXT,
+    phone 							TEXT,
+    email 							TEXT,
+    fax 							TEXT
+);
+
+
+ALTER TABLE `cc_card` ADD `id_agent` INT NOT NULL DEFAULT '0';
+
