@@ -33,7 +33,7 @@ include (dirname(__FILE__)."/lib/Class.A2Billing.php");
 include (dirname(__FILE__)."/lib/Misc.php");
 
 
-$verbose_level=0;
+$verbose_level=1;
 $groupcard=5000;
 
 //$min_credit = 5;
@@ -77,9 +77,22 @@ list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listt
 if ($FG_DEBUG == 1) echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
 
 
+// Prepare the date interval to filter the card that don't have to receive a notification;
 
+$Delay_Clause = "( " ;
+if ($A2B->config["database"]['dbtype'] ==  "postgres") {
+	$Delay_Clause .= "last_notification < CURRENT_DATE - ".$A2B->config['notifications']['delay_notifications']." OR ";
+}else{
+	$Delay_Clause .= "last_notification < CURDATE() - ". $A2B->config['notifications']['delay_notifications']." OR ";
+}
+$Delay_Clause.= "last_notification IS NULL )";
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE CHECK ACCOUNT SERVICE
-$QUERY = "SELECT count(*) FROM cc_card WHERE notify_email ='1' AND credit < credit_notification";
+$QUERY = "SELECT count(*) FROM cc_card WHERE notify_email ='1' AND credit < credit_notification AND ".$Delay_Clause;
+
+if ($verbose_level>=1) {
+	echo "[QUERY COUNT]\n";
+	echo "$QUERY\n";
+}
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
@@ -98,18 +111,21 @@ write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[Num
 // GET the currencies to define the email
 $currencies_list = get_currencies($A2B -> DBHandle);
 
+
+
 // BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE
 for ($page = 0; $page <= $nbpagemax; $page++) {
-
-	$sql = "SELECT id, credit, username,useralias,uipass,lastname,firstname,loginkey,credit,currency , email_notification,credit_notification FROM cc_card WHERE notify_email='1' AND credit < credit_notification ORDER BY id  ";
+	$sql = "SELECT id, credit, username,useralias,uipass,lastname,firstname,loginkey,credit,currency , email_notification,credit_notification FROM cc_card WHERE notify_email='1' AND credit < credit_notification AND ".$Delay_Clause." ORDER BY id  ";
 	if ($A2B->config["database"]['dbtype'] == "postgres"){
 		$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
 	}else{
 		$sql .= " LIMIT ".$page*$groupcard.", $groupcard";
 	}
-	if ($verbose_level>=1) echo "==> SELECT CARD QUERY : $sql\n";
-	$result_card = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
 
+	if ($verbose_level>=1) echo "==> SELECT CARD QUERY : $sql\n";
+
+
+	$result_card = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
 	foreach ($result_card as $mycard){
 		$messagetextuser = $messagetext;
 		if ($verbose_level>=1) print_r ($mycard);
@@ -150,8 +166,23 @@ for ($page = 0; $page <= $nbpagemax; $page++) {
 		$messagetextuser = str_replace('$base_currency', BASE_CURRENCY, $messagetextuser);
 		$mail_tile =  "CREDIT LOW : You have less than  ".$mycard['credit_notification'];
 		a2b_mail($email, $mail_tile, $messagetextuser, $from, $fromname);
-		}
 
+		//update the card with the date of last notification
+
+		if ($A2B->config["database"]['dbtype'] == "postgres") {
+			$now= "CURRENT_TIMESTAMP";
+		}else{
+			$now= "now()";
+		}
+		$sql_update_card = "UPDATE cc_card SET last_notification = ".$now." WHERE id = ".$mycard['id'];
+		$instance_table -> SQLExec ($A2B -> DBHandle, $sql_update_card);
+
+		if ($verbose_level>=1) {
+			echo "[UPDATE CARD ID < ".$mycard['id']." > : last_notification]\n";
+			echo "$sql_update_card\n";
+			}
+
+		}//endif check the email not null
 	}
 	// Little bit of rest
 	sleep(15);
