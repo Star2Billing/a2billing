@@ -51,18 +51,19 @@ $simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
 
 
 // Possible value to notify the user
- $DBHandle  = DbConnect();
- $instance_config_table = new Table("cc_config", "id, config_value");
- $QUERY = " config_key = 'values_notifications' ";
- $return = null;
- $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
- $values = explode(":",$return[0]["config_value"]);
- $limits_notify = array();
- $idx =0;
-  foreach ($values as $val)
-	{ 	$limits_notify [$idx] = array($val,$val);
-		$idx++;
-	}
+$DBHandle  = DbConnect();
+$instance_config_table = new Table("cc_config", "id, config_value");
+$QUERY = " config_key = 'values_notifications' ";
+$return = null;
+$return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
+$values = explode(":",$return[0]["config_value"]);
+$limits_notify = array();
+$idx =0;
+foreach ($values as $val)
+{ 	
+	$limits_notify [$idx] = array($val,$val);
+	$idx++;
+}
 
 
 $currency_list = array();
@@ -715,7 +716,7 @@ $HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
 			   gettext("Insert the number of credit when the customer receive a notification"),
 			   "list" , "", "", "", $limits_notify , "%1", "", gettext("currency : ").strtoupper(BASE_CURRENCY),"", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>'  );
 
-
+print_r ( $limits_notify);
 
 
 $HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),

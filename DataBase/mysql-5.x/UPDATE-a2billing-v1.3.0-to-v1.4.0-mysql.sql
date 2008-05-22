@@ -852,7 +852,7 @@ ALTER TABLE cc_card ADD email_notification CHAR( 70 ) CHARACTER SET utf8 COLLATE
 ALTER TABLE cc_card
 ADD notify_email SMALLINT NOT NULL DEFAULT '0';
 
-ALTER TABLE cc_card ADD credit_notification DECIMAL( 15, 5 ) NOT NULL DEFAULT '-1.00000';
+ALTER TABLE cc_card ADD credit_notification INT NOT NULL DEFAULT -1;
 
 UPDATE cc_templatemail SET messagetext = '----------------------------
 Your Call-Labs account $cardnumber is low on credit ($currency $credit_currency)

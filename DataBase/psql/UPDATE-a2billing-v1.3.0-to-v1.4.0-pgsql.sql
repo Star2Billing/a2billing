@@ -858,7 +858,7 @@ ALTER TABLE cc_card ADD COLUMN email_notification text;
 
 ALTER TABLE cc_card ADD COLUMN notify_email smallint NOT NULL DEFAULT 0;
 
-ALTER TABLE cc_card ADD COLUMN credit_notification numeric(15, 5) DEFAULT -1;
+ALTER TABLE cc_card ADD COLUMN credit_notification INTEGER DEFAULT -1;
 
 UPDATE cc_templatemail SET messagetext = '----------------------------
 Your Call-Labs account $cardnumber is low on credit ($currency $credit_currency)
