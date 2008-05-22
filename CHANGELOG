@@ -1,5 +1,14 @@
 
 
+22 May 2008	
+
+	* start agent interface - Belaid Arezqui <areski@gmail.com>
+	
+	* Add audio files for Russian - Belaid Arezqui <areski@gmail.com>
+	
+	* add notification date tag in cc_card to send a notification every X days - Belaid Rachid 
+
+
 20 May 2008	- Belaid Rachid 
 
 	* New feature for Balance threshold notification
