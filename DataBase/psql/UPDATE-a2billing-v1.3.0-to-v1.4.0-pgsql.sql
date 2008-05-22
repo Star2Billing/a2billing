@@ -911,24 +911,21 @@ ALTER TABLE cc_card ADD COLUMN last_notification timestamp without time zone;
 -- Section for Agent
 
 CREATE TABLE cc_agent (
-    id serial 							NOT NULL PRIMARY KEY,
-    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    name 							text NOT NULL,
+    id 								SERIAL NOT NULL PRIMARY KEY,
+    datecreation 					timestamp without time zone DEFAULT now(),
     active 							boolean NOT NULL DEFAULT true,
     login 							VARCHAR(20) NOT NULL,
     passwd 							VARCHAR(40) NOT NULL,
-    location 							text,
-    datecreation 						timestamp without time zone DEFAULT now(),
-    "language" 							text DEFAULT 'en'::text,
-    tariffgroup 						integer REFERENCES cc_tariffgroup(id),
-    options 							integer NOT NULL DEFAULT 0,
+    location 						text,
+    "language" 						text DEFAULT 'en'::text,
+    tariffgroup 					integer REFERENCES cc_tariffgroup(id),
+    options 						integer NOT NULL DEFAULT 0,
     credit 							NUMERIC(12,4) NOT NULL DEFAULT 0,
     climit 							NUMERIC(12,4) NOT NULL DEFAULT 0,
-    currency 							CHARACTER(3) NOT NULL DEFAULT 'EUR',
+    currency 						CHARACTER(3) NOT NULL DEFAULT 'EUR',
     locale 							VARCHAR(10) DEFAULT 'C',
-    commission 							NUMERIC(4,4),
+    commission 						NUMERIC(4,4),
     vat 							numeric(6,3) NOT NULL DEFAULT 0,
-    email 							TEXT,
     banner 							TEXT,,
 	perms 							INTEGER,
     lastname 						TEXT,
@@ -944,5 +941,5 @@ CREATE TABLE cc_agent (
 );
 
 
-ALTER TABLE `cc_card` ADD `id_agent` INT NOT NULL DEFAULT '0';
+ALTER TABLE cc_card ADD id_agent INT NOT NULL DEFAULT '0';
 

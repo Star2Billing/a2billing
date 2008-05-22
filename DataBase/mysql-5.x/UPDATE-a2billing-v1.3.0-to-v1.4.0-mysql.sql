@@ -899,3 +899,43 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ( 'Notications Delay', 'delay_notifications', '1', 'Delay in number of days to send an other notification for the customers. If they have to be notify', '0', '12', NULL);
 
 ALTER TABLE cc_card ADD last_notification TIMESTAMP NULL DEFAULT NULL ;
+
+
+
+
+-- Section for Agent
+
+CREATE TABLE cc_agent (
+	id 								BIGINT NOT NULL AUTO_INCREMENT,
+    datecreation 					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    active 							CHAR(1) DEFAULT 'f' NOT NULL,
+    login 							CHAR(20) NOT NULL,
+    passwd 							CHAR(40),
+    location 						text,
+    language 						CHAR(5) DEFAULT 'en',
+    tariffgroup						INT,
+    options 						integer NOT NULL DEFAULT 0,
+    credit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,
+    climit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,
+    currency 						CHAR(3) DEFAULT 'USD',
+    locale 							CHAR(10) DEFAULT 'C',
+    commission 						DECIMAL(10,4) DEFAULT 0 NOT NULL,
+    vat 							DECIMAL(10,4) DEFAULT 0 NOT NULL,
+    banner 							TEXT,
+	perms 							INT,
+    lastname 						CHAR(50),
+    firstname 						CHAR(50),
+    address 						CHAR(100),
+    city 							CHAR(40),
+    state 							CHAR(40),
+    country 						CHAR(40),
+    zipcode 						CHAR(20),
+    phone 							CHAR(20),
+    email 							CHAR(70),
+    fax 							CHAR(20),
+	PRIMARY KEY  (id)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
+ALTER TABLE cc_card ADD id_agent INT NOT NULL DEFAULT '0';
