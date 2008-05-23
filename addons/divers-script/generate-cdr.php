@@ -11,7 +11,7 @@
  *  USAGE : ./generate-cdr.php --debug --amount_cdr=1000
  * 
 ****************************************************************************/
-
+exit();
 // CHECK ALL AND ENSURE IT WORKS / NOT URGENT
 
 set_time_limit(0);
@@ -44,7 +44,6 @@ else if (!empty($cli_args['silent']) || !empty($cli_args['q']))
 if (!empty($cli_args['amount_cdr']))
 	$amount_cdr = $cli_args['amount_cdr'];
 
-print_r ($cli_args);
 
 
 $A2B = new A2Billing();
