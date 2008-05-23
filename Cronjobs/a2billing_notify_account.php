@@ -7,9 +7,9 @@
  *  Purpose: To check account of each Users and send an email if the balance is less than the user have choice.
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
- *  The sample above will run the script every day of each month at 6AM
+ *  The sample above will run the script once every hour
 	crontab -e
-	15 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_notify_account.php
+	1 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_notify_account.php
 
 	field	 allowed values
 	-----	 --------------
