@@ -856,10 +856,7 @@ ADD notify_email SMALLINT NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_card ADD credit_notification INT NOT NULL DEFAULT -1;
 
-UPDATE cc_templatemail SET messagetext = '----------------------------
-Your Call-Labs account $cardnumber is low on credit ($currency $credit_currency)
-----------------------------
-
+UPDATE cc_templatemail SET subject='Your Call-Labs account $cardnumber is low on credit ($currency $credit_currency)', messagetext = '
 
 Your Call-Labs Account number $cardnumber is running low on credit.
 
