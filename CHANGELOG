@@ -1,3 +1,6 @@
+26 May 2008	- Steve Dommett <steve@st4vs.net>
+
+	* BUG: emails from DID billing cron job didn't include the generated body (#226)
 
 
 22 May 2008	

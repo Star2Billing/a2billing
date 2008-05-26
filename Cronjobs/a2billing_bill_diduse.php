@@ -152,7 +152,7 @@ foreach ($result as $mydids){
 		}
 	}
 	$user_mail_adrr=$mydids[6];
-	if ($mail_user && strlen($user_mail_adrr)>5) mail($user_mail_adrr, $mail_user_subject, $mail_content);
+	if ($mail_user && strlen($user_mail_adrr)>5) mail($user_mail_adrr, $mail_user_subject, $mail_user_content);
 }
 write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__).' line:'.__LINE__."[Service DIDUSE finish]");
 
