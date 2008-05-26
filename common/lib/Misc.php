@@ -7,7 +7,14 @@
  ****************************************************************************/
 
 
-/* 
+
+function a2b_round($number){
+	$PRECISION = 6;
+	return round($number,$PRECISION);
+}
+
+
+/*
  * a2b_mail
  */
 function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = 'multipart/alternative')
@@ -22,13 +29,13 @@ function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $from
 	$mail -> AltBody = $mail_content;  // Plain text body (for mail clients that cannot read 	HTML)
 	// if ContentType = multipart/alternative -> HTML will be send
 	$mail -> ContentType = $contenttype;
-	$mail -> AddAddress ($to);				
+	$mail -> AddAddress ($to);
 	$mail -> Send();
 }
 
- 
-/* 
- * get_currencies 
+
+/*
+ * get_currencies
  */
 function get_currencies($handle = null)
 {
@@ -50,14 +57,14 @@ function get_currencies($handle = null)
 			$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
 		}
 	}
-	
-	if ((isset($currencies_list)) && (is_array($currencies_list)))	sort_currencies_list($currencies_list);		
-	
+
+	if ((isset($currencies_list)) && (is_array($currencies_list)))	sort_currencies_list($currencies_list);
+
 	return $currencies_list;
 }
 
 /**
-* Do Currency Conversion. 
+* Do Currency Conversion.
 * @param $currencies_list the List of currencies.
 * @param $amount the amount to be converted.
 * @param $from_cur Source Currency
@@ -71,9 +78,9 @@ function convert_currency ($currencies_list, $amount, $from_cur, $to_cur)
 	if ($from_cur == $to_cur) {
 		return $amount;
 	}
-	// EUR -> 1.19175 : MAD -> 0.10897		
+	// EUR -> 1.19175 : MAD -> 0.10897
 	// FROM -> 2 - TO -> 0.5 =>>>> multiply 4
-	$mycur_tobase = $currencies_list[strtoupper($from_cur)][2];		
+	$mycur_tobase = $currencies_list[strtoupper($from_cur)][2];
 	$mycur = $currencies_list[strtoupper($to_cur)][2];
 	if ($mycur == 0) return 0;
 	$amount = $amount * ($mycur_tobase / $mycur);
@@ -82,24 +89,24 @@ function convert_currency ($currencies_list, $amount, $from_cur, $to_cur)
 }
 
 
-/* 
+/*
  * sort_currencies_list
  */
 function sort_currencies_list(&$currencies_list)
 {
-	$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
+	$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');
 	foreach ($first_array as $element_first_array){
-		if (isset($currencies_list[$element_first_array])){	
+		if (isset($currencies_list[$element_first_array])){
 			$currencies_list2[$element_first_array]=$currencies_list[$element_first_array];
 			unset($currencies_list[$element_first_array]);
 		}
 	}
-	$currencies_list = array_merge($currencies_list2,$currencies_list);		
+	$currencies_list = array_merge($currencies_list2,$currencies_list);
 }
 
 
-/* 
- * Write log into file 
+/*
+ * Write log into file
  */
 function write_log($logfile, $output)
 {
@@ -116,7 +123,7 @@ function write_log($logfile, $output)
 function sanitize_data($data)
 {
 	$lowerdata = strtolower ($data);
-	$data = str_replace('--', '', $data);	
+	$data = str_replace('--', '', $data);
 	$data = str_replace("'", '', $data);
 	$data = str_replace('=', '', $data);
 	$data = str_replace(';', '', $data);
@@ -136,25 +143,25 @@ function getpost_ifset($test_vars)
 	if (!is_array($test_vars)) {
 		$test_vars = array($test_vars);
 	}
-	foreach($test_vars as $test_var) { 
-		if (isset($_POST[$test_var])) { 
+	foreach($test_vars as $test_var) {
+		if (isset($_POST[$test_var])) {
 			global $$test_var;
 			$$test_var = $_POST[$test_var];
 			$$test_var = sanitize_data($$test_var);
 		} elseif (isset($_GET[$test_var])) {
-			global $$test_var; 
+			global $$test_var;
 			$$test_var = $_GET[$test_var];
 			$$test_var = sanitize_data($$test_var);
 		}
 	}
-} 
+}
 
 
 /*
  * function display_money
  */
-function display_money($value, $currency = BASE_CURRENCY){			
-	echo $value.' '.$currency;			
+function display_money($value, $currency = BASE_CURRENCY){
+	echo $value.' '.$currency;
 }
 
 
@@ -162,15 +169,15 @@ function display_money($value, $currency = BASE_CURRENCY){
  * function display_dateformat
  */
 function display_dateformat($mydate){
-	if (DB_TYPE == "mysql"){			
+	if (DB_TYPE == "mysql"){
 		if (strlen($mydate)==14){
 			// YYYY-MM-DD HH:MM:SS 20300331225242
 			echo substr($mydate,0,4).'-'.substr($mydate,4,2).'-'.substr($mydate,6,2);
-			echo ' '.substr($mydate,8,2).':'.substr($mydate,10,2).':'.substr($mydate,12,2);				
+			echo ' '.substr($mydate,8,2).':'.substr($mydate,10,2).':'.substr($mydate,12,2);
 			return;
 		}
-	}	
-	echo $mydate;			
+	}
+	echo $mydate;
 }
 
 /*
@@ -191,11 +198,11 @@ function res_display_dateformat($mydate){
 		if (strlen($mydate)==14){
 			// YYYY-MM-DD HH:MM:SS 20300331225242
 			$res= substr($mydate,0,4).'-'.substr($mydate,4,2).'-'.substr($mydate,6,2);
-			$res.= ' '.substr($mydate,8,2).':'.substr($mydate,10,2).':'.substr($mydate,12,2);				
+			$res.= ' '.substr($mydate,8,2).':'.substr($mydate,10,2).':'.substr($mydate,12,2);
 			return $res;
 		}
 	}
-	return $mydate;			
+	return $mydate;
 }
 
 /*
@@ -203,7 +210,7 @@ function res_display_dateformat($mydate){
  */
 function display_minute($sessiontime){
 	global $resulttype;
-	if ((!isset($resulttype)) || ($resulttype=="min")){  
+	if ((!isset($resulttype)) || ($resulttype=="min")){
 			$minutes = sprintf("%02d",intval($sessiontime/60)).":".sprintf("%02d",intval($sessiontime%60));
 	}else{
 			$minutes = $sessiontime;
@@ -211,13 +218,13 @@ function display_minute($sessiontime){
 	echo $minutes;
 }
 
-function display_2dec($var){		
+function display_2dec($var){
 	echo number_format($var,2);
 }
 
-function display_2dec_percentage($var){	
+function display_2dec_percentage($var){
 	if (isset($var))
-	{	
+	{
 		echo number_format($var,2)."%";
 	}else
 	{
@@ -225,7 +232,7 @@ function display_2dec_percentage($var){
 	}
 }
 
-function display_2bill($var, $currency = BASE_CURRENCY){	
+function display_2bill($var, $currency = BASE_CURRENCY){
 	global $currencies_list, $choose_currency;
 	if (isset($choose_currency) && strlen($choose_currency)==3) $currency=$choose_currency;
 	if ( (!isset($currencies_list)) || (!is_array($currencies_list)) ) $currencies_list = get_currencies();
@@ -234,7 +241,7 @@ function display_2bill($var, $currency = BASE_CURRENCY){
 }
 
 function remove_prefix($phonenumber){
-	
+
 	if (substr($phonenumber,0,3) == "011"){
 		echo substr($phonenumber,3);
 		return 1;
@@ -253,20 +260,20 @@ function linkonmonitorfile($value){
 	}
 	$myfile = base64_encode($myfile);
 	echo "<a target=_blank href=\"call-log-customers.php?download=file&file=".$myfile."\">";
-	echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';   
+	echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';
 }
 
 function linktocustomer($value){
 	$handle = DbConnect();
 	$inst_table = new Table("cc_card", "id");
 	$FG_TABLE_CLAUSE = "username = '$value'";
-	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);			
+	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	$id = $list_customer[0][0];
     if($id > 0){
-    	echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";	
+    	echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";
     }else{
     	echo $value;
-    }    
+    }
 }
 
 
@@ -327,17 +334,17 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username"){
 
 		if ($numrow!=0) continue;
 		return $card_gen;
-	}	
+	}
 }
 
 
-function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER){	
+function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER){
 
 	$DBHandle_max  = DbConnect();
-	for ($k=0;$k<=200;$k++){			
+	for ($k=0;$k<=200;$k++){
 		$card_gen = MDP($length_cardnumber);
 		$alias_gen = MDP(LEN_ALIASNUMBER);
-		if ($k==200){ 
+		if ($k==200){
 			if ($api){
 				global $mail_content, $email_alarm, $logfile;
 				mail($email_alarm, "ALARM : API (gen_card_with_alias - CODE_ERROR 8)", $mail_content);
@@ -360,40 +367,40 @@ function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_
 		$arr_val [0] = $card_gen;
 		$arr_val [1] = $alias_gen;
 		return $arr_val;
-	}	
+	}
 }
-		
+
 //Get productID and all parameter and retrieve info for card creation into cc_ecommerce_product
 function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $mail_content, $logfile){
 
 	global $FG_DEBUG;
-	$QUERY = 'SELECT  
+	$QUERY = 'SELECT
 				product_name, creationdate, description, expirationdate, enableexpire, expiredays, credit, tariff, id_didgroup, activated, simultaccess, currency,
 				typepaid, creditlimit, language, runservice, sip_friend, iax_friend, cc_ecommerce_product.mailtype, fromemail, fromname, subject, messagetext,
 				messagehtml
-			  FROM cc_ecommerce_product, cc_templatemail 
+			  FROM cc_ecommerce_product, cc_templatemail
 			  WHERE cc_ecommerce_product.mailtype=cc_templatemail.mailtype AND id='.$productid;
-			  
-	
-	$result = $instance_table -> SQLExec ($DBHandle, $QUERY);		
+
+
+	$result = $instance_table -> SQLExec ($DBHandle, $QUERY);
 	if ($FG_DEBUG>0){ echo "<br><b>$QUERY</b><br>"; print_r ($result); echo "<hr><br>"; }
-	
-		
+
+
 	if( !is_array($result)){
 		if ($FG_DEBUG > 0) echo ("get_productinfo ERROR");
 		mail($email_alarm, "ALARM : API (CODE_ERROR get_productinfo)", $mail_content);
 		error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "."CODE_ERROR get_productinfo"."\n", 3, $logfile);
 		echo("500 Internal server error");
-		exit();	
+		exit();
 	}
-	
+
 	return $result[0];
-	
+
 }
 
 
 // *********************************
-//  ONLY USER BY THE OLD FRAME WORK 
+//  ONLY USER BY THE OLD FRAME WORK
 // *********************************
 
 $lang['strfirst']='&lt;&lt; First';
@@ -410,13 +417,13 @@ $lang['strlast']='Last &gt;&gt;';
 */
 function printPages($page, $pages, $url, $max_width = 20) {
 	global $lang;
-	
+
 	$window = 8;
-	
+
 	if ($page < 0 || $page > $pages) return;
 	if ($pages < 0) return;
 	if ($max_width <= 0) return;
-	
+
 	if ($pages > 1) {
 		//echo "<center><p>\n";
 		if ($page != 1) {
@@ -425,7 +432,7 @@ function printPages($page, $pages, $url, $max_width = 20) {
 			$temp = str_replace('%s', $page - 1-1, $url);
 			echo "<a class=\"pagenav\" href=\"{$temp}\">{$lang['strprev']}</a>\n";
 		}
-	
+
 		if ($page <= $window) {
 			$min_page = 1;
 			$max_page = min(2 * $window, $pages);
@@ -443,7 +450,7 @@ function printPages($page, $pages, $url, $max_width = 20) {
 		// and max_page is never greater than $pages
 		$min_page = max($min_page, 1);
 		$max_page = min($max_page, $pages);
-		
+
 		for ($i = $min_page; $i <= $max_page; $i++) {
 			$temp = str_replace('%s', $i-1, $url);
 			if ($i != $page) echo "<a class=\"pagenav\" href=\"{$temp}\">$i</a>\n";
@@ -490,18 +497,18 @@ function validate_upload($the_file, $the_file_type) {
 	$start_error = "\n<b>ERROR:</b>\n<ul>";
 	$error = "";
 	if ($the_file=="")
-	{		
+	{
 		$error .= "\n<li>".gettext("File size is greater than allowed limit.")."\n<ul>";
 	}else
 	{
-        if ($the_file == "none") { 
+        if ($the_file == "none") {
                 $error .= "\n<li>".gettext("You did not upload anything!")."</li>";
         }
         elseif ($_FILES['the_file']['size'] == 0)
         {
         	$error .= "\n<li>".gettext("Failed to upload the file, The file you uploaded may not exist on disk.")."!</li>";
-        } 
-        else        
+        }
+        else
         {
  			if (!in_array($the_file_type,$allowed_types))
  			{
@@ -512,7 +519,7 @@ function validate_upload($the_file, $the_file_type) {
                 	next($allowed_types);
                 }
                 $error .= "\n</ul>";
-            }                
+            }
         }
 	}
 	if ($error)
@@ -520,7 +527,7 @@ function validate_upload($the_file, $the_file_type) {
 		$error = $start_error . $error . "\n</ul>";
         return $error;
     }
-    else 
+    else
     {
     	return false;
     }
@@ -534,7 +541,7 @@ function securitykey ($key, $data)
 	// Creates an md5 HMAC.
 	// Eliminates the need to install mhash to compute a HMAC
 	// Hacked by Lance Rushing
-	
+
 	$b = 64; // byte length for md5
 	if (strlen($key) > $b) {
 		$key = pack("H*",md5($key));
@@ -544,13 +551,13 @@ function securitykey ($key, $data)
 	$opad = str_pad('', $b, chr(0x5c));
 	$k_ipad = $key ^ $ipad ;
 	$k_opad = $key ^ $opad;
-	
+
 	return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
 }
 
 /*
 	Function to show GMT DateTime.
-*/	
+*/
 
 function get_timezones($handle = null)
 {
@@ -560,29 +567,29 @@ function get_timezones($handle = null)
 	$instance_table = new Table();
 	$QUERY =  "SELECT id, gmttime, gmtzone from cc_timezone order by id";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
-	
+
 	if (is_array($result)){
 		$num_cur = count($result);
 		for ($i=0;$i<$num_cur;$i++){
 			$timezone_list[$result[$i][0]] = array (1 => $result[$i][1], 2 => $result[$i][2]);
 		}
 	}
-	
+
 	return $timezone_list;
 }
 
 
 function display_GMT($currDate, $number, $fulldate = 1)
-{	
+{
 	$date_time_array = getdate(strtotime($currDate));
     $hours = $date_time_array['hours'];
     $minutes = $date_time_array['minutes'];
     $seconds = $date_time_array['seconds'];
     $month = $date_time_array['mon'];
     $day = $date_time_array['mday'];
-    $year = $date_time_array['year'];      
-    $timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);  
-	
+    $year = $date_time_array['year'];
+    $timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);
+
 	if ($number < 0){ $timestamp = $timestamp -($number); }
 	else { $timestamp = $timestamp +($number);}
 
@@ -598,11 +605,11 @@ function display_GMT($currDate, $number, $fulldate = 1)
 }
 
 /*
- * Following fuctions return the latest title to add as 
+ * Following fuctions return the latest title to add as
  * agi-conf(title_number) for Global configurations and List of confiurations
  * Tables : cc_confi_group
  * Operations : SELECT
- * 
+ *
  */
 
 function agi_confx_title($handle=null)
@@ -614,7 +621,7 @@ function agi_confx_title($handle=null)
 
 	$QUERY =  "SELECT id,group_title,group_description from cc_config_group where group_title like '%agi-conf%' order by group_title";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
-	
+
 	if (is_array($result)) {
 		$num_cur = count($result);
 		for ($i=0;$i<$num_cur;$i++) {
@@ -624,7 +631,7 @@ function agi_confx_title($handle=null)
 		}
 	}
 	foreach($group_title as $value) {
-		$agi_number[] = (int)substr($value, -1);	
+		$agi_number[] = (int)substr($value, -1);
 	}
 	$len_agi_array = sizeof($agi_number);
 	$agi_conf_number = $len_agi_array + 1;
@@ -643,7 +650,7 @@ function agi_confx_title($handle=null)
 
 
 /*
- * Following function will generate agi-confx, 
+ * Following function will generate agi-confx,
  * Duplicate all the configurations of agi-conf1 and produce agi-confx
  * Subquery is also used in this function to improve functional response.
  * Operations : SELECT , INSERT
@@ -659,7 +666,7 @@ function add_agi_confx($handle = null)
 	$config_group = array();
 	$config_group  = agi_confx_title(); // calling function  to generate agi-conf(title_number)
 	$group_title = $config_group[0];
-	$config_group_id = $config_group[1]; 
+	$config_group_id = $config_group[1];
 	$description = $config_group[2];
 	$value = "'$group_title','$description'";
 	$func_fields = "group_title,group_description";
@@ -688,7 +695,7 @@ function delete_agi_confx($id_agi)
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
-	
+
 	$clause = "id = $id_agi";
 	$fun_table = "cc_config_group";
 	$result = $instance_table -> Delete_table ($handle, $clause, $fun_table);
@@ -698,7 +705,7 @@ function delete_agi_confx($id_agi)
 	$result = $instance_table -> Delete_table ($handle, $clause, $fun_table);
 
 	return $result;
-	
+
 }
 
 
@@ -718,8 +725,8 @@ function check_translated($id, $languages)
 			return false;
 	}else{
 		return false;
-	} 		
-	
+	}
+
 }
 
 function update_translation($id, $languages, $subject, $mailtext)
@@ -742,18 +749,18 @@ function insert_translation($id, $languages, $subject, $mailtext)
 	}
 	$instance_table = new Table();
 	$fromemail = '';
-	$fromname = '';			
-	$mailtype = '';			
+	$fromname = '';
+	$mailtype = '';
 	$QUERY =  "SELECT fromemail,fromname,mailtype from cc_templatemail where id = $id and id_language = 'en'";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 	if (is_array($result)) {
 		if(count($result) > 0){
 			$fromemail = $result[0][0];
-			$fromname = $result[0][1];						
-			$mailtype = $result[0][2];						
+			$fromname = $result[0][1];
+			$mailtype = $result[0][2];
 		}
 	}
-	
+
 	$value = "$id, '$languages', '$subject', '$mailtext', '$mailtype','$fromemail','$fromname'";
 	$func_fields = "id,id_language,subject,messagetext,mailtype,fromemail,fromname";
 	$func_table = 'cc_templatemail';
@@ -773,7 +780,7 @@ function mailtemplate_latest_id()
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 	$result[0][0] = $result[0][0] + 1;
 	return $result[0][0];
-	
+
 }
 
 function get_db_languages($handle = null)
@@ -784,7 +791,7 @@ function get_db_languages($handle = null)
 	$instance_table = new Table();
 	$QUERY =  "SELECT code, name from cc_iso639 order by code";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
-	
+
 	return $result;
 }
 
@@ -792,7 +799,7 @@ function get_db_languages($handle = null)
  * Function use to archive data and call records
  * Insert in cc_call_archive and cc_card_archive on seletion criteria
  * Delete from cc_call and cc_card
- * Used in 
+ * Used in
  * 1. A2Billing_UI/Public/A2B_data_archving.php
  * 2. A2Billing_UI/Public/A2B_call_archiving.php
  */
@@ -816,7 +823,7 @@ function archive_data($condition, $entity = ""){
 			if (strpos($condition,'WHERE') > 0){
 		        $condition = str_replace("WHERE", "", $condition);
 			}
-			
+
 			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		} else if($entity == "call") {
 			$value = "SELECT id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call $condition";
@@ -836,13 +843,13 @@ function archive_data($condition, $entity = ""){
 }
 
 /*
- * Function use to define exact sql statement for 
+ * Function use to define exact sql statement for
  * different criteria selection
  */
 function do_field($sql,$fld,$dbfld){
 	$fldtype = $fld.'type';
 	global $$fld;
-	global $$fldtype;		
+	global $$fldtype;
 	if ($$fld){
 			if (strpos($sql,'WHERE') > 0){
 					$sql = "$sql AND ";
@@ -850,7 +857,7 @@ function do_field($sql,$fld,$dbfld){
 					$sql = "$sql WHERE ";
 			}
 			$sql = "$sql $dbfld";
-			if (isset ($$fldtype)){                
+			if (isset ($$fldtype)){
 					switch ($$fldtype) {
 						case 1:	$sql = "$sql='".$$fld."'";  break;
 						case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
