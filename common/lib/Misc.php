@@ -7,7 +7,10 @@
  ****************************************************************************/
 
 
-
+/*
+ * a2b_round: specific function to use the same precision everywhere
+ *
+ */
 function a2b_round($number){
 	$PRECISION = 6;
 	return round($number,$PRECISION);
