@@ -117,13 +117,13 @@ foreach ($result as $mydids){
 				
 				$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]."\n\n";
 				$mail_user_content.="An automatic taking away of :".$mydids[3]." has been carry out of your account to pay your DID (".$mydids[7].")\n\n";	
-				$mail_user_content.="Monthly cost for DID :".$mydids[0]."\n\n";
+				$mail_user_content.="Monthly cost for DID :".$mydids[3]."\n\n";
 				$mail_user = true;
 				$mail_user_subject="DID notification - (".$mydids[7].")";
 			} else {
 				// USER DONT HAVE ENOUGH CREDIT TO PAY FOR THE DID - WE WILL WARN HIM
 				$mail_user_content.="BALANCE REMAINING ".$mydids[5]."\n\n";
-				$mail_user_content.="Your credit is not enough to pay your DID number (".$mydids[7]."), the monthly cost is :".$mydids[0]."\n\n";
+				$mail_user_content.="Your credit is not enough to pay your DID number (".$mydids[7]."), the monthly cost is :".$mydids[3]."\n\n";
 				$mail_user_content.="You have ".date ("d",$day_remaining)." days to recharge your card or the DID will be automatically released \n\n";
 				$mail_user = true;
 				$mail_user_subject="DID notification - (".$mydids[7].")";
