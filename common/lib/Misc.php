@@ -9,7 +9,6 @@
 
 /*
  * a2b_round: specific function to use the same precision everywhere
- *
  */
 function a2b_round($number){
 	$PRECISION = 6;
@@ -986,7 +985,7 @@ function currencies_update_yahoo ($DBHandle, $instance_table) {
 
 
 
-/* 
+/*
  * arguments - function to handle arguments in CLI script
  */
 function arguments($argv) {
