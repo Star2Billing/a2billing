@@ -20,8 +20,7 @@ define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();
 
-// The system will not log for Public/index.php and 
-// signup/index.php
+// The system will not log for Public/index.php and signup/index.php
 $URI = $_SERVER['REQUEST_URI'];
 $restircted_url = substr($URI,-16);
 if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
@@ -124,41 +123,37 @@ define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->
  */
 $PHP_SELF = $_SERVER["PHP_SELF"];
 
-
 $CURRENT_DATETIME = date("Y-m-d H:i:s");		
-	
+
 /*
  *		GLOBAL POST/GET VARIABLE
  */		 
 getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select'));
 
-/*
- *		CONNECT / DISCONNECT DATABASE
- */
-
 if (!isset($_SESSION)) {
 	session_start();
 }
 
-if(ini_get('register_globals'))
-{
+if(ini_get('register_globals')) {
 	foreach($_REQUEST as $key => $value)
 	{
 		$$key = $value;
 	}
 }
-if (!isset($_SESSION["language"]))
-{
-  $_SESSION["language"] = 'english';
-}
-else if (isset($language))
-{
-  $_SESSION["language"] = $language;
-}
-define ("LANGUAGE",$_SESSION["language"]);
-require_once("languageSettings.php");
-SetLocalLanguage();
  
+ // Language session
+if (!isset($_SESSION["language"])) {
+	$_SESSION["language"]='english';
+} else if (isset($language)) {
+	$_SESSION["language"] = $language;
+}
+
+define ("LANGUAGE",$_SESSION["language"]);
+define ("BINDTEXTDOMAIN", '../common/admin_ui_locale');
+require("languageSettings.php");
+SetLocalLanguage();
+
+
 function DbConnect($db= NULL)
 {
 	$ADODB_CACHE_DIR = '/tmp';
@@ -273,10 +268,7 @@ define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.4 - Trunk');
 define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
 
-
 //Enable Disable Captcha
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
-
-
 

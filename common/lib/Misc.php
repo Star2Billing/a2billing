@@ -15,7 +15,7 @@ function a2b_round($number){
 
 
 /*
- * a2b_mail
+ * a2b_mail - function mail used in a2billing
  */
 function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = 'multipart/alternative')
 {
@@ -981,4 +981,24 @@ function currencies_update_yahoo ($DBHandle, $instance_table) {
 	return $return;
 }
 
-?>
+
+
+/* 
+ * arguments - function to handle arguments in CLI script
+ */
+function arguments($argv) {
+    $_ARG = array();
+    array_shift($argv); //skip argv[0] !
+    foreach ($argv as $arg) {
+      if (ereg('--([^=]+)=(.*)',$arg,$reg)) {
+        $_ARG[$reg[1]] = $reg[2];
+      } elseif(ereg('--([^=]+)',$arg,$reg)){
+      	$_ARG[$reg[1]] = true;
+      } elseif(ereg('^-([a-zA-Z0-9])',$arg,$reg)) {
+            $_ARG[$reg[1]] = true;
+      } else {
+            $_ARG['input'][]=$arg;
+      }
+    }
+  return $_ARG;
+}

@@ -123,8 +123,8 @@ include_once (FSROOT."lib/mail/class.phpmailer.php");
  */
 $PHP_SELF = $_SERVER["PHP_SELF"];
 
-
 $CURRENT_DATETIME = date("Y-m-d H:i:s");
+
 
 /*
  *		GLOBAL POST/GET VARIABLE
@@ -132,31 +132,29 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
 getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language', 'cssname', 'exporttype'));
 
 
-// Include general language file
-	// Language session
-session_start();
-if(ini_get('register_globals'))
-{
+if (!isset($_SESSION)) {
+	session_start();
+}
+
+if(ini_get('register_globals')) {
 	foreach($_REQUEST as $key => $value)
 	{
 		$$key = $value;
 	}
 }
-if (!isset($_SESSION["language"]))
-{
+
+// Language session
+if (!isset($_SESSION["language"])) {
 	$_SESSION["language"]='english';
-}
-else if (isset($language))
-{
-  $_SESSION["language"] = $language;
+} else if (isset($language)) {
+	$_SESSION["language"] = $language;
 }
 
 define ("LANGUAGE",$_SESSION["language"]);
-//include (FSROOT."lib/languages/".LANGUAGE.".php");
-//define ("LANGUAGE_DIR",FSROOT."lib/languages/".LANGUAGE."/");
+define ("BINDTEXTDOMAIN", '../common/cust_ui_locale');
 require("languageSettings.php");
-
 SetLocalLanguage();
+
 
 /*
  *		CONNECT / DISCONNECT DATABASE
@@ -178,8 +176,6 @@ function DbConnect($db= NULL)
 	
 	return $DBHandle;
 }
-
-
 
 function DbDisconnect($DBHandle)
 {
@@ -243,4 +239,4 @@ define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing sy
 include ("help.php");
 
 define ("ENABLE_LOG", 0);
-?>
+
