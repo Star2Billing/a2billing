@@ -471,10 +471,12 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&stitle=Administrator+management&section=10">{php} echo gettext("Show Administrator");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=0&stitle=Administrator+management&section=10">{php} echo gettext("Add Administrator");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10">{php} echo gettext("Show ACL Admin");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10">{php} echo gettext("Add ACL Admin");{/php}</a></li>
+				<li><a href="A2B_entity_agent.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Show Agent");{/php}</a></li>
+				<li><a href="A2B_entity_agent.php?form_action=ask-add&groupID=0&section=10">{php} echo gettext("Add Agent");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Show Administrator");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?form_action=ask-add&groupID=0&section=10">{php} echo gettext("Add Administrator");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=10">{php} echo gettext("Show ACL Admin");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?form_action=ask-add&groupID=1&section=10">{php} echo gettext("Add ACL Admin");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

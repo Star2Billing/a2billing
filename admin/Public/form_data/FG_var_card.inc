@@ -136,10 +136,6 @@ $inuse_list = array();
 for ($k=0;$k<=40;$k++)
 	$inuse_list["$k"]  = array( gettext("currently in use")." : $k", "$k");
 
-$actived_list = array();
-$actived_list["t"] = array( gettext("On"), "t");
-$actived_list["f"] = array( gettext("Off"), "f");
-
 $yesno = array();
 $yesno["1"] = array( gettext("Yes"), "1");
 $yesno["0"] = array( gettext("No"), "0");

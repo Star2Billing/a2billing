@@ -910,7 +910,7 @@ CREATE TABLE cc_agent (
     passwd 							CHAR(40),
     location 						text,
     language 						CHAR(5) DEFAULT 'en',
-    tariffgroup						INT,
+    id_tariffgroup						INT,
     options 						integer NOT NULL DEFAULT 0,
     credit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,
     climit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,

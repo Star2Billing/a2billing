@@ -915,7 +915,7 @@ CREATE TABLE cc_agent (
     passwd 							VARCHAR(40) NOT NULL,
     location 						text,
     "language" 						text DEFAULT 'en'::text,
-    tariffgroup 					integer REFERENCES cc_tariffgroup(id),
+    id_tariffgroup 					integer REFERENCES cc_tariffgroup(id),
     options 						integer NOT NULL DEFAULT 0,
     credit 							NUMERIC(12,4) NOT NULL DEFAULT 0,
     climit 							NUMERIC(12,4) NOT NULL DEFAULT 0,
