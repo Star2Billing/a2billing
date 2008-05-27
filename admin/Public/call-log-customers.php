@@ -232,66 +232,7 @@ if (!is_null ($order) && ($order!='') && !is_null ($sens) && ($sens!='')) {
 }
 
 
-//************************************************************/
-// calculate nbr of success calls,nbr fail calls, max nbr of fail calls successfally /
-//************************************************************/
-
-$QUERY="CREATE TEMPORARY TABLE ASR_CIC_TEMP AS (SELECT substring(t1.starttime,1,10) AS day,case when t1.terminatecause='ANSWER' then 1 else 0 end as success,case when t1.terminatecause ='ANSWER'  OR t1.terminatecause='ANSWERED' then 0 else 1 end as fail,0 as maxfail FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." ORDER BY day)";
-$max_fail=0;
-$max=0;
-$total_fail_succ=0;
-$total_max_succ=0;
-$update=array();
-if (!$nodisplay){
-	$num = 0;
-	$res = $DBHandle -> Execute($QUERY);
-	$QUERY="SELECT * FROM ASR_CIC_TEMP order by day";
-	$res = $DBHandle -> Execute($QUERY);
-	if ($res)
-		$num = $res -> RecordCount();
-	$pos=0;
-	for($i=0;$i<$num;$i++)
-	{	
-		$asr_cic_list [] =$res -> fetchRow();
-		if ($i>0)
-		{	
-			if ($asr_cic_list[$i][0] == $asr_cic_list[$i-1][0] && $i<$num-1 && $asr_cic_list[$i][2]==1) {
-				$max++;
-			}else {
-				if (($i==$num-1) && ($asr_cic_list[$i][2]==1)) $max++;
-				if ($max > $max_fail) {
-					$max_fail=$max;
-					$asr_cic_list1[$pos][3]=$max_fail;
-					$max=0;
-				}
-				if($asr_cic_list[$i][0] != $asr_cic_list[$i-1][0]){
-					$pos++;
-					$success=0;
-					$fail=0;
-					$max_fail=0;
-				}
-			}
-			
-		}elseif($asr_cic_list[$i][2]==1){
-			$max++;
-		}
-		$success+=$asr_cic_list[$i][1];
-		$fail+=$asr_cic_list[$i][2];
-		$asr_cic_list1[$pos][0] = $asr_cic_list[$i][0];
-		$asr_cic_list1[$pos][1] = $success; 
-		$asr_cic_list1[$pos][2] = $fail;
-		
-		if ($asr_cic_list[$i][2]==1){
-			$total_fail_succ++;	
-		}elseif($total_fail_succ > $total_max_succ){
-			$total_max_succ=$total_fail_succ;
-			$total_fail_succ=0;
-		}
-	}
-}
-
 /************************/
-//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate) 
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall, sum(t1.buycost) AS buy FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate) 
 
 if (!$nodisplay){
@@ -852,7 +793,7 @@ foreach ($asr_cic_list1 as $asr_cic_data){
 	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
 	<tr>	
 		<td align="center" class="bgcolor_019"></td>
-    	<td  class="bgcolor_020" align="center" colspan="13"><font class="fontstyle_003"><?php echo gettext("CALLING CARD MINUTES");?></font></td>
+    	<td  class="bgcolor_020" align="center" colspan="10"><font class="fontstyle_003"><?php echo gettext("CALLING CARD MINUTES");?></font></td>
     </tr>
 	<tr class="bgcolor_019">
 		<td align="center" class="bgcolor_020"><font class="fontstyle_003"><?php echo gettext("DATE");?></font></td>
@@ -861,9 +802,6 @@ foreach ($asr_cic_list1 as $asr_cic_data){
 		<td align="center"><font class="fontstyle_003"><?php echo gettext("CALLS");?></font></td>
 		<td align="center"><font class="fontstyle_003"><acronym title="<?php echo gettext("AVERAGE LENGTH OF CALL");?>"><?php echo gettext("ALOC");?></acronym></font></td>
 		<td align="center"><font class="fontstyle_003"><acronym title="<?php echo gettext("ANSWER SEIZE RATIO");?>"><?php echo gettext("ASR");?></acronym></font></td>
-		<td align="center"><font class="fontstyle_003"><acronym title="<?php echo gettext("NUMBER OF FAIL CALLS");?>"><?php echo gettext("FAIL");?></acronym></font></td>
-		<td align="center"><font class="fontstyle_003"><acronym title="<?php echo gettext("MAX OF NUMBER FAIL CALLS SUCCESSIVELY");?>"><?php echo gettext("MFCS");?></acronym></font></td>
-		<td align="center"><font class="fontstyle_003"><acronym title="<?php echo gettext("RATE OF FAIL");?>"><?php echo gettext("ROF");?></acronym></font></td>
 		<td align="center"><font class="fontstyle_003"><?php echo gettext("SELL");?></font></td>
 		<td align="center"><font class="fontstyle_003"><?php echo gettext("BUY");?></font></td>
 		<td align="center"><font class="fontstyle_003"><?php echo gettext("PROFIT");?></font></td>
@@ -902,9 +840,6 @@ foreach ($asr_cic_list1 as $asr_cic_data){
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font class="fontstyle_006"><?php echo $data[3]?></font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font class="fontstyle_006"><?php echo $tmc?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2dec ($asr_cic_list1[$j][1]/($data[3]))?> </font></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font class="fontstyle_006"><?php echo $asr_cic_list1[$j][2]?> </font></td>
-	<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font class="fontstyle_006"><?php echo $asr_cic_list1[$j][3]?> </font></td>
-	<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2dec_percentage(($asr_cic_list1[$j][2]/($data[3]))*100)?> </font></td>
 		<!-- SELL -->
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font class="fontstyle_006"><?php  
 		display_2bill($data[2]) 
@@ -950,9 +885,6 @@ foreach ($asr_cic_list1 as $asr_cic_data){
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalcall?></font></td>
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_tmc?></font></td>   
         	<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2dec($totalsuccess/$totalcall)?> </font></td>
-        	<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalfail?></font></td>
-		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_max_succ?></font></td>
-		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2dec_percentage(($totalfail/$totalcall)*100)?></font></td>
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill($totalcost) ?></font></td>
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill($totalbuycost) ?></font></td>
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill($totalcost - $totalbuycost) ?></font></td>
