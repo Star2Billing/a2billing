@@ -365,6 +365,34 @@
 	</div>
 	{/if}
 
+	
+	{if ($ACXSUPPORT  > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
+	{if ($section == "13")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="13")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="CC_ticket.php?section=13">{php} echo gettext("View Tickets");{/php}</a></li>
+				<li><a href="CC_ticket.php?form_action=ask-add&section=13">{php} echo gettext("Create Ticket");{/php}</a></li>
+				<li><a href="CC_support.php?section=13">{php} echo gettext("View Support Box");{/php}</a></li>
+				<li><a href="CC_support.php?form_action=ask-add&section=13">{php} echo gettext("Create Support Box");{/php}</a></li>
+				<li><a href="CC_support_component.php?section=13">{php} echo gettext("View Components");{/php}</a></li>
+				<li><a href="CC_support_component.php?form_action=ask-add&section=13">{php} echo gettext("Create Component");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
 
 	{if ($ACXCALLBACK  > 0)}
 	<div class="toggle_menu">
@@ -434,7 +462,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("ADMINISTRATOR");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AGENT / ADMIN");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="10")}
 		style="">
@@ -447,24 +475,20 @@
 				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=0&stitle=Administrator+management&section=10">{php} echo gettext("Add Administrator");{/php}</a></li>
 				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10">{php} echo gettext("Show ACL Admin");{/php}</a></li>
 				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10">{php} echo gettext("Add ACL Admin");{/php}</a></li>
-				<li><a href="A2B_entity_backup.php?form_action=ask-add&section=10">{php} echo gettext("Database Backup");{/php}</a></li>
-				<li><a href="A2B_entity_restore.php?section=10">{php} echo gettext("Database Restore");{/php}</a></li>
-				<li><a href="A2B_logfile.php?section=10">{php} echo gettext("Watch Log files");{/php}</a></li>
-				<li><a href="A2B_entity_log_viewer.php?section=10">{php} echo gettext("System Log");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
 	</div>
 	{/if}
 
-	{if ($ACXFILEMANAGER  > 0)}
+	{if ($ACXMAINTENANCE  > 0)}
 	<div class="toggle_menu">
 	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
 	{if ($section == "11")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("FILE MANAGER");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MAINTENANCE");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="11")}
 		style="">
@@ -473,36 +497,12 @@
 	{/if}
 		<ul>
 			<li><ul>
+				<li><a href="A2B_entity_log_viewer.php?section=11">{php} echo gettext("Users Activity");{/php}</a></li>
+				<li><a href="A2B_entity_backup.php?form_action=ask-add&section=11">{php} echo gettext("Database Backup");{/php}</a></li>
+				<li><a href="A2B_entity_restore.php?section=11">{php} echo gettext("Database Restore");{/php}</a></li>
+				<li><a href="A2B_logfile.php?section=11">{php} echo gettext("Watch Log files");{/php}</a></li>
 				<li><a href="CC_musiconhold.php?section=11">{php} echo gettext("MusicOnHold");{/php}</a></li>
 				<li><a href="CC_upload.php?section=11">{php} echo gettext("Standard File");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-
-	{if ($ACXSUPPORT  > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
-	{if ($section == "13")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="13")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="CC_ticket.php?section=13">{php} echo gettext("View Tickets");{/php}</a></li>
-				<li><a href="CC_ticket.php?form_action=ask-add&section=13">{php} echo gettext("Create Ticket");{/php}</a></li>
-				<li><a href="CC_support.php?section=13">{php} echo gettext("View Support Box");{/php}</a></li>
-				<li><a href="CC_support.php?form_action=ask-add&section=13">{php} echo gettext("Create Support Box");{/php}</a></li>
-				<li><a href="CC_support_component.php?section=13">{php} echo gettext("View Components");{/php}</a></li>
-				<li><a href="CC_support_component.php?form_action=ask-add&section=13">{php} echo gettext("Create Component");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

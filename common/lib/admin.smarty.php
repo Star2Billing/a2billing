@@ -46,7 +46,7 @@ $smarty->assign("ACXCALLREPORT", $ACXCALLREPORT);
 $smarty->assign("ACXCRONTSERVICE", $ACXCRONTSERVICE);
 $smarty->assign("ACXMISC", $ACXMISC);
 $smarty->assign("ACXADMINISTRATOR", $ACXADMINISTRATOR);
-$smarty->assign("ACXFILEMANAGER", $ACXFILEMANAGER);
+$smarty->assign("ACXMAINTENANCE", $ACXMAINTENANCE);
 $smarty->assign("ACXSUPPORT", $ACXSUPPORT);
 $smarty->assign("ACXCALLBACK", $ACXCALLBACK);
 $smarty->assign("ACXOUTBOUNDCID", $ACXOUTBOUNDCID);

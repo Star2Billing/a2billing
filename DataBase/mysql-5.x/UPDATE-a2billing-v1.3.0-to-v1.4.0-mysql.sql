@@ -936,3 +936,5 @@ CREATE TABLE cc_agent (
 
 
 ALTER TABLE cc_card ADD id_agent INT NOT NULL DEFAULT '0';
+
+
