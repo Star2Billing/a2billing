@@ -1,7 +1,7 @@
 <?php
-include_once(dirname(__FILE__) . "/../lib/admin.defines.php");
-include_once(dirname(__FILE__) . "/../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
+include_once(dirname(__FILE__) . "/../lib/agent.defines.php");
+include_once(dirname(__FILE__) . "/../lib/agent.module.access.php");
+include ("../lib/agent.smarty.php");
 
 if (! has_rights (ACX_CALL_REPORT)){ 
 	Header ("HTTP/1.0 401 Unauthorized");

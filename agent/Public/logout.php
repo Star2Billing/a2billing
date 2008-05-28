@@ -1,6 +1,6 @@
 <?php 
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
 
 
 ?>

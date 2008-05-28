@@ -1,8 +1,8 @@
 <?php
 // Common includes
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
+include ("../lib/agent.smarty.php");
 
 set_time_limit(0);
 

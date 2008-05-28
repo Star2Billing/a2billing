@@ -1,8 +1,8 @@
 <?php
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/admin.smarty.php");
+include ("../lib/agent.smarty.php");
 
 
 if (! has_rights (ACX_MISC)) {

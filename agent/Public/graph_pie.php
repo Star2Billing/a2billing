@@ -1,9 +1,9 @@
 <?php
-include_once(dirname(__FILE__) . "/../lib/admin.defines.php");
+include_once(dirname(__FILE__) . "/../lib/agent.defines.php");
 include_once(dirname(__FILE__) . "/jpgraph_lib/jpgraph.php");
 include_once(dirname(__FILE__) . "/jpgraph_lib/jpgraph_pie.php");
 include_once(dirname(__FILE__) . "/jpgraph_lib/jpgraph_pie3d.php");
-include_once(dirname(__FILE__) . "/../lib/admin.module.access.php");
+include_once(dirname(__FILE__) . "/../lib/agent.module.access.php");
 
 
 if (! has_rights (ACX_CALL_REPORT)){ 

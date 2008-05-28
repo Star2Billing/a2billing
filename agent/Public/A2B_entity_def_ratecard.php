@@ -1,9 +1,9 @@
 <?php
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_def_ratecard.inc");
-include ("../lib/admin.smarty.php");
+include ("../lib/agent.smarty.php");
 
 if (! has_rights (ACX_RATECARD)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
