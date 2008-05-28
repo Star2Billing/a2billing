@@ -8,6 +8,7 @@
 
 	If you're using $_SESSION , make sure you aren't using session_register() too.
 	From the manual.
+
 	If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(), session_is_registered() and session_unregister().
 
  *
