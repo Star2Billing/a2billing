@@ -15,7 +15,6 @@ $smarty = new Smarty;
 $skin_name = $_SESSION["stylefile"];
 
 
-//$smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
 $smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
 
 $smarty->compile_dir = TEMPLATE_C_DIR;
@@ -40,20 +39,8 @@ $smarty->assign("popupwindow", $popup_select);
 $smarty->assign("ACXCUSTOMER", $ACXCUSTOMER);
 $smarty->assign("ACXBILLING", $ACXBILLING);
 $smarty->assign("ACXRATECARD", $ACXRATECARD);
-$smarty->assign("ACXTRUNK", $ACXTRUNK);
-$smarty->assign("ACXDID", $ACXDID);
 $smarty->assign("ACXCALLREPORT", $ACXCALLREPORT);
-$smarty->assign("ACXCRONTSERVICE", $ACXCRONTSERVICE);
-$smarty->assign("ACXMISC", $ACXMISC);
-$smarty->assign("ACXADMINISTRATOR", $ACXADMINISTRATOR);
-$smarty->assign("ACXFILEMANAGER", $ACXFILEMANAGER);
-$smarty->assign("ACXSUPPORT", $ACXSUPPORT);
-$smarty->assign("ACXCALLBACK", $ACXCALLBACK);
-$smarty->assign("ACXOUTBOUNDCID", $ACXOUTBOUNDCID);
-$smarty->assign("ACXPACKAGEOFFER", $ACXPACKAGEOFFER);
-$smarty->assign("ACXPREDICTIVEDIALER", $ACXPREDICTIVEDIALER);
-$smarty->assign("ACXINVOICING", $ACXINVOICING);
-$smarty->assign("ACXINVOICING2", $ACXINVOICING2);
+$smarty->assign("ACXMYACCOUNT", $ACXMYACCOUNT);
 
 if($_GET["section"]!="")
 {
@@ -72,4 +59,3 @@ $smarty->assign("A2Bconfig", $A2B->config);
 
 $smarty->assign("PAGE_SELF", $PHP_SELF);
 
-?>

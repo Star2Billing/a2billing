@@ -68,6 +68,7 @@ class Logger
 
 		$table_log -> SQLExec($DB_Handle, $QUERY);		
 	}	
+	
 	function insertLog($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $data='')
 	{
 		$DB_Handle = DBConnect();
@@ -79,6 +80,22 @@ class Logger
 		
 		$QUERY = "INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data) ";
 		$QUERY .= " VALUES('".$userID."','".$logLevel."','".$actionPerformed."','".$description."','".$tableName."','".$pageName."','".$ipAddress."','".$data."')";
+		if ($this -> do_debug) echo $QUERY;
+
+		$table_log -> SQLExec($DB_Handle, $QUERY);		
+	}
+	
+	function insertLogAgent($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $data='')
+	{
+		$DB_Handle = DBConnect();
+		$table_log = new Table();		
+		$pageName = basename($pageName);
+		$pageArray = explode('?', $pageName);
+		$pageName = array_shift($pageArray);
+		$description = str_replace("'", "", $description);
+		
+		$QUERY = "INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data, agent) ";
+		$QUERY .= " VALUES('".$userID."','".$logLevel."','".$actionPerformed."','".$description."','".$tableName."','".$pageName."','".$ipAddress."','".$data."', 1)";
 		if ($this -> do_debug) echo $QUERY;
 
 		$table_log -> SQLExec($DB_Handle, $QUERY);		

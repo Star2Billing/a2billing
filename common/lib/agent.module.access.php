@@ -1,14 +1,18 @@
-<?php /* file module.access.php
+<?php
+
+/* file module.access.php
+ * 
 
 	Module access - an access control module for back office areas
 
 
-If you're using $_SESSION , make sure you aren't using session_register() too.
-From the manual.
-If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(), session_is_registered() and session_unregister().
+	If you're using $_SESSION , make sure you aren't using session_register() too.
+	From the manual.
+	If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(), session_is_registered() and session_unregister().
 
+ *
+ **/
 
-*/
 $FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
@@ -17,36 +21,24 @@ define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
 
+
 define ("ACX_CUSTOMER",					1);
 define ("ACX_BILLING",					2);			// 1 << 1
 define ("ACX_RATECARD",					4);			// 1 << 2
-define ("ACX_TRUNK",   					8);			// 1 << 3
-define ("ACX_CALL_REPORT",   			16);		// 1 << 4
-define ("ACX_CRONT_SERVICE",   			32);		// 1 << 5
-define ("ACX_ADMINISTRATOR",   			64);		// 1 << 6
-define ("ACX_MAINTENANCE",   			128);		// 1 << 7
-define ("ACX_MISC",   				    256);		// 1 << 8
-define ("ACX_DID",   					512);		// 1 << 9
-define ("ACX_CALLBACK",					1024);		// 1 << 10
-define ("ACX_OUTBOUNDCID",				2048);		// 1 << 11
-define ("ACX_PACKAGEOFFER",				4096);		// 1 << 12
-define ("ACX_PREDICTIVE_DIALER",		8192);		// 1 << 13
-define ("ACX_INVOICING",				16384);		// 1 << 13
-define ("ACX_SUPPORT",				32768);
-
+define ("ACX_CALL_REPORT",   			8);			// 1 << 3
+define ("ACX_MYACCOUNT",				16);
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
-//echo "PHP_AUTH_USER : $PHP_AUTH_USER";
 
 if (!isset($_SESSION)) {
-	session_name("UIADMINSESSION");
+	session_name("UIAGENTSESSION");
 	session_start();
 }
 
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	$log = new Logger();
-	$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+	$log -> insertLogAgent($admin_id, 1, "AGENT LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 	$log = null;
 	session_destroy();
 	$rights=0;
@@ -94,27 +86,11 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			Header ("Location: index.php?error=1");
 			die();
 		}
-		// if groupID egal 1, this user is a root
-
-		if ($return[3]==0){
-			$admin_id = $return[0];
-			$return = true;
-			$rights = 65535;
-
-			$is_admin = 1;
-			$pr_groupID = $return[3];
-		}else{
-			$pr_reseller_ID = $return[0];
-			$admin_id = $return[0];
-			$rights = $return[1];
-			if ($return[3]==1) $is_admin=1;
-			else $is_admin=0;
-
-			if ($return[3] == 3) $pr_reseller_ID = $return[4];
-
-			$pr_groupID = $return[3];
-		}
-
+		
+		$admin_id = $return[0];
+		$rights = $return[1];
+		
+		
 		if ($_POST["pr_login"]) {
 
 			$pr_login = $_POST["pr_login"];
@@ -124,12 +100,9 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["pr_login"]=$pr_login;
 			$_SESSION["pr_password"]=$pr_password;
 			$_SESSION["rights"]=$rights;
-			$_SESSION["is_admin"]=$is_admin;
-			$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
-			$_SESSION["pr_groupID"]=$pr_groupID;
-			$_SESSION["admin_id"] = $admin_id;
+			$_SESSION["agent_id"] = $agent_id;
 			$log = new Logger();
-			$log -> insertLog($admin_id, 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
+			$log -> insertLogAgent($admin_id, 1, "Agent Logged In", "Agent Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
 			$log = null;
 		}
 
@@ -150,8 +123,8 @@ function login ($user, $pass) {
 	$user = trim($user);
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
-	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND password = '".$pass."'";
-
+	$QUERY = "SELECT id, perms, active FROM cc_agent WHERE login = '".$user."' AND passwd = '".$pass."'";
+	
 	$res = $DBHandle -> Execute($QUERY);
 
 	if (!$res) {
@@ -160,6 +133,11 @@ function login ($user, $pass) {
 	}
 
 	$row [] =$res -> fetchRow();
+	
+	if( $row [0][2] != "t" && $row [0][2] != "1" ) {
+		return -1;
+	}
+	
 	return ($row[0]);
 }
 
@@ -172,18 +150,5 @@ function has_rights ($condition) {
 $ACXCUSTOMER 	= has_rights (ACX_CUSTOMER);
 $ACXBILLING 	= has_rights (ACX_BILLING);
 $ACXRATECARD 	= has_rights (ACX_RATECARD);
-$ACXTRUNK		= has_rights (ACX_TRUNK);
-$ACXDID			= has_rights (ACX_DID);
 $ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
-$ACXCRONTSERVICE= has_rights (ACX_CRONT_SERVICE);
-$ACXMISC 		= has_rights (ACX_MISC);
-$ACXADMINISTRATOR = has_rights (ACX_ADMINISTRATOR);
-$ACXMAINTENANCE = has_rights (ACX_MAINTENANCE);
-$ACXCALLBACK	= has_rights (ACX_CALLBACK);
-$ACXOUTBOUNDCID = has_rights (ACX_OUTBOUNDCID);
-$ACXPACKAGEOFFER = has_rights (ACX_PACKAGEOFFER);
-$ACXPREDICTIVEDIALER = has_rights (ACX_PREDICTIVE_DIALER);
-$ACXINVOICING = has_rights (ACX_INVOICING);
-$ACXINVOICING2 = has_rights (ACX_INVOICING);
-$ACXSUPPORT = has_rights (ACX_SUPPORT);
-
+$ACXMYACCOUNT  = has_rights (ACX_MYACCOUNT);

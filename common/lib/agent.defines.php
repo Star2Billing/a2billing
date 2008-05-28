@@ -24,8 +24,8 @@ $log = new Logger();
 // signup/index.php
 $URI = $_SERVER['REQUEST_URI'];
 $restircted_url = substr($URI,-16);
-if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
-	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["agent_id"])) {
+	$log -> insertLogAgent($_SESSION["agent_id"], 1, "Page Visit", "Agent Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 }
 $log = null;
 
@@ -140,24 +140,25 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 
-if(ini_get('register_globals'))
-{
+if(ini_get('register_globals')) {
 	foreach($_REQUEST as $key => $value)
 	{
 		$$key = $value;
 	}
 }
-if (!isset($_SESSION["language"]))
-{
-  $_SESSION["language"] = 'english';
+ 
+ // Language session
+if (!isset($_SESSION["language"])) {
+	$_SESSION["language"]='english';
+} else if (isset($language)) {
+	$_SESSION["language"] = $language;
 }
-else if (isset($language))
-{
-  $_SESSION["language"] = $language;
-}
+
 define ("LANGUAGE",$_SESSION["language"]);
-require_once("languageSettings.php");
+define ("BINDTEXTDOMAIN", '../common/agent_ui_locale');
+require("languageSettings.php");
 SetLocalLanguage();
+
  
 function DbConnect($db= NULL)
 {
@@ -264,7 +265,7 @@ define ("KICON_PATH","../Public/templates/".$_SESSION["stylefile"]."/images/kico
 define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->config["global"]['invoice_image']:null);
 
 // INCLUDE HELP
-include (LIBDIR."admin.help.php");
+include (LIBDIR."agent.help.php");
 
 // A2BILLING INFO
 define ("WEBUI_DATE", 'Release : no date');
