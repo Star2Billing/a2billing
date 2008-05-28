@@ -1,14 +1,17 @@
-<?php /* file module.access.php
+<?php
+/* 
+ * 	file module.access.php
 
 	Module access - an access control module for back office areas
 
 
-If you're using $_SESSION , make sure you aren't using session_register() too.
-From the manual.
-If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(), session_is_registered() and session_unregister().
+	If you're using $_SESSION , make sure you aren't using session_register() too.
+	From the manual.
+	If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(), session_is_registered() and session_unregister().
 
+ *
+ */
 
-*/
 $FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
@@ -32,7 +35,7 @@ define ("ACX_OUTBOUNDCID",				2048);		// 1 << 11
 define ("ACX_PACKAGEOFFER",				4096);		// 1 << 12
 define ("ACX_PREDICTIVE_DIALER",		8192);		// 1 << 13
 define ("ACX_INVOICING",				16384);		// 1 << 13
-define ("ACX_SUPPORT",				32768);
+define ("ACX_SUPPORT",					32768);
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
