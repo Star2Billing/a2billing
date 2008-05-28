@@ -5,7 +5,9 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
-'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 'voicemail_permitted','email_notification','credit_notification','notify_email' ));
+'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
+'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_agent' ));
+
 
 $HD_Form = new FormHandler("cc_card","Card");
 $HD_Form -> FG_DEBUG = 0;
@@ -215,6 +217,7 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", 
 $HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, null,null , "status", 0, $cardstatus_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT AGENT"), "cc_agent", "id, login, id", "", "login", "ASC", "id_agent");
 
 
 if (($popup_select>=1)) {
@@ -327,6 +330,18 @@ $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 			   "cc_didgroup",
 			   "didgroupname, id",
 			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+
+
+$HD_Form -> AddEditElement (gettext("AGENT ID"),
+			   "id_agent",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_agent",
+			   "login, id",
+			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+
 
 /*
 // The campaign for predictive dialer is removing for now, as this feature arent supported anymore
@@ -768,9 +783,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification ' );
-
-
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_agent, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification' );
 
 
 if(!isset($myusername)) $myusername='';

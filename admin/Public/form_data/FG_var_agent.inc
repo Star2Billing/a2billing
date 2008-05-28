@@ -35,6 +35,8 @@ $right_list["1"] = array( gettext("CUSTOMERS"), "1");
 $right_list["2"] = array( gettext("BILLING"), "2");
 $right_list["3"] = array( gettext("RATECARD"), "4");
 $right_list["4"] = array( gettext("CALL REPORT"), "8");
+$right_list["5"] = array( gettext("MY ACCOUNT"), "16");
+
 $len_right_list = count($right_list);
 
 
@@ -146,7 +148,7 @@ $HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
 	   "",
 	   "INPUT",
 	   "size=20 maxlength=20",
-	   "4",
+	   "12",
 	   gettext("Insert the credit limit"),
 	   "" , "", "",	"", "", "", "NO-NULL", gettext("Credit limit"));
 
@@ -162,7 +164,7 @@ $HD_Form -> AddEditElement (gettext("COMMISSION"),
 	   "",
 	   "INPUT",
 	   "size=20 maxlength=20",
-	   "4",
+	   "12",
 	   gettext("Insert the commision"),
 	   "" , "", "",	"", "", "", "NO-NULL", gettext("Commission"));
 
@@ -171,9 +173,9 @@ $HD_Form -> AddEditElement (gettext("VAT"),
 	   "",
 	   "INPUT",
 	   "size=20 maxlength=20",
-	   "4",
+	   "12",
 	   gettext("Insert the VAT"),
-	   "" , "", "",	"", "", "", "NO-NULL", gettext("Commission"));
+	   "" , "", "",	"", "", "", "NO-NULL", gettext("VAT"));
 
 $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 	   "language",
@@ -271,7 +273,7 @@ if ($form_action!="ask-add" && $form_action!="add"){
         $FG_QUERY_EDITION='id, ';
 }
 
-$FG_QUERY_EDITION .= 'active, login, passwd, perms, active, id_tariffgroup, credit, climit, currency, commission, vat, language,  lastname, firstname, address, city, state, 
+$FG_QUERY_EDITION .= 'login, passwd, perms, active, id_tariffgroup, credit, climit, currency, commission, vat, language,  lastname, firstname, address, city, state, 
 country, zipcode, email, phone,  fax';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
