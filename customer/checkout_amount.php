@@ -29,7 +29,6 @@ $payment_modules = new payment($payment);
 
 // #### HEADER SECTION
 
-
 $smarty->display( 'main.tpl');
 ?>
 <script language="javascript">
@@ -44,9 +43,9 @@ $smarty->display( 'main.tpl');
  }
  </script>
 <?php
- 
+
 $form_action_url = tep_href_link("checkout_confirmation.php", '', 'SSL');
-  
+
 
 echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="checkamount()"');
 ?>
@@ -54,7 +53,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 
 <br>
 <center>
-<?php 
+<?php
 	echo $SPOT[strtoupper($payment)];
 ?>
 <br>
@@ -82,14 +81,14 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 <tr>
     <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
     <td align=left><select name="amount" class="form_input_select" style="width:60px;" >
-	<?php 
+	<?php
 	$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
 			if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
 
 			foreach($arr_purchase_amount as $value){
 	?>
 	<option value="<?php echo $value?>"><?php echo $value?></option>
-	
+
 	<?php }?></select>
 	&nbsp;<?php echo $payment_modules->get_CurrentCurrency();?></td>
 </tr>
@@ -122,7 +121,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 </table>
 <?php } ?>
 
-<?php 
+<?php
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');
 ?>
