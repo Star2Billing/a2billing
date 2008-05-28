@@ -1,11 +1,10 @@
 <?php
 
-/* 
+/*
  * file module.access.php
- * 
+ *
 
 	Module access - an access control module for back office areas
-
 
 	If you're using $_SESSION , make sure you aren't using session_register() too.
 	From the manual.
@@ -87,11 +86,11 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			Header ("Location: index.php?error=1");
 			die();
 		}
-		
+
 		$admin_id = $return[0];
 		$rights = $return[1];
-		
-		
+
+
 		if ($_POST["pr_login"]) {
 
 			$pr_login = $_POST["pr_login"];
@@ -125,7 +124,7 @@ function login ($user, $pass) {
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	$QUERY = "SELECT id, perms, active FROM cc_agent WHERE login = '".$user."' AND passwd = '".$pass."'";
-	
+
 	$res = $DBHandle -> Execute($QUERY);
 
 	if (!$res) {
@@ -134,11 +133,11 @@ function login ($user, $pass) {
 	}
 
 	$row [] =$res -> fetchRow();
-	
+
 	if( $row [0][2] != "t" && $row [0][2] != "1" ) {
 		return -1;
 	}
-	
+
 	return ($row[0]);
 }
 
