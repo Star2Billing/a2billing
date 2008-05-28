@@ -1,5 +1,5 @@
 <?php
-include ("./lib/customer.defines.php");
+include ("../lib/agent.defines.php");
 
 
 getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','currency','md5sig','merchant_id','mb_amount','status','mb_currency','transaction_id', 'mc_fee'));
@@ -20,15 +20,15 @@ if($transactionID == "") {
 }
 
 
-include ("./lib/customer.module.access.php");
-include ("./lib/Form/Class.FormHandler.inc.php");
-include ("./lib/epayment/classes/payment.php");
-include ("./lib/epayment/classes/order.php");
-include ("./lib/epayment/classes/currencies.php");
-include ("./lib/epayment/includes/general.php");
-include ("./lib/epayment/includes/html_output.php");
-include ("./lib/epayment/includes/configure.php");
-include ("./lib/epayment/includes/loadconfiguration.php");
+include ("../lib/agent.module.access.php");
+include ("../lib/Form/Class.FormHandler.inc.php");
+include ("../lib/epayment/classes/payment.php");
+include ("../lib/epayment/classes/order.php");
+include ("../lib/epayment/classes/currencies.php");
+include ("../lib/epayment/includes/general.php");
+include ("../lib/epayment/includes/html_output.php");
+include ("../lib/epayment/includes/configure.php");
+include ("../lib/epayment/includes/loadconfiguration.php");
 
 
 $DBHandle_max  = DbConnect();
