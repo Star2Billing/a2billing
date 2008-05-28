@@ -1,6 +1,7 @@
 <?php
 
-/* file module.access.php
+/* 
+ * file module.access.php
  * 
 
 	Module access - an access control module for back office areas
