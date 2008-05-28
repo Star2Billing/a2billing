@@ -1,8 +1,7 @@
 <?php
-include ("lib/agent.defines.php");
-include ("lib/agent.module.access.php");
-include ("lib/agent.smarty.php");
-
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
+include ("../lib/agent.smarty.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
