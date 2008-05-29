@@ -9,7 +9,6 @@ include ("lib/customer.smarty.php");
 
 getpost_ifset(array('noheader'));
 
-
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
