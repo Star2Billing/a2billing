@@ -80,9 +80,7 @@ for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){
 	$musiconhold_list[]  = array( "MUSICONHOLD CLASS ACC_$i", "acc_$i");
 }
 
-$yesno = array();
-$yesno["1"] = array( gettext("Yes"), "1");
-$yesno["0"] = array( gettext("No"), "0");
+$yesno = Constants::getYesNoList();
 
 if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "");

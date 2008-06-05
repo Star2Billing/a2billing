@@ -8,16 +8,10 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "destination";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
+$actived_list = Constants::getActivationList();
 
-$actived_list = array();
-$actived_list["1"] = array( gettext("Active"), "1");
-$actived_list["0"] = array( gettext("Inactive"), "0");
 
-$billingtype_list = array();
-$billingtype_list["0"] = array( gettext("Fix per month + dialoutrate"), "0");
-$billingtype_list["1"] = array( gettext("Fix per month"), "1");
-$billingtype_list["2"] = array( gettext("Only dialout rate"), "2");
-$billingtype_list["3"] = array( gettext("Free"), "3");
+$billingtype_list = Constants::getBillingTypeList();
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 
 $priority_list = array();

@@ -12,23 +12,12 @@ $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'add_did_use';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE = 'did_use_delete';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = 'is_did_in_use';
 
-// TODO Integrate a generic LIST to Framework
-$actived_list = array(); 
-$actived_list["1"] = array( gettext("Active"), "1");
-$actived_list["0"] = array( gettext("Inactive"), "0");
+$actived_list = Constants::getActivationList();
 
-$billingtype_list = array();
-$billingtype_list["0"] = array( gettext("Fix per month + dialoutrate"), "0");
-$billingtype_list["1"] = array( gettext("Fix per month"), "1");
-$billingtype_list["2"] = array( gettext("Only dialout rate"), "2"); 
-$billingtype_list["3"]  = array( gettext("Free"), "3");
+$billingtype_list = Constants::getBillingTypeList();
 
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
-$billingtype_list_short = array();
-$billingtype_list_short["0"] = array( gettext("Fix+Dial"), "0");
-$billingtype_list_short["1"] = array( gettext("Fix"), "1");
-$billingtype_list_short["2"] = array( gettext("Dial"), "2");
-$billingtype_list_short["3"] = array( gettext("Free"), "3");
+$billingtype_list_short = Constants::getBillingTypeShortList();
 
 
 $HD_Form -> AddViewElement(gettext("DID"), "did", "10%", "center", "sort");

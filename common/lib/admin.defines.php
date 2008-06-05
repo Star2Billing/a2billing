@@ -10,6 +10,8 @@ define ("LIBDIR", FSROOT."lib/");
 include_once (FSROOT."lib/mail/class.phpmailer.php");
 // INCLUDE MISC
 include (FSROOT."lib/Misc.php");
+include (FSROOT."lib/interface/constants.php");
+
 
 // A2B INSTANCE
 $A2B = new A2Billing();

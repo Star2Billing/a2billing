@@ -10,49 +10,23 @@ $HD_Form -> FG_DEBUG = 0;
 
 
 
-$language_list = array();
-$language_list["0"] = array( gettext("ENGLISH"), "en");
-$language_list["1"] = array( gettext("SPANISH"), "es");
-$language_list["2"] = array( gettext("FRENCH"),  "fr");
+$language_list = Constants::getLanguagesList();
+$simultaccess_list = Constants::getSimultAccessList();
+$currency_list=Constants::getCurrenciesList();
+$currency_list_r = Constants::getCurrenciesRateList();
+$currency_list_key = Constants::getCurrenciesKeyList();
+$typepaid_list = Constants::getPaidTypeList();
+$expire_list = Constants::getExpirationList();
 
-$simultaccess_list = array();
-$simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
-$simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
-
-$currency_list = array();
-$indcur=0;
-$currencies_list = get_currencies();
-
-foreach($currencies_list as $key => $cur_value) {
-	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
-	$currency_list_r[$key]  = array( $key, $cur_value[1]);
-	$currency_list_key[$key][0] = $key;
-}
-
-
-$typepaid_list = array();
-$typepaid_list["0"] = array( gettext("PREPAID CARD"), "0");
-$typepaid_list["1"] = array( gettext("POSTPAY CARD"), "1");
-
-
-$expire_list = array();
-$expire_list["0"] = array( gettext("NO EXPIRATION"), "0");
-$expire_list["1"] = array( gettext("EXPIRE DATE"), "1");
-$expire_list["2"] = array( gettext("EXPIRE DAYS SINCE FIRST USE"), "2");
-$expire_list["3"] = array( gettext("EXPIRE DAYS SINCE CREATION"), "3");
 
 
 $inuse_list = array();
 for ($k=0;$k<=40;$k++)
 	$inuse_list["$k"]  = array( gettext("currently in use")." : $k", "$k");
 
-$actived_list = array();
-$actived_list["t"] = array( gettext("Active"), "t");
-$actived_list["f"] = array( gettext("Inactive"), "f");
+$actived_list = Constants::getActivationTrueFalseList();
 
-$yesno = array();
-$yesno["1"] = array( gettext("Yes"), "1");
-$yesno["0"] = array( gettext("No"), "0");
+$yesno = Constants::getYesNoList();
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");

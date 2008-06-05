@@ -5,13 +5,9 @@ $HD_Form = new FormHandler("cc_callerid","CallerID");
 
 $HD_Form -> FG_DEBUG = 0;
 
-$actived_list = array();
-$actived_list["t"] = array( gettext("Active"), "t");
-$actived_list["f"] = array( gettext("Disactive"), "f");
+$actived_list = Constants::getActivationTrueFalseList();
 
-$yesno = array();
-$yesno["1"] = array( gettext("Yes"), "1");
-$yesno["0"] = array( gettext("No"), "0");
+$yesno = Constants::getYesNoList();
 
 
 $HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "25%", "center", "sort");

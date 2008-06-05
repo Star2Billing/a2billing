@@ -20,14 +20,9 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" tariff ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this Call Plan! Please comfirm that you really want to remove this Call Plan ? ");
 
 // LCD :the cheapest Provider for a given destination number
-$lcrtype_list = array();
-$lcrtype_list["0"] = array( gettext("LCR : According to the buyer price"), "0");
-$lcrtype_list["1"] = array( gettext("LCD : According to the seller price"), "1");
+$lcrtype_list = Constants::getLcTypesList();
 
-
-$lcrtype_list_short = array();
-$lcrtype_list_short["0"] = array( gettext("LCR : buyer price"), "0");
-$lcrtype_list_short["1"] = array( gettext("LCD : seller price"), "1");
+$lcrtype_list_short = Constants::getLcShortTypesList();
 
 $inter_prefix_list_short = array();
 $inter_prefix_list_short["0"] = array( gettext("Keep prefix"), "0");

@@ -16,9 +16,7 @@ $period_list["1"]  = array( "Daily", "1");
 for ($k=2;$k<=60;$k++)
         $period_list["$k"]  = array( "every $k days", "$k");
 
-$actived_list = array();
-$actived_list["0"] = array( gettext("Inactive"), "0");
-$actived_list["1"] = array( gettext("Active"), "1");
+$actived_list = Constants::getActivationList();
 
 $rule_list = array();
 $rule_list["0"]  = array( gettext("No rule"), "0");

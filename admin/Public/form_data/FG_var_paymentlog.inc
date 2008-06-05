@@ -52,10 +52,7 @@ if($date_clause != "")
 }
 
 
-$status_list = array();
-$status_list["0"] = array( gettext("New"), "0");
-$status_list["1"] = array( gettext("Proceed"), "1");
-$status_list["2"] = array( gettext("In Process"), "2"); 
+$status_list = Constants::getPaymentStateList();
 
 
 $HD_Form -> AddViewElement(gettext("Id"), "ID", "10%", "center");

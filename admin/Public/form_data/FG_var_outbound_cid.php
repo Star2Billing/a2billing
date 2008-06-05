@@ -12,10 +12,7 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "cid";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
-// TODO Integrate a generic LIST to Framework
-$actived_list = array(); 
-$actived_list["1"] = array( gettext("Active"), "1");
-$actived_list["0"] = array( gettext("Inactive"), "0");
+$actived_list = Constants::getActivationList();
 
 $HD_Form -> AddViewElement(gettext("CID"), "cid", "30%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CIDGROUP"), "outbound_cid_group", "30%", "center", "sort", "15", "lie", "cc_outbound_cid_group", "group_name", "id='%id'", "%1");

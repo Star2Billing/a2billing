@@ -25,16 +25,9 @@ getpost_ifset(array(
 	));
 
 // Static tables
-$status_list = array();
-$status_list['0'] = array( gettext('Failed'), '0');
-$status_list['1'] = array( gettext('Successful'), '1');
-$status_list['']  = array( gettext('Not Sent'), '');
+$status_list = Constants::getEmailStatusList();
 
-$payment_status_list = array();
-$payment_status_list['0'] = array( gettext('UNPAID'), '0');
-$payment_status_list['1'] = array( gettext('SENT-UNPAID'), '1');
-$payment_status_list['2'] = array( gettext('SENT-PAID'), '2');
-$payment_status_list['3'] = array( gettext('PAID'), '3');
+$payment_status_list = Constants::getPaymentStatusList();
 
 $totaloperators_table = Array( 
 	'equal' 			=> '= ',

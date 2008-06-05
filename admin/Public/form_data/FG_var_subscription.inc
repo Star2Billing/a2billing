@@ -9,25 +9,17 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
-$actived_list = array();
-$actived_list["0"] = array( gettext("Inactive"), "0");
-$actived_list["1"] = array( gettext("Active"), "1");
+$actived_list = Constants::getActivationList();
 
 $daynumber_list = array();
 for ($k=1;$k<=20;$k++)
         $daynumber_list["$k"]  = array( "$k", "$k");
 
 
-$currency_list = array();
-$currency_list_r = array();
-$indcur=0;
-$currencies_list = get_currencies();
 
-foreach($currencies_list as $key => $cur_value) {
-	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
-	$currency_list_r[$key]  = array( $key, $cur_value[1]);
-	$currency_list_key[$key][0] = $key;
-}
+$currency_list=Constants::getCurrenciesList();
+$currency_list_r = Constants::getCurrenciesRateList();
+$currency_list_key = Constants::getCurrenciesKeyList() ;
 
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "15%", "center", "sort");

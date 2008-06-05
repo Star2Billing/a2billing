@@ -21,25 +21,19 @@ foreach($currencies_list as $key => $cur_value) {
 	$indcur++;
 }
 
-$actived_list = array(); 
-$actived_list["t"] = array( gettext("Active"), "t" );
-$actived_list["f"] = array( gettext("Inactive"), "f" );
+$actived_list = Constants::getActivationTrueFalseList();
 
 $actived_list_r = array(); 
 $actived_list_r["t"] = array( "t", gettext("Active") );
 $actived_list_r["f"] = array( "f", gettext("Inactive") );
 
-$used_list = array();
-$used_list["0"] = array( gettext("NO USED"), "0");
-$used_list["1"] = array( gettext("USED"), "1");
+$used_list = Constants::getUsedList();
 
 $used_list_r = array();
 $used_list_r["0"] = array( "0", gettext("NO USED"));
 $used_list_r["1"] = array( "1", gettext("USED"));
 
-$yesno = array();
-$yesno["1"] = array( "Yes", "1");
-$yesno["0"] = array( "No", "0");
+$yesno = Constants::getYesNoList();
 
 foreach($currencies_list as $key => $cur_value) {
 	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);

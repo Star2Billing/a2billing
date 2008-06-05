@@ -27,16 +27,12 @@ $chargetype_list["2"] = array( gettext("Monthly Charge for DID use"), "2");
 $chargetype_list["3"] = array( gettext("Subscription fee"), "3");
 $chargetype_list["4"] = array( gettext("Extra charge"), "4");
 
-$currency_list = array();
-$currency_list_r = array();
-$indcur=0;
-$currencies_list = get_currencies();
 
-foreach($currencies_list as $key => $cur_value) {
-	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
-	$currency_list_r[$key]  = array( $key, $cur_value[1]);
-	$currency_list_key[$key][0] = $key;
-}
+
+
+$currency_list=Constants::getCurrenciesList();
+$currency_list_r = Constants::getCurrenciesRateList();
+$currency_list_key = Constants::getCurrenciesKeyList() ;
 
 
 $HD_Form_c -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");

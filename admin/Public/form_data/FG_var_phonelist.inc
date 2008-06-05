@@ -12,12 +12,8 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
 // TODO Integrate a generic LIST to Framework
-$actived_list = array();
-$actived_list["1"]  = array( gettext("Active"), "1"); 
-$actived_list["0"]  = array( gettext("Inactive"), "0");
-$yesno_list = array(); 
-$yesno_list["1"]  = array( gettext("Yes"), "1"); 
-$yesno_list["0"]  = array( gettext("No"), "0");
+$actived_list = Constants::getActivationList();
+$yesno_list = Constants::getYesNoList();
 
 $HD_Form -> AddViewElement(gettext("CAMPAIGN"), "id_cc_campaign", "12%", "center", "sort", "15", "lie", "cc_campaign", "campaign_name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PHONENUMBER"), "numbertodial", "10%", "center", "sort", "26");

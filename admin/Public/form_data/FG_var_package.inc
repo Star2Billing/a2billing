@@ -8,15 +8,8 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " label";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-$packagetype_list = array();
-$packagetype_list["0"] = array( gettext("Free minute + Unlimited"), "0");
-$packagetype_list["1"] = array( gettext("Free minute"), "1");
-$packagetype_list["2"] = array( gettext("Unlimited"), "2");
-$packagetype_list["3"] = array( gettext("Normal"), "3");
-
-$billingtype_list = array();
-$billingtype_list["0"] = array( gettext("Monthly"), "0");
-$billingtype_list["1"] = array( gettext("Weekly"), "1");
+$packagetype_list = Constants::getPackagesTypeList();
+$billingtype_list = Constants::getBillingPeriodsList();
 
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "18%", "center", "sort");

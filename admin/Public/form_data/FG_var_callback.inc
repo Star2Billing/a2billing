@@ -9,18 +9,15 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS  = "DESC";
 
-$actived_list = array();
-$actived_list["t"] = array( "Active", "t");
-$actived_list["f"] = array( "Disactive", "f");
+
+$actived_list = Constants::getActivationTrueFalseList();
 
 $status_list = array();
 $status_list["PENDING"] = array( "PENDING", "PENDING");
 $status_list["SENT"] = array( "SENT", "SENT");
 $status_list["ERROR"] = array( "ERROR", "ERROR");
 
-$yesno = array();
-$yesno["1"] = array( "Yes", "1");
-$yesno["0"] = array( "No", "0");
+$yesno = Constants::getYesNoList();
 
 
 $HD_Form -> AddViewElement("ID", "id", "3%", "center", "sort");

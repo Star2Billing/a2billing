@@ -18,16 +18,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $HD_Form -> FG_TABLE_CLAUSE = $FG_TABLE_CLAUSE;
 
-$language_list = array();
-$language_list["0"] = array( gettext("ENGLISH"), "en");
-$language_list["1"] = array( gettext("SPANISH"), "es");
-$language_list["2"] = array( gettext("FRENCH"),  "fr");
-
-$language_list_r = array();
-$language_list_r["0"] = array("en", gettext("ENGLISH"));
-$language_list_r["1"] = array("es", gettext("SPANISH"));
-$language_list_r["2"] = array("fr", gettext("FRENCH"));
-
+$language_list = Constants::getLanguagesList();
 
 
 $right_list = array();
@@ -39,22 +30,12 @@ $right_list["5"] = array( gettext("MY ACCOUNT"), "16");
 
 $len_right_list = count($right_list);
 
+$yesno = Constants::getYesNoList();
 
-$yesno = array();
-$yesno["1"] = array( gettext("Yes"), "1");
-$yesno["0"] = array( gettext("No"), "0");
 
-$currency_list = array();
-$currency_list_r = array();
-$indcur=0;
-
-$currencies_list = get_currencies();
-foreach($currencies_list as $key => $cur_value) {
-	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
-	$currency_list_r[$key]  = array( $key, $cur_value[1]);
-	$currency_list_key[$key][0] = $key;
-}
-
+$currency_list=Constants::getCurrenciesList();
+$currency_list_r = Constants::getCurrenciesRateList();
+$currency_list_key = Constants::getCurrenciesKeyList() ;
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATE CREATION"), "datecreation", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");

@@ -176,7 +176,7 @@ class Ticket
     	$result[$i]= $comment;
     	$i++;
       }
-      //sort rsult by date
+      //sort rï¿½sult by date
      return $result;
 
 	}else return null;

@@ -13,19 +13,10 @@ if ($atmenu=='sipfriend'){
 
 
 $HD_Form -> FG_DEBUG = 0;
+$typepaid_list = Constants::getPaidTypeList();
+$actived_list =  Constants::getActivationTrueFalseList();
+$yesno = Constants::getYesNoList();
 
-$typepaid_list = array();
-$typepaid_list["0"] = array( gettext("PREPAID CARD"), "0");
-$typepaid_list["1"] = array( gettext("POSTPAY CARD"), "1");
-
-
-$actived_list = array();
-$actived_list["t"] = array( gettext("Active"), "t");
-$actived_list["f"] = array( gettext("Inactive"), "f");
-
-$yesno = array();
-$yesno["1"] = array( gettext("Yes"), "1");
-$yesno["0"] = array( gettext("No"), "0");
 
 
 $HD_Form -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");

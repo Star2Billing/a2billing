@@ -21,11 +21,7 @@ $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 
 
-$priority_list = array();
-$priority_list["0"] = array( gettext("NONE"), "0");
-$priority_list["1"] = array( gettext("LOW"), "1");
-$priority_list["2"] = array( gettext("MEDIUM"), "2");
-$priority_list["3"] = array( gettext("HIGH"), "3");
+$priority_list = Constants::getTicketPriorityList();
 
 
 $status_list = Ticket::getAllStatusListView();

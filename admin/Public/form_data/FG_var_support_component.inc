@@ -23,9 +23,7 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_component ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some tickets using this Support Component! Please comfirm that you really want to remove this Support Component? ");
 
 
-$activated_list = array();
-$activated_list["0"] = array( gettext("Desactivate"), "0");
-$activated_list["1"] = array( gettext("Activate"), "1");
+$activated_list = Constants::getActivationList();
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "20%", "center", "sort");

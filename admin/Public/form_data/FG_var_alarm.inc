@@ -10,17 +10,11 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
 // TODO Integrate a generic LIST to Framework
-$period_list = array();
-
-$period_list["1"]  = array( "Hourly", "1");
-$period_list["2"]  = array( "Daily", "2");
-$period_list["3"]  = array( "Weekly", "3");
-$period_list["4"]  = array( "Monthly", "4");
+$period_list = Constants::getPeriodsList();
 
 
-$actived_list = array();
-$actived_list["0"] = array( gettext("Inactive"), "0");
-$actived_list["1"] = array( gettext("Active"), "1");
+$actived_list = Constants::getActivationList() ;
+
 
 $type_list = array();
 $type_list["1"]  = array( gettext("Apply alarm on ALOC too low or too high"), "1");
