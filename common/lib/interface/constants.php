@@ -200,5 +200,7 @@ Constants::getLcTypesList();
 Constants::getLcShortTypesList();
 Constants::getTicketPriorityList();
 Constants::getUsedList();
+Constants::getBillingTypeList();
+Constants::getBillingTypeShortList();
 */
 ?>

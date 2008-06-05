@@ -13,23 +13,13 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
-// TODO Integrate a generic LIST to Framework
-$actived_list = array();
-$actived_list["1"] = array( gettext("Active"), "1");
-$actived_list["0"] = array( gettext("Inactive"), "0");
+$actived_list = Constants::getActivationList();
 
-$billingtype_list = array();
-$billingtype_list["0"] = array( gettext("Fix per month + dialoutrate"), "0");
-$billingtype_list["1"] = array( gettext("Fix per month"), "1");
-$billingtype_list["2"] = array( gettext("Only dialout rate"), "2"); 
-$billingtype_list["3"] = array( "Free", "3");
+
+$billingtype_list = Constants::getBillingTypeList();
 
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
-$billingtype_list_short = array();
-$billingtype_list_short["0"] = array( gettext("Fix+Dial"), "0");
-$billingtype_list_short["1"] = array( gettext("Fix"), "1");
-$billingtype_list_short["2"] = array( gettext("Dial"), "2");
-$billingtype_list_short["3"] = array( gettext("Free"), "3");
+$billingtype_list_short = Constants::getBillingTypeShortList();
 
 $priority_list = array();
 for ($k=1;$k<=5;$k++)
