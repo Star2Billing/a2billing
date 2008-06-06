@@ -689,6 +689,7 @@ class A2Billing {
 	 */
 	function callingcard_acct_start_inuse($agi, $inuse)
 	{
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CARD STATUS UPDATE]");
 		if ($inuse) {
 			$QUERY = "UPDATE cc_card SET inuse=inuse+1 WHERE username='".$this->username."'";
 			$this -> set_inuse = 1;
@@ -696,8 +697,7 @@ class A2Billing {
 			$QUERY = "UPDATE cc_card SET inuse=inuse-1 WHERE username='".$this->username."'";
 			$this -> set_inuse = 0;
 		}
-
-		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CARD STATUS UPDATE : $QUERY]");
+		
 		if (!$this -> CC_TESTING) $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 
 		return 0;
@@ -735,11 +735,10 @@ class A2Billing {
 
 			$QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card='".$this->id_card."' AND speeddial='".$this->destination."'";
 			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".print_r($result,true));
 			if( is_array($result))	$this->destination = $result[0][0];
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "REDIAL : DESTINATION ::> ".$this->destination);
 		}
-
+		
 		// FOR TESTING : ENABLE THE DESTINATION NUMBER
 		if ($this->CC_TESTING) $this->destination="1800300200";
 		if ($this->CC_TESTING) $this->destination="3390010022";
@@ -980,8 +979,8 @@ class A2Billing {
 		$card_alias = $this->destination;
 		$QUERY = "SELECT name FROM cc_sip_buddies, cc_card WHERE cc_sip_buddies.name=cc_card.username AND useralias='".$this->destination."'";
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".print_r($result,true));
-
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RESULT : ".print_r($result,true));
+		
 		if( is_array($result) && count($result) > 0) {
 			$sip_buddies = 1;
 			$destsip=$result[0][0];
@@ -1066,7 +1065,6 @@ class A2Billing {
 					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', '$this->CallerID', '1' )";
 
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".$result);
 				return 1;
 			}
 		}
@@ -1218,11 +1216,11 @@ class A2Billing {
 						// CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
 						$QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[0]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID: SQL: $QUERY]:[result:$result]");
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
 
 						$QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[1]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION: SQL: $QUERY]:[result:$result]");
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 
 						return 1;
 					}
@@ -1255,20 +1253,19 @@ class A2Billing {
 						// CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
 						$QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + ".$RateEngine->answeredtime." WHERE id='".$inst_listdestination[0]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID: SQL: $QUERY]:[result:$result]");
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
 
 						$QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + ".$RateEngine->answeredtime." WHERE id='".$inst_listdestination[1]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION: SQL: $QUERY]:[result:$result]");
-
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
+						
 						// THEN STATUS IS ANSWER
 						break;
 					}
-
 				}
 			} // END IF AUTHENTICATE
 		}// END FOR
-
+		
 		if ($this->voicemail) {
 			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
 				// The following section will send the caller to VoiceMail with the unavailable priority.
@@ -1589,7 +1586,7 @@ class A2Billing {
 			}
 		}
 		$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
-				" WHERE $CLAUSE_DATE AND id_cc_card = '$id_cc_card' AND id_cc_package_offer = '$id_cc_package_offer' ";
+				 "WHERE $CLAUSE_DATE AND id_cc_card = '$id_cc_card' AND id_cc_package_offer = '$id_cc_package_offer' ";
 		$pack_result = $DBHandle -> Execute($QUERY);
 		if ($pack_result && ($pack_result -> RecordCount() > 0)) {
 			$result = $pack_result -> fetchRow();
@@ -1599,8 +1596,8 @@ class A2Billing {
 		}
 		return $freetimetocall_used;
 	}
-
-
+	
+	
 	/*
 	 * Function apply_rules to the phonenumber : Remove internation prefix
 	 */
@@ -1640,12 +1637,9 @@ class A2Billing {
 				  " WHERE cc_card.username='".$this->cardnumber."' ";
 			$QUERY .= "ORDER BY 1";
 			$result1 = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n".print_r($result1,true));
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, print_r($result1,true));
 		}
-
-		/*if($this->agiconfig['cid_sanitize']=="BOTH"){
-			$QUERY .= " UNION ";
-		}*/
+		
 		$QUERY="";
 		if($this->agiconfig['cid_sanitize']=="DID" || $this->agiconfig['cid_sanitize']=="BOTH"){
 			$QUERY .=  "SELECT cc_did.did ".
@@ -1654,8 +1648,8 @@ class A2Billing {
 				  " JOIN cc_card ON cc_did_destination.id_cc_card=cc_card.id ".
 				  " WHERE cc_card.username='".$this->cardnumber."' ";
 			$QUERY .= "ORDER BY 1";
-			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY");
 			$result2 = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, print_r($result2,true));
 		}
 		if (count($result1)>0 || count($result2)>0)
 			$result = array_merge($result1, $result2);
@@ -1736,10 +1730,10 @@ class A2Billing {
 						" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
 						" WHERE cc_callerid.cid='".$this->CallerID."'";
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".print_r($result,true));
-
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, print_r($result,true));
+			
 			if (!is_array($result)) {
-
+				
 				if ($this->agiconfig['cid_auto_create_card']==1) {
 
 					for ($k=0 ; $k <= 20 ; $k++) {
@@ -1915,11 +1909,8 @@ class A2Billing {
 					}
 
 					$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
-					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);
-
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-					//$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, print_r($result,true));
-
+					
 					if( !is_array($result)) {
 						$prompt="prepaid-auth-fail";
 						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
@@ -1936,8 +1927,6 @@ class A2Billing {
 
 							$QUERY = " SELECT cid, id_cc_card, activated FROM cc_callerid "
 									." WHERE cc_callerid.cid='".$this->CallerID."' AND cc_callerid.id_cc_card='".$result[0][22]."'";
-							$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);
-
 							$result_check_cid = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 							$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $result_check_cid);
 
@@ -2092,7 +2081,7 @@ class A2Billing {
 				}
 
 				$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n".print_r($result,true));
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, print_r($result,true));
 
 				if( !is_array($result)) {
 					$prompt="prepaid-auth-fail";
@@ -2112,8 +2101,8 @@ class A2Billing {
 								." WHERE cc_callerid.cid='".$this->CallerID."' AND cc_callerid.id_cc_card='".$result[0][23]."'";
 
 						$result_check_cid = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n".print_r($result_check_cid,true));
-
+						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, print_r($result_check_cid,true));
+						
 						if( !is_array($result_check_cid)) {
 							$prompt="prepaid-auth-fail";
 							$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
@@ -2201,15 +2190,16 @@ class A2Billing {
 
 					$QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card='$the_card_id'";
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 1);
+					
 					// CHECK IF THE AMOUNT OF CALLERID IS LESS THAN THE LIMIT
 					if ($result[0][0] < $this->config["webcustomerui"]['limit_callerid']) {
-
+						
 						$QUERY_FIELS = 'cid, id_cc_card';
 						$QUERY_VALUES = "'".$this->CallerID."','$the_card_id'";
-
+						
 						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CREATE AN INSTANCE IN CC_CALLERID -  QUERY_VALUES:$QUERY_VALUES, QUERY_FIELS:$QUERY_FIELS]");
 						$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
-
+						
 						if (!$result){
 							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
 							$prompt="prepaid-auth-fail";
@@ -2226,7 +2216,6 @@ class A2Billing {
 				if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1 && strlen($this->CallerID)>1 && $this -> ask_other_cardnumber==1){
 					$this -> ask_other_cardnumber=0;
 					$QUERY = "UPDATE cc_callerid SET id_cc_card='$the_card_id' WHERE cid='".$this->CallerID."'";
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[Start update cc_callerid : $QUERY]");
 					$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 				}
 

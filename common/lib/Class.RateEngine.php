@@ -198,8 +198,6 @@ class RateEngine
 		AND ( calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) OR (calleridprefix='all' $CID_SUB_QUERY))
 		ORDER BY LENGTH(dialprefix) DESC";
 
-		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[RATE ENGINE QUERY]\n".$QUERY."\n",0);
-
 		$A2B->instance_table = new Table();
 		$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 

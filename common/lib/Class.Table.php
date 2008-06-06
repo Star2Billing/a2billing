@@ -57,7 +57,7 @@ class Table {
 	var $alert_query_time 		= 0.1;
 	var $alert_query_long_time 	= 2;
 	
-	var $writelog 				= false;
+	var $writelog 				= WRITELOG_QUERY;
 
     var $FK_TABLES;
     var $FK_EDITION_CLAUSE;
@@ -130,7 +130,7 @@ class Table {
 				else 
 					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "TOOLONG_DB_QUERY - RUNNING TIME = $time");
 			}
-			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "Running time=$time - QUERY=$QUERY");
+			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "Running time=$time - QUERY=\n$QUERY\n");
         }
         
 		return $res;
