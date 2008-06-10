@@ -21,17 +21,16 @@
     {
         global $languages_id;
 
-        $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+        $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, status, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
         $DBHandle_max  = DbConnect();
         $resmax = $DBHandle_max -> query($QUERY);
         $numrow = $resmax -> numRows();
         if ($numrow == 0) exit();
         $customer_info =$resmax -> fetchRow();
-        if( $customer_info [13] != "t" && $customer_info [13] != "1" )
-        {
-            exit();
-        }
+        if($customer_info [13] != "1" ) {
+			exit();
+		}
 
         $order = $customer_info;
 
