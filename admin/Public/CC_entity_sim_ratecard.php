@@ -22,7 +22,7 @@ if ($called  && $id_cc_card) {
 	$calling=ereg_replace("^\+","011",$called);	
 	$calling=ereg_replace("[^0-9]","",$calling);	
 	$calling=ereg_replace("^01100","011",$calling);	
-	$calling=ereg_replace("^00","011",$calling);	
+	//$calling=ereg_replace("^00","011",$calling);	
 	$calling=ereg_replace("^0111","1",$calling);
 	
 	if ( strlen($calling)>2 && is_numeric($calling)) {
