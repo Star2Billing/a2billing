@@ -120,7 +120,7 @@ class RateEngine
 
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: CALLERID]\n".$A2B->CallerID."\n",0);
 
-		if ($A2B->config["database"]['dbtype'] != "postgres"){
+		if ($A2B->config["database"]['dbtype'] != "postgres") {
 			$DNID_QUERY = "SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix))";
 			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $DNID_QUERY);
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_dnid = 0;
@@ -132,9 +132,8 @@ class RateEngine
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_callerid = 0;
 			else $nb_callerid = $result_sub[0][0];
 			$CID_SUB_QUERY = "AND 0 = $nb_callerid";
-			if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLERID_QUERY]\n".$CALLERID_QUERY."\n[RESULT]".print_r($result_sub, 1)."\n",0);
 
-		}else{
+		} else {
 			$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";
 
 			$CID_SUB_QUERY = "AND 0 = (SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) ) ";
