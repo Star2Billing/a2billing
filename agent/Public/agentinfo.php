@@ -26,7 +26,7 @@ $currencies_list = get_currencies();
 
 if (!isset($currencies_list[strtoupper($agent_info [1])][2]) || !is_numeric($currencies_list[strtoupper($agent_info [1])][2])) $mycur = 1;
 else $mycur = $currencies_list[strtoupper($agent_info [1])][2];
-$credit_cur = $agent_info[1] / $mycur;
+$credit_cur = $agent_info[0] / $mycur;
 $credit_cur = round($credit_cur,3);
 
 
