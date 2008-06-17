@@ -140,13 +140,6 @@ getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', '
 if (!isset($_SESSION)) {
 	session_start();
 }
-
-if(ini_get('register_globals')) {
-	foreach($_REQUEST as $key => $value)
-	{
-		$$key = $value;
-	}
-}
  
  // Language session
 if (!isset($_SESSION["language"])) {
