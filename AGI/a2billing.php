@@ -36,8 +36,7 @@ $G_startime = time();
 $agi_date = "Release : no date";
 $agi_version = "Asterisk2Billing - Version 1.4 - Trunk";
 
-if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v'))
-{
+if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
 	echo "A2Billing - Version $agi_version - $agi_date\n";
 	exit;
 }
@@ -47,15 +46,15 @@ if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v'))
 $agi = new AGI();
 
 
-if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0){
+if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0) {
 	$idconfig = $argv[1];
-}else{
+} else {
 	$idconfig = 1;
 }
 
-if($dynamic_idconfig = intval($agi->get_variable("IDCONF", true))){
+if($dynamic_idconfig = intval($agi->get_variable("IDCONF", true)))
 	$idconfig = $dynamic_idconfig;
-}
+
 
 if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')			$mode = 'did';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')		$mode = 'callback';
@@ -66,13 +65,13 @@ elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')	$mode = 'vou
 else $mode = 'standard';
 
 // get the area code for the cid-callback & all-callback
-if ($argc > 3 && strlen($argv[3]) > 0) $caller_areacode = $argv[3];
+if ($argc > 3 && strlen($argv[3]) > 0) 
+	$caller_areacode = $argv[3];
 
 
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 $A2B -> mode = $mode;
-
 
 
 $A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "IDCONFIG : $idconfig");
@@ -106,6 +105,7 @@ if (!$A2B -> DbConnect()){
 	exit;
 }
 
+define ("WRITELOG_QUERY", true);
 $instance_table = new Table();
 $A2B -> set_instance_table ($instance_table);
 
