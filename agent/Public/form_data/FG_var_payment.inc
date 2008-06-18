@@ -10,6 +10,7 @@ if (!isset($form_action) || $form_action=="list"){
 }
 
 $HD_Form -> FG_TABLE_ID = 'cc_logpayment.id';
+$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id_agent=".$_SESSION['agent_id'] ;
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";

@@ -163,6 +163,17 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
 
+
+//add admin filter	
+
+if (isset ($FG_TABLE_CLAUSE) && strlen($FG_TABLE_CLAUSE)>0){
+	$FG_TABLE_CLAUSE .= ' AND';
+}
+
+$FG_TABLE_CLAUSE .= ' t1.id_card = t2.id AND t2.id_agent = '.$_SESSION['agent_id'] ;
+
+ 
+
 if ($_POST['posted']==1){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }

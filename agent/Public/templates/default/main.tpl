@@ -164,25 +164,7 @@
 
 </ul>
 <div id="nav_after"></div>
-<br>
-<table>
-<tr>
-	<td>
-		<a href="PP_intro.php?language=english" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/gb.gif" border="0" title="English" alt="English"></a>
-		<a href="PP_intro.php?language=brazilian" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/br.gif" border="0" title="Brazilian" alt="Brazilian"></a>
-	</td>
-</tr>
-<tr>
-		<td>
-			<form action="{$PAGE_SELF}" method="post">
-				<select name="cssname" class="form_input_select" >
-					<option value="default" {checkseleted file="default"}>Default</option>
-				</select>
-				<input type="submit" value="Change" class="form_input_button" >
-			</form>
-		</td>
-	</tr>
-</table>
+
 
 
 </div>

@@ -4,7 +4,7 @@ $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
-
+$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id_agent=".$_SESSION['agent_id'] ;
 
 //$QUERY_REFILL="SELECT t1.id, sum(t3.credit) from cc_card as t1, cc_logrefill as t3 WHERE t1.id=t3.card_id GROUP BY t1.id";
 //$QUERY_PAYMENT="SELECT t1.id, SUM(t2.payment) from cc_card as t1, cc_logpayment as t2 WHERE t1.id=t2.card_id GROUP BY t1.id";

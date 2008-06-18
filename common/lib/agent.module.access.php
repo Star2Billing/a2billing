@@ -88,7 +88,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			die();
 		}
 
-		$admin_id = $return[0];
+		$agent_id = $return[0];
 		$rights = $return[1];
 
 
@@ -103,7 +103,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["rights"]=$rights;
 			$_SESSION["agent_id"] = $agent_id;
 			$log = new Logger();
-			$log -> insertLogAgent($admin_id, 1, "Agent Logged In", "Agent Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
+			$log -> insertLogAgent($agent_id, 1, "Agent Logged In", "Agent Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
 			$log = null;
 		}
 

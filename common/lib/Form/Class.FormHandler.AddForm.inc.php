@@ -45,7 +45,7 @@
 	<?php
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("POPUPVALUE")){
 	?>
-		<INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?		
+		<INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php		
 		
 			if($this->VALID_SQL_REG_EXP){
 				echo stripslashes($list[0][$i]);

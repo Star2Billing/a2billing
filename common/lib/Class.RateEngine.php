@@ -919,8 +919,8 @@ class RateEngine
 		elseif ($callback) $calltype = 4;
 		else $calltype = 0;
 
-		$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, username, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
-			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."',  '".$A2B->username."', '".$A2B->hostname."', ";
+		$QUERY = "INSERT INTO cc_call (uniqueid, sessionid,  username, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
+			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."',  '".$A2B->username."','".$A2B->id_card."', '".$A2B->hostname."', ";
 
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
 			$QUERY .= "CURRENT_TIMESTAMP - interval '$sessiontime seconds' ";

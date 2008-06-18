@@ -216,6 +216,18 @@ if ($terminatecause=="ANSWER") {
 }
 
 
+
+
+//add admin filter	
+
+if (isset ($FG_TABLE_CLAUSE) && strlen($FG_TABLE_CLAUSE)>0){
+	$FG_TABLE_CLAUSE .= ' AND';
+}
+
+$FG_TABLE_CLAUSE .= ' t1.id_card = t2.id AND t2.id_agent = '.$_SESSION['agent_id'] ;
+
+ 
+
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }

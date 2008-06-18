@@ -24,7 +24,7 @@ if (!isset ($current_page) || ($current_page == "")){
 $FG_DEBUG = 1;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_card_history ch";
+$FG_TABLE_NAME="cc_card_history ch , cc_card cc";
 
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
@@ -48,7 +48,7 @@ $FG_TABLE_DEFAULT_ORDER = "ch.datecreated";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY='ch.ID, ch.datecreated, ch.description';
+$FG_COL_QUERY='ch.ID, ch.datecreated, ch.description ';
 
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
@@ -109,6 +109,14 @@ if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
 	$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(ch.datecreated) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 
+
+//add admin filter	
+
+if (isset ($FG_TABLE_CLAUSE) && strlen($FG_TABLE_CLAUSE)>0){
+	$FG_TABLE_CLAUSE .= ' AND';
+}
+
+$FG_TABLE_CLAUSE .= ' ch.id_cc_card = cc.id AND cc.id_agent = '.$_SESSION['agent_id'] ;
 
 
 if (!$nodisplay){

@@ -939,4 +939,8 @@ CREATE TABLE cc_agent (
 
 ALTER TABLE cc_card ADD id_agent INT NOT NULL DEFAULT '0';
 
+--Add card id field in CDR to authorize filtering by agent
+
+ALTER TABLE cc_call ADD `card_id` BIGINT( 20 ) NOT NULL AFTER username ;
+
 

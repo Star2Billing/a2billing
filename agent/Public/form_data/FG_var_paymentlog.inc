@@ -1,11 +1,15 @@
 <?php
 getpost_ifset(array('id', 'status', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
-$HD_Form = new FormHandler("cc_epayment_log");
+$HD_Form = new FormHandler("cc_epayment_log LEFT JOIN cc_card ON cc_card.id=cardid","Epayment");
+
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID = "id";
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = "creationdate";
+$HD_Form -> FG_TABLE_ID = "cc_epayment_log.id";
+//CLause to filter by agent
+$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id_agent=".$_SESSION['agent_id'] ;
+
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = "cc_epayment_log.creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 $date_clause = "";
@@ -58,17 +62,17 @@ $status_list["1"] = array( gettext("Proceed"), "1");
 $status_list["2"] = array( gettext("In Process"), "2"); 
 
 
-$HD_Form -> AddViewElement(gettext("Id"), "ID", "10%", "center");
-$HD_Form -> AddViewElement(gettext("Created At"), "creationdate", "15%", "center");
+$HD_Form -> AddViewElement(gettext("Id"), "cc_epayment_log.id", "10%", "center");
+$HD_Form -> AddViewElement(gettext("Created At"), "cc_epayment_log.creationdate", "15%", "center");
 $HD_Form -> AddViewElement(gettext("Payment Method"), "paymentmethod", "15%", "center");
-$HD_Form -> AddViewElement(gettext("Status"), "status", "15%", "center", "sort", "", "list", $status_list);
-$HD_Form -> AddViewElement(gettext("Owner"), "cc_owner", "15%", "center");
-$HD_Form -> AddViewElement(gettext("Amount"), "amount", "10%", "center");
+$HD_Form -> AddViewElement(gettext("Status"), "cc_epayment_log.status", "15%", "center", "sort", "", "list", $status_list);
+$HD_Form -> AddViewElement(gettext("Owner"), "cc_epayment_log.cc_owner", "15%", "center");
+$HD_Form -> AddViewElement(gettext("Amount"), "cc_epayment_log.amount", "10%", "center");
 $HD_Form -> AddViewElement(gettext("CardID"), "cardid", "10%", "center");
 $HD_Form -> AddViewElement(gettext("Cardnumber"), "cardid", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id, creationdate, paymentmethod, status, cc_owner, amount, cardid, cardid ');
+$HD_Form -> FieldViewElement ('cc_epayment_log.id, cc_epayment_log.creationdate, paymentmethod, cc_epayment_log.status, cc_epayment_log.cc_owner, cc_epayment_log.amount, cardid, cardid ');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;

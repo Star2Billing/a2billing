@@ -51,17 +51,18 @@ $HD_Form -> create_toppage ($form_action);
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
+//change Clause for agent filter 
 
 
 // SELECT ROUND(SUM(credit)) from cc_card ;
 $instance_table = new Table("cc_card", "ROUND(SUM(credit))");
-$list1 = $instance_table -> Get_list ($HD_Form -> DBHandle, null, null, null, null, null, null, null);
+$list1 = $instance_table -> Get_list ($HD_Form -> DBHandle,"id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
 // SELECT SUM(t1.credit) from  cc_logrefill as t1, cc_card as t2 where t1.card_id = t2.id;
 $instance_table = new Table("cc_logrefill as t1, cc_card as t2", "SUM(t1.credit)");
-$list2 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id", null, null, null, null, null, null);
+$list2 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id AND t2.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
 // SELECT SUM(payment) from cc_logpayment as t1 ,cc_card as t2 where t1.card_id=t2.id;
 $instance_table = new Table("cc_logpayment as t1 ,cc_card as t2", "SUM(payment)");
-$list3 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id", null, null, null, null, null, null);
+$list3 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id AND t2.id_agent=".$_SESSION['agent_id'] , null, null, null, null, null, null);
 $list4 = $list2[0][0] - $list3[0][0];
 ?>
 <br/>
