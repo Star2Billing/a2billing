@@ -36,13 +36,9 @@ $balance = $customer_info[1];
 $FG_DEBUG = 0;
 $DBHandle  = DbConnect();
 
-if ($called  && $id_cc_card){
+if ($called  && $id_cc_card) {
 		
-		$calling=ereg_replace("^\+","011",$called);	
-		$calling=ereg_replace("[^0-9]","",$calling);	
-		$calling=ereg_replace("^01100","011",$calling);	
-		$calling=ereg_replace("^00","011",$calling);	
-		$calling=ereg_replace("^0111","1",$calling);
+		$calling = $called;
 		
 		if ( strlen($calling)>2 && is_numeric($calling)){
 				

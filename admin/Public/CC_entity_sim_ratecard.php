@@ -19,11 +19,7 @@ $DBHandle  = DbConnect();
 
 if ($called  && $id_cc_card) {
 	
-	$calling=ereg_replace("^\+","011",$called);	
-	$calling=ereg_replace("[^0-9]","",$calling);	
-	$calling=ereg_replace("^01100","011",$calling);	
-	//$calling=ereg_replace("^00","011",$calling);	
-	$calling=ereg_replace("^0111","1",$calling);
+	$calling = $called;
 	
 	if ( strlen($calling)>2 && is_numeric($calling)) {
 		
@@ -78,16 +74,11 @@ if ($called  && $id_cc_card) {
 /**************************************************************/
 
 $instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
-
 $FG_TABLE_CLAUSE = "";
-
 $list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
-
 $nb_tariffname = count($list_tariffname);
 
-
 /*************************************************************/
-
 
 
 $smarty->display('main.tpl');
