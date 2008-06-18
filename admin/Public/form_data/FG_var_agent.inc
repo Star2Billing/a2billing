@@ -105,15 +105,10 @@ $HD_Form -> AddEditElement (gettext("ACTIVE"),
 	   gettext("Choose if you want to active the agent"),
 	   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable agent"));
 
-$HD_Form -> AddEditElement (gettext("CALL PLAN"),
-	   "id_tariffgroup",
-	   "",
-	   "SELECT",
-	   "", "", "",
-	   "sql",
-	   "cc_tariffgroup",
-	   "tariffgroupname, id",
-	   "", "", "%1", "", "");
+
+
+
+
 
 $HD_Form -> AddEditElement (gettext("BALANCE"),
 	   "credit",
@@ -248,13 +243,40 @@ $HD_Form -> AddEditElement (gettext("FAX"),
 		"",
 		gettext("Insert the fax number"),
 		"" , "", "", "", "" , "", "", "");
+		
+	
+	
+$DBHandle_max  = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffgroup");
+if ( $resmax )
+	$numrow = $resmax -> RecordCount( );
+
+if ($numrow>0){ 
+	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
+		"tariffgroup",	
+		'$value',	
+		"SELECT",		
+		'size="10" multiple="multiple"',
+		"",		
+		"",	
+		"sql",		
+		"call_tariff",	
+		"label, id",		
+		"", "", "%1 : (%2)", "", "", "cc_agent_tarifgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tarifgroup ON cc_tariffgroup.id=cc_agent_tarifgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tarifgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");		
+	
+}
+
+		
+		
+		
 
 
 if ($form_action!="ask-add" && $form_action!="add"){
         $FG_QUERY_EDITION='id, ';
 }
 
-$FG_QUERY_EDITION .= 'login, passwd, perms, active, id_tariffgroup, credit, climit, currency, commission, vat, language,  lastname, firstname, address, city, state, 
+$FG_QUERY_EDITION .= 'login, passwd, perms, active, credit, climit, currency, commission, vat, language,  lastname, firstname, address, city, state, 
 country, zipcode, email, phone,  fax';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
