@@ -11,12 +11,16 @@ if (! has_rights (ACX_RATECARD)){
 	die();	   
 }
 
-
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname','posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
 
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array('batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_buyrate', 'upd_buyrateinitblock', 'upd_buyrateincrement', 'upd_rateinitial', 'upd_initblock', 'upd_billingblock', 'upd_connectcharge', 'upd_disconnectcharge', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', "filterprefix",'upd_rounding_calltime' ,'upd_rounding_threshold' ,'upd_additional_block_charge' ,'upd_additional_block_charge_time','upd_tag'));
 
+
+
+if ($form_action=="add" || $form_action=="edit" || $form_action=="delete"){
+	$form_action = "list";
+}
 
 /***********************************************************************************/
 
