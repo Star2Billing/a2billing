@@ -116,13 +116,6 @@ if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['
 	if (!empty($HD_Form->FG_TABLE_CLAUSE)) $HD_Form->FG_TABLE_CLAUSE .= ' AND ';
 	
 	$HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
-	
-	/*
-	SELECT t1.destination, min(t1.rateinitial), t1.dialprefix FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, 
-	cc_tariffgroup_plan t6 
-	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' 
-	GROUP BY t1.dialprefix
-	*/
 }
 
 $list = $HD_Form -> perform_action($form_action);

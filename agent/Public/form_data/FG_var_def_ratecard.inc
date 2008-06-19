@@ -27,40 +27,7 @@ if (isset($posted) && !$popup_select){
 		$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE' ";
 		$_SESSION['def_ratecard']=$HD_Form -> FG_TABLE_CLAUSE;
 	}
-	if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {
-		$tariffgroup = explode('-:-',$tariffgroup);
-		$HD_Form->FG_TOP_FILTER_NAME = gettext("THE CURRENT CALL PLAN").' : '.str_replace ("-:-","",$tariffgroup[1]);
-		$HD_Form->FG_TOP_FILTER_VALUE2 = $tariffgroup[0];
-		
-		$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
-				"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
-				"LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id";
-		if ($tariffgroup[2]==1)
-			$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.buyrate = (SELECT min(c1.buyrate) FROM cc_tariffgroup " .
-					"RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
-					"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
-					"LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
-WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=c1.dialprefix)";
-		else
-			$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup " .
-					"RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
-					"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
-					"LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
-WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=c1.dialprefix)";
-		
-		$_SESSION['def_ratecard_tariffgroup']=$HD_Form -> FG_TABLE_CLAUSE;
-		
-		/*	Query for LCR 
-			SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk, cc_ratecard.freetimetocall_package_offer, cc_ratecard.id 
-
-			FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
-			
-			WHERE 
-			
-			cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
-			WHERE cc_ratecard.dialprefix=c1.dialprefix) ORDER BY  destination ASC LIMIT 0,10;
-		 */
-	}
+	
 }else{
 	$HD_Form -> FG_TOP_FILTER_NAME = 0;
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard'];
@@ -476,7 +443,7 @@ $HD_Form -> AddEditElement (gettext("USE FREE TIME TO CALL PACKAGE"),
    "", 
    "" , 
    "No:0, - Yes :1",	"", "", "", gettext("Set to use this destination with the freetimetocall package offer."));
-	
+
 $HD_Form -> AddEditElement(gettext("CIDGroup"),
    "id_outbound_cidgroup",
    '$value',
