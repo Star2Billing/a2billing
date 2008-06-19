@@ -494,7 +494,7 @@ function validate_upload($the_file, $the_file_type) {
 						"text/csv"								=> ".csv"
 						); # these are only a few examples, you can find many more!
 
-	$allowed_types = array("text/plain", "text/x-comma-separated-values", "text/csv", "application/vnd.ms-excel");
+	$allowed_types = array("text/plain", "text/x-comma-separated-values", "text/comma-separated-values", "text/csv", "application/vnd.ms-excel");
 
 
 	$start_error = "\n<b>ERROR:</b>\n<ul>";
