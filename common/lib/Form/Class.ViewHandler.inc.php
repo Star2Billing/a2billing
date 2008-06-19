@@ -24,10 +24,6 @@ if ((count($list)>0) && is_array($list)){
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-	window.open(theURL,winName,features);
-}
-
 function openURLFilter(theLINK)
 {
 	selInd = document.theFormFilter.choose_list.selectedIndex;
