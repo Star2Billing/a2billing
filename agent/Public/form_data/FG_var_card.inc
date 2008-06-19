@@ -319,9 +319,9 @@ $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "SELECT",
 			   "", "", "",
 			   "sql",
-			   "cc_tariffgroup",
+			   "cc_tariffgroup, cc_agent_tarifgroup",
 			   "tariffgroupname, id",
-			   "", "", "%1", "", "");
+			   "cc_tariffgroup.id = cc_agent_tarifgroup.id_tariffgroup AND cc_agent_tarifgroup.id_agent = ".$_SESSION['agent_id'] , "", "%1", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
