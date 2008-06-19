@@ -943,7 +943,7 @@ ALTER TABLE cc_card ADD id_agent INT NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_call ADD card_id BIGINT( 20 ) NOT NULL AFTER username ;
 
-CREATE TABLE cc_agent_tarifgroup (
+CREATE TABLE cc_agent_tariffgroup (
 id_agent BIGINT( 20 ) NOT NULL ,
 id_tariffgroup INT( 11 ) NOT NULL
 ) ENGINE=MyISAM;

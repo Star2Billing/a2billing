@@ -263,7 +263,7 @@ if ($numrow>0){
 		"sql",		
 		"call_tariff",	
 		"label, id",		
-		"", "", "%1 : (%2)", "", "", "cc_agent_tarifgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tarifgroup ON cc_tariffgroup.id=cc_agent_tarifgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tarifgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");		
+		"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");		
 	
 }
 
