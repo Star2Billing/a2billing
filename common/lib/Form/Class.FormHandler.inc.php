@@ -1844,6 +1844,7 @@ function do_field($sql,$fld, $simple=0){
 		$instance_sub_table -> Delete_table ($this->DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);
 	}	
 	
+	
 	/**
      * Function to create the top page section
      * @public     	 
@@ -1982,6 +1983,33 @@ function do_field($sql,$fld, $simple=0){
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
 		<table class="form_selectform" cellspacing="1">
+			
+			<tr>
+				<td align="left" valign="top" class="form_selectform_td1">
+					&nbsp;&nbsp;<?php echo gettext("Call Plan");?>
+				</td>
+				<td class="bgcolor_005" align="left">
+				<table class="form_selectform_table1"><tr>
+					<td width="50%" align="center">&nbsp;&nbsp;
+						<select NAME="tariffgroup" size="1"  class="form_input_select" width=250">
+								<option value=''><?php echo gettext("Choose a call plan");?></option>
+
+								<?php
+								 foreach ($list_tariffgroup as $recordset){
+								?>
+									<option class=input value='<?php  echo $recordset[0]."-:-".$recordset[1]."-:-".$recordset[2]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE2) echo "selected";?>><?php echo $recordset[1]?></option>
+								<?php 	 }
+								?>
+						</select>
+						 
+					</td>
+					<td class="form_selectform_table1_td1">
+					<?php echo gettext("This option will enable LCR/LCD - very costy dont use in production");?>
+	  			</td>
+
+				</tr></table>
+				</td>
+			</tr>
 			
 			<tr>
 				<td align="left" valign="top" class="form_selectform_td1">
