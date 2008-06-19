@@ -294,7 +294,7 @@ class Table {
 		$QUERY = "UPDATE ".$this -> table." SET ".trim ($param_update)." WHERE ".trim ($clause);
 		
 		$res = $this -> ExecuteQuery ($DBHandle, $QUERY, 0);
-		if (!$res) return false;
+		if ($res->RecordCount()==0) return false;
 
 		return (true);
 	}

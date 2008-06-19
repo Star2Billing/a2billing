@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff',
+getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'language', 'tariff',
 'id_didgroup','id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
@@ -293,16 +293,6 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
 
-$HD_Form -> AddEditElement (gettext("BALANCE"),
-			   "credit",
-			   "",
-			   "INPUT",
-			   "size=30 maxlength=30",
-			   "12",
-			   gettext("Insert the number of credit"),
-			   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-
-
 $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "language",
 			   "",
@@ -319,9 +309,9 @@ $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "SELECT",
 			   "", "", "",
 			   "sql",
-			   "cc_tariffgroup, cc_agent_tarifgroup",
+			   "cc_tariffgroup, cc_agent_tariffgroup",
 			   "tariffgroupname, id",
-			   "cc_tariffgroup.id = cc_agent_tarifgroup.id_tariffgroup AND cc_agent_tarifgroup.id_agent = ".$_SESSION['agent_id'] , "", "%1", "", "");
+			   "cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent = ".$_SESSION['agent_id'] , "", "%1", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
@@ -774,7 +764,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification ' );
+$HD_Form -> FieldEditElement ('username, useralias, uipass,  language, tariff, id_didgroup, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification ' );
 
 
 
