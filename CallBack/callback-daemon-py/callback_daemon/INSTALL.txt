@@ -1,0 +1,47 @@
+--------------------------------------------------------------------------------
+                        INSTALL A2B CALLBACK DAEMON
+--------------------------------------------------------------------------------
+
+- REQUIEREMENTS
+=============================
+python
+python-mysqldb
+python-psycopg2
+python-sqlalchemy
+
+
+1) INSTALL DAEMON : FEDORA
+=============================
+
+  Install from egg :
+  	easyinstall dist/a2b_callback_daemon-versionXXX.egg
+  
+  cp callback-py-daemon.rc /etc/init.d/callback-py-daemon
+  chmod +x /etc/init.d/callback-py-daemon 
+ 
+  chkconfig --add callback-py-daemon
+  
+
+
+
+2) INSTALL DAEMON : Debian
+=============================
+
+  Install from egg :
+  	easyinstall dist/a2b_callback_daemon-versionXXX.egg
+  
+  
+  cp callback-py-daemon.debian /etc/init.d/callback-py-daemon
+  chmod +x /etc/init.d/callback-py-daemon 
+ 
+  update-rc.d callback-py-daemon defaults 40 60
+  * to remove update-rc.d -f callback-py-daemon remove
+ 
+
+
+3) INSTALL DAEMON : Gentoo
+=============================
+  
+  Ask Steve Dommet to complete 
+  
+  
