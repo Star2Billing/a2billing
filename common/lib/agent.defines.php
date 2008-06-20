@@ -275,3 +275,8 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 
 
 
+
+
+define ("EPAYMENT_PURCHASE_AMOUNT", isset($A2B->config['epayment_method']['purchase_amount_agent'])?$A2B->config['epayment_method']['purchase_amount_agent']:"100");
+
+

@@ -1,4 +1,5 @@
 <?php
+define ("WRITELOG_QUERY",false);
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
 include_once (dirname(__FILE__)."/Class.Table.php");
 //	require_once('DB.php'); // PEAR

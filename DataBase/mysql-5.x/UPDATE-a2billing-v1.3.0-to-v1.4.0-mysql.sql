@@ -953,3 +953,17 @@ ALTER TABLE cc_tariffgroup_plan
    ADD PRIMARY KEY(
      idtariffgroup,
      idtariffplan);
+     
+--Add new configuration payment agent
+
+INSERT INTO cc_config (
+id ,
+config_title ,
+config_key ,
+config_value ,
+config_description ,
+config_valuetype ,
+config_group_id ,
+config_listvalues
+)VALUES (NULL , 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define the different amount of purchase that would be available.', '0', '5', NULL);     
+     
