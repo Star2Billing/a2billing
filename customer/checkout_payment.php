@@ -119,7 +119,6 @@ function rowOutEffect(object) {
 
 
 <?php
-
   $selection = $payment_modules->selection();
   
   if (sizeof($selection) > 1) {
