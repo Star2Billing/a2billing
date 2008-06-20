@@ -86,7 +86,6 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
 		
 	}
-	echo "test";
 	if ($id>0){
 		
 		$instance_check_card_agent = new Table("cc_card", " id_agent");
