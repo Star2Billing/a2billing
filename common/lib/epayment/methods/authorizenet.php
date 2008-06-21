@@ -15,7 +15,8 @@ class authorizenet {
 		$this->title = MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;
 		$this->enabled = ((MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True') ? true : false);
-//		$this->enabled = true;
+		// $this->enabled = true;
+		echo MODULE_PAYMENT_AUTHORIZENET_STATUS;
 		$this->sort_order = 0;
 		
 		$this->form_action_url = AUTHORIZE_PAYMENT_URL;

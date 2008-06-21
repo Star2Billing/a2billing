@@ -42,7 +42,6 @@ $instance_sub_table = new Table("cc_configuration", "payment_filename");
 $QUERY = " active = 't'";
 
 $return = null;
-//$return = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
 
 
 ///**************************************************
@@ -67,6 +66,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 $payment_modules = new payment($paymentMethod);
 $GLOBALS['paypal']->enabled = true;
+$GLOBALS['moneybookers']->enabled = true;
+$GLOBALS['authorizenet']->enabled = true;
+$GLOBALS['worldpay']->enabled = true;
 $module_keys = $payment_modules->keys();
 
 $keys_extra = array();

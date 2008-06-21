@@ -14,10 +14,8 @@ class paypal {
 		$this->description = MODULE_PAYMENT_PAYPAL_TEXT_DESCRIPTION;
 		$this->sort_order = 1;
 		$this->enabled = ((MODULE_PAYMENT_PAYPAL_STATUS == 'True') ? true : false);
-		//$this->enabled = true;
+		$this->enabled = false;
 		
-		//$this->form_action_url = 'https://secure.paypal.com/cgi-bin/webscr';
-		//$this->form_action_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 		$this->form_action_url = PAYPAL_PAYMENT_URL;
     }
 
@@ -142,4 +140,4 @@ class paypal {
 		return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID','MODULE_PAYMENT_PAYPAL_CURRENCY');
     }
 }
-?>
+

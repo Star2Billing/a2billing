@@ -13,7 +13,7 @@ class moneybookers {
 		$this->description = MODULE_PAYMENT_MONEYBOOKERS_TEXT_DESCRIPTION;
 		$this->sort_order = MODULE_PAYMENT_MONEYBOOKERS_SORT_ORDER;
 		$this->enabled = ((MODULE_PAYMENT_MONEYBOOKERS_STATUS == 'True') ? true : false);
-		$this->enabled = true;
+		// $this->enabled = true;
 
 		$my_actionurl = 'https://www.moneybookers.com/app/payment.pl';
 		
@@ -98,11 +98,11 @@ class moneybookers {
 	
     function get_OrderStatus()
     {
-        //status of the transaction;
+        // status of the transaction :
         // Failed= -2
         // Canceled = -1;
         // Pending = 0
-        //Scheduled = 1
+        // Scheduled = 1
         // Processed = 2
         if ($_POST['status'] != "")
         {
