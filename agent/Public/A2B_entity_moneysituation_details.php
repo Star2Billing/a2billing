@@ -16,6 +16,23 @@ if (! has_rights (ACX_BILLING)){
 $HD_Form -> setDBHandler (DbConnect());
 
 
+	if(isset($id) && !empty($id)&& $id>0){
+		if ($type=='payment'){
+			$table_agent_security = new Table("cc_logpayment,cc_card", " cc_card.id_agent");
+			$clause_agent_security = "cc_logpayment.id= ".$id." AND cc_card.id=cc_logpayment.card_id";
+		}else{
+			$table_agent_security = new Table("cc_logrefill,cc_card", " cc_card.id_agent");
+			$clause_agent_security = "cc_logrefill.id= ".$id." AND cc_card.id=cc_logrefill.card_id";
+			
+		}
+		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
+		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
+			Header ("HTTP/1.0 401 Unauthorized");
+			Header ("Location: PP_error.php?c=accessdenied");	   
+			die();
+		}
+	}
+
 $HD_Form -> init();
 
 
