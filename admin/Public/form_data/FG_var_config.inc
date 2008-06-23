@@ -1,19 +1,20 @@
 <?php
+
 getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_id', 'groupselect', 'posted','agi_conf'));
 
 // This will generate agi-confx 
 // agi-confx is duplication of Global configuration and list of configurations of : agi-conf1 
-if($agi_conf)
-{
+if($agi_conf) {
 	$groupselect = add_agi_confx();
 	unset($agi_conf);
 }
+
 $setbool = false;
 $handle = DbConnect();
 $instance_table = new Table();
 $QUERY =  "SELECT config_value, config_listvalues from cc_config where id = $id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);
-if($result[0][1] == "yes,no" || $result[0][1] == "no,yes"){
+if($result[0][1] == "yes,no" || $result[0][1] == "no,yes") {
 	$setbool = true;
 }
 
@@ -26,17 +27,16 @@ $yesno = array();
 $instance_config_table = new Table("cc_config", "config_value, config_valuetype, id");
 $config_list = $instance_config_table -> Get_list ($handle, "", "id", "ASC");
 
-foreach($config_list as $key => $cur_value) 
-{
+foreach($config_list as $key => $cur_value) {
 
-	if($cur_value[1] != '1'){
+	if($cur_value[1] != '1') {
 		$yesno[$key] = array($cur_value[0],$cur_value[2]);
-	}else{
-		if($cur_value[0] == '1'){
+	} else {
+		if($cur_value[0] == '1') {
 			$yesno[$key] = array("Yes",$cur_value[2]);
-		}else if($cur_value[0] == '0'){
+		} else if($cur_value[0] == '0') {
 			$yesno[$key] = array("No",$cur_value[2]);
-		}else{
+		} else {
 			$yesno[$key] = array($cur_value[0],$cur_value[2]);
 		}
 	}
@@ -48,21 +48,21 @@ $HD_Form -> FG_TABLE_ID="ccc.id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
-if ($groupselect != ""){
+if ($groupselect != "") {
 	$HD_Form = new FormHandler("cc_config ccc ,cc_config_group ccg","Configuration");
 	$HD_Form -> FG_TABLE_ID="ccc.id";
 	$HD_Form -> FG_TABLE_CLAUSE = "ccg.id = ccc.config_group_id";
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
-if (isset($posted)){
+if (isset($posted)) {
 	$_SESSION['ss_groupselect'] = '';
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
 
-if($form_action == "list"){
+if($form_action == "list") {
 	$_SESSION['ss_groupselect'] = '';
-}else{
+} else {
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }
 
@@ -85,7 +85,7 @@ $HD_Form -> FG_LIMITE_DISPLAY = 25;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = false;
 
-if(!$setbool){
+if(!$setbool) {
 	$HD_Form -> FG_DISPLAY_SELECT = true;
 	$HD_Form -> FG_SELECT_FIELDNAME = "config_listvalues";
 	$HD_Form -> FG_CONF_VALUE_FIELDNAME = "config_value";
@@ -105,7 +105,7 @@ $HD_Form -> AddEditElement (gettext("TITLE"),
 	"config_title",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=100 readonly",
+	"size=40 maxlength=100 readonly",
 	"",
 	gettext("Insert the TITLE"),
 	"" , "", "", "", "" , "", "" ,gettext("Title of the configuration variable"));
@@ -114,7 +114,7 @@ $HD_Form -> AddEditElement (gettext("KEY"),
 	"config_key",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=30 readonly",
+	"size=60 maxlength=100 readonly",
 	"",
 	gettext("Insert the TITLE"),
 	"" , "", "", "", "" , "", "" ,gettext("Key name of the configuration variable"));
@@ -132,7 +132,7 @@ if($setbool) {
 		"config_value",
 		'$value',
 		"INPUT",
-		"size=30 ",
+		"size=40 ",
 		"","",
 		"" , "", "", "", "", "", "", gettext("Insert the Value"));
 }
@@ -142,7 +142,7 @@ if(LIST_OF_VALUES) {
 		"config_listvalues",
 		'$value',
 		"INPUT",
-		"size=30 ",
+		"size=40 ",
 		"",
 		"",
 		"" , "", "", "", "", "", "", gettext("Insert the List of values, comma separated"));
@@ -169,3 +169,5 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
+
