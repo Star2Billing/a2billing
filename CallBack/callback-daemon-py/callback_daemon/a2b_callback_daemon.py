@@ -96,7 +96,6 @@ class CallBackDaemon(daemon.Daemon):
             
         inst_cb_db = CallBackDatabase()
         run_action = CallBackAction(inst_cb_db)
-        print inst_cb_db.dbname
         logging.info("------ Starting Callback Daemon ------ \n")
         
         while True:
@@ -122,7 +121,7 @@ class CallBackAction(object):
         
         perform_amount_request = 0
         
-        request_list = self.inst_cb_db.find_callback_request('SENT', 121212)
+        request_list = self.inst_cb_db.find_callback_request('PENDING', 121212)
         print "len(request_list) = "
         print len(request_list)
         
@@ -133,6 +132,7 @@ class CallBackAction(object):
         id_server_group = None
         for current_request in request_list:
             
+            print current_request.id,' : ',current_request.channel,' : ',current_request.context,' : ',current_request.exten,' : ',current_request.priority,' : '
             try:
                 get_Server_Manager = self.inst_cb_db.find_server_manager_roundrobin(current_request.id_server_group)
                 print get_Server_Manager.id,' : ',get_Server_Manager.id_group, ' :  ',get_Server_Manager.server_ip, ' : ',get_Server_Manager.manager_username
@@ -182,16 +182,20 @@ class CallBackAction(object):
             
             str_manager_res = str(res_orig)
             logging.info("CallBack Status : " + str_manager_res)
+            
             if (str_manager_res.find('Success') == -1):
                 # Callback Failed
-                #self.inst_cb_db.update_callback_request_server(current_request.id, 'PENDING', get_Server_Manager.id, str_manager_res)
-                self.inst_cb_db.update_callback_request_server(current_request.id, 'SENT', get_Server_Manager.id, str_manager_res)
+                self.inst_cb_db.update_callback_request_server(current_request.id, 'ERROR', get_Server_Manager.id, str_manager_res)
             else:
                 # Callback Successful
-                self.inst_cb_db.update_callback_request_server(current_request.id, 'ERROR', get_Server_Manager.id, str_manager_res)
-            
-            
+                self.inst_cb_db.update_callback_request_server(current_request.id, 'SENT', get_Server_Manager.id, str_manager_res)
+                
             logging.info("["+time.strftime("%Y/%m/%d %H:%M:%S", time.localtime())+"] Placed "+str(self.num_placed)+" calls")
+            
+            """
+            self.inst_cb_db.update_callback_request(current_request.id, 'PENDING')
+            sys.exit()
+            """
             
 
 

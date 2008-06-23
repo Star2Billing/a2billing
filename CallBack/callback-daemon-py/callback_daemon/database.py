@@ -112,7 +112,7 @@ class callback_database:
         
         try:
             self.engine = create_engine(connection_string)
-            self.engine.echo = True  # Try changing this to True and see what happens
+            self.engine.echo = False  # Try changing this to True and see what happens
             
             self.metadata = MetaData(self.engine)
             
