@@ -20,6 +20,6 @@ setup(
     description = "This Package provide a callback daemon for a2billing",
     license = "GPL",
     keywords = "callback a2billing daemon",
-    url = "http://4.79.35.123/trac/callback/"
+    url = "http://www.asterisk2billing.org/"
 )
 

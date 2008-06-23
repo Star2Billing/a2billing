@@ -1,0 +1,3 @@
+[console_scripts]
+a2b_callback_daemon = callback_daemon.a2b_callback_daemon:main
+
