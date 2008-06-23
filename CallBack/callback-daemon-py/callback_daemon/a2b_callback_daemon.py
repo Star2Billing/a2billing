@@ -4,6 +4,8 @@
 
 Daemon to proceed Call-Back request from the a2billing plaftorm
 
+kill -9 `cat /var/run/a2b-callback-daemon.pid`
+sudo kill -9 `sudo cat /var/run/a2b-callback-daemon.pid`
 '''
 
 __author__ = "Belaid Arezqui (areski@gmail.com)"
@@ -36,7 +38,9 @@ import string
 # ------------------------------ PARAMETERS ------------------------------  
 
 # Daemon Config File
-CONFIG_FILE = './a2b-callback-daemon.conf'
+#CONFIG_FILE = './a2b-callback-daemon.conf'
+CONFIG_FILE = '/etc/asterisk/a2billing.conf'
+
 
 # The next 2 parameters will define the speed of the daemon
 # move this later in conf file
@@ -65,13 +69,20 @@ def Init():
     signal.signal( signal.SIGINT, handler )
     
     setup_logger()
-    
+
 
 def setup_logger():
     # load config for logger 
     logging.config.fileConfig(CONFIG_FILE)
     #create logger
     logger = logging.getLogger("callbackLogger")
+    
+    # test logger
+    logger.debug("debug message")
+    logger.info("info message")
+    logger.warn("warn message")
+    logger.error("error message")
+    logger.critical("critical message")
 
 #
 # ------------------------------ CLASS -----------------------------
@@ -93,7 +104,9 @@ class CallBackDaemon(daemon.Daemon):
     section = 'daemon-info'
     
     def run(self):
-            
+        
+        Init()
+        
         inst_cb_db = CallBackDatabase()
         run_action = CallBackAction(inst_cb_db)
         logging.info("------ Starting Callback Daemon ------ \n")
@@ -121,9 +134,7 @@ class CallBackAction(object):
         
         perform_amount_request = 0
         
-        request_list = self.inst_cb_db.find_callback_request('PENDING', 121212)
-        print "len(request_list) = "
-        print len(request_list)
+        request_list = self.inst_cb_db.find_callback_request('PENDING', 11124)
         
         if (len(request_list) > 0) :
             logging.info(request_list)
@@ -132,10 +143,10 @@ class CallBackAction(object):
         id_server_group = None
         for current_request in request_list:
             
-            print current_request.id,' : ',current_request.channel,' : ',current_request.context,' : ',current_request.exten,' : ',current_request.priority,' : '
+            #print current_request.id,' : ',current_request.channel,' : ',current_request.context,' : ',current_request.exten,' : ',current_request.priority,' : '
             try:
                 get_Server_Manager = self.inst_cb_db.find_server_manager_roundrobin(current_request.id_server_group)
-                print get_Server_Manager.id,' : ',get_Server_Manager.id_group, ' :  ',get_Server_Manager.server_ip, ' : ',get_Server_Manager.manager_username
+                #print get_Server_Manager.id,' : ',get_Server_Manager.id_group, ' :  ',get_Server_Manager.server_ip, ' : ',get_Server_Manager.manager_username
             except:
                 logging.error("ERROR to find the Server Manager for the Id group : " + str(current_request.id_server_group))
                 self.inst_cb_db.update_callback_request(current_request.id, 'ERROR')

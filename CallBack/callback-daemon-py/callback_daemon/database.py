@@ -210,10 +210,11 @@ class callback_database:
 
 if __name__ == "__main__":
     
+    """
     print "\n\n"
     inst_cb_db = callback_database()
     print inst_cb_db.count_callback_spool()
-    """
+    
     print
     get_CallBack_Spool = inst_cb_db.find_callback_request('SENT', 121212)
     for p in get_CallBack_Spool[0:5]:
