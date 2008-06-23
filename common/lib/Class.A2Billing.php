@@ -1824,7 +1824,7 @@ class A2Billing {
 				$this->id_card 				= $result[0][26];
 				$this->useralias 			= $result[0][27];
 				$this->status 				= $result[0][28];
-				$this->voicemail		= ($result[0][29] && $result[0][30]) ? 1 : 0;
+				$this->voicemail			= ($result[0][29] && $result[0][30]) ? 1 : 0;
 
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 
