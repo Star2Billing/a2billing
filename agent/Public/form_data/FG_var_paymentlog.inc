@@ -1,17 +1,17 @@
 <?php
 getpost_ifset(array('id', 'status', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
-$HD_Form = new FormHandler("cc_epayment_log LEFT JOIN cc_card ON cc_card.id=cardid","Epayment");
+$HD_Form = new FormHandler("cc_epayment_log,cc_card","Epayment");
 
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID = "cc_epayment_log.id";
 //CLause to filter by agent
-$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id_agent=".$_SESSION['agent_id'] ;
+$HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=cc_epayment_log.cardid AND cc_card.id_agent=".$_SESSION['agent_id'] ;
 
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "cc_epayment_log.creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-
+$HD_Form ->FG_EDITION_CLAUSE = "cc_epayment_log.id = %id";
 $date_clause = "";
 if (DB_TYPE == "postgres"){		
 	 	$UNIX_TIMESTAMP = "";
@@ -20,22 +20,22 @@ if (DB_TYPE == "postgres"){
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if ($Period=="Month"){
-	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
 	if ($tomonth && isset($tostatsmonth))
 	{
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
+		$date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 	}
 }else{
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
 	{
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+		$date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
 	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
 	{
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+		$date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
 }
 
@@ -47,7 +47,7 @@ if($enteradmin != "")
 if (strlen($enteradmin)>0 && strlen($loglevel)>0 && $loglevel > 0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 if($status >= 0 && $status != '')
 {
-	$HD_Form -> FG_TABLE_CLAUSE.=" status = '$status'";
+	$HD_Form -> FG_TABLE_CLAUSE.=" cc_epayment_log.status = '$status'";
 }
 if (strlen($loglevel)>0 && strlen($date_clause)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 if($date_clause != "")
@@ -158,7 +158,7 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
 				gettext("Select the Card Number ID"));
 
 
-$HD_Form -> FieldEditElement ('id, creationdate, paymentmethod, status, cc_owner, amount, cardid ');
+$HD_Form -> FieldEditElement ('cc_epayment_log.id, cc_epayment_log.creationdate, paymentmethod, cc_epayment_log.status, cc_owner, amount, cardid ');
 
 
 $HD_Form -> FG_FILTER_APPLY = true;
