@@ -164,7 +164,7 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 }
 
 
-//add admin filter	
+//add agent filter	
 
 if (isset ($FG_TABLE_CLAUSE) && strlen($FG_TABLE_CLAUSE)>0){
 	$FG_TABLE_CLAUSE .= ' AND';
