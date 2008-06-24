@@ -45,11 +45,13 @@
 	{/if}
 	<ul>
 		<li><ul>
-				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1">{php} echo gettext("List Customers");{/php}</a></li>
+				<li><a href="A2B_entity_card.php?stitle=Customers_Card&section=1">{php} echo gettext("List Customers");{/php}</a></li>
 				<li><a href="A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1">{php} echo gettext("Create Customers");{/php}</a></li>
-                <li><a href="CC_card_import.php?atmenu=card&stitle=Card&section=1">{php} echo gettext("Import Customers");{/php}</a></li>
+				<li><a href="A2B_entity_card_group.php?stitle=Customers_Card&section=1">{php} echo gettext("List Group Customers");{/php}</a></li>
+				<li><a href="A2B_entity_card_group.php?form_action=ask-add&stitle=Card&section=1">{php} echo gettext("Create Group Customers");{/php}</a></li>
+                <li><a href="CC_card_import.php?stitle=Card&section=1">{php} echo gettext("Import Customers");{/php}</a></li>
 				<li><a href="A2B_entity_card_multi.php?stitle=Card&section=1">{php} echo gettext("Generate Customers");{/php}</a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=sipfriend&stitle=SIP+Friends&section=1">{php} echo gettext("List SIP-FRIEND");{/php}</a></li>
+				<li><a href="A2B_entity_friend.php?stitle=SIP+Friends&section=1">{php} echo gettext("List SIP-FRIEND");{/php}</a></li>
 				<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=sipfriend&stitle=SIP+Friends&section=1">{php} echo gettext("Create SIP-FRIEND");{/php}</a></li>
 				<li><a href="A2B_entity_friend.php?atmenu=iaxfriend&stitle=IAX+Friends&section=1">{php} echo gettext("List IAX-FRIEND");{/php}</a></li>
 				<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=iaxfriend&stitle=IAX+Friends&section=1">{php} echo gettext("Create IAX-FRIEND");{/php}</a></li>

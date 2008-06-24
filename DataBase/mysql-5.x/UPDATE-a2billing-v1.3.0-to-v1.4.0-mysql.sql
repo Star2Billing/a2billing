@@ -815,7 +815,7 @@ CREATE TABLE cc_ticket (
   priority smallint(6) NOT NULL default '0',
   creationdate timestamp NOT NULL default CURRENT_TIMESTAMP,
   creator bigint(20) NOT NULL,
-  `status` smallint(6) NOT NULL default '0',
+  status smallint(6) NOT NULL default '0',
   PRIMARY KEY  (id)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -823,7 +823,7 @@ CREATE TABLE cc_ticket (
 
 CREATE TABLE cc_ticket_comment (
   id bigint(20) NOT NULL auto_increment,
-  `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  date timestamp NOT NULL default CURRENT_TIMESTAMP,
   id_ticket bigint(10) NOT NULL,
   description text collate utf8_bin,
   creator bigint(20) NOT NULL,
@@ -832,7 +832,7 @@ CREATE TABLE cc_ticket_comment (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-INSERT INTO `cc_config` ( `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_group_id`, `config_listvalues`)
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, `config_group_id`, `config_listvalues`)
  VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
 
 
@@ -967,3 +967,23 @@ config_group_id ,
 config_listvalues
 )VALUES (NULL , 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define the different amount of purchase that would be available.', '0', '5', NULL);     
      
+--create group for the card     
+     
+CREATE TABLE cc_card_group (
+id INT NOT NULL AUTO_INCREMENT ,
+name CHAR( 30 ) NOT NULL collate utf8_bin ,
+id_agi_conf INT NOT NULL ,
+PRIMARY KEY ( id )
+) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--insert default group
+
+INSERT INTO cc_card_group (
+id ,
+name ,
+id_agi_conf
+)
+VALUES (
+NULL , 'DEFAULT', '-1'
+);
+
