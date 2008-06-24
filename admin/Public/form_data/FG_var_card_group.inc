@@ -9,6 +9,22 @@ $HD_Form = new FormHandler("cc_card_group","Card Group");
 $HD_Form -> FG_DEBUG = 0;
 
 
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = "name";
+$HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
+
+// Code Here for Deleting the Dependent Records
+// Dependent Tables
+$HD_Form -> FG_FK_DELETE_ALLOWED = true;
+$HD_Form -> FG_FK_DELETE_CONFIRM = true;
+$HD_Form -> FG_FK_WARNONLY = true;
+$HD_Form -> FG_FK_TABLENAMES = array("cc_card");
+$HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_group ");
+
+$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this Customers Group! Please comfirm that you really want to remove this Customers Group ? ");
+
+
+
+
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("AGI CONF"), "id_agi_conf", "25%", "center", "sort");
 $HD_Form -> FieldViewElement ( 'name, id_agi_conf');

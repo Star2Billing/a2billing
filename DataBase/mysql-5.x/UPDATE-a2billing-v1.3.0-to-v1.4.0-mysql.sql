@@ -978,12 +978,7 @@ PRIMARY KEY ( id )
 
 --insert default group
 
-INSERT INTO cc_card_group (
-id ,
-name ,
-id_agi_conf
-)
-VALUES (
-NULL , 'DEFAULT', '-1'
-);
+INSERT INTO cc_card_group (id ,name ,id_agi_conf)
+VALUES ('1' , 'DEFAULT', '-1');
 
+ALTER TABLE cc_card ADD id_group INT NOT NULL DEFAULT '1';

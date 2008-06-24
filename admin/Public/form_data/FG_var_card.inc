@@ -153,6 +153,7 @@ if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 $HD_Form -> AddViewElement("Card Number", "username", "11%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1))  $HD_Form -> AddViewElement("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
+$HD_Form -> AddViewElement(gettext("GROUP"), "id_group", "8%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
 
 if (!($popup_select>=1)){
@@ -165,12 +166,12 @@ if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "4%", "center", "sort");
 	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
-		$FG_COL_QUERY='id, tag, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+		$FG_COL_QUERY='id, tag, username, useralias, lastname,id_group, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 	} else {
-		$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused ';
+		$FG_COL_QUERY='id, username, useralias, lastname,id_group, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused ';
 	}
 }else{
-	$FG_COL_QUERY='id, username, lastname, credit';
+	$FG_COL_QUERY='id, username, lastname, id_group, credit';
 }
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
@@ -289,6 +290,15 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   gettext("Insert the user password"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
+$HD_Form -> AddEditElement (gettext("CARD GROUP"),
+			   "id_group",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_card_group",
+			   "name, id",
+			   "", "", "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("BALANCE"),
 			   "credit",
@@ -783,7 +793,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_agent, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification' );
+$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group, credit, language, tariff, id_didgroup, id_agent, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification' );
 
 
 if(!isset($myusername)) $myusername='';
