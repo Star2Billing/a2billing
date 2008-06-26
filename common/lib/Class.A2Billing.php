@@ -145,6 +145,7 @@ class A2Billing {
 	var $creationdate;
 
 	var $languageselected;
+	var $current_language;
 
 
 	var $cardholder_lastname;
@@ -623,6 +624,7 @@ class A2Billing {
 				}
 			}
 
+            $this ->current_language = $language;  
 			if($this->agiconfig['asterisk_version'] == "1_2") {
 				$lg_var_set = 'LANGUAGE()';
 			} else {
@@ -637,6 +639,7 @@ class A2Billing {
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FORCE LANGUAGE : ".$this->agiconfig['force_language']);
 			$this->languageselected = 1;
 			$language = strtolower($this->agiconfig['force_language']);
+			$this ->current_language = $language;
 			if($this->agiconfig['asterisk_version'] == "1_2") {
 				$lg_var_set = 'LANGUAGE()';
 			} else {
@@ -1334,16 +1337,24 @@ class A2Billing {
 			if ($units > 1){
 				$agi->say_number($units);
 
-				if((strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ){
+				if(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('dollar2', '#');
+					}elseif(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( $units%10==1)) {
+						// test for the specific grammatical rules in RUssian
+						$agi-> stream_file($unit_audio, '#');
 					}else{
 						$agi-> stream_file($units_audio, '#');
 					}
 
 			}else{
 				$agi->say_number($units);
+				
+				if(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ($units == 0)){
+				$agi-> stream_file($units_audio, '#');	
+				}else{					
 				$agi-> stream_file($unit_audio, '#');
+				}
 			}
 
 			if ($units > 0 && $cents > 0){
@@ -1352,9 +1363,12 @@ class A2Billing {
 			if ($cents>0){
 				$agi->say_number($cents);
 				if($cents>1){
-					if((strtolower($this->agiconfig['force_language'])=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ){
+					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-cent2', '#');
+					}elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&&  ( $cents%10==1)  ){
+						// test for the specific grammatical rules in RUssian
+						$agi-> stream_file($cent_audio, '#');
 					}else{
 						$agi-> stream_file($cents_audio, '#');
 					}
@@ -1416,12 +1430,17 @@ class A2Billing {
 		} else {
 			if ($units > 1){
 				$agi -> say_number($units);
-					if((strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ){
-						// test for the specific grammatical rules in RUssian
-						$agi-> stream_file('dollar2', '#');
-					}else{
-						$agi-> stream_file($units_audio, '#');
-					}
+					
+				if(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ){
+					// test for the specific grammatical rules in RUssian
+					$agi-> stream_file('dollar2', '#');
+				}elseif(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( $units%10==1)) {
+					// test for the specific grammatical rules in RUssian
+					$agi-> stream_file($unit_audio, '#');
+				}else{
+					$agi-> stream_file($units_audio, '#');
+				}
+					
 			}else{
 				$agi -> say_number($units);
 				$agi -> stream_file($unit_audio, '#');
@@ -1432,16 +1451,24 @@ class A2Billing {
 			}
 			if ($cents>0){
 				$agi -> say_number($cents);
+				
+				
 				if($cents>1){
-					if((strtolower($this->agiconfig['force_language'])=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ){
+					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-cent2', '#');
+					}elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&&  ( $cents%10==1)  ){
+						// test for the specific grammatical rules in RUssian
+						$agi-> stream_file($cent_audio, '#');
 					}else{
 						$agi-> stream_file($cents_audio, '#');
 					}
 				}else{
 				$agi-> stream_file($cent_audio, '#');
 				}
+				
+				
+				
 
 				$agi -> stream_file($cent_audio, '#');
 			}
