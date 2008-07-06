@@ -24,6 +24,8 @@ class RateEngine
 	var $ratecard_obj = array();
 
 	var $freetimetocall_left = array();
+	var $freecall = array();
+	var $package_to_apply= array();
 
 	var $number_trunk		= 0;
 	var $lastcost			= 0;
@@ -160,25 +162,20 @@ class RateEngine
 			$prefixclause .= "~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE('^' || dialprefix || '$', ";
 			$prefixclause .= "'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\\\.', '+', 'g'), '_', '', 'g'))";
 		}
-
+        // select group by 5 ... more easy to count
 		$QUERY = "SELECT
-		tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,
-		cc_ratecard.id,	dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock,
-		connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb,
-		timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,
-		cc_tariffplan.id_trunk AS tp_id_trunk, tp_trunk.trunkprefix AS tp_trunk, tp_trunk.providertech AS tp_providertech,
-		tp_trunk.providerip AS tp_providerip, tp_trunk.removeprefix AS tp_removeprefix,
-		cc_ratecard.id_trunk AS rc_id_trunk, rt_trunk.trunkprefix AS rc_trunkprefix, rt_trunk.providertech AS rc_providertech,
-		rt_trunk.providerip AS rc_providerip, rt_trunk.removeprefix AS rc_removeprefix, musiconhold,
-		tp_trunk.failover_trunk AS tp_failover_trunk, rt_trunk.failover_trunk AS rt_failover_trunk,
-		tp_trunk.addparameter AS tp_addparameter_trunk, rt_trunk.addparameter AS rt_addparameter_trunk,
-		id_outbound_cidgroup, freetimetocall_package_offer, freetimetocall, packagetype, billingtype, startday, id_cc_package_offer,
-		tp_trunk.status, rt_trunk.status, tp_trunk.inuse, rt_trunk.inuse, tp_trunk.maxuse,  rt_trunk.maxuse,
-		tp_trunk.if_max_use, rt_trunk.if_max_use,
-		cc_ratecard.rounding_calltime AS rounding_calltime,
-		cc_ratecard.rounding_threshold AS rounding_threshold,
-		cc_ratecard.additional_block_charge AS additional_block_charge,
-		cc_ratecard.additional_block_charge_time AS additional_block_charge_time
+		tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, 
+        destination, cc_ratecard.id, dialprefix, destination, buyrate,
+        buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock,
+		connectcharge, disconnectcharge, stepchargea, chargea, timechargea,
+        billingblocka, stepchargeb, chargeb,timechargeb, billingblockb, 
+        stepchargec, chargec, timechargec, billingblockc,cc_tariffplan.id_trunk AS tp_id_trunk,
+        tp_trunk.trunkprefix AS tp_trunk, tp_trunk.providertech AS tp_providertech,tp_trunk.providerip AS tp_providerip, tp_trunk.removeprefix AS tp_removeprefix,cc_ratecard.id_trunk AS rc_id_trunk,
+        rt_trunk.trunkprefix AS rc_trunkprefix, rt_trunk.providertech AS rc_providertech,rt_trunk.providerip AS rc_providerip, rt_trunk.removeprefix AS rc_removeprefix, musiconhold,
+		tp_trunk.failover_trunk AS tp_failover_trunk, rt_trunk.failover_trunk AS rt_failover_trunk,tp_trunk.addparameter AS tp_addparameter_trunk, rt_trunk.addparameter AS rt_addparameter_trunk, id_outbound_cidgroup,
+        id_cc_package_offer,tp_trunk.status, rt_trunk.status, tp_trunk.inuse, rt_trunk.inuse, 
+        tp_trunk.maxuse,  rt_trunk.maxuse,tp_trunk.if_max_use, rt_trunk.if_max_use,cc_ratecard.rounding_calltime AS rounding_calltime,
+        cc_ratecard.rounding_threshold AS rounding_threshold,cc_ratecard.additional_block_charge AS additional_block_charge,cc_ratecard.additional_block_charge_time AS additional_block_charge_time
 
 		FROM cc_tariffgroup
 		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id
@@ -186,7 +183,6 @@ class RateEngine
 		LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
 		LEFT JOIN cc_trunk AS rt_trunk ON cc_ratecard.id_trunk=rt_trunk.id_trunk
 		LEFT JOIN cc_trunk AS tp_trunk ON cc_tariffplan.id_trunk=tp_trunk.id_trunk
-		LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer
 
 		WHERE cc_tariffgroup.id=$tariffgroupid AND ($prefixclause)
 		AND startingdate<= CURRENT_TIMESTAMP AND (expirationdate > CURRENT_TIMESTAMP OR expirationdate IS NULL OR LENGTH(expirationdate)<5)
@@ -263,10 +259,10 @@ class RateEngine
 		for ($i=0;$i<count($result);$i++) {
 
 			if ($result[$i][34] == -1) {
-				$status = $result[$i][51];
+				$status = $result[$i][46];
 				$mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][29];
 			} else {
-				$status = $result[$i][52];
+				$status = $result[$i][47];
 				$mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][34];
 			}
 
@@ -355,29 +351,76 @@ class RateEngine
 		$timechargec 					= $this -> ratecard_obj[$K][27];
 		$billingblockc 					= $this -> ratecard_obj[$K][28];
 		// ****************  PACKAGE PARAMETERS ****************
-		$freetimetocall_package_offer 	= $this -> ratecard_obj[$K][45];
-		$freetimetocall 				= $this -> ratecard_obj[$K][46];
-		$packagetype 					= $this -> ratecard_obj[$K][47];
-		$billingtype 					= $this -> ratecard_obj[$K][48];
-		$startday 						= $this -> ratecard_obj[$K][49];
-		$id_cc_package_offer 			= $this -> ratecard_obj[$K][50];
-
+		$id_cc_package_group 			= $this -> ratecard_obj[$K][45];
+		$id_rate 						= $this -> ratecard_obj[$K][6];
+		
 		// CHANGE THIS - ONLY ALLOW FREE TIME FOR CUSTOMER THAT HAVE MINIMUM CREDIT TO CALL A DESTINATION
 
-		// WE HAVE THE SAME CALL PLAN FOR ALL SO WE CAN RESTRICT THIS CALCULATION TO 1 BEFORE EACH CALL
 		$this -> freetimetocall_left[$K] = 0;
-		if ($K == 0){
-			// CHECK IF WE HAVE A FREETIME THAT CAN APPLY FOR THIS DESTINATION
-			if ($freetimetocall_package_offer==1 && $freetimetocall>0){
-				// WE NEED TO RETRIEVE THE AMOUNT OF USED MINUTE FOR THIS CUSTOMER ACCORDING TO BILLINGTYPE (Monthly ; Weekly) & STARTDAY
-				$this -> freetimetocall_used = $A2B -> FT2C_used_seconds($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
-				$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
-				if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
-
+		$this -> freecall[$K] = false;
+		$this -> package_to_apply [$K] = null;
+		
+		//CHECK THE PACKAGES TOAPPLY TO THIS RATES
+		if($id_cc_package_group!=-1){
+			
+			$table_packages = new Table("cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate", "cc_package_offer.id, packagetype,billingtype,startday,freetimetocall");
+			$clause_packages= "cc_package_group.id= ".$id_cc_package_group."AND cc_package_group.id=cc_packgroup_package.packagegroup_id AND cc_packgroup_package.package_id = cc_package_offer.id AND cc_package_offer.id = cc_package_rate.package_id  AND cc_package_rate.rate_id = ".$id_rate;
+			$order_packages = "cc_package_offer.packagetype";
+			$sens_packages = "ASC";
+			$result_packages= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_packages, $order_packages, $sens_packages, null, null, null, null);
+			$idx_pack = 0;
+			if(!empty($result_packages))
+			{ 
+				$package_selected = false;
+				while(!$package_selected && $idx_pack < count($result_packages)){
+					$freetimetocall 	= $result_packages[$idx_pack]["freetimetocall"];
+					$packagetype 		= $result_packages[$idx_pack]["packagetype"];
+					$billingtype 		= $result_packages[$idx_pack]["billingtype"];
+					$startday 			= $result_packages[$idx_pack]["startday"];
+					$id_cc_package_offer= $result_packages[$idx_pack][0];
+					
+					switch($packagetype){
+						// 0 : UNLIMITED PACKAGE
+						//IF PACKAGE IS "UNLIMITED" SO WE DON'T NEED TO CALCULATE THE USED TIMES
+						case 0 : $this -> freecall[$K] = true;
+								$package_selected = true;
+								$package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=>gettext("Unlimited calls"),"type"=>$packagetype);
+						        break;
+						// 1 : FREE CALLS         
+						//IF PACKAGE IS "NUMBER OF FREE CALLS"  AND WE CAN USE IT ELSE WE CHECK THE OTHERS PACKAGE LIKE FREE TIMES
+						case 1 :  if  ( $freetimetocall>0){
+									  $number_calls_used =$A2B -> number_free_calls_used($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
+							          if($number_calls_used < $freetimetocall){
+								          $this -> freecall[$K] = true;
+								          $package_selected = true;
+								          $package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> gettext("Number of Free calls"),"type"=>$packagetype);
+							          }
+								  }
+						          break;
+						//2 : FREE TIMES 
+						case 2 : 
+							// CHECK IF WE HAVE A FREETIME THAT CAN APPLY FOR THIS DESTINATION
+							if  ( $freetimetocall>0){
+								// WE NEED TO RETRIEVE THE AMOUNT OF USED MINUTE FOR THIS CUSTOMER ACCORDING TO BILLINGTYPE (Monthly ; Weekly) & STARTDAY
+								$this -> freetimetocall_used = $A2B -> FT2C_used_seconds($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
+								$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
+								if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
+								if ($this -> freetimetocall_left[$K] > 0)  $package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=>  gettext("Free minutes"),"type"=>$packagetype);
+				
+							}
+							if ($this -> debug_st) print_r($this -> freetimetocall_left);
+							// ****************  END PACKAGE PARAMETERS ****************
+						        break;
+					}
+					
+					$idx_pack++;
+				}
+				
+				
+				
+	
 			}
 		}
-		if ($this -> debug_st) print_r($this -> freetimetocall_left);
-		// ****************  END PACKAGE PARAMETERS ****************
 
 		$credit -= $connectcharge;
 		$credit -= $disconnectcharge;
@@ -418,6 +461,17 @@ class RateEngine
 
 		if ($rateinitial<=0){
 			$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tocall_negatif_free_route']; // 90 min
+			if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
+			return $TIMEOUT;
+		}
+		
+		if ($this -> freecall[$K]){
+			if(	$this -> package_to_apply [$K] ["type"] == 0){
+				$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tounlimited_calls']; // default : 90 min
+			}else{
+				$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tofree_calls'];
+			}
+			
 			if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
 			return $TIMEOUT;
 		}
@@ -648,11 +702,11 @@ class RateEngine
 		$timechargec 					= $this -> ratecard_obj[$K][27];
 		$billingblockc 					= $this -> ratecard_obj[$K][28];
 		// Initialization rounding calltime and rounding threshold variables
-		$rounding_calltime 				= $this->ratecard_obj[$K][59];
-		$rounding_threshold 			= $this->ratecard_obj[$K][60];
+		$rounding_calltime 				= $this->ratecard_obj[$K][54];
+		$rounding_threshold 			= $this->ratecard_obj[$K][55];
 		// Initialization additional block charge and additional block charge time variables
-		$additional_block_charge 		= $this->ratecard_obj[$K][61];
-		$additional_block_charge_time 	= $this->ratecard_obj[$K][62];
+		$additional_block_charge 		= $this->ratecard_obj[$K][56];
+		$additional_block_charge_time 	= $this->ratecard_obj[$K][57];
 
 		if (!is_numeric($rounding_calltime))			$rounding_calltime = 0;
 		if (!is_numeric($rounding_threshold))			$rounding_threshold = 0;
@@ -702,6 +756,15 @@ class RateEngine
 		}
 		$buyratecost -= ($buyratecallduration/60) * $buyrate;
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
+
+        // IF IT S A FREE CALL, WE CAN STOP HERE COST = 0
+        if($this -> freecall[$K]){
+        	$this -> lastcost = 0;
+			$this -> lastbuycost = $buyratecost;
+			if ($this -> debug_st)  echo "FINAL COST: $cost\n\n";
+			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - BUYCOST: $buyratecost - SELLING COST: $cost]");
+        	return; 
+        }
 
 		// #### 	CALCUL SELLRATE COST   #####
 		if ($callduration < $initblock) $callduration = $initblock;
@@ -840,9 +903,9 @@ class RateEngine
 	{
 		$K = $this->usedratecard;
 		// ****************  PACKAGE PARAMETERS ****************
-		$freetimetocall_package_offer = $this -> ratecard_obj[$K][45];
-		$freetimetocall = $this -> ratecard_obj[$K][46];
-		$id_cc_package_offer = $this -> ratecard_obj[$K][50];
+		//$freetimetocall_package_offer = $this -> ratecard_obj[$K][45];
+		//$freetimetocall = $this -> ratecard_obj[$K][46];
+		$id_cc_package_group= $this -> ratecard_obj[$K][45];
 
 		if ($A2B -> CC_TESTING){
 			$sessiontime = 120;
@@ -859,13 +922,23 @@ class RateEngine
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ft2c_package_offer : $freetimetocall_package_offer ; $freetimetocall ; ".$this -> freetimetocall_left[$K]);
 			if ($this -> debug_st) print_r($this -> freetimetocall_left[$K]);
 
-			if (($freetimetocall_package_offer==1) && ($freetimetocall > 0) && ($this -> freetimetocall_left[$K] > 0)){
+			if (($id_cc_package_group!=-1) && ($this ->package_to_apply[$K] !=null )){
 
-				if ($this -> freetimetocall_left[$K] >= $sessiontime){
-					$this->freetimetocall_used = $sessiontime;
-				}else{
-					$this->freetimetocall_used = $this -> freetimetocall_left[$K];
-				}
+                switch($this ->package_to_apply[$K]["type"] ){
+                	//Unlimited
+                	case 0 : $this->freetimetocall_used = $sessiontime;break;
+                	//free calls
+                	case 1 : $this->freetimetocall_used = $sessiontime;break;
+                	//free times
+                	case 2 :
+						if ($this -> freetimetocall_left[$K] >= $sessiontime){
+							$this->freetimetocall_used = $sessiontime;
+						}else{
+							$this->freetimetocall_used = $this -> freetimetocall_left[$K];
+						}
+						break;
+                	
+                }
 
 				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
 				// rate_engine_calculcost could have change the duration of the call
@@ -1015,9 +1088,9 @@ class RateEngine
 			$failover_trunk	= $this -> ratecard_obj[$k][40+$usetrunk_failover];
 			$addparameter	= $this -> ratecard_obj[$k][42+$usetrunk_failover];
 			$cidgroupid		= $this -> ratecard_obj[$k][44];
-			$inuse 			= $this -> ratecard_obj[$k][53+$usetrunk_failover];
-			$maxuse 		= $this -> ratecard_obj[$k][55+$usetrunk_failover];
-			$ifmaxuse 		= $this -> ratecard_obj[$k][57+$usetrunk_failover];
+			$inuse 			= $this -> ratecard_obj[$k][48+$usetrunk_failover];
+			$maxuse 		= $this -> ratecard_obj[$k][50+$usetrunk_failover];
+			$ifmaxuse 		= $this -> ratecard_obj[$k][52+$usetrunk_failover];
 
 			if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0)
 				$destination= substr($destination, strlen($removeprefix));
@@ -1247,7 +1320,7 @@ class RateEngine
 			return true;
 		} // End for
 
-		$this -> usedratecard = $k-1;
+		$this -> usedratecard = $k-$loop_failover;
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD - FAIL =".$this -> usedratecard."]");
 		return false;
 

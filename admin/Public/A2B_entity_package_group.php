@@ -2,7 +2,7 @@
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_card_group.inc");
+include ("./form_data/FG_var_package_group.inc");
 include ("../lib/admin.smarty.php");
 
 if (! has_rights (ACX_TRUNK)){ 
@@ -39,7 +39,7 @@ $smarty->display('main.tpl');
 
 
 // #### HELP SECTION
-echo $CC_help_list_customer;
+echo $CC_help_offer_package;
 
 
 

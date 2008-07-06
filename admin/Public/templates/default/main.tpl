@@ -155,6 +155,8 @@
 	{/if}
 		<ul>
 			<li><ul>
+				<li><a href="A2B_entity_package_group.php?atmenu=prefixe&stitle=Prefix&section=3_3">{php} echo gettext("List Group Packages");{/php}</a></li>
+				<li><a href="A2B_entity_package_group.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3_3">{php} echo gettext("Add Group Packages");{/php}</a></li>
 				<li><a href="A2B_entity_package.php?atmenu=prefixe&stitle=Prefix&section=3_3">{php} echo gettext("List Offer Package");{/php}</a></li>
 				<li><a href="A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3_3">{php} echo gettext("Add Offer Package");{/php}</a></li>
 				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Details Package");{/php}</a></li>

@@ -11,15 +11,18 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $packagetype_list = Constants::getPackagesTypeList();
 $billingtype_list = Constants::getBillingPeriodsList();
 
+// If packagetype == NUMBER OF FREE CALL -> concat unit with "times"
+// Else concat with "sec"
+$filter_unit ='CASE packagetype WHEN 1 THEN CONCAT( freetimetocall, " times" ) WHEN 0 THEN "ALL" ELSE CONCAT( freetimetocall, " sec" ) END ';
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "18%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("PACKAGETYPE"), "packagetype", "15%", "center", "sort","","list",$packagetype_list);
 $HD_Form -> AddViewElement(gettext("BILLINGTYPE"), "billingtype", "15%", "center", "sort","","list",$billingtype_list);
 $HD_Form -> AddViewElement(gettext("STARTDAY"), "startday", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("FREE CALL"), "freetimetocall", "7%", "center", "sort", "30", "", "", "", "", "", "display_minute");
+$HD_Form -> AddViewElement(gettext("FREE"), "freetimetocall", "17%", "center", "sort", "30", "", "", "", "", "", "");
 
-$HD_Form -> FieldViewElement ('label, creationdate, packagetype, billingtype, startday, freetimetocall');
+$HD_Form -> FieldViewElement ('label, creationdate, packagetype, billingtype, startday, '.$filter_unit);
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN='15%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");  
@@ -73,14 +76,39 @@ $HD_Form -> AddEditElement (gettext("STARTDAY"),
    "" , "", "",	"", "", "", "", gettext("The value will be related to billingtype ; if monthly accepted value are 1-31 ; if Weekly accepted value 1-7 (Monday to Sunday) "));
 
 
-$HD_Form -> AddEditElement (gettext("FREE TIME TO CALL"),
+$HD_Form -> AddEditElement (gettext("FREE UNITS"),
    "freetimetocall",	
    '$value',	
    "INPUT",	
    "size=10 maxlength=10",	
    "4",	
    gettext("Insert the amount of free time to call (seconds)"),
-   "" , "", "",	"", "", "", "", gettext("Insert the amount of free time to call (seconds)"));
+   "" , "", "",	"", "", "", "", gettext("Insert the amount of free units for UNLIMITED,FREE MINUTES,NORMAL, it's the times to call in seconds. For NUMBER OF FREE CALLS, introduce the numbers of free calls"));
+   
+
+	
+$DBHandle_max  = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_ratecard");
+if ( $resmax )
+	$numrow = $resmax -> RecordCount( );
+
+if ($numrow>0){ 
+	$HD_Form -> AddEditElement (gettext("RATE ASSOCIATE"),
+		"rates",	
+		'$value',	
+		"SELECT",		
+		'size="25" multiple="multiple"',
+		"",		
+		"",	
+		"sql",		
+		"package_rates",	
+		"",		
+		"", "", "%1 : (%2)", "", "", "cc_package_rate:rate_id:cc_ratecard LEFT JOIN cc_package_rate ON cc_ratecard.id=cc_package_rate.rate_id:DISTINCT CONCAT(cc_ratecard.destination,' - ',cc_ratecard.dialprefix ), cc_ratecard.id,cc_ratecard.destination, cc_ratecard.dialprefix: cc_package_rate.package_id = %id:package_id:%3 - ( %4 )::::%1:id='%1'");		
+	
+}   
+   
+   
 
 $HD_Form -> FieldEditElement ('label, packagetype, billingtype, startday, freetimetocall');
 

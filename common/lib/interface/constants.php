@@ -141,10 +141,9 @@ class Constants
 
    public static function getPackagesTypeList(){
 	$packagetype_list = array();
-	$packagetype_list["0"] = array( gettext("Free minute + Unlimited"), "0");
-	$packagetype_list["1"] = array( gettext("Free minute"), "1");
-	$packagetype_list["2"] = array( gettext("Unlimited"), "2");
-	$packagetype_list["3"] = array( gettext("Normal"), "3");
+	$packagetype_list["0"] = array( gettext("Unlimited calls"), "0");
+	$packagetype_list["1"] = array( gettext("Number of Free calls"), "1");
+	$packagetype_list["2"] = array( gettext("Free minutes"), "2");
 	return $packagetype_list;
    }
     public static function getBillingPeriodsList(){

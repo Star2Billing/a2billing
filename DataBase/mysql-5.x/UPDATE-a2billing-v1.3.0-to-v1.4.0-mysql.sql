@@ -982,3 +982,53 @@ INSERT INTO cc_card_group (id ,name ,id_agi_conf)
 VALUES ('1' , 'DEFAULT', '-1');
 
 ALTER TABLE cc_card ADD id_group INT NOT NULL DEFAULT '1';
+
+--create 
+
+CREATE TABLE cc_logpackage (
+id BIGINT NOT NULL AUTO_INCREMENT ,
+call_id BIGINT NOT NULL ,
+package_id INT NOT NULL ,
+username CHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+card_id BIGINT NOT NULL ,
+time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY ( id )
+) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
+
+
+ CREATE TABLE cc_package_group (
+id INT NOT NULL AUTO_INCREMENT ,
+name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
+PRIMARY KEY ( id )
+) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ CREATE TABLE cc_packgroup_package (
+packagegroup_id INT NOT NULL ,
+package_id INT NOT NULL ,
+PRIMARY KEY ( packagegroup_id , package_id )
+) ENGINE = MYISAM ;
+
+
+ CREATE TABLE cc_package_rate (
+package_id INT NOT NULL ,
+rate_id INT NOT NULL ,
+PRIMARY KEY ( package_id , rate_id )
+) ENGINE = MYISAM ;
+
+
+NSERT INTO cc_config (
+id ,
+config_title ,
+config_key ,
+config_value ,
+config_description ,
+config_valuetype ,
+config_group_id ,
+config_listvalues
+)
+VALUES (
+NULL , 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', '0', '11', NULL
+), (
+NULL , 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', '0', '11', NULL
+);
