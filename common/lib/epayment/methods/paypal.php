@@ -8,21 +8,21 @@ class paypal {
 	// class constructorform_action_url
     function paypal() {
 		global $order;
-		
+
 		$this->code = 'paypal';
 		$this->title = MODULE_PAYMENT_PAYPAL_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_PAYPAL_TEXT_DESCRIPTION;
 		$this->sort_order = 1;
 		$this->enabled = ((MODULE_PAYMENT_PAYPAL_STATUS == 'True') ? true : false);
-		$this->enabled = false;
-		
+		//$this->enabled = true;
+
 		$this->form_action_url = PAYPAL_PAYMENT_URL;
     }
 
 	// class methods
     function update_status() {
 		global $order;
-		
+
 		if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_PAYPAL_ZONE > 0) ) {
 			$check_flag = false;
 			$check_query = tep_db_query("select zone_id from " . TABLE_ZONES_TO_GEO_ZONES . " where geo_zone_id = '" . MODULE_PAYMENT_PAYPAL_ZONE . "' and zone_country_id = '" . $order->billing['country']['id'] . "' order by zone_id");
@@ -35,7 +35,7 @@ class paypal {
 					break;
 				}
 			}
-			
+
 			if ($check_flag == false) {
 				$this->enabled = false;
 			}
@@ -60,7 +60,7 @@ class paypal {
 
     function process_button($transactionID = 0, $key= "") {
 		global $order, $currencies, $currency;
-		
+
 		$my_currency = MODULE_PAYMENT_PAYPAL_CURRENCY;
 		if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
 			$my_currency = 'USD';
@@ -80,7 +80,7 @@ class paypal {
 							   tep_draw_hidden_field('notify_url', tep_href_link("checkout_process.php?transactionID=".$transactionID."&sess_id=".session_id()."&key=".$key, '', 'SSL')) .
 							   tep_draw_hidden_field('return', tep_href_link("userinfo.php", '', 'SSL')) .
 							   tep_draw_hidden_field('cancel_return', tep_href_link("userinfo.php", '', 'SSL'));
-		
+
 		return $process_button_string;
     }
     function get_CurrentCurrency()
