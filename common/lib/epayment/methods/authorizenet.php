@@ -5,20 +5,20 @@ include("./lib/epayment/includes/methods/authorizenet.php");
 class authorizenet {
     var $code, $title, $description, $enabled;
     var $authorizeTable;
-	
+
 	// class constructor
     function authorizenet() {
 		global $order;
-		
+
 		$this->authorizeTable = new Table;
 		$this->code = 'authorizenet';
 		$this->title = MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;
 		$this->enabled = ((MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True') ? true : false);
 		// $this->enabled = true;
-		echo MODULE_PAYMENT_AUTHORIZENET_STATUS;
+		// echo MODULE_PAYMENT_AUTHORIZENET_STATUS;
 		$this->sort_order = 0;
-		
+
 		$this->form_action_url = AUTHORIZE_PAYMENT_URL;
     }
 
@@ -26,18 +26,18 @@ class authorizenet {
 	// DISCLAIMER:
 	//     This code is distributed in the hope that it will be useful, but without any warranty;
 	//     without even the implied warranty of merchantability or fitness for a particular purpose.
-	
+
 	// Main Interfaces:
 	//
 	// function InsertFP ($loginid, $txnkey, $amount, $sequence) - Insert HTML form elements required for SIM
-	// function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp) - Returns Fingerprint. 
-	
+	// function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp) - Returns Fingerprint.
+
 	// compute HMAC-MD5
 	// Uses PHP mhash extension. Pl sure to enable the extension
 	// function hmac ($key, $data) {
 	//   return (bin2hex (mhash(MHASH_MD5, $data, $key)));
 	//}
-	
+
 	// Thanks is lance from http://www.php.net/manual/en/function.mhash.php
 	//lance_rushing at hot* spamfree *mail dot com
 	//27-Nov-2002 09:36
@@ -45,14 +45,14 @@ class authorizenet {
 	//Want to Create a md5 HMAC, but don't have hmash installed?
 	//
 	//Use this:
-	
+
 	function hmac ($key, $data)
 	{
 		// RFC 2104 HMAC implementation for php.
 		// Creates an md5 HMAC.
 		// Eliminates the need to install mhash to compute a HMAC
 		// Hacked by Lance Rushing
-		
+
 		$b = 64; // byte length for md5
 		if (strlen($key) > $b) {
 			$key = pack("H*",md5($key));
@@ -62,7 +62,7 @@ class authorizenet {
 		$opad = str_pad('', $b, chr(0x5c));
 		$k_ipad = $key ^ $ipad ;
 		$k_opad = $key ^ $opad;
-		
+
 		return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
 	}
 	// end code from lance (resume authorize.net code)
@@ -78,12 +78,12 @@ class authorizenet {
 	function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
 		$tstamp = time ();
 		$fingerprint = $this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency);
-		
+
 		$str = tep_draw_hidden_field('x_fp_sequence', $sequence) .
 			tep_draw_hidden_field('x_fp_timestamp', $tstamp) .
 			//tep_draw_hidden_field('x_tran_key', $txnkey) .
 			tep_draw_hidden_field('x_fp_hash', $fingerprint);
-		
+
 		return $str;
 	}
 	// end authorize.net code
@@ -175,7 +175,7 @@ class authorizenet {
       if ( ($result == false) || ($result < 1) ) {
         $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&authorizenet_cc_owner=' . urlencode($_POST['authorizenet_cc_owner']) . '&authorizenet_cc_expires_month=' . $_POST['authorizenet_cc_expires_month'] . '&authorizenet_cc_expires_year=' . $_POST['authorizenet_cc_expires_year'];
 		$payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
-		
+
         tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
       }
 
