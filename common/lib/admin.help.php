@@ -1038,7 +1038,7 @@ $CC_help_agent ='
 $SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';
 $SPOT['MONEYBOOKERS'] 	= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
 $SPOT['AUTHORIZENET'] 	= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a>';
-$SPOT['WORLDPAY'] = '<a href="http://www.worldpay.com/" target="_blank"><img src="'.KICON_PATH.'/worldpay.gif" alt="worldpay.com"/></a>';
+$SPOT['WORLDPAY'] 		= '<a href="http://www.worldpay.com/" target="_blank"><img src="'.KICON_PATH.'/worldpay.gif" alt="worldpay.com"/></a>';
 $PAYMENT_METHOD ='
 <table width="70%" align="center">
 	<tr>
