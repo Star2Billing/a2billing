@@ -10,11 +10,11 @@ if (!function_exists("stripos")) {
 
 // ******************** END IF $topviewer *******************************
 
-$stitle = $_GET['stitle'];
-$ratesort = $_GET['ratesort'];
-$current_page = $_GET['current_page'];
+$stitle 		= $_GET['stitle'];
+$ratesort 		= $_GET['ratesort'];
+$current_page 	= $_GET['current_page'];
 $this->FG_ORDER = $_GET['order']; // really need ?!
-$this->FG_SENS = $_GET['sens']; // really need  ?
+$this->FG_SENS 	= $_GET['sens']; // really need  ?
 
 
 
@@ -444,6 +444,6 @@ function openURLFilter(theLINK)
 		</tr>
 	</table>
 	<br><br>
-<?php
+<?php 
 	}//end_if
 ?>
