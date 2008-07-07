@@ -772,15 +772,15 @@ ALTER TABLE cc_currencies CHANGE value value NUMERIC (12,5) unsigned NOT NULL DE
 
 
 -- add reseller field in cc_card
---DELIMITER //
---CREATE TRIGGER `after_ins_cc_card` AFTER INSERT ON `cc_card`
+-- DELIMITER //
+-- CREATE TRIGGER `after_ins_cc_card` AFTER INSERT ON `cc_card`
 -- FOR EACH ROW begin
 --
 --
 --    insert into cc_logrefill(credit,card_id,reseller_id) values(NEW.credit,NEW.id,NEW.reseller);
 --  end
---//
---DELIMITER ;
+-- //
+-- DELIMITER ;
 
 
 -- More info into log payment
@@ -939,96 +939,76 @@ CREATE TABLE cc_agent (
 
 ALTER TABLE cc_card ADD id_agent INT NOT NULL DEFAULT '0';
 
---Add card id field in CDR to authorize filtering by agent
+-- Add card id field in CDR to authorize filtering by agent
 
 ALTER TABLE cc_call ADD card_id BIGINT( 20 ) NOT NULL AFTER username ;
 
 CREATE TABLE cc_agent_tariffgroup (
-id_agent BIGINT( 20 ) NOT NULL ,
-id_tariffgroup INT( 11 ) NOT NULL
+	id_agent BIGINT( 20 ) NOT NULL ,
+	id_tariffgroup INT( 11 ) NOT NULL
 ) ENGINE=MyISAM;
 
-ALTER TABLE cc_tariffgroup_plan
-  DROP PRIMARY KEY,
-   ADD PRIMARY KEY(
-     idtariffgroup,
-     idtariffplan);
-     
---Add new configuration payment agent
+ALTER TABLE cc_tariffgroup_plan DROP PRIMARY KEY,
+   ADD PRIMARY KEY( idtariffgroup,  idtariffplan);
 
-INSERT INTO cc_config (
-id ,
-config_title ,
-config_key ,
-config_value ,
-config_description ,
-config_valuetype ,
-config_group_id ,
-config_listvalues
-)VALUES (NULL , 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define the different amount of purchase that would be available.', '0', '5', NULL);     
-     
---create group for the card     
-     
+
+
+-- Add new configuration payment agent
+
+INSERT INTO cc_config ( id, config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES (NULL , 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define the different amount of purchase that would be available.', '0', '5', NULL);
+
+
+-- create group for the card
+
 CREATE TABLE cc_card_group (
-id INT NOT NULL AUTO_INCREMENT ,
-name CHAR( 30 ) NOT NULL collate utf8_bin ,
-id_agi_conf INT NOT NULL ,
-PRIMARY KEY ( id )
+	id INT NOT NULL AUTO_INCREMENT ,
+	name CHAR( 30 ) NOT NULL collate utf8_bin ,
+	id_agi_conf INT NOT NULL ,
+	PRIMARY KEY ( id )
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---insert default group
 
-INSERT INTO cc_card_group (id ,name ,id_agi_conf)
-VALUES ('1' , 'DEFAULT', '-1');
+-- insert default group
+
+INSERT INTO cc_card_group (id ,name ,id_agi_conf) VALUES ('1' , 'DEFAULT', '-1');
 
 ALTER TABLE cc_card ADD id_group INT NOT NULL DEFAULT '1';
 
---create 
+
+-- new table for the free minutes/calls package
 
 CREATE TABLE cc_logpackage (
-id BIGINT NOT NULL AUTO_INCREMENT ,
-call_id BIGINT NOT NULL ,
-package_id INT NOT NULL ,
-username CHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-card_id BIGINT NOT NULL ,
-time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY ( id )
-) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin; 
-
-
- CREATE TABLE cc_package_group (
-id INT NOT NULL AUTO_INCREMENT ,
-name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
-PRIMARY KEY ( id )
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	call_id BIGINT NOT NULL ,
+	package_id INT NOT NULL ,
+	username CHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	card_id BIGINT NOT NULL ,
+	time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY ( id )
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
- CREATE TABLE cc_packgroup_package (
-packagegroup_id INT NOT NULL ,
-package_id INT NOT NULL ,
-PRIMARY KEY ( packagegroup_id , package_id )
+
+CREATE TABLE cc_package_group (
+	id INT NOT NULL AUTO_INCREMENT ,
+	name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
+	PRIMARY KEY ( id )
+) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+CREATE TABLE cc_packgroup_package (
+	packagegroup_id INT NOT NULL ,
+	package_id INT NOT NULL ,
+	PRIMARY KEY ( packagegroup_id , package_id )
 ) ENGINE = MYISAM ;
 
 
- CREATE TABLE cc_package_rate (
-package_id INT NOT NULL ,
-rate_id INT NOT NULL ,
-PRIMARY KEY ( package_id , rate_id )
+CREATE TABLE cc_package_rate (
+	package_id INT NOT NULL ,
+	rate_id INT NOT NULL ,
+	PRIMARY KEY ( package_id , rate_id )
 ) ENGINE = MYISAM ;
 
+INSERT INTO cc_config ( id , config_title , config_key , config_value , config_description , config_valuetype , config_group_id , config_listvalues ) VALUES ( NULL , 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', '0', '11', NULL), (NULL , 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', '0', '11', NULL);
 
-NSERT INTO cc_config (
-id ,
-config_title ,
-config_key ,
-config_value ,
-config_description ,
-config_valuetype ,
-config_group_id ,
-config_listvalues
-)
-VALUES (
-NULL , 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', '0', '11', NULL
-), (
-NULL , 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', '0', '11', NULL
-);
+
