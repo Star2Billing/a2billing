@@ -364,10 +364,10 @@ class RateEngine
 		if($id_cc_package_group!=-1){
 			
 			$table_packages = new Table("cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate", "cc_package_offer.id, packagetype,billingtype,startday,freetimetocall");
-			$clause_packages= "cc_package_group.id= ".$id_cc_package_group."AND cc_package_group.id=cc_packgroup_package.packagegroup_id AND cc_packgroup_package.package_id = cc_package_offer.id AND cc_package_offer.id = cc_package_rate.package_id  AND cc_package_rate.rate_id = ".$id_rate;
+			$clause_packages= "cc_package_group.id= ".$id_cc_package_group." AND cc_package_group.id=cc_packgroup_package.packagegroup_id AND cc_packgroup_package.package_id = cc_package_offer.id AND cc_package_offer.id = cc_package_rate.package_id  AND cc_package_rate.rate_id = ".$id_rate;
 			$order_packages = "cc_package_offer.packagetype";
 			$sens_packages = "ASC";
-			$result_packages= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_packages, $order_packages, $sens_packages, null, null, null, null);
+			$result_packages= $table_packages -> Get_list ($A2B -> DBHandle, $clause_packages, $order_packages, $sens_packages, null, null, null, null);
 			$idx_pack = 0;
 			if(!empty($result_packages))
 			{ 
@@ -384,7 +384,7 @@ class RateEngine
 						//IF PACKAGE IS "UNLIMITED" SO WE DON'T NEED TO CALCULATE THE USED TIMES
 						case 0 : $this -> freecall[$K] = true;
 								$package_selected = true;
-								$package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=>gettext("Unlimited calls"),"type"=>$packagetype);
+								$this -> package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=>"Unlimited calls","type"=>$packagetype);
 						        break;
 						// 1 : FREE CALLS         
 						//IF PACKAGE IS "NUMBER OF FREE CALLS"  AND WE CAN USE IT ELSE WE CHECK THE OTHERS PACKAGE LIKE FREE TIMES
@@ -393,7 +393,7 @@ class RateEngine
 							          if($number_calls_used < $freetimetocall){
 								          $this -> freecall[$K] = true;
 								          $package_selected = true;
-								          $package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> gettext("Number of Free calls"),"type"=>$packagetype);
+								          $this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Number of Free calls","type"=>$packagetype);
 							          }
 								  }
 						          break;
@@ -405,7 +405,10 @@ class RateEngine
 								$this -> freetimetocall_used = $A2B -> FT2C_used_seconds($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
 								$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
 								if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
-								if ($this -> freetimetocall_left[$K] > 0)  $package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=>  gettext("Free minutes"),"type"=>$packagetype);
+								if ($this -> freetimetocall_left[$K] > 0) {
+									$package_selected = true; 
+									$this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Free minutes","type"=>$packagetype);
+								}
 				
 							}
 							if ($this -> debug_st) print_r($this -> freetimetocall_left);
@@ -914,8 +917,7 @@ class RateEngine
 			$sessiontime = $this -> answeredtime;
 			$dialstatus = $this -> dialstatus;
 		}
-
-		$id_card_package_offer = 0;
+		$id_card_package_offer =0;
 		if ($sessiontime > 0) {
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
 			$this->freetimetocall_used = 0;
@@ -923,7 +925,8 @@ class RateEngine
 			if ($this -> debug_st) print_r($this -> freetimetocall_left[$K]);
 
 			if (($id_cc_package_group!=-1) && ($this ->package_to_apply[$K] !=null )){
-
+	
+				//$id_card_package_offer = $this ->package_to_apply[$K]["id"];
                 switch($this ->package_to_apply[$K]["type"] ){
                 	//Unlimited
                 	case 0 : $this->freetimetocall_used = $sessiontime;break;
