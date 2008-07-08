@@ -949,8 +949,6 @@ CREATE TABLE cc_agent_tariffgroup (
 	PRIMARY KEY ( id_agent,id_tariffgroup )
 ) ENGINE=MyISAM;
 
-ALTER TABLE cc_tariffgroup_plan DROP PRIMARY KEY,
-   ADD PRIMARY KEY( idtariffgroup,  idtariffplan);
 
 
 
