@@ -363,11 +363,21 @@ class RateEngine
 		//CHECK THE PACKAGES TOAPPLY TO THIS RATES
 		if($id_cc_package_group!=-1){
 			
-			$table_packages = new Table("cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate", "cc_package_offer.id, packagetype,billingtype,startday,freetimetocall");
-			$clause_packages= "cc_package_group.id= ".$id_cc_package_group." AND cc_package_group.id=cc_packgroup_package.packagegroup_id AND cc_packgroup_package.package_id = cc_package_offer.id AND cc_package_offer.id = cc_package_rate.package_id  AND cc_package_rate.rate_id = ".$id_rate;
-			$order_packages = "cc_package_offer.packagetype";
-			$sens_packages = "ASC";
-			$result_packages= $table_packages -> Get_list ($A2B -> DBHandle, $clause_packages, $order_packages, $sens_packages, null, null, null, null);
+			//$table_packages = new Table("cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate", "cc_package_offer.id, packagetype,billingtype,startday,freetimetocall");
+			//$clause_packages= "cc_package_group.id= ".$id_cc_package_group." AND cc_package_group.id=cc_packgroup_package.packagegroup_id AND cc_packgroup_package.package_id = cc_package_offer.id AND cc_package_offer.id = cc_package_rate.package_id  AND cc_package_rate.rate_id = ".$id_rate;
+			//$order_packages = "cc_package_offer.packagetype";
+			//$sens_packages = "ASC";
+			//$result_packages= $table_packages -> Get_list ($A2B -> DBHandle, $clause_packages, $order_packages, $sens_packages, null, null, null, null);
+			$query_pakages ="SELECT cc_package_offer.id, packagetype,billingtype,startday,freetimetocall 
+			FROM cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate 
+			WHERE cc_package_group.id= ".$id_cc_package_group." 
+				AND cc_package_group.id=cc_packgroup_package.packagegroup_id 
+				AND cc_packgroup_package.package_id = cc_package_offer.id 
+				AND cc_package_offer.id = cc_package_rate.package_id  
+				AND cc_package_rate.rate_id = ".$id_rate." ORDER BY packagetype ASC";
+			$table_packages = new Table();
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[FIND PACKAGE  QUERY = $query_pakages]");
+			$result_packages = $table_packages -> SQLExec ($A2B -> DBHandle, $query_pakages);
 			$idx_pack = 0;
 			if(!empty($result_packages))
 			{ 
@@ -378,7 +388,7 @@ class RateEngine
 					$billingtype 		= $result_packages[$idx_pack]["billingtype"];
 					$startday 			= $result_packages[$idx_pack]["startday"];
 					$id_cc_package_offer= $result_packages[$idx_pack][0];
-					
+					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[ID PACKAGE  TO APPLY = $id_cc_package_offer]");
 					switch($packagetype){
 						// 0 : UNLIMITED PACKAGE
 						//IF PACKAGE IS "UNLIMITED" SO WE DON'T NEED TO CALCULATE THE USED TIMES
@@ -917,7 +927,6 @@ class RateEngine
 			$sessiontime = $this -> answeredtime;
 			$dialstatus = $this -> dialstatus;
 		}
-		$id_card_package_offer =0;
 		if ($sessiontime > 0) {
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
 			$this->freetimetocall_used = 0;
@@ -925,6 +934,7 @@ class RateEngine
 			if ($this -> debug_st) print_r($this -> freetimetocall_left[$K]);
 
 			if (($id_cc_package_group!=-1) && ($this ->package_to_apply[$K] !=null )){
+			$id_package_offer =$this ->package_to_apply[$K]["id"];
 	
 				//$id_card_package_offer = $this ->package_to_apply[$K]["id"];
                 switch($this ->package_to_apply[$K]["type"] ){
@@ -948,7 +958,7 @@ class RateEngine
 				$sessiontime = $this -> answeredtime;
 
 				$QUERY_FIELS = 'id_cc_card, id_cc_package_offer, used_secondes';
-				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_cc_package_offer', '$this->freetimetocall_used'";
+				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_package_offer', '$this->freetimetocall_used'";
 				$id_card_package_offer = $A2B -> instance_table -> Add_table ($A2B -> DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card_package_offer', 'id');
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
 			} else {
