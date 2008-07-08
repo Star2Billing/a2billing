@@ -945,7 +945,8 @@ ALTER TABLE cc_call ADD card_id BIGINT( 20 ) NOT NULL AFTER username ;
 
 CREATE TABLE cc_agent_tariffgroup (
 	id_agent BIGINT( 20 ) NOT NULL ,
-	id_tariffgroup INT( 11 ) NOT NULL
+	id_tariffgroup INT( 11 ) NOT NULL,
+	PRIMARY KEY ( id_agent,id_tariffgroup )
 ) ENGINE=MyISAM;
 
 ALTER TABLE cc_tariffgroup_plan DROP PRIMARY KEY,
@@ -976,16 +977,6 @@ ALTER TABLE cc_card ADD id_group INT NOT NULL DEFAULT '1';
 
 
 -- new table for the free minutes/calls package
-
-CREATE TABLE cc_logpackage (
-	id BIGINT NOT NULL AUTO_INCREMENT ,
-	call_id BIGINT NOT NULL ,
-	package_id INT NOT NULL ,
-	username CHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-	card_id BIGINT NOT NULL ,
-	time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY ( id )
-) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 CREATE TABLE cc_package_group (
