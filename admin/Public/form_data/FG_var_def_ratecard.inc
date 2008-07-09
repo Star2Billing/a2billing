@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
-'starttime', 'endtime', 'id_trunk', 'freetimetocall_package_offer', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time'));
+'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time', 'additional_grace'));
 
 // put all the destination name to lowercase
 $_POST["destination"] = strtolower ($_POST["destination"]);
@@ -51,7 +51,7 @@ WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialpr
 		$_SESSION['def_ratecard_tariffgroup']=$HD_Form -> FG_TABLE_CLAUSE;
 		
 		/*	Query for LCR 
-			SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk, cc_ratecard.freetimetocall_package_offer, cc_ratecard.id 
+			SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk,  cc_ratecard.id 
 
 			FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
 			
@@ -93,12 +93,11 @@ if (!$popup_select) $HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate",
 if (!$popup_select) $HD_Form -> AddViewElement("<acronym title=\"INITBLOCK\">".gettext("INITB")."</acronym>", "initblock", "4%", "center", "sort");
 if (!$popup_select) $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
-if (!$popup_select) $HD_Form -> AddViewElement(gettext("<acronym title=\"FREE TIME TO CALL\">".gettext("FTC")."</acronym>"), "freetimetocall_package_offer", "3%", "center", "sort", "", "list", $yesno);
 //$HD_Form -> AddViewElement(gettext("CIDGroup"), "id_outbound_cidgroup", "12%", "center", "sort", "15", "lie", "cc_outbound_cid_group", "group_name", "id='%id'", "%1");
 
 
 if (!$popup_select) {
-	$HD_Form -> FieldViewElement ('DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk, cc_ratecard.freetimetocall_package_offer');
+	$HD_Form -> FieldViewElement ('DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk');
 } else {
 	$HD_Form -> FieldViewElement ('cc_ratecard.id, cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial');
 }
@@ -117,7 +116,7 @@ if ($popup_select) {
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
 } else {
-	//$HD_Form -> FieldExportElement ('DISTINCT cc_ratecard.dialprefix, cc_ratecard.destination, cc_ratecard.buyrate , cc_ratecard.buyrateinitblock, cc_ratecard.buyrateincrement, cc_ratecard.rateinitial , cc_ratecard.initblock, cc_ratecard.billingblock, cc_ratecard.connectcharge, cc_ratecard.disconnectcharge , cc_ratecard.stepchargea, cc_ratecard.chargea, cc_ratecard.timechargea, cc_ratecard.billingblocka, cc_ratecard.stepchargeb, cc_ratecard.chargeb, cc_ratecard.timechargeb, cc_ratecard.billingblockb, cc_ratecard.stepchargec, cc_ratecard.chargec, cc_ratecard.timechargec, cc_ratecard.billingblockc, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.starttime, cc_ratecard.endtime, cc_ratecard.id_trunk, cc_ratecard.musiconhold, cc_ratecard.freetimetocall_package_offer, cc_ratecard.id_outbound_cidgroup, cc_ratecard.rounding_calltime, cc_ratecard.rounding_threshold, cc_ratecard.additional_block_charge, cc_ratecard.additional_block_charge_time, cc_ratecard.tag');
+	//$HD_Form -> FieldExportElement ('DISTINCT cc_ratecard.dialprefix, cc_ratecard.destination, cc_ratecard.buyrate , cc_ratecard.buyrateinitblock, cc_ratecard.buyrateincrement, cc_ratecard.rateinitial , cc_ratecard.initblock, cc_ratecard.billingblock, cc_ratecard.connectcharge, cc_ratecard.disconnectcharge , cc_ratecard.stepchargea, cc_ratecard.chargea, cc_ratecard.timechargea, cc_ratecard.billingblocka, cc_ratecard.stepchargeb, cc_ratecard.chargeb, cc_ratecard.timechargeb, cc_ratecard.billingblockb, cc_ratecard.stepchargec, cc_ratecard.chargec, cc_ratecard.timechargec, cc_ratecard.billingblockc, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.starttime, cc_ratecard.endtime, cc_ratecard.id_trunk, cc_ratecard.musiconhold,  cc_ratecard.id_outbound_cidgroup, cc_ratecard.rounding_calltime, cc_ratecard.rounding_threshold, cc_ratecard.additional_block_charge, cc_ratecard.additional_block_charge_time, cc_ratecard.tag');
 	$HD_Form -> FieldExportElement ('DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.rateinitial');
 	$HD_Form -> FG_EXPORT_CSV = true;
 	$HD_Form -> FG_EXPORT_XML = true;
@@ -454,6 +453,15 @@ $HD_Form -> AddEditElement(gettext("ADDITIONAL BLOCK CHARGE TIME"),
    "",
    gettext("Insert the additional block charge time"),
    "", "", "", "", "", "", "", gettext("Set the initial block charge time"));
+   
+$HD_Form -> AddEditElement(gettext("ADDITIONAL GRACE TIME"),
+   "additional_grace",
+   '$value',
+   "INPUT",
+   "size=40 maxlength=40",
+   "",
+   gettext("Insert the additional grace time in sec"),
+   "", "", "", "", "", "", "", gettext("Set the additional grace time in sec"));
 
 $HD_Form -> AddEditElement(gettext("TRUNK"),
    "id_trunk",
@@ -465,16 +473,6 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
    "trunkcode, id_trunk",
 	"", "", "%1", "", gettext("Set the trunk to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
 
-$HD_Form -> AddEditElement (gettext("USE FREE TIME TO CALL PACKAGE"),
-   "freetimetocall_package_offer",
-   '0',
-   "RADIOBUTTON",
-   "", "", gettext("Choose to use this destination with the freetimetocall package offer."),
-   "" , 
-   "", 
-   "" , 
-   "No:0, - Yes :1",	"", "", "", gettext("Set to use this destination with the freetimetocall package offer."));
-	
 $HD_Form -> AddEditElement(gettext("CIDGroup"),
    "id_outbound_cidgroup",
    '$value',
@@ -507,10 +505,10 @@ if (ADVANCED_MODE) {
 
 if (ADVANCED_MODE) {
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup, tag, musiconhold');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag, musiconhold');
 }else{
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time, id_trunk, freetimetocall_package_offer,id_outbound_cidgroup, tag');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag');
 }
 
 
