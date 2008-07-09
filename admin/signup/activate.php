@@ -2,7 +2,7 @@
 session_name("UISIGNUP");
 session_start();
 
-
+// check if the script has been already called in the previous minute, no multiple signup
 if (!isset($_SESSION["date_activation"]) || (time()-$_SESSION["date_activation"]) > 60) {
 	$_SESSION["date_activation"]=time();
 } else {
@@ -11,18 +11,20 @@ if (!isset($_SESSION["date_activation"]) || (time()-$_SESSION["date_activation"]
 	exit();
 }
 
-
+// get include
 include ("../lib/admin.defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
-/***********************************************************************************/
+
+
 $HD_Form = new FormHandler("cc_card","User");
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
-// #### HEADER SECTION
+
+// HEADER SECTION
 $smarty->display('signup_header.tpl');
-// #### TOP SECTION PAGE
+
 
 $key = null;
 $key = $_GET["key"];
@@ -36,9 +38,8 @@ $QUERY = "( loginkey = '".$key."' )" ;
 
 $list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
 
-if(isset($key) && $list[0][9]!="1")
-{
-    $QUERY = "UPDATE cc_card SET  activatedbyuser = 't', status = 1 WHERE ( loginkey = '".$key."' ) ";
+if(isset($key) && $list[0][9]!="1") {
+    $QUERY = "UPDATE cc_card SET  activatedbyuser = 't', status = 1 WHERE ( status = 2 AND loginkey = '".$key."' ) ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
 
@@ -55,7 +56,7 @@ if( $list[0][9] != "1" && isset($result) && $result != null) {
 		echo "<br>Error : No email Template Found <br>";        
 	} else {
 		
-		for($i=0;$i<$num;$i++){
+		for($i=0;$i<$num;$i++) {
 			$listtemplate[] = $res->fetchRow();
 		}
 		
