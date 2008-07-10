@@ -153,6 +153,8 @@ if ($security_verify == false) {
 	$messagetext = str_replace('$time', date("y-m-d H:i:s"), $messagetext);	
 	$messagetext = str_replace('$paymentgateway', $transaction_data[0][4], $messagetext);
 	$messagetext = str_replace('$amount', $amount_paid.$currCurrency, $messagetext);
+	// Add Post information / useful to track down payment transaction without having to log
+	$messagetext .= "\n\n\n\n"."-POST Var \n".print_r($_POST, true);
 	
 	// USE PHPMAILER
 	include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
@@ -350,6 +352,8 @@ if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+
 		$messagetext = str_replace('$itemAmount', $amount_paid." ".strtoupper(BASE_CURRENCY), $messagetext);
 		$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
 		$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
+		// Add Post information / useful to track down payment transaction without having to log
+		$messagetext .= "\n\n\n\n"."-POST Var \n".print_r($_POST, true);
 		
 		a2b_mail (ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
 		
@@ -377,3 +381,5 @@ $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 $payment_modules->after_process();
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION END----");
+
+
