@@ -175,7 +175,7 @@ class RateEngine
 		tp_trunk.failover_trunk AS tp_failover_trunk, rt_trunk.failover_trunk AS rt_failover_trunk,tp_trunk.addparameter AS tp_addparameter_trunk, rt_trunk.addparameter AS rt_addparameter_trunk, id_outbound_cidgroup,
         id_cc_package_offer,tp_trunk.status, rt_trunk.status, tp_trunk.inuse, rt_trunk.inuse, 
         tp_trunk.maxuse,  rt_trunk.maxuse,tp_trunk.if_max_use, rt_trunk.if_max_use,cc_ratecard.rounding_calltime AS rounding_calltime,
-        cc_ratecard.rounding_threshold AS rounding_threshold,cc_ratecard.additional_block_charge AS additional_block_charge,cc_ratecard.additional_block_charge_time AS additional_block_charge_time, cc_ratecard.additional_grace AS additional_grace
+        cc_ratecard.rounding_threshold AS rounding_threshold,cc_ratecard.additional_block_charge AS additional_block_charge,cc_ratecard.additional_block_charge_time AS additional_block_charge_time, cc_ratecard.additional_grace AS additional_grace, cc_ratecard.minimal_cost AS minimal_cost
 
 		FROM cc_tariffgroup
 		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id
@@ -720,7 +720,8 @@ class RateEngine
 		// Initialization additional block charge and additional block charge time variables
 		$additional_block_charge 		= $this->ratecard_obj[$K][56];
 		$additional_block_charge_time 	= $this->ratecard_obj[$K][57];
-		$additional_grace				= $this->ratecard_obj[$K][58];
+		$additional_grace_time			= $this->ratecard_obj[$K][58];
+		$minimal_call_cost 				= $this->ratecard_obj[$K][59];
 
 		if (!is_numeric($rounding_calltime))			$rounding_calltime = 0;
 		if (!is_numeric($rounding_threshold))			$rounding_threshold = 0;
@@ -736,9 +737,7 @@ class RateEngine
 		$cost -= $disconnectcharge;
 
 		$this -> real_answeredtime = $callduration;
-		if($additional_grace>0){
-		$callduration =$callduration + $additional_grace;			
-		}
+		$callduration =$callduration + $additional_grace_time;			
 		
 		/*
 		 * In following condition callduration will be updated
@@ -763,7 +762,7 @@ class RateEngine
 		}
 
 		// #### 	CALCUL BUYRATE COST   #####
-		$buyratecallduration = $this -> real_answeredtime;
+		$buyratecallduration = $this -> real_answeredtime + $additional_grace_time;
 
 		$buyratecost =0;
 		if ($buyratecallduration < $buyrateinitblock) $buyratecallduration = $buyrateinitblock;
@@ -880,8 +879,14 @@ class RateEngine
 		$cost = a2b_round($cost);
 		if ($this -> debug_st)  echo "FINAL COST: $cost\n\n";
 		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - BUYCOST: $buyratecost - SELLING COST: $cost]");
-		$this -> lastcost = $cost;
+		
+		if($cost> (0-$minimal_call_cost)){
+			$this -> lastcost = 0 - $minimal_call_cost;
+		}else{
+			$this -> lastcost = $cost;
+		}
 		$this -> lastbuycost = $buyratecost;
+		
 	}
 
 
@@ -924,7 +929,7 @@ class RateEngine
 		//$freetimetocall_package_offer = $this -> ratecard_obj[$K][45];
 		//$freetimetocall = $this -> ratecard_obj[$K][46];
 		$id_cc_package_group= $this -> ratecard_obj[$K][45];
-
+		$additional_grace_time= $this->ratecard_obj[$K][58];
 		if ($A2B -> CC_TESTING){
 			$sessiontime = 120;
 			$dialstatus = 'ANSWERED';
@@ -961,6 +966,10 @@ class RateEngine
 				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
 				// rate_engine_calculcost could have change the duration of the call
 				$sessiontime = $this -> answeredtime;
+				//add grace time
+				if($sessiontime>0 && $additional_grace_time>0){
+					$sessiontime = $sessiontime + $additional_grace_time;
+				}
 
 				$QUERY_FIELS = 'id_cc_card, id_cc_package_offer, used_secondes';
 				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_package_offer', '$this->freetimetocall_used'";
@@ -969,9 +978,12 @@ class RateEngine
 			} else {
 
 				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
-
+				
 				// rate_engine_calculcost could have change the duration of the call
 				$sessiontime = $this -> answeredtime;
+				if($sessiontime>0 && $additional_grace_time>0){
+					$sessiontime = $sessiontime + $additional_grace_time;
+				}
 			}
 
 
@@ -1301,6 +1313,7 @@ class RateEngine
 
 					$answeredtime = $agi->get_variable("ANSWEREDTIME");
 					$this -> real_answeredtime = $this -> answeredtime = $answeredtime['data'];
+					
 					$dialstatus = $agi -> get_variable("DIALSTATUS");
 					$this -> dialstatus = $dialstatus['data'];
 

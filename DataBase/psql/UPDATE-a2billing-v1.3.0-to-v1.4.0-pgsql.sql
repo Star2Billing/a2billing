@@ -996,8 +996,9 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ( 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', '0', '11', NULL),
  ( 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', '0', '11', NULL);
 
- ALTER TABLE cc_ratecard DROP freetimetocall_package_offer  
+ ALTER TABLE cc_ratecard DROP freetimetocall_package_offer; 
 -- add additionnal grace to the ratecard
 
 ALTER TABLE cc_ratecard ADD additional_grace integer NOT NULL DEFAULT 0;
 
+ALTER TABLE cc_ratecard ADD minimal_cost real NOT NULL DEFAULT 0;

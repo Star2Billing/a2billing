@@ -1004,3 +1004,5 @@ ALTER TABLE cc_ratecard DROP freetimetocall_package_offer;
 -- add additionnal grace to the ratecard
 
 ALTER TABLE cc_ratecard ADD additional_grace INT NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_ratecard ADD minimal_cost FLOAT NOT NULL DEFAULT '0';

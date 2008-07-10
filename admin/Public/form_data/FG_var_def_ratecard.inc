@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
-'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time', 'additional_grace'));
+'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time', 'additional_grace','minimal_cost'));
 
 // put all the destination name to lowercase
 $_POST["destination"] = strtolower ($_POST["destination"]);
@@ -253,7 +253,16 @@ $HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE"),
    "12",
    gettext("Insert the disconnect charge"),
    "" , "", "",	"", "", "", "NO", gettext("Apply a disconnection charge" ));
-
+ 
+$HD_Form -> AddEditElement(gettext("MINIMAL CALL COST "),
+   "minimal_cost",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "12",
+   gettext("Insert the Minimal call cost"),
+   "" , "", "",	"", "", "", "NO", gettext("Apply a minimal call cost" ));
+   
 if (ADVANCED_MODE){
 	$HD_Form -> AddEditElement(gettext("STEPCHARGE A"),
 	   "stepchargea",
@@ -505,10 +514,10 @@ if (ADVANCED_MODE) {
 
 if (ADVANCED_MODE) {
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag, musiconhold');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, minimal_cost, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag, musiconhold');
 }else{
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, minimal_cost, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag');
 }
 
 
