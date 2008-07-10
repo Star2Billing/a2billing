@@ -1005,4 +1005,10 @@ ALTER TABLE cc_ratecard DROP freetimetocall_package_offer;
 
 ALTER TABLE cc_ratecard ADD additional_grace INT NOT NULL DEFAULT '0';
 
+-- add minimum cost option for a rate card
+
 ALTER TABLE cc_ratecard ADD minimal_cost FLOAT NOT NULL DEFAULT '0';
+
+-- add description for the REFILL AND PAYMENT
+ALTER TABLE cc_logpayment ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+ALTER TABLE cc_logrefill ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;

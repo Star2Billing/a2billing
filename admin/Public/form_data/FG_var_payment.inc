@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'card_id', 'date', 'payment'));
+getpost_ifset(array('id', 'card_id', 'date', 'payment','description'));
 
 
 if (!isset($form_action) || $form_action=="list"){
@@ -15,12 +15,13 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logpayment.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARD"), "username", "25%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "30%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "30%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CARD"), "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "20%", "center", "sort", "", "lie_link", "cc_logrefill", "credit, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_logrefill.php");
 
-$HD_Form -> FieldViewElement ('cc_logpayment.id, username, date, payment, id_logrefill');
+$HD_Form -> FieldViewElement ('cc_logpayment.id, username, date, payment,description ,id_logrefill');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -71,8 +72,16 @@ $HD_Form -> AddEditElement (gettext("PAYMENT AMOUNT"),
 			   "" , "", "",	"", "" , "", "", gettext("Enter the amount in the currency base : ").BASE_CURRENCY );
 
 
+$HD_Form -> AddEditElement (gettext("DESCRIPTION"),
+	"description",
+	'',
+	"TEXTAREA",
+	"cols=50 rows=4",
+	"",
+	gettext("Insert the description"),
+	"" , "", "", "", "" , "", "", "");
 
-$HD_Form -> FieldEditElement ('card_id, date, payment');
+$HD_Form -> FieldEditElement ('card_id, date, description');
 
 
 

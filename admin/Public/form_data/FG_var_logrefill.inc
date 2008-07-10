@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'card_id', 'date', 'credit'));
+getpost_ifset(array('id', 'card_id', 'date', 'credit','description'));
 
 
 if (!isset($form_action) || $form_action=="list"){
@@ -15,11 +15,12 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARD"), "username", "25%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "30%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "30%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CARD"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "20%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date, cc_logrefill.credit	');
+$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date,description, cc_logrefill.credit	');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -69,9 +70,17 @@ $HD_Form -> AddEditElement (gettext("REFILL AMOUNT"),
 			   gettext("Insert the credit amount"),
 			   "" , "", "",	"", "" , "", "", gettext("Enter the amount in the currency base : ").BASE_CURRENCY );
 
+$HD_Form -> AddEditElement (gettext("DESCRIPTION"),
+	"description",
+	'',
+	"TEXTAREA",
+	"cols=50 rows=4",
+	"",
+	gettext("Insert the description"),
+	"" , "", "", "", "" , "", "", "");
+			   
 
-
-$HD_Form -> FieldEditElement ('card_id, date, credit');
+$HD_Form -> FieldEditElement ('card_id, date, credit, description');
 
 
 

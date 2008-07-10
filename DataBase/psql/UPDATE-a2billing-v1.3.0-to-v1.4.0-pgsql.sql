@@ -1002,3 +1002,8 @@ VALUES ( 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'F
 ALTER TABLE cc_ratecard ADD additional_grace integer NOT NULL DEFAULT 0;
 
 ALTER TABLE cc_ratecard ADD minimal_cost real NOT NULL DEFAULT 0;
+
+
+-- add description for the REFILL AND PAYMENT
+ALTER TABLE cc_logpayment ADD description text  ;
+ALTER TABLE cc_logrefill ADD description text  ;

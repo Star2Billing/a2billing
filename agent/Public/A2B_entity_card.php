@@ -36,7 +36,7 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description'));
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
 	
@@ -132,8 +132,8 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 			
 			$update_msg ='<b><font color="green">'.gettext("Refill executed ").'</font></b>';	
 			
-			$field_insert = "date, credit, card_id";
-			$value_insert = "now(), '$addcredit', '$id'";
+			$field_insert = "date, credit, card_id, description";
+			$value_insert = "now(), '$addcredit', '$id','$description'";
 			$instance_sub_table = new Table("cc_logrefill", $field_insert);
 			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
 			
@@ -205,8 +205,9 @@ echo $CC_help_list_customer;
 <div class="toggle_hide2show">
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
 	<div class="tohide" style="display:none;">
+	<form NAME="theForm">
 	   <table width="90%" border="0" align="center">
-        <tr><form NAME="theForm">
+        <tr>
 		   <td align="left" width="5%"><img src="<?php echo KICON_PATH; ?>/pipe.gif">
 		   </td>
           <td align="left" width="35%" class="bgcolor_001">
@@ -221,17 +222,40 @@ echo $CC_help_list_customer;
 			</td></tr>
 			</table>
 		</td>
-		<td  class="bgcolor_001" align="center">				
-				<input class="form_enter" name="addcredit" size="18" maxlength="6" value="">
-				<input class="form_input_button" 
+		<td  class="bgcolor_001" align="center">	
+			<table>
+				<tr>
+					<td>
+						<?php echo gettext("CREDIT :");?>
+					</td>
+					<td>
+						<input class="form_enter" name="addcredit" size="18" maxlength="6" value=""> <?php echo strtoupper($A2B->config['global']['base_currency']); ?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?php echo gettext("DESCRIPTION :");?>
+					</td>
+					<td>
+						<textarea class="form_input_textarea" name="description" cols="40" rows="4"></textarea> 
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+					<input class="form_input_button" 
 				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT TO THE SELECTED CARD");?>" onClick="openURL('<?php echo $_SERVER['PHP_SELF']?>?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
-        </td></form>
+        	
+					</td>
+				</tr>
+			</table>			
+			
+        </td>
         </tr>
+        
       </table>
+      </form>
 	</div>
 </div>
-
-
 <div class="toggle_hide2show">
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CARDS");?> </font></a></center>
 	<div class="tohide" style="display:none;">
