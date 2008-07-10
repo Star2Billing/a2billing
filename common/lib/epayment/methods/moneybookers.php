@@ -51,10 +51,15 @@ class moneybookers {
 		
 		$my_language = MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE;
 		$my_currency = MODULE_PAYMENT_MONEYBOOKERS_CURRENCY;
-		
-		if (!in_array($my_currency, array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR'))) {
-        	$my_currency = 'USD';
-      	}
+	
+		$base_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
+
+        if($my_currency ='Selected Currency' && in_array($base_currency,array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR')) ){
+        	$my_currency = $base_currency;
+        }
+        elseif (!in_array($my_currency, array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR'))) {
+			$my_currency = 'USD';
+		}
 		
 		$currencyObject = new currencies();
 		$process_button_string = tep_draw_hidden_field('pay_to_email', MODULE_PAYMENT_MONEYBOOKERS_ID) .
@@ -83,11 +88,15 @@ class moneybookers {
    
     function get_CurrentCurrency()
     {
+     
         $my_currency = MODULE_PAYMENT_MONEYBOOKERS_CURRENCY;
-		
-		if (!in_array($my_currency, array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR'))) {
-        	$my_currency = 'USD';
-      	}
+        $base_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
+        if($my_currency =='Selected Currency' && in_array($base_currency, array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR')) ){
+        	$my_currency = $base_currency;
+        }
+        elseif (!in_array($my_currency,  array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR'))) {
+			$my_currency = 'USD';
+		}
         return $my_currency;
     }
 	
