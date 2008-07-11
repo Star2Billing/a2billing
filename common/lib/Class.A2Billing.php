@@ -851,6 +851,8 @@ class A2Billing {
 		// STRIP * FROM DESTINATION NUMBER
 		$this->destination = str_replace('*', '', $this->destination);
 
+		$this->save_redial_number($this->destination);
+
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 		$resfindrate = $RateEngine->rate_engine_findrates($this, $this->destination,$this->tariff);
 		if ($resfindrate==0){
@@ -966,6 +968,8 @@ class A2Billing {
 				return -1;
 			}
 		}
+
+		$this->save_redial_number($this->destination);
 
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "SIP o IAX DESTINATION : ".$this->destination);
 		$sip_buddies = 0;
@@ -2489,6 +2493,14 @@ class A2Billing {
 		return $arr_value_to_import;
 	}
 
+	function save_redial_number($number){
+		if(($this->mode == 'did') || ($this->mode == 'callback')){
+		    return;
+		}
+		$QUERY = "UPDATE cc_card SET redial = '{$number}' WHERE username='".$this->accountcode."'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SAVING DESTINATION FOR REDIAL: SQL: {$QUERY}]:[result: {$result}]");
+	}
 
 };
 

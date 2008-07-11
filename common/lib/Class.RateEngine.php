@@ -1044,10 +1044,6 @@ class RateEngine
 			//Update the global credit
 			$A2B -> credit = $A2B -> credit + $cost;
 
-			if ($didcall==0 && $callback==0) $myclause_nodidcall = " , redial='".$calledstation."' ";
-			else $myclause_nodidcall='';
-
-
 			if ($A2B->nbused>0){
 				$QUERY = "UPDATE cc_card SET credit= credit$signe".a2b_round(abs($cost))." $myclause_nodidcall,  lastuse=now(), nbused=nbused+1 WHERE username='".$A2B->username."'";
 			}else{
