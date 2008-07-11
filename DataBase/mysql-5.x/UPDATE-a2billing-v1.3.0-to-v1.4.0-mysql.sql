@@ -960,9 +960,10 @@ INSERT INTO cc_config ( id, config_title, config_key, config_value, config_descr
 -- create group for the card
 
 CREATE TABLE cc_card_group (
-	id INT NOT NULL AUTO_INCREMENT ,
-	name CHAR( 30 ) NOT NULL collate utf8_bin ,
-	id_agi_conf INT NOT NULL ,
+	id 					INT NOT NULL AUTO_INCREMENT ,
+	name 				CHAR( 30 ) NOT NULL collate utf8_bin ,
+	id_agi_conf 		INT NOT NULL ,
+	description 		MEDIUMTEXT CHARACTER 
 	PRIMARY KEY ( id )
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -1012,3 +1013,4 @@ ALTER TABLE cc_ratecard ADD minimal_cost FLOAT NOT NULL DEFAULT '0';
 -- add description for the REFILL AND PAYMENT
 ALTER TABLE cc_logpayment ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 ALTER TABLE cc_logrefill ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+

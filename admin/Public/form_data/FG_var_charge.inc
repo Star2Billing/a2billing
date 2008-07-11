@@ -12,7 +12,6 @@ if (($form_action=='ask-edit') || ($form_action=='ask-add') || ($form_action=='a
 }
 
 $HD_Form_c -> FG_DEBUG = 0;
-// FAQ
 if ($wantinclude==1) $HD_Form_c -> FG_TABLE_DEFAULT_ORDER = $order;
 else $HD_Form_c -> FG_TABLE_DEFAULT_ORDER = "id_cc_card";
 
@@ -30,7 +29,7 @@ $chargetype_list["4"] = array( gettext("Extra charge"), "4");
 
 
 
-$currency_list=Constants::getCurrenciesList();
+$currency_list = Constants::getCurrenciesList();
 $currency_list_r = Constants::getCurrenciesRateList();
 $currency_list_key = Constants::getCurrenciesKeyList() ;
 

@@ -946,9 +946,9 @@ ALTER TABLE cc_card ADD id_agent INT NOT NULL DEFAULT '0';
 ALTER TABLE cc_call ADD card_id bigint NOT NULL;
 
 CREATE TABLE cc_agent_tariffgroup (
-id_agent bigint NOT NULL ,
-id_tariffgroup integer NOT NULL,
-CONSTRAINT cc_agent_tariffgroup_pkey PRIMARY KEY (id_agent, id_tariffgroup)
+	id_agent bigint NOT NULL ,
+	id_tariffgroup integer NOT NULL,
+	CONSTRAINT cc_agent_tariffgroup_pkey PRIMARY KEY (id_agent, id_tariffgroup)
 );
 
 -- Add new configuration payment agent
@@ -957,10 +957,11 @@ VALUES ( 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define 
 
 -- Card Group     
 CREATE TABLE cc_card_group (
-id 			serial NOT NULL ,
-name 		character varying( 30 ) NOT NULL ,
-id_agi_conf integer NOT NULL ,
-CONSTRAINT cc_card_group_pkey PRIMARY KEY (id)
+	id 			serial NOT NULL ,
+	name 		character varying( 30 ) NOT NULL ,
+	id_agi_conf integer NOT NULL ,
+	description text,
+	CONSTRAINT cc_card_group_pkey PRIMARY KEY (id)
 ) ;
 
 -- insert default group in card table
@@ -970,35 +971,35 @@ INSERT INTO cc_card_group (id ,name ,id_agi_conf) VALUES ('1' , 'DEFAULT', '-1')
 -- add field for the group with default value
 ALTER TABLE cc_card ADD id_group integer NOT NULL DEFAULT 1;
 
+
 -- new syteme of package based on group
-
- CREATE TABLE cc_package_group (
-id 				serial NOT NULL  ,
-name 			character varying( 30 )  NOT NULL ,
-description 	text ,
-CONSTRAINT cc_package_group_pkey PRIMARY KEY (id)
+CREATE TABLE cc_package_group (
+	id 				serial NOT NULL  ,
+	name 			character varying( 30 )  NOT NULL ,
+	description 	text ,
+	CONSTRAINT cc_package_group_pkey PRIMARY KEY (id)
 ) ;
 
- CREATE TABLE cc_packgroup_package (
-packagegroup_id 	integer NOT NULL ,
-package_id 		integer NOT NULL ,
-CONSTRAINT cc_packgroup_package_pkey PRIMARY KEY  ( packagegroup_id , package_id )
-) ;
+CREATE TABLE cc_packgroup_package (
+	packagegroup_id 	integer NOT NULL ,
+	package_id 		integer NOT NULL ,
+	CONSTRAINT cc_packgroup_package_pkey PRIMARY KEY  ( packagegroup_id , package_id )
+);
 
 CREATE TABLE cc_package_rate (
-package_id integer NOT NULL ,
-rate_id integer NOT NULL ,
-CONSTRAINT cc_package_rate_pkey PRIMARY KEY  ( package_id , rate_id )
-) ;
+	package_id integer NOT NULL ,
+	rate_id integer NOT NULL ,
+	CONSTRAINT cc_package_rate_pkey PRIMARY KEY  ( package_id , rate_id )
+);
 
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', '0', '11', NULL),
  ( 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', '0', '11', NULL);
 
- ALTER TABLE cc_ratecard DROP freetimetocall_package_offer; 
--- add additionnal grace to the ratecard
+ALTER TABLE cc_ratecard DROP freetimetocall_package_offer; 
 
+-- add additionnal grace to the ratecard
 ALTER TABLE cc_ratecard ADD additional_grace integer NOT NULL DEFAULT 0;
 
 ALTER TABLE cc_ratecard ADD minimal_cost real NOT NULL DEFAULT 0;
@@ -1007,3 +1008,6 @@ ALTER TABLE cc_ratecard ADD minimal_cost real NOT NULL DEFAULT 0;
 -- add description for the REFILL AND PAYMENT
 ALTER TABLE cc_logpayment ADD description text  ;
 ALTER TABLE cc_logrefill ADD description text  ;
+
+
+
