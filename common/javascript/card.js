@@ -43,7 +43,7 @@ function openURL(theLINK)
 	description = document.theForm.description.value;
 		
 		
-	if ( (addcredit == 0) || (!IsNumeric(addcredit)) ){
+	if ( (addcredit == 0) || (!IsNumeric(parseFloat(addcredit))) ){
 		alert ('Please , Fill credit box with a numeric value'); 
 		return;
 	}	
