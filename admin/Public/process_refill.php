@@ -16,7 +16,7 @@ if (! has_rights (ACX_CUSTOMER)){
 
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
-$HD_Form->FG_DEBUG = 1;
+$HD_Form->FG_DEBUG = 0;
 
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array('addcredit', 'cardnumber'));
