@@ -263,7 +263,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Webservice Card Log File', 'api_card', '/tmp/a2billing_api_card.log', 'Log file to store the Card Webservice Logs', 0, 10, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('AGI Log File', 'agi', '/tmp/a2billing_agi.log', 'File to log.', 0, 10, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Debug', 'debug', '1', 'The debug level 0=none, 1=low, 2=normal, 3=all.', 0, 11, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Asterisk Version', 'asterisk_version', '1_2', 'Asterisk Version Information, 1_1,1_2,1_4 By Default it will take 1_2 or higher .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Asterisk Version', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1,1_2,1_4 By Default it will take 1_2 or higher .', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Answer Call', 'answer_call', 1, 'Manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Play Audio', 'play_audio', 1, 'Play audio - this will disable all stream file but not the Get Data , for wholesale ensure that the authentication works and than number_try = 1.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Say GoodBye', 'say_goodbye', '0', 'play the goodbye message when the user has finished.', 1, 11, 'yes,no');
@@ -978,7 +978,7 @@ CREATE TABLE cc_package_group (
 	name 			character varying( 30 )  NOT NULL ,
 	description 	text ,
 	CONSTRAINT cc_package_group_pkey PRIMARY KEY (id)
-) ;
+);
 
 CREATE TABLE cc_packgroup_package (
 	packagegroup_id 	integer NOT NULL ,
@@ -1008,6 +1008,19 @@ ALTER TABLE cc_ratecard ADD minimal_cost real NOT NULL DEFAULT 0;
 -- add description for the REFILL AND PAYMENT
 ALTER TABLE cc_logpayment ADD description text  ;
 ALTER TABLE cc_logrefill ADD description text  ;
+
+
+-- Deck threshold switch for callplan 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+VALUES ('CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID
+The parameters are as follow : <br/>
+-- ID of the first callplan : called minutes needed to switch to the next CallplanID <br/>
+-- ID of the second callplan : called minutes needed to switch to the next CallplanID <br/>
+-- if not needed minutes are defined it will automatically switch to the next one <br/>
+-- if defined we will sum the previous needed minutes and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of minutes needed<br/>
+value example for callplan_deck_minute_threshold = 1:5, 2:1, 3', 
+'0', '11', NULL);
+
 
 
 

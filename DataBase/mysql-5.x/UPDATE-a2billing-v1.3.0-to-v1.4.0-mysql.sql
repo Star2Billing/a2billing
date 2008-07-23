@@ -258,7 +258,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Webservice Card Log File', 'api_card', '/tmp/a2billing_api_card.log', 'Log file to store the Card Webservice Logs', 0, 10, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('AGI Log File', 'agi', '/tmp/a2billing_agi.log', 'File to log.', 0, 10, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Debug', 'debug', '1', 'The debug level 0=none, 1=low, 2=normal, 3=all.', 0, 11, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Asterisk Version', 'asterisk_version', '1_2', 'Asterisk Version Information, 1_1,1_2,1_4 By Default it will take 1_2 or higher .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Asterisk Version', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1,1_2,1_4 By Default it will take 1_2 or higher .', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Answer Call', 'answer_call', 1, 'Manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Play Audio', 'play_audio', 1, 'Play audio - this will disable all stream file but not the Get Data , for wholesale ensure that the authentication works and than number_try = 1.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Say GoodBye', 'say_goodbye', '0', 'play the goodbye message when the user has finished.', 1, 11, 'yes,no');
@@ -719,8 +719,8 @@ CREATE TABLE cc_card_archive (
 
 
 
-ALTER TABLE `cc_card_archive` ADD INDEX ( `creationdate` );
-ALTER TABLE `cc_card_archive` ADD INDEX ( `username` );
+ALTER TABLE cc_card_archive ADD INDEX ( creationdate );
+ALTER TABLE cc_card_archive ADD INDEX ( username );
 ALTER TABLE cc_ratecard ADD COLUMN is_merged INT DEFAULT 0;
 
 UPDATE cc_config SET config_title='Dial Command Params', config_description='More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>g: When the called party hangs up, exit to execute more commands in the current context. (new in 1.4)<br>i: Asterisk will ignore any forwarding (302 Redirect) requests received. Essential for DID usage to prevent fraud. (new in 1.4)<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.' WHERE  config_key='dialcommand_param';
@@ -832,8 +832,7 @@ CREATE TABLE cc_ticket_comment (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, `config_group_id`, `config_listvalues`)
- VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, `config_group_id`, `config_listvalues`) VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
 
 
 
@@ -1014,3 +1013,24 @@ ALTER TABLE cc_ratecard ADD minimal_cost FLOAT NOT NULL DEFAULT '0';
 ALTER TABLE cc_logpayment ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 ALTER TABLE cc_logrefill ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 
+
+-- ALTER TABLE `cc_config` CHANGE `config_description` `config_description` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+--  ALTER TABLE `cc_config` CHANGE `config_description` `config_description` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL  
+
+-- Deck threshold switch for callplan 
+-- delete from cc_config where config_key='callplan_deck_minute_threshold';
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+VALUES ('CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID
+The parameters are as follow : <br/>
+-- ID of the first callplan : called minutes needed to switch to the next CallplanID <br/>
+-- ID of the second callplan : called minutes needed to switch to the next CallplanID <br/>
+-- if not needed minutes are defined it will automatically switch to the next one <br/>
+-- if defined we will sum the previous needed minutes and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of minutes needed<br/>
+value example for callplan_deck_minute_threshold = 1:5, 2:1, 3', 
+'0', '11', NULL);
+
+
+
+-- TODO Test insert of config and not show value
+-- INSERT INTO `cc_config` ( `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_group_id`, `config_listvalues`) VALUES('Extra charge DIDs', 'extracharge_did', '1800,1900', 'Add extra per-minute charges to this comma-separated list of DNIDs; needs "extracharge_fee" and "extracharge_buyfee"', 0, 11, NULL);
