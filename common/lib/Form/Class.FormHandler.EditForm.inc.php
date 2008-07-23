@@ -128,7 +128,7 @@ function sendtolittle(direction){
 		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SPAN"))
 				{
 			  ?>
-                     <span class="form_input_span" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></span> 	 
+                     <span name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></span> 	 
                         <?php 	
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 				{

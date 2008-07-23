@@ -171,12 +171,11 @@ function openURLFilter(theLINK)
 			   <?php } ?>
                 </TR>
 		<?php
-			 /**********************   START BUILDING THE TABLE WITH BROWSING VALUES ************************/
-			 for ($ligne_number=0;$ligne_number<count($list);$ligne_number++){
-
+			/**********************   START BUILDING THE TABLE WITH BROWSING VALUES ************************/
+			for ($ligne_number=0;$ligne_number<count($list);$ligne_number++){
 		?>
 
-               	 <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onmouseover="bgColor='#FFDEA6'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'">
+				<TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onmouseover="bgColor='#FFDEA6'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'">
 		  		<?php
 				$k=0;
 				for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){
@@ -221,8 +220,9 @@ function openURLFilter(theLINK)
 						$record_display = $select_list[$list[$ligne_number][$i-$k]][0];
 					}elseif ($this->FG_TABLE_COL[$i][6]=="list-conf"){
 						$select_list = $this->FG_TABLE_COL[$i][7];
-						$key_config =  $list[$ligne_number][$i-$k + 3] - 1;
+						$key_config =  $list[$ligne_number][$i-$k + 3];
 						$record_display = $select_list[$key_config][0];
+						//print_r ($select_list);
 					}elseif ($this->FG_TABLE_COL[$i][6]=="value"){
 						$record_display = $this->FG_TABLE_COL[$i][7];
 						$k++;

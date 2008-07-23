@@ -30,18 +30,17 @@ $config_list = $instance_config_table -> Get_list ($handle, "", "id", "ASC");
 foreach($config_list as $key => $cur_value) {
 
 	if($cur_value[1] != '1') {
-		$yesno[$key] = array($cur_value[0],$cur_value[2]);
+		$yesno[$cur_value[2]] = array($cur_value[0],$cur_value[2]);
 	} else {
 		if($cur_value[0] == '1') {
-			$yesno[$key] = array("Yes",$cur_value[2]);
+			$yesno[$cur_value[2]] = array("Yes",$cur_value[2]);
 		} else if($cur_value[0] == '0') {
-			$yesno[$key] = array("No",$cur_value[2]);
+			$yesno[$cur_value[2]] = array("No",$cur_value[2]);
 		} else {
-			$yesno[$key] = array($cur_value[0],$cur_value[2]);
+			$yesno[$cur_value[2]] = array($cur_value[0],$cur_value[2]);
 		}
 	}
 }
-
 $HD_Form = new FormHandler("cc_config ccc LEFT JOIN cc_config_group ccg ON ccg.id = ccc.config_group_id","Configuration");
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="ccc.id";
@@ -50,7 +49,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 if ($groupselect != "") {
 	$HD_Form = new FormHandler("cc_config ccc ,cc_config_group ccg","Configuration");
-	$HD_Form -> FG_TABLE_ID="ccc.id";
+	$HD_Form -> FG_TABLE_ID = "ccc.id";
 	$HD_Form -> FG_TABLE_CLAUSE = "ccg.id = ccc.config_group_id";
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
@@ -65,6 +64,8 @@ if($form_action == "list") {
 } else {
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }
+
+// $HD_Form -> FG_TABLE_CLAUSE .= " AND config_key='callplan_deck_minute_threshold'";
 
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
