@@ -662,8 +662,8 @@ class A2Billing {
 		$this->uniqueid		= $agi->request['agi_uniqueid'];
 		$this->accountcode	= $agi->request['agi_accountcode'];
 		//$this->dnid		= $agi->request['agi_dnid'];
-		$this->dnid		= $agi->request['agi_extension'];
-
+		$this->dnid			= $agi->request['agi_extension'];
+		
 		//Call function to find the cid number
 		$this -> isolate_cid();
 
@@ -732,7 +732,7 @@ class A2Billing {
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
 			$this->destination = $res_dtmf ["result"];
 		}
-
+		
 		//REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
 		if (strlen($this->destination)<=2 && is_numeric($this->destination) && $this->destination>=0){
 
@@ -851,8 +851,8 @@ class A2Billing {
 		// STRIP * FROM DESTINATION NUMBER
 		$this->destination = str_replace('*', '', $this->destination);
 
-		$this->save_redial_number($this->destination);
-
+		$this->save_redial_number($agi, $this->destination);
+		
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 		$resfindrate = $RateEngine->rate_engine_findrates($this, $this->destination,$this->tariff);
 		if ($resfindrate==0){
@@ -1000,7 +1000,7 @@ class A2Billing {
 			$agi-> stream_file('prepaid-sipiax-num-nomatch', '#');
 			return -1;
 		}
-
+		
 		for ($k=0;$k< $sip_buddies+$iax_buddies;$k++)
 		{
 			if ($k==0 && $sip_buddies) {
@@ -2571,7 +2571,7 @@ class A2Billing {
 		return $arr_value_to_import;
 	}
 
-	function save_redial_number($number){
+	function save_redial_number($agi, $number){
 		if(($this->mode == 'did') || ($this->mode == 'callback')){
 		    return;
 		}

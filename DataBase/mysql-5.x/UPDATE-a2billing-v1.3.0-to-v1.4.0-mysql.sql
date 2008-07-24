@@ -1029,3 +1029,6 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 '0', '11', NULL);
 
 
+ALTER TABLE cc_call ADD dnid CHAR( 40 );
+
+

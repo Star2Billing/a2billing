@@ -982,7 +982,7 @@ CREATE TABLE cc_package_group (
 
 CREATE TABLE cc_packgroup_package (
 	packagegroup_id 	integer NOT NULL ,
-	package_id 		integer NOT NULL ,
+	package_id 			integer NOT NULL ,
 	CONSTRAINT cc_packgroup_package_pkey PRIMARY KEY  ( packagegroup_id , package_id )
 );
 
@@ -1022,5 +1022,6 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 '0', '11', NULL);
 
 
+ALTER TABLE cc_call ADD dnid character varying( 40 );
 
 

@@ -1023,7 +1023,9 @@ class RateEngine
 		else $calltype = 0;
 
 		$QUERY = "INSERT INTO cc_call (uniqueid, sessionid,  username, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
-			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."',  '".$A2B->username."','".$A2B->id_card."', '".$A2B->hostname."', ";
+			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, " .
+			" id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer, dnid) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."',  '".$A2B->username."','".
+			$A2B->id_card."', '".$A2B->hostname."', ";
 
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
 			$QUERY .= "CURRENT_TIMESTAMP - interval '$sessiontime seconds' ";
@@ -1031,9 +1033,10 @@ class RateEngine
 			$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
 		}
 
-		$QUERY .= ", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$dialstatus', now(), '$rateapply', '$signe_cc_call".a2b_round(abs($cost))."', ".
-			" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', '$buyrateapply', '$buycost', '$id_card_package_offer')";
-
+		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$dialstatus', now(), '$rateapply', '$signe_cc_call".a2b_round(abs($cost))."', ".
+					" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
+					"'$buyrateapply', '$buycost', '$id_card_package_offer', '".$A2B->dnid."')";
+		
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_stop  QUERY = $QUERY]");
 
 		$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
