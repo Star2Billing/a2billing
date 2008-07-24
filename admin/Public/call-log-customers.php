@@ -214,6 +214,14 @@ if ($terminatecause=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE .= " (t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED') ";
 }
+if ($terminatecause=="INCOMPLET") {
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE .= " (t1.terminatecause !='ANSWER' AND t1.terminatecause !='ANSWERED') ";
+}
+if ($terminatecause=="CONGESTION") {
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE .= " (t1.terminatecause='CONGESTION') ";
+}
 
 
 if (!$nodisplay){
@@ -509,6 +517,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
 					<?php echo gettext("All Calls");?>  
 					<input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
+					<?php echo gettext("Not completed Calls");?>  
+					<input name="terminatecause" type="radio" value="INCOMPLET" <?php if($terminatecause=="INCOMPLET"){?>checked<?php }?>/>
+					<?php echo gettext("Congestioned Calls");?>  
+					<input name="terminatecause" type="radio" value="CONGESTION" <?php if($terminatecause=="CONGESTION"){?>checked<?php }?>/>
 				</td>
 			</tr>
 			<tr class="bgcolor_005">
