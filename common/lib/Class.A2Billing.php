@@ -2437,8 +2437,81 @@ class A2Billing {
 
 		return 1;
 	}
-
-
+	
+	
+	/*
+	 * Function deck_switch
+	 * to switch the Callplan from a customer : callplan_deck_minute_threshold
+	 *
+	 */
+	function deck_switch($agi)
+	{
+		if (strpos($this->agiconfig['callplan_deck_minute_threshold'], ',') === false) 
+			return false;
+		
+		$arr_splitable_deck = explode(",", $this->agiconfig['callplan_deck_minute_threshold']);
+		
+		foreach ($arr_splitable_deck as $arr_value) {
+		
+			$arr_value = trim ($arr_value);
+			$arr_value_explode = explode(":", $arr_value,2);
+			if (count($arr_value_explode) > 1){
+				if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) ){
+					$arr_value_deck_callplan[] = $arr_value_explode[0];
+					$arr_value_deck_minute[] = $arr_value_explode[1];
+				}
+			}else{
+				if (is_numeric($arr_value)){
+					$arr_value_deck_callplan[] = $arr_value;
+					$arr_value_deck_minute[] = 0;
+				}
+			}
+		}
+		// We have $arr_value_deck_callplan with 1, 2, 3 & we have $arr_value_deck_minute with 5, 1, 0
+		if (count($arr_value_deck_callplan) == 0)
+			return false;
+		
+		$QUERY = "SELECT sum(sessiontime), count(*) FROM cc_call WHERE card_id='".$this->id_card."'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[DECK SWITCH - Start]".print_r($result, true));
+		$sessiontime_for_card = $result[0][0];
+		$calls_for_card = $result[0][1];
+		
+		$find_deck = false;
+		$accumul_seconds = 0;
+		for ($ind_deck = 0 ; $ind_deck < count($arr_value_deck_callplan) ; $ind_deck++){
+			$accumul_seconds += $arr_value_deck_minute[$ind_deck];
+			
+			if ($arr_value_deck_callplan[$ind_deck] == $this->tariff) {
+				if (is_numeric($arr_value_deck_callplan[$ind_deck+1])) {
+					$find_deck = true;
+				} else {
+					$find_deck = false;
+				}
+				break;
+			}
+		}
+		
+		$ind_deck = $ind_deck + 1;
+		if ($find_deck) {
+			// Check if the sum sessiontime call is more the the accumulation of the parameters seconds & that the amount of calls made is upper than the deck level
+			if (($sessiontime_for_card  > $accumul_seconds) && ($calls_for_card > $ind_deck)) {
+				// UPDATE CARD
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[DECK SWITCH] : UPDATE CARD TO CALLPLAN ID = ".$arr_value_deck_callplan[$ind_deck]);
+				$QUERY = "UPDATE cc_card SET tariff='".$arr_value_deck_callplan[$ind_deck]."' WHERE id='".$this->id_card."'";
+				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+				
+				$this->tariff = $arr_value_deck_callplan[$ind_deck];
+			}
+		}
+		return true;
+	}
+	
+	
+	/*
+	 * Function DbConnect
+	 * Returns: true / false if connection has been established
+	 */
 	function DbConnect()
 	{
 		$ADODB_CACHE_DIR = '/tmp';
@@ -2455,8 +2528,11 @@ class A2Billing {
 
 		return true;
 	}
-
-
+	
+	
+	/*
+	 * Function DbDisconnect
+	 */
 	function DbDisconnect()
 	{
 		$this -> DBHandle -> disconnect();
@@ -2465,6 +2541,8 @@ class A2Billing {
 
 	/*
 	 * function splitable_data
+	 * used by parameter like interval_len_cardnumber : 8-10, 12-18, 20
+	 * it will build an array with the different interval
 	 */
 	function splitable_data ($splitable_value){
 
@@ -2504,4 +2582,3 @@ class A2Billing {
 
 };
 
-?>

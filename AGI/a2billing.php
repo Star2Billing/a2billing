@@ -169,7 +169,7 @@ if ($mode == 'standard'){
 			$stat_channel = $agi->channel_status($A2B-> channel);
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
 						   "\n[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
-
+			
 			// CHECK IF THE CHANNEL IS UP
 			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){
 			if (($A2B->agiconfig['answer_call']==1) && ($stat_channel["result"]!=$status_channel) && ($A2B -> CC_TESTING!=1)){
@@ -180,9 +180,12 @@ if ($mode == 'standard'){
 
 			// CREATE A DIFFERENT UNIQUEID FOR EACH TRY
 			if ($i>0){
-				$A2B-> uniqueid = $A2B-> uniqueid + 1000000000 ;
+				$A2B-> uniqueid = $A2B-> uniqueid + 1000000000;
 			}
-
+			
+			// Feature to switch the Callplan from a customer : callplan_deck_minute_threshold 
+			$A2B-> deck_switch($agi);
+			
 			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0 && $A2B->agiconfig['jump_voucher_if_min_credit']==1) {
 
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
@@ -193,7 +196,7 @@ if ($mode == 'standard'){
 					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 				}
 			}
-
+			
 			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
 
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
