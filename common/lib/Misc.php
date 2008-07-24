@@ -151,10 +151,12 @@ function getpost_ifset($test_vars)
 			global $$test_var;
 			$$test_var = $_POST[$test_var];
 			$$test_var = sanitize_data($$test_var);
+			if($test_var =='username'){echo 'POST'.$test_var; $$test_var = trim($$test_var);}
 		} elseif (isset($_GET[$test_var])) {
 			global $$test_var;
 			$$test_var = $_GET[$test_var];
 			$$test_var = sanitize_data($$test_var);
+			if($test_var =='username'){echo 'GET'.$test_var; $$test_var = trim($$test_var);}
 		}
 	}
 }

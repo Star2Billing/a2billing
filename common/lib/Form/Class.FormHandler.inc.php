@@ -549,6 +549,7 @@ class FormHandler
 	function &getProcessed() {
 		foreach ($this->_vars as $key => $value) {
 			$this->_processed[$key] = $this -> sanitize_data($value);
+			if($key=='username')$this->_processed[$key] = trim($this->_processed[$key]);
 		}
 		return $this->_processed;
 	}
@@ -956,10 +957,15 @@ class FormHandler
 		return $sql;
   }
 
-function do_field($sql,$fld, $simple=0){
+function do_field($sql,$fld, $simple=0,$processed=null){
   		$fldtype = $fld.'type';
-
-        if (isset($_POST[$fld]) && ($_POST[$fld]!='')){
+        if(!empty($processed)){
+	  		$parameters=$processed;
+        }else{
+        	$parameters =$_POST ;
+        }
+  		
+        if (isset($parameters[$fld]) && ($parameters[$fld]!='')){
 				if (strpos($sql,'WHERE') > 0){
                         $sql = "$sql AND ";
                 }else{
@@ -967,18 +973,18 @@ function do_field($sql,$fld, $simple=0){
                 }
 				$sql = "$sql $fld";
 				if ($simple==0){
-					if (isset ($_POST[$fldtype])){      
-							switch ($_POST[$fldtype]) {
-								case 1:	$sql = "$sql='".$_POST[$fld]."'";  break;
-								case 2: $sql = "$sql LIKE '".$_POST[$fld]."%'";  break;
-								case 3: $sql = "$sql LIKE '%".$_POST[$fld]."%'";  break;
-								case 4: $sql = "$sql LIKE '%".$_POST[$fld]."'";
+					if (isset ($parameters[$fldtype])){      
+							switch ($parameters[$fldtype]) {
+								case 1:	$sql = "$sql='".$parameters[$fld]."'";  break;
+								case 2: $sql = "$sql LIKE '".$parameters[$fld]."%'";  break;
+								case 3: $sql = "$sql LIKE '%".$parameters[$fld]."%'";  break;
+								case 4: $sql = "$sql LIKE '%".$parameters[$fld]."'";
 							}
 					}else{ 
-						$sql = "$sql LIKE '%".$_POST[$fld]."%'"; 
+						$sql = "$sql LIKE '%".$parameters[$fld]."%'"; 
 					}
 				}else{
-					$sql = "$sql ='".$_POST[$fld]."'";
+					$sql = "$sql ='".$parameters[$fld]."'";
 				}
 		}
 		return $sql;
@@ -1079,7 +1085,6 @@ function do_field($sql,$fld, $simple=0){
      */
 	function prepare_list_subselection($form_action)
 	{
-	
 
 		$processed = $this->getProcessed();  //$processed['firstname']
 
@@ -1107,7 +1112,7 @@ function do_field($sql,$fld, $simple=0){
 			if (($processed['posted_search'] != 1 && isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 )){
 				$arr_session_var = split("\|", $_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]);
 				foreach ($arr_session_var as $arr_val){
-					list($namevar,$valuevar) = split("=", $arr_val);	
+					list($namevar,$valuevar) = split("=", $arr_val);
 					$this->_processed[$namevar]=$valuevar;
 					$processed[$namevar]=$valuevar;
 					$_POST[$namevar]=$valuevar;
@@ -1128,7 +1133,7 @@ function do_field($sql,$fld, $simple=0){
 				
 				foreach ($this->FG_FILTER_SEARCH_FORM_1C as $r){							
 					$search_parameters .= "|$r[1]=".$processed[$r[1]]."|$r[2]=".$processed[$r[2]];
-					$SQLcmd = $this->do_field($SQLcmd, $r[1]);
+					$SQLcmd = $this->do_field($SQLcmd, $r[1],0,$processed);
 				}
 				
 				foreach ($this->FG_FILTER_SEARCH_FORM_2C as $r){
