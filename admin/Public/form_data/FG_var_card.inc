@@ -44,8 +44,9 @@ $language_list_r["2"] = array("fr", gettext("FRENCH"));
 
 
 $simultaccess_list = array();
-$simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
 $simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
+$simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
+
 
 $simultaccess_list_r = array();
 $simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
@@ -75,8 +76,8 @@ foreach($currencies_list as $key => $cur_value) {
 
 
 $cardstatus_list = array();
-$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
 $cardstatus_list["1"]  = array( gettext("ACTIVE"), "1");
+$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
 $cardstatus_list["2"]  = array( gettext("NEW"), "2");
 $cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
 $cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
@@ -728,8 +729,10 @@ $HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
 			   "SELECT",
 			   "",
 			   "",
-			   gettext("Insert the number of credit when the customer receive a notification"),
-			   "list" , "", "", "", $limits_notify , "%1", "", gettext("currency : ").strtoupper(BASE_CURRENCY),"", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>'  );
+			   "",
+			   "list" , "", "", "", $limits_notify , "%1", "", 
+			   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"), 
+			   "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
 
 
 $HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
