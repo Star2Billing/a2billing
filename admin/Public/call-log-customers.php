@@ -10,7 +10,7 @@ if (! has_rights (ACX_CALL_REPORT)) {
 	die();
 }
 
-getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause', 'choose_calltype'));
+getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype','dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src','dnid', 'clid', 'choose_currency', 'terminatecause', 'choose_calltype'));
 
 
 
@@ -72,6 +72,7 @@ $DBHandle  = DbConnect();
 $FG_TABLE_COL = array();
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "7%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("Dnid"), "dnid", "7%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "10%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "10%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "6%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
@@ -92,7 +93,7 @@ $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t3.trunkcode, t1.terminatecause, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
+$FG_COL_QUERY='t1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.destination, t1.sessiontime, t1.username, t3.trunkcode, t1.terminatecause, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
 }
@@ -133,6 +134,7 @@ if ($posted==1) {
 	$SQLcmd = '';
 	$SQLcmd = do_field($SQLcmd, 'src', 'src');
 	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
+	$SQLcmd = do_field($SQLcmd, 'dnid', 'dnid');
 }
 
 
@@ -476,6 +478,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
 			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
 			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+			</tr></table></td>
+		</tr>
+		
+		<tr>
+			<td align="left" class="bgcolor_004">					
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DNID");?></font>
+			</td>				
+			<td class="bgcolor_005" align="left">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+			<tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dnid" value="<?php echo "$dnid";?>" class="form_input_text"></td>
+			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dnidtype" value="1" <?php if((!isset($dnidtype))||($dnidtype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dnidtype" value="2" <?php if($dnidtype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dnidtype" value="3" <?php if($dnidtype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+			<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dnidtype" value="4" <?php if($dnidtype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
 			</tr></table></td>
 		</tr>
 		
