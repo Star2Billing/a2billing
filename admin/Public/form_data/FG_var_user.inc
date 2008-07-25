@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'groupID', 'userid', 'login', 'password', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname'));
+getpost_ifset(array('id', 'groupID', 'userid', 'login', 'pwd_encoded', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname'));
 
 
 if ($groupID=="0"){
@@ -54,9 +54,8 @@ $len_right_list = count($right_list);
 $HD_Form -> AddViewElement(gettext("USERID"), "UserID", "14%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATE CREATION"), "datecreation", "24%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LOGIN"), "login", "24%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("PASSWORD"), "password", "24%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('userid, datecreation, login, password');
+$HD_Form -> FieldViewElement ('userid, datecreation, login');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -89,16 +88,17 @@ $HD_Form -> AddEditElement (gettext("LOGIN"),
 	"3",
 	gettext("Insert the username"),
 	"" , "", "", "", "" , "", "", "");
-
-$HD_Form -> AddEditElement (gettext("PASSWORD"),
-	"password",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=15",
-	"3",
-	gettext("Insert the Reseller password"),
-	"" , "", "", "", "", "", "", "");
-
+	
+if ($form_action=="ask-add" && $form_action=="add"){
+	$HD_Form -> AddEditElement (gettext("PASSWORD"),
+		"pwd_encoded",
+		'$value',
+		"INPUT",
+		"type=password size=30 maxlength=15",
+		"3",
+		gettext("Insert the Reseller password"),
+		"" , "", "", "", "", "", "", "");
+}
 if ($groupID!="0"){
 	$HD_Form -> AddEditElement (gettext("PERMISSION"),
 		"perms",
@@ -194,7 +194,11 @@ if ($form_action!="ask-add" && $form_action!="add"){
         $FG_QUERY_EDITION='userid, ';
 }
 
-$FG_QUERY_EDITION .= 'login, password, ';
+$FG_QUERY_EDITION .= 'login, ';
+
+if ($form_action =="ask-add" || $form_action=="add"){
+        $FG_QUERY_EDITION='pwd_encoded,  ';
+}
 
 if ($groupID!="0"){
 	$FG_QUERY_EDITION .= 'perms, ';

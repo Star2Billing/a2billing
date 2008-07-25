@@ -152,8 +152,9 @@ function login ($user, $pass) {
 
 	$user = trim($user);
 	$pass = trim($pass);
+	$pass_encoded= hash( 'whirlpool',$pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
-	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND password = '".$pass."'";
+	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND pwd_encoded = '".$pass_encoded."'";
 
 	$res = $DBHandle -> Execute($QUERY);
 

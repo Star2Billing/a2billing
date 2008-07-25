@@ -550,6 +550,7 @@ class FormHandler
 		foreach ($this->_vars as $key => $value) {
 			$this->_processed[$key] = $this -> sanitize_data($value);
 			if($key=='username')$this->_processed[$key] = trim($this->_processed[$key]);
+			if($key=='pwd_encoded')$this->_processed[$key] = hash( 'whirlpool',$this->_processed[$key]);
 		}
 		return $this->_processed;
 	}

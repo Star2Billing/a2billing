@@ -26,7 +26,12 @@
 
 <div id="nav_before"></div>
 <ul id="nav">
-
+  
+  
+  		<li><a href="#" target="_self"></a></a></li>
+	<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li></ul>
+  		<li><a href="#" target="_self"></a></a></li>
+  		
 	{if ($ACXCUSTOMER > 0) }
 	<div class="toggle_menu">
 	<li>
@@ -458,6 +463,8 @@
 	</div>
 	</div>
 	{/if}
+
+	
 
 	{if ($ACXADMINISTRATOR  > 0)}
 	<div class="toggle_menu">

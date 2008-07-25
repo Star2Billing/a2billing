@@ -1031,4 +1031,5 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 
 ALTER TABLE cc_call ADD dnid CHAR( 40 );
 
-
+-- CHANGE SECURITY ABOUT PASSWORD
+ ALTER TABLE cc_ui_authen CHANGE password pwd_encoded VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL 
