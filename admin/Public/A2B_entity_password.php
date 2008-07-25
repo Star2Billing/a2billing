@@ -33,7 +33,7 @@ if($form_action=="ask-update")
     $NewPwd_encoded = hash( 'whirlpool',$NewPassword);
     $QUERY = "UPDATE cc_ui_authen SET  pwd_encoded= '".$NewPwd_encoded."' WHERE ( login = '".$_SESSION["pr_login"]."' ) ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
-    echo $QUERY;
+   
 	
 	}else{
 	$OldPasswordFaild= true;
