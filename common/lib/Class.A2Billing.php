@@ -1337,30 +1337,30 @@ class A2Billing {
 		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
 		else $agi-> stream_file('prepaid-account_refill', '#');
 
-		if ($units==0 && $cents==0){
+		if ($units==0 && $cents==0) {
 			$agi->say_number(0);
 			$agi-> stream_file($unit_audio, '#');
-		}else{
-			if ($units > 1){
+		} else {
+			if ($units > 1) {
 				$agi->say_number($units);
 
-				if(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ){
-						// test for the specific grammatical rules in RUssian
-						$agi-> stream_file('dollar2', '#');
-					}elseif(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( $units%10==1)) {
-						// test for the specific grammatical rules in RUssian
-						$agi-> stream_file($unit_audio, '#');
-					}else{
-						$agi-> stream_file($units_audio, '#');
-					}
+				if (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && ( ( $units%10==2) || ($units%10==3 ) || ($units%10==4)) ) {
+					// test for the specific grammatical rules in Russian
+					$agi-> stream_file('dollar2', '#');
+				}elseif (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && ( $units%10==1)) {
+					// test for the specific grammatical rules in Russian
+					$agi-> stream_file($unit_audio, '#');
+				} else {
+					$agi-> stream_file($units_audio, '#');
+				}
 
-			}else{
+			} else {
 				$agi->say_number($units);
 				
-				if(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ($units == 0)){
-				$agi-> stream_file($units_audio, '#');	
-				}else{					
-				$agi-> stream_file($unit_audio, '#');
+				if (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && ($units == 0)) {
+					$agi-> stream_file($units_audio, '#');	
+				} else {				
+					$agi-> stream_file($unit_audio, '#');
 				}
 			}
 
