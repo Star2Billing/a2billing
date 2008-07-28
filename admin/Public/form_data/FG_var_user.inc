@@ -89,7 +89,7 @@ $HD_Form -> AddEditElement (gettext("LOGIN"),
 	gettext("Insert the username"),
 	"" , "", "", "", "" , "", "", "");
 	
-if ($form_action=="ask-add" && $form_action=="add"){
+if ($form_action=="ask-add" || $form_action=="add"){
 	$HD_Form -> AddEditElement (gettext("PASSWORD"),
 		"pwd_encoded",
 		'$value',
