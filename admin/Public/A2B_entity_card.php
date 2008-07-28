@@ -72,7 +72,45 @@ if ($batchupdate == 1 && is_array($check)) {
 	}
 	
 }
+
+
 /********************************* END BATCH UPDATE ***********************************/
+
+
+if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 || $cardnumber>0)) {
+	
+	$instance_table = new Table("cc_card", "username, id");
+	
+	if ($cardnumber>0){
+		/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
+		$FG_TABLE_CLAUSE_card = "username='".$cardnumber."'";
+		$list_tariff_card = $instance_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
+		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
+	}
+	
+	if ($id>0){
+		
+		$param_update .= "credit = credit + '".$addcredit."'";
+		if ($HD_Form->FG_DEBUG == 1)  echo "<br><hr> $param_update";	
+		
+		$FG_EDITION_CLAUSE = " id='$id'";
+		
+		if ($HD_Form->FG_DEBUG == 1)  echo "<br>-----<br>$param_update<br>$FG_EDITION_CLAUSE";			
+		$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
+		
+		$field_insert = "date, credit, card_id , description";
+		$value_insert = "now(), '$addcredit', '$id', '$description' ";
+		$instance_sub_table = new Table("cc_logrefill", $field_insert);
+		$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
+		
+		
+	}
+	
+		header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
+}
+
+if ($form_action == "addcredit")	$form_action='list';
+
 
 if ($id!="" || !is_null($id)){	
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
@@ -155,7 +193,7 @@ echo $CC_help_list_customer;
 				<tr>
 					<td colspan="2" align="center">
 					<input class="form_input_button" 
-				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT TO THE SELECTED CARD");?>" onClick="openURL('process_refill.php?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
+				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT TO THE SELECTED CARD");?>" onClick="openURL('<?php echo $_SERVER['PHP_SELF']?>?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
         	
 					</td>
 				</tr>
