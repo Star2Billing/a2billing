@@ -151,12 +151,22 @@ function getpost_ifset($test_vars)
 			global $$test_var;
 			$$test_var = $_POST[$test_var];
 			$$test_var = sanitize_data($$test_var);
-			if($test_var =='username' || $test_var =='filterprefix'){ $$test_var = trim($$test_var);}
+			if($test_var =='username' || $test_var =='filterprefix'){ 
+				//rebuild the search parameter to filter character to format card number
+				$filtered_char = array(" ", "-", "_");
+				$$test_var = str_replace($filtered_char, "", $$test_var);
+				
+			}
 		} elseif (isset($_GET[$test_var])) {
 			global $$test_var;
 			$$test_var = $_GET[$test_var];
 			$$test_var = sanitize_data($$test_var);
-			if($test_var =='username' ||  $test_var =='filterprefix'){ $$test_var = trim($$test_var);}
+			//rebuild the search parameter to filter character to format card number
+			if($test_var =='username' ||  $test_var =='filterprefix'){ 
+				//rebuild the search parameter to filter character to format card number
+				$filtered_char = array(" ", "-", "_");
+				$$test_var = str_replace($filtered_char, "", $$test_var);
+			}
 		}
 	}
 }
