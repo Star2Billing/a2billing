@@ -224,6 +224,26 @@ if ($terminatecause=="CONGESTION") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE .= " (t1.terminatecause='CONGESTION') ";
 }
+if ($terminatecause=="NOANSWER") {
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE .= " (t1.terminatecause='NOANSWER') ";
+}
+
+if ($terminatecause=="BUSY") {
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE .= " (t1.terminatecause='BUSY') ";
+}
+
+if ($terminatecause=="CHANUNAVAIL") {
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE .= " (t1.terminatecause='CHANUNAVAIL') ";
+}
+
+if ($terminatecause=="CANCEL") {
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE .= " (t1.terminatecause='CANCEL') ";
+}
+
 
 
 if (!$nodisplay){
@@ -526,17 +546,35 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		  <table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td width="20%"  class="fontstyle_searchoptions">
-					<?php echo gettext("SHOW");?> :  						
+					<?php echo gettext("SHOW CALLS");?> :  						
 			   </td>
 			   <td width="80%"  class="fontstyle_searchoptions">
-					<?php echo gettext("Answered Calls");?>  
-					<input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
-					<?php echo gettext("All Calls");?>  
-					<input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
-					<?php echo gettext("Not completed Calls");?>  
-					<input name="terminatecause" type="radio" value="INCOMPLET" <?php if($terminatecause=="INCOMPLET"){?>checked<?php }?>/>
-					<?php echo gettext("Congestioned Calls");?>  
-					<input name="terminatecause" type="radio" value="CONGESTION" <?php if($terminatecause=="CONGESTION"){?>checked<?php }?>/>
+			  			<select NAME="terminatecause" size="1" class="form_input_select" >
+							<option value='ANSWER' <?php if ((!isset($terminatecause))||($terminatecause=="ANSWER")){?>selected<?php } ?>><?php echo gettext('ANSWERED') ?>
+							</option>
+						
+							<option value='ALL' <?php if ($terminatecause=="ALL"){?>selected<?php } ?>><?php echo gettext('ALL') ?>
+							</option>
+							
+							<option value='INCOMPLET' <?php if ($terminatecause=="INCOMPLET"){?>selected<?php } ?>><?php echo gettext('NOT COMPLETED') ?>
+							</option>
+							
+							<option value='CONGESTION' <?php if ($terminatecause=="CONGESTION"){?>selected<?php } ?>><?php echo gettext('CONGESTIONED') ?>
+							</option>
+							
+							<option value='BUSY' <?php if ($terminatecause=="BUSY"){?>selected<?php } ?>><?php echo gettext('BUSIED') ?>
+							</option>
+							
+							<option value='NOANSWER' <?php if ($terminatecause=="NOANSWER"){?>selected<?php } ?>><?php echo gettext('NOT ANSWERED') ?>
+							</option>
+							
+							<option value='CHANUNAVAIL' <?php if ($terminatecause=="CHANUNAVAIL"){?>selected<?php } ?>><?php echo gettext('CHANNEL UNAVAILABLE') ?>
+							</option>
+							
+							<option value='CANCEL' <?php if ($terminatecause=="CANCEL"){?>selected<?php } ?>><?php echo gettext('CANCELED') ?>
+							</option>
+							
+						</select>
 				</td>
 			</tr>
 			<tr class="bgcolor_005">
