@@ -962,7 +962,7 @@ CREATE TABLE cc_card_group (
 	id 					INT NOT NULL AUTO_INCREMENT ,
 	name 				CHAR( 30 ) NOT NULL collate utf8_bin ,
 	id_agi_conf 		INT NOT NULL ,
-	description 		MEDIUMTEXT CHARACTER ,
+	description 		MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
 	PRIMARY KEY ( id )
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
