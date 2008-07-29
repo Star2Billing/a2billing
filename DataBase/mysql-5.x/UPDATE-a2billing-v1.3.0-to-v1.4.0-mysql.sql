@@ -962,7 +962,7 @@ CREATE TABLE cc_card_group (
 	id 					INT NOT NULL AUTO_INCREMENT ,
 	name 				CHAR( 30 ) NOT NULL collate utf8_bin ,
 	id_agi_conf 		INT NOT NULL ,
-	description 		MEDIUMTEXT CHARACTER 
+	description 		MEDIUMTEXT CHARACTER ,
 	PRIMARY KEY ( id )
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -1014,7 +1014,7 @@ ALTER TABLE cc_logpayment ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE 
 ALTER TABLE cc_logrefill ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 
 
-ALTER TABLE `cc_config` CHANGE `config_description` `config_description` TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+ALTER TABLE cc_config CHANGE config_description config_description TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
 
 
 -- Deck threshold switch for callplan
@@ -1032,7 +1032,8 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 ALTER TABLE cc_call ADD dnid CHAR( 40 );
 
 -- CHANGE SECURITY ABOUT PASSWORD
- ALTER TABLE cc_ui_authen CHANGE password pwd_encoded VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ;
+
+ALTER TABLE cc_ui_authen CHANGE password pwd_encoded VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ;
 
 UPDATE cc_ui_authen SET pwd_encoded = '34e125a0ce58a0c230db9110116767e3e95f143096eb66df2eeb77c43ca9210377ebca623e37242d16080b6a128e66dcbd2fbe137050120d3f2ab8420dd6cc70' WHERE login = 'root' ;
 
@@ -1041,3 +1042,4 @@ ADD company_website VARCHAR( 60 ) NULL ,
 ADD VAT_RN VARCHAR( 40 ) NULL ,
 ADD traffic BIGINT NULL ,
 ADD traffic_target MEDIUMTEXT NULL ;
+
