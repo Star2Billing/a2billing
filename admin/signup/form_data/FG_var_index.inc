@@ -243,7 +243,7 @@ $HD_Form -> AddEditElement (gettext("COMPANY NAME"),
 			   "INPUT",
 			   "size=40 maxlength=50",
 			   "",
-			   gettext("Insert Company name of this card"),
+			   gettext("Insert Company name of this customer"),
 			   "" , "", "",	"", "", "" , "NO", "");
 			  
 $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
@@ -252,7 +252,7 @@ $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "INPUT",
 			   "size=40 maxlength=60",
 			   "",
-			   gettext("Insert the company website of this card"),
+			   gettext("Insert the company website of this customer"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 $HD_Form -> AddEditElement (gettext("VAT REGISTRATION NUMBER "),
@@ -261,7 +261,7 @@ $HD_Form -> AddEditElement (gettext("VAT REGISTRATION NUMBER "),
 			   "INPUT",
 			   "size=40 maxlength=40",
 			   "",
-			   gettext("Insert the VAT registration number of this card"),
+			   gettext("Insert the VAT registration number of this customer"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
@@ -271,7 +271,7 @@ $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 			   "INPUT",
 			   "size=30 maxlength=20",
 			   "0",
-			   gettext("Insert the traffic per month for this card"),
+			   gettext("Insert the traffic per month for this customer"),
 			   "" , "", "",	"", "", "" , "NO", "");		   
 
 $HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
@@ -280,7 +280,7 @@ $HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
 				"TEXTAREA",
 				"cols=50 rows=4",
 				"",
-				gettext("Insert the target traffic"),
+				gettext("Insert the target traffic description"),
 				"" , "", "", "", "" , "", "", "");
 			   
 $HD_Form -> AddEditElement (gettext("VERIFICATION"),
