@@ -6,7 +6,8 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
 'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
-'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_agent' ));
+'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_agent',
+'company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target' ));
 
 
 $HD_Form = new FormHandler(" cc_card LEFT JOIN cc_callerid ON cc_card.id=cc_callerid.id_cc_card","Card");
@@ -751,14 +752,56 @@ $HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 			   "INPUT",
 			   "size=30 maxlength=70",
 			   "1",
-			   gettext("Insert the email to notify the customers"),
+			   gettext("Insert the email to notify this card"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
+$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
+			   "company_name",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=50",
+			   "",
+			   gettext("Insert Company name of this card"),
+			   "" , "", "",	"", "", "" , "NO", "");
+			  
+$HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
+			   "company_website",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=60",
+			   "",
+			   gettext("Insert the company website of this card"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+$HD_Form -> AddEditElement (gettext("VAT REGISTRATION NUMBER "),
+			   "VAT_RN",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=40",
+			   "",
+			   gettext("Insert the VAT registration number of this card"),
+			   "" , "", "",	"", "", "" , "NO", "");
 
 
+$HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
+			   "traffic",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=20",
+			   "0",
+			   gettext("Insert the traffic per month for this card"),
+			   "" , "", "",	"", "", "" , "NO", "");		   
 
-
+$HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
+				"traffic_target",
+				'',
+				"TEXTAREA",
+				"cols=50 rows=4",
+				"",
+				gettext("Insert the target traffic"),
+				"" , "", "", "", "" , "", "", "");
+			   
 
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "callerid",
@@ -797,7 +840,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group, credit, language, tariff, id_didgroup, id_agent, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification' );
+$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group, credit, language, tariff, id_didgroup, id_agent, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target' );
 
 
 if(!isset($myusername)) $myusername='';

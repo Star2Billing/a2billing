@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','captchacode'));
+getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode'));
 
 
 $HD_Form = new FormHandler("cc_card","User");
@@ -235,6 +235,54 @@ $HD_Form -> AddEditElement (gettext("FAXNUMBER"),
 			   gettext("Insert your fax number"),
 			   "" , "", "",	"", "", "" , "", "");
 			   
+			   
+
+$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
+			   "company_name",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=50",
+			   "",
+			   gettext("Insert Company name of this card"),
+			   "" , "", "",	"", "", "" , "NO", "");
+			  
+$HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
+			   "company_website",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=60",
+			   "",
+			   gettext("Insert the company website of this card"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+$HD_Form -> AddEditElement (gettext("VAT REGISTRATION NUMBER "),
+			   "VAT_RN",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=40",
+			   "",
+			   gettext("Insert the VAT registration number of this card"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
+			   "traffic",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=20",
+			   "0",
+			   gettext("Insert the traffic per month for this card"),
+			   "" , "", "",	"", "", "" , "NO", "");		   
+
+$HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
+				"traffic_target",
+				'',
+				"TEXTAREA",
+				"cols=50 rows=4",
+				"",
+				gettext("Insert the target traffic"),
+				"" , "", "", "", "" , "", "", "");
+			   
 $HD_Form -> AddEditElement (gettext("VERIFICATION"),
 			   "captchacode",
 			   '$value',
@@ -244,16 +292,17 @@ $HD_Form -> AddEditElement (gettext("VERIFICATION"),
 			   gettext("Insert code from above picture"),
 			   "" , "", "",	"", "", "" , "", "",CAPTCHA_ENABLE);
 
+
 if (strpos($callPlan_idlist, ',') !== false) {
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,'.
 	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
-	'fax, captchacode, sip_buddy, iax_buddy, inuse');
+	'fax,  company_name , company_website ,VAT_RN , traffic, traffic_target , captchacode , sip_buddy, iax_buddy, inuse');
 } else {
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, id_didgroup, id_campaign,'.
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,'.
 	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
-	'fax, captchacode, sip_buddy, iax_buddy, inuse');
+	'fax , company_name , company_website ,VAT_RN , traffic, traffic_target , captchacode ,sip_buddy, iax_buddy, inuse');
 }
 
 if(!isset($myusername)) $myusername='';
