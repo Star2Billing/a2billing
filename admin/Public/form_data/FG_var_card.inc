@@ -9,12 +9,12 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_agent' ));
 
 
-$HD_Form = new FormHandler("cc_card","Card");
+$HD_Form = new FormHandler(" cc_card LEFT JOIN cc_callerid ON cc_card.id=cc_callerid.id_cc_card","Card");
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID="id";
+$HD_Form -> FG_TABLE_ID="cc_card.id";
+$HD_Form ->FG_EDITION_CLAUSE = " cc_card.id='%id' ";;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
-
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid', 'cc_card_history');
@@ -148,7 +148,7 @@ for ($k=0;$k<=28;$k++)
 	$invoiceday_list["$k"]  = array( "$k", "$k");
 
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ID"), "cc_card.id", "3%", "center", "sort");
 if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "11%", "center", "sort");
 $HD_Form -> AddViewElement("Card Number", "username", "11%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
@@ -167,12 +167,12 @@ if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "4%", "center", "sort");
 	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
-		$FG_COL_QUERY='id, tag, username, useralias, lastname,id_group, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+		$FG_COL_QUERY='DISTINCT cc_card.id, tag, username, useralias, lastname,id_group, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 	} else {
-		$FG_COL_QUERY='id, username, useralias, lastname,id_group, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused ';
+		$FG_COL_QUERY='DISTINCT cc_card.id, username, useralias, lastname,id_group, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused ';
 	}
 }else{
-	$FG_COL_QUERY='id, username, lastname, id_group, credit';
+	$FG_COL_QUERY='DISTINCT cc_card.id, username, lastname, id_group, credit';
 }
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
@@ -208,8 +208,9 @@ $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype'
 $HD_Form -> AddSearchElement_C1(gettext("EMAIL"), 'email','emailtype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("CARDALIAS"),'useralias','useraliastype');
+$HD_Form -> AddSearchElement_C1(gettext("CALLER ID"),'cid','cidtype');
 $HD_Form -> AddSearchElement_C1(gettext("MACADDRESS"),'mac_addr','macaddresstype');
-$HD_Form -> AddSearchElement_C2(gettext("CARDID (SERIAL)"),'id1','id1type','id2','id2type','id');
+$HD_Form -> AddSearchElement_C2(gettext("CARDID (SERIAL)"),'id1','id1type','id2','id2type','cc_card.id');
 $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credit2','credit2type','credit');
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
 
