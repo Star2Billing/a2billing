@@ -8,7 +8,7 @@ include ("../lib/admin.smarty.php");
 $FG_DEBUG =0;
 
 
-getpost_ifset(array('action', 'atmenu' ));
+getpost_ifset(array('action', 'atmenu'));
 
 
 if (! has_rights (ACX_CUSTOMER)){ 

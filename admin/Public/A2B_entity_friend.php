@@ -19,7 +19,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 /********************************* ADD SIP / IAX FRIEND ***********************************/
-getpost_ifset(array("friend", "id_cc_card", "cardnumber", "useralias"));
+getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
 if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
@@ -72,8 +72,8 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 
 
 
-$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&friend=$friend&id=";
-$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&friend=$friend&id=";
+$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&atmenu=$atmenu&id=";
+$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&atmenu=$atmenu&id=";
 
 
 if ($id!="" || !is_null($id)){	
@@ -87,7 +87,7 @@ if (!isset($action)) $action = $form_action;
 // CHECK THE ACTION AND SET THE IS_SIP_IAX_CHANGE IF WE ADD/EDIT/REMOVE A RECORD
 if ( $form_action == "add" || $form_action == "edit" || $form_action == "delete" ){
 	$_SESSION["is_sip_iax_change"]=1;
-	if ($atmenu=='sipfriend'){
+	if ($atmenu=='sip'){
 		$_SESSION["is_sip_changed"]=1;
 	}else{
 		$_SESSION["is_iax_changed"]=1;
@@ -143,5 +143,3 @@ $smarty->display('footer.tpl');
 
 
 
-
-?>

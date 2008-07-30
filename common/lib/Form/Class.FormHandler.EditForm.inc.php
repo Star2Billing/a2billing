@@ -27,7 +27,7 @@ function sendtolittle(direction){
 		<INPUT type="hidden" name="form_action" value="edit">
 		<INPUT type="hidden" name="sub_action" value="">
 		<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
-		<INPUT type="hidden" name="stitle" value="<?php echo $stitle?>">	
+		<INPUT type="hidden" name="stitle" value="<?php echo $stitle?>">
 <?php
 	if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){
 		$split_hidden_fields = split(",",trim($this->FG_QUERY_EDITION_HIDDEN_FIELDS));

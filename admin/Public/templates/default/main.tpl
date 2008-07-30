@@ -52,9 +52,9 @@
 				<li><a href="A2B_entity_card_group.php?form_action=ask-add&stitle=Card&section=1">{php} echo gettext("Create Group Customers");{/php}</a></li>
                 <li><a href="CC_card_import.php?stitle=Card&section=1">{php} echo gettext("Import Customers");{/php}</a></li>
 				<li><a href="A2B_entity_card_multi.php?stitle=Card&section=1">{php} echo gettext("Generate Customers");{/php}</a></li>
-				<li><a href="A2B_entity_friend.php?friend=sip&stitle=SIP+Friends&section=1">{php} echo gettext("List SIP-FRIEND");{/php}</a></li>
+				<li><a href="A2B_entity_friend.php?atmenu=sip&stitle=SIP+Friends&section=1">{php} echo gettext("List SIP-FRIEND");{/php}</a></li>
 				<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=sipfriend&stitle=SIP+Friends&section=1">{php} echo gettext("Create SIP-FRIEND");{/php}</a></li>
-				<li><a href="A2B_entity_friend.php?friend=iax&stitle=IAX+Friends&section=1">{php} echo gettext("List IAX-FRIEND");{/php}</a></li>
+				<li><a href="A2B_entity_friend.php?atmenu=iax&stitle=IAX+Friends&section=1">{php} echo gettext("List IAX-FRIEND");{/php}</a></li>
 				<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=iaxfriend&stitle=IAX+Friends&section=1">{php} echo gettext("Create IAX-FRIEND");{/php}</a></li>
 				<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=1">{php} echo gettext("List CallerID");{/php}</a></li>
 				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=1">{php} echo gettext("List Speed Dial");{/php}</a></li>

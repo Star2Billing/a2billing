@@ -3,7 +3,7 @@
 	<FORM action=<?php echo $_SERVER['PHP_SELF']?> id="myForm" method="post" name="myForm">
 	
 	<table cellspacing="2" class="addform_table1">
-                  <INPUT type="hidden" name="form_action" value="add">
+          <INPUT type="hidden" name="form_action" value="add">
 		  <INPUT type="hidden" name="wh" value="<?php echo $wh?>">
 	<?php
 	if (!is_null($this->FG_QUERY_ADITION_HIDDEN_FIELDS) && $this->FG_QUERY_ADITION_HIDDEN_FIELDS!=""){
