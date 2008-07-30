@@ -8,7 +8,7 @@ include ("../lib/admin.smarty.php");
 $FG_DEBUG =0;
 
 
-getpost_ifset(array('action', 'friend' ));
+getpost_ifset(array('action', 'atmenu' ));
 
 
 if (! has_rights (ACX_CUSTOMER)){ 
@@ -28,7 +28,7 @@ if ( $action == "reload" ){
 	$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);
 	
 	if ($res){
-		if ( $friend == "sipfriend" ){
+		if ( $atmenu == "sipfriend" ){
 			$res = $as->Command('sip reload');
 		}else{
 			$res = $as->Command('iax2 reload');
@@ -41,7 +41,7 @@ if ( $action == "reload" ){
 		$error_msg= "</br><center><b><font color=red>".gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...")."</font></b></center>";		
 	}
 }else{
-	if ( $friend == "sipfriend" ){
+	if ( $atmenu == "sipfriend" ){
 		$TABLE_BUDDY = 'cc_sip_buddies';
 		$buddyfile = BUDDY_SIP_FILE;
 		
@@ -70,7 +70,7 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 	$list_friend = $instance_table_friend -> Get_list ($DBHandle, 'id > 0', null, null, null, null);
 	
 	if (!is_array($list_friend) || count($list_friend)==0){ 
-		$error_msg= "</br><center><b><font color=red>".gettext("There is no ").$friend." ! </font></b></center>";
+		$error_msg= "</br><center><b><font color=red>".gettext("There is no ").$atmenu." ! </font></b></center>";
 	}else{
 		
 		error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
@@ -126,7 +126,7 @@ echo $CC_help_sipfriend_reload;
 		if (strlen($error_msg)>0){			
 			echo $error_msg;
 		}elseif ( $action != "reload" ){		
-			if ( $friend == "sipfriend" ){
+			if ( $atmenu == "sipfriend" ){
 				echo gettext("The sipfriend file has been generated : ").$buddyfile;
 			}else{
 				echo gettext("The iaxfriend file has been generated : ").$buddyfile;
@@ -136,7 +136,7 @@ echo $CC_help_sipfriend_reload;
 	
 	
 	<br><br><br>
-	<a href="<?php  echo $PHP_SELF."?friend=$friend&action=reload";?>"><img src="<?php echo Images_Path;?>/icon_refresh.gif" /> 
+	<a href="<?php  echo $PHP_SELF."?atmenu=$atmenu&action=reload";?>"><img src="<?php echo Images_Path;?>/icon_refresh.gif" /> 
 		<?php echo gettext("Click here to reload Asterisk Server"); ?>
 	</a>
 	
