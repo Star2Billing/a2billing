@@ -19,7 +19,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 /********************************* ADD SIP / IAX FRIEND ***********************************/
-getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
+getpost_ifset(array("friend", "id_cc_card", "cardnumber", "useralias"));
 
 if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
@@ -72,8 +72,8 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 
 
 
-$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&atmenu=$atmenu&id=";
-$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&atmenu=$atmenu&id=";
+$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&friend=$friend&id=";
+$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&friend=$friend&id=";
 
 
 if ($id!="" || !is_null($id)){	
