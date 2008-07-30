@@ -9,11 +9,12 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_agent',
 'company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target' ));
 
-if ($form_action=="ask-add" || $form_action=="add" || $form_action=="ask-edit" || $form_action=="edit" ){
+if ($form_action=="ask-add" || $form_action=="add" || $form_action=="ask-edit" || $form_action=="edit" || $form_action=="ask-delete" || $form_action=="delete" ){
 	$HD_Form = new FormHandler(" cc_card","Card");
 }else{
 	$HD_Form = new FormHandler(" cc_card LEFT JOIN cc_callerid ON cc_card.id=cc_callerid.id_cc_card","Card");
 }
+
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="cc_card.id";
 $HD_Form ->FG_EDITION_CLAUSE = " cc_card.id='%id' ";;
