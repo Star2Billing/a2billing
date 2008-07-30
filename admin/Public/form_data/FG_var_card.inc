@@ -246,8 +246,8 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
-	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sipfriend&form_action=add_sip&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iaxfriend&form_action=add_iax&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
+	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?friend=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
+	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?friend=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
 
