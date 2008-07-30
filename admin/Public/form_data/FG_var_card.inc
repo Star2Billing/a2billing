@@ -12,7 +12,8 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 if ($form_action=="ask-add" || $form_action=="add" || $form_action=="ask-edit" || $form_action=="edit" || $form_action=="ask-delete" || $form_action=="delete" ){
 	$HD_Form = new FormHandler(" cc_card","Card");
 }else{
-	$HD_Form = new FormHandler(" cc_card LEFT JOIN cc_callerid ON cc_card.id=cc_callerid.id_cc_card","Card");
+	//$HD_Form = new FormHandler(" cc_card LEFT JOIN cc_callerid ON cc_card.id=cc_callerid.id_cc_card","Card");
+	$HD_Form = new FormHandler(" cc_card","Card");
 }
 
 $HD_Form -> FG_DEBUG = 0;
