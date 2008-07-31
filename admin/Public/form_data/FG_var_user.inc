@@ -69,6 +69,7 @@ if($popup_select == "")
 }
 
 
+
 if ($form_action!="ask-add" && $form_action!="add"){
 	$HD_Form -> AddEditElement (gettext("USERID"),
 		"userid",
@@ -89,7 +90,7 @@ $HD_Form -> AddEditElement (gettext("LOGIN"),
 	gettext("Insert the username"),
 	"" , "", "", "", "" , "", "", "");
 	
-if ($form_action=="ask-add" || $form_action=="add"){
+//if ($form_action=="ask-add" || $form_action=="add"){
 	$HD_Form -> AddEditElement (gettext("PASSWORD"),
 		"pwd_encoded",
 		'$value',
@@ -98,7 +99,7 @@ if ($form_action=="ask-add" || $form_action=="add"){
 		"3",
 		gettext("Insert the Reseller password"),
 		"" , "", "", "", "", "", "", "");
-}
+//}
 if ($groupID!="0"){
 	$HD_Form -> AddEditElement (gettext("PERMISSION"),
 		"perms",
@@ -196,9 +197,9 @@ if ($form_action!="ask-add" && $form_action!="add"){
 
 $FG_QUERY_EDITION .= 'login, ';
 
-if ($form_action =="ask-add" || $form_action=="add"){
-        $FG_QUERY_EDITION='pwd_encoded,  ';
-}
+//if ($form_action =="ask-add" || $form_action=="add"){
+  $FG_QUERY_EDITION .='pwd_encoded,  ';
+//}
 
 if ($groupID!="0"){
 	$FG_QUERY_EDITION .= 'perms, ';
