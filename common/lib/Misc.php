@@ -164,7 +164,7 @@ function getpost_ifset($test_vars)
 			//rebuild the search parameter to filter character to format card number
 			if($test_var =='username' ||  $test_var =='filterprefix'){ 
 				//rebuild the search parameter to filter character to format card number
-				$filtered_char = array(" ", "-", "_");
+				$filtered_char = array(" ", "-", "_" , "(" , ")" , "/" ,"\\" );
 				$$test_var = str_replace($filtered_char, "", $$test_var);
 			}
 		}
