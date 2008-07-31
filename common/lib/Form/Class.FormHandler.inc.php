@@ -1014,6 +1014,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			   break;
 		}
 
+		
 		$processed = $this->getProcessed();  //$processed['firstname']
 
 		if ( $form_action == "list" || $form_action == "edit" || $form_action == "ask-delete" ||
@@ -1075,6 +1076,23 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			
 				$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 				$list = $instance_table -> Get_list ($this->DBHandle, $this->FG_EDITION_CLAUSE, null, null, null, null, 1, 0);
+				print_r($list);
+				
+				//PATCH TO CLEAN THE IMPORT OF PASSWORD FROM THE DATABASE
+				if( substr_count($this->FG_QUERY_EDITION,"pwd_encoded")>0 ){
+					$tab_field = explode(',',  $this->FG_QUERY_EDITION ) ;
+					for ($i=0;$i< count($tab_field);$i++){
+						if(trim($tab_field[$i])=="pwd_encoded") {
+							$list[0][$i]="";
+						}
+						
+					}
+				}
+				
+				if (isset($list[0]["pwd_encoded"])){
+					$list[0]["pwd_encoded"]=""; 
+				
+				}
 			}
 
 			
