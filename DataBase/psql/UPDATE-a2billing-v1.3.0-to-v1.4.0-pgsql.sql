@@ -1024,4 +1024,4 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 
 ALTER TABLE cc_call ADD dnid character varying( 40 );
 
-
+ALTER TABLE cc_logpayment ADD added_refill SMALLINT NOT NULL DEFAULT '0'; 
