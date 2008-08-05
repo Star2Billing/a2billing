@@ -152,9 +152,9 @@ for ($k=0;$k<=28;$k++)
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
 if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "11%", "center", "sort");
-$HD_Form -> AddViewElement("Card Number", "username", "11%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement("Card Number", "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1))  $HD_Form -> AddViewElement("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
+$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "8%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("GROUP"), "id_group", "8%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
 
@@ -163,10 +163,10 @@ if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
 	$HD_Form -> AddViewElement(gettext("LG"), "language", "3%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("USE"), "inuse", "3%", "center", "sort");
-	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
-	$HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "3%", "center", "sort", "", "list", $yesno);
-	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
-	$HD_Form -> AddViewElement("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "4%", "center", "sort");
+	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "4%", "center", "sort", "", "list", $currency_list_key);
+	$HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "2%", "center", "sort", "", "list", $yesno);
+	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "2%", "center", "sort", "", "list", $yesno);
+	$HD_Form -> AddViewElement("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "3%", "center", "sort");
 	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
 		$FG_COL_QUERY='DISTINCT id, tag, username, useralias, lastname,id_group, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 	} else {
@@ -205,6 +205,9 @@ $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to sea
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT_BIS = gettext('First Use date / Month');
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT_BIS = gettext('First Use date / Day');
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD_BIS = 'firstusedate';
 $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("EMAIL"), 'email','emailtype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
@@ -241,13 +244,16 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
+	$HD_Form -> FG_OTHER_BUTTON3 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?friend=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
 	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?friend=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
+	$HD_Form -> FG_OTHER_BUTTON3_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|col0|";
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
-
+	$HD_Form -> FG_OTHER_BUTTON3_IMG = '';
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
+	$HD_Form -> FG_OTHER_BUTTON3_ALT = '<font color="red">'.gettext('PAYMENT').'</font>';
 }
 
 $maxi='';
@@ -302,11 +308,18 @@ $HD_Form -> AddEditElement (gettext("CARD GROUP"),
 			   "name, id",
 			   "", "", "%1", "", "");
 
+$balance_access = 'readonly';
+if ($form_action =="ask-add" || $form_action=="add"){
+	$balance_access = '';
+}else {
+	$balance_access = 'readonly';
+}
+
 $HD_Form -> AddEditElement (gettext("BALANCE"),
 			   "credit",
 			   "",
 			   "INPUT",
-			   "size=30 maxlength=30",
+			   "size=30 maxlength=30 ".$balance_access,
 			   "12",
 			   gettext("Insert the number of credit"),
 			   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );

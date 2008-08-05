@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'card_id', 'date', 'payment','description'));
+getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill'));
 
 
 if (!isset($form_action) || $form_action=="list"){
@@ -33,12 +33,15 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
 
+if ($form_action=="ask-add" && !empty($card_id)){	
+	$id_val = "value='$card_id'";
+}
 
 $HD_Form -> AddEditElement (gettext("ID CARD"),
 			   "card_id",		
 			   "$value",	
 			   "POPUPVALUE",	
-			   "size=30 maxlength=50",	
+			   "size=30 maxlength=50 ".$id_val,	
 			   "4",	
 			   gettext("Insert the Id CardNumber"),
 			    "" , "", "", "", "", 				
@@ -80,8 +83,19 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"",
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
+	
 
-$HD_Form -> FieldEditElement ('card_id, date, description');
+$HD_Form -> AddEditElement (gettext("CREATE ASSOCIATE REFILL"),
+			   "added_refill",
+			   '0',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to create a refill with this payment account"),
+			   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Refill card account"));
+	
+
+$HD_Form -> FieldEditElement ('card_id, date, description ,added_refill');
 
 
 
@@ -109,6 +123,7 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INST
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue.");
 
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_refill';
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

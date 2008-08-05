@@ -74,42 +74,6 @@ if ($batchupdate == 1 && is_array($check)) {
 }
 
 
-/********************************* END BATCH UPDATE ***********************************/
-
-
-if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 || $cardnumber>0)) {
-	
-	$instance_table = new Table("cc_card", "username, id");
-	
-	if ($cardnumber>0){
-		/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
-		$FG_TABLE_CLAUSE_card = "username='".$cardnumber."'";
-		$list_tariff_card = $instance_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
-		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
-	}
-	
-	if ($id>0){
-		
-		$param_update .= "credit = credit + '".$addcredit."'";
-		if ($HD_Form->FG_DEBUG == 1)  echo "<br><hr> $param_update";	
-		
-		$FG_EDITION_CLAUSE = " id='$id'";
-		
-		if ($HD_Form->FG_DEBUG == 1)  echo "<br>-----<br>$param_update<br>$FG_EDITION_CLAUSE";			
-		$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
-		
-		$field_insert = "date, credit, card_id , description";
-		$value_insert = "now(), '$addcredit', '$id', '$description' ";
-		$instance_sub_table = new Table("cc_logrefill", $field_insert);
-		$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
-		
-		
-	}
-	
-	header("Location: A2B_entity_card.php?section=1");
-}
-
-if ($form_action == "addcredit")	$form_action='list';
 
 
 if ($id!="" || !is_null($id)){	
@@ -150,62 +114,6 @@ echo $CC_help_list_customer;
 
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
-
-
-<div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
-	<div class="tohide" style="display:none;">
-	<form NAME="theForm">
-	   <table width="90%" border="0" align="center">
-        <tr>
-		   <td align="left" width="5%"><img src="<?php echo KICON_PATH; ?>/pipe.gif">
-		   </td>
-          <td align="left" width="35%" class="bgcolor_001">
-           	<table>
-			<tr><td align="center">
-			   <?php echo gettext("CARD ID");?>	 :<input class="form_input_text" name="choose_list" onfocus="clear_textbox2();" size="18" maxlength="16" value="enter ID Card">
-				<a href="#" onclick="window.open('A2B_entity_card.php?nodisplay=1&popup_select=1&popup_formname=theForm&popup_fieldname=choose_list' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-					   <?php echo gettext("or");?>
-			</td></tr>
-			<tr><td align="center">
-				&nbsp; <?php echo gettext("CARDNUMBER");?>&nbsp;:<input class="form_input_text" name="cardnumber" onfocus="clear_textbox();" size="18" maxlength="16" value="enter cardnumber">
-			</td></tr>
-			</table>
-		</td>
-		<td  class="bgcolor_001" align="center">	
-			<table>
-				<tr>
-					<td>
-						<?php echo gettext("CREDIT :");?>
-					</td>
-					<td>
-						<input class="form_enter" name="addcredit" size="18" maxlength="6" value=""> <?php echo strtoupper($A2B->config['global']['base_currency']); ?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<?php echo gettext("DESCRIPTION :");?>
-					</td>
-					<td>
-						<textarea class="form_input_textarea" name="description" cols="40" rows="4"></textarea> 
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center">
-					<input class="form_input_button" 
-				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT TO THE SELECTED CARD");?>" onClick="openURL('<?php echo $_SERVER['PHP_SELF']?>?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
-        	
-					</td>
-				</tr>
-			</table>			
-			
-        </td>
-        </tr>
-        
-      </table>
-      </form>
-	</div>
-</div>
 
 
 <div class="toggle_hide2show">

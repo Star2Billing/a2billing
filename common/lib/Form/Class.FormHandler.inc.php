@@ -102,6 +102,7 @@ class FormHandler
 	var $FG_EDITION=false;
 	var $FG_OTHER_BUTTON1=false;
 	var $FG_OTHER_BUTTON2=false;
+	var $FG_OTHER_BUTTON3=false;
 	
 
 
@@ -113,9 +114,11 @@ class FormHandler
 	var $FG_DELETION_LINK	= '';	
 	var $FG_OTHER_BUTTON1_LINK	= '';
 	var $FG_OTHER_BUTTON2_LINK	= '';
+	var $FG_OTHER_BUTTON3_LINK	= '';
 	
 	var $FG_OTHER_BUTTON1_IMG = '';
 	var $FG_OTHER_BUTTON2_IMG = '';
+	var $FG_OTHER_BUTTON3_IMG = '';
 	
 	var $FG_EDIT_PAGE_CONFIRM_BUTTON	= '';
 	var $FG_DELETE_PAGE_CONFIRM_BUTTON	= '';
@@ -172,6 +175,13 @@ class FormHandler
 	var $FG_FILTER_SEARCH_2_TIME = true;
 	var $FG_FILTER_SEARCH_2_TIME_TEXT = '';
 	var $FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
+	
+	var $FG_FILTER_SEARCH_1_TIME_BIS = true;
+	var $FG_FILTER_SEARCH_1_TIME_TEXT_BIS = '';
+	// to display or not the Date Day
+	var $FG_FILTER_SEARCH_2_TIME_BIS = true;
+	var $FG_FILTER_SEARCH_2_TIME_TEXT_BIS = '';
+	var $FG_FILTER_SEARCH_2_TIME_FIELD_BIS = 'creationdate';
 	
 	// to display the number of months 
 	// will show the select on search with options like 
@@ -236,6 +246,7 @@ class FormHandler
 	var $FG_EDIT_ALT = "Edit this record";
 	var $FG_OTHER_BUTTON1_ALT = '';
 	var $FG_OTHER_BUTTON2_ALT = '';
+	var $FG_OTHER_BUTTON3_ALT = '';
 
 	//	-------------------- DATA FOR THE EDITION --------------------
 	
@@ -527,7 +538,7 @@ class FormHandler
 		$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 		
 		$this -> FG_TOTAL_TABLE_COL = $this -> FG_NB_TABLE_COL;
-		if ($this -> FG_DELETION || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2) {
+		if ($this -> FG_DELETION || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2 || $this -> FG_OTHER_BUTTON3) {
 			$this -> FG_TOTAL_TABLE_COL++;
 		}
 	}
@@ -1076,7 +1087,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			
 				$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 				$list = $instance_table -> Get_list ($this->DBHandle, $this->FG_EDITION_CLAUSE, null, null, null, null, 1, 0);
-				print_r($list);
+				
 				
 				//PATCH TO CLEAN THE IMPORT OF PASSWORD FROM THE DATABASE
 				if( substr_count($this->FG_QUERY_EDITION,"pwd_encoded")>0 ){
@@ -1153,7 +1164,10 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$search_parameters .= "|tostatsmonth=$processed[tostatsmonth]|fromday=$processed[fromday]|fromstatsday_sday=$processed[fromstatsday_sday]";
 				$search_parameters .= "|fromstatsmonth_sday=$processed[fromstatsmonth_sday]|today=$processed[today]|tostatsday_sday=$processed[tostatsday_sday]";
 				$search_parameters .= "|tostatsmonth_sday=$processed[tostatsmonth_sday]";
-				
+				$search_parameters = "|Period_bis=$processed[Period_bis]|frommonth_bis=$processed[frommonth_bis]|fromstatsmonth_bis=$processed[fromstatsmonth_bis]|tomonth_bis=$processed[tomonth_bis]";
+				$search_parameters .= "|tostatsmonth_bis=$processed[tostatsmonth_bis]|fromday=$processed[fromday_bis]|fromstatsday_sday_bis=$processed[fromstatsday_sday_bis]";
+				$search_parameters .= "|fromstatsmonth_sday_bis=$processed[fromstatsmonth_sday_bis]|today=$processed[today_bis]|tostatsday_sday_bis=$processed[tostatsday_sday_bis]";
+				$search_parameters .= "|tostatsmonth_sday_bis=$processed[tostatsmonth_sday_bis]";
 				
 				foreach ($this->FG_FILTER_SEARCH_FORM_1C as $r){							
 					$search_parameters .= "|$r[1]=".$processed[$r[1]]."|$r[2]=".$processed[$r[2]];
@@ -1203,6 +1217,29 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 						$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
 					}
 				}
+				
+				//BIS FIELD
+			if ($processed[Period_bis]=="Month"){
+					if ($processed[frommonth_bis] && isset($processed[fromstatsmonth_bis]))
+						$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD_BIS.") >= $UNIX_TIMESTAMP('$processed[fromstatsmonth_bis]-01')";
+					if ($processed[tomonth_bis] && isset($processed[tostatsmonth_bis]))
+						$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD_BIS.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth_bis]-31 23:59:59')";
+					}else{
+						if ($processed[fromday_bis] && isset($processed[fromstatsday_sday_bis]) && isset($processed[fromstatsmonth_sday_bis]))
+							$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD_BIS.") >= $UNIX_TIMESTAMP('$processed[fromstatsmonth_sday_bis]-$processed[fromstatsday_sday_bis]')";
+						if ($processed[today_bis] && isset($processed[tostatsday_sday_bis]) && isset($processed[tostatsmonth_sday_bis]))
+							$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD_BIS.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth_sday_bis]-".sprintf("%02d",intval($processed[tostatsday_sday_bis])/*+1*/)." 23:59:59')";
+				}
+
+				if ($processed[Period_bis]=="month_older_rad"){
+					$from_month = $processed[month_earlier_bis];
+					if(DB_TYPE == "postgres"){
+						$date_clause .= " AND CURRENT_TIMESTAMP - interval '$from_month months' > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD_BIS."";
+					}else{
+						$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD_BIS."";
+					}
+				}
+				
 				
 				if (strpos($SQLcmd, 'WHERE') > 0) {
 					if (strlen($this->FG_TABLE_CLAUSE)>0) $this->FG_TABLE_CLAUSE .=" AND ";
@@ -1466,6 +1503,56 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 	}
 	
+	
+function add_card_refill(){
+		global $A2B;
+		$processed = $this->getProcessed();
+		$id_payment = $this -> RESULT_QUERY;
+		echo "ID : ".$id;
+		//CREATE REFILL
+		$field_insert = "date, credit, card_id , description";
+		$credit = $processed['credit'];
+		$card_id = $processed['card_id'];
+			//REFILL CARD .. UPADTE CARD
+		$instance_table_card = new Table("cc_card");
+		$param_update_card = "credit = credit + '".$credit."'";
+		$clause_update_card = " id='$card_id'";
+		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+		
+	}
+	
+	
+	function create_refill(){
+		global $A2B;
+		$processed = $this->getProcessed();
+		if($processed['added_refill']==1){
+		$id_payment = $this -> RESULT_QUERY;
+		//CREATE REFILL
+		$field_insert = "date, credit, card_id , description";
+		$date = $processed['date'];
+		$credit = $processed['payment'];
+		$card_id = $processed['card_id'];
+		$description = $processed['description'];
+		$value_insert = " '$date' , '$credit', '$card_id', '$description' ";
+		$instance_sub_table = new Table("cc_logrefill", $field_insert);
+		$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
+		//REFILL CARD .. UPADTE CARD
+		$instance_table_card = new Table("cc_card");
+		$param_update_card = "credit = credit + '".$credit."'";
+		$clause_update_card = " id='$card_id'";
+		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+		//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
+		$instance_table_pay = new Table("cc_logpayment");
+		$param_update_pay = "id_logrefill = '".$id_refill."'";
+		$clause_update_pay = " id ='$id_payment'";
+		$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
+		
+		
+	
+		}
+		
+		
+	}
 	/**
      * Function to edit the fields
      * @public

@@ -90,6 +90,7 @@
                 <li><a href="A2B_entity_transactions.php?atmenu=payment&section=2">{php} echo gettext("View Transactions");{/php}</a></li>
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("View Refill");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill.php?stitle=refill_add&form_action=ask-add&section=2">{php} echo gettext("Add Refill");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("View Payment");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&section=2">{php} echo gettext("Add new Payment");{/php}</a></li>
 				<li><a href="A2B_entity_paymentlog.php?stitle=Payment_log&section=2">{php} echo gettext("Payment Log");{/php}</a></li>

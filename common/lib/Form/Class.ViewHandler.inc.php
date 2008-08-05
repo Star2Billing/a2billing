@@ -166,7 +166,7 @@ function openURLFilter(theLINK)
 						<?php }?>
 						</strong></TD>
 			   <?php }
-				 if ($this->FG_DELETION || $this->FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){ ?>
+				 if ($this->FG_DELETION || $this->FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2 || $this -> FG_OTHER_BUTTON3 ){ ?>
 					 <td width="<?php echo $this->FG_ACTION_SIZE_COLUMN?>" align="center" class="tableBody" ><strong> <?php echo gettext("ACTION");?></strong> </td>
 			   <?php } ?>
                 </TR>
@@ -258,7 +258,7 @@ function openURLFilter(theLINK)
 
 		 		 <?php  } ?>
 
-				  	<?php if($this->FG_EDITION || $this->FG_DELETION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){?>
+				  	<?php if($this->FG_EDITION || $this->FG_DELETION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2 || $this -> FG_OTHER_BUTTON3 ){?>
 					  <TD align="center" vAlign=top class=tableBodyRight>
 						<?php if($this->FG_EDITION){?>&nbsp; <a href="<?php echo $this->FG_EDITION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>"><img src="<?php echo Images_Path_Main;?>/icon-edit.gif" border="0" title="<?php echo $this->FG_EDIT_ALT?>" alt="<?php echo $this->FG_EDIT_ALT?>"></a><?php } ?>
                         <?php if($this->FG_DELETION){?>&nbsp; <a href="<?php echo $this->FG_DELETION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>"><img src="<?php echo Images_Path_Main;?>/icon-del.gif" border="0" title="<?php echo $this->FG_DELETE_ALT?>" alt="<?php echo $this->FG_DELETE_ALT?>"></a><?php } ?>
@@ -348,6 +348,49 @@ function openURLFilter(theLINK)
 								}
 								?></a>
 						<?php } ?>
+						<?php if($this->FG_OTHER_BUTTON3){ ?>
+							<a href="<?php
+								$new_FG_OTHER_BUTTON3_LINK = $this -> FG_OTHER_BUTTON3_LINK;
+								if (strpos($this -> FG_OTHER_BUTTON3_LINK,"|param|")){
+									$new_FG_OTHER_BUTTON3_LINK = str_replace("|param|",$list[$ligne_number][$this->FG_NB_TABLE_COL],$this -> FG_OTHER_BUTTON3_LINK);
+									// SHOULD DO SMTH BETTER WITH paramx and get the x number to find the value to use
+								}
+								if (strpos($this -> FG_OTHER_BUTTON3_LINK,"|param1|")){
+									$new_FG_OTHER_BUTTON3_LINK = str_replace("|param1|",$list[$ligne_number][$this->FG_NB_TABLE_COL-1],$this -> FG_OTHER_BUTTON3_LINK);
+								}
+
+								// REPLACE |colX|  where is a numero of the column by the column value
+								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON3_LINK)) {
+									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
+										$findme = "|col$h|";
+										$pos = stripos($new_FG_OTHER_BUTTON3_LINK, $findme);
+										if ($pos !== false) {
+											$new_FG_OTHER_BUTTON3_LINK = str_replace($findme,$list[$ligne_number][$h],$new_FG_OTHER_BUTTON3_LINK);
+										}
+									}
+								}
+
+								// REPLACE |col_origX|  where is a numero of the column by the column value
+								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON3_LINK)) {
+									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
+										$findme = "|col_orig$h|";
+										$pos = stripos($new_FG_OTHER_BUTTON3_LINK, $findme);
+										if ($pos !== false) {
+											$new_FG_OTHER_BUTTON3_LINK = str_replace($findme,$origlist[$ligne_number][$h],$new_FG_OTHER_BUTTON3_LINK);
+										}
+									}
+								}
+								echo $new_FG_OTHER_BUTTON3_LINK;
+								if (substr($new_FG_OTHER_BUTTON3_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
+								if (strlen($this -> FG_OTHER_BUTTON3_IMG)==0){
+									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON3_ALT.'</span>';
+								}else{
+									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON3_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON3_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON3_ALT?>"><?php
+
+								}
+								?></a>
+						<?php } ?>
+						
 
 					  </TD>
 					<?php  } ?>
@@ -359,7 +402,7 @@ function openURLFilter(theLINK)
 				?>
 					<TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>">
 				  		<?php
-							$REMOVE_COL = ($this->FG_OTHER_BUTTON1 || $this->FG_OTHER_BUTTON2 || $this->FG_EDITION || $this->FG_DELETION )? 0 : 1;
+							$REMOVE_COL = ($this->FG_OTHER_BUTTON1 || $this->FG_OTHER_BUTTON2 || $this->FG_OTHER_BUTTON3 || $this->FG_EDITION || $this->FG_DELETION )? 0 : 1;
 							for($i=0;$i<$this->FG_NB_TABLE_COL-$REMOVE_COL;$i++){
 				 		 ?>
                  		 <TD vAlign=top class="tableBody">&nbsp;</TD>

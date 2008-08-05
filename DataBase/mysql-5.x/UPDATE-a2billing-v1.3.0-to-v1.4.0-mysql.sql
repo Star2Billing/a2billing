@@ -1043,3 +1043,4 @@ ADD VAT_RN VARCHAR( 40 ) NULL ,
 ADD traffic BIGINT NULL ,
 ADD traffic_target MEDIUMTEXT NULL ;
 
+ALTER TABLE cc_logpayment ADD added_refill SMALLINT NOT NULL DEFAULT '0';
