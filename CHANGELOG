@@ -1,3 +1,105 @@
+
+
+2008-08-06	
+	* New Features :Change arround rules about initblock and billingblock (BUY/SELL)
+
+2008-08-05
+
+	* New Features :
+		- Search by first use date in card list
+		- Add payment action in card list with a automatic refill of the balance.
+		- Remove old refill process
+		- Disable Balance edit
+
+2008-07-31
+
+	correct bug:  remove search by caller id
+	
+	* New Features :
+		- add new special character in filter of card
+		- add the features update password for the admins
+
+2008-07-30
+
+	correct bug: 
+		(bug) adding SIP/IAX FRIENDS when a customer is created
+		(bug) see the SIP FRIENDS list
+		(bug) edition/delette SIP/IAX FRIENDS
+		(bug) delete customer feature
+
+2008-07-29
+
+	*New Features :
+		- Add new fields for the cards
+		- New fields about company for the customers
+		- Add search criteria by caller id for the cards
+
+	Correct the bug : adding customer
+
+
+2008-07-28 
+
+	Correct bug :  
+		(bug) Now you can define the password when you create the admin
+		 (bug) refill don't work.
+		And you don't do a other refill , if you refresh the screen
+
+	* New Features :
+ 		- Filter special characters in the search of card number.
+		- Add criterias for the search by terminate cause for calls logs
+
+2008-07-25
+
+	*New Features :
+		- encoded password in DB for the administrator.
+		- No view on the admin pwd.
+		- search by dnid for the CDR
+
+	Correct : reinit root user with 'myroot' password (encoded now)
+
+
+2008-07-24
+
+	*New Features :
+	- to switch the Callplan from a customer, new parameter : callplan_deck_minute_threshold 
+	- Filter for incompleted calls and congestionned calls
+	- trim for the search by card number
+	- add trim for the filter prefix card number
+
+2008-07-10
+	*New Features : add description for the REFILL and PAYMENT  for the ADMIN and AGENT
+	
+2008-07-10
+	*correct currency behaviour with MONEYBOOKER
+
+2008-07-09
+	*Add grace times in rate
+
+2008-07-09
+	*correct currency behaviour with PAYPAL
+	
+2008-07-06
+	*New Feature new free packages system
+
+2008-06-26
+	*Correct bug : correct rules for the language russian
+
+2008-06-23
+	*Correct bug :Refill an payment popup was disabled
+
+2008-06-13 - 2008-06-23  Belaid Rachid <rachid.belaid@gmail.com>
+
+	*New Feature : Agent's UI of A2Billing.
+	
+2008-06-12 - Belaid Rachid <rachid.belaid@gmail.com>
+	
+	Correct bug in Card simulator	
+
+2008-06-05 
+
+	Refactoring : Constants List (Customer Part)
+
+	
 28 May 2008 - Belaid Rachid <rachid.belaid@gmail.com>
 
 	* New Feature : add support of Russian language
@@ -2459,22 +2561,3 @@ Callback 1st leg billing
 
 Fix the iax webphone , sign with our own certificate.
 
-#### [done]
-********************************************************************
-//// IMPORTANT
-Setup new site asterisk2billing.org
-- FORUM
-- SVN
-- WIKI
-- DEMO
-- IVR DEMO VIA JIAX
-
-#### [check-if-fixed-already]
-*******************************************************************
-//// IMPORTANT
- - Popups Not working in IE.
-
-#### [done]
-********************************************************************
-//// IMPORTANT
-USE DB-FRAMEWORK FROM PEAR
