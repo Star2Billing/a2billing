@@ -723,6 +723,7 @@ class RateEngine
 		$additional_grace_time			= $this->ratecard_obj[$K][58];
 		$minimal_call_cost 				= $this->ratecard_obj[$K][59];
 
+		
 		if (!is_numeric($rounding_calltime))			$rounding_calltime = 0;
 		if (!is_numeric($rounding_threshold))			$rounding_threshold = 0;
 		if (!is_numeric($additional_block_charge))		$additional_block_charge = 0;
@@ -795,7 +796,7 @@ class RateEngine
 		// IF FLAT RATE
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0) {
 
-			if ($billingblock > 0) {
+			if ($billingblock > 0 && $callduration > $initblock) {
 				$mod_sec = $callduration % $billingblock;
 				if ($mod_sec>0) $callduration += ($billingblock - $mod_sec);
 			}
