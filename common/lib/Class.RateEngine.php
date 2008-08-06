@@ -767,7 +767,7 @@ class RateEngine
 
 		$buyratecost =0;
 		if ($buyratecallduration < $buyrateinitblock) $buyratecallduration = $buyrateinitblock;
-		if ($buyrateincrement > 0) {
+		if ($buyrateincrement > 0 && $buyratecallduration > $buyrateinitblock) {
 			$mod_sec = $buyratecallduration % $buyrateincrement; // 12 = 30 % 18
 			if ($mod_sec>0) $buyratecallduration += ($buyrateincrement - $mod_sec); // 30 += 18 - 12
 		}
