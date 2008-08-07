@@ -545,9 +545,17 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['currency_association']))	$this->config["agi-conf$idconfig"]['currency_association'] = 'all:credit';
 		$this->config["agi-conf$idconfig"]['currency_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_association']);
 
-		foreach($this->config["agi-conf$idconfig"]['currency_association'] as $cur_val){
+		foreach($this->config["agi-conf$idconfig"]['currency_association'] as $cur_val) {
 			$cur_val = explode(":",$cur_val);
 			$this->config["agi-conf$idconfig"]['currency_association_internal'][$cur_val[0]]=$cur_val[1];
+		}
+
+		if(!isset($this->config["agi-conf$idconfig"]['currency_association_minor']))	$this->config["agi-conf$idconfig"]['currency_association_minor'] = 'all:prepaid-cents';
+		$this->config["agi-conf$idconfig"]['currency_association_minor'] = explode(",",$this->config["agi-conf$idconfig"]['currency_association_minor']);
+
+		foreach($this->config["agi-conf$idconfig"]['currency_association_minor'] as $cur_val) {
+			$cur_val = explode(":",$cur_val);
+			$this->config["agi-conf$idconfig"]['currency_association_minor_internal'][$cur_val[0]]=$cur_val[1];
 		}
 
 		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_destination']))	$this->config["agi-conf$idconfig"]['file_conf_enter_destination'] = 'prepaid-enter-number-u-calling-1-or-011';
@@ -565,7 +573,7 @@ class A2Billing {
 
 		// Print out on CLI for debug purpose
 		if (!$webui) $this->conlog ('A2Billing AGI internal configuration:');
-      	if (!$webui) $this->conlog (print_r($this->agiconfig, true));
+		if (!$webui) $this->conlog (print_r($this->agiconfig, true));
 		return true;
     }
 
@@ -1330,8 +1338,20 @@ class A2Billing {
 			$units_audio = $this->agiconfig['currency_association_internal']['all'];
 			$unit_audio = $units_audio;
 		}
-		$cent_audio = 'prepaid-cent';
-		$cents_audio = 'prepaid-cents';
+		
+		if (isset($this->agiconfig['currency_association_minor_internal'][strtolower($this->currency)])){
+			$cents_audio = $this->agiconfig['currency_association_minor_internal'][strtolower($this->currency)];
+		}else{
+			$cents_audio = $this->agiconfig['currency_association_minor_internal']['all'];
+		}
+		switch ($cents_audio) {
+		case 'prepaid-cents':
+			$cent_audio = 'prepaid-cent';  break;
+		case 'prepaid-pence':
+			$cent_audio = 'prepaid-penny';  break;
+		default:
+			$cent_audio = $cents_audio;
+		}
 
 		// say 'you have x dollars and x cents'
 		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
