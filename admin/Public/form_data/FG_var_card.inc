@@ -801,7 +801,7 @@ $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 			   '$value',
 			   "INPUT",
 			   "size=30 maxlength=20",
-			   "0",
+			   "",
 			   gettext("Insert the traffic per month for this customer"),
 			   "" , "", "",	"", "", "" , "NO", "");		   
 
