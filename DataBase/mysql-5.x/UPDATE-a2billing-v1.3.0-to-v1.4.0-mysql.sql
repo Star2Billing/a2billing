@@ -1044,3 +1044,8 @@ ADD traffic BIGINT NULL ,
 ADD traffic_target MEDIUMTEXT NULL ;
 
 ALTER TABLE cc_logpayment ADD added_refill SMALLINT NOT NULL DEFAULT '0';
+
+-- Add payment history in customer WebUI
+
+INSERT INTO cc_config( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues )
+VALUES ('Payment Historique Modules', 'payment', '1', 'Enable or Disable the module of payment historique for the customers', 1, 3, 'yes,no');

@@ -108,6 +108,21 @@ gettext("Here you can view your ratecards").
 </div></div></div>
 ';
 
+$CC_help_view_payment='
+<div id="div1000" style="display:visible;">
+<div id="kiblue_header"><div class="w4">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" width="48" height="48" class="kikipic"/>
+	<div class="w2">
+<table width="90%">
+<tr>
+<td width="100%">'.gettext("Payment history - The section below allows you to see payments that you did.").'<br>
+<br></td>
+</tr>
+</table>
+</div></div></div>
+&nbsp;
+';
+
 
 $CC_help_list_voucher = '
 <div id="div1000" style="display:visible;">

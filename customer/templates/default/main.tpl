@@ -45,10 +45,16 @@
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="call-history.php?section=2"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li></ul>
 		{/if}
+		
+		{if $A2Bconfig.webcustomerui.payment==1 }
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="payment-history.php?section=3"><strong>{php} echo gettext("PAYMENT HISTORY");{/php}</strong></a></li></ul>
+		{/if}
+		
 
 		{if $A2Bconfig.webcustomerui.voucher==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=3"><strong>{php} echo gettext("VOUCHER");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=4"><strong>{php} echo gettext("VOUCHER");{/php}</strong></a></li></ul>
 		{/if}
 
 		<li><a href="#" target="_self"></a></li>
@@ -58,23 +64,23 @@
 		<div class="toggle_menu">
 		<li>
 		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
-		{if ($section == "4")}
+		{if ($section == "5")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
 		{/if}
 	 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
 		<div class="tohide"
-		{if ($section =="4")}
+		{if ($section =="5")}
 		style="">
 		{else}
 		style="display:none;">
 		{/if}
 		<ul>
 			<li><ul>
-					<li><a href="A2B_entity_call_details.php?section=4"><strong>{php} echo gettext("Invoice Details");{/php}</strong></a></li>
-					<li><a href="A2B_entity_view_invoice.php?section=4"><strong>{php} echo gettext("View Invoices");{/php}</strong></a></li>
-					<li><a href="invoices_customer.php?section=4"><strong>{php} echo gettext("Current Invoice");{/php}</strong></a></li>
+					<li><a href="A2B_entity_call_details.php?section=5"><strong>{php} echo gettext("Invoice Details");{/php}</strong></a></li>
+					<li><a href="A2B_entity_view_invoice.php?section=5"><strong>{php} echo gettext("View Invoices");{/php}</strong></a></li>
+					<li><a href="invoices_customer.php?section=5"><strong>{php} echo gettext("Current Invoice");{/php}</strong></a></li>
 			</ul></li>
 		</ul>
 		</div>
@@ -84,27 +90,27 @@
 
 		{if $A2Bconfig.webcustomerui.did==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_did.php?form_action=list&section=5"><strong>{php} echo gettext("DID");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_entity_did.php?form_action=list&section=6"><strong>{php} echo gettext("DID");{/php}</strong></a></li></ul>
 		{/if}
 
 		{if $A2Bconfig.webcustomerui.speeddial==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=6"><strong>{php} echo gettext("SPEED DIAL");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=7"><strong>{php} echo gettext("SPEED DIAL");{/php}</strong></a></li></ul>
 		{/if}
 
 		{if $A2Bconfig.webcustomerui.ratecard==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_ratecard.php?form_action=list&section=7"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_entity_ratecard.php?form_action=list&section=8"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li></ul>
 		{/if}
 
 		{if $A2Bconfig.webcustomerui.simulator==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="simulator.php?section=8"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li></ul>
+		<ul><li><a href="simulator.php?section=9"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li></ul>
 		{/if}
 
 		{if $A2Bconfig.webcustomerui.callback==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="callback.php?section=9"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li></ul>
+		<ul><li><a href="callback.php?section=10"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li></ul>
 		{/if}
 
 		{if $A2Bconfig.webcustomerui.webphone==1 }

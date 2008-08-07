@@ -418,7 +418,7 @@ class A2Billing {
 		if(!isset($this->config['webcustomerui']['error_email']))	$this->config['webcustomerui']['error_email'] = 'root@localhost';
 		if(!isset($this->config['webcustomerui']['support']))	$this->config['webcustomerui']['support'] = '1';
 		if(!isset($this->config['webcustomerui']['notification']))	$this->config['webcustomerui']['notification'] = '1';
-
+		if(!isset($this->config['webcustomerui']['payment']))	$this->config['webcustomerui']['payment'] = '1';
 		// conf for the web ui
 		if(!isset($this->config['webui']['buddy_sip_file']))		$this->config['webui']['buddy_sip_file'] = '/etc/asterisk/additional_a2billing_sip.conf';
 		if(!isset($this->config['webui']['buddy_iax_file']))		$this->config['webui']['buddy_iax_file'] = '/etc/asterisk/additional_a2billing_iax.conf';
