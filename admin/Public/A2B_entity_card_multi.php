@@ -260,7 +260,6 @@ $nb_tariff = count($list_tariff);
 		<option class="input" value="100"><?php echo gettext("100 Cards");?></option>
 		<option class="input" value="200"><?php echo gettext("200 Cards");?></option>
 		<option class="input" value="500"><?php echo gettext("500 Cards");?></option>
-		<option class="input" value="5000"><?php echo gettext("5000 Cards");?></option>
 	</select>
 	<br/>
 		
