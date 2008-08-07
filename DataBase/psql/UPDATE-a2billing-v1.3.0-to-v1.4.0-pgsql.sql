@@ -667,10 +667,10 @@ CREATE TABLE cc_call_archive (
 ALTER TABLE ONLY cc_call_archive
     ADD CONSTRAINT cc_call_archive_pkey PRIMARY KEY (id);
 
-CREATE INDEX cc_call_username_ind ON cc_call_archive USING btree (username);
-CREATE INDEX cc_call_starttime_ind ON cc_call_archive USING btree (starttime);
-CREATE INDEX cc_call_terminatecause_ind ON cc_call_archive USING btree (terminatecause);
-CREATE INDEX cc_call_calledstation_ind ON cc_call_archive USING btree (calledstation);
+CREATE INDEX cc_call_username_arc_ind ON cc_call_archive USING btree (username);
+CREATE INDEX cc_call_starttime_arc_ind ON cc_call_archive USING btree (starttime);
+CREATE INDEX cc_call_terminatecause_arc_ind ON cc_call_archive USING btree (terminatecause);
+CREATE INDEX cc_call_calledstation_arc_ind ON cc_call_archive USING btree (calledstation);
 
 
 
@@ -796,6 +796,19 @@ ALTER TABLE cc_logpayment ADD COLUMN id_logrefill BIGINT DEFAULT NULL;
 
 -- Support / Ticket section
 
+CREATE TABLE cc_ticket
+(
+  id bigserial NOT NULL,
+  id_component integer NOT NULL,
+  title character varying(100) NOT NULL,
+  description text,
+  priority integer NOT NULL DEFAULT 0,
+  creationdate timestamp without time zone NOT NULL DEFAULT now(),
+  creator bigserial NOT NULL,
+  status integer NOT NULL DEFAULT 0,
+  CONSTRAINT cc_ticket_pkey PRIMARY KEY (id)
+);
+
 CREATE TABLE cc_ticket_comment
 (
   id bigserial NOT NULL,
@@ -810,18 +823,6 @@ CREATE TABLE cc_ticket_comment
       ON UPDATE NO ACTION ON DELETE CASCADE
 );
 
-CREATE TABLE cc_ticket
-(
-  id bigserial NOT NULL,
-  id_component integer NOT NULL,
-  title character varying(100) NOT NULL,
-  description text,
-  priority integer NOT NULL DEFAULT 0,
-  creationdate timestamp without time zone NOT NULL DEFAULT now(),
-  creator bigserial NOT NULL,
-  status integer NOT NULL DEFAULT 0,
-  CONSTRAINT cc_ticket_pkey PRIMARY KEY (id)
-);
 
 
 CREATE TABLE cc_support
