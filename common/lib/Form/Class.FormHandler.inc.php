@@ -99,6 +99,7 @@ class FormHandler
     * @public	-	@type boolean
     */
 	var $FG_DELETION=false;
+	var $FG_INFO=false;
 	var $FG_EDITION=false;
 	var $FG_OTHER_BUTTON1=false;
 	var $FG_OTHER_BUTTON2=false;
@@ -111,7 +112,8 @@ class FormHandler
     * @public	-	@type string
     */
 	var $FG_EDITION_LINK	= '';
-	var $FG_DELETION_LINK	= '';	
+	var $FG_DELETION_LINK	= '';
+	var $FG_INFO_LINK='';	
 	var $FG_OTHER_BUTTON1_LINK	= '';
 	var $FG_OTHER_BUTTON2_LINK	= '';
 	var $FG_OTHER_BUTTON3_LINK	= '';
@@ -244,6 +246,7 @@ class FormHandler
 	 
 	var $FG_DELETE_ALT = "Delete this record";
 	var $FG_EDIT_ALT = "Edit this record";
+	var $FG_INFO_ALT = "Info ont this record";
 	var $FG_OTHER_BUTTON1_ALT = '';
 	var $FG_OTHER_BUTTON2_ALT = '';
 	var $FG_OTHER_BUTTON3_ALT = '';
@@ -538,7 +541,7 @@ class FormHandler
 		$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 		
 		$this -> FG_TOTAL_TABLE_COL = $this -> FG_NB_TABLE_COL;
-		if ($this -> FG_DELETION || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2 || $this -> FG_OTHER_BUTTON3) {
+		if ($this -> FG_DELETION || $this -> FG_INFO || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2 || $this -> FG_OTHER_BUTTON3) {
 			$this -> FG_TOTAL_TABLE_COL++;
 		}
 	}
@@ -667,6 +670,10 @@ class FormHandler
 		$this->FG_DELETION = true;
 	}
 
+	function Is_INFO()
+	{
+		$this->FG_INFO = true;
+	}
 
 	/**
      * Sets the TEXT to display above the records displayed
@@ -1164,9 +1171,9 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$search_parameters .= "|tostatsmonth=$processed[tostatsmonth]|fromday=$processed[fromday]|fromstatsday_sday=$processed[fromstatsday_sday]";
 				$search_parameters .= "|fromstatsmonth_sday=$processed[fromstatsmonth_sday]|today=$processed[today]|tostatsday_sday=$processed[tostatsday_sday]";
 				$search_parameters .= "|tostatsmonth_sday=$processed[tostatsmonth_sday]";
-				$search_parameters = "|Period_bis=$processed[Period_bis]|frommonth_bis=$processed[frommonth_bis]|fromstatsmonth_bis=$processed[fromstatsmonth_bis]|tomonth_bis=$processed[tomonth_bis]";
-				$search_parameters .= "|tostatsmonth_bis=$processed[tostatsmonth_bis]|fromday=$processed[fromday_bis]|fromstatsday_sday_bis=$processed[fromstatsday_sday_bis]";
-				$search_parameters .= "|fromstatsmonth_sday_bis=$processed[fromstatsmonth_sday_bis]|today=$processed[today_bis]|tostatsday_sday_bis=$processed[tostatsday_sday_bis]";
+				$search_parameters .= "|Period_bis=$processed[Period_bis]|frommonth_bis=$processed[frommonth_bis]|fromstatsmonth_bis=$processed[fromstatsmonth_bis]|tomonth_bis=$processed[tomonth_bis]";
+				$search_parameters .= "|tostatsmonth_bis=$processed[tostatsmonth_bis]|fromday_bis=$processed[fromday_bis]|fromstatsday_sday_bis=$processed[fromstatsday_sday_bis]";
+				$search_parameters .= "|fromstatsmonth_sday_bis=$processed[fromstatsmonth_sday_bis]|today_bis=$processed[today_bis]|tostatsday_sday_bis=$processed[tostatsday_sday_bis]";
 				$search_parameters .= "|tostatsmonth_sday_bis=$processed[tostatsmonth_sday_bis]";
 				
 				foreach ($this->FG_FILTER_SEARCH_FORM_1C as $r){							
