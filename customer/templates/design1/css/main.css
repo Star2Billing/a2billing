@@ -9,7 +9,7 @@ div.scroll {
 
 div.scrollreal{
 	position:relative;
-	top:16;
+	top: 16px;
 	height: 250px;	
 	overflow: auto;
 	border: 1px solid #666;
@@ -114,7 +114,7 @@ a:link {
 	/* PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px; */
 	
 	font-weight: bold;
-	font : 9;
+	font-size : 9px;
 	text-decoration: none;
 }
 
@@ -122,14 +122,14 @@ a:link {
 a:visited {
 	COLOR: #666666;
 	font-weight: bold;	
-	font : 9;
+	font-size: 9px;
 	text-decoration: none;
 }
 
 a:active {
  COLOR: #333399;
  font-weight: bold; 
- font : 9;
+ font-size: 9px;
  text-decoration: none;
  
  }
@@ -137,7 +137,7 @@ a:active {
 a:hover {
  COLOR: #cc0033;
  font-weight: bold; 
- font : 9;
+ font-size: 9px;
  text-decoration: none;
  
  }
@@ -364,11 +364,11 @@ SPAN.errorText {
 }
 .pp_error_maintable_tr1{
 	background-color: #4e81c4;
-	font-size: 5;
+	font-size: large;
 	color: #FFFFFF;
 }
 .pp_error_maintable_error{
-	font-size: 4;
+	font-size: medium;
 	color: #3050c2;
 }
 .did_maintable
@@ -802,7 +802,7 @@ SPAN.errorText {
 
 .viewhandler_span2
 {	
-	color: cc0000;
+	color: #cc0000;
 }
 .viewhandler_table3_td1
 {
@@ -1093,7 +1093,7 @@ SPAN.errorText {
 .editform_dotted_line
 {
 	border-top-style: none;
-	border-bottom: mediam dotted #667766;
+	border-bottom: medium dotted #667766;
 	border-right-style: none;
 	border-left-style: none;
 }
@@ -1228,17 +1228,17 @@ SPAN.errorText {
 
 .invoice_main_table
 {
-       border-right: lightgrey 1px solid;
+       border-right: LightGrey 1px solid;
        padding-right: 2px;
-       border-top: lightgrey 1px solid;
+       border-top: LightGrey 1px solid;
        padding-left: 2px;
        padding-bottom: 0px;
        margin-left: auto;
-       border-left: lightgrey 1px solid;
+       border-left: LightGrey 1px solid;
        width: 95%;
        margin-right: auto;
        padding-top: 0px;
-       border-bottom: lightgrey 1px solid;
+       border-bottom: LightGrey 1px solid;
 }
 .invoice_heading
 {
@@ -1259,9 +1259,9 @@ SPAN.errorText {
        text-transform: capitalize;
        color: navy;
        font-family: Arial, Verdana;
-       background-color: lightgrey;
+       background-color: LightGrey;
        text-align: left;
-       border-color:
+       border-color: Black;
 }
 .invoice_td
 {
