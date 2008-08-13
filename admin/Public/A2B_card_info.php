@@ -34,11 +34,9 @@ if(empty($card)){
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
+echo $CC_help_info_customer;
+
 ?>
-
-<br/>
-<br/>
-
 
 
 <table width="800px" >	
@@ -163,7 +161,7 @@ $smarty->display('main.tpl');
 						<?php echo gettext("CARD NUMBER") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						&nbsp;<?php echo $card['username']?> :
+						&nbsp;<?php echo $card['username']?> 
 					</td>
 			   </tr>
 			   <tr height="20px">
@@ -171,15 +169,15 @@ $smarty->display('main.tpl');
 						<?php echo gettext("WEB ALIAS") ?>
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['useralias']?> :
+						<?php echo $card['useralias']?> 
 					</td>
 			   </tr>
 			   <tr height="20px">
 					<td  class="form_head">
 						<?php echo gettext("WEB PASSWORD") ?>
 					</td>
-					<td>
-						<?php echo $card['uipass']?> :
+					<td class="tableBodyRight">
+						<?php echo $card['uipass']?> 
 					</td>
 				</tr>
 			   	<tr height="20px">
@@ -317,7 +315,7 @@ $smarty->display('main.tpl');
 						<?php echo gettext("BALANCE") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						&nbsp;<?php echo $card['credit']?> :
+						&nbsp;<?php echo $card['credit']?> 
 					</td>
 				</tr>
 				<tr height="20px">
@@ -325,15 +323,15 @@ $smarty->display('main.tpl');
 						<?php echo gettext("CURRENCY") ?>
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['currency']?> :
+						<?php echo $card['currency']?> 
 					</td>
 			  	</tr>
 			   <tr height="20px">
 					<td  class="form_head">
 						<?php echo gettext("CREDIT LIMIT") ?>
 					</td>
-					<td>
-						<?php echo $card['creditlimit']?> :
+					<td class="tableBodyRight">
+						<?php echo $card['creditlimit']?> 
 					</td>
 				</tr>
 			   	<tr height="20px">

@@ -67,6 +67,19 @@ $CC_help_list_customer='
 </div></div></div>
 </div></div>';
 
+$CC_help_info_customer='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
+	<div class="w2">'.gettext("Customer is to one card number. </br>")
+.gettext("You can on this view lot of informations about this card like grouped info, payments & refills.").'
+	<br/>'.help_wiki_link('ListCustomers').'
+</div></div></div>
+</div></div>';
+
+
 $CC_help_refill_customer='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
