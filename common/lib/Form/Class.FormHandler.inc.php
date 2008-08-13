@@ -120,7 +120,7 @@ class FormHandler
 	
 	var $FG_EDITION_IMG	= 'edit.png';
 	var $FG_DELETION_IMG= 'delete.png';
-	var $FG_INFO_IMG='info.gif';	
+	var $FG_INFO_IMG='info.png';	
 	
 	var $FG_OTHER_BUTTON1_IMG = '';
 	var $FG_OTHER_BUTTON2_IMG = '';
