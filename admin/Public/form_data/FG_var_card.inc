@@ -241,6 +241,7 @@ if (($popup_select>=1)) {
 
 } else {
 	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_INFO = true;
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
@@ -248,12 +249,17 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?friend=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
 	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?friend=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
 	$HD_Form -> FG_OTHER_BUTTON3_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|col0|";
+	$HD_Form -> FG_INFO_LINK = "A2B_card_info.php?id=";
+	//FOR INFO , DEL, EDIT  the image is already in Image_Path
+	$HD_Form -> FG_INFO_IMG = "info.png";
+	$HD_Form -> FG_DELETION_IMG = "delete.png";
+	$HD_Form -> FG_EDITION_IMG = "edit.png";
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
-	$HD_Form -> FG_OTHER_BUTTON3_IMG = '';
+	$HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path . "/money.png";
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
-	$HD_Form -> FG_OTHER_BUTTON3_ALT = '<font color="red">'.gettext('PAYMENT').'</font>';
+	$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('ADD PAYMENT');
 }
 
 $maxi='';

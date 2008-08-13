@@ -118,6 +118,10 @@ class FormHandler
 	var $FG_OTHER_BUTTON2_LINK	= '';
 	var $FG_OTHER_BUTTON3_LINK	= '';
 	
+	var $FG_EDITION_IMG	= 'icon-edit.gif';
+	var $FG_DELETION_IMG= 'icon-del.gif';
+	var $FG_INFO_IMG='icon-info.gif';	
+	
 	var $FG_OTHER_BUTTON1_IMG = '';
 	var $FG_OTHER_BUTTON2_IMG = '';
 	var $FG_OTHER_BUTTON3_IMG = '';
@@ -246,7 +250,7 @@ class FormHandler
 	 
 	var $FG_DELETE_ALT = "Delete this record";
 	var $FG_EDIT_ALT = "Edit this record";
-	var $FG_INFO_ALT = "Info ont this record";
+	var $FG_INFO_ALT = "Info on this record";
 	var $FG_OTHER_BUTTON1_ALT = '';
 	var $FG_OTHER_BUTTON2_ALT = '';
 	var $FG_OTHER_BUTTON3_ALT = '';
