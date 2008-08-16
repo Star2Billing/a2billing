@@ -120,8 +120,10 @@ class Table {
 				exit;
 		}
 		
-		$time_end = microtime(true);
-		$time = $time_end - $time_start;
+		if ($this -> writelog) {
+			$time_end = microtime(true);
+			$time = $time_end - $time_start;
+		}
         
         if ($this -> writelog) {
 			if ($time > $this->alert_query_time) {
