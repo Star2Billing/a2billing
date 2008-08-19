@@ -10,7 +10,7 @@ if (! has_rights (ACX_CALL_REPORT)) {
 	die();
 }
 
-getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype','dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src','dnid', 'clid', 'choose_currency', 'terminatecause', 'choose_calltype'));
+getpost_ifset(array('customer','sellrate','buyrate','entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','fromtime','totime','fromstatsday_hour', 'tostatsday_hour' ,'fromstatsday_min', 'tostatsday_min' , 'dsttype', 'srctype','dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src','dnid', 'clid', 'choose_currency', 'terminatecause', 'choose_calltype'));
 
 
 
@@ -149,8 +149,21 @@ if ($Period=="Month") {
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
 	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 } else {
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
+		if($fromtime){
+			$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";
+		}
+		else {	
+			$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+		}
+	}
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) {
+		if($totime){
+			$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." $tostatsday_hour:$tostatsday_min:59')";
+		}else{
+			$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+		}
+	}
 }
 
 
@@ -195,6 +208,15 @@ if ($_SESSION["is_admin"] == 1) {
 		if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
 		$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
 	}
+	if (isset($buyrate)&&!empty($buyrate))
+	{	if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
+		$FG_TABLE_CLAUSE .= "t1.buyrate = '$buyrate'";
+	}
+	if (isset($sellrate)&&!empty($sellrate))
+	{	if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
+		$FG_TABLE_CLAUSE .= "t1.calledrate = '$sellrate'";
+	}
+	
 }
 
 if ($_SESSION["is_admin"]==0) {
@@ -346,6 +368,24 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="enterratecard" value="<?php echo $enterratecard?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_def_ratecard.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterratecard' , 'RatecardSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
 						</tr>
 					</table>
+			      </td>
+				</tr>
+				<tr>
+					<td>
+					&nbsp;
+					</td>
+					<td>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Buy Rate");?> :</td>
+							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="buyrate" value="<?php echo $buyrate?>" size="8" class="form_input_text"></td>
+							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Sell Rate");?> :
+							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="sellrate" value="<?php echo $sellrate?>" size="8" class="form_input_text"></td>
+						</tr>
+						
+					</table>
+								
+					</td>
 				</tr>
 			</table>
 			</td>
@@ -441,7 +481,27 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					}
 				?>
 				</select>
-				</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
+				<br/>
+				<input type="checkbox" name="fromtime" value="true" <?php  if ($fromtime){ ?>checked<?php }?>> 
+				<?php echo gettext("Time :") ?>
+				<select name="fromstatsday_hour" class="form_input_select">
+				<?php  
+					for ($i=0;$i<=23;$i++){
+						if ($fromstatsday_hour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+						echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>						
+				</select>
+				:
+				<select name="fromstatsday_min" class="form_input_select">
+				<?php  
+					for ($i=0;$i<60;$i=$i+5){
+						if ($fromstatsday_min==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+						echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>						
+				</select>
+				</td><td class="fontstyle_searchoptions">
 				<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> 
 				<?php echo gettext("To");?>  :
 				<select name="tostatsday_sday" class="form_input_select">
@@ -469,6 +529,26 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					}
 				?>
+				</select>
+				<br/>
+				<input type="checkbox" name="totime" value="true" <?php  if ($totime){ ?>checked<?php }?>> 
+				<?php echo gettext("Time :") ?>
+				<select name="tostatsday_hour" class="form_input_select">
+				<?php  
+					for ($i=0;$i<=23;$i++){
+						if ($tostatsday_hour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+						echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>						
+				</select>
+				:
+				<select name="tostatsday_min" class="form_input_select">
+				<?php  
+					for ($i=0;$i<60;$i=$i+5){
+						if ($tostatsday_min==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+						echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>						
 				</select>
 				</td></tr></table>
 			</td>

@@ -73,6 +73,11 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form
 $HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_card.php?form_action=ask-edit&stitle=Customers_Card&id=|col_orig1|";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-card.png";
 
+$HD_Form -> FG_OTHER_BUTTON2 = true;
+$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|col_orig1|";
+$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/money.png";
+$HD_Form -> FG_OTHER_BUTTON2_ALT = gettext('ADD PAYMENT');
+
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a ".$HD_Form->FG_INSTANCE_NAME." now.");
