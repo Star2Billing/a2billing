@@ -131,18 +131,18 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
 /*
  *		GLOBAL POST/GET VARIABLE
  */
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language', 'cssname', 'exporttype'));
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'language', 'cssname', 'exporttype'));
 
 
 if (!isset($_SESSION)) {
 	session_start();
 }
 
-// Language session
-if (!isset($_SESSION["language"])) {
-	$_SESSION["language"]='english';
-} else if (isset($language)) {
+// Language Selection
+if (isset($language)) {
 	$_SESSION["language"] = $language;
+} elseif (!isset($_SESSION["language"])) {
+	$_SESSION["language"]='english';
 }
 
 define ("LANGUAGE",$_SESSION["language"]);
