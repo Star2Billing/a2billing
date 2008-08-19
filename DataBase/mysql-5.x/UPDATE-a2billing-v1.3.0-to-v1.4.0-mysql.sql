@@ -1050,3 +1050,7 @@ ALTER TABLE cc_logpayment ADD added_refill SMALLINT NOT NULL DEFAULT '0';
 
 INSERT INTO cc_config( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues )
 VALUES ('Payment Historique Modules', 'payment', '1', 'Enable or Disable the module of payment historique for the customers', 1, 3, 'yes,no');
+
+
+-- modify the field type to authoriz to search by sell rate
+ALTER TABLE cc_call CHANGE calledrate calledrate DECIMAL( 15, 5 ) NULL DEFAULT NULL;
