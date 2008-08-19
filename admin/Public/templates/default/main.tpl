@@ -47,9 +47,9 @@
 	<ul>
 		<li><ul>
 				<li><a href="A2B_entity_card.php?stitle=Customers_Card&section=1">{php} echo gettext("List Customers");{/php}</a></li>
-				<li><a href="A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1">{php} echo gettext("Create Customers");{/php}</a></li>
+				<li><a href="A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1">{php} echo gettext("Create Customer");{/php}</a></li>
 				<li><a href="A2B_entity_card_group.php?stitle=Customers_Card&section=1">{php} echo gettext("List Group Customers");{/php}</a></li>
-				<li><a href="A2B_entity_card_group.php?form_action=ask-add&stitle=Card&section=1">{php} echo gettext("Create Group Customers");{/php}</a></li>
+				<li><a href="A2B_entity_card_group.php?form_action=ask-add&stitle=Card&section=1">{php} echo gettext("Create Group Customer");{/php}</a></li>
                 <li><a href="CC_card_import.php?stitle=Card&section=1">{php} echo gettext("Import Customers");{/php}</a></li>
 				<li><a href="A2B_entity_card_multi.php?stitle=Card&section=1">{php} echo gettext("Generate Customers");{/php}</a></li>
 				<li><a href="A2B_entity_friend.php?atmenu=sip&stitle=SIP+Friends&section=1">{php} echo gettext("List SIP-FRIEND");{/php}</a></li>
@@ -61,7 +61,7 @@
 				<li><a href="A2B_entity_speeddial.php?form_action=ask-add&atmenu=speeddial&stitle=Speed+Dial&section=1">{php} echo gettext("Create Speed Dial");{/php}</a></li>
 				<li><a href="A2B_entity_statuslog.php?&atmenu=statuslog&stitle=Status+Log&section=1">{php} echo gettext("Customer Status Log");{/php}</a></li>
 				<li><a href="card-history.php?&atmenu=cardhistory&stitle=Card+History&section=1">{php} echo gettext("Card History");{/php}</a></li>
-				<li><a href="A2B_notifications.php?stitle=Notifications&section=1">{php} echo gettext("Notifications");{/php}</a></li>
+				<li><a href="A2B_notifications.php?stitle=Notifications&section=1">{php} echo gettext("Notification");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>

@@ -51,10 +51,13 @@ $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 
 if(!is_array($transaction_data) && count($transaction_data) == 0) {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- transactionID=$transactionID"." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).
+		' line:'.__LINE__."- transactionID=$transactionID"." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
 	exit();
 } else {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).
+		' line:'.__LINE__."- transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID.
+		" FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
 }
 
 $security_verify = true;
