@@ -609,30 +609,37 @@ class A2Billing {
 	{
 		// MENU LANGUAGE
 		if ($this->agiconfig['play_menulanguage']==1){
-			$prompt_menulang = $this->agiconfig['file_conf_enter_menulang'];
-			$res_dtmf = $agi->get_data($prompt_menulang, 1500, 1);
+			
+			$list_prompt_menulang = explode(':',$this->agiconfig['conf_order_menulang']);
+			$i=1;
+			foreach ($list_prompt_menulang as $lg_value ){
+				$res_dtmf = $agi->get_data("menu_".$lg_value, 100, 1);
+				if(!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"] && $res_dtmf["result"]>0))break;
+				$res_dtmf = $agi->get_data("num_".$lg_value."_".$i,100, 1);
+				if(!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"]>0 )break;
+				$i++;
+			}
+			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES Menu Language DTMF : ".$res_dtmf ["result"]);
 
 			$this -> languageselected = $res_dtmf ["result"];
-			if ($this->languageselected=="1") {
-				$language = 'en';
-			} elseif 	($this->languageselected=="2") {
-				$language = 'es';
-			} elseif 	($this->languageselected=="3") {
-				$language = 'fr';
-			} elseif 	($this->languageselected=="4") {
-				$language = 'br';
-			} elseif 	($this->languageselected=="5") {
-				$language = 'ru';
-			}else {
+			
+			if($this -> languageselected>0 && $this -> languageselected<=sizeof($list_prompt_menulang) ){
+				$language = $list_prompt_menulang[$this -> languageselected-1];
+			}else{
 				if (strlen($this->agiconfig['force_language'])==2) {
 					$language = strtolower($this->agiconfig['force_language']);
 				} else {
 					$language = 'en';
 				}
+				
 			}
 
             $this ->current_language = $language;  
+            
+            $this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, " CURRENT LANGUAGE : ".$language);
+            
+            
 			if($this->agiconfig['asterisk_version'] == "1_2") {
 				$lg_var_set = 'LANGUAGE()';
 			} else {

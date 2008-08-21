@@ -1054,3 +1054,9 @@ VALUES ('Payment Historique Modules', 'payment', '1', 'Enable or Disable the mod
 
 -- modify the field type to authoriz to search by sell rate
 ALTER TABLE cc_call CHANGE calledrate calledrate DECIMAL( 15, 5 ) NULL DEFAULT NULL;
+
+-- Delete old menufile.
+ DELETE FROM cc_config WHERE config_key = 'file_conf_enter_menulang' ;
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ('Menu Language Order', 'conf_order_menulang', 'en:fr:es', 'Enter the list of languages authorized for the menu.Use the code language separate by a colon charactere e.g: en:es:fr', '0', '11', NULL);
