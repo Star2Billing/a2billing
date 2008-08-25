@@ -67,7 +67,11 @@ switch($transaction_data[0][4])
 {
 	case "paypal":
 		$currCurrency = $mc_currency;
-		$currAmount = $transaction_data[0][2] - $mc_fee;
+		if($A2B->config['epayment_method']['charge_paypal_fee']==1){
+			$currAmount = $transaction_data[0][2] ;
+		}else{
+			$currAmount = $transaction_data[0][2] - $mc_fee;
+		}
 		$postvars = array();
 		$req = 'cmd=_notify-validate';
 		foreach ($_POST as $vkey => $Value) {
