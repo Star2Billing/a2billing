@@ -943,7 +943,7 @@ class A2Billing {
 
 				}
 			}
-			if ($seconds>0){
+			if ($seconds>0 && ($this->agiconfig['disable_announcement_seconds']==0)){
 				if ($minutes>0) $agi-> stream_file('vm-and', '#');
 
 				$agi->say_number($seconds);

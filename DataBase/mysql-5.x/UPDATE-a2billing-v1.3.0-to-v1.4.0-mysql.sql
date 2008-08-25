@@ -1076,6 +1076,10 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ( 'Cheat on announcement Time for the client', 'cheat_on_announcement_time', '0', 'Actived the cheating on the annoucement (values : yes - no)', '1', '11', 'yes,no');
 
 
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 'Desactived the annoucement of the seconds when there are more of one minutes (values : yes - no)', '1', '11', 'yes,no');
+
+
 
 
 
