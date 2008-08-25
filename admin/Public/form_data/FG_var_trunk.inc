@@ -121,7 +121,7 @@ $HD_Form -> AddEditElement (gettext("REMOVE PREFIX"),
 	"size=30 maxlength=20",
 	"",
 	gettext("Insert the removeprefix"),
-	"" , "", "", "", "" , "" , "", gettext("in case of the voip provider or the gateway doesnt want a dialed prefix (can be useful with local gateway)"));
+	"" , "", "", "", "" , "" , "", gettext("Remove prefix from the dialed digits."));
 	
 $HD_Form -> AddEditElement (gettext("PROVIDER TECH"),
 	"providertech",
@@ -139,7 +139,7 @@ $HD_Form -> AddEditElement (gettext("PROVIDER IP"),
 	"size=80 maxlength=140",
 	"9",
 	gettext("Insert the providerip"),
-	"" , "", "", "", "" , "" , "", gettext("Set the IP or URL of the VoIP provider. Alternatively, put in the name of a previously defined trunk in Asterisk. (MyVoiPTrunk, ZAP4G etc.) You can use the following tags to as variables: %dialingnumber%, %cardnumber%. ie g2/1644787890wwwwwwwwww%dialingnumber%"));
+	"" , "", "", "", "" , "" , "", gettext("Set the IP or URL of the VoIP provider. Alternatively, put in the name of a previously defined trunk in Asterisk or FreePBX. (MyVoiPTrunk, ZAP4G etc.) You can use the following tags to as variables: %dialingnumber%, %cardnumber%. ie g2/1644787890wwwwwwwwww%dialingnumber%"));
 
 $HD_Form -> AddEditElement (gettext("ADDITIONAL PARAMETER"),
 	"addparameter",
@@ -167,7 +167,7 @@ $HD_Form -> AddEditElement (gettext("CURRENT CONNECTIONS"),
 	"size=30 $def_value_inuse maxlength=30",
 	"12",
 	gettext("Number of current connections"),
-	"" , "", "", "", "", "", "", gettext("Define the number of use of this trunk. If a non-standard stop of the application occurs it maybe that the trunk is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this trunk.") );
+	"" , "", "", "", "", "", "", gettext("Updated to show the number of channels currently in use on this trunk.If there are no channels in use, and the system shows that there are, manually reset this field back to zero.") );
 
 $HD_Form -> AddEditElement (gettext("MAXIMUM CONNECTIONS"),
 	"maxuse",
@@ -176,7 +176,7 @@ $HD_Form -> AddEditElement (gettext("MAXIMUM CONNECTIONS"),
 	"size=30 $def_value_maxuse maxlength=30",
 	"12",
 	gettext("Number of maximum simultaneous connections"),
-	"" , "", "", "", "", "", "", gettext("Define the number of simultaneous connections on this trunk. Set to -1 in order to have an unlimited number of connections") );
+	"" , "", "", "", "", "", "", gettext("The maximum number of channels available to this trunk. Set to -1 to have an unlimited number of channels") );
 
 $HD_Form -> AddEditElement ("IFMAXUSED",
 	"if_max_use",
