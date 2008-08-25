@@ -255,14 +255,14 @@ $HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE"),
    gettext("Insert the disconnect charge"),
    "" , "", "",	"", "", "", "NO", gettext("Apply a disconnection charge" ));
  
-$HD_Form -> AddEditElement(gettext("MINIMAL CALL COST "),
+$HD_Form -> AddEditElement(gettext("MINIMUM CALL COST "),
    "minimal_cost",
    '$value',
    "INPUT",
    "size=30 maxlength=20",
    "12",
-   gettext("Insert the Minimal call cost"),
-   "" , "", "",	"", "", "", "NO", gettext("Apply a minimal call cost" ));
+   gettext("Insert the Minimum call cost"),
+   "" , "", "",	"", "", "", "NO", gettext("Apply a minimum charge for the call." ));
    
 if (ADVANCED_MODE){
 	$HD_Form -> AddEditElement(gettext("STEPCHARGE A"),
@@ -392,7 +392,7 @@ $HD_Form -> AddEditElement(gettext("START DATE"),
    "10",
    gettext("Insert the starting date"),
    "" , "", "",	"", "", "", "" , gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"),
-   null, "res_display_dateformat", gettext("Define the perio when this rating might be active."));
+   null, "res_display_dateformat", gettext("Define the period when this rate table is active."));
 
 $HD_Form -> AddEditElement(gettext("STOP DATE"),
    "stopdate",
