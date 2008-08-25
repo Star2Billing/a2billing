@@ -457,6 +457,7 @@ class RateEngine
 
 		$this -> ratecard_obj[$K]['callbackrate']=$callbackrate;
 		$this -> ratecard_obj[$K]['timeout']=0;
+		$this -> ratecard_obj[$K]['timeout_without_rules']=0;
 
 		// CHECK IF THE USER IS ALLOW TO CALL WITH ITS CREDIT AMOUNT
 		/*
@@ -473,7 +474,9 @@ class RateEngine
 		$answeredtime_1st_leg = 0;
 
 		if ($rateinitial<=0){
-			$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tocall_negatif_free_route']; // 90 min
+			$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tocall_negatif_free_route'];
+			$this -> ratecard_obj[$K]['timeout_without_rules'] =	$A2B->agiconfig['maxtime_tocall_negatif_free_route'];
+			// 90 min
 			if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
 			return $TIMEOUT;
 		}
@@ -481,8 +484,10 @@ class RateEngine
 		if ($this -> freecall[$K]){
 			if(	$this -> package_to_apply [$K] ["type"] == 0){
 				$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tounlimited_calls']; // default : 90 min
+				$this -> ratecard_obj[$K]['timeout_without_rules'] =$A2B->agiconfig['maxtime_tounlimited_calls'];
 			}else{
 				$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tofree_calls'];
+				$this -> ratecard_obj[$K]['timeout_without_rules'] = $A2B->agiconfig['maxtime_tofree_calls'];
 			}
 			
 			if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
@@ -679,6 +684,11 @@ class RateEngine
 				}
 			}
 		}
+		//Call time to speak without rate rules... idiot rules
+		$num_min_WR = $credit/$rateinitial;
+		$num_sec_WR = intval($num_min_WR * 60);
+		$this -> ratecard_obj[$K]['timeout_without_rules'] = $num_sec_WR+$this -> freetimetocall_left[$K];
+		
 		$this -> ratecard_obj[$K]['timeout']=$TIMEOUT + $this -> freetimetocall_left[$K];
 		if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
 		RETURN $TIMEOUT + $this -> freetimetocall_left[$K];

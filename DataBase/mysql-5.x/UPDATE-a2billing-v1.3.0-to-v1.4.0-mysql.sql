@@ -1072,6 +1072,9 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ('Menu Language Order', 'conf_order_menulang', 'en:fr:es', 'Enter the list of languages authorized for the menu.Use the code language separate by a colon charactere e.g: en:es:fr', '0', '11', NULL);
 
 
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Cheat on announcement Time for the client', 'cheat_on_announcement_time', '0', 'Actived the cheating on the annoucement (values : yes - no)', '1', '11', 'yes,no');
+
 
 
 

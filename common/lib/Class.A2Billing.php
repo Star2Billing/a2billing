@@ -907,10 +907,14 @@ class A2Billing {
 		//$this->timeout = intval(($this->credit * 60*100) / $rate);  // -- RATE is millime cents && credit is 1cents
 
 		$this->timeout = $RateEngine-> ratecard_obj[0]['timeout'];
+		$timeout = $this->timeout;
+		if ($this->agiconfig['cheat_on_announcement_time']==1){
+		 $timeout = $RateEngine-> ratecard_obj[0]['timeout_without_rules'];	
+		}
 		// set destination and timeout
 		// say 'you have x minutes and x seconds'
-		$minutes = intval($this->timeout / 60);
-		$seconds = $this->timeout % 60;
+		$minutes = intval($timeout / 60);
+		$seconds = $timeout % 60;
 
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "TIMEOUT::> ".$this->timeout."  : minutes=$minutes - seconds=$seconds");
 		if (!($minutes>0)){
