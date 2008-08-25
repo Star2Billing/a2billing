@@ -24,7 +24,7 @@ CREATE TABLE cc_invoice_items (
 	price decimal(15,5) default NULL,
 	buy_price decimal(15,5) default NULL,
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE cc_invoice (
 	id int(11) NOT NULL auto_increment,
@@ -56,7 +56,7 @@ CREATE TABLE cc_invoice (
 	fax char(20) collate utf8_bin default NULL,
 	vat float default NULL,
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_charge DROP COLUMN id_cc_subscription_fee;
 
@@ -79,7 +79,7 @@ CREATE TABLE cc_card_subscription (
 	product_id VARCHAR( 100 ),
 	product_name VARCHAR( 100 ),
 	PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;;
 
 
 ALTER TABLE cc_card DROP id_subscription_fee;
@@ -91,7 +91,7 @@ CREATE TABLE cc_config_group (
 	group_title 					VARCHAR(64) NOT NULL,
 	group_description 				VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_config_group (group_title, group_description) VALUES ('global', 'This configuration group handles the global settings for application.');
 INSERT INTO cc_config_group (group_title, group_description) VALUES ('callback', 'This configuration group handles calllback settings.');
@@ -117,7 +117,7 @@ CREATE TABLE cc_config (
 	config_group_id 				INT NOT NULL,
 	config_listvalues				VARCHAR( 100 ) ,
 	PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Number length', 'interval_len_cardnumber', '10-15', 'Card Number length, You can define a Range e.g:10-15.', 0, 1, '10-15,11-15,12-15');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Alias Length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, 1, NULL);
@@ -334,7 +334,7 @@ CREATE TABLE cc_timezone (
     gmttime		 					VARCHAR(255),
 	gmtoffset						BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-12:00) International Date Line West', 'GMT-12:00', '-43200');
 INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-11:00) Midway Island, Samoa', 'GMT-11:00', '-39600');
@@ -420,7 +420,7 @@ CREATE TABLE cc_iso639 (
     `charset` character(16) NOT NULL DEFAULT 'ISO-8859-1',
     CONSTRAINT iso639_name_key UNIQUE (name),
     CONSTRAINT iso639_pkey PRIMARY KEY (code)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ab', 'Abkhazian       ', '                ', 'ISO-8859-1      ');
 INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('om', 'Afan (Oromo)    ', '                ', 'ISO-8859-1      ');
@@ -580,7 +580,7 @@ CREATE TABLE cc_status_log (
 	id_cc_card 		BIGINT(20) NOT NULL,
 	updated_date 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
@@ -599,7 +599,7 @@ CREATE TABLE cc_card_history (
 	datecreated 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	description			TEXT,
 	PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -659,7 +659,7 @@ CREATE TABLE cc_call_archive (
 	id_card_package_offer 				INT (11) DEFAULT 0,
 	real_sessiontime					INT (11) DEFAULT NULL,
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE `cc_call_archive` ADD INDEX ( `username` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `starttime` );
@@ -726,7 +726,7 @@ CREATE TABLE cc_card_archive (
 	template_outstanding			text collate utf8_bin,
 	mac_addr						CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
 	PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -804,7 +804,7 @@ CREATE TABLE cc_support (
   id smallint(5) NOT NULL auto_increment,
   `name` varchar(50) collate utf8_bin NOT NULL,
   PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -814,7 +814,7 @@ CREATE TABLE cc_support_component (
   `name` varchar(50) collate utf8_bin NOT NULL,
   activated smallint(6) NOT NULL default '1',
   PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -828,7 +828,7 @@ CREATE TABLE cc_ticket (
   creator bigint(20) NOT NULL,
   status smallint(6) NOT NULL default '0',
   PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -840,7 +840,7 @@ CREATE TABLE cc_ticket_comment (
   creator bigint(20) NOT NULL,
   is_admin char(1) collate utf8_bin NOT NULL default 'f',
   PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, `config_group_id`, `config_listvalues`) VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
@@ -943,7 +943,7 @@ CREATE TABLE cc_agent (
     email 							CHAR(70),
     fax 							CHAR(20),
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -957,7 +957,7 @@ CREATE TABLE cc_agent_tariffgroup (
 	id_agent BIGINT( 20 ) NOT NULL ,
 	id_tariffgroup INT( 11 ) NOT NULL,
 	PRIMARY KEY ( id_agent,id_tariffgroup )
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -975,7 +975,7 @@ CREATE TABLE cc_card_group (
 	id_agi_conf 		INT NOT NULL ,
 	description 		MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
 	PRIMARY KEY ( id )
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 -- insert default group
@@ -993,21 +993,21 @@ CREATE TABLE cc_package_group (
 	name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
 	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
 	PRIMARY KEY ( id )
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 CREATE TABLE cc_packgroup_package (
 	packagegroup_id INT NOT NULL ,
 	package_id INT NOT NULL ,
 	PRIMARY KEY ( packagegroup_id , package_id )
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 CREATE TABLE cc_package_rate (
 	package_id INT NOT NULL ,
 	rate_id INT NOT NULL ,
 	PRIMARY KEY ( package_id , rate_id )
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_config ( id , config_title , config_key , config_value , config_description , config_valuetype , config_group_id , config_listvalues ) VALUES ( NULL , 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', '0', '11', NULL), (NULL , 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', '0', '11', NULL);
 
