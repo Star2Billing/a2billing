@@ -849,7 +849,7 @@ class A2Billing {
 		}
 
 		//REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
-		if ($this->destination=='*1'){
+		if ($this->destination=='1*'|| $this->destination=='0*' ){
 			$this->destination = $this->redial;
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[REDIAL : DTMF DESTINATION ::> ".$this->destination."]");
 		}
