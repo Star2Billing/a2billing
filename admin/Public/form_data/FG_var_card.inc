@@ -719,7 +719,7 @@ $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Define the number of use of this cardnumber. If a non-standard stop of the application occurs it maybe that the card is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this card.") );
+			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
 
 $HD_Form -> AddEditElement (gettext("INVOICE TEMPLATE"),
 			   "template_invoice",
@@ -740,7 +740,7 @@ $HD_Form -> AddEditElement (gettext("INCUR TEMPLATE"),
 			   "list" , "", "",	"", $template_outstanding_list, "%1", "", gettext("Define the default template to use to display incur.") );
 
 
-$HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
+$HD_Form -> AddEditElement (gettext("CREDIT LIMIT NOTIFICATION"),
 			   "credit_notification",
 			   '',
 			   "SELECT",

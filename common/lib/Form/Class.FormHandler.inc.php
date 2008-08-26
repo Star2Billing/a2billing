@@ -2131,7 +2131,7 @@ function add_card_refill(){
 						 
 					</td>
 					<td class="form_selectform_table1_td1">
-					<?php echo gettext("This option will enable LCR/LCD - very costy dont use in production");?>
+					<?php echo gettext("This option will enable LCR/LCD – very costly don't use in production");?>
 	  			</td>
 
 				</tr></table>
