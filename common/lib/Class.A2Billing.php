@@ -613,9 +613,12 @@ class A2Billing {
 			$list_prompt_menulang = explode(':',$this->agiconfig['conf_order_menulang']);
 			$i=1;
 			foreach ($list_prompt_menulang as $lg_value ){
-				$res_dtmf = $agi->get_data("menu_".$lg_value, 100, 1);
-				if(!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"] && $res_dtmf["result"]>0))break;
-				$res_dtmf = $agi->get_data("num_".$lg_value."_".$i,100, 1);
+				$res_dtmf = $agi->get_data("menu_".$lg_value, 500, 1);
+				if(!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"])&& $res_dtmf["result"]>0)break;
+				
+				if($i==sizeof($list_prompt_menulang)) {$res_dtmf = $agi->get_data("num_".$lg_value."_".$i,3000, 1);}
+				else {$res_dtmf = $agi->get_data("num_".$lg_value."_".$i,1000, 1);}
+				
 				if(!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"]>0 )break;
 				$i++;
 			}
