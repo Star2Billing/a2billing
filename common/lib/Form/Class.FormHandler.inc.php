@@ -567,10 +567,10 @@ class FormHandler
 	function &getProcessed() {
 		foreach ($this->_vars as $key => $value) {
 			$this->_processed[$key] = $this -> sanitize_data($value);
-			if($key=='username'){
+			if($key=='username' || $key=='cid'){
 				
 				//rebuild the search parameter to filter character to format card number
-				$filtered_char = array(" ", "-", "_");
+				$filtered_char = array(" ", "-", "_","(",")","+");
 				$this->_processed[$key]= str_replace($filtered_char, "", $this->_processed[$key]);
 			}
 			if($key=='pwd_encoded')$this->_processed[$key] = hash( 'whirlpool',$this->_processed[$key]);
