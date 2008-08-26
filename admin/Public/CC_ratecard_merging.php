@@ -100,7 +100,7 @@ if($posted == 1){
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
-$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define the criteria to search");
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define the search criteria");
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Start Date / Month");
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Start Date / Day");
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'startdate';
