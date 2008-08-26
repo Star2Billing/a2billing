@@ -21,40 +21,40 @@ if (! has_rights (ACX_CUSTOMER)){
 
 $DBHandle  = DbConnect();
 
-if ( $action == "reload" ){
+if ( $action == "reload" ) {
 	
 	$as = new AGI_AsteriskManager();
 	// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
 	$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);
 	
-	if ($res){
-		if ( $atmenu == "sipfriend" ){
+	if ($res) {
+		if ( $atmenu == "sipfriend" ) {
 			$res = $as->Command('sip reload');
-		}else{
+		} else {
 			$res = $as->Command('iax2 reload');
 		}
 		$actiondone=1;
 		
 		// && DISCONNECTING	
 		$as->disconnect();
-	}else{
-		$error_msg= "</br><center><b><font color=red>".gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...")."</font></b></center>";		
+	} else {
+		$error_msg= "</br><center><b><font color=red>".gettext("Cannot connect to the asterisk manager!<br>Please check your manager configuration.")."</font></b></center>";		
 	}
-}else{
-	if ( $atmenu == "sipfriend" ){
+} else {
+	if ( $atmenu == "sipfriend" ) {
 		$TABLE_BUDDY = 'cc_sip_buddies';
 		$buddyfile = BUDDY_SIP_FILE;
 		
 		$_SESSION["is_sip_changed"]=0;
-		if ($_SESSION["is_iax_changed"]==0){
+		if ($_SESSION["is_iax_changed"]==0) {
 			$_SESSION["is_sip_iax_change"]=0;			
 		}
-	}else{
+	} else {
 		$TABLE_BUDDY = 'cc_iax_buddies';
 		$buddyfile = BUDDY_IAX_FILE;
 		
 		$_SESSION["is_iax_changed"]=0;
-		if ($_SESSION["is_sip_changed"]==0){
+		if ($_SESSION["is_sip_changed"]==0) {
 			$_SESSION["is_sip_iax_change"]=0;			
 		}
 	}
@@ -69,15 +69,15 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 	$instance_table_friend = new Table($TABLE_BUDDY,'id, '.$FG_QUERY_EDITION);	
 	$list_friend = $instance_table_friend -> Get_list ($DBHandle, 'id > 0', null, null, null, null);
 	
-	if (!is_array($list_friend) || count($list_friend)==0){ 
+	if (!is_array($list_friend) || count($list_friend)==0) { 
 		$error_msg= "</br><center><b><font color=red>".gettext("There is no ").$atmenu." ! </font></b></center>";
-	}else{
+	} else {
 		
 		error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 		$fd=fopen($buddyfile,"w");
-		if (!$fd){   
-			$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file :")." '$buddyfile'</font></b></center>";
-		}else{
+		if (!$fd) {   
+			$error_msg= "</br><center><b><font color=red>".gettext("Could not open the user configuration file :")." '$buddyfile'</font></b></center>";
+		} else {
 			foreach ($list_friend as $data){
 				$line="\n\n[".$data[1]."]\n";
 				if (fwrite($fd, $line) === FALSE) {  
@@ -123,12 +123,12 @@ echo $CC_help_sipfriend_reload;
 	<br><br>
 	<b>
 	<?php 	
-		if (strlen($error_msg)>0){			
+		if (strlen($error_msg)>0) {			
 			echo $error_msg;
-		}elseif ( $action != "reload" ){		
-			if ( $atmenu == "sipfriend" ){
+		} elseif ( $action != "reload" ) {		
+			if ( $atmenu == "sipfriend" ) {
 				echo gettext("The sipfriend file has been generated : ").$buddyfile;
-			}else{
+			} else {
 				echo gettext("The iaxfriend file has been generated : ").$buddyfile;
 			}
 		
@@ -137,13 +137,13 @@ echo $CC_help_sipfriend_reload;
 	
 	<br><br><br>
 	<a href="<?php  echo $PHP_SELF."?atmenu=$atmenu&action=reload";?>"><img src="<?php echo Images_Path;?>/icon_refresh.gif" /> 
-		<?php echo gettext("Click here to reload Asterisk Server"); ?>
+		<?php echo gettext("Click here to reload your asterisk server"); ?>
 	</a>
 	
 	<?php 
-		}else{
+		} else {
 			
-			echo gettext("Asterisk has been reload!");
+			echo gettext("Asterisk has been reloaded.");
 		
 		}
 	?>
@@ -153,11 +153,8 @@ echo $CC_help_sipfriend_reload;
 	  </td></FORM>
   </tr>
 </table>
-<br><br>
 
-
-
-<br>
+<br><br><br>
 
 
 <?php
