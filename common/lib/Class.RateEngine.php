@@ -353,7 +353,7 @@ class RateEngine
 		// ****************  PACKAGE PARAMETERS ****************
 		$id_cc_package_group 			= $this -> ratecard_obj[$K][45];
 		$id_rate 						= $this -> ratecard_obj[$K][6];
-		
+		$initial_credit					= $credit;
 		// CHANGE THIS - ONLY ALLOW FREE TIME FOR CUSTOMER THAT HAVE MINIMUM CREDIT TO CALL A DESTINATION
 
 		$this -> freetimetocall_left[$K] = 0;
@@ -685,7 +685,7 @@ class RateEngine
 			}
 		}
 		//Call time to speak without rate rules... idiot rules
-		$num_min_WR = $credit/$rateinitial;
+		$num_min_WR = $initial_credit/$rateinitial;
 		$num_sec_WR = intval($num_min_WR * 60);
 		$this -> ratecard_obj[$K]['timeout_without_rules'] = $num_sec_WR+$this -> freetimetocall_left[$K];
 		
