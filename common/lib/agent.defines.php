@@ -168,6 +168,10 @@ function DbConnect($db= NULL)
 	$DBHandle = NewADOConnection($datasource);
 	if (!$DBHandle) die("Connection failed");
 	
+	if (DB_TYPE == "mysqli") {
+		$DBHandle -> Execute('SET AUTOCOMMIT=1');
+	}
+	
 	return $DBHandle;
 }
 

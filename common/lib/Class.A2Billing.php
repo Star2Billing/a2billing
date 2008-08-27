@@ -2559,7 +2559,11 @@ class A2Billing {
 		}
 		$this->DBHandle = NewADOConnection($datasource);
 		if (!$this->DBHandle) die("Connection failed");
-
+		
+		if (DB_TYPE == "mysqli") {
+			$DBHandle -> Execute('SET AUTOCOMMIT=1');
+		}
+		
 		return true;
 	}
 	
