@@ -1,9 +1,40 @@
+		
+2008-08-26
+	* New Features : 
+		- Display time annoucement in rate simulator
+		- Define 0* like redial number
+	* Bug :
+		- Correct the dynamic menu for the IVR
 
+2008-08-25
+	* New Features : 
+		- Time Annoucement without billing rules
+		- Option to disable seconds annoucement
+		- Add Sell Rates and Buy Rates CDR result
+		- Manage charge of the paypal fee (customer or admin)
+2008-08-21
+	* New Features : 
+		- Dynamic Menu language in the IVR.
+		- Handle ru, es , fr , en
+		- New sound for the menu (ru,es,fr,en)
 
-2008-08-06	
+2008-08-19 -  Belaid Rachid <rachid.belaid@gmail.com>	
+	* New Features : 
+		- Add in CDR search engine buy rate and sell rate.
+		- Add in Brows Rates result: RATECARD
+		- Add PAYMENT BUTTON to list callerid
+		- Search CDR's using time
+
+2008-08-13 -  Belaid Rachid <rachid.belaid@gmail.com>	
+	* New Features : 
+		- Info Bouton/Link in list by the framework
+		- New Icon for Edit, Pay, Delete, Info
+		- Info page for the card
+
+2008-08-06 - Belaid Rachid <rachid.belaid@gmail.com>	
 	* New Features :Change arround rules about initblock and billingblock (BUY/SELL)
 
-2008-08-05
+2008-08-05 - Belaid Rachid <rachid.belaid@gmail.com>
 
 	* New Features :
 		- Search by first use date in card list
@@ -11,7 +42,7 @@
 		- Remove old refill process
 		- Disable Balance edit
 
-2008-07-31
+2008-07-31 - Belaid Rachid <rachid.belaid@gmail.com>
 
 	correct bug:  remove search by caller id
 	
@@ -19,7 +50,7 @@
 		- add new special character in filter of card
 		- add the features update password for the admins
 
-2008-07-30
+2008-07-30 - Belaid Rachid <rachid.belaid@gmail.com>
 
 	correct bug: 
 		(bug) adding SIP/IAX FRIENDS when a customer is created
@@ -27,7 +58,7 @@
 		(bug) edition/delette SIP/IAX FRIENDS
 		(bug) delete customer feature
 
-2008-07-29
+2008-07-29 - Belaid Rachid <rachid.belaid@gmail.com>
 
 	*New Features :
 		- Add new fields for the cards
@@ -37,7 +68,7 @@
 	Correct the bug : adding customer
 
 
-2008-07-28 
+2008-07-28 - Belaid Rachid <rachid.belaid@gmail.com>
 
 	Correct bug :  
 		(bug) Now you can define the password when you create the admin
@@ -48,7 +79,7 @@
  		- Filter special characters in the search of card number.
 		- Add criterias for the search by terminate cause for calls logs
 
-2008-07-25
+2008-07-25 - Belaid Rachid <rachid.belaid@gmail.com>
 
 	*New Features :
 		- encoded password in DB for the administrator.
@@ -58,7 +89,7 @@
 	Correct : reinit root user with 'myroot' password (encoded now)
 
 
-2008-07-24
+2008-07-24 - Belaid Rachid <rachid.belaid@gmail.com>
 
 	*New Features :
 	- to switch the Callplan from a customer, new parameter : callplan_deck_minute_threshold 
@@ -66,25 +97,25 @@
 	- trim for the search by card number
 	- add trim for the filter prefix card number
 
-2008-07-10
+2008-07-10 - Belaid Rachid <rachid.belaid@gmail.com>
 	*New Features : add description for the REFILL and PAYMENT  for the ADMIN and AGENT
 	
-2008-07-10
+2008-07-10 - Belaid Rachid <rachid.belaid@gmail.com>
 	*correct currency behaviour with MONEYBOOKER
 
-2008-07-09
+2008-07-09 - Belaid Rachid <rachid.belaid@gmail.com>
 	*Add grace times in rate
 
-2008-07-09
+2008-07-09 - Belaid Rachid <rachid.belaid@gmail.com>
 	*correct currency behaviour with PAYPAL
 	
-2008-07-06
+2008-07-06 - Belaid Rachid <rachid.belaid@gmail.com>
 	*New Feature new free packages system
 
-2008-06-26
+2008-06-26 - Belaid Rachid <rachid.belaid@gmail.com>
 	*Correct bug : correct rules for the language russian
 
-2008-06-23
+2008-06-23 - Belaid Rachid <rachid.belaid@gmail.com>
 	*Correct bug :Refill an payment popup was disabled
 
 2008-06-13 - 2008-06-23  Belaid Rachid <rachid.belaid@gmail.com>
@@ -95,7 +126,8 @@
 	
 	Correct bug in Card simulator	
 
-2008-06-05 
+2008-06-05 - Belaid Rachid <rachid.belaid@gmail.com>
+
 
 	Refactoring : Constants List (Customer Part)
 
