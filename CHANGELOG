@@ -1,14 +1,12 @@
 		
 2008-08-26
 	* New Features : 
-		- Display time annoucement in rate simulator
 		- Define 0* like redial number
 	* Bug :
 		- Correct the dynamic menu for the IVR
 
 2008-08-25
 	* New Features : 
-		- Time Annoucement without billing rules
 		- Option to disable seconds annoucement
 		- Add Sell Rates and Buy Rates CDR result
 		- Manage charge of the paypal fee (customer or admin)
