@@ -524,7 +524,6 @@ CREATE TABLE cc_iax_buddies (
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
-INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
 INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
 
 INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '
