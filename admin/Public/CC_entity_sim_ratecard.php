@@ -210,6 +210,8 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 						
 				</td>
 			</tr>
+			
+			<?php if ($A2B->agiconfig['cheat_on_announcement_time']==1){ ?>
 			<tr>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<font color="blue"><b><?php echo gettext("TIME ANNOUCEMENT FOR THE CALL");?></b></font>
@@ -217,16 +219,13 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<font color="blue"><i>
-						<?php if ($A2B->agiconfig['cheat_on_announcement_time']==1){
-						 			echo display_minute($RateEngine->ratecard_obj[$j]['timeout_without_rules']);
-								}else{
-									echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);
-								}
-						?> 
-						<?php echo gettext("Minutes");?> </i></font>
+						<?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout_without_rules']);
+						 echo gettext("Minutes");?> </i></font>
 						
 				</td>
 			</tr>
+			<?php } ?>
+			
 			<?php for($i=0;$i<count($arr_ratecard);$i++){ ?>
 			<tr>			
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i%2]?>" style="padding-left: 5px; padding-right: 3px;">
