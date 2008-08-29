@@ -376,7 +376,6 @@ class RateEngine
 				AND cc_package_offer.id = cc_package_rate.package_id  
 				AND cc_package_rate.rate_id = ".$id_rate." ORDER BY packagetype ASC";
 			$table_packages = new Table();
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[FIND PACKAGE  QUERY = $query_pakages]");
 			$result_packages = $table_packages -> SQLExec ($A2B -> DBHandle, $query_pakages);
 			$idx_pack = 0;
 			if(!empty($result_packages))
@@ -388,7 +387,7 @@ class RateEngine
 					$billingtype 		= $result_packages[$idx_pack]["billingtype"];
 					$startday 			= $result_packages[$idx_pack]["startday"];
 					$id_cc_package_offer= $result_packages[$idx_pack][0];
-					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[ID PACKAGE  TO APPLY = $id_cc_package_offer]");
+					if ($this -> debug_st) print_r("[ID PACKAGE  TO APPLY = $id_cc_package_offer]");
 					switch($packagetype){
 						// 0 : UNLIMITED PACKAGE
 						//IF PACKAGE IS "UNLIMITED" SO WE DON'T NEED TO CALCULATE THE USED TIMES
