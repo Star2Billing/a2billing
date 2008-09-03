@@ -897,7 +897,7 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
 
-if (isset($form_action) && $form_action=='delete'){
+if (isset($form_action) && $form_action=='delete' && !USE_REALTIME){
 	$_SESSION["is_sip_iax_change"]	= 1;
 	$_SESSION["is_sip_changed"]		= 1;
 	$_SESSION["is_iax_changed"]		= 1;

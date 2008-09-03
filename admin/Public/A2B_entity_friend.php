@@ -23,17 +23,23 @@ getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
 if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
-	$_SESSION["is_sip_iax_change"]=1;
-	
+  if(!USE_REALTIME){
+    $_SESSION["is_sip_iax_change"]=1;
+	}
+  
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION = "A2B_entity_card.php?atmenu=card&stitle=Customers_Card&id=";
 
 	if ( $form_action == "add_sip" ) { 
 		$friend_param_update=" sip_buddy='1' ";
-		$_SESSION["is_sip_changed"] = 1;
+    if(!USE_REALTIME){
+      $_SESSION["is_sip_changed"] = 1;
+    }
 	}	
 	else {
 		$friend_param_update=" iax_buddy='1' ";
-		$_SESSION["is_iax_changed"] = 1;
+    if(!USE_REALTIME){
+  		$_SESSION["is_iax_changed"] = 1;
+    }
 	}	
 	
 	$instance_table_friend = new Table('cc_card');
@@ -84,14 +90,16 @@ if ($id!="" || !is_null($id)){
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
-// CHECK THE ACTION AND SET THE IS_SIP_IAX_CHANGE IF WE ADD/EDIT/REMOVE A RECORD
-if ( $form_action == "add" || $form_action == "edit" || $form_action == "delete" ){
-	$_SESSION["is_sip_iax_change"]=1;
-	if ($atmenu=='sip'){
-		$_SESSION["is_sip_changed"]=1;
-	}else{
-		$_SESSION["is_iax_changed"]=1;
-	}
+if(!USE_REALTIME){
+  // CHECK THE ACTION AND SET THE IS_SIP_IAX_CHANGE IF WE ADD/EDIT/REMOVE A RECORD
+  if ( $form_action == "add" || $form_action == "edit" || $form_action == "delete" ){
+  	$_SESSION["is_sip_iax_change"]=1;
+  	if ($atmenu=='sip'){
+  		$_SESSION["is_sip_changed"]=1;
+  	}else{
+  		$_SESSION["is_iax_changed"]=1;
+  	}
+  }
 }
 
 $list = $HD_Form -> perform_action($form_action);

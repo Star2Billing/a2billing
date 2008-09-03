@@ -457,6 +457,7 @@ class A2Billing {
 		if(!isset($this->config['peer_friend']['qualify'])) 	$this->config['peer_friend']['qualify'] = 'yes';
 		if(!isset($this->config['peer_friend']['host'])) 		$this->config['peer_friend']['host'] = 'dynamic';
 		if(!isset($this->config['peer_friend']['dtmfmode'])) 	$this->config['peer_friend']['dtmfmode'] = 'RFC2833';
+		if(!isset($this->config['peer_friend']['use_realtime'])) 	$this->config['peer_friend']['use_realtime'] = '0';
 
 
 		//conf for the notifications
