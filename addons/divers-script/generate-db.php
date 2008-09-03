@@ -34,9 +34,13 @@ $nb_history =10;
 $back_days = 1;
 $amount_cdr = 10;
 
+//payment
 
+$nb_payment = 10;
+//refill
+$nb_refill = 10;
 
-
+$verbose = 1;
 // VERBOSITY 
 if (!empty($cli_args['debug']) || !empty($cli_args['d']))
 	$verbose=3;
@@ -62,7 +66,7 @@ $instance_table = new Table();
 for($i=0; $i< $nb_provider;$i++)
 {
 
- echo "CREATE PROVIDER : $i\n";	
+ if($verbose>0) echo "CREATE PROVIDER : $i\n";	
  $id_name = microtime(true)*10000;
  $query= "INSERT INTO cc_provider (id ,provider_name ,creationdate ,description)". 
 "VALUES ('PROVIDER : $id_name',NOW() , 'AUTOMATIZED DESCRIPTION');";
@@ -77,7 +81,7 @@ $nb_db_provider = sizeof($result_provider_id);
 
 for($i=0;$i<$nb_trunk;$i++)
 	{
-	echo "CREATE TRUNK : $i\n";		
+	 if($verbose>0) echo "CREATE TRUNK : $i\n";		
 	$id_provider= $result_provider_id [rand(0,$nb_db_provider )] ['id'];
 	$name = microtime(true)*10000;
 	$query = "INSERT INTO cc_trunk (id_provider, trunkcode, providertech, providerip, failover_trunk, inuse, maxuse, if_max_use, status, creationdate ) values".
@@ -87,15 +91,21 @@ for($i=0;$i<$nb_trunk;$i++)
 	}
 
 
-
+$id_callplan_list = array();
 //CALLPLAN
 for($i=0; $i< $nb_callplan;$i++)
 {
-  echo "CREATE CALLPLAN : $i\n";	
+   if($verbose>0) echo "CREATE CALLPLAN : $i\n";	
  $id_name = microtime(true)*10000;
- $query= "INSERT INTO cc_tariffgroup (iduser ,idtariffplan ,tariffgroupname ,lcrtype ,creationdate ,removeinterprefix ,id_cc_package_offer)".
-"VALUES ( '0', '0', 'CALLPLAN : $id_name', '0',NOW() , '0', '-1');" ;
- $instance_table -> SQLExec ($A2B -> DBHandle, $query);
+ 
+ $QUERY_FIELDS = "iduser ,idtariffplan ,tariffgroupname ,lcrtype ,creationdate ,removeinterprefix ,id_cc_package_offer";
+ $QUERY_VALUES = "'0', '0', 'CALLPLAN : $id_name', '0',NOW() , '0', '-1'" ;
+ $QUERY_ID = "id" ;
+ $QUERY_TABLE = "cc_tariffgroup";
+
+ $id_tmp = $instance_table -> Add_table ($A2B -> DBHandle,$QUERY_VALUES, $QUERY_FIELDS,$QUERY_TABLE,$QUERY_ID);
+ $id_callplan_list [$i] = $id_tmp; 
+ 
 }
 
 //RATECARD
@@ -103,31 +113,31 @@ $instance_trunk = new Table("cc_trunk","id");
 $result_trunk_id = $instance_trunk-> Get_list($A2B -> DBHandle) ;
 $nb_db_trunk = sizeof($result_trunk_id);
 
+$id_ratecards_list = array();
 for($i=0; $i< $nb_ratecard;$i++)
 {
- echo "CREATE RATECARD : $i\n";	
+  if($verbose>0) echo "CREATE RATECARD : $i\n";	
  $id_trunk= $result_trunk_id [rand(0,$nb_db_trunk )] ['id'];	
  $id_name = microtime(true)*10000;
- $query= "INSERT INTO cc_tariffplan (tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix, creationdate ) values". 
-		"('RATECARD : $id_name', NOW(), '2033-09-03 01:24:33', '$id_trunk', 'Automatized Description', 'all', 'all', now());" ;
- 
- $instance_table -> SQLExec ($A2B -> DBHandle, $query);
+ $QUERY_FIELDS = "tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix, creationdate";
+ $QUERY_VALUES = "'RATECARD : $id_name', NOW(), '2033-09-03 01:24:33', '$id_trunk', 'Automatized Description', 'all', 'all', NOW()" ;
+ $QUERY_ID = "id" ;
+ $QUERY_TABLE = "cc_tariffplan";
+
+ $id_tmp = $instance_table -> Add_table ($A2B -> DBHandle,$QUERY_VALUES, $QUERY_FIELDS,$QUERY_TABLE,$QUERY_ID);
+ $id_ratecards_list [$i] = $id_tmp; 
 }
 
 //LINK RATECARD CALLPLAN
-$instance_ratecard = new Table("cc_tariffplan","id");
-$result_ratecard_id = $instance_ratecard-> Get_list($A2B -> DBHandle) ;
-$nb_db_ratecard = sizeof($result_ratecard_id);
 
-$instance_callplan = new Table("cc_tariffgroup","id");
-$result_callplan_id = $instance_callplan-> Get_list($A2B -> DBHandle) ;
-$nb_db_callplan = sizeof($result_callplan_id);
-
-
-
+$id_callplan_list;
+$id_ratecards_list;
 //RATES
 
 
+$instance_ratecard = new Table("cc_tariffplan","id");
+$result_ratecard_id = $instance_ratecard-> Get_list($A2B -> DBHandle) ;
+$nb_db_ratecard = sizeof($result_ratecard_id);
 
 $instance_prefix = new Table("cc_prefix","id,prefixe,destination");
 $result_prefix = $instance_prefix-> Get_list($A2B -> DBHandle) ;
@@ -135,7 +145,7 @@ $nb_db_prefix = sizeof($result_prefix);
 $list_time = array('1','30','60');
 for($i=0; $i< $nb_rate;$i++){
 
-echo "CREATE RATE : $i\n";	
+  if($verbose>0) echo "CREATE RATE : $i\n";	
 $id_ratecard= $result_ratecard_id [rand(0,$nb_db_ratecard )] ['id'];	
 	
 if($nb_db_prefix>= $nb_rate){
@@ -158,6 +168,9 @@ $instance_table -> SQLExec ($A2B -> DBHandle, $query);
 }
 
 
+
+
+
 // CARDS
 $instance_callplan = new Table("cc_tariffgroup","id");
 $result_callplan_id = $instance_callplan-> Get_list($A2B -> DBHandle) ;
@@ -165,7 +178,7 @@ $nb_db_callplan = sizeof($result_callplan_id);
 
 for($i=0;$i<$customer_nb;$i++)
 {
-	echo "CREATE CARD : $i\n";	
+	 if($verbose>0) echo "CREATE CARD : $i\n";	
 	$id_callplan= $result_callplan_id [rand(0,$nb_db_callplan )] ['id'];	
 	$array_card_generated  = gen_card_with_alias("cc_card", 0, 10);
 	$card_number = $array_card_generated[0];
@@ -184,7 +197,7 @@ $nb_db_card = sizeof($result_card_id);
 // CALLERID	
 	for($i=0;$i<$nb_callerid;$i++)
 	{
-	echo "CREATE CALLERID : $i\n";	
+	 if($verbose>0) echo "CREATE CALLERID : $i\n";	
 	$id_card= $result_card_id [rand(0,$nb_db_card )] ['id'];
     $cid = rand(100000000,999999999);
 	$query = "INSERT INTO cc_callerid (cid ,id_cc_card ,activated)VALUES".
@@ -195,7 +208,7 @@ $nb_db_card = sizeof($result_card_id);
 // HISTORY
 	for($i=0;$i<$nb_history;$i++)
 	{
-	echo "CREATE CARD HISTORY : $i\n";	
+	 if($verbose>0) echo "CREATE CARD HISTORY : $i\n";	
 	$id_card= $result_card_id [rand(0,$nb_db_card )] ['id'];
     
 	$query = "INSERT INTO cc_card_history (id_cc_card ,datecreated ,description) VALUES".
@@ -204,14 +217,30 @@ $nb_db_card = sizeof($result_card_id);
 	}
 
 
-
+	for($i=0;$i<$nb_refill;$i++)
+	{
+	 if($verbose>0) echo "CREATE CARD REFILL : $i\n";	
+	$id_card= $result_card_id [rand(0,$nb_db_card )] ['id'];
+     $amount = rand(10,30);
+	$query = "INSERT INTO cc_logrefill (date ,credit ,card_id ,reseller_id ,description)VALUES ".
+"(NOW() , '$amount', '$id_card', NULL , 'Automatized description');" ;
+	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
+	}
 	
 
+	
+	
+	
 
-//create DIDGroup
-//creat DID
-
-//Refill,Payment
+	for($i=0;$i<$nb_payment;$i++)
+	{
+	 if($verbose>0) echo "CREATE CARD PAYMENT : $i\n";	
+	$id_card= $result_card_id [rand(0,$nb_db_card )] ['id'];
+    $amount = rand(10,30);
+	$query = "INSERT INTO cc_logpayment (date ,payment ,card_id ,reseller_id ,id_logrefill ,description ,added_refill)VALUES".
+	 "(NOW() , '$amount', '$id_card', NULL , NULL , 'Automatized description', '0');";
+	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
+	}
 
 
 
