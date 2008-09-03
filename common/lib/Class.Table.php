@@ -296,9 +296,8 @@ class Table {
 		$QUERY = "UPDATE ".$this -> table." SET ".trim ($param_update)." WHERE ".trim ($clause);
 		
 		$res = $this -> ExecuteQuery ($DBHandle, $QUERY, 0);
-		if ($res->RecordCount()==0) return false;
 
-		return (true);
+		return ($res);
 	}
 
 
@@ -324,9 +323,8 @@ class Table {
 
 		$QUERY = "DELETE FROM ".$this -> table." WHERE (".trim ($clause).")";
 		$res = $this -> ExecuteQuery ($DBHandle, $QUERY, 0);
-		if (!$res) return false;
 		
-		return (true);
+		return ($res);
 	}
 
 
@@ -353,9 +351,8 @@ class Table {
         $QUERY = $sql.$sql_clause;
 		
 		$res = $this -> ExecuteQuery ($DBHandle, $QUERY, 0);
-		if (!$res) return false;
 		
-		return (true);
+		return ($res);
 	}
 	
 
