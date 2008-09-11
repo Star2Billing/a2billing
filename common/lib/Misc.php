@@ -356,7 +356,7 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username"){
 function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER, $DBHandle = null){
 
 	if (!$DBHandle) {
-		$DBHandle_max  = DbConnect();
+		$DBHandle  = DbConnect();
 	}
 	
 	for ($k=0;$k<=200;$k++){
@@ -377,7 +377,7 @@ function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_
 
 		$query = "SELECT username FROM ".$table." where username='$card_gen' OR useralias='$alias_gen'";
 		$numrow = 0;
-		$resmax = $DBHandle_max -> Execute($query);
+		$resmax = $DBHandle -> Execute($query);
 		if ($resmax)
 			$numrow = $resmax -> RecordCount( );
 
