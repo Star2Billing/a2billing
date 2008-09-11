@@ -353,9 +353,12 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username"){
 }
 
 
-function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER){
+function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER, $DBHandle = null){
 
-	$DBHandle_max  = DbConnect();
+	if (!$DBHandle) {
+		$DBHandle_max  = DbConnect();
+	}
+	
 	for ($k=0;$k<=200;$k++){
 		$card_gen = MDP($length_cardnumber);
 		$alias_gen = MDP(LEN_ALIASNUMBER);

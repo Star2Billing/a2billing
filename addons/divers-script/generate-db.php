@@ -248,7 +248,7 @@ for($i=0;$i<$nb_customer;$i++) {
 	if($verbose > 1) 
 		echo "CREATE CARD : $i\n";	
 	$id_callplan= $result_callplan_id [rand(0,$nb_db_callplan )] ['id'];	
-	$array_card_generated  = gen_card_with_alias("cc_card", 0, 10);
+	$array_card_generated  = gen_card_with_alias("cc_card", 0, 10, $A2B -> DBHandle);
 	$card_number = $array_card_generated[0];
 	$card_alias = $array_card_generated[1];
 	$pass = MDP_NUMERIC(10);
