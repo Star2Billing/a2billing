@@ -61,6 +61,11 @@ $instance_table = new Table();
 
 $A2B -> DBHandle -> Execute('SET AUTOCOMMIT=0');
 
+$c_qry_header = "INSERT INTO cc_call ( sessionid, uniqueid,  starttime, stoptime, sessiontime, calledstation, startdelay, " .
+				"stopdelay, terminatecause,   sessionbill, destination, id_tariffgroup, src, buycost, " .
+				"id_card_package_offer) VALUES \n";
+
+$qry = '';
 
 $cdr_per_day = intval($amount_cdr / $back_days);
 
@@ -80,17 +85,21 @@ for ($i=1 ; $i <= $back_days; $i++){
 		$uniqueid = date("Y-m-d", strtotime("-$i day")).'_'.rand(0,10000000);
 		$sessiontime = rand(0,500);
 		
-		$c_qry = "INSERT INTO cc_call ( sessionid, uniqueid,  starttime, stoptime, sessiontime, calledstation, startdelay, " .
-				"stopdelay, terminatecause,   sessionbill, destination, id_tariffgroup, src, buycost, " .
-				"id_card_package_offer) VALUES ( 'IAX2/areskiax-3', '$uniqueid', '$startdate_toinsert', '$enddate_toinsert', " .
-				"$sessiontime, '$calledstation', 2, ".
-				"NULL, 'ANSWER',   1.2000, '$destination', 1,  '1856254697', 0.40000, 0);\n\n";
-		$qry .= $c_qry;
-		if ($verbose >=3) echo "CDR No=$nb_cdr --> $c_qry\n";
+		$c_qry_value = " ( 'IAX2/areskiax-3', '$uniqueid', '$startdate_toinsert', '$enddate_toinsert', $sessiontime, " .
+				"'$calledstation', 2, NULL, 'ANSWER',   1.2000, '$destination', 1,  '1856254697', 0.40000, 0) \n";
+		
+		if (strlen($qry)==0) {
+			$qry = $c_qry_header.$c_qry_value;		
+		} else {
+			$qry = ' , '.$c_qry_value;
+		}
 		
 		if (($nb_cdr % $nb_cdr_flush) == 0) {
-			//if ($verbose)
-			//	echo "Processing CDR generation for $nb_cdr_flush CDRs \n";
+			if ($verbose)
+				echo "Processing CDR generation for $nb_cdr_flush CDRs \n";
+			
+			if ($verbose >=3) echo "CDR No=$nb_cdr --> $qry\n";
+			
 			$A2B -> DBHandle -> Execute('BEGIN;');
 			$instance_table -> SQLExec ($A2B -> DBHandle, $qry);
 			$A2B -> DBHandle -> Execute('COMMIT;');
