@@ -4,7 +4,7 @@ include_once(dirname(__FILE__) . "/../lib/agent.module.access.php");
 include ("../lib/agent.smarty.php");
 
 
-if (! has_rights (ACX_CALL_REPORT)){ 
+if (! has_rights (ACX_CALL_REPORT)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
@@ -69,7 +69,7 @@ $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 
 $FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
-$FG_TABLE_COL[]=array (gettext("terminatecause"), "terminatecause", "10%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
 //$FG_TABLE_COL[]=array ("DestID", "destID", "12%", "center", "SORT", "30");
 
@@ -90,7 +90,7 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
 
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecause, t1.sipiax, t1.calledrate, t1.sessionbill';
+$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 // t1.stoptime,
 
 $FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime, t1.sessionbill-t1.buycost as profit, t1.sessionbill, t1.buycost';

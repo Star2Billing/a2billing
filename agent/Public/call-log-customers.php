@@ -10,7 +10,7 @@ if (! has_rights (ACX_CALL_REPORT)) {
 	die();
 }
 
-getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause', 'choose_calltype'));
+getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype'));
 
 
 
@@ -77,7 +77,7 @@ $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "10%", "center", "
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "6%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "6%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("Trunk"), "trunkcode", "6%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecause", "7%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "7%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
 $FG_TABLE_COL[]=array (gettext("Buy"), "buycost", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 $FG_TABLE_COL[]=array (gettext("Sell"), "sessionbill", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
@@ -92,7 +92,7 @@ $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t3.trunkcode, t1.terminatecause, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
+$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t3.trunkcode, t1.terminatecauseid, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
 }
@@ -206,13 +206,13 @@ if (isset($choose_calltype) && ($choose_calltype!=-1)){
 }
 
 $FG_ASR_CIC_CLAUSE = $FG_TABLE_CLAUSE;
-//To select just terminatecause=ANSWER
-if (!isset($terminatecause)) {
-	$terminatecause="ANSWER";
+//To select just terminatecauseid=ANSWER
+if (!isset($terminatecauseid)) {
+	$terminatecauseid="ANSWER";
 }
-if ($terminatecause=="ANSWER") {
+if ($terminatecauseid=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " (t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED') ";
+	$FG_TABLE_CLAUSE .= " (t1.terminatecauseid=1) ";
 }
 
 
@@ -244,63 +244,6 @@ if (!is_null ($order) && ($order!='') && !is_null ($sens) && ($sens!='')) {
 }
 
 
-//************************************************************/
-// calculate nbr of success calls,nbr fail calls, max nbr of fail calls successfally /
-//************************************************************/
-
-$QUERY="CREATE TEMPORARY TABLE ASR_CIC_TEMP AS (SELECT substring(t1.starttime,1,10) AS day,case when t1.terminatecause='ANSWER' then 1 else 0 end as success,case when t1.terminatecause ='ANSWER'  OR t1.terminatecause='ANSWERED' then 0 else 1 end as fail,0 as maxfail FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." ORDER BY day)";
-$max_fail=0;
-$max=0;
-$total_fail_succ=0;
-$total_max_succ=0;
-$update=array();
-if (!$nodisplay){
-	$num = 0;
-	$res = $DBHandle -> Execute($QUERY);
-	$QUERY="SELECT * FROM ASR_CIC_TEMP order by day";
-	$res = $DBHandle -> Execute($QUERY);
-	if ($res)
-		$num = $res -> RecordCount();
-	$pos=0;
-	for($i=0;$i<$num;$i++)
-	{	
-		$asr_cic_list [] =$res -> fetchRow();
-		if ($i>0)
-		{	
-			if ($asr_cic_list[$i][0] == $asr_cic_list[$i-1][0] && $i<$num-1 && $asr_cic_list[$i][2]==1) {
-				$max++;
-			}else {
-				if (($i==$num-1) && ($asr_cic_list[$i][2]==1)) $max++;
-				if ($max > $max_fail) {
-					$max_fail=$max;
-					$asr_cic_list1[$pos][3]=$max_fail;
-					$max=0;
-				}
-				if($asr_cic_list[$i][0] != $asr_cic_list[$i-1][0]){
-					$pos++;
-					$success=0;
-					$fail=0;
-					$max_fail=0;
-				}
-			}
-			
-		}elseif($asr_cic_list[$i][2]==1){
-			$max++;
-		}
-		$success+=$asr_cic_list[$i][1];
-		$fail+=$asr_cic_list[$i][2];
-		$asr_cic_list1[$pos][0] = $asr_cic_list[$i][0];
-		$asr_cic_list1[$pos][1] = $success; 
-		$asr_cic_list1[$pos][2] = $fail;
-		
-		if ($asr_cic_list[$i][2]==1){
-			$total_fail_succ++;	
-		}elseif($total_fail_succ > $total_max_succ){
-			$total_max_succ=$total_fail_succ;
-			$total_fail_succ=0;
-		}
-	}
-}
 
 /************************/
 //$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate) 
@@ -577,9 +520,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			   </td>
 			   <td width="80%"  class="fontstyle_searchoptions">
 					<?php echo gettext("Answered Calls");?>  
-					<input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
+					<input name="terminatecauseid" type="radio" value="ANSWER" <?php if((!isset($terminatecauseid))||($terminatecauseid=="ANSWER")){?>checked<?php }?> /> 
 					<?php echo gettext("All Calls");?>  
-					<input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
+					<input name="terminatecauseid" type="radio" value="ALL" <?php if($terminatecauseid=="ALL"){?>checked<?php }?>/>
 				</td>
 			</tr>
 			<tr class="bgcolor_005">
@@ -656,7 +599,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <center><strong> 
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     <a href="<?php  echo $PHP_SELF."?customer=$customer&s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} 
-					echo "&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause&choose_calltype=$choose_calltype";?>"> 
+					echo "&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype";?>"> 
                     <span class="liens"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
@@ -777,13 +720,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <TD align="right"><SPAN  class="fontstyle_003" >
                     <?php if ($current_page>0){?>
                     <img src="<?php echo Images_Path;?>/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
-					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";?>">
+					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";?>">
                     <?php echo gettext("Previous");?> </a> -
                     <?php }?>
                     <?php echo ($current_page+1);?> / <?php  echo $nb_record_max;?>
                     <?php if ($current_page<$nb_record_max-1){?>
                     - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";}
-					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";?>">
+					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";?>">
                     <?php echo gettext("Next");?></a> <img src="<?php echo Images_Path;?>/fleche-d.gif" width="5" height="10">
                     </SPAN> 
                     <?php }?>
