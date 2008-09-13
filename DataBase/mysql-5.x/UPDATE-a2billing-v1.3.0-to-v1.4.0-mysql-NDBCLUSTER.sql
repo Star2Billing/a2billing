@@ -1083,6 +1083,18 @@ VALUES ( 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived,
 
 
 
+-- Optimization on terminatecause
+ALTER TABLE cc_call ADD COLUMN terminatecauseid INT (1) DEFAULT 1;
+UPDATE cc_call SET terminatecauseid=1 WHERE terminatecause='ANSWER';
+UPDATE cc_call SET terminatecauseid=1 WHERE terminatecause='ANSWERED';
+UPDATE cc_call SET terminatecauseid=2 WHERE terminatecause='BUSY';
+UPDATE cc_call SET terminatecauseid=3 WHERE terminatecause='NOANSWER';
+UPDATE cc_call SET terminatecauseid=4 WHERE terminatecause='CANCEL';
+UPDATE cc_call SET terminatecauseid=5 WHERE terminatecause='CONGESTION';
+UPDATE cc_call SET terminatecauseid=6 WHERE terminatecause='CHANUNAVAIL';
 
-
-
+ALTER TABLE cc_call DROP terminatecause;
+ALTER TABLE cc_call ADD INDEX ( terminatecauseid );
+ 
+ 
+ 

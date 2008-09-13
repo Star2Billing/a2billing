@@ -3,7 +3,7 @@ include_once(dirname(__FILE__) . "/../lib/admin.defines.php");
 include_once(dirname(__FILE__) . "/../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_CALL_REPORT)){ 
+if (! has_rights (ACX_CALL_REPORT)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
@@ -14,7 +14,7 @@ getpost_ifset(array('months_compare', 'current_page', 'fromstatsmonth_sday', 'da
 
 // graphtype = 1, 2, 3 , 4 
 // 1 : traffic - 2 : Profit - 3 : Sells -  4 : Buys
-if (!isset ($current_page) || ($current_page == "")){	
+if (!isset ($current_page) || ($current_page == "")) {	
 	$current_page=0;
 }
 
@@ -44,7 +44,7 @@ $FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "15%", "center"
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
-$FG_TABLE_COL[]=array (gettext("terminatecause"), "terminatecause", "10%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
 $FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
@@ -52,7 +52,7 @@ $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", 
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecause, t1.sipiax, t1.calledrate, t1.sessionbill';
+$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 
 $FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime';
 

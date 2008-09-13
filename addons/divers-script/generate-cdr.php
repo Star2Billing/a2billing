@@ -62,7 +62,7 @@ $instance_table = new Table();
 $A2B -> DBHandle -> Execute('SET AUTOCOMMIT=0');
 
 $c_qry_header = "INSERT INTO cc_call ( sessionid, uniqueid,  starttime, stoptime, sessiontime, calledstation, startdelay, " .
-				"stopdelay, terminatecause,   sessionbill, destination, id_tariffgroup, src, buycost, " .
+				"stopdelay, terminatecauseid,   sessionbill, destination, id_tariffgroup, src, buycost, " .
 				"id_card_package_offer) VALUES \n";
 
 $qry = '';

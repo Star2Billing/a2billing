@@ -33,8 +33,7 @@ class Callmonitor {
    */
   function navMenu($args) {
 
-    $ret .= "
-      <p><small><small><a href='" . $_SESSION['ARI_ROOT'] . "?m=Callmonitor&f=display'>" . _("Call Monitor") . "</a></small></small></p>";
+    $ret .= "<p><small><small><a href='" . $_SESSION['ARI_ROOT'] . "?m=Callmonitor&f=display'>" . _("Call Monitor") . "</a></small></small></p><br>";
 
     return $ret;
   }
@@ -100,8 +99,10 @@ class Callmonitor {
     global $ASTERISK_CALLMONITOR_PATH;
     global $CALLMONITOR_ALLOW_DELETE;
     global $AJAX_PAGE_REFRESH_ENABLE;
+    global $ARI_CRYPT_PASSWORD;
 
     $display = new DisplaySearch();
+    $crypt = new Crypt();
 
     // get the search string
     $m = getArgument($args,'m');
@@ -202,10 +203,12 @@ class Callmonitor {
     $recording_header .= "<th>" . _("Monitor") . "</th>";
 
     // table body
-    foreach($data as $key=>$value) {
+    if (is_array($data)) foreach($data as $key=>$value) {
 
       // recording file
       $recording = $recordings[$value['uniqueid'] . $value['calldate']];
+      $fileCrypt = $crypt->encrypt($recording,$ARI_CRYPT_PASSWORD);
+      $recordingCrypt = urlencode($fileCrypt);
 
       // date and time
       $buf = split(' ', $value[calldate]);
@@ -214,12 +217,12 @@ class Callmonitor {
 
       // recording delete checkbox
       if ($CALLMONITOR_ALLOW_DELETE) {
-        $recording_delete_checkbox = "<td class='checkbox'><input type=checkbox name='selected" . ++$i . "' value=" . $recording . "></td>";
+        $recording_delete_checkbox = "<td class='checkbox'><input type=checkbox name='selected" . ++$i . "' value=" . $fileCrypt . "></td>";
       }
 
       $recordingLink = '';
       if (is_file($recordings[$value['uniqueid'] . $value['calldate']])) {
-        $recordingLink = "<a href='#' onClick=\"javascript:popUp('misc/recording_popup.php?recording=" . $recording . "&date=" . $date . "&time=" . $time . "'); return false;\">" . _("play") . "</a>";
+        $recordingLink = "<a href='#' onClick=\"javascript:popUp('misc/recording_popup.php?recording=" . $recordingCrypt . "&date=" . $date . "&time=" . $time . "'); return false;\">" . _("play") . "</a>";
       }
     
       $recording_body .= "<tr>
@@ -249,7 +252,7 @@ class Callmonitor {
 
     // ajax page refresh script
     if ($AJAX_PAGE_REFRESH_ENABLE) {
-      $ret .= ajaxRefreshScript($args);
+ //     $ret .= ajaxRefreshScript($args);
     }
 
     // header
@@ -383,9 +386,10 @@ class Callmonitor {
       rsort($files);
     }
 
-    foreach($data as $data_key => $data_value) {
+    if (is_array($data)) foreach($data as $data_key => $data_value) {
 
       $recording='';
+      $unique_file_key ='';
 
       $calldate = $data_value['calldate'];
       $duration = $data_value['duration'];
@@ -526,7 +530,12 @@ class Callmonitor {
    */
   function deleteRecData($files) {
 
-    foreach($files as $key => $file) {
+    global $ARI_CRYPT_PASSWORD;
+
+    $crypt = new Crypt();
+
+    foreach($files as $key => $fileCrypt) {
+      $file = $crypt->decrypt($fileCrypt,$ARI_CRYPT_PASSWORD);
       if (is_writable($file)) {
         unlink($file);
       } else {
@@ -545,8 +554,11 @@ class Callmonitor {
 
     // search text
     if ($q!='*' && $q!=NULL) {
+
+      $dbh = $_SESSION['dbh_cdr'];
       $searchText .= "WHERE ";
       $tok = strtok($q," \n\t");
+      $tok = $dbh->escapeSimple($tok);
       while ($tok) {
         $searchText .= " (calldate regexp '" . $tok . "'
                          OR clid regexp '" . $tok . "'
@@ -560,6 +572,7 @@ class Callmonitor {
                          OR userfield regexp '" . $tok . "'
                        )";
         $tok = strtok(" \n\t");
+        $tok = $dbh->escapeSimple($tok);
         if ($tok) {
           $searchText .= " AND";
         }
@@ -586,10 +599,16 @@ class Callmonitor {
 
       // allow entries to be viewed with users extension
       $searchText .= "(src = '" . $_SESSION['ari_user']['extension'] . "'
-                      OR dst = '" . $_SESSION['ari_user']['extension'] . "')";
+                      OR dst = '" . $_SESSION['ari_user']['extension'] . "'
+
+					OR channel LIKE 'IAX2/" . $_SESSION['ari_user']['extension'] ."-%'
+					OR dstchannel LIKE 'IAX2/" . $_SESSION['ari_user']['extension'] ."-%'
+
+		      OR channel LIKE 'SIP/" . $_SESSION['ari_user']['extension'] ."-%'
+		      OR dstchannel LIKE 'SIP/" . $_SESSION['ari_user']['extension'] ."-%')";
 
       // allow entries to be viewed with users outbound CID
-      if (isset($_SESSION['ari_user']['outboundCID'])) {
+      if (isset($_SESSION['ari_user']['outboundCID']) && trim($_SESSION['ari_user']['outboundCID']) != '') {
         $searchText .= "OR (src = '" . $_SESSION['ari_user']['outboundCID'] . "'
                         OR dst = '" . $_SESSION['ari_user']['outboundCID'] . "')";
       }

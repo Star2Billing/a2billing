@@ -12,7 +12,7 @@ if (! has_rights (ACX_MISC)){
 }
 
 
-getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'month_earlier', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause','archive', 'id'));
+getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'month_earlier', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecauseid','archive', 'id'));
 
 if (!isset ($current_page) || ($current_page == "")){	
 	$current_page=0; 
@@ -41,12 +41,12 @@ $HD_Form -> AddViewElement(gettext("CalledNumber"), "calledstation", "15%", "cen
 $HD_Form -> AddViewElement(gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $HD_Form -> AddViewElement(gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $HD_Form -> AddViewElement(gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("terminatecause"), "terminatecause", "10%", "center", "SORT", "30");
+$HD_Form -> AddViewElement(gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
 $HD_Form -> AddViewElement(gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
 $HD_Form -> AddViewElement(gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-$FG_COL_QUERY='id, starttime, calledstation, destination, sessiontime, username, terminatecause, sipiax, calledrate, sessionbill';
+$FG_COL_QUERY='id, starttime, calledstation, destination, sessiontime, username, terminatecauseid, sipiax, calledrate, sessionbill';
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 
@@ -132,14 +132,15 @@ if ($_SESSION["is_admin"]==0){
 	$HD_Form -> FG_TABLE_CLAUSE.="cardID=t2.IDCust AND t2.IDmanager='".$_SESSION["pr_reseller_ID"]."'";
 }
 
-//To select just terminatecause=ANSWER
-if (!isset($terminatecause)){
-	$terminatecause="ANSWER";
+//To select just terminatecauseid=ANSWER
+if (!isset($terminatecauseid)){
+	$terminatecauseid="ANSWER";
 }
-if ($terminatecause=="ANSWER") {
+if ($terminatecauseid=="ANSWER") {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE .= " (terminatecause='ANSWER' OR terminatecause='ANSWERED') ";
+	$HD_Form -> FG_TABLE_CLAUSE .= " (terminatecauseid=1) ";
 }
+
 if($posted == 1){
 	$_SESSION['ss_calllist'] = '';
 	$_SESSION['ss_calllist'] = $HD_Form -> FG_TABLE_CLAUSE;
@@ -391,9 +392,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			   </td>
 			   <td width="80%"  class="fontstyle_searchoptions">
 					<?php echo gettext("Answered Calls");?>  
-					<input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
+					<input name="terminatecauseid" type="radio" value="ANSWER" <?php if((!isset($terminatecauseid))||($terminatecauseid=="ANSWER")){?>checked<?php }?> /> 
 					<?php echo gettext("All Calls");?>  
-					<input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
+					<input name="terminatecauseid" type="radio" value="ALL" <?php if($terminatecauseid=="ALL"){?>checked<?php }?>/>
 				</td>
 			</tr>
 			<tr class="bgcolor_005">

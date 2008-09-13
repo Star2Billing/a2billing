@@ -9,7 +9,7 @@ if (! has_rights (ACX_CALL_REPORT)){
 	die();
 }
 
-getpost_ifset(array('inputtopvar','topsearch', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'choose_currency', 'terminatecause', 'nodisplay','grouped'));
+getpost_ifset(array('inputtopvar','topsearch', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'choose_currency', 'terminatecauseid', 'nodisplay','grouped'));
 
 //var $field=array();
 
@@ -70,18 +70,18 @@ $FG_TABLE_COL[]=array (gettext("Duration"), "calltime", "20%", "center", "SORT",
 $FG_TABLE_COL[]=array (gettext("Buy"), "buy", "25%", "center","sort","","","","","","","display_2bill");
 $FG_TABLE_COL[]=array (gettext("Sell"), "cost", "25%", "center","sort","","","","","","","display_2bill");
 if ($grouped) $FG_TABLE_COL[]=array (gettext("Calldate"), "day", "10%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("terminatecause"), "terminatecause", "10%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
 
 if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($topsearch!="")){
 	$FG_TABLE_COL[]=array (gettext("NbrCall"), 'nbcall', "10%", "center", "SORT");
 }
 
 if ($grouped){
-	$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,substring(starttime,1,10) AS day,terminatecause, count(*) as nbcall';
-	$SQL_GROUP="GROUP BY ".$field[1].",day,terminatecause ";
+	$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,substring(starttime,1,10) AS day,terminatecauseid, count(*) as nbcall';
+	$SQL_GROUP="GROUP BY ".$field[1].",day,terminatecauseid ";
 }else{
-	$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecause, count(*) as nbcall';
-	$SQL_GROUP="GROUP BY ".$field[1].",terminatecause ";
+	$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, count(*) as nbcall';
+	$SQL_GROUP="GROUP BY ".$field[1].",terminatecauseid ";
 }
 
 $FG_TABLE_DEFAULT_ORDER = "username";
@@ -143,13 +143,13 @@ if (strpos($date_clause, 'AND') > 0){
 }
 
 
-//To select just terminatecause=ANSWER
-if (!isset($terminatecause)){
-	$terminatecause="ANSWER";
+//To select just terminatecauseid=ANSWER
+if (!isset($terminatecauseid)){
+	$terminatecauseid="ANSWER";
 }
-if ($terminatecause=="ANSWER") {
+if ($terminatecauseid=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.=" (terminatecause='ANSWER' OR terminatecause='ANSWERED') ";
+	$FG_TABLE_CLAUSE.=" (terminatecauseid=1) ";
 }
 
 if ($grouped){
@@ -160,23 +160,23 @@ if ($grouped){
 
 if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($topsearch!="")){
 	if ($grouped){
-		$FG_COL_QUERY1=$field[1].', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,substring(starttime,1,10) AS starttime,terminatecause, count(*) as nbcall';
-		$SQL_GROUP1=" GROUP BY $field[1],starttime,terminatecause";
+		$FG_COL_QUERY1=$field[1].', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,substring(starttime,1,10) AS starttime,terminatecauseid, count(*) as nbcall';
+		$SQL_GROUP1=" GROUP BY $field[1],starttime,terminatecauseid";
 	}else{
-		$FG_COL_QUERY1=$field[1].', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,terminatecause, count(*) as nbcall,starttime';
-		$SQL_GROUP1=" GROUP BY $field[1],terminatecause,starttime";
+		$FG_COL_QUERY1=$field[1].', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,terminatecauseid, count(*) as nbcall,starttime';
+		$SQL_GROUP1=" GROUP BY $field[1],terminatecauseid,starttime";
 	}
 	$QUERY = "CREATE TEMPORARY TABLE temp_result AS (SELECT $FG_COL_QUERY1 FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE  $SQL_GROUP1 ORDER BY nbcall DESC LIMIT $inputtopvar)";
 	$res = $DBHandle -> Execute($QUERY);
 	if ($res){
 		$FG_TABLE_NAME="temp_result";
 		if ($grouped){
-			$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,substring(starttime,1,10) AS day,terminatecause, nbcall';
-			$SQL_GROUP=" GROUP BY ".$field[1].",day,terminatecause,nbcall ";
+			$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,substring(starttime,1,10) AS day,terminatecauseid, nbcall';
+			$SQL_GROUP=" GROUP BY ".$field[1].",day,terminatecauseid,nbcall ";
 			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,substring(starttime,1,10) AS day FROM $FG_TABLE_NAME GROUP BY day";
 		}else{
-			$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecause, nbcall';
-			$SQL_GROUP=" GROUP BY ".$field[1].",terminatecause,nbcall ";
+			$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, nbcall';
+			$SQL_GROUP=" GROUP BY ".$field[1].",terminatecauseid,nbcall ";
 			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall FROM $FG_TABLE_NAME";
 		}
 		$order = "nbcall";
@@ -409,9 +409,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				   </td>
 				   <td width="80%"  class="fontstyle_searchoptions">				   		
 				  <?php echo gettext("Answered Calls")?>
-				  <input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
+				  <input name="terminatecauseid" type="radio" value="ANSWER" <?php if((!isset($terminatecauseid))||($terminatecauseid=="ANSWER")){?>checked<?php }?> /> 
 				  <?php echo gettext("All Calls")?>	
-				   <input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
+				   <input name="terminatecauseid" type="radio" value="ALL" <?php if($terminatecauseid=="ALL"){?>checked<?php }?>/>
 					</td>
 				</tr>
 				<tr class="bgcolor_005">
@@ -517,7 +517,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <center><strong> 
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     <a href="<?php  echo $PHP_SELF."?s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} 
-					echo "&topsearch=$topsearch&inputtopvar=$inputtopvar&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&resulttype=$resulttype&terminatecause=$terminatecause&grouped=$grouped";?>"> 
+					echo "&topsearch=$topsearch&inputtopvar=$inputtopvar&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&resulttype=$resulttype&terminatecauseid=$terminatecauseid&grouped=$grouped";?>"> 
                     <span class="liens"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
@@ -609,13 +609,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><td> 
                     <?php if ($current_page>0){?>
                     <img src="<?php echo Images_Path;?>/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
-					echo "&topsearch=$topsearch&inputtopvar=$inputtopvar&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&resulttype=$resulttype&terminatecause=$terminatecause&grouped=$grouped";?>">
+					echo "&topsearch=$topsearch&inputtopvar=$inputtopvar&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&resulttype=$resulttype&terminatecauseid=$terminatecauseid&grouped=$grouped";?>">
                     <?php echo gettext("Previous");?> </a> -
                     <?php }?>
                     <?php echo ($current_page+1);?> / <?php  echo $nb_record_max;?>
                     <?php if ($current_page<$nb_record_max-1){?>
                     - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";}
-					echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&clidtype=$clidtype&resulttype=$resulttype&clid=$clid&terminatecause=$terminatecause&topsearch=$topsearch&inputtopvar=$inputtopvar&grouped=$grouped";?>">
+					echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&clidtype=$clidtype&resulttype=$resulttype&clid=$clid&terminatecauseid=$terminatecauseid&topsearch=$topsearch&inputtopvar=$inputtopvar&grouped=$grouped";?>">
                     <?php echo gettext("Next");?></a> <img src="<?php echo Images_Path;?>/fleche-d.gif" width="5" height="10">
                     </B></TD></SPAN> 
                     <?php }?>
