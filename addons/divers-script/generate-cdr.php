@@ -86,9 +86,9 @@ for ($i=1 ; $i <= $back_days; $i++){
 				"$sessiontime, '$calledstation', 2, ".
 				"NULL, 'ANSWER',   1.2000, '$destination', 1,  '1856254697', 0.40000, 0);\n\n";
 		$qry .= $c_qry;
-		if ($verbose >=3) echo "$c_qry\n";
+		if ($verbose >=3) echo "CDR No=$nb_cdr --> $c_qry\n";
 		
-		if ($nb_cdr % $nb_cdr_flush) {
+		if (($nb_cdr % $nb_cdr_flush) == 0) {
 			//if ($verbose)
 			//	echo "Processing CDR generation for $nb_cdr_flush CDRs \n";
 			$A2B -> DBHandle -> Execute('BEGIN;');
