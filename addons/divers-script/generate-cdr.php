@@ -59,6 +59,7 @@ if (!$A2B -> DbConnect()){
 $instance_table = new Table();
 
 
+$A2B -> DBHandle -> Execute('SET AUTOCOMMIT=0');
 
 
 $cdr_per_day = intval($amount_cdr / $back_days);
@@ -90,8 +91,9 @@ for ($i=1 ; $i <= $back_days; $i++){
 		if ($nb_cdr % $nb_cdr_flush) {
 			//if ($verbose)
 			//	echo "Processing CDR generation for $nb_cdr_flush CDRs \n";
-			
+			$A2B -> DBHandle -> Execute('BEGIN;');
 			$instance_table -> SQLExec ($A2B -> DBHandle, $qry);
+			$A2B -> DBHandle -> Execute('COMMIT;');
 			$qry = '';
 		}
 		
