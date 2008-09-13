@@ -91,7 +91,7 @@ for ($i=1 ; $i <= $back_days; $i++){
 		if (strlen($qry)==0) {
 			$qry = $c_qry_header.$c_qry_value;		
 		} else {
-			$qry = ' , '.$c_qry_value;
+			$qry .= ' , '.$c_qry_value;
 		}
 		
 		if (($nb_cdr % $nb_cdr_flush) == 0) {

@@ -12,7 +12,7 @@
  * 
 ****************************************************************************/
 
-// exit();
+exit();
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
@@ -68,6 +68,11 @@ $nb_payment = 1000;
 
 //refill
 $nb_refill = 1000;
+
+echo "Going to add :\n---------------------------\n";
+echo "nb_provider=$nb_provider\n nb_trunk=$nb_trunk\n nb_callplan=$nb_callplan\n ".
+		" nb_ratecard=$nb_ratecard\n nb_rate=$nb_rate\n nb_customer=$nb_customer\n customer_balance=$customer_balance\n ".
+		" nb_callerid=$nb_callerid\n nb_history=$nb_history\n nb_payment=$nb_payment nb_refill=$nb_refill\n";
 
 //cdr
 // $back_days = 1;
