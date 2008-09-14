@@ -1,0 +1,109 @@
+
+
+-------------------------------- SQL QUERY LIST FROM AGI --------------------------------
+-----------------------------------------------------------------------------------------
+
+
+
+
+1) AUTHENTICATION
+--------------------------------
+SELECT credit, tariff, activated, inuse, simultaccess, typepaid,
+creditlimit, language, removeinterprefix, redial, enableexpire,
+UNIX_TIMESTAMP(expirationdate), expiredays, nbused,
+UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate),
+cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email,
+cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status,
+voicemail_permitted, voicemail_activated FROM cc_card LEFT JOIN
+cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='XXXXXXX'
+
+
+2) RATEENGINE
+--------------------------------
+SELECT
+tariffgroupname, lcrtype, idtariffgroup,
+cc_tariffgroup_plan.idtariffplan, tariffname, destination,
+cc_ratecard.id, dialprefix, destination, buyrate, buyrateinitblock,
+buyrateincrement, rateinitial, initblock, billingblock,
+connectcharge, disconnectcharge, stepchargea, chargea, timechargea,
+billingblocka, stepchargeb, chargeb,
+timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,
+cc_tariffplan.id_trunk AS tp_id_trunk, tp_trunk.trunkprefix AS
+tp_trunk, tp_trunk.providertech AS tp_providertech,
+tp_trunk.providerip AS tp_providerip, tp_trunk.removeprefix AS tp_removeprefix,
+cc_ratecard.id_trunk AS rc_id_trunk, rt_trunk.trunkprefix AS
+rc_trunkprefix, rt_trunk.providertech AS rc_providertech,
+rt_trunk.providerip AS rc_providerip, rt_trunk.removeprefix AS
+rc_removeprefix, musiconhold,
+tp_trunk.failover_trunk AS tp_failover_trunk, rt_trunk.failover_trunk
+AS rt_failover_trunk,
+tp_trunk.addparameter AS tp_addparameter_trunk, rt_trunk.addparameter
+AS rt_addparameter_trunk,
+id_outbound_cidgroup, freetimetocall_package_offer, freetimetocall,
+packagetype, billingtype, startday, id_cc_package_offer,
+tp_trunk.status, rt_trunk.status, tp_trunk.inuse, rt_trunk.inuse,
+tp_trunk.maxuse,  rt_trunk.maxuse,
+tp_trunk.if_max_use, rt_trunk.if_max_use,
+cc_ratecard.rounding_calltime AS rounding_calltime,
+cc_ratecard.rounding_threshold AS rounding_threshold,
+cc_ratecard.additional_block_charge AS additional_block_charge,
+cc_ratecard.additional_block_charge_time AS additional_block_charge_time
+
+FROM cc_tariffgroup
+RIGHT JOIN cc_tariffgroup_plan ON
+cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id
+INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan )
+LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
+LEFT JOIN cc_trunk AS rt_trunk ON cc_ratecard.id_trunk=rt_trunk.id_trunk
+LEFT JOIN cc_trunk AS tp_trunk ON cc_tariffplan.id_trunk=tp_trunk.id_trunk
+LEFT JOIN cc_package_offer ON
+cc_package_offer.id=cc_tariffgroup.id_cc_package_offer
+
+WHERE cc_tariffgroup.id=3 AND ((dialprefix='324242' OR
+dialprefix='32424' OR dialprefix='3242' OR dialprefix='324' OR
+dialprefix='32' OR dialprefix='3' OR dialprefix='defaultprefix') OR
+(dialprefix LIKE '&_%' ESCAPE '&' AND '324242' REGEXP
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', dialprefix, '$'),
+'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '')))
+AND startingdate<= CURRENT_TIMESTAMP AND (expirationdate >
+CURRENT_TIMESTAMP OR expirationdate IS NULL OR
+LENGTH(expirationdate)<5)
+AND startdate<= CURRENT_TIMESTAMP AND (stopdate > CURRENT_TIMESTAMP OR
+stopdate IS NULL OR LENGTH(stopdate)<5)
+AND (starttime <= 6633 AND endtime >=6633)
+AND idtariffgroup='3'
+AND ( dnidprefix=SUBSTRING('324242',1,length(dnidprefix)) OR
+(dnidprefix='all' AND 0 = 0))
+AND ( calleridprefix=SUBSTRING('999999',1,length(calleridprefix)) OR
+(calleridprefix='all' AND 0 = 0))
+ORDER BY LENGTH(dialprefix) DESC
+--------------------------------
+
+
+
+3) CREATE CDR
+--------------------------------
+INSERT INTO cc_call (uniqueid, sessionid, username, nasipaddress,
+starttime, sessiontime, real_sessiontime, calledstation,
+terminatecause, stoptime, calledrate, sessionbill, calledcountry,
+calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard,
+id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer) VALUES
+('1212755623.6', 'IAX2/areskiax-11706',  'XXXXX', '',
+CURRENT_TIMESTAMP - INTERVAL 5 SECOND , '5', '5', '324242', 'ANSWER',
+now(), '0.0184', '+0.001533',  '', '', 'belgium', '3', '2', '412',
+'2', '999999', '0', '0', '0', '0')
+
+
+4) UPDATE CREDIT
+--------------------------------
+UPDATE cc_card SET credit= credit-0.001533  , redial='324242' ,
+lastuse=now(), nbused=nbused+1 WHERE username='XXXXXX'
+
+
+5) UPDATE TRUNK
+--------------------------------
+UPDATE cc_trunk SET secondusedreal = secondusedreal + 5 WHERE id_trunk='2'
+
+
+
+
