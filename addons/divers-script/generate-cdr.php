@@ -11,7 +11,7 @@
  *  USAGE : ./generate-cdr.php --debug --amount_cdr=1000
  * 
 ****************************************************************************/
-exit();
+//exit();
 // CHECK ALL AND ENSURE IT WORKS / NOT URGENT
 
 set_time_limit(0);
@@ -59,7 +59,7 @@ if (!$A2B -> DbConnect()){
 $instance_table = new Table();
 
 
-$A2B -> DBHandle -> Execute('SET AUTOCOMMIT=0');
+$A2B -> DBHandle -> Execute('SET AUTOCOMMIT=1');
 
 $c_qry_header = "INSERT INTO cc_call ( sessionid, uniqueid,  starttime, stoptime, sessiontime, calledstation, startdelay, " .
 				"stopdelay, terminatecauseid,   sessionbill, destination, id_tariffgroup, src, buycost, " .
@@ -86,10 +86,10 @@ for ($i=1 ; $i <= $back_days; $i++){
 		$sessiontime = rand(0,500);
 		
 		$c_qry_value = " ( 'IAX2/areskiax-3', '$uniqueid', '$startdate_toinsert', '$enddate_toinsert', $sessiontime, " .
-				"'$calledstation', 2, NULL, 'ANSWER',   1.2000, '$destination', 1,  '1856254697', 0.40000, 0) \n";
+				"'$calledstation', 2, NULL, 1,   1.2000, '$destination', 1,  '1856254697', 0.40000, 0) \n";
 		
 		if (strlen($qry)==0) {
-			$qry = $c_qry_header.$c_qry_value;		
+			$qry = $c_qry_header.$c_qry_value;
 		} else {
 			$qry .= ' , '.$c_qry_value;
 		}
@@ -109,7 +109,12 @@ for ($i=1 ; $i <= $back_days; $i++){
 	}
 }
 
-
+if (strlen($qry)>0) {
+	echo "CDR No=$nb_cdr --> $qry\n";
+	$A2B -> DBHandle -> Execute('BEGIN;');
+	$instance_table -> SQLExec ($A2B -> DBHandle, $qry);
+	$A2B -> DBHandle -> Execute('COMMIT;');
+}
 
 if ($verbose)
 	echo "End of the process \n\n";
