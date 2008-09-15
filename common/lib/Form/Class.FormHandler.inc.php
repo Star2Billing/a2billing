@@ -1442,7 +1442,10 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$this -> FG_INTRO_TEXT_ASK_DELETION = gettext ("This did is in use by customer id:".$row[0][0].", If you really want remove this ". $this -> FG_INSTANCE_NAME .", click on the delete button.");
 	}
 	
-	
+	/**
+     * Function did_use_delete
+     * @public
+     */
 	function did_use_delete()
 	{
 		$processed = $this->getProcessed();
@@ -1458,7 +1461,10 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$result_query= $instance_did_use_table -> Delete_table ($this->DBHandle, $FG_TABLE_DID_USE_CLAUSE, null);
 	}
 	
-	
+	/**
+     * Function add_did_use
+     * @public
+     */
 	function add_did_use()
 	{
 		$processed = $this->getProcessed();
@@ -1466,7 +1472,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$FG_TABLE_DID_USE_NAME = "cc_did_use";
 		$FG_QUERY_ADITION_DID_USE_FIELDS = 'id_did';
 		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME, $FG_QUERY_ADITION_DID_USE_FIELDS);
-		$id=$this -> RESULT_QUERY;
+		$id = $this -> RESULT_QUERY;
 		$result_query= $instance_did_use_table -> Add_table ($this->DBHandle, $id, null, null, null);
 	}
 	
@@ -1479,7 +1485,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	{
 		$processed = $this->getProcessed();
 		$status = $processed['status'];
-		if($this -> RESULT_QUERY != '')
+		if ($this -> RESULT_QUERY && !(is_object($this -> RESULT_QUERY)) )
 			$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
 		else
 			$id = $processed['id']; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
@@ -1514,12 +1520,16 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 	}
 	
-	
-function add_card_refill(){
+	/**
+     * Function add_card_refill
+     * @public
+     */
+	function add_card_refill()
+	{
 		global $A2B;
 		$processed = $this->getProcessed();
 		$id_payment = $this -> RESULT_QUERY;
-		echo "ID : ".$id;
+		// echo "ID : ".$id;
 		//CREATE REFILL
 		$field_insert = "date, credit, card_id , description";
 		$credit = $processed['credit'];
@@ -1529,41 +1539,40 @@ function add_card_refill(){
 		$param_update_card = "credit = credit + '".$credit."'";
 		$clause_update_card = " id='$card_id'";
 		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
-		
 	}
 	
-	
-	function create_refill(){
+	/**
+     * Function create_refill
+     * @public
+     */
+	function create_refill()
+	{
 		global $A2B;
 		$processed = $this->getProcessed();
 		if($processed['added_refill']==1){
-		$id_payment = $this -> RESULT_QUERY;
-		//CREATE REFILL
-		$field_insert = "date, credit, card_id , description";
-		$date = $processed['date'];
-		$credit = $processed['payment'];
-		$card_id = $processed['card_id'];
-		$description = $processed['description'];
-		$value_insert = " '$date' , '$credit', '$card_id', '$description' ";
-		$instance_sub_table = new Table("cc_logrefill", $field_insert);
-		$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
-		//REFILL CARD .. UPADTE CARD
-		$instance_table_card = new Table("cc_card");
-		$param_update_card = "credit = credit + '".$credit."'";
-		$clause_update_card = " id='$card_id'";
-		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
-		//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
-		$instance_table_pay = new Table("cc_logpayment");
-		$param_update_pay = "id_logrefill = '".$id_refill."'";
-		$clause_update_pay = " id ='$id_payment'";
-		$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
-		
-		
-	
+			$id_payment = $this -> RESULT_QUERY;
+			//CREATE REFILL
+			$field_insert = "date, credit, card_id , description";
+			$date = $processed['date'];
+			$credit = $processed['payment'];
+			$card_id = $processed['card_id'];
+			$description = $processed['description'];
+			$value_insert = " '$date' , '$credit', '$card_id', '$description' ";
+			$instance_sub_table = new Table("cc_logrefill", $field_insert);
+			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
+			//REFILL CARD .. UPADTE CARD
+			$instance_table_card = new Table("cc_card");
+			$param_update_card = "credit = credit + '".$credit."'";
+			$clause_update_card = " id='$card_id'";
+			$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+			//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
+			$instance_table_pay = new Table("cc_logpayment");
+			$param_update_pay = "id_logrefill = '".$id_refill."'";
+			$clause_update_pay = " id ='$id_payment'";
+			$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
 		}
-		
-		
 	}
+	
 	/**
      * Function to edit the fields
      * @public
@@ -1802,23 +1811,24 @@ function add_card_refill(){
 			}				
 		}
 		
-		if ($this->FG_DEBUG == 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE;
+		if ($this->FG_DEBUG == 1)
+			echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE;
 		
-		if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
+		if ($this->VALID_SQL_REG_EXP)
+			$this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
+		
 		if($this -> FG_ENABLE_LOG == 1)
-		{
 			$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
-		}	
+		
 		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
-		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
+			// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
 			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)>0)
 				$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)); 
 		
-		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))){				
+		if (($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))) {				
 			if ($this->FG_DEBUG == 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id']);
-		}			
-		
+		}
 	}
 	
 	
