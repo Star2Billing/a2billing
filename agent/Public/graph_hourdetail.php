@@ -6,7 +6,7 @@ include_once(dirname(__FILE__) . "/jpgraph_lib/jpgraph_bar.php");
 include_once(dirname(__FILE__) . "/../lib/agent.module.access.php");
 
 
-if (! has_rights (ACX_CALL_REPORT)){ 
+if (! has_rights (ACX_CALL_REPORT)) { 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
@@ -81,12 +81,12 @@ if ( is_null ($order) || is_null($sens) ){
 if (isset($customer)  &&  ($customer>0)){
 	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 	else $SQLcmd.=" WHERE ";
-	$SQLcmd.=" username='$customer' ";
+	$SQLcmd.=" card_id='$customer' ";
 }else{
 	if (isset($entercustomer)  &&  ($entercustomer>0)){
 		if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 		else $SQLcmd.=" WHERE ";
-		$SQLcmd.=" username='$entercustomer' ";
+		$SQLcmd.=" card_id='$entercustomer' ";
 	}
 }
 if ($_SESSION["is_admin"] == 1)
@@ -472,5 +472,3 @@ if ($typegraph == 'fluctuation'){
 		
 }//END IF (typegraph)
 
-
-?>

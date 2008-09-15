@@ -3,117 +3,64 @@ include_once(dirname(__FILE__) . "/../lib/agent.defines.php");
 include_once(dirname(__FILE__) . "/../lib/agent.module.access.php");
 include ("../lib/agent.smarty.php");
 
-if (! has_rights (ACX_CALL_REPORT)){ 
+if (! has_rights (ACX_CALL_REPORT)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
 }
 
 
-
 getpost_ifset(array('current_page', 'fromstatsday_sday', 'fromstatsmonth_sday', 'days_compare', 'min_call', 'posted',  'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer','entertariffgroup' ,'enterprovider', 'entertrunk', 'enterratecard'));
 
 
-if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
-	}
+if (!isset ($current_page) || ($current_page == "")) {	
+	$current_page=0; 
+}
 
-// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
+
 $FG_DEBUG = 0;
 
-// The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
-if ($_SESSION["is_admin"]==0){
- 	//$FG_TABLE_NAME.=", cc_card t2";
-}
+$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_HEAD_COLOR = "#D1D9E7";
-
-
 $FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
 $FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
-
-
-
-
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 
-
-//$link = DbConnect();
 $DBHandle  = DbConnect();
-
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
 
 
 
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-//$FG_TABLE_COL[]=array ("Callend", "stoptime", "15%", "center", "SORT", "19");
-
-
-//$FG_TABLE_COL[]=array ("Source", "source", "20%", "center", "SORT", "30");
-
 $FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-//$FG_TABLE_COL[]=array ("Country",  "calledcountry", "10%", "center", "SORT", "30", "lie", "country", "countryname", "countrycode='%id'", "%1");
-//$FG_TABLE_COL[]=array ("Site", "site_id", "7%", "center", "sort", "15", "lie", "site", "name", "id='%id'", "%1");
-
+$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-
-$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
+$FG_TABLE_COL[]=array (gettext("CardUsed"), "card_id", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
-//$FG_TABLE_COL[]=array ("DestID", "destID", "12%", "center", "SORT", "30");
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 
-
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
-	
-// This Variable store the argument for the SQL query
 
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
-// t1.stoptime,
-
+$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.id_cc_prefix, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 $FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime';
 
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=25;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
-
-// The variable $FG_EDITION define if you want process to the edition of the database record
 $FG_EDITION=true;
-
-//This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
-
-//This variable define the Title of the HTML table
 $FG_HTML_TABLE_TITLE= gettext(" - Call Logs - ");
-
-//This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="90%";
 
 
@@ -124,109 +71,105 @@ $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 $instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
-if ( is_null ($order) || is_null($sens) ){
+if (is_null ($order) || is_null($sens)) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
 
-if ($posted==1){
-  $SQLcmd = '';
-  
-  //$SQLcmd = do_field($SQLcmd, 'src', 'source');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-  if ($_POST['before']) {
-    if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
-    }else{     								$SQLcmd = "$SQLcmd WHERE "; }
-    $SQLcmd = "$SQLcmd t1.starttime <'".$_POST['before']."'";
-  }
-  if ($_POST['after']) {    if (strpos($SQLcmd, 'WHERE') > 0) {      $SQLcmd = "$SQLcmd AND ";
-  } else {      $SQLcmd = "$SQLcmd WHERE ";    }
-    $SQLcmd = "$SQLcmd t1.starttime >'".$_POST['after']."'";
-  }
-  
-}
-
-
-if (isset($customer)  &&  ($customer>0)){
-	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
-	else $SQLcmd.=" WHERE ";
-	$SQLcmd.=" username='$customer' ";
-}else{
-	if (isset($entercustomer)  &&  ($entercustomer>0)){
-		if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
-		else $SQLcmd.=" WHERE ";
-		$SQLcmd.=" username='$entercustomer' ";
+if ($posted==1) {
+	$SQLcmd = '';
+	 
+	//$SQLcmd = do_field($SQLcmd, 'src', 'source');
+	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
+	if ($_POST['before']) {
+		if (strpos($SQLcmd, 'WHERE') > 0) {
+			$SQLcmd = "$SQLcmd AND ";
+		}else{
+			$SQLcmd = "$SQLcmd WHERE ";
+		}
+		$SQLcmd = "$SQLcmd t1.starttime <'".$_POST['before']."'";
+	}
+	if ($_POST['after']) {
+		if (strpos($SQLcmd, 'WHERE') > 0) {
+			$SQLcmd = "$SQLcmd AND ";
+		} else {
+			$SQLcmd = "$SQLcmd WHERE ";
+		}
+		$SQLcmd = "$SQLcmd t1.starttime >'".$_POST['after']."'";
 	}
 }
-if ($_SESSION["is_admin"] == 1)
-{
-        if (isset($enterprovider) && $enterprovider > 0) {
-                if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-                $SQLcmd .= " t3.id_provider = '$enterprovider' ";
-        }
-        if (isset($entertrunk) && $entertrunk > 0) {
-                if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-                $SQLcmd .= " t3.id_trunk = '$entertrunk' ";
-        }
-		if (isset($entertariffgroup) && $entertariffgroup > 0) {
-			if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-			$SQLcmd .= "t1.id_tariffgroup = '$entertariffgroup'";
-		}
-		if (isset($enterratecard) && $enterratecard > 0) {
-			if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-			$SQLcmd .= "t1.id_ratecard = '$enterratecard'";
-		}
-        
+
+
+if (isset($customer)  &&  ($customer>0)) {
+	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
+	else $SQLcmd.=" WHERE ";
+	$SQLcmd.=" card_id='$customer' ";
+} else {
+	if (isset($entercustomer)  &&  ($entercustomer>0)) {
+		if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
+		else $SQLcmd.=" WHERE ";
+		$SQLcmd.=" card_id='$entercustomer' ";
+	}
+}
+if ($_SESSION["is_admin"] == 1) {
+    if (isset($enterprovider) && $enterprovider > 0) {
+        if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
+        $SQLcmd .= " t3.id_provider = '$enterprovider' ";
+    }
+    if (isset($entertrunk) && $entertrunk > 0) {
+        if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
+        $SQLcmd .= " t3.id_trunk = '$entertrunk' ";
+    }
+	if (isset($entertariffgroup) && $entertariffgroup > 0) {
+		if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
+		$SQLcmd .= "t1.id_tariffgroup = '$entertariffgroup'";
+	}
+	if (isset($enterratecard) && $enterratecard > 0) {
+		if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
+		$SQLcmd .= "t1.id_ratecard = '$enterratecard'";
+	}
 }
 
 
 $date_clause='';
-// Period (Month-Day)
-
-
 if (!isset($fromstatsday_sday)){	
-	$fromstatsday_sday = date("d");
-	$fromstatsmonth_sday = date("Y-m");	
+	$fromstatsday_sday 		= date("d");
+	$fromstatsmonth_sday 	= date("Y-m");	
 }
 
-
-
-//if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND calldate <= '$fromstatsmonth_sday-$fromstatsday_sday+23' AND calldate >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $days_compare DAY)";
-
-if (DB_TYPE == "postgres"){	
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND t1.starttime >= date'$fromstatsmonth_sday-$fromstatsday_sday'";
-}else{
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND t1.starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";  
+if (DB_TYPE == "postgres") {	
+	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
+		$date_clause.=" AND t1.starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND t1.starttime >= date'$fromstatsmonth_sday-$fromstatsday_sday'";
+} else {
+	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
+		$date_clause.=" AND t1.starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND t1.starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";  
 }
 
 if ($FG_DEBUG == 3) echo "<br>$date_clause<br>";
 
-
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
-}elseif (strpos($date_clause, 'AND') > 0){
+} elseif (strpos($date_clause, 'AND') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
 
-if ($_POST['posted']==1){
+if ($_POST['posted']==1) {
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
-	
 	$list_total = $instance_table_graph -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
 }
 
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-//$nb_record = $instance_table -> Table_count ($FG_TABLE_CLAUSE);
 $nb_record = count($list_total);
 if ($FG_DEBUG >= 1) var_dump ($list);
 
 
 
-if ($nb_record<=$FG_LIMITE_DISPLAY){ 
+if ($nb_record<=$FG_LIMITE_DISPLAY) {
 	$nb_record_max=1;
-}else{ 
+} else { 
 	$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 }
 
@@ -236,22 +179,8 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 /*************************************************************/
 
+$smarty->display('main.tpl');
 
-$instance_table_customer = new Table("cc_card", "id,  username, lastname");
-
-$FG_TABLE_CLAUSE = "";
-/*if ($_SESSION["is_admin"]==0){ 	
-	$FG_TABLE_CLAUSE =" IDmanager='".$_SESSION["pr_reseller_ID"]."'";	
-}*/
-
-$list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
-
-$nb_customer = count($list_customer);
-
-?>
-
-<?php
-	$smarty->display('main.tpl');
 ?>
 
 <script language="JavaScript" type="text/JavaScript">
@@ -266,7 +195,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<center>
+<center>
 	<FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=<?php echo $s?>&t=<?php echo $t?>&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 		<table class="bar-status" width="80%" border="0" cellspacing="1" cellpadding="2" align="center">
@@ -279,8 +208,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 				<td class="fontstyle_searchoptions" width="50%" valign="top">
-					<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
-					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+					<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 				</td>
 				<td width="50%">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -423,7 +352,7 @@ foreach ($table_graph as $tkey => $data){
 		</td></tr></tbody></table>
  </td></tr></tbody></table>
 		  
-<!-- FIN TITLE GLOBAL MINUTES //-->
+<!-- END TITLE GLOBAL MINUTES //-->
 				
 <table border="0" cellspacing="0" cellpadding="0" width="80%">
 <tbody><tr><td bgcolor="#000000">			
@@ -466,9 +395,9 @@ foreach ($table_graph as $tkey => $data){
 	 
 	 ?>                   	
 	</tr>
-	<!-- FIN DETAIL -->		
+	<!-- END DETAIL -->		
 	
-	<!-- FIN BOUCLE -->
+	<!-- END LOOP -->
 
 	<!-- TOTAL -->
 	<tr class="bgcolor_019">
@@ -477,7 +406,7 @@ foreach ($table_graph as $tkey => $data){
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalcall?></font></td>
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_tmc_60?></font></td>                        
 	</tr>
-	<!-- FIN TOTAL -->
+	<!-- END TOTAL -->
 
 	</tbody></table>
 	<!-- Fin Tableau Global //-->
@@ -546,11 +475,12 @@ foreach ($table_graph as $tkey => $data){
 
 </center>
 
-<?php  }else{ ?>
+<?php  } else { ?>
 	<center><h3><?php echo gettext("No calls in your selection");?>.</h3></center>
 <?php  } ?>
 
 <br><br>
+
 <?php
-        $smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
