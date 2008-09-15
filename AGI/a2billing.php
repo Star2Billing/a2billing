@@ -802,8 +802,7 @@ if ($mode == 'standard'){
 					$callback_been_connected = 1;
 				}
 
-				/*$arr_save_a2billing['countrycode']	= $A2B-> countrycode;
-				$arr_save_a2billing['subcode']		= $A2B-> subcode;
+				/*
 				$arr_save_a2billing['myprefix']		= $A2B-> myprefix;
 				$arr_save_a2billing['ipaddress']	= $A2B-> ipaddress;
 				$arr_save_a2billing['rate']			= $A2B-> rate;
@@ -944,8 +943,7 @@ if ($charge_callback){
 	// IF THE CALL HAS NOT BEEN CONNECTED CHECK IF WE CHARGE OR NOT
 	if ( ($callback_been_connected==1) || ($callback_been_connected != 1) && ($A2B->agiconfig['callback_bill_1stleg_ifcall_notconnected']==1) ){
 
-		/*$A2B-> countrycode = $arr_save_a2billing['countrycode'];
-		$A2B-> subcode = $arr_save_a2billing['subcode'];
+		/*
 		$A2B-> myprefix = $arr_save_a2billing['myprefix'];
 		$A2B-> ipaddress = $arr_save_a2billing['ipaddress'];
 		$A2B-> rate = $arr_save_a2billing['rate'];
