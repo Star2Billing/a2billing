@@ -38,6 +38,7 @@ if (($_GET[download]=="file") && $_GET[file] ) {
 	exit();
 }
 
+$dialstatus_list = Constants::getDialStatusList();
 
 if (!isset ($current_page) || ($current_page == "")) {
 	$current_page=0; 
@@ -77,7 +78,7 @@ $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "10%", "center", "
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "6%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "6%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("Trunk"), "trunkcode", "6%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "7%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "7%", "center", "SORT", "", "list", $dialstatus_list);
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
 $FG_TABLE_COL[]=array (gettext("Buy"), "buycost", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 $FG_TABLE_COL[]=array (gettext("Sell"), "sessionbill", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
