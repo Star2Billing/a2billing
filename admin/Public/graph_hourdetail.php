@@ -81,12 +81,12 @@ if ( is_null ($order) || is_null($sens) ){
 if (isset($customer)  &&  ($customer>0)){
 	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 	else $SQLcmd.=" WHERE ";
-	$SQLcmd.=" username='$customer' ";
+	$SQLcmd.=" card_id='$customer' ";
 }else{
 	if (isset($entercustomer)  &&  ($entercustomer>0)){
 		if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 		else $SQLcmd.=" WHERE ";
-		$SQLcmd.=" username='$entercustomer' ";
+		$SQLcmd.=" card_id='$entercustomer' ";
 	}
 }
 if ($_SESSION["is_admin"] == 1)
@@ -472,5 +472,3 @@ if ($typegraph == 'fluctuation'){
 		
 }//END IF (typegraph)
 
-
-?>

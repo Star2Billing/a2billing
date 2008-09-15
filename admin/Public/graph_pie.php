@@ -15,15 +15,16 @@ if (! has_rights (ACX_CALL_REPORT)){
 
 
 /*
-NOTE GENERER LES SOUSTRACTIONS SUR LES DATES NOUS-MEME
-RAPIDE
+HANDLE THE SUBSTRACT ON DATE FIELD ON OUR SIDE
+
+* FAST
 cdrasterisk=> SELECT sum(duration) FROM cdr WHERE calldate < '2005-02-01' AND calldate >= '2005-01-01';
    sum
 ----------
  69076793
 (1 row)
  
- TRES LENT
+* VERY SLOW
 cdrasterisk=> SELECT sum(duration) FROM cdr WHERE calldate < date '2005-02-01'  - interval '0 months' AND calldate >=  date '2005-02-01'  - interval '1 months' ;
    sum
 ----------
@@ -47,32 +48,13 @@ if (!isset($months_compare)) $months_compare = 3;
 if (!isset($fromstatsmonth_sday)) $fromstatsmonth_sday = date("Y-m");	
 
 
-
-//print_r (array_reverse ($mylegend));
-
-// http://localhost/Asterisk/asterisk-stat-v1_4/graph_stat.php?min_call=0&fromstatsday_sday=11&days_compare=2&fromstatsmonth_sday=2005-02&dsttype=1&srctype=1&clidtype=1&channel=&resulttype=&dst=1649&src=&clid=&userfieldtype=1&userfield=&accountcodetype=1&accountcode=
-
-// The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
 
 
-//$link = DbConnect();
 $DBHandle  = DbConnect();
-
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
-
-
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=100;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 
 
@@ -111,12 +93,12 @@ if ( is_null ($order) || is_null($sens) ){
 if (isset($customer)  &&  ($customer>0)){
 	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 	else $SQLcmd.=" WHERE ";
-	$SQLcmd.=" username='$customer' ";
+	$SQLcmd.=" card_id='$customer' ";
 }else{
 	if (isset($entercustomer)  &&  ($entercustomer>0)){
 		if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 		else $SQLcmd.=" WHERE ";
-		$SQLcmd.=" username='$entercustomer' ";
+		$SQLcmd.=" card_id='$entercustomer' ";
 	}
 }
 if ($_SESSION["is_admin"] == 1)
@@ -266,6 +248,3 @@ $graph->Add($p1);
 $graph->Stroke();
 
 
-
-
-?>

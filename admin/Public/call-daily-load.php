@@ -17,12 +17,11 @@ if (!isset ($current_page) || ($current_page == "")) {
 	$current_page=0; 
 }
 
-// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
+
 $FG_DEBUG = 0;
 
-// The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
+$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_HEAD_COLOR = "#D1D9E7";
@@ -38,46 +37,30 @@ $FG_TABLE_COL = array();
 
 
 
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
+$FG_TABLE_COL[]=array (gettext("CardUsed"), "card_id", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
 $FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 
-
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
-	
-// This Variable store the argument for the SQL query
 
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
+$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.id_cc_prefix, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 $FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime';
 
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=25;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
-
-// The variable $FG_EDITION define if you want process to the edition of the database record
 $FG_EDITION=true;
-
-//This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
-//This variable define the Title of the HTML table
 $FG_HTML_TABLE_TITLE= gettext(" - Call Logs - ");
-//This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="90%";
 
 
@@ -121,12 +104,12 @@ if ($posted==1) {
 if (isset($customer)  &&  ($customer>0)) {
 	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 	else $SQLcmd.=" WHERE ";
-	$SQLcmd.=" username='$customer' ";
+	$SQLcmd.=" card_id='$customer' ";
 } else {
 	if (isset($entercustomer)  &&  ($entercustomer>0)) {
 		if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 		else $SQLcmd.=" WHERE ";
-		$SQLcmd.=" username='$entercustomer' ";
+		$SQLcmd.=" card_id='$entercustomer' ";
 	}
 }
 if ($_SESSION["is_admin"] == 1) {
@@ -212,7 +195,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<center>
+<center>
 	<FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=<?php echo $s?>&t=<?php echo $t?>&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 		<table class="bar-status" width="80%" border="0" cellspacing="1" cellpadding="2" align="center">
@@ -225,8 +208,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 				<td class="fontstyle_searchoptions" width="50%" valign="top">
-					<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
-					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+					<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 				</td>
 				<td width="50%">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -369,7 +352,7 @@ foreach ($table_graph as $tkey => $data){
 		</td></tr></tbody></table>
  </td></tr></tbody></table>
 		  
-<!-- FIN TITLE GLOBAL MINUTES //-->
+<!-- END TITLE GLOBAL MINUTES //-->
 				
 <table border="0" cellspacing="0" cellpadding="0" width="80%">
 <tbody><tr><td bgcolor="#000000">			
@@ -412,9 +395,9 @@ foreach ($table_graph as $tkey => $data){
 	 
 	 ?>                   	
 	</tr>
-	<!-- FIN DETAIL -->		
+	<!-- END DETAIL -->		
 	
-	<!-- FIN BOUCLE -->
+	<!-- END LOOP -->
 
 	<!-- TOTAL -->
 	<tr class="bgcolor_019">
@@ -423,7 +406,7 @@ foreach ($table_graph as $tkey => $data){
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalcall?></font></td>
 		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_tmc_60?></font></td>                        
 	</tr>
-	<!-- FIN TOTAL -->
+	<!-- END TOTAL -->
 
 	</tbody></table>
 	<!-- Fin Tableau Global //-->
@@ -501,5 +484,3 @@ foreach ($table_graph as $tkey => $data){
 <?php
 
 $smarty->display('footer.tpl');
-
-?>

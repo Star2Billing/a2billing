@@ -12,25 +12,16 @@ if (! has_rights (ACX_CALL_REPORT)){
 }
 
 
-// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
-
 
 getpost_ifset(array('min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard'));
 
 
-// http://localhost/Asterisk/asterisk-stat-v1_4/graph_stat.php?min_call=0&fromstatsday_sday=11&days_compare=2&fromstatsmonth_sday=2005-02&dsttype=1&srctype=1&clidtype=1&channel=&resulttype=&dst=1649&src=&clid=&userfieldtype=1&userfield=&accountcodetype=1&accountcode=
-
-// The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
 
 
-//$link = DbConnect();
 $DBHandle  = DbConnect();
-
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
 
 
@@ -39,50 +30,24 @@ Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Bill
 *******/
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-//$FG_TABLE_COL[]=array ("Callend", "stoptime", "15%", "center", "SORT", "19");
-
-
-//$FG_TABLE_COL[]=array ("Source", "source", "20%", "center", "SORT", "30");
-
 $FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-//$FG_TABLE_COL[]=array ("Country",  "calledcountry", "10%", "center", "SORT", "30", "lie", "country", "countryname", "countrycode='%id'", "%1");
-//$FG_TABLE_COL[]=array ("Site", "site_id", "7%", "center", "sort", "15", "lie", "site", "name", "id='%id'", "%1");
-
+$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-
-$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("CardUsed"), "card_id", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
-//$FG_TABLE_COL[]=array ("DestID", "destID", "12%", "center", "SORT", "30");
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 
-
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
-	
-// This Variable store the argument for the SQL query
 
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
-// t1.stoptime,
+$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.id_cc_prefix, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 $FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime, t1.sessionbill-t1.buycost as profit, t1.sessionbill, t1.buycost';
 
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=100;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
-
 
 
 
@@ -116,12 +81,12 @@ if ( is_null ($order) || is_null($sens) ){
 if (isset($customer)  &&  ($customer>0)){
 	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 	else $SQLcmd.=" WHERE ";
-	$SQLcmd.=" username='$customer' ";
+	$SQLcmd.=" card_id='$customer' ";
 }else{
 	if (isset($entercustomer)  &&  ($entercustomer>0)){
 		if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 		else $SQLcmd.=" WHERE ";
-		$SQLcmd.=" username='$entercustomer' ";
+		$SQLcmd.=" card_id='$entercustomer' ";
 	}
 }
 if ($_SESSION["is_admin"] == 1)
@@ -270,23 +235,10 @@ $table_colors[]="yellow@0.3";
 $table_colors[]="purple@0.3";
 
 
-
-
-
-
-/*$table_graph_hours = array();
-$table_graph_hours["2004-01-08 15"] = array (100, 15);
-$table_graph_hours["2004-01-08 16"] = array (100, 15);
-$table_graph_hours["2004-01-08 17"] = array (100, 15);
-*/
 $jour = substr($datax1[0],8,2); //le jour courant 
 $legend[0] = substr($datax1[0],0,10); //l
 
-//print_r ($table_graph_hours);
-// Create the graph to compare the day
-// extract all minutes/nb call for each hours 
-//print_r($table_graph_hours);
-//exit;
+
 foreach ($table_graph_hours as $key => $value) {
 	
 	$jour_suivant = substr($key,8,2);
@@ -319,41 +271,13 @@ while ($tableau_value[$nbday][$i] == 0) {
 }
 
 
-  
-
-
-// print_r($tableau_value);
-
-//print_r($tableau_hours);
-
-/*echo "<br>nb tableau_value:".count($tableau_value);
-echo "<br>nb tableau_hours:".count($tableau_hours);
-print_r($tableau_value[0]);
-echo "<br><br>";
-print_r($tableau_hours[0]);
-echo "<br><br>";
-*/
-
-
 foreach ($datay1 as $tkey => $data){
 	$dataz1[]=$data[1];
 	$dataz2[]=$data[0];
 	
 	
 }
-/*$datay1 = array(2,6,7,12,13,18);
-echo "<br>nb x1:".count($datax1);
-echo "<br>nb z1:".count($dataz1);
-print_r($datax1);
-echo "<br><br>";
-print_r($dataz1);
-echo "<br><br>";
-print_r($datay1);*/
 
-//print_r($dataz1);
-//$dataz1 = array(2,6,7,12,13,2,6,7,12,13,2,6,7,12,13,2,6,7,12,13,2,6,7,12,13);
-//print_r($dataz1);
-//$datax1 = array(5,12,12,19,25,20);
 
 // Setup the graph
 $graph = new Graph(750,450);
@@ -402,15 +326,6 @@ $graph->legend->SetShadow('gray@0.4',3);
 $graph->legend->SetAbsPos(15,130,'right','bottom');
 
 // Create the line plots
-
-/*$p1 = new LinePlot($datax1);
-$p1->SetColor("red");
-$p1->SetFillColor("yellow@0.5");
-$p1->SetWeight(2);
-$p1->mark->SetType(MARK_IMG_DIAMOND,5,0.6);
-$p1->SetLegend('2006');
-$graph->Add($p1);
-*/
 for ($indgraph=0;$indgraph<=$nbday;$indgraph++){
 	
 	$p2[$indgraph] = new LinePlot($tableau_value[$indgraph]);
@@ -422,13 +337,7 @@ for ($indgraph=0;$indgraph<=$nbday;$indgraph++){
 	
 }
 
-// Add a vertical line at the end scale position '7'
-//$l1 = new PlotLine(VERTICAL,7);
-//$graph->Add($l1);
-
 // Output the graph
 $graph->Stroke();
 
 
-
-?>

@@ -36,14 +36,11 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 $DBHandle  = DbConnect();
 
 $FG_TABLE_COL = array();
-
-
-
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
+$FG_TABLE_COL[]=array (gettext("CardUsed"), "card_id", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
 $FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
@@ -52,15 +49,10 @@ $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", 
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
-
+$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.id_cc_prefix, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 $FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime';
 
-
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=25;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 
 // The variable $FG_EDITION define if you want process to the edition of the database record
@@ -124,11 +116,11 @@ if (DB_TYPE == "postgres") {
 
 if (isset($customer)  &&  ($customer>0)) {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="t1.username='$customer'";
+	$FG_TABLE_CLAUSE.="t1.card_id='$customer'";
 }else{
 	if (isset($entercustomer)  &&  ($entercustomer>0)) {
 		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
+		$FG_TABLE_CLAUSE.="t1.card_id='$entercustomer'";
 	}
 }
 if ($_SESSION["is_admin"] == 1)
@@ -188,8 +180,8 @@ $smarty->display('main.tpl');
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 				<td class="fontstyle_searchoptions" width="50%" valign="top">
-					<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
-					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+					<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 				</td>
 				<td width="50%">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -306,8 +298,6 @@ $smarty->display('main.tpl');
 </center>
 
 <br><br>
-<?php
 
+<?php
 $smarty->display('footer.tpl');
-	
-?>

@@ -4,7 +4,7 @@ include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_MISC)){
+if (! has_rights (ACX_CALL_REPORT)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -15,9 +15,7 @@ getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth'
 $DBHandle  = DbConnect();
 $instance_table = new Table();
 
-///////////////////////////////////////////////////////////////////
 //     Initialization of variables	///////////////////////////////
-///////////////////////////////////////////////////////////////////
 
 $condition = "";
 $QUERY = '';
@@ -29,12 +27,8 @@ $CIC_TIME_DIFF = 10;
 $from_to = '';
 $bool = false;
 
-///////////////////////////////////////////////////////////////////
 
-
-///////////////////////////////////////////////////////////////////
 //     Generating WHERE CLAUSE		///////////////////////////////
-///////////////////////////////////////////////////////////////////
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if ($Period=="Month" && $frommonth && $tomonth)
@@ -49,37 +43,37 @@ if ($Period=="Month" && $frommonth && $tomonth)
 	}
 
 } else if($Period=="Time" && $lst_time != "") {
-		if (strlen($condition)>0) $condition.=" AND ";
-			if(DB_TYPE == "postgres"){
-				switch($lst_time){
-					case 1:
-						$condition .= "CURRENT_TIMESTAMP - interval '1 hour' <= c.starttime";
-					break;
-					case 2:
-						$condition .= "CURRENT_TIMESTAMP - interval '6 hours' <= c.starttime";
-					break;
-					case 3:
-						$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= c.starttime";
-					break;
-					case 4:
-						$condition .= "CURRENT_TIMESTAMP - interval '7 days' <= c.starttime";
-					break;
-				}
-			}else{
-				switch($lst_time){
-					case 1:
-						$condition .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (c.starttime)";
-					break;
-					case 2:
-						$condition .= "DATE_SUB(NOW(),INTERVAL 6 HOUR) <= (c.starttime)";
-					break;
-					case 3:
-						$condition .= "DATE_SUB(NOW(),INTERVAL 1 DAY) <= (c.starttime)";
-					break;
-					case 4:
-						$condition .= "DATE_SUB(NOW(),INTERVAL 7 DAY) <= (c.starttime)";
-					break;
-				}
+	if (strlen($condition)>0) $condition.=" AND ";
+	if(DB_TYPE == "postgres"){
+		switch($lst_time){
+			case 1:
+				$condition .= "CURRENT_TIMESTAMP - interval '1 hour' <= c.starttime";
+			break;
+			case 2:
+				$condition .= "CURRENT_TIMESTAMP - interval '6 hours' <= c.starttime";
+			break;
+			case 3:
+				$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= c.starttime";
+			break;
+			case 4:
+				$condition .= "CURRENT_TIMESTAMP - interval '7 days' <= c.starttime";
+			break;
+		}
+	}else{
+		switch($lst_time){
+			case 1:
+				$condition .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (c.starttime)";
+			break;
+			case 2:
+				$condition .= "DATE_SUB(NOW(),INTERVAL 6 HOUR) <= (c.starttime)";
+			break;
+			case 3:
+				$condition .= "DATE_SUB(NOW(),INTERVAL 1 DAY) <= (c.starttime)";
+			break;
+			case 4:
+				$condition .= "DATE_SUB(NOW(),INTERVAL 7 DAY) <= (c.starttime)";
+			break;
+		}
 	}	
 }else if($Period=="Day" && $fromday && $today){
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
@@ -411,8 +405,7 @@ if (strlen($_GET["menu"])>0)
 			<?php }?>
 			</tbody>
 </table>	
-	<?php
 
-// #### FOOTER SECTION
+<?php
+
 $smarty->display('footer.tpl');
-?>
