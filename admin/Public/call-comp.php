@@ -532,5 +532,5 @@ foreach ($table_graph as $tkey => $data){
 <br><br>
 
 <?php
-       $smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
