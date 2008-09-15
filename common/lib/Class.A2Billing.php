@@ -177,19 +177,22 @@ class A2Billing {
 	* @access public
 	*/
 	var $CC_TESTING;
-
+	
+	// List of dialstatus
+	var $dialstatus_rev_list;
+	
 
 	/* CONSTRUCTOR */
-
 	function A2Billing()
 	{
 		$this -> agiconfig['debug'] = true;
 		//$this -> DBHandle = $DBHandle;
+		
+		$this -> dialstatus_rev_list = Constants::getDialStatus_Revert_List();
 	}
 
 
 	/* Init */
-
 	function Reinit()
 	{
 		$this -> myprefix='';
@@ -1079,18 +1082,23 @@ class A2Billing {
 			}
 
 			if (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION"))	continue;
-
+			
+			if (strlen($this -> dialstatus_rev_list[$dialstatus])>0)
+				$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
+			else
+				$terminatecauseid = 0;
+			
 			if ($answeredtime > 0){
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
-				$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,card_id,nasipaddress,starttime,sessiontime, calledstation, ".
-					" terminatecause, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
+				$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
+					" terminatecauseid, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
 					"('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
 				if ($this->config['database']['dbtype'] == "postgres"){
 					$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 				}else{
 					$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 				}
-				$QUERY .= ", '$answeredtime', '".$card_alias."', '$dialstatus', now(), '0', '0', '0', '0', '$this->CallerID', '1' )";
+				$QUERY .= ", '$answeredtime', '".$card_alias."', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '1' )";
 				
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 				return 1;
@@ -1226,16 +1234,21 @@ class A2Billing {
 					if ($answeredtime >0) {
 
 						$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
-
-						$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,card_id,nasipaddress,starttime,sessiontime, calledstation, ".
-							" terminatecause, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
+						
+						if (strlen($this -> dialstatus_rev_list[$dialstatus])>0)
+							$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
+						else
+							$terminatecauseid = 0;
+						
+						$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
+							" terminatecauseid, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
 							"('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
 						if ($this->config['database']['dbtype'] == "postgres"){
 							$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 						}else{
 							$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 						}
-						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$dialstatus', now(), '0', '0', '0', '0', '$this->CallerID', '3' )";
+						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '3' )";
 						
 						$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");

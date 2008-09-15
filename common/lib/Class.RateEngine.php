@@ -37,11 +37,15 @@ class RateEngine
 	var $webui 				= 1;
 	var $usedtrunk			= 0;
 	var $freetimetocall_used= 0;
+	
+	// List of dialstatus
+	var $dialstatus_rev_list;
+	
 
 	/* CONSTRUCTOR */
 	function RateEngine ()
 	{
-
+		$this -> dialstatus_rev_list = Constants::getDialStatus_Revert_List();
 	}
 
 	/* Reinit */
@@ -54,6 +58,7 @@ class RateEngine
 		$this -> usedtrunk = '';
 		$this -> lastcost = '';
 		$this -> lastbuycost = '';
+		
 	}
 
 	/*
@@ -1032,8 +1037,13 @@ class RateEngine
 		elseif ($callback) $calltype = 4;
 		else $calltype = 0;
 		
+		if (strlen($this -> dialstatus_rev_list[$dialstatus])>0)
+			$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
+		else
+			$terminatecauseid = 0;
+		
 		$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
-			" terminatecause, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
+			" terminatecauseid, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
 			" id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer, dnid, id_cc_prefix) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', '".
 			$A2B->id_card."', '".$A2B->hostname."', ";
 
@@ -1043,7 +1053,7 @@ class RateEngine
 			$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
 		}
 
-		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$dialstatus', now(), '$rateapply', '$signe_cc_call".a2b_round(abs($cost))."', ".
+		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$terminatecauseid', now(), '$rateapply', '$signe_cc_call".a2b_round(abs($cost))."', ".
 					" '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
 					"'$buyrateapply', '$buycost', '$id_card_package_offer', '".$A2B->dnid."', '".$calldestination."')";
 		
@@ -1369,4 +1379,3 @@ class RateEngine
 
 };
 
-?>

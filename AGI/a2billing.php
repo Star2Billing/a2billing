@@ -30,6 +30,7 @@ include (dirname(__FILE__)."/lib/Class.RateEngine.php");
 include (dirname(__FILE__)."/lib/phpagi/phpagi.php");
 include (dirname(__FILE__)."/lib/phpagi/phpagi-asmanager.php");
 include (dirname(__FILE__)."/lib/Misc.php");
+include (dirname(__FILE__)."/lib/interface/constants.php");
 
 $charge_callback=0;
 $G_startime = time();
