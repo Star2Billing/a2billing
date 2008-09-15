@@ -177,6 +177,20 @@ class Constants
 		$used_list["1"] = array( gettext("USED"), "1");
 		return $used_list;
 	}
+	
+	public static function getDialStatusList(){
+		$dialstatus_list = array();
+		$dialstatus_list["1"] = array( gettext("ANSWERED")		, "1");
+		$dialstatus_list["2"] = array( gettext("BUSY")			, "2");
+		$dialstatus_list["3"] = array( gettext("NOANSWER")		, "3");
+		$dialstatus_list["4"] = array( gettext("CANCEL")		, "4");
+		$dialstatus_list["5"] = array( gettext("CONGESTION")	, "5");
+		$dialstatus_list["6"] = array( gettext("CHANUNAVAIL")	, "6");
+		$dialstatus_list["7"] = array( gettext("DONTCALL")		, "7");
+		$dialstatus_list["8"] = array( gettext("TORTURE")		, "8");
+		$dialstatus_list["9"] = array( gettext("INVALIDARGS")	, "9");
+		return $dialstatus_list;
+	}
 
 }
 

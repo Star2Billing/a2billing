@@ -1,9 +1,19 @@
 <?php
 /***************************************************************************
- *            Misc.php
  *
- *  GPL : Belaid Arezqui
- *  Email : areski _atl_ gmail
+ * Misc.php : PHP A2Billing Functions for A2Billing
+ * Written for PHP 4.x & PHP 5.X versions.
+ *
+ * A2Billing -- Asterisk billing solution.
+ * Copyright (C) 2004, 2008 Belaid Arezqui <areski _atl_ gmail com>
+ *
+ * See http://www.asterisk2billing.org for more information about
+ * the A2Billing project.
+ * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
+ *
+ * This software is released under the terms of the GNU Lesser General Public License v2.1
+ * A copy of which is available from http://www.gnu.org/copyleft/lesser.html
+ *
  ****************************************************************************/
 
 
@@ -844,8 +854,8 @@ function archive_data($condition, $entity = ""){
 
 			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		} else if($entity == "call") {
-			$value = "SELECT id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call $condition";
-			$func_fields = "id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime";
+			$value = "SELECT id, sessionid,uniqueid,card_id,nasipaddress,starttime,stoptime,sessiontime,calledstation,terminatecause,calledrate,sessionbill,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call $condition";
+			$func_fields = "id, sessionid,uniqueid,card_id,nasipaddress,starttime,stoptime,sessiontime,calledstation,terminatecause,calledrate,sessionbill,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime";
 			$func_table = 'cc_call_archive';
 			$id_name = "";
 			$subquery = true;

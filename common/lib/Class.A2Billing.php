@@ -111,9 +111,7 @@ class A2Billing {
 	var $dnid;
 
 	// from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
-
-	var $countrycode;
-	var $subcode;
+	
 	var $myprefix;
 	var $ipaddress;
 	var $rate;
@@ -194,8 +192,6 @@ class A2Billing {
 
 	function Reinit()
 	{
-		$this -> countrycode='';
-		$this -> subcode='';
 		$this -> myprefix='';
 		$this -> ipaddress='';
 		$this -> rate='';
@@ -1086,17 +1082,16 @@ class A2Billing {
 
 			if ($answeredtime > 0){
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
-				$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,username,nasipaddress,starttime,sessiontime, calledstation, ".
-					" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
-					"('".$this->uniqueid."', '".$this->channel."',  '".$this->username."', '".$this->hostname."',";
+				$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,card_id,nasipaddress,starttime,sessiontime, calledstation, ".
+					" terminatecause, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
+					"('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
 				if ($this->config['database']['dbtype'] == "postgres"){
 					$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 				}else{
 					$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 				}
-				$QUERY .= ", '$answeredtime', '".$card_alias."', '$dialstatus', now(), '0', '0', ".
-					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', '$this->CallerID', '1' )";
-
+				$QUERY .= ", '$answeredtime', '".$card_alias."', '$dialstatus', now(), '0', '0', '0', '0', '$this->CallerID', '1' )";
+				
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 				return 1;
 			}
@@ -1232,32 +1227,31 @@ class A2Billing {
 
 						$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
 
-						$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,username,nasipaddress,starttime,sessiontime, calledstation, ".
-							" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
-							"('".$this->uniqueid."', '".$this->channel."',  '".$this->username."', '".$this->hostname."',";
+						$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,card_id,nasipaddress,starttime,sessiontime, calledstation, ".
+							" terminatecause, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
+							"('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
 						if ($this->config['database']['dbtype'] == "postgres"){
 							$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 						}else{
 							$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 						}
-						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$dialstatus', now(), '0', '0', ".
-							" '".$this->countrycode."', '".$this->subcode."', 'DID CALL', '0', '0', '0', '0', '$this->CallerID', '3' )";
-
+						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$dialstatus', now(), '0', '0', '0', '0', '$this->CallerID', '3' )";
+						
 						$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
-
+						
 						// CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
 						$QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[0]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
 						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
-
+						
 						$QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[1]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
 						$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
-
+						
 						return 1;
 					}
-
+					
 				// ELSEIF NOT VOIP CALL
 				} else {
 

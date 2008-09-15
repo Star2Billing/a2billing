@@ -165,7 +165,7 @@ class RateEngine
         // select group by 5 ... more easy to count
 		$QUERY = "SELECT
 		tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, 
-        destination, cc_ratecard.id, dialprefix, destination, buyrate,
+        id_cc_prefix, cc_ratecard.id, dialprefix, id_cc_prefix, buyrate,
         buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock,
 		connectcharge, disconnectcharge, stepchargea, chargea, timechargea,
         billingblocka, stepchargeb, chargeb,timechargeb, billingblockb, 
@@ -1005,7 +1005,7 @@ class RateEngine
 		$id_tariffgroup = $this -> ratecard_obj[$K][2];
 		$id_tariffplan = $this -> ratecard_obj[$K][3];
 		$id_ratecard = $this -> ratecard_obj[$K][6];
-
+		
 		$buycost = 0;
 		if ($doibill==0 || $sessiontime < $A2B->agiconfig['min_duration_2bill']) {
 			$cost = 0;
@@ -1031,10 +1031,10 @@ class RateEngine
 		if ($didcall) $calltype = 2;
 		elseif ($callback) $calltype = 4;
 		else $calltype = 0;
-
-		$QUERY = "INSERT INTO cc_call (uniqueid, sessionid,  username, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
-			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, " .
-			" id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer, dnid) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."',  '".$A2B->username."','".
+		
+		$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
+			" terminatecause, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
+			" id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer, dnid, id_cc_prefix) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', '".
 			$A2B->id_card."', '".$A2B->hostname."', ";
 
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
@@ -1044,8 +1044,8 @@ class RateEngine
 		}
 
 		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$dialstatus', now(), '$rateapply', '$signe_cc_call".a2b_round(abs($cost))."', ".
-					" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
-					"'$buyrateapply', '$buycost', '$id_card_package_offer', '".$A2B->dnid."')";
+					" '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
+					"'$buyrateapply', '$buycost', '$id_card_package_offer', '".$A2B->dnid."', '".$calldestination."')";
 		
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_stop  QUERY = $QUERY]");
 
