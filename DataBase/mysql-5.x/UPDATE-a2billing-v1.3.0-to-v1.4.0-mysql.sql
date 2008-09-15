@@ -1094,6 +1094,22 @@ UPDATE cc_call SET terminatecauseid=6 WHERE terminatecause='CHANUNAVAIL';
 
 ALTER TABLE cc_call DROP terminatecause;
 ALTER TABLE cc_call ADD INDEX ( terminatecauseid );
- 
- 
- 
+
+-- Add index on prefix
+ALTER TABLE cc_prefix ADD INDEX ( prefixe );
+
+-- optimization on CDR
+ALTER TABLE cc_call ADD COLUMN id_cc_prefix INT (11) DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN id_cc_prefix INT (11) DEFAULT 0;
+
+-- ALTER TABLE cc_ratecard DROP destination;
+
+ALTER TABLE cc_call DROP username;
+ALTER TABLE cc_call DROP destination;
+ALTER TABLE cc_call DROP startdelay;
+ALTER TABLE cc_call DROP stopdelay;
+ALTER TABLE cc_call DROP usertariff;
+ALTER TABLE cc_call DROP calledprovider;
+ALTER TABLE cc_call DROP calledcountry;
+ALTER TABLE cc_call DROP calledsub;
+
