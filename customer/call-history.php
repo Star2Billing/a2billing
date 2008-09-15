@@ -28,10 +28,11 @@ if($customer_info [14] != "1" ) {
 	exit();
 }
 
-$customer = $_SESSION["pr_login"];
+$customer = $_SESSION["card_id"];
 
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype'));
 
+$dialstatus_list = Constants::getDialStatusList();
 
 if (!isset ($current_page) || ($current_page == "")){
 	$current_page=0;
@@ -66,10 +67,9 @@ $FG_TABLE_COL = array();
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "14%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "source", "12%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "9%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "7%", "center", "SORT", "", "list", $dialstatus_list);
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
 $FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
@@ -79,7 +79,7 @@ $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
+$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 // t1.stoptime,
 
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
@@ -169,7 +169,7 @@ if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
 
 
 if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-$FG_TABLE_CLAUSE.="t1.username='$customer'";
+$FG_TABLE_CLAUSE.="t1.card_id='$customer'";
 
 
 if (isset($choose_calltype) && ($choose_calltype!=-1)){
@@ -636,27 +636,6 @@ echo $CC_help_balance_customer;
             </TABLE></TD>
         </TR>
       </table>
-
-<?php  if (is_array($list) && count($list)>0 && 3==4){ ?>
-<!-- ************** TOTAL SECTION ************* -->
-			<br/>
-			<div style="padding-right: 15px;">
-			<table cellpadding="1" bgcolor="#000000" cellspacing="1" width="200" align="right">
-				<tbody>
-                <tr class="form_head">                   									   
-				   <td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?php echo gettext("Total Cost");?></strong></td>
-				   
-                </tr>
-				<tr>
-				  <td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $total_cost[0][0]?></b></td>
-				  
-				</tr>
-			</table>
-			</div>
-			<br/><br/>
-					
-<!-- ************** TOTAL SECTION ************* -->
-<?php  } ?>
 
 <!-- ** ** ** ** ** Part to display the GRAPHIC ** ** ** ** ** -->
 <br>
