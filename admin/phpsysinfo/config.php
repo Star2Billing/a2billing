@@ -18,6 +18,17 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
+// add for a2billing 
+include_once ("../lib/admin.defines.php");
+include_once ("../lib/admin.module.access.php");
+include_once ("../lib/admin.smarty.php");
+
+if (! has_rights (ACX_ADMINISTRATOR)){ 
+	echo "Error loading phpSysInfo!";
+	die();	   
+}
+
 //
 // $Id: config.php.new,v 1.35 2008/05/31 20:38:57 bigmichi1 Exp $
 //
