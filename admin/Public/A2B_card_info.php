@@ -19,8 +19,9 @@ getpost_ifset(array('id'));
 if(empty($id)){
 	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
 }
-
 $DBHandle  = DbConnect();
+
+
 
 $card_table = new Table('cc_card','*');
 $card_clause = "id = ".$id;
@@ -36,6 +37,13 @@ $smarty->display('main.tpl');
 
 echo $CC_help_info_customer;
 
+$inst_table = new Table("cc_card", "useralias, uipass");
+$FG_TABLE_CLAUSE = "id = $id";
+$list_card_info = $inst_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);			
+$username = $list_card_info[0][0];
+$password = base64_encode($list_card_info[0][1]);
+$link = CUSTOMER_UI_URL;
+echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?username=$username&password=$password\" target=\"_blank\">GO TO CUSTOMER ACCOUNT</a></div>";
 ?>
 
 
