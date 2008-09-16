@@ -52,8 +52,8 @@ class Table {
 	var $errstr 				= '';
 	var $debug_st 				= 0;
 	var $debug_st_stop 			= 0;
-	var $start_message_debug 	= '<table width="100%" align="right" style="float : left;"><tr><td>QUERY:';
-	var $end_message_debug 		= '</td></tr></table><br><br><br>';
+	var $start_message_debug 	= "<table width=\"100%\" align=\"right\" style=\"float : left;\"><tr><td>QUERY: \n";
+	var $end_message_debug 		= "\n</td></tr></table><br><br><br>";
 	var $alert_query_time 		= 0.1;
 	var $alert_query_long_time 	= 2;
 	

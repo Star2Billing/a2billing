@@ -1114,3 +1114,18 @@ ALTER TABLE cc_call DROP calledprovider;
 ALTER TABLE cc_call DROP calledcountry;
 ALTER TABLE cc_call DROP calledsub;
 
+
+-- Update all rates values to use Decimal
+ALTER TABLE cc_ratecard CHANGE buyrate buyrate decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE rateinitial rateinitial decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE connectcharge connectcharge decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE disconnectcharge disconnectcharge decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE stepchargea stepchargea decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE chargea chargea decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE stepchargeb stepchargeb decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE chargeb chargeb decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE stepchargeb stepchargeb decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE chargeb chargeb decimal(15,5) NOT NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE minimal_cost minimal_cost decimal(15,5) NOT NULL DEFAULT '0';
+
+
