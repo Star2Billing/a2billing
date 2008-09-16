@@ -116,7 +116,6 @@ define ("RETURN_URL_DISTANT_FORGETPASSWORD", isset($A2B->config["webcustomerui"]
 
 // INCLUDE FILES
 include (FSROOT."lib/Misc.php");
-include (FSROOT."lib/interface/constants.php");
 
 // USE PHPMAILER
 include_once (FSROOT."lib/mail/class.phpmailer.php");
