@@ -1,0 +1,75 @@
+<!-- $Id: sk.xml,v 1.1 2007/10/01 18:51:11 bigmichi1 Exp $
+  phpSysInfo language file
+  Language: Slovak
+  Created by: Peter 'Pessoft' Kolínek
+-->
+
+<strings language="slovak" charset="utf-8">
+  <string id="001" name="title">Informácie o systéme</string>
+  <string id="002" name="vitals">Základ Systému</string>
+  <string id="003" name="hostname">Kanonické Meno Hostiteľa</string>
+  <string id="004" name="ip">Načúvajúca IP</string>
+  <string id="005" name="kversion">Verzia Jadra</string>
+  <string id="006" name="dversion">Meno Distribúcie</string>
+  <string id="007" name="uptime">Čas od Spustenia</string>
+  <string id="008" name="users">Súčasný Užívatelia</string>
+  <string id="009" name="loadavg">Priemer Zaťaženia</string>
+  <string id="010" name="hardware">Informácie o Hardware</string>
+  <string id="011" name="numcpu">Procesory</string>
+  <string id="012" name="cpumodel">Model</string>
+  <string id="013" name="cpuspeed">Rýchlosť procesora</string>
+  <string id="014" name="busspeed">Rýchlosť zbernice</string>
+  <string id="015" name="cache">Veľkosť cache</string>
+  <string id="016" name="bogomips">Bogomipy Systému</string>
+  <string id="017" name="pci">PCI Zariadenia</string>
+  <string id="018" name="ide">IDE Zariadenia</string>
+  <string id="019" name="scsi">SCSI Zariadenia</string>
+  <string id="020" name="usb">USB Zariadenia</string>
+  <string id="021" name="netusage">Využitie Siete</string>
+  <string id="022" name="device">Zariadenie</string>
+  <string id="023" name="received">Prijatých</string>
+  <string id="024" name="sent">Odoslaných</string>
+  <string id="025" name="errors">Chyby/Zahodené</string>
+  <string id="026" name="connections">Vytvorené Sieťove Spojenia</string>
+  <string id="027" name="memusage">Využitie Pamäte</string>
+  <string id="028" name="phymem">Fyzická Pamäť</string>
+  <string id="029" name="swap">Odkladací Priestor na Disku (Swap)</string>
+  <string id="030" name="fs">Pripojené Súborové Systémy</string>
+  <string id="031" name="mount">Miesto pripojenia</string>
+  <string id="032" name="partition">Partícia</string>
+  <string id="033" name="percent">Využitie</string>
+  <string id="034" name="type">Typ</string>
+  <string id="035" name="free">Voľné</string>
+  <string id="036" name="used">Použité</string>
+  <string id="037" name="size">Veľkosť</string>
+  <string id="038" name="totals">Spolu</string>
+  <string id="039" name="kb">KB</string>
+  <string id="040" name="mb">MB</string>
+  <string id="041" name="gb">GB</string>
+  <string id="042" name="none">nič</string>
+  <string id="043" name="capacity">Kapacita</string>
+  <string id="044" name="template">Predloha</string>
+  <string id="045" name="language">Jazyk</string>
+  <string id="046" name="submit">Odoslať</string>
+  <string id="047" name="created">Vytvorené s</string>
+  <string id="048" name="days">dní</string>
+  <string id="049" name="hours">hodín</string>
+  <string id="050" name="minutes">minút</string>
+  <string id="051" name="temperature">Teplota</string>
+  <string id="052" name="voltage">Voltáž</string>
+  <string id="053" name="fans">Ventilátory</string>
+  <string id="054" name="s_value">Hodnota</string>
+  <string id="055" name="s_min">Min</string>
+  <string id="056" name="s_max">Max</string>
+  <string id="057" name="hysteresis">Hysterézia</string>
+  <string id="058" name="s_limit">Limit</string>
+  <string id="059" name="s_label">Názov</string>
+  <string id="060" name="degreeC">C</string>
+  <string id="061" name="degreeF">F</string>
+  <string id="062" name="voltage_mark">V</string>
+  <string id="063" name="rpm_mark">OZM(RPM)</string>
+  <string id="064" name="app">Jadro + aplikácie</string>
+  <string id="065" name="buffers">Buffery</string>
+  <string id="066" name="cached">Cache</string>
+  <string id="067" name="jumpto">Skoč na</string>
+</strings>

@@ -1,0 +1,75 @@
+<!-- $Id: nl.xml,v 1.1 2008/02/11 08:48:11 jacky672 Exp $
+  phpSysInfo language file
+  Language: Dutch
+  Created by: Jaap Struyk
+-->
+
+<strings language="dutch" charset="utf-8">
+  <string id="001" name="title">Systeem Informatie</string>
+  <string id="002" name="vitals">Systeem Overzicht</string>
+  <string id="003" name="hostname">Toegewezen naam</string>
+  <string id="004" name="ip">IP adres</string>
+  <string id="005" name="kversion">Kernelversie</string>
+  <string id="006" name="dversion">Distributie</string>
+  <string id="007" name="uptime">Uptime</string>
+  <string id="008" name="users">Huidige gebruikers</string>
+  <string id="009" name="loadavg">Gemiddelde belasting</string>
+  <string id="010" name="hardware">Hardware overzicht</string>
+  <string id="011" name="numcpu">Processors</string>
+  <string id="012" name="cpumodel">Model</string>
+  <string id="013" name="cpuspeed">CPU snelheid</string>
+  <string id="014" name="busspeed">BUS snelheid</string>
+  <string id="015" name="cache">Cache grootte</string>
+  <string id="016" name="bogomips">Systeem Bogomips</string>
+  <string id="017" name="pci">PCI Apparaten</string>
+  <string id="018" name="ide">IDE Apparaten</string>
+  <string id="019" name="scsi">SCSI Apparaten</string>
+  <string id="020" name="usb">USB Apparaten</string>
+  <string id="021" name="netusage">Netwerkgebruik</string>
+  <string id="022" name="device">Apparaat</string>
+  <string id="023" name="received">Ontvangen</string>
+  <string id="024" name="sent">Verzonden</string>
+  <string id="025" name="errors">Err/Drop</string>
+  <string id="026" name="connections">Aktieve Netwerkverbindingen</string>
+  <string id="027" name="memusage">Geheugengebruik</string>
+  <string id="028" name="phymem">Fysiek geheugen</string>
+  <string id="029" name="swap">Swap geheugen</string>
+  <string id="030" name="fs">Aangesloten bestandssystemen</string>
+  <string id="031" name="mount">Mount</string>
+  <string id="032" name="partition">Partitie</string>
+  <string id="033" name="percent">Percentage gebruikt</string>
+  <string id="034" name="type">Type</string>
+  <string id="035" name="free">Vrij</string>
+  <string id="036" name="used">Gebruikt</string>
+  <string id="037" name="size">Grootte</string>
+  <string id="038" name="totals">Totaal</string>
+  <string id="039" name="kb">KB</string>
+  <string id="040" name="mb">MB</string>
+  <string id="041" name="gb">GB</string>
+  <string id="042" name="none">geen</string>
+  <string id="043" name="capacity">Capaciteit</string>
+  <string id="044" name="template">Opmaak</string>
+  <string id="045" name="language">Taal</string>
+  <string id="046" name="submit">Toepassen</string>
+  <string id="047" name="created">Gegenereerd door</string>
+  <string id="048" name="days">dagen</string>
+  <string id="049" name="hours">uren</string>
+  <string id="050" name="minutes">minuten</string>
+  <string id="051" name="temperature">Temperatuur</string>
+  <string id="052" name="voltage">Voltage</string>
+  <string id="053" name="fans">Fans</string>
+  <string id="054" name="s_value">Waarde</string>
+  <string id="055" name="s_min">Min</string>
+  <string id="056" name="s_max">Max</string>
+  <string id="057" name="hysteresis">Hysteresis</string>
+  <string id="058" name="s_limit">Limiet</string>
+  <string id="059" name="s_label">Omschrijving</string>
+  <string id="060" name="degreeC">°C</string>
+  <string id="061" name="degreeF">°F</string>
+  <string id="062" name="voltage_mark">V</string>
+  <string id="063" name="rpm_mark">RPM</string>
+  <string id="064" name="app">Kernel + Aplicaties</string>
+  <string id="065" name="buffers">Buffers</string>
+  <string id="066" name="cached">Cached</string>
+  <string id="067" name="jumpto">Ga naar</string>
+</strings>

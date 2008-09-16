@@ -1,0 +1,92 @@
+<!-- $Id: bg.xml,v 1.1 2008/05/14 16:47:59 jacky672 Exp $
+  phpSysInfo language file
+  Language: Bulgarian
+  Created by: Grigor Josifov
+-->
+
+<strings language="bulgarian" charset="utf-8">
+  <string id="001" name="title">Системна информация</string>
+  <string id="002" name="vitals">Обща инфорамция</string>
+  <string id="003" name="hostname">Име на системата</string>
+  <string id="004" name="ip">IP адрес</string>
+  <string id="005" name="kversion">Версия на ядрото</string>
+  <string id="006" name="dversion">Име на дистрибуцията</string>
+  <string id="007" name="uptime">Време на работа</string>
+  <string id="008" name="users">Активни потребители</string>
+  <string id="009" name="loadavg">Средно натоварване</string>
+  <string id="010" name="hardware">Установен хардуер</string>
+  <string id="011" name="numcpu">Процесори</string>
+  <string id="012" name="cpumodel">Модел</string>
+  <string id="013" name="cpuspeed">Честота на CPU</string>
+  <string id="014" name="busspeed">Честота на BUS</string>
+  <string id="015" name="cache">Размер на кешa</string>
+  <string id="016" name="bogomips">Bogomips за системата</string>
+  <string id="017" name="pci">PCI устройства</string>
+  <string id="018" name="ide">IDE устройства</string>
+  <string id="019" name="scsi">SCSI устройства</string>
+  <string id="020" name="usb">USB устройства</string>
+  <string id="021" name="netusage">Ползваемост на мрежите</string>
+  <string id="022" name="device">Устройство</string>
+  <string id="023" name="received">Получени</string>
+  <string id="024" name="sent">Изпратени</string>
+  <string id="025" name="errors">Грешки/Изпуснати</string>
+  <string id="026" name="connections">Установени мрежови връзки</string>
+  <string id="027" name="memusage">Ползваемост на оперативната памет</string>
+  <string id="028" name="phymem">Физическа памет</string>
+  <string id="029" name="swap">Swap диск</string>
+  <string id="030" name="fs">Монтирани файлови системи</string>
+  <string id="031" name="mount">Монтирана</string>
+  <string id="032" name="partition">Дял</string>
+  <string id="033" name="percent">Процент на използване</string>
+  <string id="034" name="type">Тип</string>
+  <string id="035" name="free">Свободни</string>
+  <string id="036" name="used">Използвани</string>
+  <string id="037" name="size">Общ обем</string>
+  <string id="038" name="totals">Всичко</string>
+  <string id="039" name="kb">KB</string>
+  <string id="040" name="mb">MB</string>
+  <string id="041" name="gb">GB</string>
+  <string id="042" name="none">няма</string>
+  <string id="043" name="capacity">Капацитет</string>
+  <string id="044" name="template">Тема</string>
+  <string id="045" name="language">Език</string>
+  <string id="046" name="submit">Изпрати</string>
+  <string id="047" name="created">Генерирано от</string>
+  <string id="048" name="days">дена</string>
+  <string id="049" name="hours">часа</string>
+  <string id="050" name="minutes">минути</string>
+  <string id="051" name="temperature">Температура</string>
+  <string id="052" name="voltage">Напрежение</string>
+  <string id="053" name="fans">Вентилатори</string>
+  <string id="054" name="s_value">Стойност</string>
+  <string id="055" name="s_min">Мин</string>
+  <string id="056" name="s_max">Макс</string>
+  <string id="057" name="hysteresis">Хистерезис</string>
+  <string id="058" name="s_limit">Предел</string>
+  <string id="059" name="s_label">Име</string>
+  <string id="060" name="degreeC">C</string>
+  <string id="061" name="degreeF">F</string>
+  <string id="062" name="voltage_mark">V</string>
+  <string id="063" name="rpm_mark">Об/мин</string>
+  <string id="064" name="app">Ядро + приложения</string>
+  <string id="065" name="buffers">Буфери</string>
+  <string id="066" name="cached">Кеширани</string>
+  <string id="067" name="jumpto">Отиди на</string>
+  <string id="068" name="ups_title">Информация за UPS</string>
+  <string id="069" name="ups_name">Име</string>
+  <string id="070" name="ups_model">Модел</string>
+  <string id="071" name="ups_mode">Режим</string>
+  <string id="072" name="ups_start_time">Време на включване</string>
+  <string id="073" name="ups_status">Състояние</string>
+  <string id="074" name="ups_outages_count">Прехвърляния към батерия</string>
+  <string id="075" name="ups_last_outage">Причина за последното прехвърляне</string>
+  <string id="076" name="ups_last_outage_finish">Време на последното прехвърляне</string>
+  <string id="077" name="ups_line_voltage">Напрежение на линията</string>
+  <string id="078" name="ups_load_percent">Процент на натовареност</string>
+  <string id="079" name="ups_battery_voltage">Напрежение на батерията</string>
+  <string id="080" name="ups_battery_charge_percent">Заряд на батерията</string>
+  <string id="081" name="ups_time_left_minutes">Оставащо време на батерията</string>
+  <string id="082" name="ups_voltage_mark">V</string>
+  <string id="083" name="ups_minutes_mark">минути</string>
+  <string id="084" name="ups_temperature">Температура</string>
+</strings>

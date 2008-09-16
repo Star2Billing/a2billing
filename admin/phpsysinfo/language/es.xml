@@ -1,0 +1,75 @@
+<!-- $Id: es.xml,v 1.1 2007/09/09 08:47:28 bigmichi1 Exp $
+  phpSysInfo language file
+  Language: Spanish
+  Created by: J.F. Ruano
+-->
+
+<strings language="spanish" charset="utf-8">
+  <string id="001" name="title">Informaci&#243;n del Servidor</string>
+  <string id="002" name="vitals">Vitales</string>
+  <string id="003" name="hostname">Nombre del Servidor</string>
+  <string id="004" name="ip">Direcciones IP</string>
+  <string id="005" name="kversion">Versi&#243;n del Kernel</string>
+  <string id="006" name="dversion">Nombre Distribuci&#243;n</string>
+  <string id="007" name="uptime">&#218;ltimo arranque</string>
+  <string id="008" name="users">Usuarios actuales</string>
+  <string id="009" name="loadavg">Promedio de uso</string>
+  <string id="010" name="hardware">Informaci&#243;n del Hardware </string>
+  <string id="011" name="numcpu">Procesadores</string>
+  <string id="012" name="cpumodel">Modelo</string>
+  <string id="013" name="cpuspeed">Velocidad CPU</string>
+  <string id="014" name="busspeed">Velocidad BUS</string>
+  <string id="015" name="cache">Tama&#241;o Cache</string>
+  <string id="016" name="bogomips">Sistema Bogomips</string>
+  <string id="017" name="pci">Dispositivos PCI</string>
+  <string id="018" name="ide">Dispositivos IDE</string>
+  <string id="019" name="scsi">Dispositivos SCSI</string>
+  <string id="020" name="usb">Dispositivos USB</string>
+  <string id="021" name="netusage">Uso de la red</string>
+  <string id="022" name="device">Dispositivo</string>
+  <string id="023" name="received">Recibidos</string>
+  <string id="024" name="sent">Enviados</string>
+  <string id="025" name="errors">Errores/Perdidos</string>
+  <string id="026" name="connections">Conexiones de Red Establecidas</string>
+  <string id="027" name="memusage">Uso de la memoria</string>
+  <string id="028" name="phymem">Memoria F&#237;sica</string>
+  <string id="029" name="swap">Disco Swap</string>
+  <string id="030" name="fs">Sistema archivos Montados</string>
+  <string id="031" name="mount">Punto de montaje</string>
+  <string id="032" name="partition">Partici&#243;n</string>
+  <string id="033" name="percent">Uso</string>
+  <string id="034" name="type">Tipo</string>
+  <string id="035" name="free">Libre</string>
+  <string id="036" name="used">Usada</string>
+  <string id="037" name="size">Tama&#241;o</string>
+  <string id="038" name="totals">Total</string>
+  <string id="039" name="kb">KB</string>
+  <string id="040" name="mb">MB</string>
+  <string id="041" name="gb">GB</string>
+  <string id="042" name="none">ninguno</string>
+  <string id="043" name="capacity">Tama&#241;o</string>
+  <string id="044" name="template">Template</string>
+  <string id="045" name="language">Lenguaje</string>
+  <string id="046" name="submit">Enviado</string>
+  <string id="047" name="created">Creado por</string>
+  <string id="048" name="days">d&#237;as</string>
+  <string id="049" name="hours">horas</string>
+  <string id="050" name="minutes">minutos</string>
+  <string id="051" name="temperature">Temperatura</string>
+  <string id="052" name="voltage">Voltaje</string>
+  <string id="053" name="fans">Ventiladores</string>
+  <string id="054" name="s_value">Valor</string>
+  <string id="055" name="s_min">Min</string>
+  <string id="056" name="s_max">Max</string>
+  <string id="057" name="hysteresis">Hist&#233;resis</string>
+  <string id="058" name="s_limit">L&#237;mite</string>
+  <string id="059" name="s_label">Etiqueta</string>
+  <string id="060" name="degreeC">C</string>
+  <string id="061" name="degreeF">F</string>
+  <string id="062" name="voltage_mark">V</string>
+  <string id="063" name="rpm_mark">RPM</string>
+  <string id="064" name="app">Kernel + aplicaciones</string>
+  <string id="065" name="buffers">Buffers</string>
+  <string id="066" name="cached">Cache;</string>
+  <string id="067" name="jumpto">Bifurcaci&#243;n</string>
+</strings>

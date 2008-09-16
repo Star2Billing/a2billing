@@ -1,0 +1,94 @@
+<!-- $Id: ro.xml,v 1.1 2008/04/13 09:52:04 jacky672 Exp $
+  phpSysInfo language file
+  Language: Romana
+  Created by: Sorin Gheorghe
+-->
+
+<strings language="english" charset="utf-8">
+  <string id="001" name="title">Informatii despre sistem</string>
+  <string id="002" name="vitals">Informatii vitale</string>
+  <string id="003" name="hostname">Numele canonic</string>
+  <string id="004" name="ip">Adresa IP</string>
+  <string id="005" name="kversion">Kernel Version</string>
+  <string id="006" name="dversion">Nume Distributie</string>
+  <string id="007" name="uptime">Timp de Viata</string>
+  <string id="008" name="users">Utilizatori Curenti</string>
+  <string id="009" name="loadavg">Incarcarea Sistemului</string>
+  <string id="010" name="hardware">Informatii Hardware</string>
+  <string id="011" name="numcpu">Procesoare</string>
+  <string id="012" name="cpumodel">Model</string>
+  <string id="013" name="cpuspeed">Viteza CPU</string>
+  <string id="014" name="busspeed">Viteza BUS</string>
+  <string id="015" name="cache">Marime Cache</string>
+  <string id="016" name="bogomips">Bogomips Sistem </string>
+  <string id="017" name="pci">Dispozitive PCI</string>
+  <string id="018" name="ide">Dispozitive IDE</string>
+  <string id="019" name="scsi">Dispozitive SCSI</string>
+  <string id="020" name="usb">Dispozitive USB</string>
+  <string id="021" name="netusage">Utilizarea Retelei</string>
+  <string id="022" name="device">Dispozitiv</string>
+  <string id="023" name="received">Receptionat</string>
+  <string id="024" name="sent">Trimis</string>
+  <string id="025" name="errors">Erori</string>
+  <string id="026" name="connections">Conexiuni Retea Stabilite</string>
+  <string id="027" name="memusage">Utilizarea Memoriei</string>
+  <string id="028" name="phymem">Memorie Fizica</string>
+  <string id="029" name="swap">Swap Disc</string>
+  <string id="030" name="fs">Sisteme de Fisiere Montate</string>
+  <string id="031" name="mount">Punct Montare</string>
+  <string id="032" name="partition">Partitie</string>
+  <string id="033" name="percent">Procent Utilizare</string>
+  <string id="034" name="type">Tip</string>
+  <string id="035" name="free">Liber</string>
+  <string id="036" name="used">Utilizat</string>
+  <string id="037" name="size">Marime</string>
+  <string id="038" name="totals">Total</string>
+  <string id="039" name="kb">KB</string>
+  <string id="040" name="mb">MB</string>
+  <string id="041" name="gb">GB</string>
+  <string id="042" name="none">Nici Unul</string>
+  <string id="043" name="capacity">Capacitate</string>
+  <string id="044" name="template">Model</string>
+  <string id="045" name="language">Limba</string>
+  <string id="046" name="submit">Actualizeaza</string>
+  <string id="047" name="created">Creat de</string>
+  <string id="048" name="days">zile</string>
+  <string id="049" name="hours">ore</string>
+  <string id="050" name="minutes">minute</string>
+  <string id="051" name="temperature">Temperatura</string>
+  <string id="052" name="voltage">Tensiune</string>
+  <string id="053" name="fans">Ventilatoare</string>
+  <string id="054" name="s_value">Valoare</string>
+  <string id="055" name="s_min">Minim</string>
+  <string id="056" name="s_max">Maxim</string>
+  <string id="057" name="hysteresis">Histeresis</string>
+  <string id="058" name="s_limit">Limita</string>
+  <string id="059" name="s_label">Eticheta</string>
+  <string id="060" name="degreeC">C</string>
+  <string id="061" name="degreeF">F</string>
+  <string id="062" name="voltage_mark">V</string>
+  <string id="063" name="rpm_mark">RPM</string>
+  <string id="064" name="app">Kernel + applicatii</string>
+  <string id="065" name="buffers">Buffers</string>
+  <string id="066" name="cached">Cached</string>
+  <string id="067" name="jumpto">Jump to</string>
+  <string id="068" name="ups_title">Informatii UPS</string>
+  <string id="069" name="ups_name">Nume</string>
+  <string id="070" name="ups_model">Model</string>
+  <string id="071" name="ups_mode">Mod</string>
+  <string id="072" name="ups_start_time">Pornit la</string>
+  <string id="073" name="ups_status">Status</string>
+  <string id="074" name="ups_outages_count">Numar Opriri</string>
+  <string id="075" name="ups_last_outage">Ultima cauza a opririi</string>
+  <string id="076" name="ups_last_outage_finish">Data ultimei opriri</string>
+  <string id="077" name="ups_line_voltage">Tensiunea Retelei</string>
+  <string id="078" name="ups_load_percent">Procent Incarcare</string>
+  <string id="079" name="ups_battery_voltage">Tensiunea Bateriei</string>
+  <string id="080" name="ups_battery_charge_percent">Incarcarea Bateriei</string>
+  <string id="081" name="ups_time_left_minutes">Timp ramas pe baterie</string>
+  <string id="082" name="ups_voltage_mark">V</string>
+  <string id="083" name="ups_minutes_mark">minute</string>
+  <string id="084" name="ups_temperature">Temperatura</string>
+</strings>
+
+

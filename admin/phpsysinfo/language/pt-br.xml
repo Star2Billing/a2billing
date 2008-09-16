@@ -1,0 +1,92 @@
+<!-- $Id: pt-br.xml,v 1.1 2008/04/23 04:23:36 jacky672 Exp $
+ phpSysInfo language file
+ Language: Brazilian Portuguese
+ Created by: Giancarlo Gil Ottaviani Raduan graduan at gmail.com
+-->
+
+<strings language="french" charset="utf-8">
+  <string id="001" name="title">Informacao do Sistema</string>
+  <string id="002" name="vitals">Sistema Vital</string>
+  <string id="003" name="hostname">Nome do Host Canonico</string>
+  <string id="004" name="ip">Ouvindo o IP</string>
+  <string id="005" name="kversion">Versao do Kernel</string>
+  <string id="006" name="dversion">Distribuicao</string>
+  <string id="007" name="uptime">Ativo</string>
+  <string id="008" name="users">Usuarios Ativos</string>
+  <string id="009" name="loadavg">Carga Media</string>
+  <string id="010" name="hardware">Informacao do Hardware</string>
+  <string id="011" name="numcpu">Processadores</string>
+  <string id="012" name="cpumodel">Modelo</string>
+  <string id="013" name="cpuspeed">CPU velocidade</string>
+  <string id="014" name="busspeed">BUS velocidade</string>
+  <string id="015" name="cache">Tamanho do Cache</string>
+  <string id="016" name="bogomips">Bogomips do Sistema</string>
+  <string id="017" name="pci">Perifericos PCI</string>
+  <string id="018" name="ide">Perifericos IDE</string>
+  <string id="019" name="scsi">Perifericos SCSI</string>
+  <string id="020" name="usb">Perifericos USB</string>
+  <string id="021" name="netusage">Uso da Rede</string>
+  <string id="022" name="device">Dispositivo</string>
+  <string id="023" name="received">Recebido</string>
+  <string id="024" name="sent">Enviado</string>
+  <string id="025" name="errors">Erro/Perdido</string>
+  <string id="026" name="connections">Conexoes de Rede Estabilizadas</string>
+  <string id="027" name="memusage">Uso da Memoria</string>
+  <string id="028" name="phymem">Memoria Fisica</string>
+  <string id="029" name="swap">Swap do Disco</string>
+  <string id="030" name="fs">Sistemas de Arquivos Montados</string>
+  <string id="031" name="mount">Ponto Montado</string>
+  <string id="032" name="partition">Particao</string>
+  <string id="033" name="percent">Percentual</string>
+  <string id="034" name="type">Tipo</string>
+  <string id="035" name="free">Livre</string>
+  <string id="036" name="used">Usado</string>
+  <string id="037" name="size">Tamanho</string>
+  <string id="038" name="totals">Totais</string>
+  <string id="039" name="kb">KB</string>
+  <string id="040" name="mb">MB</string>
+  <string id="041" name="gb">GB</string>
+  <string id="042" name="none">nenhum</string>
+  <string id="043" name="capacity">Capacidade</string>
+  <string id="044" name="template">Estilo</string>
+  <string id="045" name="language">Idioma</string>
+  <string id="046" name="submit">Submeter</string>
+  <string id="047" name="created">Criado por</string>
+  <string id="048" name="days">dias</string>
+  <string id="049" name="hours">horas</string>
+  <string id="050" name="minutes">minutos</string>
+  <string id="051" name="temperature">Temperatura</string>
+  <string id="052" name="voltage">Voltagem</string>
+  <string id="053" name="fans">Ventiladores</string>
+  <string id="054" name="s_value">Valor</string>
+  <string id="055" name="s_min">Min</string>
+  <string id="056" name="s_max">Max</string>
+  <string id="057" name="hysteresis">Hysteresis</string>
+  <string id="058" name="s_limit">Limite</string>
+  <string id="059" name="s_label">Rotulos</string>
+  <string id="060" name="degreeC">C</string>
+  <string id="061" name="degreeF">F</string>
+  <string id="062" name="voltage_mark">V</string>
+  <string id="063" name="rpm_mark">RPM</string>
+  <string id="064" name="app">Kernel + aplicacoes</string>
+  <string id="065" name="buffers">Buffers</string>
+  <string id="066" name="cached">Cached</string>
+  <string id="067" name="jumpto">Ir para</string>
+  <string id="068" name="ups_title">Informacao do UPS</string>
+  <string id="069" name="ups_name">Nome</string>
+  <string id="070" name="ups_model">Modelo</string>
+  <string id="071" name="ups_mode">Modo</string>
+  <string id="072" name="ups_start_time">Iniciado</string>
+  <string id="073" name="ups_status">Estatus</string>
+  <string id="074" name="ups_outages_count">Queda</string>
+  <string id="075" name="ups_last_outage">Causa da Ultima Queda</string>
+  <string id="076" name="ups_last_outage_finish">Ultimo registro de Queda</string>
+  <string id="077" name="ups_line_voltage">Voltagem de linha</string>
+  <string id="078" name="ups_load_percent">Carga porcentual</string>
+  <string id="079" name="ups_battery_voltage">Voltagem da bateria</string>
+  <string id="080" name="ups_battery_charge_percent">Carga da bateria</string>
+  <string id="081" name="ups_time_left_minutes">Tempo restante das baterias</string>
+  <string id="082" name="ups_voltage_mark">V</string>
+  <string id="083" name="ups_minutes_mark">minutos</string>
+  <string id="084" name="ups_temperature">Temperatura</string>
+</strings>

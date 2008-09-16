@@ -1,0 +1,92 @@
+<!-- $Id: et.xml,v 1.1 2008/05/16 15:59:26 bigmichi1 Exp $
+  phpSysInfo language file
+  Language: Estoanian
+  Created by: Harg
+-->
+
+<strings language="estoanian" charset="utf-8">
+  <string id="001" name="title">Süsteemi informatsioon</string>
+  <string id="002" name="vitals">Süsteemist Lühidalt</string>
+  <string id="003" name="hostname">Kanooniline masinanimi</string>
+  <string id="004" name="ip">Kuulav IP</string>
+  <string id="005" name="kversion">Kerneli versioon</string>
+  <string id="006" name="dversion">Distributsioon</string>
+  <string id="007" name="uptime">Elusolek</string>
+  <string id="008" name="users">Kasutajaid hetkel</string>
+  <string id="009" name="loadavg">Koormuse keskmised</string>
+  <string id="010" name="hardware">Riistvara Informatsioon</string>
+  <string id="011" name="numcpu">Protsessoreid</string>
+  <string id="012" name="cpumodel">Mudel</string>
+  <string id="013" name="cpuspeed">CPU Kiirus</string>
+  <string id="014" name="busspeed">BUS Kiirus</string>
+  <string id="015" name="cache">Puhvri Suurus</string>
+  <string id="016" name="bogomips">Süsteemi Bogomips</string>
+  <string id="017" name="pci">PCI Seadmed</string>
+  <string id="018" name="ide">IDE Seadmed</string>
+  <string id="019" name="scsi">SCSI Seadmed</string>
+  <string id="020" name="usb">USB Seadmed</string>
+  <string id="021" name="netusage">Võrgukasutus</string>
+  <string id="022" name="device">Seade</string>
+  <string id="023" name="received">Saadud</string>
+  <string id="024" name="sent">Saadetud</string>
+  <string id="025" name="errors">Vigu/Drop</string>
+  <string id="026" name="connections">Established Network Connections</string>
+  <string id="027" name="memusage">Mälukasutus</string>
+  <string id="028" name="phymem">Füüsiline Mälu</string>
+  <string id="029" name="swap">Saalemälu kettal</string>
+  <string id="030" name="fs">Ühendatud Failisüsteemid</string>
+  <string id="031" name="mount">Ühenduspunkt</string>
+  <string id="032" name="partition">Kettaosa</string>
+  <string id="033" name="percent">Kasutus</string>
+  <string id="034" name="type">Tüüp</string>
+  <string id="035" name="free">Vaba</string>
+  <string id="036" name="used">Kasutuses</string>
+  <string id="037" name="size">Suurus</string>
+  <string id="038" name="totals">Kokku</string>
+  <string id="039" name="kb">KB</string>
+  <string id="040" name="mb">MB</string>
+  <string id="041" name="gb">GB</string>
+  <string id="042" name="none">pole</string>
+  <string id="043" name="capacity">Mahutavus</string>
+  <string id="044" name="template">Väljanägemine </string>
+  <string id="045" name="language"> Keel </string>
+  <string id="046" name="submit">Submit</string>
+  <string id="047" name="created">Statistika toob teieni </string>
+  <string id="048" name="days">päeva</string>
+  <string id="049" name="hours">tundi</string>
+  <string id="050" name="minutes">minutit</string>
+  <string id="051" name="temperature">Temperatuur</string>
+  <string id="052" name="voltage">Pinge</string>
+  <string id="053" name="fans">Ventilaatorid</string>
+  <string id="054" name="s_value">Hetkeväärtus</string>
+  <string id="055" name="s_min">Min</string>
+  <string id="056" name="s_max">Max</string>
+  <string id="057" name="hysteresis">Hüsterees</string>
+  <string id="058" name="s_limit">Piirväärtus</string>
+  <string id="059" name="s_label">Sõlmenimi</string>
+  <string id="060" name="degreeC">C</string>
+  <string id="061" name="degreeF">F</string>
+  <string id="062" name="voltage_mark">V</string>
+  <string id="063" name="rpm_mark">RPM</string>
+  <string id="064" name="app">Kernel + rakendused</string>
+  <string id="065" name="buffers">Puhvrid</string>
+  <string id="066" name="cached">Vahepuhvrid/cache</string>
+  <string id="067" name="jumpto">Hüppa</string>
+  <string id="068" name="ups_title">UPS informatsioon</string>
+  <string id="069" name="ups_name">Nimi</string>
+  <string id="070" name="ups_model">Mudel</string>
+  <string id="071" name="ups_mode">Reshiim</string>
+  <string id="072" name="ups_start_time">Käivitatud</string>
+  <string id="073" name="ups_status">Staatus</string>
+  <string id="074" name="ups_outages_count">Katkestusi</string>
+  <string id="075" name="ups_last_outage">Viimase katkestuse põhjustas</string>
+  <string id="076" name="ups_last_outage_finish">Viimase katkestuse ajatempel</string>
+  <string id="077" name="ups_line_voltage">Liini pinge</string>
+  <string id="078" name="ups_load_percent">Koormuse %</string>
+  <string id="079" name="ups_battery_voltage">Aku pinge</string>
+  <string id="080" name="ups_battery_charge_percent">Aku laetus</string>
+  <string id="081" name="ups_time_left_minutes">Akudel töötamiseks jäänud aega</string>
+  <string id="082" name="ups_voltage_mark">V</string>
+  <string id="083" name="ups_minutes_mark">minutit</string>
+  <string id="084" name="ups_temperature">Temperatuur</string>
+</strings>

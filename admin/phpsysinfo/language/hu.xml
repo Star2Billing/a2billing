@@ -1,0 +1,75 @@
+<!-- $Id: hu.xml,v 1.1 2007/10/13 09:21:35 bigmichi1 Exp $
+  phpSysInfo language file
+  Language: Hungary
+  Created by: Bálint Kiss
+-->
+
+<strings language="english" charset="utf-8">
+  <string id="001" name="title">Rendszer információk</string>
+  <string id="002" name="vitals">Alapvető információk</string>
+  <string id="003" name="hostname">Hosztnév</string>
+  <string id="004" name="ip">Figyelt IP</string>
+  <string id="005" name="kversion">Kernel Verzió</string>
+  <string id="006" name="dversion">Distro Név</string>
+  <string id="007" name="uptime">Uptime</string>
+  <string id="008" name="users">Jelenlegi Felhasználok</string>
+  <string id="009" name="loadavg">Terheltség</string>
+  <string id="010" name="hardware">Hardver Információk</string>
+  <string id="011" name="numcpu">Processzorok</string>
+  <string id="012" name="cpumodel">Model</string>
+  <string id="013" name="cpuspeed">CPU Sebesség</string>
+  <string id="014" name="busspeed">BUS Sebesség</string>
+  <string id="015" name="cache">Cache Méret</string>
+  <string id="016" name="bogomips">Rendszer Bogomips</string>
+  <string id="017" name="pci">PCI Eszközök</string>
+  <string id="018" name="ide">IDE Eszközök</string>
+  <string id="019" name="scsi">SCSI Eszközök</string>
+  <string id="020" name="usb">USB Eszközök</string>
+  <string id="021" name="netusage">Hálózat Használat</string>
+  <string id="022" name="device">Eszköz</string>
+  <string id="023" name="received">Fogadott</string>
+  <string id="024" name="sent">Küldött</string>
+  <string id="025" name="errors">Hibás/Eldobott</string>
+  <string id="026" name="connections">Hálózati Csatlakozások</string>
+  <string id="027" name="memusage">Memória Használat</string>
+  <string id="028" name="phymem">Fizikai Memória</string>
+  <string id="029" name="swap">Lemez Swap</string>
+  <string id="030" name="fs">Csatlakoztatott File Rendszerek</string>
+  <string id="031" name="mount">Csatlakozási pont</string>
+  <string id="032" name="partition">Partíció</string>
+  <string id="033" name="percent">Használt</string>
+  <string id="034" name="type">Típus</string>
+  <string id="035" name="free">Szabad</string>
+  <string id="036" name="used">Felhasznált</string>
+  <string id="037" name="size">Méret</string>
+  <string id="038" name="totals">Összes</string>
+  <string id="039" name="kb">KB</string>
+  <string id="040" name="mb">MB</string>
+  <string id="041" name="gb">GB</string>
+  <string id="042" name="none">nincs</string>
+  <string id="043" name="capacity">Kapacitás</string>
+  <string id="044" name="template">Sablon</string>
+  <string id="045" name="language">Nyelv</string>
+  <string id="046" name="submit">Rendben</string>
+  <string id="047" name="created">Készítette:</string>
+  <string id="048" name="days">nap</string>
+  <string id="049" name="hours">óra</string>
+  <string id="050" name="minutes">perc</string>
+  <string id="051" name="temperature">Hőmérsékletek</string>
+  <string id="052" name="voltage">Feszültségek</string>
+  <string id="053" name="fans">Ventilátorok</string>
+  <string id="054" name="s_value">Érték</string>
+  <string id="055" name="s_min">Min</string>
+  <string id="056" name="s_max">Max</string>
+  <string id="057" name="hysteresis">Hiszterézis</string>
+  <string id="058" name="s_limit">Limit</string>
+  <string id="059" name="s_label">Címke</string>
+  <string id="060" name="degreeC">C</string>
+  <string id="061" name="degreeF">F</string>
+  <string id="062" name="voltage_mark">V</string>
+  <string id="063" name="rpm_mark">RPM</string>
+  <string id="064" name="app">Kernel + Alkalmazások</string>
+  <string id="065" name="buffers">Bufferek</string>
+  <string id="066" name="cached">Cached</string>
+  <string id="067" name="jumpto">Ugrás ide:</string>
+</strings>

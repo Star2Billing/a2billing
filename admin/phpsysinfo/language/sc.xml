@@ -1,0 +1,93 @@
+<!-- $Id: sc.xml,v 1.1 2008/03/08 11:51:02 jacky672 Exp $
+  phpSysInfo language file
+  Language: Simplified Chinese
+  Created by: BH7JQA::BH7JQA@people.com.cn
+	      http://www.kingisme.com/
+-->
+
+<strings language="zh_cn" charset="utf-8">
+  <string id="001" name="title">系统信息</string> 
+  <string id="002" name="vitals">主要资料</string> 
+  <string id="003" name="hostname">主机名称</string> 
+  <string id="004" name="ip">IP  地址</string> 
+  <string id="005" name="kversion">核心版本</string> 
+  <string id="006" name="dversion">操作系统</string> 
+  <string id="007" name="uptime">运行时间</string> 
+  <string id="008" name="users">在线用户</string> 
+  <string id="009" name="loadavg">平均负载</string> 
+  <string id="010" name="hardware">硬件信息</string> 
+  <string id="011" name="numcpu">处理器</string> 
+  <string id="012" name="cpumodel">型号</string> 
+  <string id="013" name="cpuspeed">CPU 速度</string> 
+  <string id="014" name="busspeed">BUS 速度</string> 
+  <string id="015" name="cache">缓存大小</string> 
+  <string id="016" name="bogomips">系统 Bogomips</string> 
+  <string id="017" name="pci">PCI 设备</string> 
+  <string id="018" name="ide">IDE 设备</string> 
+  <string id="019" name="scsi">SCSI 设备</string> 
+  <string id="020" name="usb">USB 设备</string> 
+  <string id="021" name="netusage">网络信息</string> 
+  <string id="022" name="device">设备</string> 
+  <string id="023" name="received">接收</string> 
+  <string id="024" name="sent">发送</string> 
+  <string id="025" name="errors">错误/丢失</string> 
+  <string id="026" name="connections">连接网络</string> 
+  <string id="027" name="memusage">内存信息</string> 
+  <string id="028" name="phymem">物理内存</string> 
+  <string id="029" name="swap">Swap交换区</string> 
+  <string id="030" name="fs">文件系统信息</string> 
+  <string id="031" name="mount">挂载位置</string> 
+  <string id="032" name="partition">硬盘分区</string> 
+  <string id="033" name="percent">使用率</string> 
+  <string id="034" name="type">类型</string> 
+  <string id="035" name="free">可用</string> 
+  <string id="036" name="used">已用</string> 
+  <string id="037" name="size">大小</string> 
+  <string id="038" name="totals">总共</string> 
+  <string id="039" name="kb">KB</string> 
+  <string id="040" name="mb">MB</string> 
+  <string id="041" name="gb">GB</string> 
+  <string id="042" name="none">没有</string> 
+  <string id="043" name="capacity">限制</string> 
+  <string id="044" name="template">风格</string> 
+  <string id="045" name="language">语言</string> 
+  <string id="046" name="submit">确认</string> 
+  <string id="047" name="created">本页面程序：</string> 
+  <string id="048" name="days">天</string> 
+  <string id="049" name="hours">小时</string> 
+  <string id="050" name="minutes">分钟</string> 
+  <string id="051" name="temperature">温度</string> 
+  <string id="052" name="voltage">电压</string> 
+  <string id="053" name="fans">风扇</string> 
+  <string id="054" name="s_value">数值</string> 
+  <string id="055" name="s_min">最小</string> 
+  <string id="056" name="s_max">最大</string> 
+  <string id="057" name="hysteresis">Hysteresis</string> 
+  <string id="058" name="s_limit">限制</string> 
+  <string id="059" name="s_label">标签</string> 
+  <string id="060" name="degreeC">C</string> 
+  <string id="061" name="degreeF">F</string> 
+  <string id="062" name="voltage_mark">V</string> 
+  <string id="063" name="rpm_mark">RPM</string> 
+  <string id="064" name="app">核心及程序占用</string> 
+  <string id="065" name="buffers">缓冲(Buffers)</string> 
+  <string id="066" name="cached">缓存(Cached)</string> 
+  <string id="067" name="jumpto">跳到</string> 
+  <string id="068" name="ups_title">电源数据</string> 
+  <string id="069" name="ups_name">名称</string> 
+  <string id="070" name="ups_model">型号</string> 
+  <string id="071" name="ups_mode">模式</string> 
+  <string id="072" name="ups_start_time">已启动</string> 
+  <string id="073" name="ups_status">状态</string> 
+  <string id="074" name="ups_outages_count">中断</string> 
+  <string id="075" name="ups_last_outage">上次中断原因</string> 
+  <string id="076" name="ups_last_outage_finish">上次中断时间</string> 
+  <string id="077" name="ups_line_voltage">线路电压</string> 
+  <string id="078" name="ups_load_percent">负荷百分比</string> 
+  <string id="079" name="ups_battery_voltage">电池电压</string> 
+  <string id="080" name="ups_battery_charge_percent">电池容量</string> 
+  <string id="081" name="ups_time_left_minutes">电池剩余时间</string> 
+  <string id="082" name="ups_voltage_mark">V</string> 
+  <string id="083" name="ups_minutes_mark">分</string> 
+  <string id="084" name="ups_temperature">温度</string> 
+</strings>
