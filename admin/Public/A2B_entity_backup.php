@@ -53,7 +53,3 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-
-
-
-?>

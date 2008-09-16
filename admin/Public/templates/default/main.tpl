@@ -517,6 +517,35 @@
 		</ul>
 	</div>
 	</div>
+	
+	
+	
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img9"
+	{if ($section == "15")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("PBX-CONFIG");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="15")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+			
+				<li><a href="phpconfig.php?file=sip.conf&section=15&section_conf=sip.conf">sip.conf</a></li>
+				<li><a href="phpconfig.php?file=iax.conf&section=15&section_conf=iax.conf">iax.conf</a></li>
+				<li><a href="phpconfig.php?file=extensions.conf&section=15&section_conf=extensions.conf">extensions.conf</a></li>
+				<li><a href="phpconfig.php?dir=/etc/asterisk&section=15">{php} echo gettext("All config files");{/php}</a></li>
+				
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	
 	{/if}
 	
 	<li><a href="#" target="_self"></a></a></li>
