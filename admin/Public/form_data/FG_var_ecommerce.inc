@@ -12,9 +12,9 @@ $HD_Form -> FG_DEBUG = 0;
 
 $language_list = Constants::getLanguagesList();
 $simultaccess_list = Constants::getSimultAccessList();
-$currency_list=Constants::getCurrenciesList();
-$currency_list_r = Constants::getCurrenciesRateList();
-$currency_list_key = Constants::getCurrenciesKeyList();
+$currency_list=getCurrenciesList();
+$currency_list_r = getCurrenciesRateList();
+$currency_list_key = getCurrenciesKeyList();
 $typepaid_list = Constants::getPaidTypeList();
 $expire_list = Constants::getExpirationList();
 

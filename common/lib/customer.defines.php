@@ -1,5 +1,8 @@
 <?php
 define ("WRITELOG_QUERY",false);
+define ("FSROOT", substr(dirname(__FILE__),0,-3));
+define ("LIBDIR", FSROOT."lib/");
+include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
 include_once (dirname(__FILE__)."/Class.Table.php");
 //	require_once('DB.php'); // PEAR
@@ -112,8 +115,6 @@ define ("RETURN_URL_DISTANT_LOGIN", isset($A2B->config["webcustomerui"]['return_
 define ("RETURN_URL_DISTANT_FORGETPASSWORD", isset($A2B->config["webcustomerui"]['return_url_distant_forgetpassword'])?$A2B->config["webcustomerui"]['return_url_distant_forgetpassword']:null);
 
 // INCLUDE FILES
-define ("FSROOT", substr(dirname(__FILE__),0,-3));
-define ("LIBDIR", FSROOT."lib/");
 include (FSROOT."lib/Misc.php");
 include (FSROOT."lib/interface/constants.php");
 

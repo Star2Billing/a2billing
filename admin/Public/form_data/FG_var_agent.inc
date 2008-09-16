@@ -33,9 +33,9 @@ $len_right_list = count($right_list);
 $yesno = Constants::getYesNoList();
 
 
-$currency_list=Constants::getCurrenciesList();
-$currency_list_r = Constants::getCurrenciesRateList();
-$currency_list_key = Constants::getCurrenciesKeyList() ;
+$currency_list=getCurrenciesList();
+$currency_list_r = getCurrenciesRateList();
+$currency_list_key = getCurrenciesKeyList() ;
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATE CREATION"), "datecreation", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");

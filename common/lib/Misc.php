@@ -76,6 +76,31 @@ function get_currencies($handle = null)
 	return $currencies_list;
 }
 
+function getCurrenciesList(){
+		$currencies_list = get_currencies();
+		foreach($currencies_list as $key => $cur_value) {
+			$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
+		}
+		return $currency_list;
+	}
+
+
+function getCurrenciesKeyList(){
+		$currencies_list = get_currencies();
+		foreach($currencies_list as $key => $cur_value) {
+			$currency_list_key[$key][0] = $key;
+		}
+		return $currency_list_key;
+	}
+
+function getCurrenciesRateList(){
+		$currencies_list = get_currencies();
+		foreach($currencies_list as $key => $cur_value) {
+			$currency_list_r[$key]  = array( $key, $cur_value[1]);
+		}
+		return $currency_list_r;
+	}
+
 /**
 * Do Currency Conversion.
 * @param $currencies_list the List of currencies.

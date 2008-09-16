@@ -18,29 +18,8 @@ class Constants
 		return $yesno;
 	}
 
-	public static function getCurrenciesList(){
-		$currencies_list = get_currencies();
-		foreach($currencies_list as $key => $cur_value) {
-			$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
-		}
-		return $currency_list;
-	}
 
-	public static function getCurrenciesKeyList(){
-		$currencies_list = get_currencies();
-		foreach($currencies_list as $key => $cur_value) {
-			$currency_list_key[$key][0] = $key;
-		}
-		return $currency_list_key;
-	}
-
-	public static function getCurrenciesRateList(){
-		$currencies_list = get_currencies();
-		foreach($currencies_list as $key => $cur_value) {
-			$currency_list_r[$key]  = array( $key, $cur_value[1]);
-		}
-		return $currency_list_r;
-	}
+	
 
 	public static function getPeriodsList(){
 	  	$period_list = array();

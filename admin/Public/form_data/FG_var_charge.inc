@@ -29,9 +29,9 @@ $chargetype_list["4"] = array( gettext("Extra charge"), "4");
 
 
 
-$currency_list = Constants::getCurrenciesList();
-$currency_list_r = Constants::getCurrenciesRateList();
-$currency_list_key = Constants::getCurrenciesKeyList() ;
+$currency_list = getCurrenciesList();
+$currency_list_r = getCurrenciesRateList();
+$currency_list_key = getCurrenciesKeyList() ;
 
 
 $HD_Form_c -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");

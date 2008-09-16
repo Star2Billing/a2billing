@@ -17,9 +17,9 @@ for ($k=1;$k<=20;$k++)
 
 
 
-$currency_list=Constants::getCurrenciesList();
-$currency_list_r = Constants::getCurrenciesRateList();
-$currency_list_key = Constants::getCurrenciesKeyList() ;
+$currency_list=getCurrenciesList();
+$currency_list_r = getCurrenciesRateList();
+$currency_list_key = getCurrenciesKeyList() ;
 
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "15%", "center", "sort");
