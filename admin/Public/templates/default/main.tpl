@@ -513,6 +513,7 @@
 				<li><a href="A2B_logfile.php?section=11">{php} echo gettext("Watch Log files");{/php}</a></li>
 				<li><a href="CC_musiconhold.php?section=11">{php} echo gettext("MusicOnHold");{/php}</a></li>
 				<li><a href="CC_upload.php?section=11">{php} echo gettext("Standard File");{/php}</a></li>
+				<li><a href="A2B_phpsysinfo.php?section=11">{php} echo "phpSysInfo";{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
