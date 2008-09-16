@@ -725,6 +725,21 @@ class A2Billing {
 	}
 
 
+	function enough_credit_to_call(){
+		$test_package = true;
+		$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
+		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if( !empty($result[0][0])){
+			
+			$id_package_groupe = $result[0][0];
+			
+			if($id_package_groupe!=-1){
+				$test_package = floor($this->credit*100)>0;
+			}
+		}
+		if ( (!$test_package || $this->credit < $this->agiconfig['min_credit_2call']) && $A2B -> typepaid==0) return true;
+		else return false;
+	}
 
 	/**
 	 *	Function callingcard_ivr_authorize : check the dialed/dialing number and play the time to call

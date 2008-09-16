@@ -187,7 +187,7 @@ if ($mode == 'standard'){
 			// Feature to switch the Callplan from a customer : callplan_deck_minute_threshold 
 			$A2B-> deck_switch($agi);
 			
-			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0 && $A2B->agiconfig['jump_voucher_if_min_credit']==1) {
+			if( $A2B -> enough_credit_to_call() && $A2B->agiconfig['jump_voucher_if_min_credit']==1) {
 
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
 				$vou_res = $A2B -> refill_card_with_voucher($agi,2);
@@ -198,7 +198,9 @@ if ($mode == 'standard'){
 				}
 			}
 			
-			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__,  "TARIFF ID -> ". $A2B->tariff);
+			
+			if($A2B -> enough_credit_to_call()) {
 
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
 				$prompt = "prepaid-no-enough-credit-stop";
@@ -775,7 +777,7 @@ if ($mode == 'standard'){
 				break;
 			}
 
-			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
+			if( $A2B->enough_credit_to_call()) {
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
 				$prompt = "prepaid-no-enough-credit-stop";
 				$agi-> stream_file($prompt, '#');
