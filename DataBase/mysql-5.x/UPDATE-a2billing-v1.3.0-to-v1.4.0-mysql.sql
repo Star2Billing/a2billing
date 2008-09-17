@@ -1128,3 +1128,7 @@ ALTER TABLE cc_ratecard CHANGE chargeb chargeb decimal(15,5) NOT NULL DEFAULT '0
 ALTER TABLE cc_ratecard CHANGE minimal_cost minimal_cost decimal(15,5) NOT NULL DEFAULT '0';
 
 
+
+-- change perms for new menu
+UPDATE cc_ui_authen SET perms = '5242879' WHERE userid=1 LIMIT 1;
+

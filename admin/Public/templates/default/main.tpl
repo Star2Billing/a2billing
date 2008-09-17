@@ -428,10 +428,35 @@
 	</div>
 	{/if}
 
+	{if ($ACXPREDICTIVEDIALER  > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img16"
+	{if ($section =="16")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AUTO DIALER");{/php}</strong></a></li>
+	<div class="tohide"
+	{if ($section =="16")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_campaign.php?section=16">{php} echo gettext("Show Campaign");{/php}</a></li>
+				<li><a href="A2B_entity_campaign.php?form_action=ask-add&section=16">{php} echo gettext("Add Campaign");{/php}</a></li>
+				<li><a href="A2B_entity_phonelist.php?section=16">{php} echo gettext("Show Phone List");{/php}</a></li>
+				<li><a href="A2B_entity_phonelist.php?form_action=ask-add&section=16">{php} echo gettext("Add Phone List");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
 
 	{if ($ACXMISC  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img6"
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
 	{if ($section =="8")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -465,7 +490,7 @@
 
 	{if ($ACXADMINISTRATOR  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img7"
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img10"
 	{if ($section =="10")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -493,7 +518,7 @@
 
 	{if ($ACXMAINTENANCE  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img11"
 	{if ($section == "11")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -520,10 +545,12 @@
 	</div>
 	</div>
 	
+	{/if}
 	
 	
+	{if ($ACXPBXCONFIG  > 0)}
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img9"
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img15"
 	{if ($section == "15")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}

@@ -35,7 +35,7 @@ if (!is_numeric($popup_select))
 	$popup_select=0;
 }
 $smarty->assign("popupwindow", $popup_select);
-// for menu
+
 
 $smarty->assign("ACXCUSTOMER", $ACXCUSTOMER);
 $smarty->assign("ACXBILLING", $ACXBILLING);
@@ -54,17 +54,17 @@ $smarty->assign("ACXPACKAGEOFFER", $ACXPACKAGEOFFER);
 $smarty->assign("ACXPREDICTIVEDIALER", $ACXPREDICTIVEDIALER);
 $smarty->assign("ACXINVOICING", $ACXINVOICING);
 $smarty->assign("ACXINVOICING2", $ACXINVOICING2);
+$smarty->assign("ACXPBXCONFIG", $ACXPBXCONFIG);
 
-if($_GET["section"]!="")
-{
+
+if($_GET["section"]!="") {
 	$section = $_GET["section"];
 	$_SESSION["menu_section"] = $section;
-}
-else
-{
+} else {
 	$section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
+
 $smarty->assign("adminname", $_SESSION["pr_login"]);
 
 // OPTION FOR THE MENU
@@ -72,4 +72,4 @@ $smarty->assign("A2Bconfig", $A2B->config);
 
 $smarty->assign("PAGE_SELF", $PHP_SELF);
 
-?>
+

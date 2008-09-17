@@ -35,8 +35,8 @@ define ("ACX_OUTBOUNDCID",				2048);		// 1 << 11
 define ("ACX_PACKAGEOFFER",				4096);		// 1 << 12
 define ("ACX_PREDICTIVE_DIALER",		8192);		// 1 << 13
 define ("ACX_INVOICING",				16384);		// 1 << 13
-define ("ACX_SUPPORT",					32768);
-
+define ("ACX_SUPPORT",					32768);		// 1 << 14
+define ("ACX_PBXCONFIG",				65536);		// 1 << 15
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
@@ -102,7 +102,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		if ($return[3]==0){
 			$admin_id = $return[0];
 			$return = true;
-			$rights = 65535;
+			$rights = 5242879;
 
 			$is_admin = 1;
 			$pr_groupID = $return[3];
@@ -173,21 +173,23 @@ function has_rights ($condition) {
 }
 
 
-$ACXCUSTOMER 	= has_rights (ACX_CUSTOMER);
-$ACXBILLING 	= has_rights (ACX_BILLING);
-$ACXRATECARD 	= has_rights (ACX_RATECARD);
-$ACXTRUNK		= has_rights (ACX_TRUNK);
-$ACXDID			= has_rights (ACX_DID);
-$ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
-$ACXCRONTSERVICE= has_rights (ACX_CRONT_SERVICE);
-$ACXMISC 		= has_rights (ACX_MISC);
-$ACXADMINISTRATOR = has_rights (ACX_ADMINISTRATOR);
-$ACXMAINTENANCE = has_rights (ACX_MAINTENANCE);
-$ACXCALLBACK	= has_rights (ACX_CALLBACK);
-$ACXOUTBOUNDCID = has_rights (ACX_OUTBOUNDCID);
-$ACXPACKAGEOFFER = has_rights (ACX_PACKAGEOFFER);
-$ACXPREDICTIVEDIALER = has_rights (ACX_PREDICTIVE_DIALER);
-$ACXINVOICING = has_rights (ACX_INVOICING);
-$ACXINVOICING2 = has_rights (ACX_INVOICING);
-$ACXSUPPORT = has_rights (ACX_SUPPORT);
+$ACXCUSTOMER 			= has_rights (ACX_CUSTOMER);
+$ACXBILLING 			= has_rights (ACX_BILLING);
+$ACXRATECARD 			= has_rights (ACX_RATECARD);
+$ACXTRUNK				= has_rights (ACX_TRUNK);
+$ACXDID					= has_rights (ACX_DID);
+$ACXCALLREPORT			= has_rights (ACX_CALL_REPORT);
+$ACXCRONTSERVICE		= has_rights (ACX_CRONT_SERVICE);
+$ACXMISC 				= has_rights (ACX_MISC);
+$ACXADMINISTRATOR 		= has_rights (ACX_ADMINISTRATOR);
+$ACXMAINTENANCE 		= has_rights (ACX_MAINTENANCE);
+$ACXCALLBACK			= has_rights (ACX_CALLBACK);
+$ACXOUTBOUNDCID 		= has_rights (ACX_OUTBOUNDCID);
+$ACXPACKAGEOFFER 		= has_rights (ACX_PACKAGEOFFER);
+$ACXPREDICTIVEDIALER 	= has_rights (ACX_PREDICTIVE_DIALER);
+$ACXINVOICING 			= has_rights (ACX_INVOICING);
+$ACXINVOICING2 			= has_rights (ACX_INVOICING);
+$ACXSUPPORT 			= has_rights (ACX_SUPPORT);
+$ACXPBXCONFIG 			= has_rights (ACX_PBXCONFIG);
+
 

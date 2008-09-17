@@ -30,7 +30,6 @@ if (is_numeric($groupID)){
 $HD_Form -> FG_TABLE_CLAUSE = $FG_TABLE_CLAUSE;
 
 $right_list = array();
-// 1 2 4 8 16 32 64 128 256 512
 $right_list["1"] = array( gettext("CUSTOMERS"), "1");
 $right_list["2"] = array( gettext("BILLING"), "2");
 $right_list["3"] = array( gettext("RATECARD"), "4");
@@ -44,9 +43,10 @@ $right_list["10"] = array( gettext("DID"), "512");
 $right_list["11"] = array( gettext("CALL BACK"), "1024");
 $right_list["12"] = array( gettext("OUTBOUND CID"), "2048");
 $right_list["13"] = array( gettext("PACKAGE OFFER"), "4096");
-//$right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
-$right_list["14"] = array( gettext("INVOICES"), "16384");
-$right_list["15"] = array( gettext("SUPPORT"), "32768");
+$right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
+$right_list["15"] = array( gettext("INVOICES"), "16384");
+$right_list["16"] = array( gettext("SUPPORT"), "32768");
+$right_list["17"] = array( gettext("PBX-CONFIG"), "65536");
 
 $len_right_list = count($right_list);
 
