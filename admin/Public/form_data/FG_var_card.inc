@@ -50,8 +50,8 @@ $simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
 
 
 $simultaccess_list_r = array();
-$simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
 $simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
+$simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
 
 
 // Possible value to notify the user
@@ -259,13 +259,13 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('ADD PAYMENT');
 }
 
-$maxi='';
-$maxi2='';
-$maxi3='';
-if (isset($form_action) && $form_action=="ask-add"){
+$maxi	= '';
+$maxi2	= '';
+$maxi3	= '';
+
+if (isset($form_action) && $form_action=="ask-add") {
 	if (!is_numeric($cardnumberlenght_list)) 	$cardnumberlenght_list = LEN_CARDNUMBER;
 	$array_card_generated  = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
-
 	$maxi = "value='".$array_card_generated[0]."'";
 	$maxi2 = "value='".$array_card_generated[1]."'";
 	$pass = MDP_NUMERIC(10);
@@ -312,9 +312,9 @@ $HD_Form -> AddEditElement (gettext("CARD GROUP"),
 			   "", "", "%1", "", "");
 
 $balance_access = 'readonly';
-if ($form_action =="ask-add" || $form_action=="add"){
+if ($form_action =="ask-add" || $form_action=="add") {
 	$balance_access = '';
-}else {
+} else {
 	$balance_access = 'readonly';
 }
 
@@ -371,9 +371,6 @@ $HD_Form -> AddEditElement (gettext("AGENT ID"),
 			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 
-/*
-// The campaign for predictive dialer is removing for now, as this feature arent supported anymore
-// this is not fully depreciated
 $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "id_campaign",
 			   "",
@@ -383,7 +380,7 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "cc_campaign",
 			   "campaign_name, id",
 			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-*/
+
 
 $HD_Form -> AddEditElement (gettext("CALLBACK"),
 			   "callback",
@@ -855,7 +852,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group, credit, language, tariff, id_didgroup, id_agent, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target' );
+$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group, credit, language, tariff, id_didgroup, id_agent, id_campaign, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target' );
 
 
 if(!isset($myusername)) $myusername='';

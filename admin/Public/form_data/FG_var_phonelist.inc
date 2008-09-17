@@ -1,12 +1,11 @@
 <?php
+
 getpost_ifset(array('id', 'numbertodial', 'id_cc_campaign', 'name', 'activated', 'last_attempt', 'inuse', 'additionalinfo'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_phonelist","phonelist");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "numbertodial";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -40,8 +39,6 @@ $HD_Form -> FG_DELETION = true;
 
 
 
-
-
 $HD_Form -> AddEditElement (gettext("Phone Number"),
 	"numbertodial",
 	'$value',
@@ -70,7 +67,7 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	gettext("Insert the name "),
 	"" , "", "", "", "" , "", "", "");
 
-if ($form_action=="ask-add" || $form_action=="add"){
+if ($form_action=="ask-add" || $form_action=="add") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+25;
 	$end_date = date("-m-d H:i:s");
@@ -78,13 +75,13 @@ if ($form_action=="ask-add" || $form_action=="add"){
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 
 	$HD_Form -> AddEditElement (gettext("LAST ATTEMPT DATE"),
-			"last_attempt",
-			'$value',
-			"INPUT",
-			"size=40 maxlength=40  $comp_date",
-			"10",
-			gettext("Insert the last attempt date"),
-			"" , "", "", "", "", "", "res_display_dateformat", gettext("Format: YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'") );
+		"last_attempt",
+		'$value',
+		"INPUT",
+		"size=40 maxlength=40  $comp_date",
+		"10",
+		gettext("Insert the last attempt date"),
+		"" , "", "", "", "", "", "res_display_dateformat", gettext("Format: YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'") );
 }
 
 
@@ -106,7 +103,7 @@ $HD_Form -> AddEditElement (gettext("ADDITIONALINFO"),
 	gettext("Insert additional information"),
 	"" , "", "", "", "" , "", "", "");
 
-if ($form_action!="ask-add" && $form_action!="add"){
+if ($form_action!="ask-add" && $form_action!="add") {
 	$HD_Form -> AddEditElement (gettext("INUSE"),
 		"inuse",
 		'1',
@@ -115,21 +112,22 @@ if ($form_action!="ask-add" && $form_action!="add"){
 		"",
 		gettext("Choose the status of this phonenumber"),
 		"" , "", "","In use :1, - Not in use :0", "" , "", "", "");
-}																															     
+}				
+																											     
 if ($form_action=="ask-add" || $form_action=="add") 
 	$HD_Form -> FieldEditElement ('numbertodial, id_cc_campaign, name, last_attempt, enable, additionalinfo');
 else if ($form_action!="ask-add" && $form_action!="add")
 	$HD_Form -> FieldEditElement ('numbertodial, id_cc_campaign, name, enable, additionalinfo, inuse');
 else
 	$HD_Form -> FieldEditElement ('numbertodial, id_cc_campaign, name, enable, additionalinfo');
-	
+
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 
-if (DB_TYPE == "postgres"){
+if (DB_TYPE == "postgres") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";	
-}else{
+} else {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";	
 }
@@ -154,4 +152,5 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+
+

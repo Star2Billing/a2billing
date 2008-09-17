@@ -1,12 +1,12 @@
 <?php
-exit;
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_phonelist.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_PREDICTIVE_DIALER)){ 
+
+if (! has_rights (ACX_PREDICTIVE_DIALER)) { 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
@@ -22,7 +22,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {	
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
@@ -48,7 +48,6 @@ $HD_Form -> create_toppage ($form_action);
 
 
 // #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
@@ -58,5 +57,3 @@ $smarty->display('footer.tpl');
 
 
 
-
-?>

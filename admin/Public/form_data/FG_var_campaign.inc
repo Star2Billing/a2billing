@@ -2,12 +2,10 @@
 
 getpost_ifset(array('id', 'campaign_name', 'startingdate', 'expirationdate', 'id_trunk', 'description'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_campaign","Campaign");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " campaign_name";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -16,7 +14,7 @@ $HD_Form -> AddViewElement(gettext("STARTINGDATE"), "startingdate", "15%", "cent
 $HD_Form -> AddViewElement(gettext("EXPIRATIONDATE"), "expirationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("USED MINUTE"), "secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$HD_Form -> AddViewElement(gettext("nb_callmade"), "nb_callmade", "8%", "center", "SORT", "30");
+$HD_Form -> AddViewElement(gettext("AMOUT CALLS"), "nb_callmade", "8%", "center", "SORT", "30");
 
 
 $HD_Form -> FieldViewElement ('campaign_name, startingdate, expirationdate, id_trunk, secondusedreal, nb_callmade');
@@ -32,6 +30,7 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
+
 $HD_Form -> AddEditElement (gettext("CAMPAIGN NAME"),
 	"campaign_name",
 	'$value',
@@ -42,7 +41,7 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN NAME"),
 	"" , "", "", "", "" , "", "", "");
 
 // TODO integrate in new framework
-if ($form_action=="ask-add"){
+if ($form_action=="ask-add") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+25;
 	$end_date = date("-m-d H:i:s");
@@ -92,10 +91,10 @@ $HD_Form -> FieldEditElement ('campaign_name, startingdate, expirationdate, id_t
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 
-if (DB_TYPE == "postgres"){
+if (DB_TYPE == "postgres") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
+} else {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
 }
@@ -106,9 +105,6 @@ if (DB_TYPE == "postgres"){
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-
-
-
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a ".$HD_Form->FG_INSTANCE_NAME." now.");
@@ -123,4 +119,6 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+
+
+
