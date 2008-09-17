@@ -469,7 +469,7 @@ class RateEngine
 		This following "if" statement used to verify the minimum credit to call can be improved.
 		This mininum credit should be calculated based on the destination, and the minimum billing block.
 		*/
-		if ($credit < $A2B->agiconfig['min_credit_2call']){
+		if ($credit < $A2B->agiconfig['min_credit_2call'] && !$this -> freecall[$K]){
 			return "ERROR CT1";  //NO ENOUGH CREDIT TO CALL THIS NUMBER
 		}
 
