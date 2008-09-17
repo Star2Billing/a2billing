@@ -54,7 +54,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 
 function sendtoupload(form){
-	
 	if (form.the_file.value.length < 2){
 		alert ('<?php echo gettext("Please, you must first select a file !")?>');
 		form.the_file.focus ();
@@ -62,7 +61,7 @@ function sendtoupload(form){
 	}
 	
     document.forms["prefs"].elements["task"].value = "upload";	
-	document.forms[0].submit();
+	document.prefs.submit();
 }
 
 //-->
@@ -360,7 +359,7 @@ function moveSourceDown()
                       <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
                       <input type="hidden" name="task" value="upload">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-					  <input type="submit" value="Import RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
+					  <input type="button" value="Import RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
 					   </p>     
                   </td>
                 </tr>
