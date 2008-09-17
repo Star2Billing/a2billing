@@ -129,11 +129,15 @@
 		{/if}
 		{if $A2Bconfig.webcustomerui.support==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_support.php?section=14"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_support.php"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li></ul>
 		{/if}
 		{if $A2Bconfig.webcustomerui.notification ==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_notification.php?section=15&form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_notification.php&form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></ul>
+		{/if}
+		{if $A2Bconfig.webcustomerui.predictivedialer ==1 }
+		<li><a href="#" target="_self"></a></li>
+		<ul><li><a href="predictivedialer.php"><strong>{php} echo gettext("AUTO DIALER");{/php}</strong></a></li></ul>
 		{/if}
 
 
