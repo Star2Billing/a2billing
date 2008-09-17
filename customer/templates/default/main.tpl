@@ -137,7 +137,7 @@
 		{/if}
 		{if $A2Bconfig.webcustomerui.predictivedialer ==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="predictivedialer.php"><strong>{php} echo gettext("AUTO DIALER");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_entity_autodialer.php"><strong>{php} echo gettext("AUTO DIALER");{/php}</strong></a></li></ul>
 		{/if}
 
 

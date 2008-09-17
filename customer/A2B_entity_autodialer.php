@@ -60,33 +60,23 @@ $smarty->display( 'main.tpl');
 
 if ($form_action == "list")
 {
-    // My code for Creating two functionalities in a page
-    $HD_Form -> create_toppage ("ask-add");
+    // $HD_Form -> create_toppage ("ask-add");
     if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
     
 
 	if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 
 ?>
-	  </center>
-	   <table align="center"  border="0" width="55%" class="bgcolor_006">
-		<form name="theForm" action="<?php  $_SERVER["PHP_SELF"]?>">
-		<tr class="bgcolor_001" >
-
-		<td align="center" valign="top">
-				<?php gettext("CALLER ID :");?>
-				<input class="form_input_text" name="add_callerid" size="15" maxlength="60">
-			</td>
-			<td align="center" valign="middle">
-						<input class="form_input_button"  value="<?php echo gettext("ADD NEW CALLERID"); ?>"  type="submit">
-		</td>
-        </tr>
-	</form>
-      </table>
-	  <br>
+	  <center>
+	  
+	  <br><br><br><br><br>
+	  We should put some stuff here for the Auto Dialer !!!
+	  <br><br><br><br><br>
+	  
 	<?php
-    // END END END My code for Creating two functionalities in a page
 }
+
+
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
