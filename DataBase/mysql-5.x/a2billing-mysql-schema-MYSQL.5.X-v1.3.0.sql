@@ -904,21 +904,10 @@ INSERT INTO cc_country VALUES (254, 'CPT' ,'0', 'Clipperton Island');
 INSERT INTO cc_country VALUES (255, 'TAA' ,'0', 'Tristan da Cunha');
 
 
---
--- Predictive Dialer update  database - Create database schema
---
+
 
 --
--- CURRENT_TIMESTAMP
--- last_attempt TIMESTAMP DEFAULT 'now()' NOT NULL,  
--- last_attempt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
---
-
---
---	MYSQL 5.x - MYSQL 5.x - MYSQL 5.x - MYSQL 5.x - MYSQL 5.x
---
---
--- Predictive Dialer update  database - Create database schema
+-- Auto Dialer update  database - Create database schema
 --
 
 
