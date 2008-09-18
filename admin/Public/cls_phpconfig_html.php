@@ -606,7 +606,7 @@ var $_OC_HTML_colspan = "3";
 
             <textarea name="section_text" style="width: 100%" rows="<?PHP echo $this->_OC_HTML_textarea_rows ?>" wrap="off"><?PHP foreach($theItems as $item) print "$item";?></textarea> <br>
 
-            <input type="Submit" name="tryUpdate" value="Update">
+            <input type="Submit" class="form_input_button" name="tryUpdate" value="Update">
 
             </form>
 
