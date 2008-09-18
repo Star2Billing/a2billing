@@ -87,7 +87,9 @@ if ($form_action == "list")
 		<table align="center"  border="0" width="70%" class="bgcolor_006">
 			<tr class="bgcolor_001" >
 				<td align="center" valign="middle">
-					<b><i> <?php  echo gettext("You are not allowed to add more CallerID. Remove one if you are willing to use an other CallerID.");?> </i> </b>
+					<b><i> <?php  echo gettext("You are not allowed to add more CallerID.");
+					echo "<br/>";
+					 echo gettext("Remove one if you are willing to use an other CallerID.");?> </i> </b>
 					<br/>
 					<?php echo gettext("Max CallerId");?> &nbsp;:&nbsp; <?php echo $A2B->config["webcustomerui"]['limit_callerid'] ?>
 	  			</td>
