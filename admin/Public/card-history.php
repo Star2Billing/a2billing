@@ -12,7 +12,7 @@ if (! has_rights (ACX_CALL_REPORT)){
 
 
 
-getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday'));
+getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','entercustomer'));
 
 
 if (!isset ($current_page) || ($current_page == "")){
@@ -38,9 +38,8 @@ $DBHandle  = DbConnect();
 // The variable Var_col would define the col that we want show in your table
 // First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-
-$FG_TABLE_COL[]=array ("ID", "id", "10%", "center", "SORT");
-$FG_TABLE_COL[]=array (gettext("Date"), "datecreated", "30%", "center", "SORT");
+$FG_TABLE_COL[]=array (gettext("Card Number"), "id_cc_card", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$FG_TABLE_COL[]=array (gettext("Date"), "datecreated", "20%", "center", "SORT");
 $FG_TABLE_COL[]=array (gettext("Description"), "description", "60%", "center", "SORT");
 
 
@@ -48,7 +47,7 @@ $FG_TABLE_DEFAULT_ORDER = "ch.datecreated";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY='ch.ID, ch.datecreated, ch.description';
+$FG_COL_QUERY='ch.id_cc_card, ch.datecreated, ch.description';
 
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
@@ -81,6 +80,7 @@ if ( is_null ($order) || is_null($sens) ){
 }
 
 
+
 $date_clause='';
 // Period (Month-Day)
 if (DB_TYPE == "postgres"){		
@@ -109,7 +109,10 @@ if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
 	$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(ch.datecreated) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 
-
+if (isset($entercustomer)  &&  ($entercustomer>0)) {
+		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+		$FG_TABLE_CLAUSE.="ch.id_cc_card='$entercustomer'";
+	}
 
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
@@ -149,10 +152,21 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>
-	<FORM METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>&terminatecauseid=<?php echo $terminatecauseid?>">
+	<FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>&terminatecauseid=<?php echo $terminatecauseid?>">
 		<INPUT TYPE="hidden" NAME="posted" value=1>
 		<INPUT TYPE="hidden" NAME="current_page" value=0>
 		<table class="callhistory_maintable" align="center">
+		
+			<tr>
+			<td align="left" valign="top" class="bgcolor_004">					
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
+			</td>				
+			<td class="bgcolor_005" align="left">
+					<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+			</td>
+		</tr>	
+			
 			<tr>
         		<td class="bgcolor_004" align="left" >
 					
