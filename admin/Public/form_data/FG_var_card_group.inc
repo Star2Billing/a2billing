@@ -34,9 +34,8 @@ foreach ($result_config as $value){
 }
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("AGI CONF"), "id_agi_conf", "20%", "center", "sort", "30", "list", $agi_list);
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "SORT", "40");
-$HD_Form -> FieldViewElement ( 'name, id_agi_conf, description');
+$HD_Form -> FieldViewElement ( 'name, description');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CARD GROUP CREATED!"); 
@@ -59,14 +58,6 @@ $HD_Form -> AddEditElement ( gettext("NAME"),
 	gettext("Insert the provider name"), 
 	"" , "", "",	"", "", "", "", "" );
 
-$HD_Form -> AddEditElement (gettext("AGI CONF"),
-	"id_agi_conf",
-	'$value',
-	"SELECT",
-	"",
-	"",
-	"",
-	"list" , "", "", "", $agi_list, "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"description",
@@ -77,7 +68,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
 
-$HD_Form -> FieldEditElement ('name, id_agi_conf, description');
+$HD_Form -> FieldEditElement ('name, description');
 
 
 
