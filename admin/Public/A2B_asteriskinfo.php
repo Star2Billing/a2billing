@@ -107,10 +107,8 @@ $arr_voicemail = array(
 	"Voicemail users" => "show voicemail users",
 );
 
-//$engineinfo = engine_getinfo();
-//$astver =  $engineinfo['version'];
 
-//if (version_compare($astver, '1.4', 'ge')) {
+if (ASTERISK_VERSION == '1_4') {
 	$arr_all["Uptime"]="core show uptime";
 	$arr_all["Active Channel(s)"]="core show channels";
 	$arr_all["Subscribe/Notify"]="core show hints";
@@ -118,7 +116,7 @@ $arr_voicemail = array(
 	$arr_channels["Active Channel(s)"]="core show channels";
 	$arr_subscriptions["Subscribe/Notify"]="core show hints";
 	$arr_voicemail["Voicemail users"]="voicemail show users";
-//}
+}
 
 ?>
 
@@ -320,9 +318,9 @@ function buildAsteriskInfo(){
 		"IAX2 Peers" => "iax2 show peers",
 	);
 	
-	//if (version_compare($astver, '1.4', 'ge')) {
+	if (ASTERISK_VERSION == '1_4') {
 		$arr['Uptime'] = 'core show uptime';
-	//}
+	}
 	
 	$htmlOutput = '<div style="color:#000000;font-size:12px;margin:10px;">';
 	$htmlOutput .= '<table border="1" cellpadding="10">';

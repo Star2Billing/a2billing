@@ -121,7 +121,8 @@ define ("FRIEND_HOST", isset($A2B->config['peer_friend']['host'])?$A2B->config['
 define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->config['peer_friend']['dtmfmode']:null);
 define ("USE_REALTIME", isset($A2B->config['peer_friend']['use_realtime'])?$A2B->config['peer_friend']['use_realtime']:0);
 
-
+// AGI
+define ("ASTERISK_VERSION", isset($A2B->config['agi-conf1']['asterisk_version'])?$A2B->config['agi-conf1']['asterisk_version']:'1_4');
 
 
 /*
