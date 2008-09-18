@@ -12,8 +12,27 @@ $HD_Form -> FG_EDITION_CLAUSE = " id = ".$_SESSION["card_id"];
 $HD_Form -> FG_INTRO_TEXT_EDITION = '';
 
 
+$QUERY = "SELECT status, currency FROM cc_card  WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$DBHandle  = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle -> Execute($QUERY);
+if ($resmax)
+	$numrow = $resmax -> RecordCount();
+
+if ($numrow == 0) exit();
+$customer_info =$resmax -> fetchRow();
+
+if($customer_info [0] != "1" ) {
+	exit();
+}	
+	
+$currencies_list = get_currencies();
+
+if (!isset($currencies_list[strtoupper($customer_info [1])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [1])][2])) $mycur = 1;
+else $mycur = $currencies_list[strtoupper($customer_info [1])][2];
+
+
 // Possible value to notify the user
- $DBHandle  = DbConnect();
  $instance_config_table = new Table("cc_config", "id, config_value");
  $QUERY = " config_key = 'values_notifications' ";
  $return = null;
@@ -21,11 +40,16 @@ $HD_Form -> FG_INTRO_TEXT_EDITION = '';
  $values = explode(":",$return[0]["config_value"]);
  $limits_notify = array();
  $idx =0;
+ echo $mycur;
   foreach ($values as $val)
-	{ 	$limits_notify [$idx] = array($val,$val);
+	{ 	$val_display = $val / $mycur;
+		$val_display = round($val_display,2);	
+		$limits_notify [$idx] = array($val_display,$val);
 		$idx++;
 	}
 
+
+	
 
 $HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
 			   "credit_notification",
