@@ -375,7 +375,7 @@ if(sizeof($payment_result)>0){
 	<tr>
 		<td height="20" align="center"> 
 			<font class="toppage_maintable_text">						  
-			  You can see below , All payments associate to this card			  <br/>
+			  <?php echo gettext("Customer Payments"); ?>		  <br/>
 			</font>
 		</td>
 	</tr>
@@ -385,16 +385,16 @@ if(sizeof($payment_result)>0){
 
 	<tr class="form_head">
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
-		ID
+		 <?php echo gettext("ID"); ?>
 		</td>
 		<td class="tableBody"  width="20%" align="center" style="padding: 2px;">
-		PAYMENT DATE 
+		<?php echo gettext("PAYMENT DATE"); ?>
 		</td>
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
-		PAYMENT AMOUNT
+		<?php echo gettext("PAYMENT AMOUNT"); ?>
 		</td>
 		<td class="tableBody"  width="30%" align="center" style="padding: 2px;">
-		DESCRIPTION
+		<?php echo gettext("DESCRIPTION"); ?>
 		</td>
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
 		ID REFILL
@@ -449,7 +449,7 @@ if(sizeof($refill_result)>0){
 	<tr>
 		<td height="20" align="center"> 
 			<font class="toppage_maintable_text">						  
-			  You can see below , All refills associate to this card			  <br/>
+			 <?php echo gettext("Customer Refills"); ?>			  <br/>
 			</font>
 		</td>
 	</tr>
@@ -459,18 +459,17 @@ if(sizeof($refill_result)>0){
 
 	<tr class="form_head">
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
-		ID
+		 <?php echo gettext("ID"); ?>
 		</td>
 		<td class="tableBody"  width="20%" align="center" style="padding: 2px;">
-		REFILL DATE 
+		 <?php echo gettext("REFILL DATE"); ?> 
 		</td>
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
-		REFILL AMOUNT
+		 <?php echo gettext("REFILL AMOUNT"); ?>
 		</td>
 		<td class="tableBody"  width="40%" align="center" style="padding: 2px;">
-		DESCRIPTION
+		 <?php echo gettext("DESCRIPTION"); ?>
 		</td>
-		
 		
 	</tr>
  
