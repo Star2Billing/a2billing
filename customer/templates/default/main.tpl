@@ -133,7 +133,7 @@
 		{/if}
 		{if $A2Bconfig.webcustomerui.notification ==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_notification.php&form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_notification.php?form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></ul>
 		{/if}
 		{if $A2Bconfig.webcustomerui.predictivedialer ==1 }
 		<li><a href="#" target="_self"></a></li>
