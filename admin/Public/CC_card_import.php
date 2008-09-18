@@ -42,7 +42,6 @@ function sendtofield(form){
 		form.listemail.focus ();
 		return (false);
 	}
-	alert("XXXX");
     document.forms["prefs"].elements["task"].value = "field";
 	document.forms[0].submit();
 }
