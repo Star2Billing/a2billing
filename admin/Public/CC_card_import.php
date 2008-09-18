@@ -42,7 +42,7 @@ function sendtofield(form){
 		form.listemail.focus ();
 		return (false);
 	}
-
+	alert("XXXX");
     document.forms["prefs"].elements["task"].value = "field";
 	document.forms[0].submit();
 }
@@ -52,9 +52,8 @@ function sendtoupload(form){
 	if (form.the_file.value.length < 2){
 		alert ('<?php echo gettext("Please, you must first select a file !")?>');
 		form.the_file.focus ();
-		return (false);
+		return false;
 	}
-
     document.forms["prefs"].elements["task"].value = "upload";
 	document.prefs.action='CC_card_import_analyse.php';
 	document.prefs.submit();
