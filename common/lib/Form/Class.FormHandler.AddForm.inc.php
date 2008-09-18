@@ -106,7 +106,7 @@
 				$select_list = $this->FG_TABLE_ADITION[$i][11];
 			}
 	?>
-		   <SELECT name='<?php echo $this->FG_TABLE_ADITION[$i][1]?><?php if (strpos($this->FG_TABLE_ADITION[$i][4], "multiple")) echo "[]";?>' class="form_input_select" <?php echo $this->FG_TABLE_ADITION[$i][4]?>>
+		   <SELECT name='<?php echo $this->FG_TABLE_ADITION[$i][1]?><?php if (strpos($this->FG_TABLE_ADITION[$i][4], "multiple")) echo "[]";?>' class="form_input_select"  <?php echo $this->FG_TABLE_ADITION[$i][4]?> >
 	<?php  
 			echo ($this->FG_TABLE_ADITION[$i][15]);
 			if (strlen($this->FG_TABLE_ADITION[$i][6])>0) {
@@ -128,12 +128,8 @@
 	?>
 	<OPTION  value='<?php echo $select_recordset[1]?>' 
 	<?php 
-						 										
-							if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){								
-								if (is_array($_POST[$this->FG_TABLE_EDITION[$i][1]]) && (intval($select_recordset[1]) & array_sum($_POST[$this->FG_TABLE_EDITION[$i][1]]))) echo "selected"; 
-							}else{
-								if (strcmp($_POST[$this->FG_TABLE_EDITION[$i][1]],$select_recordset[1])==0){ echo "selected"; } 
-							}
+							
+							if ( $this->FG_TABLE_ADITION[$i][2] == $select_recordset[1] ) echo "selected";
 						
 						// CLOSE THE <OPTION
 						echo '> ';						
