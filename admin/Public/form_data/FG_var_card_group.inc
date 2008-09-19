@@ -23,15 +23,15 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_group ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this Customers Group! Please comfirm that you really want to remove this Customers Group ? ");
 
 
-$DBHandle  = DbConnect();
-$conf_table = new Table("cc_config_group", "group_title");
-$clause_conf_agi = "cc_config_group.group_title LIKE 'agi_conf_%'";
-$result_config= $conf_table -> Get_list ($DBHandle, $clause_conf_agi, null, null, null, null, null, null);
-$agi_list = array();
-$agi_list[-1] = array( gettext("NOT DEFINED"), "-1");
-foreach ($result_config as $value){
-	$agi_list[substr($value["group_title"],8)] = array($value["group_title"], substr($value["group_title"],8));	
-}
+//$DBHandle  = DbConnect();
+//$conf_table = new Table("cc_config_group", "group_title");
+//$clause_conf_agi = "cc_config_group.group_title LIKE 'agi_conf_%'";
+//$result_config= $conf_table -> Get_list ($DBHandle, $clause_conf_agi, null, null, null, null, null, null);
+//$agi_list = array();
+//$agi_list[-1] = array( gettext("NOT DEFINED"), "-1");
+//foreach ($result_config as $value){
+//	$agi_list[substr($value["group_title"],8)] = array($value["group_title"], substr($value["group_title"],8));	
+//}
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "SORT", "40");
@@ -70,6 +70,28 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 
 $HD_Form -> FieldEditElement ('name, description');
 
+
+	
+$DBHandle_max  = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_service");
+if ( $resmax )
+	$numrow = $resmax -> RecordCount( );
+
+if ($numrow>0){ 
+	$HD_Form -> AddEditElement (gettext("RECURRING SERVICE"),
+		"service",	
+		'$value',	
+		"SELECT",		
+		'size="10" multiple="multiple"',
+		"",		
+		"",	
+		"sql",		
+		"cards_services",	
+		"name, id",		
+		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_service:cc_service LEFT JOIN cc_cardgroup_service ON cc_service.id=cc_cardgroup_service.id_service:DISTINCT cc_service.name, cc_service.id: cc_cardgroup_service.id_card_group = %id:id_card_group:%2 - (%1)::::%1:id='%1'");		
+	
+}
 
 
 

@@ -811,7 +811,7 @@ CREATE TABLE cc_support (
 CREATE TABLE cc_support_component (
   id smallint(5) NOT NULL auto_increment,
   id_support smallint(5) NOT NULL,
-  `name` varchar(50) collate utf8_bin NOT NULL,
+  name varchar(50) collate utf8_bin NOT NULL,
   activated smallint(6) NOT NULL default '1',
   PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -1132,3 +1132,11 @@ ALTER TABLE cc_ratecard CHANGE minimal_cost minimal_cost decimal(15,5) NOT NULL 
 -- change perms for new menu
 UPDATE cc_ui_authen SET perms = '5242879' WHERE userid=1 LIMIT 1;
 
+-- correct card group
+ALTER TABLE cc_card_group DROP id_agi_conf;
+ALTER TABLE cc_card_group ADD description MEDIUMTEXT NULL ;
+
+ CREATE TABLE cc_cardgroup_service (
+id_card_group INT NOT NULL ,
+id_service INT NOT NULL
+) ENGINE = MYISAM ;
