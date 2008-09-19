@@ -54,7 +54,6 @@ $smarty->assign("ACXPACKAGEOFFER", $ACXPACKAGEOFFER);
 $smarty->assign("ACXPREDICTIVEDIALER", $ACXPREDICTIVEDIALER);
 $smarty->assign("ACXINVOICING", $ACXINVOICING);
 $smarty->assign("ACXINVOICING2", $ACXINVOICING2);
-$smarty->assign("ACXPBXCONFIG", $ACXPBXCONFIG);
 
 
 if($_GET["section"]!="") {

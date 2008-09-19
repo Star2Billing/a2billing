@@ -26,7 +26,7 @@ include_once ("../lib/admin.defines.php");
 include_once ("../lib/admin.module.access.php");
 include_once ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_PBXCONFIG)){ 
+if (! has_rights (ACX_ADMINISTRATOR)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   

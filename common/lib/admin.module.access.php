@@ -36,7 +36,7 @@ define ("ACX_PACKAGEOFFER",				4096);		// 1 << 12
 define ("ACX_PREDICTIVE_DIALER",		8192);		// 1 << 13
 define ("ACX_INVOICING",				16384);		// 1 << 13
 define ("ACX_SUPPORT",					32768);		// 1 << 14
-define ("ACX_PBXCONFIG",				65536);		// 1 << 15
+// define ("ACX_PBXCONFIG",				65536);		// 1 << 15
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
@@ -190,6 +190,5 @@ $ACXPREDICTIVEDIALER 	= has_rights (ACX_PREDICTIVE_DIALER);
 $ACXINVOICING 			= has_rights (ACX_INVOICING);
 $ACXINVOICING2 			= has_rights (ACX_INVOICING);
 $ACXSUPPORT 			= has_rights (ACX_SUPPORT);
-$ACXPBXCONFIG 			= has_rights (ACX_PBXCONFIG);
 
 

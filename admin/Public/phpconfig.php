@@ -15,9 +15,12 @@
 // add for a2billing 
 include_once ("../lib/admin.defines.php");
 include_once ("../lib/admin.module.access.php");
+include_once ("../lib/regular_express.inc");
+include_once ("../lib/phpagi/phpagi-asmanager.php");
 include_once ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_PBXCONFIG)){ 
+
+if (! has_rights (ACX_ADMINISTRATOR)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -162,12 +165,13 @@ if (! has_rights (ACX_PBXCONFIG)){
         $page->OC_HTML_doSideMenu();
 
         // check if person is authorized to execute re-read configuration
-        $access_result = $conf->OC_checkAccess($_SESSION['valid_user']);
-
+        //$access_result = $conf->OC_checkAccess($_SESSION['valid_user']);
+		$access_result = true;
+		
         if ($access_result)
         {
             // re-read configuration
-            @system($conf->_OC_reset_cmd, $result);
+            /*@system($conf->_OC_reset_cmd, $result);
             if ($result == 0)
             {
                 echo "<br>Reset succeded.<br>";
@@ -175,7 +179,19 @@ if (! has_rights (ACX_PBXCONFIG)){
             else
             {
                 echo "<br>Reset failed.<br>";
+            }*/
+            
+            $as = new AGI_AsteriskManager();
+			$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);
+			if ($res)
+				$res = $as->Command('reload');
+			
+			if ($res) {
+                echo "<br>Reset succeded.<br>";
+            } else {
+                echo "<br>Reset failed.<br>";
             }
+            $as->disconnect();
 
         }
     }

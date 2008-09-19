@@ -427,7 +427,6 @@ class Open_Conf
 //////////////////////////////////////////////////////////////
     function OC_checkAccess($user)
     {
-
         $accessFile = array();
 
         if (! is_file($this->_OC_access_file))

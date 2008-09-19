@@ -46,7 +46,7 @@ $right_list["13"] = array( gettext("PACKAGE OFFER"), "4096");
 $right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
 $right_list["15"] = array( gettext("INVOICES"), "16384");
 $right_list["16"] = array( gettext("SUPPORT"), "32768");
-$right_list["17"] = array( gettext("PBX-CONFIG"), "65536");
+// removed! $right_list["17"] = array( gettext("Next Menu"), "65536");
 
 $len_right_list = count($right_list);
 

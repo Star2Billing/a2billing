@@ -541,6 +541,7 @@
 				<li><a href="A2B_asteriskinfo.php?section=11">{php} echo "Asterisk Info";{/php}</a></li>
 				<li><a href="A2B_phpsysinfo.php?section=11">{php} echo "phpSysInfo";{/php}</a></li>
 				<li><a href="A2B_phpinfo.php?section=11">{php} echo "phpInfo";{/php}</a></li>
+				<li><a href="phpconfig.php?dir=/etc/asterisk&section=11">{php} echo gettext("Asterisk config");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -548,35 +549,6 @@
 	
 	{/if}
 	
-	
-	{if ($ACXPBXCONFIG  > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img15"
-	{if ($section == "15")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("PBX-CONFIG");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="15")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-			
-				<li><a href="phpconfig.php?file=sip.conf&section=15&section_conf=sip.conf">sip.conf</a></li>
-				<li><a href="phpconfig.php?file=iax.conf&section=15&section_conf=iax.conf">iax.conf</a></li>
-				<li><a href="phpconfig.php?file=extensions.conf&section=15&section_conf=extensions.conf">extensions.conf</a></li>
-				<li><a href="phpconfig.php?dir=/etc/asterisk&section=15">{php} echo gettext("All config files");{/php}</a></li>
-				
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	
-	{/if}
 	
 	<li><a href="#" target="_self"></a></a></li>
 		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li></ul>
