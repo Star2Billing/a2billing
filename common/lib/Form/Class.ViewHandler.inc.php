@@ -35,7 +35,6 @@ function openURLFilter(theLINK)
 </script>
 
 
-
       <table width="<?php echo $this->FG_VIEW_TABLE_WITDH; ?>" border="0" align="center" cellpadding="0" cellspacing="0">
 	  <?php  IF ($this -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE){ ?>
 		<TR>
@@ -85,8 +84,15 @@ function openURLFilter(theLINK)
           <td class="viewhandler_table2_td3">
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td><span class="viewhandler_span1"> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </span></td>
-                  <td align="right"> <span class="viewhandler_span1"> <?php echo $this -> FG_NB_RECORD.' '.gettext("Records"); ?></span></td>
+                  <td><span class="viewhandler_span1"> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </span>
+                  	  <span class="viewhandler_span1"> <?php echo $this -> FG_NB_RECORD.' '.gettext("Records"); ?></span>	
+                  </td>
+                  <?php if($this->FG_LIST_ADDING_BUTTON){?>
+                  <td align="right"> 
+					<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK?>	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>">
+					</a>
+                  </td>
+                  <?php  } //END IF ?>
                 </tr>
             </table></td>
         </tr>
@@ -479,8 +485,15 @@ function openURLFilter(theLINK)
 <?php
 	}else{
 ?>
+	<?php if($this->FG_LIST_ADDING_BUTTON){?>
+		<div style="text-align : right"> 
+				<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK?>	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>">
+				</a>
+        </div>
+    <?php  } //END IF ?>
 	<br><br>
 	<table width="50%" border="0" align="center">
+		
 		<tr>
 			<td align="center">
 				<?php echo $this -> CV_NO_FIELDS;?><br>

@@ -31,6 +31,13 @@ if (DELETE_FK_CARD){
 	$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going to remove a card that have SIP/IAX accounts and/or CallerIDs attached to it ! Please confirm that you really want to remove this card ? ");
 }
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1";
+$HD_Form ->FG_LIST_ADDING_BUTTON_MSG = "Add Customer";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT = "Add Customer";
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG = Images_Path ."/user_add.png" ;
+
 // TODO Unify order of parameters
 
 $language_list = array();

@@ -93,6 +93,14 @@ class FormHandler
     */
 	var $FG_TABLE_ID = 'id';
 
+	/*
+	 * Adding record button in list view
+	 */
+	var $FG_LIST_ADDING_BUTTON=false;
+	var $FG_LIST_ADDING_BUTTON_LINK= '';
+	var $FG_LIST_ADDING_BUTTON_IMG = '';
+	var $FG_LIST_ADDING_BUTTON_MSG = '';
+	var $FG_LIST_ADDING_BUTTON_ALT = '';
 	
 	/**
     * Sets if we want a colum "ACTION" to EDIT or to DELETE
