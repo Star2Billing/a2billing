@@ -1138,5 +1138,6 @@ ALTER TABLE cc_card_group ADD description MEDIUMTEXT NULL ;
 
  CREATE TABLE cc_cardgroup_service (
 id_card_group INT NOT NULL ,
-id_service INT NOT NULL
+id_service INT NOT NULL,
+PRIMARY KEY ( id_card_group , id_service )
 ) ENGINE = MYISAM ;

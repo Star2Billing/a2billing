@@ -26,10 +26,11 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 //dl("pgsql.so"); // remove "extension= pgsql.so !
 
 include_once (dirname(__FILE__)."/lib/Class.Table.php");
+include (dirname(__FILE__)."/lib/interface/constants.php");
 include (dirname(__FILE__)."/lib/Class.A2Billing.php");
 include (dirname(__FILE__)."/lib/Misc.php");
 
-$verbose_level=0;
+$verbose_level=1;
 $groupcard=5000;
 
 if ($A2B->config["database"]['dbtype'] == "postgres"){
@@ -51,10 +52,29 @@ if (!$A2B -> DbConnect()){
 //$A2B -> DBHandle
 $instance_table = new Table();
 
+$QUERY_GROUP = 'SELECT DISTINCT id_card_group FROM cc_cardgroup_service ';
+$result_group = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY_GROUP);
+if (sizeof($result_group)==0){
+	if ($verbose_level>=1) echo "[No card to run the Recurring service]\n";
+	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[No card to run the Recurring service]");
+	exit();
+}
+
+
+$groupe_clause = "IN (";
+$idx =1;
+foreach ($result_group as $row)
+{ 
+	$groupe_clause .= " '".$row['id_card_group']."' ";
+	if($idx != sizeof($result_group)) $groupe_clause .= ",";
+	$idx++;
+	
+}
+$groupe_clause .= " )";
 
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE SERVICE
-$QUERY = 'SELECT count(*) FROM cc_card WHERE runservice=1';
-
+$QUERY = 'SELECT count(*) FROM cc_card WHERE  firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1 AND id_group '.$groupe_clause;
+if ($verbose_level>=1) echo $QUERY;
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
 $nbpagemax=(intval($nb_card/$groupcard));
@@ -69,10 +89,9 @@ if (!($nb_card>0)){
 
 
 // CHECK THE SERVICES
-$QUERY = "SELECT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, $UNIX_TIMESTAMP datelastrun), emailreport, totalcredit,totalcardperform FROM cc_service WHERE status=1";
+$QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, $UNIX_TIMESTAMP datelastrun), emailreport, totalcredit,totalcardperform FROM cc_service , cc_cardgroup_service WHERE status=1 AND id = id_service";
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
-
 if ($verbose_level>=1) print_r ($result);
 
 if( !is_array($result)) {
@@ -113,7 +132,7 @@ foreach ($result as $myservice) {
 	// BROWSE THROUGH THE CARD TO APPLY THE SERVICE 
 	for ($page = 0; $page <= $nbpagemax; $page++) {
 		
-		$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card WHERE firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1 ORDER BY id  ";
+		$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = $myservice[0] AND firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1  ORDER BY id  ";
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
 			$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
 		}else{
