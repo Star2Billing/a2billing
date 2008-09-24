@@ -46,13 +46,13 @@
 	{/if}
 	<ul>
 		<li><ul>
-				<li><a href="A2B_entity_card.php?stitle=Customers_Card&section=1">{php} echo gettext("List Customers");{/php}</a></li>
-				<li><a href="A2B_entity_card_group.php?stitle=Customers_Card&section=1">{php} echo gettext("List Customer Group");{/php}</a></li>
+				<li><a href="A2B_entity_card.php?stitle=Customers_Card&section=1">{php} echo gettext("Customers");{/php}</a></li>
+				<li><a href="A2B_entity_card_group.php?stitle=Customers_Card&section=1">{php} echo gettext("Customer Group");{/php}</a></li>
                 <li><a href="CC_card_import.php?stitle=Card&section=1">{php} echo gettext("Import Customers");{/php}</a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("List SIP-FRIEND");{/php}</a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=iax&section=1">{php} echo gettext("List IAX-FRIEND");{/php}</a></li>
-				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("List CallerID");{/php}</a></li>
-				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&section=1">{php} echo gettext("List Speed Dial");{/php}</a></li>
+				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("SIP-FRIEND");{/php}</a></li>
+				<li><a href="A2B_entity_friend.php?atmenu=iax&section=1">{php} echo gettext("IAX-FRIEND");{/php}</a></li>
+				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("CallerID");{/php}</a></li>
+				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&section=1">{php} echo gettext("Speed Dial");{/php}</a></li>
 				<li><a href="A2B_entity_statuslog.php?&atmenu=statuslog&section=1">{php} echo gettext("Customer Status Log");{/php}</a></li>
 				<li><a href="card-history.php?&atmenu=cardhistory&section=1">{php} echo gettext("Card History");{/php}</a></li>
 				<li><a href="A2B_notifications.php?stitle=Notifications&section=1">{php} echo gettext("Notification");{/php}</a></li>

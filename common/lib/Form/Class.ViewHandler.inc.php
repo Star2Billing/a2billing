@@ -16,7 +16,23 @@ $current_page 	= $_GET['current_page'];
 $this->FG_ORDER = $_GET['order']; // really need ?!
 $this->FG_SENS 	= $_GET['sens']; // really need  ?
 
+?>
 
+<?php if($this->FG_LIST_ADDING_BUTTON1 || $this->FG_LIST_ADDING_BUTTON2){?>
+	<table align="right"><tr align="right">
+        <td align="right"> 
+		<?php if($this->FG_LIST_ADDING_BUTTON1){?>
+			<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK1	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG1?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG1?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT1?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT1?>"></a>
+		<?php  } //END IF ?>
+		&nbsp;
+		<?php if($this->FG_LIST_ADDING_BUTTON2){?>
+			<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK2	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG2?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG2?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT2?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT2?>"></a>
+		<?php  } //END IF ?>
+		  </td>
+	 </tr></table>
+<?php  } //END IF ?>
+
+<?php
 
 if ((count($list)>0) && is_array($list)){
 	$ligne_number=0;
@@ -87,18 +103,7 @@ function openURLFilter(theLINK)
                   <td><span class="viewhandler_span1"> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </span>
                   	  <span class="viewhandler_span1"> <?php echo $this -> FG_NB_RECORD.' '.gettext("Records"); ?></span>	
                   </td>
-                  <?php if($this->FG_LIST_ADDING_BUTTON1){?>
-                  <td align="right"> 
-					<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK1	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG1?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG1?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT1?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT1?>">
-					</a>
-                  </td>
-                  <?php  } //END IF ?>
-                  <?php if($this->FG_LIST_ADDING_BUTTON2){?>
-                  <td align="right"> 
-					<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK2	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG2?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG2?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT2?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT2?>">
-					</a>
-                  </td>
-                  <?php  } //END IF ?>
+                  
                 </tr>
             </table></td>
         </tr>
