@@ -1136,8 +1136,10 @@ UPDATE cc_ui_authen SET perms = '5242879' WHERE userid=1 LIMIT 1;
 ALTER TABLE cc_card_group DROP id_agi_conf;
 ALTER TABLE cc_card_group ADD description MEDIUMTEXT NULL ;
 
- CREATE TABLE cc_cardgroup_service (
-id_card_group INT NOT NULL ,
-id_service INT NOT NULL,
-PRIMARY KEY ( id_card_group , id_service )
-) ENGINE = MYISAM ;
+CREATE TABLE cc_cardgroup_service (
+	id_card_group INT NOT NULL ,
+	id_service INT NOT NULL,
+	PRIMARY KEY ( id_card_group , id_service )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
