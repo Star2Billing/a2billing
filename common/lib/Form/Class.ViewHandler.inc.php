@@ -87,9 +87,15 @@ function openURLFilter(theLINK)
                   <td><span class="viewhandler_span1"> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </span>
                   	  <span class="viewhandler_span1"> <?php echo $this -> FG_NB_RECORD.' '.gettext("Records"); ?></span>	
                   </td>
-                  <?php if($this->FG_LIST_ADDING_BUTTON){?>
+                  <?php if($this->FG_LIST_ADDING_BUTTON1){?>
                   <td align="right"> 
-					<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>">
+					<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK1	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG1?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG1?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT1?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT1?>">
+					</a>
+                  </td>
+                  <?php  } //END IF ?>
+                  <?php if($this->FG_LIST_ADDING_BUTTON2){?>
+                  <td align="right"> 
+					<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK2	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG2?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG2?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT2?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT2?>">
 					</a>
                   </td>
                   <?php  } //END IF ?>

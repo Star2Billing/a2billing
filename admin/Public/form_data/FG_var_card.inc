@@ -32,11 +32,11 @@ if (DELETE_FK_CARD){
 }
 
 
-$HD_Form ->FG_LIST_ADDING_BUTTON = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1";
-$HD_Form ->FG_LIST_ADDING_BUTTON_MSG = "Add Customer";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT = "Add Customer";
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG = Images_Path ."/user_add.png" ;
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1";
+$HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = "Add Customer";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = "Add Customer";
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_add.png" ;
 
 // TODO Unify order of parameters
 
