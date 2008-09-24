@@ -89,7 +89,7 @@ function openURLFilter(theLINK)
                   </td>
                   <?php if($this->FG_LIST_ADDING_BUTTON){?>
                   <td align="right"> 
-					<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK?>	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>">
+					<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>">
 					</a>
                   </td>
                   <?php  } //END IF ?>
