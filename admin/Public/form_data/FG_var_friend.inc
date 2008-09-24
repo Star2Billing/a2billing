@@ -5,9 +5,9 @@ getpost_ifset(array('id_cc_card', 'cardnumber', 'id', 'name', 'amaflags', 'callg
 'restrictcid', 'rtptimeout', 'rtpholdtimeout', 'secret', 'type', 'username', 'disallow', 'allow', 'musiconhold', 'regseconds', 'ipaddr', 'cancallforward', 'regexten','friend_id'));
 
 
-if ($atmenu=='sip'){
+if ($atmenu=='sip') {
 	$HD_Form = new FormHandler("cc_sip_buddies","Sip Friend");
-}else{
+} else {
 	$HD_Form = new FormHandler("cc_iax_buddies","IAX Friend");
 }
 
@@ -27,6 +27,16 @@ $HD_Form -> AddViewElement(gettext("CALLERID"), "callerid", "12%", "center", "so
 $HD_Form -> AddViewElement(gettext("CONTEXT"), "context", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DEFAULTIP"), "defaultip", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DTMF"), "dtmfmode", "8%", "center", "sort");
+
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_friend.php?form_action=ask-add&atmenu=sip&section=1";
+if ($atmenu=='sip') {
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SIP Friend");
+} else {
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add IAX Friend");
+}
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
 
 
 

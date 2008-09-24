@@ -9,6 +9,12 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = " creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_speeddial.php?form_action=ask-add&atmenu=speeddial&section=1";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SpeedDial");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/page_white_add.png" ;
+
+
 $speeddial_list = array();
 for ($k=0;$k<=9;$k++)
 	$speeddial_list["$k"]  = array( "$k", "$k");

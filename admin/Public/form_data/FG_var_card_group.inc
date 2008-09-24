@@ -23,12 +23,11 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_group ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this Customers Group! Please comfirm that you really want to remove this Customers Group ? ");
 
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card_group.php?form_action=ask-add&stitle=Card&section=1";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Group");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/group_add.png" ;
 
-$HD_Form ->FG_LIST_ADDING_BUTTON = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1";
-$HD_Form ->FG_LIST_ADDING_BUTTON_MSG = "Add Customer";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT = "Add Customer";
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG = Images_Path ."/user_add.png" ;
 
 //$DBHandle  = DbConnect();
 //$conf_table = new Table("cc_config_group", "group_title");
