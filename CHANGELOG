@@ -1,5 +1,45 @@
+2008-09-19
+	* New Features : 
+		-Update Batch for Recurring Service
+		-Refactor Framework to add a link on the view , for exemple, adding record
+		exemple: modify customer to add link to create new customer
+
+2008-09-18
+	* New Features : 	
+		-Refactor Recurring Service
+
+	*Change:-Add default value pour select in framework for adding
+		-And choose Individual access like default access
 		
+
+	*Bug: 	- Convert the list of notification's limit in customer currency
+		- Correct Card groups
+
+2008-09-17
+	* New Features :
+		-Add search by card id for the card history's
+
+	*Bug : 	- correct limit behaviours for adding callerid in customer section
+		-conflict between free package , low balance and charge
+		description: if you have connect or disconnect charge and you don't have enough credit to call but you have free minutes
+		- correct bad forward on blank page when you try to importe rate with no enough parameter
+		- Status log page : popup for the card selection didn't work
+2008-09-16
+	* New Features : 
+		- Change the behaviours of the "not enough credit" to handle the free package and precision
+	      	- Link to customer account on customer info page
+	*Bug : 	- Correct import and constant
+		- add sound for the Ivr to say cent when you have only one 'cent'
+		
+
+2008-09-03
+	* New Features : Script to fill db
+	
+2008-08-29
+	*Bug : - correct bug about simulator when you want you use free package	
+
 2008-08-26
+
 	* New Features : 
 		- Define 0* like redial number
 	* Bug :
