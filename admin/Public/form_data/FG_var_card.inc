@@ -423,7 +423,7 @@ $HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMATION"),
 
 $HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
 			   "simultaccess",
-			   "0",
+			   "1",
 			   "SELECT",
 			   "",
 			   "",
