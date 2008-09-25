@@ -13,6 +13,12 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "name";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_package_group.php?form_action=ask-add&atmenu=prefixe&section=3_3";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Package Group");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/package_add.png" ;
+
+
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "35%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "35%", "center", "sort");

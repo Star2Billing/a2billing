@@ -5,8 +5,14 @@ getpost_ifset(array('id', 'groupID', 'userid', 'login', 'pwd_encoded', 'perms', 
 
 if ($groupID=="0"){
 	$FG_INSTANCE_NAME="Administrator";
+	$ADDING_BUTTON_LINK1 = "A2B_entity_user.php?form_action=ask-add&groupID=0&section=10";
+	$ADDING_BUTTON_ALT1 = gettext("Add ADMINISTRATOR");
+	$ADDING_BUTTON_IMG1 = Images_Path ."/user_gray.png" ;
 }elseif ($groupID=="1"){
 	$FG_INSTANCE_NAME="Sub-administrator";
+	$ADDING_BUTTON_LINK1 = "A2B_entity_user.php?form_action=ask-add&groupID=1&section=10";
+	$ADDING_BUTTON_ALT1 =  gettext("Add ADMIN ACL");
+	$ADDING_BUTTON_IMG1 = Images_Path ."/user_orange.png" ;
 }elseif ($groupID=="2"){
 	$FG_INSTANCE_NAME="Resellers-User";
 }else{
@@ -20,6 +26,13 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID = " userid";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " datecreation";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = $ADDING_BUTTON_LINK1;
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = $ADDING_BUTTON_ALT1;
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = $ADDING_BUTTON_IMG1;
+
+
 
 if (is_numeric($groupID)){
 	$FG_TABLE_CLAUSE = "groupid='$groupID'";

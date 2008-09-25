@@ -83,19 +83,14 @@
 				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment&section=2">{php} echo gettext("View Payment Methods");{/php}</a></li>
                 <li><a href="A2B_entity_transactions.php?atmenu=payment&section=2">{php} echo gettext("View Transactions");{/php}</a></li>
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("View Refill");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill.php?form_action=ask-add&section=2">{php} echo gettext("Add Refill");{/php}</a></li>
-				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("View Payment");{/php}</a></li>
-				<li><a href="A2B_entity_payment.php?form_action=ask-add&section=2">{php} echo gettext("Add new Payment");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Payments");{/php}</a></li>
 				<li><a href="A2B_entity_paymentlog.php?section=2">{php} echo gettext("Payment Log");{/php}</a></li>
-				<li><a href="A2B_entity_voucher.php?section=2">{php} echo gettext("List Voucher");{/php}</a></li>
-				<li><a href="A2B_entity_voucher.php?form_action=ask-add&section=2">{php} echo gettext("Create Voucher");{/php}</a></li>
-				<li><a href="A2B_entity_voucher_multi.php?section=2">{php} echo gettext("Generate Vouchers");{/php}</a></li>
+				<li><a href="A2B_entity_voucher.php?section=2">{php} echo gettext("Vouchers");{/php}</a></li>
 				<li><a href="A2B_currencies.php?section=2">{php} echo gettext("Currency List");{/php}</a></li>
 				<li><a href="A2B_entity_charge.php?atmenu=charge&form_action=list&section=2">{php} echo gettext("List Charge");{/php}</a></li>
 				<li><a href="A2B_entity_charge.php?form_action=ask-add&atmenu=charge&section=2">{php} echo gettext("Add Charge");{/php}</a></li>
-				<li><a href="A2B_entity_ecommerce.php?atmenu=ecommerce&section=2">{php} echo gettext("List E-Product");{/php}</a></li>
-				<li><a href="A2B_entity_ecommerce.php?form_action=ask-add&atmenu=ecommerce&section=2">{php} echo gettext("Add E-Product");{/php}</a></li>
+				<li><a href="A2B_entity_ecommerce.php?atmenu=ecommerce&section=2">{php} echo gettext("E-Products");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -119,12 +114,9 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&section=3">{php} echo gettext("List Call Plan");{/php}</a></li>
-				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&section=3">{php} echo gettext("Create Call Plan");{/php}</a></li>
-				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&section=3">{php} echo gettext("List RateCard");{/php}</a></li>
-				<li><a href="A2B_entity_tariffplan.php?form_action=ask-add&atmenu=tariffplan&section=3">{php} echo gettext("Create new RateCard");{/php}</a></li>
-				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&section=3">{php} echo gettext("Browse Rates");{/php}</a></li>
-				<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&section=3">{php} echo gettext("Add Rate");{/php}</a></li>
+				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&section=3">{php} echo gettext("Call Plan");{/php}</a></li>
+				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&section=3">{php} echo gettext("RateCards");{/php}</a></li>
+				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&section=3">{php} echo gettext("Rates");{/php}</a></li>
 				<li><a href="CC_ratecard_import.php?atmenu=ratecard&section=3">{php} echo gettext("Import RateCard");{/php}</a></li>
 				<li><a href="CC_ratecard_merging.php?atmenu=ratecard&section=3">{php} echo gettext("Merge RateCard");{/php}</a></li>
 				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&section=3">{php} echo gettext("Ratecard Simulator");{/php}</a></li>
@@ -151,10 +143,8 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_package_group.php?atmenu=prefixe&section=3_3">{php} echo gettext("List Group Packages");{/php}</a></li>
-				<li><a href="A2B_entity_package_group.php?form_action=ask-add&atmenu=prefixe&section=3_3">{php} echo gettext("Add Group Packages");{/php}</a></li>
-				<li><a href="A2B_entity_package.php?atmenu=prefixe&section=3_3">{php} echo gettext("List Offer Package");{/php}</a></li>
-				<li><a href="A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&section=3_3">{php} echo gettext("Add Offer Package");{/php}</a></li>
+				<li><a href="A2B_entity_package_group.php?atmenu=prefixe&section=3_3">{php} echo gettext("Group Packages");{/php}</a></li>
+				<li><a href="A2B_entity_package.php?atmenu=prefixe&section=3_3">{php} echo gettext("Offer Packages");{/php}</a></li>
 				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Details Package");{/php}</a></li>
 			</ul></li>
 		</ul>
@@ -179,10 +169,8 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_outbound_cidgroup.php?form_action=ask-add&atmenu=cidgroup&section=3_5">{php} echo gettext("Create CIDGroup");{/php}</a></li>
-				<li><a href="A2B_entity_outbound_cidgroup.php?atmenu=cidgroup&section=3_5">{php} echo gettext("List CIDGroup");{/php}</a></li>
-				<li><a href="A2B_entity_outbound_cid.php?form_action=ask-add&atmenu=cidgroup&section=3_5">{php} echo gettext("Add CID");{/php}</a></li>
-				<li><a href="A2B_entity_outbound_cid.php?atmenu=cid&section=3_5">{php} echo gettext("List CID's");{/php}</a></li>
+				<li><a href="A2B_entity_outbound_cidgroup.php?atmenu=cidgroup&section=3_5">{php} echo gettext("CIDGroup");{/php}</a></li>
+				<li><a href="A2B_entity_outbound_cid.php?atmenu=cid&section=3_5">{php} echo gettext("CID's");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -205,10 +193,8 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_trunk.php?section=4">{php} echo gettext("List Trunk");{/php}</a></li>
-				<li><a href="A2B_entity_trunk.php?form_action=ask-add&section=4">{php} echo gettext("Add Trunk");{/php}</a></li>
-				<li><a href="A2B_entity_provider.php?section=4">{php} echo gettext("List Provider");{/php}</a></li>
-				<li><a href="A2B_entity_provider.php?form_action=ask-add&section=4">{php} echo gettext("Create Provider");{/php}</a></li>
+				<li><a href="A2B_entity_trunk.php?section=4">{php} echo gettext("Trunks");{/php}</a></li>
+				<li><a href="A2B_entity_provider.php?section=4">{php} echo gettext("Providers");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -232,14 +218,11 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_didgroup.php?section=5">{php} echo gettext("List DID Group");{/php}</a>
-				<li><a href="A2B_entity_didgroup.php?form_action=ask-add&section=5">{php} echo gettext("Add DID Group");{/php}</a></li>
-				<li><a href="A2B_entity_did.php?section=5">{php} echo gettext("List DID");{/php}</a></li>
-				<li><a href="A2B_entity_did.php?form_action=ask-add&section=5">{php} echo gettext("Add DID");{/php}</a></li>
+				<li><a href="A2B_entity_didgroup.php?section=5">{php} echo gettext("DID Group");{/php}</a>
+				<li><a href="A2B_entity_did.php?section=5">{php} echo gettext("DID's");{/php}</a></li>
 				<li><a href="A2B_entity_didx.php?section=5">{php} echo gettext("Add DID from DIDX");{/php}</a></li>
 				<li><a href="A2B_entity_did_import.php?section=5">{php} echo gettext("Import DID");{/php}</a></li>
 				<li><a href="A2B_entity_did_destination.php?section=5">{php} echo gettext("List Destination");{/php}</a></li>
-				<li><a href="A2B_entity_did_destination.php?form_action=ask-add&section=5">{php} echo gettext("Add Destination");{/php}</a></li>
 				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&section=5">{php} echo gettext("DID Billing");{/php}</a></li>
 				<li><a href="A2B_entity_did_use.php?atmenu=did_use&section=5">{php} echo gettext("DID Usage");{/php}</a></li>
 			</ul></li>
@@ -351,14 +334,10 @@
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_autorefill.php?section=7">{php} echo gettext("AutoRefill Report");{/php}</a></li>
-				<li><a href="A2B_entity_service.php?section=7">{php} echo gettext("List Recurring Service");{/php}</a></li>
-				<li><a href="A2B_entity_service.php?form_action=ask-add&section=7">{php} echo gettext("Add Recurring Service");{/php}</a></li>
-				<li><a href="A2B_entity_alarm.php?section=7"> {php} echo gettext("List Alarm");{/php}</a></li>
-				<li><a href="A2B_entity_alarm.php?form_action=ask-add&section=7">{php} echo gettext("Add Alarm");{/php}</a></li>
-				<li><a href="A2B_entity_subscription.php?section=7">{php} echo gettext("List Subscription");{/php}</a></li>
-				<li><a href="A2B_entity_subscription.php?form_action=ask-add&section=7">{php} echo gettext("Add Subscription");{/php}</a></li>
-				<li><a href="A2B_entity_subscriber.php?section=7">{php} echo gettext("List Suscriber");{/php}</a></li>
-				<li><a href="A2B_entity_subscriber.php?form_action=ask-add&section=7">{php} echo gettext("Add Suscriber");{/php}</a></li>
+				<li><a href="A2B_entity_service.php?section=7">{php} echo gettext("Recurring Services");{/php}</a></li>
+				<li><a href="A2B_entity_alarm.php?section=7"> {php} echo gettext("Alarms");{/php}</a></li>
+				<li><a href="A2B_entity_subscription.php?section=7">{php} echo gettext("Subscriptions");{/php}</a></li>
+				<li><a href="A2B_entity_subscriber.php?section=7">{php} echo gettext("Suscribers");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -375,19 +354,16 @@
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
 		<div class="tohide"
-	{if ($section =="13")}
+	{if ($section =="17")}
 		style="">
 	{else}
 		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="CC_ticket.php?section=13">{php} echo gettext("View Tickets");{/php}</a></li>
-				<li><a href="CC_ticket.php?form_action=ask-add&section=13">{php} echo gettext("Create Ticket");{/php}</a></li>
-				<li><a href="CC_support.php?section=13">{php} echo gettext("View Support Box");{/php}</a></li>
-				<li><a href="CC_support.php?form_action=ask-add&section=13">{php} echo gettext("Create Support Box");{/php}</a></li>
-				<li><a href="CC_support_component.php?section=13">{php} echo gettext("View Components");{/php}</a></li>
-				<li><a href="CC_support_component.php?form_action=ask-add&section=13">{php} echo gettext("Create Component");{/php}</a></li>
+				<li><a href="CC_ticket.php?section=17">{php} echo gettext("Tickets");{/php}</a></li>
+				<li><a href="CC_support.php?section=17">{php} echo gettext("Support Box's");{/php}</a></li>
+				<li><a href="CC_support_component.php?section=17">{php} echo gettext("Components");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -410,12 +386,9 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_callback.php?section=12">{php} echo gettext("Show Callbacks");{/php}</a></li>
-				<li><a href="A2B_entity_callback.php?form_action=ask-add&section=12">{php} echo gettext("Add new Callback");{/php}</a></li>
-				<li><a href="A2B_entity_server_group.php?section=12">{php} echo gettext("Show Server Group");{/php}</a></li>
-				<li><a href="A2B_entity_server_group.php?form_action=ask-add&section=12">{php} echo gettext("Add Server Group");{/php}</a></li>
-				<li><a href="A2B_entity_server.php?section=12">{php} echo gettext("Show Server");{/php}</a></li>
-				<li><a href="A2B_entity_server.php?form_action=ask-add&section=12">{php} echo gettext("Add Server");{/php}</a></li>
+				<li><a href="A2B_entity_callback.php?section=12">{php} echo gettext("Callbacks");{/php}</a></li>
+				<li><a href="A2B_entity_server_group.php?section=12">{php} echo gettext("Server Group's");{/php}</a></li>
+				<li><a href="A2B_entity_server.php?section=12">{php} echo gettext("Server");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -438,10 +411,8 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_campaign.php?section=16">{php} echo gettext("Show Campaign");{/php}</a></li>
-				<li><a href="A2B_entity_campaign.php?form_action=ask-add&section=16">{php} echo gettext("Add Campaign");{/php}</a></li>
-				<li><a href="A2B_entity_phonelist.php?section=16">{php} echo gettext("Show Phone List");{/php}</a></li>
-				<li><a href="A2B_entity_phonelist.php?form_action=ask-add&section=16">{php} echo gettext("Add Phone List");{/php}</a></li>
+				<li><a href="A2B_entity_campaign.php?section=16">{php} echo gettext("Campaign's");{/php}</a></li>
+				<li><a href="A2B_entity_phonelist.php?section=16">{php} echo gettext("Phone List");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -465,10 +436,8 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&section=8&languages=en">{php} echo gettext("Show mail template");{/php}</a></li>
-				<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&section=8">{php} echo gettext("Create mail template");{/php}</a></li>
-				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&section=8">{php} echo gettext("Browse Prefix");{/php}</a></li>
-				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&section=8">{php} echo gettext("Add Prefix");{/php}</a></li>
+				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&section=8&languages=en">{php} echo gettext("Mail's template");{/php}</a></li>
+				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&section=8">{php} echo gettext("Prefix's");{/php}</a></li>
 				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&section=8">{php} echo gettext("List Global  Config");{/php}</a></li>
 				<li><a href="A2B_entity_config_generate_confirm.php">{php} echo gettext("ADD agi-conf");{/php}</a></li>
 				<li><a href="A2B_entity_config.php?form_action=list&atmenu=config&section=8">{php} echo gettext("List Configuration");{/php}</a></li>
@@ -498,12 +467,9 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_agent.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Show Agent");{/php}</a></li>
-				<li><a href="A2B_entity_agent.php?form_action=ask-add&groupID=0&section=10">{php} echo gettext("Add Agent");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Show Administrator");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?form_action=ask-add&groupID=0&section=10">{php} echo gettext("Add Administrator");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=10">{php} echo gettext("Show ACL Admin");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?form_action=ask-add&groupID=1&section=10">{php} echo gettext("Add ACL Admin");{/php}</a></li>
+				<li><a href="A2B_entity_agent.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Agents");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Administrators");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=10">{php} echo gettext("ACL Admin's");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

@@ -43,6 +43,16 @@ foreach($currencies_list as $key => $cur_value) {
 
 
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_voucher_multi.php?section=2";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Generate Voucher");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/cog_add.png" ;
+
+$HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_voucher.php?form_action=ask-add&section=2";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add Voucher");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/add.png" ;
+
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("VOUCHER"), "voucher", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "6%", "center", "sort");

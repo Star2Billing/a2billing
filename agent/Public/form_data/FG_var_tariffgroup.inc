@@ -8,6 +8,11 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " tariffgroupname";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&section=3";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Callplan");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/server_add.png" ;
+
 
 // Code Here for Deleting the Dependent Records
 // Dependent Tables

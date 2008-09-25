@@ -9,6 +9,12 @@ $HD_Form = new FormHandler("cc_ecommerce_product","Ecommerce Product");
 $HD_Form -> FG_DEBUG = 0;
 
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_ecommerce.php?form_action=ask-add&atmenu=ecommerce&section=2";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add E-Product");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/add.png" ;
+
+
 
 $language_list = Constants::getLanguagesList();
 $simultaccess_list = Constants::getSimultAccessList();

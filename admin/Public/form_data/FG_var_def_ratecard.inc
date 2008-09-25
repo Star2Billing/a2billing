@@ -18,6 +18,11 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&section=3";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add RateCard");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/world_add.png" ;
+
 
 if (isset($posted) && !$popup_select){
 	if (is_string ($tariffplan) && strlen(trim($tariffplan))>0) {

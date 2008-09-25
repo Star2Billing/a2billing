@@ -10,6 +10,13 @@ $HD_Form = new FormHandler("cc_provider","Provider");
 $HD_Form -> FG_DEBUG = 0;
 
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_provider.php?form_action=ask-add&section=4";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Trunk");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/world_add.png" ;
+
+
+
 if ($popup_select)
 	$HD_Form -> AddViewElement(gettext("ID"), "id", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PROVIDER NAME"), "provider_name", "25%", "center", "sort");

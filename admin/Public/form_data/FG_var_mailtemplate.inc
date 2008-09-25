@@ -13,6 +13,13 @@ $HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&section=8";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add MAIL TEMPLATE");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/email_add.png" ;
+
+
 $typemail_list = array();
 $typemail_list["reminder"]  		= array( gettext("Reminder"), "reminder");
 $typemail_list["signup"]    		= array( gettext("Signup"), "signup");

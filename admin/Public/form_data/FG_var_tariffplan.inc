@@ -8,6 +8,13 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " tariffname";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_tariffplan.php?form_action=ask-add&atmenu=tariffplan&section=3";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add RateCard");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/table_multiple.png" ;
+
+
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;

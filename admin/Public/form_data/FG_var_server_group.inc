@@ -7,6 +7,15 @@ $HD_Form = new FormHandler("cc_server_group","Server Group");
 
 $HD_Form -> FG_DEBUG = 0;
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_server_group.php?form_action=ask-add&section=12";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SERVER GROUP");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/server_add.png" ;
+
+
+
+
 $HD_Form -> AddViewElement("ID", "id", "10%", "center", "sort");
 $HD_Form -> AddViewElement("NAME", "name", "20%", "center", "sort");
 $HD_Form -> AddViewElement("DESCRIPTION", "description", "40%", "center", "sort", "25");

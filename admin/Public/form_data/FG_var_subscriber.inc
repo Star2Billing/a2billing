@@ -8,6 +8,13 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_subscriber.php?form_action=ask-add&section=7";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SUBSCRIBER");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/text_signature.png" ;
+
+
 $HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "15%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription_fee", "20%", "center", "sort", "15", "lie", "cc_subscription_fee", "label", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("DATESTART"), "startdate", "15%", "center", "sort");

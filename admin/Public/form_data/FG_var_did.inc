@@ -4,6 +4,13 @@ getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate'
 
 $HD_Form = new FormHandler("cc_did","did");
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_did.php?form_action=ask-add&section=5";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add DID");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
+
+
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "did";

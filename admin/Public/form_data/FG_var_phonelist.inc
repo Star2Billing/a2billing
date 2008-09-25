@@ -10,6 +10,13 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "numbertodial";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_phonelist.php?form_action=ask-add&section=16";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add PHONE LIST");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/book_add.png" ;
+
+
 // TODO Integrate a generic LIST to Framework
 $actived_list = Constants::getActivationList();
 $yesno_list = Constants::getYesNoList();

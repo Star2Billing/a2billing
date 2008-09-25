@@ -8,6 +8,13 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "didgroupname";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_didgroup.php?section=5";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add DID GROUP");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
+
+
 // Code Here for Deleting the Dependent Records
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;

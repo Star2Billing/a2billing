@@ -5,6 +5,15 @@ getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providert
 
 $HD_Form = new FormHandler("cc_trunk","trunk");
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_trunk.php?form_action=ask-add&section=4";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Trunk");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/add.png" ;
+
+
+
+
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID = " id_trunk";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " id_trunk";

@@ -9,6 +9,11 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_subscription.php?form_action=ask-add&section=7";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SUBSCRIPTION");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/script.png" ;
+
 $actived_list = Constants::getActivationList();
 
 $daynumber_list = array();

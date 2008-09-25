@@ -8,11 +8,19 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "destination";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 
+
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&section=8";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add PREFIX");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/world_add.png" ;
+
+
 $HD_Form -> AddViewElement(gettext("Destination"), "destination", "40%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("Prefix"), "prefixe", "10%", "center", "sort");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('destination, prefixe');
+
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
