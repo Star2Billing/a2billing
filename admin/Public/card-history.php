@@ -12,7 +12,7 @@ if (! has_rights (ACX_CALL_REPORT)){
 
 
 
-getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','entercustomer'));
+getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','entercustomer','id_cc_card'));
 
 
 if (!isset ($current_page) || ($current_page == "")){
@@ -24,7 +24,7 @@ if (!isset ($current_page) || ($current_page == "")){
 $FG_DEBUG = 1;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_card_history ch";
+$FG_TABLE_NAME="cc_card_history ch LEFT JOIN cc_card ON cc_card.id=id_cc_card";
 
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
@@ -38,7 +38,7 @@ $DBHandle  = DbConnect();
 // The variable Var_col would define the col that we want show in your table
 // First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-$FG_TABLE_COL[]=array (gettext("Card Number"), "id_cc_card", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$FG_TABLE_COL[]=array (gettext("Merde"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("Date"), "datecreated", "20%", "center", "SORT");
 $FG_TABLE_COL[]=array (gettext("Description"), "description", "60%", "center", "SORT");
 
@@ -47,7 +47,7 @@ $FG_TABLE_DEFAULT_ORDER = "ch.datecreated";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY='ch.id_cc_card, ch.datecreated, ch.description';
+$FG_COL_QUERY='username, ch.datecreated, ch.description';
 
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
@@ -360,7 +360,8 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 				  			<TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody>
 						<?php 				
 									$record_display = $recordset[$i];
-									echo stripslashes($record_display);	?>
+									if($FG_TABLE_COL[$i][11] == "linktocustomer") echo linktocustomer(stripslashes($record_display));
+									else echo stripslashes($record_display);	?>
 							</TD>
 						<?php } ?>
 					</TR>
