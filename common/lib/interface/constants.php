@@ -11,6 +11,13 @@ class Constants
 		return $language_list;
 	}
 
+	public static function getLanguagesRevertList(){
+		$language_list_r = array();
+		$language_list_r["0"] = array("en", gettext("ENGLISH"));
+		$language_list_r["1"] = array("es", gettext("SPANISH"));
+		$language_list_r["2"] = array("fr", gettext("FRENCH"));
+		return $language_list_r;
+	}
 	public static function getYesNoList(){
 		$yesno = array();
 		$yesno["1"] = array( gettext("Yes"), "1");
@@ -199,6 +206,53 @@ class Constants
 		return $cardstatus_list;
 	}
 	
+	public static function getCardStatus_Revert_List(){
+		$cardstatus_list_r = array();
+		$cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
+		$cardstatus_list_r["1"]  = array("1", gettext("ACTIVE"));
+		$cardstatus_list_r["2"]  = array("2", gettext("NEW"));
+		$cardstatus_list_r["3"]  = array("3", gettext("WAITING-MAILCONFIRMATION"));
+		$cardstatus_list_r["4"]  = array("4", gettext("RESERVED"));
+		$cardstatus_list_r["5"]  = array("5", gettext("EXPIRED"));
+		$cardstatus_list_r["6"]  = array("6", gettext("SUSPENDED FOR UNDERPAYMENT"));
+		$cardstatus_list_r["7"]  = array("7", gettext("SUSPENDED FOR LITIGATION"));
+		return $cardstatus_list_r;
+	}
+
+	public static function getCardStatus_Acronym_List(){
+		$cardstatus_list_acronym = array();
+		$cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
+		$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVE\">".gettext("ACTIVE")."</acronym>"), "1");
+		$cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettext("NEW")."</acronym>"), "2");
+		$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAIT")."</acronym>"), "3");
+		$cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERVED\">".gettext("RESERV")."</acronym>"), "4");
+		$cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIRED\">".gettext("EXPIR")."</acronym>"), "5");
+		$cardstatus_list_acronym["6"]  = array( gettext("<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">".gettext("UNDERPAY")."</acronym>"), "6");
+		$cardstatus_list_acronym["7"]  = array( gettext("<acronym title=\"SUSPENDED FOR LITIGATION\">".gettext("LITIG")."</acronym>"), "7");
+	}
+	
+	
+	public static function getCardAccess_List(){
+		$simultaccess_list = array();
+		$simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
+		$simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
+		return $simultaccess_list;
+	}
+	public static function getCardAccess_Revert_List(){
+		$simultaccess_list_r = array();
+		$simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
+		$simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
+		return $simultaccess_list_r;
+	}
+	
+	public static function getCardExpire_List(){
+		$expire_list = array();
+		$expire_list["0"]  = array( gettext("NO EXPIRY"), "0");
+		$expire_list["1"]  = array( gettext("EXPIRE DATE"), "1");
+		$expire_list["2"]  = array( gettext("EXPIRE DAYS SINCE FIRST USE"), "2");
+		$expire_list["3"]  = array( gettext("EXPIRE DAYS SINCE CREATION"), "3");
+		return $expire_list;
+	}
 }
 
 /*
@@ -218,5 +272,12 @@ Constants::getUsedList();
 Constants::getBillingTypeList();
 Constants::getBillingTypeShortList();
 Constants::getCardStatus_List();
+Constants::getCardStatus_Revert_List();
+Constants::getCardStatus_Acronym_List();
+Constants::getLanguagesRevertList();
+Constants::getLanguagesList();
+Constants::getCardAccess_List();
+Constants::getCardAccess_Revert_List();
+Constants::getCardExpire_List();
 */
 
