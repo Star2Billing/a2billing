@@ -1,4 +1,5 @@
 <?php
+
 getpost_ifset(array('did', 'inuse', 'actionbtn', 'atmenu', 'stitle', 'order', 'sens', 'current_page', 'posted'));
 
 $HD_Form = new FormHandler("cc_did_use", "DID in use");
@@ -66,4 +67,3 @@ $HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_FILTER_APPLY = false;
 
 
-?>

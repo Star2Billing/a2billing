@@ -1,4 +1,5 @@
 <?php
+
 getpost_ifset(array('id', 'status', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
 $HD_Form = new FormHandler("cc_epayment_log");
@@ -9,7 +10,8 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 $date_clause = "";
-if (DB_TYPE == "postgres"){		
+
+if (DB_TYPE == "postgres") {		
 	 	$UNIX_TIMESTAMP = "";
 }else{
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";

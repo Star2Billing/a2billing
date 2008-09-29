@@ -29,15 +29,6 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = 
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/group_add.png" ;
 
 
-//$DBHandle  = DbConnect();
-//$conf_table = new Table("cc_config_group", "group_title");
-//$clause_conf_agi = "cc_config_group.group_title LIKE 'agi_conf_%'";
-//$result_config= $conf_table -> Get_list ($DBHandle, $clause_conf_agi, null, null, null, null, null, null);
-//$agi_list = array();
-//$agi_list[-1] = array( gettext("NOT DEFINED"), "-1");
-//foreach ($result_config as $value){
-//	$agi_list[substr($value["group_title"],8)] = array($value["group_title"], substr($value["group_title"],8));	
-//}
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "SORT", "40");
@@ -84,7 +75,7 @@ $resmax = $DBHandle_max -> Execute("SELECT * FROM cc_service");
 if ( $resmax )
 	$numrow = $resmax -> RecordCount( );
 
-if ($numrow>0){ 
+if ($numrow>0) { 
 	$HD_Form -> AddEditElement (gettext("RECURRING SERVICE"),
 		"service",	
 		'$value',	

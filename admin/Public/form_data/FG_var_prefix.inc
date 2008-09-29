@@ -1,4 +1,5 @@
 <?php
+
 getpost_ifset(array('id', 'destination','dialprefix','popup_select','popup_formname','popup_fieldname' ));
 
 $HD_Form = new FormHandler("cc_prefix","prefix");
@@ -18,7 +19,6 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/world_add.png" ;
 $HD_Form -> AddViewElement(gettext("Destination"), "destination", "40%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("Prefix"), "prefixe", "10%", "center", "sort");
 
-// added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('destination, prefixe');
 
 
@@ -98,4 +98,4 @@ $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
-?>
+

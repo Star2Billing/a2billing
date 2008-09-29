@@ -2,12 +2,10 @@
 
 getpost_ifset(array('id', 'name', 'path', 'creationdate'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_backup","restore");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " name";
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id' ";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
@@ -99,4 +97,4 @@ $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=documen
 
 unset($FG_GO_LINK_AFTER_UPLOAD);
 unset($HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE);
-?>
+

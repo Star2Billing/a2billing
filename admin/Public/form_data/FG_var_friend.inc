@@ -74,16 +74,16 @@ if ($form_action=="ask-add"){
 }
 
 $HD_Form -> AddEditElement (gettext("ID CARD"),
-	"id_cc_card",
-	'',
-	"POPUPVALUE",
-	"size=30 maxlength=50",
-	"4",
-	gettext("Insert the Id CardNumber"),
-	"" , "", "", "", "",
-	"A2B_entity_card.php?popup_select=1&"
-	, ", 'CardNumberSelection','width=590,height=350,top=20,left=100,scrollbars=1'" ,
-	gettext("Insert the card ID."));
+							"id_cc_card",
+							'',
+							"POPUPVALUE",
+							"size=30 maxlength=50",
+							"4",
+							gettext("Insert the Id CardNumber"),
+							"" , "", "", "", "",
+							"A2B_entity_card.php?popup_select=1&"
+							, ", 'CardNumberSelection','width=590,height=350,top=20,left=100,scrollbars=1'" ,
+							gettext("Insert the card ID."));
 
 
 $HD_Form -> AddEditElement (gettext("NAME"),
@@ -514,16 +514,12 @@ $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new").$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
-
-
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted. <br>");
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
-
 
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=$atmenu&stitle=Document&wh=AC&id=";

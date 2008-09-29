@@ -1,14 +1,11 @@
 <?php
 
-
 getpost_ifset(array('id', 'name', 'description'));
 
 
 $HD_Form = new FormHandler("cc_package_group","Package Group");
 
 $HD_Form -> FG_DEBUG = 0;
-
-
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "name";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -76,14 +73,8 @@ if ($numrow>0){
 		"", "", "%1 : (%2)", "", "", "cc_packgroup_package:package_id:cc_package_offer LEFT JOIN cc_packgroup_package ON cc_package_offer.id=cc_packgroup_package.package_id:DISTINCT cc_package_offer.label, cc_package_offer.id: cc_packgroup_package.packagegroup_id = %id:packagegroup_id:%2 - (%1)::::%1:id='%1'");		
 	
 }
-
-			
-	
 	
 $HD_Form -> FieldEditElement ('name, description');
-
-
-
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
@@ -99,8 +90,9 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 
-
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+
+
+
