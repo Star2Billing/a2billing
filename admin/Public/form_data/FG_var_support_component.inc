@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'name', 'activated' ,'id_support'));
 
 
 
-$HD_Form = new FormHandler("cc_support_component","Support Component"   );
+$HD_Form = new FormHandler("cc_support_component","Support Component");
 
 
 $HD_Form -> FG_DEBUG = 0;
@@ -66,14 +66,14 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"" , "", "", "Yes :1, - No:0", "", "", "" , "" );
 
 $HD_Form -> AddEditElement (gettext("Support Box"),
-			   "id_support",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_support",
-			   "name, id",
-			   "", "", "%1", "", "");
+   "id_support",
+   "",
+   "SELECT",
+   "", "", "",
+   "sql",
+   "cc_support",
+   "name, id",
+   "", "", "%1", "", "");
 
 
 
@@ -95,4 +95,5 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+
+

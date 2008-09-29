@@ -1,8 +1,8 @@
 <?php
+
 getpost_ifset(array('id', 'id_cc_card', 'id_subscription_fee', 'datestart', 'datestop', 'product_name'));
 
 $HD_Form = new FormHandler("cc_card_subscription","Subscriber");
-
 $HD_Form -> FG_DEBUG = 0;
 
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
@@ -119,4 +119,4 @@ $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
-?>
+

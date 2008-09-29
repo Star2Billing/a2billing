@@ -1,10 +1,6 @@
 <?php
 
-
 getpost_ifset(array('id', 'creationdate', 'usedate', 'expirationdate', 'voucher', 'tag', 'credit', 'activated', 'used', 'currency'));
-
-
-$plang='en';
 
 $HD_Form = new FormHandler("cc_voucher","Voucher");
 

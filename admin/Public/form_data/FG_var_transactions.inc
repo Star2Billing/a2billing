@@ -1,4 +1,5 @@
 <?php
+
 getpost_ifset(array('id', 'customers_id', 'customers_name', 'customers_email_address', 'item_name', 'item_id', 'item_quantity', 'payment_method','cc_type', 'cc_owner','cc_number', 'cc_expires', 'orders_status', 'last_modified', 'date_purchased','orders_date_finished', 'orders_amount', 'currency', 'currency_value'));
 
 
@@ -12,17 +13,15 @@ $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ORDER DATE"), "date_purchased", "10%", "center", "sort", "19", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("CARDID"), "customers_id", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "customers_name", "10%", "center", "sort");
-//$HD_Form -> AddViewElement(gettext("EMAIL"), "customers_email_address", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ITEM NAME"), "item_name", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ITEM ID"), "item_id", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("METHOD"), "payment_method", "9%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CC NUMBER"), "cc_number", "10%", "center", "sort");
-//$HD_Form -> AddViewElement(gettext("CC EXPIRES"), "cc_expires", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STATUS"), "orders_status", "7%", "center", "sort","15","lie","cc_payments_status","status_name","status_id='%id'","%1");
 $HD_Form -> AddViewElement(gettext("AMOUNT"), "orders_amount", "8%", "center", "SORT", "30");
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "");
 $HD_Form -> AddViewElement(gettext("VALUE"), "currency_value", "5%", "center", "SORT", "30");
-// added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
+
 $HD_Form -> FieldViewElement ('id, date_purchased, customers_id, customers_name, item_name, item_id, payment_method, cc_number, orders_status, orders_amount, currency, currency_value');
 
 
@@ -234,7 +233,6 @@ $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.". <br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
@@ -242,9 +240,10 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
-
-
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+
+
+
+
