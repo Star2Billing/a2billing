@@ -43,25 +43,13 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
 
 // TODO Unify order of parameters
 
-$language_list = array();
-$language_list["0"] = array( gettext("ENGLISH"), "en");
-$language_list["1"] = array( gettext("SPANISH"), "es");
-$language_list["2"] = array( gettext("FRENCH"),  "fr");
+$language_list = Constants::getLanguagesList();
 
-$language_list_r = array();
-$language_list_r["0"] = array("en", gettext("ENGLISH"));
-$language_list_r["1"] = array("es", gettext("SPANISH"));
-$language_list_r["2"] = array("fr", gettext("FRENCH"));
+$language_list_r = Constants::getLanguagesRevertList();
 
+$simultaccess_list = Constants::getCardAccess_List();
 
-$simultaccess_list = array();
-$simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
-$simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
-
-
-$simultaccess_list_r = array();
-$simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
-$simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
+$simultaccess_list_r = Constants::getCardAccess_Revert_List();
 
 
 // Possible value to notify the user
@@ -86,45 +74,15 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 
-$cardstatus_list = array();
-$cardstatus_list["1"]  = array( gettext("ACTIVE"), "1");
-$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
-$cardstatus_list["2"]  = array( gettext("NEW"), "2");
-$cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
-$cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
-$cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
-$cardstatus_list["6"]  = array( gettext("SUSPENDED FOR UNDERPAYEMENT"), "6");
-$cardstatus_list["7"]  = array( gettext("SUSPENDED FOR LITIGATION"), "7");
+$cardstatus_list = Constants::getCardStatus_List();
 
-$cardstatus_list_r = array();
-$cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
-$cardstatus_list_r["1"]  = array("1", gettext("ACTIVE"));
-$cardstatus_list_r["2"]  = array("2", gettext("NEW"));
-$cardstatus_list_r["3"]  = array("3", gettext("WAITING-MAILCONFIRMATION"));
-$cardstatus_list_r["4"]  = array("4", gettext("RESERVED"));
-$cardstatus_list_r["5"]  = array("5", gettext("EXPIRED"));
-$cardstatus_list_r["6"]  = array("6", gettext("SUSPENDED FOR UNDERPAYMENT"));
-$cardstatus_list_r["7"]  = array("7", gettext("SUSPENDED FOR LITIGATION"));
+$cardstatus_list_r = Constants::getCardStatus_Revert_List();
 
-$cardstatus_list_acronym = array();
-$cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
-$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVE\">".gettext("ACTIVE")."</acronym>"), "1");
-$cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettext("NEW")."</acronym>"), "2");
-$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAIT")."</acronym>"), "3");
-$cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERVED\">".gettext("RESERV")."</acronym>"), "4");
-$cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIRED\">".gettext("EXPIR")."</acronym>"), "5");
-$cardstatus_list_acronym["6"]  = array( gettext("<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">".gettext("UNDERPAY")."</acronym>"), "6");
-$cardstatus_list_acronym["7"]  = array( gettext("<acronym title=\"SUSPENDED FOR LITIGATION\">".gettext("LITIG")."</acronym>"), "7");
+$cardstatus_list_acronym = Constants::getCardStatus_Acronym_List();
 
-$typepaid_list = array();
-$typepaid_list["0"]  = array( gettext("PREPAID CARD"), "0");
-$typepaid_list["1"]  = array( gettext("POSTPAY CARD"), "1");
+$typepaid_list = Constants::getPaidTypeList();
 
-$expire_list = array();
-$expire_list["0"]  = array( gettext("NO EXPIRY"), "0");
-$expire_list["1"]  = array( gettext("EXPIRE DATE"), "1");
-$expire_list["2"]  = array( gettext("EXPIRE DAYS SINCE FIRST USE"), "2");
-$expire_list["3"]  = array( gettext("EXPIRE DAYS SINCE CREATION"), "3");
+$expire_list = Constants::getCardExpire_List();
 
 $template_invoice_list = array();
 $no = 0;
@@ -150,9 +108,7 @@ $inuse_list = array();
 for ($k=0;$k<=40;$k++)
 	$inuse_list["$k"]  = array( gettext("currently in use")." : $k", "$k");
 
-$yesno = array();
-$yesno["1"] = array( gettext("Yes"), "1");
-$yesno["0"] = array( gettext("No"), "0");
+$yesno = Constants::getYesNoList();
 
 $invoiceday_list = array();
 for ($k=0;$k<=28;$k++)
