@@ -1001,8 +1001,8 @@ $CC_help_support_list='<div class="toggle_show2hide">
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
-	<div class="w2">'
-.gettext("Support Box, etc...").'
+	<div class="w2" style="width:800px">'
+.gettext("You can see here, all tickets created. You can also add a new ticket for one customer.").'
 <br/><br/><br/>
 </div></div></div>
 </div></div>
@@ -1014,12 +1014,23 @@ $CC_help_support_component='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("Support Component, etc...").'
+.gettext("You can see here, all component that you use to handle the support task. You can use component to category for the subject of ticket. i.e : Tarification, Payment").'
 <br/><br/><br/>
 </div></div></div>
 </div></div>
 ';
 
+$CC_help_support_box='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("You can see here the Support Box, you need at least one support box to start support activity. But you can create many box and assign them.").'
+<br/><br/><br/>
+</div></div></div>
+</div></div>
+';
 
 $CC_help_data_archive = '<div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
