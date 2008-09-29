@@ -201,7 +201,9 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 						<?php echo gettext("STATUS") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['status']?> 
+						<?php 
+						$list_status = Constants::getCardStatus_List();
+						echo $list_status[$card['status']][0];?> 
 					</td>
 				</tr>
 			   	<tr height="20px">	
@@ -367,7 +369,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 
 $payment_table = new Table('cc_logpayment','*');
 $payment_clause = "card_id = ".$id;
-$payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 0);
+$payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 0,NULL,NULL,NULL,10,0);
 
 if(sizeof($payment_result)>0){
 ?>
@@ -375,7 +377,7 @@ if(sizeof($payment_result)>0){
 	<tr>
 		<td height="20" align="center"> 
 			<font class="toppage_maintable_text">						  
-			  <?php echo gettext("Customer Payments"); ?>		  <br/>
+			  <?php echo gettext("10 Last Customer's Payment"); ?>		  <br/>
 			</font>
 		</td>
 	</tr>
@@ -441,7 +443,7 @@ if(sizeof($payment_result)>0){
 
 $refill_table = new Table('cc_logrefill','*');
 $refill_clause = "card_id = ".$id;
-$refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 0);
+$refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 0,NULL,NULL,NULL,10,0);
 
 if(sizeof($refill_result)>0){
 ?>
@@ -449,7 +451,7 @@ if(sizeof($refill_result)>0){
 	<tr>
 		<td height="20" align="center"> 
 			<font class="toppage_maintable_text">						  
-			 <?php echo gettext("Customer Refills"); ?>			  <br/>
+			 <?php echo gettext("10 Last Customer's Refill"); ?>			  <br/>
 			</font>
 		</td>
 	</tr>

@@ -20,6 +20,7 @@ class Constants
 
 
 	
+	
 
 	public static function getPeriodsList(){
 	  	$period_list = array();
@@ -185,6 +186,19 @@ class Constants
 		return $dialstatus_rev_list;
 	}
 
+	public static function getCardStatus_List(){
+		$cardstatus_list = array();
+		$cardstatus_list["1"]  = array( gettext("ACTIVE"), "1");
+		$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
+		$cardstatus_list["2"]  = array( gettext("NEW"), "2");
+		$cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
+		$cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
+		$cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
+		$cardstatus_list["6"]  = array( gettext("SUSPENDED FOR UNDERPAYEMENT"), "6");
+		$cardstatus_list["7"]  = array( gettext("SUSPENDED FOR LITIGATION"), "7");
+		return $cardstatus_list;
+	}
+	
 }
 
 /*
@@ -203,5 +217,6 @@ Constants::getTicketPriorityList();
 Constants::getUsedList();
 Constants::getBillingTypeList();
 Constants::getBillingTypeShortList();
+Constants::getCardStatus_List();
 */
 
