@@ -152,10 +152,10 @@ $HD_Form -> AddEditElement (gettext("MONTHLY RATE"),
 $HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate');
 
 
-if (DB_TYPE == "postgres"){
+if (DB_TYPE == "postgres") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
+} else {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
 }

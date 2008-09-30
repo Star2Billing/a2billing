@@ -10,7 +10,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_didgroup.php?section=5";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_didgroup.php?form_action=ask-add&section=5";
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add DID GROUP");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
 
@@ -57,10 +57,10 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 $HD_Form -> FieldEditElement ('didgroupname');
 
 
-if (DB_TYPE == "postgres"){
+if (DB_TYPE == "postgres") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
+} else {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
 }
