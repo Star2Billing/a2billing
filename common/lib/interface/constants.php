@@ -23,11 +23,7 @@ class Constants
 		$yesno["1"] = array( gettext("Yes"), "1");
 		$yesno["0"] = array( gettext("No"), "0");
 		return $yesno;
-	}
-
-
-	
-	
+	}	
 
 	public static function getPeriodsList(){
 	  	$period_list = array();
@@ -222,13 +218,14 @@ class Constants
 	public static function getCardStatus_Acronym_List(){
 		$cardstatus_list_acronym = array();
 		$cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
-		$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVE\">".gettext("ACTIVE")."</acronym>"), "1");
+		$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVED\">".gettext("ACTIVED")."</acronym>"), "1");
 		$cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettext("NEW")."</acronym>"), "2");
-		$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAIT")."</acronym>"), "3");
+		$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAITING")."</acronym>"), "3");
 		$cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERVED\">".gettext("RESERV")."</acronym>"), "4");
-		$cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIRED\">".gettext("EXPIR")."</acronym>"), "5");
-		$cardstatus_list_acronym["6"]  = array( gettext("<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">".gettext("UNDERPAY")."</acronym>"), "6");
-		$cardstatus_list_acronym["7"]  = array( gettext("<acronym title=\"SUSPENDED FOR LITIGATION\">".gettext("LITIG")."</acronym>"), "7");
+		$cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIRED\">".gettext("EXPIRED")."</acronym>"), "5");
+		$cardstatus_list_acronym["6"]  = array( gettext("<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">".gettext("SUS-PAY")."</acronym>"), "6");
+		$cardstatus_list_acronym["7"]  = array( gettext("<acronym title=\"SUSPENDED FOR LITIGATION\">".gettext("SUS-LIT")."</acronym>"), "7");
+		return $cardstatus_list_acronym;
 	}
 	
 	

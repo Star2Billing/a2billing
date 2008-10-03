@@ -68,6 +68,10 @@ $list_calltype ["3"] = array ("DID_VOIP", "3" );
 $list_calltype ["4"] = array ("CALLBACK", "4" );
 $list_calltype ["5"] = array ("PREDICT", "5" );
 
+$FG_TABLE_DEFAULT_ORDER = "t1.starttime";
+$FG_TABLE_DEFAULT_SENS = "DESC";
+
+
 $DBHandle = DbConnect ();
 
 $FG_TABLE_COL = array ();
@@ -92,39 +96,24 @@ if (LINK_AUDIO_FILE) {
 	$FG_TABLE_COL [] = array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile" );
 }
 
-$FG_TABLE_DEFAULT_ORDER = "t1.starttime";
-$FG_TABLE_DEFAULT_SENS = "DESC";
-
 // This Variable store the argument for the SQL query
 $FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.id_cc_prefix, t4.buyrate ,t4.rateinitial ,t1.sessiontime, t1.card_id, t3.trunkcode, t1.terminatecauseid, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
 }
-
 $FG_COL_QUERY_GRAPH = 't1.callstart, t1.duration';
 
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY = 25;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL = count ( $FG_TABLE_COL );
-
-// The variable $FG_EDITION define if you want process to the edition of the database record
 $FG_EDITION = true;
-
-//This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION)
 	$FG_TOTAL_TABLE_COL ++;
-	
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE = gettext ( " - Call Logs - " );
 
-//This variable define the width of the HTML table
+$FG_HTML_TABLE_TITLE = gettext ( " - Call Logs - " );
 $FG_HTML_TABLE_WIDTH = '98%';
 
-if ($FG_DEBUG == 3)
-	echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+
 $instance_table = new Table ( $FG_TABLE_NAME, $FG_COL_QUERY );
 $instance_table_graph = new Table ( $FG_TABLE_NAME, $FG_COL_QUERY_GRAPH );
 

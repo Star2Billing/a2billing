@@ -59,53 +59,34 @@ $list_calltype["5"]  = array( "PREDICT", "5");
 //$link = DbConnect();
 $DBHandle  = DbConnect();
 
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
+$FG_TABLE_DEFAULT_ORDER = "t1.starttime";
+$FG_TABLE_DEFAULT_SENS = "DESC";
+
 $FG_TABLE_COL = array();
-
-
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "14%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "source", "12%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL [] = array (gettext ( "Destination" ), "id_cc_prefix", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1" );
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "7%", "center", "SORT", "", "list", $dialstatus_list);
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
 $FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-
-$FG_TABLE_DEFAULT_ORDER = "t1.starttime";
-$FG_TABLE_DEFAULT_SENS = "DESC";
-	
-// This Variable store the argument for the SQL query
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
-// t1.stoptime,
-
+$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.id_cc_prefix, t1.sessiontime, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=25;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
-
-// The variable $FG_EDITION define if you want process to the edition of the database record
 $FG_EDITION=true;
-
-//This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
-
-//This variable define the Title of the HTML table
 $FG_HTML_TABLE_TITLE=" - ".gettext("Call Logs")." - ";
-
-//This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="98%";
 
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
 if ( is_null ($order) || is_null($sens) ){
@@ -113,19 +94,14 @@ if ( is_null ($order) || is_null($sens) ){
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
-if ($posted==1){
-  
-  $SQLcmd = '';
-  
-  $SQLcmd = do_field($SQLcmd, 'src', 'source');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	
-  
+if ($posted==1) {
+	$SQLcmd = '';
+	$SQLcmd = do_field($SQLcmd, 'src', 'source');
+	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 }
 
 
-$date_clause='';
-// Period (Month-Day)
+$date_clause = '';
 if (DB_TYPE == "postgres"){		
 	 	$UNIX_TIMESTAMP = "";
 }else{
@@ -139,20 +115,6 @@ if ($Period=="Month"){
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 }
-
-//echo "<br>$date_clause<br>";
-/*
-Month
-fromday today
-frommonth tomonth (true)
-fromstatsmonth tostatsmonth
-
-fromstatsday_sday
-fromstatsmonth_sday
-tostatsday_sday
-tostatsmonth_sday
-*/
-
 
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
@@ -198,35 +160,29 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
 
 if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day [] =$res -> fetchRow();
-			}
-		}		
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_day [] =$res -> fetchRow();
+		}
+	}
+	
+	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
+	if ($FG_DEBUG >= 1) var_dump ($list);
+}
 
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG >= 1) var_dump ($list);
-
-}//end IF nodisplay
-
-if ($nb_record<=$FG_LIMITE_DISPLAY){ 
+if ($nb_record<=$FG_LIMITE_DISPLAY) { 
 	$nb_record_max=1;
-}else{ 
-	if ($nb_record % $FG_LIMITE_DISPLAY == 0){
+} else { 
+	if ($nb_record % $FG_LIMITE_DISPLAY == 0) {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
-	}else{
+	} else {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 	}	
 }
-
-
-if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
-if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
-
 
 /*************************************************************/
 
@@ -242,10 +198,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </script>
 
 <?php
-	$smarty->display( 'main.tpl');
-	
 
-	
+$smarty->display( 'main.tpl');
+
 // #### HELP SECTION
 echo $CC_help_balance_customer;
 

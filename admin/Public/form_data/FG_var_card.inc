@@ -75,11 +75,8 @@ foreach($currencies_list as $key => $cur_value) {
 
 
 $cardstatus_list = Constants::getCardStatus_List();
-
 $cardstatus_list_r = Constants::getCardStatus_Revert_List();
-
 $cardstatus_list_acronym = Constants::getCardStatus_Acronym_List();
-
 $typepaid_list = Constants::getPaidTypeList();
 
 $expire_list = Constants::getCardExpire_List();
