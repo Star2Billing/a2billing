@@ -38,20 +38,6 @@ if($customer_info [14] != "1" ) {
 
 
 if ($callback){
-	$called=ereg_replace("^\+","011",$called);
-	$calling=ereg_replace("^\+","011",$calling);
-	
-	$called=ereg_replace("[^0-9]","",$called);
-	$calling=ereg_replace("[^0-9]","",$calling);
-	
-	$called=ereg_replace("^01100","011",$called);
-	$calling=ereg_replace("^01100","011",$calling);
-	
-	$called=ereg_replace("^00","011",$called);
-	$calling=ereg_replace("^00","011",$calling);
-	
-	$called=ereg_replace("^0111","1",$called);
-	$calling=ereg_replace("^0111","1",$calling);
 	
 	if (strlen($called)>4 && strlen($calling)>4 && is_numeric($called) && is_numeric($calling)){
 				
