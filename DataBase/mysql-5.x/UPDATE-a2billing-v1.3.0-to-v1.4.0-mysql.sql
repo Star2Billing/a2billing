@@ -1146,3 +1146,49 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ('Cents Currency Associated', 'currency_cents_association', '', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', '0', '11', NULL);
 
 ALTER TABLE cc_call DROP calledrate,DROP buyrate;
+
+-- Create phonebook for
+CREATE TABLE cc_phonebook (
+	id INT NOT NULL AUTO_INCREMENT ,
+	name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	PRIMARY KEY ( id )
+) ENGINE = MYISAM;
+
+CREATE TABLE cc_phonenumber (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	id_phonebook INT NOT NULL ,
+	number CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	name CHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	status SMALLINT NOT NULL DEFAULT '1',
+	info MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
+	PRIMARY KEY ( id )
+) ENGINE = MYISAM ;
+
+ALTER TABLE cc_phonebook ADD id_card BIGINT NOT NULL ;
+
+CREATE TABLE cc_campaign_phonebook (
+	id_campaign INT NOT NULL ,
+	id_phonebook INT NOT NULL,
+	PRIMARY KEY ( id_campaign , id_phonebook )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE cc_campaign CHANGE campaign_name name CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+CHANGE enable status INT( 11 ) NOT NULL DEFAULT '1';
+
+ALTER TABLE cc_campaign ADD frequency INT NOT NULL DEFAULT '20';
+
+CREATE TABLE cc_campain_phonestatus (
+	id_phonenumber BIGINT NOT NULL ,
+	id_campaign INT NOT NULL ,
+	id_callback BIGINT NOT NULL ,
+	status INT NOT NULL DEFAULT '0',
+	lastuse TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY ( id_phonenumber , id_campaign )
+) ENGINE = MYISAM ;
+
+ALTER TABLE cc_campaign CHANGE id_trunk id_card BIGINT NOT NULL DEFAULT '0' ;
+ALTER TABLE cc_campaign ADD forward_number CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+ALTER TABLE cc_campain_phonestatus CHANGE id_callback id_callback VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ; 
+DROP TABLE cc_phonelist;

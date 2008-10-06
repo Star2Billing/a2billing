@@ -1,15 +1,25 @@
 <?php
 
-getpost_ifset(array('id', 'campaign_name', 'startingdate', 'expirationdate', 'id_trunk', 'description'));
+getpost_ifset(array('id', 'name','status', 'startingdate', 'expirationdate', 'id_card', 'description'));
 
 
 $HD_Form = new FormHandler("cc_campaign","Campaign");
 
+if (!isset($form_action) || $form_action=="list"){
+	$HD_Form = new FormHandler("cc_campaign LEFT JOIN cc_card ON cc_card.id=id_card","Campaign");
+}else{
+	$HD_Form = new FormHandler("cc_campaign","Campaign");
+}
+
+
+$HD_Form -> FG_TABLE_ID = 'cc_campaign.id';
+
+
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = " campaign_name";
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = " name";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-
+$actived_list = Constants::getActivationList();
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_campaign.php?form_action=ask-add&section=16";
@@ -17,15 +27,16 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = 
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/flag_yellow.png" ;
 
 
-$HD_Form -> AddViewElement(gettext("NAME"), "campaign_name", "20%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("NAME"), "name", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STARTINGDATE"), "startingdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("EXPIRATIONDATE"), "expirationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("CARD"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("USED MINUTE"), "secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$HD_Form -> AddViewElement(gettext("AMOUT CALLS"), "nb_callmade", "8%", "center", "SORT", "30");
+$HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", "", "list", $actived_list);
+$HD_Form -> AddViewElement(gettext("NUMBER OF CALLS"), "nb_callmade", "8%", "center", "SORT", "30");
 
 
-$HD_Form -> FieldViewElement ('campaign_name, startingdate, expirationdate, id_trunk, secondusedreal, nb_callmade');
+$HD_Form -> FieldViewElement ('cc_campaign.name, cc_campaign.startingdate, cc_campaign.expirationdate, username, cc_campaign.secondusedreal,cc_campaign.status, cc_campaign.nb_callmade');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("No campaigns have been created."); 
@@ -40,13 +51,37 @@ $HD_Form -> FG_DELETION = true;
 
 
 $HD_Form -> AddEditElement (gettext("CAMPAIGN NAME"),
-	"campaign_name",
+	"name",
 	'$value',
 	"INPUT",
 	"size=30 maxlength=20",
 	"3",
 	gettext("Insert the tariff name "),
 	"" , "", "", "", "" , "", "", "");
+
+
+$HD_Form -> AddEditElement ("STATUS",
+	"status",
+	'1',
+	"SELECT",
+	"",
+	"",
+	"",
+	"list" , "", "", "", $actived_list, "%1" , "", gettext("Define if this campaign is active or not"));
+
+
+$HD_Form -> AddEditElement (gettext("ID CARD"),
+			   "id_card",		
+			   "$value",	
+			   "POPUPVALUE",	
+			   "size=30 maxlength=50",	
+			   "4",	
+			   gettext("Insert the Id CardNumber"),
+			    "" , "", "", "", "", 				
+				"A2B_entity_card.php?popup_select=1&"
+				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
+				gettext("Select the Card Number ID"));
+
 
 // TODO integrate in new framework
 if ($form_action=="ask-add") {
@@ -56,6 +91,9 @@ if ($form_action=="ask-add") {
 	$comp_date = "value='".$begin_date.$end_date."'";
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 }
+
+
+
 
 $HD_Form -> AddEditElement (gettext("STARTING DATE"),
 	"startingdate",
@@ -75,15 +113,6 @@ $HD_Form -> AddEditElement (gettext("EXPIRATION DATE"),
 	gettext("Insert the expiration date"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
 
-$HD_Form -> AddEditElement (gettext("TRUNK"),
-	"id_trunk",
-	'$value',
-	"SELECT",
-	"", "", "",
-	"sql",
-	"cc_trunk",
-	"trunkcode, id_trunk",
-	"", "", "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"description",
@@ -95,8 +124,32 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "", "", "", "" );
 
 
-$HD_Form -> FieldEditElement ('campaign_name, startingdate, expirationdate, id_trunk, description');
+$HD_Form -> FieldEditElement ('name, status,id_card, startingdate, expirationdate, description');
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
+
+	
+$DBHandle_max  = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_phonebook");
+if ( $resmax )
+	$numrow = $resmax -> RecordCount( );
+
+if ($numrow>0){ 
+	$HD_Form -> AddEditElement (gettext("PHONE BOOK"),
+		"phonebook",	
+		'$value',	
+		"SELECT",		
+		'size="10" multiple="multiple"',
+		"",		
+		"",	
+		"sql",		
+		"campaigns_phonebooks",	
+		"name, id",		
+		"", "", "%1 : (%2)", "", "", "cc_campaign_phonebook:id_phonebook:cc_phonebook LEFT JOIN cc_campaign_phonebook ON cc_phonebook.id=cc_campaign_phonebook.id_phonebook:DISTINCT cc_phonebook.name, cc_phonebook.id: cc_campaign_phonebook.id_campaign = %id:id_campaign:%2 - (%1)::::%1:id='%1'");		
+	
+}
+
+
 
 
 if (DB_TYPE == "postgres") {

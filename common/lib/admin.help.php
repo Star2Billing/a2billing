@@ -322,6 +322,21 @@ $CC_help_import_ratecard ='
 </div></div></div>
 </div></div>';
 
+$CC_help_import_phonebook ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/spreadsheet.gif" class="kikipic"/>
+	<div class="w2">'
+    .gettext("This section is a utility to import Phonebook from a CSV file.<br>")
+	.gettext('Define the phonebook name, the user to use and the fields that you wish to include from your csv files. Finally, select the csv files and click on the "Import Phonebook" button.').'
+	<br>'.help_wiki_link('ImportPhoneBook').'
+	<br>
+</div></div></div>
+</div></div>';
+	
+
 $CC_help_import_ratecard_analyse ='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -693,6 +708,19 @@ $CC_help_phonelist ='
 	<br/><br/>
 </div></div></div>
 </div></div>';
+	
+
+$CC_help_phonebook ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
+	<div class="w2"><br/>'
+	.gettext("Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section").'
+	<br/><br/>
+</div></div></div>
+</div></div>';	
 
 $CC_help_provider ='
 <div class="toggle_show2hide">
