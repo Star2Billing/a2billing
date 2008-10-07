@@ -5,17 +5,13 @@ getpost_ifset(array('id', 'login', 'passwd', 'active', 'location', 'id_tariffgro
 'country', 'zipcode', 'phone', 'email', 'fax'));
 
 
-
 $FG_INSTANCE_NAME = gettext("Agent");
-
 $HD_Form = new FormHandler("cc_agent",$FG_INSTANCE_NAME);
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID = " id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " datecreation";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
-
-
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
@@ -66,17 +62,6 @@ $HD_Form -> FG_DELETION = true;
 
 
 
-if ($form_action!="ask-add" && $form_action!="add"){
-	$HD_Form -> AddEditElement (gettext("AGENT ID"),
-		"id",
-		'$value',
-		"INPUT",
-		"size=8 READONLY maxlength=6",
-		"4",
-		gettext("Insert the id"),
-		"" , "", "", "", "", "", "", "" );
-}
-
 $HD_Form -> AddEditElement (gettext("LOGIN"),
 		"login",
 		'$value',
@@ -112,11 +97,6 @@ $HD_Form -> AddEditElement (gettext("ACTIVE"),
 	   "",
 	   gettext("Choose if you want to active the agent"),
 	   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable agent"));
-
-
-
-
-
 
 $HD_Form -> AddEditElement (gettext("BALANCE"),
 	   "credit",
@@ -271,20 +251,10 @@ if ($numrow>0){
 		"sql",		
 		"call_tariff",	
 		"label, id",		
-		"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");		
-	
+		"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
 }
 
-		
-		
-		
-
-
-if ($form_action!="ask-add" && $form_action!="add"){
-        $FG_QUERY_EDITION='id, ';
-}
-
-$FG_QUERY_EDITION .= 'login, passwd, perms, active, credit, climit, currency, commission, vat, language,  lastname, firstname, address, city, state, 
+$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, climit, currency, commission, vat, language,  lastname, firstname, address, city, state, 
 country, zipcode, email, phone,  fax';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
@@ -292,15 +262,13 @@ $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 
-
-if (DB_TYPE == "postgres"){
+if (DB_TYPE == "postgres") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
+} else {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreation ";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now() ";
 }
-
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
@@ -318,5 +286,6 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
 
 
