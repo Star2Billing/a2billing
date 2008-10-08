@@ -1191,11 +1191,15 @@ CREATE TABLE cc_campain_phonestatus (
 ALTER TABLE cc_campaign CHANGE id_trunk id_card BIGINT NOT NULL DEFAULT '0' ;
 ALTER TABLE cc_campaign ADD forward_number CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 ALTER TABLE cc_campain_phonestatus CHANGE id_callback id_callback VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ; 
+
 DROP TABLE cc_phonelist;
 
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES 
-( 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Contaxt to use in Campaign of Callback', '0', '2', NULL);
+( 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Context to use in Campaign of Callback', '0', '2', NULL);
 
 ALTER TABLE cc_campaign ADD callerid VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ;
 
 ALTER TABLE cc_card_group ADD flatrate DECIMAL( 15, 5 ) NOT NULL ;
+ALTER TABLE cc_card_group ADD campaign_context VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
+
