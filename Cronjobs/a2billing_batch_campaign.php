@@ -32,7 +32,9 @@ include (dirname(__FILE__)."/lib/Misc.php");
 include (dirname(__FILE__)."/lib/Class.RateEngine.php");
 
 $verbose_level=1;
-$group=5000;
+// time to wait between every send in callback queue
+$timing =60;
+$group=100;
 
 
 $A2B = new A2Billing();
@@ -83,7 +85,7 @@ $nbpage=(ceil($nb_record/$group));
 
 
 
-$QUERY_PHONENUMBERS = 'SELECT cc_phonenumber.id, cc_phonenumber.number, cc_campaign.id, cc_campaign.frequency, cc_card.id , cc_card.tariff, cc_card.username FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign, cc_card WHERE ';
+$QUERY_PHONENUMBERS = 'SELECT cc_phonenumber.id, cc_phonenumber.number, cc_campaign.id, cc_campaign.frequency , cc_campaign.forward_number  ,cc_campaign.callerid , cc_card.id , cc_card.tariff, cc_card.username FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign, cc_card WHERE ';
 //JOIN CLAUSE
 $QUERY_PHONENUMBERS .= 'cc_phonenumber.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_campaign = cc_campaign.id AND cc_campaign.id_card = cc_card.id ';
 //CAMPAIGN CLAUSE
@@ -105,8 +107,27 @@ for ($page = 0; $page < $nbpage; $page++) {
 	
 		foreach ($result_phonenumbers as $phone){
 			if ($verbose_level>=1) print_r ($phone);
+
+			//check the balance
+			$query_balance = "SELECT cc_card_group.flatrate , cc_card.credit FROM cc_card_group , cc_card WHERE cc_card.id = $phone[6] AND cc_card.id_group = cc_card_group.id";
+			$result_balance = $instance_table -> SQLExec ($A2B -> DBHandle, $query_balance);
+			
+			if ($verbose_level>=1) echo "\n CHECK BALANCE :".$query_balance;
+			if($result_balance){
+				if($result_balance[0][1]<$result_balance[0][0]){
+					write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[ user $phone[8] don't have engouh credit ]");
+					if ($verbose_level>=1) echo "\n[ Error : Can't send callback -> user $phone[8] don't have enough credit ]";
+					continue;
+				}
+				
+			}else {
+				write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[ user $phone[8] don't have a group correctly defined ]");
+				if ($verbose_level>=1) echo "\n[ Error : Can't send callback -> user $phone[8] don't have a group correctly defined ]";
+				continue;
+			}
+						
 			//test if you have to inject it again
-			// 
+			
 			$query_searche_phonestatus = "SELECT status FROM cc_campain_phonestatus WHERE id_campaign = ".$phone[2]." AND id_phonenumber = ".$phone[0] ; 
 			$result_search_phonestatus = $instance_table -> SQLExec ($A2B -> DBHandle, $query_searche_phonestatus);
 			
@@ -125,10 +146,10 @@ for ($page = 0; $page < $nbpage; $page++) {
 			
 		if($create_callback){	
 			//// Search Road...
-				
-				$A2B -> set_instance_table ($instance_table);
-				$A2B -> cardnumber = $phone["username"];
-					
+			
+			$A2B -> set_instance_table ($instance_table);
+			$A2B -> cardnumber = $phone["username"];
+			$error_msg ="";	
 			if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
 			
 				$RateEngine = new RateEngine();
@@ -192,20 +213,20 @@ for ($page = 0; $page < $nbpage; $page++) {
 						}
 						
 						$channel= $dialstr;
-						$exten = $phone["forward_number"];
-						$context = $A2B -> config["callback"]['context_callback'];
+						$exten = 11;
+						$context = $A2B -> config["callback"]['context_campaign_callback'];
 						$id_server_group = $A2B -> config["callback"]['id_server_group'];
 						$priority=1;
 						$timeout = $A2B -> config["callback"]['timeout']*1000;
 						$application='';
-						$callerid = $A2B -> config["callback"]['callerid'];
+						$callerid = $phone["callerid"];
 						$account = $_SESSION["pr_login"];
 						
 						$uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(7);
 						$status = 'PENDING';
 						$server_ip = 'localhost';
 						$num_attempt = 0;
-						$variable = "CALLED=$destination|CALLING=$exten|CBID=$uniqueid|LEG=".$A2B->cardnumber;
+						$variable = "CALLED=$destination|USERNAME=$phone[8]|USERID=$phone[6]|CBID=$uniqueid|LEG=".$A2B->cardnumber;
 						
 						$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
 						$res = $A2B -> DBHandle -> Execute($QUERY);
@@ -233,18 +254,22 @@ for ($page = 0; $page < $nbpage; $page++) {
 			}else{
 				if ($verbose_level>=1) echo "Error : ".$error_msg;
 			}
-				
-		}
 
-		
+			
+		}
 			/// End Search Road....
 			
-			
 		}
+		
+	if($page != $nbpage-1)sleep($timing);
 	
 }
 //LIMIT
 exit();
+
+
+
+
 
 $result_phonenumbers = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY_PHONENUMBERS);
 

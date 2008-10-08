@@ -1845,6 +1845,37 @@ class A2Billing {
 		}
 	}
 
+	
+	function update_callback_campaign($agi)
+	{
+	
+	$agi-> stream_file('hello-world', '#');
+	$username = $agi->get_variable("USERNAME", true);
+	$userid= $agi->get_variable("USERID", true);
+	$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[MODE CAMPAIGN CALLBACK: USERNAME -> $username  USERID -> $userid ]");
+	//Insert cdr with flat rate
+	$query_rate = "SELECT cc_card_group.flatrate FROM cc_card_group , cc_card WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id";
+	$result_rate = $this->instance_table -> SQLExec ($this -> DBHandle, $query_rate);	
+	
+	$cost = 0;
+	if($result_rate){
+		$cost = $result_rate[0][0];
+	}
+	
+	if ($cost>0) {
+		$signe='-';
+	} else {
+		$signe='+';
+	}
+	
+	$QUERY = "UPDATE cc_card SET credit= credit $signe ".a2b_round(abs($cost))." ,  lastuse=now() WHERE username='".$username."'";
+	$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[RESULT RATE : ".$QUERY);
+	
+	$this->instance_table -> SQLExec ($this -> DBHandle, $QUERY);
+		
+		
+	}
+	
 
 	function callingcard_ivr_authenticate($agi)
 	{

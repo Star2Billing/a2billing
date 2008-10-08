@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'name','status', 'startingdate', 'expirationdate', 'id_card', 'description'));
+getpost_ifset(array('id', 'name','status','callerid','forward_number','startingdate', 'expirationdate', 'id_card', 'description'));
 
 
 $HD_Form = new FormHandler("cc_campaign","Campaign");
@@ -114,6 +114,27 @@ $HD_Form -> AddEditElement (gettext("EXPIRATION DATE"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
 
 
+$HD_Form -> AddEditElement (gettext("CALLERID"),
+	"callerid",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=20",
+	"18",
+	gettext("Insert the CallerID to use for the call "),
+	"" , "", "", "", "" , "", "", "");	
+
+$HD_Form -> AddEditElement (gettext("FORWARD NUMBER"),
+	"forward_number",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=20",
+	"11",
+	gettext("Insert the number to use to forward the call "),
+	"" , "", "", "", "" , "", "", "");	
+	
+	
+	
+	
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"description",
 	'',
@@ -124,7 +145,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "", "", "", "" );
 
 
-$HD_Form -> FieldEditElement ('name, status,id_card, startingdate, expirationdate, description');
+$HD_Form -> FieldEditElement ('name, status,id_card, startingdate, expirationdate, callerid,forward_number, description');
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 	

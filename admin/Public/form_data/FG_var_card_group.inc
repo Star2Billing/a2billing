@@ -1,7 +1,7 @@
 <?php
 
 
-getpost_ifset(array('id', 'name', 'id_agi_conf', 'description'));
+getpost_ifset(array('id', 'name','campaign_context','flatrate', 'description'));
 
 
 $HD_Form = new FormHandler("cc_card_group","Card Group");
@@ -50,7 +50,7 @@ $HD_Form -> FG_DELETION = true;
 $HD_Form -> AddEditElement ( gettext("NAME"),	
 	"name",	'$value',	
 	"INPUT",
-	"size= maxlength=40",
+	"size=30 maxlength=40",
 	"0",
 	gettext("Insert the provider name"), 
 	"" , "", "",	"", "", "", "", "" );
@@ -65,7 +65,31 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
 
-$HD_Form -> FieldEditElement ('name, description');
+	
+$HD_Form -> AddEditElement ( gettext("CAMPAIGN CONTEXT"),	
+	"campaign_context",	'$value',	
+	"INPUT",
+	"size=30 maxlength=40",
+	"0",
+	gettext("Insert the context to use to forward the callback campaign"), 
+	"" , "", "",	"", "", "", "", "" );
+
+	
+
+$HD_Form -> AddEditElement(gettext("CAMPAIGN FLAT RATE"),
+   "flatrate",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "12",
+   gettext("Insert the flat rate"),
+   "" , "", "",	"", "" , "", "", gettext("The callback campaign system now can't use the billing system, you have to define cost for all callback "), null, null, null);
+
+
+   
+	
+	
+$HD_Form -> FieldEditElement ('name, description,campaign_context,flatrate');
 
 
 	
@@ -89,7 +113,6 @@ if ($numrow>0) {
 		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_service:cc_service LEFT JOIN cc_cardgroup_service ON cc_service.id=cc_cardgroup_service.id_service:DISTINCT cc_service.name, cc_service.id: cc_cardgroup_service.id_card_group = %id:id_card_group:%2 - (%1)::::%1:id='%1'");		
 	
 }
-
 
 
 

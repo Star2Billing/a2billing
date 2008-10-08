@@ -63,6 +63,7 @@ elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')	$mode =
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')	$mode = 'all-callback';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'predictivedialer')	$mode = 'predictivedialer';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')	$mode = 'voucher';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'campaign-callback')	$mode = 'campaign-callback';
 else $mode = 'standard';
 
 // get the area code for the cid-callback & all-callback
@@ -404,6 +405,9 @@ if ($mode == 'standard'){
 	exit();
 
 // MODE CID-CALLBACK
+}elseif ($mode == 'campaign-callback'){
+	$A2B -> update_callback_campaign ($agi);
+	
 }elseif ($mode == 'cid-callback'){
 
 	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[MODE : CALLERID-CALLBACK - '.$A2B->CallerID.']');
