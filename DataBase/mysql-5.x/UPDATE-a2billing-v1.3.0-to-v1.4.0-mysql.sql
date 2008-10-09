@@ -589,7 +589,7 @@ ALTER TABLE cc_ratecard ADD COLUMN rounding_threshold INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge DECIMAL(15,5) NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN tag CHAR(50);
-ALTER TABLE cc_ratecard ADD COLUMN disconnectcharge_after INT NOT default 0;
+ALTER TABLE cc_ratecard ADD COLUMN disconnectcharge_after INT NOT NULL DEFAULT 0;
 
 ALTER TABLE cc_card ADD COLUMN template_invoice VARCHAR( 100 ) ;
 ALTER TABLE cc_card ADD COLUMN template_outstanding VARCHAR( 100 ) ;
