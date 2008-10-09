@@ -116,7 +116,7 @@ class callback_database:
             
             self.metadata = MetaData(self.engine)
             
-            Session = sessionmaker(bind=self.engine, autoflush=True)
+            Session = sessionmaker(bind=self.engine, autoflush=True, autocommit=True)
             
             # create a Session
             self.session = Session()
