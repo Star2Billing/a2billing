@@ -7,6 +7,16 @@ function help_wiki_link($wiki_article_name)
 
 
 if (SHOW_HELP){
+$CC_help_list_group='<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+        <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
+        <div class="w2">
+
+'.gettext("This page show group list. <br> Group field is used for grouping cards for quick search,batch update and reporting.").'<br/>'.help_wiki_link('ListGroup').'<br/>
+</div></div></div>
+</div></div>';
 
 $CC_help_invoices_unbilled='
 <div class="toggle_show2hide">

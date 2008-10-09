@@ -1147,6 +1147,7 @@ VALUES ('Cents Currency Associated', 'currency_cents_association', '', 'Define a
 
 ALTER TABLE cc_call DROP calledrate,DROP buyrate;
 
+
 -- Create phonebook for
 CREATE TABLE cc_phonebook (
 	id INT NOT NULL AUTO_INCREMENT ,
@@ -1201,5 +1202,9 @@ ALTER TABLE cc_campaign ADD callerid VARCHAR( 60 ) CHARACTER SET utf8 COLLATE ut
 
 ALTER TABLE cc_card_group ADD flatrate DECIMAL( 15, 5 ) NOT NULL ;
 ALTER TABLE cc_card_group ADD campaign_context VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
+
+-- for Agent
+ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
 
 

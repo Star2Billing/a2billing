@@ -39,8 +39,7 @@ $smarty->display('main.tpl');
 
 
 // #### HELP SECTION
-echo $CC_help_list_customer;
-
+echo $CC_help_list_group;
 
 
 

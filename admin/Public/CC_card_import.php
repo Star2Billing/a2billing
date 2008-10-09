@@ -234,6 +234,8 @@ echo $CC_help_import_card;
 					<option value="expiredays"><?php echo gettext("expiredays");?></option>
 					<option value="tariff"><?php echo gettext("tariff");?></option>
 					<option value="id_didgroup"><?php echo gettext("id_didgroup");?></option>
+					<option value="id_group"><?php echo gettext("id_group");?></option>
+					<option value="id_agent"><?php echo gettext("id_agent");?></option>
 					<option value="address"><?php echo gettext("address");?></option>
 	
 					<option value="city"><?php echo gettext("city");?></option>
