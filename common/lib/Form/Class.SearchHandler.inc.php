@@ -612,6 +612,27 @@ if ($this->FG_FILTER_SEARCH_FORM){
 				</font>
 			</td>
 		</tr>
+<tr>
+          <td align="left" class="searchhandler_table4_td1">
+                                <input name="check[upd_disconnectcharge_after]" type="checkbox" <?php if ($check["upd_disconnectcharge_after"]=="on") echo "checked"?>>
+                                <input name="mode[upd_disconnectcharge_after]" type="hidden" value="2">
+                  </td>
+                  <td align="left" class="searchhandler_table4_td1">
+
+                                <strong>11)&nbsp;<?php echo gettext("DISCONNECTCHARGE_AFTER");?>&nbsp;:</strong>
+                                        <input class="form_input_text" name="upd_disconnectcharge_after" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_disconnectcharge_after)) echo $upd_disconnectcharge_after; else echo '0';?>" >
+                                <font class="version">
+                                <input type="radio" NAME="type[upd_disconnectcharge_after]" value="1" <?php if((!isset($type[upd_disconnectcharge_after]))|| ($type[upd_disconnectcharge_after]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+
+                                <input type="radio" NAME="type[upd_disconnectcharge_after]" value="2" <?php if($type[upd_disconnectcharge_after]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+                                <input type="radio" NAME="type[upd_disconnectcharge_after]" value="3" <?php if($type[upd_disconnectcharge_after]==3){?>checked<?php }?>> <?php echo gettext("Substract");?>
+                                </font>
+                        </td>
+                </tr>
+
+
+
+
 		<tr>		
 			<td align="right" class="searchhandler_table4_td1">
 			</td>

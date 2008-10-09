@@ -262,6 +262,7 @@ function moveSourceDown()
 				<option value="billingblock"><?php echo gettext("billingblock");?></option>
 				<option value="connectcharge"><?php echo gettext("connectcharge");?></option>
 				<option value="disconnectcharge"><?php echo gettext("disconnectcharge");?></option>
+				<option value="disconnectcharge_after"><?php echo gettext("disconnectcharge_after");?></option>
 				<option value="stepchargea"><?php echo gettext("stepchargea");?></option>
 				<option value="chargea"><?php echo gettext("chargea");?></option>
 				<option value="timechargea"><?php echo gettext("timechargea");?></option>
