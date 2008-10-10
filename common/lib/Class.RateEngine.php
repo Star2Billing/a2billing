@@ -442,7 +442,8 @@ class RateEngine
 
 		$credit -= $connectcharge;
 		if ($disconnectcharge_after==0){
-	               $credit -= $disconnectcharge; no disconnenct charge on timeout if disconnectcharge_after is set
+	               $credit -= $disconnectcharge; 
+	               //no disconnenct charge on timeout if disconnectcharge_after is set
                }
 
 		//$credit -= ($initblock/60)*$rateinitial;
