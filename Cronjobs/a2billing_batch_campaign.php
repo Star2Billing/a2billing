@@ -127,24 +127,27 @@ for ($page = 0; $page < $nbpage; $page++) {
 			}
 						
 			//test if you have to inject it again
-			
-			$query_searche_phonestatus = "SELECT status FROM cc_campain_phonestatus WHERE id_campaign = ".$phone[2]." AND id_phonenumber = ".$phone[0] ; 
+			$frequency_sec=$phone['frequency']*60;
+			$query_searche_phonestatus = "SELECT status, $UNIX_TIMESTAMP lastuse ) < $UNIX_TIMESTAMP CURRENT_TIMESTAMP) -$frequency_sec  FROM cc_campain_phonestatus WHERE id_campaign = ".$phone[2]." AND id_phonenumber = ".$phone[0] ; 
 			$result_search_phonestatus = $instance_table -> SQLExec ($A2B -> DBHandle, $query_searche_phonestatus);
 			
 			if ($verbose_level>=1) echo "\nSEARCH PHONESTATUS QUERY : ".$query_searche_phonestatus;
 			if ($verbose_level>=1) echo "\nSEARCH PHONESTATUS RESULT : ".print_r($result_search_phonestatus);
 			//check callback spool
 			$action='';
-			$create_callback=true;
 			if($result_search_phonestatus) {
 				$action="update";
 				//Filter phone number holded and stoped
-				if($result_search_phonestatus[0][0]==1 || $result_search_phonestatus[0][0]==2) $create_callback = false;
+				if($result_search_phonestatus[0][0]==1 || $result_search_phonestatus[0][0]==2) continue;
+				if($result_search_phonestatus[0][1]==0) {
+					echo "\n[  Can't send callback -> number $phone[1] is not in the frequency ]"; 
+					continue;
+				}
+				
 			}else{ 
 				$action="insert";
 			}
 			
-		if($create_callback){	
 			//// Search Road...
 			
 			$A2B -> set_instance_table ($instance_table);
@@ -256,7 +259,6 @@ for ($page = 0; $page < $nbpage; $page++) {
 			}
 
 			
-		}
 			/// End Search Road....
 			
 		}

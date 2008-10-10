@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'name','status','callerid','forward_number','startingdate', 'expirationdate', 'id_card', 'description'));
+getpost_ifset(array('id', 'name','status','callerid','frequency','startingdate', 'expirationdate', 'id_card', 'description'));
 
 
 $HD_Form = new FormHandler("cc_campaign","Campaign");
@@ -123,14 +123,15 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 	gettext("Insert the CallerID to use for the call "),
 	"" , "", "", "", "" , "", "", "");	
 
-$HD_Form -> AddEditElement (gettext("FORWARD NUMBER"),
-	"forward_number",
+$HD_Form -> AddEditElement (gettext("FREQUENCY"),
+	"frequency",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=20",
-	"11",
-	gettext("Insert the number to use to forward the call "),
+	"size=20 maxlength=10",
+	"4",
+	gettext("Insert the frequency of callback in min "),
 	"" , "", "", "", "" , "", "", "");	
+
 	
 	
 	
@@ -145,7 +146,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "", "", "", "" );
 
 
-$HD_Form -> FieldEditElement ('name, status,id_card, startingdate, expirationdate, callerid,forward_number, description');
+$HD_Form -> FieldEditElement ('name, status,id_card, startingdate, expirationdate, callerid,frequency, description');
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 	

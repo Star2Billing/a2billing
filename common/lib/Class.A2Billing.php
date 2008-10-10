@@ -1849,31 +1849,39 @@ class A2Billing {
 	function update_callback_campaign($agi)
 	{
 	
-	$agi-> stream_file('hello-world', '#');
 	$username = $agi->get_variable("USERNAME", true);
 	$userid= $agi->get_variable("USERID", true);
 	$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[MODE CAMPAIGN CALLBACK: USERNAME -> $username  USERID -> $userid ]");
 	//Insert cdr with flat rate
-	$query_rate = "SELECT cc_card_group.flatrate FROM cc_card_group , cc_card WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id";
+	$query_rate = "SELECT cc_card_group.flatrate, cc_card_group.campaign_context FROM cc_card_group , cc_card WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id";
 	$result_rate = $this->instance_table -> SQLExec ($this -> DBHandle, $query_rate);	
 	
 	$cost = 0;
+	
 	if($result_rate){
 		$cost = $result_rate[0][0];
+		$context = $result_rate[0][1];
 	}
+	
+	if(empty($context)){
+		$context =  $this -> config["callback"]['context_campaign_callback'];
+	}
+	
 	
 	if ($cost>0) {
 		$signe='-';
 	} else {
 		$signe='+';
 	}
-	
+	//update balance	
 	$QUERY = "UPDATE cc_card SET credit= credit $signe ".a2b_round(abs($cost))." ,  lastuse=now() WHERE username='".$username."'";
 	$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[RESULT RATE : ".$QUERY);
-	
 	$this->instance_table -> SQLExec ($this -> DBHandle, $QUERY);
 		
-		
+	//dial other context
+	
+	$agi->exec_dial("local","1@".$context);
+	
 	}
 	
 
