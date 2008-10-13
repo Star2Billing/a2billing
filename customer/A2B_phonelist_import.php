@@ -1,15 +1,17 @@
 <?php
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
+
+include ("./lib/customer.defines.php");
+include ("./lib/customer.module.access.php");
+include ("lib/customer.smarty.php");
+
 
 set_time_limit(0);
-
-if (! has_rights (ACX_RATECARD)) {
+if (! has_rights (ACX_ACCESS)){
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
+	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
+
 
 $FG_DEBUG = 0;
 
@@ -24,7 +26,7 @@ $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 $instance_table_phonebook = new Table("cc_phonebook", "id, name");
 
-$FG_TABLE_CLAUSE = "";
+$FG_TABLE_CLAUSE = "id_card =".$_SESSION['card_id'];
 
 $list_phonebook = $instance_table_phonebook  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 

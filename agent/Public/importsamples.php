@@ -26,6 +26,14 @@ $didSample_Complex = "200;12;1;2006-07-17 19:48:07;2031-07-17 19:48:07;1
 <br>400;12;1;2006-07-17 19:48:07;2031-07-17 19:48:07;1
 <br>500;12;1;2006-07-17 19:48:07;2031-07-17 19:48:07;1";
 
+$phonebookSample_Simple = "003247354343
+<br>003247354563
+<br>003247354356";
+
+$phonebookSample_Complex = "003247354343;Jean Pest;advertissing
+<br>003247354563;Ale Beignard;Debt
+<br>003247354356;James Bon;Debt";
+
 if (isset($_GET["sample"]))
 {
     switch($_GET["sample"])
@@ -54,6 +62,14 @@ if (isset($_GET["sample"]))
         echo $didSample_Complex;
         break;
 
+        case "Phonebook_Simple":
+        echo $phonebookSample_Simple;
+        break;
+
+        case "Phonebook_Complex":
+        echo $phonebookSample_Complex;
+        break;
+        
         default:
         echo "No sample defined!";
         break;

@@ -141,6 +141,45 @@ $CC_help_list_voucher = '
 ';
 
 
+$CC_help_campaign ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/yast_remote.gif" class="kikipic"/>
+	<div class="w2">'
+	.gettext("This section will allow you to create and edit campaign. ")
+    .gettext("A campaign will be attached to a user in order to let him use the predictive-dialer option. ")
+    .gettext("Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls.").'
+<br/><br/>
+</div></div></div>
+</div></div>';
+
+$CC_help_phonelist ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
+	<div class="w2"><br/>'
+	.gettext("Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers.").'
+	<br/><br/>
+</div></div></div>
+</div></div>';
+	
+
+$CC_help_phonebook ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
+	<div class="w2"><br/>'
+	.gettext("Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section").'
+	<br/><br/>
+</div></div></div>
+</div></div>';	
+
 $CC_help_list_did = '
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">

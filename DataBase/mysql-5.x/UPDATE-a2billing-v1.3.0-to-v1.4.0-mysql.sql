@@ -1210,6 +1210,17 @@ ALTER TABLE cc_card_group ADD flatrate DECIMAL( 15, 5 ) NOT NULL ;
 ALTER TABLE cc_card_group ADD campaign_context VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 
 
+ALTER TABLE cc_campaign ADD daily_start_time TIME NOT NULL DEFAULT '10:00:00',
+ADD daily_stop_time TIME NOT NULL DEFAULT '18:00:00',
+ADD monday TINYINT NOT NULL DEFAULT '1',
+ADD tuesday TINYINT NOT NULL DEFAULT '1',
+ADD wednesday TINYINT NOT NULL DEFAULT '1',
+ADD thursday TINYINT NOT NULL DEFAULT '1',
+ADD friday TINYINT NOT NULL DEFAULT '1',
+ADD saturday TINYINT NOT NULL DEFAULT '0',
+ADD sunday TINYINT NOT NULL DEFAULT '0';
+
+
 -- for Agent
 ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
 

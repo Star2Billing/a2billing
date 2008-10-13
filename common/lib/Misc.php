@@ -255,6 +255,18 @@ function res_display_dateformat($mydate){
 	return $mydate;
 }
 
+
+function res_display_timeformat($mydate){
+	if (DB_TYPE == "mysql"){
+		if (strlen($mydate)==6){
+			// YYYY-MM-DD HH:MM:SS 20300331225242
+			$res= substr($mydate,0,4).':'.substr($mydate,4,2).':'.substr($mydate,6,2);
+			return $res;
+		}
+	}
+	return $mydate;
+}
+
 /*
  * function display_minute
  */

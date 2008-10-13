@@ -134,12 +134,42 @@
 		{if $A2Bconfig.webcustomerui.notification ==1 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_notification.php?form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></ul>
+		
 		{/if}
-		{if $A2Bconfig.webcustomerui.predictivedialer ==1 }
+		
+		{if $A2Bconfig.webcustomerui.predictivedialer==1 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_autodialer.php"><strong>{php} echo gettext("AUTO DIALER");{/php}</strong></a></li></ul>
+		<div class="toggle_menu">
+		<li>
+		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
+		{if ($section == "5")}
+		src="templates/{$SKIN_NAME}/images/minus.gif"
+		{else}
+		src="templates/{$SKIN_NAME}/images/plus.gif"
 		{/if}
-
+	 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AUTO DIALER");{/php}</strong></a></li>
+		<div class="tohide"
+		{if ($section =="10")}
+		style="">
+		{else}
+		style="display:none;">
+		{/if}
+		<ul>
+			<li><ul>
+					<li><a href="A2B_entity_campaign.php?section=10">{php} echo gettext("Campaign's");{/php}</a></li>
+					<li><a href="A2B_entity_phonebook.php?section=10">{php} echo gettext("Phone Book");{/php}</a></li>
+					<li><a href="A2B_entity_phonenumber.php?section=10">{php} echo gettext("Phone Number");{/php}</a></li>
+					<li><a href="A2B_phonelist_import.php?section=10">{php} echo gettext("Import Phone List");{/php}</a></li>
+			</ul></li>
+		</ul>
+		</div>
+		</div>
+		{/if}
+		
+		
+		
+		
+		
 
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong>{php} echo gettext("LOGOUT");{/php}</strong></font></a></li></ul>

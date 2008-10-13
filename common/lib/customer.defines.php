@@ -8,6 +8,8 @@ include_once (dirname(__FILE__)."/Class.Table.php");
 //	require_once('DB.php'); // PEAR
 require_once('adodb/adodb.inc.php'); // AdoDB
 
+include (FSROOT."lib/Class.Logger.php");
+
 $A2B = new A2Billing();
 
 // SELECT THE FILES TO LOAD THE CONFIGURATION

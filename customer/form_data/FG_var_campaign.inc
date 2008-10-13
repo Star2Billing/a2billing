@@ -5,15 +5,12 @@ getpost_ifset(array('id', 'name','status','callerid','monday','tuesday','wednesd
 
 $HD_Form = new FormHandler("cc_campaign","Campaign");
 
-if (!isset($form_action) || $form_action=="list"){
-	$HD_Form = new FormHandler("cc_campaign LEFT JOIN cc_card ON cc_card.id=id_card","Campaign");
-}else{
-	$HD_Form = new FormHandler("cc_campaign","Campaign");
-}
+
+
 
 
 $HD_Form -> FG_TABLE_ID = 'cc_campaign.id';
-
+$HD_Form -> FG_TABLE_CLAUSE = " cc_campaign.id_card=".$_SESSION['card_id'] ;
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " name";
@@ -30,13 +27,12 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/flag_yellow.png" ;
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STARTINGDATE"), "startingdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("EXPIRATIONDATE"), "expirationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("CARD"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("USED MINUTE"), "secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("NUMBER OF CALLS"), "nb_callmade", "8%", "center", "SORT", "30");
 
 
-$HD_Form -> FieldViewElement ('cc_campaign.name, cc_campaign.startingdate, cc_campaign.expirationdate, username, cc_campaign.secondusedreal,cc_campaign.status, cc_campaign.nb_callmade');
+$HD_Form -> FieldViewElement ('cc_campaign.name, cc_campaign.startingdate, cc_campaign.expirationdate, cc_campaign.secondusedreal,cc_campaign.status, cc_campaign.nb_callmade');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("No campaigns have been created."); 
@@ -69,18 +65,6 @@ $HD_Form -> AddEditElement ("STATUS",
 	"",
 	"list" , "", "", "", $actived_list, "%1" , "", gettext("Define if this campaign is active or not"));
 
-
-$HD_Form -> AddEditElement (gettext("ID CARD"),
-			   "id_card",		
-			   "$value",	
-			   "POPUPVALUE",	
-			   "size=30 maxlength=50",	
-			   "4",	
-			   gettext("Insert the Id CardNumber"),
-			    "" , "", "", "", "", 				
-				"A2B_entity_card.php?popup_select=1&"
-				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-				gettext("Select the Card Number ID"));
 
 
 // TODO integrate in new framework
@@ -222,7 +206,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "", "", "", "" );
 
 
-$HD_Form -> FieldEditElement ('name, status,id_card, startingdate, expirationdate, callerid,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description');
+$HD_Form -> FieldEditElement ('name, status, startingdate, expirationdate, callerid,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description');
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 	
@@ -251,11 +235,11 @@ if ($numrow>0){
 
 
 if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "id_card";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "".$_SESSION['card_id'];
 } else {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "id_card,creationdate ";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = $_SESSION['card_id'].",now()";
 }
 
 

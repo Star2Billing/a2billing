@@ -943,7 +943,10 @@ class FormHandler
 		// 19 - CAPTCHAIMAGE - Alpahnumeric
 		$this -> FG_regular[]  = array("^(".strtoupper($_SESSION["captcha_code"]).")|(".strtolower($_SESSION["captcha_code"]).")$",
 						gettext("(at least 6 Alphanumeric characters)"));
-		// check_select
+		//20 TIME
+		$this -> FG_regular[]  = array(    "^([0-9]{2}):([0-9]{2}):([0-9]{2})$"   ,
+		                        "(HH:MM:SS)");				
+						// check_select
 		// TO check if a select have a value different -1
 	}
 	
