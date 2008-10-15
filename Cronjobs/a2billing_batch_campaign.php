@@ -55,6 +55,11 @@ if ($A2B->config["database"]['dbtype'] == "postgres"){
 	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
 }
 
+
+$tab_day = array(1 => 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+$num_day = date('N');
+$name_day = $tab_day[$num_day];
+
 //$A2B -> DBHandle
 $instance_table = new Table();
 
@@ -63,6 +68,9 @@ $QUERY_COUNT_PHONENUMBERS = 'SELECT count(*) FROM cc_phonenumber , cc_phonebook 
 $QUERY_COUNT_PHONENUMBERS .= 'cc_phonenumber.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_campaign = cc_campaign.id ';
 //CAMPAIGN CLAUSE
 $QUERY_COUNT_PHONENUMBERS .= 'AND cc_campaign.status = 1 AND cc_campaign.startingdate <= CURRENT_TIMESTAMP AND cc_campaign.expirationdate > CURRENT_TIMESTAMP ';
+//SCHEDULE CLAUSE
+$QUERY_COUNT_PHONENUMBERS .= "AND cc_campaign.$name_day = 1 AND  cc_campaign.daily_start_time <= CURRENT_TIME  AND cc_campaign.daily_stop_time > CURRENT_TIME  " ;
+
 //NUMBER CLAUSE
 $QUERY_COUNT_PHONENUMBERS .= 'AND cc_phonenumber.status = 1 ';
 
@@ -82,14 +90,14 @@ $nbpage=(ceil($nb_record/$group));
 
 
 
-
-
-
 $QUERY_PHONENUMBERS = 'SELECT cc_phonenumber.id, cc_phonenumber.number, cc_campaign.id, cc_campaign.frequency , cc_campaign.forward_number  ,cc_campaign.callerid , cc_card.id , cc_card.tariff, cc_card.username FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign, cc_card WHERE ';
 //JOIN CLAUSE
 $QUERY_PHONENUMBERS .= 'cc_phonenumber.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_campaign = cc_campaign.id AND cc_campaign.id_card = cc_card.id ';
 //CAMPAIGN CLAUSE
 $QUERY_PHONENUMBERS .= 'AND cc_campaign.status = 1 AND cc_campaign.startingdate <= CURRENT_TIMESTAMP AND cc_campaign.expirationdate > CURRENT_TIMESTAMP ';
+//SCHEDULE CLAUSE
+$QUERY_PHONENUMBERS .= "AND cc_campaign.$name_day = 1 AND  cc_campaign.daily_start_time <= CURRENT_TIME  AND cc_campaign.daily_stop_time > CURRENT_TIME  " ;
+
 //NUMBER CLAUSE
 $QUERY_PHONENUMBERS .= 'AND cc_phonenumber.status = 1 ' ;
 
