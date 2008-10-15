@@ -116,37 +116,93 @@ $invoiceday_list = array();
 for ($k=0;$k<=28;$k++)
 	$invoiceday_list["$k"]  = array( "$k", "$k");
 
+$show_list=array();
+$show_list_sizes=array();
+$show_list_temp=array();
+$show_list_temp=split(',',$A2B->config["webui"]['card_show_field_list']);
+foreach ($show_list_temp as $i => $value) {
+	$a=strtolower(trim($value));
+	$pos = strpos($a, ':');
+	if (!($pos===false)){
+		$temp_ar=split(':',$a);
+		$b=$temp_ar[1];
+		$a=strtolower(trim($temp_ar[0]));	
+		if (strlen($a)>1){
+		$show_list_sizes[$a]=$b;
+		}
+	}
+	if (strlen($a)>1){
+		$show_list[$a]=$a;
+	}
+}
+$show_fields=array();
+$show_fields['id']=array(gettext("ID"), "id", "3%", "center", "sort","", "", "", "", "", "", "");
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
 if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "10%", "center", "sort");
-$HD_Form -> AddViewElement("Card Number", "username", "19%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-if (!($popup_select>=1))  $HD_Form -> AddViewElement("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "15");
-$HD_Form -> AddViewElement(gettext("GROUP"), "id_group", "6%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("AGENT"), "id_agent", "7%", "center", "sort", "15", "lie", "cc_agent", "login","id='%id'", "%1");
-$HD_Form -> AddViewElement("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
+
+$show_fields['username']=array("Card Number", "username", "19%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+if (!($popup_select>=1)) 
+ $show_fields['useralias']=array("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
+
+$show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "15","", "", "", "", "", "");
+$show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1","");
+$show_fields['id_agent']=array(gettext("AGENT"), "id_agent", "7%", "center", "sort", "15", "lie", "cc_agent", "login","id='%id'", "%1","");
+$show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
 
 if (!($popup_select>=1)){
-	$HD_Form -> AddViewElement("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>", 
-	"tariff", "8%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
-	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
-	$HD_Form -> AddViewElement(gettext("LG"), "language", "3%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("USE"), "inuse", "3%", "center", "sort");
-	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "4%", "center", "sort", "", "list", $currency_list_key);
-	$HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "2%", "center", "sort", "", "list", $yesno);
-	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "2%", "center", "sort", "", "list", $yesno);
-	$HD_Form -> AddViewElement("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "3%", "center", "sort");
+	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>",
+	       "tariff", "8%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+	$show_fields['status']=array(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
+	$show_fields['language']=array(gettext("LG"), "language", "3%", "center", "sort");
+	$show_fields['inuse']=array(gettext("USE"), "inuse", "3%", "center", "sort");
+	$show_fields['currency']=array("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "4%", "center", "sort", "", "list", $currency_list_key);
+	$show_fields['sip_buddy']=array(gettext("SIP"), "sip_buddy", "2%", "center", "sort", "", "list", $yesno);
+	$show_fields['iax_buddy']=array(gettext("IAX"), "iax_buddy", "2%", "center", "sort", "", "list", $yesno);
+	$show_fields['nbused']=array("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "3%", "center", "sort");
+	$show_fields['firstname']=array(gettext("FIRSTNAME"), "firstname", "7%", "center", "sort", "15");
+	$show_fields['email']=array(gettext("EMAIL"), "email","","center", "sort", "15");
+	$show_fields['discount']=array("<acronym title=\"DISCOUNT\">".gettext("DISC")."</acronym>", "discount","","center", "sort", "15");
+	$show_fields['callerid']=array("<acronym title=\"CALLER IDENTIFICATION NUMBER\">".gettext("CID")."</acronym>", "callerid","","center", "sort", "15");
 	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
-		$FG_COL_QUERY='DISTINCT id, tag, username, useralias, lastname,id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+		$FG_COL_QUERY='DISTINCT tag,';
 	} else {
-		$FG_COL_QUERY='DISTINCT id, username, useralias, lastname,id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused ';
+		$FG_COL_QUERY='DISTINCT ';		
 	}
 }else{
-	$FG_COL_QUERY='DISTINCT id, username, lastname, id_group, id_agent,  credit';
+	$show_list_temp=array('id', 'username', 'lastname', 'id_group', 'id_agent',  'credit');
+	foreach ($show_list_temp as $i => $value) {
+                $show_list[$value]=$value;
+	}
+	
+#	$FG_COL_QUERY='DISTINCT id, username, lastname, id_group, id_agent,  credit';
+	$FG_COL_QUERY='DISTINCT ';
 }
-
-$HD_Form -> FieldViewElement ($FG_COL_QUERY);
+$FG_COL_QUERY_FIELD='';
+foreach ($show_list as $i => $value) {
+	if (array_key_exists($i,$show_fields)){
+		$param=$show_fields[$i];
+		$param=$param+array("","","","","","");#expand array to max length
+		$size="*";
+		if (array_key_exists($i,$show_list_sizes)){
+		 if ((strlen(trim($show_list_sizes[$i])==0))&&(strlen(trim($param[2])>0))){
+			$size=$param[2];
+		 }else{
+			$size=$show_list_sizes[$i];
+		 }
+		}
+		$HD_Form -> AddViewElement($param[0],$param[1],$size,$param[3],$param[4],$param[5],$param[6],$param[7],$param[8],
+						$param[9],$param[10],$param[11],$param[12]);
+		if ($value=='callerid'){
+		 $FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', 
+		(select GROUP_CONCAT(cid SEPARATOR \'<br>\') from cc_callerid where id_cc_card=cc_card.id) as callerid';
+		}else{
+			$FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', '.$value;
+		}
+		}
+}
+if (strlen($FG_COL_QUERY_FIELD)>2){ $FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);}
+$HD_Form -> FieldViewElement ($FG_COL_QUERY.' '.$FG_COL_QUERY_FIELD);
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CARDS HAVE BEEN CREATED!");
