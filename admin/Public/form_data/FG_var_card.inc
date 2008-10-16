@@ -861,7 +861,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "",
 			   "",
 			   "",
-			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card");
+			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card:::::::0");
 
 
 
