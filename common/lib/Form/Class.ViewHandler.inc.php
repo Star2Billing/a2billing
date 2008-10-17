@@ -15,10 +15,12 @@ $ratesort 		= $_GET['ratesort'];
 $current_page 	= $_GET['current_page'];
 $this->FG_ORDER = $_GET['order']; // really need ?!
 $this->FG_SENS 	= $_GET['sens']; // really need  ?
+$popup_select = $_GET['popup_select'];
 
 ?>
 
-<?php if($this->FG_LIST_ADDING_BUTTON1 || $this->FG_LIST_ADDING_BUTTON2){?>
+
+<?php if( !($popup_select>=1) &&($this->FG_LIST_ADDING_BUTTON1 || $this->FG_LIST_ADDING_BUTTON2)){?>
 	<table align="right"><tr align="right">
         <td align="right"> 
 		<?php if($this->FG_LIST_ADDING_BUTTON1){?>
@@ -496,12 +498,8 @@ function openURLFilter(theLINK)
 <?php
 	}else{
 ?>
-	<?php if($this->FG_LIST_ADDING_BUTTON){?>
-		<div style="text-align : right"> 
-				<a href="<?php echo $this -> FG_LIST_ADDING_BUTTON_LINK?>	?>"> <?php echo $this -> FG_LIST_ADDING_BUTTON_MSG?>&nbsp;&nbsp;<img src="<?php echo $this -> FG_LIST_ADDING_BUTTON_IMG?>" border="0" title="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>" alt="<?php echo $this->FG_LIST_ADDING_BUTTON_ALT?>">
-				</a>
-        </div>
-    <?php  } //END IF ?>
+    
+    
 	<br><br>
 	<table width="50%" border="0" align="center">
 		
