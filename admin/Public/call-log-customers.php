@@ -67,6 +67,7 @@ $list_calltype ["2"] = array ("DIDCALL", "2" );
 $list_calltype ["3"] = array ("DID_VOIP", "3" );
 $list_calltype ["4"] = array ("CALLBACK", "4" );
 $list_calltype ["5"] = array ("PREDICT", "5" );
+$list_calltype ["6"] = array ("AUTO DIALER", "6" );
 
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";

@@ -1851,6 +1851,7 @@ class A2Billing {
 	
 	$username = $agi->get_variable("USERNAME", true);
 	$userid= $agi->get_variable("USERID", true);
+	$called= $agi->get_variable("CALLED", true);
 	$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[MODE CAMPAIGN CALLBACK: USERNAME -> $username  USERID -> $userid ]");
 	//Insert cdr with flat rate
 	$query_rate = "SELECT cc_card_group.flatrate, cc_card_group.campaign_context FROM cc_card_group , cc_card WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id";
@@ -1875,9 +1876,15 @@ class A2Billing {
 	}
 	//update balance	
 	$QUERY = "UPDATE cc_card SET credit= credit $signe ".a2b_round(abs($cost))." ,  lastuse=now() WHERE username='".$username."'";
-	$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[RESULT RATE : ".$QUERY);
+	$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE CARD : ".$QUERY);
 	$this->instance_table -> SQLExec ($this -> DBHandle, $QUERY);
-		
+
+	///create campaign cdr
+	$QUERY_CALL = "INSERT INTO cc_call (uniqueid, sessionid, card_id,calledstation, sipiax,  sessionbill) VALUES ('".$this->uniqueid."', '".$this->channel."', '".
+			$userid."','".$called."',6, ".$cost.")";
+	$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[INSERT CAMPAIGN CALL : ".$QUERY_CALL);
+	$this->instance_table -> SQLExec ($this -> DBHandle, $QUERY_CALL);
+			
 	//dial other context
 	
 	$agi->exec_dial("local","1@".$context);
