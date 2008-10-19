@@ -226,7 +226,7 @@ function openURLFilter(theLINK)
 					}
 					elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
 						$string_to_eval = $this->FG_TABLE_COL[$i][7]; // %4-%3
-						for ($ll=0;$ll<=15;$ll++){
+						for ($ll=15;$ll>=0;$ll--){
 							if ($list[$ligne_number][$ll]=='') $list[$ligne_number][$ll]=0;
 							$string_to_eval = str_replace("%$ll", $list[$ligne_number][$ll], $string_to_eval);
 						}
