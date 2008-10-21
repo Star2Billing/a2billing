@@ -8,7 +8,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	* / 5 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_batch_autodialer.php
+	* / 1 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_batch_autodialer.php
 	
 	field	 allowed values
 	-----	 --------------
@@ -48,11 +48,11 @@ if (ProcessHandler::isActive()) {
 }
 
 
-
 $verbose_level = 0;
+
 // time to wait between every send in callback queue
-$timing = 60;
-$group = 100;
+$timing = 6;
+$group = 20;
 
 
 $A2B = new A2Billing();
@@ -160,7 +160,7 @@ for ($page = 0; $page < $nbpage; $page++) {
 				//Filter phone number holded and stoped
 				if($result_search_phonestatus[0][0]==1 || $result_search_phonestatus[0][0]==2) continue;
 				if($result_search_phonestatus[0][1]==0) {
-					echo "\n[  Can't send callback -> number $phone[1] is not in the frequency ]"; 
+					if ($verbose_level>=1) echo "\n[  Can't send callback -> number $phone[1] is not in the frequency ]"; 
 					continue;
 				}
 				
@@ -283,10 +283,13 @@ for ($page = 0; $page < $nbpage; $page++) {
 			
 		}
 		
-	if($page != $nbpage-1)sleep($timing);
+	if($page != $nbpage-1)
+		sleep($timing);
 	
 }
 //LIMIT
+
+
 exit();
 
 
