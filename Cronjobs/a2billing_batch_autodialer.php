@@ -1,14 +1,14 @@
 #!/usr/bin/php -q
 <?php 
 /***************************************************************************
- *            a2billing_batch_campaign.php
+ *            a2billing_batch_autodialer.php
  *
- *  Fri Oct 21 11:51 2005
- *  Copyright  2008  User
+ *  Fri Oct 21 11:51 2008
+ *  Copyright  2008  A2Billing
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	0 12 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_batch_process.php
+	* / 5 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_batch_autodialer.php
 	
 	field	 allowed values
 	-----	 --------------
@@ -18,18 +18,36 @@
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
 
-	
+	#Run command every 5 minutes during 6-13 hours
+	* / 5 6-13 * * mon-fri test.script    !!! no space between * / 5
+	 
 ****************************************************************************/
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 //dl("pgsql.so"); // remove "extension= pgsql.so !
 
-include_once (dirname(__FILE__)."/lib/Class.Table.php");
+include (dirname(__FILE__)."/lib/Class.Table.php");
 include (dirname(__FILE__)."/lib/interface/constants.php");
 include (dirname(__FILE__)."/lib/Class.A2Billing.php");
 include (dirname(__FILE__)."/lib/Misc.php");
 include (dirname(__FILE__)."/lib/Class.RateEngine.php");
+include (dirname(__FILE__)."/lib/ProcessHandler.php");
+
+if (!defined('PID')) {
+    define("PID","/tmp/a2billing_batch_autodialer_pid.php");
+}
+
+// CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
+if (ProcessHandler::isActive()) {
+	// Already running!
+	die();
+} else {
+	ProcessHandler::activate();
+	// run the cront
+}
+
+
 
 $verbose_level = 1;
 // time to wait between every send in callback queue
