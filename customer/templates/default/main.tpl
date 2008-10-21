@@ -168,8 +168,6 @@
 		
 		
 		
-		
-		
 
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong>{php} echo gettext("LOGOUT");{/php}</strong></font></a></li></ul>
@@ -195,6 +193,8 @@
 			<a href="{$PAGE_SELF}?language=ukrainian"><img src="templates/{$SKIN_NAME}/images/flags/ua.gif" border="0" title="Ukrainian" alt="Ukrainian"></a>
 	   </td>
 	</tr>
+	
+	{if 0 }
 	<tr>
 		<td>
 			<form action="{$PAGE_SELF}" method="post">
@@ -205,6 +205,8 @@
 			</form>
 		</td>
 	</tr>
+	{/if}
+	
 	</table>
 
 

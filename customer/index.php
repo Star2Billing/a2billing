@@ -1,4 +1,6 @@
 <?php
+$disable_load_conf = true;
+
 include ("lib/customer.defines.php");
 include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
@@ -12,4 +14,3 @@ $smarty->assign("password", $password);
 
 $smarty->display('index.tpl');
 
-?>

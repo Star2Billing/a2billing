@@ -31,8 +31,11 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/group_add.png" ;
 
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "SORT", "40");
-$HD_Form -> FieldViewElement ( 'name, description');
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "35%", "center", "SORT", "40");
+$HD_Form -> AddViewElement(gettext("CAMPAIGN CONTENT"), "campaign_context", "20%", "center", "SORT", "20");
+$HD_Form -> AddViewElement(gettext("CAMPAIGN FLATRATE"), "flatrate", "20%", "center", "SORT", "20");
+
+$HD_Form -> FieldViewElement ( 'name, description, campaign_context, flatrate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CARD GROUP CREATED!"); 
@@ -73,7 +76,6 @@ $HD_Form -> AddEditElement ( gettext("CAMPAIGN CONTEXT"),
 	"0",
 	gettext("Insert the context to use to forward the callback campaign"), 
 	"" , "", "",	"", "", "", "", "" );
-
 	
 
 $HD_Form -> AddEditElement(gettext("CAMPAIGN FLAT RATE"),
@@ -86,9 +88,6 @@ $HD_Form -> AddEditElement(gettext("CAMPAIGN FLAT RATE"),
    "" , "", "",	"", "" , "", "", gettext("The callback campaign system now can't use the billing system, you have to define cost for all callback "), null, null, null);
 
 
-   
-	
-	
 $HD_Form -> FieldEditElement ('name, description,campaign_context,flatrate');
 
 

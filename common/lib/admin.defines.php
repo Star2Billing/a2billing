@@ -12,33 +12,34 @@ include_once (dirname(__FILE__)."/Class.Table.php");
 include_once (FSROOT."lib/mail/class.phpmailer.php");
 // INCLUDE MISC
 include (FSROOT."lib/Misc.php");
-
-
 // A2B INSTANCE
 $A2B = new A2Billing();
-
+// Store script start time
 $_START_TIME = time();
-
-define ("ENABLE_LOG", 1);
-include (FSROOT."lib/Class.Logger.php");
-$log = new Logger();
 
 // The system will not log for Public/index.php and signup/index.php
 $URI = $_SERVER['REQUEST_URI'];
 $restircted_url = substr($URI,-16);
+
+// Enable UI Logger
+define ("ENABLE_LOG", 1);
+include (FSROOT."lib/Class.Logger.php");
+$log = new Logger();
+
 if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
+	// Insert Log
 	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+	$log = null;
 }
-$log = null;
 
-//Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
-define("LIST_OF_VALUES",true);
-
+// LOAD THE CONFIGURATION
 if (!($restircted_url == "Public/index.php")) {
-	// SELECT THE FILES TO LOAD THE CONFIGURATION
 	$res_load_conf = $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 	if (!$res_load_conf) exit;
 }
+
+//Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
+define("LIST_OF_VALUES",true);
 
 
 // DEFINE FOR THE DATABASE CONNECTION

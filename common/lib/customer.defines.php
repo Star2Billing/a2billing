@@ -12,8 +12,14 @@ include (FSROOT."lib/Class.Logger.php");
 
 $A2B = new A2Billing();
 
-// SELECT THE FILES TO LOAD THE CONFIGURATION
-$A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
+// LOAD THE CONFIGURATION
+if (!($disable_load_conf)) {
+	$res_load_conf = $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
+	if (!$res_load_conf) exit;
+}
+
+
+
 
 // DEFINE FOR THE DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
@@ -236,6 +242,7 @@ define ("TEXTCONTACT", gettext("This software has been created by Areski under G
 define ("EMAILCONTACT", "areski@gmail.com");
 define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
+
 
 include ("help.php");
 
