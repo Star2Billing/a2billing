@@ -49,7 +49,7 @@ if (ProcessHandler::isActive()) {
 
 
 
-$verbose_level = 1;
+$verbose_level = 0;
 // time to wait between every send in callback queue
 $timing = 60;
 $group = 100;
