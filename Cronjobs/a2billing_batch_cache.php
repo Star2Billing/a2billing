@@ -50,13 +50,7 @@ if (ProcessHandler::isActive()) {
 $verbose_level=1;
 $nb_record = 100;
 $wait_time= 10;
-// time to wait between every send in callback queue
 
-//$db= new SQLiteDatabase("/Users/rachid/Developpement/testdb");
-
-//if ( ! file_exists("/Users/rachid/Developpement/testdb") )
- //        echo( "Permission Denied!" );
- 
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 
@@ -72,13 +66,17 @@ $instance_table = new Table();
 
 if ($A2B->config["global"]['cache_enabled']){
 	if (empty($A2B -> config["global"]['cache_path'])){				
-		if ($verbose_level>=1) echo "[Path to the cache is not defined]\n";
+		if ($verbose_level>=1)
+			 echo "[Path to the cache is not defined]\n";
+		
 		write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Path to the cache is not defined]");
 		exit;
 	}
 	
 	if ( ! file_exists( $A2B -> config["global"]['cache_path'] ) ){
-		if ($verbose_level>=1) echo "[File doesn't exist or permission denied]\n";
+		if ($verbose_level>=1) 
+			echo "[File doesn't exist or permission denied]\n";
+		
 		write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[File doesn't exist or permission denied]");
 		exit;
 	}
@@ -90,38 +88,47 @@ if ($A2B->config["global"]['cache_enabled']){
 		for (;;) {
 			$result = sqlite_array_query($db,"SELECT rowid , * from cc_call limit $nb_record",SQLITE_ASSOC);
 			if(sizeof($result)>0){
-			$column = "";
-			$values = "";
-			$delete_id = "( ";
-			for($i=0;$i<sizeof($result);$i++)
-			{
-				$j=0;
-				if($i==0) $values .= "( ";
-				else $values .= ",( ";
-				$delete_id .= $result[$i]['rowid'];
-				if(sizeof($result)>0 && $i<sizeof($result)-1) $delete_id .= " , ";
-				
-				foreach($result[$i] as $key => $value){	
-					$j++;
-					if($key=="rowid") continue;					
-					if($i==0){ 
-						$column .= " $key ";
-						if($j<sizeof($result[$i])) $column .= ",";
-					}
-					$values .= " '$value' ";
-					if($j < sizeof($result[$i])) $values .= ",";
+				$column = "";
+				$values = "";
+				$delete_id = "( ";
+				for($i=0;$i<sizeof($result);$i++)
+				{
+					$j=0;
+					if($i==0)
+						 $values .= "( ";
+					else
+						 $values .= ",( ";
+						 
+					$delete_id .= $result[$i]['rowid'];
+					if(sizeof($result)>0 && $i<sizeof($result)-1)
+						 $delete_id .= " , ";
 					
+					foreach($result[$i] as $key => $value){	
+						$j++;
+						if($key=="rowid") 
+							continue;					
+						if($i==0){ 
+							$column .= " $key ";
+							if($j<sizeof($result[$i])) 
+								$column .= ",";
+						}
+						$values .= " '$value' ";
+						if($j < sizeof($result[$i])) 
+							$values .= ",";
+						
+					}
+					$values .= " )";
+				
 				}
-				$values .= " )";
-			
-			}
-			$delete_id .= " )";
-			$INSERT_QUERY = "INSERT INTO cc_call ( $column ) VALUES $values";
-			if ($verbose_level>=1) echo "QUERY INSERT : [$INSERT_QUERY]\n";
-			$instance_table -> SQLExec ($A2B -> DBHandle, $INSERT_QUERY);
-			$DELETE_QUERY = "DELETE FROM cc_call WHERE rowid in $delete_id";
-			if ($verbose_level>=1) echo "QUERY DELETE : [$DELETE_QUERY]\n";
-			sqlite_query($db,$DELETE_QUERY);
+				$delete_id .= " )";
+				$INSERT_QUERY = "INSERT INTO cc_call ( $column ) VALUES $values";
+				if ($verbose_level>=1)
+					 echo "QUERY INSERT : [$INSERT_QUERY]\n";
+				$instance_table -> SQLExec ($A2B -> DBHandle, $INSERT_QUERY);
+				$DELETE_QUERY = "DELETE FROM cc_call WHERE rowid in $delete_id";
+				if ($verbose_level>=1) 
+					echo "QUERY DELETE : [$DELETE_QUERY]\n";
+				sqlite_query($db,$DELETE_QUERY);
 			}
 			echo "Waiting ....\n";
 			sleep($wait_time);	
@@ -129,7 +136,8 @@ if ($A2B->config["global"]['cache_enabled']){
 	
 	  
 	} else {
-		if ($verbose_level>=1) echo "[Error to connect to cache : $sqliteerror]\n";
+		if ($verbose_level>=1) 
+			echo "[Error to connect to cache : $sqliteerror]\n";
 		write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Error to connect to cache : $sqliteerror]\n");
 	} 
 		
@@ -138,7 +146,8 @@ if ($A2B->config["global"]['cache_enabled']){
          
         
 
-if ($verbose_level>=1) echo "#### END RECURRING SERVICES \n";
+if ($verbose_level>=1) 
+	echo "#### END RECURRING SERVICES \n";
 write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[#### BATCH PROCESS END ####]");
 	
 ?>
