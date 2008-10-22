@@ -295,8 +295,8 @@ function openURLFilter(theLINK)
 								}
 
 								// REPLACE |colX|  where is a numero of the column by the column value
-								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON1_LINK)) {
-									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
+								if ((eregi ('col[0-9]', $new_FG_OTHER_BUTTON1_LINK))) {
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON1_LINK, $findme);
 										if ($pos !== false) {
@@ -307,7 +307,7 @@ function openURLFilter(theLINK)
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
 								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON1_LINK)) {
-									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON1_LINK, $findme);
 										if ($pos !== false) {
@@ -339,7 +339,7 @@ function openURLFilter(theLINK)
 
 								// REPLACE |colX|  where is a numero of the column by the column value
 								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON2_LINK)) {
-									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON2_LINK, $findme);
 										if ($pos !== false) {
@@ -350,7 +350,7 @@ function openURLFilter(theLINK)
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
 								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON2_LINK)) {
-									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON2_LINK, $findme);
 										if ($pos !== false) {
@@ -392,7 +392,7 @@ function openURLFilter(theLINK)
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
 								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON3_LINK)) {
-									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
+										for ($h=count($list[$ligne_number]);$h>=0;$h--){
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON3_LINK, $findme);
 										if ($pos !== false) {
