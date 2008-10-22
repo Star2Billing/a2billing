@@ -1129,3 +1129,101 @@ ALTER TABLE cc_ratecard CHANGE chargeb chargeb decimal(15,5) NOT NULL DEFAULT '0
 ALTER TABLE cc_ratecard CHANGE minimal_cost minimal_cost decimal(15,5) NOT NULL DEFAULT '0';
 
 
+
+-- change perms for new menu
+UPDATE cc_ui_authen SET perms = '5242879' WHERE userid=1 LIMIT 1;
+
+-- correct card group
+ALTER TABLE cc_card_group DROP id_agi_conf;
+
+
+CREATE TABLE cc_cardgroup_service (
+	id_card_group INT NOT NULL ,
+	id_service INT NOT NULL,
+	PRIMARY KEY ( id_card_group , id_service )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ('Cents Currency Associated', 'currency_cents_association', '', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', '0', '11', NULL);
+
+ALTER TABLE cc_call DROP calledrate,DROP buyrate;
+
+
+-- Create phonebook for
+CREATE TABLE cc_phonebook (
+	id INT NOT NULL AUTO_INCREMENT ,
+	name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	PRIMARY KEY ( id )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE cc_phonenumber (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	id_phonebook INT NOT NULL ,
+	number CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	name CHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	status SMALLINT NOT NULL DEFAULT '1',
+	info MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
+	PRIMARY KEY ( id )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE cc_phonebook ADD id_card BIGINT NOT NULL ;
+
+CREATE TABLE cc_campaign_phonebook (
+	id_campaign INT NOT NULL ,
+	id_phonebook INT NOT NULL,
+	PRIMARY KEY ( id_campaign , id_phonebook )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE cc_campaign CHANGE campaign_name name CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+CHANGE enable status INT( 11 ) NOT NULL DEFAULT '1';
+
+ALTER TABLE cc_campaign ADD frequency INT NOT NULL DEFAULT '20';
+
+CREATE TABLE cc_campain_phonestatus (
+	id_phonenumber BIGINT NOT NULL ,
+	id_campaign INT NOT NULL ,
+	id_callback BIGINT NOT NULL ,
+	status INT NOT NULL DEFAULT '0',
+	lastuse TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY ( id_phonenumber , id_campaign )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE cc_campaign CHANGE id_trunk id_card BIGINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_campaign ADD forward_number CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL;
+ALTER TABLE cc_campain_phonestatus CHANGE id_callback id_callback VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+
+DROP TABLE cc_phonelist;
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES 
+( 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Context to use in Campaign of Callback', '0', '2', NULL);
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES 
+( 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 'Context to use by default to forward the call in Campaign of Callback', '0', '2', NULL);
+
+
+
+ALTER TABLE cc_campaign ADD callerid VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ;
+
+ALTER TABLE cc_card_group ADD flatrate DECIMAL( 15, 5 ) NOT NULL ;
+ALTER TABLE cc_card_group ADD campaign_context VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
+
+ALTER TABLE cc_campaign ADD daily_start_time TIME NOT NULL DEFAULT '10:00:00',
+ADD daily_stop_time TIME NOT NULL DEFAULT '18:00:00',
+ADD monday TINYINT NOT NULL DEFAULT '1',
+ADD tuesday TINYINT NOT NULL DEFAULT '1',
+ADD wednesday TINYINT NOT NULL DEFAULT '1',
+ADD thursday TINYINT NOT NULL DEFAULT '1',
+ADD friday TINYINT NOT NULL DEFAULT '1',
+ADD saturday TINYINT NOT NULL DEFAULT '0',
+ADD sunday TINYINT NOT NULL DEFAULT '0';
+
+
+-- for Agent
+ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_config MODIFY config_value VARCHAR( 300 );
+INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname,id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused,firstname, email, discount, callerid',0,8);
+

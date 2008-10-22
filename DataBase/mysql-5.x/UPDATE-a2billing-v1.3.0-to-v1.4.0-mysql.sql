@@ -1135,7 +1135,7 @@ UPDATE cc_ui_authen SET perms = '5242879' WHERE userid=1 LIMIT 1;
 
 -- correct card group
 ALTER TABLE cc_card_group DROP id_agi_conf;
-ALTER TABLE cc_card_group ADD description MEDIUMTEXT NULL ;
+
 
 CREATE TABLE cc_cardgroup_service (
 	id_card_group INT NOT NULL ,
@@ -1155,7 +1155,7 @@ CREATE TABLE cc_phonebook (
 	name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
 	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
 	PRIMARY KEY ( id )
-) ENGINE = MYISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE cc_phonenumber (
 	id BIGINT NOT NULL AUTO_INCREMENT ,
@@ -1166,7 +1166,7 @@ CREATE TABLE cc_phonenumber (
 	status SMALLINT NOT NULL DEFAULT '1',
 	info MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
 	PRIMARY KEY ( id )
-) ENGINE = MYISAM ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_phonebook ADD id_card BIGINT NOT NULL ;
 
@@ -1188,11 +1188,11 @@ CREATE TABLE cc_campain_phonestatus (
 	status INT NOT NULL DEFAULT '0',
 	lastuse TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY ( id_phonenumber , id_campaign )
-) ENGINE = MYISAM ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-ALTER TABLE cc_campaign CHANGE id_trunk id_card BIGINT NOT NULL DEFAULT '0' ;
-ALTER TABLE cc_campaign ADD forward_number CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
-ALTER TABLE cc_campain_phonestatus CHANGE id_callback id_callback VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ; 
+ALTER TABLE cc_campaign CHANGE id_trunk id_card BIGINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_campaign ADD forward_number CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL;
+ALTER TABLE cc_campain_phonestatus CHANGE id_callback id_callback VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
 
 DROP TABLE cc_phonelist;
 
