@@ -842,18 +842,18 @@ class A2Billing {
 				if ($seconds > 0) {
 					if ($minutes > 0) $agi-> stream_file('vm-and', '#');
 					if ($seconds == 1) {
-					 if((strtolower($this ->current_language)=='ru')){
-                                                $agi-> stream_file('digits/1f', '#');
-                                        }else{
-                                                $agi->say_number($seconds);
-                                        }
-                                   $agi-> stream_file('prepaid-second', '#');
+						if((strtolower($this ->current_language)=='ru')) {
+							$agi-> stream_file('digits/1f', '#');
+						}else{
+							$agi->say_number($seconds);
+						}
+						$agi-> stream_file('prepaid-second', '#');
 					} else {
-						$agi->say_number($seconds)
+						$agi->say_number($seconds);
 						if((strtolower($this ->current_language)=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
 							// test for the specific grammatical rules in RUssian
 							$agi-> stream_file('prepaid-second2', '#');
-						}else{
+						} else {
 							$agi-> stream_file('prepaid-seconds', '#');
 						}
 					}
@@ -897,12 +897,11 @@ class A2Billing {
 		
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 		$resfindrate = $RateEngine->rate_engine_findrates($this, $this->destination,$this->tariff);
-		if ($resfindrate==0){
+		if ($resfindrate==0) {
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ERROR ::> RateEngine didnt succeed to match the dialed number over the ratecard (Please check : id the ratecard is well create ; if the removeInter_Prefix is set according to your prefix in the ratecard ; if you hooked the ratecard to the Call Plan)");
-		}else{
+		} else {
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "OK - RESFINDRATE::> ".$resfindrate);
 		}
-
 
 		// IF DONT FIND RATE
 		if ($resfindrate==0){
@@ -910,15 +909,6 @@ class A2Billing {
 			$agi-> stream_file($prompt, '#');
 			return -1;
 		}
-
-		/*$rate=$result[0][0];
-		if ($rate<=0){
-			//$prompt="prepaid-dest-blocked";
-			$prompt="prepaid-dest-unreachable";
-			continue;
-		}*/
-
-
 		// CHECKING THE TIMEOUT
 		$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($this, $this->credit);
 
@@ -928,15 +918,14 @@ class A2Billing {
 			$agi-> stream_file($prompt, '#');
 			return -1;
 		}
-
-
+		
 		// calculate timeout
 		//$this->timeout = intval(($this->credit * 60*100) / $rate);  // -- RATE is millime cents && credit is 1cents
-
+		
 		$this->timeout = $RateEngine-> ratecard_obj[0]['timeout'];
 		$timeout = $this->timeout;
-		if ($this->agiconfig['cheat_on_announcement_time']==1){
-		 $timeout = $RateEngine-> ratecard_obj[0]['timeout_without_rules'];	
+		if ($this->agiconfig['cheat_on_announcement_time']==1) {
+			$timeout = $RateEngine-> ratecard_obj[0]['timeout_without_rules'];	
 		}
 		// set destination and timeout
 		// say 'you have x minutes and x seconds'
@@ -944,54 +933,52 @@ class A2Billing {
 		$seconds = $timeout % 60;
 
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "TIMEOUT::> ".$this->timeout."  : minutes=$minutes - seconds=$seconds");
-		if (!($minutes>0)){
+		if (!($minutes>0)) {
 			$prompt="prepaid-no-enough-credit";
 			$agi-> stream_file($prompt, '#');
 			return -1;
 		}
 
-		if ($this->agiconfig['say_rateinitial']==1){
+		if ($this->agiconfig['say_rateinitial']==1) {
 			$this -> fct_say_rate ($agi, $RateEngine->ratecard_obj[0][12]);
 		}
 
-		if ($this->agiconfig['say_timetocall']==1){
+		if ($this->agiconfig['say_timetocall']==1) {
 			$agi-> stream_file('prepaid-you-have', '#');
 			if ($minutes>0){
-					if ($minutes==1){
-                                                if((strtolower($this ->current_language)=='ru')){
-                                                        $agi-> stream_file('digits/1f', '#');
-                                                }else{
-                                                        $agi->say_number($minutes);
-                                                }
-                                                $agi-> stream_file('prepaid-minute', '#');
-		                        }else{
-
+				if ($minutes==1) {
+					if((strtolower($this ->current_language)=='ru')){
+			        	$agi-> stream_file('digits/1f', '#');
+					} else {
+						$agi->say_number($minutes);
+					}
+					$agi-> stream_file('prepaid-minute', '#');
+				} else {
 					$agi->say_number($minutes);
 					if((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
-							// test for the specific grammatical rules in RUssian
-							$agi-> stream_file('prepaid-minute2', '#');
-						}else{
-							$agi-> stream_file('prepaid-minutes', '#');
-						}
-
+						// test for the specific grammatical rules in RUssian
+						$agi-> stream_file('prepaid-minute2', '#');
+					} else {
+						$agi-> stream_file('prepaid-minutes', '#');
+					}
 				}
 			}
-			if ($seconds>0 && ($this->agiconfig['disable_announcement_seconds']==0)){
+			if ($seconds>0 && ($this->agiconfig['disable_announcement_seconds']==0)) {
 				if ($minutes>0) $agi-> stream_file('vm-and', '#');
-
-				if ($seconds==1){
+				
+				if ($seconds==1) {
 					if((strtolower($this ->current_language)=='ru')){
-                                                        $agi-> stream_file('digits/1f', '#');
-                                                }else{
-                                                        $agi->say_number($seconds);
-                                                }
-					$agi-> stream_file('prepaid-second', '#');
-				}else{
+						$agi-> stream_file('digits/1f', '#');
+					} else {
+						$agi-> say_number($seconds);
+						$agi-> stream_file('prepaid-second', '#');
+					}
+				} else {
 					$agi->say_number($seconds);
 					if((strtolower($this ->current_language)=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
-								// test for the specific grammatical rules in RUssian
+						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-second2', '#');
-					}else{
+					} else {
 						$agi-> stream_file('prepaid-seconds', '#');
 					}
 				}
