@@ -1227,6 +1227,11 @@ ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
 ALTER TABLE cc_config MODIFY config_value VARCHAR( 300 );
 INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname,id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused,firstname, email, discount, callerid',0,8);
 
+-- Cache CDR
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enabled the cache processing to save the call in database. The cache system is based on Sqlite.', '0', '1', 'yes,no'),
+( 'Path for the cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the cache processing to save the call in database. The cache system is based on Sqlite.', '0', 'A', NULL);
 
 
 

@@ -1049,26 +1049,57 @@ class RateEngine
 			$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
 		else
 			$terminatecauseid = 0;
-		
-		$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
+			
+		$QUERY_COLUMN = "uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
 			" terminatecauseid, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-			" id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer, dnid, id_cc_prefix) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', '".
+			" id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer, dnid, id_cc_prefix";
+		$QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', '".
 			$A2B->id_card."', '".$A2B->hostname."', ";
 
-		if ($A2B->config["database"]['dbtype'] == "postgres"){
-			$QUERY .= "CURRENT_TIMESTAMP - interval '$sessiontime seconds' ";
+		if ($A2B->config["global"]['cache_enabled']){
+			$QUERY .= " datetime( strftime('%s','now') - $sessiontime, 'unixepoch','localtime')";	
 		}else{
-			$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
+			if ($A2B->config["database"]['dbtype'] == "postgres"){
+				$QUERY .= "CURRENT_TIMESTAMP - interval '$sessiontime seconds' ";
+			}else{
+				$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
+			}
 		}
 
-		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$terminatecauseid', now(), '$rateapply', '$signe_cc_call".a2b_round(abs($cost))."', ".
+		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$terminatecauseid', "; 
+		if ($A2B->config["global"]['cache_enabled']){
+			$QUERY .= "datetime('now','localtime')"; 
+		}else{
+			$QUERY .= "now()";
+		}
+		
+		$QUERY .= " , '$rateapply', '$signe_cc_call".a2b_round(abs($cost))."', ".
 					" '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
 					"'$buyrateapply', '$buycost', '$id_card_package_offer', '".$A2B->dnid."', '".$calldestination."')";
 		
-		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_stop  QUERY = $QUERY]");
-
-		$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_stop 1.1: SQL: DONE : result=".$result."]");
+		
+		if ($A2B->config["global"]['cache_enabled']){
+			 //insert query in the cache system
+			$create=false;
+			if(! file_exists( $A2B -> config["global"]['cache_path']))$create=true;
+			if ($db = sqlite_open($A2B -> config["global"]['cache_path'], 0666, $sqliteerror)) {
+			    if($create)sqlite_query($db,"CREATE TABLE cc_call ($QUERY_COLUMN)");
+			    sqlite_query($db,$QUERY);
+			    sqlite_close($db);
+			} else {
+				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[Error to connect to cache : $sqliteerror]\n");
+			} 	
+					 	
+			 	
+			 	
+			 
+		}else{
+				
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_stop  QUERY = $QUERY]");
+			
+			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_stop 1.1: SQL: DONE : result=".$result."]");
+		}
 
 
 		if ($sessiontime>0){
