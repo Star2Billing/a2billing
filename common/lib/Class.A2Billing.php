@@ -822,12 +822,16 @@ class A2Billing {
 					$agi-> stream_file('prepaid-you-have-dialed', '#');
 				}
 				if (($minutes > 0) || ($seconds == 0)) {
-					$agi->say_number($minutes);
 					if ($minutes==1){
+						if((strtolower($this ->current_language)=='ru')){
+							$agi-> stream_file('digits/1f', '#');
+						}else{
+							$agi->say_number($minutes);
+						}
 						$agi-> stream_file('prepaid-minute', '#');
 					}else{
-						
-						if((strtolower($this->agiconfig['force_language'])=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
+						$agi->say_number($minutes);
+						if((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
 							// test for the specific grammatical rules in RUssian
 							$agi-> stream_file('prepaid-minute2', '#');
 						}else{
@@ -837,11 +841,16 @@ class A2Billing {
 				}
 				if ($seconds > 0) {
 					if ($minutes > 0) $agi-> stream_file('vm-and', '#');
-					$agi->say_number($seconds);
 					if ($seconds == 1) {
-						$agi-> stream_file('prepaid-second', '#');
+					 if((strtolower($this ->current_language)=='ru')){
+                                                $agi-> stream_file('digits/1f', '#');
+                                        }else{
+                                                $agi->say_number($seconds);
+                                        }
+                                   $agi-> stream_file('prepaid-second', '#');
 					} else {
-						if((strtolower($this->agiconfig['force_language'])=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
+						$agi->say_number($seconds)
+						if((strtolower($this ->current_language)=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
 							// test for the specific grammatical rules in RUssian
 							$agi-> stream_file('prepaid-second2', '#');
 						}else{
@@ -948,11 +957,17 @@ class A2Billing {
 		if ($this->agiconfig['say_timetocall']==1){
 			$agi-> stream_file('prepaid-you-have', '#');
 			if ($minutes>0){
-				$agi->say_number($minutes);
-				if ($minutes==1){
-					$agi-> stream_file('prepaid-minute', '#');
-				}else{
-					if((strtolower($this->agiconfig['force_language'])=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
+					if ($minutes==1){
+                                                if((strtolower($this ->current_language)=='ru')){
+                                                        $agi-> stream_file('digits/1f', '#');
+                                                }else{
+                                                        $agi->say_number($minutes);
+                                                }
+                                                $agi-> stream_file('prepaid-minute', '#');
+		                        }else{
+
+					$agi->say_number($minutes);
+					if((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
 							// test for the specific grammatical rules in RUssian
 							$agi-> stream_file('prepaid-minute2', '#');
 						}else{
@@ -964,11 +979,16 @@ class A2Billing {
 			if ($seconds>0 && ($this->agiconfig['disable_announcement_seconds']==0)){
 				if ($minutes>0) $agi-> stream_file('vm-and', '#');
 
-				$agi->say_number($seconds);
 				if ($seconds==1){
+					if((strtolower($this ->current_language)=='ru')){
+                                                        $agi-> stream_file('digits/1f', '#');
+                                                }else{
+                                                        $agi->say_number($seconds);
+                                                }
 					$agi-> stream_file('prepaid-second', '#');
 				}else{
-					if((strtolower($this->agiconfig['force_language'])=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
+					$agi->say_number($seconds);
+					if((strtolower($this ->current_language)=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
 								// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-second2', '#');
 					}else{
@@ -1391,15 +1411,18 @@ class A2Billing {
 		// say 'you have x dollars and x cents'
 		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
 		else $agi-> stream_file('prepaid-account_refill', '#');
-
 		if ($units==0 && $cents==0) {
 			$agi->say_number(0);
+		  if (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') ) {
+			$agi-> stream_file($units_audio, '#');
+		  }else {
 			$agi-> stream_file($unit_audio, '#');
+		  }
 		} else {
 			if ($units > 1) {
 				$agi->say_number($units);
 
-				if (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && ( ( $units%10==2) || ($units%10==3 ) || ($units%10==4)) ) {
+				if (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && (  ($units%10==0) ||( $units%10==2) || ($units%10==3 ) || ($units%10==4)) ) {
 					// test for the specific grammatical rules in Russian
 					$agi-> stream_file('dollar2', '#');
 				}elseif (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && ( $units%10==1)) {
@@ -2172,6 +2195,7 @@ class A2Billing {
 					}
 					$agi -> set_variable($lg_var_set, $language);
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
+					$this ->current_language=$language;
 				}
 
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[credit=".$this->credit." :: tariff=".$this->tariff." :: status=".$this->status." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");

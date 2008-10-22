@@ -8,6 +8,7 @@ class Constants
 		$language_list["0"] = array( gettext("ENGLISH"), "en");
 		$language_list["1"] = array( gettext("SPANISH"), "es");
 		$language_list["2"] = array( gettext("FRENCH"),  "fr");
+		$language_list["3"] = array( gettext("RUSSIAN"), "ru");
 		return $language_list;
 	}
 
