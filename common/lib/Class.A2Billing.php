@@ -542,22 +542,22 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['failover_recursive_limit'])) $this->config["agi-conf$idconfig"]['failover_recursive_limit'] = 1;
 		if(!isset($this->config["agi-conf$idconfig"]['record_call'])) $this->config["agi-conf$idconfig"]['record_call'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['monitor_formatfile'])) $this->config["agi-conf$idconfig"]['monitor_formatfile'] = 'gsm';
+		
 		if(!isset($this->config["agi-conf$idconfig"]['currency_association']))	$this->config["agi-conf$idconfig"]['currency_association'] = 'all:credit';
 		$this->config["agi-conf$idconfig"]['currency_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_association']);
-
 		foreach($this->config["agi-conf$idconfig"]['currency_association'] as $cur_val) {
 			$cur_val = explode(":",$cur_val);
 			$this->config["agi-conf$idconfig"]['currency_association_internal'][$cur_val[0]]=$cur_val[1];
 		}
-
-		if(!isset($this->config["agi-conf$idconfig"]['currency_cents_association']))	$this->config["agi-conf$idconfig"]['currency_cents_association'] = '';
-		$this->config["agi-conf$idconfig"]['currency_cents_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_cents_association']);
-
-		foreach($this->config["agi-conf$idconfig"]['currency_cents_association'] as $cur_val) {
-			$cur_val = explode(":",$cur_val);
-			$this->config["agi-conf$idconfig"]['currency_cents_association_internal'][$cur_val[0]]=$cur_val[1];
+		
+		//if(!isset($this->config["agi-conf$idconfig"]['currency_cents_association']))	$this->config["agi-conf$idconfig"]['currency_cents_association'] = '';
+		if(isset($this->config["agi-conf$idconfig"]['currency_cents_association']) && strlen($this->config["agi-conf$idconfig"]['currency_cents_association']) > 0) {
+			$this->config["agi-conf$idconfig"]['currency_cents_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_cents_association']);
+			foreach($this->config["agi-conf$idconfig"]['currency_cents_association'] as $cur_val) {
+				$cur_val = explode(":",$cur_val);
+				$this->config["agi-conf$idconfig"]['currency_cents_association_internal'][$cur_val[0]]=$cur_val[1];
+			}
 		}
-
 		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_destination']))	$this->config["agi-conf$idconfig"]['file_conf_enter_destination'] = 'prepaid-enter-number-u-calling-1-or-011';
 		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_menulang']))	$this->config["agi-conf$idconfig"]['file_conf_enter_menulang'] = 'prepaid-menulang';
 		if(!isset($this->config["agi-conf$idconfig"]['send_reminder'])) $this->config["agi-conf$idconfig"]['send_reminder'] = 0;

@@ -5,7 +5,6 @@ define ("LIBDIR", FSROOT."lib/");
 include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
 include_once (dirname(__FILE__)."/Class.Table.php");
-//	require_once('DB.php'); // PEAR
 require_once('adodb/adodb.inc.php'); // AdoDB
 
 include (FSROOT."lib/Class.Logger.php");
@@ -13,12 +12,10 @@ include (FSROOT."lib/Class.Logger.php");
 $A2B = new A2Billing();
 
 // LOAD THE CONFIGURATION
-if (!($disable_load_conf)) {
+if (!isset($disable_load_conf) || !($disable_load_conf)) {
 	$res_load_conf = $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 	if (!$res_load_conf) exit;
 }
-
-
 
 
 // DEFINE FOR THE DATABASE CONNECTION

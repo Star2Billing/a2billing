@@ -213,7 +213,7 @@ $CC_help_release_did ='
 } //ENDIF SHOW_HELP
 
 
-if (!($disable_load_conf)) {
+if (!isset($disable_load_conf) || !($disable_load_conf)) {
 	
 	$DBHandle = DbConnect();
 	$instance_table = new Table();
@@ -241,16 +241,18 @@ if (!($disable_load_conf)) {
 	
 	}
 	
+	$PAYMENT_METHOD ='
+	<table width="70%" align="center">
+		<tr>
+			<TD valign="top" align="center" class="tableBodyRight">
+				'.$show_logo.'
+			</td>
+		</tr>
+	</table>';
+	
 }
 
-$PAYMENT_METHOD ='
-<table width="70%" align="center">
-	<tr>
-		<TD valign="top" align="center" class="tableBodyRight">
-			'.$show_logo.'
-		</td>
-	</tr>
-</table>';
+
 
 
 $CALL_LABS ='
