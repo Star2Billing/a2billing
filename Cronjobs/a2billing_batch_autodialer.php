@@ -50,7 +50,7 @@ if (ProcessHandler::isActive()) {
 
 
 
-$verbose_level = 2;
+$verbose_level = 0;
 
 // time to wait between every send in callback queue
 $timing = 6;
