@@ -34,6 +34,7 @@ include (dirname(__FILE__)."/lib/Misc.php");
 include (dirname(__FILE__)."/lib/Class.RateEngine.php");
 include (dirname(__FILE__)."/lib/ProcessHandler.php");
 
+
 if (!defined('PID')) {
     define("PID","/tmp/a2billing_batch_autodialer_pid.php");
 }
@@ -48,11 +49,13 @@ if (ProcessHandler::isActive()) {
 }
 
 
-$verbose_level = 0;
+
+$verbose_level = 2;
 
 // time to wait between every send in callback queue
 $timing = 6;
 $group = 20;
+
 
 
 $A2B = new A2Billing();
@@ -105,7 +108,7 @@ $nbpage = (ceil($nb_record/$group));
 
 
 
-$QUERY_PHONENUMBERS = 'SELECT cc_phonenumber.id, cc_phonenumber.number, cc_campaign.id, cc_campaign.frequency , cc_campaign.forward_number  ,cc_campaign.callerid , cc_card.id , cc_card.tariff, cc_card.username FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign, cc_card WHERE ';
+$QUERY_PHONENUMBERS = 'SELECT cc_phonenumber.id as cc_phonenumber_id, cc_phonenumber.number, cc_campaign.id as cc_campaign_id, cc_campaign.frequency , cc_campaign.forward_number  ,cc_campaign.callerid , cc_card.id , cc_card.tariff, cc_card.username FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign, cc_card WHERE ';
 $QUERY_PHONENUMBERS .= 'cc_phonenumber.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_campaign = cc_campaign.id AND cc_campaign.id_card = cc_card.id ';
 $QUERY_PHONENUMBERS .= 'AND cc_campaign.status = 1 AND cc_campaign.startingdate <= CURRENT_TIMESTAMP AND cc_campaign.expirationdate > CURRENT_TIMESTAMP ';
 //SCHEDULE CLAUSE
@@ -116,178 +119,181 @@ $QUERY_PHONENUMBERS .= 'AND cc_phonenumber.status = 1 ' ;
 
 // BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE
 for ($page = 0; $page < $nbpage; $page++) {
-	if ($A2B->config["database"]['dbtype'] == "postgres"){
+	
+	if ($A2B->config["database"]['dbtype'] == "postgres") {
 		$sql = $QUERY_PHONENUMBERS. " LIMIT $group OFFSET ".$page*$group;
-	}else{
+	} else {
 		$sql = $QUERY_PHONENUMBERS." LIMIT ".$page*$group.", $group";
 	}
-
-	if ($verbose_level>=1) echo "==> SELECT QUERY : $sql\n";
-		$result_phonenumbers = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
 	
-		foreach ($result_phonenumbers as $phone){
-			if ($verbose_level>=1) print_r ($phone);
-
-			//check the balance
-			$query_balance = "SELECT cc_card_group.flatrate , cc_card.credit FROM cc_card_group , cc_card WHERE cc_card.id = $phone[6] AND cc_card.id_group = cc_card_group.id";
-			$result_balance = $instance_table -> SQLExec ($A2B -> DBHandle, $query_balance);
-			
-			if ($verbose_level>=1) echo "\n CHECK BALANCE :".$query_balance;
-			if($result_balance){
-				if($result_balance[0][1]<$result_balance[0][0]){
-					write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[ user $phone[8] don't have engouh credit ]");
-					if ($verbose_level>=1) echo "\n[ Error : Can't send callback -> user $phone[8] don't have enough credit ]";
-					continue;
-				}
-				
-			}else {
-				write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[ user $phone[8] don't have a group correctly defined ]");
-				if ($verbose_level>=1) echo "\n[ Error : Can't send callback -> user $phone[8] don't have a group correctly defined ]";
+	if ($verbose_level>=1) echo "==> SELECT QUERY : $sql\n";
+		
+	$result_phonenumbers = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
+	
+	foreach ($result_phonenumbers as $phone) {
+		
+		if ($verbose_level>=1) print_r ($phone);
+		
+		// check the balance
+		$query_balance = "SELECT cc_card_group.flatrate, cc_card.credit FROM cc_card_group, cc_card WHERE cc_card.id = $phone[6] AND cc_card.id_group = cc_card_group.id";
+		$result_balance = $instance_table -> SQLExec ($A2B -> DBHandle, $query_balance);
+		
+		if ($verbose_level>=1) echo "\n CHECK BALANCE :".$query_balance;
+		
+		if($result_balance) {
+			if($result_balance[0][1]<$result_balance[0][0]) {
+				write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[ user $phone[8] don't have engouh credit ]");
+				if ($verbose_level>=1) echo "\n[ Error : Can't send callback -> user $phone[8] don't have enough credit ]";
 				continue;
 			}
-						
-			//test if you have to inject it again
-			$frequency_sec = $phone['frequency'] * 60;
-			$query_searche_phonestatus = "SELECT status, $UNIX_TIMESTAMP lastuse ) < $UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $frequency_sec  FROM cc_campain_phonestatus WHERE id_campaign = ".$phone[2]." AND id_phonenumber = ".$phone[0] ; 
-			$result_search_phonestatus = $instance_table -> SQLExec ($A2B -> DBHandle, $query_searche_phonestatus);
 			
-			if ($verbose_level>=1) echo "\nSEARCH PHONESTATUS QUERY : ".$query_searche_phonestatus;
-			if ($verbose_level>=1) echo "\nSEARCH PHONESTATUS RESULT : ".print_r($result_search_phonestatus);
-			//check callback spool
-			$action='';
-			if($result_search_phonestatus) {
-				$action="update";
-				//Filter phone number holded and stoped
-				if($result_search_phonestatus[0][0]==1 || $result_search_phonestatus[0][0]==2) continue;
-				if($result_search_phonestatus[0][1]==0) {
-					if ($verbose_level>=1) echo "\n[  Can't send callback -> number $phone[1] is not in the frequency ]"; 
-					continue;
-				}
-				
-			} else { 
-				$action="insert";
-			}
-			
-			// Search Road...
-			
-			$A2B -> set_instance_table ($instance_table);
-			$A2B -> cardnumber = $phone["username"];
-			$error_msg = '';	
-			
-			if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)) {
-			
-				$RateEngine = new RateEngine();
-				$RateEngine -> webui = 0;
-				// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-				
-				$A2B ->agiconfig['accountcode'] = $phone["username"];
-				$A2B ->agiconfig['use_dnid'] = 1;
-				$A2B ->agiconfig['say_timetocall'] = 0;	
-									
-				$A2B ->dnid = $A2B ->destination = $phone["number"];
-				
-				$resfindrate = $RateEngine->rate_engine_findrates($A2B, $phone["number"], $phone["tariff"]);
-				
-				// IF FIND RATE
-				if ($resfindrate!=0){				
-					$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
-					if ($res_all_calcultimeout){							
-						
-						// MAKE THE CALL
-						if ($RateEngine -> ratecard_obj[0][34]!='-1'){
-							$usetrunk = 34; 
-							$usetrunk_failover = 1;
-							$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][34];
-						} else {
-							$usetrunk = 29;
-							$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][29];
-							$usetrunk_failover = 0;
-						}
-						
-						$prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
-						$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
-						$ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
-						$removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
-						$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
-						$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
-						$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
-						
-						$destination = $phone["number"];
-						if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
-						
-						$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
-						$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
-						$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
-						
-						if ($pos_dialingnumber !== false){					   
-							$dialstr = "$tech/$ipaddress".$dialparams;
-						}else{
-							if ($A2B->agiconfig['switchdialcommand'] == 1){
-								$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
-							}else{
-								$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
-							}
-						}	
-						
-						//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
-						if (strlen($addparameter)>0){
-							$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
-							$addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
-							$dialstr .= $addparameter;
-						}
-						
-						$channel= $dialstr;
-						$exten = 11;
-						$context = $A2B -> config["callback"]['context_campaign_callback'];
-						$id_server_group = $A2B -> config["callback"]['id_server_group'];
-						$priority=1;
-						$timeout = $A2B -> config["callback"]['timeout']*1000;
-						$application='';
-						$callerid = $phone["callerid"];
-						$account = $_SESSION["pr_login"];
-						
-						$uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(7);
-						$status = 'PENDING';
-						$server_ip = 'localhost';
-						$num_attempt = 0;
-						$variable = "CALLED=$destination|USERNAME=$phone[8]|USERID=$phone[6]|CBID=$uniqueid|LEG=".$A2B->cardnumber;
-						
-						$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
-						$res = $A2B -> DBHandle -> Execute($QUERY);
-						
-						if (!$res){
-							if ($verbose_level>=1) echo "[Cannot insert the callback request in the spool!]";
-						}else{
-							if ($verbose_level>=1) echo "[Your callback request has been queued correctly!]";
-
-							if($action == "update") $query = "UPDATE cc_campain_phonestatus SET id_callback = '$uniqueid', lastuse = CURRENT_TIMESTAMP WHERE id_phonenumber =$phone[0] AND id_campaign = $phone[2] "  ;
-							else $query = "INSERT INTO cc_campain_phonestatus (id_phonenumber ,id_campaign ,id_callback ,status) VALUES ( $phone[0], $phone[2], '$uniqueid' , '0') ";
-							
-							if ($verbose_level>=1) echo "\nINSERT PHONESTATUS QUERY : $query";
-							$res = $A2B -> DBHandle -> Execute($query);
-						}
-						
-						
-					}else{
-						if ($verbose_level>=1) echo "Error : You don t have enough credit to call you back!";
-					}
-				}else{
-					if ($verbose_level>=1) echo "Error : There is no route to call back your phonenumber!";
-				}
-				
-			}else{
-				if ($verbose_level>=1) echo "Error : ".$error_msg;
-			}
-			
-			// End Search Road....
-			
+		} else {
+			write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[ user $phone[8] don't have a group correctly defined ]");
+			if ($verbose_level>=1) echo "\n[ Error : Can't send callback -> user $phone[8] don't have a group correctly defined ]";
+			continue;
 		}
 		
-	if($page != $nbpage-1)
+		//test if you have to inject it again
+		$frequency_sec = $phone['frequency'] * 60;
+		$query_searche_phonestatus = "SELECT status, $UNIX_TIMESTAMP lastuse ) < $UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $frequency_sec  FROM cc_campain_phonestatus WHERE id_campaign = ".$phone[2]." AND id_phonenumber = ".$phone[0] ; 
+		$result_search_phonestatus = $instance_table -> SQLExec ($A2B -> DBHandle, $query_searche_phonestatus);
+		
+		if ($verbose_level>=1) echo "\nSEARCH PHONESTATUS QUERY : ".$query_searche_phonestatus;
+		if ($verbose_level>=1) echo "\nSEARCH PHONESTATUS RESULT : ".print_r($result_search_phonestatus);
+		
+		//check callback spool
+		$action='';
+		if($result_search_phonestatus) {
+			$action="update";
+			//Filter phone number holded and stoped
+			if($result_search_phonestatus[0][0]==1 || $result_search_phonestatus[0][0]==2) continue;
+			if($result_search_phonestatus[0][1]==0) {
+				if ($verbose_level>=1) echo "\n[  Can't send callback -> number $phone[1] is not in the frequency ]"; 
+				continue;
+			}
+			
+		} else { 
+			$action="insert";
+		}
+		
+		// Search Road...
+		$A2B -> set_instance_table ($instance_table);
+		$A2B -> cardnumber = $phone["username"];
+		$error_msg = '';
+		
+		if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)) {
+		
+			$RateEngine = new RateEngine();
+			$RateEngine -> webui = 0;
+			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
+			
+			$A2B ->agiconfig['accountcode'] = $phone["username"];
+			$A2B ->agiconfig['use_dnid'] = 1;
+			$A2B ->agiconfig['say_timetocall'] = 0;	
+								
+			$A2B ->dnid = $A2B ->destination = $phone["number"];
+			
+			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $phone["number"], $phone["tariff"]);
+			
+			// IF FIND RATE
+			if ($resfindrate!=0){				
+				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
+				if ($res_all_calcultimeout){							
+					
+					// MAKE THE CALL
+					if ($RateEngine -> ratecard_obj[0][34]!='-1'){
+						$usetrunk = 34; 
+						$usetrunk_failover = 1;
+						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][34];
+					} else {
+						$usetrunk = 29;
+						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][29];
+						$usetrunk_failover = 0;
+					}
+					
+					$prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
+					$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
+					$ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
+					$removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
+					$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
+					$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
+					$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
+					
+					$destination = $phone["number"];
+					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+					
+					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
+					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
+					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
+					
+					if ($pos_dialingnumber !== false){					   
+						$dialstr = "$tech/$ipaddress".$dialparams;
+					}else{
+						if ($A2B->agiconfig['switchdialcommand'] == 1){
+							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
+						}else{
+							$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
+						}
+					}	
+					
+					//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
+					if (strlen($addparameter)>0){
+						$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
+						$addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
+						$dialstr .= $addparameter;
+					}
+					
+					$channel= $dialstr;
+					$exten = 11;
+					$context = $A2B -> config["callback"]['context_campaign_callback'];
+					$id_server_group = $A2B -> config["callback"]['id_server_group'];
+					$priority=1;
+					$timeout = $A2B -> config["callback"]['timeout']*1000;
+					$application = '';
+					$callerid = $phone["callerid"];
+					$account = $_SESSION["pr_login"];
+					
+					$uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(7);
+					$status = 'PENDING';
+					$server_ip = 'localhost';
+					$num_attempt = 0;
+					$variable = "CALLED=$destination|USERNAME=$phone[8]|USERID=$phone[6]|CBID=$uniqueid|PHONENUMBER_ID=".$phone['cc_phonenumber_id']."|CAMPAIGN_ID=".$phone['cc_campaign_id'];
+					
+					$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
+					$res = $A2B -> DBHandle -> Execute($QUERY);
+					
+					if (!$res){
+						if ($verbose_level>=1) echo "[Cannot insert the callback request in the spool!]";
+					}else{
+						if ($verbose_level>=1) echo "[Your callback request has been queued correctly!]";
+
+						if($action == "update") $query = "UPDATE cc_campain_phonestatus SET id_callback = '$uniqueid', lastuse = CURRENT_TIMESTAMP WHERE id_phonenumber =$phone[0] AND id_campaign = $phone[2] "  ;
+						else $query = "INSERT INTO cc_campain_phonestatus (id_phonenumber ,id_campaign ,id_callback ,status) VALUES ( $phone[0], $phone[2], '$uniqueid' , '0') ";
+						
+						if ($verbose_level>=1) echo "\nINSERT PHONESTATUS QUERY : $query";
+						$res = $A2B -> DBHandle -> Execute($query);
+					}
+					
+					
+				}else{
+					if ($verbose_level>=1) echo "Error : You don t have enough credit to call you back!";
+				}
+			}else{
+				if ($verbose_level>=1) echo "Error : There is no route to call back your phonenumber!";
+			}
+			
+		}else{
+			if ($verbose_level>=1) echo "Error : ".$error_msg;
+		}
+		
+		// End Search Road....
+		
+	}
+		
+	if($page != $nbpage-1) 
 		sleep($timing);
 	
-}
-//LIMIT
+} // End For
 
 
 exit();
