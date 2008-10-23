@@ -251,6 +251,13 @@ class Constants
 		$expire_list["3"]  = array( gettext("EXPIRE DAYS SINCE CREATION"), "3");
 		return $expire_list;
 	}
+	public static function getRefillType_List(){
+		$refil_type_list=array();
+		$refil_type_list["0"]  = array( gettext("AMOUNT"),"0");
+		$refil_type_list["1"]  = array( gettext("CREDIT"),"1");
+		$refil_type_list["2"]  = array( gettext("CORECTION"),"2");
+		return $refil_type_list;
+	}
 }
 
 /*
@@ -277,5 +284,6 @@ Constants::getLanguagesList();
 Constants::getCardAccess_List();
 Constants::getCardAccess_Revert_List();
 Constants::getCardExpire_List();
+Constants::getRefillType_List();
 */
 

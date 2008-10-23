@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill'));
+getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill','refill_type'));
 
 
 if (!isset($form_action) || $form_action=="list"){
@@ -19,15 +19,16 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_payment.php?form_action=ask
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Payment");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money_add.png" ;
 
-
+$list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logpayment.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CARD"), "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "23%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("PAYMENT TYPE"),"payment_type", "7%", "center", "sort", "", "list", $list_refill_type);
 $HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "20%", "center", "sort", "", "lie_link", "cc_logrefill", "credit, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_logrefill.php");
 
-$HD_Form -> FieldViewElement ('cc_logpayment.id, username, date, payment,description ,id_logrefill');
+$HD_Form -> FieldViewElement ('cc_logpayment.id, username, date, payment,description ,payment_type,id_logrefill');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -90,7 +91,6 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
 	
-
 $HD_Form -> AddEditElement (gettext("CREATE ASSOCIATE REFILL"),
 			   "added_refill",
 			   '0',
@@ -100,8 +100,17 @@ $HD_Form -> AddEditElement (gettext("CREATE ASSOCIATE REFILL"),
 			   gettext("Choose if you want to create a refill with this payment account"),
 			   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Refill card account"));
 	
+$HD_Form -> AddEditElement (gettext("REFILL TYPE"),
+                           "payment_type",
+                           '$value',
+                           "SELECT",
+                           "",
+                           "",
+                           "",
+                           "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
 
-$HD_Form -> FieldEditElement ('card_id, date, description ,added_refill');
+
+$HD_Form -> FieldEditElement ('card_id, date, description,added_refill,payment_type');
 
 
 

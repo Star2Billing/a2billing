@@ -85,7 +85,7 @@
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("Refills");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Payments");{/php}</a></li>
-				<li><a href="A2B_entity_paymentlog.php?section=2">{php} echo gettext("Payment Log");{/php}</a></li>
+				<li><a href="A2B_entity_paymentlog.php?section=2">{php} echo gettext("E-Payment Log");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?section=2">{php} echo gettext("Vouchers");{/php}</a></li>
 				<li><a href="A2B_currencies.php?section=2">{php} echo gettext("Currency List");{/php}</a></li>
 				<li><a href="A2B_entity_charge.php?atmenu=charge&form_action=list&section=2">{php} echo gettext("List Charge");{/php}</a></li>

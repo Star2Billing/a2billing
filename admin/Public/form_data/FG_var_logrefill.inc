@@ -21,14 +21,15 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = 
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
 
 
-
+$list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CARD"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "20%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "7%", "center", "sort", "", "list", $list_refill_type);
+$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "18%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date,description, cc_logrefill.credit	');
+$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date,description, cc_logrefill.refill_type as refill_type, cc_logrefill.credit	');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -87,8 +88,16 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
 			   
+$HD_Form -> AddEditElement (gettext("REFILL TYPE"),
+                           "refill_type",
+                           '$value',
+                           "SELECT",
+                           "",
+                           "",
+                           "",
+                           "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
 
-$HD_Form -> FieldEditElement ('card_id, date, credit, description');
+$HD_Form -> FieldEditElement ('card_id, date, credit, description,refill_type');
 
 
 

@@ -1563,12 +1563,13 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		if($processed['added_refill']==1){
 			$id_payment = $this -> RESULT_QUERY;
 			//CREATE REFILL
-			$field_insert = "date, credit, card_id , description";
+			$field_insert = "date, credit, card_id ,refill_type, description";
 			$date = $processed['date'];
 			$credit = $processed['payment'];
 			$card_id = $processed['card_id'];
+			$refill_type= $processed['payment_type'];
 			$description = $processed['description'];
-			$value_insert = " '$date' , '$credit', '$card_id', '$description' ";
+			$value_insert = " '$date' , '$credit', '$card_id','$refill_type', '$description' ";
 			$instance_sub_table = new Table("cc_logrefill", $field_insert);
 			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
 			//REFILL CARD .. UPADTE CARD
