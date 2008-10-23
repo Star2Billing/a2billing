@@ -37,8 +37,8 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
-$HD_Form -> FG_EDITION = false;
-$HD_Form -> FG_DELETION = false;
+$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_DELETION = true;
 
 if ($form_action=="ask-add" && !empty($card_id)){	
 	$id_val = "value='$card_id'";
@@ -90,16 +90,18 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"",
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
-	
-$HD_Form -> AddEditElement (gettext("CREATE ASSOCIATE REFILL"),
-			   "added_refill",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to create a refill with this payment account"),
-			   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Refill card account"));
-	
+
+if ($form_action!="ask-edit" && $form_action!="edit") {	
+	$HD_Form -> AddEditElement (gettext("CREATE ASSOCIATE REFILL"),
+				   "added_refill",
+				   '0',
+				   "RADIOBUTTON",
+				   "",
+				   "",
+				   gettext("Choose if you want to create a refill with this payment account"),
+				   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Refill card account"));
+}
+
 $HD_Form -> AddEditElement (gettext("REFILL TYPE"),
                            "payment_type",
                            '$value',
@@ -110,7 +112,11 @@ $HD_Form -> AddEditElement (gettext("REFILL TYPE"),
                            "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
 
 
-$HD_Form -> FieldEditElement ('card_id, date, description,added_refill,payment_type');
+if ($form_action!="ask-edit" && $form_action!="edit") {	
+	$HD_Form -> FieldEditElement ('card_id, date, payment, description,payment_type');
+} else {
+	$HD_Form -> FieldEditElement ('card_id, date, payment, description, added_refill, payment_type');
+}
 
 
 

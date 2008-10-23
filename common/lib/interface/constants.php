@@ -255,7 +255,7 @@ class Constants
 		$refil_type_list=array();
 		$refil_type_list["0"]  = array( gettext("AMOUNT"),"0");
 		$refil_type_list["1"]  = array( gettext("CREDIT"),"1");
-		$refil_type_list["2"]  = array( gettext("CORECTION"),"2");
+		$refil_type_list["2"]  = array( gettext("CORRECTION"),"2");
 		return $refil_type_list;
 	}
 }

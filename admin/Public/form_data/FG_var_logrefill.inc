@@ -29,7 +29,7 @@ $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center
 $HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "7%", "center", "sort", "", "list", $list_refill_type);
 $HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "18%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date,description, cc_logrefill.refill_type as refill_type, cc_logrefill.credit	');
+$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date, description, cc_logrefill.refill_type as refill_type, cc_logrefill.credit');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -38,20 +38,16 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
-$HD_Form -> FG_EDITION = false;
-$HD_Form -> FG_DELETION = false;
+$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_DELETION = true;
 
 
 $HD_Form -> AddEditElement (gettext("ID CARD"),
 			   "card_id",		
-			   "$value",	
-			   "POPUPVALUE",	
-			   "size=30 maxlength=50",	
-			   "4",	
-			   gettext("Insert the Id CardNumber"),
+			   "$value", "POPUPVALUE", "size=30 maxlength=50",	
+			   "4",	gettext("Insert the Id CardNumber"),
 			    "" , "", "", "", "", 				
-				"A2B_entity_card.php?popup_select=1&"
-				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
+				"A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Select the Card Number ID"));
 			   
 if ($form_action=="ask-add"){	
@@ -80,24 +76,24 @@ $HD_Form -> AddEditElement (gettext("REFILL AMOUNT"),
 			   "" , "", "",	"", "" , "", "", gettext("Enter the amount in the currency base : ").BASE_CURRENCY );
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
-	"description",
-	'',
-	"TEXTAREA",
-	"cols=50 rows=4",
-	"",
-	gettext("Insert the description"),
-	"" , "", "", "", "" , "", "", "");
+				"description",
+				'',
+				"TEXTAREA",
+				"cols=50 rows=4",
+				"",
+				gettext("Insert the description"),
+				"" , "", "", "", "" , "", "", "");
 			   
 $HD_Form -> AddEditElement (gettext("REFILL TYPE"),
-                           "refill_type",
-                           '$value',
-                           "SELECT",
-                           "",
-                           "",
-                           "",
-                           "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
+               "refill_type",
+               '$value',
+               "SELECT",
+               "",
+               "",
+               "",
+               "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
 
-$HD_Form -> FieldEditElement ('card_id, date, credit, description,refill_type');
+$HD_Form -> FieldEditElement ('card_id, date, credit, description, refill_type');
 
 
 
