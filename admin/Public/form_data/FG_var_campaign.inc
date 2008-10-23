@@ -104,7 +104,7 @@ if ($form_action=="ask-add") {
 }
 
 if ($form_action=="ask-edit") {
-	$edit_col = ",config";
+	$edit_col = ", id_campaign_config";
 	$HD_Form -> AddEditElement (gettext("CONFIG TO APPLY"),
 				   "config",
 				   "",
@@ -260,7 +260,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "", "", "", "" );
 
 
-$HD_Form -> FieldEditElement ('name, status,id_card,id_cid_group, startingdate, expirationdate,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description');
+$HD_Form -> FieldEditElement ("name, status,id_card $edit_col,id_cid_group, startingdate, expirationdate,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description" );
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 	

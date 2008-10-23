@@ -50,7 +50,7 @@ if (ProcessHandler::isActive()) {
 
 
 
-$verbose_level = 0;
+$verbose_level = 1;
 
 // time to wait between every send in callback queue
 $timing = 6;
@@ -135,7 +135,7 @@ for ($page = 0; $page < $nbpage; $page++) {
 		if ($verbose_level>=1) print_r ($phone);
 		
 		// check the balance
-		$query_balance = "SELECT cc_card_group.flatrate, cc_card.credit FROM cc_card_group, cc_card WHERE cc_card.id = $phone[6] AND cc_card.id_group = cc_card_group.id";
+		$query_balance = "SELECT cc_campaign_config.flatrate, cc_card.credit FROM  cc_card,cc_card_group,cc_campaignconf_cardgroup,cc_campaign_config WHERE cc_card.id = $phone[6] AND cc_card.id_group = cc_card_group.id AND cc_campaignconf_cardgroup.id_card_group = cc_card_group.id  AND cc_campaignconf_cardgroup.id_campaign_config = cc_campaign_config.id ";
 		$result_balance = $instance_table -> SQLExec ($A2B -> DBHandle, $query_balance);
 		
 		if ($verbose_level>=1) echo "\n CHECK BALANCE :".$query_balance;
@@ -261,6 +261,7 @@ for ($page = 0; $page < $nbpage; $page++) {
 						$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";
 					}
 					$instance_cid_table = new Table();
+					echo "QUERY CID : ".$QUERY;
 					$cidresult = $instance_cid_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 					if (is_array($cidresult) && count($cidresult)>0){
 						$callerid = $cidresult[0][0];
@@ -274,8 +275,7 @@ for ($page = 0; $page < $nbpage; $page++) {
 					$num_attempt = 0;
 					$variable = "CALLED=$destination|USERNAME=$phone[8]|USERID=$phone[6]|CBID=$uniqueid|PHONENUMBER_ID=".$phone['cc_phonenumber_id']."|CAMPAIGN_ID=".$phone['cc_campaign_id'];
 					
-					$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
-					$res = $A2B -> DBHandle -> Execute($QUERY);
+					$res = $instance_table -> Add_table($A2B -> DBHandle, "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000'","uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout","cc_callback_spool","id" );
 					
 					if (!$res){
 						if ($verbose_level>=1) echo "[Cannot insert the callback request in the spool!]";
@@ -283,7 +283,7 @@ for ($page = 0; $page < $nbpage; $page++) {
 						if ($verbose_level>=1) echo "[Your callback request has been queued correctly!]";
 
 						if($action == "update") $query = "UPDATE cc_campaign_phonestatus SET id_callback = '$uniqueid', lastuse = CURRENT_TIMESTAMP WHERE id_phonenumber =$phone[0] AND id_campaign = $phone[2] "  ;
-						else $query = "INSERT INTO cc_campaign_phonestatus (id_phonenumber ,id_campaign ,id_callback ,status) VALUES ( $phone[0], $phone[2], '$uniqueid' , '0') ";
+						else $query = "INSERT INTO cc_campaign_phonestatus (id_phonenumber ,id_campaign ,id_callback ,status) VALUES ( $phone[0], $phone[2], $res , '0') ";
 						
 						if ($verbose_level>=1) echo "\nINSERT PHONESTATUS QUERY : $query";
 						$res = $A2B -> DBHandle -> Execute($query);
