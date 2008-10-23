@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'name','status','callerid','monday','tuesday','wednesday','thursday','friday','saturday','sunday','frequency','startingdate', 'expirationdate', 'id_card', 'description'));
+getpost_ifset(array('id', 'name','status','monday','tuesday','wednesday','thursday','friday','saturday','sunday','frequency','startingdate', 'expirationdate','id_cid_group' ,'id_card', 'description'));
 
 
 $HD_Form = new FormHandler("cc_campaign","Campaign");
@@ -20,6 +20,13 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = " name";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 $actived_list = Constants::getActivationList();
+if ($form_action=="ask-edit") {
+	$DBHandle  = DbConnect();
+	$instance_table = new Table("cc_campaign", "id_card");
+	$clause = "id = $id";
+	$list =$instance_table -> Get_list($DBHandle, $clause, 0);;
+	$id_card= $list[0][0];
+}
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_campaign.php?form_action=ask-add&section=16";
@@ -70,17 +77,48 @@ $HD_Form -> AddEditElement ("STATUS",
 	"list" , "", "", "", $actived_list, "%1" , "", gettext("Define if this campaign is active or not"));
 
 
-$HD_Form -> AddEditElement (gettext("ID CARD"),
-			   "id_card",		
-			   "$value",	
-			   "POPUPVALUE",	
-			   "size=30 maxlength=50",	
-			   "4",	
-			   gettext("Insert the Id CardNumber"),
-			    "" , "", "", "", "", 				
-				"A2B_entity_card.php?popup_select=1&"
-				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-				gettext("Select the Card Number ID"));
+if ($form_action=="ask-add") {
+	
+	$HD_Form -> AddEditElement (gettext("ID CARD"),
+				   "id_card",		
+				   "$value",	
+				   "POPUPVALUE",	
+				   "size=30 maxlength=50 ",	
+				   "4",	
+				   gettext("Insert the Id CardNumber"),
+				    "" , "", "", "", "", 				
+					"A2B_entity_card.php?popup_select=1&"
+					, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
+					gettext("Select the Card Number ID owner of this campaing, but you may not modify it later"));
+}else{
+	
+	$HD_Form -> AddEditElement (gettext("ID CARD"),
+		"id_card",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=50 readonly",
+		"4",
+		gettext("Insert the Id CardNumber"),
+		"" , "", "", "", "" , "", "", gettext("Card Number ID Selected "));
+
+}
+
+if ($form_action=="ask-edit") {
+	$edit_col = ",config";
+	$HD_Form -> AddEditElement (gettext("CONFIG TO APPLY"),
+				   "config",
+				   "",
+				   "SELECT",
+				   "", "", "",
+				   "sql",
+				   "cc_campaign_config,cc_campaignconf_cardgroup,cc_card_group,cc_card",
+				   "cc_campaign_config.name, cc_campaign_config.id ,flatrate",
+				   "cc_campaign_config.id = id_campaign_config AND id_card_group = cc_card_group.id AND cc_card_group.id = cc_card.id_group AND cc_card.id = $id_card", "", "%1 (%3 ".strtoupper(BASE_CURRENCY)." ) ", "", gettext("Define the configuration that you want apply on this campaign"));
+}
+
+
+
+
 
 
 // TODO integrate in new framework
@@ -95,6 +133,15 @@ if ($form_action=="ask-add") {
 }
 
 
+$HD_Form -> AddEditElement (gettext("CID GROUP"),
+			   "id_cid_group",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_outbound_cid_group",
+			   "group_name, id",
+			   "", "", "%1", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("STARTING DATE"),
@@ -115,15 +162,6 @@ $HD_Form -> AddEditElement (gettext("EXPIRATION DATE"),
 	gettext("Insert the expiration date"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
 
-
-$HD_Form -> AddEditElement (gettext("CALLERID"),
-	"callerid",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=20",
-	"18",
-	gettext("Insert the CallerID to use for the call "),
-	"" , "", "", "", "" , "", "", "");	
 
 $HD_Form -> AddEditElement (gettext("FREQUENCY"),
 	"frequency",
@@ -222,7 +260,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "", "", "", "" );
 
 
-$HD_Form -> FieldEditElement ('name, status,id_card, startingdate, expirationdate, callerid,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description');
+$HD_Form -> FieldEditElement ('name, status,id_card,id_cid_group, startingdate, expirationdate,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description');
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 	

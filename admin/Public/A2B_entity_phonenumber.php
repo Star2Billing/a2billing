@@ -25,7 +25,7 @@ if(!empty($action) &&!empty($campaign) && is_numeric($campaign) && ($action=="ru
 	if($action == "stop") $status =2;
 	elseif ($action == "hold") $status = 1;
 	$table = new Table();
-	$table ->SQLExec($DBHandle,"UPDATE cc_campain_phonestatus SET status = $status WHERE id_phonenumber =$id AND id_campaign = $campaign " );
+	$table ->SQLExec($DBHandle,"UPDATE cc_campaign_phonestatus SET status = $status WHERE id_phonenumber =$id AND id_campaign = $campaign " );
 	Header ("Location: A2B_entity_phonenumber.php?form_action=ask-edit&id=$id");
 	
 }
@@ -99,7 +99,7 @@ if($form_action="ask_edit"){
 		
 		<?php 
 		foreach ($result as $phone){
-			$query = "SELECT id_callback, status FROM cc_campain_phonestatus WHERE id_campaign = $phone[0] AND id_phonenumber = $id";
+			$query = "SELECT id_callback, status FROM cc_campaign_phonestatus WHERE id_campaign = $phone[0] AND id_phonenumber = $id";
 			$res = $instance_table -> SQLExec ($DBHandle, $query);
          ?>
 		<tr>

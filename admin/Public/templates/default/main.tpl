@@ -413,6 +413,7 @@
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_campaign.php?section=16">{php} echo gettext("Campaign's");{/php}</a></li>
+				<li><a href="A2B_entity_campaign_config.php?section=16">{php} echo gettext("Campaign Configs");{/php}</a></li>
 				<li><a href="A2B_entity_phonebook.php?section=16">{php} echo gettext("Phone Book");{/php}</a></li>
 				<li><a href="A2B_entity_phonenumber.php?section=16">{php} echo gettext("Phone Number");{/php}</a></li>
 				<li><a href="A2B_phonelist_import.php?section=16">{php} echo gettext("Import Phone List");{/php}</a></li>

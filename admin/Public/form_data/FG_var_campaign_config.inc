@@ -1,10 +1,10 @@
 <?php
 
 
-getpost_ifset(array('id', 'name', 'description'));
+getpost_ifset(array('id', 'name','context','flatrate', 'description'));
 
 
-$HD_Form = new FormHandler("cc_card_group","Card Group");
+$HD_Form = new FormHandler("cc_campaign_config","Campaign Config");
 
 $HD_Form -> FG_DEBUG = 0;
 
@@ -17,26 +17,28 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_WARNONLY = true;
-$HD_Form -> FG_FK_TABLENAMES = array("cc_card");
-$HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_group ");
+$HD_Form -> FG_FK_TABLENAMES = array("cc_campaign");
+$HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_campaign_config ");
 
-$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this Customers Group! Please comfirm that you really want to remove this Customers Group ? ");
+$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some campaign using this Configuration! Please comfirm that you really want to remove this Configuration ? ");
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card_group.php?form_action=ask-add&stitle=Card&section=1";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_campaign_config.php?form_action=ask-add&stitle=Card&section=1";
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Group");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/group_add.png" ;
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/cog_add.png" ;
 
 
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "35%", "center", "SORT", "40");
+$HD_Form -> AddViewElement(gettext("CAMPAIGN CONTEXT"), "context", "20%", "center", "SORT", "20");
+$HD_Form -> AddViewElement(gettext("CAMPAIGN FLATRATE"), "flatrate", "20%", "center", "SORT", "20");
 
-$HD_Form -> FieldViewElement ( 'name, description');
+$HD_Form -> FieldViewElement ( 'name, description, context, flatrate');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("NO CARD GROUP CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("NO CAMPAIGN CONFIGURATION CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -67,29 +69,47 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "" , "", "", "");
 
 	
+$HD_Form -> AddEditElement ( gettext("CAMPAIGN CONTEXT"),	
+	"context",	'$value',	
+	"INPUT",
+	"size=30 maxlength=40",
+	"0",
+	gettext("Insert the context to use to forward the callback campaign"), 
+	"" , "", "",	"", "", "", "", "" );
+	
 
-$HD_Form -> FieldEditElement ('name, description');
+$HD_Form -> AddEditElement(gettext("CAMPAIGN FLAT RATE"),
+   "flatrate",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "12",
+   gettext("Insert the flat rate"),
+   "" , "", "",	"", "" , "", "", gettext("The callback campaign system now can't use the billing system, you have to define cost for all callback "), null, null, null);
+
+
+$HD_Form -> FieldEditElement ('name, description,context,flatrate');
 
 
 	
 $DBHandle_max  = DbConnect();
 $numrow = 0;
-$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_service");
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
 if ( $resmax )
 	$numrow = $resmax -> RecordCount( );
 
 if ($numrow>0) { 
-	$HD_Form -> AddEditElement (gettext("RECURRING SERVICE"),
-		"service",	
+	$HD_Form -> AddEditElement (gettext("CARD GROUP"),
+		"cardgroupe",	
 		'$value',	
 		"SELECT",		
 		'size="10" multiple="multiple"',
 		"",		
 		"",	
 		"sql",		
-		"cards_services",	
+		"campaign_cards",	
 		"name, id",		
-		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_service:cc_service LEFT JOIN cc_cardgroup_service ON cc_service.id=cc_cardgroup_service.id_service:DISTINCT cc_service.name, cc_service.id: cc_cardgroup_service.id_card_group = %id:id_card_group:%2 - (%1)::::%1:id='%1'");		
+		"", "", "%1 : (%2)", "", "", "cc_campaignconf_cardgroup:id_card_group:cc_card_group LEFT JOIN cc_campaignconf_cardgroup ON cc_card_group.id=cc_campaignconf_cardgroup.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_campaignconf_cardgroup.id_campaign_config = %id:id_campaign_config:%2 - (%1)::::%1:id='%1'");		
 	
 }
 
@@ -112,4 +132,5 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
 

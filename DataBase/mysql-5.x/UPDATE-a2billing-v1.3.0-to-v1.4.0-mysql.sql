@@ -1181,10 +1181,10 @@ CHANGE enable status INT( 11 ) NOT NULL DEFAULT '1';
 
 ALTER TABLE cc_campaign ADD frequency INT NOT NULL DEFAULT '20';
 
-CREATE TABLE cc_campain_phonestatus (
+CREATE TABLE cc_campaign_phonestatus (
 	id_phonenumber BIGINT NOT NULL ,
 	id_campaign INT NOT NULL ,
-	id_callback BIGINT NOT NULL ,
+	id_callback VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
 	status INT NOT NULL DEFAULT '0',
 	lastuse TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY ( id_phonenumber , id_campaign )
@@ -1192,7 +1192,6 @@ CREATE TABLE cc_campain_phonestatus (
 
 ALTER TABLE cc_campaign CHANGE id_trunk id_card BIGINT NOT NULL DEFAULT '0';
 ALTER TABLE cc_campaign ADD forward_number CHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL;
-ALTER TABLE cc_campain_phonestatus CHANGE id_callback id_callback VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
 
 DROP TABLE cc_phonelist;
 
@@ -1204,11 +1203,6 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 
 
-ALTER TABLE cc_campaign ADD callerid VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ;
-
-ALTER TABLE cc_card_group ADD flatrate DECIMAL( 15, 5 ) NOT NULL ;
-ALTER TABLE cc_card_group ADD campaign_context VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
-
 
 ALTER TABLE cc_campaign ADD daily_start_time TIME NOT NULL DEFAULT '10:00:00',
 ADD daily_stop_time TIME NOT NULL DEFAULT '18:00:00',
@@ -1219,6 +1213,26 @@ ADD thursday TINYINT NOT NULL DEFAULT '1',
 ADD friday TINYINT NOT NULL DEFAULT '1',
 ADD saturday TINYINT NOT NULL DEFAULT '0',
 ADD sunday TINYINT NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_campaign ADD id_cid_group INT NOT NULL ;
+
+CREATE TABLE cc_campaign_config (
+id INT NOT NULL AUTO_INCREMENT ,
+name VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+flatrate DECIMAL(15,5) DEFAULT 0 NOT NULL,
+context VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+PRIMARY KEY ( id )
+) ENGINE = MYISAM ;
+
+CREATE TABLE cc_campaignconf_cardgroup (
+id_campaign_config INT NOT NULL ,
+id_card_group INT NOT NULL ,
+PRIMARY KEY ( id_campaign , id_card_group )
+) ENGINE = MYISAM ;
+
+ALTER TABLE cc_campaign ADD id_campaign_config INT NOT NULL ;
+
 
 
 -- for Agent
@@ -1236,6 +1250,4 @@ VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enable
 
 ALTER TABLE cc_logrefill ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
 ALTER TABLE cc_logpayment ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
-
-
 

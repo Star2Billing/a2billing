@@ -108,7 +108,7 @@ $nbpage = (ceil($nb_record/$group));
 
 
 
-$QUERY_PHONENUMBERS = 'SELECT cc_phonenumber.id as cc_phonenumber_id, cc_phonenumber.number, cc_campaign.id as cc_campaign_id, cc_campaign.frequency , cc_campaign.forward_number  ,cc_campaign.callerid , cc_card.id , cc_card.tariff, cc_card.username FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign, cc_card WHERE ';
+$QUERY_PHONENUMBERS = 'SELECT cc_phonenumber.id as cc_phonenumber_id, cc_phonenumber.number, cc_campaign.id as cc_campaign_id, cc_campaign.frequency , cc_campaign.forward_number  ,cc_campaign.id_cid_group , cc_card.id , cc_card.tariff, cc_card.username FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign, cc_card WHERE ';
 $QUERY_PHONENUMBERS .= 'cc_phonenumber.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_campaign = cc_campaign.id AND cc_campaign.id_card = cc_card.id ';
 $QUERY_PHONENUMBERS .= 'AND cc_campaign.status = 1 AND cc_campaign.startingdate <= CURRENT_TIMESTAMP AND cc_campaign.expirationdate > CURRENT_TIMESTAMP ';
 //SCHEDULE CLAUSE
@@ -155,7 +155,7 @@ for ($page = 0; $page < $nbpage; $page++) {
 		
 		//test if you have to inject it again
 		$frequency_sec = $phone['frequency'] * 60;
-		$query_searche_phonestatus = "SELECT status, $UNIX_TIMESTAMP lastuse ) < $UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $frequency_sec  FROM cc_campain_phonestatus WHERE id_campaign = ".$phone[2]." AND id_phonenumber = ".$phone[0] ; 
+		$query_searche_phonestatus = "SELECT status, $UNIX_TIMESTAMP lastuse ) < $UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $frequency_sec  FROM cc_campaign_phonestatus WHERE id_campaign = ".$phone[2]." AND id_phonenumber = ".$phone[0] ; 
 		$result_search_phonestatus = $instance_table -> SQLExec ($A2B -> DBHandle, $query_searche_phonestatus);
 		
 		if ($verbose_level>=1) echo "\nSEARCH PHONESTATUS QUERY : ".$query_searche_phonestatus;
@@ -250,7 +250,22 @@ for ($page = 0; $page < $nbpage; $page++) {
 					$priority=1;
 					$timeout = $A2B -> config["callback"]['timeout']*1000;
 					$application = '';
-					$callerid = $phone["callerid"];
+					//default callerid
+					$callerid = '111111111';
+					$cidgroupid = $phone["id_cid_group"];
+					if ($A2B->config["database"]['dbtype'] == "postgres"){
+						$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RANDOM() LIMIT 1";
+					}
+					else
+					{
+						$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";
+					}
+					$instance_cid_table = new Table();
+					$cidresult = $instance_cid_table -> SQLExec ($A2B -> DBHandle, $QUERY);
+					if (is_array($cidresult) && count($cidresult)>0){
+						$callerid = $cidresult[0][0];
+					}
+					
 					$account = $_SESSION["pr_login"];
 					
 					$uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(7);
@@ -267,8 +282,8 @@ for ($page = 0; $page < $nbpage; $page++) {
 					}else{
 						if ($verbose_level>=1) echo "[Your callback request has been queued correctly!]";
 
-						if($action == "update") $query = "UPDATE cc_campain_phonestatus SET id_callback = '$uniqueid', lastuse = CURRENT_TIMESTAMP WHERE id_phonenumber =$phone[0] AND id_campaign = $phone[2] "  ;
-						else $query = "INSERT INTO cc_campain_phonestatus (id_phonenumber ,id_campaign ,id_callback ,status) VALUES ( $phone[0], $phone[2], '$uniqueid' , '0') ";
+						if($action == "update") $query = "UPDATE cc_campaign_phonestatus SET id_callback = '$uniqueid', lastuse = CURRENT_TIMESTAMP WHERE id_phonenumber =$phone[0] AND id_campaign = $phone[2] "  ;
+						else $query = "INSERT INTO cc_campaign_phonestatus (id_phonenumber ,id_campaign ,id_callback ,status) VALUES ( $phone[0], $phone[2], '$uniqueid' , '0') ";
 						
 						if ($verbose_level>=1) echo "\nINSERT PHONESTATUS QUERY : $query";
 						$res = $A2B -> DBHandle -> Execute($query);
