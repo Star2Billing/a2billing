@@ -159,28 +159,28 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND REPORT"),
 
 $HD_Form -> FieldEditElement ('name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, emailreport');
 
+if ($form_action=="ask-edit") {		
+	$DBHandle_max  = DbConnect();
+	$numrow = 0;
+	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
+	if ( $resmax )
+		$numrow = $resmax -> RecordCount( );
 	
-$DBHandle_max  = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
-if ( $resmax )
-	$numrow = $resmax -> RecordCount( );
-
-if ($numrow>0) { 
-	$HD_Form -> AddEditElement (gettext("CARD GROUP"),
-		"service",	
-		'$value',	
-		"SELECT",		
-		'size="10" multiple="multiple"',
-		"",		
-		"",	
-		"sql",		
-		"cards_services",	
-		"name, id",		
-		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_card_group:cc_card_group LEFT JOIN cc_cardgroup_service ON cc_card_group.id=cc_cardgroup_service.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_cardgroup_service.id_service = %id:id_service:%2 - (%1)::::%1:id='%1'");		
-	
+	if ($numrow>0) { 
+		$HD_Form -> AddEditElement (gettext("CARD GROUP"),
+			"service",	
+			'$value',	
+			"SELECT",		
+			'size="10" multiple="multiple"',
+			"",		
+			"",	
+			"sql",		
+			"cards_services",	
+			"name, id",		
+			"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_card_group:cc_card_group LEFT JOIN cc_cardgroup_service ON cc_card_group.id=cc_cardgroup_service.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_cardgroup_service.id_service = %id:id_service:%2 - (%1)::::%1:id='%1'");		
+		
+	}
 }
-
 
 
 

@@ -29,7 +29,7 @@ import logging
 import time
 
 class HelloDaemon(daemon.Daemon):
-    default_conf = '/etc/hellodaemon.conf'
+    default_conf = '/Users/rachid/Developpement/A2Billing/CallBack/callback-daemon-py/callback_daemon/a2b callback-daemon.conf'
     section = 'hello'
 
     def run(self):
@@ -67,7 +67,7 @@ import time
 class Daemon(object):
     """Daemon base class"""
 
-    default_conf = ''    # override this
+    default_conf = '/Users/rachid/Developpement/A2Billing/CallBack/callback-daemon-py/callback_daemon/a2b callback-daemon.conf'    # override this
     section = 'daemon'   # override this
 
     def setup_root(self):
@@ -126,11 +126,15 @@ class Daemon(object):
 
     def read_basic_config(self):
         """Read basic options from the daemon config file"""
+        
+         
         self.config_filename = self.options.config_filename
+        print self.config_filename
+        
         cp = ConfigParser.ConfigParser()
         cp.read([self.config_filename])
         self.config_parser = cp
-
+        
         try:
             self.uid, self.gid = get_uid_gid(cp, self.section)
         except ValueError, e:

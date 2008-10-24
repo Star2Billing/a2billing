@@ -38,8 +38,8 @@ import string
 # ------------------------------ PARAMETERS ------------------------------  
 
 # Daemon Config File
-#CONFIG_FILE = './a2b-callback-daemon.conf'
-CONFIG_FILE = '/etc/asterisk/a2billing.conf'
+CONFIG_FILE = './a2b-callback-daemon.conf'
+#CONFIG_FILE = '/etc/asterisk/a2billing.conf'
 
 
 # The next 2 parameters will define the speed of the daemon

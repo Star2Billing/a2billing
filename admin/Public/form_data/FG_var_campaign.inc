@@ -263,28 +263,28 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 $HD_Form -> FieldEditElement ("name, status,id_card $edit_col,id_cid_group, startingdate, expirationdate,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description" );
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
+if ($form_action=="ask-edit") {	
+	$DBHandle_max  = DbConnect();
+	$numrow = 0;
+	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_phonebook");
+	if ( $resmax )
+		$numrow = $resmax -> RecordCount( );
 	
-$DBHandle_max  = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_phonebook");
-if ( $resmax )
-	$numrow = $resmax -> RecordCount( );
-
-if ($numrow>0){ 
-	$HD_Form -> AddEditElement (gettext("PHONE BOOK"),
-		"phonebook",	
-		'$value',	
-		"SELECT",		
-		'size="10" multiple="multiple"',
-		"",		
-		"",	
-		"sql",		
-		"campaigns_phonebooks",	
-		"name, id",		
-		"", "", "%1 : (%2)", "", "", "cc_campaign_phonebook:id_phonebook:cc_phonebook LEFT JOIN cc_campaign_phonebook ON cc_phonebook.id=cc_campaign_phonebook.id_phonebook:DISTINCT cc_phonebook.name, cc_phonebook.id: cc_campaign_phonebook.id_campaign = %id:id_campaign:%2 - (%1)::::%1:id='%1'");		
-	
+	if ($numrow>0){ 
+		$HD_Form -> AddEditElement (gettext("PHONE BOOK"),
+			"phonebook",	
+			'$value',	
+			"SELECT",		
+			'size="10" multiple="multiple"',
+			"",		
+			"",	
+			"sql",		
+			"campaigns_phonebooks",	
+			"name, id",		
+			"", "", "%1 : (%2)", "", "", "cc_campaign_phonebook:id_phonebook:cc_phonebook LEFT JOIN cc_campaign_phonebook ON cc_phonebook.id=cc_campaign_phonebook.id_phonebook:DISTINCT cc_phonebook.name, cc_phonebook.id: cc_campaign_phonebook.id_campaign = %id:id_campaign:%2 - (%1)::::%1:id='%1'");		
+		
+	}
 }
-
 
 
 
