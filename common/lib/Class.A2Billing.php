@@ -1865,7 +1865,7 @@ class A2Billing {
 		$campaign_id= $agi->get_variable("CAMPAIGN_ID", true);
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[MODE CAMPAIGN CALLBACK: USERNAME -> $username  USERID -> $userid ]");
 		//Insert cdr with flat rate
-		$query_rate = "SELECT cc_card_group.flatrate, cc_card_group.campaign_context FROM cc_card_group , cc_card WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id";
+		$query_rate = "SELECT cc_campaign_config.flatrate, cc_campaign_config.context FROM cc_card,cc_card_group,cc_campaignconf_cardgroup,cc_campaign_config WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id AND cc_campaignconf_cardgroup.id_card_group = cc_card_group.id  AND cc_campaignconf_cardgroup.id_campaign_config = cc_campaign_config.id ";
 		$result_rate = $this->instance_table -> SQLExec ($this -> DBHandle, $query_rate);	
 		
 		$cost = 0;
