@@ -48,6 +48,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 
 function sendtoupload(form){
+	if (form.phonebook.value.length < 1){
+		alert ('<?php echo gettext("Please, you must first select a phonebook !")?>');
+		form.tariffplan.focus ();
+		return (false);
+	}
 	if (form.the_file.value.length < 2){
 		alert ('<?php echo gettext("Please, you must first select a file !")?>');
 		form.the_file.focus ();
