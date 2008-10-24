@@ -71,27 +71,6 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 $HD_Form -> FieldEditElement ('name, description');
 
 
-	
-$DBHandle_max  = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_service");
-if ( $resmax )
-	$numrow = $resmax -> RecordCount( );
-
-if ($numrow>0) { 
-	$HD_Form -> AddEditElement (gettext("RECURRING SERVICE"),
-		"service",	
-		'$value',	
-		"SELECT",		
-		'size="10" multiple="multiple"',
-		"",		
-		"",	
-		"sql",		
-		"cards_services",	
-		"name, id",		
-		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_service:cc_service LEFT JOIN cc_cardgroup_service ON cc_service.id=cc_cardgroup_service.id_service:DISTINCT cc_service.name, cc_service.id: cc_cardgroup_service.id_card_group = %id:id_card_group:%2 - (%1)::::%1:id='%1'");		
-	
-}
 
 
 
