@@ -1228,7 +1228,7 @@ PRIMARY KEY ( id )
 CREATE TABLE cc_campaignconf_cardgroup (
 id_campaign_config INT NOT NULL ,
 id_card_group INT NOT NULL ,
-PRIMARY KEY ( id_campaign , id_card_group )
+PRIMARY KEY ( id_campaign_config , id_card_group )
 ) ENGINE = MYISAM ;
 
 ALTER TABLE cc_campaign ADD id_campaign_config INT NOT NULL ;
