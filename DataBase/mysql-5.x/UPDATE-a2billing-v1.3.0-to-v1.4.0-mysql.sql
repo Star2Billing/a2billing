@@ -1149,6 +1149,10 @@ VALUES ('Cents Currency Associated', 'currency_cents_association', '', 'Define a
 ALTER TABLE cc_call DROP calledrate,DROP buyrate;
 
 
+-- ------------------------------------------------------
+-- for AutoDialer
+-- ------------------------------------------------------
+
 -- Create phonebook for
 CREATE TABLE cc_phonebook (
 	id INT NOT NULL AUTO_INCREMENT ,
@@ -1201,9 +1205,6 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES 
 ( 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 'Context to use by default to forward the call in Campaign of Callback', '0', '2', NULL);
 
-
-
-
 ALTER TABLE cc_campaign ADD daily_start_time TIME NOT NULL DEFAULT '10:00:00',
 ADD daily_stop_time TIME NOT NULL DEFAULT '18:00:00',
 ADD monday TINYINT NOT NULL DEFAULT '1',
@@ -1217,32 +1218,38 @@ ADD sunday TINYINT NOT NULL DEFAULT '0';
 ALTER TABLE cc_campaign ADD id_cid_group INT NOT NULL ;
 
 CREATE TABLE cc_campaign_config (
-id INT NOT NULL AUTO_INCREMENT ,
-name VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-flatrate DECIMAL(15,5) DEFAULT 0 NOT NULL,
-context VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
-PRIMARY KEY ( id )
-) ENGINE = MYISAM ;
+	id INT NOT NULL AUTO_INCREMENT ,
+	name VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	flatrate DECIMAL(15,5) DEFAULT 0 NOT NULL,
+	context VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	PRIMARY KEY ( id )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 
 CREATE TABLE cc_campaignconf_cardgroup (
-id_campaign_config INT NOT NULL ,
-id_card_group INT NOT NULL ,
-PRIMARY KEY ( id_campaign_config , id_card_group )
-) ENGINE = MYISAM ;
+	id_campaign_config INT NOT NULL ,
+	id_card_group INT NOT NULL ,
+	PRIMARY KEY ( id_campaign_config , id_card_group )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 
 ALTER TABLE cc_campaign ADD id_campaign_config INT NOT NULL ;
 
 
-
+-- ------------------------------------------------------
 -- for Agent
+-- ------------------------------------------------------
+
 ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_config MODIFY config_value VARCHAR( 300 );
 INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname,id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused,firstname, email, discount, callerid',0,8);
 
--- Cache CDR
 
+-- ------------------------------------------------------
+-- Cache system with SQLite Agent
+-- ------------------------------------------------------
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enabled the cache processing to save the call in database. The cache system is based on Sqlite.', '0', '1', 'yes,no'),
 ( 'Path for the cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the cache processing to save the call in database. The cache system is based on Sqlite.', '0', 'A', NULL);
@@ -1250,4 +1257,7 @@ VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enable
 
 ALTER TABLE cc_logrefill ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
 ALTER TABLE cc_logpayment ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
+
+
+
 
