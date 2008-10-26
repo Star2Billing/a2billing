@@ -16,7 +16,7 @@ if (! has_rights (ACX_CUSTOMER)){
 getpost_ifset(array('id'));
  //Redirect if $id is empty
 
-if(empty($id)){
+if (empty($id)) {
 	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
 }
 $DBHandle  = DbConnect();
@@ -28,7 +28,7 @@ $card_clause = "id = ".$id;
 $card_result = $card_table -> Get_list($DBHandle, $card_clause, 0);
 $card = $card_result[0];
 
-if(empty($card)){
+if (empty($card)) {
 	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
 }
 
@@ -369,9 +369,8 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 
 $payment_table = new Table('cc_logpayment','*');
 $payment_clause = "card_id = ".$id;
-$payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 0,NULL,NULL,NULL,10,0);
-
-if(sizeof($payment_result)>0){
+$payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 'date', 'DESC', NULL, NULL, 10, 0);
+if(sizeof($payment_result)>0) {
 ?>
 <table class="toppage_maintable">
 	<tr>
@@ -406,7 +405,7 @@ if(sizeof($payment_result)>0){
  
 	<?php 
 		$i=0;
-		foreach ($payment_result as $payment){
+		foreach ($payment_result as $payment) {
 			if($i%2==0) $bg="#fcfbfb";
 			else  $bg="#f2f2ee";
 	?>
@@ -443,9 +442,9 @@ if(sizeof($payment_result)>0){
 
 $refill_table = new Table('cc_logrefill','*');
 $refill_clause = "card_id = ".$id;
-$refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 0,NULL,NULL,NULL,10,0);
+$refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 'date', 'DESC', NULL, NULL, 10, 0);
 
-if(sizeof($refill_result)>0){
+if(sizeof($refill_result)>0) {
 ?>
 <table class="toppage_maintable">
 	<tr>
@@ -477,7 +476,7 @@ if(sizeof($refill_result)>0){
  
 	<?php 
 		$i=0;
-		foreach ($refill_result as $refill){
+		foreach ($refill_result as $refill) {
 			if($i%2==0) $bg="#fcfbfb";
 			else  $bg="#f2f2ee";
 	?>
