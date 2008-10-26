@@ -1051,8 +1051,8 @@ class RateEngine
 			$terminatecauseid = 0;
 			
 		$QUERY_COLUMN = "uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
-			" terminatecauseid, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-			" id_trunk, src, sipiax, buyrate, buycost, id_card_package_offer, dnid, id_cc_prefix";
+			" terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
+			" id_trunk, src, sipiax, buycost, id_card_package_offer, dnid, id_cc_prefix";
 		$QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', '".
 			$A2B->id_card."', '".$A2B->hostname."', ";
 
@@ -1073,9 +1073,9 @@ class RateEngine
 			$QUERY .= "now()";
 		}
 		
-		$QUERY .= " , '$rateapply', '$signe_cc_call".a2b_round(abs($cost))."', ".
+		$QUERY .= " , '$rateapply', ".
 					" '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
-					"'$buyrateapply', '$buycost', '$id_card_package_offer', '".$A2B->dnid."', '".$calldestination."')";
+					" '$buycost', '$id_card_package_offer', '".$A2B->dnid."', '".$calldestination."')";
 		
 		
 		if ($A2B->config["global"]['cache_enabled']){
