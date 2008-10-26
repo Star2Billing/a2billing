@@ -7,7 +7,7 @@ include ("../lib/admin.smarty.php");
 
 
 
-if (! has_rights (ACX_CUSTOMER)){ 
+if (! has_rights (ACX_CUSTOMER)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -19,57 +19,58 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
-
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description','upd_id_group','upd_id_agent','upd_discount','upd_refill_type','upd_description'));
+
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
 	$SQL_REFILL="";
 	$HD_Form->prepare_list_subselection('list');
-        if (isset($check['upd_credit'])||(strlen(trim($upd_credit))>0)){//set to refil
+	if (isset($check['upd_credit'])||(strlen(trim($upd_credit))>0)) {//set to refil
 		$SQL_REFILL_CREDIT="";
 		$SQL_REFILL_WHERE="";
-		if($type["upd_credit"] == 1){//equal
+		if($type["upd_credit"] == 1) {//equal
 			$SQL_REFILL_CREDIT="($upd_credit -credit) ";
 			$SQL_REFILL_WHERE=" AND $upd_credit<>credit ";//never write 0 refill
-		}elseif($type["upd_credit"] == 2){//+-
-					$SQL_REFILL_CREDIT="(-$upd_credit) ";
-                                }else{
-					$SQL_REFILL_CREDIT="$upd_credit ";
-                                }
-		 $SQL_REFILL="INSERT INTO cc_logrefill (credit,card_id,description,refill_type)
-			     SELECT $SQL_REFILL_CREDIT,a.id,'$upd_description','$upd_refill_type' from  ".$HD_Form->FG_TABLE_NAME."  as a ";
-		 if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
-                	$SQL_REFILL .= ' WHERE '.$HD_Form->FG_TABLE_CLAUSE.$SQL_REFILL_WHERE;
-	         }elseif((strlen($SQL_REFILL_WHERE)>1)&&($type["upd_credit"] == 1)){
+		} elseif($type["upd_credit"] == 2) {//+-
+			$SQL_REFILL_CREDIT="(-$upd_credit) ";
+		}else{
+			$SQL_REFILL_CREDIT="$upd_credit ";
+		}
+		$SQL_REFILL="INSERT INTO cc_logrefill (credit,card_id,description,refill_type)
+		SELECT $SQL_REFILL_CREDIT,a.id,'$upd_description','$upd_refill_type' from  ".$HD_Form->FG_TABLE_NAME."  as a ";
+		if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
+			$SQL_REFILL .= ' WHERE '.$HD_Form->FG_TABLE_CLAUSE.$SQL_REFILL_WHERE;
+		}elseif((strlen($SQL_REFILL_WHERE)>1)&&($type["upd_credit"] == 1)) {
 			$SQL_REFILL .= " WHERE $upd_credit<>credit ";
-		 }
+		}
 	}
+
 	// Array ( [upd_simultaccess] => on [upd_currency] => on )	
 	$loop_pass=0;
 	$SQL_UPDATE = '';
-	foreach ($check as $ind_field => $ind_val){
+	foreach ($check as $ind_field => $ind_val) {
 		//echo "<br>::> $ind_field -";
 		$myfield = substr($ind_field,4);
 		if ($loop_pass!=0) $SQL_UPDATE.=',';
 		
 		// Standard update mode
-		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){		
-			if (!isset($type["$ind_field"])){		
+		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1) {		
+			if (!isset($type["$ind_field"])) {		
 				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
-			}else{
+			} else {
 				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
 			}
 		// Mode 2 - Equal - Add - Subtract
-		}elseif($mode["$ind_field"]==2){
-			if (!isset($type["$ind_field"])){		
+		} elseif($mode["$ind_field"]==2) {
+			if (!isset($type["$ind_field"])) {		
 				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
-			}else{
-				if ($type["$ind_field"] == 1){
+			} else {
+				if ($type["$ind_field"] == 1) {
 					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
-				}elseif ($type["$ind_field"] == 2){
+				} elseif ($type["$ind_field"] == 2) {
 					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
-				}else{
+				} else {
 					$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
 				}				
 			}
@@ -86,26 +87,26 @@ if ($batchupdate == 1 && is_array($check)) {
 	
 	if (!$HD_Form -> DBHandle -> Execute("begin")){
 		$update_msg =$update_msg_error;
-	}else{
-	  if (isset($check['upd_credit'])||(strlen(trim($upd_credit))>0)&&($upd_refill_type>=0)){
-                 if (! $res = $HD_Form -> DBHandle -> Execute($SQL_REFILL)) {
-                        $update_msg.= '<br/><center><font color="red"><b>'.gettext('Could not perform refill log for the batch update!').'</b></font></center>';
-                 }
-          }else{
-	   if(!$HD_Form -> DBHandle -> Execute("$SQL_UPDATE")){
-		$update_msg =$update_msg_error;
-           }
-	   if (! $res = $HD_Form -> DBHandle -> Execute("comit")) {
-		  $update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
-	   }
-	  }
+	} else {
+		
+		if (isset($check['upd_credit']) && (strlen(trim($upd_credit))>0) && ($upd_refill_type>=0)) {
+			if (! $res = $HD_Form -> DBHandle -> Execute($SQL_REFILL)) {
+				$update_msg.= '<br/><center><font color="red"><b>'.gettext('Could not perform refill log for the batch update!').'</b></font></center>';
+			}
+		}
+		if(!$HD_Form -> DBHandle -> Execute($SQL_UPDATE)){
+			$update_msg =$update_msg_error;
+		}
+		if (! $res = $HD_Form -> DBHandle -> Execute("comit")) {
+			$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
+		}
+	
 	};
 }
 
 
 
-
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {	
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
@@ -122,7 +123,7 @@ $smarty->display('main.tpl');
 
 
 
-if ($popup_select){
+if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
 <!-- Begin
@@ -137,13 +138,10 @@ function sendValue(selvalue){
 
 
 // #### HELP SECTION
-if ($form_action=='list' && !($popup_select>=1)){
-echo $CC_help_list_customer;
-
-
+if ($form_action=='list' && !($popup_select>=1)) {
+	echo $CC_help_list_customer;
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
-
 
 <div class="toggle_hide2show">
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CARDS");?> </font></a></center>
@@ -151,7 +149,7 @@ echo $CC_help_list_customer;
 
 <?php
 // #### CREATE SEARCH FORM
-if ($form_action == "list"){
+if ($form_action == "list") {
 	$HD_Form -> create_search_form();
 }
 ?>
@@ -162,7 +160,7 @@ if ($form_action == "list"){
 <?php
 
 /********************************* BATCH UPDATE ***********************************/
-if ($form_action == "list" && (!($popup_select>=1))	){
+if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		
 	$instance_table_tariff = new Table("cc_tariffgroup", "id, tariffgroupname");
 	$FG_TABLE_CLAUSE = "";
@@ -177,6 +175,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 
 	$list_refill_type=Constants::getRefillType_List();
 	$list_refill_type["-1"]=array("NO REFILL","-1");
+	
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <div class="toggle_hide2show">
@@ -212,7 +211,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			  	2)&nbsp;<?php echo gettext("STATUS");?>&nbsp;:
 				<select NAME="upd_status" size="1" class="form_input_select">
 					<?php					 
-				  	 foreach ($cardstatus_list as $key => $cur_value){ 						 
+				  	 foreach ($cardstatus_list as $key => $cur_value) { 						 
 					?>
 						<option value='<?php echo $cur_value[1] ?>' <?php if ($upd_status==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>                        
 					<?php } ?>
@@ -243,7 +242,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			  	4)&nbsp;<?php echo gettext("TARIFF");?>&nbsp;:
 				<select NAME="upd_tariff" size="1" class="form_input_select">
 					<?php					 
-				  	 foreach ($list_tariff as $recordset){ 						 
+				  	 foreach ($list_tariff as $recordset) { 						 
 					?>
 						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_tariff==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>                        
 					<?php } ?>
@@ -403,7 +402,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
                                 15)&nbsp;<?php echo gettext("Agent this batch belongs to");?>&nbsp;:
                                 <select NAME="upd_id_agent" size="1" class="form_input_select">
                                         <?php
-                                         foreach ($list_agent as $recordset){
+                                         foreach ($list_agent as $recordset) {
                                         ?>
                                                 <option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_agent==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
                                         <?php } ?>
