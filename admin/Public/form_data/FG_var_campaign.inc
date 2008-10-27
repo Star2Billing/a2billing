@@ -263,7 +263,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 $HD_Form -> FieldEditElement ("name, status,id_card $edit_col,id_cid_group, startingdate, expirationdate,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description" );
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
-if ($form_action=="ask-edit") {	
+if ($form_action!="ask-delete") {	
 	$DBHandle_max  = DbConnect();
 	$numrow = 0;
 	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_phonebook");

@@ -143,7 +143,6 @@ $CC_help_list_voucher = '
 
 $CC_help_campaign ='
 <div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_remote.gif" class="kikipic"/>
@@ -157,7 +156,6 @@ $CC_help_campaign ='
 
 $CC_help_phonelist ='
 <div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
@@ -170,7 +168,6 @@ $CC_help_phonelist ='
 
 $CC_help_phonebook ='
 <div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
