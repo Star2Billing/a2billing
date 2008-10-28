@@ -53,6 +53,7 @@ class RateEngine
 	{
 		$this -> number_trunk = 0;
 		$this -> answeredtime = 0;
+		$this -> real_answeredtime = 0;
 		$this -> dialstatus = '';
 		$this -> usedratecard = '';
 		$this -> usedtrunk = '';

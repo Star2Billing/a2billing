@@ -933,7 +933,7 @@ class A2Billing {
 		$seconds = $timeout % 60;
 
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "TIMEOUT::> ".$this->timeout."  : minutes=$minutes - seconds=$seconds");
-		if (!($minutes>0)) {
+		if (!($minutes>0) && !($seconds>10)) {
 			$prompt="prepaid-no-enough-credit";
 			$agi-> stream_file($prompt, '#');
 			return -1;
