@@ -33,7 +33,7 @@ $popup_select = $_GET['popup_select'];
 		  </td>
 	 </tr></table>
 <?php  } //END IF ?>
-
+<br>
 <?php
 
 if ((count($list)>0) && is_array($list)){
