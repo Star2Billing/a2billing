@@ -92,10 +92,10 @@ if ($nbcard>0) {
 		if (isset($sip)) {
 			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
 			$result_query1 = $instance_sip_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			if(!USE_REALTIME){
-  			$_SESSION["is_sip_iax_change"]=1;
-  			$_SESSION["is_sip_changed"]=1;
-      }
+			if(USE_REALTIME) {
+	  			$_SESSION["is_sip_iax_change"]=1;
+	  			$_SESSION["is_sip_changed"]=1;
+			}
 		}
 		
 		// Insert data for iax_buddy
@@ -103,10 +103,10 @@ if ($nbcard>0) {
 			//$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
 			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
 			$result_query2 = $instance_iax_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			if(!USE_REALTIME){
-  			$_SESSION["is_sip_iax_change"]=1;
-  			$_SESSION["is_iax_changed"]=1;
-      }
+			if(USE_REALTIME) {
+				$_SESSION["is_sip_iax_change"]=1;
+				$_SESSION["is_iax_changed"]=1;
+			}
 		}
 	}
 
