@@ -10,7 +10,7 @@ if (! has_rights (ACX_CALL_REPORT)) {
 	die();
 }
 
-getpost_ifset(array('customer','sellrate','buyrate','entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','fromtime','totime','fromstatsday_hour', 'tostatsday_hour' ,'fromstatsday_min', 'tostatsday_min' , 'dsttype', 'srctype','dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src','dnid', 'clid', 'choose_currency', 'terminatecause', 'choose_calltype'));
+getpost_ifset(array('customer','sellrate','buyrate','entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','fromtime','totime','fromstatsday_hour', 'tostatsday_hour' ,'fromstatsday_min', 'tostatsday_min' , 'dsttype', 'srctype','dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src','dnid', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype'));
 
 
 
@@ -48,7 +48,7 @@ if (!isset ($current_page) || ($current_page == "")) {
 $FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
+$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk LEFT OUTER JOIN  cc_ratecard as rc ON rc.id=t1.id_ratecard";
 
 if ($_SESSION["is_admin"]==0) {
  	$FG_TABLE_NAME.=", cc_card t2";
@@ -83,7 +83,7 @@ $FG_TABLE_DEFAULT_ORDER = "count";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY='t1.dnid ,count(*) as count,avg(t1.buyrate) as buyrate ,avg(t1.calledrate) as calledrate,
+$FG_COL_QUERY='t1.dnid ,count(*) as count,avg(rc.buyrate) as buyrate ,avg(rc.rateinitial) as calledrate,
  	sum(t1.sessiontime) as sessiontime ,sum(t1.buycost) buycost, sum(t1.sessionbill) as sessionbill';
 
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
@@ -219,39 +219,44 @@ if (isset($choose_calltype) && ($choose_calltype!=-1)){
 
 $FG_ASR_CIC_CLAUSE = $FG_TABLE_CLAUSE;
 //To select just terminatecause=ANSWER
-if (!isset($terminatecause)) {
-	$terminatecause="ANSWER";
-}
-if ($terminatecause=="ANSWER") {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " (t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED') ";
-}
-if ($terminatecause=="INCOMPLET") {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " (t1.terminatecause !='ANSWER' AND t1.terminatecause !='ANSWERED') ";
-}
-if ($terminatecause=="CONGESTION") {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " (t1.terminatecause='CONGESTION') ";
-}
-if ($terminatecause=="NOANSWER") {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " (t1.terminatecause='NOANSWER') ";
-}
 
-if ($terminatecause=="BUSY") {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " (t1.terminatecause='BUSY') ";
+if (! isset ( $terminatecauseid )) {
+        $terminatecauseid = "ANSWER";
 }
-
-if ($terminatecause=="CHANUNAVAIL") {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " (t1.terminatecause='CHANUNAVAIL') ";
+if ($terminatecauseid == "ANSWER") {
+        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+                $FG_TABLE_CLAUSE .= " AND ";
+        $FG_TABLE_CLAUSE .= " (t1.terminatecauseid=1) ";
 }
-
-if ($terminatecause=="CANCEL") {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE .= " (t1.terminatecause='CANCEL') ";
+if ($terminatecauseid == "INCOMPLET") {
+        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+                $FG_TABLE_CLAUSE .= " AND ";
+        $FG_TABLE_CLAUSE .= " (t1.terminatecauseid !=1) ";
+}
+if ($terminatecauseid == "CONGESTION") {
+        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+                $FG_TABLE_CLAUSE .= " AND ";
+        $FG_TABLE_CLAUSE .= " (t1.terminatecauseid=5) ";
+}
+if ($terminatecauseid == "NOANSWER") {
+        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+                $FG_TABLE_CLAUSE .= " AND ";
+        $FG_TABLE_CLAUSE .= " (t1.terminatecauseid=3) ";
+}
+if ($terminatecauseid == "BUSY") {
+        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+                $FG_TABLE_CLAUSE .= " AND ";
+        $FG_TABLE_CLAUSE .= " (t1.terminatecauseid=2) ";
+}
+if ($terminatecauseid == "CHANUNAVAIL") {
+        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+                $FG_TABLE_CLAUSE .= " AND ";
+        $FG_TABLE_CLAUSE .= " (t1.terminatecauseid=6) ";
+}
+if ($terminatecauseid == "CANCEL") {
+        if (strlen ( $FG_TABLE_CLAUSE ) > 0)
+                $FG_TABLE_CLAUSE .= " AND ";
+        $FG_TABLE_CLAUSE .= " (t1.terminatecauseid=4) ";
 }
 
 
@@ -617,29 +622,29 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<?php echo gettext("SHOW CALLS");?> :  						
 			   </td>
 			   <td width="80%"  class="fontstyle_searchoptions">
-			  			<select NAME="terminatecause" size="1" class="form_input_select" >
-							<option value='ANSWER' <?php if ((!isset($terminatecause))||($terminatecause=="ANSWER")){?>selected<?php } ?>><?php echo gettext('ANSWERED') ?>
+			  			<select NAME="terminatecauseid" size="1" class="form_input_select" >
+							<option value='ANSWER' <?php if ((!isset($terminatecauseid))||($terminatecauseid=="ANSWER")){?>selected<?php } ?>><?php echo gettext('ANSWERED') ?>
 							</option>
 						
-							<option value='ALL' <?php if ($terminatecause=="ALL"){?>selected<?php } ?>><?php echo gettext('ALL') ?>
+							<option value='ALL' <?php if ($terminatecauseid=="ALL"){?>selected<?php } ?>><?php echo gettext('ALL') ?>
 							</option>
 							
-							<option value='INCOMPLET' <?php if ($terminatecause=="INCOMPLET"){?>selected<?php } ?>><?php echo gettext('NOT COMPLETED') ?>
+							<option value='INCOMPLET' <?php if ($terminatecauseid=="INCOMPLET"){?>selected<?php } ?>><?php echo gettext('NOT COMPLETED') ?>
 							</option>
 							
-							<option value='CONGESTION' <?php if ($terminatecause=="CONGESTION"){?>selected<?php } ?>><?php echo gettext('CONGESTIONED') ?>
+							<option value='CONGESTION' <?php if ($terminatecauseid=="CONGESTION"){?>selected<?php } ?>><?php echo gettext('CONGESTIONED') ?>
 							</option>
 							
-							<option value='BUSY' <?php if ($terminatecause=="BUSY"){?>selected<?php } ?>><?php echo gettext('BUSIED') ?>
+							<option value='BUSY' <?php if ($terminatecauseid=="BUSY"){?>selected<?php } ?>><?php echo gettext('BUSIED') ?>
 							</option>
 							
-							<option value='NOANSWER' <?php if ($terminatecause=="NOANSWER"){?>selected<?php } ?>><?php echo gettext('NOT ANSWERED') ?>
+							<option value='NOANSWER' <?php if ($terminatecauseid=="NOANSWER"){?>selected<?php } ?>><?php echo gettext('NOT ANSWERED') ?>
 							</option>
 							
-							<option value='CHANUNAVAIL' <?php if ($terminatecause=="CHANUNAVAIL"){?>selected<?php } ?>><?php echo gettext('CHANNEL UNAVAILABLE') ?>
+							<option value='CHANUNAVAIL' <?php if ($terminatecauseid=="CHANUNAVAIL"){?>selected<?php } ?>><?php echo gettext('CHANNEL UNAVAILABLE') ?>
 							</option>
 							
-							<option value='CANCEL' <?php if ($terminatecause=="CANCEL"){?>selected<?php } ?>><?php echo gettext('CANCELED') ?>
+							<option value='CANCEL' <?php if ($terminatecauseid=="CANCEL"){?>selected<?php } ?>><?php echo gettext('CANCELED') ?>
 							</option>
 							
 						</select>
@@ -719,7 +724,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <center><strong> 
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     <a href="<?php  echo $PHP_SELF."?customer=$customer&s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} 
-					echo "&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause&choose_calltype=$choose_calltype";?>"> 
+					echo "&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype";?>"> 
                     <span class="liens"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
