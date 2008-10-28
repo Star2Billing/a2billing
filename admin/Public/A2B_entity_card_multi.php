@@ -368,6 +368,7 @@ $list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
                         <option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>
                 <?php    }
                         ?>
+		</select>
                 <select NAME="discount" size="1" class="form_input_select" >
                 <option value='0'><?php echo gettext("NO DISCOUNT");?></option>
                 <?php
