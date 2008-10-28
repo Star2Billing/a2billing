@@ -231,7 +231,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "", "", "", "" );
 
 
-$HD_Form -> FieldEditElement ("name, status,id_card , id_campaign_config,id_cid_group, startingdate, expirationdate,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description" );
+$HD_Form -> FieldEditElement ("name, status, id_campaign_config,id_cid_group, startingdate, expirationdate,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description" );
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 if ($form_action!="ask-delete") {	
