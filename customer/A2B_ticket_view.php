@@ -6,7 +6,7 @@ include ("./lib/support/classes/ticket.php");
 include ("./lib/support/classes/comment.php");
 
 
-if (! has_rights (ACX_ACCESS)){
+if (! has_rights (ACX_SUPPORT)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();

@@ -40,7 +40,6 @@ else $mycur = $currencies_list[strtoupper($customer_info [1])][2];
  $values = explode(":",$return[0]["config_value"]);
  $limits_notify = array();
  $idx =0;
- echo $mycur;
   foreach ($values as $val)
 	{ 	$val_display = $val / $mycur;
 		$val_display = round($val_display,2);	

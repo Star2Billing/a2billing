@@ -3,9 +3,8 @@ include ("lib/customer.defines.php");
 include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
 
-if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
-if (! has_rights (ACX_ACCESS)) {
+if (! has_rights (ACX_INVOICES)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();

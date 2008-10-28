@@ -15,7 +15,23 @@ error_reporting(E_ALL & ~E_NOTICE);
 define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
-define ("ACX_ACCESS",					1);
+define ("ACX_ACCESS",						1);	
+define ("ACX_PASSWORD",						2);	
+define ("ACX_SIP_IAX",						4);			// 1 << 1
+define ("ACX_CALL_HISTORY",					8);			// 1 << 2
+define ("ACX_PAYMENT_HISTORY",   			16);			// 1 << 3
+define ("ACX_VOUCHER",   					32);		// 1 << 4
+define ("ACX_INVOICES",   					64);		// 1 << 5
+define ("ACX_DID",   						128);		// 1 << 6
+define ("ACX_SPEED_DIAL",   				256);		// 1 << 7
+define ("ACX_RATECARD",   				    512);		// 1 << 8
+define ("ACX_SIMULATOR",   					1024);
+define ("ACX_CALL_BACK",   					2048);		// 1 << 9
+define ("ACX_WEB_PHONE",					4096);		// 1 << 10
+define ("ACX_CALLER_ID",					8192);		// 1 << 11
+define ("ACX_SUPPORT",						16384);		// 1 << 13
+define ("ACX_NOTIFICATION",					32768);		// 1 << 14
+define ("ACX_AUTODIALER",					65536);	
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
@@ -82,8 +98,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			die();
 		}
 		
-		$cus_rights = 1;
-		
+		$cust_default_right=1;
 		if ($_POST["pr_login"]) {
 			$pr_login = $return[0]; //$_POST["pr_login"];
 			$pr_password = $_POST["pr_password"];
@@ -91,7 +106,10 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$cus_rights";
 			$_SESSION["pr_login"]=$pr_login;
 			$_SESSION["pr_password"]=$pr_password;
-			$_SESSION["cus_rights"]=$cus_rights;
+			if(empty($return[11]))
+				$_SESSION["cus_rights"]=$cust_default_right;
+			else 
+				$_SESSION["cus_rights"]=$return[11]+$cust_default_right;
 			$_SESSION["card_id"]=$return[3];
 			$_SESSION["id_didgroup"]=$return[4];
 			$_SESSION["tariff"]=$return[5];
@@ -118,7 +136,7 @@ function login ($user, $pass)
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	
-	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, cc.activatedbyuser, ct.gmtoffset, cc.voicemail_permitted, cc.voicemail_activated FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
+	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, cc.activatedbyuser, ct.gmtoffset, cc.voicemail_permitted, cc.voicemail_activated,cc_card_group.users_perms  FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
 	$res = $DBHandle -> Execute($QUERY);
 	
 	if (!$res) {
@@ -145,3 +163,24 @@ function has_rights ($condition)
 {
 	return ($_SESSION['cus_rights'] & $condition);
 }
+
+
+$ACXPASSWORD 				= has_rights (ACX_PASSWORD);
+$ACXSIP_IAX 				= has_rights (ACX_SIP_IAX);
+$ACXCALL_HISTORY 			= has_rights (ACX_CALL_HISTORY);
+$ACXPAYMENT_HISTORY			= has_rights (ACX_PAYMENT_HISTORY);
+$ACXVOUCHER					= has_rights (ACX_VOUCHER);
+$ACXINVOICES				= has_rights (ACX_INVOICES);
+$ACXDID						= has_rights (ACX_DID);
+$ACXSPEED_DIAL 				= has_rights (ACX_SPEED_DIAL);
+$ACXRATECARD 				= has_rights (ACX_RATECARD);
+$ACXSIMULATOR 				= has_rights (ACX_SIMULATOR);
+$ACXWEB_PHONE				= has_rights (ACX_WEB_PHONE);
+$ACXCALL_BACK				= has_rights (ACX_CALL_BACK);
+$ACXCALLER_ID				= has_rights (ACX_CALLER_ID);
+$ACXSUPPORT 				= has_rights (ACX_SUPPORT);
+$ACXNOTIFICATION 			= has_rights (ACX_NOTIFICATION);
+$ACXAUTODIALER 				= has_rights (ACX_AUTODIALER);
+
+
+

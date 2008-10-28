@@ -5,7 +5,7 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_view_invoice.inc");
 include ("./lib/customer.smarty.php");
 
-if (! has_rights (ACX_ACCESS)){ 
+if (! has_rights (ACX_INVOICES)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   

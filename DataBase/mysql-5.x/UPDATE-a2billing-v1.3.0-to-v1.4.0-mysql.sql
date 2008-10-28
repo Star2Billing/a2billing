@@ -1260,5 +1260,9 @@ ALTER TABLE cc_logrefill ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
 ALTER TABLE cc_logpayment ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
 
 
+-- ------------------------------------------------------
+-- Add management of the web customer in the groups
+-- ------------------------------------------------------
+ALTER TABLE cc_card_group ADD users_perms INT NOT NULL DEFAULT '0';
 
 

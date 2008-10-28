@@ -1,7 +1,7 @@
 <?php
 
 
-getpost_ifset(array('id', 'name', 'description'));
+getpost_ifset(array('id', 'name ','users_perms', 'description'));
 
 
 $HD_Form = new FormHandler("cc_card_group","Card Group");
@@ -48,6 +48,27 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
+$right_list = array();
+$right_list["1"] = array( gettext("PASSWORD"), "2");
+$right_list["2"] = array( gettext("SIP IAX"), "4");
+$right_list["3"] = array( gettext("CALL HISTORY"), "8");
+$right_list["4"] = array( gettext("PAYMENT HISTORY"), "16");
+$right_list["5"] = array( gettext("VOUCHER"), "32");
+$right_list["6"] = array( gettext("INVOICES"), "64");
+$right_list["7"] = array( gettext("DID"), "128");
+$right_list["8"] = array( gettext("SPEED DIAL"), "256");
+$right_list["9"] = array( gettext("RATECARD"), "512");
+$right_list["10"] = array( gettext("SIMULATOR"), "1024");
+$right_list["11"] = array( gettext("CALL BACK"), "2048");
+$right_list["11"] = array( gettext("WEB PHONE"), "4096");
+$right_list["12"] = array( gettext("CALLER_ID"), "8192");
+$right_list["13"] = array( gettext("SUPPORT"), "16384");
+$right_list["14"] = array( gettext("NOTIFICATION"), "32768");
+$right_list["15"] = array( gettext("AUTODIALER"), "65536");
+
+$len_right_list = count($right_list);
+
+
 $HD_Form -> AddEditElement ( gettext("NAME"),	
 	"name",	'$value',	
 	"INPUT",
@@ -66,9 +87,17 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
 
+$HD_Form -> AddEditElement (gettext("PERMISSION USER INTERFACE"),
+		"users_perms",
+		'$value',
+		"SELECT",
+		"size=\"$len_right_list\" multiple=\"multiple\"",
+		"", "",
+		"list", "", "description, id", "", $right_list, "%1" , "",
+		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 	
 
-$HD_Form -> FieldEditElement ('name, description');
+$HD_Form -> FieldEditElement ('name, description , users_perms');
 
 
 

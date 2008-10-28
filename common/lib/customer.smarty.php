@@ -28,6 +28,28 @@ $smarty->assign("WEBUI_VERSION", WEBUI_VERSION);
 $smarty->assign("WEBUI_DATE", WEBUI_DATE);
 $smarty->assign("SIGNUPLINK", SIGNUP_LINK);
 
+$smarty->assign("ACXPASSWORD", $ACXPASSWORD);
+$smarty->assign("ACXSIP_IAX", $ACXSIP_IAX);
+$smarty->assign("ACXCALL_HISTORY", $ACXCALL_HISTORY);
+$smarty->assign("ACXPAYMENT_HISTORY", $ACXPAYMENT_HISTORY);
+$smarty->assign("ACXVOUCHER", $ACXVOUCHER);
+$smarty->assign("ACXINVOICES", $ACXINVOICES);
+$smarty->assign("ACXDID", $ACXDID);
+$smarty->assign("ACXSPEED_DIAL", $ACXSPEED_DIAL);
+$smarty->assign("ACXRATECARD", $ACXRATECARD);
+$smarty->assign("ACXSIMULATOR", $ACXSIMULATOR);
+$smarty->assign("ACXWEB_PHONE", $ACXWEB_PHONE);
+$smarty->assign("ACXCALL_BACK", $ACXCALL_BACK);
+$smarty->assign("ACXCALLER_ID", $ACXCALLER_ID);
+$smarty->assign("ACXSUPPORT", $ACXSUPPORT);
+$smarty->assign("ACXNOTIFICATION", $ACXNOTIFICATION);
+$smarty->assign("ACXAUTODIALER", $ACXAUTODIALER);
+
+
+
+
+
+
 if($exporttype != "" && $exporttype != "html")
 {
 	$smarty->assign("EXPORT", 1);

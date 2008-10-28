@@ -4,13 +4,12 @@ include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
 
 
-if (! has_rights (ACX_ACCESS)) { 
+if (! has_rights (ACX_CALL_HISTORY)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
 }
 
-if (!$A2B->config["webcustomerui"]['cdr']) exit();
 
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 

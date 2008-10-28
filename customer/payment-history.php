@@ -6,7 +6,7 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_payment.inc");
 
 
-if (! has_rights (ACX_ACCESS)){
+if (! has_rights (ACX_PAYMENT_HISTORY)){
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();

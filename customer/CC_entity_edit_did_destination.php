@@ -7,14 +7,13 @@ include ("lib/customer.smarty.php");
 
 
 
-if (! has_rights (ACX_ACCESS)){ 
+if (! has_rights (ACX_DID)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
 }
 
 
-if (!$A2B->config["webcustomerui"]['did']) exit();
 
 $FG_DEBUG = 0;
 

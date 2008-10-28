@@ -36,23 +36,23 @@
 		<div>
 		<ul><li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li></ul>
 
-		{if $A2Bconfig.webcustomerui.sipiaxinfo==1 }
+		{if $ACXSIP_IAX>0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_sipiax_info.php?section=1"><strong>{php} echo gettext("SIP/IAX INFO");{/php}</strong></a></li></ul>
 		{/if}
 
-		{if $A2Bconfig.webcustomerui.cdr==1 }
+		{if $ACXCALL_HISTORY >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="call-history.php?section=2"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li></ul>
 		{/if}
 		
-		{if $A2Bconfig.webcustomerui.payment==1 }
+		{if $ACXPAYMENT_HISTORY >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="payment-history.php?section=3"><strong>{php} echo gettext("PAYMENT HISTORY");{/php}</strong></a></li></ul>
 		{/if}
 		
 
-		{if $A2Bconfig.webcustomerui.voucher==1 }
+		{if $ACXVOUCHER >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=4"><strong>{php} echo gettext("VOUCHER");{/php}</strong></a></li></ul>
 		{/if}
@@ -60,7 +60,7 @@
 		<li><a href="#" target="_self"></a></li>
 		</div>
 
-		{if $A2Bconfig.webcustomerui.invoice==1 }
+		{if $ACXINVOICES >0 }
 		<div class="toggle_menu">
 		<li>
 		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
@@ -88,56 +88,55 @@
 		{/if}
 
 
-		{if $A2Bconfig.webcustomerui.did==1 }
+		{if $ACXDID >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_did.php?form_action=list&section=6"><strong>{php} echo gettext("DID");{/php}</strong></a></li></ul>
 		{/if}
 
-		{if $A2Bconfig.webcustomerui.speeddial==1 }
+		{if $ACXSPEED_DIAL >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=7"><strong>{php} echo gettext("SPEED DIAL");{/php}</strong></a></li></ul>
 		{/if}
 
-		{if $A2Bconfig.webcustomerui.ratecard==1 }
+		{if $ACXRATECARD >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_ratecard.php?form_action=list&section=8"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li></ul>
 		{/if}
 
-		{if $A2Bconfig.webcustomerui.simulator==1 }
+		{if $ACXSIMULATOR >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="simulator.php?section=9"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li></ul>
 		{/if}
 
-		{if $A2Bconfig.webcustomerui.callback==1 }
+		{if $ACXCALL_BACK==1 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="callback.php?section=10"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li></ul>
 		{/if}
-
-		{if $A2Bconfig.webcustomerui.webphone==1 }
+		{if $ACXWEB_PHONE >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="webphone.php?section=11"><strong>{php} echo gettext("WEB-PHONE");{/php}</strong></a></li></ul>
 		{/if}
 
-		{if $A2Bconfig.webcustomerui.callerid==1 }
+		{if $ACXCALLER_ID >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=12"><strong>{php} echo gettext("ADD CALLER ID");{/php}</strong></a></li></ul>
 		{/if}
 
-		{if $A2Bconfig.webcustomerui.password==1 }
+		{if $ACXPASSWORD>0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li></ul>
 		{/if}
-		{if $A2Bconfig.webcustomerui.support==1 }
+		{if $ACXSUPPORT >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_support.php"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li></ul>
 		{/if}
-		{if $A2Bconfig.webcustomerui.notification ==1 }
+		{if $ACXNOTIFICATION >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="A2B_notification.php?form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></ul>
 		
 		{/if}
 		
-		{if $A2Bconfig.webcustomerui.predictivedialer==1 }
+		{if $ACXAUTODIALER>0 }
 		<li><a href="#" target="_self"></a></li>
 		<div class="toggle_menu">
 		<li>
