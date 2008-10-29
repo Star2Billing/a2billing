@@ -57,7 +57,7 @@ $QUERY = 'SELECT count(*) FROM cc_card';
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
-$nbpagemax = (intval($nb_card/$groupcard));
+$nbpagemax = (ceil($nb_card/$groupcard));
 
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
@@ -70,7 +70,7 @@ if (!($nb_card>0)){
 if ($verbose_level>=1) echo ("[Invoice Billing Service analyze cards on which to apply service]");
 write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__).' line:'.__LINE__."[Invoice Billing Service analyze cards on which to apply service]");
 
-for ($page = 0; $page <= $nbpagemax; $page++) 
+for ($page = 0; $page < $nbpagemax; $page++) 
 {
 	if ($verbose_level >= 1)  echo "$page <= $nbpagemax \n";
 	$Query_Customers = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, vat, invoiceday FROM cc_card ";

@@ -73,7 +73,7 @@ $QUERY = "SELECT count(*) FROM cc_card WHERE activated='1' AND credit < $min_cre
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
-$nbpagemax=(intval($nb_card/$groupcard));
+$nbpagemax=(ceil($nb_card/$groupcard));
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card>0)){
@@ -88,7 +88,7 @@ write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[Num
 
 
 // BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE 
-for ($page = 0; $page <= $nbpagemax; $page++) {
+for ($page = 0; $page < $nbpagemax; $page++) {
 	
 	$sql = "SELECT id, credit, username, email FROM cc_card WHERE activated='1' AND credit < $min_credit ORDER BY id  ";
 	if ($A2B->config["database"]['dbtype'] == "postgres"){

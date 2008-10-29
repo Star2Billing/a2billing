@@ -125,7 +125,7 @@ foreach ($result as $myalarm) {
 		if ($verbose_level>=1) echo "\n===> QUERY = $QUERY\n";
 		$calls = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY,1);
 		$nb_card = $calls[0][0];
-		$nbpagemax=(intval($nb_card/$groupcalls));
+		$nbpagemax=(ceil($nb_card/$groupcalls));
 		if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 		
 		if (!($nb_card>0)){
@@ -140,7 +140,7 @@ foreach ($result as $myalarm) {
 		$max_fail=0;
 		$max=0;
 		$update=array();
-		for ($page = 0; $page <= $nbpagemax; $page++)
+		for ($page = 0; $page < $nbpagemax; $page++)
 		{
 			// REST AFTER $groupcalls CARD HANDLED
 			if ($page > 0) sleep(15);

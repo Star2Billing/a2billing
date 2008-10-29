@@ -53,7 +53,7 @@ $QUERY = 'SELECT count(*) FROM cc_card WHERE autorefill=1 AND initialbalance>0 A
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
-$nbpagemax=(intval($nb_card/$groupcard));
+$nbpagemax=(ceil($nb_card/$groupcard));
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card>0)){
@@ -81,7 +81,7 @@ $totalcredit = 0;
 write_log(LOGFILE_CRONT_AUTOREFILL, basename(__FILE__).' line:'.__LINE__."[Analyze cards to apply Auto Refill]");
 
 // BROWSE THROUGH THE CARD TO APPLY THE AUTO REFILL
-for ($page = 0; $page <= $nbpagemax; $page++) {
+for ($page = 0; $page < $nbpagemax; $page++) {
 	
 	$sql = "SELECT id, username, credit, initialbalance, initialbalance-credit as refillof FROM cc_card WHERE autorefill=1 AND initialbalance>0 AND credit<initialbalance ORDER BY id ";
 	if ($A2B->config["database"]['dbtype'] == "postgres"){

@@ -64,7 +64,7 @@ $QUERY = 'SELECT count(*) FROM cc_card_subscription JOIN cc_subscription_fee ON 
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
-$nbpagemax=(intval($nb_card/$groupcard));
+$nbpagemax=(ceil($nb_card/$groupcard));
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card>0)){
@@ -110,7 +110,7 @@ foreach ($result as $myservice) {
 	
 	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Subscription Fee Service No".$myservice_id."  analyze cards on which to apply service ]");
 	// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
-	for ($page = 0; $page <= $nbpagemax; $page++) {
+	for ($page = 0; $page < $nbpagemax; $page++) {
 		
 		$sql = "SELECT cc_card.id, credit, currency, username, email, cc_card_subscription.description FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card ".
 			   "WHERE id_subscription_fee='$myservice_id' AND startdate < NOW() AND (stopdate = '0000-00-00 00:00:00' OR stopdate > NOW()) ORDER BY id ";

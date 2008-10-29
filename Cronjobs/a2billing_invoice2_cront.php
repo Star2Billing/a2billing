@@ -69,7 +69,7 @@ $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 
 $nb_card = $result[0][0];
 
-$nbpagemax = (intval($nb_card/$groupcard));
+$nbpagemax = (ceil($nb_card/$groupcard));
 
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
@@ -80,7 +80,7 @@ if (!($nb_card>0)){
 
 $invoice = new A2B_Invoice($A2B -> DBHandle, $verbose_level);
 
-for ($page = 0; $page <= $nbpagemax; $page++) 
+for ($page = 0; $page < $nbpagemax; $page++) 
 {
 	if ($verbose_level >= 1)  echo "$page <= $nbpagemax \n";
 	

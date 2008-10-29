@@ -89,7 +89,7 @@ if ($verbose_level>=1) {
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
-$nbpagemax=(intval($nb_card/$groupcard));
+$nbpagemax=(ceil($nb_card/$groupcard));
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card>0)){
@@ -107,7 +107,7 @@ $currencies_list = get_currencies($A2B -> DBHandle);
 
 
 // BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE
-for ($page = 0; $page <= $nbpagemax; $page++) {
+for ($page = 0; $page < $nbpagemax; $page++) {
 	$sql = "SELECT id, credit, username,useralias,uipass,lastname,firstname,loginkey,credit,currency , email_notification,credit_notification FROM cc_card WHERE notify_email='1' AND credit < credit_notification AND ".$Delay_Clause." ORDER BY id  ";
 	if ($A2B->config["database"]['dbtype'] == "postgres"){
 		$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
