@@ -370,13 +370,13 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 $payment_table = new Table('cc_logpayment','*');
 $payment_clause = "card_id = ".$id;
 $payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 'date', 'DESC', NULL, NULL, 10, 0);
-if(sizeof($payment_result)>0) {
+if(sizeof($payment_result)>0 && $payment_result[0]!=null) {
 ?>
 <table class="toppage_maintable">
 	<tr>
 		<td height="20" align="center"> 
 			<font class="toppage_maintable_text">						  
-			  <?php echo gettext("10 Last Customer's Payment"); ?>		  <br/>
+			  <?php echo sizeof($payment_result)." ".gettext("Last Customer's Payment"); ?>		  <br/>
 			</font>
 		</td>
 	</tr>
@@ -444,13 +444,13 @@ $refill_table = new Table('cc_logrefill','*');
 $refill_clause = "card_id = ".$id;
 $refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 'date', 'DESC', NULL, NULL, 10, 0);
 
-if(sizeof($refill_result)>0) {
+if(sizeof($refill_result)>0 && $refill_result[0]!=null) {
 ?>
 <table class="toppage_maintable">
 	<tr>
 		<td height="20" align="center"> 
 			<font class="toppage_maintable_text">						  
-			 <?php echo gettext("10 Last Customer's Refill"); ?>			  <br/>
+			 <?php echo sizeof($refill_result)." ".gettext("Last Customer's Refill"); ?>			  <br/>
 			</font>
 		</td>
 	</tr>
@@ -505,4 +505,104 @@ if(sizeof($refill_result)>0) {
 <?php 
 }
 ?>
+
+
+
+
+<?php
+
+$call_table = new Table('cc_call,cc_prefix','*');
+$call_clause = "card_id = ".$id." AND id_cc_prefix = cc_prefix.id";
+$call_result = $call_table -> Get_list($DBHandle, $call_clause, 'starttime', 'DESC', NULL, NULL, 10, 0);
+if(sizeof($call_result && $payment_result[0]!=null)>0) {
+?>
+<table class="toppage_maintable">
+	<tr>
+		<td height="20" align="center"> 
+			<font class="toppage_maintable_text">						  
+			 <?php echo sizeof($call_result)." ".gettext("Last Customer's Call"); ?>			  <br/>
+			</font>
+		</td>
+	</tr>
+</table>
+
+<table width="100%"  cellspacing="2" cellpadding="2" border="0">
+
+	<tr class="form_head">
+		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		 <?php echo gettext("CALL DATE"); ?>
+		</td>
+		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		 <?php echo gettext("CALLED NUMBER"); ?> 
+		</td>
+		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		 <?php echo gettext("DESTINATION"); ?>
+		</td>
+		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
+		 <?php echo gettext("DURATION"); ?>
+		</td>
+		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		 <?php echo gettext("TERMINATE CAUSE"); ?>
+		</td>
+		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
+		 <?php echo gettext("BUY"); ?>
+		</td>
+		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
+		 <?php echo gettext("SELL"); ?>
+		</td>
+		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
+		 <?php echo gettext("LINK TO THE RATE"); ?>
+		</td>
+		
+	</tr>
+ 
+	<?php 
+		$dialstatus_list = Constants::getDialStatusList ();
+		$i=0;
+		foreach ($call_result as $call) {
+			if($i%2==0) $bg="#fcfbfb";
+			else  $bg="#f2f2ee";
+	?>
+			<tr bgcolor="<?php echo $bg; ?>"  >
+				<td class="tableBody" align="center">
+				  <?php echo $call['starttime']; ?>
+				</td>
+			
+				<td class="tableBody" align="center">
+				  <?php echo $call['calledstation']; ?>
+				</td>
+			
+				<td class="tableBody"  align="center">
+				  <?php echo $call['destination']; ?>
+				</td>
+				<td class="tableBody"  align="center">
+				  <?php echo display_minute($call['sessiontime']); ?>
+				</td>
+				<td class="tableBody"  align="center">
+				  <?php echo $dialstatus_list[$call['terminatecauseid']][0]; ?>
+				</td>
+				<td class="tableBody"  align="center">
+				  <?php echo display_2bill($call['buycost']); ?>
+				</td>
+				<td class="tableBody"  align="center">
+				  <?php echo display_2bill($call['sessionbill']); ?>
+				</td>
+				<td class="tableBody"  align="center">
+					<?php if(!empty($call['id_ratecard'])){ ?>
+					<a href="A2B_entity_def_ratecard.php?form_action=ask-edit&id=<?php echo $call['id_ratecard']?>"> <img src="<?php echo Images_Path."/link.png"?>" border="0" title="<?php echo gettext("Link to the used rate")?>" alt="<?php echo  gettext("Link to the used rate")?>"></a>
+					 <?php } ?>
+				</td>
+				
+			</tr>
+		<?php 
+		$i++;	
+		}
+		?>
+</table>
+<?php 
+}
+?>
+
+
+
 
