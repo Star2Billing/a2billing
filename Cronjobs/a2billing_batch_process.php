@@ -77,7 +77,7 @@ $QUERY = 'SELECT count(*) FROM cc_card WHERE  firstusedate IS NOT NULL AND first
 if ($verbose_level>=1) echo $QUERY;
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
-$nbpagemax=(intval($nb_card/$groupcard));
+$nbpagemax=(ceil($nb_card/$groupcard));
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card>0)){
@@ -130,7 +130,7 @@ foreach ($result as $myservice) {
 
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Service analyze cards on which to apply service ]");
 	// BROWSE THROUGH THE CARD TO APPLY THE SERVICE 
-	for ($page = 0; $page <= $nbpagemax; $page++) {
+	for ($page = 0; $page < $nbpagemax; $page++) {
 		
 		$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = $myservice[0] AND firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1  ORDER BY id  ";
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
