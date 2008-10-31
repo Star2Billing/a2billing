@@ -50,11 +50,8 @@ if (!isset ($current_page) || ($current_page == "")){
 $FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
-
-if ($_SESSION["is_admin"]==0){
- 	$FG_TABLE_NAME.=", cc_card t2";
-}
+$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk , cc_card t2, cc_prefix t4";
+ 
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_HEAD_COLOR = "#D1D9E7";
@@ -100,9 +97,9 @@ $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
+$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t4.destination, t1.sessiontime  ';
 if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
-	$FG_COL_QUERY.=', t1.username';
+	$FG_COL_QUERY.=', t2.username';
 }
 $FG_COL_QUERY.=', t1.sessionbill';
 
@@ -176,13 +173,21 @@ if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
 
 if (isset($customer)  &&  ($customer>0)){
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="t1.username='$customer'";
+	$FG_TABLE_CLAUSE.="t2.username='$customer'";
 }else{
 	if (isset($entercustomer)  &&  ($entercustomer>0)){
 		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
+		$FG_TABLE_CLAUSE.="t2.username='$entercustomer'";
 	}
 }
+
+
+if (strlen($FG_TABLE_CLAUSE)>0)
+{
+	$FG_TABLE_CLAUSE.=" AND ";
+}
+$FG_TABLE_CLAUSE.=" id_cc_prefix = t4.id AND card_id = t2.id ";
+
 if ($_SESSION["is_admin"] == 1)
 {
 	if (isset($enterprovider) && $enterprovider > 0) {

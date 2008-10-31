@@ -75,7 +75,7 @@ if($payment_status != "")
 $FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_call t1";
+$FG_TABLE_NAME="cc_call t1 , cc_prefix t2, cc_card t3";
 
 $DBHandle  = DbConnect();
 
@@ -100,9 +100,9 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
 
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
+$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t2.destination, t1.sessiontime  ';
 if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
-	$FG_COL_QUERY.=', t1.username';
+	$FG_COL_QUERY.=', t3.username';
 }
 $FG_COL_QUERY.=', t1.sessionbill';
 if (LINK_AUDIO_FILE == 'YES') 
@@ -156,13 +156,20 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 
 if (isset($customer)  &&  ($customer>0)){
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="t1.username='$customer'";
+	$FG_TABLE_CLAUSE.="t3.username='$customer'";
 }else{
 	if (isset($entercustomer)  &&  ($entercustomer>0)){
 		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
+		$FG_TABLE_CLAUSE.="t3.username='$entercustomer'";
 	}
 }
+
+if (strlen($FG_TABLE_CLAUSE)>0)
+{
+	$FG_TABLE_CLAUSE.=" AND ";
+}
+$FG_TABLE_CLAUSE.=" id_cc_prefix = t2.id AND card_id = t3.id ";
+
 if (strlen($FG_TABLE_CLAUSE)>0)
 {
 	$FG_TABLE_CLAUSE.=" AND ";
