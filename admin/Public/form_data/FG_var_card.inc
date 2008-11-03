@@ -604,7 +604,7 @@ $HD_Form -> AddEditElement (gettext("VAT"),
 			   "size=10 maxlength=6",
 			   "12",
 			   gettext("Insert the number for the VAT"),
-			   "" , "", "",	"", "", "", "NO-NULL" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
+			   "" , "", "",	"", "", "", "" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
 
 
 $HD_Form -> AddEditElement (gettext("LASTNAME"),
