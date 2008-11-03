@@ -254,6 +254,7 @@
 					<li><a href="call-count-reporting.php?nodisplay=1&posted=1&section=6">{php} echo gettext("Report");{/php}</a></li>
 					<li><a href="A2B_trunk_report.php?section=6">{php} echo gettext("Trunk Report");{/php}</a></li>
 					<li><a href="call-dnid.php?nodisplay=1&posted=1&section=6">{php} echo gettext("DNID Report");{/php}</a></li>
+					<li><a href="call-pnl-report.php?section=6">{php} echo gettext("PNL Report");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
