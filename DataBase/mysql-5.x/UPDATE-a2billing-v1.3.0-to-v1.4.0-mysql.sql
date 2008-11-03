@@ -1266,3 +1266,15 @@ ALTER TABLE cc_logpayment ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
 ALTER TABLE cc_card_group ADD users_perms INT NOT NULL DEFAULT '0';
 
 
+
+-- ------------------------------------------------------
+-- Update to use VarChar instead of Char
+-- ------------------------------------------------------
+ALTER TABLE cc_call CHANGE sessionid sessionid VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_call CHANGE uniqueid uniqueid VARCHAR( 30 ) NOT NULL ;
+-- ...
+-- ...
+-- ...
+
+
+
