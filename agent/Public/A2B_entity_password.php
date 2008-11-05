@@ -12,7 +12,7 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
-//if (!$A2B->config["webcustomerui"]['password']) exit();
+
 
 /***********************************************************************************/
 

@@ -1261,9 +1261,10 @@ ALTER TABLE cc_logpayment ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
 
 
 -- ------------------------------------------------------
--- Add management of the web customer in the groups
+-- Add management of the web customer in groups
 -- ------------------------------------------------------
 ALTER TABLE cc_card_group ADD users_perms INT NOT NULL DEFAULT '0';
+
 
 
 -- ------------------------------------------------------
@@ -1287,3 +1288,17 @@ ALTER TABLE cc_call CHANGE uniqueid uniqueid VARCHAR( 30 ) NOT NULL ;
 
 
 
+-- ------------------------------------------------------
+-- Add restricted rules on the call system for customers 
+-- ------------------------------------------------------
+
+CREATE TABLE cc_restricted_phonenumber (
+id BIGINT NOT NULL AUTO_INCREMENT ,
+number VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+id_card BIGINT NOT NULL,
+PRIMARY KEY (id)
+) ENGINE = MYISAM;
+
+
+
+ALTER TABLE cc_card ADD restriction TINYINT NOT NULL DEFAULT '0';

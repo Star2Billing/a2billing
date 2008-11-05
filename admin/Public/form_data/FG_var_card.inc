@@ -7,7 +7,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
 'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
 'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_agent',
-'company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','discount' ));
+'company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','discount','restriction' ));
 
 $HD_Form = new FormHandler("cc_card","Card");
 
@@ -78,13 +78,23 @@ foreach($currencies_list as $key => $cur_value) {
 	$currency_list_key[$key][0] = $key;
 }
 
-
+$restriction_list = Constants::getRestrictionList();
 $cardstatus_list = Constants::getCardStatus_List();
 $cardstatus_list_r = Constants::getCardStatus_Revert_List();
 $cardstatus_list_acronym = Constants::getCardStatus_Acronym_List();
 $typepaid_list = Constants::getPaidTypeList();
 
 $expire_list = Constants::getCardExpire_List();
+
+$restriction = 0;
+if ($form_action=="ask-edit") {
+	$DBHandle  = DbConnect();
+	$instance_table = new Table("cc_card", "restriction");
+	$clause = "id = $id";
+	$list =$instance_table -> Get_list($DBHandle, $clause, 0);;
+	$restriction= $list[0][0];
+}
+
 
 $template_invoice_list = array();
 $no = 0;
@@ -605,7 +615,7 @@ $HD_Form -> AddEditElement (gettext("VAT"),
 			   "12",
 			   gettext("Insert the number for the VAT"),
 			   "" , "", "",	"", "", "", "" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
-
+			   
 
 $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   "lastname",
@@ -854,8 +864,31 @@ $HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
 				"",
 				gettext("Insert the target traffic description"),
 				"" , "", "", "", "" , "", "", "");
-			   
 
+				
+$HD_Form -> AddEditElement (gettext("RESTRICTION"),
+			   "restriction",
+			   "0",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $restriction_list, "%1", "", "" );
+				
+$HD_Form -> AddEditElement (gettext("RESTRICTED NUMBERS"),
+			   "restrictednumber",
+			   '$value',
+			   "HAS_MANY",
+			   "",
+			   "",
+			   gettext("Insert numbers that restrict the customer"),
+			   "",
+			   "",
+			   "",
+			   "", "", "", "", "", "cc_restricted_phonenumber:number:number, id_card:id_card = %id::id_card:::::::0");
+
+
+			   
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "callerid",
 			   '$value',
@@ -867,6 +900,8 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "",
 			   "",
 			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card:::::::0");
+				
+			   
 
 
 
@@ -893,7 +928,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group,  discount,  credit, language, tariff, id_didgroup, id_agent, id_campaign, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target' );
+$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group,  discount,  credit, language, tariff, id_didgroup, id_agent, id_campaign, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target,restriction' );
 
 
 if(!isset($myusername)) $myusername='';

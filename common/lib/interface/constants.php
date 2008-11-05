@@ -11,6 +11,14 @@ class Constants
 		$language_list["3"] = array( gettext("RUSSIAN"), "ru");
 		return $language_list;
 	}
+	
+	public static function getRestrictionList(){
+		$language_list = array();
+		$language_list["0"] = array( gettext("NONE RESTRICTION USED"), "0");
+		$language_list["1"] = array( gettext("CAN'T CALL RESTRICTED NUMBERS"), "1");
+		$language_list["2"] = array( gettext("CAN ONLY CALL RESTRICTED NUMBERS"),  "2");
+		return $language_list;
+	}
 
 	public static function getLanguagesRevertList(){
 		$language_list_r = array();
