@@ -1256,7 +1256,7 @@ VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enable
 ( 'Path for the cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the cache processing to save the call in database. The cache system is based on Sqlite.', '0', 'A', NULL);
 
 
-ALTER TABLE cc_logrefill ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_logrefill ADD COLUMN refill_type TINYINT NOT NULL DEFAULT 0;
 ALTER TABLE cc_logpayment ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
 
 
@@ -1302,3 +1302,5 @@ PRIMARY KEY (id)
 
 
 ALTER TABLE cc_card ADD restriction TINYINT NOT NULL DEFAULT '0';
+
+
