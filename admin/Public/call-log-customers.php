@@ -80,7 +80,7 @@ $FG_TABLE_COL [] = array (gettext ( "Calldate" ), "starttime", "15%", "center", 
 $FG_TABLE_COL [] = array (gettext ( "Source" ), "src", "7%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array (gettext ( "Dnid" ), "dnid", "7%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array (gettext ( "CalledNumber" ), "calledstation", "10%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix" );
-$FG_TABLE_COL [] = array (gettext ( "Destination" ), "id_cc_prefix", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1" );
+$FG_TABLE_COL [] = array (gettext ( "Destination" ), "id_ratecard","10%", "center", "SORT", "15", "lie", "cc_ratecard", "destination", "id='%id'", "%1" );
 $FG_TABLE_COL [] = array (gettext ( "Buy Rate" ), "buyrate", "5%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Sell Rate" ), "rateinitial", "5%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Duration" ), "sessiontime", "6%", "center", "SORT", "30", "", "", "", "", "", "display_minute" );
@@ -98,7 +98,7 @@ if (LINK_AUDIO_FILE) {
 }
 
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.id_cc_prefix, t4.buyrate ,t4.rateinitial ,t1.sessiontime, t1.card_id, t3.trunkcode, t1.terminatecauseid, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
+$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.id_ratecard, t4.buyrate ,t4.rateinitial ,t1.sessiontime, t1.card_id, t3.trunkcode, t1.terminatecauseid, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
 }
@@ -276,8 +276,9 @@ if (! is_null ( $order ) && ($order != '') && ! is_null ( $sens ) && ($sens != '
 }
 
 /************************/
-$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall, sum(t1.buycost) AS buy FROM $FG_TABLE_NAME WHERE " . $FG_TABLE_CLAUSE . " GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate) 
-
+$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall,
+            sum(t1.buycost) AS buy, sum(case when t1.sessiontime>0 then 1 else 0 end) as success_calls
+        	FROM $FG_TABLE_NAME WHERE " . $FG_TABLE_CLAUSE . " GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
 
 if (! $nodisplay) {
 	$res = $DBHandle->Execute ( $QUERY );
@@ -1074,178 +1075,146 @@ echo $FG_HTML_TABLE_WIDTH?>" border="0"
 						style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
 				  
                   <?php
-																		if (is_array ( $list ) && count ( $list ) > 0) {
-																			
-																			for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) {
-																				?>				
-				  
-					
-                  <TD width="<?php
-																				echo $FG_TABLE_COL [$i] [2]?>"
-						align=middle class="tableBody"
-						style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px">
-					<center><strong> 
-                    <?php
-																				if (strtoupper ( $FG_TABLE_COL [$i] [4] ) == "SORT") {
-																					?>
-                    <a
-						href="<?php
-																					echo $PHP_SELF . "?customer=$customer&s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=" . $FG_TABLE_COL [$i] [1] . "&sens=";
-																					if ($sens == "ASC") {
-																						echo "DESC";
-																					} else {
-																						echo "ASC";
-																					}
-																					echo "&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype";
-																					?>">
-					<span class="liens"><?php
-																				}
-																				?>
-                    <?php
-																				echo $FG_TABLE_COL [$i] [0]?> 
-                    <?php
-																				if ($order == $FG_TABLE_COL [$i] [1] && $sens == "ASC") {
-																					?>
-                    &nbsp;<img
-						src="<?php
-																					echo Images_Path;
-																					?>/icon_up_12x12.GIF" width="12"
-						height="12" border="0"> 
-                    <?php
-																				} elseif ($order == $FG_TABLE_COL [$i] [1] && $sens == "DESC") {
-																					?>
-                    &nbsp;<img
-						src="<?php
-																					echo Images_Path;
-																					?>/icon_down_12x12.GIF" width="12"
-						height="12" border="0"> 
-                    <?php
-																				}
-																				?>
-                    <?php
-																				if (strtoupper ( $FG_TABLE_COL [$i] [4] ) == "SORT") {
-																					?>
-                    </span></a> 
-                    <?php
-																				}
-																				?>
-                    </strong></center>
-					</TD>
-				   <?php
-																			}
-																			?>		
-				   <?php
-																			if ($FG_DELETION || $FG_EDITION) {
-																				?>
-				   
-                  
-				   <?php
-																			}
-																			?>		
-                </TR>
-				<TR>
-					<TD bgColor=#e1e1e1 colSpan=<?php
-																			echo $FG_TOTAL_TABLE_COL?>
-						height=1><IMG height=1 src="<?php
-																			echo Images_Path;
-																			?>/clear.gif"
-						width=1></TD>
-				</TR>
-				<?php
-																			
-																			$ligne_number = 0;
-																			//print_r($list);
-																			foreach ( $list as $recordset ) {
-																				$ligne_number ++;
-																				?>
-				
-               		 <TR
-					bgcolor="<?php
-																				echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"
-					onMouseOver="bgColor='#C4FFD7'"
-					onMouseOut="bgColor='<?php
-																				echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
-					<TD vAlign=top align="<?php
-																				echo $FG_TABLE_COL [$i] [3]?>"
-						class=tableBody><?php
-																				echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . ".&nbsp;";
-																				?></TD>
-							 
-				  		<?php
-																				for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) {
-																					?>
-						
-						  
-						<?php
-																					if ($FG_TABLE_COL [$i] [6] == "lie") {
-																						
-																						$instance_sub_table = new Table ( $FG_TABLE_COL [$i] [7], $FG_TABLE_COL [$i] [8] );
-																						$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
-																						$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null );
-																						
-																						$field_list_sun = split ( ',', $FG_TABLE_COL [$i] [8] );
-																						$record_display = $FG_TABLE_COL [$i] [10];
-																						
-																						for($l = 1; $l <= count ( $field_list_sun ); $l ++) {
-																							$record_display = str_replace ( "%$l", $select_list [0] [$l - 1], $record_display );
-																						}
-																					
-																					} elseif ($FG_TABLE_COL [$i] [6] == "list") {
-																						$select_list = $FG_TABLE_COL [$i] [7];
-																						$record_display = $select_list [$recordset [$i]] [0];
-																					
-																					} else {
-																						$record_display = $recordset [$i];
-																					}
-																					
-																					if (is_numeric ( $FG_TABLE_COL [$i] [5] ) && (strlen ( $record_display ) > $FG_TABLE_COL [$i] [5])) {
-																						$record_display = substr ( $record_display, 0, $FG_TABLE_COL [$i] [5] - 3 ) . "";
-																					
-																					}
-																					
-																					?>
-                 		 <TD vAlign=top
-						align="<?php
-																					echo $FG_TABLE_COL [$i] [3]?>" class=tableBody><?php
-																					if (isset ( $FG_TABLE_COL [$i] [11] ) && strlen ( $FG_TABLE_COL [$i] [11] ) > 1) {
-																						call_user_func ( $FG_TABLE_COL [$i] [11], $record_display );
-																					} else {
-																						echo stripslashes ( $record_display );
-																					}
-																					?></TD>
-				 		 <?php
-																				}
-																				?>
-                  
-					</TR>
-				<?php
-																			} //foreach ($list as $recordset)
-																			if ($ligne_number < $FG_LIMITE_DISPLAY)
-																				$ligne_number_end = $ligne_number + 2;
-																			while ( $ligne_number < $ligne_number_end ) {
-																				$ligne_number ++;
-																				?>
-					<TR
-					bgcolor="<?php
-																				echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"> 
-				  		<?php
-																				for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) {
-																					?>
-                 		 <TD vAlign=top class=tableBody>&nbsp;</TD>
-				 		 <?php
-																				}
-																				?>
-                 		 <TD align="center" vAlign=top class=tableBodyRight>&nbsp;</TD>
-				</TR>
-									
-				<?php
-																			} //END_WHILE
-																		
+						if (is_array ( $list ) && count ( $list ) > 0) {
+							
+							for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) {
+								?>
+					<TD width="<?php echo $FG_TABLE_COL [$i] [2]?>" align=middle class="tableBody" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px">
+						<center><strong> 
+						<?php if (strtoupper ( $FG_TABLE_COL [$i] [4] ) == "SORT") { ?>
+						<a href="<?php
+								echo $PHP_SELF . "?customer=$customer&s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=" . $FG_TABLE_COL [$i] [1] . "&sens=";
+								if ($sens == "ASC") {
+									echo "DESC";
+								} else {
+									echo "ASC";
+								}
+								echo "&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype";
+									?>">
+<span class="liens"><?php
+								}
+								?>
+<?php echo $FG_TABLE_COL [$i] [0]?> 
+<?php if ($order == $FG_TABLE_COL [$i] [1] && $sens == "ASC") { ?>
+&nbsp;<img src="<?php echo Images_Path; ?>/icon_up_12x12.GIF" width="12"
+height="12" border="0"> 
+<?php
+ } elseif ($order == $FG_TABLE_COL [$i] [1] && $sens == "DESC") {
+?>
+&nbsp;<img src="<?php echo Images_Path; ?>/icon_down_12x12.GIF" width="12" height="12" border="0"> 
+<?php } ?>
+<?php if (strtoupper ( $FG_TABLE_COL [$i] [4] ) == "SORT") { ?>
+</span></a> 
+<?php } ?>
+</strong></center>
+</TD>
+   <?php } ?>		
+   <?php if ($FG_DELETION || $FG_EDITION) { ?>
+   <?php } ?>		
+</TR>
+<TR>
+<TD bgColor=#e1e1e1 colSpan=<?php
+							echo $FG_TOTAL_TABLE_COL?>
+height=1><IMG height=1 src="<?php
+							echo Images_Path;
+							?>/clear.gif"
+width=1></TD>
+</TR>
+<?php
+															
+															$ligne_number = 0;
+															//print_r($list);
+							foreach ( $list as $recordset ) {
+								$ligne_number ++;
+								?>
 
-																		} else {
-																			echo gettext ( "No data found !!!" );
-																		} //end_if
-																		?>
+ <TR
+bgcolor="<?php
+								echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"
+onMouseOver="bgColor='#C4FFD7'"
+onMouseOut="bgColor='<?php
+								echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
+<TD vAlign=top align="<?php
+								echo $FG_TABLE_COL [$i] [3]?>"
+class=tableBody><?php
+								echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . ".&nbsp;";
+								?></TD>
+ 
+<?php
+														for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) {
+															?>
+
+  
+<?php
+															if ($FG_TABLE_COL [$i] [6] == "lie") {
+										
+										$instance_sub_table = new Table ( $FG_TABLE_COL [$i] [7], $FG_TABLE_COL [$i] [8] );
+										$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
+										$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null );
+										
+										$field_list_sun = split ( ',', $FG_TABLE_COL [$i] [8] );
+										$record_display = $FG_TABLE_COL [$i] [10];
+										
+										for($l = 1; $l <= count ( $field_list_sun ); $l ++) {
+											$record_display = str_replace ( "%$l", $select_list [0] [$l - 1], $record_display );
+										}
+									
+									} elseif ($FG_TABLE_COL [$i] [6] == "list") {
+										$select_list = $FG_TABLE_COL [$i] [7];
+										$record_display = $select_list [$recordset [$i]] [0];
+									
+									} else {
+										$record_display = $recordset [$i];
+									}
+									
+									if (is_numeric ( $FG_TABLE_COL [$i] [5] ) && (strlen ( $record_display ) > $FG_TABLE_COL [$i] [5])) {
+										$record_display = substr ( $record_display, 0, $FG_TABLE_COL [$i] [5] - 3 ) . "";
+									
+									}
+									
+									?>
+ <TD vAlign=top
+align="<?php
+									echo $FG_TABLE_COL [$i] [3]?>" class=tableBody><?php
+									if (isset ( $FG_TABLE_COL [$i] [11] ) && strlen ( $FG_TABLE_COL [$i] [11] ) > 1) {
+										call_user_func ( $FG_TABLE_COL [$i] [11], $record_display );
+									} else {
+										echo stripslashes ( $record_display );
+									}
+									?></TD>
+ <?php
+								}
+								?>
+  
+	</TR>
+<?php
+															} //foreach ($list as $recordset)
+							if ($ligne_number < $FG_LIMITE_DISPLAY)
+								$ligne_number_end = $ligne_number + 2;
+							while ( $ligne_number < $ligne_number_end ) {
+								$ligne_number ++;
+								?>
+<TR
+bgcolor="<?php
+								echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"> 
+<?php
+														for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) {
+															?>
+ <TD vAlign=top class=tableBody>&nbsp;</TD>
+ <?php
+								}
+								?>
+ <TD align="center" vAlign=top class=tableBodyRight>&nbsp;</TD>
+</TR>
+
+<?php
+															} //END_WHILE
+						
+
+						} else {
+							echo gettext ( "No data found !!!" );
+						} //end_if
+						?>
                 <TR>
 					<TD class=tableDivider colSpan=<?php
 					echo $FG_TOTAL_TABLE_COL?>><IMG
@@ -1407,7 +1376,6 @@ if (is_array ( $list ) && count ( $list ) > 0 && 3 == 4) {
 <br>
 
 <?php
-
 if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 	
 	$mmax = 0;
@@ -1422,16 +1390,10 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 		$totalminutes += $data [1];
 		$totalcost += $data [2];
 		$totalbuycost += $data [4];
+		$totalsuccess += $data [5];
 	}
-	$max_fail = 0;
-	foreach ( $asr_cic_list1 as $asr_cic_data ) {
-		$totalsuccess += $asr_cic_data [1];
-		$totalfail += $asr_cic_data [2];
-	}
-	
-	?>
-
-
+	$max_fail = 0;	
+?>
 
 <!-- TITLE GLOBAL -->
 <center>
@@ -1564,62 +1526,47 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 										src="<?php
 		echo Images_Path;
 		?>/spacer.gif"
-										width="<?php
-		echo $widthbar?>" height="6"></td>
+										width="<?php echo $widthbar?>" height="6"></td>
 								</tr>
 							</tbody>
 						</table>
 						</td>
-						<td bgcolor="<?php
-		echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-		echo $data [3]?></font></td>
-						<td bgcolor="<?php
-		echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-		echo $tmc?> </font></td>
-						<td bgcolor="<?php
-		echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-		display_2dec ( $asr_cic_list1 [$j] [1] / ($data [3]) )?> </font></td>
+						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
+							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php echo $data [3]?></font></td>
+						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
+							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php echo $tmc?> </font></td>
+						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
+							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2dec_percentage ( $data [5] * 100/ ($data [3]) )?> </font></td>
 						<!-- SELL -->
-						<td bgcolor="<?php
-		echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-		display_2bill ( $data [2] )?>
-		</font></td>
+						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
+							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2bill ( $data [2] )?>
+						</font></td>
 						<!-- BUY -->
-						<td bgcolor="<?php
-		echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-		display_2bill ( $data [4] )?>
-		</font></td>
+						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
+							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2bill ( $data [4] )?>
+						</font></td>
 						<!-- PROFIT -->
-						<td bgcolor="<?php
-		echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
+						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
+							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2bill ( $data [2] - $data [4] )?>
+						</font></td>
+						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
 							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-		display_2bill ( $data [2] - $data [4] )?>
-		</font></td>
-						<td bgcolor="<?php
-		echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
+							if ($data [2] != 0) {
+								display_2dec_percentage ( (($data [2] - $data [4]) / $data [2]) * 100 );
+							} else {
+								echo "NULL";
+							}
+							?>
+						</font></td>
+						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
 							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-		if ($data [2] != 0) {
-			display_2dec_percentage ( (($data [2] - $data [4]) / $data [2]) * 100 );
-		} else {
-			echo "NULL";
-		}
-		?>
-		</font></td>
-						<td bgcolor="<?php
-		echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-		if ($data [4] != 0) {
-			display_2dec_percentage ( (($data [2] - $data [4]) / $data [4]) * 100 );
-		} else {
-			echo "NULL";
-		}
-		?>
-		</font></td>
+							if ($data [4] != 0) {
+								display_2dec_percentage ( (($data [2] - $data [4]) / $data [4]) * 100 );
+							} else {
+								echo "NULL";
+							}
+							?>
+						</font></td>
      <?php
 		$j ++;
 	}
@@ -1633,44 +1580,37 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 	
 	?>                   	
 	</tr>
-					<!-- FIN DETAIL -->
+					<!-- END DETAIL -->
 
-					<!-- FIN BOUCLE -->
+					<!-- END LOOP -->
 
 					<!-- TOTAL -->
 					<tr bgcolor="bgcolor_019">
 						<td align="right" nowrap="nowrap"><font class="fontstyle_003"><?php
-	echo gettext ( "TOTAL" );
-	?></font></td>
+						echo gettext ( "TOTAL" );
+						?></font></td>
 						<td align="center" nowrap="nowrap" colspan="2"><font
-							class="fontstyle_003"><?php
-	echo $totalminutes?> </font></td>
+							class="fontstyle_003"><?php echo $totalminutes?> </font></td>
+						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalcall?></font></td>
+						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_tmc?></font></td>
+						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2dec_percentage ( $totalsuccess*100 / $totalcall )?> </font></td>
+						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill ( $totalcost )?></font></td>
+						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill ( $totalbuycost )?></font></td>
+						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill ( $totalcost - $totalbuycost )?></font></td>
 						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-	echo $totalcall?></font></td>
+							if ($totalcost != 0) {
+								display_2dec_percentage ( (($totalcost - $totalbuycost) / $totalcost) * 100 );
+							} else {
+								echo "NULL";
+							}
+							?></font></td>
 						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-	echo $total_tmc?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-	display_2dec ( $totalsuccess / $totalcall )?> </font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-	display_2bill ( $totalcost )?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-	display_2bill ( $totalbuycost )?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-	display_2bill ( $totalcost - $totalbuycost )?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-	if ($totalcost != 0) {
-		display_2dec_percentage ( (($totalcost - $totalbuycost) / $totalcost) * 100 );
-	} else {
-		echo "NULL";
-	}
-	?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-	if ($totalbuycost != 0) {
-		display_2dec_percentage ( (($totalcost - $totalbuycost) / $totalbuycost) * 100 );
-	} else {
-		echo "NULL";
-	}
-	?></font></td>
+							if ($totalbuycost != 0) {
+								display_2dec_percentage ( (($totalcost - $totalbuycost) / $totalbuycost) * 100 );
+							} else {
+								echo "NULL";
+							}
+							?></font></td>
 					</tr>
 					<!-- END TOTAL -->
 
