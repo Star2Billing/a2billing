@@ -1585,6 +1585,8 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 	}
 	
+	
+	
 	/**
      * Function to edit the fields
      * @public

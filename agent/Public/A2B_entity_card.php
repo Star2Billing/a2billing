@@ -36,7 +36,7 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description'));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description','refill_type'));
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
 	
@@ -132,8 +132,8 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 			
 			$update_msg ='<b><font color="green">'.gettext("Refill executed ").'</font></b>';	
 			
-			$field_insert = "date, credit, card_id, description";
-			$value_insert = "now(), '$addcredit', '$id','$description'";
+			$field_insert = "date, credit, card_id, description, refill_type";
+			$value_insert = "now(), '$addcredit', '$id','$description','$refill_type'";
 			$instance_sub_table = new Table("cc_logrefill", $field_insert);
 			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
 			
@@ -226,7 +226,7 @@ echo $CC_help_list_customer;
 			<table>
 				<tr>
 					<td>
-						<?php echo gettext("CREDIT :");?>
+						<?php echo gettext("CREDIT");?>&nbsp;:
 					</td>
 					<td>
 						<input class="form_enter" name="addcredit" size="18" maxlength="6" value=""> <?php echo strtoupper($A2B->config['global']['base_currency']); ?>
@@ -234,10 +234,26 @@ echo $CC_help_list_customer;
 				</tr>
 				<tr>
 					<td>
-						<?php echo gettext("DESCRIPTION :");?>
+						<?php echo gettext("DESCRIPTION");?>&nbsp;:
 					</td>
 					<td>
 						<textarea class="form_input_textarea" name="description" cols="40" rows="4"></textarea> 
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?php echo gettext("TYPE");?>&nbsp;:
+					</td>
+					<td>
+						<select name="refill_type" size="1"  class="form_input_select">
+							<?php 
+								$list_type = Constants::getRefillType_List();
+								foreach ($list_type as $type){
+							?>
+							<option value="<?php echo $type[1] ?>"><?php echo $type[0] ?> </option>
+							<?php
+								} ?>
+						</select>
 					</td>
 				</tr>
 				<tr>
