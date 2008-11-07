@@ -215,14 +215,17 @@ function openURLFilter(theLINK)
 						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
 						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
-						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
-						$record_display = $this->FG_TABLE_COL[$i][10];
-						$link = $this->FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];
-						for ($l=1;$l<=count($field_list_sun);$l++){
-							$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
-							$record_display = "<a href='$link'>$val</a>";
+						if(is_array($select_list)){
+							$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
+							$record_display = $this->FG_TABLE_COL[$i][10];
+							$link = $this->FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];
+							for ($l=1;$l<=count($field_list_sun);$l++){
+								$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
+								$record_display = "<a href='$link'>$val</a>";
+							}
+						}else{
+							$record_display="";
 						}
-
 					}
 					elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
 						$string_to_eval = $this->FG_TABLE_COL[$i][7]; // %4-%3
