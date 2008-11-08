@@ -1304,3 +1304,5 @@ PRIMARY KEY (id)
 ALTER TABLE cc_card ADD restriction TINYINT NOT NULL DEFAULT '0';
 
 
+
+ALTER TABLE cc_card DROP COLUMN callback;

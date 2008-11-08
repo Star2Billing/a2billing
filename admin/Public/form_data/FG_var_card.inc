@@ -433,16 +433,6 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 
-$HD_Form -> AddEditElement (gettext("CALLBACK"),
-			   "callback",
-			   '',
-			   "INPUT",
-			   "size=40 maxlength=60",
-			   "",
-			   gettext("Insert the callback"),
-			   "" , "", "",	"", "", "",	"", gettext("Configure the callback url, ie : SIP/jeremy@211.23.76.12 or ZAP/g2, etc...") );
-
-
 $HD_Form -> AddEditElement (gettext("STATUS"),
 			   "status",
 			   "",
@@ -928,7 +918,7 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group,  discount,  credit, language, tariff, id_didgroup, id_agent, id_campaign, callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target,restriction' );
+$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group,  discount,  credit, language, tariff, id_didgroup, id_agent, id_campaign, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target,restriction' );
 
 
 if(!isset($myusername)) $myusername='';
