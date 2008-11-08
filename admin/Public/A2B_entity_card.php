@@ -33,9 +33,9 @@ if ($batchupdate == 1 && is_array($check)) {
 			$SQL_REFILL_CREDIT="($upd_credit -credit) ";
 			$SQL_REFILL_WHERE=" AND $upd_credit<>credit ";//never write 0 refill
 		} elseif($type["upd_credit"] == 2) {//+-
-			$SQL_REFILL_CREDIT="(-$upd_credit) ";
-		}else{
-			$SQL_REFILL_CREDIT="$upd_credit ";
+			 $SQL_REFILL_CREDIT="($upd_credit) ";
+		}else{ 
+			 $SQL_REFILL_CREDIT="(-$upd_credit) ";
 		}
 		$SQL_REFILL="INSERT INTO cc_logrefill (credit,card_id,description,refill_type)
 		SELECT $SQL_REFILL_CREDIT,a.id,'$upd_description','$upd_refill_type' from  ".$HD_Form->FG_TABLE_NAME."  as a ";
@@ -508,11 +508,10 @@ if (!$popup_select && $form_action == "ask-add"){
 
 <?php
 }
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
+
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-if ($form_action=='ask-edit')
-{
+
+if ($form_action=='ask-edit') {
 	$inst_table = new Table("cc_card", "useralias, uipass");
 	$FG_TABLE_CLAUSE = "id = $id";
 	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
@@ -525,17 +524,19 @@ if ($form_action=='ask-edit')
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 
+
 // Code for the Export Functionality
-//* Query Preparation.
 $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= "SELECT ".$HD_Form -> FG_EXPORT_FIELD_LIST." FROM $HD_Form->FG_TABLE_NAME";
+
 if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) 
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";
+
 if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!='')) 
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
 
 
 
 // #### FOOTER SECTION
-if (!($popup_select>=1)) $smarty->display('footer.tpl');
+if (!($popup_select>=1))
+	$smarty->display('footer.tpl');
 
-?>
