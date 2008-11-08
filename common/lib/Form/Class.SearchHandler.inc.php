@@ -9,71 +9,14 @@ if ($this->FG_FILTER_SEARCH_FORM){
 		<b><?php echo $this -> FG_FILTER_SEARCH_TOP_TEXT?></b>
 		<table class="searchhandler_table1">
 		<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=<?php echo $processed['s']?>&t=<?php echo $processed['t']?>&order=<?php echo $processed['order']?>&sens=<?php echo $processed['sens']?>&current_page=<?php echo $processed['current_page']?>">
-	<INPUT TYPE="hidden" NAME="posted_search" value="1">
-	<INPUT TYPE="hidden" NAME="current_page" value="0">
+		<INPUT TYPE="hidden" NAME="posted_search" value="1">
+		<INPUT TYPE="hidden" NAME="current_page" value="0">
+		
+		
 		<?php if ($this -> FG_FILTER_SEARCH_1_TIME){ ?>
 			<tr>
-        		<td class="bgcolor_004" align="left" width="120px">
-					<input type="radio" name="Period" value="Month" <?php  if (!isset($processed['Period']) || ($processed['Period']=="Month")){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT?></b></font>
-				</td>
-      			<td class="bgcolor_005" align="left">
-					<table border="0" cellspacing="0" cellpadding="0"  width="100%">
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($processed['frommonth']){ ?>checked<?php }?>>
-					
-					From : <select name="fromstatsmonth" class="form_input_select">
-					<?php 
-						$year_actual = date("Y");  	
-						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{
-							   if ($year_actual==$i){
-									$monthnumber = date("n")-1; // Month number without lead 0.
-							   }else{
-									$monthnumber=11;
-							   }
-							   for ($j=$monthnumber;$j>=0;$j--){
-										$month_formated = sprintf("%02d",$j+1);
-							   			if ($processed['fromstatsmonth']=="$i-$month_formated") $selected="selected";
-										else $selected="";
-										echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							   }
-						}
-					?>
-					</select>
-					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="tomonth" value="true" <?php  if ($processed['tomonth']){ ?>checked<?php }?>>
-					To : <select name="tostatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{
-							   if ($year_actual==$i){
-									$monthnumber = date("n")-1; // Month number without lead 0.
-							   }else{
-									$monthnumber=11;
-							   }
-							   for ($j=$monthnumber;$j>=0;$j--){
-										$month_formated = sprintf("%02d",$j+1);
-							   			if ($processed['tostatsmonth']=="$i-$month_formated") $selected="selected";
-										else $selected="";
-										echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							   }
-						}
-					?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
-		<?php } ?>
-		
-		
-		
-		<?php if ($this -> FG_FILTER_SEARCH_2_TIME){ ?>
-			<tr>
         		<td align="left" class="bgcolor_002">
-					<input type="radio" name="Period" value="Day" <?php  if ($processed['Period']=="Day"){ ?>checked="checked" <?php  } ?>>
-					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_2_TIME_TEXT?></font>
+					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT?></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table  border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -88,7 +31,10 @@ if ($this->FG_FILTER_SEARCH_FORM){
 						?>
 					</select>
 				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");
+					<?php 	
+						$year_actual = date("Y");  	
+						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
+						
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{
 							if ($year_actual==$i){
@@ -142,7 +88,7 @@ if ($this->FG_FILTER_SEARCH_FORM){
 		<?php if ($this -> FG_FILTER_SEARCH_3_TIME){ ?>
 			<tr>
         		<td align="left" class="bgcolor_002">
-					<input type="radio" name="Period" value="month_older_rad" <?php  if ($processed['Period']=="month_older_rad"){ ?>checked="checked" <?php  } ?>>
+					
 					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_3_TIME_TEXT?></font>
 				</td>
       			<td align="left" class="bgcolor_003">
@@ -161,68 +107,11 @@ if ($this->FG_FILTER_SEARCH_FORM){
     		</tr>
 		<?php } ?>
 		
+		
 		<?php if ($this -> FG_FILTER_SEARCH_1_TIME_BIS){ ?>
 			<tr>
-        		<td class="bgcolor_004" align="left" width="120px">
-					<input type="radio" name="Period_bis" value="Month" <?php  if (!isset($processed['Period_bis']) || ($processed['Period_bis']=="Month")){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT_BIS?></b></font>
-				</td>
-      			<td class="bgcolor_005" align="left">
-					<table border="0" cellspacing="0" cellpadding="0"  width="100%">
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="frommonth_bis" value="true" <?php  if ($processed['frommonth_bis']){ ?>checked<?php }?>>
-					
-					From : <select name="fromstatsmonth_bis" class="form_input_select">
-					<?php 
-						$year_actual = date("Y");  	
-						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{
-							   if ($year_actual==$i){
-									$monthnumber = date("n")-1; // Month number without lead 0.
-							   }else{
-									$monthnumber=11;
-							   }
-							   for ($j=$monthnumber;$j>=0;$j--){
-										$month_formated = sprintf("%02d",$j+1);
-							   			if ($processed['fromstatsmonth_bis']=="$i-$month_formated") $selected="selected";
-										else $selected="";
-										echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							   }
-						}
-					?>
-					</select>
-					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="tomonth_bis" value="true" <?php  if ($processed['tomonth_bis']){ ?>checked<?php }?>>
-					To : <select name="tostatsmonth_bis" class="form_input_select">
-					<?php 	$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{
-							   if ($year_actual==$i){
-									$monthnumber = date("n")-1; // Month number without lead 0.
-							   }else{
-									$monthnumber=11;
-							   }
-							   for ($j=$monthnumber;$j>=0;$j--){
-										$month_formated = sprintf("%02d",$j+1);
-							   			if ($processed['tostatsmonth_bis']=="$i-$month_formated") $selected="selected";
-										else $selected="";
-										echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							   }
-						}
-					?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
-		<?php } ?>
-		
-		
-		<?php if ($this -> FG_FILTER_SEARCH_2_TIME_BIS){ ?>
-			<tr>
         		<td align="left" class="bgcolor_002">
-					<input type="radio" name="Period_bis" value="Day" <?php  if ($processed['Period_bis']=="Day"){ ?>checked="checked" <?php  } ?>>
-					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_2_TIME_TEXT_BIS?></font>
+					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT_BIS?></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table  border="0" cellspacing="0" cellpadding="0" width="100%">

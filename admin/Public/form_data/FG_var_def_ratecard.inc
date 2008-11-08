@@ -20,7 +20,7 @@ $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&section=3";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add RateCard");
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Rate");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/world_add.png" ;
 
 
@@ -90,7 +90,6 @@ $yesno = Constants::getYesNoList();
 if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "");
 $HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "10%", "center", "sort", "");
-//$HD_Form -> AddViewElement(gettext("PACKAGE"), "id_cc_package_offer", "11%", "center", "sort", "15", "lie", "cc_package_offer", "label", "id='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"BUYING RATE\">".gettext("BR")."</acronym>", "buyrate", "4%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
@@ -99,7 +98,6 @@ if (!$popup_select) $HD_Form -> AddViewElement("<acronym title=\"INITBLOCK\">".g
 if (!$popup_select) $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "10%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("RATE CARD"), "idtariffplan", "12%", "center", "sort", "15", "lie", "cc_tariffplan", "tariffname", "id='%id'", "%1");
-//$HD_Form -> AddViewElement(gettext("CIDGroup"), "id_outbound_cidgroup", "12%", "center", "sort", "15", "lie", "cc_outbound_cid_group", "group_name", "id='%id'", "%1");
 
 
 if (!$popup_select) {

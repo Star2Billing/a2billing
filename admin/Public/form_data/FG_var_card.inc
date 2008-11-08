@@ -239,13 +239,16 @@ $HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_
 
 // Search form
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for cards created.');
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT_BIS = gettext('First Use date / Month');
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT_BIS = gettext('First Use date / Day');
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD_BIS = 'firstusedate';
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('CREATION DATE');
+
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_BIS = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT_BIS = gettext('FIRST USE DATE');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD_BIS = 'firstusedate';
+
+
 $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("EMAIL"), 'email','emailtype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');

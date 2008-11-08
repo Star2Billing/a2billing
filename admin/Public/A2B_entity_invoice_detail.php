@@ -12,61 +12,45 @@ if (! has_rights (ACX_INVOICING)){
 
 getpost_ifset(array('customer', 'posted', 'Period', 'cardid','exporttype','choose_billperiod','id','invoice_type','payment_status'));
 
-if ($invoice_type == "")
-{
-	$invoice_type = 1;
-}
-if ($invoice_type == 1)
-{
-	if($cardid == "" )
-	{
+if ($invoice_type == "")  $invoice_type = 1;
+
+if ($invoice_type == 1) {
+	if($cardid == "" ) {
 		exit("Invalid ID");
 	}
 }
-if ( $invoice_type == 2)
-{
-	if(($id == "" || !is_numeric($id)))
-	{
+if ( $invoice_type == 2) {
+	if(($id == "" || !is_numeric($id))) {
 		exit(gettext("Invalid ID"));
 	}
 }
-if ($invoice_type == 1)
-{
+if ($invoice_type == 1) {
 	$invoice_heading = gettext("Unbilled Details");	
-}
-else
-{
+} else {
 	$invoice_heading = gettext("Billed Details");
 }
 
 $DBHandle = DbConnect();
 $num = 0;
-if ($invoice_type == 1)
-{
+if ($invoice_type == 1) {
 	$QUERY = "Select username, vat, t1.id from cc_card t1 where t1.id = $cardid";
-}
-else
-{
+} else {
 	$QUERY = "Select username, vat, t1.id from cc_card t1, cc_invoices t2 where t1.id = t2.cardid and t2.id = $id";
 }
 $res_user = $DBHandle -> Execute($QUERY);
 if ($res_user)
 	$num = $res_user -> RecordCount( );
 
-if($num > 0)
-{
+if($num > 0) {
 	$userRecord = $res_user -> fetchRow();				 
 	$customer = $userRecord[0];	
 	$vat = $userRecord[1];
 	$customerID = $userRecord[2];	
-}
-else
-{
+} else {
 	exit(gettext("No User found"));
 }
 
-if($payment_status != "")
-{
+if($payment_status != "") {
 	$QUERY = "UPDATE cc_invoices SET payment_status ='$payment_status' WHERE id='$id'"; 
 	$DBHandle -> Execute($QUERY);
 }
@@ -79,10 +63,7 @@ $FG_TABLE_NAME="cc_call t1 , cc_prefix t2, cc_card t3";
 
 $DBHandle  = DbConnect();
 
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");

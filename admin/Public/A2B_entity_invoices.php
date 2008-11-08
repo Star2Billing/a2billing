@@ -12,8 +12,6 @@ if (! has_rights (ACX_INVOICING)){
 }
 
 
-
-
 /***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
@@ -38,10 +36,6 @@ $list = $HD_Form -> perform_action($form_action);
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
-// #### HELP SECTION
-echo $CC_help_money_situation;
-
-
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
@@ -53,4 +47,3 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
-?>

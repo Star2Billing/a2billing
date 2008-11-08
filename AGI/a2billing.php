@@ -57,13 +57,13 @@ if($dynamic_idconfig = intval($agi->get_variable("IDCONF", true)))
 	$idconfig = $dynamic_idconfig;
 
 
-if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')			$mode = 'did';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')		$mode = 'callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')	$mode = 'cid-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')	$mode = 'all-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')	$mode = 'voucher';
+if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')						$mode = 'did';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')			$mode = 'callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')		$mode = 'cid-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')		$mode = 'all-callback';
+elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')				$mode = 'voucher';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'campaign-callback')	$mode = 'campaign-callback';
-else $mode = 'standard';
+else																			$mode = 'standard';
 
 // get the area code for the cid-callback & all-callback
 if ($argc > 3 && strlen($argv[3]) > 0) 

@@ -3,13 +3,11 @@ include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_CALL_REPORT)){ 
+if (! has_rights (ACX_CALL_REPORT)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
 }
-
-
 
 
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','entercustomer','id_cc_card'));
@@ -21,7 +19,7 @@ if (!isset ($current_page) || ($current_page == "")){
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 1;
+$FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_card_history ch LEFT JOIN cc_card ON cc_card.id=id_cc_card";
@@ -38,7 +36,7 @@ $DBHandle  = DbConnect();
 // The variable Var_col would define the col that we want show in your table
 // First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-$FG_TABLE_COL[]=array (gettext("Merde"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$FG_TABLE_COL[]=array (gettext("Card Number"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("Date"), "datecreated", "20%", "center", "SORT");
 $FG_TABLE_COL[]=array (gettext("Description"), "description", "60%", "center", "SORT");
 
@@ -69,10 +67,8 @@ $FG_HTML_TABLE_TITLE=" - ".gettext("Card History")." - ";
 //This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="98%";
 
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	//$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
-
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 if ( is_null ($order) || is_null($sens) ){
 	$order = $FG_TABLE_DEFAULT_ORDER;
@@ -82,7 +78,6 @@ if ( is_null ($order) || is_null($sens) ){
 
 
 $date_clause='';
-// Period (Month-Day)
 if (DB_TYPE == "postgres"){		
 	 	$UNIX_TIMESTAMP = "";
 }else{
