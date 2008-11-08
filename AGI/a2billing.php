@@ -61,7 +61,6 @@ if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')			$mode = 'did';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')		$mode = 'callback';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')	$mode = 'cid-callback';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')	$mode = 'all-callback';
-elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'predictivedialer')	$mode = 'predictivedialer';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')	$mode = 'voucher';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'campaign-callback')	$mode = 'campaign-callback';
 else $mode = 'standard';
@@ -835,113 +834,6 @@ if ($mode == 'standard'){
 		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 	}
 
-
-}elseif ($mode == 'predictivedialer'){
-
-	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[MODE : PREDICTIVEDIALER]');
-
-	$A2B->agiconfig['number_try'] = 10;
-	$A2B->agiconfig['use_dnid'] =1;
-	$A2B->agiconfig['say_balance_after_auth']=0;
-	$A2B->agiconfig['say_timetocall']=0;
-	$A2B->agiconfig['cid_enable'] =0;
-
-
-	$agi->answer();
-
-	/* WE START ;) */
-	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
-
-	if ($A2B->id_campaign<=0){
-		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[NOT CAMPAIGN ASSOCIATE AT THIS CARD]");
-		$cia_res=-3;
-	}
-
-	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[TRY : callingcard_ivr_authenticate]");
-	if ($cia_res==0){
-
-		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[callingcard_acct_start_inuse]");
-		$A2B->callingcard_auto_setcallerid($agi);
-		//$A2B->callingcard_acct_start_inuse($agi,1);
-
-		for ($i=0;$i< $A2B -> config["callback"]['nb_predictive_call'] ;$i++){
-
-			$RateEngine->Reinit();
-			$A2B-> Reinit();
-
-			$stat_channel = $agi->channel_status($A2B-> channel);
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CREDIT STATUS : ".$A2B-> credit."] : [CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
-
-			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){
-			if ($stat_channel["result"]!= "6" && ($A2B -> CC_TESTING!=1)){
-				$A2B->callingcard_acct_start_inuse($agi,0);
-				$A2B -> write_log("[STOP - EXIT]", 0);
-				exit();
-			}
-
-			$today_date = date("Y-m-d"); // 2005-12-24
-			// DEFINE HERE THE NUMBER OF DAY THAT A PHONENUMBER FROM THE LIST WILL LAST BEFORE BE CALL AGAIN
-			$days_compare = $A2B -> config["callback"]['nb_day_wait_before_retry'];
-			if ($A2B->config["database"]['dbtype'] == "postgres"){
-				$UNIX_TIMESTAMP = ""; $sql_limit = " LIMIT 5 OFFSET 0";
-				$date_clause = " last_attempt < date'$today_date'- INTERVAL '$days_compare DAY' ";
-				// last_attempt < date'2005-12-24'- INTERVAL '1 DAY'
-			}else{
-				$UNIX_TIMESTAMP = "UNIX_TIMESTAMP"; 	$sql_limit = " LIMIT 0,5";
-				$date_clause = " last_attempt < SUBDATE('$today_date',INTERVAL $days_compare DAY)";
-			}
-			$QUERY = "SELECT id, numbertodial, name  FROM cc_phonelist WHERE enable=1 AND num_trials_done<10 AND inuse=0 AND id_cc_campaign=".$A2B->id_campaign.
-					" AND ( $date_clause OR num_trials_done=0) ORDER BY last_attempt DESC $sql_limit";
-
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);
-			$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
-			// $A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $result);
-
-			if (!is_array($result)){
-				$A2B->callingcard_acct_start_inuse($agi,0);
-				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[PREDICTIVEDIALER]:[NO MORE NUMBER TO CALL]");
-				$A2B -> write_log("[STOP - EXIT]", 0);
-				exit();
-			}else{
-				$id_phonelist = $result[0][0];
-				$QUERY = "UPDATE cc_phonelist SET inuse='1', id_cc_card='".$A2B->id_card."' WHERE id='".$id_phonelist."'";
-				$update_result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
-			}
-
-			$A2B->dnid = $A2B-> destination = $result[0][1];
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[PREDICTIVEDIALER]:[NUMBER TO DIAL -> ".$A2B-> destination."]");
-
-			//cause $i is the try_num and in callingcard_ivr_authorize if the try_num is upper than 1 we prompt for destination
-			if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, 0)==1){
-				// PERFORM THE CALL
-				$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B, 1);
-
-				if (!$result_callperf) {
-					$prompt="prepaid-dest-unreachable";
-					//$agi->agi_exec("STREAM FILE $prompt #");
-					$agi-> stream_file($prompt, '#');
-				}
-
-				// INSERT CDR  & UPDATE SYSTEM
-				$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination);
-
-				if ($A2B->agiconfig['say_balance_after_call']==1){
-					$A2B-> fct_say_balance ($agi, $A2B-> credit);
-				}
-				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[callingcard_acct_stop]");
-			}
-			$QUERY = "UPDATE cc_phonelist SET inuse='0', last_attempt=now(),  num_trials_done=num_trials_done+1, secondusedreal=secondusedreal+".$RateEngine->answeredtime." WHERE id='".$id_phonelist."'";
-			$update_result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
-		}//END FOR
-		if ($A2B->set_inuse==1){
-			$A2B->callingcard_acct_start_inuse($agi,0);
-		}
-
-	}else{
-		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
-	}
-
 }
 
 // CHECK IF WE HAVE TO CHARGE CALLBACK
@@ -949,28 +841,6 @@ if ($charge_callback){
 
 	// IF THE CALL HAS NOT BEEN CONNECTED CHECK IF WE CHARGE OR NOT
 	if ( ($callback_been_connected==1) || ($callback_been_connected != 1) && ($A2B->agiconfig['callback_bill_1stleg_ifcall_notconnected']==1) ){
-
-		/*
-		$A2B-> myprefix = $arr_save_a2billing['myprefix'];
-		$A2B-> ipaddress = $arr_save_a2billing['ipaddress'];
-		$A2B-> rate = $arr_save_a2billing['rate'];
-		$A2B-> destination = $arr_save_a2billing['destination'];
-		$A2B-> sip_iax_buddy = $arr_save_a2billing['sip_iax_buddy'];
-
-		$RateEngine-> number_trunk = $arr_save_rateengine['number_trunk'];
-		$RateEngine-> answeredtime = $arr_save_rateengine['answeredtime'];
-		$RateEngine-> dialstatus = $arr_save_rateengine['dialstatus'];
-		$RateEngine-> usedratecard = $arr_save_rateengine['usedratecard'];
-		$RateEngine-> lastcost = $arr_save_rateengine['lastcost'];
-		$RateEngine-> usedtrunk = $arr_save_rateengine['usedtrunk'];*/
-
-		//list($callback_username, $callback_usedratecard, $callback_lastcost, $callback_lastbuycost) = split(",", $callback_leg, 4);
-
-		/*// MAKE THE BILLING FOR THE 1ST LEG
-		if ($callback_mode=='ALL'){
-			//IF IT S ALL THE BILLING TO APPLY COME FROM $callback_tariff
-			$A2B -> tariff = $callback_tariff;
-		}*/
 
 		$callback_username = $callback_leg;
 		$A2B -> accountcode = $callback_username;
@@ -1049,12 +919,10 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 	}
 }
 
-if ($A2B->set_inuse==1){
+if ($A2B->set_inuse==1) {
 	$A2B->callingcard_acct_start_inuse($agi,0);
 }
 
 /************** END OF THE APPLICATION ****************/
 $A2B -> write_log("[exit]", 0);
 
-
-?>
