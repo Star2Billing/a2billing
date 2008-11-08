@@ -346,12 +346,12 @@ from(
    ) as a group by $q_id_group
  ) as t1 left join $q_id_tab as cg on cg.id=$q_id_group left join (
         select cc.$q_id_group,sum(cr.credit) as credits from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
-         where payment_type=1 and $condition1 $q_where
+         where refill_type=1 and $condition1 $q_where
          group by $q_id_group
  ) as t2 on t1.$q_id_group=t2.$q_id_group left join
  (
-        select cc.$q_id_group,sum(cr.credit) as charges from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
-         where payment_type=2 and $condition1 $q_where
+        select cc.$q_id_group,-sum(cr.credit) as charges from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
+         where refill_type=2 and $condition1 $q_where
          group by $q_id_group
  ) as t3 on t1.$q_id_group=t3.$q_id_group left join (
  select $q_id_group,count(*) as first_use from cc_card where $condition2 $q_where
