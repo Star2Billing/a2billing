@@ -84,30 +84,6 @@ if ($this->FG_FILTER_SEARCH_FORM){
     		</tr>
 		<?php } ?>
 		
-		
-		<?php if ($this -> FG_FILTER_SEARCH_3_TIME){ ?>
-			<tr>
-        		<td align="left" class="bgcolor_002">
-					
-					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_3_TIME_TEXT?></font>
-				</td>
-      			<td align="left" class="bgcolor_003">
-					<table  border="0" cellspacing="0" cellpadding="0" width="100%">
-					<tr><td class="fontstyle_searchoptions">&nbsp;
-					<select name="month_earlier" class="form_input_select">
-						<?php
-							for ($i=3;$i<=12;$i++){
-								if ($processed['month_earlier']==$i){$selected="selected";}else{$selected="";}
-								echo '<option value="'.$i."\"$selected>".$i.' Months</option>';
-							}
-						?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
-		<?php } ?>
-		
-		
 		<?php if ($this -> FG_FILTER_SEARCH_1_TIME_BIS){ ?>
 			<tr>
         		<td align="left" class="bgcolor_002">
@@ -177,19 +153,19 @@ if ($this->FG_FILTER_SEARCH_FORM){
 		<?php } ?>
 		
 		
-		<?php if ($this -> FG_FILTER_SEARCH_3_TIME_BIS){ ?>
+		<?php if ($this -> FG_FILTER_SEARCH_3_TIME){ ?>
 			<tr>
         		<td align="left" class="bgcolor_002">
-					<input type="radio" name="Period_bis" value="month_older_rad" <?php  if ($processed['Period_bis']=="month_older_rad"){ ?>checked="checked" <?php  } ?>>
-					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_3_TIME_TEXT_BIS?></font>
+					
+					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_3_TIME_TEXT?></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table  border="0" cellspacing="0" cellpadding="0" width="100%">
 					<tr><td class="fontstyle_searchoptions">&nbsp;
-					<select name="month_earlier_bis" class="form_input_select">
+					<select name="month_earlier" class="form_input_select">
 						<?php
 							for ($i=3;$i<=12;$i++){
-								if ($processed['month_earlier_bis']==$i){$selected="selected";}else{$selected="";}
+								if ($processed['month_earlier']==$i){$selected="selected";}else{$selected="";}
 								echo '<option value="'.$i."\"$selected>".$i.' Months</option>';
 							}
 						?>
