@@ -1074,7 +1074,7 @@ class RateEngine
 			$QUERY .= "now()";
 		}
 		
-		$QUERY .= " , '$rateapply', ".
+		$QUERY .= " , '$signe_cc_call".a2b_round(abs($cost))."', ".
 					" '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
 					" '$buycost', '$id_card_package_offer', '".$A2B->dnid."', '".$calldestination."')";
 		
