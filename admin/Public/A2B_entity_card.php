@@ -193,11 +193,9 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  		<input name="check[upd_inuse]" type="checkbox" <?php if ($check["upd_inuse"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				1)&nbsp;<?php echo gettext("INUSE"); ?>&nbsp;: 
+				1)&nbsp;<?php echo gettext("In use"); ?>&nbsp;: 
 				<select NAME="upd_inuse" size="1" class="form_input_select">
-				<?php 
-					foreach($inuse_list as $key => $cur_value) {											
-				?>
+				<?php foreach($inuse_list as $key => $cur_value) { ?>
 					<option value='<?php echo $cur_value[1] ?>'  <?php if ($upd_inuse==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>
 				<?php } ?>			
 		    </select>
@@ -208,13 +206,11 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  	<input name="check[upd_status]" type="checkbox" <?php if ($check["upd_status"]=="on") echo "checked"?> >
 		  </td>
 		  <td align="left" class="bgcolor_001">
-			  	2)&nbsp;<?php echo gettext("STATUS");?>&nbsp;:
+			  	2)&nbsp;<?php echo gettext("Status");?>&nbsp;:
 				<select NAME="upd_status" size="1" class="form_input_select">
-					<?php					 
-				  	 foreach ($cardstatus_list as $key => $cur_value) { 						 
-					?>
-						<option value='<?php echo $cur_value[1] ?>' <?php if ($upd_status==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>                        
-					<?php } ?>
+				<?php foreach ($cardstatus_list as $key => $cur_value) { ?>
+					<option value='<?php echo $cur_value[1] ?>' <?php if ($upd_status==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>                        
+				<?php } ?>
 				</select><br/>
 		  </td>
 		</tr>
@@ -224,13 +220,11 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  		<input name="check[upd_language]" type="checkbox" <?php if ($check["upd_language"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				3)&nbsp;<?php echo gettext("LANGUAGE");?>&nbsp;: 
+				3)&nbsp;<?php echo gettext("Language");?>&nbsp;: 
 				<select NAME="upd_language" size="1" class="form_input_select">
-				<?php 
-					foreach($language_list as $key => $cur_value) {											
-				?>
+				<?php foreach($language_list as $key => $cur_value) { ?>
 					<option value='<?php echo $cur_value[1] ?>' <?php if ($upd_language==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>
-				<?php } ?>			
+				<?php } ?>
 		    </select>
 		  </td>
 		</tr>
@@ -239,11 +233,9 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  	<input name="check[upd_tariff]" type="checkbox" <?php if ($check["upd_tariff"]=="on") echo "checked"?> >
 		  </td>
 		  <td align="left" class="bgcolor_001">
-			  	4)&nbsp;<?php echo gettext("TARIFF");?>&nbsp;:
+			  	4)&nbsp;<?php echo gettext("Tariff");?>&nbsp;:
 				<select NAME="upd_tariff" size="1" class="form_input_select">
-					<?php					 
-				  	 foreach ($list_tariff as $recordset) { 						 
-					?>
+					<?php foreach ($list_tariff as $recordset) { ?>
 						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_tariff==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>                        
 					<?php } ?>
 				</select><br/>
@@ -255,19 +247,18 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 				<input name="mode[upd_credit]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">	
-			  	5)&nbsp;<?php echo gettext("CREDIT");?>&nbsp;:
+			  	5)&nbsp;<?php echo gettext("Credit");?>&nbsp;:
 					<input class="form_input_text" name="upd_credit" size="10" maxlength="10"  value="<?php if (isset($upd_credit)) echo $upd_credit; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_credit]" value="1" <?php if((!isset($type["upd_credit"]))|| ($type["upd_credit"]==1) ){?>checked<?php }?>><?php echo gettext("Equals");?>
 				<input type="radio" NAME="type[upd_credit]" value="2" <?php if($type["upd_credit"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
 				<input type="radio" NAME="type[upd_credit]" value="3" <?php if($type["upd_credit"]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
-				</font><br>&nbsp;&nbsp;&nbsp;REFILL:<select NAME="upd_refill_type" size="1" class="form_input_select">
-                                        <?php
-                                         foreach ($list_refill_type as $recordset){
-                                        ?>
-                                                <option class=input value='<?php echo $recordset[1]?>'  <?php if ($upd_refill_type==$recordset[1]) echo 'selected="selected"'?>><?php echo $recordset[0]?></option>
-                                        <?php } ?>
-                                </select> Description <input class="form_input_text" name="upd_description"  size="20" maxlength="20"  value="<?php if (isset($upd_description)) echo $upd_description;?>"><br/>
+				</font><br>&nbsp;&nbsp;&nbsp;Refill:
+					<select NAME="upd_refill_type" size="1" class="form_input_select">
+                    <?php foreach ($list_refill_type as $recordset){ ?>
+                        <option class=input value='<?php echo $recordset[1]?>'  <?php if ($upd_refill_type==$recordset[1]) echo 'selected="selected"'?>><?php echo $recordset[0]?></option>
+                    <?php } ?>
+                </select> Description <input class="form_input_text" name="upd_description"  size="20" maxlength="20"  value="<?php if (isset($upd_description)) echo $upd_description;?>"><br/>
 
 		  </td>
 		</tr>
@@ -276,7 +267,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  		<input name="check[upd_simultaccess]" type="checkbox" <?php if ($check["upd_simultaccess"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left" class="bgcolor_001">	
-				6)&nbsp;<?php echo gettext("ACCESS");?>&nbsp;: 
+				6)&nbsp;<?php echo gettext("Access");?>&nbsp;: 
 				<select NAME="upd_simultaccess" size="1" class="form_input_select">
 					<option value='0'  <?php if ($upd_simultaccess==0) echo 'selected="selected"'?>><?php echo gettext("INDIVIDUAL ACCESS");?></option>
 					<option value='1'  <?php if ($upd_simultaccess==1) echo 'selected="selected"'?>><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
@@ -288,7 +279,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  		<input name="check[upd_currency]" type="checkbox" <?php if ($check["upd_currency"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				7)&nbsp;<?php echo gettext("CURRENCY");?>&nbsp;:
+				7)&nbsp;<?php echo gettext("Currency");?>&nbsp;:
 				<select NAME="upd_currency" size="1" class="form_input_select">
 				<?php 
 					foreach($currencies_list as $key => $cur_value) {											
@@ -303,7 +294,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  		<input name="check[upd_typepaid]" type="checkbox" <?php if ($check["upd_typepaid"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left" class="bgcolor_001">	
-				8)&nbsp;<?php echo gettext("CARD TYPE");?>&nbsp;:
+				8)&nbsp;<?php echo gettext("Card type");?>&nbsp;:
 				<select NAME="upd_typepaid" size="1" class="form_input_select" >
 					<option value='0'  <?php if ($upd_typepaid==0) echo 'selected="selected"'?>><?php echo gettext("PREPAID CARD");?></option>
 					<option value='1'  <?php if ($upd_typepaid==1) echo 'selected="selected"'?>><?php echo gettext("POSTPAY CARD");?></option>
@@ -316,7 +307,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 				<input name="mode[upd_creditlimit]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				9)&nbsp;<?php echo gettext("LIMIT CREDIT OF POSTPAY");?>&nbsp;:
+				9)&nbsp;<?php echo gettext("Credit limit");?>&nbsp;:
 				 	<input class="form_input_text" name="upd_creditlimit" size="10" maxlength="10"  value="<?php if (isset($upd_creditlimit)) echo $upd_creditlimit; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_creditlimit]" value="1" <?php if((!isset($type[upd_creditlimit]))|| ($type[upd_creditlimit]==1) ){?>checked<?php }?>> <?php echo gettext("Equals");?>
@@ -330,7 +321,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  		<input name="check[upd_enableexpire]" type="checkbox" <?php if ($check["upd_enableexpire"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				10)&nbsp;<?php echo gettext("ENABLE EXPIRE");?>&nbsp;: 
+				10)&nbsp;<?php echo gettext("Enable expire");?>&nbsp;: 
 				<select name="upd_enableexpire" class="form_input_select" >
 					<option value="0"  <?php if ($upd_enableexpire==0) echo 'selected="selected"'?>> <?php echo gettext("NO EXPIRY");?></option>
 					<option value="1"  <?php if ($upd_enableexpire==1) echo 'selected="selected"'?>> <?php echo gettext("EXPIRE DATE");?></option>
@@ -351,7 +342,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 					$comp_date = "value='".$begin_date.$end_date."'";
 					$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 				?>
-				11)&nbsp;<?php echo gettext("EXPIRY DATE");?>&nbsp;:
+				11)&nbsp;<?php echo gettext("Expiry date");?>&nbsp;:
 				 <input class="form_input_text"  name="upd_expirationdate" size="20" maxlength="30" <?php echo $comp_date_plus; ?>> <font class="version"><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?></font>
 		  </td>
 		</tr>
@@ -360,7 +351,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  		<input name="check[upd_expiredays]" type="checkbox" <?php if ($check["upd_expiredays"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				12)&nbsp;<?php echo gettext("EXPIRATION DAYS");?>&nbsp;: 
+				12)&nbsp;<?php echo gettext("Expiration days");?>&nbsp;: 
 				<input class="form_input_text"  name="upd_expiredays" size="10" maxlength="6" value="<?php if (isset($upd_expiredays)) echo $upd_expiredays; else echo '0';?>">
 				<br/>
 		</td>
@@ -370,7 +361,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  	<input name="check[upd_runservice]" type="checkbox" <?php if ($check["upd_runservice"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				 13)&nbsp;<?php echo gettext("RUN SERVICE");?>&nbsp;: 	
+				 13)&nbsp;<?php echo gettext("Run service");?>&nbsp;: 	
 				<font class="version">
 				<input type="radio" NAME="type[upd_runservice]" value="1" <?php if((!isset($type[upd_runservice]))|| ($type[upd_runservice]=='1') ){?>checked<?php }?>>
 				<?php echo gettext("Yes");?> <input type="radio" NAME="type[upd_runservice]" value="0" <?php if($type[upd_runservice]=='0'){?>checked<?php }?>><?php echo gettext("No");?>
@@ -380,52 +371,50 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 
 		<tr>
 		 <td align="left"  class="bgcolor_001">
-                        <input name="check[upd_id_group]" type="checkbox" <?php if ($check["upd_id_group"]=="on") echo "checked"?> >
-                  </td>
-                  <td align="left" class="bgcolor_001">
-                                14)&nbsp;<?php echo gettext("Group this batch belongs to");?>&nbsp;:
-                                <select NAME="upd_id_group" size="1" class="form_input_select">
-                                        <?php
-                                         foreach ($list_group as $recordset){
-                                        ?>
-                                                <option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_group==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
-                                        <?php } ?>
-                                </select><br/>
-                  </td>
-                </tr>
+                <input name="check[upd_id_group]" type="checkbox" <?php if ($check["upd_id_group"]=="on") echo "checked"?> >
+          </td>
+          <td align="left" class="bgcolor_001">
+                14)&nbsp;<?php echo gettext("Group this batch belongs to");?>&nbsp;:
+                <select NAME="upd_id_group" size="1" class="form_input_select">
+                        <?php
+                         foreach ($list_group as $recordset){
+                        ?>
+                                <option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_group==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
+                        <?php } ?>
+                </select><br/>
+          </td>
+        </tr>
 
 		<tr>
-                 <td align="left"  class="bgcolor_001">
-                        <input name="check[upd_id_agent]" type="checkbox" <?php if ($check["upd_id_agent"]=="on") echo "checked"?> >
-                  </td>
-                  <td align="left" class="bgcolor_001">
-                                15)&nbsp;<?php echo gettext("Agent this batch belongs to");?>&nbsp;:
-                                <select NAME="upd_id_agent" size="1" class="form_input_select">
-                                        <?php
-                                         foreach ($list_agent as $recordset) {
-                                        ?>
-                                                <option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_agent==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
-                                        <?php } ?>
-                                </select><br/>
-                  </td>
-                </tr>
+         <td align="left"  class="bgcolor_001">
+                <input name="check[upd_id_agent]" type="checkbox" <?php if ($check["upd_id_agent"]=="on") echo "checked"?> >
+          </td>
+          <td align="left" class="bgcolor_001">
+                15)&nbsp;<?php echo gettext("Agent this batch belongs to");?>&nbsp;:
+                <select NAME="upd_id_agent" size="1" class="form_input_select">
+                        <?php
+                         foreach ($list_agent as $recordset) {
+                        ?>
+                                <option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_agent==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
+                        <?php } ?>
+                </select><br/>
+          </td>
+        </tr>
 		<tr>
-                 <td align="left"  class="bgcolor_001">
-                        <input name="check[upd_discount]" type="checkbox" <?php if ($check["upd_discount"]=="on") echo "checked"?> >
-                  </td>
-                  <td align="left" class="bgcolor_001">
-                                16)&nbsp;<?php echo gettext("Set discount to");?>&nbsp;:
-                                <select NAME="upd_discount" size="1" class="form_input_select">
+         <td align="left"  class="bgcolor_001">
+                <input name="check[upd_discount]" type="checkbox" <?php if ($check["upd_discount"]=="on") echo "checked"?> >
+          </td>
+          <td align="left" class="bgcolor_001">
+                16)&nbsp;<?php echo gettext("Set discount to");?>&nbsp;:
+                <select NAME="upd_discount" size="1" class="form_input_select">
 					<option class=input value="0" ><?php echo gettext("NO DISCOUNT");?></option> 
-                                        <?php
-					for($i=1;$i<99;$i++){
-                                       ?>
-                      <option class=input value='<?php echo $i;?>'  <?php if ($upd_discount==$i) echo 'selected="selected"';echo '>'. $i; ?>%</option>
-                                        <?php } ?>
-                                </select><br/>
-                  </td>
-                </tr>
-
+                    <?php for($i=1;$i<99;$i++){ ?>
+              			<option class=input value='<?php echo $i;?>'  <?php if ($upd_discount==$i) echo 'selected="selected"';echo '>'. $i; ?>%</option>
+                    <?php } ?>
+                </select><br/>
+          </td>
+        </tr>
+		
 		<tr>		
 			<td align="right" class="bgcolor_001"></td>
 		 	<td align="right"  class="bgcolor_001">
