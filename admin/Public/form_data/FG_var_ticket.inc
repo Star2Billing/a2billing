@@ -38,7 +38,7 @@ $status_list = Ticket::getAllStatusListView();
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("HOLDER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("COMPONENT"), "id_component", "10%", "center", "sort", "15", "lie", "cc_support_component", "name", "id='%id'", "%1");
@@ -82,11 +82,11 @@ $HD_Form -> AddEditElement (gettext("CREATOR"),
 	"POPUPVALUE",
 	"size=30 maxlength=50 $val_default",
 	"4",
-	gettext("Insert the Id CardNumber"),
+	gettext("Insert the Customer ID"),
 	"" , "", "", "", "",
 	"A2B_entity_card.php?popup_select=1&"
 	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
-	gettext("Set the Card Number ID"));
+	gettext("Set the Customer ID"));
 
 
 $HD_Form -> AddEditElement (gettext("TITLE"),

@@ -23,9 +23,8 @@ $actived_list = Constants::getActivationList();
 
 $HD_Form -> AddViewElement(gettext("CID"), "cid", "30%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CIDGROUP"), "outbound_cid_group", "30%", "center", "sort", "15", "lie", "cc_outbound_cid_group", "group_name", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>"), "activated", "15%", "center", "sort", "", "list", $actived_list);
+$HD_Form -> AddViewElement(gettext("STATUS"), "activated", "15%", "center", "sort", "", "list", $actived_list);
 
-// added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('cid, outbound_cid_group, activated');
 
 
@@ -56,34 +55,34 @@ if ($form_action=="ask-edit" || $form_action=="edit"){
 }
 
 $HD_Form -> AddEditElement (gettext("CID"),
-	"cid",
-	'$value',
-   "TEXTAREA",	
-   "cols=50 rows=4",
-	"",  //CID Regular Expression
-	gettext("Insert the CID"),
-	"" , "", "", "", "" , "", "" ,gettext("Define the CallerID's. If you ADD a new CID, NOT an EDIT, you can define a range of CallerID. <br>80412340210-80412340218 would add all CID's between the range, whereas CIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual CID listed."));
+				"cid",
+				'$value',
+			   "TEXTAREA",	
+			   "cols=50 rows=4",
+				"",  //CID Regular Expression
+				gettext("Insert the CID"),
+				"" , "", "", "", "" , "", "" ,gettext("Define the CallerID's. If you ADD a new CID, NOT an EDIT, you can define a range of CallerID. <br>80412340210-80412340218 would add all CID's between the range, whereas CIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual CID listed."));
 
 
 $HD_Form -> AddEditElement (gettext("CIDGROUP"),
-	"outbound_cid_group",
-	'$value',
-	"SELECT",
-	"", "", "",
-	"sql",
-	"cc_outbound_cid_group",
-	"group_name, id",
-	"", "", "%1","", "");
+				"outbound_cid_group",
+				'$value',
+				"SELECT",
+				"", "", "",
+				"sql",
+				"cc_outbound_cid_group",
+				"group_name, id",
+				"", "", "%1","", "");
 	
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
-	"activated",
-	'1',
-	"RADIOBUTTON",
-	"",
-	"",
-	gettext("Choose if you want to activate this card"),
-	"" , "", "", "Yes :1, - No:0", "", "", "" , "" );
-	
+				"activated",
+				'1',
+				"RADIOBUTTON",
+				"",
+				"",
+				gettext("Choose if you want to activate this CallerID"),
+				"" , "", "", "Yes :1, - No:0", "", "", "" , "" );
+				
 	
 
 $HD_Form -> FieldEditElement ('cid, outbound_cid_group, activated');
@@ -92,10 +91,10 @@ $HD_Form -> FieldEditElement ('cid, outbound_cid_group, activated');
 $HD_Form -> FG_SPLITABLE_FIELD = 'cid';
 
 
-if (DB_TYPE == "postgres"){
+if (DB_TYPE == "postgres") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
+} else {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
 }
@@ -119,4 +118,5 @@ $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
-?>
+
+

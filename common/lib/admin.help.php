@@ -784,7 +784,7 @@ $CC_help_ecommerce ='
 	<br/>'
 	.gettext("This section will allow you to define the E-Commerce Production Setting.")
 	.gettext("<br>This will be use by E-Commerce API to find out how we want the new account to be created.").'
-<br/>'.help_wiki_link('ListE-Product').'<br/>
+<br/>'.help_wiki_link('ListE-Product').'
 </div></div></div>
 </div></div>';
 

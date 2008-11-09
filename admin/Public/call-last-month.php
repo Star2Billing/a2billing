@@ -180,7 +180,7 @@ $smarty->display('main.tpl');
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 				<td class="fontstyle_searchoptions" width="50%" valign="top">
-					<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+					<?php echo gettext("Enter the customer ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
 					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 				</td>
 				<td width="50%">

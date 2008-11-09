@@ -31,18 +31,7 @@ $bool = false;
 //     Generating WHERE CLAUSE		///////////////////////////////
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month" && $frommonth && $tomonth)
-{
-	if ($frommonth && isset($fromstatsmonth)) {
-		$condition.=" $UNIX_TIMESTAMP(c.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-	}
-	if ($tomonth && isset($tostatsmonth))
-	{
-		if (strlen($condition)>0) $condition.=" AND ";
-		$condition.=" $UNIX_TIMESTAMP(c.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')";
-	}
-
-} else if($Period=="Time" && $lst_time != "") {
+if($Period=="Time" && $lst_time != "") {
 	if (strlen($condition)>0) $condition.=" AND ";
 	if(DB_TYPE == "postgres"){
 		switch($lst_time){
@@ -170,65 +159,11 @@ if (strlen($_GET["menu"])>0)
 		<table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>
 			<tr>
-        		<td class="bgcolor_002" align="left">
-
-					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT MONTH");?></font>
+        		<td align="left" class="bgcolor_002" width="120">
+					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day" or $Period==""){ ?>checked="checked" <?php  } ?>> 
+					<font class="fontstyle_003"><?php echo gettext("Select Day");?></font>
 				</td>
-      			<td class="bgcolor_003" align="left">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-					<?php echo gettext("From");?> : <select name="fromstatsmonth" class="form_input_select">
-					<?php
-						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
-						$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-						   if ($year_actual==$i){
-							$monthnumber = date("n")-1; // Month number without lead 0.
-						   }else{
-							$monthnumber=11;
-						   }		   
-						   for ($j=$monthnumber;$j>=0;$j--){	
-							$month_formated = sprintf("%02d",$j+1);
-				   			if ($fromstatsmonth=="$i-$month_formated")	$selected="selected";
-							else $selected="";
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-						   }
-						}
-					?>		
-					</select>
-					</td><td  class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					<?php echo gettext("To");?> : <select name="tostatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-						   if ($year_actual==$i){
-							$monthnumber = date("n")-1; // Month number without lead 0.
-						   }else{
-							$monthnumber=11;
-						   }		   
-						   for ($j=$monthnumber;$j>=0;$j--){	
-							$month_formated = sprintf("%02d",$j+1);
-				   			if ($tostatsmonth=="$i-$month_formated") $selected="selected";
-							else $selected="";
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-						   }
-						}
-					?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
-			
-			<tr>
-        		<td align="left" class="bgcolor_004">
-					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT DAY");?></font>
-				</td>
-      			<td align="left" class="bgcolor_005">
+      			<td align="left" class="bgcolor_003" width="600">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="fontstyle_searchoptions">
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("From");?> :
@@ -242,7 +177,9 @@ if (strlen($_GET["menu"])>0)
 						?>	
 					</select>
 				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
+					<?php 	
+						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
+						$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
 							if ($year_actual==$i){
@@ -292,11 +229,11 @@ if (strlen($_GET["menu"])>0)
 	  			</td>
     		</tr>
 			<tr>
-				<td class="bgcolor_002" align="left">		
+				<td class="bgcolor_004" align="left">		
 				<input type="radio" name="Period" value="Time" <?php  if (($Period=="Time")){ ?>checked="checked" <?php  } ?>>	
-					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("Select Time");?></font>
+					<font class="fontstyle_003"><?php echo gettext("Select Time");?></font>
 				</td>				
-				<td class="bgcolor_003" align="left">
+				<td class="bgcolor_005" align="left">
 				<select name="lst_time" style="width:100px;" class="form_input_select">
 				<option value="" selected>Select Time</option>
 				<option value="1" <?php if ($lst_time == 1) echo "selected"?>>Last 1 hour</option>

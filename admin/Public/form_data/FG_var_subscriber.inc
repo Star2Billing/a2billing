@@ -15,7 +15,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = 
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/text_signature.png" ;
 
 
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "15%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "15%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription_fee", "20%", "center", "sort", "15", "lie", "cc_subscription_fee", "label", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("DATESTART"), "startdate", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATESTOP"), "stopdate", "15%", "center", "sort");
@@ -43,17 +43,17 @@ if (isset($form_action) && $form_action=="ask-add"){
 	$comp_zero = "value='0'";
 }
 
-$HD_Form -> AddEditElement (gettext("ID CARD"),
+$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 				"id_cc_card",
 				'',
 				"POPUPVALUE",
 				"size=30 maxlength=50",
 				"4",
-				gettext("Insert the Id CardNumber"),
+				gettext("Insert the Customer ID"),
 				"" , "", "", "", "",
 				"A2B_entity_card.php?popup_select=1&"
 				, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
-				gettext("Set the card number ID."));
+				gettext("Set the Customer ID."));
 		
 $HD_Form -> AddEditElement (gettext("ID SUBSCRIPTION"),
 				"id_subscription_fee",

@@ -40,12 +40,12 @@ $currency_list_key = getCurrenciesKeyList() ;
 
 
 
-$HD_Form_c -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
-$HD_Form_c -> AddViewElement(gettext("CARDNUMBER"), "username", "12%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form_c -> AddViewElement(gettext("ACCOUNT HOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
+$HD_Form_c -> AddViewElement(gettext("ACCOUNT NUMBER"), "username", "12%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form_c -> AddViewElement(gettext("DATE"), "cc_charge.creationdate", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form_c -> AddViewElement(gettext("AMOUNT"), "amount", "7%", "center", "sort");
 $HD_Form_c -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
-$HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "chargetype", "20%", "center", "sort", "30", "list", $chargetype_list);
+$HD_Form_c -> AddViewElement(gettext("CHARGE TYPE"), "chargetype", "20%", "center", "sort", "30", "list", $chargetype_list);
 $HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "SORT", "40");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
@@ -71,19 +71,16 @@ if ($form_action=='ask-add'){
 		$numrow = 0;
 		if ($resmax)
 			$numrow = $resmas -> RecordCount( );
-
 		if ($numrow!=0) {
 			$db_row [] = $resmax -> fetchRow();
 			$val_default = "value='".$db_row[0][0]."'";
 		}
 	}
-
 	if ($id_did){
 		$resmax = $DBHandle_max -> Execute("SELECT fixrate FROM cc_did where id='$id_did'");
 		$numrow = 0;
 		if ($resmax)
 			$numrow = $resmax -> RecordCount( );
-
 		if ($numrow!=0){
 			$db_row2 [] = $resmax -> fetchRow();
 			$val_default_fixrate = "value='".$db_row2[0][0]."'";
@@ -92,17 +89,17 @@ if ($form_action=='ask-add'){
 }
 
 
-$HD_Form_c -> AddEditElement (gettext("ID CARD"),
+$HD_Form_c -> AddEditElement (gettext("CUSTOMER ID"),
 	"id_cc_card",
 	'',
 	"POPUPVALUE",
 	"size=30 maxlength=50 $val_default",
 	"4",
-	gettext("Insert the Id CardNumber"),
+	gettext("Insert the Customer ID"),
 	"" , "", "", "", "",
 	"A2B_entity_card.php?popup_select=1&"
 	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
-	gettext("Set the Card Number ID"));
+	gettext("Set the Customer ID"));
 
 $HD_Form_c -> AddEditElement (gettext("AMOUNT"),
 	"amount",
@@ -122,7 +119,7 @@ $HD_Form_c -> AddEditElement (gettext("CURRENCY"),
    "",
    "list" , "", "",	"", $currency_list, "%1", "", "" );
 
-$HD_Form_c -> AddEditElement (gettext("CHARGETYPE"),
+$HD_Form_c -> AddEditElement (gettext("CHARGE TYPE"),
 	"chargetype",
 	"",
 	"SELECT",
@@ -149,7 +146,7 @@ $HD_Form_c -> FieldEditElement ('id_cc_card, amount, currency, chargetype, descr
 
 $HD_Form_c -> FG_FILTER_APPLY = true;
 $HD_Form_c -> FG_FILTERFIELD = 'cardnumber';
-$HD_Form_c -> FG_FILTERFIELDNAME = 'cardnumber';
+$HD_Form_c -> FG_FILTERFIELDNAME = 'account number';
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 	if (strlen($HD_Form_c -> FG_TABLE_CLAUSE)>0) $HD_Form_c -> FG_TABLE_CLAUSE.=" AND ";

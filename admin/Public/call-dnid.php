@@ -59,7 +59,9 @@ if ($_SESSION["is_admin"]==0) {
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
-$yesno = array(); 	$yesno["1"]  = array( "Yes", "1");	 $yesno["0"]  = array( "No", "0");
+$yesno = array();
+$yesno["1"]  = array( "Yes", "1");	 
+$yesno["0"]  = array( "No", "0");
 
 // 0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
 $list_calltype = array(); 	$list_calltype["0"]  = array( "STANDARD", "0");	 $list_calltype["1"]  = array( "SIP/IAX", "1");
@@ -88,23 +90,12 @@ $FG_COL_QUERY='t1.dnid ,count(*) as count,avg(rc.buyrate) as buyrate ,avg(rc.rat
 
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=10000;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
-
-// The variable $FG_EDITION define if you want process to the edition of the database record
 $FG_EDITION=true;
-
-//This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
-
-//This variable define the Title of the HTML table
 $FG_HTML_TABLE_TITLE = gettext(" - DNID REPORT - ");
-
-//This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH = '70%';
 
 
@@ -133,27 +124,22 @@ if (DB_TYPE == "postgres") {
 	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month") {
-	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-} else {
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
-		if($fromtime){
-			$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";
-		}
-		else {	
-			$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
-		}
+
+if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
+	if($fromtime){
+		$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";
 	}
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) {
-		if($totime){
-			$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." $tostatsday_hour:$tostatsday_min:59')";
-		}else{
-			$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
-		}
+	else {	
+		$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
 }
-
+if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) {
+	if($totime){
+		$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." $tostatsday_hour:$tostatsday_min:59')";
+	}else{
+		$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+	}
+}
 
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
@@ -343,7 +329,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 				<td class="fontstyle_searchoptions" width="50%" valign="top">
-					<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+					<?php echo gettext("Enter the account number");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
 					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 				</td>
 				<td width="50%">
@@ -383,65 +369,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			</table>
 			</td>
 		</tr>			
-		<?php  }?>
-		<tr>
-			<td class="bgcolor_002" align="left">
-
-				<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-				<font class="fontstyle_003"><?php echo gettext("SELECT MONTH");?></font>
-			</td>
-			<td class="bgcolor_003" align="left">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr><td class="fontstyle_searchoptions">
-				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-				<?php echo gettext("From");?> : <select name="fromstatsmonth" class="form_input_select">
-				<?php
-					$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
-					$year_actual = date("Y");  	
-					for ($i=$year_actual;$i >= $year_actual-1;$i--)
-					{		   
-					   if ($year_actual==$i){
-						$monthnumber = date("n")-1; // Month number without lead 0.
-					   }else{
-						$monthnumber=11;
-					   }		   
-					   for ($j=$monthnumber;$j>=0;$j--){	
-						$month_formated = sprintf("%02d",$j+1);
-						if ($fromstatsmonth=="$i-$month_formated")	$selected="selected";
-						else $selected="";
-						echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-					   }
-					}
-				?>		
-				</select>
-				</td><td  class="fontstyle_searchoptions">&nbsp;&nbsp;
-				<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-				<?php echo gettext("To");?> : <select name="tostatsmonth" class="form_input_select">
-				<?php 	$year_actual = date("Y");  	
-					for ($i=$year_actual;$i >= $year_actual-1;$i--)
-					{		   
-					   if ($year_actual==$i){
-						$monthnumber = date("n")-1; // Month number without lead 0.
-					   }else{
-						$monthnumber=11;
-					   }		   
-					   for ($j=$monthnumber;$j>=0;$j--){	
-						$month_formated = sprintf("%02d",$j+1);
-						if ($tostatsmonth=="$i-$month_formated") $selected="selected";
-						else $selected="";
-						echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-					   }
-					}
-				?>
-				</select>
-				</td></tr></table>
-			</td>
-		</tr>
+		<?php  } ?>
 		
 		<tr>
 			<td align="left" class="bgcolor_004">
-				<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-				<font class="fontstyle_003"><?php echo gettext("SELECT DAY");?></font>
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DATE");?></font>
 			</td>
 			<td align="left" class="bgcolor_005">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -457,7 +389,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					?>	
 				</select>
 				<select name="fromstatsmonth_sday" class="form_input_select">
-				<?php 	$year_actual = date("Y");  	
+				<?php 	
+					$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
+					$year_actual = date("Y");  	
 					for ($i=$year_actual;$i >= $year_actual-1;$i--)
 					{		   
 						if ($year_actual==$i){
@@ -902,26 +836,13 @@ foreach ($asr_cic_list1 as $asr_cic_data){
 
 ?>
 
-
-
-<!-- TITLE GLOBAL -->
-<center>
- <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
-		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
-			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
-				<tr><td  class="bgcolor_019" align="left"><font class="fontstyle_003"><?php echo gettext("SUMMARY");?></font></td></tr>
-			</tbody></table>
-		</td></tr></tbody></table>
- </td></tr></tbody></table>
-		  
-<!-- FIN TITLE GLOBAL MINUTES //-->
 				
 <table border="0" cellspacing="0" cellpadding="0"  width="95%">
 <tbody><tr><td bgcolor="#000000">			
 	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
 	<tr>	
 		<td align="center" class="bgcolor_019"></td>
-    	<td  class="bgcolor_020" align="center" colspan="10"><font class="fontstyle_003"><?php echo gettext("CALLING CARD MINUTES");?></font></td>
+    	<td  class="bgcolor_020" align="center" colspan="10"><font class="fontstyle_003"><?php echo gettext("TRAFFIC SUMMARY");?></font></td>
     </tr>
 	<tr class="bgcolor_019">
 		<td align="center" class="bgcolor_020"><font class="fontstyle_003"><?php echo gettext("DATE");?></font></td>

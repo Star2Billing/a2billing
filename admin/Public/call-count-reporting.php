@@ -49,7 +49,7 @@ switch ($topsearch) {
 		
 	case "topuser":
 	default:
-		$FG_TABLE_COL[]=array (gettext("CardUsed"), 'card_id', "20%", "center","SORT", "", "30", "", "", "", "", "linktocustomer");
+		$FG_TABLE_COL[]=array (gettext("Account Used"), 'card_id', "20%", "center","SORT", "", "30", "", "", "", "", "linktocustomer");
 		$on_field = "card_id";
 	
 }
@@ -98,13 +98,8 @@ if (DB_TYPE == "postgres") {
 }
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month") {
-	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-} else {
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
-}
+if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 
 
 if (strpos($date_clause, 'AND') > 0) {
@@ -180,26 +175,10 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 }
 
 
-if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
-if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
-/*******************   TOTAL COSTS  *****************************************
+$smarty->display('main.tpl');
 
-$instance_table_cost = new Table($FG_TABLE_NAME, "sum(.costs), sum(.buycosts)");		
-if (!$nodisplay){	
-	$total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
-}
-*/
-
-
-/*************************************************************/
-
-
-
-?>
-<?php
-	$smarty->display('main.tpl');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -218,67 +197,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
 		<table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>
-			<tr>
-        		<td width="17%" align="left" class="bgcolor_004">
-
-					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT MONTH");?></b></font>
-				</td>
-      			<td width="83%" align="left" class="bgcolor_005">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-					<?php echo gettext("From");?> : <select name="fromstatsmonth" class="form_input_select">
-					<?php
-						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
-						$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-						   if ($year_actual==$i){
-							$monthnumber = date("n")-1; // Month number without lead 0.
-						   }else{
-							$monthnumber=11;
-						   }		   
-						   for ($j=$monthnumber;$j>=0;$j--){	
-							$month_formated = sprintf("%02d",$j+1);
-				   			if ($fromstatsmonth=="$i-$month_formated")	$selected="selected";
-							else $selected="";
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-						   }
-						}
-					?>		
-					</select>
-					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					To : <select name="tostatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-						   if ($year_actual==$i){
-							$monthnumber = date("n")-1; // Month number without lead 0.
-						   }else{
-							$monthnumber=11;
-						   }		   
-						   for ($j=$monthnumber;$j>=0;$j--){	
-							$month_formated = sprintf("%02d",$j+1);
-				   			if ($tostatsmonth=="$i-$month_formated") $selected="selected";
-							else $selected="";
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-						   }
-						}
-					?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
 			
 			<tr>
         		<td align="left" class="bgcolor_002">
-					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT DAY");?></font>
+					<font class="fontstyle_003"><?php echo gettext("DATE");?></font>
 				</td>
-      			<td align="left" class="bgcolor_003">
+      			<td align="left" class="bgcolor_003" width="650">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
 					<tr><td class="fontstyle_searchoptions">
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("From");?> :
@@ -292,7 +216,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						?>	
 					</select>
 				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
+					<?php 	
+						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
+						$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
 							if ($year_actual==$i){

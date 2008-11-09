@@ -16,7 +16,8 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/add.png" ;
 
 
 $language_list = Constants::getLanguagesList();
-$simultaccess_list = Constants::getSimultAccessList();
+$simultaccess_list = Constants::getCardAccess_List();
+$simultaccess_list_r = Constants::getCardAccess_Revert_List();
 $currency_list=getCurrenciesList();
 $currency_list_r = getCurrenciesRateList();
 $currency_list_key = getCurrenciesKeyList();
@@ -62,7 +63,7 @@ $HD_Form -> FG_DELETION = true;
 
 
 
-$HD_Form -> AddEditElement (gettext("PRODUCT_NAME"),
+$HD_Form -> AddEditElement (gettext("PRODUCT NAME"),
 			   "product_name",
 			   '$value',
 			   "INPUT",

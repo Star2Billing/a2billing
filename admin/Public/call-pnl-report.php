@@ -28,18 +28,8 @@ $bool = false;
 //     Generating WHERE CLAUSE		///////////////////////////////
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month" && $frommonth && $tomonth)
-{
-	if ($frommonth && isset($fromstatsmonth)) {
-		$condition.=" $UNIX_TIMESTAMP(cdr.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-	}
-	if ($tomonth && isset($tostatsmonth))
-	{
-		if (strlen($condition)>0) $condition.=" AND ";
-		$condition.=" $UNIX_TIMESTAMP(cdr.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')";
-	}
 
-} else if($Period=="Time" && $lst_time != "") {
+if($Period=="Time" && $lst_time != "") {
 	if (strlen($condition)>0) $condition.=" AND ";
 	if(DB_TYPE == "postgres"){
 		switch($lst_time){
@@ -116,65 +106,10 @@ if (strlen($_GET["menu"])>0)
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
 		<table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>
-			<tr>
-        		<td class="bgcolor_002" align="left">
-
-					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT MONTH");?></font>
-				</td>
-      			<td class="bgcolor_003" align="left">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-					<?php echo gettext("From");?> : <select name="fromstatsmonth" class="form_input_select">
-					<?php
-						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
-						$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-						   if ($year_actual==$i){
-							$monthnumber = date("n")-1; // Month number without lead 0.
-						   }else{
-							$monthnumber=11;
-						   }		   
-						   for ($j=$monthnumber;$j>=0;$j--){	
-							$month_formated = sprintf("%02d",$j+1);
-				   			if ($fromstatsmonth=="$i-$month_formated")	$selected="selected";
-							else $selected="";
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-						   }
-						}
-					?>		
-					</select>
-					</td><td  class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					<?php echo gettext("To");?> : <select name="tostatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-						   if ($year_actual==$i){
-							$monthnumber = date("n")-1; // Month number without lead 0.
-						   }else{
-							$monthnumber=11;
-						   }		   
-						   for ($j=$monthnumber;$j>=0;$j--){	
-							$month_formated = sprintf("%02d",$j+1);
-				   			if ($tostatsmonth=="$i-$month_formated") $selected="selected";
-							else $selected="";
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-						   }
-						}
-					?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
-			
 			<tr>
         		<td align="left" class="bgcolor_004">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT DAY");?></font>
+					<font class="fontstyle_003"><?php echo gettext("Select Day");?></font>
 				</td>
       			<td align="left" class="bgcolor_005">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -190,7 +125,9 @@ if (strlen($_GET["menu"])>0)
 						?>	
 					</select>
 				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
+					<?php
+						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
+						$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
 							if ($year_actual==$i){
@@ -242,7 +179,7 @@ if (strlen($_GET["menu"])>0)
 			<tr>
 				<td class="bgcolor_002" align="left">		
 				<input type="radio" name="Period" value="Time" <?php  if (($Period=="Time")){ ?>checked="checked" <?php  } ?>>	
-					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("Select Time");?></font>
+					<font class="fontstyle_003">&nbsp;<?php echo gettext("Select Time");?></font>
 				</td>				
 				<td class="bgcolor_003" align="left">
 				<select name="lst_time" style="width:100px;" class="form_input_select">
@@ -264,23 +201,15 @@ if (strlen($_GET["menu"])>0)
 					
 	  			</td>
     		</tr>
-		</tbody></table>
+		</table>
 </FORM>
 
 
 <?php
 
-#$res_ALOC  = $instance_table->SQLExec ($DBHandle, $QUERY_ALOC);
-#foreach($res_ALOC as $val){
-#        $ALOC =  $val[0];
-#        $Total_calls = $val[1];
-#}
-
-
 
 $condition1=str_replace('cdr.starttime','date',$condition);
 $condition2=str_replace('cdr.starttime','firstusedate',$condition);
-#$SQL="create temporary table temp_dnid(dnid varchar(20),cost float,sell_cost float default 0,dnid_type integer default 2 ) engine=memory";
 $payphones=$A2B->config["webui"]["report_pnl_pay_phones"];
 $tallfree=$A2B->config["webui"]["report_pnl_tall_free"];
 $payphones=str_replace(' ','',$payphones);$tallfree=str_replace(' ','',$tallfree);
@@ -291,6 +220,7 @@ $tallfree=str_replace(')',' ,2 ',$tallfree);
 $tallfree=str_replace('(',' select ',$tallfree);
 $payphones=str_replace('(',' select ',$payphones);
 $dnids="select 'dnid' as dnid, 0.1 as sell_cost,0.1 as cost,0 as dnid_type";
+
 if (strlen($tallfree)>0)$dnids.=" union ".$tallfree;
 if (strlen($payphones)>0)$dnids.=" union ".$payphones;
 
@@ -375,19 +305,13 @@ $FG_DEBUG = 0;
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_HEAD_COLOR = "#D1D9E7";
-$FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
-$FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
+$FG_TABLE_EXTERN_COLOR = "#7F99CC";
+$FG_TABLE_INTERN_COLOR = "#EDF3FF";
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 
-
-/*******
-name,call_count,time_minutes,tall_free_buy_cost,pay_phone_buy_cost,orig_only,credits,orig_total,
-tall_free_sell_cost,pay_phone_sell_cost,term_only,charges, term_total,
-first_use,discount,profit,margin, profit2
-*******/
 function linktonext($value){
 	$handle = DbConnect();
         $inst_table = new Table("cc_card_group", "id");
@@ -408,7 +332,6 @@ $HD_Form -> AddViewElement(gettext("Group"), "name", "*", "center", "SORT", "19"
 }
 $HD_Form -> AddViewElement(gettext("CallCount"), "call_count", "*", "center", "SORT", "30");
 $HD_Form -> AddViewElement(gettext("Minutes"), "time_minutes", "*", "center", "SORT", "30");
-#", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("Toll Free Cost"), "tall_free_buy_cost", "*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Pay Phone Cost"), "pay_phone_buy_cost", "*", "center", "SORT",30,"", "", "", "", "", "display_2dec" );
 $HD_Form -> AddViewElement(gettext("Origination Cost"), "orig_only", "*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
@@ -441,10 +364,8 @@ $HD_Form -> FG_TOTAL_TABLE_COL=19;
 
 
 
-
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_HTML_TABLE_WIDTH ="90%";
-#$HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'pnl_selection';
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
@@ -468,7 +389,6 @@ if (!isset($action)) $action = $form_action;
 
 
 $list = $HD_Form -> perform_action($form_action);
-
 
 
 
@@ -528,6 +448,7 @@ if (strlen($HD_Form->FG_TABLE_CLAUSE)>1)
 if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!=''))
         $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
 
+
+
 $smarty->display('footer.tpl');
 
-?>

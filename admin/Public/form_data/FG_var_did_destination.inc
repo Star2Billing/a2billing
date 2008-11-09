@@ -75,17 +75,17 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	gettext("Insert the DID"),
 	"" , "", "", "", "" , "", "", gettext("Enter the phone number you wish to call, or the VoIP client to reach. (ie: 347894999 or SIP/jeremy@182.212.1.45). If the call is VoIP, the VoIP_Call must be set to yes."));
 
-$HD_Form -> AddEditElement (gettext("ID CARD"),
+$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 	"id_cc_card",
 	'',
 	"POPUPVALUE",
 	"size=30 maxlength=50",
 	"4",
-	gettext("Insert the Id CardNumber"),
+	gettext("Insert the Id Customer ID"),
 	"" , "", "", "", "",
 	"A2B_entity_card.php?popup_select=1&"
 	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
-	gettext("Set the card number ID."));
+	gettext("Set the Customer ID."));
 
 $HD_Form -> AddEditElement (gettext("DID"),
 	"id_cc_did",
