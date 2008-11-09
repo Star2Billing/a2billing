@@ -23,7 +23,7 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card
 // DEFINE IF WE WANT TO DELETE THE CARD OR NOT
 $HD_Form -> FG_FK_WARNONLY = (DELETE_FK_CARD == true) ? false: true;
 
-if (DELETE_FK_CARD){
+if (DELETE_FK_CARD) {
 	// WE WILL DELETE THE FK
 	$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all the SIP/IAX accounts & CallerIDs attached to this card! Please confirm that you really want to remove this card ? ");
 } else {
@@ -47,22 +47,20 @@ $language_list = Constants::getLanguagesList();
 
 $language_list_r = Constants::getLanguagesRevertList();
 $discount_list  = array();
-                $discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0.00");
-                for($i=1;$i<99;$i++){
-                 $discount_list["".$i.".00"]=array("".$i."%","".$i.".00");
-                };
+$discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0.00");
+for($i=1;$i<99;$i++) {
+	$discount_list["".$i.".00"]=array("".$i."%","".$i.".00");
+};
 
 $simultaccess_list = Constants::getCardAccess_List();
-
 $simultaccess_list_r = Constants::getCardAccess_Revert_List();
 
 
 // Possible value to notify the user
-
 $values = explode(":",$A2B->config['notifications']['values_notifications']);
 $limits_notify = array();
 $idx =0;
-foreach ($values as $val){
+foreach ($values as $val) {
  	$limits_notify [$idx] = array($val,$val);
 	$idx++;
 }
@@ -151,7 +149,7 @@ $show_fields['id']=array(gettext("ID"), "id", "3%", "center", "sort","", "", "",
 if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "10%", "center", "sort");
 
-$show_fields['username']=array("Card Number", "username", "19%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$show_fields['username']=array("Account Number", "username", "19%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1)) 
  $show_fields['useralias']=array("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 

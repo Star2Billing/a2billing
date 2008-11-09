@@ -133,7 +133,7 @@ $CC_help_sipfriend_list ='
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">
 '.gettext("SIP and IAX friend will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
-.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Card Number and Secret as the username and password.").'
+.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret as the username and password.").'
 <br/>'.help_wiki_link('ListSIPFriend').'
 </div></div></div>
 </div></div>';
@@ -185,7 +185,7 @@ $CC_help_money_situation ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2">
-'.gettext("This screen shows refills and payments made against each account, along with the current credit on each card. The initial amount of credit applied to the card is not included. The amount owing is calculated by subtracting payments from refills").'
+'.gettext("This screen shows refills and payments made against each account, along with the current credit on each account. The initial amount of credit applied to the account is not included. The amount owing is calculated by subtracting payments from refills").'
 
 <br/>'.help_wiki_link('MoneySituation').'
 </div></div></div>
@@ -198,7 +198,7 @@ $CC_help_view_payment ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the card. Click refill under customer list to top-up a card.").'
+'.gettext("Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the account. Click refill under customer list to top-up an account.").'
 <br/>'.help_wiki_link('ViewPayments').'
 </div></div></div>
 </div></div>';
@@ -236,7 +236,7 @@ $CC_help_list_tariffgroup ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network.gif" class="kikipic"/>
-	<div class="w2"><br/>'.gettext("List of Call Plans, a Call Plan is a collection of rate cards, click edit to add ratecards to the Call Plan").'
+	<div class="w2"><br/>'.gettext("List of Call Plans, a Call Plan is a collection of ratecards. You can click on edit to add new ratecards to the Call Plan").'
 <br/>'.help_wiki_link('ListCallPlan').'<br/>
 <br/>
 </div></div></div>
@@ -250,7 +250,7 @@ $CC_help_add_tariffgroup ='
 	<img src="'.KICON_PATH.'/network.gif" class="kikipic"/>
 	<div class="w2">
 '.gettext("A Call Plan is a collection of ratecards.")
-.gettext("The calling card system will choose the most appropriate rate according to the Call Plan settings (LCR or LCD).<br/>")
+.gettext("The system will choose the most appropriate rate according to the Call Plan settings (LCR or LCD).<br/>")
 .gettext("LCR : Least Cost Routing - Find the trunk with the cheapest carrier cost. (buying rate)<br>")
 .gettext("LCD : Least Cost Dialing - Find the trunk with the cheapest retail rate (selling rate)").'
 <br/>'.help_wiki_link('AddCallPlan').'
@@ -263,7 +263,7 @@ $CC_help_list_ratecard ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
-	<div class="w2"><br/> '.gettext("List ratecards that have been created!<br>Ensure that the rate card is added into the call plan under 'List Ratecard'").'
+	<div class="w2"><br/> '.gettext("List ratecards that have been created!<br>Ensure that a ratecard is added into the call plan under 'List Ratecard'").'
 <br/>'.help_wiki_link('ListRatecard').'<br/>
 </div></div></div>
 </div></div>';
@@ -300,7 +300,7 @@ $CC_help_sim_ratecard ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
-	<div class="w2"><br>'.gettext('Please select a calling card, enter the number you wish to call and press the "SIMULATE" button.').'<br/>
+	<div class="w2"><br>'.gettext('Please select an account, then enter the number you wish to call and press the "SIMULATE" button.').'<br/>
 <br/>'.help_wiki_link('RatecardSimulator').'
 </div></div></div>
 </div></div>';
@@ -412,7 +412,7 @@ $CC_help_admin_list ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("Administrator list who have access to the calling card administrative interface.").'
+	.gettext("Administrator list who have access to the administrative interface.").'
 <br/>'.help_wiki_link('ShowAdministrator').'<br/>
 </div></div></div>
 </div></div>';
@@ -464,7 +464,7 @@ $CC_help_list_voucher='
 	<div class="w2"><br>'
 .gettext("Listed below are the vouchers created on the system,.<br/>")
 .gettext("Each row corresponds to a voucher and shows it's status, value and currency..")
-.gettext("Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credit to their card via the customer interface or via an IVR menu.").
+.gettext("Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credit to their account via the customer interface or via an IVR menu.").
 '<br/>'.help_wiki_link('ListVoucher').'<br/>
 </div></div></div>
 </div></div>';
@@ -476,7 +476,7 @@ $CC_help_generate_voucher='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("Bulk generate a batch of vouchers, defining such properties as credit and currency etc, click Generate Vouchers when finished.<br/>The customer applies voucher credit to their card via the customer interface. ").'
+.gettext("Bulk generate a batch of vouchers, defining such properties as credit and currency etc, click Generate Vouchers when finished.<br/>The customer applies voucher credit to their account via the customer interface.").'
 <br/>'.help_wiki_link('GenerateVouchers').'<br/>
 </div></div></div>
 </div></div>';
@@ -489,7 +489,7 @@ $CC_help_list_service ='
 	<img src="'.KICON_PATH.'/system-config-date.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("Re-occuring services that decrement a card at timed intervals.").'
+	.gettext("Re-occuring services that decrement an account at timed intervals.").'
 <br/>'.help_wiki_link('ListRecurringService').'<br/>
 </div></div></div>
 </div></div>';
@@ -501,8 +501,8 @@ $CC_help_edit_service ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/system-config-date.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("Utility to apply a scheduled action on the card.<br>")
-.gettext("For example if you want to remove 10 cents everyday on each single card, it can be defined here, alternatively, if you now want to remove 1 credit every week but only 7 times on each card, the different rules/parameters below will define this.").'
+.gettext("Utility to apply a scheduled action on the account.<br>")
+.gettext("For example if you want to remove 10 cents everyday on each single account, it can be defined here, alternatively, if you now want to remove 1 credit every week but only 7 times on each account, the different rules/parameters below will define this.").'
 <br/>'.help_wiki_link('EditRecurringService').'
 </div></div></div>
 </div></div>';
@@ -622,7 +622,7 @@ $CC_help_edit_did ='
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
 <br/>'
-.gettext("DID can be assigned to a card to re-route calls to a SIP/IAX client or a PSTN number. The Priority sets the order in which the calls are to be routed to allow for failover or follow-me.").'<br>'.help_wiki_link('EditDID').'
+.gettext("DID can be assigned to a customer to re-route calls to a SIP/IAX client or a PSTN number. The Priority sets the order in which the calls are to be routed to allow for failover or follow-me.").'<br>'.help_wiki_link('EditDID').'
 </div></div></div>
 </div></div>';
 
@@ -634,7 +634,7 @@ $CC_help_list_did_use ='
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("List the DIDs currently in use with the card id and their destination number <br/> You can use the search option to show the usage of a given DID or all DIDs").'<br/>'.help_wiki_link('DIDUsage').'
+	.gettext("List the DIDs currently in use with the customer id and their destination number <br/> You can use the search option to show the usage of a given DID or all DIDs").'<br/>'.help_wiki_link('DIDUsage').'
 </div></div></div>
 </div></div>';
 
@@ -672,7 +672,7 @@ $CC_help_list_did_billing ='
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">'
 	.gettext("DID list and billing list. ")
-    .gettext("You will see which cards have used your DIDs in past months and the traffic (amount of seconds).").'
+    .gettext("You will see which customers have used your DIDs in past months and the traffic (amount of seconds).").'
 <br/>'.help_wiki_link('DIDBilling').'<br/>
 </div></div></div>
 </div></div>';
@@ -783,7 +783,7 @@ $CC_help_ecommerce ='
 	<div class="w2">
 	<br/>'
 	.gettext("This section will allow you to define the E-Commerce Production Setting.")
-	.gettext("<br>This will be use by E-Commerce API to find out how the new card have to be created.").'
+	.gettext("<br>This will be use by E-Commerce API to find out how we want the new account to be created.").'
 <br/>'.help_wiki_link('ListE-Product').'<br/>
 </div></div></div>
 </div></div>';
