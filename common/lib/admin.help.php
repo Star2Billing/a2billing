@@ -14,7 +14,7 @@ $CC_help_list_group='<div class="toggle_show2hide">
         <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
         <div class="w2">
 
-'.gettext("This page show group list. <br> Group field is used for grouping cards for quick search,batch update and reporting.").'<br/>'.help_wiki_link('ListGroup').'<br/>
+'.gettext("This page show group list. <br> Group field is used for grouping customers for quick search, batch update and reporting.").'<br/>'.help_wiki_link('ListGroup').'<br/>
 </div></div></div>
 </div></div>';
 
@@ -71,7 +71,7 @@ $CC_help_list_customer='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("Customers are listed below by card number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>")
+	<div class="w2">'.gettext("Customers are listed below by account number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>")
 .gettext("The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication.").'
 	<br/>'.help_wiki_link('ListCustomers').'
 </div></div></div>
@@ -83,8 +83,7 @@ $CC_help_info_customer='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("Customer is to one card number. </br>")
-.gettext("You can on this view lot of informations about this card like grouped info, payments & refills.").'
+	<div class="w2"></br>'.gettext("Customer information.").'
 	<br/>'.help_wiki_link('ListCustomers').'
 </div></div></div>
 </div></div>';

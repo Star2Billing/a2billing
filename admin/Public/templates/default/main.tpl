@@ -54,7 +54,7 @@
 				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("CallerID");{/php}</a></li>
 				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&section=1">{php} echo gettext("Speed Dial");{/php}</a></li>
 				<li><a href="A2B_entity_statuslog.php?atmenu=statuslog&section=1">{php} echo gettext("Customer Status Log");{/php}</a></li>
-				<li><a href="card-history.php?atmenu=cardhistory&section=1">{php} echo gettext("Card History");{/php}</a></li>
+				<li><a href="card-history.php?atmenu=cardhistory&section=1">{php} echo gettext("Customer History");{/php}</a></li>
 				<li><a href="A2B_notifications.php?section=1">{php} echo gettext("Notification");{/php}</a></li>
 		</ul></li>
 	</ul>

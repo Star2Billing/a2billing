@@ -3,7 +3,7 @@ include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_CALL_REPORT)) {
+if (!has_rights (ACX_CALL_REPORT)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
@@ -18,13 +18,10 @@ if (!isset ($current_page) || ($current_page == "")){
 }
 
 
-// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
-
 
 $FG_TABLE_NAME="cc_card_history ch LEFT JOIN cc_card ON cc_card.id=id_cc_card";
 
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F2EE";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 
@@ -38,18 +35,18 @@ $FG_TABLE_COL[]=array (gettext("Description"), "description", "60%", "center", "
 $FG_TABLE_DEFAULT_ORDER = "ch.datecreated";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 
-$FG_COL_QUERY='username, ch.datecreated, ch.description';
-$FG_LIMITE_DISPLAY=25;
-$FG_NB_TABLE_COL=count($FG_TABLE_COL);
-$FG_EDITION=false;
+$FG_COL_QUERY = 'username, ch.datecreated, ch.description';
+$FG_LIMITE_DISPLAY = 25;
+$FG_NB_TABLE_COL = count($FG_TABLE_COL);
+$FG_EDITION = false;
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
-$FG_HTML_TABLE_TITLE=" - ".gettext("Account History")." - ";
-$FG_HTML_TABLE_WIDTH="98%";
+$FG_HTML_TABLE_TITLE = " - ".gettext("Customer History")." - ";
+$FG_HTML_TABLE_WIDTH = "98%";
 
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
-if ( is_null ($order) || is_null($sens) ) {
+if (is_null ($order) || is_null($sens)) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
@@ -122,7 +119,7 @@ $smarty->display( 'main.tpl');
 					<font class="fontstyle_003"><?php echo gettext("CUSTOMER");?>&nbsp;</font>
 				</td>				
 				<td class="bgcolor_005" align="left" width="650">
-						<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+						<?php echo gettext("Enter the customer ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
 						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 				</td>
 			</tr>	

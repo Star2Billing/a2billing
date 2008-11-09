@@ -5,7 +5,7 @@ include ("../lib/admin.smarty.php");
 
 
 
-if (! has_rights (ACX_CUSTOMER)){ 
+if (! has_rights (ACX_CUSTOMER)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -14,8 +14,6 @@ if (! has_rights (ACX_CUSTOMER)){
 /***********************************************************************************/
 
 getpost_ifset(array('id'));
- //Redirect if $id is empty
-
 if (empty($id)) {
 	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
 }
@@ -161,12 +159,12 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 			<table width="100%" class="editform_table1">	
 			   <tr>
 			   		<th colspan="2">
-			   			<?php echo gettext("CARD INFO") ?>
+			   			<?php echo gettext("ACCOUNT INFO") ?>
 			   		</th>	
 			   </tr>
 			   <tr height="20px">
 					<td  class="form_head">
-						<?php echo gettext("CARD NUMBER") ?> :
+						<?php echo gettext("ACCOUNT NUMBER") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						&nbsp;<?php echo $card['username']?> 
@@ -317,7 +315,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 			<table width="100%" class="editform_table1">	
 			   <tr>
 			   		<th colspan="2">
-			   			<?php echo gettext("ACCOUNT INFO") ?>
+			   			<?php echo gettext("ACCOUNT STATUS") ?>
 			   		</th>	
 			   </tr>
 			   <tr height="20px">
@@ -376,7 +374,7 @@ if(sizeof($payment_result)>0 && $payment_result[0]!=null) {
 	<tr>
 		<td height="20" align="center"> 
 			<font class="toppage_maintable_text">						  
-			  <?php echo sizeof($payment_result)." ".gettext("Last Customer's Payment"); ?>		  <br/>
+			  <?php echo gettext("Recent Payments"); ?>		  <br/>
 			</font>
 		</td>
 	</tr>
@@ -450,7 +448,7 @@ if(sizeof($refill_result)>0 && $refill_result[0]!=null) {
 	<tr>
 		<td height="20" align="center"> 
 			<font class="toppage_maintable_text">						  
-			 <?php echo sizeof($refill_result)." ".gettext("Last Customer's Refill"); ?>			  <br/>
+			 <?php echo gettext("Recent Refills"); ?>			  <br/>
 			</font>
 		</td>
 	</tr>
@@ -519,8 +517,8 @@ if(sizeof($call_result && $payment_result[0]!=null)>0) {
 <table class="toppage_maintable">
 	<tr>
 		<td height="20" align="center"> 
-			<font class="toppage_maintable_text">						  
-			 <?php echo sizeof($call_result)." ".gettext("Last Customer's Call"); ?>			  <br/>
+			<font class="toppage_maintable_text">
+			 <?php echo gettext("Recent Calls"); ?><br/>
 			</font>
 		</td>
 	</tr>
@@ -601,7 +599,12 @@ if(sizeof($call_result && $payment_result[0]!=null)>0) {
 </table>
 <?php 
 }
-?>
+
+
+
+$smarty->display( 'footer.tpl');
+
+
 
 
 

@@ -227,7 +227,7 @@ class Constants
 	public static function getCardStatus_Acronym_List(){
 		$cardstatus_list_acronym = array();
 		$cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
-		$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVED\">".gettext("ACTIVED")."</acronym>"), "1");
+		$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVATED\">".gettext("ACTIVATED")."</acronym>"), "1");
 		$cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettext("NEW")."</acronym>"), "2");
 		$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAITING")."</acronym>"), "3");
 		$cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERVED\">".gettext("RESERV")."</acronym>"), "4");
