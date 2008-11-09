@@ -2,7 +2,7 @@
 
 getpost_ifset(array('id', 'speeddial', 'id_cc_card', 'name', 'phone','popup_select','popup_formname','popup_fieldname'));
 
-$HD_Form = new FormHandler("cc_speeddial","speeddial");
+$HD_Form = new FormHandler("cc_speeddial","speed dial");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " creationdate";
@@ -11,7 +11,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_speeddial.php?form_action=ask-add&atmenu=speeddial&section=1";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SpeedDial");
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Speed Dial");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/page_white_add.png" ;
 
 
@@ -20,11 +20,11 @@ for ($k=0;$k<=9;$k++)
 	$speeddial_list["$k"]  = array( "$k", "$k");
 
 
-$HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "12%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "20%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "22%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "10%", "center", "sort", "26");
 $HD_Form -> AddViewElement(gettext("PHONE"), "phone", "10%", "center", "sort", "26");
-$HD_Form -> AddViewElement(gettext("SPEEDDIAL"), "speeddial", "10%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("SPEED DIAL"), "speeddial", "20%", "center", "sort", "26");
 
 
 $HD_Form -> FieldViewElement ('creationdate, id_cc_card, name, phone, speeddial');
@@ -39,7 +39,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
-$HD_Form -> AddEditElement (gettext("SPEEDDIAL"),
+$HD_Form -> AddEditElement (gettext("SPEED DIAL"),
 			   "speeddial",			
 			   "",	
 			   "SELECT",	
