@@ -474,7 +474,7 @@ if (!$popup_select && $form_action == "ask-add"){
 		<td class="viewhandler_filter_td1">
 		<span>		
 			
-			<font class="viewhandler_filter_on"><?php echo gettext("Change the Card Number Length")?> :</font>
+			<font class="viewhandler_filter_on"><?php echo gettext("Change the Account Number Length")?> :</font>
 			<select name="cardnumberlenght_list" size="1" class="form_input_select" onChange="submitform()">
 			<?php foreach ($A2B -> cardnumber_range as $value){ ?>
 				<option value='<?php echo $value ?>' 

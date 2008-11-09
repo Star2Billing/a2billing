@@ -96,7 +96,7 @@ $CC_help_refill_customer='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/pipe.gif" class="kikipic"/>
 	<div class="w2">
-'.gettext("Top up cards on this screen by selecting or typing in the card number directly, and enter the amount of credit to apply, then click ADD to confirm.").'
+'.gettext("Top up the account by selecting or typing in the account number directly, and enter the amount of credit to apply, then click ADD to confirm.").'
 <br/>'.help_wiki_link('RefillCustomer').'<br/>
 </div></div></div>
 </div></div>';
@@ -120,7 +120,7 @@ $CC_help_generate_customer='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2">
-'.gettext("Bulk create cards and customers in a single step. <br> Set the properties of the batch such as initial credit, card type and currency, then click on the GENERATE CARDS button to create the batch.").'
+'.gettext("Bulk create customers in a single step. <br> Set the properties of the batch such as initial credit, account type and currency, then click on the GENERATE CUSTOMERS button to create the batch.").'
 <br/>'.help_wiki_link('GenerateCustomers').'<br/>
 </div></div></div>
 </div></div>';
