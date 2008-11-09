@@ -948,24 +948,18 @@ echo $FG_HTML_TABLE_WIDTH?>" border="0"
 		<TD class="bgcolor_021" height=16
 			style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-			<TBODY>
-				<TR>
-					<TD><SPAN class="fontstyle_003"><?php
-					echo $FG_HTML_TABLE_TITLE?></SPAN></TD>
-					<TD align=right><IMG alt="Back to Top" border=0 height=12
-						src="<?php
-						echo Images_Path;
-						?>/btn_top_12x12.gif" width=12></TD>
-				</TR>
-			</TBODY>
+			<TR>
+				<TD><SPAN class="fontstyle_003"><?php
+				echo $FG_HTML_TABLE_TITLE?></SPAN></TD>
+				<TD align=right><IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path; ?>/btn_top_12x12.gif" width=12></TD>
+			</TR>
 		</TABLE>
 		</TD>
 	</TR>
 	<TR>
 		<TD>
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-			<TBODY>
-				<TR class="bgcolor_008">
+			<TR class="bgcolor_008">
 					<TD width="<?php
 					echo $FG_ACTION_SIZE_COLUMN?>" align=center
 						class="tableBodyRight"
@@ -1029,104 +1023,76 @@ width=1></TD>
 bgcolor="<?php
 								echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"
 onMouseOver="bgColor='#C4FFD7'"
-onMouseOut="bgColor='<?php
-								echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
-<TD vAlign=top align="<?php
-								echo $FG_TABLE_COL [$i] [3]?>"
-class=tableBody><?php
-								echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . ".&nbsp;";
-								?></TD>
+onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
+<TD vAlign=top align="<?php echo $FG_TABLE_COL [$i] [3]?>"
+class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . ".&nbsp;"; ?></TD>
  
-<?php
-														for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) {
-															?>
+<?php for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) { ?>
 
-  
-<?php
-															if ($FG_TABLE_COL [$i] [6] == "lie") {
+	<?php if ($FG_TABLE_COL [$i] [6] == "lie") {
 										
-										$instance_sub_table = new Table ( $FG_TABLE_COL [$i] [7], $FG_TABLE_COL [$i] [8] );
-										$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
-										$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null );
-										
-										$field_list_sun = split ( ',', $FG_TABLE_COL [$i] [8] );
-										$record_display = $FG_TABLE_COL [$i] [10];
-										
-										for($l = 1; $l <= count ( $field_list_sun ); $l ++) {
-											$record_display = str_replace ( "%$l", $select_list [0] [$l - 1], $record_display );
-										}
-									
-									} elseif ($FG_TABLE_COL [$i] [6] == "list") {
-										$select_list = $FG_TABLE_COL [$i] [7];
-										$record_display = $select_list [$recordset [$i]] [0];
-									
-									} else {
-										$record_display = $recordset [$i];
-									}
-									
-									if (is_numeric ( $FG_TABLE_COL [$i] [5] ) && (strlen ( $record_display ) > $FG_TABLE_COL [$i] [5])) {
-										$record_display = substr ( $record_display, 0, $FG_TABLE_COL [$i] [5] - 3 ) . "";
-									
-									}
-									
-									?>
- <TD vAlign=top
-align="<?php
-									echo $FG_TABLE_COL [$i] [3]?>" class=tableBody><?php
-									if (isset ( $FG_TABLE_COL [$i] [11] ) && strlen ( $FG_TABLE_COL [$i] [11] ) > 1) {
-										call_user_func ( $FG_TABLE_COL [$i] [11], $record_display );
-									} else {
-										echo stripslashes ( $record_display );
-									}
-									?></TD>
- <?php
-								}
-								?>
+					$instance_sub_table = new Table ( $FG_TABLE_COL [$i] [7], $FG_TABLE_COL [$i] [8] );
+					$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
+					$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null );
+					
+					$field_list_sun = split ( ',', $FG_TABLE_COL [$i] [8] );
+					$record_display = $FG_TABLE_COL [$i] [10];
+					
+					for($l = 1; $l <= count ( $field_list_sun ); $l ++) {
+						$record_display = str_replace ( "%$l", $select_list [0] [$l - 1], $record_display );
+					}
+				
+				} elseif ($FG_TABLE_COL [$i] [6] == "list") {
+					$select_list = $FG_TABLE_COL [$i] [7];
+					$record_display = $select_list [$recordset [$i]] [0];
+				
+				} else {
+					$record_display = $recordset [$i];
+				}
+				
+				if (is_numeric ( $FG_TABLE_COL [$i] [5] ) && (strlen ( $record_display ) > $FG_TABLE_COL [$i] [5])) {
+					$record_display = substr ( $record_display, 0, $FG_TABLE_COL [$i] [5] - 3 ) . "";
+				
+				}
+				
+				?>
+ <TD vAlign=top align="<?php echo $FG_TABLE_COL [$i] [3]?>" class=tableBody><?php
+			if (isset ( $FG_TABLE_COL [$i] [11] ) && strlen ( $FG_TABLE_COL [$i] [11] ) > 1) {
+				call_user_func ( $FG_TABLE_COL [$i] [11], $record_display );
+			} elseif (strlen($record_display)>0) {
+				echo stripslashes ( $record_display );
+			} else {
+				echo '&nbsp;';
+			}
+		?></TD>
+	 <?php } ?>
   
 	</TR>
-<?php
-															} //foreach ($list as $recordset)
-							if ($ligne_number < $FG_LIMITE_DISPLAY)
-								$ligne_number_end = $ligne_number + 2;
-							while ( $ligne_number < $ligne_number_end ) {
-								$ligne_number ++;
-								?>
-<TR
-bgcolor="<?php
-								echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"> 
-<?php
-														for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) {
-															?>
- <TD vAlign=top class=tableBody>&nbsp;</TD>
- <?php
-								}
-								?>
- <TD align="center" vAlign=top class=tableBodyRight>&nbsp;</TD>
-</TR>
-
-<?php
-															} //END_WHILE
-						
-
-						} else {
-							echo gettext ( "No data found !!!" );
-						} //end_if
-						?>
-                <TR>
-					<TD class=tableDivider colSpan=<?php
-					echo $FG_TOTAL_TABLE_COL?>><IMG
-						height=1 src="<?php
-						echo Images_Path;
-						?>/clear.gif" width=1></TD>
-				</TR>
-				<TR>
-					<TD class=tableDivider colSpan=<?php
-					echo $FG_TOTAL_TABLE_COL?>><IMG
-						height=1 src="<?php
-						echo Images_Path;
-						?>/clear.gif" width=1></TD>
-				</TR>
-			</TBODY>
+	<?php } //foreach ($list as $recordset)
+		if ($ligne_number < $FG_LIMITE_DISPLAY)
+			$ligne_number_end = $ligne_number + 2;
+		while ( $ligne_number < $ligne_number_end ) {
+			$ligne_number ++;
+			?>
+		<TR
+		bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"> 
+		<?php for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) { ?>
+		 <TD vAlign=top class=tableBody>&nbsp;</TD>
+		 <?php } ?>
+		 <TD align="center" vAlign=top class=tableBodyRight>&nbsp;</TD>
+		</TR>
+		
+		<?php } //END_WHILE
+				
+				} else {
+					echo gettext ( "No data found !!!" );
+				} //end_if ?>
+            <TR>
+				<TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
+			</TR>
+			<TR>
+				<TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
+			</TR>
 		</TABLE>
 		</td>
 	</tr>
@@ -1134,7 +1100,6 @@ bgcolor="<?php
 		<TD class="bgcolor_005" height=16
 			style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-			<TBODY>
 				<TR>
 					<TD align="right"><SPAN class="fontstyle_003">
                     <?php
@@ -1192,8 +1157,6 @@ bgcolor="<?php
 																				}
 																				?>
                   </TD>
-			
-			</TBODY>
 		</TABLE>
 		</TD>
 	</TR>
@@ -1292,36 +1255,8 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 	$max_fail = 0;	
 ?>
 
-<!-- TITLE GLOBAL -->
-<center>
-<table border="0" cellspacing="0" cellpadding="0" width="80%">
-	<tbody>
-		<tr>
-			<td align="left" height="30">
-			<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%">
-				<tbody>
-					<tr>
-						<td>
-						<table cellspacing="0" cellpadding="0" width="100%">
-							<tbody>
-								<tr>
-									<td class="bgcolor_019" align="left"><font
-										class="fontstyle_003"><?php
-	echo gettext ( "SUMMARY" );
-	?></font></td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			</td>
-		</tr>
-	</tbody>
-</table>
 
-<!-- FIN TITLE GLOBAL MINUTES //-->
+<!-- END TITLE GLOBAL MINUTES //-->
 
 <table border="0" cellspacing="0" cellpadding="0" width="95%">
 	<tbody>
@@ -1332,18 +1267,12 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 					<tr>
 						<td align="center" class="bgcolor_019"></td>
 						<td class="bgcolor_020" align="center" colspan="10"><font
-							class="fontstyle_003"><?php
-	echo gettext ( "CALLING CARD MINUTES" );
-	?></font></td>
+							class="fontstyle_003"><?php echo gettext ( "TRAFFIC SUMMARY" ); ?></font></td>
 					</tr>
 					<tr class="bgcolor_019">
-						<td align="center" class="bgcolor_020"><font class="fontstyle_003"><?php
-	echo gettext ( "DATE" );
-	?></font></td>
+						<td align="center" class="bgcolor_020"><font class="fontstyle_003"><?php echo gettext ( "DATE" ); ?></font></td>
 						<td align="center"><font class="fontstyle_003"><acronym
-							title="<?php
-	echo gettext ( "DURATION" );
-	?>"><?php
+							title="<?php echo gettext ( "DURATION" ); ?>"><?php
 	echo gettext ( "DUR" );
 	?></acronym></font></td>
 						<td align="center"><font class="fontstyle_003"><?php
