@@ -35,13 +35,10 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/flag_yellow.png" ;
 
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "15%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("STARTINGDATE"), "startingdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("EXPIRATIONDATE"), "expirationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("CARD"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-//$HD_Form -> AddViewElement(gettext("USED MINUTE"), "secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$HD_Form -> AddViewElement(gettext("STARTING"), "startingdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("EXPIRATION"), "expirationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", "", "list", $actived_list);
-//$HD_Form -> AddViewElement(gettext("NUMBER OF CALLS"), "nb_callmade", "8%", "center", "SORT", "30");
-
 
 $HD_Form -> FieldViewElement ('cc_campaign.name, cc_campaign.startingdate, cc_campaign.expirationdate, username,cc_campaign.status');
 
@@ -79,46 +76,42 @@ $HD_Form -> AddEditElement ("STATUS",
 
 if ($form_action=="ask-add") {
 	
-	$HD_Form -> AddEditElement (gettext("ID CARD"),
+	$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 				   "id_card",		
 				   "$value",	
 				   "POPUPVALUE",	
 				   "size=30 maxlength=50 ",	
 				   "4",	
-				   gettext("Insert the Id CardNumber"),
+				   gettext("Insert the customer ID"),
 				    "" , "", "", "", "", 				
 					"A2B_entity_card.php?popup_select=1&"
 					, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-					gettext("Select the Card Number ID owner of this campaing, but you may not modify it later"));
+					gettext("Select the owner of this campaing, but you may not modify it in the future"));
 }else{
 	
-	$HD_Form -> AddEditElement (gettext("ID CARD"),
+	$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 		"id_card",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=50 readonly",
 		"4",
-		gettext("Insert the Id CardNumber"),
-		"" , "", "", "", "" , "", "", gettext("Card Number ID Selected "));
+		gettext("Insert the Customer ID"),
+		"" , "", "", "", "" , "", "", gettext("Customer ID Selected "));
 
 }
 
 if ($form_action!="ask-add") {
 	$edit_col = ", id_campaign_config";
 	$HD_Form -> AddEditElement (gettext("CONFIG TO APPLY"),
-				   "config",
-				   "",
-				   "SELECT",
-				   "", "", "",
-				   "sql",
-				   "cc_campaign_config,cc_campaignconf_cardgroup,cc_card_group,cc_card",
-				   "cc_campaign_config.name, cc_campaign_config.id ,flatrate",
-				   "cc_campaign_config.id = id_campaign_config AND id_card_group = cc_card_group.id AND cc_card_group.id = cc_card.id_group AND cc_card.id = $id_card", "", "%1 (%3 ".strtoupper(BASE_CURRENCY)." ) ", "", gettext("Define the configuration that you want apply on this campaign"));
+		   "config",
+		   "",
+		   "SELECT",
+		   "", "", "",
+		   "sql",
+		   "cc_campaign_config,cc_campaignconf_cardgroup,cc_card_group,cc_card",
+		   "cc_campaign_config.name, cc_campaign_config.id ,flatrate",
+		   "cc_campaign_config.id = id_campaign_config AND id_card_group = cc_card_group.id AND cc_card_group.id = cc_card.id_group AND cc_card.id = $id_card", "", "%1 (%3 ".strtoupper(BASE_CURRENCY)." ) ", "", gettext("Define the configuration that you want apply on this campaign"));
 }
-
-
-
-
 
 
 // TODO integrate in new framework
@@ -134,14 +127,14 @@ if ($form_action=="ask-add") {
 
 
 $HD_Form -> AddEditElement (gettext("CID GROUP"),
-			   "id_cid_group",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_outbound_cid_group",
-			   "group_name, id",
-			   "", "", "%1", "", "");
+	   "id_cid_group",
+	   "",
+	   "SELECT",
+	   "", "", "",
+	   "sql",
+	   "cc_outbound_cid_group",
+	   "group_name, id",
+	   "", "", "%1", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("STARTING DATE"),
