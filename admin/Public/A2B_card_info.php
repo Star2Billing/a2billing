@@ -601,11 +601,5 @@ if(sizeof($call_result && $payment_result[0]!=null)>0) {
 }
 
 
-
 $smarty->display( 'footer.tpl');
-
-
-
-
-
 

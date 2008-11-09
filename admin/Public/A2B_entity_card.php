@@ -144,7 +144,7 @@ if ($form_action=='list' && !($popup_select>=1)) {
 <script language="JavaScript" src="javascript/card.js"></script>
 
 <div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CARDS");?> </font></a></center>
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CUSTOMERS");?> </font></a></center>
 	<div class="tohide" style="display:none;">
 
 <?php
@@ -476,18 +476,11 @@ if (!$popup_select && $form_action == "ask-add"){
 			
 			<font class="viewhandler_filter_on"><?php echo gettext("Change the Card Number Length")?> :</font>
 			<select name="cardnumberlenght_list" size="1" class="form_input_select" onChange="submitform()">
-			<?php 
-			//for($i=CARDNUMBER_LENGTH_MIN;$i<=CARDNUMBER_LENGTH_MAX;$i++) {
-			
-			foreach ($A2B -> cardnumber_range as $value){
-			?>
+			<?php foreach ($A2B -> cardnumber_range as $value){ ?>
 				<option value='<?php echo $value ?>' 
 				<?php if ($value == $cardnumberlenght_list) echo "selected";
 				?>> <?php echo $value." ".gettext("Digits");?> </option>
-				
-			<?php
-			}
-			?>						
+			<?php } ?>						
 			</select>
 		</span>
 		</td>	

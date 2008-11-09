@@ -318,22 +318,22 @@ if (isset($form_action) && $form_action=="ask-add") {
 	$default_initbalance = "value='0'";
 }
 
-$HD_Form -> AddEditElement (gettext("CARD NUMBER"),
+$HD_Form -> AddEditElement (gettext("ACCOUNT NUMBER"),
 			   "username",
 			   "",
 			   "INPUT",
 			    "size=30 $maxi readonly  maxlength=40",
 			   "4",
-			   gettext("Insert the username"),
+			   gettext("Insert the account number"),
 			   "" , "", "",	"", "", "",	"", "" );
 
-$HD_Form -> AddEditElement (gettext("CARD ALIAS"),
+$HD_Form -> AddEditElement (gettext("WEBUI LOGIN"),
 			   "useralias",
 			   "",
 			   "INPUT",
 			    "size=20 $maxi2 maxlength=40",
 			   "4",
-			   gettext("Insert the useralias"),
+			   gettext("Insert the webui login"),
 			   "" , "", "",	"", "" , "", "", "");
 
 
@@ -343,10 +343,10 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   "INPUT",
 			   "size=20 $maxi3 maxlength=20",
 			   "",
-			   gettext("Insert the user password"),
+			   gettext("Insert the password"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
-$HD_Form -> AddEditElement (gettext("CARD GROUP"),
+$HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "id_group",
 			   "",
 			   "SELECT",
@@ -452,8 +452,8 @@ $HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMATION"),
 			   "RADIOBUTTON",
 			   "",
 			   "",
-			   gettext("Choose if you want to activate this card"),
-			   "" , "", "" , "Yes :t, - No:f",	"", "", "", gettext("Configure if the card has been activated over the signup confirmation mail") );
+			   gettext("Choose if you want to activate this account"),
+			   "" , "", "" , "Yes :t, - No:f",	"", "", "", gettext("Configure if the account has been activated over the signup confirmation mail") );
 
 $HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
 			   "simultaccess",
@@ -479,8 +479,8 @@ $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 			   "RADIOBUTTON",
 			   "",
 			   "",
-			   gettext("Choose if you want to enable the service recurring on this card"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this card."));
+			   gettext("Choose if you want to enable the service recurring on this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this account."));
 
 
 $HD_Form -> AddEditElement (gettext("RUN AUTOREFILL"),
@@ -489,8 +489,8 @@ $HD_Form -> AddEditElement (gettext("RUN AUTOREFILL"),
 			   "RADIOBUTTON",
 			   "",
 			   "",
-			   gettext("Choose if you want to enable the autorefill on this card"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to authorize the autorefill to apply on this card"));
+			   gettext("Choose if you want to enable the autorefill on this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to authorize the autorefill to apply on this accout"));
 
 $HD_Form -> AddEditElement (gettext("INITIAL BALANCE"),
 			   "initialbalance",
@@ -501,7 +501,7 @@ $HD_Form -> AddEditElement (gettext("INITIAL BALANCE"),
 			   gettext("Insert the amount of the initial balance"),
 			   "" , "", "",	"", "", "",	"", gettext("The initial balance is used by autorefill to reset the current balance to this amount"));
 
-$HD_Form -> AddEditElement (gettext("CARD TYPE"),
+$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
 			   "typepaid",
 			   "",
 			   "SELECT",
@@ -518,7 +518,7 @@ $HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
 			   "size=20 maxlength=20",
 			   "4",
 			   gettext("Insert the credit limit"),
-			   "" , "", "",	"", "", "", "NO-NULL", gettext("Credit limit is only used for POSTPAY card."));
+			   "" , "", "",	"", "", "", "NO-NULL", gettext("Credit limit is only used for the postpaid account."));
 
 
 $HD_Form -> AddEditElement (gettext("FIRST USE DATE"),
@@ -538,8 +538,7 @@ $HD_Form -> AddEditElement (gettext("ENABLE EXPIRY"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $expire_list, "%1", "", gettext("Select method of expiry for the card.") );
-
+			   "list" , "", "",	"", $expire_list, "%1", "", gettext("Select method of expiry for the account.") );
 
 
 $comp_zero = $comp_date_plus='';
@@ -569,8 +568,8 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
 			   "INPUT",
 			    "size=10 maxlength=6 $comp_zero",
 			   "4",
-			   gettext("Insert the number of days after which the card will expire"),
-			   "" , "", "",	"", "", "", "", gettext("The number of days after which the card will expire."));
+			   gettext("Insert the number of days after which the account will expire"),
+			   "" , "", "",	"", "", "", "", gettext("The number of days after which the account will expire."));
 
 $HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
 			   "voicemail_permitted",
@@ -578,8 +577,8 @@ $HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
 			   "RADIOBUTTON",
 			   "",
 			   "",
-			   gettext("Choose if you want to enable the voicemail functionality for this card"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this card."));
+			   gettext("Choose if you want to enable the voicemail functionality for this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
 
 $HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 			   "voicemail_activated",
@@ -587,8 +586,8 @@ $HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 			   "RADIOBUTTON",
 			   "",
 			   "",
-			   gettext("Customer can choose to enable the voicemail for this card"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this card."));
+			   gettext("Customer can choose to enable the voicemail for this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
 
 $HD_Form -> AddEditElement (gettext("INVOICE DAY"),
 			   "invoiceday",
@@ -799,8 +798,9 @@ $HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
 			   "RADIOBUTTON",
 			   "",
 			   "",
-			   gettext("Choose if you want to enable the notification by email for this card"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the notification by mail for this card."));
+			   gettext("Choose if you want to enable the notification by email for this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the notification by mail for this account."));
+
 
 $HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 			   "email_notification",
@@ -898,7 +898,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 
 
 
-$HD_Form -> AddEditElement (gettext("CARD HISTORY"),
+$HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 			   "description",
 			   '$value',
 			   "HAS_MANY",
