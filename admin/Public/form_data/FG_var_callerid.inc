@@ -11,7 +11,7 @@ $yesno = Constants::getYesNoList();
 
 
 $HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
+$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "30%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "25%", "center", "sort", "", "list", $actived_list);
 
 

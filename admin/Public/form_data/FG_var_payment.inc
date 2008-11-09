@@ -21,7 +21,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money_add.png" ;
 
 $list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logpayment.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARD"), "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "23%", "center", "sort");
@@ -44,17 +44,17 @@ if ($form_action=="ask-add" && !empty($card_id)){
 	$id_val = "value='$card_id'";
 }
 
-$HD_Form -> AddEditElement (gettext("ID CARD"),
+$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 			   "card_id",		
 			   "$value",	
 			   "POPUPVALUE",	
 			   "size=30 maxlength=50 ".$id_val,	
 			   "4",	
-			   gettext("Insert the Id CardNumber"),
+			   gettext("Insert the Customer ID "),
 			    "" , "", "", "", "", 				
 				"A2B_entity_card.php?popup_select=1&"
 				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-				gettext("Select the Card Number ID"));
+				gettext("Select the Customer ID"));
 			   
 if ($form_action=="ask-add"){	
 	$begin_date = date("Y");
@@ -122,7 +122,7 @@ if ($form_action!="ask-edit" && $form_action!="edit") {
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
-$HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';
+$HD_Form -> FG_FILTERFIELDNAME = 'account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){

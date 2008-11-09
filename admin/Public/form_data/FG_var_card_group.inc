@@ -4,7 +4,7 @@
 getpost_ifset(array('id', 'name ','users_perms', 'description'));
 
 
-$HD_Form = new FormHandler("cc_card_group","Card Group");
+$HD_Form = new FormHandler("cc_card_group","Customer Group");
 
 $HD_Form -> FG_DEBUG = 0;
 
@@ -36,7 +36,7 @@ $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "35%", "center
 $HD_Form -> FieldViewElement ( 'name, description');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("NO CARD GROUP CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("NO CUSTOMER GROUP CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;

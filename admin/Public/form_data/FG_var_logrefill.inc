@@ -23,7 +23,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
 
 $list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARD"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "7%", "center", "sort", "", "list", $list_refill_type);
@@ -42,14 +42,14 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
-$HD_Form -> AddEditElement (gettext("ID CARD"),
+$HD_Form -> AddEditElement (gettext("ID CUSTOMER"),
 			   "card_id",		
 			   "$value", "POPUPVALUE", "size=30 maxlength=50",	
-			   "4",	gettext("Insert the Id CardNumber"),
+			   "4",	gettext("Insert the Customer ID"),
 			    "" , "", "", "", "", 				
 				"A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-				gettext("Select the Card Number ID"));
-			   
+				gettext("Select the Customer ID"));
+
 if ($form_action=="ask-add"){	
 	$begin_date = date("Y");
 	$end_date = date("-m-d H:i:s");
@@ -99,7 +99,7 @@ $HD_Form -> FieldEditElement ('card_id, date, credit, description, refill_type')
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
-$HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';
+$HD_Form -> FG_FILTERFIELDNAME = 'Account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
@@ -126,4 +126,6 @@ $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'add_card_refill';
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
+
 

@@ -19,6 +19,12 @@ $HD_Form_c -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form_c -> FG_TABLE_CLAUSE = " cc_card.id=id_cc_card ";
 $HD_Form_c -> FG_TABLE_ID="cc_charge.id";
 
+
+$HD_Form_c -> FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form_c -> FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_charge.php?form_action=ask-add&section=2";
+$HD_Form_c -> FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form_c -> FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Voucher");
+$HD_Form_c -> FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/add.png" ;
+
 // -- chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - Subscription fee, 4 - Extra Charge, etc...
 $chargetype_list = array();
 $chargetype_list["1"] = array( gettext("Connection charge for DID setup"), "1");
@@ -28,10 +34,10 @@ $chargetype_list["4"] = array( gettext("Extra charge"), "4");
 
 
 
-
 $currency_list = getCurrenciesList();
 $currency_list_r = getCurrenciesRateList();
 $currency_list_key = getCurrenciesKeyList() ;
+
 
 
 $HD_Form_c -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");

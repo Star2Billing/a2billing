@@ -151,7 +151,7 @@ if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 
 $show_fields['username']=array("Account Number", "username", "19%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1)) 
- $show_fields['useralias']=array("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
+ $show_fields['useralias']=array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 
 $show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "15","", "", "", "", "", "");
 $show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1","");
@@ -931,7 +931,7 @@ if (DB_TYPE != "postgres") {
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
-$HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';
+$HD_Form -> FG_FILTERFIELDNAME = 'account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 

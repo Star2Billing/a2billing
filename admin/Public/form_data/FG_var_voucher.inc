@@ -55,7 +55,7 @@ $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "6%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TAG"), "tag", "13%", "center", "sort", "30");
 $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "6%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("USED"), "used", "6%", "center", "sort", "", "list", $used_list);
-$HD_Form -> AddViewElement(gettext("USEDCARDNUMBER"), "usedcardnumber", "12%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ACCOUNT USED"), "usedcardnumber", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATED DATE"), "creationdate", "12%", "center", "sort", "16");
 $HD_Form -> AddViewElement(gettext("USED DATE"), "usedate", "13%", "center", "sort", "16");
 $HD_Form -> AddViewElement(gettext("CURRENCY"), "currency", "6%", "center", "sort", "", "list", $currency_list_key);
@@ -72,7 +72,7 @@ $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
 $HD_Form -> AddSearchElement_C1 (gettext("VOUCHER"), 'voucher','vouchertype');
-$HD_Form -> AddSearchElement_C1 (gettext("CARDNUMBER"),'usedcardnumber','usedcardnumbertype');
+$HD_Form -> AddSearchElement_C1 (gettext("ACCOUNT NUMBER"),'usedcardnumber','usedcardnumbertype');
 $HD_Form -> AddSearchElement_C1 (gettext("TAG"),'tag','tagtype');
 $HD_Form -> AddSearchElement_C2 (gettext("CREDIT"),'credit1','credit1type','credit2','credit2type','credit');
 

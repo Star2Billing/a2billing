@@ -95,7 +95,7 @@ if (DB_TYPE == "postgres"){
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'id_cc_card ';
-$HD_Form -> FG_FILTERFIELDNAME = 'CARDID';
+$HD_Form -> FG_FILTERFIELDNAME = 'Customer ID';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 $HD_Form -> FG_FILTERTYPE = 'POPUPVALUE'; // INPUT :: SELECT :: POPUPVALUE
 $HD_Form -> FG_FILTERPOPUP = array('CC_entity_card.php?popup_select=1&', ", 'CardNumberSelection','width=550,height=350,top=20,left=100'");

@@ -230,13 +230,13 @@ $HD_Form -> create_toppage ($form_action);
 
 
 // #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
+
 // Code for the Export Functionality
-//* Query Preparation.
 $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= "SELECT ".$HD_Form -> FG_EXPORT_FIELD_LIST." FROM  $HD_Form->FG_TABLE_NAME";
 if (strlen($HD_Form->FG_TABLE_CLAUSE)>1)
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";
@@ -244,10 +244,9 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
 
 
+
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
 
 
-
-?>

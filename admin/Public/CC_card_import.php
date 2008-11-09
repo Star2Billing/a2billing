@@ -325,23 +325,18 @@ echo $CC_help_import_card;
                       <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
                       <input type="hidden" name="task" value="upload">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button"  value="Import CARD's" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="button"  value="Import Customer's" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
 
                       <br>
                       &nbsp; </p>
                   </td>
                 </tr>
-
-                <tr>
-                  <td class="bgcolor_014" colspan="2"><b>
-                    <?php echo $translate[P34_9]?>
-                    </b></td>
-                </tr>
-
+				
               </form>
             </table>
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
+
