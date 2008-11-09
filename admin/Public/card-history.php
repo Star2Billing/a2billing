@@ -21,102 +21,76 @@ if (!isset ($current_page) || ($current_page == "")){
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
 
-// The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_card_history ch LEFT JOIN cc_card ON cc_card.id=id_cc_card";
 
+$FG_TABLE_NAME="cc_card_history ch LEFT JOIN cc_card ON cc_card.id=id_cc_card";
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F2EE";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 
-
-//$link = DbConnect();
 $DBHandle  = DbConnect();
-
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-$FG_TABLE_COL[]=array (gettext("Card Number"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$FG_TABLE_COL[]=array (gettext("Account Number"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("Date"), "datecreated", "20%", "center", "SORT");
 $FG_TABLE_COL[]=array (gettext("Description"), "description", "60%", "center", "SORT");
 
 
 $FG_TABLE_DEFAULT_ORDER = "ch.datecreated";
 $FG_TABLE_DEFAULT_SENS = "DESC";
-	
-// This Variable store the argument for the SQL query
+
 $FG_COL_QUERY='username, ch.datecreated, ch.description';
-
-
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=25;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
-
-// The variable $FG_EDITION define if you want process to the edition of the database record
 $FG_EDITION=false;
-
-//This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
-
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE=" - ".gettext("Card History")." - ";
-
-//This variable define the width of the HTML table
+$FG_HTML_TABLE_TITLE=" - ".gettext("Account History")." - ";
 $FG_HTML_TABLE_WIDTH="98%";
 
-if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
-if ( is_null ($order) || is_null($sens) ){
+if ( is_null ($order) || is_null($sens) ) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
 
-
 $date_clause='';
-if (DB_TYPE == "postgres"){		
+if (DB_TYPE == "postgres") {		
 	 	$UNIX_TIMESTAMP = "";
-}else{
+} else {
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month"){
-	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(ch.datecreated) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(ch.datecreated) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-}else{
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(ch.datecreated) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(ch.datecreated) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
-}
+if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(ch.datecreated) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(ch.datecreated) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+
 
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause;
-}elseif (strpos($date_clause, 'AND') > 0){
+} elseif (strpos($date_clause, 'AND') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5);
 }
 
 
-if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
+if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0) {
 	$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d"));
 	$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(ch.datecreated) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 
 if (isset($entercustomer)  &&  ($entercustomer>0)) {
-		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-		$FG_TABLE_CLAUSE.="ch.id_cc_card='$entercustomer'";
-	}
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE.="ch.id_cc_card='$entercustomer'";
+}
 
-if (!$nodisplay){
+if (!$nodisplay) {
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
 }
 
-if ($nb_record<=$FG_LIMITE_DISPLAY){ 
+if ($nb_record<=$FG_LIMITE_DISPLAY) { 
 	$nb_record_max=1;
-}else{ 
+} else { 
 	if ($nb_record % $FG_LIMITE_DISPLAY == 0){
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
 	}else{
@@ -131,18 +105,9 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 /*************************************************************/
 
-?>
-<?php
-	$smarty->display( 'main.tpl');
-	
-
-	
-// #### HELP SECTION
-//echo $CC_help_balance_customer;
+$smarty->display( 'main.tpl');
 
 ?>
-
-
 
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
@@ -153,72 +118,18 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 		<table class="callhistory_maintable" align="center">
 		
 			<tr>
-			<td align="left" valign="top" class="bgcolor_004">					
-				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
-			</td>				
-			<td class="bgcolor_005" align="left">
-					<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
-					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-			</td>
-		</tr>	
-			
-			<tr>
-        		<td class="bgcolor_004" align="left" >
-					
-					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT BY MONTH");?></b></font>
+				<td align="left" valign="top" class="bgcolor_004">					
+					<font class="fontstyle_003"><?php echo gettext("CUSTOMER");?>&nbsp;</font>
+				</td>				
+				<td class="bgcolor_005" align="left" width="650">
+						<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 				</td>
-				<td class="bgcolor_005" align="left" >
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-					<?php echo gettext("FROM");?> : <select name="fromstatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{
-							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}
-							for ($j=$monthnumber;$j>=0;$j--){	
-								$month_formated = sprintf("%02d",$j+1);
-								if ($fromstatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-									echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-							   }
-						}
-					?>
-					</select>
-					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					<?php echo gettext("TO");?> : <select name="tostatsmonth" class="form_input_select">
-					<?php 
-						$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{
-							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}
-							for ($j=$monthnumber;$j>=0;$j--){	
-								$month_formated = sprintf("%02d",$j+1);
-							   	if ($tostatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-							}
-						}
-					?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
+			</tr>	
 			
 			<tr>
-        		<td align="left" class="bgcolor_002">
-					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT BY DAY");?></b></font>
+        		<td class="bgcolor_002" align="left">
+					<font class="fontstyle_003"><?php echo gettext("DATE");?></b></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -233,7 +144,9 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 						?>	
 					</select>
 				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");
+					<?php 	
+						$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+						$year_actual = date("Y");
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
 							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
@@ -281,10 +194,9 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 					</td></tr></table>
 	  			</td>
     		</tr>
-			
 			<tr>
-        		<td class="bgcolor_004" align="left" > </td>
-				<td class="bgcolor_005" align="center" >
+        		<td class="bgcolor_004" align="left"></td>
+				<td class="bgcolor_005" align="center"> 
 					<input class="form_input_button" value=" <?php echo gettext("Search");?> " type="submit">
 	  			</td>
     		</tr>
@@ -307,9 +219,9 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
             </TABLE></TD>
         </TR>
         <TR> 
-          <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-<TBODY>
-                <TR class="form_head"> 
+          <TD> 
+          <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+			    <TR class="form_head"> 
 				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px;"></TD>					
 				  
                   <?php 
@@ -391,11 +303,11 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
                               src="<?php echo Images_Path_Main ?>/clear.gif" 
                               width=1></TD>
                 </TR>
-              </TBODY>
             </TABLE></td>
         </tr>
       </table>
 
 <?php
+
 $smarty->display( 'footer.tpl');
-?>
+
