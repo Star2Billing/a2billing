@@ -1293,10 +1293,10 @@ ALTER TABLE cc_call CHANGE uniqueid uniqueid VARCHAR( 30 ) NOT NULL ;
 -- ------------------------------------------------------
 
 CREATE TABLE cc_restricted_phonenumber (
-id BIGINT NOT NULL AUTO_INCREMENT ,
-number VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-id_card BIGINT NOT NULL,
-PRIMARY KEY (id)
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	number VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	id_card BIGINT NOT NULL,
+	PRIMARY KEY (id)
 ) ENGINE = MYISAM;
 
 
@@ -1306,3 +1306,6 @@ ALTER TABLE cc_card ADD restriction TINYINT NOT NULL DEFAULT '0';
 
 
 ALTER TABLE cc_card DROP COLUMN callback;
+
+
+

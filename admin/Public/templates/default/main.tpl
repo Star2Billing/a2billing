@@ -339,7 +339,7 @@
 				<li><a href="A2B_entity_service.php?section=7">{php} echo gettext("Recurring Services");{/php}</a></li>
 				<li><a href="A2B_entity_alarm.php?section=7"> {php} echo gettext("Alarms");{/php}</a></li>
 				<li><a href="A2B_entity_subscription.php?section=7">{php} echo gettext("Subscriptions");{/php}</a></li>
-				<li><a href="A2B_entity_subscriber.php?section=7">{php} echo gettext("Suscribers");{/php}</a></li>
+				<li><a href="A2B_entity_subscriber.php?section=7">{php} echo gettext("Subscribers");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
