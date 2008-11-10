@@ -50,6 +50,7 @@ if($status >= 0 && $status != '')
 if (strlen($loglevel)>0 && strlen($date_clause)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 if($date_clause != "")
 {
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $date_clause =" AND ".$date_clause;
 	$HD_Form -> FG_TABLE_CLAUSE.=" ".$date_clause;
 }
 
