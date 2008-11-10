@@ -1318,4 +1318,11 @@ ALTER TABLE cc_iax_buddies ADD trunk CHAR(3) DEFAULT 'yes';
 ALTER TABLE cc_card DROP id_agent;
 ALTER TABLE cc_card_group ADD id_agent INT NOT NULL DEFAULT '0';
 
-							
+
+
+ALTER TABLE cc_card DROP template_invoice;
+ALTER TABLE cc_card DROP template_outstanding;
+
+ALTER TABLE cc_card CHANGE VAT_RN vat_rn VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+ 
+

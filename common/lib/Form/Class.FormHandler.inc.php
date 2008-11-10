@@ -474,7 +474,7 @@ class FormHandler
 		$this -> def_list();
 		
         //initializing variables with gettext
-		$this -> CV_NO_FIELDS = gettext("THERE IS NO RECORD !!!");
+		$this -> CV_NO_FIELDS = gettext("No data found!");
         $this -> CV_TEXT_TITLE_ABOVE_TABLE = gettext("DIRECTORY");
         $this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define criteria to make a precise search");
         $this -> FG_INTRO_TEXT = gettext("You can browse through our")." #FG_INSTANCE_NAME# ".gettext("and modify their different properties<br>");

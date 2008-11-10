@@ -36,9 +36,7 @@ $HD_Form -> AddViewElement(gettext("NAME"), "name", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STARTINGDATE"), "startingdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("EXPIRATIONDATE"), "expirationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("CARD"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-//$HD_Form -> AddViewElement(gettext("USED MINUTE"), "secondusedreal", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", "", "list", $actived_list);
-//$HD_Form -> AddViewElement(gettext("NUMBER OF CALLS"), "nb_callmade", "8%", "center", "SORT", "30");
 
 
 $HD_Form -> FieldViewElement ('cc_campaign.name, cc_campaign.startingdate, cc_campaign.expirationdate, username,cc_campaign.status');
@@ -76,19 +74,15 @@ $HD_Form -> AddEditElement ("STATUS",
 
 
 
-	$HD_Form -> AddEditElement (gettext("CONFIG TO APPLY"),
-				   "config",
-				   "",
-				   "SELECT",
-				   "", "", "",
-				   "sql",
-				   "cc_campaign_config,cc_campaignconf_cardgroup,cc_card_group,cc_card",
-				   "cc_campaign_config.name, cc_campaign_config.id ,flatrate",
-				   "cc_campaign_config.id = id_campaign_config AND id_card_group = cc_card_group.id AND cc_card_group.id = cc_card.id_group AND cc_card.id = $id_card", "", "%1 (%3 ".strtoupper(BASE_CURRENCY)." ) ", "", gettext("Define the configuration that you want apply on this campaign"));
-
-
-
-
+$HD_Form -> AddEditElement (gettext("CONFIG TO APPLY"),
+   "config",
+   "",
+   "SELECT",
+   "", "", "",
+   "sql",
+   "cc_campaign_config,cc_campaignconf_cardgroup,cc_card_group,cc_card",
+   "cc_campaign_config.name, cc_campaign_config.id ,flatrate",
+   "cc_campaign_config.id = id_campaign_config AND id_card_group = cc_card_group.id AND cc_card_group.id = cc_card.id_group AND cc_card.id = $id_card", "", "%1 (%3 ".strtoupper(BASE_CURRENCY)." ) ", "", gettext("Define the configuration that you want apply on this campaign"));
 
 
 
@@ -105,14 +99,14 @@ if ($form_action=="ask-add") {
 
 
 $HD_Form -> AddEditElement (gettext("CID GROUP"),
-			   "id_cid_group",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_outbound_cid_group",
-			   "group_name, id",
-			   "", "", "%1", "", "");
+   "id_cid_group",
+   "",
+   "SELECT",
+   "", "", "",
+   "sql",
+   "cc_outbound_cid_group",
+   "group_name, id",
+   "", "", "%1", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("STARTING DATE"),
@@ -163,61 +157,61 @@ $HD_Form -> AddEditElement (gettext("DAILY STOPING TIME"),
 	
 
 $HD_Form -> AddEditElement (gettext("MONDAY"),
-			   "monday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the monday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "monday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the monday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
 $HD_Form -> AddEditElement (gettext("TUESDAY"),
-			   "tuesday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the monday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "tuesday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the monday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
 $HD_Form -> AddEditElement (gettext("WEDNESDAY"),
-			   "wednesday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the monday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "wednesday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the monday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
 $HD_Form -> AddEditElement (gettext("THURSDAY"),
-			   "thursday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the thursday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "thursday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the thursday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
 $HD_Form -> AddEditElement (gettext("FRIDAY"),
-			   "friday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the friday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "friday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the friday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
 $HD_Form -> AddEditElement (gettext("SATURDAY"),
-			   "saturday",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the saturday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "saturday",
+   '0',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the saturday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
 $HD_Form -> AddEditElement (gettext("SUNDAY"),
-			   "sunday",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the sunday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "sunday",
+   '0',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the sunday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
 	
 	
 	

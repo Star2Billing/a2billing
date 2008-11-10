@@ -1,7 +1,4 @@
 <?php
-// List card with their mony sitation
-// used by A2B_entity_invoices2_card.php "Billed per card"	with  invoicetype = billed
-// used by A2B_entity_invoices2_card.php "Unbilled Invoices" with  invoicetype = unbilled
 
 getpost_ifset(array(
 	'invoicetype', // ('billed', 'unbilled')	(already got by FG_var_card_money.inc)
