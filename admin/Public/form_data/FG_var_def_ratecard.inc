@@ -205,7 +205,7 @@ $HD_Form -> AddEditElement("BUYING RATE",
    "INPUT",
    "size=30 maxlength=20",
    "12",
-   "Insert the buy rate",
+   gettext("Insert the buy rate"),
    "" , "", "",	"", "" , "", "", gettext("Set the carrier cost, the price you pay for minutes."), null, null, gettext("Define your purchase cost that you need to pay to your voip-provider to let your platform call this destination."));
 
 $HD_Form -> AddEditElement(gettext("BUYRATE MIN DURATION"),

@@ -7,7 +7,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
 'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
 'voicemail_permitted','email_notification','credit_notification','notify_email',
-'company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','discount','restriction' ));
+'company_name' , 'company_website' , 'vat_rn' , 'traffic' , 'traffic_target','discount','restriction' ));
 
 $HD_Form = new FormHandler("cc_card","Card");
 
@@ -321,7 +321,8 @@ $HD_Form -> AddEditElement (gettext("ACCOUNT NUMBER"),
 			    "size=30 $maxi readonly  maxlength=40",
 			   "4",
 			   gettext("Insert the account number"),
-			   "" , "", "",	"", "", "",	"", "" );
+			   "" , "", "",	"", "" , "", "", '', null, null, gettext("Customer Information"));
+			   
 
 $HD_Form -> AddEditElement (gettext("WEBUI LOGIN"),
 			   "useralias",
@@ -342,25 +343,6 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   gettext("Insert the password"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
-$HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
-			   "id_group",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_card_group",
-			   "name, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-
-$HD_Form -> AddEditElement (gettext("DISCOUNT"),
-                           "discount",
-                           "",
-                           "SELECT",
-                           "",
-                           "",
-                           "",
-                           "list" , "", "",     "", $discount_list, "%1", "", "" );
-
 $balance_access = 'readonly';
 if ($form_action =="ask-add" || $form_action=="add") {
 	$balance_access = '';
@@ -378,222 +360,15 @@ $HD_Form -> AddEditElement (gettext("BALANCE"),
 			   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 
 
-$HD_Form -> AddEditElement (gettext("LANGUAGE"),
-			   "language",
-			   "",
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $language_list, "%1", "", "" );
-
-
-$HD_Form -> AddEditElement (gettext("CALL PLAN"),
-			   "tariff",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_tariffgroup",
-			   "tariffgroupname, id",
-			   "", "", "%1", "", "");
-
-
-$HD_Form -> AddEditElement (gettext("DIDGROUP"),
-			   "id_didgroup",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_didgroup",
-			   "didgroupname, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-
-
-
-$HD_Form -> AddEditElement (gettext("CAMPAIGN"),
-			   "id_campaign",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_campaign",
-			   "campaign_name, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-
-
-$HD_Form -> AddEditElement (gettext("STATUS"),
-			   "status",
-			   "",
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $cardstatus_list, "%1", "", "" );
-
-
-$HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMATION"),
-			   "activatedbyuser",
-			   't',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to activate this account"),
-			   "" , "", "" , "Yes :t, - No:f",	"", "", "", gettext("Configure if the account has been activated over the signup confirmation mail") );
-
-$HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
-			   "simultaccess",
-			   "1",
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $simultaccess_list, "%1", "", "" );
-
-
-$HD_Form -> AddEditElement (gettext("CURRENCY"),
-			   "currency",
-			   "",
-			   "SELECT",
-			   "",
-			   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
-
-
-$HD_Form -> AddEditElement (gettext("RUN SERVICE"),
-			   "runservice",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the service recurring on this account"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this account."));
-
-
-$HD_Form -> AddEditElement (gettext("RUN AUTOREFILL"),
-			   "autorefill",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the autorefill on this account"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to authorize the autorefill to apply on this accout"));
-
-$HD_Form -> AddEditElement (gettext("INITIAL BALANCE"),
-			   "initialbalance",
-			   "",
-			   "INPUT",
-			   "size=30 $default_initbalance maxlength=30",
-			   "12",
-			   gettext("Insert the amount of the initial balance"),
-			   "" , "", "",	"", "", "",	"", gettext("The initial balance is used by autorefill to reset the current balance to this amount"));
-
-$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
-			   "typepaid",
-			   "",
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $typepaid_list, "%1", "", "" );
-
-
-$HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
-			   "creditlimit",
-			   "",
-			   "INPUT",
-			   "size=20 maxlength=20",
-			   "4",
-			   gettext("Insert the credit limit"),
-			   "" , "", "",	"", "", "", "NO-NULL", gettext("Credit limit is only used for the postpaid account."));
-
-
-$HD_Form -> AddEditElement (gettext("FIRST USE DATE"),
-			   "firstusedate",
-			   "",
-			   "INPUT",
-			   "size=40 maxlength=40 readonly",
-			   "",
-			   "the first use date",
-			   "" , "" , "", "", "", "", "NO-NULL", "", "", "res_display_dateformat");
-
-
-$HD_Form -> AddEditElement (gettext("ENABLE EXPIRY"),
-			   "enableexpire",
-			   "",
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $expire_list, "%1", "", gettext("Select method of expiry for the account.") );
-
-
-$comp_zero = $comp_date_plus='';
-if (isset($form_action) && $form_action=="ask-add"){
-	$begin_date = date("Y");
-	$begin_date_plus = date("Y")+10;
-	$end_date = date("-m-d H:i:s");
-	$comp_date = "value='".$begin_date.$end_date."'";
-	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
-	$comp_zero = "value='0'";
-}
-
-$HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
-			   "expirationdate",
+$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
+			   "company_name",
 			   '$value',
 			   "INPUT",
-			   "size=40 maxlength=40  $comp_date_plus",
-			   "10",
-			   gettext("Insert the expiration date"),
-			   "" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+			   "size=40 maxlength=50",
+			   "",
+			   gettext("Insert Company name of this customer"),
+			   "" , "", "",	"", "", "" , "NO", '', null, null, gettext("Personal Information"));
 
-
-
-$HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
-			   "expiredays",
-			   "",
-			   "INPUT",
-			    "size=10 maxlength=6 $comp_zero",
-			   "4",
-			   gettext("Insert the number of days after which the account will expire"),
-			   "" , "", "",	"", "", "", "", gettext("The number of days after which the account will expire."));
-
-$HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
-			   "voicemail_permitted",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the voicemail functionality for this account"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
-
-$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
-			   "voicemail_activated",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Customer can choose to enable the voicemail for this account"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
-
-$HD_Form -> AddEditElement (gettext("INVOICE DAY"),
-			   "invoiceday",
-			   '$value',
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice.") );
-
-
-$HD_Form -> AddEditElement (gettext("VAT"),
-			   "vat",
-			   "",
-			   "INPUT",
-			   "size=10 maxlength=6",
-			   "12",
-			   gettext("Insert the number for the VAT"),
-			   "" , "", "",	"", "", "", "" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
-			   
 
 $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   "lastname",
@@ -672,22 +447,6 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   gettext("Insert the zipcode"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-$timezone_list = get_timezones();
-foreach($timezone_list as $key => $cur_value) {
-	if(in_array(SERVER_GMT,$cur_value)){
-		$timezone_list[$key]  = array( $cur_value[2], $key." selected");
-	}else{
-		$timezone_list[$key]  = array( $cur_value[2], $key);
-	}
-}
-
-
-$HD_Form -> AddEditElement (gettext("TIMEZONE"),
-			   "id_timezone",
-			   "",
-			   "SELECT",
-			   "","","",
-			   "list" , "", "",	"", $timezone_list, "%1", "", "" );
 
 $HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
 			   "phone",
@@ -707,6 +466,277 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   "",
 			   gettext("Insert the fax number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
+			   "company_website",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=60",
+			   "",
+			   gettext("Insert the company website of this customer"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
+			   "id_group",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_card_group",
+			   "name, id",
+			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>', gettext("Customer Status"));
+
+			   
+$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
+			   "typepaid",
+			   "",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $typepaid_list, "%1", "", "" );
+
+
+$HD_Form -> AddEditElement (gettext("CALL PLAN"),
+			   "tariff",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_tariffgroup",
+			   "tariffgroupname, id",
+			   "", "", "%1", "", "");
+
+
+$HD_Form -> AddEditElement (gettext("DIDGROUP"),
+			   "id_didgroup",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_didgroup",
+			   "didgroupname, id",
+			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+
+$timezone_list = get_timezones();
+foreach($timezone_list as $key => $cur_value) {
+	if(in_array(SERVER_GMT,$cur_value)){
+		$timezone_list[$key]  = array( $cur_value[2], $key." selected");
+	}else{
+		$timezone_list[$key]  = array( $cur_value[2], $key);
+	}
+}
+
+
+$HD_Form -> AddEditElement (gettext("TIMEZONE"),
+			   "id_timezone",
+			   "",
+			   "SELECT",
+			   "","","",
+			   "list" , "", "",	"", $timezone_list, "%1", "", "" );
+
+
+$HD_Form -> AddEditElement (gettext("LANGUAGE"),
+			   "language",
+			   "",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $language_list, "%1", "", "" );
+
+
+$HD_Form -> AddEditElement (gettext("CURRENCY"),
+			   "currency",
+			   "",
+			   "SELECT",
+			   "",
+			   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
+
+
+
+$HD_Form -> AddEditElement (gettext("STATUS"),
+			   "status",
+			   "",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $cardstatus_list, "%1", "", "" );
+
+
+$HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMED"),
+			   "activatedbyuser",
+			   't',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to activate this account"),
+			   "" , "", "" , "Yes :t, - No:f",	"", "", "", gettext("Configure if the account has been activated over the signup confirmation mail") );
+
+$HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
+			   "simultaccess",
+			   "1",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $simultaccess_list, "%1", "", "" );
+
+
+$HD_Form -> AddEditElement (gettext("RUN SERVICE"),
+			   "runservice",
+			   '0',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to enable the service recurring on this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this account."));
+
+
+$HD_Form -> AddEditElement (gettext("RUN AUTOREFILL"),
+			   "autorefill",
+			   '0',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to enable the autorefill on this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to authorize the autorefill to apply on this accout"));
+
+$HD_Form -> AddEditElement (gettext("INITIAL BALANCE"),
+			   "initialbalance",
+			   "",
+			   "INPUT",
+			   "size=30 $default_initbalance maxlength=30",
+			   "12",
+			   gettext("Insert the amount of the initial balance"),
+			   "" , "", "",	"", "", "",	"", gettext("The initial balance is used by autorefill to reset the current balance to this amount"));
+
+
+$HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
+			   "creditlimit",
+			   "",
+			   "INPUT",
+			   "size=20 maxlength=20",
+			   "4",
+			   gettext("Insert the credit limit"),
+			   "" , "", "",	"", "", "", "NO-NULL", gettext("Credit limit is only used for the postpaid account."));
+
+
+
+$HD_Form -> AddEditElement (gettext("CREDIT LIMIT NOTIFICATION"),
+			   "credit_notification",
+			   '',
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "", "", $limits_notify , "%1", "", 
+			   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"), 
+			   "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
+
+
+$HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
+			   "notify_email",
+			   '0',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to enable the notification by email for this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the notification by mail for this account."));
+
+
+$HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
+			   "email_notification",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=70",
+			   "1",
+			   gettext("Insert the email to notify this customer"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
+			   "voicemail_permitted",
+			   '1',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to enable the voicemail functionality for this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
+
+$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
+			   "voicemail_activated",
+			   '0',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Customer can choose to enable the voicemail for this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
+
+
+$HD_Form -> AddEditElement (gettext("CAMPAIGN"),
+			   "id_campaign",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_campaign",
+			   "campaign_name, id",
+			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+
+
+$HD_Form -> AddEditElement (gettext("FIRST USE DATE"),
+			   "firstusedate",
+			   "",
+			   "INPUT",
+			   "size=40 maxlength=40 readonly",
+			   "",
+			   "the first use date",
+			   "" , "" , "", "", "", "", "NO-NULL", "", "", "res_display_dateformat");
+
+
+$HD_Form -> AddEditElement (gettext("ENABLE EXPIRY"),
+			   "enableexpire",
+			   "",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $expire_list, "%1", "", gettext("Select method of expiry for the account.") );
+
+
+$comp_zero = $comp_date_plus='';
+if (isset($form_action) && $form_action=="ask-add"){
+	$begin_date = date("Y");
+	$begin_date_plus = date("Y")+10;
+	$end_date = date("-m-d H:i:s");
+	$comp_date = "value='".$begin_date.$end_date."'";
+	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
+	$comp_zero = "value='0'";
+}
+
+$HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
+			   "expirationdate",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=40  $comp_date_plus",
+			   "10",
+			   gettext("Insert the expiration date"),
+			   "" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+
+
+
+$HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
+			   "expiredays",
+			   "",
+			   "INPUT",
+			    "size=10 maxlength=6 $comp_zero",
+			   "4",
+			   gettext("Insert the number of days after which the account will expire"),
+			   "" , "", "",	"", "", "", "", gettext("The number of days after which the account will expire."));
 
 
 $HD_Form -> AddEditElement (gettext("SIP ACCOUNT"),
@@ -747,83 +777,48 @@ $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "",
 			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
 
-$HD_Form -> AddEditElement (gettext("INVOICE TEMPLATE"),
-			   "template_invoice",
-			   '',
+
+
+
+$HD_Form -> AddEditElement (gettext("INVOICE DAY"),
+			   "invoiceday",
+			   '$value',
 			   "SELECT",
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $template_invoice_list, "%1", "", gettext("Define the default template to use to display invoice.") );
-
-$HD_Form -> AddEditElement (gettext("INCUR TEMPLATE"),
-			   "template_outstanding",
-			   '',
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $template_outstanding_list, "%1", "", gettext("Define the default template to use to display incur.") );
+			   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice."), 
+			   '', '', gettext("Invoice Status"));
 
 
-$HD_Form -> AddEditElement (gettext("CREDIT LIMIT NOTIFICATION"),
-			   "credit_notification",
-			   '',
-			   "SELECT",
+$HD_Form -> AddEditElement (gettext("VAT"),
+			   "vat",
 			   "",
-			   "",
-			   "",
-			   "list" , "", "", "", $limits_notify , "%1", "", 
-			   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"), 
-			   "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
-
-
-$HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
-			   "notify_email",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the notification by email for this account"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the notification by mail for this account."));
-
-
-$HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
-			   "email_notification",
-			   '$value',
 			   "INPUT",
-			   "size=30 maxlength=70",
-			   "1",
-			   gettext("Insert the email to notify this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");
+			   "size=10 maxlength=6",
+			   "12",
+			   gettext("Insert the number for the VAT"),
+			   "" , "", "",	"", "", "", "" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
 
-
-$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
-			   "company_name",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=50",
-			   "",
-			   gettext("Insert Company name of this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");
-			  
-$HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
-			   "company_website",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=60",
-			   "",
-			   gettext("Insert the company website of this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");
 
 $HD_Form -> AddEditElement (gettext("VAT REGISTRATION NUMBER "),
-			   "VAT_RN",
+			   "vat_rn",
 			   '$value',
 			   "INPUT",
 			   "size=40 maxlength=40",
 			   "",
 			   gettext("Insert the VAT registration number of this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");
+			   "" , "", "",	"", "", "" , "NO", "");			   
+
+
+$HD_Form -> AddEditElement (gettext("DISCOUNT"),
+               "discount",
+               "",
+               "SELECT",
+               "",
+               "",
+               "",
+               "list" , "", "",     "", $discount_list, "%1", "", "", '', '', gettext("Notes"));
 
 
 $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
@@ -907,7 +902,12 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group,  discount,  credit, language, tariff, id_didgroup, id_campaign, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target,restriction' );
+
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, company_name, lastname, firstname, email, address, city, state, country, zipcode, phone, fax, company_website, '.
+		' id_group, typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
+		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
+		' voicemail_permitted, voicemail_activated, firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
+		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
 
 
 if(!isset($myusername)) $myusername='';
