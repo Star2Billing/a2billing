@@ -294,7 +294,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  		<input name="check[upd_typepaid]" type="checkbox" <?php if ($check["upd_typepaid"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left" class="bgcolor_001">	
-				8)&nbsp;<?php echo gettext("Card type");?>&nbsp;:
+				8)&nbsp;<?php echo gettext("Payment type");?>&nbsp;:
 				<select NAME="upd_typepaid" size="1" class="form_input_select" >
 					<option value='0'  <?php if ($upd_typepaid==0) echo 'selected="selected"'?>><?php echo gettext("PREPAID CARD");?></option>
 					<option value='1'  <?php if ($upd_typepaid==1) echo 'selected="selected"'?>><?php echo gettext("POSTPAY CARD");?></option>

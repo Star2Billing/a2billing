@@ -42,7 +42,7 @@ $currency_list_r = getCurrenciesRateList();
 $currency_list_key = getCurrenciesKeyList() ;
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DATE CREATION"), "datecreation", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("DATE"), "datecreation", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LOGIN"), "login", "14%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PASSWORD"), "passwd", "14%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "14%", "center", "sort");

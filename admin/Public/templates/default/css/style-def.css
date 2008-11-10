@@ -39,16 +39,16 @@ body {
 
 
 
-.textfield {
+.upload_textfield {
 	font-family: Arial,Verdana;
 	font-size: 9px;
 	color: #666666;
 	border: solid 1px;
 	border-color: #DBDBDB;
-	background-image: url('textfield.gif');
+	background-image: url('../images/textfield.gif');
 }
 
-.button {
+.upload_button {
 	font-family: Arial,Verdana;
 	font-size: 10px;
 	color: #FFFFFF;

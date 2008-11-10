@@ -105,7 +105,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = FALSE;
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_DO_ARCHIVE_ALL = true;
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
-$HD_Form -> AddViewElement("Card Number", "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement("ACCOUNT NUMBER", "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "8%", "center", "sort", "", "list", $cardstatus_list_acronym);
 $HD_Form -> AddViewElement(gettext("LG"), "language", "10%", "center", "sort");
@@ -124,21 +124,20 @@ $HD_Form -> FG_LIMITE_DISPLAY = 30;
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for cards created.');
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date');
 
 $HD_Form -> FG_FILTER_SEARCH_3_TIME = true;
-$HD_Form -> FG_FILTER_SEARCH_3_TIME_TEXT = gettext('Select card older than');
+$HD_Form -> FG_FILTER_SEARCH_3_TIME_TEXT = gettext('Select customer older than');
 $HD_Form -> FG_FILTER_SEARCH_3_TIME_FIELD = 'creationdate';
 
 //Select card older than : 3 Months, 4 Months, 5.... 12 Months
-$HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
+$HD_Form -> AddSearchElement_C1(gettext("ACCOUNT NUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
-$HD_Form -> AddSearchElement_C1(gettext("CARDALIAS"),'useralias','useraliastype');
+$HD_Form -> AddSearchElement_C1(gettext("LOGIN"),'useralias','useraliastype');
 $HD_Form -> AddSearchElement_C1(gettext("MACADDRESS"),'mac_addr','macaddresstype');
 $HD_Form -> AddSearchElement_C1(gettext("EMAIL"),'email','emailtype');
-$HD_Form -> AddSearchElement_C2(gettext("CARDID (SERIAL)"),'id1','id1type','id2','id2type','id');
+$HD_Form -> AddSearchElement_C2(gettext("CUSTOMER ID (SERIAL)"),'id1','id1type','id2','id2type','id');
 $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credit2','credit2type','credit');
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
 
@@ -220,11 +219,13 @@ if (strlen($_GET["menu"])>0)
 </center>
 
 <?php 	
+
 if(isset($archive) && !empty($archive)){
 	$HD_Form -> CV_NO_FIELDS = "";
 	print "<div align=\"center\">".$archive_message."</div>";
 }	
 $HD_Form -> create_form ($form_action, $list, $id=null);
-// #### FOOTER SECTION
+
+
 $smarty->display('footer.tpl');
-?>
+

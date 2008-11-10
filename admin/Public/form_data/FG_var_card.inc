@@ -247,12 +247,12 @@ $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT_BIS = gettext('FIRST USE DATE');
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD_BIS = 'firstusedate';
 
 
-$HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
+$HD_Form -> AddSearchElement_C1(gettext("ACCOUNT NUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("EMAIL"), 'email','emailtype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
-$HD_Form -> AddSearchElement_C1(gettext("CARDALIAS"),'useralias','useraliastype');
+$HD_Form -> AddSearchElement_C1(gettext("LOGIN"),'useralias','useraliastype');
 $HD_Form -> AddSearchElement_C1(gettext("MACADDRESS"),'mac_addr','macaddresstype');
-$HD_Form -> AddSearchElement_C2(gettext("CARDID (SERIAL)"),'id1','id1type','id2','id2type','id');
+$HD_Form -> AddSearchElement_C2(gettext("CUSTOMER ID (SERIAL)"),'id1','id1type','id2','id2type','id');
 $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credit2','credit2type','credit');
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
 

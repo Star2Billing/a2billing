@@ -5,7 +5,7 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_voucher.inc");
 include ("../lib/admin.smarty.php");
 
-	
+
 if (! has_rights (ACX_BILLING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
@@ -86,7 +86,7 @@ echo $CC_help_generate_voucher;
 			  	<strong>1)</strong> 
 				<select name="choose_list" size="1" class="form_input_select">
 						<option value=""><?php echo gettext("Choose the number of vouchers to create");?></option>
-						<option class="input" value="1"><?php echo gettext("1 Voucher");?></option>
+						<option class="input" value="1"><?php echo gettext("5 Voucher");?></option>
 						<option class="input" value="10"><?php echo gettext("10 Vouchers");?></option>
 						<option class="input" value="50"><?php echo gettext("50 Vouchers");?></option>
 						<option class="input" value="100"><?php echo gettext("100 Vouchers");?></option>

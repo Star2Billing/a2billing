@@ -4,7 +4,7 @@ include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_FILE_MANAGER)){ 
+if (! has_rights (ACX_MAINTENANCE)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -52,7 +52,6 @@ function getlast($toget)
 {
 	$pos=strrpos($toget,".");
 	$lastext=substr($toget,$pos+1);
-	echo "lastext=	$lastext<br>";
 	return $lastext;
 }
 
@@ -110,7 +109,7 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 				//if (getlast($fileupload_name)!=$file_ext_allow[$i]){
 				if (strcmp(getlast($fileupload_name),$file_ext_allow[$i])!=0){
 					$test.="~~";
-					echo "<br>'".getlast($fileupload_name)."' - '".$file_ext_allow[$i]."'<br>";
+					//echo "<br>'".getlast($fileupload_name)."' - '".$file_ext_allow[$i]."'<br>";
 				}
 			}
 			$exp=explode("~~",$test);
@@ -181,39 +180,38 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 ?>
  
 
-
+<br>
 <center>
-<table width="560" cellspacing="0" cellpadding="0" border="0">
+<table width="560" cellspacing="0" cellpadding="0" border="0" align="center">
   <tr>
-    <td><font size="3"><b><i><?php echo gettext("File Upload");?></i></b></font>&nbsp;<font style="text-decoration: bold; font-size: 9px;">  (upload_dir: <?php echo $upload_dir?>)</font>&nbsp;
-	<br><br>
+    <td><font size="3"><b><i><?php echo gettext("File Upload");?></i></b></font>&nbsp;
+    <br><br>
+    <font style="text-decoration: bold; font-size: 9px;">  <b>UPLOAD DIRECTORY :</b> <?php echo $upload_dir?>
+    <br>
+    	Note that if you're using .wav, (eg, recorded with Microsoft Recorder) the file must be PCM Encoded, 16 Bits, at 8000Hz: 
+    </font>&nbsp;
+	<br>
     </td>
    </tr>
 </table>
 
 
 
-<table width="560" cellspacing="0" cellpadding="0" border="0" class="table_decoration" style="padding-top:5px;padding-left=5px;padding-bottom:5px;padding-right:5px">
+<table width="560" cellspacing="5" cellpadding="2" border="0" style="padding-top:5px;padding-left=5px;padding-bottom:5px;padding-right:5px">
   <form method='post' enctype='multipart/form-data' action='<?php echo $_SERVER['PHP_SELF'];?>?method=upload'>
   
   
   <input type="hidden" value="<?php echo $acc?>" name="acc"/>
- <?php
-        for( $i = 0; $i < $files_to_upload; $i++ )
-        {
-    ?>
-                     <tr>
-                       <td>file:</td><td><input type='file' name='file[]' class="textfield" size="30"></td>
-                     </tr>
-    <?php
-        }
-    ?>
+ <?php for( $i = 0; $i < $files_to_upload; $i++ ) { ?>
+         <tr>
+           <td>file:</td><td><input type='file' name='file[]' class="upload_textfield" size="30"></td>
+         </tr>
+    <?php } ?>
 	<tr>
     <td><?php echo gettext("file types allowed");?>:</td><td>
 
 	<?php
-	for($i=0;$i<count($file_ext_allow);$i++)
-	{
+	for($i=0;$i<count($file_ext_allow);$i++) {
 		if (($i<>count($file_ext_allow)-1))$commas=", ";else $commas="";
 		list($key,$value)=each($file_ext_allow);
 		echo $value.$commas;
@@ -225,20 +223,13 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
     <td><?php echo gettext("file size limit");?>:</td>
 	<td>
 		<b><?php 
-			if ($file_size_ind >= 1048576) 
-			{
+			if ($file_size_ind >= 1048576) {
 				$file_size_ind_rnd = round(($file_size_ind/1024000),3) . " MB";
-			} 
-			elseif ($file_size_ind >= 1024) 
-			{	
+			} elseif ($file_size_ind >= 1024) {	
 				$file_size_ind_rnd = round(($file_size_ind/1024),2) . " KB";
-			} 
-			elseif ($file_size_ind >= 0) 
-			{
+			} elseif ($file_size_ind >= 0) {
 				$file_size_ind_rnd = $file_size_ind . " bytes";
-			} 
-			else 
-			{
+			} else {
 				$file_size_ind_rnd = "0 bytes";
 			}
 			
@@ -248,7 +239,7 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 
   </tr>
   <tr>
-    <td colspan="2"><input type="submit" value="<?php echo gettext("Upload");?>" class="button">&nbsp;<input type="reset" value="<?php echo gettext("Clear");?>" class="button"></td>
+    <td colspan="2"><input type="submit" value="<?php echo gettext("Upload");?>" class="upload_button">&nbsp;<input type="reset" value="<?php echo gettext("Clear");?>" class="upload_button"></td>
   </tr>
   </form>
 </table>
@@ -261,13 +252,12 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
           echo "<br></br><font color='red'>" . $_SESSION['message'] . "</font>";
         }
       ?>
-<br><br><table width="560" cellspacing="0" cellpadding="0" border="0" class="table_decoration" style="padding-left:6px">
-  <tr  class="bgcolor_014">
-    <td align="left" width="46%"><?php echo gettext("FILE NAME");?></td>
-
-    <td align="center" width="12%"><?php echo gettext("FILE TYPE");?></td>
-    <td align="center" width="12%"><?php echo gettext("FILE SIZE");?></td>
-    <td align="center" width="30%"><?php echo gettext("FUNCTIONS");?></td>
+<br><br><table width="560" cellspacing="1" cellpadding="1" border="0">
+  <tr class="form_head">
+    <td class="tableBody" style="padding: 2px;" align="center" width="46%"><?php echo gettext("FILE NAME");?></td>
+    <td class="tableBody" style="padding: 2px;" align="center" width="12%"><?php echo gettext("FILE TYPE");?></td>
+    <td class="tableBody" style="padding: 2px;" align="center" width="12%"><?php echo gettext("FILE SIZE");?></td>
+    <td class="tableBody" style="padding: 2px;" align="center" width="30%"><?php echo gettext("FUNCTIONS");?></td>
   </tr>
   
   <?php
@@ -308,5 +298,6 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 </table></center>
 <br><br>
 <?php
-        $smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
+
