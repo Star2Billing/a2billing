@@ -9,14 +9,19 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'voicemail_permitted','email_notification','credit_notification','notify_email',
 'company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','discount','restriction' ));
 
-$HD_Form = new FormHandler("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","Card");
+
+if (!isset($form_action) || $form_action=="list") {
+	$HD_Form = new FormHandler("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","Card");
+} else {
+	$HD_Form = new FormHandler("cc_card","Card");
+	$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
+}
 
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="cc_card.id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
-$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid', 'cc_card_history');

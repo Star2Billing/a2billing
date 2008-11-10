@@ -4,28 +4,33 @@ getpost_ifset(array('id', 'card_id', 'date', 'credit','description'));
 
 
 if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_logrefill LEFT JOIN cc_card ON cc_card.id=card_id","Refill");
+	$HD_Form = new FormHandler("cc_logrefill LEFT JOIN cc_card ON cc_card.id=cc_logrefill.card_id LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group","Refill");
+	$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 } else {
 	$HD_Form = new FormHandler("cc_logrefill","Refill");
 }
 
 $HD_Form -> FG_TABLE_ID = 'cc_logrefill.id';
-$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id_agent=".$_SESSION['agent_id'] ;
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_logrefill.php?form_action=ask-add&section=2";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Refill");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
+
 
 $list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARD"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "7%", "center", "sort", "", "list", $list_refill_type);
 $HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "18%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date, description, cc_logrefill.refill_type as refill_type, cc_logrefill.credit');
+$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date, cc_logrefill.description, cc_logrefill.refill_type as refill_type, cc_logrefill.credit');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -38,14 +43,14 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
-$HD_Form -> AddEditElement (gettext("ID CARD"),
+$HD_Form -> AddEditElement (gettext("ID CUSTOMER"),
 			   "card_id",		
 			   "$value", "POPUPVALUE", "size=30 maxlength=50",	
-			   "4",	gettext("Insert the Id CardNumber"),
+			   "4",	gettext("Insert the Customer ID"),
 			    "" , "", "", "", "", 				
 				"A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-				gettext("Select the Card Number ID"));
-			   
+				gettext("Select the Customer ID"));
+
 if ($form_action=="ask-add"){	
 	$begin_date = date("Y");
 	$end_date = date("-m-d H:i:s");
@@ -89,13 +94,13 @@ $HD_Form -> AddEditElement (gettext("REFILL TYPE"),
                "",
                "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
 
-$HD_Form -> FieldEditElement ('card_id, date, credit, description, refill_type');
+$HD_Form -> FieldEditElement ('card_id, date, credit, cc_logrefill.description, refill_type');
 
 
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
-$HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';
+$HD_Form -> FG_FILTERFIELDNAME = 'Account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
@@ -122,5 +127,6 @@ $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'add_card_refill';
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
 
 
