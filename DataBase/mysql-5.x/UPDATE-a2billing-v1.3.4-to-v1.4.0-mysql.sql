@@ -1326,3 +1326,8 @@ ALTER TABLE cc_card DROP template_outstanding;
 ALTER TABLE cc_card CHANGE VAT_RN vat_rn VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
  
 
+-- add amount
+ALTER TABLE cc_phonenumber ADD amount INT NULL ;
+
+
+

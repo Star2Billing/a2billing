@@ -27,12 +27,12 @@ $actived_list = Constants::getActivationList();
 $HD_Form -> AddViewElement(gettext("PHONEBOOK"), "id_phonebook", "15%", "center", "sort", "15", "lie", "cc_phonebook", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PHONENUMBER"), "number", "10%", "center", "sort", "26");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "20%", "center", "sort", "26");
-$HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("AMOUNT"), "amount", "15%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", "", "list", $actived_list);
-$HD_Form -> AddViewElement(gettext("ADDITIONAL INFO"), "info", "25%", "center", "SORT", "30");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id_phonebook, number, cc_phonenumber.name, creationdate, status, info');
+$HD_Form -> FieldViewElement ('id_phonebook, number, cc_phonenumber.name, amount, creationdate, status');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("No phone number has been created.");
@@ -74,7 +74,14 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	gettext("Insert the name "),
 	"" , "", "", "", "" , "", "", "");
 
-
+$HD_Form -> AddEditElement (gettext("AMOUNT"),
+	"amount",
+	'$value',
+	"INPUT",
+	"size=10 maxlength=10",
+	"4",
+	gettext("Insert the amount "),
+	"" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
@@ -95,7 +102,7 @@ $HD_Form -> AddEditElement (gettext("ADDITIONALINFO"),
 	"" , "", "", "", "" , "", "", "");
 
 			
-	$HD_Form -> FieldEditElement ('number, id_phonebook, cc_phonenumber.name, status, info');
+	$HD_Form -> FieldEditElement ('number, id_phonebook, cc_phonenumber.name, amount, status, info');
 
 $HD_Form -> FG_EDITION_CLAUSE = " cc_phonenumber.id='%id'";
 
