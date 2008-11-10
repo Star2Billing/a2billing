@@ -26,7 +26,7 @@ $actived_list_r["f"] = array( "f", gettext("Inactive") );
 $used_list = Constants::getUsedList();
 
 $used_list_r = array();
-$used_list_r["0"] = array( "0", gettext("NO USED"));
+$used_list_r["0"] = array( "0", gettext("UNUSED"));
 $used_list_r["1"] = array( "1", gettext("USED"));
 
 $yesno = Constants::getYesNoList();
@@ -185,7 +185,6 @@ if (DB_TYPE == "postgres"){
 
 
 // Set the filter variables
-
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'voucher';
 $HD_Form -> FG_FILTERFIELDNAME = 'voucher';
