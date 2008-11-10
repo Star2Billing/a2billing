@@ -479,8 +479,9 @@ $HD_Form -> AddEditElement (gettext("IPADDR"),
 						   "" , "", "",	"", "", "",	"", "" );
 
 
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
+if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax") {
 	$CANCALLFORWARD_default= "value='yes'";
+	$TRUNK_default= "value='yes'";
 }
 
 $HD_Form -> AddEditElement (gettext("CANCALLFORWARD"),
@@ -492,10 +493,23 @@ $HD_Form -> AddEditElement (gettext("CANCALLFORWARD"),
 						   gettext("Insert the cancallforward"),
 						   "" , "", "",	"", "", "",	"", gettext("cancallforward = yes | no ( default : yes )"));
 
+if ($atmenu=='iax') {
+	$HD_Form -> AddEditElement (gettext("TRUNK"),
+						   "trunk",		
+						   '',	
+						   "INPUT",
+						   "size=7 maxlength=3 $TRUNK_default",	
+						   "",	
+						   gettext("Define the iax trunking"),
+						   "" , "", "",	"", "", "",	"", gettext("iax trunking = yes | no ( default : yes )"));
+}
 
 
-$HD_Form -> FieldEditElement ('id_cc_card, name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port, restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward');
-
+if ($atmenu=='sip') {
+	$HD_Form -> FieldEditElement ('id_cc_card, name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port, restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward');
+} else {
+	$HD_Form -> FieldEditElement ('id_cc_card, name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port, restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward, trunk');
+}
 
 
 $HD_Form -> FG_FILTER_APPLY = true;

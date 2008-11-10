@@ -1309,3 +1309,6 @@ ALTER TABLE cc_card DROP COLUMN callback;
 
 
 
+-- ADD IAX TRUNKING
+ALTER TABLE cc_iax_buddies ADD trunk CHAR(3) DEFAULT 'yes';
+							
