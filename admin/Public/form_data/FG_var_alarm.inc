@@ -2,7 +2,7 @@
 
 getpost_ifset(array('id', 'name', 'periode', 'type', 'maxvalue', 'minvalue', 'status', 'id_trunk', 'numberofrun', 'datelastrun', 'popup_select'));
 
-$HD_Form = new FormHandler("cc_alarm","Alarm");
+$HD_Form = new FormHandler("cc_alarm","Alarms");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
@@ -49,7 +49,7 @@ $HD_Form -> AddViewElement(gettext("CREATION DATE"), "datecreate", "12%", "cente
 $HD_Form -> FieldViewElement ('name, periode, type, maxvalue, minvalue, status, id_trunk, datecreate');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");  
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -113,13 +113,13 @@ $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"",
 	"" , "", "", "", "", "", "", gettext("Input the minimum value (between 0 and 1 for ASR ; >= 0 for ALOC in sec ; not used by CIC) or leave it empty"));
 $HD_Form -> AddEditElement(gettext("TRUNK"),
-			   "id_trunk",
-			   '$value',	
-			   "POPUPVALUE",	
-			   "",	
-			   "",
-			   "",
-			   "" , "", "",	"", "" , "A2B_entity_trunk.php?popup_select=1&", ", 'id_trunk','width=550,height=340,top=20,left=100,scrollbars=1'", gettext("Set if you want to apply the alarm on a specific trunk or leave empty for all trunk."));
+   "id_trunk",
+   '$value',	
+   "POPUPVALUE",	
+   "",	
+   "",
+   "",
+   "" , "", "",	"", "" , "A2B_entity_trunk.php?popup_select=1&", ", 'id_trunk','width=550,height=340,top=20,left=100,scrollbars=1'", gettext("Set if you want to apply the alarm on a specific trunk or leave empty for all trunk."));
 
 $HD_Form -> AddEditElement (gettext("STATUS"),
 	"status",

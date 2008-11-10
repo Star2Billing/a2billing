@@ -2128,7 +2128,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 						 
 					</td>
 					<td class="form_selectform_table1_td1">
-					<?php echo gettext("This option will enable LCR/LCD – very costly don't use in production");?>
+					<?php echo gettext("This option will enable LCR/LCD – This query is processor intensive and may affect the quality of calls in progress.");?>
 	  			</td>
 
 				</tr></table>

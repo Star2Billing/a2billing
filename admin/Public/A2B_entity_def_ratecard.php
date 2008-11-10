@@ -262,9 +262,9 @@ if ($form_action == "list" && !$popup_select){
 			</td>
 		</tr>
 		 <?php
-                       $index=0;
-                       foreach ( $update_fields as $value) {
-               ?>
+           $index=0;
+           foreach ( $update_fields as $value) {
+           ?>
           <td align="left" class="bgcolor_001">
                                 <input name="check[<?php echo $value;?>]" type="checkbox" <?php if ($check[$value]=="on") echo "checked"?>>
                                 <input name="mode[<?php echo $value;?>]" type="hidden" value="2">
@@ -280,8 +280,8 @@ if ($form_action == "list" && !$popup_select){
                                 </font>
                         </td>
                </tr>
-               <?php $index=$index+1;
-                                                   }?>
+            <?php $index=$index+1;
+			}?>
 		<tr>		
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_tag]" type="checkbox" <?php if ($check["upd_tag"]=="on") echo "checked"?>>
@@ -295,10 +295,10 @@ if ($form_action == "list" && !$popup_select){
 		</tr>
 
 		<tr>
-               <?php
-                       $index=0;
-                       foreach ( $charges_abc as $value) {
-               ?>
+           <?php
+           $index=0;
+           foreach ( $charges_abc as $value) {
+           ?>
           <td align="left" class="bgcolor_001">
                                 <input name="check[<?php echo $value;?>]" type="checkbox" <?php if ($check[$value]=="on") echo "checked"?>>
                                 <input name="mode[<?php echo $value;?>]" type="hidden" value="2">
@@ -315,8 +315,7 @@ if ($form_action == "list" && !$popup_select){
                         </td>
                </tr>
                <?php $index=$index+1;
-                                                   }?>
-
+               }?>
 		<tr>		
 			<td align="right" class="bgcolor_001">
 			</td>
@@ -367,4 +366,4 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>
+
