@@ -50,8 +50,8 @@ class Table {
 	var $fields 				= '*';
 	var $table  				= '';
 	var $errstr 				= '';
-	var $debug_st 				= 1;
-	var $debug_st_stop 			= 1;
+	var $debug_st 				= 0;
+	var $debug_st_stop 			= 0;
 	var $start_message_debug 	= "<table width=\"100%\" align=\"right\" style=\"float : left;\"><tr><td>QUERY: \n";
 	var $end_message_debug 		= "\n</td></tr></table><br><br><br>";
 	var $alert_query_time 		= 0.1;
