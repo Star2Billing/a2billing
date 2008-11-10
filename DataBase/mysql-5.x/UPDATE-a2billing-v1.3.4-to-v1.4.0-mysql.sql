@@ -1311,4 +1311,11 @@ ALTER TABLE cc_card DROP COLUMN callback;
 
 -- ADD IAX TRUNKING
 ALTER TABLE cc_iax_buddies ADD trunk CHAR(3) DEFAULT 'yes';
+
+
+
+-- Refactor Agent Section
+ALTER TABLE cc_card DROP id_agent;
+ALTER TABLE cc_card_group ADD id_agent INT NOT NULL DEFAULT '0';
+
 							

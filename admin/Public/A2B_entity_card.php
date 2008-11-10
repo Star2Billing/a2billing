@@ -20,7 +20,7 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description','upd_id_group','upd_id_agent','upd_discount','upd_refill_type','upd_description'));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description','upd_id_group','upd_discount','upd_refill_type','upd_description'));
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
@@ -385,27 +385,13 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
           </td>
         </tr>
 
-		<tr>
-         <td align="left"  class="bgcolor_001">
-                <input name="check[upd_id_agent]" type="checkbox" <?php if ($check["upd_id_agent"]=="on") echo "checked"?> >
-          </td>
-          <td align="left" class="bgcolor_001">
-                15)&nbsp;<?php echo gettext("Agent this batch belongs to");?>&nbsp;:
-                <select NAME="upd_id_agent" size="1" class="form_input_select">
-                        <?php
-                         foreach ($list_agent as $recordset) {
-                        ?>
-                                <option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_agent==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
-                        <?php } ?>
-                </select><br/>
-          </td>
-        </tr>
+		
 		<tr>
          <td align="left"  class="bgcolor_001">
                 <input name="check[upd_discount]" type="checkbox" <?php if ($check["upd_discount"]=="on") echo "checked"?> >
           </td>
           <td align="left" class="bgcolor_001">
-                16)&nbsp;<?php echo gettext("Set discount to");?>&nbsp;:
+                15)&nbsp;<?php echo gettext("Set discount to");?>&nbsp;:
                 <select NAME="upd_discount" size="1" class="form_input_select">
 					<option class=input value="0" ><?php echo gettext("NO DISCOUNT");?></option> 
                     <?php for($i=1;$i<99;$i++){ ?>

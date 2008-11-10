@@ -257,8 +257,8 @@ for($i=0;$i<$nb_customer;$i++) {
 	$card_number = $array_card_generated[0];
 	$card_alias = $array_card_generated[1];
 	$pass = MDP_NUMERIC(10);
-	$query = "INSERT INTO cc_card (username, useralias, uipass, id_group, credit, language, tariff, id_didgroup, id_agent, status, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, lastname, firstname, country, id_timezone, sip_buddy, iax_buddy, inuse, template_invoice, template_outstanding, credit_notification, notify_email, creationdate ) values". 
-			"('$card_number', '$card_alias', '$pass', '1', '10', 'en', '$id_callplan', '-1', '-1', '1', 't', '1', 'USD', '0', '0', '0', '0', '0', '2018-09-02 23:21:33', '0', '1', '0', '0', '$card_number', 'card', 'AFG', '1', '0', '0', '0', 'invoice exemple.tpl', 'outstanding exemple.tpl', '-1', '0', now()); ";
+	$query = "INSERT INTO cc_card (username, useralias, uipass, id_group, credit, language, tariff, id_didgroup, status, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, lastname, firstname, country, id_timezone, sip_buddy, iax_buddy, inuse, template_invoice, template_outstanding, credit_notification, notify_email, creationdate ) values". 
+			"('$card_number', '$card_alias', '$pass', '1', '10', 'en', '$id_callplan', '-1', '-1', 't', '1', 'USD', '0', '0', '0', '0', '0', '2018-09-02 23:21:33', '0', '1', '0', '0', '$card_number', 'card', 'AFG', '1', '0', '0', '0', 'invoice exemple.tpl', 'outstanding exemple.tpl', '-1', '0', now()); ";
 	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
 	
 }
