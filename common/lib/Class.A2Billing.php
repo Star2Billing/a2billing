@@ -1889,14 +1889,17 @@ class A2Billing {
 	
 	function update_callback_campaign($agi)
 	{
+		$now = time();
 		$username = $agi->get_variable("USERNAME", true);
 		$userid= $agi->get_variable("USERID", true);
 		$called= $agi->get_variable("CALLED", true);
 		$phonenumber_id= $agi->get_variable("PHONENUMBER_ID", true);
 		$campaign_id= $agi->get_variable("CAMPAIGN_ID", true);
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[MODE CAMPAIGN CALLBACK: USERNAME -> $username  USERID -> $userid ]");
-		//Insert cdr with flat rate
-		$query_rate = "SELECT cc_campaign_config.flatrate, cc_campaign_config.context FROM cc_card,cc_card_group,cc_campaignconf_cardgroup,cc_campaign_config WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id AND cc_campaignconf_cardgroup.id_card_group = cc_card_group.id  AND cc_campaignconf_cardgroup.id_campaign_config = cc_campaign_config.id ";
+
+		$query_rate = "SELECT cc_campaign_config.flatrate, cc_campaign_config.context FROM cc_card,cc_card_group,cc_campaignconf_cardgroup,cc_campaign_config , cc_campaign WHERE cc_card.id = $userid AND cc_card.id_group = cc_card_group.id AND cc_campaignconf_cardgroup.id_card_group = cc_card_group.id  AND cc_campaignconf_cardgroup.id_campaign_config = cc_campaign_config.id AND cc_campaign.id = $campaign_id AND cc_campaign.id_campaign_config = cc_campaign_config.id";
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[QUERY SEARCH CAMPAIGN CONFIG : ".$query_rate);
+		
 		$result_rate = $this->instance_table -> SQLExec ($this -> DBHandle, $query_rate);	
 		
 		$cost = 0;
@@ -1919,17 +1922,25 @@ class A2Billing {
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[UPDATE CARD : ".$QUERY);
 		$this->instance_table -> SQLExec ($this -> DBHandle, $QUERY);
 		
+		//dial other context
+		$agi -> set_variable('CALLERID(name)', $phonenumber_id.','.$campaign_id);
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CONTEXT TO CALL : ".$context."]");
+		$agi->exec_dial("local","1@".$context);
+		
+		$duration = time() - $now;
 		///create campaign cdr
-		$QUERY_CALL = "INSERT INTO cc_call (uniqueid, sessionid, card_id,calledstation, sipiax,  sessionbill) VALUES ('".$this->uniqueid."', '".$this->channel."', '".
-				$userid."','".$called."',6, ".$cost.")";
+		$QUERY_CALL = "INSERT INTO cc_call (uniqueid, sessionid, card_id,calledstation, sipiax,  sessionbill , sessiontime , stoptime ,starttime) VALUES ('".$this->uniqueid."', '".$this->channel."', '".
+				$userid."','".$called."',6, ".$cost.", ".$duration." , CURRENT_TIMESTAMP , ";
+
+		if ($A2B->config["database"]['dbtype'] == "postgres"){
+				$QUERY_CALL .= "CURRENT_TIMESTAMP - interval '$duration seconds' ) ";
+			}else{
+				$QUERY_CALL .= "CURRENT_TIMESTAMP - INTERVAL $duration SECOND  )";
+			}
+				
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[INSERT CAMPAIGN CALL : ".$QUERY_CALL);
 		$this->instance_table -> SQLExec ($this -> DBHandle, $QUERY_CALL);
 		
-		//dial other context
-		$agi -> set_variable('CALLERID(name)', $phonenumber_id.','.$campaign_id);
-		
-		$agi->exec_dial("local","1@".$context);
-	
 	}
 	
 
