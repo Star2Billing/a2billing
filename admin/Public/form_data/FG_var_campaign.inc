@@ -103,7 +103,7 @@ if ($form_action=="ask-add") {
 if ($form_action!="ask-add") {
 	$edit_col = ", id_campaign_config";
 	$HD_Form -> AddEditElement (gettext("CONFIG TO APPLY"),
-		   "config",
+		   "id_campaign_config",
 		   "",
 		   "SELECT",
 		   "", "", "",
