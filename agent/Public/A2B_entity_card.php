@@ -21,8 +21,8 @@ $HD_Form -> setDBHandler (DbConnect());
 
 if ($form_action != "list" && isset($id)) {
 	if(!empty($id)&& $id>0){
-		$table_agent_security = new Table("cc_card", " id_agent");
-		$clause_agent_security = "id= ".$id;
+		$table_agent_security = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group = cc_card_group.id ", " id_agent");
+		$clause_agent_security = "cc_card.id= ".$id;
 		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
 		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
 			Header ("HTTP/1.0 401 Unauthorized");
@@ -103,8 +103,8 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 	}
 	if ($id>0){
 		
-		$instance_check_card_agent = new Table("cc_card", " id_agent");
-		$FG_TABLE_CLAUSE_check = "id= ".$id;
+		$instance_check_card_agent = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group = cc_card_group.id", " id_agent");
+		$FG_TABLE_CLAUSE_check = "cc_card.id= ".$id;
 		$list_check= $instance_check_card_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_check, null, null, null, null, null, null);
 		if ( $list_check[0][0] ==$_SESSION['agent_id'] ) { 
 			

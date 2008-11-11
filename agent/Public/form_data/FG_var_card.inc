@@ -12,9 +12,9 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 
 if (!isset($form_action) || $form_action=="list") {
 	$HD_Form = new FormHandler("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","Card");
+	$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 } else {
 	$HD_Form = new FormHandler("cc_card","Card");
-	$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 }
 
 
@@ -160,7 +160,6 @@ if (!($popup_select>=1))
  $show_fields['useralias']=array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 
 $show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "15","", "", "", "", "", "");
-$show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1","");
 $show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
 
 if (!($popup_select>=1)){
@@ -183,7 +182,7 @@ if (!($popup_select>=1)){
 		$FG_COL_QUERY='DISTINCT ';		
 	}
 }else{
-	$show_list_temp=array('cc_card.id', 'username', 'lastname', 'id_group',  'credit');
+	$show_list_temp=array('cc_card.id', 'username', 'lastname', 'credit');
 	foreach ($show_list_temp as $i => $value) {
                 $show_list[$value]=$value;
 	}
@@ -270,7 +269,6 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null
 $HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, null,null , "status", 0, $cardstatus_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
-$HD_Form -> AddSearchElement_Select(gettext("SELECT GROUP"), "cc_card_group", "id, name", "", "name", "ASC", "id_group");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 
 
@@ -352,15 +350,6 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   gettext("Insert the password"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
-$HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
-			   "id_group",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_card_group",
-			   "name, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 $HD_Form -> AddEditElement (gettext("DISCOUNT"),
                            "discount",
@@ -918,7 +907,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass,id_group,  discount,  credit, language, tariff, id_didgroup, id_campaign, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target,restriction' );
+$HD_Form -> FieldEditElement ('username, useralias, uipass, discount,  credit, language, tariff, id_didgroup, id_campaign, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone, fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding, credit_notification, notify_email, email_notification , company_name , company_website ,VAT_RN , traffic, traffic_target,restriction' );
 
 
 if(!isset($myusername)) $myusername='';

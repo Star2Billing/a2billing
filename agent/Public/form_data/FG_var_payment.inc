@@ -4,15 +4,17 @@ getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refi
 
 
 if (!isset($form_action) || $form_action=="list"){
-	$HD_Form = new FormHandler("cc_logpayment LEFT JOIN cc_card ON cc_card.id=card_id","payment");
+	$HD_Form = new FormHandler("cc_logpayment LEFT JOIN cc_card ON cc_card.id=cc_logpayment.card_id LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group","payment");
 }else{
 	$HD_Form = new FormHandler("cc_logpayment","payment");
 }
 
+
+
 $HD_Form -> FG_TABLE_ID = 'cc_logpayment.id';
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id_agent=".$_SESSION['agent_id'] ;
+$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
@@ -25,7 +27,7 @@ $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "23%", "center
 $HD_Form -> AddViewElement(gettext("PAYMENT TYPE"),"payment_type", "7%", "center", "sort", "", "list", $list_refill_type);
 $HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "20%", "center", "sort", "", "lie_link", "cc_logrefill", "credit, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_logrefill.php");
 
-$HD_Form -> FieldViewElement ('cc_logpayment.id, username, date, payment,description ,payment_type,id_logrefill');
+$HD_Form -> FieldViewElement ('cc_logpayment.id, username, date, payment,cc_logpayment.description ,payment_type,id_logrefill');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
