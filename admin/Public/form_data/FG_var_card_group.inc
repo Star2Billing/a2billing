@@ -1,6 +1,5 @@
 <?php
 
-
 getpost_ifset(array('id', 'name ','users_perms', 'description','id_agent'));
 
 
@@ -70,34 +69,31 @@ $len_right_list = count($right_list);
 
 
 $HD_Form -> AddEditElement ( gettext("NAME"),	
-	"name",	'$value',	
-	"INPUT",
-	"size=30 maxlength=40",
-	"0",
-	gettext("Insert the provider name"), 
-	"" , "", "",	"", "", "", "", "" );
-
+		"name",	'$value',	
+		"INPUT",
+		"size=30 maxlength=40",
+		"0",
+		gettext("Insert the provider name"), 
+		"" , "", "",	"", "", "", "", "" );
 
 $HD_Form -> AddEditElement (gettext("AGENT ID"),
-			   "id_agent",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_agent",
-			   "login, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-	
-
+	   "id_agent",
+	   "",
+	   "SELECT",
+	   "", "", "",
+	   "sql",
+	   "cc_agent",
+	   "login, id",
+	   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
-	"description",
-	'',
-	"TEXTAREA",
-	"cols=50 rows=4",
-	"",
-	gettext("Insert the description"),
-	"" , "", "", "", "" , "", "", "");
+		"description",
+		'',
+		"TEXTAREA",
+		"cols=50 rows=4",
+		"",
+		gettext("Insert the description"),
+		"" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("PERMISSION USER INTERFACE"),
 		"users_perms",
@@ -110,7 +106,6 @@ $HD_Form -> AddEditElement (gettext("PERMISSION USER INTERFACE"),
 	
 
 $HD_Form -> FieldEditElement ('name,id_agent, description , users_perms');
-
 
 
 
