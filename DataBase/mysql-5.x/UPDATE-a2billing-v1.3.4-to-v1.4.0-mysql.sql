@@ -1327,6 +1327,9 @@ ALTER TABLE cc_card CHANGE VAT_RN vat_rn VARCHAR( 40 ) CHARACTER SET utf8 COLLAT
  
 
 -- add amount
-ALTER TABLE `cc_phonenumber` ADD `amount` INT NOT NULL DEFAULT '0';
+ALTER TABLE cc_phonenumber ADD amount INT NOT NULL DEFAULT '0';
 
+
+-- add company to Agent
+ALTER TABLE cc_agent ADD COLUMN company char(50);
 

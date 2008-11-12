@@ -150,6 +150,14 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 	   "",
 	   "list" , "", "",	"", $language_list, "%1", "", "" );
 
+$HD_Form -> AddEditElement (gettext("COMPANY"),
+		"company",
+		'$value',
+		"INPUT",
+		"size=60 maxlength=50",
+		"",
+		gettext("Insert the company"),
+		"" , "", "", "", "", "", "", "");
 
 $HD_Form -> AddEditElement (gettext("LAST NAME"),
 		"lastname",
@@ -254,7 +262,7 @@ if ($numrow>0){
 		"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
 }
 
-$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, climit, currency, commission, vat, language,  lastname, firstname, address, city, state, 
+$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, climit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
 country, zipcode, email, phone,  fax';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
