@@ -128,11 +128,11 @@ class Table {
         if ($this -> writelog) {
 			if ($time > $this->alert_query_time) {
 				if ($time > $this->alert_query_long_time ) 
-					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXTRA_TOOLONG_DB_QUERY - RUNNING TIME = $time");
+					$A2B -> debug( WARN, $agi, __FILE__, __LINE__, "EXTRA_TOOLONG_DB_QUERY - RUNNING TIME = $time");
 				else 
-					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "TOOLONG_DB_QUERY - RUNNING TIME = $time");
+					$A2B -> debug( WARN, $agi, __FILE__, __LINE__, "TOOLONG_DB_QUERY - RUNNING TIME = $time");
 			}
-			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "Running time=$time - QUERY=\n$QUERY\n");
+			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "Running time=$time - QUERY=\n$QUERY\n");
         }
         
 		return $res;
