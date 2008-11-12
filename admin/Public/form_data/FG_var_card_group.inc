@@ -76,15 +76,15 @@ $HD_Form -> AddEditElement ( gettext("NAME"),
 		gettext("Insert the provider name"), 
 		"" , "", "",	"", "", "", "", "" );
 
-$HD_Form -> AddEditElement (gettext("AGENT ID"),
+$HD_Form -> AddEditElement (gettext("AGENT"),
 	   "id_agent",
 	   "",
 	   "SELECT",
 	   "", "", "",
 	   "sql",
 	   "cc_agent",
-	   "login, id",
-	   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+	   "login, id, firstname,lastname",
+	   "", "", "%1 (%3 %4)", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 		"description",
