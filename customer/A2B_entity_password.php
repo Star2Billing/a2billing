@@ -17,7 +17,7 @@ if (! has_rights (ACX_PASSWORD)){
 /***********************************************************************************/
 
 
-getpost_ifset(array('NewPassword'));
+getpost_ifset(array('NewPassword','OldPassword'));
 
 
 $HD_Form = new FormHandler("cc_card","card");
@@ -29,9 +29,13 @@ $HD_Form -> setDBHandler (DbConnect());
 
 if($form_action=="ask-update")
 {
-    $instance_sub_table = new Table('cc_card');
-    $QUERY = "UPDATE cc_card SET  uipass= '".$NewPassword."' WHERE ( ID = ".$_SESSION["card_id"]." ) ";
-    $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+    $instance_sub_table = new Table('cc_card',"id");
+    $check_old_pwd = "id = '".$_SESSION["card_id"]."' AND uipass = '$OldPassword'";
+    $result_check=$instance_sub_table -> Get_list ($HD_Form -> DBHandle,$check_old_pwd);
+    if(is_array($result_check)){
+	    $QUERY = "UPDATE cc_card SET  uipass= '".$NewPassword."' WHERE ( ID = ".$_SESSION["card_id"]." ) ";
+	    $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+    }
 }
 // #### HEADER SECTION
 $smarty->display( 'main.tpl');
@@ -75,8 +79,7 @@ function CheckPassword()
 <?php
 if ($form_action=="ask-update")
 {
-if (isset($result))
-{
+if(is_array($result_check)){
 ?>
 <script language="JavaScript">
 alert("<?php echo gettext("Your password is updated successfully.")?>");
@@ -86,7 +89,7 @@ alert("<?php echo gettext("Your password is updated successfully.")?>");
 {
 ?>
 <script language="JavaScript">
-alert("<?php echo gettext("System is failed to update your password.")?>");
+alert("<?php echo gettext("Your old password is wrong.")?>");
 </script>
 
 <?php
@@ -101,6 +104,10 @@ alert("<?php echo gettext("System is failed to update your password.")?>");
 </tr>
 <tr>
     <td align=left colspan=2>&nbsp;</td>
+</tr>
+<tr>
+    <td align=right><font class="fontstyle_002"><?php echo gettext("Old Password")?>&nbsp; :</font></td>
+    <td align=left><input name="OldPassword" type="password" class="form_input_text" ></td>
 </tr>
 <tr>
     <td align=right><font class="fontstyle_002"><?php echo gettext("New Password")?>&nbsp; :</font></td>
