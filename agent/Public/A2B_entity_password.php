@@ -33,8 +33,8 @@ if($form_action=="ask-update")
     $check_old_pwd = "id = '".$_SESSION["agent_id"]."' AND passwd = '$OldPassword'";
     $result_check=$instance_sub_table -> Get_list ($HD_Form -> DBHandle,$check_old_pwd);
     if(is_array($result_check)){
-    $QUERY = "UPDATE cc_agent SET passwd= '".$NewPassword."' WHERE ( ID = ".$_SESSION["agent_id"]."  ) ";
-    $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	    $QUERY = "UPDATE cc_agent SET passwd= '".$NewPassword."' WHERE ( ID = ".$_SESSION["agent_id"]."  ) ";
+	    $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
     }
 }
 // #### HEADER SECTION
@@ -92,7 +92,7 @@ if(is_array($result_check)){
 {
 ?>
 	<script language="JavaScript">
-	alert("<?php echo gettext(" Your old password is wrong.")?>");
+	alert("<?php echo gettext("Your old password is wrong.")?>");
 	</script>
 
 <?php
