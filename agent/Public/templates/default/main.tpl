@@ -27,6 +27,8 @@
 <div id="nav_before"></div>
 <ul id="nav">
 
+
+
 	{if ($ACXMYACCOUNT > 0) }
 	<div class="toggle_menu">
 	<li>
@@ -46,6 +48,7 @@
 	<ul>
 		<li><ul>
 				<li><a href="agentinfo.php?section=0">{php} echo gettext("Account information");{/php}</a></li>
+				<li><a href="A2B_entity_password.php?stitle=Password&section=0">{php} echo gettext("PASSWORD");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>

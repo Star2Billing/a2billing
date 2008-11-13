@@ -1,8 +1,8 @@
 <?php
-include ("./lib/agent.defines.php");
-include ("./lib/agent.module.access.php");
-include ("./lib/Form/Class.FormHandler.inc.php");
-include ("./lib/agent.smarty.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
+include ("../lib/Form/Class.FormHandler.inc.php");
+include ("../lib/agent.smarty.php");
 
 
 
@@ -17,10 +17,10 @@ if (! has_rights (ACX_ACCESS)){
 /***********************************************************************************/
 
 
-getpost_ifset(array('NewPassword'));
+getpost_ifset(array('NewPassword','OldPassword'));
 
 
-$HD_Form = new FormHandler("cc_card","card");
+$HD_Form = new FormHandler("cc_agent","ageet");
 
 $HD_Form -> setDBHandler (DbConnect());
 //////$instance_sub_table = new Table('cc_callerid');
@@ -29,9 +29,13 @@ $HD_Form -> setDBHandler (DbConnect());
 
 if($form_action=="ask-update")
 {
-    $instance_sub_table = new Table('cc_card');
-    $QUERY = "UPDATE cc_card SET  uipass= '".$NewPassword."' WHERE ( ID = ".$_SESSION["card_id"]." ) ";
+    $instance_sub_table = new Table('cc_agent',"id");
+    $check_old_pwd = "id = '".$_SESSION["agent_id"]."' AND passwd = '$OldPassword'";
+    $result_check=$instance_sub_table -> Get_list ($HD_Form -> DBHandle,$check_old_pwd);
+    if(is_array($result_check)){
+    $QUERY = "UPDATE cc_agent SET passwd= '".$NewPassword."' WHERE ( ID = ".$_SESSION["agent_id"]."  ) ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+    }
 }
 // #### HEADER SECTION
 $smarty->display( 'main.tpl');
@@ -75,19 +79,21 @@ function CheckPassword()
 <?php
 if ($form_action=="ask-update")
 {
-if (isset($result))
-{
+	
+
+if(is_array($result_check)){
+
 ?>
-<script language="JavaScript">
-alert("<?php echo gettext("Your password is updated successfully.")?>");
-</script>
+	<script language="JavaScript">
+	alert("<?php echo gettext("Your password is updated successfully.")?>");
+	</script>
 <?php
 }else
 {
 ?>
-<script language="JavaScript">
-alert("<?php echo gettext("System is failed to update your password.")?>");
-</script>
+	<script language="JavaScript">
+	alert("<?php echo gettext(" Your old password is wrong.")?>");
+	</script>
 
 <?php
 } }
@@ -95,12 +101,16 @@ alert("<?php echo gettext("System is failed to update your password.")?>");
 <br>
 <form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
 <center>
-<table class="changepassword_maintable" align=center>
+<table class="changepassword_maintable" align=center width="300">
 <tr class="bgcolor_009">
     <td align=left colspan=2><b><font color="#ffffff">- <?php echo gettext("Change Password")?>&nbsp; -</b></td>
 </tr>
 <tr>
     <td align=left colspan=2>&nbsp;</td>
+</tr>
+<tr>
+    <td align=right><font class="fontstyle_002"><?php echo gettext("Old Password")?>&nbsp; :</font></td>
+    <td align=left><input name="OldPassword" type="password" class="form_input_text" ></td>
 </tr>
 <tr>
     <td align=right><font class="fontstyle_002"><?php echo gettext("New Password")?>&nbsp; :</font></td>
