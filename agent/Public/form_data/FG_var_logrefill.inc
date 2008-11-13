@@ -16,12 +16,6 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
-$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_logrefill.php?form_action=ask-add&section=2";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Refill");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
-
-
 $list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
@@ -39,62 +33,8 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
-$HD_Form -> FG_EDITION = true;
-$HD_Form -> FG_DELETION = true;
-
-
-$HD_Form -> AddEditElement (gettext("ID CUSTOMER"),
-			   "card_id",		
-			   "$value", "POPUPVALUE", "size=30 maxlength=50",	
-			   "4",	gettext("Insert the Customer ID"),
-			    "" , "", "", "", "", 				
-				"A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
-				gettext("Select the Customer ID"));
-
-if ($form_action=="ask-add"){	
-	$begin_date = date("Y");
-	$end_date = date("-m-d H:i:s");
-	$comp_date=$begin_date.$end_date;
-	$comp_date="value='$comp_date'";
-}
-
-$HD_Form -> AddEditElement (gettext("PAYMENT DATE"),
-			   "date",		
-			   '$value',	
-			   "INPUT",	
-			   "size=40 READONLY maxlength=40  $comp_date",	
-			   "10",	
-			   gettext("Insert the current date"),
-			   "" , "", "",	"", "", "", "", "" );
-
-$HD_Form -> AddEditElement (gettext("REFILL AMOUNT"),
-			   "credit",		
-			   '$value',	
-			   "INPUT",	
-			   "size=60 maxlength=10",	
-			   "12",	
-			   gettext("Insert the credit amount"),
-			   "" , "", "",	"", "" , "", "", gettext("Enter the amount in the currency base : ").BASE_CURRENCY );
-
-$HD_Form -> AddEditElement (gettext("DESCRIPTION"),
-				"description",
-				'',
-				"TEXTAREA",
-				"cols=50 rows=4",
-				"",
-				gettext("Insert the description"),
-				"" , "", "", "", "" , "", "", "");
-			   
-$HD_Form -> AddEditElement (gettext("REFILL TYPE"),
-               "refill_type",
-               '$value',
-               "SELECT",
-               "",
-               "",
-               "",
-               "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
-
-$HD_Form -> FieldEditElement ('card_id, date, credit, cc_logrefill.description, refill_type');
+$HD_Form -> FG_EDITION = false;
+$HD_Form -> FG_DELETION = false;
 
 
 
@@ -122,7 +62,6 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INST
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue.");
 
-$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'add_card_refill';
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
