@@ -131,7 +131,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 					<td  class="form_head">
 						<?php echo gettext("EMAIL") ?> :
 					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%"><td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						<?php echo $card['email']?> 
 					</td>
 					
