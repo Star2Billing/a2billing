@@ -1044,6 +1044,17 @@ $CC_help_support_list='<div class="toggle_show2hide">
 </div></div></div>
 </div></div>
 ';
+$CC_help_support_list_agent='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
+	<div class="w2" style="width:800px">'
+.gettext("You can see here, all tickets created by Agents. You can also add a new ticket for one Agent.").'
+<br/><br/><br/>
+</div></div></div>
+</div></div>
+';
 
 $CC_help_support_component='<div class="toggle_show2hide">
 <a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>

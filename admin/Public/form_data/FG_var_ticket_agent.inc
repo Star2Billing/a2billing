@@ -17,14 +17,14 @@ if (!isset($form_action) || $form_action=="list"){
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id=creator AND creator_type =0";
+$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id=creator AND creator_type = 1";
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "CC_ticket.php?form_action=ask-add&section=17";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_ticket_agent.php?form_action=ask-add&section=17";
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add TICKET");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/note_add.png" ;
 
@@ -39,15 +39,15 @@ $status_list = Ticket::getAllStatusListView();
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CUSTOMER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
-$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("AGENT"), "creator", "10%", "center", "sort", "25", "lie", "cc_agent", "lastname, firstname", "id='%id'", "%1 %2");
+$HD_Form -> AddViewElement(gettext("LOGIN"), "creator", "10%", "center", "sort", "25", "lie", "cc_agent", "login", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("COMPONENT"), "id_component", "10%", "center", "sort", "15", "lie", "cc_support_component", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "sort", "", "list", $priority_list);
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort", "", "list", $status_list);
 
-$HD_Form -> FieldViewElement ('cc_ticket.id, creator, username, title, cc_ticket.creationdate, id_component , priority , cc_ticket.status');
+$HD_Form -> FieldViewElement ('cc_ticket.id, creator,creator, title, cc_ticket.creationdate, id_component , priority , cc_ticket.status');
 
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "CC_ticket_view.php?id=";
@@ -63,32 +63,18 @@ $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
-if ($form_action=='ask-add'){
-	$DBHandle_max  = DbConnect();
-	if ($username) {
-		$resmax = $DBHandle_max -> Execute("SELECT id FROM cc_card where username='$username'");
-		$numrow = 0;
-		if ($resmax)
-			$numrow = $resmas -> RecordCount( );
 
-		if ($numrow!=0) {
-			$db_row [] = $resmax -> fetchRow();
-			$val_default = "value='".$db_row[0][0]."'";
-		}
-	}
-}
+$HD_Form -> AddEditElement (gettext("AGENT"),
+	   "creator",
+	   "",
+	   "SELECT",
+	   "", "", "",
+	   "sql",
+	   "cc_agent",
+	   "login, id, firstname,lastname",
+	   "", "", "%1 (%3 %4)", "", "", "", '' );
 
-$HD_Form -> AddEditElement (gettext("CREATOR"),
-	"creator",
-	'',
-	"POPUPVALUE",
-	"size=30 maxlength=50 $val_default",
-	"4",
-	gettext("Insert the Customer ID"),
-	"" , "", "", "", "",
-	"A2B_entity_card.php?popup_select=1&"
-	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
-	gettext("Set the Customer ID"));
+	
 
 
 $HD_Form -> AddEditElement (gettext("TITLE"),
@@ -134,11 +120,11 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 $HD_Form -> FieldEditElement (' creator, title, id_component, priority, description');
 
 if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creator_type";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "1";
 }else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creator_type,creationdate ";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "1,now()";
 }
 
 

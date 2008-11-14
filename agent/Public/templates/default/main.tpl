@@ -156,6 +156,31 @@
 	</div>
 	</div>
 	{/if}
+	
+	{if ($ACXSUPPORT  > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
+	{if ($section == "7")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="7")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_ticket.php?section=7">{php} echo gettext("Customer Tickets");{/php}</a></li>
+				<li><a href="A2B_support.php">{php} echo gettext("View and Create Tickets");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+	
 
 
 	<li><a href="#" target="_self"></a></a></li>

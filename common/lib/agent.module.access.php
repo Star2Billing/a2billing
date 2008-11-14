@@ -28,6 +28,7 @@ define ("ACX_BILLING",					2);			// 1 << 1
 define ("ACX_RATECARD",					4);			// 1 << 2
 define ("ACX_CALL_REPORT",   			8);			// 1 << 3
 define ("ACX_MYACCOUNT",				16);
+define ("ACX_SUPPORT",					32);
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 
@@ -153,3 +154,4 @@ $ACXBILLING 	= has_rights (ACX_BILLING);
 $ACXRATECARD 	= has_rights (ACX_RATECARD);
 $ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
 $ACXMYACCOUNT  = has_rights (ACX_MYACCOUNT);
+$ACXSUPPORT  = has_rights (ACX_SUPPORT);

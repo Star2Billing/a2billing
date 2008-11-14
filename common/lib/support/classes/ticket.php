@@ -144,10 +144,10 @@ class Ticket
  	foreach ($return as $value)
       { $comment = new Comment($value['description'],$value['date']);
       	$creatorid =$value["creator"];
-        $isadmin = $value["is_admin"]=="f"?false:true;
+        $creator_type = $value["creator_type"];
 
       	 if(!is_null($creatorid)){
-        	if($isadmin){
+        	if($creator_type==1){
 				 $instance_sub_table = new Table("cc_ui_authen", "*");
 		 		 $QUERY = " userid = ".$creatorid;
 		 		 $subreturn = null;
@@ -156,8 +156,7 @@ class Ticket
 		        if(!is_null($subvalue)){
 		        	$comment->setCreatorname( gettext("(ADMINISTRATOR) ").$subvalue["name"]);
 		        }
-        	}else{
-
+        	}elseif($creator_type==0){
 
 	   			 $instance_sub_table = new Table("cc_card", "lastname, firstname");
 		 		 $QUERY = " id = ".$creatorid;
@@ -168,6 +167,17 @@ class Ticket
 		        	$comment->setCreatorname( $subvalue["lastname"]." ".$subvalue["firstname"]);
 		        }
 
+        	}else{
+        		 $instance_sub_table = new Table("cc_agent", "lastname, firstname");
+		 		 $QUERY = " id = ".$creatorid;
+		 		 $subreturn = null;
+	     		 $subreturn = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
+	     		 $subvalue = $subreturn[0];
+		        if(!is_null($subvalue)){
+		        	$comment->setCreatorname( gettext("(AGENT)")." ".$subvalue["firstname"]." ".$subvalue["lastname"]);
+		        }
+        		
+        		
         	}
 
 	     }
@@ -183,16 +193,16 @@ class Ticket
 
    }
 
-   function insertComment($desc,$creator,$isadmin){
+   function insertComment($desc,$creator,$creator_type){
 
    	$DBHandle  = DbConnect();
    	 $instance_sub_table = new Table("cc_ticket_comment", "*");
    	 if (DB_TYPE == "postgres") {
-		 $QUERY_FIELDS = 'id_ticket, description,creator, is_admin';
-	 	 $QUERY_VALUES = "'$this->id', '$desc','$creator', '$isadmin'";
+		 $QUERY_FIELDS = 'id_ticket, description,creator, creator_type';
+	 	 $QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type'";
 	}else{
-		$QUERY_FIELDS = 'id_ticket, description,creator, is_admin , date';
-		$QUERY_VALUES = "'$this->id', '$desc','$creator', '$isadmin', now() ";
+		$QUERY_FIELDS = 'id_ticket, description,creator, creator_type , date';
+		$QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type', now() ";
 	}
 	 $return = $instance_sub_table-> Add_table ($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_ticket_comment', 'id');
 

@@ -31,6 +31,7 @@ $right_list["2"] = array( gettext("BILLING"), "2");
 $right_list["3"] = array( gettext("RATECARD"), "4");
 $right_list["4"] = array( gettext("CALL REPORT"), "8");
 $right_list["5"] = array( gettext("MY ACCOUNT"), "16");
+$right_list["5"] = array( gettext("SUPPORT"), "32");
 
 $len_right_list = count($right_list);
 

@@ -1316,7 +1316,7 @@ ALTER TABLE cc_phonenumber ADD amount INT NOT NULL DEFAULT '0';
 
 
 -- add company to Agent
-ALTER TABLE cc_agent ADD COLUMN company char(50);
+ALTER TABLE cc_agent ADD COLUMN company varchar(50);
 
 
 -- Change AGI Verbosity & logging
@@ -1325,5 +1325,5 @@ VALUES ('Verbosity', 'verbosity_level', '0', '0 = FATAL; 1 = ERROR; WARN = 2 ; I
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
 VALUES ('Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
 
-
-
+ALTER TABLE cc_ticket ADD creator_type TINYINT NOT NULL DEFAULT '0';
+ ALTER TABLE cc_ticket_comment CHANGE is_admin creator_type TINYINT NOT NULL DEFAULT '0';

@@ -3,43 +3,26 @@ include (LIBDIR."/support/classes/ticket.php");
 
 getpost_ifset(array('id', 'title', 'id_component','description','priority','status','creator','username' ));
 
-
 if (!isset($form_action) || $form_action=="list"){
-  	 $HD_Form = new FormHandler("cc_ticket, cc_card", "Ticket");
+  	 $HD_Form = new FormHandler("cc_ticket, cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group LEFT JOIN cc_agent ON cc_agent.id = cc_card_group.id_agent", "Ticket");
 }else {
 	 $HD_Form = new FormHandler("cc_ticket","Ticket");
 
 }
 
 
-
-
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id=creator AND creator_type =0";
+$HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=creator AND creator_type=0 AND cc_agent.id=".$_SESSION['agent_id'];
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
-
-
-
-
-$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "CC_ticket.php?form_action=ask-add&section=17";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add TICKET");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/note_add.png" ;
-
-
-
 
 $priority_list = Constants::getTicketPriorityList();
 
-
 $status_list = Ticket::getAllStatusListView();
 
-
-
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CUSTOMER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
+$HD_Form -> AddViewElement(gettext("HOLDER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
@@ -50,7 +33,7 @@ $HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort",
 $HD_Form -> FieldViewElement ('cc_ticket.id, creator, username, title, cc_ticket.creationdate, id_component , priority , cc_ticket.status');
 
 
-$HD_Form -> FG_OTHER_BUTTON1_LINK = "CC_ticket_view.php?id=";
+$HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_ticket_view.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/icon-viewdetails.gif";
 
 

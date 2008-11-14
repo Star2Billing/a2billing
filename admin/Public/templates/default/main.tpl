@@ -349,7 +349,7 @@
 	{if ($ACXSUPPORT  > 0)}
 	<div class="toggle_menu">
 	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
-	{if ($section == "13")}
+	{if ($section == "17")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
@@ -363,6 +363,7 @@
 		<ul>
 			<li><ul>
 				<li><a href="CC_ticket.php?section=17">{php} echo gettext("Tickets");{/php}</a></li>
+				<li><a href="A2B_ticket_agent.php?section=17">{php} echo gettext("Tickets AGENT");{/php}</a></li>
 				<li><a href="CC_support.php?section=17">{php} echo gettext("Support Box's");{/php}</a></li>
 				<li><a href="CC_support_component.php?section=17">{php} echo gettext("Components");{/php}</a></li>
 			</ul></li>

@@ -12,7 +12,7 @@ $plang='en';
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = " creator_type=0 AND creator= ".$_SESSION['card_id'];
+$HD_Form -> FG_TABLE_CLAUSE = "creator_type=1 AND creator= ".$_SESSION['agent_id'];
 $HD_Form -> FG_TABLE_ID="id";
 
 $status_list = Ticket::getAllStatusListView();

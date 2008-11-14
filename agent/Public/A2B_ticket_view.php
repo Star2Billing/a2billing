@@ -1,7 +1,7 @@
 <?php
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
+include ("../lib/agent.smarty.php");
 include ("../lib/support/classes/ticket.php");
 include ("../lib/support/classes/comment.php");
 include ("../lib/epayment/includes/general.php");
@@ -37,8 +37,8 @@ $action = (isset($_POST['action']) ? $_POST['action'] : '');
 		  $instance_sub_table = new Table("cc_ticket", "*");
           $instance_sub_table -> Update_table($DBHandle, "status = '" . $_POST['status'] . "'","id = '" . $_GET['id'] . "'" );
 		  $ticket = new Ticket($ticketID);
-		  $ticket->insertComment($_POST['comment'],$_SESSION["admin_id"],1);
-          tep_redirect("CC_ticket_view.php?"."id=".$_GET['id']."&result=success");
+		  $ticket->insertComment($_POST['comment'],$_SESSION['agent_id'],2);
+          tep_redirect("A2B_ticket_view.php?"."id=".$_GET['id']."&result=success");
       break;
     }
   }

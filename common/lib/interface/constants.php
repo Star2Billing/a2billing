@@ -19,6 +19,8 @@ class Constants
 		$language_list["2"] = array( gettext("CAN ONLY CALL RESTRICTED NUMBERS"),  "2");
 		return $language_list;
 	}
+	
+	
 
 	public static function getLanguagesRevertList(){
 		$language_list_r = array();

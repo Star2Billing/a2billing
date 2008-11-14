@@ -34,7 +34,7 @@ $action = (isset($_POST['action']) ? $_POST['action'] : '');
 		  $instance_sub_table = new Table("cc_ticket", "*");
           $instance_sub_table -> Update_table($DBHandle, "status = '" . $_POST['status'] . "'","id = '" . $_GET['id'] . "'" );
 		  $ticket = new Ticket($ticketID);
-		  $ticket->insertComment($_POST['comment'],1,false);
+		  $ticket->insertComment($_POST['comment'],$_SESSION["card_id"],0);
          $message = gettext("Ticket updated successfully");
       break;
     }
