@@ -603,28 +603,10 @@ CREATE TABLE cc_card_history (
 
 
 
-ALTER TABLE cc_callback_spool CHANGE variable variable VARCHAR( 300 ) DEFAULT NULL;
-
-
-
 ALTER TABLE cc_call ADD COLUMN real_sessiontime INT (11) DEFAULT NULL;
 
 
--- Never too late to add some indexes :D
 
-ALTER TABLE cc_call ADD INDEX ( `username` );
-ALTER TABLE cc_call ADD INDEX ( `starttime` );
-ALTER TABLE cc_call ADD INDEX ( `terminatecause` );
-ALTER TABLE cc_call ADD INDEX ( `calledstation` );
-
-
-ALTER TABLE cc_card ADD INDEX ( `creationdate` );
-ALTER TABLE cc_card ADD INDEX ( `username` );
-
-
-
-OPTIMIZE TABLE cc_card;
-OPTIMIZE TABLE cc_call;
 
 
 CREATE TABLE cc_call_archive (
