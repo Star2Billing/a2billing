@@ -9,7 +9,7 @@ if (! has_rights ( ACX_CALL_REPORT )) {
 	die ();
 }
 
-getpost_ifset ( array ('customer', 'sellrate', 'buyrate', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'fromtime', 'totime', 'fromstatsday_hour', 'tostatsday_hour', 'fromstatsday_min', 'tostatsday_min', 'dsttype', 'srctype', 'dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'dnid', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype' ) );
+getpost_ifset ( array ('customer', 'sellrate', 'buyrate', 'entercustomer','entercustomer_num', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'fromtime', 'totime', 'fromstatsday_hour', 'tostatsday_hour', 'fromstatsday_min', 'tostatsday_min', 'dsttype', 'srctype', 'dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'dnid', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype' ) );
 
 if (($_GET [download] == "file") && $_GET [file]) {
 	
@@ -175,6 +175,15 @@ if (isset ( $customer ) && ($customer > 0)) {
 		if (strlen ( $FG_TABLE_CLAUSE ) > 0)
 			$FG_TABLE_CLAUSE .= " AND ";
 		$FG_TABLE_CLAUSE .= "t1.card_id='$entercustomer'";
+	}elseif(isset ( $entercustomer_num ) && ($entercustomer_num > 0)) {
+		$res=$DBHandle -> Execute ("select id from cc_card where username=".$entercustomer_num);
+		if ($res){
+			if($res->RecordCount ()){
+			 $row =$res -> fetchRow();
+                		if (strlen ( $FG_TABLE_CLAUSE ) > 0)	$FG_TABLE_CLAUSE .= " AND ";
+			        $FG_TABLE_CLAUSE .= "t1.card_id='$row[0]'";
+			}
+		}
 	}
 }
 
@@ -357,7 +366,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					NAME="entercustomer" value="<?php echo $entercustomer?>"
 					class="form_input_text"> <a href="#"
 					onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img
-					src="<?php echo Images_Path; ?>/icon_arrow_orange.gif"></a></td>
+					src="<?php echo Images_Path; ?>/icon_arrow_orange.gif"></a>
+				 <BR> OR <br>
+				<?php echo gettext ( "Enter the customer number" );?>: <INPUT TYPE="text" NAME="entercustomer_num" 
+					value="<?php echo $entercustomer_num?>" class="form_input_text"> <a href="#"
+                                        onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer_num' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img
+                                        src="<?php echo Images_Path; ?>/icon_arrow_orange.gif"></a>
+				</td>
 				<td width="50%">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
