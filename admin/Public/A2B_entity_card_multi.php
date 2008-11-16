@@ -258,16 +258,17 @@ $list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 	?>						
 	</select><br>
 	<strong>2)</strong> 
-	<select name="choose_list" size="1" class="form_input_select">
-		<option value=""><?php echo gettext("Choose the number of customers to create");?></option>
-		<option class="input" value="1"><?php echo gettext("1 Customer");?></option>
-		<option class="input" value="10"><?php echo gettext("10 Customers");?></option>
-		<option class="input" value="50"><?php echo gettext("50 Customers");?></option>
-		<option class="input" value="100"><?php echo gettext("100 Customers");?></option>
-		<option class="input" value="200"><?php echo gettext("200 Customers");?></option>
-		<option class="input" value="500"><?php echo gettext("500 Customers");?></option>
-		<option class="input" value="5000"><?php echo gettext("5000 Customers");?></option>
-	</select>
+	 <?php echo gettext("Number of customers to create")?>:<select size="1" class="form_input_select" id="choose_list_s">
+		<option value=""><?php echo gettext("Choose the number");?></option>
+		<option class="input" onClick="javascript:$('#choose_list').attr('value',1)"><?php echo gettext("1 Customer");?></option>
+		<option class="input" onClick="javascript:$('#choose_list').attr('value',10)"><?php echo gettext("10 Customers");?></option>
+		<option class="input" onClick="javascript:$('#choose_list').attr('value',50)"><?php echo gettext("50 Customers");?></option>
+		<option class="input" onClick="javascript:$('#choose_list').attr('value',100)"><?php echo gettext("100 Customers");?></option>
+		<option class="input" onClick="javascript:$('#choose_list').attr('value',200)"><?php echo gettext("200 Customers");?></option>
+		<option class="input" onClick="javascript:$('#choose_list').attr('value',500)"><?php echo gettext("500 Customers");?></option>
+		<option class="input" onClick="javascript:$('#choose_list').attr('value',5000)"><?php echo gettext("5000 Customers");?></option>
+		<option class="input" onClick="javascript:$('#choose_list').attr('style','');$('#choose_list_s').hide();"><?php echo gettext("Other variant");?></option>
+	</select><input class="form_input_text" style="visibility:hidden" id="choose_list" name="choose_list" size="3" maxlength="6" >
 	<br/>
 		
 	<strong>3)</strong> 
