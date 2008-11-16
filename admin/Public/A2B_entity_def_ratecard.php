@@ -29,8 +29,8 @@ $update_fields_info=array("BUYING RATE","BUYRATE MIN DURATION","BUYRATE BILLING 
 $charges_abc=array();
 $charges_abc_info=array();
 if (ADVANCED_MODE){
-       $charges_abc=array("upd_stepchargea","upd_chargea","upd_timechargea","upd_stepchargeb","upd_chargeb","upd_timechargeb","upd_stepchargec","upd_chargec","upd_timechargec");
-       $charges_abc_info=array("ENTRANCE CHARGE A","COST A","TIME FOR A","ENTRANCE CHARGE B","COST B","TIME FOR B","ENTRANCE CHARGE C","COST C","TIME FOR C");
+       $charges_abc=array("upd_stepchargea","upd_chargea","upd_timechargea","upd_stepchargeb","upd_chargeb","upd_timechargeb","upd_stepchargec","upd_chargec","upd_timechargec","upd_announce_time_correction");
+       $charges_abc_info=array("ENTRANCE CHARGE A","COST A","TIME FOR A","ENTRANCE CHARGE B","COST B","TIME FOR B","ENTRANCE CHARGE C","COST C","TIME FOR C","ANNOUNCE TIME CORRECTION");
 };
 
 

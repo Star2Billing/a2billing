@@ -181,7 +181,7 @@ class RateEngine
 		tp_trunk.failover_trunk AS tp_failover_trunk, rt_trunk.failover_trunk AS rt_failover_trunk,tp_trunk.addparameter AS tp_addparameter_trunk, rt_trunk.addparameter AS rt_addparameter_trunk, id_outbound_cidgroup,
         id_cc_package_offer,tp_trunk.status, rt_trunk.status, tp_trunk.inuse, rt_trunk.inuse, 
         tp_trunk.maxuse,  rt_trunk.maxuse,tp_trunk.if_max_use, rt_trunk.if_max_use,cc_ratecard.rounding_calltime AS rounding_calltime,
-        cc_ratecard.rounding_threshold AS rounding_threshold,cc_ratecard.additional_block_charge AS additional_block_charge,cc_ratecard.additional_block_charge_time AS additional_block_charge_time, cc_ratecard.additional_grace AS additional_grace, cc_ratecard.minimal_cost AS minimal_cost,disconnectcharge_after
+        cc_ratecard.rounding_threshold AS rounding_threshold,cc_ratecard.additional_block_charge AS additional_block_charge,cc_ratecard.additional_block_charge_time AS additional_block_charge_time, cc_ratecard.additional_grace AS additional_grace, cc_ratecard.minimal_cost AS minimal_cost,disconnectcharge_after,announce_time_correction
 
 		FROM cc_tariffgroup
 		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id
@@ -345,6 +345,7 @@ class RateEngine
 		$connectcharge 					= a2b_round (abs($this -> ratecard_obj[$K][15]));
 		$disconnectcharge 				= a2b_round (abs($this -> ratecard_obj[$K][16]));
 		$disconnectcharge_after         		= $this->ratecard_obj[$K][60];
+		$announce_time_correction			= $this->ratecard_obj[$K][61];
 		$stepchargea 					= $this -> ratecard_obj[$K][17];
 		$chargea 						= a2b_round (abs($this -> ratecard_obj[$K][18]));
 		$timechargea 					= $this -> ratecard_obj[$K][19];

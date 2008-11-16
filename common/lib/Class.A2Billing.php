@@ -964,12 +964,16 @@ class A2Billing {
 		if ($this->agiconfig['cheat_on_announcement_time']==1) {
 			$timeout = $RateEngine-> ratecard_obj[0]['timeout_without_rules'];	
 		}
+
+		$announce_time_correction = $RateEngine->ratecard_obj[0][61];
+		$timeout=$timeout*$announce_time_correction;
+
 		// set destination and timeout
 		// say 'you have x minutes and x seconds'
 		$minutes = intval($timeout / 60);
 		$seconds = $timeout % 60;
 
-		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "TIMEOUT::> ".$this->timeout."  : minutes=$minutes - seconds=$seconds");
+		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "TIMEOUT::> ".$this->timeout." x". $announce_time_correction." : minutes=$minutes - seconds=$seconds");
 		if (!($minutes>0) && !($seconds>10)) {
 			$prompt="prepaid-no-enough-credit";
 			$agi-> stream_file($prompt, '#');
