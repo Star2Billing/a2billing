@@ -294,6 +294,17 @@ function display_2dec_percentage($var){
 	}
 }
 
+function display_percentage($var){
+        if (isset($var))
+        {
+                printf("%d%%",$var);
+        }else
+        {
+                echo "n/a";
+        }
+}
+
+
 function display_2bill($var, $currency = BASE_CURRENCY){
 	global $currencies_list, $choose_currency;
 	if (isset($choose_currency) && strlen($choose_currency)==3) $currency=$choose_currency;

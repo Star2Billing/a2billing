@@ -47,9 +47,9 @@ $language_list = Constants::getLanguagesList();
 
 $language_list_r = Constants::getLanguagesRevertList();
 $discount_list  = array();
-$discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0.00");
+$discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0%");
 for($i=1;$i<99;$i++) {
-	$discount_list["".$i.".00"]=array("".$i."%","".$i.".00");
+	$discount_list["".$i.".00"]=array("".$i."%","".$i."%");
 };
 
 $simultaccess_list = Constants::getCardAccess_List();
@@ -155,7 +155,7 @@ if (!($popup_select>=1))
 
 $show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "15","", "", "", "", "", "");
 $show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1","");
-$show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
+$show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "display_2dec");
 
 if (!($popup_select>=1)){
 	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>",
@@ -169,7 +169,7 @@ if (!($popup_select>=1)){
 	$show_fields['nbused']=array("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "3%", "center", "sort");
 	$show_fields['firstname']=array(gettext("FIRSTNAME"), "firstname", "7%", "center", "sort", "15");
 	$show_fields['email']=array(gettext("EMAIL"), "email","","center", "sort", "15");
-	$show_fields['discount']=array("<acronym title=\"DISCOUNT\">".gettext("DISC")."</acronym>", "discount","","center", "sort", "15");
+	$show_fields['discount']=array("<acronym title=\"DISCOUNT\">".gettext("DISC")."</acronym>", "discount","","center", "sort", "15","30", "", "", "", "", "display_percentage");
 	$show_fields['callerid']=array("<acronym title=\"CALLER IDENTIFICATION NUMBER\">".gettext("CID")."</acronym>", "callerid","","center", "sort", "15");
 	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
 		$FG_COL_QUERY='DISTINCT tag,';
