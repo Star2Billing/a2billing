@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'name ','users_perms', 'description','id_agent'));
+getpost_ifset(array('id', 'name ','users_perms', 'description'));
 
 
 $HD_Form = new FormHandler("cc_card_group","Customer Group");
@@ -30,9 +30,8 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/group_add.png" ;
 
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("AGENT"), "id_agent", "7%", "center", "sort", "15", "lie", "cc_agent", "login","id='%id'", "%1","");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "35%", "center", "SORT", "40");
-$HD_Form -> FieldViewElement ( 'name,id_agent, description');
+$HD_Form -> FieldViewElement ( 'name, description');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CUSTOMER GROUP CREATED!"); 
@@ -76,15 +75,6 @@ $HD_Form -> AddEditElement ( gettext("NAME"),
 		gettext("Insert the provider name"), 
 		"" , "", "",	"", "", "", "", "" );
 
-$HD_Form -> AddEditElement (gettext("AGENT"),
-	   "id_agent",
-	   "",
-	   "SELECT",
-	   "", "", "",
-	   "sql",
-	   "cc_agent",
-	   "login, id, firstname,lastname",
-	   "", "", "%1 (%3 %4)", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 		"description",
@@ -105,7 +95,7 @@ $HD_Form -> AddEditElement (gettext("PERMISSION USER INTERFACE"),
 		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 	
 
-$HD_Form -> FieldEditElement ('name,id_agent, description , users_perms');
+$HD_Form -> FieldEditElement ('name, description , users_perms');
 
 
 

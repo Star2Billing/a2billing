@@ -65,14 +65,14 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 
 // SELECT ROUND(SUM(credit)) from cc_card ;
-$instance_table = new Table("cc_card LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group", "ROUND(SUM(credit))");
-$list1 = $instance_table -> Get_list ($HD_Form -> DBHandle,"cc_card_group.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
+$instance_table = new Table("cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group", "ROUND(SUM(credit))");
+$list1 = $instance_table -> Get_list ($HD_Form -> DBHandle,"cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
 // SELECT SUM(t1.credit) from  cc_logrefill as t1, cc_card as t2 where t1.card_id = t2.id;
-$instance_table = new Table("cc_logrefill as t1, cc_card as t2  LEFT JOIN cc_card_group ON cc_card_group.id=t2.id_group", "SUM(t1.credit)");
-$list2 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id AND cc_card_group.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
+$instance_table = new Table("cc_logrefill as t1, cc_card as t2  LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group", "SUM(t1.credit)");
+$list2 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
 // SELECT SUM(payment) from cc_logpayment as t1 ,cc_card as t2 where t1.card_id=t2.id;
-$instance_table = new Table("cc_logpayment as t1 ,cc_card as t2 LEFT JOIN cc_card_group ON cc_card_group.id=t2.id_group", "SUM(payment)");
-$list3 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id AND cc_card_group.id_agent=".$_SESSION['agent_id'] , null, null, null, null, null, null);
+$instance_table = new Table("cc_logpayment as t1 ,cc_card as t2 LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group", "SUM(payment)");
+$list3 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] , null, null, null, null, null, null);
 $list4 = $list2[0][0] - $list3[0][0];
 ?>
 <br/>

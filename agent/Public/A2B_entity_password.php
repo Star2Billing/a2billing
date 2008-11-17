@@ -20,7 +20,7 @@ if (! has_rights (ACX_ACCESS)){
 getpost_ifset(array('NewPassword','OldPassword'));
 
 
-$HD_Form = new FormHandler("cc_agent","ageet");
+$HD_Form = new FormHandler("cc_agent","agent");
 
 $HD_Form -> setDBHandler (DbConnect());
 //////$instance_sub_table = new Table('cc_callerid');

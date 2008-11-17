@@ -1338,3 +1338,5 @@ id_agent INT NOT NULL ,
 id_card_group INT NOT NULL ,
 PRIMARY KEY ( id_agent , id_card_group )
 ) ENGINE = MYISAM ;
+
+ALTER TABLE cc_card_group DROP id_agent;

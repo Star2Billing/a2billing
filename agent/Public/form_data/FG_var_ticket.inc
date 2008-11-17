@@ -4,7 +4,7 @@ include (LIBDIR."/support/classes/ticket.php");
 getpost_ifset(array('id', 'title', 'id_component','description','priority','status','creator','username' ));
 
 if (!isset($form_action) || $form_action=="list"){
-  	 $HD_Form = new FormHandler("cc_ticket, cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group LEFT JOIN cc_agent ON cc_agent.id = cc_card_group.id_agent", "Ticket");
+  	 $HD_Form = new FormHandler("cc_ticket, cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group", "Ticket");
 }else {
 	 $HD_Form = new FormHandler("cc_ticket","Ticket");
 
@@ -14,7 +14,7 @@ if (!isset($form_action) || $form_action=="list"){
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=creator AND creator_type=0 AND cc_agent.id=".$_SESSION['agent_id'];
+$HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=creator AND creator_type=0 AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'];
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $priority_list = Constants::getTicketPriorityList();

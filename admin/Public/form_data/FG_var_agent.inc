@@ -255,6 +255,33 @@ if ($numrow>0){
 		"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
 }
 
+
+
+	
+$DBHandle_max  = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
+if ( $resmax )
+	$numrow = $resmax -> RecordCount( );
+
+if ($numrow>0) { 
+	$HD_Form -> AddEditElement (gettext("CARD GROUP"),
+		"cardgroupe",	
+		'$value',	
+		"SELECT",		
+		'size="10" multiple="multiple"',
+		"",		
+		"",	
+		"sql",		
+		"campaign_cards",	
+		"name, id",		
+		"", "", "%1 : (%2)", "", "", "cc_agent_cardgroup:id_card_group:cc_card_group LEFT JOIN cc_agent_cardgroup ON cc_card_group.id=cc_agent_cardgroup.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_agent_cardgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");		
+	
+}
+
+
+
+
 $FG_QUERY_EDITION = 'login, passwd, perms, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
 country, zipcode, email, phone,  fax';
 

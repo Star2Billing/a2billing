@@ -2,12 +2,12 @@
 
 getpost_ifset(array('id', 'status', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
-$HD_Form = new FormHandler("cc_epayment_log,cc_card LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group","Epayment");
+$HD_Form = new FormHandler("cc_epayment_log,cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group","Epayment");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID = "cc_epayment_log.id";
 //CLause to filter by agent
-$HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=cc_epayment_log.cardid AND cc_card_group.id_agent=".$_SESSION['agent_id'] ;
+$HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=cc_epayment_log.cardid AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
 
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "cc_epayment_log.creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";

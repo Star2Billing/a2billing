@@ -22,7 +22,7 @@ if (!isset ($current_page) || ($current_page == "")) {
 $FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_card t2 ON  t2.id = t1.card_id LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk LEFT JOIN cc_card_group  ON t2.id_group = cc_card_group.id";
+$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_card t2 ON  t2.id = t1.card_id LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group";
 
 
 
@@ -145,7 +145,7 @@ if (isset ($FG_TABLE_CLAUSE) && strlen($FG_TABLE_CLAUSE)>0){
 	$FG_TABLE_CLAUSE .= ' AND';
 }
 
-$FG_TABLE_CLAUSE .= ' cc_card_group.id_agent = '.$_SESSION['agent_id'] ;
+$FG_TABLE_CLAUSE .= ' cc_agent_cardgroup.id_agent = '.$_SESSION['agent_id'] ;
 
 
 if ($FG_DEBUG == 3) echo "<br>$date_clause<br>";
