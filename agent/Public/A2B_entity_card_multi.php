@@ -29,6 +29,44 @@ getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choos
 $HD_Form -> setDBHandler (DbConnect());
 
 
+//CHECK MANDATORY FIELD
+?>
+<script type="text/javascript">
+
+
+function checkmandatoryfield(form){
+
+	
+	if (form.choose_list.value.length < 1){
+		alert ('<?php echo gettext("Please, you must first select the number of customer to generate !")?>');
+		form.choose_list.focus ();
+		return (false);
+	}
+	
+	if (form.choose_tariff.value.length < 1){
+		alert ('<?php echo gettext("Please, you must first select a Call Plan !")?>');
+		form.choose_tariff.focus ();
+		return (false);
+	}
+	
+	if (form.id_group.value.length < 1){
+		alert ('<?php echo gettext("Please, you must first select a Group !")?>');
+		form.id_group.focus ();
+		return (false);
+	}
+	
+	
+	document.theForm.submit();
+}
+
+</script>
+
+
+
+
+
+<?php 
+
 // GENERATE CARDS
 
 
@@ -230,16 +268,14 @@ echo $CC_help_generate_customer;
 
 
 
-$instance_table_tariff = new Table("cc_tariffgroup", "id, tariffgroupname");
-$FG_TABLE_CLAUSE = "";
+$instance_table_tariff = new Table("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_agent_tariffgroup.id_tariffgroup = cc_tariffgroup.id ", "id, tariffgroupname");
+$FG_TABLE_CLAUSE = "cc_agent_tariffgroup.id_agent = ".$_SESSION['agent_id'];
 $list_tariff = $instance_table_tariff -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 $nb_tariff = count($list_tariff);
-$instance_table_group=  new Table("cc_card_group"," id, name ");
+$FG_TABLE_CLAUSE =  "cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
+$instance_table_group=  new Table("cc_card_group LEFT JOIN cc_agent_cardgroup ON cc_card_group.id=cc_agent_cardgroup.id_card_group "," id, name ");
 $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
-$instance_table_agent =  new Table("cc_agent"," id, login ");
-$list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "login", "ASC", null, null, null, null);
-// FORM FOR THE GENERATION
 ?>
 
 <table align="center"  class="bgcolor_001" border="0" width="65%">
@@ -377,7 +413,7 @@ $list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 
 	</td>	
 	<td align="left" valign="bottom"> 
-		<input class="form_input_button"  value=" GENERATE CUSTOMERS " type="submit"> 
+		 <input type="button" value=" GENERATE CUSTOMERS " onFocus=this.select() class="form_input_button" name="submit1" onClick="checkmandatoryfield(this.form);">
 	</td>
 	</form>
 </tr>
