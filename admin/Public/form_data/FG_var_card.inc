@@ -359,6 +359,17 @@ $HD_Form -> AddEditElement (gettext("BALANCE"),
 			   gettext("Insert the number of credit"),
 			   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 
+			   
+$HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
+			   "id_group",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_card_group",
+			   "name, id",
+			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>', "");
+			   
 
 $HD_Form -> AddEditElement (gettext("COMPANY NAME"),
 			   "company_name",
@@ -478,16 +489,6 @@ $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-$HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
-			   "id_group",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_card_group",
-			   "name, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>', gettext("Customer Status"));
-
 			   
 $HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
 			   "typepaid",
@@ -496,7 +497,7 @@ $HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $typepaid_list, "%1", "", "" );
+			   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
 
 
 $HD_Form -> AddEditElement (gettext("CALL PLAN"),
@@ -903,8 +904,8 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, company_name, lastname, firstname, email, address, city, state, country, zipcode, phone, fax, company_website, '.
-		' id_group, typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit,id_group, company_name, lastname, firstname, email, address, city, state, country, zipcode, phone, fax, company_website, '.
+		'  typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
 		' voicemail_permitted, voicemail_activated, firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
