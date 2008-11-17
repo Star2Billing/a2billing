@@ -29,6 +29,10 @@ define ("ACX_RATECARD",					4);			// 1 << 2
 define ("ACX_CALL_REPORT",   			8);			// 1 << 3
 define ("ACX_MYACCOUNT",				16);
 define ("ACX_SUPPORT",					32);
+define ("ACX_CREATE_CUSTOMER",			64);
+define ("ACX_EDIT_CUSTOMER",			128);
+define ("ACX_DELETE_CUSTOMER",			256);
+define ("ACX_GENERATE_CUSTOMER",		512);
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 
@@ -155,3 +159,7 @@ $ACXRATECARD 	= has_rights (ACX_RATECARD);
 $ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
 $ACXMYACCOUNT  = has_rights (ACX_MYACCOUNT);
 $ACXSUPPORT  = has_rights (ACX_SUPPORT);
+$ACXCREATECUSTOMER  = has_rights (ACX_CREATE_CUSTOMER);
+$ACXEDITCUSTOMER  = has_rights (ACX_EDIT_CUSTOMER);
+$ACXDELETECUSTOMER  = has_rights (ACX_DELETE_CUSTOMER);
+$ACXGENERATECUSTOMER  = has_rights (ACX_GENERATE_CUSTOMER);

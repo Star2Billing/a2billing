@@ -13,6 +13,24 @@ if (! has_rights (ACX_CUSTOMER)) {
 	die();	   
 }
 
+if ($form_action=="ask-edit") {
+	if (! has_rights (ACX_EDIT_CUSTOMER)) { 
+		Header ("HTTP/1.0 401 Unauthorized");
+		Header ("Location: PP_error.php?c=accessdenied");	   
+		die();	   
+	}
+	
+}
+
+if ($form_action=="ask-delete") {
+	
+	if (! has_rights (ACX_DELETE_CUSTOMER)) { 
+		Header ("HTTP/1.0 401 Unauthorized");
+		Header ("Location: PP_error.php?c=accessdenied");	   
+		die();	   
+	}
+}
+
 /***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());

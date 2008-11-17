@@ -37,16 +37,19 @@ if (DELETE_FK_CARD) {
 	$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going to remove a card that have SIP/IAX accounts and/or CallerIDs attached to it ! Please confirm that you really want to remove this card ? ");
 }
 
+if (has_rights (ACX_GENERATE_CUSTOMER)) { 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card_multi.php?stitle=Card&section=1";
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Generate Customers");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_multi_add.png" ;
+}
 
+if (has_rights (ACX_CREATE_CUSTOMER)) { 
 $HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1";
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add Customer");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
-
+}
 // TODO Unify order of parameters
 
 $language_list = Constants::getLanguagesList();
@@ -286,26 +289,27 @@ if (($popup_select>=1)) {
 	}
 
 } else {
+	if (has_rights (ACX_EDIT_CUSTOMER)) { 
 	$HD_Form -> FG_EDITION = true;
+	}
 	$HD_Form -> FG_INFO = true;
+	
+	if (has_rights (ACX_DELETE_CUSTOMER)) { 
 	$HD_Form -> FG_DELETION = true;
+	}
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
-	$HD_Form -> FG_OTHER_BUTTON3 = true;
 	$FN_COLUMN_ID="col".($FG_COL_QUERY_COUNT);//get numbers of rows for needed fields
 	$FN_COLUMN_USERNAME="col".($FG_COL_QUERY_COUNT+1);
 	$FN_COLUMN_ALIAS="col".($FG_COL_QUERY_COUNT+2);
 	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?friend=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
 	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?friend=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
-	$HD_Form -> FG_OTHER_BUTTON3_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|$FN_COLUMN_ID|";
 	$HD_Form -> FG_INFO_LINK = "A2B_card_info.php?id=";
 	//FOR INFO , DEL, EDIT  the image is already in Image_Path
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
-	$HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path . "/money.png";
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
-	$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('ADD PAYMENT');
 }
 
 $maxi	= '';

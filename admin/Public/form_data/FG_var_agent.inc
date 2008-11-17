@@ -26,13 +26,16 @@ $language_list = Constants::getLanguagesList();
 
 
 $right_list = array();
-$right_list["1"] = array( gettext("CUSTOMERS"), "1");
+$right_list["1"] = array( gettext("VIEW CUSTOMERS"), "1");
 $right_list["2"] = array( gettext("BILLING"), "2");
 $right_list["3"] = array( gettext("RATECARD"), "4");
 $right_list["4"] = array( gettext("CALL REPORT"), "8");
 $right_list["5"] = array( gettext("MY ACCOUNT"), "16");
-$right_list["5"] = array( gettext("SUPPORT"), "32");
-
+$right_list["6"] = array( gettext("SUPPORT"), "32");
+$right_list["7"] = array( gettext("CREATE CUSTOMER"), "64");
+$right_list["8"] = array( gettext("EDIT CUSTOMER"), "128");
+$right_list["9"] = array( gettext("DELETE CUSTOMER"), "256");
+$right_list["10"] = array( gettext("GENERATE CUSTOMER"), "512");
 $len_right_list = count($right_list);
 
 $yesno = Constants::getYesNoList();
