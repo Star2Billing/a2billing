@@ -371,14 +371,6 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>', "");
 			   
 
-$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
-			   "company_name",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=50",
-			   "",
-			   gettext("Insert Company name of this customer"),
-			   "" , "", "",	"", "", "" , "NO", '', null, null, gettext("Personal Information"));
 
 
 $HD_Form -> AddEditElement (gettext("LASTNAME"),
@@ -388,7 +380,7 @@ $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   "size=30 maxlength=50",
 			   "11",
 			   gettext("Insert the lastname of the customers"),
-			   "" , "", "",	"", "", "" , "NO", "");
+			   "" , "", "",	"", "", "" , "NO", "", null, null, gettext("Personal Information"));
 
 $HD_Form -> AddEditElement (gettext("FIRSTNAME"),
 			   "firstname",
@@ -478,7 +470,16 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   gettext("Insert the fax number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-
+$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
+			   "company_name",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=50",
+			   "",
+			   gettext("Insert Company name of this customer"),
+			   "" , "", "",	"", "", "" , "NO", "");
+			   
+			   
 $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "company_website",
 			   '$value',

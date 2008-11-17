@@ -382,15 +382,6 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   " cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] , "", "%1", "", "", "", '', "");
 			   
 
-$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
-			   "company_name",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=50",
-			   "",
-			   gettext("Insert Company name of this customer"),
-			   "" , "", "",	"", "", "" , "NO", '', null, null, gettext("Personal Information"));
-
 
 $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   "lastname",
@@ -399,7 +390,7 @@ $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   "size=30 maxlength=50",
 			   "11",
 			   gettext("Insert the lastname of the customers"),
-			   "" , "", "",	"", "", "" , "NO", "");
+			   "" , "", "",	"", "", "" , "NO", "", null, null, gettext("Personal Information"));
 
 $HD_Form -> AddEditElement (gettext("FIRSTNAME"),
 			   "firstname",
@@ -490,6 +481,16 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
+$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
+			   "company_name",
+			   '$value',
+			   "INPUT",
+			   "size=40 maxlength=50",
+			   "",
+			   gettext("Insert Company name of this customer"),
+			   "" , "", "",	"", "", "" , "NO", "");
+			   
+			   
 $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "company_website",
 			   '$value',
@@ -915,7 +916,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit,id_group, company_name, lastname, firstname, email, address, city, state, country, zipcode, phone, fax, company_website, '.
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit,id_group, lastname, firstname, email, address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
 		'  typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
 		' voicemail_permitted, voicemail_activated, firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
