@@ -18,6 +18,8 @@ $HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_OTHER_BUTTON1 = false;
 $HD_Form -> FG_OTHER_BUTTON2 = false;
 $HD_Form -> FG_FILTER_APPLY = false;
+$HD_Form ->FG_LIST_ADDING_BUTTON1 = false;
+$HD_Form ->FG_LIST_ADDING_BUTTON2 = false;
 
 getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax','cardnumberlenght_list','tag','id_group','discount'));
 
