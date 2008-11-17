@@ -13,6 +13,21 @@ if (! has_rights (ACX_CUSTOMER)) {
 
 /***********************************************************************************/
 
+//SECURITY CHECK
+if (isset($id)) {
+	if(!empty($id)&& $id>0){
+		$table_agent_security = new Table("cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group ", " cc_agent_cardgroup.id_agent");
+		$clause_agent_security = "cc_card.id= ".$id;
+		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
+		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
+			Header ("HTTP/1.0 401 Unauthorized");
+			Header ("Location: PP_error.php?c=accessdenied");	   
+			die();	   
+		}
+	}
+}
+
+
 getpost_ifset(array('id'));
 if (empty($id)) {
 	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
@@ -543,13 +558,7 @@ if(sizeof($call_result && $payment_result[0]!=null)>0) {
 		 <?php echo gettext("TERMINATE CAUSE"); ?>
 		</td>
 		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
-		 <?php echo gettext("BUY"); ?>
-		</td>
-		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
-		 <?php echo gettext("SELL"); ?>
-		</td>
-		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
-		 <?php echo gettext("LINK TO THE RATE"); ?>
+		 <?php echo gettext("COST"); ?>
 		</td>
 		
 	</tr>
@@ -580,15 +589,7 @@ if(sizeof($call_result && $payment_result[0]!=null)>0) {
 				  <?php echo $dialstatus_list[$call['terminatecauseid']][0]; ?>
 				</td>
 				<td class="tableBody"  align="center">
-				  <?php echo display_2bill($call['buycost']); ?>
-				</td>
-				<td class="tableBody"  align="center">
 				  <?php echo display_2bill($call['sessionbill']); ?>
-				</td>
-				<td class="tableBody"  align="center">
-					<?php if(!empty($call['id_ratecard'])){ ?>
-					<a href="A2B_entity_def_ratecard.php?form_action=ask-edit&id=<?php echo $call['id_ratecard']?>"> <img src="<?php echo Images_Path."/link.png"?>" border="0" title="<?php echo gettext("Link to the used rate")?>" alt="<?php echo  gettext("Link to the used rate")?>"></a>
-					 <?php } ?>
 				</td>
 				
 			</tr>
