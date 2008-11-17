@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'login', 'passwd', 'active', 'location', 'id_tariffgroup', 'options', 'credit', 'climit', 
+getpost_ifset(array('id', 'login', 'passwd', 'active', 'location', 'id_tariffgroup', 'options', 'credit', 
 'currency', 'locale', 'commission', 'vat', 'banner', 'language', 'perms', 'lastname', 'firstname', 'address', 'city', 'state', 
 'country', 'zipcode', 'phone', 'email', 'fax'));
 
@@ -108,14 +108,6 @@ $HD_Form -> AddEditElement (gettext("BALANCE"),
 	   gettext("Insert the number of credit"),
 	   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 	   
-$HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
-	   "climit",
-	   "",
-	   "INPUT",
-	   "size=20 maxlength=20",
-	   "12",
-	   gettext("Insert the credit limit"),
-	   "" , "", "",	"", "", "", "NO-NULL", gettext("Credit limit"));
 
 $HD_Form -> AddEditElement (gettext("CURRENCY"),
 	   "currency",
@@ -263,7 +255,7 @@ if ($numrow>0){
 		"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
 }
 
-$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, climit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
+$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
 country, zipcode, email, phone,  fax';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);

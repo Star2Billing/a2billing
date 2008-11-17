@@ -1329,3 +1329,12 @@ ALTER TABLE cc_ticket ADD creator_type TINYINT NOT NULL DEFAULT '0';
  ALTER TABLE cc_ticket_comment CHANGE is_admin creator_type TINYINT NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_ratecard ADD COLUMN announce_time_correction decimal(5,3) NOT NULL DEFAULT 1.0;
+
+
+ALTER TABLE cc_agent DROP climit;
+
+CREATE TABLE cc_agent_cardgroup (
+id_agent INT NOT NULL ,
+id_card_group INT NOT NULL ,
+PRIMARY KEY ( id_agent , id_card_group )
+) ENGINE = MYISAM ;
