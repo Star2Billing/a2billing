@@ -368,7 +368,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "sql",
 			   "cc_card_group",
 			   "name, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>', "");
+			   "", "", "%1", "", "", "", "", "");
 			   
 
 
