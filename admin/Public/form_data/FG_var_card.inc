@@ -41,7 +41,6 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_card.php?form_action=ask-ad
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add Customer");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
 
-// TODO Unify order of parameters
 
 $language_list = Constants::getLanguagesList();
 
@@ -660,6 +659,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
+/* 
 $HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
 			   "voicemail_permitted",
 			   '1',
@@ -677,7 +677,7 @@ $HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 			   "",
 			   gettext("Customer can choose to enable the voicemail for this account"),
 			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
-
+*/
 
 $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "id_campaign",
@@ -908,7 +908,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit,id_group, lastname, firstname, email, address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
 		'  typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
-		' voicemail_permitted, voicemail_activated, firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
+		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
 
 

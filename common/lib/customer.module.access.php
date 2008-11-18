@@ -116,7 +116,8 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["vat"]=$return[6];
 			$_SESSION["gmtoffset"]=$return[8];
 			if ($return[9] && $return[10]){
-				$_SESSION["cc_voicemail"] = true;
+				// $_SESSION["cc_voicemail"] = true;
+				$_SESSION["cc_voicemail"] = false;
 			}
 			
 		}

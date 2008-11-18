@@ -109,7 +109,7 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
+/* $HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 			   "voicemail_activated",
 			   '0',
 			   "RADIOBUTTON",
@@ -117,8 +117,9 @@ $HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 			   "",
 			   gettext("Customer can choose to enable the voicemail for this card"),
 			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this card."));
-
 $HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode,id_timezone, phone, fax, voicemail_activated');
+*/
+$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode,id_timezone, phone, fax);
 
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily update your information clicking on the button.");
 
@@ -127,4 +128,3 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your record has been updated
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?message=success";
 
-?>
