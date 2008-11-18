@@ -1282,7 +1282,7 @@ CREATE TABLE cc_restricted_phonenumber (
 	number VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
 	id_card BIGINT NOT NULL,
 	PRIMARY KEY (id)
-) ENGINE = MYISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -1325,8 +1325,9 @@ VALUES ('Verbosity', 'verbosity_level', '0', '0 = FATAL; 1 = ERROR; WARN = 2 ; I
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
 VALUES ('Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
 
+
 ALTER TABLE cc_ticket ADD creator_type TINYINT NOT NULL DEFAULT '0';
- ALTER TABLE cc_ticket_comment CHANGE is_admin creator_type TINYINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_ticket_comment CHANGE is_admin creator_type TINYINT NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_ratecard ADD COLUMN announce_time_correction decimal(5,3) NOT NULL DEFAULT 1.0;
 
@@ -1334,9 +1335,12 @@ ALTER TABLE cc_ratecard ADD COLUMN announce_time_correction decimal(5,3) NOT NUL
 ALTER TABLE cc_agent DROP climit;
 
 CREATE TABLE cc_agent_cardgroup (
-id_agent INT NOT NULL ,
-id_card_group INT NOT NULL ,
-PRIMARY KEY ( id_agent , id_card_group )
-) ENGINE = MYISAM ;
+	id_agent INT NOT NULL ,
+	id_card_group INT NOT NULL ,
+	PRIMARY KEY ( id_agent , id_card_group )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_card_group DROP id_agent;
+
+
+

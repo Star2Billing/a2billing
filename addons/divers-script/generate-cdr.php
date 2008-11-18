@@ -23,7 +23,7 @@ require("../../common/lib/admin.defines.php");
 $verbose = 0;
 //$back_days = 15;
 $back_days = 1;
-$amount_cdr = 10;
+$amount_cdr = 100;
 $cardid = 3;
 $id_ratecard = 1;
 $calledstation = '322111933244';

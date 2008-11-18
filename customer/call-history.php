@@ -13,7 +13,6 @@ if (! has_rights (ACX_CALL_HISTORY)) {
 
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
-
 $DBHandle_max = DbConnect();
 $numrow = 0;
 $resmax = $DBHandle_max -> Execute($QUERY);
@@ -23,7 +22,7 @@ if ($resmax)
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
-if($customer_info [14] != "1" ) {
+if ($customer_info [14] != "1" ) {
 	exit();
 }
 
@@ -33,55 +32,52 @@ getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth'
 
 $dialstatus_list = Constants::getDialStatusList();
 
-if (!isset ($current_page) || ($current_page == "")){
+if (!isset ($current_page) || ($current_page == "")) {
 	$current_page=0;
 }
 
-
-// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
-
-// The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1";
-
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
-$yesno = array(); 	$yesno["1"]  = array( "Yes", "1");	 $yesno["0"]  = array( "No", "0");
+$yesno = array();
+$yesno["1"] = array( "Yes", "1");
+$yesno["0"] = array( "No", "0");
+
 // 0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
-$list_calltype = array(); 	$list_calltype["0"]  = array( "STANDARD", "0");	 $list_calltype["1"]  = array( "SIP/IAX", "1");
+$list_calltype = array(); $list_calltype["0"]  = array( "STANDARD", "0");	 $list_calltype["1"]  = array( "SIP/IAX", "1");
 $list_calltype["2"]  = array( "DIDCALL", "2"); $list_calltype["3"]  = array( "DID_VOIP", "3"); $list_calltype["4"]  = array( "CALLBACK", "4");
 $list_calltype["5"]  = array( "PREDICT", "5");
 
-//$link = DbConnect();
 $DBHandle  = DbConnect();
 
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 
 $FG_TABLE_COL = array();
-$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "14%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("Source"), "source", "12%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL [] = array (gettext ( "Destination" ), "id_cc_prefix", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1" );
-$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "7%", "center", "SORT", "", "list", $dialstatus_list);
-$FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
+$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "16%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Source"), "source", "13%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "13%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "12%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1" );
+$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "9%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "9%", "center", "SORT", "", "list", $dialstatus_list);
+$FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "9%", "center", "SORT",  "", "list", $list_calltype);
 $FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
-$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
+$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 $FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.id_cc_prefix, t1.sessiontime, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
-$FG_LIMITE_DISPLAY=25;
-$FG_NB_TABLE_COL=count($FG_TABLE_COL);
-$FG_EDITION=true;
+$FG_LIMITE_DISPLAY = 25;
+$FG_NB_TABLE_COL = count($FG_TABLE_COL);
+$FG_EDITION = true;
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
-$FG_HTML_TABLE_TITLE=" - ".gettext("Call Logs")." - ";
-$FG_HTML_TABLE_WIDTH="98%";
+$FG_HTML_TABLE_TITLE = " - ".gettext("Call Logs")." - ";
+$FG_HTML_TABLE_WIDTH = "98%";
 
 if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
@@ -101,29 +97,26 @@ if ($posted==1) {
 
 
 $date_clause = '';
-if (DB_TYPE == "postgres"){		
-	 	$UNIX_TIMESTAMP = "";
-}else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+if (DB_TYPE == "postgres") {	
+	$UNIX_TIMESTAMP = "";
+} else {
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month"){
-	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-}else{
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
-}
+
+if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+
 
   
-if (strpos($SQLcmd, 'WHERE') > 0) { 
+if (strpos($SQLcmd, 'WHERE') > 0) {
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause;
-}elseif (strpos($date_clause, 'AND') > 0){
+} elseif (strpos($date_clause, 'AND') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5);
 }
 
 
-if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
+if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0) {
 	$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d"));
 	$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
@@ -133,37 +126,30 @@ if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 $FG_TABLE_CLAUSE.="t1.card_id='$customer'";
 
 
-if (isset($choose_calltype) && ($choose_calltype!=-1)){
+if (isset($choose_calltype) && ($choose_calltype!=-1)) {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE .= " t1.sipiax='$choose_calltype' ";
 }
 
-//To select just terminatecauseid=ANSWER
-if (!isset($terminatecauseid)){
+if (!isset($terminatecauseid)) {
 	$terminatecauseid="ANSWER";
-}
-if ($terminatecauseid=="ANSWER") {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+} elseif ($terminatecauseid=="ANSWER") {
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE .= " AND ";
 	$FG_TABLE_CLAUSE .= " (t1.terminatecauseid=1) ";
 }
 
-if (!$nodisplay){
+if (!$nodisplay) {
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
-$_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
-
-/************************/
-//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
-
+$_SESSION["pr_sql_export"] = "SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
 
-if (!$nodisplay){
+if (!$nodisplay) {
 	$res = $DBHandle -> Execute($QUERY);
-	if ($res){
+	if ($res) {
 		$num = $res -> RecordCount();
-		for($i=0;$i<$num;$i++)
-		{				
+		for($i=0;$i<$num;$i++) {				
 			$list_total_day [] =$res -> fetchRow();
 		}
 	}
@@ -183,20 +169,6 @@ if ($nb_record<=$FG_LIMITE_DISPLAY) {
 	}	
 }
 
-/*************************************************************/
-
-?>
-
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-//-->
-</script>
-
-<?php
 
 $smarty->display( 'main.tpl');
 
@@ -206,71 +178,16 @@ echo $CC_help_balance_customer;
 ?>
 
 
-
-
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>
 	<FORM METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>&terminatecauseid=<?php echo $terminatecauseid?>">
 		<INPUT TYPE="hidden" NAME="posted" value=1>
 		<INPUT TYPE="hidden" NAME="current_page" value=0>
 		<table class="callhistory_maintable" align="center">
-			<tr>
-        		<td class="bgcolor_004" align="left" >
-					
-					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT BY MONTH");?></b></font>
-				</td>
-				<td class="bgcolor_005" align="left" >
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-					<?php echo gettext("FROM");?> : <select name="fromstatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{
-							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}
-							for ($j=$monthnumber;$j>=0;$j--){	
-								$month_formated = sprintf("%02d",$j+1);
-								if ($fromstatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-									echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-							   }
-						}
-					?>
-					</select>
-					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					<?php echo gettext("TO");?> : <select name="tostatsmonth" class="form_input_select">
-					<?php 
-						$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{
-							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}
-							for ($j=$monthnumber;$j>=0;$j--){	
-								$month_formated = sprintf("%02d",$j+1);
-							   	if ($tostatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-							}
-						}
-					?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
 			
 			<tr>
-        		<td align="left" class="bgcolor_002">
-					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font class="fontstyle_003"><?php echo gettext("SELECT BY DAY");?></b></font>
+        		<td align="left" class="bgcolor_002"> &nbsp;
+					<font class="fontstyle_003"><?php echo gettext("DATE");?></b></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -432,57 +349,47 @@ echo $CC_help_balance_customer;
 		<TR bgcolor="#ffffff"> 
           <TD class="callhistory_td11"> 
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-              <TBODY>
                 <TR> 
                   <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
                   <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path_Main ?>/btn_top_12x12.gif" width=12> 
                   </TD>
                 </TR>
-              </TBODY>
             </TABLE></TD>
         </TR>
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-<TBODY>
-                <TR class="bgcolor_008"> 
-				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
+                <TR class="bgcolor_008">
+				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align="center" class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
 				  
                   <?php 
-				  	if (is_array($list) && count($list)>0){
+				  	if (is_array($list) && count($list)>0) {
 					
-				  	for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
-					?>				
-				  
-					
-                  <TD width="<?php echo $FG_TABLE_COL[$i][2]?>" align=middle class="tableBody" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"> 
-                    <center><strong> 
-                    <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-                    <a href="<?php  echo $PHP_SELF."?customer=$customer&s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} 
-					echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&sourcetype=$sourcetype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype";?>"> 
-                    <span class="liens"><?php  } ?>
-                    <?php echo $FG_TABLE_COL[$i][0]?> 
-                    <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
-                    &nbsp;<img src="<?php echo Images_Path_Main ?>/icon_up_12x12.GIF" width="12" height="12" border="0"> 
-                    <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
-                    &nbsp;<img src="<?php echo Images_Path_Main ?>/icon_down_12x12.GIF" width="12" height="12" border="0"> 
-                    <?php }?>
-                    <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-                    </span></a> 
-                    <?php }?>
-                    </strong></center></TD>
-				   <?php } ?>		
-				   <?php if ($FG_DELETION || $FG_EDITION){ ?>
-				   
-                  
-				   <?php } ?>		
+				  	for($i=0;$i<$FG_NB_TABLE_COL;$i++) {
+					?>
+	                  <TD width="<?php echo $FG_TABLE_COL[$i][2]?>" align=middle class="tableBody" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"> 
+	                    <center><strong> 
+	                    <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
+	                    <a href="<?php  echo $PHP_SELF."?customer=$customer&s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} 
+						echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&sourcetype=$sourcetype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype";?>"> 
+	                    <span class="liens"><?php  } ?>
+	                    <?php echo $FG_TABLE_COL[$i][0]?> 
+	                    <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
+	                    &nbsp;<img src="<?php echo Images_Path_Main ?>/icon_up_12x12.GIF" width="12" height="12" border="0"> 
+	                    <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
+	                    &nbsp;<img src="<?php echo Images_Path_Main ?>/icon_down_12x12.GIF" width="12" height="12" border="0"> 
+	                    <?php }?>
+	                    <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
+	                    </span></a> 
+	                    <?php }?>
+	                    </strong></center></TD>
+				   <?php } ?>
+				   		
                 </TR>
                 <TR> 
-                  <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG
-                              height=1 
-                              src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
+                  <TD bgColor="#e1e1e1" colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height="1">
+                  <IMG height="1" src="<?php echo Images_Path_Main ?>/clear.gif" width="1"></TD>
                 </TR>
 				<?php
-					  
 				  	 $ligne_number=0;					 
 				  	 foreach ($list as $recordset){ 
 						 $ligne_number++;
@@ -490,7 +397,7 @@ echo $CC_help_balance_customer;
 				?>
 				
                		 <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'"> 
-						<TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY.".&nbsp;"; ?></TD>
+						<TD align="<?php echo $FG_TABLE_COL[$i][3]?>" class="tableBody"><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY.".&nbsp;"; ?></TD>
 							 
 				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ ?>
 						<?php 				
@@ -564,13 +471,11 @@ echo $CC_help_balance_customer;
                               src="<?php echo Images_Path_Main ?>/clear.gif" 
                               width=1></TD>
                 </TR>
-              </TBODY>
             </TABLE></td>
         </tr>
         <TR bgcolor="#ffffff"> 
           <TD bgColor=#ADBEDE height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-              <TBODY>
                 <TR> 
                   <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B> 
                     <?php if ($current_page>0){?>
@@ -586,7 +491,6 @@ echo $CC_help_balance_customer;
                     </B></SPAN> 
                     <?php }?>
                   </TD>
-              </TBODY>
             </TABLE></TD>
         </TR>
       </table>
@@ -613,20 +517,20 @@ foreach ($list_total_day as $data){
 
 <!-- TITLE GLOBAL -->
 <center>
- <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
-		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
-			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
+ <table border="0" cellspacing="0" cellpadding="0" width="80%"><tr><td align="left" height="30">
+		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tr><td>
+			<table cellspacing="0" cellpadding="0" width="100%">
 				<tr><td class="callhistory_td1" align="left" ><?php echo gettext("SUMMARY");?></td></tr>
-			</tbody></table>
-		</td></tr></tbody></table>
- </td></tr></tbody></table>
+			</table>
+		</td></tr></table>
+ </td></tr></table>
 
 <!-- FIN TITLE GLOBAL MINUTES //-->
 
 <table border="0" cellspacing="0" cellpadding="0"  width="80%">
-<tbody><tr><td bgcolor="#000000">			
-	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
-	<tr>	
+<tr><td bgcolor="#000000">			
+	<table border="0" cellspacing="1" cellpadding="2" width="100%">
+	<tr>
 		<td align="center" class="callhistory_td2"></td>
     	<td class="callhistory_td3" align="center" colspan="5"><?php echo gettext("CALLING CARD MINUTES");?></td>
     </tr>
@@ -641,35 +545,37 @@ foreach ($list_total_day as $data){
 		<!-- LOOP -->
 	<?php
 		$i=0;
-		foreach ($list_total_day as $data){	
-		$i=($i+1)%2;		
-		$tmc = $data[1]/$data[3];
-		
-		if ((!isset($resulttype)) || ($resulttype=="min")){  
-			$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
-		}else{
-			$tmc =intval($tmc);
-		}
-		
-		if ((!isset($resulttype)) || ($resulttype=="min")){  
-			$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
-		}else{
-			$minutes = $data[1];
-		}
-		if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
-		
-	?>
-		</tr><tr>
-		<td align="right" class="sidenav" nowrap="nowrap"><font class="callhistory_td5"><?php echo $data[0]?></font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php echo $minutes?> </td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
-        <table cellspacing="0" cellpadding="0"><tbody><tr>
-        <td bgcolor="#e22424"><img src="<?php echo Images_Path_Main ?>/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
-        </tr></tbody></table></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php echo $data[3]?></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001" ><?php echo $tmc?> </td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php  display_2bill($data[2]) ?></td>
-     <?php 	 }	 	 	
+		foreach ($list_total_day as $data) {	
+			$i=($i+1)%2;
+			$tmc = $data[1]/$data[3];
+			
+			if ((!isset($resulttype)) || ($resulttype=="min")){  
+				$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+			}else{
+				$tmc =intval($tmc);
+			}
+			
+			if ((!isset($resulttype)) || ($resulttype=="min")){  
+				$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+			}else{
+				$minutes = $data[1];
+			}
+			if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
+			
+		?>
+			</tr><tr>
+			<td align="right" class="sidenav" nowrap="nowrap"><font class="callhistory_td5"><?php echo $data[0]?></font></td>
+			<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php echo $minutes?> </td>
+	        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
+		        <table cellspacing="0" cellpadding="0"><tr>
+		        	<td bgcolor="#e22424"><img src="<?php echo Images_Path_Main ?>/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
+		        </tr></table>
+	        </td>
+	        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php echo $data[3]?></td>
+	        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001" ><?php echo $tmc?> </td>
+			<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php  display_2bill($data[2]) ?></td>
+     	<?php 	 
+     	}	 	 	
 	 	
 		if ((!isset($resulttype)) || ($resulttype=="min")){  
 			$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
@@ -680,9 +586,6 @@ foreach ($list_total_day as $data){
 	 
 	 ?>                   	
 	</tr>
-	<!-- FIN DETAIL -->		
-	
-	<!-- FIN BOUCLE -->
 
 	<!-- TOTAL -->
 	<tr class="callhistory_td2">
@@ -692,18 +595,18 @@ foreach ($list_total_day as $data){
 		<td align="center" nowrap="nowrap" class="callhistory_td4"><?php echo $total_tmc?></td>
 		<td align="center" nowrap="nowrap" class="callhistory_td4"><?php  display_2bill($totalcost) ?></td>
 	</tr>
-	<!-- FIN TOTAL -->
+	
+	</table>
+	  
+</td></tr></table>
 
-	  </tbody></table>
-	  <!-- Fin Tableau Global //-->
-
-</td></tr></tbody></table>
-
-<?php  }else{ ?>
+<?php  } else { ?>
 	<center><h3><?php echo gettext("No calls in your selection");?>.</h3></center>
 <?php  } ?>
 </center>
 
 <?php
+
 $smarty->display( 'footer.tpl');
-?>
+
+
