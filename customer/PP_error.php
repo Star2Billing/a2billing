@@ -1,6 +1,6 @@
 <?php
 include ("lib/customer.defines.php");
-
+session_destroy();
 $popup_select=1;
 include ("lib/customer.smarty.php");
 
@@ -35,6 +35,11 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 				<br/><br/>
 			</td>
 		</tr>
+		<tr> 
+			<td align="right"><br/>
+				<a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
+			</td>
+		</tr>
 		</table>			
 	</td>
 	</tr>
@@ -42,7 +47,5 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 <br/><br/>
 
 <?php
-	if ($c == "accessdenied")
-		$smarty->display('index.tpl');
 	$smarty->display('footer.tpl');
 ?>

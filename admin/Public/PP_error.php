@@ -1,6 +1,6 @@
 <?php
 include ("../lib/admin.defines.php");
-
+session_destroy();
 getpost_ifset(array('err_type','c'));
 
 if (!isset($err_type)) {
@@ -47,7 +47,12 @@ $error["ERR-0002"] 		= gettext("No such card number found. Please check your car
 				<img src="<?php echo KICON_PATH; ?>/system-config-rootpassword.gif"> 
 				<br/>
 				<b><font size="3"><?php echo $error[$c]?></font></b>
-				<br/><br/>
+				<br/>
+			</td>
+		</tr>
+		<tr> 
+			<td align="right"><br/>
+				<a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
 			</td>
 		</tr>
 		</table>			
@@ -57,7 +62,6 @@ $error["ERR-0002"] 		= gettext("No such card number found. Please check your car
 <br/><br/>
 
 <?php
-	if ($c == "accessdenied")
-		$smarty->display('index.tpl');
+	
 	$smarty->display('footer.tpl');
 ?>
