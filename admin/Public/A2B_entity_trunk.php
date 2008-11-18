@@ -5,6 +5,7 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_trunk.inc");
 include ("../lib/admin.smarty.php");
 
+
 if (! has_rights (ACX_TRUNK)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   

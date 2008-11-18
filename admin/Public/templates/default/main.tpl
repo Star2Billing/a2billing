@@ -186,7 +186,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("TRUNK");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("TRUNK & PREFIX");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="4")}
 		style="">
@@ -197,6 +197,8 @@ Logged-in as: <b>{$adminname}</b></p>
 			<li><ul>
 				<li><a href="A2B_entity_trunk.php?section=4">{php} echo gettext("Trunks");{/php}</a></li>
 				<li><a href="A2B_entity_provider.php?section=4">{php} echo gettext("Providers");{/php}</a></li>
+				<li><a href="A2B_entity_prefix.php?section=4">{php} echo gettext("Prefixes");{/php}</a></li>
+				
 			</ul></li>
 		</ul>
 	</div>
@@ -445,7 +447,6 @@ Logged-in as: <b>{$adminname}</b></p>
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&section=8&languages=en">{php} echo gettext("Mail templates");{/php}</a></li>
-				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&section=8">{php} echo gettext("Prefixes");{/php}</a></li>
 				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&section=8">{php} echo gettext("List Global  Config");{/php}</a></li>
 				<li><a href="A2B_entity_config_generate_confirm.php">{php} echo gettext("ADD agi-conf");{/php}</a></li>
 				<li><a href="A2B_entity_config.php?form_action=list&atmenu=config&section=8">{php} echo gettext("List Configuration");{/php}</a></li>

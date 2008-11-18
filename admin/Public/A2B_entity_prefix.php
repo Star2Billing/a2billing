@@ -6,7 +6,7 @@ include ("./form_data/FG_var_prefix.inc");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_MISC)){
+if (! has_rights (ACX_TRUNK)){
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
