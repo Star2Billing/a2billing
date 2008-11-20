@@ -88,7 +88,7 @@ for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){
 $yesno = Constants::getYesNoList();
 
 if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "");
+$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "15", "lie", "cc_prefix", "destination", "prefix='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "10%", "center", "sort", "");
 $HD_Form -> AddViewElement("<acronym title=\"BUYING RATE\">".gettext("BR")."</acronym>", "buyrate", "4%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
@@ -179,25 +179,16 @@ $HD_Form -> AddEditElement(gettext("DIALPREFIX"),
    "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=1&", ", 'prefix','width=550,height=340,top=20,left=100,scrollbars=1'", gettext("A) Add destination prefixes, ie '441' for UK Landlines.<br>B) Use 'defaultprefix' to setup a rate for all destinations where a specific rate is not provided.<br>C) if you ADD a rate, NOT an EDIT, you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed.<br>D) Asterisk extensions style + POSIX regex syntaxes are supported. '_447[7-9]XXXXXXXX' matches 12-digit UK mobiles. '_X{0,3}(112|999|911)' matches any 0-3 digits followed an emergency number. '_' can be used to add length, and raise the priority."));
 
 
-$HD_Form -> AddEditElement(gettext("Prefix_Destination"),
-   "id_cc_prefix",
+$HD_Form -> AddEditElement(gettext("Destination Prefix"),
+   "destination",
    '$value',	
    "SELECT",	
    "", "", "",	
    "sql",		
    "cc_prefix",	
-   "destination, id, prefixe",		
-   "", "", "%3 (%1)", "", gettext("This will later replace the field Destination, select here the prefix Destination corresponding to your prefix rate."));
+   "destination, prefix",		
+   "", "", "%2 (%1)", "", gettext("Select here the prefix Destination corresponding to your prefix rate."));
    
-
-$HD_Form -> AddEditElement(gettext("DESTINATION"),
-   "destination",
-   '$value',
-   "INPUT",
-   "size=30 maxlength=40",
-   "11",
-   gettext("Come on... Insert the destination name"),
-   "" , "", "",	"", "", "", "", gettext("Name for this call destination, for example : UK, Belgium Landline, Spain Mobile Telefonica, ...") );
 
 $HD_Form -> AddEditElement("BUYING RATE",
    "buyrate",
@@ -550,10 +541,10 @@ if (ADVANCED_MODE) {
 
 if (ADVANCED_MODE) {
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, id_cc_prefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge,disconnectcharge_after, minimal_cost, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,announce_time_correction, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag, musiconhold');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge,disconnectcharge_after, minimal_cost, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,announce_time_correction, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag, musiconhold');
 }else{
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, id_cc_prefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge,disconnectcharge_after, minimal_cost, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge,disconnectcharge_after, minimal_cost, startdate, stopdate, starttime, endtime, rounding_calltime, rounding_threshold, additional_block_charge, additional_block_charge_time,additional_grace, id_trunk, id_outbound_cidgroup, tag');
 }
 
 

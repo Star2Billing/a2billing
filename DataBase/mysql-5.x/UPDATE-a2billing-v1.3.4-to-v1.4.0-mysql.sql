@@ -1085,9 +1085,12 @@ ALTER TABLE cc_call ADD INDEX ( terminatecauseid );
 -- Add index on prefix
 ALTER TABLE cc_prefix ADD INDEX ( prefixe );
 
+
 -- optimization on CDR
 ALTER TABLE cc_call ADD COLUMN id_cc_prefix INT (11) DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN id_cc_prefix INT (11) DEFAULT 0;
+
+
 
 -- ALTER TABLE cc_ratecard DROP destination;
 
@@ -1343,5 +1346,13 @@ CREATE TABLE cc_agent_cardgroup (
 ALTER TABLE cc_card_group DROP id_agent;
 
 
+
+-- optimization on CDR
+ALTER TABLE cc_call DROP destination;
+ALTER TABLE cc_ratecard DROP destination;
+ALTER TABLE cc_call DROP id_cc_prefix;
+ALTER TABLE cc_ratecard DROP id_cc_prefix;
+ALTER TABLE cc_call ADD COLUMN destination INT (11) DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN destination INT (11) DEFAULT 0;
 
 

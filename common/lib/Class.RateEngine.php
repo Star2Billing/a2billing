@@ -171,7 +171,7 @@ class RateEngine
         // select group by 5 ... more easy to count
 		$QUERY = "SELECT
 		tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, 
-        id_cc_prefix, cc_ratecard.id, dialprefix, id_cc_prefix, buyrate,
+        destination, cc_ratecard.id, dialprefix, destination, buyrate,
         buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock,
 		connectcharge, disconnectcharge, stepchargea, chargea, timechargea,
         billingblocka, stepchargeb, chargeb,timechargeb, billingblockb, 
@@ -1054,7 +1054,7 @@ class RateEngine
 			
 		$QUERY_COLUMN = "uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
 			" terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
-			" id_trunk, src, sipiax, buycost, id_card_package_offer, dnid, id_cc_prefix";
+			" id_trunk, src, sipiax, buycost, id_card_package_offer, dnid, destination";
 		$QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', '".
 			$A2B->id_card."', '".$A2B->hostname."', ";
 

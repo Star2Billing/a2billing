@@ -80,11 +80,11 @@ $FG_TABLE_COL [] = array (gettext ( "Calldate" ), "starttime", "15%", "center", 
 $FG_TABLE_COL [] = array (gettext ( "Source" ), "src", "7%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array (gettext ( "Dnid" ), "dnid", "7%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array (gettext ( "CalledNumber" ), "calledstation", "10%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix" );
-$FG_TABLE_COL [] = array (gettext ( "Destination" ), "id_ratecard","10%", "center", "SORT", "15", "lie", "cc_ratecard", "destination", "id='%id'", "%1" );
+$FG_TABLE_COL [] = array (gettext ( "Destination" ), "destination","10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "prefix='%id'", "%1" );
 $FG_TABLE_COL [] = array (gettext ( "Buy Rate" ), "buyrate", "5%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Sell Rate" ), "rateinitial", "5%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Duration" ), "sessiontime", "6%", "center", "SORT", "30", "", "", "", "", "", "display_minute" );
-$FG_TABLE_COL [] = array (gettext ( "AccountUsed" ), "card_id", "6%", "center", "sort", "", "lie", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php" );
+$FG_TABLE_COL [] = array (gettext ( "AccountUsed" ), "card_id", "6%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php" );
 $FG_TABLE_COL [] = array (gettext ( "Trunk" ), "trunkcode", "6%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array ('<acronym title="' . gettext ( "Terminate Cause" ) . '">' . gettext ( "TC" ) . '</acronym>', "terminatecauseid", "7%", "center", "SORT", "", "list", $dialstatus_list );
 $FG_TABLE_COL [] = array (gettext ( "Calltype" ), "sipiax", "6%", "center", "SORT", "", "list", $list_calltype );
@@ -98,7 +98,7 @@ if (LINK_AUDIO_FILE) {
 }
 
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.id_ratecard, t4.buyrate ,t4.rateinitial ,t1.sessiontime, t1.card_id, t3.trunkcode, t1.terminatecauseid, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
+$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.destination, t4.buyrate ,t4.rateinitial ,t1.sessiontime, t1.card_id, t3.trunkcode, t1.terminatecauseid, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
 }
@@ -956,16 +956,12 @@ if (is_array ( $list ) && count ( $list ) > 0) {
 }
 ?></center>
 
-<table width="<?php
-echo $FG_HTML_TABLE_WIDTH?>" border="0"
-	align="center" cellpadding="0" cellspacing="0">
+<table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 	<TR bgcolor="#ffffff">
-		<TD class="bgcolor_021" height=16
-			style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
+		<TD class="bgcolor_021" height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 			<TR>
-				<TD><SPAN class="fontstyle_003"><?php
-				echo $FG_HTML_TABLE_TITLE?></SPAN></TD>
+				<TD><SPAN class="fontstyle_003"><?php echo $FG_HTML_TABLE_TITLE?></SPAN></TD>
 				<TD align=right><IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path; ?>/btn_top_12x12.gif" width=12></TD>
 			</TR>
 		</TABLE>
@@ -975,10 +971,7 @@ echo $FG_HTML_TABLE_WIDTH?>" border="0"
 		<TD>
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 			<TR class="bgcolor_008">
-					<TD width="<?php
-					echo $FG_ACTION_SIZE_COLUMN?>" align=center
-						class="tableBodyRight"
-						style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
+				<TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
 				  
                   <?php
 						if (is_array ( $list ) && count ( $list ) > 0) {
@@ -1019,12 +1012,8 @@ height="12" border="0">
    <?php } ?>		
 </TR>
 <TR>
-<TD bgColor=#e1e1e1 colSpan=<?php
-							echo $FG_TOTAL_TABLE_COL?>
-height=1><IMG height=1 src="<?php
-							echo Images_Path;
-							?>/clear.gif"
-width=1></TD>
+<TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?>
+height=1><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
 </TR>
 <?php
 															
@@ -1034,13 +1023,8 @@ width=1></TD>
 								$ligne_number ++;
 								?>
 
- <TR
-bgcolor="<?php
-								echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"
-onMouseOver="bgColor='#C4FFD7'"
-onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
-<TD vAlign=top align="<?php echo $FG_TABLE_COL [$i] [3]?>"
-class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . ".&nbsp;"; ?></TD>
+ <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>" onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
+<TD vAlign=top align="<?php echo $FG_TABLE_COL [$i] [3]?>" class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . ".&nbsp;"; ?></TD>
  
 <?php for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) { ?>
 
@@ -1048,15 +1032,33 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 										
 					$instance_sub_table = new Table ( $FG_TABLE_COL [$i] [7], $FG_TABLE_COL [$i] [8] );
 					$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
-					$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null );
+					$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 					
 					$field_list_sun = split ( ',', $FG_TABLE_COL [$i] [8] );
 					$record_display = $FG_TABLE_COL [$i] [10];
 					
-					for($l = 1; $l <= count ( $field_list_sun ); $l ++) {
-						$record_display = str_replace ( "%$l", $select_list [0] [$l - 1], $record_display );
+					if (is_array($select_list)) {
+						for($l = 1; $l <= count ( $field_list_sun ); $l ++) {
+							$record_display = str_replace ( "%$l", $select_list [0] [$l - 1], $record_display );
+						}
+					} else {
+						$record_display = $recordset [$i];
 					}
-				
+				} elseif($FG_TABLE_COL[$i][6]=="lie_link") {
+					$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
+					$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
+					$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
+					if(is_array($select_list)){
+						$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
+						$record_display = $FG_TABLE_COL[$i][10];
+						$link = $FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];
+						for ($l=1;$l<=count($field_list_sun);$l++){
+							$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
+							$record_display = "<a href='$link'>$val</a>";
+						}
+					}else{
+						$record_display="";
+					}
 				} elseif ($FG_TABLE_COL [$i] [6] == "list") {
 					$select_list = $FG_TABLE_COL [$i] [7];
 					$record_display = $select_list [$recordset [$i]] [0];
@@ -1071,7 +1073,7 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 				}
 				
 				?>
- <TD vAlign=top align="<?php echo $FG_TABLE_COL [$i] [3]?>" class=tableBody><?php
+		<TD vAlign=top align="<?php echo $FG_TABLE_COL [$i] [3]?>" class=tableBody><?php
 			if (isset ( $FG_TABLE_COL [$i] [11] ) && strlen ( $FG_TABLE_COL [$i] [11] ) > 1) {
 				call_user_func ( $FG_TABLE_COL [$i] [11], $record_display );
 			} elseif (strlen($record_display)>0) {
@@ -1112,140 +1114,34 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 		</td>
 	</tr>
 	<TR bgcolor="#ffffff">
-		<TD class="bgcolor_005" height=16
-			style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
-		<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+		<TD class="bgcolor_005" height="16" style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
+			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 				<TR>
 					<TD align="right"><SPAN class="fontstyle_003">
-                    <?php
-																				if ($current_page > 0) {
-																					?>
-                    <img src="<?php
-																					echo Images_Path;
-																					?>/fleche-g.gif"
-						width="5" height="10"> <a
-						href="<?php
-																					echo $PHP_SELF?>?s=1&t=0&order=<?php
-																					echo $order?>&sens=<?php
-																					echo $sens?>&current_page=<?php
-																					echo ($current_page - 1)?><?php
-
-																					if (! is_null ( $letter ) && ($letter != "")) {
-																						echo "&letter=$letter";
-																					}
-																					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";
-																					?>">
-                    <?php
-																					echo gettext ( "Previous" );
-																					?> </a> -
-                    <?php
-																				}
-																				?>
-                    <?php
-																				echo ($current_page + 1);
-																				?> / <?php
-																				echo $nb_record_max;
-																				?>
-                    <?php
-																				if ($current_page < $nb_record_max - 1) {
-																					?>
-                    - <a
-						href="<?php
-																					echo $PHP_SELF?>?s=1&t=0&order=<?php
-																					echo $order?>&sens=<?php
-																					echo $sens?>&current_page=<?php
-																					echo ($current_page + 1)?><?php
-
-																					if (! is_null ( $letter ) && ($letter != "")) {
-																						echo "&letter=$letter";
-																					}
-																					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";
-																					?>">
-                    <?php
-																					echo gettext ( "Next" );
-																					?></a> <img
-						src="<?php
-																					echo Images_Path;
-																					?>/fleche-d.gif" width="5" height="10">
-					</SPAN> 
-                    <?php
-																				}
-																				?>
+                    <?php if ($current_page > 0) { ?>
+					<img src="<?php echo Images_Path; ?>/fleche-g.gif"
+					width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo ($current_page - 1)?><?php
+									if (! is_null ( $letter ) && ($letter != "")) {
+										echo "&letter=$letter";
+									}
+									echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";
+									?>">
+					<?php echo gettext ( "Previous" ); ?> </a> - <?php } ?><?php echo ($current_page + 1); ?> / <?php echo $nb_record_max; ?>
+					<?php if ($current_page < $nb_record_max - 1) { ?>
+					- <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo ($current_page + 1)?><?php
+									if (! is_null ( $letter ) && ($letter != "")) {
+										echo "&letter=$letter";
+									}
+									echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";
+									?>">
+					<?php echo gettext ( "Next" ); ?></a> <img src="<?php echo Images_Path; ?>/fleche-d.gif" width="5" height="10"> </SPAN> 
+					<?php } ?>
                   </TD>
 		</TABLE>
 		</TD>
 	</TR>
 </table>
 
-<?php
-if (is_array ( $list ) && count ( $list ) > 0 && 3 == 4) {
-	?>
-<!-- ************** TOTAL SECTION ************* -->
-<br />
-<div style="padding-right: 15px;">
-<table cellpadding="1" bgcolor="#000000" cellspacing="1"
-	width="<?php
-	if ($_SESSION ["is_admin"] == 1) {
-		?>450<?php
-	} else {
-		?>200<?php
-	}
-	?>"
-	align="right">
-	<tbody>
-		<tr class="form_head">
-			<td width="33%" align="center" class="tableBodyRight"
-				bgcolor="#600101" style="padding: 5px;"><strong><?php
-	echo gettext ( "TOTAL COSTS" );
-	?></strong></td>
-				   <?php
-	if ($_SESSION ["is_admin"] == 1) {
-		?><td width="33%"
-				align="center" class="tableBodyRight" bgcolor="#600101"
-				style="padding: 5px;"><strong><?php
-		echo gettext ( "TOTAL BUYCOSTS" );
-		?></strong></td><?php
-	}
-	?>
-				   <?php
-	if ($_SESSION ["is_admin"] == 1) {
-		?><td width="33%"
-				align="center" class="tableBodyRight" bgcolor="#600101"
-				style="padding: 5px;"><strong><?php
-		echo gettext ( "DIFFERENCE" );
-		?></strong></td><?php
-	}
-	?>
-                </tr>
-		<tr>
-			<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php
-	echo $total_cost [0] [0]?></td>
-				  <?php
-	if ($_SESSION ["is_admin"] == 1) {
-		?><td valign="top"
-				align="center" class="tableBody" bgcolor="#66FF66"><b><?php
-		echo $total_cost [0] [1]?></td><?php
-	}
-	?>
-				  <?php
-	if ($_SESSION ["is_admin"] == 1) {
-		?><td valign="top"
-				align="center" class="tableBody" bgcolor="#FF6666"><b><?php
-		echo $total_cost [0] [0] - $total_cost [0] [1]?></td><?php
-	}
-	?>
-
-				</tr>
-
-</table>
-</div>
-<br />
-<br />
-
-<!-- ************** TOTAL SECTION ************* -->
-<?php
-}
-?>
 
 <!-- ** ** ** ** ** Part to display the GRAPHIC ** ** ** ** ** -->
 <br>
