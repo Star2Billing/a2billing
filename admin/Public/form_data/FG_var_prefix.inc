@@ -29,18 +29,25 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-if (!($popup_select==1)) {
-	$HD_Form -> FG_EDITION = true;
-	$HD_Form -> FG_DELETION = true;
-} else {
-	$HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
-	$HD_Form ->FG_LIMITE_DISPLAY=7;
+
+if ($popup_select) {
+	$HD_Form -> FG_LIMITE_DISPLAY = 7;
+	$HD_Form -> CV_FOLLOWPARAMETERS = "&popup_select=" . $_GET['popup_select'] . "&popup_formname=" . $_GET['popup_formname'] . "&popup_fieldname=" . $_GET['popup_fieldname'];
+
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
-					
-	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col1|');";
+
+	if ($popup_select == 1)
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
+	elseif ($popup_select == 2)
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
 }
+else {
+	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_DELETION = true;
+}
+
 
 
 $HD_Form -> AddEditElement (gettext("PREFIX"),

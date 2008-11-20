@@ -35,24 +35,26 @@ $list = $HD_Form -> perform_action($form_action);
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
-	if ($popup_select){
+if ($popup_select){
 ?>
-<SCRIPT LANGUAGE="javascript">
-<!-- Begin
-function sendValue(selvalue){
-	window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
-	window.close();
-}
-// End -->
-</script>
-<?php
+	<SCRIPT LANGUAGE="javascript">
+	<!-- Begin
+	function sendValue(selvalue){
+		window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
+		window.close();
 	}
+	// End -->
+	</script>
+<?php
+}
 
 
 // #### HELP SECTION
-if (!($popup_select==1) && ($form_action=='list')) echo $CC_help_list_prefix;
-	elseif (!($popup_select==1)) echo $CC_help_edit_prefix;
-
+if ($form_action=='list') { 
+	if (!$popup_select) echo $CC_help_list_prefix;
+} else {
+	echo $CC_help_list_tariffgroup;
+}
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
@@ -65,9 +67,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-if (!($popup_select==1)) $smarty->display('footer.tpl');
+if (!$popup_select) $smarty->display('footer.tpl');
 
 
 
-
-?>

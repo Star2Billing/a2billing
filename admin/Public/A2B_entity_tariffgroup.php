@@ -64,4 +64,4 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-$smarty->display('footer.tpl');
+if (!$popup_select) $smarty->display('footer.tpl');
