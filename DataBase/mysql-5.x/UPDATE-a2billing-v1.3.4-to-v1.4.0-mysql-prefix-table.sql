@@ -4909,3 +4909,28 @@ INSERT INTO cc_prefix VALUES(26311, 'Zimbabwe Mobile');
 INSERT INTO cc_prefix VALUES(26323, 'Zimbabwe Mobile');
 INSERT INTO cc_prefix VALUES(26391, 'Zimbabwe Mobile');
 
+INSERT INTO cc_prefix VALUES(1,'USA');
+INSERT INTO cc_prefix VALUES(379,'Vatican City');
+INSERT INTO cc_prefix VALUES(998714,'Uzbekistan Tashkent');
+INSERT INTO cc_prefix VALUES(998711,'Uzbekistan Tashkent');
+INSERT INTO cc_prefix VALUES(998713,'Uzbekistan Tashkent');
+INSERT INTO cc_prefix VALUES(998712,'Uzbekistan Tashkent');
+INSERT INTO cc_prefix VALUES(99899,'Uzbekistan Mobile');
+INSERT INTO cc_prefix VALUES(998,'Uzbekistan');
+
+
+
+
+-- Add here the different exit code you use : 0, 00, 000
+CREATE TEMPORARY TABLE t1 AS SELECT DISTINCT dialprefix FROM cc_ratecard WHERE dialprefix REGEXP '^[0-9]';
+ALTER TABLE t1 ADD COLUMN prefix_id bigint;
+UPDATE t1 SET prefix_id=(SELECT prefix FROM cc_prefix AS p WHERE 
+	t1.dialprefix LIKE concat(prefix,'%') 
+	OR t1.dialprefix LIKE concat('00',concat(prefix,'%')) 
+	ORDER BY length(prefix) DESC limit 1);
+
+CREATE INDEX myindex_t1 ON t1( dialprefix );
+UPDATE cc_ratecard SET destination=(SELECT  prefix_id FROM t1 WHERE t1.dialprefix = cc_ratecard.dialprefix ) WHERE destination=0;
+UPDATE cc_ratecard SET destination=0 WHERE destination IS NULL;
+
+
