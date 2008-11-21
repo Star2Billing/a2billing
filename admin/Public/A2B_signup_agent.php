@@ -47,7 +47,6 @@ if($task=="generate" && !empty($agentid) && !empty($tariffplan) && !empty($group
 	$list_agent_secret = $instance_table_agent_secret  -> Get_list ($DBHandle, "id=".$agentid, "id", "ASC", null, null, null, null);
 	if(is_array($list_agent_secret)){
 		$URL = $A2B->config['signup']['urlcustomerinterface']."signup/index.php?agentid=".$agentid."&agentkey=";
-		//$URL="http://localhost/~rachid/a2b/admin/signup/index.php?agentid=".$agentid."&agentkey=";
 		$secret = $list_agent_secret[0][0];
 		echo $secret."    ";
 		$result = a2b_encrypt($group."-".$tariffplan."-",$secret);
