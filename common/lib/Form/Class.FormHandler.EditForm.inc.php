@@ -268,7 +268,6 @@ function sendtolittle(direction){
 									  <?php
 								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
 	
-	
 								$instance_sub_table = new Table($table_split[2], $table_split[3]);
 								$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);			
 				
@@ -295,7 +294,11 @@ function sendtolittle(direction){
                                   <TR class="" bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'"> 
                                     <TD vAlign=top class=tableBody> 
                                       <font face="Verdana" size="2">
-                                      <b><?php echo $split_select_list[$j][$table_split[7]]?></b> &nbsp; <?php echo $split_select_list[$j][0]?>
+                                      <?php if(!empty($split_select_list[$j][$table_split[7]])){?>
+                                      <b><?php echo $split_select_list[$j][$table_split[7]]?></b> &nbsp; 
+                                      
+									  <?php }
+									  echo $split_select_list[$j][0]?>
                                       </font> </TD>
                                     <TD align="center" vAlign=top class=tableBodyRight> 
                                       <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_split[1]?>_hidden','<?php echo $split_select_list[$j][1]?>');" title="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
@@ -589,7 +592,13 @@ function sendtolittle(direction){
 								?>
                                   <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
                                     <TD vAlign="top" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" class="tableBody">
-                                      <font face="Verdana" size="2">
+                                       <?php if(!empty($split_select_list[$j][$table_split[7]]))
+                                      {
+                                      ?>
+                                      (
+                                      <?php echo $split_select_list[$j][$table_split[7]]?> )
+                                      <?php }?>
+                                       <font face="Verdana" size="2">
                                       <?php echo $split_select_list[$j][0]?>
                                       </font> </TD>
                                     <TD align="center" vAlign="top2" class="tableBodyRight">

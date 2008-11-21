@@ -891,7 +891,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 			   "",
 			   "",
 			   "",
-			   "", "", "", "", "", "cc_card_history:description:description,id_cc_card:id_cc_card = %id::id_cc_card:::::::0");
+			   "", "", "", "", "", "cc_card_history:description:description,id_cc_card,datecreated:id_cc_card = %id::id_cc_card::2:::::0");
 
 			   // cc_card_history:description:description,id_cc_card:id_cc_card = %id::id_cc_card
 			   // Above function will provid Has Many functionality
