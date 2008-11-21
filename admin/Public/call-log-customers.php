@@ -377,27 +377,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td align="left" class="fontstyle_searchoptions"><?php echo gettext ( "CallPlan" ); ?> :</td>
-						<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="entertariffgroup" value="<?php
-			echo $entertariffgroup?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_tariffgroup.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertariffgroup' , 'CallPlanSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img
+						<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="entertariffgroup" value="<?php echo $entertariffgroup?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_tariffgroup.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertariffgroup' , 'CallPlanSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img
 							src="<?php echo Images_Path; ?>/icon_arrow_orange.gif"></a></td>
-						<td align="left" class="fontstyle_searchoptions"><?php
-			echo gettext ( "Provider" );
-			?> :
+						<td align="left" class="fontstyle_searchoptions"><?php echo gettext ( "Provider" ); ?> :
 			
 			<td align="left" class="fontstyle_searchoptions"><INPUT
 							TYPE="text" NAME="enterprovider"
-							value="<?php
-			echo $enterprovider?>" size="4"
-							class="form_input_text">&nbsp;<a href="#"
+							value="<?php echo $enterprovider?>" size="4" class="form_input_text">&nbsp;<a href="#"
 							onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img
-							src="<?php
-			echo Images_Path;
-			?>/icon_arrow_orange.gif"></a></td>
+							src="<?php echo Images_Path; ?>/icon_arrow_orange.gif"></a></td>
 					</tr>
 					<tr>
-						<td align="left" class="fontstyle_searchoptions"><?php
-			echo gettext ( "Trunk" );
-			?> :</td>
+						<td align="left" class="fontstyle_searchoptions"><?php echo gettext ( "Trunk" ); ?> :</td>
 						<td align="left" class="fontstyle_searchoptions"><INPUT
 							TYPE="text" NAME="entertrunk" value="<?php
 			echo $entertrunk?>"

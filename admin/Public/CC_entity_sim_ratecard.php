@@ -170,8 +170,14 @@ echo $CC_help_sim_ratecard;
 if ( (is_array($RateEngine->ratecard_obj)) && (!empty($RateEngine->ratecard_obj)) ){
 if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
 
-$arr_ratecard=array('tariffgroupname', 'lcrtype', 'idtariffgroup', 'cc_tariffgroup_plan.idtariffplan', 'tariffname', 'destination', 'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock', 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge','disconnectcharge_after', 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb', 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'tp_id_trunk', 'tp_trunk', 'providertech', 'tp_providerip', 'tp_removeprefix');
-
+$arr_ratecard=array('tariffgroupname', 'lcrtype', 'idtariffgroup', 'cc_tariffgroup_plan.idtariffplan', 'tariffname', 
+		'destination', 'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate',
+		 'buyrateinitblock', 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock',
+		 'connectcharge', 'disconnectcharge','disconnectcharge_after', 'stepchargea', 'chargea', 
+		'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb', 
+		'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 
+		'tp_id_trunk', 'tp_trunk', 'providertech', 'tp_providerip', 'tp_removeprefix');
+$arr_ratecard_i=array(0,1,2,3,4,  5,6,7,8,9,   10,11,12,13,14, 15,16,60,17,18,  19,20,21,22,23,  24,25,26,27,28, 29,30,31,32,33);
 $FG_TABLE_ALTERNATE_ROW_COLOR[0]='#CDC9C9';
 $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 ?>
@@ -225,7 +231,17 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 				</td>
 			</tr>
 			<?php } ?>
-			
+			<?php if ($RateEngine->ratecard_obj[$j][61]>0){?>
+			<tr>
+                                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i%2]?>" style="padding-left: 5px; padding-right: 3px;">
+                                                <b><?php echo gettext("Announce correction ")?></b>
+
+                                </td>
+                                <td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i%2]?>" style="padding-left: 5px; padding-right: 3px;">
+                                                <i>x<?php echo $RateEngine->ratecard_obj[$j][61];?></i>
+                                </td>
+                        </tr>
+			<?php }?>
 			<?php for($i=0;$i<count($arr_ratecard);$i++){ ?>
 			<tr>			
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i%2]?>" style="padding-left: 5px; padding-right: 3px;">
@@ -233,7 +249,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 						
 				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i%2]?>" style="padding-left: 5px; padding-right: 3px;">
-						<i><?php echo $RateEngine->ratecard_obj[$j][$i];?></i>
+						<i><?php echo $RateEngine->ratecard_obj[$j][$arr_ratecard_i[$i]];?></i>
 				</td>
 			</tr>
 			<?php  } ?>

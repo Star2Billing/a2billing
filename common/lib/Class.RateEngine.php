@@ -344,8 +344,8 @@ class RateEngine
 		$billingblock 					= $this -> ratecard_obj[$K][14];
 		$connectcharge 					= a2b_round (abs($this -> ratecard_obj[$K][15]));
 		$disconnectcharge 				= a2b_round (abs($this -> ratecard_obj[$K][16]));
-		$disconnectcharge_after         		= $this->ratecard_obj[$K][60];
-		$announce_time_correction			= $this->ratecard_obj[$K][61];
+		$disconnectcharge_after         = $this -> ratecard_obj[$K][60];
+		$announce_time_correction		= $this -> ratecard_obj[$K][61];
 		$stepchargea 					= $this -> ratecard_obj[$K][17];
 		$chargea 						= a2b_round (abs($this -> ratecard_obj[$K][18]));
 		$timechargea 					= $this -> ratecard_obj[$K][19];
@@ -443,29 +443,26 @@ class RateEngine
 		}
 
 		$credit -= $connectcharge;
-		if ($disconnectcharge_after==0){
-	               $credit -= $disconnectcharge; 
-	               //no disconnenct charge on timeout if disconnectcharge_after is set
-               }
-
-		//$credit -= ($initblock/60)*$rateinitial;
-
-		$callbackrate = array();
-
-		if(($A2B->mode == 'cid-callback') || ($A2B->mode == 'all-callback')){
-			$callbackrate['rateinitial']=$rateinitial;
-			$callbackrate['initblock']=$initblock;
-			$callbackrate['billingblock']=$billingblock;
-			$callbackrate['connectcharge']=$connectcharge;
-			$callbackrate['disconnectcharge']=$disconnectcharge;
-			$callbackrate['stepchargea']=$stepchargea;
-			$callbackrate['timechargea']=$timechargea;
-			$callbackrate['stepchargeb']=$stepchargeb;
-			$callbackrate['timechargeb']=$timechargeb;
-			$callbackrate['stepchargec']=$stepchargec;
-			$callbackrate['timechargec']=$timechargec;
+		if ($disconnectcharge_after==0) {
+			$credit -= $disconnectcharge; 
+	        //no disconnenct charge on timeout if disconnectcharge_after is set
 		}
-
+		
+		$callbackrate = array();
+		if(($A2B->mode == 'cid-callback') || ($A2B->mode == 'all-callback')){
+			$callbackrate['rateinitial'] = $rateinitial;
+			$callbackrate['initblock'] = $initblock;
+			$callbackrate['billingblock'] = $billingblock;
+			$callbackrate['connectcharge'] = $connectcharge;
+			$callbackrate['disconnectcharge'] = $disconnectcharge;
+			$callbackrate['stepchargea'] = $stepchargea;
+			$callbackrate['timechargea'] = $timechargea;
+			$callbackrate['stepchargeb'] = $stepchargeb;
+			$callbackrate['timechargeb'] = $timechargeb;
+			$callbackrate['stepchargec'] = $stepchargec;
+			$callbackrate['timechargec'] = $timechargec;
+		}
+		
 		$this -> ratecard_obj[$K]['callbackrate']=$callbackrate;
 		$this -> ratecard_obj[$K]['timeout']=0;
 		$this -> ratecard_obj[$K]['timeout_without_rules']=0;
@@ -723,7 +720,7 @@ class RateEngine
 		$billingblock 					= $this -> ratecard_obj[$K][14];
 		$connectcharge 					= a2b_round(abs($this -> ratecard_obj[$K][15]));
 		$disconnectcharge 				= a2b_round(abs($this -> ratecard_obj[$K][16]));
-		$disconnectcharge_after				= $this->ratecard_obj[$K][60];
+		$disconnectcharge_after			= $this->ratecard_obj[$K][60];
 		$stepchargea 					= $this -> ratecard_obj[$K][17];
 		$chargea 						= a2b_round(abs($this -> ratecard_obj[$K][18]));
 		$timechargea 					= $this -> ratecard_obj[$K][19];
@@ -757,10 +754,10 @@ class RateEngine
 
 		$cost = 0;
 		$cost -= $connectcharge;
-		if (($disconnectcharge_after>=$callduration)||($disconnectcharge_after==0)){
-                $cost -= $disconnectcharge;
-	        }
-
+		if (($disconnectcharge_after<=$callduration) || ($disconnectcharge_after==0)) {
+            $cost -= $disconnectcharge;
+        }
+		
 		$this -> real_answeredtime = $callduration;
 		$callduration =$callduration + $additional_grace_time;			
 		
@@ -1058,20 +1055,20 @@ class RateEngine
 		$QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', '".
 			$A2B->id_card."', '".$A2B->hostname."', ";
 
-		if ($A2B->config["global"]['cache_enabled']){
+		if ($A2B->config["global"]['cache_enabled']) {
 			$QUERY .= " datetime( strftime('%s','now') - $sessiontime, 'unixepoch','localtime')";	
-		}else{
-			if ($A2B->config["database"]['dbtype'] == "postgres"){
+		} else {
+			if ($A2B->config["database"]['dbtype'] == "postgres") {
 				$QUERY .= "CURRENT_TIMESTAMP - interval '$sessiontime seconds' ";
-			}else{
+			} else {
 				$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
 			}
 		}
 
 		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$terminatecauseid', "; 
-		if ($A2B->config["global"]['cache_enabled']){
-			$QUERY .= "datetime('now','localtime')"; 
-		}else{
+		if ($A2B->config["global"]['cache_enabled']) {
+			$QUERY .= "datetime('now','localtime')";
+		} else {
 			$QUERY .= "now()";
 		}
 		
@@ -1080,7 +1077,7 @@ class RateEngine
 					" '$buycost', '$id_card_package_offer', '".$A2B->dnid."', '".$calldestination."')";
 		
 		
-		if ($A2B->config["global"]['cache_enabled']){
+		if ($A2B->config["global"]['cache_enabled']) {
 			 //insert query in the cache system
 			$create=false;
 			if(! file_exists( $A2B -> config["global"]['cache_path']))$create=true;
@@ -1092,38 +1089,38 @@ class RateEngine
 				$A2B -> debug( ERROR, $agi, __FILE__, __LINE__, "[Error to connect to cache : $sqliteerror]\n");
 			}
 			 
-		}else{
+		} else {
 				
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 			$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CC_asterisk_stop : SQL: DONE : result=".$result."]");
 		}
 
 
-		if ($sessiontime>0){
+		if ($sessiontime>0) {
 			//Update the global credit
 			$A2B -> credit = $A2B -> credit + $cost;
-
-			if ($A2B->nbused>0){
+			
+			if ($A2B->nbused>0) {
 				$QUERY = "UPDATE cc_card SET credit= credit$signe".a2b_round(abs($cost))." $myclause_nodidcall,  lastuse=now(), nbused=nbused+1 WHERE username='".$A2B->username."'";
-			}else{
+			} else {
 				$QUERY = "UPDATE cc_card SET credit= credit$signe".a2b_round(abs($cost))." $myclause_nodidcall,  lastuse=now(), firstusedate=now(), nbused=nbused+1 WHERE username='".
 				$A2B->username."'";
 			}
-
+			
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_asterisk_stop 1.2: SQL: $QUERY]");
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-
-
+			
+			
 			$QUERY = "UPDATE cc_trunk SET secondusedreal = secondusedreal + $sessiontime WHERE id_trunk='".$this -> usedtrunk."'";
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-
+			
 			$QUERY = "UPDATE cc_tariffplan SET secondusedreal = secondusedreal + $sessiontime WHERE id='$id_tariffplan'";
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 		}
 	}
-
+	
 	/*
 	 *	function would set when the trunk is used or when it release
 	 */
