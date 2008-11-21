@@ -37,12 +37,29 @@ $CC_help_generate_signup='
 $CC_help_password_change ='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/connect_to_network.gif" width="48" height="48" class="kikipic"/>
+	
 	<div class="w2">
 <table width="90%">
 <tr>
 <td width="100%">
 '.gettext("On this page you will be able to change your password, You have to enter the New Password and Confirm it.").'
+<br>&nbsp;
+</td>
+</tr>
+</table>
+</div></div></div>
+&nbsp;
+';
+
+$CC_help_secret_change ='
+<div id="div1000" style="display:visible;">
+<div id="kiblue_header"><div class="w4">
+	
+	<div class="w2">
+<table width="90%">
+<tr>
+<td width="100%">
+'.gettext("On this page you will be able to change your Secret used to crypt your generated signup URL, You have to enter the New Secret and Confirm it.").'
 <br>&nbsp;
 </td>
 </tr>

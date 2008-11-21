@@ -20,9 +20,7 @@ if (! has_rights (ACX_ACCESS)){
 getpost_ifset(array('NewPassword','OldPassword'));
 
 
-$HD_Form = new FormHandler("cc_agent","agent");
-
-$HD_Form -> setDBHandler (DbConnect());
+$DBHandle  = DbConnect();
 //////$instance_sub_table = new Table('cc_callerid');
 /////$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
 //////$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
@@ -31,10 +29,10 @@ if($form_action=="ask-update")
 {
     $instance_sub_table = new Table('cc_agent',"id");
     $check_old_pwd = "id = '".$_SESSION["agent_id"]."' AND passwd = '$OldPassword'";
-    $result_check=$instance_sub_table -> Get_list ($HD_Form -> DBHandle,$check_old_pwd);
+    $result_check=$instance_sub_table -> Get_list ($DBHandle,$check_old_pwd);
     if(is_array($result_check)){
 	    $QUERY = "UPDATE cc_agent SET passwd= '".$NewPassword."' WHERE ( ID = ".$_SESSION["agent_id"]."  ) ";
-	    $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	    $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
     }
 }
 // #### HEADER SECTION

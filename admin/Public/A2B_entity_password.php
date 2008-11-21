@@ -15,24 +15,20 @@ include ("../lib/admin.smarty.php");
 getpost_ifset(array('OldPassword','NewPassword'));
 
 
-$HD_Form = new FormHandler("cc_card","card");
 
-$HD_Form -> setDBHandler (DbConnect());
-//////$instance_sub_table = new Table('cc_callerid');
-/////$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
-//////$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+$DBHandle  = DbConnect();
 if($form_action=="ask-update")
 {
 	$table_old_pwd = new Table("cc_ui_authen", " login");
 	$OldPwd_encoded = hash( 'whirlpool',$OldPassword);
 	$clause_old_pwd = "login = '".$_SESSION["pr_login"]."' AND pwd_encoded = '".$OldPwd_encoded."'";
-	$result_old_pwd= $table_old_pwd -> Get_list ($HD_Form -> DBHandle, $clause_old_pwd, null, null, null, null, null, null);
+	$result_old_pwd= $table_old_pwd -> Get_list ($DBHandle, $clause_old_pwd, null, null, null, null, null, null);
 		
 	if(!empty($result_old_pwd)){
     $instance_sub_table = new Table('cc_ui_authen');
     $NewPwd_encoded = hash( 'whirlpool',$NewPassword);
     $QUERY = "UPDATE cc_ui_authen SET  pwd_encoded= '".$NewPwd_encoded."' WHERE ( login = '".$_SESSION["pr_login"]."' ) ";
-    $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+    $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
    
 	
 	}else{

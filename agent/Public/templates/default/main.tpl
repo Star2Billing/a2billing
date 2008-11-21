@@ -77,7 +77,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	<ul>
 		<li><ul>
 				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1">{php} echo gettext("List Customers");{/php}</a></li>
-				<li><a href="card-history.php?&atmenu=cardhistory&stitle=Card+History&section=1">{php} echo gettext("Card History");{/php}</a></li>
+				<li><a href="card-history.php?atmenu=cardhistory&stitle=Card+History&section=1">{php} echo gettext("Card History");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>
@@ -104,12 +104,14 @@ Logged-in as: <b>{$adminname}</b></p>
 	<ul>
 		<li><ul>
 				<li><a href="A2B_signup_agent.php?atmenu=generatesignup&stitle=Signup&section=8">{php} echo gettext("Generate Signup Url");{/php}</a></li>
-				<li><a href="card-history.php?atmenu=changesecret&stitle=Card+History&section=8">{php} echo gettext("Change Secret");{/php}</a></li>
+				<li><a href="A2B_entity_secret.php?atmenu=changesecret&stitle=Card+History&section=8">{php} echo gettext("Change Secret");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>
 	</div>
 	{/if}
+
+
 
 	{if ($ACXBILLING > 0)}
 	<div class="toggle_menu">
