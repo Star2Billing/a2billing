@@ -58,18 +58,17 @@ $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 
 $FG_TABLE_COL = array();
-$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "16%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("Source"), "source", "13%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "13%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "12%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1" );
-$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "9%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "9%", "center", "SORT", "", "list", $dialstatus_list);
-$FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "9%", "center", "SORT",  "", "list", $list_calltype);
-$FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
-$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
+$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "17%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Source"), "source", "14%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "14%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "14%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "prefix='%id'", "%1" );
+$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "10%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecauseid", "10%", "center", "SORT", "", "list", $dialstatus_list);
+$FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "12%", "center", "SORT",  "", "list", $list_calltype);
+$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "12%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.id_cc_prefix, t1.sessiontime, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
-$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
+$FG_COL_QUERY = 't1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
+$FG_COL_QUERY_GRAPH = 't1.callstart, t1.duration';
 
 $FG_LIMITE_DISPLAY = 25;
 $FG_NB_TABLE_COL = count($FG_TABLE_COL);
@@ -202,9 +201,9 @@ echo $CC_help_balance_customer;
 						?>	
 					</select>
 				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
+					<?php 	
+						$year_actual = date("Y");
+						for ($i=$year_actual;$i >= $year_actual-1;$i--) {		   
 							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
 							if ($year_actual==$i){
 								$monthnumber = date("n")-1; // Month number without lead 0.
