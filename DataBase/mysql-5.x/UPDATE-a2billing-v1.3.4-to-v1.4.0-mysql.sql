@@ -1345,7 +1345,7 @@ CREATE TABLE cc_agent_cardgroup (
 
 ALTER TABLE cc_card_group DROP id_agent;
 
-
+ALTER TABLE cc_agent ADD secret VARCHAR( 20 ) NOT NULL ;
 
 -- optimization on CDR
 ALTER TABLE cc_call DROP destination;
@@ -1354,5 +1354,6 @@ ALTER TABLE cc_call DROP id_cc_prefix;
 ALTER TABLE cc_ratecard DROP id_cc_prefix;
 ALTER TABLE cc_call ADD COLUMN destination INT (11) DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN destination INT (11) DEFAULT 0;
+
 
 

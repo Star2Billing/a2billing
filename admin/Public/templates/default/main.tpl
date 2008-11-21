@@ -476,7 +476,8 @@ Logged-in as: <b>{$adminname}</b></p>
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_agent.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Agents");{/php}</a></li>
+				<li><a href="A2B_entity_agent.php?atmenu=user&section=10">{php} echo gettext("Agents");{/php}</a></li>
+				<li><a href="A2B_signup_agent.php?atmenu=user&section=10">{php} echo gettext("Signup Agents");{/php}</a></li>
 				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Administrators");{/php}</a></li>
 				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=10">{php} echo gettext("ACL Admin's");{/php}</a></li>
 			</ul></li>

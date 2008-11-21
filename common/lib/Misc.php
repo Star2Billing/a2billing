@@ -26,6 +26,22 @@ function a2b_round($number){
 	return round($number,$PRECISION);
 }
 
+function a2b_encrypt($text, $key)
+  {
+	$iv_size= mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256 , MCRYPT_MODE_ECB  );
+	$iv = mcrypt_create_iv($iv_size);
+	$temp = mcrypt_encrypt(MCRYPT_RIJNDAEL_256,md5($key),$text,MCRYPT_MODE_ECB,$iv);
+	return $temp;
+  } 
+
+function a2b_decrypt($text, $key)
+  {
+  	$iv_size= mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256 , MCRYPT_MODE_ECB  );
+  	$iv = mcrypt_create_iv($iv_size);
+    $temp = mcrypt_decrypt(MCRYPT_RIJNDAEL_256,md5($key),$text,MCRYPT_MODE_ECB,$iv);
+  	return $temp;
+  }
+
 
 /*
  * a2b_mail - function mail used in a2billing

@@ -45,24 +45,56 @@ $currency_list=getCurrenciesList();
 $currency_list_r = getCurrenciesRateList();
 $currency_list_key = getCurrenciesKeyList() ;
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DATE"), "datecreation", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("LOGIN"), "login", "14%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("PASSWORD"), "passwd", "14%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "14%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "10%", "center", "sort");
-$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
-$HD_Form -> AddViewElement(gettext("ACTIVE"), "active", "3%", "center", "sort", "", "list", $yesno);
 
-$HD_Form -> FieldViewElement ('id, datecreation, login, passwd, lastname, credit, currency, active');
+if ($popup_select) {
+	$HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("LOGIN"), "login", "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("FIRSTNAME"), "firstname", "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "14%", "center", "sort");
+	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
+	$HD_Form -> AddViewElement(gettext("ACTIVE"), "active", "3%", "center", "sort", "", "list", $yesno);
+
+$HD_Form -> FieldViewElement ('id, login, passwd, lastname, currency, active');
+	
+}else{
+	$HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("DATE"), "datecreation", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+	$HD_Form -> AddViewElement(gettext("LOGIN"), "login", "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("PASSWORD"), "passwd", "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("FIRSTNAME"), "firstname", "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "10%", "center", "sort");
+	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
+	$HD_Form -> AddViewElement(gettext("ACTIVE"), "active", "3%", "center", "sort", "", "list", $yesno);
+	
+	$HD_Form -> FieldViewElement ('id, datecreation, login, passwd,firstname, lastname, credit, currency, active');
+	
+}
 
 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-$HD_Form -> FG_EDITION = true;
-$HD_Form -> FG_DELETION = true;
+
+if ($popup_select) {
+	$HD_Form -> FG_LIMITE_DISPLAY = 7;
+	$HD_Form -> CV_FOLLOWPARAMETERS = "&popup_select=" . $_GET['popup_select'] . "&popup_formname=" . $_GET['popup_formname'] . "&popup_fieldname=" . $_GET['popup_fieldname'];
+
+	$HD_Form -> FG_OTHER_BUTTON1 = true;
+	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
+	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
+
+	//echo $popup_select;
+	if ($popup_select == 1)
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
+	elseif ($popup_select == 2)
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
+}
+else {
+	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_DELETION = true;
+}
 
 
 
@@ -93,6 +125,15 @@ $HD_Form -> AddEditElement (gettext("PERMISSION"),
 		"list", "", "description, id", "", $right_list, "%1" , "",
 		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 
+$HD_Form -> AddEditElement (gettext("SECRET"),
+		"secret",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=20",
+		"3",
+		gettext("Insert the secret"),
+		"" , "", "", "", "", "", "", gettext("Insert the secret to manage the crypted signup url"));		
+		
 $HD_Form -> AddEditElement (gettext("ACTIVE"),
 	   "active",
 	   '1',
@@ -285,7 +326,7 @@ if ($numrow>0) {
 
 
 
-$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
+$FG_QUERY_EDITION = 'login, passwd, perms,secret, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
 country, zipcode, email, phone,  fax';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);

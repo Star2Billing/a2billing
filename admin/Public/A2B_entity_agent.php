@@ -15,6 +15,8 @@ if (! has_rights (ACX_ADMINISTRATOR)){
 
 /***********************************************************************************/
 
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname'));
+
 $HD_Form -> setDBHandler (DbConnect());
 
 $HD_Form -> init();
@@ -34,6 +36,22 @@ $list = $HD_Form -> perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
+
+
+if ($popup_select) {
+?>
+<SCRIPT LANGUAGE="javascript">
+<!-- Begin
+function sendValue(selvalue){
+	window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
+	window.opener.$("#selectagent").change();
+	window.close();
+}
+// End -->
+</script>
+<?php
+}
+
 
 // #### HELP SECTION
 if ($form_action == 'ask-add') echo $CC_help_agent;

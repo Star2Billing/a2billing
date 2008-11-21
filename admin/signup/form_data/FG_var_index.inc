@@ -1,42 +1,91 @@
 <?php
 
-getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode'));
+getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid','agentid'));
 
-
+//put parameter in session
 $HD_Form = new FormHandler("cc_card","User");
 $HD_Form -> FG_DEBUG = 0;
 
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
-
-$callPlan_idlist = isset($A2B->config["signup"]['callplan_id_list'])?$A2B->config["signup"]['callplan_id_list']:null; 
-if(strlen($callPlan_idlist) == 0)
-{
-	exit("No Call Plan Defined.");
+$HD_Form -> setDBHandler (DbConnect());
+$agent_conf =false;
+$agentkey = $_GET['agentkey'];
+if(!empty($agentkey) && !empty($agentid) ){
+	
+	$instance_table_agent_secret = new Table("cc_agent ", "secret");
+	$list_agent_secret = $instance_table_agent_secret  -> Get_list ($HD_Form -> DBHandle, "id=".$agentid, "id", "ASC", null, null, null, null);
+	if(is_array($list_agent_secret) && !empty($list_agent_secret[0][0])){
+		$secret = $list_agent_secret[0][0];
+		$agentkey = a2b_decrypt($agentkey,$secret);
+		$agent_conf =true;
+		$groupid ='';
+		$tariffid ='';
+		if (strpos($agentkey, '-') === false){ 
+			$agent_conf = false;
+			
+		}else{
+			
+			$param = split('-',$agentkey,3);
+			print_r($param);
+			$groupid = $param[0];
+			$tariffid = $param[1];
+		}
+		
+		// check if groupid and tarif in already in this agent
+		$instance_table_agent_check = new Table("cc_agent LEFT JOIN cc_agent_tariffgroup ON cc_agent_tariffgroup.id_agent =  cc_agent.id LEFT JOIN cc_agent_cardgroup ON cc_agent_cardgroup.id_agent =  cc_agent.id  ", "id");
+		$list_agent_check= $instance_table_agent_check  -> Get_list ($HD_Form -> DBHandle, "id= $agentid AND cc_agent_tariffgroup.id_tariffgroup = $tariffid  AND cc_agent_cardgroup.id_card_group = $groupid", "id", "ASC", null, null, null, null);
+		if(is_array($list_agent_check)){
+			if(!empty($groupid) && is_numeric($groupid) && !empty($tariffid) && is_numeric($tariffid) ){
+				$_SESSION["id_group"] = $groupid;
+				$_SESSION["tariff"] = $tariffid;
+				$_SESSION["agent_conf"] = true;
+			}else{
+				$agent_conf = false;
+			}
+		}else $agent_conf = false;
+	
+	}
 }
 
 
-$call_table = new Table("cc_tariffgroup", "tariffgroupname,id");
-$HD_Form -> setDBHandler (DbConnect());
-$callPlan_list = $call_table-> Get_list($HD_Form -> DBHandle,"id in ($callPlan_idlist)");
 
-if (!is_array($callPlan_list) && count($callPlan_list) <= 0)
-{
-	exit(gettext("No Call Plan id are defined"));
-} 
-$flag_callplan = 0;
-if ($tariff!="" || $tariff != null) {
-	$callPlan_count = count($callPlan_list);	
-	for ($i=0; $i< $callPlan_count; $i++ ) {
-		if($callPlan_list[$i][1] == trim($tariff,"\'")) {
-			$flag_callplan = 1;
+if($_SESSION["agent_conf"]==true){
+	$agent_conf =true;
+	$groupid = $_SESSION["id_group"];
+	$tariffid = $_SESSION["tariff"] ;
+}
+
+
+
+if(!$agent_conf){ 
+	$callPlan_idlist = isset($A2B->config["signup"]['callplan_id_list'])?$A2B->config["signup"]['callplan_id_list']:null; 
+	if(strlen($callPlan_idlist) == 0)
+	{
+		exit("No Call Plan Defined.");
+	}
+	$call_table = new Table("cc_tariffgroup", "tariffgroupname,id");
+	$callPlan_list = $call_table-> Get_list($HD_Form -> DBHandle,"id in ($callPlan_idlist)");
+	
+	if (!is_array($callPlan_list) && count($callPlan_list) <= 0)
+	{
+		exit(gettext("No Call Plan id are defined"));
+	} 
+	$flag_callplan = 0;
+	if ($tariff!="" || $tariff != null) {
+		$callPlan_count = count($callPlan_list);	
+		for ($i=0; $i< $callPlan_count; $i++ ) {
+			if($callPlan_list[$i][1] == trim($tariff,"\'")) {
+				$flag_callplan = 1;
+			}
+		}
+		if($flag_callplan == 0) {
+			exit("Invalid Call Plan Id");	
 		}
 	}
-	if($flag_callplan == 0) {
-		exit("Invalid Call Plan Id");	
-	}
 }
+
 
 $currency_list = array();
 $currency_list_r = array();
@@ -100,7 +149,7 @@ $HD_Form -> AddEditElement ("CURRENCY",
 			   "",
 			   "list" , "", "",	"", $currency_list, "%1", "", "" );
 
-if (strpos($callPlan_idlist, ',') !== false) {
+if (!$agent_conf && strpos($callPlan_idlist, ',') !== false) {
 $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "tariff",
 			   "",
@@ -293,7 +342,7 @@ $HD_Form -> AddEditElement (gettext("VERIFICATION"),
 			   "" , "", "",	"", "", "" , "", "",CAPTCHA_ENABLE);
 
 
-if (strpos($callPlan_idlist, ',') !== false) {
+if (!$agent_conf && strpos($callPlan_idlist, ',') !== false) {
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,'.
 	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
@@ -345,14 +394,22 @@ $status = $A2B->config["signup"]['activatedbyuser'] ? '1' : '3';
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, activatedbyuser, status";
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass','$loginkey','$activatedbyuser','$status'";
 
+if($agent_conf){
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= ",id_group";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE .= ",'$groupid'";
+}
+
 // username, useralias, uipass, loginkey
 $HD_Form -> FG_QUERY_EXTRA_HIDDED = array($maxi, $maxi2, $pass, $loginkey);
 
 
-if (strpos($callPlan_idlist, ',') === false)
+if (!$agent_conf && strpos($callPlan_idlist, ',') === false)
 {
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE .= ", '$mytariff'";
+}elseif($agent_conf){
+	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
+	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE .= ", '$tariffid'";
 }
 if (DB_TYPE != "postgres"){
 	$FG_QUERY_ADITION_HIDDEN_FIELDS .= ", creationdate ";
