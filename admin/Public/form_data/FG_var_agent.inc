@@ -36,6 +36,7 @@ $right_list["7"] = array( gettext("CREATE CUSTOMER"), "64");
 $right_list["8"] = array( gettext("EDIT CUSTOMER"), "128");
 $right_list["9"] = array( gettext("DELETE CUSTOMER"), "256");
 $right_list["10"] = array( gettext("GENERATE CUSTOMER"), "512");
+$right_list["10"] = array( gettext("SIGNUP"), "1024");
 $len_right_list = count($right_list);
 
 $yesno = Constants::getYesNoList();

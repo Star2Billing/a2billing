@@ -33,6 +33,7 @@ define ("ACX_CREATE_CUSTOMER",			64);
 define ("ACX_EDIT_CUSTOMER",			128);
 define ("ACX_DELETE_CUSTOMER",			256);
 define ("ACX_GENERATE_CUSTOMER",		512);
+define ("ACX_SIGNUP",					1024);
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 
@@ -152,7 +153,7 @@ function has_rights ($condition) {
 	return ($_SESSION["rights"] & $condition);
 }
 
-
+$ACXSIGNUP 	= has_rights (ACX_SIGNUP);
 $ACXCUSTOMER 	= has_rights (ACX_CUSTOMER);
 $ACXBILLING 	= has_rights (ACX_BILLING);
 $ACXRATECARD 	= has_rights (ACX_RATECARD);

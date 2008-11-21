@@ -42,6 +42,7 @@ $smarty->assign("ACXRATECARD", $ACXRATECARD);
 $smarty->assign("ACXCALLREPORT", $ACXCALLREPORT);
 $smarty->assign("ACXMYACCOUNT", $ACXMYACCOUNT);
 $smarty->assign("ACXSUPPORT", $ACXSUPPORT);
+$smarty->assign("ACXSIGNUP", $ACXSIGNUP);
 
 if($_GET["section"]!="")
 {

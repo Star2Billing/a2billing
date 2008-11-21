@@ -776,6 +776,19 @@ SPAN.errorText {
 	font-weight: bold;	
 	color: White;
 }
+
+.form_input_button_disabled {
+	background-color: #F9FBF9;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: gray;
+	border-right: gray 2px ridge;
+	border-top: gray 2px ridge;
+	border-left: gray 2px ridge;	
+	border-bottom: gray 2px ridge;
+}
+
 .form_input_button {
 	background-color: #F9FBF9;
 	font-family: Arial, Helvetica, sans-serif;

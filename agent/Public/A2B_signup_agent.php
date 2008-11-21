@@ -1,56 +1,41 @@
 <?php
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
+include ("../lib/agent.smarty.php");
 
 
-if (! has_rights (ACX_ADMINISTRATOR)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();
-}
 
-getpost_ifset(array('agentid', 'tariffplan', 'group','task'));
+getpost_ifset(array( 'tariffplan', 'group','task'));
 
 
 $FG_DEBUG = 0;
 
 $DBHandle  = DbConnect();
+	
+$instance_table_tariffname = new Table("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup", "id, tariffgroupname");
 
-$instance_table_agent = new Table("cc_agent ", "id, login, firstname, lastname");
+$FG_TABLE_CLAUSE = "id_agent = ".$_SESSION['agent_id'];
 
-$list_agent = $instance_table_agent  -> Get_list ($DBHandle, "", "id", "ASC", null, null, null, null);
+$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 
-$disabled = true;
-	
-if(!empty($agentid) && is_numeric($agentid)){
-	
-	$instance_table_tariffname = new Table("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup", "id, tariffgroupname");
-	
-	$FG_TABLE_CLAUSE = "id_agent = ".$agentid;
-	
-	$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
-	
-	$instance_table_group = new Table("cc_card_group LEFT JOIN cc_agent_cardgroup ON cc_card_group.id = cc_agent_cardgroup.id_card_group", "id, name");
-	
-	$FG_TABLE_CLAUSE = "id_agent = ".$agentid;
-	
-	$list_group = $instance_table_group -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
-	
-	$disabled =false;
-}
+$instance_table_group = new Table("cc_card_group LEFT JOIN cc_agent_cardgroup ON cc_card_group.id = cc_agent_cardgroup.id_card_group", "id, name");
+
+$FG_TABLE_CLAUSE = "id_agent = ".$_SESSION['agent_id'];
+
+$list_group = $instance_table_group -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
+
+$disabled =false;
 
 
 
-if($task=="generate" && !empty($agentid) && !empty($tariffplan) && !empty($group)){
+
+if($task=="generate" && !empty($tariffplan) && !empty($group)){
 	$instance_table_agent_secret = new Table("cc_agent ", "secret");
-	$list_agent_secret = $instance_table_agent_secret  -> Get_list ($DBHandle, "id=".$agentid, "id", "ASC", null, null, null, null);
+	$list_agent_secret = $instance_table_agent_secret  -> Get_list ($DBHandle, "id=".$_SESSION['agent_id'], "id", "ASC", null, null, null, null);
 	if(is_array($list_agent_secret)){
-		$URL = $A2B->config['signup']['urlcustomerinterface']."signup/index.php?agentid=".$agentid."&agentkey=";
+		$URL = $A2B->config['signup']['urlcustomerinterface']."signup/index.php?agentid=".$_SESSION['agent_id']."&agentkey=";
 		$secret = $list_agent_secret[0][0];
-		echo $secret."    ";
 		$result = a2b_encrypt($group."-".$tariffplan."-",$secret);
-		echo $result;
 		$URL.= urlencode($result);
 	}
 }
@@ -67,7 +52,7 @@ $smarty->display('main.tpl');
 
 
 function submit_form(form){
-	if ((form.tariffplan.value.length < 1)||(form.group.value.length < 1)||(form.agentid.value.length < 1)){
+	if ((form.tariffplan.value.length < 1)||(form.group.value.length < 1)){
 		return (false);
 	}
 
@@ -80,36 +65,18 @@ function submit_form(form){
 
 
 <?php
- 	echo $CC_help_generate_signup;
+	echo $CC_help_generate_signup;
 ?>
 <center>
 		<b><?php echo gettext("Create signup url for a specific agent, customer group and Call Plan.");?>.</b></br></br>
 		<table width="95%" border="0" cellspacing="2" align="center" class="records">
 			
               <form name="form" enctype="multipart/form-data" action="A2B_signup_agent.php" method="post">
-				<tr> 
-                 	 <td colspan="2" align=center> 
-					  	<?php echo gettext ( "Select Agent" );?>: 
-					  	
-					  	<select id="selectagent" NAME="agentid" size="1" class="form_input_select">
-								<option value='' ><?php echo gettext("Choose an Agent ");?></option>
-								<?php					 
-									 foreach ($list_agent as $recordset){ 						 
-								?>
-									<option class=input value='<?php  echo $recordset['id']?>' <?php if ($recordset['id']==$agentid) echo "selected";?>><?php echo $recordset['login']." ( ".$recordset['id']." - ".$recordset['firstname']." ".$recordset['lastname']." )"?></option>                        
-								<?php 	 }
-								?>
-				  		 </select>
-				  		 <a href="#"
-					onclick="window.open('A2B_entity_agent.php?popup_select=1&popup_formname=form&popup_fieldname=agentid' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img
-					src="<?php echo Images_Path; ?>/icon_arrow_orange.gif"></a>
-					  	
-			  		</td>
-	  			</tr> 
+				
 				<tr> 
                   <td colspan="2" align=center> 
 				  <?php echo gettext("Choose the Call Plan to use");?> :
-				  <select id="tariff" NAME="tariffplan" size="1"  style="width=250" class="form_input_select<?php if($disabled) echo "_disabled" ?>" <?php if($disabled) echo "disabled=true" ?> >
+				  <select id="tariff" NAME="tariffplan" size="1"  style="width=250" class="form_input_select" >
 								<option value=''><?php echo gettext("Choose a Call Plan");?></option>
 							
 								<?php					 
@@ -121,7 +88,7 @@ function submit_form(form){
 						</select>	
 						<br><br>
 				   <?php echo gettext("Choose the Customer group to use");?> :
-				  <select id="group" NAME="group" size="1"  style="width=250" class="form_input_select<?php if($disabled) echo "_disabled" ?>" <?php if($disabled) echo "disabled=true" ?> >
+				  <select id="group" NAME="group" size="1"  style="width=250" class="form_input_select" >
 							  <option value=''><?php echo gettext("Choose a Customer Group");?></option>
 								<?php					 
 								 foreach ($list_group as $recordset){

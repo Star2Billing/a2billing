@@ -83,6 +83,33 @@ Logged-in as: <b>{$adminname}</b></p>
 	</div>
 	</div>
 	{/if}
+	
+	
+	{if ($ACXSIGNUP > 0) }
+	<div class="toggle_menu">
+	<li>
+	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
+	{if ($section == "8")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+ onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SIGNUP");{/php}</strong></a></li>
+	<div class="tohide"
+	{if ($section =="8")}
+	style="">
+	{else}
+	style="display:none;">
+	{/if}
+	<ul>
+		<li><ul>
+				<li><a href="A2B_signup_agent.php?atmenu=generatesignup&stitle=Signup&section=8">{php} echo gettext("Generate Signup Url");{/php}</a></li>
+				<li><a href="card-history.php?atmenu=changesecret&stitle=Card+History&section=8">{php} echo gettext("Change Secret");{/php}</a></li>
+		</ul></li>
+	</ul>
+	</div>
+	</div>
+	{/if}
 
 	{if ($ACXBILLING > 0)}
 	<div class="toggle_menu">

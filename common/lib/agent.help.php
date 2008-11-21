@@ -21,6 +21,18 @@ $CC_help_agent ='
 </div></div></div>
 </div></div>';
 
+	
+$CC_help_generate_signup='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Generate a spécific crypted URL and to configure signup with a customer group and call plan.").'
+<br/>
+</div></div></div>
+</div></div>';
 
 $CC_help_password_change ='
 <div id="div1000" style="display:visible;">
