@@ -5,6 +5,7 @@ $HD_Form = new FormHandler("cc_card","Card");
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
 
+$HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort", "");
 $HD_Form -> AddViewElement(gettext("CardNumber"), "username", "7%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"CARDALIAS\">ALIAS</acronym>"), "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FIRSTNAME"), "firstname", "10%", "center", "sort", "15");
@@ -12,10 +13,11 @@ $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "so
 
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "7%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "SUM(t3.credit),t3.card_id", "t3.card_id='%id' GROUP BY t3.card_id", "%1");
+$HD_Form -> AddViewElement(gettext("CHARGE"), "charge", "10%", "center", "sort", "15", "lie", "cc_charge as t4", "SUM(t4.amount),t4.id_cc_card", "t4.id_cc_card='%id' GROUP BY t4.id_cc_card", "%1");
 $HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "7%", "center", "sort", "15", "lie", "cc_logpayment as t2", "SUM(t2.payment),t2.card_id", "t2.card_id='%id' GROUP BY t2.card_id", "%1");
-$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%6-%5)'); //abs
+$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%8 - %7 - %6)'); //abs
 
-$HD_Form -> FieldViewElement ('username, useralias, firstname, lastname, credit, id, id, id');
+$HD_Form -> FieldViewElement ('id, username, useralias, firstname, lastname, credit, id, id, id, id');
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO").strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!"); 

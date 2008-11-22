@@ -66,14 +66,18 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // SELECT ROUND(SUM(credit)) from cc_card ;
 $instance_table = new Table("cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group", "ROUND(SUM(credit))");
-$list1 = $instance_table -> Get_list ($HD_Form -> DBHandle,"cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
+$total_credits = $instance_table -> Get_list ($HD_Form -> DBHandle,"cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
 // SELECT SUM(t1.credit) from  cc_logrefill as t1, cc_card as t2 where t1.card_id = t2.id;
 $instance_table = new Table("cc_logrefill as t1, cc_card as t2  LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group", "SUM(t1.credit)");
-$list2 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
+$total_refills = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
 // SELECT SUM(payment) from cc_logpayment as t1 ,cc_card as t2 where t1.card_id=t2.id;
 $instance_table = new Table("cc_logpayment as t1 ,cc_card as t2 LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group", "SUM(payment)");
-$list3 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] , null, null, null, null, null, null);
-$list4 = $list2[0][0] - $list3[0][0];
+$total_payments = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] , null, null, null, null, null, null);
+// SELECT SUM(amount) from cc_charge as t1, cc_card as t2 where t1.id_cc_card=t2.id;
+$instance_table = new Table("cc_charge AS t1, cc_card AS t2 LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group", "SUM(amount)");
+$total_charges = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.id_cc_card = t2.id AND cc_agent_cardgroup.id_agent = ".$_SESSION['agent_id'] , null, null, null, null, null, null);
+// Total to pay
+$total_to_pay = ($total_refills[0][0] + $total_charges[0][0]) - $total_payments[0][0];
 ?>
 <br/>
 <table border="1" cellpadding="4" cellspacing="2" width="90%" align="center" class="bgcolor_017" >		
@@ -83,14 +87,16 @@ $list4 = $list2[0][0] - $list3[0][0];
 				<tr class="form_head">                   					
 					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL CREDIT");?></strong></td>
 					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL REFILL");?></strong></td>
+					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL CHARGES");?></strong></td>
 					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL PAYMENT");?></strong></td>
 					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL TOPAY");?></strong></td>
 				</tr>
 				<tr>
-					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $list1[0][0]?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $list2[0][0]?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="#DD4444"><b><?php echo $list3[0][0]?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="#DDDDDD"><b><?php echo $list4?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $total_credits[0][0]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $total_refills[0][0]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $total_charges[0][0]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="#DD4444"><b><?php echo $total_payments[0][0]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="#DDDDDD"><b><?php echo $total_to_pay; ?></b></td>
 				</tr>
 			</table>
 		</td>
