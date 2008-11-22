@@ -354,9 +354,8 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   gettext("Insert the password"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
-$balance_access = 'readonly';
 if ($form_action =="ask-add" || $form_action=="add") {
-	$balance_access = '';
+	$balance_access = "readonly value='0'";
 } else {
 	$balance_access = 'readonly';
 }
