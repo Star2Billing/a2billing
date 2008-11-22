@@ -37,7 +37,6 @@ $instance_table_agent_secret = new Table("cc_agent ", "secret");
 $list_agent_secret = $instance_table_agent_secret  -> Get_list ($DBHandle, "id=".$_SESSION['agent_id'], "id", "ASC", null, null, null, null);
 $secret = $list_agent_secret[0][0];
 
-echo $secret;
 // #### HEADER SECTION
 $smarty->display( 'main.tpl');
 
