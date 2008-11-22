@@ -807,7 +807,7 @@ $HD_Form -> AddEditElement (gettext("VAT"),
 			   "vat",
 			   "",
 			   "INPUT",
-			   "size=10 maxlength=6",
+			   "size=10 maxlength=6 value=0",
 			   "12",
 			   gettext("Insert the number for the VAT"),
 			   "" , "", "",	"", "", "", "" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
