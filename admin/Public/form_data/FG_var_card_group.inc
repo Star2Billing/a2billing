@@ -44,7 +44,7 @@ $HD_Form -> FG_VIEW_TABLE_WITDH = '70%';
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
+$HD_Form -> FG_DELETION_FORBIDDEN_ID = array(1);
 
 $right_list = array();
 $right_list["1"] = array( gettext("PASSWORD"), "2");
