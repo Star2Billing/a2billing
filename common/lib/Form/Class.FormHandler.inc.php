@@ -121,6 +121,7 @@ class FormHandler
     */
 	var $FG_EDITION_LINK	= '';
 	var $FG_DELETION_LINK	= '';
+	var $FG_DELETION_FORBIDDEN_ID	= array();
 	var $FG_INFO_LINK='';	
 	var $FG_OTHER_BUTTON1_LINK	= '';
 	var $FG_OTHER_BUTTON2_LINK	= '';
@@ -1039,6 +1040,16 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		$processed = $this->getProcessed();  //$processed['firstname']
 
+		if ($form_action == "ask-delete" && in_array($processed['id'],$this->FG_DELETION_FORBIDDEN_ID) ){
+			
+			if(!empty($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
+				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
+			}else{
+				Header ("Location: ". $_SERVER['PHP_SELF']);
+			}
+		}
+		
+		
 		if ( $form_action == "list" || $form_action == "edit" || $form_action == "ask-delete" ||
 			 $form_action == "ask-edit" || $form_action == "add-content" || $form_action == "del-content" || $form_action == "ask-del-confirm"){
 			include_once (FSROOT."lib/Class.Table.php");
