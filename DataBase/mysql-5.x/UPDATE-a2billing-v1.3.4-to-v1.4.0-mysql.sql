@@ -1356,4 +1356,5 @@ ALTER TABLE cc_call ADD COLUMN destination INT (11) DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN destination INT (11) DEFAULT 0;
 
 
+UPDATE cc_card_group SET description = 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.' WHERE id = 1 LIMIT 1 ;
 
