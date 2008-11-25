@@ -59,8 +59,7 @@ INSTALLATION GUIDE OF THE ASTERISK APPLICATION:
 	
 
 [a2billing]
-exten => _X.,1,Answer
-exten => _X.,n,Wait(1)
+exten => _X.,1,Answer(1)
 exten => _X.,n,DeadAgi(a2billing.php|1)
 exten => _X.,n,Hangup
 
@@ -85,8 +84,9 @@ exten => _X.,1,DeadAgi(a2billing.php|1|did)
 exten => _X.,2,Hangup
 
 [a2billing-voucher]
-exten => _X.,1,DeadAgi(a2billing.php|1|voucher)
-;exten => _X.,1,AGI(a2billing.php|1|voucher|44) ; will add 44 in front of the callerID for the CID authentication
+exten => _X.,1,Answer(1)
+exten => _X.,n,DeadAgi(a2billing.php|1|voucher)
+;exten => _X.,n,AGI(a2billing.php|1|voucher|44) ; will add 44 in front of the callerID for the CID authentication
 exten => _X.,n,Hangup	
 
 [a2billing_dispatch]
@@ -103,6 +103,14 @@ exten => _X.,6,Hangup
 ;exten => _X.,1,Dial(IAX2/${EXTEN}@IP_SECOND_SERVER)
 exten => _X.,1,Dial(SIP/${EXTEN}@IP_SECOND_SERVER)
 ; Use canreinvite to not pass the media through the first box
+
+
+; As fourth parameter we pass the reference ID of the Agent 
+[a2billing_autocreate_example]
+exten => _X.,1,Answer(1)
+exten => _X.,n,DeadAgi(a2billing.php|1|standard|0|%REF_AGENT%)
+exten => _X.,n,Hangup
+
 
 
 8. sip.conf add the line at the end	
