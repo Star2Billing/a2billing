@@ -117,8 +117,8 @@ $instance_table = new Table();
 $A2B -> set_instance_table ($instance_table);
 
 //GET CURRENCIES FROM DATABASE
-$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
-$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
+$QUERY =  "SELECT id, currency, name, value FROM cc_currencies ORDER BY id";
+$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 1, 300);
 
 if (is_array($result)){
 	$num_cur = count($result);
@@ -150,16 +150,15 @@ if ($mode == 'standard'){
 
 	$A2B -> play_menulanguage ($agi);
 
-	/*************************   PLAY INTRO MESSAGE   ************************/
-
-	if (strlen($A2B->agiconfig['intro_prompt'])>0){
+	// Play intro message
+	if (strlen($A2B->agiconfig['intro_prompt'])>0) {
 		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');
 	}
-
-	/* WE START ;) */
+	
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TRY : callingcard_ivr_authenticate]");
-	// GOOD AUTHENTICATION AND WE HAVE CREDIT TO GO AHEAD
+	
+	// CALL AUTHENTICATE AND WE HAVE ENOUGH CREDIT TO GO AHEAD
 	if ($cia_res==0){
 
 		// RE-SET THE CALLERID

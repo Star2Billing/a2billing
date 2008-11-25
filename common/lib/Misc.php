@@ -72,13 +72,8 @@ function get_currencies($handle = null)
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
-	$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
-	$result = $instance_table -> SQLExec ($handle, $QUERY);
-	/*
-		$currencies_list['ADF'][1]="Andorran Franc";
-		$currencies_list['ADF'][2]="0.1339";
-		[ADF] => Array ( [1] => Andorran Franc (ADF), [2] => 0.1339 )
-	*/
+	$QUERY =  "SELECT id, currency, name, value FROM cc_currencies ORDER BY id";
+	$result = $instance_table -> SQLExec ($handle, $QUERY, 1, 300);
 
 	if (is_array($result)){
 		$num_cur = count($result);
