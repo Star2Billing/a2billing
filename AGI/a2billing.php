@@ -68,11 +68,17 @@ else																			$mode = 'standard';
 // get the area code for the cid-callback & all-callback
 if ($argc > 3 && strlen($argv[3]) > 0) 
 	$caller_areacode = $argv[3];
-
+	
+if ($argc > 4 && strlen($argv[4]) > 0){ 
+	$groupid = $argv[4];
+	$A2B -> group_mode = true;
+	$A2B -> group_id = $groupid;
+}
 
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 $A2B -> mode = $mode;
+
 
 
 $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "IDCONFIG : $idconfig");

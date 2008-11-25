@@ -127,6 +127,8 @@ class A2Billing {
 	var $hostname='';
 	var $currency='usd';
 
+	var $groupe_mode = false;
+	var $groupe_id = '';
 	var $mode = '';
 	var $timeout;
 	var $newdestination;
@@ -2004,8 +2006,14 @@ class A2Billing {
 					$ttcard = ($this->agiconfig['cid_auto_create_card_typepaid']=="POSTPAY") ? 1 : 0;
 
 					//CREATE A CARD
+					
 					$QUERY_FIELS = 'username, useralias, uipass, credit, language, tariff, activated, typepaid, creditlimit, inuse, status, currency';
 					$QUERY_VALUES = "'$card_gen', '$card_alias', '$uipass', '".$this->agiconfig['cid_auto_create_card_credit']."', 'en', '".$this->agiconfig['cid_auto_create_card_tariffgroup']."', 't','$ttcard', '".$this->agiconfig['cid_auto_create_card_credit_limit']."', '0', '1', '".$this->config['global']['base_currency']."'";
+					if($this ->groupe_mode){ 
+						$QUERY_FIELS .= ", id_group";
+						$QUERY_VALUES .= " , '$this->group_id'";
+					}
+					
 					$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card', 'id');
 					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[CARDNUMBER: $card_gen]:[CARDID CREATED : $result]");
 
