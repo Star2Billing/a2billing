@@ -336,11 +336,11 @@ $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 
 if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_agent";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0'";
 } else {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreation ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now() ";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_agent,datecreation ";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0',now() ";
 }
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;

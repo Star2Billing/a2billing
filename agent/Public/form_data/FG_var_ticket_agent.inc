@@ -1,7 +1,7 @@
 <?php
 include (LIBDIR."/support/classes/ticket.php");
 
-getpost_ifset(array('id', 'title', 'id_component','description','priority','status'));
+getpost_ifset(array('id', 'title', 'id_component','description','priority','status','viewed_agent'));
 
 $HD_Form = new FormHandler("cc_ticket","Ticket");
 
@@ -16,7 +16,7 @@ $HD_Form -> FG_TABLE_CLAUSE = "creator_type=1 AND creator= ".$_SESSION['agent_id
 $HD_Form -> FG_TABLE_ID="id";
 
 $status_list = Ticket::getAllStatusListView();
-
+$viewed_list = Constants::getTicketViewedList();
 $priority_list =Constants::getTicketPriorityList();
 
 
@@ -25,9 +25,10 @@ $HD_Form -> AddViewElement(gettext("TITLE"), "title", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("COMPONENT"), "id_component", "10%", "center", "sort", "15", "lie", "cc_support_component", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "sort", "", "list", $priority_list);
+$HD_Form -> AddViewElement(gettext("TO SEE?"), "viewed_agent", "10%", "center", "sort", "", "list", $viewed_list);
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort", "", "list", $status_list);
 
-$HD_Form -> FieldViewElement ('cc_ticket.id, title, cc_ticket.creationdate, id_component , priority, status');
+$HD_Form -> FieldViewElement ('cc_ticket.id, title, cc_ticket.creationdate, id_component , priority,viewed_agent, status');
 
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_ticket_view.php?id=";

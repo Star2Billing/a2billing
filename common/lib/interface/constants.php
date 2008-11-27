@@ -164,6 +164,13 @@ class Constants
 		$priority_list["3"] = array( gettext("HIGH"), "3");
 		return $priority_list;
 	}
+	
+	public static function getTicketViewedList(){
+		$viewed_list = array();
+		$viewed_list["0"] = array( "", "0");
+		$viewed_list["1"] = array( "<img src='".Images_Path."/eye.png' border='0' title='".gettext("Not Viewed")."' alt='".gettext("Not Viewed")."' ", "1");
+		return $viewed_list;
+	}
 
 	public static function getUsedList(){
 		$used_list = array();

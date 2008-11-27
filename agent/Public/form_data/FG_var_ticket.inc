@@ -1,7 +1,7 @@
 <?php
 include (LIBDIR."/support/classes/ticket.php");
 
-getpost_ifset(array('id', 'title', 'id_component','description','priority','status','creator','username' ));
+getpost_ifset(array('id', 'title', 'id_component','description','priority','status','creator','username','viewed_agent' ));
 
 if (!isset($form_action) || $form_action=="list"){
   	 $HD_Form = new FormHandler("cc_ticket, cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group", "Ticket");
@@ -18,8 +18,9 @@ $HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=creator AND creator_type=0 AND cc_agen
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $priority_list = Constants::getTicketPriorityList();
-
+$viewed_list = Constants::getTicketViewedList();
 $status_list = Ticket::getAllStatusListView();
+
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("HOLDER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
@@ -28,9 +29,10 @@ $HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("COMPONENT"), "id_component", "10%", "center", "sort", "15", "lie", "cc_support_component", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "sort", "", "list", $priority_list);
+$HD_Form -> AddViewElement(gettext("TO SEE?"), "viewed_agent", "10%", "center", "sort", "", "list", $viewed_list);
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort", "", "list", $status_list);
 
-$HD_Form -> FieldViewElement ('cc_ticket.id, creator, username, title, cc_ticket.creationdate, id_component , priority , cc_ticket.status');
+$HD_Form -> FieldViewElement ('cc_ticket.id, creator, username, title, cc_ticket.creationdate, id_component , priority ,viewed_agent, cc_ticket.status');
 
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_ticket_view.php?id=";
@@ -117,11 +119,11 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 $HD_Form -> FieldEditElement (' creator, title, id_component, priority, description');
 
 if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_agent";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0'";
 }else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_agent ,creationdate ";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0',now()";
 }
 
 

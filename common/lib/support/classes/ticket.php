@@ -11,6 +11,9 @@ class Ticket
    private $status;
    private $componentid;
    private $componentname;
+   private $viewed_cust;
+   private $viewed_agent;
+   private $viewed_admin;
 
 
 
@@ -38,6 +41,9 @@ class Ticket
         	$this->status =$value["status"];
         	$this->creationdate = $value["creationdate"];
         	$this->componentid = $value["id_component"];
+        	$this->viewed_admin = $value["viewed_admin"];
+       		$this->viewed_agent = $value["viewed_agent"];
+       		$this->viewed_cust = $value["viewed_cust"];
         }
 
      if(!is_null($this->creatorid)){
@@ -97,9 +103,19 @@ class Ticket
 
    	 return $this->status;
 
-
    }
-
+   	//0 customer
+   	//1 agent
+   	//2 admin
+	function getViewed($type){
+		switch ($type) {
+			case 0: return $this ->viewed_cust;
+			case 1: return $this ->viewed_agent;
+			case 2: return $this ->viewed_admin;
+			default: return 0; 
+		}
+	}
+   
     function getPriorityDisplay(){
 
 		switch($this->priority){
@@ -142,7 +158,7 @@ class Ticket
      $return = $instance_sub_table -> Get_list($DBHandle, $QUERY,"date","ASC");
      $i = 0;
  	foreach ($return as $value)
-      { $comment = new Comment($value['description'],$value['date']);
+      { $comment = new Comment($value['id'],$value['description'],$value['date'],$value["viewed_cust"],$value["viewed_agent"],$value["viewed_admin"]);
       	$creatorid =$value["creator"];
         $creator_type = $value["creator_type"];
 
@@ -196,6 +212,7 @@ class Ticket
    function insertComment($desc,$creator,$creator_type){
 
    	$DBHandle  = DbConnect();
+   	
    	 $instance_sub_table = new Table("cc_ticket_comment", "*");
    	 if (DB_TYPE == "postgres") {
 		 $QUERY_FIELDS = 'id_ticket, description,creator, creator_type';
@@ -204,8 +221,19 @@ class Ticket
 		$QUERY_FIELDS = 'id_ticket, description,creator, creator_type , date';
 		$QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type', now() ";
 	}
+    switch ($creator_type) {
+   		case 0: $QUERY_FIELDS.=" ,viewed_cust ";
+   				$QUERY_VALUES.=" ,'0'";
+   				break;
+   		case 1: $QUERY_FIELDS.=" ,viewed_admin ";
+   				$QUERY_VALUES.=" ,'0'";
+   				break;
+   		case 2: $QUERY_FIELDS.=" ,viewed_agent ";
+   				$QUERY_VALUES.=" ,'0'";
+   				break;
+   		
+   	}
 	 $return = $instance_sub_table-> Add_table ($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_ticket_comment', 'id');
-
 
 
    }

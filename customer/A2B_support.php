@@ -26,9 +26,9 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
 
 		if (DB_TYPE == "postgres"){
-			$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."')";
+			$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, viewed_cust) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0')";
 		}else{
-			$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, creationdate) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."', now())";
+			$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, creationdate, viewed_cust) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."', now() ,'0')";
 		}
 
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
