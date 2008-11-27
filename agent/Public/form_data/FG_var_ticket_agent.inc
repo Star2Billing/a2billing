@@ -3,21 +3,23 @@ include (LIBDIR."/support/classes/ticket.php");
 
 getpost_ifset(array('id', 'title', 'id_component','description','priority','status','viewed_agent'));
 
-$HD_Form = new FormHandler("cc_ticket","Ticket");
+$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket","Ticket");
 
 
 
 $plang='en';
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = " id";
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = " cc_ticket.id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = "creator_type=1 AND creator= ".$_SESSION['agent_id'];
-$HD_Form -> FG_TABLE_ID="id";
+$HD_Form -> FG_TABLE_CLAUSE = "cc_ticket.creator_type=1 AND cc_ticket.creator= ".$_SESSION['agent_id']." GROUP BY cc_ticket.id";
+$HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $status_list = Ticket::getAllStatusListView();
 $viewed_list = Constants::getTicketViewedList();
 $priority_list =Constants::getTicketPriorityList();
+
+$filter_view ='CASE WHEN cc_ticket.viewed_agent=1 OR SUM(cc_ticket_comment.viewed_agent)>0 THEN 1 ELSE 0 END ';
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
@@ -28,7 +30,7 @@ $HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "so
 $HD_Form -> AddViewElement(gettext("TO SEE?"), "viewed_agent", "10%", "center", "sort", "", "list", $viewed_list);
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort", "", "list", $status_list);
 
-$HD_Form -> FieldViewElement ('cc_ticket.id, title, cc_ticket.creationdate, id_component , priority,viewed_agent, status');
+$HD_Form -> FieldViewElement ("cc_ticket.id, title, cc_ticket.creationdate, id_component , priority, $filter_view, cc_ticket.status");
 
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_ticket_view.php?id=";

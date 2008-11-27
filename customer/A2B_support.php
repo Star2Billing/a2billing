@@ -30,7 +30,6 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		}else{
 			$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, creationdate, viewed_cust) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."', now() ,'0')";
 		}
-
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 		$update_msg = gettext("Ticket added successfully");
 
