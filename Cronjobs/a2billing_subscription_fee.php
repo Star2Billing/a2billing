@@ -34,14 +34,14 @@ $verbose_level=0;
 $groupcard=5000;
 
 
+$A2B = new A2Billing();
+$A2B -> load_conf($agi, NULL, 0, $idconfig);
+
 if ($A2B->config["database"]['dbtype'] == "postgres"){
 	$UNIX_TIMESTAMP = "date_part('epoch',";
 }else{
 	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
 }
-
-$A2B = new A2Billing();
-$A2B -> load_conf($agi, NULL, 0, $idconfig);
 
 write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[#### BATCH BEGIN ####]");
 
