@@ -73,7 +73,7 @@ foreach ($result_group as $row)
 $groupe_clause .= " )";
 
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE SERVICE
-$QUERY = 'SELECT count(*) FROM cc_card WHERE  firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1 AND id_group '.$groupe_clause;
+$QUERY = "SELECT count(*) FROM cc_card WHERE  firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00' AND runservice=1 AND id_group ".$groupe_clause;
 if ($verbose_level>=1) echo $QUERY;
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
@@ -132,7 +132,7 @@ foreach ($result as $myservice) {
 	// BROWSE THROUGH THE CARD TO APPLY THE SERVICE 
 	for ($page = 0; $page < $nbpagemax; $page++) {
 		
-		$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = $myservice[0] AND firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1  ORDER BY id  ";
+		$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = $myservice[0] AND firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00' AND runservice=1  ORDER BY id  ";
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
 			$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
 		}else{
