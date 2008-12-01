@@ -241,7 +241,7 @@ define ("COPYRIGHT", gettext(" This software is under GPL licence. For further i
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
 
 
-include ("help.php");
+include (LIBDIR."customer.help.php");
 
 define ("ENABLE_LOG", 0);
 

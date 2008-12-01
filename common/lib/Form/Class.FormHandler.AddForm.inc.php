@@ -191,7 +191,7 @@
 		<tr>
 			<td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_ADITION_BOTTOM_TEXT?></span></td>
 			<td width="50%" align="right" class="text">
-				<a href="#" onClick="javascript:document.myForm.submit();" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
+				<a href="#" onClick="javascript:document.myForm.submit();" class="cssbutton_big"><IMG style="vertical-align:middle;" src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
 				<?php echo $this->FG_ADD_PAGE_CONFIRM_BUTTON; ?> </a>
 				<!--
 				<INPUT title="<?php echo gettext("Create a new ");?><?php echo $this->FG_INSTANCE_NAME?>" alt="<?php echo gettext("Create a new ");?> <?php echo $this->FG_INSTANCE_NAME?>" border=0 hspace=0 id=submit4 name=submit2 src="<?php echo $this->FG_BUTTON_ADITION_SRC?>" type=image>
