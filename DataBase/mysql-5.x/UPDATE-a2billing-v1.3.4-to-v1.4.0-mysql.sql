@@ -1366,3 +1366,5 @@ ADD viewed_admin TINYINT NOT NULL DEFAULT '1';
 ALTER TABLE cc_ticket_comment ADD viewed_cust TINYINT NOT NULL DEFAULT '1',
 ADD viewed_agent TINYINT NOT NULL DEFAULT '1',
 ADD viewed_admin TINYINT NOT NULL DEFAULT '1';
+
+ALTER TABLE cc_ui_authen ADD email VARCHAR( 70 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;

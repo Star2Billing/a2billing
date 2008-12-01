@@ -255,9 +255,9 @@ $HD_Form -> AddEditElement (gettext("EMAIL"),
 		"email",
 		'$value',
 		"INPUT",
-		"size=30 maxlength=30",
-		"",
-		gettext("Insert the state"),
+		"size=30 maxlength=70",
+		"1",
+		gettext("Insert the email"),
 		"" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("PHONE"),

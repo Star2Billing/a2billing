@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'groupID', 'userid', 'login', 'pwd_encoded', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname'));
+getpost_ifset(array('id', 'groupID', 'userid', 'login', 'pwd_encoded', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname', 'email'));
 
 
 if ($groupID=="0"){
@@ -178,7 +178,15 @@ $HD_Form -> AddEditElement (gettext("FAX"),
 	"",
 	gettext("Insert the fax number"),
 	"" , "", "", "", "" , "", "", "");
-
+$HD_Form -> AddEditElement (gettext("EMAIL"),
+		"email",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=70",
+		"1",
+		gettext("Insert the email"),
+		"" , "", "", "", "" , "", "", "");
+	
 
 if (($groupID=="2") || ($groupID=="3")){
 	if ($groupID=="2"){
@@ -218,7 +226,7 @@ if ($groupID!="0"){
 	$FG_QUERY_EDITION .= 'perms, ';
 }
 
-$FG_QUERY_EDITION .= 'name, direction, zipcode, state, phone, fax';
+$FG_QUERY_EDITION .= 'name, direction, zipcode, state, phone, fax,email';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 
