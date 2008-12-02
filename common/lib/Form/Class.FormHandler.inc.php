@@ -1524,9 +1524,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		global $A2B;
 		$processed = $this->getProcessed();
 		$id_payment = $this -> RESULT_QUERY;
-		// echo "ID : ".$id;
-		//CREATE REFILL
-		$field_insert = "date, credit, card_id , description";
 		$credit = $processed['credit'];
 		$card_id = $processed['card_id'];
 			//REFILL CARD .. UPADTE CARD
@@ -1534,6 +1531,25 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$param_update_card = "credit = credit + '".$credit."'";
 		$clause_update_card = " id='$card_id'";
 		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+	}
+	
+	function creation_card_refill(){
+		$processed = $this->getProcessed();
+		$credit = $processed['credit'];
+		if($credit>0){
+			$field_insert = " credit,card_id, description";
+			$card_id = $this -> RESULT_QUERY;
+			$description = gettext("CREATION CARD REFILL");
+			$value_insert = "'$credit', '$card_id', '$description' ";
+			$instance_refill_table = new Table("cc_logrefill", $field_insert);
+			$instance_refill_table -> Add_table ($this->DBHandle, $value_insert, null, null);	
+		}
+	}
+	
+	function post_processing_card_add(){
+		$this->create_sipiax_friends();
+		$this->creation_card_refill();
+		
 	}
 	
 	/**

@@ -304,7 +304,6 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?friend=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
 	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?friend=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
 	$HD_Form -> FG_INFO_LINK = "A2B_card_info.php?id=";
-	//FOR INFO , DEL, EDIT  the image is already in Image_Path
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
@@ -355,7 +354,7 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
 if ($form_action =="ask-add" || $form_action=="add") {
-	$balance_access = "readonly value='0'";
+	$balance_access = "value='0'";
 } else {
 	$balance_access = 'readonly';
 }
@@ -955,7 +954,7 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 
-$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'post_processing_card_add';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
 
 if (isset($form_action) && $form_action=='delete' && USE_REALTIME){
