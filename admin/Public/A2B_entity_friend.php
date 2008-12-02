@@ -23,7 +23,7 @@ getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
 if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
-	if(USE_REALTIME){
+	if(!USE_REALTIME){
 		$_SESSION["is_sip_iax_change"]=1;
 	}
 	
@@ -31,13 +31,13 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 
 	if ( $form_action == "add_sip" ) { 
 		$friend_param_update=" sip_buddy='1' ";
-		if(USE_REALTIME){
+		if(!USE_REALTIME){
 			$_SESSION["is_sip_changed"] = 1;
 		}
 	}	
 	else {
 		$friend_param_update=" iax_buddy='1' ";
-		if(USE_REALTIME){
+		if(!USE_REALTIME){
 			$_SESSION["is_iax_changed"] = 1;
 		}
 	}
@@ -90,7 +90,7 @@ if ($id!="" || !is_null($id)){
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
-if(USE_REALTIME){
+if(!USE_REALTIME){
 	// CHECK THE ACTION AND SET THE IS_SIP_IAX_CHANGE IF WE ADD/EDIT/REMOVE A RECORD
 	if ( $form_action == "add" || $form_action == "edit" || $form_action == "delete" ){
 		$_SESSION["is_sip_iax_change"]=1;
