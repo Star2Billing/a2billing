@@ -36,7 +36,7 @@ $right_list["7"] = array( gettext("CREATE CUSTOMER"), "64");
 $right_list["8"] = array( gettext("EDIT CUSTOMER"), "128");
 $right_list["9"] = array( gettext("DELETE CUSTOMER"), "256");
 $right_list["10"] = array( gettext("GENERATE CUSTOMER"), "512");
-$right_list["10"] = array( gettext("SIGNUP"), "1024");
+$right_list["11"] = array( gettext("SIGNUP"), "1024");
 $len_right_list = count($right_list);
 
 $yesno = Constants::getYesNoList();
@@ -232,12 +232,21 @@ $HD_Form -> AddEditElement (gettext("CITY"),
 		"",
 		gettext("Insert the city"),
 		"" , "", "", "", "", "", "", "");
+		
+$HD_Form -> AddEditElement (gettext("STATE"),
+		"state",
+		'$value',
+		"INPUT",
+		"size=20 maxlength=40",
+		"",
+		gettext("Insert the state"),
+		"" , "", "", "", "", "", "", "");
 
 $HD_Form -> AddEditElement (gettext("COUNTRY"),
 		"country",
 		'$value',
 		"INPUT",
-		"size=20 maxlength=20",
+		"size=20 maxlength=40",
 		"",
 		gettext("Insert the country"),
 		"" , "", "", "", "", "", "", "");
@@ -258,7 +267,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL"),
 		"size=30 maxlength=70",
 		"1",
 		gettext("Insert the email"),
-		"" , "", "", "", "" , "", "", "");
+		"" , "", "", "", "" , "", "NO", "");
 
 $HD_Form -> AddEditElement (gettext("PHONE"),
 		"phone",
