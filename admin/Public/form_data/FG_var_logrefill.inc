@@ -57,7 +57,7 @@ if ($form_action=="ask-add"){
 	$comp_date="value='$comp_date'";
 }
 
-$HD_Form -> AddEditElement (gettext("PAYMENT DATE"),
+$HD_Form -> AddEditElement (gettext("REFILL DATE"),
 			   "date",		
 			   '$value',	
 			   "INPUT",	
