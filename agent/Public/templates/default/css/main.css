@@ -234,13 +234,12 @@ SPAN.errorText {
 }
 
 .divright {
-	position: absolute;
 	z-index: 0;
 	height: auto;
 	width: auto;
 	left: 180px;
 	top: 35px;
-	PADDING-LEFT: 10px; 
+	PADDING-LEFT: 180px; 
 	PADDING-RIGHT: 10px; 
 }
 .callhistory_totalcost {

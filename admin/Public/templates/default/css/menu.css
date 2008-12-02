@@ -10,7 +10,8 @@
   background-position: 100% 100%;    
   padding: 2px;
   padding-right: 70px; 
-  padding-left: 7px; 
+  padding-left: 7px;
+  min-height:75px;
 }
 
 #img1000 {

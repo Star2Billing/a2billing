@@ -69,7 +69,8 @@
   background-position: right;  
   font-size: 9px;
   width: 100%;
-  display: table-cell;  
+  display: table-cell; 
+  min-height:75px; 
 }
 
 .kikipic {
