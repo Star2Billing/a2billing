@@ -89,8 +89,22 @@ if($Period=="Time" && $lst_time != "") {
 		$condition .= "DATE_SUB( NOW( ) , INTERVAL 1 DAY ) <= cdr.starttime";
 	}
 }
-
-	
+#save conditions for later use
+if ($posted =="1"){
+ $_SESSION['condition']=$condition;
+ $_SESSION['group_id']="";
+}else{
+ if(isset($_SESSION['condition']) && strlen($_SESSION['condition'])>5 ){
+ $condition=$_SESSION['condition'];
+ }
+}
+if (isset($group_id)){
+  $_SESSION['group_id']=$group_id;
+}else{
+  if(isset($_SESSION['group_id']) && strlen($_SESSION['group_id'])>1 ){
+   $group_id=$_SESSION['group_id'];
+  }
+}
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
@@ -226,14 +240,13 @@ if (strlen($payphones)>0)$dnids.=" union ".$payphones;
 
 if(!isset($group_id)){
 	$q_id_group="id_group";
-	$q_id_tab="cc_card_group ";
 	$q_cg_name="cg.name";
-	$q_where="";
+	$q_t1="cc";
 }else {
-	$q_id_group="id_agent";
-	$q_id_tab="cc_agent";
-	$q_cg_name="cg.login as name";
-	$q_where=" and id_group=$group_id";
+	$q_id_group="destination";
+	$q_cg_name="cg.destination as name";
+ 	$q_t1="cdr";
+	$q_where="  AND cc.id_group=$group_id";
 };
 $QUERY="
 select main_id as id, name,call_count,time_minutes,tall_free_buy_cost,pay_phone_buy_cost,orig_only,credits,orig_cost+credits as orig_total,
@@ -261,7 +274,7 @@ from(
         sum(sessionbill) as term_cost,
         avg(discount) as discount
   from (
-   select cc.$q_id_group,
+   select $q_t1.$q_id_group,
        cdr.sessiontime,cdr.dnid,cdr.real_sessiontime,sessionbill,buycost,cc.discount,
            case when tf.cost is null then 0 else tf.cost end as tf_cost,
             case when tf.sell_cost is null then 0 else tf.sell_cost end as tf_sell_cost,
@@ -274,21 +287,34 @@ from(
     sessiontime>0 and $condition $q_where
     order by cdr.starttime desc
    ) as a group by $q_id_group
- ) as t1 left join $q_id_tab as cg on cg.id=$q_id_group left join (
-        select cc.$q_id_group,sum(cr.credit) as credits from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
-         where refill_type=1 and $condition1 $q_where
-         group by $q_id_group
- ) as t2 on t1.$q_id_group=t2.$q_id_group left join
+ ) as t1 ";
+ 
+if(!isset($group_id)){
+ $QUERY.=" left join cc_card_group as cg on cg.id=id_group left join (
+        select cc.id_group,sum(cr.credit) as credits from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
+         where refill_type=1 and $condition1
+         group by id_group
+ ) as t2 on t1.id_group=t2.id_group left join
  (
-        select cc.$q_id_group,-sum(cr.credit) as charges from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
-         where refill_type=2 and $condition1 $q_where
-         group by $q_id_group
- ) as t3 on t1.$q_id_group=t3.$q_id_group left join (
- select $q_id_group,count(*) as first_use from cc_card where $condition2 $q_where
- group by $q_id_group
- )as t4 on t1.$q_id_group=t4.$q_id_group
+        select cc.id_group,-sum(cr.credit) as charges from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
+         where refill_type=2 and $condition1 
+         group by  id_group 
+ ) as t3 on t1.id_group=t3.id_group left join (
+ select id_group,count(*) as first_use from cc_card where $condition2
+ group by id_group
+ )as t4 on t1.id_group=t4.id_group
 )as result
 ";
+}else{
+ $QUERY.="left join cc_prefix as cg on cg.prefix=t1.destination,
+  (select '-' as  credits,'-' as charges,'-' as first_use) as t2 
+ )as result
+
+";
+}
+print "<!--
+ $QUERY 
+-->";
 
 
 $HD_Form = new FormHandler("pnl_report","PNL Report");
