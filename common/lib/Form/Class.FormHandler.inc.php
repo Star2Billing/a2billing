@@ -938,6 +938,10 @@ class FormHandler
 		                        "(HH:MM:SS)");				
 						// check_select
 		// TO check if a select have a value different -1
+		// 21 -> Check percent more of 0 and under 100
+		$this -> FG_regular[]  = array( "^100$|^(([0-9]){0,2})((\.)([0-9]*))?$"  ,
+					gettext("(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"));
+		
 	}
 	
 	
