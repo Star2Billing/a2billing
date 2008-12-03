@@ -37,6 +37,9 @@ $right_list["8"] = array( gettext("EDIT CUSTOMER"), "128");
 $right_list["9"] = array( gettext("DELETE CUSTOMER"), "256");
 $right_list["10"] = array( gettext("GENERATE CUSTOMER"), "512");
 $right_list["11"] = array( gettext("SIGNUP"), "1024");
+$right_list["12"] = array( gettext("SIP CONF"), "2048");
+$right_list["13"] = array( gettext("IAX CONF"), "4096");
+
 $len_right_list = count($right_list);
 
 $yesno = Constants::getYesNoList();

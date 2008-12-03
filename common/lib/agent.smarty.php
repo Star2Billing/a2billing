@@ -43,6 +43,8 @@ $smarty->assign("ACXCALLREPORT", $ACXCALLREPORT);
 $smarty->assign("ACXMYACCOUNT", $ACXMYACCOUNT);
 $smarty->assign("ACXSUPPORT", $ACXSUPPORT);
 $smarty->assign("ACXSIGNUP", $ACXSIGNUP);
+$smarty->assign("ACXSIPCONF", $ACXSIPCONF);
+$smarty->assign("ACXIAXCONF", $ACXIAXCONF);
 
 if($_GET["section"]!="")
 {

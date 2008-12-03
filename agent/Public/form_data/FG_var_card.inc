@@ -291,23 +291,30 @@ if (($popup_select>=1)) {
 	if (has_rights (ACX_EDIT_CUSTOMER)) { 
 	$HD_Form -> FG_EDITION = true;
 	}
+	
 	$HD_Form -> FG_INFO = true;
+	$HD_Form -> FG_INFO_LINK = "A2B_card_info.php?id=";
 	
 	if (has_rights (ACX_DELETE_CUSTOMER)) { 
 	$HD_Form -> FG_DELETION = true;
 	}
-	$HD_Form -> FG_OTHER_BUTTON1 = true;
-	$HD_Form -> FG_OTHER_BUTTON2 = true;
+	
 	$FN_COLUMN_ID="col".($FG_COL_QUERY_COUNT);//get numbers of rows for needed fields
 	$FN_COLUMN_USERNAME="col".($FG_COL_QUERY_COUNT+1);
 	$FN_COLUMN_ALIAS="col".($FG_COL_QUERY_COUNT+2);
+	
+	if (has_rights (ACX_SIPCONF)) { 
+	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
-	$HD_Form -> FG_INFO_LINK = "A2B_card_info.php?id=";
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
-	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
+	}
+	if (has_rights (ACX_IAXCONF)) {
+	$HD_Form -> FG_OTHER_BUTTON2 = true;
+	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
+	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
+	}
 }
 
 $maxi	= '';

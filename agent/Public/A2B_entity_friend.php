@@ -11,7 +11,19 @@ if (! has_rights (ACX_CUSTOMER)) {
 	die();
 }
 
-
+if ($form_action=="add_sip" || $atmenu=="sip"  ) {
+	if (! has_rights (ACX_SIPCONF)) { 
+		Header ("HTTP/1.0 401 Unauthorized");
+		Header ("Location: PP_error.php?c=accessdenied");	   
+		die();	   
+	}
+}else{
+	if (! has_rights (ACX_IAXCONF)) { 
+		Header ("HTTP/1.0 401 Unauthorized");
+		Header ("Location: PP_error.php?c=accessdenied");	   
+		die();	   
+	}
+}
 
 /***********************************************************************************/
 
