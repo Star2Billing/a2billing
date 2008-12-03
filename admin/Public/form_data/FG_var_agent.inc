@@ -147,11 +147,17 @@ $HD_Form -> AddEditElement (gettext("ACTIVE"),
 	   gettext("Choose if you want to active the agent"),
 	   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable agent"));
 
+if ($form_action =="ask-add" || $form_action=="add") {
+	$balance_access = "value = '0'";
+} else {
+	$balance_access = 'readonly';
+}
+	   
 $HD_Form -> AddEditElement (gettext("BALANCE"),
 	   "credit",
 	   "",
 	   "INPUT",
-	   "size=30 maxlength=30",
+	   "size=30 maxlength=30 $balance_access",
 	   "12",
 	   gettext("Insert the number of credit"),
 	   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
@@ -169,7 +175,7 @@ $HD_Form -> AddEditElement (gettext("COMMISSION"),
 	   "",
 	   "INPUT",
 	   "size=20 maxlength=20",
-	   "12",
+	   "21",
 	   gettext("Insert the commision"),
 	   "" , "", "",	"", "", "", "NO-NULL", gettext("Commission"));
 
@@ -368,7 +374,7 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 
-//$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
