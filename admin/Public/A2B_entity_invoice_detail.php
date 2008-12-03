@@ -190,14 +190,14 @@ if (!$nodisplay)
 if ($invoice_type == 1)
 {
 	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
-	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+	" FROM cc_charge t1 LEFT JOIN (cc_did t2 INNER JOIN cc_country t3 ON (t2.id_cc_country = t3.id)) ON ( t1.id_cc_did = t2.id) ".
 	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$cardid.
 	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
 }
 else
 {
 	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
-	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+	" FROM cc_charge t1 LEFT JOIN (cc_did t2 INNER JOIN cc_country t3 ON (t2.id_cc_country = t3.id)) ON ( t1.id_cc_did = t2.id) ".
 	" WHERE (t1.chargetype = 2 OR t1.chargetype = 1) AND t1.id_cc_card = ".$customerID.
 	" AND t1.creationdate > (Select cover_startdate  from cc_invoices where id ='$id') AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";
 }
