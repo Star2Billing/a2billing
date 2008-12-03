@@ -26,6 +26,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 //dl("pgsql.so"); // remove "extension= pgsql.so !	
 
 include_once (dirname(__FILE__)."/lib/Class.Table.php");
+include (dirname(__FILE__)."/lib/interface/constants.php");
 include (dirname(__FILE__)."/lib/Class.A2Billing.php");
 include (dirname(__FILE__)."/lib/Misc.php");
 
