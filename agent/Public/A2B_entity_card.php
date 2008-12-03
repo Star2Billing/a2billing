@@ -114,7 +114,7 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 	
 	if ($cardnumber>0){
 		/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
-		$FG_TABLE_CLAUSE_card = "username='".$cardnumber;
+		$FG_TABLE_CLAUSE_card = "username='".$cardnumber."'";
 		$list_tariff_card = $instance_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
 		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
 		
