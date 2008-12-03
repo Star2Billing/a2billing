@@ -21,7 +21,31 @@ $CC_help_agent ='
 </div></div></div>
 </div></div>';
 
-	
+$CC_help_sipfriend_list ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<div class="w2">
+'.gettext("SIP and IAX friend will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
+.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret as the username and password.").'
+<br/>'.help_wiki_link('ListSIPFriend').'
+</div></div></div>
+</div></div>';
+
+
+$CC_help_sipfriend_reload ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<div class="w2">
+'.gettext("Click reload to commit changes to Asterisk").'<br>
+<br/><br/>
+</div></div></div>
+</div></div>';
+
+
 $CC_help_generate_signup='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>

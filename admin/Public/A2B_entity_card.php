@@ -427,11 +427,11 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 			<font color=white><b>
 			<?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ){ ?>
 			SIP : <input class="form_input_button"  TYPE="button" VALUE="<?php echo gettext("GENERATE ADDITIONAL_A2BILLING_SIP.CONF");?>"
-			onClick="self.location.href='./CC_generate_friend_file.php?friend=sipfriend';">
+			onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend';">
 			<?php }
 			if ( isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ){ ?>
 			IAX : <input class="form_input_button"  TYPE="button" VALUE="<?php echo gettext("GENERATE ADDITIONAL_A2BILLING_IAX.CONF");?>"
-			onClick="self.location.href='./CC_generate_friend_file.php?friend=iaxfriend';">
+			onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend';">
 			<?php } ?>	
 			</b></font></td></FORM>
         </TR>
