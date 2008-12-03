@@ -1,4 +1,6 @@
 
+SET ON_ERROR_STOP;
+
 ALTER TABLE cc_tariffplan ADD COLUMN calleridprefix TEXT NOT NULL DEFAULT 'all'::text;
 
 

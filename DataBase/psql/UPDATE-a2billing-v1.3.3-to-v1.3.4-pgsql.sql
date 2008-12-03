@@ -1,4 +1,6 @@
 
+SET ON_ERROR_STOP;
+
 -- Never too late to add some indexes :D
 
 CREATE INDEX cc_call_username_ind ON cc_call USING btree (username);

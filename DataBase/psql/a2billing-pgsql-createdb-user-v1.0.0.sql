@@ -1,4 +1,5 @@
 
+SET ON_ERROR_STOP;
 
 DROP USER a2billinguser;
 CREATE USER a2billinguser WITH PASSWORD 'a2billing' CREATEDB;

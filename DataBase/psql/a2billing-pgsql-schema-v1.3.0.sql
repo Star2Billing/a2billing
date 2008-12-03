@@ -33,6 +33,7 @@
 
 
 
+SET ON_ERROR_STOP;
 
 SET default_with_oids = true;
 

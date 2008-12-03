@@ -1,4 +1,6 @@
 
+SET ON_ERROR_STOP;
+
 CREATE TABLE cc_invoice_items (
 	id 						BIGSERIAL NOT NULL,
 	invoiceid 				INTEGER NOT NULL,
