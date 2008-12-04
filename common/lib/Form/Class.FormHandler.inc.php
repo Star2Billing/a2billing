@@ -1625,7 +1625,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$agent_id = $processed['agent_id'];
 			$refill_type= $processed['payment_type'];
 			$description = $processed['description'];
-			$value_insert = " '$date' , '$credit', '$card_id','$refill_type', '$description' ";
+			$value_insert = " '$date' , '$credit', '$agent_id','$refill_type', '$description' ";
 			$instance_sub_table = new Table("cc_logrefill_agent", $field_insert);
 			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
 			//REFILL AGENT .. UPADTE AGENT

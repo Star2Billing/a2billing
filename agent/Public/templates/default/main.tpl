@@ -138,8 +138,10 @@ Logged-in as: <b>{$adminname}</b></p>
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("View Refill");{/php}</a></li>
-				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("View Payment");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=2">{php} echo gettext("View Own Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment_agent.php?atmenu=payment&section=2">{php} echo gettext("View Own Payments");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("View Customer's Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("View Customer's Payment");{/php}</a></li>
 				<li><a href="A2B_entity_paymentlog.php?stitle=Payment_log&section=2">{php} echo gettext("Payment Log");{/php}</a></li>
 			</ul></li>
 		</ul>
