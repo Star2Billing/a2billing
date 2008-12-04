@@ -1561,6 +1561,19 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 	}
 	
+	function creation_agent_refill(){
+		$processed = $this->getProcessed();
+		$credit = $processed['credit'];
+		if($credit>0){
+			$field_insert = " credit,agent_id, description";
+			$agent_id = $this -> RESULT_QUERY;
+			$description = gettext("CREATION AGENT REFILL");
+			$value_insert = "'$credit', '$agent_id', '$description' ";
+			$instance_refill_table = new Table("cc_logrefill_agent", $field_insert);
+			$instance_refill_table -> Add_table ($this->DBHandle, $value_insert, null, null);	
+		}
+	}
+	
 	function post_processing_card_add(){
 		$this->create_sipiax_friends();
 		$this->creation_card_refill();
