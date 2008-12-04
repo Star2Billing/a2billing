@@ -1527,7 +1527,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	{
 		global $A2B;
 		$processed = $this->getProcessed();
-		$id_payment = $this -> RESULT_QUERY;
 		$credit = $processed['credit'];
 		$card_id = $processed['card_id'];
 			//REFILL CARD .. UPADTE CARD
@@ -1535,6 +1534,18 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$param_update_card = "credit = credit + '".$credit."'";
 		$clause_update_card = " id='$card_id'";
 		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+	}
+	
+	function add_agent_refill(){
+		global $A2B;
+		$processed = $this->getProcessed();
+		$credit = $processed['credit'];
+		$agent_id = $processed['agent_id'];
+			//REFILL CARD .. UPADTE AGENT
+		$instance_table_agent = new Table("cc_agent");
+		$param_update_agent = "credit = credit + '".$credit."'";
+		$clause_update_agent = " id='$agent_id'";
+		$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 	}
 	
 	function creation_card_refill(){
@@ -1588,7 +1599,34 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
 		}
 	}
-	
+
+	function create_agent_refill(){
+		global $A2B;
+		$processed = $this->getProcessed();
+		if($processed['added_refill']==1){
+			$id_payment = $this -> RESULT_QUERY;
+			//CREATE REFILL
+			$field_insert = "date, credit, agent_id ,refill_type, description";
+			$date = $processed['date'];
+			$credit = $processed['payment'];
+			$agent_id = $processed['agent_id'];
+			$refill_type= $processed['payment_type'];
+			$description = $processed['description'];
+			$value_insert = " '$date' , '$credit', '$card_id','$refill_type', '$description' ";
+			$instance_sub_table = new Table("cc_logrefill_agent", $field_insert);
+			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
+			//REFILL AGENT .. UPADTE AGENT
+			$instance_table_agent = new Table("cc_agent");
+			$param_update_agent = "credit = credit + '".$credit."'";
+			$clause_update_agent = " id='$agent_id'";
+			$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
+			//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
+			$instance_table_pay = new Table("cc_logpayment_agent");
+			$param_update_pay = "id_logrefill = '".$id_refill."'";
+			$clause_update_pay = " id ='$id_payment'";
+			$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
+		}
+	}
 	
 	
 	/**

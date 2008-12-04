@@ -2,7 +2,7 @@
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_logrefill.inc");
+include ("./form_data/FG_var_logrefill_agent.inc");
 include ("../lib/admin.smarty.php");
 
 if (! has_rights (ACX_BILLING)){ 
@@ -38,7 +38,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-echo $CC_help_view_refill;
+echo $CC_help_view_refill_agent;
 
 
 

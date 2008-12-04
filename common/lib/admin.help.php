@@ -211,10 +211,48 @@ $CC_help_view_payment ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the account. Click refill under customer list to top-up an account.").'
+'.gettext("Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the account. Click on 'create associate refill' when you create a payment to top-up an account.").'
 <br/>'.help_wiki_link('ViewPayments').'
 </div></div></div>
 </div></div>';
+
+$CC_help_view_payment_agent ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Payment history - The section below allows you to add payments against a agent. Note that this does not change the balance on the account. Click on 'create associate refill' when you create  a payment to top-up an account.").'
+<br/>'.help_wiki_link('ViewPayments').'
+</div></div></div>
+</div></div>';
+
+$CC_help_view_refill ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Payment history - The section below allows you to add refills against a customer. Note that this change the balance on the account.").'
+<br/>'.help_wiki_link('ViewPayments').'
+</div></div></div>
+</div></div>';
+
+$CC_help_view_refill_agent ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Payment history - The section below allows you to add refills against a agent. Note that this change the balance on the account. ").'
+<br/>'.help_wiki_link('ViewPayments').'
+</div></div></div>
+</div></div>';
+
+
 
 $CC_help_view_paypal ='
 <div class="toggle_show2hide">

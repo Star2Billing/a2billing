@@ -1368,3 +1368,28 @@ ADD viewed_agent TINYINT NOT NULL DEFAULT '1',
 ADD viewed_admin TINYINT NOT NULL DEFAULT '1';
 
 ALTER TABLE cc_ui_authen ADD email VARCHAR( 70 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
+ALTER TABLE cc_logrefill CHANGE id id BIGINT NOT NULL AUTO_INCREMENT  ;
+
+CREATE TABLE cc_logrefill_agent (
+  id BIGINT NOT NULL auto_increment,
+  date timestamp NOT NULL default CURRENT_TIMESTAMP,
+  credit float NOT NULL,
+  agent_id BIGINT NOT NULL,
+  description mediumtext collate utf8_bin,
+  refill_type tinyint NOT NULL default '0',
+  PRIMARY KEY  (id)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE cc_logpayment_agent (
+  id BIGINT NOT NULL auto_increment,
+  date timestamp NOT NULL default CURRENT_TIMESTAMP,
+  payment float NOT NULL,
+  agent_id BIGINT NOT NULL,
+  id_logrefill BIGINT default NULL,
+  description mediumtext collate utf8_bin,
+  added_refill tinyint NOT NULL default '0',
+  payment_type tinyint NOT NULL default '0',
+  PRIMARY KEY  (id)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
