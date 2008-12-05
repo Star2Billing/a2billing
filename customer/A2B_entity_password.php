@@ -1,18 +1,14 @@
 <?php
-include ("./lib/customer.defines.php");
-include ("./lib/customer.module.access.php");
-include ("./lib/Form/Class.FormHandler.inc.php");
-include ("./lib/customer.smarty.php");
+include ("lib/customer.defines.php");
+include ("lib/customer.module.access.php");
+include ("lib/customer.smarty.php");
 
 
-
-if (! has_rights (ACX_PASSWORD)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+if (!has_rights (ACX_PASSWORD)) {
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
-
-//if (!$A2B->config["webcustomerui"]['password']) exit();
 
 /***********************************************************************************/
 
@@ -21,18 +17,16 @@ getpost_ifset(array('NewPassword','OldPassword'));
 
 
 $DBHandle  = DbConnect();
-//////$instance_sub_table = new Table('cc_callerid');
-/////$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
-//////$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 
-if($form_action=="ask-update")
-{
+if($form_action=="ask-update") {
     $instance_sub_table = new Table('cc_card',"id");
     $check_old_pwd = "id = '".$_SESSION["card_id"]."' AND uipass = '$OldPassword'";
     $result_check=$instance_sub_table -> Get_list ($DBHandle,$check_old_pwd);
-    if(is_array($result_check)){
+    if(is_array($result_check)) {
 	    $QUERY = "UPDATE cc_card SET  uipass= '".$NewPassword."' WHERE ( ID = ".$_SESSION["card_id"]." ) ";
 	    $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
+	    // update Session password
+	    $_SESSION["pr_password"] = $NewPassword;
     }
 }
 // #### HEADER SECTION
@@ -74,28 +68,19 @@ function CheckPassword()
 }
 </script>
 
-<?php
-if ($form_action=="ask-update")
-{
-if(is_array($result_check)){
-?>
-<script language="JavaScript">
-alert("<?php echo gettext("Your password is updated successfully.")?>");
-</script>
-<?php
-}else
-{
-?>
-<script language="JavaScript">
-alert("<?php echo gettext("Your old password is wrong.")?>");
-</script>
-
-<?php
-} }
-?>
 <br>
-<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
 <center>
+<?php
+if ($form_action=="ask-update") {
+	if(is_array($result_check)) {
+		echo '<font color="green">'.gettext("Your password is updated successfully.").'</font><br>';
+	} else {
+		echo '<font color="red">'.gettext("Your old password is wrong.").'</font><br>';
+	}
+}
+?>
+
+<form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
 <table class="changepassword_maintable" align=center>
 <tr class="bgcolor_009">
     <td align=left colspan=2><b><font color="#ffffff">- <?php echo gettext("Change Password")?>&nbsp; -</b></td>
@@ -141,4 +126,3 @@ document.frmPass.NewPassword.focus();
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>
