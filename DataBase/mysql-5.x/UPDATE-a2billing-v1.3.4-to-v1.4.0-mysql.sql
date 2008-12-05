@@ -1398,5 +1398,11 @@ CREATE TABLE cc_logpayment_agent (
 
 
 
-
-
+-- Table structure for table cc_prefix
+DROP TABLE IF EXISTS cc_prefix;
+CREATE TABLE IF NOT EXISTS cc_prefix (
+	prefix bigint(20) NOT NULL auto_increment,
+	destination varchar(60) collate utf8_bin NOT NULL,
+	PRIMARY KEY (prefix),
+	KEY destination (destination)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
