@@ -79,7 +79,7 @@ CREATE TABLE cc_card_subscription (
 	product_id VARCHAR( 100 ),
 	product_name VARCHAR( 100 ),
 	PRIMARY KEY (id)
-) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;;
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 ALTER TABLE cc_card DROP id_subscription_fee;
@@ -133,6 +133,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SMTP Host', 'smtp_host', 'localhost', 'SMTP Hostname', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SMTP UserName', 'smtp_username', '', 'User Name to connect on the SMTP server', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SMTP Password', 'smtp_password', '', 'Password to connect on the SMTP server', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('User Realtime', 'use_realtime', '1', 'Enable Realtime, this allow you to create the config files and reload asterisk', 1, 1, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Go To Customer', 'customer_ui_url', '../../customer/index.php', 'Link to the customer account', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Context Callback', 'context_callback', 'a2billing-callback', 'Contaxt to use in Callback', 0, 2, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extension', 'extension', '1000', 'Extension to call while callback.', 0, 2, NULL);
@@ -252,22 +253,22 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Qualify', 'qualify', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Host', 'host', 'dynamic', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DTMF Mode', 'dtmfmode', 'RFC2833', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Alarm Log File', 'cront_alarm', '/tmp/cront_a2b_alarm.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto refill Log File', 'cront_autorefill', '/tmp/cront_a2b_autorefill.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Bactch Process Log File', 'cront_batch_process', '/tmp/cront_a2b_batch_process.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Archive Log File', 'cront_archive_data', '/tmp/cront_a2b_archive_data.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DID Billing Log File', 'cront_bill_diduse', '/tmp/cront_a2b_bill_diduse.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Subscription Fee Log File', 'cront_subscriptionfee', '/tmp/cront_a2b_subscription_fee.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Currency Cront Log File', 'cront_currency_update', '/tmp/cront_a2b_currency_update.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Cront Log File', 'cront_invoice', '/tmp/cront_a2b_invoice.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Cornt Log File', 'cront_check_account', '/tmp/cront_a2b_check_account.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Paypal Log File', 'paypal', '/tmp/a2billing_paypal.log', 'paypal log file, to log all the transaction & error.', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('EPayment Log File', 'epayment', '/tmp/a2billing_epayment.log', 'epayment log file, to log all the transaction & error .', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('ECommerce Log File', 'api_ecommerce', '/tmp/a2billing_api_ecommerce_request.log', 'Log file to store the ecommerce API requests .', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Callback Log File', 'api_callback', '/tmp/a2billing_api_callback_request.log', 'Log file to store the CallBack API requests.', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Webservice Card Log File', 'api_card', '/tmp/a2billing_api_card.log', 'Log file to store the Card Webservice Logs', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('AGI Log File', 'agi', '/tmp/a2billing_agi.log', 'File to log.', 0, 10, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Debug', 'debug', '1', 'The debug level 0=none, 1=low, 2=normal, 3=all.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Alarm Log File', 'cront_alarm', '/var/log/a2billing/cront_a2b_alarm.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto refill Log File', 'cront_autorefill', '/var/log/a2billing/cront_a2b_autorefill.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Bactch Process Log File', 'cront_batch_process', '/var/log/a2billing/cront_a2b_batch_process.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Archive Log File', 'cront_archive_data', '/var/log/a2billing/cront_a2b_archive_data.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DID Billing Log File', 'cront_bill_diduse', '/var/log/a2billing/cront_a2b_bill_diduse.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Subscription Fee Log File', 'cront_subscriptionfee', '/var/log/a2billing/cront_a2b_subscription_fee.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Currency Cront Log File', 'cront_currency_update', '/var/log/a2billing/cront_a2b_currency_update.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Cront Log File', 'cront_invoice', '/var/log/a2billing/cront_a2b_invoice.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Cornt Log File', 'cront_check_account', '/var/log/a2billing/cront_a2b_check_account.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Paypal Log File', 'paypal', '/var/log/a2billing/a2billing_paypal.log', 'paypal log file, to log all the transaction & error.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('EPayment Log File', 'epayment', '/var/log/a2billing/a2billing_epayment.log', 'epayment log file, to log all the transaction & error .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('ECommerce Log File', 'api_ecommerce', '/var/log/a2billing/a2billing_api_ecommerce_request.log', 'Log file to store the ecommerce API requests .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Callback Log File', 'api_callback', '/var/log/a2billing/a2billing_api_callback_request.log', 'Log file to store the CallBack API requests.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Webservice Card Log File', 'api_card', '/var/log/a2billing/a2billing_api_card.log', 'Log file to store the Card Webservice Logs', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('AGI Log File', 'agi', '/var/log/a2billing/a2billing_agi.log', 'File to log.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Description', 'description', 'agi-config', 'Description/notes field', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Asterisk Version', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1,1_2,1_4 By Default it will take 1_2 or higher .', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Answer Call', 'answer_call', 1, 'Manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Play Audio', 'play_audio', 1, 'Play audio - this will disable all stream file but not the Get Data , for wholesale ensure that the authentication works and than number_try = 1.', 1, 11, 'yes,no');
@@ -326,6 +327,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Template Path', 'invoice_template_path', '../invoice/', 'gives invoice template path from default one', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Outstanding Template Path', 'outstanding_template_path', '../outstanding/', 'gives outstanding template path from default one', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Sales Template Path', 'sales_template_path', '../sales/', 'gives sales template path from default one', 0, 1, NULL);
+
 
 
 CREATE TABLE cc_timezone (
@@ -563,8 +565,7 @@ INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('za', 'Zhuang        
 INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('zu', 'Zulu            ', '                ', 'ISO-8859-1      ');
 
 ALTER TABLE cc_templatemail DROP INDEX cons_cc_templatemail_mailtype;
-ALTER TABLE cc_templatemail ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST,
-ADD id_language CHAR( 20 ) NOT NULL DEFAULT 'en' AFTER id ;
+ALTER TABLE cc_templatemail ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST, ADD id_language CHAR( 20 ) NOT NULL DEFAULT 'en' AFTER id ;
 ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL ;
 ALTER TABLE cc_templatemail DROP PRIMARY KEY;
 ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language );
@@ -589,6 +590,7 @@ ALTER TABLE cc_ratecard ADD COLUMN rounding_threshold INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge DECIMAL(15,5) NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN tag CHAR(50);
+ALTER TABLE cc_ratecard ADD COLUMN disconnectcharge_after INT NOT NULL DEFAULT 0;
 
 ALTER TABLE cc_card ADD COLUMN template_invoice VARCHAR( 100 ) ;
 ALTER TABLE cc_card ADD COLUMN template_outstanding VARCHAR( 100 ) ;
@@ -603,9 +605,10 @@ CREATE TABLE cc_card_history (
 
 
 
+ALTER TABLE cc_callback_spool CHANGE variable variable VARCHAR( 300 ) DEFAULT NULL;
+
+
 ALTER TABLE cc_call ADD COLUMN real_sessiontime INT (11) DEFAULT NULL;
-
-
 
 
 
@@ -649,7 +652,6 @@ ALTER TABLE `cc_call_archive` ADD INDEX ( `terminatecause` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );
 
 
--- Areski ** Mark update
 
 ALTER TABLE cc_card DROP COLUMN userpass;
 
@@ -728,11 +730,11 @@ ALTER TABLE cc_card ADD voicemail_permitted INTEGER DEFAULT 0 NOT NULL;
 ALTER TABLE cc_card ADD voicemail_activated SMALLINT DEFAULT 0 NOT NULL;
 
 
-CREATE OR REPLACE VIEW voicemail_users AS (
-	SELECT id AS uniqueid, id AS customer_id, 'default' AS context, useralias AS mailbox, uipass AS password,
-	CONCAT(lastname, ' ', firstname) AS fullname, email AS email, '' AS pager,  '1984-01-01 00:00:00' AS stamp
-	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
-);
+-- CREATE OR REPLACE VIEW voicemail_users AS (
+--	SELECT id AS uniqueid, id AS customer_id, 'default' AS context, useralias AS mailbox, uipass AS password,
+--	CONCAT(lastname, ' ', firstname) AS fullname, email AS email, '' AS pager,  '1984-01-01 00:00:00' AS stamp
+--	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
+-- );
 
 
 
@@ -764,18 +766,6 @@ ALTER TABLE cc_currencies CHANGE value value NUMERIC (12,5) unsigned NOT NULL DE
 
 
 
--- add reseller field in cc_card
--- DELIMITER //
--- CREATE TRIGGER `after_ins_cc_card` AFTER INSERT ON `cc_card`
--- FOR EACH ROW begin
---
---
---    insert into cc_logrefill(credit,card_id,reseller_id) values(NEW.credit,NEW.id,NEW.reseller);
---  end
--- //
--- DELIMITER ;
-
-
 -- More info into log payment
 ALTER TABLE cc_logpayment ADD COLUMN id_logrefill BIGINT DEFAULT NULL;
 
@@ -783,45 +773,42 @@ ALTER TABLE cc_logpayment ADD COLUMN id_logrefill BIGINT DEFAULT NULL;
 -- Support / Ticket section
 
 CREATE TABLE cc_support (
-  id smallint(5) NOT NULL auto_increment,
-  `name` varchar(50) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (id)
+	id smallint(5) NOT NULL auto_increment,
+	`name` varchar(50) collate utf8_bin NOT NULL,
+	PRIMARY KEY  (id)
 ) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 
 
 CREATE TABLE cc_support_component (
-  id smallint(5) NOT NULL auto_increment,
-  id_support smallint(5) NOT NULL,
-  `name` varchar(50) collate utf8_bin NOT NULL,
-  activated smallint(6) NOT NULL default '1',
-  PRIMARY KEY  (id)
+	id smallint(5) NOT NULL auto_increment,
+	id_support smallint(5) NOT NULL,
+	name varchar(50) collate utf8_bin NOT NULL,
+	activated smallint(6) NOT NULL default '1',
+	PRIMARY KEY  (id)
 ) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 
 
 CREATE TABLE cc_ticket (
-  id bigint(10) NOT NULL auto_increment,
-  id_component smallint(5) NOT NULL,
-  title varchar(100) collate utf8_bin NOT NULL,
-  description text collate utf8_bin,
-  priority smallint(6) NOT NULL default '0',
-  creationdate timestamp NOT NULL default CURRENT_TIMESTAMP,
-  creator bigint(20) NOT NULL,
-  status smallint(6) NOT NULL default '0',
-  PRIMARY KEY  (id)
+	id bigint(10) NOT NULL auto_increment,
+	id_component smallint(5) NOT NULL,
+	title varchar(100) collate utf8_bin NOT NULL,
+	description text collate utf8_bin,
+	priority smallint(6) NOT NULL default '0',
+	creationdate timestamp NOT NULL default CURRENT_TIMESTAMP,
+	creator bigint(20) NOT NULL,
+	status smallint(6) NOT NULL default '0',
+	PRIMARY KEY  (id)
 ) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-
 CREATE TABLE cc_ticket_comment (
-  id bigint(20) NOT NULL auto_increment,
-  date timestamp NOT NULL default CURRENT_TIMESTAMP,
-  id_ticket bigint(10) NOT NULL,
-  description text collate utf8_bin,
-  creator bigint(20) NOT NULL,
-  is_admin char(1) collate utf8_bin NOT NULL default 'f',
-  PRIMARY KEY  (id)
+	id bigint(20) NOT NULL auto_increment,
+	date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	id_ticket bigint(10) NOT NULL,
+	description text collate utf8_bin,
+	creator bigint(20) NOT NULL,
+	is_admin char(1) collate utf8_bin NOT NULL default 'f',
+	PRIMARY KEY  (id)
 ) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
@@ -1039,29 +1026,21 @@ ADD traffic_target MEDIUMTEXT NULL ;
 ALTER TABLE cc_logpayment ADD added_refill SMALLINT NOT NULL DEFAULT '0';
 
 -- Add payment history in customer WebUI
-
 INSERT INTO cc_config( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues )
 VALUES ('Payment Historique Modules', 'payment', '1', 'Enable or Disable the module of payment historique for the customers', 1, 3, 'yes,no');
 
-
 -- modify the field type to authoriz to search by sell rate
 ALTER TABLE cc_call CHANGE calledrate calledrate DECIMAL( 15, 5 ) NULL DEFAULT NULL;
-
 
 -- Delete old menufile.
  DELETE FROM cc_config WHERE config_key = 'file_conf_enter_menulang' ;
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ('Menu Language Order', 'conf_order_menulang', 'en:fr:es', 'Enter the list of languages authorized for the menu.Use the code language separate by a colon charactere e.g: en:es:fr', '0', '11', NULL);
-
-
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 'Desactived the annoucement of the seconds when there are more of one minutes (values : yes - no)', '1', '11', 'yes,no');
-
-
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived, if you want assum the fee of paypal and don''t apply it on the customer (values : yes - no)', '1', '5', 'yes,no');
-
 
 
 
@@ -1084,8 +1063,6 @@ ALTER TABLE cc_prefix ADD INDEX ( prefixe );
 -- optimization on CDR
 ALTER TABLE cc_call ADD COLUMN id_cc_prefix INT (11) DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN id_cc_prefix INT (11) DEFAULT 0;
-
--- ALTER TABLE cc_ratecard DROP destination;
 
 ALTER TABLE cc_call DROP username;
 ALTER TABLE cc_call DROP destination;
@@ -1237,8 +1214,165 @@ VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enable
 ( 'Path for the cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the cache processing to save the call in database. The cache system is based on Sqlite.', '0', 'A', NULL);
 
 
-ALTER TABLE cc_logrefill ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_logrefill ADD COLUMN refill_type TINYINT NOT NULL DEFAULT 0;
 ALTER TABLE cc_logpayment ADD COLUMN payment_type TINYINT NOT NULL DEFAULT 0;
+
+
+-- ------------------------------------------------------
+-- Add management of the web customer in groups
+-- ------------------------------------------------------
+ALTER TABLE cc_card_group ADD users_perms INT NOT NULL DEFAULT '0';
+
+
+
+-- ------------------------------------------------------
+-- PNL report
+-- ------------------------------------------------------
+INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values 
+('PNL Pay Phones','report_pnl_pay_phones','(8887798764,0.02,0.06)','Info for PNL report. Must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
+INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values
+('PNL Tall Free Numbers','report_pnl_tall_free','(6136864646,0.1,0),(6477249717,0.1,0)','Info for PNL report. must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
+
+
+
+-- ------------------------------------------------------
+-- Update to use VarChar instead of Char
+-- ------------------------------------------------------
+ALTER TABLE cc_call CHANGE sessionid sessionid VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_call CHANGE uniqueid uniqueid VARCHAR( 30 ) NOT NULL ;
+-- ...
+-- ...
+-- ...
+
+
+
+-- ------------------------------------------------------
+-- Add restricted rules on the call system for customers 
+-- ------------------------------------------------------
+
+CREATE TABLE cc_restricted_phonenumber (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	number VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	id_card BIGINT NOT NULL,
+	PRIMARY KEY (id)
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
+ALTER TABLE cc_card ADD restriction TINYINT NOT NULL DEFAULT '0';
+
+
+
+ALTER TABLE cc_card DROP COLUMN callback;
+
+
+
+-- ADD IAX TRUNKING
+ALTER TABLE cc_iax_buddies ADD trunk CHAR(3) DEFAULT 'yes';
+
+
+
+-- Refactor Agent Section
+ALTER TABLE cc_card DROP id_agent;
+ALTER TABLE cc_card_group ADD id_agent INT NOT NULL DEFAULT '0';
+
+
+
+ALTER TABLE cc_card DROP template_invoice;
+ALTER TABLE cc_card DROP template_outstanding;
+
+ALTER TABLE cc_card CHANGE VAT_RN vat_rn VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+ 
+
+-- add amount
+ALTER TABLE cc_phonenumber ADD amount INT NOT NULL DEFAULT '0';
+
+
+-- add company to Agent
+ALTER TABLE cc_agent ADD COLUMN company varchar(50);
+
+
+-- Change AGI Verbosity & logging
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+VALUES ('Verbosity', 'verbosity_level', '0', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+VALUES ('Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
+
+
+ALTER TABLE cc_ticket ADD creator_type TINYINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_ticket_comment CHANGE is_admin creator_type TINYINT NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_ratecard ADD COLUMN announce_time_correction decimal(5,3) NOT NULL DEFAULT 1.0;
+
+
+ALTER TABLE cc_agent DROP climit;
+
+CREATE TABLE cc_agent_cardgroup (
+	id_agent INT NOT NULL ,
+	id_card_group INT NOT NULL ,
+	PRIMARY KEY ( id_agent , id_card_group )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE cc_card_group DROP id_agent;
+
+ALTER TABLE cc_agent ADD secret VARCHAR( 20 ) NOT NULL;
+
+-- optimization on CDR
+ALTER TABLE cc_ratecard DROP destination;
+ALTER TABLE cc_call DROP id_cc_prefix;
+ALTER TABLE cc_ratecard DROP id_cc_prefix;
+ALTER TABLE cc_call ADD COLUMN destination INT (11) DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN destination INT (11) DEFAULT 0;
+
+
+UPDATE cc_card_group SET description = 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.' WHERE id = 1 LIMIT 1 ;
+
+ALTER TABLE cc_ticket ADD viewed_cust TINYINT NOT NULL DEFAULT '1',
+ADD viewed_agent TINYINT NOT NULL DEFAULT '1',
+ADD viewed_admin TINYINT NOT NULL DEFAULT '1';
+
+
+ALTER TABLE cc_ticket_comment ADD viewed_cust TINYINT NOT NULL DEFAULT '1',
+ADD viewed_agent TINYINT NOT NULL DEFAULT '1',
+ADD viewed_admin TINYINT NOT NULL DEFAULT '1';
+
+ALTER TABLE cc_ui_authen ADD email VARCHAR( 70 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
+ALTER TABLE cc_logrefill CHANGE id id BIGINT NOT NULL AUTO_INCREMENT  ;
+
+-- Refill table for Agent
+CREATE TABLE cc_logrefill_agent (
+	id BIGINT NOT NULL auto_increment,
+	date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	credit float NOT NULL,
+	agent_id BIGINT NOT NULL,
+	description mediumtext collate utf8_bin,
+	refill_type tinyint NOT NULL default '0',
+	PRIMARY KEY  (id)
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- logpayment table for Agent
+CREATE TABLE cc_logpayment_agent (
+	id BIGINT NOT NULL auto_increment,
+	date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	payment float NOT NULL,
+	agent_id BIGINT NOT NULL,
+	id_logrefill BIGINT default NULL,
+	description mediumtext collate utf8_bin,
+	added_refill tinyint NOT NULL default '0',
+	payment_type tinyint NOT NULL default '0',
+	PRIMARY KEY  (id)
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+-- Table structure for table cc_prefix
+DROP TABLE IF EXISTS cc_prefix;
+CREATE TABLE IF NOT EXISTS cc_prefix (
+	prefix bigint(20) NOT NULL auto_increment,
+	destination varchar(60) collate utf8_bin NOT NULL,
+	PRIMARY KEY (prefix),
+	KEY destination (destination)
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 

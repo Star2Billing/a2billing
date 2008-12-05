@@ -79,7 +79,7 @@ CREATE TABLE cc_card_subscription (
 	product_id VARCHAR( 100 ),
 	product_name VARCHAR( 100 ),
 	PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 ALTER TABLE cc_card DROP id_subscription_fee;
@@ -565,8 +565,7 @@ INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('za', 'Zhuang        
 INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('zu', 'Zulu            ', '                ', 'ISO-8859-1      ');
 
 ALTER TABLE cc_templatemail DROP INDEX cons_cc_templatemail_mailtype;
-ALTER TABLE cc_templatemail ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST,
-ADD id_language CHAR( 20 ) NOT NULL DEFAULT 'en' AFTER id ;
+ALTER TABLE cc_templatemail ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST, ADD id_language CHAR( 20 ) NOT NULL DEFAULT 'en' AFTER id ;
 ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL ;
 ALTER TABLE cc_templatemail DROP PRIMARY KEY;
 ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language );
@@ -609,10 +608,7 @@ CREATE TABLE cc_card_history (
 ALTER TABLE cc_callback_spool CHANGE variable variable VARCHAR( 300 ) DEFAULT NULL;
 
 
-
 ALTER TABLE cc_call ADD COLUMN real_sessiontime INT (11) DEFAULT NULL;
-
-
 
 
 
@@ -656,7 +652,6 @@ ALTER TABLE `cc_call_archive` ADD INDEX ( `terminatecause` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );
 
 
--- Areski ** Mark update
 
 ALTER TABLE cc_card DROP COLUMN userpass;
 
@@ -735,11 +730,11 @@ ALTER TABLE cc_card ADD voicemail_permitted INTEGER DEFAULT 0 NOT NULL;
 ALTER TABLE cc_card ADD voicemail_activated SMALLINT DEFAULT 0 NOT NULL;
 
 
-CREATE OR REPLACE VIEW voicemail_users AS (
-	SELECT id AS uniqueid, id AS customer_id, 'default' AS context, useralias AS mailbox, uipass AS password,
-	CONCAT(lastname, ' ', firstname) AS fullname, email AS email, '' AS pager,  '1984-01-01 00:00:00' AS stamp
-	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
-);
+-- CREATE OR REPLACE VIEW voicemail_users AS (
+--	SELECT id AS uniqueid, id AS customer_id, 'default' AS context, useralias AS mailbox, uipass AS password,
+--	CONCAT(lastname, ' ', firstname) AS fullname, email AS email, '' AS pager,  '1984-01-01 00:00:00' AS stamp
+--	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
+-- );
 
 
 
@@ -771,18 +766,6 @@ ALTER TABLE cc_currencies CHANGE value value NUMERIC (12,5) unsigned NOT NULL DE
 
 
 
--- add reseller field in cc_card
--- DELIMITER //
--- CREATE TRIGGER `after_ins_cc_card` AFTER INSERT ON `cc_card`
--- FOR EACH ROW begin
---
---
---    insert into cc_logrefill(credit,card_id,reseller_id) values(NEW.credit,NEW.id,NEW.reseller);
---  end
--- //
--- DELIMITER ;
-
-
 -- More info into log payment
 ALTER TABLE cc_logpayment ADD COLUMN id_logrefill BIGINT DEFAULT NULL;
 
@@ -790,45 +773,42 @@ ALTER TABLE cc_logpayment ADD COLUMN id_logrefill BIGINT DEFAULT NULL;
 -- Support / Ticket section
 
 CREATE TABLE cc_support (
-  id smallint(5) NOT NULL auto_increment,
-  `name` varchar(50) collate utf8_bin NOT NULL,
-  PRIMARY KEY  (id)
+	id smallint(5) NOT NULL auto_increment,
+	`name` varchar(50) collate utf8_bin NOT NULL,
+	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 
 
 CREATE TABLE cc_support_component (
-  id smallint(5) NOT NULL auto_increment,
-  id_support smallint(5) NOT NULL,
-  name varchar(50) collate utf8_bin NOT NULL,
-  activated smallint(6) NOT NULL default '1',
-  PRIMARY KEY  (id)
+	id smallint(5) NOT NULL auto_increment,
+	id_support smallint(5) NOT NULL,
+	name varchar(50) collate utf8_bin NOT NULL,
+	activated smallint(6) NOT NULL default '1',
+	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 
 
 CREATE TABLE cc_ticket (
-  id bigint(10) NOT NULL auto_increment,
-  id_component smallint(5) NOT NULL,
-  title varchar(100) collate utf8_bin NOT NULL,
-  description text collate utf8_bin,
-  priority smallint(6) NOT NULL default '0',
-  creationdate timestamp NOT NULL default CURRENT_TIMESTAMP,
-  creator bigint(20) NOT NULL,
-  status smallint(6) NOT NULL default '0',
-  PRIMARY KEY  (id)
+	id bigint(10) NOT NULL auto_increment,
+	id_component smallint(5) NOT NULL,
+	title varchar(100) collate utf8_bin NOT NULL,
+	description text collate utf8_bin,
+	priority smallint(6) NOT NULL default '0',
+	creationdate timestamp NOT NULL default CURRENT_TIMESTAMP,
+	creator bigint(20) NOT NULL,
+	status smallint(6) NOT NULL default '0',
+	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-
 CREATE TABLE cc_ticket_comment (
-  id bigint(20) NOT NULL auto_increment,
-  date timestamp NOT NULL default CURRENT_TIMESTAMP,
-  id_ticket bigint(10) NOT NULL,
-  description text collate utf8_bin,
-  creator bigint(20) NOT NULL,
-  is_admin char(1) collate utf8_bin NOT NULL default 'f',
-  PRIMARY KEY  (id)
+	id bigint(20) NOT NULL auto_increment,
+	date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	id_ticket bigint(10) NOT NULL,
+	description text collate utf8_bin,
+	creator bigint(20) NOT NULL,
+	is_admin char(1) collate utf8_bin NOT NULL default 'f',
+	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
@@ -1046,10 +1026,8 @@ ADD traffic_target MEDIUMTEXT NULL ;
 ALTER TABLE cc_logpayment ADD added_refill SMALLINT NOT NULL DEFAULT '0';
 
 -- Add payment history in customer WebUI
-
 INSERT INTO cc_config( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues )
 VALUES ('Payment Historique Modules', 'payment', '1', 'Enable or Disable the module of payment historique for the customers', 1, 3, 'yes,no');
-
 
 -- modify the field type to authoriz to search by sell rate
 ALTER TABLE cc_call CHANGE calledrate calledrate DECIMAL( 15, 5 ) NULL DEFAULT NULL;
@@ -1059,15 +1037,10 @@ ALTER TABLE cc_call CHANGE calledrate calledrate DECIMAL( 15, 5 ) NULL DEFAULT N
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ('Menu Language Order', 'conf_order_menulang', 'en:fr:es', 'Enter the list of languages authorized for the menu.Use the code language separate by a colon charactere e.g: en:es:fr', '0', '11', NULL);
-
-
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 'Desactived the annoucement of the seconds when there are more of one minutes (values : yes - no)', '1', '11', 'yes,no');
-
-
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived, if you want assum the fee of paypal and don''t apply it on the customer (values : yes - no)', '1', '5', 'yes,no');
-
 
 
 
@@ -1087,14 +1060,9 @@ ALTER TABLE cc_call ADD INDEX ( terminatecauseid );
 -- Add index on prefix
 ALTER TABLE cc_prefix ADD INDEX ( prefixe );
 
-
 -- optimization on CDR
 ALTER TABLE cc_call ADD COLUMN id_cc_prefix INT (11) DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN id_cc_prefix INT (11) DEFAULT 0;
-
-
-
--- ALTER TABLE cc_ratecard DROP destination;
 
 ALTER TABLE cc_call DROP username;
 ALTER TABLE cc_call DROP destination;
@@ -1381,7 +1349,7 @@ CREATE TABLE cc_logrefill_agent (
 	description mediumtext collate utf8_bin,
 	refill_type tinyint NOT NULL default '0',
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- logpayment table for Agent
 CREATE TABLE cc_logpayment_agent (
@@ -1394,8 +1362,7 @@ CREATE TABLE cc_logpayment_agent (
 	added_refill tinyint NOT NULL default '0',
 	payment_type tinyint NOT NULL default '0',
 	PRIMARY KEY  (id)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 -- Table structure for table cc_prefix
@@ -1406,3 +1373,7 @@ CREATE TABLE IF NOT EXISTS cc_prefix (
 	PRIMARY KEY (prefix),
 	KEY destination (destination)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
+
