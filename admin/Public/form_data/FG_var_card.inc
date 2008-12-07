@@ -370,8 +370,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   
 
 
-
-$HD_Form -> AddEditElement (gettext("LASTNAME"),
+$HD_Form -> AddEditElement (gettext("LAST NAME"),
 			   "lastname",
 			   '$value',
 			   "INPUT",
@@ -380,7 +379,7 @@ $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   gettext("Insert the lastname of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "", null, null, gettext("Personal Information"));
 
-$HD_Form -> AddEditElement (gettext("FIRSTNAME"),
+$HD_Form -> AddEditElement (gettext("FIRST NAME"),
 			   "firstname",
 			   '$value',
 			   "INPUT",
@@ -742,7 +741,7 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
 
 $HD_Form -> AddEditElement (gettext("SIP ACCOUNT"),
 			   "sip_buddy",
-			   '0',
+			   '1',
 			   "RADIOBUTTON",
 			   "",
 			   "",
@@ -752,7 +751,7 @@ $HD_Form -> AddEditElement (gettext("SIP ACCOUNT"),
 
 $HD_Form -> AddEditElement (gettext("IAX ACCOUNT"),
 			   "iax_buddy",
-			   '0',
+			   '1',
 			   "RADIOBUTTON",
 			   "",
 			   "",
