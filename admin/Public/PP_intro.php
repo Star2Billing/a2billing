@@ -3,6 +3,10 @@ include ("../lib/admin.defines.php");
 include_once ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
+if($A2B->config["dashboard"]["dashboard_enabled"]){
+	Header ("Location: dashboard.php");	 
+}
+
 $smarty->display('main.tpl');
 ?>
 <br/><br/>

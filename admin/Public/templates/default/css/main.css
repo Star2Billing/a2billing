@@ -18,6 +18,27 @@ div.scrollreal{
 	margin: 12px 12px;
 
 }
+
+.dashbox{
+	border: 1px solid #666;
+	background-color: #E6E7E9;
+	padding:10px
+}
+
+
+.dashtitle{
+	 font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
+	 font-weight: bold;
+	 padding-bottom:5px;
+	 font-size: 20px; 	 
+	 line-height: 24px;
+	 text-align : center;
+}
+.dashgraph{
+	 background-color: #FFFFFF;
+	 border: 1px solid #666;
+}
+
 p { 
  font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
  font-size: 10px; 
