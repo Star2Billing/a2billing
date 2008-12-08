@@ -794,7 +794,7 @@ class RateEngine
 
 		$buyratecost =0;
 		if ($buyratecallduration < $buyrateinitblock) $buyratecallduration = $buyrateinitblock;
-		if ($buyrateincrement > 0 && $buyratecallduration > $buyrateinitblock) {
+		if (($buyrateincrement > 0) && ($buyratecallduration > $buyrateinitblock)) {
 			$mod_sec = $buyratecallduration % $buyrateincrement; // 12 = 30 % 18
 			if ($mod_sec>0) $buyratecallduration += ($buyrateincrement - $mod_sec); // 30 += 18 - 12
 		}
@@ -802,7 +802,7 @@ class RateEngine
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 
         // IF IT S A FREE CALL, WE CAN STOP HERE COST = 0
-        if($this -> freecall[$K]){
+        if ($this -> freecall[$K]) {
         	$this -> lastcost = 0;
 			$this -> lastbuycost = $buyratecost;
 			if ($this -> debug_st)  echo "FINAL COST: $cost\n\n";
@@ -816,22 +816,22 @@ class RateEngine
 			$this -> freetimetocall_used = $callduration;
 		}
 		
-
+		
 		$callduration = $callduration - $this->freetimetocall_used;
-
+		
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0) {
 
-			if ($billingblock > 0 && $callduration > $initblock) {
+			if (($billingblock > 0) && ($callduration > $initblock)) {
 				$mod_sec = $callduration % $billingblock;
 				if ($mod_sec>0) $callduration += ($billingblock - $mod_sec);
 			}
-
+			
 			$cost -= ($callduration/60) * $rateinitial;
 			if ($this -> debug_st)  echo "1.a cost: $cost\n";
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TEMP - CC_RATE_ENGINE_CALCULCOST: 1. COST: $cost]:[ ($callduration/60) * $rateinitial ]");
-
+			
 		// IF PROGRESSIVE RATE
 		} else {
 
@@ -870,16 +870,16 @@ class RateEngine
 				}
 				$cost -= ($callduration/60) * $chargeb; // change chargea -> chargeb thanks to Abbas :D
 
-				if (($duration_report>0) && !(empty($chargec) || $chargec==0 || empty($timechargec) || $timechargec==0) )
-				{
-					$callduration=$duration_report;
-					$duration_report=0;
+				if (($duration_report>0) && 
+					!(empty($chargec) || $chargec==0 || empty($timechargec) || $timechargec==0)) {
+					$callduration = $duration_report;
+					$duration_report = 0;
 
 					// CYCLE C
 					$cost -= $stepchargec;
 					if ($this -> debug_st)  echo "1.C cost: $cost\n\n";
 
-					if ($callduration > $timechargec){
+					if ($callduration > $timechargec) {
 						$duration_report = $callduration - $timechargec;
 						$callduration=$timechargec;
 					}
@@ -892,29 +892,26 @@ class RateEngine
 				}
 			}
 
-			if ($duration_report > 0){
+			if ($duration_report > 0) {
 
 				if ($billingblock > 0) {
 					$mod_sec = $duration_report % $billingblock;
 					if ($mod_sec>0) $duration_report += ($billingblock - $mod_sec);
 				}
-
 				$cost -= ($duration_report/60) * $rateinitial;
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TEMP - CC_RATE_ENGINE_CALCULCOST: 2. DURATION_REPORT:$duration_report - COST: $cost]");
 			}
-
 		}
 		$cost = a2b_round($cost);
 		if ($this -> debug_st)  echo "FINAL COST: $cost\n\n";
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - BUYCOST: $buyratecost - SELLING COST: $cost]");
 		
-		if($cost> (0-$minimal_call_cost)){
+		if($cost> (0-$minimal_call_cost)) {
 			$this -> lastcost = 0 - $minimal_call_cost;
-		}else{
+		} else {
 			$this -> lastcost = $cost;
 		}
 		$this -> lastbuycost = $buyratecost;
-		
 	}
 
 
@@ -975,27 +972,25 @@ class RateEngine
 			$id_package_offer =$this ->package_to_apply[$K]["id"];
 	
 				//$id_card_package_offer = $this ->package_to_apply[$K]["id"];
-                switch($this ->package_to_apply[$K]["type"] ){
+                switch ($this ->package_to_apply[$K]["type"]) {
                 	//Unlimited
                 	case 0 : $this->freetimetocall_used = $sessiontime;break;
                 	//free calls
                 	case 1 : $this->freetimetocall_used = $sessiontime;break;
                 	//free times
                 	case 2 :
-						if ($this -> freetimetocall_left[$K] >= $sessiontime){
+						if ($this -> freetimetocall_left[$K] >= $sessiontime) {
 							$this->freetimetocall_used = $sessiontime;
-						}else{
+						} else {
 							$this->freetimetocall_used = $this -> freetimetocall_left[$K];
 						}
 						break;
-                	
                 }
-
 				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
 				// rate_engine_calculcost could have change the duration of the call
 				$sessiontime = $this -> answeredtime;
 				//add grace time
-				if($sessiontime>0 && $additional_grace_time>0){
+				if ($sessiontime>0 && $additional_grace_time>0) {
 					$sessiontime = $sessiontime + $additional_grace_time;
 				}
 
@@ -1004,17 +999,15 @@ class RateEngine
 				$id_card_package_offer = $A2B -> instance_table -> Add_table ($A2B -> DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card_package_offer', 'id');
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
 			} else {
-
-				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
 				
+				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
 				// rate_engine_calculcost could have change the duration of the call
 				$sessiontime = $this -> answeredtime;
-				if($sessiontime>0 && $additional_grace_time>0){
+				if ($sessiontime>0 && $additional_grace_time>0) {
 					$sessiontime = $sessiontime + $additional_grace_time;
 				}
 			}
-
-
+			
 		} else {
 			$sessiontime = 0;
 		}
