@@ -45,7 +45,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 ?>
 
 
-<table width="900px" >	
+<table width="95%" >	
 	<tr>
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1"  >
@@ -251,7 +251,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 
 <br/>
 
-<table width="100%">	
+<table width="95%">	
 	<tr>
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1"  >
@@ -380,7 +380,7 @@ if(sizeof($payment_result)>0 && $payment_result[0]!=null) {
 	</tr>
 </table>
 
-<table width="100%"  cellspacing="2" cellpadding="2" border="0">
+<table width="95%"  cellspacing="2" cellpadding="2" border="0">
 
 	<tr class="form_head">
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
@@ -454,7 +454,7 @@ if(sizeof($refill_result)>0 && $refill_result[0]!=null) {
 	</tr>
 </table>
 
-<table width="100%"  cellspacing="2" cellpadding="2" border="0">
+<table width="95%"  cellspacing="2" cellpadding="2" border="0">
 
 	<tr class="form_head">
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
@@ -524,7 +524,7 @@ if(sizeof($call_result && $payment_result[0]!=null)>0) {
 	</tr>
 </table>
 
-<table width="100%"  cellspacing="2" cellpadding="2" border="0">
+<table width="95%"  cellspacing="2" cellpadding="2" border="0">
 
 	<tr class="form_head">
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
