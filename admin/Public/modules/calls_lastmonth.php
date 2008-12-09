@@ -35,7 +35,7 @@ $result_graph_calls_buy = $table -> SQLExec($DBHandle,$QUERY_GRAPH_CALL_BUY);
 <input id="call_sell" type="radio" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("AMOUNT SELL BY MONTH"); ?><br/>
 <input id="call_buy" type="radio" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("AMOUNT BUY BY MONTH"); ?><br/>
 <br/>
-<div id="call_graph" class="dashgraph" style="width:310px;height:170px;margin-left: auto;margin-right: auto;"></div>
+<div id="call_graph" class="dashgraph" style="margin-left: auto;margin-right: auto;"></div>
 
 <?php 
 //Creationdate data treatment
@@ -109,9 +109,11 @@ $result_graph_calls_buy = $table -> SQLExec($DBHandle,$QUERY_GRAPH_CALL_BUY);
 	 
 	 ?>
 <script id="source" language="javascript" type="text/javascript">
- 
 var format = "";  	
 $(document).ready(function () {
+var width= Math.min($("#call_graph").parent("div").width(),$("#call_graph").parent("div").innerWidth());
+$("#call_graph").width(width-10);
+$("#call_graph").height(Math.floor(width/2));
 	$('#call_answer').click(function () {
 		format ="";
 		var d = <?php echo $val_answer ?>;

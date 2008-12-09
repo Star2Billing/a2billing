@@ -67,6 +67,10 @@ $result_graph_payment_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_PAYMENT_
 <script id="source" language="javascript" type="text/javascript">
   	
 $(document).ready(function () {
+var width= Math.min($("#payments_count").parent("div").width(),$("#payments_count").parent("div").innerWidth());
+$("#payments_count").width(width-10);
+$("#payments_count").height(Math.floor(width/2));
+  	
 	$('#payments_count').click(function () {
 	
 		var d = <?php echo $val_count ?>;

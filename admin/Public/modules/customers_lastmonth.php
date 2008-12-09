@@ -73,8 +73,11 @@ $result_graph_card_firstuse = $table -> SQLExec($DBHandle,$QUERY_GRAPH_CARD_FIRS
 	
 	 ?>
 <script id="source" language="javascript" type="text/javascript">
-  	
 $(document).ready(function () {
+var width= Math.min($("#cust_graph").parent("div").width(),$("#cust_graph").parent("div").innerWidth());
+$("#cust_graph").width(width-10);
+$("#cust_graph").height(Math.floor(width/2));
+  	
 	$('#card_creation').click(function () {
 	
 		var d = <?php echo $val_creation ?>;

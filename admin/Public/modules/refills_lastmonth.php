@@ -67,6 +67,10 @@ $result_graph_refill_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_REFILL_AM
 <script id="source" language="javascript" type="text/javascript">
   	
 $(document).ready(function () {
+var width= Math.min($("#refills_graph").parent("div").width(),$("#refills_graph").parent("div").innerWidth());
+$("#refills_graph").width(width-10);
+$("#refills_graph").height(Math.floor(width/2));
+  	
 	$('#refills_count').click(function () {
 	
 		var d = <?php echo $val_count ?>;
