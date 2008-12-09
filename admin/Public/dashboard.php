@@ -8,51 +8,99 @@ if(!$A2B->config["dashboard"]["dashboard_enabled"] || !has_rights (ACX_DASHBOARD
 	Header ("Location: PP_intro.php");	 
 }
 
+$left = array();
+$center = array();
+$right = array();
+
+function put_dislay($position,$title,$links)
+{   
+	global $left;
+	global $center;
+	global $right;
+	
+	if($position=="LEFT"){
+		$idx = count($left);
+		$left[$idx] = array();
+		$left[$idx]["title"] = $title;
+		$left[$idx]["links"] = $links;
+	}elseif ($position=="CENTER"){
+		$idx = count($center);
+		$center[$idx] = array();
+		$center[$idx]["title"] = $title;
+		$center[$idx]["links"] = $links;
+	}elseif ($position=="RIGHT"){
+		$idx = count($right);
+		$right[$idx] = array();
+		$right[$idx]["title"] = $title;
+		$right[$idx]["links"] = $links;
+	}
+	
+}
+if( !empty($A2B->config["dashboard"]["customer_info_enabled"]) && $A2B->config["dashboard"]["customer_info_enabled"]!="NONE"){
+	put_dislay($A2B->config["dashboard"]["customer_info_enabled"],gettext("CUSTOMERS INFO"),array("./modules/customers_numbers.php","./modules/customers_lastmonth.php"));
+}
+if( !empty($A2B->config["dashboard"]["refill_info_enabled"]) && $A2B->config["dashboard"]["refill_info_enabled"]!="NONE"){
+	put_dislay($A2B->config["dashboard"]["refill_info_enabled"],gettext("REFILLS INFO"),array("./modules/refills_lastmonth.php"));
+}
+if( !empty($A2B->config["dashboard"]["payment_info_enabled"]) && $A2B->config["dashboard"]["refill_info_enabled"]!="NONE"){
+	put_dislay($A2B->config["dashboard"]["payment_info_enabled"],gettext("PAYMENTS INFO"),array("./modules/payments_lastmonth.php"));
+}
+if( !empty($A2B->config["dashboard"]["call_info_enabled"]) && $A2B->config["dashboard"]["refill_info_enabled"]!="NONE"){
+	put_dislay($A2B->config["dashboard"]["call_info_enabled"],gettext("CALLS INFO"),array("./modules/calls_counts.php","./modules/calls_lastmonth.php"));
+}
+
 
 $smarty->display('main.tpl');
-
-
 ?>
 
 <table align="center" width="100%" >
 	<tr>
 		<td width="33%" valign="top">
+		  <?php for($i_left=0;$i_left<count($left);$i_left++){ ?>
 		  <div class="dashbox">
-		   
 		  	<div class="dashtitle" >
-		  	<?php echo gettext("INFO CUSTOMERS");?> 
+		  	 <?php echo $left[$i_left]["title"]; ?>
 		  	</div>
-		  	<?php include ("./modules/customers_numbers.php"); ?>
-		  <br/>
-		  	<?php include ("./modules/customers_lastmonth.php"); ?>
-		  </div>
-		</td>
-		<td width="33%" valign="top">
-		  <div class="dashbox">
-		   
-		  	<div class="dashtitle" >
-		  	<?php echo gettext("INFO REFILLS");?> 
-		  	</div>
-		  	<?php include ("./modules/refills_lastmonth.php"); ?>
+		  			<?php for($j_left=0;$j_left<count($left[$i_left]["links"]);$j_left++){ 
+		  			  include ($left[$i_left]["links"][$j_left]);
+		  				?>
+		 			 <br/>
+		 		 	<?php } ?>
 		  </div>
 		   <br/>
-		<div class="dashbox">
-		   
-		  	<div class="dashtitle" >
-		  	<?php echo gettext("INFO CALLS");?> 
-		  	</div>
-		  	<?php include ("./modules/calls_counts.php"); ?>
-		  	 <br/>
-		  	<?php include ("./modules/calls_lastmonth.php"); ?>
-		  </div>
+		  <?php } ?>
 		</td>
+		
 		<td width="33%" valign="top">
-		     <div class="dashbox">
+		  <?php for($i_center=0;$i_center<count($center);$i_center++){ ?>
+		  <div class="dashbox">
 		  	<div class="dashtitle" >
-		  	<?php echo gettext("INFO PAYMENTS");?> 
+		  	 <?php echo $center[$i_center]["title"]; ?>
 		  	</div>
-		  	<?php include ("./modules/payments_lastmonth.php"); ?>
+		  			<?php for($j_center=0;$j_center<count($center[$i_center]["links"]);$j_center++){ 
+		  			  include ($center[$i_center]["links"][$j_center]);
+		  				?>
+		 			 <br/>
+		 		 	<?php } ?>
 		  </div>
+		   <br/>
+		  <?php } ?>
+		</td>
+		
+		<td width="33%" valign="top">
+		  <?php for($i_right=0;$i_right<count($right);$i_right++){ ?>
+		  <div class="dashbox">
+		  	<div class="dashtitle" >
+		  	 <?php echo $right[$i_right]["title"]; ?>
+		  	</div>
+		  			<?php for($j_right=0;$j_right<count($right[$i_right]["links"]);$j_right++){ 
+		  			  include ($right[$i_right]["links"][$j_right]);
+		  				?>
+		 			 <br/>
+		 		 	<?php } ?>
+		  </div>
+		   <br/>
+		  <?php } ?>
 		</td>
 	</tr>
 
