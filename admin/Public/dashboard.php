@@ -4,7 +4,7 @@ include_once ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
 
-if(!$A2B->config["dashboard"]["dashboard_enabled"]){
+if(!$A2B->config["dashboard"]["dashboard_enabled"] || !has_rights (ACX_DASHBOARD)){
 	Header ("Location: PP_intro.php");	 
 }
 

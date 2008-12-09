@@ -1,5 +1,6 @@
 <?php
-
+include_once ("../../lib/admin.defines.php");
+include_once ("../../lib/admin.module.access.php");
 
 $DBHandle  = DbConnect();
 $table = new Table('cc_call','*');
