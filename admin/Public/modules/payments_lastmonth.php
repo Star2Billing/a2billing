@@ -67,9 +67,9 @@ $result_graph_payment_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_PAYMENT_
 <script id="source" language="javascript" type="text/javascript">
   	
 $(document).ready(function () {
-var width= Math.min($("#payments_count").parent("div").width(),$("#payments_count").parent("div").innerWidth());
-$("#payments_count").width(width-10);
-$("#payments_count").height(Math.floor(width/2));
+var width= Math.min($("#payments_graph").parent("div").width(),$("#payments_graph").parent("div").innerWidth());
+$("#payments_graph").width(width-10);
+$("#payments_graph").height(Math.floor(width/2));
   	
 	$('#payments_count').click(function () {
 	
