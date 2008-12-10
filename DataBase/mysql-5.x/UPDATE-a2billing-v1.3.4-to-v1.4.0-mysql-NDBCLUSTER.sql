@@ -1391,3 +1391,6 @@ VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'I you 
 
 
 
+-- note
+
+

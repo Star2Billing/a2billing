@@ -1327,7 +1327,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 							$form_action="ask-add";
 						}
 					}
-					// CHECK IF THIS IS A SPLITABLE FIELD :D like 12-14 or 15;16;17
+					// CHECK IF THIS IS A SPLITABLE FIELD :D like 012-014 or 15;16;17
 				 	if ($fields_name == $this -> FG_SPLITABLE_FIELD && substr($processed[$fields_name],0,1) != '_' ){
 						$splitable_value = $processed[$fields_name];
 						$arr_splitable_value = explode(",", $splitable_value);
@@ -1336,8 +1336,10 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 							$arr_value_explode = explode("-", $arr_value,2);
 							if (count($arr_value_explode)>1){
 								if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1] ){
+									$kk=strlen($arr_value_explode[0])-strlen(ltrim($arr_value_explode[0],'0'));
+									$prefix=substr($arr_value_explode[0],0,$kk);
 									for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++){
-										$arr_value_to_import[] = $kk;
+										$arr_value_to_import[] = $prefix.$kk;
 									}
 								}elseif (is_numeric($arr_value_explode[0])){
 									$arr_value_to_import[] = $arr_value_explode[0];
