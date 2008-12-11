@@ -8,7 +8,7 @@
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
 
-	<script type="text/javascript" src="./javascript/jquery/jquery.js"></script>
+	<script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/handler_jquery.js"></script>
