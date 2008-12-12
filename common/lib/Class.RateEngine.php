@@ -1254,6 +1254,9 @@ class RateEngine
 
 	    		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
 				
+				// check connection after dial(long pause) 
+				$A2B -> DbReConnect($agi);  
+				
 				// Count this call on the trunk
 				$this -> trunk_start_inuse($agi, $A2B, 0);
 			} else {
@@ -1359,6 +1362,9 @@ class RateEngine
 					$myres = $agi->exec("DIAL $dialstr");
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "DIAL FAILOVER $dialstr");
 					
+					// check connection after dial(long pause) 
+					$A2B -> DbReConnect(); 
+
 					// Count this call on the trunk
 					$this -> trunk_start_inuse($agi, $A2B, 0);
 

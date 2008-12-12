@@ -2702,7 +2702,47 @@ class A2Billing {
 		return true;
 	}
 	
-	
+	/*
+     * Function DbReConnect
+     * Returns: true / false if connection has been established
+     */
+	function DbReConnect($agi){
+		$res = $this->DBHandle -> Execute("select 1");
+		if (!$res) {
+		   	$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[DB CONNECTION LOST] - RECONNECT ATTEMPT");	
+		   	$this->DBHandle -> Close();
+			if ($this->config['database']['dbtype'] == "postgres"){
+				$datasource = 'pgsql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
+			}else{
+            	$datasource = 'mysqli://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
+			}
+			$count=1;$sleep=1;
+			while ((!$res)&&($count<5)){
+				$this->DBHandle = NewADOConnection($datasource);
+				if (!$this->DBHandle) {
+					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[DB CONNECTION LOST]- RECONNECT FAILED ,ATTEMPT $count sleep for $sleep ");
+					$count+=1;$sleep=$sleep*2;
+					sleep($sleep);
+				} else { 
+					break;
+				}
+			}
+			if (!$this->DBHandle) {
+				$this -> debug( FATAL, $agi, __FILE__, __LINE__, "[DB CONNECTION LOST] CDR NOT POSTED");
+				die("Reconnection failed");
+			}
+			if ($this->config['database']['dbtype'] == "mysqli") {
+				$this->DBHandle -> Execute('SET AUTOCOMMIT=1');
+			}
+			
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NO DB CONNECTION] - RECONNECT OK]");
+
+		} else {
+			$res -> Close();
+		}
+		return true;
+	}
+
 	/*
 	 * Function DbDisconnect
 	 */
