@@ -65,7 +65,10 @@ DocumentRoot "/var/www/html/test"
 	* chown -R apache ADODB_cache
 	* chgrp -R apache ADODB_cache
 
-
+6. Gettext locales on Ubuntu
+	* check the supported : locale -a
+	* sudo locale-gen en_US pt_BR zh_TW es_ES fr_FR it_IT pl_PL ro_RO ru_RU tr_TR ur_PK uk_UA
+	
 
 ------------------------------------------------------------
 MusicOnHold Custom !

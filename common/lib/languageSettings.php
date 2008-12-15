@@ -27,7 +27,7 @@ function SetLocalLanguage()
 			$slectedLanguage = "en_US";
 			$charEncoding = "iso88591";
 			break;
-		case "espanol":
+		case "spanish":
 			$languageEncoding = "es_ES.iso88591";
 			$slectedLanguage = "es_ES";
 			$charEncoding = "iso88591";
@@ -86,11 +86,11 @@ function SetLocalLanguage()
 	/*
 	Code here to set the Encoding of the Lanuages and its Envirnoment Variables
 	*/
-	//echo "languageEncoding=$languageEncoding - slectedLanguage=$slectedLanguage";
+	// echo "languageEncoding=$languageEncoding - slectedLanguage=$slectedLanguage - path=".BINDTEXTDOMAIN;
 	@setlocale(LC_TIME,$languageEncoding);
 	putenv("LANG=$slectedLanguage");
 	putenv("LANGUAGE=$slectedLanguage");
-	setlocale(LC_MESSAGES, $slectedLanguage);
+	setlocale(LC_ALL, $slectedLanguage);
 	$domain = 'messages';
 	bindtextdomain("messages", BINDTEXTDOMAIN);
 	textdomain($domain);
