@@ -1233,7 +1233,7 @@ class A2Billing {
 
 			// MAKE THE AUTHENTICATION TO GET ALL VALUE : CREDIT - EXPIRATION - ...
 			if ($this -> callingcard_ivr_authenticate($agi)!=0) {
-				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: AUTHENTICATION FAILS !!!\n");
+				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: AUTHENTICATION FAILS !!!\n");
 			} else {
 				// CHECK IF DESTINATION IS SET
 				if (strlen($inst_listdestination[4])==0) continue;
@@ -1299,7 +1299,7 @@ class A2Billing {
 
 					if ($answeredtime >0) {
 
-						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
+						$this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
 						
 						if (strlen($this -> dialstatus_rev_list[$dialstatus])>0)
 							$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
@@ -1307,26 +1307,26 @@ class A2Billing {
 							$terminatecauseid = 0;
 						
 						$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
-							" terminatecauseid, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
+							" terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
 							"('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
 						if ($this->config['database']['dbtype'] == "postgres"){
 							$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 						}else{
 							$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 						}
-						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '3' )";
+						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
 						
 						$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
+						$this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
 						
 						// CC_DID & CC_DID_DESTINATION - cc_did.id, cc_did_destination.id
 						$QUERY = "UPDATE cc_did SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[0]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
+						$this -> debug( INFO, $agi, __FILE__, __LINE__, "[UPDATE DID]:[result:$result]");
 						
 						$QUERY = "UPDATE cc_did_destination SET secondusedreal = secondusedreal + $answeredtime WHERE id='".$inst_listdestination[1]."'";
 						$result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
-						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
+						$this -> debug( INFO, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 						
 						return 1;
 					}
