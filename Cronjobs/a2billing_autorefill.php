@@ -8,7 +8,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	0 10 21 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_autorefill.php
+	0 10 21 * * php /usr/local/a2billing/Cronjobs/a2billing_autorefill.php
 	
 	field	 allowed values
 	-----	 --------------

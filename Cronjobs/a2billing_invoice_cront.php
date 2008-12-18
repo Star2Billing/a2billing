@@ -10,7 +10,7 @@
  *
  *  The sample above will run the script every day of each month at 6AM
 	crontab -e
-	0 6 1 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_invoice_cront.php
+	0 6 1 * * php /usr/local/a2billing/Cronjobs/a2billing_invoice_cront.php
 	
 	
 	field	 allowed values

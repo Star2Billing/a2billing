@@ -6,7 +6,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	0 6 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/currencies_update_yahoo.php
+	0 6 * * * php /usr/local/a2billing/Cronjobs/currencies_update_yahoo.php
 	
 	field	 allowed values
 	-----	 --------------

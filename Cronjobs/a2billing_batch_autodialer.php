@@ -8,7 +8,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	* / 1 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_batch_autodialer.php
+	* / 1 * * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_autodialer.php
 	
 	field	 allowed values
 	-----	 --------------

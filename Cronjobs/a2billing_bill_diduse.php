@@ -9,7 +9,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	0 2 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_bill_diduse.php
+	0 2 * * * php /usr/local/a2billing/Cronjobs/a2billing_bill_diduse.php
 	
 	field	 allowed values
 	-----	 --------------

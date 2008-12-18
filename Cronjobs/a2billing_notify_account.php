@@ -9,7 +9,7 @@
  *
  *  The sample above will run the script once every hour
 	crontab -e
-	1 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_notify_account.php
+	1 * * * * php /usr/local/a2billing/Cronjobs/a2billing_notify_account.php
 
 	field	 allowed values
 	-----	 --------------

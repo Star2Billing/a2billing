@@ -13,7 +13,7 @@
  * 
  *
 	crontab -e
-	* / 15 * * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_batch_cache.php
+	* / 15 * * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_cache.php
 	
 	
 	field	 allowed values

@@ -6,9 +6,13 @@
  *  Fri Oct 28 11:51:08 2005
  *  Copyright  2005  User
  *  ADD THIS SCRIPT IN A CRONTAB JOB
+ * 
+ *  Description : 
+ *  This script will take care of the recurring service
+ *
  *
 	crontab -e
-	0 12 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_batch_process.php
+	0 12 * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_process.php
 	
 	field	 allowed values
 	-----	 --------------
@@ -23,15 +27,14 @@
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-//dl("pgsql.so"); // remove "extension= pgsql.so !
 
 include_once (dirname(__FILE__)."/lib/Class.Table.php");
 include (dirname(__FILE__)."/lib/interface/constants.php");
 include (dirname(__FILE__)."/lib/Class.A2Billing.php");
 include (dirname(__FILE__)."/lib/Misc.php");
 
-$verbose_level=1;
-$groupcard=5000;
+$verbose_level 	= 1;
+$groupcard 		= 5000;
 
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
@@ -49,7 +52,7 @@ if (!$A2B -> DbConnect()){
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
 	exit;
 }
-//$A2B -> DBHandle
+
 $instance_table = new Table();
 
 $QUERY_GROUP = 'SELECT DISTINCT id_card_group FROM cc_cardgroup_service ';

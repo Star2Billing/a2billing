@@ -8,7 +8,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	0 6 1 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_subscription_fee.php
+	0 6 1 * * php /usr/local/a2billing/Cronjobs/a2billing_subscription_fee.php
 	
 	field	 allowed values
 	-----	 --------------
