@@ -253,6 +253,14 @@ class FormHandler
 	var $FG_OTHER_BUTTON2_ALT = '';
 	var $FG_OTHER_BUTTON3_ALT = '';
 
+	var $FG_OTHER_BUTTON1_HTML_CLASS = '';
+	var $FG_OTHER_BUTTON2_HTML_CLASS = '';
+	var $FG_OTHER_BUTTON3_HTML_CLASS = '';
+	
+	var $FG_OTHER_BUTTON1_HTML_ID = '';
+	var $FG_OTHER_BUTTON2_HTML_ID = '';
+	var $FG_OTHER_BUTTON3_HTML_ID = '';
+	
 	//	-------------------- DATA FOR THE EDITION --------------------
 	
 	/**
@@ -1581,6 +1589,95 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$this->creation_card_refill();
 		
 	}
+	function post_processing_refill_add(){
+		$this->add_card_refill();
+		//add invoice
+		$this->create_invoice_after_refill();
+		
+	}
+	
+	function create_invoice_after_refill(){
+		global $A2B;
+		$processed = $this->getProcessed();
+		if($processed['added_invoice']==1){
+			//CREATE AND UPDATE REF NUMBER
+			$year = date("Y");
+			$invoice_conf_table = new Table('cc_invoice_conf','value');
+			$conf_clause = "key_val = 'count_$year'";
+			$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
+			if(is_array($result) && !empty($result[0][0])){
+				//update count
+				$count =$result[0][0];
+				if(!is_numeric($count)) $count=0;
+				$count++;
+				$param_update_conf = "value ='".$count."'";
+				$clause_update_conf = "key_val = 'count_$year'";
+				$invoice_conf_table -> Update_table ($this->DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
+			}else{
+				//insert newcount
+				$count=1;
+				$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
+				$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
+			}
+			$field_insert = "date, id_card, title ,reference, description";
+			$date = $processed['date'];
+			$card_id = $processed['card_id'];
+			$title = gettext("REFILL");
+			$description = gettext("Invoice for refill");
+			$reference = $year."-".$count;
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description' ";
+			$instance_table = new Table("cc_invoice", $field_insert);
+			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			//load vat of this card
+			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+				$amount = $processed['credit'];
+				$description = $processed['description'];
+				$card_table = new Table('cc_card','vat');
+				$card_clause = "id = ".$card_id;
+				$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
+				if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
+				else $vat = $card_result[0][0];
+				$field_insert = "date, id_invoice ,price,vat, description";
+				$instance_table = new Table("cc_invoice_item", $field_insert);
+				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description' ";
+				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			}
+		}	
+		die();
+	}
+	
+	
+	 
+	function create_invoice_reference(){
+		global $A2B;
+		$processed = $this->getProcessed();
+		$id_invoice = $this -> RESULT_QUERY;
+		//CREATE AND UPDATE REF NUMBER
+		$year = date("Y");
+		$invoice_conf_table = new Table('cc_invoice_conf','value');
+		$conf_clause = "key_val = 'count_$year'";
+		$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
+		if(is_array($result) && !empty($result[0][0])){
+			//update count
+			$count =$result[0][0];
+			if(!is_numeric($count)) $count=0;
+			$count++;
+			$param_update_conf = "value ='".$count."'";
+			$clause_update_conf = "key_val = 'count_$year'";
+			$invoice_conf_table -> Update_table ($this->DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
+		}else{
+			//insert newcount
+			$count=1;
+			$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
+			$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
+		}
+		$instance_table_invoice = new Table("cc_invoice");
+		$param_update_invoice = "reference = '".$year."-".$count."'";
+		$clause_update_invoice = " id ='$id_invoice'";
+		$instance_table_invoice-> Update_table ($this->DBHandle, $param_update_invoice, $clause_update_invoice, $func_table = null);
+		
+	}
+	
 	
 	/**
      * Function create_refill

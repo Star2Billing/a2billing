@@ -192,6 +192,15 @@ body {
 	color: #cc0033;
 }
 
+.form_invoice_head {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: #666666;
+}
+
 .form_head {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
@@ -507,116 +516,6 @@ SPAN.errorText {
 	background-color: #eeeeee;	
 	margin-left: auto;
 	margin-right: auto;
-}
-.invoices_table1
-{
-	padding-right: 2px;
-	padding-left: 2px;
-	padding-bottom: 2px;
-	margin: 1px;
-	width: 95%;
-	padding-top: 2px;	
-}
-.invoices_table2
-{
-	background-color: #f3f3f3;
-	width: 100%;
-}
-.invoices_table2_td1
-{
-	font-size: 13px;
-	color: #000000;
-	font-family: Verdana;
-}
-.invoices_table3
-{
-	border-top-width: 0px;	
-	border-left-width: 0px;
-	border-bottom-width: 0px;	
-	margin: 1px;
-	width: 70%;	
-	border-right-width: 0px;
-}
-.invoices_table3_td1
-{
-	font-weight: bold;
-	color: #ffffff;
-	background-color: #b72222;
-	text-align: center;
-}
-.invoices_table3_td2
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #000000;
-	font-family: Verdana;
-	background-color: #f2e8ed;
-	text-align: center;
-}
-.invoices_table3_td3
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #000000;
-	font-family: Verdana;
-	background-color: #FFFFFF;
-	text-align: center;
-}
-.invoices_table3_td4
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFFF;
-	font-family: Verdana;
-	background-color: #600101;
-	text-align: center;
-}
-.invoices_table3_td5
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #FFFFFF;
-	font-family: Verdana;
-	background-color: #BA5151;
-	text-align: center;
-}
-.invoices_table3_td6
-{
-	font-weight: bold;
-	font-size: 11px;
-	color: #000000;
-	font-family: Verdana;
-	background-color: #D2D8ED;
-	text-align: center;
-}
-.invoices_table3_td7
-{	
-	font-size: 11px;
-	color: #000000;
-	font-family: Verdana;	
-	text-align: center;
-}
-
-.invoices_table3_tr1
-{
-	font-weight: bold;	
-	color: #FFFFFF;	
-	background-color: #600101;	
-}
-.invoices_table3_tr2
-{
-	font-weight: bold;	
-	color: #FFFFFF;	
-	background-color: #BA5151;	
-}
-.invoices_table4_td1
-{	
-	font-size: 15px;
-	font-weight: bold;
-	color: #000000;
-	font-family: Verdana;	
-	text-align: center;
-	background-color: #fff1d1;	
 }
 .NewTableCell
 {
@@ -1247,33 +1146,6 @@ SPAN.errorText {
 	text-align: left;
 	text-decoration: none;
 }
-.invoice_subheading
-{
-	font-weight: bold;
-	font-size: 11px;
-	text-transform: capitalize;
-	color: navy;
-	font-family: Arial, Verdana;	
-	background-color: LightGrey;
-	text-align: left;
-}
-.invoice_td
-{
-	font-size: 12px;
-	color: navy;
-	border-bottom: 1px solid;
-	font-family: Arial, Verdana;
-}
-.invoice_td_rightborder
-{
-	font-size: 12px;
-	color: navy;
-	border-bottom: 1px solid;
-	border-right: 1px solid;
-	font-family: Arial, Verdana;
-}
-
-
 .cssbutton_old {
 	background: #fff;
 	padding: 1px;
@@ -1383,6 +1255,16 @@ SPAN.errorText {
 	margin-left: auto;
 	margin-right: auto;	
 	background-color: #E2E2D3;	
+}
+.invoice_table
+{
+	padding: 5px;
+	border: solid 1px;
+	width: 80%;	
+	padding-top: 2px;
+	margin-left: auto;
+	margin-right: auto;	
+	background-color: #EAEAEA;	
 }
 .fontstyle_009{	
 	font-family: Verdana;

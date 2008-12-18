@@ -321,12 +321,34 @@ function openURLFilter(theLINK)
 								}
 
 								echo $new_FG_OTHER_BUTTON1_LINK;
+								
+								$extra_html="";
+								
+								if(!empty($this->FG_OTHER_BUTTON1_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON1_HTML_ID))){
+									$temp_id =$this->FG_OTHER_BUTTON1_HTML_ID;
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
+										$findme = "|col$h|";
+										$pos = stripos($temp_id, $findme);
+										if ($pos !== false) {
+											$temp_id = str_replace($findme,$origlist[$ligne_number][$h],$temp_id);
+										}
+									}
+									$extra_html.=' id="'.$temp_id.'"';
+									
+								}
+								
+					  			if(!empty($this->FG_OTHER_BUTTON1_HTML_CLASS) ){
+									$extra_html.= ' class="'.$this->FG_OTHER_BUTTON1_HTML_CLASS.'" ';
+								}
+								
+					  			
+								
 								if (substr($new_FG_OTHER_BUTTON1_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
 								if (strlen($this -> FG_OTHER_BUTTON1_IMG)==0){
-									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON1_ALT.'</span>';
+									echo '"'.$extra_html.'> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON1_ALT.'</span>';
 									// onclick="location.href='http://www.google.com'"
 								}else{
-									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON1_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON1_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON1_ALT?>"><?php
+									?>"<?php echo $extra_html ?>><img src="<?php echo $this -> FG_OTHER_BUTTON1_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON1_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON1_ALT?>"><?php
 								}
 								?></a>
 						<?php } ?>
@@ -363,11 +385,33 @@ function openURLFilter(theLINK)
 									}
 								}
 								echo $new_FG_OTHER_BUTTON2_LINK;
+								
+								$extra_html="";
+								
+								if(!empty($this->FG_OTHER_BUTTON2_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON2_HTML_ID))){
+									$temp_id =$this->FG_OTHER_BUTTON2_HTML_ID;
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
+										$findme = "|col$h|";
+										$pos = stripos($temp_id, $findme);
+										if ($pos !== false) {
+											$temp_id = str_replace($findme,$origlist[$ligne_number][$h],$temp_id);
+										}
+									}
+									$extra_html.=' id="'.$temp_id.'"';
+									
+								}
+								
+					  			if(!empty($this->FG_OTHER_BUTTON2_HTML_CLASS) ){
+									$extra_html.= ' class="'.$this->FG_OTHER_BUTTON2_HTML_CLASS.'" ';
+								}
+								
+								
+								
 								if (substr($new_FG_OTHER_BUTTON2_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
 								if (strlen($this -> FG_OTHER_BUTTON2_IMG)==0){
-									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON2_ALT.'</span>';
+									echo '"'.$extra_html.'> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON2_ALT.'</span>';
 								}else{
-									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON2_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON2_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON2_ALT?>"><?php
+									?>" <?php echo $extra_html ?> ><img src="<?php echo $this -> FG_OTHER_BUTTON2_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON2_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON2_ALT?>"><?php
 
 								}
 								?></a>
@@ -405,11 +449,33 @@ function openURLFilter(theLINK)
 									}
 								}
 								echo $new_FG_OTHER_BUTTON3_LINK;
+								
+								$extra_html="";
+								
+								if(!empty($this->FG_OTHER_BUTTON3_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON3_HTML_ID))){
+									$temp_id =$this->FG_OTHER_BUTTON3_HTML_ID;
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
+										$findme = "|col$h|";
+										$pos = stripos($temp_id, $findme);
+										if ($pos !== false) {
+											$temp_id = str_replace($findme,$origlist[$ligne_number][$h],$temp_id);
+										}
+									}
+									$extra_html.=' id="'.$temp_id.'"';
+									
+								}
+								
+					  			if(!empty($this->FG_OTHER_BUTTON3_HTML_CLASS) ){
+									$extra_html.= ' class="'.$this->FG_OTHER_BUTTON3_HTML_CLASS.'" ';
+								}
+								
+								
+								
 								if (substr($new_FG_OTHER_BUTTON3_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
 								if (strlen($this -> FG_OTHER_BUTTON3_IMG)==0){
-									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON3_ALT.'</span>';
+									echo '"'.$extra_html.'> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON3_ALT.'</span>';
 								}else{
-									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON3_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON3_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON3_ALT?>"><?php
+									?>" <?php echo $extra_html ?> ><img src="<?php echo $this -> FG_OTHER_BUTTON3_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON3_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON3_ALT?>"><?php
 
 								}
 								?></a>

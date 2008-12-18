@@ -7,6 +7,7 @@
 	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
+	<link href="templates/{$SKIN_NAME}/css/invoice.css" rel="stylesheet" type="text/css">
 
 	<script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
@@ -14,9 +15,7 @@
 	<script type="text/javascript" src="./javascript/jquery/handler_jquery.js"></script>
 	<!--[if IE]><script language="javascript" type="text/javascript" src="./javascript/jquery/excanvas.pack.js"></script><![endif]-->
     <script language="javascript" type="text/javascript" src="./javascript/jquery/jquery.flot.pack.js"></script>
-
 	<script language="javascript" type="text/javascript" src="./javascript/misc.js"></script>
-	
 </HEAD>
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
@@ -295,40 +294,8 @@ Logged-in as: <b>{$adminname}</b></p>
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_view_invoice.php?atmenu=payment&section=13">{php} echo gettext("View Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_create_invoice.php?atmenu=payment&section=13">{php} echo gettext("Create Invoices");{/php}</a></li>
-				<li><a href="invoices.php?nodisplay=1&section=13">{php} echo gettext("Invoice");{/php}</a></li>
-				<li><a href="invoices_customer.php?nodisplay=1&section=13">{php} echo gettext("Invoices Customer");{/php}</a></li>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&section=13&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&section=13&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-
-	{if ($ACXINVOICING2 > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2"
-	{if ($section =="14")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if}
-	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES2");{/php}</strong></a></li>
-	<div class="tohide"
-	{if ($section =="14")}
-	style="">
-	{else}
-	style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_invoices2_bill.php?atmenu=payment&section=14">{php} echo gettext("Bill Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoices2_period.php?atmenu=payment&section=14">{php} echo gettext("Billed per period");{/php}</a></li>
-				<li><a href="A2B_entity_invoices2_card.php?invoicetype=billed&atmenu=payment&section=14">{php} echo gettext("Billed per customer");{/php}</a></li>
-				<li><a href="A2B_entity_invoices2_card.php?invoicetype=unbilled&atmenu=payment&section=14">{php} echo gettext("Unbilled Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoices2_sales.php?atmenu=payment&section=14">{php} echo gettext("Sales");{/php}</a></li>
+				<li><a href="A2B_entity_invoice.php?atmenu=payment&section=13">{php} echo gettext("Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_invoice_conf.php?atmenu=payment&section=13">{php} echo gettext("Invoices Configuration");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

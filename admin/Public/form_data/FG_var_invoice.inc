@@ -1,35 +1,56 @@
 <?php
 
-getpost_ifset(array('id', 'card_id', 'date', 'credit','description,added_invoice'));
+getpost_ifset(array('id', 'id_card', 'date','title','description'));
 
 
 if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_logrefill LEFT JOIN cc_card ON cc_card.id=card_id","Refill");
+	$HD_Form = new FormHandler("cc_invoice LEFT JOIN cc_card ON cc_card.id=id_card LEFT JOIN cc_invoice_item ON cc_invoice_item.id_invoice=cc_invoice.id ","Invoice");
 } else {
-	$HD_Form = new FormHandler("cc_logrefill","Refill");
+	$HD_Form = new FormHandler("cc_invoice","Invoice");
 }
 
-$HD_Form -> FG_TABLE_ID = 'cc_logrefill.id';
-
+$HD_Form -> FG_TABLE_ID = 'cc_invoice.id';
+$HD_Form -> FG_TABLE_CLAUSE = " 1 GROUP BY cc_invoice.id";
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
+$HD_Form -> FG_FK_DELETE_ALLOWED = true;
+$HD_Form -> FG_FK_DELETE_CONFIRM = true;
+$HD_Form -> FG_FK_WARNONLY = true;
+$HD_Form -> FG_FK_TABLENAMES = array("cc_invoice_item");
+$HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_invoice ");
+
+$HD_Form -> FG_INFO = true;
+$HD_Form -> FG_INFO_LINK = "A2B_invoice_view.php?id=";
+$HD_Form -> FG_INFO_ALT = "VIEW";
+$HD_Form -> FG_INFO_IMG = "eye.png";
+
+$HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_invoice_edit.php?id=";
+$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/page_white_gear.png";
+$HD_Form -> FG_OTHER_BUTTON1 = true;
+$HD_Form -> FG_OTHER_BUTTON2_LINK = "";
+$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path."/lock.png";
+$HD_Form -> FG_OTHER_BUTTON2 = true;
+$HD_Form -> FG_OTHER_BUTTON2_HTML_CLASS = "lock";
+$HD_Form -> FG_OTHER_BUTTON2_HTML_ID = "|col0|";
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_logrefill.php?form_action=ask-add&section=2";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Refill");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_invoice.php?form_action=ask-add&section=2";
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Invoice");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money.png" ;
 
-
+//$filter_amount_without_vat ='SUM(cc_invoice_item.price)';
+$filter_amount_with_vat ='SUM(cc_invoice_item.price*(1+(cc_invoice_item.vat/100)))';
 $list_refill_type=Constants::getRefillType_List();
-$HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("ID"), "cc_invoice.id", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("REFERENCE"), "cc_invoice.reference", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("DATE"), "date", "10%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "7%", "center", "sort", "", "list", $list_refill_type);
-$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "18%", "center", "sort");
-
-$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date, description, cc_logrefill.refill_type as refill_type, cc_logrefill.credit');
+//$HD_Form -> AddViewElement(gettext("AMOUNT EXCL VAT"), "price", "10%", "center", "sort","", "", "", "", "", "", "display_2bill");
+$HD_Form -> AddViewElement(gettext("AMOUNT INCL VAT"), "price", "10%", "center", "sort","", "", "", "", "", "", "display_2bill");
+$HD_Form -> FieldViewElement ("cc_invoice.id,cc_invoice.reference, username, cc_invoice.date,title, cc_invoice.description,$filter_amount_with_vat");
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -43,7 +64,7 @@ $HD_Form -> FG_DELETION = true;
 
 
 $HD_Form -> AddEditElement (gettext("ID CUSTOMER"),
-			   "card_id",		
+			   "id_card",		
 			   "$value", "POPUPVALUE", "size=30 maxlength=50",	
 			   "4",	gettext("Insert the Customer ID"),
 			    "" , "", "", "", "", 				
@@ -57,7 +78,7 @@ if ($form_action=="ask-add"){
 	$comp_date="value='$comp_date'";
 }
 
-$HD_Form -> AddEditElement (gettext("REFILL DATE"),
+$HD_Form -> AddEditElement (gettext("INVOICE DATE"),
 			   "date",		
 			   '$value',	
 			   "INPUT",	
@@ -66,15 +87,16 @@ $HD_Form -> AddEditElement (gettext("REFILL DATE"),
 			   gettext("Insert the current date"),
 			   "" , "", "",	"", "", "", "", "" );
 
-$HD_Form -> AddEditElement (gettext("REFILL AMOUNT"),
-			   "credit",		
-			   '$value',	
-			   "INPUT",	
-			   "size=60 maxlength=10",	
-			   "12",	
-			   gettext("Insert the credit amount"),
-			   "" , "", "",	"", "" , "", "", gettext("Enter the amount in the currency base : ").BASE_CURRENCY );
 
+$HD_Form -> AddEditElement ( gettext("TITLE"),	
+		"title",	'$value',	
+		"INPUT",
+		"size=30 maxlength=50",
+		"0",
+		gettext("Insert the title of invoice, if you need one"), 
+		"" , "", "",	"", "", "", "", "" );
+			   
+			   
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 				"description",
 				'',
@@ -84,28 +106,8 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 				gettext("Insert the description"),
 				"" , "", "", "", "" , "", "", "");
 			   
-$HD_Form -> AddEditElement (gettext("REFILL TYPE"),
-               "refill_type",
-               '$value',
-               "SELECT",
-               "",
-               "",
-               "",
-               "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
 
-if ($form_action!="ask-edit" && $form_action!="edit") {	
-	$HD_Form -> AddEditElement (gettext("CREATE ASSOCIATE INVOICE"),
-				   "added_invoice",
-				   '1',
-				   "RADIOBUTTON",
-				   "",
-				   "",
-				   gettext("Choose if you want to create an invoice with this refill account"),
-				   "" , "", "" , "Yes :1, - No:0", "", "" , "", "");
-}
-
-
-$HD_Form -> FieldEditElement ('card_id, date, credit, description, refill_type, added_invoice');
+$HD_Form -> FieldEditElement ('id_card, date,title description');
 
 
 
@@ -133,7 +135,7 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INST
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue.");
 
-$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'post_processing_refill_add';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_invoice_reference';
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

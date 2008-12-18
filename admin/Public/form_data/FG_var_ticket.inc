@@ -20,7 +20,11 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form -> FG_TABLE_CLAUSE = " cc_card.id=cc_ticket.creator AND cc_ticket.creator_type= 0  GROUP BY cc_ticket.id";
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
-
+$HD_Form -> FG_FK_DELETE_ALLOWED = true;
+$HD_Form -> FG_FK_DELETE_CONFIRM = true;
+$HD_Form -> FG_FK_WARNONLY = true;
+$HD_Form -> FG_FK_TABLENAMES = array("cc_ticket_comment");
+$HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_ticket ");
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;

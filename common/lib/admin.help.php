@@ -31,52 +31,7 @@ $CC_help_generate_signup='
 </div></div></div>
 </div></div>';
 
-$CC_help_invoices_unbilled='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("This allows you to see the outstanding of each customer and to mail it.").'
-	<br/>'.help_wiki_link('Invoices').'
-</div></div></div>
-</div></div>';
 
-$CC_help_invoices_card='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("This page allows you to see the money situation of each client.</br>")
-.gettext("You can what invoices were billed for them and see the payments they made").'
-	<br/>'.help_wiki_link('Invoices').'
-</div></div></div>
-</div></div>';
-
-$CC_help_invoices_period='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("This page allows you to view and send billed invoices.</br>")
-.gettext("You can filter on date, customer and choose in which format you want to see them").'
-	<br/>'.help_wiki_link('Invoices').'
-</div></div></div>
-</div></div>';
-
-$CC_help_bill_invoice='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("This page allows you to store and email invoices for a range of customers.</br>")
-.gettext("You can choose if you want to mail this bill and wether you want to count charges and calls or not ").'
-	<br/>'.help_wiki_link('Invoices').'
-</div></div></div>
-</div></div>';
 
 $CC_help_list_customer='
 <div class="toggle_show2hide">
@@ -235,7 +190,19 @@ $CC_help_view_refill ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Payment history - The section below allows you to add refills against a customer. Note that this change the balance on the account.").'
+'.gettext("Refill history - The section below allows you to add refills against a customer. Note that this change the balance on the account.").'
+<br/>'.help_wiki_link('ViewPayments').'
+</div></div></div>
+</div></div>';
+
+$CC_help_view_invoice ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Invoice history - The section below allows you to see and create invoice against a customer.").'
 <br/>'.help_wiki_link('ViewPayments').'
 </div></div></div>
 </div></div>';
@@ -247,7 +214,7 @@ $CC_help_view_refill_agent ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Payment history - The section below allows you to add refills against a agent. Note that this change the balance on the account. ").'
+'.gettext("Refill history - The section below allows you to add refills against a agent. Note that this change the balance on the account. ").'
 <br/>'.help_wiki_link('ViewPayments').'
 </div></div></div>
 </div></div>';
