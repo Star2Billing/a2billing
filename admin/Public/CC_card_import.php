@@ -20,18 +20,10 @@ $DBHandle  = DbConnect();
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 
-/*************************************************************/
 
-	$smarty->display('main.tpl');
+$smarty->display('main.tpl');
+
 ?>
-<script type="text/javascript">
-<!--
-
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-//-->
-</script>
 
 <script language="JavaScript">
 <!--

@@ -41,10 +41,6 @@ $smarty->display('main.tpl');
 <script type="text/javascript">
 <!--
 
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
 function sendtoupload(form){
 
 	if (form.phonebook.value.length < 1){

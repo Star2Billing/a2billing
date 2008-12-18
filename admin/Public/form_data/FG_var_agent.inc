@@ -304,7 +304,7 @@ $resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffgroup");
 if ( $resmax )
 	$numrow = $resmax -> RecordCount( );
 
-if ($numrow>0){ 
+if ($numrow > 0) { 
 	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
 		"tariffgroup",	
 		'$value',	
@@ -318,8 +318,6 @@ if ($numrow>0){
 		"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
 }
 
-
-
 	
 $DBHandle_max  = DbConnect();
 $numrow = 0;
@@ -327,7 +325,7 @@ $resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
 if ( $resmax )
 	$numrow = $resmax -> RecordCount( );
 
-if ($numrow>0) { 
+if ($numrow > 0) { 
 	$HD_Form -> AddEditElement (gettext("CARD GROUP"),
 		"cardgroupe",	
 		'$value',	
@@ -343,8 +341,6 @@ if ($numrow>0) {
 }
 
 
-
-
 $FG_QUERY_EDITION = 'login, passwd, perms,secret, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
 country, zipcode, email, phone,  fax';
 
@@ -353,10 +349,7 @@ $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 
-if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0'";
-} else {
+if (DB_TYPE == "mysql") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreation ";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now() ";
 }

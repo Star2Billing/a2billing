@@ -40,18 +40,9 @@ $list_countryname = $instance_table_country  -> Get_list ($DBHandle, $FG_TABLE_C
 $nb_countryname = count($list_countryname);
 
 
-?>
-<?php
-	$smarty->display('main.tpl');
-?>
-<script type="text/javascript">
-<!--
+$smarty->display('main.tpl');
 
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-//-->
-</script>
+?>
 
 <script language="JavaScript">
 <!--

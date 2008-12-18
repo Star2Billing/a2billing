@@ -41,17 +41,12 @@ $list_trunk = $instance_table_trunk  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "
 $nb_trunk = count($list_trunk);
 
 
-?>
-<?php
 $smarty->display('main.tpl');
 
 ?>
+
 <script type="text/javascript">
 <!--
-
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
 
 function sendtoupload(form){
 	if (form.tariffplan.value.length < 1){

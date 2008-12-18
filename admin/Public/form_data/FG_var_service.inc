@@ -156,44 +156,34 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND REPORT"),
 	"" , "", "", "", "", "" , "NO-NULL", "");
 
 
+$DBHandle_max  = DbConnect();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
+if ( $resmax )
+	$numrow = $resmax -> RecordCount( );
+
+if ($numrow>0) { 
+	$HD_Form -> AddEditElement (gettext("CARD GROUP"),
+		"service",	
+		'$value',	
+		"SELECT",		
+		'size="10" multiple="multiple"',
+		"",		
+		"",	
+		"sql",		
+		"cards_services",	
+		"name, id",		
+		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_card_group:cc_card_group LEFT JOIN cc_cardgroup_service ON cc_card_group.id=cc_cardgroup_service.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_cardgroup_service.id_service = %id:id_service:%2 - (%1)::::%1:id='%1'");
+}
 
 $HD_Form -> FieldEditElement ('name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, emailreport');
 
-if ($form_action=="ask-edit") {		
-	$DBHandle_max  = DbConnect();
-	$numrow = 0;
-	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
-	if ( $resmax )
-		$numrow = $resmax -> RecordCount( );
-	
-	if ($numrow>0) { 
-		$HD_Form -> AddEditElement (gettext("CARD GROUP"),
-			"service",	
-			'$value',	
-			"SELECT",		
-			'size="10" multiple="multiple"',
-			"",		
-			"",	
-			"sql",		
-			"cards_services",	
-			"name, id",		
-			"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_card_group:cc_card_group LEFT JOIN cc_cardgroup_service ON cc_card_group.id=cc_cardgroup_service.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_cardgroup_service.id_service = %id:id_service:%2 - (%1)::::%1:id='%1'");		
-		
-	}
-}
 
-
-
-
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
+if (DB_TYPE == "mysql") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
+	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now() ";
 }
 				
-
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
@@ -213,3 +203,5 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
+
