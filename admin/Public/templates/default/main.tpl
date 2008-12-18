@@ -15,6 +15,8 @@
 	<!--[if IE]><script language="javascript" type="text/javascript" src="./javascript/jquery/excanvas.pack.js"></script><![endif]-->
     <script language="javascript" type="text/javascript" src="./javascript/jquery/jquery.flot.pack.js"></script>
 
+	<script language="javascript" type="text/javascript" src="./javascript/misc.js"></script>
+	
 </HEAD>
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
