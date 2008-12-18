@@ -1390,4 +1390,7 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'I you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 
 
-
+DROP TABLE cc_invoices;
+DROP TABLE cc_invoice;
+DROP TABLE cc_invoice_history;
+DROP TABLE cc_invoice_items;
