@@ -1394,3 +1394,49 @@ DROP TABLE cc_invoices;
 DROP TABLE cc_invoice;
 DROP TABLE cc_invoice_history;
 DROP TABLE cc_invoice_items;
+
+CREATE TABLE cc_invoice (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	reference VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	id_card BIGINT NOT NULL ,
+	date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	paid_status TINYINT NOT NULL DEFAULT '0',
+	status TINYINT NOT NULL DEFAULT '0',
+	title VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+PRIMARY KEY ( id ) ,
+UNIQUE (reference)
+) ENGINE = MYISAM;
+
+CREATE TABLE cc_invoice_item (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	id_invoice BIGINT NOT NULL ,
+	date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	price DECIMAL( 15, 5 ) NOT NULL DEFAULT '0',
+	VAT DECIMAL( 4, 2 ) NOT NULL DEFAULT '0',
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	PRIMARY KEY (id)
+) ENGINE = MYISAM;
+
+
+CREATE TABLE cc_invoice_conf (
+	id INT NOT NULL AUTO_INCREMENT ,
+	key_val VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	value VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	PRIMARY KEY ( id ),
+	UNIQUE (key_val)
+) ENGINE = MYISAM;
+
+INSERT INTO cc_invoice_conf (key_val ,value)
+VALUES 	('company_name', 'My company'),
+		('address', 'address'),
+		('zipcode', 'xxxx'),
+		('country', 'country'), 
+		('city', 'city'), 
+		('phone', 'xxxxxxxxxxx'), 
+		('fax', 'xxxxxxxxxxx'), 
+		('email', 'xxxxxxx@xxxxxxx.xxx'),
+		('vat', 'xxxxxxxxxx'),
+		('web', 'www.xxxxxxx.xxx');
+
+ALTER TABLE cc_logrefill ADD added_invoice TINYINT NOT NULL DEFAULT '0';
