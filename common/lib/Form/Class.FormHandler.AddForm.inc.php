@@ -58,7 +58,7 @@
 	?>
 		<table cellpadding="2" cellspacing="0" border="0" width="100%">
 			<tr>			
-				<td> <img src="../signup/captcha/captcha.php" ></td>
+				<td> <img src="./captcha/captcha.php" ></td>
 			</tr>			
 			<tr>
 			<td><INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>"> Enter code from above picture here.

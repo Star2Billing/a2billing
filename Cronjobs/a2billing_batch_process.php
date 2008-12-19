@@ -135,7 +135,7 @@ foreach ($result as $myservice) {
 	// BROWSE THROUGH THE CARD TO APPLY THE SERVICE 
 	for ($page = 0; $page < $nbpagemax; $page++) {
 		
-		$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = $myservice[0] AND firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00' AND runservice=1  ORDER BY id  ";
+		$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = ".$myservice[0]." AND firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00' AND runservice=1  ORDER BY id  ";
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
 			$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
 		}else{
@@ -149,7 +149,7 @@ foreach ($result as $myservice) {
 			if ($verbose_level>=1) echo "------>>>  ID = ".$mycard[0]." - CARD =".$mycard[4]." - BALANCE =".$mycard[1]." \n";	
 
 			// RULE 3 : Apply the period to card - card last run date >= period
-			if ($myservice[4]==3){
+			if ($myservice[4]==3) {
 				
 				$timestamp_servicelastrun = $mycard[5];	 // 4 aug 1PM		
 				
