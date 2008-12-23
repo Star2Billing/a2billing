@@ -920,7 +920,10 @@ ALTER TABLE cc_card ADD id_agent INT NOT NULL DEFAULT '0';
 
 -- Add card id field in CDR to authorize filtering by agent
 
-ALTER TABLE cc_call ADD card_id BIGINT( 20 ) NOT NULL AFTER username ;
+ALTER TABLE cc_call ADD card_id BIGINT( 20 ) NOT NULL AFTER username;
+
+UPDATE cc_call,cc_card SET cc_call.card_id=cc_card.id WHERE cc_card.username=cc_call.username;
+
 
 CREATE TABLE cc_agent_tariffgroup (
 	id_agent BIGINT( 20 ) NOT NULL ,
@@ -1404,8 +1407,8 @@ CREATE TABLE cc_invoice (
 	status TINYINT NOT NULL DEFAULT '0',
 	title VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
 	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-PRIMARY KEY ( id ) ,
-UNIQUE (reference)
+	PRIMARY KEY ( id ) ,
+	UNIQUE (reference)
 ) ENGINE = MYISAM;
 
 CREATE TABLE cc_invoice_item (
@@ -1440,3 +1443,7 @@ VALUES 	('company_name', 'My company'),
 		('web', 'www.xxxxxxx.xxx');
 
 ALTER TABLE cc_logrefill ADD added_invoice TINYINT NOT NULL DEFAULT '0';
+
+
+
+
