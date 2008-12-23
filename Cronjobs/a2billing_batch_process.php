@@ -93,7 +93,7 @@ if (!($nb_card>0)){
 
 // CHECK THE SERVICES
 $QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, $UNIX_TIMESTAMP datelastrun), emailreport, totalcredit,totalcardperform FROM cc_service , cc_cardgroup_service WHERE status=1 AND id = id_service";
-
+if ($verbose_level>=1) echo $QUERY;
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 if ($verbose_level>=1) print_r ($result);
 
@@ -116,7 +116,7 @@ foreach ($result as $myservice) {
 
 	$totalcardperform = 0;
 	$totalcredit = 0;
-	$timestamp_lastsend = strtotime($myservice[11]);  // 4 aug 1PM
+	$timestamp_lastsend = $myservice[11];  // 4 aug 1PM
 	$datewish = time()- (intval($myservice[3]) * $oneday) - 1800; //minus 30 min   4 aug 1:29PM
 	
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Service : ".$myservice[1]." ]");
@@ -162,10 +162,11 @@ foreach ($result as $myservice) {
 				}
 				if ($verbose_level>=1) echo "#### CARD : Apply the period to card - card last run date >= period :".$myservice[3]." day(s)\n";
 			}
+			
 			if ($verbose_level>=1) echo "#### CARD : Apply the period to card - card last run date >= period :".$myservice[3]." day(s)\n";
 			if ( ($myservice[4]==1)  || ($myservice[4]==2) ){
 				
-				$timestamp_lastuse = strtotime($mycard[3]);  // 4 aug 1PM
+				$timestamp_lastuse = $mycard[3];
 				$datewish = time()- (intval($myservice[5]) * $oneday) - 1800; //minus 30 min   4 aug 1:29PM
 				
 				$temp = $datewish < $timestamp_lastuse;					
@@ -201,10 +202,9 @@ foreach ($result as $myservice) {
 			if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 			$totalcardperform ++;
 			$totalcredit += $myservice[2];
-			//exit();
 		}
-		// Little bit of rest
-		sleep(15);
+		
+		sleep(5);
 	}
 
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[Service finish]");
