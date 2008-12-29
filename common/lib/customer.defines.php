@@ -146,8 +146,7 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
 /*
  *		GLOBAL POST/GET VARIABLE
  */
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'language', 'cssname', 'exporttype'));
-
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'language', 'cssname','popup_select', 'exporttype'));
 
 if (!isset($_SESSION)) {
 	session_start();

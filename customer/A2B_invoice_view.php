@@ -1,18 +1,18 @@
 <?php
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
-include ("../lib/support/classes/invoice.php");
-include ("../lib/support/classes/invoiceItem.php");
+include ("./lib/customer.defines.php");
+include ("./lib/customer.module.access.php");
+include ("./lib/customer.smarty.php");
+include ("./lib/support/classes/invoice.php");
+include ("./lib/support/classes/invoiceItem.php");
 
-if (! has_rights (ACX_INVOICING)){
+if (! has_rights (ACX_INVOICES)){
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 
-getpost_ifset(array('id','curr'));
+getpost_ifset(array('id'));
 
 if (empty($id))
 {
@@ -21,12 +21,17 @@ Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
 
 
 $invoice = new invoice($id);
+if($invoice->getCard() != $_SESSION["card_id"]){
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
+}
 $items = $invoice->loadItems();
 
 //load customer
 $DBHandle  = DbConnect();
 $card_table = new Table('cc_card','*');
-$card_clause = "id = ".$invoice->getCard();
+$card_clause = "id = ".$_SESSION["card_id"];
 $card_result = $card_table -> Get_list($DBHandle, $card_clause, 0);
 $card = $card_result[0];
 
@@ -78,7 +83,7 @@ $result = $invoice_conf_table -> Get_list($DBHandle, $conf_clause, 0);
 $vat_invoice = $result[0][0];
 
 //Currencies check
-
+$curr = $card['currency'];
 $currencies_list = get_currencies();
 if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_list[strtoupper($curr)][2])) {$mycur = 1;$display_curr=strtoupper(BASE_CURRENCY);}
 else {$mycur = $currencies_list[strtoupper($curr)][2];$display_curr=strtoupper($curr);}
@@ -90,30 +95,9 @@ function amount_convert($amount){
 
 if(!$popup_select){
 ?>
-<a href="javascript:;" onClick="MM_openBrWindow('<?php echo $PHP_SELF ?>?popup_select=1&id=<?php echo $id ?><?php if(!empty($curr)) echo "&curr=".$curr; ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="../Public/templates/default/images/printer.png" title="Print" alt="Print" border="0"></a>
+<a href="javascript:;" onClick="MM_openBrWindow('<?php echo $PHP_SELF ?>?popup_select=1&id=<?php echo $id ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"></a>
 &nbsp;&nbsp;
-<?php if(strtoupper(BASE_CURRENCY)!=strtoupper($card['currency'])){ ?>
-
-
-	<select id="currency" class="form_input_select" name="curr" onChange="openURL('<?php echo $_SERVER['PHP_SELF']."?id=$id"?>')">
-		<option value="<?php echo BASE_CURRENCY;?>" <?php if(BASE_CURRENCY==$curr) echo "selected";?>  ><?php echo gettext('SYSTEM CURRENCY')." : ".strtoupper(BASE_CURRENCY); ?> </option>
-		<option value="<?php echo $card['currency'];?>" <?php if($card['currency']==$curr) echo "selected";?>   ><?php echo gettext('CUSTOMER CURRENCY')." : ".strtoupper($card['currency']); ?></option>
-	</select>
-	
-<script language="JavaScript" type="text/JavaScript">
-<!--
-
-function openURL(theLINK)
-{
-      // redirect browser to the grabbed value (hopefully a URL)	  
-      self.location.href = theLINK + "&curr="+$('#currency').val();
-}
-
-//-->
-</script>
-	
 <?php
-	}	
 }
 ?>
 

@@ -1,8 +1,8 @@
 <?php
 
 getpost_ifset(array('id', 'id_card', 'date','title','description'));
-
-
+   
+ 
 if (!isset($form_action) || $form_action=="list") {
 	$HD_Form = new FormHandler("cc_invoice LEFT JOIN cc_card ON cc_card.id=id_card LEFT JOIN cc_invoice_item ON cc_invoice_item.id_invoice=cc_invoice.id ","Invoice");
 } else {
@@ -19,7 +19,7 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_WARNONLY = true;
 $HD_Form -> FG_FK_TABLENAMES = array("cc_invoice_item");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_invoice ");
-
+ 
 $HD_Form -> FG_INFO = true;
 $HD_Form -> FG_INFO_LINK = "A2B_invoice_view.php?id=";
 $HD_Form -> FG_INFO_ALT = "VIEW";
@@ -28,29 +28,39 @@ $HD_Form -> FG_INFO_IMG = "eye.png";
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_invoice_edit.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/page_white_gear.png";
 $HD_Form -> FG_OTHER_BUTTON1 = true;
+$HD_Form -> FG_OTHER_BUTTON1_CONDITION = '|col5| == "OPEN"';
 $HD_Form -> FG_OTHER_BUTTON2_LINK = "";
 $HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path."/lock.png";
 $HD_Form -> FG_OTHER_BUTTON2 = true;
 $HD_Form -> FG_OTHER_BUTTON2_HTML_CLASS = "lock";
 $HD_Form -> FG_OTHER_BUTTON2_HTML_ID = "|col0|";
+$HD_Form -> FG_OTHER_BUTTON2_CONDITION = '|col5| == "OPEN"';
+$HD_Form -> FG_OTHER_BUTTON3_LINK = "A2B_invoice_manage_payment.php?id=";
+$HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path."/money.png";
+$HD_Form -> FG_OTHER_BUTTON3 = true;
+$HD_Form -> FG_OTHER_BUTTON3_CONDITION = '|col5| == "CLOSE"';
+$HD_Form -> FG_EDITION_CONDITION = '|col5| == "OPEN"';
+$HD_Form -> FG_DELETION_CONDITION = '|col5| == "OPEN"';
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_invoice.php?form_action=ask-add&section=2";
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Invoice");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money.png" ;
 
+
+$status_list = Constants::getInvoiceStatusList();
+
 //$filter_amount_without_vat ='SUM(cc_invoice_item.price)';
 $filter_amount_with_vat ='SUM(cc_invoice_item.price*(1+(cc_invoice_item.vat/100)))';
 $list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_invoice.id", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("REFERENCE"), "cc_invoice.reference", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("REFERENCE"), "cc_invoice.reference", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("DATE"), "date", "10%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "sort");
-//$HD_Form -> AddViewElement(gettext("AMOUNT EXCL VAT"), "price", "10%", "center", "sort","", "", "", "", "", "", "display_2bill");
+$HD_Form -> AddViewElement(gettext("DATE"), "date", "15%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("TITLE"), "title", "25%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", "", "list", $status_list);
 $HD_Form -> AddViewElement(gettext("AMOUNT INCL VAT"), "price", "10%", "center", "sort","", "", "", "", "", "", "display_2bill");
-$HD_Form -> FieldViewElement ("cc_invoice.id,cc_invoice.reference, username, cc_invoice.date,title, cc_invoice.description,$filter_amount_with_vat");
+$HD_Form -> FieldViewElement ("cc_invoice.id,cc_invoice.reference, username, cc_invoice.date,title,cc_invoice.status,$filter_amount_with_vat");
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 

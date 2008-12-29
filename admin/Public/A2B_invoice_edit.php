@@ -70,7 +70,7 @@ $smarty->display('main.tpl');
 <table class="invoice_table" >
 	<tr class="form_invoice_head">
 	    <td width="75%"><font color="#FFFFFF"><?php echo gettext("INVOICE: "); ?></font><font color="#FFFFFF"><b><?php echo $invoice->getTitle();  ?></b></font></td>
-	    <td width="25%"><font color="#FFFFFF"><?php echo gettext("REF: "); ?> </font><font color="Red"> <?php echo $invoice->getReference(); ?></font></td>
+	    <td width="25%"><font color="#FFFFFF"><?php echo gettext("REF: "); ?> </font><font color="#EE6564"> <?php echo $invoice->getReference(); ?></font></td>
 	</tr>
 	<tr>
 		<td>
@@ -90,14 +90,14 @@ $smarty->display('main.tpl');
 		<td>
 		 <?php if($invoice->getStatusDisplay()==0) $color="color:#5FA631;";
 		 	   else $color="color:#EE6564;"    ?>
-		 <font style="font-weight:bold;" ><?php echo gettext("STATUS : "); ?></font> <font style="<?php echo $color; ?>" >  <?php echo $invoice->getStatusDisplay();  ?> </font>
+		 <font style="font-weight:bold;" ><?php echo gettext("STATUS : "); ?></font> <font style="<?php echo $color; ?>" >  <?php echo $invoice->getStatusDisplay($invoice->getStatus());  ?> </font>
 		 </td>
 	</tr>
 	<tr>
 		<td colspan="2">
-		<?php if($invoice->getStatusDisplay()==0) $color="color:#EE6564;";
+		<?php if($invoice->getPaidStatusDisplay()==0) $color="color:#EE6564;";
 		 	   else $color="color:#5FA631;"    ?>
-		 <font style="font-weight:bold;" ><?php echo gettext("PAID STATUS : "); ?></font> <font style="<?php echo $color; ?>" > <?php echo $invoice->getPaidStatusDisplay();  ?> </font>
+		 <font style="font-weight:bold;" ><?php echo gettext("PAID STATUS : "); ?></font> <font style="<?php echo $color; ?>" > <?php echo $invoice->getPaidStatusDisplay($invoice->getPaidStatus());  ?> </font>
 
 		</td>
 	</tr>
@@ -146,13 +146,13 @@ $smarty->display('main.tpl');
 					<?php echo $item->getDescription(); ?>
 				</td>
 				<td align="right">
-					<?php echo money_format('%.2n',round($item->getPrice(),2)); ?>
+					<?php echo number_format(round($item->getPrice(),2),2)." ".strtoupper(BASE_CURRENCY); ?>
 				</td>
 				<td align="right">
-					<?php echo money_format('%.2n',round($item->getVAT(),2)); ?>
+					<?php echo number_format(round($item->getVAT(),2))." ".strtoupper(BASE_CURRENCY); ?>
 				</td>
 				<td align="right">
-					<?php echo money_format('%.2n',round($item->getPrice()*(1+($item->getVAT()/100)),2)); ?>
+					<?php echo number_format(round($item->getPrice()*(1+($item->getVAT()/100)),2),2)." ".strtoupper(BASE_CURRENCY); ?>
 				</td>
 				<td align="center">
 					<a href="<?php echo $PHP_SELF ?>?id=<?php echo $id; ?>&action=edit&idc=<?php echo $item->getId();?>"><img src="<?php echo Images_Path ?>/edit.png" title="<?php echo gettext("Edit Item") ?>" alt="<?php echo gettext("Edit Item") ?>" border="0"></a>
@@ -284,7 +284,7 @@ $smarty->display('main.tpl');
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
-				<input class="form_input_button" type="submit" value="<?php if(!empty($idc)) echo "UPDATE"; else echo "ADD" ?>"/>
+				<input class="form_input_button" type="submit" value="<?php if(!empty($idc)) echo gettext("UPDATE"); else echo gettext("ADD"); ?>"/>
 			 </td>
 		</tr>
 

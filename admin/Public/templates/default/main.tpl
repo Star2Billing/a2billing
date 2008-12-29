@@ -18,13 +18,13 @@
 	<script language="javascript" type="text/javascript" src="./javascript/misc.js"></script>
 </HEAD>
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-
-<p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}<br><br><br>
-{if ($adminname) }
-Logged-in as: <b>{$adminname}</b></p>
-<br>
+{if ($popupwindow == 0)}
+	<p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}<br><br><br>
+	{if ($adminname) }
+	Logged-in as: <b>{$adminname}</b></p>
+	<br>
+	{/if}
 {/if}
-
 <DIV border="0" width="1000px">
 {if ($popupwindow == 0)}
 <div class="divleft">

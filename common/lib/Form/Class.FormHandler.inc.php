@@ -261,6 +261,13 @@ class FormHandler
 	var $FG_OTHER_BUTTON2_HTML_ID = '';
 	var $FG_OTHER_BUTTON3_HTML_ID = '';
 	
+	
+	var $FG_OTHER_BUTTON1_CONDITION = '';
+	var $FG_OTHER_BUTTON2_CONDITION = '';
+	var $FG_OTHER_BUTTON3_CONDITION = '';
+	var $FG_EDITION_CONDITION = '';
+	var $FG_DELETION_CONDITION = '';
+	
 	//	-------------------- DATA FOR THE EDITION --------------------
 	
 	/**
@@ -1624,7 +1631,8 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$card_id = $processed['card_id'];
 			$title = gettext("REFILL");
 			$description = gettext("Invoice for refill");
-			$reference = $year."-".$count;
+			
+			$reference = $year.sprintf("%08d",$count);
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description' ";
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");

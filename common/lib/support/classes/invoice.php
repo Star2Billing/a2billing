@@ -90,39 +90,7 @@ class Invoice
 
    }
    
-   	//0 customer
-   	//1 agent
-   	//2 admin
-	function getViewed($type){
-		switch ($type) {
-			case 0: return $this ->viewed_cust;
-			case 1: return $this ->viewed_agent;
-			case 2: return $this ->viewed_admin;
-			default: return 0; 
-		}
-	}
    
-    function getPriorityDisplay(){
-
-		switch($this->priority){
-			case 1: return "LOW";
-			case 2: return "MEDIUM";
-			case 3: return "HIGH";
-			default : return "NONE";
-
-		}
-
-   }
-
-   function getComponentid(){
-   		 return $this->componentid;
-   }
-
-   function getComponentname(){
-   		 return $this->componentname;
-
-
-   }
 
    function getDate(){
 
@@ -154,7 +122,50 @@ class Invoice
 	}else return null;
 
    }
+   
+   function loadPayments(){
+   	if(!is_null($this->id)){
+	 $DBHandle  = DbConnect();
+   	 $instance_sub_table = new Table("cc_invoice_payment,cc_logpayment", "*");
+	 $CLAUSE = " id_invoice = ".$this->id." AND id_payment = cc_logpayment.id";
+	 $result = null;
+     $result = $instance_sub_table -> Get_list($DBHandle, $CLAUSE,"date","ASC");
+     return $result;
 
+	}else return null;
+   }
+   
+ function delPayment($idpayment){
+   	if(!is_null($this->id)){
+	 $DBHandle  = DbConnect();
+   	 $instance_sub_table = new Table("cc_invoice_payment", "*");
+	 $CLAUSE = " id_invoice = ".$this->id." AND id_payment = $idpayment";
+	 $result = null;
+     $instance_sub_table -> Delete_table($DBHandle, $CLAUSE);
+	}else return null;
+   }
+
+  function addPayment($idpayment){
+   	if(!is_null($this->id)){
+	 $DBHandle  = DbConnect();
+   	 $instance_sub_table = new Table("cc_invoice_payment", "*");
+   	 $fields = " id_invoice , id_payment";
+   	 $values = " $this->id , $idpayment	";
+     $instance_sub_table -> Add_table($DBHandle, $values,$fields);
+	}else return null;
+   }
+   
+ function changeStatus($status){
+   	if(!is_null($this->id)){
+	 $DBHandle  = DbConnect();
+   	 $instance_sub_table = new Table("cc_invoice", "*");
+   	 $clause = "id = ".$this->id;
+   	 $param = " paid_status = ".$status;
+     $instance_sub_table -> Update_table($DBHandle, $param,$clause);
+	}else return null;
+   }
+   
+   
    function insertInvoiceItem($desc,$price,$VAT){
 
    	$DBHandle  = DbConnect();

@@ -101,6 +101,21 @@ class Constants
 		return $expire_list;
 	}
 
+	
+	public static function getInvoiceStatusList(){
+		$invoice_status_list = array();
+		$invoice_status_list['0'] = array( gettext('OPEN'), '0');
+		$invoice_status_list['1'] = array( gettext('CLOSE'), '1');
+		return $invoice_status_list;
+	}
+	
+	public static function getInvoicePaidStatusList(){
+		$invoice_status_list = array();
+		$invoice_status_list['0'] = array( gettext('UNPAID'), '0');
+		$invoice_status_list['1'] = array( gettext('PAID'), '1');
+		return $invoice_status_list;
+	}
+	
 	public static function getPaymentStatusList(){
 		$payment_status_list = array();
 		$payment_status_list['0'] = array( gettext('UNPAID'), '0');

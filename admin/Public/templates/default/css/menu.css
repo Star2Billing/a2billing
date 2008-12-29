@@ -178,7 +178,7 @@ img.rss {
 body {
 	/* background: #fff url("../images/body_back.gif") repeat-x; */
 	background: #fff url("../images/bg5.jpg") repeat-x;
-	background-attachment: fixed;
+	background-attachment: scroll;
 }
 
 /* Sidebar */

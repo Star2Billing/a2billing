@@ -1444,6 +1444,10 @@ VALUES 	('company_name', 'My company'),
 
 ALTER TABLE cc_logrefill ADD added_invoice TINYINT NOT NULL DEFAULT '0';
 
-
+CREATE TABLE cc_invoice_payment (
+id_invoice BIGINT NOT NULL ,
+id_payment BIGINT NOT NULL ,
+PRIMARY KEY ( id_invoice , id_payment )
+) ENGINE = MYISAM;
 
 

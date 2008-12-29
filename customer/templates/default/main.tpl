@@ -10,17 +10,19 @@
 	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
+	<link href="templates/{$SKIN_NAME}/css/invoice.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/handler_jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="./javascript/misc.js"></script>
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-
+{if ($popupwindow == 0)}
 <p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}</p>
 <br>
-
+{/if}
 <DIV border=0 width="1000">
 
 
@@ -78,9 +80,7 @@
 		{/if}
 		<ul>
 			<li><ul>
-					<li><a href="A2B_entity_call_details.php?section=5"><strong>{php} echo gettext("Invoice Details");{/php}</strong></a></li>
-					<li><a href="A2B_entity_view_invoice.php?section=5"><strong>{php} echo gettext("View Invoices");{/php}</strong></a></li>
-					<li><a href="invoices_customer.php?section=5"><strong>{php} echo gettext("Current Invoice");{/php}</strong></a></li>
+					<li><a href="A2B_entity_invoice.php?section=5"><strong>{php} echo gettext("View Invoices");{/php}</strong></a></li>
 			</ul></li>
 		</ul>
 		</div>

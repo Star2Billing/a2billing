@@ -228,6 +228,8 @@ class Table {
 
 		$QUERY = $sql.$sql_clause;
 		
+		if(eregi("[ ]+group[ ]+by[ ]+",$sql_clause)) $QUERY="SELECT count(*) FROM (".$QUERY.") as tmp";
+		
 		$res = $this -> ExecuteQuery ($DBHandle, $QUERY, $cache);
 		if (!$res) return false;
 		
