@@ -106,6 +106,7 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_DO_ARCHIVE_ALL = true;
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
 $HD_Form -> AddViewElement("ACCOUNT NUMBER", "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "8%", "center", "sort", "", "list", $cardstatus_list_acronym);
 $HD_Form -> AddViewElement(gettext("LG"), "language", "10%", "center", "sort");
@@ -114,7 +115,7 @@ $HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext
 $HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "10%", "center", "sort", "", "list", $yesno);
 $HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "10%", "center", "sort", "", "list", $yesno);
 $HD_Form -> AddViewElement("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "10%", "center", "sort");
-$FG_COL_QUERY='id, username, lastname, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+$FG_COL_QUERY='id, username, credit, lastname, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 
@@ -127,8 +128,13 @@ $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to sea
 $HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date');
 
+
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_BIS = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT_BIS = gettext('FIRST USE DATE');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD_BIS = 'firstusedate';
+
 $HD_Form -> FG_FILTER_SEARCH_3_TIME = true;
-$HD_Form -> FG_FILTER_SEARCH_3_TIME_TEXT = gettext('Select customer older than');
+$HD_Form -> FG_FILTER_SEARCH_3_TIME_TEXT = gettext('Select customer created more than');
 $HD_Form -> FG_FILTER_SEARCH_3_TIME_FIELD = 'creationdate';
 
 //Select card older than : 3 Months, 4 Months, 5.... 12 Months
@@ -146,6 +152,7 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null
 $HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, null,null , "status", 0, $cardstatus_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT GROUP"), "cc_card_group", "id, name", "", "name", "ASC", "id_group");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 $HD_Form -> prepare_list_subselection('list');
 $HD_Form -> FG_TABLE_ID="id";

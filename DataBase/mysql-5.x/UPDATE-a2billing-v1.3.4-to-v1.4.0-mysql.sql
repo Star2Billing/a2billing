@@ -1468,3 +1468,29 @@ INSERT INTO cc_configuration (configuration_title, configuration_key, configurat
 INSERT INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('plugnpay','plugnpay.php','t');
 
 
+
+
+
+ALTER TABLE cc_card_archive DROP COLUMN  `callback`;
+ALTER TABLE cc_card_archive ADD COLUMN  `id_timezone` int(11) default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  `voicemail_permitted` int(11) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  `voicemail_activated` smallint(6) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  `last_notification` timestamp NULL default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `email_notification` char(70) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `notify_email` smallint(6) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  `credit_notification` int(11) NOT NULL default '-1';
+ALTER TABLE cc_card_archive ADD COLUMN  `id_group` int(11) NOT NULL default '1';
+ALTER TABLE cc_card_archive ADD COLUMN  `company_name` varchar(50) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `company_website` varchar(60) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `VAT_RN` varchar(40) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `traffic` bigint(20) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `traffic_target` mediumtext collate utf8_bin;
+ALTER TABLE cc_card_archive ADD COLUMN  `discount` decimal(5,2) NOT NULL default '0.00';
+ALTER TABLE cc_card_archive ADD COLUMN  `restriction` tinyint(4) NOT NULL default '0';
+ALTER TABLE cc_card_archive DROP COLUMN `template_invoice`;
+ALTER TABLE cc_card_archive DROP COLUMN `template_outstanding`;
+ALTER TABLE cc_card_archive DROP COLUMN `mac_addr`;
+ALTER TABLE cc_card_archive ADD COLUMN `mac_addr` char(17) collate utf8_bin NOT NULL default '00-00-00-00-00-00';
+
+
+
