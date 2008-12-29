@@ -50,7 +50,6 @@ Class payment {
         }
 
         for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
-
           include(dirname(__FILE__).'/../methods/' . $include_modules[$i]['file']);
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
         }

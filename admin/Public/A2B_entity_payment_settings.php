@@ -20,19 +20,16 @@ if (! has_rights (ACX_BILLING)){
 /***********************************************************************************/
 $nowDate = date("m/d/y");
 $message = "";
-if($_GET["result"]=="success")
-{
+if($_GET["result"]=="success") {
 	$message = gettext("Record updated successfully");
 }
 $instance_sub_table = new Table("cc_payment_methods", "payment_filename");
-if (isset($_GET["id"]))
-{
+if (isset($_GET["id"])) {
     $paymentMethodID = $_GET["id"];
-}
-else
-{
+} else {
     exit(gettext("Payment module ID not found"));
 }
+
 $QUERY = " id = ".$paymentMethodID;
 $DBHandle  = DbConnect();
 $return = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
@@ -47,20 +44,20 @@ $return = null;
 ///**************************************************
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
-  if (tep_not_null($action))
-  {
-    switch ($action)
-    {
+if (tep_not_null($action)) {
+    switch ($action) {
       case 'save':
-        while (list($key, $value) = each($_POST['configuration']))
-        {
-          $QUERY = "update cc_configuration set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'";
-          $instance_sub_table -> Update_table($DBHandle, "configuration_value = '" . $value . "'","configuration_key = '" . $key . "'" );          
-        }
+        while (list($key, $value) = each($_POST['configuration'])) {
+			if ($key == 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC') {
+				// print_r ($value);
+			}        
+			$QUERY = "update cc_configuration set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'";
+			$instance_sub_table -> Update_table($DBHandle, "configuration_value = '" . $value . "'","configuration_key = '" . $key . "'" );          
+		}
         tep_redirect("A2B_entity_payment_settings.php?".'method=' . $paymentMethod."&id=".$_GET['id']."&result=success");
       break;
     }
-  }
+}
 
 ///**************************************************
 
@@ -69,6 +66,7 @@ $GLOBALS['paypal']->enabled = true;
 $GLOBALS['moneybookers']->enabled = true;
 $GLOBALS['authorizenet']->enabled = true;
 $GLOBALS['worldpay']->enabled = true;
+$GLOBALS['plugnpay']->enabled = true;
 $module_keys = $payment_modules->keys();
 
 $keys_extra = array();
@@ -92,15 +90,11 @@ $mInfo = new objectInfo($module_info);
 
 $keys = '';
 reset($mInfo->keys);
-while (list($key, $value) = each($mInfo->keys))
-{
+while (list($key, $value) = each($mInfo->keys)) {
     $keys .= '<b>' . $value['title'] . '</b><br>' . $value['description'] . '<br>';
-    if ($value['set_function'])
-    {
+    if ($value['set_function']) {
         eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
-    }
-    else
-    {
+    } else {
         $keys .= tep_draw_input_field('configuration[' . $key . ']', $value['value']);
     }
     $keys .= '<br><br>';
@@ -112,12 +106,13 @@ $contents = array('form' => tep_draw_form('modules', "A2B_entity_payment_setting
 $contents[] = array('text' => $keys);
 $contents[] = array('align' => 'center', 'text' => '<br><input type=submit name=submitbutton value=Update class=form_input_button> <a href="A2B_entity_payment_configuration.php?atmenu=payment"><input type="button" name="cancelbutton" value="Cancel" class="form_input_button"></a>');
 
-// #### HEADER SECTION
+
 $smarty->display('main.tpl');
+
 
 echo $CC_help_payment_config;
 
-// #### PAYMENT METHOD SECTION
+
 echo $PAYMENT_METHOD;
 ?>
 
@@ -146,7 +141,5 @@ echo $PAYMENT_METHOD;
 
 <?php
 
-// #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>

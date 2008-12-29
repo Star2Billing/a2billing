@@ -113,11 +113,6 @@ function rowOutEffect(object) {
 ?>
     <table class="infoBox" width="80%" cellspacing="0" cellpadding="2" align=center>
 
-
-
-
-
-
 <?php
   $selection = $payment_modules->selection();
   

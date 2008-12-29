@@ -232,7 +232,7 @@ if (!isset($disable_load_conf) || !($disable_load_conf)) {
 			$show_logo .= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
 		}
 		
-		if( $payment_methods[$index][0] == "MODULE_PAYMENT_PAYPAL_STATUS" && $payment_methods[$index][1] == "True") {
+		if( $payment_methods[$index][0] == "MODULE_PAYMENT_WORLDPAY_STATUS" && $payment_methods[$index][1] == "True") {
 			$show_logo .= '<a href="http://www.worldpay.com/" target="_blank"><img src="'.KICON_PATH.'/worldpay.gif" alt="worldpay.com"/></a>';
 		}
 	
