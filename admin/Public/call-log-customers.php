@@ -76,20 +76,20 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 $DBHandle = DbConnect ();
 
 $FG_TABLE_COL = array ();
-$FG_TABLE_COL [] = array (gettext ( "Calldate" ), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat" );
+$FG_TABLE_COL [] = array (gettext ( "Calldate" ), "starttime", "10%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat" );
 $FG_TABLE_COL [] = array (gettext ( "Source" ), "src", "7%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array (gettext ( "Dnid" ), "dnid", "7%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array (gettext ( "CalledNumber" ), "calledstation", "10%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix" );
 $FG_TABLE_COL [] = array (gettext ( "Destination" ), "destination","10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "prefix='%id'", "%1" );
-$FG_TABLE_COL [] = array (gettext ( "Buy Rate" ), "buyrate", "5%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
-$FG_TABLE_COL [] = array (gettext ( "Sell Rate" ), "rateinitial", "5%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
-$FG_TABLE_COL [] = array (gettext ( "Duration" ), "sessiontime", "6%", "center", "SORT", "30", "", "", "", "", "", "display_minute" );
+$FG_TABLE_COL [] = array (gettext ( "Buy Rate" ), "buyrate", "6%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
+$FG_TABLE_COL [] = array (gettext ( "Sell Rate" ), "rateinitial", "6%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
+$FG_TABLE_COL [] = array (gettext ( "Duration" ), "sessiontime", "5%", "center", "SORT", "30", "", "", "", "", "", "display_minute" );
 $FG_TABLE_COL [] = array (gettext ( "AccountUsed" ), "card_id", "6%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php" );
 $FG_TABLE_COL [] = array (gettext ( "Trunk" ), "trunkcode", "6%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array ('<acronym title="' . gettext ( "Terminate Cause" ) . '">' . gettext ( "TC" ) . '</acronym>', "terminatecauseid", "7%", "center", "SORT", "", "list", $dialstatus_list );
 $FG_TABLE_COL [] = array (gettext ( "Calltype" ), "sipiax", "6%", "center", "SORT", "", "list", $list_calltype );
-$FG_TABLE_COL [] = array (gettext ( "Buy" ), "buycost", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
-$FG_TABLE_COL [] = array (gettext ( "Sell" ), "sessionbill", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
+$FG_TABLE_COL [] = array (gettext ( "Buy" ), "buycost", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
+$FG_TABLE_COL [] = array (gettext ( "Sell" ), "sessionbill", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Margin" ), "margin", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec_percentage" );
 $FG_TABLE_COL [] = array (gettext ( "Markup" ), "markup", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec_percentage" );
 
@@ -131,26 +131,22 @@ if ($posted == 1) {
 }
 
 $date_clause = '';
-if (DB_TYPE == "postgres") {
-	$UNIX_TIMESTAMP = "";
-} else {
-	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-}
+
 $lastdayofmonth = date ( "t", strtotime ( $tostatsmonth . '-01' ) );
 
 // Date Clause
 if ($fromday && isset ( $fromstatsday_sday ) && isset ( $fromstatsmonth_sday )) {
 	if ($fromtime) {
-		$date_clause .= " AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";
+		$date_clause .= " AND t1.starttime >= ('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";
 	} else {
-		$date_clause .= " AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+		$date_clause .= " AND t1.starttime >= ('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
 }
 if ($today && isset ( $tostatsday_sday ) && isset ( $tostatsmonth_sday )) {
 	if ($totime) {
-		$date_clause .= " AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-" . sprintf ( "%02d", intval ( $tostatsday_sday )/*+1*/) . " $tostatsday_hour:$tostatsday_min:59')";
+		$date_clause .= " AND t1.starttime <= ('$tostatsmonth_sday-" . sprintf ( "%02d", intval ( $tostatsday_sday )/*+1*/) . " $tostatsday_hour:$tostatsday_min:59')";
 	} else {
-		$date_clause .= " AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-" . sprintf ( "%02d", intval ( $tostatsday_sday )/*+1*/) . " 23:59:59')";
+		$date_clause .= " AND t1.starttime <= ('$tostatsmonth_sday-" . sprintf ( "%02d", intval ( $tostatsday_sday )/*+1*/) . " 23:59:59')";
 	}
 }
 
@@ -163,7 +159,7 @@ if (strpos ( $SQLcmd, 'WHERE' ) > 0) {
 
 if (! isset ( $FG_TABLE_CLAUSE ) || strlen ( $FG_TABLE_CLAUSE ) == 0) {
 	$cc_yearmonth = sprintf ( "%04d-%02d-%02d", date ( "Y" ), date ( "n" ), date ( "d" ) );
-	$FG_TABLE_CLAUSE = " $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
+	$FG_TABLE_CLAUSE = " t1.starttime >= ('$cc_yearmonth')";
 }
 
 if (isset ( $customer ) && ($customer > 0)) {
@@ -296,11 +292,12 @@ if (! $nodisplay) {
 	
 	if ($FG_DEBUG == 3)
 		echo "<br>Clause : $FG_TABLE_CLAUSE";
+	
 	$nb_record = $instance_table->Table_count ( $DBHandle, $FG_TABLE_CLAUSE );
 	if ($FG_DEBUG >= 1)
 		var_dump ( $list );
 
-} //end IF nodisplay
+}
 
 
 if ($nb_record <= $FG_LIMITE_DISPLAY) {
