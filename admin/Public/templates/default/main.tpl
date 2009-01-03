@@ -32,14 +32,15 @@
 
 <div id="nav_before"></div>
 <ul id="nav">
-   
 	<li><a href="#" target="_self"></a></a></li>
 		<ul><li> <a href="PP_intro.php" style="height:14px;text-align:center;"> 
 		<strong style="font-size:12px;">{php} echo gettext("HOME");{/php}</strong>&nbsp;
 		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/house.png"> </a>
 		</li></ul>
   	<li><a href="#" target="_self"></a></a></li>
-  	
+</ul>
+
+<ul id="nav">
   
   	{if ($ACXCUSTOMER > 0) }
 	<div class="toggle_menu">
