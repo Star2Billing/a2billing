@@ -52,10 +52,8 @@ if (!$A2B -> DbConnect()){
 	exit;						
 }
 
-
 $instance_table = new Table();
 
-// SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
 
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE SERVICE
 //$QUERY = 'SELECT count(*) FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1';
@@ -73,9 +71,6 @@ if (!($nb_card>0)){
 	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[No card to run the Subscription Feeservice]");
 	exit();
 }
-
-
-//SELECT cc_card.id, username, credit, cc_card.currency, cc_subscription_fee.id, cc_subscription_fee.label, cc_subscription_fee.fee, cc_subscription_fee.currency, emailreport FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
 
 
 // CHECK THE SUBSCRIPTION SERVICES
@@ -109,11 +104,11 @@ foreach ($result as $myservice) {
 	$myservice_fee = $myservice[2];
 	$myservice_cur = $myservice[3];
 	
-	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Subscription Fee Service No".$myservice_id."  analyze cards on which to apply service ]");
+	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Subscription Fee Service No ".$myservice_id." analyze cards on which to apply service ]");
 	// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
 	for ($page = 0; $page < $nbpagemax; $page++) {
 		
-		$sql = "SELECT cc_card.id, credit, currency, username, email, cc_card_subscription.description FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card ".
+		$sql = "SELECT cc_card.id, credit, currency, username, email FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card ".
 			   "WHERE id_subscription_fee='$myservice_id' AND startdate < NOW() AND (stopdate = '0000-00-00 00:00:00' OR stopdate > NOW()) ORDER BY id ";
 
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
@@ -146,8 +141,8 @@ foreach ($result as $myservice) {
 				$totalcredit += $myservice_fee;
 				$totalcredit_converted += $amount_converted;
 			}
-			//exit();
 		}
+		
 		// Little bit of rest
 		sleep(15);
 	}
@@ -174,9 +169,8 @@ foreach ($result as $myservice) {
 
 } // END FOREACH SERVICES
 
+
 if ($verbose_level>=1) echo "#### END SUBSCRIPTION SERVICES \n";
 write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[#### BATCH PROCESS END ####]");
 	
 	
-
-?>
