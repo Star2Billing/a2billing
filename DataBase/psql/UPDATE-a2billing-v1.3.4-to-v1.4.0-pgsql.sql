@@ -1566,8 +1566,6 @@ ALTER TABLE cc_card_archive DROP COLUMN template_outstanding;
 ALTER TABLE cc_card_archive DROP COLUMN mac_addr;
 ALTER TABLE cc_card_archive ADD COLUMN mac_addr char(17) NOT NULL default '00-00-00-00-00-00';
 
-ALTER TABLE REMOVE_ME ADD COLUMN TODO INT;  -- TODO REMOVE_ME
-
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
 
