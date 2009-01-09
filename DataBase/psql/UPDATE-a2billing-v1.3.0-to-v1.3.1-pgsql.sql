@@ -1,5 +1,5 @@
 
-SET ON_ERROR_STOP;
+\set ON_ERROR_STOP ON;
 
 INSERT INTO cc_templatemail VALUES ('epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
 

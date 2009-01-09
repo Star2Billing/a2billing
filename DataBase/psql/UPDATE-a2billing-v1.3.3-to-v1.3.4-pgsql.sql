@@ -1,5 +1,5 @@
 
-SET ON_ERROR_STOP;
+\set ON_ERROR_STOP ON;
 
 -- Never too late to add some indexes :D
 

@@ -2,10 +2,11 @@
 -- A2Billing database script - Update database for Postgres
 --
 --
--- SEE Lines 626-627 BEFORE running this.
+-- SEE Lines 627-628 BEFORE running this.
 --
 --
 
+\set ON_ERROR_STOP ON;
 
 
 

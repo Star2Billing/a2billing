@@ -1,5 +1,5 @@
 
-SET ON_ERROR_STOP;
+\set ON_ERROR_STOP ON;
 
 ALTER TABLE cc_tariffplan ADD COLUMN calleridprefix TEXT NOT NULL DEFAULT 'all'::text;
 

@@ -33,7 +33,7 @@
 
 
 
-SET ON_ERROR_STOP;
+\set ON_ERROR_STOP ON;
 
 SET default_with_oids = true;
 
