@@ -57,8 +57,8 @@ $language_list_r = Constants::getLanguagesRevertList();
 $discount_list  = array();
 $discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0");
 for($i=1;$i<=99;$i++) {
-	$discount_list["".$i.".00"]=array("".$i."%","".$i);
-};
+	$discount_list[$i.".00"]=array($i."%",$i.".00");
+}
 
 $simultaccess_list = Constants::getCardAccess_List();
 $simultaccess_list_r = Constants::getCardAccess_Revert_List();
