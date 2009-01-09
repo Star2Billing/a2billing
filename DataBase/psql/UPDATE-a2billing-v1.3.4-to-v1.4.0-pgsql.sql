@@ -2,13 +2,19 @@
 -- A2Billing database script - Update database for Postgres
 --
 --
--- SEE Lines 627-628 BEFORE running this.
+-- See the last 2 lines of this file BEFORE running this.
 --
 --
 
 \set ON_ERROR_STOP ON;
 
 
+-- If you have defined any custom functions you should comment this out:
+DROP LANGUAGE IF EXISTS plpgsql CASCADE;
+CREATE LANGUAGE plpgsql;
+
+-- Wrap the whole update in a transaction so everything is reverted upon failure
+BEGIN;
 
 CREATE TABLE cc_invoice_items (
 	id 						BIGSERIAL NOT NULL,
@@ -611,9 +617,6 @@ ALTER TABLE cc_callback_spool ALTER COLUMN variable TYPE CHARACTER VARYING(300);
 ALTER TABLE cc_call ADD COLUMN real_sessiontime INTEGER;
 
 
-VACUUM FULL ANALYZE;
--- Change below your dbname & uncomment
--- REINDEX DATABASE a2billing;
 
 
 CREATE TABLE cc_call_archive (
@@ -735,11 +738,11 @@ ALTER TABLE cc_card ADD voicemail_permitted INTEGER DEFAULT 0 NOT NULL;
 ALTER TABLE cc_card ADD voicemail_activated INTEGER DEFAULT 0 NOT NULL;
 
 
-CREATE OR REPLACE VIEW voicemail_users AS (
-	SELECT id AS uniqueid, id AS customer_id, 'default'::varchar(50) AS context, useralias AS mailbox, uipass AS password,
-	lastname || ' ' || firstname AS fullname, email AS email, ''::varchar(50) AS pager, '1984-01-01 00:00:00'::timestamp AS stamp
-	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
-);
+-- CREATE OR REPLACE VIEW voicemail_users AS (
+-- 	SELECT id AS uniqueid, id AS customer_id, 'default'::varchar(50) AS context, useralias AS mailbox, uipass AS password,
+-- 	lastname || ' ' || firstname AS fullname, email AS email, ''::varchar(50) AS pager, '1984-01-01 00:00:00'::timestamp AS stamp
+-- 	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
+-- );
 
 
 
@@ -750,7 +753,6 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 
 -- This trigger is to prevent bogus regexes making it into the database
-CREATE LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION cc_ratecard_validate_regex() RETURNS TRIGGER AS $$
   BEGIN
     IF SUBSTRING(new.dialprefix,1,1) != '_' THEN
@@ -940,11 +942,13 @@ ALTER TABLE cc_card ADD id_agent INTEGER NOT NULL DEFAULT 0;
 
 -- Add card id field in CDR to authorize filtering by agent
 
-ALTER TABLE cc_call ADD card_id BIGINT NOT NULL;
+ALTER TABLE cc_call ADD card_id BIGINT; -- the NOT NULL constraint comes later (else upgrades from v1.3.x will fail)
 
 UPDATE cc_call SET card_id=cc_card.id FROM cc_card
 	WHERE cc_card.username=cc_call.username;
+UPDATE cc_call SET card_id='-1' WHERE card_id IS NULL;	-- CDRs may exist for cards that have been deleted
 
+ALTER TABLE cc_call ALTER card_id SET NOT NULL;
 
 CREATE TABLE cc_agent_tariffgroup (
 	id_agent			BIGINT NOT NULL ,
@@ -1562,7 +1566,14 @@ ALTER TABLE cc_card_archive DROP COLUMN template_outstanding;
 ALTER TABLE cc_card_archive DROP COLUMN mac_addr;
 ALTER TABLE cc_card_archive ADD COLUMN mac_addr char(17) NOT NULL default '00-00-00-00-00-00';
 
+ALTER TABLE REMOVE_ME ADD COLUMN TODO INT;  -- TODO REMOVE_ME
+
+-- Commit the whole update;  psql will automatically rollback if we failed at any point
+COMMIT;
 
 
 
+VACUUM FULL ANALYZE;
 
+-- Change below your dbname & uncomment
+-- REINDEX DATABASE a2billing;
