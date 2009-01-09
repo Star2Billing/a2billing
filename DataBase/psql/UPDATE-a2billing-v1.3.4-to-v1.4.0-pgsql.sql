@@ -977,7 +977,8 @@ CREATE TABLE cc_card_group (
 
 -- insert default group
 
-INSERT INTO cc_card_group (id ,name ,id_agi_conf) VALUES ('1' , 'DEFAULT', '-1');
+SELECT setval('cc_card_group_id_seq'::regclass, 1, false); -- we need it to have id 1
+INSERT INTO cc_card_group (name, id_agi_conf) VALUES ('DEFAULT', '-1');
 -- add field for the group with default value
 ALTER TABLE cc_card ADD id_group INTEGER NOT NULL DEFAULT 1;
 
