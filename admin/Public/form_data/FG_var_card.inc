@@ -684,7 +684,7 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "", "", "",
 			   "sql",
 			   "cc_campaign",
-			   "campaign_name, id",
+			   "name, id",
 			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 

@@ -24,11 +24,11 @@ $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 /*************************************************************/
 
-$instance_table_tariffname = new Table("cc_campaign", "id, campaign_name");
+$instance_table_tariffname = new Table("cc_campaign", "id, name");
 
 $FG_TABLE_CLAUSE = "";
 
-$list_campaign = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "campaign_name", "ASC", null, null, null, null);
+$list_campaign = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
 $nb_campaign = count($list_campaign);
 
