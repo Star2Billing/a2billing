@@ -1281,8 +1281,8 @@ INSERT INTO  cc_config (config_title, config_key, config_value, config_descripti
 -- Cache system with SQLite Agent
 -- ------------------------------------------------------
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enabled the cache processing to save the call in database. The cache system is based on Sqlite.', '0', '1', 'yes,no'),
-( 'Path for the cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the cache processing to save the call in database. The cache system is based on Sqlite.', '0', '10', NULL);
+VALUES ( 'Enable CDR local cache', 'cache_enabled', '0', 'I you want enabled the local cache to save the CDR in a SQLite Database.', '1', '1', 'yes,no'),
+( 'Path for the CDR cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the CDR cache to save the CDR in a local SQLite database.', '0', '1', NULL);
 
 
 ALTER TABLE cc_logrefill ADD COLUMN refill_type SMALLINT NOT NULL DEFAULT 0;
