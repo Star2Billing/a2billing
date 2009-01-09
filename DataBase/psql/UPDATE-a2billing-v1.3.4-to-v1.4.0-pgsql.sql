@@ -1012,7 +1012,7 @@ CREATE TABLE cc_package_rate (
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues) VALUES ( 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', '0', '11', NULL), ( 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', '0', '11', NULL);
 
-ALTER TABLE cc_ratecard DROP freetimetocall_package_offer; 
+ALTER TABLE cc_ratecard DROP freetimetocall_package_offer;
 
 -- add additionnal grace to the ratecard
 ALTER TABLE cc_ratecard ADD additional_grace INTEGER NOT NULL DEFAULT 0;
@@ -1029,15 +1029,15 @@ ALTER TABLE cc_logrefill ADD description TEXT  ;
 
 
 
--- Deck threshold switch for callplan 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+-- Deck threshold switch for callplan
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
 VALUES ('CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID
 The parameters are as follow : <br/>
 -- ID of the first callplan : called seconds needed to switch to the next CallplanID <br/>
 -- ID of the second callplan : called seconds needed to switch to the next CallplanID <br/>
 -- if not needed seconds are defined it will automatically switch to the next one <br/>
 -- if defined we will sum the previous needed seconds and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of seconds needed<br/>
-value example for callplan_deck_minute_threshold = 1:300, 2:60, 3', 
+value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 '0', '11', NULL);
 
 
@@ -1047,8 +1047,8 @@ ALTER TABLE cc_call ADD dnid CHARACTER VARYING(40);
 ALTER TABLE cc_ui_authen ALTER COLUMN password TYPE TEXT; -- NOT NULL should already set XXX
 ALTER TABLE cc_ui_authen RENAME COLUMN password TO pwd_encoded;
 
-UPDATE cc_ui_authen SET pwd_encoded = '75d8ab41d57d8afb175878a132313952a6d21f5cad0f6d0bda9a52b2d9caa85e714268ae8550a9370bb1627dee3ee0472fd6be65c5086b39c86ba2c1a1eea3e6' WHERE login = 'root' ;
-UPDATE cc_ui_authen SET pwd_encoded = 'a72edbdc3e66dc3f0f84500c4a0df1ab640f47e95ae4e7c76de3398854146f33fcabe0a9861a6896d9a78c15273f2c1996e88b14e92a99d4b883af9a5c98c9c6' WHERE login = 'admine' ;
+UPDATE cc_ui_authen SET pwd_encoded = '34e125a0ce58a0c230db9110116767e3e95f143096eb66df2eeb77c43ca9210377ebca623e37242d16080b6a128e66dcbd2fbe137050120d3f2ab8420dd6cc70' WHERE login = 'root' ;  -- password is: myroot
+
 ALTER TABLE cc_card ADD COLUMN company_name CHARACTER VARYING( 50 ) ;
 ALTER TABLE cc_card ADD COLUMN company_website CHARACTER VARYING( 60 ) ;
 ALTER TABLE cc_card ADD COLUMN VAT_RN CHARACTER VARYING( 40 ) ;
