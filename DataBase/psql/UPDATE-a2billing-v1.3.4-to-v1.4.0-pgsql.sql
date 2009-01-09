@@ -1398,7 +1398,7 @@ ALTER TABLE cc_ratecard ADD COLUMN destination INT DEFAULT 0;
 
 
 UPDATE cc_card_group SET description = 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.' WHERE id = 1;
-UPDATE cc_card_group SET user_perms = '129022' WHERE id = 1;
+UPDATE cc_card_group SET users_perms = '129022' WHERE id = 1;
 
 ALTER TABLE cc_ticket ADD viewed_cust SMALLINT NOT NULL DEFAULT '1';
 ALTER TABLE cc_ticket ADD viewed_agent SMALLINT NOT NULL DEFAULT '1';
