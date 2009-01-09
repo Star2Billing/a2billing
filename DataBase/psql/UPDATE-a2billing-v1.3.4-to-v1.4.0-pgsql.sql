@@ -1281,7 +1281,7 @@ INSERT INTO  cc_config (config_title, config_key, config_value, config_descripti
 -- Cache system with SQLite Agent
 -- ------------------------------------------------------
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable CDR local cache', 'cache_enabled', '0', 'I you want enabled the local cache to save the CDR in a SQLite Database.', '1', '1', 'yes,no'),
+VALUES ( 'Enable CDR local cache', 'cache_enabled', '0', 'If you want enabled the local cache to save the CDR in a SQLite Database.', '1', '1', 'yes,no'),
 ( 'Path for the CDR cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the CDR cache to save the CDR in a local SQLite database.', '0', '1', NULL);
 
 
@@ -1455,16 +1455,16 @@ CREATE INDEX cc_prefix_dest ON cc_prefix USING  btree(destination);
 
 INSERT INTO cc_config_group (group_title ,group_description) VALUES ( 'dashboard', 'This configuration group handles the dashboard configuration');
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable Dashboard', 'dashboard_enabled', '0', 'I you want enabled the dashboard on the home page.', '1', '13', 'yes,no');
+VALUES ( 'Enable Dashboard', 'dashboard_enabled', '0', 'If you want enabled the dashboard on the home page.', '1', '13', 'yes,no');
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'I you want enabled the info module customer and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+VALUES ( 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'If you want enabled the info module customer and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 'I you want enabled the info module refills and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+VALUES ( 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 'If you want enabled the info module refills and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 'I you want enabled the info module payments and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+VALUES ( 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 'If you want enabled the info module payments and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'I you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'If you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 
 
 DROP TABLE cc_invoices;
