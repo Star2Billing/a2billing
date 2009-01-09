@@ -37,7 +37,11 @@ $DBHandle  = DbConnect();
 
 /*******************   ALARM INFO  *****************************************/
 
-$QUERY = "SELECT id, name, type, numberofrun, substring(datelastrun,0,20), numberofalarm from cc_alarm WHERE id='$id'";
+if (DB_TYPE != "postgres") {
+	$QUERY = "SELECT id, name, type, numberofrun, substring(datelastrun,1,19), numberofalarm from cc_alarm WHERE id='$id'";
+} else {
+	$QUERY = "SELECT id, name, type, numberofrun, substring(datelastrun::text,1,19), numberofalarm from cc_alarm WHERE id='$id'";
+}
 $res = $DBHandle -> Execute($QUERY);
 if ($res){
 	$num = $res -> RecordCount( );		

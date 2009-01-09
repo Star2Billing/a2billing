@@ -277,9 +277,15 @@ if (! is_null ( $order ) && ($order != '') && ! is_null ( $sens ) && ($sens != '
 }
 
 /************************/
-$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall,
+if (DB_TYPE != "postgres") {
+	$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall,
             sum(t1.buycost) AS buy, sum(case when t1.sessiontime>0 then 1 else 0 end) as success_calls
         	FROM $FG_TABLE_NAME WHERE " . $FG_TABLE_CLAUSE . " GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
+} else {
+	$QUERY = "SELECT t1.starttime::date AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall,
+            sum(t1.buycost) AS buy, sum(case when t1.sessiontime>0 then 1 else 0 end) as success_calls
+        	FROM $FG_TABLE_NAME WHERE " . $FG_TABLE_CLAUSE . " GROUP BY t1.starttime::date ORDER BY day"; //extract(DAY from calldate)
+}
 
 if (! $nodisplay) {
 	$res = $DBHandle->Execute ( $QUERY );

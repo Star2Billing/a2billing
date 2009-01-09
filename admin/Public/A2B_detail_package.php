@@ -212,7 +212,11 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 
 /************************/
 //$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate) 
-$QUERY = "SELECT substring(t1.date_consumption,1,10) AS day, sum(t1.used_secondes) AS used_secondes, count(*) as nbperf FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.date_consumption,1,10) ORDER BY day"; //extract(DAY from calldate) 
+if (DB_TYPE != "postgres") {
+	$QUERY = "SELECT substring(t1.date_consumption,1,10) AS day, sum(t1.used_secondes) AS used_secondes, count(*) as nbperf FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.date_consumption,1,10) ORDER BY day"; //extract(DAY from calldate)
+} else {
+	$QUERY = "SELECT t1.date_consumption::date AS day, sum(t1.used_secondes) AS used_secondes, count(*) as nbperf FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY t1.date_consumption::date ORDER BY day"; //extract(DAY from calldate)
+}
 
 if (!$nodisplay){
 		$res = $DBHandle -> Execute($QUERY);
