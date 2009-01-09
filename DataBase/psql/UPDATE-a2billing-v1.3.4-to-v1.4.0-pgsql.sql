@@ -612,7 +612,7 @@ ALTER TABLE cc_call ADD COLUMN real_sessiontime INTEGER;
 
 
 VACUUM FULL ANALYZE;
--- Change bellow your dbname & uncomment
+-- Change below your dbname & uncomment
 -- REINDEX DATABASE a2billing;
 
 
@@ -942,6 +942,10 @@ ALTER TABLE cc_card ADD id_agent INTEGER NOT NULL DEFAULT 0;
 
 ALTER TABLE cc_call ADD card_id BIGINT NOT NULL;
 
+UPDATE cc_call SET card_id=cc_card.id FROM cc_card
+	WHERE cc_card.username=cc_call.username;
+
+
 CREATE TABLE cc_agent_tariffgroup (
 	id_agent			BIGINT NOT NULL ,
 	id_tariffgroup		INTEGER NOT NULL,
@@ -1037,9 +1041,9 @@ ALTER TABLE cc_ui_authen RENAME COLUMN password TO pwd_encoded;
 
 UPDATE cc_ui_authen SET pwd_encoded = '34e125a0ce58a0c230db9110116767e3e95f143096eb66df2eeb77c43ca9210377ebca623e37242d16080b6a128e66dcbd2fbe137050120d3f2ab8420dd6cc70' WHERE login = 'root' ;  -- password is: myroot
 
-ALTER TABLE cc_card ADD COLUMN company_name CHARACTER VARYING( 50 ) ;
-ALTER TABLE cc_card ADD COLUMN company_website CHARACTER VARYING( 60 ) ;
-ALTER TABLE cc_card ADD COLUMN VAT_RN CHARACTER VARYING( 40 ) ;
+ALTER TABLE cc_card ADD COLUMN company_name CHARACTER VARYING(50) ;
+ALTER TABLE cc_card ADD COLUMN company_website CHARACTER VARYING(60) ;
+ALTER TABLE cc_card ADD COLUMN VAT_RN CHARACTER VARYING(40) ;
 ALTER TABLE cc_card ADD COLUMN traffic BIGINT ;
 ALTER TABLE cc_card ADD COLUMN traffic_target TEXT ;
 
@@ -1067,6 +1071,497 @@ VALUES ( 'Disable annoucement the second of the times that the card can call', '
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived, if you want assum the fee of paypal and don''t apply it on the customer (values : yes - no)', '1', '5', 'yes,no');
+
+
+-- Optimization on terminatecause
+ALTER TABLE cc_call ADD COLUMN terminatecauseid SMALLINT DEFAULT 1;
+UPDATE cc_call SET terminatecauseid=1 WHERE terminatecause='ANSWER';
+UPDATE cc_call SET terminatecauseid=1 WHERE terminatecause='ANSWERED';
+UPDATE cc_call SET terminatecauseid=2 WHERE terminatecause='BUSY';
+UPDATE cc_call SET terminatecauseid=3 WHERE terminatecause='NOANSWER';
+UPDATE cc_call SET terminatecauseid=4 WHERE terminatecause='CANCEL';
+UPDATE cc_call SET terminatecauseid=5 WHERE terminatecause='CONGESTION';
+UPDATE cc_call SET terminatecauseid=6 WHERE terminatecause='CHANUNAVAIL';
+
+ALTER TABLE cc_call DROP COLUMN terminatecause;
+CREATE INDEX cc_call_terminatecause_id ON cc_call USING btree( terminatecauseid );
+
+-- Add index on prefix
+CREATE INDEX cc_prefix_index ON cc_prefix USING btree( prefixe );
+
+-- optimization on CDR
+ALTER TABLE cc_call ADD COLUMN id_cc_prefix INTEGER DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN id_cc_prefix INTEGER DEFAULT 0;
+
+ALTER TABLE cc_call DROP COLUMN username;
+ALTER TABLE cc_call DROP COLUMN destination;
+ALTER TABLE cc_call DROP COLUMN startdelay;
+ALTER TABLE cc_call DROP COLUMN stopdelay;
+ALTER TABLE cc_call DROP COLUMN usertariff;
+ALTER TABLE cc_call DROP COLUMN calledprovider;
+ALTER TABLE cc_call DROP COLUMN calledcountry;
+ALTER TABLE cc_call DROP COLUMN calledsub;
+
+
+-- Update all rates values to use Decimal
+ALTER TABLE cc_ratecard ALTER buyrate TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER buyrate SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER buyrate SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER rateinitial TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER rateinitial SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER rateinitial SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER connectcharge TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER connectcharge SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER connectcharge SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER disconnectcharge TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER disconnectcharge SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER disconnectcharge SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER stepchargea TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER stepchargea SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER stepchargea SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER chargea TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER chargea SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER chargea SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER stepchargeb TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER stepchargeb SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER stepchargeb SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER chargeb TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER chargeb SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER chargeb SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER stepchargeb TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER stepchargeb SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER stepchargeb SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER chargeb TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER chargeb SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER chargeb SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER minimal_cost TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER minimal_cost SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER minimal_cost SET DEFAULT '0';
+
+
+
+-- change perms for new menu
+UPDATE cc_ui_authen SET perms = '5242879' WHERE userid=1;
+
+-- correct card group
+ALTER TABLE cc_card_group DROP COLUMN id_agi_conf;
+
+
+CREATE TABLE cc_cardgroup_service (
+	id_card_group		INT NOT NULL ,
+	id_service 			INT NOT NULL
+);
+ALTER TABLE cc_cardgroup_service ADD CONSTRAINT cons_cc_cardgroup_unique
+	UNIQUE ( id_card_group , id_service );
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ('Cents Currency Associated', 'currency_cents_association', '', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', '0', '11', NULL);
+
+ALTER TABLE cc_call DROP COLUMN calledrate;
+ALTER TABLE cc_call DROP COLUMN buyrate;
+
+
+-- ------------------------------------------------------
+-- for AutoDialer
+-- ------------------------------------------------------
+
+-- Create phonebook for
+CREATE TABLE cc_phonebook (
+	id 					SERIAL NOT NULL,
+	name 				VARCHAR(30) NOT NULL,
+	description			TEXT
+);
+ALTER TABLE cc_phonebook ADD CONSTRAINT cc_phonebook_pkey PRIMARY KEY (id);
+
+CREATE TABLE cc_phonenumber (
+	id 					BIGSERIAL NOT NULL,
+	id_phonebook 		INT NOT NULL,
+	number 				VARCHAR(30) NOT NULL,
+	name 				VARCHAR(40),
+	creationdate 		TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+	status 				SMALLINT NOT NULL DEFAULT '1',
+	info 				TEXT
+);
+ALTER TABLE cc_phonenumber ADD CONSTRAINT cc_phonenumber_pkey PRIMARY KEY (id);
+
+ALTER TABLE cc_phonebook ADD id_card BIGINT NOT NULL ;
+
+CREATE TABLE cc_campaign_phonebook (
+	id_campaign 		INT NOT NULL ,
+	id_phonebook 		INT NOT NULL
+);
+ALTER TABLE cc_campaign_phonebook ADD CONSTRAINT cc_campaign_phonebook_pkey
+	PRIMARY KEY ( id_campaign , id_phonebook );
+
+ALTER TABLE cc_campaign RENAME COLUMN campaign_name TO name;
+ALTER TABLE cc_campaign ALTER name TYPE VARCHAR(50);
+ALTER TABLE cc_campaign ALTER name SET NOT NULL;
+ALTER TABLE cc_campaign RENAME COLUMN enable TO status;
+ALTER TABLE cc_campaign ALTER status TYPE INT;
+ALTER TABLE cc_campaign ALTER status SET NOT NULL;
+ALTER TABLE cc_campaign ALTER status SET DEFAULT '1';
+
+ALTER TABLE cc_campaign ADD frequency INT NOT NULL DEFAULT '20';
+
+CREATE TABLE cc_campaign_phonestatus (
+	id_phonenumber 		BIGINT NOT NULL,
+	id_campaign 		INT NOT NULL,
+	id_callback 		VARCHAR(40) NOT NULL,
+	status 				INT NOT NULL DEFAULT '0',
+	lastuse 			TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now()
+);
+ALTER TABLE cc_campaign_phonestatus ADD CONSTRAINT cc_campaign_phonestatus_pkey
+	PRIMARY KEY ( id_phonenumber , id_campaign );
+
+ALTER TABLE cc_campaign RENAME COLUMN id_trunk TO id_card;
+ALTER TABLE cc_campaign ALTER id_card TYPE BIGINT;
+ALTER TABLE cc_campaign ALTER id_card SET NOT NULL;
+ALTER TABLE cc_campaign ALTER id_card SET DEFAULT '0';
+ALTER TABLE cc_campaign ADD forward_number VARCHAR(50);
+
+DROP TABLE cc_phonelist;
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES
+( 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Context to use in Campaign of Callback', '0', '2', NULL);
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES
+( 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 'Context to use by default to forward the call in Campaign of Callback', '0', '2', NULL);
+
+ALTER TABLE cc_campaign ADD daily_start_time TIME WITHOUT TIME ZONE NOT NULL DEFAULT '10:00:00';
+ALTER TABLE cc_campaign ADD daily_stop_time TIME WITHOUT TIME ZONE NOT NULL DEFAULT '18:00:00';
+ALTER TABLE cc_campaign ADD monday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD tuesday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD wednesday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD thursday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD friday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD saturday SMALLINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_campaign ADD sunday SMALLINT NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_campaign ADD id_cid_group INT NOT NULL;
+
+CREATE TABLE cc_campaign_config (
+	id 					SERIAL NOT NULL,
+	name 				VARCHAR(40) NOT NULL,
+	flatrate			DECIMAL(15,5) DEFAULT 0 NOT NULL,
+	context 			VARCHAR(40) NOT NULL,
+	description 		TEXT
+);
+ALTER TABLE cc_campaign_config ADD CONSTRAINT cc_campaign_config_pkey
+	PRIMARY KEY (id);
+
+
+CREATE TABLE cc_campaignconf_cardgroup (
+	id_campaign_config 	INT NOT NULL ,
+	id_card_group 		INT NOT NULL
+);
+ALTER TABLE cc_campaignconf_cardgroup ADD CONSTRAINT cc_campaignconf_cardgroup_pkey
+	PRIMARY KEY ( id_campaign_config , id_card_group );
+
+
+ALTER TABLE cc_campaign ADD id_campaign_config INT NOT NULL ;
+
+
+-- ------------------------------------------------------
+-- for Agent
+-- ------------------------------------------------------
+
+ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_config ALTER config_value TYPE VARCHAR(300);
+
+INSERT INTO  cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id) values('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname,id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused,firstname, email, discount, callerid',0,8);
+
+
+-- ------------------------------------------------------
+-- Cache system with SQLite Agent
+-- ------------------------------------------------------
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enabled the cache processing to save the call in database. The cache system is based on Sqlite.', '0', '1', 'yes,no'),
+( 'Path for the cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the cache processing to save the call in database. The cache system is based on Sqlite.', '0', '10', NULL);
+
+
+ALTER TABLE cc_logrefill ADD COLUMN refill_type SMALLINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_logpayment ADD COLUMN payment_type SMALLINT NOT NULL DEFAULT 0;
+
+
+-- ------------------------------------------------------
+-- Add management of the web customer in groups
+-- ------------------------------------------------------
+ALTER TABLE cc_card_group ADD users_perms INT NOT NULL DEFAULT '0';
+
+
+
+-- ------------------------------------------------------
+-- PNL report
+-- ------------------------------------------------------
+INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values
+('PNL Pay Phones','report_pnl_pay_phones','(8887798764,0.02,0.06)','Info for PNL report. Must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
+INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values
+('PNL Tall Free Numbers','report_pnl_tall_free','(6136864646,0.1,0),(6477249717,0.1,0)','Info for PNL report. must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
+
+
+
+-- ------------------------------------------------------
+-- Update to use VarChar instead of Char
+-- ------------------------------------------------------
+-- Postgres generally uses the 'TEXT' type anyway,  so this is unnecessary
+
+
+-- ------------------------------------------------------
+-- Add restricted rules on the call system for customers
+-- ------------------------------------------------------
+
+CREATE TABLE cc_restricted_phonenumber (
+	id 					BIGSERIAL NOT NULL,
+	number 				VARCHAR(50) NOT NULL,
+	id_card 			BIGINT NOT NULL
+);
+ALTER TABLE cc_restricted_phonenumber ADD CONSTRAINT cc_restricted_phonenumber_pkey
+	PRIMARY KEY (id);
+
+
+
+ALTER TABLE cc_card ADD restriction SMALLINT NOT NULL DEFAULT '0';
+
+
+
+ALTER TABLE cc_card DROP COLUMN callback;
+
+
+
+-- ADD IAX TRUNKING
+ALTER TABLE cc_iax_buddies ADD trunk VARCHAR(3) DEFAULT 'yes';
+
+
+
+-- Refactor Agent Section
+ALTER TABLE cc_card DROP COLUMN id_agent;
+ALTER TABLE cc_card_group ADD id_agent INT NOT NULL DEFAULT '0';
+
+
+
+ALTER TABLE cc_card DROP COLUMN template_invoice;
+ALTER TABLE cc_card DROP COLUMN template_outstanding;
+
+--ALTER TABLE cc_card RENAME COLUMN VAT_RN TO vat_rn;
+ALTER TABLE cc_card ALTER vat_rn TYPE VARCHAR(40);
+ALTER TABLE cc_card ALTER vat_rn SET DEFAULT NULL;
+
+-- add amount
+ALTER TABLE cc_phonenumber ADD amount INT NOT NULL DEFAULT '0';
+
+
+-- add company to Agent
+ALTER TABLE cc_agent ADD COLUMN company varchar(50);
+
+
+-- Change AGI Verbosity & logging
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
+VALUES ('Verbosity', 'verbosity_level', '0', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
+VALUES ('Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
+
+
+ALTER TABLE cc_ticket_comment RENAME COLUMN is_admin TO creator_type;
+ALTER TABLE cc_ticket ADD COLUMN creator_type SMALLINT NOT NULL DEFAULT '0';
+-- ALTER TABLE cc_ticket_comment ALTER creator_type TYPE SMALLINT;
+-- ALTER TABLE cc_ticket_comment ALTER creator_type SET NOT NULL;
+-- ALTER TABLE cc_ticket_comment ALTER creator_type SET DEFAULT '0';
+
+ALTER TABLE cc_ratecard ADD COLUMN announce_time_correction decimal(5,3) NOT NULL DEFAULT 1.0;
+
+
+ALTER TABLE cc_agent DROP COLUMN climit;
+
+CREATE TABLE cc_agent_cardgroup (
+	id_agent 			INT NOT NULL ,
+	id_card_group 		INT NOT NULL
+);
+ALTER TABLE cc_agent_cardgroup ADD CONSTRAINT cc_agent_cardgroup_pkey
+	PRIMARY KEY ( id_agent , id_card_group );
+
+ALTER TABLE cc_card_group DROP id_agent;
+
+ALTER TABLE cc_agent ADD secret VARCHAR(20) NOT NULL;
+
+-- optimization on CDR
+ALTER TABLE cc_ratecard DROP COLUMN destination;
+ALTER TABLE cc_call DROP COLUMN id_cc_prefix;
+ALTER TABLE cc_ratecard DROP COLUMN id_cc_prefix;
+ALTER TABLE cc_call ADD COLUMN destination INT DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN destination INT DEFAULT 0;
+
+
+UPDATE cc_card_group SET description = 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.' WHERE id = 1;
+
+ALTER TABLE cc_ticket ADD viewed_cust SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_ticket ADD viewed_agent SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_ticket ADD viewed_admin SMALLINT NOT NULL DEFAULT '1';
+
+
+ALTER TABLE cc_ticket_comment ADD viewed_cust SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_ticket_comment ADD viewed_agent SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_ticket_comment ADD viewed_admin SMALLINT NOT NULL DEFAULT '1';
+
+ALTER TABLE cc_ui_authen ADD email VARCHAR(70);
+
+ALTER TABLE cc_logrefill ALTER id TYPE BIGINT;  -- the sequence is already BIG
+ALTER TABLE cc_logrefill ALTER id SET NOT NULL;
+
+
+-- Refill table for Agent
+CREATE TABLE cc_logrefill_agent (
+	id 					BIGSERIAL NOT NULL,
+	date 				timestamp WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+	credit 				float NOT NULL,
+	agent_id 			BIGINT NOT NULL,
+	description 		TEXT,
+	refill_type 		SMALLINT NOT NULL default '0'
+);
+ALTER TABLE cc_logrefill_agent ADD CONSTRAINT cc_logrefill_agent_pkey
+	PRIMARY KEY  (id);
+
+-- logpayment table for Agent
+CREATE TABLE cc_logpayment_agent (
+	id 					BIGSERIAL NOT NULL,
+	date 				TIMESTAMP WITHOUT TIME ZONE NOT NULL default now(),
+	payment 			float NOT NULL,
+	agent_id 			BIGINT NOT NULL,
+	id_logrefill 		BIGINT default NULL,
+	description 		TEXT,
+	added_refill 		SMALLINT NOT NULL default '0',
+	payment_type 		SMALLINT NOT NULL default '0'
+);
+ALTER TABLE cc_logpayment_agent ADD CONSTRAINT cc_logpayment_agent_pkey
+	PRIMARY KEY  (id);
+
+
+-- Table structure for table cc_prefix
+DROP TABLE IF EXISTS cc_prefix;
+CREATE TABLE cc_prefix (
+	prefix 				BIGSERIAL NOT NULL,
+	destination 		varchar(60) NOT NULL
+);
+ALTER TABLE cc_prefix ADD CONSTRAINT cc_prefix_pkey PRIMARY KEY (prefix);
+CREATE INDEX cc_prefix_dest ON cc_prefix USING  btree(destination);
+
+
+
+INSERT INTO cc_config_group (group_title ,group_description) VALUES ( 'dashboard', 'This configuration group handles the dashboard configuration');
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable cache in Call Report', 'dashboard_enabled', '0', 'I you want enabled the dashboard on the home page.', '1', '13', 'yes,no');
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'I you want enabled the info module customer and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 'I you want enabled the info module refills and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 'I you want enabled the info module payments and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'I you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+
+
+DROP TABLE cc_invoices;
+DROP TABLE cc_invoice;
+DROP TABLE cc_invoice_history;
+DROP TABLE cc_invoice_items;
+
+CREATE TABLE cc_invoice (
+	id 					BIGSERIAL NOT NULL,
+	reference 			VARCHAR(30),
+	id_card 			BIGINT NOT NULL ,
+	date 				TIMESTAMP WITHOUT TIME ZONE NOT NULL default now(),
+	paid_status 		SMALLINT NOT NULL DEFAULT '0',
+	status 				SMALLINT NOT NULL DEFAULT '0',
+	title 				VARCHAR(50) NOT NULL,
+	description 		TEXT  NOT NULL
+);
+ALTER TABLE cc_invoice ADD CONSTRAINT cc_invoice_pkey PRIMARY KEY ( id );
+ALTER TABLE cc_invoice ADD CONSTRAINT cc_invoice_unique UNIQUE (reference);
+
+CREATE TABLE cc_invoice_item (
+	id 					BIGSERIAL NOT NULL,
+	id_invoice 			BIGINT NOT NULL,
+	date 				TIMESTAMP WITHOUT TIME ZONE NOT NULL default now(),
+	price 				DECIMAL(15, 5) NOT NULL DEFAULT '0',
+	VAT 				DECIMAL( 4, 2) NOT NULL DEFAULT '0',
+	description 		TEXT NOT NULL
+);
+ALTER TABLE cc_invoice_item ADD CONSTRAINT cc_invoice_item_pkey PRIMARY KEY ( id );
+
+
+CREATE TABLE cc_invoice_conf (
+	id 					SERIAL NOT NULL,
+	key_val 			VARCHAR(50) NOT NULL,
+	value 				VARCHAR(50) NOT NULL
+);
+ALTER TABLE cc_invoice_conf ADD CONSTRAINT cc_invoice_conf_pkey PRIMARY KEY ( id );
+ALTER TABLE cc_invoice_conf ADD CONSTRAINT cc_invoice_conf_unique UNIQUE (key_val);
+
+INSERT INTO cc_invoice_conf (key_val ,value)
+	VALUES 	('company_name', 'My company'),
+		('address', 'address'),
+		('zipcode', 'xxxx'),
+		('country', 'country'),
+		('city', 'city'),
+		('phone', 'xxxxxxxxxxx'),
+		('fax', 'xxxxxxxxxxx'),
+		('email', 'xxxxxxx@xxxxxxx.xxx'),
+		('vat', 'xxxxxxxxxx'),
+		('web', 'www.xxxxxxx.xxx');
+
+ALTER TABLE cc_logrefill ADD added_invoice SMALLINT NOT NULL DEFAULT '0';
+
+CREATE TABLE cc_invoice_payment (
+	id_invoice 			BIGINT NOT NULL ,
+	id_payment 			BIGINT NOT NULL
+);
+ALTER TABLE cc_invoice_payment ADD CONSTRAINT cc_invoice_payment_pkey
+	PRIMARY KEY ( id_invoice , id_payment );
+ALTER TABLE cc_invoice_payment ADD CONSTRAINT cc_invoice_payment_unique UNIQUE (id_payment);
+
+
+
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable PlugnPay Module', 'MODULE_PAYMENT_PLUGNPAY_STATUS', 'True', 'Do you want to accept payments through PlugnPay?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Login Username', 'MODULE_PAYMENT_PLUGNPAY_LOGIN', 'Your Login Name', 'Enter your PlugnPay account username');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Publisher Email', 'MODULE_PAYMENT_PLUGNPAY_PUBLISHER_EMAIL', 'Enter Your Email Address', 'The email address you want PlugnPay conformations sent to');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('cURL Setup', 'MODULE_PAYMENT_PLUGNPAY_CURL', 'Not Compiled', 'Whether cURL is compiled into PHP or not.  Windows users, select not compiled.', 'tep_cfg_select_option(array(\'Not Compiled\', \'Compiled\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('cURL Path', 'MODULE_PAYMENT_PLUGNPAY_CURL_PATH', 'The Path To cURL', 'For Not Compiled mode only, input path to the cURL binary (i.e. c:/curl/curl)');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Mode', 'MODULE_PAYMENT_PLUGNPAY_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Test And Debug\', \'Production\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Require CVV', 'MODULE_PAYMENT_PLUGNPAY_CVV', 'yes', 'Ask For CVV information', 'tep_cfg_select_option(array(\'yes\', \'no\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Method', 'MODULE_PAYMENT_PLUGNPAY_PAYMETHOD', 'credit', 'Transaction method used for processing orders.<br><b>NOTE:</b> Selecting \'onlinecheck\' assumes you\'ll offer \'credit\' as well.',  'tep_cfg_select_option(array(\'credit\', \'onlinecheck\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Authorization Type', 'MODULE_PAYMENT_PLUGNPAY_CCMODE', 'authpostauth', 'Credit card processing mode', 'tep_cfg_select_option(array(\'authpostauth\', \'authonly\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Customer Notifications', 'MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL', 'yes', 'Should PlugnPay not email a receipt to the customer?', 'tep_cfg_select_option(array(\'yes\', \'no\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Accepted Credit Cards', 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC', 'Mastercard, Visa', 'The credit cards you currently accept', '_selectOptions(array(\'Amex\',\'Discover\', \'Mastercard\', \'Visa\'), ');
+
+
+INSERT INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('plugnpay','plugnpay.php','t');
+
+
+
+
+
+ALTER TABLE cc_card_archive DROP COLUMN  callback;
+-- ALTER TABLE cc_card_archive ADD COLUMN  id_timezone int default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  voicemail_permitted int NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  voicemail_activated smallint NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  last_notification TIMESTAMP WITHOUT TIME ZONE default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  email_notification VARCHAR(70);
+ALTER TABLE cc_card_archive ADD COLUMN  notify_email SMALLINT NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  credit_notification INT NOT NULL default '-1';
+ALTER TABLE cc_card_archive ADD COLUMN  id_group INT NOT NULL default '1';
+ALTER TABLE cc_card_archive ADD COLUMN  company_name VARCHAR(50) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  company_website varchar(60) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  VAT_RN varchar(40) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  traffic BIGINT default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  traffic_target TEXT;
+ALTER TABLE cc_card_archive ADD COLUMN  discount decimal(5,2) NOT NULL default '0.00';
+ALTER TABLE cc_card_archive ADD COLUMN  restriction SMALLINT NOT NULL default '0';
+ALTER TABLE cc_card_archive DROP COLUMN template_invoice;
+ALTER TABLE cc_card_archive DROP COLUMN template_outstanding;
+ALTER TABLE cc_card_archive DROP COLUMN mac_addr;
+ALTER TABLE cc_card_archive ADD COLUMN mac_addr char(17) NOT NULL default '00-00-00-00-00-00';
+
 
 
 
