@@ -323,7 +323,7 @@ function sendtoupload(form){
 					  <input type="hidden" name="status" value="ok">
                       <input type="hidden" name="uploadedfile_name" value="<?php echo $new_filename?>">
 			  		  <input type="hidden" name="uploadedfile_type" value="<?php echo $the_file_type?>">
-                      <input type="submit"    value="Continue to Import the DID's" onFocus=this.select() class="form_input_button" name="submit1" >
+                      <input type="submit"    value="Continue to Import the DIDs" onFocus=this.select() class="form_input_button" name="submit1" >
                       <br>
                       &nbsp; </p>
                   </td>
@@ -353,7 +353,7 @@ function sendtoupload(form){
 					  <br>
 					  <?php 
 			  			$log = new Logger();
-						  $log -> insertLog($_SESSION["admin_id"], 2, "DID IMPORTED", $nb_imported." New DID's Imported Successfully", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+						  $log -> insertLog($_SESSION["admin_id"], 2, "DID IMPORTED", $nb_imported." New DIDs Imported Successfully", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 						  $log = null;
 						?>
 					  <?php echo gettext("The import of the new DID's have been realized with success!");?><br>

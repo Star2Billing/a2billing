@@ -2475,11 +2475,11 @@ msgstr ""
 
 #: Public/A2B_entity_did_import_analyse.php:358
 msgid "The import of the new DID's have been realized with success!"
-msgstr ""
+msgstr "The import of the new DIDs have been realized with success!"
 
 #: Public/A2B_entity_did_import_analyse.php:359
 msgid "new DID's have been imported into your Database."
-msgstr ""
+msgstr "new DIDs have been imported into your Database."
 
 #: Public/A2B_entity_did_import_analyse.php:366
 #: Public/CC_phonelist_import_analyse.php:322

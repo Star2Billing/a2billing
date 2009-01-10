@@ -17,7 +17,7 @@ DID BILLING
 	
 	Astersik2Billing provides an extensive functionality to handle the DID calls and its Billing.
 	You can Create the DID Groups in our A2Billing Admin Web Application. and Add DID to the Groups.
-	DID can be Assigned to Card to re-route the calls to a SIP/IAX Client. You can active or deactivate your DID's.
+	DID can be Assigned to Card to re-route the calls to a SIP/IAX Client. You can active or deactivate your DIDs.
 
 2. DID BILLING
 	
@@ -123,11 +123,11 @@ DID BILLING
 		
 	Client Site:
 	
-	Client Web Interface help the users to manage their DID's. They can perform following functionalites.
-		a) Add Destination to their DID's.
-		b) Request for DID's.
-		c) Release the DID's.
+	Client Web Interface help the users to manage their DIDs. They can perform following functionalites.
+		a) Add Destination to their DIDs.
+		b) Request for DIDs.
+		c) Release the DIDs.
 		
-	To access the client side DID's Page.
+	To access the client side DIDs Page.
 		a) Login to Client Site
 		b) Click on the TAB "DID" in Left Menu.

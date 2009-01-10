@@ -236,7 +236,7 @@
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_didgroup.php?section=5">{php} echo gettext("DID Group");{/php}</a>
-				<li><a href="A2B_entity_did.php?section=5">{php} echo gettext("DID's");{/php}</a></li>
+				<li><a href="A2B_entity_did.php?section=5">{php} echo gettext("DIDs");{/php}</a></li>
 				<li><a href="A2B_entity_didx.php?section=5">{php} echo gettext("Add DID from DIDX");{/php}</a></li>
 				<li><a href="A2B_entity_did_import.php?section=5">{php} echo gettext("Import DID");{/php}</a></li>
 				<li><a href="A2B_entity_did_destination.php?section=5">{php} echo gettext("List Destination");{/php}</a></li>
