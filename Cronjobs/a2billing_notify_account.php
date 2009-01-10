@@ -48,7 +48,7 @@ if (!$A2B -> DbConnect()){
 
 //Check if the notifications is Enable or Disable
 if(empty($A2B->config['notifications']['cron_notifications'])) {
-	echo "[The cron of notification is disactived]\n";
+	echo "[The cron of notification is de-activated]\n";
 	exit;
 }
 

@@ -29,7 +29,7 @@ $result_graph_refill_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_REFILL_AM
 
 
 
-<input id="refills_count" type="radio" name="mode_refill" value="count">&nbsp; <?php echo gettext("NUMBERS OF REFILLS BY MONTH"); ?><br/>
+<input id="refills_count" type="radio" name="mode_refill" value="count">&nbsp; <?php echo gettext("NUMBER OF REFILLS BY MONTH"); ?><br/>
 <input id="refills_amount" type="radio" name="mode_refill" value="amount">&nbsp; <?php echo gettext("AMOUNT OF REFILLS BY MONTH"); ?><br/>
 <br/>
 <div id="refills_graph" class="dashgraph" style="width:310px;height:160px;margin-left: auto;margin-right: auto;"></div>

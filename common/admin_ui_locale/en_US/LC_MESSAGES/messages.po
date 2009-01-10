@@ -5992,7 +5992,7 @@ msgstr ""
 
 #: Public/form_data/FG_var_callerid.inc:10
 msgid "Disactive"
-msgstr ""
+msgstr "Inactive"
 
 #: Public/form_data/FG_var_callerid.inc:43
 msgid "Insert the CallerID"

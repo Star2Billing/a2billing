@@ -2354,13 +2354,12 @@ msgstr ""
 
 #: form_data/FG_var_callerid.inc:12 form_data/FG_var_did.inc:18
 #: form_data/FG_var_did.inc:39
-#, fuzzy
 msgid "Active"
-msgstr "Disactive"
+msgstr "Active"
 
 #: form_data/FG_var_callerid.inc:13
 msgid "Disactive"
-msgstr "Disactive"
+msgstr "Inactive"
 
 #: form_data/FG_var_callerid.inc:16 A2B_entity_did.php:565
 msgid "Yes"
@@ -2416,7 +2415,7 @@ msgstr ""
 #: form_data/FG_var_did.inc:19 form_data/FG_var_did.inc:39
 #, fuzzy
 msgid "Inactive"
-msgstr "Disactive"
+msgstr "Inactive"
 
 #: form_data/FG_var_did.inc:22
 msgid "Fix per month + dialoutrate"

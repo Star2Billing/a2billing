@@ -30,25 +30,25 @@ $result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_SUSPENDED);
 $result_count_suspended= $result[0][0];
 ?>
 
-<?php echo gettext("TOTAL NUMBERS OF CUSTOMERS");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
+<?php echo gettext("TOTAL NUMBER OF CUSTOMERS");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
 <?php if($result_count_actived>0){ ?>	
-  <?php echo gettext("NUMBERS OF ACTIVED CUSTOMERS ");?>&nbsp;:&nbsp;<?php echo $result_count_actived; ?><br/>
+  <?php echo gettext("NUMBER OF ACTIVE CUSTOMERS ");?>&nbsp;:&nbsp;<?php echo $result_count_actived; ?><br/>
 <?php } ?>
 <?php if($result_count_cancelled>0){ ?>
-	<?php echo gettext("NUMBERS OF CANCELED CUSTOMERS ");?>&nbsp;:&nbsp;<?php echo $result_count_cancelled; ?><br/>
+	<?php echo gettext("NUMBER OF CANCELLED CUSTOMERS ");?>&nbsp;:&nbsp;<?php echo $result_count_cancelled; ?><br/>
 <?php } ?>
 <?php if($result_count_new>0){ ?> 	
-	<?php echo gettext("NUMBERS OF NEW CUSTOMERS ");?>&nbsp;:&nbsp;<?php echo $result_count_new; ?><br/>
+	<?php echo gettext("NUMBER OF NEW CUSTOMERS ");?>&nbsp;:&nbsp;<?php echo $result_count_new; ?><br/>
 <?php } ?>
 <?php if($result_count_waiting>0){ ?>
- 	<?php echo gettext("NUMBERS OF CUSTOMERS IN WAITING");?>&nbsp;:&nbsp;<?php echo $result_count_waiting; ?><br/>
+ 	<?php echo gettext("NUMBER OF CUSTOMERS IN WAITING");?>&nbsp;:&nbsp;<?php echo $result_count_waiting; ?><br/>
 <?php } ?>
 <?php if($result_count_reserved>0){ ?>
-  	<?php echo gettext("NUMBERS OF RESERVED CUSTOMERS");?>&nbsp;:&nbsp;<?php echo $result_count_reserved; ?><br/>
+  	<?php echo gettext("NUMBER OF RESERVED CUSTOMERS");?>&nbsp;:&nbsp;<?php echo $result_count_reserved; ?><br/>
 <?php } ?>
 <?php if($result_count_expired>0){ ?>
-	<?php echo gettext("NUMBERS OF EXPIRED CUSTOMERS");?>&nbsp;:&nbsp;<?php echo $result_count_expired; ?><br/>
+	<?php echo gettext("NUMBER OF EXPIRED CUSTOMERS");?>&nbsp;:&nbsp;<?php echo $result_count_expired; ?><br/>
 <?php } ?>
 <?php if($result_count_suspended>0){ ?>
-	<?php echo gettext("NUMBERS OF SUSPENDED CUSTOMERS");?>&nbsp;:<?php echo $result_count_suspended; ?><br/>
+	<?php echo gettext("NUMBER OF SUSPENDED CUSTOMERS");?>&nbsp;:<?php echo $result_count_suspended; ?><br/>
 <?php } ?>

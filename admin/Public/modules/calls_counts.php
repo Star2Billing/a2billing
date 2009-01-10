@@ -41,24 +41,24 @@ $result_count_calls_buy = $result[0][0];
 if($result_count_calls_buy == null) echo "NULLL";
 ?>
 
-<?php echo gettext("TOTAL NUMBERS OF CALLS TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
+<?php echo gettext("TOTAL NUMBER OF CALLS TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
 <?php if($result_count_answered>0){ ?>	
-  &nbsp;<?php echo gettext("NUMBERS OF CALLS ANSWERED");?>&nbsp;:&nbsp;<?php echo $result_count_answered; ?><br/>
+  &nbsp;<?php echo gettext("NUMBER OF CALLS ANSWERED");?>&nbsp;:&nbsp;<?php echo $result_count_answered; ?><br/>
 <?php } ?>
 <?php if($result_count_busy>0){ ?>
-	&nbsp;<?php echo gettext("NUMBERS OF CALLS BUSIED");?>&nbsp;:&nbsp;<?php echo $result_count_busy; ?><br/>
+	&nbsp;<?php echo gettext("NUMBER OF CALLS BUSY");?>&nbsp;:&nbsp;<?php echo $result_count_busy; ?><br/>
 <?php } ?>
 <?php if($result_count_noanswer>0){ ?> 	
-	&nbsp;<?php echo gettext("NUMBERS OF CALLS NO ANSWERED");?>&nbsp;:&nbsp;<?php echo $result_count_noanswer; ?><br/>
+	&nbsp;<?php echo gettext("NUMBER OF CALLS NOT ANSWERED");?>&nbsp;:&nbsp;<?php echo $result_count_noanswer; ?><br/>
 <?php } ?>
 <?php if($result_count_cancelled>0){ ?>
- 	&nbsp;<?php echo gettext("NUMBERS OF CALLS CANCELLED");?>&nbsp;:&nbsp;<?php echo $result_count_cancelled; ?><br/>
+ 	&nbsp;<?php echo gettext("NUMBER OF CALLS CANCELLED");?>&nbsp;:&nbsp;<?php echo $result_count_cancelled; ?><br/>
 <?php } ?>
 <?php if($result_count_congested>0){ ?>
-  	&nbsp;<?php echo gettext("NUMBERS OF CALLS CONGESTED");?>&nbsp;:&nbsp;<?php echo $result_count_congested; ?><br/>
+  	&nbsp;<?php echo gettext("NUMBER OF CALLS CONGESTED");?>&nbsp;:&nbsp;<?php echo $result_count_congested; ?><br/>
 <?php } ?>
 <?php if($result_count_chanunavail>0){ ?>
-	&nbsp;<?php echo gettext("NUMBERS OF CALLS WITH CHANNEL UNAVAILABLE");?>&nbsp;:&nbsp;<?php echo $result_count_chanunavail; ?><br/>
+	&nbsp;<?php echo gettext("NUMBER OF CALLS WITH CHANNEL UNAVAILABLE");?>&nbsp;:&nbsp;<?php echo $result_count_chanunavail; ?><br/>
 <?php } ?>
 <?php echo gettext("AMOUNT SELL TODAY TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_times;} ?> </font>&nbsp;sec <br/>
 <?php echo gettext("AMOUNT BUY TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_sell;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>

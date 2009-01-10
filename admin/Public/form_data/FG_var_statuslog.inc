@@ -57,7 +57,7 @@ $cardstatus_list["2"]  = array( gettext("NEW"), "2");
 $cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
 $cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
 $cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
-$cardstatus_list["6"]  = array( gettext("SUSPENDED FOR UNDERPAYEMENT"), "6");
+$cardstatus_list["6"]  = array( gettext("SUSPENDED FOR UNDERPAYMENT"), "6");
 $cardstatus_list["7"]  = array( gettext("SUSPENDED FOR LITIGATION"), "7");
 
 
