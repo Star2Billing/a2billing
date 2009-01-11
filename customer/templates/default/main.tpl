@@ -1,6 +1,6 @@
 <HTML>
 <HEAD>
-	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.ico">
+	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
 	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
 
 	<title>..:: {$CCMAINTITLE} ::..</title>
