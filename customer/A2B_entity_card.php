@@ -28,8 +28,9 @@ if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 
-$list = $HD_Form -> perform_action($form_action);
-
+if ($message != "success") {
+	$list = $HD_Form -> perform_action($form_action);
+}
 
 
 // #### HEADER SECTION
