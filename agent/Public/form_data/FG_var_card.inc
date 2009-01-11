@@ -55,7 +55,7 @@ $language_list = Constants::getLanguagesList();
 
 $language_list_r = Constants::getLanguagesRevertList();
 $discount_list  = array();
-$discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0");
+$discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0.00");
 for($i=1;$i<=99;$i++) {
 	$discount_list[$i.".00"]=array($i."%",$i.".00");
 }
