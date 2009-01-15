@@ -262,14 +262,6 @@ $HD_Form -> AddEditElement (gettext("IAX FRIEND"),
 $HD_Form -> FieldEditElement ('product_name, description,	credit, language, tariff, id_didgroup, activated, simultaccess, currency, runservice, typepaid, creditlimit, enableexpire, expirationdate, expiredays, mailtype, sip_friend, iax_friend');
 
 
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";	
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";	
-}
-
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");

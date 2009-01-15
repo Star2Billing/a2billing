@@ -209,15 +209,6 @@ $HD_Form -> AddEditElement ("STATUS",
 $HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status');
 
 
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";	
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";	
-}
-
-
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the trunk below.");
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");

@@ -128,15 +128,6 @@ $HD_Form -> AddEditElement (gettext("VOIP_CALL"),
 $HD_Form -> FieldEditElement ('destination, id_cc_card, id_cc_did, activated, priority, voip_call');
 
 
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
-}
-
-
 // Set the filter variables
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'destination';

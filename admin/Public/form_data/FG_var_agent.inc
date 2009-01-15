@@ -349,12 +349,6 @@ $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 
-if (DB_TYPE == "mysql") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreation ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now() ";
-}
-
-
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'creation_agent_refill';
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;

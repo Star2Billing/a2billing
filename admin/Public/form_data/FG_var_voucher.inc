@@ -175,15 +175,6 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
 $HD_Form -> FieldEditElement ('voucher, credit, tag, activated, currency, expirationdate ');
 
 
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";	
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";	
-}
-
-
 // Set the filter variables
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'voucher';

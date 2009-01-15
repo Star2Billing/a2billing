@@ -84,15 +84,6 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
 $HD_Form -> FieldEditElement ('speeddial, name, phone, id_cc_card');
 
 
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";	
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";	
-}
-
-
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'id_cc_card ';
 $HD_Form -> FG_FILTERFIELDNAME = 'Customer ID';

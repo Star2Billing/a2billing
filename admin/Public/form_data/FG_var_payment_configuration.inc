@@ -78,17 +78,6 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 $HD_Form -> FieldEditElement ('payment_method, payment_filename, active');
 
 
-if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";
-}
-
-
-
-
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");

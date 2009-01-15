@@ -912,11 +912,6 @@ $HD_Form -> FieldEditElement ('username, useralias, uipass, credit,id_group, las
 
 if(!isset($myusername)) $myusername='';
 
-if (DB_TYPE != "postgres") {
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "now() ";
-}
-
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'account number';

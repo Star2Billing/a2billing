@@ -120,13 +120,8 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 
 $HD_Form -> FieldEditElement (' creator, title, id_component, priority, description');
 
-if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_agent";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0'";
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_agent ,creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0',now()";
-}
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_agent";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0'";
 
 
 

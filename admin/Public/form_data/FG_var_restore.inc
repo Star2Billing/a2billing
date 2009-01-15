@@ -57,14 +57,6 @@ $HD_Form -> FieldEditElement ('name, path, creationdate');
 //$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE  = "$path";
 
 
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";	
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate, ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now(), ";	
-}
-
 if ($form_action=="ask-restore") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .="form_action";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .="restore";

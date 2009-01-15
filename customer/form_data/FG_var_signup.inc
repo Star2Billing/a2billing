@@ -411,12 +411,6 @@ if (!$agent_conf && strpos($callPlan_idlist, ',') === false)
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE .= ", '$tariffid'";
 }
-if (DB_TYPE != "postgres"){
-	$FG_QUERY_ADITION_HIDDEN_FIELDS .= ", creationdate ";
-	$FG_QUERY_ADITION_HIDDEN_VALUE  .= ",now() ";
-}
-
-
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';

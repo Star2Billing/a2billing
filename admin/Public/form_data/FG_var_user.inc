@@ -232,14 +232,6 @@ $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 
 $HD_Form -> FG_EDITION_CLAUSE = " userid='%id'";
 
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreation, ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now(), ";
-}
-
 if (is_numeric($groupID)){
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "$groupID";

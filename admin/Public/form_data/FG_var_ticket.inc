@@ -139,15 +139,8 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 
 $HD_Form -> FieldEditElement (' creator, title, id_component, priority, description');
 
-if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_admin";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0'";
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_admin,creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0',now()";
-}
-
-
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_admin";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0'";
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");

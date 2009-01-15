@@ -259,12 +259,6 @@ $HD_Form -> AddEditElement (gettext("actionid"),
 $HD_Form -> FieldEditElement ('id_server_group, uniqueid, status, server_ip, num_attempt, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid');
 
 
-if (DB_TYPE != "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "entry_time";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";	
-}
-
-
 // Set the filter variables
 
 $HD_Form -> FG_FILTER_APPLY = true;

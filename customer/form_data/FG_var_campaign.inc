@@ -256,16 +256,8 @@ $HD_Form -> FieldEditElement ("name, status, id_campaign_config, id_cid_group, s
 
 
 
-if (DB_TYPE == "postgres") {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "id_card";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "".$_SESSION['card_id'];
-} else {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "id_card,creationdate ";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = $_SESSION['card_id'].",now()";
-}
-
-
-
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "id_card";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "".$_SESSION['card_id'];
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
