@@ -159,12 +159,12 @@ if ($mode == 'standard'){
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TRY : callingcard_ivr_authenticate]");
 	
 	// CALL AUTHENTICATE AND WE HAVE ENOUGH CREDIT TO GO AHEAD
-	if ($cia_res==0){
+	if ($cia_res==0) {
 
 		// RE-SET THE CALLERID
 		$A2B->callingcard_auto_setcallerid($agi);
-		//$A2B->callingcard_acct_start_inuse($agi,1);
-		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
+		
+		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++) {
 
 			$RateEngine->Reinit();
 			$A2B-> Reinit();
@@ -175,14 +175,14 @@ if ($mode == 'standard'){
 						   "\n[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 			
 			// CHECK IF THE CHANNEL IS UP
-			if (($A2B->agiconfig['answer_call']==1) && ($stat_channel["result"]!=$status_channel) && ($A2B -> CC_TESTING!=1)){
+			if (($A2B->agiconfig['answer_call']==1) && ($stat_channel["result"]!=$status_channel) && ($A2B -> CC_TESTING!=1)) {
 				if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 				$A2B -> write_log("[STOP - EXIT]", 0);
 				exit();
 			}
 
 			// CREATE A DIFFERENT UNIQUEID FOR EACH TRY
-			if ($i>0){
+			if ($i>0) {
 				$A2B-> uniqueid = $A2B-> uniqueid + 1000000000;
 			}
 			

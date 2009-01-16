@@ -1230,7 +1230,9 @@ class A2Billing {
 			$this->destination 				= $inst_listdestination[4];
 			$this->username 				= $inst_listdestination[6];
 			$this->useralias 				= $inst_listdestination[7];
-
+			
+			if ($this -> set_inuse) $this -> callingcard_acct_start_inuse($agi,0);
+			
 			// MAKE THE AUTHENTICATION TO GET ALL VALUE : CREDIT - EXPIRATION - ...
 			if ($this -> callingcard_ivr_authenticate($agi)!=0) {
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: AUTHENTICATION FAILS !!!\n");
@@ -1254,7 +1256,6 @@ class A2Billing {
 
 					//# Channel: technology/number@ip_of_gw_to PSTN
 					// Dial(IAX2/guest@misery.digium.com/s@default)
-					// DIAL OUT
 					$myres = $agi->exec("DIAL $dialstr");
 					$this -> debug( INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
 
@@ -2488,10 +2489,9 @@ class A2Billing {
 			$res = -2;
 		}//end IF
 		if (($retries < 3) && $res==0) {
-			//ast_cdr_setaccount(chan, username);
-
+			
 			$this -> callingcard_acct_start_inuse($agi,1);
-
+			
 			if ($this->agiconfig['say_balance_after_auth']==1){
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] SAY BALANCE : $this->credit \n");
 				$this -> fct_say_balance ($agi, $this->credit);
