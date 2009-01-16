@@ -24,18 +24,11 @@ $HD_Form -> FG_OTHER_BUTTON1_LINK = 'CC_entity_edit_charge.php?form_action=ask-a
 $HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">BILL</font>';
 $HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 
-if (DB_TYPE == "postgres"){
-	$MYSUBSTR = "substr";
-}else{
-	$MYSUBSTR = "SUBSTRING";
-}
-				
-
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ("$MYSUBSTR(starttime,0,8) as date, cc_did.did, count(*) as nb_call, sum(sessiontime) as t_time, sum(sessionbill) as t_cost, username, id_did ", 0 );
+$HD_Form -> FieldViewElement ("SUBSTRING(starttime,1,10) as date, cc_did.did, count(*) as nb_call, sum(sessiontime) as t_time, sum(sessionbill) as t_cost, username, id_did ", 0 );
 
-$HD_Form -> SQL_GROUP = " GROUP BY username, cc_did.did, id_did, $MYSUBSTR(starttime,0,8) ";
+$HD_Form -> SQL_GROUP = " GROUP BY username, cc_did.did, id_did, date ";
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO DID BILLING HAS BEEN CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
