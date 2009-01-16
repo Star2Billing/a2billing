@@ -25,11 +25,7 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		$FG_SPEEDDIAL_TABLE  = "cc_ticket";
 		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
 
-		if (DB_TYPE == "postgres"){
-			$QUERY = "INSERT INTO cc_ticket (creator,creator_type,title, description, id_component, priority, viewed_agent) VALUES ('".$_SESSION["agent_id"]."',1, '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0')";
-		}else{
-			$QUERY = "INSERT INTO cc_ticket (creator,creator_type,title, description, id_component, priority, creationdate, viewed_agent) VALUES ('".$_SESSION["agent_id"]."',1, '".$title."', '".$description."', '".$component."', '".$priority ."', now() ,'0')";
-		}
+		$QUERY = "INSERT INTO cc_ticket (creator,creator_type,title, description, id_component, priority, viewed_agent) VALUES ('".$_SESSION["agent_id"]."',1, '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0')";
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 		$update_msg = gettext("Ticket added successfully");
 

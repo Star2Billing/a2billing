@@ -213,14 +213,10 @@ class Ticket
 
    	$DBHandle  = DbConnect();
    	
-   	 $instance_sub_table = new Table("cc_ticket_comment", "*");
-   	 if (DB_TYPE == "postgres") {
-		 $QUERY_FIELDS = 'id_ticket, description,creator, creator_type';
-	 	 $QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type'";
-	}else{
-		$QUERY_FIELDS = 'id_ticket, description,creator, creator_type , date';
-		$QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type', now() ";
-	}
+	$instance_sub_table = new Table("cc_ticket_comment", "*");
+	$QUERY_FIELDS = 'id_ticket, description,creator, creator_type';
+	$QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type'";
+    
     switch ($creator_type) {
    		case 0: $QUERY_FIELDS.=" ,viewed_cust ";
    				$QUERY_VALUES.=" ,'0'";

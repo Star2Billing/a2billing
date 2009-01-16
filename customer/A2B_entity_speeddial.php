@@ -26,11 +26,7 @@ if (strlen($destination)>0  && is_numeric($choose_speeddial)){
 		$FG_SPEEDDIAL_FIELDS = "speeddial";
 		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, $FG_SPEEDDIAL_FIELDS);		
 		
-		if (DB_TYPE == "postgres"){
-			$QUERY = "INSERT INTO cc_speeddial (id_cc_card, phone, name, speeddial) VALUES ('".$_SESSION["card_id"]."', '".$destination."', '".$name."', '".$choose_speeddial."')";
-		}else{
-			$QUERY = "INSERT INTO cc_speeddial (id_cc_card, phone, name, speeddial, creationdate) VALUES ('".$_SESSION["card_id"]."', '".$destination."', '".$name."', '".$choose_speeddial."', 'now()')";
-		}
+		$QUERY = "INSERT INTO cc_speeddial (id_cc_card, phone, name, speeddial) VALUES ('".$_SESSION["card_id"]."', '".$destination."', '".$name."', '".$choose_speeddial."')";
 
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }

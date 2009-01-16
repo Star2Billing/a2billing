@@ -100,8 +100,8 @@ $instance_table = new Table();
 for($i=0; $i< $nb_provider;$i++) {
 	if($verbose>1) echo "CREATE PROVIDER : $i\n";
 	$id_name = intval(microtime(true)*10000) + rand(100000000, 999999999);
-	$query= "INSERT INTO cc_provider (provider_name ,creationdate ,description)". 
-			"VALUES ('PROVIDER : $id_name',NOW() , 'AUTOMATIZED DESCRIPTION');";
+	$query= "INSERT INTO cc_provider (provider_name, description)". 
+			"VALUES ('PROVIDER : $id_name', 'AUTOMATIZED DESCRIPTION');";
 	// echo "$query<br>";
 	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
 }
@@ -120,8 +120,8 @@ for($i=0;$i<$nb_trunk;$i++) {
 	if($verbose>1) echo "CREATE TRUNK : $i\n";		
 	$id_provider= $result_provider_id [rand(0,$nb_db_provider )] ['id'];
 	$name = intval(microtime(true)*10000) + rand(100000000, 999999999);
-	$query = "INSERT INTO cc_trunk (id_provider, trunkcode, providertech, providerip, failover_trunk, inuse, maxuse, if_max_use, status, creationdate ) values".
-				" ('$id_provider', 'Trunk : $name', 'SIP', 'Test', '-1', '0', '-1', '0', '1', now());" ;
+	$query = "INSERT INTO cc_trunk (id_provider, trunkcode, providertech, providerip, failover_trunk, inuse, maxuse, if_max_use, status ) values".
+				" ('$id_provider', 'Trunk : $name', 'SIP', 'Test', '-1', '0', '-1', '0', '1');" ;
 	// echo "$query<br>";
 	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
 }
@@ -257,8 +257,8 @@ for($i=0;$i<$nb_customer;$i++) {
 	$card_number = $array_card_generated[0];
 	$card_alias = $array_card_generated[1];
 	$pass = MDP_NUMERIC(10);
-	$query = "INSERT INTO cc_card (username, useralias, uipass, id_group, credit, language, tariff, id_didgroup, status, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, lastname, firstname, country, id_timezone, sip_buddy, iax_buddy, inuse, template_invoice, template_outstanding, credit_notification, notify_email, creationdate ) values". 
-			"('$card_number', '$card_alias', '$pass', '1', '10', 'en', '$id_callplan', '-1', '-1', 't', '1', 'USD', '0', '0', '0', '0', '0', '2018-09-02 23:21:33', '0', '1', '0', '0', '$card_number', 'card', 'AFG', '1', '0', '0', '0', 'invoice exemple.tpl', 'outstanding exemple.tpl', '-1', '0', now()); ";
+	$query = "INSERT INTO cc_card (username, useralias, uipass, id_group, credit, language, tariff, id_didgroup, status, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, enableexpire, expirationdate, expiredays, voicemail_permitted, voicemail_activated, invoiceday, lastname, firstname, country, id_timezone, sip_buddy, iax_buddy, inuse, template_invoice, template_outstanding, credit_notification, notify_email ) values".
+			"('$card_number', '$card_alias', '$pass', '1', '10', 'en', '$id_callplan', '-1', '-1', 't', '1', 'USD', '0', '0', '0', '0', '0', '2018-09-02 23:21:33', '0', '1', '0', '0', '$card_number', 'card', 'AFG', '1', '0', '0', '0', 'invoice exemple.tpl', 'outstanding exemple.tpl', '-1', '0'); ";
 	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
 	
 }
