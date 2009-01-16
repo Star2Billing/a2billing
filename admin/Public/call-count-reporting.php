@@ -65,11 +65,7 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 }
 
 if ($grouped){
-	if (DB_TYPE != "postgres") {
-		$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,substring(starttime,1,10) AS day,terminatecauseid, count(*) as nbcall';
-	} else {
-		$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,starttime::date AS day,terminatecauseid, count(*) as nbcall';
-	}
+	$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day,terminatecauseid, count(*) as nbcall';
 	$SQL_GROUP="GROUP BY ".$on_field.",day,terminatecauseid ";
 }else{
 	$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, count(*) as nbcall';
@@ -120,22 +116,14 @@ if ($terminatecauseid=="ANSWER") {
 }
 
 if ($grouped){
-	if (DB_TYPE != "postgres") {
-		$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall,substring(starttime,1,10) AS day FROM $FG_TABLE_NAME  GROUP BY day";
-	} else {
-		$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall,starttime::date AS day FROM $FG_TABLE_NAME  GROUP BY day";
-	}
+	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME  GROUP BY day";
 }else{
 	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall FROM $FG_TABLE_NAME";
 }
 
 if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($topsearch!="")){
 	if ($grouped){
-		if (DB_TYPE != "postgres") {
-			$FG_COL_QUERY1=$on_field.', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,substring(starttime,1,10) AS starttime,terminatecauseid, count(*) as nbcall';
-		} else {
-			$FG_COL_QUERY1=$on_field.', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,starttime::date AS starttime,terminatecauseid, count(*) as nbcall';
-		}
+		$FG_COL_QUERY1=$on_field.', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,DATE(starttime) AS starttime,terminatecauseid, count(*) as nbcall';
 		$SQL_GROUP1=" GROUP BY $on_field,starttime,terminatecauseid";
 	}else{
 		$FG_COL_QUERY1=$on_field.', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,terminatecauseid, count(*) as nbcall,starttime';
@@ -146,17 +134,9 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 	if ($res){
 		$FG_TABLE_NAME="temp_result";
 		if ($grouped){
-			if (DB_TYPE != "postgres") {
-				$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,substring(starttime,1,10) AS day,terminatecauseid, nbcall';
-			} else {
-				$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,starttime::date AS day,terminatecauseid, nbcall';
-			}
+			$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day,terminatecauseid, nbcall';
 			$SQL_GROUP=" GROUP BY ".$on_field.",day,terminatecauseid,nbcall ";
-			if (DB_TYPE != "postgres") {
-				$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,substring(starttime,1,10) AS day FROM $FG_TABLE_NAME GROUP BY day";
-			} else {
-			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,starttime::date AS day FROM $FG_TABLE_NAME GROUP BY day";
-			}
+			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME GROUP BY day";
 		}else{
 			$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, nbcall';
 			$SQL_GROUP=" GROUP BY ".$on_field.",terminatecauseid,nbcall ";

@@ -26,7 +26,7 @@ $HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ("SUBSTRING(starttime,1,10) as date, cc_did.did, count(*) as nb_call, sum(sessiontime) as t_time, sum(sessionbill) as t_cost, username, id_did ", 0 );
+$HD_Form -> FieldViewElement ("DATE(starttime) as date, cc_did.did, count(*) as nb_call, sum(sessiontime) as t_time, sum(sessionbill) as t_cost, username, id_did ", 0 );
 
 $HD_Form -> SQL_GROUP = " GROUP BY username, cc_did.did, id_did, date ";
 
