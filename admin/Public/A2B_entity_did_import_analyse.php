@@ -43,9 +43,6 @@ $field[0]="did";
 $field[1]="fixrate";
 
 $FG_DEBUG = 0;
-if (DB_TYPE == "mysql"){
-	$sp = "`";
-}
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
@@ -192,7 +189,7 @@ if ($task=='upload'){
 				$FG_ADITION_SECOND_ADD_FIELDS .= ', expirationdate';
 				$FG_ADITION_SECOND_ADD_VALUE .= ", ".$comp_date_plus;
 			}
-			$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
+			$TT_QUERY .= "INSERT INTO ".$FG_ADITION_SECOND_ADD_TABLE." (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
 			
 			$nb_to_import++;
 		}

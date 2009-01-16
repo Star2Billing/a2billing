@@ -1319,7 +1319,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$total_mult_select;					
 					
 					if ($i>0) $param_add_fields .= ", ";
-					$param_add_fields .= $sp . "$fields_name". $sp;
+					$param_add_fields .= $fields_name;
 					if ($i>0) $param_add_value .= ", ";
 					$param_add_value .= "'".addslashes(trim($total_mult_select))."'";
 				
@@ -1915,7 +1915,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 					
 					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$total_mult_select;
 					if ($i>0) $param_update .= ", ";				
-					$param_update .= $sp . "$fields_name".$sp ." = '".addslashes(trim($total_mult_select))."'";
+					$param_update .= "$fields_name = '".addslashes(trim($total_mult_select))."'";
 					
 				} else {
 					

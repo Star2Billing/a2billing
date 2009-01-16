@@ -97,7 +97,6 @@ if ($form_action == "add"){
 				if (!is_null($$fields_name) && ($$fields_name!="") && ($FG_TABLE_ADITION[$i][4]!="disabled") ){
 					if ($i>0) $param_add_fields .= ", ";
 					
-					//$param_add_fields .= $sp . "$fields_name". $sp;
 					$param_add_fields .= "$fields_name";
 					if ($i>0) $param_add_value .= ", ";
 					$param_add_value .= "'".addslashes(trim($$fields_name))."'";
@@ -178,7 +177,7 @@ if ($form_action == "edit"){
 				
 				if ($FG_DEBUG == 1) echo "<br>$fields_name : ".$$fields_name;
 				if ($i>0) $param_update .= ", ";				
-				$param_update .= $sp . "$fields_name".$sp." = '".addslashes(trim($$fields_name))."'";
+				$param_update .= "$fields_name = '".addslashes(trim($$fields_name))."'";
 
 		}
 		

@@ -183,7 +183,7 @@ class Table {
 
 		$sql_orderby = '';
 		if (  !is_null ($order) && ($order!='') && !is_null ($sens) && ($sens!='') ) {
-			$sql_orderby = " ORDER BY $sp".$order."$sp $sens";
+			$sql_orderby = " ORDER BY $order $sens";
 		}
 
 		$sql_limit ='';

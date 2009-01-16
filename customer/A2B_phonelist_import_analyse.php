@@ -45,9 +45,6 @@ $field[0]="Number";
 
 $FG_DEBUG = 0;
 
-if (DB_TYPE == "mysql"){
-	$sp = "`";
-}
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
@@ -149,7 +146,7 @@ if ($task=='upload'){
 			 
 			
 				
-			$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".$FG_ADITION_SECOND_ADD_VALUE.") ";
+			$TT_QUERY .= "INSERT INTO ".$FG_ADITION_SECOND_ADD_TABLE." (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".$FG_ADITION_SECOND_ADD_VALUE.") ";
 			$nb_to_import++;
 		}
 		 

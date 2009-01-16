@@ -57,7 +57,7 @@ if ($form_action == "edit"){
 				
 				if ($FG_DEBUG == 1) echo "<br>$fields_name : ".$$fields_name;
 				if ($i>0) $param_update .= ", ";				
-				$param_update .= $sp . "$fields_name".$sp." = '".addslashes(trim($$fields_name))."'";
+				$param_update .= "$fields_name = '".addslashes(trim($$fields_name))."'";
 
 		}
 		
