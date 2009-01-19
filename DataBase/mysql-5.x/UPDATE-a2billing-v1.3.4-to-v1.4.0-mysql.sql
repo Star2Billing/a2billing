@@ -1473,7 +1473,7 @@ INSERT INTO cc_payment_methods (payment_method,payment_filename,active) VALUES (
 
 
 ALTER TABLE cc_card_archive DROP COLUMN  `callback`;
-ALTER TABLE cc_card_archive ADD COLUMN  `id_timezone` int(11) default '0';
+-- already present ALTER TABLE cc_card_archive ADD COLUMN  `id_timezone` int(11) default '0';
 ALTER TABLE cc_card_archive ADD COLUMN  `voicemail_permitted` int(11) NOT NULL default '0';
 ALTER TABLE cc_card_archive ADD COLUMN  `voicemail_activated` smallint(6) NOT NULL default '0';
 ALTER TABLE cc_card_archive ADD COLUMN  `last_notification` timestamp NULL default NULL;

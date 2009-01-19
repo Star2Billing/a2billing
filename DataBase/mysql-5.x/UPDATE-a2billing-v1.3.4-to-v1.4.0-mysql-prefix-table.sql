@@ -4932,6 +4932,6 @@ UPDATE cc_call AS t1 SET destination=(SELECT prefix FROM cc_prefix AS p WHERE
 	t1.calledstation LIKE CONCAT(prefix, '%')
 	OR t1.calledstation LIKE CONCAT('00', CONCAT(prefix, '%'))
 --	OR CONCAT('44', SUBSTRING(t1.calledstation,2)) LIKE CONCAT(prefix, '%')
-	ORDER BY length(prefix::text) DESC limit 1)
+	ORDER BY length(prefix) DESC limit 1)
 	WHERE destination=0 OR destination IS NULL;
 
