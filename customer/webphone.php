@@ -60,7 +60,7 @@ echo $CC_help_webphone;
 		?>
         <tr  class="bgcolor_006">
 			<td align="center" valign="bottom">
-				<img src="Css/kicons/stock_cell-phone.gif" class="kikipic"/>
+				<img src="<?php echo KICON_PATH ?>/stock_cell-phone.gif" class="phone"/><br>
 				<br><font class="fontstyle_002"><?php echo gettext("SIP WEB-PHONE")?></font>
 					</br></br>
 			</td>
@@ -88,7 +88,7 @@ echo $CC_help_webphone;
 	?>
 	<tr class="bgcolor_006">
 		<td align="center" valign="bottom">
-			<img src="<?php echo KICON_PATH ?>/stock_cell-phone.gif" class="kikipic"/><br>
+			<img src="<?php echo KICON_PATH ?>/stock_cell-phone.gif" class="phone"/><br>
 			<font class="fontstyle_002"><?php echo gettext("IAX WEB-PHONE")?></font>
 				</br></br>
 		</td>
@@ -107,5 +107,7 @@ echo $CC_help_webphone;
 
 
 <?php
-$smarty->display( 'footer.tpl');
-?>
+
+// #### FOOTER SECTION
+$smarty->display('footer.tpl');
+

@@ -1,6 +1,7 @@
 <?php
 
 include("./lib/epayment/includes/methods/moneybookers.php");
+
 class moneybookers {
     var $code, $title, $description, $enabled;
 

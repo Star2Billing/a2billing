@@ -222,7 +222,8 @@ function rowOutEffect(object) {
          <?php } ?>
      </form>
 
-<?php 
+<?php
+
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');
-?>
+

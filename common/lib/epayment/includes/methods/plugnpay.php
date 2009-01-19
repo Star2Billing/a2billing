@@ -1,5 +1,5 @@
 <?php
-
+echo "-------";
 	define('MODULE_PAYMENT_PLUGNPAY_TEXT_TITLE', 'PlugnPay');
 	define('MODULE_PAYMENT_PLUGNPAY_TEXT_DESCRIPTION', 'PlugnPay API');
 	define('MODULE_PAYMENT_PLUGNPAY_TEXT_TYPE', 'Type:');

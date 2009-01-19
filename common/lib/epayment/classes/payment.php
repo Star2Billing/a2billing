@@ -33,39 +33,30 @@ Class payment {
       }
       
       
-      //if (defined('MODULE_PAYMENT_INSTALLED') && tep_not_null(MODULE_PAYMENT_INSTALLED)) {
-      //$this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
-
       $include_modules = array();
       if ((!is_null($module)) && (in_array($module . '.' . substr($PHP_SELF, (strrpos($PHP_SELF, '.')+1)), $this->modules)) ) {
           $this->selected_module = $module;
          
           $include_modules[] = array('class' => $module, 'file' => $module . '.php');
-        } else {
+      } else {
           reset($this->modules);
           while (list(, $value) = each($this->modules)) {
             $class = substr($value, 0, strrpos($value, '.'));
             $include_modules[] = array('class' => $class, 'file' => $value);
           }
-        }
+      }
 
-        for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
+      for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
           include(dirname(__FILE__).'/../methods/' . $include_modules[$i]['file']);
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
-        }
+      }
 
-		// if there is only one payment method, select it as default because in
-		// checkout_confirmation.php the $payment variable is being assigned the
-		// $_POST['payment'] value which will be empty (no radio button selection possible)
-
-        if ( (count($this-> modules) == 1) && (!isset($GLOBALS[$payment]) || (isset($GLOBALS[$payment]) && !is_object($GLOBALS[$payment]))) ) {
-          $payment = $include_modules[0]['class'];
-        }
-
-        if ( (!is_null($module)) && (in_array($module, $this->modules)) && (isset($GLOBALS[$module]->form_action_url)) ) {
+	  $payment = $include_modules[0]['class'];
+		
+      if ( (!is_null($module)) && (in_array($module, $this->modules)) && (isset($GLOBALS[$module]->form_action_url)) ) {
           $this->form_action_url = $GLOBALS[$module]->form_action_url;
-        }
-      //}
+      }
+      
     }
 
 // class methods
@@ -80,12 +71,8 @@ Class payment {
     function update_status() {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module])) {
-          if (function_exists('method_exists')) {
-            if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
-              $GLOBALS[$this->selected_module]->update_status();
-            }
-          } else { // PHP3 compatibility
-            @call_user_method('update_status', $GLOBALS[$this->selected_module]);
+          if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
+            $GLOBALS[$this->selected_module]->update_status();
           }
         }
       }

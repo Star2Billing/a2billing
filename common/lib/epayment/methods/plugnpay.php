@@ -1,5 +1,7 @@
 <?php
 
+include("./lib/epayment/includes/methods/plugnpay.php");
+
   class plugnpay {
     var $code, $title, $description, $enabled, $sort_order;
     var $accepted_cc, $card_types, $allowed_types;
@@ -37,6 +39,7 @@
 	function get_cc_images() {
 		$cc_images = '';
 		reset($this->allowed_types);
+		print_r (DIR_WS_ICONS);
 		while (list($key, $value) = each($this->allowed_types)) {
 			$cc_images .= tep_image(DIR_WS_ICONS . $key . '.gif', $value);
 		}
@@ -145,7 +148,7 @@
 			                           'field' => tep_draw_input_field('plugnpay_cc_number')),
 		                             array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_CREDIT_CARD_EXPIRES,
 			                           'field' => tep_draw_pull_down_menu('plugnpay_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('plugnpay_cc_expires_year', $expires_year)),
-                                             array('title' => 'CVV number ' . ' ' .'<a href="javascript:CVVPopUpWindow(\'' . tep_href_link('cvv.html') . '\')">' . '<u><i>' . '(' . MODULE_PAYMENT_PLUGNPAY_TEXT_CVV_LINK . ')' . '</i></u></a>',
+                                             array('title' => 'CVV number ' . ' ' .'<a href="javascript:window.open(\'' . 'cvv.php' . '\')">' . '<u><i>' . '(' . MODULE_PAYMENT_PLUGNPAY_TEXT_CVV_LINK . ')' . '</i></u></a>',
 			'field' => tep_draw_input_field('cvv','',"SIZE=4, MAXLENGTH=4")),
                                              // echeck stuff here
                                              array('title' => '&nbsp;<p><b>Electronic Checking Info:</b>',
@@ -184,7 +187,7 @@
                                                    'field' => tep_draw_input_field('plugnpay_cc_number')),
                                              array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_CREDIT_CARD_EXPIRES,
                                                    'field' => tep_draw_pull_down_menu('plugnpay_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('plugnpay_cc_expires_year', $expires_year)),
-                                             array('title' => 'CVV number ' . ' ' .'<a href="javascript:CVVPopUpWindow(\'' . tep_href_link('cvv.html') . '\')">' . '<u><i>' . '(' . MODULE_PAYMENT_PLUGNPAY_TEXT_CVV_LINK . ')' . '</i></u></a>',
+                                             array('title' => 'CVV number ' . ' ' .'<a href="#" onclick="javascript:window.open(\'' . 'cvv.php' . '\', \'CardNumberSelection\',\'width=600,height=280,top=20,left=100,scrollbars=1\');">' . '<u><i>' . '(' . MODULE_PAYMENT_PLUGNPAY_TEXT_CVV_LINK . ')' . '</i></u></a>',
 'field' => tep_draw_input_field('cvv','',"SIZE=4, MAXLENGTH=4"))
                                             ));
       }

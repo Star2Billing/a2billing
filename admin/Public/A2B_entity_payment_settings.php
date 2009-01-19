@@ -49,13 +49,12 @@ if (tep_not_null($action)) {
       case 'save':
         while (list($key, $value) = each($_POST['configuration'])) {
 			if ($key == 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC') {
-				// print_r ($value);
+				$value = join($value, ', ');
 			}        
-			$QUERY = "update cc_configuration set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'";
 			$instance_sub_table -> Update_table($DBHandle, "configuration_value = '" . $value . "'","configuration_key = '" . $key . "'" );          
 		}
         tep_redirect("A2B_entity_payment_settings.php?".'method=' . $paymentMethod."&id=".$_GET['id']."&result=success");
-      break;
+     	break;
     }
 }
 
@@ -75,8 +74,8 @@ $instance_sub_table = new Table("cc_configuration", "configuration_title, config
 
 for ($j=0, $k=sizeof($module_keys); $j<$k; $j++)
 {
-    $QUERY = " configuration_key = '" . $module_keys[$j] . "'";
-    $key_value = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
+    $QUERY_CLAUSE = " configuration_key = '" . $module_keys[$j] . "'";
+    $key_value = $instance_sub_table -> Get_list($DBHandle, $QUERY_CLAUSE, 0);
     $keys_extra[$module_keys[$j]]['title'] = $key_value[0]['configuration_title'];
     $keys_extra[$module_keys[$j]]['value'] = $key_value[0]['configuration_value'];
     $keys_extra[$module_keys[$j]]['description'] = $key_value[0]['configuration_description'];
