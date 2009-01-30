@@ -369,8 +369,8 @@ class Cards
 					$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
 					
 					// For IAX and SIP
-					$param_add_fields = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host,  type, username, allow, secret";
-					$param_add_value = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$uipass."', '$id_cc_card', '$nat', '$qualify'";
+					$param_add_fields = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host,  type, username, allow, secret, id_cc_card, nat, qualify";
+					$param_add_value = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '$uipass', '$id_cc_card', '$nat', '$qualify'";
 					$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
 					$FG_TABLE_SIP_NAME="cc_sip_buddies";
 					$FG_TABLE_IAX_NAME="cc_iax_buddies";
