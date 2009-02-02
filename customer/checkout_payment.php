@@ -97,7 +97,7 @@ function rowOutEffect(object) {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td><?php echo tep_draw_separator('clear.gif', '10', '1'); ?></td>
-                <td class="main" width="100%" valign="top"><?php echo tep_output_string_protected($error['error']); ?></td>
+                <td class="main" width="100%" valign="top"><?php echo tep_output_string($error['error']); ?></td>
                 <td><?php echo tep_draw_separator('clear.gif', '10', '1'); ?></td>
               </tr>
             </table></td>
@@ -119,21 +119,21 @@ function rowOutEffect(object) {
   if (sizeof($selection) > 1) {
 ?>
 
-              <tr height=10>
-                <td class="infoBoxHeading">&nbsp;</td>
-                <td class="infoBoxHeading"  width="50%" valign="top"><?php echo "Payment Method"; ?></td>
-                <td class="infoBoxHeading" width="50%" valign="top" align="right"><b><?php echo "Please Select"; ?></b><br></td>
+          <tr height=10>
+            <td class="infoBoxHeading">&nbsp;</td>
+            <td class="infoBoxHeading"  width="50%" valign="top"><?php echo "Payment Method"; ?></td>
+            <td class="infoBoxHeading" width="50%" valign="top" align="right"><b><?php echo "Please Select"; ?></b><br></td>
 
-                <td class="infoBoxHeading">&nbsp;</td>
-              </tr>
+            <td class="infoBoxHeading">&nbsp;</td>
+          </tr>
 <?php
   } else {
 ?>
-              <tr>
-                <td>&nbsp;</td>
-                <td class="main" width="100%" colspan="2"><?php echo "This is currently the only payment method available to use on this order."; ?></td>
-                <td>&nbsp;</td>
-              </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td class="main" width="100%" colspan="2"><?php echo "This is currently the only payment method available to use on this order."; ?></td>
+            <td>&nbsp;</td>
+          </tr>
 
 <?php
   }
@@ -141,19 +141,19 @@ function rowOutEffect(object) {
   $radio_buttons = 0;
   for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
 ?>
-              <tr>
-                <td>&nbsp;</td>
-                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
     if ( ($selection[$i]['id'] == $payment) || ($n == 1) ) {
-      echo '                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+      echo '             <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
     } else {
-      echo '                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
+      echo '             <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
     }
 ?>
-                    <td width="10">&nbsp;</td>
-                    <td class="main" colspan="3"><b><?php echo $selection[$i]['module']; ?></b></td>
-                    <td class="main" align="right">
+            <td width="10">&nbsp;</td>
+            <td class="main" colspan="3"><b><?php echo $selection[$i]['module']; ?></b></td>
+            <td class="main" align="right">
 <?php
     if (sizeof($selection) > 1) {
       echo tep_draw_radio_field('payment', $selection[$i]['id']);
@@ -161,47 +161,45 @@ function rowOutEffect(object) {
       echo tep_draw_hidden_field('payment', $selection[$i]['id']);
     }
 ?>
-                    </td>
-                    <td width="10">&nbsp;</td>
-                  </tr>
+            </td>
+            <td width="10">&nbsp;</td>
+          </tr>
 <?php
     if (isset($selection[$i]['error'])) {
 ?>
-                  <tr>
-                    <td width="10">&nbsp;</td>
-                    <td class="main" colspan="4"><?php echo $selection[$i]['error']; ?></td>
-                    <td width="10">&nbsp;</td>
-                  </tr>
+          <tr>
+            <td width="10">&nbsp;</td>
+            <td class="main" colspan="4"><?php echo $selection[$i]['error']; ?></td>
+            <td width="10">&nbsp;</td>
+          </tr>
 <?php
     } elseif (isset($selection[$i]['fields']) && is_array($selection[$i]['fields'])) {
 ?>
-                  <tr>
-                    <td width="10">&nbsp;</td>
-                    <td colspan="4"><table border="0" cellspacing="0" cellpadding="2">
+          <tr>
+            <td width="10">&nbsp;</td>
+            <td colspan="4"><table border="0" cellspacing="0" cellpadding="2">
 <?php
       for ($j=0, $n2=sizeof($selection[$i]['fields']); $j<$n2; $j++) {
 ?>
-                      <tr>
-                        <td width="10">&nbsp;</td>
-                        <td class="main"><?php echo $selection[$i]['fields'][$j]['title']; ?></td>
-                        <td>&nbsp;</td>
-                        <td class="main"><?php echo $selection[$i]['fields'][$j]['field']; ?></td>
-                        <td width="10">&nbsp;</td>
-                      </tr>
+              <tr>
+                <td width="10">&nbsp;</td>
+                <td class="main"><?php echo $selection[$i]['fields'][$j]['title']; ?></td>
+                <td>&nbsp;</td>
+                <td class="main"><?php echo $selection[$i]['fields'][$j]['field']; ?></td>
+                <td width="10">&nbsp;</td>
+              </tr>
 <?php
       }
 ?>
-                    </table></td>
-                    <td width="10">&nbsp;</td>
-                  </tr>
-
+            </table></td>
+            <td width="10">&nbsp;</td>
+          </tr>
 <?php
     }
 ?>
-
-                </table></td>
-                <td>&nbsp;</td>
-              </tr>
+        </table></td>
+        <td>&nbsp;</td>
+      </tr>
 <?php
     $radio_buttons++;
   }

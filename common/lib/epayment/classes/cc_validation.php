@@ -28,6 +28,7 @@ class cc_validation {
 		} else {
 			return -1;
 		}
+		
 		$_SESSION["p_cardtype"] = $this->cc_type;
 		$_SESSION["p_cardno"] = $this->cc_number;
 		$_SESSION["p_cardexp"] = $this->cc_expiry_month . ", " . $this->cc_expiry_year;
@@ -51,6 +52,7 @@ class cc_validation {
 				return -4;
 			}
 		}
+		
 		return $this->is_valid();
 	}
 

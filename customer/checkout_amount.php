@@ -20,7 +20,9 @@ if (! has_rights (ACX_ACCESS)){
 	die();
 }
 
-getpost_ifset(array('amount','payment','authorizenet_cc_expires_year','authorizenet_cc_owner','authorizenet_cc_expires_month','authorizenet_cc_number',));
+getpost_ifset(array('amount','payment','authorizenet_cc_expires_year','authorizenet_cc_owner','authorizenet_cc_expires_month','authorizenet_cc_number'));
+// PLUGNPAY
+getpost_ifset(array('credit_card_type', 'plugnpay_cc_owner', 'plugnpay_cc_number', 'plugnpay_cc_expires_month', 'plugnpay_cc_expires_year', 'cvv'));
 
 $_SESSION["p_module"] = $payment;
 $_SESSION["p_amount"] = $amount;
@@ -32,24 +34,20 @@ $payment_modules = new payment($payment);
 $smarty->display( 'main.tpl');
 ?>
 <script language="javascript">
- function checkamount()
- {
+function checkamount()
+{
  	if (document.checkout_amount.amount == "")
 	{
 		alert('Please enter some amount.');
 		return false;
 	}
 	return true;
- }
- </script>
+}
+</script>
 <?php
-
 $form_action_url = tep_href_link("checkout_confirmation.php", '', 'SSL');
-
-
 echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="checkamount()"');
 ?>
-
 
 <br>
 <center>
@@ -69,6 +67,16 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 <input type="hidden" name="authorizenet_cc_expires_month" value="<?php echo $authorizenet_cc_expires_month?>">
 <input type="hidden" name="authorizenet_cc_number" value="<?php echo $authorizenet_cc_number?>">
 <input type="hidden" name="authorizenet_cc_expires_year" value="<?php echo $authorizenet_cc_expires_year?>">
+
+<input type="hidden" name="credit_card_type" value="<?php echo $credit_card_type?>">
+<input type="hidden" name="plugnpay_cc_owner" value="<?php echo $plugnpay_cc_owner?>">
+<input type="hidden" name="plugnpay_cc_number" value="<?php echo $plugnpay_cc_number?>">
+<input type="hidden" name="plugnpay_cc_expires_month" value="<?php echo $plugnpay_cc_expires_month?>">
+<input type="hidden" name="plugnpay_cc_expires_year" value="<?php echo $plugnpay_cc_expires_year?>">
+<input type="hidden" name="cvv" value="<?php echo $cvv?>">
+
+
+
 
 <table width=80% align=center class="infoBox">
 <tr height="15">

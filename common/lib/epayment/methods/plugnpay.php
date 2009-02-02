@@ -39,7 +39,6 @@ include("./lib/epayment/includes/methods/plugnpay.php");
 	function get_cc_images() {
 		$cc_images = '';
 		reset($this->allowed_types);
-		print_r (DIR_WS_ICONS);
 		while (list($key, $value) = each($this->allowed_types)) {
 			$cc_images .= tep_image(DIR_WS_ICONS . $key . '.gif', $value);
 		}
@@ -207,9 +206,10 @@ include("./lib/epayment/includes/methods/plugnpay.php");
       }
       else {
         # Note: section assumes the payment method is credit card
-        include(DIR_WS_CLASSES . 'cc_validation.php');
+        include('./lib/epayment/classes/cc_validation.php');
         $cc_validation = new cc_validation();
         $result = $cc_validation->validate($HTTP_POST_VARS['plugnpay_cc_number'], $HTTP_POST_VARS['plugnpay_cc_expires_month'], $HTTP_POST_VARS['plugnpay_cc_expires_year'], $HTTP_POST_VARS['cvv'], $HTTP_POST_VARS['credit_card_type']);
+        
         $error = '';
         switch ($result) {
           case -1:
@@ -230,10 +230,10 @@ include("./lib/epayment/includes/methods/plugnpay.php");
             $error = TEXT_CCVAL_ERROR_INVALID_NUMBER;
             break;
         }
-
+		
         if ( ($result == false) || ($result < 1) ) {
           $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&plugnpay_cc_owner=' . urlencode($HTTP_POST_VARS['plugnpay_cc_owner']) . '&plugnpay_cc_expires_month=' . $HTTP_POST_VARS['plugnpay_cc_expires_month'] . '&plugnpay_cc_expires_year=' . $HTTP_POST_VARS['plugnpay_cc_expires_year'];
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
+          tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
         }
 
         $this->cc_card_type = $cc_validation->cc_type;
@@ -313,23 +313,23 @@ include("./lib/epayment/includes/methods/plugnpay.php");
 
       if($FinalStatus == 'success') {
         tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . (int)$insert_id . "'"); //Remove order
-        #tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode('SUCCESSFUL - ORDER APPROVED'), 'SSL', true, false));  // uncomment this line for testing.
+        #tep_redirect(tep_href_link("checkout_payment.php", 'error_message=' . urlencode('SUCCESSFUL - ORDER APPROVED'), 'SSL', true, false));  // uncomment this line for testing.
       }
       else if($FinalStatus == 'badcard') {
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode('Your authorization was declined.  Please try another card.') . urlencode(" -- $MErrMsg"), 'SSL', true, false));
+        tep_redirect(tep_href_link("checkout_payment.php", 'error_message=' . urlencode('Your authorization was declined.  Please try another card.') . urlencode(" -- $MErrMsg"), 'SSL', true, false));
       }
       else if($FinalStatus == 'fraud') {
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode('Your transaction was rejected.  Please contact the merchant for ordering assistance.') . urlencode(" -- $MErrMsg"), 'SSL', true, false));
+        tep_redirect(tep_href_link("checkout_payment.php", 'error_message=' . urlencode('Your transaction was rejected.  Please contact the merchant for ordering assistance.') . urlencode(" -- $MErrMsg"), 'SSL', true, false));
       }
       else if($FinalStatus == 'problem') {
-        tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode('There was an error processing your transaction.  Please contact the merchant for ordering assistance.') . urlencode(" -- $MErrMsg"), 'SSL', true, false));
+        tep_redirect(tep_href_link("checkout_payment.php", 'error_message=' . urlencode('There was an error processing your transaction.  Please contact the merchant for ordering assistance.') . urlencode(" -- $MErrMsg"), 'SSL', true, false));
       }
       else {
         if ($response[0] == '') {
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode("There was an unspecified error processing your transaction.<br>Received empty cURL response - check cURL connectivity to PnP server.") . urlencode(" -- $MErrMsg"), 'SSL', true, false));
+          tep_redirect(tep_href_link("checkout_payment.php", 'error_message=' . urlencode("There was an unspecified error processing your transaction.<br>Received empty cURL response - check cURL connectivity to PnP server.") . urlencode(" -- $MErrMsg"), 'SSL', true, false));
         }
         else {
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode("There was an unspecified error processing your transaction.") . urlencode(" -- $MErrMsg"), 'SSL', true, false));
+          tep_redirect(tep_href_link("checkout_payment.php", 'error_message=' . urlencode("There was an unspecified error processing your transaction.") . urlencode(" -- $MErrMsg"), 'SSL', true, false));
         }
       }
     }
@@ -385,6 +385,12 @@ include("./lib/epayment/includes/methods/plugnpay.php");
 	
 	function old_keys() {
       return array('MODULE_PAYMENT_PLUGNPAY_STATUS', 'MODULE_PAYMENT_PLUGNPAY_LOGIN', 'MODULE_PAYMENT_PLUGNPAY_PUBLISHER_EMAIL', 'MODULE_PAYMENT_PLUGNPAY_CURL', 'MODULE_PAYMENT_PLUGNPAY_CURL_PATH', 'MODULE_PAYMENT_PLUGNPAY_TESTMODE', 'MODULE_PAYMENT_PLUGNPAY_CVV', 'MODULE_PAYMENT_PLUGNPAY_PAYMETHOD', 'MODULE_PAYMENT_PLUGNPAY_CCMODE', 'MODULE_PAYMENT_PLUGNPAY_SORT_ORDER', 'MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL', 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC');
+    }
+    
+    function get_CurrentCurrency()
+    {
+        $my_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
+        return $my_currency;
     }
 
   }

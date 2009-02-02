@@ -13,13 +13,16 @@ include ("./lib/epayment/includes/loadconfiguration.php");
 include ("./lib/customer.smarty.php");
 
 
-if (! has_rights (ACX_ACCESS)){
+if (! has_rights (ACX_ACCESS)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 getpost_ifset(array('amount','payment','authorizenet_cc_expires_year','authorizenet_cc_owner','authorizenet_cc_expires_month','authorizenet_cc_number','authorizenet_cc_expires_year'));
+// PLUGNPAY
+getpost_ifset(array('credit_card_type', 'plugnpay_cc_owner', 'plugnpay_cc_number', 'plugnpay_cc_expires_month', 'plugnpay_cc_expires_year', 'cvv'));
+
 
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
 
@@ -33,13 +36,19 @@ $_SESSION["p_amount"] = $amount;
 $paymentTable = new Table();
 $time_stamp = date("Y-m-d h:i:s"); 
 
-$QUERY_FIELDS = "cardid,amount,vat,paymentmethod,cc_owner,cc_number,cc_expires,creationdate";
-$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp'";
+
+if (strtoupper($payment)=='PLUGNPAY') {
+	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, cvv, credit_card_type";
+	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount', 0, '$payment','$plugnpay_cc_owner','$plugnpay_cc_number','".$plugnpay_cc_expires_month."-".$plugnpay_cc_expires_year."','$time_stamp', '$cvv', '$credit_card_type'";
+} else {
+	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate";
+	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp'";
+}
 $transaction_no = $paymentTable->Add_table ($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log', 'id');
 
 $key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no."^".$amount."^".$_SESSION["card_id"]);
 
-if(empty($transaction_no)) {
+if (empty($transaction_no)) {
 	exit(gettext("No Transaction ID found"));
 }
 
@@ -53,26 +62,23 @@ if (is_array($payment_modules->modules)) {
 }
 
 // #### HEADER SECTION
-
 $smarty->display( 'main.tpl');
-?>
 
-<?php
-  if (isset($$payment->form_action_url)) {
+
+if (isset($$payment->form_action_url)) {
     $form_action_url = $$payment->form_action_url;
-  } else {
+} else {
     $form_action_url = tep_href_link("checkout_process.php", '', 'SSL');
-  }
+}
 
 echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
-?>
-<?php
-  if (is_array($payment_modules->modules)) {
+
+if (is_array($payment_modules->modules)) {
     echo $payment_modules->process_button($transaction_no, $key);    
-  }
+}
 ?>
- <br>
- <br>
+
+<br><br>
 <table width=80% align=center class="infoBox">
 <tr height="15">
     <td colspan=2 class="infoBoxHeading">&nbsp;<?php echo gettext("Please confirm your order")?>;</td>
@@ -105,7 +111,10 @@ echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
           </tr>
  </table>
 </form>
-<?php 
+
+
+<?php
+
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');
-?>
+
