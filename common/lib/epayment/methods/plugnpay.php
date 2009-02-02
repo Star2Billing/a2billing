@@ -30,7 +30,7 @@ include("./lib/epayment/includes/methods/plugnpay.php");
       }
 
       // Processing via PlugnPay API 
-      $this->form_action_url = tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false);
+      $this->form_action_url = PLUGNPAY_PAYMENT_URL;
     }
 
 	// class methods
