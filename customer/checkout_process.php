@@ -1,8 +1,9 @@
 <?php
 include ("./lib/customer.defines.php");
 
+getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
+					'transaction_id', 'mc_fee'));
 
-getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','currency','md5sig','merchant_id','mb_amount','status','mb_currency','transaction_id', 'mc_fee'));
 
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
@@ -41,7 +42,7 @@ if (DB_TYPE == "postgres") {
 }
 
 // Status - New 0 ; Proceed 1 ; In Process 2
-$QUERY = "SELECT * from cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
+$QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type FROM cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 //Update the Transaction Status to 1
@@ -129,6 +130,84 @@ switch($transaction_data[0][4])
 	case "authorizenet":
 		$currAmount = $transaction_data[0][2];
 		$currCurrency = BASE_CURRENCY;
+		break;
+		
+	case "plugnpay":
+		$currAmount = $transaction_data[0][2];
+		
+		// Set URL that you will post the transaction to
+		$pnp_post_url = "https://pay1.plugnpay.com/payment/pnpremote.cgi";
+		
+		$pnp_post_values = array(
+	        'publisher-name' => MODULE_PAYMENT_PLUGNPAY_LOGIN,
+	        'mode'           => 'auth',
+	        'ipaddress'      => $_SERVER['REMOTE_ADDR'],
+	
+	        // Metainfo
+	        'convert'     => 'underscores',
+	        'easycart'    => '1',
+	        'shipinfo'    => '1',
+	        'authtype'    => 'authonly',
+	        'paymethod'   => 'credit',
+	        'dontsndmail' => 'yes',
+	        
+	        // Card Info
+	        'card_number' => '4111111111111111',
+		    'card-name'   => 'cardtest',
+		    'card-amount' => '0.02',
+		    'card-exp'    => '07/11',
+		    'email'       => '',
+		    'ship-name'   => 'cardtest',
+		    'address1'    => '123 West Main Street',
+		    'city'        => 'Omaha',
+		    'state'       => 'VT',
+		    'zip'         => '40123',
+		    'cc-cvv'      => '123' 
+	    );
+	    
+		// init curl handle
+		$pnp_ch = curl_init($pnp_post_url);
+		curl_setopt($pnp_ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($pnp_ch, CURLOPT_POSTFIELDS, $pnp_post_values);
+		#curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);  // Upon problem, uncomment for additional Windows 2003 compatibility
+		
+		// perform ssl post
+		$pnp_result_page = curl_exec($pnp_ch);
+		
+		$pnp_result_decoded = urldecode($pnp_result_page);
+		
+		$pnp_temp_array = split('&',$pnp_result_decoded);
+		foreach ($pnp_temp_array as $entry) {
+			list($name,$value) = split('=',$entry);
+			$pnp_transaction_array[$name] = $value;
+		}
+		
+		if ($pnp_transaction_array['FinalStatus'] == "success") {
+			
+		} elseif ($pnp_transaction_array['FinalStatus'] == "badcard") {
+		
+		} elseif ($pnp_transaction_array['FinalStatus'] == "fraud") {
+		
+		} elseif ($pnp_transaction_array['FinalStatus'] == "problem") {
+			
+		} else {
+		    // this should not happen
+		}
+		
+		// -----------------------
+		
+		// SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type 
+		echo "MODULE_PAYMENT_PLUGNPAY_LOGIN:".MODULE_PAYMENT_PLUGNPAY_LOGIN;
+		$sec_string = $merchant_id.$transaction_id.strtoupper(md5(MONEYBOOKERS_SECRETWORD)).$mb_amount.$mb_currency.$status;
+		$sig_string = strtoupper(md5($sec_string));
+		
+		if($sig_string == $md5sig) {
+			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PlugNpay Transaction Verification Status: Verified | md5sig =".$md5sig." Reproduced Signature = ".$sig_string." Generated String = ".$sec_string);
+		} else {
+			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PlugNpay Transaction Verification Status: Failed | md5sig =".$md5sig." Reproduced Signature = ".$sig_string." Generated String = ".$sec_string);
+			$security_verify = false;
+		}
+		$currCurrency = $currency;
 		break;
 		
 	default:

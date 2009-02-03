@@ -30,7 +30,9 @@ include("./lib/epayment/includes/methods/plugnpay.php");
       }
 
       // Processing via PlugnPay API 
-      $this->form_action_url = PLUGNPAY_PAYMENT_URL;
+      //$this->form_action_url = tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false);
+      $this->form_action_url = tep_href_link('checkout_process.php', '', 'SSL', false);
+      //$this->form_action_url = PLUGNPAY_PAYMENT_URL;
     }
 
 	// class methods
@@ -195,20 +197,20 @@ include("./lib/epayment/includes/methods/plugnpay.php");
     }
 
     function pre_confirmation_check() {
-      global $HTTP_POST_VARS, $cvv;
+      global $_POST, $cvv;
 
-      if ((MODULE_PAYMENT_PLUGNPAY_PAYMETHOD == 'onlinecheck') && ($HTTP_POST_VARS['plugnpay_paytype'] != 'credit_card')) {
-        $this->plugnpay_paytype = $HTTP_POST_VARS['plugnpay_paytype'];
-        $this->echeck_accttype = $HTTP_POST_VARS['plugnpay_echeck_accttype'];
-        $this->echeck_accountnum = $HTTP_POST_VARS['plugnpay_echeck_accountnum'];
-        $this->echeck_routingnum = $HTTP_POST_VARS['plugnpay_echeck_routingnum'];
-        $this->echeck_checknum = $HTTP_POST_VARS['plugnpay_echeck_checknum'];
+      if ((MODULE_PAYMENT_PLUGNPAY_PAYMETHOD == 'onlinecheck') && ($_POST['plugnpay_paytype'] != 'credit_card')) {
+        $this->plugnpay_paytype = $_POST['plugnpay_paytype'];
+        $this->echeck_accttype = $_POST['plugnpay_echeck_accttype'];
+        $this->echeck_accountnum = $_POST['plugnpay_echeck_accountnum'];
+        $this->echeck_routingnum = $_POST['plugnpay_echeck_routingnum'];
+        $this->echeck_checknum = $_POST['plugnpay_echeck_checknum'];
       }
       else {
         # Note: section assumes the payment method is credit card
         include('./lib/epayment/classes/cc_validation.php');
         $cc_validation = new cc_validation();
-        $result = $cc_validation->validate($HTTP_POST_VARS['plugnpay_cc_number'], $HTTP_POST_VARS['plugnpay_cc_expires_month'], $HTTP_POST_VARS['plugnpay_cc_expires_year'], $HTTP_POST_VARS['cvv'], $HTTP_POST_VARS['credit_card_type']);
+        $result = $cc_validation->validate($_POST['plugnpay_cc_number'], $_POST['plugnpay_cc_expires_month'], $_POST['plugnpay_cc_expires_year'], $_POST['cvv'], $_POST['credit_card_type']);
         
         $error = '';
         switch ($result) {
@@ -232,7 +234,7 @@ include("./lib/epayment/includes/methods/plugnpay.php");
         }
 		
         if ( ($result == false) || ($result < 1) ) {
-          $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&plugnpay_cc_owner=' . urlencode($HTTP_POST_VARS['plugnpay_cc_owner']) . '&plugnpay_cc_expires_month=' . $HTTP_POST_VARS['plugnpay_cc_expires_month'] . '&plugnpay_cc_expires_year=' . $HTTP_POST_VARS['plugnpay_cc_expires_year'];
+          $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&plugnpay_cc_owner=' . urlencode($_POST['plugnpay_cc_owner']) . '&plugnpay_cc_expires_month=' . $_POST['plugnpay_cc_expires_month'] . '&plugnpay_cc_expires_year=' . $_POST['plugnpay_cc_expires_year'];
           tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
         }
 
@@ -240,12 +242,12 @@ include("./lib/epayment/includes/methods/plugnpay.php");
         $this->cc_card_number = $cc_validation->cc_number;
         $this->cc_expiry_month = $cc_validation->cc_expiry_month;
         $this->cc_expiry_year = $cc_validation->cc_expiry_year;
-        $card_cvv = $HTTP_POST_VARS['cvv'];
+        $card_cvv = $_POST['cvv'];
       }
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS, $card_cvv;
+      global $_POST, $card_cvv;
 
       if ((MODULE_PAYMENT_PLUGNPAY_PAYMETHOD == 'onlinecheck') && ($this->plugnpay_paytype == 'echeck')) {
         $confirmation = array('title' => $this->title . ': Electronic Check Payments',
@@ -262,33 +264,38 @@ include("./lib/epayment/includes/methods/plugnpay.php");
       else if (MODULE_PAYMENT_PLUGNPAY_CVV == 'no') {
         $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                               'fields' => array(array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_CREDIT_CARD_OWNER,
-                                                      'field' => $HTTP_POST_VARS['plugnpay_cc_owner']),
+                                                      'field' => $_POST['plugnpay_cc_owner']),
                                                 array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_CREDIT_CARD_NUMBER,
                                                       'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                                 array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_CREDIT_CARD_EXPIRES,
-                                                      'field' => strftime('%B, %Y', mktime(0,0,0,$HTTP_POST_VARS['plugnpay_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['plugnpay_cc_expires_year'])))));
+                                                      'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['plugnpay_cc_expires_month'], 1, '20' . $_POST['plugnpay_cc_expires_year'])))));
       }  
       else {
-        $card_cvv=$HTTP_POST_VARS['cvv'];
+        $card_cvv=$_POST['cvv'];
         $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                               'fields' => array(array('title' => 'CVV number',
-                                                      'field' => $HTTP_POST_VARS['cvv']),
+                                                      'field' => $_POST['cvv']),
                                                 array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_CREDIT_CARD_OWNER,
-                                                      'field' => $HTTP_POST_VARS['plugnpay_cc_owner']),
+                                                      'field' => $_POST['plugnpay_cc_owner']),
                                                 array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_CREDIT_CARD_NUMBER,
                                                       'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                                 array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_CREDIT_CARD_EXPIRES,
-                                                      'field' => strftime('%B, %Y', mktime(0,0,0,$HTTP_POST_VARS['plugnpay_cc_expires_month'], 1, '20' . $HTTP_POST_VARS['plugnpay_cc_expires_year'])))));
-        $card_cvv=$HTTP_POST_VARS['cvv'];
+                                                      'field' => strftime('%B, %Y', mktime(0,0,0,$_POST['plugnpay_cc_expires_month'], 1, '20' . $_POST['plugnpay_cc_expires_year'])))));
+        $card_cvv=$_POST['cvv'];
       }
       return $confirmation;
     }
 
-    function process_button() {
+    function process_button($transactionID = 0, $key = "")  {
       // Change made by using PlugnPay API Connection
-      $card_cvv=$HTTP_POST_VARS['cvv'];
-
-      $process_button_string = tep_draw_hidden_field('card_cvv', $HTTP_POST_VARS['cvv']) . 
+      $card_cvv=$_POST['cvv'];
+		print_r ($_POST);
+      $process_button_string = tep_draw_hidden_field('credit_card_type', $_POST['credit_card_type']) . 
+      						   tep_draw_hidden_field('card_owner', $_POST['plugnpay_cc_owner']) .  
+      						   tep_draw_hidden_field('card_cvv', $_POST['cvv']) .  
+      						   tep_draw_hidden_field('transactionID', $transactionID) .  
+      						   tep_draw_hidden_field('key', $key) .   
+      						   tep_draw_hidden_field('sess_id', tep_session_id()) . 
                                tep_draw_hidden_field('card_number', $this->cc_card_number) .
                                tep_draw_hidden_field('card_exp', $this->cc_expiry_month . substr($this->cc_expiry_year, -2));
 
@@ -358,7 +365,7 @@ include("./lib/epayment/includes/methods/plugnpay.php");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable PlugnPay Module', 'MODULE_PAYMENT_PLUGNPAY_STATUS', 'True', 'Do you want to accept payments through PlugnPay?', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Login Username', 'MODULE_PAYMENT_PLUGNPAY_LOGIN', 'Your Login Name', 'Enter your PlugnPay account username', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Publisher Email', 'MODULE_PAYMENT_PLUGNPAY_PUBLISHER_EMAIL', 'Enter Your Email Address', 'The email address you want PlugnPay conformations sent to', '6', '0', now())");
-	tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('cURL Setup', 'MODULE_PAYMENT_PLUGNPAY_CURL', 'Not Compiled', 'Whether cURL is compiled into PHP or not.  Windows users, select not compiled.', '6', '0', 'tep_cfg_select_option(array(\'Not Compiled\', \'Compiled\'), ', now())");
+	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('cURL Setup', 'MODULE_PAYMENT_PLUGNPAY_CURL', 'Not Compiled', 'Whether cURL is compiled into PHP or not.  Windows users, select not compiled.', '6', '0', 'tep_cfg_select_option(array(\'Not Compiled\', \'Compiled\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('cURL Path', 'MODULE_PAYMENT_PLUGNPAY_CURL_PATH', 'The Path To cURL', 'For Not Compiled mode only, input path to the cURL binary (i.e. c:/curl/curl)', '6', '0', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Transaction Mode', 'MODULE_PAYMENT_PLUGNPAY_TESTMODE', 'Test', 'Transaction mode used for processing orders', '6', '0', 'tep_cfg_select_option(array(\'Test\', \'Test And Debug\', \'Production\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Require CVV', 'MODULE_PAYMENT_PLUGNPAY_CVV', 'yes', 'Ask For CVV information', '6', '0', 'tep_cfg_select_option(array(\'yes\', \'no\'), ', now())");
@@ -366,7 +373,7 @@ include("./lib/epayment/includes/methods/plugnpay.php");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Authorization Type', 'MODULE_PAYMENT_PLUGNPAY_CCMODE', 'authpostauth', 'Credit card processing mode', '6', '0', 'tep_cfg_select_option(array(\'authpostauth\', \'authonly\'), ', now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order Of Display', 'MODULE_PAYMENT_PLUGNPAY_SORT_ORDER', '1', 'The order in which this payment type is dislayed. Lowest is displayed first.', '6', '0' , now())");
       tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Customer Notifications', 'MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL', 'yes', 'Should PlugnPay not email a receipt to the customer?', '6', '0', 'tep_cfg_select_option(array(\'yes\', \'no\'), ', now())");
-	tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Accepted Credit Cards', 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC', 'Mastercard, Visa', 'The credit cards you currently accept', '6', '0', '_selectOptions(array(\'Amex\',\'Discover\', \'Mastercard\', \'Visa\'), ', now())");
+	  tep_db_query("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Accepted Credit Cards', 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC', 'Mastercard, Visa', 'The credit cards you currently accept', '6', '0', '_selectOptions(array(\'Amex\',\'Discover\', \'Mastercard\', \'Visa\'), ', now())");
     }
 
     function remove() {

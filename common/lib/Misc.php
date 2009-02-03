@@ -159,6 +159,7 @@ function sort_currencies_list(&$currencies_list)
  */
 function write_log($logfile, $output)
 {
+	// echo "<br>$output<br>";
 	if (strlen($logfile) > 1){
 		$string_log = "[".date("d/m/Y H:i:s")."]:[$output]\n";
 		error_log ($string_log."\n", 3, $logfile);
