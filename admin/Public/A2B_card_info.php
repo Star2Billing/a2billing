@@ -11,9 +11,8 @@ if (! has_rights (ACX_CUSTOMER)) {
 	die();	   
 }
 
-/***********************************************************************************/
-
 getpost_ifset(array('id'));
+
 if (empty($id)) {
 	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
 }
@@ -50,7 +49,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1"  >
 				<tr>
-					<th colspan="2">
+					<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
 				 		<?php echo gettext("CUSTOMER INFO") ?>
 				 	</th>
 				 
@@ -158,7 +157,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1">	
 			   <tr>
-			   		<th colspan="2">
+			   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
 			   			<?php echo gettext("ACCOUNT INFO") ?>
 			   		</th>	
 			   </tr>
@@ -182,7 +181,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 					<td  class="form_head">
 						<?php echo gettext("WEB PASSWORD") ?>
 					</td>
-					<td class="tableBodyRight">
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						<?php echo $card['uipass']?> 
 					</td>
 				</tr>
@@ -256,7 +255,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1"  >
 				<tr>
-					<th colspan="2">
+					<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
 				 		<?php echo gettext("COMPANY INFO") ?>
 				 	</th>
 				 
@@ -314,7 +313,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1">	
 			   <tr>
-			   		<th colspan="2">
+			   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
 			   			<?php echo gettext("ACCOUNT STATUS") ?>
 			   		</th>	
 			   </tr>
@@ -338,7 +337,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 					<td  class="form_head">
 						<?php echo gettext("CREDIT LIMIT") ?>
 					</td>
-					<td class="tableBodyRight">
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						<?php echo $card['creditlimit']?> 
 					</td>
 				</tr>
