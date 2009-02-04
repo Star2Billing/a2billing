@@ -256,6 +256,7 @@ class authorizenet {
       // Code 3 is an error - but anything else is an error too (IMHO)
       tep_redirect(tep_href_link("checkout_payment.php", 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL', true, false));
     }
+    
     function get_OrderStatus()
     {
         if ($_POST['x_response_code'] == "")
@@ -275,6 +276,7 @@ class authorizenet {
             break;
         }
     }
+    
     function get_CurrentCurrency()
     {
         return "USD";

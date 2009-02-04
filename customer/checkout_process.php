@@ -133,81 +133,48 @@ switch($transaction_data[0][4])
 		break;
 		
 	case "plugnpay":
-		$currAmount = $transaction_data[0][2];
 		
-		// Set URL that you will post the transaction to
-		$pnp_post_url = "https://pay1.plugnpay.com/payment/pnpremote.cgi";
+		$currAmount = $transaction_data[0][2];
 		
 		$pnp_post_values = array(
 	        'publisher-name' => MODULE_PAYMENT_PLUGNPAY_LOGIN,
 	        'mode'           => 'auth',
 	        'ipaddress'      => $_SERVER['REMOTE_ADDR'],
-	
 	        // Metainfo
 	        'convert'     => 'underscores',
 	        'easycart'    => '1',
 	        'shipinfo'    => '1',
-	        'authtype'    => 'authonly',
-	        'paymethod'   => 'credit',
-	        'dontsndmail' => 'yes',
-	        
+	        'authtype'    => MODULE_PAYMENT_PLUGNPAY_CCMODE,
+	        'paymethod'   => MODULE_PAYMENT_PLUGNPAY_PAYMETHOD,
+	        'dontsndmail' => MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL,
 	        // Card Info
-	        'card_number' => '4111111111111111',
-		    'card-name'   => 'cardtest',
-		    'card-amount' => '0.02',
-		    'card-exp'    => '07/11',
-		    'email'       => '',
-		    'ship-name'   => 'cardtest',
-		    'address1'    => '123 West Main Street',
-		    'city'        => 'Omaha',
-		    'state'       => 'VT',
-		    'zip'         => '40123',
-		    'cc-cvv'      => '123' 
+	        'card_number' => $transaction_data[0][6],
+		    'card-name'   => $transaction_data[0][5],
+		    'card-amount' => $currAmount,
+		    'card-exp'    => $transaction_data[0][7],
+		    'cc-cvv'      => $transaction_data[0][10] 
 	    );
+	    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Value Sent : \n\n".print_r($pnp_post_values, true));
 	    
 		// init curl handle
-		$pnp_ch = curl_init($pnp_post_url);
+		$pnp_ch = curl_init(PLUGNPAY_PAYMENT_URL);
 		curl_setopt($pnp_ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($pnp_ch, CURLOPT_POSTFIELDS, $pnp_post_values);
+		$http_query = http_build_query( $pnp_post_values );
+		curl_setopt($pnp_ch, CURLOPT_POSTFIELDS, $http_query);
 		#curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);  // Upon problem, uncomment for additional Windows 2003 compatibility
 		
 		// perform ssl post
 		$pnp_result_page = curl_exec($pnp_ch);
+		parse_str( $pnp_result_page, $pnp_transaction_array );
 		
-		$pnp_result_decoded = urldecode($pnp_result_page);
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Result : \n\n".print_r($pnp_transaction_array, true));
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- RESULT : ".$pnp_transaction_array['FinalStatus']);
 		
-		$pnp_temp_array = split('&',$pnp_result_decoded);
-		foreach ($pnp_temp_array as $entry) {
-			list($name,$value) = split('=',$entry);
-			$pnp_transaction_array[$name] = $value;
-		}
+		// $pnp_transaction_array['FinalStatus'] = 'badcard';
+		//echo "<pre>".print_r ($pnp_transaction_array, true)."</pre>";
 		
-		if ($pnp_transaction_array['FinalStatus'] == "success") {
-			
-		} elseif ($pnp_transaction_array['FinalStatus'] == "badcard") {
-		
-		} elseif ($pnp_transaction_array['FinalStatus'] == "fraud") {
-		
-		} elseif ($pnp_transaction_array['FinalStatus'] == "problem") {
-			
-		} else {
-		    // this should not happen
-		}
-		
-		// -----------------------
-		
-		// SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type 
-		echo "MODULE_PAYMENT_PLUGNPAY_LOGIN:".MODULE_PAYMENT_PLUGNPAY_LOGIN;
-		$sec_string = $merchant_id.$transaction_id.strtoupper(md5(MONEYBOOKERS_SECRETWORD)).$mb_amount.$mb_currency.$status;
-		$sig_string = strtoupper(md5($sec_string));
-		
-		if($sig_string == $md5sig) {
-			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PlugNpay Transaction Verification Status: Verified | md5sig =".$md5sig." Reproduced Signature = ".$sig_string." Generated String = ".$sec_string);
-		} else {
-			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PlugNpay Transaction Verification Status: Failed | md5sig =".$md5sig." Reproduced Signature = ".$sig_string." Generated String = ".$sec_string);
-			$security_verify = false;
-		}
-		$currCurrency = $currency;
+		$transaction_detail = serialize($pnp_transaction_array);
+		$currCurrency = $pnp_transaction_array[currency];
 		break;
 		
 	default:
@@ -215,11 +182,11 @@ switch($transaction_data[0][4])
 		exit();
 }
 
-//If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 $currencyObject 	= new currencies();
 $currencies_list 	= get_currencies();
-$amount_paid 		= convert_currency($currencies_list,$currAmount, $currCurrency, BASE_CURRENCY);
+$amount_paid 		= convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 
+//If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='epaymentverify' ";
 	$res = $DBHandle_max -> Execute($QUERY);
@@ -276,12 +243,9 @@ $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
 //$payment_modules->before_process();
 
-$tansaction_ID = null;
 
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
-
-
+$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
 $numrow = 0;
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax)
@@ -291,15 +255,13 @@ if ($numrow == 0) {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
     exit(gettext("No Such Customer exists."));
 }
-$customer_info =$resmax -> fetchRow();
+$customer_info = $resmax -> fetchRow();
 $nowDate = date("Y-m-d H:i:s");
 
 
 $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
-
-
 
 $Query = "Insert into cc_payments ( customers_id,
                                     customers_name,
@@ -346,24 +308,19 @@ $result = $DBHandle_max -> Execute($Query);
 
 //************************UPDATE THE CREDIT IN THE CARD***********************
 $id = 0;
-if ($customer_info[0] > 0 && $orderStatus == 2)
-{
-
+if ($customer_info[0] > 0 && $orderStatus == 2) {
     /* CHECK IF THE CARDNUMBER IS ON THE DATABASE */
     $instance_table_card = new Table("cc_card", "username, id");
-    $FG_TABLE_CLAUSE_card = "username='".$customer_info[0]."'";
+    $FG_TABLE_CLAUSE_card = " username='".$customer_info[0]."'";
     $list_tariff_card = $instance_table_card -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);
-    //print_r($list_tariff_card);
-    if ($customer_info[0] == $list_tariff_card[0][0])
-    {
+    if ($customer_info[0] == $list_tariff_card[0][0]) {
         $id = $list_tariff_card[0][1];
     }
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." CARD FOUND IN DB ($id)");
 }
 
 
-if ($id > 0 ){
-    //$addcredit = $_SESSION["p_amount"];
+if ($id > 0 ) {
     $addcredit = $transaction_data[0][2]; 
 	$instance_table = new Table("cc_card", "username, id");
 	$param_update .= " credit = credit+'".$amount_paid."'";
@@ -371,14 +328,14 @@ if ($id > 0 ){
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 
-	$field_insert = "date, credit, card_id";
-	$value_insert = "'$nowDate', '".$amount_paid."', '$id'";
+	$field_insert = "date, credit, card_id, description";
+	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '".$transaction_data[0][4]."'";
 	$instance_sub_table = new Table("cc_logrefill", $field_insert);
 	$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 	
-	$field_insert = "date, payment, card_id, id_logrefill";
-	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill'";
+	$field_insert = "date, payment, card_id, id_logrefill, description";
+	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."'";
 	$instance_sub_table = new Table("cc_logpayment", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
@@ -386,7 +343,20 @@ if ($id > 0 ){
 
 //*************************END UPDATE CREDIT************************************
 
-switch($orderStatus)
+$_SESSION["p_amount"] = null;
+$_SESSION["p_cardexp"] = null;
+$_SESSION["p_cardno"] = null;
+$_SESSION["p_cardtype"] = null;
+$_SESSION["p_module"] = null;
+$_SESSION["p_module"] = null;
+
+//Update the Transaction Status to 1
+$QUERY = "UPDATE cc_epayment_log SET status = 1, transaction_detail ='".addslashes($transaction_detail)."' WHERE id = ".$transactionID;
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
+$paymentTable->SQLExec ($DBHandle_max, $QUERY);
+
+
+switch ($orderStatus)
 {
 	case -2:
 		$statusmessage = "Failed";
@@ -404,9 +374,15 @@ switch($orderStatus)
 		$statusmessage = "Successful";
 		break;
 }
+
+if ( ($orderStatus != 2) && ($transaction_data[0][4]=='plugnpay')) {
+	Header ("Location: checkout_payment.php?payment_error=plugnpay&error=The+payment+couldnt+be+proceed+correctly!");
+	die();
+}
+
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
-if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])){
+if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])){
 	// FIND THE TEMPLATE APPROPRIATE
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='payment' ";
 	$res = $DBHandle_max -> Execute($QUERY);
@@ -449,18 +425,7 @@ if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");
 }
 
-$_SESSION["p_amount"] = null;
-$_SESSION["p_cardexp"] = null;
-$_SESSION["p_cardno"] = null;
-$_SESSION["p_cardtype"] = null;
-$_SESSION["p_module"] = null;
-$_SESSION["p_module"] = null;
 
-
-//Update the Transaction Status to 1
-$QUERY = "UPDATE cc_epayment_log SET status = 1 WHERE id = ".$transactionID;
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
-$paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 
 // load the after_process function from the payment modules
@@ -468,4 +433,10 @@ $payment_modules->after_process();
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION END----");
 
+
+if ($transaction_data[0][4]=='plugnpay') {
+	Header ("Location: userinfo.php");
+	die;
+}
+	
 

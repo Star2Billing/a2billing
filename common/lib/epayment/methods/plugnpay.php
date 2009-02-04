@@ -2,7 +2,7 @@
 
 include("./lib/epayment/includes/methods/plugnpay.php");
 
-  class plugnpay {
+class plugnpay {
     var $code, $title, $description, $enabled, $sort_order;
     var $accepted_cc, $card_types, $allowed_types;
 
@@ -289,8 +289,8 @@ include("./lib/epayment/includes/methods/plugnpay.php");
     function process_button($transactionID = 0, $key = "")  {
       // Change made by using PlugnPay API Connection
       $card_cvv=$_POST['cvv'];
-		print_r ($_POST);
-      $process_button_string = tep_draw_hidden_field('credit_card_type', $_POST['credit_card_type']) . 
+	  
+	  $process_button_string = tep_draw_hidden_field('credit_card_type', $_POST['credit_card_type']) . 
       						   tep_draw_hidden_field('card_owner', $_POST['plugnpay_cc_owner']) .  
       						   tep_draw_hidden_field('card_cvv', $_POST['cvv']) .  
       						   tep_draw_hidden_field('transactionID', $transactionID) .  
@@ -339,6 +339,24 @@ include("./lib/epayment/includes/methods/plugnpay.php");
           tep_redirect(tep_href_link("checkout_payment.php", 'error_message=' . urlencode("There was an unspecified error processing your transaction.") . urlencode(" -- $MErrMsg"), 'SSL', true, false));
         }
       }
+    }
+    
+    function get_OrderStatus()
+    {
+        global $pnp_transaction_array;
+        
+        if ($pnp_transaction_array['FinalStatus'] == "success"){
+			return 2;
+		} elseif ($pnp_transaction_array['FinalStatus'] == "badcard") {
+			return -2;
+		} elseif ($pnp_transaction_array['FinalStatus'] == "fraud") {
+			return -2;
+		} elseif ($pnp_transaction_array['FinalStatus'] == "problem") {
+			return -1;
+		} else {
+		    // this should not happen
+		    return -1;
+		}
     }
 
     function after_process() {

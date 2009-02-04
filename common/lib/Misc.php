@@ -222,7 +222,8 @@ function getpost_ifset($test_vars)
 /*
  * function display_money
  */
-function display_money($value, $currency = BASE_CURRENCY){
+function display_money($value, $currency = BASE_CURRENCY)
+{
 	echo $value.' '.$currency;
 }
 
@@ -230,7 +231,8 @@ function display_money($value, $currency = BASE_CURRENCY){
 /*
  * function display_dateformat
  */
-function display_dateformat($mydate){
+function display_dateformat($mydate)
+{
 	if (DB_TYPE == "mysql"){
 		if (strlen($mydate)==14){
 			// YYYY-MM-DD HH:MM:SS 20300331225242
@@ -247,7 +249,7 @@ function display_dateformat($mydate){
  */
 function display_dateonly($mydate)
 {
-	if (strlen($mydate) > 0 && $mydate != '0000-00-00'){
+	if (strlen($mydate) > 0 && $mydate != '0000-00-00') {
 		echo date("m/d/Y", strtotime($mydate));
 	}
 }
@@ -255,7 +257,8 @@ function display_dateonly($mydate)
 /*
  * function res_display_dateformat
  */
-function res_display_dateformat($mydate){
+function res_display_dateformat($mydate)
+{
 	if (DB_TYPE == "mysql"){
 		if (strlen($mydate)==14){
 			// YYYY-MM-DD HH:MM:SS 20300331225242
@@ -268,9 +271,10 @@ function res_display_dateformat($mydate){
 }
 
 
-function res_display_timeformat($mydate){
-	if (DB_TYPE == "mysql"){
-		if (strlen($mydate)==6){
+function res_display_timeformat($mydate)
+{
+	if (DB_TYPE == "mysql") {
+		if (strlen($mydate)==6) {
 			// YYYY-MM-DD HH:MM:SS 20300331225242
 			$res= substr($mydate,0,4).':'.substr($mydate,4,2).':'.substr($mydate,6,2);
 			return $res;
@@ -282,7 +286,8 @@ function res_display_timeformat($mydate){
 /*
  * function display_minute
  */
-function display_minute($sessiontime){
+function display_minute($sessiontime)
+{
 	global $resulttype;
 	if ((!isset($resulttype)) || ($resulttype=="min")){
 			$minutes = sprintf("%02d",intval($sessiontime/60)).":".sprintf("%02d",intval($sessiontime%60));
@@ -292,11 +297,13 @@ function display_minute($sessiontime){
 	echo $minutes;
 }
 
-function display_2dec($var){
+function display_2dec($var)
+{
 	echo number_format($var,2);
 }
 
-function display_2dec_percentage($var){
+function display_2dec_percentage($var)
+{
 	if (isset($var))
 	{
 		echo number_format($var,2)."%";
@@ -306,28 +313,31 @@ function display_2dec_percentage($var){
 	}
 }
 
-function display_percentage($var){
-        if (isset($var))
-        {
-                printf("%d%%",$var);
-        }else
-        {
-                echo "n/a";
-        }
+function display_percentage($var)
+{
+    if (isset($var)) {
+		printf("%d%%",$var);
+    } else {
+		echo "n/a";
+    }
 }
 
 
-function display_2bill($var, $currency = BASE_CURRENCY){
+function display_2bill($var, $currency = BASE_CURRENCY)
+{
 	global $currencies_list, $choose_currency;
-	if (isset($choose_currency) && strlen($choose_currency)==3) $currency=$choose_currency;
-	if ( (!isset($currencies_list)) || (!is_array($currencies_list)) ) $currencies_list = get_currencies();
+	
+	if (isset($choose_currency) && strlen($choose_currency)==3) 
+		$currency=$choose_currency;
+	if ( (!isset($currencies_list)) || (!is_array($currencies_list)) )
+		$currencies_list = get_currencies();
 	$var = $var / $currencies_list[strtoupper($currency)][2];
 	echo number_format($var,3).' '.$currency;
 }
 
-function remove_prefix($phonenumber){
-
-	if (substr($phonenumber,0,3) == "011"){
+function remove_prefix($phonenumber)
+{
+	if (substr($phonenumber,0,3) == "011") {
 		echo substr($phonenumber,3);
 		return 1;
 	}
@@ -337,10 +347,11 @@ function remove_prefix($phonenumber){
 /*
  * function linkonmonitorfile
  */
-function linkonmonitorfile($value){
+function linkonmonitorfile($value)
+{
 	$myfile = $value.".".MONITOR_FORMATFILE;
 	$dl_full = MONITOR_PATH."/".$myfile;
-	if (!file_exists($dl_full)){
+	if (!file_exists($dl_full)) {
 		return;
 	}
 	$myfile = base64_encode($myfile);
@@ -348,26 +359,27 @@ function linkonmonitorfile($value){
 	echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';
 }
 
-function linktocustomer($value){
+function linktocustomer($value)
+{
 	$handle = DbConnect();
 	$inst_table = new Table("cc_card", "id");
 	$FG_TABLE_CLAUSE = "username = '$value'";
 	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	$id = $list_customer[0][0];
-    if($id > 0){
+    if($id > 0) {
     	echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";
-    }else{
+    } else {
     	echo $value;
     }
 }
 
 
-
 /*
  * function MDP_STRING
  */
-function MDP_STRING($chrs = LEN_CARDNUMBER){
-	$pwd = ""  ;
+function MDP_STRING($chrs = LEN_CARDNUMBER)
+{
+	$pwd = "";
 	mt_srand ((double) microtime() * 1000000);
 	while (strlen($pwd)<$chrs)
 	{
@@ -378,8 +390,9 @@ function MDP_STRING($chrs = LEN_CARDNUMBER){
 	return strtolower($pwd);
 }
 
-function MDP_NUMERIC($chrs = LEN_CARDNUMBER){
-	$pwd = ""  ;
+function MDP_NUMERIC($chrs = LEN_CARDNUMBER)
+{
+	$pwd = "";
 	mt_srand ((double) microtime() * 1000000);
 	while (strlen($pwd)<$chrs)
 	{
@@ -391,8 +404,9 @@ function MDP_NUMERIC($chrs = LEN_CARDNUMBER){
 }
 
 
-function MDP($chrs = LEN_CARDNUMBER){
-	$pwd = ""  ;
+function MDP($chrs = LEN_CARDNUMBER)
+{
+	$pwd = "";
 	mt_srand ((double) microtime() * 1000000);
 	while (strlen($pwd)<$chrs)
 	{
@@ -404,10 +418,10 @@ function MDP($chrs = LEN_CARDNUMBER){
 }
 
 
-function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username"){
-
+function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username")
+{
 	$DBHandle_max  = DbConnect();
-	for ($k=0;$k<=200;$k++){
+	for ($k=0;$k<=200;$k++) {
 		$card_gen = MDP($len);
 		if ($k==200){ echo "ERROR : Impossible to generate a $field not yet used!<br>Perhaps check the LEN_CARDNUMBER (value:".LEN_CARDNUMBER.")";exit();}
 
@@ -423,7 +437,8 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username"){
 }
 
 
-function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER, $DBHandle = null){
+function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER, $DBHandle = null)
+{
 
 	if (!$DBHandle) {
 		$DBHandle  = DbConnect();
@@ -459,8 +474,8 @@ function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_
 }
 
 //Get productID and all parameter and retrieve info for card creation into cc_ecommerce_product
-function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $mail_content, $logfile){
-
+function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $mail_content, $logfile)
+{
 	global $FG_DEBUG;
 	$QUERY = 'SELECT
 				product_name, creationdate, description, expirationdate, enableexpire, expiredays, credit, tariff, id_didgroup, activated, simultaccess, currency,
@@ -503,7 +518,8 @@ $lang['strlast']='Last &gt;&gt;';
 * @param $url the url to refer to with the page number inserted
 * @param $max_width the number of pages to make available at any one time (default = 20)
 */
-function printPages($page, $pages, $url, $max_width = 20) {
+function printPages($page, $pages, $url, $max_width = 20)
+{
 	global $lang;
 
 	$window = 8;
@@ -558,8 +574,8 @@ function printPages($page, $pages, $url, $max_width = 20) {
 * @param $the_file the file to validate
 * @param $the_file_type the file type
 */
-function validate_upload($the_file, $the_file_type) {
-
+function validate_upload($the_file, $the_file_type)
+{
 	$registered_types = array(
 						"application/x-gzip-compressed"         => ".tar.gz, .tgz",
 						"application/x-zip-compressed"          => ".zip",
@@ -584,22 +600,15 @@ function validate_upload($the_file, $the_file_type) {
 
 	$start_error = "\n<b>ERROR:</b>\n<ul>";
 	$error = "";
-	if ($the_file=="")
-	{
+	if ($the_file=="") {
 		$error .= "\n<li>".gettext("File size is greater than allowed limit.")."\n<ul>";
-	}else
-	{
+	} else {
         if ($the_file == "none") {
                 $error .= "\n<li>".gettext("You did not upload anything!")."</li>";
-        }
-        elseif ($_FILES['the_file']['size'] == 0)
-        {
+        } elseif ($_FILES['the_file']['size'] == 0) {
         	$error .= "\n<li>".gettext("Failed to upload the file, The file you uploaded may not exist on disk.")."!</li>";
-        }
-        else
-        {
- 			if (!in_array($the_file_type,$allowed_types))
- 			{
+        } else {
+ 			if (!in_array($the_file_type,$allowed_types)) {
  				$error .= "\n<li>".gettext("file type is not allowed").': '.$the_file_type."\n<ul>";
                 while ($type = current($allowed_types))
                 {
@@ -610,13 +619,10 @@ function validate_upload($the_file, $the_file_type) {
             }
         }
 	}
-	if ($error)
-	{
+	if ($error) {
 		$error = $start_error . $error . "\n</ul>";
         return $error;
-    }
-    else
-    {
+    } else {
     	return false;
     }
 
@@ -832,7 +838,7 @@ function update_translation($id, $languages, $subject, $mailtext)
 
 function insert_translation($id, $languages, $subject, $mailtext)
 {
-	if (empty($handle)){
+	if (empty($handle)) {
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
@@ -892,7 +898,8 @@ function get_db_languages($handle = null)
  * 2. A2Billing_UI/Public/A2B_call_archiving.php
  */
 
-function archive_data($condition, $entity = ""){
+function archive_data($condition, $entity = "")
+{
 	if(empty($condition)){
 		return 0;
 		exit;
@@ -934,7 +941,8 @@ function archive_data($condition, $entity = ""){
  * Function use to define exact sql statement for
  * different criteria selection
  */
-function do_field($sql,$fld,$dbfld){
+function do_field($sql,$fld,$dbfld)
+{
 	$fldtype = $fld.'type';
 	global $$fld;
 	global $$fldtype;
@@ -964,7 +972,8 @@ function do_field($sql,$fld,$dbfld){
 // we always request in a strong currency and convert ourselves.
 // We use ounces of silver,  as if silver ever devalues significantly
 // we'll all be pretty much boned anyway,  wouldn't you say?
-function currencies_update_yahoo ($DBHandle, $instance_table) {
+function currencies_update_yahoo ($DBHandle, $instance_table)
+{
 	global $FG_DEBUG;
 	$strong_currency = 'XAG';
 	$url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
@@ -1074,7 +1083,8 @@ function currencies_update_yahoo ($DBHandle, $instance_table) {
 /*
  * arguments - function to handle arguments in CLI script
  */
-function arguments($argv) {
+function arguments($argv)
+{
     $_ARG = array();
     array_shift($argv); //skip argv[0] !
     foreach ($argv as $arg) {
@@ -1090,3 +1100,5 @@ function arguments($argv) {
     }
   return $_ARG;
 }
+
+
