@@ -42,7 +42,7 @@ if (DB_TYPE == "postgres") {
 }
 
 // Status - New 0 ; Proceed 1 ; In Process 2
-$QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type FROM cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
+$QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency FROM cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 //Update the Transaction Status to 1
@@ -63,6 +63,9 @@ if(!is_array($transaction_data) && count($transaction_data) == 0) {
 
 $security_verify = true;
 $transaction_detail = serialize($_POST);
+
+$currencyObject 	= new currencies();
+$currencies_list 	= get_currencies();
 
 switch($transaction_data[0][4])
 {
@@ -134,25 +137,27 @@ switch($transaction_data[0][4])
 		
 	case "plugnpay":
 		
-		$currAmount = $transaction_data[0][2];
+		$currCurrency 		= BASE_CURRENCY;
+		$currAmount 		= $transaction_data[0][2];
+		$currAmount_usd		= convert_currency($currencies_list, $currAmount, BASE_CURRENCY, 'USD');
 		
 		$pnp_post_values = array(
 	        'publisher-name' => MODULE_PAYMENT_PLUGNPAY_LOGIN,
 	        'mode'           => 'auth',
 	        'ipaddress'      => $_SERVER['REMOTE_ADDR'],
 	        // Metainfo
-	        'convert'     => 'underscores',
-	        'easycart'    => '1',
-	        'shipinfo'    => '1',
-	        'authtype'    => MODULE_PAYMENT_PLUGNPAY_CCMODE,
-	        'paymethod'   => MODULE_PAYMENT_PLUGNPAY_PAYMETHOD,
-	        'dontsndmail' => MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL,
+	        'convert'        => 'underscores',
+	        'easycart'       => '1',
+	        'shipinfo'       => '1',
+	        'authtype'       => MODULE_PAYMENT_PLUGNPAY_CCMODE,
+	        'paymethod'      => MODULE_PAYMENT_PLUGNPAY_PAYMETHOD,
+	        'dontsndmail'    => MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL,
 	        // Card Info
-	        'card_number' => $transaction_data[0][6],
-		    'card-name'   => $transaction_data[0][5],
-		    'card-amount' => $currAmount,
-		    'card-exp'    => $transaction_data[0][7],
-		    'cc-cvv'      => $transaction_data[0][10] 
+	        'card_number'    => $transaction_data[0][6],
+		    'card-name'      => $transaction_data[0][5],
+		    'card-amount'    => $currAmount_usd,
+		    'card-exp'       => $transaction_data[0][7],
+		    'cc-cvv'         => $transaction_data[0][10] 
 	    );
 	    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Value Sent : \n\n".print_r($pnp_post_values, true));
 	    
@@ -174,7 +179,6 @@ switch($transaction_data[0][4])
 		//echo "<pre>".print_r ($pnp_transaction_array, true)."</pre>";
 		
 		$transaction_detail = serialize($pnp_transaction_array);
-		$currCurrency = $pnp_transaction_array[currency];
 		break;
 		
 	default:
@@ -182,9 +186,9 @@ switch($transaction_data[0][4])
 		exit();
 }
 
-$currencyObject 	= new currencies();
-$currencies_list 	= get_currencies();
-$amount_paid 		= convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
+
+$amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
+
 
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {

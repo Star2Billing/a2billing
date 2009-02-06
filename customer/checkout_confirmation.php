@@ -49,11 +49,11 @@ $time_stamp = date("Y-m-d h:i:s");
 
 
 if (strtoupper($payment)=='PLUGNPAY') {
-	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, cvv, credit_card_type";
-	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount', 0, '$payment','$plugnpay_cc_owner','$plugnpay_cc_number','".$plugnpay_cc_expires_month."-".$plugnpay_cc_expires_year."','$time_stamp', '$cvv', '$credit_card_type'";
+	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, cvv, credit_card_type, currency";
+	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount', 0, '$payment','$plugnpay_cc_owner','$plugnpay_cc_number','".$plugnpay_cc_expires_month."-".$plugnpay_cc_expires_year."','$time_stamp', '$cvv', '$credit_card_type', '".BASE_CURRENCY."'";
 } else {
-	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate";
-	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp'";
+	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, currency";
+	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp', '".BASE_CURRENCY."'";
 }
 $transaction_no = $paymentTable->Add_table ($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log', 'id');
 
