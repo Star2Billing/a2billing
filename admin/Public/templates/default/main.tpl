@@ -97,6 +97,7 @@
 				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment&section=2">{php} echo gettext("View Payment Methods");{/php}</a></li>
                 <li><a href="A2B_entity_transactions.php?atmenu=payment&section=2">{php} echo gettext("View Transactions");{/php}</a></li>
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
+				<li><a href="A2B_entity_billing_customer.php?atmenu=payment&section=2">{php} echo gettext("Billings Customers");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("Refills Customers");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Payments Customers");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=2">{php} echo gettext("Refills Agents");{/php}</a></li>
