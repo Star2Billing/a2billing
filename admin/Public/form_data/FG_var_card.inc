@@ -938,7 +938,7 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 
-$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'post_processing_card_add';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'processing_card_add';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
 
 if (isset($form_action) && $form_action=='delete' && USE_REALTIME){

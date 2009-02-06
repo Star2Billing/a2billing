@@ -956,6 +956,7 @@ class FormHandler
 		// 21 -> Check percent more of 0 and under 100
 		$this -> FG_regular[]  = array( "^100$|^(([0-9]){0,2})((\.)([0-9]*))?$"  ,
 					gettext("(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"));
+					
 		
 	}
 	
@@ -1591,17 +1592,87 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 	}
 	
-	function post_processing_card_add(){
+	function processing_card_add(){
 		$this->create_sipiax_friends();
 		$this->creation_card_refill();
 		
 	}
-	function post_processing_refill_add(){
+	function processing_refill_add(){
 		$this->add_card_refill();
 		//add invoice
 		$this->create_invoice_after_refill();
 		
 	}
+	
+	function proccessing_billing_customer(){
+		global $A2B;
+		$processed = $this->getProcessed();
+		//find the last billing 
+		$billing_table = new Table('cc_billing_customer','id,date');
+		$clause_last_billing = "id_card = ".$processed['id_card'];
+		$result = $billing_table -> Get_list($this->DBHandle, $clause_last_billing,"date","desc");
+		$call_table = new Table('cc_call','SUM(sessionbill)' );
+		$clause_call_billing ="";
+		$desc_billing="";
+		if(is_array($result) && !empty($result[0][0])){
+			$clause_call_billing .= "stoptime > '" .$result[0][0]."' AND "; 
+			$desc_billing = "Calls cost between the ".$result[0][0]." and ".$processed['date'] ;
+		}else{
+			$desc_billing = "Calls cost between before the ".$processed['date'] ;
+		}
+		$clause_call_billing .= "stoptime < '".$processed['date']."' ";
+		$result =  $billing_table -> Get_list($this->DBHandle, $clause_call_billing);
+		if(is_array($result) && !empty($result[0][0])){
+			$amount_calls = $result[0][0];
+			/// create invoice
+			$year = date("Y");
+			$invoice_conf_table = new Table('cc_invoice_conf','value');
+			$conf_clause = "key_val = 'count_$year'";
+			$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
+			if(is_array($result) && !empty($result[0][0])){
+				//update count
+				$count =$result[0][0];
+				if(!is_numeric($count)) $count=0;
+				$count++;
+				$param_update_conf = "value ='".$count."'";
+				$clause_update_conf = "key_val = 'count_$year'";
+				$invoice_conf_table -> Update_table ($this->DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
+			}else{
+				//insert newcount
+				$count=1;
+				$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
+				$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
+			}
+			$field_insert = "date, id_card, title ,reference, description";
+			$date = date("Y-m-d h:i:s");
+			$card_id = $processed['id_card'];
+			$title = gettext("BILLING");
+			$description = gettext("Invoice for billing");
+			
+			$reference = $year.sprintf("%08d",$count);
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description' ";
+			$instance_table = new Table("cc_invoice", $field_insert);
+			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			//load vat of this card
+			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+				$amount = $result[0][0];
+				$description = $desc_billing;
+				$card_table = new Table('cc_card','vat');
+				$card_clause = "id = ".$card_id;
+				$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
+				if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
+				else $vat = $card_result[0][0];
+				$field_insert = "date, id_invoice ,price,vat, description";
+				$instance_table = new Table("cc_invoice_item", $field_insert);
+				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description' ";
+				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			}
+		}	
+			
+			
+			///
+    }
+	
 	
 	function create_invoice_after_refill(){
 		global $A2B;
@@ -1651,7 +1722,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 		}	
-		die();
 	}
 	
 	
