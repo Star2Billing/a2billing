@@ -4,7 +4,7 @@ include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
 
 
-if (! has_rights (ACX_ACCESS)) {
+if (! has_rights (ACX_ACCESS)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -32,8 +32,14 @@ getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth'
 
 $currencies_list = get_currencies();
 
-if (!isset($currencies_list[strtoupper($customer_info [22])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [22])][2])) $mycur = 1;
-else $mycur = $currencies_list[strtoupper($customer_info [22])][2];
+$two_currency = false;
+if (!isset($currencies_list[strtoupper($customer_info [22])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [22])][2])){
+	$mycur = 1; 
+}else{ 
+	$mycur = $currencies_list[strtoupper($customer_info [22])][2];
+	$display_currency =strtoupper($customer_info [22]);
+	if(strtoupper($customer_info [22])!=strtoupper(BASE_CURRENCY))$two_currency=true;
+}
 $credit_cur = $customer_info[1] / $mycur;
 $credit_cur = round($credit_cur,3);
 
@@ -125,27 +131,42 @@ $smarty->display( 'main.tpl');
 	echo $PAYMENT_METHOD;
 ?>
 
-<table width="70%" align="center">
-	<tr>
-		<TD  valign="top" align="center" class="tableBodyRight" background="<?php echo Images_Path; ?>/background_cells.gif" >
+<table width="70%" align="center" cellspacing="0" >
+	<tr background="<?php echo Images_Path; ?>/background_cells.gif" >
+		<TD  valign="top" align="right" class="tableBodyRight"   >
 			<font size="2"><?php echo gettext("Click below to buy credit : ");?> </font>
-			
+		</TD>
+		<td class="tableBodyRight" >	
 			<?php
 			$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
 			if (!is_array($arr_purchase_amount)){
 				$to_echo = 10;
 			}else{
-				$to_echo = join(" - ", $arr_purchase_amount);
-			}
-			echo $to_echo;
-			?>
-			<font size="2"><?php echo strtoupper(BASE_CURRENCY);?> </font>
+				if($two_currency){
+				$purchase_amounts_convert= array();
+				for($i=0;$i<count($arr_purchase_amount);$i++){
+					$purchase_amounts_convert[$i]=round($arr_purchase_amount[$i]/$mycur,2);
+				}
+				$to_echo = join(" - ", $purchase_amounts_convert);
 			
+				echo $to_echo;
+			?>
+			<font size="2"><?php echo $display_currency; 
+								}?> </font>
+			<br/>
+			<?php echo join(" - ", $arr_purchase_amount); ?>
+			<font size="2"><?php echo strtoupper(BASE_CURRENCY);?> </font>
+			<?php } ?>
+			
+		</TD>
+	</tr>
+	
+	<tr>
+		<td align="center" colspan="2" class="tableBodyRight" >	
 			<form action="checkout_payment.php" method="post">
 				
 				<input type="submit" class="form_input_button" value="BUY NOW">
 			</form>
-		</TD>
 	</tr>
 </table>
 

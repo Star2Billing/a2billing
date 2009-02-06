@@ -108,6 +108,13 @@ class Constants
 		$invoice_status_list['1'] = array( gettext('CLOSE'), '1');
 		return $invoice_status_list;
 	}
+	public static function getBillingInvoiceStatusList(){
+		$invoice_status_list = array();
+		$invoice_status_list['0'] = array( gettext('OPEN'), '0');
+		$invoice_status_list['1'] = array( gettext('CLOSE'), '1');
+		$invoice_status_list['2'] = array( gettext(''), '');
+		return $invoice_status_list;
+	}
 	
 	public static function getInvoicePaidStatusList(){
 		$invoice_status_list = array();

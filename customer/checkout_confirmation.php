@@ -19,6 +19,18 @@ if (! has_rights (ACX_ACCESS)) {
 	die();
 }
 
+$currencies_list = get_currencies();
+$two_currency = false;
+if (!isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeric($currencies_list[strtoupper($_SESSION['currency'])][2]) ){
+	$mycur = 1; 
+}else{ 
+	$mycur = $currencies_list[strtoupper($_SESSION['currency'])][2];
+	$display_currency =strtoupper($_SESSION['currency']);
+	if(strtoupper($_SESSION['currency'])!=strtoupper(BASE_CURRENCY))$two_currency=true;
+}
+
+
+
 getpost_ifset(array('amount','payment','authorizenet_cc_expires_year','authorizenet_cc_owner','authorizenet_cc_expires_month','authorizenet_cc_number','authorizenet_cc_expires_year'));
 // PLUGNPAY
 getpost_ifset(array('credit_card_type', 'plugnpay_cc_owner', 'plugnpay_cc_number', 'plugnpay_cc_expires_month', 'plugnpay_cc_expires_year', 'cvv'));
@@ -28,7 +40,6 @@ $HD_Form = new FormHandler("cc_payment_methods","payment_method");
 
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
-
 $_SESSION["p_module"] = $payment;
 $_SESSION["p_amount"] = $amount;
 
@@ -81,7 +92,7 @@ if (is_array($payment_modules->modules)) {
 <br><br>
 <table width=80% align=center class="infoBox">
 <tr height="15">
-    <td colspan=2 class="infoBoxHeading">&nbsp;<?php echo gettext("Please confirm your order")?>;</td>
+    <td colspan=2 class="infoBoxHeading">&nbsp;<?php echo gettext("Please confirm your order")?></td>
 </tr>
 <tr>
     <td width=50%>&nbsp;</td>
@@ -93,7 +104,13 @@ if (is_array($payment_modules->modules)) {
 </tr>
 <tr>
     <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
-    <td align=left><?php echo $amount?> <?php echo $payment_modules->get_CurrentCurrency();?></td>
+    <td align=left>
+    <?php
+     echo $amount." ".strtoupper(BASE_CURRENCY);
+     if($two_currency){
+					echo " - ".round($amount/$mycur,2)." ".strtoupper($_SESSION['currency']);	
+	 }	
+     ?> </td>
 </tr>
 <tr>
     <td>&nbsp;</td>

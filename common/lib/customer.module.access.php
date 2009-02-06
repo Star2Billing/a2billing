@@ -115,6 +115,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["tariff"]=$return[5];
 			$_SESSION["vat"]=$return[6];
 			$_SESSION["gmtoffset"]=$return[8];
+			$_SESSION["currency"]=$return["currency"];
 			if ($return[9] && $return[10]){
 				// $_SESSION["cc_voicemail"] = true;
 				$_SESSION["cc_voicemail"] = false;
@@ -137,7 +138,7 @@ function login ($user, $pass)
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	
-	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, cc.activatedbyuser, ct.gmtoffset, cc.voicemail_permitted, cc.voicemail_activated,cc_card_group.users_perms  FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
+	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, cc.activatedbyuser, ct.gmtoffset, cc.voicemail_permitted, cc.voicemail_activated,cc_card_group.users_perms,cc.currency  FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
 	$res = $DBHandle -> Execute($QUERY);
 	
 	if (!$res) {

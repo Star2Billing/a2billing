@@ -18,7 +18,6 @@ Class payment {
       global $payment, $language, $PHP_SELF;
 
       $instance_sub_table = new Table("cc_payment_methods", "payment_filename");
-      $QUERY = " active = 't'";
       $DBHandle  = DbConnect();
       $return = null;
       $return = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
@@ -32,9 +31,8 @@ Class payment {
           }
       }
       
-      
       $include_modules = array();
-      if ((!is_null($module)) && (in_array($module . '.' . substr($PHP_SELF, (strrpos($PHP_SELF, '.')+1)), $this->modules)) ) {
+      if ((!empty($module)) && (in_array($module . '.' . substr($PHP_SELF, (strrpos($PHP_SELF, '.')+1)), $this->modules)) ) {
           $this->selected_module = $module;
          
           $include_modules[] = array('class' => $module, 'file' => $module . '.php');
@@ -44,6 +42,7 @@ Class payment {
             $class = substr($value, 0, strrpos($value, '.'));
             $include_modules[] = array('class' => $class, 'file' => $value);
           }
+        
       }
 
       for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
@@ -51,12 +50,12 @@ Class payment {
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
       }
 
-	  $payment = $include_modules[0]['class'];
 		
       if ( (!is_null($module)) && (in_array($module, $this->modules)) && (isset($GLOBALS[$module]->form_action_url)) ) {
           $this->form_action_url = $GLOBALS[$module]->form_action_url;
       }
-      
+      $actived_module = $this->selection();
+      $payment = $actived_module[0]['id'];
     }
 
 // class methods

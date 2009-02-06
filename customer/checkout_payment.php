@@ -17,6 +17,20 @@ if (! has_rights (ACX_ACCESS)){
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
+
+
+$currencies_list = get_currencies();
+$two_currency = false;
+if (!isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeric($currencies_list[strtoupper($_SESSION['currency'])][2]) ){
+	$mycur = 1; 
+}else{ 
+	$mycur = $currencies_list[strtoupper($_SESSION['currency'])][2];
+	$display_currency =strtoupper($_SESSION['currency']);
+	if(strtoupper($_SESSION['currency'])!=strtoupper(BASE_CURRENCY))$two_currency=true;
+}
+
+
+
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
 
 getpost_ifset(array('amount','item_name','item_number','currency_code'));
@@ -24,15 +38,32 @@ getpost_ifset(array('amount','item_name','item_number','currency_code'));
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
+
+
 // #### HEADER SECTION
 $smarty->display( 'main.tpl');
 
 $HD_Form -> create_toppage ($form_action);
 
+
+
+
+
 $payment_modules = new payment;
 $order = new order($amount);
 
 ?>
+<script language="javascript">
+function checkamount()
+{
+ 	if (document.checkout_amount.amount == "")
+	{
+		alert('Please enter some amount.');
+		return false;
+	}
+	return true;
+}
+</script>
 <script language="javascript"><!--
 var selected;
 
@@ -74,7 +105,11 @@ function rowOutEffect(object) {
 	echo $PAYMENT_METHOD;
 ?>
 <br>
-<form name="checkout_payment" action="checkout_amount.php" method="post" onsubmit="return check_form();">
+<?php
+$form_action_url = tep_href_link("checkout_confirmation.php", '', 'SSL');
+echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="checkamount()"');
+?>
+
     <input name="amount" type=hidden value="<?php echo $amount?>">
     <input name="item_name" type=hidden value="<?php echo $item_name?>">
     <input name="item_number" type=hidden value="<?php echo $item_number?>">
@@ -84,6 +119,7 @@ function rowOutEffect(object) {
 	if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
   		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR ".$error['title']." ".$error['error']);
 	?>
+	
       <tr>
         <td ><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
@@ -119,20 +155,19 @@ function rowOutEffect(object) {
   if (sizeof($selection) > 1) {
 ?>
 
-          <tr height=10>
-            <td class="infoBoxHeading">&nbsp;</td>
-            <td class="infoBoxHeading"  width="50%" valign="top"><?php echo "Payment Method"; ?></td>
-            <td class="infoBoxHeading" width="50%" valign="top" align="right"><b><?php echo "Please Select"; ?></b><br></td>
+           <tr height=10>
+                <td class="infoBoxHeading">&nbsp;</td>
+                <td class="infoBoxHeading" width="15%" valign="top" align="center"><b><?php echo "Please Select"; ?></b></td>
+                <td class="infoBoxHeading" width="10%" >&nbsp;</td>
+                <td class="infoBoxHeading"  width="75%" valign="top"><b><?php echo "Payment Method"; ?><b></td>
 
-            <td class="infoBoxHeading">&nbsp;</td>
-          </tr>
+           </tr>
 <?php
   } else {
 ?>
           <tr>
             <td>&nbsp;</td>
             <td class="main" width="100%" colspan="2"><?php echo "This is currently the only payment method available to use on this order."; ?></td>
-            <td>&nbsp;</td>
           </tr>
 
 <?php
@@ -141,9 +176,12 @@ function rowOutEffect(object) {
   $radio_buttons = 0;
   for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
 ?>
-          <tr>
-            <td>&nbsp;</td>
-            <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+
+
+	 <tr>
+		 	<td colspan="3">&nbsp; </td>
+	 </tr>
+		 
 <?php
     if ( ($selection[$i]['id'] == $payment) || ($n == 1) ) {
       echo '             <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
@@ -151,33 +189,38 @@ function rowOutEffect(object) {
       echo '             <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, ' . $radio_buttons . ')">' . "\n";
     }
 ?>
-            <td width="10">&nbsp;</td>
-            <td class="main" colspan="3"><b><?php echo $selection[$i]['module']; ?></b></td>
-            <td class="main" align="right">
-<?php
-    if (sizeof($selection) > 1) {
-      echo tep_draw_radio_field('payment', $selection[$i]['id']);
-    } else {
-      echo tep_draw_hidden_field('payment', $selection[$i]['id']);
-    }
-?>
-            </td>
-            <td width="10">&nbsp;</td>
-          </tr>
+                <td >&nbsp;</td>
+                <td width="15%" align="center">
+                <?php
+				    if (sizeof($selection) > 1) {
+				      echo tep_draw_radio_field('payment', $selection[$i]['id']);
+				    } else {
+				      echo tep_draw_hidden_field('payment', $selection[$i]['id']);
+				    }
+				?>
+				</td>
+				<td width="10%" >&nbsp;</td>
+                <td width="75%" ><b><?php echo $selection[$i]['module']; ?></b></td>
+         </tr>
+      
+
+           <tr>
+            <td colspan="3">&nbsp;</td>
+            <td >
+                <table border="0" width="100%" cellspacing="0" cellpadding="2">
+
 <?php
     if (isset($selection[$i]['error'])) {
 ?>
           <tr>
-            <td width="10">&nbsp;</td>
-            <td class="main" colspan="4"><?php echo $selection[$i]['error']; ?></td>
-            <td width="10">&nbsp;</td>
+            <td class="main" ><?php echo $selection[$i]['error']; ?></td>
           </tr>
 <?php
     } elseif (isset($selection[$i]['fields']) && is_array($selection[$i]['fields'])) {
 ?>
           <tr>
-            <td width="10">&nbsp;</td>
-            <td colspan="4"><table border="0" cellspacing="0" cellpadding="2">
+            <td ><table border="0" cellspacing="0" cellpadding="2">
+            
 <?php
       for ($j=0, $n2=sizeof($selection[$i]['fields']); $j<$n2; $j++) {
 ?>
@@ -186,13 +229,12 @@ function rowOutEffect(object) {
                 <td class="main"><?php echo $selection[$i]['fields'][$j]['title']; ?></td>
                 <td>&nbsp;</td>
                 <td class="main"><?php echo $selection[$i]['fields'][$j]['field']; ?></td>
-                <td width="10">&nbsp;</td>
               </tr>
 <?php
       }
 ?>
             </table></td>
-            <td width="10">&nbsp;</td>
+            <td>&nbsp;</td>
           </tr>
 <?php
     }
@@ -207,6 +249,44 @@ function rowOutEffect(object) {
       </table>
       <br>
       <?php  if (sizeof($selection) > 0){ ?>
+      
+      <table width=80% align=center class="infoBox">
+			<tr height="15">
+			    <td colspan=2 class="infoBoxHeading">&nbsp;<?php echo gettext("Please enter the order amount")?>:</td>
+			</tr>
+			<tr>
+			    <td width=50%>&nbsp;</td>
+			    <td width=50%>&nbsp;</td>
+			</tr>
+			<tr>
+			    <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
+			    <td align=left><select name="amount" class="form_input_select"  >
+				<?php
+				$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+						if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
+			
+						foreach($arr_purchase_amount as $value){
+				?>
+				<option value="<?php echo $value?>">
+					<?php
+				echo $value; 
+				if($two_currency){
+					echo " ".strtoupper(BASE_CURRENCY)." - ".round($value/$mycur,2)." ".strtoupper($_SESSION['currency']);	
+				}	
+				?>
+				</option>
+			
+				<?php }?></select>
+				&nbsp;<?php if(!$two_currency) echo strtoupper(BASE_CURRENCY);?></td>
+			</tr>
+			<tr>
+			    <td>&nbsp;</td>
+			    <td>&nbsp;</td>
+			</tr>
+		</table>
+         <br/>
+      
+      
       <table class="infoBox" width="80%" cellspacing="0" cellpadding="2" align=center>
           <tr height="20">
           <td  align=left class="main"> <b>Continue Checkout Procedure</b><br>to confirm this order. 
