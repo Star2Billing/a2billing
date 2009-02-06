@@ -1394,10 +1394,11 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'If you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 
 
-DROP TABLE cc_invoices;
-DROP TABLE cc_invoice;
-DROP TABLE cc_invoice_history;
-DROP TABLE cc_invoice_items;
+-- New Invoice Tables
+RENAME TABLE cc_invoices  TO bkp_cc_invoices;
+RENAME TABLE cc_invoice  TO bkp_cc_invoice;
+RENAME TABLE cc_invoice_history  TO bkp_cc_invoice_history;
+RENAME TABLE cc_invoice_items  TO bkp_cc_invoice_items;
 
 CREATE TABLE cc_invoice (
 	id BIGINT NOT NULL AUTO_INCREMENT ,
