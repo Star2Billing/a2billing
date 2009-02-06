@@ -62,7 +62,7 @@ if(!is_array($transaction_data) && count($transaction_data) == 0) {
 }
 
 $security_verify = true;
-
+$transaction_detail = serialize($_POST);
 
 switch($transaction_data[0][4])
 {

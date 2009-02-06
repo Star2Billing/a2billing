@@ -289,6 +289,7 @@ function moveSourceDown()
  				<option value="additional_block_charge"><?php echo gettext("additional block charge");?></option>
 				<option value="additional_block_charge_time"><?php echo gettext("additional block charge time");?></option>
 				<option value="freetimetocall_package_offer"><?php echo gettext("free time to call package offer");?></option>
+				<option value="announce_time_correction"><?php echo gettext("announce time correction");?></option> 
 			</select>
         </td>
 
