@@ -167,7 +167,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 ?>
           <tr>
             <td>&nbsp;</td>
-            <td class="main" width="100%" colspan="2"><?php echo "This is currently the only payment method available to use on this order."; ?></td>
+            <td class="main" width="100%" colspan="3"><?php echo "This is currently the only payment method available to use on this order."; ?></td>
           </tr>
 
 <?php
