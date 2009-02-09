@@ -10,7 +10,7 @@ if (!isset($form_action) || $form_action=="list") {
 }
 
 $HD_Form -> FG_TABLE_ID = 'cc_invoice.id';
-$HD_Form -> FG_TABLE_CLAUSE = " id_card = ".$_SESSION["card_id"]." GROUP BY cc_invoice.id";
+$HD_Form -> FG_TABLE_CLAUSE = " id_card = ".$_SESSION["card_id"]." AND status = 1 GROUP BY cc_invoice.id";
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -34,7 +34,7 @@ $filter_amount_with_vat ='SUM(cc_invoice_item.price*(1+(cc_invoice_item.vat/100)
 $HD_Form -> AddViewElement(gettext("REFERENCE"), "cc_invoice.reference", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATE"), "date", "15%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("TITLE"), "title", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", "", "list", $status_list);
+$HD_Form -> AddViewElement(gettext("STATUS"), "paid_status", "5%", "center", "sort", "", "list", $status_list);
 $HD_Form -> AddViewElement(gettext("AMOUNT INCL VAT"), "price", "10%", "center", "sort","", "", "", "", "", "", "display_2bill");
 $HD_Form -> FieldViewElement ("cc_invoice.reference, cc_invoice.date,title,cc_invoice.paid_status,$filter_amount_with_vat");
 
