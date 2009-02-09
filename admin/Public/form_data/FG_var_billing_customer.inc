@@ -14,7 +14,6 @@ $HD_Form -> FG_TABLE_ID = 'cc_billing_customer.id';
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_billing_customer.php?form_action=ask-add&section=2";
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Billing");
@@ -25,7 +24,7 @@ $status_list = Constants::getBillingInvoiceStatusList();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_billing_customer.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("BILLING DATE"), "cc_billing_customer.date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("INVOICE"), "id_invoice", "20%", "center", "sort", "", "lie_link", "cc_invoice", "id", "id='%id'", '<img src="'.Images_Path.'/link.png" border="0" title="'.gettext("Link to the invoice").' alt="'.gettext("Link to the invoice").'"' , "", "A2B_entity_invoice.php");
+$HD_Form -> AddViewElement(gettext("INVOICE"), "id_invoice", "20%", "center", "sort", "", "lie_link", "cc_invoice", "reference,id", "id='%id'", '<img src="'.Images_Path.'/link.png" border="0" title="'.gettext("Link to the invoice %1").'" alt="'.gettext("Link to the invoice %1").'" />' , "", "A2B_invoice_view.php");
 $HD_Form -> AddViewElement(gettext("INVOICE STATUS"), "cc_invoice.status", "10%", "center", "sort", "", "list", $status_list);
 $HD_Form -> FieldViewElement ('cc_billing_customer.id, username, cc_billing_customer.date ,id_invoice,cc_invoice.status');
 
@@ -56,7 +55,7 @@ $HD_Form -> AddEditElement (gettext("BILLING DATE"),
 			   "date",		
 			   '$value',	
 			   "INPUT",	
-			   "size=40 READONLY maxlength=40  $comp_date",	
+			   "size=40 maxlength=40  $comp_date",	
 			   "5",	
 			   gettext("Insert the current date (YYYY-MM-DD)"),
 			   "" , "", "",	"", "", "", "", "" );

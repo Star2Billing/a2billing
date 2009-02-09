@@ -1609,21 +1609,23 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$processed = $this->getProcessed();
 		//find the last billing 
 		$billing_table = new Table('cc_billing_customer','id,date');
-		$clause_last_billing = "id_card = ".$processed['id_card'];
+		$clause_last_billing = "id_card = ".$processed['id_card']." AND id != ".$this -> RESULT_QUERY;
 		$result = $billing_table -> Get_list($this->DBHandle, $clause_last_billing,"date","desc");
-		$call_table = new Table('cc_call','SUM(sessionbill)' );
+		$call_table = new Table('cc_call',' COALESCE(SUM(sessionbill),0)' );
 		$clause_call_billing ="";
 		$desc_billing="";
 		if(is_array($result) && !empty($result[0][0])){
-			$clause_call_billing .= "stoptime > '" .$result[0][0]."' AND "; 
-			$desc_billing = "Calls cost between the ".$result[0][0]." and ".$processed['date'] ;
+			$clause_call_billing .= "stoptime > '" .$result[0][1]."' AND "; 
+			$desc_billing = "Calls cost between the ".$result[0][1]." and ".$processed['date'] ;
 		}else{
-			$desc_billing = "Calls cost between before the ".$processed['date'] ;
+			$desc_billing = "Calls cost before the ".$processed['date'] ;
 		}
 		$clause_call_billing .= "stoptime < '".$processed['date']."' ";
-		$result =  $billing_table -> Get_list($this->DBHandle, $clause_call_billing);
-		if(is_array($result) && !empty($result[0][0])){
+		$result =  $call_table -> Get_list($this->DBHandle, $clause_call_billing);
+		if(empty($result[0][0])) echo "merde";
+		if(is_array($result) && is_numeric($result[0][0])){
 			$amount_calls = $result[0][0];
+			$amount_calls = ceil($amount_calls*100)/100;
 			/// create invoice
 			$year = date("Y");
 			$invoice_conf_table = new Table('cc_invoice_conf','value');
@@ -1643,19 +1645,18 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
 				$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
 			}
-			$field_insert = "date, id_card, title ,reference, description";
+			$field_insert = "date, id_card, title ,reference, description,status";
 			$date = date("Y-m-d h:i:s");
 			$card_id = $processed['id_card'];
 			$title = gettext("BILLING");
 			$description = gettext("Invoice for billing");
 			
 			$reference = $year.sprintf("%08d",$count);
-			$value_insert = " '$date' , '$card_id', '$title','$reference','$description' ";
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1 ";
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			//load vat of this card
 			if(!empty($id_invoice)&& is_numeric($id_invoice)){
-				$amount = $result[0][0];
 				$description = $desc_billing;
 				$card_table = new Table('cc_card','vat');
 				$card_clause = "id = ".$card_id;
@@ -1664,13 +1665,14 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				else $vat = $card_result[0][0];
 				$field_insert = "date, id_invoice ,price,vat, description";
 				$instance_table = new Table("cc_invoice_item", $field_insert);
-				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description' ";
+				$value_insert = " '$date' , '$id_invoice', '$amount_calls','$vat','$description' ";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
+			
+			$param_update_billing = "id_invoice = '".$id_invoice."'";
+			$clause_update_billing = " id= ".$this -> RESULT_QUERY;
+			$billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
 		}	
-			
-			
-			///
     }
 	
 	
