@@ -33,9 +33,9 @@ if (!isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeri
 
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
 
-getpost_ifset(array('amount','item_name','item_number','currency_code'));
-
-$HD_Form -> setDBHandler (DbConnect());
+getpost_ifset(array('item_id','item_type'));
+$DBHandle =DbConnect();
+$HD_Form -> setDBHandler ($DBHandle);
 $HD_Form -> init();
 
 
@@ -45,12 +45,24 @@ $smarty->display( 'main.tpl');
 
 $HD_Form -> create_toppage ($form_action);
 
-
+$static_amount = false;
+$amount=0;
+if($item_type = "invoice" && is_numeric($item_id)){
+	$table_invoice = new Table("cc_invoice","status,paid_status");
+	$clause_invoice = "id = ".$item_id;
+	$result= $table_invoice -> Get_list($DBHandle,$clause_invoice);
+	if(is_array($result) && $result[0]['status']==1 && $result[0]['paid_status']==0 ){
+		$table_invoice_item = new Table("cc_invoice_item","COALESCE(SUM(price),0)");
+		$clause_invoice_item = "id_invoice = ".$item_id;
+		$result= $table_invoice_item -> Get_list($DBHandle,$clause_invoice_item);
+		$amount = $result[0][0];
+		$static_amount = true;
+	}
+}
 
 
 
 $payment_modules = new payment;
-$order = new order($amount);
 
 ?>
 <script language="javascript">
@@ -110,9 +122,8 @@ $form_action_url = tep_href_link("checkout_confirmation.php", '', 'SSL');
 echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="checkamount()"');
 ?>
 
-    <input name="amount" type=hidden value="<?php echo $amount?>">
-    <input name="item_name" type=hidden value="<?php echo $item_name?>">
-    <input name="item_number" type=hidden value="<?php echo $item_number?>">
+    <input name="item_id" type=hidden value="<?php echo $item_id?>">
+    <input name="item_type" type=hidden value="<?php echo $item_type?>">
 
     <table width="80%" cellspacing="0" cellpadding="2" align=center>
     <?php
@@ -260,7 +271,18 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 			</tr>
 			<tr>
 			    <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
-			    <td align=left><select name="amount" class="form_input_select"  >
+			    <td align=left>
+				<?php
+				if($static_amount){
+					echo round($amount,2)." ".strtoupper(BASE_CURRENCY); 
+					if($two_currency){
+						echo " - ".round($amount/$mycur,2)." ".strtoupper($_SESSION['currency']);	
+					}	
+				?>
+				<input name="amount" type=hidden value="<?php echo $amount?>">
+				<?php     	
+      			}else{ ?>
+			    <select name="amount" class="form_input_select"  >
 				<?php
 				$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
 						if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
@@ -269,7 +291,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 				?>
 				<option value="<?php echo $value?>">
 					<?php
-				echo $value; 
+				echo round($value,2); 
 				if($two_currency){
 					echo " ".strtoupper(BASE_CURRENCY)." - ".round($value/$mycur,2)." ".strtoupper($_SESSION['currency']);	
 				}	
@@ -277,7 +299,11 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 				</option>
 			
 				<?php }?></select>
-				&nbsp;<?php if(!$two_currency) echo strtoupper(BASE_CURRENCY);?></td>
+				&nbsp;<?php if(!$two_currency) echo strtoupper(BASE_CURRENCY);
+      			}
+				?>
+				
+				</td>
 			</tr>
 			<tr>
 			    <td>&nbsp;</td>

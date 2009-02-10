@@ -34,6 +34,8 @@ if (!isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeri
 getpost_ifset(array('amount','payment','authorizenet_cc_expires_year','authorizenet_cc_owner','authorizenet_cc_expires_month','authorizenet_cc_number','authorizenet_cc_expires_year'));
 // PLUGNPAY
 getpost_ifset(array('credit_card_type', 'plugnpay_cc_owner', 'plugnpay_cc_number', 'plugnpay_cc_expires_month', 'plugnpay_cc_expires_year', 'cvv'));
+//invoice
+getpost_ifset(array('item_id','item_type'));
 
 
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
@@ -106,7 +108,7 @@ if (is_array($payment_modules->modules)) {
     <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
     <td align=left>
     <?php
-     echo $amount." ".strtoupper(BASE_CURRENCY);
+     echo round($amount,2)." ".strtoupper(BASE_CURRENCY);
      if($two_currency){
 					echo " - ".round($amount/$mycur,2)." ".strtoupper($_SESSION['currency']);	
 	 }	

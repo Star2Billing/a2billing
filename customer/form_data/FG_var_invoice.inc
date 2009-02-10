@@ -21,7 +21,7 @@ $HD_Form -> FG_INFO_LINK = "A2B_invoice_view.php?id=";
 $HD_Form -> FG_INFO_ALT = "VIEW";
 $HD_Form -> FG_INFO_IMG = "eye.png";
 
-$HD_Form -> FG_OTHER_BUTTON3_LINK = "checkout_payment.php?id=";
+$HD_Form -> FG_OTHER_BUTTON3_LINK = "checkout_payment.php?item_type=invoice&item_id=";
 $HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path."/money.png";
 $HD_Form -> FG_OTHER_BUTTON3 = true;
 $HD_Form -> FG_OTHER_BUTTON3_CONDITION = '|col3| == "UNPAID"';
