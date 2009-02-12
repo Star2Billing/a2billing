@@ -1624,7 +1624,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 		$clause_call_billing .= "stoptime < '".$processed['date']."' ";
 		$result =  $call_table -> Get_list($this->DBHandle, $clause_call_billing);
-		if(empty($result[0][0])) echo "merde";
 		if(is_array($result) && is_numeric($result[0][0])){
 			$amount_calls = $result[0][0];
 			$amount_calls = ceil($amount_calls*100)/100;
@@ -1647,23 +1646,29 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
 				$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
 			}
-			$field_insert = "date, id_card, title ,reference, description,status";
+			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
 			$date = date("Y-m-d h:i:s");
 			$card_id = $processed['id_card'];
 			$title = gettext("BILLING");
 			$description = gettext("Invoice for billing");
 			
 			$reference = $year.sprintf("%08d",$count);
-			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1 ";
+			//load vat of this card
+			$card_table = new Table('cc_card','vat,typepaid');
+			$card_clause = "id = ".$card_id;
+			$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
+			if(!is_array($card_result)||is_null($card_result[0]['typepaid'])||($card_result[0]['typepaid']!=1 && $card_result[0]['typepaid']!=0 )){
+				$paid_status =0;
+			}else{
+				if($card_result[0]['typepaid']==0) $paid_status =1;
+				else $paid_status = 0;
+			}
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,".$paid_status;
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
-			//load vat of this card
 			if(!empty($id_invoice)&& is_numeric($id_invoice)){
 				$description = $desc_billing;
-				$card_table = new Table('cc_card','vat');
-				$card_clause = "id = ".$card_id;
-				$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
-				if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
+				if(!is_array($card_result)||empty($card_result[0]['vat'])||!is_numeric($card_result[0]['vat'])) $vat=0;
 				else $vat = $card_result[0][0];
 				$field_insert = "date, id_invoice,price,vat,description,id_billing,billing_type";
 				$instance_table = new Table("cc_invoice_item", $field_insert);

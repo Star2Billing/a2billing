@@ -344,8 +344,11 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 
 if ($form_action =="ask-add" || $form_action=="add") {
 	$balance_access = "value = '0'";
+	$payment_status="";
+	
 } else {
 	$balance_access = 'readonly';
+	$payment_status= 'disabled="true" style="color: gray;" ';
 }
 
 $HD_Form -> AddEditElement (gettext("BALANCE"),
@@ -492,7 +495,7 @@ $HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
 			   "typepaid",
 			   "",
 			   "SELECT",
-			   "",
+			   "$payment_status",
 			   "",
 			   "",
 			   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
