@@ -90,12 +90,14 @@ else {$mycur = $currencies_list[strtoupper($curr)][2];$display_curr=strtoupper($
 
 function amount_convert($amount){
 	global $mycur;
-	return round($amount/$mycur,3);
+	return $amount/$mycur;
 }
 
 if(!$popup_select){
 ?>
 <a href="javascript:;" onClick="MM_openBrWindow('<?php echo $PHP_SELF ?>?popup_select=1&id=<?php echo $id ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"></a>
+&nbsp;&nbsp;
+<a href="javascript:;" onClick="MM_openBrWindow('A2B_invoice_detail.php?popup_select=1&id=<?php echo $id ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/info.png" title="Details" alt="Details" border="0"></a>
 &nbsp;&nbsp;
 <?php
 }
@@ -213,7 +215,7 @@ if(!$popup_select){
          <tbody><tr class="extotal">
            <td class="one"></td>
            <td class="two"><?php echo gettext("Subtotal excl. VAT:"); ?></td>
-           <td class="three"><?php echo number_format(round(amount_convert($price_without_vat),2),2)." $display_curr"; ?></td>
+           <td class="three"><?php echo number_format(ceil(amount_convert($price_without_vat)*100)/100,2)." $display_curr"; ?></td>
          </tr>
          	
          <?php foreach ($vat_array as $key => $val) { ?>
@@ -226,7 +228,7 @@ if(!$popup_select){
          <tr class="inctotal">
            <td class="one"></td>
            <td class="two"><?php echo gettext("Total incl. VAT:") ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(round(amount_convert($price_with_vat),2),2)." $display_curr"; ?></div></div></td>
+           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert($price_with_vat)*100)/100,2)." $display_curr"; ?></div></div></td>
          </tr>
         </tbody></table>
       </td>

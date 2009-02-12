@@ -22,7 +22,6 @@ Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
 
 $invoice = new invoice($id);
 $items = $invoice->loadItems();
-
 //load customer
 $DBHandle  = DbConnect();
 $card_table = new Table('cc_card','*');
@@ -85,7 +84,7 @@ else {$mycur = $currencies_list[strtoupper($curr)][2];$display_curr=strtoupper($
 
 function amount_convert($amount){
 	global $mycur;
-	return round($amount/$mycur,3);
+	return $amount/$mycur;
 }
 
 if(!$popup_select){
@@ -229,7 +228,7 @@ function openURL(theLINK)
          <tbody><tr class="extotal">
            <td class="one"></td>
            <td class="two"><?php echo gettext("Subtotal excl. VAT:"); ?></td>
-           <td class="three"><?php echo number_format(round(amount_convert($price_without_vat),2),2)." $display_curr"; ?></td>
+           <td class="three"><?php echo number_format(ceil(amount_convert($price_without_vat)*100)/100,2)." $display_curr"; ?></td>
          </tr>
          	
          <?php foreach ($vat_array as $key => $val) { ?>
@@ -242,7 +241,7 @@ function openURL(theLINK)
          <tr class="inctotal">
            <td class="one"></td>
            <td class="two"><?php echo gettext("Total incl. VAT:") ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(round(amount_convert($price_with_vat),2),2)." $display_curr"; ?></div></div></td>
+           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert($price_with_vat)*100)/100,2)." $display_curr"; ?></div></div></td>
          </tr>
         </tbody></table>
       </td>

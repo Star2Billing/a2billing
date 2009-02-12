@@ -1612,11 +1612,13 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$clause_last_billing = "id_card = ".$processed['id_card']." AND id != ".$this -> RESULT_QUERY;
 		$result = $billing_table -> Get_list($this->DBHandle, $clause_last_billing,"date","desc");
 		$call_table = new Table('cc_call',' COALESCE(SUM(sessionbill),0)' );
-		$clause_call_billing ="";
+		$clause_call_billing ="card_id = ".$processed['id_card']." AND ";
 		$desc_billing="";
+		$start_date =null;
 		if(is_array($result) && !empty($result[0][0])){
-			$clause_call_billing .= "stoptime > '" .$result[0][1]."' AND "; 
+			$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND "; 
 			$desc_billing = "Calls cost between the ".$result[0][1]." and ".$processed['date'] ;
+			$start_date = $result[0][1];
 		}else{
 			$desc_billing = "Calls cost before the ".$processed['date'] ;
 		}
@@ -1663,15 +1665,21 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
 				if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
 				else $vat = $card_result[0][0];
-				$field_insert = "date, id_invoice ,price,vat, description";
+				$field_insert = "date, id_invoice,price,vat,description,id_billing,billing_type";
 				$instance_table = new Table("cc_invoice_item", $field_insert);
-				$value_insert = " '$date' , '$id_invoice', '$amount_calls','$vat','$description' ";
+				$value_insert = " '$date' , '$id_invoice', '$amount_calls','$vat','$description','".$this -> RESULT_QUERY."','CALLS'";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 			
 			$param_update_billing = "id_invoice = '".$id_invoice."'";
 			$clause_update_billing = " id= ".$this -> RESULT_QUERY;
 			$billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
+			if(!empty($start_date)){
+				$param_update_billing = "start_date = '".$start_date."'";
+				$clause_update_billing = " id= ".$this -> RESULT_QUERY;
+				$billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
+			
+			}
 		}	
     }
 	

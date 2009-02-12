@@ -1524,3 +1524,8 @@ ALTER TABLE cc_payment_methods DROP active;
 
 
 ALTER TABLE cc_epayment_log ADD transaction_detail LONGTEXT NULL;
+
+ALTER TABLE cc_invoice_item ADD id_billing BIGINT NULL ,
+ADD billing_type VARCHAR( 10 ) NULL ;
+
+

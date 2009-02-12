@@ -8,7 +8,7 @@ class Invoice
 	private $date;
 	private $status;
 	private $paid_status;
-	private $id_card;
+	private $card;
 	private $username;
 	private $reference;
 
@@ -122,6 +122,51 @@ class Invoice
 	}else return null;
 
    }
+   
+function loadDetailledItems(){
+	if(!is_null($this->id)){
+	 $result= array();
+	 $DBHandle  = DbConnect();
+   	 $instance_sub_table = new Table("cc_invoice_item", "*");
+	 $QUERY = " id_invoice = ".$this->id;
+	 $return = null;
+     $return = $instance_sub_table -> Get_list($DBHandle, $QUERY,"date","ASC");
+     $i = 0;
+ 	foreach ($return as $value)
+      { 
+      	if($value['id_billing'] && $value['billing_type']=="CALLS" ){
+      	
+      		$billing_table = new Table("cc_billing_customer", "date,start_date");
+      		$billing_clause = "id = ".$value['id_billing'] ;
+      		$result_billing= $billing_table -> Get_list($DBHandle,$billing_clause);
+      		if(is_array($result_billing) && !empty($result_billing[0]['date'])){
+	      		$call_table = new Table("cc_call", "*");
+	      		$call_clause = " card_id = ".$this->card." AND stoptime< '".$result_billing[0]['date']."'" ;
+		      	if(!empty($result_billing[0]['start_date'])){
+					$call_clause .= " AND stoptime >= '" .$result_billing[0]['start_date']."'"; 
+				}
+				$return_calls= $call_table ->Get_list ($DBHandle,$call_clause);
+				foreach ($return_calls as $call){
+					$min = floor($call['sessiontime']/60);
+					$sec= $call['sessiontime']%60;
+					$item = new InvoiceItem(null,"CALL : ".$call['calledstation']." DURATION : ".$min." min ".$sec." sec",$call['starttime'],$call["sessionbill"],$value["VAT"],true);
+					$result[$i]= $item;
+	    			$i++;
+				}
+      		}
+      	}else{
+	      	$item = new InvoiceItem($value['id'],$value['description'],$value['date'],$value["price"],$value["VAT"]);
+	    	$result[$i]= $item;
+	    	$i++;
+      	}
+      }
+      //sort r�sult by date
+     return $result;
+
+	}else return null;
+
+   }
+   
    
    function loadPayments(){
    	if(!is_null($this->id)){

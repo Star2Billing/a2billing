@@ -5,20 +5,27 @@ class InvoiceItem
    private $date;
    private $price;
    private $VAT;
+   private $precision=false;
    
    
-   function __construct($id,$desc,$date,$price,$VAT){
+   function __construct($id,$desc,$date,$price,$VAT,$precision=false){
    	$this->id = $id;
    	$this->description = $desc;
    	$this->date = $date;
 	$this->price =  $price;
 	$this->VAT =  $VAT;
+	$this->precision =  $precision;
 
    }
 
-  function getId(){
+  	function getId(){
 
    	 return $this->id;
+   }
+   
+	function getPrecision(){
+
+   	 return $this->precision;
    }
    
 	function getPrice(){
