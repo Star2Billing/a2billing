@@ -1,11 +1,5 @@
 <?php
 
-define(DIDX_ID, "708XXX");
-define(DIDX_PASS, "XXXXXXXXXX");
-define(DIDX_SITE, "didx.net");
-define(RING_TO, "your.domain.com");
-define(MIN_RATING, 0);
-
 class didx {
 	function setupcost($cost) {
 		if($cost !== "N/A")
@@ -29,7 +23,7 @@ class didx {
 		return $mins/*+ add your profit here*/;
 	}
 
-	function getAvailableDIDS($country, $area, $vendor=-1, $VRatingFrom=MIN_RATING, $VRatingTo=10, $CountryID=-1) {
+	function getAvailableDIDS($country, $area, $vendor=-1, $VRatingFrom=DIDX_MIN_RATING, $VRatingTo=10, $CountryID=-1) {
 		$ret = true;
 		$client = new SoapClient(null, array('location' => "https://".DIDX_SITE."/cgi-bin/WebGetListServer.cgi",
 						     'connection_timeout' => 5,
@@ -51,7 +45,7 @@ class didx {
 		return $ret;
 	}
 
-	function getAvailableRatedDIDSbyCountryCode ($country, $VRatingFrom=MIN_RATING,$VRatingTo=10, $limit=-1, $vendors=-1, $ratefrom=-1, $rateto=-1, $CountryID=-1) {
+	function getAvailableRatedDIDSbyCountryCode ($country, $VRatingFrom=DIDX_MIN_RATING,$VRatingTo=10, $limit=-1, $vendors=-1, $ratefrom=-1, $rateto=-1, $CountryID=-1) {
 		$ret = true;
 		$client = new SoapClient(null, array('location' => "https://".DIDX_SITE."/cgi-bin/WebGetAllRatedDIDS.cgi",
 						'trace'=>1,
@@ -74,7 +68,7 @@ class didx {
 		return $ret;
 	}
 
-	function getDIDCountry($VRatingFrom=MIN_RATING,$VRatingTo=10) {
+	function getDIDCountry($VRatingFrom=DIDX_MIN_RATING,$VRatingTo=10) {
 		$ret = true;
 		// echo '----------'." $VRatingFrom - $VRatingTo:: https://".DIDX_SITE."/cgi-bin/WebGetDIDCountriesServer.cgi";
 		if(isset($_SESSION["country-$VRatingFrom"]))
@@ -94,7 +88,7 @@ class didx {
 		return $ret;
 	}
 	
-	function getDIDArea($CountryCode, $VRatingFrom=MIN_RATING,$VRatingTo=10, $vendors="", $ratefrom=-1, $rateto=-1, $CountryID=-1) {
+	function getDIDArea($CountryCode, $VRatingFrom=DIDX_MIN_RATING,$VRatingTo=10, $vendors="", $ratefrom=-1, $rateto=-1, $CountryID=-1) {
 		$ret = true;
 		if(isset($_SESSION["country-$CountryCode-$CountryID-$VRatingFrom"]))
 			return $_SESSION["country-$CountryCode-$CountryID-$VRatingFrom"];
@@ -182,7 +176,7 @@ class didx {
 		return $ret;
 	}
 
-	function getAvailableRatedNXX($CountryCode, $NPA, $VRatingFrom=MIN_RATING,$VRatingTo=10, $Vendor=-1) {
+	function getAvailableRatedNXX($CountryCode, $NPA, $VRatingFrom=DIDX_MIN_RATING,$VRatingTo=10, $Vendor=-1) {
 		if(isset($_SESSION["country-$CountryCode-$NPA-$VRatingFrom"]))
 			return $_SESSION["country-$CountryCode-$NPA-$VRatingFrom"];
 		$client = new SoapClient(null, array('location' => "https://".DIDX_SITE."/cgi-bin/WebGetListServer.cgi",
