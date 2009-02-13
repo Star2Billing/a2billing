@@ -1524,7 +1524,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$this -> create_sipiax_friends();
 		
 		// RELOAD SIP & IAX CONF
-		include_once ("../lib/phpagi/phpagi-asmanager.php");
+		require_once (dirname(__FILE__)."/../phpagi/phpagi-asmanager.php");
 		
 		$as = new AGI_AsteriskManager();
 		// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
