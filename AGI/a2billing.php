@@ -757,7 +757,7 @@ if ($mode == 'standard'){
 	/* WE START ;) */
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[TRY : callingcard_ivr_authenticate]");
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
-	if ($cia_res==0){
+	if ($cia_res==0) {
 
 		$charge_callback = 1; // EVEN FOR  ALL CALLBACK
 		$callback_leg = $A2B -> username;
@@ -765,17 +765,13 @@ if ($mode == 'standard'){
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[Start]");
 		$A2B -> callingcard_auto_setcallerid($agi);
 
-		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
+		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++) {
 
 			$RateEngine->Reinit();
 			$A2B-> Reinit();
-
-			// DIVIDE THE AMOUNT OF CREDIT BY 2 IN ORDER TO AVOID NEGATIVE BALANCE IF THE USER USE ALL HIS CREDIT
-			$orig_credit = $A2B -> credit;
-			$A2B -> credit = $A2B->credit / 2;
-
+			
 			$stat_channel = $agi->channel_status($A2B-> channel);
-			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[status_channel=$status_channel]:[ORIG_CREDIT : ".$orig_credit." - CUR_CREDIT - : ".$A2B -> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[status_channel=$status_channel]:[ORIG_CREDIT : ".$A2B -> credit." - CUR_CREDIT - : ".$A2B -> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 
 			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){
 			if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
@@ -801,7 +797,7 @@ if ($mode == 'standard'){
 				// INSERT CDR  & UPDATE SYSTEM
 				$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination);
 
-				if ($A2B->agiconfig['say_balance_after_call']==1){
+				if ($A2B->agiconfig['say_balance_after_call']==1) {
 					$A2B-> fct_say_balance ($agi, $A2B->credit);
 				}
 
@@ -809,40 +805,26 @@ if ($mode == 'standard'){
 				if ($RateEngine->dialstatus == "ANSWER") {
 					$callback_been_connected = 1;
 				}
-
-				/*
-				$arr_save_a2billing['myprefix']		= $A2B-> myprefix;
-				$arr_save_a2billing['ipaddress']	= $A2B-> ipaddress;
-				$arr_save_a2billing['rate']			= $A2B-> rate;
-				$arr_save_a2billing['destination']	= $A2B-> destination;
-				$arr_save_a2billing['sip_iax_buddy']= $A2B-> sip_iax_buddy;
-
-				$arr_save_rateengine['number_trunk']= $RateEngine-> number_trunk;
-				$arr_save_rateengine['answeredtime']= $RateEngine-> answeredtime;
-				$arr_save_rateengine['dialstatus']	= $RateEngine-> dialstatus;
-				$arr_save_rateengine['usedratecard']= $RateEngine-> usedratecard;
-				$arr_save_rateengine['lastcost']	= $RateEngine-> lastcost;
-				$arr_save_rateengine['usedtrunk']	= $RateEngine-> usedtrunk;*/
-
+				
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[a2billing end loop num_try] RateEngine->usedratecard=".$RateEngine->usedratecard);
 			}
 		}//END FOR
 
-		if ($A2B->set_inuse==1){
+		if ($A2B->set_inuse==1) {
 			$A2B->callingcard_acct_start_inuse($agi,0);
 		}
 
-	}else{
+	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 	}
 
 }
 
 // CHECK IF WE HAVE TO CHARGE CALLBACK
-if ($charge_callback){
+if ($charge_callback) {
 
 	// IF THE CALL HAS NOT BEEN CONNECTED CHECK IF WE CHARGE OR NOT
-	if ( ($callback_been_connected==1) || ($callback_been_connected != 1) && ($A2B->agiconfig['callback_bill_1stleg_ifcall_notconnected']==1) ){
+	if ( ($callback_been_connected==1) || ($callback_been_connected != 1) && ($A2B->agiconfig['callback_bill_1stleg_ifcall_notconnected']==1) ) {
 
 		$callback_username = $callback_leg;
 		$A2B -> accountcode = $callback_username;
@@ -851,23 +833,24 @@ if ($charge_callback){
 		$A2B -> agiconfig['say_timetocall'] = 0;
 
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[INFO FOR THE 1ST LEG - callback_username=$callback_username");
-
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[TRY : callingcard_ivr_authenticate]");
 		$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
-		if ($cia_res==0){
+		
+		if ($cia_res==0) {
 
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[MAKE BILLING FOR THE 1ST LEG - TARIFF:".$A2B -> tariff.";CALLED=$called_party]");
-			$A2B->agiconfig['use_dnid'] =1;
+			$A2B->agiconfig['use_dnid'] = 1;
 			$A2B ->dnid = $A2B ->destination = $called_party;
-
+			
 			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called_party, $A2B -> tariff);
-
+			
 			$RateEngine-> usedratecard = 0;
+			
 			// IF FIND RATE
-			if ($resfindrate!=0 && is_numeric($RateEngine->usedratecard)){
+			if ($resfindrate!=0 && is_numeric($RateEngine->usedratecard)) {
 				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 
-				if ($res_all_calcultimeout){
+				if ($res_all_calcultimeout) {
 					// SET CORRECTLY THE CALLTIME FOR THE 1st LEG
 					$RateEngine -> answeredtime  = time() - $G_startime;
 					$RateEngine -> dialstatus = 'ANSWERED';
@@ -875,13 +858,13 @@ if ($charge_callback){
 
 					// INSERT CDR  & UPDATE SYSTEM
 					$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 1, 0, 1);
-				}else{
+				} else {
 					$A2B -> debug( ERROR, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[ERROR - BILLING FOR THE 1ST LEG - rate_engine_all_calcultimeout: CALLED=$called_party]");
 				}
-			}else{
+			} else {
 				$A2B -> debug( ERROR, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[ERROR - BILLING FOR THE 1ST LEG - rate_engine_findrates: CALLED=$called_party - RateEngine->usedratecard=".$RateEngine->usedratecard."]");
 			}
-		}else{
+		} else {
 			$A2B -> debug( ERROR, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[ERROR - AUTHENTICATION USERNAME]");
 		}
 	}
