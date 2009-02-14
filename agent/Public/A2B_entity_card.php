@@ -43,8 +43,7 @@ if ($form_action != "list" && isset($id)) {
 		$clause_agent_security = "cc_card.id= ".$id;
 		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
 		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
-			Header ("HTTP/1.0 401 Unauthorized");
-			Header ("Location: PP_error.php?c=accessdenied");	   
+			Header ("Location: A2B_entity_card.php?section=1");
 			die();	   
 		}
 	}

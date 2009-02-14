@@ -93,25 +93,7 @@ if ($form_action=="ask-edit") {
 }
 
 
-$template_invoice_list = array();
-$no = 0;
-$dir = opendir ('./templates/default/'.$A2B->config['global']['invoice_template_path']);
-while (false !== ($file = readdir($dir))) {
-	if (strpos($file, '.tpl',1)) {
-		$template_invoice_list[''.$no++] = array(substr($file, 0, -4), $file);
-	}
-}
-closedir($dir);
 
-$template_outstanding_list = array();
-$no = 0;
-$dir = opendir ('./templates/default/'.$A2B->config['global']['outstanding_template_path']);
-while (false !== ($file = readdir($dir))) {
-	if (strpos($file, '.tpl',1)) {
-		$template_outstanding_list[''.$no++] = array(substr($file, 0, -4), $file);
-	}
-}
-closedir($dir);
 
 $inuse_list = array();
 for ($k=0;$k<=40;$k++)

@@ -21,7 +21,7 @@ $HD_Form -> FG_FILTER_APPLY = false;
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = false;
 $HD_Form ->FG_LIST_ADDING_BUTTON2 = false;
 
-getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax','cardnumberlenght_list','tag','id_group','discount'));
+getpost_ifset(array('choose_list', 'creditlimit', 'cardnum','choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax','cardnumberlenght_list','tag','id_group','discount'));
 
 
 /***********************************************************************************/
@@ -117,7 +117,7 @@ if ($nbcard>0) {
 		 $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
 		 $cardnum = $arr_card_alias[0];
 		 $useralias = $arr_card_alias[1];
-		if (!is_numeric($addcredit)) $addcredit=0;
+		 $addcredit=0;
 		$passui_secret = MDP_NUMERIC(10);
 		$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice','$tag','$id_group','$discount' ";
 		
@@ -321,7 +321,7 @@ $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 	<br/>
 	
 	<strong>4)</strong> 
-	<?php echo gettext("Initial amount of credit");?> : 	<input class="form_input_text" name="addcredit" size="10" maxlength="10" >
+	<?php echo gettext("Initial amount of credit");?> : 0 	
 	<?php echo strtoupper(BASE_CURRENCY) ?>
 	<br/>
 	

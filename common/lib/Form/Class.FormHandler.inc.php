@@ -1061,7 +1061,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$processed = $this->getProcessed();  //$processed['firstname']
 
 		if ($form_action == "ask-delete" && in_array($processed['id'],$this->FG_DELETION_FORBIDDEN_ID) ){
-			
 			if(!empty($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
 				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
 			}else{
@@ -1579,6 +1578,18 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 	}
 	
+	function deletion_card_refill_agent(){
+		$processed = $this->getProcessed();
+		$credit = $processed['credit'];
+		echo $credit;
+		if($credit>0){
+			$instance_table_agent = new Table("cc_agent");
+			$param_update_agent = "credit = credit + '".$credit."'";
+			$clause_update_agent = " id='".$_SESSION['agent_id']."'";
+			$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
+		}
+	}
+	
 	function creation_agent_refill(){
 		$processed = $this->getProcessed();
 		$credit = $processed['credit'];
@@ -1596,6 +1607,13 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$this->create_sipiax_friends();
 		$this->creation_card_refill();
 		
+	}
+	function processing_card_del_agent(){
+		$this->deletion_card_refill_agent();
+		
+	}
+	function processing_card_add_agent(){
+		$this->create_sipiax_friends();
 	}
 	function processing_refill_add(){
 		$this->add_card_refill();
@@ -2135,7 +2153,13 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		if (isset($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
 			if ($this->FG_DEBUG == 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id'];
-			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
+			if( $this->FG_GO_LINK_AFTER_ACTION_DELETE){
+				if(substr($this->FG_GO_LINK_AFTER_ACTION_DELETE,-3)=="id="){
+					Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
+				}else{
+					Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE);
+				}
+			}
 		}
 		
 	}

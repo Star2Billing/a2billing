@@ -90,7 +90,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 
 
 
-		if (!is_array($return) || $return[1]==0 ) {
+		if (!is_array($return) ) {
 			header ("HTTP/1.0 401 Unauthorized");
 			Header ("Location: index.php?error=1");
 			die();

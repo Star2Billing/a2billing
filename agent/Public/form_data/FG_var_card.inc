@@ -102,25 +102,6 @@ if ($form_action=="ask-edit") {
 }
 
 
-$template_invoice_list = array();
-$no = 0;
-$dir = opendir ('./templates/default/'.$A2B->config['global']['invoice_template_path']);
-while (false !== ($file = readdir($dir))) {
-	if (strpos($file, '.tpl',1)) {
-		$template_invoice_list[''.$no++] = array(substr($file, 0, -4), $file);
-	}
-}
-closedir($dir);
-
-$template_outstanding_list = array();
-$no = 0;
-$dir = opendir ('./templates/default/'.$A2B->config['global']['outstanding_template_path']);
-while (false !== ($file = readdir($dir))) {
-	if (strpos($file, '.tpl',1)) {
-		$template_outstanding_list[''.$no++] = array(substr($file, 0, -4), $file);
-	}
-}
-closedir($dir);
 
 $inuse_list = array();
 for ($k=0;$k<=40;$k++)
@@ -360,13 +341,9 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 			   gettext("Insert the password"),
 			   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
 
-if ($form_action =="ask-add" || $form_action=="add") {
-	$balance_access = "value='0'";
-} else {
-	$balance_access = 'readonly';
-}
-
-$HD_Form -> AddEditElement (gettext("BALANCE"),
+$balance_delete="";			   
+if (isset($form_action) && $form_action=="ask-delete") {
+	$HD_Form -> AddEditElement (gettext("BALANCE"),
 			   "credit",
 			   "",
 			   "INPUT",
@@ -374,7 +351,9 @@ $HD_Form -> AddEditElement (gettext("BALANCE"),
 			   "12",
 			   gettext("Insert the number of credit"),
 			   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-
+	$balance_delete = ",credit";
+	
+}
 			   
 $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "id_group",
@@ -921,7 +900,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit,id_group, lastname, firstname, email, address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
+$HD_Form -> FieldEditElement ('username, useralias, uipass'.$balance_delete.',id_group, lastname, firstname, email, address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
 		'  typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
 		' voicemail_permitted, voicemail_activated, firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
@@ -956,8 +935,9 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 
-$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'post_processing_card_add';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'processing_card_add_agent';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE = 'processing_card_del_agent';
 
 if (isset($form_action) && $form_action=='delete' && USE_REALTIME){
 	$_SESSION["is_sip_iax_change"]	= 1;
