@@ -330,6 +330,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 
 
+
 CREATE TABLE cc_timezone (
     id 								INT NOT NULL AUTO_INCREMENT,
     gmtzone							VARCHAR(255),
@@ -1205,8 +1206,10 @@ ALTER TABLE cc_campaign ADD id_campaign_config INT NOT NULL ;
 
 ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
 
+
+-- New config parameter to display card list : card_show_field_list
 ALTER TABLE cc_config MODIFY config_value VARCHAR( 300 );
-INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname,id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused,firstname, email, discount, callerid',0,8);
+INSERT INTO  cc_config (config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values ('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname, id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused, firstname, email, discount, callerid',0,8);
 
 
 -- ------------------------------------------------------

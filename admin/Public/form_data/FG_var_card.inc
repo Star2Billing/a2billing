@@ -108,7 +108,8 @@ for ($k=0;$k<=28;$k++)
 $show_list=array();
 $show_list_sizes=array();
 $show_list_temp=array();
-$show_list_temp=split(',',$A2B->config["webui"]['card_show_field_list']);
+echo $A2B->config["webui"]['card_show_field_list'];
+$show_list_temp=split(',', $A2B->config["webui"]['card_show_field_list']);
 foreach ($show_list_temp as $i => $value) {
 	$a=strtolower(trim($value));
 	$pos = strpos($a, ':');
@@ -163,33 +164,33 @@ if (!($popup_select>=1)){
                 $show_list[$value]=$value;
 	}
 	
-#	$FG_COL_QUERY='DISTINCT id, username, lastname, id_group,  credit';
 	$FG_COL_QUERY='DISTINCT ';
 }
 $FG_COL_QUERY_FIELD='';
 foreach ($show_list as $i => $value) {
-	if (array_key_exists($i,$show_fields)){
-		$param=$show_fields[$i];
-		$param=$param+array("","","","","","");#expand array to max length
-		$size="*";
-		if (array_key_exists($i,$show_list_sizes)){
-		 if ((strlen(trim($show_list_sizes[$i])==0))&&(strlen(trim($param[2])>0))){
-			$size=$param[2];
-		 }else{
-			$size=$show_list_sizes[$i];
-		 }
+	if (array_key_exists($i,$show_fields)) {
+		$param = $show_fields[$i];
+		$param = $param+array("","","","","","");#expand array to max length
+		$size = "*";
+		if (array_key_exists($i,$show_list_sizes)) {
+			if ((strlen(trim($show_list_sizes[$i])==0))&&(strlen(trim($param[2])>0))){
+				$size=$param[2];
+			}else{
+				$size=$show_list_sizes[$i];
+			}
 		}
 		$HD_Form -> AddViewElement($param[0],$param[1],$size,$param[3],$param[4],$param[5],$param[6],$param[7],$param[8],
 						$param[9],$param[10],$param[11],$param[12]);
-		if ($value=='callerid'){
-		 $FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', 
-		(select GROUP_CONCAT(cid SEPARATOR \'<br>\') from cc_callerid where id_cc_card=cc_card.id) as callerid';
-		}else{
+		if ($value=='callerid') {
+			$FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', (select GROUP_CONCAT(cid SEPARATOR \'<br>\') from cc_callerid where id_cc_card=cc_card.id) as callerid';
+		} else {
 			$FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', '.$value;
 		}
-		}
+	}
 }
-if (strlen($FG_COL_QUERY_FIELD)>2){ $FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);}
+if (strlen($FG_COL_QUERY_FIELD)>2){ 
+	$FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);
+}
 $FG_COL_QUERY_COUNT=count(split(',',$FG_COL_QUERY_FIELD));
 $FG_COL_QUERY_FIELD=$FG_COL_QUERY_FIELD.', id as id_,username as username_,useralias as alias_ ';
 $HD_Form -> FieldViewElement ($FG_COL_QUERY.' '.$FG_COL_QUERY_FIELD);
