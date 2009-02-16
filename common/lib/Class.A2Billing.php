@@ -575,6 +575,7 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
 		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['failover_lc_prefix'])) $this->config["agi-conf$idconfig"]['failover_lc_prefix'] = 0;
+		if(!isset($this->config["agi-conf$idconfig"]['cheat_on_announcement_time'])) $this->config["agi-conf$idconfig"]['cheat_on_announcement_time'] = 0;
 
 		// Define the agiconfig property
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
@@ -970,7 +971,7 @@ class A2Billing {
 		}
 
 		$announce_time_correction = $RateEngine->ratecard_obj[0][61];
-		$timeout=$timeout*$announce_time_correction;
+		$timeout = $timeout * $announce_time_correction;
 
 		// set destination and timeout
 		// say 'you have x minutes and x seconds'

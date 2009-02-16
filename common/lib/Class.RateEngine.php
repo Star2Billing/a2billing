@@ -955,6 +955,8 @@ class RateEngine
 		//$freetimetocall = $this -> ratecard_obj[$K][46];
 		$id_cc_package_group= $this -> ratecard_obj[$K][45];
 		$additional_grace_time= $this->ratecard_obj[$K][58];
+		$id_card_package_offer = null;
+		
 		if ($A2B -> CC_TESTING){
 			$sessiontime = 120;
 			$dialstatus = 'ANSWERED';
@@ -969,9 +971,8 @@ class RateEngine
 			if ($this -> debug_st) print_r($this -> freetimetocall_left[$K]);
 
 			if (($id_cc_package_group!=-1) && ($this ->package_to_apply[$K] !=null )){
-			$id_package_offer =$this ->package_to_apply[$K]["id"];
+				$id_package_offer =$this ->package_to_apply[$K]["id"];
 	
-				//$id_card_package_offer = $this ->package_to_apply[$K]["id"];
                 switch ($this ->package_to_apply[$K]["type"]) {
                 	//Unlimited
                 	case 0 : $this->freetimetocall_used = $sessiontime;break;
@@ -998,6 +999,7 @@ class RateEngine
 				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_package_offer', '$this->freetimetocall_used'";
 				$id_card_package_offer = $A2B -> instance_table -> Add_table ($A2B -> DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card_package_offer', 'id');
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
+				
 			} else {
 				
 				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
@@ -1132,7 +1134,7 @@ class RateEngine
 		}
 
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[TRUNK STATUS UPDATE : $QUERY]");
-		if (!$this -> CC_TESTING) $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
+		if (!$A2B -> CC_TESTING) $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
 
 		return 0;
 	}
