@@ -4,7 +4,7 @@ include ("lib/customer.module.access.php");
 include ("lib/Class.RateEngine.php");	
 include ("lib/customer.smarty.php");
 
-if (! has_rights (ACX_SIMULATOR)){ 
+if (! has_rights (ACX_SIMULATOR)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
@@ -33,7 +33,7 @@ $tariffplan = $customer_info[16];
 $balance = $customer_info[1];
 
 $FG_DEBUG = 0;
-$DBHandle  = DbConnect();
+$DBHandle = DbConnect();
 
 if ($called  && $id_cc_card) {
 		
@@ -45,36 +45,29 @@ if ($called  && $id_cc_card) {
 				$instance_table = new Table();
 				$A2B -> set_instance_table ($instance_table);
 				$num = 0;				
-				$resmax = $A2B -> DBHandle -> Execute("SELECT username, tariff FROM cc_card where id='$customer_info[15]'");
-				if ($resmax) 
-					$num = $resmax -> RecordCount();
-
-				if ($num==0){ echo gettext("Error card !!!"); exit();}
-
-				for($i=0;$i<$num;$i++)
-					{
-						$row[] =$resmax -> fetchRow();
-					}
-
-				$A2B -> cardnumber = $row[0][0] ;
+				
+				$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, "SELECT username, tariff FROM cc_card where id='$customer_info[15]'");
+				if (!is_array($result) || count($result)==0){
+					echo gettext("Error card !!!"); exit();
+				}
+				
+				$A2B -> cardnumber = $result[0][0] ;
 				$A2B -> credit = $balance;
-				if ($FG_DEBUG == 1) echo "cardnumber = ".$row[0][0] ." - balance=$balance<br>";
+				if ($FG_DEBUG == 1) echo "cardnumber = ".$result[0][0] ." - balance=$balance<br>";
 
 				if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
 					if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
 
 					$RateEngine = new RateEngine();
 					$RateEngine -> webui = 1;
-					// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-
-
+					
 					$A2B ->agiconfig['accountcode'] = $A2B -> cardnumber ;
 					$A2B ->agiconfig['use_dnid']=1;
 					$A2B ->agiconfig['say_timetocall']=0;
 					$A2B ->dnid = $A2B ->destination = $calling;
 					if ($A2B->removeinterprefix) $A2B->destination = $A2B -> apply_rules ($A2B->destination);
 
-					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $row[0][1]);
+					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $result[0][1]);
 					if ($FG_DEBUG == 1) echo "resfindrate=$resfindrate";
 					
 					// IF FIND RATE
@@ -92,15 +85,12 @@ if ($called  && $id_cc_card) {
 /**************************************************************/
 
 $instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
-
 $FG_TABLE_CLAUSE = "";
-
 $list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
-
 $nb_tariffname = count($list_tariffname);
-/*************************************************************/
-?>
-<?php
+
+
+
 $smarty->display( 'main.tpl');
 // #### HELP SECTION
 echo $CC_help_simulator_rateengine;
@@ -115,68 +105,56 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 function openURL(theLINK)
 {
-	
 	// grab index number of the selected option
 	selInd = document.theForm.choose_list.selectedIndex;
 	if(selInd==''){alert('Please, select a tariff'); return false;}
 	// get value of the selected option
-	goURL = document.theForm.choose_list.options[selInd].value;
-	  
+	goURL = document.theForm.choose_list.options[selInd].value;	  
 	definecredit = document.theForm.definecredit.value;
 	// redirect browser to the grabbed value (hopefully a URL)	  
 	self.location.href = theLINK + goURL + "&definecredit="+definecredit ; //+ "&opt="+opt;
 }
 //-->
 </script>
-<center>
-	<?php echo $error_msg; ?>
-</center>
+<center><?php echo $error_msg; ?></center>
 
-<br>
-
-	  <br>
-	  <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
-		
-		<TR> 
-          <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("Call")." - ".gettext("Simulator");?></B></TD>
-        </TR>
-		<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
-		<tr>			
-            <td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
-					<br>
-					<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call");?>&nbsp;:</font>
-					<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
-					<br>
-					<?php if (false){ ?>
-					<br>
-					<font color="white"><b><?php echo gettext("YOUR BALANCE");?>&nbsp;:</b></font>
-					<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>" class="form_input_text">
-					<?php } ?>
-
-					<br>
-					<br>
-
-			</td>
-			<td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
-				<span class="bar-search">
-				<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main ?>/button-search.gif" />
-				</span></td>
-        </tr>
-
-		</FORM>
-		<TR>
-          <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
-        </TR>
-	  </table>
+<br><br>
+<table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
+	<TR> 
+	  <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("Call")." - ".gettext("Simulator");?></B></TD>
+	</TR>
+	<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
+	<tr>			
+	    <td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
+				<br>
+				<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call");?>&nbsp;:</font>
+				<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
+				<br>
+				<?php if (false){ ?>
+				<br>
+				<font color="white"><b><?php echo gettext("YOUR BALANCE");?>&nbsp;:</b></font>
+				<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>" class="form_input_text">
+				<?php } ?>
+				<br><br>
+	
+		</td>
+		<td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
+			<span class="bar-search">
+			<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main ?>/button-search.gif" />
+			</span></td>
+	</tr>
+	</FORM>
+	<TR>
+	  <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
+	</TR>
+</table>
 
 
 <?php if ( (is_array($RateEngine->ratecard_obj)) && (!empty($RateEngine->ratecard_obj)) ){
 
 if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
 
-
-
-$arr_ratecard=array('idtariffgroup', 'cc_tariffgroup_plan.idtariffplan', 'tariffname', 'Destination Number', 'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock', 'buyrateincrement', 'Cost per minute', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge', 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb', 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'tp_id_trunk', 'tp_trunk', 'providertech', 'tp_providerip', 'tp_removeprefix');
+$arr_ratecard = array('idtariffgroup', 'cc_tariffgroup_plan.idtariffplan', 'tariffname', 'Destination Number', 'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock', 'buyrateincrement', 'Cost per minute', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge', 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb', 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'tp_id_trunk', 'tp_trunk', 'providertech', 'tp_providerip', 'tp_removeprefix');
 
 $FG_TABLE_ALTERNATE_ROW_COLOR[0]='#CDC9C9';
 $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
@@ -194,7 +172,14 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 					<b><?php echo gettext("We found several destinations:");?></b></td>
         </TR>
 		<?php } ?>
-		<?php for($j=0;$j<count($RateEngine->ratecard_obj);$j++){ ?>
+		<?php 
+		
+		for($j=0;$j<count($RateEngine->ratecard_obj);$j++){ 
+			
+			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, "SELECT destination FROM cc_prefix where prefix='".$RateEngine->ratecard_obj[$j][5]."'");
+			if (is_array($result))	$destination = $result[0][0];
+				
+		?>
 			<TR>
           	<td height="15" bgcolor="" style="padding-left: 5px; padding-right: 3px;" colspan="2">
 
@@ -211,13 +196,12 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<font color="blue"><i><?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);?> <?php echo gettext("Minutes");?> </i></font>
 				</td>
-			
 			</tr>
 				
 			<tr>			
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;"><b><a href="did.php"><img src="<?php echo Images_Path_Main ?>/icons/globe1.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><a href="simulador.php"></a><?php echo $arr_ratecard[3];?></b>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;">
-						<i><?php echo $RateEngine->ratecard_obj[$j][5];?></i>
+						<i><?php echo $destination;?></i>
 				</td>
 			</tr>
 			
@@ -231,9 +215,6 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 			
 		<?php } ?>
 		
-		
-
-		
 		<TR> 
           <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
         </TR>
@@ -242,20 +223,18 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         <?php  } ?>
         
         
-        
         <?php  if (count($RateEngine->ratecard_obj)==0) {
 		if  ($called){
 		?>
-        <span style="font-weight: bold">	<img src="<?php echo Images_Path_Main ?>/kicons/button_cancel.png" alt="a" width="32" height="32" /><?php echo gettext("The number, you have entered, is not correct!");?>  </span>
+		<center>
+        <span style="font-weight: bold">	<img src="<?php echo Images_Path_Main ?>/kicons/button_cancel.gif" alt="a" width="32" height="32"/> <?php echo gettext("The number, you have entered, is not correct!");?>  </span>
+        </center>
         <?php  } ?>
         <?php  } ?>
         
-        
-        <br>
-        <br>
-        <br>
-        <br>
+        <br><br><br><br>
       </div>
-      <?php
+
+<?php
+
 $smarty->display( 'footer.tpl');
-?>

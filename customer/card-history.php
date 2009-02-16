@@ -401,5 +401,5 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       </table>
 
 <?php
+
 $smarty->display( 'footer.tpl');
-?>

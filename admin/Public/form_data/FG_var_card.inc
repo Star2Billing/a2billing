@@ -108,7 +108,7 @@ for ($k=0;$k<=28;$k++)
 $show_list=array();
 $show_list_sizes=array();
 $show_list_temp=array();
-echo $A2B->config["webui"]['card_show_field_list'];
+
 $show_list_temp=split(',', $A2B->config["webui"]['card_show_field_list']);
 foreach ($show_list_temp as $i => $value) {
 	$a=strtolower(trim($value));
@@ -131,7 +131,7 @@ $show_fields['id']=array(gettext("ID"), "id", "3%", "center", "sort","", "", "",
 if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "10%", "center", "sort");
 
-$show_fields['username']=array("Account Number", "username", "19%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$show_fields['username']=array("Account Number", "username", "14%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1)) 
  $show_fields['useralias']=array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 
