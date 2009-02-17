@@ -57,7 +57,7 @@ class Table {
 	var $alert_query_time 		= 0.1;
 	var $alert_query_long_time 	= 2;
 	
-	var $writelog 				= defined('WRITELOG_QUERY') ? WRITELOG_QUERY : false;
+	var $writelog 				= null;
 
     var $FK_TABLES;
     var $FK_EDITION_CLAUSE;
@@ -70,6 +70,7 @@ class Table {
 	/* CONSTRUCTOR */
 	function Table ($table = null, $liste_fields = null,  $fk_Tables = null, $fk_Fields = null, $id_Value = null, $fk_del_upd = true)
 	{
+        $this->writelog = defined('WRITELOG_QUERY') ? WRITELOG_QUERY : false;
 		$this -> table = $table;
 		$this -> fields = $liste_fields;
 
