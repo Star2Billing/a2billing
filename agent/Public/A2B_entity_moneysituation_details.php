@@ -18,10 +18,10 @@ $HD_Form -> setDBHandler (DbConnect());
 
 	if(isset($id) && !empty($id)&& $id>0){
 		if ($type=='payment'){
-			$table_agent_security = new Table("cc_logpayment,cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group", " cc_agent_cardgroup.id_agent");
+			$table_agent_security = new Table("cc_logpayment,cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
 			$clause_agent_security = "cc_card.id= ".$id." AND cc_card.id=cc_logpayment.card_id";
 		}else{
-			$table_agent_security = new Table("cc_logrefill,cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group", " cc_agent_cardgroup.id_agent");
+			$table_agent_security = new Table("cc_logrefill,cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
 			$clause_agent_security = "cc_card.id= ".$id." AND cc_card.id=cc_logrefill.card_id";
 			
 		}

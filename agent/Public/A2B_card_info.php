@@ -16,7 +16,7 @@ if (! has_rights (ACX_CUSTOMER)) {
 //SECURITY CHECK
 if (isset($id)) {
 	if(!empty($id)&& $id>0){
-		$table_agent_security = new Table("cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group ", " cc_agent_cardgroup.id_agent");
+		$table_agent_security = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
 		$clause_agent_security = "cc_card.id= ".$id;
 		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
 		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 

@@ -343,6 +343,9 @@ if ($id > 0 ) {
 	$instance_sub_table = new Table("cc_logpayment", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
+	
+	//Agent commision
+
 }
 
 //*************************END UPDATE CREDIT************************************

@@ -11,8 +11,8 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 
 
 if (!isset($form_action) || $form_action=="list" || $form_action=="addcredit") {
-	$HD_Form = new FormHandler("cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group ","Card");
-	$HD_Form -> FG_TABLE_CLAUSE = " cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
+	$HD_Form = new FormHandler("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ","Card");
+	$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 } else {
 	$HD_Form = new FormHandler("cc_card","Card");
 }
@@ -361,9 +361,9 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "SELECT",
 			   "", "", "",
 			   "sql",
-			   "cc_card_group LEFT JOIN cc_agent_cardgroup ON cc_card_group.id=cc_agent_cardgroup.id_card_group ",
+			   "cc_card_group ",
 			   "name, id",
-			   " cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] , "", "%1", "", "", "", '', "");
+			   " cc_card_group.id_agent=".$_SESSION['agent_id'] , "", "%1", "", "", "", '', "");
 			   
 
 

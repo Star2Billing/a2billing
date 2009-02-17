@@ -65,17 +65,17 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 
 // SELECT ROUND(SUM(credit)) from cc_card ;
-$instance_table = new Table("cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group", "ROUND(SUM(credit))");
-$total_credits = $instance_table -> Get_list ($HD_Form -> DBHandle,"cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
+$instance_table = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", "ROUND(SUM(credit))");
+$total_credits = $instance_table -> Get_list ($HD_Form -> DBHandle,"cc_card_group.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
 // SELECT SUM(t1.credit) from  cc_logrefill as t1, cc_card as t2 where t1.card_id = t2.id;
-$instance_table = new Table("cc_logrefill as t1, cc_card as t2  LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group", "SUM(t1.credit)");
-$total_refills = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
+$instance_table = new Table("cc_logrefill as t1, cc_card as t2  LEFT JOIN cc_card_group ON t2.id_group=cc_card_group.id", "SUM(t1.credit)");
+$total_refills = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id AND cc_card_group.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
 // SELECT SUM(payment) from cc_logpayment as t1 ,cc_card as t2 where t1.card_id=t2.id;
-$instance_table = new Table("cc_logpayment as t1 ,cc_card as t2 LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group", "SUM(payment)");
-$total_payments = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] , null, null, null, null, null, null);
+$instance_table = new Table("cc_logpayment as t1 ,cc_card as t2 LEFT JOIN cc_card_group ON t2.id_group=cc_card_group.id", "SUM(payment)");
+$total_payments = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id AND cc_card_group.id_agent=".$_SESSION['agent_id'] , null, null, null, null, null, null);
 // SELECT SUM(amount) from cc_charge as t1, cc_card as t2 where t1.id_cc_card=t2.id;
-$instance_table = new Table("cc_charge AS t1, cc_card AS t2 LEFT JOIN cc_agent_cardgroup ON t2.id_group=cc_agent_cardgroup.id_card_group", "SUM(amount)");
-$total_charges = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.id_cc_card = t2.id AND cc_agent_cardgroup.id_agent = ".$_SESSION['agent_id'] , null, null, null, null, null, null);
+$instance_table = new Table("cc_charge AS t1, cc_card AS t2 LEFT JOIN cc_card_group ON t2.id_group=cc_card_group.id", "SUM(amount)");
+$total_charges = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.id_cc_card = t2.id AND cc_card_group.id_agent = ".$_SESSION['agent_id'] , null, null, null, null, null, null);
 // Total to pay
 $total_to_pay = ($total_refills[0][0] + $total_charges[0][0]) - $total_payments[0][0];
 ?>

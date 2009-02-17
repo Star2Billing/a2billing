@@ -23,7 +23,7 @@ if (!isset ($current_page) || ($current_page == "")){
 $FG_DEBUG = 1;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME= "cc_card_history ch, cc_card cc LEFT JOIN cc_agent_cardgroup ON cc.id_group=cc_agent_cardgroup.id_card_group";
+$FG_TABLE_NAME= "cc_card_history ch, cc_card cc LEFT JOIN cc_card_group ON cc.id_group=cc_card_group.id";
 
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
@@ -115,7 +115,7 @@ if (isset ($FG_TABLE_CLAUSE) && strlen($FG_TABLE_CLAUSE)>0){
 	$FG_TABLE_CLAUSE .= ' AND';
 }
 
-$FG_TABLE_CLAUSE .= ' ch.id_cc_card = cc.id AND cc_agent_cardgroup.id_agent = '.$_SESSION['agent_id'] ;
+$FG_TABLE_CLAUSE .= ' ch.id_cc_card = cc.id AND cc_card_group.id_agent = '.$_SESSION['agent_id'] ;
 
 
 if (!$nodisplay){

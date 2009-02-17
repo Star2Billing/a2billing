@@ -9,8 +9,8 @@ getpost_ifset(array('id_cc_card', 'cardnumber', 'id', 'name', 'amaflags', 'callg
 
 if ($atmenu=='sip') {
 	if (!isset($form_action) || $form_action=="list") {
-		$HD_Form = new FormHandler("cc_sip_buddies LEFT JOIN cc_card ON cc_card.id=cc_sip_buddies.id_cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group","SIP Friend");
-		$HD_Form -> FG_TABLE_CLAUSE = " cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
+		$HD_Form = new FormHandler("cc_sip_buddies LEFT JOIN cc_card ON cc_card.id=cc_sip_buddies.id_cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","SIP Friend");
+		$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 	} else {
 		$HD_Form = new FormHandler("cc_sip_buddies","SIP Friend");
 	}
@@ -18,8 +18,8 @@ if ($atmenu=='sip') {
 } else {
 	
 	if (!isset($form_action) || $form_action=="list") {
-		$HD_Form = new FormHandler("cc_iax_buddies LEFT JOIN cc_card ON cc_card.id=cc_iax_buddies.id_cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group","IAX Friend");
-		$HD_Form -> FG_TABLE_CLAUSE = " cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
+		$HD_Form = new FormHandler("cc_iax_buddies LEFT JOIN cc_card ON cc_card.id=cc_iax_buddies.id_cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","IAX Friend");
+		$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 	} else {
 		$HD_Form = new FormHandler("cc_iax_buddies","IAX Friend");
 	}

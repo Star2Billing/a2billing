@@ -1,13 +1,13 @@
 <?php
 
 
-$HD_Form = new FormHandler("cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group","Customer");
+$HD_Form = new FormHandler("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","Customer");
 
 
 $HD_Form -> FG_TABLE_ID = 'cc_card.id';
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
-$HD_Form -> FG_TABLE_CLAUSE = " cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
+$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort", "");
 $HD_Form -> AddViewElement(gettext("CardNumber"), "username", "7%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");

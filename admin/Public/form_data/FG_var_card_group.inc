@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'name ','users_perms', 'description'));
+getpost_ifset(array('id', 'name ','id_agent','users_perms', 'description'));
 
 
 $HD_Form = new FormHandler("cc_card_group","Customer Group");
@@ -84,6 +84,16 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 		"",
 		gettext("Insert the description"),
 		"" , "", "", "", "" , "", "", "");
+		
+$HD_Form -> AddEditElement (gettext("AGENT"),
+			   "id_agent",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_agent",
+			   "login,firstname,lastname, id",
+			   "", "", "%1 - %2 %3 (%4)", "", "", "", '<OPTION  value="-1" selected>'.gettext("NONE").'</OPTION>' );
 
 $HD_Form -> AddEditElement (gettext("PERMISSION USER INTERFACE"),
 		"users_perms",
@@ -95,7 +105,7 @@ $HD_Form -> AddEditElement (gettext("PERMISSION USER INTERFACE"),
 		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 	
 
-$HD_Form -> FieldEditElement ('name, description , users_perms');
+$HD_Form -> FieldEditElement ('name, description,id_agent, users_perms');
 
 
 

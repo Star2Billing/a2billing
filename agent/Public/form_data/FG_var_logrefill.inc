@@ -4,8 +4,8 @@ getpost_ifset(array('id', 'card_id', 'date', 'credit','description'));
 
 
 if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_logrefill LEFT JOIN cc_card ON cc_card.id=cc_logrefill.card_id LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group","Refill");
-	$HD_Form -> FG_TABLE_CLAUSE = " cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
+	$HD_Form = new FormHandler("cc_logrefill LEFT JOIN cc_card ON cc_card.id=cc_logrefill.card_id LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","Refill");
+	$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 } else {
 	$HD_Form = new FormHandler("cc_logrefill","Refill");
 }

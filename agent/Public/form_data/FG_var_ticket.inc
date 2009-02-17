@@ -4,7 +4,7 @@ include (LIBDIR."/support/classes/ticket.php");
 getpost_ifset(array('id', 'title', 'id_component','description','priority','status','creator','username','viewed_agent' ));
 
 if (!isset($form_action) || $form_action=="list"){
-  	 $HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket ,cc_card LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group", "Ticket");
+  	 $HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket ,cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", "Ticket");
 }else {
 	 $HD_Form = new FormHandler("cc_ticket","Ticket");
 
@@ -14,7 +14,7 @@ if (!isset($form_action) || $form_action=="list"){
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " cc_ticket.id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=cc_ticket.creator AND cc_ticket.creator_type=0 AND cc_agent_cardgroup.id_agent=".$_SESSION['agent_id']." GROUP BY cc_ticket.id";
+$HD_Form -> FG_TABLE_CLAUSE = "cc_card.id=cc_ticket.creator AND cc_ticket.creator_type=0 AND cc_card_group.id_agent=".$_SESSION['agent_id']." GROUP BY cc_ticket.id";
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $priority_list = Constants::getTicketPriorityList();

@@ -31,7 +31,7 @@ if(!empty($agentid) && is_numeric($agentid)){
 	
 	$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 	
-	$instance_table_group = new Table("cc_card_group LEFT JOIN cc_agent_cardgroup ON cc_card_group.id = cc_agent_cardgroup.id_card_group", "id, name");
+	$instance_table_group = new Table("cc_card_group", "id, name");
 	
 	$FG_TABLE_CLAUSE = "id_agent = ".$agentid;
 	

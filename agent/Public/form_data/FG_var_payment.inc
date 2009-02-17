@@ -5,8 +5,8 @@ getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refi
 
 
 if (!isset($form_action) || $form_action=="list"){
-	$HD_Form = new FormHandler("cc_logpayment LEFT JOIN cc_card ON cc_card.id=cc_logpayment.card_id LEFT JOIN cc_agent_cardgroup ON cc_card.id_group=cc_agent_cardgroup.id_card_group","payment");
-	$HD_Form -> FG_TABLE_CLAUSE = " cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
+	$HD_Form = new FormHandler("cc_logpayment LEFT JOIN cc_card ON cc_card.id=cc_logpayment.card_id LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","payment");
+	$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 }else{
 	$HD_Form = new FormHandler("cc_logpayment","payment");
 }

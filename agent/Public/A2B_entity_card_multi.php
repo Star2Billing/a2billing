@@ -272,8 +272,8 @@ $instance_table_tariff = new Table("cc_tariffgroup LEFT JOIN cc_agent_tariffgrou
 $FG_TABLE_CLAUSE = "cc_agent_tariffgroup.id_agent = ".$_SESSION['agent_id'];
 $list_tariff = $instance_table_tariff -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 $nb_tariff = count($list_tariff);
-$FG_TABLE_CLAUSE =  "cc_agent_cardgroup.id_agent=".$_SESSION['agent_id'] ;
-$instance_table_group=  new Table("cc_card_group LEFT JOIN cc_agent_cardgroup ON cc_card_group.id=cc_agent_cardgroup.id_card_group "," id, name ");
+$FG_TABLE_CLAUSE =  "cc_card_group.id_agent=".$_SESSION['agent_id'] ;
+$instance_table_group=  new Table("cc_card_group"," id, name ");
 $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
 ?>

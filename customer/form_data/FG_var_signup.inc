@@ -34,8 +34,8 @@ if(!empty($agentkey) && !empty($agentid) ){
 		}
 		
 		// check if groupid and tarif in already in this agent
-		$instance_table_agent_check = new Table("cc_agent LEFT JOIN cc_agent_tariffgroup ON cc_agent_tariffgroup.id_agent =  cc_agent.id LEFT JOIN cc_agent_cardgroup ON cc_agent_cardgroup.id_agent =  cc_agent.id  ", "id");
-		$list_agent_check= $instance_table_agent_check  -> Get_list ($HD_Form -> DBHandle, "id= $agentid AND cc_agent_tariffgroup.id_tariffgroup = $tariffid  AND cc_agent_cardgroup.id_card_group = $groupid", "id", "ASC", null, null, null, null);
+		$instance_table_agent_check = new Table("cc_agent LEFT JOIN cc_agent_tariffgroup ON cc_agent_tariffgroup.id_agent =  cc_agent.id LEFT JOIN cc_card_group ON cc_card_group.id_agent =  cc_agent.id  ", "id");
+		$list_agent_check= $instance_table_agent_check  -> Get_list ($HD_Form -> DBHandle, "id= $agentid AND cc_agent_tariffgroup.id_tariffgroup = $tariffid  AND cc_card_group.id = $groupid", "id", "ASC", null, null, null, null);
 		if(is_array($list_agent_check)){
 			if(!empty($groupid) && is_numeric($groupid) && !empty($tariffid) && is_numeric($tariffid) ){
 				$_SESSION["id_group"] = $groupid;

@@ -305,7 +305,7 @@ if ( $resmax )
 	$numrow = $resmax -> RecordCount( );
 
 if ($numrow > 0) { 
-	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
+	$HD_Form -> AddEditElement (gettext("CALL PLAN USABLE"),
 		"tariffgroup",	
 		'$value',	
 		"SELECT",		
@@ -319,26 +319,6 @@ if ($numrow > 0) {
 }
 
 	
-$DBHandle_max  = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_card_group");
-if ( $resmax )
-	$numrow = $resmax -> RecordCount( );
-
-if ($numrow > 0) { 
-	$HD_Form -> AddEditElement (gettext("CARD GROUP"),
-		"cardgroupe",	
-		'$value',	
-		"SELECT",		
-		'size="10" multiple="multiple"',
-		"",		
-		"",	
-		"sql",		
-		"campaign_cards",	
-		"name, id",		
-		"", "", "%1 : (%2)", "", "", "cc_agent_cardgroup:id_card_group:cc_card_group LEFT JOIN cc_agent_cardgroup ON cc_card_group.id=cc_agent_cardgroup.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_agent_cardgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");		
-	
-}
 
 
 $FG_QUERY_EDITION = 'login, passwd, perms,secret, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
