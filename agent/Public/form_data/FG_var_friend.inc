@@ -15,6 +15,7 @@ if ($atmenu=='sip') {
 		$HD_Form = new FormHandler("cc_sip_buddies","SIP Friend");
 	}
 	$HD_Form -> FG_TABLE_ID = 'cc_sip_buddies.id';
+	$table_name = "cc_sip_buddies";
 } else {
 	
 	if (!isset($form_action) || $form_action=="list") {
@@ -24,7 +25,9 @@ if ($atmenu=='sip') {
 		$HD_Form = new FormHandler("cc_iax_buddies","IAX Friend");
 	}
 	$HD_Form -> FG_TABLE_ID = 'cc_iax_buddies.id';
+	$table_name = "cc_iax_buddies";
 }
+
 
 $HD_Form -> FG_DEBUG = 0;
 $typepaid_list = Constants::getPaidTypeList();
@@ -54,7 +57,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
 
 
 
-$HD_Form -> FieldViewElement ('id_cc_card, name, accountcode, secret, callerid, context, defaultip, dtmfmode');
+$HD_Form -> FieldViewElement ("id_cc_card, $table_name.name, accountcode, secret, callerid, context, defaultip, dtmfmode");
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
