@@ -1851,6 +1851,54 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 	}
 	
+	/**
+     * Function auto_refill_during_payment
+     * @public
+     * This function should be fired up after adding a payment in the admin interface.
+     * It will check if the newly added payment is greater than the owed amount in which case
+     * the extra money will be properly added as refill to the customer's account.
+     *
+     * Usage: $Form_Object->FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'auto_refill_during_payment';
+     */
+	function auto_refill_during_payment()
+	{
+		global $A2B;
+		$processed = $this->getProcessed();
+		$card_id = $processed['card_id'];
+		$payment = $processed['payment'];
+		$instance_table = new Table("cc_logrefill AS t1, cc_card AS t2", "SUM(t1.credit)");
+		$total_refills = $instance_table -> Get_list ($this -> DBHandle, "(t1.card_id = t2.id) AND (t2.id = {$card_id})", null, null, null, null, null, null);
+		$total_refills = (is_array($total_refills)?$total_refills[0][0]:0);
+		$instance_table = new Table("cc_logpayment AS t1, cc_card AS t2", "SUM(payment)");
+		$total_payments = $instance_table -> Get_list ($this -> DBHandle, "(t1.card_id = t2.id) AND (t2.id = {$card_id})", null, null, null, null, null, null);
+		$total_payments = (is_array($total_payments)?$total_payments[0][0]:0);
+		$instance_table = new Table("cc_charge AS t1, cc_card AS t2", "SUM(amount)");
+		$total_charges = $instance_table -> Get_list ($this -> DBHandle, "(t1.id_cc_card = t2.id) AND (t2.id = {$card_id})", null, null, null, null, null, null);
+		$total_charges = (is_array($total_charges)?$total_charges[0][0]:0);
+		$total_to_pay = ($total_refills + $total_charges) - $total_payments;
+		if($total_to_pay < 0){
+			$id_payment = $this -> RESULT_QUERY;
+			//CREATE REFILL
+			$field_insert = "date, credit, card_id, refill_type, description";
+			$date = $processed['date'];
+			$credit = abs($total_to_pay); // maybe   $payment + $total_to_pay
+			$refill_type = $processed['refill_type'];
+			$description = $processed['description'];
+			$value_insert = " '$date' , '$credit', '$card_id','$refill_type', '$description' ";
+			$instance_sub_table = new Table("cc_logrefill", $field_insert);
+			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			//REFILL CARD .. UPADTE CARD
+			$instance_table_card = new Table("cc_card");
+			$param_update_card = "credit = credit + '".$credit."'";
+			$clause_update_card = " id='$card_id'";
+			$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+			//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
+			$instance_table_pay = new Table("cc_logpayment");
+			$param_update_pay = "id_logrefill = '".$id_refill."'";
+			$clause_update_pay = " id ='$id_payment'";
+			$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
+		}
+	}
 	
 	/**
      * Function to edit the fields
