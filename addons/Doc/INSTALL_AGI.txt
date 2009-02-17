@@ -57,57 +57,57 @@
 	
 
 [a2billing]
-exten => _X.,1,Answer(1)
-exten => _X.,n,DeadAgi(a2billing.php|1)
-exten => _X.,n,Hangup
+exten => _.,1,Answer(1)
+exten => _.,n,DeadAgi(a2billing.php|1)
+exten => _.,n,Hangup
 
 [a2billing-callback]
-exten => _X.,1,DeadAgi(a2billing.php|1|callback)
-exten => _X.,n,Hangup
+exten => _.,1,DeadAgi(a2billing.php|1|callback)
+exten => _.,n,Hangup
 
 [a2billing-cid-callback]
-exten => _X.,1,DeadAgi(a2billing.php|1|cid-callback|34) ;last parameter is the callback area code
-exten => _X.,n,Hangup
+exten => _.,1,DeadAgi(a2billing.php|1|cid-callback|34) ;last parameter is the callback area code
+exten => _.,n,Hangup
 
 [a2billing-all-callback]
-exten => _X.,1,DeadAgi(a2billing.php|1|all-callback|34) ;last parameter is the callback area code
-exten => _X.,n,Hangup	
+exten => _.,1,DeadAgi(a2billing.php|1|all-callback|34) ;last parameter is the callback area code
+exten => _.,n,Hangup	
 
 [a2billing-predictivedialer]
-exten => _X.,1,DeadAgi(a2billing.php|1|predictivedialer)	
-exten => _X.,n,Hangup
+exten => _.,1,DeadAgi(a2billing.php|1|predictivedialer)	
+exten => _.,n,Hangup
 
 [a2billing-did]
-exten => _X.,1,DeadAgi(a2billing.php|1|did)
-exten => _X.,2,Hangup
+exten => _.,1,DeadAgi(a2billing.php|1|did)
+exten => _.,2,Hangup
 
 [a2billing-voucher]
-exten => _X.,1,Answer(1)
-exten => _X.,n,DeadAgi(a2billing.php|1|voucher)
-;exten => _X.,n,AGI(a2billing.php|1|voucher|44) ; will add 44 in front of the callerID for the CID authentication
-exten => _X.,n,Hangup	
+exten => _.,1,Answer(1)
+exten => _.,n,DeadAgi(a2billing.php|1|voucher)
+;exten => _.,n,AGI(a2billing.php|1|voucher|44) ; will add 44 in front of the callerID for the CID authentication
+exten => _.,n,Hangup	
 
 [a2billing_dispatch]
-exten => _X.,1,Gotoif($[${RAND(0,100)} < 50]?${EXTEN}|3:${EXTEN}|5)
-exten => _X.,2,Hangup
+exten => _.,1,Gotoif($[${RAND(0,100)} < 50]?${EXTEN}|3:${EXTEN}|5)
+exten => _.,2,Hangup
 ; REDIRECT TO A2BILLING
-exten => _X.,3,Goto(a2billing,${EXTEN},1)
-exten => _X.,4,Hangup
+exten => _.,3,Goto(a2billing,${EXTEN},1)
+exten => _.,4,Hangup
 ; REDIRECT TO OTHER SERVER WITH A2BILLING
-exten => _X.,5,Goto(a2billing-second-server,${EXTEN},1)
-exten => _X.,6,Hangup
+exten => _.,5,Goto(a2billing-second-server,${EXTEN},1)
+exten => _.,6,Hangup
 
 [a2billing-second-server]
-;exten => _X.,1,Dial(IAX2/${EXTEN}@IP_SECOND_SERVER)
-exten => _X.,1,Dial(SIP/${EXTEN}@IP_SECOND_SERVER)
+;exten => _.,1,Dial(IAX2/${EXTEN}@IP_SECOND_SERVER)
+exten => _.,1,Dial(SIP/${EXTEN}@IP_SECOND_SERVER)
 ; Use canreinvite to not pass the media through the first box
 
 
 ; As fourth parameter we pass the reference ID of the Agent 
 [a2billing_autocreate_example]
-exten => _X.,1,Answer(1)
-exten => _X.,n,DeadAgi(a2billing.php|1|standard|0|%REF_AGENT%)
-exten => _X.,n,Hangup
+exten => _.,1,Answer(1)
+exten => _.,n,DeadAgi(a2billing.php|1|standard|0|%REF_AGENT%)
+exten => _.,n,Hangup
 
 
 

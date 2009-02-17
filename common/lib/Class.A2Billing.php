@@ -770,9 +770,9 @@ class A2Billing {
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__,  $this->agiconfig['use_dnid']." && ".in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])." && ".strlen($this->dnid)."&& $try_num");
 
 		// CHECK IF USE_DNID IF NOT GET THE DESTINATION NUMBER
-		if ($this->agiconfig['use_dnid']==1 && !in_array ($this->dnid, $this->agiconfig['no_auth_dnid']) && strlen($this->dnid)>2 && $try_num==0){
+		if ($this->agiconfig['use_dnid']==1 && !in_array ($this->dnid, $this->agiconfig['no_auth_dnid']) && strlen($this->dnid)>=1 && $try_num==0) {
 			$this->destination = $this->dnid;
-		}else{
+		} else {
 			$res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
 			$this->destination = $res_dtmf ["result"];
@@ -780,36 +780,34 @@ class A2Billing {
 		
 		
 		//TEST if this card is restricted !
-		if($this->restriction == 1 || $this->restriction == 2 ){
+		if($this->restriction == 1 || $this->restriction == 2 ) {
 			
 			$QUERY = "SELECT * FROM cc_restricted_phonenumber WHERE number='".$this->destination."'";
-			if ($this->removeinterprefix){ 
+			if ($this->removeinterprefix) { 
 				$QUERY .= " OR number='". $this -> apply_rules ($this->destination)."'";
 			}
 			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 
-			if($this->restriction == 1){
+			if($this->restriction == 1) {
 			 //CAN'T CALL RESTRICTED NUMBER	
-				if(is_array($result)){
+				if(is_array($result)) {
 				  	//NUMBER NOT AUHTORIZED
 				  	$agi-> stream_file('prepaid-not-authorized-phonenumber', '#');
 				  	return -1;
 				 }
-			}
-			else{
-			 //CAN ONLY CALL RESTRICTED NUMBER		
-				if(!is_array($result)){
+			} else {
+				//CAN ONLY CALL RESTRICTED NUMBER		
+				if(!is_array($result)) {
 			  		//NUMBER NOT AUHTORIZED
 			  		$agi-> stream_file('prepaid-not-authorized-phonenumber', '#');
 			  		return -1;
-			 	 }
+				}
 			}
-			
 			
 		}
 		
 		//REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
-		if (strlen($this->destination)<=2 && is_numeric($this->destination) && $this->destination>=0){
+		if (strlen($this->destination)<=2 && is_numeric($this->destination) && $this->destination>=0) {
 
 			$QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card='".$this->id_card."' AND speeddial='".$this->destination."'";
 			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
