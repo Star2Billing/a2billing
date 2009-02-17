@@ -6,7 +6,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list',
 'status', 'template_invoice', 'template_outstanding', 'description', 'voicemail_activated', 
-'voicemail_permitted','email_notification','credit_notification','notify_email',
+'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_seria',
 'company_name' , 'company_website' , 'vat_rn' , 'traffic' , 'traffic_target','discount','restriction' ));
 
 $HD_Form = new FormHandler("cc_card","Card");
@@ -128,9 +128,6 @@ foreach ($show_list_temp as $i => $value) {
 $show_fields=array();
 $show_fields['id']=array(gettext("ID"), "id", "3%", "center", "sort","", "", "", "", "", "", "");
 
-if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
-	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "10%", "center", "sort");
-
 $show_fields['username']=array("Account Number", "username", "14%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1)) 
  $show_fields['useralias']=array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
@@ -139,7 +136,10 @@ $show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", 
 $show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1","");
 $show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "display_2dec");
 
-if (!($popup_select>=1)){
+if (!($popup_select>=1)) {
+	$serial_pad_length=$A2B->config["webui"]['card_serial_length'];
+	$show_fields['id_seria']=array(gettext("SERIA"), "id_seria", "*", "center", "sort", "15", "lie", "cc_card_seria", "name","id='%id'", "%1","");
+	$show_fields['serial']=array(gettext("SERIAL#"), "serial", "*","center", "sort","","eval",'str_pad("%C",'.$serial_pad_length.' , "0", STR_PAD_LEFT)');
 	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>",
 	       "tariff", "8%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 	$show_fields['status']=array(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
@@ -153,11 +153,7 @@ if (!($popup_select>=1)){
 	$show_fields['email']=array(gettext("EMAIL"), "email","","center", "sort", "15");
 	$show_fields['discount']=array("<acronym title=\"DISCOUNT\">".gettext("DISC")."</acronym>", "discount","","center", "sort", "15","30", "", "", "", "", "display_percentage");
 	$show_fields['callerid']=array("<acronym title=\"CALLER IDENTIFICATION NUMBER\">".gettext("CID")."</acronym>", "callerid","","center", "sort", "15");
-	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
-		$FG_COL_QUERY='DISTINCT tag,';
-	} else {
-		$FG_COL_QUERY='DISTINCT ';		
-	}
+	$FG_COL_QUERY = 'DISTINCT ';
 }else{
 	$show_list_temp=array('id', 'username', 'lastname', 'id_group',  'credit');
 	foreach ($show_list_temp as $i => $value) {
@@ -167,11 +163,16 @@ if (!($popup_select>=1)){
 	$FG_COL_QUERY='DISTINCT ';
 }
 $FG_COL_QUERY_FIELD='';
+$index=0;
 foreach ($show_list as $i => $value) {
 	if (array_key_exists($i,$show_fields)) {
 		$param = $show_fields[$i];
 		$param = $param+array("","","","","","");#expand array to max length
 		$size = "*";
+		$param7=$param[7];
+		if ($param[6]=="eval"){
+			$param7 = str_replace('%C', '%'.$index, $param7);//because of dynamic nature need set current field for eval
+		};
 		if (array_key_exists($i,$show_list_sizes)) {
 			if ((strlen(trim($show_list_sizes[$i])==0))&&(strlen(trim($param[2])>0))){
 				$size=$param[2];
@@ -179,13 +180,14 @@ foreach ($show_list as $i => $value) {
 				$size=$show_list_sizes[$i];
 			}
 		}
-		$HD_Form -> AddViewElement($param[0],$param[1],$size,$param[3],$param[4],$param[5],$param[6],$param[7],$param[8],
+		$HD_Form -> AddViewElement($param[0],$param[1],$size,$param[3],$param[4],$param[5],$param[6],$param7,$param[8],
 						$param[9],$param[10],$param[11],$param[12]);
 		if ($value=='callerid') {
-			$FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', (select GROUP_CONCAT(cid SEPARATOR \'<br>\') from cc_callerid where id_cc_card=cc_card.id) as callerid';
+			$FG_COL_QUERY_FIELD = $FG_COL_QUERY_FIELD .', (select GROUP_CONCAT(cid SEPARATOR \'<br>\') from cc_callerid where id_cc_card=cc_card.id) as callerid';
 		} else {
-			$FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', '.$value;
+			$FG_COL_QUERY_FIELD = $FG_COL_QUERY_FIELD .', '.$value;
 		}
+		$index = $index + 1;
 	}
 }
 if (strlen($FG_COL_QUERY_FIELD)>2){ 
@@ -233,11 +235,14 @@ $HD_Form -> AddSearchElement_C1(gettext("EMAIL"), 'email','emailtype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("LOGIN"),'useralias','useraliastype');
 $HD_Form -> AddSearchElement_C1(gettext("MACADDRESS"),'mac_addr','macaddresstype');
-$HD_Form -> AddSearchElement_C2(gettext("CUSTOMER ID (SERIAL)"),'id1','id1type','id2','id2type','id');
+$HD_Form -> AddSearchElement_C2(gettext("CUSTOMER ID"),'id1','id1type','id2','id2type','id');
+$HD_Form -> AddSearchElement_C2(gettext("SERIAL"),'serial1','serial1type','serial2','serial2type','serial');
+
 $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credit2','credit2type','credit');
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
 
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
+$HD_Form -> AddSearchElement_Select(gettext("SELECT SERIA"),"cc_card_seria","id, name", "", "name", "ASC", "id_seria");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, null,null , "status", 0, $cardstatus_list_r);
@@ -353,7 +358,16 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "cc_card_group",
 			   "name, id",
 			   "", "", "%1", "", "", "", "", "");
-			   
+		   
+$HD_Form -> AddEditElement (gettext("SERIA"),
+               "id_seria",
+               "",
+               "SELECT",
+               "", "", "",
+               "sql",
+               "cc_card_seria",
+               "name, id",
+               "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 
 
 $HD_Form -> AddEditElement (gettext("LAST NAME"),
@@ -889,8 +903,9 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit,id_group, lastname, firstname, email, address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
-		'  typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, id_group, id_seria, lastname, firstname, email, '.
+		' address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
+		' typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
 		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );

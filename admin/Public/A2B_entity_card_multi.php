@@ -6,10 +6,10 @@ include ("./form_data/FG_var_card.inc");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_CUSTOMER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+if (! has_rights (ACX_CUSTOMER)) {
+   Header ("HTTP/1.0 401 Unauthorized");
+   Header ("Location: PP_error.php?c=accessdenied");	   
+   die();
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = false;
@@ -18,26 +18,22 @@ $HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_OTHER_BUTTON1 = false;
 $HD_Form -> FG_OTHER_BUTTON2 = false;
 $HD_Form -> FG_FILTER_APPLY = false;
-$HD_Form ->FG_LIST_ADDING_BUTTON1 = false;
-$HD_Form ->FG_LIST_ADDING_BUTTON2 = false;
+$HD_Form -> FG_LIST_ADDING_BUTTON1 = false;
+$HD_Form -> FG_LIST_ADDING_BUTTON2 = false;
 
-getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax','cardnumberlenght_list','tag','id_group','discount'));
+getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 
+	'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax',
+	'cardnumberlenght_list', 'tag', 'id_group', 'discount', 'id_seria'));
 
-
-/***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
 
 
-// GENERATE CARDS
-
-
 $nbcard = $choose_list;
-
 if ($nbcard>0) {
 	
 	$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
-	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group,discount";
+	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group, discount, id_seria";
 
 	if (DB_TYPE != "postgres"){
 		$FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
@@ -81,7 +77,7 @@ if ($nbcard>0) {
 		 $useralias = $arr_card_alias[1];
 		if (!is_numeric($addcredit)) $addcredit=0;
 		$passui_secret = MDP_NUMERIC(10);
-		$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice','$tag','$id_group','$discount' ";
+		$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria'";
 		
 		if (DB_TYPE != "postgres") $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
 		
@@ -239,6 +235,10 @@ $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 
 $instance_table_agent =  new Table("cc_agent"," id, login ");
 $list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "login", "ASC", null, null, null, null);
+
+$instance_table_seria =  new Table("cc_card_seria"," id, name ");
+$list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
+
 // FORM FOR THE GENERATION
 ?>
 
@@ -374,6 +374,16 @@ $list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 		<option class=input value='<?php echo $i; ?>' ><?php echo $i;?>%</option>
     <?php } ?>
     </select>
+	<br/>
+	<strong>17)</strong>
+    <select NAME="id_seria" size="1" class="form_input_select" >
+    <option value=''><?php echo gettext("Choose a Seria");?></option>
+    <?php
+     foreach ($list_seria as $recordset){
+    ?>
+        <option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>
+    <?php } ?>
+     </select>
 
 	</td>	
 	<td align="left" valign="bottom"> 

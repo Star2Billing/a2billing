@@ -1554,3 +1554,43 @@ ALTER TABLE cc_card_group ADD id_agent INT NULL ;
 DROP TABLE cc_agent_cardgroup
 
 
+
+
+-- Card Serial Number
+CREATE TABLE cc_card_seria (
+	id INT NOT NULL AUTO_INCREMENT ,
+	name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
+	value	BIGINT NOT NULL DEFAULT 0,
+	PRIMARY KEY ( id )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+ 
+ALTER TABLE cc_card ADD id_seria integer;
+ALTER TABLE cc_card ADD serial BIGINT;
+UPDATE cc_config SET config_description = concat(config_description,', id_seria, serial') WHERE config_key = 'card_show_field_list' ;
+DELIMITER //
+CREATE TRIGGER cc_card_serial_set BEFORE INSERT ON cc_card
+FOR EACH ROW
+BEGIN
+	UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
+	SELECT value INTO @serial from cc_card_seria where id=NEW.id_seria ;
+	SET NEW.serial=@serial;
+END
+//
+CREATE TRIGGER cc_card_serial_update BEFORE UPDATE ON cc_card
+FOR EACH ROW
+BEGIN
+	IF NEW.id_seria<>OLD.id_seria THEN
+		UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
+		SELECT value INTO @serial from cc_card_seria where id=NEW.id_seria ;
+		SET NEW.serial=@serial;
+	END IF;
+END
+//
+DELIMITER ;
+ 
+
+INSERT INTO  cc_config (config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Serial Pad Length','card_serial_length','7','Value of zero padding for serial. If this value set to 3 serial wil looks like 001',0,8);
+
+
+

@@ -6,7 +6,6 @@ include ("./form_data/FG_var_card.inc");
 include ("../lib/admin.smarty.php");
 
 
-
 if (! has_rights (ACX_CUSTOMER)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
@@ -14,14 +13,15 @@ if (! has_rights (ACX_CUSTOMER)) {
 }
 
 
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description','upd_id_group','upd_discount','upd_refill_type','upd_description'));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit',
+ 	'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 
+	'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description',
+	'upd_id_group','upd_discount','upd_refill_type','upd_description','upd_id_seria'));
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
@@ -173,6 +173,9 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 	
 	$instance_table_agent=  new Table("cc_agent"," id, login ");
 	$list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "login", "ASC", null, null, null, null);
+
+	$instance_table_seria=  new Table("cc_card_seria"," id, name");
+	$list_seria  = $instance_table_seria -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
 	$list_refill_type=Constants::getRefillType_List();
 	$list_refill_type["-1"]=array("NO REFILL","-1");
@@ -400,6 +403,21 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
                     <?php } ?>
                 </select><br/>
           </td>
+        </tr>
+		<tr>
+	         <td align="left"  class="bgcolor_001">
+	                <input name="check[upd_id_seria]" type="checkbox" <?php if ($check["upd_id_seria"]=="on") echo "checked"?> >
+	          </td>
+	          <td align="left" class="bgcolor_001">
+                    16)&nbsp;<?php echo gettext("Move to Seria");?>&nbsp;:
+                    <select NAME="upd_id_seria" size="1" class="form_input_select">
+                            <?php
+                             foreach ($list_seria as $recordset){
+                            ?>
+                                    <option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_seria==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
+                            <?php } ?>
+                    </select><br/>
+	          </td>
         </tr>
 		
 		<tr>		
