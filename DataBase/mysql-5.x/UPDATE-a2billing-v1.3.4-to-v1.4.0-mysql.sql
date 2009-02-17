@@ -1539,13 +1539,14 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX MIN RATING', 'didx_min_rating', '0', 'DIDX parameter : min rating', 0, 8, NULL);
 
 
+-- Commission Agent
 CREATE TABLE cc_agent_commission (
-id BIGINT NOT NULL AUTO_INCREMENT ,
-id_payment BIGINT NOT NULL ,
-id_card BIGINT NOT NULL ,
-date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-amount DECIMAL( 15, 5 ) NOT NULL ,
-PRIMARY KEY ( id )
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	id_payment BIGINT NOT NULL,
+	id_card BIGINT NOT NULL,
+	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	amount DECIMAL( 15, 5 ) NOT NULL,
+	PRIMARY KEY ( id )
 ) ENGINE = MYISAM ;
 
 ALTER TABLE cc_card_group ADD id_agent INT NULL ;
