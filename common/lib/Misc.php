@@ -662,9 +662,9 @@ function get_timezones($handle = null)
 	$QUERY =  "SELECT id, gmttime, gmtzone from cc_timezone order by id";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 
-	if (is_array($result)){
+	if (is_array($result)) {
 		$num_cur = count($result);
-		for ($i=0;$i<$num_cur;$i++){
+		for ($i=0;$i<$num_cur;$i++) {
 			$timezone_list[$result[$i][0]] = array (1 => $result[$i][1], 2 => $result[$i][2]);
 		}
 	}
@@ -683,16 +683,16 @@ function display_GMT($currDate, $number, $fulldate = 1)
     $day = $date_time_array['mday'];
     $year = $date_time_array['year'];
     $timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);
-
-	if ($number < 0){ $timestamp = $timestamp -($number); }
-	else { $timestamp = $timestamp +($number);}
-
-	if($fulldate == 1)
-	{
-		$gmdate = gmdate("m/d/Y h:i:s A", $timestamp);
+	
+	if ($number < 0) { 
+		$timestamp = $timestamp -($number);
+	} else {
+		$timestamp = $timestamp +($number);
 	}
-	else
-	{
+
+	if($fulldate == 1) {
+		$gmdate = gmdate("m/d/Y H:i:s", $timestamp);
+	} else {
 		$gmdate = gmdate("m/d/Y", $timestamp);
 	}
 	return $gmdate;
