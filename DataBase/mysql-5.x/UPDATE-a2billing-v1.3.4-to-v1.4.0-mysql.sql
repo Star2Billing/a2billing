@@ -1580,7 +1580,7 @@ END
 CREATE TRIGGER cc_card_serial_update BEFORE UPDATE ON cc_card
 FOR EACH ROW
 BEGIN
-	IF NEW.id_seria<>OLD.id_seria THEN
+	IF NEW.id_seria<>OLD.id_seria OR OLD.id_seria IS NULL THEN
 		UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
 		SELECT value INTO @serial from cc_card_seria where id=NEW.id_seria ;
 		SET NEW.serial=@serial;
