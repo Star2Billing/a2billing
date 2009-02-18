@@ -1549,9 +1549,9 @@ CREATE TABLE cc_agent_commission (
 	PRIMARY KEY ( id )
 ) ENGINE = MYISAM ;
 
-ALTER TABLE cc_card_group ADD id_agent INT NULL ;
+ALTER TABLE cc_card_group ADD id_agent INT NULL;
 
-DROP TABLE cc_agent_cardgroup
+DROP TABLE cc_agent_cardgroup;
 
 
 

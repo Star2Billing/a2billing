@@ -253,7 +253,7 @@ if ($mode == 'standard'){
 				}
 			}
 
-			if ($A2B->agiconfig['sip_iax_friends']==1){
+			if ($A2B->agiconfig['sip_iax_friends']==1) {
 
 				if ($A2B->agiconfig['sip_iax_pstn_direct_call']==1){
 
@@ -269,22 +269,26 @@ if ($mode == 'standard'){
 						$A2B-> destination = $res_dtmf ["result"];
 					}
 
-					if ( (strlen($A2B-> destination)>0) && (strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])>0) && (strncmp($A2B->agiconfig['sip_iax_pstn_direct_call_prefix'], $A2B-> destination,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']))==0) ){
-						$A2B-> dnid = $A2B-> destination;
-						$A2B-> sip_iax_buddy = $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'];
-						$A2B-> agiconfig['use_dnid'] = 1;
+					if ( (strlen($A2B-> destination)>0) 
+						&& (strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])>0) 
+						&& (strncmp($A2B->agiconfig['sip_iax_pstn_direct_call_prefix'], $A2B-> destination,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']))==0) ) {
+						
+						$A2B -> dnid = $A2B-> destination;
+						$A2B -> sip_iax_buddy = $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'];
+						$A2B -> agiconfig['use_dnid'] = 1;
 						$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "SIP 1. IAX - dnid : ".$A2B->dnid." - ".strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
-						$A2B->dnid = substr($A2B->dnid,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
+						$A2B -> dnid = substr($A2B->dnid,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
 						$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "SIP 2. IAX - dnid : ".$A2B->dnid);
-					}elseif (strlen($A2B->destination)>0){
-						$A2B->dnid = $A2B->destination;
-						$A2B->agiconfig['use_dnid'] = 1;
+						
+					} elseif (strlen($A2B->destination)>0) {
+						$A2B -> dnid = $A2B->destination;
+						$A2B -> agiconfig['use_dnid'] = 1;
 						$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "TRUNK - dnid : ".$A2B->dnid." (".$A2B->agiconfig['use_dnid'].")");
 					}
 				} else {
 					$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 4000, 1);
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
-					$A2B-> sip_iax_buddy = $res_dtmf ["result"];
+					$A2B -> sip_iax_buddy = $res_dtmf ["result"];
 				}
 			}
 
@@ -293,8 +297,8 @@ if ($mode == 'standard'){
 				$A2B -> debug( INFO, $agi, __FILE__, __LINE__, 'CALL SIP_IAX_BUDDY');
 				$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine,$i);
 
-			}else{
-				if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i)==1){
+			} else {
+				if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i)==1) {
 					// PERFORM THE CALL
 					$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
 
