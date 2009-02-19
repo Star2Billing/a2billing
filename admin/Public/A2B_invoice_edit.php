@@ -5,7 +5,7 @@ include ("../lib/admin.smarty.php");
 include ("../lib/support/classes/invoice.php");
 include ("../lib/support/classes/invoiceItem.php");
 
-if (! has_rights (ACX_INVOICING)){
+if (! has_rights (ACX_INVOICING)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -14,50 +14,43 @@ if (! has_rights (ACX_INVOICING)){
 
 getpost_ifset(array('id','action','price','description','vat','idc'));
 
-if (empty($id))
-{
-Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
+if (empty($id)) {
+	Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
 }
 
-
-  if (!empty($action))
-  {
-  	echo $action;
-    switch ($action)
-    {
-      case 'add':
-		  $DBHandle  = DbConnect();
-		  $invoice = new Invoice($id);
-		  $invoice->insertInvoiceItem($description,$price,$vat);
-		  Header ("Location: A2B_invoice_edit.php?"."id=".$id);
-       case 'edit':
-       	  if(!empty($idc) && is_numeric($idc)){
-			  $DBHandle  = DbConnect();
-			  $instance_sub_table = new Table("cc_invoice_item", "*");
-	          $result=$instance_sub_table -> Get_list($DBHandle, "id = $idc" );
-	          if(!is_array($result) || (sizeof($result)==0)){
-	          	 Header ("Location: A2B_invoice_edit.php?"."id=".$id);
-	          }else{
-	          	$description=$result[0]['description'];
-	          	$vat=$result[0]['VAT'];
-	          	$price=$result[0]['price'];
-	          	$date =$result[0]['date'];
-	          }
-       	  }
-           break;
-        case 'delete':
-        	 if(!empty($idc) && is_numeric($idc)){
-				  $DBHandle  = DbConnect();
-				  $instance_sub_table = new Table("cc_invoice_item", "*");
-		          $instance_sub_table -> Delete_Selected($DBHandle, "id = $idc" );
-        	 }
-	          Header ("Location: A2B_invoice_edit.php?"."id=".$id);
-           break;
-      
-    }
-  }
-
-
+if (!empty($action)) {
+	switch ($action) {
+		case 'add':
+			$DBHandle = DbConnect();
+			$invoice = new Invoice($id);
+			$invoice->insertInvoiceItem($description,$price,$vat);
+			Header ("Location: A2B_invoice_edit.php?"."id=".$id);
+			break;
+		case 'edit':
+	 		if(!empty($idc) && is_numeric($idc)){
+				$DBHandle = DbConnect();
+				$instance_sub_table = new Table("cc_invoice_item", "*");
+				$result=$instance_sub_table -> Get_list($DBHandle, "id = $idc" );
+				if(!is_array($result) || (sizeof($result)==0)){
+					 Header ("Location: A2B_invoice_edit.php?"."id=".$id);
+				}else{
+					$description=$result[0]['description'];
+					$vat=$result[0]['VAT'];
+					$price=$result[0]['price'];
+					$date =$result[0]['date'];
+				}
+	 		}
+			break;
+		case 'delete':
+			if(!empty($idc) && is_numeric($idc)){
+				$DBHandle  = DbConnect();
+				$instance_sub_table = new Table("cc_invoice_item", "*");
+				$instance_sub_table -> Delete_Selected($DBHandle, "id = $idc" );
+			}
+			Header ("Location: A2B_invoice_edit.php?"."id=".$id);
+			break;
+	}
+}
 
 
 $invoice = new invoice($id);
@@ -290,5 +283,4 @@ $smarty->display('main.tpl');
 
 	</table>
   </form>
-
 
