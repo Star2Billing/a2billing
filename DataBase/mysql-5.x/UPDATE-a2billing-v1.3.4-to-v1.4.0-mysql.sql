@@ -1541,17 +1541,21 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 -- Commission Agent
 CREATE TABLE cc_agent_commission (
-	id BIGINT NOT NULL AUTO_INCREMENT,
-	id_payment BIGINT NOT NULL,
-	id_card BIGINT NOT NULL,
-	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	amount DECIMAL( 15, 5 ) NOT NULL,
-	PRIMARY KEY ( id )
+id BIGINT NOT NULL AUTO_INCREMENT ,
+id_payment BIGINT NULL ,
+id_card BIGINT NOT NULL ,
+date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+amount DECIMAL( 15, 5 ) NOT NULL ,
+PRIMARY KEY ( id )
 ) ENGINE = MYISAM ;
 
-ALTER TABLE cc_card_group ADD id_agent INT NULL;
+ALTER TABLE cc_card_group ADD id_agent INT NULL ;
 
-DROP TABLE cc_agent_cardgroup;
+DROP TABLE cc_agent_cardgroup
+
+ALTER TABLE cc_agent_commission ADD `paid_status` TINYINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_agent_commission ADD `description` MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
 
 
 

@@ -1,6 +1,7 @@
 <?php
 include ("./lib/customer.defines.php");
 
+
 getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
 					'transaction_id', 'mc_fee'));
 
@@ -341,11 +342,31 @@ if ($id > 0 ) {
 	$field_insert = "date, payment, card_id, id_logrefill, description";
 	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."'";
 	$instance_sub_table = new Table("cc_logpayment", $field_insert);
-	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
+	$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 	
 	//Agent commision
-
+	// test if this card have a agent
+	$table_transaction = new Table();
+	$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
+	if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ){
+		//test if the agent exist and get its commission
+		$agent_table = new Table("cc_agent", "commission");
+		$agent_clause = "id = ".$result_agent[0]['id_agent'];
+		$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
+		if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0){
+			$field_insert = "date, id_payment, id_card, amount";
+			$commission = ceil(($amount_paid * $result_agent[0]['commission'])*100)/100;
+			$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
+			$description_commission.= "\nID CARD : ".$id;
+			$description_commission.= "\nID PAYMENT : ".$id_payment;
+			$description_commission.= "\nPAYMENT AMOUNT: ".$amount_paid;
+			$description_commission.= "\COMMISSION APPLIED: ".$result_agent[0]['commission'];
+			$value_insert = "'$nowDate', '".$id_payment."', '$id', '$commission'";
+			$commission_table = new Table("cc_agent_commission", $field_insert);
+			$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+		}
+	}
 }
 
 //*************************END UPDATE CREDIT************************************
