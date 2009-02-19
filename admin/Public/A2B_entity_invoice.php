@@ -61,12 +61,13 @@ $smarty->display('footer.tpl');
 <script type="text/javascript">	
 $(document).ready(function () {
 	$('.lock').click(function () {
-			alert(this.id);
-	        });
-	                
+			$.get("A2B_entity_invoice_lock.php", { id: ""+ this.id },
+				  function(data){
+				    location.reload(true);
+				  });
 
+	        });
 	
-       
 });
 </script>
 

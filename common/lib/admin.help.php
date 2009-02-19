@@ -258,8 +258,8 @@ $CC_help_view_invoice ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Invoice history - The section below allows you to see and create invoice against a customer.").'
-<br/>'.help_wiki_link('ViewPayments').'
+'.gettext("Invoice history - The section below allows you to see and create invoice against a customer.Only the closed invoice can be see in the customer interface").'
+<br/>'.help_wiki_link('ViewInvoices').'
 </div></div></div>
 </div></div>';
 
