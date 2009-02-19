@@ -28,7 +28,7 @@ $HD_Form -> FG_INFO_IMG = "eye.png";
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_invoice_edit.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/page_white_gear.png";
 $HD_Form -> FG_OTHER_BUTTON1 = true;
-$HD_Form -> FG_OTHER_BUTTON1_CONDITION = '|col5| == "OPEN"';
+$HD_Form -> FG_OTHER_BUTTON1_CONDITION = '|col6| == "OPEN"';
 $HD_Form -> FG_OTHER_BUTTON2_LINK = "javascript:;";
 $HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path."/lock.png";
 $HD_Form -> FG_OTHER_BUTTON2 = true;
