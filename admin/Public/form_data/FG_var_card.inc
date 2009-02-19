@@ -212,7 +212,7 @@ if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_XML = true;
 $HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_card";
 
 
-if (($popup_select>=1))	$HD_Form ->FG_LIMITE_DISPLAY=7;
+if (($popup_select>=1))	$HD_Form ->FG_LIMITE_DISPLAY = 7;
 
 
 

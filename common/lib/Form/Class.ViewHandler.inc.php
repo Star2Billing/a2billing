@@ -10,12 +10,14 @@ if (!function_exists("stripos")) {
 
 // ******************** END IF $topviewer *******************************
 
+getpost_ifset(array('stitle', 'invoice'));
+
 $stitle 		= $_GET['stitle'];
 $ratesort 		= $_GET['ratesort'];
 $current_page 	= $_GET['current_page'];
 $this->FG_ORDER = $_GET['order']; // really need ?!
 $this->FG_SENS 	= $_GET['sens']; // really need  ?
-$popup_select = $_GET['popup_select'];
+$popup_select	= $_GET['popup_select'];
 
 ?>
 

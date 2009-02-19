@@ -5,7 +5,7 @@ include ("../lib/admin.smarty.php");
 include ("../lib/support/classes/invoice.php");
 include ("../lib/support/classes/invoiceItem.php");
 
-if (! has_rights (ACX_INVOICING)){
+if (! has_rights (ACX_INVOICING)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -14,25 +14,24 @@ if (! has_rights (ACX_INVOICING)){
 
 getpost_ifset(array('id','addpayment','delpayment','status'));
 
-if (empty($id))
-{
-Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
+if (empty($id)) {
+	Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
 }
 
 $invoice = new invoice($id);
 $items = $invoice->loadItems();
 
-if(isset($addpayment) && is_numeric($addpayment)){
+if(isset($addpayment) && is_numeric($addpayment)) {
 	$invoice ->addPayment($addpayment);
 	Header ("Location: A2B_invoice_manage_payment.php?id=$id");
 }
 
-if(isset($delpayment) && is_numeric($delpayment)){
+if(isset($delpayment) && is_numeric($delpayment)) {
 	$invoice ->delPayment($delpayment);
 	Header ("Location: A2B_invoice_manage_payment.php?id=$id");
 }
 
-if(isset($status) && is_numeric($status)){
+if(isset($status) && is_numeric($status)) {
 	$invoice ->changeStatus($status);
 	Header ("Location: A2B_invoice_manage_payment.php?id=$id");
 }
@@ -44,17 +43,17 @@ $payments = $invoice->loadPayments();
 $price_without_vat = 0;
 $price_with_vat = 0;
 $vat_array = array();
-foreach ($items as $item){  
+foreach ($items as $item) {
 	$price_without_vat = $price_without_vat + $item->getPrice();
 	$price_with_vat = $price_with_vat + ($item->getPrice()*(1+($item->getVAT()/100)));
-	if(array_key_exists("".$item->getVAT(),$vat_array)){
+	if(array_key_exists("".$item->getVAT(),$vat_array)) {
 		$vat_array[$item->getVAT()] = $vat_array[$item->getVAT()] + $item->getPrice()*($item->getVAT()/100) ;
-	}else{
+	} else {
 		$vat_array[$item->getVAT()] =  $item->getPrice()*($item->getVAT()/100) ;
 	}
 } 
 $payment_assigned = 0;
-foreach ($payments as $payment){
+foreach ($payments as $payment) {
 	$payment_assigned = $payment_assigned + $payment['payment'];
 }
 

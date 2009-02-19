@@ -54,7 +54,7 @@ class Invoice
    	 return $this->id;
    }
 
- function getReference(){
+function getReference(){
 
    	 return $this->reference;
    }

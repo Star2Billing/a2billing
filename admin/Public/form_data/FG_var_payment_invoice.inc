@@ -38,3 +38,8 @@ if (($popup_select>=1)) {
 
 }
 
+
+$HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
+
+
+

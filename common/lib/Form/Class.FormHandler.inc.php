@@ -2737,9 +2737,9 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	 * @param $url the url to refer to with the page number inserted
 	 * @param $max_width the number of pages to make available at any one time (default = 20)
 	 */
-	function printPages($page, $pages, $url, $max_width = 20) {
+	function printPages($page, $pages, $url, $max_width = 20)
+	{
 		global $lang;
-
 		$window = 8;
 
 		if ($page < 0 || $page > $pages) return;
@@ -2787,4 +2787,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 	}
 
-}?>
+}
+
+

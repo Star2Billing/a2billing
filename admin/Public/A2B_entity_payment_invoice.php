@@ -5,19 +5,16 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_payment_invoice.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_INVOICING)){ 
+if (! has_rights (ACX_INVOICING)) {
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
 }
 
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
-
 $HD_Form -> init();
 
-if (!isset($form_action))  $form_action="list"; //ask-add
+if (!isset($form_action))  $form_action="list";
 if (!isset($action)) $action = $form_action;
 
 
@@ -48,8 +45,9 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
-// #### FOOTER SECTION
-$smarty->display('footer.tpl');
 
 
-?>
+if (!($popup_select>=1))
+	$smarty->display('footer.tpl');
+
+
