@@ -32,7 +32,7 @@ if ($popup_select) {
 <!-- Begin
 function sendValue(selvalue){
 	 // redirect browser to the grabbed value (hopefully a URL)	  
-	window.opener.location.href= "A2B_invoice_manage_payment?id=17&addpayment="+selvalue;
+	window.opener.location.href= <?php echo '"A2B_invoice_manage_payment?id='.$invoice.'&addpayment="'; ?>+selvalue;
 	self.location.href = "<?php echo $_SERVER['PHP_SELF']."?popup_select=1&invoice=$invoice&card=$card"?>";
 }
 // End -->
