@@ -102,7 +102,7 @@ if ($form_action!="ask-edit" && $form_action!="edit") {
 				   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Refill card account"));
 }
 
-$HD_Form -> AddEditElement (gettext("REFILL TYPE"),
+$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
                            "payment_type",
                            '$value',
                            "SELECT",
@@ -110,6 +110,7 @@ $HD_Form -> AddEditElement (gettext("REFILL TYPE"),
                            "",
                            "",
                            "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
+
 
 
 if ($form_action!="ask-edit" && $form_action!="edit") {	
@@ -144,7 +145,7 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INST
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue.");
 
-$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_refill';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_refill_after_payment';
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

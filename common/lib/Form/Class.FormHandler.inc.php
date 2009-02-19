@@ -1712,6 +1712,8 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$processed = $this->getProcessed();
 		if($processed['added_invoice']==1){
 			//CREATE AND UPDATE REF NUMBER
+			$list_refill_type=Constants::getRefillType_List();
+			$refill_type = $processed['refill_type'];
 			$year = date("Y");
 			$invoice_conf_table = new Table('cc_invoice_conf','value');
 			$conf_clause = "key_val = 'count_$year'";
@@ -1733,7 +1735,11 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$field_insert = "date, id_card, title ,reference, description";
 			$date = $processed['date'];
 			$card_id = $processed['card_id'];
-			$title = gettext("REFILL");
+			if($refill_type!=0){
+				$title = $list_refill_type[$refill_type][0]." ".gettext("REFILL");
+			}else{
+				$title = gettext("REFILL");
+			}
 			$description = gettext("Invoice for refill");
 			
 			$reference = $year.sprintf("%08d",$count);
@@ -1794,8 +1800,8 @@ function do_field($sql,$fld, $simple=0,$processed=null){
      * Function create_refill
      * @public
      */
-	function create_refill()
-	{
+	function create_refill_after_payment()
+	{ 
 		global $A2B;
 		$processed = $this->getProcessed();
 		if($processed['added_refill']==1){
@@ -1820,6 +1826,58 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$param_update_pay = "id_logrefill = '".$id_refill."'";
 			$clause_update_pay = " id ='$id_payment'";
 			$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
+		
+		// create invoice associated
+		
+		//CREATE AND UPDATE REF NUMBER
+			$list_refill_type=Constants::getRefillType_List();
+			$refill_type = $processed['payment_type'];
+			$year = date("Y");
+			$invoice_conf_table = new Table('cc_invoice_conf','value');
+			$conf_clause = "key_val = 'count_$year'";
+			$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
+			if(is_array($result) && !empty($result[0][0])){
+				//update count
+				$count =$result[0][0];
+				if(!is_numeric($count)) $count=0;
+				$count++;
+				$param_update_conf = "value ='".$count."'";
+				$clause_update_conf = "key_val = 'count_$year'";
+				$invoice_conf_table -> Update_table ($this->DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
+			}else{
+				//insert newcount
+				$count=1;
+				$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
+				$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
+			}
+			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
+			if($refill_type!=0){
+				$title = $list_refill_type[$refill_type][0]." ".gettext("REFILL");
+			}else{
+				$title = gettext("REFILL");
+			}
+			$description = gettext("Invoice for refill");
+			$reference = $year.sprintf("%08d",$count);
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description','1','1' ";
+			$instance_table = new Table("cc_invoice", $field_insert);
+			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			//add payment to this invoice
+			$value_insert = "'$id_invoice' , '$id_payment'";
+			$instance_table = new Table("cc_invoice_payment", $field_insert);
+			$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null);
+			//load vat of this card
+			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+				$description = $processed['description'];
+				$card_table = new Table('cc_card','vat');
+				$card_clause = "id = ".$card_id;
+				$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
+				if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
+				else $vat = $card_result[0][0];
+				$field_insert = "date, id_invoice ,price,vat, description";
+				$instance_table = new Table("cc_invoice_item", $field_insert);
+				$value_insert = " '$date' , '$id_invoice', '$credit','$vat','$description' ";
+				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			}
 		}
 	}
 
