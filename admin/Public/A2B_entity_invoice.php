@@ -12,10 +12,22 @@ if (! has_rights (ACX_INVOICING)){
 }
 
 
+getpost_ifset(array('id','action'));
 
+$DBHandle=DbConnect();
+
+if($action=="lock"){
+	if(!empty($id) && is_numeric($id)){
+		$instance_table_invoice = new Table("cc_invoice");
+		$param_update_invoice = "status = '1'";
+		$clause_update_invoice = " id ='$id'";
+		$instance_table_invoice-> Update_table ($DBHandle, $param_update_invoice, $clause_update_invoice, $func_table = null);
+	}
+die();
+}
 /***********************************************************************************/
 
-$HD_Form -> setDBHandler (DbConnect());
+$HD_Form -> setDBHandler ($DBHandle);
 
 
 $HD_Form -> init();
@@ -61,7 +73,7 @@ $smarty->display('footer.tpl');
 <script type="text/javascript">	
 $(document).ready(function () {
 	$('.lock').click(function () {
-			$.get("A2B_entity_invoice_lock.php", { id: ""+ this.id },
+			$.get("A2B_entity_invoice.php", { id: ""+ this.id, action: "lock" },
 				  function(data){
 				    location.reload(true);
 				  });
