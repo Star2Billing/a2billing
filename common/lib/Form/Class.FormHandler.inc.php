@@ -1862,6 +1862,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			//add payment to this invoice
+			$field_insert = "id_invoice, id_payment";
 			$value_insert = "'$id_invoice' , '$id_payment'";
 			$instance_table = new Table("cc_invoice_payment", $field_insert);
 			$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null);
@@ -1879,6 +1880,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 		}
+		
 	}
 
 	function create_agent_refill(){
