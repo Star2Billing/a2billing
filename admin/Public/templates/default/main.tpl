@@ -103,6 +103,7 @@
 				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Payments Customers");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=2">{php} echo gettext("Refills Agents");{/php}</a></li>
 				<li><a href="A2B_entity_payment_agent.php?atmenu=payment&section=2">{php} echo gettext("Payments Agents");{/php}</a></li>
+						<li><a href="A2B_entity_commission_agent.php?atmenu=payment&section=2">{php} echo gettext("Commission's Agents");{/php}</a></li>
 				<li><a href="A2B_entity_paymentlog.php?section=2">{php} echo gettext("E-Payment Log");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?section=2">{php} echo gettext("Vouchers");{/php}</a></li>
 				<li><a href="A2B_currencies.php?section=2">{php} echo gettext("Currency List");{/php}</a></li>

@@ -176,6 +176,19 @@ $CC_help_money_situation ='
 </div></div></div>
 </div></div>';
 
+
+$CC_help_view_commission_agent ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Commisssion history - The section below allows you to add commission against a agent. Normaly the commissions are generate automaticaly by the customers' payment").'
+<br/>'.help_wiki_link('ViewCommissions').'
+</div></div></div>
+</div></div>';
+
 $CC_help_view_payment ='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
