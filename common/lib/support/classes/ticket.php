@@ -1,327 +1,350 @@
 <?php
-class Ticket
-{
-
-   private $id;
-   private $title;
-   private $description;
-   private $creatorid;
-   private $priority;
-   private $creationdate;
-   private $status;
-   private $componentid;
-   private $componentname;
-   private $viewed_cust;
-   private $viewed_agent;
-   private $viewed_admin;
 
 
+class Ticket {
 
-   public static $NEW = 0;
-   public static $FIXED =1;
-   public static $REOPEN =2;
-   public static $CLOSED =3;
-   public static $INVALID =4;
+	private $id;
+	private $title;
+	private $description;
+	private $creatorid;
+	private $priority;
+	private $creationdate;
+	private $status;
+	private $componentid;
+	private $componentname;
+	private $viewed_cust;
+	private $viewed_agent;
+	private $viewed_admin;
 
-	function __construct($id){
+	public static $NEW = 0;
+	public static $FIXED = 1;
+	public static $REOPEN = 2;
+	public static $CLOSED = 3;
+	public static $INVALID = 4;
 
-   	 $DBHandle  = DbConnect();
-   	 $instance_sub_table = new Table("cc_ticket", "*");
-	 $QUERY = " id = ".$id;
-	 $return = null;
-     $return = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
+	function __construct($id) {
 
-     $value = $return[0];
-        if(!is_null($value)){
-        	$this->id = $value["id"];
-        	$this->creatorid =$value["creator"];
-        	$this->description =$value["description"];
-        	$this->priority =$value["priority"];
-        	$this->title =$value["title"];
-        	$this->status =$value["status"];
-        	$this->creationdate = $value["creationdate"];
-        	$this->componentid = $value["id_component"];
-        	$this->viewed_admin = $value["viewed_admin"];
-       		$this->viewed_agent = $value["viewed_agent"];
-       		$this->viewed_cust = $value["viewed_cust"];
-        }
+		$DBHandle = DbConnect();
+		$instance_sub_table = new Table("cc_ticket", "*");
+		$QUERY = " id = " . $id;
+		$return = null;
+		$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
 
-     if(!is_null($this->creatorid)){
-   	 $instance_sub_table = new Table("cc_card", "lastname, firstname");
-	 $QUERY = " id = ".$this->creatorid;
-	 $return = null;
-     $return = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
-     $value = $return[0];
+		$value = $return[0];
+		if (!is_null($value)) {
+			$this->id = $value["id"];
+			$this->creatorid = $value["creator"];
+			$this->description = $value["description"];
+			$this->priority = $value["priority"];
+			$this->title = $value["title"];
+			$this->status = $value["status"];
+			$this->creationdate = $value["creationdate"];
+			$this->componentid = $value["id_component"];
+			$this->viewed_admin = $value["viewed_admin"];
+			$this->viewed_agent = $value["viewed_agent"];
+			$this->viewed_cust = $value["viewed_cust"];
+		}
 
-        if(!is_null($value)){
-        	$this->creatorname = $value["lastname"]." ".$value["firstname"];
-        }
-     }
+		if (!is_null($this->creatorid)) {
+			$instance_sub_table = new Table("cc_card", "lastname, firstname");
+			$QUERY = " id = " . $this->creatorid;
+			$return = null;
+			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+			$value = $return[0];
 
-     if(!is_null($this->componentid)){
-   	 $instance_comp_table = new Table("cc_support_component", "name");
-	 $QUERY = " id = ".$this->componentid;
-	 $return = null;
-     $return = $instance_comp_table -> Get_list($DBHandle, $QUERY, 0);
-     $value = $return[0];
+			if (!is_null($value)) {
+				$this->creatorname = $value["lastname"] . " " . $value["firstname"];
+			}
+		}
 
-        if(!is_null($value)){
-        	$this->componentname = $value["name"];
-        }
-     }
+		if (!is_null($this->componentid)) {
+			$instance_comp_table = new Table("cc_support_component", "name");
+			$QUERY = " id = " . $this->componentid;
+			$return = null;
+			$return = $instance_comp_table->Get_list($DBHandle, $QUERY, 0);
+			$value = $return[0];
 
+			if (!is_null($value)) {
+				$this->componentname = $value["name"];
+			}
+		}
 
-   }
+	}
 
-   function getId(){
+	function getId() {
 
-   	 return $this->id;
-   }
+		return $this->id;
+	}
 
+	function getTitle() {
 
-   function getTitle(){
+		return $this->title;
+	}
 
-   	 return $this->title;
-   }
+	function getDescription() {
 
-    function getDescription(){
+		return $this->description;
+	}
 
-   	 return $this->description;
-   }
+	function getCreatorid() {
 
-    function getCreatorid(){
+		return $this->creatorid;
+	}
 
-   	 return $this->creatorid;
-   }
+	function getPriority() {
 
-    function getPriority(){
+		return $this->priority;
+	}
 
-   	 return $this->priority;
-   }
+	function getStatus() {
 
-   function getStatus(){
+		return $this->status;
 
-   	 return $this->status;
-
-   }
-   	//0 customer
-   	//1 agent
-   	//2 admin
-	function getViewed($type){
+	}
+	//0 customer
+	//1 agent
+	//2 admin
+	function getViewed($type) {
 		switch ($type) {
-			case 0: return $this ->viewed_cust;
-			case 1: return $this ->viewed_agent;
-			case 2: return $this ->viewed_admin;
-			default: return 0; 
+			case 0 :
+				return $this->viewed_cust;
+			case 1 :
+				return $this->viewed_agent;
+			case 2 :
+				return $this->viewed_admin;
+			default :
+				return 0;
 		}
 	}
-   
-    function getPriorityDisplay(){
 
-		switch($this->priority){
-			case 1: return "LOW";
-			case 2: return "MEDIUM";
-			case 3: return "HIGH";
-			default : return "NONE";
+	function getPriorityDisplay() {
 
-		}
-
-   }
-
-   function getComponentid(){
-   		 return $this->componentid;
-   }
-
-   function getComponentname(){
-   		 return $this->componentname;
-
-
-   }
-
-   function getCreationdate(){
-
-   	 return substr($this->creationdate,0,19);
-   }
-
-   function getCreatorname(){
-
-   	 return $this->creatorname;
-   }
-
-   function loadComments(){
-	if(!is_null($this->id)){
-	 $result= array();
-	 $DBHandle  = DbConnect();
-   	 $instance_sub_table = new Table("cc_ticket_comment", "*");
-	 $QUERY = " id_ticket = ".$this->id;
-	 $return = null;
-     $return = $instance_sub_table -> Get_list($DBHandle, $QUERY,"date","ASC");
-     $i = 0;
- 	foreach ($return as $value)
-      { $comment = new Comment($value['id'],$value['description'],$value['date'],$value["viewed_cust"],$value["viewed_agent"],$value["viewed_admin"]);
-      	$creatorid =$value["creator"];
-        $creator_type = $value["creator_type"];
-
-      	 if(!is_null($creatorid)){
-        	if($creator_type==1){
-				 $instance_sub_table = new Table("cc_ui_authen", "*");
-		 		 $QUERY = " userid = ".$creatorid;
-		 		 $subreturn = null;
-	     		 $subreturn = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
-	     		 $subvalue = $subreturn[0];
-		        if(!is_null($subvalue)){
-		        	$comment->setCreatorname( gettext("(ADMINISTRATOR) ").$subvalue["name"]);
-		        }
-        	}elseif($creator_type==0){
-
-	   			 $instance_sub_table = new Table("cc_card", "lastname, firstname");
-		 		 $QUERY = " id = ".$creatorid;
-		 		 $subreturn = null;
-	     		 $subreturn = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
-	     		 $subvalue = $subreturn[0];
-		        if(!is_null($subvalue)){
-		        	$comment->setCreatorname( $subvalue["lastname"]." ".$subvalue["firstname"]);
-		        }
-
-        	}else{
-        		 $instance_sub_table = new Table("cc_agent", "lastname, firstname");
-		 		 $QUERY = " id = ".$creatorid;
-		 		 $subreturn = null;
-	     		 $subreturn = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
-	     		 $subvalue = $subreturn[0];
-		        if(!is_null($subvalue)){
-		        	$comment->setCreatorname( gettext("(AGENT)")." ".$subvalue["firstname"]." ".$subvalue["lastname"]);
-		        }
-        		
-        		
-        	}
-
-	     }
-
-
-    	$result[$i]= $comment;
-    	$i++;
-      }
-      //sort r�sult by date
-     return $result;
-
-	}else return null;
-
-   }
-
-   function insertComment($desc,$creator,$creator_type){
-
-   	$DBHandle  = DbConnect();
-   	
-	$instance_sub_table = new Table("cc_ticket_comment", "*");
-	$QUERY_FIELDS = 'id_ticket, description,creator, creator_type';
-	$QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type'";
-    
-    switch ($creator_type) {
-   		case 0: $QUERY_FIELDS.=" ,viewed_cust ";
-   				$QUERY_VALUES.=" ,'0'";
-   				break;
-   		case 1: $QUERY_FIELDS.=" ,viewed_admin ";
-   				$QUERY_VALUES.=" ,'0'";
-   				break;
-   		case 2: $QUERY_FIELDS.=" ,viewed_agent ";
-   				$QUERY_VALUES.=" ,'0'";
-   				break;
-   		
-   	}
-	 $return = $instance_sub_table-> Add_table ($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_ticket_comment', 'id');
-
-
-   }
-
-   public static function getStatusDisplay($status){
-
-		switch($status){
-			case 0: return "NEW";
-			case 1: return "FIXED";
-			case 2: return "REOPEN";
-			case 3: return "CLOSED";
-			case 4: return "INVALID";
+		switch ($this->priority) {
+			case 1 :
+				return "LOW";
+			case 2 :
+				return "MEDIUM";
+			case 3 :
+				return "HIGH";
+			default :
+				return "NONE";
 
 		}
 
-   }
+	}
 
-   public static function getAllStatus(){
-   	$result = array();
-   	$result[0] = "NEW";
-   	$result[1] = "FIXED";
-   	$result[2] = "REOPEN";
-   	$result[3] = "CLOSED";
-   	$result[4] = "INVALID";
-   	return $result;
+	function getComponentid() {
+		return $this->componentid;
+	}
 
-   }
+	function getComponentname() {
+		return $this->componentname;
 
-    public static function getAllStatusListView(){
-   	$result = array();
-   	$result[0] = array( gettext("NEW"), "0");
-   	$result[1] = array( gettext("FIXED"), "1");
-   	$result[2] = array( gettext("REOPEN"), "2");
-   	$result[3] = array( gettext("CLOSED"), "3");
-   	$result[4] = array( gettext("INVALID"), "4");
-   	return $result;
+	}
 
-   }
+	function getCreationdate() {
 
-	 public static function getPossibleStatus($initialStatus,$isadmin){
-   	$result = array();
-   	$result[0] = array();
-   	$result[0]["id"]=$initialStatus;
-   	$result[0]["name"]=	Ticket::getStatusDisplay($initialStatus);
+		return substr($this->creationdate, 0, 19);
+	}
 
-   	switch($initialStatus){
-   			//NEW
-   			case 0:
-			//REOPEN
-			case 2: if($isadmin){
-					$result[1] = array();
-					$result[1]["id"]= Ticket::$FIXED;
-   					$result[1]["name"]=	"FIXED";
-   					$result[2] = array();
-					$result[2]["id"]= Ticket::$INVALID;
-   					$result[2]["name"]=	"INVALID";
-			}else {
-				$result[1] = array();
-				$result[1]["id"]= Ticket::$CLOSED;
-   				$result[1]["name"]=	"CLOSED";
-			}
-				return $result;
-			// FIXED
-			case 1:
+	function getCreatorname() {
 
-				$result[1] = array();
-				$result[1]["id"]= Ticket::$REOPEN;
-				$result[1]["name"]=	"REOPEN";
+		return $this->creatorname;
+	}
 
-			// CLOSED .... ADD CLOSED BEHAVIOR TO FIXED BEHAVIOR
-			case 3: if(!$isadmin){
-						$result[1] = array();
-						$result[1]["id"]= Ticket::$CLOSED;
-		   				$result[1]["name"]=	"CLOSED";
+	function loadComments() {
+		if (!is_null($this->id)) {
+			$result = array ();
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_ticket_comment", "*");
+			$QUERY = " id_ticket = " . $this->id;
+			$return = null;
+			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
+			$i = 0;
+			foreach ($return as $value) {
+				$comment = new Comment($value['id'], $value['description'], $value['date'], $value["viewed_cust"], $value["viewed_agent"], $value["viewed_admin"]);
+				$creatorid = $value["creator"];
+				$creator_type = $value["creator_type"];
+
+				if (!is_null($creatorid)) {
+					if ($creator_type == 1) {
+						$instance_sub_table = new Table("cc_ui_authen", "*");
+						$QUERY = " userid = " . $creatorid;
+						$subreturn = null;
+						$subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+						$subvalue = $subreturn[0];
+						if (!is_null($subvalue)) {
+							$comment->setCreatorname(gettext("(ADMINISTRATOR) ") . $subvalue["name"]);
+						}
 					}
-					return $result;
-			case 4:if($isadmin){
-   					$result[1] = array();
-					$result[1]["id"]= Ticket::$REOPEN;
-   					$result[1]["name"]=	"REOPEN";
-					$result[2] = array();
-					$result[2]["id"]= Ticket::$FIXED;
-   					$result[2]["name"]=	"FIXED";
+					elseif ($creator_type == 0) {
+
+						$instance_sub_table = new Table("cc_card", "lastname, firstname");
+						$QUERY = " id = " . $creatorid;
+						$subreturn = null;
+						$subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+						$subvalue = $subreturn[0];
+						if (!is_null($subvalue)) {
+							$comment->setCreatorname($subvalue["lastname"] . " " . $subvalue["firstname"]);
+						}
+
+					} else {
+						$instance_sub_table = new Table("cc_agent", "lastname, firstname");
+						$QUERY = " id = " . $creatorid;
+						$subreturn = null;
+						$subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+						$subvalue = $subreturn[0];
+						if (!is_null($subvalue)) {
+							$comment->setCreatorname(gettext("(AGENT)") . " " . $subvalue["firstname"] . " " . $subvalue["lastname"]);
+						}
+
+					}
+
+				}
+
+				$result[$i] = $comment;
+				$i++;
 			}
-					return $result;
-			default : return $result;
+			//sort r�sult by date
+			return $result;
+
+		} else
+			return null;
+
+	}
+
+	function insertComment($desc, $creator, $creator_type) {
+
+		$DBHandle = DbConnect();
+
+		$instance_sub_table = new Table("cc_ticket_comment", "*");
+		$QUERY_FIELDS = 'id_ticket, description,creator, creator_type';
+		$QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type'";
+
+		switch ($creator_type) {
+			case 0 :
+				$QUERY_FIELDS .= " ,viewed_cust ";
+				$QUERY_VALUES .= " ,'0'";
+				break;
+			case 1 :
+				$QUERY_FIELDS .= " ,viewed_admin ";
+				$QUERY_VALUES .= " ,'0'";
+				break;
+			case 2 :
+				$QUERY_FIELDS .= " ,viewed_agent ";
+				$QUERY_VALUES .= " ,'0'";
+				break;
+
+		}
+		$return = $instance_sub_table->Add_table($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_ticket_comment', 'id');
+
+	}
+
+	public static function getStatusDisplay($status) {
+
+		switch ($status) {
+			case 0 :
+				return "NEW";
+			case 1 :
+				return "FIXED";
+			case 2 :
+				return "REOPEN";
+			case 3 :
+				return "CLOSED";
+			case 4 :
+				return "INVALID";
 
 		}
 
+	}
 
-   }
+	public static function getAllStatus() {
+		$result = array ();
+		$result[0] = "NEW";
+		$result[1] = "FIXED";
+		$result[2] = "REOPEN";
+		$result[3] = "CLOSED";
+		$result[4] = "INVALID";
+		return $result;
 
+	}
+
+	public static function getAllStatusListView() {
+		$result = array ();
+		$result[0] = array (
+			gettext("NEW"
+		), "0");
+		$result[1] = array (
+			gettext("FIXED"
+		), "1");
+		$result[2] = array (
+			gettext("REOPEN"
+		), "2");
+		$result[3] = array (
+			gettext("CLOSED"
+		), "3");
+		$result[4] = array (
+			gettext("INVALID"
+		), "4");
+		return $result;
+
+	}
+
+	public static function getPossibleStatus($initialStatus, $isadmin) {
+		$result = array ();
+		$result[0] = array ();
+		$result[0]["id"] = $initialStatus;
+		$result[0]["name"] = Ticket :: getStatusDisplay($initialStatus);
+
+		switch ($initialStatus) {
+			//NEW
+			case 0 :
+				//REOPEN
+			case 2 :
+				if ($isadmin) {
+					$result[1] = array ();
+					$result[1]["id"] = Ticket :: $FIXED;
+					$result[1]["name"] = "FIXED";
+					$result[2] = array ();
+					$result[2]["id"] = Ticket :: $INVALID;
+					$result[2]["name"] = "INVALID";
+				} else {
+					$result[1] = array ();
+					$result[1]["id"] = Ticket :: $CLOSED;
+					$result[1]["name"] = "CLOSED";
+				}
+				return $result;
+				// FIXED
+			case 1 :
+
+				$result[1] = array ();
+				$result[1]["id"] = Ticket :: $REOPEN;
+				$result[1]["name"] = "REOPEN";
+
+				// CLOSED .... ADD CLOSED BEHAVIOR TO FIXED BEHAVIOR
+			case 3 :
+				if (!$isadmin) {
+					$result[1] = array ();
+					$result[1]["id"] = Ticket :: $CLOSED;
+					$result[1]["name"] = "CLOSED";
+				}
+				return $result;
+			case 4 :
+				if ($isadmin) {
+					$result[1] = array ();
+					$result[1]["id"] = Ticket :: $REOPEN;
+					$result[1]["name"] = "REOPEN";
+					$result[2] = array ();
+					$result[2]["id"] = Ticket :: $FIXED;
+					$result[2]["name"] = "FIXED";
+				}
+				return $result;
+			default :
+				return $result;
+
+		}
+
+	}
 
 }
-?>
+
