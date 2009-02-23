@@ -1115,7 +1115,7 @@ class A2Billing {
 
 			//# Channel: technology/number@ip_of_gw_to PSTN
 			// Dial(IAX2/guest@misery.digium.com/s@default)
-			$myres = $agi->exec("DIAL $dialstr");
+			$myres = $this -> run_dial($agi, $dialstr);
 			$this -> debug( INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
 			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
@@ -1255,15 +1255,15 @@ class A2Billing {
 
 					//# Channel: technology/number@ip_of_gw_to PSTN
 					// Dial(IAX2/guest@misery.digium.com/s@default)
-					$myres = $agi->exec("DIAL $dialstr");
+					$myres = $this -> run_dial($agi, $dialstr);
 					$this -> debug( INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
-
+					
 					$answeredtime 	= $agi->get_variable("ANSWEREDTIME");
 					$answeredtime 	= $answeredtime['data'];
 					$dialstatus 	= $agi->get_variable("DIALSTATUS");
 					$dialstatus 	= $dialstatus['data'];
 
-					if ($this->agiconfig['record_call'] == 1){
+					if ($this->agiconfig['record_call'] == 1) {
 						$myres = $agi->exec("STOPMONITOR");
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$this->uniqueid."-".$this->cardnumber.")");
 					}
@@ -2791,6 +2791,17 @@ class A2Billing {
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SAVING DESTINATION FOR REDIAL: SQL: {$QUERY}]:[result: {$result}]");
 	}
-
+	
+	function run_dial($agi, $dialstr)
+	{
+		if($this->agiconfig['asterisk_version'] == "1_6") {
+			$dialstr = str_replace("|", ',', $dialstr);
+		}
+		// Run dial command
+		$res_dial = $agi->exec("DIAL $dialstr");
+		
+		return $myres;
+	}
+	
 };
 

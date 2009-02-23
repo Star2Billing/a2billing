@@ -1250,8 +1250,8 @@ class RateEngine
 			if ($maxuse == -1 || $inuse < $maxuse) {
 				// Count this call on the trunk
 				$this -> trunk_start_inuse($agi, $A2B, 1);
-
-				$myres = $agi->exec("Dial $dialstr");
+				
+				$myres = $A2B -> run_dial($agi, $dialstr);
 	    		//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
 
 	    		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "DIAL $dialstr");
@@ -1348,8 +1348,8 @@ class RateEngine
 
 					if ($pos_dialingnumber !== false){
 						$dialstr = "$tech/$ipaddress".$dialparams;
-					}else{
-						if ($A2B->agiconfig['switchdialcommand'] == 1){
+					} else {
+						if ($A2B->agiconfig['switchdialcommand'] == 1) {
 							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
 						}else{
 							$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
@@ -1360,8 +1360,8 @@ class RateEngine
 
 					// Count this call on the trunk
 					$this -> trunk_start_inuse($agi, $A2B, 1);
-
-					$myres = $agi->exec("DIAL $dialstr");
+					
+					$myres = $A2B -> run_dial($agi, $dialstr);
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "DIAL FAILOVER $dialstr");
 					
 					// check connection after dial(long pause) 
@@ -1384,7 +1384,7 @@ class RateEngine
 				else $failover_trunk = $next_failover_trunk;
 
 			} // END FOR LOOP FAILOVER
-
+			
 			//# Ooh, something actually happened!
 			if ($this->dialstatus  == "BUSY") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
