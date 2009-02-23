@@ -105,9 +105,7 @@ $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n".print_r($agi->r
 /* GET THE AGI PARAMETER */
 $A2B -> get_agi_request_parameter ($agi);
 
-//$A2B -> accountcode = '2222222222';
-
-if (!$A2B -> DbConnect()){
+if (!$A2B -> DbConnect()) {
 	$agi-> stream_file('prepaid-final', '#');
 	exit;
 }
@@ -120,9 +118,9 @@ $A2B -> set_instance_table ($instance_table);
 $QUERY =  "SELECT id, currency, name, value FROM cc_currencies ORDER BY id";
 $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 1, 300);
 
-if (is_array($result)){
+if (is_array($result)) {
 	$num_cur = count($result);
-	for ($i=0;$i<$num_cur;$i++){
+	for ($i=0;$i<$num_cur;$i++) {
 		$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
 	}
 }
@@ -130,14 +128,14 @@ if (is_array($result)){
 $RateEngine = new RateEngine();
 
 if ($A2B -> CC_TESTING) {
-	$RateEngine->debug_st=1;
+	$RateEngine->debug_st = 1;
 	$accountcode = '2222222222';
 }
 
 // ??? $A2B->callingcard_auto_setcallerid($agi); for other modes
 
 
-if ($mode == 'standard'){
+if ($mode == 'standard') {
 
 	if ($A2B->agiconfig['answer_call']==1){
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');

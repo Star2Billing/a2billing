@@ -1598,3 +1598,8 @@ INSERT INTO  cc_config (config_title,config_key,config_value,config_description,
 
 
 
+-- Reserve credit :
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Dial Balance reservation', 'dial_balance_reservation', '0.25', 'Credit to reserve from the balance when a call is made. This will prevent negative balance on huge peak.', 0, 11, NULL);
+
+
+

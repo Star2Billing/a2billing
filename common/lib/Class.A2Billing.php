@@ -722,15 +722,20 @@ class A2Billing {
 	 */
 	function callingcard_acct_start_inuse($agi, $inuse)
 	{
+		$upd_balance = 0;
+		if (is_numeric($this->agiconfig['dial_balance_reservation'])) {
+			$upd_balance = $this->agiconfig['dial_balance_reservation'];	
+		}
+			
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CARD STATUS UPDATE]");
 		if ($inuse) {
-			$QUERY = "UPDATE cc_card SET inuse=inuse+1 WHERE username='".$this->username."'";
+			$QUERY = "UPDATE cc_card SET inuse=inuse+1, credit=credit-$upd_balance WHERE username='".$this->username."'";
 			$this -> set_inuse = 1;
 		} else {
-			$QUERY = "UPDATE cc_card SET inuse=inuse-1 WHERE username='".$this->username."'";
+			$QUERY = "UPDATE cc_card SET inuse=inuse-1, credit=credit+$upd_balance WHERE username='".$this->username."'";
 			$this -> set_inuse = 0;
 		}
-		
+		$this -> debug( INFO, $agi, __FILE__, __LINE__, ' QUERY = '.$QUERY);
 		if (!$this -> CC_TESTING) $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 
 		return 0;
