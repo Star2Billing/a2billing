@@ -735,7 +735,6 @@ class A2Billing {
 			$QUERY = "UPDATE cc_card SET inuse=inuse-1, credit=credit+$upd_balance WHERE username='".$this->username."'";
 			$this -> set_inuse = 0;
 		}
-		$this -> debug( INFO, $agi, __FILE__, __LINE__, ' QUERY = '.$QUERY);
 		if (!$this -> CC_TESTING) $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 
 		return 0;
