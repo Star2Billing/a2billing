@@ -17,7 +17,7 @@ getpost_ifset(array('ratesort', 'posted_search'));
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-if (strlen($ratesort)==1) $HD_Form -> FG_TABLE_CLAUSE .= " AND (SUBSTRING(cc_ratecard.destination,1,1)='".strtolower($ratesort)."' OR SUBSTRING(cc_ratecard.destination,1,1)='".$ratesort."')"; // sort by first letter
+if (strlen($ratesort)==1) $HD_Form -> FG_TABLE_CLAUSE .= " AND (SUBSTRING(cc_prefix.destination,1,1)='".strtolower($ratesort)."' OR SUBSTRING(cc_prefix.destination,1,1)='".$ratesort."')"; // sort by first letter
 
 $FG_LIMITE_DISPLAY=10;
 if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit=='ALL'))) {
