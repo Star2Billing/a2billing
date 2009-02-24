@@ -237,10 +237,10 @@ if (is_numeric($groupID)) {
 
 	if ($groupID=="0") {
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= ", perms";
-		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= ", 1023";
+		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= ", 5242879";
 
 		$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS .= ", perms";
-		$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE  .= ", 1023";
+		$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE  .= ", 5242879";
 	}
 } else {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
