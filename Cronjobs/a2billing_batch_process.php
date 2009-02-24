@@ -57,7 +57,7 @@ $instance_table = new Table();
 
 $QUERY_GROUP = 'SELECT DISTINCT id_card_group FROM cc_cardgroup_service ';
 $result_group = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY_GROUP);
-if (sizeof($result_group)==0){
+if (sizeof($result_group)==0) {
 	if ($verbose_level>=1) echo "[No card to run the Recurring service]\n";
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[No card to run the Recurring service]");
 	exit();
@@ -66,12 +66,10 @@ if (sizeof($result_group)==0){
 
 $groupe_clause = "IN (";
 $idx =1;
-foreach ($result_group as $row)
-{ 
+foreach ($result_group as $row) { 
 	$groupe_clause .= " '".$row['id_card_group']."' ";
 	if($idx != sizeof($result_group)) $groupe_clause .= ",";
 	$idx++;
-	
 }
 $groupe_clause .= " )";
 
@@ -83,7 +81,7 @@ $nb_card = $result[0][0];
 $nbpagemax=(ceil($nb_card/$groupcard));
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
-if (!($nb_card>0)){
+if (!($nb_card>0)) {
 	if ($verbose_level>=1) echo "[No card to run the Recurring service]\n";
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[No card to run the Recurring service]");
 	exit();
@@ -136,15 +134,15 @@ foreach ($result as $myservice) {
 	for ($page = 0; $page < $nbpagemax; $page++) {
 		
 		$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = ".$myservice[0]." AND firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00' AND runservice=1  ORDER BY id  ";
-		if ($A2B->config["database"]['dbtype'] == "postgres"){
+		if ($A2B->config["database"]['dbtype'] == "postgres") {
 			$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
-		}else{
+		} else {
 			$sql .= " LIMIT ".$page*$groupcard.", $groupcard";
 		}
 		if ($verbose_level>=1) echo "==> SELECT CARD QUERY : $sql\n";
 		$result_card = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
 	
-		foreach ($result_card as $mycard){
+		foreach ($result_card as $mycard) {
 			if ($verbose_level>=1) print_r ($mycard);
 			if ($verbose_level>=1) echo "------>>>  ID = ".$mycard[0]." - CARD =".$mycard[4]." - BALANCE =".$mycard[1]." \n";	
 
@@ -225,16 +223,16 @@ foreach ($result as $myservice) {
 	
 	
 	// SEND REPORT
-	if (strlen($myservice[12])>0){
+	if (strlen($myservice[12])>0) {
 		$mail_content = "SERVICE NAME = ".$myservice[1];
 		$mail_content .= "\n\nTotal card updated = ".$totalcardperform;
 		$mail_content .= "\nTotal credit removed = ".$totalcredit;
 		mail($myservice[12], "RECURRING SERVICES : REPORT", $mail_content);
 	}
-
+	
 } // END FOREACH SERVICES
 
 if ($verbose_level>=1) echo "#### END RECURRING SERVICES \n";
 write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[#### BATCH PROCESS END ####]");
-	
-?>
+
+

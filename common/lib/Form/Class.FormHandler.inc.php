@@ -2346,28 +2346,23 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				</td></tr>
 			</table>	
 	  <?php 
-	  	
-	  }elseif ($form_action=="ask-add"){
-	  	if (strlen($this->FG_INTRO_TEXT_ADITION)>1){
-      ?>
-			
-		  <table class="toppage_askedit">
-			<tbody><tr>
-			  <td height="40"> 
-				<td height="48" align="center" valign="middle" class="textnegrita"><p>
-					 <font class="fontstyle_002">
-				 <?php echo $this->FG_INTRO_TEXT_ADITION?> </font></p></td>
-				
-			</tr>
-		  </tbody>
-		  </table>
-	  <?php 
-	  	}else{
-			echo '<br>';
-		}
-	  }
-	
-	}		
+	  	} elseif ($form_action=="ask-add") {
+	  		if (strlen($this->FG_INTRO_TEXT_ADITION)>1){
+     		?>
+				<table class="toppage_askedit">
+				  <tr>
+				  <td height="40"> 
+					<td height="48" align="center" valign="middle" class="textnegrita"><p>
+						 <font class="fontstyle_002">
+					 <?php echo $this->FG_INTRO_TEXT_ADITION?> </font></p></td>
+				  </tr>
+			  	</table>
+			<?php 
+		  	} else {
+				echo '<br>';
+			}
+	  	}
+	}	
 	
 	
 	/**
@@ -2378,39 +2373,35 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	{
 		$processed = $this->getProcessed();
 		?>
-		
- 		 <TABLE  cellSpacing=2  class="toppage_actionfinish">
-                <TBODY>
-		<TR>
-                    <TD class="form_head"> 
+		<TABLE  cellSpacing=2  class="toppage_actionfinish">
+			<TR>
+        	<TD class="form_head"> 
 				  <?php if ($form_action == "delete") { ?>
 				  <?php echo $this->FG_INSTANCE_NAME?> Deletion 
 				  <?php }elseif ($form_action == "add"){ ?>
-				  New <?php echo $this->FG_INSTANCE_NAME?> Inserted
+				  INSERT NEW <?php echo $this->FG_INSTANCE_NAME?>
 				  <?php  } ?>
-                      </TD>                    
-                  </TR>
-                  <TR>
-                    <TD width="516" valign="top" class="tdstyle_001"> <br>
-			<div align="center"><strong> 
-			<?php if ($form_action == "delete") { 
-			 		echo $this->FG_INTRO_TEXT_DELETION;
-				 }elseif ($form_action == "add"){ 
-				 	if(!empty($this -> RESULT_QUERY)){
-				 		echo $this->FG_TEXT_ADITION_CONFIRMATION;
-				 	}else{
-				 		echo $this->FG_TEXT_ADITION_ERROR;
-				 	} 
-				 } ?>
-                        
-                        </strong></div>
-			<br>
+            </TD>                    
+            </TR><TR>
+            <TD width="516" valign="top" class="tdstyle_001"> <br>
+				<div align="center"><strong> 
+				<?php 
+					if ($form_action == "delete") { 
+				 		echo $this->FG_INTRO_TEXT_DELETION;
+					} elseif ($form_action == "add") { 
+					 	if(!empty($this -> RESULT_QUERY)) {
+					 		echo $this->FG_TEXT_ADITION_CONFIRMATION;
+					 	} else {
+					 		echo $this->FG_TEXT_ADITION_ERROR;
+					 	} 
+					}
+				?>
+           		</strong></div>
+				<br>
 			</TD>
-                  </TR>                  
-                </TBODY>
-              </TABLE>
-		  <br><br><br><br><br>
-			  
+            </TR>
+		</TABLE>
+		<br><br><br><br><br> 
 		<?php 	
 	}
 
@@ -2650,10 +2641,9 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	{
 		$processed = $this->getProcessed();
 		$cur = 0;
-		foreach ($this->FG_FILTER_SEARCH_FORM_SELECT as $select){
-
+		foreach ($this->FG_FILTER_SEARCH_FORM_SELECT as $select) {
 			// 	If is a sql_type
-			if ($select[1]){
+			if ($select[1]) {
 				$instance_table = new Table($select[1][0], $select[1][1]);
 				$list = $instance_table -> Get_list ($this -> DBHandle, $select[1][2], $select[1][3], $select[1][4],
 												null, null, null, null);

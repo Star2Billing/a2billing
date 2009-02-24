@@ -3,19 +3,19 @@
 getpost_ifset(array('id', 'groupID', 'userid', 'login', 'pwd_encoded', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname', 'email'));
 
 
-if ($groupID=="0"){
+if ($groupID=="0") {
 	$FG_INSTANCE_NAME="Administrator";
 	$ADDING_BUTTON_LINK1 = "A2B_entity_user.php?form_action=ask-add&groupID=0&section=10";
 	$ADDING_BUTTON_ALT1 = gettext("Add ADMINISTRATOR");
 	$ADDING_BUTTON_IMG1 = Images_Path ."/user_gray.png" ;
-}elseif ($groupID=="1"){
+} elseif ($groupID=="1") {
 	$FG_INSTANCE_NAME="Sub-administrator";
 	$ADDING_BUTTON_LINK1 = "A2B_entity_user.php?form_action=ask-add&groupID=1&section=10";
 	$ADDING_BUTTON_ALT1 =  gettext("Add ADMIN ACL");
 	$ADDING_BUTTON_IMG1 = Images_Path ."/user_orange.png" ;
-}elseif ($groupID=="2"){
+} elseif ($groupID=="2") {
 	$FG_INSTANCE_NAME="Resellers-User";
-}else{
+} else {
 	$FG_INSTANCE_NAME="Reseller";
 }
 
@@ -75,15 +75,14 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-if($popup_select == "")
-{
+if($popup_select == "") {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 }
 
 
 
-if ($form_action!="ask-add" && $form_action!="add"){
+if ($form_action!="ask-add" && $form_action!="add") {
 	$HD_Form -> AddEditElement (gettext("USERID"),
 		"userid",
 		'$value',
@@ -103,17 +102,16 @@ $HD_Form -> AddEditElement (gettext("LOGIN"),
 	gettext("Insert the username"),
 	"" , "", "", "", "" , "", "", "");
 	
-//if ($form_action=="ask-add" || $form_action=="add"){
-	$HD_Form -> AddEditElement (gettext("PASSWORD"),
-		"pwd_encoded",
-		'$value',
-		"INPUT",
-		"type=password size=30 maxlength=15",
-		"3",
-		gettext("Insert the Reseller password"),
-		"" , "", "", "", "", "", "", "");
-//}
-if ($groupID!="0"){
+$HD_Form -> AddEditElement (gettext("PASSWORD"),
+	"pwd_encoded",
+	'$value',
+	"INPUT",
+	"type=password size=30 maxlength=15",
+	"3",
+	gettext("Insert the Reseller password"),
+	"" , "", "", "", "", "", "", "");
+
+if ($groupID!="0") {
 	$HD_Form -> AddEditElement (gettext("PERMISSION"),
 		"perms",
 		'$value',
@@ -179,17 +177,17 @@ $HD_Form -> AddEditElement (gettext("FAX"),
 	gettext("Insert the fax number"),
 	"" , "", "", "", "" , "", "", "");
 $HD_Form -> AddEditElement (gettext("EMAIL"),
-		"email",
-		'$value',
-		"INPUT",
-		"size=30 maxlength=70",
-		"1",
-		gettext("Insert the email"),
-		"" , "", "", "", "" , "", "", "");
+	"email",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=70",
+	"1",
+	gettext("Insert the email"),
+	"" , "", "", "", "" , "", "", "");
 	
 
-if (($groupID=="2") || ($groupID=="3")){
-	if ($groupID=="2"){
+if (($groupID=="2") || ($groupID=="3")) {
+	if ($groupID=="2") {
 		$HD_Form -> AddEditElement ("UserID",
 			"a",
 			'$value',
@@ -199,7 +197,7 @@ if (($groupID=="2") || ($groupID=="3")){
 			"Customer",
 			"AnaCust, IDCust",
 			"", "", "%2 (%1)", "", "");
-	}else{
+	} else {
 		$HD_Form -> AddEditElement ("ResellerID",
 			"a",
 			'$value',
@@ -218,11 +216,9 @@ if ($form_action!="ask-add" && $form_action!="add"){
 
 $FG_QUERY_EDITION .= 'login, ';
 
-//if ($form_action =="ask-add" || $form_action=="add"){
-  $FG_QUERY_EDITION .='pwd_encoded,  ';
-//}
+$FG_QUERY_EDITION .='pwd_encoded,  ';
 
-if ($groupID!="0"){
+if ($groupID!="0") {
 	$FG_QUERY_EDITION .= 'perms, ';
 }
 
@@ -232,21 +228,21 @@ $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 
 $HD_Form -> FG_EDITION_CLAUSE = " userid='%id'";
 
-if (is_numeric($groupID)){
+if (is_numeric($groupID)) {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "$groupID";
 
 	$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS  = "groupID";
 	$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE   = "$groupID";
 
-	if ($groupID=="0"){
+	if ($groupID=="0") {
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= ", perms";
 		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= ", 1023";
 
 		$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS .= ", perms";
 		$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE  .= ", 1023";
 	}
-}else{
+} else {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "1";
 }
@@ -255,19 +251,15 @@ if (($popup_select>=1)){
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
-
-//echo $popup_select;
-if ($popup_select==1){
-	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
-}
+	
+	if ($popup_select==1) {
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
+	}
 }
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-
-
-
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';

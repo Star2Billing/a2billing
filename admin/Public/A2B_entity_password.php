@@ -17,8 +17,7 @@ getpost_ifset(array('OldPassword','NewPassword'));
 
 
 $DBHandle  = DbConnect();
-if($form_action=="ask-update")
-{
+if($form_action=="ask-update") {
 	$table_old_pwd = new Table("cc_ui_authen", " login");
 	$OldPwd_encoded = hash( 'whirlpool',$OldPassword);
 	$clause_old_pwd = "login = '".$_SESSION["pr_login"]."' AND pwd_encoded = '".$OldPwd_encoded."'";
@@ -35,12 +34,9 @@ if($form_action=="ask-update")
 	$OldPasswordFaild= true;
 		
 	}
-	
 }
 // #### HEADER SECTION
 $smarty->display( 'main.tpl');
-
-// #### HELP SECTION
 
 ?>
 <script language="JavaScript">
@@ -76,30 +72,29 @@ function CheckPassword()
 </script>
 
 <?php
-if ($form_action=="ask-update")
-{
-if (isset($result))
-{
+if ($form_action=="ask-update") {
+	
+	if (isset($result)) {
+
 ?>
 <script language="JavaScript">
 alert("<?php echo gettext("Your password is updated successfully.")?>");
 </script>
 <?php
-}elseif(isset($OldPasswordFaild)){
+	} elseif(isset($OldPasswordFaild)) {
 ?>
 <script language="JavaScript">
 alert("<?php echo gettext("Wrong old password.")?>");
 </script>
 <?php	
-}else
-{
+	} else {
 ?>
 <script language="JavaScript">
 alert("<?php echo gettext("System is failed to update your password.")?>");
 </script>
-
 <?php
-} }
+	} 
+}
 ?>
 <br>
 <form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
@@ -137,11 +132,10 @@ alert("<?php echo gettext("System is failed to update your password.")?>");
 </table>
 </center>
 <script language="JavaScript">
-
-document.frmPass.NewPassword.focus();
-
+	document.frmPass.NewPassword.focus();
 </script>
 </form>
+
 <br>
 
 <?php
@@ -149,4 +143,3 @@ document.frmPass.NewPassword.focus();
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>
