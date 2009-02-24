@@ -7,14 +7,12 @@ include ("./lib/customer.smarty.php");
 
 
 if (! has_rights (ACX_RATECARD)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
-$ratesort = $_GET['ratesort'];
-//if (strlen($ratesort)==0) $ratesort='A';
-/***********************************************************************************/
+getpost_ifset(array('ratesort', 'posted_search'));
 
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
@@ -22,15 +20,15 @@ $HD_Form -> init();
 if (strlen($ratesort)==1) $HD_Form -> FG_TABLE_CLAUSE .= " AND (SUBSTRING(cc_ratecard.destination,1,1)='".strtolower($ratesort)."' OR SUBSTRING(cc_ratecard.destination,1,1)='".$ratesort."')"; // sort by first letter
 
 $FG_LIMITE_DISPLAY=10;
-if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit=='ALL'))){
-	if ($mydisplaylimit=='ALL'){
+if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit=='ALL'))) {
+	if ($mydisplaylimit=='ALL') {
 		$FG_LIMITE_DISPLAY=5000;
-	}else{
+	} else {
 		$FG_LIMITE_DISPLAY=$mydisplaylimit;
 	}
 }
 
-if ($id!="" || !is_null($id)){
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
@@ -38,7 +36,7 @@ if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 
-if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1 )){
+if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($posted_search == 1 )) {
 	$HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
 }
 
@@ -49,10 +47,8 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 
-
 // #### HELP SECTION
-if ($form_action == 'list')
-{
+if ($form_action == 'list') {
     echo $CC_help_ratecard.'';
 }
 
@@ -101,14 +97,11 @@ $HD_Form -> create_toppage ($form_action);
     </table>
 <?php   
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### CREATE SEARCH FORM
-if ($form_action == "list"){
+if ($form_action == "list") {
 	$HD_Form -> create_search_form();
 }
 
@@ -116,4 +109,3 @@ if ($form_action == "list"){
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>

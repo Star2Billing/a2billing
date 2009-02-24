@@ -6,14 +6,11 @@ include ("./form_data/FG_var_callerid.inc");
 include ("lib/customer.smarty.php");
 
 
-if (! has_rights (ACX_CALLER_ID)){
+if (! has_rights (ACX_CALLER_ID)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-
-
-
 
 
 getpost_ifset(array('add_callerid'));
@@ -21,9 +18,8 @@ getpost_ifset(array('add_callerid'));
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-/************************************  ADD SPEED DIAL  ***********************************************/
-if (strlen($add_callerid)>0  && is_numeric($add_callerid)){
-	
+// ADD SPEED DIAL
+if (strlen($add_callerid)>0  && is_numeric($add_callerid)) {
 	$instance_sub_table = new Table('cc_callerid');
 	$QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card='".$_SESSION["card_id"]."'";
 	$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 1);
@@ -33,30 +29,24 @@ if (strlen($add_callerid)>0  && is_numeric($add_callerid)){
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 	}
 }
-/***********************************************************************************/
 
 
 if ($id!="" || !is_null($id)){
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
-
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
-
 $list = $HD_Form -> perform_action($form_action);
-
 
 
 // #### HEADER SECTION
 $smarty->display( 'main.tpl');
 
-if ($form_action == "list")
-{
+if ($form_action == "list") {
     // My code for Creating two functionalities in a page
     $HD_Form -> create_toppage ("ask-add");
-    if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
     
 	if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 	
@@ -80,7 +70,7 @@ if ($form_action == "list")
       </table>
 	  <br>
 	<?php
-	}else{ 
+	} else { 
 	
 	?>
 		<table align="center"  border="0" width="70%" class="bgcolor_006">
@@ -101,11 +91,6 @@ if ($form_action == "list")
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 

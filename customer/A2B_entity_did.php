@@ -12,9 +12,6 @@ if (! has_rights (ACX_DID)) {
 }
 
 
-
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
@@ -33,13 +30,13 @@ $smarty->display( 'main.tpl');
 
 $FG_LIMITE_DISPLAY=10;
 if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit=='ALL'))){
-	if ($mydisplaylimit=='ALL'){
+	if ($mydisplaylimit=='ALL') {
 		$FG_LIMITE_DISPLAY=5000;
-	}else{
+	} else {
 		$FG_LIMITE_DISPLAY=$mydisplaylimit;
 	}
 }
-if (isset($choose_did_rate) && strlen($choose_did_rate)!=0){
+if (isset($choose_did_rate) && strlen($choose_did_rate)!=0) {
 	$did_rate=explode("CUR",$choose_did_rate);
 	$choose_did=$did_rate[0];
 	$rate=$did_rate[1];
@@ -643,12 +640,9 @@ echo gettext("VOIP CALL : ");?> <?php echo gettext("Yes");?><input class="form_e
 	  <br>
 
 <?php 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
+	$HD_Form -> create_form ($form_action, $list, $id=null) ;
 } 
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');
-?>
+
