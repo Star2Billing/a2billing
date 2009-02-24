@@ -1015,13 +1015,8 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 
 ALTER TABLE cc_call ADD dnid CHAR( 40 );
 
--- CHANGE SECURITY ABOUT PASSWORD
-
-ALTER TABLE cc_ui_authen CHANGE password pwd_encoded VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ;
-
-UPDATE cc_ui_authen SET pwd_encoded = '34e125a0ce58a0c230db9110116767e3e95f143096eb66df2eeb77c43ca9210377ebca623e37242d16080b6a128e66dcbd2fbe137050120d3f2ab8420dd6cc70' WHERE login = 'root';
-
-add a password for root if doesnt exist
+-- CHANGE SECURITY ABOUT PASSWORD : All password will be changed to "changepassword"
+UPDATE cc_ui_authen SET pwd_encoded = '410fc6268dd3332226de95e42d9efa4046c5463769d7493b85e65cfa5c26362dc2455cc23c0bc5831deb008def4ab11a9eaa9b76ba3f377da134f39ec60dd758';
 
 
 ALTER TABLE cc_card ADD company_name VARCHAR( 50 ) NULL ,
