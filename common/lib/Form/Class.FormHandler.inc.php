@@ -390,6 +390,8 @@ class FormHandler
 	var $FG_INTRO_TEXT_ADITION = "Add a \"#FG_INSTANCE_NAME#\" now.";
 
 	var $FG_TEXT_ADITION_CONFIRMATION = "Your new #FG_INSTANCE_NAME# has been inserted. <br>";
+	
+	var $FG_TEXT_ADITION_ERROR = '<font color="Red"> Your new #FG_INSTANCE_NAME# has not been inserted. </font><br> ';
 
 	var $FG_TEXT_ERROR_DUPLICATION = "You cannot choose more than one !";
 
@@ -504,6 +506,7 @@ class FormHandler
         $this -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." #FG_INSTANCE_NAME#.<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
         $this -> FG_INTRO_TEXT_ADITION = gettext("Add a")." \"#FG_INSTANCE_NAME#\" ".gettext("now.");
         $this -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("has been inserted. <br>");
+        $this -> FG_TEXT_ADITION_ERROR = '<font color="Red">'.gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("hasn't been inserted. <br>")."</font>";
         $this -> FG_TEXT_ERROR_DUPLICATION = gettext("You cannot choose more than one !");
 
         $this -> FG_FK_DELETE_MESSAGE = gettext("Are you sure to delete all records connected to this instance.");
@@ -551,7 +554,8 @@ class FormHandler
 		$this -> FG_INTRO_TEXT_DELETION	= str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_DELETION);
 		$this -> FG_INTRO_TEXT_ADD = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADD);
 		$this -> FG_INTRO_TEXT_ADITION 	= str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADITION);
-		$this -> FG_TEXT_ADITION_CONFIRMATIONi = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_TEXT_ADITION_CONFIRMATION);
+		$this -> FG_TEXT_ADITION_CONFIRMATION = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_TEXT_ADITION_CONFIRMATION);
+		$this -> FG_TEXT_ADITION_ERROR = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_TEXT_ADITION_ERROR);
 		$this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define criteria to make a precise search");
 		
 		$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F2EE";
@@ -1413,26 +1417,16 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		{
 			$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
 		}
-		if (!$this -> RESULT_QUERY ){					
-			$findme   = 'duplicate';
-			$pos_find = strpos($instance_sub_table -> errstr, $findme);								
-			if ($pos_find !== false) {
-				$alarm_db_error_duplication = true;				
-				exit;
-			}					
-		}else{
-			// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
-			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0)
-						$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
-			
-			if ($this->FG_ADITION_GO_EDITION == "yes"){
-				$form_action="ask-edit";
-				$this->FG_ADITION_GO_EDITION = "yes-done";
-			}
-			$id = $this -> RESULT_QUERY;
+		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
+		if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0)
+					$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
+		
+		if ($this->FG_ADITION_GO_EDITION == "yes"){
+			$form_action="ask-edit";
+			$this->FG_ADITION_GO_EDITION = "yes-done";
 		}
-			
-		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
+		$id = $this -> RESULT_QUERY;
+		if ( !empty($id) && ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
 			if ($this->FG_DEBUG == 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
 			//echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id);
@@ -2399,7 +2393,15 @@ function do_field($sql,$fld, $simple=0,$processed=null){
                   <TR>
                     <TD width="516" valign="top" class="tdstyle_001"> <br>
 			<div align="center"><strong> 
-			<?php if ($form_action == "delete") { ?><?php echo $this->FG_INTRO_TEXT_DELETION?><?php }elseif ($form_action == "add"){ ?><?php echo $this->FG_TEXT_ADITION_CONFIRMATION?><?php  } ?>
+			<?php if ($form_action == "delete") { 
+			 		echo $this->FG_INTRO_TEXT_DELETION;
+				 }elseif ($form_action == "add"){ 
+				 	if(!empty($this -> RESULT_QUERY)){
+				 		echo $this->FG_TEXT_ADITION_CONFIRMATION;
+				 	}else{
+				 		echo $this->FG_TEXT_ADITION_ERROR;
+				 	} 
+				 } ?>
                         
                         </strong></div>
 			<br>
