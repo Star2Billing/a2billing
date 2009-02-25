@@ -1640,31 +1640,13 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$amount_calls = $result[0][0];
 			$amount_calls = ceil($amount_calls*100)/100;
 			/// create invoice
-			$year = date("Y");
-			$invoice_conf_table = new Table('cc_invoice_conf','value');
-			$conf_clause = "key_val = 'count_$year'";
-			$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
-			if(is_array($result) && !empty($result[0][0])){
-				//update count
-				$count =$result[0][0];
-				if(!is_numeric($count)) $count=0;
-				$count++;
-				$param_update_conf = "value ='".$count."'";
-				$clause_update_conf = "key_val = 'count_$year'";
-				$invoice_conf_table -> Update_table ($this->DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
-			}else{
-				//insert newcount
-				$count=1;
-				$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
-				$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
-			}
+			$reference = generate_invoice_reference();
 			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
 			$date = date("Y-m-d h:i:s");
 			$card_id = $processed['id_card'];
 			$title = gettext("BILLING");
 			$description = gettext("Invoice for billing");
 			
-			$reference = $year.sprintf("%08d",$count);
 			//load vat of this card
 			$card_table = new Table('cc_card','vat,typepaid');
 			$card_clause = "id = ".$card_id;

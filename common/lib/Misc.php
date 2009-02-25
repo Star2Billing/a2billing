@@ -1102,3 +1102,28 @@ function arguments($argv)
 }
 
 
+
+function generate_invoice_reference()
+{
+	$handle = DbConnect();
+	$year = date("Y");
+	$invoice_conf_table = new Table('cc_invoice_conf','value');
+	$conf_clause = "key_val = 'count_$year'";
+	$result = $invoice_conf_table -> Get_list($handle, $conf_clause, 0);
+	if(is_array($result) && !empty($result[0][0])){
+		//update count
+		$count =$result[0][0];
+		if(!is_numeric($count)) $count=0;
+		$count++;
+		$param_update_conf = "value ='".$count."'";
+		$clause_update_conf = "key_val = 'count_$year'";
+		$invoice_conf_table -> Update_table ($handle, $param_update_conf, $clause_update_conf, $func_table = null);
+	}else{
+		//insert newcount
+		$count=1;
+		$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
+		$invoice_conf_table -> SQLExec($handle,$QUERY);
+	}
+	$reference = $year.sprintf("%08d",$count);
+	return $reference;
+}
