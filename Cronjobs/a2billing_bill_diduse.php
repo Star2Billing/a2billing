@@ -119,7 +119,7 @@ foreach ($result as $mydids){
 						if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
 						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 						
-						$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ('".$mydids[4]."', '".$mydids[3]."', '2','".$mydids[0]."', '".strtoupper($A2B->config['global']['base_currency'])."')";
+						$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency,charged_status) VALUES ('".$mydids[4]."', '".$mydids[3]."', '2','".$mydids[0]."', '".strtoupper($A2B->config['global']['base_currency'])."',1)";
 						if ($verbose_level>=1) echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
 						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 						
