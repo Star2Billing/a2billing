@@ -3,7 +3,7 @@ include ("./lib/customer.defines.php");
 
 
 getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
-					'transaction_id', 'mc_fee'));
+					'transaction_id', 'mc_fee', 'card_number'));
 
 
 
@@ -138,6 +138,10 @@ switch($transaction_data[0][4])
 		
 	case "plugnpay":
 		
+		if (substr($card_number,0,4) != substr($transaction_data[0][6],0,4)) {
+			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- PlugNPay Error : First 4digits of the card doesn't match with the one stored.");
+		}
+		
 		$currCurrency 		= BASE_CURRENCY;
 		$currAmount 		= $transaction_data[0][2];
 		$currAmount_usd		= convert_currency($currencies_list, $currAmount, BASE_CURRENCY, 'USD');
@@ -154,7 +158,7 @@ switch($transaction_data[0][4])
 	        'paymethod'      => MODULE_PAYMENT_PLUGNPAY_PAYMETHOD,
 	        'dontsndmail'    => MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL,
 	        // Card Info
-	        'card_number'    => $transaction_data[0][6],
+	        'card_number'    => $card_number,
 		    'card-name'      => $transaction_data[0][5],
 		    'card-amount'    => $currAmount_usd,
 		    'card-exp'       => $transaction_data[0][7],
@@ -263,51 +267,16 @@ if ($numrow == 0) {
 $customer_info = $resmax -> fetchRow();
 $nowDate = date("Y-m-d H:i:s");
 
-
 $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
 
-$Query = "Insert into cc_payments ( customers_id,
-                                    customers_name,
-                                    customers_email_address,
-                                    item_name,
-                                    item_id,
-                                    item_quantity,
-                                    payment_method,
-                                    cc_type,
-                                    cc_owner,
-                                    cc_number,
-                                    cc_expires,
-                                    orders_status,
-                                    last_modified,
-                                    date_purchased,
-                                    orders_date_finished,
-                                    orders_amount,
-                                    currency,
-                                    currency_value)
-                                    values
-                                    (
-                                    '".$transaction_data[0][1]."',
-                                    '".$customer_info[3]." ".$customer_info[2]."',
-                                    '".$customer_info["email"]."',
-                                    'balance',
-                                    '".$customer_info[0]."',
-                                    1,
-                                    '$pmodule',
-                                    '".$_SESSION["p_cardtype"]."',
-                                    '".$transaction_data[0][5]."',
-                                    '".$transaction_data[0][6]."',
-                                    '".$transaction_data[0][7]."',
-                                     $orderStatus,
-                                    '".$nowDate."',
-                                    '".$nowDate."',
-                                    '".$nowDate."',
-                                     ".$amount_paid.",
-                                     '".$currCurrency."',
-                                     '".$currencyObject->get_value($currCurrency)."'
-                                    )";
-
+$Query = "Insert into cc_payments ( customers_id, customers_name, customers_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, cc_number, " .
+									" cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
+									" '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', 'balance', '".
+									$customer_info[0]."', 1, '$pmodule', '".$_SESSION["p_cardtype"]."', '".$transaction_data[0][5]."', '".$transaction_data[0][6]."', '".
+									$transaction_data[0][7]."',  $orderStatus, '".$nowDate."', '".$nowDate."', '".$nowDate."',  ".$amount_paid.",  '".$currCurrency."', '".
+									$currencyObject->get_value($currCurrency)."' )";
 $result = $DBHandle_max -> Execute($Query);
 
 
@@ -349,12 +318,14 @@ if ($id > 0 ) {
 	// test if this card have a agent
 	$table_transaction = new Table();
 	$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
-	if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ){
+	
+	if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
 		//test if the agent exist and get its commission
 		$agent_table = new Table("cc_agent", "commission");
 		$agent_clause = "id = ".$result_agent[0]['id_agent'];
 		$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
-		if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0){
+		
+		if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
 			$field_insert = "date, id_payment, id_card, amount";
 			$commission = ceil(($amount_paid * $result_agent[0]['commission'])*100)/100;
 			$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
@@ -427,8 +398,7 @@ if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]
 	} else {
 		
 		// WE HAVE A TEMPLATE
-		for($i=0;$i<$num;$i++)
-		{
+		for($i=0;$i<$num;$i++) {
 			$listtemplate[] = $res->fetchRow();
 		}
 		
