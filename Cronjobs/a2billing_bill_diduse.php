@@ -24,12 +24,9 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include_once (dirname(__FILE__)."/lib/Class.Table.php");
-include (dirname(__FILE__)."/lib/interface/constants.php");
-include (dirname(__FILE__)."/lib/Class.A2Billing.php");
-include (dirname(__FILE__)."/lib/Misc.php");
+include (dirname(__FILE__)."/lib/admin.defines.php");
 
-$verbose_level=0;
+$verbose_level=1;
 
 $groupcard=5000;
 
@@ -55,7 +52,7 @@ if (!$A2B -> DbConnect()){
 $instance_table = new Table();
 
 // CHECK THE CARD WITH DID'S
-$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, typepaid, creditlimit FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1";
+$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, typepaid, creditlimit,reminded FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1 ORDER BY cc_card.id ASC";
 
 if ($verbose_level>=1) echo "==> SELECT CARD WIHT DID'S QUERY : $QUERY\n";
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
@@ -74,8 +71,15 @@ $daytopay = $A2B->config['global']['didbilling_daytopay'];
 if ($verbose_level>=1) echo "daytopay=$daytopay \n";
 
 // BROWSE THROUGH THE CARD TO APPLY THE DID USAGE
+$last_idcard=null;
+$new_card=true;
+$last_invoice =null;
 foreach ($result as $mydids){
 
+	if($last_idcard != $mydids[4] ){ 
+		$new_card = true;
+		$last_idcard= $mydids[4];
+	} else $new_card = false;
 	// mail variable for user notification
 	$user_mail_adrr = '';
 	$mail_user = false;
@@ -98,37 +102,81 @@ foreach ($result as $mydids){
 	{
 		if ($day_remaining<=(intval($daytopay) * $oneday))
 		{
-			// THE USER HAVE TO PAY FOR HIS DID NOW
 			
-			if (($mydids[5] + $mydids[8] * $mydids[9]) >= $mydids[3])
-			{
-				// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID 
-				$QUERY = "UPDATE cc_card SET credit=credit-'".$mydids[3]."' WHERE id=".$mydids[4];	
-				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-				if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
+			//type of user prepaid 
+			if($mydids['reminded']==0){	
+					// THE USER HAVE TO PAY FOR HIS DID NOW
 				
-				$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0].
-						"' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') " ;
-				if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
-				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+					if (($mydids['credit'] + $mydids['typepaid'] * $mydids['creditlimit']) >= $mydids['fixrate'])
+					{
+						// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID 
+						$QUERY = "UPDATE cc_card SET credit=credit-'".$mydids[3]."' WHERE id=".$mydids[4];	
+						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+						if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
+						
+						$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0].
+								"' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') " ;
+						if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
+						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+						
+						$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ('".$mydids[4]."', '".$mydids[3]."', '2','".$mydids[0]."', '".strtoupper($A2B->config['global']['base_currency'])."')";
+						if ($verbose_level>=1) echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
+						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+						
+						$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]." ".strtoupper($A2B->config['global']['base_currency'])."\n\n";
+						$mail_user_content.="An automatic taking away of :".$mydids[3]." ".strtoupper($A2B->config['global']['base_currency'])." has been carry out of your account to pay your DID (".$mydids[7].")\n\n";	
+						$mail_user_content.="Monthly cost for DID :".$mydids[3]." ".strtoupper($A2B->config['global']['base_currency'])."\n\n";
+						$mail_user = true;
+						$mail_user_subject="DID notification - (".$mydids[7].")";
+					} else {
+						// USER DONT HAVE ENOUGH CREDIT TO PAY FOR THE DID - WE WILL WARN HIM
+						
+						$reference = generate_invoice_reference();
+						
+						//CREATE INVOICE If a new card then just an invoice item in the  last invoice
+						if($new_card){
+							$field_insert = "date, id_card, title ,reference, description,status,paid_status";
+							$date = date("Y-m-d h:i:s");
+							$card_id = $last_idcard;
+							$title = gettext("DID INVOICE REMINDER");
+							$description = "Your credit was not enough to pay yours DID numbers automatically.\n";
+							$description .= "You have ".date ("d",$day_remaining)." days to pay this invoice (REF: $reference ) or the DID will be automatically released \n\n";
+							$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
+							$instance_table = new Table("cc_invoice", $field_insert);
+							if ($verbose_level>=1) echo "INSERT INVOICE : $field_insert =>	$value_insert \n";
+							$id_invoice = $instance_table -> Add_table ($A2B -> DBHandle, $value_insert, null, null,"id");
+							$last_invoice=$id_invoice;
+						}
+						if(!empty($last_invoice)&& is_numeric($last_invoice)){
+							$description = "DID number (".$mydids[7].")";
+							$amount = $mydids[3];
+							$vat=0;
+							$field_insert = "date, id_invoice,price,vat,description,id_billing,billing_type";
+							$instance_table = new Table("cc_invoice_item", $field_insert);
+							$value_insert = " '$date' , '$last_invoice', '$amount','$vat','$description','".$mydids[0]."','DID'";
+											if ($verbose_level>=1) echo "INSERT INVOICE ITEM : $field_insert =>	$value_insert \n";
+							$instance_table -> Add_table ($A2B -> DBHandle, $value_insert, null, null,"id");
+						}
+									
+						$mail_user_content.="BALANCE REMAINING ".$mydids[5]."\n\n";
+						$mail_user_content.="Your credit is not enough to pay your DID number (".$mydids[7]."), the monthly cost is :".$mydids[3]." ".strtoupper($A2B->config['global']['base_currency'])."\n\n";
+						$mail_user_content.="You have ".date ("d",$day_remaining)." days to pay the invoice (REF: $reference ) or the DID will be automatically released \n\n";
+						$mail_user = true;
+						$mail_user_subject="DID notification - (".$mydids[7].")";
+						
+						//insert charge
+						
+						$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency,invoiced_status) VALUES ('".$mydids[4]."', '".$mydids[3]."', '2','".$mydids[0]."', '".strtoupper($A2B->config['global']['base_currency'])."','1')";
+						if ($verbose_level>=1) echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
+						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+						
+						//update did_use
+						$QUERY = "UPDATE cc_did_use set reminded = 1 WHERE id_did = '".$mydids[0]."' and activated = 1" ;
+						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+						if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
+					}
 				
-				$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ('".$mydids[4]."', '".$mydids[3]."', '2','".$mydids[0]."', '".strtoupper($A2B->config['global']['base_currency'])."')";
-				if ($verbose_level>=1) echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
-				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-				
-				$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]." ".strtoupper($A2B->config['global']['base_currency'])."\n\n";
-				$mail_user_content.="An automatic taking away of :".$mydids[3]." ".strtoupper($A2B->config['global']['base_currency'])." has been carry out of your account to pay your DID (".$mydids[7].")\n\n";	
-				$mail_user_content.="Monthly cost for DID :".$mydids[3]." ".strtoupper($A2B->config['global']['base_currency'])."\n\n";
-				$mail_user = true;
-				$mail_user_subject="DID notification - (".$mydids[7].")";
-			} else {
-				// USER DONT HAVE ENOUGH CREDIT TO PAY FOR THE DID - WE WILL WARN HIM
-				$mail_user_content.="BALANCE REMAINING ".$mydids[5]."\n\n";
-				$mail_user_content.="Your credit is not enough to pay your DID number (".$mydids[7]."), the monthly cost is :".$mydids[3]." ".strtoupper($A2B->config['global']['base_currency'])."\n\n";
-				$mail_user_content.="You have ".date ("d",$day_remaining)." days to recharge your card or the DID will be automatically released \n\n";
-				$mail_user = true;
-				$mail_user_subject="DID notification - (".$mydids[7].")";
-			}
+			}		
 		} else {
 			// RELEASE THE DID 
 			$QUERY = "UPDATE cc_did set iduser = 0, reserved = 0 WHERE id='".$mydids[0]."'" ;

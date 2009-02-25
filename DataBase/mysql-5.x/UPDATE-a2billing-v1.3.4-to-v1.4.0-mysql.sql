@@ -1551,8 +1551,8 @@ ALTER TABLE cc_card_group ADD id_agent INT NULL ;
 
 DROP TABLE cc_agent_cardgroup;
 
-ALTER TABLE cc_agent_commission ADD `paid_status` TINYINT NOT NULL DEFAULT '0';
-ALTER TABLE cc_agent_commission ADD `description` MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+ALTER TABLE cc_agent_commission ADD paid_status TINYINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_agent_commission ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 
 
 
@@ -1603,3 +1603,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 -- change the schema to authorize only one login
 ALTER TABLE cc_agent ADD UNIQUE (login); 
 ALTER TABLE cc_ui_authen ADD UNIQUE (login); 
+
+ALTER TABLE cc_charge ADD charged_status TINYINT NOT NULL DEFAULT '0',
+ADD invoiced_status TINYINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_did_use ADD reminded TINYINT NOT NULL DEFAULT '0';
