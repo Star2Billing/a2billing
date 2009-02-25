@@ -1,8 +1,5 @@
 <?php
 
-// Parameter to enable/disable the update of list of value, it might only be changed by the admin in rare cases
-define("LIST_OF_VALUES", false);
-
 getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_id', 'groupselect', 'posted','agi_conf'));
 
 // This will generate agi-confx 

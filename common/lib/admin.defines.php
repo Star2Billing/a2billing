@@ -41,6 +41,8 @@ if (!($restircted_url == "Public/index.php")) {
 	if (!$res_load_conf) exit;
 }
 
+// Parameter to enable/disable the update of list of value in Config Edition
+define("LIST_OF_VALUES", false);
 
 // DEFINE FOR THE DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
