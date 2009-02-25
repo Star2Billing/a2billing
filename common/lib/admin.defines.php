@@ -41,9 +41,6 @@ if (!($restircted_url == "Public/index.php")) {
 	if (!$res_load_conf) exit;
 }
 
-//Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
-define("LIST_OF_VALUES",true);
-
 
 // DEFINE FOR THE DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);

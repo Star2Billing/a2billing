@@ -1,5 +1,8 @@
 <?php
 
+// Parameter to enable/disable the update of list of value, it might only be changed by the admin in rare cases
+define("LIST_OF_VALUES", false);
+
 getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_id', 'groupselect', 'posted','agi_conf'));
 
 // This will generate agi-confx 
@@ -14,7 +17,7 @@ $handle = DbConnect();
 $instance_table = new Table();
 $QUERY =  "SELECT config_value, config_listvalues from cc_config where id = $id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);
-if($result[0][1] == "yes,no" || $result[0][1] == "no,yes") {
+if ($result[0][1] == "yes,no" || $result[0][1] == "no,yes") {
 	$setbool = true;
 }
 
@@ -28,7 +31,6 @@ $instance_config_table = new Table("cc_config", "config_value, config_valuetype,
 $config_list = $instance_config_table -> Get_list ($handle, "", "id", "ASC");
 
 foreach($config_list as $key => $cur_value) {
-
 	if($cur_value[1] != '1') {
 		$yesno[$cur_value[2]] = array($cur_value[0],$cur_value[2]);
 	} else {
@@ -64,8 +66,6 @@ if($form_action == "list") {
 } else {
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }
-
-// $HD_Form -> FG_TABLE_CLAUSE .= " AND config_key='callplan_deck_minute_threshold'";
 
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
@@ -120,7 +120,7 @@ $HD_Form -> AddEditElement (gettext("KEY"),
 	gettext("Insert the TITLE"),
 	"" , "", "", "", "" , "", "" ,gettext("Key name of the configuration variable"));
 	
-if($setbool) {
+if ($setbool) {
 	$HD_Form -> AddEditElement (gettext("VALUE"),
 	   "config_value",
 	   "",
@@ -138,7 +138,7 @@ if($setbool) {
 		"" , "", "", "", "", "", "", gettext("Insert the Value"));
 }
 
-if(LIST_OF_VALUES) {
+if (LIST_OF_VALUES) {
 	$HD_Form -> AddEditElement (gettext("LIST OF VALUES"),
 		"config_listvalues",
 		'$value',
@@ -158,7 +158,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the Description"),
 	"" , "", "", "", "" , "", "", "");
 
-if(LIST_OF_VALUES) {
+if (LIST_OF_VALUES) {
 	$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value ,config_listvalues, config_description');
 } else {
 	$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value ,config_description');
@@ -170,5 +170,6 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
 
 
