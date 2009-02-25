@@ -612,7 +612,7 @@ ALTER TABLE cc_callback_spool CHANGE variable variable VARCHAR( 300 ) DEFAULT NU
 ALTER TABLE cc_call ADD COLUMN real_sessiontime INT (11) DEFAULT NULL;
 
 
-
+-- ?? update this when release 1.4
 CREATE TABLE cc_call_archive (
 	id 									bigINT (20) NOT NULL AUTO_INCREMENT,
 	sessionid 							char(40) NOT NULL,
@@ -1243,10 +1243,79 @@ INSERT INTO  cc_config(config_title,config_key,config_value,config_description,c
 -- Update to use VarChar instead of Char
 -- ------------------------------------------------------
 ALTER TABLE cc_call CHANGE sessionid sessionid VARCHAR( 40 ) NOT NULL;
-ALTER TABLE cc_call CHANGE uniqueid uniqueid VARCHAR( 30 ) NOT NULL ;
--- ...
--- ...
--- ...
+ALTER TABLE cc_call CHANGE uniqueid uniqueid VARCHAR( 30 ) NOT NULL;
+ALTER TABLE cc_call CHANGE nasipaddress nasipaddress VARCHAR( 30 ) NOT NULL;
+ALTER TABLE cc_call CHANGE calledstation calledstation VARCHAR( 30 ) NOT NULL;
+ALTER TABLE cc_call CHANGE src src VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_call CHANGE dnid dnid VARCHAR( 40 ) NOT NULL;
+
+ALTER TABLE cc_card CHANGE username username VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE useralias useralias VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE uipass uipass VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE lastname lastname VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE firstname firstname VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE address address VARCHAR( 100 ) NOT NULL;
+ALTER TABLE cc_card CHANGE city city VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE state state VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE country country VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE zipcode zipcode VARCHAR( 20 ) NOT NULL;
+ALTER TABLE cc_card CHANGE phone phone VARCHAR( 20 ) NOT NULL;
+ALTER TABLE cc_card CHANGE email email VARCHAR( 70 ) NOT NULL;
+ALTER TABLE cc_card CHANGE fax fax VARCHAR( 20 ) NOT NULL;
+ALTER TABLE cc_card CHANGE redial redial VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE callback callback VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE loginkey loginkey VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE tag tag VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE email_notification email_notification VARCHAR( 70 ) NOT NULL;
+ALTER TABLE cc_card CHANGE company_name company_name VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE company_website company_website VARCHAR( 60 ) NOT NULL;
+ALTER TABLE cc_card CHANGE vat_rn vat_rn VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE traffic_target traffic_target VARCHAR( 300 ) NOT NULL;
+
+ALTER TABLE cc_callerid CHANGE cid cid VARCHAR( 100 ) NOT NULL;
+
+
+ALTER TABLE cc_iax_buddies CHANGE name name VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE accountcode accountcode VARCHAR(20) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE regexten regexten VARCHAR(20) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE callerid callerid VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE context context VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE fromuser fromuser VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE fromdomain fromdomain VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE host host VARCHAR(31) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE insecure insecure VARCHAR(20) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE mailbox mailbox VARCHAR(50) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE md5secret md5secret VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE permit permit VARCHAR(95) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE deny deny VARCHAR(95) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE mask mask VARCHAR(95) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE secret secret VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE username username VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE disallow disallow VARCHAR(100) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE allow allow VARCHAR(100) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE musiconhold musiconhold VARCHAR(100) NOT NULL;
+
+ALTER TABLE cc_sip_buddies CHANGE name name VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE accountcode accountcode VARCHAR(20) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE regexten regexten VARCHAR(20) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE callerid callerid VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE context context VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE fromuser fromuser VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE fromdomain fromdomain VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE host host VARCHAR(31) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE insecure insecure VARCHAR(20) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE mailbox mailbox VARCHAR(50) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE md5secret md5secret VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE permit permit VARCHAR(95) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE deny deny VARCHAR(95) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE mask mask VARCHAR(95) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE secret secret VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE username username VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE disallow disallow VARCHAR(100) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE allow allow VARCHAR(100) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE musiconhold musiconhold VARCHAR(100) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE fullcontact fullcontact VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE setvar setvar VARCHAR(100) NOT NULL;
 
 
 
@@ -1604,6 +1673,10 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 ALTER TABLE cc_agent ADD UNIQUE (login); 
 ALTER TABLE cc_ui_authen ADD UNIQUE (login); 
 
+-- update for invoice
 ALTER TABLE cc_charge ADD charged_status TINYINT NOT NULL DEFAULT '0',
 ADD invoiced_status TINYINT NOT NULL DEFAULT '0';
 ALTER TABLE cc_did_use ADD reminded TINYINT NOT NULL DEFAULT '0';
+
+
+
