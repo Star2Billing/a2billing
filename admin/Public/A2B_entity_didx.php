@@ -6,13 +6,13 @@ include ("./form_data/FG_var_did.inc");
 include ("../lib/admin.smarty.php");
 require ("../lib/didx.php");
 
-if (! has_rights (ACX_DID)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+if (! has_rights (ACX_DID)) {
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
-/***********************************************************************************/
+
 function unavailable() {
 	return "Sorry, the DID selection service is currently unavailable because of uplink error, please come back and try again later or contact us about available DIDs (include country and area codes to your request).";
 }
@@ -110,7 +110,7 @@ if($form_action == "purchase" || $form_action == "add") {
 	$list = $HD_Form -> perform_action($form_action);
 	$smarty->display('main.tpl');
 
-        $res = $didx->BuyDIDByNumber($did,"$did@".RING_TO);
+        $res = $didx->BuyDIDByNumber($did,"$did@".DIDX_RING_TO);
         if($res < 0)
                 echo "Error $res while setting up the DID $did.";
 	else {			
