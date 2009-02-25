@@ -181,7 +181,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL"),
 	'$value',
 	"INPUT",
 	"size=30 maxlength=70",
-	"1",
+	"",
 	gettext("Insert the email"),
 	"" , "", "", "", "" , "", "", "");
 	
