@@ -1015,6 +1015,9 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 
 ALTER TABLE cc_call ADD dnid CHAR( 40 );
 
+-- update password field
+ALTER TABLE cc_ui_authen CHANGE password pwd_encoded VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+
 -- CHANGE SECURITY ABOUT PASSWORD : All password will be changed to "changepassword"
 UPDATE cc_ui_authen SET pwd_encoded = '410fc6268dd3332226de95e42d9efa4046c5463769d7493b85e65cfa5c26362dc2455cc23c0bc5831deb008def4ab11a9eaa9b76ba3f377da134f39ec60dd758';
 
@@ -1481,7 +1484,7 @@ CREATE TABLE cc_invoice (
 	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
 	PRIMARY KEY ( id ) ,
 	UNIQUE (reference)
-) ENGINE = MYISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE cc_invoice_item (
 	id BIGINT NOT NULL AUTO_INCREMENT ,
@@ -1491,7 +1494,7 @@ CREATE TABLE cc_invoice_item (
 	VAT DECIMAL( 4, 2 ) NOT NULL DEFAULT '0',
 	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
 	PRIMARY KEY (id)
-) ENGINE = MYISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 CREATE TABLE cc_invoice_conf (
@@ -1500,7 +1503,7 @@ CREATE TABLE cc_invoice_conf (
 	value VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
 	PRIMARY KEY ( id ),
 	UNIQUE (key_val)
-) ENGINE = MYISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO cc_invoice_conf (key_val ,value) 
 	VALUES 	('company_name', 'My company'),
@@ -1520,7 +1523,7 @@ CREATE TABLE cc_invoice_payment (
 	id_invoice BIGINT NOT NULL ,
 	id_payment BIGINT NOT NULL ,
 	PRIMARY KEY ( id_invoice , id_payment )
-) ENGINE = MYISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -1570,7 +1573,7 @@ CREATE TABLE cc_billing_customer (
 	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	id_invoice BIGINT NOT NULL ,
 	PRIMARY KEY ( id )
-) ENGINE = MYISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- PLUGNPAY
 ALTER TABLE cc_epayment_log ADD COLUMN cvv VARCHAR(4);
@@ -1614,7 +1617,7 @@ CREATE TABLE cc_agent_commission (
 	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 	amount DECIMAL( 15, 5 ) NOT NULL ,
 	PRIMARY KEY ( id )
-) ENGINE = MYISAM ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_card_group ADD id_agent INT NULL ;
 
