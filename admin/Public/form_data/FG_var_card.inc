@@ -113,15 +113,15 @@ $show_list_temp=split(',', $A2B->config["webui"]['card_show_field_list']);
 foreach ($show_list_temp as $i => $value) {
 	$a=strtolower(trim($value));
 	$pos = strpos($a, ':');
-	if (!($pos===false)){
+	if (!($pos===false)) {
 		$temp_ar=split(':',$a);
 		$b=$temp_ar[1];
 		$a=strtolower(trim($temp_ar[0]));	
-		if (strlen($a)>1){
+		if (strlen($a)>1) {
 		$show_list_sizes[$a]=$b;
 		}
 	}
-	if (strlen($a)>1){
+	if (strlen($a)>1) {
 		$show_list[$a]=$a;
 	}
 }
@@ -139,7 +139,7 @@ $show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettex
 if (!($popup_select>=1)) {
 	$serial_pad_length=$A2B->config["webui"]['card_serial_length'];
 	$show_fields['id_seria']=array(gettext("SERIA"), "id_seria", "*", "center", "sort", "15", "lie", "cc_card_seria", "name","id='%id'", "%1","");
-	$show_fields['serial']=array(gettext("SERIAL#"), "serial", "*","center", "sort","","eval",'str_pad("%C",'.$serial_pad_length.' , "0", STR_PAD_LEFT)');
+	$show_fields['serial']=array("<acronym title=\"".gettext("SERIAL NUMBER")."\">SERIAL#</acronym>", "serial", "*","center", "sort","","eval",'str_pad("%C",'.$serial_pad_length.' , "0", STR_PAD_LEFT)');
 	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>",
 	       "tariff", "8%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 	$show_fields['status']=array(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
@@ -332,7 +332,7 @@ $HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
 
 if ($form_action =="ask-add" || $form_action=="add") {
 	$balance_access = "value = '0'";
-	$payment_status="";
+	$payment_status = "";
 	
 } else {
 	$balance_access = 'readonly';
@@ -487,16 +487,19 @@ $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-			   
-$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
-			   "typepaid",
-			   "",
-			   "SELECT",
-			   "$payment_status",
-			   "",
-			   "",
-			   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
-
+if ($form_action != "edit") {
+	
+	$update_field_typepaid = 'typepaid ,';
+	
+	$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
+				   "typepaid",
+				   "",
+				   "SELECT",
+				   "$payment_status",
+				   "",
+				   "",
+				   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
+}
 
 $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "tariff",
@@ -905,7 +908,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, id_group, id_seria, lastname, firstname, email, '.
 		' address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
-		' typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
+		$update_field_typepaid.' tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
 		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );

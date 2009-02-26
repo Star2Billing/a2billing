@@ -59,7 +59,6 @@ class Constants
 		return $actived_list;
 	}
 
-
 	public static function getBillingTypeList(){	
 		$billingtype_list = array();
 		$billingtype_list["0"] = array( gettext("Fix per month + dialoutrate"), "0");
@@ -88,7 +87,7 @@ class Constants
 	public static function getPaidTypeList(){
 		$typepaid_list = array();
 		$typepaid_list["0"] = array( gettext("PREPAID CARD"), "0");
-		$typepaid_list["1"] = array( gettext("POSTPAY CARD"), "1");
+		$typepaid_list["1"] = array( gettext("POSTPAID CARD"), "1");
 		return $typepaid_list;
 	}
 
@@ -108,6 +107,7 @@ class Constants
 		$invoice_status_list['1'] = array( gettext('CLOSE'), '1');
 		return $invoice_status_list;
 	}
+	
 	public static function getBillingInvoiceStatusList(){
 		$invoice_status_list = array();
 		$invoice_status_list['0'] = array( gettext('OPEN'), '0');
@@ -275,6 +275,7 @@ class Constants
 		$simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
 		return $simultaccess_list;
 	}
+	
 	public static function getCardAccess_Revert_List(){
 		$simultaccess_list_r = array();
 		$simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
@@ -290,6 +291,7 @@ class Constants
 		$expire_list["3"]  = array( gettext("EXPIRE DAYS SINCE CREATION"), "3");
 		return $expire_list;
 	}
+	
 	public static function getRefillType_List(){
 		$refil_type_list=array();
 		$refil_type_list["0"]  = array( gettext("AMOUNT"),"0");

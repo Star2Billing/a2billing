@@ -46,6 +46,117 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 
 <table width="95%" >	
 	<tr>
+		
+		<td valign="top" width="50%" >
+			<table width="100%" class="editform_table1">
+			   <tr>
+			   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+			   			<?php echo gettext("ACCOUNT INFO") ?>
+			   		</th>	
+			   </tr>
+			   <tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("STATUS") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php 
+						$list_typepaid = Constants::getPaidTypeList();
+						echo $list_typepaid[$card['typepaid']][0];?> 
+					</td>
+			   </tr>
+			   <tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("ACCOUNT NUMBER") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['username']?> 
+					</td>
+			   </tr>
+			   <tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("SERIAL NUMBER") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo str_pad($card['serial'], $A2B->config["webui"]['card_serial_length'] , "0", STR_PAD_LEFT); ?> 
+					</td>
+			   </tr>
+			   <tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("WEB ALIAS") ?>
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['useralias']?> 
+					</td>
+			   </tr>
+			   <tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("WEB PASSWORD") ?>
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['uipass']?> 
+					</td>
+				</tr>
+			   	<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("LANGUAGE") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['language']?> 
+					</td>
+				</tr>
+			   	<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("STATUS") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php 
+						$list_status = Constants::getCardStatus_List();
+						echo $list_status[$card['status']][0];?> 
+					</td>
+				</tr>
+			   	<tr height="20px">	
+					<td  class="form_head">
+						<?php echo gettext("CREATION DATE") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['creationdate']?> 
+					</td>
+				</tr>
+			   	<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("EXPIRATION DATE") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['expirationdate']?> 
+					</td>
+				</tr>
+			   	<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("FIRST USE DATE") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['firstusedate']?> 
+					</td>
+				</tr>
+			   	<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("LAST USE DATE") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['lastuse']?> 
+					</td>
+				</tr>
+	  			<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("CALLBACK") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['callback']?> 
+					</td>
+				</tr>							
+			 </table>
+		</td>
+	
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1"  >
 				<tr>
@@ -154,97 +265,6 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 			</table>
 		</td>
 	
-		<td valign="top" width="50%" >
-			<table width="100%" class="editform_table1">	
-			   <tr>
-			   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
-			   			<?php echo gettext("ACCOUNT INFO") ?>
-			   		</th>	
-			   </tr>
-			   <tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("ACCOUNT NUMBER") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						&nbsp;<?php echo $card['username']?> 
-					</td>
-			   </tr>
-			   <tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("WEB ALIAS") ?>
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['useralias']?> 
-					</td>
-			   </tr>
-			   <tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("WEB PASSWORD") ?>
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['uipass']?> 
-					</td>
-				</tr>
-			   	<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("LANGUAGE") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['language']?> 
-					</td>
-				</tr>
-			   	<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("STATUS") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php 
-						$list_status = Constants::getCardStatus_List();
-						echo $list_status[$card['status']][0];?> 
-					</td>
-				</tr>
-			   	<tr height="20px">	
-					<td  class="form_head">
-						<?php echo gettext("CREATION DATE") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['creationdate']?> 
-					</td>
-				</tr>
-			   	<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("EXPIRATION DATE") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['expirationdate']?> 
-					</td>
-				</tr>
-			   	<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("FIRST USE DATE") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['firstusedate']?> 
-					</td>
-				</tr>
-			   	<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("LAST USE DATE") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['lastuse']?> 
-					</td>
-				</tr>
-	  			<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("CALLBACK") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['callback']?> 
-					</td>
-				</tr>							
-			 </table>
-		</td>
 	</tr>
 </table>
 
@@ -252,6 +272,57 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 
 <table width="95%">	
 	<tr>
+		
+		<td valign="top" width="50%" >
+			<table width="100%" class="editform_table1">	
+			   <tr>
+			   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+			   			<?php echo gettext("ACCOUNT STATUS") ?>
+			   		</th>	
+			   </tr>
+			   <tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("BALANCE") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						&nbsp;<?php echo $card['credit']?> 
+					</td>
+				</tr>
+				<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("CURRENCY") ?>
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['currency']?> 
+					</td>
+			  	</tr>
+			   <tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("CREDIT LIMIT") ?>
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['creditlimit']?> 
+					</td>
+				</tr>
+			   	<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("AUTOREFILL") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['autorefill']?> 
+					</td>
+				</tr>
+			   	<tr height="20px">
+					<td  class="form_head">
+						<?php echo gettext("INVOICE DAY") ?> :
+					</td>
+					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+						<?php echo $card['invoiceday']?> 
+					</td>
+				</tr>
+			 </table>
+		</td>
+		
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1"  >
 				<tr>
@@ -308,56 +379,6 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 					
 				</tr>
 			</table>
-		</td>
-	
-		<td valign="top" width="50%" >
-			<table width="100%" class="editform_table1">	
-			   <tr>
-			   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
-			   			<?php echo gettext("ACCOUNT STATUS") ?>
-			   		</th>	
-			   </tr>
-			   <tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("BALANCE") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						&nbsp;<?php echo $card['credit']?> 
-					</td>
-				</tr>
-				<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("CURRENCY") ?>
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['currency']?> 
-					</td>
-			  	</tr>
-			   <tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("CREDIT LIMIT") ?>
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['creditlimit']?> 
-					</td>
-				</tr>
-			   	<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("AUTOREFILL") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['autorefill']?> 
-					</td>
-				</tr>
-			   	<tr height="20px">
-					<td  class="form_head">
-						<?php echo gettext("INVOICE DAY") ?> :
-					</td>
-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						<?php echo $card['invoiceday']?> 
-					</td>
-				</tr>
-			 </table>
 		</td>
 	</tr>
 </table>
