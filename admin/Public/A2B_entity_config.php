@@ -2,6 +2,7 @@
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
+include ("../lib/config_functions.php");
 include ("./form_data/FG_var_config.inc");
 include ("../lib/admin.smarty.php");
 
@@ -69,51 +70,50 @@ function Check()
 }
 </script>
 <form name="searchform" id="searchform" method="post" action="A2B_entity_config.php">
-<input type="hidden" name="searchenabled" value="yes">
-<input type="hidden" name="posted" value="1">
-
-<table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>			
-			<tr>
-				<td width="19%" align="left" valign="top" class="bgcolor_004">					
-					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SELECT GROUP");?></font>
-				</td>				
-				<td width="81%" align="left" class="bgcolor_005">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
-				  <td class="fontstyle_searchoptions">
-				  <?php
-					$DBHandle  = DbConnect();
-					$instance_table = new Table();
-					$QUERY = "SELECT * from cc_config_group"; 					
-					$list_total_groups  = $instance_table->SQLExec ($DBHandle, $QUERY);		
-				   ?>
-				<select name="groupselect" class="form_input_select">
-				<option value="-1" ><?php echo gettext("Select Group");?></option>
-				<?php 
-				foreach($list_total_groups as $groupname){
-				?>
-				<option value="<?php echo $groupname[0]?>" <?php if($groupselect == $groupname[0] || $groupname[0] == $_SESSION['ss_groupselect']) echo "selected"?>><?php echo $groupname[1]?></option>
-				<?php 
-				}
-				?>
-				</select>
-					</td>					
-				</tr></table></td>
-			</tr>			
-
-			<tr>
-        		<td class="bgcolor_002" align="left">&nbsp;</td>
-      			<td class="bgcolor_003" align="left">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					<tr>
-					  <td class="fontstyle_searchoptions">					<div align="center"><span class="bgcolor_005">
-				      <input type="image"  name="image16" align="left" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
-				        </span> </div></td>
-					</tr>
-					</table>
-	  			</td>
-    		</tr>
-		</tbody></table>
+	<input type="hidden" name="searchenabled" value="yes">
+	<input type="hidden" name="posted" value="1">
+	
+	<table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
+		<tr>
+			<td width="19%" align="left" valign="top" class="bgcolor_004">					
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SELECT GROUP");?></font>
+			</td>				
+			<td width="81%" align="left" class="bgcolor_005">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
+			  <td class="fontstyle_searchoptions">
+			  <?php
+				$DBHandle  = DbConnect();
+				$instance_table = new Table();
+				$QUERY = "SELECT * from cc_config_group"; 					
+				$list_total_groups  = $instance_table->SQLExec ($DBHandle, $QUERY);		
+			   ?>
+			<select name="groupselect" class="form_input_select">
+			<option value="-1" ><?php echo gettext("Select Group");?></option>
+			<?php 
+			foreach($list_total_groups as $groupname){
+			?>
+			<option value="<?php echo $groupname[0]?>" <?php if($groupselect == $groupname[0] || $groupname[0] == $_SESSION['ss_groupselect']) echo "selected"?>><?php echo $groupname[1]?></option>
+			<?php 
+			}
+			?>
+			</select>
+				</td>					
+			</tr></table></td>
+		</tr>			
+	
+		<tr>
+			<td class="bgcolor_002" align="left">&nbsp;</td>
+			<td class="bgcolor_003" align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+				  <td class="fontstyle_searchoptions">					<div align="center"><span class="bgcolor_005">
+			      <input type="image"  name="image16" align="left" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
+			        </span> </div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
 </FORM>
 </center>
 

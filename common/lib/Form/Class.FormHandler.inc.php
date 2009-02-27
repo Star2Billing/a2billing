@@ -1,12 +1,20 @@
 <?php
-// ## created by Belaid Arezqui 
-// %% date : 27 December 2004
-// %% last update : 29 May 2006
-// ##
-
-// ************************************************************************
-// 		FormHandler - PHP : Handle, Form Generator (FG)
-// ************************************************************************
+/***************************************************************************
+ *
+ * Class.FormHandler.php : FormHandler - PHP : Handle, Form Generator (FG) for A2Billing
+ * Written for PHP 4.x & PHP 5.X versions.
+ *
+ * A2Billing -- Asterisk billing solution.
+ * Copyright (C) 2004, 2009 Belaid Arezqui <areski _atl_ gmail com>
+ *
+ * See http://www.asterisk2billing.org for more information about
+ * the A2Billing project.
+ * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
+ *
+ * This software is released under the terms of the GNU Lesser General Public License v2.1
+ * A copy of which is available from http://www.gnu.org/copyleft/lesser.html
+ *
+ ****************************************************************************/
 
 
 class FormHandler

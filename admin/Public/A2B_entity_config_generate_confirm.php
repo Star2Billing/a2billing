@@ -69,7 +69,7 @@ $group_description = $config_group[2];
 			<table width="100%" style="border:1px solid">
 			<thead>
 				<tr>
-					<td colspan="5" class="bgcolor_005"><font style="color:#FFFFFF;padding-left:3px"><strong><?php echo gettext("List of Configurations")?></strong></font></td>
+					<td colspan="5" class="bgcolor_005"><font style="color:#FFFFFF;padding-left:3px"><strong><?php echo gettext("List of Configurations - We will create base on ")." AGI-Conf".$config_group[3]?> </strong></font></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -81,11 +81,10 @@ $group_description = $config_group[2];
 					<th class="tableBody" style="padding: 2px;" align="center" width="5%"><?php echo gettext("Group")?></th>
 				</tr>
 <?php
-$DBHandle  = DbConnect();
 $instance_table = new Table();
 
-$QUERY = "SELECT config_title,config_key,config_value,config_description from cc_config where config_group_id = 11 order by id limit 10"; 					
-$config  = $instance_table->SQLExec ($DBHandle, $QUERY);	
+$QUERY = "SELECT config_title,config_key,config_value,config_description from cc_config where config_group_id = ".$config_group[1]." order by id limit 10"; 					
+$config  = $instance_table->SQLExec ($HD_Form -> DBHandle, $QUERY);	
 $i=0;
 
 foreach($config as $values) {

@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_
 
 // This will generate agi-confx 
 // agi-confx is duplication of Global configuration and list of configurations of : agi-conf1 
-if($agi_conf) {
+if ($agi_conf) {
 	$groupselect = add_agi_confx();
 	unset($agi_conf);
 }

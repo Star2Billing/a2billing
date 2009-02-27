@@ -2,22 +2,25 @@
 
 /*
  * Following fuctions return the latest title to add as
- * agi-conf(title_number) for Global configurations and List of confiurations
+ * agi-conf(title_number) for Global configurations and List of configurations
  * Tables : cc_confi_group
  * Operations : SELECT
  *
+ * It will browse the agi-conf% existing find the new one to add (last or missing agi-conf)
+ * return config_group_id of the first agi-conf% existing
+ *  
  */
 
 function agi_confx_title($handle=null)
 {
-	if (empty($handle)){
+	if (empty($handle)) {
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
 
-	$QUERY =  "SELECT id,group_title,group_description FROM cc_config_group WHERE group_title like '%agi-conf%' ORDER BY group_title";
+	$QUERY =  "SELECT id, group_title, group_description FROM cc_config_group WHERE group_title like '%agi-conf%' ORDER BY group_title";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
-
+	
 	if (is_array($result)) {
 		$num_cur = count($result);
 		for ($i=0;$i<$num_cur;$i++) {
@@ -41,6 +44,7 @@ function agi_confx_title($handle=null)
 	$config_group[0] = "agi-conf".$agi_conf_number;
 	$config_group[1] = $config_group_id;
 	$config_group[2] = $description;
+	$config_group[3] = $agi_number[0];
 	return $config_group;
 }
 
