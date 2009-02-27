@@ -108,7 +108,7 @@ class Invoice {
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
 			$i = 0;
 			foreach ($return as $value) {
-				$comment = new InvoiceItem($value['id'], $value['description'], $value['date'], $value["price"], $value["VAT"]);
+				$comment = new InvoiceItem($value['id'], $value['description'], $value['date'], $value["price"], $value["VAT"],$value["type_ext"],$value["id_ext"]);
 				$result[$i] = $comment;
 				$i++;
 			}
@@ -130,10 +130,10 @@ class Invoice {
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
 			$i = 0;
 			foreach ($return as $value) {
-				if ($value['id_billing'] && $value['billing_type'] == "CALLS") {
+				if ($value['id_ext'] && $value['type_ext'] == "CALLS") {
 
 					$billing_table = new Table("cc_billing_customer", "date,start_date");
-					$billing_clause = "id = " . $value['id_billing'];
+					$billing_clause = "id = " . $value['id_ext'];
 					$result_billing = $billing_table->Get_list($DBHandle, $billing_clause);
 					if (is_array($result_billing) && !empty ($result_billing[0]['date'])) {
 						$call_table = new Table("cc_call", "*");
@@ -151,7 +151,7 @@ class Invoice {
 						}
 					}
 				} else {
-					$item = new InvoiceItem($value['id'], $value['description'], $value['date'], $value["price"], $value["VAT"]);
+					$item = new InvoiceItem($value['id'], $value['description'], $value['date'], $value["price"], $value["VAT"],$value["type_ext"],$value["id_ext"]);
 					$result[$i] = $item;
 					$i++;
 				}
@@ -206,6 +206,19 @@ class Invoice {
 			$clause = "id = " . $this->id;
 			$param = " paid_status = " . $status;
 			$instance_sub_table->Update_table($DBHandle, $param, $clause);
+			if($this->paid_status !=$status){
+				$items = $this -> loadItems();
+				foreach ($items as $item) {
+					if($item->getExtType() =="DID" && is_numeric($item->getExtId())){
+						$did_table = new Table("cc_did_use", "*");
+						if($status == 0) $param = " reminded = 1, month_payed = month_payed-1";
+						else $param = " reminded = 0, month_payed = month_payed+1";
+						$QUERY = "UPDATE cc_did_use set $param WHERE id_did = '".$item->getExtId() ."' and activated = 1" ;
+						$did_table -> SQLExec ($DBHandle, $QUERY, 0);
+					}
+				}
+			}
+			
 		} else
 			return null;
 	}

@@ -151,7 +151,7 @@ foreach ($result as $mydids){
 							$description = "DID number (".$mydids[7].")";
 							$amount = $mydids[3];
 							$vat=0;
-							$field_insert = "date, id_invoice,price,vat,description,id_billing,billing_type";
+							$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
 							$instance_table = new Table("cc_invoice_item", $field_insert);
 							$value_insert = " '$date' , '$last_invoice', '$amount','$vat','$description','".$mydids[0]."','DID'";
 											if ($verbose_level>=1) echo "INSERT INVOICE ITEM : $field_insert =>	$value_insert \n";

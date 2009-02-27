@@ -1664,7 +1664,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$description = $desc_billing;
 				if(!is_array($card_result)||empty($card_result[0]['vat'])||!is_numeric($card_result[0]['vat'])) $vat=0;
 				else $vat = $card_result[0][0];
-				$field_insert = "date, id_invoice,price,vat,description,id_billing,billing_type";
+				$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
 				$instance_table = new Table("cc_invoice_item", $field_insert);
 				$value_insert = " '$date' , '$id_invoice', '$amount_calls','$vat','$description','".$this -> RESULT_QUERY."','CALLS'";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");

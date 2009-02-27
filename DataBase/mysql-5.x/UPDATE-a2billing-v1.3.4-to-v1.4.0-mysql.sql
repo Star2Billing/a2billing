@@ -1681,5 +1681,5 @@ ALTER TABLE cc_charge ADD charged_status TINYINT NOT NULL DEFAULT '0',
 ADD invoiced_status TINYINT NOT NULL DEFAULT '0';
 ALTER TABLE cc_did_use ADD reminded TINYINT NOT NULL DEFAULT '0';
 
-
-
+ALTER TABLE cc_invoice_item CHANGE id_billing id_ext BIGINT( 20 ) NULL DEFAULT NULL;
+ALTER TABLE cc_invoice_item CHANGE billing_type type_ext VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;  
