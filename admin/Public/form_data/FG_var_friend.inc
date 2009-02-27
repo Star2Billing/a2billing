@@ -6,9 +6,9 @@ getpost_ifset(array('id_cc_card', 'cardnumber', 'id', 'name', 'amaflags', 'callg
 
 
 if ($atmenu=='sip') {
-	$HD_Form = new FormHandler("cc_sip_buddies","Sip Friend");
+	$HD_Form = new FormHandler("cc_sip_buddies","SIP Config");
 } else {
-	$HD_Form = new FormHandler("cc_iax_buddies","IAX Friend");
+	$HD_Form = new FormHandler("cc_iax_buddies","IAX Config");
 }
 
 
@@ -32,9 +32,9 @@ $HD_Form -> AddViewElement(gettext("DTMF"), "dtmfmode", "8%", "center", "sort");
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_friend.php?form_action=ask-add&atmenu=sip&section=1";
 if ($atmenu=='sip') {
-	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SIP Friend");
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SIP Config");
 } else {
-	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add IAX Friend");
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add IAX Config");
 }
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
 

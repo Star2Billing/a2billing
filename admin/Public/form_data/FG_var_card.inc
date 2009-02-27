@@ -282,9 +282,9 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
 	$HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path . "/money.png";
-	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
-	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
-	$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('ADD PAYMENT');
+	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("Auto Create SIP Config");
+	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("Auto Create IAX Config");
+	$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('Add Payment to this Card');
 }
 
 $maxi	= '';
@@ -742,24 +742,24 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
 			   "" , "", "",	"", "", "", "", gettext("The number of days after which the account will expire."));
 
 
-$HD_Form -> AddEditElement (gettext("SIP ACCOUNT"),
+$HD_Form -> AddEditElement (gettext("CREATE SIP CONFIG"),
 			   "sip_buddy",
 			   '1',
 			   "RADIOBUTTON",
 			   "",
 			   "",
 			   gettext("Choose if you want to enable the sip account"),
-			   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Enable SIP account"));
+			   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Create the SIP config automatically"));
 
 
-$HD_Form -> AddEditElement (gettext("IAX ACCOUNT"),
+$HD_Form -> AddEditElement (gettext("CREATE IAX CONFIG"),
 			   "iax_buddy",
 			   '1',
 			   "RADIOBUTTON",
 			   "",
 			   "",
 			   gettext("Choose if you want to enable the iax account"),
-			   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable IAX account"));
+			   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Create the IAX config automatically"));
 
 $HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
 			   "mac_addr",

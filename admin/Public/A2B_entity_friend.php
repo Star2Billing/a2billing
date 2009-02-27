@@ -12,32 +12,29 @@ if (! has_rights (ACX_CUSTOMER)) {
 }
 
 
-
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
+
 
 /********************************* ADD SIP / IAX FRIEND ***********************************/
 getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
 if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
-	if(!USE_REALTIME){
+	if(!USE_REALTIME) {
 		$_SESSION["is_sip_iax_change"]=1;
 	}
 	
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION = "A2B_entity_card.php?atmenu=card&stitle=Customers_Card&id=";
 
-	if ( $form_action == "add_sip" ) { 
+	if ($form_action == "add_sip") { 
 		$friend_param_update=" sip_buddy='1' ";
 		if(!USE_REALTIME){
 			$_SESSION["is_sip_changed"] = 1;
 		}
-	}	
-	else {
+	} else {
 		$friend_param_update=" iax_buddy='1' ";
-		if(!USE_REALTIME){
+		if(!USE_REALTIME) {
 			$_SESSION["is_iax_changed"] = 1;
 		}
 	}
@@ -73,8 +70,6 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 	$HD_Form->_vars = array_merge($_GET, $_POST);
 }
 
-/***********************************************************************************/
-
 
 
 
@@ -82,7 +77,7 @@ $HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&atmenu
 $HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&atmenu=$atmenu&id=";
 
 
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
@@ -90,14 +85,14 @@ if ($id!="" || !is_null($id)){
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
-if(!USE_REALTIME){
+if(!USE_REALTIME) {
 	// CHECK THE ACTION AND SET THE IS_SIP_IAX_CHANGE IF WE ADD/EDIT/REMOVE A RECORD
 	if ( $form_action == "add" || $form_action == "edit" || $form_action == "delete" ){
-		$_SESSION["is_sip_iax_change"]=1;
-		if ($atmenu=='sip'){
-			$_SESSION["is_sip_changed"]=1;
-	  	}else{
-	  		$_SESSION["is_iax_changed"]=1;
+		$_SESSION["is_sip_iax_change"] = 1;
+		if ($atmenu=='sip') {
+			$_SESSION["is_sip_changed"] = 1;
+	  	} else {
+	  		$_SESSION["is_iax_changed"] = 1;
 	  	}
 	}
 }
@@ -110,7 +105,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action=='list'){ 
+if ($form_action=='list') {
 	echo $CC_help_sipfriend_list;
 	
 	if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>
@@ -132,19 +127,43 @@ if ($form_action=='list'){
 		   </table>
 	<?php  } // endif is_sip_iax_change
 
-}else echo $CC_help_sipfriend_edit;
+} else {
+	echo $CC_help_sipfriend_edit;
+}
 
+if ($form_action=='list') {
+?>
 
+<table width="40%" border="0" align="center" cellpadding="0" cellspacing="1">
+	<tr>
+	  <td  class="bgcolor_021">
+	  <table width="100%" border="0" cellspacing="1" cellpadding="0">
+	  	<form name="form1" method="post" action="">
+		  <tr>
+			<td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
+			<td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
+			   <select name="atmenu" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
+				 <option value="iax" <?php if($atmenu == "iax")echo "selected"?>><?php echo gettext("IAX")?></option>
+				 <option value="sip" <?php if($atmenu == "sip")echo "selected"?>><?php echo gettext("SIP")?></option>
+			   </select> 
+			  <input name="PMChange" type="hidden" id="PMChange">
+			                                      
+			</td>
+		  </tr>
+		  </form>  
+	  </table></td>
+	</tr>
+</table>
+
+<?php
+}
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
+
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');

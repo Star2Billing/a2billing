@@ -117,7 +117,7 @@ $CC_help_sipfriend_list ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">
-'.gettext("SIP and IAX friend will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
+'.gettext("SIP and IAX Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
 .gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret as the username and password.").'
 <br/>'.help_wiki_link('ListSIPFriend').'
 </div></div></div>

@@ -63,8 +63,7 @@
 				<li><a href="A2B_entity_card.php?section=1">{php} echo gettext("Customers");{/php}</a></li>
 				<li><a href="A2B_entity_card_group.php?section=1">{php} echo gettext("Customer Group");{/php}</a></li>
                 <li><a href="CC_card_import.php?section=1">{php} echo gettext("Import Customers");{/php}</a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("SIP-FRIEND");{/php}</a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=iax&section=1">{php} echo gettext("IAX-FRIEND");{/php}</a></li>
+				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("VOIP Config");{/php}</a></li>
 				<li><a href="A2B_entity_card_seria.php?section=1">{php} echo gettext("Customer Seria");{/php}</a></li>
 				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("CallerID");{/php}</a></li>
 				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&section=1">{php} echo gettext("Speed Dial");{/php}</a></li>

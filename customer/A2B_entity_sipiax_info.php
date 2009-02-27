@@ -6,7 +6,7 @@ include ("./form_data/FG_var_sipiax_info.inc");
 include ("./lib/customer.smarty.php");
 
 
-if (! has_rights (ACX_SIP_IAX)){
+if (! has_rights (ACX_SIP_IAX)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -18,17 +18,14 @@ getpost_ifset(array('configtype'));
 
 $DBHandle = DbConnect();
 $HD_Form -> init();
-if($configtype == "")
-{
+if($configtype == "") {
 	$configtype = "SIP";
 }
 $table_instance = new Table();
-if($configtype == "IAX")
-{
+if($configtype == "IAX") {
 	$config_name = gettext("IAX Config");
 	$config_file = gettext("iax.conf");
-	$QUERY = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = ".$_SESSION["card_id"];	
-
+	$QUERY = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = ".$_SESSION["card_id"];
 } else {
 	$config_name = gettext("SIP Config");
 	$config_file = gettext("sip.conf");

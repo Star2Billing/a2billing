@@ -6,7 +6,7 @@ include ("./form_data/FG_var_user.inc");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_ADMINISTRATOR)){ 
+if (! has_rights (ACX_ADMINISTRATOR)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -14,19 +14,13 @@ if (! has_rights (ACX_ADMINISTRATOR)){
 
 
 
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
-
-// TODO init() shouldn't initialize FG_EDITION_LINK, FG_DELETION_LINK and others
-// because on this way we need to redefine here and it is not posible to do it in
-// the include file
 $HD_Form -> init();
 
 $HD_Form -> FG_EDITION_LINK= $_SERVER[PHP_SELF]."?form_action=ask-edit&groupID=$groupID&id=";
 $HD_Form -> FG_DELETION_LINK= $_SERVER[PHP_SELF]."?form_action=ask-delete&groupID=$groupID&id=";
 
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
@@ -60,6 +54,7 @@ function sendValue(selvalue){
 // End -->
 </script>
 
+
 <?php
 }
 
@@ -68,15 +63,10 @@ function sendValue(selvalue){
 $HD_Form -> create_toppage ($form_action);
 
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
-// #### FOOTER SECTION
+
+
 $smarty->display('footer.tpl');
 
 
-
-?>
