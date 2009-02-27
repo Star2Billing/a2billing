@@ -1,21 +1,19 @@
 <?php
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
+include ("../lib/config_functions.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_config.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_MISC)){
+if (! has_rights (ACX_MISC)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-/***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
-
-
 $HD_Form -> init();
 
 // #### HEADER SECTION
@@ -39,6 +37,7 @@ $config_group = array();
 $config_group  = agi_confx_title(); // calling function  to generate agi-conf(title_number)
 $group_title = $config_group[0];
 $group_description = $config_group[2];
+
 ?>
 <table width="92%" align="center" class="bar-status">
 	<tr>
@@ -87,18 +86,18 @@ $instance_table = new Table();
 
 $QUERY = "SELECT config_title,config_key,config_value,config_description from cc_config where config_group_id = 11 order by id limit 10"; 					
 $config  = $instance_table->SQLExec ($DBHandle, $QUERY);	
-$i=0;	
-foreach($config as $values){
+$i=0;
+
+foreach($config as $values) {
 	$config_title = $values[0]; 
 	$config_key = $values[1]; 
 	$config_value = $values[2]; 
 	$config_description = $values[3]; 
-	if($i % 2 == 0){
+	if($i % 2 == 0) {
 		$bgcolor = "bgColor='#FCFBFB'"; 
-	}else{
+	} else {
 		$bgcolor = "bgColor='#F2F2EE'";	
 	}
-	
 ?>				
 				<tr <?php echo $bgcolor?> onmouseover="bgColor='#FFDEA6'" onMouseOut="<?php echo $bgcolor?>">
 					<td align="left" class="tableBody"><?php echo $config_title?></td>
@@ -107,7 +106,10 @@ foreach($config as $values){
 					<td align="left" class="tableBody"><?php echo $config_description?></td>
 					<td align="left" class="tableBody"><?php echo $group_title?></td>
 				</tr>
-<?php $i++;}?>				
+<?php 
+	$i++;
+}
+?>				
 			</tbody>
 			</table>
 		</td>
@@ -127,6 +129,7 @@ foreach($config as $values){
 </table>
 
 <?php
+
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-?>
+
