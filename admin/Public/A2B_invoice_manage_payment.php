@@ -69,7 +69,7 @@ function addpayment(selvalue){
 function delpayment(){
 	//test si val is not null & numeric
 	if($('#payment').val()!=null){
-		self.location.href= "A2B_invoice_manage_payment?id=<?php echo $id; ?>&delpayment="+$('#payment').val();
+		self.location.href= "A2B_invoice_manage_payment.php?id=<?php echo $id; ?>&delpayment="+$('#payment').val();
 		if(win!=null){
 			win.location.href = "A2B_entity_payment_invoice.php?popup_select=1&invoice=<?php echo $id ?>&card=<?php echo $invoice->getCard() ?>";
 			}
@@ -77,7 +77,7 @@ function delpayment(){
 }
 
 function changeStatus(){
-	self.location.href= "A2B_invoice_manage_payment?id=<?php echo $id; ?>&status=<?php echo ($invoice->getPaidStatus()+1)%2; ?>";
+	self.location.href= "A2B_invoice_manage_payment.php?id=<?php echo $id; ?>&status=<?php echo ($invoice->getPaidStatus()+1)%2; ?>";
 }
 // End -->
 
