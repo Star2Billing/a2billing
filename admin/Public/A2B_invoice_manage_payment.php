@@ -89,7 +89,7 @@ function changeStatus(){
 	</tr>
 	<tr>
 		<td colspan="2" align="right">
-			<a href="javascript:;" onClick="MM_openBrWindow('A2B_invoice_view?popup_select=1&id=<?php echo $id ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="../Public/templates/default/images/page_white_text.png" title="Print" alt="Print" border="0"></a>
+			<a href="javascript:;" onClick="MM_openBrWindow('A2B_invoice_view.php?popup_select=1&id=<?php echo $id ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="../Public/templates/default/images/page_white_text.png" title="Print" alt="Print" border="0"></a>
 		</td>
 	</tr>
 	<tr>
