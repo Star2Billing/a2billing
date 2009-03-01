@@ -50,8 +50,8 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> CV_FILTER_ABOVE_TABLE_PARAM = "?friend_id=";
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
 
-if (isset($friend_id)  &&  (strlen($friend_id)>0)){
-	if ($friend_id!='all'){
+if (isset($friend_id)  &&  (strlen($friend_id)>0)) {
+	if ($friend_id!='all') {
 		if (strlen($HD_Form ->FG_TABLE_CLAUSE)>0) $HD_Form ->FG_TABLE_CLAUSE.=" AND ";
 		$HD_Form ->FG_TABLE_CLAUSE.="name='$friend_id'";
 	}
@@ -64,14 +64,30 @@ $HD_Form -> FG_DELETION = true;
 
 
 
-
 $maxi='';
-if ($form_action=="ask-add"){
+if ($form_action=="ask-add") {
 	$card_gen = gen_card($HD_Form->FG_TABLE_NAME);
 	$maxi = "value='".$card_gen."'";
 	$pass =  MDP(6);
 	$pass_secret = "value='".$pass."'";
 }
+
+
+if ($form_action=="ask-add" || $form_action == "add_sip" || $form_action == "add_iax") {
+	$AMAFLAGS_default= "value='".$A2B->config["peer_friend"]['amaflag']."'";
+	$TYPE_default= "value='friend'";
+	$NAT_default= "value='yes'";
+	$DTMFMODE_default= "value='RFC2833'";
+	$CANREINVITE_default= "value='yes'";
+	$DISALLOW_default= "value='all'";
+	$ALLOW_default= "value='ulaw,alaw,gsm,g729'";
+	$HOST_default= "value='dynamic'";
+	$CONTEXT_default= "value='".$A2B->config["peer_friend"]['context']."'";
+	$REGSECONDS_default= "value='0'";
+	$CANCALLFORWARD_default= "value='yes'";
+	$TRUNK_default= "value='yes'";
+}
+
 
 $HD_Form -> AddEditElement (gettext("ID CARD"),
 							"id_cc_card",
@@ -95,10 +111,6 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 						   gettext("Insert the name"),
 						   "" , "", "",	"", "", "",	"", "" );
 
-
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$TYPE_default= "value='friend'";
-}
 
 $HD_Form -> AddEditElement (gettext("TYPE"),
                            "type",
@@ -148,9 +160,6 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
                            gettext("Insert the callerid"),
                            "" , "", "", "", "", "",	"", "" );
 
-
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax") 
-	$AMAFLAGS_default= "value='".$A2B->config["peer_friend"]['amaflag']."'";
 	
 $HD_Form -> AddEditElement (gettext("AMAFLAGS"),
 						   "amaflags",		
@@ -182,10 +191,6 @@ $HD_Form -> AddEditElement (gettext("MD5SECRET"),
                            "" , "", "", "", "", "",	"", "" );
 
 
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$NAT_default= "value='yes'";
-}
-
 $HD_Form -> AddEditElement (gettext("NAT"),
                            "nat",
                            '4',
@@ -195,10 +200,6 @@ $HD_Form -> AddEditElement (gettext("NAT"),
                            gettext("Insert the nat"),
                            "" , "", "", "", "", "",	"", gettext("nat = yes | no | never | route ( default : yes )") );
 
-
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$DTMFMODE_default= "value='RFC2833'";
-}
 
 $HD_Form -> AddEditElement (gettext("DTMFMODE"),
                            "dtmfmode",
@@ -219,11 +220,6 @@ $HD_Form -> AddEditElement (gettext("QUALIFY"),
                            gettext("Insert the qualify"),
                            "" , "", "", "", "", "",	"", "" );
 
-
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$CANREINVITE_default= "value='yes'";
-}
-
 $HD_Form -> AddEditElement (gettext("CANREINVITE"),
                            "canreinvite",
                            '',
@@ -233,10 +229,6 @@ $HD_Form -> AddEditElement (gettext("CANREINVITE"),
                            gettext("Insert the canreinvite"),
                            "" , "", "", "", "", "",	"", gettext("canreinvite : yes | no ( default : yes )"));
 
-
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$DISALLOW_default= "value='all'";
-}
 
 $HD_Form -> AddEditElement (gettext("DISALLOW"),
                            "disallow",
@@ -248,10 +240,6 @@ $HD_Form -> AddEditElement (gettext("DISALLOW"),
                            "" , "", "", "", "", "",	"", gettext("need to disallow=all before we can use allow. ( default : all )"));
 
 
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$ALLOW_default= "value='ulaw,alaw,gsm,g729'";
-}
-
 $HD_Form -> AddEditElement (gettext("ALLOW"),
                            "allow",
                            '',
@@ -261,10 +249,6 @@ $HD_Form -> AddEditElement (gettext("ALLOW"),
                            gettext("Insert the allow"),
                            "" , "", "", "", "", "",	"", gettext("Set allow codecs separated by a comma, e.g. gsm,alaw,ulaw ( default : ulaw,alaw,gsm,g729)"));
 
-
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$HOST_default= "value='dynamic'";
-}
 
 $HD_Form -> AddEditElement (gettext("HOST"),
                            "host",
@@ -285,10 +269,6 @@ $HD_Form -> AddEditElement (gettext("CALLGROUP"),
 						   gettext("Insert the callgroup"),
 						   "" , "", "",	"", "", "",	"", "" );
 
-
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$CONTEXT_default= "value='".$A2B->config["peer_friend"]['context']."'";
-}
 
 $HD_Form -> AddEditElement (gettext("CONTEXT"),
 						   "context",		
@@ -320,7 +300,6 @@ $HD_Form -> AddEditElement (gettext("FROMUSER"),
 						   "" , "", "",	"", "", "",	"", "" );
 
 
-
 $HD_Form -> AddEditElement (gettext("FROMDOMAIN"),
 						   "fromdomain",		
 						   '',	
@@ -339,7 +318,6 @@ $HD_Form -> AddEditElement (gettext("INSECURE"),
 						   "",	
 						   gettext("Insert the insecure"),
 						   "" , "", "",	"", "", "",	"", "" );
-
 
 
 $HD_Form -> AddEditElement (gettext("LANGUAGE"),
@@ -392,7 +370,6 @@ $HD_Form -> AddEditElement (gettext("MASK"),
 						   "",	
 						   gettext("Insert the mask"),
 						   "" , "", "",	"", "", "",	"", "" );
-
 
 
 $HD_Form -> AddEditElement (gettext("PICKUPGROUP"),
@@ -455,10 +432,6 @@ $HD_Form -> AddEditElement (gettext("MUSICONHOLD"),
 						   "" , "", "",	"", "", "",	"", "" );
 
 
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
-	$REGSECONDS_default= "value='0'";
-}
-
 $HD_Form -> AddEditElement (gettext("REGSECONDS"),	
 						   "regseconds",		
 						   '4',	
@@ -478,11 +451,6 @@ $HD_Form -> AddEditElement (gettext("IPADDR"),
 						   gettext("Insert the ipaddr"),
 						   "" , "", "",	"", "", "",	"", "" );
 
-
-if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax") {
-	$CANCALLFORWARD_default= "value='yes'";
-	$TRUNK_default= "value='yes'";
-}
 
 $HD_Form -> AddEditElement (gettext("CANCALLFORWARD"),
 						   "cancallforward",		
