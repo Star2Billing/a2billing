@@ -64,14 +64,14 @@ foreach ($payments as $payment) {
 var win= null;
 function addpayment(selvalue){
 	//test si win est encore ouvert et close ou refresh
-    win=MM_openBrWindow('A2B_entity_payment_invoice?popup_select=1&invoice=<?php echo $id ?>&card=<?php echo $invoice->getCard() ?>','','scrollbars=yes,resizable=yes,width=700,height=500');
+    win=MM_openBrWindow('A2B_entity_payment_invoice.php?popup_select=1&invoice=<?php echo $id ?>&card=<?php echo $invoice->getCard() ?>','','scrollbars=yes,resizable=yes,width=700,height=500');
 }
 function delpayment(){
 	//test si val is not null & numeric
 	if($('#payment').val()!=null){
 		self.location.href= "A2B_invoice_manage_payment?id=<?php echo $id; ?>&delpayment="+$('#payment').val();
 		if(win!=null){
-			win.location.href = "A2B_entity_payment_invoice?popup_select=1&invoice=<?php echo $id ?>&card=<?php echo $invoice->getCard() ?>";
+			win.location.href = "A2B_entity_payment_invoice.php?popup_select=1&invoice=<?php echo $id ?>&card=<?php echo $invoice->getCard() ?>";
 			}
 	}
 }
