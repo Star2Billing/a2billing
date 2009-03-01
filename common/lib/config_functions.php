@@ -68,19 +68,21 @@ function add_agi_confx($handle = null)
 	$group_title = $config_group[0];
 	$config_group_id = $config_group[1];
 	$description = $config_group[2];
-	$value = "'$group_title','$description'";
-	$func_fields = "group_title,group_description";
+	$base_group_title = 'agi-conf'.$config_group[3];
+	
+	$value = "'$group_title', '$description'";
+	$func_fields = "group_title, group_description";
 	$func_table = 'cc_config_group';
 	$id_name = "id";
 	$inserted_id = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name);
 
-	$value = "SELECT config_title,config_key,config_value,config_description,config_valuetype,$inserted_id,config_listvalues FROM cc_config WHERE config_group_id = $config_group_id";
-	$func_fields = "config_title,config_key,config_value,config_description,config_valuetype,config_group_id,config_listvalues";
+	$value = "SELECT config_title, config_key, config_value, config_description, config_valuetype, '$group_title', config_listvalues FROM cc_config WHERE config_group_title = '$base_group_title'";
+	$func_fields = "config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues";
 	$func_table = 'cc_config';
 	$id_name = "";
 	$subquery = true;
-	$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
-	return $inserted_id;
+	$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name, $subquery);
+	return $group_title;
 }
 
 
@@ -89,22 +91,22 @@ function add_agi_confx($handle = null)
  * Operations : DELETE
  * Tables : cc_config, cc_config_group
  */
-function delete_agi_confx($id_agi)
+function delete_agi_confx($agi_conf)
 {
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
 
-	$clause = "id = $id_agi";
+	$clause = "group_title = '$agi_conf'";
 	$fun_table = "cc_config_group";
 	$result = $instance_table -> Delete_table ($handle, $clause, $fun_table);
 
-	$clause = "config_group_id = $id_agi";
+	$clause = "config_group_title = '$agi_conf'";
 	$fun_table = "cc_config";
 	$result = $instance_table -> Delete_table ($handle, $clause, $fun_table);
 
 	return $result;
-
 }
+
 

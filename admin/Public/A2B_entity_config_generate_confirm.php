@@ -27,9 +27,6 @@ else echo $CC_help_add_agi_confx;
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $link = "A2B_entity_config.php?form_action=list&atmenu=config&stitle=Configuration&section=8&agi_conf=true";
 
@@ -69,7 +66,7 @@ $group_description = $config_group[2];
 			<table width="100%" style="border:1px solid">
 			<thead>
 				<tr>
-					<td colspan="5" class="bgcolor_005"><font style="color:#FFFFFF;padding-left:3px"><strong><?php echo gettext("List of Configurations - We will create base on ")." AGI-Conf".$config_group[3]?> </strong></font></td>
+					<td colspan="5" class="bgcolor_005"><font style="color:#FFFFFF;padding-left:3px"><strong><?php echo gettext("List of Configurations - We will create base on ")." AGI-CONF".$config_group[3]?> </strong></font></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -82,11 +79,10 @@ $group_description = $config_group[2];
 				</tr>
 <?php
 $instance_table = new Table();
-
-$QUERY = "SELECT config_title,config_key,config_value,config_description from cc_config where config_group_id = ".$config_group[1]." order by id limit 10"; 					
+$QUERY = "SELECT config_title, config_key, config_value, config_description FROM cc_config WHERE config_group_title = 'agi-conf".$config_group[3]."' ORDER BY id LIMIT 10"; 					
 $config  = $instance_table->SQLExec ($HD_Form -> DBHandle, $QUERY);	
-$i=0;
 
+$i=0;
 foreach($config as $values) {
 	$config_title = $values[0]; 
 	$config_key = $values[1]; 
@@ -116,7 +112,7 @@ foreach($config as $values) {
 	<br>
 	<?php 
 	$text = gettext("CREATE");
-	$group_title = $text." ".ucwords($group_title);
+	$group_title = $text." ".strtoupper($group_title);
 	?>
 	<tr>
 		<td align="right">

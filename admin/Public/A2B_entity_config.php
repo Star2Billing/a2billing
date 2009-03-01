@@ -82,17 +82,16 @@ function Check()
 			<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 			  <td class="fontstyle_searchoptions">
 			  <?php
-				$DBHandle  = DbConnect();
 				$instance_table = new Table();
 				$QUERY = "SELECT * from cc_config_group"; 					
-				$list_total_groups  = $instance_table->SQLExec ($DBHandle, $QUERY);		
+				$list_total_groups  = $instance_table->SQLExec ($HD_Form -> DBHandle, $QUERY);		
 			   ?>
 			<select name="groupselect" class="form_input_select">
 			<option value="-1" ><?php echo gettext("Select Group");?></option>
 			<?php 
 			foreach($list_total_groups as $groupname){
 			?>
-			<option value="<?php echo $groupname[0]?>" <?php if($groupselect == $groupname[0] || $groupname[0] == $_SESSION['ss_groupselect']) echo "selected"?>><?php echo $groupname[1]?></option>
+			<option value="<?php echo $groupname[1]?>" <?php if($groupselect == $groupname[1] || $groupname[1] == $_SESSION['ss_groupselect']) echo "selected"?>><?php echo $groupname[1]?></option>
 			<?php 
 			}
 			?>
@@ -124,4 +123,5 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
+
 

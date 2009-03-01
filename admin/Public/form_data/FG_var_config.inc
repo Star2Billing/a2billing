@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_id', 'groupselect', 'posted','agi_conf'));
+getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_title', 'groupselect', 'posted','agi_conf'));
 
 // This will generate agi-confx 
 // agi-confx is duplication of Global configuration and list of configurations of : agi-conf1 
@@ -12,10 +12,13 @@ if ($agi_conf) {
 $setbool = false;
 $handle = DbConnect();
 $instance_table = new Table();
-$QUERY =  "SELECT config_value, config_listvalues from cc_config where id = $id";
-$result = $instance_table -> SQLExec ($handle, $QUERY);
-if ($result[0][1] == "yes,no" || $result[0][1] == "no,yes") {
-	$setbool = true;
+
+if ($form_action == "ask-edit") {
+	$QUERY =  "SELECT config_value, config_listvalues FROM cc_config where id = $id";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	if ($result[0][1] == "yes,no" || $result[0][1] == "no,yes") {
+		$setbool = true;
+	}
 }
 
 $value_list = array();
@@ -40,17 +43,16 @@ foreach($config_list as $key => $cur_value) {
 		}
 	}
 }
-$HD_Form = new FormHandler("cc_config ccc LEFT JOIN cc_config_group ccg ON ccg.id = ccc.config_group_id","Configuration");
+$HD_Form = new FormHandler("cc_config","Configuration");
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID="ccc.id";
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_id";
+$HD_Form -> FG_TABLE_ID="id";
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_title";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 if ($groupselect != "") {
-	$HD_Form = new FormHandler("cc_config ccc ,cc_config_group ccg","Configuration");
-	$HD_Form -> FG_TABLE_ID = "ccc.id";
-	$HD_Form -> FG_TABLE_CLAUSE = "ccg.id = ccc.config_group_id";
-	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
+	$HD_Form = new FormHandler("cc_config","Configuration");
+	$HD_Form -> FG_TABLE_ID = "id";
+	$HD_Form -> FG_TABLE_CLAUSE = " config_group_title = '$groupselect'";
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
 if (isset($posted)) {
@@ -64,15 +66,14 @@ if($form_action == "list") {
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }
 
-$HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
+$HD_Form -> FG_EDITION_CLAUSE = "id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");
 $HD_Form -> AddViewElement(gettext("Value"), "config_value", "10%", "center","","","list-conf",$yesno);
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "config_description", "40%", "left");
-$HD_Form -> AddViewElement(gettext("GROUP"), "group_title", "5%", "center");
+$HD_Form -> AddViewElement(gettext("GROUP"), "config_group_title", "5%", "center");
 
-// added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('config_title, config_key, config_value, config_description, group_title');
+$HD_Form -> FieldViewElement ('config_title, config_key, config_value, config_description, config_group_title');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -90,7 +91,7 @@ if(!$setbool) {
 }
 
 $HD_Form -> AddEditElement (gettext("GROUP"),
-	"group_title",
+	"config_group_title",
 	'$value',
 	"INPUT",
 	"size=30 readonly",
@@ -156,9 +157,9 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "" , "", "", "");
 
 if (LIST_OF_VALUES) {
-	$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value ,config_listvalues, config_description');
+	$HD_Form -> FieldEditElement ('config_group_title, config_title, config_key, config_value ,config_listvalues, config_description');
 } else {
-	$HD_Form -> FieldEditElement ('ccg.group_title, config_title, config_key, config_value ,config_description');
+	$HD_Form -> FieldEditElement ('config_group_title, config_title, config_key, config_value ,config_description');
 }
 
 
@@ -167,6 +168,7 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
 
 
 

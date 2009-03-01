@@ -10,12 +10,11 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "8%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TITLE"), "group_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "group_description", "60%", "left");
 
 
-$HD_Form -> FieldViewElement ('id, group_title, group_description');
+$HD_Form -> FieldViewElement ('group_title, group_description');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -28,7 +27,7 @@ $HD_Form -> FG_DELETION = false;
 
 
 $HD_Form -> FG_OTHER_BUTTON1 = true;
-$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_config.php?groupselect=|param|";
+$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_config.php?groupselect=|col0|";
 $HD_Form -> FG_OTHER_BUTTON1_ALT = 'DETAILS';
 
 
