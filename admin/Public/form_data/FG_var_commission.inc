@@ -3,9 +3,9 @@
 getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill','refill_type'));
 
 
-if (!isset($form_action) || $form_action=="list"){
+if (!isset($form_action) || $form_action=="list") {
 	$HD_Form = new FormHandler("cc_agent_commission LEFT JOIN cc_card ON cc_card.id=cc_agent_commission.id_card","Commission's Agents");
-}else{
+} else {
 	$HD_Form = new FormHandler("cc_agent_commission","Commission");
 }
 
@@ -38,7 +38,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
-if ($form_action=="ask-add" && !empty($card_id)){	
+if ($form_action=="ask-add" && !empty($card_id)) {
 	$id_val = "value='$card_id'";
 }
 
@@ -54,7 +54,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Select the Customer ID"));
 			   
-if ($form_action=="ask-add"){	
+if ($form_action=="ask-add") {	
 	$begin_date = date("Y");
 	$end_date = date("-m-d H:i:s");
 	$comp_date=$begin_date.$end_date;
@@ -81,13 +81,13 @@ $HD_Form -> AddEditElement (gettext("COMMISSION AMOUNT"),
 
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
-	"description",
-	'',
-	"TEXTAREA",
-	"cols=50 rows=4",
-	"",
-	gettext("Insert the description"),
-	"" , "", "", "", "" , "", "", "");
+				"description",
+				'',
+				"TEXTAREA",
+				"cols=50 rows=4",
+				"",
+				gettext("Insert the description"),
+				"" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("PAYMENT ID"),
 			   "id_payment",		
@@ -102,20 +102,14 @@ $HD_Form -> AddEditElement (gettext("PAYMENT ID"),
 				gettext("Select the Payment ID"));
 
 $HD_Form -> AddEditElement (gettext("PAID STATUS"),
-                           "paid_status",
-                           '$value',
-                           "SELECT",
-                           "",
-                           "",
-                           "",
-                           "list" , "", "",     "", $paid_status_list, "%1", "", gettext("Define if this commission is paid or not.") );
+               "paid_status",
+               '$value',
+               "SELECT",
+               "",
+               "",
+               "",
+               "list" , "", "",     "", $paid_status_list, "%1", "", gettext("Define if this commission is paid or not.") );
 
-/*
-if ($form_action!="ask-edit" && $form_action!="edit") {	
-	$HD_Form -> FieldEditElement ('card_id, date, payment, description,payment_type');
-} else {
-	$HD_Form -> FieldEditElement ('card_id, date, payment, description, payment_type');
-}*/
 $HD_Form -> FieldEditElement ('id_card, date, payment, description,id_payment, payment_type');
 
 
@@ -125,7 +119,7 @@ $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
@@ -148,4 +142,7 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
+
+
 
