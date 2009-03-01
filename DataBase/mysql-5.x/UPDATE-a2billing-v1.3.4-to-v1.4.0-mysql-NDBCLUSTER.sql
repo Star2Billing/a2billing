@@ -112,7 +112,7 @@ CREATE TABLE cc_config (
 	config_title		 			VARCHAR( 100 )  NOT NULL,
 	config_key 						VARCHAR( 100 )  NOT NULL,
 	config_value 					VARCHAR( 100 )  NOT NULL,
-	config_description 				VARCHAR( 255 )  NOT NULL,
+	config_description 				TEXT NOT NULL,
 	config_valuetype				INT NOT NULL DEFAULT 0,
 	config_group_id 				INT NOT NULL,
 	config_listvalues				VARCHAR( 100 ) ,
@@ -290,7 +290,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Say Duration', 'say_timetocall', 1, 'Play the amount of time that the user can call (values : yes - no).', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto Set CLID', 'auto_setcallerid', 1, 'enable the setup of the callerID number before the outbound is made, by default the user callerID value will be use.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Force CLID', 'force_callerid', '', 'If auto_setcallerid is enabled, the value of force_callerid will be set as CallerID.', 0, 11, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CLID Sanitize', 'cid_sanitize', '0', 'If force_callerid is not set, then the following option ensures that CID is set to one of the card''s configured caller IDs or blank if none available.(NO - disable this feature, caller ID can be anything, CID - Caller ID must be one of the customers caller IDs, DID - Caller ID must be one of the customers DID nos, BOTH - Caller ID must be one of the above two items)', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CLID Sanitize', 'cid_sanitize', '0', 'If force_callerid is not set, then the following option ensures that CID is set to one of the card''s configured caller IDs or blank if none available.(NO - disable this feature, caller ID can be anything, CID - Caller ID must be one of the customers caller IDs, DID - Caller ID must be one of the customers DID nos, BOTH - Caller ID must be one of the above two items)', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CLID Enable', 'cid_enable', '0', 'enable the callerid authentication if this option is active the CC system will check the CID of caller  .', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Ask PIN', 'cid_askpincode_ifnot_callerid', 1, 'if the CID does not exist, then the caller will be prompt to enter his cardnumber .', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('FailOver LCR/LCD Prefix', 'failover_lc_prefix', 0, 'if we will failover for LCR/LCD prefix. For instance if you have 346 and 34 for if 346 fail it will try to outbound with 34 route.', 1, 11, 'yes,no');
@@ -312,8 +312,8 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP/IAX Dial Command Parms', 'dialcommand_param_sipiax_friend', '|60|HL(3600000:61000:30000)', 'by default (3600000  =  1HOUR MAX CALL).', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Outbound Call', 'switchdialcommand', '0', 'Define the order to make the outbound call<br>YES -> SIP/dialedphonenumber@gateway_ip - NO  SIP/gateway_ip/dialedphonenumber<br>Both should work exactly the same but i experimented one case when gateway was supporting dialedphonenumber@gateway_ip, So in case of trouble, try it out.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Failover Retry Limit', 'failover_recursive_limit', '2', 'failover recursive search - define how many time we want to authorize the research of the failover trunk when a call fails (value : 0 - 20) .', 0, 11, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Max Time', 'maxtime_tocall_negatif_free_route', '5400', 'For free calls, limit the duration: amount in seconds  .', 0, 11, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Send Reminder', 'send_reminder', '0', 'Send a reminder email to the user when they are under min_credit_2call  .', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Max Time', 'maxtime_tocall_negatif_free_route', '5400', 'This setting specifies an upper limit for the duration of a call to a destination for which the selling rate is less than or equal to 0.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Send Reminder', 'send_reminder', '0', 'Send a reminder email to the user when they are under min_credit_2call.', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Record Call', 'record_call', '0', 'enable to monitor the call (to record all the conversations) value : YES - NO .', 1, 11, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Monitor File Format', 'monitor_formatfile', 'gsm', 'format of the recorded monitor file.', 0, 11, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('AGI Force Currency', 'agi_force_currency', '', 'Force to play the balance to the caller in a predefined currency, to use the currency set for by the customer leave this field empty.', 0, 11, NULL);
@@ -327,6 +327,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Template Path', 'invoice_template_path', '../invoice/', 'gives invoice template path from default one', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Outstanding Template Path', 'outstanding_template_path', '../outstanding/', 'gives outstanding template path from default one', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Sales Template Path', 'sales_template_path', '../sales/', 'gives sales template path from default one', 0, 1, NULL);
+
 
 
 
@@ -611,7 +612,7 @@ ALTER TABLE cc_callback_spool CHANGE variable variable VARCHAR( 300 ) DEFAULT NU
 ALTER TABLE cc_call ADD COLUMN real_sessiontime INT (11) DEFAULT NULL;
 
 
-
+-- ?? update this when release 1.4
 CREATE TABLE cc_call_archive (
 	id 									bigINT (20) NOT NULL AUTO_INCREMENT,
 	sessionid 							char(40) NOT NULL,
@@ -1014,11 +1015,12 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 
 ALTER TABLE cc_call ADD dnid CHAR( 40 );
 
--- CHANGE SECURITY ABOUT PASSWORD
+-- update password field
+ALTER TABLE cc_ui_authen CHANGE password pwd_encoded VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
 
-ALTER TABLE cc_ui_authen CHANGE password pwd_encoded VARCHAR( 250 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ;
+-- CHANGE SECURITY ABOUT PASSWORD : All password will be changed to "changepassword"
+UPDATE cc_ui_authen SET pwd_encoded = '410fc6268dd3332226de95e42d9efa4046c5463769d7493b85e65cfa5c26362dc2455cc23c0bc5831deb008def4ab11a9eaa9b76ba3f377da134f39ec60dd758';
 
-UPDATE cc_ui_authen SET pwd_encoded = '34e125a0ce58a0c230db9110116767e3e95f143096eb66df2eeb77c43ca9210377ebca623e37242d16080b6a128e66dcbd2fbe137050120d3f2ab8420dd6cc70' WHERE login = 'root' ;
 
 ALTER TABLE cc_card ADD company_name VARCHAR( 50 ) NULL ,
 ADD company_website VARCHAR( 60 ) NULL ,
@@ -1205,16 +1207,18 @@ ALTER TABLE cc_campaign ADD id_campaign_config INT NOT NULL ;
 
 ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
 
+
+-- New config parameter to display card list : card_show_field_list
 ALTER TABLE cc_config MODIFY config_value VARCHAR( 300 );
-INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname,id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused,firstname, email, discount, callerid',0,8);
+INSERT INTO  cc_config (config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values ('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname, id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused, firstname, email, discount, callerid',0,8);
 
 
 -- ------------------------------------------------------
 -- Cache system with SQLite Agent
 -- ------------------------------------------------------
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable cache in Call Report', 'cache_enabled', '0', 'I you want enabled the cache processing to save the call in database. The cache system is based on Sqlite.', '0', '1', 'yes,no'),
-( 'Path for the cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the cache processing to save the call in database. The cache system is based on Sqlite.', '0', 'A', NULL);
+VALUES ( 'Enable CDR local cache', 'cache_enabled', '0', 'If you want enabled the local cache to save the CDR in a SQLite Database.', '1', '1', 'yes,no'),
+( 'Path for the CDR cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the CDR cache to save the CDR in a local SQLite database.', '0', '1', NULL);
 
 
 ALTER TABLE cc_logrefill ADD COLUMN refill_type TINYINT NOT NULL DEFAULT 0;
@@ -1242,10 +1246,79 @@ INSERT INTO  cc_config(config_title,config_key,config_value,config_description,c
 -- Update to use VarChar instead of Char
 -- ------------------------------------------------------
 ALTER TABLE cc_call CHANGE sessionid sessionid VARCHAR( 40 ) NOT NULL;
-ALTER TABLE cc_call CHANGE uniqueid uniqueid VARCHAR( 30 ) NOT NULL ;
--- ...
--- ...
--- ...
+ALTER TABLE cc_call CHANGE uniqueid uniqueid VARCHAR( 30 ) NOT NULL;
+ALTER TABLE cc_call CHANGE nasipaddress nasipaddress VARCHAR( 30 ) NOT NULL;
+ALTER TABLE cc_call CHANGE calledstation calledstation VARCHAR( 30 ) NOT NULL;
+ALTER TABLE cc_call CHANGE src src VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_call CHANGE dnid dnid VARCHAR( 40 ) NOT NULL;
+
+ALTER TABLE cc_card CHANGE username username VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE useralias useralias VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE uipass uipass VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE lastname lastname VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE firstname firstname VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE address address VARCHAR( 100 ) NOT NULL;
+ALTER TABLE cc_card CHANGE city city VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE state state VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE country country VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE zipcode zipcode VARCHAR( 20 ) NOT NULL;
+ALTER TABLE cc_card CHANGE phone phone VARCHAR( 20 ) NOT NULL;
+ALTER TABLE cc_card CHANGE email email VARCHAR( 70 ) NOT NULL;
+ALTER TABLE cc_card CHANGE fax fax VARCHAR( 20 ) NOT NULL;
+ALTER TABLE cc_card CHANGE redial redial VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE callback callback VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE loginkey loginkey VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE tag tag VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE email_notification email_notification VARCHAR( 70 ) NOT NULL;
+ALTER TABLE cc_card CHANGE company_name company_name VARCHAR( 50 ) NOT NULL;
+ALTER TABLE cc_card CHANGE company_website company_website VARCHAR( 60 ) NOT NULL;
+ALTER TABLE cc_card CHANGE vat_rn vat_rn VARCHAR( 40 ) NOT NULL;
+ALTER TABLE cc_card CHANGE traffic_target traffic_target VARCHAR( 300 ) NOT NULL;
+
+ALTER TABLE cc_callerid CHANGE cid cid VARCHAR( 100 ) NOT NULL;
+
+
+ALTER TABLE cc_iax_buddies CHANGE name name VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE accountcode accountcode VARCHAR(20) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE regexten regexten VARCHAR(20) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE callerid callerid VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE context context VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE fromuser fromuser VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE fromdomain fromdomain VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE host host VARCHAR(31) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE insecure insecure VARCHAR(20) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE mailbox mailbox VARCHAR(50) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE md5secret md5secret VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE permit permit VARCHAR(95) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE deny deny VARCHAR(95) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE mask mask VARCHAR(95) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE secret secret VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE username username VARCHAR(80) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE disallow disallow VARCHAR(100) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE allow allow VARCHAR(100) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE musiconhold musiconhold VARCHAR(100) NOT NULL;
+
+ALTER TABLE cc_sip_buddies CHANGE name name VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE accountcode accountcode VARCHAR(20) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE regexten regexten VARCHAR(20) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE callerid callerid VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE context context VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE fromuser fromuser VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE fromdomain fromdomain VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE host host VARCHAR(31) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE insecure insecure VARCHAR(20) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE mailbox mailbox VARCHAR(50) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE md5secret md5secret VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE permit permit VARCHAR(95) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE deny deny VARCHAR(95) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE mask mask VARCHAR(95) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE secret secret VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE username username VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE disallow disallow VARCHAR(100) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE allow allow VARCHAR(100) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE musiconhold musiconhold VARCHAR(100) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE fullcontact fullcontact VARCHAR(80) NOT NULL;
+ALTER TABLE cc_sip_buddies CHANGE setvar setvar VARCHAR(100) NOT NULL;
 
 
 
@@ -1329,6 +1402,7 @@ ALTER TABLE cc_ratecard ADD COLUMN destination INT (11) DEFAULT 0;
 
 
 UPDATE cc_card_group SET description = 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.' WHERE id = 1 LIMIT 1 ;
+UPDATE cc_card_group SET users_perms = '129022' WHERE id = 1;
 
 ALTER TABLE cc_ticket ADD viewed_cust TINYINT NOT NULL DEFAULT '1',
 ADD viewed_agent TINYINT NOT NULL DEFAULT '1',
@@ -1381,28 +1455,23 @@ CREATE TABLE IF NOT EXISTS cc_prefix (
 
 INSERT INTO cc_config_group (group_title ,group_description) VALUES ( 'dashboard', 'This configuration group handles the dashboard configuration');
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable cache in Call Report', 'dashboard_enabled', '1', 'I you want enabled the dashboard on the home page.', '0', '13', 'yes,no');
+VALUES ( 'Enable Dashboard', 'dashboard_enabled', '0', 'If you want enabled the dashboard on the home page.', '1', '13', 'yes,no');
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'I you want enabled the info module customer and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+VALUES ( 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'If you want enabled the info module customer and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 'I you want enabled the info module refills and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+VALUES ( 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 'If you want enabled the info module refills and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 'I you want enabled the info module payments and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+VALUES ( 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 'If you want enabled the info module payments and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'I you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'If you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 
 
-
--- note
-
-
--- ----------  New Invoice  ------------------
-
-DROP TABLE cc_invoices;
-DROP TABLE cc_invoice;
-DROP TABLE cc_invoice_history;
-DROP TABLE cc_invoice_items;
+-- New Invoice Tables
+RENAME TABLE cc_invoices  TO bkp_cc_invoices;
+RENAME TABLE cc_invoice  TO bkp_cc_invoice;
+RENAME TABLE cc_invoice_history  TO bkp_cc_invoice_history;
+RENAME TABLE cc_invoice_items  TO bkp_cc_invoice_items;
 
 CREATE TABLE cc_invoice (
 	id BIGINT NOT NULL AUTO_INCREMENT ,
@@ -1436,8 +1505,8 @@ CREATE TABLE cc_invoice_conf (
 	UNIQUE (key_val)
 ) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO cc_invoice_conf (key_val ,value)
-VALUES 	('company_name', 'My company'),
+INSERT INTO cc_invoice_conf (key_val ,value) 
+	VALUES 	('company_name', 'My company'),
 		('address', 'address'),
 		('zipcode', 'xxxx'),
 		('country', 'country'), 
@@ -1449,6 +1518,181 @@ VALUES 	('company_name', 'My company'),
 		('web', 'www.xxxxxxx.xxx');
 
 ALTER TABLE cc_logrefill ADD added_invoice TINYINT NOT NULL DEFAULT '0';
+
+CREATE TABLE cc_invoice_payment (
+	id_invoice BIGINT NOT NULL ,
+	id_payment BIGINT NOT NULL ,
+	PRIMARY KEY ( id_invoice , id_payment )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable PlugnPay Module', 'MODULE_PAYMENT_PLUGNPAY_STATUS', 'True', 'Do you want to accept payments through PlugnPay?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Login Username', 'MODULE_PAYMENT_PLUGNPAY_LOGIN', 'Your Login Name', 'Enter your PlugnPay account username');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Publisher Email', 'MODULE_PAYMENT_PLUGNPAY_PUBLISHER_EMAIL', 'Enter Your Email Address', 'The email address you want PlugnPay conformations sent to');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('cURL Setup', 'MODULE_PAYMENT_PLUGNPAY_CURL', 'Not Compiled', 'Whether cURL is compiled into PHP or not.  Windows users, select not compiled.', 'tep_cfg_select_option(array(\'Not Compiled\', \'Compiled\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('cURL Path', 'MODULE_PAYMENT_PLUGNPAY_CURL_PATH', 'The Path To cURL', 'For Not Compiled mode only, input path to the cURL binary (i.e. c:/curl/curl)');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Mode', 'MODULE_PAYMENT_PLUGNPAY_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Test And Debug\', \'Production\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Require CVV', 'MODULE_PAYMENT_PLUGNPAY_CVV', 'yes', 'Ask For CVV information', 'tep_cfg_select_option(array(\'yes\', \'no\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Method', 'MODULE_PAYMENT_PLUGNPAY_PAYMETHOD', 'credit', 'Transaction method used for processing orders.<br><b>NOTE:</b> Selecting \'onlinecheck\' assumes you\'ll offer \'credit\' as well.',  'tep_cfg_select_option(array(\'credit\', \'onlinecheck\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Authorization Type', 'MODULE_PAYMENT_PLUGNPAY_CCMODE', 'authpostauth', 'Credit card processing mode', 'tep_cfg_select_option(array(\'authpostauth\', \'authonly\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Customer Notifications', 'MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL', 'yes', 'Should PlugnPay not email a receipt to the customer?', 'tep_cfg_select_option(array(\'yes\', \'no\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Accepted Credit Cards', 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC', 'Mastercard, Visa', 'The credit cards you currently accept', '_selectOptions(array(\'Amex\',\'Discover\', \'Mastercard\', \'Visa\'), ');
+
+
+INSERT INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('plugnpay','plugnpay.php','t');
+
+
+
+
+
+ALTER TABLE cc_card_archive DROP COLUMN  `callback`;
+-- already present ALTER TABLE cc_card_archive ADD COLUMN  `id_timezone` int(11) default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  `voicemail_permitted` int(11) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  `voicemail_activated` smallint(6) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  `last_notification` timestamp NULL default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `email_notification` char(70) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `notify_email` smallint(6) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  `credit_notification` int(11) NOT NULL default '-1';
+ALTER TABLE cc_card_archive ADD COLUMN  `id_group` int(11) NOT NULL default '1';
+ALTER TABLE cc_card_archive ADD COLUMN  `company_name` varchar(50) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `company_website` varchar(60) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `VAT_RN` varchar(40) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `traffic` bigint(20) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  `traffic_target` mediumtext collate utf8_bin;
+ALTER TABLE cc_card_archive ADD COLUMN  `discount` decimal(5,2) NOT NULL default '0.00';
+ALTER TABLE cc_card_archive ADD COLUMN  `restriction` tinyint(4) NOT NULL default '0';
+ALTER TABLE cc_card_archive DROP COLUMN `template_invoice`;
+ALTER TABLE cc_card_archive DROP COLUMN `template_outstanding`;
+ALTER TABLE cc_card_archive DROP COLUMN `mac_addr`;
+ALTER TABLE cc_card_archive ADD COLUMN `mac_addr` char(17) collate utf8_bin NOT NULL default '00-00-00-00-00-00';
+
+CREATE TABLE cc_billing_customer (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	id_card BIGINT NOT NULL ,
+	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	id_invoice BIGINT NOT NULL ,
+	PRIMARY KEY ( id )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- PLUGNPAY
+ALTER TABLE cc_epayment_log ADD COLUMN cvv VARCHAR(4);
+ALTER TABLE cc_epayment_log ADD COLUMN credit_card_type VARCHAR(20);
+ALTER TABLE cc_epayment_log ADD COLUMN currency VARCHAR(4);
+
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+VALUES ('PlugnPay Payment URL', 'plugnpay_payment_url', 'https://pay1.plugnpay.com/payment/pnpremote.cgi', 'Define here the URL of PlugnPay gateway.', 0, 5, NULL);
+
+
+-- Currency handle update
+UPDATE cc_configuration SET configuration_description = 'The alternative currency to use for credit card transactions if the system currency is not usable' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
+UPDATE cc_configuration SET configuration_title = 'Alternative Transaction Currency' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
+UPDATE cc_configuration SET configuration_description = 'The alternative currency to use for credit card transactions if the system currency is not usable' WHERE configuration_key = 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY';
+UPDATE cc_configuration SET configuration_title = 'Alternative Transaction Currency' WHERE configuration_key = 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY';
+UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''USD'',''CAD'',''EUR'',''GBP'',''JPY''), ' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
+UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''EUR'', ''USD'', ''GBP'', ''HKD'', ''SGD'', ''JPY'', ''CAD'', ''AUD'', ''CHF'', ''DKK'', ''SEK'', ''NOK'', ''ILS'', ''MYR'', ''NZD'', ''TWD'', ''THB'', ''CZK'', ''HUF'', ''SKK'', ''ISK'', ''INR''), '  WHERE configuration_key = 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY';
+
+ALTER TABLE cc_payment_methods DROP active;
+
+
+ALTER TABLE cc_epayment_log ADD transaction_detail LONGTEXT NULL;
+
+ALTER TABLE cc_invoice_item ADD id_billing BIGINT NULL ,
+ADD billing_type VARCHAR( 10 ) NULL ;
+
+
+
+-- DIDX.NET 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX ID', 'didx_id', '708XXX', 'DIDX parameter : ID', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX PASS', 'didx_pass', 'XXXXXXXXXX', 'DIDX parameter : Password', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX MIN RATING', 'didx_min_rating', '0', 'DIDX parameter : min rating', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX RING TO', 'didx_ring_to', '0', 'DIDX parameter : ring to', 0, 8, NULL);
+
+-- Commission Agent
+CREATE TABLE cc_agent_commission (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	id_payment BIGINT NULL ,
+	id_card BIGINT NOT NULL ,
+	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	amount DECIMAL( 15, 5 ) NOT NULL ,
+	PRIMARY KEY ( id )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+ALTER TABLE cc_card_group ADD id_agent INT NULL ;
+
+DROP TABLE cc_agent_cardgroup;
+
+ALTER TABLE cc_agent_commission ADD paid_status TINYINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_agent_commission ADD description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
+
+
+
+
+-- Card Serial Number
+CREATE TABLE cc_card_seria (
+	id INT NOT NULL AUTO_INCREMENT ,
+	name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
+	value	BIGINT NOT NULL DEFAULT 0,
+	PRIMARY KEY ( id )
+) ENGINE=NDBCLUSTER DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+ 
+ALTER TABLE cc_card ADD id_seria integer;
+ALTER TABLE cc_card ADD serial BIGINT;
+UPDATE cc_config SET config_description = concat(config_description,', id_seria, serial') WHERE config_key = 'card_show_field_list' ;
+DELIMITER //
+CREATE TRIGGER cc_card_serial_set BEFORE INSERT ON cc_card
+FOR EACH ROW
+BEGIN
+	UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
+	SELECT value INTO @serial from cc_card_seria where id=NEW.id_seria ;
+	SET NEW.serial=@serial;
+END
+//
+CREATE TRIGGER cc_card_serial_update BEFORE UPDATE ON cc_card
+FOR EACH ROW
+BEGIN
+	IF NEW.id_seria<>OLD.id_seria OR OLD.id_seria IS NULL THEN
+		UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
+		SELECT value INTO @serial from cc_card_seria where id=NEW.id_seria ;
+		SET NEW.serial=@serial;
+	END IF;
+END
+//
+DELIMITER ;
+ 
+
+INSERT INTO  cc_config (config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Serial Pad Length','card_serial_length','7','Value of zero padding for serial. If this value set to 3 serial wil looks like 001',0,8);
+
+
+
+-- Reserve credit :
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Dial Balance reservation', 'dial_balance_reservation', '0.25', 'Credit to reserve from the balance when a call is made. This will prevent negative balance on huge peak.', 0, 11, NULL);
+
+
+-- change the schema to authorize only one login
+ALTER TABLE cc_agent ADD UNIQUE (login); 
+ALTER TABLE cc_ui_authen ADD UNIQUE (login); 
+
+-- update for invoice
+ALTER TABLE cc_charge ADD charged_status TINYINT NOT NULL DEFAULT '0',
+ADD invoiced_status TINYINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_did_use ADD reminded TINYINT NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_invoice_item CHANGE id_billing id_ext BIGINT( 20 ) NULL DEFAULT NULL;
+ALTER TABLE cc_invoice_item CHANGE billing_type type_ext VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;  
+
+
+
+-- update on configuration
+ALTER TABLE cc_config_group ADD UNIQUE (group_title); 
+ALTER TABLE cc_config ADD config_group_title varchar(64) NOT NULL;
+
+UPDATE cc_config SET config_group_title=(SELECT group_title FROM cc_config_group WHERE cc_config_group.id=cc_config.config_group_id);
+
+ALTER TABLE cc_config DROP COLUMN config_group_id;
 
 
 

@@ -1690,7 +1690,7 @@ ALTER TABLE cc_invoice_item CHANGE billing_type type_ext VARCHAR( 10 ) CHARACTER
 ALTER TABLE cc_config_group ADD UNIQUE (group_title); 
 ALTER TABLE cc_config ADD config_group_title varchar(64) NOT NULL;
 
-UPDATE cc_config SET config_group_title=(SELECT group_title FROM cc_config_group WHERE cc_config_group.id=cc_config.config_group_id)
+UPDATE cc_config SET config_group_title=(SELECT group_title FROM cc_config_group WHERE cc_config_group.id=cc_config.config_group_id);
 
 ALTER TABLE cc_config DROP COLUMN config_group_id;
 
