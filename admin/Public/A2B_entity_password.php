@@ -6,10 +6,11 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
 
 
-
-//if (!$A2B->config["webcustomerui"]['password']) exit();
-
-/***********************************************************************************/
+if (!$ACXACCESS) { 
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
+}
 
 
 getpost_ifset(array('OldPassword','NewPassword'));

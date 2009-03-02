@@ -31,6 +31,7 @@
 
 
 <div id="nav_before"></div>
+{if ($ACXDASHBOARD > 0) }
 <ul id="nav">
 	<li><a href="#" target="_self"></a></a></li>
 		<ul><li> <a href="PP_intro.php" style="height:14px;text-align:center;"> 
@@ -39,7 +40,7 @@
 		</li></ul>
   	<li><a href="#" target="_self"></a></a></li>
 </ul>
-
+{/if}
 <ul id="nav">
   
   	{if ($ACXCUSTOMER > 0) }

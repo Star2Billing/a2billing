@@ -172,7 +172,8 @@ function has_rights ($condition) {
 	return ($_SESSION["rights"] & $condition);
 }
 
-
+$ACXACCESS 				= ($_SESSION["rights"] > 0) ? true : false;
+$ACXDASHBOARD			= has_rights (ACX_DASHBOARD);
 $ACXCUSTOMER 			= has_rights (ACX_CUSTOMER);
 $ACXBILLING 			= has_rights (ACX_BILLING);
 $ACXRATECARD 			= has_rights (ACX_RATECARD);
@@ -188,7 +189,6 @@ $ACXOUTBOUNDCID 		= has_rights (ACX_OUTBOUNDCID);
 $ACXPACKAGEOFFER 		= has_rights (ACX_PACKAGEOFFER);
 $ACXPREDICTIVEDIALER 	= has_rights (ACX_PREDICTIVE_DIALER);
 $ACXINVOICING 			= has_rights (ACX_INVOICING);
-$ACXINVOICING2 			= has_rights (ACX_INVOICING);
 $ACXSUPPORT 			= has_rights (ACX_SUPPORT);
-$ACXDASHBOARD			= has_rights (ACX_DASHBOARD);
+
 

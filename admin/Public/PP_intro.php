@@ -7,6 +7,12 @@ if($A2B->config["dashboard"]["dashboard_enabled"] && has_rights (ACX_DASHBOARD))
 	Header ("Location: dashboard.php");	 
 }
 
+if (!$ACXACCESS) { 
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
+}
+
 $smarty->display('main.tpl');
 ?>
 <br/><br/>

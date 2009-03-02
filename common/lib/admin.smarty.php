@@ -8,14 +8,11 @@ define( 'TEMPLATE_C_DIR', '../templates_c/' );
 
 
 require_once SMARTY_DIR . 'Smarty.class.php';
-
 $smarty = new Smarty;
-
 
 $skin_name = $_SESSION["stylefile"];
 
 
-//$smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
 $smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
 
 $smarty->compile_dir = TEMPLATE_C_DIR;
@@ -30,13 +27,14 @@ $smarty->assign("WEBUI_DATE", WEBUI_DATE);
 
 $smarty->assign("SKIN_NAME", $skin_name);
 // if it is a pop window
-if (!is_numeric($popup_select))
-{
+if (!is_numeric($popup_select)) {
 	$popup_select=0;
 }
 $smarty->assign("popupwindow", $popup_select);
 
 
+$smarty->assign("ACXACCESS", $ACXACCESS);
+$smarty->assign("ACXDASHBOARD", $ACXDASHBOARD);
 $smarty->assign("ACXCUSTOMER", $ACXCUSTOMER);
 $smarty->assign("ACXBILLING", $ACXBILLING);
 $smarty->assign("ACXRATECARD", $ACXRATECARD);
@@ -53,7 +51,6 @@ $smarty->assign("ACXOUTBOUNDCID", $ACXOUTBOUNDCID);
 $smarty->assign("ACXPACKAGEOFFER", $ACXPACKAGEOFFER);
 $smarty->assign("ACXPREDICTIVEDIALER", $ACXPREDICTIVEDIALER);
 $smarty->assign("ACXINVOICING", $ACXINVOICING);
-$smarty->assign("ACXINVOICING2", $ACXINVOICING2);
 
 
 if($_GET["section"]!="") {
