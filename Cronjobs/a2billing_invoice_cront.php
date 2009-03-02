@@ -225,4 +225,3 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 		} // END foreach($resmax as $Customer)
 	}
 }
-

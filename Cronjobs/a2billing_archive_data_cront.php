@@ -1,5 +1,6 @@
 #!/usr/bin/php -q
-<?php 
+<?php
+
 /***************************************************************************
  *            a2billing_archive_data_cront.php
  *
@@ -24,34 +25,32 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include_once (dirname(__FILE__)."/lib/Class.Table.php");
-include (dirname(__FILE__)."/lib/interface/constants.php");
-include (dirname(__FILE__)."/lib/Class.A2Billing.php");
-include (dirname(__FILE__)."/lib/Misc.php");
-
+include_once (dirname(__FILE__) . "/lib/Class.Table.php");
+include (dirname(__FILE__) . "/lib/interface/constants.php");
+include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
+include (dirname(__FILE__) . "/lib/Misc.php");
 
 $A2B = new A2Billing();
-$A2B -> load_conf($agi, NULL, 0, $idconfig);
+$A2B->load_conf($agi, NULL, 0, $idconfig);
 
-write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[#### ARCHIVING DATA BEGIN ####]");
+write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__) . ' line:' . __LINE__ . "[#### ARCHIVING DATA BEGIN ####]");
 
-if (!$A2B -> DbConnect()){				
+if (!$A2B->DbConnect()) {
 	echo "[Cannot connect to the database]\n";
-	write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
+	write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
 	exit;
 }
 
 $A2B = new A2Billing();
-$A2B -> load_conf($agi, NULL, 0, $idconfig);
+$A2B->load_conf($agi, NULL, 0, $idconfig);
 
 $instance_table = new Table();
 
 $from_month = $A2B->config["backup"]['archive_data_x_month'];
 
-
-if($A2B->config["database"]['dbtype'] == "postgres"){
+if ($A2B->config["database"]['dbtype'] == "postgres") {
 	$condition = "CURRENT_TIMESTAMP - interval '$from_month months' > starttime";
-}else{
+} else {
 	$condition = "DATE_SUB(NOW(),INTERVAL $from_month MONTH) > starttime";
 }
 
@@ -60,11 +59,10 @@ $func_fields = "sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sess
 $func_table = 'cc_call_archive';
 $id_name = "";
 $subquery = true;
-$result = $instance_table -> Add_table ($A2B -> DBHandle, $value, $func_fields, $func_table, $id_name,$subquery);
+$result = $instance_table->Add_table($A2B->DBHandle, $value, $func_fields, $func_table, $id_name, $subquery);
 
 $fun_table = "cc_call";
-$result = $instance_table -> Delete_table ($A2B -> DBHandle, $condition, $fun_table);
-write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__).' line:'.__LINE__."[#### ARCHIVING DATA END ####]");
+$result = $instance_table->Delete_table($A2B->DBHandle, $condition, $fun_table);
+write_log(LOGFILE_CRONT_ARCHIVE_DATA, basename(__FILE__) . ' line:' . __LINE__ . "[#### ARCHIVING DATA END ####]");
 
 
-?>
