@@ -5,11 +5,12 @@
  *
  *  20 May 2008
  *  Purpose: To check account of each Users and send an email if the balance is less than the user have choice.
+ *  you can run this cront every hour
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
  *  The sample above will run the script once every hour
 	crontab -e
-	1 * * * * php /usr/local/a2billing/Cronjobs/a2billing_notify_account.php
+	0 * * * * php /usr/local/a2billing/Cronjobs/a2billing_notify_account.php
 
 	field	 allowed values
 	-----	 --------------
