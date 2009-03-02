@@ -6,26 +6,18 @@ include ("../lib/phpagi/phpagi-asmanager.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_ADMINISTRATOR)){ 
+if (! has_rights (ACX_ADMINISTRATOR)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
 }
-
-/***********************************************************************************/
-
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 ?>
 <br>
-
 <center>
-
-
-
-
 
 <?php
 
@@ -387,14 +379,9 @@ function buildAsteriskInfo(){
 	$htmlOutput .= '</table>';
 	return $htmlOutput."</div>";
 }
-
-
 ?>
-
 </center>
-
-
 <?php
+
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-?>

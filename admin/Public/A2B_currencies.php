@@ -5,7 +5,7 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_currencies.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_BILLING)){ 
+if (! has_rights (ACX_BILLING)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -28,7 +28,7 @@ if ($updatecurrency == 1){
 /***********************************************************************************/
 
 
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
@@ -46,6 +46,7 @@ $smarty->display('main.tpl');
 
 // #### HELP SECTION
 echo $CC_help_currency;
+
 ?>
 <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
 	<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
@@ -67,16 +68,9 @@ if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 $HD_Form -> create_toppage ($form_action);
 
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
 
-
-
-?>

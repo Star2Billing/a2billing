@@ -3,8 +3,6 @@ include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
-
-
 if (! has_rights (ACX_CUSTOMER)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
@@ -16,9 +14,8 @@ getpost_ifset(array('id'));
 if (empty($id)) {
 	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
 }
+
 $DBHandle  = DbConnect();
-
-
 
 $card_table = new Table('cc_card','*');
 $card_clause = "id = ".$id;
@@ -45,8 +42,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 
 
 <table width="95%" >	
-	<tr>
-		
+	<tr>		
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1">
 			   <tr>
@@ -522,12 +518,6 @@ if(sizeof($refill_result)>0 && $refill_result[0]!=null) {
 </table>
 <?php 
 }
-?>
-
-
-
-
-<?php
 
 $call_table = new Table('cc_call,cc_prefix','*');
 $call_clause = "card_id = ".$id." AND id_cc_prefix = cc_prefix.id";
@@ -619,7 +609,6 @@ if(sizeof($call_result && $payment_result[0]!=null)>0) {
 </table>
 <?php 
 }
-
 
 $smarty->display( 'footer.tpl');
 
