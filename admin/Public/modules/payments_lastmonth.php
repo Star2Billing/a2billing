@@ -21,14 +21,6 @@ $result_graph_payment_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_PAYMENT_
 ?>
 
 
-
-
-
-
-
-
-
-
 <input id="payments_count" type="radio" name="mode_paym" value="count">&nbsp; <?php echo gettext("NUMBERS OF PAYMENTS BY MONTH"); ?><br/>
 <input id="payments_amount" type="radio" name="mode_paym" value="amount">&nbsp; <?php echo gettext("AMOUNT OF PAYMENTS BY MONTH"); ?><br/>
 <br/>
@@ -48,7 +40,7 @@ $result_graph_payment_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_PAYMENT_
 		 }
   	 }
 	 $val_count.="]";
-//expiration data treatment	 
+	 //expiration data treatment	 
 	 $max_amount=0;
 	 $val_amount= "[";
   	 if(is_array($result_graph_payment_amount)){
@@ -65,7 +57,6 @@ $result_graph_payment_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_PAYMENT_
 	 
 	 
 <script id="source" language="javascript" type="text/javascript">
-  	
 $(document).ready(function () {
 var width= Math.min($("#payments_graph").parent("div").width(),$("#payments_graph").parent("div").innerWidth());
 $("#payments_graph").width(width-10);
@@ -162,10 +153,6 @@ $("#payments_graph").height(Math.floor(width/2));
     });
             
 });
-  
-  
-  
-  
-  
-  
+
 </script>
+

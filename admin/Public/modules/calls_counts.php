@@ -1,8 +1,8 @@
 <?php
-include_once  ("../../lib/admin.defines.php");
+include_once ("../../lib/admin.defines.php");
 
 $checkdate = date("Y-m-d");
-$DBHandle  = DbConnect();
+$DBHandle = DbConnect();
 $QUERY_COUNT_CALL_ALL = "select count(*) from cc_call WHERE starttime >= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP";
 $QUERY_COUNT_CALL_ANSWERED = "select count(*) from cc_call WHERE starttime >= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid = 1";
 $QUERY_COUNT_CALL_BUSY = "select count(*) from cc_call WHERE starttime >= TIMESTAMP('$checkdate') AND starttime < CURRENT_TIMESTAMP AND terminatecauseid = 2";
@@ -14,31 +14,30 @@ $QUERY_COUNT_CALL_TIMES = "SELECT  sum(sessiontime) FROM cc_call WHERE starttime
 $QUERY_COUNT_CALL_SELL = "SELECT  sum(sessionbill) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP ;";
 $QUERY_COUNT_CALL_BUY = "SELECT  sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP ;";
 
-
-
-$table = new Table('cc_call','*');
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_ALL);
-$result_count_all= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_ANSWERED);
-$result_count_answered= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_NOANSWER);
-$result_count_noanswer= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_CANCELLED);
-$result_count_cancelled= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_CONGESTED);
-$result_count_congested= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_BUSY);
-$result_count_busy= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_CHANUNAVAIL);
-$result_count_chanunavail= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_TIMES);
+$table = new Table('cc_call', '*');
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_ALL);
+$result_count_all = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_ANSWERED);
+$result_count_answered = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_NOANSWER);
+$result_count_noanswer = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_CANCELLED);
+$result_count_cancelled = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_CONGESTED);
+$result_count_congested = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_BUSY);
+$result_count_busy = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_CHANUNAVAIL);
+$result_count_chanunavail = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_TIMES);
 
 $result_count_calls_times = $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_SELL);
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_SELL);
 $result_count_calls_sell = $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CALL_BUY);
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_BUY);
 $result_count_calls_buy = $result[0][0];
-if($result_count_calls_buy == null) echo "NULLL";
+if ($result_count_calls_buy == null)
+	echo "NULLL";
 ?>
 
 <?php echo gettext("TOTAL NUMBER OF CALLS TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>

@@ -20,15 +20,6 @@ $QUERY_GRAPH_REFILL_AMOUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-0
 $result_graph_refill_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_REFILL_AMOUNT);
 ?>
 
-
-
-
-
-
-
-
-
-
 <input id="refills_count" type="radio" name="mode_refill" value="count">&nbsp; <?php echo gettext("NUMBER OF REFILLS BY MONTH"); ?><br/>
 <input id="refills_amount" type="radio" name="mode_refill" value="amount">&nbsp; <?php echo gettext("AMOUNT OF REFILLS BY MONTH"); ?><br/>
 <br/>
@@ -102,7 +93,8 @@ $("#refills_graph").height(Math.floor(width/2));
 							  });
 	
 	        });
-	$('#refills_amount').click(function () {
+	
+		$('#refills_amount').click(function () {
 			var d = <?php echo $val_amount ?>;
     		$.plot($("#refills_graph"), [
 						        {
@@ -131,7 +123,7 @@ $("#refills_graph").height(Math.floor(width/2));
 			
 	        });
 	        
- $('#refills_count').click();	   
+   $('#refills_count').click();	   
               
    function showTooltip(x, y, contents) {
         $('<div id="tooltip">' + contents + '</div>').css( {
@@ -168,8 +160,5 @@ $("#refills_graph").height(Math.floor(width/2));
   
 });
   
-  
-  
-  
-  
 </script>
+

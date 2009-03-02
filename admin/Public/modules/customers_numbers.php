@@ -1,8 +1,7 @@
 <?php
-include_once  ("../../lib/admin.defines.php");
+include_once ("../../lib/admin.defines.php");
 
-
-$DBHandle  = DbConnect();
+$DBHandle = DbConnect();
 $QUERY_COUNT_CARD_ALL = "select count(*) from cc_card";
 $QUERY_COUNT_CARD_ACTIVED = "select count(*) from cc_card WHERE status = 1";
 $QUERY_COUNT_CARD_CANCELLED = "select count(*) from cc_card WHERE status = 0";
@@ -11,23 +10,23 @@ $QUERY_COUNT_CARD_WAITING = "select count(*) from cc_card WHERE status = 3";
 $QUERY_COUNT_CARD_RESERVED = "select count(*) from cc_card WHERE status = 4";
 $QUERY_COUNT_CARD_EXPIRED = "select count(*) from cc_card WHERE status = 5";
 $QUERY_COUNT_CARD_SUSPENDED = "select count(*) from cc_card WHERE status = 6 OR status = 7";
-$table = new Table('cc_card','*');
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_ALL);
-$result_count_all= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_ACTIVED);
-$result_count_actived= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_CANCELLED);
-$result_count_cancelled= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_NEW);
-$result_count_new= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_WAITING);
-$result_count_waiting= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_RESERVED);
-$result_count_reserved= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_EXPIRED);
-$result_count_expired= $result[0][0];
-$result = $table -> SQLExec($DBHandle,$QUERY_COUNT_CARD_SUSPENDED);
-$result_count_suspended= $result[0][0];
+$table = new Table('cc_card', '*');
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_ALL);
+$result_count_all = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_ACTIVED);
+$result_count_actived = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_CANCELLED);
+$result_count_cancelled = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_NEW);
+$result_count_new = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_WAITING);
+$result_count_waiting = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_RESERVED);
+$result_count_reserved = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_EXPIRED);
+$result_count_expired = $result[0][0];
+$result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_SUSPENDED);
+$result_count_suspended = $result[0][0];
 ?>
 
 <?php echo gettext("TOTAL NUMBER OF CUSTOMERS");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
