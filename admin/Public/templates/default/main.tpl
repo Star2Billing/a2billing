@@ -354,8 +354,8 @@
 		<ul>
 			<li><ul>
 				<li><a href="CC_ticket.php?section=17">{php} echo gettext("Tickets");{/php}</a></li>
-				<li><a href="A2B_ticket_agent.php?section=17">{php} echo gettext("Tickets AGENT");{/php}</a></li>
-				<li><a href="CC_support.php?section=17">{php} echo gettext("Support Box's");{/php}</a></li>
+				<li><a href="A2B_ticket_agent.php?section=17">{php} echo gettext("Agent Tickets");{/php}</a></li>
+				<li><a href="CC_support.php?section=17">{php} echo gettext("Support Boxes");{/php}</a></li>
 				<li><a href="CC_support_component.php?section=17">{php} echo gettext("Components");{/php}</a></li>
 			</ul></li>
 		</ul>
@@ -380,7 +380,7 @@
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_callback.php?section=12">{php} echo gettext("Callbacks");{/php}</a></li>
-				<li><a href="A2B_entity_server_group.php?section=12">{php} echo gettext("Server Group's");{/php}</a></li>
+				<li><a href="A2B_entity_server_group.php?section=12">{php} echo gettext("Server Groups");{/php}</a></li>
 				<li><a href="A2B_entity_server.php?section=12">{php} echo gettext("Server");{/php}</a></li>
 			</ul></li>
 		</ul>
@@ -395,7 +395,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AUTO DIALER");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="16")}
 		style="">
@@ -528,6 +528,7 @@
 		<a href="PP_intro.php?language=brazilian" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/br.gif" border="0" title="Brazilian" alt="Brazilian"></a>
 	</td>
 </tr>
+<!--
 <tr>
 		<td>
 			<form action="{$PAGE_SELF}" method="post">
@@ -538,6 +539,7 @@
 			</form>
 		</td>
 	</tr>
+-->
 </table>
 
 

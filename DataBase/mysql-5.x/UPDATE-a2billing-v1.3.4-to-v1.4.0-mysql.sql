@@ -1695,6 +1695,7 @@ UPDATE cc_config SET config_group_title=(SELECT group_title FROM cc_config_group
 ALTER TABLE cc_config DROP COLUMN config_group_id;
 
 
+-- add receipt objects
 CREATE TABLE cc_receipt (
 	id BIGINT NOT NULL AUTO_INCREMENT ,
 	id_card BIGINT NOT NULL ,

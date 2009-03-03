@@ -5,24 +5,20 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_INVOICING)){
+if (! has_rights (ACX_INVOICING)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 
-//if (!$A2B->config["webcustomerui"]['password']) exit();
-
 /***********************************************************************************/
 
-
-
-
 $DBHandle  = DbConnect();
-if($form_action=="ask-update")
-{
-getpost_ifset(array('company_name','address','zipcode','country','city','phone','fax','email','vat','web'));
+if($form_action=="ask-update") {
+	
+	getpost_ifset(array('company_name','address','zipcode','country','city','phone','fax','email','vat','web'));
+	
 	$table_invoice_conf= new Table("cc_invoice_conf");
 	$param_update_conf = "value ='".$company_name."'";
 	$clause_update_conf = "key_val = 'company_name'";
@@ -69,10 +65,10 @@ getpost_ifset(array('company_name','address','zipcode','country','city','phone',
 	$table_invoice_conf -> Update_table ($DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
 	
 }
+
 // #### HEADER SECTION
 $smarty->display( 'main.tpl');
 
-// #### HELP SECTION
 
 $table_invoice_conf= new Table("cc_invoice_conf","value");
 $clause_update_conf = "key_val = 'company_name'";
@@ -126,7 +122,7 @@ $web=$result[0][0];
 <table width="100%">
 	<tr>
 		<td align="center" valign="middle">
-			<?php echo gettext("You can configure here your information that you want use to generate the invoice") ?>
+			<?php echo gettext("Here you can configure information that you want to use to generate the invoice") ?>
 		</td>
 	</tr>	
 </table>

@@ -29,8 +29,8 @@ $CC_help_list_group='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
         <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
         <div class="w2">
-
-'.gettext("This page shows group list. <br> Group field is used for grouping customers for quick search, batch update and reporting.").'<br/>'.help_wiki_link('ListGroup').'<br/>
+'.gettext("This page shows a group list."). 
+gettext("The Group field is used for grouping customers for quick search, batch update and reporting.").'<br/>'.help_wiki_link('ListGroup').'<br/>
 </div></div></div>
 </div></div>';
 
@@ -257,7 +257,7 @@ $CC_help_view_invoice ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Invoice history - The section below allows you to see and create invoice against a customer.Only the closed invoice can be see in the customer interface").'
+'.gettext("Invoice history - The section below allows you to see and create invoices against a customer. Only the closed invoice can be seen on the customer interface").'
 <br/>'.help_wiki_link('ViewInvoices').'
 </div></div></div>
 </div></div>';
@@ -784,10 +784,20 @@ $CC_help_campaign ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_remote.gif" class="kikipic"/>
 	<div class="w2">'
-	.gettext("This section will allow you to create and edit campaign. ")
-    .gettext("A campaign will be attached to a user in order to let him use the predictive-dialer option. ")
-    .gettext("Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls.").'
-<br/><br/>
+	.gettext("This section will allow you to create and edit campaigns. A campaign will be attached to a user in order to let him use the predictive dialler option. Predictive dialler will browse all the phone numbers from the campaign and perform outgoing calls.")
+.'<br/><br/>
+</div></div></div>
+</div></div>';
+
+$CC_help_campaign_config ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/yast_remote.gif" class="kikipic"/>
+	<div class="w2">'
+	.gettext("This section will allow you to create and edit campaign configs.")
+.'<br/><br/>
 </div></div></div>
 </div></div>';
 
@@ -798,7 +808,7 @@ $CC_help_phonelist ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
 	<div class="w2"><br/>'
-	.gettext("Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers.").'
+	.gettext("Phone Number – here you will find a list of all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers.").'
 	<br/><br/>
 </div></div></div>
 </div></div>';
@@ -811,7 +821,7 @@ $CC_help_phonebook ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
 	<div class="w2"><br/>'
-	.gettext("Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section").'
+	.gettext("A Phonebook is a set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebooks to a campaign in the Campaign section").'
 	<br/><br/>
 </div></div></div>
 </div></div>';	
@@ -981,7 +991,7 @@ $CC_help_list_subscription='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/config-date.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("SUBSCRITION FEE - You can bill in a monthly, weekly or anytime period the user for being subscribed on your service. The fee amount is defined here and the period through the cront configuration.").'
+.gettext("SUBSCRIPTION FEE – You can bill the user  in a monthly, weekly or any time period for being subscribed on your service. The fee amount is defined here and the period through the cront configuration.").'
 <br/>'.help_wiki_link('ListSubscription').'<br/><br/>
 </div></div></div>
 </div></div>
@@ -1005,7 +1015,7 @@ $CC_help_server='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("Server are used by the callback system through the asterisk manager in order to initiate the callback and outbound a call to your customers. You can add/modify the callback server here that are going to be use here. The AGI and callback mode need to be install on those machine.").'
+.gettext("Servers are used by the callback system through the asterisk manager in order to initiate the callback and outbound calls for your customers. You can add/modify the callback server to be used here. The AGI and callback modes need to be installed on those machines.").'
 <br/>'.help_wiki_link('ShowServer').'<br/><br/>
 </div></div></div>
 </div></div>
@@ -1017,7 +1027,7 @@ $CC_help_server_group='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_multihead.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("Group of server define the set of servers that are going to be used by the callback system. A callback is bound to a group of server, those server will be used to dispatch the callback requests.").'
+.gettext("Server Groups define the set of servers that are going to be used by the callback system. A callback is bound to a server group which will be used to dispatch the callback requests.").'
 <br/>'.help_wiki_link('ShowServerGroup').'<br/>
 </div></div></div>
 </div></div>
@@ -1147,7 +1157,7 @@ $CC_help_support_component='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("You can see here, all component that you use to handle the support task. You can use component to category for the subject of ticket. i.e : Tarification, Payment").'
+.gettext("Here you can see all components which you use to handle the support task. You can use components to categorise the subject of the ticket. i.e : Tarification, Payment").'
 <br/><br/><br/>
 </div></div></div>
 </div></div>
@@ -1159,7 +1169,7 @@ $CC_help_support_box='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("You can see here the Support Box, you need at least one support box to start support activity. But you can create many box and assign them.").'
+.gettext("You can see here the Support Box, you need at least one support box to start support activity.").'
 <br/><br/><br/>
 </div></div></div>
 </div></div>
