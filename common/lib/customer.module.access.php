@@ -19,19 +19,19 @@ define ("ACX_ACCESS",						1);
 define ("ACX_PASSWORD",						2);	
 define ("ACX_SIP_IAX",						4);			// 1 << 1
 define ("ACX_CALL_HISTORY",					8);			// 1 << 2
-define ("ACX_PAYMENT_HISTORY",   			16);			// 1 << 3
+define ("ACX_PAYMENT_HISTORY",   			16);		// 1 << 3
 define ("ACX_VOUCHER",   					32);		// 1 << 4
 define ("ACX_INVOICES",   					64);		// 1 << 5
 define ("ACX_DID",   						128);		// 1 << 6
 define ("ACX_SPEED_DIAL",   				256);		// 1 << 7
 define ("ACX_RATECARD",   				    512);		// 1 << 8
-define ("ACX_SIMULATOR",   					1024);
-define ("ACX_CALL_BACK",   					2048);		// 1 << 9
-define ("ACX_WEB_PHONE",					4096);		// 1 << 10
-define ("ACX_CALLER_ID",					8192);		// 1 << 11
-define ("ACX_SUPPORT",						16384);		// 1 << 13
-define ("ACX_NOTIFICATION",					32768);		// 1 << 14
-define ("ACX_AUTODIALER",					65536);	
+define ("ACX_SIMULATOR",   					1024);		// 1 << 9
+define ("ACX_CALL_BACK",   					2048);		// 1 << 10
+define ("ACX_WEB_PHONE",					4096);		// 1 << 11
+define ("ACX_CALLER_ID",					8192);		// 1 << 12
+define ("ACX_SUPPORT",						16384);		// 1 << 14
+define ("ACX_NOTIFICATION",					32768);		// 1 << 15
+define ("ACX_AUTODIALER",					65536);		// 1 << 16
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");

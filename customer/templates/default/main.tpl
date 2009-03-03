@@ -109,7 +109,7 @@
 		<ul><li><a href="simulator.php?section=9"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li></ul>
 		{/if}
 
-		{if $ACXCALL_BACK==1 }
+		{if $ACXCALL_BACK >0 }
 		<li><a href="#" target="_self"></a></li>
 		<ul><li><a href="callback.php?section=10"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li></ul>
 		{/if}
