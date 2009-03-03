@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'id_card', 'date'));
 
 
 if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_billing_customer LEFT JOIN cc_card ON cc_card.id=id_card LEFT JOIN cc_invoice ON cc_invoice.id=id_invoice ","Billing");
+	$HD_Form = new FormHandler("cc_billing_customer LEFT JOIN cc_card ON cc_card.id=id_card  ","Billing");
 } else {
 	$HD_Form = new FormHandler("cc_billing_customer","Billing");
 }
@@ -24,10 +24,7 @@ $paid_status_list = Constants::getInvoicePaidStatusList();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_billing_customer.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("BILLING DATE"), "cc_billing_customer.date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("INVOICE"), "id_invoice", "20%", "center", "sort", "", "lie_link", "cc_invoice", "reference,id", "id='%id'", '<img src="'.Images_Path.'/link.png" border="0" title="'.gettext("Link to the invoice %1").'" alt="'.gettext("Link to the invoice %1").'" />' , "", "A2B_invoice_view.php");
-$HD_Form -> AddViewElement(gettext("INVOICE PAID STATUS"), "cc_invoice.paid_status", "10%", "center", "sort", "", "list", $paid_status_list);
-$HD_Form -> AddViewElement(gettext("INVOICE STATUS"), "cc_invoice.status", "10%", "center", "sort", "", "list", $status_list);
-$HD_Form -> FieldViewElement ('cc_billing_customer.id, username, cc_billing_customer.date ,id_invoice,cc_invoice.paid_status,cc_invoice.status');
+$HD_Form -> FieldViewElement ('cc_billing_customer.id, username, cc_billing_customer.date');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
