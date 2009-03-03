@@ -30,8 +30,8 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include_once (dirname(__FILE__) . "/lib/admin.defines.php");
 
-$verbose_level = 3;
-$FG_DEBUG = 1;
+$verbose_level = 0;
+$FG_DEBUG = 0;
 $groupcard = 5000;
 
 $A2B = new A2Billing();
