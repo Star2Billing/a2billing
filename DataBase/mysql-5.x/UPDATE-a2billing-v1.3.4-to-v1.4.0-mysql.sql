@@ -838,7 +838,7 @@ VALUES ( 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disabl
 
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Notications Delay', 'delay_notifications', '1', 'Delay in number of days to send an other notification for the customers. If they have to be notify', '0', '12', NULL);
+VALUES ( 'Notications Delay', 'delay_notifications', '1', 'Delay in number of days to send an other notification for the customers. If the value is 0, it will notify the user everytime the cront is running.', '0', '12', NULL);
 
 ALTER TABLE cc_card ADD last_notification TIMESTAMP NULL DEFAULT NULL ;
 

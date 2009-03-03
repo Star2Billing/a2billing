@@ -1,7 +1,6 @@
 #!/usr/bin/php -q
 <?php
 
-
 /***************************************************************************
  *            a2billing_notify_account.php
  *
@@ -31,7 +30,8 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include_once (dirname(__FILE__) . "/lib/admin.defines.php");
 
-$verbose_level = 0;
+$verbose_level = 3;
+$FG_DEBUG = 1;
 $groupcard = 5000;
 
 $A2B = new A2Billing();
@@ -70,10 +70,17 @@ if ($FG_DEBUG == 1)
 
 $Delay_Clause = "( ";
 if ($A2B->config["database"]['dbtype'] == "postgres") {
-	$Delay_Clause .= "last_notification < CURRENT_DATE - " . $A2B->config['notifications']['delay_notifications'] . " OR ";
+	$CURRENT_DATE = "CURRENT_DATE";
 } else {
-	$Delay_Clause .= "last_notification < CURDATE() - " . $A2B->config['notifications']['delay_notifications'] . " OR ";
+	$CURRENT_DATE = "CURDATE()";
 }
+
+if ($A2B->config['notifications']['delay_notifications'] <= 0) {
+	$Delay_Clause .= "last_notification < $CURRENT_DATE + 1 OR ";
+} else {
+	$Delay_Clause .= "last_notification < $CURRENT_DATE - " . $A2B->config['notifications']['delay_notifications'] . " OR ";
+}
+
 $Delay_Clause .= "last_notification IS NULL )";
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE CHECK ACCOUNT SERVICE
 $QUERY = "SELECT count(*) FROM cc_card WHERE notify_email ='1' AND credit < credit_notification AND " . $Delay_Clause;
