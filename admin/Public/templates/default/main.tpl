@@ -8,6 +8,7 @@
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/invoice.css" rel="stylesheet" type="text/css">
+	<link href="templates/{$SKIN_NAME}/css/receipt.css" rel="stylesheet" type="text/css">
 
 	<script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
@@ -298,6 +299,7 @@
 	{/if}
 		<ul>
 			<li><ul>
+				<li><a href="A2B_entity_receipt.php?atmenu=payment&section=13">{php} echo gettext("Receipts");{/php}</a></li>
 				<li><a href="A2B_entity_invoice.php?atmenu=payment&section=13">{php} echo gettext("Invoices");{/php}</a></li>
 				<li><a href="A2B_entity_invoice_conf.php?atmenu=payment&section=13">{php} echo gettext("Invoices Configuration");{/php}</a></li>
 			</ul></li>

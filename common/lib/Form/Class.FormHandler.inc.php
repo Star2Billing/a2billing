@@ -1628,26 +1628,82 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		global $A2B;
 		$processed = $this->getProcessed();
 		//find the last billing 
+		$card_id = $processed['id_card'];
+		$card_table = new Table('cc_card','vat,typepaid,credit');
+		$card_clause = "id = ".$card_id;
+		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
+		
+		if(!is_array($card_result)||empty($card_result[0]['vat'])||!is_numeric($card_result[0]['vat'])) $vat=0;
+				else $vat = $card_result[0][0];
+		
+		// FIND THE LAST BILLING
 		$billing_table = new Table('cc_billing_customer','id,date');
 		$clause_last_billing = "id_card = ".$processed['id_card']." AND id != ".$this -> RESULT_QUERY;
 		$result = $billing_table -> Get_list($this->DBHandle, $clause_last_billing,"date","desc");
 		$call_table = new Table('cc_call',' COALESCE(SUM(sessionbill),0)' );
 		$clause_call_billing ="card_id = ".$processed['id_card']." AND ";
+		$clause_charge = "id_cc_card = ".$processed['id_card']." AND ";
 		$desc_billing="";
+		$desc_billing_postpaid="";
 		$start_date =null;
 		if(is_array($result) && !empty($result[0][0])){
 			$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND "; 
+			$clause_charge .= "creationdate >= '".$result[0][1]."' AND  ";
 			$desc_billing = "Calls cost between the ".$result[0][1]." and ".$processed['date'] ;
+			$desc_billing_postpaid="Amount to pay for periode between the ".$result[0][1]." and ".$processed['date'];
 			$start_date = $result[0][1];
 		}else{
 			$desc_billing = "Calls cost before the ".$processed['date'] ;
+			$desc_billing_postpaid="Amount to pay for periode before the ".$processed['date'] ;
 		}
 		$clause_call_billing .= "stoptime < '".$processed['date']."' ";
+		$clause_charge .= "creationdate < '".$processed['date']."' ";
 		$result =  $call_table -> Get_list($this->DBHandle, $clause_call_billing);
+		// COMMON BEHAVIOUR FOR PREPAID AND POSTPAID ... GENERATE A RECEIPT FOR THE CALLS OF THE MONTH
 		if(is_array($result) && is_numeric($result[0][0])){
 			$amount_calls = $result[0][0];
 			$amount_calls = ceil($amount_calls*100)/100;
-			/// create invoice
+			/// create receipt
+			$field_insert = "date, id_card, title, description";
+			$title = gettext("SUMMARY OF CALLS");
+			$description = gettext("Summary of the calls charged since the last billing");
+			$value_insert = " '$date' , '$card_id', '$title','$description'";
+			$instance_table = new Table("cc_receipt", $field_insert);
+			$id_receipt = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			if(!empty($id_receipt)&& is_numeric($id_receipt)){
+				$description = $desc_billing;
+				$field_insert = "date, id_receipt,price,description,id_ext,type_ext";
+				$instance_table = new Table("cc_receipt_item", $field_insert);
+				$value_insert = " '$date' , '$id_receipt', '$amount_calls','$description','".$this -> RESULT_QUERY."','CALLS'";
+				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			}
+			
+		}	
+		// GENERATE RECEIPT FOR CHARGE ALREADY CHARGED 
+		$table_charge = new Table("cc_charge", "*");
+		$result =  $table_charge -> Get_list($this->DBHandle, $clause_charge." AND charged_status = 1");
+		if(is_array($result)){
+			$field_insert = "date, id_card, title, description";
+			$title = gettext("SUMMARY OF CHARGE");
+			$description = gettext("Summary of the charge charged since the last billing");
+			$value_insert = " '$date' , '$card_id', '$title','$description'";
+			$instance_table = new Table("cc_receipt", $field_insert);
+			$id_receipt = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			if(!empty($id_receipt)&& is_numeric($id_receipt)){
+				foreach ($result as $charge) {
+					$description = $charge['description'];
+					$amount = $charge['amount'];
+					$field_insert = "date, id_receipt,price,description,id_ext,type_ext";
+					$instance_table = new Table("cc_receipt_item", $field_insert);
+					$value_insert = " '$date' , '$id_receipt', '$amount','$description','".$charge['id']."','CHARGE'";
+					$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+				}
+			}
+		}
+		// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
+		$table_charge = new Table("cc_charge", "*");
+		$result =  $table_charge -> Get_list($this->DBHandle, $clause_charge." AND charged_status = 0 AND invoiced_status = 0");
+		if(is_array($result) && sizeof($result)>0){
 			$reference = generate_invoice_reference();
 			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
 			$date = date("Y-m-d h:i:s");
@@ -1655,39 +1711,52 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$title = gettext("BILLING");
 			$description = gettext("Invoice for billing");
 			
-			//load vat of this card
-			$card_table = new Table('cc_card','vat,typepaid');
-			$card_clause = "id = ".$card_id;
-			$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
-			if(!is_array($card_result)||is_null($card_result[0]['typepaid'])||($card_result[0]['typepaid']!=1 && $card_result[0]['typepaid']!=0 )){
-				$paid_status =0;
-			}else{
-				if($card_result[0]['typepaid']==0) $paid_status =1;
-				else $paid_status = 0;
-			}
-			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,".$paid_status;
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			if(!empty($id_invoice)&& is_numeric($id_invoice)){
-				$description = $desc_billing;
-				if(!is_array($card_result)||empty($card_result[0]['vat'])||!is_numeric($card_result[0]['vat'])) $vat=0;
-				else $vat = $card_result[0][0];
-				$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
-				$instance_table = new Table("cc_invoice_item", $field_insert);
-				$value_insert = " '$date' , '$id_invoice', '$amount_calls','$vat','$description','".$this -> RESULT_QUERY."','CALLS'";
-				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+				foreach ($result as $charge) {
+					$description = $charge['description'];
+					$amount = $charge['amount'];
+					$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
+					$instance_table = new Table("cc_invoice_item", $field_insert);
+					$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','".$charge['id']."','CHARGE'";
+					$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+				}
 			}
 			
-			$param_update_billing = "id_invoice = '".$id_invoice."'";
-			$clause_update_billing = " id= ".$this -> RESULT_QUERY;
-			$billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
-			if(!empty($start_date)){
+		}
+		
+		// behaviour postpaid
+		if($card_result[0]['typepaid']==1 && is_numeric($card_result[0]['credit']) && $card_result[0]['credit']<0){
+			//GENERATE AN INVOICE TO COMPLETE THE BALANCE
+			$reference = generate_invoice_reference();
+			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
+			$date = date("Y-m-d h:i:s");
+			$card_id = $processed['id_card'];
+			$title = gettext("BILLING");
+			$description = gettext("Invoice for POSTPAID");
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
+			$instance_table = new Table("cc_invoice", $field_insert);
+			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+				$description = $desc_billing_postpaid;
+				$amount = abs($card_result[0]['credit']);
+				$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
+				$instance_table = new Table("cc_invoice_item", $field_insert);
+				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','".$this -> RESULT_QUERY."','CALLS'";
+				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+			}
+		}
+		
+		//Update billing ...
+		if(!empty($start_date)){
 				$param_update_billing = "start_date = '".$start_date."'";
 				$clause_update_billing = " id= ".$this -> RESULT_QUERY;
 				$billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
 			
 			}
-		}	
+		
     }
 	
 	

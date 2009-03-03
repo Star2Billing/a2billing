@@ -1695,4 +1695,27 @@ UPDATE cc_config SET config_group_title=(SELECT group_title FROM cc_config_group
 ALTER TABLE cc_config DROP COLUMN config_group_id;
 
 
+CREATE TABLE cc_receipt (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	id_card BIGINT NOT NULL ,
+	date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	title VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	status TINYINT NOT NULL DEFAULT '0',
+	PRIMARY KEY ( id )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE cc_receipt_item (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	id_receipt BIGINT NOT NULL ,
+	date timestamp NOT NULL default CURRENT_TIMESTAMP,
+	price DECIMAL( 15, 5 ) NOT NULL DEFAULT '0',
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	id_ext BIGINT( 20 ) NULL DEFAULT NULL,
+	type_ext VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+	PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
 
