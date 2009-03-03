@@ -497,10 +497,11 @@ $CC_help_admin_list ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("Administrator list who have access to the administrative interface.").'
+	.gettext("Administrators – this shows a list of all the Administrators who have access to the Administrator interface.").'
 <br/>'.help_wiki_link('ShowAdministrator').'<br/>
 </div></div></div>
 </div></div>';
+
 $CC_help_list_log ='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -509,7 +510,7 @@ $CC_help_list_log ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("System log help you to keep track and event all event happening in your application. Log Level are the Importance Levels for the Events which are logged. '1' is lowest level and '3' is highest level. 1 if for Login, Logout, Page Visit, 2 if for Add, Import, Export. and 3 is for update and Delete.").'
+	.gettext("The system log helps you track all events on your application. Log levels are the Importance Levels for the events – “1” is lowest level and “3” is highest level. 1 is used for Login, Logout and Page Visit. 2 is used for Add, Import, Export. 3 is for Update and Delete.").'
 <br/>'.help_wiki_link('SystemLog').'<br/>
 </div></div></div>
 </div></div>';
@@ -768,11 +769,9 @@ $CC_help_list_misc ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kate.gif" class="kikipic"/>
-	<div class="w2">
-		'.gettext("The MISC module allow new customers to register automatically and use the system immediately.")
-    	.gettext(' Click here <a target="_blank" href="../signup/"><b>Signup Pages</b></a> to access the signup page.')
-    	.gettext(" A mail is automatically sent when a new signup is completed. Configure the mail template below.<br>")
-    	.gettext("A Reminder email can be sent (see a2billing.conf) to customers having low credit.").'
+	<div class="w2">'
+		.gettext("Configure the mail template below.").'<br>'
+    	.gettext("A Reminder email can be sent (see a2billing.conf) to customers having low credit, a confirmation mail can be sent to customers after their signup, etc...").'
 <br/>'.help_wiki_link('ShowMailTemplates').'
 </div></div></div>
 </div></div>';
@@ -846,12 +845,8 @@ $CC_help_database_restore ='
 <div id="kiki"><div class="w1">
 <img src="'.KICON_PATH.'/yast_HD.gif" class="kikipic"/>
         <div class="w2">'
-        .gettext("This section will allow you to restore or download an existing database backup. ")
-        .gettext("The restore proccess will delete the existing database and import the new one ...")
-        .gettext("Also you can upload a database backup that you previously downloaded , ")
-        .gettext("but be sure that is correct and use the same file format.")
-        .gettext("The process of restore can take some time , during that time no calls will be accepted.").'
-<br/>'.help_wiki_link('DatabaseRestore').'
+        .gettext("This section will allow you to restore or download an existing database backup. The restore process will delete the existing database and import the new one. You can also upload a database backup that you previously downloaded (make sure to use the same file format).")
+        .'<br/>'.help_wiki_link('DatabaseRestore').'
 </div></div></div>
 </div></div>';
 
@@ -862,10 +857,8 @@ $CC_help_database_backup='
 <div id="kiki"><div class="w1">
 <img src="'.KICON_PATH.'/yast_HD.gif" class="kikipic"/>
         <div class="w2">'
-		.gettext("This section will allow you to backup an existing database context. ")
-		.gettext("Backup proccess will export whole database , so you can restore later... <br/>")
-		.gettext("The process of backup can take some time, during that time some calls will not be accepted.").'
-		<br/>'.help_wiki_link('DatabaseBackup').'
+		.gettext("This section will allow you to backup an existing database context. The Backup process will export the whole database, so you can restore it later...").'<br/>'
+		.'<br/>'.help_wiki_link('DatabaseBackup').'
 </div></div></div>
 </div></div>';
 
@@ -954,7 +947,8 @@ $CC_help_logfile='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/cache.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("Browse for log file.<br> Use to locate the log file on a remote Web server.<br>It can generate combined reports for all logs. This tool can be use for extraction and presentation of information from various logfiles.").'
+.gettext("Browse your server log files.").'<br/>'
+.gettext("This tool can be used to extract and present information from various logfiles.").'
 <br/>'.help_wiki_link('WatchLogFiles').'
 </div></div></div>
 </div></div>
@@ -1098,7 +1092,7 @@ $CC_help_list_configuration = '<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/pinguim-root3.gif" class="kikipic"/>
 	<div class="w2"><br>'
-.gettext("Here you can see and modify values of every parameters.").'
+.gettext("Here you can see and edit the different A2Billing settings.").'
 <br/><br/><br>
 </div></div></div>
 </div></div>
@@ -1181,7 +1175,7 @@ $CC_help_data_archive = '<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2"><br>'
-.gettext("Here you can archive the data. By Default listing will show you 3 months earlier data. But you can also search data and make it archive.").'
+.gettext("Here you can archive the data. The Default listing will show you the previous 3 months data. But you can also search the data and archive it.").'
 <br/><br/><br>
 </div></div></div>
 </div></div>
@@ -1195,7 +1189,7 @@ $CC_help_agent ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("Agent list who have access to the Agent interface.").'
+	.gettext("Agents – this shows a list of all of the Agents who have access to the Agent interface").'
 <br/>'.help_wiki_link('ShowAgent').'<br/>
 </div></div></div>
 </div></div>';

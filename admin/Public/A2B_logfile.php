@@ -5,16 +5,13 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_ADMINISTRATOR)){ 
+if (! has_rights (ACX_ADMINISTRATOR)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
 }
 
 getpost_ifset(array('nb', 'view_log', 'filter'));
-
-
-/***********************************************************************************/
 
 
 // #### HEADER SECTION
@@ -24,7 +21,6 @@ $smarty->display('main.tpl');
 echo $CC_help_logfile;
 ?>
 <br>
-
 <center>
 <?php
 
@@ -42,37 +38,19 @@ function array2drop_down($name, $currentvalue, $arr_value){
 	echo '</SELECT>';
 }
 
-/*
-$directory = '/var/log/asterisk/agi/';
-$d = dir($directory);
 
-while(false!==($entry=$d->read()))
-{
-	if(is_file($directory.$entry) && $entry!='.' && $entry!='..')
-		$arr_log[] = $directory.$entry;
-}
-$d->close();
-sort($arr_log);
-*/
-
-//$arr_log[0] = '/var/log/asterisk/a2billing-daemon-callback.log';
-//$arr_log[1] = '/var/log/asterisk/a2billing-webcallback.log';
-
-
-//$directory = '/var/log/asterisk/';
 $directory = '/var/log/asterisk/';
 $d = dir($directory);
 
-while(false!==($entry=$d->read()))
-{
+while(false!==($entry=$d->read())) {
 	if(is_file($directory.$entry) && $entry!='.' && $entry!='..')
 		$arr_log[] = $directory.$entry;
 }
 $d->close();
 
 
-foreach($A2B->config["log-files"] as $log_file){
-	if (strlen(trim($log_file))>1){
+foreach($A2B->config["log-files"] as $log_file) {
+	if (strlen(trim($log_file))>1) {
 		$arr_log[] = $log_file;
 	}	
 }
@@ -93,10 +71,8 @@ $nb = $nb?$nb:50;
 <hr/>
 </center>
 <?php
-echo $_GET['view_log']."<hr>";
 
-if(isset($_GET['view_log']))
-{
+if(isset($_GET['view_log'])) {
 	$f = $arr_log[$_GET['view_log']];
 	$arr = stat($f);
 	echo '<title>'.$f.'</title>';
@@ -107,18 +83,16 @@ if(isset($_GET['view_log']))
 	$arr = file($f);
 	$arr = array_reverse($arr);
 	$i = 0;
-	foreach($arr as $k=>$v)
-	{
+	foreach($arr as $k=>$v) {
 		$v = trim($v);
-		if(!empty($v))
-		{
+		if(!empty($v)) {
 			$i++;			
-			if (strlen($filter)>0){
+			if (strlen($filter)>0) {
 				$pos1 = stripos($v, $filter);
 				if ($pos1 !== false) {
 					$arr_tmp[] = $v;
 				}
-			}else{
+			} else {
 				$arr_tmp[] = $v;
 			}			
 			//echo $v."\n";
@@ -128,18 +102,7 @@ if(isset($_GET['view_log']))
 	$arr_tmp = array_reverse($arr_tmp);
 	foreach($arr_tmp as $v)
 		echo $v."\n";
-	//debug($arr_tmp);
-	/*
-	$fp = fopen($arr_log[$_GET['view_log']], 'r');
-	while(!feof($fp))
-	{
-		$line = fgets($fp);
-		$line = trim($line);
-		if(!empty($line)) echo $line."\n";
-		
-	}
-	fclose($fp);
-	*/
+	
 	echo '</pre></font>';
 }
 
@@ -147,4 +110,3 @@ if(isset($_GET['view_log']))
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>
