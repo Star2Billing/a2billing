@@ -3,7 +3,7 @@ include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_CALL_REPORT)){ 
+if (! has_rights (ACX_CALL_REPORT)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
@@ -12,7 +12,7 @@ if (! has_rights (ACX_CALL_REPORT)){
 getpost_ifset(array('inputtopvar','topsearch', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'choose_currency', 'terminatecauseid', 'nodisplay','grouped'));
 
 
-if (!isset ($current_page) || ($current_page == "")){	
+if (!isset ($current_page) || ($current_page == "")) {
 	$current_page=0; 
 }
 
@@ -131,13 +131,13 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 	}
 	$QUERY = "CREATE TEMPORARY TABLE temp_result AS (SELECT $FG_COL_QUERY1 FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE  $SQL_GROUP1 ORDER BY nbcall DESC LIMIT $inputtopvar)";
 	$res = $DBHandle -> Execute($QUERY);
-	if ($res){
+	if ($res) {
 		$FG_TABLE_NAME="temp_result";
-		if ($grouped){
+		if ($grouped) {
 			$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day,terminatecauseid, nbcall';
 			$SQL_GROUP=" GROUP BY ".$on_field.",day,terminatecauseid,nbcall ";
 			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME GROUP BY day";
-		}else{
+		} else {
 			$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, nbcall';
 			$SQL_GROUP=" GROUP BY ".$on_field.",terminatecauseid,nbcall ";
 			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall FROM $FG_TABLE_NAME";
@@ -147,13 +147,12 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 }
 
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-if (!$nodisplay){
+if (!$nodisplay) {
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY,$SQL_GROUP);
 	$res = $DBHandle -> Execute($QUERY_TOTAL);
-	if ($res){
+	if ($res) {
 		$num=$res->RecordCount( );
-		for($i=0;$i<$num;$i++)
-		{				
+		for($i=0;$i<$num;$i++) {				
 			$list_total[]=$res -> fetchRow();
 		}
 	}
@@ -164,17 +163,15 @@ if (!$nodisplay){
 
 
 
-if ($nb_record<=$FG_LIMITE_DISPLAY){ 
+if ($nb_record<=$FG_LIMITE_DISPLAY) { 
 	$nb_record_max=1;
-}else{ 
-	if ($nb_record % $FG_LIMITE_DISPLAY == 0){
+} else { 
+	if ($nb_record % $FG_LIMITE_DISPLAY == 0) {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
-	}else{
+	} else {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 	}	
 }
-
-
 
 
 $smarty->display('main.tpl');
@@ -199,7 +196,7 @@ $smarty->display('main.tpl');
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("From");?> :
 					<select name="fromstatsday_sday" class="form_input_select">
 						<?php  
-						for ($i=1;$i<=31;$i++){
+						for ($i=1;$i<=31;$i++) {
 							if ($fromstatsday_sday==sprintf("%02d",$i)) $selected="selected";
 							else	$selected="";
 							echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
@@ -210,14 +207,13 @@ $smarty->display('main.tpl');
 					<?php 	
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
 						$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-							if ($year_actual==$i){
+						for ($i=$year_actual;$i >= $year_actual-1;$i--) {		   
+							if ($year_actual==$i) {
 								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
+							} else {
 								$monthnumber=11;
 							}		   
-							for ($j=$monthnumber;$j>=0;$j--){	
+							for ($j=$monthnumber;$j>=0;$j--) {	
 								$month_formated = sprintf("%02d",$j+1);
 								if ($fromstatsmonth_sday=="$i-$month_formated") $selected="selected";
 								else $selected="";
@@ -230,7 +226,7 @@ $smarty->display('main.tpl');
 					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?php echo gettext("To");?>  :
 					<select name="tostatsday_sday" class="form_input_select">
 					<?php  
-						for ($i=1;$i<=31;$i++){
+						for ($i=1;$i<=31;$i++) {
 							if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
 							echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
 						}
@@ -238,14 +234,13 @@ $smarty->display('main.tpl');
 					</select>
 				 	<select name="tostatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
-							if ($year_actual==$i){
+						for ($i=$year_actual;$i >= $year_actual-1;$i--) {		   
+							if ($year_actual==$i) {
 								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
+							} else {
 								$monthnumber=11;
 							}		   
-							for ($j=$monthnumber;$j>=0;$j--){	
+							for ($j=$monthnumber;$j>=0;$j--) {	
 								$month_formated = sprintf("%02d",$j+1);
 							   	if ($tostatsmonth_sday=="$i-$month_formated") $selected="selected";
 								else	$selected="";
@@ -267,26 +262,21 @@ $smarty->display('main.tpl');
 						<input type="text" name="inputtopvar" value="<?php echo $inputtopvar;?>" class="form_input_text">
 					</td>
 					<td  align="center" class="fontstyle_searchoptions">
-						<input type="radio" name="topsearch" value="topuser"<?php if ($topsearch=="topuser"){ ?> checked="checked" <?php  } ?>><?php echo gettext("Users making the more calls");?>
+						<input type="radio" name="topsearch" value="topuser"<?php if ($topsearch=="topuser"){ ?> checked="checked" <?php  } ?>><?php echo gettext("Calls by user");?>
 					</td>
 					<td  align="center" class="fontstyle_searchoptions">
-						<input type="radio" name="topsearch" value="topdestination"<?php if ($topsearch=="topdestination"){ ?> checked="checked" <?php  } ?>><?php echo gettext("More calls destination");?>
+						<input type="radio" name="topsearch" value="topdestination"<?php if ($topsearch=="topdestination"){ ?> checked="checked" <?php  } ?>><?php echo gettext("Calls by destination");?>
 					</td>
 				</tr></table>
 			</TD>
-		</tr>
+		 </tr>
 			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
-
-			
 			<tr>
 			  <td class="bgcolor_002" align="left" ><font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("OPTIONS");?></font></td>
 			  <td class="bgcolor_003" align="center" >
-			  
 			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
 			  <tr>
 			  	<td width="35%" class="fontstyle_searchoptions" >
-				
-				<!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="20%"  class="fontstyle_searchoptions">
@@ -339,10 +329,6 @@ $smarty->display('main.tpl');
 				</tr>
 				</table>
 				
-				
-				<!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
-				  
-				   
 			   </td>
 			  	
 				</tr>
@@ -350,44 +336,34 @@ $smarty->display('main.tpl');
 				</table>
 			  </td>
 			  </tr>
-
 			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
-			
-			
 			<tr>
         		<td class="bgcolor_004" align="left" > </td>
-
 				<td class="bgcolor_005" align="center" >
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
-					
 	  			</td>
     		</tr>
 		</tbody></table>
 	</FORM>
 </center>
-
-
 <br><br>
 
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
 
-			<center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
-      <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
-<TR bgcolor="#ffffff"> 
-          <TD  class="bgcolor_021" height="16px" style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
+<center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
+<table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
+	<TR bgcolor="#ffffff"> 
+    	<TD  class="bgcolor_021" height="16px" style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-              <TBODY>
                 <TR> 
                   <TD><SPAN  class="fontstyle_003"><tr><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
                   <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path;?>/btn_top_12x12.gif" width=12> 
                   </TD>
                 </TR>
-              </TBODY>
             </TABLE></TD>
         </TR>
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-<TBODY>
                 <TR class="bgcolor_008"> 
 				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
 				  
@@ -483,13 +459,11 @@ $smarty->display('main.tpl');
                               src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
                 </TR>
-              </TBODY>
             </TABLE></td>
         </tr>
         <TR bgcolor="#ffffff"> 
           <TD bgColor=#ADBEDE height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-              <TBODY>
                 <TR> 
                   <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><td> 
                     <?php if ($current_page>0){?>
@@ -504,8 +478,6 @@ $smarty->display('main.tpl');
                     <?php echo gettext("Next");?></a> <img src="<?php echo Images_Path;?>/fleche-d.gif" width="5" height="10">
                     </B></TD></SPAN> 
                     <?php }?>
-                  
-              </TBODY>
             </TABLE></TD>
         </TR>
       </table>
@@ -588,5 +560,6 @@ if (is_array($list) && count($list)>0){
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
+

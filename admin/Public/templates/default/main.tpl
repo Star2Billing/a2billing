@@ -65,7 +65,7 @@
 				<li><a href="A2B_entity_card_group.php?section=1">{php} echo gettext("Customer Group");{/php}</a></li>
                 <li><a href="CC_card_import.php?section=1">{php} echo gettext("Import Customers");{/php}</a></li>
 				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("VOIP Config");{/php}</a></li>
-				<li><a href="A2B_entity_card_seria.php?section=1">{php} echo gettext("Customer Seria");{/php}</a></li>
+				<li><a href="A2B_entity_card_seria.php?section=1">{php} echo gettext("Customer Series");{/php}</a></li>
 				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("CallerID");{/php}</a></li>
 				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&section=1">{php} echo gettext("Speed Dial");{/php}</a></li>
 				<li><a href="A2B_entity_statuslog.php?atmenu=statuslog&section=1">{php} echo gettext("Customer Status Log");{/php}</a></li>
@@ -97,13 +97,13 @@
 			<li><ul>
 				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment&section=2">{php} echo gettext("View Payment Methods");{/php}</a></li>
                 <li><a href="A2B_entity_transactions.php?atmenu=payment&section=2">{php} echo gettext("View Transactions");{/php}</a></li>
-				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
-				<li><a href="A2B_entity_billing_customer.php?atmenu=payment&section=2">{php} echo gettext("Billings Customers");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("Refills Customers");{/php}</a></li>
-				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Payments Customers");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=2">{php} echo gettext("Refills Agents");{/php}</a></li>
-				<li><a href="A2B_entity_payment_agent.php?atmenu=payment&section=2">{php} echo gettext("Payments Agents");{/php}</a></li>
-						<li><a href="A2B_entity_commission_agent.php?atmenu=payment&section=2">{php} echo gettext("Commission's Agents");{/php}</a></li>
+				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View accounts balance");{/php}</a></li>
+				<li><a href="A2B_entity_billing_customer.php?atmenu=payment&section=2">{php} echo gettext("Customers Billings");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("Customers Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Customers Payments");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=2">{php} echo gettext("Agents Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment_agent.php?atmenu=payment&section=2">{php} echo gettext("Agents Payments");{/php}</a></li>
+						<li><a href="A2B_entity_commission_agent.php?atmenu=payment&section=2">{php} echo gettext("Agents Commissions");{/php}</a></li>
 				<li><a href="A2B_entity_paymentlog.php?section=2">{php} echo gettext("E-Payment Log");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?section=2">{php} echo gettext("Vouchers");{/php}</a></li>
 				<li><a href="A2B_currencies.php?section=2">{php} echo gettext("Currency List");{/php}</a></li>
@@ -268,7 +268,7 @@
 		<ul>
 			<li><ul>
 					<li><a href="call-log-customers.php?nodisplay=1&posted=1&section=6">{php} echo gettext("CDR Report");{/php}</a></li>
-					<li><a href="call-comp.php?section=6">{php} echo gettext("Calls Compare");{/php}</a></li>
+					<li><a href="call-comp.php?section=6">{php} echo gettext("Compare Calls");{/php}</a></li>
 					<li><a href="call-last-month.php?section=6">{php} echo gettext("Monthly Traffic");{/php}</a></li>
 					<li><a href="call-daily-load.php?section=6">{php} echo gettext("Daily Load");{/php}</a></li>
 					<li><a href="call-count-reporting.php?nodisplay=1&posted=1&section=6">{php} echo gettext("Report");{/php}</a></li>

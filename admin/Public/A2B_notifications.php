@@ -1,5 +1,4 @@
 <?php
-
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
@@ -13,13 +12,14 @@ if (!has_rights (ACX_CUSTOMER)) {
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
+
 ?>
 
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 	<tr>
 	 	<td>
 		<?php if ( has_rights (ACX_MISC)) {		
-				echo gettext("To Enable or Disable the module of Notifications for the users follow the link to access to configuration section.");
+				echo gettext("To enable or disable the module of Notifications for the users follow the link to access to configuration section.");
 		?>
 		 		<a href="A2B_entity_config.php?groupselect=3&section=8"><?php echo gettext("Configuration")?></a>
 		<?php 
@@ -50,11 +50,11 @@ if(!is_null($return)&& (!empty($return)>0) ){
 ?>
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 	<tr>
-		<td width="70%"><?php echo gettext("Possible values to choose when the user receive a notification");?>
+		<td width="70%"><?php echo gettext("Possible values to choose from when the user receives a notification");?>
 		<br/><br/>
 		<?php 
 			if ( has_rights (ACX_MISC)) {
-					echo gettext("To modify the list of values that the users can choose follow the link to access to configuration section.");
+					echo gettext("To modify the list of values that the users can choose from follow the link to access the configuration section.");
 					echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'&section=8">';
 					echo gettext("Modify") ."</a>";
 			} else {
@@ -101,7 +101,7 @@ if (!is_null($return)&& (!empty($return)>0)) {
 		echo '<br/>';
 		
 		if ( has_rights (ACX_MISC)) {
-			echo gettext("To Enable or Disable the process of notification follow the link to access to configuration section.");
+			echo gettext("To enable or disable the process of configuration follow the link to access the configuration section.");
 		    echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'&section=8">';
 			echo gettext("Modify") ."</a>";
 		} else {  
@@ -138,11 +138,11 @@ if (!is_null($return)&& (!empty($return)>0)) {
 
 		echo '<br/>';
 		if ( has_rights (ACX_MISC)) {
-			echo gettext("To Modify the delay of notification follow the link to access to configuration section.");
+			echo gettext("To modify the delay of the notification follow the link to access the configuration section.");
 		    echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'&section=8">';
 			echo gettext("Modify") ."</a>";
 		} else {
-			echo gettext("You don't have enough right To Modify the delay of notification. Ask your administrator");
+			echo gettext("You don't have enough right to modify the delay of notification. Ask your administrator");
 		} ?>
  	</td>
 </tr>
