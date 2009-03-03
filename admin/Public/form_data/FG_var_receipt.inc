@@ -23,7 +23,7 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_receipt ");
 $HD_Form -> FG_INFO = true;
 $HD_Form -> FG_INFO_LINK = "A2B_receipt_view.php?id=";
 $HD_Form -> FG_INFO_ALT = "VIEW";
-$HD_Form -> FG_INFO_IMG = "eye.png";
+$HD_Form -> FG_INFO_IMG = "info.png";
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_receipt_edit.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/page_white_gear.png";
