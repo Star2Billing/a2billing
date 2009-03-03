@@ -1,7 +1,6 @@
 <?php
 
-function help_wiki_link($wiki_article_name)
-{
+function help_wiki_link($wiki_article_name) {
 	return gettext("For further information please consult").' <a target="_blank" href="http://trac.asterisk2billing.org/cgi-bin/trac.cgi/wiki/1-4-'.$wiki_article_name.'">'.gettext("the online documention").'</a>.<br/>';
 }
 
@@ -20,7 +19,7 @@ $CC_help_list_postfix='<br/>
 </div></div></div>
 </div></div>';
 
-$CC_help_list_seria=$CC_help_list_prefix.gettext("This page show series list. <br> Series&serials is used for creation of stable card range for large accounting purposes instead of card id.").'<br/>'.help_wiki_link('ListSeria').$CC_help_list_postfix;
+$CC_help_list_seria=$CC_help_list_prefix.gettext("This page shows the series list. <br> Series & serials is used for the creation of stable card range for large accounting purposes instead of card id.").'<br/>'.help_wiki_link('ListSeria').$CC_help_list_postfix;
 
 
 	
@@ -31,7 +30,7 @@ $CC_help_list_group='<div class="toggle_show2hide">
         <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
         <div class="w2">
 
-'.gettext("This page show group list. <br> Group field is used for grouping customers for quick search, batch update and reporting.").'<br/>'.help_wiki_link('ListGroup').'<br/>
+'.gettext("This page shows group list. <br> Group field is used for grouping customers for quick search, batch update and reporting.").'<br/>'.help_wiki_link('ListGroup').'<br/>
 </div></div></div>
 </div></div>';
 
@@ -118,7 +117,7 @@ $CC_help_sipfriend_list ='
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">
 '.gettext("SIP and IAX Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
-.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret as the username and password.").'
+.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret word as the username and password.").'
 <br/>'.help_wiki_link('ListSIPFriend').'
 </div></div></div>
 </div></div>';
@@ -157,7 +156,7 @@ $CC_help_callerid_list ='
 <div id="kiki"><div class="w1">
   <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
   <div class="w2">
-'.gettext("Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with account number").'<br>
+'.gettext("Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with the account number").'<br>
 <br/>'.help_wiki_link('ListCallerID').'<br/>
 </div></div></div>
 </div></div>';
@@ -511,7 +510,7 @@ $CC_help_status_log ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("Status log help you to keep track of all status of customers. These status can be 'New, Active, Cancelled, Reserved, Waiting-MailConfirmation and Expired.").'
+	.gettext("Status logs help you to keep track of the status of all customers. The status can be 'New, Active, Cancelled, Reserved, Waiting-MailConfirmation and Expired.").'
 <br/>'.help_wiki_link('StatusLog').'<br/>
 </div></div></div>
 </div></div>';
@@ -946,7 +945,7 @@ $CC_help_callback='<div class="toggle_show2hide">
 	<img src="'.KICON_PATH.'/cache.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("Callback will offer you an easy way to connect any phone to our Asterisk platform.
-We handle a spool with all the callbacks that need to be running and you might be able to view here all the pending and performed callback with their current status. Different parameters determine the callback, the way to reach the user, the time when we need to call him, the result of the last attempts, etc...").'
+Browse here the pending and completed callbacks. You will see that different parameters determine the callback, the way to reach the user, the time when we need to call him, the result of the last attempts, etc...").'
 <br/>'.help_wiki_link('ShowCallbacks').'
 </div></div></div>
 </div></div>

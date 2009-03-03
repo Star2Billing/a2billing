@@ -30,7 +30,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/group_add.png" ;
 
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "35%", "center", "SORT", "40");
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "45%", "center", "SORT", "150");
 $HD_Form -> FieldViewElement ( 'name, description');
 
 
@@ -38,7 +38,7 @@ $HD_Form -> CV_NO_FIELDS  = gettext("NO CUSTOMER GROUP CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
-$HD_Form -> FG_VIEW_TABLE_WITDH = '70%';
+$HD_Form -> FG_VIEW_TABLE_WITDH = '80%';
 
 
 
@@ -86,14 +86,14 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 		"" , "", "", "", "" , "", "", "");
 		
 $HD_Form -> AddEditElement (gettext("AGENT"),
-			   "id_agent",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_agent",
-			   "login,id,firstname,lastname",
-			   "", "", "%1 - %3 %4 (%2)", "", "", "", '<OPTION  value="-1" selected>'.gettext("NONE").'</OPTION>' );
+	   "id_agent",
+	   "",
+	   "SELECT",
+	   "", "", "",
+	   "sql",
+	   "cc_agent",
+	   "login,id,firstname,lastname",
+	   "", "", "%1 - %3 %4 (%2)", "", "", "", '<OPTION  value="-1" selected>'.gettext("NONE").'</OPTION>' );
 
 $HD_Form -> AddEditElement (gettext("PERMISSION USER INTERFACE"),
 		"users_perms",
@@ -105,7 +105,7 @@ $HD_Form -> AddEditElement (gettext("PERMISSION USER INTERFACE"),
 		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 	
 
-$HD_Form -> FieldEditElement ('name, description,id_agent, users_perms');
+$HD_Form -> FieldEditElement ('name, description, id_agent, users_perms');
 
 
 

@@ -336,6 +336,6 @@ if($uploadedfile_name != "")
 {
 	unlink($uploadedfile_name);
 }
+
 $smarty->display('footer.tpl');
 
-?>
