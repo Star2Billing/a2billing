@@ -60,7 +60,7 @@ class Server_Manager(object):
 
 class callback_database:
     """Daemon base class"""
-    config_filename = './a2b-callback-daemon.conf'    # override this
+    config_filename = None
     section = 'database'   # override this
     
     "A class to handle all modification on DB"

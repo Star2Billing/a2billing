@@ -5,7 +5,6 @@
 Daemon to proceed Call-Back request from the a2billing plaftorm
 
 kill -9 `cat /var/run/a2b-callback-daemon.pid`
-sudo kill -9 `sudo cat /var/run/a2b-callback-daemon.pid`
 '''
 
 __author__ = "Belaid Arezqui (areski@gmail.com)"
@@ -38,8 +37,7 @@ import string
 # ------------------------------ PARAMETERS ------------------------------  
 
 # Daemon Config File
-CONFIG_FILE = './a2b-callback-daemon.conf'
-#CONFIG_FILE = '/etc/asterisk/a2billing.conf'
+CONFIG_FILE = '/etc/a2billing.conf'
 
 
 # The next 2 parameters will define the speed of the daemon
@@ -50,13 +48,15 @@ AMOUNT_TO_QUEUE = 10
 # Amount of second the daemon will sleep after each check
 DAEMON_CYCLE_TIME = 5
 
-
+# Theard event for all shutdown
+shutdown_all = threading.Event()
 
 
 def handler(signum, frame):
     logging.debug('Signal handler called with signal %d', signum)
     logging.debug("At "+str(frame.f_code.co_name) + " in " + str(frame.f_code.co_filename) + " line "+ str(frame.f_lineno))
     shutdown_all.set()
+    sys.exit()
 
 
 def Init():

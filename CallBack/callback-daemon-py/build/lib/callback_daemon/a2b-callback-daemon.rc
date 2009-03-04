@@ -1,20 +1,20 @@
 #!/bin/sh
 #
-# callback-py-daemon   Start/Stop the callback py daemon.
+# a2b-callback-daemon : Start/Stop the a2b callback daemon
 #
 # chkconfig: 2345 40 60
-# description: callback-py-daemon is a daemon who check if there is calls with state 'PENDING' in database to place it
-# processname: callback-py-daemon
-# pidfile: /var/run/callback-py-daemon.pid
+# description: a2b-callback-daemon is a daemon who check if there is calls with state 'PENDING' in database to place it
+# processname: a2b-callback-daemon
+# pidfile: /var/run/a2b-callback-daemon.pid
 
 # Source function library.
 INITD=/etc/rc.d/init.d
 . $INITD/functions
 
 
-NAME='callback-py-daemon'
-DAEMON='/home/areski/public_html/svn/asterisk2billing/trunk/CallBack/callback-daemon-py/callback_daemon/callback-py-daemon.py'
-LOG='/var/log/callback-py-daemon.log'
+NAME='a2b-callback-daemon'
+DAEMON='/usr/bin/a2b_callback_daemon'
+LOG='/var/log/a2b-callback-daemon.log'
 # Clean
 
 # See how we were called.
@@ -30,12 +30,12 @@ case "$1" in
 
 	daemon $DAEMON
 	echo "Starting $NAME: "
-	touch /var/lock/subsys/callback-py-daemon
+	touch /var/lock/subsys/a2b-callback-daemon
 	;;
   stop)
   	killproc $DAEMON
 	echo "Stopping $NAME: "	
-	rm -f /var/lock/subsys/callback-py-daemon
+	rm -f /var/lock/subsys/a2b-callback-daemon
 	;;
   status)
 	status $DAEMON

@@ -60,7 +60,7 @@ class Server_Manager(object):
 
 class callback_database:
     """Daemon base class"""
-    config_filename = './a2b-callback-daemon.conf'    # override this
+    config_filename = None
     section = 'database'   # override this
     
     "A class to handle all modification on DB"
@@ -116,7 +116,7 @@ class callback_database:
             
             self.metadata = MetaData(self.engine)
             
-            Session = sessionmaker(bind=self.engine, autoflush=True, autocommit=True)
+            Session = sessionmaker(bind=self.engine, autoflush=True)
             
             # create a Session
             self.session = Session()

@@ -1,7 +1,6 @@
+INSTALL
 setup.cfg
 setup.py
-callback_daemon/INSTALL.txt
-callback_daemon/a2b-callback-daemon.conf
 callback_daemon/a2b-callback-daemon.debian
 callback_daemon/a2b-callback-daemon.rc
 callback_daemon/a2b_callback_daemon.py

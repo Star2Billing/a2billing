@@ -1,12 +1,12 @@
 #! /bin/sh
 #
-#  callback-py-daemon 
+#  a2b_callback_daemon
 #
 
-NAME="callback-py-daemon"
-DESC="Callback Python Daemon"
+NAME="a2b-callback-daemon"
+DESC="A2Billing Callback Daemon"
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-DAEMON=/home/areski/public_html/svn/asterisk2billing/trunk/CallBack/callback-daemon-py/callback_daemon/callback-py-daemon.py
+DAEMON=/usr/bin/a2b_callback_daemon
 PIDFILE=/var/run/$NAME.pid
 
 
