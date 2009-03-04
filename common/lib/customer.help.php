@@ -166,6 +166,30 @@ $CC_help_phonelist ='
 </div></div>';
 	
 
+$CC_help_view_invoice ='
+<div class="toggle_show2hide">
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Invoice history - The section below allows you to see and pay the invoices that you have to pay.").'
+<br/><br/>
+</div></div></div>
+</div></div>';
+	
+$CC_help_view_receipt ='
+<div class="toggle_show2hide">
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Receipt history - The section below allows you to see the receipt that you received. you can see in them the summary of some withdrawal").'
+<br/><br/>
+</div></div></div>
+</div></div>';
+	
+
+	
 $CC_help_phonebook ='
 <div class="toggle_show2hide">
 <div class="tohide" style="display:visible;">

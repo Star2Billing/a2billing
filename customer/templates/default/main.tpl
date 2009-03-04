@@ -11,6 +11,7 @@
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/invoice.css" rel="stylesheet" type="text/css">
+	<link href="templates/{$SKIN_NAME}/css/receipt.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>
@@ -80,6 +81,7 @@
 		{/if}
 		<ul>
 			<li><ul>
+					<li><a href="A2B_entity_receipt.php?section=5"><strong>{php} echo gettext("View Receipts");{/php}</strong></a></li>
 					<li><a href="A2B_entity_invoice.php?section=5"><strong>{php} echo gettext("View Invoices");{/php}</strong></a></li>
 					<li><a href="A2B_invoice_preview.php?section=5"><strong>{php} echo gettext("Preview Next Invoice");{/php}</strong></a></li>
 			</ul></li>

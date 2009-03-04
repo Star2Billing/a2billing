@@ -2,8 +2,8 @@
 include ("./lib/customer.defines.php");
 include ("./lib/customer.module.access.php");
 include ("./lib/customer.smarty.php");
-include ("./lib/support/classes/invoice.php");
-include ("./lib/support/classes/invoiceItem.php");
+include ("./lib/support/classes/receipt.php");
+include ("./lib/support/classes/receiptItem.php");
 
 if (! has_rights (ACX_INVOICES)){
 	Header ("HTTP/1.0 401 Unauthorized");
@@ -16,17 +16,17 @@ getpost_ifset(array('id'));
 
 if (empty($id))
 {
-Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
+Header ("Location: A2B_entity_receipt.php?atmenu=payment&section=13");
 }
 
 
-$invoice = new invoice($id);
-if($invoice->getCard() != $_SESSION["card_id"]){
+$receipt = new receipt($id);
+if($receipt->getCard() != $_SESSION["card_id"]){
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-$items = $invoice->loadItems();
+$items = $receipt->loadItems();
 
 //load customer
 $DBHandle  = DbConnect();
@@ -36,11 +36,11 @@ $card_result = $card_table -> Get_list($DBHandle, $card_clause, 0);
 $card = $card_result[0];
 
 if (empty($card)) {
-	echo "Customer doesn't exist or is not correctly defined for this invoice !";
+	echo "Customer doesn't exist or is not correctly defined for this receipt !";
 	die();
 }
 $smarty->display('main.tpl');
-//Load invoice conf
+//Load receipt conf
 $invoice_conf_table = new Table('cc_invoice_conf','value');
 $conf_clause = "key_val = 'company_name'";
 $result = $invoice_conf_table -> Get_list($DBHandle, $conf_clause, 0);
@@ -97,12 +97,14 @@ if(!$popup_select){
 ?>
 <a href="javascript:;" onClick="MM_openBrWindow('<?php echo $PHP_SELF ?>?popup_select=1&id=<?php echo $id ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"></a>
 &nbsp;&nbsp;
+<a href="javascript:;" onClick="MM_openBrWindow('A2B_receipt_detail.php?popup_select=1&id=<?php echo $id ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/info.png" title="Details" alt="Details" border="0"></a>
+&nbsp;&nbsp;
 <?php
 }
 ?>
 
-<div class="invoice-wrapper">
-  <table class="invoice-table">
+<div class="receipt-wrapper">
+  <table class="receipt-table">
   <thead>
   <tr class="one">  
     <td class="one">
@@ -133,17 +135,14 @@ if(!$popup_select){
     </td>
   </tr>
   <tr class="two">
-    <td colspan="3" class="invoice-details">
-      <table class="invoice-details"> 
+    <td colspan="3" class="receipt-details">
+      <table class="receipt-details"> 
         <tbody><tr>
           <td class="one">
             <strong><?php echo gettext("Date"); ?></strong>
-            <div><?php echo $invoice->getDate() ?></div>
+            <div><?php echo $receipt->getDate() ?></div>
           </td>
-          <td class="two">
-            <strong><?php echo gettext("Invoice number"); ?></strong>
-            <div><?php echo $invoice->getReference() ?></div>
-          </td>
+         
           <td class="three">
            <strong>Client number</strong>
             <div><?php echo $card['username'] ?></div>
@@ -159,11 +158,9 @@ if(!$popup_select){
         <table class="items">
           <tbody>
           <tr class="one">
-	          <th style="text-align:left;"><?php echo gettext("Date"); ?></th>
-	          <th class="description"><?php echo gettext("Description"); ?></th>
-	          <th><?php echo gettext("Cost excl. VAT"); ?></th>
-	          <th><?php echo gettext("VAT"); ?></th>
-	          <th><?php echo gettext("Cost incl. VAT"); ?></th>
+	          <th style="text-align:left;" width="20%"><?php echo gettext("Date"); ?></th>
+	          <th class="description" width="60%"><?php echo gettext("Description"); ?></th>
+	          <th width="20%" ><?php echo gettext("Cost"); ?></th>
           </tr>
           <?php 
           $i=0;
@@ -178,12 +175,6 @@ if(!$popup_select){
 				<td align="right">
 					<?php echo number_format(round(amount_convert($item->getPrice()),2),2); ?>
 				</td>
-				<td align="right">
-					<?php echo number_format(round($item->getVAT(),2),2)."%"; ?>
-				</td>
-				<td align="right">
-					<?php echo number_format(round(amount_convert($item->getPrice())*(1+($item->getVAT()/100)),2),2); ?>
-				</td>
 			</tr>  
 			 <?php  $i++;} ?>	
           
@@ -192,17 +183,9 @@ if(!$popup_select){
       </td>
     </tr>
     <?php
-		$price_without_vat = 0;
-		$price_with_vat = 0;
-		$vat_array = array();
+		$price = 0;
     	foreach ($items as $item){  
-    	 	$price_without_vat = $price_without_vat + $item->getPrice();
-    		$price_with_vat = $price_with_vat + ($item->getPrice()*(1+($item->getVAT()/100)));
-    		if(array_key_exists("".$item->getVAT(),$vat_array)){
-    			$vat_array[$item->getVAT()] = $vat_array[$item->getVAT()] + $item->getPrice()*($item->getVAT()/100) ;
-    		}else{
-    			$vat_array[$item->getVAT()] =  $item->getPrice()*($item->getVAT()/100) ;
-    		}
+    	 	$price = $price + $item->getPrice();
     	 } 
     	
     	 ?>
@@ -210,31 +193,19 @@ if(!$popup_select){
     <tr>
       <td colspan="3">
         <table class="total">
-         <tbody><tr class="extotal">
-           <td class="one"></td>
-           <td class="two"><?php echo gettext("Subtotal excl. VAT:"); ?></td>
-           <td class="three"><?php echo number_format(ceil(amount_convert($price_without_vat)*100)/100,2)." $display_curr"; ?></td>
-         </tr>
-         	
-         <?php foreach ($vat_array as $key => $val) { ?>
-                 <tr class="vat">
-                   <td class="one"></td>
-                   <td class="two"><?php echo gettext("VAT")."$key%:"; ?></td>
-                   <td class="three"><?php echo number_format(round(amount_convert($val),2),2)." $display_curr"; ?></td>
-                 </tr> 
-         <?php } ?>
+         <tbody>
          <tr class="inctotal">
            <td class="one"></td>
-           <td class="two"><?php echo gettext("Total incl. VAT:") ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert($price_with_vat)*100)/100,2)." $display_curr"; ?></div></div></td>
+           <td class="two"><?php echo gettext("Total:") ?></td>
+           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert($price)*100)/100,2)." $display_curr"; ?></div></div></td>
          </tr>
         </tbody></table>
       </td>
     </tr>
     <tr>
     <td colspan="3" class="additional-information">
-      <div class="invoice-description">
-      <?php echo $invoice->getDescription() ?>
+      <div class="receipt-description">
+      <?php echo $receipt->getDescription() ?>
      </div></td>
     </tr>
   </tbody>
