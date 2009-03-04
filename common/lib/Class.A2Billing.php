@@ -16,9 +16,9 @@
  *
  ****************************************************************************/
 
-
+define('A2B_CONFIG_DIR', '/etc/');
 define('AST_CONFIG_DIR', '/etc/asterisk/');
-define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR . '/a2billing.conf');
+define('DEFAULT_A2BILLING_CONFIG', A2B_CONFIG_DIR . '/a2billing.conf');
 
 // DEFINE VERBOSITY & LOGGING LEVEL : 0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4
 define ('FATAL',			0);
@@ -274,6 +274,9 @@ class A2Billing {
 			$this->config = parse_ini_file($config, true);
 		} elseif(file_exists(DEFAULT_A2BILLING_CONFIG)) {
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);
+		} else {
+			echo "Error : A2Billing configuration file is missing!";
+			exit;
 		}
 
 	  	/*  We don't need to do this twice.  load_conf_db() will do it

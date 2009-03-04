@@ -37,7 +37,7 @@ if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/inde
 
 // LOAD THE CONFIGURATION
 if (!($restircted_url == "Public/index.php")) {
-	$res_load_conf = $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
+	$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
 	if (!$res_load_conf) exit;
 }
 
