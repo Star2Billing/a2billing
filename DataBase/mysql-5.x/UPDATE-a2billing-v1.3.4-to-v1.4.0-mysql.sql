@@ -1718,5 +1718,6 @@ CREATE TABLE cc_receipt_item (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-
+ALTER TABLE `cc_logpayment` CHANGE `payment` `payment` DECIMAL( 15, 5 ) NOT NULL;
+ALTER TABLE `cc_logpayment_agent` CHANGE `payment` `payment` DECIMAL( 15, 5 ) NOT NULL;  
 
