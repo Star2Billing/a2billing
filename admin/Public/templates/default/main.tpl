@@ -498,6 +498,9 @@
 				<li><a href="A2B_phpsysinfo.php?section=11">{php} echo "phpSysInfo";{/php}</a></li>
 				<li><a href="A2B_phpinfo.php?section=11">{php} echo "phpInfo";{/php}</a></li>
 				<li><a href="phpconfig.php?dir=/etc/asterisk&section=11">{php} echo gettext("Asterisk config");{/php}</a></li>
+				{if ($ASTERISK_GUI_LINK)}
+					<li><a href="http://{$HTTP_HOST}:8088/asterisk/static/config/index.html" target="_blank">{php} echo gettext("Asterisk GUI");{/php}</a></li>
+				{/if}
 			</ul></li>
 		</ul>
 	</div>

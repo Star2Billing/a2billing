@@ -52,6 +52,9 @@ $smarty->assign("ACXPACKAGEOFFER", $ACXPACKAGEOFFER);
 $smarty->assign("ACXPREDICTIVEDIALER", $ACXPREDICTIVEDIALER);
 $smarty->assign("ACXINVOICING", $ACXINVOICING);
 
+$smarty->assign("HTTP_HOST", $_SERVER['HTTP_HOST']);
+$smarty->assign("ASTERISK_GUI_LINK", ASTERISK_GUI_LINK);
+
 
 if($_GET["section"]!="") {
 	$section = $_GET["section"];

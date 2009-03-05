@@ -44,6 +44,9 @@ if (!($restircted_url == "Public/index.php")) {
 // Parameter to enable/disable the update of list of value in Config Edition
 define("LIST_OF_VALUES", false);
 
+// Parameter to show link to Asterisk GUI
+define("ASTERISK_GUI_LINK", false);
+
 // DEFINE FOR THE DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
 define ("PORT", isset($A2B->config['database']['port'])?$A2B->config['database']['port']:null);
