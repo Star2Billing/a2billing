@@ -242,12 +242,12 @@ define ("ADMIN_EMAIL", isset($A2B->config["global"]['admin_email'])?$A2B->config
 
 // A2BILLING INFO
 define ("WEBUI_DATE", 'Release : no date');
-define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.4 - Trunk');
+define ("WEBUI_VERSION", 'A2Billing - Version 1.4 - Trunk');
 // A2BILLING COPYRIGHT & CONTACT
-define ("TEXTCONTACT", gettext("This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"));
+define ("TEXTCONTACT", gettext("This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"));
 define ("EMAILCONTACT", "areski@gmail.com");
-define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
-define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
+define ("COPYRIGHT", gettext(" This software is under AGPL licence. For further information, please visit : <a href=\"http://www.a2billing.org\" target=\"_blank\">a2billing.org</a>"));
+define ("CCMAINTITLE", gettext("A2Billing : CallingCard & VOIP Billing system"));
 
 
 include (LIBDIR."customer.help.php");

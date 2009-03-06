@@ -21,11 +21,11 @@ $smarty->display('main.tpl');
 	<tr>
 		<td width="340">
 			<img src="<?php echo Images_Path;?>/logoA2B-white-300.gif">
-			<center>A2Billing is licensed under GPL.</center>
+			<center>A2Billing is licensed under AGPL.</center>
 			<br><br>
 		</td>
 		<td align="left"> <?php  echo ''; ?>
-		For information and documentation on A2Billing, <br> please visit <a href="http://www.asterisk2billing.org" target="_blank">www.asterisk2billing.org</a><br><br>
+		For information and documentation on A2Billing, <br> please visit <a href="http://www.a2billing.org" target="_blank">A2Billing.org</a><br><br>
 		
 		For Commercial Installations, Hosted Systems, Customisation and Commercial support, please email <a href="mailto:info@asterisk2billing.org">info@asterisk2billing.org</a><br><br>
 		

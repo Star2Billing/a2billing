@@ -281,10 +281,10 @@ include (LIBDIR."admin.help.php");
 
 // A2BILLING INFO
 define ("WEBUI_DATE", 'Release : no date');
-define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.4 - Trunk');
+define ("WEBUI_VERSION", 'A2Billing - Version 1.4 - Trunk');
 // A2BILLING COPYRIGHT & CONTACT
-define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
-define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
+define ("COPYRIGHT", gettext(" This software is under AGPL licence. For further information, please visit : <a href=\"http://www.a2billing.org\" target=\"_blank\">a2billing.org</a>"));
+define ("CCMAINTITLE", gettext("A2Billing : CallingCard & VOIP Billing system"));
 
 //Enable Disable Captcha
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
