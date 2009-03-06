@@ -37,9 +37,17 @@ for ($k=1;$k<=20;$k++)
         $daynumber_list["$k"]  = array( "$k", "$k");
 
 $stopmode_list = array();
-$stopmode_list["0"]  = array( "Never", "0");
-$stopmode_list["1"]  = array( "Account balance below zero", "1");
-$stopmode_list["2"]  = array( "Max number of cycle reach", "2");
+$stopmode_list["0"]  = array( gettext("Never"), "0");
+$stopmode_list["1"]  = array( gettext("Account balance below zero"), "1");
+$stopmode_list["2"]  = array( gettext("Max number of cycle reach"), "2");
+
+$operatemode_list = array();
+$operatemode_list["0"] = array(gettext("Allow be charged into negative balance"),"0");
+$operatemode_list["1"] = array(gettext("Do partial charge but never go into negative balance"),"1");
+
+$usegroup_list = array();
+$usegroup_list["0"] = array(gettext("List of groups below"),"0"); 
+$usegroup_list["1"] = array(gettext("Any group"),"1");
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("AMOUNT"), "amount", "7%", "center", "sort");
@@ -69,7 +77,6 @@ $HD_Form -> FG_OTHER_BUTTON1 = true;
 // you don't need that, if you don't supply any |param| string id will be append after FG_OTHER_BUTTON1_LINK.
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:;\" onClick=\"MM_openBrWindow('CC_entity_service_details.php?displayfooter=0&popup_select=1&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=600,height=350')\"";
-
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-viewdetails.gif";
 
 
@@ -155,6 +162,33 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND REPORT"),
 	gettext("Insert the email to send the report"),
 	"" , "", "", "", "", "" , "NO-NULL", "");
 
+$HD_Form -> AddEditElement (gettext("CALL PLAN"),
+       "dialplan",
+       "",
+       "SELECT",
+       "", "", "",
+       "sql",
+       "cc_tariffgroup union select '--ANY--',0",
+       "tariffgroupname, id",
+       "", "", "%1", "", "");
+ 
+$HD_Form -> AddEditElement (gettext("OPERATE MODE"),
+        "operate_mode",
+        '$value',
+        "SELECT",
+        "",
+        "",
+        "",
+        "list" , "", "", "", $operatemode_list, "%1", "", gettext("If you want to charge only part of sum in case if current balance less then amount, select second option. Will be charged only part of amount, cause balance to be 0.0"));
+ 
+$HD_Form -> AddEditElement (gettext("SKIP GROUP"),
+        "use_group",
+        '$value',
+        "SELECT",
+        "",
+        "",
+        "",
+        "list" , "", "", "", $usegroup_list, "%1", "", gettext("Select first option(default) to manualy select groups or select second option to use service for any group, discarding list below"));
 
 $DBHandle_max  = DbConnect();
 $numrow = 0;
@@ -176,25 +210,23 @@ if ($numrow>0) {
 		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_card_group:cc_card_group LEFT JOIN cc_cardgroup_service ON cc_card_group.id=cc_cardgroup_service.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_cardgroup_service.id_service = %id:id_service:%2 - (%1)::::%1:id='%1'");
 }
 
-$HD_Form -> FieldEditElement ('name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, emailreport');
+$HD_Form->FieldEditElement('name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, emailreport, dialplan, operate_mode, use_group');
 
+if (DB_TYPE == "mysql") {
+	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreate ";
+	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE = "now() ";
+}
 
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("Fill the following fields and confirm by clicking on the button add.");
+$HD_Form->FG_INTRO_TEXT_EDITION = gettext("You can modify, through the following form, the different properties of your") . " " . $HD_Form->FG_INSTANCE_NAME;
+$HD_Form->FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this") . " " . $HD_Form->FG_INSTANCE_NAME . ", " . gettext("click on the delete button.");
+$HD_Form->FG_INTRO_TEXT_ADD = gettext("you can add easily a new") . " " . $HD_Form->FG_INSTANCE_NAME . ", " . gettext("Fill the following fields and confirm by clicking on the button add.");
 
+$HD_Form->FG_INTRO_TEXT_ADITION = gettext("Add a service below");
+$HD_Form->FG_TEXT_ADITION_CONFIRMATION = gettext("Your new") . " " . $HD_Form->FG_INSTANCE_NAME . " " . gettext("has been inserted") . ".<br>";
 
-$HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a service below");
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted").".<br>";
+$HD_Form->FG_BUTTON_EDITION_SRC = $HD_Form->FG_BUTTON_ADITION_SRC = Images_Path . "/cormfirmboton.gif";
+$HD_Form->FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form->FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
-
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
-
-
-
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-
-
+$HD_Form->FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form->FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form->FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";

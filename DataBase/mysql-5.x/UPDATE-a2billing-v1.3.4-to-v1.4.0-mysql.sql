@@ -1721,3 +1721,10 @@ CREATE TABLE cc_receipt_item (
 ALTER TABLE `cc_logpayment` CHANGE `payment` `payment` DECIMAL( 15, 5 ) NOT NULL;
 ALTER TABLE `cc_logpayment_agent` CHANGE `payment` `payment` DECIMAL( 15, 5 ) NOT NULL;  
 
+
+-- changes from recurring services - bound to callplan
+alter table cc_service add column operate_mode tinyint default 0;
+alter table cc_service add column dialplan integer default 0;
+alter table cc_service add column use_group tinyint default 0;
+
+
