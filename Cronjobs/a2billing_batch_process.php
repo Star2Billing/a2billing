@@ -63,7 +63,7 @@ $instance_table = new Table();
 $oneday = 60 * 60 * 24;
 
 // CHECK THE SERVICES
-$QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, $UNIX_TIMESTAMP datelastrun), emailreport, totalcredit,totalcardperform,dialplan,operate_mode,use_group FROM cc_service , cc_cardgroup_service WHERE status=1 AND id = id_service and $UNIX_TIMESTAMP cc_service.datelastrun)<$UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $oneday  + $time_checks *60  order by id desc";
+$QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, $UNIX_TIMESTAMP datelastrun), emailreport, totalcredit,totalcardperform,dialplan,operate_mode,use_group FROM cc_service WHERE status=1 AND  $UNIX_TIMESTAMP cc_service.datelastrun)<$UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $oneday  + $time_checks *60  ORDER BY id DESC";
 if ($verbose_level >= 1)
 	echo $QUERY;
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
