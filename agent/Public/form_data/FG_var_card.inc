@@ -38,44 +38,28 @@ if (DELETE_FK_CARD) {
 }
 
 if (has_rights (ACX_GENERATE_CUSTOMER)) { 
-$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card_multi.php?stitle=Card&section=1";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Generate Customers");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_multi_add.png" ;
+	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card_multi.php?stitle=Card&section=1";
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Generate Customers");
+	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_multi_add.png" ;
 }
 if (has_rights (ACX_CREATE_CUSTOMER)) { 
-$HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1";
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add Customer");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
+	$HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
+	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1";
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add Customer");
+	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
 }
-// TODO Unify order of parameters
 
 $language_list = Constants::getLanguagesList();
-
 $language_list_r = Constants::getLanguagesRevertList();
-$discount_list  = array();
-$discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0.00");
-for($i=1;$i<=99;$i++) {
-	$discount_list[$i.".00"]=array($i."%",$i.".00");
-}
-
+$discount_list  = Constants::getDiscount_List();
 $simultaccess_list = Constants::getCardAccess_List();
 $simultaccess_list_r = Constants::getCardAccess_Revert_List();
-
-
-// Possible value to notify the user
-$values = explode(":",$A2B->config['notifications']['values_notifications']);
-$limits_notify = array();
-$idx =0;
-foreach ($values as $val) {
- 	$limits_notify [$idx] = array($val,$val);
-	$idx++;
-}
+$limits_notify_list = Constants::getLimitNotify_List($A2B);
 
 $currency_list = array();
 $currency_list_r = array();
-$indcur=0;
+$indcur = 0;
 
 $currencies_list = get_currencies();
 foreach($currencies_list as $key => $cur_value) {
@@ -89,30 +73,11 @@ $cardstatus_list = Constants::getCardStatus_List();
 $cardstatus_list_r = Constants::getCardStatus_Revert_List();
 $cardstatus_list_acronym = Constants::getCardStatus_Acronym_List();
 $typepaid_list = Constants::getPaidTypeList();
-
 $expire_list = Constants::getCardExpire_List();
-
-$restriction = 0;
-if ($form_action=="ask-edit") {
-	$DBHandle  = DbConnect();
-	$instance_table = new Table("cc_card", "restriction");
-	$clause = "cc_card.id = $id";
-	$list =$instance_table -> Get_list($DBHandle, $clause, 0);;
-	$restriction= $list[0][0];
-}
-
-
-
-$inuse_list = array();
-for ($k=0;$k<=40;$k++)
-	$inuse_list["$k"]  = array( gettext("currently in use")." : $k", "$k");
-
 $yesno = Constants::getYesNoList();
+$invoiceday_list = Constants::getInvoiceDay_List();
 
-$invoiceday_list = array();
-for ($k=0;$k<=28;$k++)
-	$invoiceday_list["$k"]  = array( "$k", "$k");
-
+// Search for the field to display on the show list
 $show_list=array();
 $show_list_sizes=array();
 $show_list_temp=array();
@@ -135,7 +100,7 @@ foreach ($show_list_temp as $i => $value) {
 $show_fields=array();
 $show_fields['id']=array(gettext("ID"), "cc_card.id", "3%", "center", "sort","", "", "", "", "", "", "");
 
-if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
+if (stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
 	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "10%", "center", "sort");
 
 $show_fields['username']=array("Account Number", "username", "19%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
@@ -147,8 +112,7 @@ $show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "so
 $show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "display_2dec");
 
 if (!($popup_select>=1)){
-	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>",
-	       "tariff", "8%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>", "tariff", "8%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 	$show_fields['status']=array(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
 	$show_fields['language']=array(gettext("LG"), "language", "3%", "center", "sort");
 	$show_fields['inuse']=array(gettext("USE"), "inuse", "3%", "center", "sort");
@@ -165,13 +129,11 @@ if (!($popup_select>=1)){
 	} else {
 		$FG_COL_QUERY='DISTINCT ';		
 	}
-}else{
+} else {
 	$show_list_temp=array('cc_card.id', 'username', 'lastname', 'id_group',  'credit');
 	foreach ($show_list_temp as $i => $value) {
                 $show_list[$value]=$value;
 	}
-	
-#	$FG_COL_QUERY='DISTINCT id, username, lastname, id_group,  credit';
 	$FG_COL_QUERY='DISTINCT ';
 }
 $FG_COL_QUERY_FIELD='';
@@ -181,23 +143,22 @@ foreach ($show_list as $i => $value) {
 		$param=$param+array("","","","","","");#expand array to max length
 		$size="*";
 		if (array_key_exists($i,$show_list_sizes)){
-		 if ((strlen(trim($show_list_sizes[$i])==0))&&(strlen(trim($param[2])>0))){
-			$size=$param[2];
-		 }else{
-			$size=$show_list_sizes[$i];
-		 }
+			if ((strlen(trim($show_list_sizes[$i])==0))&&(strlen(trim($param[2])>0))){
+				$size=$param[2];
+			} else {
+				$size=$show_list_sizes[$i];
+			}
 		}
 		$HD_Form -> AddViewElement($param[0],$param[1],$size,$param[3],$param[4],$param[5],$param[6],$param[7],$param[8],
 						$param[9],$param[10],$param[11],$param[12]);
-		if ($value=='callerid'){
-		 $FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', 
-		(select GROUP_CONCAT(cid SEPARATOR \'<br>\') from cc_callerid where id_cc_card=cc_card.id) as callerid';
-		}else{
+		if ($value=='callerid') {
+			$FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', (select GROUP_CONCAT(cid SEPARATOR \'<br>\') from cc_callerid where id_cc_card=cc_card.id) as callerid';
+		} else {
 			$FG_COL_QUERY_FIELD= $FG_COL_QUERY_FIELD .', '.$value;
 		}
-		}
+	}
 }
-if (strlen($FG_COL_QUERY_FIELD)>2){ $FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);}
+if (strlen($FG_COL_QUERY_FIELD)>2)	$FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);
 $FG_COL_QUERY_COUNT=count(split(',',$FG_COL_QUERY_FIELD));
 $FG_COL_QUERY_FIELD=$FG_COL_QUERY_FIELD.', cc_card.id as id_,username as username_,useralias as alias_ ';
 $pos = strpos($FG_COL_QUERY_FIELD, "id");
@@ -630,7 +591,7 @@ $HD_Form -> AddEditElement (gettext("CREDIT LIMIT NOTIFICATION"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "", "", $limits_notify , "%1", "", 
+			   "list" , "", "", "", $limits_notify_list , "%1", "", 
 			   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"), 
 			   "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
 
@@ -768,12 +729,11 @@ $HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
 $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "inuse",
 			   '$value',
-			   "SELECT",
+			   "INPUT",
+			   "size=5 maxlength=5",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
-
+			   "" , "", "",	"", "", "", "NO", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
 
 
 

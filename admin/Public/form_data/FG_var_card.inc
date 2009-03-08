@@ -43,26 +43,11 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
 
 
 $language_list = Constants::getLanguagesList();
-
 $language_list_r = Constants::getLanguagesRevertList();
-$discount_list  = array();
-$discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0.00");
-for($i=1;$i<=99;$i++) {
-	$discount_list[$i.".00"]=array($i."%",$i.".00");
-}
-
+$discount_list  = Constants::getDiscount_List();
 $simultaccess_list = Constants::getCardAccess_List();
 $simultaccess_list_r = Constants::getCardAccess_Revert_List();
-
-
-// Possible value to notify the user
-$values = explode(":",$A2B->config['notifications']['values_notifications']);
-$limits_notify = array();
-$idx =0;
-foreach ($values as $val) {
- 	$limits_notify [$idx] = array($val,$val);
-	$idx++;
-}
+$limits_notify_list = Constants::getLimitNotify_List($A2B);
 
 $currency_list = array();
 $currency_list_r = array();
@@ -80,31 +65,11 @@ $cardstatus_list = Constants::getCardStatus_List();
 $cardstatus_list_r = Constants::getCardStatus_Revert_List();
 $cardstatus_list_acronym = Constants::getCardStatus_Acronym_List();
 $typepaid_list = Constants::getPaidTypeList();
-
 $expire_list = Constants::getCardExpire_List();
-
-$restriction = 0;
-if ($form_action=="ask-edit") {
-	$DBHandle  = DbConnect();
-	$instance_table = new Table("cc_card", "restriction");
-	$clause = "id = $id";
-	$list =$instance_table -> Get_list($DBHandle, $clause, 0);;
-	$restriction= $list[0][0];
-}
-
-
-
-
-$inuse_list = array();
-for ($k=0;$k<=40;$k++)
-	$inuse_list["$k"]  = array( gettext("currently in use")." : $k", "$k");
-
 $yesno = Constants::getYesNoList();
+$invoiceday_list = Constants::getInvoiceDay_List();
 
-$invoiceday_list = array();
-for ($k=0;$k<=28;$k++)
-	$invoiceday_list["$k"]  = array( "$k", "$k");
-
+// Search for the field to display on the show list
 $show_list=array();
 $show_list_sizes=array();
 $show_list_temp=array();
@@ -635,7 +600,7 @@ $HD_Form -> AddEditElement (gettext("CREDIT LIMIT NOTIFICATION"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "", "", $limits_notify , "%1", "", 
+			   "list" , "", "", "", $limits_notify_list , "%1", "", 
 			   gettext("currency : ").strtoupper(BASE_CURRENCY).'<BR>'.gettext("Low credit limit to alert the customer"), 
 			   "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
 
@@ -774,12 +739,11 @@ $HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
 $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "inuse",
 			   '$value',
-			   "SELECT",
+			   "INPUT",
+			   "size=5 maxlength=5",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
-
+			   "" , "", "",	"", "", "", "NO", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
 
 
 

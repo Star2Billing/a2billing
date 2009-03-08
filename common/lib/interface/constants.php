@@ -12,16 +12,6 @@ class Constants
 		return $language_list;
 	}
 	
-	public static function getRestrictionList(){
-		$language_list = array();
-		$language_list["0"] = array( gettext("NONE RESTRICTION USED"), "0");
-		$language_list["1"] = array( gettext("CAN'T CALL RESTRICTED NUMBERS"), "1");
-		$language_list["2"] = array( gettext("CAN ONLY CALL RESTRICTED NUMBERS"),  "2");
-		return $language_list;
-	}
-	
-	
-
 	public static function getLanguagesRevertList(){
 		$language_list_r = array();
 		$language_list_r["0"] = array("en", gettext("ENGLISH"));
@@ -29,6 +19,15 @@ class Constants
 		$language_list_r["2"] = array("fr", gettext("FRENCH"));
 		return $language_list_r;
 	}
+	
+	public static function getRestrictionList(){
+		$restriction_list = array();
+		$restriction_list["0"] = array( gettext("NONE RESTRICTION USED"), "0");
+		$restriction_list["1"] = array( gettext("CAN'T CALL RESTRICTED NUMBERS"), "1");
+		$restriction_list["2"] = array( gettext("CAN ONLY CALL RESTRICTED NUMBERS"),  "2");
+		return $restriction_list;
+	}
+	
 	public static function getYesNoList(){
 		$yesno = array();
 		$yesno["1"] = array( gettext("Yes"), "1");
@@ -293,38 +292,40 @@ class Constants
 	}
 	
 	public static function getRefillType_List(){
-		$refil_type_list=array();
-		$refil_type_list["0"]  = array( gettext("AMOUNT"),"0");
-		$refil_type_list["1"]  = array( gettext("CORRECTION"),"1");
-		$refil_type_list["2"]  = array( gettext("EXTRA FEE"),"2");
-		return $refil_type_list;
+		$refill_type_list = array();
+		$refill_type_list["0"]  = array( gettext("AMOUNT"),"0");
+		$refill_type_list["1"]  = array( gettext("CORRECTION"),"1");
+		$refill_type_list["2"]  = array( gettext("EXTRA FEE"),"2");
+		return $refill_type_list;
 	}
+	
+	public static function getInvoiceDay_List(){
+		$invoiceday_list = array();
+		for ($k=0;$k<=31;$k++)
+			$invoiceday_list["$k"]  = array("$k", "$k");
+		return $invoiceday_list;
+	}
+	
+	public static function getDiscount_List(){
+		$discount_list  = array();
+		$discount_list["0.00"] = array( gettext("NO DISCOUNT"),"0.00");
+		for($i=1;$i<=99;$i++) {
+			$discount_list[$i.".00"]=array($i."%",$i.".00");
+		}
+		return $discount_list;
+	}
+	
+	public static function getLimitNotify_List($A2B){
+		// Possible value to notify the user
+		$values = explode(":", $A2B->config['notifications']['values_notifications']);
+		$limits_notify = array();
+		$idx = 0;
+		foreach ($values as $val) {
+		 	$limits_notify [$idx] = array($val,$val);
+			$idx++;
+		}
+		return $limits_notify;
+	}
+	
 }
-
-/*
-Constants::getYesNoList();
-Constants::getActivationTrueFalseList();
-Constants::getPaidTypeList();
-Constants::getPaymentStatusList();
-Constants::getEmailStatusList();
-Constants::getActivationList();
-Constants::getPackagesTypeList();
-Constants::getBillingPeriodsList();
-Constants::getPaymentStateList();
-Constants::getLcTypesList();
-Constants::getLcShortTypesList();
-Constants::getTicketPriorityList();
-Constants::getUsedList();
-Constants::getBillingTypeList();
-Constants::getBillingTypeShortList();
-Constants::getCardStatus_List();
-Constants::getCardStatus_Revert_List();
-Constants::getCardStatus_Acronym_List();
-Constants::getLanguagesRevertList();
-Constants::getLanguagesList();
-Constants::getCardAccess_List();
-Constants::getCardAccess_Revert_List();
-Constants::getCardExpire_List();
-Constants::getRefillType_List();
-*/
 
