@@ -6,7 +6,7 @@ function help_wiki_link($wiki_article_name)
 }
 
 
-if (SHOW_HELP){
+if (SHOW_HELP) {
 
 $CC_help_agent ='
 <div class="toggle_show2hide">
@@ -27,8 +27,8 @@ $CC_help_sipfriend_list ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<div class="w2">
-'.gettext("SIP and IAX friend will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
-.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret as the username and password.").'
+'.gettext("Voip Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
+.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client and use the account number and secret as the username and password.").'
 <br/>'.help_wiki_link('ListSIPFriend').'
 </div></div></div>
 </div></div>';
@@ -104,7 +104,6 @@ $CC_help_list_customer='
 </div></div></div>
 </div></div>';
 
-
 $CC_help_view_payment ='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -116,7 +115,6 @@ $CC_help_view_payment ='
 <br/>'.help_wiki_link('ViewPayments').'
 </div></div></div>
 </div></div>';
-
 
 $CC_help_money_situation ='
 <div class="toggle_show2hide">
@@ -130,6 +128,42 @@ $CC_help_money_situation ='
 <br/>'.help_wiki_link('MoneySituation').'
 </div></div></div>
 </div></div>';
+
+$CC_help_view_refill_agent ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Agents Refill history – The section below allows you to see your refill").'
+<br/>'.help_wiki_link('ViewAgentRefill').'
+</div></div></div>
+</div></div>';
+
+$CC_help_view_payment_agent ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
+	<div class="w2"><br>
+'.gettext("Agent Payment history – The section below allows you to browse your payments").'
+<br/>'.help_wiki_link('ViewPayments').'
+</div></div></div>
+</div></div>';
+
+$CC_help_support_list='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
+	<div class="w2" style="width:800px">'
+.gettext("You can see here, all tickets created. You can also add a new ticket for one customer.").'
+<br/><br/><br/>
+</div></div></div>
+</div></div>
+';
 
 } //ENDIF SHOW_HELP
 

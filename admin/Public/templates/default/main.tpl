@@ -337,7 +337,7 @@
 	{/if}
 
 	
-	{if ($ACXSUPPORT  > 0)}
+	{if ($ACXSUPPORT > 0)}
 	<div class="toggle_menu">
 	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
 	{if ($section == "17")}

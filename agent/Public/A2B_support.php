@@ -5,10 +5,10 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_ticket_agent.inc");
 include ("../lib/agent.smarty.php");
 
-if (! has_rights (ACX_SUPPORT)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+if (! has_rights (ACX_SUPPORT)) {
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 
@@ -19,22 +19,18 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
-/************************************  ADD TICKET  ***********************************************/
-if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_numeric($component)){
+// ADD Ticket
+if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_numeric($component)) {
 
 		$FG_SPEEDDIAL_TABLE  = "cc_ticket";
 		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
-
 		$QUERY = "INSERT INTO cc_ticket (creator,creator_type,title, description, id_component, priority, viewed_agent) VALUES ('".$_SESSION["agent_id"]."',1, '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0')";
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 		$update_msg = gettext("Ticket added successfully");
 
 }
-/***********************************************************************************/
 
-
-
-if ($id!="" || !is_null($id)){
+if ($id!="" || !is_null($id)) { 
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
@@ -44,8 +40,11 @@ $list = $HD_Form -> perform_action($form_action);
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
-if ($form_action == "list")
-{
+// #### HELP SECTION
+echo $CC_help_support_list;
+
+
+if ($form_action == "list") {
     // My code for Creating two functionalities in a page
     $HD_Form -> create_toppage ("ask-add");
     if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
@@ -71,8 +70,6 @@ if ($form_action == "list")
          	<font class="fontstyle_002"><?php echo gettext("Priority");?> :</font>
          </td>
          <td>
-
-
        			<select NAME="priority" class="form_input_select">
 						<option class=input value='0' >NONE </option>
 						<option class=input value='1' >LOW </option>
@@ -132,13 +129,8 @@ if ($form_action == "list")
 $HD_Form -> create_toppage ($form_action);
 
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>

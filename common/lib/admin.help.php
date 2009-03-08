@@ -236,8 +236,6 @@ $CC_help_view_billing_agent ='
 </div></div></div>
 </div></div>';
 
-
-
 $CC_help_view_refill ='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -282,11 +280,9 @@ $CC_help_view_refill_agent ='
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
 '.gettext("Agents Refill history – The section below allows you to add refills against an agent. Note that this changes the balance on the account.").'
-<br/>'.help_wiki_link('ViewPayments').'
+<br/>'.help_wiki_link('ViewAgentRefill').'
 </div></div></div>
 </div></div>';
-
-
 
 $CC_help_view_paypal ='
 <div class="toggle_show2hide">
@@ -374,7 +370,6 @@ $CC_help_def_ratecard ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
 	<div class="w2"> </br>'.gettext("Please select a ratecard and click on search to browse the different rates/dialing prefix of the selected ratecard.").'<br/>'.help_wiki_link('BrowseRates').'
-
 <br/>
 </div></div></div>
 </div></div>';
@@ -1133,6 +1128,7 @@ $CC_help_support_list='<div class="toggle_show2hide">
 </div></div></div>
 </div></div>
 ';
+
 $CC_help_support_list_agent='<div class="toggle_show2hide">
 <a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 <div class="tohide" style="display:visible;">
@@ -1233,4 +1229,3 @@ $CALL_LABS ='
 </table>';
 
 
-?>

@@ -2,7 +2,7 @@
 
 getpost_ifset(array('id', 'status', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
-$HD_Form = new FormHandler("cc_epayment_log,cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","Epayment");
+$HD_Form = new FormHandler("cc_epayment_log,cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","Payment");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID = "cc_epayment_log.id";
@@ -23,39 +23,34 @@ if (DB_TYPE == "postgres") {
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if ($Period=="Month"){
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-	if ($tomonth && isset($tostatsmonth))
-	{
+	if ($tomonth && isset($tostatsmonth)) {
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
 		$date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 	}
-}else{
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
-	{
+} else {
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
 		$date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
-	{
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) {
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
 		$date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
 }
 
 if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0 && strlen($enteradmin)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-if($enteradmin != "")
-{ 
+if($enteradmin != "") { 
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.=" iduser = '$enteradmin'";
-}	
+}
+
 if (strlen($enteradmin)>0 && strlen($loglevel)>0 && $loglevel > 0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-if($status >= 0 && $status != '')
-{
+if($status >= 0 && $status != '') {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.=" cc_epayment_log.status = '$status'";
 }
 if (strlen($loglevel)>0 && strlen($date_clause)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-if(!empty($date_clause))
-{	
+if(!empty($date_clause)) {	
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $date_clause =" AND ".$date_clause;
 	$HD_Form -> FG_TABLE_CLAUSE.=" ".$date_clause;
 }
@@ -168,7 +163,7 @@ $HD_Form -> FG_FILTERFIELD = 'cardid';
 $HD_Form -> FG_FILTERFIELDNAME = 'cardid';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="cardid like '$filterprefix%'";
 }

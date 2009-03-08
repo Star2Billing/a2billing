@@ -6,7 +6,7 @@ include ("./form_data/FG_var_autorefill.inc");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_CRONT_SERVICE)){ 
+if (! has_rights (ACX_CRONT_SERVICE)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -22,7 +22,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
