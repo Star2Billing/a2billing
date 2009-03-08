@@ -1,15 +1,15 @@
 <?php
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_card.inc");
-include ("../lib/admin.smarty.php");
+include ("../lib/agent.smarty.php");
 
 
-if (! has_rights (ACX_CUSTOMER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+if (! has_rights (ACX_CUSTOMER)) {
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = false;
@@ -23,13 +23,8 @@ $HD_Form ->FG_LIST_ADDING_BUTTON2 = false;
 
 getpost_ifset(array('choose_list', 'creditlimit', 'cardnum','choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax','cardnumberlenght_list','tag','id_group','discount'));
 
-
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
 
-
-//CHECK MANDATORY FIELD
 ?>
 <script type="text/javascript">
 
@@ -58,26 +53,18 @@ function checkmandatoryfield(form){
 	
 	document.theForm.submit();
 }
-
 </script>
-
-
-
 
 
 <?php 
 
 // GENERATE CARDS
-
-
 $nbcard = $choose_list;
-
 if ($nbcard>0) {
 	
 	$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
 	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group,discount";
 
-	if (DB_TYPE != "postgres"){
 		$FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
 	}
 	
