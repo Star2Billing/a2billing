@@ -29,8 +29,7 @@ $smarty->assign("WEBUI_DATE", WEBUI_DATE);
 
 $smarty->assign("SKIN_NAME", $skin_name);
 // if it is a pop window
-if (!is_numeric($popup_select))
-{
+if (!is_numeric($popup_select)) {
 	$popup_select=0;
 }
 $smarty->assign("popupwindow", $popup_select);
@@ -43,16 +42,12 @@ $smarty->assign("ACXCALLREPORT", $ACXCALLREPORT);
 $smarty->assign("ACXMYACCOUNT", $ACXMYACCOUNT);
 $smarty->assign("ACXSUPPORT", $ACXSUPPORT);
 $smarty->assign("ACXSIGNUP", $ACXSIGNUP);
-$smarty->assign("ACXSIPCONF", $ACXSIPCONF);
-$smarty->assign("ACXIAXCONF", $ACXIAXCONF);
+$smarty->assign("ACXVOIPCONF", $ACXVOIPCONF);
 
-if($_GET["section"]!="")
-{
+if($_GET["section"]!="") {
 	$section = $_GET["section"];
 	$_SESSION["menu_section"] = $section;
-}
-else
-{
+} else {
 	$section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
@@ -62,4 +57,5 @@ $smarty->assign("adminname", $_SESSION["pr_login"]);
 $smarty->assign("A2Bconfig", $A2B->config);
 
 $smarty->assign("PAGE_SELF", $PHP_SELF);
+
 

@@ -51,7 +51,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	<ul>
 		<li><ul>
 				<li><a href="agentinfo.php?section=0">{php} echo gettext("Account information");{/php}</a></li>
-				<li><a href="A2B_entity_password.php?stitle=Password&section=0">{php} echo gettext("PASSWORD");{/php}</a></li>
+				<li><a href="A2B_entity_password.php?stitle=Password&section=0">{php} echo gettext("Password");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>
@@ -78,11 +78,8 @@ Logged-in as: <b>{$adminname}</b></p>
 		<li><ul>
 				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1">{php} echo gettext("List Customers");{/php}</a></li>
 				<li><a href="card-history.php?atmenu=cardhistory&stitle=Card+History&section=1">{php} echo gettext("Card History");{/php}</a></li>
-				{if ($ACXSIPCONF > 0) }
-				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("SIP-FRIEND");{/php}</a></li>
-				{/if}
-				{if ($ACXIAXCONF > 0) }
-				<li><a href="A2B_entity_friend.php?atmenu=iax&section=1">{php} echo gettext("IAX-FRIEND");{/php}</a></li>
+				{if ($ACXVOIPCONF > 0) }
+				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("VOIP Config");{/php}</a></li>
 				{/if}
 		</ul></li>
 	</ul>

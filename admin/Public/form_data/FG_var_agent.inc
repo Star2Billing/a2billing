@@ -37,8 +37,7 @@ $right_list["8"] = array( gettext("EDIT CUSTOMER"), "128");
 $right_list["9"] = array( gettext("DELETE CUSTOMER"), "256");
 $right_list["10"] = array( gettext("GENERATE CUSTOMER"), "512");
 $right_list["11"] = array( gettext("SIGNUP"), "1024");
-$right_list["12"] = array( gettext("SIP CONF"), "2048");
-$right_list["13"] = array( gettext("IAX CONF"), "4096");
+$right_list["12"] = array( gettext("VOIP CONF"), "2048");
 
 $len_right_list = count($right_list);
 
@@ -58,9 +57,8 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 	$HD_Form -> AddViewElement(gettext("ACTIVE"), "active", "3%", "center", "sort", "", "list", $yesno);
 
-$HD_Form -> FieldViewElement ('id, login, passwd, lastname, currency, active');
-	
-}else{
+	$HD_Form -> FieldViewElement ('id, login, passwd, lastname, currency, active');
+} else {
 	$HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("DATE"), "datecreation", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 	$HD_Form -> AddViewElement(gettext("LOGIN"), "login", "14%", "center", "sort");
@@ -72,7 +70,6 @@ $HD_Form -> FieldViewElement ('id, login, passwd, lastname, currency, active');
 	$HD_Form -> AddViewElement(gettext("ACTIVE"), "active", "3%", "center", "sort", "", "list", $yesno);
 	
 	$HD_Form -> FieldViewElement ('id, datecreation, login, passwd,firstname, lastname, credit, currency, active');
-	
 }
 
 
@@ -94,8 +91,7 @@ if ($popup_select) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
-}
-else {
+} else {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 }

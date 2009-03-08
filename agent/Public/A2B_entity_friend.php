@@ -11,21 +11,13 @@ if (! has_rights (ACX_CUSTOMER)) {
 	die();
 }
 
-if ($form_action=="add_sip" || $atmenu=="sip"  ) {
-	if (! has_rights (ACX_SIPCONF)) { 
-		Header ("HTTP/1.0 401 Unauthorized");
-		Header ("Location: PP_error.php?c=accessdenied");	   
-		die();	   
-	}
-}else{
-	if (! has_rights (ACX_IAXCONF)) { 
+if ($form_action=="add_sip" || $atmenu=="sip" || $form_action=="add_iax" || $atmenu=="iax") {
+	if (! has_rights (ACX_VOIPCONF)) { 
 		Header ("HTTP/1.0 401 Unauthorized");
 		Header ("Location: PP_error.php?c=accessdenied");	   
 		die();	   
 	}
 }
-
-/***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
@@ -146,7 +138,32 @@ if ($form_action=='list'){
 
 }else echo $CC_help_sipfriend_edit;
 
+if ($form_action=='list') {
+?>
 
+<table width="40%" border="0" align="center" cellpadding="0" cellspacing="1">
+	<tr>
+	  <td  class="bgcolor_021">
+	  <table width="100%" border="0" cellspacing="1" cellpadding="0">
+	  	<form name="form1" method="post" action="">
+		  <tr>
+			<td bgcolor="#FFFFFF" class="fontstyle_006" width="100%">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
+			<td bgcolor="#FFFFFF" class="fontstyle_006" align="center">
+			   <select name="atmenu" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
+				 <option value="iax" <?php if($atmenu == "iax")echo "selected"?>><?php echo gettext("IAX")?></option>
+				 <option value="sip" <?php if($atmenu == "sip")echo "selected"?>><?php echo gettext("SIP")?></option>
+			   </select> 
+			  <input name="PMChange" type="hidden" id="PMChange">
+			                                      
+			</td>
+		  </tr>
+		  </form>  
+	  </table></td>
+	</tr>
+</table>
+
+<?php
+}
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
