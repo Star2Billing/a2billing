@@ -66,26 +66,20 @@ WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialpr
 			WHERE cc_ratecard.dialprefix=c1.dialprefix) ORDER BY  destination ASC LIMIT 0,10;
 		 */
 	}
-}else{
+} else {
 	$HD_Form -> FG_TOP_FILTER_NAME = 0;
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard'];
 	
-	if (!empty($_SESSION['def_ratecard_tariffgroup'])){
+	if (!empty($_SESSION['def_ratecard_tariffgroup'])) {
 		$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard_tariffgroup'];
 		if (empty($form_action) || $form_action=="list")
 			$HD_Form -> FG_TABLE_NAME = 'cc_ratecard, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3';
 	}
 }
 
-
-
-$musiconhold_list = array();
-$musiconhold_list[] = array( "No MusicOnHold", "");
-for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){
-	$musiconhold_list[]  = array( "MUSICONHOLD CLASS ACC_$i", "acc_$i");
-}
-
+$musiconhold_list = Constants::getMusicOnHold_List();
 $yesno = Constants::getYesNoList();
+
 
 if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "15", "lie", "cc_prefix", "destination", "prefix='%id'", "%1");
@@ -156,8 +150,6 @@ $HD_Form -> AddSearchElement_Select('SELECT TRUNK',"cc_trunk","id_trunk, trunkco
 
 
 
-
-
 $HD_Form -> AddEditElement(gettext("RATECARD"),
    "idtariffplan",	
    '$value',	
@@ -176,7 +168,8 @@ $HD_Form -> AddEditElement(gettext("DIALPREFIX"),
    "size=50 maxlength=80",	
    "13",
    gettext("Insert the dialing prefix, such as for UK '44' or for US '1' "),
-   "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=2&", ", 'prefix','width=550,height=340,top=20,left=100,scrollbars=1'", gettext("A) Add destination prefixes, ie '441' for UK Landlines.<br>B) Use 'defaultprefix' to setup a rate for all destinations where a specific rate is not provided.<br>C) if you ADD a rate, NOT an EDIT, you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed.<br>D) Asterisk extensions style + POSIX regex syntaxes are supported. '_447[7-9]XXXXXXXX' matches 12-digit UK mobiles. '_X{0,3}(112|999|911)' matches any 0-3 digits followed an emergency number. '_' can be used to add length, and raise the priority."));
+   "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=2&", ", 'prefix','width=550,height=340,top=20,left=100,scrollbars=1'", 
+   gettext("A) Add destination prefixes, ie '441' for UK Landlines.<br>B) Use 'defaultprefix' to setup a rate for all destinations where a specific rate is not provided.<br>C) if you ADD a rate, NOT an EDIT, you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed.<br>D) Asterisk extensions style + POSIX regex syntaxes are supported. '_447[7-9]XXXXXXXX' matches 12-digit UK mobiles. '_X{0,3}(112|999|911)' matches any 0-3 digits followed an emergency number. '_' can be used to add length, and raise the priority."));
 
 
 $HD_Form -> AddEditElement(gettext("Destination Prefix"),
@@ -187,7 +180,7 @@ $HD_Form -> AddEditElement(gettext("Destination Prefix"),
    "sql",		
    "cc_prefix",	
    "destination, prefix",		
-   "", "", "%2 (%1)", "", gettext("Select here the prefix Destination corresponding to your prefix rate."));
+   "", "", "%2 (%1)", "", gettext("Select the prefix destination corresponding to your prefix rate."));
    
 
 $HD_Form -> AddEditElement("BUYING RATE",
@@ -197,7 +190,8 @@ $HD_Form -> AddEditElement("BUYING RATE",
    "size=30 maxlength=20",
    "12",
    gettext("Insert the buy rate"),
-   "" , "", "",	"", "" , "", "", gettext("Set the carrier cost, the price you pay for minutes."), null, null, gettext("Define your purchase cost that you need to pay to your voip-provider to let your platform call this destination."));
+   "" , "", "",	"", "" , "", "", gettext("Set the carrier cost, the price you pay for minutes."), null, null, 
+   gettext("Set the carrier cost for this destination."));
 
 $HD_Form -> AddEditElement(gettext("BUYRATE MIN DURATION"),
    "buyrateinitblock",
@@ -263,14 +257,14 @@ $HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE"),
    "12",
    gettext("Insert the disconnect charge"),
    "" , "", "",	"", "", "", "NO", gettext("Apply a disconnection charge" ));
-$HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE AFTER"),
+$HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE THRESHOLD"),
    "disconnectcharge_after",
    '$value',
    "INPUT",
    "size=30 maxlength=20",
    "12",
-   gettext("Insert the disconnect charge"),
-   "" , "", "", "", "", "", "NO", gettext("Apply a disconnection charge" ));
+   gettext("Insert the disconnect charge threshold"),
+   "" , "", "", "", "", "", "NO", gettext("Apply the disconnection charge if the call duration is greater than this amount of seconds. If 0, it will always apply." ));
 
 
 $HD_Form -> AddEditElement(gettext("MINIMUM CALL COST "),

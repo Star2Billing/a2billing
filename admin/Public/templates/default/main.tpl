@@ -98,13 +98,13 @@
 			<li><ul>
 				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment&section=2">{php} echo gettext("View Payment Methods");{/php}</a></li>
                 <li><a href="A2B_entity_transactions.php?atmenu=payment&section=2">{php} echo gettext("View Transactions");{/php}</a></li>
-				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View accounts balance");{/php}</a></li>
+				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("View account balance");{/php}</a></li>
 				<li><a href="A2B_entity_billing_customer.php?atmenu=payment&section=2">{php} echo gettext("Customers Billings");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("Customers Refills");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Customers Payments");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=2">{php} echo gettext("Agents Refills");{/php}</a></li>
 				<li><a href="A2B_entity_payment_agent.php?atmenu=payment&section=2">{php} echo gettext("Agents Payments");{/php}</a></li>
-						<li><a href="A2B_entity_commission_agent.php?atmenu=payment&section=2">{php} echo gettext("Agents Commissions");{/php}</a></li>
+				<li><a href="A2B_entity_commission_agent.php?atmenu=payment&section=2">{php} echo gettext("Agents Commissions");{/php}</a></li>
 				<li><a href="A2B_entity_paymentlog.php?section=2">{php} echo gettext("E-Payment Log");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?section=2">{php} echo gettext("Vouchers");{/php}</a></li>
 				<li><a href="A2B_currencies.php?section=2">{php} echo gettext("Currency List");{/php}</a></li>
@@ -164,7 +164,7 @@
 			<li><ul>
 				<li><a href="A2B_entity_package_group.php?atmenu=prefixe&section=3_3">{php} echo gettext("Group Packages");{/php}</a></li>
 				<li><a href="A2B_entity_package.php?atmenu=prefixe&section=3_3">{php} echo gettext("Offer Packages");{/php}</a></li>
-				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Details Package");{/php}</a></li>
+				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Package Details");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

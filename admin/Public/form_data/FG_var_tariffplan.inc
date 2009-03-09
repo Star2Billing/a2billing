@@ -70,7 +70,7 @@ $HD_Form -> AddEditElement (gettext("START DATE"),
 			   "size=40 maxlength=40  $comp_date",	
 			   "10",	
 			   gettext("Insert the starting date"), 
-			   "" , "", "",	"", "", "", "res_display_dateformat", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
+			   "" , "", "",	"", "", "", "res_display_dateformat", gettext("Please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
 
 $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
 			   "expirationdate",		

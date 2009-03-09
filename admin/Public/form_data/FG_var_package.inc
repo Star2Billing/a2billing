@@ -22,7 +22,7 @@ $billingtype_list = Constants::getBillingPeriodsList();
 
 // If packagetype == NUMBER OF FREE CALL -> concat unit with "times"
 // Else concat with "sec"
-$filter_unit ='CASE packagetype WHEN 1 THEN CONCAT( freetimetocall, " times" ) WHEN 0 THEN "ALL" ELSE CONCAT( freetimetocall, " sec" ) END ';
+$filter_unit = 'CASE packagetype WHEN 1 THEN CONCAT( freetimetocall, " times" ) WHEN 0 THEN "ALL" ELSE CONCAT( freetimetocall, " sec" ) END ';
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "18%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
@@ -71,7 +71,7 @@ $HD_Form -> AddEditElement (gettext("BILLINGTYPE"),
 	"",
 	"list" , "", "", "", $billingtype_list, "%1", "", "");
 
-if (isset($form_action) && $form_action=="ask-add"){
+if (isset($form_action) && $form_action=="ask-add") {
 	$default_init = "value='0'";
 }
 
@@ -92,7 +92,7 @@ $HD_Form -> AddEditElement (gettext("FREE UNITS"),
    "size=10 maxlength=10",	
    "4",	
    gettext("Insert the amount of free time to call (seconds)"),
-   "" , "", "",	"", "", "", "", gettext("Insert the amount of free units for UNLIMITED,FREE MINUTES,NORMAL, it's the times to call in seconds. For NUMBER OF FREE CALLS, introduce the numbers of free calls"));
+   "" , "", "",	"", "", "", "", gettext("Insert the amount of free units, in seconds, for UNLIMITED, FREE MINUTES, NORMAL. For NUMBER OF FREE CALLS insert the number of free calls"));
    
 
 	
@@ -102,7 +102,7 @@ $resmax = $DBHandle_max -> Execute("SELECT * FROM cc_ratecard");
 if ( $resmax )
 	$numrow = $resmax -> RecordCount( );
 
-if ($numrow>0){ 
+if ($numrow>0) {
 	$HD_Form -> AddEditElement (gettext("RATE ASSOCIATE"),
 		"rates",	
 		'$value',	
@@ -116,8 +116,6 @@ if ($numrow>0){
 		"", "", "%1 : (%2)", "", "", "cc_package_rate:rate_id:cc_ratecard LEFT JOIN cc_package_rate ON cc_ratecard.id=cc_package_rate.rate_id:DISTINCT CONCAT(cc_ratecard.destination,' - ',cc_ratecard.dialprefix ), cc_ratecard.id,cc_ratecard.destination, cc_ratecard.dialprefix: cc_package_rate.package_id = %id:package_id:%3 - ( %4 )::::%1:id='%1'");		
 	
 }   
-   
-   
 
 $HD_Form -> FieldEditElement ('label, packagetype, billingtype, startday, freetimetocall');
 
@@ -126,18 +124,11 @@ $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
-
-
-
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
-
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Setup those values to create the new")." ".$HD_Form->FG_INSTANCE_NAME;
-
-
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

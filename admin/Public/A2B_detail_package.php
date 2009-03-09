@@ -4,25 +4,22 @@ include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_PACKAGEOFFER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+if (! has_rights (ACX_PACKAGEOFFER)) {
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 getpost_ifset(array('customer', 'enter_cardid', 'enter_packageid', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens'));
 
 
-
-if (($_GET[download]=="file") && $_GET[file] ) 
-{
+if (($_GET[download]=="file") && $_GET[file] ) {
 	
 	$value_de=base64_decode($_GET[file]);
 	$dl_full = MONITOR_PATH."/".$value_de;
 	$dl_name=$value_de;
 
-	if (!file_exists($dl_full))
-	{ 
+	if (!file_exists($dl_full)) { 
 		echo gettext("ERROR: Cannot download file")." ".$dl_full.", ".gettext("it does not exist.")."<br>";
 		exit();
 	} 
@@ -42,7 +39,7 @@ if (($_GET[download]=="file") && $_GET[file] )
 
 
 
-if (!isset ($current_page) || ($current_page == "")){	
+if (!isset ($current_page) || ($current_page == "")) {	
 	$current_page=0; 
 }
 
@@ -73,19 +70,10 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 $yesno = array(); 	$yesno["1"]  = array( "Yes", "1");	 $yesno["0"]  = array( "No", "0");
 
 
-//$link = DbConnect();
 $DBHandle  = DbConnect();
 
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
 
-
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
-
-// $FG_TABLE_COL[]=array (gettext("Date"), "date_consumption", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("CARDID"), "id_cc_card", "15%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("CARDNUMBER"), "id_cc_card", "20%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
 $FG_TABLE_COL[]=array (gettext("PACKAGE"), "id_cc_package_offer", "20%", "center", "sort", "15", "lie", "cc_package_offer", "label", "id='%id'", "%1");
@@ -93,40 +81,24 @@ $FG_TABLE_COL[]=array (gettext("USED MINUTES"), "used_secondes", "20%", "center"
 $FG_TABLE_COL[]=array (gettext("NB PERFORMED"), "nbperf", "15%", "center", "SORT", "30");
 
 
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.date_consumption";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
-// This Variable store the argument for the SQL query
-//$FG_COL_QUERY='t1.date_consumption, t1.id_cc_card, t1.id_cc_card, t1.id_cc_package_offer';
 $FG_COL_QUERY=' t1.id_cc_card, t1.id_cc_card, t1.id_cc_package_offer, sum(t1.used_secondes) AS used_secondes, count(*) as nbperf ';
 
 
-
-// The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=25;
-
-// Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
-
-// The variable $FG_EDITION define if you want process to the edition of the database record
 $FG_EDITION=true;
-
-//This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE=gettext(" - Package Infos - ");
-
-//This variable define the width of the HTML table
+$FG_HTML_TABLE_TITLE = gettext(" - Package Info - ");
 $FG_HTML_TABLE_WIDTH="85%";
 
-
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
-
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if ( is_null ($order) || is_null($sens) ){
 	$order = $FG_TABLE_DEFAULT_ORDER;
@@ -146,26 +118,13 @@ if (DB_TYPE == "postgres"){
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month"){
+if ($Period=="Month") {
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.date_consumption) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
 	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.date_consumption) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-}else{
+} else {
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.date_consumption) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.date_consumption) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 }
-//echo "<br>$date_clause<br>";
-/*
-Month
-fromday today
-frommonth tomonth (true)
-fromstatsmonth tostatsmonth
-
-fromstatsday_sday
-fromstatsmonth_sday
-tostatsday_sday
-tostatsmonth_sday
-*/
-
 
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
@@ -175,79 +134,63 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 }
 
 
-if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
-		
-		$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d")); 	
-		$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.date_consumption) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
+if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0) {
+	$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d")); 	
+	$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.date_consumption) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 
-
-if (isset($customer)  &&  ($customer>0)){
+if (isset($customer)  &&  ($customer>0)) {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE.="t1.id_cc_card='$customer'";
-}else{
-	if (isset($enter_cardid)  &&  ($enter_cardid>0)){
+} else {
+	if (isset($enter_cardid)  &&  ($enter_cardid>0)) {
 		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 		$FG_TABLE_CLAUSE.="t1.id_cc_card='$enter_cardid'";
 	}
 }
 
-if (isset($enter_packageid)  &&  ($enter_packageid>0)){
+if (isset($enter_packageid)  &&  ($enter_packageid>0)) {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE.="t1.id_cc_package_offer='$enter_packageid'";
 }
 
 $FG_TABLE_CLAUSE_GROUP = $FG_TABLE_CLAUSE." GROUP BY t1.id_cc_card, t1.id_cc_package_offer ";
 
-
-//WORKS! 
-
-if (!$nodisplay){
+if (!$nodisplay) {
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_GROUP, null, null, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
-//echo "<br>--<br>".$FG_TABLE_CLAUSE."<br><br>";
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE_GROUP";
 
 
-
-/************************/
-//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate) 
 $QUERY = "SELECT DATE(t1.date_consumption) AS day, sum(t1.used_secondes) AS used_secondes, count(*) as nbperf FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE GROUP BY day ORDER BY day"; //extract(DAY from calldate)
 
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day [] =$res -> fetchRow();
-			}
+if (!$nodisplay) {
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_day [] =$res -> fetchRow();
 		}
+	}
 
-
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG >= 1) var_dump ($list);
+	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
+	if ($FG_DEBUG >= 1) var_dump ($list);
 
 }//end IF nodisplay
 
 
 
-if ($nb_record<=$FG_LIMITE_DISPLAY){ 
+if ($nb_record<=$FG_LIMITE_DISPLAY) {
 	$nb_record_max=1;
-}else{ 
-	if ($nb_record % $FG_LIMITE_DISPLAY == 0){
+} else { 
+	if ($nb_record % $FG_LIMITE_DISPLAY == 0) {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
-	}else{
+	} else {
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 	}	
 }
-
-
-if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
-if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
-
 
 
 
@@ -255,14 +198,12 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 $instance_table_customer = new Table("cc_card", "id,  username, lastname");
 
 $FG_TABLE_CLAUSE = "";
-if ($_SESSION["is_admin"]==0){ 	
+if ($_SESSION["is_admin"]==0) {
 	$FG_TABLE_CLAUSE =" IDmanager='".$_SESSION["pr_reseller_ID"]."'";	
 }
 
 $list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 $nb_customer = count($list_customer);
-
-
 
 $instance_table_tariff = new Table("cc_package_offer", "id, label");
 $FG_TABLE_CLAUSE = "";
@@ -454,7 +395,7 @@ $smarty->display('main.tpl');
 
 			<center><?php echo gettext("Calls with free minutes");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
       <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
-<TR bgcolor="#ffffff"> 
+		<TR bgcolor="#ffffff"> 
           <TD  class="bgcolor_021" height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
               <TBODY>
@@ -468,7 +409,7 @@ $smarty->display('main.tpl');
         </TR>
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-<TBODY>
+				<TBODY>
                 <TR  class="bgcolor_008"> 
 				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
 				  
@@ -743,11 +684,12 @@ foreach ($list_total_day as $data){
 
 </td></tr></tbody></table>
 
-<?php  }else{ ?>
+<?php  } else { ?>
 	<center><h3><?php echo gettext("No calls in your selection");?>.</h3></center>
 <?php  } ?>
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
+

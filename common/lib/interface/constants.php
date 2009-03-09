@@ -327,5 +327,14 @@ class Constants
 		return $limits_notify;
 	}
 	
+	public static function getMusicOnHold_List(){
+		$musiconhold_list = array();
+		$musiconhold_list[] = array( "No MusicOnHold", "");
+		for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++) {
+			$musiconhold_list[]  = array( "MUSICONHOLD CLASS ACC_$i", "acc_$i");
+		}
+		return $musiconhold_list;
+	}
+	
 }
 
