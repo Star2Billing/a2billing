@@ -21,7 +21,8 @@
 * @category   Database
 * @package    Table
 * @author     Arezqui Belaid <areski _atl_ gmail com>
-* @copyright  2004-2008 A2Billing 
+* @author     Steve Dommett <steve@st4vs.net>
+* @copyright  2004-2009 A2Billing
 * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
 * @version    CVS: $Id:$
 * @since      File available since Release 1.0
@@ -37,11 +38,14 @@
 * @category   Database
 * @package    Table
 * @author     Arezqui Belaid <areski _atl_ gmail com>
-* @copyright  2004-2008 A2Billing
+* @author     Steve Dommett <steve@st4vs.net>
+* @copyright  2004-2009 A2Billing
 * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
 * @version    CVS: $Id:$
 * @since      File available since Release 1.0
 */
+
+include (dirname(__FILE__)."/Class.MytoPg.php");
 
 $ADODB_CACHE_DIR = '/tmp';
 
@@ -73,6 +77,7 @@ class Table {
         $this->writelog = defined('WRITELOG_QUERY') ? WRITELOG_QUERY : false;
 		$this -> table = $table;
 		$this -> fields = $liste_fields;
+		$this -> mytopg = new MytoPg(0); // debug level 0 logs only >30ms CPU hogs
 
 		if ((count($fk_Tables) == count($fk_Fields)) && (count($fk_Fields) > 0)) {
 			$this -> FK_TABLES = $fk_Tables;
@@ -101,9 +106,17 @@ class Table {
 	 */
 	function ExecuteQuery ($DBHandle, $QUERY, $cache = 0)
 	{
+		global $A2B;
 		if ($this -> writelog) {
-			global $A2B;
 			$time_start = microtime(true);
+		}
+
+		if ($A2B->config["database"]['dbtype'] == 'postgres') {
+			// convert MySQLisms to be Postgres compatible
+			$this -> mytopg -> My_to_Pg($QUERY);
+		} else {
+			// the MySQL schema takes care of case-insensitivity
+			$QUERY = eregi_replace('([[:space:]]+)I(LIKE[[:space:]]+)', '\1\2', $QUERY);
 		}
 		
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
@@ -189,11 +202,7 @@ class Table {
 
 		$sql_limit ='';
 		if (!is_null ($limite) && (is_numeric($limite)) && !is_null ($current_record) && (is_numeric($current_record)) ) {
-			if (DB_TYPE == "postgres") {
-				$sql_limit = " LIMIT $limite OFFSET $current_record";
-			} else {
-				$sql_limit = " LIMIT $current_record,$limite";
-			}
+			$sql_limit = " LIMIT $current_record,$limite";
 		}
 
 		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
@@ -357,7 +366,6 @@ class Table {
 		
 		return ($res);
 	}
-	
 
 };
 

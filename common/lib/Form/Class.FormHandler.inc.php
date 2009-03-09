@@ -1243,39 +1243,27 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 
 				$date_clause = '';
 				
-				if (DB_TYPE == "postgres")		$UNIX_TIMESTAMP = "";
-				else 							$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-				
-				
 				if ($processed[fromday] && isset($processed[fromstatsday_sday]) && isset($processed[fromstatsmonth_sday]))
-					$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_1_TIME_FIELD.") >= $UNIX_TIMESTAMP('$processed[fromstatsmonth_sday]-$processed[fromstatsday_sday]')";
+					$date_clause.=" AND ".$this->FG_FILTER_SEARCH_1_TIME_FIELD." >= TIMESTAMP('$processed[fromstatsmonth_sday]-$processed[fromstatsday_sday]')";
 				if ($processed[today] && isset($processed[tostatsday_sday]) && isset($processed[tostatsmonth_sday]))
-					$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_1_TIME_FIELD.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth_sday]-".sprintf("%02d",intval($processed[tostatsday_sday])/*+1*/)." 23:59:59')";
+					$date_clause.=" AND ".$this->FG_FILTER_SEARCH_1_TIME_FIELD." <= TIMESTAMP('$processed[tostatsmonth_sday]-".sprintf("%02d",intval($processed[tostatsday_sday])/*+1*/)." 23:59:59')";
 				
 				
 				if ($processed[Period]=="month_older_rad"){
 					$from_month = $processed[month_earlier];
-					if(DB_TYPE == "postgres"){
-						$date_clause .= " AND CURRENT_TIMESTAMP - interval '$from_month months' > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
-					}else{
-						$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
-					}
+					$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
 				}
 				
 				//BIS FIELD
 				if ($processed[fromday_bis] && isset($processed[fromstatsday_sday_bis]) && isset($processed[fromstatsmonth_sday_bis]))
-					$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_1_TIME_FIELD_BIS.") >= $UNIX_TIMESTAMP('$processed[fromstatsmonth_sday_bis]-$processed[fromstatsday_sday_bis]')";
+					$date_clause.=" AND ".$this->FG_FILTER_SEARCH_1_TIME_FIELD_BIS." >= TIMESTAMP('$processed[fromstatsmonth_sday_bis]-$processed[fromstatsday_sday_bis]')";
 				if ($processed[today_bis] && isset($processed[tostatsday_sday_bis]) && isset($processed[tostatsmonth_sday_bis]))
-					$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_1_TIME_FIELD_BIS.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth_sday_bis]-".sprintf("%02d",intval($processed[tostatsday_sday_bis])/*+1*/)." 23:59:59')";
+					$date_clause.=" AND ".$this->FG_FILTER_SEARCH_1_TIME_FIELD_BIS." <= TIMESTAMP('$processed[tostatsmonth_sday_bis]-".sprintf("%02d",intval($processed[tostatsday_sday_bis])/*+1*/)." 23:59:59')";
 				
 				
 				if ($processed[Period_bis]=="month_older_rad") {
 					$from_month = $processed[month_earlier_bis];
-					if(DB_TYPE == "postgres") {
-						$date_clause .= " AND CURRENT_TIMESTAMP - interval '$from_month months' > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD_BIS."";
-					} else {
-						$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD_BIS."";
-					}
+					$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD_BIS."";
 				}
 				
 				

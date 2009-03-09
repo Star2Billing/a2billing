@@ -161,13 +161,9 @@ class RateEngine
 		// match Asterisk/POSIX regex prefixes,  rewrite the Asterisk '_XZN.' characters to
 		// POSIX equivalents, and test each of them against the dialed number
 		$prefixclause .= " OR (dialprefix LIKE '&_%' ESCAPE '&' AND '$phonenumber' ";
-		if ($A2B->config["database"]['dbtype'] != "postgres"){
-			$prefixclause .= "REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', dialprefix, '$'), ";
-			$prefixclause .= "'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', ''))";
-		} else {
-			$prefixclause .= "~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE('^' || dialprefix || '$', ";
-			$prefixclause .= "'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\\\.', '+', 'g'), '_', '', 'g'))";
-		}
+		$prefixclause .= "REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', dialprefix, '$'), ";
+		$prefixclause .= "'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', ''))";
+
         // select group by 5 ... more easy to count
 		$QUERY = "SELECT
 		tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, 
@@ -1059,11 +1055,7 @@ class RateEngine
 		if ($A2B->config["global"]['cache_enabled']) {
 			$QUERY .= " datetime( strftime('%s','now') - $sessiontime, 'unixepoch','localtime')";	
 		} else {
-			if ($A2B->config["database"]['dbtype'] == "postgres") {
-				$QUERY .= "CURRENT_TIMESTAMP - interval '$sessiontime seconds' ";
-			} else {
-				$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
-			}
+			$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
 		}
 
 		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$terminatecauseid', "; 
