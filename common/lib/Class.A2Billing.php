@@ -2071,6 +2071,7 @@ class A2Billing {
 				$creditlimit 				= $result[0][9];
 				$language 					= $result[0][10];
 				$this->accountcode 			= $result[0][11];
+				$this->username             = $result[0][11];
 				$this->removeinterprefix 	= $result[0][12];
 				$this->redial 				= $result[0][13];
 				$this->enableexpire 		= $result[0][14];
