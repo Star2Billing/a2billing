@@ -1649,15 +1649,6 @@ ALTER TABLE cc_card ADD id_seria integer;
 ALTER TABLE cc_card ADD serial BIGINT;
 UPDATE cc_config SET config_description = (config_description || ', id_seria, serial') WHERE config_key = 'card_show_field_list' ;
 
--- DELIMITER //
--- CREATE TRIGGER cc_card_serial_set BEFORE INSERT ON cc_card
--- FOR EACH ROW
--- BEGIN
--- 	UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
--- 	SELECT value INTO @serial from cc_card_seria where id=NEW.id_seria ;
--- 	SET NEW.serial=@serial;
--- END
--- //
 CREATE OR REPLACE FUNCTION cc_card_serial_set() RETURNS TRIGGER AS $$
   BEGIN
     UPDATE cc_card_seria SET value=value+1 WHERE id=NEW.id_seria;
