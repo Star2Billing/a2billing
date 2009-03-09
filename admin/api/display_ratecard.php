@@ -147,26 +147,20 @@ $FILTER_COUNTRY=false;
 $FILTER_PREFIX=false;
 $DISPLAY_LETTER=false;
 
-if (DB_TYPE == "postgres"){
-	 	$REG_EXP = "~*";
-}else{
-		$REG_EXP = "REGEXP";
-}
-
 for ($i=0;$i<count($fltr);$i++){
 	switch ($fltr[$i]){
 		case "countryname":
 			$FILTER_COUNTRY=true;
 			if (isset ($choose_country) && strlen($choose_country) != 0){
 				$choose_country = strtolower($choose_country);
-				add_clause($FG_TABLE_CLAUSE,"t1.destination $REG_EXP '$choose_country'");
+				add_clause($FG_TABLE_CLAUSE,"t1.destination REGEXP '$choose_country'");
 				$current_page=0;
 			}
 		break;
 		case "prefix":
 			$FILTER_PREFIX=true;
 			if (isset ($searchpre) && strlen($searchpre) != 0){
-				add_clause($FG_TABLE_CLAUSE,"t1.dialprefix $REG_EXP '^$searchpre'");
+				add_clause($FG_TABLE_CLAUSE,"t1.dialprefix REGEXP '^$searchpre'");
 				$current_page=0;
 			}
 		break;
@@ -174,12 +168,7 @@ for ($i=0;$i<count($fltr);$i++){
 }
 if (isset($browse_letter) && strtoupper($browse_letter)=="YES") $DISPLAY_LETTER=true;
 if (isset($letter) && strlen($letter)!=0) {
-	if (DB_TYPE == "postgres"){
-		 	$LIKE = "ILIKE";
-	}else{
-			$LIKE = "LIKE";
-	}
-	add_clause($FG_TABLE_CLAUSE,"t1.destination ".$LIKE." '".strtolower ($letter)."%'");
+	add_clause($FG_TABLE_CLAUSE,"t1.destination ILIKE '".strtolower ($letter)."%'");
 }
 
 

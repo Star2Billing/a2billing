@@ -1167,11 +1167,7 @@ class A2Billing {
 				$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
 					" terminatecauseid, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
 					"('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
-				if ($this->config['database']['dbtype'] == "postgres"){
-					$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
-				}else{
-					$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-				}
+				$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 				$QUERY .= ", '$answeredtime', '".$card_alias."', '$terminatecauseid', now(), '0', '0', '0', '0', '$this->CallerID', '1' )";
 				
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
@@ -1317,11 +1313,7 @@ class A2Billing {
 						$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
 							" terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
 							"('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
-						if ($this->config['database']['dbtype'] == "postgres"){
-							$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
-						}else{
-							$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-						}
+						$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$terminatecauseid', now(), '0', '0', '0', '0', '0', '$this->CallerID', '3' )";
 						
 						$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
@@ -1718,12 +1710,7 @@ class A2Billing {
 			else $year_month = date('Y-m');
 
 			$yearmonth = sprintf("%s-%02d",$year_month,$startday);
-			if ($this->config["database"]['dbtype'] == "postgres"){
-				$UNIX_TIMESTAMP = "";
-			}else{
-				$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-			}
-			$CLAUSE_DATE=" $UNIX_TIMESTAMP(date_consumption) >= $UNIX_TIMESTAMP('$yearmonth')";
+			$CLAUSE_DATE=" TIMESTAMP(date_consumption) >= TIMESTAMP('$yearmonth')";
 		}else{
 			// PROCESSING FOR WEEKLY
 			$startday = $startday % 7;
@@ -1731,11 +1718,7 @@ class A2Billing {
 			if ($dayofweek==0) $dayofweek=7;
 			if ($dayofweek < $startday) $dayofweek = $dayofweek + 7;
 			$diffday = $dayofweek - $startday;
-			if ($this->config["database"]['dbtype'] == "postgres"){
-				$CLAUSE_DATE = "date_consumption >= (CURRENT_DATE - interval '$diffday day') ";
-			}else{
-				$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
-			}
+			$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
 		}
 		$QUERY = "SELECT  COUNT(*) AS number_calls FROM cc_card_package_offer ".
 				 "WHERE $CLAUSE_DATE AND id_cc_card = '$id_cc_card' AND id_cc_package_offer = '$id_cc_package_offer' ";
@@ -1773,12 +1756,7 @@ class A2Billing {
 			else $year_month = date('Y-m');
 
 			$yearmonth = sprintf("%s-%02d",$year_month,$startday);
-			if ($this->config["database"]['dbtype'] == "postgres"){
-				$UNIX_TIMESTAMP = "";
-			}else{
-				$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-			}
-			$CLAUSE_DATE=" $UNIX_TIMESTAMP(date_consumption) >= $UNIX_TIMESTAMP('$yearmonth')";
+			$CLAUSE_DATE=" TIMESTAMP(date_consumption) >= TIMESTAMP('$yearmonth')";
 		}else{
 			// PROCESSING FOR WEEKLY
 			$startday = $startday % 7;
@@ -1977,11 +1955,7 @@ class A2Billing {
 			$QUERY =  "SELECT cc_callerid.cid, cc_callerid.id_cc_card, cc_callerid.activated, cc_card.credit, ".
 				  " cc_card.tariff, cc_card.activated, cc_card.inuse, cc_card.simultaccess,  ".
 				  " cc_card.typepaid, cc_card.creditlimit, cc_card.language, cc_card.username, removeinterprefix, cc_card.redial, ";
-			if ($this->config['database']['dbtype'] == "postgres"){
-				$QUERY .=  " enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), ";
-			}else{
-				$QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
-			}
+			$QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
 
 			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, cc_card.status, cc_card.voicemail_permitted, cc_card.voicemail_activated , cc_card.restriction".
 						" FROM cc_callerid ".
@@ -2167,11 +2141,7 @@ class A2Billing {
 				if ($callerID_enable!=1 || !is_numeric($this->CallerID) || $this->CallerID<=0){
 
 					$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
-					if ($this->config['database']['dbtype'] == "postgres"){
-						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card ";
-					}else{
-						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card ";
-					}
+					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card ";
 
 					$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
@@ -2341,11 +2311,7 @@ class A2Billing {
 				$this->accountcode = $this->username = $this->cardnumber;
 
 				$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
-				if ($this->config['database']['dbtype'] == "postgres"){
-					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated ,cc_card.restriction FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
-				}else{
-					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
-				}
+				$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 
 				$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result,true));
@@ -2520,10 +2486,7 @@ class A2Billing {
 		$res=0;
 
 		$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
-		if ($this->config['database']['dbtype'] == "postgres")
-			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, voicemail_permitted, voicemail_activated, cc_card.restriction FROM cc_card ";
-		else
-			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, voicemail_permitted, voicemail_activated, cc_card.restriction FROM cc_card ";
+		$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, voicemail_permitted, voicemail_activated, cc_card.restriction FROM cc_card ";
 
 		$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 

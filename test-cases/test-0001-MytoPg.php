@@ -276,8 +276,8 @@ $t[$i++] = array('MytoPg(): SUBSTRING(time|date,1,19) -> add cast ::timestamp',
 
 
 $t[$i++] = array('MytoPg(): Complex nested REGEXP, REPLACE, and \'.\'',
-"SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', '_XXX(911|999|112)', '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '');",
-"SELECT '0' ~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(('^' ||  '_XXX(911|999|112)' ||  '$'), 'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\\\.', '+', 'g'), '_', '', 'g');");
+"-- SELECT NOT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', '_XXX(911|999|112)', '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '');",
+"-- SELECT NOT '0' ~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(('^' ||  '_XXX(911|999|112)' ||  '$'), 'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\\\.', '+', 'g'), '_', '', 'g');");
 
 
 $t[$i++] = array('MytoPg(): RAND()',
@@ -339,21 +339,29 @@ $t[$i++] = array("MytoPg(): admin/Public/call-daily-load.php date clause",
 "SELECT * FROM cc_call AS t1 $WWHEREREP AND t1.starttime < ('2008-01-01'::date + INTERVAL '1 DAY') AND t1.starttime >= '2008-01-01'");
 
 
-$t[$i++] = array("MytoPg(): admin/Public/call-comp.php date clause",
+$t[$i++] = array("MytoPg(): admin/Public/call-comp.php date clause with ADD/SUBDATE and INTERVAL",
 "SELECT * FROM cc_call AS t1 $WWHERE AND t1.starttime < ADDDATE('2008-01-01',INTERVAL 1 DAY) AND t1.starttime >= SUBDATE('2008-01-01', INTERVAL 1 DAY)",
 "SELECT * FROM cc_call AS t1 $WWHEREREP AND t1.starttime < ('2008-01-01'::date + INTERVAL '1 DAY') AND t1.starttime >= ('2008-01-01'::date - INTERVAL '1 DAY')");
 
 
-$t[$i++] = array("MytoPg(): common/lib/Form/Class.FormHandler.inc.php ",
+$t[$i++] = array("MytoPg(): common/lib/Form/Class.FormHandler.inc.php's TIMESTAMP() cast",
 "SELECT TIMESTAMP('2009-01-15') >= TIMESTAMP('2008-01-01')",
 "SELECT ('2009-01-15'::timestamp) >= ('2008-01-01'::timestamp)");
 
 
-$t[$i++] = array("MytoPg(): the rate-engine query",
-"",
+$t[$i++] = array("MytoPg(): common/lib/Class.A2Billing.php's UNIX_TIMESTAMP() cast",
+"SELECT * FROM cc_card $WWHERE AND UNIX_TIMESTAMP(expirationdate) >= UNIX_TIMESTAMP(CURRENT_TIMESTAMP)",
+"SELECT * FROM cc_card $WWHEREREP AND date_part('epoch',expirationdate) >= date_part('epoch',CURRENT_TIMESTAMP)");
 
 
-"");
+$t[$i++] = array("MytoPg(): common/lib/Class.A2Billing.php's UNIX_TIMESTAMP() cast 2",
+"SELECT * FROM cc_card WHERE UNIX_TIMESTAMP(cc_card.creationdate) >= UNIX_TIMESTAMP(CURRENT_TIMESTAMP)",
+"SELECT * FROM cc_card WHERE date_part('epoch',cc_card.creationdate) >= date_part('epoch',CURRENT_TIMESTAMP)");
+
+
+#$t[$i++] = array("MytoPg(): the rate-engine query",
+#"",
+#"");
 
 // TODO maybe DATE_FORMAT(x, 'xx-xx-xx'), month(x)
 #$t[$i++] = array("MytoPg(): admin/Public/modules/customers_lastmonth.php insanity","UNIX_TIMESTAMP(DATE_FORMAT(creationdate,'%Y-%m-01'))","(DATE_TRUNC(creationdate::date,'month'))");
@@ -367,8 +375,6 @@ $t[$i++] = array("MytoPg(): the rate-engine query",
 #$t[$i++] = array("MytoPg():","","");
 
 
-// $t[$i++] = array("MytoPg()","","");
-// $t[$i++] = array("Name", "MySQL", "Postgres");
 
 // queries starting with SELECT are passed to the SQL server for more testing
 // to prevent this simply prefix with -- (or anything else but whitespace)
@@ -425,9 +431,10 @@ for ($i = 0;  $i < sizeof($t);  $i++) {
 		$pass++;
 		print "PASSED $res";
 		if (eregi('^\s*SELECT\s*', $out)) {
-			$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $t[$i][1], 1, 300);
+			$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $out, 1, 300);
 			if (!$result) {
 				print " (Running SQL query failed!)\n";
+				//print "$out\n\n";
 			} else {
 				print "\n";
 			}

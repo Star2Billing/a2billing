@@ -31,7 +31,7 @@ class MytoPg {
     // These regexes match the MySQL idioms that we need to rewrite
 	var $mytopg = array(
 		// The first pass matches only trivial deletions and re-writes
-		'(\s*)(REGEXP|RAND\(\)|LIMIT[[:space:]]+[[:digit:]]+[[:space:]]*,[[:space:]]*[[:digit:]]+)(\s*)'
+		'(\s*)(REGEXP|RAND\(\)|UNIX_TIMESTAMP\(|LIMIT[[:space:]]+[[:digit:]]+[[:space:]]*,[[:space:]]*[[:digit:]]+)(\s*)'
 		// The 2nd pass matches functions which consume the following () too
 		,'(\s*)(CONCAT|REPLACE|ADDDATE|DATE_ADD|SUBDATE|DATE_SUB|SUBSTRING|TIMEDIFF|TIME_TO_SEC|DATETIME|TIMESTAMP)(\s*)\('
 		);
@@ -95,6 +95,11 @@ class MytoPg {
 						$new = $match[1].'RANDOM()'.$match[3];
 						$pos = $matchpos + strlen($match[1].$match[3]) + 6;
 
+					} elseif ('UNIX_TIMESTAMP(' == $matched) {
+						$match[3] = $this -> Cast_date_part($match[3]);
+						$new = $match[1].'date_part(\'epoch\','.$match[3];
+						$pos = $matchpos + strlen($match[1].$match[3]) + 18;
+
 					} elseif (eregi('LIMIT([[:space:]])([[:digit:]]*)'
 						.'([[:space:]]*),([[:space:]]*)'
 						.'([[:digit:]]*)', $match[2], $params)) {
@@ -153,16 +158,7 @@ class MytoPg {
 							$rep[1] = "$tmp[0] '$tmp[1] $tmp[2]'";
 						}
 
-						// If the first argument is a literal date/time, cast it appropriately
-						if (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $rep[0], $parm)) {
-							$rep[0] = "$parm[1]$parm[2]::date$parm[4]";
-
-						} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}(-[[:digit:]]{2}){2}[[:space:]][[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $rep[0], $parm)) {
-							$rep[0] = "$parm[1]$parm[2]::timestamp$parm[4]";
-
-						} else {
-							if ($dbg > 3) $d.=">>>>$match[2] couldn't decide format of 3 parameter ADD/SUBDATE, using it verbatim";
-						}
+						$rep[0] = $this -> Cast_date_part($rep[0]);
 						$new = "$match[1]$match[3](".implode($rep, $sign).')';
 						$pos = $matchpos + strlen($match[1].$match[3]);
 
@@ -213,10 +209,13 @@ class MytoPg {
 						if (eregi('(\s*\w*)(time|date)(\w*)(\s*)', $rep[0], $parms)) {
 							// add a cast to timestamp
 							$rep[0] = "$parm[1]$parm[2]$parm[3]::timestamp$parm[4]";
-						} elseif (eregi('(\s*)[\'"](time|date)(\w*)(\s*)', $rep[0], $parms)) { //TODO
-						//$new = "$match[1]EXTRACT$match[3](EPOCH FROM $exp)";
-						//$pos = $matchpos + strlen($match[1].$match[3]) + 7;
+						} elseif (eregi('\'now\'', $rep[0], $parms)) {
+							$rep[0] = "now()";
+						} else {
+							$rep[0] = $this -> Cast_date_part($rep[0]);
 						}
+						$new = "$match[1]($rep[0])$match[3]";
+						$pos = $matchpos + strlen($match[1].$match[3]) + 0;
 
 					} else {
 						exit (">>>> Bug in My_to_Pg:  didn't process match "
@@ -363,5 +362,17 @@ class MytoPg {
 		} else {
 			exit ("MytoPG's Parse_helper has no mode $mode ".__FILE__.':'.__LINE__);
 		}
+	}
+
+
+	// If a date participle looks like an immediate constant, cast it appropriately
+	function Cast_date_part ($part) {
+
+		if (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}(-[[:digit:]]{2}){2}[[:space:]][[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
+			$part = "$parm[1]$parm[2]::timestamp$parm[4]";
+		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
+			$part = "$parm[1]$parm[2]::date$parm[4]";
+		}
+		return $part;
 	}
 }
