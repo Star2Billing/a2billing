@@ -122,8 +122,8 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 			$confirm_buy_did = 0;
 	}
 
-	if (is_numeric($voip_call) && ($confirm_buy_did >= 2)) {
-		
+	if (is_numeric($voip_call) && ($confirm_buy_did >= 2) && ($voip_call==0 || ($voip_call==1 && strpos(substr($destination, strpos( $destination, '@')),'.')))) {
+		 
 		$instance_table_did_use = new Table();
 		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('1', '" . $_SESSION["card_id"] . "', '" . $choose_did . "', '" . $destination . "', '1', '" . $voip_call . "')";
 
@@ -145,7 +145,7 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 			$result = $instance_table_did_use->SQLExec($HD_Form->DBHandle, $QUERY1, 0);
 		}
 		$date = date("D M j G:i:s T Y", time());
-		$message = "\n\n" . gettext("The following Destinaton-DID has been added:") . "\n\n";
+		$message = "\n\n" . gettext("The following Destinaton for your DID has been added:") . "\n\n";
 		$message .= "$QUERY";
 
 		// email header
