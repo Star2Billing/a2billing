@@ -796,13 +796,13 @@ class A2Billing {
 			}
 			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 
-			if($this->restriction == 1) {
-			 //CAN'T CALL RESTRICTED NUMBER	
+			if ($this->restriction == 1) {
+				//CAN'T CALL RESTRICTED NUMBER	
 				if(is_array($result)) {
-				  	//NUMBER NOT AUHTORIZED
-				  	$agi-> stream_file('prepaid-not-authorized-phonenumber', '#');
-				  	return -1;
-				 }
+					//NUMBER NOT AUHTORIZED
+					$agi-> stream_file('prepaid-not-authorized-phonenumber', '#');
+					return -1;
+				}
 			} else {
 				//CAN ONLY CALL RESTRICTED NUMBER		
 				if(!is_array($result)) {
@@ -816,7 +816,6 @@ class A2Billing {
 		
 		//REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
 		if (strlen($this->destination)<=2 && is_numeric($this->destination) && $this->destination>=0) {
-
 			$QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card='".$this->id_card."' AND speeddial='".$this->destination."'";
 			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			if( is_array($result))	$this->destination = $result[0][0];
@@ -825,8 +824,7 @@ class A2Billing {
 		
 		// FOR TESTING : ENABLE THE DESTINATION NUMBER
 		if ($this->CC_TESTING) $this->destination="1800300200";
-		if ($this->CC_TESTING) $this->destination="3390010022";
-
+		
 		$this -> debug( INFO, $agi, __FILE__, __LINE__, "DESTINATION ::> ".$this->destination);
 		if ($this->removeinterprefix) $this->destination = $this -> apply_rules ($this->destination);
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RULES APPLY ON DESTINATION ::> ".$this->destination);
@@ -835,10 +833,10 @@ class A2Billing {
 		// usefull for SIP or IAX friends with "use_dnid" when their device sends also the "#"
 		// it should be safe for normal use
 		$this->destination = rtrim($this->destination, "#");
-
+		
 		// SAY BALANCE AND FT2C PACKAGE IF APPLICABLE
 		// this is hardcoded for now but we might have a setting in a2billing.conf for the combination
-		if ($this->destination=='*0'){
+		if ($this->destination=='*0') {
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SAY BALANCE ::> ".$this->credit."]");
 			$this -> fct_say_balance ($agi, $this->credit);
 
@@ -2482,16 +2480,14 @@ class A2Billing {
 	}
 
 
-	function callingcard_ivr_authenticate_light (&$error_msg){
+	function callingcard_ivr_authenticate_light (&$error_msg) {
+		
 		$res=0;
-
-		$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
-		$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, voicemail_permitted, voicemail_activated, cc_card.restriction FROM cc_card ";
-
-		$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
-
+		$QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
+		$QUERY .= "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, voicemail_permitted, voicemail_activated, cc_card.restriction FROM cc_card ";
+		$QUERY .= "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-
+		
 		if( !is_array($result)) {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Authentication Failed !!!").'</b></font><br>';
 			return 0;
