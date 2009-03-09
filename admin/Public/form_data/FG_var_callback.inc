@@ -153,7 +153,7 @@ $HD_Form -> AddEditElement (gettext("CHANNEL"),
 	"" , "", "",	"", "", "", "", gettext("Channel on which to originate the call (SIP/123@1.1.1.4)"), null, null, gettext("Define all the information requested by asterisk to generate the callback"));
 	
 
-$HD_Form -> AddEditElement (gettext("EXTEN"),
+$HD_Form -> AddEditElement (gettext("EXTENSION"),
 	"exten",
 	'$value',
 	"INPUT",

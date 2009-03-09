@@ -70,40 +70,37 @@ if($Period=="Time" && $lst_time != "") {
 		}
 	}	
 }else if($Period=="Day" && $fromday && $today){
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
-	{
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
 		if (strlen($condition)>0) $condition.=" AND ";
 		$condition.=" $UNIX_TIMESTAMP(cdr.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
-	{
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) {
 		if (strlen($condition)>0) $condition.=" AND ";
 		$condition.=" $UNIX_TIMESTAMP(cdr.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
-}else{
+} else {
 	$bool = true;
-	if(DB_TYPE == "postgres"){
+	if(DB_TYPE == "postgres") {
 		$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= cdr.starttime";
-	}
-	else {
+	} else {
 		$condition .= "DATE_SUB( NOW( ) , INTERVAL 1 DAY ) <= cdr.starttime";
 	}
 }
 #save conditions for later use
-if ($posted =="1"){
- $_SESSION['condition']=$condition;
- $_SESSION['group_id']="";
-}else{
- if(isset($_SESSION['condition']) && strlen($_SESSION['condition'])>5 ){
- $condition=$_SESSION['condition'];
- }
+if ($posted =="1") {
+	$_SESSION['condition']=$condition;
+	$_SESSION['group_id']="";
+} else {
+	if(isset($_SESSION['condition']) && strlen($_SESSION['condition'])>5 ) {
+		$condition=$_SESSION['condition'];
+	}
 }
-if (isset($group_id)){
-  $_SESSION['group_id']=$group_id;
-}else{
-  if(isset($_SESSION['group_id']) && strlen($_SESSION['group_id'])>1 ){
-   $group_id=$_SESSION['group_id'];
-  }
+if (isset($group_id)) {
+	$_SESSION['group_id']=$group_id;
+} else {
+	if(isset($_SESSION['group_id']) && strlen($_SESSION['group_id'])>1 ){
+		$group_id=$_SESSION['group_id'];
+	}
 }
 
 // #### HEADER SECTION
@@ -114,7 +111,8 @@ $smarty->display('main.tpl');
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) 
 	$_SESSION["menu"] = $_GET["menu"];
-	?>
+
+?>
 
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
@@ -218,27 +216,25 @@ if (strlen($_GET["menu"])>0)
 		</table>
 </FORM>
 
-
 <?php
 
+$condition1 = str_replace('cdr.starttime','date',$condition);
+$condition2 = str_replace('cdr.starttime','firstusedate',$condition);
+$payphones = $A2B->config["webui"]["report_pnl_pay_phones"];
+$tollfree = $A2B->config["webui"]["report_pnl_toll_free"];
+$payphones = str_replace(' ','',$payphones);$tollfree=str_replace(' ','',$tollfree);
+$payphones = str_replace('),(',' ,1 as dnid_type union select ',$payphones);
+$payphones = str_replace(')',' ,1  ',$payphones);
+$tollfree = str_replace('),(',' ,2  union select ',$tollfree);
+$tollfree = str_replace(')',' ,2 ',$tollfree);
+$tollfree = str_replace('(',' select ',$tollfree);
+$payphones = str_replace('(',' select ',$payphones);
+$dnids = "select 'dnid' as dnid, 0.1 as sell_cost,0.1 as cost,0 as dnid_type";
 
-$condition1=str_replace('cdr.starttime','date',$condition);
-$condition2=str_replace('cdr.starttime','firstusedate',$condition);
-$payphones=$A2B->config["webui"]["report_pnl_pay_phones"];
-$tallfree=$A2B->config["webui"]["report_pnl_tall_free"];
-$payphones=str_replace(' ','',$payphones);$tallfree=str_replace(' ','',$tallfree);
-$payphones=str_replace('),(',' ,1 as dnid_type union select ',$payphones);
-$payphones=str_replace(')',' ,1  ',$payphones);
-$tallfree=str_replace('),(',' ,2  union select ',$tallfree);
-$tallfree=str_replace(')',' ,2 ',$tallfree);
-$tallfree=str_replace('(',' select ',$tallfree);
-$payphones=str_replace('(',' select ',$payphones);
-$dnids="select 'dnid' as dnid, 0.1 as sell_cost,0.1 as cost,0 as dnid_type";
+if (strlen($tollfree)>0) $dnids.=" union ".$tollfree;
+if (strlen($payphones)>0) $dnids.=" union ".$payphones;
 
-if (strlen($tallfree)>0)$dnids.=" union ".$tallfree;
-if (strlen($payphones)>0)$dnids.=" union ".$payphones;
-
-if(!isset($group_id)){
+if(!isset($group_id)) {
 	$q_id_group="id_group";
 	$q_cg_name="cg.name";
 	$q_t1="cc";
@@ -363,11 +359,11 @@ $HD_Form -> AddViewElement(gettext("Pay Phone Cost"), "pay_phone_buy_cost", "*",
 $HD_Form -> AddViewElement(gettext("Origination Cost"), "orig_only", "*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Credits"), "credits", "*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Total Cost"),"orig_total", "*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
-$HD_Form -> AddViewElement(gettext("Toll Free Revenu"),"tall_free_sell_cost","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
-$HD_Form -> AddViewElement(gettext("Pay Phone Revenu"),"pay_phone_sell_cost","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
-$HD_Form -> AddViewElement(gettext("Termination Revenu"),"term_only","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Toll Free Revenue"),"tall_free_sell_cost","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Pay Phone Revenue"),"pay_phone_sell_cost","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Termination Revenue"),"term_only","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Extra Charges"),"charges","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
-$HD_Form -> AddViewElement(gettext("Total Revenu"),"term_total","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Total Revenue"),"term_total","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("First Use"),"first_use","*", "center", "SORT", "30");
 $HD_Form -> AddViewElement(gettext("Avg Discount"),"discount","*", "center", "SORT", "30","", "", "", "", "", "display_2dec_percentage");
 $HD_Form -> AddViewElement(gettext("Profit Before Discount"),"profit","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
@@ -439,8 +435,8 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 	<tr class="form_head"><td class='tableBody'></td>
 	<td class='tableBody'>Total Calls</td><td class='tableBody'>Total Min</td><td class='tableBody'>Toll Free Cost</td>
 	<td class='tableBody'>PayPhone Cost</td><td class='tableBody'>Origination Cost</td><td class='tableBody'>Credits</td>
-	<td class='tableBody'>Total Cost</td><td class='tableBody'>Tall Free Revenu</td><td class='tableBody'>Pay Phone Revenu</td>
-	<td class='tableBody'>Termination Revenu</td><td class='tableBody'>Extra Charges</td><td class='tableBody'>Total Revenu</td>
+	<td class='tableBody'>Total Cost</td><td class='tableBody'>Toll Free Revenue</td><td class='tableBody'>Pay Phone Revenue</td>
+	<td class='tableBody'>Termination Revenue</td><td class='tableBody'>Extra Charges</td><td class='tableBody'>Total Revenue</td>
 	<td class='tableBody'>First Use</td><td class='tableBody'>Average Discount</td><td class='tableBody'>Profit Before Discount</td><td class='tableBody'
 	>Margin</td><td class='tableBody'>Total Profit</td></tr>
 			<?php

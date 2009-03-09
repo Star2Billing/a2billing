@@ -125,14 +125,14 @@ $HD_Form -> AddEditElement (gettext("PERMISSION"),
 		"list", "", "description, id", "", $right_list, "%1" , "",
 		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 
-$HD_Form -> AddEditElement (gettext("SECRET"),
+$HD_Form -> AddEditElement (gettext("SECRET WORD"),
 		"secret",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=20",
 		"3",
 		gettext("Insert the secret"),
-		"" , "", "", "", "", "", "", gettext("Insert the secret to manage the crypted signup url"));		
+		"" , "", "", "", "", "", "", gettext("Insert the secret word to manage the crypted signup url"));		
 		
 $HD_Form -> AddEditElement (gettext("ACTIVE"),
 	   "active",

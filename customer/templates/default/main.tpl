@@ -74,7 +74,7 @@
 		{/if}
 	 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
 		<div class="tohide"
-		{if ($section =="5")}
+		{if ($section == "5")}
 		style="">
 		{else}
 		style="display:none;">
@@ -144,14 +144,14 @@
 		<div class="toggle_menu">
 		<li>
 		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
-		{if ($section == "5")}
+		{if ($section == "10")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
 		{/if}
-	 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AUTO DIALER");{/php}</strong></a></li>
+	 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></a></li>
 		<div class="tohide"
-		{if ($section =="10")}
+		{if ($section == "10")}
 		style="">
 		{else}
 		style="display:none;">

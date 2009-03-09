@@ -5,9 +5,9 @@ getpost_ifset(array('id', 'name','status','monday','tuesday','wednesday','thursd
 
 $HD_Form = new FormHandler("cc_campaign","Campaign");
 
-if (!isset($form_action) || $form_action=="list"){
+if (!isset($form_action) || $form_action=="list") {
 	$HD_Form = new FormHandler("cc_campaign LEFT JOIN cc_card ON cc_card.id=id_card","Campaign");
-}else{
+} else {
 	$HD_Form = new FormHandler("cc_campaign","Campaign");
 }
 
@@ -48,10 +48,8 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
 
 
 $HD_Form -> AddEditElement (gettext("CAMPAIGN NAME"),
@@ -87,7 +85,7 @@ if ($form_action=="ask-add") {
 					"A2B_entity_card.php?popup_select=1&"
 					, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 					gettext("Select the owner of this campaing, but you may not modify it in the future"));
-}else{
+} else {
 	
 	$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 		"id_card",
@@ -165,83 +163,87 @@ $HD_Form -> AddEditElement (gettext("FREQUENCY"),
 	gettext("Insert the frequency of callback in min "),
 	"" , "", "", "", "" , "", "", gettext("Please insert the frequency in minutes"));	
 
-$HD_Form -> AddEditElement (gettext("DAILY STARTING TIME"),
+$HD_Form -> AddEditElement (gettext("DAILY START TIME"),
 	"daily_start_time",
 	'$value',
 	"INPUT",
 	"size=40 maxlength=40  $time",
 	"20",
-	gettext("Insert the daily starting time"),
+	gettext("Insert the daily start time"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Please respect the format HH:MM:SS. For instance, '00:00:00'"));
 
-$HD_Form -> AddEditElement (gettext("DAILY STOPING TIME"),
+$HD_Form -> AddEditElement (gettext("DAILY STOP TIME"),
 	"daily_stop_time",
 	'$value',
 	"INPUT",
 	"size=40 maxlength=40  $time_plus",
 	"20",
-	gettext("Insert the daily stoping time"),
+	gettext("Insert the daily stop time"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Please respect the format HH:MM:SS. For instance, '00:00:00'"));
 	
 
 $HD_Form -> AddEditElement (gettext("MONDAY"),
-			   "monday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the monday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "monday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the monday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("TUESDAY"),
-			   "tuesday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the monday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "tuesday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the monday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("WEDNESDAY"),
-			   "wednesday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the monday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "wednesday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the monday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("THURSDAY"),
-			   "thursday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the thursday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "thursday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the thursday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("FRIDAY"),
-			   "friday",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the friday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "friday",
+   '1',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the friday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("SATURDAY"),
-			   "saturday",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the saturday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   "saturday",
+   '0',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the saturday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("SUNDAY"),
-			   "sunday",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the campaign callback for the sunday"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-	
-	
+   "sunday",
+   '0',
+   "RADIOBUTTON",
+   "",
+   "",
+   gettext("Choose if you want to enable the campaign callback for the sunday"),
+   "" , "", "", "Yes :1, - No:0", "", "" , "", "");
 	
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"description",
@@ -253,7 +255,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "", "", "", "" );
 
 
-$HD_Form -> FieldEditElement ("name, status,id_card $edit_col,id_cid_group, startingdate, expirationdate,frequency,daily_start_time,daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description" );
+$HD_Form -> FieldEditElement ("name, status, id_card $edit_col, id_cid_group, startingdate, expirationdate, frequency, daily_start_time, daily_stop_time, monday, tuesday, wednesday, thursday, friday, saturday, sunday, description" );
 $HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
 
 if ($form_action!="ask-delete") {	
@@ -263,7 +265,7 @@ if ($form_action!="ask-delete") {
 	if ( $resmax )
 		$numrow = $resmax -> RecordCount( );
 	
-	if ($numrow>0){ 
+	if ($numrow>0) {
 		$HD_Form -> AddEditElement (gettext("PHONE BOOK"),
 			"phonebook",	
 			'$value',	

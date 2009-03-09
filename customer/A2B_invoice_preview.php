@@ -5,19 +5,18 @@ include ("./lib/customer.smarty.php");
 include ("./lib/support/classes/invoice.php");
 include ("./lib/support/classes/invoiceItem.php");
 
-if (! has_rights (ACX_INVOICES)){
+if (! has_rights (ACX_INVOICES)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-
-if(empty($_SESSION["card_id"])){
+if(empty($_SESSION["card_id"])) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-//load customer
+
 $DBHandle  = DbConnect();
 
 //find the last billing 
@@ -28,20 +27,20 @@ $call_table = new Table('cc_call','*' );
 $clause_call_billing ="card_id = ".$_SESSION["card_id"]." AND ";
 $desc_billing="";
 $start_date =null;
-if(is_array($result) && !empty($result[0][0])){
+if(is_array($result) && !empty($result[0][0])) {
 	$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND "; 
 	$desc_billing = "Calls cost between the ".$result[0][1]." and ".date("Y-m-d H:i:s") ;
 	$start_date = $result[0][1];
-}else{
+} else {
 	$desc_billing = "Calls cost before the ".date("Y-m-d H:i:s") ;
 }
 $clause_call_billing .= "stoptime < '".date("Y-m-d H:i:s")."' ";
 $result_calls =  $call_table -> Get_list($DBHandle, $clause_call_billing);
 $items = array();
 $i=0;
-if(is_array($result_calls)){
+if(is_array($result_calls)) {
 	/// create items
-	foreach ($result_calls as $call){
+	foreach ($result_calls as $call) {
 		$min = floor($call['sessiontime']/60);
 		$sec= $call['sessiontime']%60;
 		$item = new InvoiceItem(null,"CALL : ".$call['calledstation']." DURATION : ".$min." min ".$sec." sec",$call['starttime'],$call["sessionbill"],$_SESSION["vat"],true);
@@ -60,12 +59,12 @@ $currencies_list = get_currencies();
 if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_list[strtoupper($curr)][2])) {$mycur = 1;$display_curr=strtoupper(BASE_CURRENCY);}
 else {$mycur = $currencies_list[strtoupper($curr)][2];$display_curr=strtoupper($curr);}
 
-function amount_convert($amount){
+function amount_convert($amount) {
 	global $mycur;
 	return $amount/$mycur;
 }
 
-if(!$popup_select){
+if(!$popup_select) {
 ?>
 <a href="javascript:;" onClick="MM_openBrWindow('<?php echo $PHP_SELF ?>?popup_select=1','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"></a>
 &nbsp;&nbsp;
@@ -78,7 +77,7 @@ if(!$popup_select){
   <thead>
   <tr class="one">  
     <td class="one">
-     <h1><?php echo gettext("PREVIEW NEXT BILING INVOICE"); ?></h1>
+     <h1><?php echo gettext("PREVIEW NEXT BILLING INVOICE"); ?></h1>
      
     </td>
   </tr>

@@ -1238,7 +1238,7 @@ ALTER TABLE cc_card_group ADD users_perms INT NOT NULL DEFAULT '0';
 INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values 
 ('PNL Pay Phones','report_pnl_pay_phones','(8887798764,0.02,0.06)','Info for PNL report. Must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
 INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values
-('PNL Tall Free Numbers','report_pnl_tall_free','(6136864646,0.1,0),(6477249717,0.1,0)','Info for PNL report. must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
+('PNL Tall Free Numbers','report_pnl_toll_free','(6136864646,0.1,0),(6477249717,0.1,0)','Info for PNL report. must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
 
 
 

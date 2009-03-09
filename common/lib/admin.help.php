@@ -992,7 +992,7 @@ $CC_help_list_subscriber='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/config-date.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("SUSCRIBER - You can make customers subscribe for any subscription and for a certain time.").'
+.gettext("SUBSCRIBER - You can make customers subscribe for any subscription and for a certain time.").'
 <br/><br/><br/>
 </div></div></div>
 </div></div>
