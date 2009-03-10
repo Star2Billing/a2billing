@@ -143,7 +143,7 @@ class MytoPg {
 					
 					} elseif (ereg('(ADD|SUB)DATE|DATE_(ADD|SUB)', $matched, $tmp)) {
 						// determine whether to add or subtract
-						if ($tmp[1] == 'SUB') {
+						if ($tmp[1] == 'SUB' || $tmp[2] == 'SUB') {
 							$sign = ' - ';
 						} else {
 							$sign = ' + ';

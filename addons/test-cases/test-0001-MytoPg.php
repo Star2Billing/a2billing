@@ -240,6 +240,11 @@ $t[$i++] = array('MytoPg(): SUBDATE (1,1 param)',
 "SELECT (CURRENT_TIMESTAMP - INTERVAL '30 DAYS');");
 
 
+$t[$i++] = array('MytoPg(): SUBDATE (1,3 param)',
+"SELECT DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);",
+"SELECT (CURRENT_DATE - INTERVAL '30 DAY');");
+
+
 $t[$i++] = array('MytoPg(): ADDDATE (1,3 params) with CAST',
 "SELECT ADDDATE( '2008-01-01', INTERVAL 30 SECOND);",
 "SELECT ( '2008-01-01'::date + INTERVAL '30 SECOND');");
