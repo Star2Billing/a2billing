@@ -122,6 +122,23 @@ class Constants
 		return $invoice_status_list;
 	}
 	
+	public static function getMonth(){
+		$month_list = array();
+		$month_list['1'] = array( gettext('January'), '1');
+		$month_list['2'] = array( gettext('February'), '2');
+		$month_list['3'] = array( gettext('March'), '3');
+		$month_list['4'] = array( gettext('April'), '4');
+		$month_list['5'] = array( gettext('May'), '5');
+		$month_list['6'] = array( gettext('June'), '6');
+		$month_list['7'] = array( gettext('July'), '7');
+		$month_list['8'] = array( gettext('August'), '8');
+		$month_list['9'] = array( gettext('September'), '9');
+		$month_list['10'] = array( gettext('October'), '10');
+		$month_list['11'] = array( gettext('November'), '11');
+		$month_list['12'] = array( gettext('December'), '12');
+		return $month_list;
+	}
+	
 	public static function getPaymentStatusList(){
 		$payment_status_list = array();
 		$payment_status_list['0'] = array( gettext('UNPAID'), '0');
