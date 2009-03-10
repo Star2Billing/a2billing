@@ -432,7 +432,7 @@ for ($i = 0;  $i < sizeof($t);  $i++) {
 		print "PASSED $res";
 		if (eregi('^\s*SELECT\s*', $out)) {
 			$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $out, 1, 300);
-			if (!$result) {
+			if ($A2B -> DBHandle -> ErrorNo() != 0) {
 				print " (Running SQL query failed!)\n";
 				//print "$out\n\n";
 			} else {

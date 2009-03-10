@@ -126,7 +126,7 @@ class Table {
 			$res = $DBHandle -> Execute($QUERY);
 		}
 		
-		if (!$res) {
+		if ($DBHandle -> ErrorNo() != 0) {
 			$this -> errstr = $DBHandle -> ErrorMsg();
 			if ($this -> debug_st)
 				echo $DBHandle -> ErrorMsg();
