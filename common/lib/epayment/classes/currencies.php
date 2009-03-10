@@ -21,7 +21,7 @@
                                                        'value' => $value['value'],
                                                        'decimal_point' => $value['decimal_point'],
                                                        'basecurrency' => $value['basecurrency'],
-                                                       'decimal_places' => $value['decimal_places']);
+                                                       'decimal_places' => 2);
       }
     }
 
