@@ -1730,7 +1730,10 @@ ALTER TABLE cc_logpayment ALTER COLUMN payment TYPE DECIMAL( 15, 5 );
 ALTER TABLE cc_logpayment ALTER COLUMN payment SET NOT NULL;
 ALTER TABLE cc_logpayment_agent ALTER COLUMN payment TYPE DECIMAL( 15, 5 );
 ALTER TABLE cc_logpayment_agent ALTER COLUMN payment SET NOT NULL;
-
+ALTER TABLE cc_logrefill ALTER COLUMN credit TYPE DECIMAL( 15, 5);
+ALTER TABLE cc_logrefill ALTER COLUMN credit SET NOT NULL;
+ALTER TABLE cc_logrefill_agent ALTER COLUMN credit TYPE DECIMAL( 15, 5 );
+ALTER TABLE cc_logrefill_agent ALTER COLUMN credit SET NOT NULL ;
 
 -- changes from recurring services - bound to callplan
 alter table cc_service add column operate_mode smallint default 0;
@@ -1738,7 +1741,7 @@ alter table cc_service add column dialplan integer default 0;
 alter table cc_service add column use_group smallint default 0;
 
 
--- synched with MySQL up to r1544
+-- synched with MySQL up to r1555
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
