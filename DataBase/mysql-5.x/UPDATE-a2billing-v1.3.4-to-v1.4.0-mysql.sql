@@ -1730,3 +1730,12 @@ alter table cc_service add column dialplan integer default 0;
 alter table cc_service add column use_group tinyint default 0;
 
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Rate Export Fields', 'rate_export_field_list', 'destination, dialprefix, rateinitial', 'Fields to export in csv format from rates table.Use dest_name from prefix name', 0, 'webui', NULL); 
+
+
+
+-- ADD SIP REGSERVER
+ALTER TABLE cc_sip_buddies ADD regserver varchar(20);
+
+
+
+

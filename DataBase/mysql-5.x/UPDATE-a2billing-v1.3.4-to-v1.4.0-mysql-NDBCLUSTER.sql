@@ -1347,7 +1347,6 @@ ALTER TABLE cc_card DROP COLUMN callback;
 ALTER TABLE cc_iax_buddies ADD trunk CHAR(3) DEFAULT 'yes';
 
 
-
 -- Refactor Agent Section
 ALTER TABLE cc_card DROP id_agent;
 ALTER TABLE cc_card_group ADD id_agent INT NOT NULL DEFAULT '0';
@@ -1693,6 +1692,10 @@ ALTER TABLE cc_config ADD config_group_title varchar(64) NOT NULL;
 UPDATE cc_config SET config_group_title=(SELECT group_title FROM cc_config_group WHERE cc_config_group.id=cc_config.config_group_id);
 
 ALTER TABLE cc_config DROP COLUMN config_group_id;
+
+
+
+
 
 
 
