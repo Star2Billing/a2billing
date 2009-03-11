@@ -1,0 +1,26 @@
+#!/sbin/runscript
+
+#
+# copy this script in /etc/init.d/a2b-callback-daemon
+# 
+
+depend() {
+	need net logger asterisk
+	after mysql postgres
+}
+
+start() {
+	ebegin "Starting A2Billing Callback"
+	/var/lib/asterisk/a2billing/callback-daemon/a2billing-callback-daemon start > /dev/null 2>&1
+	touch /var/lock/subsys/a2b-callback-daemon
+	eend $? "Failed to start A2B Callback"
+}
+
+stop() {
+	ebegin "Stopping A2Billing Callback"
+	/var/lib/asterisk/a2billing/callback-daemon/a2billing-callback-daemon stop > /dev/null 2>&1
+	sleep 1
+	killall -q -9 a2billing-callback-daemon > /dev/null 2>&1
+	rm -f /var/lock/subsys/a2b-callback-daemon
+	eend $? "Failed to stop A2B Callback"
+}
