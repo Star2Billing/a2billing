@@ -318,7 +318,7 @@ class Constants
 	
 	public static function getInvoiceDay_List(){
 		$invoiceday_list = array();
-		for ($k=0;$k<=31;$k++)
+		for ($k=1;$k<=28;$k++)
 			$invoiceday_list["$k"]  = array("$k", "$k");
 		return $invoiceday_list;
 	}
