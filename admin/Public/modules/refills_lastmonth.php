@@ -14,9 +14,9 @@ $begin_date_graphe = $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
 $mingraph = strtotime($begin_date_graphe);
 $maxgraph = strtotime($end_date_graphe);
-$QUERY_GRAPH_REFILL_COUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) , count( * )  FROM cc_logrefill WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY MONTH( date ) ORDER BY date;";
+$QUERY_GRAPH_REFILL_COUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) AS this_month , count( * )  FROM cc_logrefill WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_refill_count = $table -> SQLExec($DBHandle,$QUERY_GRAPH_REFILL_COUNT);
-$QUERY_GRAPH_REFILL_AMOUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) , SUM( credit )  FROM cc_logrefill WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY MONTH(date) ORDER BY date;";
+$QUERY_GRAPH_REFILL_AMOUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) AS this_month , SUM( credit )  FROM cc_logrefill WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_refill_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_REFILL_AMOUNT);
 ?>
 
