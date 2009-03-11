@@ -33,7 +33,7 @@ class MytoPg {
 		// The first pass matches only trivial deletions and re-writes
 		'(\s*)(REGEXP|RAND\(\)|UNIX_TIMESTAMP\(|LIMIT[[:space:]]+[[:digit:]]+[[:space:]]*,[[:space:]]*[[:digit:]]+)(\s*)'
 		// The 2nd pass matches functions which consume the following () too
-		,'(\s*)(CONCAT|REPLACE|ADDDATE|DATE_ADD|SUBDATE|DATE_SUB|SUBSTRING|TIMEDIFF|TIME_TO_SEC|DATETIME|TIMESTAMP|YEAR|MONTH|DAY|DATE_FORMAT)(\s*)\('
+		,'(\s*)(CONCAT|REPLACE|ADDDATE|DATE_ADD|SUBDATE|DATE_SUB|SUBSTRING|TIMEDIFF|TIME_TO_SEC|DATETIME|TIMESTAMP|YEAR|MONTH|DAY|DATE_FORMAT|DATE_PART)(\s*)\('
 		);
 	function MytoPg ($debug = null) {
 		$this -> DEBUG = $debug;
@@ -96,7 +96,7 @@ class MytoPg {
 						$pos = $matchpos + strlen($match[1].$match[3]) + 6;
 
 					} elseif ('UNIX_TIMESTAMP(' == $matched) {
-						$match[3] = $this -> Cast_date_part($match[3]);
+						// These get re-written again in pass 2
 						$new = $match[1].'date_part(\'epoch\','.$match[3];
 						$pos = $matchpos + strlen($match[1].$match[3]) + 18;
 
@@ -229,6 +229,11 @@ class MytoPg {
 						exit (">>>> My_to_Pg needs to be extended to re-write $matched(x, $rep[0])"
 							." in \$mytopg[$i] ".__FILE__.':'.__LINE__);
 						}
+
+					} elseif ('DATE_PART' == $matched) {
+						$rep[1] = $this -> Cast_date_part($rep[1]);
+						$new = "$match[1]$match[2]($rep[0],$rep[1])$match[3]";
+						$pos = $matchpos + strlen($match[1].$match[3]) + 1;
 
 					} else {
 						exit (">>>> Bug in My_to_Pg:  didn't process match "
@@ -381,10 +386,14 @@ class MytoPg {
 	// If a date participle looks like an immediate constant, cast it appropriately
 	function Cast_date_part ($part) {
 
-		if (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}(-[[:digit:]]{2}){2}[[:space:]][[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
+		if (eregi('([[:space:]]*)[\'"]now[\'"]([[:space:]]*)', $part, $parm)) {
+			$part = "$parm[1]now()$parm[2]";
+
+		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}(-[[:digit:]]{2}){2}[[:space:]][[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
 			$part = "$parm[1]$parm[2]::timestamp$parm[4]";
+
 		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
-			$part = "$parm[1]$parm[2]::date$parm[4]";
+			$part = "$parm[1]$parm[2]::date$parm[3]";
 		}
 		return $part;
 	}

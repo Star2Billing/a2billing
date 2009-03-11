@@ -324,7 +324,7 @@ $t[$i++] = array("MytoPg(): A2B_trunk_report.php CIC query",
 
 $t[$i++] = array("MytoPg(): ADDDATE(1,3) from call-daily-load.php date clause",
 "SELECT ADDDATE('2008-12-31' ,INTERVAL 1 DAY) ;",
-"SELECT ('2008-12-31'::date + INTERVAL '1 DAY') ;");
+"SELECT ('2008-12-31'::date  + INTERVAL '1 DAY') ;");
 
 
 $t[$i++] = array("MytoPg(): AGI/a2billing.php callback spool",
@@ -380,6 +380,17 @@ $t[$i++] = array("MytoPg(): admin/public/modules/refills_lastmonth.php's MONTH(d
 $t[$i++] = array("MytoPg(): admin/public/modules/refills_lastmonth.php's whole query",
 "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) , count( * )  FROM cc_logrefill WHERE date >= TIMESTAMP( '2000-01-01' ) AND date <=CURRENT_TIMESTAMP GROUP BY MONTH( date ),date ORDER BY date;",
 "SELECT date_part('epoch', (date_trunc('month', date)::date) ) , count( * )  FROM cc_logrefill WHERE date >= ( '2000-01-01' ::timestamp) AND date <=CURRENT_TIMESTAMP GROUP BY date_part('MONTH', date ),date ORDER BY date;");
+
+
+$t[$i++] = array("MytoPg(): admin/Public/call-count-reporting.php's use of literal dates",
+"select UNIX_TIMESTAMP('2008-06-01');",
+"select date_part('epoch','2008-06-01'::date);");
+
+
+$t[$i++] = array("MytoPg(): admin/Public/call-count-reporting.php's use of literal dates",
+"select UNIX_TIMESTAMP('2008-06-01 23:59:59');",
+"select date_part('epoch','2008-06-01 23:59:59'::timestamp);");
+
 
 
 #$t[$i++] = array("MytoPg():","","");
