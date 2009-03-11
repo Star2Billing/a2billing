@@ -13,11 +13,11 @@ $begin_date_graphe = $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
 $mingraph = strtotime($begin_date_graphe);
 $maxgraph = strtotime($end_date_graphe);
-$QUERY_GRAPH_CARD_CREATION = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(creationdate,'%Y-%m-01')), count(*) FROM cc_card WHERE creationdate>= TIMESTAMP('$checkdate') AND creationdate <= CURRENT_TIMESTAMP GROUP BY MONTH(creationdate) ORDER BY creationdate;";
+$QUERY_GRAPH_CARD_CREATION = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(creationdate,'%Y-%m-01')) AS this_month, count(*) FROM cc_card WHERE creationdate>= TIMESTAMP('$checkdate') AND creationdate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_card_creation = $table->SQLExec($DBHandle, $QUERY_GRAPH_CARD_CREATION);
-$QUERY_GRAPH_CARD_EXPIRATION = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(expirationdate,'%Y-%m-01')), count(*) FROM cc_card WHERE expirationdate>= TIMESTAMP('$checkdate') AND expirationdate <= CURRENT_TIMESTAMP GROUP BY MONTH(expirationdate) ORDER BY expirationdate;";
+$QUERY_GRAPH_CARD_EXPIRATION = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(expirationdate,'%Y-%m-01')) AS this_month, count(*) FROM cc_card WHERE expirationdate>= TIMESTAMP('$checkdate') AND expirationdate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_card_expiration = $table->SQLExec($DBHandle, $QUERY_GRAPH_CARD_EXPIRATION);
-$QUERY_GRAPH_CARD_FIRSTUSE = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(firstusedate,'%Y-%m-01')), count(*) FROM cc_card WHERE firstusedate>= TIMESTAMP('$checkdate') AND firstusedate <= CURRENT_TIMESTAMP GROUP BY MONTH(firstusedate) ORDER BY firstusedate;";
+$QUERY_GRAPH_CARD_FIRSTUSE = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(firstusedate,'%Y-%m-01')) AS this_month, count(*) FROM cc_card WHERE firstusedate>= TIMESTAMP('$checkdate') AND firstusedate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_card_firstuse = $table->SQLExec($DBHandle, $QUERY_GRAPH_CARD_FIRSTUSE);
 ?>
 

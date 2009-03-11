@@ -14,9 +14,9 @@ $begin_date_graphe = $checkdate= $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
 $mingraph = strtotime($begin_date_graphe);
 $maxgraph = strtotime($end_date_graphe);
-$QUERY_GRAPH_PAYMENT_COUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) , count( * )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY MONTH( date ) ORDER BY date;";
+$QUERY_GRAPH_PAYMENT_COUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) AS this_month, count( * )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_payment_count = $table -> SQLExec($DBHandle,$QUERY_GRAPH_PAYMENT_COUNT);
-$QUERY_GRAPH_PAYMENT_AMOUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) , SUM( payment )  FROM cc_logpayment WHERE date >= TIMESTAMP( '2008-01-01' ) AND date <=CURRENT_TIMESTAMP GROUP BY MONTH(date) ORDER BY date;";
+$QUERY_GRAPH_PAYMENT_AMOUNT = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) AS this_month , SUM( payment )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_payment_amount = $table -> SQLExec($DBHandle,$QUERY_GRAPH_PAYMENT_AMOUNT);
 ?>
 

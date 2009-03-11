@@ -16,15 +16,15 @@ $begin_date_graphe = $checkdate = $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
 $mingraph = strtotime($begin_date_graphe);
 $maxgraph = strtotime($end_date_graphe);
-$QUERY_GRAPH_CALL_ANSWERED = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')), count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid = 1 GROUP BY MONTH(starttime) ORDER BY starttime;";
+$QUERY_GRAPH_CALL_ANSWERED = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid = 1 GROUP BY this_month ORDER BY this_month;";
 $result_graph_calls_answered = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_ANSWERED);
-$QUERY_GRAPH_CALL_INCOMPLET = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')), count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid != 1 GROUP BY MONTH(starttime) ORDER BY starttime;";
+$QUERY_GRAPH_CALL_INCOMPLET = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid != 1 GROUP BY this_month ORDER BY this_month;";
 $result_graph_calls_incomplet = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_INCOMPLET);
-$QUERY_GRAPH_CALL_TIMES = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')), sum(sessiontime) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY MONTH(starttime) ORDER BY starttime;";
+$QUERY_GRAPH_CALL_TIMES = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, sum(sessiontime) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_calls_times = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_TIMES);
-$QUERY_GRAPH_CALL_SELL = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')), sum(sessionbill) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY MONTH(starttime) ORDER BY starttime;";
+$QUERY_GRAPH_CALL_SELL = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, sum(sessionbill) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_calls_sell = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_SELL);
-$QUERY_GRAPH_CALL_BUY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')), sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY MONTH(starttime) ORDER BY starttime;";
+$QUERY_GRAPH_CALL_BUY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_calls_buy = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_BUY);
 ?>
 
