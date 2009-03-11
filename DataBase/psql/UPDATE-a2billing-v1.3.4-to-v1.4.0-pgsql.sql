@@ -1740,8 +1740,9 @@ alter table cc_service add column operate_mode smallint default 0;
 alter table cc_service add column dialplan integer default 0;
 alter table cc_service add column use_group smallint default 0;
 
+ALTER TABLE cc_sip_buddies ADD regserver varchar(20);
 
--- synched with MySQL up to r1555
+-- synched with MySQL up to r1570
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
