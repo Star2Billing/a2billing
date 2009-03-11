@@ -126,13 +126,8 @@ if (!isset($days_compare)) 	$days_compare=2;
 
 
 
-if (DB_TYPE == "postgres") {	
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
-		$date_clause.=" AND t1.starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND t1.starttime >= date'$fromstatsmonth_sday-$fromstatsday_sday' - INTERVAL '$days_compare DAY'";
-} else {
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday))
-		$date_clause.=" AND t1.starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND t1.starttime >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $days_compare DAY)";  
-}
+if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday))
+	$date_clause.=" AND t1.starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND t1.starttime >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $days_compare DAY)";
 
 if ($FG_DEBUG == 3) echo "<br> date_clause $date_clause<br>";
 

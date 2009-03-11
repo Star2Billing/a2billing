@@ -1762,11 +1762,7 @@ class A2Billing {
 			if ($dayofweek==0) $dayofweek=7;
 			if ($dayofweek < $startday) $dayofweek = $dayofweek + 7;
 			$diffday = $dayofweek - $startday;
-			if ($this->config["database"]['dbtype'] == "postgres"){
-				$CLAUSE_DATE = "date_consumption >= (CURRENT_DATE - interval '$diffday day') ";
-			}else{
-				$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
-			}
+			$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
 		}
 		$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
 				 "WHERE $CLAUSE_DATE AND id_cc_card = '$id_cc_card' AND id_cc_package_offer = '$id_cc_package_offer' ";
@@ -1924,13 +1920,8 @@ class A2Billing {
 		///create campaign cdr
 		$QUERY_CALL = "INSERT INTO cc_call (uniqueid, sessionid, card_id,calledstation, sipiax,  sessionbill , sessiontime , stoptime ,starttime) VALUES ('".$this->uniqueid."', '".$this->channel."', '".
 				$userid."','".$called."',6, ".$cost.", ".$duration." , CURRENT_TIMESTAMP , ";
+		$QUERY_CALL .= "DATE_SUB(CURRENT_TIMESTAMP, INTERVAL $duration SECOND )";
 
-		if ($A2B->config["database"]['dbtype'] == "postgres"){
-				$QUERY_CALL .= "CURRENT_TIMESTAMP - interval '$duration seconds' ) ";
-			}else{
-				$QUERY_CALL .= "CURRENT_TIMESTAMP - INTERVAL $duration SECOND  )";
-			}
-				
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[INSERT CAMPAIGN CALL : ".$QUERY_CALL);
 		$this->instance_table -> SQLExec ($this -> DBHandle, $QUERY_CALL);
 		

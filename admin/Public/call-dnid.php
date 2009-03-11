@@ -118,26 +118,21 @@ if ($posted==1) {
 
 
 $date_clause='';
-if (DB_TYPE == "postgres") {
-	$UNIX_TIMESTAMP = "";
-} else {
-	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-}
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 
 if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
 	if($fromtime){
-		$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";
+		$date_clause.=" AND UNIX_TIMESTAMP(t1.starttime) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";
 	}
 	else {	
-		$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+		$date_clause.=" AND UNIX_TIMESTAMP(t1.starttime) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
 }
 if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) {
 	if($totime){
-		$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." $tostatsday_hour:$tostatsday_min:59')";
+		$date_clause.=" AND UNIX_TIMESTAMP(t1.starttime) <= UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." $tostatsday_hour:$tostatsday_min:59')";
 	}else{
-		$date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+		$date_clause.=" AND UNIX_TIMESTAMP(t1.starttime) <= UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
 }
 
@@ -151,7 +146,7 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 
 if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0) {
 	$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d"));
-	$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
+	$FG_TABLE_CLAUSE=" UNIX_TIMESTAMP(t1.starttime) >= UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 
 

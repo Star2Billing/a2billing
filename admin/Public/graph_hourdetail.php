@@ -115,13 +115,8 @@ if (!isset($fromstatsday_sday)){
 
 $hourintervalplus = $hourinterval+1;
 
-if (DB_TYPE == "postgres"){	
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
-	$date_clause.=" AND t1.starttime < '$fromstatsmonth_sday-$fromstatsday_sday ".$hourintervalplus.":00:00' AND t1.starttime >= '$fromstatsmonth_sday-$fromstatsday_sday ".$hourinterval.":00:00' ";
-}else{
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
+if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday))
 	$date_clause.=" AND t1.starttime < '$fromstatsmonth_sday-$fromstatsday_sday ".$hourintervalplus.":00:00' AND t1.starttime >= '$fromstatsmonth_sday-$fromstatsday_sday ".$hourinterval.":00:00' ";	
-}
 
 //-- $date_clause=" AND calldate < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND calldate >= '$fromstatsmonth_sday-$fromstatsday_sday 12:00:00'";
   

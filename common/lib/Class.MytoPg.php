@@ -33,7 +33,7 @@ class MytoPg {
 		// The first pass matches only trivial deletions and re-writes
 		'(\s*)(REGEXP|RAND\(\)|UNIX_TIMESTAMP\(|LIMIT[[:space:]]+[[:digit:]]+[[:space:]]*,[[:space:]]*[[:digit:]]+)(\s*)'
 		// The 2nd pass matches functions which consume the following () too
-		,'(\s*)(CONCAT|REPLACE|ADDDATE|DATE_ADD|SUBDATE|DATE_SUB|SUBSTRING|TIMEDIFF|TIME_TO_SEC|DATETIME|TIMESTAMP)(\s*)\('
+		,'(\s*)(CONCAT|REPLACE|ADDDATE|DATE_ADD|SUBDATE|DATE_SUB|SUBSTRING|TIMEDIFF|TIME_TO_SEC|DATETIME|TIMESTAMP|YEAR|MONTH|DAY|DATE_FORMAT)(\s*)\('
 		);
 	function MytoPg ($debug = null) {
 		$this -> DEBUG = $debug;
@@ -216,6 +216,19 @@ class MytoPg {
 						}
 						$new = "$match[1]($rep[0])$match[3]";
 						$pos = $matchpos + strlen($match[1].$match[3]) + 0;
+
+					} elseif ('YEAR' == $matched || 'MONTH' == $matched || 'DAY' == $matched) {
+						$new = "$match[1]date_part$match[3]('$matched',$exp)";
+						$pos = $matchpos + strlen($match[1].$match[3].$matched)+9;
+
+					} elseif ('DATE_FORMAT' == $matched) {
+						if (ltrim(trim($rep[1])) == "'%Y-%m-01'") {
+							$new = "$match[1](date_trunc('month',$rep[0])::date)$match[3]";
+							$pos = $matchpos + strlen($match[1].$match[3]);
+						} else {
+						exit (">>>> My_to_Pg needs to be extended to re-write $matched(x, $rep[0])"
+							." in \$mytopg[$i] ".__FILE__.':'.__LINE__);
+						}
 
 					} else {
 						exit (">>>> Bug in My_to_Pg:  didn't process match "

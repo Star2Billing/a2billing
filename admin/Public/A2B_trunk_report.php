@@ -33,56 +33,34 @@ $bool = false;
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if($Period=="Time" && $lst_time != "") {
 	if (strlen($condition)>0) $condition.=" AND ";
-	if(DB_TYPE == "postgres"){
-		switch($lst_time){
-			case 1:
-				$condition .= "CURRENT_TIMESTAMP - interval '1 hour' <= c.starttime";
-			break;
-			case 2:
-				$condition .= "CURRENT_TIMESTAMP - interval '6 hours' <= c.starttime";
-			break;
-			case 3:
-				$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= c.starttime";
-			break;
-			case 4:
-				$condition .= "CURRENT_TIMESTAMP - interval '7 days' <= c.starttime";
-			break;
-		}
-	}else{
-		switch($lst_time){
-			case 1:
-				$condition .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (c.starttime)";
-			break;
-			case 2:
-				$condition .= "DATE_SUB(NOW(),INTERVAL 6 HOUR) <= (c.starttime)";
-			break;
-			case 3:
-				$condition .= "DATE_SUB(NOW(),INTERVAL 1 DAY) <= (c.starttime)";
-			break;
-			case 4:
-				$condition .= "DATE_SUB(NOW(),INTERVAL 7 DAY) <= (c.starttime)";
-			break;
-		}
-	}	
+	switch($lst_time){
+		case 1:
+			$condition .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (c.starttime)";
+		break;
+		case 2:
+			$condition .= "DATE_SUB(NOW(),INTERVAL 6 HOUR) <= (c.starttime)";
+		break;
+		case 3:
+			$condition .= "DATE_SUB(NOW(),INTERVAL 1 DAY) <= (c.starttime)";
+		break;
+		case 4:
+			$condition .= "DATE_SUB(NOW(),INTERVAL 7 DAY) <= (c.starttime)";
+		break;
+	}
 }else if($Period=="Day" && $fromday && $today){
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
 	{
 		if (strlen($condition)>0) $condition.=" AND ";
-		$condition.=" $UNIX_TIMESTAMP(c.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+		$condition.=" UNIX_TIMESTAMP(c.starttime) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
 	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
 	{
 		if (strlen($condition)>0) $condition.=" AND ";
-		$condition.=" $UNIX_TIMESTAMP(c.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+		$condition.=" UNIX_TIMESTAMP(c.starttime) <= UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
 }else{
 	$bool = true;
-	if(DB_TYPE == "postgres"){
-		$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= c.starttime";
-	}
-	else {
-		$condition .= "DATE_SUB( NOW( ) , INTERVAL 1 DAY ) <= c.starttime";
-	}
+	$condition .= "DATE_SUB( NOW( ) , INTERVAL 1 DAY ) <= c.starttime";
 }
 
 if($trunks != ""){
@@ -101,16 +79,9 @@ if($trunks != ""){
 ///////////////////////////////////////////////////////////////////
 
 
-if(DB_TYPE == "postgres"){
-	$QUERY_ALOC = "SELECT (SUM(extract(epoch from (stoptime - starttime))/60) / Count(c.id)) AS ALOC,  count(c.id ) AS total_calls FROM cc_call c WHERE ". $condition;
-	$QUERY_CIC = "SELECT count( c.id ) AS CIC FROM cc_call c WHERE (extract(epoch from (stoptime - starttime))/60) <= $CIC_TIME_DIFF AND ". $condition;	
-}
-else
-{
-	$QUERY_ALOC = "SELECT (SUM( TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) ) / count( c.id ))ALOC, count( c.id ) total_calls FROM cc_call c WHERE ". $condition;
-	$QUERY_CIC = "SELECT count( c.id ) AS CIC FROM cc_call c WHERE TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) <= $CIC_TIME_DIFF AND ". $condition;
-}
-$res_ALOC  = $instance_table->SQLExec ($DBHandle, $QUERY_ALOC);		
+$QUERY_ALOC = "SELECT (SUM( TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) ) / count( c.id ) ) AS ALOC, count( c.id ) AS total_calls FROM cc_call c WHERE ". $condition;
+$QUERY_CIC = "SELECT count( c.id ) AS CIC FROM cc_call c WHERE TIME_TO_SEC( TIMEDIFF( c.stoptime, c.starttime ) ) <= $CIC_TIME_DIFF AND ". $condition;
+$res_ALOC  = $instance_table->SQLExec ($DBHandle, $QUERY_ALOC);
 foreach($res_ALOC as $val){
 	$ALOC =  $val[0];
 	$Total_calls = $val[1];

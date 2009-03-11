@@ -245,6 +245,11 @@ $t[$i++] = array('MytoPg(): SUBDATE (1,3 param)',
 "SELECT (CURRENT_DATE - INTERVAL '30 DAY');");
 
 
+$t[$i++] = array('MytoPg(): DATE_SUB(1,3 param)',
+"SELECT now() >= DATE_SUB(CURRENT_DATE, INTERVAL 5 DAY);",
+"SELECT now() >= (CURRENT_DATE - INTERVAL '5 DAY');");
+
+
 $t[$i++] = array('MytoPg(): ADDDATE (1,3 params) with CAST',
 "SELECT ADDDATE( '2008-01-01', INTERVAL 30 SECOND);",
 "SELECT ( '2008-01-01'::date + INTERVAL '30 SECOND');");
@@ -317,10 +322,9 @@ $t[$i++] = array("MytoPg(): A2B_trunk_report.php CIC query",
 
 
 
-$t[$i++] = array("ADDDATE(1,3) from call-daily-load.php date clause",
+$t[$i++] = array("MytoPg(): ADDDATE(1,3) from call-daily-load.php date clause",
 "SELECT ADDDATE('2008-12-31' ,INTERVAL 1 DAY) ;",
 "SELECT ('2008-12-31'::date + INTERVAL '1 DAY') ;");
-
 
 
 $t[$i++] = array("MytoPg(): AGI/a2billing.php callback spool",
@@ -364,19 +368,20 @@ $t[$i++] = array("MytoPg(): common/lib/Class.A2Billing.php's UNIX_TIMESTAMP() ca
 "SELECT * FROM cc_card WHERE date_part('epoch',cc_card.creationdate) >= date_part('epoch',CURRENT_TIMESTAMP)");
 
 
-#$t[$i++] = array("MytoPg(): the rate-engine query",
-#"",
-#"");
-
-// TODO maybe DATE_FORMAT(x, 'xx-xx-xx'), month(x)
-#$t[$i++] = array("MytoPg(): admin/Public/modules/customers_lastmonth.php insanity","UNIX_TIMESTAMP(DATE_FORMAT(creationdate,'%Y-%m-01'))","(DATE_TRUNC(creationdate::date,'month'))");
-#$t[$i++] = array("MytoPg():","","year");
-#$t[$i++] = array("MytoPg():","","day");
+$t[$i++] = array("MytoPg(): admin/public/modules/refills_lastmonth.php's DATE_FORMAT(x, '%Y-%m-01')",
+"SELECT DATE_FORMAT( date, '%Y-%m-01' ) FROM cc_logrefill;",
+"SELECT (date_trunc('month', date)::date) FROM cc_logrefill;");
 
 
+$t[$i++] = array("MytoPg(): admin/public/modules/refills_lastmonth.php's MONTH(date)",
+"SELECT MONTH(date) FROM cc_logrefill GROUP BY MONTH( date ) ORDER BY MONTH(date);",
+"SELECT date_part('MONTH',date) FROM cc_logrefill GROUP BY date_part('MONTH', date ) ORDER BY date_part('MONTH',date);");
 
-#$t[$i++] = array("MytoPg():","","");
-#$t[$i++] = array("MytoPg():","","");
+$t[$i++] = array("MytoPg(): admin/public/modules/refills_lastmonth.php's whole query",
+"SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) ) , count( * )  FROM cc_logrefill WHERE date >= TIMESTAMP( '2000-01-01' ) AND date <=CURRENT_TIMESTAMP GROUP BY MONTH( date ),date ORDER BY date;",
+"SELECT date_part('epoch', (date_trunc('month', date)::date) ) , count( * )  FROM cc_logrefill WHERE date >= ( '2000-01-01' ::timestamp) AND date <=CURRENT_TIMESTAMP GROUP BY date_part('MONTH', date ),date ORDER BY date;");
+
+
 #$t[$i++] = array("MytoPg():","","");
 
 
@@ -439,7 +444,8 @@ for ($i = 0;  $i < sizeof($t);  $i++) {
 			$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $out, 1, 300);
 			if ($A2B -> DBHandle -> ErrorNo() != 0) {
 				print " (Running SQL query failed!)\n";
-				//print "$out\n\n";
+				print "$out\n";
+				print $A2B -> DBHandle -> ErrorMsg() . "\n\n";
 			} else {
 				print "\n";
 			}
