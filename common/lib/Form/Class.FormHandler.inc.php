@@ -1414,7 +1414,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
 		}
 		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
-		if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0)
+		if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0 && ($this->VALID_SQL_REG_EXP))
 					$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
 		
 		if ($this->FG_ADITION_GO_EDITION == "yes"){
@@ -1922,7 +1922,32 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 		}
-		
+		if($processed['added_commission']==1){
+			$card_id = $processed['card_id'];
+			$table_transaction = new Table();
+			$result_agent = $table_transaction -> SQLExec($this->DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $card_id");
+			
+			if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
+			//test if the agent exist and get its commission
+				$agent_table = new Table("cc_agent", "commission");
+				$agent_clause = "id = ".$result_agent[0]['id_agent'];
+				$result_agent= $agent_table -> Get_list($this->DBHandle,$agent_clause);
+				
+				if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
+					$field_insert = "id_payment, id_card, amount,description";
+					$commission = ceil(($processed['payment'] * ($result_agent[0]['commission']/100))*100)/100;
+					$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
+					$description_commission.= "\nID CARD : ".$card_id;
+					$description_commission.= "\nID PAYMENT : ".$id_payment;
+					$description_commission.= "\nPAYMENT AMOUNT: ".$amount_paid;
+					$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
+					$value_insert = "'".$id_payment."', '$card_id', '$commission','$description_commission'";
+					$commission_table = new Table("cc_agent_commission", $field_insert);
+					$id_commission = $commission_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+				}
+			}	
+		}
+		die();
 	}
 
 	function create_agent_refill(){
@@ -2210,7 +2235,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
 			// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
-			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)>0)
+			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)>0 && ($this->VALID_SQL_REG_EXP))
 				$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)); 
 		
 		if (($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))) {				
