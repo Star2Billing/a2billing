@@ -51,6 +51,7 @@ $smarty->assign("ACXOUTBOUNDCID", $ACXOUTBOUNDCID);
 $smarty->assign("ACXPACKAGEOFFER", $ACXPACKAGEOFFER);
 $smarty->assign("ACXPREDICTIVEDIALER", $ACXPREDICTIVEDIALER);
 $smarty->assign("ACXINVOICING", $ACXINVOICING);
+$smarty->assign("ACXSETTING", $ACXSETTING);
 
 $smarty->assign("HTTP_HOST", $_SERVER['HTTP_HOST']);
 $smarty->assign("ASTERISK_GUI_LINK", ASTERISK_GUI_LINK);

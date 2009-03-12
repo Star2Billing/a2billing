@@ -78,6 +78,32 @@
 	</div>
 	{/if}
 
+	{if ($ACXADMINISTRATOR  > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img10"
+	{if ($section =="10")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AGENT / ADMIN");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="10")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_agent.php?atmenu=user&section=10">{php} echo gettext("Agents");{/php}</a></li>
+				<li><a href="A2B_signup_agent.php?atmenu=user&section=10">{php} echo gettext("Signup Agents");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Administrators");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=10">{php} echo gettext("ACL Admin's");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+	
 	{if ($ACXBILLING > 0)}
 	<div class="toggle_menu">
 	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2"
@@ -212,10 +238,9 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_trunk.php?section=4">{php} echo gettext("Trunks");{/php}</a></li>
 				<li><a href="A2B_entity_provider.php?section=4">{php} echo gettext("Providers");{/php}</a></li>
+				<li><a href="A2B_entity_trunk.php?section=4">{php} echo gettext("Trunks");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?section=4">{php} echo gettext("Prefixes");{/php}</a></li>
-				
 			</ul></li>
 		</ul>
 	</div>
@@ -433,9 +458,6 @@
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&section=8&languages=en">{php} echo gettext("Mail templates");{/php}</a></li>
-				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&section=8">{php} echo gettext("List Global  Config");{/php}</a></li>
-				<li><a href="A2B_entity_config_generate_confirm.php">{php} echo gettext("ADD agi-conf");{/php}</a></li>
-				<li><a href="A2B_entity_config.php?form_action=list&atmenu=config&section=8">{php} echo gettext("List Configuration");{/php}</a></li>
 				<li><a href="A2B_mass_mail.php?section=8">{php} echo gettext("Mass Mail");{/php}</a></li>
 				<li><a href="A2B_data_archiving.php?section=8">{php} echo gettext("Archiving");{/php}</a></li>
 			</ul></li>
@@ -443,35 +465,7 @@
 	</div>
 	</div>
 	{/if}
-
 	
-
-	{if ($ACXADMINISTRATOR  > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img10"
-	{if ($section =="10")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AGENT / ADMIN");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="10")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_agent.php?atmenu=user&section=10">{php} echo gettext("Agents");{/php}</a></li>
-				<li><a href="A2B_signup_agent.php?atmenu=user&section=10">{php} echo gettext("Signup Agents");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Administrators");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=10">{php} echo gettext("ACL Admin's");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-
 	{if ($ACXMAINTENANCE  > 0)}
 	<div class="toggle_menu">
 	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img11"
@@ -497,7 +491,33 @@
 				<li><a href="A2B_asteriskinfo.php?section=11">{php} echo "Asterisk Info";{/php}</a></li>
 				<li><a href="A2B_phpsysinfo.php?section=11">{php} echo "phpSysInfo";{/php}</a></li>
 				<li><a href="A2B_phpinfo.php?section=11">{php} echo "phpInfo";{/php}</a></li>
-				<li><a href="phpconfig.php?dir=/etc/asterisk&section=11">{php} echo gettext("Asterisk config");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	
+	{/if}
+	
+	{if ($ACXSETTING  > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img14"
+	{if ($section == "14")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SYSTEM SETTINGS");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="14")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&section=14">{php} echo gettext("List Global  Config");{/php}</a></li>
+				<li><a href="A2B_entity_config_generate_confirm.php?section=14">{php} echo gettext("ADD agi-conf");{/php}</a></li>
+				<li><a href="A2B_entity_config.php?form_action=list&atmenu=config&section=14">{php} echo gettext("List Configuration");{/php}</a></li>
+				<li><a href="phpconfig.php?dir=/etc/asterisk&section=14">{php} echo gettext("Asterisk config");{/php}</a></li>
 				{if ($ASTERISK_GUI_LINK)}
 					<li><a href="http://{$HTTP_HOST}:8088/asterisk/static/config/index.html" target="_blank">{php} echo gettext("Asterisk GUI");{/php}</a></li>
 				{/if}

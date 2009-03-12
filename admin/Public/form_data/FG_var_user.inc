@@ -33,10 +33,9 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = 
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = $ADDING_BUTTON_IMG1;
 
 
-
-if (is_numeric($groupID)){
+if (is_numeric($groupID)) {
 	$FG_TABLE_CLAUSE = "groupid='$groupID'";
-}else{
+} else {
 	$FG_TABLE_CLAUSE = "groupid='1'";
 }
 
@@ -60,6 +59,7 @@ $right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
 $right_list["15"] = array( gettext("INVOICES"), "16384");
 $right_list["16"] = array( gettext("SUPPORT"), "32768");
 $right_list["17"] = array( gettext("DASHBOARD"), "65536");
+$right_list["18"] = array( gettext("SYSTEM SETTINGS"), "131072");
 
 $len_right_list = count($right_list);
 
@@ -210,7 +210,7 @@ if (($groupID=="2") || ($groupID=="3")) {
 	}
 }
 
-if ($form_action!="ask-add" && $form_action!="add"){
+if ($form_action!="ask-add" && $form_action!="add") {
         $FG_QUERY_EDITION='userid, ';
 }
 
