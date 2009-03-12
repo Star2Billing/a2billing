@@ -1570,13 +1570,31 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	
 	function deletion_card_refill_agent(){
 		$processed = $this->getProcessed();
-		$credit = $processed['credit'];
-		if($credit>0){
+		//AFTER A DELETE YOU DON T HAVE ACCESS TO ANY FIELD AND YOU CAN ACCESS ONLY TO THE ID
+		//SO YOU HAVE TO LOAD THE FIELD THAT YOU NEED
+		$card_id = $processed['id'];
+		$card_table = new Table('cc_card','credit');
+		$card_clause = "id = ".$card_id;
+		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
+		
+		
+		$credit = $card_result[0][0];
+		if($credit>0 || $credit<0){
+			if($credit>0)$sign="+";
+			else $sign="-";
 			$instance_table_agent = new Table("cc_agent");
-			$param_update_agent = "credit = credit + '".$credit."'";
+			$param_update_agent = "credit = credit $sign '".abs($credit)."'";
 			$clause_update_agent = " id='".$_SESSION['agent_id']."'";
 			$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
+			$field_insert = " credit,card_id,refill_type, description";
+			$description = gettext("DELETION CARD REFILL");
+			$credit = 0-$credit;
+			$value_insert = "'$credit', '$card_id', 1 ,'$description' ";
+			$instance_refill_table = new Table("cc_logrefill", $field_insert);
+			$instance_refill_table -> Add_table ($this->DBHandle, $value_insert, null, null);
 		}
+
+	
 	}
 	
 	function creation_agent_refill(){
@@ -2255,7 +2273,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		if (strlen($this -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE) > 0)
 		$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_DELETE));
 		$processed = $this->getProcessed();  //$processed['firstname']
-		
 		$this->VALID_SQL_REG_EXP = true;
 		
         $instance_table = null;
@@ -2283,7 +2300,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%id", $processed['id'], $this->FG_INTRO_TEXT_DELETION);
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%table", $this->FG_TABLE_NAME, $this->FG_INTRO_TEXT_DELETION);
-		
 		if (isset($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
 			if ($this->FG_DEBUG == 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id'];
 			if( $this->FG_GO_LINK_AFTER_ACTION_DELETE){
