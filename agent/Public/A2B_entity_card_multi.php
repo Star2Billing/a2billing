@@ -65,6 +65,7 @@ if ($nbcard>0) {
 	$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
 	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group,discount";
 
+	if (DB_TYPE != "postgres"){
 		$FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
 	}
 	
