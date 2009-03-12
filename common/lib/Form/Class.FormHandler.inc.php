@@ -1571,7 +1571,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	function deletion_card_refill_agent(){
 		$processed = $this->getProcessed();
 		$credit = $processed['credit'];
-		echo $credit;
 		if($credit>0){
 			$instance_table_agent = new Table("cc_agent");
 			$param_update_agent = "credit = credit + '".$credit."'";
