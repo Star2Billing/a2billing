@@ -1737,7 +1737,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 ALTER TABLE cc_sip_buddies ADD regserver varchar(20);
 
 
-
+ALTER TABLE cc_logpayment ADD added_commission TINYINT NOT NULL DEFAULT '0';
 -- Empty password view for OpenSips
 CREATE VIEW cc_sip_buddies_empty AS SELECT
 id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context, DEFAULTip, dtmfmode, fromuser, fromdomain, host, insecure, language, mailbox, md5secret, nat, permit, deny, mask, pickupgroup, port, qualify, restrictcid, rtptimeout, rtpholdtimeout, '' as secret, type, username, disallow, allow, musiconhold, regseconds, ipaddr, cancallforward, fullcontact, setvar

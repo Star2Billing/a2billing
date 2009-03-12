@@ -102,6 +102,17 @@ if ($form_action!="ask-edit" && $form_action!="edit") {
 				   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Refill card account"));
 }
 
+if ($form_action!="ask-edit" && $form_action!="edit") {	
+	$HD_Form -> AddEditElement (gettext("CREATE AGENT COMMISSION "),
+				   "added_commission",
+				   '0',
+				   "RADIOBUTTON",
+				   "",
+				   "",
+				   gettext("Choose if you want to create a commission to an agent, if this customer is managed by one"),
+				   "" , "", "" , "Yes :1, - No:0", "", "" , "", gettext("Commission for agent"));
+}
+
 $HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
                            "payment_type",
                            '$value',
@@ -116,7 +127,7 @@ $HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
 if ($form_action!="ask-edit" && $form_action!="edit") {	
 	$HD_Form -> FieldEditElement ('card_id, date, payment, description,payment_type');
 } else {
-	$HD_Form -> FieldEditElement ('card_id, date, payment, description, added_refill, payment_type');
+	$HD_Form -> FieldEditElement ('card_id, date, payment, description, added_refill,added_commission, payment_type');
 }
 
 
