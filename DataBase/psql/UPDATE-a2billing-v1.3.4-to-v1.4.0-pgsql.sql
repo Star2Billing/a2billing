@@ -1742,6 +1742,8 @@ alter table cc_service add column use_group smallint default 0;
 
 ALTER TABLE cc_sip_buddies ADD regserver varchar(20);
 
+ALTER TABLE cc_logpayment ADD added_commission SMALLINT NOT NULL DEFAULT '0';
+
 -- Empty password view for OpenSips
 CREATE VIEW cc_sip_buddies_empty AS
   SELECT id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context,
@@ -1751,7 +1753,7 @@ CREATE VIEW cc_sip_buddies_empty AS
   FROM cc_sip_buddies;
 
 
--- synched with MySQL up to r1572
+-- synched with MySQL up to r1576
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
