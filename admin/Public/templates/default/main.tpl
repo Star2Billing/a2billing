@@ -352,7 +352,6 @@
 			<li><ul>
 				<li><a href="A2B_entity_autorefill.php?section=7">{php} echo gettext("AutoRefill Report");{/php}</a></li>
 				<li><a href="A2B_entity_service.php?section=7">{php} echo gettext("Recurring Services");{/php}</a></li>
-				<li><a href="A2B_entity_alarm.php?section=7"> {php} echo gettext("Alarms");{/php}</a></li>
 				<li><a href="A2B_entity_subscription.php?section=7">{php} echo gettext("Subscriptions");{/php}</a></li>
 				<li><a href="A2B_entity_subscriber.php?section=7">{php} echo gettext("Subscribers");{/php}</a></li>
 			</ul></li>
@@ -482,6 +481,7 @@
 	{/if}
 		<ul>
 			<li><ul>
+				<li><a href="A2B_entity_alarm.php?section=11"> {php} echo gettext("Alarms");{/php}</a></li>
 				<li><a href="A2B_entity_log_viewer.php?section=11">{php} echo gettext("Users Activity");{/php}</a></li>
 				<li><a href="A2B_entity_backup.php?form_action=ask-add&section=11">{php} echo gettext("Database Backup");{/php}</a></li>
 				<li><a href="A2B_entity_restore.php?section=11">{php} echo gettext("Database Restore");{/php}</a></li>

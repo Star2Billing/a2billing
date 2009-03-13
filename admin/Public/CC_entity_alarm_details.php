@@ -3,10 +3,10 @@ include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_CRONT_SERVICE)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+if (! has_rights (ACX_ADMINISTRATOR)) {
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 getpost_ifset(array('id', 'displayheader', 'displayfooter', 'popup_select'));
@@ -18,22 +18,16 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 		
 
 $FG_TABLE_COL=array();
-
 $FG_TABLE_COL[]=array (gettext("DATE"), "daterun", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("CALCULTED VALUE"), "calcultedvalue", "50%", "center", "sort");
-			
 
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 
-
-
-
-if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
-	}
+if (!isset ($current_page) || ($current_page == "")) {
+	$current_page=0; 
+}
 
 $DBHandle  = DbConnect();
-
 
 /*******************   ALARM INFO  *****************************************/
 
@@ -43,7 +37,7 @@ if (DB_TYPE != "postgres") {
 	$QUERY = "SELECT id, name, type, numberofrun, substring(datelastrun::text,1,19), numberofalarm from cc_alarm WHERE id='$id'";
 }
 $res = $DBHandle -> Execute($QUERY);
-if ($res){
+if ($res) {
 	$num = $res -> RecordCount( );		
 	for($i=0;$i<$num;$i++)
 	{		
@@ -52,11 +46,7 @@ if ($res){
 }
 	   
 /*******************  LIST REFILL  *****************************************/
-		
-
 $QUERY = "SELECT  t3.daterun, t3.calculatedvalue from cc_alarm_report as t3 WHERE t3.cc_alarm_id='$id'";
-
-
 $QUERY.=" ORDER BY t3.id DESC";
 if (DB_TYPE == "postgres"){
 	$QUERY .= " LIMIT 25 OFFSET 0";
@@ -74,10 +64,7 @@ if ($res){
 	}
 }
 
-?>
-
-<?php
-	$smarty->display('main.tpl');
+$smarty->display('main.tpl');
 
 
 ?>
@@ -271,5 +258,6 @@ function openURL(theLINK)
 	 
 	 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
+
