@@ -391,10 +391,10 @@ $status = $A2B->config["signup"]['activatedbyuser'] ? '1' : '3';
 
 //$HD_Form ->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$maxi', '$maxi', '$maxi', '$amaflag', '$maxi2', '$context', 'RFC2833','dynamic', 'friend', '$maxi', 'g729,ulaw,alaw,gsm','$pass'";
 
-$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, activatedbyuser, status";
-$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass','$loginkey','$activatedbyuser','$status'";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, status";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass','$loginkey', '$status'";
 
-if($agent_conf){
+if($agent_conf) {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= ",id_group";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE .= ",'$groupid'";
 }

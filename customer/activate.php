@@ -31,20 +31,17 @@ $key = $_GET["key"];
 
 
 $result = null;
-$instance_sub_table = new Table('cc_card',"username, lastname, firstname, email, uipass, credit, useralias, loginkey, activatedbyuser, status");
-
-
-$QUERY = "( loginkey = '".$key."' )" ;
-
+$instance_sub_table = new Table('cc_card',"username, lastname, firstname, email, uipass, credit, useralias, loginkey, status");
+$QUERY = "( loginkey = '".$key."' )";
 $list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
 
-if(isset($key) && $list[0][9]!="1") {
-    $QUERY = "UPDATE cc_card SET  activatedbyuser = 't', status = 1 WHERE ( status = 2 AND loginkey = '".$key."' ) ";
+if(isset($key) && $list[0][8]!="1") {
+    $QUERY = "UPDATE cc_card SET status = 1 WHERE ( status = 2 Or status = 3 ) AND loginkey = '".$key."' ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
 
 
-if( $list[0][9] != "1" && isset($result) && $result != null) {
+if( $list[0][8] != "1" && isset($result) && $result != null) {
 
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
 	$res = $HD_Form -> DBHandle -> Execute($QUERY);
@@ -86,8 +83,6 @@ if( $list[0][9] != "1" && isset($result) && $result != null) {
 	<div align="center"><br></br>
 	 <font color="#FF0000"><b><?php echo gettext("Welcome! Your account has been successfully activated. Thank you!"); ?></b></font><br>
 		  <br></br>
-		  
-			  
 		  <?php echo $list[0][2]; ?> <?php echo $list[0][1]; ?>, <?php echo gettext("Thank you for registering with us !");?><br>
 		  <?php echo gettext("An email confirming your information has been sent to"); ?> <b><?php echo $list[0][3]; ?></b><br></br>
 			<h3>
@@ -103,7 +98,6 @@ if( $list[0][9] != "1" && isset($result) && $result != null) {
 </div>
 </blockquote>
 
-
 <?php 
 } else {
 ?>
@@ -116,14 +110,10 @@ if( $list[0][9] != "1" && isset($result) && $result != null) {
 <tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
 <tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
 <tr>
+<td bgcolor="#EEEEEE"><img src="<?php echo KICON_PATH;?>/khelpcenter.gif"/></td>
 <td bgcolor="#EEEEEE">
-<img src="<?php echo KICON_PATH;?>/khelpcenter.gif"/></td>
-<td bgcolor="#EEEEEE">
-
 <b>
-
 <?php
-
 if( $list[0][9] == "1") {
 	echo gettext("Your account is already activated.")." <br>";
 } elseif(isset($result) || $result != null) {
@@ -131,11 +121,8 @@ if( $list[0][9] == "1") {
 } else {
 	echo gettext("Your account cannot be activated please contact <br> the website administrator or retry later.")." <br>";
 }
-
 ?>
-
 </b>
-
 </td></tr>
 <tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
 <tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
@@ -152,4 +139,3 @@ if( $list[0][9] == "1") {
 // #### FOOTER SECTION
 $smarty->display('signup_footer.tpl');
 
-?>

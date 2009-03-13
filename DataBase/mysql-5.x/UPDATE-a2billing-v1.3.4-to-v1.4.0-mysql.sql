@@ -1744,4 +1744,6 @@ id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canr
 FROM cc_sip_buddies;
 
 
+-- remove activatedbyuser
+ALTER TABLE cc_card DROP activatedbyuser;
 

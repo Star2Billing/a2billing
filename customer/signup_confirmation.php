@@ -29,7 +29,7 @@ $DBHandle  = DbConnect();
 $activatedbyuser = $A2B->config["signup"]['activatedbyuser'];
 
 $lang_code = $_SESSION["language_code"];
-if(!$activatedbyuser) {
+if (!$activatedbyuser) {
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' and id_language = '$lang_code'";
 } else {
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' and id_language = '$lang_code'";
@@ -139,7 +139,7 @@ function sendtolittle(direction){
 	 <font color="#FF0000"><b><?php echo gettext("SIGNUP CONFIRMATION"); ?></b></font><br>
 		  <br></br>
 		  
-	<?php if (!activatedbyuser){ ?>
+	<?php if (!$activatedbyuser){ ?>
 		  <?php echo $list[0][2]; ?> <?php echo $list[0][1]; ?>, <?php echo gettext("Thank you for registering with us !");?><br>
 		  <?php echo gettext("An email confirming your information has been sent to"); ?> <b><?php echo $list[0][3]; ?></b><br></br>
 			<h3>

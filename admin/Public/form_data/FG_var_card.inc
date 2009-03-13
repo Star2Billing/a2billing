@@ -534,15 +534,6 @@ $HD_Form -> AddEditElement (gettext("STATUS"),
 			   "list" , "", "",	"", $cardstatus_list, "%1", "", "" );
 
 
-$HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMED"),
-			   "activatedbyuser",
-			   't',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to activate this account"),
-			   "" , "", "" , "Yes :t, - No:f",	"", "", "", gettext("Configure if the account has been activated over the signup confirmation mail") );
-
 $HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
 			   "simultaccess",
 			   "1",
@@ -872,7 +863,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, id_group, id_seria, lastname, firstname, email, '.
 		' address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
-		$update_field_typepaid.' tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
+		$update_field_typepaid.' tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
 		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
