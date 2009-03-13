@@ -4,7 +4,8 @@
 /***************************************************************************
  *            a2billing_subscription_fee.php
  *
- *  Fri Feb 27 14:17:10 2007 (in the train from Jemappes to Bruxelles)
+ *  Purpose: manage the monthly services subscription
+ *  Fri Feb 27 14:17:10 2007
  *  Copyright  2007  User : Areski
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *

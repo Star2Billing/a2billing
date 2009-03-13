@@ -4,9 +4,8 @@
 /***************************************************************************
  *            a2billing_invoice_cront.php
  *
- *  13 April 2007
- *  Purpose: To greate invoices for Each User.
- *  Copyright  2007  User : Belaid Arezqui
+ *  Purpose: To greate the invoices.
+ *  Copyright  2009  @ Belaid Arezqui
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
  *  The sample above will run the script every day of each month at 6AM

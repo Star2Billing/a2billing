@@ -4,6 +4,7 @@
 /***************************************************************************
  *            a2billing_alarm.php
  *
+ *	Purpose : manage different Alarms
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e

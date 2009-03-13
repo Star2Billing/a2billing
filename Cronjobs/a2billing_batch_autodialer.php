@@ -4,12 +4,13 @@
 /***************************************************************************
  *            a2billing_batch_autodialer.php
  *
+ *	Purpose : to proceed the autodialer
  *  Fri Oct 21 11:51 2008
  *  Copyright  2008  A2Billing
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	* / 1 * * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_autodialer.php
+	* / 5 * * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_autodialer.php
 	
 	field	 allowed values
 	-----	 --------------
@@ -327,4 +328,4 @@ for ($page = 0; $page < $nbpage; $page++) {
 
 } // End For
 
-exit ();
+

@@ -4,23 +4,21 @@
 /***************************************************************************
  *            a2billing_batch_process_alt.php
  * 
- *  Mar 03 2009
- *  Copyright  2005  Arheops & Areski Belaid
+ *  Copyright  2009 @  Arheops & Areski Belaid
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  * 
  *  Description : 
- *  This script will take care of the recurring service. This script is alternative script.
- *  It use more RAM and more sql power, but offer significal speedup when used on large database.
+ *  This script will take care of the recurring service.
  *
  *
 	crontab -e
-	0 12 * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_process_alt.php
+	0 12 * * * php /usr/local/a2billing/Cronjobs/a2billing_batch_process.php
 	
 	field	 allowed values
 	-----	 --------------
 	minute	 		0-59
 	hour		 	0-23
-	day of month		1-31
+	day of month	1-31
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
 

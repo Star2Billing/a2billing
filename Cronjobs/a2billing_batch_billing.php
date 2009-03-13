@@ -4,14 +4,13 @@
 /***************************************************************************
  *            a2billing_invoice_cront.php
  *
- *  13 April 2007
- *  Purpose: To generate invoices and for Each User.
- *  Copyright  2007  User : Belaid Arezqui
+ *  Purpose: To generate invoices and for each user.
+ *  Copyright  2009  User : Belaid Arezqui
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
  *  The sample above will run the script every day of each month at 6AM
 	crontab -e
-	0 6 1 * * php /usr/local/a2billing/Cronjobs/a2billing_invoice_cront.php
+	0 6 * * * php /usr/local/a2billing/Cronjobs/a2billing_invoice_cront.php
 	
 	
 	field	 allowed values
@@ -26,7 +25,6 @@
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-//dl("pgsql.so"); // remove "extension= pgsql.so !
 
 include (dirname(__FILE__) . "/lib/admin.defines.php");
 include (dirname(__FILE__) . "/lib/ProcessHandler.php");
@@ -123,133 +121,135 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					echo "\n We dont create an invoice today for this customer : " . $Customer['invoiceday'];
 				continue;
 			}
-			
+
 			//find the last billing 
 			$card_id = $Customer['id'];
 			$date_now = date("Y-m-d");
-			if(empty($Customer['vat'])||!is_numeric($Customer['vat'])) $vat=0;
-			else $vat = $Customer['vat'];
-			
-			
-			
+			if (empty ($Customer['vat']) || !is_numeric($Customer['vat']))
+				$vat = 0;
+			else
+				$vat = $Customer['vat'];
+
 			// FIND THE LAST BILLING
-			$billing_table = new Table('cc_billing_customer','id,date');
-			$clause_last_billing = "id_card = ".$card_id;
-			$result = $billing_table -> Get_list($A2B->DBHandle, $clause_last_billing,"date","desc");
-			$call_table = new Table('cc_call',' COALESCE(SUM(sessionbill),0)' );
-			$clause_call_billing ="card_id = ".$card_id." AND ";
-			$clause_charge = "id_cc_card = ".$card_id." AND ";
-			$desc_billing="";
-			$desc_billing_postpaid="";
-			$start_date =null;
-			if(is_array($result) && !empty($result[0][0])){
-				$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND "; 
-				$clause_charge .= "creationdate >= '".$result[0][1]."' AND  ";
-				$desc_billing = "Calls cost between the ".$result[0][1]." and ".$date_now ;
-				$desc_billing_postpaid="Amount for periode between the ".date("Y-m-d",strptime($result[0][1]))." and ".$date_now;
+			$billing_table = new Table('cc_billing_customer', 'id,date');
+			$clause_last_billing = "id_card = " . $card_id;
+			$result = $billing_table->Get_list($A2B->DBHandle, $clause_last_billing, "date", "desc");
+			$call_table = new Table('cc_call', ' COALESCE(SUM(sessionbill),0)');
+			$clause_call_billing = "card_id = " . $card_id . " AND ";
+			$clause_charge = "id_cc_card = " . $card_id . " AND ";
+			$desc_billing = "";
+			$desc_billing_postpaid = "";
+			$start_date = null;
+			if (is_array($result) && !empty ($result[0][0])) {
+				$clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
+				$clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
+				$desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
+				$desc_billing_postpaid = "Amount for periode between the " . date("Y-m-d", strptime($result[0][1])) . " and " . $date_now;
 				$start_date = $result[0][1];
-			}else{
-				$desc_billing = "Calls cost before the ".$date_now ;
-				$desc_billing_postpaid="Amount for periode before the ".$date_now ;
+			} else {
+				$desc_billing = "Calls cost before the " . $date_now;
+				$desc_billing_postpaid = "Amount for periode before the " . $date_now;
 			}
 			//insert billing
 			$field_insert = "id_card";
 			$value_insert = " '$card_id'";
-			if(!empty($start_date)){
-				$field_insert.= ", start_date";
+			if (!empty ($start_date)) {
+				$field_insert .= ", start_date";
 				$value_insert .= ", '$start_date'";
 			}
 			$instance_table = new Table("cc_billing_customer", $field_insert);
-			$id_billing = $instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
-			
-			$clause_call_billing .= "stoptime < '".$date_now."' ";
-			$clause_charge .= "creationdate < '".$date_now."' ";
-			$result =  $call_table -> Get_list($A2B->DBHandle, $clause_call_billing);
+			$id_billing = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+
+			$clause_call_billing .= "stoptime < '" . $date_now . "' ";
+			$clause_charge .= "creationdate < '" . $date_now . "' ";
+			$result = $call_table->Get_list($A2B->DBHandle, $clause_call_billing);
 			// COMMON BEHAVIOUR FOR PREPAID AND POSTPAID ... GENERATE A RECEIPT FOR THE CALLS OF THE MONTH
-			if(is_array($result) && is_numeric($result[0][0])){
+			if (is_array($result) && is_numeric($result[0][0])) {
 				$amount_calls = $result[0][0];
-				$amount_calls = ceil($amount_calls*100)/100;
+				$amount_calls = ceil($amount_calls * 100) / 100;
 				/// create receipt
 				$field_insert = "id_card, title, description,status";
 				$title = gettext("SUMMARY OF CALLS");
 				$description = gettext("Summary of the calls charged since the last billing");
 				$value_insert = "  '$card_id', '$title','$description',1";
 				$instance_table = new Table("cc_receipt", $field_insert);
-				$id_receipt = $instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
-				if(!empty($id_receipt)&& is_numeric($id_receipt)){
+				$id_receipt = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				if (!empty ($id_receipt) && is_numeric($id_receipt)) {
 					$description = $desc_billing;
 					$field_insert = " id_receipt,price,description,id_ext,type_ext";
 					$instance_table = new Table("cc_receipt_item", $field_insert);
-					$value_insert = " '$id_receipt', '$amount_calls','$description','".$id_billing."','CALLS'";
-					$instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
+					$value_insert = " '$id_receipt', '$amount_calls','$description','" . $id_billing . "','CALLS'";
+					$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				}
-				
-			}	
+
+			}
 			// GENERATE RECEIPT FOR CHARGE ALREADY CHARGED 
 			$table_charge = new Table("cc_charge", "*");
-			$result =  $table_charge -> Get_list($A2B->DBHandle, $clause_charge." AND charged_status = 1");
-			if(is_array($result)){
+			$result = $table_charge->Get_list($A2B->DBHandle, $clause_charge . " AND charged_status = 1");
+			if (is_array($result)) {
 				$field_insert = " id_card, title, description,status";
 				$title = gettext("SUMMARY OF CHARGE");
 				$description = gettext("Summary of the charge charged since the last billing.");
 				$value_insert = " '$card_id', '$title','$description',1";
 				$instance_table = new Table("cc_receipt", $field_insert);
-				$id_receipt = $instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
-				if(!empty($id_receipt)&& is_numeric($id_receipt)){
+				$id_receipt = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				if (!empty ($id_receipt) && is_numeric($id_receipt)) {
 					foreach ($result as $charge) {
-						$description = gettext("CHARGE :").$charge['description'];
+						$description = gettext("CHARGE :") . $charge['description'];
 						$amount = $charge['amount'];
 						$field_insert = "date, id_receipt,price,description,id_ext,type_ext";
 						$instance_table = new Table("cc_receipt_item", $field_insert);
-						$value_insert = " '".$charge['creationdate']."' , '$id_receipt', '$amount','$description','".$charge['id']."','CHARGE'";
-						$instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
+						$value_insert = " '" . $charge['creationdate'] . "' , '$id_receipt', '$amount','$description','" . $charge['id'] . "','CHARGE'";
+						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 					}
 				}
 			}
 			// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
 			$table_charge = new Table("cc_charge", "*");
-			$result =  $table_charge -> Get_list($A2B->DBHandle, $clause_charge." AND charged_status = 0 AND invoiced_status = 0");
-			if(is_array($result) && sizeof($result)>0){
+			$result = $table_charge->Get_list($A2B->DBHandle, $clause_charge . " AND charged_status = 0 AND invoiced_status = 0");
+			if (is_array($result) && sizeof($result) > 0) {
 				$reference = generate_invoice_reference();
 				$field_insert = "id_card, title ,reference, description,status,paid_status";
 				$title = gettext("BILLING CHARGES");
-				$description = gettext("This invoice is for some charges unpaid since the last billing.")." ".$desc_billing_postpaid;
+				$description = gettext("This invoice is for some charges unpaid since the last billing.") . " " . $desc_billing_postpaid;
 				$value_insert = " '$card_id', '$title','$reference','$description',1,0";
 				$instance_table = new Table("cc_invoice", $field_insert);
-				$id_invoice = $instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
-				if(!empty($id_invoice)&& is_numeric($id_invoice)){
+				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 					foreach ($result as $charge) {
-						$description = gettext("CHARGE :").$charge['description'];
+						$description = gettext("CHARGE :") . $charge['description'];
 						$amount = $charge['amount'];
 						$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
 						$instance_table = new Table("cc_invoice_item", $field_insert);
-						$value_insert = " '".$charge['creationdate']."' , '$id_invoice', '$amount','$vat','$description','".$charge['id']."','CHARGE'";
-						$instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
+						$value_insert = " '" . $charge['creationdate'] . "' , '$id_invoice', '$amount','$vat','$description','" . $charge['id'] . "','CHARGE'";
+						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 					}
 				}
-			
+
 			}
-			
-		// behaviour postpaid
-		if($Customer['typepaid']==1 && is_numeric($Customer['credit']) && $Customer['credit']<0){
-			//GENERATE AN INVOICE TO COMPLETE THE BALANCE
-			$reference = generate_invoice_reference();
-			$field_insert = " id_card, title ,reference, description,status,paid_status";
-			$title = gettext("BILLING POSTPAID");
-			$description = gettext("Invoice for POSTPAID");
-			$value_insert = " '$card_id', '$title','$reference','$description',1,0";
-			$instance_table = new Table("cc_invoice", $field_insert);
-			$id_invoice = $instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
-			if(!empty($id_invoice)&& is_numeric($id_invoice)){
-				$description = $desc_billing_postpaid;
-				$amount = abs($Customer['credit']);
-				$field_insert = " id_invoice,price,vat,description,id_ext,type_ext";
-				$instance_table = new Table("cc_invoice_item", $field_insert);
-				$value_insert = " '$id_invoice', '$amount','$vat','$description','".$id_billing."','POSTPAID'";
-				$instance_table -> Add_table ($A2B->DBHandle, $value_insert, null, null,"id");
+
+			// behaviour postpaid
+			if ($Customer['typepaid'] == 1 && is_numeric($Customer['credit']) && $Customer['credit'] < 0) {
+				//GENERATE AN INVOICE TO COMPLETE THE BALANCE
+				$reference = generate_invoice_reference();
+				$field_insert = " id_card, title ,reference, description,status,paid_status";
+				$title = gettext("BILLING POSTPAID");
+				$description = gettext("Invoice for POSTPAID");
+				$value_insert = " '$card_id', '$title','$reference','$description',1,0";
+				$instance_table = new Table("cc_invoice", $field_insert);
+				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
+					$description = $desc_billing_postpaid;
+					$amount = abs($Customer['credit']);
+					$field_insert = " id_invoice,price,vat,description,id_ext,type_ext";
+					$instance_table = new Table("cc_invoice_item", $field_insert);
+					$value_insert = " '$id_invoice', '$amount','$vat','$description','" . $id_billing . "','POSTPAID'";
+					$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				}
 			}
-		}
-		
+
 		} // END foreach($resmax as $Customer)
 	}
 }
+
+

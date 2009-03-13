@@ -4,14 +4,13 @@
 /***************************************************************************
  *            a2billing_check_account.php
  *
- *  13 April 2007
- *  Purpose: To check account of each Users and send an email if the balance is less than the first argument.
- *  Copyright  2007  User : Belaid Arezqui
+ *  Purpose: To check all the accounts and send an notification email if the balance is less than the first argument.
+ *  Copyright  2009 @ Belaid Arezqui
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
  *  The sample above will run the script every day of each month at 6AM
 	crontab -e
-	0 6 1 * * php /usr/local/a2billing/Cronjobs/a2billing_check_account.php
+	0 * / 6 * * php /usr/local/a2billing/Cronjobs/a2billing_check_account.php
 	
 	
 	field	 allowed values
@@ -23,12 +22,9 @@
 	day of week	 0-7 (0 or 7 is Sun, or use names)
 	
 ****************************************************************************/
-exit ();
-// CHECK ALL AND ENSURE IT WORKS / NOT URGENT
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-//dl("pgsql.so"); // remove "extension= pgsql.so !
 
 include_once (dirname(__FILE__) . "/lib/Class.Table.php");
 include (dirname(__FILE__) . "/lib/interface/constants.php");
@@ -116,4 +112,4 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 if ($verbose_level >= 1)
 	echo "#### END RECURRING CHECK ACCOUNT \n";
 write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[#### BATCH PROCESS END ####]");
-?>
+
