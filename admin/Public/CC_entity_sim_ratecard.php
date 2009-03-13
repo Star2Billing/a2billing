@@ -19,9 +19,8 @@ $DBHandle  = DbConnect();
 
 if ($called  && ($id_cc_card>0 || $username>0)) {
 	$A2B -> DBHandle = DbConnect();
-	echo "ID = ".$id_cc_card;
 	
-	if ($username>0){
+	if ($username>0) {
 		$instance_table_cardnum = new Table("cc_card", "username, id");
 		/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
 		$FG_TABLE_CLAUSE_card = "username='".$username."'";
@@ -29,7 +28,6 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 		if ($username == $list_tariff_card[0][0]) $id_cc_card = $list_tariff_card[0][1];
 	}
 	
-	echo "ID = ".$id_cc_card;
 	$calling = $called;
 	
 	if ( strlen($calling)>2 && is_numeric($calling)) {
@@ -50,7 +48,7 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 		}
 		
 		$A2B -> cardnumber = $row[0][0];
-		$A2B -> credit = $balance = $row[0][2];
+		$A2B -> credit = $balance;
 		if ($FG_DEBUG == 1) echo "cardnumber = ".$row[0][0] ."<br>";
 		
 		if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
@@ -98,44 +96,39 @@ echo $CC_help_sim_ratecard;
 
 ?>
 	
-	
 	<center> <?php echo "$error_msg"; ?> </center>
 	<br>
 	<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
-	<table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
+	<table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
 	<TR>
-	  <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("RATECARD SIMULATOR");?></B></TD>
+	  <TD colspan="2"> <B><?php echo gettext("RATECARD SIMULATOR");?></B></TD>
 	</TR>
 	<tr>			
-		<td height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009" colspan="3">
-				<br><font color="white"><b><?php echo gettext("NUMBER YOU WISH TO CALL");?> :</b></font>
+		<td height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_001" colspan="3">
+				<br><b><?php echo gettext("NUMBER TO CALL");?> :</b>
 				<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
 				<br>
-				<?php if (false){ ?>
+				<b><?php echo gettext("CREDIT");?> :</b>
+				<INPUT type="text" class="form_input_text" name="balance" size="6" maxlength="6" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>">
+				
 				<br>
-				<font color="white"><b><?php echo gettext("YOUR BALANCE");?> :</b></font>
-				<INPUT type="text" class="form_input_text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>"> 
-				<?php } ?>
+				<br>
 		</td>
 	</tr>
 	<tr>
-		 <td height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009">
+		<td height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_001">
 	    &nbsp;
 	    </td>
-		<td align="right" height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009">		
-				
+		<td align="right" height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_001">
 				  <?php echo gettext("Card ID");?>  &nbsp; :  &nbsp; 
 		</td>
-		<td height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009">	
-				  
-				  <input class="form_input_text" name="id_cc_card" size="30" maxlength="50" value="<?php echo $id_cc_card;?>"> 
+		<td height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_001">				  
+				  <input class="form_input_text" name="id_cc_card" size="20" maxlength="40" value="<?php echo $id_cc_card;?>"> 
 					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=theFormFilter&popup_fieldname=id_cc_card' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-					
-				   <?php echo gettext("Select the card ID");?>.
 		</td>		   
 	</tr>
 	<tr>
-		<td colspan="3"  style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009">		   
+		<td colspan="3"  style="padding-left: 5px; padding-right: 3px;" class="bgcolor_001">		   
 				<strong>
 				 <?php echo gettext("OR");?>
 				</strong>  
@@ -143,18 +136,18 @@ echo $CC_help_sim_ratecard;
 		
 	</tr>
 	<tr>
-	    <td  style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009">
+	    <td  style="padding-left: 5px; padding-right: 3px;" class="bgcolor_001">
 	    &nbsp;
 	    </td>
-		<td  align="right"  style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009">
+		<td  align="right"  style="padding-left: 5px; padding-right: 3px;" class="bgcolor_001">
 				<?php echo gettext("Card Number");?>  &nbsp; :  &nbsp;
 		</td>
-		<td  style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009">
+		<td  style="padding-left: 5px; padding-right: 3px;" class="bgcolor_001">
 				 <input class="form_input_text" name="username" size="30" maxlength="50" value="<?php echo $username;?>" /> 
 		</td>
 	</tr>
 	<tr>
-		<td  align="right" colspan="3" height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
+		<td  align="right" colspan="3" height="31" class="bgcolor_001" style="padding-left: 5px; padding-right: 3px;">
 			<input type="SUBMIT" value="<?php echo gettext("SIMULATE");?>"  class="form_input_button"/>
 		</td>
 	</tr>
@@ -266,6 +259,6 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 
 <?php  } 
 
-	$smarty->display('footer.tpl');
+$smarty->display('footer.tpl');
 
-?>
+
