@@ -16,13 +16,12 @@ getpost_ifset(array('choose_list', 'addcredit', 'gen_id', 'cardnum', 'choose_cur
 
 
 
-/***********************************************************************************/
 $HD_Form -> setDBHandler (DbConnect());
 
 
 $nbcard = $choose_list;
 
-if ($nbcard>0){
+if ($nbcard>0) {
 	
 		$FG_ADITION_SECOND_ADD_TABLE  = "cc_voucher";		
 		//$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, userpass, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays";
@@ -31,7 +30,6 @@ if ($nbcard>0){
 				
 		$gen_id = time();
 		$_SESSION["IDfilter"]=$tag_list;
-		
 		
 		$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
 		//echo "::> $choose_simultaccess, $choose_currency, $choose_typepaid, $creditlimit";
@@ -43,7 +41,6 @@ if ($nbcard>0){
 			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null);
 				
 		}
-
 }
 
 
@@ -51,15 +48,11 @@ if (!isset($_SESSION["IDfilter"])) $_SESSION["IDfilter"]='NODEFINED';
 $HD_Form -> FG_TABLE_CLAUSE = "tag='".$_SESSION["IDfilter"]."'";
 
 
-
-
 $HD_Form -> init();
 
-
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
-
 
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
@@ -80,13 +73,11 @@ echo $CC_help_generate_voucher;
         <tbody><tr>
 		<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
           <td align="left" width="75%">
-           
-		   
-		   		
+           		
 			  	<strong>1)</strong> 
 				<select name="choose_list" size="1" class="form_input_select">
 						<option value=""><?php echo gettext("Choose the number of vouchers to create");?></option>
-						<option class="input" value="1"><?php echo gettext("5 Voucher");?></option>
+						<option class="input" value="5"><?php echo gettext("5 Voucher");?></option>
 						<option class="input" value="10"><?php echo gettext("10 Vouchers");?></option>
 						<option class="input" value="50"><?php echo gettext("50 Vouchers");?></option>
 						<option class="input" value="100"><?php echo gettext("100 Vouchers");?></option>
@@ -137,14 +128,8 @@ echo $CC_help_generate_voucher;
 
 <?php
 
-
-// #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
@@ -156,10 +141,6 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
 
 
-
-
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-
-?>

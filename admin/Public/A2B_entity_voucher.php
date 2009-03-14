@@ -5,8 +5,6 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_voucher.inc");
 include ("../lib/admin.smarty.php");
 
-
-
 if (! has_rights (ACX_BILLING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
@@ -247,6 +245,5 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-
 
 
