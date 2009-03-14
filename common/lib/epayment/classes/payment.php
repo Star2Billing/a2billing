@@ -16,7 +16,6 @@ Class payment {
 	// class constructor
     function payment($module = '') {
       global $payment, $language, $PHP_SELF;
-
       $instance_sub_table = new Table("cc_payment_methods", "payment_filename");
       $DBHandle  = DbConnect();
       $return = null;
@@ -48,8 +47,9 @@ Class payment {
       for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
           include(dirname(__FILE__).'/../methods/' . $include_modules[$i]['file']);
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
+          
       }
-
+ 
 		
       if ( (!is_null($module)) && (in_array($module, $this->modules)) && (isset($GLOBALS[$module]->form_action_url)) ) {
           $this->form_action_url = $GLOBALS[$module]->form_action_url;
@@ -124,7 +124,6 @@ Class payment {
 
     function selection() {
       $selection_array = array();
-
       if (is_array($this->modules)) {
         reset($this->modules);
         while (list(, $value) = each($this->modules)) {

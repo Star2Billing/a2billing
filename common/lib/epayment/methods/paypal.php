@@ -1,6 +1,5 @@
 <?php
-
-include("./lib/epayment/includes/methods/paypal.php");
+include(dirname(__FILE__).'/../includes/methods/paypal.php');
 
 class paypal {
     var $code, $title, $description, $enabled;

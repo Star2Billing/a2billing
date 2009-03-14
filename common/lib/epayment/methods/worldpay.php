@@ -25,6 +25,7 @@ Version 1.0 Initial Payment Module
   Copyright (c) 2003
   Released under the GNU General Public License
 */
+include(dirname(__FILE__).'/../includes/methods/worldpay.php');
 
   class worldpay {
     var $code, $title, $description, $enabled;

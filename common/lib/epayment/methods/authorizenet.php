@@ -1,6 +1,5 @@
 <?php
-
-include("./lib/epayment/includes/methods/authorizenet.php");
+include(dirname(__FILE__).'/../includes/methods/authorizenet.php');
 
 class authorizenet {
     var $code, $title, $description, $enabled;
@@ -146,7 +145,7 @@ class authorizenet {
                                                  'field' => tep_draw_input_field('authorizenet_cc_number')),
                                            array('title' => MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES,
                                                  'field' => tep_draw_pull_down_menu('authorizenet_cc_expires_month', $expires_month) . '&nbsp;' . tep_draw_pull_down_menu('authorizenet_cc_expires_year', $expires_year))));
-
+                                        
       return $selection;
     }
 

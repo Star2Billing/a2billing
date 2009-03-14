@@ -109,6 +109,8 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["pr_password"]=$pr_password;
 			$_SESSION["rights"]=$rights;
 			$_SESSION["agent_id"] = $agent_id;
+			$_SESSION["currency"]=$return["currency"];
+			$_SESSION["vat"]=$return["vat"];
 			$log = new Logger();
 			$log -> insertLogAgent($agent_id, 1, "Agent Logged In", "Agent Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
 			$log = null;
@@ -131,7 +133,7 @@ function login ($user, $pass) {
 	$user = trim($user);
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
-	$QUERY = "SELECT id, perms, active FROM cc_agent WHERE login = '".$user."' AND passwd = '".$pass."'";
+	$QUERY = "SELECT id, perms, active,currency,vat FROM cc_agent WHERE login = '".$user."' AND passwd = '".$pass."'";
 
 	$res = $DBHandle -> Execute($QUERY);
 

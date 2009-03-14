@@ -4,7 +4,7 @@
     var $info, $totals, $products, $customer, $delivery, $content_type;
 
     function order($order_amount = '')
-    {
+    { 
       $this->info = array();
       $this->totals = array();
       $this->products = array();
@@ -20,15 +20,22 @@
     function query($order_amount)
     {
         global $languages_id;
-
-        $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, status, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+	
+        if(isset($_SESSION["agent_id"]) && !empty($_SESSION["agent_id"])){
+        	$QUERY = "SELECT  login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, active as status, currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
+        }elseif(isset($_SESSION["card_id"]) && !empty($_SESSION["card_id"])){
+        	$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_card WHERE id = '".$_SESSION["card_id"]."'";
+        }else{
+        	echo "ERROR";
+        	die();
+        }
 
         $DBHandle_max  = DbConnect();
         $resmax = $DBHandle_max -> query($QUERY);
         $numrow = $resmax -> numRows();
-        if ($numrow == 0) exit();
+        if ($numrow == 0) {exit();}
         $customer_info =$resmax -> fetchRow();
-        if($customer_info [13] != "1" ) {
+        if($customer_info [12] != "1" ) {
 			exit();
 		}
 
