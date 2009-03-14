@@ -5,14 +5,11 @@ getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate'
 
 $HD_Form = new FormHandler("cc_did","did");
 
-
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_did.php?form_action=ask-add&section=5";
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add DID");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
 
-
-$HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "did";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
@@ -21,9 +18,7 @@ $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE = 'did_use_delete';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = 'is_did_in_use';
 
 $actived_list = Constants::getActivationList();
-
 $billingtype_list = Constants::getBillingTypeList();
-
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 $billingtype_list_short = Constants::getBillingTypeShortList();
 
@@ -49,13 +44,12 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
 $HD_Form -> FG_SPLITABLE_FIELD = 'did';
 
 
 
 // TODO integrate in Framework
-if ($form_action=="ask-add" || $form_action=="purchase"){
+if ($form_action=="ask-add" || $form_action=="purchase") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+25;
 	$end_date = date("-m-d H:i:s");
@@ -63,13 +57,16 @@ if ($form_action=="ask-add" || $form_action=="purchase"){
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 }
 
-if ($form_action=="purchase"){
+if ($form_action=="purchase") {
 	$didval = "value='".$did."'";
 	$fixval = "value='".$fixrate."'";
 }
+if ($form_action=="ask-add") {
+	$fixval = "value='0'";
+}
 
 $did_regexpress = '9';
-if ($form_action=="ask-edit" || $form_action=="edit"){
+if ($form_action=="ask-edit" || $form_action=="edit") {
 	$did_regexpress = '13';
 }
 
@@ -157,7 +154,7 @@ $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'did';
 $HD_Form -> FG_FILTERFIELDNAME = 'did';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="did like '$filterprefix%'";
 }

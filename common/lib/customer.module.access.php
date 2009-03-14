@@ -82,11 +82,10 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		if ($FG_DEBUG == 1) print_r($return);
 		if ($FG_DEBUG == 1) echo "==>".$return[1];
 		
-		if (!is_array($return)) {		
+		if (!is_array($return)) {
 			sleep(2);
 			header ("HTTP/1.0 401 Unauthorized");
-            if(is_int($return))
-            {
+            if(is_int($return)) {
                 if($return == -1) {
 			        Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=3");
                 } else {
@@ -100,29 +99,27 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		
 		$cust_default_right=1;
 		if ($_POST["pr_login"]) {
-			$pr_login = $return[0]; //$_POST["pr_login"];
+			$pr_login = $return[0];
 			$pr_password = $_POST["pr_password"];
 			
 			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$cus_rights";
 			$_SESSION["pr_login"]=$pr_login;
 			$_SESSION["pr_password"]=$pr_password;
-			if(empty($return[11]))
+			if(empty($return[10]))
 				$_SESSION["cus_rights"]=$cust_default_right;
 			else 
-				$_SESSION["cus_rights"]=$return[11]+$cust_default_right;
+				$_SESSION["cus_rights"]=$return[10]+$cust_default_right;
+			
 			$_SESSION["card_id"]=$return[3];
 			$_SESSION["id_didgroup"]=$return[4];
 			$_SESSION["tariff"]=$return[5];
 			$_SESSION["vat"]=$return[6];
-			$_SESSION["gmtoffset"]=$return[8];
+			$_SESSION["gmtoffset"]=$return[7];
 			$_SESSION["currency"]=$return["currency"];
-			if ($return[9] && $return[10]){
-				// $_SESSION["cc_voicemail"] = true;
+			if ($return[8] && $return[9]){
 				$_SESSION["cc_voicemail"] = false;
 			}
-			
 		}
-		
 	} else {
 		$_SESSION["cus_rights"]=0;
 	}
@@ -138,7 +135,7 @@ function login ($user, $pass)
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	
-	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, cc.activatedbyuser, ct.gmtoffset, cc.voicemail_permitted, cc.voicemail_activated,cc_card_group.users_perms,cc.currency  FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
+	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, cc.voicemail_activated, cc_card_group.users_perms, cc.currency  FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
 	$res = $DBHandle -> Execute($QUERY);
 	
 	if (!$res) {
@@ -150,10 +147,6 @@ function login ($user, $pass)
 	
 	if( $row [0][2] != "t" && $row [0][2] != "1" ) {
 		return -1;
-	}
-	
-	if( ACTIVATEDBYUSER==1 && $row [0][7] != "t" && $row [0][7] != "1" ) {
-		return -2;
 	}
 	
 	return ($row[0]);
