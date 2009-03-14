@@ -1629,19 +1629,15 @@ class A2Billing {
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[VOUCHER SELECT: $QUERY]\n".print_r($result,true));
 
-		if ($result[0][0]==$this->vouchernumber)
-		{
-			if (!isset ($currencies_list[strtoupper($result[0][4])][2]))
-			{
+		if ($result[0][0]==$this->vouchernumber) {
+			if (!isset ($currencies_list[strtoupper($result[0][4])][2])) {
 				$this -> debug( ERROR, $agi, __FILE__, __LINE__, "System Error : No currency table complete !!!");
 				$agi-> stream_file('prepaid-unknow_used_currencie', '#');
 				return -1;
-			}
-			else
-			{
+			} else {
 				// DISABLE THE VOUCHER
 				$this -> add_credit = $result[0][1] * $currencies_list[strtoupper($result[0][4])][2];
-				$QUERY = "UPDATE cc_voucher SET activated='f', usedcardnumber='".$this->accountcode."', usedate=now() WHERE voucher='".$this->vouchernumber."'";
+				$QUERY = "UPDATE cc_voucher SET activated='f', usedcardnumber='".$this->accountcode."', used=1, usedate=now() WHERE voucher='".$this->vouchernumber."'";
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "QUERY UPDATE VOUCHER: $QUERY");
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 
