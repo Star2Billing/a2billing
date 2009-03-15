@@ -19,6 +19,19 @@ $CC_help_list_postfix='<br/>
 </div></div></div>
 </div></div>';
 
+$CC_help_mail_notifications = '<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+        <img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+        <div class="w2"><br>'
+.gettext("The Notification component is responsible of informing the Customer via e-mail that the account has reached a minimum credit."). '<br/>'.help_wiki_link('Notification').'
+<br/>
+</div></div></div>
+</div></div>
+';
+
+
 $CC_help_list_seria=$CC_help_list_prefix.gettext("This page shows the series list. <br> Series & serials is used for the creation of stable card range for large accounting purposes instead of card id.").'<br/>'.help_wiki_link('ListSeria').$CC_help_list_postfix;
 
 
