@@ -48,11 +48,14 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 		}
 		
 		$A2B -> cardnumber = $row[0][0];
-		$A2B -> credit = $balance;
 		if ($FG_DEBUG == 1) echo "cardnumber = ".$row[0][0] ."<br>";
 		
 		if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
 			if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
+			
+			if ($balance>0) {
+			$A2B -> credit = $balance;
+			} 
 			
 			$RateEngine = new RateEngine();
 			$RateEngine -> webui = 0;
@@ -108,8 +111,10 @@ echo $CC_help_sim_ratecard;
 				<br><b><?php echo gettext("NUMBER TO CALL");?> :</b>
 				<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
 				<br>
-				<b><?php echo gettext("CREDIT");?> :</b>
+				<b><?php echo gettext("INITAL CREDIT");?> :</b>
 				<INPUT type="text" class="form_input_text" name="balance" size="6" maxlength="6" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>">
+				<br>
+				<b><?php echo gettext("Choose 0 to simulate with the account current credit");?></b>
 				
 				<br>
 				<br>
