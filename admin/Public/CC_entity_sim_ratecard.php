@@ -50,12 +50,8 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 		$A2B -> cardnumber = $row[0][0];
 		if ($FG_DEBUG == 1) echo "cardnumber = ".$row[0][0] ."<br>";
 		
-		if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
+		if ($A2B -> callingcard_ivr_authenticate_light ($error_msg,$balance)){
 			if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
-			
-			if ($balance>0) {
-			$A2B -> credit = $balance;
-			} 
 			
 			$RateEngine = new RateEngine();
 			$RateEngine -> webui = 0;
