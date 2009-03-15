@@ -1270,7 +1270,7 @@ class A2Billing {
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$this->uniqueid."-".$this->cardnumber.")");
 					}
 
-					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[".$inst_listdestination[4]." Friend][followme=$callcount]:[ANSWEREDTIME=".$answeredtime."-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx DIALSTATUS=".$dialstatus."]");
+					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[".$inst_listdestination[4]." Friend][followme=$callcount]:[ANSWEREDTIME=".$answeredtime."-DIALSTATUS=".$dialstatus."]");
 					
 					//# Ooh, something actually happend!
 					if ($dialstatus  == "BUSY") {
