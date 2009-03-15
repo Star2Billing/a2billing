@@ -35,32 +35,6 @@ echo $CC_help_mail_notifications;
 </table>
 <br/>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
 // Load the list of values in the config table ! key=values_notifications
 $key= "cron_notifications";

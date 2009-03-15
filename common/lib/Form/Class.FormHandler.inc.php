@@ -592,8 +592,7 @@ class FormHandler
 	function &getProcessed() {
 		foreach ($this->_vars as $key => $value) {
 			$this->_processed[$key] = $this -> sanitize_data($value);
-			if($key=='username' || $key=='cid'){
-				
+			if($key=='username') {
 				//rebuild the search parameter to filter character to format card number
 				$filtered_char = array(" ", "-", "_","(",")","+");
 				$this->_processed[$key]= str_replace($filtered_char, "", $this->_processed[$key]);
@@ -1310,11 +1309,11 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$regexp = $this->FG_TABLE_ADITION[$i][5];
 				
 				// FIND THE MULTIPLE SELECT
-				if ($pos_mul && is_array($processed[$fields_name])){ 
+				if ($pos_mul && is_array($processed[$fields_name])) {
 					$total_mult_select=0;					
-					foreach ($processed[$fields_name] as $value){
+					foreach ($processed[$fields_name] as $value) {
 							$total_mult_select += $value;
-					}		
+					}
 					
 					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$total_mult_select;					
 					
@@ -1323,28 +1322,28 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 					if ($i>0) $param_add_value .= ", ";
 					$param_add_value .= "'".addslashes(trim($total_mult_select))."'";
 				
-				}else{
+				} else {
 					// NO MULTIPLE SELECT
 					
 					// CHECK ACCORDING TO THE REGULAR EXPRESSION DEFINED	
-					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){						
+					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="")) {					
 						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
 						if ($this->FG_DEBUG == 1)  echo "<br>->  $fields_name => ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
 							$form_action="ask-add";
 						}
-					}elseif ($regexp == "check_select"){
-					// FOR SELECT FIELD WE HAVE THE check_select THAT WILL ENSURE WE DEFINE A VALUE FOR THE SELECTABLE FIELD
-						if ($processed[$fields_name]==-1){
+					} elseif ($regexp == "check_select") {
+						// FOR SELECT FIELD WE HAVE THE check_select THAT WILL ENSURE WE DEFINE A VALUE FOR THE SELECTABLE FIELD
+						if ($processed[$fields_name]==-1) {
 							$this-> FG_fit_expression[$i] = false;
 							$this->VALID_SQL_REG_EXP = false;
 							$form_action="ask-add";
 						}
 					}
-					// CHECK IF THIS IS A SPLITABLE FIELD :D like 012-014 or 15;16;17
-				 	if ($fields_name == $this -> FG_SPLITABLE_FIELD && substr($processed[$fields_name],0,1) != '_' ){
-						$splitable_value = $processed[$fields_name];
+					// CHECK IF THIS IS A SPLITABLE FIELD LIKE 012-014 OR 15;16;17
+				 	if ($fields_name == $this -> FG_SPLITABLE_FIELD && substr($processed[$fields_name],0,1) != '_' ) {
+				 		$splitable_value = $processed[$fields_name];
 						$arr_splitable_value = explode(",", $splitable_value);
 						foreach ($arr_splitable_value as $arr_value){
 							$arr_value = trim ($arr_value);

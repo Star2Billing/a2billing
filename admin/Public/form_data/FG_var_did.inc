@@ -10,7 +10,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_did.php?form_action=ask-add
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add DID");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/telephone_add.png" ;
 
-$HD_Form -> FG_TABLE_ID="id";
+$HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "did";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'add_did_use';
@@ -77,7 +77,8 @@ $HD_Form -> AddEditElement (gettext("DID"),
 	"size=30 maxlength=30 $didval",
 	"$did_regexpress",
 	gettext("Insert the DID"),
-	"" , "", "", "", "" , "", "" ,"Insert DID");
+	"" , "", "", "", "" , "", "" ,
+	gettext("Define the DID's. If you ADD a new DID, NOT an EDIT, you can define a range of DID. <br>80412340210-80412340218 would add all DID's between the range, whereas DIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual DID listed."));
 
 $HD_Form -> AddEditElement (gettext("BILLING"),
 	"billingtype",

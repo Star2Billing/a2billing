@@ -1,16 +1,12 @@
 <?php
 getpost_ifset(array('id', 'cid', 'outbound_cid_group', 'activated'));
 
-$plang='en';
-
-$HD_Form = new FormHandler("cc_outbound_cid_list","cid");
+$HD_Form = new FormHandler("cc_outbound_cid_list", "cid");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "cid";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
@@ -35,23 +31,17 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
 $HD_Form -> FG_SPLITABLE_FIELD = 'cid';
 
 
 
 // TODO integrate in Framework
-if ($form_action=="ask-add"){
+if ($form_action=="ask-add") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+25;
 	$end_date = date("-m-d H:i:s");
 	$comp_date = "value='".$begin_date.$end_date."'";
 	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
-}
-
-$did_regexpress = '9';
-if ($form_action=="ask-edit" || $form_action=="edit"){
-	$did_regexpress = '13';
 }
 
 $HD_Form -> AddEditElement (gettext("CID"),
@@ -61,7 +51,8 @@ $HD_Form -> AddEditElement (gettext("CID"),
 			   "cols=50 rows=4",
 				"",  //CID Regular Expression
 				gettext("Insert the CID"),
-				"" , "", "", "", "" , "", "" ,gettext("Define the CallerID's. If you ADD a new CID, NOT an EDIT, you can define a range of CallerID. <br>80412340210-80412340218 would add all CID's between the range, whereas CIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual CID listed."));
+				"" , "", "", "", "" , "", "",
+				gettext("Define the CallerID's. If you ADD a new CID, NOT an EDIT, you can define a range of CallerID. <br>80412340210-80412340218 would add all CID's between the range, whereas CIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual CID listed."));
 
 
 $HD_Form -> AddEditElement (gettext("CIDGROUP"),
@@ -88,10 +79,7 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 $HD_Form -> FieldEditElement ('cid, outbound_cid_group, activated');
 
 
-$HD_Form -> FG_SPLITABLE_FIELD = 'cid';
-
-
-$HD_Form -> FG_INTRO_TEXT_EDITION= '';
+$HD_Form -> FG_INTRO_TEXT_EDITION = '';
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME."<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
