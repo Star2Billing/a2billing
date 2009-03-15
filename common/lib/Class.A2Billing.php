@@ -1270,7 +1270,7 @@ class A2Billing {
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$this->uniqueid."-".$this->cardnumber.")");
 					}
 
-					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[".$inst_listdestination[4]." Friend][followme=$callcount]:[ANSWEREDTIME=".$answeredtime."-DIALSTATUS=".$dialstatus."]");
+					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[".$inst_listdestination[4]." Friend][followme=$callcount]:[ANSWEREDTIME=".$answeredtime."-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx DIALSTATUS=".$dialstatus."]");
 					
 					//# Ooh, something actually happend!
 					if ($dialstatus  == "BUSY") {
@@ -2467,7 +2467,7 @@ class A2Billing {
 	}
 
 
-	function callingcard_ivr_authenticate_light (&$error_msg) {
+	function callingcard_ivr_authenticate_light (&$error_msg,$simbalance) {
 		
 		$res=0;
 		$QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
@@ -2479,8 +2479,12 @@ class A2Billing {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Authentication Failed !!!").'</b></font><br>';
 			return 0;
 		}
-
-		$this->credit = $result[0][0];
+		//If we receive a positive value from the rate simulator, we simulate with that initial balance. If we receive <=0 we use the value retrieved from the account
+           	if ($simbalance>0) {
+                        $this -> credit = $simbalance;
+                        } else {
+				$this->credit = $result[0][0];
+			}
 		$this->tariff = $result[0][1];
 		$this->active = $result[0][2];
 		$isused = $result[0][3];
