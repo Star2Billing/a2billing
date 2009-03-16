@@ -151,9 +151,10 @@ $smarty->display( 'main.tpl');
 			
 				echo $to_echo;
 			?>
-			<font size="2"><?php echo $display_currency; 
-								}?> </font>
+			<font size="2">
+			<?php echo $display_currency; ?> </font>
 			<br/>
+			<?php } ?>
 			<?php echo join(" - ", $arr_purchase_amount); ?>
 			<font size="2"><?php echo strtoupper(BASE_CURRENCY);?> </font>
 			<?php } ?>
