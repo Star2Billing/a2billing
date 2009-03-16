@@ -128,7 +128,7 @@ if ($task=='upload'){
 			$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
 		
 		$ligne = str_replace(',', '.', $ligne);
-		$val= split('[;:]', $ligne);
+		$val= split('[;]', $ligne);
 		$val[0]=str_replace('"', '', $val[0]); //DH
 		$val[1]=str_replace('"', '', $val[1]); //DH
 		$val[2]=str_replace('"', '', $val[2]); //DH
