@@ -19,8 +19,8 @@ if (!isset ($current_page) || ($current_page == "")){
 }
 
 
-// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 1;
+// this variable specify the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
+$FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME= "cc_card_history ch, cc_card cc LEFT JOIN cc_card_group ON cc.id_group=cc_card_group.id";
