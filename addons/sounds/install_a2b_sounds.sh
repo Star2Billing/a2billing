@@ -2,6 +2,8 @@
 
 ast_sound=/var/lib/asterisk/sounds
 
+#Use this line for Debian based systems
+#ast_sound=/usr/share/asterisk/sounds
 
 lang=en
 echo 
