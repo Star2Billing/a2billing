@@ -373,6 +373,20 @@ function linktocustomer($value)
     }
 }
 
+function linktoagent($id)
+{
+	$handle = DbConnect();
+	$inst_table = new Table("cc_agent", "login");
+	$FG_TABLE_CLAUSE = "id = '$id'";
+	$list_agent = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
+	$value = $list_customer[0][0];
+    if($id > 0) {
+    	echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";
+    } else {
+    	echo $value;
+    }
+}
+
 
 /*
  * function MDP_STRING
