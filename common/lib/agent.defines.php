@@ -119,6 +119,19 @@ define('MODULE_PAYMENT_IPAYMENT_TEXT_CREDIT_CARD_CHECKNUMBER_LOCATION', gettext(
 define('MODULE_PAYMENT_IPAYMENT_TEXT_JS_CC_OWNER', gettext('* The owner\'s name of the credit card must be at least').' ' . CC_OWNER_MIN_LENGTH . ' '.gettext('characters.').'\n');
 define('MODULE_PAYMENT_IPAYMENT_TEXT_JS_CC_NUMBER', gettext('* The credit card number must be at least').' ' . CC_NUMBER_MIN_LENGTH .' '.gettext('characters').'\n');
 
+// EPayment Module Settings
+define ("HTTP_SERVER", isset($A2B->config["epayment_method"]['http_server_agent'])?$A2B->config["epayment_method"]['http_server_agent']:null);
+define ("HTTPS_SERVER", isset($A2B->config["epayment_method"]['https_server_agent'])?$A2B->config["epayment_method"]['https_server_agent']:null);
+define ("HTTP_COOKIE_DOMAIN", isset($A2B->config["epayment_method"]['http_cookie_domain_agent'])?$A2B->config["epayment_method"]['http_cookie_domain_agent']:null);
+define ("HTTPS_COOKIE_DOMAIN", isset($A2B->config["epayment_method"]['https_cookie_domain_agent'])?$A2B->config["epayment_method"]['https_cookie_domain_agent']:null);
+define ("HTTP_COOKIE_PATH", isset($A2B->config["epayment_method"]['http_cookie_path_agent'])?$A2B->config["epayment_method"]['http_cookie_path_agent']:null);
+define ("HTTPS_COOKIE_PATH", isset($A2B->config["epayment_method"]['https_cookie_path_agent'])?$A2B->config["epayment_method"]['https_cookie_path_agent']:null);
+define ("DIR_WS_HTTP_CATALOG", isset($A2B->config["epayment_method"]['dir_ws_http_catalog_agent'])?$A2B->config["epayment_method"]['dir_ws_http_catalog_agent']:null);
+define ("DIR_WS_HTTPS_CATALOG", isset($A2B->config["epayment_method"]['dir_ws_https_catalog_agent'])?$A2B->config["epayment_method"]['dir_ws_https_catalog_agent']:null);
+define ("ENABLE_SSL", isset($A2B->config["epayment_method"]['enable_ssl'])?$A2B->config["epayment_method"]['enable_ssl']:null);
+define ("EPAYMENT_TRANSACTION_KEY", isset($A2B->config["epayment_method"]['transaction_key'])?$A2B->config["epayment_method"]['transaction_key']:null);
+define ("PAYPAL_VERIFY_URL", isset($A2B->config["epayment_method"]['paypal_verify_url'])?$A2B->config["epayment_method"]['paypal_verify_url']:null);
+define ("MONEYBOOKERS_SECRETWORD", isset($A2B->config["epayment_method"]['moneybookers_secretword'])?$A2B->config["epayment_method"]['moneybookers_secretword']:null);
 
 
 // PAYPAL	
