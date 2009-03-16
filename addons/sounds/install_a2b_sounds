@@ -3,8 +3,6 @@
 ast_sound=/var/lib/asterisk/sounds
 
 
-
-
 lang=en
 echo 
 echo Install A2Billing Audio files : "$lang"
@@ -17,7 +15,7 @@ mkdir $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/
-
+cp ./global/* $ast_sound/$lang/
 
 
 lang=es
@@ -32,7 +30,7 @@ mkdir $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/
-
+cp ./global/* $ast_sound/$lang/
 
 
 lang=fr
@@ -47,7 +45,7 @@ mkdir $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/
-
+cp ./global/* $ast_sound/$lang/
 
 
 
@@ -63,7 +61,7 @@ mkdir $ast_sound/$lang/digits
 echo Copy $lang files in the right folder ...
 
 cp ./$lang/* $ast_sound/$lang/
-
+cp ./global/* $ast_sound/$lang/
 
 
 
@@ -81,5 +79,6 @@ echo Copy $lang files in the right folder ...
 cp ./$lang/* $ast_sound/$lang/
 echo Copy $lang digits files in the right folder ...
 cp ./$lang/digits/* $ast_sound/$lang/digits/
+
 
 
