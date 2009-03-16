@@ -1,5 +1,5 @@
 <?php
-include ("./lib/customer.defines.php");
+include ("../lib/agent.defines.php");
 
 
 getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
@@ -22,15 +22,15 @@ if($transactionID == "") {
 }
 
 
-include ("./lib/customer.module.access.php");
-include ("./lib/Form/Class.FormHandler.inc.php");
-include ("./lib/epayment/classes/payment.php");
-include ("./lib/epayment/classes/order.php");
-include ("./lib/epayment/classes/currencies.php");
-include ("./lib/epayment/includes/general.php");
-include ("./lib/epayment/includes/html_output.php");
-include ("./lib/epayment/includes/configure.php");
-include ("./lib/epayment/includes/loadconfiguration.php");
+include ("../lib/agent.module.access.php");
+include ("../lib/Form/Class.FormHandler.inc.php");
+include ("../lib/epayment/classes/payment.php");
+include ("../lib/epayment/classes/order.php");
+include ("../lib/epayment/classes/currencies.php");
+include ("../lib/epayment/includes/general.php");
+include ("../lib/epayment/includes/html_output.php");
+include ("../lib/epayment/includes/configure.php");
+include ("../lib/epayment/includes/loadconfiguration.php");
 
 
 $DBHandle_max  = DbConnect();
@@ -43,11 +43,11 @@ if (DB_TYPE == "postgres") {
 }
 
 // Status - New 0 ; Proceed 1 ; In Process 2
-$QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency FROM cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
+$QUERY = "SELECT id, agent_id, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency FROM cc_epayment_log_agent WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 //Update the Transaction Status to 1
-$QUERY = "UPDATE cc_epayment_log SET status = 2 WHERE id = ".$transactionID;
+$QUERY = "UPDATE cc_epayment_log_agent SET status = 2 WHERE id = ".$transactionID;
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
 $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
@@ -254,7 +254,7 @@ $payment_modules = new payment($transaction_data[0][4]);
 
 
 
-$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
+$QUERY = "SELECT id, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, currency FROM cc_agent WHERE id = '".$transaction_data[0][1]."'";
 $numrow = 0;
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax)
@@ -271,7 +271,7 @@ $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
 
-$Query = "Insert into cc_payments ( customers_id, customers_name, customers_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, cc_number, " .
+$Query = "Insert into cc_payments_agent ( agent_id, agent_name, agent_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, cc_number, " .
 									" cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
 									" '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', 'balance', '".
 									$customer_info[0]."', 1, '$pmodule', '".$_SESSION["p_cardtype"]."', '".$transaction_data[0][5]."', '".$transaction_data[0][6]."', '".
@@ -281,63 +281,28 @@ $result = $DBHandle_max -> Execute($Query);
 
 
 //************************UPDATE THE CREDIT IN THE CARD***********************
-$id = 0;
-if ($customer_info[0] > 0 && $orderStatus == 2) {
-    /* CHECK IF THE CARDNUMBER IS ON THE DATABASE */
-    $instance_table_card = new Table("cc_card", "username, id");
-    $FG_TABLE_CLAUSE_card = " username='".$customer_info[0]."'";
-    $list_tariff_card = $instance_table_card -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);
-    if ($customer_info[0] == $list_tariff_card[0][0]) {
-        $id = $list_tariff_card[0][1];
-    }
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." CARD FOUND IN DB ($id)");
-}
-
+$id = $customer_info[0];
 
 if ($id > 0 ) {
     $addcredit = $transaction_data[0][2]; 
-	$instance_table = new Table("cc_card", "username, id");
+	$instance_table = new Table("cc_agent", "");
 	$param_update .= " credit = credit+'".$amount_paid."'";
 	$FG_EDITION_CLAUSE = " id='$id'";
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 
-	$field_insert = "date, credit, card_id, description";
+	$field_insert = "date, credit, agent_id, description";
 	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '".$transaction_data[0][4]."'";
-	$instance_sub_table = new Table("cc_logrefill", $field_insert);
+	$instance_sub_table = new Table("cc_logrefill_agent", $field_insert);
 	$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 	
-	$field_insert = "date, payment, card_id, id_logrefill, description";
+	$field_insert = "date, payment, agent_id, id_logrefill, description";
 	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."'";
-	$instance_sub_table = new Table("cc_logpayment", $field_insert);
+	$instance_sub_table = new Table("cc_logpayment_agent", $field_insert);
 	$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 	
-	//Agent commision
-	// test if this card have a agent
-	$table_transaction = new Table();
-	$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
-	
-	if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
-		//test if the agent exist and get its commission
-		$agent_table = new Table("cc_agent", "commission");
-		$agent_clause = "id = ".$result_agent[0]['id_agent'];
-		$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
-		
-		if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
-			$field_insert = "id_payment, id_card, amount,description";
-			$commission = ceil(($amount_paid * ($result_agent[0]['commission'])/100)*100)/100;
-			$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
-			$description_commission.= "\nID CARD : ".$id;
-			$description_commission.= "\nID PAYMENT : ".$id_payment;
-			$description_commission.= "\nPAYMENT AMOUNT: ".$amount_paid;
-			$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
-			$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission'";
-			$commission_table = new Table("cc_agent_commission", $field_insert);
-			$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
-		}
-	}
 }
 
 //*************************END UPDATE CREDIT************************************
@@ -350,7 +315,7 @@ $_SESSION["p_module"] = null;
 $_SESSION["p_module"] = null;
 
 //Update the Transaction Status to 1
-$QUERY = "UPDATE cc_epayment_log SET status = 1, transaction_detail ='".addslashes($transaction_detail)."' WHERE id = ".$transactionID;
+$QUERY = "UPDATE cc_epayment_log_agent SET status = 1, transaction_detail ='".addslashes($transaction_detail)."' WHERE id = ".$transactionID;
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
 $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 

@@ -54,15 +54,15 @@ $time_stamp = date("Y-m-d h:i:s");
 
 
 if (strtoupper($payment)=='PLUGNPAY') {
-	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, cvv, credit_card_type, currency";
-	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$total_amount', 0, '$payment','$plugnpay_cc_owner','".substr($plugnpay_cc_number,0,4)."XXXXXXXXXXXX','".$plugnpay_cc_expires_month."-".$plugnpay_cc_expires_year."','$time_stamp', '$cvv', '$credit_card_type', '".BASE_CURRENCY."'";
+	$QUERY_FIELDS = "agent_id, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, cvv, credit_card_type, currency";
+	$QUERY_VALUES = "'".$_SESSION["agent_id"]."','$total_amount', '".$_SESSION["vat"]."', '$payment','$plugnpay_cc_owner','".substr($plugnpay_cc_number,0,4)."XXXXXXXXXXXX','".$plugnpay_cc_expires_month."-".$plugnpay_cc_expires_year."','$time_stamp', '$cvv', '$credit_card_type', '".BASE_CURRENCY."'";
 } else {
-	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, currency";
-	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$total_amount', 0, '$payment','$authorizenet_cc_owner','".substr($authorizenet_cc_number,0,4)."XXXXXXXXXXXX','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp', '".BASE_CURRENCY."'";
+	$QUERY_FIELDS = "agent_id, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, currency";
+	$QUERY_VALUES = "'".$_SESSION["agent_id"]."','$total_amount', '".$_SESSION["vat"]."', '$payment','$authorizenet_cc_owner','".substr($authorizenet_cc_number,0,4)."XXXXXXXXXXXX','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp', '".BASE_CURRENCY."'";
 }
-$transaction_no = $paymentTable->Add_table ($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log', 'id');
+$transaction_no = $paymentTable->Add_table ($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log_agent', 'id');
 
-$key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no."^".$total_amount."^".$_SESSION["card_id"]);
+$key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no."^".$total_amount."^".$_SESSION["agent_id"]);
 
 if (empty($transaction_no)) {
 	exit(gettext("No Transaction ID found"));
