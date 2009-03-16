@@ -3,9 +3,9 @@
 getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill','refill_type'));
 
 
-if (!isset($form_action) || $form_action=="list"){
+if (!isset($form_action) || $form_action=="list") {
 	$HD_Form = new FormHandler("cc_logpayment LEFT JOIN cc_card ON cc_card.id=card_id","Payment");
-}else{
+} else {
 	$HD_Form = new FormHandler("cc_logpayment","Payment");
 }
 
@@ -40,7 +40,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
-if ($form_action=="ask-add" && !empty($card_id)){	
+if ($form_action=="ask-add" && !empty($card_id)) {
 	$id_val = "value='$card_id'";
 }
 
@@ -114,13 +114,13 @@ if ($form_action!="ask-edit" && $form_action!="edit") {
 }
 
 $HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
-                           "payment_type",
-                           '$value',
-                           "SELECT",
-                           "",
-                           "",
-                           "",
-                           "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
+                   "payment_type",
+                   '$value',
+                   "SELECT",
+                   "",
+                   "",
+                   "",
+                   "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
 
 
 
@@ -137,7 +137,7 @@ $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }

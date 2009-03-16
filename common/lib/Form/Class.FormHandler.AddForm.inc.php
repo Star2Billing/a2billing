@@ -20,7 +20,7 @@
 		for($i=0;$i<$this->FG_NB_TABLE_ADITION;$i++){ 
 			$pos = strpos($this->FG_TABLE_ADITION[$i][14], ":");
 			
-			if (strlen($this->FG_TABLE_EDITION[$i][16])>1){
+			if (strlen($this->FG_TABLE_ADITION[$i][16])>1 && strtoupper ($this->FG_TABLE_ADITION[$i][3])!=("HAS_MANY")) {
 				echo '<TR><TD width="%25" valign="top" bgcolor="#FEFEEE" colspan="2" class="tableBodyRight" ><i>';				
 				echo $this->FG_TABLE_EDITION[$i][16];
 				echo '</i></TD></TR>';
@@ -39,11 +39,11 @@
 		
 	<?php 
 		if ($this->FG_DEBUG == 1) print($this->FG_TABLE_ADITION[$i][3]);
-  		if (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("INPUT")){
+  		if (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="INPUT"){
 	?>
                  <INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>">
 	<?php
-		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("POPUPVALUE")){
+		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="POPUPVALUE"){
 	?>
 		<INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php		
 		
@@ -53,7 +53,7 @@
 		<a href="#" onclick="window.open('<?php echo $this->FG_TABLE_ADITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?php echo $this->FG_TABLE_ADITION[$i][1]?>' <?php echo $this->FG_TABLE_ADITION[$i][13]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 <!--CAPTCHA IMAGE CODE START HERE-->
 	<?php
-		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper("CAPTCHAIMAGE"))
+		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="CAPTCHAIMAGE")
 		{
 	?>
 		<table cellpadding="2" cellspacing="0" border="0" width="100%">
@@ -70,13 +70,13 @@
 <!--CAPTCHA IMAGE CODE END HERE-->		
 			
 	<?php
-		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("POPUPVALUETIME"))
+		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="POPUPVALUETIME")
 		{
 	?>
 		<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
 		<a href="#" onclick="window.open('<?php echo $this->FG_TABLE_ADITION[$i][14]?>formname=myForm&fieldname=<?php echo $this->FG_TABLE_ADITION[$i][1]?>' <?php echo $this->FG_TABLE_ADITION[$i][14]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 	<?php
-		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("POPUPDATETIME"))
+		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="POPUPDATETIME")
 		{
 	?>
 		<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
@@ -92,17 +92,17 @@
 		//-->
 		</script>
 	<?php 
-		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("TEXTAREA")){
+		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="TEXTAREA"){
 	?>
             <TEXTAREA class="form_input_textarea" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?> <?php echo $this->FG_TABLE_ADITION[$i][4]?>><?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?></TEXTAREA> 
 	<?php 	
-		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("SELECT")){
+		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="SELECT"){
 			if ($this->FG_DEBUG == 1) { echo "<br> TYPE DE SELECT :".$this->FG_TABLE_ADITION[$i][7];}
-			if (strtoupper ($this->FG_TABLE_ADITION[$i][7])==strtoupper ("SQL")){
+			if (strtoupper ($this->FG_TABLE_ADITION[$i][7])=="SQL"){
 				$instance_sub_table = new Table($this->FG_TABLE_ADITION[$i][8], $this->FG_TABLE_ADITION[$i][9]);
 				$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_ADITION[$i][10], null, null, null, null, null, null);
 				if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
-			}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][7])==strtoupper ("LIST")){
+			}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][7])=="LIST"){
 				$select_list = $this->FG_TABLE_ADITION[$i][11];
 			}
 	?>
@@ -142,7 +142,7 @@
 	?>
         </SELECT>
 	<?php   
-			}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("RADIOBUTTON")){
+			} elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="RADIOBUTTON") {
 				$radio_table = split(",",trim($this->FG_TABLE_ADITION[$i][10]));
 				foreach ($radio_table as $radio_instance){
 					$radio_composant = split(":",$radio_instance);
@@ -162,11 +162,8 @@
 						echo "checked";
 					}
 					echo ">";
-				}								
-				//  Yes <input type="radio" name="digitalized" value="t" checked>
-				//  No<input type="radio" name="digitalized" value="f">
-						
-                        }//END_IF (RADIOBUTTON)
+				}
+			}//END_IF (RADIOBUTTON)
 	?>
 		<span class="liens">
 	 <?php 	

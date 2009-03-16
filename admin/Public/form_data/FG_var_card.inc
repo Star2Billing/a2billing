@@ -554,25 +554,6 @@ $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this account."));
 
 
-$HD_Form -> AddEditElement (gettext("RUN AUTOREFILL"),
-			   "autorefill",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the autorefill on this account"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to authorize the autorefill to apply on this accout"));
-
-$HD_Form -> AddEditElement (gettext("INITIAL BALANCE"),
-			   "initialbalance",
-			   "",
-			   "INPUT",
-			   "size=30 $default_initbalance maxlength=30",
-			   "12",
-			   gettext("Insert the amount of the initial balance"),
-			   "" , "", "",	"", "", "",	"", gettext("The initial balance is used by autorefill to reset the current balance to this amount"));
-
-
 $HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
 			   "creditlimit",
 			   "",
@@ -737,6 +718,26 @@ $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "" , "", "",	"", "", "", "NO", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
 
 
+$HD_Form -> AddEditElement (gettext("AUTOREFILL"),
+			   "autorefill",
+			   '0',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to enable the autorefill on this account"),
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to authorize the autorefill to apply on this accout"),
+			   '', '', gettext("AUTOREFILL"));
+
+$HD_Form -> AddEditElement (gettext("INITIAL BALANCE"),
+			   "initialbalance",
+			   "",
+			   "INPUT",
+			   "size=30 $default_initbalance maxlength=30",
+			   "12",
+			   gettext("Insert the amount of the initial balance"),
+			   "" , "", "",	"", "", "",	"", gettext("The initial balance is used by autorefill to reset the current balance to this amount"));
+
+
 
 $HD_Form -> AddEditElement (gettext("INVOICE DAY"),
 			   "invoiceday",
@@ -776,8 +777,8 @@ $HD_Form -> AddEditElement (gettext("DISCOUNT"),
                "",
                "",
                "",
-               "list" , "", "",     "", $discount_list, "%1", "", "", '', '', gettext("Notes"));
-
+               "list" , "", "",     "", $discount_list, "%1", "", ""); 
+				
 
 $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 			   "traffic",
@@ -786,7 +787,8 @@ $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 			   "size=30 maxlength=20",
 			   "",
 			   gettext("Insert the traffic per month for this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");		   
+			   "" , "", "",	"", "", "" , "NO", "",
+			   '', '', gettext("TARGET TRAFFIC")); 
 
 $HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
 				"traffic_target",
@@ -805,7 +807,8 @@ $HD_Form -> AddEditElement (gettext("RESTRICTION"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $restriction_list, "%1", "", "" );
+			   "list" , "", "",	"", $restriction_list, "%1", "", "",
+			   '', '', gettext("RESTRICTED NUMBERS")); 
 				
 $HD_Form -> AddEditElement (gettext("RESTRICTED NUMBERS"),
 			   "restrictednumber",
@@ -831,7 +834,8 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "",
 			   "",
 			   "",
-			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card:::::::0");
+			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card:::::::0",
+			   '', gettext("CALLERID / CUSTOMER HISTORY"));
 				
 			   
 
@@ -864,8 +868,8 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, id_group, id_seria, lastname, firstname, email, '.
 		' address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
 		$update_field_typepaid.' tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
-		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
-		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
+		' creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
+		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, autorefill, initialbalance,' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
 
 

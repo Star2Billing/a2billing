@@ -1862,9 +1862,9 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	{ 
 		global $A2B;
 		$processed = $this->getProcessed();
-		if($processed['added_refill']==1){
+		if ($processed['added_refill']==1) {
 			$id_payment = $this -> RESULT_QUERY;
-			//CREATE REFILL
+			// CREATE REFILL
 			$field_insert = "date, credit, card_id ,refill_type, description";
 			$date = $processed['date'];
 			$credit = $processed['payment'];
@@ -1874,7 +1874,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$value_insert = " '$date' , '$credit', '$card_id','$refill_type', '$description' ";
 			$instance_sub_table = new Table("cc_logrefill", $field_insert);
 			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
-			//REFILL CARD .. UPADTE CARD
+			// REFILL CARD .. UPADTE CARD
 			$instance_table_card = new Table("cc_card");
 			$param_update_card = "credit = credit + '".$credit."'";
 			$clause_update_card = " id='$card_id'";
@@ -1885,33 +1885,33 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$clause_update_pay = " id ='$id_payment'";
 			$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
 		
-		// create invoice associated
+			// Create invoice associated
 		
-		//CREATE AND UPDATE REF NUMBER
+			// CREATE AND UPDATE REF NUMBER
 			$list_refill_type=Constants::getRefillType_List();
 			$refill_type = $processed['payment_type'];
 			$year = date("Y");
 			$invoice_conf_table = new Table('cc_invoice_conf','value');
 			$conf_clause = "key_val = 'count_$year'";
 			$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
-			if(is_array($result) && !empty($result[0][0])){
-				//update count
+			if (is_array($result) && !empty($result[0][0])) {
+				// update count
 				$count =$result[0][0];
 				if(!is_numeric($count)) $count=0;
 				$count++;
 				$param_update_conf = "value ='".$count."'";
 				$clause_update_conf = "key_val = 'count_$year'";
 				$invoice_conf_table -> Update_table ($this->DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
-			}else{
-				//insert newcount
+			} else {
+				// insert newcount
 				$count=1;
 				$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
 				$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
 			}
 			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
-			if($refill_type!=0){
+			if($refill_type!=0) {
 				$title = $list_refill_type[$refill_type][0]." ".gettext("REFILL");
-			}else{
+			} else {
 				$title = gettext("REFILL");
 			}
 			$description = gettext("Invoice for refill");
@@ -1925,7 +1925,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$instance_table = new Table("cc_invoice_payment", $field_insert);
 			$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null);
 			//load vat of this card
-			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+			if(!empty($id_invoice) && is_numeric($id_invoice)) {
 				$description = $processed['description'];
 				$card_table = new Table('cc_card','vat');
 				$card_clause = "id = ".$card_id;
@@ -1938,7 +1938,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 		}
-		if($processed['added_commission']==1){
+		if($processed['added_commission']==1) {
 			$card_id = $processed['card_id'];
 			$table_transaction = new Table();
 			$result_agent = $table_transaction -> SQLExec($this->DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $card_id");
@@ -1963,7 +1963,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				}
 			}	
 		}
-		die();
 	}
 
 	function create_agent_refill(){

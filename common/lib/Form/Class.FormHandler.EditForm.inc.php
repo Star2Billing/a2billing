@@ -86,7 +86,7 @@ function sendtolittle(direction){
 						 <?php }?> 
 						name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
                         <?php 
-				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUE")){
+				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="POPUPVALUE"){
 			?>
 				<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php
 					if($this->VALID_SQL_REG_EXP){ 
@@ -94,13 +94,13 @@ function sendtolittle(direction){
 					}else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
                                 	<a href="#" onclick="window.open('<?php echo $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?php echo $this->FG_TABLE_EDITION[$i][1]?>' <?php echo $this->FG_TABLE_EDITION[$i][13]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 			 <?php
-				}elseif (strtoupper ($this -> FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUETIME"))
+				}elseif (strtoupper ($this -> FG_TABLE_EDITION[$i][3])=="POPUPVALUETIME")
 				{
                         ?>
                         <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
                          <a href="#" onclick="window.open('<?php echo $this->FG_TABLE_EDITION[$i][14]?>formname=myForm&fieldname=<?php echo $this->FG_TABLE_EDITION[$i][1]?>' <?php echo $this->FG_TABLE_EDITION[$i][14]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
                         <?php
-				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPDATETIME"))
+				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="POPUPDATETIME")
 				{
                         ?>
                          <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
@@ -116,7 +116,7 @@ function sendtolittle(direction){
                           //-->
                           </script>
 			<?php	
-		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("TEXTAREA"))
+		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="TEXTAREA")
 				{
 			  ?>
                      <textarea class="form_input_textarea" 
@@ -125,21 +125,21 @@ function sendtolittle(direction){
 						 <?php }?> 
 					 name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></textarea> 
 				<?php	
-		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SPAN"))
+		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SPAN")
 				{
 			  ?>
                      <span name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></span> 	 
                         <?php 	
-				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
+				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT")
 				{
 								
 					if ($this->FG_DEBUG == 1)	echo gettext("<br> TYPE DE SELECT :").$this->FG_TABLE_EDITION[$i][7];
-					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("SQL")){
+					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])=="SQL"){
 						$instance_sub_table = new Table($this->FG_TABLE_EDITION[$i][8], $this->FG_TABLE_EDITION[$i][9]);
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_EDITION[$i][10], null, null, null, null, null, null);
 						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
 											
-					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("LIST"))
+					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][7])=="LIST")
 					{
 						$select_list = $this->FG_TABLE_EDITION[$i][11];
 						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
@@ -201,7 +201,7 @@ function sendtolittle(direction){
 			  ?>
                         </SELECT>
                         <?php   
-					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("RADIOBUTTON")){
+					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="RADIOBUTTON"){
 						$radio_table = split(",",trim($this->FG_TABLE_EDITION[$i][10]));
 						foreach ($radio_table as $radio_instance){
 							$radio_composant = split(":",$radio_instance);
@@ -240,7 +240,7 @@ function sendtolittle(direction){
                     <?php 					
 					}else{
 								
-						if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT")){
+						if (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT"){
 							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
 						
 					?>
@@ -416,7 +416,7 @@ function sendtolittle(direction){
                         </TD>
                     </TR>
 					<?php 
-						} elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INSERT")) {
+						} elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="INSERT") {
 							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
 					?>
 					<TR>
@@ -553,7 +553,7 @@ function sendtolittle(direction){
                         </TABLE>
                         <br></TD>
                     </TR>					
-					<?php  }elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("HAS_MANY")){
+					<?php  }elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="HAS_MANY"){
 							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
 							$table_col = split(",", $table_split[2]);
 					?>
@@ -682,7 +682,7 @@ function sendtolittle(direction){
                         </TABLE>
                         <br></TD>
                     </TR>					
-					<?php  }elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("CHECKBOX")){
+					<?php  } elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="CHECKBOX") {
 							
 							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
 					?>
@@ -794,7 +794,7 @@ function sendtolittle(direction){
 
 					 </TD>
                     </TR>
-                    <?php   	  }// end if if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
+                    <?php   	  }// end if if (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT")
 							}// end if pos
 			}//END_FOR ?>
                 </FORM>
