@@ -42,6 +42,10 @@ $nb_countryname = count($list_countryname);
 
 $smarty->display('main.tpl');
 
+// #### HELP SECTION
+echo $CC_help_import_did;
+
+
 ?>
 
 <script language="JavaScript">
@@ -206,9 +210,6 @@ function moveSourceDown()
 // -->
 </script>
      
-	  <?php
-	echo $CC_help_import_did;
-?>
 <center>
 		<b><?php echo gettext("New DID have to be imported from a CSV file.");?>.</b></br></br>
 		<table width="95%" border="0" cellspacing="2" align="center" class="records">
@@ -297,7 +298,7 @@ function moveSourceDown()
                   <td colspan="2">
                     <div align="center"><span class="textcomment">
 
-					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by  ; : or ?");?></br>
+					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by ;");?></br>
 					  <?php echo gettext(". and , are used for decimal format.");?>
 					  <br/>
 					  <a href="importsamples.php?sample=did_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -
