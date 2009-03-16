@@ -708,6 +708,7 @@ $CC_help_list_did ='
 </div></div></div>
 </div></div>';
 
+
 $CC_help_edit_did ='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
@@ -717,6 +718,19 @@ $CC_help_edit_did ='
 	<div class="w2">
 <br/>'
 .gettext("DID can be assigned to a customer to re-route calls to a SIP/IAX client or a PSTN number. The Priority sets the order in which the calls are to be routed to allow for failover or follow-me.").'<br>'.help_wiki_link('EditDID').'
+</div></div></div>
+</div></div>';
+
+
+$CC_help_import_did ='
+<div class="toggle_show2hide">
+<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2">
+<br/>'
+.gettext("You can import lists of DIDs using a CSV file.").'<br>'.help_wiki_link('ImportDID').'
 </div></div></div>
 </div></div>';
 
