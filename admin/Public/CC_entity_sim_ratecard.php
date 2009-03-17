@@ -78,23 +78,11 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 	}
 }
 
-/**************************************************************/
-
-$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
-$FG_TABLE_CLAUSE = "";
-$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
-$nb_tariffname = count($list_tariffname);
-
-/*************************************************************/
-
-
 $smarty->display('main.tpl');
-
 
 echo $CC_help_sim_ratecard;
 
-?>
-	
+?>	
 	<center> <?php echo "$error_msg"; ?> </center>
 	<br>
 	<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
