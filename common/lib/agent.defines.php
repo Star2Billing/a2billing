@@ -38,7 +38,7 @@ $log = null;
 //Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
 define("LIST_OF_VALUES",true);
 
-if (!($restircted_url == "Public/index.php")) {
+if (!isset($disable_load_conf) || !($disable_load_conf)) {
 	// SELECT THE FILES TO LOAD THE CONFIGURATION
 	$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
 	if (!$res_load_conf) exit;
