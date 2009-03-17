@@ -11,19 +11,6 @@ if (! has_rights (ACX_BILLING)){
 	   die();	   
 }
 
-?>
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-//-->
-</script>
-
-<?php
-
-/***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
 
@@ -61,43 +48,106 @@ $HD_Form -> create_toppage ($form_action);
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
-//change Clause for agent filter 
 
+$table = new Table();
+$temp = date("Y-m-01");
+$now_month= date("m");
+$nb_month =5;
+$datetime = new DateTime($temp);
+$datetime->modify("-$nb_month month");
+$checkdate = $datetime->format("Y-m-d");
+$QUERY_INVOICE_ENOUGH_PAID="SELECT DATE_FORMAT(sub.date,'%c'),SUM(sub.test) FROM( SELECT cc_invoice.date date,IF(IFNULL(SUM(CEIL(cc_invoice_item.price*(1+(cc_invoice_item.vat/100))*100)/100),0) <= IFNULL(SUM(CEIL(cc_logpayment.payment*100)/100),0),1,0) test FROM cc_invoice LEFT JOIN cc_invoice_item on cc_invoice_item.id_invoice=cc_invoice.id LEFT JOIN cc_invoice_payment on cc_invoice_payment.id_invoice = cc_invoice.id  LEFT JOIN cc_logpayment on cc_invoice_payment.id_payment = cc_logpayment.id LEFT JOIN cc_card ON cc_card.id=cc_invoice.id_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card_group.id_agent = ".$_SESSION['agent_id']." AND cc_invoice.date >= TIMESTAMP('$checkdate') AND cc_invoice.date <= CURRENT_TIMESTAMP group by cc_invoice.id ) AS sub group by MONTH(sub.date) ORDER BY  sub.date DESC";
+$result_invoice_enough_paid = $table->SQLExec($HD_Form -> DBHandle, $QUERY_INVOICE_ENOUGH_PAID);
+$QUERY_INVOICE_PAID="SELECT DATE_FORMAT(date,'%c'),COUNT(*) FROM cc_invoice LEFT JOIN cc_card ON cc_card.id=cc_invoice.id_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card_group.id_agent = ".$_SESSION['agent_id']." AND paid_status = 1 AND cc_invoice.date >= TIMESTAMP('$checkdate') AND cc_invoice.date <= CURRENT_TIMESTAMP group by MONTH(date) ORDER BY date DESC";
+$result_invoice_paid = $table->SQLExec($HD_Form -> DBHandle, $QUERY_INVOICE_PAID);
+$QUERY_INVOICE_UNPAID="SELECT DATE_FORMAT(date,'%c'),COUNT(*) FROM cc_invoice LEFT JOIN cc_card ON cc_card.id=cc_invoice.id_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card_group.id_agent = ".$_SESSION['agent_id']." AND paid_status = 0 AND cc_invoice.date >= TIMESTAMP('$checkdate') AND cc_invoice.date <= CURRENT_TIMESTAMP group by MONTH(date) ORDER BY date DESC";
+$result_invoice_unpaid = $table->SQLExec($HD_Form -> DBHandle, $QUERY_INVOICE_UNPAID);
+$QUERY_INVOICE_COUNT="SELECT DATE_FORMAT(date,'%c'),COUNT(*) FROM cc_invoice LEFT JOIN cc_card ON cc_card.id=cc_invoice.id_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card_group.id_agent = ".$_SESSION['agent_id']." AND cc_invoice.date >= TIMESTAMP('$checkdate') AND cc_invoice.date <= CURRENT_TIMESTAMP group by MONTH(date) ORDER BY date DESC";
+$result_invoice_count = $table->SQLExec($HD_Form -> DBHandle, $QUERY_INVOICE_COUNT);
+$list_month = Constants::getMonth();
+$list_invoice_enough_paid= array();
+$j=0;
+for($i=0;$i<=$nb_month;$i++) {
+	if(sizeof($result_invoice_enough_paid)>$j){
+		$val = $result_invoice_enough_paid[$j];
+		if($now_month>$i) $month_test=intval($now_month-$i);
+		else $month_test = $now_month + (12-$i);
+		if($val[0]==$month_test){ 
+			$list_invoice_enough_paid[$i] = $val[1];
+			$j++;
+		} else $list_invoice_enough_paid[$i] = 0;
+	}else $list_invoice_enough_paid[$i] = 0;
+}
 
-// SELECT ROUND(SUM(credit)) from cc_card ;
-$instance_table = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", "ROUND(SUM(credit))");
-$total_credits = $instance_table -> Get_list ($HD_Form -> DBHandle,"cc_card_group.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
-// SELECT SUM(t1.credit) from  cc_logrefill as t1, cc_card as t2 where t1.card_id = t2.id;
-$instance_table = new Table("cc_logrefill as t1, cc_card as t2  LEFT JOIN cc_card_group ON t2.id_group=cc_card_group.id", "SUM(t1.credit)");
-$total_refills = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id = t2.id AND cc_card_group.id_agent=".$_SESSION['agent_id'], null, null, null, null, null, null);
-// SELECT SUM(payment) from cc_logpayment as t1 ,cc_card as t2 where t1.card_id=t2.id;
-$instance_table = new Table("cc_logpayment as t1 ,cc_card as t2 LEFT JOIN cc_card_group ON t2.id_group=cc_card_group.id", "SUM(payment)");
-$total_payments = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id AND cc_card_group.id_agent=".$_SESSION['agent_id'] , null, null, null, null, null, null);
-// SELECT SUM(amount) from cc_charge as t1, cc_card as t2 where t1.id_cc_card=t2.id;
-$instance_table = new Table("cc_charge AS t1, cc_card AS t2 LEFT JOIN cc_card_group ON t2.id_group=cc_card_group.id", "SUM(amount)");
-$total_charges = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.id_cc_card = t2.id AND cc_card_group.id_agent = ".$_SESSION['agent_id'] , null, null, null, null, null, null);
-// Total to pay
-$total_to_pay = ($total_refills[0][0] + $total_charges[0][0]) - $total_payments[0][0];
+$list_invoice_unpaid= array();
+$j=0;
+for($i=0;$i<=$nb_month;$i++) {
+	if(sizeof($result_invoice_unpaid)>$j){
+		$val = $result_invoice_unpaid[$j];
+		if($now_month>$i) $month_test=intval($now_month-$i);
+		else $month_test = $now_month + (12-$i);
+		if($val[0]==$month_test){ 
+			$list_invoice_unpaid[$i] = $val[1];
+			$j++;
+		} else $list_invoice_unpaid[$i] = 0;
+	}else $list_invoice_unpaid[$i] = 0;
+}
+
+$list_invoice_paid= array();
+$j=0;
+for($i=0;$i<=$nb_month;$i++) {
+	if(sizeof($result_invoice_paid)>$j){
+		if($now_month>$i) $month_test=intval($now_month-$i);
+		else $month_test = $now_month + (12-$i);
+		$val = $result_invoice_paid[$j];
+		if($val[0]==$month_test){ 
+			$list_invoice_paid[$i] = $val[1];
+			$j++;
+		} else $list_invoice_paid[$i] = 0;
+	}else $list_invoice_paid[$i] = 0;
+}
+
+$list_invoice_count= array();
+$j=0;
+for($i=0;$i<=$nb_month;$i++) {
+	if(sizeof($result_invoice_count)>$j){
+		if($now_month>$i) $month_test=intval($now_month-$i);
+		else $month_test = $now_month + (12-$i);
+		$val = $result_invoice_count[$j];
+		if($val[0]==$month_test){ 
+			$list_invoice_count[$i] = $val[1];
+			$j++;
+		} else $list_invoice_count[$i] = 0;
+	}else $list_invoice_count[$i] = 0;
+}
+
 ?>
+
+
 <br/>
 <table border="1" cellpadding="4" cellspacing="2" width="90%" align="center" class="bgcolor_017" >		
 	<tr>
 		<td>		
 			<table border="2" cellpadding="3" cellspacing="5" width="450" align="right" class="bgcolor_018">		
-				<tr class="form_head">                   					
-					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL CREDIT");?></strong></td>
-					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL REFILL");?></strong></td>
-					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL CHARGES");?></strong></td>
-					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL PAYMENT");?></strong></td>
-					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL TOPAY");?></strong></td>
+				<tr class="form_head">      
+					<td>&nbsp;</td> 
+					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("NB TOTAL INVOICE");?></strong></td>            					
+					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("NB INVOICE WITH ENOUGH PAYMENT ");?></strong></td>
+					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("NB INVOICE WITH PAID STATUS");?></strong></td>
+					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("NB INVOICE WITH UNPAID STATUS");?></strong></td>
 				</tr>
+				<?php for($i=0;$i<=$nb_month;$i++){
+					if($now_month>$i) $month_display=intval($now_month-$i);
+					else $month_display = $now_month + (12-$i)
+					?>
 				<tr>
-					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $total_credits[0][0]; ?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $total_refills[0][0]; ?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $total_charges[0][0]; ?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="#DD4444"><b><?php echo $total_payments[0][0]; ?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="#DDDDDD"><b><?php echo $total_to_pay; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $list_month[$month_display][0]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $list_invoice_count[$i]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="#5FA631"><b><?php echo $list_invoice_enough_paid[$i]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="#DDDDDD"><b><?php echo $list_invoice_paid[$i]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="#EE6564"><b><?php echo $list_invoice_unpaid[$i]; ?></b></td>
 				</tr>
+				<?php } ?>
 			</table>
 		</td>
 	</tr>

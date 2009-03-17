@@ -1,27 +1,23 @@
 <?php
 
-
-$HD_Form = new FormHandler("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","Customer");
-
-
-$HD_Form -> FG_TABLE_ID = 'cc_card.id';
+$HD_Form = new FormHandler("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ","Card");
+$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
+$HD_Form -> FG_TABLE_ID="cc_card.id";
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
-$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "7%", "center", "sort", "");
+$HD_Form -> AddViewElement(gettext("ID"), "cc_card.id", "7%", "center", "sort", "");
 $HD_Form -> AddViewElement(gettext("CardNumber"), "username", "7%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"CARDALIAS\">ALIAS</acronym>"), "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FIRSTNAME"), "firstname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "7%", "center", "sort", "15");
-$HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "SUM(t3.credit),t3.card_id", "t3.card_id='%id' GROUP BY t3.card_id", "%1");
-$HD_Form -> AddViewElement(gettext("CHARGE"), "charge", "10%", "center", "sort", "15", "lie", "cc_charge as t4", "SUM(t4.amount),t4.id_cc_card", "t4.id_cc_card='%id' GROUP BY t4.id_cc_card", "%1");
-$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "7%", "center", "sort", "15", "lie", "cc_logpayment as t2", "SUM(t2.payment),t2.card_id", "t2.card_id='%id' GROUP BY t2.card_id", "%1");
-$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%8 - %7 - %6)'); //abs
+$HD_Form -> AddViewElement(gettext("INVOICE"), "invoice", "10%", "center", "sort", "15", "lie", "cc_invoice LEFT JOIN cc_invoice_item ON cc_invoice_item.id_invoice=cc_invoice.id", "TRUNCATE(SUM(CEIL(cc_invoice_item.price*(1+(cc_invoice_item.vat/100))*100)/100),2)", "cc_invoice.id_card='%id' GROUP BY cc_invoice.id_card", "%1");
+$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "7%", "center", "sort", "15", "lie", "cc_logpayment as t2", "TRUNCATE(SUM(t2.payment),2),t2.card_id", "t2.card_id='%id' GROUP BY t2.card_id", "%1");
+$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%7 - %6 )'); //abs
 
-$HD_Form -> FieldViewElement ('id, username, useralias, firstname, lastname, credit, cc_card.id, cc_card.id, cc_card.id, cc_card.id');
+$HD_Form -> FieldViewElement ('cc_card.id, username, useralias, firstname, lastname, credit, cc_card.id, cc_card.id, cc_card.id');
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO").strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!"); 
@@ -37,9 +33,9 @@ $HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_OTHER_BUTTON2 = true;
 $HD_Form -> FG_OTHER_BUTTON2_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=payment&form_action=list&atmenu=card&displayheader=0&popup_select=1&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
-$HD_Form -> FG_OTHER_BUTTON1_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=refill&form_action=list&atmenu=card&displayheader=0&popup_select=1&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
+$HD_Form -> FG_OTHER_BUTTON1_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=invoice&form_action=list&atmenu=card&displayheader=0&popup_select=1&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
 $HD_Form -> FG_OTHER_BUTTON2_ALT = '<font color="red">'.gettext('PAYMENT').'</font>';
-$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">'.gettext('REFILL').'</font>';
+$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">'.gettext('INVOICE').'</font>';
 
 $HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 $HD_Form -> FG_OTHER_BUTTON2_IMG = '';
