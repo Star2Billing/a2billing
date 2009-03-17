@@ -5,6 +5,8 @@
 include ("./lib/customer.defines.php");
 
 getpost_ifset(array('pr_email','action'));
+
+$FG_DEBUG = 0;
 $error = 0; //$error = 0 No Error; $error=1 No such User; $error = 2 Wrong Action
 $show_message = false;
 $login_message = "";
