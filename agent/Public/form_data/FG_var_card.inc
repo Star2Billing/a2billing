@@ -308,7 +308,7 @@ if (isset($form_action) && $form_action=="ask-delete") {
 			   "credit",
 			   "",
 			   "INPUT",
-			   "size=30 maxlength=30 ".$balance_access,
+			   "size=30 maxlength=30 ",
 			   "12",
 			   gettext("Insert the number of credit"),
 			   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
@@ -446,15 +446,21 @@ $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-			   
-$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
+$typepaid_delete="";			   
+if (isset($form_action) && $form_action=="ask-delete") {
+	$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
 			   "typepaid",
 			   "",
 			   "SELECT",
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
+			   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Paid Status") );
+	
+	$typepaid_delete = ",typepaid";
+	
+}
+			   
 
 $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "tariff",
@@ -863,8 +869,8 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass'.$balance_delete.',id_group, lastname, firstname, email, address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
-		'  typepaid,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
+$HD_Form -> FieldEditElement ('username, useralias, uipass'.$balance_delete.',id_group, lastname, firstname, email, address, city, state, country, zipcode, phone, fax,company_name, company_website'.$typepaid_delete.
+		' ,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
 		' voicemail_permitted, voicemail_activated, firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
