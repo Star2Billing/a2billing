@@ -62,21 +62,23 @@
 	{/if}
 	<ul>
 		<li><ul>
-				<li><a href="A2B_entity_card.php?section=1">{php} echo gettext("Customers");{/php}</a></li>
-				<li><a href="A2B_entity_card_group.php?section=1">{php} echo gettext("Customer Group");{/php}</a></li>
-                <li><a href="CC_card_import.php?section=1">{php} echo gettext("Import Customers");{/php}</a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("VOIP Config");{/php}</a></li>
-				<li><a href="A2B_entity_card_seria.php?section=1">{php} echo gettext("Customer Series");{/php}</a></li>
-				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("CallerID");{/php}</a></li>
+				<li><a href="A2B_entity_card.php?section=1">{php} echo gettext("Add");{/php}</a></li>
+                		<li><a href="CC_card_import.php?section=1">{php} echo gettext("Import");{/php}</a></li>
+				<li><a href="A2B_entity_card.php?section=1">{php} echo gettext("Search");{/php}</a></li>
+				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("VoIP Settings");{/php}</a></li>
+				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("Caller-ID");{/php}</a></li>
+				<li><a href="A2B_notifications.php?section=1">{php} echo gettext("Credit Notification");{/php}</a></li>
+				<li><a href="A2B_entity_card_group.php?section=1">{php} echo gettext("Groups");{/php}</a></li>
+				<li><a href="A2B_entity_card_seria.php?section=1">{php} echo gettext("Card series");{/php}</a></li>
 				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&section=1">{php} echo gettext("Speed Dial");{/php}</a></li>
-				<li><a href="A2B_entity_statuslog.php?atmenu=statuslog&section=1">{php} echo gettext("Customer Status Log");{/php}</a></li>
-				<li><a href="card-history.php?atmenu=cardhistory&section=1">{php} echo gettext("Customer History");{/php}</a></li>
-				<li><a href="A2B_notifications.php?section=1">{php} echo gettext("Notification");{/php}</a></li>
+				<li><a href="card-history.php?atmenu=cardhistory&section=1">{php} echo gettext("History");{/php}</a></li>
+				<li><a href="A2B_entity_statuslog.php?atmenu=statuslog&section=1">{php} echo gettext("Account status");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>
 	</div>
 	{/if}
+
 
 	{if ($ACXADMINISTRATOR  > 0)}
 	<div class="toggle_menu">
@@ -85,7 +87,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AGENT / ADMIN");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AGENTS");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="10")}
 		style="">
@@ -94,15 +96,227 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_agent.php?atmenu=user&section=10">{php} echo gettext("Agents");{/php}</a></li>
-				<li><a href="A2B_signup_agent.php?atmenu=user&section=10">{php} echo gettext("Signup Agents");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Administrators");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=10">{php} echo gettext("ACL Admin's");{/php}</a></li>
+				<li><a href="A2B_entity_agent.php?atmenu=user&section=10">{php} echo gettext("Add");{/php}</a></li>
+				<li><a href="A2B_entity_agent.php?atmenu=user&section=10">{php} echo gettext("Search");{/php}</a></li>
+				<li><a href="A2B_signup_agent.php?atmenu=user&section=10">{php} echo gettext("Signup URLs");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
 	</div>
 	{/if}
+
+
+	{if ($ACXADMINISTRATOR  > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img10"
+	{if ($section =="10")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("ADMINS");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="10")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Add");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=10">{php} echo gettext("Search");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=10">{php} echo gettext("Access Control");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
+	{if ($ACXSUPPORT > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
+	{if ($section == "17")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="17")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="CC_ticket.php?section=17">{php} echo gettext("Customer Tickets");{/php}</a></li>
+				<li><a href="A2B_ticket_agent.php?section=17">{php} echo gettext("Agent Tickets");{/php}</a></li>
+				<li><a href="CC_support_component.php?section=17">{php} echo gettext("Ticket Components");{/php}</a></li>
+				<li><a href="CC_support.php?section=17">{php} echo gettext("Support Boxes");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
+	{if ($ACXCALLREPORT > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img5"
+	{if ($section == "6")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("CALL REPORTS");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="6")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+					<li><a href="call-log-customers.php?nodisplay=1&posted=1&section=6">{php} echo gettext("CDRs");{/php}</a></li>
+					<li><a href="call-count-reporting.php?nodisplay=1&posted=1&section=6">{php} echo gettext("Call Count");{/php}</a></li>
+					<li><a href="A2B_trunk_report.php?section=6">{php} echo gettext("Trunk");{/php}</a></li>
+					<li><a href="call-dnid.php?nodisplay=1&posted=1&section=6">{php} echo gettext("DNID");{/php}</a></li>
+					<li><a href="call-pnl-report.php?section=6">{php} echo gettext("PNL");{/php}</a></li>
+					<li><a href="call-comp.php?section=6">{php} echo gettext("Compare Calls");{/php}</a></li>
+					<li><a href="call-daily-load.php?section=6">{php} echo gettext("Daily Traffic");{/php}</a></li>
+					<li><a href="call-last-month.php?section=6">{php} echo gettext("Monthly Traffic");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
+
+
+
+
+
+
+
+
+
+	
+
+
+	{if ($ACXRATECARD > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3"
+	{if ($section =="3")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("RATES");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="3")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&section=3">{php} echo gettext("Rates");{/php}</a></li>
+				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&section=3">{php} echo gettext("RateCards");{/php}</a></li>
+				<li><a href="CC_ratecard_import.php?atmenu=ratecard&section=3">{php} echo gettext("»» Import");{/php}</a></li>
+				<li><a href="CC_ratecard_merging.php?atmenu=ratecard&section=3">{php} echo gettext("»» Merge");{/php}</a></li>
+				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&section=3">{php} echo gettext("»» Simulator");{/php}</a></li>
+				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&section=3">{php} echo gettext("Call Plan");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
+
+
+
+
+	{if ($ACXTRUNK > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img4"
+	{if ($section =="4")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PROVIDERS");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="4")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_provider.php?section=4">{php} echo gettext("Providers");{/php}</a></li>
+				<li><a href="A2B_entity_trunk.php?section=4">{php} echo gettext("Trunks");{/php}</a></li>
+				<li><a href="A2B_entity_prefix.php?section=4">{php} echo gettext("Prefixes");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
+	{if ($ACXDID > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img41"
+	{if ($section == "5")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("INBOUND DID");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="5")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_did.php?section=5">{php} echo gettext("Add");{/php}</a></li>
+				<li><a href="A2B_entity_did.php?section=5">{php} echo gettext("Search");{/php}</a></li>
+				<li><a href="A2B_entity_didgroup.php?section=5">{php} echo gettext("Groups");{/php}</a>
+				<li><a href="A2B_entity_did_destination.php?section=5">{php} echo gettext("Destination");{/php}</a></li>
+				<li><a href="A2B_entity_did_import.php?section=5">{php} echo gettext("Import [CSV]");{/php}</a></li>
+				<li><a href="A2B_entity_didx.php?section=5">{php} echo gettext("Import [DIDX]");{/php}</a></li>
+				<li><a href="A2B_entity_did_use.php?atmenu=did_use&section=5">{php} echo gettext("Usage");{/php}</a></li>
+				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&section=5">{php} echo gettext("Billing");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+	
+
+	{if ($ACXOUTBOUNDCID > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_5"
+	{if ($section =="3_5")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("OUTBOUND CID");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="3_5")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_outbound_cid.php?atmenu=cid&section=3_5">{php} echo gettext("Add");{/php}</a></li>
+				<li><a href="A2B_entity_outbound_cidgroup.php?atmenu=cidgroup&section=3_5">{php} echo gettext("Groups");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
+
+
+
 	
 	{if ($ACXBILLING > 0)}
 	<div class="toggle_menu">
@@ -144,170 +358,6 @@
 	</div>
 	{/if}
 
-	{if ($ACXRATECARD > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3"
-	{if ($section =="3")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if}
-	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="3")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&section=3">{php} echo gettext("Call Plan");{/php}</a></li>
-				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&section=3">{php} echo gettext("RateCards");{/php}</a></li>
-				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&section=3">{php} echo gettext("Rates");{/php}</a></li>
-				<li><a href="CC_ratecard_import.php?atmenu=ratecard&section=3">{php} echo gettext("Import RateCard");{/php}</a></li>
-				<li><a href="CC_ratecard_merging.php?atmenu=ratecard&section=3">{php} echo gettext("Merge RateCard");{/php}</a></li>
-				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&section=3">{php} echo gettext("Ratecard Simulator");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-
-	{if ($ACXPACKAGEOFFER > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_3"
-	{if ($section =="3_3")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if}
-	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PACKAGE OFFER");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="3_3")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_package_group.php?atmenu=prefixe&section=3_3">{php} echo gettext("Group Packages");{/php}</a></li>
-				<li><a href="A2B_entity_package.php?atmenu=prefixe&section=3_3">{php} echo gettext("Offer Packages");{/php}</a></li>
-				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Package Details");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-
-	{if ($ACXOUTBOUNDCID > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_5"
-	{if ($section =="3_5")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if}
-	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("OUTBOUND CID");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="3_5")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_outbound_cidgroup.php?atmenu=cidgroup&section=3_5">{php} echo gettext("CIDGroup");{/php}</a></li>
-				<li><a href="A2B_entity_outbound_cid.php?atmenu=cid&section=3_5">{php} echo gettext("CID's");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-
-	{if ($ACXTRUNK > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img4"
-	{if ($section =="4")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("TRUNK & PREFIX");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="4")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_provider.php?section=4">{php} echo gettext("Providers");{/php}</a></li>
-				<li><a href="A2B_entity_trunk.php?section=4">{php} echo gettext("Trunks");{/php}</a></li>
-				<li><a href="A2B_entity_prefix.php?section=4">{php} echo gettext("Prefixes");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-
-	{if ($ACXDID > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img41"
-	{if ($section == "5")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if}
-	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("DID");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="5")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_didgroup.php?section=5">{php} echo gettext("DID Group");{/php}</a>
-				<li><a href="A2B_entity_did.php?section=5">{php} echo gettext("DIDs");{/php}</a></li>
-				<li><a href="A2B_entity_didx.php?section=5">{php} echo gettext("Add DID from DIDX");{/php}</a></li>
-				<li><a href="A2B_entity_did_import.php?section=5">{php} echo gettext("Import DID");{/php}</a></li>
-				<li><a href="A2B_entity_did_destination.php?section=5">{php} echo gettext("List Destination");{/php}</a></li>
-				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&section=5">{php} echo gettext("DID Billing");{/php}</a></li>
-				<li><a href="A2B_entity_did_use.php?atmenu=did_use&section=5">{php} echo gettext("DID Usage");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-
-	{if ($ACXCALLREPORT > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img5"
-	{if ($section == "6")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("CALL REPORT");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="6")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-					<li><a href="call-log-customers.php?nodisplay=1&posted=1&section=6">{php} echo gettext("CDR Report");{/php}</a></li>
-					<li><a href="call-comp.php?section=6">{php} echo gettext("Compare Calls");{/php}</a></li>
-					<li><a href="call-last-month.php?section=6">{php} echo gettext("Monthly Traffic");{/php}</a></li>
-					<li><a href="call-daily-load.php?section=6">{php} echo gettext("Daily Load");{/php}</a></li>
-					<li><a href="call-count-reporting.php?nodisplay=1&posted=1&section=6">{php} echo gettext("Report");{/php}</a></li>
-					<li><a href="A2B_trunk_report.php?section=6">{php} echo gettext("Trunk Report");{/php}</a></li>
-					<li><a href="call-dnid.php?nodisplay=1&posted=1&section=6">{php} echo gettext("DNID Report");{/php}</a></li>
-					<li><a href="call-pnl-report.php?section=6">{php} echo gettext("PNL Report");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
 
 	{if ($ACXINVOICING > 0)}
 	<div class="toggle_menu">
@@ -328,12 +378,48 @@
 			<li><ul>
 				<li><a href="A2B_entity_receipt.php?atmenu=payment&section=13">{php} echo gettext("Receipts");{/php}</a></li>
 				<li><a href="A2B_entity_invoice.php?atmenu=payment&section=13">{php} echo gettext("Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoice_conf.php?atmenu=payment&section=13">{php} echo gettext("Invoices Configuration");{/php}</a></li>
+				<li><a href="A2B_entity_invoice_conf.php?atmenu=payment&section=13">{php} echo gettext("»» Configuration");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
 	</div>
 	{/if}
+
+
+
+
+
+
+
+
+
+	
+	{if ($ACXPACKAGEOFFER > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3_3"
+	{if ($section =="3_3")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PACKAGE OFFER");{/php}</strong></a></li>
+		<div class="tohide"
+	{if ($section =="3_3")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_package.php?atmenu=prefixe&section=3_3">{php} echo gettext("Add");{/php}</a></li>
+				<li><a href="A2B_entity_package_group.php?atmenu=prefixe&section=3_3">{php} echo gettext("Group");{/php}</a></li>
+				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Details");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
 
 
 	{if ($ACXCRONTSERVICE  > 0)}
@@ -343,7 +429,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("RECURRING SERVICE");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("RECURRING SVC");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="7")}
 		style="">
@@ -352,10 +438,10 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_autorefill.php?section=7">{php} echo gettext("AutoRefill Report");{/php}</a></li>
-				<li><a href="A2B_entity_service.php?section=7">{php} echo gettext("Recurring Services");{/php}</a></li>
+				<li><a href="A2B_entity_service.php?section=7">{php} echo gettext("Account Service");{/php}</a></li>
 				<li><a href="A2B_entity_subscription.php?section=7">{php} echo gettext("Subscriptions");{/php}</a></li>
 				<li><a href="A2B_entity_subscriber.php?section=7">{php} echo gettext("Subscribers");{/php}</a></li>
+				<li><a href="A2B_entity_autorefill.php?section=7">{php} echo gettext("AutoRefill Report");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -363,31 +449,7 @@
 	{/if}
 
 	
-	{if ($ACXSUPPORT > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
-	{if ($section == "17")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
-		<div class="tohide"
-	{if ($section =="17")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="CC_ticket.php?section=17">{php} echo gettext("Tickets");{/php}</a></li>
-				<li><a href="A2B_ticket_agent.php?section=17">{php} echo gettext("Agent Tickets");{/php}</a></li>
-				<li><a href="CC_support.php?section=17">{php} echo gettext("Support Boxes");{/php}</a></li>
-				<li><a href="CC_support_component.php?section=17">{php} echo gettext("Components");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
+
 
 	{if ($ACXCALLBACK  > 0)}
 	<div class="toggle_menu">
@@ -405,8 +467,8 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_callback.php?section=12">{php} echo gettext("Callbacks");{/php}</a></li>
-				<li><a href="A2B_entity_server_group.php?section=12">{php} echo gettext("Server Groups");{/php}</a></li>
+				<li><a href="A2B_entity_callback.php?section=12">{php} echo gettext("Add");{/php}</a></li>
+				<li><a href="A2B_entity_server_group.php?section=12">{php} echo gettext("Server Group");{/php}</a></li>
 				<li><a href="A2B_entity_server.php?section=12">{php} echo gettext("Server");{/php}</a></li>
 			</ul></li>
 		</ul>
@@ -421,7 +483,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CAMPAIGNS");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="16")}
 		style="">
@@ -430,42 +492,21 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_campaign.php?section=16">{php} echo gettext("Campaigns");{/php}</a></li>
-				<li><a href="A2B_entity_campaign_config.php?section=16">{php} echo gettext("Campaign Configs");{/php}</a></li>
+				<li><a href="A2B_entity_campaign.php?section=16">{php} echo gettext("Add");{/php}</a></li>
+				<li><a href="A2B_entity_campaign_config.php?section=16">{php} echo gettext("Config");{/php}</a></li>
 				<li><a href="A2B_entity_phonebook.php?section=16">{php} echo gettext("Phone Book");{/php}</a></li>
-				<li><a href="A2B_entity_phonenumber.php?section=16">{php} echo gettext("Phone Number");{/php}</a></li>
-				<li><a href="A2B_phonelist_import.php?section=16">{php} echo gettext("Import Phone List");{/php}</a></li>
+				<li><a href="A2B_entity_phonenumber.php?section=16">{php} echo gettext("»» Add Number");{/php}</a></li>
+				<li><a href="A2B_phonelist_import.php?section=16">{php} echo gettext("»» Import");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
 	</div>
 	{/if}
 
-	{if ($ACXMISC  > 0)}
-	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
-	{if ($section =="8")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if}
-	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MISC");{/php}</strong></a></li>
-	<div class="tohide"
-	{if ($section =="8")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&section=8&languages=en">{php} echo gettext("Mail templates");{/php}</a></li>
-				<li><a href="A2B_mass_mail.php?section=8">{php} echo gettext("Mass Mail");{/php}</a></li>
-				<li><a href="A2B_data_archiving.php?section=8">{php} echo gettext("Archiving");{/php}</a></li>
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
+
+
+
+
 	
 	{if ($ACXMAINTENANCE  > 0)}
 	<div class="toggle_menu">
@@ -487,9 +528,10 @@
 				<li><a href="A2B_entity_log_viewer.php?section=11">{php} echo gettext("Users Activity");{/php}</a></li>
 				<li><a href="A2B_entity_backup.php?form_action=ask-add&section=11">{php} echo gettext("Database Backup");{/php}</a></li>
 				<li><a href="A2B_entity_restore.php?section=11">{php} echo gettext("Database Restore");{/php}</a></li>
-				<li><a href="A2B_logfile.php?section=11">{php} echo gettext("Watch Log files");{/php}</a></li>
 				<li><a href="CC_musiconhold.php?section=11">{php} echo gettext("MusicOnHold");{/php}</a></li>
 				<li><a href="CC_upload.php?section=11">{php} echo gettext("Upload File");{/php}</a></li>
+				<li><a href="A2B_logfile.php?section=11">{php} echo gettext("Watch Log files");{/php}</a></li>
+				<li><a href="A2B_data_archiving.php?section=8">{php} echo gettext("Archiving");{/php}</a></li>
 				<li><a href="A2B_asteriskinfo.php?section=11">{php} echo "Asterisk Info";{/php}</a></li>
 				<li><a href="A2B_phpsysinfo.php?section=11">{php} echo "phpSysInfo";{/php}</a></li>
 				<li><a href="A2B_phpinfo.php?section=11">{php} echo "phpInfo";{/php}</a></li>
@@ -499,6 +541,32 @@
 	</div>
 	
 	{/if}
+	
+	{if ($ACXMISC  > 0)}
+	<div class="toggle_menu">
+	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
+	{if ($section =="8")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MAIL");{/php}</strong></a></li>
+	<div class="tohide"
+	{if ($section =="8")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&section=8&languages=en">{php} echo gettext("Mail templates");{/php}</a></li>
+				<li><a href="A2B_mass_mail.php?section=8">{php} echo gettext("Mass Mail");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+
 	
 	{if ($ACXSETTING  > 0)}
 	<div class="toggle_menu">
@@ -516,10 +584,11 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&section=14">{php} echo gettext("List Global  Config");{/php}</a></li>
-				<li><a href="A2B_entity_config_generate_confirm.php?section=14">{php} echo gettext("ADD agi-conf");{/php}</a></li>
-				<li><a href="A2B_entity_config.php?form_action=list&atmenu=config&section=14">{php} echo gettext("List Configuration");{/php}</a></li>
-				<li><a href="phpconfig.php?dir=/etc/asterisk&section=14">{php} echo gettext("Asterisk config");{/php}</a></li>
+				<li><a href="A2B_entity_config.php?form_action=list&atmenu=config&section=14">{php} echo gettext("Global List");{/php}</a></li>
+				<li><a href="A2B_entity_config_group.php?form_action=list&atmenu=configgroup&section=14">{php} echo gettext("Group List");{/php}</a></li>
+				<li><a href="A2B_entity_config_generate_confirm.php?section=14">{php} echo gettext("Add agi-conf");{/php}</a></li>
+				<li><a href="phpconfig.php?dir=/etc/asterisk&section=14">{php} echo gettext("* Config Editor");{/php}</a></li>
+
 				{if ($ASTERISK_GUI_LINK)}
 					<li><a href="http://{$HTTP_HOST}:8088/asterisk/static/config/index.html" target="_blank">{php} echo gettext("Asterisk GUI");{/php}</a></li>
 				{/if}
