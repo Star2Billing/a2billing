@@ -53,6 +53,10 @@ function sendtoupload(form){
 //-->
 </script>
 
+<?php
+//// HELP
+        echo $CC_help_import_customer;
+?>
 
 <script language="JavaScript" type="text/javascript">
 <!--
