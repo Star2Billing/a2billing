@@ -403,7 +403,7 @@ function CheckCountry(Source){
 		</tr>
 		<tr class="did_maintable_tr2">
 			<td colspan="2" height="40">
-				<center><font color="red"><?php echo gettext("A monthly fee of ").number_format($rate,2,".",",")." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
+				<center><font color="red"><?php echo gettext("A monthly fee of ").number_format($rate,2,".",",")." ".BASE_CURRENCY."<br>".gettext(" will be carried out from your acount");?> </font></center>
 			</td>
 		</tr>
 		<tr class="bgcolor_007">
