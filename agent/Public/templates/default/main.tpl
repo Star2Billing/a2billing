@@ -77,11 +77,11 @@ Logged-in as: <b>{$adminname}</b></p>
 	<ul>
 		<li><ul>
 				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1">{php} echo gettext("List Customers");{/php}</a></li>
-				{if ($ACX_CALL_REPORT > 0) }
+				{if ($ACXCALLREPORT > 0) }
 				<li><a href="card-history.php?atmenu=cardhistory&stitle=Card+History&section=1">{php} echo gettext("Card History");{/php}</a></li>
 				{/if}
 				{if ($ACXVOIPCONF > 0) }
-				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("VOIP Config");{/php}</a></li>
+				<li><a href="A2B_entity_friend.php?section=1">{php} echo gettext("VOIP Config");{/php}</a></li>
 				{/if}
 		</ul></li>
 	</ul>
