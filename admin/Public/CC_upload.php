@@ -188,7 +188,8 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
     <br><br>
     <font style="text-decoration: bold; font-size: 9px;">  <b>UPLOAD DIRECTORY :</b> <?php echo $upload_dir?>
     <br>
-    	Note that if you're using .wav, (eg, recorded with Microsoft Recorder) the file must be PCM Encoded, 16 Bits, at 8000Hz: 
+    	Note that if you're using .wav, (eg, recorded with Microsoft Recorder) the file must be PCM Encoded, 16 Bits, at 8000Hz.
+    <br>If the default path is not the correct edit the variables dir_store_mohmp3 and  dir_store_audio in the System Settings 
     </font>&nbsp;
 	<br>
     </td>
@@ -263,7 +264,7 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
   <?php
         //Handle for the directory
         if (!$handle = @opendir($upload_dir)){
-          echo "<span style=\"font-size: 11px;\"><strong style=\"color: red;\">".gettext("Error")."!!</strong> ".gettext("Cannot open directory").": <strong>" . $upload_dir . "</strong>. ".gettext("Check if this directory exists and/or the CHMod rights are properly set")."...</span>";
+          echo "<span style=\"font-size: 11px;\"><strong style=\"color: red;\">".gettext("Error")."!!</strong> ".gettext("Cannot open directory").": <strong>" . $upload_dir . "</strong>. ".gettext("Check if this directory exists and/or the permissions are properly set")."...</span>";
         }
 
         //Walk the directory for the files
