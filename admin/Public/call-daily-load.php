@@ -208,7 +208,7 @@ $smarty->display('main.tpl');
       			<td align="left" class="bgcolor_003">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
 					<tr><td class="fontstyle_searchoptions">
-	  				<?php echo gettext("From");?> : <select name="fromstatsday_sday" class="form_input_select">
+	  				<?php echo gettext("Day");?> : <select name="fromstatsday_sday" class="form_input_select">
 					<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
