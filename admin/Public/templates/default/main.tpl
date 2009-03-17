@@ -203,12 +203,12 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&section=6">{php} echo gettext("Rates");{/php}</a></li>
+				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&section=6">{php} echo gettext("Call Plan");{/php}</a></li>
 				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&section=6">{php} echo gettext("RateCards");{/php}</a></li>
 				<li><a href="CC_ratecard_import.php?atmenu=ratecard&section=6">{php} echo gettext("»» Import");{/php}</a></li>
 				<li><a href="CC_ratecard_merging.php?atmenu=ratecard&section=6">{php} echo gettext("»» Merge");{/php}</a></li>
 				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&section=6">{php} echo gettext("»» Simulator");{/php}</a></li>
-				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&section=6">{php} echo gettext("Call Plan");{/php}</a></li>
+				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&section=6">{php} echo gettext("Rates");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
