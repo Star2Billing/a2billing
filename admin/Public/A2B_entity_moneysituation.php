@@ -143,9 +143,9 @@ for($i=0;$i<=$nb_month;$i++) {
 				<tr>
 					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $list_month[$month_display][0]; ?></b></td>
 					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $list_invoice_count[$i]; ?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $list_invoice_enough_paid[$i]; ?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="#DD4444"><b><?php echo $list_invoice_paid[$i]; ?></b></td>
-					<td valign="top" align="center" class="tableBody" bgcolor="#DDDDDD"><b><?php echo $list_invoice_unpaid[$i]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="#5FA631"><b><?php echo $list_invoice_enough_paid[$i]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="#DDDDDD"><b><?php echo $list_invoice_paid[$i]; ?></b></td>
+					<td valign="top" align="center" class="tableBody" bgcolor="#EE6564"><b><?php echo $list_invoice_unpaid[$i]; ?></b></td>
 				</tr>
 				<?php } ?>
 			</table>
