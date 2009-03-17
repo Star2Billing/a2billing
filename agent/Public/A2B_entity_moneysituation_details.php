@@ -1,9 +1,9 @@
 <?php
-include ("../lib/agent.defines.php");
-include ("../lib/agent.module.access.php");
+include ("../lib/admin.defines.php");
+include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_moneysituation_details.inc");
-include ("../lib/agent.smarty.php");
+include ("../lib/admin.smarty.php");
 
 if (! has_rights (ACX_BILLING)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -12,26 +12,22 @@ if (! has_rights (ACX_BILLING)){
 }
 
 /***********************************************************************************/
-
-$HD_Form -> setDBHandler (DbConnect());
-
-
-	if(isset($id) && !empty($id)&& $id>0){
-		if ($type=='payment'){
-			$table_agent_security = new Table("cc_logpayment,cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
-			$clause_agent_security = "cc_card.id= ".$id." AND cc_card.id=cc_logpayment.card_id";
-		}else{
-			$table_agent_security = new Table("cc_logrefill,cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
-			$clause_agent_security = "cc_card.id= ".$id." AND cc_card.id=cc_logrefill.card_id";
-			
-		}
-		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
+$DBHandle  = DbConnect();
+if (isset($id)) {
+	if(!empty($id)&& $id>0) {
+		$table_agent_security = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
+		$clause_agent_security = "cc_card.id= ".$id;
+		$result_security= $table_agent_security -> Get_list ($DBHandle, $clause_agent_security, null, null, null, null, null, null);
 		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
-			Header ("HTTP/1.0 401 Unauthorized");
-			//Header ("Location: PP_error.php?c=accessdenied");	   
-			die();
+			Header ("Location: A2B_entity_moneysituation.php?section=10");
+			die();	   
 		}
 	}
+}
+
+
+$HD_Form -> setDBHandler ($DBHandle);
+
 
 $HD_Form -> init();
 
