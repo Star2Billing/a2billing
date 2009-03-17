@@ -3,14 +3,13 @@ include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
-
-if (! has_rights (ACX_MAINTENANCE)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+if (!has_rights(ACX_MAINTENANCE)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
-getpost_ifset(array('acc'));
+getpost_ifset(array ('acc'));
 
 //Show the number of files to upload
 $files_to_upload = 1;
@@ -20,15 +19,11 @@ $files_to_upload = 1;
 # the upload store directory (chmod 777)
 $upload_dir = DIR_STORE_AUDIO; //"/var/www/html/all/divers/simpleupload/upload";
 
-
-
-
 # Handle the MusicOnHold
-if (isset($acc) && ($acc>0)){
+if (isset ($acc) && ($acc > 0)) {
 	$file_ext_allow = $file_ext_allow_musiconhold;
 	$pass_param = "acc=$acc";
-
-	$upload_dir = DIR_STORE_MOHMP3."/acc_$acc";
+	$upload_dir = DIR_STORE_MOHMP3 . "/acc_$acc";
 }
 
 # individual file size limit - in bytes (102400 bytes = 100KB)
@@ -38,28 +33,22 @@ $file_size_ind = MY_MAX_FILE_SIZE_AUDIO;
 # ; Maximum allowed size for uploaded files.
 # upload_max_filesize = 8M
 
-
 # the images directory
-$dir_img= "images";
-
-
+$dir_img = "images";
 
 // -------------------------------- //
 //     SCRIPT UNDER THIS LINE!      //
 // -------------------------------- //
-  
-function getlast($toget)
-{
-	$pos=strrpos($toget,".");
-	$lastext=substr($toget,$pos+1);
+
+function getlast($toget) {
+	$pos = strrpos($toget, ".");
+	$lastext = substr($toget, $pos +1);
 	return $lastext;
 }
 
-function arr_rid_blank($my_arr)
-{
-	if (is_array($my_arr)){
-		for($i=0;$i<count($my_arr);$i++)
-		{
+function arr_rid_blank($my_arr) {
+	if (is_array($my_arr)) {
+		for ($i = 0; $i < count($my_arr); $i++) {
 			$my_arr[$i] = trim($my_arr[$i]);
 		}
 		return $my_arr;
@@ -68,115 +57,102 @@ function arr_rid_blank($my_arr)
 
 $file_ext_allow = arr_rid_blank($file_ext_allow);
 
-  // print_r ($_FILES);  
+// print_r ($_FILES);  
 
-  //When REGISTERED_GLOBALS are off in php.ini
-  /*
-  $_POST    = $HTTP_POST_VARS;
-  $_GET     = $HTTP_GET_VARS;
-  $_SESSION = $HTTP_SESSION_VARS;
-  */
-  
-  //Any other action the user must be logged in!
-  
-  if($_GET['method'])
-  {
-    session_register('message');
+//When REGISTERED_GLOBALS are off in php.ini
+/*
+$_POST    = $HTTP_POST_VARS;
+$_GET     = $HTTP_GET_VARS;
+$_SESSION = $HTTP_SESSION_VARS;
+*/
 
-    //Upload the file
-    if($_GET['method'] == "upload")
-    {
+//Any other action the user must be logged in!
 
-      $file_array = $_FILES['file'];
-      $_SESSION['message'] = "";
-      $uploads = false;
-	  
-	  //print_r($file_ext_allow);
-	  //echo "<br>files_to_upload=$files_to_upload</br>";
-			
-      for($i = 0 ; $i < $files_to_upload; $i++)
-      { 
-        if($_FILES['file']['name'][$i])
-        {
-          $uploads = true;
-          if($_FILES['file']['name'][$i])
-          {
-		  
-		    $fileupload_name=$_FILES['file']['name'][0];
-		  	
-		  	for($i=0;$i<count($file_ext_allow);$i++)
-			{
-				//if (getlast($fileupload_name)!=$file_ext_allow[$i]){
-				if (strcmp(getlast($fileupload_name),$file_ext_allow[$i])!=0){
-					$test.="~~";
-					//echo "<br>'".getlast($fileupload_name)."' - '".$file_ext_allow[$i]."'<br>";
+if ($_GET['method']) {
+	session_register('message');
+
+	//Upload the file
+	if ($_GET['method'] == "upload") {
+
+		$file_array = $_FILES['file'];
+		$_SESSION['message'] = "";
+		$uploads = false;
+
+		//print_r($file_ext_allow);
+		//echo "<br>files_to_upload=$files_to_upload</br>";
+
+		for ($i = 0; $i < $files_to_upload; $i++) {
+			if ($_FILES['file']['name'][$i]) {
+				$uploads = true;
+				if ($_FILES['file']['name'][$i]) {
+
+					$fileupload_name = $_FILES['file']['name'][0];
+
+					for ($i = 0; $i < count($file_ext_allow); $i++) {
+						//if (getlast($fileupload_name)!=$file_ext_allow[$i]){
+						if (strcmp(getlast($fileupload_name), $file_ext_allow[$i]) != 0) {
+							$test .= "~~";
+							//echo "<br>'".getlast($fileupload_name)."' - '".$file_ext_allow[$i]."'<br>";
+						}
+					}
+					$exp = explode("~~", $test);
+					if (count($exp) == (count($file_ext_allow) + 1)) {
+						$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">" . gettext("ERROR: your file type is not allowed") . " (" . getlast($fileupload_name) . ")</font>, " . gettext("or you didn't specify a file to upload") . ".</b><br>";
+					} else {
+						if ($_FILES['file']['size'][0] > $file_size_ind) {
+							$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">" . gettext("ERROR: please get the file size less than") . " " . $file_size_ind . " BYTES  (" . round(($file_size_ind / 1024), 2) . " KB)</font></b><br>";
+						} else {
+							$file_to_upload = $upload_dir . "/" . $_FILES['file']['name'][0];
+							move_uploaded_file($_FILES['file']['tmp_name'][0], $file_to_upload);
+							//echo "<br>::$file_to_upload</br>";
+							//chmod($file_to_upload,0777);
+							$_SESSION['message'] .= $_FILES['file']['name'][0] . " uploaded.<br>";
+						}
+					}
 				}
 			}
-			$exp=explode("~~",$test);
-			if (count($exp)==(count($file_ext_allow)+1))
-			{
-				$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">".gettext("ERROR: your file type is not allowed")." (".getlast($fileupload_name).")</font>, ".gettext("or you didn't specify a file to upload").".</b><br>";				
-			}
-			else
-			{		  		
-				if ($_FILES['file']['size'][0] > $file_size_ind)
-				{
-					$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">".gettext("ERROR: please get the file size less than")." ".$file_size_ind." BYTES  (".round(($file_size_ind/1024),2)." KB)</font></b><br>";
-				}else{
-					$file_to_upload = $upload_dir."/".$_FILES['file']['name'][0];					
-					move_uploaded_file($_FILES['file']['tmp_name'][0],$file_to_upload);
-					//echo "<br>::$file_to_upload</br>";
-					//chmod($file_to_upload,0777);
-					$_SESSION['message'] .= $_FILES['file']['name'][0]." uploaded.<br>";
-				}
-			}
-          } 
-        }
-      }
-      if(!$uploads)  $_SESSION['message'] = gettext("No files selected!");
-    }
+		}
+		if (!$uploads)
+			$_SESSION['message'] = gettext("No files selected!");
+	}
 
-    //Logout 
-    elseif($_GET['method'] == "logout")
-    {
-      session_destroy();
-    }
+	//Logout 
+	elseif ($_GET['method'] == "logout") {
+		session_destroy();
+	}
 
-    //Delete the file
-    elseif($_GET['method'] == "delete" && $_GET['file'])
-    {
-      if(!@unlink($upload_dir."/".$_GET['file']))
-        $_SESSION['message'] = "File not found!";
-      else
-        $_SESSION['message'] = $_GET['file'] . " deleted";
-    }
+	//Delete the file
+	elseif ($_GET['method'] == "delete" && $_GET['file']) {
+		if (!@ unlink($upload_dir . "/" . $_GET['file']))
+			$_SESSION['message'] = "File not found!";
+		else
+			$_SESSION['message'] = $_GET['file'] . " deleted";
+	}
 
-    //Download a file 
-    elseif($_GET['method'] == "download" && $_GET['file'])
-    {
-      $file = $upload_dir . "/" . $_GET['file'];
-      $filename = basename( $file );
-      $len = filesize( $file );
-      header( "content-type: application/stream" );
-      header( "content-length: " . $len );
-      header( "content-disposition: attachment; filename=" . $filename );
-      $fp=fopen( $file, "r" );
-      fpassthru( $fp );
-      exit;
-    }
-    
-    //Rename a file
-    elseif( $_GET['method'] == "rename" )
-    {
-      rename( $upload_dir . "/" . $_GET['file'] , $upload_dir . "/" . $_GET['to'] );
-      $_SESSION['message'] = "Renamed " . $_GET['file'] . " to " . $_GET['to'];
-    }
-    // Redirect to the script again
-    Header("Location: " . $_SERVER['PHP_SELF']."?acc=$acc" );
-  }
+	//Download a file 
+	elseif ($_GET['method'] == "download" && $_GET['file']) {
+		$file = $upload_dir . "/" . $_GET['file'];
+		$filename = basename($file);
+		$len = filesize($file);
+		header("content-type: application/stream");
+		header("content-length: " . $len);
+		header("content-disposition: attachment; filename=" . $filename);
+		$fp = fopen($file, "r");
+		fpassthru($fp);
+		exit;
+	}
 
+	//Rename a file
+	elseif ($_GET['method'] == "rename") {
+		rename($upload_dir . "/" . $_GET['file'], $upload_dir . "/" . $_GET['to']);
+		$_SESSION['message'] = "Renamed " . $_GET['file'] . " to " . $_GET['to'];
+	}
+	// Redirect to the script again
+	Header("Location: " . $_SERVER['PHP_SELF'] . "?acc=$acc");
+}
 
-	$smarty->display('main.tpl');
+$smarty->display('main.tpl');
+
 ?>
  
 
@@ -186,10 +162,10 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
   <tr>
     <td><font size="3"><b><i><?php echo gettext("File Upload");?></i></b></font>&nbsp;
     <br><br>
-    <font style="text-decoration: bold; font-size: 9px;">  <b>UPLOAD DIRECTORY :</b> <?php echo $upload_dir?>
+    <font style="text-decoration: bold; font-size: 9px;">  <b><?php echo gettext("UPLOAD DIRECTORY");?> :</b> <?php echo $upload_dir?>
     <br>
-    	Note that if you're using .wav, (eg, recorded with Microsoft Recorder) the file must be PCM Encoded, 16 Bits, at 8000Hz.
-    <br>If the default path is not the correct edit the variables dir_store_mohmp3 and  dir_store_audio in the System Settings 
+    <?php echo gettext("Note that if you're using .wav, (eg, recorded with Microsoft Recorder) the file must be PCM Encoded, 16 Bits, at 8000Hz.");?> <br>
+    <?php echo gettext("If the default path is not the correct edit the variables dir_store_mohmp3 and  dir_store_audio in the System Settings");?> 
     </font>&nbsp;
 	<br>
     </td>
@@ -197,11 +173,8 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 </table>
 
 
-
 <table width="560" cellspacing="5" cellpadding="2" border="0" style="padding-top:5px;padding-left=5px;padding-bottom:5px;padding-right:5px">
   <form method='post' enctype='multipart/form-data' action='<?php echo $_SERVER['PHP_SELF'];?>?method=upload'>
-  
-  
   <input type="hidden" value="<?php echo $acc?>" name="acc"/>
  <?php for( $i = 0; $i < $files_to_upload; $i++ ) { ?>
          <tr>
@@ -246,7 +219,6 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 </table>
 
       <?php
-	  
         //When there is a message, after an action, show it
         if(session_is_registered('message'))
         {
@@ -302,3 +274,4 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 
 $smarty->display('footer.tpl');
 
+ 
