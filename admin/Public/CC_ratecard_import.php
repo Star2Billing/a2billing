@@ -5,47 +5,36 @@ include ("../lib/admin.smarty.php");
 
 set_time_limit(0);
 
-if (! has_rights (ACX_RATECARD)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
+if (!has_rights(ACX_RATECARD)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 $FG_DEBUG = 0;
 
-$DBHandle  = DbConnect();
-
-
+$DBHandle = DbConnect();
 
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 
-/*************************************************************/
-
+// GET CALLPLAN LIST
 $instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
-
 $FG_TABLE_CLAUSE = "";
-
-$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
-
+$list_tariffname = $instance_table_tariffname->Get_list($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 $nb_tariffname = count($list_tariffname);
 
-/*************************************************************/
-
+// GET TRUNK LIST
 $instance_table_trunk = new Table("cc_trunk", "id_trunk, trunkcode");
-
 $FG_TABLE_CLAUSE = "";
-
-$list_trunk = $instance_table_trunk  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id_trunk", "ASC", null, null, null, null);
-
+$list_trunk = $instance_table_trunk->Get_list($DBHandle, $FG_TABLE_CLAUSE, "id_trunk", "ASC", null, null, null, null);
 $nb_trunk = count($list_trunk);
-
 
 $smarty->display('main.tpl');
 
 ?>
 
-<script type="text/javascript">
+<script language="JavaScript" type="text/javascript">
 <!--
 
 function sendtoupload(form){
@@ -64,12 +53,6 @@ function sendtoupload(form){
 	document.prefs.submit();
 }
 
-//-->
-</script>
-
-
-<script language="JavaScript" type="text/javascript">
-<!--
 function deselectHeaders()
 {
     document.prefs.unselected_search_sources[0].selected = false;
@@ -197,20 +180,18 @@ function moveSourceDown()
     resetHidden();
 }
 
-
 // -->
 </script>
 
 <?php
-	echo $CC_help_import_ratecard;
+
+echo $CC_help_import_ratecard;
+
 ?>
 <center>
 		<b><?php echo gettext("New rate cards have to be imported from a CSV file.");?>.</b></br></br>
 		<table width="95%" border="0" cellspacing="2" align="center" class="records">
-			
-              <form name="prefs" enctype="multipart/form-data" action="CC_ratecard_import_analyse.php" method="post">
-			  
-			  
+			  <form name="prefs" enctype="multipart/form-data" action="CC_ratecard_import_analyse.php" method="post">
 				<tr> 
                   <td colspan="2" align=center> 
 				  <?php echo gettext("Choose the ratecard to import");?> :
@@ -226,7 +207,7 @@ function moveSourceDown()
 						</select>	
 						<br><br>
 				   <?php echo gettext("Choose the trunk to use");?> :
-				  <select NAME="trunk" size="1"  style="width=250" class="form_input_select">
+						  <select NAME="trunk" size="1"  style="width=250" class="form_input_select">
 								<?php					 
 								 foreach ($list_trunk as $recordset){
 								?>
@@ -234,86 +215,83 @@ function moveSourceDown()
 								<?php 	 }
 								?>
 						</select>	
-						<br>
-						</br>
-				  				  
-				<?php echo gettext("These fields are mandatory");?><br>
+						<br></br>
+				  		  
+					<?php echo gettext("These fields are mandatory");?><br>
 
-<select  name="bydefault" multiple="multiple" size="4" width="40" class="form_input_select">
-	<option value="bb1"><?php echo gettext("dialprefix");?></option>
-	<option value="bb2"><?php echo gettext("destination");?></option>
-	<option value="bb3"><?php echo gettext("rate initial");?></option>
-</select>
-<br/><br/>
-
-<?php echo gettext("Choose the additional fields to import from the CSV file");?>.<br>
-
-<input name="search_sources" value="nochange" type="hidden">
-<table>
-    <tbody><tr>
-        <td>
-            <select name="unselected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders()" class="form_input_select">
-				<option value=""><?php echo gettext("Unselected Fields...");?></option>
-				<option value="buyrate"><?php echo gettext("buyrate");?></option>
-				<option value="buyrateinitblock"><?php echo gettext("buyrateinitblock");?></option>
-				<option value="buyrateincrement"><?php echo gettext("buyrateincrement");?></option>
-
-				<option value="initblock"><?php echo gettext("initblock");?></option>
-				<option value="billingblock"><?php echo gettext("billingblock");?></option>
-				<option value="connectcharge"><?php echo gettext("connectcharge");?></option>
-				<option value="disconnectcharge"><?php echo gettext("disconnectcharge");?></option>
-				<option value="disconnectcharge_after"><?php echo gettext("disconnectcharge_after");?></option>
-				<option value="stepchargea"><?php echo gettext("stepchargea");?></option>
-				<option value="chargea"><?php echo gettext("chargea");?></option>
-				<option value="timechargea"><?php echo gettext("timechargea");?></option>
-				<option value="billingblocka"><?php echo gettext("billingblocka");?></option>
-
-				<option value="stepchargeb"><?php echo gettext("stepchargeb");?></option>
-				<option value="chargeb"><?php echo gettext("chargeb");?></option>
-				<option value="timechargeb"><?php echo gettext("timechargeb");?></option>
-				<option value="billingblockb"><?php echo gettext("billingblockb");?></option>
-
-				<option value="stepchargec"><?php echo gettext("stepchargec");?></option>
-				<option value="chargec"><?php echo gettext("chargec");?></option>
-				<option value="timechargec"><?php echo gettext("timechargec");?></option>
-				<option value="billingblockc"><?php echo gettext("billingblockc");?></option>
-
-				<option value="startdate"><?php echo gettext("startdate");?></option>
-				<option value="stopdate"><?php echo gettext("stopdate");?></option>
-
-				<option value="starttime"><?php echo gettext("starttime");?></option>
-				<option value="endtime"><?php echo gettext("endtime");?></option>
-				<option value="tag"><?php echo gettext("tag");?></option>
-				<option value="rounding_calltime"><?php echo gettext("rounding calltime");?></option>
-				<option value="rounding_threshold"><?php echo gettext("rounding threshold");?></option>
- 				<option value="additional_block_charge"><?php echo gettext("additional block charge");?></option>
-				<option value="additional_block_charge_time"><?php echo gettext("additional block charge time");?></option>
-				<option value="freetimetocall_package_offer"><?php echo gettext("free time to call package offer");?></option>
-				<option value="announce_time_correction"><?php echo gettext("announce time correction");?></option> 
-			</select>
-        </td>
-
-        <td>
-            <a href="" onclick="addSource(); return false;"><img src="<?php echo Images_Path;?>/forward.png" alt="add source" title="add source" border="0"></a>
-            <br>
-            <a href="" onclick="removeSource(); return false;"><img src="<?php echo Images_Path;?>/back.png" alt="remove source" title="remove source" border="0"></a>
-        </td>
-        <td>
-            <select name="selected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders();" class="form_input_select">
-				<option value=""><?php echo gettext("Selected Fields...");?></option>
-			</select>
-        </td>
-
-        <td>
-            <a href="" onclick="moveSourceUp(); return false;"><img src="<?php echo Images_Path;?>/up_black.png" alt="move up" title="move up" border="0"></a>
-            <br>
-            <a href="" onclick="moveSourceDown(); return false;"><img src="<?php echo Images_Path;?>/down_black.png" alt="move down" title="move down" border="0"></a>
-        </td>
-    </tr>
-</tbody></table>
+					<select  name="bydefault" multiple="multiple" size="4" width="40" class="form_input_select">
+						<option value="bb1"><?php echo gettext("dialprefix");?></option>
+						<option value="bb2"><?php echo gettext("destination");?></option>
+						<option value="bb3"><?php echo gettext("rate initial");?></option>
+					</select>
+					<br/><br/>
+					
+					<?php echo gettext("Choose the additional fields to import from the CSV file");?>.<br>
+					
+					<input name="search_sources" value="nochange" type="hidden">
+					<table>
+					    <tbody><tr>
+					        <td>
+					            <select name="unselected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders()" class="form_input_select">
+									<option value=""><?php echo gettext("Unselected Fields...");?></option>
+									<option value="buyrate"><?php echo gettext("buyrate");?></option>
+									<option value="buyrateinitblock"><?php echo gettext("buyrateinitblock");?></option>
+									<option value="buyrateincrement"><?php echo gettext("buyrateincrement");?></option>
+					
+									<option value="initblock"><?php echo gettext("initblock");?></option>
+									<option value="billingblock"><?php echo gettext("billingblock");?></option>
+									<option value="connectcharge"><?php echo gettext("connectcharge");?></option>
+									<option value="disconnectcharge"><?php echo gettext("disconnectcharge");?></option>
+									<option value="disconnectcharge_after"><?php echo gettext("disconnectcharge_after");?></option>
+									<option value="stepchargea"><?php echo gettext("stepchargea");?></option>
+									<option value="chargea"><?php echo gettext("chargea");?></option>
+									<option value="timechargea"><?php echo gettext("timechargea");?></option>
+									<option value="billingblocka"><?php echo gettext("billingblocka");?></option>
+					
+									<option value="stepchargeb"><?php echo gettext("stepchargeb");?></option>
+									<option value="chargeb"><?php echo gettext("chargeb");?></option>
+									<option value="timechargeb"><?php echo gettext("timechargeb");?></option>
+									<option value="billingblockb"><?php echo gettext("billingblockb");?></option>
+					
+									<option value="stepchargec"><?php echo gettext("stepchargec");?></option>
+									<option value="chargec"><?php echo gettext("chargec");?></option>
+									<option value="timechargec"><?php echo gettext("timechargec");?></option>
+									<option value="billingblockc"><?php echo gettext("billingblockc");?></option>
+					
+									<option value="startdate"><?php echo gettext("startdate");?></option>
+									<option value="stopdate"><?php echo gettext("stopdate");?></option>
+					
+									<option value="starttime"><?php echo gettext("starttime");?></option>
+									<option value="endtime"><?php echo gettext("endtime");?></option>
+									<option value="tag"><?php echo gettext("tag");?></option>
+									<option value="rounding_calltime"><?php echo gettext("rounding calltime");?></option>
+									<option value="rounding_threshold"><?php echo gettext("rounding threshold");?></option>
+					 				<option value="additional_block_charge"><?php echo gettext("additional block charge");?></option>
+									<option value="additional_block_charge_time"><?php echo gettext("additional block charge time");?></option>
+									<option value="freetimetocall_package_offer"><?php echo gettext("free time to call package offer");?></option>
+									<option value="announce_time_correction"><?php echo gettext("announce time correction");?></option> 
+								</select>
+					        </td>
+					
+					        <td>
+					            <a href="" onclick="addSource(); return false;"><img src="<?php echo Images_Path;?>/forward.png" alt="add source" title="add source" border="0"></a>
+					            <br>
+					            <a href="" onclick="removeSource(); return false;"><img src="<?php echo Images_Path;?>/back.png" alt="remove source" title="remove source" border="0"></a>
+					        </td>
+					        <td>
+					            <select name="selected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders();" class="form_input_select">
+									<option value=""><?php echo gettext("Selected Fields...");?></option>
+								</select>
+					        </td>
+					
+					        <td>
+					            <a href="" onclick="moveSourceUp(); return false;"><img src="<?php echo Images_Path;?>/up_black.png" alt="move up" title="move up" border="0"></a>
+					            <br>
+					            <a href="" onclick="moveSourceDown(); return false;"><img src="<?php echo Images_Path;?>/down_black.png" alt="move down" title="move down" border="0"></a>
+					        </td>
+					    </tr>
+					</tbody></table>
 		
-				
-				
 				
 				</td></tr>
 				
@@ -372,5 +350,6 @@ function moveSourceDown()
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+
+$smarty->display('footer.tpl');
