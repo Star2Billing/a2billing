@@ -35,8 +35,7 @@ $phonebookSample_Complex = "003247354343;Jean Pest;advertissing
 <br>003247354356;James Bon;Debt";
 
 
-if (isset($_GET["sample"]))
-{
+if (isset($_GET["sample"])) {
     switch($_GET["sample"])
     {
         case "Card_Simple":
@@ -77,4 +76,3 @@ if (isset($_GET["sample"]))
         
     }
 }
-?>

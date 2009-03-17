@@ -12,11 +12,8 @@ if (!has_rights(ACX_RATECARD)) {
 }
 
 $FG_DEBUG = 0;
-
 $DBHandle = DbConnect();
-
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
-
 
 // GET CALLPLAN LIST
 $instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
