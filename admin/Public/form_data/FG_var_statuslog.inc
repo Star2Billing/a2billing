@@ -12,41 +12,37 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
 $date_clause = "";
-if (DB_TYPE == "postgres"){		
+if (DB_TYPE == "postgres") {
 	$UNIX_TIMESTAMP = "";
-}else{
+} else {
 	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
+
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if ($Period=="Month"){
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(sl.updated_date) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-	if ($tomonth && isset($tostatsmonth))
-	{
+	if ($tomonth && isset($tostatsmonth)) {
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
 		$date_clause.=" $UNIX_TIMESTAMP(sl.updated_date) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 	}
-}else{
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
-	{
+} else {
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
 		$date_clause.=" $UNIX_TIMESTAMP(sl.updated_date) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
-	{
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) {
 		if (strlen($date_clause)>0) $date_clause.=" AND ";
 		$date_clause.=" $UNIX_TIMESTAMP(sl.updated_date) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
 }
 
-if($date_clause != "")
-{
+if($date_clause != "") {
 	$HD_Form -> FG_TABLE_CLAUSE.=" ".$date_clause;
 }
 
 if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0 && strlen($id_cc_card)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 
-if($id_cc_card != "")
-{
+if ($id_cc_card != "") {
 	$HD_Form -> FG_TABLE_CLAUSE.=" sl.id_cc_card = '$id_cc_card'";
 }	
 
@@ -65,10 +61,8 @@ $HD_Form -> AddViewElement(gettext("ID CARD"), "id_cc_card", "10%", "center", "s
 $HD_Form -> AddViewElement("CARDNUMBER", "id_cc_card", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("LAST NAME"), "id_cc_card", "20%", "center", "sort", "15", "lie", "cc_card", "lastname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "20%", "center", "sort", "", "list", $cardstatus_list);
-
 $HD_Form -> AddViewElement(gettext("DATE"), "updated_date", "20%", "center", "sort", "16");
 
-// added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('id_cc_card, id_cc_card, id_cc_card, status, updated_date');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO STATUS LOG AVAILABLE!");
