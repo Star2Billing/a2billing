@@ -574,7 +574,7 @@
 	
 	
 	<li><a href="#" target="_self"></a></a></li>
-		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("Change Password");{/php}</strong></a></li></ul>
   	<li><a href="#" target="_self"></a></a></li>
   	
 
