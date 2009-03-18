@@ -290,7 +290,6 @@ class Table {
 				$insertid = $DBHandle -> Insert_ID();
 				if ($this -> debug_st)
 					echo "\n <br> mysql_insert_id = $insertid";
-				echo "\n <br> mysql_insert_id = $insertid";
 				return $insertid;
 			}
 		}

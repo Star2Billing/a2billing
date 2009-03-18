@@ -49,9 +49,7 @@ if ($resmax) {
 	$user_typepaid = $row[2];
 }
 
-/*************************************************************/
 /*           release the choosen did                        */
-
 if ($action_release == "confirm_release") {
 
 	$message = "\n\n" . gettext("The following Destinaton-DID has been relesed:") . "\n\n";
@@ -106,6 +104,8 @@ if ($action_release == "ask_release") {
 
 }
 
+echo "confirm_buy_did=$confirm_buy_did : action_release=$action_release";
+
 if (!isset ($action_release) || $action_release == "confirm_release" || $action_release == "") {
 	// #### HELP SECTION
 	if ($form_action == 'list') {
@@ -156,8 +156,12 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 			mail($A2B->config["webcustomerui"]['error_email'], "[$date] Destinaton-DID notification", $message, $em_headers);
 
 	} else {
-		if ($confirm_buy_did != 4)
-			$confirm_buy_did = 0;
+		if ($voip_call==1 && strpos(substr($destination, strpos( $destination, '@')),'.') === false) {
+			$confirm_buy_did = 5;
+		} else {
+			if ($confirm_buy_did != 4)
+				$confirm_buy_did = 0;
+		}
 	}
 
 	if (!isset ($current_page) || ($current_page == ""))
@@ -243,14 +247,6 @@ function IsNumeric(sText)
 	}
 	return IsNumber;
 }
-
-
-function openURL(theLINK)
-{
-	voucher = document.theForm.voucher.value;
-	self.location.href = theLINK + goURL + "&voucher="+voucher;
-}
-
 
 function NextPage(){
 	if (document.theForm.new_did_page.value < 2) 
@@ -423,8 +419,10 @@ function CheckCountry(Source){
 			<td colspan="2" height="40">
 				<?php
 				if ($confirm_buy_did == 2) {?><center><font color="black"><?php echo gettext("The purchase of the DID is done ")?> </font></center>
-				<?php }else {?><center><font color="red"><?php echo "<br>".gettext("The purchase of the DID cant be done, your credit of  ").number_format($user_credit,2,".",",")." ".BASE_CURRENCY.gettext(" is lower than Fixerate of the DID  ").number_format($rate,2,".",",")." ".BASE_CURRENCY." </br> <hr>".gettext("Please reload your account ");?> </font></center>
-			<?php } ?></td>
+				<?php }elseif ($confirm_buy_did == 5){?><center><font color="red"><?php echo "<br>".gettext("The purchase of the DID cannot be done, the VoIP destination have to be a proper URI");?> </font></center>
+				<?php }else {?><center><font color="red"><?php echo "<br>".gettext("The purchase of the DID cannot be done, your credit of  ").number_format($user_credit,2,".",",")." ".BASE_CURRENCY.gettext(" is lower than Fixerate of the DID  ").number_format($rate,2,".",",")." ".BASE_CURRENCY." </br> <hr>".gettext("Please reload your account ");?> </font></center>
+				<?php } ?>
+			</td>
 		</tr>
 		<INPUT type="hidden" name="choose_did_rate" value="">
 		<INPUT type="hidden" name="destination" value=" ">
