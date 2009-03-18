@@ -5,10 +5,14 @@ $HD_Form = new FormHandler("cc_callerid","CallerID");
 
 $HD_Form -> FG_DEBUG = 0;
 
+$HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_callerid.php?form_action=ask-add&section=".$_SESSION["menu_section"];
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add CallerID");
+$HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/page_white_add.png" ;
+
+
 $actived_list = Constants::getActivationTrueFalseList();
-
 $yesno = Constants::getYesNoList();
-
 
 $HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "30%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
@@ -39,20 +43,29 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   gettext("Insert the CallerID"),
 			   "" , "", "",	"", "" , "", "", "");
 
-
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
-				   "activated",
-				   't',
-				   "RADIOBUTTON",
-				   "",
-				   "",
-				   gettext("Choose if you want to activate this card"),
-				   "" , "", "", "Yes :t, - No:f", "", "", "", "" );
+			   "activated",
+			   't',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to activate this card"),
+			   "" , "", "", "Yes :t, - No:f", "", "", "", "" );
+
+$HD_Form -> AddEditElement (gettext("ID CARD"),
+			   "id_cc_card",		
+			   "$value",	
+			   "POPUPVALUE",	
+			   "size=30 maxlength=50",	
+			   "4",	
+			   gettext("Insert the Id CardNumber"),
+			    "" , "", "", "", "", 				
+				"A2B_entity_card.php?popup_select=1&"
+				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
+				gettext("Define the card number ID to use."));
 
 
-
-$HD_Form -> FieldEditElement ('cid, activated');
-
+$HD_Form -> FieldEditElement ('cid, activated, id_cc_card');
 
 
 // Set the filter variables
