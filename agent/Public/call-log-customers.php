@@ -12,7 +12,7 @@ if (! has_rights ( ACX_CALL_REPORT )) {
 	die ();
 }
 
-getpost_ifset ( array ('customer', 'sellrate', 'buyrate', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'fromtime', 'totime', 'fromstatsday_hour', 'tostatsday_hour', 'fromstatsday_min', 'tostatsday_min', 'dsttype', 'srctype', 'dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'dnid', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype' ) );
+getpost_ifset ( array ('customer', 'sellrate', 'buyrate', 'entercustomer',  'entertariffgroup', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'fromtime', 'totime', 'fromstatsday_hour', 'tostatsday_hour', 'fromstatsday_min', 'tostatsday_min', 'dsttype', 'srctype', 'dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'dnid', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype' ) );
 
 if (($_GET [download] == "file") && $_GET [file]) {
 	
@@ -80,26 +80,21 @@ $FG_TABLE_COL = array ();
 $FG_TABLE_COL [] = array (gettext ( "Calldate" ), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat" );
 $FG_TABLE_COL [] = array (gettext ( "Source" ), "src", "7%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array (gettext ( "Dnid" ), "dnid", "7%", "center", "SORT", "30" );
-$FG_TABLE_COL [] = array (gettext ( "CalledNumber" ), "calledstation", "10%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix" );
-$FG_TABLE_COL [] = array (gettext ( "Destination" ), "id_ratecard","10%", "center", "SORT", "15", "lie", "cc_ratecard", "destination", "id='%id'", "%1" );
-$FG_TABLE_COL [] = array (gettext ( "Buy Rate" ), "buyrate", "5%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
-$FG_TABLE_COL [] = array (gettext ( "Sell Rate" ), "rateinitial", "5%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
-$FG_TABLE_COL [] = array (gettext ( "Duration" ), "sessiontime", "6%", "center", "SORT", "30", "", "", "", "", "", "display_minute" );
-$FG_TABLE_COL [] = array (gettext ( "AccountUsed" ), "card_id", "6%", "center", "sort", "", "lie", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php" );
-$FG_TABLE_COL [] = array (gettext ( "Trunk" ), "trunkcode", "6%", "center", "SORT", "30" );
+$FG_TABLE_COL [] = array (gettext ( "CalledNumber" ), "calledstation", "13%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix" );
+$FG_TABLE_COL [] = array (gettext ( "Destination" ), "id_cc_prefix","10%", "center", "SORT", "15", "lie", "cc_prefix", "destination,prefix", "prefix='%id'", "%1" );
+$FG_TABLE_COL [] = array (gettext ( "Sell Rate" ), "rateinitial", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
+$FG_TABLE_COL [] = array (gettext ( "Duration" ), "sessiontime", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute" );
+$FG_TABLE_COL [] = array (gettext ( "AccountUsed" ), "card_id", "10%", "center", "sort", "", "lie", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php" );
 $FG_TABLE_COL [] = array ('<acronym title="' . gettext ( "Terminate Cause" ) . '">' . gettext ( "TC" ) . '</acronym>', "terminatecauseid", "7%", "center", "SORT", "", "list", $dialstatus_list );
-$FG_TABLE_COL [] = array (gettext ( "Calltype" ), "sipiax", "6%", "center", "SORT", "", "list", $list_calltype );
-$FG_TABLE_COL [] = array (gettext ( "Buy" ), "buycost", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
-$FG_TABLE_COL [] = array (gettext ( "Sell" ), "sessionbill", "8%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
-$FG_TABLE_COL [] = array (gettext ( "Margin" ), "margin", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec_percentage" );
-$FG_TABLE_COL [] = array (gettext ( "Markup" ), "markup", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec_percentage" );
+$FG_TABLE_COL [] = array (gettext ( "Calltype" ), "sipiax", "10%", "center", "SORT", "", "list", $list_calltype );
+$FG_TABLE_COL [] = array (gettext ( "Sell" ), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 
 if (LINK_AUDIO_FILE) {
 	$FG_TABLE_COL [] = array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile" );
 }
 
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.id_ratecard, t4.buyrate ,t4.rateinitial ,t1.sessiontime, t1.card_id, t3.trunkcode, t1.terminatecauseid, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
+$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.id_ratecard ,t4.rateinitial ,t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
 }
@@ -179,17 +174,8 @@ if (isset ( $customer ) && ($customer > 0)) {
 	}
 }
 
-if ($_SESSION ["is_admin"] == 1) {
-	if (isset ( $enterprovider ) && $enterprovider > 0) {
-		if (strlen ( $FG_TABLE_CLAUSE ) > 0)
-			$FG_TABLE_CLAUSE .= " AND ";
-		$FG_TABLE_CLAUSE .= "t3.id_provider = '$enterprovider'";
-	}
-	if (isset ( $entertrunk ) && $entertrunk > 0) {
-		if (strlen ( $FG_TABLE_CLAUSE ) > 0)
-			$FG_TABLE_CLAUSE .= " AND ";
-		$FG_TABLE_CLAUSE .= "t3.id_trunk = '$entertrunk'";
-	}
+	
+	
 	if (isset ( $entertariffgroup ) && $entertariffgroup > 0) {
 		if (strlen ( $FG_TABLE_CLAUSE ) > 0)
 			$FG_TABLE_CLAUSE .= " AND ";
@@ -201,7 +187,6 @@ if ($_SESSION ["is_admin"] == 1) {
 		$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
 	}
 
-}
 
 if (isset ( $choose_calltype ) && ($choose_calltype != - 1)) {
 	if (strlen ( $FG_TABLE_CLAUSE ) > 0)
@@ -278,7 +263,7 @@ if (! is_null ( $order ) && ($order != '') && ! is_null ( $sens ) && ($sens != '
 /************************/
 $QUERY = "SELECT DATE(t1.starttime) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall,
             sum(t1.buycost) AS buy, sum(case when t1.sessiontime>0 then 1 else 0 end) as success_calls
-        	FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE GROUP BY day) ORDER BY day"; //extract(DAY from calldate)
+        	FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE GROUP BY day ORDER BY day"; //extract(DAY from calldate)
 
 if (! $nodisplay) {
 	$res = $DBHandle->Execute ( $QUERY );
@@ -370,32 +355,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			echo $entertariffgroup?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_tariffgroup.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertariffgroup' , 'CallPlanSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img
 							src="<?php echo Images_Path; ?>/icon_arrow_orange.gif"></a></td>
 						<td align="left" class="fontstyle_searchoptions"><?php
-			echo gettext ( "Provider" );
-			?> :
-			
-			<td align="left" class="fontstyle_searchoptions"><INPUT
-							TYPE="text" NAME="enterprovider"
-							value="<?php
-			echo $enterprovider?>" size="4"
-							class="form_input_text">&nbsp;<a href="#"
-							onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img
-							src="<?php
-			echo Images_Path;
-			?>/icon_arrow_orange.gif"></a></td>
-					</tr>
-					<tr>
-						<td align="left" class="fontstyle_searchoptions"><?php
-			echo gettext ( "Trunk" );
-			?> :</td>
-						<td align="left" class="fontstyle_searchoptions"><INPUT
-							TYPE="text" NAME="entertrunk" value="<?php
-			echo $entertrunk?>"
-							size="4" class="form_input_text">&nbsp;<a href="#"
-							onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img
-							src="<?php
-			echo Images_Path;
-			?>/icon_arrow_orange.gif"></a></td>
-						<td align="left" class="fontstyle_searchoptions"><?php
 			echo gettext ( "Rate" );
 			?> :</td>
 						<td align="left" class="fontstyle_searchoptions"><INPUT
@@ -407,6 +366,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							src="<?php
 			echo Images_Path;
 			?>/icon_arrow_orange.gif"></a></td>
+						
 					</tr>
 				</table>
 				</td>
@@ -984,7 +944,7 @@ echo $FG_HTML_TABLE_WIDTH?>" border="0"
 								} else {
 									echo "ASC";
 								}
-								echo "&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype";
+								echo "&entercustomer=$entercustomer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype";
 									?>">
 <span class="liens"><?php
 								}
@@ -1122,7 +1082,7 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 																					if (! is_null ( $letter ) && ($letter != "")) {
 																						echo "&letter=$letter";
 																					}
-																					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";
+																					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer";
 																					?>">
                     <?php
 																					echo gettext ( "Previous" );
@@ -1148,7 +1108,7 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 																					if (! is_null ( $letter ) && ($letter != "")) {
 																						echo "&letter=$letter";
 																					}
-																					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";
+																					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer";
 																					?>">
                     <?php
 																					echo gettext ( "Next" );
@@ -1173,13 +1133,7 @@ if (is_array ( $list ) && count ( $list ) > 0 && 3 == 4) {
 <br />
 <div style="padding-right: 15px;">
 <table cellpadding="1" bgcolor="#000000" cellspacing="1"
-	width="<?php
-	if ($_SESSION ["is_admin"] == 1) {
-		?>450<?php
-	} else {
-		?>200<?php
-	}
-	?>"
+	width="450"
 	align="right">
 	<tbody>
 		<tr class="form_head">
@@ -1188,7 +1142,7 @@ if (is_array ( $list ) && count ( $list ) > 0 && 3 == 4) {
 	echo gettext ( "TOTAL COSTS" );
 	?></strong></td>
 				   <?php
-	if ($_SESSION ["is_admin"] == 1) {
+	if (true) {
 		?><td width="33%"
 				align="center" class="tableBodyRight" bgcolor="#600101"
 				style="padding: 5px;"><strong><?php
@@ -1270,7 +1224,7 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 				<tbody>
 					<tr>
 						<td align="center" class="bgcolor_019"></td>
-						<td class="bgcolor_020" align="center" colspan="10"><font
+						<td class="bgcolor_020" align="center" colspan="6"><font
 							class="fontstyle_003"><?php echo gettext ( "TRAFFIC SUMMARY" ); ?></font></td>
 					</tr>
 					<tr class="bgcolor_019">
@@ -1300,18 +1254,7 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 						<td align="center"><font class="fontstyle_003"><?php
 	echo gettext ( "SELL" );
 	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "BUY" );
-	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "PROFIT" );
-	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "MARGIN" );
-	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "MARKUP" );
-	?></font></td>
+						
 
 						<!-- LOOP -->
 	<?php
@@ -1371,32 +1314,7 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
 							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2bill ( $data [2] )?>
 						</font></td>
-						<!-- BUY -->
-						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2bill ( $data [4] )?>
-						</font></td>
-						<!-- PROFIT -->
-						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php display_2bill ( $data [2] - $data [4] )?>
-						</font></td>
-						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-							if ($data [2] != 0) {
-								display_2dec_percentage ( (($data [2] - $data [4]) / $data [2]) * 100 );
-							} else {
-								echo "NULL";
-							}
-							?>
-						</font></td>
-						<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$i]?>"
-							align="right" nowrap="nowrap"><font class="fontstyle_006"><?php
-							if ($data [4] != 0) {
-								display_2dec_percentage ( (($data [2] - $data [4]) / $data [4]) * 100 );
-							} else {
-								echo "NULL";
-							}
-							?>
-						</font></td>
+						
      <?php
 		$j ++;
 	}
@@ -1425,22 +1343,6 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_tmc?></font></td>
 						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2dec_percentage ( $totalsuccess*100 / $totalcall )?> </font></td>
 						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill ( $totalcost )?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill ( $totalbuycost )?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill ( $totalcost - $totalbuycost )?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-							if ($totalcost != 0) {
-								display_2dec_percentage ( (($totalcost - $totalbuycost) / $totalcost) * 100 );
-							} else {
-								echo "NULL";
-							}
-							?></font></td>
-						<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php
-							if ($totalbuycost != 0) {
-								display_2dec_percentage ( (($totalcost - $totalbuycost) / $totalbuycost) * 100 );
-							} else {
-								echo "NULL";
-							}
-							?></font></td>
 					</tr>
 					<!-- END TOTAL -->
 
