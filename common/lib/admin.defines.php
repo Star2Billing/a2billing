@@ -164,7 +164,7 @@ if (isset($language)) {
 }
 
 // Open menu
-if ($_GET["section"]!="") {
+if (!empty($_GET["section"])) {
 	$section = $_GET["section"];
 	$_SESSION["menu_section"] = $section;
 }
