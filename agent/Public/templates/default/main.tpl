@@ -141,6 +141,7 @@ Logged-in as: <b>{$adminname}</b></p>
 				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("Customer's Refills");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Customer's Payment");{/php}</a></li>
 				<li><a href="A2B_entity_paymentlog.php?stitle=Payment_log&section=2">{php} echo gettext("Payment Log");{/php}</a></li>
+				<li><a href="A2B_entity_commission.php?stitle=Commission&section=2">{php} echo gettext("Commission");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

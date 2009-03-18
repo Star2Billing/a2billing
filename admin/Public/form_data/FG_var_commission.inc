@@ -1,13 +1,7 @@
 <?php
-
 getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill','refill_type'));
 
-
-if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_agent_commission LEFT JOIN cc_card ON cc_card.id=cc_agent_commission.id_card","Commission's Agents");
-} else {
-	$HD_Form = new FormHandler("cc_agent_commission","Commission");
-}
+$HD_Form = new FormHandler("cc_agent_commission","Commission's Agents");
 
 $HD_Form -> FG_TABLE_ID = 'cc_agent_commission.id';
 
@@ -19,14 +13,15 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_commission_agent.php?form_a
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Commission");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money_add.png" ;
 $paid_status_list = Constants::getInvoicePaidStatusList();
-$HD_Form -> AddViewElement(gettext("ID"), "cc_agent_commission.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("ID"), "cc_agent_commission.id", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), "id_card", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
+$HD_Form -> AddViewElement(gettext("AGENT"), "id_agent", "20%", "center", "sort", "", "30", "", "", "", "", "linktoagent");
 $HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("AMOUNT"), "amount", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PAID STATUS"),"payment_type", "7%", "center", "sort", "", "list", $paid_status_list);
-$HD_Form -> AddViewElement(gettext("LINK TO PAYMENT"), "id_payment", "20%", "center", "sort", "", "lie_link", "cc_payment", "payment, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_payment.php");
+$HD_Form -> AddViewElement(gettext("LINK TO PAYMENT"), "id_payment", "20%", "center", "sort", "", "lie_link", "cc_logpayment", "payment, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_payment.php");
 
-$HD_Form -> FieldViewElement ('cc_agent_commission.id, username, date, amount ,paid_status,id_payment');
+$HD_Form -> FieldViewElement ('cc_agent_commission.id, id_card, id_agent, date, amount ,paid_status,id_payment');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -38,8 +33,8 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
-if ($form_action=="ask-add" && !empty($card_id)) {
-	$id_val = "value='$card_id'";
+if ($form_action=="ask-add" && !empty($id_card)) {
+	$id_val = "value='$id_card'";
 }
 
 $HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
@@ -53,6 +48,18 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 				"A2B_entity_card.php?popup_select=1&"
 				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Select the Customer ID"));
+
+$HD_Form -> AddEditElement (gettext("AGENT ID"),
+			   "id_agent",		
+			   "$value",	
+			   "POPUPVALUE",	
+			   "size=30 maxlength=50 ".$id_val,	
+			   "4",	
+			   gettext("Insert the AGENT ID "),
+			    "" , "", "", "", "", 				
+				"A2B_entity_agent.php?popup_select=1&"
+				, ", 'AgentSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
+				gettext("Select the Agent ID"));
 			   
 if ($form_action=="ask-add") {	
 	$begin_date = date("Y");
@@ -71,7 +78,7 @@ $HD_Form -> AddEditElement (gettext("PAYMENT DATE"),
 			   "" , "", "",	"", "", "", "", "" );
 
 $HD_Form -> AddEditElement (gettext("COMMISSION AMOUNT"),
-			   "payment",		
+			   "amount",		
 			   '$value',	
 			   "INPUT",	
 			   "size=60 maxlength=10",	
@@ -110,19 +117,7 @@ $HD_Form -> AddEditElement (gettext("PAID STATUS"),
                "",
                "list" , "", "",     "", $paid_status_list, "%1", "", gettext("Define if this commission is paid or not.") );
 
-$HD_Form -> FieldEditElement ('id_card, date, payment, description,id_payment, payment_type');
-
-
-
-$HD_Form -> FG_FILTER_APPLY = true;
-$HD_Form -> FG_FILTERFIELD = 'cardnumber';
-$HD_Form -> FG_FILTERFIELDNAME = 'account number';
-$HD_Form -> FG_FILTER_FORM_ACTION = 'list';
-
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
-	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
-}
+$HD_Form -> FieldEditElement ('id_card,id_agent, date, amount, description,id_payment, payment_type');
 
 
 

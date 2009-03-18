@@ -1808,4 +1808,4 @@ CREATE TABLE cc_payments_agent (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-
+ALTER TABLE `cc_agent_commission` ADD `id_agent` INT NOT NULL ;

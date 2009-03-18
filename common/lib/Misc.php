@@ -373,15 +373,30 @@ function linktocustomer($value)
     }
 }
 
-function linktoagent($id)
-{
+function linktocustomer_id($id)
+{	
 	$handle = DbConnect();
-	$inst_table = new Table("cc_agent", "login");
+	$inst_table = new Table("cc_card", "username");
 	$FG_TABLE_CLAUSE = "id = '$id'";
-	$list_agent = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
+	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	$value = $list_customer[0][0];
     if($id > 0) {
     	echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";
+    } else {
+    	echo $value;
+    }
+}
+
+function linktoagent($id)
+{
+	$handle = DbConnect();
+	$inst_table = new Table("cc_agent", "login,firstname,lastname");
+	$FG_TABLE_CLAUSE = "id = '$id'";
+	$list_agent = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
+	if(is_array($list_agent))$value = $list_agent[0][1]." ".$list_agent[0][2]." (".$list_agent[0][0].")";
+	else $value="";
+    if($id > 0) {
+    	echo "<a href=\"A2B_entity_agent.php?form_action=ask-edit&id=$id\">$value</a>";
     } else {
     	echo $value;
     }
