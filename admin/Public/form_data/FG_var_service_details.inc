@@ -11,8 +11,6 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form -> FG_TABLE_CLAUSE = " id='$id'";
 $HD_Form -> FG_LIMITE_DISPLAY = 1;
 
-// TODO That only show the first query , but this file uses 2 queries , so FIX that
-// using a new generic solution not just adding in main file a hand-made query
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "50%", "center");
 $HD_Form -> AddViewElement(gettext("NUMBEROFRUN"),"numberofrun","50%", "center");
@@ -34,9 +32,6 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
-
-
-//$HD_Form -> FieldEditElement ('name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, emailreport');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;

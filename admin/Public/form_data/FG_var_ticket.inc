@@ -5,13 +5,10 @@ getpost_ifset(array('id', 'title', 'id_component','description','priority','stat
 
 
 if (!isset($form_action) || $form_action=="list"){
-  	 $HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket, cc_card", "Ticket");
-}else {
-	 $HD_Form = new FormHandler("cc_ticket","Ticket");
-
+	$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket, cc_card", "Ticket");
+} else {
+	$HD_Form = new FormHandler("cc_ticket","Ticket");
 }
-
-
 
 
 $HD_Form -> FG_DEBUG = 0;
@@ -26,13 +23,10 @@ $HD_Form -> FG_FK_WARNONLY = true;
 $HD_Form -> FG_FK_TABLENAMES = array("cc_ticket_comment");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_ticket ");
 
-
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "CC_ticket.php?form_action=ask-add&section=17";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "CC_ticket.php?form_action=ask-add&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add TICKET");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/note_add.png" ;
-
-
 
 
 $priority_list = Constants::getTicketPriorityList();
@@ -69,7 +63,7 @@ $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
-if ($form_action=='ask-add'){
+if ($form_action=='ask-add') {
 	$DBHandle_max  = DbConnect();
 	if ($username) {
 		$resmax = $DBHandle_max -> Execute("SELECT id FROM cc_card where username='$username'");
@@ -96,7 +90,6 @@ $HD_Form -> AddEditElement (gettext("CREATOR"),
 	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
 	gettext("Set the Customer ID"));
 
-
 $HD_Form -> AddEditElement (gettext("TITLE"),
 	"title",
 	'$value',
@@ -105,15 +98,16 @@ $HD_Form -> AddEditElement (gettext("TITLE"),
 	"9",
 	gettext("Insert the Title of ticket "),
 	"" , "", "", "", "", "", "", "" );
+	
 $HD_Form -> AddEditElement (gettext("COMPONENT"),
-			   "id_component",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_support_component",
-			   "name, id",
-			   "", "", "%1", "", "");
+   "id_component",
+   "",
+   "SELECT",
+   "", "", "",
+   "sql",
+   "cc_support_component",
+   "name, id",
+   "", "", "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("PRIORITY"),
 	"priority",

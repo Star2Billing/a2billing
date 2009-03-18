@@ -28,7 +28,7 @@ $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some phone using this Phone
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_phonebook.php?form_action=ask-add&stitle=Card&section=16";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_phonebook.php?form_action=ask-add&stitle=Card&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add PhoneBook");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/book_add.png" ;
 

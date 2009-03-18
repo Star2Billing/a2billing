@@ -38,7 +38,7 @@ $HD_Form -> FG_OTHER_BUTTON2_CONDITION = '|col4| == "OPEN"';
 $HD_Form -> FG_EDITION_CONDITION = '|col4| == "OPEN"';
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_receipt.php?form_action=ask-add&section=2";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_receipt.php?form_action=ask-add&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Receipt");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money.png" ;
 
@@ -92,12 +92,12 @@ $HD_Form -> AddEditElement (gettext("INVOICE DATE"),
 
 
 $HD_Form -> AddEditElement ( gettext("TITLE"),	
-		"title",	'$value',	
-		"INPUT",
-		"size=30 maxlength=50",
-		"0",
-		gettext("Insert the title of invoice, if you need one"), 
-		"" , "", "",	"", "", "", "", "" );
+				"title",	'$value',	
+				"INPUT",
+				"size=30 maxlength=50",
+				"0",
+				gettext("Insert the title of invoice, if you need one"), 
+				"" , "", "",	"", "", "", "", "" );
 			   
 			   
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
@@ -119,7 +119,7 @@ $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'Account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }

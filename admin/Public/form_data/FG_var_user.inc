@@ -5,12 +5,12 @@ getpost_ifset(array('id', 'groupID', 'userid', 'login', 'pwd_encoded', 'perms', 
 
 if ($groupID=="0") {
 	$FG_INSTANCE_NAME="Administrator";
-	$ADDING_BUTTON_LINK1 = "A2B_entity_user.php?form_action=ask-add&groupID=0&section=10";
+	$ADDING_BUTTON_LINK1 = "A2B_entity_user.php?form_action=ask-add&groupID=0&section=".$_SESSION["menu_section"];
 	$ADDING_BUTTON_ALT1 = gettext("Add ADMINISTRATOR");
 	$ADDING_BUTTON_IMG1 = Images_Path ."/user_gray.png" ;
 } elseif ($groupID=="1") {
 	$FG_INSTANCE_NAME="Sub-administrator";
-	$ADDING_BUTTON_LINK1 = "A2B_entity_user.php?form_action=ask-add&groupID=1&section=10";
+	$ADDING_BUTTON_LINK1 = "A2B_entity_user.php?form_action=ask-add&groupID=1&section=".$_SESSION["menu_section"];
 	$ADDING_BUTTON_ALT1 =  gettext("Add ADMIN ACL");
 	$ADDING_BUTTON_IMG1 = Images_Path ."/user_orange.png" ;
 } elseif ($groupID=="2") {

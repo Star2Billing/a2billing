@@ -24,7 +24,7 @@ $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some campaign using this Co
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_campaign_config.php?form_action=ask-add&stitle=Card&section=1";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_campaign_config.php?form_action=ask-add&stitle=Card&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Group");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/cog_add.png" ;
 

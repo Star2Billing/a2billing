@@ -10,7 +10,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&section=3_3";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Package");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/package_add.png" ;
 

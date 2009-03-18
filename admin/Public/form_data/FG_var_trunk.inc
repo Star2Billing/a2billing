@@ -5,13 +5,10 @@ getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providert
 
 $HD_Form = new FormHandler("cc_trunk","trunk");
 
-
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_trunk.php?form_action=ask-add&section=4";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_trunk.php?form_action=ask-add&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Trunk");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/add.png" ;
-
-
 
 
 $HD_Form -> FG_DEBUG = 0;
@@ -39,16 +36,13 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_trunk ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some rates attached to this Trunk! Please comfirm that you really want to remove this Trunk? ");
 
 
-if ($popup_select)
-{
+if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("ID"), "id_trunk", "7%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("LABEL"), "trunkcode", "15%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("PROVIDER"), "id_provider" ,"10%", "center", "sort", "15", "lie", "cc_provider", "provider_name", "id='%id'", "%1");
 
 	$HD_Form -> FieldViewElement ('id_trunk, trunkcode, id_provider');
-}
-else
-{
+} else {
 	$HD_Form -> AddViewElement(gettext("LABEL"), "trunkcode", "14%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("ADD_PREFIX"), "trunkprefix", "6%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("REMOVE_PREFIX"), "removeprefix", "6%", "center", "sort");
@@ -82,8 +76,7 @@ if ($popup_select) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
-}
-else {
+} else {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 }

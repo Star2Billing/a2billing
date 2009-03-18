@@ -163,6 +163,12 @@ if (isset($language)) {
 	$_SESSION["language"]='english';
 }
 
+// Open menu
+if ($_GET["section"]!="") {
+	$section = $_GET["section"];
+	$_SESSION["menu_section"] = $section;
+}
+
 define ("LANGUAGE",$_SESSION["language"]);
 define ("BINDTEXTDOMAIN", '../../common/admin_ui_locale');
 require("languageSettings.php");

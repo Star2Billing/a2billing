@@ -5,13 +5,10 @@ getpost_ifset(array('id', 'title', 'id_component','description','priority','stat
 
 
 if (!isset($form_action) || $form_action=="list"){
-  	 $HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket", "Ticket");
+	$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket", "Ticket");
 }else {
-	 $HD_Form = new FormHandler("cc_ticket","Ticket");
-
+	$HD_Form = new FormHandler("cc_ticket","Ticket");
 }
-
-
 
 
 $HD_Form -> FG_DEBUG = 0;
@@ -20,25 +17,17 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type = 1 GROUP BY cc_ticket.id";
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
-
-
-
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_ticket_agent.php?form_action=ask-add&section=17";
+$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_ticket_agent.php?form_action=ask-add&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add TICKET");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/note_add.png" ;
 
 
-
-
 $priority_list = Constants::getTicketPriorityList();
-
 $viewed_list = Constants::getTicketViewedList();
 $status_list = Ticket::getAllStatusListView();
 
 $filter_view ='CASE WHEN cc_ticket.viewed_admin=1 OR SUM(cc_ticket_comment.viewed_admin)>0 THEN 1 ELSE 0 END ';
-
-
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("AGENT"), "creator", "10%", "center", "sort", "25", "lie", "cc_agent", "lastname, firstname", "id='%id'", "%1 %2");
@@ -51,7 +40,6 @@ $HD_Form -> AddViewElement(gettext("TO SEE?"), "viewed_admin", "7%", "center", "
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $status_list);
 
 $HD_Form -> FieldViewElement ("cc_ticket.id, cc_ticket.creator, cc_ticket.creator, title, cc_ticket.creationdate, id_component , priority , $filter_view , cc_ticket.status");
-
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "CC_ticket_view.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/icon-viewdetails.gif";
@@ -68,17 +56,14 @@ $HD_Form -> FG_DELETION = true;
 
 
 $HD_Form -> AddEditElement (gettext("AGENT"),
-	   "creator",
-	   "",
-	   "SELECT",
-	   "", "", "",
-	   "sql",
-	   "cc_agent",
-	   "login, id, firstname,lastname",
-	   "", "", "%1 (%3 %4)", "", "", "", '' );
-
-	
-
+   "creator",
+   "",
+   "SELECT",
+   "", "", "",
+   "sql",
+   "cc_agent",
+   "login, id, firstname,lastname",
+   "", "", "%1 (%3 %4)", "", "", "", '' );
 
 $HD_Form -> AddEditElement (gettext("TITLE"),
 	"title",
@@ -88,15 +73,16 @@ $HD_Form -> AddEditElement (gettext("TITLE"),
 	"9",
 	gettext("Insert the Title of ticket "),
 	"" , "", "", "", "", "", "", "" );
+	
 $HD_Form -> AddEditElement (gettext("COMPONENT"),
-			   "id_component",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_support_component",
-			   "name, id",
-			   "", "", "%1", "", "");
+   "id_component",
+   "",
+   "SELECT",
+   "", "", "",
+   "sql",
+   "cc_support_component",
+   "name, id",
+   "", "", "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("PRIORITY"),
 	"priority",
@@ -116,11 +102,8 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
 
-
-
-
-
 $HD_Form -> FieldEditElement (' creator, title, id_component, priority, description');
+
 
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_admin,creator_type";
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0',1";

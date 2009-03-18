@@ -57,12 +57,8 @@ $smarty->assign("HTTP_HOST", $_SERVER['HTTP_HOST']);
 $smarty->assign("ASTERISK_GUI_LINK", ASTERISK_GUI_LINK);
 
 
-if($_GET["section"]!="") {
-	$section = $_GET["section"];
-	$_SESSION["menu_section"] = $section;
-} else {
-	$section = $_SESSION["menu_section"];
-}
+$section = $_SESSION["menu_section"];
+
 $smarty->assign("section", $section);
 
 $smarty->assign("adminname", $_SESSION["pr_login"]);
