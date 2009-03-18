@@ -104,7 +104,6 @@ if ($action_release == "ask_release") {
 
 }
 
-echo "confirm_buy_did=$confirm_buy_did : action_release=$action_release";
 
 if (!isset ($action_release) || $action_release == "confirm_release" || $action_release == "") {
 	// #### HELP SECTION
