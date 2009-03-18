@@ -1,7 +1,7 @@
 <?php
-include ("../lib/admin.defines.php");
+include_once ("../lib/admin.defines.php");
 include_once ("../lib/admin.module.access.php");
-include ("../lib/admin.smarty.php");
+include_once ("../lib/admin.smarty.php");
 
 if($A2B->config["dashboard"]["dashboard_enabled"] && has_rights (ACX_DASHBOARD)){
 	Header ("Location: dashboard.php");	 
@@ -39,7 +39,7 @@ $smarty->display('main.tpl');
 	</tr>
 </table>
 
-	<br>
+<br>
 	
 <table align=center width="90%" bgcolor="white" cellpadding="5" cellspacing="5">
 	<tr>
@@ -68,5 +68,6 @@ $smarty->display('main.tpl');
 	
 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
+

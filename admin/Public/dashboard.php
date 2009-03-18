@@ -53,9 +53,9 @@ if( !empty($A2B->config["dashboard"]["call_info_enabled"]) && $A2B->config["dash
 $smarty->display('main.tpl');
 ?>
 
-<table align="center" width="100%" >
+<table align="center" width="100%">
 	<tr>
-		<td width="33%" valign="top">
+		<td width="33%" valign="top" class="tableBodyRight">
 		  <?php for($i_left=0;$i_left<count($left);$i_left++){ ?>
 		  <div class="dashbox">
 		  	<div class="dashtitle" >
@@ -71,7 +71,7 @@ $smarty->display('main.tpl');
 		  <?php } ?>
 		</td>
 		
-		<td width="33%" valign="top">
+		<td width="33%" valign="top"  class="tableBodyRight">
 		  <?php for($i_center=0;$i_center<count($center);$i_center++){ ?>
 		  <div class="dashbox">
 		  	<div class="dashtitle" >
@@ -87,7 +87,7 @@ $smarty->display('main.tpl');
 		  <?php } ?>
 		</td>
 		
-		<td width="33%" valign="top">
+		<td width="33%" valign="top"  class="tableBodyRight">
 		  <?php for($i_right=0;$i_right<count($right);$i_right++){ ?>
 		  <div class="dashbox">
 		  	<div class="dashtitle" >
@@ -105,4 +105,8 @@ $smarty->display('main.tpl');
 	</tr>
 
 </table>
+
+<?php
+
+$smarty->display('footer.tpl');
 
