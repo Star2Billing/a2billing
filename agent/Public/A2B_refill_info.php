@@ -44,7 +44,13 @@ $smarty->display('main.tpl');
 			<?php echo gettext("ACCOUNT NUMBER") ?> :
 		</td>
 		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<?php echo linktocustomer_id($refill['card_id']);?> 
+			<?php 
+			if ( has_rights (ACX_CUSTOMER)) { 
+				echo infocustomer_id($refill['card_id']);
+			}else{
+				echo nameofcustomer_id($refill['card_id']);
+			}	
+			?> 
 		</td>
    </tr>
    <tr height="20px">

@@ -44,7 +44,13 @@ $smarty->display('main.tpl');
 			<?php echo gettext("AGENT") ?> :
 		</td>
 		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<?php echo linktoagent($payment['agent_id']);?> 
+			<?php 
+			if (has_rights (ACX_ADMINISTRATOR)) { 
+				echo linktoagent($payment['agent_id']);
+			}else{
+				echo nameofagent($payment['agent_id']);
+			}	
+			?> 
 		</td>
    </tr>
    <tr height="20px">

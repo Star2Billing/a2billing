@@ -33,4 +33,5 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-
+$HD_Form -> FG_INFO = true;
+$HD_Form -> FG_INFO_LINK = "A2B_refill_info_agent.php?id=";

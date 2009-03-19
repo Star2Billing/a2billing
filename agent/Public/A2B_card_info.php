@@ -393,6 +393,14 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 		</td>
 	</tr>
 </table>
+<br/>
+<div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
+ 	<a class="cssbutton_big"  href="A2B_entity_card.php?section=1">
+		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
+		<?php echo gettext("CUSTOMERS LIST"); ?>
+	</a>
+</div>
+<br/>
 
 <?php
 
@@ -531,6 +539,7 @@ if(sizeof($refill_result)>0 && $refill_result[0]!=null) {
 		}
 		?>
 </table>
+
 <?php 
 }
 
@@ -623,7 +632,16 @@ if(sizeof($call_result)>0 && $call_result[0]!=null) {
 		?>
 </table>
 <?php 
-}
+} ?>
+<br/>
+<div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
+ 	<a class="cssbutton_big"  href="A2B_entity_card.php?section=1">
+		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
+		<?php echo gettext("CUSTOMERS LIST"); ?>
+	</a>
+</div>
+<br/>
+<?php 
 
 $smarty->display( 'footer.tpl');
 

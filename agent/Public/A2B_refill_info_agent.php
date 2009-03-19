@@ -12,18 +12,18 @@ if (! has_rights (ACX_BILLING)) {
 getpost_ifset(array('id'));
 
 if (empty($id)) {
-	header("Location: A2B_entity_logrefill.php?atmenu=payment&section=10");
+	header("Location: A2B_entity_logrefill_agent.php?atmenu=payment&section=2");
 }
 
 $DBHandle  = DbConnect();
 
-$refill_table = new Table('cc_logrefill','*');
+$refill_table = new Table('cc_logrefill_agent','*');
 $refill_clause = "id = ".$id;
 $refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 0);
 $refill = $refill_result[0];
 
 if (empty($refill)) {
-	header("Location: A2B_entity_logrefill.php?atmenu=payment&section=10");
+	header("Location: A2B_entity_logrefill_agent.php?atmenu=payment&section=2");
 }
 
 // #### HEADER SECTION
@@ -41,16 +41,10 @@ $smarty->display('main.tpl');
    </tr>
    <tr height="20px">
 		<td  class="form_head">
-			<?php echo gettext("ACCOUNT NUMBER") ?> :
+			<?php echo gettext("AGENT") ?> :
 		</td>
 		<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-			<?php 
-			if ( has_rights (ACX_CUSTOMER)) { 
-				echo infocustomer_id($refill['card_id']);
-			}else{
-				echo nameofcustomer_id($refill['card_id']);
-			}	
-			?>  
+			<?php echo nameofagent($refill['agent_id']);?> 
 		</td>
    </tr>
    <tr height="20px">
@@ -91,9 +85,9 @@ $smarty->display('main.tpl');
  </table>
  <br/>
 <div style="width : 80%; text-align : right; margin-left:auto;margin-right:auto;" >
- 	<a class="cssbutton_big"  href="A2B_entity_logrefill.php?atmenu=payment&section=10">
+ 	<a class="cssbutton_big"  href="A2B_entity_logrefill_agent.php?atmenu=payment&section=2">
 		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
-		<?php echo gettext("REFILLS LIST"); ?>
+		<?php echo gettext("REFILLS AGENT LIST"); ?>
 	</a>
 </div>
 <?php 
