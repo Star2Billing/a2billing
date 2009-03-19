@@ -38,7 +38,9 @@ define ("ACX_INVOICING",				16384);		// 1 << 14
 define ("ACX_SUPPORT",					32768);		// 1 << 15
 define ("ACX_DASHBOARD",				65536);		// 1 << 16
 define ("ACX_ACXSETTING",				131072);	// 1 << 17
-
+define ("ACX_MODIFY_REFILLS",			262144);	// 1 << 18
+define ("ACX_MODIFY_PAYMENTS",			524288);	// 1 << 19
+define ("ACX_MODIFY_CUSTOMERS",			1048576);	// 1 << 20
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
@@ -193,6 +195,7 @@ $ACXPREDICTIVEDIALER 	= has_rights (ACX_PREDICTIVE_DIALER);
 $ACXINVOICING 			= has_rights (ACX_INVOICING);
 $ACXSUPPORT 			= has_rights (ACX_SUPPORT);
 $ACXSETTING 			= has_rights (ACX_ACXSETTING);
-
-
+$ACXMODIFY_REFILLS 		= has_rights (ACX_MODIFY_REFILLS);
+$ACXMODIFY_PAYMENTS 	= has_rights (ACX_MODIFY_PAYMENTS);
+$ACXMODIFY_CUSTOMERS 	= has_rights (ACX_MODIFY_CUSTOMERS);
 

@@ -60,6 +60,9 @@ $right_list["15"] = array( gettext("INVOICES"), "16384");
 $right_list["16"] = array( gettext("SUPPORT"), "32768");
 $right_list["17"] = array( gettext("DASHBOARD"), "65536");
 $right_list["18"] = array( gettext("SYSTEM SETTINGS"), "131072");
+$right_list["19"] = array( gettext("EDIT/DELETE REFILLS"), "262144");
+$right_list["20"] = array( gettext("EDIT/DELETE PAYMENTS"), "524288");
+$right_list["21"] = array( gettext("EDIT/DELETE CUSTOMERS"), "1048576");
 
 $len_right_list = count($right_list);
 
