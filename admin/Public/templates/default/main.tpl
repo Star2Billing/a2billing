@@ -63,7 +63,7 @@
 	<ul>
 		<li><ul>
 				<li><a href="A2B_entity_card.php?section=1">{php} echo gettext("Add :: Search");{/php}</a></li>
-                		<li><a href="CC_card_import.php?section=1">{php} echo gettext("Import");{/php}</a></li>
+                <li><a href="CC_card_import.php?section=1">{php} echo gettext("Import");{/php}</a></li>
 				<li><a href="A2B_entity_friend.php?atmenu=sip&section=1">{php} echo gettext("VoIP Settings");{/php}</a></li>
 				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("Caller-ID");{/php}</a></li>
 				<li><a href="A2B_notifications.php?section=1">{php} echo gettext("Credit Notification");{/php}</a></li>
@@ -316,7 +316,7 @@
 			<li><ul>
 				<li><a href="A2B_entity_voucher.php?section=10">{php} echo gettext("Vouchers");{/php}</a></li>
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=10">{php} echo gettext("Customers Balance");{/php}</a></li>
-                		<li><a href="A2B_entity_transactions.php?atmenu=payment&section=10">{php} echo gettext("»»    Transactions");{/php}</a></li>
+                <li><a href="A2B_entity_transactions.php?atmenu=payment&section=10">{php} echo gettext("»»    Transactions");{/php}</a></li>
 				<li><a href="A2B_entity_billing_customer.php?atmenu=payment&section=10">{php} echo gettext("»»  Billings");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=10">{php} echo gettext("»» Refills");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&section=10">{php} echo gettext("»» Payments");{/php}</a></li>
