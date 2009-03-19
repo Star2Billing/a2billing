@@ -1809,3 +1809,6 @@ CREATE TABLE cc_payments_agent (
 
 
 ALTER TABLE `cc_agent_commission` ADD `id_agent` INT NOT NULL ;
+
+ ALTER TABLE `cc_logpayment` DROP `reseller_id`; 
+ ALTER TABLE `cc_logrefill` DROP `reseller_id`;
