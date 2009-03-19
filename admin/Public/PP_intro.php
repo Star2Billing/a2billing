@@ -26,7 +26,7 @@ $smarty->display('main.tpl');
 			<br><br>
 		</td>
 		<td align="left"> <?php  echo ''; ?>
-		For information and documentation on A2Billing, <br> please visit <a href="http://www.a2billing.org" target="_blank">A2Billing.org</a><br><br>
+		For information and documentation on A2Billing, <br> please visit <a href="http://www.a2billing.org" target="_blank">http://www.a2billing.org</a><br><br>
 		
 		For Commercial Installations, Hosted Systems, Customisation and Commercial support, please email <a href="mailto:info@asterisk2billing.org">info@asterisk2billing.org</a><br><br>
 		
