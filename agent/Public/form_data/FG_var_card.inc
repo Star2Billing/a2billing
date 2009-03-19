@@ -1,4 +1,4 @@
-<?php
+activatedbyuser<?php
 
 getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff',
 'id_didgroup','id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
@@ -325,7 +325,6 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "cc_card_group ",
 			   "name, id",
 			   " cc_card_group.id_agent=".$_SESSION['agent_id'] , "", "%1", "", "", "", '', "");
-			   
 
 
 $HD_Form -> AddEditElement (gettext("LAST NAME"),
@@ -336,6 +335,7 @@ $HD_Form -> AddEditElement (gettext("LAST NAME"),
 			   "11",
 			   gettext("Insert the lastname of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "", null, null, gettext("Personal Information"));
+
 
 $HD_Form -> AddEditElement (gettext("FIRST NAME"),
 			   "firstname",
@@ -386,6 +386,7 @@ $HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
 			   gettext("Insert the state"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
+
 $HD_Form -> AddEditElement (gettext("COUNTRY"),
 			   "country",
 			   "",
@@ -395,6 +396,7 @@ $HD_Form -> AddEditElement (gettext("COUNTRY"),
 			   "cc_country",
 			   "countryname, countrycode",
 			   "", "", "%1", "", "", "", '' );
+
 
 $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   "zipcode",
@@ -434,8 +436,8 @@ $HD_Form -> AddEditElement (gettext("COMPANY NAME"),
 			   "",
 			   gettext("Insert Company name of this customer"),
 			   "" , "", "",	"", "", "" , "NO", "");
-			   
-			   
+
+
 $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "company_website",
 			   '$value',
@@ -446,7 +448,7 @@ $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-$typepaid_delete="";			   
+$typepaid_delete = "";			   
 if (isset($form_action) && $form_action=="ask-delete") {
 	$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
 			   "typepaid",
@@ -471,7 +473,6 @@ $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "cc_tariffgroup, cc_agent_tariffgroup",
 			   "tariffgroupname, id",
 			   "cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent = ".$_SESSION['agent_id'] , "", "%1", "", "");
-
 
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
@@ -520,7 +521,6 @@ $HD_Form -> AddEditElement (gettext("CURRENCY"),
 			   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
 
 
-
 $HD_Form -> AddEditElement (gettext("STATUS"),
 			   "status",
 			   "",
@@ -530,15 +530,6 @@ $HD_Form -> AddEditElement (gettext("STATUS"),
 			   "",
 			   "list" , "", "",	"", $cardstatus_list, "%1", "", "" );
 
-
-$HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMED"),
-			   "activatedbyuser",
-			   't',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to activate this account"),
-			   "" , "", "" , "Yes :t, - No:f",	"", "", "", gettext("Configure if the account has been activated over the signup confirmation mail") );
 
 $HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
 			   "simultaccess",
@@ -558,7 +549,6 @@ $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 			   "",
 			   gettext("Choose if you want to enable the service recurring on this account"),
 			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this account."));
-
 
 
 $HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
@@ -613,6 +603,7 @@ $HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
 			   gettext("Choose if you want to enable the voicemail functionality for this account"),
 			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
 
+
 $HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
 			   "voicemail_activated",
 			   '0',
@@ -655,7 +646,7 @@ $HD_Form -> AddEditElement (gettext("ENABLE EXPIRY"),
 
 
 $comp_zero = $comp_date_plus='';
-if (isset($form_action) && $form_action=="ask-add"){
+if (isset($form_action) && $form_action=="ask-add") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+10;
 	$end_date = date("-m-d H:i:s");
@@ -704,6 +695,7 @@ $HD_Form -> AddEditElement (gettext("IAX ACCOUNT"),
 			   gettext("Choose if you want to enable the iax account"),
 			   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable IAX account"));
 
+
 $HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
 			   "mac_addr",
 			   '$value',
@@ -733,6 +725,7 @@ $HD_Form -> AddEditElement (gettext("AUTOREFILL"),
 			   gettext("Choose if you want to enable the autorefill on this account"),
 			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Define if you want to authorize the autorefill to apply on this accout"),
 			   '', '', gettext("AUTOREFILL"));
+
 
 $HD_Form -> AddEditElement (gettext("INITIAL BALANCE"),
 			   "initialbalance",
@@ -795,6 +788,7 @@ $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 			   "" , "", "",	"", "", "" , "NO", "",
 			   '', '', gettext("TARGET TRAFFIC")); 
 
+
 $HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
 				"traffic_target",
 				'',
@@ -814,7 +808,8 @@ $HD_Form -> AddEditElement (gettext("RESTRICTION"),
 			   "",
 			   "list" , "", "",	"", $restriction_list, "%1", "", "",
 			   '', '', gettext("RESTRICTED NUMBERS")); 
-			   
+
+
 $HD_Form -> AddEditElement (gettext("RESTRICTED NUMBERS"),
 			   "restrictednumber",
 			   '$value',
@@ -826,7 +821,6 @@ $HD_Form -> AddEditElement (gettext("RESTRICTED NUMBERS"),
 			   "",
 			   "",
 			   "", "", "", "", "", "cc_restricted_phonenumber:number:number, id_card:id_card = %id::id_card:::::::0");
-
 
 			   
 $HD_Form -> AddEditElement (gettext("CALLERID"),
@@ -842,7 +836,6 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card:::::::0",
 			   '', gettext("CALLERID / CUSTOMER HISTORY"));
 			   
-
 
 
 $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
@@ -868,9 +861,8 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 			   // 5. Last, Sixth param is the FK column
 
 
-
 $HD_Form -> FieldEditElement ('username, useralias, uipass'.$balance_delete.',id_group, lastname, firstname, email, address, city, state, country, zipcode, phone, fax,company_name, company_website'.$typepaid_delete.
-		' ,  tariff, id_didgroup, id_timezone, language, currency, status, activatedbyuser, simultaccess,  runservice, ' .
+		' ,  tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
 		' autorefill, initialbalance, creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
 		' voicemail_permitted, voicemail_activated, firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
@@ -884,42 +876,35 @@ $HD_Form -> FG_FILTERFIELDNAME = 'account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
-
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
-
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
-
 
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'processing_card_add_agent';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE = 'processing_card_del_agent';
 
-if (isset($form_action) && $form_action=='delete' && USE_REALTIME){
+if (isset($form_action) && $form_action=='delete' && USE_REALTIME) {
 	$_SESSION["is_sip_iax_change"]	= 1;
 	$_SESSION["is_sip_changed"]		= 1;
 	$_SESSION["is_iax_changed"]		= 1;
 }
 
-
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?section=1&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?section=1&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?section=1&id=";
-
-
 
 
 
