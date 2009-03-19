@@ -17,11 +17,12 @@ $smarty->display('main.tpl');
 ?>
 <br/><br/>
 
-<table align="center" width="90%" bgcolor="white" cellpadding="5" cellspacing="5" style="border-bottom: medium dotted #AA0000">
+<table align="center" width="90%" bgcolor="white" cellpadding="15" cellspacing="15" style="border-bottom: medium dotted #AA0000">
 	<tr>
 		<td width="340">
-			<img src="<?php echo Images_Path;?>/logoA2B-white-300.gif">
-			<center>A2Billing is licensed under AGPL.</center>
+			<img src="<?php echo Images_Path;?>/a2b-logo-450.png">
+			<br><br>
+			<center><b><i>A2Billing is licensed under AGPL.</i></b></center>
 			<br><br>
 		</td>
 		<td align="left"> <?php  echo ''; ?>
