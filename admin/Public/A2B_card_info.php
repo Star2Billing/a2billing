@@ -78,7 +78,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 			   </tr>
 			   <tr height="20px">
 					<td  class="form_head">
-						<?php echo gettext("WEB ALIAS") ?>
+						<?php echo gettext("WEB ALIAS") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						<?php echo $card['useralias']?> 
@@ -86,7 +86,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 			   </tr>
 			   <tr height="20px">
 					<td  class="form_head">
-						<?php echo gettext("WEB PASSWORD") ?>
+						<?php echo gettext("WEB PASSWORD") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						<?php echo $card['uipass']?> 
@@ -286,7 +286,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 				</tr>
 				<tr height="20px">
 					<td  class="form_head">
-						<?php echo gettext("CURRENCY") ?>
+						<?php echo gettext("CURRENCY") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						<?php echo $card['currency']?> 
@@ -294,7 +294,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 			  	</tr>
 			   <tr height="20px">
 					<td  class="form_head">
-						<?php echo gettext("CREDIT LIMIT") ?>
+						<?php echo gettext("CREDIT LIMIT") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
 						<?php echo $card['creditlimit']?> 
@@ -379,6 +379,14 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 	</tr>
 </table>
 
+<br/>
+<div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
+ 	<a class="cssbutton_big"  href="A2B_entity_card.php?section=1">
+		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
+		<?php echo gettext("CUSTOMERS LIST"); ?>
+	</a>
+</div>
+<br/>
 <?php
 
 $payment_table = new Table('cc_logpayment','*');
@@ -609,6 +617,16 @@ if(sizeof($call_result)>0 && $call_result[0]!=null) {
 </table>
 <?php 
 }
+?>
+<br/>
+<div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
+ 	<a class="cssbutton_big"  href="A2B_entity_card.php?section=1">
+		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
+		<?php echo gettext("CUSTOMERS LIST"); ?>
+	</a>
+</div>
+<br/>
+<?php 
 
 $smarty->display( 'footer.tpl');
 
