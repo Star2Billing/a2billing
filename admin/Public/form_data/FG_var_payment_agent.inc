@@ -21,15 +21,20 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money_add.png" ;
 
 $list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logpayment_agent.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("AGENT"), "creator", "10%", "center", "sort", "25", "lie", "cc_agent", "lastname, firstname", "id='%id'", "%1 %2");
-$HD_Form -> AddViewElement(gettext("LOGIN"), "login", "10%", "center", "sort", "25", "lie", "cc_agent", "login", "id='%id'", "%1");
+if (has_rights (ACX_ADMINISTRATOR)) { 
+	$HD_Form -> AddViewElement(gettext("AGENT"), "agent_id", "20%", "center", "sort", "", "30", "", "", "", "", "linktoagent");
+	echo linktoagent($payment['agent_id']);
+}else{
+	$HD_Form -> AddViewElement(gettext("AGENT"), "agent_id", "20%", "center", "sort", "", "30", "", "", "", "", "nameofagent");
+	echo nameofagent($payment['agent_id']);
+}	
 $HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "23%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PAYMENT TYPE"),"payment_type", "7%", "center", "sort", "", "list", $list_refill_type);
 $HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "20%", "center", "sort", "", "lie_link", "cc_logrefill_agent", "credit, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_logrefill_agent.php");
 
-$HD_Form -> FieldViewElement ('cc_logpayment_agent.id, agent_id, agent_id, date, payment,description ,payment_type,id_logrefill');
+$HD_Form -> FieldViewElement ('cc_logpayment_agent.id, agent_id, date, payment,description ,payment_type,id_logrefill');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
