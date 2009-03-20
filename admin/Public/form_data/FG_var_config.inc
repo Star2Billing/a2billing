@@ -83,7 +83,7 @@ $HD_Form -> FG_LIMITE_DISPLAY = 25;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = false;
-
+$HD_Form -> FG_ADDITION = false;
 if(!$setbool) {
 	$HD_Form -> FG_DISPLAY_SELECT = true;
 	$HD_Form -> FG_SELECT_FIELDNAME = "config_listvalues";

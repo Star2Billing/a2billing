@@ -69,6 +69,7 @@ $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO STATUS LOG AVAILABLE!");
 $HD_Form -> FG_INTRO_TEXT_EDITION = "";
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
+$HD_Form -> FG_ADDITION = false;
 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';

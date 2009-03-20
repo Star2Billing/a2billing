@@ -62,6 +62,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
+$HD_Form -> FG_ADDITION = true;
 
 if ($form_action=='ask-add') {
 	$DBHandle_max  = DbConnect();

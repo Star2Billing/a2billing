@@ -114,6 +114,7 @@ class FormHandler
     * Sets if we want a colum "ACTION" to EDIT or to DELETE
     * @public	-	@type boolean
     */
+	var $FG_ADDITION=false;
 	var $FG_DELETION=false;
 	var $FG_INFO=false;
 	var $FG_EDITION=false;
@@ -1055,9 +1056,35 @@ function do_field($sql,$fld, $simple=0,$processed=null){
      * @public     	 
      */
 	function perform_action (&$form_action){
-
+		//security check
+		switch ($form_action) {
+			case "ask-add":
+			case "add":
+			   if(!$this->FG_ADDITION){
+			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		die();
+			   	}
+			   break;
+			   break;
+			case "ask-edit":
+			case "edit":
+				 if(!$this->FG_EDITION){
+			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		die();
+			   	}
+			   break;
+			case "ask-del-confirm":
+			case "ask-delete":
+			case "delete":
+			   if(!$this->FG_DELETION){
+			   		Header ("Location: ". $_SERVER['PHP_SELF']);
+			   		die();
+			   }
+			   break;
+		}
 		switch ($form_action) {
 			case "add":
+				die();
 			   $this -> perform_add($form_action);
 			   break;
 			case "edit":
@@ -1077,6 +1104,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			}else{
 				Header ("Location: ". $_SERVER['PHP_SELF']);
 			}
+			die();
 		}
 		
 		

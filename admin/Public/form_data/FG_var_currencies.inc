@@ -22,6 +22,7 @@ $HD_Form -> FG_VIEW_TABLE_WITDH = '70%';
 
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
+$HD_Form -> FG_ADDITION = false;
 
 // Set the filter variables
 $HD_Form -> FG_FILTER_APPLY = true;

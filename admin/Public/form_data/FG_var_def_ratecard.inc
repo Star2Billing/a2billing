@@ -121,6 +121,7 @@ if ($popup_select) {
 	$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_rates";
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
+	$HD_Form -> FG_ADDITION = true;
 }
 
 

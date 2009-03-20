@@ -93,7 +93,7 @@ $HD_Form -> FG_EXPORT_XML = true;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
+$HD_Form -> FG_ADDITION = true;
 
 if ($form_action=="ask-add") {
 	$card_gen = gen_card($HD_Form->FG_TABLE_NAME, LEN_VOUCHER, voucher);

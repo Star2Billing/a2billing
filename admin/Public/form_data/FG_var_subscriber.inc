@@ -32,6 +32,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
+$HD_Form -> FG_ADDITION = true;
 
 $comp_zero = $comp_date_plus='';
 if (isset($form_action) && $form_action=="ask-add") {

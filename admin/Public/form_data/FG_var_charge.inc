@@ -60,7 +60,7 @@ $HD_Form_c -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 $HD_Form_c -> FG_EDITION = true;
 $HD_Form_c -> FG_DELETION = true;
-
+$HD_Form_c -> FG_ADDITION = true;
 
 
 // TODO integrate in Framework

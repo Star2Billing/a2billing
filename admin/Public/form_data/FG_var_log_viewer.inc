@@ -68,8 +68,9 @@ $HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "14%", "center", "so
 $HD_Form -> FieldViewElement ('id, cua.login, loglevel, action, description, tablename, pagename, ipaddress, creationdate');
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO LOG AVAILABLE1!");
 $HD_Form -> FG_INTRO_TEXT_EDITION = "";
-$HD_Form -> FG_EDITION = false;
+$HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = false;
+$HD_Form -> FG_ADDITION = false;
 
 $HD_Form -> AddEditElement (gettext("LOGIN"),
 	"login",

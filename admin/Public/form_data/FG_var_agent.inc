@@ -93,6 +93,7 @@ if ($popup_select) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
 } else {
 	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_ADDITION = true;
 	$HD_Form -> FG_DELETION = true;
 }
 
