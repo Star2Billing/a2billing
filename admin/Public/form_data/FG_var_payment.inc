@@ -3,11 +3,7 @@
 getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill','refill_type'));
 
 
-if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_logpayment LEFT JOIN cc_card ON cc_card.id=card_id","Payment");
-} else {
-	$HD_Form = new FormHandler("cc_logpayment","Payment");
-}
+$HD_Form = new FormHandler("cc_logpayment","Payment");
 
 $HD_Form -> FG_TABLE_ID = 'cc_logpayment.id';
 
@@ -21,14 +17,13 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money_add.png" ;
 
 $list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logpayment.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "23%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("PAYMENT TYPE"),"payment_type", "7%", "center", "sort", "", "list", $list_refill_type);
-$HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "20%", "center", "sort", "", "lie_link", "cc_logrefill", "credit, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_logrefill.php");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "17%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
+$HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "17%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "15%", "center", "sort","", "", "", "", "", "", "display_money");
+$HD_Form -> AddViewElement(gettext("PAYMENT TYPE"),"payment_type", "13%", "center", "sort", "", "list", $list_refill_type);
+$HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "17%", "center", "sort", "", "lie_link", "cc_logrefill", "credit, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_logrefill.php");
 
-$HD_Form -> FieldViewElement ('cc_logpayment.id, username, date, payment,description ,payment_type,id_logrefill');
+$HD_Form -> FieldViewElement ('cc_logpayment.id, card_id, date, payment ,payment_type,id_logrefill');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 

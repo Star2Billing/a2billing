@@ -3,11 +3,7 @@
 getpost_ifset(array('id', 'card_id', 'date', 'credit','description,added_invoice'));
 
 
-if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_logrefill LEFT JOIN cc_card ON cc_card.id=card_id","Refill");
-} else {
-	$HD_Form = new FormHandler("cc_logrefill","Refill");
-}
+$HD_Form = new FormHandler("cc_logrefill","Refill");
 
 $HD_Form -> FG_TABLE_ID = 'cc_logrefill.id';
 
@@ -22,14 +18,16 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
 
 
 $list_refill_type=Constants::getRefillType_List();
-$HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
-$HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "7%", "center", "sort", "", "list", $list_refill_type);
-$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "18%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('cc_logrefill.id, username, date, description, cc_logrefill.refill_type as refill_type, cc_logrefill.credit');
+$HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "17%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
+$HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "17%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "credit", "15%", "center", "sort","", "", "", "", "", "", "display_money");
+$HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "13%", "center", "sort", "", "list", $list_refill_type);
+
+$HD_Form -> FieldViewElement ('cc_logrefill.id, card_id, date, credit ,refill_type');
+
+
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 

@@ -224,7 +224,7 @@ function getpost_ifset($test_vars)
  */
 function display_money($value, $currency = BASE_CURRENCY)
 {
-	echo $value.' '.$currency;
+	echo number_format($value,2,'.',' ').' '.strtoupper($currency);
 }
 
 

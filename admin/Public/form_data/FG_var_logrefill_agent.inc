@@ -31,11 +31,10 @@ if (has_rights (ACX_ADMINISTRATOR)) {
 	echo nameofagent($payment['agent_id']);
 }
 $HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "15%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "10%", "center", "sort", "", "list", $list_refill_type);
-$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "cc_logrefill.credit", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "credit", "15%", "center", "sort","", "", "", "", "", "", "display_money");
 
-$HD_Form -> FieldViewElement ('cc_logrefill_agent.id, agent_id, date, description, cc_logrefill_agent.refill_type as refill_type, cc_logrefill_agent.credit');
+$HD_Form -> FieldViewElement ('cc_logrefill_agent.id, agent_id, date, cc_logrefill_agent.refill_type as refill_type, cc_logrefill_agent.credit');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
