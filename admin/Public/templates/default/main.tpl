@@ -119,8 +119,7 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=3">{php} echo gettext("Add");{/php}</a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=3">{php} echo gettext("Search");{/php}</a></li>
+				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&section=3">{php} echo gettext("Add :: Search");{/php}</a></li>
 				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&section=3">{php} echo gettext("Access Control");{/php}</a></li>
 			</ul></li>
 		</ul>
