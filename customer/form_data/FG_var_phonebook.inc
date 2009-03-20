@@ -44,7 +44,7 @@ $HD_Form -> FG_VIEW_TABLE_WITDH = '70%';
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
+$HD_Form -> FG_ADDITION = true;
 
 $HD_Form -> AddEditElement ( gettext("NAME"),	
 	"name",	'$value',	

@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refi
 
 
 
-	$HD_Form = new FormHandler("cc_logpayment","payment");
+$HD_Form = new FormHandler("cc_logpayment","payment");
 
 
 $HD_Form -> FG_TABLE_ID = 'cc_logpayment.id';
@@ -30,7 +30,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
-
+$HD_Form -> FG_ADDITION = false;
 
 
 

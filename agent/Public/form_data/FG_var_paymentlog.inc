@@ -79,7 +79,7 @@ $HD_Form -> FG_LIMITE_DISPLAY = 25;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
+$HD_Form -> FG_ADDITION = false;
 
 $HD_Form -> AddEditElement (gettext("ID"),
 			   "id",		

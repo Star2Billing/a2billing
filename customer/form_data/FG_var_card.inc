@@ -10,6 +10,8 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_HTML_TABLE_WIDTH = "60%";
 $HD_Form -> FG_EDITION_CLAUSE = " id = ".$_SESSION["card_id"];
 $HD_Form -> FG_INTRO_TEXT_EDITION = '';
+$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_ADDITION = false;
 $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   "lastname",
 			   '$value',

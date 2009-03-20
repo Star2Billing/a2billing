@@ -11,7 +11,7 @@ $HD_Form -> FG_HTML_TABLE_WIDTH = "60%";
 $HD_Form -> FG_EDITION_CLAUSE = " id = ".$_SESSION["card_id"];
 $HD_Form -> FG_INTRO_TEXT_EDITION = '';
 
-
+$HD_Form -> FG_EDITION= true;
 $QUERY = "SELECT status, currency FROM cc_card  WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 $DBHandle  = DbConnect();
 $numrow = 0;

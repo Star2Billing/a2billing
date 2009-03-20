@@ -11,7 +11,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
+$HD_Form -> FG_ADDITION = true;
 
 $actived_list = Constants::getActivationList();
 

@@ -26,7 +26,7 @@ $HD_Form -> FG_EXPORT_CSV = false;
 
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
-
+$HD_Form -> FG_ADDITION = false;
 
 // Set the filter variables
 

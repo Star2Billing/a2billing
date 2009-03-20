@@ -34,6 +34,6 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
-
+$HD_Form -> FG_ADDITION = false;
 
 

@@ -75,7 +75,7 @@ if (isset($friend_id)  &&  (strlen($friend_id)>0)){
 }
 
 
-
+$HD_Form -> FG_ADDITION = true;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
