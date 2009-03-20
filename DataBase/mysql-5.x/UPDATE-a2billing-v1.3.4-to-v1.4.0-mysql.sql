@@ -87,7 +87,7 @@ ALTER TABLE cc_card ADD COLUMN id_timezone INT DEFAULT 0;
 
 
 CREATE TABLE cc_config_group (
-  	id 								INT NOT NULL auto_increment,
+	id 								INT NOT NULL auto_increment,
 	group_title 					VARCHAR(64) NOT NULL,
 	group_description 				VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id)
@@ -108,7 +108,7 @@ INSERT INTO cc_config_group (group_title, group_description) VALUES ('agi-conf1'
 
 
 CREATE TABLE cc_config (
-  	id 								INT NOT NULL auto_increment,
+id 								INT NOT NULL auto_increment,
 	config_title		 			VARCHAR( 100 )  NOT NULL,
 	config_key 						VARCHAR( 100 )  NOT NULL,
 	config_value 					VARCHAR( 100 )  NOT NULL,
@@ -647,10 +647,10 @@ CREATE TABLE cc_call_archive (
 	PRIMARY KEY  (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-ALTER TABLE `cc_call_archive` ADD INDEX ( `username` );
-ALTER TABLE `cc_call_archive` ADD INDEX ( `starttime` );
-ALTER TABLE `cc_call_archive` ADD INDEX ( `terminatecause` );
-ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );
+ALTER TABLE cc_call_archive ADD INDEX ( username );
+ALTER TABLE cc_call_archive ADD INDEX ( starttime );
+ALTER TABLE cc_call_archive ADD INDEX ( terminatecause );
+ALTER TABLE cc_call_archive ADD INDEX ( calledstation );
 
 
 
@@ -813,12 +813,12 @@ CREATE TABLE cc_ticket_comment (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, `config_group_id`, `config_listvalues`) VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
 
 
 
 -- change charset to use LIKE without "casse"
-ALTER TABLE `cc_ratecard` CHANGE `destination` `destination` CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
+ALTER TABLE cc_ratecard CHANGE destination destination CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 
 
 -- section for notification
@@ -1334,31 +1334,24 @@ CREATE TABLE cc_restricted_phonenumber (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-
 ALTER TABLE cc_card ADD restriction TINYINT NOT NULL DEFAULT '0';
 
-
-
+-- remove callback from card
 ALTER TABLE cc_card DROP COLUMN callback;
 
-
-
 -- ADD IAX TRUNKING
-ALTER TABLE cc_iax_buddies ADD trunk CHAR(3) DEFAULT 'yes';
-
-
+ALTER TABLE cc_iax_buddies ADD trunk CHAR(3) DEFAULT 'no';
 
 -- Refactor Agent Section
 ALTER TABLE cc_card DROP id_agent;
 ALTER TABLE cc_card_group ADD id_agent INT NOT NULL DEFAULT '0';
 
-
-
+-- remove old template invoice
 ALTER TABLE cc_card DROP template_invoice;
 ALTER TABLE cc_card DROP template_outstanding;
 
+-- rename vat field
 ALTER TABLE cc_card CHANGE VAT_RN vat_rn VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
- 
 
 -- add amount
 ALTER TABLE cc_phonenumber ADD amount INT NOT NULL DEFAULT '0';
@@ -1546,26 +1539,26 @@ INSERT INTO cc_payment_methods (payment_method,payment_filename,active) VALUES (
 
 
 
-ALTER TABLE cc_card_archive DROP COLUMN  `callback`;
--- already present ALTER TABLE cc_card_archive ADD COLUMN  `id_timezone` int(11) default '0';
-ALTER TABLE cc_card_archive ADD COLUMN  `voicemail_permitted` int(11) NOT NULL default '0';
-ALTER TABLE cc_card_archive ADD COLUMN  `voicemail_activated` smallint(6) NOT NULL default '0';
-ALTER TABLE cc_card_archive ADD COLUMN  `last_notification` timestamp NULL default NULL;
-ALTER TABLE cc_card_archive ADD COLUMN  `email_notification` char(70) collate utf8_bin default NULL;
-ALTER TABLE cc_card_archive ADD COLUMN  `notify_email` smallint(6) NOT NULL default '0';
-ALTER TABLE cc_card_archive ADD COLUMN  `credit_notification` int(11) NOT NULL default '-1';
-ALTER TABLE cc_card_archive ADD COLUMN  `id_group` int(11) NOT NULL default '1';
-ALTER TABLE cc_card_archive ADD COLUMN  `company_name` varchar(50) collate utf8_bin default NULL;
-ALTER TABLE cc_card_archive ADD COLUMN  `company_website` varchar(60) collate utf8_bin default NULL;
-ALTER TABLE cc_card_archive ADD COLUMN  `VAT_RN` varchar(40) collate utf8_bin default NULL;
-ALTER TABLE cc_card_archive ADD COLUMN  `traffic` bigint(20) default NULL;
-ALTER TABLE cc_card_archive ADD COLUMN  `traffic_target` mediumtext collate utf8_bin;
-ALTER TABLE cc_card_archive ADD COLUMN  `discount` decimal(5,2) NOT NULL default '0.00';
-ALTER TABLE cc_card_archive ADD COLUMN  `restriction` tinyint(4) NOT NULL default '0';
-ALTER TABLE cc_card_archive DROP COLUMN `template_invoice`;
-ALTER TABLE cc_card_archive DROP COLUMN `template_outstanding`;
-ALTER TABLE cc_card_archive DROP COLUMN `mac_addr`;
-ALTER TABLE cc_card_archive ADD COLUMN `mac_addr` char(17) collate utf8_bin NOT NULL default '00-00-00-00-00-00';
+ALTER TABLE cc_card_archive DROP COLUMN  callback;
+-- already present ALTER TABLE cc_card_archive ADD COLUMN  id_timezone int(11) default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  voicemail_permitted int(11) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  voicemail_activated smallint(6) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  last_notification timestamp NULL default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  email_notification char(70) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  notify_email smallint(6) NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  credit_notification int(11) NOT NULL default '-1';
+ALTER TABLE cc_card_archive ADD COLUMN  id_group int(11) NOT NULL default '1';
+ALTER TABLE cc_card_archive ADD COLUMN  company_name varchar(50) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  company_website varchar(60) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  VAT_RN varchar(40) collate utf8_bin default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  traffic bigint(20) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  traffic_target mediumtext collate utf8_bin;
+ALTER TABLE cc_card_archive ADD COLUMN  discount decimal(5,2) NOT NULL default '0.00';
+ALTER TABLE cc_card_archive ADD COLUMN  restriction tinyint(4) NOT NULL default '0';
+ALTER TABLE cc_card_archive DROP COLUMN template_invoice;
+ALTER TABLE cc_card_archive DROP COLUMN template_outstanding;
+ALTER TABLE cc_card_archive DROP COLUMN mac_addr;
+ALTER TABLE cc_card_archive ADD COLUMN mac_addr char(17) collate utf8_bin NOT NULL default '00-00-00-00-00-00';
 
 CREATE TABLE cc_billing_customer (
 	id BIGINT NOT NULL AUTO_INCREMENT,
@@ -1772,43 +1765,46 @@ CREATE TABLE cc_epayment_log_agent (
 	`status` int(11) NOT NULL default '0',
 	cvv varchar(4) collate utf8_bin default NULL,
 	credit_card_type varchar(20) collate utf8_bin default NULL,
-  	currency varchar(4) collate utf8_bin default NULL,
-  	transaction_detail longtext collate utf8_bin,
-  	PRIMARY KEY (id)
+	currency varchar(4) collate utf8_bin default NULL,
+	transaction_detail longtext collate utf8_bin,
+	PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_epayment_log CHANGE id id BIGINT NOT NULL AUTO_INCREMENT ,
-  	CHANGE cardid cardid BIGINT NOT NULL DEFAULT '0',
-  	CHANGE amount amount DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+	CHANGE cardid cardid BIGINT NOT NULL DEFAULT '0',
+	CHANGE amount amount DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_payments CHANGE id id BIGINT NOT NULL AUTO_INCREMENT ,
-  	CHANGE customers_id customers_id BIGINT NOT NULL DEFAULT '0';
+	CHANGE customers_id customers_id BIGINT NOT NULL DEFAULT '0';
 
 CREATE TABLE cc_payments_agent (
-  	id BIGINT NOT NULL auto_increment,
-  	agent_id BIGINT collate utf8_bin NOT NULL,
-  	agent_name varchar(200) collate utf8_bin NOT NULL,
-  	agent_email_address varchar(96) collate utf8_bin NOT NULL,
-  	item_name varchar(127) collate utf8_bin default NULL,
-  	item_id varchar(127) collate utf8_bin default NULL,
-  	item_quantity int(11) NOT NULL default '0',
-  	payment_method varchar(32) collate utf8_bin NOT NULL,
-  	cc_type varchar(20) collate utf8_bin default NULL,
-  	cc_owner varchar(64) collate utf8_bin default NULL,
-  	cc_number varchar(32) collate utf8_bin default NULL,
-  	cc_expires varchar(4) collate utf8_bin default NULL,
-  	orders_status int(5) NOT NULL,
-  	orders_amount decimal(14,6) default NULL,
-  	last_modified datetime default NULL,
-  	date_purchased datetime default NULL,
-  	orders_date_finished datetime default NULL,
-  	currency char(3) collate utf8_bin default NULL,
-  	currency_value decimal(14,6) default NULL,
-  	PRIMARY KEY (id)
+	id BIGINT NOT NULL auto_increment,
+	agent_id BIGINT collate utf8_bin NOT NULL,
+	agent_name varchar(200) collate utf8_bin NOT NULL,
+	agent_email_address varchar(96) collate utf8_bin NOT NULL,
+	item_name varchar(127) collate utf8_bin default NULL,
+	item_id varchar(127) collate utf8_bin default NULL,
+	item_quantity int(11) NOT NULL default '0',
+	payment_method varchar(32) collate utf8_bin NOT NULL,
+	cc_type varchar(20) collate utf8_bin default NULL,
+	cc_owner varchar(64) collate utf8_bin default NULL,
+	cc_number varchar(32) collate utf8_bin default NULL,
+	cc_expires varchar(4) collate utf8_bin default NULL,
+	orders_status int(5) NOT NULL,
+	orders_amount decimal(14,6) default NULL,
+	last_modified datetime default NULL,
+	date_purchased datetime default NULL,
+	orders_date_finished datetime default NULL,
+	currency char(3) collate utf8_bin default NULL,
+	currency_value decimal(14,6) default NULL,
+	PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
-ALTER TABLE `cc_agent_commission` ADD `id_agent` INT NOT NULL ;
+ALTER TABLE cc_agent_commission ADD id_agent INT NOT NULL ;
 
- ALTER TABLE `cc_logpayment` DROP `reseller_id`; 
- ALTER TABLE `cc_logrefill` DROP `reseller_id`;
+-- remove reseller field from logpayment & log refill
+ALTER TABLE cc_logpayment DROP reseller_id; 
+ALTER TABLE cc_logrefill DROP reseller_id;
+
+
