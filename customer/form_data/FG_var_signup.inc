@@ -27,7 +27,6 @@ if (!empty ($agentkey) && !empty ($agentid)) {
 			$agent_conf = false;
 		} else {
 			$param = split('-', $agentkey, 3);
-			print_r($param);
 			$groupid = $param[0];
 			$tariffid = $param[1];
 		}

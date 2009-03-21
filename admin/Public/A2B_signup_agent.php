@@ -14,43 +14,29 @@ getpost_ifset(array('agentid', 'tariffplan', 'group','task'));
 
 
 $FG_DEBUG = 0;
-
 $DBHandle  = DbConnect();
-
 $instance_table_agent = new Table("cc_agent ", "id, login, firstname, lastname");
-
 $list_agent = $instance_table_agent  -> Get_list ($DBHandle, "", "id", "ASC", null, null, null, null);
-
 $disabled = true;
 	
-if(!empty($agentid) && is_numeric($agentid)){
+if(!empty($agentid) && is_numeric($agentid)) {
 	
 	$instance_table_tariffname = new Table("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup", "id, tariffgroupname");
-	
 	$FG_TABLE_CLAUSE = "id_agent = ".$agentid;
-	
 	$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
-	
 	$instance_table_group = new Table("cc_card_group", "id, name");
-	
 	$FG_TABLE_CLAUSE = "id_agent = ".$agentid;
-	
 	$list_group = $instance_table_group -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
-	
 	$disabled =false;
 }
 
-
-
-if($task=="generate" && !empty($agentid) && !empty($tariffplan) && !empty($group)){
+if($task=="generate" && !empty($agentid) && !empty($tariffplan) && !empty($group)) {
 	$instance_table_agent_secret = new Table("cc_agent ", "secret");
 	$list_agent_secret = $instance_table_agent_secret  -> Get_list ($DBHandle, "id=".$agentid, "id", "ASC", null, null, null, null);
-	if(is_array($list_agent_secret)){
-		$URL = $A2B->config['signup']['urlcustomerinterface']."signup/index.php?agentid=".$agentid."&agentkey=";
+	if(is_array($list_agent_secret)) {
+		$URL = $A2B->config['signup']['urlcustomerinterface']."signup.php?agentid=".$agentid."&agentkey=";
 		$secret = $list_agent_secret[0][0];
-		echo $secret."    ";
 		$result = a2b_encrypt($group."-".$tariffplan."-",$secret);
-		echo $result;
 		$URL.= urlencode($result);
 	}
 }
