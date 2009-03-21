@@ -1060,45 +1060,42 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		switch ($form_action) {
 			case "ask-add":
 			case "add":
-			   if(!$this->FG_ADDITION){
+			   	if(!$this->FG_ADDITION){
 			   		Header ("Location: ". $_SERVER['PHP_SELF']);
 			   		die();
 			   	}
-			   break;
-			   break;
+				break;
 			case "ask-edit":
 			case "edit":
-				 if(!$this->FG_EDITION){
+				if(!$this->FG_EDITION){
 			   		Header ("Location: ". $_SERVER['PHP_SELF']);
 			   		die();
 			   	}
-			   break;
+				break;
 			case "ask-del-confirm":
 			case "ask-delete":
 			case "delete":
-			   if(!$this->FG_DELETION){
+				if(!$this->FG_DELETION){
 			   		Header ("Location: ". $_SERVER['PHP_SELF']);
 			   		die();
-			   }
-			   break;
+				}
+				break;
 		}
 		switch ($form_action) {
 			case "add":
-				die();
-			   $this -> perform_add($form_action);
-			   break;
+				$this -> perform_add($form_action);
+				break;
 			case "edit":
-			   $this -> perform_edit($form_action);
-			   break;
+				$this -> perform_edit($form_action);
+				break;
 			case "delete":
-			   $this -> perform_delete($form_action);
-			   break;
+				$this -> perform_delete($form_action);
+				break;
 		}
-
 		
 		$processed = $this->getProcessed();  //$processed['firstname']
 
-		if ($form_action == "ask-delete" && in_array($processed['id'],$this->FG_DELETION_FORBIDDEN_ID) ){
+		if ($form_action == "ask-delete" && in_array($processed['id'],$this->FG_DELETION_FORBIDDEN_ID)) {
 			if(!empty($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
 				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
 			}else{
@@ -1116,27 +1113,26 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$this->FG_SENS = $processed['sens'];
 			$this -> CV_CURRENT_PAGE = $processed['current_page'];
 
-			if (isset($processed['mydisplaylimit']) && (is_numeric($processed['mydisplaylimit']) || ($processed['mydisplaylimit']=='ALL'))){
-				if ($processed['mydisplaylimit']=='ALL'){
+			if (isset($processed['mydisplaylimit']) && (is_numeric($processed['mydisplaylimit']) || ($processed['mydisplaylimit']=='ALL'))) {
+				if ($processed['mydisplaylimit']=='ALL') {
 					$this -> FG_LIMITE_DISPLAY = 5000;
-				}else{
+				} else {
 					$this -> FG_LIMITE_DISPLAY = $processed['mydisplaylimit'];
 				}
 			}
 
-			if ( $this->FG_ORDER == "" || $this->FG_SENS == "" ){
+			if ( $this->FG_ORDER == "" || $this->FG_SENS == "" ) {
 				$this->FG_ORDER = $this -> FG_TABLE_DEFAULT_ORDER;
 				$this->FG_SENS  = $this -> FG_TABLE_DEFAULT_SENS;
 			}
 			
-			if ( $form_action == "list" ){
+			if ( $form_action == "list" ) {
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 	
 				$this->prepare_list_subselection($form_action);
 	
 				// Code here to call the Delete Selected items Fucntion
-				if (isset($processed['deleteselected']))
-				{
+				if (isset($processed['deleteselected'])) {
 					$this -> Delete_Selected();
 				}
 				
@@ -1154,40 +1150,37 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE);
 				if ($this->FG_DEBUG >= 1) var_dump ($list);
 				
-				if ($this -> FG_NB_RECORD <=$this -> FG_LIMITE_DISPLAY){
+				if ($this -> FG_NB_RECORD <=$this -> FG_LIMITE_DISPLAY) {
 					$this -> FG_NB_RECORD_MAX = 1;
-				}else{
+				} else {
 					$this -> FG_NB_RECORD_MAX = ceil($this -> FG_NB_RECORD / $this -> FG_LIMITE_DISPLAY);
 				}
 
 				if ($this->FG_DEBUG == 3) echo "<br>Nb_record : ".$this -> FG_NB_RECORD ;
 				if ($this->FG_DEBUG == 3) echo "<br>Nb_record_max : ".$this -> FG_NB_RECORD_MAX ;
 					
-			}else{
+			} else {
 			
 				$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 				$list = $instance_table -> Get_list ($this->DBHandle, $this->FG_EDITION_CLAUSE, null, null, null, null, 1, 0);
 				
-				
 				//PATCH TO CLEAN THE IMPORT OF PASSWORD FROM THE DATABASE
-				if( substr_count($this->FG_QUERY_EDITION,"pwd_encoded")>0 ){
+				if( substr_count($this->FG_QUERY_EDITION,"pwd_encoded")>0 ) {
 					$tab_field = explode(',',  $this->FG_QUERY_EDITION ) ;
-					for ($i=0;$i< count($tab_field);$i++){
+					for ($i=0;$i< count($tab_field);$i++) {
 						if(trim($tab_field[$i])=="pwd_encoded") {
 							$list[0][$i]="";
 						}
-						
 					}
 				}
 				
-				if (isset($list[0]["pwd_encoded"])){
-					$list[0]["pwd_encoded"]=""; 
-				
+				if (isset($list[0]["pwd_encoded"])) {
+					$list[0]["pwd_encoded"]="";
 				}
 			}
-
 			
-			if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r ($list);}			
+			if ($this->FG_DEBUG >= 2) 
+				print_r ($list);			
 		}
 
 		return $list;
@@ -1323,7 +1316,8 @@ function do_field($sql,$fld, $simple=0,$processed=null){
      * Function to perform the add action after inserting all data in required fields
      * @public     	 
      */
-	function perform_add (&$form_action){
+	function perform_add (&$form_action)
+	{
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();  //$processed['firstname']
 		$this->VALID_SQL_REG_EXP = true;		
