@@ -50,8 +50,6 @@ $smarty->display('main.tpl');
 ?>
 <script type="text/javascript">
 <!--
-
-
 function submit_form(form){
 	if ((form.tariffplan.value.length < 1)||(form.group.value.length < 1)||(form.agentid.value.length < 1)){
 		return (false);
@@ -61,12 +59,39 @@ function submit_form(form){
     document.form.submit();
 }
 
-//-->
+function checkgenerate(){
+
+ var test = true;
+  test = test && ($('#tariff').val().length>0);
+  test = test && ($('#group').val().length>0);
+  if(test){
+   	$('#generate').removeAttr("disabled");
+   	$('#generate').attr("class","form_input_button");
+   }
+  else{ 
+  	$('#generate').attr("disabled", true);
+  	$('#generate').attr("class","form_input_button_disabled");
+  	}
+}
+
+$(document).ready(function () {
+	$('#selectagent').change(function () {
+			  document.form.method="GET";
+	          $('form').submit();
+	        });
+	$('#group').change(function () {
+			   checkgenerate();
+			   $('#result').empty();
+	        });
+	$('#tariff').change(function () {
+			   checkgenerate();
+			   $('#result').empty();
+	        });
+});
 </script>
 
-
 <?php
- 	echo $CC_help_generate_signup;
+echo $CC_help_generate_signup;
 ?>
 <center>
 		<b><?php echo gettext("Create signup url for a specific agent, customer group and Call Plan.");?>.</b></br></br>
@@ -142,12 +167,10 @@ function submit_form(form){
 						 <?php if(!empty($URL)){ ?>
 						 <span style="font-family: sans-serif" > 
 						 <?php 	echo "<b>";
-						 	echo gettext("GENERATED URL:");
-						 	?>
-						 	&nbsp;<a href="<?php echo $URL;?>"> <?php echo gettext("LINK"); ?></a>
-						 	<?php
-						 	 echo "<br/>";echo "<br/>";
-						 	echo $URL;	echo "</b><br>"; ?>
+						 	echo gettext("GENERATED URL:"); 
+						 	?><br/>
+						 	&nbsp;<a href="<?php echo $URL;?>"><?php echo $URL; ?></a>
+						 	
 						   </span>
 						<?php  }  ?>
 						
@@ -162,40 +185,5 @@ function submit_form(form){
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
-?>
 
-
-<script type="text/javascript">
-	
-
-function checkgenerate(){
-
- var test = true;
-  test = test && ($('#tariff').val().length>0);
-  test = test && ($('#group').val().length>0);
-  if(test){
-   	$('#generate').removeAttr("disabled");
-   	$('#generate').attr("class","form_input_button");
-   }
-  else{ 
-  	$('#generate').attr("disabled", true);
-  	$('#generate').attr("class","form_input_button_disabled");
-  	}
-}
-
-$(document).ready(function () {
-	$('#selectagent').change(function () {
-			  document.form.method="GET";
-	          $('form').submit();
-	        });
-	$('#group').change(function () {
-			   checkgenerate();
-			   $('#result').empty();
-	        });
-	$('#tariff').change(function () {
-			   checkgenerate();
-			   $('#result').empty();
-	        });
-});
-</script>
+$smarty->display('footer.tpl');
