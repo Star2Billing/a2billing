@@ -457,16 +457,12 @@ if(sizeof($payment_result)>0 && $payment_result[0]!=null) {
 </table>
 <?php 
 }
-?>
-
-
-<?php
 
 $refill_table = new Table('cc_logrefill','*');
 $refill_clause = "card_id = ".$id;
 $refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 'date', 'DESC', NULL, NULL, 10, 0);
 
-if(sizeof($refill_result)>0 && $refill_result[0]!=null) {
+if (sizeof($refill_result)>0 && $refill_result[0]!=null) {
 ?>
 <table class="toppage_maintable">
 	<tr>
@@ -530,7 +526,7 @@ if(sizeof($refill_result)>0 && $refill_result[0]!=null) {
 $call_table = new Table('cc_call,cc_prefix','*');
 $call_clause = "card_id = ".$id." AND id_cc_prefix = cc_prefix.id";
 $call_result = $call_table -> Get_list($DBHandle, $call_clause, 'starttime', 'DESC', NULL, NULL, 10, 0);
-if(sizeof($call_result)>0 && $call_result[0]!=null) {
+if (sizeof($call_result)>0 && $call_result[0]!=null) {
 ?>
 <table class="toppage_maintable">
 	<tr>
@@ -618,6 +614,9 @@ if(sizeof($call_result)>0 && $call_result[0]!=null) {
 <?php 
 }
 ?>
+<?php 
+if ( (sizeof($payment_result)>0 && $payment_result[0]!=null) || (sizeof($call_result)>0 && $call_result[0]!=null) || (sizeof($refill_result)>0 && $refill_result[0]!=null) ) {
+?>
 <br/>
 <div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
  	<a class="cssbutton_big"  href="A2B_entity_card.php?section=1">
@@ -626,7 +625,8 @@ if(sizeof($call_result)>0 && $call_result[0]!=null) {
 	</a>
 </div>
 <br/>
-<?php 
+<?php
+}
 
 $smarty->display( 'footer.tpl');
 

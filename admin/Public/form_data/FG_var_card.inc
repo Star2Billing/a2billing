@@ -154,7 +154,7 @@ foreach ($show_list as $i => $value) {
 		$index = $index + 1;
 	}
 }
-if (strlen($FG_COL_QUERY_FIELD)>2){ 
+if (strlen($FG_COL_QUERY_FIELD)>2) {
 	$FG_COL_QUERY_FIELD=substr( $FG_COL_QUERY_FIELD,2);
 }
 $FG_COL_QUERY_COUNT=count(split(',',$FG_COL_QUERY_FIELD));
@@ -220,10 +220,10 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 
-	if ($popup_select==1){
+	if ($popup_select==1) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[$FG_NB_TABLE_COL]."');\">&lt;Select Card&gt;</a>";
-	}elseif ($popup_select==2){
+	} elseif ($popup_select==2) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col1|');";
 		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[1]."');\">&lt;Select Card&gt;</a>";
 	}
