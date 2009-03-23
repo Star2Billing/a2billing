@@ -57,7 +57,7 @@ $logfile = API_LOGFILE;
 // recipient email to send the alarm
 $email_alarm = EMAIL_ADMIN;
 
-$FG_DEBUG = 1;
+$FG_DEBUG = 0;
 
 $caching_query = 300; // caching for 5 minutes
 
@@ -84,7 +84,6 @@ if (!$_SESSION["access_display"] && (md5($security_key) !== $key  || strlen($sec
 } else {
 	$_SESSION["access_display"] = 1;
 }
-echo "<br>".$_SESSION["access_display"]."<br>";
 
 //set  default values if not isset vars
 
