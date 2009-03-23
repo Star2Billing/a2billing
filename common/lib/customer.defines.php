@@ -6,6 +6,7 @@ include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
 include_once (dirname(__FILE__)."/Class.Table.php");
 require_once('adodb/adodb.inc.php'); // AdoDB
+include_once (dirname(__FILE__)."/Class.Connection.php");
 
 include (FSROOT."lib/Class.Logger.php");
 
