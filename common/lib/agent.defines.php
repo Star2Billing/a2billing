@@ -201,25 +201,9 @@ require("languageSettings.php");
 SetLocalLanguage();
 
  
-function DbConnect($db= NULL)
+function DbConnect()
 {
-	$ADODB_CACHE_DIR = '/tmp';
-	/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
-	
-	if (DB_TYPE == "postgres"){
-		$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
-	}else{
-		$datasource = 'mysql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
-	}
-	
-	$DBHandle = NewADOConnection($datasource);
-	if (!$DBHandle) die("Connection failed");
-	
-	if (DB_TYPE == "mysqli") {
-		$DBHandle -> Execute('SET AUTOCOMMIT=1');
-	}
-	
-	return $DBHandle;
+	return Connection::GetDBHandler();
 }
 
 
