@@ -215,7 +215,10 @@ function openURLFilter(theLINK)
 						if(is_array($select_list)){
 							$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 							$record_display = $this->FG_TABLE_COL[$i][10];
-							$link = $this->FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];
+							$link = $this->FG_TABLE_COL[$i][12];
+							if(stripos($this->FG_TABLE_COL[$i][12],'form_action')===false) $link .= "?form_action=ask-edit&";
+							else $link .= "?";
+							$link.= "id=".$select_list[0][1];
 							for ($l=1;$l<=count($field_list_sun);$l++){
 								$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
 								$record_display = "<a href='$link'>$val</a>";
