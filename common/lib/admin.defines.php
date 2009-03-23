@@ -7,6 +7,7 @@ include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
 require_once('adodb/adodb.inc.php'); // AdoDB
 include_once (dirname(__FILE__)."/Class.Table.php");
+include_once (dirname(__FILE__)."/Class.Connection.php");
 
 // USE PHPMAILER
 include_once (FSROOT."lib/mail/class.phpmailer.php");
@@ -175,25 +176,9 @@ require("languageSettings.php");
 SetLocalLanguage();
 
 
-function DbConnect($db= NULL)
+function DbConnect()
 {
-	$ADODB_CACHE_DIR = '/tmp';
-	/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
-	
-	if (DB_TYPE == "postgres") {
-		$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
-	}else{
-		$datasource = 'mysqli://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
-	}
-	
-	$DBHandle = NewADOConnection($datasource);
-	if (!$DBHandle) die("Connection failed");
-	
-	if (DB_TYPE == "mysqli") {
-		$DBHandle -> Execute('SET AUTOCOMMIT=1');
-	}
-	
-	return $DBHandle;
+	return Connection::GetDBHandler();
 }
 
 
