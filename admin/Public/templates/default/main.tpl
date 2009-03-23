@@ -35,7 +35,7 @@
 <ul id="nav">
 	<li><a href="#" target="_self"></a></a></li>
 		<ul><li> <a href="PP_intro.php" style="height:14px;text-align:left;"> 
-			<strong style="font-size:12px;">» {php} echo gettext("HOME");{/php}</strong>&nbsp;
+			<strong style="font-size:12px;"> {php} echo gettext("HOME");{/php}</strong>&nbsp;
 		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/house.png"> </a>
 		</li></ul>
   	<li><a href="#" target="_self"></a></a></li>
@@ -43,8 +43,8 @@
 {if ($ACXDASHBOARD > 0) }
 <ul id="nav">
 		<ul><li> <a href="dashboard.php" style="height:14px;text-align:left;"> 
-			<strong style="font-size:12px;">» {php} echo gettext("DASHBOARD");{/php}</strong>&nbsp;
-		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/chart_bar.png"> </a>
+			<strong style="font-size:12px;"> {php} echo gettext("DASHBOARD");{/php}</strong>&nbsp;
+		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/chart_bar.png">  </a>
 		</li></ul>
   	<li><a href="#" target="_self"></a></a></li>
 </ul>

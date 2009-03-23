@@ -32,7 +32,7 @@ if (!isset($currencies_list[strtoupper($agent_info [1])][2]) || !is_numeric($cur
 	$display_currency =strtoupper($agent_info [1]);
 	if(strtoupper($agent_info [1])!=strtoupper(BASE_CURRENCY))$two_currency=true;
 }
-$credit_cur = $customer_info[1] / $mycur;
+$credit_cur = $agent_info[0] / $mycur;
 $credit_cur = round($credit_cur,3);
 
 $smarty->display( 'main.tpl');
