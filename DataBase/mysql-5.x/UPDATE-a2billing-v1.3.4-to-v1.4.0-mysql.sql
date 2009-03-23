@@ -1447,8 +1447,6 @@ CREATE TABLE IF NOT EXISTS cc_prefix (
 
 
 INSERT INTO cc_config_group (group_title ,group_description) VALUES ( 'dashboard', 'This configuration group handles the dashboard configuration');
-INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable Dashboard', 'dashboard_enabled', '0', 'If you want enabled the dashboard on the home page.', '1', '13', 'yes,no');
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'If you want enabled the info module customer and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');

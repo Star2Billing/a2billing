@@ -32,12 +32,19 @@
 
 
 <div id="nav_before"></div>
-{if ($ACXDASHBOARD > 0) }
 <ul id="nav">
 	<li><a href="#" target="_self"></a></a></li>
-		<ul><li> <a href="PP_intro.php" style="height:14px;text-align:center;"> 
-	<strong style="font-size:12px;">{php} echo gettext("HOME");{/php}</strong>&nbsp;
+		<ul><li> <a href="PP_intro.php" style="height:14px;text-align:left;"> 
+			<strong style="font-size:12px;">» {php} echo gettext("HOME");{/php}</strong>&nbsp;
 		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/house.png"> </a>
+		</li></ul>
+  	<li><a href="#" target="_self"></a></a></li>
+</ul>
+{if ($ACXDASHBOARD > 0) }
+<ul id="nav">
+		<ul><li> <a href="dashboard.php" style="height:14px;text-align:left;"> 
+			<strong style="font-size:12px;">» {php} echo gettext("DASHBOARD");{/php}</strong>&nbsp;
+		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/chart_bar.png"> </a>
 		</li></ul>
   	<li><a href="#" target="_self"></a></a></li>
 </ul>
@@ -593,19 +600,6 @@
 	<td>
 		<a href="PP_intro.php?language=english" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/gb.gif" border="0" title="English" alt="English"></a>
 		<a href="PP_intro.php?language=brazilian" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/br.gif" border="0" title="Brazilian" alt="Brazilian"></a>
-	</td>
-</tr>
-
-<tr>
-	<td>
-		<center>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-		<input type="hidden" name="cmd" value="_s-xclick">
-		<input type="hidden" name="hosted_button_id" value="4052342">
-		<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-		<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-		</form>
-		</center>
 	</td>
 </tr>
 
