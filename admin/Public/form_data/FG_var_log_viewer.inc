@@ -68,85 +68,11 @@ $HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "14%", "center", "so
 $HD_Form -> FieldViewElement ('id, cua.login, loglevel, action, description, tablename, pagename, ipaddress, creationdate');
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO LOG AVAILABLE1!");
 $HD_Form -> FG_INTRO_TEXT_EDITION = "";
-$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_ADDITION = false;
-
-$HD_Form -> AddEditElement (gettext("LOGIN"),
-	"login",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30 readonly",
-	"",
-	"",
-	"" , "", "", "", "" , "", "" ,"");
-	
-$HD_Form -> AddEditElement (gettext("LOG-LEVEL"),
-	"loglevel",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30 readonly",
-	"",
-	"",
-	"" , "", "", "", "" , "", "" ,"");
-	
-$HD_Form -> AddEditElement (gettext("action"),
-	"action",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30 readonly",
-	"",
-	"",
-	"" , "", "", "", "" , "", "" ,"");
-
-$HD_Form -> AddEditElement (gettext("DESCRIPTION"),
-	"description",
-	'$value',
-	"TEXTAREA",
-	"size=30 maxlength=30 readonly",
-	"",
-	"",
-	"" , "", "", "", "" , "", "" ,"");
-
-$HD_Form -> AddEditElement (gettext("TABLENAME"),
-	"tablename",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30 readonly",
-	"",
-	"",
-	"" , "", "", "", "" , "", "" ,"");
-	
-	$HD_Form -> AddEditElement (gettext("IPADDRESS"),
-	"ipaddress",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30 readonly",
-	"",
-	"",
-	"" , "", "", "", "" , "", "" ,"");
-	
-	$HD_Form -> AddEditElement (gettext("CREATIONDATE"),
-	"creationdate",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30 readonly",
-	"",
-	"",
-	"" , "", "", "", "" , "", "" ,"");
-	
-	$HD_Form -> AddEditElement (gettext("DATA"),
-	"data",
-	'$value',
-	"TEXTAREA",
-	"size=30 maxlength=30 readonly",
-	"",
-	"",
-	"" , "", "", "", "" , "", "" ,"");
-$HD_Form -> FieldEditElement ('login, loglevel, action, description,tablename,ipaddress,creationdate,data');
-$HD_Form -> FG_OTHER_BUTTON1 = true;
-$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_log_viewer.php?form_action=ask-edit&id=|param|";
-$HD_Form -> FG_OTHER_BUTTON1_ALT = 'DETAILS';
+$HD_Form -> FG_INFO = true;
+$HD_Form -> FG_INFO_LINK = "A2B_log_activity_info.php?id=";
 
 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -154,8 +80,4 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 

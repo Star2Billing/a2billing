@@ -402,6 +402,17 @@ function infocustomer_id($id)
     }
 }
 
+function nameofadmin($id)
+{	
+	$handle = DbConnect();
+	$inst_table = new Table("cc_ui_authen", "login,name");
+	$FG_TABLE_CLAUSE = "id = '$id'";
+	$list_admin = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
+	if(is_array($list_admin))$value = $list_admin[0][1]." (".$list_admin[0][0].")";
+	else $value="";
+    echo $value;
+}
+
 function nameofcustomer_id($id)
 {	
 	$handle = DbConnect();

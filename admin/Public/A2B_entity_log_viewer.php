@@ -37,6 +37,7 @@ $HD_Form -> create_toppage ($form_action);
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
+if($form_action=="list"){
 ?>
 
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
@@ -206,7 +207,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 </FORM>
 
 <?php
-
+}
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
