@@ -176,7 +176,7 @@ if (isset($browse_letter) && strtoupper($browse_letter)=="YES") {
 }
 
 if (isset($letter) && strlen($letter)!=0) {
-	add_clause($FG_TABLE_CLAUSE, "t7.destination ILIKE '".strtolower ($letter)."%'");
+	add_clause($FG_TABLE_CLAUSE, "t7.destination ILIKE '".strtolower ($letter)."%' OR t7.destination ILIKE '".strtoupper ($letter)."%'");
 }
 
 
@@ -246,18 +246,18 @@ $list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens,
 $country_table = new Table("cc_country","countryname"); 
 $country_list = $country_table -> Get_list ($DBHandle); 
  
-$QUERY="SELECT count(*) FROM (SELECT t1.* FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE".$sql_group.") as setprefix "; 
+$QUERY = "SELECT count(*) FROM (SELECT t1.* FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE".$sql_group.") as setprefix "; 
 
-$list_nrecord=$instance_table->SQLExec($DBHandle,$QUERY,1,$caching_query);
+$list_nrecord = $instance_table->SQLExec($DBHandle, $QUERY, 1, $caching_query);
 $nb_record = $list_nrecord[0][0];
 
 if ($nb_record<=$FG_LIMITE_DISPLAY) {
-	$nb_record_max=1;
+	$nb_record_max = 1;
 } else {
 	if ($nb_record % $FG_LIMITE_DISPLAY == 0) {
-		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY));
+		$nb_record_max = (intval($nb_record/$FG_LIMITE_DISPLAY));
 	} else {
-		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
+		$nb_record_max = (intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 	}
 }
 ?>
@@ -322,7 +322,7 @@ function Search(Source) {
 			<?php echo gettext("Enter dial code"); ?><br>
 			<INPUT TYPE="text" NAME="searchpre" class="textfield" value="<?php echo $searchpre ?>"></INPUT><input name="btn02" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn02');">
 		</div>
-		<?php } if ($currency_select){ ?>
+		<?php } if ($currency_select) { ?>
 		<div class="searchelement"  align="left">
 			<?php echo gettext("Select a currency");?><br>
 			<select NAME="choose_currency" class="select">
