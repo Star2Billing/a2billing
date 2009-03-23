@@ -5,7 +5,7 @@
  * Written for PHP 4.x & PHP 5.X versions.
  *
  * A2Billing -- Asterisk billing solution.
- * Copyright (C) 2004, 2007 Belaid Arezqui <areski _atl_ gmail com>
+ * Copyright (C) 2004, 2009 Belaid Arezqui <areski _atl_ gmail com>
  *
  * See http://www.asterisk2billing.org for more information about
  * the A2Billing project. 
@@ -18,18 +18,18 @@
 
 /***************************************************************************
  *
- * USAGE : http://domainname/A2Billing_UI/api/SOAP/callbackexec.php?wsdl
+ * USAGE : http://domainname/webservice/SOAP/callbackexec.php?wsdl
  *
- * http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/callbackexec.php?wsdl
+ * 			webservice/SOAP/callbackexec.php?wsdl
  *
- * 	http://domain/path/soap/soap-db-callback.php?security_key=13a7fa40cfcef6fe7ac9718a5c76cdb5&phone_number=XXXXX&callerid=123456	
+ * 	http://domain/webservice/SOAP/soap-db-callback.php?security_key=13a7fa40cfcef6fe7ac9718a5c76cdb5&phone_number=XXXXX&callerid=123456	
  *	 &callback_time=2006-09-20+19%3A30%3A00
  *
  ****************************************************************************/
 
-include ("../../lib/admin.defines.php");
-include ("../../lib/regular_express.inc");
-include ("../../lib/Class.RateEngine.php");	
+include ("../lib/admin.defines.php");
+include ("../lib/regular_express.inc");
+include ("../lib/Class.RateEngine.php");	
 require_once('SOAP/Server.php');
 require_once('SOAP/Disco.php');
 
@@ -334,5 +334,3 @@ if (isset($_SERVER['REQUEST_METHOD'])  &&  $_SERVER['REQUEST_METHOD']=='POST') {
 	}
 }
 
-
-?>

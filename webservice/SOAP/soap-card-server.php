@@ -1,6 +1,19 @@
 <?php
-include ("../../lib/admin.defines.php");
-include ("../../lib/regular_express.inc");
+/***************************************************************************
+ *
+ * Written for PHP 4.x & PHP 5.X versions.
+ *
+ * A2Billing -- Asterisk billing solution.
+ * Copyright (C) 2004, 2009 Belaid Arezqui <areski _atl_ gmail com>
+ *
+ * See http://www.asterisk2billing.org for more information about
+ * the A2Billing project. 
+ * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
+ *
+ ****************************************************************************/
+ 
+include ("../lib/admin.defines.php");
+include ("../lib/regular_express.inc");
 require_once('SOAP/Server.php');
 require_once('SOAP/Disco.php');
 
@@ -647,5 +660,3 @@ function getallheaders_xmlrpc($m)
 	
 	
 	
-
-?>

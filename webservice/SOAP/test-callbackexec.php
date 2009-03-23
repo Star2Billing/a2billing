@@ -5,7 +5,7 @@
  * Written for PHP 4.x & PHP 5.X versions.
  *
  * A2Billing -- Asterisk billing solution.
- * Copyright (C) 2004, 2007 Belaid Arezqui <areski _atl_ gmail com>
+ * Copyright (C) 2004, 2009 Belaid Arezqui <areski _atl_ gmail com>
  *
  * See http://www.asterisk2billing.org for more information about
  * the A2Billing project. 
@@ -16,22 +16,17 @@
  *
  ****************************************************************************/
 
-/***************************************************************************
- *
- * USAGE : http://domainname/A2Billing_UI/api/SOAP/test-callbackexec.php   
- *
- * http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/test-callbackexec.php   
- *
- ****************************************************************************/
+/*
+ * 	USAGE : http://domainname/webservice/SOAP/test-callbackexec.php
+ */ 
 
-
-include ("../../lib/admin.defines.php");
+include ("../lib/admin.defines.php");
 require('SOAP/Client.php');
 
 $security_key = API_SECURITY_KEY;
 
 
-$endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/callback-exec.php';
+$endpoint = 'http://localhost/~areski/svn/a2billing/trunk/webservice/SOAP/callback-exec.php';
 // ADD ON THE SPEC SECURITY KEY
 
 $callback = new SOAP_Client($endpoint);
@@ -53,7 +48,6 @@ print_r($ans);
 
 $insert_id_callback = $ans[0];
 
-//$insert_id_callback = '47'; // ??
 
 //	#############   Check Status   #############   
 echo "<hr>#############   Check Status  #############   </hr>";
@@ -67,5 +61,4 @@ $ans = $callback -> call($method, $params);
 
 print_r($ans);
 
-exit;
-?>
+

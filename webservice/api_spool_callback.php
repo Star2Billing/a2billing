@@ -1,4 +1,17 @@
 <?php
+/***************************************************************************
+ *
+ * Written for PHP 4.x & PHP 5.X versions.
+ *
+ * A2Billing -- Asterisk billing solution.
+ * Copyright (C) 2004, 2009 Belaid Arezqui <areski _atl_ gmail com>
+ *
+ * See http://www.asterisk2billing.org for more information about
+ * the A2Billing project. 
+ * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
+ *
+ ****************************************************************************/
+
 /*
 Result :
     * 200 -- successful query
@@ -17,7 +30,7 @@ Paremeters :
 http://hostname/api/api_spool_callback.php?security_key=XXXX&phone_number=XXX&callerid=XXXX
 */
 
-include ("../lib/admin.defines.php");
+include ("lib/admin.defines.php");
 
 	
 	
