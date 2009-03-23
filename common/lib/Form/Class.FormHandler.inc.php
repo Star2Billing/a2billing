@@ -1798,24 +1798,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			//CREATE AND UPDATE REF NUMBER
 			$list_refill_type=Constants::getRefillType_List();
 			$refill_type = $processed['refill_type'];
-			$year = date("Y");
-			$invoice_conf_table = new Table('cc_invoice_conf','value');
-			$conf_clause = "key_val = 'count_$year'";
-			$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
-			if(is_array($result) && !empty($result[0][0])){
-				//update count
-				$count =$result[0][0];
-				if(!is_numeric($count)) $count=0;
-				$count++;
-				$param_update_conf = "value ='".$count."'";
-				$clause_update_conf = "key_val = 'count_$year'";
-				$invoice_conf_table -> Update_table ($this->DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
-			}else{
-				//insert newcount
-				$count=1;
-				$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
-				$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
-			}
+			$reference = generate_invoice_reference();
 			$field_insert = "date, id_card, title ,reference, description";
 			$date = $processed['date'];
 			$card_id = $processed['card_id'];
@@ -1826,7 +1809,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			}
 			$description = gettext("Invoice for refill");
 			
-			$reference = $year.sprintf("%08d",$count);
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description' ";
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
@@ -1854,26 +1836,9 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$processed = $this->getProcessed();
 		$id_invoice = $this -> RESULT_QUERY;
 		//CREATE AND UPDATE REF NUMBER
-		$year = date("Y");
-		$invoice_conf_table = new Table('cc_invoice_conf','value');
-		$conf_clause = "key_val = 'count_$year'";
-		$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
-		if(is_array($result) && !empty($result[0][0])){
-			//update count
-			$count =$result[0][0];
-			if(!is_numeric($count)) $count=0;
-			$count++;
-			$param_update_conf = "value ='".$count."'";
-			$clause_update_conf = "key_val = 'count_$year'";
-			$invoice_conf_table -> Update_table ($this->DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
-		}else{
-			//insert newcount
-			$count=1;
-			$QUERY= "INSERT INTO cc_invoice_conf (key_val ,value) VALUES ( 'count_$year', '1');";
-			$invoice_conf_table -> SQLExec($this->DBHandle,$QUERY);
-		}
+		$reference = generate_invoice_reference();
 		$instance_table_invoice = new Table("cc_invoice");
-		$param_update_invoice = "reference = '".$year."-".$count."'";
+		$param_update_invoice = "reference = '".$reference."'";
 		$clause_update_invoice = " id ='$id_invoice'";
 		$instance_table_invoice-> Update_table ($this->DBHandle, $param_update_invoice, $clause_update_invoice, $func_table = null);
 		

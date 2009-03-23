@@ -62,6 +62,7 @@ if(!is_array($transaction_data) && count($transaction_data) == 0) {
 		" FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
 }
 
+
 $security_verify = true;
 $transaction_detail = serialize($_POST);
 
@@ -190,10 +191,10 @@ switch($transaction_data[0][4])
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO SUCH EPAYMENT FOUND");
 		exit();
 }
-
-
+if(empty($transaction_data[0][4]) || !is_numeric($transaction_data[0][4])) $VAT =0;
+else $VAT = $transaction_data[0][4];
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
-
+$amount_without_vat = $amount_paid / (1+$vat/100);
 
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
@@ -297,13 +298,13 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
 if ($id > 0 ) {
     $addcredit = $transaction_data[0][2]; 
 	$instance_table = new Table("cc_card", "username, id");
-	$param_update .= " credit = credit+'".$amount_paid."'";
+	$param_update .= " credit = credit+'".$amount_without_vat."'";
 	$FG_EDITION_CLAUSE = " id='$id'";
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 
 	$field_insert = "date, credit, card_id, description";
-	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '".$transaction_data[0][4]."'";
+	$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."'";
 	$instance_sub_table = new Table("cc_logrefill", $field_insert);
 	$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
@@ -314,6 +315,32 @@ if ($id > 0 ) {
 	$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 	
+	//ADD an INVOICE
+	$reference = generate_invoice_reference();
+	$field_insert = "date, id_card, title ,reference, description,status,paid_status";
+	$date = $nowDate;
+	$card_id = $id;
+	$title = gettext("CUSTOMER REFILL");
+	$description = gettext("Invoice for refill");
+	$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,1 ";
+	$instance_table = new Table("cc_invoice", $field_insert);
+	$id_invoice = $instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+	//load vat of this card
+	if(!empty($id_invoice)&& is_numeric($id_invoice)){
+		$amount = $amount_without_vat;
+		$description = gettext("Refill ONLINE")." : ".$transaction_data[0][4];
+		$field_insert = "date, id_invoice ,price,vat, description";
+		$instance_table = new Table("cc_invoice_item", $field_insert);
+		$value_insert = " '$date' , '$id_invoice', '$amount','$VAT','$description' ";
+		$instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+	}
+    //link payment to this invoice
+	$table_payment_invoice = new Table("cc_invoice_payment", "*");
+	$fields = " id_invoice , id_payment";
+	$values = " $id_invoice, $id_payment	";
+	$table_payment_invoice->Add_table($DBHandle, $values, $fields);
+	
+	//END INVOICE
 	//Agent commision
 	// test if this card have a agent
 	$table_transaction = new Table();
