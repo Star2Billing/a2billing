@@ -94,7 +94,7 @@ ALTER TABLE cc_card ADD COLUMN id_timezone INTEGER DEFAULT 0;
 
 
 CREATE TABLE cc_config_group (
-  	id 								SERIAL NOT NULL,
+	id 								SERIAL NOT NULL,
 	group_title 					CHARACTER VARYING(64) NOT NULL,
 	group_description 				CHARACTER VARYING(255) NOT NULL
 );
@@ -126,9 +126,9 @@ CREATE TABLE cc_config (
 );
 ALTER TABLE ONLY cc_config ADD CONSTRAINT cc_config_pkey PRIMARY KEY (id);
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Number length', 'interval_len_cardnumber', '10-15', 'Card Number length, You can define a Range e.g:10-15.', 0, 1, '10-15,11-15,12-15');
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Alias Length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, 1, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Voucher Lenght', 'len_voucher', '15', 'Voucher Number Length.', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Number length', 'interval_len_cardnumber', '10-15', 'Card Number length, You can define a Range e.g: 10-15.', 0, 1, '10-15,5-20,10-30');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Alias length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Voucher length', 'len_voucher', '15', 'Voucher Number Length.', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Base Currency', 'base_currency', 'usd', 'Base Currency to use for application.', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Image', 'invoice_image', 'asterisk01.jpg', 'Image to Display on the Top of Invoice', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Admin Email', 'admin_email', 'root@localhost', 'Web Administrator Email Address.', 0, 1, NULL);
@@ -182,14 +182,14 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IAX Parms', 'iax_additional_parameters', 'canreinvite = no', 'IAX Additional Parameters.', 0, 4, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP Parms', 'sip_additional_parameters', 'trustrpid = yes | sendrpid = yes | canreinvite = no', 'SIP Additional Parameters.', 0, 4, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Enable', 'enable', 1, 'Enable/Disable.', 1, 5, 'yes,no');
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTP Server', 'http_server', 'http://www.call-labs.com', 'Set the Server Address of Website, It should be empty for productive Servers.', 0, 5, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTPS Server', 'https_server', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Server Address, should not be empty for productive servers.', 0, 5, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Server IP/Domain', 'http_cookie_domain', '26.63.165.200', 'Enter your Domain Name or IP Address, eg, 26.63.165.200.', 0, 5, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Server IP/Domain', 'https_cookie_domain', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address, eg, 26.63.165.200.', 0, 5, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Application Path', 'http_cookie_path', '/customer/', 'Enter the Physical path of your Application on your server.', 0, 5, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Application Path', 'https_cookie_path', '/customer/', 'Enter the Physical path of your Application on your Secure Server.', 0, 5, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Application Physical Path', 'dir_ws_http_catalog', '/customer/', 'Enter the Physical path of your Application on your server.', 0, 5, NULL);
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Application Physical Path', 'dir_ws_https_catalog', '/customer/', 'Set the callerID for .', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTP Server Customer', 'http_server', 'http://www.call-labs.com', 'Set the Server Address of Customer Website, It should be empty for productive Servers.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTPS Server Customer', 'https_server', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Customers Server Address, should not be empty for productive servers.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Server Customer IP/Domain', 'http_cookie_domain', '26.63.165.200', 'Enter your Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Server Customer IP/Domain', 'https_cookie_domain', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Application Customer Path', 'http_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Application Customer Path', 'https_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your Secure Server.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Application Customer Physical Path', 'dir_ws_http_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Application Customer Physical Path', 'dir_ws_https_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your Secure server.', 0, 5, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Enable SSL', 'enable_ssl', 1, 'secure webserver for checkout procedure?', 1, 5, 'yes,no');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTP Domain', 'http_domain', '26.63.165.200', 'Http Address.', 0, 5, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Directory Path', 'dir_ws_http', '/~areski/svn/a2billing/payment/customer/', 'Directory Path.', 0, 5, NULL);
@@ -1331,13 +1331,13 @@ ALTER TABLE cc_restricted_phonenumber ADD CONSTRAINT cc_restricted_phonenumber_p
 ALTER TABLE cc_card ADD restriction SMALLINT NOT NULL DEFAULT '0';
 
 
-
+-- remove callback from card
 ALTER TABLE cc_card DROP COLUMN callback;
 
 
 
 -- ADD IAX TRUNKING
-ALTER TABLE cc_iax_buddies ADD trunk VARCHAR(3) DEFAULT 'yes';
+ALTER TABLE cc_iax_buddies ADD trunk VARCHAR(3) DEFAULT 'no';
 
 
 
@@ -1346,11 +1346,11 @@ ALTER TABLE cc_card DROP COLUMN id_agent;
 ALTER TABLE cc_card_group ADD id_agent INT NOT NULL DEFAULT '0';
 
 
-
+-- remove old template invoice
 ALTER TABLE cc_card DROP COLUMN template_invoice;
 ALTER TABLE cc_card DROP COLUMN template_outstanding;
 
---ALTER TABLE cc_card RENAME COLUMN VAT_RN TO vat_rn;
+-- rename vat field
 ALTER TABLE cc_card ALTER vat_rn TYPE VARCHAR(40);
 ALTER TABLE cc_card ALTER vat_rn SET DEFAULT NULL;
 
@@ -1456,8 +1456,6 @@ CREATE INDEX cc_prefix_dest ON cc_prefix USING  btree(destination);
 
 
 INSERT INTO cc_config_group (group_title ,group_description) VALUES ( 'dashboard', 'This configuration group handles the dashboard configuration');
-INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
-VALUES ( 'Enable Dashboard', 'dashboard_enabled', '0', 'If you want enabled the dashboard on the home page.', '1', '13', 'yes,no');
 
 INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'If you want enabled the info module customer and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
@@ -1752,8 +1750,80 @@ CREATE VIEW cc_sip_buddies_empty AS
   type, username, disallow, allow, musiconhold, regseconds, ipaddr, cancallforward, fullcontact, setvar
   FROM cc_sip_buddies;
 
+-- remove activatedbyuser
+ALTER TABLE cc_card DROP activatedbyuser;
 
--- synched with MySQL up to r1576
+
+-- Agent epayment
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('HTTP Server Agent', 'http_server_agent', 'http://www.call-labs.com', 'Set the Server Address of Agent Website, It should be empty for productive Servers.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('HTTPS Server Agent', 'https_server_agent', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Agents Server Address, should not be empty for productive servers.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Server Agent IP/Domain', 'http_cookie_domain_agent', '26.63.165.200', 'Enter your Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Secure Server Agent IP/Domain', 'https_cookie_domain_agent', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Application Agent Path', 'http_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Secure Application Agent Path', 'https_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure Server.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Application Agent Physical Path', 'dir_ws_http_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Secure Application Agent Physical Path', 'dir_ws_https_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure server.', 0, 'epayment_method', NULL);
+
+CREATE TABLE cc_epayment_log_agent (
+	id BIGSERIAL NOT NULL,
+	agent_id BIGINT NOT NULL default '0',
+	amount DECIMAL( 15, 5 ) NOT NULL default '0',
+	vat FLOAT NOT NULL default '0',
+	paymentmethod char(50) NOT NULL,
+	cc_owner varchar(64) default NULL,
+	cc_number varchar(32) default NULL,
+	cc_expires varchar(7) default NULL,
+	creationdate timestamp without time zone NOT NULL default CURRENT_TIMESTAMP,
+	status int NOT NULL default '0',
+	cvv varchar(4) default NULL,
+	credit_card_type varchar(20) default NULL,
+	currency varchar(4) default NULL,
+	transaction_detail text,
+	PRIMARY KEY (id)
+);
+
+ALTER TABLE cc_epayment_log ALTER id SET NOT NULL,
+	ALTER cardid TYPE BIGINT, ALTER cardid SET DEFAULT '0',
+	ALTER cardid SET NOT NULL, ALTER amount TYPE DECIMAL( 15, 5 );
+
+ALTER TABLE cc_payments RENAME COLUMN customers_id TO text_cust_id;
+ALTER TABLE cc_payments ADD COLUMN customers_id BIGINT DEFAULT '0' NOT NULL;
+UPDATE cc_payments SET customers_id = text_cust_id::int8;
+ALTER TABLE cc_payments DROP COLUMN text_cust_id;
+
+CREATE TABLE cc_payments_agent (
+	id BIGSERIAL,
+	agent_id BIGINT NOT NULL,
+	agent_name varchar(200) NOT NULL,
+	agent_email_address varchar(96) NOT NULL,
+	item_name varchar(127) default NULL,
+	item_id varchar(127) default NULL,
+	item_quantity int NOT NULL default '0',
+	payment_method varchar(32) NOT NULL,
+	cc_type varchar(20) default NULL,
+	cc_owner varchar(64) default NULL,
+	cc_number varchar(32) default NULL,
+	cc_expires varchar(4) default NULL,
+	orders_status int NOT NULL,
+	orders_amount decimal(14,6) default NULL,
+	last_modified timestamp without time zone default NULL,
+	date_purchased timestamp without time zone default NULL,
+	orders_date_finished timestamp without time zone default NULL,
+	currency char(3) default NULL,
+	currency_value decimal(14,6) default NULL,
+	PRIMARY KEY (id)
+);
+
+
+ALTER TABLE cc_agent_commission ADD id_agent INT NOT NULL ;
+
+-- remove reseller field from logpayment & log refill
+ALTER TABLE cc_logpayment DROP reseller_id; 
+ALTER TABLE cc_logrefill DROP reseller_id;
+
+
+-- synched with MySQL up to r1700
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
