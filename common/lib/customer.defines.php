@@ -8,7 +8,17 @@ include_once (dirname(__FILE__)."/Class.Table.php");
 require_once('adodb/adodb.inc.php'); // AdoDB
 include_once (dirname(__FILE__)."/Class.Connection.php");
 
+// INCLUDE FILES
+include (FSROOT."lib/Misc.php");
+
+// USE PHPMAILER
+include_once (FSROOT."lib/mail/class.phpmailer.php");
+
 include (FSROOT."lib/Class.Logger.php");
+
+session_name("UICSESSION");
+session_start();
+
 
 $A2B = new A2Billing();
 
@@ -129,11 +139,7 @@ define ("FRIEND_QUALIFY", isset($A2B->config['peer_friend']['qualify'])?$A2B->co
 define ("FRIEND_HOST", isset($A2B->config['peer_friend']['host'])?$A2B->config['peer_friend']['host']:null);
 define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->config['peer_friend']['dtmfmode']:null);
 
-// INCLUDE FILES
-include (FSROOT."lib/Misc.php");
 
-// USE PHPMAILER
-include_once (FSROOT."lib/mail/class.phpmailer.php");
 
 /*
  *		GLOBAL USED VARIABLE

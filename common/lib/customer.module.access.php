@@ -35,8 +35,6 @@ define ("ACX_AUTODIALER",					65536);		// 1 << 16
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
-session_name("UICSESSION");
-session_start();
 
 
 if(strlen(RETURN_URL_DISTANT_LOGIN)>1)

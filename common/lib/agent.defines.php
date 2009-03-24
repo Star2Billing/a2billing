@@ -13,6 +13,9 @@ include_once (FSROOT."lib/mail/class.phpmailer.php");
 // INCLUDE MISC
 include (FSROOT."lib/Misc.php");
 
+session_name("UIAGENTSESSION");
+session_start();
+
 define('CC_OWNER_MIN_LENGTH', '2');
 define('CC_NUMBER_MIN_LENGTH', '15');
 
@@ -28,12 +31,6 @@ $log = new Logger();
 
 // The system will not log for Public/index.php and 
 // signup/index.php
-$URI = $_SERVER['REQUEST_URI'];
-$restircted_url = substr($URI,-16);
-if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["agent_id"])) {
-	$log -> insertLogAgent($_SESSION["agent_id"], 1, "Page Visit", "Agent Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
-}
-$log = null;
 
 //Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
 define("LIST_OF_VALUES",true);
@@ -314,4 +311,10 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 
 define ("EPAYMENT_PURCHASE_AMOUNT", isset($A2B->config['epayment_method']['purchase_amount_agent'])?$A2B->config['epayment_method']['purchase_amount_agent']:"100");
 
+$URI = $_SERVER['REQUEST_URI'];
+$restircted_url = substr($URI,-16);
+if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["agent_id"])) {
+	$log -> insertLogAgent($_SESSION["agent_id"], 1, "Page Visit", "Agent Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+$log = null;
+}
 

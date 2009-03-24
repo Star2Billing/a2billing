@@ -8,15 +8,19 @@ include_once (dirname(__FILE__)."/Class.A2Billing.php");
 require_once('adodb/adodb.inc.php'); // AdoDB
 include_once (dirname(__FILE__)."/Class.Table.php");
 include_once (dirname(__FILE__)."/Class.Connection.php");
-
 // USE PHPMAILER
 include_once (FSROOT."lib/mail/class.phpmailer.php");
 
 // INCLUDE MISC
 include (FSROOT."lib/Misc.php");
 
+session_name("UIADMINSESSION");
+session_start();
+
 // A2B INSTANCE
 $A2B = new A2Billing();
+
+
 
 // Store script start time
 $_START_TIME = time();
@@ -30,11 +34,9 @@ define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();
 
-if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
-	// Insert Log
-	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
-	$log = null;
-}
+
+
+
 
 // LOAD THE CONFIGURATION
 if (!($restircted_url == "Public/index.php")) {
@@ -47,7 +49,6 @@ define("LIST_OF_VALUES", false);
 
 // Parameter to show link to Asterisk GUI
 define("ASTERISK_GUI_LINK", false);
-
 // DEFINE FOR THE DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
 define ("PORT", isset($A2B->config['database']['port'])?$A2B->config['database']['port']:null);
@@ -55,7 +56,6 @@ define ("USER", isset($A2B->config['database']['user'])?$A2B->config['database']
 define ("PASS", isset($A2B->config['database']['password'])?$A2B->config['database']['password']:null);
 define ("DBNAME", isset($A2B->config['database']['dbname'])?$A2B->config['database']['dbname']:null);
 define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null);
-
 
 define ("LEN_ALIASNUMBER", isset($A2B->config['global']['len_aliasnumber'])?$A2B->config['global']['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config['global']['len_voucher'])?$A2B->config['global']['len_voucher']:null);
@@ -152,10 +152,6 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
  *		GLOBAL POST/GET VARIABLE
  */
 getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'language'));
-
-if (!isset($_SESSION)) {
-	session_start();
-}
 
 // Language Selection
 if (isset($language)) {
@@ -281,4 +277,10 @@ define ("CCMAINTITLE", gettext("A2Billing : CallingCard & VOIP Billing system"))
 //Enable Disable Captcha
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
+
+if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
+	// Insert Log
+	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+	$log = null;
+}
 

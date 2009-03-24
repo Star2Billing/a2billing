@@ -38,11 +38,6 @@ define ("ACX_VOIPCONF",					2048);
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 
-if (!isset($_SESSION)) {
-	session_name("UIAGENTSESSION");
-	session_start();
-}
-
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	$log = new Logger();
@@ -72,7 +67,8 @@ function access_sanitize_data($data)
 if ((!session_is_registered('pr_login') || !session_is_registered('pr_password') || !session_is_registered('rights') || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
 
 	if ($FG_DEBUG == 1) echo "<br>0. HERE WE ARE";
-
+	
+	
 
 	if ($_POST["done"]=="submit_log"){
 

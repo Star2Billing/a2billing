@@ -45,11 +45,6 @@ define ("ACX_MODIFY_CUSTOMERS",			1048576);	// 1 << 20
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
 
-if (!isset($_SESSION)) {
-	session_name("UIADMINSESSION");
-	session_start();
-}
-
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	$log = new Logger();
