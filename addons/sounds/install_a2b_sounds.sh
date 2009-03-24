@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Use this line for RPM based systems as Fedora, CentOS, etc
 ast_sound=/var/lib/asterisk/sounds
 
 #Use this line for Debian based systems
