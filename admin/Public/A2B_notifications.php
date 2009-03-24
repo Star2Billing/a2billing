@@ -20,7 +20,7 @@ echo $CC_help_mail_notifications;
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 	<tr>
 	 	<td>
-		<?php if ( has_rights (ACX_MISC)) {		
+		<?php if ( has_rights (ACX_ACXSETTING)) {		
 				echo gettext("All parameters related to the Notifications module can be set using the Global Config available in System Settings menu.<br/>");
 		?>
 		 		<a href="A2B_entity_config.php?groupselect=notifications"><?php echo gettext("System Settings - Global Config")?></a>
@@ -58,7 +58,7 @@ if (!is_null($return)&& (!empty($return)>0)) {
 		echo gettext("Make sure that the cron files are correctly configure in the crontab!");
 		echo '<br/>';
 		
-		if ( has_rights (ACX_MISC)) {
+		if ( has_rights (ACX_ACXSETTING)) {
 			echo gettext("Press");
 		    echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'">';
 			echo gettext("Modify") ."</a> to change enable or disable periodical notifications";
@@ -94,7 +94,7 @@ if(!is_null($return)&& (!empty($return)>0) ){
 		<td width="70%"><?php echo gettext("This box shows the possible values to choose from when the user receives a notification");?>
 		<br/><br/>
 		<?php 
-			if ( has_rights (ACX_MISC)) {
+			if ( has_rights (ACX_ACXSETTING)) {
 					echo gettext("Press");
 					echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'">';
 					echo gettext("Modify") ."</a> to change the values.";
@@ -141,7 +141,7 @@ if (!is_null($return)&& (!empty($return)>0)) {
 		echo $msg;
 
 		echo '<br/>';
-		if ( has_rights (ACX_MISC)) {
+		if ( has_rights (ACX_ACXSETTING)) {
 			echo gettext("Press");
 		    echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'">';
 			echo gettext("Modify") ."</a> to change the periodicity";

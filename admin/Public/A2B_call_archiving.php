@@ -5,7 +5,7 @@ include_once(dirname(__FILE__) . "/../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_MISC)){ 
+if (! has_rights (ACX_MAINTENANCE)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();

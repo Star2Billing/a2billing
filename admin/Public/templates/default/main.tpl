@@ -522,7 +522,7 @@
 	
 	{/if}
 	
-	{if ($ACXMISC  > 0)}
+	{if ($ACXMAIL  > 0)}
 	<div class="toggle_menu">
 	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img17"
 	{if ($section =="17")}

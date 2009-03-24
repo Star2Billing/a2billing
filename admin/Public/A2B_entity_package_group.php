@@ -5,7 +5,7 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_package_group.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_TRUNK)){ 
+if (! has_rights (ACX_PACKAGEOFFER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
