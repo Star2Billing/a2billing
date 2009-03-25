@@ -82,6 +82,12 @@ $conf_clause = "key_val = 'vat'";
 $result = $invoice_conf_table -> Get_list($DBHandle, $conf_clause, 0);
 $vat_invoice = $result[0][0];
 
+//country convert
+$table_country= new Table('cc_country','countryname');
+$country_clause = "countrycode = '".$card['country']."'";
+$result = $table_country -> Get_list($DBHandle, $country_clause, 0);
+$card_country = $result[0][0];
+
 //Currencies check
 $curr = $card['currency'];
 $currencies_list = get_currencies();
@@ -112,8 +118,10 @@ if(!$popup_select){
      	<div class="fullname"><?php echo $card['lastname']." ".$card['firstname'] ?></div>
        	<div class="address"><span class="street"><?php echo $card['address'] ?></span> </div>
        	<div class="zipcode-city"><span class="zipcode"><?php echo $card['zipcode'] ?></span> <span class="city"><?php echo $card['city'] ?></span></div>
-      	<div class="country break"><?php echo $card['country'] ?></div>
-       	<div class="vat-number"><?php echo gettext("VAT nr.")." : ".$card['VAT_RN']; ?></div>
+      	<div class="country break"><?php echo $card_country ?></div>
+       	<?php if(!empty($card['VAT_RN'])){ ?>	
+       		<div class="vat-number"><?php echo gettext("VAT nr.")." : ".$card['VAT_RN']; ?></div>
+       	<?php } ?>
      </div>
     </td>
     <td class="two">
@@ -125,15 +133,17 @@ if(!$popup_select){
        <div class="address"><span class="street"><?php echo $address ?></span> </div>
        <div class="zipcode-city"><span class="zipcode"><?php echo $zipcode ?></span> <span class="city"><?php echo $city ?></span></div>
        <div class="country break"><?php echo $country ?></div>
-       <div class="phone"><?php echo $phone ?></div>
-       <div class="fax"><?php echo $fax ?> </div>
-       <div class="email"><?php echo $email ?></div>
+       <div class="phone"><?php echo gettext("tel").": ".$phone ?></div>
+       <div class="fax"><?php echo gettext("fax").": ".$fax ?> </div>
+       <div class="email"><?php echo gettext("mail").": ".$email ?></div>
        <div class="web"><?php echo $web ?></div>
+       <div class="vat-number"><?php echo gettext("VAT nr.")." : ".$vat_invoice; ?></div>
      </div>
     </td>
   </tr>
   <tr class="two">
     <td colspan="3" class="invoice-details">
+    <br/>
       <table class="invoice-details"> 
         <tbody><tr>
           <td class="one">
