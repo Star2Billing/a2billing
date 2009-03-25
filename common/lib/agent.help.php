@@ -53,7 +53,7 @@ $CC_help_generate_signup='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Generate a spécific crypted URL and to configure signup with a customer group and call plan.").'
+'.gettext("Generate a specific crypted URL and to configure signup with a customer group and call plan.").'
 <br/>
 </div></div></div>
 </div></div>';
@@ -136,7 +136,7 @@ $CC_help_view_refill_agent ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Agents Refill history – The section below allows you to see your refill").'
+'.gettext("Agents Refill history - The section below allows you to see your refill").'
 <br/>'.help_wiki_link('ViewAgentRefill').'
 </div></div></div>
 </div></div>';
@@ -148,7 +148,7 @@ $CC_help_view_payment_agent ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Agent Payment history – The section below allows you to browse your payments").'
+'.gettext("Agent Payment history - The section below allows you to browse your payments").'
 <br/>'.help_wiki_link('ViewPayments').'
 </div></div></div>
 </div></div>';

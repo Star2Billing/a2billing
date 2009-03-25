@@ -318,8 +318,7 @@ if ($numrow > 0) {
 	
 
 
-$FG_QUERY_EDITION = 'login, passwd, perms,secret, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, 
-country, zipcode, email, phone,  fax';
+$FG_QUERY_EDITION = 'login, passwd, perms,secret, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 

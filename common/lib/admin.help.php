@@ -55,7 +55,7 @@ $CC_help_generate_signup='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Generate a spécific crypted URL and to configure signup with a customer group and call plan.").'
+'.gettext("Generate a specific crypted URL and to configure signup with a customer group and call plan.").'
 <br/>
 </div></div></div>
 </div></div>';
@@ -211,7 +211,7 @@ $CC_help_view_commission_agent ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Agents Commission history – The section below allows you to add commissions against an agent. Normally the commissions are generated automatically by the customer’s payment.").'
+'.gettext("Agents Commission history - The section below allows you to add commissions against an agent. Normally the commissions are generated automatically by the customer's payment.").'
 <br/>'.help_wiki_link('ViewCommissions').'
 </div></div></div>
 </div></div>';
@@ -235,7 +235,7 @@ $CC_help_view_payment_agent ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Agent Payment history – The section below allows you to add payments against an agent. Note that this does not change the balance on the account. Click on 'create associate refill' when you create  a payment to top-up an account.").'
+'.gettext("Agent Payment history - The section below allows you to add payments against an agent. Note that this does not change the balance on the account. Click on 'create associate refill' when you create  a payment to top-up an account.").'
 <br/>'.help_wiki_link('ViewPayments').'
 </div></div></div>
 </div></div>';
@@ -307,7 +307,7 @@ $CC_help_view_refill_agent ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Agents Refill history – The section below allows you to add refills against an agent. Note that this changes the balance on the account.").'
+'.gettext("Agents Refill history - The section below allows you to add refills against an agent. Note that this changes the balance on the account.").'
 <br/>'.help_wiki_link('ViewAgentRefill').'
 </div></div></div>
 </div></div>';
@@ -520,7 +520,7 @@ $CC_help_admin_list ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("Administrators – this shows a list of all the Administrators who have access to the Administrator interface.").'
+	.gettext("Administrators - this shows a list of all the Administrators who have access to the Administrator interface.").'
 <br/>'.help_wiki_link('ShowAdministrator').'<br/>
 </div></div></div>
 </div></div>';
@@ -533,7 +533,7 @@ $CC_help_list_log ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("The system log helps you track all events on your application. Log levels are the Importance Levels for the events – “1” is lowest level and “3” is highest level. 1 is used for Login, Logout and Page Visit. 2 is used for Add, Import, Export. 3 is for Update and Delete.").'
+	.gettext("The system log helps you track all events on your application. Log levels are the Importance Levels for the events - 1 is lowest level and 3 is highest level. 1 is used for Login, Logout and Page Visit. 2 is used for Add, Import, Export. 3 is for Update and Delete.").'
 <br/>'.help_wiki_link('SystemLog').'<br/>
 </div></div></div>
 </div></div>';
@@ -844,7 +844,7 @@ $CC_help_phonelist ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
 	<div class="w2"><br/>'
-	.gettext("Phone Number – here you will find a list of all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers.").'
+	.gettext("Phone Number - here you will find a list of all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers.").'
 	<br/><br/>
 </div></div></div>
 </div></div>';
@@ -1022,7 +1022,7 @@ $CC_help_list_subscription='<div class="toggle_show2hide">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/config-date.gif" class="kikipic"/>
 	<div class="w2">'
-.gettext("SUBSCRIPTION FEE – You can bill the user  in a monthly, weekly or any time period for being subscribed on your service. The fee amount is defined here and the period through the cront configuration.").'
+.gettext("SUBSCRIPTION FEE - You can bill the user  in a monthly, weekly or any time period for being subscribed on your service. The fee amount is defined here and the period through the cront configuration.").'
 <br/>'.help_wiki_link('ListSubscription').'<br/><br/>
 </div></div></div>
 </div></div>
@@ -1227,7 +1227,7 @@ $CC_help_agent ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("Agents – this shows a list of all of the Agents who have access to the Agent interface").'
+	.gettext("Agents - this shows a list of all of the Agents who have access to the Agent interface").'
 <br/>'.help_wiki_link('ShowAgent').'<br/>
 </div></div></div>
 </div></div>';

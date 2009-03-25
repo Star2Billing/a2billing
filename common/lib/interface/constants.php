@@ -111,7 +111,7 @@ class Constants
 		$invoice_status_list = array();
 		$invoice_status_list['0'] = array( gettext('OPEN'), '0');
 		$invoice_status_list['1'] = array( gettext('CLOSE'), '1');
-		$invoice_status_list['2'] = array( gettext(''), '');
+		$invoice_status_list['2'] = array( '', '');
 		return $invoice_status_list;
 	}
 	
