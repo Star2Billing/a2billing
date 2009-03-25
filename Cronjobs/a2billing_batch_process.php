@@ -42,12 +42,6 @@ $run = 1; #set to 0 if u want to just report, no updates. must be set to 1 on pr
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
 
-if ($A2B->config["database"]['dbtype'] == "postgres") {
-	$UNIX_TIMESTAMP = "date_part('epoch',";
-} else {
-	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
-}
-
 write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[#### BATCH BEGIN ####]");
 
 if (!$A2B->DbConnect()) {
@@ -61,7 +55,7 @@ $instance_table = new Table();
 $oneday = 60 * 60 * 24;
 
 // CHECK THE SERVICES
-$QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, $UNIX_TIMESTAMP datelastrun), emailreport, totalcredit,totalcardperform,dialplan,operate_mode,use_group FROM cc_service WHERE status=1 AND  $UNIX_TIMESTAMP cc_service.datelastrun)<$UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $oneday  + $time_checks *60  ORDER BY id DESC";
+$QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, UNIX_TIMESTAMP(datelastrun), emailreport, totalcredit,totalcardperform,dialplan,operate_mode,use_group FROM cc_service WHERE status=1 AND  UNIX_TIMESTAMP(cc_service.datelastrun)<UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday  + $time_checks *60  ORDER BY id DESC";
 if ($verbose_level >= 1)
 	echo $QUERY;
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
@@ -107,15 +101,15 @@ foreach ($result as $myservice) {
 	// RULES  
 	if ($rule == 3) {
 		$filter .= " -- card last run date <= period
-		 		AND $UNIX_TIMESTAMP servicelastrun) <= $UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $oneday * $period ";
+		 		AND UNIX_TIMESTAMP(servicelastrun) <= UNIX_TIMESTAMP (CURRENT_TIMESTAMP) - $oneday * $period ";
 	}
 	if (($rule == 1) && ($rule_day > 0)) {
 		$filter .= " -- Apply service if card NO used in last y days
-				AND $UNIX_TIMESTAMP lastuse) < $UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $oneday ";
+				AND UNIX_TIMESTAMP(lastuse) < UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday ";
 	}
 	if (($rule == 2) && ($rule_day > 0)) {
 		$filter .= " -- Apply service if card used in last y days
-		                AND $UNIX_TIMESTAMP lastuse) >= $UNIX_TIMESTAMP CURRENT_TIMESTAMP) - $oneday ";
+		                AND UNIX_TIMESTAMP(lastuse) >= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday ";
 	}
 	//stopmode variants
 	if ($stopmode == 2) {
