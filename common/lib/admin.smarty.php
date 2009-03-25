@@ -40,6 +40,7 @@ $smarty->assign("ACXBILLING", $ACXBILLING);
 $smarty->assign("ACXRATECARD", $ACXRATECARD);
 $smarty->assign("ACXTRUNK", $ACXTRUNK);
 $smarty->assign("ACXDID", $ACXDID);
+$smarty->assign("ACXMAIL", $ACXMAIL);
 $smarty->assign("ACXCALLREPORT", $ACXCALLREPORT);
 $smarty->assign("ACXCRONTSERVICE", $ACXCRONTSERVICE);
 $smarty->assign("ACXMISC", $ACXMISC);
