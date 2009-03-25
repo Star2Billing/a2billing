@@ -11,8 +11,6 @@ if (! has_rights (ACX_MAIL)) {
 	die();
 }
 
-
-
 $HD_Form = new FormHandler("cc_card");
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 $HD_Form -> setDBHandler (DbConnect());
@@ -86,13 +84,9 @@ getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_cu
 
 if(isset($submit)) {
 	
-	
 	foreach ($list_customer as $cc_customer){
-		
 		$messagetext = $message;
 		//  $email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency
-		
-		
 		$email = $cc_customer[1];
 		$credit = $cc_customer[2];
 		$currency = $cc_customer[3];
@@ -164,7 +158,7 @@ if(!isset($submit)) {
 </div>
 
 <?php 
-	}
+}
 
 // #### CREATE FORM OR LIST
 if (strlen($_GET["menu"])>0) {
@@ -174,19 +168,19 @@ if (strlen($_GET["menu"])>0) {
 <FORM action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="mass_mail"> 
 	<table class="editform_table1" cellspacing="2">
 <?php
-if(isset($submit)){
-		if($result){
+if(isset($submit)) {
+		if($result) {
 ?>
 		<TR> 
 		 <td align="center" colspan="2"><?php echo gettext("The e-mail has been sent to "); echo $total_customer; echo gettext(" customer(s)!")?></td>
 		</TR>
-	<?php }else{?>
+	<?php } else {?>
 		<tr> 
 		 <td align="center" colspan="2"><?php echo gettext("There is some error sending e-mail, please try later.");?></td>
 	   </tr>
-	<?php }?>	
+	<?php 
+		}
 	
-<?php 
 	} else {
 		if(is_array($list_customer) || $nb_customer > 1) {
 ?>
@@ -249,7 +243,7 @@ if(isset($submit)){
 			<td align="right">
 			<input class="form_input_button" name="submit"  TYPE="submit" VALUE="<?php echo gettext("EMAIL");?>"></td>
 		</tr>
-			<?php }else{?>
+			<?php } else {?>
 		<tr>
 			 <td colspan="2" align="center"><?php echo gettext("No Record Found!");?></td>
 		</tr>
@@ -265,4 +259,3 @@ if(isset($submit)){
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>

@@ -18,7 +18,19 @@ Contents
 	> xgettext -n --no-wrap *.php 
 	if you want xgettext to traverse the child directories and search for ".inc" and ".php" files.
 	> find -follow | grep [.][p,i][h,n][p,c]$ | xargs xgettext -n --no-wrap
-	??? find a way to ignore defines.agent etc...
+
+	customer UI : 
+		cd customer
+		find -follow | grep [.][p,i][h,n][p,c]$  | grep -v "admin.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+
+	admin UI : 
+		cd admin
+		find -follow | grep [.][p,i][h,n][p,c]$  | grep -v "customer.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+		
+	agent UI : 
+		cd agent
+		find -follow | grep [.][p,i][h,n][p,c]$  | grep -v "admin.*" | grep -v "customer.*" | xargs xgettext -n --no-wrap
+		
 
 	this will get all the gettext entries from the all php file and generate a po file.
 
