@@ -3,11 +3,16 @@
 REQUIREMENTS :
 --------------
 
+
     * Apache 2
+    
+    * Asterisk 1.x
     
     * PHP 5 >= 5.2.0
     
     * PHP-PGSQL or PHP-MYSQL
+
+    * PHP-MCRYPT
     
     * PHP-PCNTL
     
