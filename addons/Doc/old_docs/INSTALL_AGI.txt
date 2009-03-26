@@ -1,0 +1,153 @@
+
+====================================================================
+			A2Billing : QUICK INSTALLATION GUIDE FOR AGI
+====================================================================
+
+
+
+1. Edit common/lib/Class.A2Billing.php and set AST_CONFIG_DIR 
+	
+	mkdir /usr/local/a2billing
+	cp * /usr/local/a2billing/
+	ls /usr/local/a2billing/
+	you might see this :
+	*	a2billing.conf    admin    AGI    CallBack   common    customer  LICENSE	 addons    agent  CHANGELOG  Cronjobs  DataBase  
+
+   Link the agi for asterisk in your agi-bin directory.
+	 ln -s /usr/local/a2billing/AGI/a2billing.php /var/lib/asterisk/agi-bin/a2billing.php
+
+
+2. Make sure the script is runnable 
+     chmod +x a2billing.php
+
+
+4. Copy the sounds files
+	cp -r addons/sounds/en/* /var/lib/asterisk/sounds/.
+
+	 	 
+5. Create a Database use  a2billing-pgsql-schema.psql for postgres
+
+
+6. Setup your Database into the application
+
+	cp a2billing.conf /etc/asterisk/a2billing.conf
+	
+	vim /etc/asterisk/a2billing.conf
+	
+	see section [database]
+	
+    * hostname : This is the Database host name (ie: localhost)
+    
+    * port: Database port (ie: 5432)
+    
+    * user: Username to access to the database (ie: username)
+    
+    * password: Database password of the user (ie: mypassword)
+    
+    * dbname: Name of the Database (ie: a2billing)
+    
+    * dbtype: Database type, support postgres or mysql (ie: mysql)
+
+		
+		
+
+7. Setup the callingcard application into Asterisk
+	Edit extensions.conf (/etc/asterisk/extensions.conf)
+	Add the following link to the appropriate context
+	
+
+[a2billing]
+exten => _.,1,Answer(1)
+exten => _.,n,DeadAgi(a2billing.php|1)
+exten => _.,n,Hangup
+
+[a2billing-callback]
+exten => _.,1,DeadAgi(a2billing.php|1|callback)
+exten => _.,n,Hangup
+
+[a2billing-cid-callback]
+exten => _.,1,DeadAgi(a2billing.php|1|cid-callback|34) ;last parameter is the callback area code
+exten => _.,n,Hangup
+
+[a2billing-all-callback]
+exten => _.,1,DeadAgi(a2billing.php|1|all-callback|34) ;last parameter is the callback area code
+exten => _.,n,Hangup	
+
+[a2billing-predictivedialer]
+exten => _.,1,DeadAgi(a2billing.php|1|predictivedialer)	
+exten => _.,n,Hangup
+
+[a2billing-did]
+exten => _.,1,DeadAgi(a2billing.php|1|did)
+exten => _.,2,Hangup
+
+[a2billing-voucher]
+exten => _.,1,Answer(1)
+exten => _.,n,DeadAgi(a2billing.php|1|voucher)
+;exten => _.,n,AGI(a2billing.php|1|voucher|44) ; will add 44 in front of the callerID for the CID authentication
+exten => _.,n,Hangup	
+
+[a2billing_dispatch]
+exten => _.,1,Gotoif($[${RAND(0,100)} < 50]?${EXTEN}|3:${EXTEN}|5)
+exten => _.,2,Hangup
+; REDIRECT TO A2BILLING
+exten => _.,3,Goto(a2billing,${EXTEN},1)
+exten => _.,4,Hangup
+; REDIRECT TO OTHER SERVER WITH A2BILLING
+exten => _.,5,Goto(a2billing-second-server,${EXTEN},1)
+exten => _.,6,Hangup
+
+[a2billing-second-server]
+;exten => _.,1,Dial(IAX2/${EXTEN}@IP_SECOND_SERVER)
+exten => _.,1,Dial(SIP/${EXTEN}@IP_SECOND_SERVER)
+; Use canreinvite to not pass the media through the first box
+
+
+; As fourth parameter we pass the reference ID of the Agent 
+[a2billing_autocreate_example]
+exten => _.,1,Answer(1)
+exten => _.,n,DeadAgi(a2billing.php|1|standard|0|%REF_AGENT%)
+exten => _.,n,Hangup
+
+
+
+8. Edit sip.conf and add :
+	
+	#include additional_a2billing_sip.conf 
+	
+	This is to include the sip friends
+
+
+9. Edit iax.conf and add :
+	
+	#include additional_a2billing_iax.conf 
+	
+	This is to include the iax friends
+
+
+10. Set the rigth permissions ( apache in debian is www-data ).
+
+	chown -R asterisk:apache /etc/asterisk
+	chmod -R 774 /etc/asterisk
+
+
+11. Configure the Asterisk manager...
+
+	[general]
+	enabled = yes
+	port = 5038
+	bindaddr = 127.0.0.1 
+
+
+	Add an entry to allow a manager connection, like
+	
+	[myasterisk]
+	secret = mycode						
+	read = system,call,log,verbose,command,agent,user
+	write = system,call,log,verbose,command,agent,user 
+
+
+12. RELOAD ASTERISK
+
+
+
