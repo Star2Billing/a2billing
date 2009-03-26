@@ -3,7 +3,7 @@
 									CALLBACK : WSDL
 ****************************************************************************************************
 
-http://domain/A2Billing_UI/api/SOAP/callback-exec.php?wsdl
+http://domain/webservice/SOAP/callback-exec.php?wsdl
 
 
 <?xml version="1.0"?>

@@ -3,7 +3,7 @@
 									CARD : WSDL
 ****************************************************************************************************
 
-http://domain/A2Billing_UI/api/SOAP/soap-card-server.php?wsdl
+http://domain/webservice/SOAP/soap-card-server.php?wsdl
 
 
 <?xml version="1.0"?><definitions name="Cards" targetNamespace="urn:Cards" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:Cards" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">

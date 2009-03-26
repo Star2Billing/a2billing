@@ -19,7 +19,7 @@ Rate API is a Webservice that enable you to integrate it in your Website. and Di
 You can integrate the API with following steps.
 
    i). Paste the Following line in your page, Where you want to display data from this API.
-		   include ("<Web Server Address>a2billing/trunk/A2Billing_UI/api/display_ratecard.php?ratecardid=6&key=0951aa29a67836b860b0865bc495225c&page_url=<Your PAGE  URL>&field_to_display=t1.destination,t5.countryprefix,t1.dialprefix,t1.rateinitial&column_name=Destination,Country,Prefix,Rate/
+		   include ("<Web Server Address>a2billing/trunk/webservice/display_ratecard.php?ratecardid=6&key=0951aa29a67836b860b0865bc495225c&page_url=<Your PAGE  URL>&field_to_display=t1.destination,t5.countryprefix,t1.dialprefix,t1.rateinitial&column_name=Destination,Country,Prefix,Rate/
 Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
  ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial&column_name=Destination,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 
@@ -71,7 +71,7 @@ Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
    		value accepted : 0 or 1 
 		1 will show the html header in the page
 		if not we will advice to add the css in your html page to display nicely the ratecard : 
-		add : <link href="http://a2billingserver/api/api_ratecard.css" rel="stylesheet" type="text/css">
+		add : <link href="http://a2billingserver/webservice/api_ratecard.css" rel="stylesheet" type="text/css">
 
 
 
@@ -85,3 +85,7 @@ Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 	c) 400 Bad Request. That mean that your have invalid Key. Please make sure that you are providing correct key.
 	
 	d) Ensure that the htaccess in "api" directory will authorize your server IP
+	
+	
+	
+	
