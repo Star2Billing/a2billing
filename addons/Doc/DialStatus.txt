@@ -1,6 +1,9 @@
-Asterisk channel variable DIALSTATUS
 
-Contains a text string signifying result of the last dial attempt:
+
+Asterisk channel variable DIALSTATUS
+------------------------------------------
+
+Contains a text string signifying result of the last dial attempt :
 
     * ANSWER: Call is answered. A successful dial. The caller reached the callee.
     * BUSY: Busy signal. The dial command reached its number but the number is busy.
@@ -16,30 +19,17 @@ Contains a text string signifying result of the last dial attempt:
 
 A2Billing Translation to :
 
-
-1 => ANSWER / ANSWERED
-2 => BUSY
-3 => NOANSWER
-4 => CANCEL
-5 => CONGESTION
-6 => CHANUNAVAIL
-7 => DONTCALL
-8 => TORTURE
-9 => INVALIDARGS
-
+	1 => ANSWER / ANSWERED
+	2 => BUSY
+	3 => NOANSWER
+	4 => CANCEL
+	5 => CONGESTION
+	6 => CHANUNAVAIL
+	7 => DONTCALL
+	8 => TORTURE
+	9 => INVALIDARGS
 
 
-ALTER TABLE cc_call ADD COLUMN terminatecauseid INT (1) DEFAULT 1;
-UPDATE cc_call SET terminatecauseid=1 WHERE terminatecause='ANSWER';
-UPDATE cc_call SET terminatecauseid=1 WHERE terminatecause='ANSWERED';
-UPDATE cc_call SET terminatecauseid=2 WHERE terminatecause='BUSY';
-UPDATE cc_call SET terminatecauseid=3 WHERE terminatecause='NOANSWER';
-UPDATE cc_call SET terminatecauseid=4 WHERE terminatecause='CANCEL';
-UPDATE cc_call SET terminatecauseid=5 WHERE terminatecause='CONGESTION';
-UPDATE cc_call SET terminatecauseid=6 WHERE terminatecause='CHANUNAVAIL';
 
-ALTER TABLE cc_call DROP terminatecause;
- ALTER TABLE `cc_call` ADD INDEX ( terminatecauseid );
- 
  
  
