@@ -4,21 +4,22 @@ REQUIREMENTS :
 --------------
 
     * Apache 2
+    
     * PHP 5 >= 5.2.0
+    
     * PHP-PGSQL or PHP-MYSQL
+    
     * PHP-PCNTL
+    
     * PHP-GETTEXT
+    
     * PEAR SOAP class
+    
     * PostgreSQL 8.x or MySQL 5.x
-    * Use PHPAGI 2.14 included (http://phpagi.sourceforge.net written by Matthew Asham)
-	* Freetype (for signup captcha)
+    
+	* For the CallBack Daemon
+		python >= 2.4
+		python-mysqldb
+		python-psycopg2
+		python-sqlalchemy
 	
-	* Perl (CallBack Daemon)
-		o Perl >= 5.6.1
-		Perl module DBD::Pg
-		Perl module DBD::MySQL
-		Perl module Config::IniFiles
-		
-		yum install perl-DBD-MySQL perl-DBD-Pg perl-DBI
-	
-	* etc...
