@@ -1,0 +1,25 @@
+
+********************************************************************
+               		  VOICEMAIL
+********************************************************************
+
+Install Asterisk asterisk-addons for Realtime
+
+configure db connection :
+ - /etc/asterisk/res_mysql.conf
+ - /etc/asterisk/res_pgsql.conf
+ 
+ 
+Add in 
+
+voicemail => mysql,a2billing,voicemail_users
+or
+voicemail => pgsql,a2billing,voicemail_users
+
+
+http://www.voip-info.org/wiki/view/Asterisk+RealTime+Voicemail
+
+
+check out :
+http://www.littlejohnconsulting.com/ari
+
