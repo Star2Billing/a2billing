@@ -8,19 +8,21 @@ REQUIREMENTS :
     
     * Asterisk 1.x
     
+    * PostgreSQL 8.x or MySQL 5.x
+    
     * PHP 5 >= 5.2.0
     
     * PHP-PGSQL or PHP-MYSQL
 
     * PHP-MCRYPT
+	
+	* PHP-GD
     
     * PHP-PCNTL
     
     * PHP-GETTEXT
     
     * PEAR SOAP class
-    
-    * PostgreSQL 8.x or MySQL 5.x
     
 	* For the CallBack Daemon
 		python >= 2.4
