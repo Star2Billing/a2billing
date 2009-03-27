@@ -22,8 +22,6 @@ session_start();
 // A2B INSTANCE
 $A2B = new A2Billing();
 
-
-
 // Store script start time
 $_START_TIME = time();
 
@@ -35,7 +33,6 @@ $restircted_url = substr($URI,-16);
 define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();
-
 
 
 // LOAD THE CONFIGURATION
@@ -141,11 +138,8 @@ define ("DIDX_RING_TO", isset($A2B->config['webui']['didx_ring_to'])?$A2B->confi
 define ("ASTERISK_VERSION", isset($A2B->config['agi-conf1']['asterisk_version'])?$A2B->config['agi-conf1']['asterisk_version']:'1_4');
 
 
-/*
- *		GLOBAL USED VARIABLE
- */
+// GLOBAL USED VARIABLE
 $PHP_SELF = $_SERVER["PHP_SELF"];
-
 $CURRENT_DATETIME = date("Y-m-d H:i:s");		
 
 /*
