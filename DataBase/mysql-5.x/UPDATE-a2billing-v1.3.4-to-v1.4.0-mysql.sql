@@ -1297,6 +1297,7 @@ ALTER TABLE cc_iax_buddies CHANGE username username VARCHAR(80) NOT NULL;
 ALTER TABLE cc_iax_buddies CHANGE disallow disallow VARCHAR(100) NOT NULL;
 ALTER TABLE cc_iax_buddies CHANGE allow allow VARCHAR(100) NOT NULL;
 ALTER TABLE cc_iax_buddies CHANGE musiconhold musiconhold VARCHAR(100) NOT NULL;
+ALTER TABLE cc_iax_buddies CHANGE canreinvite canreinvite VARCHAR(20) NOT NULL;
 
 ALTER TABLE cc_sip_buddies CHANGE name name VARCHAR(80) NOT NULL;
 ALTER TABLE cc_sip_buddies CHANGE accountcode accountcode VARCHAR(20) NOT NULL;
@@ -1319,7 +1320,7 @@ ALTER TABLE cc_sip_buddies CHANGE allow allow VARCHAR(100) NOT NULL;
 ALTER TABLE cc_sip_buddies CHANGE musiconhold musiconhold VARCHAR(100) NOT NULL;
 ALTER TABLE cc_sip_buddies CHANGE fullcontact fullcontact VARCHAR(80) NOT NULL;
 ALTER TABLE cc_sip_buddies CHANGE setvar setvar VARCHAR(100) NOT NULL;
-
+ALTER TABLE cc_sip_buddies CHANGE canreinvite canreinvite VARCHAR(20) NOT NULL;
 
 
 -- ------------------------------------------------------
