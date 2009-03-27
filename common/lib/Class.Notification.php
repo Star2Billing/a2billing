@@ -68,6 +68,23 @@ Class Notification {
 		return $this->from_type;
 	}
 	
+	function getFromDisplay() {
+		$display = "";
+		switch($this->from_type){
+			case 0: $display.= "ADMIN: ".getnameofadmin($this->from_id);
+					break;
+			case 1:$display.= "AGENT: ".getnameofagent($this->from_id);
+					break;
+			case 2:$display.= "CUST: ".getnameofcustomer_id($this->from_id);
+					break;
+			case 3:$display.= gettext("BATCH");
+					break;
+			case -1 :$display.= gettext("UNKNOWN");
+					break;
+		}
+		return $display;
+	}
+	
 	function getFromId() {
 		return $this->from_id;
 	}

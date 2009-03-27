@@ -404,16 +404,26 @@ function infocustomer_id($id)
 
 function nameofadmin($id)
 {	
+    echo getnameofadmin($id);
+}
+
+function getnameofadmin($id)
+{	
 	$handle = DbConnect();
 	$inst_table = new Table("cc_ui_authen", "login,name");
-	$FG_TABLE_CLAUSE = "id = '$id'";
+	$FG_TABLE_CLAUSE = "userid = '$id'";
 	$list_admin = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	if(is_array($list_admin))$value = $list_admin[0][1]." (".$list_admin[0][0].")";
 	else $value="";
-    echo $value;
+    return $value;
 }
 
 function nameofcustomer_id($id)
+{	
+    echo getnameofcustomer_id($id);
+}
+
+function getnameofcustomer_id($id)
 {	
 	$handle = DbConnect();
 	$inst_table = new Table("cc_card", "username,firstname,lastname");
@@ -421,7 +431,7 @@ function nameofcustomer_id($id)
 	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	if(is_array($list_customer))$value = $list_customer[0][1]." ".$list_customer[0][2]." (".$list_customer[0][0].")";
 	else $value="";
-    echo $value;
+    return $value;
 }
 
 
@@ -442,13 +452,17 @@ function linktoagent($id)
 
 function nameofagent($id)
 {
+    echo getnameofagent($id);
+}
+function getnameofagent($id)
+{
 	$handle = DbConnect();
 	$inst_table = new Table("cc_agent", "login,firstname,lastname");
 	$FG_TABLE_CLAUSE = "id = '$id'";
 	$list_agent = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	if(is_array($list_agent))$value = $list_agent[0][1]." ".$list_agent[0][2]." ( login: ".$list_agent[0][0].")";
 	else $value="";
-    echo $value;
+    return $value;
 }
 
 

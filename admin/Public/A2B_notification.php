@@ -89,16 +89,13 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 	</tr>
 	<?php } ?>
 	<tr class="form_head">
-		<td class="tableBody"  width="7%" align="center" style="padding: 2px;">
-		 <?php echo gettext("ID"); ?>
-		</td>
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
 		<?php echo gettext("DATE"); ?>
 		</td>
-		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		<td class="tableBody"  width="25%" align="center" style="padding: 2px;">
 		<?php echo gettext("FROM"); ?>
 		</td>
-		<td class="tableBody"  width="48%" align="center" style="padding: 2px;">
+		<td class="tableBody"  width="45%" align="center" style="padding: 2px;">
 		<?php echo gettext("SUBJECT"); ?>
 		</td>
 		<td class="tableBody"  width="7%" align="center" style="padding: 2px;">
@@ -127,15 +124,12 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 			}
 	?>
 			<tr id="<?php echo $notification->getId(); ?>" bgcolor="<?php echo $bg; ?>" <?php if($notification->getNew()){ ?> class="newrecord" <?php } ?> >
-				<td class="tableBody" align="center">
-				  <?php echo $notification->getId(); ?>
-				</td>
 			
 				<td class="tableBody" align="center">
 				  <?php echo $notification->getDate(); ?>
 				</td>
 				<td class="tableBody"  align="center">
-				  <?php echo $notification->getFromId(); ?>
+				  <?php echo $notification->getFromDisplay(); ?>
 				</td>
 				<td class="tableBody"  align="center">
 				  <?php echo $notification->getKeyMsg(); ?>
