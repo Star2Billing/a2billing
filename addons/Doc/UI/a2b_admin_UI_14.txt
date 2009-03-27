@@ -1,0 +1,137 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.4 (c) AGPL 2003-2009                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Admin UI design                                                                          *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AEP                                                                                     *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+This is the design of the Admin UI. It can serve for a template for:
+
+	* Future Documentation
+See: http://www.asterisk2billing.org/cgi-bin/trac.cgi/wiki/A2Billing-1-4-Admin-GUI
+
+	* Training
+
+	* Slides
+
+
+
+# CUSTOMERS
+o Add - Search
+o Import
+o VoIP Settings
+o Caller-ID
+o Credit Notification
+o Groups
+o Card series
+o Speed Dial
+o History
+o Status
+# AGENTS
+o Add -- Search
+o Signup URLs
+# ADMINS
+o Add -- Search
+o Access Control
+# SUPPORT
+o Customer Tickets
+o Agent Tickets
+o Ticket Components
+o Support Boxes
+# CALL REPORTS
+o CDRs
+o Call Count
+o Trunk
+o DNID
+o PNL
+o Compare Calls
+o Daily Traffic
+o Monthly Traffic
+# RATES
+o Call Plan
+o RateCards
+o ..Import
+o ..Merge
+o ..Simulator
+o Rates
+# PROVIDERS
+o Providers
+o Trunks
+o Prefixes
+# INBOUND DID
+o Add - Search
+o Groups
+o Destination
+o Import [CSV]
+o Import [DIDX]
+o Usage
+o Billing
+# OUTBOUND CID
+o Add
+o Groups
+# BILLING
+o Vouchers
+o Customers Balance
+o ..Transactions
+o ..Billings
+o ..Refills
+o Payments
+o E-Payment Log
+o Charges
+o Agents Commissions
+o ..Transactions
+o .. Refills
+o .. Payments
+o .. E-Payment Log
+o Methods
+o Currency List
+o E-Products
+# INVOICES
+o Receipts
+o Invoices
+o Configuration
+# PACKAGE OFFER
+o Add
+o Group
+o Details
+# RECUR SERVICE
+o Account Service
+o Subscriptions
+o Subscribers
+o AutoRefill Report
+# CALLBACK
+o Add
+o Server Group
+o Server
+# CAMPAIGNS
+o Add
+o Config
+o Phone Book
+o Add Number
+o Import
+# MAINTENANCE
+o Alarms
+o Users Activity
+o Database Backup
+o Database Restore
+o MusicOnHold
+o Upload File
+o Watch Log files
+o Archiving
+o Asterisk Info
+o phpSysInfo
+o phpInfo
+# MAIL
+o Mail templates
+o Mass Mail
+# SYSTEM SETTINGS
+o Global List
+o Group List
+o Add agi-conf
+o * Config Editor
