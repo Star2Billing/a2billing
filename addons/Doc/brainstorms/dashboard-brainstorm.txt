@@ -1,0 +1,62 @@
+DASHBOARD
+
+Multiple infos on your systems today..
+
+Possibility to consult some infos ot this dashboard for a last date..
+
+Customer
+===============
+- last 10 created users
+- last 10 users calling
+- number of actived card in the system today
+- number of expired card today.
+
+BILLING
+===============
+- Last 10 refill of the day
+- last 10 payment log of the day
+- last 10 voucher used today 
+- number of refill and payment today
+- Resume of the money situation(TOTAL CREDIT , TOTAL REFILL, TOTAL PAYMENT, TOTAL TOPAY)
+
+CALL REPORT 
+=============
+- last 10 calls (short format)
+- summary of the current day :
+comme ds call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6
+2008-06-11      408:52
+       136     03:00   0.00    19.222 eur      16.004 eur      3.218 eur       16.74%  20.11%
+
+- 10 most called destination of the Day
+- Resume of monthly/daily traffic
+
+Callback
+==========
+- callback of the days
+
+UI LOG
+========
+- last 10 logs A2B_entity_log_viewer.php?section=10
+
+
+SUPORT
+==========
+- last Tickets updated (with a new comment and new ticket )
+
+
+RECURRING SERVICE
+====================
+
+Services that they runned today
+last 10 alarms logs
+Number of card subscrite by services.
+
+RATECARD
+===========
+
+Minutes used today by ratecards (also monthly, totaly)
+
+TRUNK
+========
+
+minute used today by  trunks (also monthly, totaly)

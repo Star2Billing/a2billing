@@ -1,0 +1,63 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.4 (c) AGPL 2003-2009                                                                *
+* Documentation                                                                                   *
+*                                                                                                 *
+* Title: Localization tips                                                                        *
+* Date: April 2009                                                                                *
+* Version: 1.0                                                                                    *
+* Author: AB                                                                                      *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+Key Terms
+	1. MO => Machine Object File
+	2. PO => Portable Object File
+
+
+
+Contents
+	1. Generation of the Portable Objects Files.
+	2. Generation of Machine Object Files.
+	3. Merging the PO Files
+
+1. Generation of the Portable Objects Files
+
+	you can generate the po file with the help of xgettext utility.
+	
+	> xgettext -n --no-wrap *.php 
+	if you want xgettext to traverse the child directories and search for ".inc" and ".php" files.
+	> find -follow | grep [.][p,i][h,n][p,c]$ | xargs xgettext -n --no-wrap
+
+customer UI : 
+	cd customer
+	find -follow | grep [.][p,i][h,n][p,c]$  | grep -v "admin.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+
+admin UI : 
+	cd admin
+	find -follow | grep [.][p,i][h,n][p,c]$  | grep -v "customer.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+		
+agent UI : 
+	cd agent
+	find -follow | grep [.][p,i][h,n][p,c]$  | grep -v "admin.*" | grep -v "customer.*" | xargs xgettext -n --no-wrap
+		
+
+this will get all the gettext entries from the all php file and generate a po file.
+
+
+2. Generation of Machine Object Files
+
+	you can convert your po file when it is translated, to the mo file. mo file is the binary file.
+	
+	> msgfmt messages.po  
+	this will generate a mo file.
+
+
+3. Merging the PO Files
+
+	you can merge your po files if you have changed your text in the files and regenerate a po file.
+	
+	> msgmerge --no-wrap old.po  messages.po --output-file=new.po
+	this will generate a mo file.
