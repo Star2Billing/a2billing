@@ -13,6 +13,7 @@ include_once (FSROOT."lib/mail/class.phpmailer.php");
 
 // INCLUDE MISC
 include (FSROOT."lib/Misc.php");
+include (dirname(__FILE__)."/Class.NotificationsDAO.php");
 
 session_name("UIADMINSESSION");
 session_start();
@@ -283,4 +284,6 @@ if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/inde
 	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 	$log = null;
 }
+
+$NEW_NOTIFICATION = NotificationsDAO::IfNewNotification($_SESSION["admin_id"]);
 

@@ -1806,3 +1806,20 @@ ALTER TABLE cc_logpayment DROP reseller_id;
 ALTER TABLE cc_logrefill DROP reseller_id;
 
 
+-- Add notification system
+CREATE TABLE cc_notification (
+	id BIGINT NOT NULL auto_increment,
+	key VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	priority TINYINT NOT NULL DEFAULT '0',
+	from_type TINYINT NOT NULL ,
+	from_id BIGINT NULL DEFAULT '0',
+	PRIMARY KEY ( id )
+) ENGINE = MYISAM ;
+
+CREATE TABLE cc_notification_admin (
+	id_notification BIGINT NOT NULL ,
+	id_admin INT NOT NULL ,
+	viewed TINYINT NOT NULL DEFAULT '0',
+	PRIMARY KEY ( id_notification , id_admin )
+) ENGINE = MYISAM 

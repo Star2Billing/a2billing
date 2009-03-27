@@ -56,7 +56,7 @@ echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?usernam
 ?>
 
 
-<table width="95%" >	
+<table width="95%">	
 	<tr>		
 		<td valign="top" width="50%" >
 			<table width="100%" class="editform_table1">

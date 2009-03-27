@@ -420,7 +420,7 @@ if(sizeof($payment_result)>0 && $payment_result[0]!=null) {
 		<?php echo gettext("DESCRIPTION"); ?>
 		</td>
 		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
-		ID REFILL
+		<?php echo gettext("ID REFILL"); ?>
 		</td>
 		
 	</tr>

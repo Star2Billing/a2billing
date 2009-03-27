@@ -50,6 +50,17 @@
 </ul>
 {/if}
 <ul id="nav">
+		<ul><li> <a href="A2B_notification.php" style="height:14px;text-align:left;"> 
+			<strong style="font-size:12px;"> {php} echo gettext("NOTIFICATION");{/php}</strong>&nbsp;
+		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/email.png"> 
+		{if ($NEW_NOTIFICATION > 0) }
+			<strong style="font-size:8px; color:red;"> {php} echo gettext("NEW");{/php}</strong>
+		{/if}
+		  </a>
+		</li></ul>
+  	<li><a href="#" target="_self"></a></a></li>
+</ul>
+<ul id="nav">
   
   	{if ($ACXCUSTOMER > 0) }
 	<div class="toggle_menu">
