@@ -195,3 +195,5 @@ $ACXMODIFY_REFILLS 		= has_rights (ACX_MODIFY_REFILLS);
 $ACXMODIFY_PAYMENTS 	= has_rights (ACX_MODIFY_PAYMENTS);
 $ACXMODIFY_CUSTOMERS 	= has_rights (ACX_MODIFY_CUSTOMERS);
 
+
+if(isset($_SESSION["admin_id"]))$NEW_NOTIFICATION = NotificationsDAO::IfNewNotification($_SESSION["admin_id"]);
