@@ -4,14 +4,18 @@ include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
 
 
-if (! has_rights (ACX_ACCESS)){ 
+if (! has_rights (ACX_ACCESS)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, " .
+		"freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency FROM cc_card " .
+		"LEFT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer " .
+		"LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group WHERE username = '".$_SESSION["pr_login"].
+		"' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle_max = DbConnect();
 $numrow = 0;
@@ -19,7 +23,10 @@ $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax)
 	$numrow = $resmax -> RecordCount();
 
-if ($numrow == 0) exit();
+if ($numrow == 0) {
+	echo gettext("Error loading your account information!");
+	exit();
+}
 $customer_info =$resmax -> fetchRow();
 
 if($customer_info [14] != "1" ) {
