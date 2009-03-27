@@ -38,8 +38,6 @@ $log = new Logger();
 
 
 
-
-
 // LOAD THE CONFIGURATION
 if (!($restircted_url == "Public/index.php")) {
 	$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
@@ -240,14 +238,12 @@ function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessag
 }
 getpost_ifset(array('cssname'));
 	
-if(isset($cssname) && $cssname != "")
-{
+if(isset($cssname) && $cssname != "") {
 	$_SESSION["stylefile"] = $cssname;
 }
 	
-if(isset($cssname) && $cssname != "")
-{
-	if ($_SESSION["stylefile"]!=$cssname){
+if(isset($cssname) && $cssname != "") {
+	if ($_SESSION["stylefile"]!=$cssname) {
 		foreach (glob("./templates_c/*.*") as $filename)
 		{
 			unlink($filename);
@@ -256,7 +252,7 @@ if(isset($cssname) && $cssname != "")
 	$_SESSION["stylefile"] = $cssname;		
 }
 
-if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]==''){
+if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]=='') {
 	$_SESSION["stylefile"]='default';
 }
 
