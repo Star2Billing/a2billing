@@ -4,8 +4,8 @@ Class NotificationsDAO {
 	static function AddNotification($key,$priority,$from_type,$from_id=0) {
 			$DBHandle = DbConnect();
 			$table = new Table("cc_notification", "*");
-			$fields = " key , priority, from_type, from_id";
-			$values = " $key , $priority,$from_type	,$from_id ";
+			$fields = " key_value , priority, from_type, from_id";
+			$values = " '$key' , $priority,$from_type	,$from_id ";
 			$return = $table->Add_table($DBHandle, $values, $fields);
 			return $return;
   	 }
@@ -43,7 +43,7 @@ Class NotificationsDAO {
 		foreach ($return as $record) {
 			if($record['viewed']!=0 && !is_null($record['viewed']))$new = false;
 			else $new = true;
-			$list[$i] = new Notification($record['id'],$record['date'],$record['key'],$record['priority'],$record['from_type'],$record['from_id'],$new);
+			$list[$i] = new Notification($record['id'],$record['date'],$record['key_value'],$record['priority'],$record['from_type'],$record['from_id'],$new);
 			$i++; 
 		}
 		return $list;
@@ -67,7 +67,7 @@ Class NotificationsDAO {
 		foreach ($return as $record) {
 			if($record['viewed']!=0 && !is_null($record['viewed']))$new = false;
 			else $new = true;
-			$list[$i] = new Notification($record['id'],$record['date'],$record['key'],$record['priority'],$record['from_type'],$record['from_id'],$new);
+			$list[$i] = new Notification($record['id'],$record['date'],$record['key_value'],$record['priority'],$record['from_type'],$record['from_id'],$new);
 			$i++; 
 		}
 		return $list;

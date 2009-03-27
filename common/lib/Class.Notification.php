@@ -1,7 +1,20 @@
 <?php
 Class Notification {
 	
-	static public $KEYMSG = array("new_sip_buddies" => " New SIP generated");
+	static public $KEYMSG = array("sip_iax_changed" => "New SIP & IAX added : Friends conf have to be generated",
+								  "sip_changed" => "New SIP added : Sip Friends conf have to be generated",
+								  "iax_changed" => "New IAX added : IAX Friends conf have to be generated"	);
+	
+	
+	static public $ADMIN = 0;
+	static public $AGENT = 1;
+	static public $CUST = 2;
+	static public $BATCH = 3;
+	static public $UNKNOWN = -1;
+	
+	static public $LOW = 0;
+	static public $MEDIUM = 1;
+	static public $HIGN = 2;
 	
 	private $id;
 	private $date;

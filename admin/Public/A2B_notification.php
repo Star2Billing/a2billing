@@ -2,7 +2,6 @@
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
-include ("../lib/Class.Notification.php");
 
 if (!$ACXACCESS) {
 	Header ("HTTP/1.0 401 Unauthorized");
@@ -71,7 +70,6 @@ $nb_total= NotificationsDAO::getNbNotifications();
 $nb_page = ceil($nb_total/$nb_by_page);
 $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(($page-1)*$nb_by_page),$nb_by_page);
 
-if(NotificationsDAO::IfNewNotification($_SESSION['admin_id'])) echo "NEW";
 ?>
 
 <?php if(sizeof($list_notifications)>0 && $list_notifications[0]!=null) {  ?>

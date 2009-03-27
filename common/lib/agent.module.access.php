@@ -105,6 +105,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["pr_password"]=$pr_password;
 			$_SESSION["rights"]=$rights;
 			$_SESSION["agent_id"] = $agent_id;
+			$_SESSION["user_type"] = "AGENT";
 			$_SESSION["currency"]=$return["currency"];
 			$_SESSION["vat"]=$return["vat"];
 			$log = new Logger();

@@ -127,6 +127,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["pr_password"]=$pr_password;
 			$_SESSION["rights"]=$rights;
 			$_SESSION["is_admin"]=$is_admin;
+			$_SESSION["user_type"] = "ADMIN";
 			$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
 			$_SESSION["pr_groupID"]=$pr_groupID;
 			$_SESSION["admin_id"] = $admin_id;

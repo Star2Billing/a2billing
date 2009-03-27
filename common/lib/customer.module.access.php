@@ -108,6 +108,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			else 
 				$_SESSION["cus_rights"]=$return[10]+$cust_default_right;
 			
+			$_SESSION["user_type"] = "CUST";
 			$_SESSION["card_id"]=$return[3];
 			$_SESSION["id_didgroup"]=$return[4];
 			$_SESSION["tariff"]=$return[5];

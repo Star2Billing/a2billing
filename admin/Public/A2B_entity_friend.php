@@ -21,22 +21,26 @@ getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
 if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
-	if(!USE_REALTIME) {
-		$_SESSION["is_sip_iax_change"]=1;
-	}
 	
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION = "A2B_entity_card.php?atmenu=card&stitle=Customers_Card&id=";
 
 	if ($form_action == "add_sip") { 
 		$friend_param_update=" sip_buddy='1' ";
 		if(!USE_REALTIME){
-			$_SESSION["is_sip_changed"] = 1;
+			$key = "sip_changed";
 		}
 	} else {
 		$friend_param_update=" iax_buddy='1' ";
 		if(!USE_REALTIME) {
-			$_SESSION["is_iax_changed"] = 1;
+			$key = "iax_changed";
 		}
+	}
+	
+	if(!USE_REALTIME) {
+		if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} 
+		elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$id=$_SESSION['agent_id'];}
+		else {$who=Notification::$UNKNOWN;$id=-1;}
+		NotificationsDAO::AddNotification($key,Notification::$HIGN,$who,$id);
 	}
 	
 	$instance_table_friend = new Table('cc_card');
@@ -88,12 +92,16 @@ if (!isset($action)) $action = $form_action;
 if(!USE_REALTIME) {
 	// CHECK THE ACTION AND SET THE IS_SIP_IAX_CHANGE IF WE ADD/EDIT/REMOVE A RECORD
 	if ( $form_action == "add" || $form_action == "edit" || $form_action == "delete" ){
-		$_SESSION["is_sip_iax_change"] = 1;
 		if ($atmenu=='sip') {
-			$_SESSION["is_sip_changed"] = 1;
+			$key = "sip_changed";
 	  	} else {
-	  		$_SESSION["is_iax_changed"] = 1;
+	  		$key = "iax_changed";
 	  	}
+		if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} 
+		elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$id=$_SESSION['agent_id'];}
+		else {$who=Notification::$UNKNOWN;$id=-1;}
+		NotificationsDAO::AddNotification($key,Notification::$HIGN,$who,$id);
+	  	
 	}
 }
 
@@ -107,25 +115,21 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 if ($form_action=='list') {
 	echo $CC_help_sipfriend_list;
-	
-	if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>
+	?>
 		  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
-			<TR><TD style="border-bottom: medium dotted #ED2525" align="center"> <?php echo gettext("Changes detected on SIP/IAX Friends")?></TD></TR>
+			<TR><TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?></TD></TR>
 			<TR><FORM NAME="sipfriend">
-				<td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" class="bgcolor_013">			
-				<font color=white><b>
-				<?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ){ ?>
+				<td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" >			
+				<b>
 				SIP : <input class="form_input_button"  TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_SIP.CONF " 
 				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend';">
-				<?php } 
-				if ( isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ){ ?>
 				IAX : <input class="form_input_button"  TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_IAX.CONF " 
 				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend';">
-				<?php } ?>	
-				</b></font></td></FORM>
+				</b></td></FORM>
 			</TR>
 		   </table>
-	<?php  } // endif is_sip_iax_change
+		   <br/>
+	<?php  
 
 } else {
 	echo $CC_help_sipfriend_edit;

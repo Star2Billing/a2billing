@@ -1809,7 +1809,7 @@ ALTER TABLE cc_logrefill DROP reseller_id;
 -- Add notification system
 CREATE TABLE cc_notification (
 	id 					BIGINT NOT NULL auto_increment,
-	`key` 				varchar(40) collate utf8_bin default NULL,
+	key_value 			varchar(40) collate utf8_bin default NULL,
 	date 				timestamp NOT NULL default CURRENT_TIMESTAMP,
 	priority 			TINYINT NOT NULL DEFAULT '0',
 	from_type 			TINYINT NOT NULL ,
