@@ -1119,28 +1119,28 @@ ALTER TABLE cc_call DROP calledrate, DROP buyrate;
 
 -- Create phonebook for
 CREATE TABLE cc_phonebook (
-	id INT NOT NULL AUTO_INCREMENT ,
-	name CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	id 				INT NOT NULL AUTO_INCREMENT ,
+	name 			CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	description 	MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
 	PRIMARY KEY ( id )
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE cc_phonenumber (
-	id BIGINT NOT NULL AUTO_INCREMENT ,
-	id_phonebook INT NOT NULL ,
-	number CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-	name CHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,
-	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	status SMALLINT NOT NULL DEFAULT '1',
-	info MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
+	id 				BIGINT NOT NULL AUTO_INCREMENT ,
+	id_phonebook 	INT NOT NULL ,
+	number 			CHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	name 			CHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	creationdate 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	status 			SMALLINT NOT NULL DEFAULT '1',
+	info 			MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL,
 	PRIMARY KEY ( id )
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_phonebook ADD id_card BIGINT NOT NULL ;
 
 CREATE TABLE cc_campaign_phonebook (
-	id_campaign INT NOT NULL ,
-	id_phonebook INT NOT NULL,
+	id_campaign 	INT NOT NULL ,
+	id_phonebook 	INT NOT NULL,
 	PRIMARY KEY ( id_campaign , id_phonebook )
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -1808,18 +1808,21 @@ ALTER TABLE cc_logrefill DROP reseller_id;
 
 -- Add notification system
 CREATE TABLE cc_notification (
-	id BIGINT NOT NULL auto_increment,
-	key VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
-	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	priority TINYINT NOT NULL DEFAULT '0',
-	from_type TINYINT NOT NULL ,
-	from_id BIGINT NULL DEFAULT '0',
+	id 					BIGINT NOT NULL auto_increment,
+	`key` 				varchar(40) collate utf8_bin default NULL,
+	date 				timestamp NOT NULL default CURRENT_TIMESTAMP,
+	priority 			TINYINT NOT NULL DEFAULT '0',
+	from_type 			TINYINT NOT NULL ,
+	from_id 			BIGINT NULL DEFAULT '0',
 	PRIMARY KEY ( id )
-) ENGINE = MYISAM ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE cc_notification_admin (
 	id_notification BIGINT NOT NULL ,
 	id_admin INT NOT NULL ,
 	viewed TINYINT NOT NULL DEFAULT '0',
 	PRIMARY KEY ( id_notification , id_admin )
-) ENGINE = MYISAM 
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
