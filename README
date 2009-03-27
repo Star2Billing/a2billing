@@ -1,0 +1,20 @@
+a2billing 1.4 Beta Release
+--------------------------
+
+* A PDF guide with installation instructions is available in
+Doc/addons/a2billing_14_Installation_Guide_1.0.pdf
+
+* Bugs discussions 
+http://forum.asterisk2billing.org/viewforum.php?f=22
+
+* Wiki version of installation
+http://www.asterisk2billing.org/cgi-bin/trac.cgi/wiki/A2Billing-1-4-Installation-deb (Debian)
+http://www.asterisk2billing.org/cgi-bin/trac.cgi/wiki/A2Billing-1-4-Installation (CentOS)
+
+* Trunk code
+http://www.asterisk2billing.org/cgi-bin/trac.cgi/browser/trunk
+
+* Reporting
+http://www.asterisk2billing.org/cgi-bin/trac.cgi/report
+
+Enjoy, the a2b team! 
