@@ -1313,6 +1313,11 @@ INSERT INTO  cc_config(config_title,config_key,config_value,config_description,c
 -- ------------------------------------------------------
 -- Postgres generally uses the 'TEXT' type anyway,  so this is unnecessary
 
+-- extend length of canreinvite to cope with new Asterisk syntax
+ALTER TABLE cc_iax_buddies ALTER canreinvite TYPE VARCHAR(20);
+-- but we can't ALTER if there are any VIEWs on the table...  (it'll be re-created later in this file)
+DROP VIEW IF EXISTS cc_sip_buddies_empty;
+ALTER TABLE cc_sip_buddies ALTER canreinvite TYPE VARCHAR(20) NOT NULL;
 
 -- ------------------------------------------------------
 -- Add restricted rules on the call system for customers
@@ -1743,7 +1748,7 @@ ALTER TABLE cc_sip_buddies ADD regserver varchar(20);
 ALTER TABLE cc_logpayment ADD added_commission SMALLINT NOT NULL DEFAULT '0';
 
 -- Empty password view for OpenSips
-CREATE VIEW cc_sip_buddies_empty AS
+CREATE OR REPLACE VIEW cc_sip_buddies_empty AS
   SELECT id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context,
   DEFAULTip, dtmfmode, fromuser, fromdomain, host, insecure, language, mailbox, md5secret, nat, permit,
   deny, mask, pickupgroup, port, qualify, restrictcid, rtptimeout, rtpholdtimeout, ''::text as secret,
@@ -1823,7 +1828,26 @@ ALTER TABLE cc_logpayment DROP reseller_id;
 ALTER TABLE cc_logrefill DROP reseller_id;
 
 
--- synched with MySQL up to r1700
+-- Add notification system
+CREATE TABLE cc_notification (
+	id 					BIGSERIAL,
+	key_value 			varchar(40),
+	date 				timestamp NOT NULL default CURRENT_TIMESTAMP,
+	priority 			SMALLINT NOT NULL DEFAULT '0',
+	from_type 			SMALLINT NOT NULL,
+	from_id 			BIGINT NULL DEFAULT '0',
+	PRIMARY KEY ( id )
+);
+
+CREATE TABLE cc_notification_admin (
+	id_notification		BIGINT NOT NULL,
+	id_admin			INT NOT NULL,
+	viewed				SMALLINT NOT NULL DEFAULT '0',
+	PRIMARY KEY ( id_notification , id_admin )
+);
+
+
+-- synched with MySQL up to r1764
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
