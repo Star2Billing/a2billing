@@ -77,7 +77,7 @@ if(!$popup_select) {
   <thead>
   <tr class="one">  
     <td class="one">
-     <h1><?php echo gettext("PREVIEW NEXT BILLING INVOICE"); ?></h1>
+     <h1><?php echo gettext("PREVIEW INVOICE"); ?></h1>
      
     </td>
   </tr>

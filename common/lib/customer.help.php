@@ -101,8 +101,7 @@ $CC_help_ratecard ='
 <div id="kiblue_header"><div class="w4">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" width="48" height="48" class="kikipic"/>
 	<div class="w2">
-<table width="90%"><tr><td width="100%">'.
-gettext("Here you can view your ratecards").
+<table width="90%"><tr><td width="100%">'.gettext("View Ratecards").
 '<br>&nbsp;
 </td></tr></table>
 </div></div></div>
@@ -115,7 +114,7 @@ $CC_help_view_payment='
 	<div class="w2">
 <table width="90%">
 <tr>
-<td width="100%">'.gettext("Payment history - The section below allows you to see payments that you did.").'<br>
+<td width="100%">'.gettext("Payment history - Record of payments made.").'<br>
 <br></td>
 </tr>
 </table>

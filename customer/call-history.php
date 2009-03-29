@@ -255,7 +255,7 @@ echo $CC_help_balance_customer;
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="phonenumbertype" value="1" <?php if((!isset($phonenumbertype))||($phonenumbertype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="phonenumbertype" value="2" <?php if($phonenumbertype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="phonenumbertype" value="3" <?php if($phonenumbertype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="phonenumbertype" value="4" <?php if($phonenumbertype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="phonenumbertype" value="4" <?php if($phonenumbertype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
 				</tr></table></td>
 			</tr>		
 			<!-- Select Calltype: -->
@@ -300,7 +300,7 @@ echo $CC_help_balance_customer;
 				</tr>
 				<tr class="bgcolor_005">
 					<td  class="fontstyle_searchoptions">
-						<?php echo gettext("RESUTL");?> : 
+						<?php echo gettext("RESULT");?> : 
 				   </td>
 				   <td  class="fontstyle_searchoptions">
 					<?php echo gettext("Minutes");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("Seconds");?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>

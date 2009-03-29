@@ -69,7 +69,7 @@ $HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
 			   "",
 			   "",
 			   gettext("Choose if you want to enable the notification by email for this card"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the notification by mail for this card."));
+			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable Email Notification"));
 
 $HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 			   "email_notification",
@@ -89,4 +89,4 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your record has been updated
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = "userinfo.php?section=1";
 
-?>
+

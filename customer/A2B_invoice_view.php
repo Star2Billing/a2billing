@@ -5,7 +5,7 @@ include ("./lib/customer.smarty.php");
 include ("./lib/support/classes/invoice.php");
 include ("./lib/support/classes/invoiceItem.php");
 
-if (! has_rights (ACX_INVOICES)){
+if (! has_rights (ACX_INVOICES)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -14,14 +14,13 @@ if (! has_rights (ACX_INVOICES)){
 
 getpost_ifset(array('id'));
 
-if (empty($id))
-{
-Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
+if (empty($id)) {
+	Header ("Location: A2B_entity_invoice.php?atmenu=payment&section=13");
 }
 
 
 $invoice = new invoice($id);
-if($invoice->getCard() != $_SESSION["card_id"]){
+if($invoice->getCard() != $_SESSION["card_id"]) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -155,7 +154,7 @@ if(!$popup_select){
             <div><?php echo $invoice->getReference() ?></div>
           </td>
           <td class="three">
-           <strong>Client number</strong>
+           <strong><?php echo gettext("Client Account Number"); ?></strong>
             <div><?php echo $card['username'] ?></div>
           </td>
                  </tr>       

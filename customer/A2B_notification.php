@@ -5,7 +5,7 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_notify.inc");
 include ("./lib/customer.smarty.php");
 
-if (! has_rights (ACX_NOTIFICATION)){
+if (! has_rights (ACX_NOTIFICATION)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -19,7 +19,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
-if ($id!="" || !is_null($id)){
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
@@ -47,8 +47,7 @@ $HD_Form -> create_toppage ($form_action);
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
-if($message == "success")
-{
+if($message == "success") {
 ?>
 <table width="50%" align="center">
 <tr height="100px">
@@ -57,13 +56,10 @@ if($message == "success")
 </table>
 
 <?php
-}else{
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
+} else{
+	$HD_Form -> create_form ($form_action, $list, $id=null) ;
 }
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
 
-
-
-?>

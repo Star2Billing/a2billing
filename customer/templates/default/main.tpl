@@ -20,12 +20,9 @@
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-{if ($popupwindow == 0)}
-<p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}</p>
-<br>
-{/if}
-<DIV border=0 width="1000">
 
+<br><br>
+<DIV border=0 width="1000">
 
 {if ($popupwindow == 0)}
 {if ($EXPORT == 0)}
@@ -57,7 +54,7 @@
 
 		{if $ACXVOUCHER >0 }
 		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=4"><strong>{php} echo gettext("VOUCHER");{/php}</strong></a></li></ul>
+		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=4"><strong>{php} echo gettext("VOUCHERS");{/php}</strong></a></li></ul>
 		{/if}
 
 		<li><a href="#" target="_self"></a></li>

@@ -1,10 +1,9 @@
 <?php
 
-
 getpost_ifset(array('id', 'name', 'description ,id_card'));
 
+$HD_Form = new FormHandler("cc_phonebook ","Phone Book");
 
-	$HD_Form = new FormHandler("cc_phonebook ","Phone Book");
 
 $HD_Form -> FG_DEBUG = 0;
 
@@ -71,7 +70,6 @@ $HD_Form -> FieldEditElement ('name, description');
 
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "id_card";
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "".$_SESSION['card_id'];
-
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;

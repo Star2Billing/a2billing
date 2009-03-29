@@ -2,10 +2,10 @@
 
 getpost_ifset(array('id', 'number', 'id_phonebook', 'name', 'status',  'info'));
 
-if (!isset($form_action) || $form_action=="list"){
+if (!isset($form_action) || $form_action=="list") {
 	$HD_Form = new FormHandler("cc_phonenumber, cc_phonebook","phonenumber");
 	$HD_Form -> FG_TABLE_CLAUSE = " cc_phonenumber.id_phonebook = cc_phonebook.id  AND cc_phonebook.id_card=".$_SESSION['card_id'] ;
-}else{
+} else {
 	$HD_Form = new FormHandler("cc_phonenumber","phonenumber");	
 }
 $HD_Form -> FG_TABLE_ID = 'cc_phonenumber.id';
@@ -35,7 +35,7 @@ $HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort", 
 $HD_Form -> FieldViewElement ('id_phonebook, number, cc_phonenumber.name, amount, creationdate, status');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("No phone number has been created.");
+$HD_Form -> CV_NO_FIELDS  = gettext("No phone numbers have been created");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
