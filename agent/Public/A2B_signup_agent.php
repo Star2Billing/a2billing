@@ -33,7 +33,7 @@ if($task=="generate" && !empty($tariffplan) && !empty($group)){
 	$instance_table_agent_secret = new Table("cc_agent ", "secret");
 	$list_agent_secret = $instance_table_agent_secret  -> Get_list ($DBHandle, "id=".$_SESSION['agent_id'], "id", "ASC", null, null, null, null);
 	if(is_array($list_agent_secret)){
-		$URL = $A2B->config['signup']['urlcustomerinterface']."signup/index.php?agentid=".$_SESSION['agent_id']."&agentkey=";
+		$URL = $A2B->config['signup']['urlcustomerinterface']."signup.php?agentid=".$_SESSION['agent_id']."&agentkey=";
 		$secret = $list_agent_secret[0][0];
 		$result = a2b_encrypt($group."-".$tariffplan."-",$secret);
 		$URL.= urlencode($result);
