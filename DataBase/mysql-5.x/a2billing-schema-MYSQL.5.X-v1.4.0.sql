@@ -1,14 +1,28 @@
+--
+-- A2Billing database script - Create user & create database for MYSQL 5.X
+--
+
+-- Usage:
+-- mysql -u root -p"root password" < a2billing-schema-MYSQL.5.X-v1.4.0.sql 
+
 
 --
--- Database: `a2b_14`
+-- A2Billing database - Create database schema
 --
+
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_agent`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_agent`;
 CREATE TABLE IF NOT EXISTS `cc_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `datecreation` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -52,7 +66,11 @@ CREATE TABLE IF NOT EXISTS `cc_agent` (
 --
 -- Table structure for table `cc_agent_commission`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_agent_commission`;
 CREATE TABLE IF NOT EXISTS `cc_agent_commission` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_payment` bigint(20) default NULL,
@@ -75,7 +93,11 @@ CREATE TABLE IF NOT EXISTS `cc_agent_commission` (
 --
 -- Table structure for table `cc_agent_tariffgroup`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_agent_tariffgroup`;
 CREATE TABLE IF NOT EXISTS `cc_agent_tariffgroup` (
   `id_agent` bigint(20) NOT NULL,
   `id_tariffgroup` int(11) NOT NULL,
@@ -92,7 +114,11 @@ CREATE TABLE IF NOT EXISTS `cc_agent_tariffgroup` (
 --
 -- Table structure for table `cc_alarm`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_alarm`;
 CREATE TABLE IF NOT EXISTS `cc_alarm` (
   `id` bigint(20) NOT NULL auto_increment,
   `name` text collate utf8_bin NOT NULL,
@@ -120,7 +146,11 @@ CREATE TABLE IF NOT EXISTS `cc_alarm` (
 --
 -- Table structure for table `cc_alarm_report`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_alarm_report`;
 CREATE TABLE IF NOT EXISTS `cc_alarm_report` (
   `id` bigint(20) NOT NULL auto_increment,
   `cc_alarm_id` bigint(20) NOT NULL,
@@ -139,7 +169,11 @@ CREATE TABLE IF NOT EXISTS `cc_alarm_report` (
 --
 -- Table structure for table `cc_autorefill_report`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_autorefill_report`;
 CREATE TABLE IF NOT EXISTS `cc_autorefill_report` (
   `id` bigint(20) NOT NULL auto_increment,
   `daterun` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -158,7 +192,11 @@ CREATE TABLE IF NOT EXISTS `cc_autorefill_report` (
 --
 -- Table structure for table `cc_backup`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_backup`;
 CREATE TABLE IF NOT EXISTS `cc_backup` (
   `id` bigint(20) NOT NULL auto_increment,
   `name` varchar(255) collate utf8_bin NOT NULL,
@@ -178,7 +216,11 @@ CREATE TABLE IF NOT EXISTS `cc_backup` (
 --
 -- Table structure for table `cc_billing_customer`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_billing_customer`;
 CREATE TABLE IF NOT EXISTS `cc_billing_customer` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_card` bigint(20) NOT NULL,
@@ -197,7 +239,12 @@ CREATE TABLE IF NOT EXISTS `cc_billing_customer` (
 --
 -- Table structure for table `cc_call`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+-- Last check: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_call`;
 CREATE TABLE IF NOT EXISTS `cc_call` (
   `id` bigint(20) NOT NULL auto_increment,
   `sessionid` varchar(40) collate utf8_bin NOT NULL,
@@ -238,7 +285,11 @@ CREATE TABLE IF NOT EXISTS `cc_call` (
 --
 -- Table structure for table `cc_callback_spool`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_callback_spool`;
 CREATE TABLE IF NOT EXISTS `cc_callback_spool` (
   `id` bigint(20) NOT NULL auto_increment,
   `uniqueid` varchar(40) collate utf8_bin default NULL,
@@ -278,7 +329,11 @@ CREATE TABLE IF NOT EXISTS `cc_callback_spool` (
 --
 -- Table structure for table `cc_callerid`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_callerid`;
 CREATE TABLE IF NOT EXISTS `cc_callerid` (
   `id` bigint(20) NOT NULL auto_increment,
   `cid` varchar(100) collate utf8_bin NOT NULL,
@@ -298,7 +353,12 @@ CREATE TABLE IF NOT EXISTS `cc_callerid` (
 --
 -- Table structure for table `cc_call_archive`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+-- Last check: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_call_archive`;
 CREATE TABLE IF NOT EXISTS `cc_call_archive` (
   `id` bigint(20) NOT NULL auto_increment,
   `sessionid` char(40) collate utf8_bin NOT NULL,
@@ -347,7 +407,11 @@ CREATE TABLE IF NOT EXISTS `cc_call_archive` (
 --
 -- Table structure for table `cc_campaign`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_campaign`;
 CREATE TABLE IF NOT EXISTS `cc_campaign` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(50) collate utf8_bin NOT NULL,
@@ -386,7 +450,11 @@ CREATE TABLE IF NOT EXISTS `cc_campaign` (
 --
 -- Table structure for table `cc_campaignconf_cardgroup`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_campaignconf_cardgroup`;
 CREATE TABLE IF NOT EXISTS `cc_campaignconf_cardgroup` (
   `id_campaign_config` int(11) NOT NULL,
   `id_card_group` int(11) NOT NULL,
@@ -403,7 +471,11 @@ CREATE TABLE IF NOT EXISTS `cc_campaignconf_cardgroup` (
 --
 -- Table structure for table `cc_campaign_config`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_campaign_config`;
 CREATE TABLE IF NOT EXISTS `cc_campaign_config` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(40) collate utf8_bin NOT NULL,
@@ -423,7 +495,11 @@ CREATE TABLE IF NOT EXISTS `cc_campaign_config` (
 --
 -- Table structure for table `cc_campaign_phonebook`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_campaign_phonebook`;
 CREATE TABLE IF NOT EXISTS `cc_campaign_phonebook` (
   `id_campaign` int(11) NOT NULL,
   `id_phonebook` int(11) NOT NULL,
@@ -440,7 +516,11 @@ CREATE TABLE IF NOT EXISTS `cc_campaign_phonebook` (
 --
 -- Table structure for table `cc_campaign_phonestatus`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_campaign_phonestatus`;
 CREATE TABLE IF NOT EXISTS `cc_campaign_phonestatus` (
   `id_phonenumber` bigint(20) NOT NULL,
   `id_campaign` int(11) NOT NULL,
@@ -460,7 +540,12 @@ CREATE TABLE IF NOT EXISTS `cc_campaign_phonestatus` (
 --
 -- Table structure for table `cc_card`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+-- Last check: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_card`;
 CREATE TABLE IF NOT EXISTS `cc_card` (
   `id` bigint(20) NOT NULL auto_increment,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -537,9 +622,9 @@ CREATE TABLE IF NOT EXISTS `cc_card` (
 --
 -- Triggers `cc_card`
 --
-DROP TRIGGER `a2b_14`.`cc_card_serial_set`;
+DROP TRIGGER `a2b_14_import`.`cc_card_serial_set`;
 DELIMITER //
-CREATE TRIGGER `a2b_14`.`cc_card_serial_set` BEFORE INSERT ON `a2b_14`.`cc_card`
+CREATE TRIGGER `a2b_14_import`.`cc_card_serial_set` BEFORE INSERT ON `a2b_14_import`.`cc_card`
  FOR EACH ROW BEGIN
 	UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
 	SELECT value INTO @serial from cc_card_seria where id=NEW.id_seria ;
@@ -547,9 +632,9 @@ CREATE TRIGGER `a2b_14`.`cc_card_serial_set` BEFORE INSERT ON `a2b_14`.`cc_card`
 END
 //
 DELIMITER ;
-DROP TRIGGER `a2b_14`.`cc_card_serial_update`;
+DROP TRIGGER `a2b_14_import`.`cc_card_serial_update`;
 DELIMITER //
-CREATE TRIGGER `a2b_14`.`cc_card_serial_update` BEFORE UPDATE ON `a2b_14`.`cc_card`
+CREATE TRIGGER `a2b_14_import`.`cc_card_serial_update` BEFORE UPDATE ON `a2b_14_import`.`cc_card`
  FOR EACH ROW BEGIN
 	IF NEW.id_seria<>OLD.id_seria OR OLD.id_seria IS NULL THEN
 		UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
@@ -570,7 +655,11 @@ DELIMITER ;
 --
 -- Table structure for table `cc_cardgroup_service`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_cardgroup_service`;
 CREATE TABLE IF NOT EXISTS `cc_cardgroup_service` (
   `id_card_group` int(11) NOT NULL,
   `id_service` int(11) NOT NULL,
@@ -587,7 +676,12 @@ CREATE TABLE IF NOT EXISTS `cc_cardgroup_service` (
 --
 -- Table structure for table `cc_card_archive`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+-- Last check: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_card_archive`;
 CREATE TABLE IF NOT EXISTS `cc_card_archive` (
   `id` bigint(20) NOT NULL,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -668,7 +762,11 @@ CREATE TABLE IF NOT EXISTS `cc_card_archive` (
 --
 -- Table structure for table `cc_card_group`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_card_group`;
 CREATE TABLE IF NOT EXISTS `cc_card_group` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(30) collate utf8_bin NOT NULL,
@@ -682,14 +780,18 @@ CREATE TABLE IF NOT EXISTS `cc_card_group` (
 -- Dumping data for table `cc_card_group`
 --
 
-INSERT INTO `cc_card_group` (`id`, `name`, `description`, `users_perms`, `id_agent`) VALUES(1, 'DEFAULT', 0x546869732067726f7570206973207468652064656661756c742067726f75702075736564207768656e20796f7520637265617465206120637573746f6d65722e204974277320666f7262696464656e20746f2064656c657465206974206265636175736520796f75206e656564206174206c65617374206f6e652067726f75702062757420796f752063616e20656469742069742e, 129022, NULL);
+INSERT INTO `cc_card_group` (`id`, `name`, `description`, `users_perms`, `id_agent`) VALUES(1, 'DEFAULT', 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.', 129022, NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_card_history`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_card_history`;
 CREATE TABLE IF NOT EXISTS `cc_card_history` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) default NULL,
@@ -708,7 +810,12 @@ CREATE TABLE IF NOT EXISTS `cc_card_history` (
 --
 -- Table structure for table `cc_card_package_offer`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+-- Last check: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_card_package_offer`;
 CREATE TABLE IF NOT EXISTS `cc_card_package_offer` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) NOT NULL,
@@ -731,7 +838,11 @@ CREATE TABLE IF NOT EXISTS `cc_card_package_offer` (
 --
 -- Table structure for table `cc_card_seria`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_card_seria`;
 CREATE TABLE IF NOT EXISTS `cc_card_seria` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(30) collate utf8_bin NOT NULL,
@@ -750,7 +861,11 @@ CREATE TABLE IF NOT EXISTS `cc_card_seria` (
 --
 -- Table structure for table `cc_card_subscription`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_card_subscription`;
 CREATE TABLE IF NOT EXISTS `cc_card_subscription` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) default NULL,
@@ -772,7 +887,12 @@ CREATE TABLE IF NOT EXISTS `cc_card_subscription` (
 --
 -- Table structure for table `cc_charge`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+-- Last check: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_charge`;
 CREATE TABLE IF NOT EXISTS `cc_charge` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) NOT NULL,
@@ -803,7 +923,11 @@ CREATE TABLE IF NOT EXISTS `cc_charge` (
 --
 -- Table structure for table `cc_config`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_config`;
 CREATE TABLE IF NOT EXISTS `cc_config` (
   `id` int(11) NOT NULL auto_increment,
   `config_title` varchar(100) collate utf8_bin NOT NULL,
@@ -820,263 +944,267 @@ CREATE TABLE IF NOT EXISTS `cc_config` (
 -- Dumping data for table `cc_config`
 --
 
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(1, 'Card Number length', 'interval_len_cardnumber', '10-15', 0x43617264204e756d626572206c656e6774682c20596f752063616e20646566696e6520612052616e676520652e673a2031302d31352e, 0, '10-15,5-20,10-30', 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(2, 'Card Alias length', 'len_aliasnumber', '15', 0x43617264204e756d62657220416c696173204c656e67746820652e673a2031352e, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(3, 'Voucher length', 'len_voucher', '15', 0x566f7563686572204e756d626572204c656e6774682e, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(4, 'Base Currency', 'base_currency', 'usd', 0x426173652043757272656e637920746f2075736520666f72206170706c69636174696f6e2e, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(5, 'Invoice Image', 'invoice_image', 'asterisk01.jpg', 0x496d61676520746f20446973706c6179206f6e2074686520546f70206f6620496e766f696365, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(6, 'Admin Email', 'admin_email', 'root@localhost', 0x5765622041646d696e6973747261746f7220456d61696c20416464726573732e, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(7, 'DID Bill Payment Day', 'didbilling_daytopay', '5', 0x4449442042696c6c205061796d656e7420446179206f66204d6f6e7468, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(8, 'Manager Host', 'manager_host', 'localhost', 0x4d616e6167657220486f73742041646472657373, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(9, 'Manager User ID', 'manager_username', 'myasterisk', 0x4d616e67657220486f73742055736572204e616d65, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(10, 'Manager Password', 'manager_secret', 'mycode', 0x4d616e6167657220486f73742050617373776f7264, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(11, 'Use SMTP Server', 'smtp_server', '0', 0x446566696e6520696620796f752077616e7420746f2075736520616e2053544d5020736572766572206f722053656e64204d61696c202876616c75652079657320666f722073657276657220534d545029, 1, 'yes,no', 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(12, 'SMTP Host', 'smtp_host', 'localhost', 0x534d545020486f73746e616d65, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(13, 'SMTP UserName', 'smtp_username', '', 0x55736572204e616d6520746f20636f6e6e656374206f6e2074686520534d545020736572766572, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(14, 'SMTP Password', 'smtp_password', '', 0x50617373776f726420746f20636f6e6e656374206f6e2074686520534d545020736572766572, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(15, 'Use Realtime', 'use_realtime', '1', 0x69662044697361626c65642c2069742077696c6c2067656e65726174652074686520636f6e6669672066696c657320616e64206f6666657220616e206f7074696f6e20746f2072656c6f616420617374657269736b20616674657220616e20757064617465206f6e2074686520566f69702073657474696e6773, 1, 'yes,no', 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(16, 'Go To Customer', 'customer_ui_url', '../../customer/index.php', 0x4c696e6b20746f2074686520637573746f6d6572206163636f756e74, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(17, 'Context Callback', 'context_callback', 'a2billing-callback', 0x436f6e7461787420746f2075736520696e2043616c6c6261636b, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(18, 'Extension', 'extension', '1000', 0x457874656e73696f6e20746f2063616c6c207768696c652063616c6c6261636b2e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(19, 'Wait before callback', 'sec_wait_before_callback', '10', 0x5365636f6e647320746f2077616974206265666f72652063616c6c6261636b2e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(20, 'Avoid Repeat Duration', 'sec_avoid_repeate', '10', 0x4e756d626572206f66207365636f6e6473206265666f7265207468652063616c6c2d6261636b2063616e2062652072652d696e697469617465642066726f6d2074686520776562207061676520746f2070726576656e7420726570656174656420616e6420756e77616e7465642063616c6c732e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(21, 'Time out', 'timeout', '20', 0x6966207468652063616c6c6261636b20646f65736e7420737563636565642077697468696e207468652076616c75652062656c6f772c207468656e207468652063616c6c206973206465656d656420746f2068617665206661696c65642e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(22, 'Answer on Call', 'answer_call', '1', 0x69662077652077616e7420746f206d616e6167652074686520616e73776572206f6e207468652063616c6c2e2044697361626c696e67207468697320666f722063616c6c6261636b2074726967676572206e756d62657273206d616b65732069742072696e67206e6f742068616e672075702e, 1, 'yes,no', 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(23, 'No of Predictive Calls', 'nb_predictive_call', '10', 0x6e756d626572206f662063616c6c7320616e206167656e742077696c6c20646f207768656e207468652063616c6c20627574746f6e20697320636c69636b65642e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(24, 'Delay for Availability', 'nb_day_wait_before_retry', '1', 0x4e756d626572206f66206461797320746f2077616974206265666f726520746865206e756d626572206265636f6d657320617661696c61626c6520746f2063616c6c20616761696e2e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(25, 'PD Contect', 'context_preditctivedialer', 'a2billing-predictivedialer', 0x54686520636f6e7465787420746f207265646972656374207468652063616c6c20666f72207468652070726564696374697665206469616c65722e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(26, 'Max Time to call', 'predictivedialer_maxtime_tocall', '5400', 0x5768656e20612063616c6c206973206d616465207765206e65656420746f206c696d6974207468652063616c6c206475726174696f6e203a20616d6f756e7420696e207365636f6e64732e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(27, 'PD Caller ID', 'callerid', '123456', 0x536574207468652063616c6c6572494420666f72207468652070726564696374697665206469616c657220616e642063616c6c2d6261636b2e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(28, 'Callback CallPlan ID', 'all_callback_tariff', '1', 0x49442043616c6c20506c616e20746f20757365207768656e20796f75207573652074686520616c6c2d63616c6c6261636b206d6f64652c20636865636b2074686520494420696e2074686520226c6973742043616c6c20506c616e22202d2057656255492e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(29, 'Server Group ID', 'id_server_group', '1', 0x446566696e65207468652067726f7570206f66207365727665727320746861742061726520676f696e6720746f2062652075736564206279207468652063616c6c6261636b2e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(30, 'Audio Intro', 'callback_audio_intro', 'prepaid-callback_intro', 0x417564696f20696e74726f206d657373616765207768656e207468652063616c6c6261636b20697320696e6974696174652e, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(31, 'Signup URL', 'signup_page_url', '', 0x75726c206f6620746865207369676e7570207061676520746f2073686f77207570206f6e20746865207369676e20696e20706167652028696620656d707479206e6f206c696e6b2077696c6c2073686f77207570292e, 0, NULL, 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(32, 'Payment Method', 'paymentmethod', '1', 0x456e61626c65206f722064697361626c6520746865207061796d656e74206d6574686f64733b2079657320666f72206d756c74692d7061796d656e74206f72206e6f20666f722073696e676c65207061796d656e74206d6574686f64206f7074696f6e2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(33, 'Personal Info', 'personalinfo', '1', 0x456e61626c65206f722064697361626c6520746865207061676520776869636820616c6c6f7720637573746f6d657220746f206d6f646966792069747320706572736f6e616c20696e666f726d6174696f6e2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(34, 'Payment Info', 'customerinfo', '1', 0x456e61626c6520646973706c6179206f6620746865207061796d656e7420696e74657266616365202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(35, 'SIP/IAX Info', 'sipiaxinfo', '1', 0x456e61626c6520646973706c6179206f6620746865207369702f69617820696e666f202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(36, 'CDR', 'cdr', '1', 0x456e61626c65207468652043616c6c20686973746f7279202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(37, 'Invoices', 'invoice', '1', 0x456e61626c6520696e766f69636573202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(38, 'Voucher Screen', 'voucher', '1', 0x456e61626c652074686520766f75636865722073637265656e202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(39, 'Paypal', 'paypal', '1', 0x456e61626c65207468652070617970616c207061796d656e7420627574746f6e73202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(40, 'Speed Dial', 'speeddial', '1', 0x416c6c6f77205370656564204469616c206361706162696c6974696573202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(41, 'DID', 'did', '1', 0x456e61626c652074686520444944202844697265637420496e7761726473204469616c6c696e672920696e74657266616365202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(42, 'RateCard', 'ratecard', '1', 0x53686f772074686520726174656361726473202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(43, 'Simulator', 'simulator', '1', 0x4f666665722073696d756c61746f72206f7074696f6e206f6e2074686520637573746f6d657220696e74657266616365202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(44, 'CallBack', 'callback', '1', 0x456e61626c65207468652063616c6c6261636b206f7074696f6e206f6e2074686520637573746f6d657220696e74657266616365202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(45, 'Predictive Dialer', 'predictivedialer', '1', 0x456e61626c652074686520707265646963746976656469616c6572206f7074696f6e206f6e2074686520637573746f6d657220696e74657266616365202d20796573206f72206e6f2e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(46, 'WebPhone', 'webphone', '1', 0x4c657420757365727320757365205349502f4941582057656270686f6e6520284f7074696f6e73203a207965732f6e6f292e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(47, 'WebPhone Server', 'webphoneserver', 'localhost', 0x49502061646472657373206f7220646f6d61696e206e616d65206f6620617374657269736b20736572766572207468617420776f756c64206265207573656420627920746865207765622d70686f6e652e, 0, NULL, 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(48, 'Caller ID', 'callerid', '1', 0x4c65742074686520757365727320616464206e65772063616c6c657269642e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(49, 'Password', 'password', '1', 0x4c6574207468652075736572206368616e6765207468652077656275692070617373776f72642e, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(50, 'CallerID Limit', 'limit_callerid', '5', 0x54686520746f74616c206e756d626572206f662063616c6c657249447320666f7220434c49205265636f676e6974696f6e20746861742063616e206265206164642062792074686520637573746f6d65722e, 0, NULL, 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(51, 'Trunk Name', 'sip_iax_info_trunkname', 'call-labs', 0x5472756e6b204e616d6520746f2073686f7720696e207369702f69617820696e666f2e, 0, NULL, 'sip-iax-info');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(52, 'Codecs Allowed', 'sip_iax_info_allowcodec', 'g729', 0x416c6c6f77656420436f6465632c20756c61772c2067736d2c20673732392e, 0, NULL, 'sip-iax-info');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(53, 'Host', 'sip_iax_info_host', 'call-labs.com', 0x486f737420696e666f726d6174696f6e2e, 0, NULL, 'sip-iax-info');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(54, 'IAX Parms', 'iax_additional_parameters', 'canreinvite = no', 0x494158204164646974696f6e616c20506172616d65746572732e, 0, NULL, 'sip-iax-info');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(55, 'SIP Parms', 'sip_additional_parameters', 'trustrpid = yes | sendrpid = yes | canreinvite = no', 0x534950204164646974696f6e616c20506172616d65746572732e, 0, NULL, 'sip-iax-info');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(56, 'Enable', 'enable', '1', 0x456e61626c652f44697361626c652e, 1, 'yes,no', 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(57, 'HTTP Server Customer', 'http_server', 'http://www.call-labs.com', 0x53657420746865205365727665722041646472657373206f6620437573746f6d657220576562736974652c2049742073686f756c6420626520656d70747920666f722070726f6475637469766520536572766572732e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(58, 'HTTPS Server Customer', 'https_server', 'https://www.call-labs.com', 0x68747470733a2f2f6c6f63616c686f7374202d20456e746572206865726520796f75722053656375726520437573746f6d6572732053657276657220416464726573732c2073686f756c64206e6f7420626520656d70747920666f722070726f6475637469766520736572766572732e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(59, 'Server Customer IP/Domain', 'http_cookie_domain', '26.63.165.200', 0x456e74657220796f757220446f6d61696e204e616d65206f72204950204164647265737320666f722074686520437573746f6d657273206170706c69636174696f6e2c2065672c2032362e36332e3136352e3230302e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(60, 'Secure Server Customer IP/Domain', 'https_cookie_domain', '26.63.165.200', 0x456e74657220796f7572205365637572652073657276657220446f6d61696e204e616d65206f72204950204164647265737320666f722074686520437573746f6d657273206170706c69636174696f6e2c2065672c2032362e36332e3136352e3230302e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(61, 'Application Customer Path', 'http_cookie_path', '/customer/', 0x456e7465722074686520506879736963616c2070617468206f6620796f757220437573746f6d657273204170706c69636174696f6e206f6e20796f7572207365727665722e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(62, 'Secure Application Customer Path', 'https_cookie_path', '/customer/', 0x456e7465722074686520506879736963616c2070617468206f6620796f757220437573746f6d657273204170706c69636174696f6e206f6e20796f757220536563757265205365727665722e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(63, 'Application Customer Physical Path', 'dir_ws_http_catalog', '/customer/', 0x456e7465722074686520506879736963616c2070617468206f6620796f757220437573746f6d657273204170706c69636174696f6e206f6e20796f7572207365727665722e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(64, 'Secure Application Customer Physical Path', 'dir_ws_https_catalog', '/customer/', 0x456e7465722074686520506879736963616c2070617468206f6620796f757220437573746f6d657273204170706c69636174696f6e206f6e20796f757220536563757265207365727665722e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(65, 'Enable SSL', 'enable_ssl', '1', 0x7365637572652077656273657276657220666f7220636865636b6f75742070726f6365647572653f, 1, 'yes,no', 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(66, 'HTTP Domain', 'http_domain', '26.63.165.200', 0x4874747020416464726573732e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(67, 'Directory Path', 'dir_ws_http', '/~areski/svn/a2billing/payment/customer/', 0x4469726563746f727920506174682e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(68, 'Payment Amount', 'purchase_amount', '1:2:5:10:20', 0x646566696e652074686520646966666572656e7420616d6f756e74206f66207075726368617365207468617420776f756c6420626520617661696c61626c65202d203520616d6f756e74206d6178696d756d2028353a31303a3135292e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(69, 'Item Name', 'item_name', 'Credit Purchase', 0x4974656d206e616d65207468617420776f756c6420626520646973706c617920746f207468652075736572207768656e2068652077696c6c20627579206372656469742e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(70, 'Currency Code', 'currency_code', 'USD', 0x43757272656e637920666f7220746865204372656469742070757263686173652c206f6e6c79206f6e652063616e20626520646566696e6520686572652e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(71, 'Paypal Payment URL', 'paypal_payment_url', 'https://secure.paypal.com/cgi-bin/webscr', 0x446566696e652068657265207468652055524c206f662070617970616c206761746577617920746865207061796d656e742028746f207465737420776974682070617970616c2073616e64626f78292e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(72, 'Paypal Verify URL', 'paypal_verify_url', 'ssl://www.paypal.com', 0x70617970616c207472616e73616374696f6e20766572696669636174696f6e2075726c2e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(73, 'Authorize.NET Payment URL', 'authorize_payment_url', 'https://secure.authorize.net/gateway/transact.dll', 0x446566696e652068657265207468652055524c206f6620417574686f72697a6520676174657761792e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(74, 'PayPal Store Name', 'store_name', 'Asterisk2Billing', 0x70617970616c2073746f7265206e616d6520746f2073686f7720696e207468652070617970616c2073697465207768656e20637573746f6d65722077696c6c20676f20746f207061792e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(75, 'Transaction Key', 'transaction_key', 'asdf1212fasd121554sd4f5s45sdf', 0x5472616e73616374696f6e204b657920666f72207365637572697479206f6620457061796d656e74204d6178206c656e677468206f6620363020436861726163746572732e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(76, 'Secret Word', 'moneybookers_secretword', 'areski', 0x4d6f6e6579626f6f6b6572732073656372657420776f72642e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(77, 'Enable', 'enable_signup', '1', 0x456e61626c65205369676e7570204d6f64756c652e, 1, 'yes,no', 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(78, 'Captcha Security', 'enable_captcha', '1', 0x656e61626c652043617074636861206f6e20746865207369676e7570206d6f64756c65202876616c7565203a20594553206f72204e4f292e, 1, 'yes,no', 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(79, 'Credit', 'credit', '0', 0x616d6f756e74206f6620637265646974206170706c69656420746f2061206e657720757365722e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(80, 'CallPlan ID List', 'callplan_id_list', '1,2', 0x746865206c697374206f66206964206f662063616c6c20706c616e732077686963682077696c6c2062652073686f776e20696e207369676e75702e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(81, 'Card Activation', 'activated', '0', 0x537065636966792077686574686572207468652063617264206973206372656174656420617320616374697665206f722070656e64696e672e, 1, 'yes,no', 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(82, 'Access Type', 'simultaccess', '0', 0x53696d756c74616e656f7573206f72206e6f6e20636f6e63757272656e74206163636573732077697468207468652063617264202d2030203d20494e444956494455414c20414343455353206f722031203d2053494d554c54414e454f5553204143434553532e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(83, 'Paid Type', 'typepaid', '0', 0x50524550414944204341524420203d202030202d20504f5354504159204341524420203d2020312e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(84, 'Credit Limit', 'creditlimit', '0', 0x446566696e6520637265646974206c696d69742c207768696368206973206f6e6c79207573656420666f72206120504f535450415920636172642e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(85, 'Run Service', 'runservice', '0', 0x417574686f726973652074686520726563757272696e67207365727669636520746f206170706c79206f6e2074686973206361726420202d20205965732031202d204e6f20302e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(86, 'Enable Expire', 'enableexpire', '0', 0x456e61626c652074686520657870697279206f6620746865206361726420202d20205965732031202d204e6f20302e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(87, 'Date Format', 'expirationdate', '', 0x457870697279204461746520666f726d617420595959592d4d4d2d44442048483a4d4d3a53532e20466f7220696e7374616e636520323030342d31322d33312030303a30303a3030, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(88, 'Expire Limit', 'expiredays', '0', 0x546865206e756d626572206f6620646179732061667465722077686963682074686520636172642077696c6c206578706972652e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(89, 'Create SIP', 'sip_account', '1', 0x437265617465206120736970206163636f756e742066726f6d207369676e757020282064656661756c74203a2079657320292e, 1, 'yes,no', 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(90, 'Create IAX', 'iax_account', '1', 0x43726561746520616e20696178206163636f756e742066726f6d207369676e757020282064656661756c74203a2079657320292e, 1, 'yes,no', 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(91, 'Activate Card', 'activatedbyuser', '0', 0x616374697665206361726420616674657220746865206e6577207369676e75702e206966204e6f2c20746865205369676e757020636f6e6669726d6174696f6e206973206e656564656420616e6420616e20656d61696c2077696c6c2062652073656e7420746f20746865207573657220776974682061206c696e6b20666f722061637469766174696f6e20286e65656420746f2070757420746865206c696e6b20696e746f20746865205369676e7570206d61696c2074656d706c617465292e, 1, 'yes,no', 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(92, 'Customer Interface URL', 'urlcustomerinterface', 'http://localhost/customer/', 0x75726c206f662074686520637573746f6d657220696e7465726661636520746f20646973706c61792061667465722061637469766174696f6e2e, 0, NULL, 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(93, 'Asterisk Reload', 'reload_asterisk_if_sipiax_created', '0', 0x446566696e6520696620796f752077616e7420746f2072656c6f616420417374657269736b207768656e206120534950202f2049415820467269656e642069732063726561746564206174207369676e75702074696d652e, 1, 'yes,no', 'signup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(94, 'Backup Path', 'backup_path', '/tmp', 0x5061746820746f2073746f7265206261636b7570206f662064617461626173652e, 0, NULL, 'backup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(95, 'GZIP Path', 'gzip_exe', '/bin/gzip', 0x5061746820666f7220677a69702e, 0, NULL, 'backup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(96, 'GunZip Path', 'gunzip_exe', '/bin/gunzip', 0x5061746820666f722067756e7a6970202e, 0, NULL, 'backup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(97, 'MySql Dump Path', 'mysqldump', '/usr/bin/mysqldump', 0x7061746820666f72206d7973716c64756d702e, 0, NULL, 'backup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(98, 'PGSql Dump Path', 'pg_dump', '/usr/bin/pg_dump', 0x7061746820666f722070675f64756d702e, 0, NULL, 'backup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(99, 'MySql Path', 'mysql', '/usr/bin/mysql', 0x5061746820666f72204d7953716c2e, 0, NULL, 'backup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(100, 'PSql Path', 'psql', '/usr/bin/psql', 0x5061746820666f72205053716c2e, 0, NULL, 'backup');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(101, 'SIP File Path', 'buddy_sip_file', '/etc/asterisk/additional_a2billing_sip.conf', 0x5061746820746f2073746f72652074686520617374657269736b20636f6e66696775726174696f6e2066696c6573205349502e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(102, 'IAX File Path', 'buddy_iax_file', '/etc/asterisk/additional_a2billing_iax.conf', 0x5061746820746f2073746f72652074686520617374657269736b20636f6e66696775726174696f6e2066696c6573204941582e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(103, 'API Security Key', 'api_security_key', 'Ae87v56zzl34v', 0x41504920686176652061207365637572697479206b657920746f2076616c696461746520746865206874747020726571756573742c20746865206b65792068617320746f2062652073656e74206166746572206170706c79696e67206d64352c2056616c6964206368617261637465727320617265205b612d7a2c412d5a2c302d395d2e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(104, 'Authorized IP', 'api_ip_auth', '127.0.0.1', 0x41504920746f207265737472696374207468652049507320617574686f726973656420746f206d616b65206120726571756573742c20446566696e652054686520746865206c697374206f66206970732073657061726174656420627920273b272e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(105, 'Admin Email', 'email_admin', 'root@localhost', 0x41646d696e697374617469766520456d61696c2e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(106, 'MOH Directory', 'dir_store_mohmp3', '/var/lib/asterisk/mohmp3', 0x4d4f4820284d75736963206f6e20486f6c64292062617365206469726563746f72792e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(107, 'MOH Classes', 'num_musiconhold_class', '10', 0x4e756d626572206f66204d4f4820636c617373657320796f752068617665206372656174656420696e206d757369636f6e686f6c642e636f6e66203a206163635f312c206163635f322e2e2e206163635f313020636c617373096574632e2e2e2e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(108, 'Display Help', 'show_help', '1', 0x446973706c6179207468652068656c702073656374696f6e20696e73696465207468652061646d696e20696e74657266616365202028594553202d204e4f292e, 1, 'yes,no', 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(109, 'Max File Upload Size', 'my_max_file_size_import', '1024000', 0x46696c652055706c6f616420706172616d65746572732c20504c4541534520434845434b20414c534f205448452056414c554520494e20594f5552205048502e494e4920544845204c494d495420495320324d472042592044454641554c54202e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(110, 'Audio Directory Path', 'dir_store_audio', '/var/lib/asterisk/sounds/a2billing', 0x4e6f742075736564207965742c2054686520676f616c20697320746f2075706c6f61642066696c657320616e6420757365207468656d20696e20746865204956522e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(111, 'Max Audio File Size', 'my_max_file_size_audio', '3072000', 0x75706c6f6164206d6178696d756d2066696c652073697a652e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(112, 'Extensions Allowed', 'file_ext_allow', 'gsm, mp3, wav', 0x46696c65207479706520657874656e73696f6e73207065726d697474656420746f2062652075706c6f616465642073756368206173202267736d2c206d70332c20776176222028736570617261746564206279202c292e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(113, 'Muzic Files Allowed', 'file_ext_allow_musiconhold', 'mp3', 0x46696c65207479706520657874656e73696f6e73207065726d697474656420746f2062652075706c6f6164656420666f7220746865206d757369636f6e686f6c642073756368206173202267736d2c206d70332c207761762220287365706172617465206279202c292e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(114, 'Link Audio', 'link_audio_file', '0', 0x456e61626c65206c696e6b206f6e20746865204344522076696577657220746f20746865207265636f7264696e67732e2028594553202d204e4f292e, 1, 'yes,no', 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(115, 'Monitor Path', 'monitor_path', '/var/spool/asterisk/monitor', 0x5061746820746f206c696e6b20746865207265636f72646564206d6f6e69746f722066696c65732e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(116, 'Monitor Format', 'monitor_formatfile', 'gsm', 0x464f524d4154204f4620544845205245434f52444544204d4f4e49544f522046494c452e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(117, 'Invoice Icon', 'show_icon_invoice', '1', 0x446973706c6179207468652069636f6e20696e2074686520696e766f6963652e, 1, 'yes,no', 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(118, 'Show Top Frame', 'show_top_frame', '0', 0x446973706c61792074686520746f70206672616d65202875736566756c20696620796f752077616e7420746f2073617665207370616365206f6e20796f7572206c6974746c652074696e792073637265656e2029202e, 1, 'yes,no', 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(119, 'Currency', 'currency_choose', 'usd, eur, cad, hkd', 0x416c6c6f772074686520637573746f6d657220746f2063686f736520746865206d6f737420617070726f7072696174652063757272656e6379202822616c6c222063616e2062652075736564292e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(120, 'Card Export Fields', 'card_export_field_list', 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, ', 0x4669656c647320746f206578706f727420696e2063737620666f726d61742066726f6d2063635f63617264207461626c652e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(121, 'Vouvher Export Fields', 'voucher_export_field_list', 'voucher, credit, tag, activated, usedcardnumber, usedate, currency', 0x4669656c6420746f206578706f727420696e2063737620666f726d61742066726f6d2063635f766f7563686572207461626c652e, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(122, 'Advance Mode', 'advanced_mode', '0', 0x416476616e636564206d6f6465202d20446973706c6179206164646974696f6e616c20636f6e66696775726174696f6e206f7074696f6e73206f6e20746865207261746563617264202870726f67726573736976652072617465732c206d757369636f6e686f6c642c202e2e2e292e, 1, 'yes,no', 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(123, 'SIP/IAX Delete', 'delete_fk_card', '1', 0x44656c65746520746865205349502f49415820467269656e6420262063616c6c65726964207768656e206120636172642069732064656c657465642e, 1, 'yes,no', 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(124, 'Type', 'type', 'friend', 0x526566657220746f207369702e636f6e662026206961782e636f6e6620646f63756d656e746174696f6e20666f7220746865206d65616e696e67206f662074686f736520706172616d65746572732e, 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(125, 'Allow', 'allow', 'ulaw,alaw,gsm,g729', 0x526566657220746f207369702e636f6e662026206961782e636f6e6620646f63756d656e746174696f6e20666f7220746865206d65616e696e67206f662074686f736520706172616d65746572732e, 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(126, 'Context', 'context', 'a2billing', 0x526566657220746f207369702e636f6e662026206961782e636f6e6620646f63756d656e746174696f6e20666f7220746865206d65616e696e67206f662074686f736520706172616d65746572732e, 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(127, 'Nat', 'nat', 'yes', 0x526566657220746f207369702e636f6e662026206961782e636f6e6620646f63756d656e746174696f6e20666f7220746865206d65616e696e67206f662074686f736520706172616d65746572732e, 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(128, 'AMA Flag', 'amaflag', 'billing', 0x526566657220746f207369702e636f6e662026206961782e636f6e6620646f63756d656e746174696f6e20666f7220746865206d65616e696e67206f662074686f736520706172616d65746572732e, 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(129, 'Qualify', 'qualify', 'yes', 0x526566657220746f207369702e636f6e662026206961782e636f6e6620646f63756d656e746174696f6e20666f7220746865206d65616e696e67206f662074686f736520706172616d65746572732e, 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(130, 'Host', 'host', 'dynamic', 0x526566657220746f207369702e636f6e662026206961782e636f6e6620646f63756d656e746174696f6e20666f7220746865206d65616e696e67206f662074686f736520706172616d65746572732e, 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(131, 'DTMF Mode', 'dtmfmode', 'RFC2833', 0x526566657220746f207369702e636f6e662026206961782e636f6e6620646f63756d656e746174696f6e20666f7220746865206d65616e696e67206f662074686f736520706172616d65746572732e, 0, NULL, 'peer_friend');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(132, 'Alarm Log File', 'cront_alarm', '/var/log/a2billing/cront_a2b_alarm.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d6520617369646520736572766963652e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(133, 'Auto refill Log File', 'cront_autorefill', '/var/log/a2billing/cront_a2b_autorefill.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d6520617369646520736572766963652e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(134, 'Bactch Process Log File', 'cront_batch_process', '/var/log/a2billing/cront_a2b_batch_process.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d652061736964652073657276696365202e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(135, 'Archive Log File', 'cront_archive_data', '/var/log/a2billing/cront_a2b_archive_data.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d652061736964652073657276696365202e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(136, 'DID Billing Log File', 'cront_bill_diduse', '/var/log/a2billing/cront_a2b_bill_diduse.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d652061736964652073657276696365202e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(137, 'Subscription Fee Log File', 'cront_subscriptionfee', '/var/log/a2billing/cront_a2b_subscription_fee.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d6520617369646520736572766963652e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(138, 'Currency Cront Log File', 'cront_currency_update', '/var/log/a2billing/cront_a2b_currency_update.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d6520617369646520736572766963652e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(139, 'Invoice Cront Log File', 'cront_invoice', '/var/log/a2billing/cront_a2b_invoice.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d6520617369646520736572766963652e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(140, 'Cornt Log File', 'cront_check_account', '/var/log/a2billing/cront_a2b_check_account.log', 0x546f2064697361626c65206170706c69636174696f6e206c6f6767696e672c2072656d6f76652f636f6d6d656e7420746865206c6f672066696c65206e616d652061736964652073657276696365202e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(141, 'Paypal Log File', 'paypal', '/var/log/a2billing/a2billing_paypal.log', 0x70617970616c206c6f672066696c652c20746f206c6f6720616c6c20746865207472616e73616374696f6e2026206572726f722e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(142, 'EPayment Log File', 'epayment', '/var/log/a2billing/a2billing_epayment.log', 0x657061796d656e74206c6f672066696c652c20746f206c6f6720616c6c20746865207472616e73616374696f6e2026206572726f72202e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(143, 'ECommerce Log File', 'api_ecommerce', '/var/log/a2billing/a2billing_api_ecommerce_request.log', 0x4c6f672066696c6520746f2073746f7265207468652065636f6d6d6572636520415049207265717565737473202e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(144, 'Callback Log File', 'api_callback', '/var/log/a2billing/a2billing_api_callback_request.log', 0x4c6f672066696c6520746f2073746f7265207468652043616c6c4261636b204150492072657175657374732e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(145, 'Webservice Card Log File', 'api_card', '/var/log/a2billing/a2billing_api_card.log', 0x4c6f672066696c6520746f2073746f72652074686520436172642057656273657276696365204c6f6773, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(146, 'AGI Log File', 'agi', '/var/log/a2billing/a2billing_agi.log', 0x46696c6520746f206c6f672e, 0, NULL, 'log-files');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(147, 'Description', 'description', 'agi-config', 0x4465736372697074696f6e2f6e6f746573206669656c64, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(148, 'Asterisk Version', 'asterisk_version', '1_4', 0x417374657269736b2056657273696f6e20496e666f726d6174696f6e2c20315f312c315f322c315f342042792044656661756c742069742077696c6c2074616b6520315f32206f7220686967686572202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(149, 'Answer Call', 'answer_call', '1', 0x4d616e6167652074686520616e73776572206f6e207468652063616c6c2e2044697361626c696e67207468697320666f722063616c6c6261636b2074726967676572206e756d62657273206d616b65732069742072696e67206e6f742068616e672075702e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(150, 'Play Audio', 'play_audio', '1', 0x506c617920617564696f202d20746869732077696c6c2064697361626c6520616c6c2073747265616d2066696c6520627574206e6f7420746865204765742044617461202c20666f722077686f6c6573616c6520656e737572652074686174207468652061757468656e7469636174696f6e20776f726b7320616e64207468616e206e756d6265725f747279203d20312e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(151, 'Say GoodBye', 'say_goodbye', '0', 0x706c61792074686520676f6f64627965206d657373616765207768656e207468652075736572206861732066696e69736865642e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(152, 'Play Language Menu', 'play_menulanguage', '0', 0x656e61626c6520746865206d656e7520746f2063686f6f736520746865206c616e67756167652c207072657373203120666f7220456e676c6973682c2070756c73612032207061726120656c2065737061c383c2b16f6c2c205072657373657a203320706f7572204672616ec383c2a7616973, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(153, 'Force Language', 'force_language', '', 0x666f7263652074686520757365206f662061206c616e67756167652c20696620796f7520646f6e742077616e7420746f20757365206974206c6561766520746865206f7074696f6e20656d7074792c2056616c756573203a2045532c20454e2c2046522c206574632e2e2e20286163636f7264696e6720746f2074686520617564696f20796f75206861766520696e7374616c6c6564292e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(154, 'Intro Prompt', 'intro_prompt', '', 0x496e74726f64756374696f6e2070726f6d7074203a20746f207370656369667920616e206164646974696f6e616c2070726f6d707420746f20706c61792061742074686520626567696e6e696e67206f6620746865206170706c69636174696f6e202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(155, 'Min Call Credit', 'min_credit_2call', '0', 0x4d696e696d756d20616d6f756e74206f662063726564697420746f2075736520746865206170706c69636174696f6e202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(156, 'Min Bill Duration', 'min_duration_2bill', '0', 0x7468697320697320746865206d696e696d756d206475726174696f6e20696e207365636f6e6473206f6620612063616c6c20696e206f7264657220746f2062652062696c6c656420616e792063616c6c20776974682061206c656e677468206c657373207468616e206d696e5f6475726174696f6e5f3262696c6c2077696c6c20686176652061203020636f73742075736566756c206e6f7420746f206368617267652063616c6c65727320666f722073797374656d206572726f7273207768656e20612063616c6c2077617320616e737765726564206275742069742061637475616c6c79206469646e277420636f6e6e6563742e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(157, 'Not Enough Credit', 'notenoughcredit_cardnumber', '0', 0x6966207573657220646f65736e2774206861766520656e6f7567682063726564697420746f2063616c6c20612064657374696e6174696f6e2c2070726f6d70742068696d20746f20656e74657220616e6f7468657220636172646e756d626572202e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(158, 'New Caller ID', 'notenoughcredit_assign_newcardnumber_cid', '0', 0x6966206e6f74656e6f7567686372656469745f636172646e756d626572203d2059455320207468656e0961737369676e207468652043616c6c6572494420746f20746865206e657720636172646e756d6265722e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(159, 'Use DNID', 'use_dnid', '0', 0x6966205945532069742077696c6c207573652074686520444e494420616e642074727920746f206469616c206f75742c20776974686f75742061736b696e6720666f72207468652070686f6e656e756d62657220746f2063616c6c2e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(160, 'Not Use DNID', 'no_auth_dnid', '2400,2300', 0x6c6973742074686520646e6964206f6e20776869636820796f752077616e7420746f2061766f69642074686520757365206f66207468652070726576696f7573206f7074696f6e20227573655f646e696422202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(161, 'Try Count', 'number_try', '3', 0x6e756d626572206f662074696d65732074686520757365722063616e206469616c20646966666572656e74206e756d6265722e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(162, 'Force CallPlan', 'force_callplan_id', '', 0x746869732077696c6c20666f72636520746f2073656c65637420612073706563696669632063616c6c20706c616e20627920746865205261746520456e67696e652e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(163, 'Say Balance After Auth', 'say_balance_after_auth', '1', 0x506c6179207468652062616c616e636520746f207468652075736572206166746572207468652061757468656e7469636174696f6e202876616c756573203a20796573202d206e6f292e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(164, 'Say Balance After Call', 'say_balance_after_call', '0', 0x506c6179207468652062616c616e636520746f207468652075736572206166746572207468652063616c6c202876616c756573203a20796573202d206e6f292e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(165, 'Say Rate', 'say_rateinitial', '0', 0x506c61792074686520696e697469616c20636f7374206f662074686520726f757465202876616c756573203a20796573202d206e6f29, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(166, 'Say Duration', 'say_timetocall', '1', 0x506c61792074686520616d6f756e74206f662074696d6520746861742074686520757365722063616e2063616c6c202876616c756573203a20796573202d206e6f292e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(167, 'Auto Set CLID', 'auto_setcallerid', '1', 0x656e61626c6520746865207365747570206f66207468652063616c6c65724944206e756d626572206265666f726520746865206f7574626f756e64206973206d6164652c2062792064656661756c742074686520757365722063616c6c657249442076616c75652077696c6c206265207573652e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(168, 'Force CLID', 'force_callerid', '', 0x4966206175746f5f73657463616c6c6572696420697320656e61626c65642c207468652076616c7565206f6620666f7263655f63616c6c657269642077696c6c206265207365742061732043616c6c657249442e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(169, 'CLID Sanitize', 'cid_sanitize', '0', 0x496620666f7263655f63616c6c65726964206973206e6f74207365742c207468656e2074686520666f6c6c6f77696e67206f7074696f6e20656e73757265732074686174204349442069732073657420746f206f6e65206f66207468652063617264277320636f6e666967757265642063616c6c657220494473206f7220626c616e6b206966206e6f6e6520617661696c61626c652e284e4f202d2064697361626c65207468697320666561747572652c2063616c6c65722049442063616e20626520616e797468696e672c20434944202d2043616c6c6572204944206d757374206265206f6e65206f662074686520637573746f6d6572732063616c6c6572204944732c20444944202d2043616c6c6572204944206d757374206265206f6e65206f662074686520637573746f6d65727320444944206e6f732c20424f5448202d2043616c6c6572204944206d757374206265206f6e65206f66207468652061626f76652074776f206974656d7329, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(170, 'CLID Enable', 'cid_enable', '0', 0x656e61626c65207468652063616c6c657269642061757468656e7469636174696f6e2069662074686973206f7074696f6e20697320616374697665207468652043432073797374656d2077696c6c20636865636b2074686520434944206f662063616c6c657220202e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(171, 'Ask PIN', 'cid_askpincode_ifnot_callerid', '1', 0x6966207468652043494420646f6573206e6f742065786973742c207468656e207468652063616c6c65722077696c6c2062652070726f6d707420746f20656e7465722068697320636172646e756d626572202e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(172, 'FailOver LCR/LCD Prefix', 'failover_lc_prefix', '0', 0x69662077652077696c6c206661696c6f76657220666f72204c43522f4c4344207072656669782e20466f7220696e7374616e636520696620796f7520686176652033343620616e6420333420666f7220696620333436206661696c2069742077696c6c2074727920746f206f7574626f756e64207769746820333420726f7574652e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(173, 'Auto CLID', 'cid_auto_assign_card_to_cid', '1', 0x6966207468652063616c6c657249442061757468656e7469636174696f6e20697320656e61626c6520616e64207468652061757468656e7469636174696f6e206661696c73207468656e2074686520757365722077696c6c2062652070726f6d707420746f20656e7465722068697320636172646e756d6265723b74686973206f7074696f6e2077696c6c20626f756e642074686520636172646e756d62657220656e746572656420746f207468652063757272656e742063616c6c6572494420736f2074686174206e6578742063616c6c2077696c6c206265206469726563746c792061757468656e7469636174652e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(174, 'Auto Create Card', 'cid_auto_create_card', '0', 0x6966207468652063616c6c65724944206973206361707475726564206f6e20613262696c6c696e672c2074686973206f7074696f6e2077696c6c20637265617465206175746f6d61746963616c6c792061206e6577206361726420616e6420616464207468652063616c6c6572494420746f2069742e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(175, 'Auto Create Card Length', 'cid_auto_create_card_len', '10', 0x73657420746865206c656e677468206f6620746865206361726420746861742077696c6c206265206175746f20637265617465202869652c203130292e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(176, 'Auto Create Card Type', 'cid_auto_create_card_typepaid', 'POSTPAY', 0x62696c6c696e672074797065206f6620746865206e65772063617264282076616c7565203a20504f5354504159206f722050524550415929202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(177, 'Auto Create Card Credit', 'cid_auto_create_card_credit', '0', 0x616d6f756e74206f6620637265646974206f6620746865206e657720636172642e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(178, 'Auto Create Card Limit', 'cid_auto_create_card_credit_limit', '1000', 0x696620706f73747061792c20646566696e652074686520637265646974206c696d697420666f722074686520636172642e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(179, 'Auto Create Card TariffGroup', 'cid_auto_create_card_tariffgroup', '6', 0x7468652074617269666667726f757020746f2075736520666f7220746865206e6577206361726420287468697320697320746865204944207468617420796f752063616e2066696e64206f6e207468652061646d696e2077656220696e7465726661636529202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(180, 'Auto CLID Security', 'callerid_authentication_over_cardnumber', '0', 0x746f20636865636b2063616c6c65724944206f7665722074686520636172646e756d6265722061757468656e7469636174696f6e2028746f20677561726420616761696e73742073706f6f66696e67292e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(181, 'SIP Call', 'sip_iax_friends', '0', 0x656e61626c6520746865206f7074696f6e20746f2063616c6c207369702f69617820667269656e6420666f722066726565202876616c756573203a20594553202d204e4f292e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(182, 'SIP Call Prefix', 'sip_iax_pstn_direct_call_prefix', '555', 0x6966205349505f4941585f465249454e4453206973206163746976652c20796f752063616e20646566696e6520612070726566697820666f7220746865206469616c65642064696769747320746f2063616c6c2061207073746e206e756d626572202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(183, 'Direct Call', 'sip_iax_pstn_direct_call', '0', 0x746869732077696c6c20656e61626c6520612070726f6d707420746f20656e74657220796f75722064657374696e6174696f6e206e756d6265722e206966206e756d626572207374617274206279207369705f6961785f7073746e5f6469726563745f63616c6c5f70726566697820776520646f206469726563746c79206120736970206961782063616c6c2c206966206e6f7420776520646f2061206e6f726d616c2063616c6c2e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(184, 'IVR Voucher Refill', 'ivr_voucher', '0', 0x656e61626c6520746865206f7074696f6e20746f20726566696c6c2063617264207769746820766f756368657220696e20495652202876616c756573203a20594553202d204e4f29202e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(185, 'IVR Voucher Prefix', 'ivr_voucher_prefix', '8', 0x6966206976725f766f7563686572206973206163746976652c20796f752063616e20646566696e6520612070726566697820666f722074686520766f7563686572206e756d62657220746f20726566696c6c20796f757220636172642c2076616c756573203a206e756d626572202d20646f6e277420666f7267657420746f206368616e676520707265706169642d726566696c6c5f636172645f776974685f766f756368657220617564696f206163636f7264696e676c79202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(186, 'IVR Low Credit', 'jump_voucher_if_min_credit', '0', 0x5768656e20746865207573657220637265646974206172652062656c6f7720746865206d696e696d756d2063726564697420746f2063616c6c206d696e5f637265646974206a756d70206469726563746c7920746f2074686520766f756368657220495652206d656e7520202876616c7565733a20594553202d204e4f29202e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(187, 'Dial Command Params', 'dialcommand_param', '|60|HRrL(%timeout%:61000:30000)', 0x4d6f726520696e666f726d6174696f6e2061626f757420746865204469616c203a20687474703a2f2f766f69702d696e666f2e6f72672f77696b692d417374657269736b2b636d642b6469616c3c62723e3330203a20205468652074696d656f757420706172616d65746572206973206f7074696f6e616c2e204966206e6f742073706563696665642c20746865204469616c20636f6d6d616e642077696c6c207761697420696e646566696e6974656c792c2065786974696e67206f6e6c79207768656e20746865206f726967696e6174696e67206368616e6e656c2068616e67732075702c206f7220616c6c20746865206469616c6564206368616e6e656c732072657475726e20612062757379206f72206572726f7220636f6e646974696f6e2e204f7468657277697365206974207370656369666965732061206d6178696d756d2074696d652c20696e207365636f6e64732c207468617420746865204469616c20636f6d6d616e6420697320746f207761697420666f722061206368616e6e656c20746f20616e737765722e3c62723e483a20416c6c6f77207468652063616c6c657220746f2068616e67207570206279206469616c696e67202a203c62723e723a2047656e657261746520612072696e67696e6720746f6e6520666f72207468652063616c6c696e672070617274793c62723e523a20496e6469636174652072696e67696e6720746f207468652063616c6c696e67207061727479207768656e207468652063616c6c656420706172747920696e646963617465732072696e67696e672c2070617373206e6f20617564696f20756e74696c20616e7377657265642e3c62723e673a205768656e207468652063616c6c65642070617274792068616e67732075702c206578697420746f2065786563757465206d6f726520636f6d6d616e647320696e207468652063757272656e7420636f6e746578742e20286e657720696e20312e34293c62723e693a20417374657269736b2077696c6c2069676e6f726520616e7920666f7277617264696e672028333032205265646972656374292072657175657374732072656365697665642e20457373656e7469616c20666f722044494420757361676520746f2070726576656e742066726175642e20286e657720696e20312e34293c62723e6d3a2050726f76696465204d75736963206f6e20486f6c6420746f207468652063616c6c696e6720706172747920756e74696c207468652063616c6c6564206368616e6e656c20616e73776572732e3c62723e4c28785b3a795d5b3a7a5d293a204c696d6974207468652063616c6c20746f20277827206d732c207761726e696e67207768656e20277927206d7320617265206c6566742c20726570656174656420657665727920277a27206d73293c62723e2574696d656f75742520746167206973207265706c61636564206279207468652063616c63756c617465642074696d656f7574206163636f7264696e67207468652063726564697420262064657374696e6174696f6e2072617465212e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(188, 'SIP/IAX Dial Command Params', 'dialcommand_param_sipiax_friend', '|60|HiL(3600000:61000:30000)', 0x62792064656661756c7420283336303030303020203d202031484f5552204d41582043414c4c292e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(189, 'Outbound Call', 'switchdialcommand', '0', 0x446566696e6520746865206f7264657220746f206d616b6520746865206f7574626f756e642063616c6c3c62723e594553202d3e205349502f6469616c656470686f6e656e756d62657240676174657761795f6970202d204e4f20205349502f676174657761795f69702f6469616c656470686f6e656e756d6265723c62723e426f74682073686f756c6420776f726b2065786163746c79207468652073616d65206275742069206578706572696d656e746564206f6e652063617365207768656e20676174657761792077617320737570706f7274696e67206469616c656470686f6e656e756d62657240676174657761795f69702c20536f20696e2063617365206f662074726f75626c652c20747279206974206f75742e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(190, 'Failover Retry Limit', 'failover_recursive_limit', '2', 0x6661696c6f7665722072656375727369766520736561726368202d20646566696e6520686f77206d616e792074696d652077652077616e7420746f20617574686f72697a6520746865207265736561726368206f6620746865206661696c6f766572207472756e6b207768656e20612063616c6c206661696c73202876616c7565203a2030202d20323029202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(191, 'Max Time', 'maxtime_tocall_negatif_free_route', '5400', 0x546869732073657474696e672073706563696669657320616e207570706572206c696d697420666f7220746865206475726174696f6e206f6620612063616c6c20746f20612064657374696e6174696f6e20666f72207768696368207468652073656c6c696e672072617465206973206c657373207468616e206f7220657175616c20746f20302e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(192, 'Send Reminder', 'send_reminder', '0', 0x53656e6420612072656d696e64657220656d61696c20746f207468652075736572207768656e20746865792061726520756e646572206d696e5f6372656469745f3263616c6c2e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(193, 'Record Call', 'record_call', '0', 0x656e61626c6520746f206d6f6e69746f72207468652063616c6c2028746f207265636f726420616c6c2074686520636f6e766572736174696f6e73292076616c7565203a20594553202d204e4f202e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(194, 'Monitor File Format', 'monitor_formatfile', 'gsm', 0x666f726d6174206f6620746865207265636f72646564206d6f6e69746f722066696c652e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(195, 'AGI Force Currency', 'agi_force_currency', '', 0x466f72636520746f20706c6179207468652062616c616e636520746f207468652063616c6c657220696e206120707265646566696e65642063757272656e63792c20746f20757365207468652063757272656e63792073657420666f722062792074686520637573746f6d6572206c656176652074686973206669656c6420656d7074792e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(196, 'Currency Associated', 'currency_association', 'usd:dollars,mxn:pesos,eur:euros,all:credit', 0x446566696e6520616c6c2074686520617564696f2028776974686f75742066696c6520657874656e73696f6e7329207468617420796f752077616e7420746f20706c6179206163636f7264696e6720746f2063757272656e63792028757365202c20746f2073657061726174652c20696520227573643a707265706169642d646f6c6c61722c6d786e3a7065736f732c6575723a4575726f2c616c6c3a63726564697422292e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(197, 'Minor Currency Associated', 'currency_association_minor', 'usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit', 0x446566696e6520616c6c2074686520617564696f2028776974686f75742066696c6520657874656e73696f6e7329207468617420796f752077616e7420746f20706c6179206163636f7264696e6720746f206d696e6f722063757272656e63792028757365202c20746f2073657061726174652c20696520227573643a707265706169642d63656e74732c6575723a707265706169642d63656e74732c6762703a707265706169642d70656e63652c616c6c3a63726564697422292e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(198, 'File Enter Destination', 'file_conf_enter_destination', 'prepaid-enter-dest', 0x506c6561736520656e746572207468652066696c65206e616d6520796f752077616e7420746f20706c6179207768656e2077652070726f6d7074207468652063616c6c696e6720706172747920746f20656e746572207468652064657374696e6174696f6e206e756d6265722c2066696c655f636f6e665f656e7465725f64657374696e6174696f6e203d20707265706169642d656e7465722d6e756d6265722d752d63616c6c696e672d312d6f722d3031312e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(219, 'Menu Language Order', 'conf_order_menulang', 'en:fr:es', 0x456e74657220746865206c697374206f66206c616e67756167657320617574686f72697a656420666f7220746865206d656e752e5573652074686520636f6465206c616e6775616765207365706172617465206279206120636f6c6f6e206368617261637465726520652e673a20656e3a65733a6672, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(200, 'Bill Callback', 'callback_bill_1stleg_ifcall_notconnected', '1', 0x446566696e6520696620796f752077616e7420746f2062696c6c2074686520317374206c6567206f6e2063616c6c6261636b206576656e206966207468652063616c6c206973206e6f7420636f6e6e656374656420746f207468652064657374696e6174696f6e2e, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(201, 'International prefixes', 'international_prefixes', '011,00,09,1', 0x4c6973742074686520707265666978657320796f752077616e74207374726970706564206f6666206966207468652063616c6c20706c616e207265717569726573206974, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(202, 'Server GMT', 'server_GMT', 'GMT+10:00', 0x446566696e652074686520736576657220676d742074696d65, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(203, 'Invoice Template Path', 'invoice_template_path', '../invoice/', 0x676976657320696e766f6963652074656d706c61746520706174682066726f6d2064656661756c74206f6e65, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(204, 'Outstanding Template Path', 'outstanding_template_path', '../outstanding/', 0x6769766573206f75747374616e64696e672074656d706c61746520706174682066726f6d2064656661756c74206f6e65, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(205, 'Sales Template Path', 'sales_template_path', '../sales/', 0x67697665732073616c65732074656d706c61746520706174682066726f6d2064656661756c74206f6e65, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(206, 'Extra charge DIDs', 'extracharge_did', '1800,1900', 0x416464206578747261207065722d6d696e757465206368617267657320746f207468697320636f6d6d612d736570617261746564206c697374206f6620444e4944733b206e65656473202265787472616368617267655f6665652220616e64202265787472616368617267655f62757966656522, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(207, 'Extra charge DID fees', 'extracharge_fee', '0.05,0.15', 0x436f6d6d612d736570617261746564206c697374206f662065787472612073656c6c2d72617465206368617267657320636f72726573706f6e64696e6720746f20746865204449447320696e202265787472616368617267655f64696422, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(208, 'Extra charge DID buy fees', 'extracharge_buyfee', '0.04,0.13', 0x436f6d6d612d736570617261746564206c697374206f66206578747261206275792d72617465206368617267657320636f72726573706f6e64696e6720746f20746865204449447320696e202265787472616368617267655f64696422, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(209, 'Support Modules', 'support', '1', 0x456e61626c65206f722044697361626c6520746865206d6f64756c65206f6620737570706f7274, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(210, 'List of possible values to notify', 'values_notifications', '10:20:50:100:500:1000', 0x506f737369626c652076616c75657320746f2063686f6f7365207768656e20746865207573657220726563656976652061206e6f74696669636174696f6e2e20596f752063616e20646566696e652061204c69737420652e673a2031303a32303a3130302e, 0, NULL, 'notifications');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(211, 'Notifications Modules', 'notification', '1', 0x456e61626c65206f722044697361626c6520746865206d6f64756c65206f66206e6f74696669636174696f6e20666f722074686520637573746f6d657273, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(212, 'Notications Cron Module', 'cron_notifications', '1', 0x456e61626c65206f722044697361626c65207468652063726f6e206d6f64756c65206f66206e6f74696669636174696f6e20666f722074686520637573746f6d6572732e20496620697420636f72726563746c7920636f6e6669677572656420696e207468652063726f6e746162, 0, 'yes,no', 'notifications');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(213, 'Notications Delay', 'delay_notifications', '1', 0x44656c617920696e206e756d626572206f66206461797320746f2073656e6420616e206f74686572206e6f74696669636174696f6e20666f722074686520637573746f6d6572732e204966207468652076616c756520697320302c2069742077696c6c206e6f7469667920746865207573657220657665727974696d65207468652063726f6e742069732072756e6e696e672e, 0, NULL, 'notifications');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(214, 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 0x646566696e652074686520646966666572656e7420616d6f756e74206f66207075726368617365207468617420776f756c6420626520617661696c61626c652e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(215, 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 0x466f7220756e6c696d697465642063616c6c732c206c696d697420746865206475726174696f6e3a20616d6f756e7420696e207365636f6e6473202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(216, 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 0x466f7220667265652063616c6c732c206c696d697420746865206475726174696f6e3a20616d6f756e7420696e207365636f6e6473202e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(217, 'CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 0x43616c6c506c616e207468726573686f6c64204465636b207377697463682e203c62722f3e54686973206f7074696f6e2077696c6c207377697463682074686520757365722063616c6c706c616e2066726f6d206f6e652063616c6c20706c616e20494420746f20616e64206f746865722043616c6c706c616e2049440a54686520706172616d65746572732061726520617320666f6c6c6f77203a203c62722f3e0a2d2d204944206f66207468652066697273742063616c6c706c616e203a2063616c6c6564207365636f6e6473206e656564656420746f2073776974636820746f20746865206e6578742043616c6c706c616e4944203c62722f3e0a2d2d204944206f6620746865207365636f6e642063616c6c706c616e203a2063616c6c6564207365636f6e6473206e656564656420746f2073776974636820746f20746865206e6578742043616c6c706c616e4944203c62722f3e0a2d2d206966206e6f74206e6565646564207365636f6e64732061726520646566696e65642069742077696c6c206175746f6d61746963616c6c792073776974636820746f20746865206e657874206f6e65203c62722f3e0a2d2d20696620646566696e65642077652077696c6c2073756d207468652070726576696f7573206e6565646564207365636f6e647320616e6420636865636b206966207468652063616c6c65722068616420646f6e65206174206c656173742074686520616d6f756e74206f662063616c6c73206e656365737361727920746f20676f20746f20746865206e657874207374657020616e6420686176652074686520616d6f756e74206f66207365636f6e6473206e65656465643c62722f3e0a76616c7565206578616d706c6520666f722063616c6c706c616e5f6465636b5f6d696e7574655f7468726573686f6c64203d20313a3330302c20323a36302c2033, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(218, 'Payment Historique Modules', 'payment', '1', 0x456e61626c65206f722044697361626c6520746865206d6f64756c65206f66207061796d656e7420686973746f726971756520666f722074686520637573746f6d657273, 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(220, 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 0x446573616374697665642074686520616e6e6f7563656d656e74206f6620746865207365636f6e6473207768656e20746865726520617265206d6f7265206f66206f6e65206d696e75746573202876616c756573203a20796573202d206e6f29, 1, 'yes,no', 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(221, 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 0x416374697665642c20696620796f752077616e7420617373756d2074686520666565206f662070617970616c20616e6420646f6e2774206170706c79206974206f6e2074686520637573746f6d6572202876616c756573203a20796573202d206e6f29, 1, 'yes,no', 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(222, 'Cents Currency Associated', 'currency_cents_association', '', 0x446566696e6520616c6c2074686520617564696f2028776974686f75742066696c6520657874656e73696f6e7329207468617420796f752077616e7420746f20706c6179206163636f7264696e6720746f2063656e74732063757272656e63792028757365202c20746f2073657061726174652c2069652022616d643a6c756d617322292e42792064656661756c74207468652066696c6520757365642069732022707265706169642d63656e747322202e55736520706c7572616c20746f20646566696e65207468652063656e74732063757272656e637920736f756e642c2062757420696d706f72742074776f20736f756e6473206275742063656e74732063757272656e637920646566696e6564203a20656e64696e672062792027732720616e64206e6f7420656e64696e67206279202773272028692e652e20666f72206c756d6173202c2061646420322066696c6573203a20276c756d61732720616e6420276c756d61272920, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(223, 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 0x436f6e7465787420746f2075736520696e2043616d706169676e206f662043616c6c6261636b, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(224, 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 0x436f6e7465787420746f207573652062792064656661756c7420746f20666f7277617264207468652063616c6c20696e2043616d706169676e206f662043616c6c6261636b, 0, NULL, 'callback');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(225, 'Card Show Fields', 'card_show_field_list', 'id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,', 0x4669656c647320746f2073686f7720696e20437573746f6d65722e204f7264657220697320696d706f7274616e742e20596f752063616e2073657475702073697a65206f66206669656c64207573696e6720226669656c646e616d653a31302522206e6f746174696f6e206f7220226669656c646e616d653a2220666f7220686172636f6465642073697a652c226669656c646e616d652220666f72206175746f73697a652e203c62722f3e596f752063616e207573653a3c62722f3e2069642c757365726e616d652c2075736572616c6961732c206c6173746e616d652c2069645f67726f75702c2069645f6167656e742c20206372656469742c207461726966662c207374617475732c206c616e67756167652c20696e7573652c2063757272656e63792c207369705f62756464792c206961785f62756464792c206e62757365642c2066697273746e616d652c20656d61696c2c20646973636f756e742c2063616c6c657269642c2069645f73657269612c2073657269616c, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(226, 'Enable CDR local cache', 'cache_enabled', '0', 0x496620796f752077616e7420656e61626c656420746865206c6f63616c20636163686520746f2073617665207468652043445220696e20612053514c6974652044617461626173652e, 1, 'yes,no', 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(227, 'Path for the CDR cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 0x446566696e6564207468652066696c65207468617420796f752077616e742075736520666f72207468652043445220636163686520746f2073617665207468652043445220696e2061206c6f63616c2053514c6974652064617461626173652e, 0, NULL, 'global');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(228, 'PNL Pay Phones', 'report_pnl_pay_phones', '(8887798764,0.02,0.06)', 0x496e666f20666f7220504e4c207265706f72742e204d75737420626520696e20666f726d2022286e756d626572312c627579636f73742c73656c6c636f7374292c286e756d626572322c627579636f73742c73656c6c636f737429222c206e756d6265722063616e206265207072656669782c20692e652031383030, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(229, 'PNL Tall Free Numbers', 'report_pnl_toll_free', '(6136864646,0.1,0),(6477249717,0.1,0)', 0x496e666f20666f7220504e4c207265706f72742e206d75737420626520696e20666f726d2022286e756d626572312c627579636f73742c73656c6c636f7374292c286e756d626572322c627579636f73742c73656c6c636f737429222c206e756d6265722063616e206265207072656669782c20692e652031383030, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(230, 'Verbosity', 'verbosity_level', '0', 0x30203d20464154414c3b2031203d204552524f523b205741524e203d2032203b20494e464f203d2033203b204445425547203d2034, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(231, 'Logging', 'logging_level', '3', 0x30203d20464154414c3b2031203d204552524f523b205741524e203d2032203b20494e464f203d2033203b204445425547203d2034, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(232, 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 0x496620796f752077616e7420656e61626c65642074686520696e666f206d6f64756c6520637573746f6d657220616e6420706c61636520697420736f6d657768657265206f6e2074686520686f6d6520706167652e, 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(233, 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 0x496620796f752077616e7420656e61626c65642074686520696e666f206d6f64756c6520726566696c6c7320616e6420706c61636520697420736f6d657768657265206f6e2074686520686f6d6520706167652e, 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(234, 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 0x496620796f752077616e7420656e61626c65642074686520696e666f206d6f64756c65207061796d656e747320616e6420706c61636520697420736f6d657768657265206f6e2074686520686f6d6520706167652e, 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(235, 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 0x496620796f752077616e7420656e61626c65642074686520696e666f206d6f64756c652063616c6c7320616e6420706c61636520697420736f6d657768657265206f6e2074686520686f6d6520706167652e, 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(236, 'PlugnPay Payment URL', 'plugnpay_payment_url', 'https://pay1.plugnpay.com/payment/pnpremote.cgi', 0x446566696e652068657265207468652055524c206f6620506c75676e50617920676174657761792e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(237, 'DIDX ID', 'didx_id', '708XXX', 0x4449445820706172616d65746572203a204944, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(238, 'DIDX PASS', 'didx_pass', 'XXXXXXXXXX', 0x4449445820706172616d65746572203a2050617373776f7264, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(239, 'DIDX MIN RATING', 'didx_min_rating', '0', 0x4449445820706172616d65746572203a206d696e20726174696e67, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(240, 'DIDX RING TO', 'didx_ring_to', '0', 0x4449445820706172616d65746572203a2072696e6720746f, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(241, 'Card Serial Pad Length', 'card_serial_length', '7', 0x56616c7565206f66207a65726f2070616464696e6720666f722073657269616c2e20496620746869732076616c75652073657420746f20332073657269616c2077696c206c6f6f6b73206c696b6520303031, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(242, 'Dial Balance reservation', 'dial_balance_reservation', '0.25', 0x43726564697420746f20726573657276652066726f6d207468652062616c616e6365207768656e20612063616c6c206973206d6164652e20546869732077696c6c2070726576656e74206e656761746976652062616c616e6365206f6e2068756765207065616b2e, 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(243, 'Rate Export Fields', 'rate_export_field_list', 'destination, dialprefix, rateinitial', 0x4669656c647320746f206578706f727420696e2063737620666f726d61742066726f6d207261746573207461626c652e55736520646573745f6e616d652066726f6d20707265666978206e616d65, 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(244, 'HTTP Server Agent', 'http_server_agent', 'http://www.call-labs.com', 0x53657420746865205365727665722041646472657373206f66204167656e7420576562736974652c2049742073686f756c6420626520656d70747920666f722070726f6475637469766520536572766572732e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(245, 'HTTPS Server Agent', 'https_server_agent', 'https://www.call-labs.com', 0x68747470733a2f2f6c6f63616c686f7374202d20456e746572206865726520796f757220536563757265204167656e74732053657276657220416464726573732c2073686f756c64206e6f7420626520656d70747920666f722070726f6475637469766520736572766572732e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(246, 'Server Agent IP/Domain', 'http_cookie_domain_agent', '26.63.165.200', 0x456e74657220796f757220446f6d61696e204e616d65206f72204950204164647265737320666f7220746865204167656e7473206170706c69636174696f6e2c2065672c2032362e36332e3136352e3230302e, 0, NULL, '5');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(247, 'Secure Server Agent IP/Domain', 'https_cookie_domain_agent', '26.63.165.200', 0x456e74657220796f7572205365637572652073657276657220446f6d61696e204e616d65206f72204950204164647265737320666f7220746865204167656e7473206170706c69636174696f6e2c2065672c2032362e36332e3136352e3230302e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(248, 'Application Agent Path', 'http_cookie_path_agent', '/agent/Public/', 0x456e7465722074686520506879736963616c2070617468206f6620796f7572204167656e7473204170706c69636174696f6e206f6e20796f7572207365727665722e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(249, 'Secure Application Agent Path', 'https_cookie_path_agent', '/agent/Public/', 0x456e7465722074686520506879736963616c2070617468206f6620796f7572204167656e7473204170706c69636174696f6e206f6e20796f757220536563757265205365727665722e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(250, 'Application Agent Physical Path', 'dir_ws_http_catalog_agent', '/agent/Public/', 0x456e7465722074686520506879736963616c2070617468206f6620796f7572204167656e7473204170706c69636174696f6e206f6e20796f7572207365727665722e, 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(251, 'Secure Application Agent Physical Path', 'dir_ws_https_catalog_agent', '/agent/Public/', 0x456e7465722074686520506879736963616c2070617468206f6620796f7572204167656e7473204170706c69636174696f6e206f6e20796f757220536563757265207365727665722e, 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(1, 'Card Number length', 'interval_len_cardnumber', '10-15', 'Card Number length, You can define a Range e.g: 10-15.', 0, '10-15,5-20,10-30', 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(2, 'Card Alias length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(3, 'Voucher length', 'len_voucher', '15', 'Voucher Number Length.', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(4, 'Base Currency', 'base_currency', 'usd', 'Base Currency to use for application.', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(5, 'Invoice Image', 'invoice_image', 'asterisk01.jpg', 'Image to Display on the Top of Invoice', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(6, 'Admin Email', 'admin_email', 'root@localhost', 'Web Administrator Email Address.', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(7, 'DID Bill Payment Day', 'didbilling_daytopay', '5', 'DID Bill Payment Day of Month', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(8, 'Manager Host', 'manager_host', 'localhost', 'Manager Host Address', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(9, 'Manager User ID', 'manager_username', 'myasterisk', 'Manger Host User Name', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(10, 'Manager Password', 'manager_secret', 'mycode', 'Manager Host Password', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(11, 'Use SMTP Server', 'smtp_server', '0', 'Define if you want to use an STMP server or Send Mail (value yes for server SMTP)', 1, 'yes,no', 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(12, 'SMTP Host', 'smtp_host', 'localhost', 'SMTP Hostname', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(13, 'SMTP UserName', 'smtp_username', '', 'User Name to connect on the SMTP server', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(14, 'SMTP Password', 'smtp_password', '', 'Password to connect on the SMTP server', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(15, 'Use Realtime', 'use_realtime', '1', 'if Disabled, it will generate the config files and offer an option to reload asterisk after an update on the Voip settings', 1, 'yes,no', 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(16, 'Go To Customer', 'customer_ui_url', '../../customer/index.php', 'Link to the customer account', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(17, 'Context Callback', 'context_callback', 'a2billing-callback', 'Contaxt to use in Callback', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(18, 'Extension', 'extension', '1000', 'Extension to call while callback.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(19, 'Wait before callback', 'sec_wait_before_callback', '10', 'Seconds to wait before callback.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(20, 'Avoid Repeat Duration', 'sec_avoid_repeate', '10', 'Number of seconds before the call-back can be re-initiated from the web page to prevent repeated and unwanted calls.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(21, 'Time out', 'timeout', '20', 'if the callback doesnt succeed within the value below, then the call is deemed to have failed.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(22, 'Answer on Call', 'answer_call', '1', 'if we want to manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 'yes,no', 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(23, 'No of Predictive Calls', 'nb_predictive_call', '10', 'number of calls an agent will do when the call button is clicked.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(24, 'Delay for Availability', 'nb_day_wait_before_retry', '1', 'Number of days to wait before the number becomes available to call again.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(25, 'PD Contect', 'context_preditctivedialer', 'a2billing-predictivedialer', 'The context to redirect the call for the predictive dialer.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(26, 'Max Time to call', 'predictivedialer_maxtime_tocall', '5400', 'When a call is made we need to limit the call duration : amount in seconds.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(27, 'PD Caller ID', 'callerid', '123456', 'Set the callerID for the predictive dialer and call-back.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(28, 'Callback CallPlan ID', 'all_callback_tariff', '1', 'ID Call Plan to use when you use the all-callback mode, check the ID in the "list Call Plan" - WebUI.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(29, 'Server Group ID', 'id_server_group', '1', 'Define the group of servers that are going to be used by the callback.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(30, 'Audio Intro', 'callback_audio_intro', 'prepaid-callback_intro', 'Audio intro message when the callback is initiate.', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(31, 'Signup URL', 'signup_page_url', '', 'url of the signup page to show up on the sign in page (if empty no link will show up).', 0, NULL, 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(32, 'Payment Method', 'paymentmethod', '1', 'Enable or disable the payment methods; yes for multi-payment or no for single payment method option.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(33, 'Personal Info', 'personalinfo', '1', 'Enable or disable the page which allow customer to modify its personal information.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(34, 'Payment Info', 'customerinfo', '1', 'Enable display of the payment interface - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(35, 'SIP/IAX Info', 'sipiaxinfo', '1', 'Enable display of the sip/iax info - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(36, 'CDR', 'cdr', '1', 'Enable the Call history - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(37, 'Invoices', 'invoice', '1', 'Enable invoices - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(38, 'Voucher Screen', 'voucher', '1', 'Enable the voucher screen - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(39, 'Paypal', 'paypal', '1', 'Enable the paypal payment buttons - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(40, 'Speed Dial', 'speeddial', '1', 'Allow Speed Dial capabilities - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(41, 'DID', 'did', '1', 'Enable the DID (Direct Inwards Dialling) interface - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(42, 'RateCard', 'ratecard', '1', 'Show the ratecards - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(43, 'Simulator', 'simulator', '1', 'Offer simulator option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(44, 'CallBack', 'callback', '1', 'Enable the callback option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(45, 'Predictive Dialer', 'predictivedialer', '1', 'Enable the predictivedialer option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(46, 'WebPhone', 'webphone', '1', 'Let users use SIP/IAX Webphone (Options : yes/no).', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(47, 'WebPhone Server', 'webphoneserver', 'localhost', 'IP address or domain name of asterisk server that would be used by the web-phone.', 0, NULL, 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(48, 'Caller ID', 'callerid', '1', 'Let the users add new callerid.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(49, 'Password', 'password', '1', 'Let the user change the webui password.', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(50, 'CallerID Limit', 'limit_callerid', '5', 'The total number of callerIDs for CLI Recognition that can be add by the customer.', 0, NULL, 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(51, 'Trunk Name', 'sip_iax_info_trunkname', 'call-labs', 'Trunk Name to show in sip/iax info.', 0, NULL, 'sip-iax-info');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(52, 'Codecs Allowed', 'sip_iax_info_allowcodec', 'g729', 'Allowed Codec, ulaw, gsm, g729.', 0, NULL, 'sip-iax-info');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(53, 'Host', 'sip_iax_info_host', 'call-labs.com', 'Host information.', 0, NULL, 'sip-iax-info');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(54, 'IAX Parms', 'iax_additional_parameters', 'canreinvite = no', 'IAX Additional Parameters.', 0, NULL, 'sip-iax-info');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(55, 'SIP Parms', 'sip_additional_parameters', 'trustrpid = yes | sendrpid = yes | canreinvite = no', 'SIP Additional Parameters.', 0, NULL, 'sip-iax-info');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(56, 'Enable', 'enable', '1', 'Enable/Disable.', 1, 'yes,no', 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(57, 'HTTP Server Customer', 'http_server', 'http://www.call-labs.com', 'Set the Server Address of Customer Website, It should be empty for productive Servers.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(58, 'HTTPS Server Customer', 'https_server', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Customers Server Address, should not be empty for productive servers.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(59, 'Server Customer IP/Domain', 'http_cookie_domain', '26.63.165.200', 'Enter your Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(60, 'Secure Server Customer IP/Domain', 'https_cookie_domain', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(61, 'Application Customer Path', 'http_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(62, 'Secure Application Customer Path', 'https_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your Secure Server.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(63, 'Application Customer Physical Path', 'dir_ws_http_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(64, 'Secure Application Customer Physical Path', 'dir_ws_https_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your Secure server.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(65, 'Enable SSL', 'enable_ssl', '1', 'secure webserver for checkout procedure?', 1, 'yes,no', 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(66, 'HTTP Domain', 'http_domain', '26.63.165.200', 'Http Address.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(67, 'Directory Path', 'dir_ws_http', '/~areski/svn/a2billing/payment/customer/', 'Directory Path.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(68, 'Payment Amount', 'purchase_amount', '1:2:5:10:20', 'define the different amount of purchase that would be available - 5 amount maximum (5:10:15).', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(69, 'Item Name', 'item_name', 'Credit Purchase', 'Item name that would be display to the user when he will buy credit.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(70, 'Currency Code', 'currency_code', 'USD', 'Currency for the Credit purchase, only one can be define here.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(71, 'Paypal Payment URL', 'paypal_payment_url', 'https://secure.paypal.com/cgi-bin/webscr', 'Define here the URL of paypal gateway the payment (to test with paypal sandbox).', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(72, 'Paypal Verify URL', 'paypal_verify_url', 'ssl://www.paypal.com', 'paypal transaction verification url.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(73, 'Authorize.NET Payment URL', 'authorize_payment_url', 'https://secure.authorize.net/gateway/transact.dll', 'Define here the URL of Authorize gateway.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(74, 'PayPal Store Name', 'store_name', 'Asterisk2Billing', 'paypal store name to show in the paypal site when customer will go to pay.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(75, 'Transaction Key', 'transaction_key', 'asdf1212fasd121554sd4f5s45sdf', 'Transaction Key for security of Epayment Max length of 60 Characters.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(76, 'Secret Word', 'moneybookers_secretword', 'areski', 'Moneybookers secret word.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(77, 'Enable', 'enable_signup', '1', 'Enable Signup Module.', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(78, 'Captcha Security', 'enable_captcha', '1', 'enable Captcha on the signup module (value : YES or NO).', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(79, 'Credit', 'credit', '0', 'amount of credit applied to a new user.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(80, 'CallPlan ID List', 'callplan_id_list', '1,2', 'the list of id of call plans which will be shown in signup.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(81, 'Card Activation', 'activated', '0', 'Specify whether the card is created as active or pending.', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(82, 'Access Type', 'simultaccess', '0', 'Simultaneous or non concurrent access with the card - 0 = INDIVIDUAL ACCESS or 1 = SIMULTANEOUS ACCESS.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(83, 'Paid Type', 'typepaid', '0', 'PREPAID CARD  =  0 - POSTPAY CARD  =  1.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(84, 'Credit Limit', 'creditlimit', '0', 'Define credit limit, which is only used for a POSTPAY card.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(85, 'Run Service', 'runservice', '0', 'Authorise the recurring service to apply on this card  -  Yes 1 - No 0.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(86, 'Enable Expire', 'enableexpire', '0', 'Enable the expiry of the card  -  Yes 1 - No 0.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(87, 'Date Format', 'expirationdate', '', 'Expiry Date format YYYY-MM-DD HH:MM:SS. For instance 2004-12-31 00:00:00', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(88, 'Expire Limit', 'expiredays', '0', 'The number of days after which the card will expire.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(89, 'Create SIP', 'sip_account', '1', 'Create a sip account from signup ( default : yes ).', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(90, 'Create IAX', 'iax_account', '1', 'Create an iax account from signup ( default : yes ).', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(91, 'Activate Card', 'activatedbyuser', '0', 'active card after the new signup. if No, the Signup confirmation is needed and an email will be sent to the user with a link for activation (need to put the link into the Signup mail template).', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(92, 'Customer Interface URL', 'urlcustomerinterface', 'http://localhost/customer/', 'url of the customer interface to display after activation.', 0, NULL, 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(93, 'Asterisk Reload', 'reload_asterisk_if_sipiax_created', '0', 'Define if you want to reload Asterisk when a SIP / IAX Friend is created at signup time.', 1, 'yes,no', 'signup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(94, 'Backup Path', 'backup_path', '/tmp', 'Path to store backup of database.', 0, NULL, 'backup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(95, 'GZIP Path', 'gzip_exe', '/bin/gzip', 'Path for gzip.', 0, NULL, 'backup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(96, 'GunZip Path', 'gunzip_exe', '/bin/gunzip', 'Path for gunzip .', 0, NULL, 'backup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(97, 'MySql Dump Path', 'mysqldump', '/usr/bin/mysqldump', 'path for mysqldump.', 0, NULL, 'backup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(98, 'PGSql Dump Path', 'pg_dump', '/usr/bin/pg_dump', 'path for pg_dump.', 0, NULL, 'backup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(99, 'MySql Path', 'mysql', '/usr/bin/mysql', 'Path for MySql.', 0, NULL, 'backup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(100, 'PSql Path', 'psql', '/usr/bin/psql', 'Path for PSql.', 0, NULL, 'backup');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(101, 'SIP File Path', 'buddy_sip_file', '/etc/asterisk/additional_a2billing_sip.conf', 'Path to store the asterisk configuration files SIP.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(102, 'IAX File Path', 'buddy_iax_file', '/etc/asterisk/additional_a2billing_iax.conf', 'Path to store the asterisk configuration files IAX.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(103, 'API Security Key', 'api_security_key', 'Ae87v56zzl34v', 'API have a security key to validate the http request, the key has to be sent after applying md5, Valid characters are [a-z,A-Z,0-9].', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(104, 'Authorized IP', 'api_ip_auth', '127.0.0.1', 'API to restrict the IPs authorised to make a request, Define The the list of ips separated by '';''.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(105, 'Admin Email', 'email_admin', 'root@localhost', 'Administative Email.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(106, 'MOH Directory', 'dir_store_mohmp3', '/var/lib/asterisk/mohmp3', 'MOH (Music on Hold) base directory.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(107, 'MOH Classes', 'num_musiconhold_class', '10', 'Number of MOH classes you have created in musiconhold.conf : acc_1, acc_2... acc_10 class	etc....', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(108, 'Display Help', 'show_help', '1', 'Display the help section inside the admin interface  (YES - NO).', 1, 'yes,no', 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(109, 'Max File Upload Size', 'my_max_file_size_import', '1024000', 'File Upload parameters, PLEASE CHECK ALSO THE VALUE IN YOUR PHP.INI THE LIMIT IS 2MG BY DEFAULT .', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(110, 'Audio Directory Path', 'dir_store_audio', '/var/lib/asterisk/sounds/a2billing', 'Not used yet, The goal is to upload files and use them in the IVR.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(111, 'Max Audio File Size', 'my_max_file_size_audio', '3072000', 'upload maximum file size.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(112, 'Extensions Allowed', 'file_ext_allow', 'gsm, mp3, wav', 'File type extensions permitted to be uploaded such as "gsm, mp3, wav" (separated by ,).', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(113, 'Muzic Files Allowed', 'file_ext_allow_musiconhold', 'mp3', 'File type extensions permitted to be uploaded for the musiconhold such as "gsm, mp3, wav" (separate by ,).', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(114, 'Link Audio', 'link_audio_file', '0', 'Enable link on the CDR viewer to the recordings. (YES - NO).', 1, 'yes,no', 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(115, 'Monitor Path', 'monitor_path', '/var/spool/asterisk/monitor', 'Path to link the recorded monitor files.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(116, 'Monitor Format', 'monitor_formatfile', 'gsm', 'FORMAT OF THE RECORDED MONITOR FILE.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(117, 'Invoice Icon', 'show_icon_invoice', '1', 'Display the icon in the invoice.', 1, 'yes,no', 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(118, 'Show Top Frame', 'show_top_frame', '0', 'Display the top frame (useful if you want to save space on your little tiny screen ) .', 1, 'yes,no', 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(119, 'Currency', 'currency_choose', 'usd, eur, cad, hkd', 'Allow the customer to chose the most appropriate currency ("all" can be used).', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(120, 'Card Export Fields', 'card_export_field_list', 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, ', 'Fields to export in csv format from cc_card table.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(121, 'Vouvher Export Fields', 'voucher_export_field_list', 'voucher, credit, tag, activated, usedcardnumber, usedate, currency', 'Field to export in csv format from cc_voucher table.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(122, 'Advance Mode', 'advanced_mode', '0', 'Advanced mode - Display additional configuration options on the ratecard (progressive rates, musiconhold, ...).', 1, 'yes,no', 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(123, 'SIP/IAX Delete', 'delete_fk_card', '1', 'Delete the SIP/IAX Friend & callerid when a card is deleted.', 1, 'yes,no', 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(124, 'Type', 'type', 'friend', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(125, 'Allow', 'allow', 'ulaw,alaw,gsm,g729', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(126, 'Context', 'context', 'a2billing', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(127, 'Nat', 'nat', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(128, 'AMA Flag', 'amaflag', 'billing', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(129, 'Qualify', 'qualify', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(130, 'Host', 'host', 'dynamic', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(131, 'DTMF Mode', 'dtmfmode', 'RFC2833', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(132, 'Alarm Log File', 'cront_alarm', '/var/log/a2billing/cront_a2b_alarm.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(133, 'Auto refill Log File', 'cront_autorefill', '/var/log/a2billing/cront_a2b_autorefill.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(134, 'Bactch Process Log File', 'cront_batch_process', '/var/log/a2billing/cront_a2b_batch_process.log', 'To disable application logging, remove/comment the log file name aside service .', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(135, 'Archive Log File', 'cront_archive_data', '/var/log/a2billing/cront_a2b_archive_data.log', 'To disable application logging, remove/comment the log file name aside service .', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(136, 'DID Billing Log File', 'cront_bill_diduse', '/var/log/a2billing/cront_a2b_bill_diduse.log', 'To disable application logging, remove/comment the log file name aside service .', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(137, 'Subscription Fee Log File', 'cront_subscriptionfee', '/var/log/a2billing/cront_a2b_subscription_fee.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(138, 'Currency Cront Log File', 'cront_currency_update', '/var/log/a2billing/cront_a2b_currency_update.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(139, 'Invoice Cront Log File', 'cront_invoice', '/var/log/a2billing/cront_a2b_invoice.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(140, 'Cornt Log File', 'cront_check_account', '/var/log/a2billing/cront_a2b_check_account.log', 'To disable application logging, remove/comment the log file name aside service .', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(141, 'Paypal Log File', 'paypal', '/var/log/a2billing/a2billing_paypal.log', 'paypal log file, to log all the transaction & error.', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(142, 'EPayment Log File', 'epayment', '/var/log/a2billing/a2billing_epayment.log', 'epayment log file, to log all the transaction & error .', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(143, 'ECommerce Log File', 'api_ecommerce', '/var/log/a2billing/a2billing_api_ecommerce_request.log', 'Log file to store the ecommerce API requests .', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(144, 'Callback Log File', 'api_callback', '/var/log/a2billing/a2billing_api_callback_request.log', 'Log file to store the CallBack API requests.', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(145, 'Webservice Card Log File', 'api_card', '/var/log/a2billing/a2billing_api_card.log', 'Log file to store the Card Webservice Logs', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(146, 'AGI Log File', 'agi', '/var/log/a2billing/a2billing_agi.log', 'File to log.', 0, NULL, 'log-files');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(147, 'Description', 'description', 'agi-config', 'Description/notes field', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(148, 'Asterisk Version', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1,1_2,1_4 By Default it will take 1_2 or higher .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(149, 'Answer Call', 'answer_call', '1', 'Manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(150, 'Play Audio', 'play_audio', '1', 'Play audio - this will disable all stream file but not the Get Data , for wholesale ensure that the authentication works and than number_try = 1.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(151, 'Say GoodBye', 'say_goodbye', '0', 'play the goodbye message when the user has finished.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(152, 'Play Language Menu', 'play_menulanguage', '0', 'enable the menu to choose the language, press 1 for English, pulsa 2 para el espaÃ±ol, Pressez 3 pour FranÃ§ais', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(153, 'Force Language', 'force_language', '', 'force the use of a language, if you dont want to use it leave the option empty, Values : ES, EN, FR, etc... (according to the audio you have installed).', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(154, 'Intro Prompt', 'intro_prompt', '', 'Introduction prompt : to specify an additional prompt to play at the beginning of the application .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(155, 'Min Call Credit', 'min_credit_2call', '0', 'Minimum amount of credit to use the application .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(156, 'Min Bill Duration', 'min_duration_2bill', '0', 'this is the minimum duration in seconds of a call in order to be billed any call with a length less than min_duration_2bill will have a 0 cost useful not to charge callers for system errors when a call was answered but it actually didn''t connect.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(157, 'Not Enough Credit', 'notenoughcredit_cardnumber', '0', 'if user doesn''t have enough credit to call a destination, prompt him to enter another cardnumber .', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(158, 'New Caller ID', 'notenoughcredit_assign_newcardnumber_cid', '0', 'if notenoughcredit_cardnumber = YES  then	assign the CallerID to the new cardnumber.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(159, 'Use DNID', 'use_dnid', '0', 'if YES it will use the DNID and try to dial out, without asking for the phonenumber to call.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(160, 'Not Use DNID', 'no_auth_dnid', '2400,2300', 'list the dnid on which you want to avoid the use of the previous option "use_dnid" .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(161, 'Try Count', 'number_try', '3', 'number of times the user can dial different number.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(162, 'Force CallPlan', 'force_callplan_id', '', 'this will force to select a specific call plan by the Rate Engine.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(163, 'Say Balance After Auth', 'say_balance_after_auth', '1', 'Play the balance to the user after the authentication (values : yes - no).', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(164, 'Say Balance After Call', 'say_balance_after_call', '0', 'Play the balance to the user after the call (values : yes - no).', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(165, 'Say Rate', 'say_rateinitial', '0', 'Play the initial cost of the route (values : yes - no)', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(166, 'Say Duration', 'say_timetocall', '1', 'Play the amount of time that the user can call (values : yes - no).', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(167, 'Auto Set CLID', 'auto_setcallerid', '1', 'enable the setup of the callerID number before the outbound is made, by default the user callerID value will be use.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(168, 'Force CLID', 'force_callerid', '', 'If auto_setcallerid is enabled, the value of force_callerid will be set as CallerID.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(169, 'CLID Sanitize', 'cid_sanitize', '0', 'If force_callerid is not set, then the following option ensures that CID is set to one of the card''s configured caller IDs or blank if none available.(NO - disable this feature, caller ID can be anything, CID - Caller ID must be one of the customers caller IDs, DID - Caller ID must be one of the customers DID nos, BOTH - Caller ID must be one of the above two items)', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(170, 'CLID Enable', 'cid_enable', '0', 'enable the callerid authentication if this option is active the CC system will check the CID of caller  .', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(171, 'Ask PIN', 'cid_askpincode_ifnot_callerid', '1', 'if the CID does not exist, then the caller will be prompt to enter his cardnumber .', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(172, 'FailOver LCR/LCD Prefix', 'failover_lc_prefix', '0', 'if we will failover for LCR/LCD prefix. For instance if you have 346 and 34 for if 346 fail it will try to outbound with 34 route.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(173, 'Auto CLID', 'cid_auto_assign_card_to_cid', '1', 'if the callerID authentication is enable and the authentication fails then the user will be prompt to enter his cardnumber;this option will bound the cardnumber entered to the current callerID so that next call will be directly authenticate.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(174, 'Auto Create Card', 'cid_auto_create_card', '0', 'if the callerID is captured on a2billing, this option will create automatically a new card and add the callerID to it.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(175, 'Auto Create Card Length', 'cid_auto_create_card_len', '10', 'set the length of the card that will be auto create (ie, 10).', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(176, 'Auto Create Card Type', 'cid_auto_create_card_typepaid', 'POSTPAY', 'billing type of the new card( value : POSTPAY or PREPAY) .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(177, 'Auto Create Card Credit', 'cid_auto_create_card_credit', '0', 'amount of credit of the new card.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(178, 'Auto Create Card Limit', 'cid_auto_create_card_credit_limit', '1000', 'if postpay, define the credit limit for the card.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(179, 'Auto Create Card TariffGroup', 'cid_auto_create_card_tariffgroup', '6', 'the tariffgroup to use for the new card (this is the ID that you can find on the admin web interface) .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(180, 'Auto CLID Security', 'callerid_authentication_over_cardnumber', '0', 'to check callerID over the cardnumber authentication (to guard against spoofing).', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(181, 'SIP Call', 'sip_iax_friends', '0', 'enable the option to call sip/iax friend for free (values : YES - NO).', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(182, 'SIP Call Prefix', 'sip_iax_pstn_direct_call_prefix', '555', 'if SIP_IAX_FRIENDS is active, you can define a prefix for the dialed digits to call a pstn number .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(183, 'Direct Call', 'sip_iax_pstn_direct_call', '0', 'this will enable a prompt to enter your destination number. if number start by sip_iax_pstn_direct_call_prefix we do directly a sip iax call, if not we do a normal call.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(184, 'IVR Voucher Refill', 'ivr_voucher', '0', 'enable the option to refill card with voucher in IVR (values : YES - NO) .', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(185, 'IVR Voucher Prefix', 'ivr_voucher_prefix', '8', 'if ivr_voucher is active, you can define a prefix for the voucher number to refill your card, values : number - don''t forget to change prepaid-refill_card_with_voucher audio accordingly .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(186, 'IVR Low Credit', 'jump_voucher_if_min_credit', '0', 'When the user credit are below the minimum credit to call min_credit jump directly to the voucher IVR menu  (values: YES - NO) .', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(187, 'Dial Command Params', 'dialcommand_param', '|60|HRrL(%timeout%:61000:30000)', 'More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>g: When the called party hangs up, exit to execute more commands in the current context. (new in 1.4)<br>i: Asterisk will ignore any forwarding (302 Redirect) requests received. Essential for DID usage to prevent fraud. (new in 1.4)<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(188, 'SIP/IAX Dial Command Params', 'dialcommand_param_sipiax_friend', '|60|HiL(3600000:61000:30000)', 'by default (3600000  =  1HOUR MAX CALL).', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(189, 'Outbound Call', 'switchdialcommand', '0', 'Define the order to make the outbound call<br>YES -> SIP/dialedphonenumber@gateway_ip - NO  SIP/gateway_ip/dialedphonenumber<br>Both should work exactly the same but i experimented one case when gateway was supporting dialedphonenumber@gateway_ip, So in case of trouble, try it out.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(190, 'Failover Retry Limit', 'failover_recursive_limit', '2', 'failover recursive search - define how many time we want to authorize the research of the failover trunk when a call fails (value : 0 - 20) .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(191, 'Max Time', 'maxtime_tocall_negatif_free_route', '5400', 'This setting specifies an upper limit for the duration of a call to a destination for which the selling rate is less than or equal to 0.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(192, 'Send Reminder', 'send_reminder', '0', 'Send a reminder email to the user when they are under min_credit_2call.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(193, 'Record Call', 'record_call', '0', 'enable to monitor the call (to record all the conversations) value : YES - NO .', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(194, 'Monitor File Format', 'monitor_formatfile', 'gsm', 'format of the recorded monitor file.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(195, 'AGI Force Currency', 'agi_force_currency', '', 'Force to play the balance to the caller in a predefined currency, to use the currency set for by the customer leave this field empty.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(196, 'Currency Associated', 'currency_association', 'usd:dollars,mxn:pesos,eur:euros,all:credit', 'Define all the audio (without file extensions) that you want to play according to currency (use , to separate, ie "usd:prepaid-dollar,mxn:pesos,eur:Euro,all:credit").', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(197, 'Minor Currency Associated', 'currency_association_minor', 'usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit', 'Define all the audio (without file extensions) that you want to play according to minor currency (use , to separate, ie "usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit").', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(198, 'File Enter Destination', 'file_conf_enter_destination', 'prepaid-enter-dest', 'Please enter the file name you want to play when we prompt the calling party to enter the destination number, file_conf_enter_destination = prepaid-enter-number-u-calling-1-or-011.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(219, 'Menu Language Order', 'conf_order_menulang', 'en:fr:es', 'Enter the list of languages authorized for the menu.Use the code language separate by a colon charactere e.g: en:es:fr', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(200, 'Bill Callback', 'callback_bill_1stleg_ifcall_notconnected', '1', 'Define if you want to bill the 1st leg on callback even if the call is not connected to the destination.', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(201, 'International prefixes', 'international_prefixes', '011,00,09,1', 'List the prefixes you want stripped off if the call plan requires it', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(202, 'Server GMT', 'server_GMT', 'GMT+10:00', 'Define the sever gmt time', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(203, 'Invoice Template Path', 'invoice_template_path', '../invoice/', 'gives invoice template path from default one', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(204, 'Outstanding Template Path', 'outstanding_template_path', '../outstanding/', 'gives outstanding template path from default one', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(205, 'Sales Template Path', 'sales_template_path', '../sales/', 'gives sales template path from default one', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(206, 'Extra charge DIDs', 'extracharge_did', '1800,1900', 'Add extra per-minute charges to this comma-separated list of DNIDs; needs "extracharge_fee" and "extracharge_buyfee"', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(207, 'Extra charge DID fees', 'extracharge_fee', '0.05,0.15', 'Comma-separated list of extra sell-rate charges corresponding to the DIDs in "extracharge_did"', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(208, 'Extra charge DID buy fees', 'extracharge_buyfee', '0.04,0.13', 'Comma-separated list of extra buy-rate charges corresponding to the DIDs in "extracharge_did"', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(209, 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(210, 'List of possible values to notify', 'values_notifications', '10:20:50:100:500:1000', 'Possible values to choose when the user receive a notification. You can define a List e.g: 10:20:100.', 0, NULL, 'notifications');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(211, 'Notifications Modules', 'notification', '1', 'Enable or Disable the module of notification for the customers', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(212, 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disable the cron module of notification for the customers. If it correctly configured in the crontab', 0, 'yes,no', 'notifications');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(213, 'Notications Delay', 'delay_notifications', '1', 'Delay in number of days to send an other notification for the customers. If the value is 0, it will notify the user everytime the cront is running.', 0, NULL, 'notifications');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(214, 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define the different amount of purchase that would be available.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(215, 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(216, 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(217, 'CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID\nThe parameters are as follow : <br/>\n-- ID of the first callplan : called seconds needed to switch to the next CallplanID <br/>\n-- ID of the second callplan : called seconds needed to switch to the next CallplanID <br/>\n-- if not needed seconds are defined it will automatically switch to the next one <br/>\n-- if defined we will sum the previous needed seconds and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of seconds needed<br/>\nvalue example for callplan_deck_minute_threshold = 1:300, 2:60, 3', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(218, 'Payment Historique Modules', 'payment', '1', 'Enable or Disable the module of payment historique for the customers', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(220, 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 'Desactived the annoucement of the seconds when there are more of one minutes (values : yes - no)', 1, 'yes,no', 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(221, 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived, if you want assum the fee of paypal and don''t apply it on the customer (values : yes - no)', 1, 'yes,no', 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(222, 'Cents Currency Associated', 'currency_cents_association', '', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(223, 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Context to use in Campaign of Callback', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(224, 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 'Context to use by default to forward the call in Campaign of Callback', 0, NULL, 'callback');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(225, 'Card Show Fields', 'card_show_field_list', 'id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,', 'Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname, id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused, firstname, email, discount, callerid, id_seria, serial', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(226, 'Enable CDR local cache', 'cache_enabled', '0', 'If you want enabled the local cache to save the CDR in a SQLite Database.', 1, 'yes,no', 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(227, 'Path for the CDR cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the CDR cache to save the CDR in a local SQLite database.', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(228, 'PNL Pay Phones', 'report_pnl_pay_phones', '(8887798764,0.02,0.06)', 'Info for PNL report. Must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(229, 'PNL Toll Free Numbers', 'report_pnl_toll_free', '(6136864646,0.1,0),(6477249717,0.1,0)', 'Info for PNL report. must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(230, 'Verbosity', 'verbosity_level', '0', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(231, 'Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(232, 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'If you want enabled the info module customer and place it somewhere on the home page.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(233, 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 'If you want enabled the info module refills and place it somewhere on the home page.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(234, 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 'If you want enabled the info module payments and place it somewhere on the home page.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(235, 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'If you want enabled the info module calls and place it somewhere on the home page.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(236, 'PlugnPay Payment URL', 'plugnpay_payment_url', 'https://pay1.plugnpay.com/payment/pnpremote.cgi', 'Define here the URL of PlugnPay gateway.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(237, 'DIDX ID', 'didx_id', '708XXX', 'DIDX parameter : ID', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(238, 'DIDX PASS', 'didx_pass', 'XXXXXXXXXX', 'DIDX parameter : Password', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(239, 'DIDX MIN RATING', 'didx_min_rating', '0', 'DIDX parameter : min rating', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(240, 'DIDX RING TO', 'didx_ring_to', '0', 'DIDX parameter : ring to', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(241, 'Card Serial Pad Length', 'card_serial_length', '7', 'Value of zero padding for serial. If this value set to 3 serial wil looks like 001', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(242, 'Dial Balance reservation', 'dial_balance_reservation', '0.25', 'Credit to reserve from the balance when a call is made. This will prevent negative balance on huge peak.', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(243, 'Rate Export Fields', 'rate_export_field_list', 'destination, dialprefix, rateinitial', 'Fields to export in csv format from rates table.Use dest_name from prefix name', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(244, 'HTTP Server Agent', 'http_server_agent', 'http://www.call-labs.com', 'Set the Server Address of Agent Website, It should be empty for productive Servers.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(245, 'HTTPS Server Agent', 'https_server_agent', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Agents Server Address, should not be empty for productive servers.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(246, 'Server Agent IP/Domain', 'http_cookie_domain_agent', '26.63.165.200', 'Enter your Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, NULL, '5');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(247, 'Secure Server Agent IP/Domain', 'https_cookie_domain_agent', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(248, 'Application Agent Path', 'http_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(249, 'Secure Application Agent Path', 'https_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure Server.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(250, 'Application Agent Physical Path', 'dir_ws_http_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(251, 'Secure Application Agent Physical Path', 'dir_ws_https_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure server.', 0, NULL, 'epayment_method');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_configuration`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_configuration`;
 CREATE TABLE IF NOT EXISTS `cc_configuration` (
   `configuration_id` int(11) NOT NULL auto_increment,
   `configuration_title` varchar(64) collate utf8_bin NOT NULL,
@@ -1124,7 +1252,11 @@ INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `conf
 --
 -- Table structure for table `cc_config_group`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_config_group`;
 CREATE TABLE IF NOT EXISTS `cc_config_group` (
   `id` int(11) NOT NULL auto_increment,
   `group_title` varchar(64) collate utf8_bin NOT NULL,
@@ -1156,7 +1288,11 @@ INSERT INTO `cc_config_group` (`id`, `group_title`, `group_description`) VALUES(
 --
 -- Table structure for table `cc_country`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_country`;
 CREATE TABLE IF NOT EXISTS `cc_country` (
   `id` bigint(20) NOT NULL auto_increment,
   `countrycode` char(80) collate utf8_bin NOT NULL,
@@ -1430,7 +1566,11 @@ INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) V
 --
 -- Table structure for table `cc_currencies`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_currencies`;
 CREATE TABLE IF NOT EXISTS `cc_currencies` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `currency` char(3) collate utf8_bin NOT NULL default '',
@@ -1446,163 +1586,167 @@ CREATE TABLE IF NOT EXISTS `cc_currencies` (
 -- Dumping data for table `cc_currencies`
 --
 
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(1, 'ALL', 'Albanian Lek (ALL)', 0.00974, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(2, 'DZD', 'Algerian Dinar (DZD)', 0.01345, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(3, 'XAL', 'Aluminium Ounces (XAL)', 1.08295, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(4, 'ARS', 'Argentine Peso (ARS)', 0.32455, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(5, 'AWG', 'Aruba Florin (AWG)', 0.55866, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(6, 'AUD', 'Australian Dollar (AUD)', 0.73384, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(7, 'BSD', 'Bahamian Dollar (BSD)', 1.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(8, 'BHD', 'Bahraini Dinar (BHD)', 2.65322, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(9, 'BDT', 'Bangladesh Taka (BDT)', 0.01467, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(10, 'BBD', 'Barbados Dollar (BBD)', 0.50000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(11, 'BYR', 'Belarus Ruble (BYR)', 0.00046, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(12, 'BZD', 'Belize Dollar (BZD)', 0.50569, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(13, 'BMD', 'Bermuda Dollar (BMD)', 1.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(14, 'BTN', 'Bhutan Ngultrum (BTN)', 0.02186, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(15, 'BOB', 'Bolivian Boliviano (BOB)', 0.12500, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(16, 'BRL', 'Brazilian Real (BRL)', 0.46030, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(17, 'GBP', 'British Pound (GBP)', 1.73702, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(18, 'BND', 'Brunei Dollar (BND)', 0.61290, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(19, 'BGN', 'Bulgarian Lev (BGN)', 0.60927, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(20, 'BIF', 'Burundi Franc (BIF)', 0.00103, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(21, 'KHR', 'Cambodia Riel (KHR)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(22, 'CAD', 'Canadian Dollar (CAD)', 0.86386, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(23, 'KYD', 'Cayman Islands Dollar (KYD)', 1.16496, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(24, 'XOF', 'CFA Franc (BCEAO) (XOF)', 0.00182, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(25, 'XAF', 'CFA Franc (BEAC) (XAF)', 0.00182, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(26, 'CLP', 'Chilean Peso (CLP)', 0.00187, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(27, 'CNY', 'Chinese Yuan (CNY)', 0.12425, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(28, 'COP', 'Colombian Peso (COP)', 0.00044, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(29, 'KMF', 'Comoros Franc (KMF)', 0.00242, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(30, 'XCP', 'Copper Ounces (XCP)', 2.16403, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(31, 'CRC', 'Costa Rica Colon (CRC)', 0.00199, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(32, 'HRK', 'Croatian Kuna (HRK)', 0.16249, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(33, 'CUP', 'Cuban Peso (CUP)', 1.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(34, 'CYP', 'Cyprus Pound (CYP)', 2.07426, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(35, 'CZK', 'Czech Koruna (CZK)', 0.04133, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(36, 'DKK', 'Danish Krone (DKK)', 0.15982, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(37, 'DJF', 'Dijibouti Franc (DJF)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(38, 'DOP', 'Dominican Peso (DOP)', 0.03035, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(39, 'XCD', 'East Caribbean Dollar (XCD)', 0.37037, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(40, 'ECS', 'Ecuador Sucre (ECS)', 0.00004, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(41, 'EGP', 'Egyptian Pound (EGP)', 0.17433, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(42, 'SVC', 'El Salvador Colon (SVC)', 0.11426, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(43, 'ERN', 'Eritrea Nakfa (ERN)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(44, 'EEK', 'Estonian Kroon (EEK)', 0.07615, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(45, 'ETB', 'Ethiopian Birr (ETB)', 0.11456, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(46, 'EUR', 'Euro (EUR)', 1.19175, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(47, 'FKP', 'Falkland Islands Pound (FKP)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(48, 'GMD', 'Gambian Dalasi (GMD)', 0.03515, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(49, 'GHC', 'Ghanian Cedi (GHC)', 0.00011, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(50, 'GIP', 'Gibraltar Pound (GIP)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(51, 'XAU', 'Gold Ounces (XAU)', 99.99999, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(52, 'GTQ', 'Guatemala Quetzal (GTQ)', 0.13103, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(53, 'GNF', 'Guinea Franc (GNF)', 0.00022, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(54, 'HTG', 'Haiti Gourde (HTG)', 0.02387, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(55, 'HNL', 'Honduras Lempira (HNL)', 0.05292, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(56, 'HKD', 'Hong Kong Dollar (HKD)', 0.12884, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(57, 'HUF', 'Hungarian ForINT (HUF)', 0.00461, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(58, 'ISK', 'Iceland Krona (ISK)', 0.01436, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(59, 'INR', 'Indian Rupee (INR)', 0.02253, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(60, 'IDR', 'Indonesian Rupiah (IDR)', 0.00011, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(61, 'IRR', 'Iran Rial (IRR)', 0.00011, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(62, 'ILS', 'Israeli Shekel (ILS)', 0.21192, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(63, 'JMD', 'Jamaican Dollar (JMD)', 0.01536, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(64, 'JPY', 'Japanese Yen (JPY)', 0.00849, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(65, 'JOD', 'Jordanian Dinar (JOD)', 1.41044, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(66, 'KZT', 'Kazakhstan Tenge (KZT)', 0.00773, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(67, 'KES', 'Kenyan Shilling (KES)', 0.01392, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(68, 'KRW', 'Korean Won (KRW)', 0.00102, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(69, 'KWD', 'Kuwaiti Dinar (KWD)', 3.42349, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(70, 'LAK', 'Lao Kip (LAK)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(71, 'LVL', 'Latvian Lat (LVL)', 1.71233, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(72, 'LBP', 'Lebanese Pound (LBP)', 0.00067, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(73, 'LSL', 'Lesotho Loti (LSL)', 0.15817, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(74, 'LYD', 'Libyan Dinar (LYD)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(75, 'LTL', 'Lithuanian Lita (LTL)', 0.34510, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(76, 'MOP', 'Macau Pataca (MOP)', 0.12509, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(77, 'MKD', 'Macedonian Denar (MKD)', 0.01945, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(78, 'MGF', 'Malagasy Franc (MGF)', 0.00011, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(79, 'MWK', 'Malawi Kwacha (MWK)', 0.00752, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(80, 'MYR', 'Malaysian Ringgit (MYR)', 0.26889, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(81, 'MVR', 'Maldives Rufiyaa (MVR)', 0.07813, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(82, 'MTL', 'Maltese Lira (MTL)', 2.77546, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(83, 'MRO', 'Mauritania Ougulya (MRO)', 0.00369, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(84, 'MUR', 'Mauritius Rupee (MUR)', 0.03258, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(85, 'MXN', 'Mexican Peso (MXN)', 0.09320, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(86, 'MDL', 'Moldovan Leu (MDL)', 0.07678, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(87, 'MNT', 'Mongolian Tugrik (MNT)', 0.00084, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(88, 'MAD', 'Moroccan Dirham (MAD)', 0.10897, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(89, 'MZM', 'Mozambique Metical (MZM)', 0.00004, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(90, 'NAD', 'Namibian Dollar (NAD)', 0.15817, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(91, 'NPR', 'Nepalese Rupee (NPR)', 0.01408, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(92, 'ANG', 'Neth Antilles Guilder (ANG)', 0.55866, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(93, 'TRY', 'New Turkish Lira (TRY)', 0.73621, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(94, 'NZD', 'New Zealand Dollar (NZD)', 0.65096, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(95, 'NIO', 'Nicaragua Cordoba (NIO)', 0.05828, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(96, 'NGN', 'Nigerian Naira (NGN)', 0.00777, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(97, 'NOK', 'Norwegian Krone (NOK)', 0.14867, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(98, 'OMR', 'Omani Rial (OMR)', 2.59740, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(99, 'XPF', 'Pacific Franc (XPF)', 0.00999, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(100, 'PKR', 'Pakistani Rupee (PKR)', 0.01667, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(101, 'XPD', 'Palladium Ounces (XPD)', 99.99999, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(102, 'PAB', 'Panama Balboa (PAB)', 1.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(103, 'PGK', 'Papua New Guinea Kina (PGK)', 0.33125, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(104, 'PYG', 'Paraguayan Guarani (PYG)', 0.00017, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(105, 'PEN', 'Peruvian Nuevo Sol (PEN)', 0.29999, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(106, 'PHP', 'Philippine Peso (PHP)', 0.01945, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(107, 'XPT', 'Platinum Ounces (XPT)', 99.99999, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(108, 'PLN', 'Polish Zloty (PLN)', 0.30574, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(109, 'QAR', 'Qatar Rial (QAR)', 0.27476, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(110, 'ROL', 'Romanian Leu (ROL)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(111, 'RON', 'Romanian New Leu (RON)', 0.34074, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(112, 'RUB', 'Russian Rouble (RUB)', 0.03563, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(113, 'RWF', 'Rwanda Franc (RWF)', 0.00185, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(114, 'WST', 'Samoa Tala (WST)', 0.35492, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(115, 'STD', 'Sao Tome Dobra (STD)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(116, 'SAR', 'Saudi Arabian Riyal (SAR)', 0.26665, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(117, 'SCR', 'Seychelles Rupee (SCR)', 0.18114, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(118, 'SLL', 'Sierra Leone Leone (SLL)', 0.00034, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(119, 'XAG', 'Silver Ounces (XAG)', 9.77517, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(120, 'SGD', 'Singapore Dollar (SGD)', 0.61290, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(121, 'SKK', 'Slovak Koruna (SKK)', 0.03157, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(122, 'SIT', 'Slovenian Tolar (SIT)', 0.00498, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(123, 'SOS', 'Somali Shilling (SOS)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(124, 'ZAR', 'South African Rand (ZAR)', 0.15835, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(125, 'LKR', 'Sri Lanka Rupee (LKR)', 0.00974, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(126, 'SHP', 'St Helena Pound (SHP)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(127, 'SDD', 'Sudanese Dinar (SDD)', 0.00427, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(128, 'SRG', 'Surinam Guilder (SRG)', 0.36496, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(129, 'SZL', 'Swaziland Lilageni (SZL)', 0.15817, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(130, 'SEK', 'Swedish Krona (SEK)', 0.12609, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(131, 'CHF', 'Swiss Franc (CHF)', 0.76435, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(132, 'SYP', 'Syrian Pound (SYP)', 0.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(133, 'TWD', 'Taiwan Dollar (TWD)', 0.03075, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(134, 'TZS', 'Tanzanian Shilling (TZS)', 0.00083, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(135, 'THB', 'Thai Baht (THB)', 0.02546, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(136, 'TOP', 'Tonga Paanga (TOP)', 0.48244, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(137, 'TTD', 'Trinidad&Tobago Dollar (TTD)', 0.15863, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(138, 'TND', 'Tunisian Dinar (TND)', 0.73470, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(139, 'USD', 'U.S. Dollar (USD)', 1.00000, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(140, 'AED', 'UAE Dirham (AED)', 0.27228, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(141, 'UGX', 'Ugandan Shilling (UGX)', 0.00055, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(142, 'UAH', 'Ukraine Hryvnia (UAH)', 0.19755, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(143, 'UYU', 'Uruguayan New Peso (UYU)', 0.04119, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(144, 'VUV', 'Vanuatu Vatu (VUV)', 0.00870, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(145, 'VEB', 'Venezuelan Bolivar (VEB)', 0.00037, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(146, 'VND', 'Vietnam Dong (VND)', 0.00006, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(147, 'YER', 'Yemen Riyal (YER)', 0.00510, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(148, 'ZMK', 'Zambian Kwacha (ZMK)', 0.00031, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(149, 'ZWD', 'Zimbabwe Dollar (ZWD)', 0.00001, '2009-03-24 18:15:56', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(150, 'GYD', 'Guyana Dollar (GYD)', 0.00527, '2009-03-24 18:15:56', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(1, 'ALL', 'Albanian Lek (ALL)', 0.00974, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(2, 'DZD', 'Algerian Dinar (DZD)', 0.01345, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(3, 'XAL', 'Aluminium Ounces (XAL)', 1.08295, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(4, 'ARS', 'Argentine Peso (ARS)', 0.32455, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(5, 'AWG', 'Aruba Florin (AWG)', 0.55866, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(6, 'AUD', 'Australian Dollar (AUD)', 0.73384, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(7, 'BSD', 'Bahamian Dollar (BSD)', 1.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(8, 'BHD', 'Bahraini Dinar (BHD)', 2.65322, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(9, 'BDT', 'Bangladesh Taka (BDT)', 0.01467, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(10, 'BBD', 'Barbados Dollar (BBD)', 0.50000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(11, 'BYR', 'Belarus Ruble (BYR)', 0.00046, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(12, 'BZD', 'Belize Dollar (BZD)', 0.50569, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(13, 'BMD', 'Bermuda Dollar (BMD)', 1.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(14, 'BTN', 'Bhutan Ngultrum (BTN)', 0.02186, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(15, 'BOB', 'Bolivian Boliviano (BOB)', 0.12500, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(16, 'BRL', 'Brazilian Real (BRL)', 0.46030, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(17, 'GBP', 'British Pound (GBP)', 1.73702, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(18, 'BND', 'Brunei Dollar (BND)', 0.61290, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(19, 'BGN', 'Bulgarian Lev (BGN)', 0.60927, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(20, 'BIF', 'Burundi Franc (BIF)', 0.00103, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(21, 'KHR', 'Cambodia Riel (KHR)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(22, 'CAD', 'Canadian Dollar (CAD)', 0.86386, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(23, 'KYD', 'Cayman Islands Dollar (KYD)', 1.16496, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(24, 'XOF', 'CFA Franc (BCEAO) (XOF)', 0.00182, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(25, 'XAF', 'CFA Franc (BEAC) (XAF)', 0.00182, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(26, 'CLP', 'Chilean Peso (CLP)', 0.00187, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(27, 'CNY', 'Chinese Yuan (CNY)', 0.12425, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(28, 'COP', 'Colombian Peso (COP)', 0.00044, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(29, 'KMF', 'Comoros Franc (KMF)', 0.00242, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(30, 'XCP', 'Copper Ounces (XCP)', 2.16403, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(31, 'CRC', 'Costa Rica Colon (CRC)', 0.00199, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(32, 'HRK', 'Croatian Kuna (HRK)', 0.16249, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(33, 'CUP', 'Cuban Peso (CUP)', 1.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(34, 'CYP', 'Cyprus Pound (CYP)', 2.07426, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(35, 'CZK', 'Czech Koruna (CZK)', 0.04133, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(36, 'DKK', 'Danish Krone (DKK)', 0.15982, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(37, 'DJF', 'Dijibouti Franc (DJF)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(38, 'DOP', 'Dominican Peso (DOP)', 0.03035, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(39, 'XCD', 'East Caribbean Dollar (XCD)', 0.37037, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(40, 'ECS', 'Ecuador Sucre (ECS)', 0.00004, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(41, 'EGP', 'Egyptian Pound (EGP)', 0.17433, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(42, 'SVC', 'El Salvador Colon (SVC)', 0.11426, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(43, 'ERN', 'Eritrea Nakfa (ERN)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(44, 'EEK', 'Estonian Kroon (EEK)', 0.07615, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(45, 'ETB', 'Ethiopian Birr (ETB)', 0.11456, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(46, 'EUR', 'Euro (EUR)', 1.19175, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(47, 'FKP', 'Falkland Islands Pound (FKP)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(48, 'GMD', 'Gambian Dalasi (GMD)', 0.03515, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(49, 'GHC', 'Ghanian Cedi (GHC)', 0.00011, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(50, 'GIP', 'Gibraltar Pound (GIP)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(51, 'XAU', 'Gold Ounces (XAU)', 99.99999, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(52, 'GTQ', 'Guatemala Quetzal (GTQ)', 0.13103, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(53, 'GNF', 'Guinea Franc (GNF)', 0.00022, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(54, 'HTG', 'Haiti Gourde (HTG)', 0.02387, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(55, 'HNL', 'Honduras Lempira (HNL)', 0.05292, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(56, 'HKD', 'Hong Kong Dollar (HKD)', 0.12884, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(57, 'HUF', 'Hungarian ForINT (HUF)', 0.00461, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(58, 'ISK', 'Iceland Krona (ISK)', 0.01436, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(59, 'INR', 'Indian Rupee (INR)', 0.02253, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(60, 'IDR', 'Indonesian Rupiah (IDR)', 0.00011, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(61, 'IRR', 'Iran Rial (IRR)', 0.00011, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(62, 'ILS', 'Israeli Shekel (ILS)', 0.21192, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(63, 'JMD', 'Jamaican Dollar (JMD)', 0.01536, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(64, 'JPY', 'Japanese Yen (JPY)', 0.00849, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(65, 'JOD', 'Jordanian Dinar (JOD)', 1.41044, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(66, 'KZT', 'Kazakhstan Tenge (KZT)', 0.00773, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(67, 'KES', 'Kenyan Shilling (KES)', 0.01392, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(68, 'KRW', 'Korean Won (KRW)', 0.00102, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(69, 'KWD', 'Kuwaiti Dinar (KWD)', 3.42349, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(70, 'LAK', 'Lao Kip (LAK)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(71, 'LVL', 'Latvian Lat (LVL)', 1.71233, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(72, 'LBP', 'Lebanese Pound (LBP)', 0.00067, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(73, 'LSL', 'Lesotho Loti (LSL)', 0.15817, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(74, 'LYD', 'Libyan Dinar (LYD)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(75, 'LTL', 'Lithuanian Lita (LTL)', 0.34510, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(76, 'MOP', 'Macau Pataca (MOP)', 0.12509, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(77, 'MKD', 'Macedonian Denar (MKD)', 0.01945, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(78, 'MGF', 'Malagasy Franc (MGF)', 0.00011, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(79, 'MWK', 'Malawi Kwacha (MWK)', 0.00752, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(80, 'MYR', 'Malaysian Ringgit (MYR)', 0.26889, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(81, 'MVR', 'Maldives Rufiyaa (MVR)', 0.07813, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(82, 'MTL', 'Maltese Lira (MTL)', 2.77546, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(83, 'MRO', 'Mauritania Ougulya (MRO)', 0.00369, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(84, 'MUR', 'Mauritius Rupee (MUR)', 0.03258, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(85, 'MXN', 'Mexican Peso (MXN)', 0.09320, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(86, 'MDL', 'Moldovan Leu (MDL)', 0.07678, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(87, 'MNT', 'Mongolian Tugrik (MNT)', 0.00084, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(88, 'MAD', 'Moroccan Dirham (MAD)', 0.10897, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(89, 'MZM', 'Mozambique Metical (MZM)', 0.00004, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(90, 'NAD', 'Namibian Dollar (NAD)', 0.15817, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(91, 'NPR', 'Nepalese Rupee (NPR)', 0.01408, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(92, 'ANG', 'Neth Antilles Guilder (ANG)', 0.55866, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(93, 'TRY', 'New Turkish Lira (TRY)', 0.73621, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(94, 'NZD', 'New Zealand Dollar (NZD)', 0.65096, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(95, 'NIO', 'Nicaragua Cordoba (NIO)', 0.05828, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(96, 'NGN', 'Nigerian Naira (NGN)', 0.00777, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(97, 'NOK', 'Norwegian Krone (NOK)', 0.14867, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(98, 'OMR', 'Omani Rial (OMR)', 2.59740, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(99, 'XPF', 'Pacific Franc (XPF)', 0.00999, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(100, 'PKR', 'Pakistani Rupee (PKR)', 0.01667, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(101, 'XPD', 'Palladium Ounces (XPD)', 99.99999, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(102, 'PAB', 'Panama Balboa (PAB)', 1.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(103, 'PGK', 'Papua New Guinea Kina (PGK)', 0.33125, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(104, 'PYG', 'Paraguayan Guarani (PYG)', 0.00017, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(105, 'PEN', 'Peruvian Nuevo Sol (PEN)', 0.29999, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(106, 'PHP', 'Philippine Peso (PHP)', 0.01945, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(107, 'XPT', 'Platinum Ounces (XPT)', 99.99999, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(108, 'PLN', 'Polish Zloty (PLN)', 0.30574, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(109, 'QAR', 'Qatar Rial (QAR)', 0.27476, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(110, 'ROL', 'Romanian Leu (ROL)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(111, 'RON', 'Romanian New Leu (RON)', 0.34074, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(112, 'RUB', 'Russian Rouble (RUB)', 0.03563, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(113, 'RWF', 'Rwanda Franc (RWF)', 0.00185, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(114, 'WST', 'Samoa Tala (WST)', 0.35492, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(115, 'STD', 'Sao Tome Dobra (STD)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(116, 'SAR', 'Saudi Arabian Riyal (SAR)', 0.26665, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(117, 'SCR', 'Seychelles Rupee (SCR)', 0.18114, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(118, 'SLL', 'Sierra Leone Leone (SLL)', 0.00034, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(119, 'XAG', 'Silver Ounces (XAG)', 9.77517, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(120, 'SGD', 'Singapore Dollar (SGD)', 0.61290, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(121, 'SKK', 'Slovak Koruna (SKK)', 0.03157, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(122, 'SIT', 'Slovenian Tolar (SIT)', 0.00498, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(123, 'SOS', 'Somali Shilling (SOS)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(124, 'ZAR', 'South African Rand (ZAR)', 0.15835, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(125, 'LKR', 'Sri Lanka Rupee (LKR)', 0.00974, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(126, 'SHP', 'St Helena Pound (SHP)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(127, 'SDD', 'Sudanese Dinar (SDD)', 0.00427, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(128, 'SRG', 'Surinam Guilder (SRG)', 0.36496, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(129, 'SZL', 'Swaziland Lilageni (SZL)', 0.15817, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(130, 'SEK', 'Swedish Krona (SEK)', 0.12609, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(131, 'CHF', 'Swiss Franc (CHF)', 0.76435, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(132, 'SYP', 'Syrian Pound (SYP)', 0.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(133, 'TWD', 'Taiwan Dollar (TWD)', 0.03075, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(134, 'TZS', 'Tanzanian Shilling (TZS)', 0.00083, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(135, 'THB', 'Thai Baht (THB)', 0.02546, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(136, 'TOP', 'Tonga Paanga (TOP)', 0.48244, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(137, 'TTD', 'Trinidad&Tobago Dollar (TTD)', 0.15863, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(138, 'TND', 'Tunisian Dinar (TND)', 0.73470, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(139, 'USD', 'U.S. Dollar (USD)', 1.00000, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(140, 'AED', 'UAE Dirham (AED)', 0.27228, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(141, 'UGX', 'Ugandan Shilling (UGX)', 0.00055, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(142, 'UAH', 'Ukraine Hryvnia (UAH)', 0.19755, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(143, 'UYU', 'Uruguayan New Peso (UYU)', 0.04119, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(144, 'VUV', 'Vanuatu Vatu (VUV)', 0.00870, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(145, 'VEB', 'Venezuelan Bolivar (VEB)', 0.00037, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(146, 'VND', 'Vietnam Dong (VND)', 0.00006, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(147, 'YER', 'Yemen Riyal (YER)', 0.00510, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(148, 'ZMK', 'Zambian Kwacha (ZMK)', 0.00031, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(149, 'ZWD', 'Zimbabwe Dollar (ZWD)', 0.00001, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(150, 'GYD', 'Guyana Dollar (GYD)', 0.00527, '2009-03-30 20:49:29', 'USD');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_did`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_did`;
 CREATE TABLE IF NOT EXISTS `cc_did` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_didgroup` bigint(20) NOT NULL,
@@ -1632,7 +1776,11 @@ CREATE TABLE IF NOT EXISTS `cc_did` (
 --
 -- Table structure for table `cc_didgroup`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_didgroup`;
 CREATE TABLE IF NOT EXISTS `cc_didgroup` (
   `id` bigint(20) NOT NULL auto_increment,
   `iduser` int(11) NOT NULL default '0',
@@ -1651,7 +1799,11 @@ CREATE TABLE IF NOT EXISTS `cc_didgroup` (
 --
 -- Table structure for table `cc_did_destination`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_did_destination`;
 CREATE TABLE IF NOT EXISTS `cc_did_destination` (
   `id` bigint(20) NOT NULL auto_increment,
   `destination` char(50) collate utf8_bin NOT NULL,
@@ -1675,7 +1827,11 @@ CREATE TABLE IF NOT EXISTS `cc_did_destination` (
 --
 -- Table structure for table `cc_did_use`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_did_use`;
 CREATE TABLE IF NOT EXISTS `cc_did_use` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) default NULL,
@@ -1698,7 +1854,11 @@ CREATE TABLE IF NOT EXISTS `cc_did_use` (
 --
 -- Table structure for table `cc_ecommerce_product`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_ecommerce_product`;
 CREATE TABLE IF NOT EXISTS `cc_ecommerce_product` (
   `id` bigint(20) NOT NULL auto_increment,
   `product_name` varchar(255) collate utf8_bin NOT NULL,
@@ -1733,7 +1893,11 @@ CREATE TABLE IF NOT EXISTS `cc_ecommerce_product` (
 --
 -- Table structure for table `cc_epayment_log`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_epayment_log`;
 CREATE TABLE IF NOT EXISTS `cc_epayment_log` (
   `id` bigint(20) NOT NULL auto_increment,
   `cardid` bigint(20) NOT NULL default '0',
@@ -1762,7 +1926,11 @@ CREATE TABLE IF NOT EXISTS `cc_epayment_log` (
 --
 -- Table structure for table `cc_epayment_log_agent`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_epayment_log_agent`;
 CREATE TABLE IF NOT EXISTS `cc_epayment_log_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `agent_id` bigint(20) NOT NULL default '0',
@@ -1791,7 +1959,11 @@ CREATE TABLE IF NOT EXISTS `cc_epayment_log_agent` (
 --
 -- Table structure for table `cc_iax_buddies`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_iax_buddies`;
 CREATE TABLE IF NOT EXISTS `cc_iax_buddies` (
   `id` int(11) NOT NULL auto_increment,
   `id_cc_card` int(11) NOT NULL default '0',
@@ -1801,7 +1973,7 @@ CREATE TABLE IF NOT EXISTS `cc_iax_buddies` (
   `amaflags` char(7) collate utf8_bin default NULL,
   `callgroup` char(10) collate utf8_bin default NULL,
   `callerid` varchar(80) collate utf8_bin NOT NULL,
-  `canreinvite` char(3) collate utf8_bin default 'yes',
+  `canreinvite` varchar(20) collate utf8_bin NOT NULL,
   `context` varchar(80) collate utf8_bin NOT NULL,
   `DEFAULTip` char(15) collate utf8_bin default NULL,
   `dtmfmode` char(7) collate utf8_bin NOT NULL default 'RFC2833',
@@ -1846,7 +2018,11 @@ CREATE TABLE IF NOT EXISTS `cc_iax_buddies` (
 --
 -- Table structure for table `cc_invoice`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_invoice`;
 CREATE TABLE IF NOT EXISTS `cc_invoice` (
   `id` bigint(20) NOT NULL auto_increment,
   `reference` varchar(30) collate utf8_bin default NULL,
@@ -1870,7 +2046,11 @@ CREATE TABLE IF NOT EXISTS `cc_invoice` (
 --
 -- Table structure for table `cc_invoice_conf`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_invoice_conf`;
 CREATE TABLE IF NOT EXISTS `cc_invoice_conf` (
   `id` int(11) NOT NULL auto_increment,
   `key_val` varchar(50) collate utf8_bin NOT NULL,
@@ -1899,7 +2079,11 @@ INSERT INTO `cc_invoice_conf` (`id`, `key_val`, `value`) VALUES(10, 'web', 'www.
 --
 -- Table structure for table `cc_invoice_item`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_invoice_item`;
 CREATE TABLE IF NOT EXISTS `cc_invoice_item` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_invoice` bigint(20) NOT NULL,
@@ -1922,7 +2106,11 @@ CREATE TABLE IF NOT EXISTS `cc_invoice_item` (
 --
 -- Table structure for table `cc_invoice_payment`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_invoice_payment`;
 CREATE TABLE IF NOT EXISTS `cc_invoice_payment` (
   `id_invoice` bigint(20) NOT NULL,
   `id_payment` bigint(20) NOT NULL,
@@ -1939,7 +2127,11 @@ CREATE TABLE IF NOT EXISTS `cc_invoice_payment` (
 --
 -- Table structure for table `cc_iso639`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_iso639`;
 CREATE TABLE IF NOT EXISTS `cc_iso639` (
   `code` char(2) collate utf8_bin NOT NULL,
   `name` char(16) collate utf8_bin NOT NULL,
@@ -2098,7 +2290,11 @@ INSERT INTO `cc_iso639` (`code`, `name`, `lname`, `charset`) VALUES('zu', 'Zulu'
 --
 -- Table structure for table `cc_logpayment`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_logpayment`;
 CREATE TABLE IF NOT EXISTS `cc_logpayment` (
   `id` int(11) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2122,7 +2318,11 @@ CREATE TABLE IF NOT EXISTS `cc_logpayment` (
 --
 -- Table structure for table `cc_logpayment_agent`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_logpayment_agent`;
 CREATE TABLE IF NOT EXISTS `cc_logpayment_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2145,7 +2345,11 @@ CREATE TABLE IF NOT EXISTS `cc_logpayment_agent` (
 --
 -- Table structure for table `cc_logrefill`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_logrefill`;
 CREATE TABLE IF NOT EXISTS `cc_logrefill` (
   `id` bigint(20) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2167,7 +2371,11 @@ CREATE TABLE IF NOT EXISTS `cc_logrefill` (
 --
 -- Table structure for table `cc_logrefill_agent`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_logrefill_agent`;
 CREATE TABLE IF NOT EXISTS `cc_logrefill_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2186,9 +2394,60 @@ CREATE TABLE IF NOT EXISTS `cc_logrefill_agent` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cc_outbound_cid_group`
+-- Table structure for table `cc_notification`
+--
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
 --
 
+DROP TABLE IF EXISTS `cc_notification`;
+CREATE TABLE IF NOT EXISTS `cc_notification` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `key_value` varchar(40) collate utf8_bin default NULL,
+  `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `priority` tinyint(4) NOT NULL default '0',
+  `from_type` tinyint(4) NOT NULL,
+  `from_id` bigint(20) default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cc_notification`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cc_notification_admin`
+--
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
+
+DROP TABLE IF EXISTS `cc_notification_admin`;
+CREATE TABLE IF NOT EXISTS `cc_notification_admin` (
+  `id_notification` bigint(20) NOT NULL,
+  `id_admin` int(11) NOT NULL,
+  `viewed` tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (`id_notification`,`id_admin`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `cc_notification_admin`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cc_outbound_cid_group`
+--
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
+
+DROP TABLE IF EXISTS `cc_outbound_cid_group`;
 CREATE TABLE IF NOT EXISTS `cc_outbound_cid_group` (
   `id` int(11) NOT NULL auto_increment,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2206,7 +2465,11 @@ CREATE TABLE IF NOT EXISTS `cc_outbound_cid_group` (
 --
 -- Table structure for table `cc_outbound_cid_list`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_outbound_cid_list`;
 CREATE TABLE IF NOT EXISTS `cc_outbound_cid_list` (
   `id` int(11) NOT NULL auto_increment,
   `outbound_cid_group` int(11) NOT NULL,
@@ -2226,7 +2489,11 @@ CREATE TABLE IF NOT EXISTS `cc_outbound_cid_list` (
 --
 -- Table structure for table `cc_package_group`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_package_group`;
 CREATE TABLE IF NOT EXISTS `cc_package_group` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(30) collate utf8_bin NOT NULL,
@@ -2244,7 +2511,11 @@ CREATE TABLE IF NOT EXISTS `cc_package_group` (
 --
 -- Table structure for table `cc_package_offer`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_package_offer`;
 CREATE TABLE IF NOT EXISTS `cc_package_offer` (
   `id` bigint(20) NOT NULL auto_increment,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2266,7 +2537,11 @@ CREATE TABLE IF NOT EXISTS `cc_package_offer` (
 --
 -- Table structure for table `cc_package_rate`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_package_rate`;
 CREATE TABLE IF NOT EXISTS `cc_package_rate` (
   `package_id` int(11) NOT NULL,
   `rate_id` int(11) NOT NULL,
@@ -2283,7 +2558,11 @@ CREATE TABLE IF NOT EXISTS `cc_package_rate` (
 --
 -- Table structure for table `cc_packgroup_package`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_packgroup_package`;
 CREATE TABLE IF NOT EXISTS `cc_packgroup_package` (
   `packagegroup_id` int(11) NOT NULL,
   `package_id` int(11) NOT NULL,
@@ -2300,7 +2579,11 @@ CREATE TABLE IF NOT EXISTS `cc_packgroup_package` (
 --
 -- Table structure for table `cc_payments`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_payments`;
 CREATE TABLE IF NOT EXISTS `cc_payments` (
   `id` bigint(20) NOT NULL auto_increment,
   `customers_id` bigint(20) NOT NULL default '0',
@@ -2334,7 +2617,11 @@ CREATE TABLE IF NOT EXISTS `cc_payments` (
 --
 -- Table structure for table `cc_payments_agent`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_payments_agent`;
 CREATE TABLE IF NOT EXISTS `cc_payments_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `agent_id` bigint(20) NOT NULL,
@@ -2368,7 +2655,11 @@ CREATE TABLE IF NOT EXISTS `cc_payments_agent` (
 --
 -- Table structure for table `cc_payments_status`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_payments_status`;
 CREATE TABLE IF NOT EXISTS `cc_payments_status` (
   `id` int(11) NOT NULL auto_increment,
   `status_id` int(11) NOT NULL,
@@ -2394,7 +2685,11 @@ INSERT INTO `cc_payments_status` (`id`, `status_id`, `status_name`) VALUES(8, 5,
 --
 -- Table structure for table `cc_payment_methods`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_payment_methods`;
 CREATE TABLE IF NOT EXISTS `cc_payment_methods` (
   `id` int(11) NOT NULL auto_increment,
   `payment_method` char(100) collate utf8_bin NOT NULL,
@@ -2416,7 +2711,11 @@ INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VA
 --
 -- Table structure for table `cc_paypal`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_paypal`;
 CREATE TABLE IF NOT EXISTS `cc_paypal` (
   `id` int(11) NOT NULL auto_increment,
   `payer_id` varchar(50) collate utf8_bin default NULL,
@@ -2462,7 +2761,11 @@ CREATE TABLE IF NOT EXISTS `cc_paypal` (
 --
 -- Table structure for table `cc_phonebook`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_phonebook`;
 CREATE TABLE IF NOT EXISTS `cc_phonebook` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(30) collate utf8_bin NOT NULL,
@@ -2481,7 +2784,11 @@ CREATE TABLE IF NOT EXISTS `cc_phonebook` (
 --
 -- Table structure for table `cc_phonenumber`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_phonenumber`;
 CREATE TABLE IF NOT EXISTS `cc_phonenumber` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_phonebook` int(11) NOT NULL,
@@ -2504,7 +2811,11 @@ CREATE TABLE IF NOT EXISTS `cc_phonenumber` (
 --
 -- Table structure for table `cc_prefix`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_prefix`;
 CREATE TABLE IF NOT EXISTS `cc_prefix` (
   `prefix` bigint(20) NOT NULL auto_increment,
   `destination` varchar(60) collate utf8_bin NOT NULL,
@@ -7413,7 +7724,11 @@ INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(998, 'Uzbekistan');
 --
 -- Table structure for table `cc_provider`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_provider`;
 CREATE TABLE IF NOT EXISTS `cc_provider` (
   `id` int(11) NOT NULL auto_increment,
   `provider_name` char(30) collate utf8_bin NOT NULL,
@@ -7433,7 +7748,12 @@ CREATE TABLE IF NOT EXISTS `cc_provider` (
 --
 -- Table structure for table `cc_ratecard`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+-- Last check: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_ratecard`;
 CREATE TABLE IF NOT EXISTS `cc_ratecard` (
   `id` int(11) NOT NULL auto_increment,
   `idtariffplan` int(11) NOT NULL default '0',
@@ -7483,18 +7803,18 @@ CREATE TABLE IF NOT EXISTS `cc_ratecard` (
 --
 -- Triggers `cc_ratecard`
 --
-DROP TRIGGER `a2b_14`.`cc_ratecard_validate_regex_ins`;
+DROP TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_ins`;
 DELIMITER //
-CREATE TRIGGER `a2b_14`.`cc_ratecard_validate_regex_ins` BEFORE INSERT ON `a2b_14`.`cc_ratecard`
+CREATE TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_ins` BEFORE INSERT ON `a2b_14_import`.`cc_ratecard`
  FOR EACH ROW BEGIN
   DECLARE valid INTEGER;
   SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '') INTO valid;
 END
 //
 DELIMITER ;
-DROP TRIGGER `a2b_14`.`cc_ratecard_validate_regex_upd`;
+DROP TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_upd`;
 DELIMITER //
-CREATE TRIGGER `a2b_14`.`cc_ratecard_validate_regex_upd` BEFORE UPDATE ON `a2b_14`.`cc_ratecard`
+CREATE TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_upd` BEFORE UPDATE ON `a2b_14_import`.`cc_ratecard`
  FOR EACH ROW BEGIN
   DECLARE valid INTEGER;
   SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '') INTO valid;
@@ -7512,7 +7832,11 @@ DELIMITER ;
 --
 -- Table structure for table `cc_receipt`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_receipt`;
 CREATE TABLE IF NOT EXISTS `cc_receipt` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_card` bigint(20) NOT NULL,
@@ -7533,7 +7857,11 @@ CREATE TABLE IF NOT EXISTS `cc_receipt` (
 --
 -- Table structure for table `cc_receipt_item`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_receipt_item`;
 CREATE TABLE IF NOT EXISTS `cc_receipt_item` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_receipt` bigint(20) NOT NULL,
@@ -7555,7 +7883,11 @@ CREATE TABLE IF NOT EXISTS `cc_receipt_item` (
 --
 -- Table structure for table `cc_restricted_phonenumber`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_restricted_phonenumber`;
 CREATE TABLE IF NOT EXISTS `cc_restricted_phonenumber` (
   `id` bigint(20) NOT NULL auto_increment,
   `number` varchar(50) collate utf8_bin NOT NULL,
@@ -7573,7 +7905,11 @@ CREATE TABLE IF NOT EXISTS `cc_restricted_phonenumber` (
 --
 -- Table structure for table `cc_server_group`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_server_group`;
 CREATE TABLE IF NOT EXISTS `cc_server_group` (
   `id` bigint(20) NOT NULL auto_increment,
   `name` varchar(60) collate utf8_bin default NULL,
@@ -7585,14 +7921,18 @@ CREATE TABLE IF NOT EXISTS `cc_server_group` (
 -- Dumping data for table `cc_server_group`
 --
 
-INSERT INTO `cc_server_group` (`id`, `name`, `description`) VALUES(1, 'default', 0x64656661756c742067726f7570206f6620736572766572);
+INSERT INTO `cc_server_group` (`id`, `name`, `description`) VALUES(1, 'default', 'default group of server');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_server_manager`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_server_manager`;
 CREATE TABLE IF NOT EXISTS `cc_server_manager` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_group` int(11) default '1',
@@ -7608,14 +7948,18 @@ CREATE TABLE IF NOT EXISTS `cc_server_manager` (
 -- Dumping data for table `cc_server_manager`
 --
 
-INSERT INTO `cc_server_manager` (`id`, `id_group`, `server_ip`, `manager_host`, `manager_username`, `manager_secret`, `lasttime_used`) VALUES(1, 1, 'localhost', 'localhost', 'myasterisk', 'mycode', '2009-03-24 18:15:56');
+INSERT INTO `cc_server_manager` (`id`, `id_group`, `server_ip`, `manager_host`, `manager_username`, `manager_secret`, `lasttime_used`) VALUES(1, 1, 'localhost', 'localhost', 'myasterisk', 'mycode', '2009-03-30 20:49:29');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_service`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_service`;
 CREATE TABLE IF NOT EXISTS `cc_service` (
   `id` bigint(20) NOT NULL auto_increment,
   `name` char(100) collate utf8_bin NOT NULL,
@@ -7648,7 +7992,11 @@ CREATE TABLE IF NOT EXISTS `cc_service` (
 --
 -- Table structure for table `cc_service_report`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_service_report`;
 CREATE TABLE IF NOT EXISTS `cc_service_report` (
   `id` bigint(20) NOT NULL auto_increment,
   `cc_service_id` bigint(20) NOT NULL,
@@ -7668,7 +8016,11 @@ CREATE TABLE IF NOT EXISTS `cc_service_report` (
 --
 -- Table structure for table `cc_sip_buddies`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_sip_buddies`;
 CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
   `id` int(11) NOT NULL auto_increment,
   `id_cc_card` int(11) NOT NULL default '0',
@@ -7678,7 +8030,7 @@ CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
   `amaflags` char(7) collate utf8_bin default NULL,
   `callgroup` char(10) collate utf8_bin default NULL,
   `callerid` varchar(80) collate utf8_bin NOT NULL,
-  `canreinvite` char(3) collate utf8_bin default 'yes',
+  `canreinvite` varchar(20) collate utf8_bin NOT NULL,
   `context` varchar(80) collate utf8_bin NOT NULL,
   `DEFAULTip` char(15) collate utf8_bin default NULL,
   `dtmfmode` char(7) collate utf8_bin NOT NULL default 'RFC2833',
@@ -7720,12 +8072,14 @@ CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
 --
 
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `cc_speeddial`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_speeddial`;
 CREATE TABLE IF NOT EXISTS `cc_speeddial` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) NOT NULL default '0',
@@ -7747,7 +8101,11 @@ CREATE TABLE IF NOT EXISTS `cc_speeddial` (
 --
 -- Table structure for table `cc_status_log`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_status_log`;
 CREATE TABLE IF NOT EXISTS `cc_status_log` (
   `id` bigint(20) NOT NULL auto_increment,
   `status` int(11) NOT NULL,
@@ -7766,7 +8124,11 @@ CREATE TABLE IF NOT EXISTS `cc_status_log` (
 --
 -- Table structure for table `cc_subscription_fee`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_subscription_fee`;
 CREATE TABLE IF NOT EXISTS `cc_subscription_fee` (
   `id` bigint(20) NOT NULL auto_increment,
   `label` text collate utf8_bin NOT NULL,
@@ -7792,43 +8154,57 @@ CREATE TABLE IF NOT EXISTS `cc_subscription_fee` (
 --
 -- Table structure for table `cc_support`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_support`;
 CREATE TABLE IF NOT EXISTS `cc_support` (
   `id` smallint(5) NOT NULL auto_increment,
   `name` varchar(50) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `cc_support`
 --
 
+INSERT INTO `cc_support` (`id`, `name`) VALUES(1, 'DEFAULT');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_support_component`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_support_component`;
 CREATE TABLE IF NOT EXISTS `cc_support_component` (
   `id` smallint(5) NOT NULL auto_increment,
   `id_support` smallint(5) NOT NULL,
   `name` varchar(50) collate utf8_bin NOT NULL,
   `activated` smallint(6) NOT NULL default '1',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `cc_support_component`
 --
 
+INSERT INTO `cc_support_component` (`id`, `id_support`, `name`, `activated`) VALUES(1, 1, 'DEFAULT', 1);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_system_log`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_system_log`;
 CREATE TABLE IF NOT EXISTS `cc_system_log` (
   `id` int(11) NOT NULL auto_increment,
   `iduser` int(11) NOT NULL default '0',
@@ -7853,7 +8229,11 @@ CREATE TABLE IF NOT EXISTS `cc_system_log` (
 --
 -- Table structure for table `cc_tariffgroup`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_tariffgroup`;
 CREATE TABLE IF NOT EXISTS `cc_tariffgroup` (
   `id` int(11) NOT NULL auto_increment,
   `iduser` int(11) NOT NULL default '0',
@@ -7876,7 +8256,11 @@ CREATE TABLE IF NOT EXISTS `cc_tariffgroup` (
 --
 -- Table structure for table `cc_tariffgroup_plan`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_tariffgroup_plan`;
 CREATE TABLE IF NOT EXISTS `cc_tariffgroup_plan` (
   `idtariffgroup` int(11) NOT NULL,
   `idtariffplan` int(11) NOT NULL,
@@ -7893,7 +8277,11 @@ CREATE TABLE IF NOT EXISTS `cc_tariffgroup_plan` (
 --
 -- Table structure for table `cc_tariffplan`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_tariffplan`;
 CREATE TABLE IF NOT EXISTS `cc_tariffplan` (
   `id` int(11) NOT NULL auto_increment,
   `iduser` int(11) NOT NULL default '0',
@@ -7924,7 +8312,11 @@ CREATE TABLE IF NOT EXISTS `cc_tariffplan` (
 --
 -- Table structure for table `cc_templatemail`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_templatemail`;
 CREATE TABLE IF NOT EXISTS `cc_templatemail` (
   `id` int(11) NOT NULL,
   `id_language` char(20) collate utf8_bin NOT NULL default 'en',
@@ -7941,20 +8333,24 @@ CREATE TABLE IF NOT EXISTS `cc_templatemail` (
 -- Dumping data for table `cc_templatemail`
 --
 
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(1, 'en', 'signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 0x0a5468616e6b20796f7520666f72207265676973746572696e6720776974682075730a0a506c6561736520636c69636b206f6e2062656c6f77206c696e6b20746f20616374697661746520796f7572206163636f756e742e0a0a687474703a2f2f63616c6c2d6c6162732e636f6d2f413242696c6c696e675f55492f7369676e75702f61637469766174652e7068703f6b6579246c6f67696e6b65790a0a506c65617365206d616b65207375726520796f752061637469766520796f7572206163636f756e74206279206d616b696e67207061796d656e7420746f207573206569746865722062790a63726564697420636172642c2077697265207472616e736665722c206d6f6e6579206f726465722c206368657175652c20616e64207765737465726e20756e696f6e206d6f6e65790a7472616e736665722c206d6f6e6579204772616d2c20616e64205061792070616c2e0a0a0a4b696e6420726567617264732c0a43616c6c204c6162730a, '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(2, 'en', 'reminder', 'info@call-labs.com', 'Call-Labs', 'Your Call-Labs account $cardnumber is low on credit ($currency $credit', 0x0a0a596f75722043616c6c2d4c616273204163636f756e74206e756d6265722024636172646e756d6265722069732072756e6e696e67206c6f77206f6e206372656469742e0a0a54686572652069732063757272656e746c79206f6e6c7920246372656469745f63757272656e6379202463757272656e6379206c656674206f6e20796f7572206163636f756e74207768696368206973206c6f776572207468616e20746865207761726e696e67206c6576656c20646566696e65642028246372656469745f6e6f74696669636174696f6e290a0a0a506c6561736520746f7020757020796f7572206163636f756e74204153415020746f20656e7375726520636f6e74696e75656420736572766963650a0a496620796f75206e6f206c6f6e676572207769736820746f2072656365697665207468657365206e6f74696669636174696f6e73206f7220776f756c64206c696b6520746f206368616e6765207468652062616c616e636520616d6f756e74206174207768696368207468657365207761726e696e6773206172652067656e6572617465642c0a706c6561736520636f6e6e656374206f6e20796f7572206d796163636f756e742070616e656c20616e64206368616e67652074686520617070726f70726961746520706172616d65746572730a0a0a796f7572206163636f756e7420696e666f726d6174696f6e203a0a596f7572206163636f756e74206e756d62657220666f7220564f49502061757468656e7469636174696f6e203a2024636172646e756d6265720a0a687474703a2f2f6d796163636f756e742e63616c6c2d6c6162732e636f6d2f0a596f7572206163636f756e74206c6f67696e203a202463617264616c6961730a596f7572206163636f756e742070617373776f7264203a202470617373776f72640a0a0a5468616e6b732c0a2f43616c6c2d4c616273205465616d0a2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d0a687474703a2f2f7777772e63616c6c2d6c6162732e636f6d0a20, '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(3, 'en', 'forgetpassword', 'info@call-labs.com', 'Call-Labs', 'Login Information', 0x596f7572206c6f67696e20696e666f726d6174696f6e2069732061732062656c6f773a0a0a596f7572206163636f756e742069732024636172645f67656e0a0a596f75722070617373776f7264206973202470617373776f72640a0a596f75722063617264616c696173206973202463617264616c6961730a0a687474703a2f2f63616c6c2d6c6162732e636f6d2f413242437573746f6d65725f55492f0a0a4b696e6420726567617264732c0a43616c6c204c6162730a, '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(4, 'en', 'signupconfirmed', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 0x5468616e6b20796f7520666f72207265676973746572696e6720776974682075730a0a506c65617365206d616b65207375726520796f752061637469766520796f7572206163636f756e74206279206d616b696e67207061796d656e7420746f207573206569746865722062790a63726564697420636172642c2077697265207472616e736665722c206d6f6e6579206f726465722c206368657175652c20616e64207765737465726e20756e696f6e206d6f6e65790a7472616e736665722c206d6f6e6579204772616d2c20616e64205061792070616c2e0a0a596f7572206163636f756e742069732024636172645f67656e0a0a596f75722070617373776f7264206973202470617373776f72640a0a546f20676f20746f20796f7572206163636f756e74203a0a687474703a2f2f63616c6c2d6c6162732e636f6d2f413242437573746f6d65725f55492f0a0a4b696e6420726567617264732c0a43616c6c204c6162730a, '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(5, 'en', 'epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 0x446561722041646d696e6973747261746f720a0a506c6561736520636865636b2074686520457061796d656e74204c6f672c2053797374656d20686173206c6f67676564206120457061796d656e74205365637572697479206661696c7572652e2074686174206d6179206265206120706f737369626c652061747461636b206f6e20657061796d656e742070726f63657373696e672e0a0a54696d65206f66205472616e73616374696f6e3a202474696d650a5061796d656e7420476174657761793a20247061796d656e74676174657761790a416d6f756e743a2024616d6f756e740a0a0a0a4b696e6420726567617264732c0a43616c6c204c6162730a, '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(6, 'en', 'payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 0x5468616e6b20796f7520666f722073686f7070696e672061742043616c6c2d4c6162732e0a0a53686f7070696e672064657461696c732069732061732062656c6f772e0a0a4974656d204e616d65203d203c623e246974656d4e616d653c2f623e0a4974656d204944203d203c623e246974656d49443c2f623e0a416d6f756e74203d203c623e246974656d416d6f756e743c2f623e0a5061796d656e74204d6574686f64203d203c623e247061796d656e744d6574686f643c2f623e0a537461747573203d203c623e247061796d656e745374617475733c2f623e0a0a0a4b696e6420726567617264732c0a43616c6c204c6162730a, '');
-INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(7, 'en', 'invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 0x4465617220437573746f6d65722e0a0a41747461636865642069732074686520696e766f6963652e0a0a4b696e6420726567617264732c0a43616c6c204c6162730a, '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(1, 'en', 'signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '\nThank you for registering with us\n\nPlease click on below link to activate your account.\n\nhttp://call-labs.com/A2Billing_UI/signup/activate.php?key$loginkey\n\nPlease make sure you active your account by making payment to us either by\ncredit card, wire transfer, money order, cheque, and western union money\ntransfer, money Gram, and Pay pal.\n\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(2, 'en', 'reminder', 'info@call-labs.com', 'Call-Labs', 'Your Call-Labs account $cardnumber is low on credit ($currency $credit', '\n\nYour Call-Labs Account number $cardnumber is running low on credit.\n\nThere is currently only $credit_currency $currency left on your account which is lower than the warning level defined ($credit_notification)\n\n\nPlease top up your account ASAP to ensure continued service\n\nIf you no longer wish to receive these notifications or would like to change the balance amount at which these warnings are generated,\nplease connect on your myaccount panel and change the appropriate parameters\n\n\nyour account information :\nYour account number for VOIP authentication : $cardnumber\n\nhttp://myaccount.call-labs.com/\nYour account login : $cardalias\nYour account password : $password\n\n\nThanks,\n/Call-Labs Team\n-------------------------------------\nhttp://www.call-labs.com\n ', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(3, 'en', 'forgetpassword', 'info@call-labs.com', 'Call-Labs', 'Login Information', 'Your login information is as below:\n\nYour account is $card_gen\n\nYour password is $password\n\nYour cardalias is $cardalias\n\nhttp://call-labs.com/A2BCustomer_UI/\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(4, 'en', 'signupconfirmed', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 'Thank you for registering with us\n\nPlease make sure you active your account by making payment to us either by\ncredit card, wire transfer, money order, cheque, and western union money\ntransfer, money Gram, and Pay pal.\n\nYour account is $card_gen\n\nYour password is $password\n\nTo go to your account :\nhttp://call-labs.com/A2BCustomer_UI/\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(5, 'en', 'epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator\n\nPlease check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.\n\nTime of Transaction: $time\nPayment Gateway: $paymentgateway\nAmount: $amount\n\n\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(6, 'en', 'payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.\n\nShopping details is as below.\n\nItem Name = <b>$itemName</b>\nItem ID = <b>$itemID</b>\nAmount = <b>$itemAmount</b>\nPayment Method = <b>$paymentMethod</b>\nStatus = <b>$paymentStatus</b>\n\n\nKind regards,\nCall Labs\n', '');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`, `messagehtml`) VALUES(7, 'en', 'invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.\n\nAttached is the invoice.\n\nKind regards,\nCall Labs\n', '');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_ticket`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_ticket`;
 CREATE TABLE IF NOT EXISTS `cc_ticket` (
   `id` bigint(10) NOT NULL auto_increment,
   `id_component` smallint(5) NOT NULL,
@@ -7981,7 +8377,11 @@ CREATE TABLE IF NOT EXISTS `cc_ticket` (
 --
 -- Table structure for table `cc_ticket_comment`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_ticket_comment`;
 CREATE TABLE IF NOT EXISTS `cc_ticket_comment` (
   `id` bigint(20) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -8005,7 +8405,11 @@ CREATE TABLE IF NOT EXISTS `cc_ticket_comment` (
 --
 -- Table structure for table `cc_timezone`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_timezone`;
 CREATE TABLE IF NOT EXISTS `cc_timezone` (
   `id` int(11) NOT NULL auto_increment,
   `gmtzone` varchar(255) collate utf8_bin default NULL,
@@ -8099,7 +8503,11 @@ INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES(75, '
 --
 -- Table structure for table `cc_trunk`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_trunk`;
 CREATE TABLE IF NOT EXISTS `cc_trunk` (
   `id_trunk` int(11) NOT NULL auto_increment,
   `trunkcode` char(20) collate utf8_bin NOT NULL,
@@ -8132,7 +8540,11 @@ INSERT INTO `cc_trunk` (`id_trunk`, `trunkcode`, `trunkprefix`, `providertech`, 
 --
 -- Table structure for table `cc_ui_authen`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_ui_authen`;
 CREATE TABLE IF NOT EXISTS `cc_ui_authen` (
   `userid` bigint(20) NOT NULL auto_increment,
   `login` char(50) collate utf8_bin NOT NULL,
@@ -8164,7 +8576,11 @@ INSERT INTO `cc_ui_authen` (`userid`, `login`, `pwd_encoded`, `groupid`, `perms`
 --
 -- Table structure for table `cc_voucher`
 --
+-- Creation: Mar 30, 2009 at 08:49 PM
+-- Last update: Mar 30, 2009 at 08:49 PM
+--
 
+DROP TABLE IF EXISTS `cc_voucher`;
 CREATE TABLE IF NOT EXISTS `cc_voucher` (
   `id` bigint(20) NOT NULL auto_increment,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
