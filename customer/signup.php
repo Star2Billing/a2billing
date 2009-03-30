@@ -1,7 +1,4 @@
 <?php
-session_name("UISIGNUP");
-session_start();
-
 include ("./lib/customer.defines.php");
 include ("./lib/customer.module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");

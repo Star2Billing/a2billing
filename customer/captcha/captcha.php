@@ -1,9 +1,6 @@
 <?php
 
-if (!isset($_SESSION)) {
-	session_name("UISIGNUP");
-	session_start();
-}
+
 
 include("../lib/customer.defines.php");
 
