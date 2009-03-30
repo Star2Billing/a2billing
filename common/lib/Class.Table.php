@@ -202,7 +202,8 @@ class Table {
 
 		$sql_limit ='';
 		if (!is_null ($limite) && (is_numeric($limite)) && !is_null ($current_record) && (is_numeric($current_record)) ) {
-			$sql_limit = " LIMIT $current_record,$limite";
+			if (DB_TYPE == "postgres") $sql_limit = " LIMIT $limite OFFSET $current_record";
+			else $sql_limit = " LIMIT $current_record,$limite";
 		}
 
 		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;

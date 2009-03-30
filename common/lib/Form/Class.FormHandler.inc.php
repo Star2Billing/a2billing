@@ -2025,7 +2025,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} 
 				elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$id=$_SESSION['agent_id'];}
 				else {$who=Notification::$UNKNOWN;$id=-1;}
-				NotificationsDAO::AddNotification($key,Notification::$HIGN,$who,$id);
+				NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$id);
 			}
 			
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);

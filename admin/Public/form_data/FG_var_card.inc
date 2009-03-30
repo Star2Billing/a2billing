@@ -922,7 +922,7 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 		if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} 
 		elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$id=$_SESSION['agent_id'];}
 		else {$who=Notification::$UNKNOWN;$id=-1;}
-		NotificationsDAO::AddNotification($key,Notification::$HIGN,$who,$id);
+		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$id);
 	}
 	
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?section=".$_SESSION["menu_section"]."&id=";
