@@ -1,7 +1,7 @@
 # A2Billing Customer Panel - PO File.
 # Copyright (C) 2004-2009 A2BILLING
 # This file is distributed under the same license as the PACKAGE package.
-# ARESKI <areski@gmail.com>, 2006.
+# ARESKI <areski@gmail.com>.
 #
 msgid ""
 msgstr ""
@@ -125,109 +125,6 @@ msgstr ""
 #: CC_entity_edit_did_destination.php:1033
 #: CC_entity_edit_did_destination.php:1197 call-history.php:456
 msgid "No data found !!!"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:49
-msgid "ACCOUNT INFO"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:53
-msgid "SIP/IAX INFO"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:58
-msgid "CALL HISTORY"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:63
-msgid "PAYMENT HISTORY"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:69
-msgid "VOUCHERS"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:86
-msgid "INVOICES"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:95
-msgid "View Receipts"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:96
-msgid "View Invoices"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:97
-msgid "Preview Next Invoice"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:107 form_data/FG_var_did.inc:32
-msgid "DID"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:112
-msgid "SPEED DIAL"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:117
-#: lib/Form/Class.SearchHandler.inc.php:341
-msgid "RATECARD"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:122
-msgid "SIMULATOR"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:127
-msgid "CALLBACK"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:131
-msgid "WEB-PHONE"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:136
-msgid "ADD CALLER ID"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:141
-msgid "PASSWORD"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:145
-msgid "SUPPORT"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:149
-msgid "NOTIFICATION"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:165
-msgid "AUTO DIALLER"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:174
-msgid "Campaign's"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:175
-#: form_data/FG_var_phonenumber.inc:58
-msgid "Phone Book"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:176
-#: form_data/FG_var_phonenumber.inc:49
-msgid "Phone Number"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:177
-msgid "Import Phone List"
-msgstr ""
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:188
-msgid "LOGOUT"
 msgstr ""
 
 #: checkout_success.php:23 lib/Form/Class.FormHandler.DelForm.inc.php:42
@@ -1703,6 +1600,10 @@ msgstr ""
 msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
 msgstr ""
 
+#: lib/Form/Class.SearchHandler.inc.php:341
+msgid "RATECARD"
+msgstr ""
+
 #: lib/Form/Class.SearchHandler.inc.php:360
 msgid "BUYRATE"
 msgstr ""
@@ -2861,12 +2762,20 @@ msgstr ""
 msgid "No phone numbers have been created"
 msgstr ""
 
+#: form_data/FG_var_phonenumber.inc:49
+msgid "Phone Number"
+msgstr ""
+
 #: form_data/FG_var_phonenumber.inc:55
 msgid "Insert the phonenumber"
 msgstr ""
 
 #: form_data/FG_var_phonenumber.inc:56
 msgid "Enter here the phonenumber to call"
+msgstr ""
+
+#: form_data/FG_var_phonenumber.inc:58
+msgid "Phone Book"
 msgstr ""
 
 #: form_data/FG_var_phonenumber.inc:74
@@ -2983,6 +2892,10 @@ msgstr ""
 
 #: form_data/FG_var_speeddial.inc:95
 msgid "Once you have completed the form above, click on the CONTINUE button."
+msgstr ""
+
+#: form_data/FG_var_did.inc:32
+msgid "DID"
 msgstr ""
 
 #: form_data/FG_var_did.inc:34 form_data/FG_var_did.inc:89
