@@ -94,7 +94,7 @@ if (LINK_AUDIO_FILE) {
 }
 
 // This Variable store the argument for the SQL query
-$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.id_ratecard ,t4.rateinitial ,t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
+$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.destination, t4.rateinitial, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
 }
