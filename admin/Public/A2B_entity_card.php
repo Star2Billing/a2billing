@@ -98,7 +98,7 @@ if ($batchupdate == 1 && is_array($check)) {
 		if(!$HD_Form -> DBHandle -> Execute($SQL_UPDATE)){
 			$update_msg =$update_msg_error;
 		}
-		if (! $res = $HD_Form -> DBHandle -> Execute("comit")) {
+		if (! $res = $HD_Form -> DBHandle -> Execute("commit")) {
 			$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
 		}
 	
