@@ -26,6 +26,7 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
 		$QUERY = "INSERT INTO cc_ticket (creator,creator_type,title, description, id_component, priority, viewed_agent) VALUES ('".$_SESSION["agent_id"]."',1, '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0')";
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+		NotificationsDAO::AddNotification("ticket_added_agent",Notification::$MEDIUM,Notification::$AGENT,$_SESSION['agent_id']);
 		$update_msg = gettext("Ticket added successfully");
 
 }

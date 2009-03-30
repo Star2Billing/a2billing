@@ -10,6 +10,8 @@ include_once (dirname(__FILE__)."/Class.Connection.php");
 
 // INCLUDE FILES
 include (FSROOT."lib/Misc.php");
+include (dirname(__FILE__)."/Class.NotificationsDAO.php");
+include (dirname(__FILE__)."/Class.Notification.php");
 
 // USE PHPMAILER
 include_once (FSROOT."lib/mail/class.phpmailer.php");

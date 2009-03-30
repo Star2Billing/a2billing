@@ -27,6 +27,7 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, viewed_cust) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0')";
 		
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+		NotificationsDAO::AddNotification("ticket_added_cust",Notification::$LOW,Notification::$CUST,$_SESSION['card_id']);
 		$update_msg = gettext("Ticket added successfully");
 
 }
