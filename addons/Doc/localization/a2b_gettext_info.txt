@@ -27,8 +27,8 @@ Contents
         you can generate the po file with the help of xgettext utility.
 
         > xgettext -n --no-wrap *.php
-        if you want xgettext to traverse the child directories and search for ".inc" and ".php" files.
-        > find -follow | grep [.][p,i][h,n][p,c]$ | xargs xgettext -n --no-wrap
+        if you want xgettext to traverse the child directories and search for ".inc", ".tpl" and ".php" files.
+        > find -follow | grep [.][p,i,t][h,n,p][p,c,l]$  | grep -v "admin.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
 
         customer UI :
                 cd customer
