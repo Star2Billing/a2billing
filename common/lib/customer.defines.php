@@ -186,18 +186,16 @@ function DbDisconnect($DBHandle)
 }
 
 
-if(isset($cssname) && $cssname != "")
-{
-	if ($_SESSION["stylefile"]!=$cssname){
-		foreach (glob("./templates_c/*.*") as $filename)
-		{
+if(isset($cssname) && $cssname != "") {
+	if ($_SESSION["stylefile"]!=$cssname) {
+		foreach (glob("./templates_c/*.*") as $filename) {
 			unlink($filename);
 		}			
 	}
 	$_SESSION["stylefile"] = $cssname;		
 }
 
-if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]==''){
+if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]=='') {
 	$_SESSION["stylefile"]='default';
 }
 

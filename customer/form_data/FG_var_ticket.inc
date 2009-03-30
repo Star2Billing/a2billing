@@ -14,7 +14,7 @@ $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $status_list = Ticket::getAllStatusListView();
 $viewed_list = Constants::getTicketViewedList();
-$priority_list =Constants::getTicketPriorityList();
+$priority_list = Constants::getTicketPriorityList();
 $filter_view ='CASE WHEN cc_ticket.viewed_cust=1 OR SUM(cc_ticket_comment.viewed_cust)>0 THEN 1 ELSE 0 END ';
 
 
@@ -23,7 +23,7 @@ $HD_Form -> AddViewElement(gettext("TITLE"), "title", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("COMPONENT"), "id_component", "10%", "center", "sort", "15", "lie", "cc_support_component", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "sort", "", "list", $priority_list);
-$HD_Form -> AddViewElement(gettext("TO SEE?"), "viewed_cust", "10%", "center", "sort", "", "list", $viewed_list);
+$HD_Form -> AddViewElement(gettext("VIEWED"), "viewed_cust", "10%", "center", "sort", "", "list", $viewed_list);
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort", "", "list", $status_list);
 
 $HD_Form -> FieldViewElement ("cc_ticket.id, title, cc_ticket.creationdate, id_component , priority,$filter_view,status");

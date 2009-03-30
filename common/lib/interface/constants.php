@@ -205,8 +205,9 @@ class Constants
 	
 	public static function getTicketViewedList(){
 		$viewed_list = array();
-		$viewed_list["0"] = array( "", "0");
-		$viewed_list["1"] = array( "<img src='".Images_Path."/eye.png' border='0' title='".gettext("Not Viewed")."' alt='".gettext("Not Viewed")."' ", "1");
+		$viewed_list["0"] = array( gettext('VIEWED'), "0");
+		$viewed_list["1"] = array( '<strong style="font-size:8px; color:#B00000; background-color:white; border:solid 1px;"> &nbsp;'.gettext('NEW').'&nbsp;</strong>', '1');
+		// $viewed_list["1"] = array( "<img src='".Images_Path."/eye.png' border='0' title='".gettext("Not Viewed")."' alt='".gettext("Not Viewed")."' ", "1");
 		return $viewed_list;
 	}
 
