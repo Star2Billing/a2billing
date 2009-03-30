@@ -1,3 +1,274 @@
+
+2009-03-26 - Belaid Arezqui <areski@gmail.com> - Alberto Escudero-Pascual <aep@it46.se>
+	* restructure files, tree, review existing doc
+	* delete not used files
+
+2009-03-25 - Belaid Arezqui <areski@gmail.com>
+	* Update English Gettext : PO & MO files
+
+2009-03-24
+	* Fresh new schema for v1.4.0 - Alberto Escudero-Pascual <aep@it46.se>
+	* Review of ACL right - Belaid Rachid <rachid.belaid@gmail.com>
+	* Small spelling fix,  and synch Postgres schema - Steve Dommett <steve@st4vs.net>
+
+2009-03-23 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Better Handler for the DB connection
+	* Correct View on the List of Log
+		Add an info page for the security
+		Put on false the edition
+
+2009-03-19
+	* Add Info view for a Refill and Payment in Agent UI - Belaid Rachid <rachid.belaid@gmail.com>
+	* change A2Billing logo
+	* Add new rights for Admin ACL to
+		Edit / Delete a Refill
+		Edit / Delete a Payment
+		Edit / Delete a Customer  - Belaid Rachid <rachid.belaid@gmail.com>
+	
+
+2009-03-18 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Add commission the commission in agent UI
+		Correct some bugs in admin UI about commission
+		add a new function in misc to link directly an id with the card number or agent name
+
+2009-03-17 - Alberto Escudero-Pascual <aep@it46.se>
+	* Fixing all those section numbers.... 18 menus
+	* This is a first proposal for a new GUI rearrangement.
+		- Trying to keep actions as one word to easy localization
+		- Rearrange the order of the GUI in hierarchical order
+		- Separate Agents from Admins
+		- Promote Support and Call Reports to higher parts of the UI
+		- Wording consistency
+		- Some changes might have considerations with the ACX permission system
+		- Section indexes need to be fixed
+		- Billing Submenu still not changed until is frozen
+
+2009-03-16
+	* add links in admin UI to see Agent transaction - Belaid Rachid <rachid.belaid@gmail.com>
+	* Adding line for Debian based asterisk installation - Alberto Escudero-Pascual <aep@it46.se>
+	* Accepting the : as separator breaks complex CSV import. Accepting only ; as separator - Alberto Escudero-Pascual <aep@it46.se>
+	
+2009-03-15 - Alberto Escudero-Pascual <aep@it46.se>
+	* Fixed access control in Agent UI. Card History should be under $ACX_CALL_REPORT if statement. 
+	* The $A2B -> credit was overwritten by callingcard_ivr_authenticate_light() and not using the form balance.
+		Included the possibility to choose between account current balance or manual input of balance via form
+	* Added Notification Help and wiki link
+	* Cleaning up notification admin UI, added help link and cleanup links to Global Config
+
+2009-03-14
+	* Correct payment for an agent - Belaid Rachid <rachid.belaid@gmail.com>
+	* bug on voucher IVR : set to used - Belaid Arezqui <areski@gmail.com>
+	* ticket #399: Selecting 5 Vouchers in admin interface creates only 1 - Belaid Arezqui <areski@gmail.com>
+
+2009-03-13
+	* remove redundant SIGNUP CONFIRMED - Belaid Arezqui <areski@gmail.com>
+	* add credit on ratecard simulator - Belaid Arezqui <areski@gmail.com>
+	* Synch Postgres schema - Steve Dommett <steve@st4vs.net>
+
+2009-03-12 - Belaid Arezqui <areski@gmail.com>
+	* add symb link for sounds directory 
+	* cc_sip_buddies_empty view for OpenSips
+
+2009-03-11
+	* New Batch of billing - Belaid Rachid <rachid.belaid@gmail.com>
+	* fix for asterisk realtime : add regserver - Belaid Arezqui <areski@gmail.com>
+
+2009-03-11 - Steve Dommett <steve@st4vs.net>
+	* More code removal due to MytoPg,  plus it now handles DATE_FORMAT().  Also fixed another Postgres-related error:
+  		column "cc_logrefill.date" must appear in the GROUP BY clause or be used in an aggregate function 
+  
+2009-03-10 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correct the money situation of the system to use invoices
+
+2009-03-09 - Steve Dommett <steve@st4vs.net>
+	* add of ORM for Postgresql support : MytoPG
+	* Synch Postgres schema up to MySQL
+
+2009-03-08 - Belaid Arezqui <areski@gmail.com>
+	* Voip account for agent, instead of IAX/SIP Friends
+
+2009-03-04 - Belaid Arezqui <areski@gmail.com>
+	* Move config file to /etc/a2billing.conf
+	* add RPM for A2billing callback Daemon
+	* Change money situation of customer to use invoices
+	* add link for Asterisk GUI
+
+2009-03-03 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Change the rules for the billing process.. 
+		Add a new object in the process : Receipt
+		Receipt is only an information for users like a summary of costs charged during the last month
+
+2009-02-25 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Refactor the batch of did billing use to generate reminder invoice
+	* Refactor generate invoice ref number
+
+2009-02-24 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Refactor framework to avoid a redirection and display a correct message when the system faild to add a record.
+	* replace Destination by Phonenumber on Call-history Customer UI
+	* DB update : All password will be change to 'changepassword'
+
+2009-02-23 - Belaid Arezqui <areski@gmail.com>
+	* Dial Balance reservation - Credit to reserve from the balance when a call is made.
+
+2009-02-19
+	* Add commission for agent - Belaid Rachid <rachid.belaid@gmail.com>
+	* correct in invoice , the payment item adding - Belaid Rachid <rachid.belaid@gmail.com>
+	* Create a invoice after a payment - Belaid Rachid <rachid.belaid@gmail.com>
+	* config file : add RotatingFileHandler - Belaid Arezqui <areski@gmail.com>
+
+2009-02-17 
+	* Ticket #367 : speed Dial working with USE_DNID - Belaid Arezqui <areski@gmail.com>
+	* serial functionality - Alexander merkulov <arheops@gmail.com>
+
+2009-02-09 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Add preview on the next billing invoice with detailled calls ... 
+	  link the paid status with the payment's type of the customer
+	* Detailled invoice for billing
+	* Generate correct invoice when you bill one customer
+
+2009-01-10 - Steve Dommett <steve@st4vs.net>
+	* Give an example of how to update to the new-style destination lookup table when your trunks perform rewrites.
+		Fix the regex to match multiple digits,  rather than just a single one.
+		Add a query to update the CDRs to new-style destination lookups too.  ( fixes #326 )
+
+2009-01-09 - Steve Dommett <steve@st4vs.net>
+	* Small Postgres fixes
+	* Bring the Postgres schema in line with the one for MySQL
+	* Update UK prefixes,  and flag possible problem with MySQL schema
+
+2009-01-02 - Belaid Arezqui <areski@gmail.com>
+	* Fix : A2billing 1.4 web gui doesnt work with internet-Explorer 7.0
+
+2008-12-29 - Belaid Arezqui <areski@gmail.com>
+	* Add new payment method : plugnPay
+
+2008-12-18 - Belaid Rachid <rachid.belaid@gmail.com>
+	* new invoice module
+
+2008-12-18 - Belaid Arezqui <areski@gmail.com>
+	* Clean javascript function from header
+
+2008-12-15 - Belaid Arezqui <areski@gmail.com>
+	* fix for DID call insert CDR
+
+2008-12-11 - Alexander merkulov <arheops@gmail.com>
+	* DB reconnect After Dial command 
+
+2008-12-10
+	* update postgresql script - Belaid Rachid <rachid.belaid@gmail.com>
+	* Fix for SPLITABLE FIELD - Belaid Arezqui <areski@gmail.com>
+
+2008-12-09 - Belaid Arezqui <areski@gmail.com>
+	* update Mysql Cluster schema - Belaid Rachid <rachid.belaid@gmail.com>
+
+2008-12-08 - Belaid Arezqui <areski@gmail.com>
+	* Add files for Spanish Translation on the Admin inteface
+
+2008-12-03 - Belaid Rachid <rachid.belaid@gmail.com>
+	* create a dashboard to replace the actual home page :
+		will list the some main information :
+		nb users,
+		invoices pending,
+		support ticket open,
+		amount of CDR in the system
+		the sell, buy, profit of the current day
+		the sell, buy, profit of the current month
+
+2008-12-04 - Belaid Arezqui <areski@gmail.com>
+	* Customer UI: Remove BLANK PAGE after customer changes password
+	
+2008-12-03 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Create refill and payment for agent
+	* Add right for SIP/IAX features in agent section 
+	* Correct Import
+	* Correct bug about adding agent
+
+2008-12-01 - Belaid Arezqui <areski@gmail.com>
+	* move signup to customer UI
+
+2008-11-27 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Improvement support module
+
+2008-11-24 - Belaid Rachid <rachid.belaid@gmail.com>
+	* Forbidden delete of the DEFAULT group
+	* Add feature in Framework to forbid to delete some record
+
+2008-11-21 - Belaid Rachid <rachid.belaid@gmail.com>
+	* enhancement for automatic rate update base on the prefix table
+	* Generate SIGNUP Agent
+	
+2008-11-20 - Belaid Arezqui <areski@gmail.com>
+	* CDR optimization : Use new table with prefix to store the destination,
+	remove text destination from CDR.
+
+2008-11-16
+	* generate card : add custom number
+	* billing parameter announce_time_correction
+
+2008-11-12
+	* New verbosity and logging system
+	0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4
+
+2008-11-10
+	* add filter on DID & DID destination
+	* Cleaning of admin UI + replace card by account
+	* add IAX trunking parameter
+
+2008-11-08
+	* remove callback field from cc_card : no used
+	* remove predictive Dialer
+	
+2008-11-07
+	* Update Agent UI, update of icons
+	
+2008-11-05
+	* Create refill when you add payment
+
+2008-11-03
+	* add PNL report
+	* add restriction on the phone number the customer is allowed to call
+
+2008-10-31
+	* Correct bugs after refactor of cc_call
+
+2008-10-28
+	* fix USE_REALTIME setting
+	* better layout with IE
+	* add Customer Group 
+	* Add the management of the web customer interface in the customer group
+	* Add Customer INFO page 
+	* Add Last 10 call in the customer info page
+	
+2008-10-23
+	* add DNID report
+	* Refactor Recurring Service to be more logical. Now you choose in the service what s group  that you apply to this service
+	
+2008-10-21
+	* add pid management process for the cront auto dialer
+	* IVR russian language fixes
+	
+2008-10-10
+	* disconenctcharge time condition 
+
+2008-10-03
+	* Auto dialer : New system for auto dialing 
+
+2008-09-26
+	* feature to cutomize the IVR to play sound files for the cents for a specific currency
+	
+2008-09-18
+	* add Asterisk Info
+
+2008-09-17
+	* remove unsupported Design template
+	* correct limit behaviours for adding callerid in customer section
+	* Correct bug : conflict between free package , low balance and charge. if you have connect or disconnect charge andyou don't have enough credit to call but you have free minutes 
+
+2008-09-16
+	* add PHPConfig, interface to edit asterisk configuration files (sip.conf, iax.conf, etc..)
+	* add phpSysInfo : interface to monitor the local server
+	* add phpInfo : page to retrieve php information
+		
 2008-09-19
 	* New Features : 
 		-Update Batch for Recurring Service
@@ -31,6 +302,8 @@
 	*Bug : 	- Correct import and constant
 		- add sound for the Ivr to say cent when you have only one 'cent'
 		
+2008-09-15
+	optimization CDR : remove no needed fields, refactor existing ones.
 
 2008-09-03
 	* New Features : Script to fill db
