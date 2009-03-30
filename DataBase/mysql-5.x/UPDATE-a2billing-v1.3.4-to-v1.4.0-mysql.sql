@@ -1825,5 +1825,6 @@ CREATE TABLE cc_notification_admin (
 	PRIMARY KEY ( id_notification , id_admin )
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-
-
+INSERT INTO cc_support (id ,name) VALUES (1, 'DEFAULT');
+INSERT INTO cc_support_component (id ,id_support ,name ,activated)
+	VALUES (1, 1, 'DEFAULT', 1);
