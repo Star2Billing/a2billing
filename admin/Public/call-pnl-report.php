@@ -14,7 +14,7 @@ if (! has_rights (ACX_CALL_REPORT)) {
 
 /***********************************************************************************/
 
-getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'lst_time','group_id'));
+getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'lst_time','group_id','report_type'));
 
 
 //     Initialization of variables	///////////////////////////////
@@ -50,8 +50,8 @@ if($Period=="Time" && $lst_time != "") {
                         break;
 
 		}
-	}else{
-		switch($lst_time){
+	} else {
+		switch($lst_time) {
 			case 1:
 				$condition .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (cdr.starttime)";
 			break;
@@ -69,12 +69,14 @@ if($Period=="Time" && $lst_time != "") {
                         break;
 		}
 	}	
-}else if($Period=="Day" && $fromday && $today){
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
+} elseif ($Period=="Day" && $fromday && $today) {
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
+	{
 		if (strlen($condition)>0) $condition.=" AND ";
 		$condition.=" $UNIX_TIMESTAMP(cdr.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) {
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
+	{
 		if (strlen($condition)>0) $condition.=" AND ";
 		$condition.=" $UNIX_TIMESTAMP(cdr.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
@@ -82,27 +84,34 @@ if($Period=="Time" && $lst_time != "") {
 	$bool = true;
 	if(DB_TYPE == "postgres") {
 		$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= cdr.starttime";
-	} else {
+	}
+	else {
 		$condition .= "DATE_SUB( NOW( ) , INTERVAL 1 DAY ) <= cdr.starttime";
 	}
 }
 #save conditions for later use
-if ($posted =="1") {
+if ($posted =="1"){
 	$_SESSION['condition']=$condition;
 	$_SESSION['group_id']="";
+	$_SESSION['report_type']=$report_type;
 } else {
-	if(isset($_SESSION['condition']) && strlen($_SESSION['condition'])>5 ) {
-		$condition=$_SESSION['condition'];
-	}
+if(isset($_SESSION['condition']) && strlen($_SESSION['condition'])>5 ) {
+	$condition=$_SESSION['condition'];
+}
+if(isset($_SESSION['report_type']) && strlen($_SESSION['report_type'])>0 ) {
+	$report_type= $_SESSION['report_type'];
+}
 }
 if (isset($group_id)) {
-	$_SESSION['group_id']=$group_id;
-} else {
-	if(isset($_SESSION['group_id']) && strlen($_SESSION['group_id'])>1 ){
+  $_SESSION['group_id']=$group_id;
+}else{
+	if(isset($_SESSION['group_id']) && strlen($_SESSION['group_id'])>1 ) {
 		$group_id=$_SESSION['group_id'];
 	}
 }
-
+if (!isset($report_type)) {
+	$report_type=1;
+}
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
@@ -111,7 +120,6 @@ $smarty->display('main.tpl');
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) 
 	$_SESSION["menu"] = $_GET["menu"];
-
 ?>
 
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
@@ -129,7 +137,7 @@ if (strlen($_GET["menu"])>0)
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("From");?> :
 					<select name="fromstatsday_sday" class="form_input_select">
 						<?php  
-						for ($i=1;$i<=31;$i++){
+						for ($i=1;$i<=31;$i++) {
 							if ($fromstatsday_sday==sprintf("%02d",$i)) $selected="selected";
 							else	$selected="";
 							echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
@@ -144,10 +152,10 @@ if (strlen($_GET["menu"])>0)
 						{		   
 							if ($year_actual==$i){
 								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
+							} else {
 								$monthnumber=11;
 							}		   
-							for ($j=$monthnumber;$j>=0;$j--){	
+							for ($j=$monthnumber;$j>=0;$j--) {	
 								$month_formated = sprintf("%02d",$j+1);
 								if ($fromstatsmonth_sday=="$i-$month_formated") $selected="selected";
 								else $selected="";
@@ -171,12 +179,13 @@ if (strlen($_GET["menu"])>0)
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
-							if ($year_actual==$i){
+							if ($year_actual==$i) {
 								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
+							} else {
 								$monthnumber=11;
 							}		   
-							for ($j=$monthnumber;$j>=0;$j--){	
+							for ($j=$monthnumber;$j>=0;$j--)
+{	
 								$month_formated = sprintf("%02d",$j+1);
 							   	if ($tostatsmonth_sday=="$i-$month_formated") $selected="selected";
 								else	$selected="";
@@ -204,6 +213,15 @@ if (strlen($_GET["menu"])>0)
 				</select>
 				</td>
 			</tr>			
+			<tr>
+                                <td class="bgcolor_002" align="left"><font class="fontstyle_003">&nbsp;<?php echo gettext("Report Type");?></font></td>
+                                <td class="bgcolor_003" align="left">
+                                <select name="report_type" style="width:100px;" class="form_input_select">
+                                <option value="1" <?php if ($report_type == 1) echo "selected"?>>GROUP</option>
+                                <option value="2" <?php if ($report_type == 2) echo "selected"?>>CALLPLAN</option>
+                                </select>
+                                </td>
+                        </tr>
 
 			<tr>
         		<td class="bgcolor_004" align="left" > </td>
@@ -216,48 +234,70 @@ if (strlen($_GET["menu"])>0)
 		</table>
 </FORM>
 
+
 <?php
 
-$condition1 = str_replace('cdr.starttime','date',$condition);
-$condition2 = str_replace('cdr.starttime','firstusedate',$condition);
-$payphones = $A2B->config["webui"]["report_pnl_pay_phones"];
-$tollfree = $A2B->config["webui"]["report_pnl_toll_free"];
-$payphones = str_replace(' ','',$payphones);$tollfree=str_replace(' ','',$tollfree);
-$payphones = str_replace('),(',' ,1 as dnid_type union select ',$payphones);
-$payphones = str_replace(')',' ,1  ',$payphones);
-$tollfree = str_replace('),(',' ,2  union select ',$tollfree);
-$tollfree = str_replace(')',' ,2 ',$tollfree);
-$tollfree = str_replace('(',' select ',$tollfree);
-$payphones = str_replace('(',' select ',$payphones);
-$dnids = "select 'dnid' as dnid, 0.1 as sell_cost,0.1 as cost,0 as dnid_type";
+$HD_Form = new FormHandler("pnl_report","PNL Report");
 
-if (strlen($tollfree)>0) $dnids.=" union ".$tollfree;
-if (strlen($payphones)>0) $dnids.=" union ".$payphones;
+$HD_Form -> setDBHandler (DbConnect());
+$HD_Form -> init();
 
-if(!isset($group_id)) {
+
+$condition1=str_replace('cdr.starttime','date',$condition);
+$condition2=str_replace('cdr.starttime','firstusedate',$condition);
+$payphones=$A2B->config["webui"]["report_pnl_pay_phones"];
+$tallfree=$A2B->config["webui"]["report_pnl_tall_free"];
+$payphones=str_replace(' ','',$payphones);$tallfree=str_replace(' ','',$tallfree);
+$payphones=str_replace('),(',' ,1 as dnid_type union select ',$payphones);
+$payphones=str_replace(')',' ,1  ',$payphones);
+$tallfree=str_replace('),(',' ,2  union select ',$tallfree);
+$tallfree=str_replace(')',' ,2 ',$tallfree);
+$tallfree=str_replace('(',' select ',$tallfree);
+$payphones=str_replace('(',' select ',$payphones);
+$dnids="select 'dnid' as dnid, 0.1 as sell_cost,0.1 as cost,0 as dnid_type";
+
+if (strlen($tallfree)>0)$dnids.=" union ".$tallfree;
+if (strlen($payphones)>0)$dnids.=" union ".$payphones;
+
+if(!isset($group_id)){
+ if ($report_type==1){
 	$q_id_group="id_group";
 	$q_cg_name="cg.name";
 	$q_t1="cc";
+ }elseif($report_type==2){
+        $q_id_group="id_tariffgroup";
+	$q_cg_name="cg.tariffgroupname as name ";
+	$q_t1="cdr";
+ }
 }else {
 	$q_id_group="destination";
 	$q_cg_name="cg.destination as name";
  	$q_t1="cdr";
-	$q_where="  AND cc.id_group=$group_id";
+	if ($report_type==1){
+		$q_where="  AND cc.id_group=$group_id";
+	}elseif($report_type==2){
+		$q_where="  AND cc.tariff=$group_id";
+	}
 };
+
+$HD_Form -> DBHandle -> Execute("SET autocommit = 0");
+
 $QUERY="
+select  id,name,call_count,time_minutes,tall_free_buy_cost,pay_phone_buy_cost,orig_only,credits,orig_total,
+	tall_free_sell_cost,pay_phone_sell_cost,term_only,charges,term_total,   first_use,discount,
+	net_revenue,(net_revenue-orig_total) as profit, (net_revenue-orig_total)/net_revenue*100 as  margin
+from(
 select main_id as id, name,call_count,time_minutes,tall_free_buy_cost,pay_phone_buy_cost,orig_only,credits,orig_cost+credits as orig_total,
 	tall_free_sell_cost,pay_phone_sell_cost,term_only,charges,term_cost+charges as term_total,
 	first_use,discount,
-	term_cost+charges -(orig_cost+credits  ) as profit,
-	(term_cost+charges -(orig_cost+credits  ))*(100-discount)/100/(orig_cost+credits )*100 as margin, 
-	(term_cost+charges -(orig_cost+credits  ))*(100-discount)/100 as profit2 
+        ((term_cost+charges))*( 1-discount/100)            as net_revenue
 from(
  select  t1.$q_id_group as main_id,$q_cg_name,call_count,time_minutes,tall_free_buy_cost,pay_phone_buy_cost,
 	orig_cost-tall_free_buy_cost-pay_phone_buy_cost  as orig_only,orig_cost,
-  case when credits is null then 0 else credits end as credits,0 as total,
-  tall_free_sell_cost,pay_phone_sell_cost,term_cost-tall_free_sell_cost-pay_phone_sell_cost as term_only,term_cost,
-  case when charges is null then 0 else  charges end as  charges,
-  0 as total1,first_use,discount
+  	case when credits is null then 0 else credits end as credits,0 as total,
+  	tall_free_sell_cost,pay_phone_sell_cost,term_cost-tall_free_sell_cost-pay_phone_sell_cost as term_only,term_cost,
+  	case when charges is null then 0 else  charges end as  charges,
+  	first_use,discount
 
  from
  (
@@ -268,7 +308,7 @@ from(
         sum( case when tall_free=0 then 0 else real_sessiontime/60*tf_sell_cost end) as tall_free_sell_cost,
         sum( case when pay_phone=0 then 0 else real_sessiontime/60*tf_sell_cost end) as pay_phone_sell_cost,
         sum(sessionbill) as term_cost,
-        avg(discount) as discount
+        sum(discount*sessionbill)/sum(sessionbill) as discount
   from (
    select $q_t1.$q_id_group,
        cdr.sessiontime,cdr.dnid,cdr.real_sessiontime,sessionbill,buycost,cc.discount,
@@ -285,42 +325,63 @@ from(
    ) as a group by $q_id_group
  ) as t1 ";
  
-if(!isset($group_id)){
- $QUERY.=" left join cc_card_group as cg on cg.id=id_group left join (
-        select cc.id_group,sum(cr.credit) as credits from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
-         where refill_type=1 and $condition1
-         group by id_group
- ) as t2 on t1.id_group=t2.id_group left join
- (
-        select cc.id_group,-sum(cr.credit) as charges from cc_logrefill cr left join cc_card  cc on cc.id=cr.card_id
-         where refill_type=2 and $condition1 
-         group by  id_group 
- ) as t3 on t1.id_group=t3.id_group left join (
- select id_group,count(*) as first_use from cc_card where $condition2
- group by id_group
- )as t4 on t1.id_group=t4.id_group
-)as result
+if(!isset($group_id)) {
+ if ($report_type==1) {
+	 $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub1 as
+					   select cc.id_group,sum(cr.credit) as credits from cc_logrefill cr
+						 left join cc_card  cc on cc.id=cr.card_id
+					         where refill_type=1 and $condition1
+					         group by id_group");
+	 $HD_Form -> DBHandle -> Execute("create index pnl_report_sub1_get on pnl_report_sub1(id_group)");
+	 $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub2 as
+					    select cc.id_group,-sum(cr.credit) as charges from cc_logrefill cr
+				   	      left join cc_card  cc on cc.id=cr.card_id
+				              where refill_type=2 and $condition1 
+				         group by  id_group ");
+	 $HD_Form -> DBHandle -> Execute("create index pnl_report_sub2_get on pnl_report_sub2(id_group)");
+	 $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub3 as
+						 select id_group,count(*) as first_use from cc_card
+						   where $condition2 group by id_group");
+ $HD_Form -> DBHandle -> Execute("create index pnl_report_sub3_get on pnl_report_sub3(id_group)");
+
+ $QUERY.=" left join cc_card_group as cg on cg.id=id_group left join pnl_report_sub1 as t2 on t1.id_group=t2.id_group 
+	   left join pnl_report_sub2  as t3 on t1.id_group=t3.id_group
+	   left join  pnl_report_sub3 as t4 on t1.id_group=t4.id_group
+	 )as result
+	)as final
 ";
+  } elseif($report_type==2) {
+	 $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub1 as
+		select cc.tariff as id_tariffgroup,
+	             sum(case when refill_type=1 then cr.credit else 0 end ) as credits,
+		     - sum(case when refill_type=2 then  cr.credit else 0 end ) as charges      
+            	from cc_logrefill cr left join cc_card as  cc on cc.id=cr.card_id
+        	where $condition1
+        	group by cc.tariff");
+	 $HD_Form -> DBHandle -> Execute("create temporary table pnl_report_sub2 as
+					    select tariff as id_tariffgroup,count(*) as first_use
+					    from cc_card where $condition2
+					 group by tariff");
+	 $HD_Form -> DBHandle -> Execute("create index pnl_report_sub1_get on pnl_report_sub1(id_tariffgroup)");
+	 $HD_Form -> DBHandle -> Execute("create index pnl_report_sub2_get on pnl_report_sub2(id_tariffgroup)");
+	 $QUERY.=" left join cc_tariffgroup as cg on cg.id=id_tariffgroup 
+		   left join pnl_report_sub1 as t2 on t1.id_tariffgroup=t2.id_tariffgroup 
+		   left join  pnl_report_sub2 as t4 on t1.id_tariffgroup=t4.id_tariffgroup
+	 )as result
+	)as final
+";
+  }
 }else{
  $QUERY.="left join cc_prefix as cg on cg.prefix=t1.destination,
   (select '-' as  credits,'-' as charges,'-' as first_use) as t2 
  )as result
-
+)as final
 ";
 }
-print "<!--
- $QUERY 
--->";
 
 
-$HD_Form = new FormHandler("pnl_report","PNL Report");
 
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
-
-
-$HD_Form -> DBHandle -> Execute("create temporary table pnl_report engine =memory  as $QUERY ");
-
+$HD_Form -> DBHandle -> Execute("create temporary table pnl_report  as $QUERY ");
 
 $FG_DEBUG = 0;
 
@@ -334,23 +395,41 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 
-function linktonext($value){
+function linktonext_1($value){
 	$handle = DbConnect();
         $inst_table = new Table("cc_card_group", "id");
         $FG_TABLE_CLAUSE = "name = '$value'";
         $list_group = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
         $id = $list_group[0][0];
     if($id > 0){
-        echo "<a href=\"call-pnl-report.php?group_id=$id\">$value</a>";
+        echo "<a href=\"call-pnl-report.php?group_id=$id&report_type=1\">$value</a>";
     }else{
         echo $value;
     }
-
 }
+function linktonext_2($value){
+        $handle = DbConnect();
+        $inst_table = new Table("cc_tariffgroup", "id");
+        $FG_TABLE_CLAUSE = "tariffgroupname = '$value'";
+        $list_group = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
+        $id = $list_group[0][0];
+    if($id > 0){
+        echo "<a href=\"call-pnl-report.php?group_id=$id&report_type=2\">$value</a>";
+    }else{
+        echo $value;
+    }
+}
+
+
+
 if(!isset($group_id)){
-$HD_Form -> AddViewElement(gettext("Group"), "name", "*", "center", "SORT", "19","", "", "", "", "", "linktonext");
+	if ($report_type==1){
+ 	 $HD_Form -> AddViewElement(gettext("Group"), "name", "*", "center", "SORT", "19","", "", "", "", "", "linktonext_1");
+	}elseif($report_type==2){
+	 $HD_Form -> AddViewElement(gettext("Callplan"),"name", "*", "center", "SORT", "19","", "", "", "", "", "linktonext_2");
+	} 
 } else {
- $HD_Form -> AddViewElement(gettext("Agent"), "name", "*", "center", "SORT", "19","", "", "", "", "", "");
+ $HD_Form -> AddViewElement(gettext("Country"), "name", "*", "center", "SORT", "19","", "", "", "", "", "");
 }
 $HD_Form -> AddViewElement(gettext("CallCount"), "call_count", "*", "center", "SORT", "30");
 $HD_Form -> AddViewElement(gettext("Minutes"), "time_minutes", "*", "center", "SORT", "30");
@@ -359,26 +438,27 @@ $HD_Form -> AddViewElement(gettext("Pay Phone Cost"), "pay_phone_buy_cost", "*",
 $HD_Form -> AddViewElement(gettext("Origination Cost"), "orig_only", "*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Credits"), "credits", "*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Total Cost"),"orig_total", "*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
-$HD_Form -> AddViewElement(gettext("Toll Free Revenue"),"tall_free_sell_cost","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
-$HD_Form -> AddViewElement(gettext("Pay Phone Revenue"),"pay_phone_sell_cost","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
-$HD_Form -> AddViewElement(gettext("Termination Revenue"),"term_only","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Toll Free Revenu"),"tall_free_sell_cost","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Pay Phone Revenu"),"pay_phone_sell_cost","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Termination Revenu"),"term_only","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Extra Charges"),"charges","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Total Revenue"),"term_total","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("First Use"),"first_use","*", "center", "SORT", "30");
 $HD_Form -> AddViewElement(gettext("Avg Discount"),"discount","*", "center", "SORT", "30","", "", "", "", "", "display_2dec_percentage");
-$HD_Form -> AddViewElement(gettext("Profit Before Discount"),"profit","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Net Revenue"),"net_revenue","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("Margin"),"margin","*", "center", "SORT", "30","", "", "", "", "", "display_2dec_percentage");
-$HD_Form -> AddViewElement(gettext("Total Profit"),"profit2","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
+$HD_Form -> AddViewElement(gettext("Total Profit"),"profit","*", "center", "SORT", "30","", "", "", "", "", "display_2dec");
 
 
 $FG_COL_QUERY="name,call_count,time_minutes,tall_free_buy_cost,pay_phone_buy_cost,orig_only,credits,orig_total,
-tall_free_sell_cost,pay_phone_sell_cost,term_only,charges, term_total,
-first_use,discount,profit,margin, profit2";
+        tall_free_sell_cost,pay_phone_sell_cost,term_only,charges,term_total,   first_use,discount,
+        net_revenue,  margin, profit, id";
+
 $FG_COL_QUERY_SUM=str_replace('name,',"'TOTAL',",$FG_COL_QUERY);
 $FG_COL_QUERY_SUM=str_replace(',','),sum(',$FG_COL_QUERY.')');
 $FG_COL_QUERY_SUM=str_replace(' ','',$FG_COL_QUERY_SUM);
-$FG_COL_QUERY_SUM=str_replace('sum(discount)','avg(discount)',$FG_COL_QUERY_SUM);
-$FG_COL_QUERY_SUM=str_replace('sum(margin)','sum(orig_total)/sum(profit)',$FG_COL_QUERY_SUM);
+$FG_COL_QUERY_SUM=str_replace('sum(discount)','(1-sum(net_revenue)/sum(term_total))*100',$FG_COL_QUERY_SUM);
+$FG_COL_QUERY_SUM=str_replace('sum(margin)','sum(profit)/sum(net_revenue)*100',$FG_COL_QUERY_SUM);
 $FG_COL_QUERY_SUM=str_replace('name)',"'TOTAL'",$FG_COL_QUERY_SUM);
 
 $HD_Form -> FG_TOTAL_TABLE_COL=19;
@@ -435,9 +515,9 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 	<tr class="form_head"><td class='tableBody'></td>
 	<td class='tableBody'>Total Calls</td><td class='tableBody'>Total Min</td><td class='tableBody'>Toll Free Cost</td>
 	<td class='tableBody'>PayPhone Cost</td><td class='tableBody'>Origination Cost</td><td class='tableBody'>Credits</td>
-	<td class='tableBody'>Total Cost</td><td class='tableBody'>Toll Free Revenue</td><td class='tableBody'>Pay Phone Revenue</td>
-	<td class='tableBody'>Termination Revenue</td><td class='tableBody'>Extra Charges</td><td class='tableBody'>Total Revenue</td>
-	<td class='tableBody'>First Use</td><td class='tableBody'>Average Discount</td><td class='tableBody'>Profit Before Discount</td><td class='tableBody'
+	<td class='tableBody'>Total Cost</td><td class='tableBody'>Tall Free Revenue</td><td class='tableBody'>Pay Phone Revenue</td>
+	<td class='tableBody'>Termination Revenu</td><td class='tableBody'>Extra Charges</td><td class='tableBody'>Total Revenue</td>
+	<td class='tableBody'>First Use</td><td class='tableBody'>Average Discount</td><td class='tableBody'>Net Revenue</td><td class='tableBody'
 	>Margin</td><td class='tableBody'>Total Profit</td></tr>
 			<?php
 			$roa=array();
