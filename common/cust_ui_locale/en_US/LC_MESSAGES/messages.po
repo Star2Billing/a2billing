@@ -626,7 +626,7 @@ msgstr ""
 msgid "Sorry, this page is in construction !"
 msgstr ""
 
-#: PP_error.php:24
+#: PP_error.php:24 templates/default/PP_error.tpl:17
 msgid "Error Page"
 msgstr ""
 
@@ -1600,7 +1600,7 @@ msgstr ""
 msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
 msgstr ""
 
-#: lib/Form/Class.SearchHandler.inc.php:341
+#: lib/Form/Class.SearchHandler.inc.php:341 templates/default/main.tpl:103
 msgid "RATECARD"
 msgstr ""
 
@@ -2247,6 +2247,102 @@ msgstr ""
 msgid "Line that has not been inserted"
 msgstr ""
 
+#: templates/default/main.tpl:37
+msgid "ACCOUNT INFO"
+msgstr ""
+
+#: templates/default/main.tpl:41
+msgid "SIP/IAX INFO"
+msgstr ""
+
+#: templates/default/main.tpl:46
+msgid "CALL HISTORY"
+msgstr ""
+
+#: templates/default/main.tpl:51
+msgid "PAYMENT HISTORY"
+msgstr ""
+
+#: templates/default/main.tpl:57
+msgid "VOUCHERS"
+msgstr ""
+
+#: templates/default/main.tpl:72
+msgid "INVOICES"
+msgstr ""
+
+#: templates/default/main.tpl:81
+msgid "View Receipts"
+msgstr ""
+
+#: templates/default/main.tpl:82
+msgid "View Invoices"
+msgstr ""
+
+#: templates/default/main.tpl:83
+msgid "Preview Next Invoice"
+msgstr ""
+
+#: templates/default/main.tpl:93 form_data/FG_var_did.inc:32
+msgid "DID"
+msgstr ""
+
+#: templates/default/main.tpl:98
+msgid "SPEED DIAL"
+msgstr ""
+
+#: templates/default/main.tpl:108
+msgid "SIMULATOR"
+msgstr ""
+
+#: templates/default/main.tpl:113
+msgid "CALLBACK"
+msgstr ""
+
+#: templates/default/main.tpl:117
+msgid "WEB-PHONE"
+msgstr ""
+
+#: templates/default/main.tpl:122
+msgid "ADD CALLER ID"
+msgstr ""
+
+#: templates/default/main.tpl:127
+msgid "PASSWORD"
+msgstr ""
+
+#: templates/default/main.tpl:131
+msgid "SUPPORT"
+msgstr ""
+
+#: templates/default/main.tpl:135
+msgid "NOTIFICATION"
+msgstr ""
+
+#: templates/default/main.tpl:149
+msgid "AUTO DIALLER"
+msgstr ""
+
+#: templates/default/main.tpl:158
+msgid "Campaign's"
+msgstr ""
+
+#: templates/default/main.tpl:159 form_data/FG_var_phonenumber.inc:58
+msgid "Phone Book"
+msgstr ""
+
+#: templates/default/main.tpl:160 form_data/FG_var_phonenumber.inc:49
+msgid "Phone Number"
+msgstr ""
+
+#: templates/default/main.tpl:161
+msgid "Import Phone List"
+msgstr ""
+
+#: templates/default/main.tpl:172
+msgid "LOGOUT"
+msgstr ""
+
 #: A2B_entity_phonenumber.php:88
 msgid "CAMPAIGN"
 msgstr ""
@@ -2762,20 +2858,12 @@ msgstr ""
 msgid "No phone numbers have been created"
 msgstr ""
 
-#: form_data/FG_var_phonenumber.inc:49
-msgid "Phone Number"
-msgstr ""
-
 #: form_data/FG_var_phonenumber.inc:55
 msgid "Insert the phonenumber"
 msgstr ""
 
 #: form_data/FG_var_phonenumber.inc:56
 msgid "Enter here the phonenumber to call"
-msgstr ""
-
-#: form_data/FG_var_phonenumber.inc:58
-msgid "Phone Book"
 msgstr ""
 
 #: form_data/FG_var_phonenumber.inc:74
@@ -2892,10 +2980,6 @@ msgstr ""
 
 #: form_data/FG_var_speeddial.inc:95
 msgid "Once you have completed the form above, click on the CONTINUE button."
-msgstr ""
-
-#: form_data/FG_var_did.inc:32
-msgid "DID"
 msgstr ""
 
 #: form_data/FG_var_did.inc:34 form_data/FG_var_did.inc:89
