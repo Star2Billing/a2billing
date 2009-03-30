@@ -28,22 +28,22 @@ Contents
 
         > xgettext -n --no-wrap *.php
         if you want xgettext to traverse the child directories and search for ".inc", ".tpl" and ".php" files.
-        > find -follow | grep [.][p,i,t][h,n,p][p,c,l]$  | grep -v "admin.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+        > find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "admin.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
 
         customer UI :
                 cd customer
                 rm -rf templates_c/*
-                find -follow | grep [.][p,i,t][h,n,p][p,c,l]$  | grep -v "admin.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+                find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "admin.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
 
         admin UI :
                 cd admin
                 rm -rf templates_c/*
-                find -follow | grep [.][p,i,t][h,n,p][p,c,l]$ | grep -v "customer.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+                find -follow | grep -i [.][pit][hnp][pcl]$ | grep -v "customer.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
 
         agent UI :
                 cd agent
                 rm -rf templates_c/*
-                find -follow | grep [.][p,i,t][h,n,p][p,c,l]$  | grep -v "admin.*" | grep -v "customer.*" | xargs xgettext -n --no-wrap
+                find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "admin.*" | grep -v "customer.*" | xargs xgettext -n --no-wrap
 
 
         this will get all the gettext entries from the all php file and generate a po file.
