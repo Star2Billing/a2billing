@@ -41,6 +41,7 @@ define ("ACX_ACXSETTING",				131072);	// 1 << 17
 define ("ACX_MODIFY_REFILLS",			262144);	// 1 << 18
 define ("ACX_MODIFY_PAYMENTS",			524288);	// 1 << 19
 define ("ACX_MODIFY_CUSTOMERS",			1048576);	// 1 << 20
+define ("ACX_DELETE_NOTIFICATIONS",		2097152);	// 1 << 21
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
@@ -101,8 +102,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		if ($return[3]==0){
 			$admin_id = $return[0];
 			$return = true;
-			$rights = 5242879;
-
+			$rights = 8388607;
 			$is_admin = 1;
 			$pr_groupID = $return[3];
 		}else{
@@ -194,6 +194,6 @@ $ACXSETTING 			= has_rights (ACX_ACXSETTING);
 $ACXMODIFY_REFILLS 		= has_rights (ACX_MODIFY_REFILLS);
 $ACXMODIFY_PAYMENTS 	= has_rights (ACX_MODIFY_PAYMENTS);
 $ACXMODIFY_CUSTOMERS 	= has_rights (ACX_MODIFY_CUSTOMERS);
-
+$ACXDELETE_NOTIFICATIONS= has_rights (ACX_DELETE_NOTIFICATIONS);
 
 if(isset($_SESSION["admin_id"]))$NEW_NOTIFICATION = NotificationsDAO::IfNewNotification($_SESSION["admin_id"]);

@@ -23,10 +23,15 @@ if(!empty($action) && is_numeric($id)){
 						else echo "false";
 						die();
 						break;
-		case "delete": 	$return = NotificationsDAO::DelNotification($id);
-						if($return) echo "true";
-						else echo "false";
-						die();
+		case "delete": 	if(has_rights (ACX_DELETE_NOTIFICATIONS)){
+							$return = NotificationsDAO::DelNotification($id);
+							if($return) echo "true";
+							else echo "false";
+							die();
+						}else{
+							echo "false";
+							die();
+						}
 						break;
 		
 		default: die();
@@ -140,7 +145,7 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 				<td class="tableBody"  align="center">
 				<?php if($notification->getNew()){ ?>
 					<strong style="font-size:8px; color:#B00000; background-color:white; border:solid 1px;"> &nbsp;NEW&nbsp;</strong>
-				<?php }else{ ?>
+				<?php }elseif(has_rights (ACX_DELETE_NOTIFICATIONS)){ ?>
 					<img id=" <?php echo $notification->getId(); ?>" onmouseover="this.style.cursor='pointer'" class="delete" src="<?php echo Images_Path ?>/delete.png" title="<?php echo gettext("Delete this Notification")?>" alt="<?php echo gettext("Delete this Notification")?>" border="0"/>
 				<?php } ?>
 				</td>
@@ -181,14 +186,7 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 
 $smarty->display( 'footer.tpl');
 
-/*
-73E271 vert clair A2F580
-2DCB00 vert fonce
-B00000 Rouge new 
-D39862 orange clair
-E87C24 orange foncé
-F1ACAC rouge clair
-D23C3C rouge fonce */
+
 
 ?>
 
