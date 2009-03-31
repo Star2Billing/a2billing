@@ -1830,4 +1830,19 @@ CREATE TABLE cc_notification_admin (
 INSERT INTO cc_support (id ,name) VALUES (1, 'DEFAULT');
 INSERT INTO cc_support_component (id ,id_support ,name ,activated) VALUES (1, 1, 'DEFAULT', 1);
 
+DELETE FROM cc_config WHERE config_key = 'sipiaxinfo' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'cdr' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'invoice' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'voucher' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'paypal' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'speeddial' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'did' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'ratecard' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'simulator' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'callback' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'predictivedialer' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'callerid' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'webphone' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'support' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'payment' AND config_group_title = 'webcustomerui';
 

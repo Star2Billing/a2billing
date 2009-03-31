@@ -408,25 +408,9 @@ class A2Billing {
 
 		// Conf for Customer Web UI
 		if(!isset($this->config['webcustomerui']['customerinfo']))	$this->config['webcustomerui']['customerinfo'] = '1';
-		if(!isset($this->config['webcustomerui']['sipiaxinfo']))	$this->config['webcustomerui']['sipiaxinfo'] = '1';
 		if(!isset($this->config['webcustomerui']['personalinfo']))	$this->config['webcustomerui']['personalinfo'] = '1';
-		if(!isset($this->config['webcustomerui']['cdr']))		$this->config['webcustomerui']['cdr'] = '1';
-		if(!isset($this->config['webcustomerui']['invoice']))		$this->config['webcustomerui']['invoice'] = '1';
-		if(!isset($this->config['webcustomerui']['voucher']))		$this->config['webcustomerui']['voucher'] = '1';
-		if(!isset($this->config['webcustomerui']['paypal']))		$this->config['webcustomerui']['paypal'] = '1';
-		if(!isset($this->config['webcustomerui']['speeddial']))		$this->config['webcustomerui']['speeddial'] = '1';
-		if(!isset($this->config['webcustomerui']['did']))		$this->config['webcustomerui']['did'] = '1';
-		if(!isset($this->config['webcustomerui']['ratecard']))		$this->config['webcustomerui']['ratecard'] = '1';
-		if(!isset($this->config['webcustomerui']['simulator']))		$this->config['webcustomerui']['simulator'] = '1';
-		if(!isset($this->config['webcustomerui']['callback']))		$this->config['webcustomerui']['callback'] = '1';
-		if(!isset($this->config['webcustomerui']['predictivedialer']))	$this->config['webcustomerui']['predictivedialer'] = '1';
-		if(!isset($this->config['webcustomerui']['webphone']))		$this->config['webcustomerui']['webphone'] = '1';
-		if(!isset($this->config['webcustomerui']['callerid']))		$this->config['webcustomerui']['callerid'] = '1';
 		if(!isset($this->config['webcustomerui']['limit_callerid']))	$this->config['webcustomerui']['limit_callerid'] = '5';
 		if(!isset($this->config['webcustomerui']['error_email']))	$this->config['webcustomerui']['error_email'] = 'root@localhost';
-		if(!isset($this->config['webcustomerui']['support']))	$this->config['webcustomerui']['support'] = '1';
-		if(!isset($this->config['webcustomerui']['notification']))	$this->config['webcustomerui']['notification'] = '1';
-		if(!isset($this->config['webcustomerui']['payment']))	$this->config['webcustomerui']['payment'] = '1';
 		// conf for the web ui
 		if(!isset($this->config['webui']['buddy_sip_file']))		$this->config['webui']['buddy_sip_file'] = '/etc/asterisk/additional_a2billing_sip.conf';
 		if(!isset($this->config['webui']['buddy_iax_file']))		$this->config['webui']['buddy_iax_file'] = '/etc/asterisk/additional_a2billing_iax.conf';
