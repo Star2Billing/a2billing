@@ -27,6 +27,7 @@ getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_in
 if ($batchupdate == 1 && is_array($check)) {
 	$SQL_REFILL="";
 	$HD_Form->prepare_list_subselection('list');
+	
 	if (isset($check['upd_credit'])||(strlen(trim($upd_credit))>0)) {//set to refil
 		$SQL_REFILL_CREDIT="";
 		$SQL_REFILL_WHERE="";
@@ -180,6 +181,7 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 	$list_refill_type=Constants::getRefillType_List();
 	$list_refill_type["-1"]=array("NO REFILL","-1");
 	
+	
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <div class="toggle_hide2show">
@@ -198,10 +200,9 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		  </td>
 		  <td align="left"  class="bgcolor_001">
 				1)&nbsp;<?php echo gettext("In use"); ?>&nbsp;: 
-				<select NAME="upd_inuse" size="1" class="form_input_select">
-				<?php foreach($inuse_list as $key => $cur_value) { ?>
-					<option value='<?php echo $cur_value[1] ?>'  <?php if ($upd_inuse==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>
-				<?php } ?>			
+				<input class="form_input_text"  name="upd_inuse" size="10" maxlength="6" value="<?php if (isset($upd_inuse)) echo $upd_inuse; else echo '0';?>">
+				<br/>
+							
 		    </select>
 		  </td>
 		</tr>
