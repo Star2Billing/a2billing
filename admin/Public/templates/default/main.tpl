@@ -220,9 +220,9 @@
 			<li><ul>
 				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&section=6">{php} echo gettext("Call Plan");{/php}</a></li>
 				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&section=6">{php} echo gettext("RateCards");{/php}</a></li>
-				<li><a href="CC_ratecard_import.php?atmenu=ratecard&section=6">{php} echo gettext("»» Import");{/php}</a></li>
-				<li><a href="CC_ratecard_merging.php?atmenu=ratecard&section=6">{php} echo gettext("»» Merge");{/php}</a></li>
-				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&section=6">{php} echo gettext("»» Simulator");{/php}</a></li>
+				<li><a href="CC_ratecard_import.php?atmenu=ratecard&section=6">»» {php} echo gettext("Import");{/php}</a></li>
+				<li><a href="CC_ratecard_merging.php?atmenu=ratecard&section=6">»» {php} echo gettext("Merge");{/php}</a></li>
+				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&section=6">»» {php} echo gettext("Simulator");{/php}</a></li>
 				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&section=6">{php} echo gettext("Rates");{/php}</a></li>
 			</ul></li>
 		</ul>
@@ -333,17 +333,17 @@
 			<li><ul>
 				<li><a href="A2B_entity_voucher.php?section=10">{php} echo gettext("Vouchers");{/php}</a></li>
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=10">{php} echo gettext("Customers Balance");{/php}</a></li>
-                <li><a href="A2B_entity_transactions.php?atmenu=payment&section=10">{php} echo gettext("»»    Transactions");{/php}</a></li>
-				<li><a href="A2B_entity_billing_customer.php?atmenu=payment&section=10">{php} echo gettext("»»  Billings");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=10">{php} echo gettext("»» Refills");{/php}</a></li>
-				<li><a href="A2B_entity_payment.php?atmenu=payment&section=10">{php} echo gettext("»» Payments");{/php}</a></li>
-				<li><a href="A2B_entity_paymentlog.php?section=10">{php} echo gettext("»» E-Payment Log");{/php}</a></li>
-				<li><a href="A2B_entity_charge.php?section=10">{php} echo gettext("»» Charges");{/php}</a></li>
+                <li><a href="A2B_entity_transactions.php?atmenu=payment&section=10">»» {php} echo gettext("Transactions");{/php}</a></li>
+				<li><a href="A2B_entity_billing_customer.php?atmenu=payment&section=10">»» {php} echo gettext("Billings");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=10">»» {php} echo gettext("Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment.php?atmenu=payment&section=10">»» {php} echo gettext("Payments");{/php}</a></li>
+				<li><a href="A2B_entity_paymentlog.php?section=10">»» {php} echo gettext("E-Payment Log");{/php}</a></li>
+				<li><a href="A2B_entity_charge.php?section=10">»» {php} echo gettext("Charges");{/php}</a></li>
 				<li><a href="A2B_entity_commission_agent.php?atmenu=payment&section=10">{php} echo gettext("Agents Commissions");{/php}</a></li>
-				<li><a href="A2B_entity_transactions_agent.php?atmenu=payment&section=10">{php} echo gettext("»» Transactions");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=10">{php} echo gettext("»» Refills");{/php}</a></li>
-				<li><a href="A2B_entity_payment_agent.php?atmenu=payment&section=10">{php} echo gettext("»» Payments");{/php}</a></li>
-				<li><a href="A2B_entity_paymentlog_agent.php?section=10">{php} echo gettext("»» E-Payment Log");{/php}</a></li>
+				<li><a href="A2B_entity_transactions_agent.php?atmenu=payment&section=10">»» {php} echo gettext("Transactions");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=10">»» {php} echo gettext("Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment_agent.php?atmenu=payment&section=10">»» {php} echo gettext("Payments");{/php}</a></li>
+				<li><a href="A2B_entity_paymentlog_agent.php?section=10">»» {php} echo gettext("E-Payment Log");{/php}</a></li>
 				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment&section=10">{php} echo gettext("Payment Methods");{/php}</a></li>
 				<li><a href="A2B_currencies.php?section=10">{php} echo gettext("Currency List");{/php}</a></li>
 				<li><a href="A2B_entity_ecommerce.php?atmenu=ecommerce&section=10">{php} echo gettext("E-Products");{/php}</a></li>
@@ -373,7 +373,7 @@
 			<li><ul>
 				<li><a href="A2B_entity_receipt.php?atmenu=payment&section=11">{php} echo gettext("Receipts");{/php}</a></li>
 				<li><a href="A2B_entity_invoice.php?atmenu=payment&section=11">{php} echo gettext("Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoice_conf.php?atmenu=payment&section=11">{php} echo gettext("»» Configuration");{/php}</a></li>
+				<li><a href="A2B_entity_invoice_conf.php?atmenu=payment&section=11">»» {php} echo gettext("Configuration");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -490,8 +490,8 @@
 				<li><a href="A2B_entity_campaign.php?section=15">{php} echo gettext("Add");{/php}</a></li>
 				<li><a href="A2B_entity_campaign_config.php?section=15">{php} echo gettext("Config");{/php}</a></li>
 				<li><a href="A2B_entity_phonebook.php?section=15">{php} echo gettext("Phone Book");{/php}</a></li>
-				<li><a href="A2B_entity_phonenumber.php?section=15">{php} echo gettext("»» Add Number");{/php}</a></li>
-				<li><a href="A2B_phonelist_import.php?section=15">{php} echo gettext("»» Import");{/php}</a></li>
+				<li><a href="A2B_entity_phonenumber.php?section=15">»» {php} echo gettext("Add Number");{/php}</a></li>
+				<li><a href="A2B_phonelist_import.php?section=15">»» {php} echo gettext("Import");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
