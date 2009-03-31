@@ -21,6 +21,23 @@ $CC_help_agent ='
 </div></div></div>
 </div></div>';
 
+
+$CC_help_agent_info='
+<div id="div1000" style="display:visible;">
+<div id="kiblue_header"><div class="w4">
+	<img src="'.KICON_PATH.'/personal.gif" class="kikipic"/>
+	<div class="w2">
+<table width="90%">
+<tr>
+<td width="100%">
+'.gettext("Personal information.").'<br>
+'.gettext("You can update your personal information here.").'<br>
+<br></td>
+</tr>
+</table>
+</div></div></div>
+';
+
 $CC_help_sipfriend_list ='
 <div class="toggle_show2hide">
 <a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>

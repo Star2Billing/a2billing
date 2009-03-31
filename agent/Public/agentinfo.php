@@ -58,7 +58,17 @@ $smarty->display( 'main.tpl');
 	<br/><font class="fontstyle_002"><?php echo gettext("COUNTRY");?> :</font> <font class="fontstyle_007"><?php echo $agent_info[7]; ?></font> 
 	</td>
 </tr>
-
+<tr>
+	<td></td>
+	<td>
+	 	&nbsp;	
+	</td>
+	<td align="right">
+		<?php if ($A2B->config["webagentui"]['personalinfo']){ ?>
+		<a href="A2B_entity_agent.php?atmenu=password&form_action=ask-edit&stitle=Personal+Information"><span class="cssbutton"><font color="red"><?php echo gettext("EDIT PERSONAL INFORMATION");?></font></span></a>
+		<?php } ?>
+	</td>
+</tr>
 </table>
 
 <br>
