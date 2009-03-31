@@ -1,18 +1,14 @@
 --
--- A2Billing database script - Update database for Postgres
+-- A2Billing database script - Update database for MYSQL 5.X
 -- 
 -- 
 -- Usage:
--- psql -Uroot -p"root password" < UPDATE-a2billing-v1.3.4-to-v1.4.0-psql-prefix-table.sql
+-- mysql -u root -p"root password" < UPDATE-a2billing-v1.3.4-to-v1.4.0-mysql-prefix-table.sql
 --
 
-
 -- You may need to modify the UPDATEs near the end of this file to match all your rewritten dial-strings
--- Beware!  Those queries may take a /very/ long time to run. (ie only 60 CDRs per second!)
 
-\set ON_ERROR_STOP ON;
 
-BEGIN;
 
 
 --
@@ -4338,9 +4334,10 @@ INSERT INTO cc_prefix VALUES(97156, 'United Arab Emirates Mobile');
 INSERT INTO cc_prefix VALUES(44, 'United Kingdom');
 INSERT INTO cc_prefix VALUES(441, 'United Kingdom Landline');
 INSERT INTO cc_prefix VALUES(442, 'United Kingdom Landline');
+INSERT INTO cc_prefix VALUES(443, 'United Kingdom Landline');
 INSERT INTO cc_prefix VALUES(4470, 'United Kingdom Personal Number');
 INSERT INTO cc_prefix VALUES(4475, 'United Kingdom Mobile');
-INSERT INTO cc_prefix VALUES(4476, 'United Kingdom Mobile');
+INSERT INTO cc_prefix VALUES(4476, 'United Kingdom Pager');
 INSERT INTO cc_prefix VALUES(4477, 'United Kingdom Mobile');
 INSERT INTO cc_prefix VALUES(4478, 'United Kingdom Mobile');
 INSERT INTO cc_prefix VALUES(4479, 'United Kingdom Mobile');
@@ -4917,26 +4914,25 @@ INSERT INTO cc_prefix VALUES(998,'Uzbekistan');
 
 -- Add here the different exit code you use : 0, 00, 000
 -- the commented example strips 1 digit and prefixes with 44
-CREATE TEMPORARY TABLE t1 AS SELECT DISTINCT dialprefix FROM cc_ratecard WHERE dialprefix SIMILAR TO '^[0-9]+';
+CREATE TEMPORARY TABLE t1 AS SELECT DISTINCT dialprefix FROM cc_ratecard WHERE dialprefix REGEXP '^[0-9]+';
 ALTER TABLE t1 ADD COLUMN prefix_id bigint;
 UPDATE t1 SET prefix_id=(SELECT prefix FROM cc_prefix AS p WHERE 
-	t1.dialprefix LIKE (prefix || '%')
-	OR t1.dialprefix LIKE ('00' || prefix || '%')
---	OR ('44' || SUBSTRING(t1.dialprefix,2)) LIKE (prefix || '%')
-	 ORDER BY length(prefix::text) DESC limit 1);
+	t1.dialprefix LIKE concat(prefix,'%') 
+	OR t1.dialprefix LIKE concat('00',concat(prefix,'%')) 
+--	OR CONCAT('44', substring(t1.dialprefix,2)) LIKE (prefix || '%')
+	ORDER BY length(prefix) DESC limit 1);
 
 CREATE INDEX myindex_t1 ON t1( dialprefix );
 UPDATE cc_ratecard SET destination=(SELECT  prefix_id FROM t1 WHERE t1.dialprefix = cc_ratecard.dialprefix ) WHERE destination=0;
 UPDATE cc_ratecard SET destination=0 WHERE destination IS NULL;
 
-DROP TABLE t1;
+DROP TEMPORARY TABLE t1;
 
 -- And here too
 UPDATE cc_call AS t1 SET destination=(SELECT prefix FROM cc_prefix AS p WHERE
-	t1.calledstation LIKE (prefix || '%')
-	OR t1.calledstation LIKE ('00' || prefix || '%')
---	OR ('44' || SUBSTRING(t1.calledstation,2)) LIKE (prefix || '%')
-	ORDER BY length(prefix::text) DESC limit 1)
+	t1.calledstation LIKE CONCAT(prefix, '%')
+	OR t1.calledstation LIKE CONCAT('00', CONCAT(prefix, '%'))
+--	OR CONCAT('44', SUBSTRING(t1.calledstation,2)) LIKE CONCAT(prefix, '%')
+	ORDER BY length(prefix) DESC limit 1)
 	WHERE destination=0 OR destination IS NULL;
 
-COMMIT;
