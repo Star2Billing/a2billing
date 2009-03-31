@@ -1,0 +1,15 @@
+***************************************************************************************************
+*                                                                                                 *
+* a2billing 1.4 (c) AGPL 2003-2009                                                                *
+* Documentation                                                                                   *
+*                                                                                                 * 
+* Title: Build pacakge for a2billing				                                              *
+* Date: April 2009                                                                                *
+* Version:                                                                                        *
+* Author:                                                                                         *
+* Status: Draft                                                                                   *
+*                                                                                                 *
+***************************************************************************************************
+
+
+cd trunk ; rm -rf customer/templates_c/* ; rm -rf admin/templates_c/* ; rm -rf agent/templates_c/* ; tar  --exclude="*.svn" -cvzf A2Billing_1.4-Beta.tar.gz *
