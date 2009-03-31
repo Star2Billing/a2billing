@@ -153,6 +153,7 @@ function has_rights ($condition) {
 	return ($_SESSION["rights"] & $condition);
 }
 
+$ACXACCESS 				= ($_SESSION["rights"] > 0) ? true : false;
 $ACXSIGNUP 				= has_rights (ACX_SIGNUP);
 $ACXCUSTOMER 			= has_rights (ACX_CUSTOMER);
 $ACXBILLING 			= has_rights (ACX_BILLING);
