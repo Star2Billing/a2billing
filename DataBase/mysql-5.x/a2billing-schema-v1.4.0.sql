@@ -622,7 +622,7 @@ CREATE TABLE IF NOT EXISTS `cc_card` (
 --
 -- Triggers `cc_card`
 --
-DROP TRIGGER `a2b_14_import`.`cc_card_serial_set`;
+DROP TRIGGER IF EXISTS `a2b_14_import`.`cc_card_serial_set`;
 DELIMITER //
 CREATE TRIGGER `a2b_14_import`.`cc_card_serial_set` BEFORE INSERT ON `a2b_14_import`.`cc_card`
  FOR EACH ROW BEGIN
@@ -632,7 +632,7 @@ CREATE TRIGGER `a2b_14_import`.`cc_card_serial_set` BEFORE INSERT ON `a2b_14_imp
 END
 //
 DELIMITER ;
-DROP TRIGGER `a2b_14_import`.`cc_card_serial_update`;
+DROP TRIGGER IF EXISTS `a2b_14_import`.`cc_card_serial_update`;
 DELIMITER //
 CREATE TRIGGER `a2b_14_import`.`cc_card_serial_update` BEFORE UPDATE ON `a2b_14_import`.`cc_card`
  FOR EACH ROW BEGIN
@@ -7803,7 +7803,7 @@ CREATE TABLE IF NOT EXISTS `cc_ratecard` (
 --
 -- Triggers `cc_ratecard`
 --
-DROP TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_ins`;
+DROP TRIGGER IF EXISTS `a2b_14_import`.`cc_ratecard_validate_regex_ins`;
 DELIMITER //
 CREATE TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_ins` BEFORE INSERT ON `a2b_14_import`.`cc_ratecard`
  FOR EACH ROW BEGIN
@@ -7812,7 +7812,7 @@ CREATE TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_ins` BEFORE INSERT ON
 END
 //
 DELIMITER ;
-DROP TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_upd`;
+DROP TRIGGER IF EXISTS `a2b_14_import`.`cc_ratecard_validate_regex_upd`;
 DELIMITER //
 CREATE TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_upd` BEFORE UPDATE ON `a2b_14_import`.`cc_ratecard`
  FOR EACH ROW BEGIN
