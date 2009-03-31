@@ -5,20 +5,15 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_voucher.inc");
 include ("./lib/customer.smarty.php");
 
-
-if (! has_rights (ACX_VOUCHER)){
+if (! has_rights (ACX_VOUCHER)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
-
 $HD_Form -> init();
-
 $currencies_list = get_currencies();
 
 if (strlen($voucher)>0) {
@@ -35,7 +30,7 @@ if (strlen($voucher)>0) {
 
 		if ($list_voucher[0][0]==$voucher) {
 			if (!isset ($currencies_list[strtoupper($list_voucher[0][4])][2])) {
-				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("System Error : No currency table complete !!!").'</b></font><br><br>';
+				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("System Error : the currency table is incomplete!").'</b></font><br><br>';
 			} else {
 				$add_credit = $list_voucher[0][1]*$currencies_list[strtoupper($list_voucher[0][4])][2];
 				$QUERY = "UPDATE cc_voucher SET activated='f', usedcardnumber='".$_SESSION["pr_login"]."', usedate=now() WHERE voucher='".$voucher."'";
