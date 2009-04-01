@@ -622,9 +622,9 @@ CREATE TABLE IF NOT EXISTS `cc_card` (
 --
 -- Triggers `cc_card`
 --
-DROP TRIGGER IF EXISTS `a2b_14_import`.`cc_card_serial_set`;
+DROP TRIGGER IF EXISTS `cc_card_serial_set`;
 DELIMITER //
-CREATE TRIGGER `a2b_14_import`.`cc_card_serial_set` BEFORE INSERT ON `a2b_14_import`.`cc_card`
+CREATE TRIGGER `cc_card_serial_set` BEFORE INSERT ON `cc_card`
  FOR EACH ROW BEGIN
 	UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
 	SELECT value INTO @serial from cc_card_seria where id=NEW.id_seria ;
@@ -632,9 +632,9 @@ CREATE TRIGGER `a2b_14_import`.`cc_card_serial_set` BEFORE INSERT ON `a2b_14_imp
 END
 //
 DELIMITER ;
-DROP TRIGGER IF EXISTS `a2b_14_import`.`cc_card_serial_update`;
+DROP TRIGGER IF EXISTS `cc_card_serial_update`;
 DELIMITER //
-CREATE TRIGGER `a2b_14_import`.`cc_card_serial_update` BEFORE UPDATE ON `a2b_14_import`.`cc_card`
+CREATE TRIGGER `cc_card_serial_update` BEFORE UPDATE ON `cc_card`
  FOR EACH ROW BEGIN
 	IF NEW.id_seria<>OLD.id_seria OR OLD.id_seria IS NULL THEN
 		UPDATE cc_card_seria set value=value+1  where id=NEW.id_seria ;
@@ -7803,18 +7803,18 @@ CREATE TABLE IF NOT EXISTS `cc_ratecard` (
 --
 -- Triggers `cc_ratecard`
 --
-DROP TRIGGER IF EXISTS `a2b_14_import`.`cc_ratecard_validate_regex_ins`;
+DROP TRIGGER IF EXISTS `cc_ratecard_validate_regex_ins`;
 DELIMITER //
-CREATE TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_ins` BEFORE INSERT ON `a2b_14_import`.`cc_ratecard`
+CREATE TRIGGER `cc_ratecard_validate_regex_ins` BEFORE INSERT ON `cc_ratecard`
  FOR EACH ROW BEGIN
   DECLARE valid INTEGER;
   SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '') INTO valid;
 END
 //
 DELIMITER ;
-DROP TRIGGER IF EXISTS `a2b_14_import`.`cc_ratecard_validate_regex_upd`;
+DROP TRIGGER IF EXISTS `cc_ratecard_validate_regex_upd`;
 DELIMITER //
-CREATE TRIGGER `a2b_14_import`.`cc_ratecard_validate_regex_upd` BEFORE UPDATE ON `a2b_14_import`.`cc_ratecard`
+CREATE TRIGGER `cc_ratecard_validate_regex_upd` BEFORE UPDATE ON `cc_ratecard`
  FOR EACH ROW BEGIN
   DECLARE valid INTEGER;
   SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '') INTO valid;
