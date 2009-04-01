@@ -29,7 +29,7 @@ Class NotificationsDAO {
   	static function getNbNotifications(){
   		$DBHandle = DbConnect();
 		$table = new Table("cc_notification", "count(*)");
-		$return = $table->Get_list($DBHandle, "", "date", "ASC");
+		$return = $table->Get_list($DBHandle, "", "", "");
   		return $return[0][0];
   	}
   	
@@ -54,7 +54,7 @@ Class NotificationsDAO {
   		$DBHandle = DbConnect();
 		$table = new Table("cc_notification LEFT JOIN cc_notification_admin ON id = id_notification AND id_admin =$id", "count(*)");
 		$clause = "viewed != 1 OR viewed IS NULL";
-		$return = $table->Get_list($DBHandle,$clause, "date", "DESC");
+		$return = $table->Get_list($DBHandle,$clause, "", "");
 		if($return[0][0]==0)return false;
 		else return true;
   	}
