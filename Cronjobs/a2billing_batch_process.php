@@ -54,6 +54,7 @@ $instance_table = new Table();
 
 $oneday = 60 * 60 * 24;
 
+
 // CHECK THE SERVICES
 $QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, UNIX_TIMESTAMP(datelastrun), emailreport, totalcredit,totalcardperform,dialplan,operate_mode,use_group FROM cc_service WHERE status=1 AND  UNIX_TIMESTAMP(cc_service.datelastrun)<UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday  + $time_checks *60  ORDER BY id DESC";
 if ($verbose_level >= 1)
@@ -101,7 +102,7 @@ foreach ($result as $myservice) {
 	// RULES  
 	if ($rule == 3) {
 		$filter .= " -- card last run date <= period
-		 		AND UNIX_TIMESTAMP(servicelastrun) <= UNIX_TIMESTAMP (CURRENT_TIMESTAMP) - $oneday * $period ";
+		 		AND UNIX_TIMESTAMP(servicelastrun) <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday * $period ";
 	}
 	if (($rule == 1) && ($rule_day > 0)) {
 		$filter .= " -- Apply service if card NO used in last y days
@@ -138,7 +139,7 @@ foreach ($result as $myservice) {
 		echo "==> SELECT CARD QUERY : $sql\n";
 
 	$result_card = $instance_table->SQLExec($A2B->DBHandle, $sql);
-
+	$instance_table->SQLExec($A2B->DBHandle, "begin;");
 	foreach ($result_card as $mycard) {
 		if ($verbose_level >= 1)
 			print_r($mycard);
@@ -179,6 +180,7 @@ foreach ($result as $myservice) {
 			echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 		$totalcardperform++;
 	}
+	$instance_table->SQLExec($A2B->DBHandle, "commit");
 
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Service finish]");
 
