@@ -4933,11 +4933,18 @@ UPDATE cc_ratecard SET destination=0 WHERE destination IS NULL;
 DROP TABLE t1;
 
 -- And here too
-UPDATE cc_call AS t1 SET destination=(SELECT prefix FROM cc_prefix AS p WHERE
+CREATE TEMPORARY TABLE t1 AS SELECT DISTINCT calledstation FROM cc_call WHERE calledstation SIMILAR TO '^[0-9]+';
+ALTER TABLE t1 ADD COLUMN prefix_id bigint;
+UPDATE t1 SET prefix_id=(SELECT prefix FROM cc_prefix AS p WHERE
 	t1.calledstation LIKE (prefix || '%')
 	OR t1.calledstation LIKE ('00' || prefix || '%')
 --	OR ('44' || SUBSTRING(t1.calledstation,2)) LIKE (prefix || '%')
-	ORDER BY length(prefix::text) DESC limit 1)
-	WHERE destination=0 OR destination IS NULL;
+	ORDER BY length(prefix::text) DESC limit 1);
+
+CREATE INDEX myindex_t1 ON t1( calledstation );
+UPDATE cc_call SET destination=(SELECT prefix_id FROM t1 WHERE t1.calledstation = cc_call.calledstation ) WHERE destination=0 OR destination IS NULL;
+UPDATE cc_call SET destination=0 WHERE destination IS NULL;
+
+DROP TABLE t1;
 
 COMMIT;
