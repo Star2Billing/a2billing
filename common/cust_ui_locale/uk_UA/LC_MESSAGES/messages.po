@@ -1,11 +1,13 @@
-# A2BCustomer_UI UKRAINIAN PO File.
-# Copyright (C) 2006 Oleh Miniv
+# A2Billing Customer Panel - PO File.
+# Copyright (C) 2004-2009 A2BILLING
 # This file is distributed under the same license as the PACKAGE package.
+# ARESKI <areski@gmail.com>.
 #
 msgid ""
 msgstr ""
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-15 11:45+0500\n"
+"POT-Creation-Date: 2009-04-01 19:49+0200\n"
 "PO-Revision-Date: 2008-03-01 23:40+0200\n"
 "Last-Translator: Oleh Miniv <oleg-min@ukr.net>\n"
 "Language-Team: Oleh Miniv <oleg-min@ukr.net>\n"
@@ -13,2897 +15,125 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "1.0: 2.0\n"
-"Project-Id-Version: \n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,311,-1,-1,-1\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: UKRAINE\n"
 
-#: CC_entity_edit_did_destination.php:202
-#: lib/Form/Class.FormHandler.inc.php:1728
-msgid "error deletion"
-msgstr "помилка видалення"
-
-#: CC_entity_edit_did_destination.php:376
-#: CC_entity_edit_did_destination.php:595
-#: CC_entity_edit_did_destination.php:913
-#: CC_entity_edit_did_destination.php:1035
-#: CC_entity_edit_did_destination.php:1199
-#: lib/Form/Class.FormHandler.AddForm.inc.php:144
-#: lib/Form/Class.FormHandler.EditForm.inc.php:179
-#: lib/Form/Class.FormHandler.EditForm.inc.php:373
-#: lib/Form/Class.FormHandler.EditForm.inc.php:642
-#: lib/Form/Class.FormHandler.DelForm.inc.php:145
-#: A2B_entity_call_details.php:910
-#: A2B_entity_call_details.php:1010
-#: A2B_entity_call_details_pdf.php:646
-#: A2B_entity_call_details_pdf.php:739
-#: call-history.php:630
-#: invoices_customer.php:697
-#: CC_entity_edit_speeddial.php:266
-#: CC_entity_edit_speeddial.php:476
-#: CC_entity_edit_speeddial.php:768
-#: CC_entity_edit_speeddial.php:1014
-msgid "No data found !!!"
-msgstr "Немає даних!"
-
-#: CC_entity_edit_did_destination.php:534
-msgid "Add a new "
-msgstr "Додати новий"
-
-#: CC_entity_edit_did_destination.php:649
-#: CC_entity_edit_did_destination.php:844
-#: lib/Form/Class.FormHandler.EditForm.inc.php:418
-#: CC_entity_edit_speeddial.php:532
-#: CC_entity_edit_speeddial.php:701
-msgid "LIST"
-msgstr "Список"
-
-#: CC_entity_edit_did_destination.php:708
-#: lib/Form/Class.FormHandler.EditForm.inc.php:293
-#: form_data/FG_var_callerid.inc:17
-msgid "No"
-msgstr "Ні"
-
-#: CC_entity_edit_did_destination.php:742
-#: lib/Form/Class.FormHandler.EditForm.inc.php:325
-#: lib/Form/Class.FormHandler.EditForm.inc.php:492
-#: CC_entity_edit_speeddial.php:420
-#: CC_entity_edit_speeddial.php:610
-msgid "Add a new"
-msgstr "Додати новий"
-
-#: CC_entity_edit_did_destination.php:1119
-msgid "Deletion confirmation"
-msgstr "Підтвердження видалення"
-
-#: CC_entity_edit_did_destination.php:1214
-msgid "Remove this DID DESTINATION"
-msgstr "Видалити цей DID напрямок"
-
-#: CC_entity_edit_did_destination.php:1214
-#: CC_entity_edit_speeddial.php:1029
-msgid "Delete"
-msgstr "Видалити"
-
-#: CC_entity_edit_did_destination.php:1239
-msgid "Deletion"
-msgstr "Видалення"
-
-#: CC_entity_edit_did_destination.php:1241
-#: CC_entity_edit_speeddial.php:1048
-msgid "New"
-msgstr "Новий"
-
-#: CC_entity_edit_did_destination.php:1241
-#: CC_entity_edit_speeddial.php:1048
-msgid "Inserted"
-msgstr "Додано"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:48
-#: templates/default/main.tpl:37
-#: templates/design1/main.tpl:214
-msgid "ACCOUNT INFO"
-msgstr "Акаунт"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:52
-#: templates/default/main.tpl:41
-msgid "SIP/IAX INFO"
-msgstr "Інформація SIP/IAX"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:57
-#: templates/default/main.tpl:46
-#: templates/design1/main.tpl:218
-msgid "CALL HISTORY"
-msgstr "Історія дзвінків"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:62
-#: form_data/FG_var_voucher.inc:14
-#: templates/default/main.tpl:51
-#: templates/design1/main.tpl:223
-#: A2B_entity_voucher.php:110
-msgid "VOUCHER"
-msgstr "Ваучер"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:79
-#: templates/default/main.tpl:66
-#: templates/design1/main.tpl:235
-msgid "INVOICES"
-msgstr "Рахунки"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:88
-#: invoices_customer.php:350
-#: invoices_customer.php:751
-#: templates/default/main.tpl:75
-msgid "Invoice Details"
-msgstr "Подробиці рахунку"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:89
-#: templates/default/main.tpl:76
-msgid "View Invoices"
-msgstr "Переглянути рахунки"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:90
-#: templates/default/main.tpl:77
-msgid "Current Invoice"
-msgstr "Поточний рахунок"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:100
-#: form_data/FG_var_did.inc:42
-#: form_data/FG_var_did.inc:78
-#: A2B_entity_invoice_detail.php:568
-#: templates/default/main.tpl:87
-#: templates/design1/main.tpl:261
-#: A2B_entity_invoice_detail_pdf.php:583
-msgid "DID"
-msgstr "DID"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:105
-#: templates/default/main.tpl:92
-#: templates/design1/main.tpl:266
-msgid "SPEED DIAL"
-msgstr "Швидкий набір"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:110
-#: lib/Form/Class.SearchHandler.inc.php:300
-#: templates/default/main.tpl:97
-#: templates/design1/main.tpl:271
-msgid "RATECARD"
-msgstr "Тарифний план"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:115
-#: templates/default/main.tpl:102
-#: templates/design1/main.tpl:276
-msgid "SIMULATOR"
-msgstr "Симулятор"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:120
-#: templates/default/main.tpl:107
-#: templates/design1/main.tpl:281
-msgid "CALLBACK"
-msgstr "Callback"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:125
-#: templates/default/main.tpl:112
-#: templates/design1/main.tpl:286
-msgid "WEB-PHONE"
-msgstr "Web-телефон"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:130
-#: templates/default/main.tpl:117
-#: templates/design1/main.tpl:291
-msgid "ADD CALLER ID"
-msgstr "Додати CallerID"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:135
-#: templates/default/main.tpl:122
-#: templates/design1/main.tpl:296
-msgid "PASSWORD"
-msgstr "Пароль"
-
-#: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:139
-#: templates/default/main.tpl:126
-#: templates/design1/main.tpl:300
-msgid "LOGOUT"
-msgstr "Вихід"
-
-#: lib/Misc.php:453
-msgid "File size is greater than allowed limit."
-msgstr "Розмір файлу перевищує допустимий ліміт."
-
-#: lib/Misc.php:457
-msgid "You did not upload anything!"
-msgstr "Ви нічого не завантажили!"
-
-#: lib/Misc.php:461
-msgid "Failed to upload the file, The file you uploaded may not exist on disk."
-msgstr "Помилка завантаження файлу, можливо він не існує."
-
-#: lib/Misc.php:467
-msgid "file type is not allowed"
-msgstr "недопустимий тип файлу"
-
-#: lib/Form/Class.ViewHandler.inc.php:60
-msgid "Sort"
-msgstr "Сортувати"
-
-#: lib/Form/Class.ViewHandler.inc.php:80
-msgid "Records"
-msgstr "Записи"
-
-#: lib/Form/Class.ViewHandler.inc.php:100
-msgid "FILTER ON "
-msgstr "Фільтр по"
-
-#: lib/Form/Class.ViewHandler.inc.php:117
-msgid "FILTER ON"
-msgstr "Фільтр по"
-
-#: lib/Form/Class.ViewHandler.inc.php:130
-msgid "APPLY FILTER "
-msgstr "Застосувати фільтр"
-
-#: lib/Form/Class.ViewHandler.inc.php:161
-msgid "ACTION"
-msgstr "Дія"
-
-#: lib/Form/Class.ViewHandler.inc.php:371
-msgid "DISPLAY"
-msgstr "Показати"
-
-#: lib/Form/Class.ViewHandler.inc.php:390
-msgid "GO"
-msgstr "Вперед"
-
-#: lib/Form/Class.ViewHandler.inc.php:394
-msgid "Export CSV"
-msgstr "Експорт в CSV"
-
-#: lib/Form/Class.ViewHandler.inc.php:398
-msgid "Export XML"
-msgstr "Експорт в XML"
-
-#: lib/Form/Class.FormHandler.inc.php:439
-msgid "THERE IS NO RECORD !!!"
-msgstr "Немає запису!"
-
-#: lib/Form/Class.FormHandler.inc.php:440
-#, fuzzy
-msgid "DIRECTORY"
-msgstr "Директорія"
-
-#: lib/Form/Class.FormHandler.inc.php:441
-#: lib/Form/Class.FormHandler.inc.php:496
-msgid "Define criteria to make a precise search"
-msgstr "Визначте критерії для точного пошуку"
-
-#: lib/Form/Class.FormHandler.inc.php:442
-msgid "You can browse through our"
-msgstr "Ви можете переглянути через наш"
-
-#: lib/Form/Class.FormHandler.inc.php:442
-msgid "and modify their different properties<br>"
-msgstr "і змінити їхні властивості<br>"
-
-#: lib/Form/Class.FormHandler.inc.php:443
-msgid "Delete this record"
-msgstr "Видалити цей запис"
-
-#: lib/Form/Class.FormHandler.inc.php:444
-msgid "Edit this record"
-msgstr "Редагувати цей запис"
-
-#: lib/Form/Class.FormHandler.inc.php:445
-msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
-msgstr "Документ було успішно створено. Тепер Ви можете визначити тариф, який хочете асоціювати."
-
-#: lib/Form/Class.FormHandler.inc.php:446
-#: form_data/FG_var_speeddial.inc:112
-#: form_data/FG_var_callerid.inc:102
-msgid "You can modify, through the following form, the different properties of your"
-msgstr "За допомогою наступної форми Ви можете змінювати різні властивості Вашого"
-
-#: lib/Form/Class.FormHandler.inc.php:447
-#: form_data/FG_var_did.inc:130
-#: form_data/FG_var_speeddial.inc:113
-#: form_data/FG_var_callerid.inc:103
-msgid "If you really want remove this"
-msgstr "Якщо Ви дійсно хочете видалити цей"
-
-#: lib/Form/Class.FormHandler.inc.php:447
-msgid "Click on the delete button."
-msgstr "Натисніть кнопку Видалити."
-
-#: lib/Form/Class.FormHandler.inc.php:449
-msgid "One"
-msgstr "Один"
-
-#: lib/Form/Class.FormHandler.inc.php:449
-msgid "has been deleted!"
-msgstr "був видалений!"
-
-#: lib/Form/Class.FormHandler.inc.php:451
-#: form_data/FG_var_did.inc:131
-#: form_data/FG_var_speeddial.inc:114
-#: form_data/FG_var_callerid.inc:104
-msgid "you can add easily a new"
-msgstr "Ви можете легко додати новий"
-
-#: lib/Form/Class.FormHandler.inc.php:451
-#: form_data/FG_var_did.inc:131
-#: form_data/FG_var_speeddial.inc:114
-#: form_data/FG_var_callerid.inc:104
-msgid "Fill the following fields and confirm by clicking on the button add."
-msgstr "Заповніть наступні поля і натисніть кнопку Додати."
-
-#: lib/Form/Class.FormHandler.inc.php:452
-msgid "Add a"
-msgstr "Додати"
-
-#: lib/Form/Class.FormHandler.inc.php:452
-msgid "now."
-msgstr "зараз."
-
-#: lib/Form/Class.FormHandler.inc.php:453
-#: form_data/FG_var_view_invoice.inc:107
-#: form_data/FG_var_did.inc:135
-#: form_data/FG_var_speeddial.inc:121
-#: form_data/FG_var_callerid.inc:112
-msgid "Your new"
-msgstr "Ваш новий"
-
-#: lib/Form/Class.FormHandler.inc.php:453
-#: form_data/FG_var_view_invoice.inc:107
-msgid "has been inserted. <br>"
-msgstr "був доданий.<br>"
-
-# одну
-#: lib/Form/Class.FormHandler.inc.php:454
-msgid "You cannot choose more than one !"
-msgstr "Ви не можете вибрати більш, ніж один!"
-
-#: lib/Form/Class.FormHandler.inc.php:486
-#: lib/Form/Class.FormHandler.inc.php:707
-#: frontoffice_data/CC_var_base.inc:122
-#: frontoffice_data/CC_var_phonelist.inc:114
-msgid "Delete this "
-msgstr "Видалити"
-
-#: lib/Form/Class.FormHandler.inc.php:487
-#: lib/Form/Class.FormHandler.inc.php:701
-#: frontoffice_data/CC_var_base.inc:123
-#: frontoffice_data/CC_var_phonelist.inc:115
-msgid "Edit this "
-msgstr "Редагувати"
-
-#: lib/Form/Class.FormHandler.inc.php:515
-msgid "ONESHOT"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:516
-msgid "PER MINUTE"
-msgstr "За хвилину"
-
-#: lib/Form/Class.FormHandler.inc.php:518
-#: lib/Form/Class.FormHandler.inc.php:528
-msgid "IN PROCESS"
-msgstr "В процесі"
-
-#: lib/Form/Class.FormHandler.inc.php:519
-msgid "WORKING"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:520
-msgid "ISSUE"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:522
-msgid "ALRIGHT"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:523
-msgid "NOT USED"
-msgstr "Не використовується"
-
-#: lib/Form/Class.FormHandler.inc.php:524
-msgid "NO ATTRIBUED"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:525
-msgid "WORK IN PROCESS"
-msgstr "Робота в процесі"
-
-#: lib/Form/Class.FormHandler.inc.php:527
-msgid "CREATION"
-msgstr "Створення"
-
-#: lib/Form/Class.FormHandler.inc.php:529
-msgid "IVR INTREGRATION"
-msgstr "IVR інтеграція"
-
-#: lib/Form/Class.FormHandler.inc.php:530
-#: lib/Form/Class.FormHandler.inc.php:540
-msgid "CLOSE"
-msgstr "Закрити"
-
-#: lib/Form/Class.FormHandler.inc.php:532
-msgid "URGENT"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:533
-msgid "NORMAL"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:534
-msgid "LOW"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:536
-msgid "NEW"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:537
-msgid "UPDATE"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:538
-msgid "ANSWER"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:539
-msgid "ASSIGN"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:542
-msgid "INSERTED"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:543
-#: frontoffice_data/CC_var_phonelist.inc:207
-msgid "ENABLE"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:544
-msgid "DISABLE"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:545
-msgid "FREE"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:547
-#: userinfo-okd.php:59
-#: form_data/FG_var_speeddial.inc:27
-#: form_data/FG_var_speeddial.inc:80
-#: userinfo.php:59
-msgid "PHONE"
-msgstr "Телефон"
-
-#: lib/Form/Class.FormHandler.inc.php:548
-msgid "SMS"
-msgstr "SMS"
-
-#: lib/Form/Class.FormHandler.inc.php:550
-msgid "CODE VALID 1 TIME"
-msgstr "Код дійсний 1 раз"
-
-#: lib/Form/Class.FormHandler.inc.php:551
-msgid "CODE VALID 2 TIMES"
-msgstr "Код дійсний 2 рази"
-
-#: lib/Form/Class.FormHandler.inc.php:552
-msgid "CODE VALID 3 TIMES"
-msgstr "Код дійсний 3 рази"
-
-#: lib/Form/Class.FormHandler.inc.php:553
-msgid "CODE VALID 4 TIMES"
-msgstr "Код дійсний 4 рази"
-
-#: lib/Form/Class.FormHandler.inc.php:554
-msgid "CODE VALID 5 TIMES"
-msgstr "Код дійсний 5 разів"
-
-#: lib/Form/Class.FormHandler.inc.php:555
-msgid "CODE VALID 6 TIMES"
-msgstr "Код дійсний 6 разів"
-
-#: lib/Form/Class.FormHandler.inc.php:556
-msgid "CODE VALID 7 TIMES"
-msgstr "Код дійсний 7 разів"
-
-#: lib/Form/Class.FormHandler.inc.php:557
-msgid "CODE VALID 8 TIMES"
-msgstr "Код дійсний 8 разів"
-
-#: lib/Form/Class.FormHandler.inc.php:558
-msgid "CODE VALID 9 TIMES"
-msgstr "Код дійсний 9 разів"
-
-#: lib/Form/Class.FormHandler.inc.php:559
-msgid "CODE VALID 10 TIMES"
-msgstr "Код дійсний 10 разів"
-
-#: lib/Form/Class.FormHandler.inc.php:562
-msgid "CODE"
-msgstr "Код"
-
-#: lib/Form/Class.FormHandler.inc.php:563
-#: lib/Form/Class.FormHandler.inc.php:564
-#: lib/Form/Class.FormHandler.inc.php:565
-#: lib/Form/Class.FormHandler.inc.php:566
-msgid "CODES"
-msgstr "Коди"
-
-#: lib/Form/Class.FormHandler.inc.php:678
-#: lib/Form/Class.FormHandler.inc.php:680
-#: frontoffice_data/CC_var_base.inc:118
-#: frontoffice_data/CC_var_phonelist.inc:110
-msgid "You can browse through our "
-msgstr "Ви можете переглянути через наш"
-
-#: lib/Form/Class.FormHandler.inc.php:678
-#: lib/Form/Class.FormHandler.inc.php:680
-msgid " and modify their different properties<br>"
-msgstr "і змінити властивості<br>"
-
-#: lib/Form/Class.FormHandler.inc.php:841
-msgid "(at least 3 characters)"
-msgstr "(мінімум 3 символи)"
-
-#: lib/Form/Class.FormHandler.inc.php:845
-msgid "(must match email structure. Example : name@domain.com)"
-msgstr "(повинна співпадати з структурою e-mail. Наприклад:  name@domain.ua)"
-
-#: lib/Form/Class.FormHandler.inc.php:849
-msgid "(at least 5 successive characters appear at the end of this string)"
-msgstr "(мінімум 5 послідовних символів в кінці цього рядка)"
-
-#: lib/Form/Class.FormHandler.inc.php:853
-msgid "(at least 4 characters)"
-msgstr "(мінімум 4 символи)"
-
-#: lib/Form/Class.FormHandler.inc.php:857
-msgid "(number format)"
-msgstr "(числовий формат)"
-
-#: lib/Form/Class.FormHandler.inc.php:865
-msgid "(only number with more that 8 digits)"
-msgstr "(тільки числа, що мають не менше 8-ми цифр)"
-
-#: lib/Form/Class.FormHandler.inc.php:869
-msgid "(at least 8 digits using . or - or the space key)"
-msgstr "(мінімум 8 цифр, використовуючи . або - або пробіл)"
-
-#: lib/Form/Class.FormHandler.inc.php:873
-msgid "network adress format"
-msgstr "формат мережевої адреси"
-
-#: lib/Form/Class.FormHandler.inc.php:877
-msgid "at least 1 character"
-msgstr "мінімум 1 символ"
-
-#: lib/Form/Class.FormHandler.inc.php:885
-msgid "(AT LEAST 2 CARACTERS)"
-msgstr "(мінімум 2 символи)"
-
-#: lib/Form/Class.FormHandler.inc.php:889
-msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
-msgstr "(числовий формат з/без дробової частини, для розділення використовуйте  '.' )"
-
-#: lib/Form/Class.FormHandler.inc.php:905
-msgid "You must write something."
-msgstr "Ви повинні щось написати."
-
-#: lib/Form/Class.FormHandler.inc.php:909
-msgid "8 characters alphanumeric"
-msgstr "8 літеро-цифрових символів"
-
-#: lib/Form/Class.FormHandler.inc.php:916
-msgid "(at least 6 Alphanumeric characters)"
-msgstr "(мінімум 6  літеро-цифрових символів)"
-
-#: lib/Form/Class.FormHandler.inc.php:1379
-msgid "This did is in use by customer id:"
-msgstr "Використовується клієнтом:"
-
-#: lib/Form/Class.FormHandler.inc.php:1491
-#: lib/Form/Class.FormHandler.inc.php:1533
-msgid "Could not open buddy file"
-msgstr "Не можу відкрити buddy файл"
-
-#: lib/Form/Class.FormHandler.inc.php:1508
-#: lib/Form/Class.FormHandler.inc.php:1538
-#: lib/Form/Class.FormHandler.inc.php:1550
-msgid "Impossible to write to the file"
-msgstr "Неможливо записати в файл"
-
-#: lib/Form/Class.FormHandler.inc.php:1682
-#: lib/Form/Class.FormHandler.inc.php:1734
-msgid "<br> GOTO ; "
-msgstr "<br> Перейти ;"
-
-#: lib/Form/Class.FormHandler.inc.php:1856
-msgid "ERROR_DUPLICATION"
-msgstr "Помилка дуплікації"
-
-#: lib/Form/Class.FormHandler.inc.php:1941
-msgid "Done"
-msgstr "Готово"
-
-#: lib/Form/Class.FormHandler.inc.php:1967
-#: lib/Form/Class.FormHandler.inc.php:2020
-#, fuzzy
-msgid "THE CURRENT RATECARD"
-msgstr "Поточний тарифний план"
-
-#: lib/Form/Class.FormHandler.inc.php:1978
-#: lib/Form/Class.FormHandler.inc.php:2031
-msgid "R A T E C A R D"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:1984
-#: lib/Form/Class.FormHandler.inc.php:2037
-msgid "Choose a ratecard"
-msgstr "Виберіть тарифний план"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-#: A2B_entity_view_invoice.php:109
-msgid "January"
-msgstr "Січень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "February"
-msgstr "Лютий"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "March"
-msgstr "Березень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "April"
-msgstr "Квітень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "May"
-msgstr "Травень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "June"
-msgstr "Червень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "July"
-msgstr "Липень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "August"
-msgstr "Серпень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "September"
-msgstr "Вересень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "October"
-msgstr "Жовтень"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "November"
-msgstr "Листопад"
-
-#: lib/Form/Class.SearchHandler.inc.php:28
-#: A2B_entity_view_invoice.php:92
-msgid "December"
-msgstr "Грудень"
-
-#: lib/Form/Class.SearchHandler.inc.php:78
-msgid "From :"
-msgstr "З:"
-
-#: lib/Form/Class.SearchHandler.inc.php:106
-msgid "To :"
-msgstr "По:"
-
-#: lib/Form/Class.SearchHandler.inc.php:161
-#: A2B_entity_call_details.php:487
-#: A2B_entity_call_details.php:501
-#: call-history.php:439
-msgid "Exact"
-msgstr "Точно"
-
-#: lib/Form/Class.SearchHandler.inc.php:162
-#: A2B_entity_call_details.php:488
-#: A2B_entity_call_details.php:502
-#: call-history.php:440
-msgid "Begins with"
-msgstr "Починається з"
-
-#: lib/Form/Class.SearchHandler.inc.php:163
-#: A2B_entity_call_details.php:489
-#: A2B_entity_call_details.php:503
-#: call-history.php:441
-msgid "Contains"
-msgstr "Містить"
-
-#: lib/Form/Class.SearchHandler.inc.php:164
-#: A2B_entity_call_details.php:490
-#: A2B_entity_call_details.php:504
-msgid "Ends with"
-msgstr "Закінчується на"
-
-#: lib/Form/Class.SearchHandler.inc.php:271
-#, fuzzy
-msgid "There is"
-msgstr "Немає"
-
-#: lib/Form/Class.SearchHandler.inc.php:271
-msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
-msgstr "вибрано, використовуйте вибір нижче, якщо Ви бажаєте зробити пакетне оновлення вибраних карт."
-
-#: lib/Form/Class.SearchHandler.inc.php:319
-#, fuzzy
-msgid "BUYRATE"
-msgstr "По тарифу"
-
-#: lib/Form/Class.SearchHandler.inc.php:322
-#: lib/Form/Class.SearchHandler.inc.php:337
-#: lib/Form/Class.SearchHandler.inc.php:353
-#: lib/Form/Class.SearchHandler.inc.php:369
-#: lib/Form/Class.SearchHandler.inc.php:385
-#: lib/Form/Class.SearchHandler.inc.php:401
-#: lib/Form/Class.SearchHandler.inc.php:417
-#: lib/Form/Class.SearchHandler.inc.php:433
-msgid "Equal"
-msgstr "Рівно"
-
-#: lib/Form/Class.SearchHandler.inc.php:323
-#: lib/Form/Class.SearchHandler.inc.php:338
-#: lib/Form/Class.SearchHandler.inc.php:354
-#: lib/Form/Class.SearchHandler.inc.php:370
-#: lib/Form/Class.SearchHandler.inc.php:386
-#: lib/Form/Class.SearchHandler.inc.php:402
-#: lib/Form/Class.SearchHandler.inc.php:418
-#: lib/Form/Class.SearchHandler.inc.php:434
-msgid "Add"
-msgstr "Додати"
-
-#: lib/Form/Class.SearchHandler.inc.php:324
-#: lib/Form/Class.SearchHandler.inc.php:339
-#: lib/Form/Class.SearchHandler.inc.php:355
-#: lib/Form/Class.SearchHandler.inc.php:371
-#: lib/Form/Class.SearchHandler.inc.php:387
-#: lib/Form/Class.SearchHandler.inc.php:403
-#: lib/Form/Class.SearchHandler.inc.php:419
-#: lib/Form/Class.SearchHandler.inc.php:435
-msgid "Substract"
-msgstr "Вирахувати"
-
-#: lib/Form/Class.SearchHandler.inc.php:334
-msgid "BUYRATEINITBLOCK"
-msgstr ""
-
-#: lib/Form/Class.SearchHandler.inc.php:350
-msgid "BUYRATEINCREMENT"
-msgstr ""
-
-#: lib/Form/Class.SearchHandler.inc.php:366
-#, fuzzy
-msgid "RATE INITIAL"
-msgstr "Початковий тариф"
-
-#: lib/Form/Class.SearchHandler.inc.php:382
-#, fuzzy
-msgid "MIN DURATION"
-msgstr "Мінімальна тривалість"
-
-#: lib/Form/Class.SearchHandler.inc.php:398
-msgid "BILLINGBLOCK"
-msgstr ""
-
-#: lib/Form/Class.SearchHandler.inc.php:414
-#, fuzzy
-msgid "CONNECTCHARGE"
-msgstr "Плата за з’єднання"
-
-#: lib/Form/Class.SearchHandler.inc.php:430
-#, fuzzy
-msgid "DISCONNECTCHARGE"
-msgstr "Плата за роз’єднання"
-
-#: lib/Form/Class.SearchHandler.inc.php:443
-msgid " BATCH UPDATE RATECARD "
-msgstr "Пакетне оновлення тарифного плану"
-
-#: lib/Form/Class.FormHandler.AddForm.inc.php:202
-#: lib/Form/Class.FormHandler.EditForm.inc.php:662
-#, fuzzy
-msgid "CONFIRM DATA"
-msgstr "Зберегти"
-
-#: lib/Form/Class.FormHandler.AddForm.inc.php:204
-msgid "Create a new "
-msgstr "Створити"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:116
-msgid "<br> TYPE DE SELECT :"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:240
-#, fuzzy
-msgid "LIST "
-msgstr "Список"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:385
-msgid "add new a "
-msgstr "Додати"
-
-#: lib/Form/Class.FormHandler.DelForm.inc.php:32
-#: checkout_success.php:23
-msgid "Message"
-msgstr "Повідомлення"
-
-#: lib/Form/Class.FormHandler.DelForm.inc.php:39
-msgid "You have "
-msgstr "У Вас"
-
-#: lib/Form/Class.FormHandler.DelForm.inc.php:186
-msgid "Remove this "
-msgstr "Видалити"
-
-#: lib/help.php:12
-msgid "From here, you can use the web based screen phone. You need microphone and speakers on your PC."
-msgstr "Тут Ви можете скористатись Web-телефоном. Ви повинні мати мікрофон та колонки."
-
-#: lib/help.php:28
-msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
-msgstr "Всі дзвінки перелічені нижче. Пошук по місяцу, дню або статусу. Також Ви можете дізнатись тариф та вартість."
-
-#: lib/help.php:43
-msgid "Personal information."
-msgstr "Особиста інформація."
-
-#: lib/help.php:44
-msgid "You can update your personal information here."
-msgstr "Тут Ви можете оновити Вашу особисту інформацію."
-
-#: lib/help.php:59
-msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
-msgstr "Симулювання дзвінка для визначенння вартості хвилини дзвінка і максимальної тривалості дзвінка по цьому номеру для Вашого поточного балансу."
-
-#: lib/help.php:74
-msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessary modifications."
-msgstr "Конфігураційна інформація для SIP та IAX клієнтів. Ви можете просто скопіювати і вставити в Ваші конфігураційні файли і зробити необхідні зміни."
-
-#: lib/help.php:90
-msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
-msgstr "На цій сторінці Ви можете змінити Ваш пароль. Ви повинні ввести Новий Пароль і Підтвердити його."
-
-#: lib/help.php:105
-msgid "Here you can view your ratecards"
-msgstr "Тут Ви можете переглянути Ваші тарифні плани"
-
-#: lib/help.php:120
-msgid "Enter your voucher number to top up your card."
-msgstr "Введіть номер ваучера для поповнення Вашої картки."
-
-#: lib/help.php:137
-msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
-msgstr "Виберіть країну, в якій Ви хочете отримати DID, виберіть DID із списку і введіть призначення, до якого Ви хочете його прив’язати."
-
-#: lib/help.php:153
-msgid "WARNING !  <br> after confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
-msgstr "Увага! <br> після підтвердження буде негайно виконане звільнення DID, і з Вас не буде стягуватися щомісячна плата."
-
-#: lib/defines.php:31
-msgid "The expiry date entered for the credit card is invalid."
-msgstr "Введена невірна дата закінчення дії кредитної карти."
-
-#: lib/defines.php:31
-msgid "Please check the date and try again."
-msgstr "Будь-ласка, перевірте дату і спробуйте знову."
-
-#: lib/defines.php:32
-msgid "The credit card number entered is invalid."
-msgstr "Введений номер картки не вірний."
-
-#: lib/defines.php:32
-msgid "Please check the number and try again."
-msgstr "Будь-ласка, перевірте номер і спробуйте знову."
-
-#: lib/defines.php:33
-msgid "The first four digits of the number entered are"
-msgstr "Перші 4 цифри введеного номера"
-
-#: lib/defines.php:33
-msgid "If that number is correct, we do not accept that type of credit card."
-msgstr "Якщо цей номер вірний, ми не приймаємо такий тип кредитних карт."
-
-#: lib/defines.php:33
-msgid "If it is wrong, please try again."
-msgstr "Якщо це не так, спробуйте знову."
-
-#: lib/defines.php:40
-msgid "Errors have occured during the process of your form."
-msgstr "Під час обробки Вашої форми стались помилки."
-
-#: lib/defines.php:40
-msgid ""
-"Please make the following corrections:\\n"
-"\\n"
-msgstr ""
-"Будь-ласка, зробіть наступні зміни:\\n"
-"\\n"
-
-# Що означає Review Text
-#: lib/defines.php:41
-msgid "* The 'Review Text' must have at least"
-msgstr "* 'Review Text'  повинен буди мінімум"
-
-#: lib/defines.php:41
-#: lib/defines.php:53
-#: lib/defines.php:54
-#: lib/defines.php:67
-msgid "characters"
-msgstr "символів"
-
-#: lib/defines.php:42
-msgid "You must rate the product for your review."
-msgstr "Ви повинні оцінити продукт для Вашого перегляду."
-
-#: lib/defines.php:43
-#: lib/defines.php:45
-msgid "Please select a payment method for your order."
-msgstr "Будь-ласка, оберіть спосіб оплати Вашого замовлення."
-
-#: lib/defines.php:44
-msgid "This form has already been submitted. Please press Ok and wait for this process to be completed."
-msgstr "Цей запит вже було відправлено. Будь-ласка, натисніть Ок і зачекайте до кінця завершення процесу."
-
-#: lib/defines.php:47
-msgid "Credit Card"
-msgstr "Кредитна картка"
-
-#: lib/defines.php:48
-#: lib/defines.php:58
-msgid "Credit Card Test Info"
-msgstr "Тестова інформація кредитної картки"
-
-#: lib/defines.php:48
-#: lib/defines.php:58
-msgid "Expiry: Any"
-msgstr "Кінцевий термін дії: Будь-який"
-
-#: lib/defines.php:49
-msgid "Credit Card Type"
-msgstr "Тип кредитної картки"
-
-#: lib/defines.php:50
-msgid "Credit Card Owner"
-msgstr "Власник кредитної картки"
-
-#: lib/defines.php:51
-msgid "Credit Card Number"
-msgstr "Номер кредитної картки"
-
-#: lib/defines.php:52
-msgid "Credit Card Expiry Date"
-msgstr "Дата закінчення дії кредитної картки"
-
-#: lib/defines.php:53
-#: lib/defines.php:66
-msgid "* The owner's name of the credit card must be at least"
-msgstr "* Ім’я власника кредитної картки повинно бути мінімум"
-
-#: lib/defines.php:54
-#: lib/defines.php:67
-msgid "* The credit card number must be at least"
-msgstr "* Номер кредитної картки повинен бути мінімум"
-
-#: lib/defines.php:55
-msgid "Credit Card Error!"
-msgstr "Помилка кредитної картки!"
-
-#: lib/defines.php:59
-msgid "There has been an error processing your credit card"
-msgstr "Помилка обробки Вашої кредитної картки"
-
-#: lib/defines.php:60
-msgid "Please check your credit card details!"
-msgstr "Будь-ласка, перевірте деталі Вашої кредитної карти!"
-
-#: lib/defines.php:61
-msgid "Credit Card Owner:"
-msgstr "Власник кредитної картки:"
-
-#: lib/defines.php:62
-msgid "Credit Card Number:"
-msgstr "Номер кредитної картки:"
-
-#: lib/defines.php:63
-msgid "Credit Card Expiry Date:"
-msgstr "Дата закінчення дії кредитної карти:"
-
-#: lib/defines.php:64
-msgid "Credit Card Checknumber:"
-msgstr "Контрольний номер кредитної карти:"
-
-#: lib/defines.php:65
-msgid "(located at the back of the credit card)"
-msgstr "(розміщений на зворотній стороні кредитної карти)"
-
-#: lib/defines.php:66
-msgid "characters."
-msgstr "символів."
-
-#: lib/defines.php:228
-msgid "This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"
-msgstr ""
-
-#: lib/defines.php:230
-msgid " This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"
-msgstr ""
-
-#: lib/defines.php:231
-msgid "Asterisk2Billing : CallingCard & VOIP Billing system"
-msgstr ""
-
-#: lib/Class.A2Billing.php:281
-msgid "Invalid card number lenght defined in configuration."
-msgstr "В конфігурації визначена неправильна довжина номера картки."
-
-#: lib/Class.A2Billing.php:1999
-msgid "Error : Authentication Failed !!!"
-msgstr "Помилка: Невдала автентифікація!"
-
-#: lib/Class.A2Billing.php:2030
-#: lib/Class.A2Billing.php:2035
-msgid "Error : Not enough credit to call !!!"
-msgstr "Помилка: Недостатньо коштів для здійснення дзвінка!"
-
-#: lib/Class.A2Billing.php:2041
-msgid "Error : Card is not active!!!"
-msgstr "Помилка: Картка не активна!"
-
-#: lib/Class.A2Billing.php:2047
-msgid "Error : Card is actually in use!!!"
-msgstr "Помилка: Картка вже використовується!"
-
-#: lib/Class.A2Billing.php:2056
-#: lib/Class.A2Billing.php:2064
-#: lib/Class.A2Billing.php:2072
-msgid "Error : Card have expired!!!"
-msgstr "Помилка: Закінчився термін дії картки!"
-
-#: A2B_entity_call_details.php:81
-#: A2B_entity_call_details_pdf.php:68
-#: A2B_entity_invoice_detail.php:47
-#: call-history.php:83
-#: invoices_customer.php:71
-#: A2B_entity_invoice_detail_pdf.php:56
-msgid "Calldate"
-msgstr "Дата дзвінка"
-
-#: A2B_entity_call_details.php:82
-#: A2B_entity_call_details_pdf.php:69
-#: A2B_entity_invoice_detail.php:48
-#: invoices_customer.php:72
-#: A2B_entity_invoice_detail_pdf.php:57
-msgid "Source"
-msgstr "Джерело"
-
-#: A2B_entity_call_details.php:83
-#: A2B_entity_call_details_pdf.php:70
-#: A2B_entity_invoice_detail.php:49
-#: invoices_customer.php:73
-#: A2B_entity_invoice_detail_pdf.php:58
-msgid "Callednumber"
-msgstr "Набраний номер"
-
-#: A2B_entity_call_details.php:84
-#: A2B_entity_call_details.php:644
-#: A2B_entity_call_details_pdf.php:71
-#: A2B_entity_call_details_pdf.php:368
-#: A2B_entity_invoice_detail.php:50
-#: A2B_entity_invoice_detail.php:392
-#: call-history.php:90
-#: A2B_entity_speeddial.php:74
-#: invoices_customer.php:74
-#: A2B_entity_invoice_detail_pdf.php:59
-#: A2B_entity_invoice_detail_pdf.php:391
-msgid "Destination"
-msgstr "Напрямок"
-
-#: A2B_entity_call_details.php:85
-#: A2B_entity_call_details.php:645
-#: A2B_entity_call_details.php:734
-#: A2B_entity_call_details_pdf.php:72
-#: A2B_entity_call_details_pdf.php:369
-#: A2B_entity_call_details_pdf.php:467
-#: A2B_entity_invoice_detail.php:51
-#: A2B_entity_invoice_detail.php:393
-#: A2B_entity_invoice_detail.php:482
-#: call-history.php:92
-#: invoices_customer.php:75
-#: A2B_entity_invoice_detail_pdf.php:60
-#: A2B_entity_invoice_detail_pdf.php:392
-#: A2B_entity_invoice_detail_pdf.php:489
-msgid "Duration"
-msgstr "Тривалість"
-
-#: A2B_entity_call_details.php:89
-#: A2B_entity_call_details_pdf.php:75
-#: A2B_entity_invoice_detail.php:54
-#: call-history.php:94
-#: invoices_customer.php:78
-#: A2B_entity_invoice_detail_pdf.php:63
-msgid "Cardused"
-msgstr "Картка"
-
-#: A2B_entity_call_details.php:92
-#: A2B_entity_call_details_pdf.php:78
-#: A2B_entity_invoice_detail.php:57
-#: call-history.php:104
-#: invoices_customer.php:80
-#: A2B_entity_invoice_detail_pdf.php:66
-msgid "Cost"
-msgstr "Вартість"
-
-#: A2B_entity_call_details.php:333
-#: call-history.php:317
-msgid "SELECT BY MONTH"
-msgstr "ВИБІР ПО МІСЯЦЮ"
-
-#: A2B_entity_call_details.php:339
-#: A2B_entity_call_details.php:388
-#: call-history.php:323
-#: call-history.php:374
-msgid "FROM"
-msgstr "З"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "JANUARY"
-msgstr "СІЧЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "FEBRUARY"
-msgstr "ЛЮТИЙ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "MARCH"
-msgstr "БЕРЕЗЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "APRIL"
-msgstr "КВІТЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "MAY"
-msgstr "ТРАВЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "JUNE"
-msgstr "ЧЕРВЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "JULY"
-msgstr "ЛИПЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "AUGUST"
-msgstr "СЕРПЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "SEPTEMBER"
-msgstr "ВЕРЕСЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "OCTOBER"
-msgstr "ЖОВТЕНЬ"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "NOVEMBER"
-msgstr "ЛИСТОПАД"
-
-#: A2B_entity_call_details.php:343
-#: A2B_entity_call_details.php:363
-#: A2B_entity_call_details.php:401
-#: A2B_entity_call_details.php:446
-#: call-history.php:327
-#: call-history.php:348
-#: call-history.php:387
-#: call-history.php:415
-msgid "DECEMBER"
-msgstr "ГРУДЕНЬ"
-
-#: A2B_entity_call_details.php:359
-#: A2B_entity_call_details.php:433
-#: call-history.php:343
-#: call-history.php:402
-msgid "TO"
-msgstr "ПО"
-
-#: A2B_entity_call_details.php:383
-#: call-history.php:369
-msgid "SELECT BY DAY"
-msgstr "ВИБІР ПО ДНЮ"
-
-#: A2B_entity_call_details.php:482
-#: form_data/FG_var_ratecard.inc:34
-#: form_data/FG_var_ratecard.inc:58
-#: form_data/FG_var_did.inc:41
-#: form_data/FG_var_did.inc:69
-#: call-history.php:434
-#: invoices_customer.php:458
-#: invoices_customer.php:847
-#: invoices_customer.php:934
-#: simulator.php:211
-msgid "DESTINATION"
-msgstr "НАПРЯМОК"
-
-#: A2B_entity_call_details.php:491
-#: A2B_entity_call_details.php:505
-msgid "Is not"
-msgstr "не"
-
-#: A2B_entity_call_details.php:496
-msgid "SOURCE"
-msgstr "ДЖЕРЕЛО"
-
-#: A2B_entity_call_details.php:509
-#: call-history.php:447
-#: invoices_customer.php:280
-msgid "OPTIONS"
-msgstr "ОПЦІЇ"
-
-#: A2B_entity_call_details.php:516
-#: invoices_customer.php:285
-msgid "RESULT"
-msgstr "РЕЗУЛЬТАТ"
-
-#: A2B_entity_call_details.php:519
-#: call-history.php:467
-#: invoices_customer.php:288
-#: simulator.php:218
-msgid "Minutes"
-msgstr "Хвилини"
-
-#: A2B_entity_call_details.php:519
-#: call-history.php:467
-#: invoices_customer.php:288
-msgid "Seconds"
-msgstr "Секунди"
-
-#: A2B_entity_call_details.php:524
-#: invoices_customer.php:293
-msgid "EXPORT FORMAT"
-msgstr "ФОРМАТ ЕКСПОРТУ"
-
-#: A2B_entity_call_details.php:527
-#: invoices_customer.php:296
-msgid "See Invoice in HTML"
-msgstr "Проглянути рахунок в HTML"
-
-#: A2B_entity_call_details.php:528
-#: invoices_customer.php:297
-msgid "or Export PDF"
-msgstr "або експортувати в PDF"
-
-#: A2B_entity_call_details.php:533
-#: call-history.php:452
-msgid "SHOW"
-msgstr "ПОКАЗАТИ"
-
-#: A2B_entity_call_details.php:536
-#: call-history.php:455
-msgid "Answered Calls"
-msgstr "Вдалі дзвінки"
-
-#: A2B_entity_call_details.php:538
-#: call-history.php:457
-msgid "All Calls"
-msgstr "Всі дзвінки"
-
-#: A2B_entity_call_details.php:545
-#: call-history.php:472
-#: invoices_customer.php:302
-msgid "CURRENCY"
-msgstr "ВАЛЮТА"
-
-#: A2B_entity_call_details.php:569
-#: call-history.php:494
-#: invoices_customer.php:326
-msgid "Search"
-msgstr "Пошук"
-
-#: A2B_entity_call_details.php:607
-#: templates/design1/main.tpl:253
-msgid "Call Details"
-msgstr "Деталі дзвінків"
-
-#: A2B_entity_call_details.php:616
-#: A2B_entity_call_details_pdf.php:342
-#: A2B_entity_invoice_detail.php:344
-#: A2B_entity_speeddial.php:76
-#: invoices_customer.php:360
-#: invoices_customer.php:761
-#: A2B_entity_invoice_detail_pdf.php:360
-msgid "Name"
-msgstr "Ім'я"
-
-#: A2B_entity_call_details.php:620
-#: A2B_entity_call_details_pdf.php:346
-#: A2B_entity_invoice_detail.php:348
-#: invoices_customer.php:364
-#: invoices_customer.php:765
-#: A2B_entity_invoice_detail_pdf.php:364
-msgid "Card Number"
-msgstr "Номер картки"
-
-#: A2B_entity_call_details.php:624
-#: A2B_entity_call_details_pdf.php:350
-msgid "As of Date"
-msgstr "Дата"
-
-#: A2B_entity_call_details.php:640
-#: A2B_entity_invoice_detail.php:388
-msgid "Calls by Destination"
-msgstr "Дзвінки по напрямку"
-
-#: A2B_entity_call_details.php:646
-#: A2B_entity_call_details.php:735
-#: A2B_entity_invoice_detail.php:394
-#: A2B_entity_invoice_detail.php:483
-msgid "Graphic"
-msgstr "Графік"
-
-#: A2B_entity_call_details.php:647
-#: A2B_entity_call_details.php:736
-#: A2B_entity_call_details_pdf.php:371
-#: A2B_entity_call_details_pdf.php:469
-#: A2B_entity_invoice_detail.php:395
-#: A2B_entity_invoice_detail.php:484
-#: A2B_entity_invoice_detail_pdf.php:394
-#: A2B_entity_invoice_detail_pdf.php:491
-msgid "Calls"
-msgstr "Дзвінки"
-
-#: A2B_entity_call_details.php:648
-#: A2B_entity_call_details.php:737
-#: A2B_entity_call_details_pdf.php:372
-#: A2B_entity_call_details_pdf.php:470
-#: A2B_entity_invoice_detail.php:396
-#: A2B_entity_invoice_detail.php:485
-#: A2B_entity_invoice_detail.php:571
-#: A2B_entity_invoice_detail.php:646
-#: A2B_entity_invoice_detail_pdf.php:395
-#: A2B_entity_invoice_detail_pdf.php:492
-#: A2B_entity_invoice_detail_pdf.php:586
-#: A2B_entity_invoice_detail_pdf.php:659
-#, fuzzy
-msgid "Amount"
-msgstr "Кількість"
-
-#: A2B_entity_call_details.php:697
-#: A2B_entity_call_details.php:787
-#: A2B_entity_call_details_pdf.php:420
-#: A2B_entity_call_details_pdf.php:520
-#: A2B_entity_invoice_detail.php:445
-#: A2B_entity_invoice_detail.php:535
-#: A2B_entity_invoice_detail.php:602
-#: A2B_entity_invoice_detail.php:690
-#: call-history.php:786
-#: invoices_customer.php:424
-#: invoices_customer.php:513
-#: invoices_customer.php:606
-#: invoices_customer.php:813
-#: invoices_customer.php:896
-#: invoices_customer.php:982
-#: A2B_entity_invoice_detail_pdf.php:443
-#: A2B_entity_invoice_detail_pdf.php:542
-#: A2B_entity_invoice_detail_pdf.php:615
-#: A2B_entity_invoice_detail_pdf.php:705
-msgid "TOTAL"
-msgstr "Загалом"
-
-#: A2B_entity_call_details.php:730
-#: A2B_entity_invoice_detail.php:478
-msgid "Calls by Date"
-msgstr "Дзвінки по даті"
-
-#: A2B_entity_call_details.php:733
-#: A2B_entity_call_details_pdf.php:466
-#: A2B_entity_invoice_detail.php:481
-#: A2B_entity_invoice_detail.php:643
-#: A2B_entity_invoice_detail_pdf.php:488
-#: A2B_entity_invoice_detail_pdf.php:656
+#: card-history.php:44 A2B_invoice_preview.php:89 A2B_invoice_preview.php:110
+#: A2B_receipt_view.php:142 A2B_receipt_view.php:161 A2B_invoice_view.php:149
+#: A2B_invoice_view.php:171 A2B_receipt_detail.php:62
+#: A2B_receipt_detail.php:81
 msgid "Date"
 msgstr "Дата"
 
-#: A2B_entity_call_details.php:808
-#: A2B_entity_invoice_detail.php:717
-#: invoices_customer.php:705
-#: invoices_customer.php:1074
-msgid "Total"
-msgstr "Загалом"
-
-#: A2B_entity_call_details.php:811
-#: A2B_entity_call_details_pdf.php:542
-#: A2B_entity_invoice_detail.php:720
-#: invoices_customer.php:708
-#: invoices_customer.php:1077
-#: A2B_entity_invoice_detail_pdf.php:727
-msgid "VAT"
-msgstr "ПДВ"
-
-#: A2B_entity_call_details.php:816
-#: A2B_entity_call_details_pdf.php:550
-#: A2B_entity_invoice_detail.php:725
-#: invoices_customer.php:713
-#: invoices_customer.php:1082
-#: A2B_entity_invoice_detail_pdf.php:735
-#, fuzzy
-msgid "Grand Total"
-msgstr "Загальна сума"
-
-#: A2B_entity_call_details.php:825
-#: A2B_entity_call_details.php:925
-#: A2B_entity_call_details_pdf.php:563
-msgid "No of Calls"
-msgstr "Кількість дзвінків"
-
-#: A2B_entity_call_details.php:925
-msgid "DID Calls"
-msgstr "DID дзвінки"
-
-#: checkout_process.php:196
-msgid "No Such Customer exists."
-msgstr "Такий клієнт не існує."
-
-#: userinfo-okd.php:56
-#: userinfo.php:56
-msgid "LAST NAME"
-msgstr "Прізвище"
-
-#: userinfo-okd.php:57
-#: userinfo.php:57
-msgid "FIRST NAME"
-msgstr "Ім’я"
-
-#: userinfo-okd.php:58
-#: frontoffice_data/CC_var_base.inc:172
-#: userinfo.php:58
-msgid "EMAIL"
-msgstr "E-mail"
-
-#: userinfo-okd.php:60
-#: frontoffice_data/CC_var_base.inc:240
-#: userinfo.php:60
-msgid "FAX"
-msgstr "Факс"
-
-#: userinfo-okd.php:63
-#: form_data/FG_var_card.inc:33
-#: frontoffice_data/CC_var_base.inc:194
-#: userinfo.php:63
-msgid "ADDRESS"
-msgstr "Адреса"
-
-#: userinfo-okd.php:64
-#: userinfo.php:64
-msgid "ZIP CODE"
-msgstr "Поштовий індекс"
-
-#: userinfo-okd.php:65
-#: form_data/FG_var_card.inc:43
-#: frontoffice_data/CC_var_base.inc:206
-#: userinfo.php:65
-msgid "CITY"
-msgstr "Місто"
-
-#: userinfo-okd.php:66
-#: userinfo.php:66
-msgid "STATE"
-msgstr "Область"
-
-#: userinfo-okd.php:67
-#: form_data/FG_var_did.inc:46
-#: form_data/FG_var_card.inc:63
-#: frontoffice_data/CC_var_base.inc:250
-#: userinfo.php:67
-msgid "COUNTRY"
-msgstr "Країна"
-
-#: userinfo-okd.php:75
-#: userinfo.php:75
-msgid "EDIT PERSONAL INFORMATION"
-msgstr "Редагувати особисту інформацію"
-
-#: userinfo-okd.php:90
-#: userinfo.php:90
-msgid "CARD NUMBER"
-msgstr "Номер картки"
-
-#: userinfo-okd.php:94
-#: userinfo.php:94
-msgid "BALANCE REMAINING"
-msgstr "Залишок на рахунку"
-
-#: userinfo-okd.php:120
-#: userinfo.php:120
-msgid "Click below to buy credit : "
-msgstr "Натисніть нижче, щоб купити кредит:"
-
-#: checkout_amount.php:62
-#: checkout_confirmation.php:88
-msgid "Payment Method"
-msgstr "Способи оплати"
-
-#: checkout_amount.php:76
-msgid "Please enter the order amount"
-msgstr "Будь-ласка, введіть сумму замовлення"
-
-#: checkout_amount.php:83
-#: checkout_confirmation.php:92
-msgid "Total Amount"
-msgstr "Загальна сума"
-
-#: checkout_amount.php:104
-#: checkout_confirmation.php:103
-msgid "Please click button to confirm your order"
-msgstr "Будь-ласка, натисніть кнопку для підтвердження замовлення"
-
-#: checkout_amount.php:119
-msgid "The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46."
-msgstr "Стягнення з  $5 - $0.45, з $10 - $0.59, з $20 - $0.88, з $40 - $1.46."
-
-#: checkout_amount.php:119
-msgid "Paypal Fee Calculator"
-msgstr "PayPal калькулятор"
-
-#: callback.php:143
-msgid "Cannot insert the callback request in the spool!"
-msgstr "Не можу додати запит для callback’у!"
-
-#: callback.php:145
-msgid "Your callback request has been queued correctly!"
-msgstr "Ваш callback-запит поставлено в чергу!"
-
-#: callback.php:213
-msgid "Error : You don t have enough credit to call you back!"
-msgstr "Помилка: У Вас недостатньо коштів для здійснення callback’у!"
-
-#: callback.php:216
-msgid "Error : There is no route to call back your phonenumber!"
-msgstr "Помилка: Немає маршруту для здійснення callback’у на Ваш номер!"
-
-#: callback.php:223
-msgid "Error : You have to specify your phonenumber and the number you wish to call!"
-msgstr "Помилка: Ви повинні вказати Ваш номер і номер, на який Ви хочете подзвонити!"
-
-#: callback.php:241
-msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
-msgstr "Ви можете ініціювати callback, ввівши свій номер і номер, якому Ви хочете подзвонити! "
-
-#: callback.php:250
-msgid "Your PhoneNumber"
-msgstr "Ваш номер телефону"
-
-#: callback.php:253
-msgid "The number you wish to call"
-msgstr "Номер, на який Ви хочете подзвонити"
-
-#: callback.php:258
-msgid "Click here to Place Call"
-msgstr "Натисніть тут щоб подзвонити"
-
-#: form_data/FG_var_ratecard.inc:35
-msgid "PREFIX"
-msgstr "Префікс"
-
-#: form_data/FG_var_ratecard.inc:36
-msgid "SR"
-msgstr ""
-
-#: form_data/FG_var_ratecard.inc:42
-#: form_data/FG_var_view_invoice.inc:69
-#: form_data/FG_var_voucher.inc:23
-msgid "THERE IS NO "
-msgstr "Номер"
-
-#: form_data/FG_var_ratecard.inc:49
-msgid "DIALPREFIX"
-msgstr "Префікс"
-
-#: form_data/FG_var_ratecard.inc:55
-msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
-msgstr "Введіть префікс, наприклад, '48' для Польщі, '1' для США"
-
-#: form_data/FG_var_ratecard.inc:56
-msgid "Define the destination prefix. ie, 44 for UK proper."
-msgstr "Визначте префікс, наприклад, 44 для Великобританії."
-
-#: form_data/FG_var_ratecard.inc:56
-msgid "You can use 'defaultprefix' to setup a rate by default for the destination for which you dont want to provide a specific rate.<br>"
-msgstr "Ви можете використовувати префікс за замовчуванням для напрямків, для яких Ви хочете забезпечити спеціальний тариф.<br>"
-
-#: form_data/FG_var_ratecard.inc:56
-msgid "IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same time and range, as below: "
-msgstr ""
-
-#: form_data/FG_var_ratecard.inc:56
-msgid "<br>32484-32487 -> this would insert 32484, 32485, 32486, 32487 <br>32476,32477,32478 separate by comma"
-msgstr "<br>32484-32487 -> повинно додати 32484, 32485, 32486, 32487 <br>32476,32477,32478 розділені комою"
-
-#: form_data/FG_var_ratecard.inc:64
-msgid "Come on... Insert the destination name"
-msgstr "Введіть ім'я для напрямку"
-
-#: form_data/FG_var_ratecard.inc:65
-msgid "Name for this call destination, for example : UK, Belgium Landline, Spain Mobile Telefonica, ..."
-msgstr "Ім’я для напрямку, наприклад: UK, Belgium Landline, Spain Mobile Telefonica, ..."
-
-#: form_data/FG_var_ratecard.inc:68
-msgid "SELLING RATE"
-msgstr "Продажний тариф"
-
-#: form_data/FG_var_ratecard.inc:74
-msgid "Insert the initial rate"
-msgstr "Введіть початковий тариф"
-
-#: form_data/FG_var_ratecard.inc:75
-msgid "Cost per minute for which you want to charge your customer. For example '0.02'"
-msgstr ""
-
-#: form_data/FG_var_ratecard.inc:75
-msgid "Define the selling cost for customers..."
-msgstr "Визначте ціну продажу клієнтам..."
-
-#: form_data/FG_var_view_invoice.inc:53
-msgid "Failed"
-msgstr "Невдало"
-
-#: form_data/FG_var_view_invoice.inc:54
-msgid "Successful"
-msgstr "Успішно"
-
-#: form_data/FG_var_view_invoice.inc:56
-msgid "ID"
-msgstr ""
-
-#: form_data/FG_var_view_invoice.inc:57
-msgid "CARDNUMBER"
-msgstr "Номер картки"
-
-#: form_data/FG_var_view_invoice.inc:58
-msgid "INVOICEDATE"
-msgstr "Дата рахунку"
-
-#: form_data/FG_var_view_invoice.inc:59
-#, fuzzy
-msgid "COVERSTART"
-msgstr "Початок"
-
-#: form_data/FG_var_view_invoice.inc:60
-msgid "COVEREND"
-msgstr "Кінець"
-
-#: form_data/FG_var_view_invoice.inc:61
-msgid "SENTDATE"
-msgstr "Дата відправки"
-
-#: form_data/FG_var_view_invoice.inc:63
-#: invoices_customer.php:794
-msgid "AMOUNT"
-msgstr "Кількість"
-
-#: form_data/FG_var_view_invoice.inc:91
-#: frontoffice_data/CC_var_phonelist.inc:285
-msgid "You can modify, through the following form, the different properties of your "
-msgstr "Ви можете змінити через форму різні властивості Вашого"
-
-#: form_data/FG_var_view_invoice.inc:92
-#: frontoffice_data/CC_var_base.inc:306
-#: frontoffice_data/CC_var_phonelist.inc:293
-msgid "If you really want remove this "
-msgstr "Якщо Ви дійсно хочете видалити"
-
-# ?????????????
-#: form_data/FG_var_view_invoice.inc:93
-#: frontoffice_data/CC_var_base.inc:315
-#: frontoffice_data/CC_var_phonelist.inc:302
-msgid "you can add easily a new "
-msgstr "Ви можете додати"
-
-#: form_data/FG_var_view_invoice.inc:106
-msgid "Add a "
-msgstr "Додати"
-
-#: form_data/FG_var_view_invoice.inc:110
-#: form_data/FG_var_speeddial.inc:125
-msgid "Once you have completed the form above, click on the CONTINUE button."
-msgstr "Коли Ви заповните цю форму, натисніть на кнопку Продовжити."
-
-#: form_data/FG_var_voucher.inc:15
-msgid "CREDIT"
-msgstr "Кредит"
-
-#: form_data/FG_var_did.inc:18
-#: form_data/FG_var_did.inc:39
-#: form_data/FG_var_callerid.inc:12
-msgid "Active"
-msgstr "Активний"
-
-#: form_data/FG_var_did.inc:19
-#: form_data/FG_var_did.inc:39
-msgid "Inactive"
-msgstr "Неактивний"
-
-#: form_data/FG_var_did.inc:22
-msgid "Fix per month + dialoutrate"
-msgstr "Фіксовано за місяць + вихідний тариф"
-
-#: form_data/FG_var_did.inc:23
-msgid "Fix per month"
-msgstr "Фіксовано за місяць"
-
-#: form_data/FG_var_did.inc:24
-msgid "Only dialout rate"
-msgstr "Тільки вихідний тариф"
-
-#: form_data/FG_var_did.inc:29
-msgid "Fix+Dial"
-msgstr "Фіксовано + дзвінки"
-
-#: form_data/FG_var_did.inc:30
-msgid "Fix"
-msgstr "Фіксовано"
-
-#: form_data/FG_var_did.inc:31
-#, fuzzy
-msgid "Dial"
-msgstr "Дзвінки"
-
-#: form_data/FG_var_did.inc:32
-msgid "Free"
-msgstr "Безкоштовно"
-
-#: form_data/FG_var_did.inc:43
-#: form_data/FG_var_did.inc:88
-#: form_data/FG_var_callerid.inc:22
-#: form_data/FG_var_callerid.inc:63
-msgid "ACTIVATED"
-msgstr "Активовано"
-
-#: form_data/FG_var_did.inc:44
-#: form_data/FG_var_did.inc:97
-msgid "PRIORITY"
-msgstr "Пріоритет"
-
-#: form_data/FG_var_did.inc:45
-msgid "USED MINUTE"
-msgstr "Використано хвилин"
-
-#: form_data/FG_var_did.inc:60
-#: form_data/FG_var_callerid.inc:28
-#, fuzzy
-msgid "THERE IS NO"
-msgstr "Це не"
-
-#: form_data/FG_var_did.inc:60
-msgid "CREATED!"
-msgstr "Створено!"
-
-#: form_data/FG_var_did.inc:76
-msgid "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "
-msgstr "Введіть номер телефона або SIP/IAX/H323 піра, на який хочете подзвонити (наприклад: 347894999 або SIP/oleh@182.212.1.45). Для дзвінка на SIP/IAX/H323 пір, у Вас повинні бути активовані VoIP дзвінки."
-
-#: form_data/FG_var_did.inc:94
-#: form_data/FG_var_callerid.inc:69
-msgid "Choose if you want to activate this card"
-msgstr "Виберіть, якщо Ви хочете активувати цю карту"
-
-#: form_data/FG_var_did.inc:107
-msgid "VOIP_CALL"
-msgstr "VoIP дзвінок"
-
-#: form_data/FG_var_did.inc:113
-msgid "Choose if you want to not use the trunk and let the asterisk call directly the destination (ie, Destination : SIP/jeremy@182.212.1.45)"
-msgstr "Виберіть, якщо Ви хочете використовувати транк і дозволити дзвонити напряму. (наприклад, на напрямок: SIP/oleh@182.212.1.45)"
-
-#: form_data/FG_var_did.inc:130
-#: form_data/FG_var_speeddial.inc:113
-#: form_data/FG_var_callerid.inc:103
-msgid "click on the delete button."
-msgstr "натисніть на кнопку Видалити."
-
-#: form_data/FG_var_did.inc:135
-#: form_data/FG_var_speeddial.inc:121
-#: form_data/FG_var_callerid.inc:112
-#, fuzzy
-msgid "has been inserted."
-msgstr "додано."
-
-#: form_data/FG_var_did.inc:139
-msgid "Setup those values to create the new"
-msgstr "Встановіть ці значення для створення"
-
-#: form_data/FG_var_speeddial.inc:26
-#: form_data/FG_var_speeddial.inc:60
-msgid "SPEEDDIAL"
-msgstr "Швидкий набір"
-
-#: form_data/FG_var_speeddial.inc:28
-#: form_data/FG_var_speeddial.inc:70
-#: frontoffice_data/CC_var_base.inc:152
-#: frontoffice_data/CC_var_phonelist.inc:38
-#: frontoffice_data/CC_var_phonelist.inc:173
-msgid "NAME"
-msgstr "Ім’я"
-
-#: form_data/FG_var_speeddial.inc:37
-#, fuzzy
-msgid "THERE ARE NO "
-msgstr "Не"
-
-#: form_data/FG_var_speeddial.inc:76
-msgid "Insert the name"
-msgstr "Додати ім’я"
-
-#: form_data/FG_var_speeddial.inc:77
-msgid "Enter here the name/label that will identify this speed dial"
-msgstr "Введіть ім’я/мітку, яка буде ідентифікувати цей швидкий набір"
-
-#: form_data/FG_var_speeddial.inc:86
-msgid "Insert the phone"
-msgstr "Додати телефон"
-
-#: form_data/FG_var_speeddial.inc:87
-msgid "Enter here the phonenumber you want to call for this speed dial"
-msgstr "Введіть номер телефону для швидкого набору"
-
-#: form_data/FG_var_card.inc:14
-msgid "LASTNAME"
-msgstr "Прізвище"
-
-#: form_data/FG_var_card.inc:20
-msgid "Insert the lastname of the customers"
-msgstr "Додати прізвище клієнта"
-
-#: form_data/FG_var_card.inc:23
-#: frontoffice_data/CC_var_base.inc:162
-msgid "FIRSTNAME"
-msgstr "Ім'я"
-
-#: form_data/FG_var_card.inc:29
-msgid "Insert the firstname of the customers"
-msgstr "Додати ім’я клієнта"
-
-#: form_data/FG_var_card.inc:39
-msgid "Insert the address of the customers"
-msgstr "Додати адресу клієнта"
-
-#: form_data/FG_var_card.inc:49
-msgid "Insert the city"
-msgstr "Додати місто"
-
-#: form_data/FG_var_card.inc:53
-msgid "STATE/PROVINCE"
-msgstr "Область"
-
-#: form_data/FG_var_card.inc:59
-msgid "Insert the state"
-msgstr "Додати область"
-
-#: form_data/FG_var_card.inc:74
-msgid "ZIP/POSTAL CODE"
-msgstr "Поштовий індекс"
-
-#: form_data/FG_var_card.inc:80
-#: frontoffice_data/CC_var_base.inc:225
-msgid "Insert the zipcode"
-msgstr "Додати поштовий індекс"
-
-#: form_data/FG_var_card.inc:84
-msgid "PHONE NUMBER"
-msgstr "Номер телефону"
-
-#: form_data/FG_var_card.inc:90
-msgid "Insert the phone number of the customers"
-msgstr "Введіть номер телефона клієнта"
-
-#: form_data/FG_var_card.inc:94
-msgid "FAX NUMBER"
-msgstr "Номер факсу"
-
-#: form_data/FG_var_card.inc:100
-msgid "Insert the fax number of the customers"
-msgstr "Додати номер факса клієнта"
-
-#: form_data/FG_var_card.inc:106
-msgid "you can add easily update your information clicking on the button."
-msgstr "Ви можете легко оновити Вашу інформацію, натиснувши на кнопку."
-
-#: form_data/FG_var_card.inc:109
-msgid "Your record has been updated."
-msgstr "Ваш запис був оновлений."
-
-#: form_data/FG_var_callerid.inc:13
-#, fuzzy
-msgid "Disactive"
-msgstr "Неактивно"
-
-#: form_data/FG_var_callerid.inc:16
-#: A2B_entity_did.php:565
-msgid "Yes"
-msgstr "Так"
-
-#: form_data/FG_var_callerid.inc:20
-#: form_data/FG_var_callerid.inc:53
-msgid "CALLERID"
-msgstr "CallerID"
-
-#: form_data/FG_var_callerid.inc:59
-msgid "Insert the CallerID"
-msgstr "Додати CallerID"
-
-#: form_data/FG_var_callerid.inc:111
-msgid "You can add your home phone number below to allow you to call in and use your Calling Card Services with out having to enter your Calling Card every time you call in."
-msgstr "Тут Ви можете додати Ваш домашній номер телефону, щоб при використанні карток додзвону не вводити кожного разу їхній номер."
-
-#: form_data/FG_var_callerid.inc:111
-msgid "You can also add your Soft Phone number (The number you used to log into this Website) and be able to make calls with out having to enter your Calling Card information."
-msgstr "Ви можете також додати номер Вашого софтфона (номер, який використовується для входу на сайт) і зможете здійснювати дзвінки не вводячи інформацію карти."
-
-#: form_data/FG_var_callerid.inc:116
-msgid "Made your change to edit this callerid."
-msgstr "Внесіть свої зміни для редагування CallerID."
-
-#: checkout_confirmation.php:46
-msgid "No Transaction ID found"
-msgstr "Ідентификатор транзакції не існує"
-
-#: checkout_confirmation.php:81
-msgid "Please confirm your order"
-msgstr "Будь-ласка, підтвердіть Ваше замовлення"
-
-#: A2B_entity_call_details_pdf.php:327
-msgid "Call Details for Card Number"
-msgstr "Деталі дзвінка для карти номер"
-
-#: A2B_entity_call_details_pdf.php:335
-msgid "Calls Details"
-msgstr "Деталі дзвінків"
-
-#: A2B_entity_call_details_pdf.php:364
-#: A2B_entity_invoice_detail_pdf.php:387
-msgid "By Destination"
-msgstr "По напрямку"
-
-#: A2B_entity_call_details_pdf.php:463
-#: A2B_entity_invoice_detail_pdf.php:485
-msgid "By Date"
-msgstr "По даті"
-
-#: A2B_entity_call_details_pdf.php:566
-#: A2B_entity_call_details_pdf.php:659
-msgid "Sr"
-msgstr ""
-
-#: A2B_entity_call_details_pdf.php:656
-msgid "No of DID Calls"
-msgstr "Число DID дзвінків"
-
-#: A2B_entity_card.php:55
-msgid "Your personal information is updated successfully."
-msgstr "Вашу особисту інформацію успішно оновлено."
-
-#: frontoffice_data/CC_var_base.inc:98
-msgid "Information about edition"
-msgstr "Інформація про редакцію"
-
-#: frontoffice_data/CC_var_base.inc:158
-msgid "Insert the user Name"
-msgstr "Додати ім’я користувача"
-
-#: frontoffice_data/CC_var_base.inc:168
-msgid "Insert the firstname"
-msgstr "Додати ім’я"
-
-#: frontoffice_data/CC_var_base.inc:178
-msgid "Insert the email address of the webmaster"
-msgstr "Додати e-mail адресу webmaster-а"
-
-#: frontoffice_data/CC_var_base.inc:183
-msgid "COMPANY"
-msgstr "Компанія"
-
-#: frontoffice_data/CC_var_base.inc:189
-msgid "Insert the name of your company"
-msgstr "Додати ім’я Вашої компанії"
-
-#: frontoffice_data/CC_var_base.inc:200
-msgid "Insert the Addresse"
-msgstr "Добавить адресу"
-
-#: frontoffice_data/CC_var_base.inc:212
-msgid "Insert the City"
-msgstr "Додати місто"
-
-#: frontoffice_data/CC_var_base.inc:219
-msgid "ZIPCODE"
-msgstr "Поштовий індекс"
-
-#: frontoffice_data/CC_var_base.inc:236
-msgid "Insert the webmaster Phonenumber"
-msgstr "Додати номер телефона webmaster-а"
-
-#: frontoffice_data/CC_var_base.inc:246
-msgid "Insert the webmaster Fax number"
-msgstr "Додати номер факсу webmaster-а"
-
-#: frontoffice_data/CC_var_base.inc:263
-msgid "NEWSLETTERS"
-msgstr "Інформаційні бюлетні"
-
-#: frontoffice_data/CC_var_base.inc:269
-msgid "Choose if the user will receive the newsletters"
-msgstr "Виберіть, якщо користувач повинен отримувати інформаційні бюлетні"
-
-#: frontoffice_data/CC_var_base.inc:272
-msgid "I acknowledge to receive informations."
-msgstr "Я підтверджую отримання інформації."
-
-#: frontoffice_data/CC_var_base.inc:296
-msgid "Webmaster's lounge"
-msgstr "Зал webmaster-а"
-
-#: frontoffice_data/CC_var_base.inc:296
-msgid "Here are the personal data that you entered when you subscribed to Phone2Enter. <br>You can modify them, except your first name and your last name. <p><br>Check the correctness of your postal address, so that you will receive the cheques used to pay your commissions."
-msgstr ""
-
-#: frontoffice_data/CC_var_base.inc:308
-#: frontoffice_data/CC_var_phonelist.inc:295
-msgid "One "
-msgstr "Один"
-
-#: frontoffice_data/CC_var_base.inc:366
-msgid "You can insert easily new "
-msgstr "Ви можете легко додати новий"
-
-#: frontoffice_data/CC_var_base.inc:371
-msgid "Once you have completed the form above, you'll be able to choose the BILLING PACK that best fits your content and your customers. Click on the *CONTINUE* when ready."
-msgstr ""
-
-#: frontoffice_data/CC_var_base.inc:375
-#: frontoffice_data/CC_var_phonelist.inc:361
-msgid "Your new "
-msgstr "Ваш новий"
-
-#: frontoffice_data/CC_var_phonelist.inc:37
-msgid "PHONENUMBER"
-msgstr "Номер телефону"
-
-#: frontoffice_data/CC_var_phonelist.inc:39
-msgid "LAST ATTEMPT"
-msgstr "Остання спроба"
-
-#: frontoffice_data/CC_var_phonelist.inc:40
-msgid "CONNECTED TO"
-msgstr "Підключено до"
-
-#: frontoffice_data/CC_var_phonelist.inc:41
-msgid "NUM TRIALS"
-msgstr "Кількість спроб"
-
-#: frontoffice_data/CC_var_phonelist.inc:42
-#, fuzzy
-msgid "CALLED MINUTE"
-msgstr "Хвилин"
-
-#: frontoffice_data/CC_var_phonelist.inc:105
-msgid "- PHONELIST List -"
-msgstr "- Список телефонів -"
-
-#: frontoffice_data/CC_var_phonelist.inc:149
-msgid "Phone Number"
-msgstr "Номер телефону"
-
-#: frontoffice_data/CC_var_phonelist.inc:155
-msgid "Insert the phonenumber"
-msgstr "Додати номер телефона"
-
-#: frontoffice_data/CC_var_phonelist.inc:157
-msgid "Enter here the phonenumber you want to call"
-msgstr "Введіть номер, на який Ви хочете подзвонити"
-
-#: frontoffice_data/CC_var_phonelist.inc:160
-msgid "CAMPAIGN"
-msgstr "Кампанія"
-
-#: frontoffice_data/CC_var_phonelist.inc:179
-msgid "Insert the name "
-msgstr "Додати ім’я"
-
-#: frontoffice_data/CC_var_phonelist.inc:194
-msgid "LAST ATTEMPT DATE"
-msgstr "Дата останньої спроби"
-
-#: frontoffice_data/CC_var_phonelist.inc:200
-msgid "Insert the last attempt date"
-msgstr "Додати дату останньої спроби"
-
-#: frontoffice_data/CC_var_phonelist.inc:202
-msgid "please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
-msgstr "будь-ласка, використовуйте формат YYYY-MM-DD HH:MM:SS. Наприклад, '2004-12-31 00:00:00'"
-
-#: frontoffice_data/CC_var_phonelist.inc:213
-msgid "Choose if this phonenumber would be enable or not"
-msgstr "Вкажіть,чи буде цей номер активізований"
-
-#: frontoffice_data/CC_var_phonelist.inc:219
-msgid "ADDITIONALINFO"
-msgstr "Додаткова інформація"
-
-#: frontoffice_data/CC_var_phonelist.inc:225
-msgid "Insert additional information"
-msgstr "Додати додаткову інформацію"
-
-#: frontoffice_data/CC_var_phonelist.inc:232
-msgid "INUSE"
-msgstr "Використовується"
-
-#: frontoffice_data/CC_var_phonelist.inc:238
-msgid "Choose the status of this phonenumber"
-msgstr "Виберіть статус цього номера телефона"
-
-#: frontoffice_data/CC_var_phonelist.inc:346
-msgid "The destination has been created correctly."
-msgstr "Напрямок створено коректно."
-
-#: frontoffice_data/CC_var_phonelist.inc:359
-msgid "Add a NEW "
-msgstr "Додати новий"
-
-#: frontoffice_data/CC_var_phonelist.inc:372
-msgid "Setup those values to create the new "
-msgstr "Встановіть ці значення, щоб створити новий"
-
-#: frontoffice_data/CC_var_phonelist.inc:378
-msgid "Made your change to edit the current "
-msgstr ""
-
-#: A2B_entity_invoice_detail.php:24
-#: A2B_entity_invoice_detail_pdf.php:24
-msgid "Unbilled Details"
-msgstr ""
-
-#: A2B_entity_invoice_detail.php:28
-#: templates/design1/main.tpl:247
-#: A2B_entity_invoice_detail_pdf.php:29
-msgid "Billed Details"
-msgstr ""
-
-#: A2B_entity_invoice_detail.php:355
-#: A2B_entity_invoice_detail.php:360
-#: invoices_customer.php:368
-#: invoices_customer.php:769
-#: A2B_entity_invoice_detail_pdf.php:371
-#: A2B_entity_invoice_detail_pdf.php:376
-msgid "From Date"
-msgstr "З дати"
-
-#: A2B_entity_invoice_detail.php:364
-#: A2B_entity_invoice_detail_pdf.php:380
-msgid "To Date"
-msgstr "По дату"
-
-#: A2B_entity_invoice_detail.php:564
-#: A2B_entity_invoice_detail_pdf.php:579
-msgid "DID Billing"
-msgstr "DID білінг"
-
-#: A2B_entity_invoice_detail.php:567
-#: A2B_entity_invoice_detail_pdf.php:582
-msgid "Charge Date"
-msgstr "Дата оплати"
-
-#: A2B_entity_invoice_detail.php:569
-#: A2B_entity_invoice_detail_pdf.php:584
-msgid "Country"
-msgstr "Країна"
-
-#: A2B_entity_invoice_detail.php:570
-#: A2B_entity_invoice_detail.php:645
-#: A2B_entity_invoice_detail_pdf.php:585
-#: A2B_entity_invoice_detail_pdf.php:658
+#: card-history.php:45 A2B_invoice_preview.php:111 A2B_receipt_view.php:162
+#: A2B_support.php:102 A2B_invoice_view.php:172 A2B_receipt_detail.php:82
 msgid "Description"
 msgstr "Опис"
 
-#: A2B_entity_invoice_detail.php:640
-#: A2B_entity_invoice_detail.php:672
-#: invoices_customer.php:397
-#: invoices_customer.php:788
-#: A2B_entity_invoice_detail_pdf.php:653
-#: A2B_entity_invoice_detail_pdf.php:686
-msgid "Extra Charges"
-msgstr "Додаткові платежі"
-
-#: A2B_entity_invoice_detail.php:644
-#: A2B_entity_invoice_detail_pdf.php:657
-msgid "Type"
-msgstr "Тип"
-
-# ?????????????7
-#: A2B_entity_invoice_detail.php:660
-#: A2B_entity_invoice_detail_pdf.php:674
-#, fuzzy
-msgid "Setup Charges"
-msgstr "Встановочний платіж"
-
-#: A2B_entity_invoice_detail.php:664
-#: A2B_entity_invoice_detail_pdf.php:678
-msgid "DID Montly Use"
-msgstr "Використання DID за місяць"
-
-# ?????????????????7
-#: A2B_entity_invoice_detail.php:668
-#: A2B_entity_invoice_detail_pdf.php:682
-#, fuzzy
-msgid "Subscription Fee"
-msgstr "Вступна плата"
-
-#: A2B_entity_invoice_detail.php:736
-#: invoices_customer.php:719
-#: A2B_entity_invoice_detail_pdf.php:747
-msgid "Status"
-msgstr "Статуc"
-
-#: A2B_entity_invoice_detail.php:745
-#: A2B_entity_invoice_detail_pdf.php:757
-msgid "Connected"
-msgstr "З’єднано"
-
-#: A2B_entity_invoice_detail.php:746
-msgid "DisConnected"
-msgstr "Роз’єднано"
-
-# можливо: Карта номер
-#: call-history.php:89
-msgid "CardNumber"
-msgstr "Номер карти"
-
-#: call-history.php:95
-msgid "Terminate Cause"
-msgstr "Причина роз’єднання"
-
-#: call-history.php:95
-#, fuzzy
-msgid "TC"
-msgstr "Пр. роз'єд."
-
-#: call-history.php:96
-msgid "Calltype"
-msgstr "Тип дзвінка"
-
-#: call-history.php:103
-#, fuzzy
-msgid "InitalRate"
-msgstr "Тариф"
-
-#: call-history.php:132
-msgid "Call Logs"
-msgstr "Логи дзвінків"
-
-#: call-history.php:442
-msgid "End with"
-msgstr "Закінчується на"
-
-#: call-history.php:464
-msgid "RESUTL"
-msgstr "РЕЗУЛЬТАТ"
-
-#: call-history.php:503
-msgid "Number of Calls"
-msgstr "Кількість дзвінків"
-
-#: call-history.php:655
-msgid "PREVIOUS"
-msgstr "Попередня"
-
-#: call-history.php:661
-#: predictivedialer.php:322
-msgid "NEXT"
-msgstr "Наступна"
-
-#: call-history.php:677
-msgid "Total Cost"
-msgstr "Загальна вартість"
-
-#: call-history.php:716
-msgid "SUMMARY"
+#: card-history.php:69
+msgid "Card History"
 msgstr ""
 
-#: call-history.php:728
-msgid "CALLING CARD MINUTES"
-msgstr ""
-
-#: call-history.php:731
-#: invoices_customer.php:400
-#: invoices_customer.php:553
-#: invoices_customer.php:792
-msgid "DATE"
-msgstr "ДАТА"
-
-#: call-history.php:732
-#: invoices_customer.php:848
-#: invoices_customer.php:935
-msgid "DURATION"
-msgstr "ТРИВАЛІСТЬ"
-
-#: call-history.php:733
-#: invoices_customer.php:460
-#: invoices_customer.php:555
-msgid "GRAPHIC"
-msgstr "ГРАФІК"
-
-#: call-history.php:734
-msgid "CALLS"
-msgstr "ДЗВІНКІВ"
-
-#: call-history.php:735
-msgid "AVERAGE LENGTH OF CALL"
-msgstr "Середня тривалість дзвінка"
-
-#: call-history.php:735
-msgid "ALOC"
-msgstr "СЕР. ТРИВ."
-
-#: call-history.php:736
-msgid "TOTAL COST"
-msgstr ""
-
-#: call-history.php:800
-msgid "No calls in your selection"
-msgstr "Не знайдено дзвінків за заданим критерієм"
-
-#: PP_error.php:12
-msgid "ERROR : ACCESS REFUSED"
-msgstr "ПОМИЛКА: ВІДМОВЛЕНО У ДОСТУПІ"
-
-#: PP_error.php:13
-msgid "Sorry a problem occur on our system, please try later!"
-msgstr "Вибачте, в системі сталась помилка. Будь-ласка, спробуйте пізніше!"
-
-#: PP_error.php:14
-msgid "There is an error on this page!"
-msgstr "Помилка на цій сторінці!"
-
-#: PP_error.php:15
-msgid "Sorry, you don t have access to this page !"
-msgstr "Вибачте, у Вас немає доступу до цієї сторінки!"
-
-#: PP_error.php:16
-msgid "Sorry, this page is in construction !"
-msgstr "Вибачте, ця сторінка на етапі конструкції!"
-
-#: PP_error.php:24
-#: templates/default/PP_error.tpl:17
-#: templates/design1/PP_error.tpl:17
-msgid "Error Page"
-msgstr "Error Page"
-
-#: A2B_entity_password.php:48
-msgid "No value in New Password entered"
-msgstr "Не введено значення в полі Новий Пароль"
-
-#: A2B_entity_password.php:54
-msgid "No Value in Confirm New Password entered"
-msgstr "Не введено значення в полі Підтверждення Пароля"
-
-#: A2B_entity_password.php:60
-msgid "Password length should be greater than or equal to 5"
-msgstr "Пароль повинен бути не коротшим 5 символів"
-
-#: A2B_entity_password.php:66
-msgid "Value mismatch, New Password should be equal to Confirm New Password"
-msgstr "Значення не співпадають, Новий Пароль повинен співпадати з Підтвержденням Пароля"
-
-#: A2B_entity_password.php:82
-msgid "Your password is updated successfully."
-msgstr "Ваш пароль успішно змінено."
-
-#: A2B_entity_password.php:89
-msgid "System is failed to update your password."
-msgstr "Система не змогла змінити Ваш пароль."
-
-#: A2B_entity_password.php:100
-msgid "Change Password"
-msgstr "Змінити Пароль"
-
-#: A2B_entity_password.php:106
-msgid "New Password"
-msgstr "Новий Пароль"
-
-#: A2B_entity_password.php:110
-msgid "Confirm Password"
-msgstr "Підтвердіть Пароль"
-
-#: A2B_entity_password.php:117
-msgid "Save"
-msgstr "Зберегти"
-
-#: A2B_entity_speeddial.php:58
-msgid "Enter the number which you wish to assign to the code here"
-msgstr "Введіть номер, який Ви хочете прив'язати до коду"
-
-#: A2B_entity_speeddial.php:64
-msgid "Speed Dial code"
-msgstr "Код швидкого набору"
-
-#: A2B_entity_speeddial.php:80
-msgid "ASSIGN NUMBER TO SPEEDDIAL"
-msgstr "Прив’язати номер до швидкого набору"
-
-# ???піра??? чи може peer’a
-#: webphone.php:24
-msgid "ERROR TO LOAD PEER!"
-msgstr "Помилка при завантажені peer’a!"
-
-#: webphone.php:50
-msgid "Account/Phone"
-msgstr "Акаунт/Телефон"
-
-#: webphone.php:65
-msgid "SIP WEB-PHONE"
-msgstr "SIP Web-телефон"
-
-#: webphone.php:71
-msgid "NO SIP ACCOUNT"
-msgstr "Немає SIP аккаунта"
-
-#: webphone.php:73
-msgid "Click to start SIP WebPhone"
-msgstr "Натисніть для запуску SIP Web-телефона"
-
-#: webphone.php:93
-msgid "IAX WEB-PHONE"
-msgstr "IAX Web-телефон"
-
-#: webphone.php:99
-msgid "NO IAX ACCOUNT"
-msgstr "Немає IAX акаунта"
-
-#: webphone.php:101
-msgid "START IAX PHONE"
-msgstr "Запустить IAX Web-телефон"
-
-#: invoices_customer.php:29
-msgid "ERROR: Cannot download file"
-msgstr "ПОМИЛКА: не можу скачати файл"
-
-# це не існує
-#: invoices_customer.php:29
-msgid "it does not exist"
-msgstr "він не існує"
-
-#: invoices_customer.php:401
-#: invoices_customer.php:793
-msgid "NB CHARGE"
-msgstr ""
-
-#: invoices_customer.php:402
-#: invoices_customer.php:462
-#: invoices_customer.php:557
-#: invoices_customer.php:850
-#: invoices_customer.php:937
-msgid "TOTALCOST"
-msgstr "ЗАГ. ВАРТ."
-
-#: invoices_customer.php:455
-#: invoices_customer.php:843
-msgid "CALLS PER DESTINATION"
-msgstr "Дзвінки по напрямку"
-
-#: invoices_customer.php:459
-#: invoices_customer.php:554
-msgid "DUR"
-msgstr "ТРИВ."
-
-#: invoices_customer.php:461
-#: invoices_customer.php:556
-#: invoices_customer.php:849
-#: invoices_customer.php:936
-msgid "CALL"
-msgstr "ДЗВІНКІВ"
-
-#: invoices_customer.php:550
-#: invoices_customer.php:930
-msgid "CALLS PER DAY"
-msgstr "Дзвінків в день"
-
-#: invoices_customer.php:622
-#: invoices_customer.php:1003
-msgid "Number of call"
-msgstr "Кількість дзвінків"
-
-#: invoices_customer.php:1007
-msgid "nb"
-msgstr "№"
-
-#: templates/design1/main.tpl:243
-msgid "Invoices"
-msgstr "Рахунки"
-
-#: templates/design1/main.tpl:245
-msgid "Billed Summary"
-msgstr ""
-
-#: templates/design1/main.tpl:249
-msgid "UnBilled Summary"
-msgstr ""
-
-#: templates/design1/main.tpl:251
-msgid "UnBilled Details"
-msgstr ""
-
-#: CC_entity_edit_speeddial.php:625
-msgid "Voip Station"
-msgstr "VoIP станція"
-
-#: CC_entity_edit_speeddial.php:1029
-msgid "Remove this Speed Dial"
-msgstr "Видалити цей швидкий набір"
-
-#: CC_entity_edit_speeddial.php:1046
-msgid "Deletetion"
-msgstr "Видалення"
-
-#: A2B_entity_ratecard.php:72
-msgid "NONE"
-msgstr ""
-
-#: predictivedialer.php:70
-msgid "Error : The system cannot call you back, please inform the administrator"
-msgstr "Помилка: Система не може віддзвонити Вам. Будь-ласка, повідомте адміністратора!"
-
-#: predictivedialer.php:80
-msgid "Cannot connect to the asterisk manager!"
-msgstr "Не можу подключиться до менеджера asterisk!"
-
-#: predictivedialer.php:80
-msgid "Please check the manager configuration..."
-msgstr "Будь-ласка, перевірте конфігурацію asterisk manager..."
-
-#: predictivedialer.php:88
-msgid "Error : You have to specify your phonenumber and the number you wish to call"
-msgstr "Помилка: Ви повинні задати Ваш номер і номер якому хочете зателефонувати"
-
-#: predictivedialer.php:146
-msgid "You can initiate the predictive dialer by clicking on the Place call button!"
-msgstr "Ви можете ініціювати попередній набір, клацнувши на кнопку Подзвонити!"
-
-#: predictivedialer.php:157
-msgid "Your PhoneNumber / Location"
-msgstr "Ваш Номер Телефону / Розміщення"
-
-#: predictivedialer.php:163
-msgid "Click here to place 10 calls"
-msgstr "Натисніть тут для здійснення 10-и дзвінків"
-
-#: predictivedialer.php:171
-msgid "Click here to see the last called persons and the current connect call"
-msgstr "Натисніть тут щоб побачити останні та поточний дзвінки"
-
-#: predictivedialer.php:317
-#: CC_entity_phonelist.php:243
-msgid "Previous"
-msgstr "Попередній"
-
-#: predictivedialer.php:341
-#: A2B_entity_did.php:565
-#: CC_entity_phonelist.php:267
-msgid "NO"
-msgstr "Ні"
-
-#: predictivedialer.php:341
-#: CC_entity_phonelist.php:267
-msgid "REGISTERED"
-msgstr "Зареєстрований"
-
-#: predictivedialer.php:363
-msgid "INSERT a new"
-msgstr "Додати новий"
-
-#: predictivedialer.php:363
-#: predictivedialer.php:374
-#: predictivedialer.php:380
-msgid "PHONELIST"
-msgstr "Список телефонів"
-
-#: predictivedialer.php:374
-msgid "You wish to insert a new"
-msgstr "Ви хочете додати новий"
-
-#: predictivedialer.php:374
-msgid "Click on Add button"
-msgstr "Натисніть на кнопку Додати"
-
-#: predictivedialer.php:380
-#: CC_entity_phonelist.php:289
-msgid "Insert a new"
-msgstr "Додати новий"
-
-#: A2B_entity_invoice_detail_pdf.php:25
-msgid "Unbilled Invoice Details for Card Number"
-msgstr ""
-
-#: A2B_entity_invoice_detail_pdf.php:30
-msgid "Billed Invoice Details for Card Number"
-msgstr ""
-
-# Жодний? або Ні?
-#: A2B_entity_invoice_detail_pdf.php:450
-#: A2B_entity_invoice_detail_pdf.php:552
-msgid "None!!!"
-msgstr "Жоден!!!"
-
-#: A2B_entity_invoice_detail_pdf.php:758
-msgid "Disconnected"
-msgstr "Роз’єднано"
-
-#: A2B_entity_did.php:62
-msgid "The following Destinaton-DID has been relesed:"
-msgstr "Були звільнені наступні DID-напрямки:"
-
-#: A2B_entity_did.php:100
-msgid "If you really want release this DID , Click on the release button."
-msgstr "Якщо Ви дійсно хочете звільнити цей DID - натисніть на кнопку Звільнити."
-
-#: A2B_entity_did.php:107
-msgid "Release the DID "
-msgstr "Звільнити DID"
-
-#: A2B_entity_did.php:154
-msgid "The following Destinaton-DID has been added:"
-msgstr "Були додані наступні DID-напрямки:"
-
-#: A2B_entity_did.php:364
-msgid "Buy New DID"
-msgstr "Купити новий DID"
-
-#: A2B_entity_did.php:364
-msgid "Add Phone Number to your DID"
-msgstr "Додати номер телефона до Вашого DID"
-
-#: A2B_entity_did.php:364
-msgid "Release DID"
-msgstr "Звільнити DID"
-
-#: A2B_entity_did.php:381
-msgid "Select Country"
-msgstr "Виберіть країну"
-
-#: A2B_entity_did.php:395
-msgid "Select Virtual Phone Number"
-msgstr "Виберіть віртуальний номер телефона"
-
-#: A2B_entity_did.php:409
-msgid "Ring To Number "
-msgstr "Подзвонити на номер "
-
-#: A2B_entity_did.php:561
-msgid "Country Code - Area Code - Number"
-msgstr "Код країни - Код області - Номер"
-
-#: A2B_entity_did.php:565
-msgid "VOIP CALL : "
-msgstr "VoIP дзвінок:"
-
-#: A2B_entity_did.php:567
-msgid "Ring To destination "
-msgstr "Подзвонити на напрямок"
-
-#: A2B_entity_did.php:570
-msgid "Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call"
-msgstr "Введіть номер телефона, на який Ви хочете подзвонити, або SIP/IAX клієнта (наприклад: 347894999 або SIP/oleh@182.212.1.45). Для дзвінка на VoIP номер Ви повинні дозволити VoIP дзвінки."
-
-#: A2B_entity_did.php:574
-msgid "If you release the did you will not be monthly charged any more."
-msgstr "Якщо Ви звільните DID, з Вас більше не буде стягуватись щомісячна плата."
-
-#: A2B_entity_did.php:580
-#: CC_entity_phonelist.php:248
-msgid "Next"
-msgstr "Наступний"
-
-#: A2B_entity_did.php:582
-msgid "Add phone number"
-msgstr "Додати номер телефону"
-
-#: A2B_entity_did.php:584
-#: A2B_entity_did.php:613
-#: A2B_entity_did.php:634
-msgid "Ok"
-msgstr "Ok"
-
-#: A2B_entity_did.php:600
-msgid "Confirm the purchase of the DID "
-msgstr "Підтвердіть купівлю DID"
-
-#: A2B_entity_did.php:605
-msgid "A monthly fee of "
-msgstr "Щомісячне стягнення"
-
-#: A2B_entity_did.php:605
-msgid " will be carrie out from your acount"
-msgstr " буде знято з Вашого акаунта"
-
-#: A2B_entity_did.php:610
-msgid "Prev"
-msgstr "Попередній"
-
-#: A2B_entity_did.php:624
-msgid "The purchase of the DID is done "
-msgstr "Купівлю DID завершено"
-
-#: A2B_entity_did.php:625
-msgid "The purchase of the DID cant be done, your credit of  "
-msgstr "Купівля DID не може бути виконана, Ваш балланс"
-
-#: A2B_entity_did.php:625
-msgid " is lower than Fixerate of the DID  "
-msgstr " нижче, ніж фіксована оплата DID"
-
-#: A2B_entity_did.php:625
-msgid "Please reload your account "
-msgstr "Будь-ласка, перезавантажте Ваш акаунт"
-
-#: A2B_entity_callerid.php:77
-msgid "CALLER ID :"
-msgstr "CallerID:"
-
-#: A2B_entity_callerid.php:81
-msgid "ADD NEW CALLERID"
-msgstr "Додати CallerID"
-
-#: A2B_entity_view_invoice.php:84
-msgid "SELECT MONTH"
-msgstr "ВИБРАТИ МІСЯЦЬ"
-
-#: A2B_entity_view_invoice.php:90
-msgid "From"
-msgstr "з"
-
-#: A2B_entity_view_invoice.php:113
-msgid "To"
-msgstr "по"
-
-#: A2B_entity_sipiax_info.php:28
-msgid "IAX Config"
-msgstr "Конфігурація IAX"
-
-#: A2B_entity_sipiax_info.php:29
-msgid "iax.conf"
-msgstr "iax.conf"
-
-#: A2B_entity_sipiax_info.php:33
-msgid "SIP Config"
-msgstr "Конфігурація SIP"
-
-#: A2B_entity_sipiax_info.php:34
-msgid "sip.conf"
-msgstr "sip.conf"
-
-#: A2B_entity_sipiax_info.php:58
-msgid "CARD"
-msgstr "КАРТКА"
-
-#: A2B_entity_sipiax_info.php:62
-msgid "CONFIGURATION TYPE"
-msgstr "ТИП КОНФІГУРАЦІЇ"
-
-#: A2B_entity_sipiax_info.php:65
-msgid "IAX"
-msgstr "IAX"
-
-#: A2B_entity_sipiax_info.php:66
-msgid "SIP"
-msgstr "SIP"
-
-#: A2B_entity_sipiax_info.php:85
-msgid "Copy and past this into your "
-msgstr "Скопіюйте і вставте це в Ваш"
-
-#: A2B_entity_sipiax_info.php:132
-msgid "The peer is not defined, please contact your Administrator!"
-msgstr "Peer не визначено, будь-ласка зв’яжіться з Адміністратором!"
+#: card-history.php:174
+msgid "SELECT BY MONTH"
+msgstr "ВИБІР ПО МІСЯЦЮ"
+
+#: card-history.php:180 card-history.php:231 call-history.php:190
+msgid "FROM"
+msgstr "З"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "JANUARY"
+msgstr "СІЧЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "FEBRUARY"
+msgstr "ЛЮТИЙ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "MARCH"
+msgstr "БЕРЕЗЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "APRIL"
+msgstr "КВІТЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "MAY"
+msgstr "ТРАВЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "JUNE"
+msgstr "ЧЕРВЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "JULY"
+msgstr "ЛИПЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "AUGUST"
+msgstr "СЕРПЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "SEPTEMBER"
+msgstr "ВЕРЕСЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "OCTOBER"
+msgstr "ЖОВТЕНЬ"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "NOVEMBER"
+msgstr "ЛИСТОПАД"
+
+#: card-history.php:184 card-history.php:205 card-history.php:244
+#: card-history.php:272 call-history.php:203 call-history.php:231
+msgid "DECEMBER"
+msgstr "ГРУДЕНЬ"
+
+#: card-history.php:200 card-history.php:259 call-history.php:218
+msgid "TO"
+msgstr "ПО"
+
+#: card-history.php:226
+msgid "SELECT BY DAY"
+msgstr "ВИБІР ПО ДНЮ"
+
+#: card-history.php:293 call-history.php:333
+msgid "Search"
+msgstr "Пошук"
+
+#: card-history.php:385 CC_entity_edit_speeddial.php:265
+#: CC_entity_edit_speeddial.php:475 CC_entity_edit_speeddial.php:767
+#: CC_entity_edit_speeddial.php:1013
+#: lib/Form/Class.FormHandler.EditForm.inc.php:199
+#: lib/Form/Class.FormHandler.EditForm.inc.php:392
+#: lib/Form/Class.FormHandler.EditForm.inc.php:792
+#: lib/Form/Class.FormHandler.DelForm.inc.php:155
+#: lib/Form/Class.FormHandler.AddForm.inc.php:140
+#: CC_entity_edit_did_destination.php:374
+#: CC_entity_edit_did_destination.php:593
+#: CC_entity_edit_did_destination.php:911
+#: CC_entity_edit_did_destination.php:1033
+#: CC_entity_edit_did_destination.php:1197 call-history.php:456
+msgid "No data found !!!"
+msgstr "Немає даних!"
+
+#: checkout_success.php:23 lib/Form/Class.FormHandler.DelForm.inc.php:42
+msgid "Message"
+msgstr "Повідомлення"
 
 #: checkout_success.php:31
 msgid "Thank you for your purchase"
@@ -2929,118 +159,3286 @@ msgstr "Ваша транзакція виконується."
 msgid "Your transaction was successful."
 msgstr "Вашу транзакція успішно завершено."
 
-#: forgotpassword.php:21
-msgid "Please wait 1 minutes before making any other request for the forgot password!"
-msgstr "Будь-ласка, зачекайте 1 хвилину перед наступною спробою відновлення пароля!"
+#: A2B_entity_speeddial.php:53
+msgid "Enter the number which you wish to assign to the code here"
+msgstr "Введіть номер, який Ви хочете прив'язати до коду"
 
-#: forgotpassword.php:95
-msgid "Your login information email has been sent to you."
+#: A2B_entity_speeddial.php:59
+msgid "Speed Dial code"
+msgstr "Код швидкого набору"
+
+#: A2B_entity_speeddial.php:69 A2B_entity_did.php:362 call-history.php:64
+msgid "Destination"
+msgstr "Напрямок"
+
+#: A2B_entity_speeddial.php:71
+msgid "Name"
+msgstr "Ім'я"
+
+#: A2B_entity_speeddial.php:75
+msgid "ASSIGN NUMBER TO SPEEDDIAL"
+msgstr "Прив’язати номер до швидкого набору"
+
+#: A2B_entity_password.php:44
+msgid "No value in New Password entered"
+msgstr "Не введено значення в полі Новий Пароль"
+
+#: A2B_entity_password.php:50
+msgid "No Value in Confirm New Password entered"
+msgstr "Не введено значення в полі Підтверждення Пароля"
+
+#: A2B_entity_password.php:56
+msgid "Password length should be greater than or equal to 5"
+msgstr "Пароль повинен бути не коротшим 5 символів"
+
+#: A2B_entity_password.php:62
+msgid "Value mismatch, New Password should be equal to Confirm New Password"
+msgstr "Значення не співпадають, Новий Пароль повинен співпадати з Підтвержденням Пароля"
+
+#: A2B_entity_password.php:76
+msgid "Your password is updated successfully."
+msgstr "Ваш пароль успішно змінено."
+
+#: A2B_entity_password.php:78
+msgid "Your old password is wrong."
+msgstr ""
+
+#: A2B_entity_password.php:86
+msgid "Change Password"
+msgstr "Змінити Пароль"
+
+#: A2B_entity_password.php:92
+#, fuzzy
+msgid "Old Password"
+msgstr "Новий Пароль"
+
+#: A2B_entity_password.php:96
+msgid "New Password"
+msgstr "Новий Пароль"
+
+#: A2B_entity_password.php:100
+msgid "Confirm Password"
+msgstr "Підтвердіть Пароль"
+
+#: A2B_entity_password.php:107
+msgid "Save"
+msgstr "Зберегти"
+
+#: checkout_payment.php:266
+msgid "Please enter the order amount"
+msgstr "Будь-ласка, введіть сумму замовлення"
+
+#: checkout_payment.php:273
+msgid "Total Amount"
+msgstr "Загальна сума"
+
+# ???піра??? чи може peer’a
+#: webphone.php:23
+msgid "ERROR TO LOAD PEER!"
+msgstr "Помилка при завантажені peer’a!"
+
+#: webphone.php:49
+msgid "Account/Phone"
+msgstr "Акаунт/Телефон"
+
+#: webphone.php:64
+msgid "SIP WEB-PHONE"
+msgstr "SIP Web-телефон"
+
+#: webphone.php:70
+msgid "NO SIP ACCOUNT"
+msgstr "Немає SIP аккаунта"
+
+#: webphone.php:72
+msgid "Click to start SIP WebPhone"
+msgstr "Натисніть для запуску SIP Web-телефона"
+
+#: webphone.php:92
+msgid "IAX WEB-PHONE"
+msgstr "IAX Web-телефон"
+
+#: webphone.php:98
+msgid "NO IAX ACCOUNT"
+msgstr "Немає IAX акаунта"
+
+#: webphone.php:100
+msgid "START IAX PHONE"
+msgstr "Запустить IAX Web-телефон"
+
+#: A2B_entity_callerid.php:62
+msgid "CALLER ID :"
+msgstr "CallerID:"
+
+#: A2B_entity_callerid.php:66
+msgid "ADD NEW CALLERID"
+msgstr "Додати CallerID"
+
+#: A2B_entity_callerid.php:79
+msgid "You are not allowed to add more CallerID."
+msgstr ""
+
+#: A2B_entity_callerid.php:81
+msgid "Remove one if you are willing to use an other CallerID."
+msgstr ""
+
+#: A2B_entity_callerid.php:83
+msgid "Max CallerId"
+msgstr ""
+
+#: userinfo.php:27
+msgid "Error loading your account information!"
+msgstr ""
+
+#: userinfo.php:66
+msgid "LAST NAME"
+msgstr "Прізвище"
+
+#: userinfo.php:67
+msgid "FIRST NAME"
+msgstr "Ім’я"
+
+#: userinfo.php:68 form_data/FG_var_signup.inc:184
+msgid "EMAIL"
+msgstr "E-mail"
+
+#: userinfo.php:69 form_data/FG_var_speeddial.inc:19
+#: form_data/FG_var_speeddial.inc:67
+msgid "PHONE"
+msgstr "Телефон"
+
+#: userinfo.php:70
+msgid "FAX"
+msgstr "Факс"
+
+#: userinfo.php:73 form_data/FG_var_signup.inc:194
+#: form_data/FG_var_card.inc:34
+msgid "ADDRESS"
+msgstr "Адреса"
+
+#: userinfo.php:74
+msgid "ZIP CODE"
+msgstr "Поштовий індекс"
+
+#: userinfo.php:75 form_data/FG_var_signup.inc:204
+#: form_data/FG_var_card.inc:44
+msgid "CITY"
+msgstr "Місто"
+
+#: userinfo.php:76
+msgid "STATE"
+msgstr "Область"
+
+#: userinfo.php:77 form_data/FG_var_signup.inc:224 form_data/FG_var_did.inc:36
+#: form_data/FG_var_card.inc:64
+msgid "COUNTRY"
+msgstr "Країна"
+
+#: userinfo.php:85
+msgid "GO TO VOICEMAIL"
+msgstr ""
+
+#: userinfo.php:90
+msgid "EDIT PERSONAL INFORMATION"
+msgstr "Редагувати особисту інформацію"
+
+#: userinfo.php:105
+msgid "CARD NUMBER"
+msgstr "Номер картки"
+
+#: userinfo.php:109
+msgid "BALANCE REMAINING"
+msgstr "Залишок на рахунку"
+
+#: userinfo.php:115
+#, fuzzy
+msgid "CALLING PACKAGE"
+msgstr "Callback"
+
+#: userinfo.php:119
+#, fuzzy
+msgid "PACKAGE MINUTES REMAINING"
+msgstr "Залишок на рахунку"
+
+#: userinfo.php:121
+#, fuzzy
+msgid "PACKAGE MINUTES USED"
+msgstr "Хвилин"
+
+#: userinfo.php:144
+msgid "Click below to buy credit : "
+msgstr "Натисніть нижче, щоб купити кредит:"
+
+#: A2B_entity_sipiax_info.php:26
+msgid "IAX Config"
+msgstr "Конфігурація IAX"
+
+#: A2B_entity_sipiax_info.php:27
+msgid "iax.conf"
+msgstr "iax.conf"
+
+#: A2B_entity_sipiax_info.php:30
+msgid "SIP Config"
+msgstr "Конфігурація SIP"
+
+#: A2B_entity_sipiax_info.php:31
+msgid "sip.conf"
+msgstr "sip.conf"
+
+#: A2B_entity_sipiax_info.php:55 form_data/FG_var_campaign.inc:38
+msgid "CARD"
+msgstr "КАРТКА"
+
+#: A2B_entity_sipiax_info.php:59
+msgid "CONFIGURATION TYPE"
+msgstr "ТИП КОНФІГУРАЦІЇ"
+
+#: A2B_entity_sipiax_info.php:62
+msgid "IAX"
+msgstr "IAX"
+
+#: A2B_entity_sipiax_info.php:63
+msgid "SIP"
+msgstr "SIP"
+
+#: A2B_entity_sipiax_info.php:82
+msgid "Copy and past this into your "
+msgstr "Скопіюйте і вставте це в Ваш"
+
+#: A2B_entity_sipiax_info.php:129
+msgid "The peer is not defined, please contact your Administrator!"
+msgstr "Peer не визначено, будь-ласка зв’яжіться з Адміністратором!"
+
+#: A2B_invoice_preview.php:80
+#, fuzzy
+msgid "PREVIEW INVOICE"
+msgstr "Рахунки"
+
+#: A2B_invoice_preview.php:112 A2B_invoice_view.php:173
+msgid "Cost excl. VAT"
+msgstr ""
+
+#: A2B_invoice_preview.php:113 A2B_invoice_view.php:174
+#: A2B_invoice_view.php:231 checkout_confirmation.php:121
+msgid "VAT"
+msgstr "ПДВ"
+
+#: A2B_invoice_preview.php:114 A2B_invoice_view.php:175
+msgid "Cost incl. VAT"
+msgstr ""
+
+#: A2B_invoice_preview.php:161 A2B_invoice_view.php:224
+msgid "Subtotal excl. VAT:"
+msgstr ""
+
+#: A2B_invoice_preview.php:174 A2B_invoice_view.php:237
+msgid "Total incl. VAT:"
+msgstr ""
+
+#: CC_entity_edit_speeddial.php:419 CC_entity_edit_speeddial.php:609
+#: lib/Form/Class.FormHandler.EditForm.inc.php:344
+#: lib/Form/Class.FormHandler.EditForm.inc.php:512
+#: lib/Form/Class.FormHandler.EditForm.inc.php:641
+#: CC_entity_edit_did_destination.php:740
+msgid "Add a new"
+msgstr "Додати новий"
+
+#: CC_entity_edit_speeddial.php:531 CC_entity_edit_speeddial.php:700
+#: lib/Form/Class.FormHandler.EditForm.inc.php:433
+#: lib/Form/Class.FormHandler.EditForm.inc.php:570
+#: CC_entity_edit_did_destination.php:647
+#: CC_entity_edit_did_destination.php:842
+msgid "LIST"
+msgstr "Список"
+
+#: CC_entity_edit_speeddial.php:624
+msgid "Voip Station"
+msgstr "VoIP станція"
+
+#: CC_entity_edit_speeddial.php:1028
+msgid "Remove this Speed Dial"
+msgstr "Видалити цей швидкий набір"
+
+#: CC_entity_edit_speeddial.php:1028 CC_entity_edit_did_destination.php:1212
+msgid "Delete"
+msgstr "Видалити"
+
+#: CC_entity_edit_speeddial.php:1045
+msgid "Deletetion"
+msgstr "Видалення"
+
+#: CC_entity_edit_speeddial.php:1047 lib/interface/constants.php:154
+#: CC_entity_edit_did_destination.php:1239
+msgid "New"
+msgstr "Новий"
+
+#: CC_entity_edit_speeddial.php:1047 CC_entity_edit_did_destination.php:1239
+msgid "Inserted"
+msgstr "Додано"
+
+#: activate.php:10
+msgid "Sorry the activation has been sent already, please wait 1 minute before making any other try !"
+msgstr ""
+
+#: activate.php:84
+msgid "Welcome! Your account has been successfully activated. Thank you!"
+msgstr ""
+
+#: activate.php:86 signup_confirmation.php:140
+msgid "Thank you for registering with us !"
+msgstr ""
+
+#: activate.php:87 signup_confirmation.php:141
+#, fuzzy
+msgid "An email confirming your information has been sent to"
 msgstr "Вашу ідентифікаційну інформацію надіслано Вам на e-mail."
 
-#: forgotpassword.php:98
-msgid "No such login exists."
-msgstr "Такого логіну не існує."
-
-#: forgotpassword.php:101
-msgid "Invalid Action."
-msgstr "Невірна дія."
-
-#: forgotpassword.php:104
-msgid "Pleaes provide your email address to get your login information."
-msgstr "Будь-ласка, введіть Вашу e-mail адресу для отримання ідентифікаційної інформації."
-
-#: forgotpassword.php:124
-msgid "You must enter an email address!"
-msgstr "Ви повинні ввести e-mail адресу!"
-
-# відмовлено
-#: forgotpassword.php:147
-msgid "AUTHENTICATION REFUSED, please check your user/password!"
-msgstr "В ідентифікації відмовлено, будь-ласка перевірте Ваш логін/пароль!"
-
-#: forgotpassword.php:155
-msgid "Forgot your password?"
-msgstr "Забули пароль?"
-
-#: forgotpassword.php:164
-msgid "Email"
-msgstr "Email"
-
-#: forgotpassword.php:170
-msgid "SUBMIT"
-msgstr "Прийняти"
-
-#: A2B_entity_voucher.php:40
-msgid "System Error : No currency table complete !!!"
-msgstr "Системна помилка: Таблиця валют не повна!"
-
-#: A2B_entity_voucher.php:51
-msgid "The Voucher"
-msgstr "Ваучер"
-
-#: A2B_entity_voucher.php:51
-msgid "has been used, We added"
-msgstr "був використаний, Ми додали"
-
-#: A2B_entity_voucher.php:51
+#: activate.php:89 signup_confirmation.php:143
 #, fuzzy
-msgid "credit on your account!"
+msgid "Your cardnumber is "
+msgstr "Ваш номер телефону"
+
+#: activate.php:90 signup_confirmation.php:144
+#, fuzzy
+msgid "To login to your account :"
 msgstr "на Ваш рахунок!"
 
-#: A2B_entity_voucher.php:56
-msgid "This Voucher doesn't exist !"
-msgstr "Цей Ваучер не існує !"
+#: activate.php:91 signup_confirmation.php:145
+msgid "Your card alias (login) is "
+msgstr ""
 
-#: A2B_entity_voucher.php:115
-msgid "USE VOUCHER"
-msgstr "Використати ваучер"
+#: activate.php:92 signup_confirmation.php:146 form_data/FG_var_signup.inc:420
+#, fuzzy
+msgid "Your password is "
+msgstr "Забули пароль?"
 
-#: simulator.php:58
+#: activate.php:96
+msgid "Follow the link to access your account : "
+msgstr ""
+
+#: activate.php:118
+msgid "Your account is already activated."
+msgstr ""
+
+#: activate.php:122
+msgid "Your account cannot be activated please contact <br> the website administrator or retry later."
+msgstr ""
+
+#: simulator.php:51
 #, fuzzy
 msgid "Error card !!!"
 msgstr "Error card !!!"
 
-#: simulator.php:147
+#: simulator.php:124
 msgid "Call"
 msgstr "Дзвінок"
 
-#: simulator.php:147
+#: simulator.php:124
 msgid "Simulator"
 msgstr "Симулятор"
 
-#: simulator.php:153
+#: simulator.php:130
 msgid "Enter the number you wish to call"
 msgstr "Введіть номер, на який Ви хочете зателефонувати"
 
-#: simulator.php:158
+#: simulator.php:135
 msgid "YOUR BALANCE"
 msgstr "Ваш баланс"
 
-#: simulator.php:194
+#: simulator.php:166
 msgid "Simulator found a rate for your destination"
 msgstr "Симулятор знайшов тариф для Вашого напрямку"
 
-#: simulator.php:200
+#: simulator.php:172
 msgid "We found several destinations:"
 msgstr "Знайдено декілька напрямків"
 
-#: simulator.php:216
+#: simulator.php:190 form_data/FG_var_ratecard.inc:29
+#: form_data/FG_var_did.inc:31 form_data/FG_var_did.inc:59
+msgid "DESTINATION"
+msgstr "НАПРЯМОК"
+
+#: simulator.php:195
 msgid "CallTime available"
 msgstr "Доступний час дзвінка"
 
-#: simulator.php:266
+#: simulator.php:197 call-history.php:306
+msgid "Minutes"
+msgstr "Хвилини"
+
+#: simulator.php:230
 msgid "The number, you have entered, is not correct!"
 msgstr "Ви ввели невірний номер!"
 
-#: CC_entity_phonelist.php:299
-msgid "If you wish to insert a new"
-msgstr "Якщо Ви хочете додати новий"
+#: A2B_receipt_view.php:111 A2B_invoice_view.php:114
+#, fuzzy
+msgid "INVOICE"
+msgstr "Рахунки"
 
-#: CC_entity_phonelist.php:299
-msgid "click on the Add button"
-msgstr "натисніть кнопку Додати"
+#: A2B_receipt_view.php:118 A2B_invoice_view.php:122 A2B_invoice_view.php:139
+#, fuzzy
+msgid "VAT nr."
+msgstr "ПДВ"
 
-#: CC_entity_phonelist.php:304
-msgid "Information about the insertion"
-msgstr "Інформація про додання"
+#: A2B_receipt_view.php:163 call-history.php:68 A2B_receipt_detail.php:83
+msgid "Cost"
+msgstr "Вартість"
+
+#: A2B_receipt_view.php:199
+#, fuzzy
+msgid "Total:"
+msgstr "Загалом"
+
+#: callback.php:129
+msgid "Cannot insert the callback request in the spool!"
+msgstr "Не можу додати запит для callback’у!"
+
+#: callback.php:131
+msgid "Your callback request has been queued correctly!"
+msgstr "Ваш callback-запит поставлено в чергу!"
+
+#: callback.php:136
+msgid "Error : You don t have enough credit to call you back!"
+msgstr "Помилка: У Вас недостатньо коштів для здійснення callback’у!"
+
+#: callback.php:139
+msgid "Error : There is no route to call back your phonenumber!"
+msgstr "Помилка: Немає маршруту для здійснення callback’у на Ваш номер!"
+
+#: callback.php:145
+msgid "Error : You have to specify your phonenumber and the number you wish to call!"
+msgstr "Помилка: Ви повинні вказати Ваш номер і номер, на який Ви хочете подзвонити!"
+
+#: callback.php:162
+msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
+msgstr "Ви можете ініціювати callback, ввівши свій номер і номер, якому Ви хочете подзвонити! "
+
+#: callback.php:171
+msgid "Your PhoneNumber"
+msgstr "Ваш номер телефону"
+
+#: callback.php:174
+msgid "The number you wish to call"
+msgstr "Номер, на який Ви хочете подзвонити"
+
+#: callback.php:179
+msgid "Click here to Place Call"
+msgstr "Натисніть тут щоб подзвонити"
+
+#: PP_error.php:12
+msgid "ERROR : ACCESS REFUSED"
+msgstr "ПОМИЛКА: ВІДМОВЛЕНО У ДОСТУПІ"
+
+#: PP_error.php:13
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr "Вибачте, в системі сталась помилка. Будь-ласка, спробуйте пізніше!"
+
+#: PP_error.php:14
+msgid "There is an error on this page!"
+msgstr "Помилка на цій сторінці!"
+
+#: PP_error.php:15
+msgid "Sorry, you don t have access to this page !"
+msgstr "Вибачте, у Вас немає доступу до цієї сторінки!"
+
+#: PP_error.php:16
+msgid "Sorry, this page is in construction !"
+msgstr "Вибачте, ця сторінка на етапі конструкції!"
+
+#: PP_error.php:24 templates/default/PP_error.tpl:17
+msgid "Error Page"
+msgstr "Error Page"
+
+#: PP_error.php:40
+msgid "GO TO LOGIN PAGE"
+msgstr ""
+
+#: A2B_support.php:31
+#, fuzzy
+msgid "Ticket added successfully"
+msgstr "Ваш пароль успішно змінено."
+
+#: A2B_support.php:53
+msgid "Create support ticket"
+msgstr ""
+
+#: A2B_support.php:61
+#, fuzzy
+msgid "Title"
+msgstr "Загалом"
+
+#: A2B_support.php:69
+msgid "Priority"
+msgstr ""
+
+#: A2B_support.php:73 lib/interface/constants.php:199
+#: A2B_entity_ratecard.php:68
+msgid "NONE"
+msgstr ""
+
+#: A2B_support.php:74 lib/interface/constants.php:200
+#: lib/Class.Notification.php:64
+msgid "LOW"
+msgstr ""
+
+#: A2B_support.php:75 lib/interface/constants.php:201
+#: lib/Class.Notification.php:61
+msgid "MEDIUM"
+msgstr ""
+
+#: A2B_support.php:76 lib/interface/constants.php:202
+#: lib/Class.Notification.php:59
+msgid "HIGH"
+msgstr ""
+
+#: A2B_support.php:82
+msgid "Component"
+msgstr ""
+
+#: A2B_support.php:110
+#, fuzzy
+msgid "CREATE"
+msgstr "Створено!"
+
+#: A2B_entity_voucher.php:33
+#, fuzzy
+msgid "System Error : the currency table is incomplete!"
+msgstr "Системна помилка: Таблиця валют не повна!"
+
+#: A2B_entity_voucher.php:42
+#, fuzzy
+msgid "The voucher"
+msgstr "Ваучер"
+
+#: A2B_entity_voucher.php:42
+msgid "has been used, We added"
+msgstr "був використаний, Ми додали"
+
+#: A2B_entity_voucher.php:42
+#, fuzzy
+msgid "credit on your account!"
+msgstr "на Ваш рахунок!"
+
+#: A2B_entity_voucher.php:45
+#, fuzzy
+msgid "This voucher doesn't exist !"
+msgstr "Цей Ваучер не існує !"
+
+#: A2B_entity_voucher.php:48
+msgid "The voucher should be a number !"
+msgstr ""
+
+#: A2B_entity_voucher.php:102 form_data/FG_var_voucher.inc:12
+msgid "VOUCHER"
+msgstr "Ваучер"
+
+#: A2B_entity_voucher.php:107
+msgid "USE VOUCHER"
+msgstr "Використати ваучер"
+
+#: help.php:12 lib/customer.help.php:12
+msgid "From here, you can use the web based screen phone. You need microphone and speakers on your PC."
+msgstr "Тут Ви можете скористатись Web-телефоном. Ви повинні мати мікрофон та колонки."
+
+#: help.php:28 lib/customer.help.php:28
+msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
+msgstr "Всі дзвінки перелічені нижче. Пошук по місяцу, дню або статусу. Також Ви можете дізнатись тариф та вартість."
+
+#: help.php:43 lib/customer.help.php:43
+msgid "Personal information."
+msgstr "Особиста інформація."
+
+#: help.php:44 lib/customer.help.php:44
+msgid "You can update your personal information here."
+msgstr "Тут Ви можете оновити Вашу особисту інформацію."
+
+#: help.php:59 lib/customer.help.php:59
+msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
+msgstr "Симулювання дзвінка для визначенння вартості хвилини дзвінка і максимальної тривалості дзвінка по цьому номеру для Вашого поточного балансу."
+
+#: help.php:74
+msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessary modifications."
+msgstr "Конфігураційна інформація для SIP та IAX клієнтів. Ви можете просто скопіювати і вставити в Ваші конфігураційні файли і зробити необхідні зміни."
+
+#: help.php:90 lib/customer.help.php:90
+msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
+msgstr "На цій сторінці Ви можете змінити Ваш пароль. Ви повинні ввести Новий Пароль і Підтвердити його."
+
+#: help.php:105
+msgid "Here you can view your ratecards"
+msgstr "Тут Ви можете переглянути Ваші тарифні плани"
+
+#: help.php:118
+msgid "Payment history - The section below allows you to see payments that you did."
+msgstr ""
+
+#: help.php:135 lib/customer.help.php:134
+msgid "Enter your voucher number to top up your card."
+msgstr "Введіть номер ваучера для поповнення Вашої картки."
+
+#: help.php:150 lib/customer.help.php:149
+msgid "This section will allow you to create and edit campaign. "
+msgstr ""
+
+#: help.php:151 lib/customer.help.php:150
+msgid "A campaign will be attached to a user in order to let him use the predictive-dialer option. "
+msgstr ""
+
+#: help.php:152 lib/customer.help.php:151
+msgid "Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls."
+msgstr ""
+
+#: help.php:163 lib/customer.help.php:162
+msgid "Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."
+msgstr ""
+
+#: help.php:175 lib/customer.help.php:198
+msgid "Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section"
+msgstr ""
+
+#: help.php:188 lib/customer.help.php:211
+msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
+msgstr "Виберіть країну, в якій Ви хочете отримати DID, виберіть DID із списку і введіть призначення, до якого Ви хочете його прив’язати."
+
+#: help.php:204 lib/customer.help.php:227
+msgid "WARNING !  <br> after confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
+msgstr "Увага! <br> після підтвердження буде негайно виконане звільнення DID, і з Вас не буде стягуватися щомісячна плата."
+
+#: A2B_phonelist_import.php:38
+msgid "Please, you must first select a phonebook !"
+msgstr ""
+
+#: A2B_phonelist_import.php:43
+msgid "Please, you must first select a file !"
+msgstr ""
+
+#: A2B_phonelist_import.php:193
+msgid "New phonebooks have to imported from a CSV file."
+msgstr ""
+
+#: A2B_phonelist_import.php:200
+msgid "Choose the phonebook to import"
+msgstr ""
+
+#: A2B_phonelist_import.php:202
+msgid "Choose a phonebook"
+msgstr ""
+
+#: A2B_phonelist_import.php:214
+msgid "These fields are mandatory"
+msgstr ""
+
+#: A2B_phonelist_import.php:217
+#, fuzzy
+msgid "number"
+msgstr "Набраний номер"
+
+#: A2B_phonelist_import.php:221
+msgid "Choose the additional fields to import from the CSV file"
+msgstr ""
+
+#: A2B_phonelist_import.php:228
+msgid "Unselected Fields..."
+msgstr ""
+
+#: A2B_phonelist_import.php:229
+#, fuzzy
+msgid "name"
+msgstr "Ім'я"
+
+#: A2B_phonelist_import.php:230
+msgid "info"
+msgstr ""
+
+#: A2B_phonelist_import.php:242
+msgid "Selected Fields..."
+msgstr ""
+
+#: A2B_phonelist_import.php:268
+msgid "Use the example below  to format the CSV file. Fields are separated by  ; or :"
+msgstr ""
+
+#: A2B_phonelist_import.php:269
+msgid ". and , are used for decimal format."
+msgstr ""
+
+#: A2B_phonelist_import.php:273
+msgid "Complex Sample"
+msgstr ""
+
+#: A2B_phonelist_import.php:274
+msgid "Simple Sample"
+msgstr ""
+
+#: A2B_phonelist_import.php:290
+msgid "The maximum file size is "
+msgstr ""
+
+#: lib/customer.defines.php:58
+msgid "The expiry date entered for the credit card is invalid."
+msgstr "Введена невірна дата закінчення дії кредитної карти."
+
+#: lib/customer.defines.php:58
+msgid "Please check the date and try again."
+msgstr "Будь-ласка, перевірте дату і спробуйте знову."
+
+#: lib/customer.defines.php:59
+msgid "The credit card number entered is invalid."
+msgstr "Введений номер картки не вірний."
+
+#: lib/customer.defines.php:59
+msgid "Please check the number and try again."
+msgstr "Будь-ласка, перевірте номер і спробуйте знову."
+
+#: lib/customer.defines.php:60
+msgid "The first four digits of the number entered are"
+msgstr "Перші 4 цифри введеного номера"
+
+#: lib/customer.defines.php:60
+msgid "If that number is correct, we do not accept that type of credit card."
+msgstr "Якщо цей номер вірний, ми не приймаємо такий тип кредитних карт."
+
+#: lib/customer.defines.php:60
+msgid "If it is wrong, please try again."
+msgstr "Якщо це не так, спробуйте знову."
+
+#: lib/customer.defines.php:67
+msgid "Errors have occured during the process of your form."
+msgstr "Під час обробки Вашої форми стались помилки."
+
+#: lib/customer.defines.php:67
+msgid "Please make the following corrections:\\n\\n"
+msgstr "Будь-ласка, зробіть наступні зміни:\\n\\n"
+
+# Що означає Review Text
+#: lib/customer.defines.php:68
+msgid "* The 'Review Text' must have at least"
+msgstr "* 'Review Text'  повинен буди мінімум"
+
+#: lib/customer.defines.php:68 lib/customer.defines.php:80
+#: lib/customer.defines.php:81 lib/customer.defines.php:94
+msgid "characters"
+msgstr "символів"
+
+#: lib/customer.defines.php:69
+msgid "You must rate the product for your review."
+msgstr "Ви повинні оцінити продукт для Вашого перегляду."
+
+#: lib/customer.defines.php:70 lib/customer.defines.php:72
+msgid "Please select a payment method for your order."
+msgstr "Будь-ласка, оберіть спосіб оплати Вашого замовлення."
+
+#: lib/customer.defines.php:71
+msgid "This form has already been submitted. Please press Ok and wait for this process to be completed."
+msgstr "Цей запит вже було відправлено. Будь-ласка, натисніть Ок і зачекайте до кінця завершення процесу."
+
+#: lib/customer.defines.php:74
+msgid "Credit Card"
+msgstr "Кредитна картка"
+
+#: lib/customer.defines.php:75 lib/customer.defines.php:85
+msgid "Credit Card Test Info"
+msgstr "Тестова інформація кредитної картки"
+
+#: lib/customer.defines.php:75 lib/customer.defines.php:85
+msgid "Expiry: Any"
+msgstr "Кінцевий термін дії: Будь-який"
+
+#: lib/customer.defines.php:76
+msgid "Credit Card Type"
+msgstr "Тип кредитної картки"
+
+#: lib/customer.defines.php:77
+msgid "Credit Card Owner"
+msgstr "Власник кредитної картки"
+
+#: lib/customer.defines.php:78
+msgid "Credit Card Number"
+msgstr "Номер кредитної картки"
+
+#: lib/customer.defines.php:79
+msgid "Credit Card Expiry Date"
+msgstr "Дата закінчення дії кредитної картки"
+
+#: lib/customer.defines.php:80 lib/customer.defines.php:93
+msgid "* The owner's name of the credit card must be at least"
+msgstr "* Ім’я власника кредитної картки повинно бути мінімум"
+
+#: lib/customer.defines.php:81 lib/customer.defines.php:94
+msgid "* The credit card number must be at least"
+msgstr "* Номер кредитної картки повинен бути мінімум"
+
+#: lib/customer.defines.php:82
+msgid "Credit Card Error!"
+msgstr "Помилка кредитної картки!"
+
+#: lib/customer.defines.php:86
+msgid "There has been an error processing your credit card"
+msgstr "Помилка обробки Вашої кредитної картки"
+
+#: lib/customer.defines.php:87
+msgid "Please check your credit card details!"
+msgstr "Будь-ласка, перевірте деталі Вашої кредитної карти!"
+
+#: lib/customer.defines.php:88
+msgid "Credit Card Owner:"
+msgstr "Власник кредитної картки:"
+
+#: lib/customer.defines.php:89
+msgid "Credit Card Number:"
+msgstr "Номер кредитної картки:"
+
+#: lib/customer.defines.php:90
+msgid "Credit Card Expiry Date:"
+msgstr "Дата закінчення дії кредитної карти:"
+
+#: lib/customer.defines.php:91
+msgid "Credit Card Checknumber:"
+msgstr "Контрольний номер кредитної карти:"
+
+#: lib/customer.defines.php:92
+msgid "(located at the back of the credit card)"
+msgstr "(розміщений на зворотній стороні кредитної карти)"
+
+#: lib/customer.defines.php:93
+msgid "characters."
+msgstr "символів."
+
+#: lib/customer.defines.php:238
+msgid "This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"
+msgstr ""
+
+#: lib/customer.defines.php:241
+msgid " <a href=\"http://www.star2billing.com\" target=\"_blank\">www.star2billing.com</a> - Commercial Open Source Telephony"
+msgstr ""
+
+#: lib/customer.defines.php:242
+msgid "A2Billing : Customer Portal"
+msgstr ""
+
+#: lib/interface/constants.php:8 lib/interface/constants.php:17
+msgid "ENGLISH"
+msgstr ""
+
+#: lib/interface/constants.php:9 lib/interface/constants.php:18
+msgid "SPANISH"
+msgstr ""
+
+#: lib/interface/constants.php:10 lib/interface/constants.php:19
+msgid "FRENCH"
+msgstr ""
+
+#: lib/interface/constants.php:11
+msgid "RUSSIAN"
+msgstr ""
+
+#: lib/interface/constants.php:25
+msgid "NONE RESTRICTION USED"
+msgstr ""
+
+#: lib/interface/constants.php:26
+msgid "CAN'T CALL RESTRICTED NUMBERS"
+msgstr ""
+
+#: lib/interface/constants.php:27
+msgid "CAN ONLY CALL RESTRICTED NUMBERS"
+msgstr ""
+
+#: lib/interface/constants.php:33 A2B_entity_did.php:360
+msgid "Yes"
+msgstr "Так"
+
+#: lib/interface/constants.php:34
+#: lib/Form/Class.FormHandler.EditForm.inc.php:313
+#: CC_entity_edit_did_destination.php:706
+msgid "No"
+msgstr "Ні"
+
+#: lib/interface/constants.php:49 form_data/FG_var_did.inc:29
+msgid "Inactive"
+msgstr "Неактивний"
+
+#: lib/interface/constants.php:50 form_data/FG_var_did.inc:29
+msgid "Active"
+msgstr "Активний"
+
+#: lib/interface/constants.php:63
+msgid "Fix per month + dialoutrate"
+msgstr "Фіксовано за місяць + вихідний тариф"
+
+#: lib/interface/constants.php:64
+msgid "Fix per month"
+msgstr "Фіксовано за місяць"
+
+#: lib/interface/constants.php:65
+msgid "Only dialout rate"
+msgstr "Тільки вихідний тариф"
+
+#: lib/interface/constants.php:66 lib/interface/constants.php:75
+msgid "Free"
+msgstr "Безкоштовно"
+
+#: lib/interface/constants.php:72
+msgid "Fix+Dial"
+msgstr "Фіксовано + дзвінки"
+
+#: lib/interface/constants.php:73
+msgid "Fix"
+msgstr "Фіксовано"
+
+#: lib/interface/constants.php:74
+#, fuzzy
+msgid "Dial"
+msgstr "Дзвінки"
+
+#: lib/interface/constants.php:81 lib/interface/constants.php:292
+#: lib/interface/constants.php:299
+msgid "INDIVIDUAL ACCESS"
+msgstr ""
+
+#: lib/interface/constants.php:82 lib/interface/constants.php:291
+#: lib/interface/constants.php:298
+msgid "SIMULTANEOUS ACCESS"
+msgstr ""
+
+#: lib/interface/constants.php:88
+#, fuzzy
+msgid "PREPAID CARD"
+msgstr "Тарифний план"
+
+#: lib/interface/constants.php:89
+msgid "POSTPAID CARD"
+msgstr ""
+
+#: lib/interface/constants.php:95
+#, fuzzy
+msgid "NO EXPIRATION"
+msgstr "Мінімальна тривалість"
+
+#: lib/interface/constants.php:96 lib/interface/constants.php:306
+msgid "EXPIRE DATE"
+msgstr ""
+
+#: lib/interface/constants.php:97 lib/interface/constants.php:307
+msgid "EXPIRE DAYS SINCE FIRST USE"
+msgstr ""
+
+#: lib/interface/constants.php:98 lib/interface/constants.php:308
+msgid "EXPIRE DAYS SINCE CREATION"
+msgstr ""
+
+#: lib/interface/constants.php:105 lib/interface/constants.php:112
+msgid "OPEN"
+msgstr ""
+
+#: lib/interface/constants.php:106 lib/interface/constants.php:113
+msgid "CLOSE"
+msgstr "Закрити"
+
+#: lib/interface/constants.php:120 lib/interface/constants.php:144
+msgid "UNPAID"
+msgstr ""
+
+#: lib/interface/constants.php:121 lib/interface/constants.php:147
+msgid "PAID"
+msgstr ""
+
+#: lib/interface/constants.php:127 lib/Form/Class.SearchHandler.inc.php:36
+msgid "January"
+msgstr "Січень"
+
+#: lib/interface/constants.php:128 lib/Form/Class.SearchHandler.inc.php:36
+msgid "February"
+msgstr "Лютий"
+
+#: lib/interface/constants.php:129 lib/Form/Class.SearchHandler.inc.php:36
+msgid "March"
+msgstr "Березень"
+
+#: lib/interface/constants.php:130 lib/Form/Class.SearchHandler.inc.php:36
+msgid "April"
+msgstr "Квітень"
+
+#: lib/interface/constants.php:131 lib/Form/Class.SearchHandler.inc.php:36
+msgid "May"
+msgstr "Травень"
+
+#: lib/interface/constants.php:132 lib/Form/Class.SearchHandler.inc.php:36
+msgid "June"
+msgstr "Червень"
+
+#: lib/interface/constants.php:133 lib/Form/Class.SearchHandler.inc.php:36
+msgid "July"
+msgstr "Липень"
+
+#: lib/interface/constants.php:134 lib/Form/Class.SearchHandler.inc.php:36
+msgid "August"
+msgstr "Серпень"
+
+#: lib/interface/constants.php:135 lib/Form/Class.SearchHandler.inc.php:36
+msgid "September"
+msgstr "Вересень"
+
+#: lib/interface/constants.php:136 lib/Form/Class.SearchHandler.inc.php:36
+msgid "October"
+msgstr "Жовтень"
+
+#: lib/interface/constants.php:137 lib/Form/Class.SearchHandler.inc.php:36
+msgid "November"
+msgstr "Листопад"
+
+#: lib/interface/constants.php:138 lib/Form/Class.SearchHandler.inc.php:36
+msgid "December"
+msgstr "Грудень"
+
+#: lib/interface/constants.php:145
+msgid "SENT-UNPAID"
+msgstr ""
+
+#: lib/interface/constants.php:146
+msgid "SENT-PAID"
+msgstr ""
+
+#: lib/interface/constants.php:155
+msgid "Proceed"
+msgstr ""
+
+#: lib/interface/constants.php:156
+#, fuzzy
+msgid "In Process"
+msgstr "Рахунки"
+
+#: lib/interface/constants.php:162
+msgid "Failed"
+msgstr "Невдало"
+
+#: lib/interface/constants.php:163
+msgid "Successful"
+msgstr "Успішно"
+
+#: lib/interface/constants.php:164
+msgid "Not Sent"
+msgstr ""
+
+#: lib/interface/constants.php:170
+msgid "Unlimited calls"
+msgstr ""
+
+#: lib/interface/constants.php:171
+#, fuzzy
+msgid "Number of Free calls"
+msgstr "Кількість дзвінків"
+
+#: lib/interface/constants.php:172
+#, fuzzy
+msgid "Free minutes"
+msgstr "Хвилини"
+
+#: lib/interface/constants.php:178
+msgid "Monthly"
+msgstr ""
+
+#: lib/interface/constants.php:179
+msgid "Weekly"
+msgstr ""
+
+#: lib/interface/constants.php:185
+msgid "LCR : According to the buyer price"
+msgstr ""
+
+#: lib/interface/constants.php:186
+msgid "LCD : According to the seller price"
+msgstr ""
+
+#: lib/interface/constants.php:192
+msgid "LCR : buyer price"
+msgstr ""
+
+#: lib/interface/constants.php:193
+msgid "LCD : seller price"
+msgstr ""
+
+#: lib/interface/constants.php:208 form_data/FG_var_ticket.inc:26
+msgid "VIEWED"
+msgstr ""
+
+#: lib/interface/constants.php:209 lib/interface/constants.php:253
+#: lib/interface/constants.php:266 lib/interface/constants.php:279
+#: lib/support/classes/ticket.php:275
+msgid "NEW"
+msgstr ""
+
+#: lib/interface/constants.php:216
+#, fuzzy
+msgid "NO USED"
+msgstr "Не використовується"
+
+#: lib/interface/constants.php:217
+#, fuzzy
+msgid "USED"
+msgstr "Не використовується"
+
+#: lib/interface/constants.php:223
+msgid "ANSWER"
+msgstr ""
+
+#: lib/interface/constants.php:224
+msgid "BUSY"
+msgstr ""
+
+#: lib/interface/constants.php:225
+msgid "NOANSWER"
+msgstr ""
+
+#: lib/interface/constants.php:226 lib/interface/constants.php:277
+#, fuzzy
+msgid "CANCEL"
+msgstr "ДЗВІНКІВ"
+
+#: lib/interface/constants.php:227
+#, fuzzy
+msgid "CONGESTION"
+msgstr "Створення"
+
+#: lib/interface/constants.php:228
+msgid "CHANUNAVAIL"
+msgstr ""
+
+#: lib/interface/constants.php:229
+#, fuzzy
+msgid "DONTCALL"
+msgstr "ДЗВІНКІВ"
+
+#: lib/interface/constants.php:230
+#, fuzzy
+msgid "TORTURE"
+msgstr "ДЖЕРЕЛО"
+
+#: lib/interface/constants.php:231
+msgid "INVALIDARGS"
+msgstr ""
+
+#: lib/interface/constants.php:251 lib/interface/constants.php:265
+#, fuzzy
+msgid "ACTIVE"
+msgstr "Активовано"
+
+#: lib/interface/constants.php:252 lib/interface/constants.php:264
+#, fuzzy
+msgid "CANCELLED"
+msgstr "CallerID"
+
+#: lib/interface/constants.php:254 lib/interface/constants.php:267
+msgid "WAITING-MAILCONFIRMATION"
+msgstr ""
+
+#: lib/interface/constants.php:255 lib/interface/constants.php:268
+#, fuzzy
+msgid "RESERVED"
+msgstr "Зареєстрований"
+
+#: lib/interface/constants.php:256 lib/interface/constants.php:269
+#: lib/interface/constants.php:282 A2B_entity_phonenumber.php:112
+msgid "EXPIRED"
+msgstr ""
+
+#: lib/interface/constants.php:257 lib/interface/constants.php:270
+msgid "SUSPENDED FOR UNDERPAYMENT"
+msgstr ""
+
+#: lib/interface/constants.php:258 lib/interface/constants.php:271
+msgid "SUSPENDED FOR LITIGATION"
+msgstr ""
+
+#: lib/interface/constants.php:277
+msgid "<acronym title=\"CANCELLED\">"
+msgstr ""
+
+#: lib/interface/constants.php:278 form_data/FG_var_callerid.inc:16
+#: form_data/FG_var_callerid.inc:58 form_data/FG_var_did.inc:33
+#: form_data/FG_var_did.inc:80
+msgid "ACTIVATED"
+msgstr "Активовано"
+
+#: lib/interface/constants.php:278
+msgid "<acronym title=\"ACTIVATED\">"
+msgstr ""
+
+#: lib/interface/constants.php:279
+msgid "<acronym title=\"NEW\">"
+msgstr ""
+
+#: lib/interface/constants.php:280
+#, fuzzy
+msgid "WAITING"
+msgstr "Дія"
+
+#: lib/interface/constants.php:280
+msgid "<acronym title=\"WAITING-MAILCONFIRMATION\">"
+msgstr ""
+
+#: lib/interface/constants.php:281
+#, fuzzy
+msgid "RESERV"
+msgstr "Зареєстрований"
+
+#: lib/interface/constants.php:281
+msgid "<acronym title=\"RESERVED\">"
+msgstr ""
+
+#: lib/interface/constants.php:282
+msgid "<acronym title=\"EXPIRED\">"
+msgstr ""
+
+#: lib/interface/constants.php:283
+msgid "SUS-PAY"
+msgstr ""
+
+#: lib/interface/constants.php:283
+msgid "<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">"
+msgstr ""
+
+#: lib/interface/constants.php:284
+#, fuzzy
+msgid "SUS-LIT"
+msgstr "РЕЗУЛЬТАТ"
+
+#: lib/interface/constants.php:284
+msgid "<acronym title=\"SUSPENDED FOR LITIGATION\">"
+msgstr ""
+
+#: lib/interface/constants.php:305
+msgid "NO EXPIRY"
+msgstr ""
+
+#: lib/interface/constants.php:314 form_data/FG_var_phonenumber.inc:30
+#: form_data/FG_var_phonenumber.inc:77
+msgid "AMOUNT"
+msgstr "Кількість"
+
+#: lib/interface/constants.php:315
+#, fuzzy
+msgid "CORRECTION"
+msgstr "Створення"
+
+#: lib/interface/constants.php:316
+msgid "EXTRA FEE"
+msgstr ""
+
+#: lib/interface/constants.php:329
+#, fuzzy
+msgid "NO DISCOUNT"
+msgstr "Немає SIP аккаунта"
+
+#: lib/Class.A2Billing.php:359
+msgid "Invalid card number lenght defined in configuration."
+msgstr "В конфігурації визначена неправильна довжина номера картки."
+
+#: lib/Class.A2Billing.php:2463
+msgid "Error : Authentication Failed !!!"
+msgstr "Помилка: Невдала автентифікація!"
+
+#: lib/Class.A2Billing.php:2501 lib/Class.A2Billing.php:2506
+msgid "Error : Not enough credit to call !!!"
+msgstr "Помилка: Недостатньо коштів для здійснення дзвінка!"
+
+#: lib/Class.A2Billing.php:2512
+msgid "Error : Card is not active!!!"
+msgstr "Помилка: Картка не активна!"
+
+#: lib/Class.A2Billing.php:2518
+msgid "Error : Card is actually in use!!!"
+msgstr "Помилка: Картка вже використовується!"
+
+#: lib/Class.A2Billing.php:2527 lib/Class.A2Billing.php:2535
+#: lib/Class.A2Billing.php:2543
+msgid "Error : Card have expired!!!"
+msgstr "Помилка: Закінчився термін дії картки!"
+
+#: lib/Misc.php:697
+msgid "File size is greater than allowed limit."
+msgstr "Розмір файлу перевищує допустимий ліміт."
+
+#: lib/Misc.php:700
+msgid "You did not upload anything!"
+msgstr "Ви нічого не завантажили!"
+
+#: lib/Misc.php:702
+msgid "Failed to upload the file, The file you uploaded may not exist on disk."
+msgstr "Помилка завантаження файлу, можливо він не існує."
+
+#: lib/Misc.php:705
+msgid "file type is not allowed"
+msgstr "недопустимий тип файлу"
+
+#: lib/Misc.php:996
+msgid "Can't find our base_currency in cc_currencies."
+msgstr ""
+
+#: lib/Misc.php:996 lib/Misc.php:1017 lib/Misc.php:1021 lib/Misc.php:1031
+msgid "Currency update ABORTED."
+msgstr ""
+
+#: lib/Misc.php:1017
+msgid "The CSV file doesn't contain all the currencies we requested."
+msgstr ""
+
+#: lib/Misc.php:1021
+msgid "At least one of the entries in the CSV file isn't a number."
+msgstr ""
+
+#: lib/Misc.php:1031
+msgid "Our base_currency seems to be worthless."
+msgstr ""
+
+#: lib/Misc.php:1065
+msgid "Success! All currencies are now updated."
+msgstr ""
+
+#: lib/customer.help.php:74
+#, fuzzy
+msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and do necessary modifications."
+msgstr "Конфігураційна інформація для SIP та IAX клієнтів. Ви можете просто скопіювати і вставити в Ваші конфігураційні файли і зробити необхідні зміни."
+
+#: lib/customer.help.php:104
+msgid "View Ratecards"
+msgstr ""
+
+#: lib/customer.help.php:117
+msgid "Payment history - Record of payments made."
+msgstr ""
+
+#: lib/customer.help.php:174
+msgid "Invoice history - The section below allows you to see and pay the invoices that you have to pay."
+msgstr ""
+
+#: lib/customer.help.php:185
+msgid "Receipt history - The section below allows you to see the receipt that you received. you can see in them the summary of some withdrawal"
+msgstr ""
+
+#: lib/Class.Notification.php:35
+msgid "New SIP & IAX added : Friends conf have to be generated"
+msgstr ""
+
+#: lib/Class.Notification.php:36
+msgid "New SIP added : Sip Friends conf have to be generated"
+msgstr ""
+
+#: lib/Class.Notification.php:37
+msgid "New IAX added : IAX Friends conf have to be generated"
+msgstr ""
+
+#: lib/Class.Notification.php:38
+msgid "New Ticket added by agent"
+msgstr ""
+
+#: lib/Class.Notification.php:39
+msgid "New Ticket added by customer"
+msgstr ""
+
+#: lib/Class.Notification.php:83
+#, fuzzy
+msgid "BATCH"
+msgstr "БЕРЕЗЕНЬ"
+
+#: lib/Class.Notification.php:85
+msgid "UNKNOWN"
+msgstr ""
+
+#: lib/Class.Notification.php:102
+msgid "No Message Unknown"
+msgstr ""
+
+#: lib/support/classes/ticket.php:177
+msgid "(ADMINISTRATOR) "
+msgstr ""
+
+#: lib/support/classes/ticket.php:198
+msgid "(AGENT)"
+msgstr ""
+
+#: lib/support/classes/ticket.php:278
+msgid "FIXED"
+msgstr ""
+
+#: lib/support/classes/ticket.php:281
+msgid "REOPEN"
+msgstr ""
+
+#: lib/support/classes/ticket.php:284
+#, fuzzy
+msgid "CLOSED"
+msgstr "Закрити"
+
+#: lib/support/classes/ticket.php:287
+msgid "INVALID"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:136
+msgid "<br> TYPE DE SELECT :"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:259
+#, fuzzy
+msgid "LIST "
+msgstr "Список"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:49
+msgid "You have "
+msgstr "У Вас"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:202
+msgid "Remove this "
+msgstr "Видалити"
+
+#: lib/Form/Class.FormHandler.AddForm.inc.php:194
+msgid "Create a new "
+msgstr "Створити"
+
+#: lib/Form/Class.ViewHandler.inc.php:70
+msgid "Archiving All "
+msgstr ""
+
+#: lib/Form/Class.ViewHandler.inc.php:83
+msgid "Sort"
+msgstr "Сортувати"
+
+#: lib/Form/Class.ViewHandler.inc.php:103
+msgid "Records"
+msgstr "Записи"
+
+#: lib/Form/Class.ViewHandler.inc.php:125
+msgid "FILTER ON "
+msgstr "Фільтр по"
+
+#: lib/Form/Class.ViewHandler.inc.php:142
+msgid "FILTER ON"
+msgstr "Фільтр по"
+
+#: lib/Form/Class.ViewHandler.inc.php:155
+msgid "APPLY FILTER "
+msgstr "Застосувати фільтр"
+
+#: lib/Form/Class.ViewHandler.inc.php:186 A2B_entity_phonenumber.php:97
+msgid "ACTION"
+msgstr "Дія"
+
+#: lib/Form/Class.ViewHandler.inc.php:627
+msgid "DISPLAY"
+msgstr "Показати"
+
+#: lib/Form/Class.ViewHandler.inc.php:646
+msgid "GO"
+msgstr "Вперед"
+
+#: lib/Form/Class.ViewHandler.inc.php:650
+msgid "Export CSV"
+msgstr "Експорт в CSV"
+
+#: lib/Form/Class.ViewHandler.inc.php:654
+msgid "Export XML"
+msgstr "Експорт в XML"
+
+#: lib/Form/Class.SearchHandler.inc.php:24
+#: lib/Form/Class.SearchHandler.inc.php:95
+msgid "From :"
+msgstr "З:"
+
+#: lib/Form/Class.SearchHandler.inc.php:55
+#: lib/Form/Class.SearchHandler.inc.php:123
+msgid "To :"
+msgstr "По:"
+
+#: lib/Form/Class.SearchHandler.inc.php:202 call-history.php:255
+msgid "Exact"
+msgstr "Точно"
+
+#: lib/Form/Class.SearchHandler.inc.php:203 call-history.php:256
+msgid "Begins with"
+msgstr "Починається з"
+
+#: lib/Form/Class.SearchHandler.inc.php:204 call-history.php:257
+msgid "Contains"
+msgstr "Містить"
+
+#: lib/Form/Class.SearchHandler.inc.php:205 call-history.php:258
+msgid "Ends with"
+msgstr "Закінчується на"
+
+#: lib/Form/Class.SearchHandler.inc.php:312
+#, fuzzy
+msgid "There is"
+msgstr "Немає"
+
+#: lib/Form/Class.SearchHandler.inc.php:312
+msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
+msgstr "вибрано, використовуйте вибір нижче, якщо Ви бажаєте зробити пакетне оновлення вибраних карт."
+
+#: lib/Form/Class.SearchHandler.inc.php:341 templates/default/main.tpl:103
+msgid "RATECARD"
+msgstr "Тарифний план"
+
+#: lib/Form/Class.SearchHandler.inc.php:360
+#, fuzzy
+msgid "BUYRATE"
+msgstr "По тарифу"
+
+#: lib/Form/Class.SearchHandler.inc.php:363
+#: lib/Form/Class.SearchHandler.inc.php:378
+#: lib/Form/Class.SearchHandler.inc.php:394
+#: lib/Form/Class.SearchHandler.inc.php:410
+#: lib/Form/Class.SearchHandler.inc.php:426
+#: lib/Form/Class.SearchHandler.inc.php:442
+#: lib/Form/Class.SearchHandler.inc.php:458
+#: lib/Form/Class.SearchHandler.inc.php:474
+#: lib/Form/Class.SearchHandler.inc.php:490
+msgid "Equal"
+msgstr "Рівно"
+
+#: lib/Form/Class.SearchHandler.inc.php:364
+#: lib/Form/Class.SearchHandler.inc.php:379
+#: lib/Form/Class.SearchHandler.inc.php:395
+#: lib/Form/Class.SearchHandler.inc.php:411
+#: lib/Form/Class.SearchHandler.inc.php:427
+#: lib/Form/Class.SearchHandler.inc.php:443
+#: lib/Form/Class.SearchHandler.inc.php:459
+#: lib/Form/Class.SearchHandler.inc.php:475
+#: lib/Form/Class.SearchHandler.inc.php:492 form_data/FG_var_phonebook.inc:80
+msgid "Add"
+msgstr "Додати"
+
+#: lib/Form/Class.SearchHandler.inc.php:365
+#: lib/Form/Class.SearchHandler.inc.php:380
+#: lib/Form/Class.SearchHandler.inc.php:396
+#: lib/Form/Class.SearchHandler.inc.php:412
+#: lib/Form/Class.SearchHandler.inc.php:428
+#: lib/Form/Class.SearchHandler.inc.php:444
+#: lib/Form/Class.SearchHandler.inc.php:460
+#: lib/Form/Class.SearchHandler.inc.php:476
+#: lib/Form/Class.SearchHandler.inc.php:493
+msgid "Substract"
+msgstr "Вирахувати"
+
+#: lib/Form/Class.SearchHandler.inc.php:375
+msgid "BUYRATEINITBLOCK"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:391
+msgid "BUYRATEINCREMENT"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:407
+#, fuzzy
+msgid "RATE INITIAL"
+msgstr "Початковий тариф"
+
+#: lib/Form/Class.SearchHandler.inc.php:423
+#, fuzzy
+msgid "MIN DURATION"
+msgstr "Мінімальна тривалість"
+
+#: lib/Form/Class.SearchHandler.inc.php:439
+msgid "BILLINGBLOCK"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:455
+#, fuzzy
+msgid "CONNECTCHARGE"
+msgstr "Плата за з’єднання"
+
+#: lib/Form/Class.SearchHandler.inc.php:471
+#, fuzzy
+msgid "DISCONNECTCHARGE"
+msgstr "Плата за роз’єднання"
+
+#: lib/Form/Class.SearchHandler.inc.php:487
+#, fuzzy
+msgid "DISCONNECT CHARGE THRESHOLD"
+msgstr "Плата за роз’єднання"
+
+#: lib/Form/Class.SearchHandler.inc.php:505
+msgid " BATCH UPDATE RATECARD "
+msgstr "Пакетне оновлення тарифного плану"
+
+#: lib/Form/Class.FormHandler.inc.php:504
+#, fuzzy
+msgid "No data found!"
+msgstr "Немає даних!"
+
+#: lib/Form/Class.FormHandler.inc.php:505
+#, fuzzy
+msgid "DIRECTORY"
+msgstr "Директорія"
+
+#: lib/Form/Class.FormHandler.inc.php:506
+#: lib/Form/Class.FormHandler.inc.php:568
+msgid "Define criteria to make a precise search"
+msgstr "Визначте критерії для точного пошуку"
+
+#: lib/Form/Class.FormHandler.inc.php:507
+msgid "You can browse through our"
+msgstr "Ви можете переглянути через наш"
+
+#: lib/Form/Class.FormHandler.inc.php:507
+msgid "and modify their different properties<br>"
+msgstr "і змінити їхні властивості<br>"
+
+#: lib/Form/Class.FormHandler.inc.php:508
+msgid "Delete this record"
+msgstr "Видалити цей запис"
+
+#: lib/Form/Class.FormHandler.inc.php:509
+msgid "Edit this record"
+msgstr "Редагувати цей запис"
+
+#: lib/Form/Class.FormHandler.inc.php:510
+msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
+msgstr "Документ було успішно створено. Тепер Ви можете визначити тариф, який хочете асоціювати."
+
+#: lib/Form/Class.FormHandler.inc.php:511 form_data/FG_var_campaign.inc:263
+#: form_data/FG_var_phonenumber.inc:110 form_data/FG_var_callerid.inc:82
+#: form_data/FG_var_speeddial.inc:84 form_data/FG_var_phonebook.inc:75
+msgid "You can modify, through the following form, the different properties of your"
+msgstr "За допомогою наступної форми Ви можете змінювати різні властивості Вашого"
+
+#: lib/Form/Class.FormHandler.inc.php:512 form_data/FG_var_campaign.inc:264
+#: form_data/FG_var_phonenumber.inc:111 form_data/FG_var_callerid.inc:83
+#: form_data/FG_var_speeddial.inc:85 form_data/FG_var_did.inc:114
+#: form_data/FG_var_ticket.inc:48 form_data/FG_var_phonebook.inc:76
+msgid "If you really want remove this"
+msgstr "Якщо Ви дійсно хочете видалити цей"
+
+#: lib/Form/Class.FormHandler.inc.php:512
+msgid "Click on the delete button."
+msgstr "Натисніть кнопку Видалити."
+
+#: lib/Form/Class.FormHandler.inc.php:513
+msgid "One"
+msgstr "Один"
+
+#: lib/Form/Class.FormHandler.inc.php:513
+msgid "has been deleted!"
+msgstr "був видалений!"
+
+#: lib/Form/Class.FormHandler.inc.php:515 form_data/FG_var_campaign.inc:265
+#: form_data/FG_var_phonenumber.inc:112 form_data/FG_var_callerid.inc:84
+#: form_data/FG_var_speeddial.inc:86 form_data/FG_var_did.inc:115
+#: form_data/FG_var_ticket.inc:49 form_data/FG_var_phonebook.inc:77
+msgid "you can add easily a new"
+msgstr "Ви можете легко додати новий"
+
+#: lib/Form/Class.FormHandler.inc.php:515 form_data/FG_var_campaign.inc:265
+#: form_data/FG_var_phonenumber.inc:112 form_data/FG_var_callerid.inc:84
+#: form_data/FG_var_speeddial.inc:86 form_data/FG_var_did.inc:115
+#: form_data/FG_var_ticket.inc:49 form_data/FG_var_phonebook.inc:77
+msgid "Fill the following fields and confirm by clicking on the button add."
+msgstr "Заповніть наступні поля і натисніть кнопку Додати."
+
+#: lib/Form/Class.FormHandler.inc.php:516
+msgid "Add a"
+msgstr "Додати"
+
+#: lib/Form/Class.FormHandler.inc.php:516
+msgid "now."
+msgstr "зараз."
+
+#: lib/Form/Class.FormHandler.inc.php:517
+#: lib/Form/Class.FormHandler.inc.php:518 form_data/FG_var_campaign.inc:269
+#: form_data/FG_var_phonenumber.inc:116 form_data/FG_var_callerid.inc:92
+#: form_data/FG_var_speeddial.inc:91 form_data/FG_var_did.inc:119
+#: form_data/FG_var_ticket.inc:53 form_data/FG_var_phonebook.inc:81
+msgid "Your new"
+msgstr "Ваш новий"
+
+#: lib/Form/Class.FormHandler.inc.php:517
+msgid "has been inserted. <br>"
+msgstr "був доданий.<br>"
+
+#: lib/Form/Class.FormHandler.inc.php:518
+#, fuzzy
+msgid "hasn't been inserted. <br>"
+msgstr "був доданий.<br>"
+
+# одну
+#: lib/Form/Class.FormHandler.inc.php:519
+msgid "You cannot choose more than one !"
+msgstr "Ви не можете вибрати більш, ніж один!"
+
+#: lib/Form/Class.FormHandler.inc.php:521
+msgid "Are you sure to delete all records connected to this instance."
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:523
+#: lib/Form/Class.FormHandler.inc.php:525
+#, fuzzy
+msgid "CONFIRM DATA"
+msgstr "Зберегти"
+
+#: lib/Form/Class.FormHandler.inc.php:524
+#, fuzzy
+msgid "DELETE"
+msgstr "ДАТА"
+
+#: lib/Form/Class.FormHandler.inc.php:557
+#: lib/Form/Class.FormHandler.inc.php:745
+msgid "Delete this "
+msgstr "Видалити"
+
+#: lib/Form/Class.FormHandler.inc.php:558
+#: lib/Form/Class.FormHandler.inc.php:739
+msgid "Edit this "
+msgstr "Редагувати"
+
+#: lib/Form/Class.FormHandler.inc.php:585
+msgid "INSERTED"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:586
+msgid "ENABLE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:587
+msgid "DISABLE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:588
+msgid "FREE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:714
+#: lib/Form/Class.FormHandler.inc.php:716
+msgid "You can browse through our "
+msgstr "Ви можете переглянути через наш"
+
+#: lib/Form/Class.FormHandler.inc.php:714
+#: lib/Form/Class.FormHandler.inc.php:716
+msgid " and modify their different properties<br>"
+msgstr "і змінити властивості<br>"
+
+#: lib/Form/Class.FormHandler.inc.php:887
+msgid "(at least 3 characters)"
+msgstr "(мінімум 3 символи)"
+
+#: lib/Form/Class.FormHandler.inc.php:891
+msgid "(must match email structure. Example : name@domain.com)"
+msgstr "(повинна співпадати з структурою e-mail. Наприклад:  name@domain.ua)"
+
+#: lib/Form/Class.FormHandler.inc.php:895
+msgid "(at least 5 successive characters appear at the end of this string)"
+msgstr "(мінімум 5 послідовних символів в кінці цього рядка)"
+
+#: lib/Form/Class.FormHandler.inc.php:899
+msgid "(at least 4 characters)"
+msgstr "(мінімум 4 символи)"
+
+#: lib/Form/Class.FormHandler.inc.php:903
+msgid "(number format)"
+msgstr "(числовий формат)"
+
+#: lib/Form/Class.FormHandler.inc.php:911
+msgid "(only number with more that 8 digits)"
+msgstr "(тільки числа, що мають не менше 8-ми цифр)"
+
+#: lib/Form/Class.FormHandler.inc.php:915
+msgid "(at least 8 digits using . or - or the space key)"
+msgstr "(мінімум 8 цифр, використовуючи . або - або пробіл)"
+
+#: lib/Form/Class.FormHandler.inc.php:919
+msgid "network adress format"
+msgstr "формат мережевої адреси"
+
+#: lib/Form/Class.FormHandler.inc.php:923
+msgid "at least 1 character"
+msgstr "мінімум 1 символ"
+
+#: lib/Form/Class.FormHandler.inc.php:931
+msgid "(AT LEAST 2 CARACTERS)"
+msgstr "(мінімум 2 символи)"
+
+#: lib/Form/Class.FormHandler.inc.php:935
+msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
+msgstr "(числовий формат з/без дробової частини, для розділення використовуйте  '.' )"
+
+#: lib/Form/Class.FormHandler.inc.php:951
+msgid "You must write something."
+msgstr "Ви повинні щось написати."
+
+#: lib/Form/Class.FormHandler.inc.php:955
+msgid "8 characters alphanumeric"
+msgstr "8 літеро-цифрових символів"
+
+#: lib/Form/Class.FormHandler.inc.php:962
+msgid "(at least 6 Alphanumeric characters)"
+msgstr "(мінімум 6  літеро-цифрових символів)"
+
+#: lib/Form/Class.FormHandler.inc.php:970
+#, fuzzy, php-format
+msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
+msgstr "(числовий формат з/без дробової частини, для розділення використовуйте  '.' )"
+
+#: lib/Form/Class.FormHandler.inc.php:1473
+msgid "This did is in use by customer id:"
+msgstr "Використовується клієнтом:"
+
+#: lib/Form/Class.FormHandler.inc.php:1589
+msgid "CREATION CARD REFILL"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1615
+msgid "DELETION CARD REFILL"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1631
+msgid "CREATION AGENT REFILL"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1699
+msgid "SUMMARY OF CALLS"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1700
+msgid "Summary of the calls charged since the last billing"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1718
+msgid "SUMMARY OF CHARGE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1720
+msgid "Summary of the charge charged since the last billing."
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1726
+#: lib/Form/Class.FormHandler.inc.php:1751
+msgid "CHARGE :"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1743
+msgid "BILLING CHARGES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1744
+msgid "This invoice is for some charges unpaid since the last billing."
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1769
+msgid "BILLING POSTPAID"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1770
+msgid "Invoice for POSTPAID"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1806
+#: lib/Form/Class.FormHandler.inc.php:1808
+#: lib/Form/Class.FormHandler.inc.php:1904
+#: lib/Form/Class.FormHandler.inc.php:1906
+#, fuzzy
+msgid "REFILL"
+msgstr "Префікс"
+
+#: lib/Form/Class.FormHandler.inc.php:1810
+#: lib/Form/Class.FormHandler.inc.php:1908 checkout_process.php:324
+#, fuzzy
+msgid "Invoice for refill"
+msgstr "Подробиці рахунку"
+
+#: lib/Form/Class.FormHandler.inc.php:1946 checkout_process.php:358
+msgid "AUTOMATICALY GENERATED COMMISSION!"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:2059
+#: lib/Form/Class.FormHandler.inc.php:2102
+msgid "Could not open buddy file"
+msgstr "Не можу відкрити buddy файл"
+
+#: lib/Form/Class.FormHandler.inc.php:2076
+#: lib/Form/Class.FormHandler.inc.php:2107
+#: lib/Form/Class.FormHandler.inc.php:2119
+msgid "Impossible to write to the file"
+msgstr "Неможливо записати в файл"
+
+#: lib/Form/Class.FormHandler.inc.php:2254
+#: lib/Form/Class.FormHandler.inc.php:2299
+msgid "<br> GOTO ; "
+msgstr "<br> Перейти ;"
+
+#: lib/Form/Class.FormHandler.inc.php:2294
+#: CC_entity_edit_did_destination.php:200
+msgid "error deletion"
+msgstr "помилка видалення"
+
+#: lib/Form/Class.FormHandler.inc.php:2429
+msgid "ERROR_DUPLICATION"
+msgstr "Помилка дуплікації"
+
+#: lib/Form/Class.FormHandler.inc.php:2514
+msgid "Done"
+msgstr "Готово"
+
+#: lib/Form/Class.FormHandler.inc.php:2554
+#, fuzzy
+msgid "Call Plan"
+msgstr "Дзвінок"
+
+#: lib/Form/Class.FormHandler.inc.php:2560
+#, fuzzy
+msgid "Choose a call plan"
+msgstr "Виберіть тарифний план"
+
+#: lib/Form/Class.FormHandler.inc.php:2572
+msgid "This option will enable LCR/LCD - This query is processor intensive and may affect the quality of calls in progress."
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:2581
+#: lib/Form/Class.FormHandler.inc.php:2638
+#, fuzzy
+msgid "Rate Card"
+msgstr "Кредитна картка"
+
+#: lib/Form/Class.FormHandler.inc.php:2587
+#: lib/Form/Class.FormHandler.inc.php:2644
+#: lib/Form/Class.FormHandler.inc.php:2704
+msgid "Choose a ratecard"
+msgstr "Виберіть тарифний план"
+
+#: lib/Form/Class.FormHandler.inc.php:2687
+#, fuzzy
+msgid "THE CURRENT RATECARD"
+msgstr "Поточний тарифний план"
+
+#: lib/Form/Class.FormHandler.inc.php:2698
+msgid "R A T E C A R D"
+msgstr ""
+
+#: CC_entity_edit_did_destination.php:532
+msgid "Add a new "
+msgstr "Додати новий"
+
+#: CC_entity_edit_did_destination.php:1117
+msgid "Deletion confirmation"
+msgstr "Підтвердження видалення"
+
+#: CC_entity_edit_did_destination.php:1212
+msgid "Remove this DID DESTINATION"
+msgstr "Видалити цей DID напрямок"
+
+#: CC_entity_edit_did_destination.php:1237
+msgid "Deletion"
+msgstr "Видалення"
+
+#: A2B_ticket_view.php:19
+#, fuzzy
+msgid "Ticket updated successfully"
+msgstr "Ваш пароль успішно змінено."
+
+#: A2B_ticket_view.php:28
+msgid "Ticket ID not found"
+msgstr ""
+
+#: A2B_ticket_view.php:72
+msgid "TICKET: "
+msgstr ""
+
+#: A2B_ticket_view.php:82
+msgid "BY : "
+msgstr ""
+
+#: A2B_ticket_view.php:88
+#, fuzzy
+msgid "PRIORITY : "
+msgstr "Пріоритет"
+
+#: A2B_ticket_view.php:91
+#, fuzzy
+msgid "DATE : "
+msgstr "ДАТА"
+
+#: A2B_ticket_view.php:96
+msgid "COMPONENT : "
+msgstr ""
+
+#: A2B_ticket_view.php:103
+#, fuzzy
+msgid "DESCRIPTION : "
+msgstr "НАПРЯМОК"
+
+#: A2B_ticket_view.php:109 A2B_ticket_view.php:210
+msgid "Click here to consider it like viewed"
+msgstr ""
+
+#: A2B_ticket_view.php:138
+msgid "STATUS : "
+msgstr ""
+
+#: A2B_ticket_view.php:164
+msgid "COMMENT : "
+msgstr ""
+
+#: A2B_invoice_view.php:135
+msgid "tel"
+msgstr ""
+
+#: A2B_invoice_view.php:136
+msgid "fax"
+msgstr ""
+
+#: A2B_invoice_view.php:137
+#, fuzzy
+msgid "mail"
+msgstr "Email"
+
+#: A2B_invoice_view.php:153
+#, fuzzy
+msgid "Invoice number"
+msgstr "Рахунки"
+
+#: A2B_invoice_view.php:157
+#, fuzzy
+msgid "Client Account Number"
+msgstr "Подзвонити на номер "
+
+#: A2B_entity_did.php:55
+msgid "The following Destinaton-DID has been relesed:"
+msgstr "Були звільнені наступні DID-напрямки:"
+
+#: A2B_entity_did.php:92
+msgid "If you really want release this DID , Click on the release button."
+msgstr "Якщо Ви дійсно хочете звільнити цей DID - натисніть на кнопку Звільнити."
+
+#: A2B_entity_did.php:99
+msgid "Release the DID "
+msgstr "Звільнити DID"
+
+#: A2B_entity_did.php:147
+#, fuzzy
+msgid "The following Destinaton for your DID has been added:"
+msgstr "Були додані наступні DID-напрямки:"
+
+#: A2B_entity_did.php:313
+msgid "Buy New DID"
+msgstr "Купити новий DID"
+
+#: A2B_entity_did.php:313
+msgid "Add Phone Number to your DID"
+msgstr "Додати номер телефона до Вашого DID"
+
+#: A2B_entity_did.php:313
+msgid "Release DID"
+msgstr "Звільнити DID"
+
+#: A2B_entity_did.php:330
+msgid "Select Country"
+msgstr "Виберіть країну"
+
+#: A2B_entity_did.php:344
+msgid "Select Virtual Phone Number"
+msgstr "Виберіть віртуальний номер телефона"
+
+#: A2B_entity_did.php:360
+msgid "VOIP CALL : "
+msgstr "VoIP дзвінок:"
+
+#: A2B_entity_did.php:360
+msgid "NO"
+msgstr "Ні"
+
+#: A2B_entity_did.php:365
+msgid "Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call"
+msgstr "Введіть номер телефона, на який Ви хочете подзвонити, або SIP/IAX клієнта (наприклад: 347894999 або SIP/oleh@182.212.1.45). Для дзвінка на VoIP номер Ви повинні дозволити VoIP дзвінки."
+
+#: A2B_entity_did.php:369
+msgid "If you release the did you will not be monthly charged any more."
+msgstr "Якщо Ви звільните DID, з Вас більше не буде стягуватись щомісячна плата."
+
+#: A2B_entity_did.php:376
+msgid "Next"
+msgstr "Наступний"
+
+#: A2B_entity_did.php:378
+msgid "Add phone number"
+msgstr "Додати номер телефону"
+
+#: A2B_entity_did.php:380 A2B_entity_did.php:409 A2B_entity_did.php:432
+msgid "Ok"
+msgstr "Ok"
+
+#: A2B_entity_did.php:396
+msgid "Confirm the purchase of the DID "
+msgstr "Підтвердіть купівлю DID"
+
+#: A2B_entity_did.php:401
+msgid "A monthly fee of "
+msgstr "Щомісячне стягнення"
+
+#: A2B_entity_did.php:401
+#, fuzzy
+msgid " will be carried out from your acount"
+msgstr " буде знято з Вашого акаунта"
+
+#: A2B_entity_did.php:406
+msgid "Prev"
+msgstr "Попередній"
+
+#: A2B_entity_did.php:420
+msgid "The purchase of the DID is done "
+msgstr "Купівлю DID завершено"
+
+#: A2B_entity_did.php:421
+#, fuzzy
+msgid "The purchase of the DID cannot be done, the VoIP destination have to be a proper URI"
+msgstr "Купівля DID не може бути виконана, Ваш балланс"
+
+#: A2B_entity_did.php:422
+#, fuzzy
+msgid "The purchase of the DID cannot be done, your credit of  "
+msgstr "Купівля DID не може бути виконана, Ваш балланс"
+
+#: A2B_entity_did.php:422
+msgid " is lower than Fixerate of the DID  "
+msgstr " нижче, ніж фіксована оплата DID"
+
+#: A2B_entity_did.php:422
+msgid "Please reload your account "
+msgstr "Будь-ласка, перезавантажте Ваш акаунт"
+
+#: A2B_phonelist_import_analyse.php:23
+msgid "No Phonebook defined !"
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:85
+msgid "File Save Failed, FILE="
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:101
+msgid "Error: Failed to open the file."
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:227
+msgid "The first line of your import is previewed below, please check to ensure that every is correct"
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:234
+msgid "FIELD"
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:237
+msgid "VALUE"
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:274
+#, fuzzy
+msgid "Please check if the datas above are correct."
+msgstr "Будь-ласка, перевірте дату і спробуйте знову."
+
+#: A2B_phonelist_import_analyse.php:274
+#, fuzzy
+msgid "If Yes"
+msgstr "Так"
+
+#: A2B_phonelist_import_analyse.php:274
+msgid "you can continue the import. Otherwise you must fix your csv file!"
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:318
+#, fuzzy
+msgid "Success"
+msgstr "Успішно"
+
+#: A2B_phonelist_import_analyse.php:318
+msgid "new phone number have been imported"
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:324
+#, fuzzy
+msgid "Line that has not been inserted"
+msgstr "додано."
+
+#: templates/default/main.tpl:37
+msgid "ACCOUNT INFO"
+msgstr "Акаунт"
+
+#: templates/default/main.tpl:41
+msgid "SIP/IAX INFO"
+msgstr "Інформація SIP/IAX"
+
+#: templates/default/main.tpl:46
+msgid "CALL HISTORY"
+msgstr "Історія дзвінків"
+
+#: templates/default/main.tpl:51
+#, fuzzy
+msgid "PAYMENT HISTORY"
+msgstr "Історія дзвінків"
+
+#: templates/default/main.tpl:57
+#, fuzzy
+msgid "VOUCHERS"
+msgstr "Ваучер"
+
+#: templates/default/main.tpl:72
+msgid "INVOICES"
+msgstr "Рахунки"
+
+#: templates/default/main.tpl:81
+#, fuzzy
+msgid "View Receipts"
+msgstr "Переглянути рахунки"
+
+#: templates/default/main.tpl:82
+msgid "View Invoices"
+msgstr "Переглянути рахунки"
+
+#: templates/default/main.tpl:83
+#, fuzzy
+msgid "Preview Next Invoice"
+msgstr "Переглянути рахунки"
+
+#: templates/default/main.tpl:93 form_data/FG_var_did.inc:32
+msgid "DID"
+msgstr "DID"
+
+#: templates/default/main.tpl:98
+msgid "SPEED DIAL"
+msgstr "Швидкий набір"
+
+#: templates/default/main.tpl:108
+msgid "SIMULATOR"
+msgstr "Симулятор"
+
+#: templates/default/main.tpl:113
+msgid "CALLBACK"
+msgstr "Callback"
+
+#: templates/default/main.tpl:117
+msgid "WEB-PHONE"
+msgstr "Web-телефон"
+
+#: templates/default/main.tpl:122
+msgid "ADD CALLER ID"
+msgstr "Додати CallerID"
+
+#: templates/default/main.tpl:127
+msgid "PASSWORD"
+msgstr "Пароль"
+
+#: templates/default/main.tpl:131
+msgid "SUPPORT"
+msgstr ""
+
+#: templates/default/main.tpl:135
+#, fuzzy
+msgid "NOTIFICATION"
+msgstr "НАПРЯМОК"
+
+#: templates/default/main.tpl:149
+msgid "AUTO DIALLER"
+msgstr ""
+
+#: templates/default/main.tpl:158
+msgid "Campaign's"
+msgstr ""
+
+#: templates/default/main.tpl:159 form_data/FG_var_phonenumber.inc:58
+msgid "Phone Book"
+msgstr ""
+
+#: templates/default/main.tpl:160 form_data/FG_var_phonenumber.inc:49
+msgid "Phone Number"
+msgstr "Номер телефону"
+
+#: templates/default/main.tpl:161
+msgid "Import Phone List"
+msgstr ""
+
+#: templates/default/main.tpl:172
+msgid "LOGOUT"
+msgstr "Вихід"
+
+#: A2B_entity_phonenumber.php:88
+msgid "CAMPAIGN"
+msgstr "Кампанія"
+
+#: A2B_entity_phonenumber.php:91
+#, fuzzy
+msgid "INFO"
+msgstr "Ні"
+
+#: A2B_entity_phonenumber.php:94 form_data/FG_var_campaign.inc:39
+#: form_data/FG_var_phonenumber.inc:32 form_data/FG_var_invoice.inc:36
+#: form_data/FG_var_ticket.inc:27
+#, fuzzy
+msgid "STATUS"
+msgstr "Область"
+
+#: A2B_entity_phonenumber.php:114
+#, fuzzy
+msgid "STARTED AND IN PROCESS"
+msgstr "Робота в процесі"
+
+#: A2B_entity_phonenumber.php:115
+msgid "STARTED BUT NOT IN PROCESS : check the batch"
+msgstr ""
+
+#: A2B_entity_phonenumber.php:116
+#, fuzzy
+msgid "NOT STARTED"
+msgstr "Не використовується"
+
+#: A2B_entity_phonenumber.php:123
+msgid "RUN"
+msgstr ""
+
+#: A2B_entity_phonenumber.php:124
+msgid "HOLD"
+msgstr ""
+
+#: A2B_entity_phonenumber.php:125
+#, fuzzy
+msgid "STOP"
+msgstr "ПО"
+
+#: A2B_entity_phonenumber.php:126
+msgid "NO STATUS"
+msgstr ""
+
+#: signup_confirmation.php:13
+msgid "Sorry the confirmation email has been sent already, multi-signup are not authorized! Please wait 2 minutes before making any other signup!"
+msgstr ""
+
+#: signup_confirmation.php:18
+msgid "Error : No User Created."
+msgstr ""
+
+#: signup_confirmation.php:53
+msgid "Error : No email Template Found"
+msgstr ""
+
+#: signup_confirmation.php:76
+msgid "Error : No such user found in database"
+msgstr ""
+
+#: signup_confirmation.php:136
+msgid "SIGNUP CONFIRMATION"
+msgstr ""
+
+#: signup_confirmation.php:149
+msgid "thank you for registering with us!"
+msgstr ""
+
+#: signup_confirmation.php:150
+#, fuzzy
+msgid "An activation email has been sent to"
+msgstr "Вашу ідентифікаційну інформацію надіслано Вам на e-mail."
+
+#: A2B_entity_card.php:44 A2B_notification.php:54
+msgid "Your personal information is updated successfully."
+msgstr "Вашу особисту інформацію успішно оновлено."
+
+#: checkout_process.php:266
+msgid "No Such Customer exists."
+msgstr "Такий клієнт не існує."
+
+#: checkout_process.php:323
+msgid "CUSTOMER REFILL"
+msgstr ""
+
+#: checkout_process.php:331
+msgid "Refill ONLINE"
+msgstr ""
+
+#: forgotpassword.php:21
+msgid "Please wait 1 minutes before making any other request for the forgot password!"
+msgstr "Будь-ласка, зачекайте 1 хвилину перед наступною спробою відновлення пароля!"
+
+#: forgotpassword.php:92
+msgid "Your login information email has been sent to you."
+msgstr "Вашу ідентифікаційну інформацію надіслано Вам на e-mail."
+
+#: forgotpassword.php:95
+msgid "No such login exists."
+msgstr "Такого логіну не існує."
+
+#: forgotpassword.php:98
+msgid "Invalid Action."
+msgstr "Невірна дія."
+
+#: forgotpassword.php:101
+#, fuzzy
+msgid "Please provide your email address to get your login information."
+msgstr "Будь-ласка, введіть Вашу e-mail адресу для отримання ідентифікаційної інформації."
+
+#: forgotpassword.php:121
+msgid "You must enter an email address!"
+msgstr "Ви повинні ввести e-mail адресу!"
+
+#: forgotpassword.php:147
+msgid "Forgot your password?"
+msgstr "Забули пароль?"
+
+#: forgotpassword.php:156
+msgid "Email"
+msgstr "Email"
+
+#: forgotpassword.php:162
+msgid "SUBMIT"
+msgstr "Прийняти"
+
+#: form_data/FG_var_signup.inc:66
+msgid "No Call Plan id are defined"
+msgstr ""
+
+#: form_data/FG_var_signup.inc:129
+#, fuzzy
+msgid "LANGUAGE"
+msgstr "Прізвище"
+
+#: form_data/FG_var_signup.inc:146
+#, fuzzy
+msgid "CALL PLAN"
+msgstr "Дзвінків в день"
+
+#: form_data/FG_var_signup.inc:165 form_data/FG_var_card.inc:15
+msgid "LASTNAME"
+msgstr "Прізвище"
+
+#: form_data/FG_var_signup.inc:171
+#, fuzzy
+msgid "Insert your lastname"
+msgstr "Додати ім’я"
+
+#: form_data/FG_var_signup.inc:174 form_data/FG_var_card.inc:24
+msgid "FIRSTNAME"
+msgstr "Ім'я"
+
+#: form_data/FG_var_signup.inc:180
+#, fuzzy
+msgid "Insert your firstname"
+msgstr "Додати ім’я"
+
+#: form_data/FG_var_signup.inc:190
+#, fuzzy
+msgid "Insert your email"
+msgstr "Додати новий"
+
+#: form_data/FG_var_signup.inc:200
+#, fuzzy
+msgid "Insert your address"
+msgstr "Добавить адресу"
+
+#: form_data/FG_var_signup.inc:210
+#, fuzzy
+msgid "Insert your city"
+msgstr "Додати місто"
+
+#: form_data/FG_var_signup.inc:214 form_data/FG_var_card.inc:54
+msgid "STATE/PROVINCE"
+msgstr "Область"
+
+#: form_data/FG_var_signup.inc:220
+#, fuzzy
+msgid "Insert your state"
+msgstr "Додати область"
+
+#: form_data/FG_var_signup.inc:235 form_data/FG_var_card.inc:75
+msgid "ZIP/POSTAL CODE"
+msgstr "Поштовий індекс"
+
+#: form_data/FG_var_signup.inc:241
+#, fuzzy
+msgid "Insert your zipcode"
+msgstr "Додати поштовий індекс"
+
+#: form_data/FG_var_signup.inc:254 form_data/FG_var_card.inc:84
+msgid "TIMEZONE"
+msgstr ""
+
+#: form_data/FG_var_signup.inc:261 form_data/FG_var_phonenumber.inc:28
+#: call-history.php:250
+msgid "PHONENUMBER"
+msgstr "Номер телефону"
+
+#: form_data/FG_var_signup.inc:267
+#, fuzzy
+msgid "Insert your phone number"
+msgstr "Додати номер телефона"
+
+#: form_data/FG_var_signup.inc:271
+#, fuzzy
+msgid "FAXNUMBER"
+msgstr "Номер факсу"
+
+#: form_data/FG_var_signup.inc:277
+#, fuzzy
+msgid "Insert your fax number"
+msgstr "Додати номер факсу webmaster-а"
+
+#: form_data/FG_var_signup.inc:282
+#, fuzzy
+msgid "COMPANY NAME"
+msgstr "Компанія"
+
+#: form_data/FG_var_signup.inc:288
+#, fuzzy
+msgid "Insert Company name of this customer"
+msgstr "Додати прізвище клієнта"
+
+#: form_data/FG_var_signup.inc:291
+#, fuzzy
+msgid "COMPANY WEBSITE"
+msgstr "Компанія"
+
+#: form_data/FG_var_signup.inc:297
+#, fuzzy
+msgid "Insert the company website of this customer"
+msgstr "Додати прізвище клієнта"
+
+#: form_data/FG_var_signup.inc:300
+msgid "VAT REGISTRATION NUMBER "
+msgstr ""
+
+#: form_data/FG_var_signup.inc:306
+#, fuzzy
+msgid "Insert the VAT registration number of this customer"
+msgstr "Введіть номер телефона клієнта"
+
+#: form_data/FG_var_signup.inc:310
+msgid "TRAFFIC PER MONTH"
+msgstr ""
+
+#: form_data/FG_var_signup.inc:316
+#, fuzzy
+msgid "Insert the traffic per month for this customer"
+msgstr "Додати номер факса клієнта"
+
+#: form_data/FG_var_signup.inc:319
+msgid "TARGET TRAFFIC"
+msgstr ""
+
+#: form_data/FG_var_signup.inc:325
+msgid "Insert the target traffic description"
+msgstr ""
+
+#: form_data/FG_var_signup.inc:328
+#, fuzzy
+msgid "VERIFICATION"
+msgstr "Помилка дуплікації"
+
+#: form_data/FG_var_signup.inc:334
+msgid "Insert code from above picture"
+msgstr ""
+
+#: form_data/FG_var_signup.inc:415
+msgid "You can modify, through the following form, the different properties of your "
+msgstr "Ви можете змінити через форму різні властивості Вашого"
+
+#: form_data/FG_var_signup.inc:416
+msgid "If you really want remove this "
+msgstr "Якщо Ви дійсно хочете видалити"
+
+# ?????????????
+#: form_data/FG_var_signup.inc:417
+msgid "you can add easily a new "
+msgstr "Ви можете додати"
+
+#: form_data/FG_var_signup.inc:420
+msgid "Thanks for registering with us.<br>A email with your information has been sent to your account "
+msgstr ""
+
+#: form_data/FG_var_signup.inc:420
+#, fuzzy
+msgid "Your card number is "
+msgstr "Ваш номер телефону"
+
+#: form_data/FG_var_signup.inc:424
+#, fuzzy
+msgid "SIGNUP"
+msgstr "SIP"
+
+#: form_data/FG_var_campaign.inc:31
+#, fuzzy
+msgid "Add CAMPAIGN"
+msgstr "Кампанія"
+
+#: form_data/FG_var_campaign.inc:35 form_data/FG_var_phonenumber.inc:29
+#: form_data/FG_var_phonenumber.inc:68 form_data/FG_var_speeddial.inc:20
+#: form_data/FG_var_speeddial.inc:57 form_data/FG_var_phonebook.inc:32
+#: form_data/FG_var_phonebook.inc:48
+msgid "NAME"
+msgstr "Ім’я"
+
+#: form_data/FG_var_campaign.inc:36
+#, fuzzy
+msgid "STARTINGDATE"
+msgstr "Дата відправки"
+
+#: form_data/FG_var_campaign.inc:37
+msgid "EXPIRATIONDATE"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:45
+msgid "No campaigns have been created."
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:56
+#, fuzzy
+msgid "CAMPAIGN NAME"
+msgstr "Кампанія"
+
+#: form_data/FG_var_campaign.inc:62
+#, fuzzy
+msgid "Insert the tariff name "
+msgstr "Додати ім’я"
+
+#: form_data/FG_var_campaign.inc:73
+msgid "Define if this campaign is active or not"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:77
+#, fuzzy
+msgid "CONFIG TO APPLY"
+msgstr "ТИП КОНФІГУРАЦІЇ"
+
+#: form_data/FG_var_campaign.inc:85
+msgid "Define the configuration that you want apply on this campaign"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:101
+msgid "CID GROUP"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:112
+#, fuzzy
+msgid "STARTING DATE"
+msgstr "Продажний тариф"
+
+#: form_data/FG_var_campaign.inc:118
+#, fuzzy
+msgid "Insert the starting date"
+msgstr "Додати область"
+
+#: form_data/FG_var_campaign.inc:119 form_data/FG_var_campaign.inc:128
+#, fuzzy
+msgid "Please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
+msgstr "будь-ласка, використовуйте формат YYYY-MM-DD HH:MM:SS. Наприклад, '2004-12-31 00:00:00'"
+
+#: form_data/FG_var_campaign.inc:121
+#, fuzzy
+msgid "EXPIRATION DATE"
+msgstr "ТИП КОНФІГУРАЦІЇ"
+
+#: form_data/FG_var_campaign.inc:127
+#, fuzzy
+msgid "Insert the expiration date"
+msgstr "Додати ім’я"
+
+#: form_data/FG_var_campaign.inc:131
+msgid "FREQUENCY"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:137
+msgid "Insert the frequency of callback in min "
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:138
+#, fuzzy
+msgid "Please insert the frequency in minutes"
+msgstr "Будь-ласка, введіть сумму замовлення"
+
+#: form_data/FG_var_campaign.inc:140
+msgid "DAILY STARTING TIME"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:146
+#, fuzzy
+msgid "Insert the daily starting time"
+msgstr "Додати область"
+
+#: form_data/FG_var_campaign.inc:147 form_data/FG_var_campaign.inc:156
+#, fuzzy
+msgid "Please respect the format HH:MM:SS. For instance, '00:00:00'"
+msgstr "будь-ласка, використовуйте формат YYYY-MM-DD HH:MM:SS. Наприклад, '2004-12-31 00:00:00'"
+
+#: form_data/FG_var_campaign.inc:149
+msgid "DAILY STOPING TIME"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:155
+#, fuzzy
+msgid "Insert the daily stoping time"
+msgstr "Додати ім’я"
+
+#: form_data/FG_var_campaign.inc:159
+#, fuzzy
+msgid "MONDAY"
+msgstr "ТРАВЕНЬ"
+
+#: form_data/FG_var_campaign.inc:165 form_data/FG_var_campaign.inc:173
+#: form_data/FG_var_campaign.inc:181
+#, fuzzy
+msgid "Choose if you want to enable the campaign callback for the monday"
+msgstr "Виберіть, якщо Ви хочете активувати цю карту"
+
+#: form_data/FG_var_campaign.inc:167
+msgid "TUESDAY"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:175
+msgid "WEDNESDAY"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:183
+msgid "THURSDAY"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:189
+#, fuzzy
+msgid "Choose if you want to enable the campaign callback for the thursday"
+msgstr "Виберіть, якщо Ви хочете активувати цю карту"
+
+#: form_data/FG_var_campaign.inc:191
+msgid "FRIDAY"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:197
+#, fuzzy
+msgid "Choose if you want to enable the campaign callback for the friday"
+msgstr "Виберіть, якщо Ви хочете активувати цю карту"
+
+#: form_data/FG_var_campaign.inc:199
+msgid "SATURDAY"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:205
+#, fuzzy
+msgid "Choose if you want to enable the campaign callback for the saturday"
+msgstr "Виберіть, якщо Ви хочете активувати цю карту"
+
+#: form_data/FG_var_campaign.inc:207
+msgid "SUNDAY"
+msgstr ""
+
+#: form_data/FG_var_campaign.inc:213
+#, fuzzy
+msgid "Choose if you want to enable the campaign callback for the sunday"
+msgstr "Виберіть, якщо Ви хочете активувати цю карту"
+
+#: form_data/FG_var_campaign.inc:218 form_data/FG_var_payment.inc:20
+#: form_data/FG_var_phonebook.inc:33 form_data/FG_var_phonebook.inc:57
+#, fuzzy
+msgid "DESCRIPTION"
+msgstr "НАПРЯМОК"
+
+#: form_data/FG_var_campaign.inc:224 form_data/FG_var_phonebook.inc:63
+#, fuzzy
+msgid "Insert the description"
+msgstr "Додати місто"
+
+#: form_data/FG_var_campaign.inc:238
+#, fuzzy
+msgid "PHONE BOOK"
+msgstr "Телефон"
+
+#: form_data/FG_var_campaign.inc:264 form_data/FG_var_phonenumber.inc:111
+#: form_data/FG_var_callerid.inc:83 form_data/FG_var_speeddial.inc:85
+#: form_data/FG_var_did.inc:114 form_data/FG_var_ticket.inc:48
+#: form_data/FG_var_phonebook.inc:76
+msgid "click on the delete button."
+msgstr "натисніть на кнопку Видалити."
+
+#: form_data/FG_var_campaign.inc:268
+msgid "Add a "
+msgstr "Додати"
+
+#: form_data/FG_var_campaign.inc:269 form_data/FG_var_phonenumber.inc:116
+#: form_data/FG_var_callerid.inc:92 form_data/FG_var_speeddial.inc:91
+#: form_data/FG_var_did.inc:119 form_data/FG_var_ticket.inc:53
+#: form_data/FG_var_phonebook.inc:81
+#, fuzzy
+msgid "has been inserted."
+msgstr "додано."
+
+#: form_data/FG_var_campaign.inc:273
+msgid "Setup those values to create the new"
+msgstr "Встановіть ці значення для створення"
+
+#: form_data/FG_var_notify.inc:53
+msgid "LIMIT CREDIT NOTIFICATION"
+msgstr ""
+
+#: form_data/FG_var_notify.inc:59
+#, fuzzy
+msgid "Insert the number of credit when the customer receive a notification"
+msgstr "Додати номер факса клієнта"
+
+#: form_data/FG_var_notify.inc:60
+msgid "currency : "
+msgstr ""
+
+#: form_data/FG_var_notify.inc:60
+#, fuzzy
+msgid "NOT DEFINED"
+msgstr "Не використовується"
+
+#: form_data/FG_var_notify.inc:65
+msgid "PERMITTED NOTIFICATIONS BY MAIL"
+msgstr ""
+
+#: form_data/FG_var_notify.inc:71
+#, fuzzy
+msgid "Choose if you want to enable the notification by email for this card"
+msgstr "Виберіть, якщо Ви хочете активувати цю карту"
+
+#: form_data/FG_var_notify.inc:72
+msgid "Enable Email Notification"
+msgstr ""
+
+#: form_data/FG_var_notify.inc:74
+msgid "EMAIL NOTIFICATION"
+msgstr ""
+
+#: form_data/FG_var_notify.inc:80
+#, fuzzy
+msgid "Insert the email to notify the customers"
+msgstr "Додати прізвище клієнта"
+
+#: form_data/FG_var_notify.inc:85 form_data/FG_var_card.inc:126
+msgid "you can add easily update your information clicking on the button."
+msgstr "Ви можете легко оновити Вашу інформацію, натиснувши на кнопку."
+
+#: form_data/FG_var_notify.inc:88 form_data/FG_var_card.inc:129
+msgid "Your record has been updated."
+msgstr "Ваш запис був оновлений."
+
+#: form_data/FG_var_phonenumber.inc:20
+#, fuzzy
+msgid "Add PHONE NUMBER"
+msgstr "Номер телефону"
+
+#: form_data/FG_var_phonenumber.inc:27
+#, fuzzy
+msgid "PHONEBOOK"
+msgstr "Телефон"
+
+#: form_data/FG_var_phonenumber.inc:31 form_data/FG_var_receipt.inc:34
+#: form_data/FG_var_invoice.inc:34 call-history.php:185 call-history.php:533
+msgid "DATE"
+msgstr "ДАТА"
+
+#: form_data/FG_var_phonenumber.inc:38
+msgid "No phone numbers have been created"
+msgstr ""
+
+#: form_data/FG_var_phonenumber.inc:55
+msgid "Insert the phonenumber"
+msgstr "Додати номер телефона"
+
+#: form_data/FG_var_phonenumber.inc:56
+#, fuzzy
+msgid "Enter here the phonenumber to call"
+msgstr "Введіть номер, на який Ви хочете подзвонити"
+
+#: form_data/FG_var_phonenumber.inc:74
+msgid "Insert the name "
+msgstr "Додати ім’я"
+
+#: form_data/FG_var_phonenumber.inc:83
+#, fuzzy
+msgid "Insert the amount "
+msgstr "Додати ім’я"
+
+#: form_data/FG_var_phonenumber.inc:93
+#, fuzzy
+msgid "Define if this phone number is active or not"
+msgstr "Вкажіть,чи буде цей номер активізований"
+
+#: form_data/FG_var_phonenumber.inc:95
+msgid "ADDITIONALINFO"
+msgstr "Додаткова інформація"
+
+#: form_data/FG_var_phonenumber.inc:101
+msgid "Insert additional information"
+msgstr "Додати додаткову інформацію"
+
+#: form_data/FG_var_phonenumber.inc:115
+msgid "Add a $HD_Form->FG_INSTANCE_NAME now."
+msgstr ""
+
+#: form_data/FG_var_phonenumber.inc:120 form_data/FG_var_ticket.inc:56
+#: form_data/FG_var_phonebook.inc:85
+msgid "Click 'Confirm Data' to continue"
+msgstr ""
+
+#: form_data/FG_var_receipt.inc:32 form_data/FG_var_ticket.inc:21
+#: form_data/FG_var_payment.inc:17
+msgid "ID"
+msgstr ""
+
+#: form_data/FG_var_receipt.inc:33
+#, fuzzy
+msgid "ACCOUNT"
+msgstr "Кількість"
+
+#: form_data/FG_var_receipt.inc:35 form_data/FG_var_invoice.inc:35
+#: form_data/FG_var_ticket.inc:22
+#, fuzzy
+msgid "TITLE"
+msgstr "Загалом"
+
+#: form_data/FG_var_receipt.inc:36 form_data/FG_var_invoice.inc:37
+msgid "AMOUNT INCL VAT"
+msgstr ""
+
+#: form_data/FG_var_receipt.inc:40 form_data/FG_var_ratecard.inc:37
+#: form_data/FG_var_invoice.inc:41
+msgid "THERE IS NO "
+msgstr "Номер"
+
+#: form_data/FG_var_ratecard.inc:30
+msgid "PREFIX"
+msgstr "Префікс"
+
+#: form_data/FG_var_ratecard.inc:31
+msgid "SR"
+msgstr ""
+
+#: form_data/FG_var_callerid.inc:15 form_data/FG_var_callerid.inc:48
+msgid "CALLERID"
+msgstr "CallerID"
+
+#: form_data/FG_var_callerid.inc:22
+msgid "There are no Caller IDs created"
+msgstr ""
+
+#: form_data/FG_var_callerid.inc:54
+msgid "Insert the CallerID"
+msgstr "Додати CallerID"
+
+#: form_data/FG_var_callerid.inc:64 form_data/FG_var_did.inc:86
+msgid "Choose if you want to activate this card"
+msgstr "Виберіть, якщо Ви хочете активувати цю карту"
+
+#: form_data/FG_var_callerid.inc:91
+#, fuzzy
+msgid "You can add your home phone or cellphone number below to allow you to call in, be automatically recognized, and use your telephony services without having to enter your PIN."
+msgstr "Тут Ви можете додати Ваш домашній номер телефону, щоб при використанні карток додзвону не вводити кожного разу їхній номер."
+
+#: form_data/FG_var_callerid.inc:96
+msgid "Made your change to edit this callerid."
+msgstr "Внесіть свої зміни для редагування CallerID."
+
+#: form_data/FG_var_invoice.inc:33
+msgid "REFERENCE"
+msgstr ""
+
+#: form_data/FG_var_speeddial.inc:18 form_data/FG_var_speeddial.inc:47
+msgid "SPEEDDIAL"
+msgstr "Швидкий набір"
+
+#: form_data/FG_var_speeddial.inc:24
+msgid "There are no speed dials created."
+msgstr ""
+
+#: form_data/FG_var_speeddial.inc:63
+msgid "Insert the name"
+msgstr "Додати ім’я"
+
+#: form_data/FG_var_speeddial.inc:64
+msgid "Enter here the name/label that will identify this speed dial"
+msgstr "Введіть ім’я/мітку, яка буде ідентифікувати цей швидкий набір"
+
+#: form_data/FG_var_speeddial.inc:73
+msgid "Insert the phone"
+msgstr "Додати телефон"
+
+#: form_data/FG_var_speeddial.inc:74
+msgid "Enter here the phonenumber you want to call for this speed dial"
+msgstr "Введіть номер телефону для швидкого набору"
+
+#: form_data/FG_var_speeddial.inc:95
+msgid "Once you have completed the form above, click on the CONTINUE button."
+msgstr "Коли Ви заповните цю форму, натисніть на кнопку Продовжити."
+
+#: form_data/FG_var_did.inc:34 form_data/FG_var_did.inc:89
+#: form_data/FG_var_ticket.inc:25
+msgid "PRIORITY"
+msgstr "Пріоритет"
+
+#: form_data/FG_var_did.inc:35
+msgid "USED MINUTE"
+msgstr "Використано хвилин"
+
+#: form_data/FG_var_did.inc:50
+#, fuzzy
+msgid "There are no destinations created"
+msgstr "Напрямок створено коректно."
+
+#: form_data/FG_var_did.inc:66
+msgid "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "
+msgstr "Введіть номер телефона або SIP/IAX/H323 піра, на який хочете подзвонити (наприклад: 347894999 або SIP/oleh@182.212.1.45). Для дзвінка на SIP/IAX/H323 пір, у Вас повинні бути активовані VoIP дзвінки."
+
+#: form_data/FG_var_did.inc:99
+msgid "VOIP_CALL"
+msgstr "VoIP дзвінок"
+
+#: form_data/FG_var_did.inc:105
+msgid "Choose if you want to not use the trunk and let the asterisk call directly the destination (ie, Destination : SIP/jeremy@182.212.1.45)"
+msgstr "Виберіть, якщо Ви хочете використовувати транк і дозволити дзвонити напряму. (наприклад, на напрямок: SIP/oleh@182.212.1.45)"
+
+#: form_data/FG_var_did.inc:123
+#, fuzzy
+msgid "Setup those values to create or edit the "
+msgstr "Встановіть ці значення для створення"
+
+#: form_data/FG_var_voucher.inc:13
+msgid "CREDIT"
+msgstr "Кредит"
+
+#: form_data/FG_var_voucher.inc:21
+msgid "No vouchers have been used!"
+msgstr ""
+
+#: form_data/FG_var_ticket.inc:23
+#, fuzzy
+msgid "CREATIONDATE"
+msgstr "Створення"
+
+#: form_data/FG_var_ticket.inc:24
+#, fuzzy
+msgid "COMPONENT"
+msgstr "Компанія"
+
+#: form_data/FG_var_ticket.inc:36
+msgid "There are no tickets created"
+msgstr ""
+
+#: form_data/FG_var_payment.inc:18
+#, fuzzy
+msgid "PAYMENT DATE"
+msgstr "Дата відправки"
+
+#: form_data/FG_var_payment.inc:19
+#, fuzzy
+msgid "PAYMENT AMOUNT"
+msgstr "Кількість"
+
+#: form_data/FG_var_payment.inc:25
+msgid "No payments have been made!"
+msgstr ""
+
+#: form_data/FG_var_card.inc:21
+msgid "Insert the lastname of the customers"
+msgstr "Додати прізвище клієнта"
+
+#: form_data/FG_var_card.inc:30
+msgid "Insert the firstname of the customers"
+msgstr "Додати ім’я клієнта"
+
+#: form_data/FG_var_card.inc:40
+msgid "Insert the address of the customers"
+msgstr "Додати адресу клієнта"
+
+#: form_data/FG_var_card.inc:50
+msgid "Insert the city"
+msgstr "Додати місто"
+
+#: form_data/FG_var_card.inc:60
+msgid "Insert the state"
+msgstr "Додати область"
+
+#: form_data/FG_var_card.inc:81
+msgid "Insert the zipcode"
+msgstr "Додати поштовий індекс"
+
+#: form_data/FG_var_card.inc:94
+msgid "PHONE NUMBER"
+msgstr "Номер телефону"
+
+#: form_data/FG_var_card.inc:100
+msgid "Insert the phone number of the customers"
+msgstr "Введіть номер телефона клієнта"
+
+#: form_data/FG_var_card.inc:104
+msgid "FAX NUMBER"
+msgstr "Номер факсу"
+
+#: form_data/FG_var_card.inc:110
+msgid "Insert the fax number of the customers"
+msgstr "Додати номер факса клієнта"
+
+#: form_data/FG_var_phonebook.inc:23
+msgid "You have some phone using this PhoneBook! Please comfirm that you really want to remove this PhoneBook ? "
+msgstr ""
+
+#: form_data/FG_var_phonebook.inc:28
+msgid "Add PhoneBook"
+msgstr ""
+
+#: form_data/FG_var_phonebook.inc:37
+msgid "NO PHONEBOOK CREATED!"
+msgstr ""
+
+#: form_data/FG_var_phonebook.inc:53
+#, fuzzy
+msgid "Insert the provider name"
+msgstr "Додати ім’я користувача"
+
+#: call-history.php:61
+msgid "Calldate"
+msgstr "Дата дзвінка"
+
+#: call-history.php:62
+msgid "Source"
+msgstr "Джерело"
+
+#: call-history.php:63
+#, fuzzy
+msgid "PhoneNumber"
+msgstr "Номер телефону"
+
+#: call-history.php:65
+msgid "Duration"
+msgstr "Тривалість"
+
+#: call-history.php:66
+msgid "Terminate Cause"
+msgstr "Причина роз’єднання"
+
+#: call-history.php:66
+#, fuzzy
+msgid "TC"
+msgstr "Пр. роз'єд."
+
+#: call-history.php:67
+msgid "Calltype"
+msgstr "Тип дзвінка"
+
+#: call-history.php:78
+msgid "Call Logs"
+msgstr "Логи дзвінків"
+
+#: call-history.php:263
+#, fuzzy
+msgid "CALL TYPE"
+msgstr "Історія дзвінків"
+
+#: call-history.php:269
+#, fuzzy
+msgid "ALL CALLS"
+msgstr "ДЗВІНКІВ"
+
+#: call-history.php:286
+msgid "OPTIONS"
+msgstr "ОПЦІЇ"
+
+#: call-history.php:291
+msgid "SHOW"
+msgstr "ПОКАЗАТИ"
+
+#: call-history.php:294
+msgid "Answered Calls"
+msgstr "Вдалі дзвінки"
+
+#: call-history.php:296
+msgid "All Calls"
+msgstr "Всі дзвінки"
+
+#: call-history.php:303
+msgid "RESULT"
+msgstr "РЕЗУЛЬТАТ"
+
+#: call-history.php:306
+msgid "Seconds"
+msgstr "Секунди"
+
+#: call-history.php:311
+msgid "CURRENCY"
+msgstr "ВАЛЮТА"
+
+#: call-history.php:342
+msgid "Number of Calls"
+msgstr "Кількість дзвінків"
+
+#: call-history.php:479
+msgid "PREVIOUS"
+msgstr "Попередня"
+
+#: call-history.php:485
+msgid "NEXT"
+msgstr "Наступна"
+
+#: call-history.php:518
+msgid "SUMMARY"
+msgstr ""
+
+#: call-history.php:530
+msgid "CALLING CARD MINUTES"
+msgstr ""
+
+#: call-history.php:534
+msgid "DURATION"
+msgstr "ТРИВАЛІСТЬ"
+
+#: call-history.php:535
+msgid "GRAPHIC"
+msgstr "ГРАФІК"
+
+#: call-history.php:536
+msgid "CALLS"
+msgstr "ДЗВІНКІВ"
+
+#: call-history.php:537
+msgid "AVERAGE LENGTH OF CALL"
+msgstr "Середня тривалість дзвінка"
+
+#: call-history.php:537
+msgid "ALOC"
+msgstr "СЕР. ТРИВ."
+
+#: call-history.php:538
+msgid "TOTAL COST"
+msgstr ""
+
+#: call-history.php:587
+msgid "TOTAL"
+msgstr "Загалом"
+
+#: call-history.php:599
+msgid "No calls in your selection"
+msgstr "Не знайдено дзвінків за заданим критерієм"
+
+#: A2B_receipt_detail.php:53
+msgid "RECEIPT DETAIL"
+msgstr ""
+
+#: A2B_receipt_detail.php:117
+#, fuzzy
+msgid "Total :"
+msgstr "Загалом"
+
+#: checkout_confirmation.php:68
+msgid "No Transaction ID found"
+msgstr "Ідентификатор транзакції не існує"
+
+#: checkout_confirmation.php:100
+msgid "Please confirm your order"
+msgstr "Будь-ласка, підтвердіть Ваше замовлення"
+
+#: checkout_confirmation.php:107
+msgid "Payment Method"
+msgstr "Способи оплати"
+
+#: checkout_confirmation.php:111
+#, fuzzy
+msgid "Amount"
+msgstr "Кількість"
+
+#: checkout_confirmation.php:131
+#, fuzzy
+msgid "Total Amount Incl. VAT"
+msgstr "Загальна сума"
+
+#: checkout_confirmation.php:148
+msgid "Please click button to confirm your order"
+msgstr "Будь-ласка, натисніть кнопку для підтвердження замовлення"
+
 
