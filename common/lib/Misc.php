@@ -359,6 +359,15 @@ function linkonmonitorfile($value)
 	echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';
 }
 
+/*
+ * function linkdelete_cdr
+ */
+function linkdelete_cdr($value)
+{
+	echo "<a target=\"_blank\" href=\"A2B_entity_call.php?form_action=ask-delete&id=".$value."\">";
+	echo '<img src="'.Images_Path.'/delete.png"/></a>';
+}
+
 function linktocustomer($value)
 {
 	$handle = DbConnect();

@@ -61,6 +61,7 @@ $right_list["19"] = array( gettext("EDIT/DELETE REFILLS"), "262144");
 $right_list["20"] = array( gettext("EDIT/DELETE PAYMENTS"), "524288");
 $right_list["21"] = array( gettext("EDIT/DELETE CUSTOMERS"), "1048576");
 $right_list["22"] = array( gettext("DELETE NOTIFICATIONS"), "2097152");
+$right_list["23"] = array( gettext("DELETE CDR"), "4194304");
 
 $len_right_list = count($right_list);
 

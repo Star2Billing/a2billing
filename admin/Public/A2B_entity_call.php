@@ -2,11 +2,11 @@
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_callerid.inc");
+include ("./form_data/FG_var_call.inc");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_CUSTOMER)) {
+if (! has_rights (ACX_DELETE_CDR)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -28,9 +28,6 @@ $list = $HD_Form -> perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
-
-// #### HELP SECTION
-echo $CC_help_callerid_list;
 
 
 // #### TOP SECTION PAGE

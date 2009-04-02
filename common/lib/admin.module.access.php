@@ -42,6 +42,7 @@ define ("ACX_MODIFY_REFILLS",			262144);	// 1 << 18
 define ("ACX_MODIFY_PAYMENTS",			524288);	// 1 << 19
 define ("ACX_MODIFY_CUSTOMERS",			1048576);	// 1 << 20
 define ("ACX_DELETE_NOTIFICATIONS",		2097152);	// 1 << 21
+define ("ACX_DELETE_CDR",				4194304);	// 1 << 22
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
@@ -195,5 +196,10 @@ $ACXMODIFY_REFILLS 		= has_rights (ACX_MODIFY_REFILLS);
 $ACXMODIFY_PAYMENTS 	= has_rights (ACX_MODIFY_PAYMENTS);
 $ACXMODIFY_CUSTOMERS 	= has_rights (ACX_MODIFY_CUSTOMERS);
 $ACXDELETE_NOTIFICATIONS= has_rights (ACX_DELETE_NOTIFICATIONS);
+$ACXDELETE_CDR			= has_rights (ACX_DELETE_CDR);
+
 
 if(isset($_SESSION["admin_id"]))$NEW_NOTIFICATION = NotificationsDAO::IfNewNotification($_SESSION["admin_id"]);
+
+
+
