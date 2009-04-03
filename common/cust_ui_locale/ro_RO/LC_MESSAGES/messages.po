@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-03 13:15+0200\n"
+"POT-Creation-Date: 2009-04-03 13:23+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -515,7 +515,7 @@ msgstr "Contul tau este activa deja"
 
 #: activate.php:122
 msgid "Your account cannot be activated please contact <br> the website administrator or retry later."
-msgstr "Contul tau nu poate fi activat. Contacteaza Administratorul "
+msgstr "Contul tau nu poate fi activat.<br> Contacteaza Administratorul "
 
 #: simulator.php:51
 msgid "Error card !!!"
@@ -601,7 +601,7 @@ msgstr "Eroare : NU exista ruta pentru destinatia ceruta"
 
 #: callback.php:145
 msgid "Error : You have to specify your phonenumber and the number you wish to call!"
-msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Eroare : Trebuie sa specificati numarul dumneavoastra si numarul pe care doriti sa-l formati !!!</b></font><br>"
+msgstr "Eroare : Trebuie sa specificati numarul dumneavoastra si numarul pe care doriti sa-l formati!"
 
 #: callback.php:162
 msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
@@ -723,74 +723,6 @@ msgstr "CUPON"
 #: A2B_entity_voucher.php:107
 msgid "USE VOUCHER"
 msgstr "Foloseste CUPON"
-
-#: help.php:12 lib/customer.help.php:12
-msgid "From here, you can use the web based screen phone. You need microphone and speakers on your PC."
-msgstr "Aici poti folosii telefonul web. Ai nevoie de un Microfon si Difuzoare sau casti"
-
-#: help.php:28 lib/customer.help.php:28
-msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
-msgstr "Toate apelurile sunt listate aici . Poti selecta in functie de luna , ziua sau status. De asemenea poti verifica pretul per apel"
-
-#: help.php:43 lib/customer.help.php:43
-msgid "Personal information."
-msgstr "Informatii Personale"
-
-#: help.php:44 lib/customer.help.php:44
-msgid "You can update your personal information here."
-msgstr "Completeaza informatiile tale personale"
-
-#: help.php:59 lib/customer.help.php:59
-msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
-msgstr "Simuleaza un apel pentru a verifica costul  si numarul de minute care poate fi utilizat in functie de creditul tau"
-
-#: help.php:74
-msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessary modifications."
-msgstr "Configurare pentru SIP si IAX. Acesta section ofer informatii  cu setarile necesare ."
-
-#: help.php:90 lib/customer.help.php:90
-msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
-msgstr "Pe aceasta pagina poti sa schimbi parola , Treguie sa Introduce-ti o noua parola apoi sa o confirmati."
-
-#: help.php:105
-msgid "Here you can view your ratecards"
-msgstr "Aici puteti vizualiza preturile pentru fiecare destinatie"
-
-#: help.php:118
-msgid "Payment history - The section below allows you to see payments that you did."
-msgstr "Istoria platilor - sectiune pentru vizualizarea platilor facute de dumneavoastra"
-
-#: help.php:135 lib/customer.help.php:134
-msgid "Enter your voucher number to top up your card."
-msgstr "Introduce-ti cuponul pentru a reincarca contul dumneavoastra"
-
-#: help.php:150 lib/customer.help.php:149
-msgid "This section will allow you to create and edit campaign. "
-msgstr "In aceasta sectiune puteti creea / edita campanii"
-
-#: help.php:151 lib/customer.help.php:150
-msgid "A campaign will be attached to a user in order to let him use the predictive-dialer option. "
-msgstr "O campanie va fi atasata utilizatorului pentru a folosii aceste optiuni"
-
-#: help.php:152 lib/customer.help.php:151
-msgid "Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls."
-msgstr "Toate numerele de telefon  din lista de telefoane va fi atasata procesului"
-
-#: help.php:163 lib/customer.help.php:162
-msgid "Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."
-msgstr "Lista-TEL : sunt numerele atasate campaniei. aveti posibilitatea de a edita aceasta lista."
-
-#: help.php:175 lib/customer.help.php:198
-msgid "Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section"
-msgstr "Lista-TEL este un set de numere de telefon. Puteti aduga sau sterge numere de telefon. Deasemenea puteti asocia o Lista-TEL cu o campanie"
-
-#: help.php:188 lib/customer.help.php:211
-msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
-msgstr "Selectati tara de unde doriti DID , Selectati un DID din lista apoi Introduce-ti destinatia."
-
-#: help.php:204
-msgid "WARNING !  <br> after confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
-msgstr "Dupa eliberarea DID-ului nu veti mai fi taxat "
 
 #: A2B_phonelist_import.php:38
 msgid "Please, you must first select a phonebook !"
@@ -1438,9 +1370,33 @@ msgstr ""
 msgid "Success! All currencies are now updated."
 msgstr "Toate monedele au fost actualizate"
 
+#: lib/customer.help.php:12
+msgid "From here, you can use the web based screen phone. You need microphone and speakers on your PC."
+msgstr "Aici poti folosii telefonul web. Ai nevoie de un Microfon si Difuzoare sau casti"
+
+#: lib/customer.help.php:28
+msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
+msgstr "Toate apelurile sunt listate aici . Poti selecta in functie de luna , ziua sau status. De asemenea poti verifica pretul per apel"
+
+#: lib/customer.help.php:43
+msgid "Personal information."
+msgstr "Informatii Personale"
+
+#: lib/customer.help.php:44
+msgid "You can update your personal information here."
+msgstr "Completeaza informatiile tale personale"
+
+#: lib/customer.help.php:59
+msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
+msgstr "Simuleaza un apel pentru a verifica costul  si numarul de minute care poate fi utilizat in functie de creditul tau"
+
 #: lib/customer.help.php:74
 msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and do necessary modifications."
 msgstr "Informatii configurare clienti SIP si IAX. Puteti copia si lipi informatiile si sa faceti schimbarile necesare"
+
+#: lib/customer.help.php:90
+msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
+msgstr "Pe aceasta pagina poti sa schimbi parola , Treguie sa Introduce-ti o noua parola apoi sa o confirmati."
 
 #: lib/customer.help.php:104
 msgid "View Ratecards"
@@ -1450,6 +1406,26 @@ msgstr "Vizualizati Preturi"
 msgid "Payment history - Record of payments made."
 msgstr "Istoria platilor facute de dumneavoastra"
 
+#: lib/customer.help.php:134
+msgid "Enter your voucher number to top up your card."
+msgstr "Introduce-ti cuponul pentru a reincarca contul dumneavoastra"
+
+#: lib/customer.help.php:149
+msgid "This section will allow you to create and edit campaign. "
+msgstr "In aceasta sectiune puteti creea / edita campanii"
+
+#: lib/customer.help.php:150
+msgid "A campaign will be attached to a user in order to let him use the predictive-dialer option. "
+msgstr "O campanie va fi atasata utilizatorului pentru a folosii aceste optiuni"
+
+#: lib/customer.help.php:151
+msgid "Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls."
+msgstr "Toate numerele de telefon  din lista de telefoane va fi atasata procesului"
+
+#: lib/customer.help.php:162
+msgid "Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."
+msgstr "Lista-TEL : sunt numerele atasate campaniei. aveti posibilitatea de a edita aceasta lista."
+
 #: lib/customer.help.php:174
 msgid "Invoice history - The section below allows you to see and pay the invoices that you have to pay."
 msgstr "Istorie Facturi - Aceasta sectiune va pune la dispozitie informatii cu privire la facturile dumneavoastra platite"
@@ -1457,6 +1433,14 @@ msgstr "Istorie Facturi - Aceasta sectiune va pune la dispozitie informatii cu p
 #: lib/customer.help.php:185
 msgid "Receipt history - The section below allows you to see the receipt that you received. you can see in them the summary of some withdrawal"
 msgstr "Istorie Chitante Aceasta sectiune va pune la dispozitie  vizulizarea chitantelor primite"
+
+#: lib/customer.help.php:198
+msgid "Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section"
+msgstr "Lista-TEL este un set de numere de telefon. Puteti aduga sau sterge numere de telefon. Deasemenea puteti asocia o Lista-TEL cu o campanie"
+
+#: lib/customer.help.php:211
+msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
+msgstr "Selectati tara de unde doriti DID , Selectati un DID din lista apoi Introduce-ti destinatia."
 
 #: lib/customer.help.php:227
 msgid "After confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
@@ -1988,11 +1972,6 @@ msgstr "NU pot deshide fisierul cu setari"
 #: lib/Form/Class.FormHandler.inc.php:2118
 msgid "Impossible to write to the file"
 msgstr "Imposibil sa scriu fisierul"
-
-#: lib/Form/Class.FormHandler.inc.php:2253
-#: lib/Form/Class.FormHandler.inc.php:2298
-msgid "<br> GOTO ; "
-msgstr "<br> Du-te la :"
 
 #: lib/Form/Class.FormHandler.inc.php:2293
 #: CC_entity_edit_did_destination.php:200
@@ -2628,7 +2607,7 @@ msgstr "puteti adauga usor un now"
 
 #: form_data/FG_var_signup.inc:420
 msgid "Thanks for registering with us.<br>A email with your information has been sent to your account "
-msgstr "Multimum ca v-ati inregistrat la noi. Un e-mail cu informtiile dumneavoastra a fost trimis "
+msgstr "Multimum ca v-ati inregistrat la noi. <br>Un e-mail cu informtiile dumneavoastra a fost trimis "
 
 #: form_data/FG_var_signup.inc:420
 msgid "Your card number is "
@@ -3308,32 +3287,4 @@ msgstr "Suma + TVA"
 msgid "Please click button to confirm your order"
 msgstr "Confirmati"
 
-#~ msgid "<acronym title=\"CANCELLED\">"
-#~ msgstr "<acronym title=\"ANULAT\">"
 
-#~ msgid "<acronym title=\"ACTIVATED\">"
-#~ msgstr "<acronym title=\"ACTIVATAT\">"
-
-#~ msgid "<acronym title=\"NEW\">"
-#~ msgstr "<acronym title=\"NOU\">"
-
-#~ msgid "<acronym title=\"WAITING-MAILCONFIRMATION\">"
-#~ msgstr "<acronym title=\"ASTEPT CONFIRMARE E-MAIL\">"
-
-#~ msgid "<acronym title=\"RESERVED\">"
-#~ msgstr "<acronym title=\"REZERVAT\">"
-
-#~ msgid "<acronym title=\"EXPIRED\">"
-#~ msgstr "<acronym title=\"EXPIRAT\">"
-
-#~ msgid "<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">"
-#~ msgstr "<acronym title=\"SUSPENDAT PENTRU NEPLATA\">"
-
-#~ msgid "<acronym title=\"SUSPENDED FOR LITIGATION\">"
-#~ msgstr "<acronym title=\"SUSPENDAT PENTRU LITIGIU\">"
-
-#~ msgid "<br> TYPE DE SELECT :"
-#~ msgstr "<br> "
-
-#~ msgid "hasn't been inserted. <br>"
-#~ msgstr "NU a fost introdus"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Asterisk2Billing-1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-03 13:15+0200\n"
+"POT-Creation-Date: 2009-04-03 13:23+0200\n"
 "PO-Revision-Date: 2007-07-23 17:05-0300\n"
 "Last-Translator: Caros Alberto Cesario <carloscesario@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -742,74 +742,6 @@ msgstr "VOUCHER"
 msgid "USE VOUCHER"
 msgstr "USAR O VOUCHER"
 
-#: help.php:12 lib/customer.help.php:12
-msgid "From here, you can use the web based screen phone. You need microphone and speakers on your PC."
-msgstr "Aqui você pode usar o web-phone. Você precisa de um microfone e caixas de som no seu PC."
-
-#: help.php:28 lib/customer.help.php:28
-msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
-msgstr "Todas as ligações estão listadas abaixo. Procure pelo mês, dia ou status. Adicionalmente, você pode verificar a taxa e o preço."
-
-#: help.php:43 lib/customer.help.php:43
-msgid "Personal information."
-msgstr "Informações pessoais."
-
-#: help.php:44 lib/customer.help.php:44
-msgid "You can update your personal information here."
-msgstr "Você pode atualizar suas informações pessoais aqui."
-
-#: help.php:59 lib/customer.help.php:59
-msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
-msgstr "Simule um processo de ligação para descobrir o custo por minuto da ligação e o número de minutos que você pode falar com seu crédito atual."
-
-#: help.php:74
-msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessary modifications."
-msgstr "Informação de configuração para Clientes SIP e IAX. Você pode simplesmente copiar e colar isto no seu arquivo de configuração e fazer as modificações necessárias."
-
-#: help.php:90 lib/customer.help.php:90
-msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
-msgstr "Nesta página você mudará sua senha. Você tem que colocar sua Nova Senha e Confirmar isto."
-
-#: help.php:105
-msgid "Here you can view your ratecards"
-msgstr "Aqui você pode ver seus ratecards"
-
-#: help.php:118
-msgid "Payment history - The section below allows you to see payments that you did."
-msgstr ""
-
-#: help.php:135 lib/customer.help.php:134
-msgid "Enter your voucher number to top up your card."
-msgstr "Coloque número do seu voucher para carregar seu cartão."
-
-#: help.php:150 lib/customer.help.php:149
-msgid "This section will allow you to create and edit campaign. "
-msgstr ""
-
-#: help.php:151 lib/customer.help.php:150
-msgid "A campaign will be attached to a user in order to let him use the predictive-dialer option. "
-msgstr ""
-
-#: help.php:152 lib/customer.help.php:151
-msgid "Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls."
-msgstr ""
-
-#: help.php:163 lib/customer.help.php:162
-msgid "Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."
-msgstr ""
-
-#: help.php:175 lib/customer.help.php:198
-msgid "Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section"
-msgstr ""
-
-#: help.php:188 lib/customer.help.php:211
-msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
-msgstr "Selecione o país abaixo de onde você gostaria de um DID, selecione um DID da lista e coloque o destino que você gostaria de o atribuir ele."
-
-#: help.php:204
-msgid "WARNING !  <br> after confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
-msgstr "AVISO ! <br> após a confirmação, a liberação do did será feita imediatamente e você não será mais cobrado (taxa extra) mensalmente."
-
 #: A2B_phonelist_import.php:38
 msgid "Please, you must first select a phonebook !"
 msgstr ""
@@ -1481,10 +1413,34 @@ msgstr ""
 msgid "Success! All currencies are now updated."
 msgstr ""
 
+#: lib/customer.help.php:12
+msgid "From here, you can use the web based screen phone. You need microphone and speakers on your PC."
+msgstr "Aqui você pode usar o web-phone. Você precisa de um microfone e caixas de som no seu PC."
+
+#: lib/customer.help.php:28
+msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
+msgstr "Todas as ligações estão listadas abaixo. Procure pelo mês, dia ou status. Adicionalmente, você pode verificar a taxa e o preço."
+
+#: lib/customer.help.php:43
+msgid "Personal information."
+msgstr "Informações pessoais."
+
+#: lib/customer.help.php:44
+msgid "You can update your personal information here."
+msgstr "Você pode atualizar suas informações pessoais aqui."
+
+#: lib/customer.help.php:59
+msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
+msgstr "Simule um processo de ligação para descobrir o custo por minuto da ligação e o número de minutos que você pode falar com seu crédito atual."
+
 #: lib/customer.help.php:74
 #, fuzzy
 msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and do necessary modifications."
 msgstr "Informação de configuração para Clientes SIP e IAX. Você pode simplesmente copiar e colar isto no seu arquivo de configuração e fazer as modificações necessárias."
+
+#: lib/customer.help.php:90
+msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
+msgstr "Nesta página você mudará sua senha. Você tem que colocar sua Nova Senha e Confirmar isto."
 
 #: lib/customer.help.php:104
 msgid "View Ratecards"
@@ -1494,6 +1450,26 @@ msgstr ""
 msgid "Payment history - Record of payments made."
 msgstr ""
 
+#: lib/customer.help.php:134
+msgid "Enter your voucher number to top up your card."
+msgstr "Coloque número do seu voucher para carregar seu cartão."
+
+#: lib/customer.help.php:149
+msgid "This section will allow you to create and edit campaign. "
+msgstr ""
+
+#: lib/customer.help.php:150
+msgid "A campaign will be attached to a user in order to let him use the predictive-dialer option. "
+msgstr ""
+
+#: lib/customer.help.php:151
+msgid "Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls."
+msgstr ""
+
+#: lib/customer.help.php:162
+msgid "Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."
+msgstr ""
+
 #: lib/customer.help.php:174
 msgid "Invoice history - The section below allows you to see and pay the invoices that you have to pay."
 msgstr ""
@@ -1501,6 +1477,14 @@ msgstr ""
 #: lib/customer.help.php:185
 msgid "Receipt history - The section below allows you to see the receipt that you received. you can see in them the summary of some withdrawal"
 msgstr ""
+
+#: lib/customer.help.php:198
+msgid "Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section"
+msgstr ""
+
+#: lib/customer.help.php:211
+msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
+msgstr "Selecione o país abaixo de onde você gostaria de um DID, selecione um DID da lista e coloque o destino que você gostaria de o atribuir ele."
 
 #: lib/customer.help.php:227
 #, fuzzy
@@ -2045,11 +2029,6 @@ msgstr "Não foi possível abrir o arquivo de contatos"
 #: lib/Form/Class.FormHandler.inc.php:2118
 msgid "Impossible to write to the file"
 msgstr "Impossível escrever no arquivo"
-
-#: lib/Form/Class.FormHandler.inc.php:2253
-#: lib/Form/Class.FormHandler.inc.php:2298
-msgid "<br> GOTO ; "
-msgstr "<br> IR PARA ; "
 
 #: lib/Form/Class.FormHandler.inc.php:2293
 #: CC_entity_edit_did_destination.php:200
@@ -3465,6 +3444,18 @@ msgstr "Quantia Total"
 #: checkout_confirmation.php:148
 msgid "Please click button to confirm your order"
 msgstr "Por favor clique no botão para confirmar sua ordem de pagamento"
+
+#~ msgid "<br> GOTO ; "
+#~ msgstr "<br> IR PARA ; "
+
+#~ msgid "Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessary modifications."
+#~ msgstr "Informação de configuração para Clientes SIP e IAX. Você pode simplesmente copiar e colar isto no seu arquivo de configuração e fazer as modificações necessárias."
+
+#~ msgid "Here you can view your ratecards"
+#~ msgstr "Aqui você pode ver seus ratecards"
+
+#~ msgid "WARNING !  <br> after confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
+#~ msgstr "AVISO ! <br> após a confirmação, a liberação do did será feita imediatamente e você não será mais cobrado (taxa extra) mensalmente."
 
 #~ msgid "<br> TYPE DE SELECT :"
 #~ msgstr "<br> TIPO DE SELEÇÃO :"
