@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-03 13:23+0200\n"
+"POT-Creation-Date: 2009-04-03 13:31+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1548,11 +1548,11 @@ msgstr "ACTIUNE"
 
 #: lib/Form/Class.ViewHandler.inc.php:627
 msgid "DISPLAY"
-msgstr "DISPLAY"
+msgstr "AFISEAZA"
 
 #: lib/Form/Class.ViewHandler.inc.php:646
 msgid "GO"
-msgstr "GO"
+msgstr "OK"
 
 #: lib/Form/Class.ViewHandler.inc.php:650
 msgid "Export CSV"
@@ -3286,5 +3286,3 @@ msgstr "Suma + TVA"
 #: checkout_confirmation.php:148
 msgid "Please click button to confirm your order"
 msgstr "Confirmati"
-
-
