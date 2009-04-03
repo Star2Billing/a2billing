@@ -34,7 +34,8 @@ include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
 include (dirname(__FILE__) . "/lib/Misc.php");
 
 $verbose_level = 1;
-$groupcard = 5000;
+$groupcard = 1000;
+$groupwait = 10;# number of second to wait if more then  groupcard updates done
 $time_checks = 20; #number of minute to check with. i.e if time1-time2< $time_checks minutes, consider it is equal.
 # this value must be greater then script run time. used only when checked if service msut be run.
 $run = 1; #set to 0 if u want to just report, no updates. must be set to 1 on productional
@@ -140,7 +141,17 @@ foreach ($result as $myservice) {
 
 	$result_card = $instance_table->SQLExec($A2B->DBHandle, $sql);
 	$instance_table->SQLExec($A2B->DBHandle, "begin;");
+	$query_count=0;
 	foreach ($result_card as $mycard) {
+		$query_count=$query_count+1;
+		if($query_count>=$groupcard) {
+			$instance_table->SQLExec($A2B->DBHandle, "commit");
+			if ($verbose_level >= 1)
+                        	echo "------>|< commit & wait \n";
+			sleep($groupwait);
+			$instance_table->SQLExec($A2B->DBHandle, "begin;");
+			$query_count=0;
+		}
 		if ($verbose_level >= 1)
 			print_r($mycard);
 		$card_id = $mycard[0];
