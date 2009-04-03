@@ -37,9 +37,14 @@ $list_card_info = $inst_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);
 $username = $list_card_info[0][0];
 $password = base64_encode($list_card_info[0][1]);
 $link = CUSTOMER_UI_URL;
-echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?username=$username&password=$password\" target=\"_blank\">GO TO CUSTOMER ACCOUNT</a></div>";
 ?>
-
+<div align="right" style="padding-right:20px;">
+	<form action="<?php echo $link;?>" method="POST" target="_blank">
+		<input type="hidden" name="username" value="<?php echo $username ?>"/>
+		<input type="hidden" name="password" value="<?php echo $password ?>"/>
+		<a href="javascript:;" onclick="javascript:$('form').submit();" > <?php echo gettext("GO TO CUSTOMER ACCOUNT") ?> </a>
+	</form>
+</div>
 
 <table width="95%" >	
 	<tr>		

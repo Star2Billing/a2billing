@@ -7,9 +7,9 @@ include ("lib/customer.smarty.php");
 
 
 $smarty->assign("error", $_GET["error"]);
-$password = base64_decode($_GET["password"]);
+$password = base64_decode($_POST["password"]);
 
-$smarty->assign("username", $_GET["username"]);
+$smarty->assign("username", $_POST["username"]);
 $smarty->assign("password", $password);
 
 $smarty->display('index.tpl');
