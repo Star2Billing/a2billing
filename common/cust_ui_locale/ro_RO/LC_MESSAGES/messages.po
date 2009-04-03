@@ -252,7 +252,7 @@ msgstr "IAX WEB-PHONE"
 
 #: webphone.php:94
 msgid "NO IAX ACCOUNT"
-msgstr "Telefon Web IAX"
+msgstr "NU aveti un cont IAX activ"
 
 #: webphone.php:96
 msgid "START IAX PHONE"
@@ -360,7 +360,7 @@ msgstr "Apasa mai jos pentru a cumpara credit in valoare de"
 
 #: userinfo.php:176
 msgid "BUY NOW"
-msgstr ""
+msgstr "Cumpara Acum"
 
 #: A2B_entity_sipiax_info.php:26
 msgid "IAX Config"
@@ -407,7 +407,7 @@ msgid "PREVIEW INVOICE"
 msgstr "Previzualizare Factura"
 
 #: A2B_invoice_preview.php:96
-#, fuzzy
+#, 
 msgid "Client number"
 msgstr "Cod Client"
 
@@ -538,9 +538,9 @@ msgid "YOUR BALANCE"
 msgstr "Balanta ta "
 
 #: simulator.php:124
-#, fuzzy
+#, 
 msgid "SEARCH"
-msgstr "Martie"
+msgstr "Cauta"
 
 #: simulator.php:147
 msgid "Simulator found a rate for your destination"
@@ -641,7 +641,7 @@ msgstr "Ne pare rau , aceasta pagina este in constructie!"
 
 #: PP_error.php:24 templates/default/PP_error.tpl:17
 msgid "Error Page"
-msgstr ""
+msgstr "Eroare Pagina"
 
 #: PP_error.php:40
 msgid "GO TO LOGIN PAGE"
@@ -692,7 +692,7 @@ msgid "CREATE"
 msgstr "Creaza"
 
 #: A2B_entity_voucher.php:33
-#, fuzzy
+#, 
 msgid "System Error : the currency table is incomplete!"
 msgstr "Eroare Sistem : Tabela cu monede incompleta"
 
@@ -793,7 +793,7 @@ msgid "The maximum file size is "
 msgstr "Marimea maxima a fisierului este"
 
 #: A2B_phonelist_import.php:296
-#, fuzzy
+#, 
 msgid "Import Phonebook"
 msgstr "Importa lista telefoane"
 
@@ -928,7 +928,7 @@ msgstr "caractere"
 
 #: lib/customer.defines.php:238
 msgid "This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"
-msgstr ""
+msgstr "Acest program a fost creat de Areski sub licenta AGPL , pentru mai multe informatii contactati-ma :"
 
 #: lib/customer.defines.php:241
 msgid " <a href=\"http://www.star2billing.com\" target=\"_blank\">www.star2billing.com</a> - Commercial Open Source Telephony"
@@ -1460,11 +1460,11 @@ msgstr ""
 
 #: lib/Class.Notification.php:38
 msgid "New Ticket added by agent"
-msgstr ""
+msgstr "Bilet nou adaugat de Agent"
 
 #: lib/Class.Notification.php:39
 msgid "New Ticket added by customer"
-msgstr ""
+msgstr "Bilet nou adaugat de client"
 
 #: lib/Class.Notification.php:83
 msgid "BATCH"
@@ -1686,7 +1686,7 @@ msgstr "Director"
 
 #: lib/Form/Class.FormHandler.inc.php:507
 msgid "list"
-msgstr ""
+msgstr "Lista"
 
 #: lib/Form/Class.FormHandler.inc.php:508
 #: lib/Form/Class.FormHandler.inc.php:567
@@ -1698,7 +1698,7 @@ msgid "You can browse through our"
 msgstr "Poti naviga prin"
 
 #: lib/Form/Class.FormHandler.inc.php:509
-#, fuzzy
+#, 
 msgid "and modify their different properties"
 msgstr "poti modifica proprietatiile"
 
@@ -1712,7 +1712,7 @@ msgstr "Editeaza aceasta intrare"
 
 #: lib/Form/Class.FormHandler.inc.php:512
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
-msgstr "Documentul a fost creeat."
+msgstr "Documentul a fost creat."
 
 #: lib/Form/Class.FormHandler.inc.php:513 form_data/FG_var_campaign.inc:263
 #: form_data/FG_var_phonenumber.inc:110 form_data/FG_var_callerid.inc:82
@@ -1770,12 +1770,12 @@ msgid "Your new"
 msgstr "Noul tau"
 
 #: lib/Form/Class.FormHandler.inc.php:519
-#, fuzzy
+#, 
 msgid "has been inserted.<br>"
 msgstr "A fost introdus"
 
 #: lib/Form/Class.FormHandler.inc.php:520
-#, fuzzy
+#, 
 msgid "hasn't been inserted."
 msgstr "a fost introdus"
 
@@ -2394,7 +2394,7 @@ msgstr "Email-ul de confirmare a fost trimis. Asteapta 2 minute pentru a face o 
 
 #: signup_confirmation.php:18
 msgid "Error : No User Created."
-msgstr "Eroare: Userul nu a fost creeat"
+msgstr "Eroare: Userul nu a fost creat"
 
 #: signup_confirmation.php:53
 msgid "Error : No email Template Found"
@@ -2889,12 +2889,12 @@ msgid "Insert additional information"
 msgstr "Introduce-ti informatii aditionale"
 
 #: form_data/FG_var_phonenumber.inc:115
-#, fuzzy
+#, 
 msgid "Add a new phone number."
 msgstr "Adauga un numar de telefon DID-ului tau"
 
 #: form_data/FG_var_phonenumber.inc:116
-#, fuzzy
+#, 
 msgid "Your new phone number has been inserted."
 msgstr "Numere de telefon importate"
 
@@ -2922,9 +2922,9 @@ msgid "AMOUNT INCL VAT"
 msgstr "SUMA + TVA"
 
 #: form_data/FG_var_receipt.inc:40
-#, fuzzy
+#, 
 msgid "THERE IS NO RECEIPT CREATED!"
-msgstr "NU EXISTA"
+msgstr "NU EXISTA CHITANTA CREATA"
 
 #: form_data/FG_var_ratecard.inc:30
 msgid "PREFIX"
@@ -2935,14 +2935,14 @@ msgid "SR"
 msgstr ""
 
 #: form_data/FG_var_ratecard.inc:37
-#, fuzzy
+#, 
 msgid "THERE IS NO RATECARD CREATED!"
-msgstr "GRUPA DE TARIFE"
+msgstr "NU EXISTA GRUPA DE TARIFE CREAT"
 
 #: form_data/FG_var_callerid.inc:6
-#, fuzzy
+#, 
 msgid "CallerID"
-msgstr "Maxim Identificatori Apelant"
+msgstr "IDENTIFICATOR APELANT"
 
 #: form_data/FG_var_callerid.inc:15 form_data/FG_var_callerid.inc:48
 msgid "CALLERID"
@@ -2950,7 +2950,7 @@ msgstr "IDENTIFICATOR APELANT"
 
 #: form_data/FG_var_callerid.inc:21
 msgid "CallerID list"
-msgstr ""
+msgstr "Lista Identificatori"
 
 #: form_data/FG_var_callerid.inc:22
 msgid "There are no Caller IDs created"
@@ -2977,9 +2977,9 @@ msgid "REFERENCE"
 msgstr "REFERINTA"
 
 #: form_data/FG_var_invoice.inc:41
-#, fuzzy
+#, 
 msgid "THERE IS NO INVOICE CREATED!"
-msgstr "NU EXISTA"
+msgstr "NU EXISTA FACTURA CREATA"
 
 #: form_data/FG_var_speeddial.inc:18 form_data/FG_var_speeddial.inc:47
 msgid "SPEEDDIAL"
@@ -2987,7 +2987,7 @@ msgstr "FORMARE RAPIDA"
 
 #: form_data/FG_var_speeddial.inc:24
 msgid "There are no speed dials created."
-msgstr "Nu exista formare rapida creeata"
+msgstr "Nu exista formare rapida creeta"
 
 #: form_data/FG_var_speeddial.inc:63
 msgid "Insert the name"
@@ -3060,7 +3060,7 @@ msgstr "NU sunt bilete create"
 
 #: form_data/FG_var_payment.inc:7
 msgid "payment"
-msgstr ""
+msgstr "plata"
 
 #: form_data/FG_var_payment.inc:18
 msgid "PAYMENT DATE"
@@ -3071,7 +3071,7 @@ msgid "PAYMENT AMOUNT"
 msgstr "SUMA DE PLATA"
 
 #: form_data/FG_var_payment.inc:25
-#, fuzzy
+#, 
 msgid "Payment list"
 msgstr "Metoda de plata"
 
