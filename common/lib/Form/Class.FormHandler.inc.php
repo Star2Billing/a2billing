@@ -506,18 +506,18 @@ class FormHandler
         $this -> CV_TEXT_TITLE_ABOVE_TABLE = gettext("DIRECTORY");
         $this -> CV_TITLE_TEXT = $instance_name.' '. gettext("list");
         $this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define criteria to make a precise search");
-        $this -> FG_INTRO_TEXT = gettext("You can browse through our")." #FG_INSTANCE_NAME# ".gettext("and modify their different properties<br>");
+        $this -> FG_INTRO_TEXT = gettext("You can browse through our")." #FG_INSTANCE_NAME# ".gettext("and modify their different properties").'<br>';
         $this -> FG_DELETE_ALT = gettext("Delete this record");
 	    $this -> FG_EDIT_ALT = gettext("Edit this record");
         $this -> FG_ADITION_GO_EDITION_MESSAGE = gettext("The document has been created correctly. Now, you can define the different tariff that you want to associate.");
-        $this -> FG_INTRO_TEXT_EDITION = gettext("You can modify, through the following form, the different properties of your")." #FG_INSTANCE_NAME#<br>";
+        $this -> FG_INTRO_TEXT_EDITION = gettext("You can modify, through the following form, the different properties of your")." #FG_INSTANCE_NAME#".'<br>';
         $this -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." #FG_INSTANCE_NAME#, ".gettext("Click on the delete button.");
         $this -> FG_INTRO_TEXT_DELETION = gettext("One")." #FG_INSTANCE_NAME# ".gettext("has been deleted!");
 		
         $this -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." #FG_INSTANCE_NAME#.<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
         $this -> FG_INTRO_TEXT_ADITION = gettext("Add a")." \"#FG_INSTANCE_NAME#\" ".gettext("now.");
-        $this -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("has been inserted. <br>");
-        $this -> FG_TEXT_ADITION_ERROR = '<font color="Red">'.gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("hasn't been inserted. <br>")."</font>";
+        $this -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("has been inserted.".'<br>');
+        $this -> FG_TEXT_ADITION_ERROR = '<font color="Red">'.gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("hasn't been inserted.").'<br>'."</font>";
         $this -> FG_TEXT_ERROR_DUPLICATION = gettext("You cannot choose more than one !");
 
         $this -> FG_FK_DELETE_MESSAGE = gettext("Are you sure to delete all records connected to this instance.");

@@ -224,7 +224,7 @@ $CC_help_release_did ='
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("WARNING !  <br> after confirmation, the release of the did will be done immediately and you will not be monthly charged any more.").'<br/>
+	.gettext("After confirmation, the release of the did will be done immediately and you will not be monthly charged any more.").'<br/>
 
 <br/>
 </div></div></div>

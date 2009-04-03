@@ -2,11 +2,11 @@
 # Copyright (C) 2004-2009 A2BILLING
 # This file is distributed under the same license as the PACKAGE package.
 # ARESKI <areski@gmail.com>.
-#
+# 
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-30 15:17+0200\n"
+"POT-Creation-Date: 2009-04-03 13:15+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -22,8 +22,7 @@ msgid "Date"
 msgstr "DATA"
 
 #: card-history.php:45 A2B_invoice_preview.php:111 A2B_receipt_view.php:162
-#: A2B_support.php:101 A2B_invoice_view.php:172 A2B_receipt_detail.php:82
-#, 
+#: A2B_support.php:102 A2B_invoice_view.php:172 A2B_receipt_detail.php:82
 msgid "Description"
 msgstr "Descriere"
 
@@ -32,7 +31,6 @@ msgid "Card History"
 msgstr "Istoric Card"
 
 #: card-history.php:174
-#, 
 msgid "SELECT BY MONTH"
 msgstr "Selectie Lunara"
 
@@ -105,7 +103,6 @@ msgid "TO"
 msgstr "Pana in"
 
 #: card-history.php:226
-#, 
 msgid "SELECT BY DAY"
 msgstr "Selectie Zile"
 
@@ -116,9 +113,9 @@ msgstr "Cauta"
 #: card-history.php:385 CC_entity_edit_speeddial.php:265
 #: CC_entity_edit_speeddial.php:475 CC_entity_edit_speeddial.php:767
 #: CC_entity_edit_speeddial.php:1013
-#: lib/Form/Class.FormHandler.EditForm.inc.php:199
-#: lib/Form/Class.FormHandler.EditForm.inc.php:392
-#: lib/Form/Class.FormHandler.EditForm.inc.php:792
+#: lib/Form/Class.FormHandler.EditForm.inc.php:197
+#: lib/Form/Class.FormHandler.EditForm.inc.php:390
+#: lib/Form/Class.FormHandler.EditForm.inc.php:790
 #: lib/Form/Class.FormHandler.DelForm.inc.php:155
 #: lib/Form/Class.FormHandler.AddForm.inc.php:140
 #: CC_entity_edit_did_destination.php:374
@@ -222,45 +219,42 @@ msgid "Save"
 msgstr "Salveaza"
 
 #: checkout_payment.php:266
-#, 
 msgid "Please enter the order amount"
 msgstr "Te rugam sa introduci valoare dorita"
 
 #: checkout_payment.php:273
-#, 
 msgid "Total Amount"
 msgstr "COST TOTAL"
 
-#: webphone.php:23
+#: webphone.php:20
 msgid "ERROR TO LOAD PEER!"
 msgstr "Eroare la conectare"
 
-#: webphone.php:49
+#: webphone.php:45
 msgid "Account/Phone"
 msgstr "Cont/Telefon"
 
-#: webphone.php:64
+#: webphone.php:60
 msgid "SIP WEB-PHONE"
 msgstr "Telefon Web IAX"
 
-#: webphone.php:70
-#, 
+#: webphone.php:66
 msgid "NO SIP ACCOUNT"
 msgstr "NU exista cont IAX "
 
-#: webphone.php:72
+#: webphone.php:68
 msgid "Click to start SIP WebPhone"
 msgstr "Click aici pentru  IAX WebPhone"
 
-#: webphone.php:92
+#: webphone.php:88
 msgid "IAX WEB-PHONE"
 msgstr "IAX WEB-PHONE"
 
-#: webphone.php:98
+#: webphone.php:94
 msgid "NO IAX ACCOUNT"
 msgstr "Telefon Web IAX"
 
-#: webphone.php:100
+#: webphone.php:96
 msgid "START IAX PHONE"
 msgstr "Porneste Telefonul Web IAX"
 
@@ -296,7 +290,7 @@ msgstr "NUME"
 msgid "FIRST NAME"
 msgstr "PRENUME"
 
-#: userinfo.php:68 form_data/FG_var_signup.inc:183
+#: userinfo.php:68 form_data/FG_var_signup.inc:184
 msgid "EMAIL"
 msgstr "EMAIL"
 
@@ -309,7 +303,7 @@ msgstr "TELEFON"
 msgid "FAX"
 msgstr "FAX"
 
-#: userinfo.php:73 form_data/FG_var_signup.inc:193
+#: userinfo.php:73 form_data/FG_var_signup.inc:194
 #: form_data/FG_var_card.inc:34
 msgid "ADDRESS"
 msgstr "ADRESA"
@@ -318,7 +312,7 @@ msgstr "ADRESA"
 msgid "ZIP CODE"
 msgstr "COD POSTAL"
 
-#: userinfo.php:75 form_data/FG_var_signup.inc:203
+#: userinfo.php:75 form_data/FG_var_signup.inc:204
 #: form_data/FG_var_card.inc:44
 msgid "CITY"
 msgstr "ORAS"
@@ -327,7 +321,7 @@ msgstr "ORAS"
 msgid "STATE"
 msgstr "STAT"
 
-#: userinfo.php:77 form_data/FG_var_signup.inc:223 form_data/FG_var_did.inc:36
+#: userinfo.php:77 form_data/FG_var_signup.inc:224 form_data/FG_var_did.inc:36
 #: form_data/FG_var_card.inc:64
 msgid "COUNTRY"
 msgstr "TARA"
@@ -349,24 +343,24 @@ msgid "BALANCE REMAINING"
 msgstr "BALANTA"
 
 #: userinfo.php:115
-#, 
 msgid "CALLING PACKAGE"
 msgstr "Pachet Minute"
 
 #: userinfo.php:119
-#, 
 msgid "PACKAGE MINUTES REMAINING"
 msgstr "Minute ramase din Pachet"
 
 #: userinfo.php:121
-#, 
 msgid "PACKAGE MINUTES USED"
 msgstr "Minute folosite"
 
 #: userinfo.php:144
-#, 
 msgid "Click below to buy credit : "
-msgstr "Apasa mai jos pentru a cumpara<br>credit in valoare de"
+msgstr "Apasa mai jos pentru a cumpara credit in valoare de"
+
+#: userinfo.php:176
+msgid "BUY NOW"
+msgstr ""
 
 #: A2B_entity_sipiax_info.php:26
 msgid "IAX Config"
@@ -385,7 +379,6 @@ msgid "sip.conf"
 msgstr ""
 
 #: A2B_entity_sipiax_info.php:55 form_data/FG_var_campaign.inc:38
-#, 
 msgid "CARD"
 msgstr "Card"
 
@@ -394,7 +387,6 @@ msgid "CONFIGURATION TYPE"
 msgstr "Tipul Configurarii"
 
 #: A2B_entity_sipiax_info.php:62
-#, 
 msgid "IAX"
 msgstr "IAX"
 
@@ -411,9 +403,13 @@ msgid "The peer is not defined, please contact your Administrator!"
 msgstr "Cont/peer Nedefinit! va rugam contactati administratorul"
 
 #: A2B_invoice_preview.php:80
-#, 
 msgid "PREVIEW INVOICE"
 msgstr "Previzualizare Factura"
+
+#: A2B_invoice_preview.php:96
+#, fuzzy
+msgid "Client number"
+msgstr "Cod Client"
 
 #: A2B_invoice_preview.php:112 A2B_invoice_view.php:173
 msgid "Cost excl. VAT"
@@ -437,19 +433,18 @@ msgid "Total incl. VAT:"
 msgstr "Total incl. TVA"
 
 #: CC_entity_edit_speeddial.php:419 CC_entity_edit_speeddial.php:609
-#: lib/Form/Class.FormHandler.EditForm.inc.php:344
-#: lib/Form/Class.FormHandler.EditForm.inc.php:512
-#: lib/Form/Class.FormHandler.EditForm.inc.php:641
+#: lib/Form/Class.FormHandler.EditForm.inc.php:342
+#: lib/Form/Class.FormHandler.EditForm.inc.php:510
+#: lib/Form/Class.FormHandler.EditForm.inc.php:639
 #: CC_entity_edit_did_destination.php:740
 msgid "Add a new"
 msgstr "Adauga un now"
 
 #: CC_entity_edit_speeddial.php:531 CC_entity_edit_speeddial.php:700
-#: lib/Form/Class.FormHandler.EditForm.inc.php:433
-#: lib/Form/Class.FormHandler.EditForm.inc.php:570
+#: lib/Form/Class.FormHandler.EditForm.inc.php:431
+#: lib/Form/Class.FormHandler.EditForm.inc.php:568
 #: CC_entity_edit_did_destination.php:647
 #: CC_entity_edit_did_destination.php:842
-#, 
 msgid "LIST"
 msgstr "LISTA"
 
@@ -466,7 +461,6 @@ msgid "Delete"
 msgstr "Sterge"
 
 #: CC_entity_edit_speeddial.php:1045
-#, 
 msgid "Deletetion"
 msgstr "Stergere"
 
@@ -487,28 +481,27 @@ msgstr "Ne pare rau , emai-ul de activare a fost trimis. Va rugam asteptati un m
 msgid "Welcome! Your account has been successfully activated. Thank you!"
 msgstr " Contul tau a fost creat . Multumim"
 
-#: activate.php:86 signup_confirmation.php:143
+#: activate.php:86 signup_confirmation.php:140
 msgid "Thank you for registering with us !"
 msgstr "Multumim ca folosesti serviciile noastre"
 
-#: activate.php:87 signup_confirmation.php:144
+#: activate.php:87 signup_confirmation.php:141
 msgid "An email confirming your information has been sent to"
 msgstr "Un email de confirmare a fost trimis la"
 
-#: activate.php:89 signup_confirmation.php:146
+#: activate.php:89 signup_confirmation.php:143
 msgid "Your cardnumber is "
 msgstr "Contul tau pesronal este"
 
-#: activate.php:90 signup_confirmation.php:147
-#, 
+#: activate.php:90 signup_confirmation.php:144
 msgid "To login to your account :"
 msgstr "Pentru a intra in contul tau:"
 
-#: activate.php:91 signup_confirmation.php:148
+#: activate.php:91 signup_confirmation.php:145
 msgid "Your card alias (login) is "
 msgstr "Username-ul tau este"
 
-#: activate.php:92 signup_confirmation.php:149 form_data/FG_var_signup.inc:419
+#: activate.php:92 signup_confirmation.php:146 form_data/FG_var_signup.inc:420
 msgid "Your password is "
 msgstr "Parola ta este"
 
@@ -528,51 +521,53 @@ msgstr "Contul tau nu poate fi activat. Contacteaza Administratorul "
 msgid "Error card !!!"
 msgstr "Eroare Cont!!!"
 
-#: simulator.php:124
-#, 
+#: simulator.php:105
 msgid "Call"
 msgstr "Apel"
 
-#: simulator.php:124
+#: simulator.php:105
 msgid "Simulator"
 msgstr "Simulator"
 
-#: simulator.php:130
-#, 
+#: simulator.php:111
 msgid "Enter the number you wish to call"
 msgstr "Introduce-ti numarul pe care doriti sa fie format cand codul estre introdus"
 
-#: simulator.php:135
+#: simulator.php:116
 msgid "YOUR BALANCE"
 msgstr "Balanta ta "
 
-#: simulator.php:166
+#: simulator.php:124
+#, fuzzy
+msgid "SEARCH"
+msgstr "Martie"
+
+#: simulator.php:147
 msgid "Simulator found a rate for your destination"
 msgstr "Am gasit un pret/ruta pentru destinatia ta"
 
-#: simulator.php:172
+#: simulator.php:153
 msgid "We found several destinations:"
 msgstr "Am gasit mai multe rute"
 
-#: simulator.php:190 form_data/FG_var_ratecard.inc:29
+#: simulator.php:171 form_data/FG_var_ratecard.inc:29
 #: form_data/FG_var_did.inc:31 form_data/FG_var_did.inc:59
 msgid "DESTINATION"
 msgstr "DESTINATIE"
 
-#: simulator.php:195
+#: simulator.php:176
 msgid "CallTime available"
 msgstr "Timp conversatie posibil"
 
-#: simulator.php:197 call-history.php:306
+#: simulator.php:178 call-history.php:306
 msgid "Minutes"
 msgstr "Minute"
 
-#: simulator.php:230
+#: simulator.php:211
 msgid "The number, you have entered, is not correct!"
 msgstr "Numarul introdus nu este corect!"
 
 #: A2B_receipt_view.php:111 A2B_invoice_view.php:114
-#, 
 msgid "INVOICE"
 msgstr "FACTURA"
 
@@ -585,7 +580,6 @@ msgid "Cost"
 msgstr "Cost"
 
 #: A2B_receipt_view.php:199
-#, 
 msgid "Total:"
 msgstr "TOTAL"
 
@@ -606,7 +600,6 @@ msgid "Error : There is no route to call back your phonenumber!"
 msgstr "Eroare : NU exista ruta pentru destinatia ceruta"
 
 #: callback.php:145
-#, 
 msgid "Error : You have to specify your phonenumber and the number you wish to call!"
 msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Eroare : Trebuie sa specificati numarul dumneavoastra si numarul pe care doriti sa-l formati !!!</b></font><br>"
 
@@ -654,85 +647,80 @@ msgstr ""
 msgid "GO TO LOGIN PAGE"
 msgstr "Mergi la Authentificare"
 
-#: A2B_support.php:30
+#: A2B_support.php:31
 msgid "Ticket added successfully"
 msgstr "Bilet Adaugata cu sucess"
 
-#: A2B_support.php:52
+#: A2B_support.php:53
 msgid "Create support ticket"
 msgstr "Creati un nou Bilet"
 
-#: A2B_support.php:60
-#, 
+#: A2B_support.php:61
 msgid "Title"
 msgstr "Titlu"
 
-#: A2B_support.php:68
+#: A2B_support.php:69
 msgid "Priority"
 msgstr "Prioritate"
 
-#: A2B_support.php:72 lib/interface/constants.php:199
+#: A2B_support.php:73 lib/interface/constants.php:199
 #: A2B_entity_ratecard.php:68
-#, 
 msgid "NONE"
 msgstr "Nici unul"
 
-#: A2B_support.php:73 lib/interface/constants.php:200
-#: lib/Class.Notification.php:61
+#: A2B_support.php:74 lib/interface/constants.php:200
+#: lib/Class.Notification.php:64
 msgid "LOW"
 msgstr "Scazut"
 
-#: A2B_support.php:74 lib/interface/constants.php:201
-#: lib/Class.Notification.php:58
-#, 
+#: A2B_support.php:75 lib/interface/constants.php:201
+#: lib/Class.Notification.php:61
 msgid "MEDIUM"
 msgstr "Mediu"
 
-#: A2B_support.php:75 lib/interface/constants.php:202
-#: lib/Class.Notification.php:56
+#: A2B_support.php:76 lib/interface/constants.php:202
+#: lib/Class.Notification.php:59
 msgid "HIGH"
 msgstr "Maxim"
 
-#: A2B_support.php:81
+#: A2B_support.php:82
 msgid "Component"
 msgstr "Componenta"
 
-#: A2B_support.php:109
-#, 
+#: A2B_support.php:110
 msgid "CREATE"
 msgstr "Creaza"
 
-#: A2B_entity_voucher.php:38
-msgid "System Error : No currency table complete !!!"
+#: A2B_entity_voucher.php:33
+#, fuzzy
+msgid "System Error : the currency table is incomplete!"
 msgstr "Eroare Sistem : Tabela cu monede incompleta"
 
-#: A2B_entity_voucher.php:47
-#, 
+#: A2B_entity_voucher.php:42
 msgid "The voucher"
 msgstr "Cuponul"
 
-#: A2B_entity_voucher.php:47
+#: A2B_entity_voucher.php:42
 msgid "has been used, We added"
 msgstr "a fost folosit, am adaugat"
 
-#: A2B_entity_voucher.php:47
+#: A2B_entity_voucher.php:42
 msgid "credit on your account!"
 msgstr "contului tau!"
 
-#: A2B_entity_voucher.php:50
-#, 
+#: A2B_entity_voucher.php:45
 msgid "This voucher doesn't exist !"
 msgstr "Cupon Invalid  !"
 
-#: A2B_entity_voucher.php:53
+#: A2B_entity_voucher.php:48
 msgid "The voucher should be a number !"
 msgstr "Cupon-ul trebuie sa contina doar cifre"
 
-#: A2B_entity_voucher.php:107 form_data/FG_var_voucher.inc:12
+#: A2B_entity_voucher.php:102 form_data/FG_var_voucher.inc:12
 msgid "VOUCHER"
 msgstr "CUPON"
 
-#: A2B_entity_voucher.php:112
+#: A2B_entity_voucher.php:107
 msgid "USE VOUCHER"
 msgstr "Foloseste CUPON"
 
@@ -745,7 +733,6 @@ msgid "All calls are listed below. Search by month, day or status. Additionally,
 msgstr "Toate apelurile sunt listate aici . Poti selecta in functie de luna , ziua sau status. De asemenea poti verifica pretul per apel"
 
 #: help.php:43 lib/customer.help.php:43
-#, 
 msgid "Personal information."
 msgstr "Informatii Personale"
 
@@ -801,7 +788,7 @@ msgstr "Lista-TEL este un set de numere de telefon. Puteti aduga sau sterge nume
 msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
 msgstr "Selectati tara de unde doriti DID , Selectati un DID din lista apoi Introduce-ti destinatia."
 
-#: help.php:204 lib/customer.help.php:227
+#: help.php:204
 msgid "WARNING !  <br> after confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
 msgstr "Dupa eliberarea DID-ului nu veti mai fi taxat "
 
@@ -830,7 +817,6 @@ msgid "These fields are mandatory"
 msgstr "Aceste campurii sunt mandatorii"
 
 #: A2B_phonelist_import.php:217
-#, 
 msgid "number"
 msgstr "numar"
 
@@ -874,148 +860,149 @@ msgstr "Exemplu Simplu"
 msgid "The maximum file size is "
 msgstr "Marimea maxima a fisierului este"
 
-#: lib/customer.defines.php:56
+#: A2B_phonelist_import.php:296
+#, fuzzy
+msgid "Import Phonebook"
+msgstr "Importa lista telefoane"
+
+#: lib/customer.defines.php:58
 msgid "The expiry date entered for the credit card is invalid."
 msgstr "Data expirarii cardului este invalida"
 
-#: lib/customer.defines.php:56
-#, 
+#: lib/customer.defines.php:58
 msgid "Please check the date and try again."
 msgstr "Verifica data si incerca din nou"
 
-#: lib/customer.defines.php:57
+#: lib/customer.defines.php:59
 msgid "The credit card number entered is invalid."
 msgstr "Numarul cardului este invalid"
 
-#: lib/customer.defines.php:57
-#, 
+#: lib/customer.defines.php:59
 msgid "Please check the number and try again."
 msgstr "Verifica numarul si incerca din nou "
 
-#: lib/customer.defines.php:58
+#: lib/customer.defines.php:60
 msgid "The first four digits of the number entered are"
 msgstr "Primele 4 cifre ale numarului sunt"
 
-#: lib/customer.defines.php:58
+#: lib/customer.defines.php:60
 msgid "If that number is correct, we do not accept that type of credit card."
 msgstr "Daca acest numar este corect , atunci nu acceptam tipul dumneavoastra de card"
 
-#: lib/customer.defines.php:58
+#: lib/customer.defines.php:60
 msgid "If it is wrong, please try again."
 msgstr "Daca este gresit , atunci incercati din nou"
 
-#: lib/customer.defines.php:65
+#: lib/customer.defines.php:67
 msgid "Errors have occured during the process of your form."
 msgstr "Au aprut erori in timpul procesului"
 
-#: lib/customer.defines.php:65
+#: lib/customer.defines.php:67
 msgid "Please make the following corrections:\\n\\n"
 msgstr "Va rugam faceti urmatoarele corectii"
 
-#: lib/customer.defines.php:66
+#: lib/customer.defines.php:68
 msgid "* The 'Review Text' must have at least"
 msgstr "'Review TEXT' trebuie sa aiba cel putin"
 
-#: lib/customer.defines.php:66 lib/customer.defines.php:78
-#: lib/customer.defines.php:79 lib/customer.defines.php:92
+#: lib/customer.defines.php:68 lib/customer.defines.php:80
+#: lib/customer.defines.php:81 lib/customer.defines.php:94
 msgid "characters"
 msgstr "caractere"
 
-#: lib/customer.defines.php:67
+#: lib/customer.defines.php:69
 msgid "You must rate the product for your review."
 msgstr "Selecteaza rate-ul pentru acest produs"
 
-#: lib/customer.defines.php:68 lib/customer.defines.php:70
+#: lib/customer.defines.php:70 lib/customer.defines.php:72
 msgid "Please select a payment method for your order."
 msgstr "Selecteaza metoda de plata pentru comanda ta"
 
-#: lib/customer.defines.php:69
+#: lib/customer.defines.php:71
 msgid "This form has already been submitted. Please press Ok and wait for this process to be completed."
 msgstr "Procesare in curs , Apasa OK si asteapta terminarea procesului"
 
-#: lib/customer.defines.php:72
+#: lib/customer.defines.php:74
 msgid "Credit Card"
 msgstr "Card Credit"
 
-#: lib/customer.defines.php:73 lib/customer.defines.php:83
+#: lib/customer.defines.php:75 lib/customer.defines.php:85
 msgid "Credit Card Test Info"
 msgstr "Test Info Card Credit"
 
-#: lib/customer.defines.php:73 lib/customer.defines.php:83
+#: lib/customer.defines.php:75 lib/customer.defines.php:85
 msgid "Expiry: Any"
 msgstr "Expira : Toate"
 
-#: lib/customer.defines.php:74
+#: lib/customer.defines.php:76
 msgid "Credit Card Type"
 msgstr "Tipul Cardului de credit"
 
-#: lib/customer.defines.php:75
+#: lib/customer.defines.php:77
 msgid "Credit Card Owner"
 msgstr "Detinatorul CArdului"
 
-#: lib/customer.defines.php:76
-#, 
+#: lib/customer.defines.php:78
 msgid "Credit Card Number"
 msgstr "Numarul Cardului de credit"
 
-#: lib/customer.defines.php:77
+#: lib/customer.defines.php:79
 msgid "Credit Card Expiry Date"
 msgstr "Data expirarii"
 
-#: lib/customer.defines.php:78 lib/customer.defines.php:91
+#: lib/customer.defines.php:80 lib/customer.defines.php:93
 msgid "* The owner's name of the credit card must be at least"
 msgstr "* Numele Scris exact asa cum apare pe card"
 
-#: lib/customer.defines.php:79 lib/customer.defines.php:92
+#: lib/customer.defines.php:81 lib/customer.defines.php:94
 msgid "* The credit card number must be at least"
 msgstr "* Numarul cardului"
 
-#: lib/customer.defines.php:80
+#: lib/customer.defines.php:82
 msgid "Credit Card Error!"
 msgstr "Eroare Credit Card!"
 
-#: lib/customer.defines.php:84
+#: lib/customer.defines.php:86
 msgid "There has been an error processing your credit card"
 msgstr "A aparut o eroare la procesarea cardului dumneavoastra"
 
-#: lib/customer.defines.php:85
+#: lib/customer.defines.php:87
 msgid "Please check your credit card details!"
 msgstr "Verificati informatiile introduse"
 
-#: lib/customer.defines.php:86
+#: lib/customer.defines.php:88
 msgid "Credit Card Owner:"
 msgstr "Numele Complet"
 
-#: lib/customer.defines.php:87
-#, 
+#: lib/customer.defines.php:89
 msgid "Credit Card Number:"
 msgstr "Numar Card de credit"
 
-#: lib/customer.defines.php:88
+#: lib/customer.defines.php:90
 msgid "Credit Card Expiry Date:"
 msgstr "Data expirarii cardului"
 
-#: lib/customer.defines.php:89
+#: lib/customer.defines.php:91
 msgid "Credit Card Checknumber:"
 msgstr "Numarul de securitate"
 
-#: lib/customer.defines.php:90
+#: lib/customer.defines.php:92
 msgid "(located at the back of the credit card)"
 msgstr "( aflat pe spatele cardului )"
 
-#: lib/customer.defines.php:91
+#: lib/customer.defines.php:93
 msgid "characters."
 msgstr "caractere"
 
-#: lib/customer.defines.php:236
+#: lib/customer.defines.php:238
 msgid "This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"
 msgstr ""
 
-#: lib/customer.defines.php:239
+#: lib/customer.defines.php:241
 msgid " <a href=\"http://www.star2billing.com\" target=\"_blank\">www.star2billing.com</a> - Commercial Open Source Telephony"
 msgstr ""
 
-#: lib/customer.defines.php:240
+#: lib/customer.defines.php:242
 msgid "A2Billing : Customer Portal"
 msgstr "A2billing : Portal Clienti"
 
@@ -1052,7 +1039,7 @@ msgid "Yes"
 msgstr "Da"
 
 #: lib/interface/constants.php:34
-#: lib/Form/Class.FormHandler.EditForm.inc.php:313
+#: lib/Form/Class.FormHandler.EditForm.inc.php:311
 #: CC_entity_edit_did_destination.php:706
 msgid "No"
 msgstr "Nu"
@@ -1104,7 +1091,6 @@ msgid "SIMULTANEOUS ACCESS"
 msgstr "Access Simultan"
 
 #: lib/interface/constants.php:88
-#, 
 msgid "PREPAID CARD"
 msgstr "Card Preplatit"
 
@@ -1113,7 +1099,6 @@ msgid "POSTPAID CARD"
 msgstr "Card cu plata lunara"
 
 #: lib/interface/constants.php:95
-#, 
 msgid "NO EXPIRATION"
 msgstr "Fara expirare"
 
@@ -1142,7 +1127,6 @@ msgid "UNPAID"
 msgstr "Necesita Plata"
 
 #: lib/interface/constants.php:121 lib/interface/constants.php:147
-#, 
 msgid "PAID"
 msgstr "Platit"
 
@@ -1227,12 +1211,10 @@ msgid "Unlimited calls"
 msgstr "Apeluri Nelimitate"
 
 #: lib/interface/constants.php:171
-#, 
 msgid "Number of Free calls"
 msgstr "Numarul de apelurii gratis"
 
 #: lib/interface/constants.php:172
-#, 
 msgid "Free minutes"
 msgstr "Minute Gratis"
 
@@ -1287,17 +1269,14 @@ msgid "BUSY"
 msgstr "OCupat"
 
 #: lib/interface/constants.php:225
-#, 
 msgid "NOANSWER"
 msgstr "FARA RASPUNS"
 
 #: lib/interface/constants.php:226 lib/interface/constants.php:277
-#, 
 msgid "CANCEL"
 msgstr "ANULAT"
 
 #: lib/interface/constants.php:227
-#, 
 msgid "CONGESTION"
 msgstr "CONGESTIE"
 
@@ -1306,12 +1285,10 @@ msgid "CHANUNAVAIL"
 msgstr ""
 
 #: lib/interface/constants.php:229
-#, 
 msgid "DONTCALL"
 msgstr "NU SUNA"
 
 #: lib/interface/constants.php:230
-#, 
 msgid "TORTURE"
 msgstr "TORTURAT"
 
@@ -1320,21 +1297,21 @@ msgid "INVALIDARGS"
 msgstr "Adresa invalida"
 
 #: lib/interface/constants.php:251 lib/interface/constants.php:265
-#, 
 msgid "ACTIVE"
 msgstr "Activ"
 
 #: lib/interface/constants.php:252 lib/interface/constants.php:264
-#, 
+#: lib/interface/constants.php:277
 msgid "CANCELLED"
 msgstr "ANULAT"
 
 #: lib/interface/constants.php:254 lib/interface/constants.php:267
+#: lib/interface/constants.php:280
 msgid "WAITING-MAILCONFIRMATION"
 msgstr "astept confirmare email"
 
 #: lib/interface/constants.php:255 lib/interface/constants.php:268
-#, 
+#: lib/interface/constants.php:281
 msgid "RESERVED"
 msgstr "Rezervat"
 
@@ -1344,16 +1321,14 @@ msgid "EXPIRED"
 msgstr "Expirat"
 
 #: lib/interface/constants.php:257 lib/interface/constants.php:270
+#: lib/interface/constants.php:283
 msgid "SUSPENDED FOR UNDERPAYMENT"
 msgstr "SUSPENDAT PENTRU NEPLATA"
 
 #: lib/interface/constants.php:258 lib/interface/constants.php:271
+#: lib/interface/constants.php:284
 msgid "SUSPENDED FOR LITIGATION"
 msgstr "SUSPENDAT PENTRU LITIGIU"
-
-#: lib/interface/constants.php:277
-msgid "<acronym title=\"CANCELLED\">"
-msgstr "<acronym title=\"ANULAT\">"
 
 #: lib/interface/constants.php:278 form_data/FG_var_callerid.inc:16
 #: form_data/FG_var_callerid.inc:58 form_data/FG_var_did.inc:33
@@ -1361,51 +1336,21 @@ msgstr "<acronym title=\"ANULAT\">"
 msgid "ACTIVATED"
 msgstr "ACTIVAT"
 
-#: lib/interface/constants.php:278
-msgid "<acronym title=\"ACTIVATED\">"
-msgstr "<acronym title=\"ACTIVATAT\">"
-
-#: lib/interface/constants.php:279
-msgid "<acronym title=\"NEW\">"
-msgstr "<acronym title=\"NOU\">"
-
 #: lib/interface/constants.php:280
-#, 
 msgid "WAITING"
 msgstr "In asteptare"
 
-#: lib/interface/constants.php:280
-msgid "<acronym title=\"WAITING-MAILCONFIRMATION\">"
-msgstr "<acronym title=\"ASTEPT CONFIRMARE E-MAIL\">"
-
 #: lib/interface/constants.php:281
-#, 
 msgid "RESERV"
 msgstr "Rezervat"
-
-#: lib/interface/constants.php:281
-msgid "<acronym title=\"RESERVED\">"
-msgstr "<acronym title=\"REZERVAT\">"
-
-#: lib/interface/constants.php:282
-msgid "<acronym title=\"EXPIRED\">"
-msgstr "<acronym title=\"EXPIRAT\">"
 
 #: lib/interface/constants.php:283
 msgid "SUS-PAY"
 msgstr ""
 
-#: lib/interface/constants.php:283
-msgid "<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">"
-msgstr "<acronym title=\"SUSPENDAT PENTRU NEPLATA\">"
-
 #: lib/interface/constants.php:284
 msgid "SUS-LIT"
 msgstr ""
-
-#: lib/interface/constants.php:284
-msgid "<acronym title=\"SUSPENDED FOR LITIGATION\">"
-msgstr "<acronym title=\"SUSPENDAT PENTRU LITIGIU\">"
 
 #: lib/interface/constants.php:305
 msgid "NO EXPIRY"
@@ -1413,22 +1358,18 @@ msgstr "Fara expirare"
 
 #: lib/interface/constants.php:314 form_data/FG_var_phonenumber.inc:30
 #: form_data/FG_var_phonenumber.inc:77
-#, 
 msgid "AMOUNT"
 msgstr "Suma"
 
 #: lib/interface/constants.php:315
-#, 
 msgid "CORRECTION"
 msgstr "Corectare"
 
 #: lib/interface/constants.php:316
-#, 
 msgid "EXTRA FEE"
 msgstr "Taxa speciala"
 
 #: lib/interface/constants.php:329
-#, 
 msgid "NO DISCOUNT"
 msgstr "Fara Discount"
 
@@ -1436,64 +1377,64 @@ msgstr "Fara Discount"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Configurare numarului de caractere a cardului invalida in configurare"
 
-#: lib/Class.A2Billing.php:2479
+#: lib/Class.A2Billing.php:2463
 msgid "Error : Authentication Failed !!!"
 msgstr "Eroare : Authentificare esuata!"
 
-#: lib/Class.A2Billing.php:2517 lib/Class.A2Billing.php:2522
+#: lib/Class.A2Billing.php:2501 lib/Class.A2Billing.php:2506
 msgid "Error : Not enough credit to call !!!"
 msgstr "Eroare : Nu ai suficient credit!!!"
 
-#: lib/Class.A2Billing.php:2528
+#: lib/Class.A2Billing.php:2512
 msgid "Error : Card is not active!!!"
 msgstr "Eroare : Contul tau nu este activ"
 
-#: lib/Class.A2Billing.php:2534
+#: lib/Class.A2Billing.php:2518
 msgid "Error : Card is actually in use!!!"
 msgstr "Eroare : Contul tau  este activ in convorbire- nu ai decat un singur canal disponibil "
 
-#: lib/Class.A2Billing.php:2543 lib/Class.A2Billing.php:2551
-#: lib/Class.A2Billing.php:2559
+#: lib/Class.A2Billing.php:2527 lib/Class.A2Billing.php:2535
+#: lib/Class.A2Billing.php:2543
 msgid "Error : Card have expired!!!"
 msgstr "Eroare : Contul tau a expirat"
 
-#: lib/Misc.php:696
+#: lib/Misc.php:706
 msgid "File size is greater than allowed limit."
 msgstr "Marimea fisierului este mai mre decat limita maxima posibila"
 
-#: lib/Misc.php:699
+#: lib/Misc.php:709
 msgid "You did not upload anything!"
 msgstr "Nu ai incarcat nimic"
 
-#: lib/Misc.php:701
+#: lib/Misc.php:711
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Eroare la incarcarea fisierului ..."
 
-#: lib/Misc.php:704
+#: lib/Misc.php:714
 msgid "file type is not allowed"
 msgstr "Tipul fisierului nu este suporatat"
 
-#: lib/Misc.php:995
+#: lib/Misc.php:1005
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Nu pot sa gasesc  base_currency in cc_currencies. "
 
-#: lib/Misc.php:995 lib/Misc.php:1016 lib/Misc.php:1020 lib/Misc.php:1030
+#: lib/Misc.php:1005 lib/Misc.php:1026 lib/Misc.php:1030 lib/Misc.php:1040
 msgid "Currency update ABORTED."
 msgstr "ACTUALIZAREA MONEDELOR ANULATA"
 
-#: lib/Misc.php:1016
+#: lib/Misc.php:1026
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "FISIERUL CSV NU CONTINE TOATE MONEDELE CERUTE"
 
-#: lib/Misc.php:1020
+#: lib/Misc.php:1030
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Cel putin unu din intrarile in fisierul csv nu este un numar"
 
-#: lib/Misc.php:1030
+#: lib/Misc.php:1040
 msgid "Our base_currency seems to be worthless."
 msgstr ""
 
-#: lib/Misc.php:1064
+#: lib/Misc.php:1074
 msgid "Success! All currencies are now updated."
 msgstr "Toate monedele au fost actualizate"
 
@@ -1517,16 +1458,39 @@ msgstr "Istorie Facturi - Aceasta sectiune va pune la dispozitie informatii cu p
 msgid "Receipt history - The section below allows you to see the receipt that you received. you can see in them the summary of some withdrawal"
 msgstr "Istorie Chitante Aceasta sectiune va pune la dispozitie  vizulizarea chitantelor primite"
 
-#: lib/Class.Notification.php:80
-#, 
+#: lib/customer.help.php:227
+msgid "After confirmation, the release of the did will be done immediately and you will not be monthly charged any more."
+msgstr "Dupa eliberarea DID-ului nu veti mai fi taxat "
+
+#: lib/Class.Notification.php:35
+msgid "New SIP & IAX added : Friends conf have to be generated"
+msgstr ""
+
+#: lib/Class.Notification.php:36
+msgid "New SIP added : Sip Friends conf have to be generated"
+msgstr ""
+
+#: lib/Class.Notification.php:37
+msgid "New IAX added : IAX Friends conf have to be generated"
+msgstr ""
+
+#: lib/Class.Notification.php:38
+msgid "New Ticket added by agent"
+msgstr ""
+
+#: lib/Class.Notification.php:39
+msgid "New Ticket added by customer"
+msgstr ""
+
+#: lib/Class.Notification.php:83
 msgid "BATCH"
 msgstr "Proceseza"
 
-#: lib/Class.Notification.php:82
+#: lib/Class.Notification.php:85
 msgid "UNKNOWN"
 msgstr "NECUNOSCUT"
 
-#: lib/Class.Notification.php:98
+#: lib/Class.Notification.php:102
 msgid "No Message Unknown"
 msgstr "Mesaj Necunoscut"
 
@@ -1554,11 +1518,7 @@ msgstr "INCHIS"
 msgid "INVALID"
 msgstr "INVALID"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:136
-msgid "<br> TYPE DE SELECT :"
-msgstr "<br> "
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:259
+#: lib/Form/Class.FormHandler.EditForm.inc.php:257
 msgid "LIST "
 msgstr "LISTA"
 
@@ -1583,7 +1543,6 @@ msgid "Sort"
 msgstr "Sorteaza"
 
 #: lib/Form/Class.ViewHandler.inc.php:103
-#, 
 msgid "Records"
 msgstr "Inregistrari"
 
@@ -1681,7 +1640,7 @@ msgstr "Egal"
 #: lib/Form/Class.SearchHandler.inc.php:443
 #: lib/Form/Class.SearchHandler.inc.php:459
 #: lib/Form/Class.SearchHandler.inc.php:475
-#: lib/Form/Class.SearchHandler.inc.php:492
+#: lib/Form/Class.SearchHandler.inc.php:492 form_data/FG_var_phonebook.inc:80
 msgid "Add"
 msgstr "Adauga"
 
@@ -1718,7 +1677,6 @@ msgid "BILLINGBLOCK"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:455
-#, 
 msgid "CONNECTCHARGE"
 msgstr "Taxa Conectare"
 
@@ -1727,360 +1685,356 @@ msgid "DISCONNECTCHARGE"
 msgstr "Taxa Deconectare"
 
 #: lib/Form/Class.SearchHandler.inc.php:487
-#, 
 msgid "DISCONNECT CHARGE THRESHOLD"
 msgstr "Taxa Deconectare"
 
 #: lib/Form/Class.SearchHandler.inc.php:505
-#, 
 msgid " BATCH UPDATE RATECARD "
 msgstr "GRUPA DE PRETURI"
 
-#: lib/Form/Class.FormHandler.inc.php:504
-#, 
+#: lib/Form/Class.FormHandler.inc.php:505
 msgid "No data found!"
 msgstr "Nu exista date !!!"
 
-#: lib/Form/Class.FormHandler.inc.php:505
+#: lib/Form/Class.FormHandler.inc.php:506
 msgid "DIRECTORY"
 msgstr "Director"
 
-#: lib/Form/Class.FormHandler.inc.php:506
-#: lib/Form/Class.FormHandler.inc.php:568
+#: lib/Form/Class.FormHandler.inc.php:507
+msgid "list"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:508
+#: lib/Form/Class.FormHandler.inc.php:567
 msgid "Define criteria to make a precise search"
 msgstr "DEfinestie criteriul de cautare pentru un rezultat mai precis"
 
-#: lib/Form/Class.FormHandler.inc.php:507
+#: lib/Form/Class.FormHandler.inc.php:509
 msgid "You can browse through our"
 msgstr "Poti naviga prin"
 
-#: lib/Form/Class.FormHandler.inc.php:507
-msgid "and modify their different properties<br>"
+#: lib/Form/Class.FormHandler.inc.php:509
+#, fuzzy
+msgid "and modify their different properties"
 msgstr "poti modifica proprietatiile"
 
-#: lib/Form/Class.FormHandler.inc.php:508
+#: lib/Form/Class.FormHandler.inc.php:510
 msgid "Delete this record"
 msgstr "Sterge aceasta inregistrare"
 
-#: lib/Form/Class.FormHandler.inc.php:509
+#: lib/Form/Class.FormHandler.inc.php:511
 msgid "Edit this record"
 msgstr "Editeaza aceasta intrare"
 
-#: lib/Form/Class.FormHandler.inc.php:510
+#: lib/Form/Class.FormHandler.inc.php:512
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
 msgstr "Documentul a fost creeat."
 
-#: lib/Form/Class.FormHandler.inc.php:511 form_data/FG_var_campaign.inc:263
+#: lib/Form/Class.FormHandler.inc.php:513 form_data/FG_var_campaign.inc:263
 #: form_data/FG_var_phonenumber.inc:110 form_data/FG_var_callerid.inc:82
 #: form_data/FG_var_speeddial.inc:84 form_data/FG_var_phonebook.inc:75
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "poti modifica proprietatiile"
 
-#: lib/Form/Class.FormHandler.inc.php:512 form_data/FG_var_campaign.inc:264
+#: lib/Form/Class.FormHandler.inc.php:514 form_data/FG_var_campaign.inc:264
 #: form_data/FG_var_phonenumber.inc:111 form_data/FG_var_callerid.inc:83
 #: form_data/FG_var_speeddial.inc:85 form_data/FG_var_did.inc:114
 #: form_data/FG_var_ticket.inc:48 form_data/FG_var_phonebook.inc:76
 msgid "If you really want remove this"
 msgstr "daca chiar vrei sa stergi "
 
-#: lib/Form/Class.FormHandler.inc.php:512
+#: lib/Form/Class.FormHandler.inc.php:514
 msgid "Click on the delete button."
 msgstr "Apasa pe butonul stergere"
 
-#: lib/Form/Class.FormHandler.inc.php:513
+#: lib/Form/Class.FormHandler.inc.php:515
 msgid "One"
 msgstr "Unu"
 
-#: lib/Form/Class.FormHandler.inc.php:513
-#, 
+#: lib/Form/Class.FormHandler.inc.php:515
 msgid "has been deleted!"
 msgstr "A fost sters"
 
-#: lib/Form/Class.FormHandler.inc.php:515 form_data/FG_var_campaign.inc:265
+#: lib/Form/Class.FormHandler.inc.php:517 form_data/FG_var_campaign.inc:265
 #: form_data/FG_var_phonenumber.inc:112 form_data/FG_var_callerid.inc:84
 #: form_data/FG_var_speeddial.inc:86 form_data/FG_var_did.inc:115
 #: form_data/FG_var_ticket.inc:49 form_data/FG_var_phonebook.inc:77
 msgid "you can add easily a new"
 msgstr "poti adauga usor un nou"
 
-#: lib/Form/Class.FormHandler.inc.php:515 form_data/FG_var_campaign.inc:265
+#: lib/Form/Class.FormHandler.inc.php:517 form_data/FG_var_campaign.inc:265
 #: form_data/FG_var_phonenumber.inc:112 form_data/FG_var_callerid.inc:84
 #: form_data/FG_var_speeddial.inc:86 form_data/FG_var_did.inc:115
 #: form_data/FG_var_ticket.inc:49 form_data/FG_var_phonebook.inc:77
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Completeaza urmatoarele campuri "
 
-#: lib/Form/Class.FormHandler.inc.php:516
+#: lib/Form/Class.FormHandler.inc.php:518
 msgid "Add a"
 msgstr "adauga un"
 
-#: lib/Form/Class.FormHandler.inc.php:516
+#: lib/Form/Class.FormHandler.inc.php:518
 msgid "now."
 msgstr "acum"
 
-#: lib/Form/Class.FormHandler.inc.php:517
-#: lib/Form/Class.FormHandler.inc.php:518 form_data/FG_var_campaign.inc:269
-#: form_data/FG_var_phonenumber.inc:116 form_data/FG_var_callerid.inc:92
-#: form_data/FG_var_speeddial.inc:91 form_data/FG_var_did.inc:119
-#: form_data/FG_var_ticket.inc:53 form_data/FG_var_phonebook.inc:81
+#: lib/Form/Class.FormHandler.inc.php:519
+#: lib/Form/Class.FormHandler.inc.php:520 form_data/FG_var_campaign.inc:269
+#: form_data/FG_var_callerid.inc:90 form_data/FG_var_speeddial.inc:91
+#: form_data/FG_var_did.inc:119 form_data/FG_var_ticket.inc:53
+#: form_data/FG_var_phonebook.inc:81
 msgid "Your new"
 msgstr "Noul tau"
 
-#: lib/Form/Class.FormHandler.inc.php:517
-msgid "has been inserted. <br>"
+#: lib/Form/Class.FormHandler.inc.php:519
+#, fuzzy
+msgid "has been inserted.<br>"
 msgstr "A fost introdus"
 
-#: lib/Form/Class.FormHandler.inc.php:518
-#, 
-msgid "hasn't been inserted. <br>"
-msgstr "NU a fost introdus"
+#: lib/Form/Class.FormHandler.inc.php:520
+#, fuzzy
+msgid "hasn't been inserted."
+msgstr "a fost introdus"
 
-#: lib/Form/Class.FormHandler.inc.php:519
+#: lib/Form/Class.FormHandler.inc.php:521
 msgid "You cannot choose more than one !"
 msgstr "Nu poti selecta mai mult de unul!"
 
-#: lib/Form/Class.FormHandler.inc.php:521
+#: lib/Form/Class.FormHandler.inc.php:523
 msgid "Are you sure to delete all records connected to this instance."
 msgstr "Esti sigure ca vrei sa stergi toate intrarile?"
 
-#: lib/Form/Class.FormHandler.inc.php:523
 #: lib/Form/Class.FormHandler.inc.php:525
+#: lib/Form/Class.FormHandler.inc.php:527
 msgid "CONFIRM DATA"
 msgstr "Confirma"
 
-#: lib/Form/Class.FormHandler.inc.php:524
-#, 
+#: lib/Form/Class.FormHandler.inc.php:526
 msgid "DELETE"
 msgstr "Sterge"
 
-#: lib/Form/Class.FormHandler.inc.php:557
-#: lib/Form/Class.FormHandler.inc.php:745
+#: lib/Form/Class.FormHandler.inc.php:556
+#: lib/Form/Class.FormHandler.inc.php:744
 msgid "Delete this "
 msgstr "Sterge"
 
-#: lib/Form/Class.FormHandler.inc.php:558
-#: lib/Form/Class.FormHandler.inc.php:739
+#: lib/Form/Class.FormHandler.inc.php:557
+#: lib/Form/Class.FormHandler.inc.php:738
 msgid "Edit this "
 msgstr "Editeaza"
 
-#: lib/Form/Class.FormHandler.inc.php:585
+#: lib/Form/Class.FormHandler.inc.php:584
 msgid "INSERTED"
 msgstr "Introdus"
 
-#: lib/Form/Class.FormHandler.inc.php:586
+#: lib/Form/Class.FormHandler.inc.php:585
 msgid "ENABLE"
 msgstr "Activeaza"
 
-#: lib/Form/Class.FormHandler.inc.php:587
+#: lib/Form/Class.FormHandler.inc.php:586
 msgid "DISABLE"
 msgstr "Dezactiveaza"
 
-#: lib/Form/Class.FormHandler.inc.php:588
+#: lib/Form/Class.FormHandler.inc.php:587
 msgid "FREE"
 msgstr "Gratis"
 
-#: lib/Form/Class.FormHandler.inc.php:714
-#: lib/Form/Class.FormHandler.inc.php:716
+#: lib/Form/Class.FormHandler.inc.php:713
+#: lib/Form/Class.FormHandler.inc.php:715
 msgid "You can browse through our "
 msgstr "POti naviga in"
 
-#: lib/Form/Class.FormHandler.inc.php:714
-#: lib/Form/Class.FormHandler.inc.php:716
+#: lib/Form/Class.FormHandler.inc.php:713
+#: lib/Form/Class.FormHandler.inc.php:715
 msgid " and modify their different properties<br>"
 msgstr "si sa modifici proprietatiile"
 
-#: lib/Form/Class.FormHandler.inc.php:887
+#: lib/Form/Class.FormHandler.inc.php:886
 msgid "(at least 3 characters)"
 msgstr "(cel putin 3 caractere)"
 
-#: lib/Form/Class.FormHandler.inc.php:891
+#: lib/Form/Class.FormHandler.inc.php:890
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr "trebuie sa corespunda cu structura email-ului ! exemplu : nume@domeniu.ro)"
 
-#: lib/Form/Class.FormHandler.inc.php:895
+#: lib/Form/Class.FormHandler.inc.php:894
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr "cel putin 5 caractere succesive apar la sfarsitul acestu lant de caractere"
 
-#: lib/Form/Class.FormHandler.inc.php:899
+#: lib/Form/Class.FormHandler.inc.php:898
 msgid "(at least 4 characters)"
 msgstr "(cel putin 4 caractere)"
 
-#: lib/Form/Class.FormHandler.inc.php:903
+#: lib/Form/Class.FormHandler.inc.php:902
 msgid "(number format)"
 msgstr "format numar"
 
-#: lib/Form/Class.FormHandler.inc.php:911
+#: lib/Form/Class.FormHandler.inc.php:910
 msgid "(only number with more that 8 digits)"
 msgstr "doar un singur numar cu mai mult de 8 cifre"
 
-#: lib/Form/Class.FormHandler.inc.php:915
+#: lib/Form/Class.FormHandler.inc.php:914
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr "cel putin 8 caractere folosind . sau - sau spatiu"
 
-#: lib/Form/Class.FormHandler.inc.php:919
+#: lib/Form/Class.FormHandler.inc.php:918
 msgid "network adress format"
 msgstr "formatul adresei de retea"
 
-#: lib/Form/Class.FormHandler.inc.php:923
+#: lib/Form/Class.FormHandler.inc.php:922
 msgid "at least 1 character"
 msgstr "cel putin un caracter"
 
-#: lib/Form/Class.FormHandler.inc.php:931
+#: lib/Form/Class.FormHandler.inc.php:930
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(cel putin 2 caractere)"
 
-#: lib/Form/Class.FormHandler.inc.php:935
+#: lib/Form/Class.FormHandler.inc.php:934
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr "daca Formatul cu sau fara decimale , atunci folositi '.' pentru decimale"
 
-#: lib/Form/Class.FormHandler.inc.php:951
+#: lib/Form/Class.FormHandler.inc.php:950
 msgid "You must write something."
 msgstr "Trebuie sa scrii ceva..."
 
-#: lib/Form/Class.FormHandler.inc.php:955
+#: lib/Form/Class.FormHandler.inc.php:954
 msgid "8 characters alphanumeric"
 msgstr "8 caractere alfanumerice"
 
-#: lib/Form/Class.FormHandler.inc.php:962
+#: lib/Form/Class.FormHandler.inc.php:961
 msgid "(at least 6 Alphanumeric characters)"
 msgstr "( cel putin 6 caractere alfanumerice"
 
-#: lib/Form/Class.FormHandler.inc.php:970
+#: lib/Form/Class.FormHandler.inc.php:969
 #, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1473
+#: lib/Form/Class.FormHandler.inc.php:1472
 msgid "This did is in use by customer id:"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1589
+#: lib/Form/Class.FormHandler.inc.php:1588
 msgid "CREATION CARD REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1615
+#: lib/Form/Class.FormHandler.inc.php:1614
 msgid "DELETION CARD REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1631
+#: lib/Form/Class.FormHandler.inc.php:1630
 msgid "CREATION AGENT REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1699
-#, 
+#: lib/Form/Class.FormHandler.inc.php:1698
 msgid "SUMMARY OF CALLS"
 msgstr "Sumarul Apelurilor"
 
-#: lib/Form/Class.FormHandler.inc.php:1700
+#: lib/Form/Class.FormHandler.inc.php:1699
 msgid "Summary of the calls charged since the last billing"
 msgstr "Sumarul apelurilor "
 
-#: lib/Form/Class.FormHandler.inc.php:1718
+#: lib/Form/Class.FormHandler.inc.php:1717
 msgid "SUMMARY OF CHARGE"
 msgstr "Sumarul Platilor"
 
-#: lib/Form/Class.FormHandler.inc.php:1720
+#: lib/Form/Class.FormHandler.inc.php:1719
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1726
-#: lib/Form/Class.FormHandler.inc.php:1751
-#, 
+#: lib/Form/Class.FormHandler.inc.php:1725
+#: lib/Form/Class.FormHandler.inc.php:1750
 msgid "CHARGE :"
 msgstr "EXTRA CHARGE"
 
-#: lib/Form/Class.FormHandler.inc.php:1743
-#, 
+#: lib/Form/Class.FormHandler.inc.php:1742
 msgid "BILLING CHARGES"
 msgstr "DETALII"
 
-#: lib/Form/Class.FormHandler.inc.php:1744
+#: lib/Form/Class.FormHandler.inc.php:1743
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr "Aceasta factura include suma neplatita din ultima luna"
 
-#: lib/Form/Class.FormHandler.inc.php:1769
+#: lib/Form/Class.FormHandler.inc.php:1768
 msgid "BILLING POSTPAID"
 msgstr "Facturare Abonament"
 
-#: lib/Form/Class.FormHandler.inc.php:1770
+#: lib/Form/Class.FormHandler.inc.php:1769
 msgid "Invoice for POSTPAID"
 msgstr "Pactura pentru Abonament"
 
-#: lib/Form/Class.FormHandler.inc.php:1806
-#: lib/Form/Class.FormHandler.inc.php:1808
-#: lib/Form/Class.FormHandler.inc.php:1904
-#: lib/Form/Class.FormHandler.inc.php:1906
+#: lib/Form/Class.FormHandler.inc.php:1805
+#: lib/Form/Class.FormHandler.inc.php:1807
+#: lib/Form/Class.FormHandler.inc.php:1903
+#: lib/Form/Class.FormHandler.inc.php:1905
 msgid "REFILL"
 msgstr "Reincarca"
 
-#: lib/Form/Class.FormHandler.inc.php:1810
-#: lib/Form/Class.FormHandler.inc.php:1908 checkout_process.php:324
+#: lib/Form/Class.FormHandler.inc.php:1809
+#: lib/Form/Class.FormHandler.inc.php:1907 checkout_process.php:324
 msgid "Invoice for refill"
 msgstr "Factura pentru reincarcare"
 
-#: lib/Form/Class.FormHandler.inc.php:1946 checkout_process.php:358
+#: lib/Form/Class.FormHandler.inc.php:1945 checkout_process.php:358
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "Comision generat automat"
 
-#: lib/Form/Class.FormHandler.inc.php:2059
-#: lib/Form/Class.FormHandler.inc.php:2102
+#: lib/Form/Class.FormHandler.inc.php:2058
+#: lib/Form/Class.FormHandler.inc.php:2101
 msgid "Could not open buddy file"
 msgstr "NU pot deshide fisierul cu setari"
 
-#: lib/Form/Class.FormHandler.inc.php:2076
-#: lib/Form/Class.FormHandler.inc.php:2107
-#: lib/Form/Class.FormHandler.inc.php:2119
+#: lib/Form/Class.FormHandler.inc.php:2075
+#: lib/Form/Class.FormHandler.inc.php:2106
+#: lib/Form/Class.FormHandler.inc.php:2118
 msgid "Impossible to write to the file"
 msgstr "Imposibil sa scriu fisierul"
 
-#: lib/Form/Class.FormHandler.inc.php:2254
-#: lib/Form/Class.FormHandler.inc.php:2299
+#: lib/Form/Class.FormHandler.inc.php:2253
+#: lib/Form/Class.FormHandler.inc.php:2298
 msgid "<br> GOTO ; "
 msgstr "<br> Du-te la :"
 
-#: lib/Form/Class.FormHandler.inc.php:2294
+#: lib/Form/Class.FormHandler.inc.php:2293
 #: CC_entity_edit_did_destination.php:200
 msgid "error deletion"
 msgstr "eroare la stergere"
 
-#: lib/Form/Class.FormHandler.inc.php:2429
+#: lib/Form/Class.FormHandler.inc.php:2428
 msgid "ERROR_DUPLICATION"
 msgstr " Eroare duplicat"
 
-#: lib/Form/Class.FormHandler.inc.php:2514
+#: lib/Form/Class.FormHandler.inc.php:2513
 msgid "Done"
 msgstr "Gata"
 
-#: lib/Form/Class.FormHandler.inc.php:2554
-#, 
+#: lib/Form/Class.FormHandler.inc.php:2553
 msgid "Call Plan"
 msgstr "Plan Tarifar"
 
-#: lib/Form/Class.FormHandler.inc.php:2560
-#, 
+#: lib/Form/Class.FormHandler.inc.php:2559
 msgid "Choose a call plan"
 msgstr "Alegeti Planul tarifar"
 
-#: lib/Form/Class.FormHandler.inc.php:2572
+#: lib/Form/Class.FormHandler.inc.php:2571
 msgid "This option will enable LCR/LCD - This query is processor intensive and may affect the quality of calls in progress."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2581
-#: lib/Form/Class.FormHandler.inc.php:2638
+#: lib/Form/Class.FormHandler.inc.php:2580
+#: lib/Form/Class.FormHandler.inc.php:2637
 msgid "Rate Card"
 msgstr "Grup Tarife"
 
-#: lib/Form/Class.FormHandler.inc.php:2587
-#: lib/Form/Class.FormHandler.inc.php:2644
-#: lib/Form/Class.FormHandler.inc.php:2704
+#: lib/Form/Class.FormHandler.inc.php:2586
+#: lib/Form/Class.FormHandler.inc.php:2643
+#: lib/Form/Class.FormHandler.inc.php:2703
 msgid "Choose a ratecard"
 msgstr "Aegeti grupa de trarife"
 
-#: lib/Form/Class.FormHandler.inc.php:2687
+#: lib/Form/Class.FormHandler.inc.php:2686
 msgid "THE CURRENT RATECARD"
 msgstr "GRUPA DE TARIFE"
 
-#: lib/Form/Class.FormHandler.inc.php:2698
+#: lib/Form/Class.FormHandler.inc.php:2697
 msgid "R A T E C A R D"
 msgstr "T A R I F E"
 
@@ -2089,7 +2043,6 @@ msgid "Add a new "
 msgstr "Adauga un nou"
 
 #: CC_entity_edit_did_destination.php:1117
-#, 
 msgid "Deletion confirmation"
 msgstr "Confirmare stergere"
 
@@ -2118,12 +2071,10 @@ msgid "BY : "
 msgstr ""
 
 #: A2B_ticket_view.php:88
-#, 
 msgid "PRIORITY : "
 msgstr "Prioritate"
 
 #: A2B_ticket_view.php:91
-#, 
 msgid "DATE : "
 msgstr "DATA"
 
@@ -2132,7 +2083,6 @@ msgid "COMPONENT : "
 msgstr "Componenta"
 
 #: A2B_ticket_view.php:103
-#, 
 msgid "DESCRIPTION : "
 msgstr "Descriptie"
 
@@ -2161,7 +2111,6 @@ msgid "mail"
 msgstr "E-mail"
 
 #: A2B_invoice_view.php:153
-#, 
 msgid "Invoice number"
 msgstr "Numar Factura"
 
@@ -2226,7 +2175,6 @@ msgid "Next"
 msgstr "Urmatorul"
 
 #: A2B_entity_did.php:378
-#, 
 msgid "Add phone number"
 msgstr "Adauga un numar de telefon DID-ului tau"
 
@@ -2243,7 +2191,6 @@ msgid "A monthly fee of "
 msgstr "O taxa lunara de"
 
 #: A2B_entity_did.php:401
-#, 
 msgid " will be carried out from your acount"
 msgstr "va fi extrasa din contul tau"
 
@@ -2268,59 +2215,58 @@ msgid " is lower than Fixerate of the DID  "
 msgstr "nu e suficient pentru a achiztiona acest DID"
 
 #: A2B_entity_did.php:422
-#, 
 msgid "Please reload your account "
 msgstr "Va rugam reincarcati contul"
 
-#: A2B_phonelist_import_analyse.php:23
+#: A2B_phonelist_import_analyse.php:19
 msgid "No Phonebook defined !"
 msgstr "Nici o Lista-Tel definita!"
 
-#: A2B_phonelist_import_analyse.php:85
+#: A2B_phonelist_import_analyse.php:74
 msgid "File Save Failed, FILE="
 msgstr "SAlvarea fisierului esuata , FIsierul Este :"
 
-#: A2B_phonelist_import_analyse.php:101
+#: A2B_phonelist_import_analyse.php:90
 msgid "Error: Failed to open the file."
 msgstr "Eroare : nu pot deschide inca un fisier"
 
-#: A2B_phonelist_import_analyse.php:227
+#: A2B_phonelist_import_analyse.php:215
 msgid "The first line of your import is previewed below, please check to ensure that every is correct"
 msgstr "Previzualizarea continutului , daca tot este corect continuati atunci"
 
-#: A2B_phonelist_import_analyse.php:234
+#: A2B_phonelist_import_analyse.php:222
 msgid "FIELD"
 msgstr "Camp"
 
-#: A2B_phonelist_import_analyse.php:237
+#: A2B_phonelist_import_analyse.php:225
 msgid "VALUE"
 msgstr "Valoare"
 
-#: A2B_phonelist_import_analyse.php:274
-#, 
+#: A2B_phonelist_import_analyse.php:262
 msgid "Please check if the datas above are correct."
 msgstr "Verifica daca informatiile sunt corecte"
 
-#: A2B_phonelist_import_analyse.php:274
-#, 
+#: A2B_phonelist_import_analyse.php:262
 msgid "If Yes"
 msgstr "Daca da"
 
-#: A2B_phonelist_import_analyse.php:274
+#: A2B_phonelist_import_analyse.php:262
 msgid "you can continue the import. Otherwise you must fix your csv file!"
 msgstr "Atunci poti continu cu importul fisierului. daca nu corecteaza fisierul tau csv"
 
-#: A2B_phonelist_import_analyse.php:318
-#, 
+#: A2B_phonelist_import_analyse.php:274
+msgid "Continue to Import the RateCard"
+msgstr ""
+
+#: A2B_phonelist_import_analyse.php:306
 msgid "Success"
 msgstr "Success"
 
-#: A2B_phonelist_import_analyse.php:318
+#: A2B_phonelist_import_analyse.php:306
 msgid "new phone number have been imported"
 msgstr "Numere de telefon importate"
 
-#: A2B_phonelist_import_analyse.php:324
-#, 
+#: A2B_phonelist_import_analyse.php:312
 msgid "Line that has not been inserted"
 msgstr "Linia  nu a fost imporata"
 
@@ -2337,12 +2283,10 @@ msgid "CALL HISTORY"
 msgstr "CONVORBIRI"
 
 #: templates/default/main.tpl:51
-#, 
 msgid "PAYMENT HISTORY"
 msgstr "ISTORIC PLATI"
 
 #: templates/default/main.tpl:57
-#, 
 msgid "VOUCHERS"
 msgstr "CUPOANE"
 
@@ -2395,7 +2339,6 @@ msgid "SUPPORT"
 msgstr "SUPORT"
 
 #: templates/default/main.tpl:135
-#, 
 msgid "NOTIFICATION"
 msgstr "NOTIFICARE"
 
@@ -2408,11 +2351,11 @@ msgid "Campaign's"
 msgstr "CAMPANII"
 
 #: templates/default/main.tpl:159 form_data/FG_var_phonenumber.inc:58
+#: form_data/FG_var_phonebook.inc:5
 msgid "Phone Book"
 msgstr "Lista-TEL"
 
 #: templates/default/main.tpl:160 form_data/FG_var_phonenumber.inc:49
-#, 
 msgid "Phone Number"
 msgstr "Numar Telefon"
 
@@ -2429,14 +2372,12 @@ msgid "CAMPAIGN"
 msgstr "CAMPANIE"
 
 #: A2B_entity_phonenumber.php:91
-#, 
 msgid "INFO"
 msgstr "INFO"
 
 #: A2B_entity_phonenumber.php:94 form_data/FG_var_campaign.inc:39
 #: form_data/FG_var_phonenumber.inc:32 form_data/FG_var_invoice.inc:36
 #: form_data/FG_var_ticket.inc:27
-#, 
 msgid "STATUS"
 msgstr "STATUS"
 
@@ -2449,7 +2390,6 @@ msgid "STARTED BUT NOT IN PROCESS : check the batch"
 msgstr "INCEPUT dar neindeplinit. verifica 'batch' "
 
 #: A2B_entity_phonenumber.php:116
-#, 
 msgid "NOT STARTED"
 msgstr "NEINCEPUT"
 
@@ -2462,7 +2402,6 @@ msgid "HOLD"
 msgstr "ASTEAPTA"
 
 #: A2B_entity_phonenumber.php:125
-#, 
 msgid "STOP"
 msgstr "STOP"
 
@@ -2470,31 +2409,31 @@ msgstr "STOP"
 msgid "NO STATUS"
 msgstr "FARA STATUS"
 
-#: signup_confirmation.php:16
+#: signup_confirmation.php:13
 msgid "Sorry the confirmation email has been sent already, multi-signup are not authorized! Please wait 2 minutes before making any other signup!"
 msgstr "Email-ul de confirmare a fost trimis. Asteapta 2 minute pentru a face o noua inregistrare!"
 
-#: signup_confirmation.php:21
+#: signup_confirmation.php:18
 msgid "Error : No User Created."
 msgstr "Eroare: Userul nu a fost creeat"
 
-#: signup_confirmation.php:56
+#: signup_confirmation.php:53
 msgid "Error : No email Template Found"
 msgstr "Eroare : Nu am gasit template-ul e-mailului"
 
-#: signup_confirmation.php:79
+#: signup_confirmation.php:76
 msgid "Error : No such user found in database"
 msgstr "Eroare : User inexistent in baza de date"
 
-#: signup_confirmation.php:139
+#: signup_confirmation.php:136
 msgid "SIGNUP CONFIRMATION"
 msgstr "Confirmare inregistrare"
 
-#: signup_confirmation.php:152
+#: signup_confirmation.php:149
 msgid "thank you for registering with us!"
 msgstr "I-ti multumim ca te-ai inregistrat la noi!"
 
-#: signup_confirmation.php:153
+#: signup_confirmation.php:150
 msgid "An activation email has been sent to"
 msgstr "Un E-mail de confirmare a fost trimis la"
 
@@ -2550,174 +2489,152 @@ msgstr "E-mail"
 msgid "SUBMIT"
 msgstr "OK"
 
-#: form_data/FG_var_signup.inc:65
+#: form_data/FG_var_signup.inc:66
 msgid "No Call Plan id are defined"
 msgstr "NU exista Plan Tarfar Definit"
 
-#: form_data/FG_var_signup.inc:128
-#, 
+#: form_data/FG_var_signup.inc:129
 msgid "LANGUAGE"
 msgstr "Limba"
 
-#: form_data/FG_var_signup.inc:145
-#, 
+#: form_data/FG_var_signup.inc:146
 msgid "CALL PLAN"
 msgstr "Plan Tarifar"
 
-#: form_data/FG_var_signup.inc:164 form_data/FG_var_card.inc:15
-#, 
+#: form_data/FG_var_signup.inc:165 form_data/FG_var_card.inc:15
 msgid "LASTNAME"
 msgstr "NUME"
 
-#: form_data/FG_var_signup.inc:170
-#, 
+#: form_data/FG_var_signup.inc:171
 msgid "Insert your lastname"
 msgstr "Introduce-ti Numele"
 
-#: form_data/FG_var_signup.inc:173 form_data/FG_var_card.inc:24
-#, 
+#: form_data/FG_var_signup.inc:174 form_data/FG_var_card.inc:24
 msgid "FIRSTNAME"
 msgstr "PRENUME"
 
-#: form_data/FG_var_signup.inc:179
-#, 
+#: form_data/FG_var_signup.inc:180
 msgid "Insert your firstname"
 msgstr "Introduce-ti Prenumele"
 
-#: form_data/FG_var_signup.inc:189
-#, 
+#: form_data/FG_var_signup.inc:190
 msgid "Insert your email"
 msgstr "Introduce-ti e-mail"
 
-#: form_data/FG_var_signup.inc:199
+#: form_data/FG_var_signup.inc:200
 msgid "Insert your address"
 msgstr "Introduce-ti Adresa"
 
-#: form_data/FG_var_signup.inc:209
-#, 
+#: form_data/FG_var_signup.inc:210
 msgid "Insert your city"
 msgstr "Introduce-ti Orasul"
 
-#: form_data/FG_var_signup.inc:213 form_data/FG_var_card.inc:54
+#: form_data/FG_var_signup.inc:214 form_data/FG_var_card.inc:54
 msgid "STATE/PROVINCE"
 msgstr "Provicie"
 
-#: form_data/FG_var_signup.inc:219
-#, 
+#: form_data/FG_var_signup.inc:220
 msgid "Insert your state"
 msgstr "Judet"
 
-#: form_data/FG_var_signup.inc:234 form_data/FG_var_card.inc:75
-#, 
+#: form_data/FG_var_signup.inc:235 form_data/FG_var_card.inc:75
 msgid "ZIP/POSTAL CODE"
 msgstr "COD POSTAL"
 
-#: form_data/FG_var_signup.inc:240
-#, 
+#: form_data/FG_var_signup.inc:241
 msgid "Insert your zipcode"
 msgstr "COD POSTAL"
 
-#: form_data/FG_var_signup.inc:253 form_data/FG_var_card.inc:84
+#: form_data/FG_var_signup.inc:254 form_data/FG_var_card.inc:84
 msgid "TIMEZONE"
 msgstr "TIME ZONE"
 
-#: form_data/FG_var_signup.inc:260 form_data/FG_var_phonenumber.inc:28
+#: form_data/FG_var_signup.inc:261 form_data/FG_var_phonenumber.inc:28
 #: call-history.php:250
-#, 
 msgid "PHONENUMBER"
 msgstr "NUMAR TELEFON"
 
-#: form_data/FG_var_signup.inc:266
-#, 
+#: form_data/FG_var_signup.inc:267
 msgid "Insert your phone number"
 msgstr "Introduce-ti numarul dumneavoastra de telefon"
 
-#: form_data/FG_var_signup.inc:270
-#, 
+#: form_data/FG_var_signup.inc:271
 msgid "FAXNUMBER"
 msgstr "NUMAR FAX"
 
-#: form_data/FG_var_signup.inc:276
-#, 
+#: form_data/FG_var_signup.inc:277
 msgid "Insert your fax number"
 msgstr "Introduce-ti numarul dumneavoastra de fax"
 
-#: form_data/FG_var_signup.inc:281
-#, 
+#: form_data/FG_var_signup.inc:282
 msgid "COMPANY NAME"
 msgstr "Numele Firmei"
 
-#: form_data/FG_var_signup.inc:287
-#, 
+#: form_data/FG_var_signup.inc:288
 msgid "Insert Company name of this customer"
 msgstr "Numele Firmei"
 
-#: form_data/FG_var_signup.inc:290
-#, 
+#: form_data/FG_var_signup.inc:291
 msgid "COMPANY WEBSITE"
 msgstr "SITE WEB"
 
-#: form_data/FG_var_signup.inc:296
-#, 
+#: form_data/FG_var_signup.inc:297
 msgid "Insert the company website of this customer"
 msgstr "SITE WEB"
 
-#: form_data/FG_var_signup.inc:299
+#: form_data/FG_var_signup.inc:300
 msgid "VAT REGISTRATION NUMBER "
 msgstr "Numar inregistrare Firma"
 
-#: form_data/FG_var_signup.inc:305
-#, 
+#: form_data/FG_var_signup.inc:306
 msgid "Insert the VAT registration number of this customer"
 msgstr "Numar Inregistrare Firma"
 
-#: form_data/FG_var_signup.inc:309
+#: form_data/FG_var_signup.inc:310
 msgid "TRAFFIC PER MONTH"
 msgstr "Trafic lunar"
 
-#: form_data/FG_var_signup.inc:315
-#, 
+#: form_data/FG_var_signup.inc:316
 msgid "Insert the traffic per month for this customer"
 msgstr "Introduce-ti traficul estimat"
 
-#: form_data/FG_var_signup.inc:318
+#: form_data/FG_var_signup.inc:319
 msgid "TARGET TRAFFIC"
 msgstr "Introduce-ti volumul de minute estimat lunar "
 
-#: form_data/FG_var_signup.inc:324
+#: form_data/FG_var_signup.inc:325
 msgid "Insert the target traffic description"
 msgstr "Descrierea traficlui , destinatii"
 
-#: form_data/FG_var_signup.inc:327
-#, 
+#: form_data/FG_var_signup.inc:328
 msgid "VERIFICATION"
 msgstr "Verificare"
 
-#: form_data/FG_var_signup.inc:333
+#: form_data/FG_var_signup.inc:334
 msgid "Insert code from above picture"
 msgstr "Introduce-ti codul din poza urmatoare"
 
-#: form_data/FG_var_signup.inc:414
+#: form_data/FG_var_signup.inc:415
 msgid "You can modify, through the following form, the different properties of your "
 msgstr "Puteti modifica informatiile introdue pentru"
 
-#: form_data/FG_var_signup.inc:415
+#: form_data/FG_var_signup.inc:416
 msgid "If you really want remove this "
 msgstr "Daca chiar doriti sa stergeti acest"
 
-#: form_data/FG_var_signup.inc:416
+#: form_data/FG_var_signup.inc:417
 msgid "you can add easily a new "
 msgstr "puteti adauga usor un now"
 
-#: form_data/FG_var_signup.inc:419
+#: form_data/FG_var_signup.inc:420
 msgid "Thanks for registering with us.<br>A email with your information has been sent to your account "
 msgstr "Multimum ca v-ati inregistrat la noi. Un e-mail cu informtiile dumneavoastra a fost trimis "
 
-#: form_data/FG_var_signup.inc:419
+#: form_data/FG_var_signup.inc:420
 msgid "Your card number is "
 msgstr "Contul dumneavostra este"
 
-#: form_data/FG_var_signup.inc:423
+#: form_data/FG_var_signup.inc:424
 msgid "SIGNUP"
 msgstr "Inregistrare"
 
@@ -2733,7 +2650,6 @@ msgid "NAME"
 msgstr "Nume"
 
 #: form_data/FG_var_campaign.inc:36
-#, 
 msgid "STARTINGDATE"
 msgstr "Data start"
 
@@ -2750,7 +2666,6 @@ msgid "CAMPAIGN NAME"
 msgstr "Nume Campanie"
 
 #: form_data/FG_var_campaign.inc:62
-#, 
 msgid "Insert the tariff name "
 msgstr "Nume Plan tarifar"
 
@@ -2771,12 +2686,10 @@ msgid "CID GROUP"
 msgstr "GRUP CID"
 
 #: form_data/FG_var_campaign.inc:112
-#, 
 msgid "STARTING DATE"
 msgstr "Data Start"
 
 #: form_data/FG_var_campaign.inc:118
-#, 
 msgid "Insert the starting date"
 msgstr "Introduce data de start"
 
@@ -2789,7 +2702,6 @@ msgid "EXPIRATION DATE"
 msgstr "Expira in data"
 
 #: form_data/FG_var_campaign.inc:127
-#, 
 msgid "Insert the expiration date"
 msgstr "Introduce-ti data cand expira"
 
@@ -2810,7 +2722,6 @@ msgid "DAILY STARTING TIME"
 msgstr "Ora pentru Start Zilnic"
 
 #: form_data/FG_var_campaign.inc:146
-#, 
 msgid "Insert the daily starting time"
 msgstr "Introduce-ti timpul de start zilnic"
 
@@ -2823,12 +2734,10 @@ msgid "DAILY STOPING TIME"
 msgstr "Ora pentru stop Zilnic"
 
 #: form_data/FG_var_campaign.inc:155
-#, 
 msgid "Insert the daily stoping time"
 msgstr "Ora la care se oreste zilnic"
 
 #: form_data/FG_var_campaign.inc:159
-#, 
 msgid "MONDAY"
 msgstr "Luni"
 
@@ -2870,7 +2779,6 @@ msgid "Choose if you want to enable the campaign callback for the saturday"
 msgstr "selectati daca vreti ca SAMBATA sa fie activa campania"
 
 #: form_data/FG_var_campaign.inc:207
-#, 
 msgid "SUNDAY"
 msgstr "DUMINICA"
 
@@ -2880,17 +2788,14 @@ msgstr "selectati daca vreti ca DUMINICA sa fie activa campania"
 
 #: form_data/FG_var_campaign.inc:218 form_data/FG_var_payment.inc:20
 #: form_data/FG_var_phonebook.inc:33 form_data/FG_var_phonebook.inc:57
-#, 
 msgid "DESCRIPTION"
 msgstr "DESCRIERE"
 
 #: form_data/FG_var_campaign.inc:224 form_data/FG_var_phonebook.inc:63
-#, 
 msgid "Insert the description"
 msgstr "Introduce-ti o descriere"
 
 #: form_data/FG_var_campaign.inc:238
-#, 
 msgid "PHONE BOOK"
 msgstr "Lista-TEL"
 
@@ -2898,7 +2803,6 @@ msgstr "Lista-TEL"
 #: form_data/FG_var_callerid.inc:83 form_data/FG_var_speeddial.inc:85
 #: form_data/FG_var_did.inc:114 form_data/FG_var_ticket.inc:48
 #: form_data/FG_var_phonebook.inc:76
-#, 
 msgid "click on the delete button."
 msgstr "Click pe sterge"
 
@@ -2906,11 +2810,9 @@ msgstr "Click pe sterge"
 msgid "Add a "
 msgstr "Adauga un/o"
 
-#: form_data/FG_var_campaign.inc:269 form_data/FG_var_phonenumber.inc:116
-#: form_data/FG_var_callerid.inc:92 form_data/FG_var_speeddial.inc:91
-#: form_data/FG_var_did.inc:119 form_data/FG_var_ticket.inc:53
-#: form_data/FG_var_phonebook.inc:81
-#, 
+#: form_data/FG_var_campaign.inc:269 form_data/FG_var_callerid.inc:90
+#: form_data/FG_var_speeddial.inc:91 form_data/FG_var_did.inc:119
+#: form_data/FG_var_ticket.inc:53 form_data/FG_var_phonebook.inc:81
 msgid "has been inserted."
 msgstr "a fost introdus"
 
@@ -2923,12 +2825,10 @@ msgid "LIMIT CREDIT NOTIFICATION"
 msgstr "Prag limita pentru notificare"
 
 #: form_data/FG_var_notify.inc:59
-#, 
 msgid "Insert the number of credit when the customer receive a notification"
 msgstr "Pragul limita pentru notificare"
 
 #: form_data/FG_var_notify.inc:60
-#, 
 msgid "currency : "
 msgstr "Moneda"
 
@@ -2953,7 +2853,6 @@ msgid "EMAIL NOTIFICATION"
 msgstr "Notificare E-mail"
 
 #: form_data/FG_var_notify.inc:80
-#, 
 msgid "Insert the email to notify the customers"
 msgstr "Introduce-ti adresa de email"
 
@@ -2966,12 +2865,10 @@ msgid "Your record has been updated."
 msgstr "Inregistrare Salvata"
 
 #: form_data/FG_var_phonenumber.inc:20
-#, 
 msgid "Add PHONE NUMBER"
 msgstr "Adaugati Numar Telefon"
 
 #: form_data/FG_var_phonenumber.inc:27
-#, 
 msgid "PHONEBOOK"
 msgstr "Lista-tel"
 
@@ -2985,22 +2882,18 @@ msgid "No phone numbers have been created"
 msgstr "Nu au fost definite numere de telefon"
 
 #: form_data/FG_var_phonenumber.inc:55
-#, 
 msgid "Insert the phonenumber"
 msgstr "Introduce-ti numarul de telefon"
 
 #: form_data/FG_var_phonenumber.inc:56
-#, 
 msgid "Enter here the phonenumber to call"
 msgstr "Introduce-ti numarul pe care doriti sa fie format cand codul estre introdus"
 
 #: form_data/FG_var_phonenumber.inc:74
-#, 
 msgid "Insert the name "
 msgstr "Introduce-ti numele"
 
 #: form_data/FG_var_phonenumber.inc:83
-#, 
 msgid "Insert the amount "
 msgstr "Introduce-ti suma"
 
@@ -3017,8 +2910,14 @@ msgid "Insert additional information"
 msgstr "Introduce-ti informatii aditionale"
 
 #: form_data/FG_var_phonenumber.inc:115
-msgid "Add a $HD_Form->FG_INSTANCE_NAME now."
-msgstr "Adaugati un $HD_Form->FG_INSTANCE_NAME acum."
+#, fuzzy
+msgid "Add a new phone number."
+msgstr "Adauga un numar de telefon DID-ului tau"
+
+#: form_data/FG_var_phonenumber.inc:116
+#, fuzzy
+msgid "Your new phone number has been inserted."
+msgstr "Numere de telefon importate"
 
 #: form_data/FG_var_phonenumber.inc:120 form_data/FG_var_ticket.inc:56
 #: form_data/FG_var_phonebook.inc:85
@@ -3027,18 +2926,15 @@ msgstr "Apasati 'Confirmare' Pentru a continua"
 
 #: form_data/FG_var_receipt.inc:32 form_data/FG_var_ticket.inc:21
 #: form_data/FG_var_payment.inc:17
-#, 
 msgid "ID"
 msgstr "ID"
 
 #: form_data/FG_var_receipt.inc:33
-#, 
 msgid "ACCOUNT"
 msgstr "CONT"
 
 #: form_data/FG_var_receipt.inc:35 form_data/FG_var_invoice.inc:35
 #: form_data/FG_var_ticket.inc:22
-#, 
 msgid "TITLE"
 msgstr "TITLU"
 
@@ -3046,9 +2942,9 @@ msgstr "TITLU"
 msgid "AMOUNT INCL VAT"
 msgstr "SUMA + TVA"
 
-#: form_data/FG_var_receipt.inc:40 form_data/FG_var_ratecard.inc:37
-#: form_data/FG_var_invoice.inc:41
-msgid "THERE IS NO "
+#: form_data/FG_var_receipt.inc:40
+#, fuzzy
+msgid "THERE IS NO RECEIPT CREATED!"
 msgstr "NU EXISTA"
 
 #: form_data/FG_var_ratecard.inc:30
@@ -3059,10 +2955,23 @@ msgstr "PREFIX"
 msgid "SR"
 msgstr ""
 
+#: form_data/FG_var_ratecard.inc:37
+#, fuzzy
+msgid "THERE IS NO RATECARD CREATED!"
+msgstr "GRUPA DE TARIFE"
+
+#: form_data/FG_var_callerid.inc:6
+#, fuzzy
+msgid "CallerID"
+msgstr "Maxim Identificatori Apelant"
+
 #: form_data/FG_var_callerid.inc:15 form_data/FG_var_callerid.inc:48
-#, 
 msgid "CALLERID"
 msgstr "IDENTIFICATOR APELANT"
+
+#: form_data/FG_var_callerid.inc:21
+msgid "CallerID list"
+msgstr ""
 
 #: form_data/FG_var_callerid.inc:22
 msgid "There are no Caller IDs created"
@@ -3076,11 +2985,11 @@ msgstr "Introduce-ti Identificator Apelant"
 msgid "Choose if you want to activate this card"
 msgstr "Selectati daca vreti sa activati acest card"
 
-#: form_data/FG_var_callerid.inc:91
+#: form_data/FG_var_callerid.inc:89
 msgid "You can add your home phone or cellphone number below to allow you to call in, be automatically recognized, and use your telephony services without having to enter your PIN."
 msgstr "Introduce-ti numarul dumneavoastra de mobil sau fix. in acest fel sistemul va  authentifica in functie de identificatorul dumneavoastra si nu veti mai trebui sa Introduce-ti PIN-ul."
 
-#: form_data/FG_var_callerid.inc:96
+#: form_data/FG_var_callerid.inc:93
 msgid "Made your change to edit this callerid."
 msgstr "Am salvat schimbarile"
 
@@ -3088,8 +2997,12 @@ msgstr "Am salvat schimbarile"
 msgid "REFERENCE"
 msgstr "REFERINTA"
 
+#: form_data/FG_var_invoice.inc:41
+#, fuzzy
+msgid "THERE IS NO INVOICE CREATED!"
+msgstr "NU EXISTA"
+
 #: form_data/FG_var_speeddial.inc:18 form_data/FG_var_speeddial.inc:47
-#, 
 msgid "SPEEDDIAL"
 msgstr "FORMARE RAPIDA"
 
@@ -3098,7 +3011,6 @@ msgid "There are no speed dials created."
 msgstr "Nu exista formare rapida creeata"
 
 #: form_data/FG_var_speeddial.inc:63
-#, 
 msgid "Insert the name"
 msgstr "Introduce-ti un nume"
 
@@ -3107,7 +3019,6 @@ msgid "Enter here the name/label that will identify this speed dial"
 msgstr "Introduce-ti un nume pentru aceasta intrare"
 
 #: form_data/FG_var_speeddial.inc:73
-#, 
 msgid "Insert the phone"
 msgstr "Introduce-ti numarul de telefon"
 
@@ -3137,7 +3048,6 @@ msgid "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to r
 msgstr "Introdu destinatia: actiaveaza Apel Voip daca vrei sa redirectezi DID-ul utilizand voip ( SIP/IAX  exemplu :SIP/jeremy@182.212.1.45  ) sau numar de telefon pentru a forwarda spre un alt numar "
 
 #: form_data/FG_var_did.inc:99
-#, 
 msgid "VOIP_CALL"
 msgstr "VOIP-CALL : "
 
@@ -3158,12 +3068,10 @@ msgid "No vouchers have been used!"
 msgstr "NU a fost folosit nici un cupon"
 
 #: form_data/FG_var_ticket.inc:23
-#, 
 msgid "CREATIONDATE"
 msgstr "DATA CAND A FOST CREAT"
 
 #: form_data/FG_var_ticket.inc:24
-#, 
 msgid "COMPONENT"
 msgstr "COMPONENTA"
 
@@ -3171,27 +3079,32 @@ msgstr "COMPONENTA"
 msgid "There are no tickets created"
 msgstr "NU sunt bilete create"
 
+#: form_data/FG_var_payment.inc:7
+msgid "payment"
+msgstr ""
+
 #: form_data/FG_var_payment.inc:18
-#, 
 msgid "PAYMENT DATE"
 msgstr "Zi de plata"
 
 #: form_data/FG_var_payment.inc:19
-#, 
 msgid "PAYMENT AMOUNT"
 msgstr "SUMA DE PLATA"
 
 #: form_data/FG_var_payment.inc:25
+#, fuzzy
+msgid "Payment list"
+msgstr "Metoda de plata"
+
+#: form_data/FG_var_payment.inc:26
 msgid "No payments have been made!"
 msgstr "NU a fost inregistrata nici o plata"
 
 #: form_data/FG_var_card.inc:21
-#, 
 msgid "Insert the lastname of the customers"
 msgstr "Introduce-ti numele clientului"
 
 #: form_data/FG_var_card.inc:30
-#, 
 msgid "Insert the firstname of the customers"
 msgstr "Introduce-ti prenumele clientului"
 
@@ -3200,32 +3113,26 @@ msgid "Insert the address of the customers"
 msgstr "Introduce-to adresa"
 
 #: form_data/FG_var_card.inc:50
-#, 
 msgid "Insert the city"
 msgstr "ORASUL"
 
 #: form_data/FG_var_card.inc:60
-#, 
 msgid "Insert the state"
 msgstr "--"
 
 #: form_data/FG_var_card.inc:81
-#, 
 msgid "Insert the zipcode"
 msgstr "COD POSTAL"
 
 #: form_data/FG_var_card.inc:94
-#, 
 msgid "PHONE NUMBER"
 msgstr "NUMAR TELEFON"
 
 #: form_data/FG_var_card.inc:100
-#, 
 msgid "Insert the phone number of the customers"
 msgstr "NUMAR TEL"
 
 #: form_data/FG_var_card.inc:104
-#, 
 msgid "FAX NUMBER"
 msgstr "FAX"
 
@@ -3246,7 +3153,6 @@ msgid "NO PHONEBOOK CREATED!"
 msgstr "NU a fost creata nici o Lista-Tel"
 
 #: form_data/FG_var_phonebook.inc:53
-#, 
 msgid "Insert the provider name"
 msgstr "Introduce-ti numele furnizorului"
 
@@ -3259,7 +3165,6 @@ msgid "Source"
 msgstr "Sursa"
 
 #: call-history.php:63
-#, 
 msgid "PhoneNumber"
 msgstr "Nr. Tel"
 
@@ -3268,7 +3173,6 @@ msgid "Duration"
 msgstr "Durata"
 
 #: call-history.php:66
-#, 
 msgid "Terminate Cause"
 msgstr "Situatie"
 
@@ -3285,17 +3189,14 @@ msgid "Call Logs"
 msgstr "Convorbiri"
 
 #: call-history.php:263
-#, 
 msgid "CALL TYPE"
 msgstr "TIP APEL"
 
 #: call-history.php:269
-#, 
 msgid "ALL CALLS"
 msgstr "TOATE APELURILE"
 
 #: call-history.php:286
-#, 
 msgid "OPTIONS"
 msgstr "OPTIUNI"
 
@@ -3407,3 +3308,32 @@ msgstr "Suma + TVA"
 msgid "Please click button to confirm your order"
 msgstr "Confirmati"
 
+#~ msgid "<acronym title=\"CANCELLED\">"
+#~ msgstr "<acronym title=\"ANULAT\">"
+
+#~ msgid "<acronym title=\"ACTIVATED\">"
+#~ msgstr "<acronym title=\"ACTIVATAT\">"
+
+#~ msgid "<acronym title=\"NEW\">"
+#~ msgstr "<acronym title=\"NOU\">"
+
+#~ msgid "<acronym title=\"WAITING-MAILCONFIRMATION\">"
+#~ msgstr "<acronym title=\"ASTEPT CONFIRMARE E-MAIL\">"
+
+#~ msgid "<acronym title=\"RESERVED\">"
+#~ msgstr "<acronym title=\"REZERVAT\">"
+
+#~ msgid "<acronym title=\"EXPIRED\">"
+#~ msgstr "<acronym title=\"EXPIRAT\">"
+
+#~ msgid "<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">"
+#~ msgstr "<acronym title=\"SUSPENDAT PENTRU NEPLATA\">"
+
+#~ msgid "<acronym title=\"SUSPENDED FOR LITIGATION\">"
+#~ msgstr "<acronym title=\"SUSPENDAT PENTRU LITIGIU\">"
+
+#~ msgid "<br> TYPE DE SELECT :"
+#~ msgstr "<br> "
+
+#~ msgid "hasn't been inserted. <br>"
+#~ msgstr "NU a fost introdus"

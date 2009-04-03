@@ -132,8 +132,6 @@ function sendtolittle(direction){
                         <?php 	
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT")
 				{
-								
-					if ($this->FG_DEBUG == 1)	echo gettext("<br> TYPE DE SELECT :").$this->FG_TABLE_EDITION[$i][7];
 					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])=="SQL"){
 						$instance_sub_table = new Table($this->FG_TABLE_EDITION[$i][8], $this->FG_TABLE_EDITION[$i][9]);
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_EDITION[$i][10], null, null, null, null, null, null);
