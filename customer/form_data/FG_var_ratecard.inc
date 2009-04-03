@@ -34,11 +34,10 @@ $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</a
 $HD_Form -> FieldViewElement ('cc_prefix.destination, dialprefix, rateinitial',0);
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO RATECARD CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
-
 
 
 $HD_Form -> FG_SPLITABLE_FIELD = 'dialprefix';

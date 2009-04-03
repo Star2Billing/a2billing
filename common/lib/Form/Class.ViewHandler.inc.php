@@ -99,7 +99,7 @@ function openURLFilter(theLINK)
           <td class="viewhandler_table2_td3">
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  <td><span class="viewhandler_span1"> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </span>
+                  <td><span class="viewhandler_span1"> - <?php echo strtoupper($this->CV_TITLE_TEXT) ?>  - </span>
                   	  <span class="viewhandler_span1"> <?php echo $this -> FG_NB_RECORD.' '.gettext("Records"); ?></span>	
                   </td>
                   

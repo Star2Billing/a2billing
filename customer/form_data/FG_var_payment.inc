@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refi
 
 
 
-$HD_Form = new FormHandler("cc_logpayment","payment");
+$HD_Form = new FormHandler("cc_logpayment", gettext("payment"));
 
 
 $HD_Form -> FG_TABLE_ID = 'cc_logpayment.id';
@@ -22,6 +22,7 @@ $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center
 $HD_Form -> FieldViewElement ('cc_logpayment.id, date, payment,description ');
 
 
+$HD_Form -> CV_TITLE_TEXT = gettext("Payment list");
 $HD_Form -> CV_NO_FIELDS  = gettext("No payments have been made!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';

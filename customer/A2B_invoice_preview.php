@@ -93,7 +93,7 @@ if(!$popup_select) {
             &nbsp;
           </td>
           <td class="three">
-           <strong>Client number</strong>
+           <strong><?php echo gettext("Client number"); ?></strong>
             <div><?php echo $_SESSION['pr_login'] ?></div>
           </td>
                  </tr>       

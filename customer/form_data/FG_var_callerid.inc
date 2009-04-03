@@ -3,7 +3,7 @@
 getpost_ifset(array('IDCust', 'id', 'id_cc_card', 'cid', 'activated'));
 
 
-$HD_Form = new FormHandler("cc_callerid","CallerID");
+$HD_Form = new FormHandler("cc_callerid", gettext("CallerID"));
 
 $HD_Form -> FG_DEBUG = 0;
 
@@ -18,7 +18,7 @@ $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "25%", "center", "
 
 $HD_Form -> FieldViewElement ('cid, activated');
 
-
+$HD_Form -> CV_TITLE_TEXT = gettext("CallerID list");
 $HD_Form -> CV_NO_FIELDS  = gettext("There are no Caller IDs created");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
@@ -71,10 +71,10 @@ $HD_Form -> FieldEditElement ('cid, activated');
 
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
-        if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0)
-            $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-        
-        $HD_Form -> FG_TABLE_CLAUSE.="cid like '$filterprefix%'";
+    if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0)
+        $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+    
+    $HD_Form -> FG_TABLE_CLAUSE.="cid like '$filterprefix%'";
 }
 
 
@@ -86,15 +86,11 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form
 $HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_card?form_action=ask-edit&stitle=Customers_Card&id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/icon-card.png";
 
-
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("You can add your home phone or cellphone number below to allow you to call in, be automatically recognized, and use your telephony services without having to enter your PIN.");
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
-
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path."/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Made your change to edit this callerid.");
-
 
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

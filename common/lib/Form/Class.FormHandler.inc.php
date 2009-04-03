@@ -31,6 +31,7 @@ class FormHandler
 	var $CV_TOPVIEWER = '';
 	var $CV_NO_FIELDS = "THERE IS NO RECORD !";
 	var $CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = true;
+	var $CV_TITLE_TEXT = ''; 
 	var $CV_TEXT_TITLE_ABOVE_TABLE = "DIRECTORY";
 	var $CV_DISPLAY_FILTER_ABOVE_TABLE = true;
 	var $CV_FILTER_ABOVE_TABLE_PARAM = "?id=";
@@ -503,6 +504,7 @@ class FormHandler
         //initializing variables with gettext
 		$this -> CV_NO_FIELDS = gettext("No data found!");
         $this -> CV_TEXT_TITLE_ABOVE_TABLE = gettext("DIRECTORY");
+        $this -> CV_TITLE_TEXT = $instance_name.' '. gettext("list");
         $this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define criteria to make a precise search");
         $this -> FG_INTRO_TEXT = gettext("You can browse through our")." #FG_INSTANCE_NAME# ".gettext("and modify their different properties<br>");
         $this -> FG_DELETE_ALT = gettext("Delete this record");
@@ -542,13 +544,10 @@ class FormHandler
 	function init ()
 	{      
 		global $_SERVER;		
-		if($_GET["section"]!="")
-		{
+		if($_GET["section"]!="") {
 			$section = $_GET["section"];
 			$_SESSION["menu_section"] = $section;
-		}
-		else
-		{
+		} else {
 			$section = $_SESSION["menu_section"];
 		}
 		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id=";

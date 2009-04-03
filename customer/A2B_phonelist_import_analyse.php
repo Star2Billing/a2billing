@@ -5,17 +5,13 @@ include ("lib/customer.smarty.php");
 
 set_time_limit(0);
 
-if (! has_rights (ACX_AUTODIALER)){
+if (! has_rights (ACX_AUTODIALER)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 getpost_ifset(array('phonebook', 'search_sources', 'task','status_import','uploadedfile_name','uploadedfile_name'));
-
-
-//print_r ($_POST);
-//print_r ($HTTP_POST_FILES);
  
 
 $phonebookval= split('-:-', $phonebook);
@@ -24,19 +20,12 @@ if (!is_numeric($phonebookval[0])){
 	exit();
 }
 
-
-
-if ($search_sources!='nochange'){
-
-	//echo "<br>---$search_sources";
+if ($search_sources!='nochange') {
 	$fieldtoimport= split("\t", $search_sources);
 	$fieldtoimport_sql = str_replace("\t", ", ", $search_sources);
 	$fieldtoimport_sql = trim ($fieldtoimport_sql);
 	if (strlen($fieldtoimport_sql)>0) $fieldtoimport_sql = ', '.$fieldtoimport_sql;
 }
-
-//echo "<br>---$fieldtoimport_sql<br>";
-//print_r($fieldtoimport);
 
 
 $fixfield[0]="Id Phonebook (KEY)";
@@ -163,7 +152,6 @@ if ($task=='upload'){
 		
 	} // END WHILE EOF
 	
-	echo "QUERY : ".$TT_QUERY;
 	if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0) ){
 		$result_query = @ $DBHandle -> Execute($TT_QUERY);
 		if ($result_query) $nb_imported = $nb_imported + $nb_to_import;
@@ -214,9 +202,9 @@ function sendtoupload(form){
 
 
 <?php
-if ($status_import=="ok"){
+if ($status_import=="ok") {
 	echo $CC_help_import_phonebook_confirm;
-}else{
+} else {
 	echo $CC_help_import_phonebook_analyse;
 }
 ?>
@@ -283,7 +271,7 @@ if ($status_import=="ok"){
 			  <input type="hidden" name="status_import" value="ok">
 			  <input type="hidden" name="uploadedfile_name" value="<?php echo $new_filename?>">
 			  <input type="hidden" name="uploadedfile_type" value="<?php echo $the_file_type?>">
-			  <input type="submit"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
+			  <input type="submit"  value="<?php echo gettext("Continue to Import the RateCard");?>" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
 			  <br>
 			  &nbsp; </p>
 		  </td>
@@ -298,7 +286,7 @@ if ($status_import=="ok"){
 	  </form>
 	</table>
 	
-	<?php }else{ ?>
+	<?php } else { ?>
 	
 	</br>
 	<table width="75%" border="0" cellspacing="2" align="center" class="records">
@@ -345,4 +333,3 @@ if($uploadedfile_name != "")
 }
 $smarty->display('footer.tpl');
 
-?>

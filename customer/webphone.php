@@ -3,15 +3,12 @@ include ("lib/customer.defines.php");
 include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
 
-if (! has_rights (ACX_WEB_PHONE)){ 
+if (! has_rights (ACX_WEB_PHONE)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
 }
 
-
-
-//require (LANGUAGE_DIR.FILENAME_WEBPHONE);
 
 $QUERY = "SELECT  activated, sip_buddy, iax_buddy, username FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
@@ -19,11 +16,10 @@ $DBHandle  = DbConnect();
 $instance_table = new Table();
 $customer_info = $instance_table -> SQLExec ($DBHandle, $QUERY);
 
-if (!is_array($customer_info)){ 
+if (!is_array($customer_info)) {
 	echo gettext("ERROR TO LOAD PEER!");
 	exit();
 };
-//print_r($customer_info);
 
 if( $customer_info [0][1] == "t" || $customer_info [0][1] == "1" ) {
 	$SIPQUERY="SELECT secret FROM cc_sip_buddies WHERE username = '".$customer_info[0][3]."'";
@@ -96,7 +92,7 @@ echo $CC_help_webphone;
 				<?php
 					if( $customer_info [0][2] != "t" && $customer_info [0][2] != "1" ) {
 						echo gettext("NO IAX ACCOUNT");
-					}else{ ?>
+					} else { ?>
 					<input class="form_input_button" value="[ <?php echo gettext("START IAX PHONE")?>]" type="submit">
 				<?php } ?></font>
 		</td>

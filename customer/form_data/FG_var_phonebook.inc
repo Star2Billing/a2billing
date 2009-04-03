@@ -2,7 +2,7 @@
 
 getpost_ifset(array('id', 'name', 'description ,id_card'));
 
-$HD_Form = new FormHandler("cc_phonebook ","Phone Book");
+$HD_Form = new FormHandler("cc_phonebook ", gettext("Phone Book"));
 
 
 $HD_Form -> FG_DEBUG = 0;
@@ -77,7 +77,7 @@ $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
-$HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add").' '.$HD_Form->FG_INSTANCE_NAME.;
+$HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add").' '.$HD_Form->FG_INSTANCE_NAME;
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
 

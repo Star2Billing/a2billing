@@ -271,7 +271,7 @@ function moveSourceDown()
 
 					  <br/>
 					  <a href="importsamples.php?sample=Phonebook_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -
-					  <a href="importsamples.php?sample=Phonebook_Simple" target="superframe"> <?php echo gettext("Simple Sample");?></a>
+					  <a href="importsamples.php?sample=Phonebook_Simple" target="superframe"><?php echo gettext("Simple Sample");?></a>
                       </span></div>
 
 
@@ -293,7 +293,7 @@ function moveSourceDown()
                       <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
                       <input type="hidden" name="task" value="upload">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-					  <input type="button" value="Import Phonebook" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
+					  <input type="button" value="<?php echo gettext("Import Phonebook");?>" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
 					   </p>     
                   </td>
                 </tr>
@@ -305,5 +305,5 @@ function moveSourceDown()
 
 <?php
 
-
 $smarty->display('footer.tpl');
+

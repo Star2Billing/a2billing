@@ -101,8 +101,8 @@ $HD_Form -> AddEditElement (gettext("ADDITIONALINFO"),
 	gettext("Insert additional information"),
 	"" , "", "", "", "" , "", "", "");
 
-			
-	$HD_Form -> FieldEditElement ('number, id_phonebook, cc_phonenumber.name, amount, status, info');
+
+$HD_Form -> FieldEditElement ('number, id_phonebook, cc_phonenumber.name, amount, status, info');
 
 $HD_Form -> FG_EDITION_CLAUSE = " cc_phonenumber.id='%id'";
 
@@ -112,8 +112,8 @@ $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
-$HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a $HD_Form->FG_INSTANCE_NAME now.");
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
+$HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a new phone number.");
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new phone number has been inserted.")."<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";

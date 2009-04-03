@@ -97,25 +97,6 @@ echo $CC_help_simulator_rateengine;
 
 ?>
 
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-function openURL(theLINK)
-{
-	// grab index number of the selected option
-	selInd = document.theForm.choose_list.selectedIndex;
-	if(selInd==''){alert('Please, select a tariff'); return false;}
-	// get value of the selected option
-	goURL = document.theForm.choose_list.options[selInd].value;	  
-	definecredit = document.theForm.definecredit.value;
-	// redirect browser to the grabbed value (hopefully a URL)	  
-	self.location.href = theLINK + goURL + "&definecredit="+definecredit ; //+ "&opt="+opt;
-}
-//-->
-</script>
 <center><?php echo $error_msg; ?></center>
 
 <br><br>
@@ -140,7 +121,7 @@ function openURL(theLINK)
 		</td>
 		<td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
 			<span class="bar-search">
-			<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main ?>/button-search.gif" />
+			<input type="submit" class="form_input_button" value="<?php echo gettext("SEARCH");?>">
 			</span></td>
 	</tr>
 	</FORM>

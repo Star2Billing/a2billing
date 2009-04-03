@@ -173,7 +173,7 @@ $smarty->display( 'main.tpl');
 		<td align="center" colspan="2" class="tableBodyRight" >	
 			<form action="checkout_payment.php" method="post">
 				
-				<input type="submit" class="form_input_button" value="BUY NOW">
+				<input type="submit" class="form_input_button" value="<?php echo gettext("BUY NOW");?>">
 			</form>
 	</tr>
 </table>
@@ -183,10 +183,11 @@ $smarty->display( 'main.tpl');
 
 
 
-<?php }else{ ?>
+<?php } else { ?>
 <br></br><br></br>
 
-<?php } ?>
-<?php
-	$smarty->display( 'footer.tpl');
-?>
+<?php } 
+
+$smarty->display( 'footer.tpl');
+
+
