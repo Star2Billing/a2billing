@@ -248,7 +248,7 @@ msgstr "Click aici pentru  IAX WebPhone"
 
 #: webphone.php:88
 msgid "IAX WEB-PHONE"
-msgstr "IAX WEB-PHONE"
+msgstr "TELEFON WEB IAX"
 
 #: webphone.php:94
 msgid "NO IAX ACCOUNT"
