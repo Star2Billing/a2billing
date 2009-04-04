@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-03 13:31+0200\n"
+"POT-Creation-Date: 2009-04-04 16:34+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -407,7 +407,6 @@ msgid "PREVIEW INVOICE"
 msgstr "Previzualizare Factura"
 
 #: A2B_invoice_preview.php:96
-#, 
 msgid "Client number"
 msgstr "Cod Client"
 
@@ -538,7 +537,6 @@ msgid "YOUR BALANCE"
 msgstr "Balanta ta "
 
 #: simulator.php:124
-#, 
 msgid "SEARCH"
 msgstr "Cauta"
 
@@ -692,7 +690,6 @@ msgid "CREATE"
 msgstr "Creaza"
 
 #: A2B_entity_voucher.php:33
-#, 
 msgid "System Error : the currency table is incomplete!"
 msgstr "Eroare Sistem : Tabela cu monede incompleta"
 
@@ -793,7 +790,6 @@ msgid "The maximum file size is "
 msgstr "Marimea maxima a fisierului este"
 
 #: A2B_phonelist_import.php:296
-#, 
 msgid "Import Phonebook"
 msgstr "Importa lista telefoane"
 
@@ -1698,7 +1694,6 @@ msgid "You can browse through our"
 msgstr "Poti naviga prin"
 
 #: lib/Form/Class.FormHandler.inc.php:509
-#, 
 msgid "and modify their different properties"
 msgstr "poti modifica proprietatiile"
 
@@ -1770,12 +1765,10 @@ msgid "Your new"
 msgstr "Noul tau"
 
 #: lib/Form/Class.FormHandler.inc.php:519
-#, 
 msgid "has been inserted.<br>"
 msgstr "A fost introdus"
 
 #: lib/Form/Class.FormHandler.inc.php:520
-#, 
 msgid "hasn't been inserted."
 msgstr "a fost introdus"
 
@@ -2889,12 +2882,10 @@ msgid "Insert additional information"
 msgstr "Introduce-ti informatii aditionale"
 
 #: form_data/FG_var_phonenumber.inc:115
-#, 
 msgid "Add a new phone number."
 msgstr "Adauga un numar de telefon DID-ului tau"
 
 #: form_data/FG_var_phonenumber.inc:116
-#, 
 msgid "Your new phone number has been inserted."
 msgstr "Numere de telefon importate"
 
@@ -2922,7 +2913,6 @@ msgid "AMOUNT INCL VAT"
 msgstr "SUMA + TVA"
 
 #: form_data/FG_var_receipt.inc:40
-#, 
 msgid "THERE IS NO RECEIPT CREATED!"
 msgstr "NU EXISTA CHITANTA CREATA"
 
@@ -2935,12 +2925,10 @@ msgid "SR"
 msgstr ""
 
 #: form_data/FG_var_ratecard.inc:37
-#, 
 msgid "THERE IS NO RATECARD CREATED!"
 msgstr "NU EXISTA GRUPA DE TARIFE CREAT"
 
 #: form_data/FG_var_callerid.inc:6
-#, 
 msgid "CallerID"
 msgstr "IDENTIFICATOR APELANT"
 
@@ -2977,7 +2965,6 @@ msgid "REFERENCE"
 msgstr "REFERINTA"
 
 #: form_data/FG_var_invoice.inc:41
-#, 
 msgid "THERE IS NO INVOICE CREATED!"
 msgstr "NU EXISTA FACTURA CREATA"
 
@@ -3071,7 +3058,6 @@ msgid "PAYMENT AMOUNT"
 msgstr "SUMA DE PLATA"
 
 #: form_data/FG_var_payment.inc:25
-#, 
 msgid "Payment list"
 msgstr "Metoda de plata"
 
