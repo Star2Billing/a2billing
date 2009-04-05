@@ -162,7 +162,7 @@ class RateEngine
 		// POSIX equivalents, and test each of them against the dialed number
 		$prefixclause .= " OR (dialprefix LIKE '&_%' ESCAPE '&' AND '$phonenumber' ";
 		$prefixclause .= "REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', dialprefix, '$'), ";
-		$prefixclause .= "'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', ''))";
+		$prefixclause .= "'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '.+'), '_', ''))";
 
         // select group by 5 ... more easy to count
 		$QUERY = "SELECT

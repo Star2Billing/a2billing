@@ -759,7 +759,7 @@ CREATE OR REPLACE FUNCTION cc_ratecard_validate_regex() RETURNS TRIGGER AS $$
     IF SUBSTRING(new.dialprefix,1,1) != '_' THEN
       RETURN new;
     END IF;
-    PERFORM '0' ~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE('^' || new.dialprefix || '$', 'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\.', '+', 'g'), '_', '', 'g');
+    PERFORM '0' ~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE('^' || new.dialprefix || '$', 'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\.', E'\\.+', 'g'), '_', '', 'g');
     RETURN new;
   END
 $$ LANGUAGE plpgsql;

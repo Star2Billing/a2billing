@@ -753,14 +753,14 @@ CREATE TRIGGER cc_ratecard_validate_regex_ins BEFORE INSERT ON cc_ratecard
 FOR EACH ROW
 BEGIN
   DECLARE valid INTEGER;
-  SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '') INTO valid;
+  SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '.+'), '_', '') INTO valid;
 END
 //
 CREATE TRIGGER cc_ratecard_validate_regex_upd BEFORE UPDATE ON cc_ratecard
 FOR EACH ROW
 BEGIN
   DECLARE valid INTEGER;
-  SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '') INTO valid;
+  SELECT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', NEW.dialprefix, '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '.+'), '_', '') INTO valid;
 END
 //
 DELIMITER ;

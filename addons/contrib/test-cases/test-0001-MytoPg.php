@@ -286,8 +286,8 @@ $t[$i++] = array('MytoPg(): SUBSTRING(time|date,1,19) -> add cast ::timestamp',
 
 
 $t[$i++] = array('MytoPg(): Complex nested REGEXP, REPLACE, and \'.\'',
-"-- SELECT NOT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', '_XXX(911|999|112)', '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '+'), '_', '');",
-"-- SELECT NOT '0' ~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(('^' ||  '_XXX(911|999|112)' ||  '$'), 'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\\\.', '+', 'g'), '_', '', 'g');");
+"-- SELECT NOT '0' REGEXP REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(CONCAT('^', '_XXX(911|999|112)', '$'), 'X', '[0-9]'), 'Z', '[1-9]'), 'N', '[2-9]'), '.', '.+'), '_', '');",
+"-- SELECT NOT '0' ~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(('^' ||  '_XXX(911|999|112)' ||  '$'), 'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\\\.', E'\\\\.+', 'g'), '_', '', 'g');");
 
 
 $t[$i++] = array('MytoPg(): RAND()',

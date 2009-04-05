@@ -130,10 +130,11 @@ class MytoPg {
 						$pos = $matchpos + strlen($match[1].$match[3]);
 
 					} elseif ('REPLACE' == $matched) {
-						// rewrite any regex '.'s with sufficient escaping
+						// first we need to add a little escaping
 						foreach ($rep as &$value) {
-							if (trim(ltrim($value)) == "'.'") {
-								$value = " E'\\\\.'";
+							// if a string literal contains '.',  add escaping
+							if (ereg('^\'.*[.].*\'$', trim(ltrim($value)))) {
+								$value = ' E'.ereg_replace('([^\\])[.]', '\1\\\\.', trim(ltrim($value)));
 							}
 						}
 						unset($value);
