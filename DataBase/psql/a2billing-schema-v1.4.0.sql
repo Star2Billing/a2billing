@@ -37,6096 +37,586 @@
 
 SET default_with_oids = true;
 
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = off;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET escape_string_warning = off;
-
---
--- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: postgres
---
-
-CREATE PROCEDURAL LANGUAGE plpgsql;
-
-
-ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO postgres;
-
-SET search_path = public, pg_catalog;
-
---
--- Name: cc_card_serial_set(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION cc_card_serial_set() RETURNS trigger
-    AS $$
-  BEGIN
-    UPDATE cc_card_seria SET value=value+1 WHERE id=NEW.id_seria;
-    SELECT value INTO NEW.serial FROM cc_card_seria WHERE id=NEW.id_seria;
-    RETURN NEW;
-  END
-$$
-    LANGUAGE plpgsql;
-
-
-ALTER FUNCTION public.cc_card_serial_set() OWNER TO postgres;
-
---
--- Name: cc_card_serial_update(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION cc_card_serial_update() RETURNS trigger
-    AS $$
-  BEGIN
-    IF NEW.id_seria IS NOT NULL AND NEW.id_seria = OLD.id_seria THEN
-      RETURN NEW;
-    END IF;
-    UPDATE cc_card_seria SET value=value+1 WHERE id=NEW.id_seria;
-    SELECT value INTO NEW.serial FROM cc_card_seria WHERE id=NEW.id_seria;
-    RETURN NEW;
-  END
-$$
-    LANGUAGE plpgsql;
-
-
-ALTER FUNCTION public.cc_card_serial_update() OWNER TO postgres;
-
---
--- Name: cc_ratecard_validate_regex(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION cc_ratecard_validate_regex() RETURNS trigger
-    AS $_$
-  BEGIN
-    IF SUBSTRING(new.dialprefix,1,1) != '_' THEN
-      RETURN new;
-    END IF;
-    PERFORM '0' ~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE('^' || new.dialprefix || '$', 'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\.', '+', 'g'), '_', '', 'g');
-    RETURN new;
-  END
-$_$
-    LANGUAGE plpgsql;
-
-
-ALTER FUNCTION public.cc_ratecard_validate_regex() OWNER TO postgres;
-
-SET default_tablespace = '';
-
-SET default_with_oids = true;
-
---
--- Name: cc_agent; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_agent (
-    id bigint NOT NULL,
-    datecreation timestamp without time zone DEFAULT now(),
-    active boolean DEFAULT false NOT NULL,
-    login character varying(20) NOT NULL,
-    passwd character varying(40),
-    location text,
-    language character varying(5) DEFAULT 'en'::text,
-    id_tariffgroup integer,
-    options integer DEFAULT 0 NOT NULL,
-    credit numeric(15,5) DEFAULT 0 NOT NULL,
-    currency character varying(3) DEFAULT 'USD'::character varying NOT NULL,
-    locale character varying(10) DEFAULT 'C'::character varying,
-    commission numeric(10,4) DEFAULT 0 NOT NULL,
-    vat numeric(10,4) DEFAULT 0 NOT NULL,
-    banner text,
-    perms integer,
-    lastname character varying(50),
-    firstname character varying(50),
-    address character varying(100),
-    city character varying(40),
-    state character varying(40),
-    country character varying(40),
-    zipcode character varying(20),
-    phone character varying(20),
-    email character varying(70),
-    fax character varying(20),
-    company character varying(50),
-    secret character varying(20) NOT NULL
-);
-
-
-ALTER TABLE public.cc_agent OWNER TO postgres;
-
---
--- Name: cc_agent_commission; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_agent_commission (
-    id bigint NOT NULL,
-    id_payment bigint,
-    id_card bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    amount numeric(15,5) NOT NULL,
-    paid_status smallint DEFAULT 0::smallint NOT NULL,
-    description text,
-    id_agent integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_agent_commission OWNER TO postgres;
-
---
--- Name: cc_agent_commission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_agent_commission_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_agent_commission_id_seq OWNER TO postgres;
-
---
--- Name: cc_agent_commission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_agent_commission_id_seq OWNED BY cc_agent_commission.id;
-
-
---
--- Name: cc_agent_commission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_agent_commission_id_seq', 1, false);
-
-
---
--- Name: cc_agent_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_agent_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_agent_id_seq OWNER TO postgres;
-
---
--- Name: cc_agent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_agent_id_seq OWNED BY cc_agent.id;
-
-
---
--- Name: cc_agent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_agent_id_seq', 1, false);
-
-
---
--- Name: cc_agent_tariffgroup; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_agent_tariffgroup (
-    id_agent bigint NOT NULL,
-    id_tariffgroup integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_agent_tariffgroup OWNER TO postgres;
-
---
--- Name: cc_alarm; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_alarm (
-    id bigint NOT NULL,
-    name text NOT NULL,
-    periode integer DEFAULT 1 NOT NULL,
-    type integer DEFAULT 1 NOT NULL,
-    maxvalue numeric NOT NULL,
-    minvalue numeric DEFAULT (-1) NOT NULL,
-    id_trunk integer,
-    status integer DEFAULT 0 NOT NULL,
-    numberofrun integer DEFAULT 0 NOT NULL,
-    numberofalarm integer DEFAULT 0 NOT NULL,
-    datecreate timestamp without time zone DEFAULT now(),
-    datelastrun timestamp without time zone DEFAULT now(),
-    emailreport text
-);
-
-
-ALTER TABLE public.cc_alarm OWNER TO postgres;
-
---
--- Name: cc_alarm_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_alarm_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_alarm_id_seq OWNER TO postgres;
-
---
--- Name: cc_alarm_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_alarm_id_seq OWNED BY cc_alarm.id;
-
-
---
--- Name: cc_alarm_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_alarm_id_seq', 1, false);
-
-
---
--- Name: cc_alarm_report; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_alarm_report (
-    id bigint NOT NULL,
-    cc_alarm_id bigint NOT NULL,
-    calculatedvalue numeric NOT NULL,
-    daterun timestamp without time zone DEFAULT now()
-);
-
-
-ALTER TABLE public.cc_alarm_report OWNER TO postgres;
-
---
--- Name: cc_alarm_report_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_alarm_report_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_alarm_report_id_seq OWNER TO postgres;
-
---
--- Name: cc_alarm_report_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_alarm_report_id_seq OWNED BY cc_alarm_report.id;
-
-
---
--- Name: cc_alarm_report_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_alarm_report_id_seq', 1, false);
-
-
---
--- Name: cc_autorefill_report; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_autorefill_report (
-    id bigint NOT NULL,
-    daterun timestamp(0) without time zone DEFAULT now(),
-    totalcardperform integer,
-    totalcredit double precision
-);
-
-
-ALTER TABLE public.cc_autorefill_report OWNER TO postgres;
-
---
--- Name: cc_autorefill_report_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_autorefill_report_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_autorefill_report_id_seq OWNER TO postgres;
-
---
--- Name: cc_autorefill_report_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_autorefill_report_id_seq OWNED BY cc_autorefill_report.id;
-
-
---
--- Name: cc_autorefill_report_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_autorefill_report_id_seq', 1, false);
-
-
---
--- Name: cc_backup; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_backup (
-    id bigint NOT NULL,
-    name character varying(255) DEFAULT ''::character varying NOT NULL,
-    path character varying(255) DEFAULT ''::character varying NOT NULL,
-    creationdate timestamp without time zone DEFAULT now()
-);
-
-
-ALTER TABLE public.cc_backup OWNER TO postgres;
-
---
--- Name: cc_backup_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_backup_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_backup_id_seq OWNER TO postgres;
-
---
--- Name: cc_backup_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_backup_id_seq OWNED BY cc_backup.id;
-
-
---
--- Name: cc_backup_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_backup_id_seq', 1, false);
-
-
---
--- Name: cc_billing_customer; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_billing_customer (
-    id bigint NOT NULL,
-    id_card bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    id_invoice bigint NOT NULL
-);
-
-
-ALTER TABLE public.cc_billing_customer OWNER TO postgres;
-
---
--- Name: cc_billing_customer_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_billing_customer_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_billing_customer_id_seq OWNER TO postgres;
-
---
--- Name: cc_billing_customer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_billing_customer_id_seq OWNED BY cc_billing_customer.id;
-
-
---
--- Name: cc_billing_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_billing_customer_id_seq', 1, false);
-
-
---
--- Name: cc_call; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_call (
-    id bigint NOT NULL,
-    sessionid text NOT NULL,
-    uniqueid text NOT NULL,
-    nasipaddress text,
-    starttime timestamp without time zone,
-    stoptime timestamp without time zone,
-    sessiontime integer,
-    calledstation text,
-    sessionbill double precision,
-    id_tariffgroup integer,
-    id_tariffplan integer,
-    id_ratecard integer,
-    id_trunk integer,
-    sipiax integer DEFAULT 0,
-    src text,
-    id_did integer,
-    buycost numeric(15,5) DEFAULT 0,
-    id_card_package_offer integer DEFAULT 0,
-    real_sessiontime integer,
-    card_id bigint NOT NULL,
-    dnid character varying(40),
-    terminatecauseid smallint DEFAULT 1,
-    destination integer DEFAULT 0
-);
-
-
-ALTER TABLE public.cc_call OWNER TO postgres;
-
---
--- Name: cc_call_archive; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_call_archive (
-    id bigint NOT NULL,
-    sessionid character varying(40) NOT NULL,
-    uniqueid character varying(30) NOT NULL,
-    username character varying(40) NOT NULL,
-    nasipaddress character varying(30),
-    starttime timestamp without time zone,
-    stoptime timestamp without time zone,
-    sessiontime integer,
-    calledstation character varying(30),
-    startdelay integer,
-    stopdelay integer,
-    terminatecause character varying(20),
-    usertariff character varying(20),
-    calledprovider character varying(20),
-    calledcountry character varying(30),
-    calledsub character varying(20),
-    calledrate double precision,
-    sessionbill double precision,
-    destination character varying(40),
-    id_tariffgroup integer,
-    id_tariffplan integer,
-    id_ratecard integer,
-    id_trunk integer,
-    sipiax integer DEFAULT 0,
-    src character varying(30),
-    id_did integer,
-    buyrate numeric(15,5) DEFAULT 0,
-    buycost numeric(15,5) DEFAULT 0,
-    id_card_package_offer integer DEFAULT 0,
-    real_sessiontime integer
-);
-
-
-ALTER TABLE public.cc_call_archive OWNER TO postgres;
-
---
--- Name: cc_call_archive_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_call_archive_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_call_archive_id_seq OWNER TO postgres;
-
---
--- Name: cc_call_archive_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_call_archive_id_seq OWNED BY cc_call_archive.id;
-
-
---
--- Name: cc_call_archive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_call_archive_id_seq', 1, false);
-
-
---
--- Name: cc_call_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_call_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_call_id_seq OWNER TO postgres;
-
---
--- Name: cc_call_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_call_id_seq OWNED BY cc_call.id;
-
-
---
--- Name: cc_call_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_call_id_seq', 1, false);
-
-
---
--- Name: cc_callback_spool; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_callback_spool (
-    id bigint NOT NULL,
-    uniqueid text,
-    entry_time timestamp without time zone DEFAULT now(),
-    status text,
-    server_ip text,
-    num_attempt integer DEFAULT 0 NOT NULL,
-    last_attempt_time timestamp without time zone,
-    manager_result text,
-    agi_result text,
-    callback_time timestamp without time zone,
-    channel text,
-    exten text,
-    context text,
-    priority text,
-    application text,
-    data text,
-    timeout text,
-    callerid text,
-    variable character varying(300),
-    account text,
-    async text,
-    actionid text,
-    id_server integer,
-    id_server_group integer
-);
-
-
-ALTER TABLE public.cc_callback_spool OWNER TO postgres;
-
---
--- Name: cc_callback_spool_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_callback_spool_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_callback_spool_id_seq OWNER TO postgres;
-
---
--- Name: cc_callback_spool_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_callback_spool_id_seq OWNED BY cc_callback_spool.id;
-
-
---
--- Name: cc_callback_spool_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_callback_spool_id_seq', 1, false);
-
-
---
--- Name: cc_callerid; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_callerid (
-    id bigint NOT NULL,
-    cid text NOT NULL,
-    id_cc_card bigint NOT NULL,
-    activated boolean DEFAULT true NOT NULL
-);
-
-
-ALTER TABLE public.cc_callerid OWNER TO postgres;
-
---
--- Name: cc_callerid_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_callerid_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_callerid_id_seq OWNER TO postgres;
-
---
--- Name: cc_callerid_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_callerid_id_seq OWNED BY cc_callerid.id;
-
-
---
--- Name: cc_callerid_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_callerid_id_seq', 1, false);
-
-
---
--- Name: cc_campaign; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
 
 CREATE TABLE cc_campaign (
-    id bigint NOT NULL,
-    name character varying(50) NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    startingdate timestamp without time zone DEFAULT now(),
-    expirationdate timestamp without time zone,
-    description text,
-    id_card bigint DEFAULT 0::bigint NOT NULL,
-    secondusedreal integer DEFAULT 0,
-    nb_callmade integer DEFAULT 0,
-    status integer DEFAULT 1 NOT NULL,
-    frequency integer DEFAULT 20 NOT NULL,
-    forward_number character varying(50),
-    daily_start_time time without time zone DEFAULT '10:00:00'::time without time zone NOT NULL,
-    daily_stop_time time without time zone DEFAULT '18:00:00'::time without time zone NOT NULL,
-    monday smallint DEFAULT 1::smallint NOT NULL,
-    tuesday smallint DEFAULT 1::smallint NOT NULL,
-    wednesday smallint DEFAULT 1::smallint NOT NULL,
-    thursday smallint DEFAULT 1::smallint NOT NULL,
-    friday smallint DEFAULT 1::smallint NOT NULL,
-    saturday smallint DEFAULT 0::smallint NOT NULL,
-    sunday smallint DEFAULT 0::smallint NOT NULL,
-    id_cid_group integer NOT NULL,
-    id_campaign_config integer NOT NULL
+    id 						BIGSERIAL NOT NULL,
+    campaign_name 			TEXT NOT NULL,
+    creationdate 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    startingdate 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    expirationdate 			TIMESTAMP WITHOUT TIME ZONE,
+    description 			TEXT ,
+    id_trunk 				BIGINT NOT NULL,	
+    secondusedreal 			INTEGER DEFAULT 0,
+    nb_callmade 			INTEGER DEFAULT 0,
+    enable 					INTEGER DEFAULT 0 NOT NULL
 );
 
+ALTER TABLE ONLY cc_campaign
+    ADD CONSTRAINT cc_campaign_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_campaign
+    ADD CONSTRAINT cons_phonelistname UNIQUE (campaign_name);
 
-ALTER TABLE public.cc_campaign OWNER TO postgres;
 
---
--- Name: cc_campaign_config; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
 
-CREATE TABLE cc_campaign_config (
-    id integer NOT NULL,
-    name character varying(40) NOT NULL,
-    flatrate numeric(15,5) DEFAULT 0 NOT NULL,
-    context character varying(40) NOT NULL,
-    description text
+CREATE TABLE cc_phonelist (
+    id 							BIGSERIAL NOT NULL,
+    id_cc_campaign 				BIGINT DEFAULT 0 NOT NULL,
+    id_cc_card 					BIGINT DEFAULT 0 NOT NULL,
+    numbertodial 				TEXT NOT NULL,
+    name 						TEXT NOT NULL,
+    inuse 						INTEGER DEFAULT 0,
+    enable 						INTEGER DEFAULT 1 NOT NULL,
+    num_trials_done 			INTEGER DEFAULT 0,
+    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    last_attempt 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),		
+    secondusedreal 				INTEGER DEFAULT 0,
+    additionalinfo 				TEXT NOT NULL	
 );
 
+ALTER TABLE ONLY cc_phonelist
+    ADD CONSTRAINT cc_phonelist_pkey PRIMARY KEY (id);
+	
+CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numbertodial);
 
-ALTER TABLE public.cc_campaign_config OWNER TO postgres;
 
---
--- Name: cc_campaign_config_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
 
-CREATE SEQUENCE cc_campaign_config_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_campaign_config_id_seq OWNER TO postgres;
-
---
--- Name: cc_campaign_config_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_campaign_config_id_seq OWNED BY cc_campaign_config.id;
-
-
---
--- Name: cc_campaign_config_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_campaign_config_id_seq', 1, false);
-
-
---
--- Name: cc_campaign_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_campaign_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_campaign_id_seq OWNER TO postgres;
-
---
--- Name: cc_campaign_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_campaign_id_seq OWNED BY cc_campaign.id;
-
-
---
--- Name: cc_campaign_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_campaign_id_seq', 1, false);
-
-
---
--- Name: cc_campaign_phonebook; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_campaign_phonebook (
-    id_campaign integer NOT NULL,
-    id_phonebook integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_campaign_phonebook OWNER TO postgres;
-
---
--- Name: cc_campaign_phonestatus; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_campaign_phonestatus (
-    id_phonenumber bigint NOT NULL,
-    id_campaign integer NOT NULL,
-    id_callback character varying(40) NOT NULL,
-    status integer DEFAULT 0 NOT NULL,
-    lastuse timestamp without time zone DEFAULT now() NOT NULL
-);
-
-
-ALTER TABLE public.cc_campaign_phonestatus OWNER TO postgres;
-
---
--- Name: cc_campaignconf_cardgroup; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_campaignconf_cardgroup (
-    id_campaign_config integer NOT NULL,
-    id_card_group integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_campaignconf_cardgroup OWNER TO postgres;
-
---
--- Name: cc_card; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_card (
-    id bigint NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    firstusedate timestamp without time zone,
-    expirationdate timestamp without time zone,
-    enableexpire integer DEFAULT 0,
-    expiredays integer DEFAULT 0,
-    username text NOT NULL,
-    useralias text NOT NULL,
-    uipass text,
-    credit numeric(12,4) NOT NULL,
-    tariff integer DEFAULT 0,
-    id_didgroup integer DEFAULT 0,
-    activated boolean DEFAULT false NOT NULL,
-    lastname text,
-    firstname text,
-    address text,
-    city text,
-    state text,
-    country text,
-    zipcode text,
-    phone text,
-    email text,
-    fax text,
-    inuse integer DEFAULT 0,
-    simultaccess integer DEFAULT 0,
-    currency character varying(3) DEFAULT 'USD'::character varying,
-    lastuse date DEFAULT now(),
-    nbused integer DEFAULT 0,
-    typepaid integer DEFAULT 0,
-    creditlimit integer DEFAULT 0,
-    voipcall integer DEFAULT 0,
-    sip_buddy integer DEFAULT 0,
-    iax_buddy integer DEFAULT 0,
-    language text DEFAULT 'en'::text,
-    redial text,
-    runservice integer DEFAULT 0,
-    nbservice integer DEFAULT 0,
-    id_campaign integer DEFAULT 0,
-    num_trials_done integer DEFAULT 0,
-    vat numeric(6,3) DEFAULT 0,
-    servicelastrun timestamp without time zone,
-    initialbalance numeric(12,4) DEFAULT 0 NOT NULL,
-    invoiceday integer DEFAULT 1,
-    autorefill integer DEFAULT 0,
-    loginkey text,
-    mac_addr character varying(17) DEFAULT '00-00-00-00-00-00'::character varying NOT NULL,
-    id_timezone integer DEFAULT 0,
-    status integer DEFAULT 1 NOT NULL,
-    tag character varying(50),
-    voicemail_permitted integer DEFAULT 0 NOT NULL,
-    voicemail_activated integer DEFAULT 0 NOT NULL,
-    last_notification timestamp without time zone,
-    email_notification character varying(70),
-    notify_email smallint DEFAULT 0 NOT NULL,
-    credit_notification integer DEFAULT (-1) NOT NULL,
-    id_group integer DEFAULT 1 NOT NULL,
-    company_name character varying(50),
-    company_website character varying(60),
-    vat_rn character varying(40) DEFAULT NULL::character varying,
-    traffic bigint DEFAULT 0,
-    traffic_target text,
-    discount numeric(5,2) DEFAULT 0::numeric NOT NULL,
-    restriction smallint DEFAULT 0::smallint NOT NULL,
-    id_seria integer,
-    serial bigint
-);
-
-
-ALTER TABLE public.cc_card OWNER TO postgres;
-
---
--- Name: cc_card_archive; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_card_archive (
-    id bigint NOT NULL,
-    creationdate timestamp without time zone DEFAULT now() NOT NULL,
-    firstusedate timestamp without time zone,
-    expirationdate timestamp without time zone,
-    enableexpire integer DEFAULT 0,
-    expiredays integer DEFAULT 0,
-    username character varying(50) NOT NULL,
-    useralias character varying(50) NOT NULL,
-    uipass character varying(50),
-    credit numeric(15,5) NOT NULL,
-    tariff integer DEFAULT 0,
-    id_didgroup integer DEFAULT 0,
-    activated boolean DEFAULT false NOT NULL,
-    status integer DEFAULT 1,
-    lastname character varying(50),
-    firstname character varying(50),
-    address character varying(100),
-    city character varying(40),
-    state character varying(40),
-    country character varying(40),
-    zipcode character varying(20),
-    phone character varying(20),
-    email character varying(70),
-    fax character varying(20),
-    inuse integer DEFAULT 0,
-    simultaccess integer DEFAULT 0,
-    currency character varying(3) DEFAULT 'USD'::character varying,
-    lastuse timestamp without time zone,
-    nbused integer DEFAULT 0,
-    typepaid integer DEFAULT 0,
-    creditlimit integer DEFAULT 0,
-    voipcall integer DEFAULT 0,
-    sip_buddy integer DEFAULT 0,
-    iax_buddy integer DEFAULT 0,
-    language character varying(5) DEFAULT 'en'::text,
-    redial character varying(50),
-    runservice integer DEFAULT 0,
-    nbservice integer DEFAULT 0,
-    id_campaign integer DEFAULT 0,
-    num_trials_done bigint DEFAULT 0,
-    vat numeric(6,3) DEFAULT 0,
-    servicelastrun timestamp without time zone,
-    initialbalance numeric(15,5) DEFAULT 0 NOT NULL,
-    invoiceday integer DEFAULT 1,
-    autorefill integer DEFAULT 0,
-    loginkey character varying(40),
-    activatedbyuser boolean DEFAULT true NOT NULL,
-    id_timezone integer DEFAULT 0,
-    tag character varying(50),
-    voicemail_permitted integer DEFAULT 0 NOT NULL,
-    voicemail_activated smallint DEFAULT 0::smallint NOT NULL,
-    last_notification timestamp without time zone,
-    email_notification character varying(70),
-    notify_email smallint DEFAULT 0::smallint NOT NULL,
-    credit_notification integer DEFAULT (-1) NOT NULL,
-    id_group integer DEFAULT 1 NOT NULL,
-    company_name character varying(50) DEFAULT NULL::character varying,
-    company_website character varying(60) DEFAULT NULL::character varying,
-    vat_rn character varying(40) DEFAULT NULL::character varying,
-    traffic bigint,
-    traffic_target text,
-    discount numeric(5,2) DEFAULT 0.00 NOT NULL,
-    restriction smallint DEFAULT 0::smallint NOT NULL,
-    mac_addr character(17) DEFAULT '00-00-00-00-00-00'::bpchar NOT NULL
-);
-
-
-ALTER TABLE public.cc_card_archive OWNER TO postgres;
-
---
--- Name: cc_card_archive_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_card_archive_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_card_archive_id_seq OWNER TO postgres;
-
---
--- Name: cc_card_archive_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_card_archive_id_seq OWNED BY cc_card_archive.id;
-
-
---
--- Name: cc_card_archive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_card_archive_id_seq', 1, false);
-
-
---
--- Name: cc_card_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_card_group (
-    id integer NOT NULL,
-    name character varying(30) NOT NULL,
-    description text,
-    users_perms integer DEFAULT 0 NOT NULL,
-    id_agent integer
-);
-
-
-ALTER TABLE public.cc_card_group OWNER TO postgres;
-
---
--- Name: cc_card_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_card_group_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_card_group_id_seq OWNER TO postgres;
-
---
--- Name: cc_card_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_card_group_id_seq OWNED BY cc_card_group.id;
-
-
---
--- Name: cc_card_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_card_group_id_seq', 1, true);
-
-
---
--- Name: cc_card_history; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_card_history (
-    id bigint NOT NULL,
-    id_cc_card bigint,
-    datecreated timestamp without time zone DEFAULT now(),
-    description text
-);
-
-
-ALTER TABLE public.cc_card_history OWNER TO postgres;
-
---
--- Name: cc_card_history_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_card_history_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_card_history_id_seq OWNER TO postgres;
-
---
--- Name: cc_card_history_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_card_history_id_seq OWNED BY cc_card_history.id;
-
-
---
--- Name: cc_card_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_card_history_id_seq', 1, false);
-
-
---
--- Name: cc_card_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_card_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_card_id_seq OWNER TO postgres;
-
---
--- Name: cc_card_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_card_id_seq OWNED BY cc_card.id;
-
-
---
--- Name: cc_card_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_card_id_seq', 1, false);
-
-
---
--- Name: cc_card_package_offer; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_card_package_offer (
-    id bigint NOT NULL,
-    id_cc_card bigint NOT NULL,
-    id_cc_package_offer bigint NOT NULL,
-    date_consumption timestamp without time zone DEFAULT now(),
-    used_secondes bigint NOT NULL
-);
-
-
-ALTER TABLE public.cc_card_package_offer OWNER TO postgres;
-
---
--- Name: cc_card_package_offer_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_card_package_offer_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_card_package_offer_id_seq OWNER TO postgres;
-
---
--- Name: cc_card_package_offer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_card_package_offer_id_seq OWNED BY cc_card_package_offer.id;
-
-
---
--- Name: cc_card_package_offer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_card_package_offer_id_seq', 1, false);
-
-
---
--- Name: cc_card_seria; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_card_seria (
-    id integer NOT NULL,
-    name character(30) NOT NULL,
-    description text,
-    value bigint DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE public.cc_card_seria OWNER TO postgres;
-
---
--- Name: cc_card_seria_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_card_seria_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_card_seria_id_seq OWNER TO postgres;
-
---
--- Name: cc_card_seria_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_card_seria_id_seq OWNED BY cc_card_seria.id;
-
-
---
--- Name: cc_card_seria_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_card_seria_id_seq', 1, false);
-
-
---
--- Name: cc_card_subscription; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_card_subscription (
-    id bigint NOT NULL,
-    id_cc_card bigint DEFAULT 0 NOT NULL,
-    id_subscription_fee integer DEFAULT 0 NOT NULL,
-    startdate timestamp without time zone DEFAULT now(),
-    stopdate timestamp without time zone,
-    product_id character varying(100) NOT NULL,
-    product_name character varying(100) NOT NULL
-);
-
-
-ALTER TABLE public.cc_card_subscription OWNER TO postgres;
-
---
--- Name: cc_card_subscription_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_card_subscription_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_card_subscription_id_seq OWNER TO postgres;
-
---
--- Name: cc_card_subscription_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_card_subscription_id_seq OWNED BY cc_card_subscription.id;
-
-
---
--- Name: cc_card_subscription_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_card_subscription_id_seq', 1, false);
-
-
---
--- Name: cc_cardgroup_service; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_cardgroup_service (
-    id_card_group integer NOT NULL,
-    id_service integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_cardgroup_service OWNER TO postgres;
-
---
--- Name: cc_charge; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_charge (
-    id bigint NOT NULL,
-    id_cc_card bigint NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    amount numeric(12,4) NOT NULL,
-    currency character varying(3) DEFAULT 'USD'::character varying,
-    chargetype integer DEFAULT 0,
-    description text,
-    id_cc_did bigint DEFAULT 0,
-    id_cc_card_subscription bigint,
-    cover_from date,
-    cover_to date,
-    charged_status smallint DEFAULT 0::smallint NOT NULL,
-    invoiced_status smallint DEFAULT 0::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_charge OWNER TO postgres;
-
---
--- Name: cc_charge_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_charge_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_charge_id_seq OWNER TO postgres;
-
---
--- Name: cc_charge_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_charge_id_seq OWNED BY cc_charge.id;
-
-
---
--- Name: cc_charge_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_charge_id_seq', 1, false);
-
-
---
--- Name: cc_config; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_config (
-    id integer NOT NULL,
-    config_title character varying(100) NOT NULL,
-    config_key character varying(100) NOT NULL,
-    config_value character varying(300) NOT NULL,
-    config_description text NOT NULL,
-    config_valuetype integer DEFAULT 0 NOT NULL,
-    config_listvalues text,
-    config_group_title character varying(64) NOT NULL
-);
-
-
-ALTER TABLE public.cc_config OWNER TO postgres;
-
---
--- Name: cc_config_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_config_group (
-    id integer NOT NULL,
-    group_title character varying(64) NOT NULL,
-    group_description character varying(255) NOT NULL
-);
-
-
-ALTER TABLE public.cc_config_group OWNER TO postgres;
-
---
--- Name: cc_config_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_config_group_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_config_group_id_seq OWNER TO postgres;
-
---
--- Name: cc_config_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_config_group_id_seq OWNED BY cc_config_group.id;
-
-
---
--- Name: cc_config_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_config_group_id_seq', 13, true);
-
-
---
--- Name: cc_config_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_config_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_config_id_seq OWNER TO postgres;
-
---
--- Name: cc_config_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_config_id_seq OWNED BY cc_config.id;
-
-
---
--- Name: cc_config_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_config_id_seq', 250, true);
-
-
---
--- Name: cc_configuration; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_configuration (
-    configuration_id bigint NOT NULL,
-    configuration_title character varying(64) NOT NULL,
-    configuration_key character varying(64) NOT NULL,
-    configuration_value character varying(255) NOT NULL,
-    configuration_description character varying(255) NOT NULL,
-    configuration_type integer DEFAULT 0 NOT NULL,
-    use_function character varying(255),
-    set_function character varying(255)
-);
-
-
-ALTER TABLE public.cc_configuration OWNER TO postgres;
-
---
--- Name: cc_configuration_configuration_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_configuration_configuration_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_configuration_configuration_id_seq OWNER TO postgres;
-
---
--- Name: cc_configuration_configuration_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_configuration_configuration_id_seq OWNED BY cc_configuration.configuration_id;
-
-
---
--- Name: cc_configuration_configuration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_configuration_configuration_id_seq', 25, true);
-
-
---
--- Name: cc_country; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_country (
-    id integer NOT NULL,
-    countrycode text NOT NULL,
-    countryprefix text DEFAULT '0'::text NOT NULL,
-    countryname text NOT NULL
-);
-
-
-ALTER TABLE public.cc_country OWNER TO postgres;
-
---
--- Name: cc_country_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_country_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_country_id_seq OWNER TO postgres;
-
---
--- Name: cc_country_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_country_id_seq OWNED BY cc_country.id;
-
-
---
--- Name: cc_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_country_id_seq', 1, false);
-
-
---
--- Name: cc_currencies; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_currencies (
-    id integer NOT NULL,
-    currency character(3) DEFAULT ''::bpchar NOT NULL,
-    name character varying(30) DEFAULT ''::character varying NOT NULL,
-    value numeric(12,5) DEFAULT 0.00000 NOT NULL,
-    lastupdate timestamp without time zone DEFAULT now(),
-    basecurrency character(3) DEFAULT 'USD'::bpchar NOT NULL
-);
-
-
-ALTER TABLE public.cc_currencies OWNER TO postgres;
-
---
--- Name: cc_currencies_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_currencies_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_currencies_id_seq OWNER TO postgres;
-
---
--- Name: cc_currencies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_currencies_id_seq OWNED BY cc_currencies.id;
-
-
---
--- Name: cc_currencies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_currencies_id_seq', 1, false);
-
-
---
--- Name: cc_did; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_did (
-    id bigint NOT NULL,
-    id_cc_didgroup bigint NOT NULL,
-    id_cc_country integer NOT NULL,
-    activated integer DEFAULT 1 NOT NULL,
-    reserved integer DEFAULT 0,
-    iduser bigint DEFAULT 0 NOT NULL,
-    did text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    startingdate timestamp without time zone DEFAULT now(),
-    expirationdate timestamp without time zone,
-    description text,
-    secondusedreal integer DEFAULT 0,
-    billingtype integer DEFAULT 0,
-    fixrate numeric(12,4) NOT NULL
-);
-
-
-ALTER TABLE public.cc_did OWNER TO postgres;
-
---
--- Name: cc_did_destination; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_did_destination (
-    id bigint NOT NULL,
-    destination text NOT NULL,
-    priority integer DEFAULT 0 NOT NULL,
-    id_cc_card bigint NOT NULL,
-    id_cc_did bigint NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    activated integer DEFAULT 1 NOT NULL,
-    secondusedreal integer DEFAULT 0,
-    voip_call integer DEFAULT 0
-);
-
-
-ALTER TABLE public.cc_did_destination OWNER TO postgres;
-
---
--- Name: cc_did_destination_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_did_destination_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_did_destination_id_seq OWNER TO postgres;
-
---
--- Name: cc_did_destination_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_did_destination_id_seq OWNED BY cc_did_destination.id;
-
-
---
--- Name: cc_did_destination_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_did_destination_id_seq', 1, false);
-
-
---
--- Name: cc_did_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_did_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_did_id_seq OWNER TO postgres;
-
---
--- Name: cc_did_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_did_id_seq OWNED BY cc_did.id;
-
-
---
--- Name: cc_did_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_did_id_seq', 1, false);
-
-
---
--- Name: cc_did_use; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_did_use (
-    id bigint NOT NULL,
-    id_cc_card bigint,
-    id_did bigint NOT NULL,
-    reservationdate timestamp without time zone DEFAULT now() NOT NULL,
-    releasedate timestamp without time zone,
-    activated integer DEFAULT 0,
-    month_payed integer DEFAULT 0,
-    reminded smallint DEFAULT 0::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_did_use OWNER TO postgres;
-
---
--- Name: cc_did_use_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_did_use_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_did_use_id_seq OWNER TO postgres;
-
---
--- Name: cc_did_use_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_did_use_id_seq OWNED BY cc_did_use.id;
-
-
---
--- Name: cc_did_use_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_did_use_id_seq', 1, false);
-
-
---
--- Name: cc_didgroup; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
 
 CREATE TABLE cc_didgroup (
-    id bigint NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    didgroupname text NOT NULL
+    id 							BIGSERIAL NOT NULL,
+    iduser 					INTEGER DEFAULT 0 NOT NULL,	
+    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    didgroupname 				TEXT NOT NULL
+);
+
+ALTER TABLE ONLY cc_didgroup
+    ADD CONSTRAINT cc_didgroup_pkey PRIMARY KEY (id);
+
+
+
+CREATE TABLE cc_did (
+    id 							BIGSERIAL NOT NULL,
+    id_cc_didgroup 				BIGINT NOT NULL,
+    id_cc_country 				INTEGER NOT NULL,    
+    activated 					INTEGER DEFAULT 1 NOT NULL,
+    reserved 					INTEGER DEFAULT 0,
+    iduser 					BIGINT DEFAULT 0 NOT NULL,
+    did 					TEXT NOT NULL,
+    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
+    startingdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    expirationdate 				TIMESTAMP WITHOUT TIME ZONE,
+    description 				TEXT,
+    secondusedreal 				INTEGER DEFAULT 0,
+    billingtype 				INTEGER DEFAULT 0,
+    fixrate 					NUMERIC(12,4) NOT NULL
+);
+-- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
+
+
+ALTER TABLE ONLY cc_did
+    ADD CONSTRAINT cc_did_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY cc_did
+    ADD CONSTRAINT cons_did_cc_did UNIQUE (did);
+	
+
+
+CREATE TABLE cc_did_destination (
+    id 								BIGSERIAL NOT NULL,
+    destination 					TEXT NOT NULL,
+    priority 						INTEGER DEFAULT 0 NOT NULL,
+    id_cc_card 						BIGINT NOT NULL,
+    id_cc_did 						BIGINT NOT NULL,	
+    creationdate 					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    activated 						INTEGER DEFAULT 1 NOT NULL,
+    secondusedreal 					INTEGER DEFAULT 0,
+    voip_call 						INTEGER DEFAULT 0
 );
 
 
-ALTER TABLE public.cc_didgroup OWNER TO postgres;
-
---
--- Name: cc_didgroup_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_didgroup_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
+ALTER TABLE ONLY cc_did_destination
+    ADD CONSTRAINT cc_did_destination_pkey PRIMARY KEY (id);
 
 
-ALTER TABLE public.cc_didgroup_id_seq OWNER TO postgres;
 
---
--- Name: cc_didgroup_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_didgroup_id_seq OWNED BY cc_didgroup.id;
-
-
---
--- Name: cc_didgroup_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_didgroup_id_seq', 1, false);
-
-
---
--- Name: cc_ecommerce_product; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_ecommerce_product (
-    id bigint NOT NULL,
-    product_name text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    description text,
-    expirationdate timestamp without time zone,
-    enableexpire integer DEFAULT 0,
-    expiredays integer DEFAULT 0,
-    credit numeric(12,4) NOT NULL,
-    tariff integer DEFAULT 0,
-    id_didgroup integer DEFAULT 0,
-    mailtype character varying(50) DEFAULT ''::character varying NOT NULL,
-    activated boolean DEFAULT false NOT NULL,
-    simultaccess integer DEFAULT 0,
-    currency character varying(3) DEFAULT 'USD'::character varying,
-    typepaid integer DEFAULT 0,
-    creditlimit integer DEFAULT 0,
-    language text DEFAULT 'en'::text,
-    runservice integer DEFAULT 0,
-    sip_friend integer DEFAULT 0,
-    iax_friend integer DEFAULT 0
+-- chargetype : 0 - subscription fee ; 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
+CREATE TABLE cc_charge (
+    id 						BIGSERIAL NOT NULL,
+    id_cc_card 				BIGINT NOT NULL,
+    iduser 					INTEGER DEFAULT 0 NOT NULL,
+    creationdate 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
+    amount 					NUMERIC(12,4) NOT NULL,
+	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING,
+    chargetype 				INTEGER DEFAULT 0,    
+    description 			TEXT,
+    id_cc_did 				BIGINT DEFAULT 0,
+	id_cc_subscription_fee 	BIGINT DEFAULT 0
 );
 
+ALTER TABLE ONLY cc_charge
+    ADD CONSTRAINT cc_charge_pkey PRIMARY KEY (id);
 
-ALTER TABLE public.cc_ecommerce_product OWNER TO postgres;
 
---
--- Name: cc_ecommerce_product_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge USING btree (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdate);
 
-CREATE SEQUENCE cc_ecommerce_product_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
 
-
-ALTER TABLE public.cc_ecommerce_product_id_seq OWNER TO postgres;
-
---
--- Name: cc_ecommerce_product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_ecommerce_product_id_seq OWNED BY cc_ecommerce_product.id;
-
-
---
--- Name: cc_ecommerce_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_ecommerce_product_id_seq', 1, false);
-
-
---
--- Name: cc_epayment_log; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_epayment_log (
-    id bigint NOT NULL,
-    cardid bigint DEFAULT 0::bigint NOT NULL,
-    amount numeric(15,5) DEFAULT 0 NOT NULL,
-    vat double precision DEFAULT 0 NOT NULL,
-    paymentmethod character varying(255) NOT NULL,
-    cc_owner character varying(255) NOT NULL,
-    cc_number character varying(255) NOT NULL,
-    cc_expires character varying(255) NOT NULL,
-    creationdate timestamp(0) without time zone DEFAULT now(),
-    status integer DEFAULT 0 NOT NULL,
-    cvv character varying(4),
-    credit_card_type character varying(20),
-    currency character varying(4),
-    transaction_detail text
-);
-
-
-ALTER TABLE public.cc_epayment_log OWNER TO postgres;
-
---
--- Name: cc_epayment_log_agent; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_epayment_log_agent (
-    id bigint NOT NULL,
-    agent_id bigint DEFAULT 0::bigint NOT NULL,
-    amount numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    vat double precision DEFAULT 0::double precision NOT NULL,
-    paymentmethod character(50) NOT NULL,
-    cc_owner character varying(64) DEFAULT NULL::character varying,
-    cc_number character varying(32) DEFAULT NULL::character varying,
-    cc_expires character varying(7) DEFAULT NULL::character varying,
-    creationdate timestamp without time zone DEFAULT now() NOT NULL,
-    status integer DEFAULT 0 NOT NULL,
-    cvv character varying(4) DEFAULT NULL::character varying,
-    credit_card_type character varying(20) DEFAULT NULL::character varying,
-    currency character varying(4) DEFAULT NULL::character varying,
-    transaction_detail text
-);
-
-
-ALTER TABLE public.cc_epayment_log_agent OWNER TO postgres;
-
---
--- Name: cc_epayment_log_agent_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_epayment_log_agent_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_epayment_log_agent_id_seq OWNER TO postgres;
-
---
--- Name: cc_epayment_log_agent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_epayment_log_agent_id_seq OWNED BY cc_epayment_log_agent.id;
-
-
---
--- Name: cc_epayment_log_agent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_epayment_log_agent_id_seq', 1, false);
-
-
---
--- Name: cc_epayment_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_epayment_log_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_epayment_log_id_seq OWNER TO postgres;
-
---
--- Name: cc_epayment_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_epayment_log_id_seq OWNED BY cc_epayment_log.id;
-
-
---
--- Name: cc_epayment_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_epayment_log_id_seq', 1, false);
-
-
---
--- Name: cc_iax_buddies; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_iax_buddies (
-    id integer NOT NULL,
-    id_cc_card integer DEFAULT 0 NOT NULL,
-    name character varying(80) DEFAULT ''::character varying NOT NULL,
-    type character varying(6) DEFAULT 'friend'::character varying NOT NULL,
-    username character varying(80) DEFAULT ''::character varying NOT NULL,
-    accountcode character varying(20),
-    regexten character varying(20),
-    callerid character varying(80),
-    amaflags character varying(7),
-    secret character varying(80),
-    md5secret character varying(80),
-    nat character varying(3) DEFAULT 'yes'::character varying NOT NULL,
-    dtmfmode character varying(7) DEFAULT 'RFC2833'::character varying NOT NULL,
-    disallow character varying(100) DEFAULT 'all'::character varying,
-    allow character varying(100) DEFAULT 'gsm,ulaw,alaw'::character varying,
-    host character varying(31) DEFAULT ''::character varying NOT NULL,
-    qualify character varying(7) DEFAULT 'yes'::character varying NOT NULL,
-    canreinvite character varying(20) DEFAULT 'yes'::character varying,
-    callgroup character varying(10),
-    context character varying(80),
-    defaultip character varying(15),
-    fromuser character varying(80),
-    fromdomain character varying(80),
-    insecure character varying(20),
-    language character varying(2),
-    mailbox character varying(50),
-    permit character varying(95),
-    deny character varying(95),
-    mask character varying(95),
-    pickupgroup character varying(10),
-    port character varying(5) DEFAULT ''::character varying NOT NULL,
-    restrictcid character varying(1),
-    rtptimeout character varying(3),
-    rtpholdtimeout character varying(3),
-    musiconhold character varying(100),
-    regseconds integer DEFAULT 0 NOT NULL,
-    ipaddr character varying(15) DEFAULT ''::character varying NOT NULL,
-    cancallforward character varying(3) DEFAULT 'yes'::character varying,
-    trunk character varying(3) DEFAULT 'no'::character varying
-);
-
-
-ALTER TABLE public.cc_iax_buddies OWNER TO postgres;
-
---
--- Name: cc_iax_buddies_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_iax_buddies_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_iax_buddies_id_seq OWNER TO postgres;
-
---
--- Name: cc_iax_buddies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_iax_buddies_id_seq OWNED BY cc_iax_buddies.id;
-
-
---
--- Name: cc_iax_buddies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_iax_buddies_id_seq', 1, false);
-
-
---
--- Name: cc_invoice; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_invoice (
-    id bigint NOT NULL,
-    reference character varying(30),
-    id_card bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    paid_status smallint DEFAULT 0::smallint NOT NULL,
-    status smallint DEFAULT 0::smallint NOT NULL,
-    title character varying(50) NOT NULL,
-    description text NOT NULL
-);
-
-
-ALTER TABLE public.cc_invoice OWNER TO postgres;
-
---
--- Name: cc_invoice_conf; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_invoice_conf (
-    id integer NOT NULL,
-    key_val character varying(50) NOT NULL,
-    value character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public.cc_invoice_conf OWNER TO postgres;
-
---
--- Name: cc_invoice_conf_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_invoice_conf_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_invoice_conf_id_seq OWNER TO postgres;
-
---
--- Name: cc_invoice_conf_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_invoice_conf_id_seq OWNED BY cc_invoice_conf.id;
-
-
---
--- Name: cc_invoice_conf_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_invoice_conf_id_seq', 10, true);
-
-
---
--- Name: cc_invoice_id_seq1; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_invoice_id_seq1
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_invoice_id_seq1 OWNER TO postgres;
-
---
--- Name: cc_invoice_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_invoice_id_seq1 OWNED BY cc_invoice.id;
-
-
---
--- Name: cc_invoice_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_invoice_id_seq1', 1, false);
-
-
---
--- Name: cc_invoice_item; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_invoice_item (
-    id bigint NOT NULL,
-    id_invoice bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    price numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    vat numeric(4,2) DEFAULT 0::numeric NOT NULL,
-    description text NOT NULL,
-    id_ext bigint,
-    type_ext character varying(10)
-);
-
-
-ALTER TABLE public.cc_invoice_item OWNER TO postgres;
-
---
--- Name: cc_invoice_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_invoice_item_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_invoice_item_id_seq OWNER TO postgres;
-
---
--- Name: cc_invoice_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_invoice_item_id_seq OWNED BY cc_invoice_item.id;
-
-
---
--- Name: cc_invoice_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_invoice_item_id_seq', 1, false);
-
-
---
--- Name: cc_invoice_payment; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_invoice_payment (
-    id_invoice bigint NOT NULL,
-    id_payment bigint NOT NULL
-);
-
-
-ALTER TABLE public.cc_invoice_payment OWNER TO postgres;
-
---
--- Name: cc_iso639; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_iso639 (
-    code text NOT NULL,
-    name text NOT NULL,
-    lname text,
-    charset text DEFAULT 'ISO-8859-1'::text NOT NULL
-);
-
-
-ALTER TABLE public.cc_iso639 OWNER TO postgres;
-
---
--- Name: cc_logpayment; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_logpayment (
-    id integer NOT NULL,
-    date timestamp(0) without time zone DEFAULT now() NOT NULL,
-    payment numeric(15,5) NOT NULL,
-    card_id bigint NOT NULL,
-    id_logrefill bigint,
-    description text,
-    added_refill smallint DEFAULT 0 NOT NULL,
-    payment_type smallint DEFAULT 0 NOT NULL,
-    added_commission smallint DEFAULT 0::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_logpayment OWNER TO postgres;
-
---
--- Name: cc_logpayment_agent; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_logpayment_agent (
-    id bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    payment numeric(15,5) NOT NULL,
-    agent_id bigint NOT NULL,
-    id_logrefill bigint,
-    description text,
-    added_refill smallint DEFAULT 0::smallint NOT NULL,
-    payment_type smallint DEFAULT 0::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_logpayment_agent OWNER TO postgres;
-
---
--- Name: cc_logpayment_agent_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_logpayment_agent_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_logpayment_agent_id_seq OWNER TO postgres;
-
---
--- Name: cc_logpayment_agent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_logpayment_agent_id_seq OWNED BY cc_logpayment_agent.id;
-
-
---
--- Name: cc_logpayment_agent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_logpayment_agent_id_seq', 1, false);
-
-
---
--- Name: cc_logpayment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_logpayment_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_logpayment_id_seq OWNER TO postgres;
-
---
--- Name: cc_logpayment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_logpayment_id_seq OWNED BY cc_logpayment.id;
-
-
---
--- Name: cc_logpayment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_logpayment_id_seq', 1, false);
-
-
---
--- Name: cc_logrefill; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_logrefill (
-    id bigint NOT NULL,
-    date timestamp(0) without time zone DEFAULT now() NOT NULL,
-    credit numeric(15,5) NOT NULL,
-    card_id bigint NOT NULL,
-    description text,
-    refill_type smallint DEFAULT 0 NOT NULL,
-    added_invoice smallint DEFAULT 0::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_logrefill OWNER TO postgres;
-
---
--- Name: cc_logrefill_agent; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_logrefill_agent (
-    id bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    credit numeric(15,5) NOT NULL,
-    agent_id bigint NOT NULL,
-    description text,
-    refill_type smallint DEFAULT 0::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_logrefill_agent OWNER TO postgres;
-
---
--- Name: cc_logrefill_agent_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_logrefill_agent_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_logrefill_agent_id_seq OWNER TO postgres;
-
---
--- Name: cc_logrefill_agent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_logrefill_agent_id_seq OWNED BY cc_logrefill_agent.id;
-
-
---
--- Name: cc_logrefill_agent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_logrefill_agent_id_seq', 1, false);
-
-
---
--- Name: cc_logrefill_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_logrefill_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_logrefill_id_seq OWNER TO postgres;
-
---
--- Name: cc_logrefill_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_logrefill_id_seq OWNED BY cc_logrefill.id;
-
-
---
--- Name: cc_logrefill_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_logrefill_id_seq', 1, false);
-
-
---
--- Name: cc_notification; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_notification (
-    id bigint NOT NULL,
-    key_value character varying(40),
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    priority smallint DEFAULT 0::smallint NOT NULL,
-    from_type smallint NOT NULL,
-    from_id bigint DEFAULT 0::bigint
-);
-
-
-ALTER TABLE public.cc_notification OWNER TO postgres;
-
---
--- Name: cc_notification_admin; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_notification_admin (
-    id_notification bigint NOT NULL,
-    id_admin integer NOT NULL,
-    viewed smallint DEFAULT 0::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_notification_admin OWNER TO postgres;
-
---
--- Name: cc_notification_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_notification_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_notification_id_seq OWNER TO postgres;
-
---
--- Name: cc_notification_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_notification_id_seq OWNED BY cc_notification.id;
-
-
---
--- Name: cc_notification_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_notification_id_seq', 1, false);
-
-
---
--- Name: cc_outbound_cid_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_outbound_cid_group (
-    id bigint NOT NULL,
-    creationdate timestamp(0) without time zone DEFAULT now(),
-    group_name text NOT NULL
-);
-
-
-ALTER TABLE public.cc_outbound_cid_group OWNER TO postgres;
-
---
--- Name: cc_outbound_cid_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_outbound_cid_group_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_outbound_cid_group_id_seq OWNER TO postgres;
-
---
--- Name: cc_outbound_cid_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_outbound_cid_group_id_seq OWNED BY cc_outbound_cid_group.id;
-
-
---
--- Name: cc_outbound_cid_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_outbound_cid_group_id_seq', 1, false);
-
-
---
--- Name: cc_outbound_cid_list; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_outbound_cid_list (
-    id bigint NOT NULL,
-    outbound_cid_group bigint NOT NULL,
-    cid text NOT NULL,
-    activated integer DEFAULT 0 NOT NULL,
-    creationdate timestamp(0) without time zone DEFAULT now()
-);
-
-
-ALTER TABLE public.cc_outbound_cid_list OWNER TO postgres;
-
---
--- Name: cc_outbound_cid_list_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_outbound_cid_list_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_outbound_cid_list_id_seq OWNER TO postgres;
-
---
--- Name: cc_outbound_cid_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_outbound_cid_list_id_seq OWNED BY cc_outbound_cid_list.id;
-
-
---
--- Name: cc_outbound_cid_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_outbound_cid_list_id_seq', 1, false);
-
-
---
--- Name: cc_package_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_package_group (
-    id integer NOT NULL,
-    name character varying(30) NOT NULL,
-    description text
-);
-
-
-ALTER TABLE public.cc_package_group OWNER TO postgres;
-
---
--- Name: cc_package_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_package_group_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_package_group_id_seq OWNER TO postgres;
-
---
--- Name: cc_package_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_package_group_id_seq OWNED BY cc_package_group.id;
-
-
---
--- Name: cc_package_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_package_group_id_seq', 1, false);
-
-
---
--- Name: cc_package_offer; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_package_offer (
-    id bigint NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    label text NOT NULL,
-    packagetype integer NOT NULL,
-    billingtype integer NOT NULL,
-    startday integer NOT NULL,
-    freetimetocall integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_package_offer OWNER TO postgres;
-
---
--- Name: cc_package_offer_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_package_offer_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_package_offer_id_seq OWNER TO postgres;
-
---
--- Name: cc_package_offer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_package_offer_id_seq OWNED BY cc_package_offer.id;
-
-
---
--- Name: cc_package_offer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_package_offer_id_seq', 1, false);
-
-
---
--- Name: cc_package_rate; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_package_rate (
-    package_id integer NOT NULL,
-    rate_id integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_package_rate OWNER TO postgres;
-
---
--- Name: cc_packgroup_package; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_packgroup_package (
-    packagegroup_id integer NOT NULL,
-    package_id integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_packgroup_package OWNER TO postgres;
-
---
--- Name: cc_payment_methods; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_payment_methods (
-    id bigint NOT NULL,
-    payment_method text NOT NULL,
-    payment_filename text NOT NULL
-);
-
-
-ALTER TABLE public.cc_payment_methods OWNER TO postgres;
-
---
--- Name: cc_payment_methods_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_payment_methods_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_payment_methods_id_seq OWNER TO postgres;
-
---
--- Name: cc_payment_methods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_payment_methods_id_seq OWNED BY cc_payment_methods.id;
-
-
---
--- Name: cc_payment_methods_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_payment_methods_id_seq', 4, true);
-
-
---
--- Name: cc_payments; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_payments (
-    id bigint NOT NULL,
-    customers_name text NOT NULL,
-    customers_email_address text NOT NULL,
-    item_name text NOT NULL,
-    item_id text NOT NULL,
-    item_quantity integer DEFAULT 0 NOT NULL,
-    payment_method character varying(32) NOT NULL,
-    cc_type character varying(20),
-    cc_owner character varying(64),
-    cc_number character varying(32),
-    cc_expires character varying(6),
-    orders_status integer NOT NULL,
-    orders_amount numeric(14,6),
-    last_modified timestamp without time zone,
-    date_purchased timestamp without time zone,
-    orders_date_finished timestamp without time zone,
-    currency character varying(3),
-    currency_value numeric(14,6),
-    customers_id bigint DEFAULT 0::bigint NOT NULL
-);
-
-
-ALTER TABLE public.cc_payments OWNER TO postgres;
-
---
--- Name: cc_payments_agent; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_payments_agent (
-    id bigint NOT NULL,
-    agent_id bigint NOT NULL,
-    agent_name character varying(200) NOT NULL,
-    agent_email_address character varying(96) NOT NULL,
-    item_name character varying(127) DEFAULT NULL::character varying,
-    item_id character varying(127) DEFAULT NULL::character varying,
-    item_quantity integer DEFAULT 0 NOT NULL,
-    payment_method character varying(32) NOT NULL,
-    cc_type character varying(20) DEFAULT NULL::character varying,
-    cc_owner character varying(64) DEFAULT NULL::character varying,
-    cc_number character varying(32) DEFAULT NULL::character varying,
-    cc_expires character varying(4) DEFAULT NULL::character varying,
-    orders_status integer NOT NULL,
-    orders_amount numeric(14,6) DEFAULT NULL::numeric,
-    last_modified timestamp without time zone,
-    date_purchased timestamp without time zone,
-    orders_date_finished timestamp without time zone,
-    currency character(3) DEFAULT NULL::bpchar,
-    currency_value numeric(14,6) DEFAULT NULL::numeric
-);
-
-
-ALTER TABLE public.cc_payments_agent OWNER TO postgres;
-
---
--- Name: cc_payments_agent_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_payments_agent_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_payments_agent_id_seq OWNER TO postgres;
-
---
--- Name: cc_payments_agent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_payments_agent_id_seq OWNED BY cc_payments_agent.id;
-
-
---
--- Name: cc_payments_agent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_payments_agent_id_seq', 1, false);
-
-
---
--- Name: cc_payments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_payments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_payments_id_seq OWNER TO postgres;
-
---
--- Name: cc_payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_payments_id_seq OWNED BY cc_payments.id;
-
-
---
--- Name: cc_payments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_payments_id_seq', 1, false);
-
-
---
--- Name: cc_payments_status; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_payments_status (
-    id bigint NOT NULL,
-    status_id integer NOT NULL,
-    status_name character varying(200) NOT NULL
-);
-
-
-ALTER TABLE public.cc_payments_status OWNER TO postgres;
-
---
--- Name: cc_payments_status_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_payments_status_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_payments_status_id_seq OWNER TO postgres;
-
---
--- Name: cc_payments_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_payments_status_id_seq OWNED BY cc_payments_status.id;
-
-
---
--- Name: cc_payments_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_payments_status_id_seq', 8, true);
-
-
---
--- Name: cc_paypal; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
 
 CREATE TABLE cc_paypal (
-    id bigint NOT NULL,
-    payer_id character varying(60) DEFAULT NULL::character varying,
-    payment_date character varying(50) DEFAULT NULL::character varying,
-    txn_id character varying(50) DEFAULT NULL::character varying,
-    first_name character varying(50) DEFAULT NULL::character varying,
-    last_name character varying(50) DEFAULT NULL::character varying,
-    payer_email character varying(75) DEFAULT NULL::character varying,
-    payer_status character varying(50) DEFAULT NULL::character varying,
-    payment_type character varying(50) DEFAULT NULL::character varying,
-    memo text,
-    item_name character varying(127) DEFAULT NULL::character varying,
-    item_number character varying(127) DEFAULT NULL::character varying,
-    quantity bigint DEFAULT 0::bigint NOT NULL,
-    mc_gross numeric(9,2) DEFAULT NULL::numeric,
-    mc_fee numeric(9,2) DEFAULT NULL::numeric,
-    tax numeric(9,2) DEFAULT NULL::numeric,
-    mc_currency character varying(3) DEFAULT NULL::character varying,
-    address_name character varying(255) DEFAULT ''::character varying NOT NULL,
-    address_street character varying(255) DEFAULT ''::character varying NOT NULL,
-    address_city character varying(255) DEFAULT ''::character varying NOT NULL,
-    address_state character varying(255) DEFAULT ''::character varying NOT NULL,
-    address_zip character varying(255) DEFAULT ''::character varying NOT NULL,
-    address_country character varying(255) DEFAULT ''::character varying NOT NULL,
-    address_status character varying(255) DEFAULT ''::character varying NOT NULL,
-    payer_business_name character varying(255) DEFAULT ''::character varying NOT NULL,
-    payment_status character varying(255) DEFAULT ''::character varying NOT NULL,
-    pending_reason character varying(255) DEFAULT ''::character varying NOT NULL,
-    reason_code character varying(255) DEFAULT ''::character varying NOT NULL,
-    txn_type character varying(255) DEFAULT ''::character varying NOT NULL
+  id 								BIGSERIAL NOT NULL,
+  payer_id 							CHARACTER VARYING(60) default NULL,
+  payment_date 						CHARACTER VARYING(50) default NULL,
+  txn_id 							CHARACTER VARYING(50) default NULL,
+  first_name 						CHARACTER VARYING(50) default NULL,
+  last_name 						CHARACTER VARYING(50) default NULL,
+  payer_email 						CHARACTER VARYING(75) default NULL,
+  payer_status 						CHARACTER VARYING(50) default NULL,
+  payment_type 						CHARACTER VARYING(50) default NULL,
+  memo 								TEXT ,
+  item_name 						CHARACTER VARYING(127) default NULL,
+  item_number 						CHARACTER VARYING(127) default NULL,
+  quantity 							BIGINT NOT NULL default '0',
+  mc_gross 							NUMERIC(9,2) default NULL,
+  mc_fee 							NUMERIC(9,2) default NULL,
+  tax 								NUMERIC(9,2) default NULL,
+  mc_currency 						CHARACTER VARYING(3) default NULL,
+  address_name 						CHARACTER VARYING(255) NOT NULL default '',
+  address_street 					CHARACTER VARYING(255) NOT NULL default '',
+  address_city 						CHARACTER VARYING(255) NOT NULL default '',
+  address_state 					CHARACTER VARYING(255) NOT NULL default '',
+  address_zip 						CHARACTER VARYING(255) NOT NULL default '',
+  address_country 					CHARACTER VARYING(255) NOT NULL default '',
+  address_status 					CHARACTER VARYING(255) NOT NULL default '',
+  payer_business_name 				CHARACTER VARYING(255) NOT NULL default '',
+  payment_status 					CHARACTER VARYING(255) NOT NULL default '',
+  pending_reason 					CHARACTER VARYING(255) NOT NULL default '',
+  reason_code 						CHARACTER VARYING(255) NOT NULL default '',
+  txn_type 							CHARACTER VARYING(255) NOT NULL default ''
 );
 
-
-ALTER TABLE public.cc_paypal OWNER TO postgres;
-
---
--- Name: cc_paypal_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_paypal_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_paypal_id_seq OWNER TO postgres;
-
---
--- Name: cc_paypal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_paypal_id_seq OWNED BY cc_paypal.id;
-
-
---
--- Name: cc_paypal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_paypal_id_seq', 1, false);
-
-
---
--- Name: cc_phonebook; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_phonebook (
-    id integer NOT NULL,
-    name character varying(30) NOT NULL,
-    description text,
-    id_card bigint NOT NULL
-);
-
-
-ALTER TABLE public.cc_phonebook OWNER TO postgres;
-
---
--- Name: cc_phonebook_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_phonebook_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_phonebook_id_seq OWNER TO postgres;
-
---
--- Name: cc_phonebook_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_phonebook_id_seq OWNED BY cc_phonebook.id;
-
-
---
--- Name: cc_phonebook_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_phonebook_id_seq', 1, false);
-
-
---
--- Name: cc_phonenumber; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_phonenumber (
-    id bigint NOT NULL,
-    id_phonebook integer NOT NULL,
-    number character varying(30) NOT NULL,
-    name character varying(40),
-    creationdate timestamp without time zone DEFAULT now() NOT NULL,
-    status smallint DEFAULT 1::smallint NOT NULL,
-    info text,
-    amount integer DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE public.cc_phonenumber OWNER TO postgres;
-
---
--- Name: cc_phonenumber_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_phonenumber_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_phonenumber_id_seq OWNER TO postgres;
-
---
--- Name: cc_phonenumber_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_phonenumber_id_seq OWNED BY cc_phonenumber.id;
-
-
---
--- Name: cc_phonenumber_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_phonenumber_id_seq', 1, false);
-
-
---
--- Name: cc_prefix; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_prefix (
-    prefix bigint NOT NULL,
-    destination character varying(60) NOT NULL
-);
-
-
-ALTER TABLE public.cc_prefix OWNER TO postgres;
-
---
--- Name: cc_prefix_prefix_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_prefix_prefix_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_prefix_prefix_seq OWNER TO postgres;
-
---
--- Name: cc_prefix_prefix_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_prefix_prefix_seq OWNED BY cc_prefix.prefix;
-
-
---
--- Name: cc_prefix_prefix_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_prefix_prefix_seq', 1, false);
-
-
---
--- Name: cc_provider; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_provider (
-    id bigint NOT NULL,
-    provider_name text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    description text
-);
-
-
-ALTER TABLE public.cc_provider OWNER TO postgres;
-
---
--- Name: cc_provider_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_provider_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_provider_id_seq OWNER TO postgres;
-
---
--- Name: cc_provider_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_provider_id_seq OWNED BY cc_provider.id;
-
-
---
--- Name: cc_provider_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_provider_id_seq', 1, false);
-
-
---
--- Name: cc_ratecard; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_ratecard (
-    id integer NOT NULL,
-    idtariffplan integer DEFAULT 0 NOT NULL,
-    dialprefix text NOT NULL,
-    buyrate numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    buyrateinitblock integer DEFAULT 0 NOT NULL,
-    buyrateincrement integer DEFAULT 0 NOT NULL,
-    rateinitial numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    initblock integer DEFAULT 0 NOT NULL,
-    billingblock integer DEFAULT 0 NOT NULL,
-    connectcharge numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    disconnectcharge numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    stepchargea numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    chargea numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    timechargea integer DEFAULT 0 NOT NULL,
-    billingblocka integer DEFAULT 0 NOT NULL,
-    stepchargeb numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    chargeb numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    timechargeb integer DEFAULT 0 NOT NULL,
-    billingblockb integer DEFAULT 0 NOT NULL,
-    stepchargec real DEFAULT 0 NOT NULL,
-    chargec real DEFAULT 0 NOT NULL,
-    timechargec integer DEFAULT 0 NOT NULL,
-    billingblockc integer DEFAULT 0 NOT NULL,
-    startdate timestamp(0) without time zone DEFAULT now(),
-    stopdate timestamp(0) without time zone,
-    starttime integer DEFAULT 0 NOT NULL,
-    endtime integer DEFAULT 10079 NOT NULL,
-    id_trunk integer DEFAULT (-1),
-    musiconhold character varying(100),
-    id_outbound_cidgroup integer DEFAULT (-1) NOT NULL,
-    rounding_calltime integer DEFAULT 0 NOT NULL,
-    rounding_threshold integer DEFAULT 0 NOT NULL,
-    additional_block_charge numeric(15,5) DEFAULT 0 NOT NULL,
-    additional_block_charge_time integer DEFAULT 0 NOT NULL,
-    tag character varying(50),
-    is_merged integer DEFAULT 0,
-    additional_grace integer DEFAULT 0 NOT NULL,
-    minimal_cost numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    announce_time_correction numeric(5,3) DEFAULT 1.0 NOT NULL,
-    destination integer DEFAULT 0
-);
-
-
-ALTER TABLE public.cc_ratecard OWNER TO postgres;
-
---
--- Name: cc_ratecard_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_ratecard_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_ratecard_id_seq OWNER TO postgres;
-
---
--- Name: cc_ratecard_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_ratecard_id_seq OWNED BY cc_ratecard.id;
-
-
---
--- Name: cc_ratecard_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_ratecard_id_seq', 1, false);
-
-
---
--- Name: cc_receipt; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_receipt (
-    id bigint NOT NULL,
-    id_card bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    title character varying(50) NOT NULL,
-    description text NOT NULL,
-    status smallint DEFAULT 0::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_receipt OWNER TO postgres;
-
---
--- Name: cc_receipt_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_receipt_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_receipt_id_seq OWNER TO postgres;
-
---
--- Name: cc_receipt_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_receipt_id_seq OWNED BY cc_receipt.id;
-
-
---
--- Name: cc_receipt_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_receipt_id_seq', 1, false);
-
-
---
--- Name: cc_receipt_item; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_receipt_item (
-    id bigint NOT NULL,
-    id_receipt bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    price numeric(15,5) DEFAULT 0::numeric NOT NULL,
-    description text NOT NULL,
-    id_ext bigint,
-    type_ext character varying(10) DEFAULT NULL::character varying
-);
-
-
-ALTER TABLE public.cc_receipt_item OWNER TO postgres;
-
---
--- Name: cc_receipt_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_receipt_item_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_receipt_item_id_seq OWNER TO postgres;
-
---
--- Name: cc_receipt_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_receipt_item_id_seq OWNED BY cc_receipt_item.id;
-
-
---
--- Name: cc_receipt_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_receipt_item_id_seq', 1, false);
-
-
---
--- Name: cc_restricted_phonenumber; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_restricted_phonenumber (
-    id bigint NOT NULL,
-    number character varying(50) NOT NULL,
-    id_card bigint NOT NULL
-);
-
-
-ALTER TABLE public.cc_restricted_phonenumber OWNER TO postgres;
-
---
--- Name: cc_restricted_phonenumber_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_restricted_phonenumber_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_restricted_phonenumber_id_seq OWNER TO postgres;
-
---
--- Name: cc_restricted_phonenumber_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_restricted_phonenumber_id_seq OWNED BY cc_restricted_phonenumber.id;
-
-
---
--- Name: cc_restricted_phonenumber_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_restricted_phonenumber_id_seq', 1, false);
-
-
---
--- Name: cc_server_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_server_group (
-    id bigint NOT NULL,
-    name text,
-    description text
-);
-
-
-ALTER TABLE public.cc_server_group OWNER TO postgres;
-
---
--- Name: cc_server_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_server_group_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_server_group_id_seq OWNER TO postgres;
-
---
--- Name: cc_server_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_server_group_id_seq OWNED BY cc_server_group.id;
-
-
---
--- Name: cc_server_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_server_group_id_seq', 1, false);
-
-
---
--- Name: cc_server_manager; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_server_manager (
-    id bigint NOT NULL,
-    id_group integer DEFAULT 1,
-    server_ip text,
-    manager_host text,
-    manager_username text,
-    manager_secret text,
-    lasttime_used timestamp without time zone DEFAULT now()
-);
-
-
-ALTER TABLE public.cc_server_manager OWNER TO postgres;
-
---
--- Name: cc_server_manager_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_server_manager_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_server_manager_id_seq OWNER TO postgres;
-
---
--- Name: cc_server_manager_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_server_manager_id_seq OWNED BY cc_server_manager.id;
-
-
---
--- Name: cc_server_manager_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_server_manager_id_seq', 1, true);
-
-
---
--- Name: cc_service; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_service (
-    id bigint NOT NULL,
-    name text NOT NULL,
-    amount double precision NOT NULL,
-    period integer DEFAULT 1 NOT NULL,
-    rule integer DEFAULT 0 NOT NULL,
-    daynumber integer DEFAULT 0 NOT NULL,
-    stopmode integer DEFAULT 0 NOT NULL,
-    maxnumbercycle integer DEFAULT 0 NOT NULL,
-    status integer DEFAULT 0 NOT NULL,
-    numberofrun integer DEFAULT 0 NOT NULL,
-    datecreate timestamp(0) without time zone DEFAULT now(),
-    datelastrun timestamp(0) without time zone DEFAULT now(),
-    emailreport text,
-    totalcredit double precision DEFAULT 0 NOT NULL,
-    totalcardperform integer DEFAULT 0 NOT NULL,
-    operate_mode smallint DEFAULT 0,
-    dialplan integer DEFAULT 0,
-    use_group smallint DEFAULT 0
-);
-
-
-ALTER TABLE public.cc_service OWNER TO postgres;
-
---
--- Name: cc_service_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_service_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_service_id_seq OWNER TO postgres;
-
---
--- Name: cc_service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_service_id_seq OWNED BY cc_service.id;
-
-
---
--- Name: cc_service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_service_id_seq', 1, false);
-
-
---
--- Name: cc_service_report; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_service_report (
-    id bigint NOT NULL,
-    cc_service_id bigint NOT NULL,
-    daterun timestamp(0) without time zone DEFAULT now(),
-    totalcardperform integer,
-    totalcredit double precision
-);
-
-
-ALTER TABLE public.cc_service_report OWNER TO postgres;
-
---
--- Name: cc_service_report_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_service_report_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_service_report_id_seq OWNER TO postgres;
-
---
--- Name: cc_service_report_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_service_report_id_seq OWNED BY cc_service_report.id;
-
-
---
--- Name: cc_service_report_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_service_report_id_seq', 1, false);
-
-
---
--- Name: cc_sip_buddies; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_sip_buddies (
-    id integer NOT NULL,
-    id_cc_card integer DEFAULT 0 NOT NULL,
-    name character varying(80) DEFAULT ''::character varying NOT NULL,
-    type character varying(6) DEFAULT 'friend'::character varying NOT NULL,
-    username character varying(80) DEFAULT ''::character varying NOT NULL,
-    accountcode character varying(20),
-    regexten character varying(20),
-    callerid character varying(80),
-    amaflags character varying(7),
-    secret character varying(80),
-    md5secret character varying(80),
-    nat character varying(3) DEFAULT 'yes'::character varying NOT NULL,
-    dtmfmode character varying(7) DEFAULT 'RFC2833'::character varying NOT NULL,
-    disallow character varying(100) DEFAULT 'all'::character varying,
-    allow character varying(100) DEFAULT 'gsm,ulaw,alaw'::character varying,
-    host character varying(31) DEFAULT ''::character varying NOT NULL,
-    qualify character varying(7) DEFAULT 'yes'::character varying NOT NULL,
-    canreinvite character varying(20) DEFAULT 'yes'::character varying,
-    callgroup character varying(10),
-    context character varying(80),
-    defaultip character varying(15),
-    fromuser character varying(80),
-    fromdomain character varying(80),
-    insecure character varying(20),
-    language character varying(2),
-    mailbox character varying(50),
-    permit character varying(95),
-    deny character varying(95),
-    mask character varying(95),
-    pickupgroup character varying(10),
-    port character varying(5) DEFAULT ''::character varying NOT NULL,
-    restrictcid character varying(1),
-    rtptimeout character varying(3),
-    rtpholdtimeout character varying(3),
-    musiconhold character varying(100),
-    regseconds integer DEFAULT 0 NOT NULL,
-    ipaddr character varying(15) DEFAULT ''::character varying NOT NULL,
-    cancallforward character varying(3) DEFAULT 'yes'::character varying,
-    fullcontact character varying(80),
-    setvar character varying(100) DEFAULT ''::character varying NOT NULL,
-    regserver character varying(20)
-);
-
-
-ALTER TABLE public.cc_sip_buddies OWNER TO postgres;
-
---
--- Name: cc_sip_buddies_empty; Type: VIEW; Schema: public; Owner: postgres
---
-
-CREATE VIEW cc_sip_buddies_empty AS
-    SELECT cc_sip_buddies.id, cc_sip_buddies.id_cc_card, cc_sip_buddies.name, cc_sip_buddies.accountcode, cc_sip_buddies.regexten, cc_sip_buddies.amaflags, cc_sip_buddies.callgroup, cc_sip_buddies.callerid, cc_sip_buddies.canreinvite, cc_sip_buddies.context, cc_sip_buddies.defaultip, cc_sip_buddies.dtmfmode, cc_sip_buddies.fromuser, cc_sip_buddies.fromdomain, cc_sip_buddies.host, cc_sip_buddies.insecure, cc_sip_buddies.language, cc_sip_buddies.mailbox, cc_sip_buddies.md5secret, cc_sip_buddies.nat, cc_sip_buddies.permit, cc_sip_buddies.deny, cc_sip_buddies.mask, cc_sip_buddies.pickupgroup, cc_sip_buddies.port, cc_sip_buddies.qualify, cc_sip_buddies.restrictcid, cc_sip_buddies.rtptimeout, cc_sip_buddies.rtpholdtimeout, ''::text AS secret, cc_sip_buddies.type, cc_sip_buddies.username, cc_sip_buddies.disallow, cc_sip_buddies.allow, cc_sip_buddies.musiconhold, cc_sip_buddies.regseconds, cc_sip_buddies.ipaddr, cc_sip_buddies.cancallforward, cc_sip_buddies.fullcontact, cc_sip_buddies.setvar FROM cc_sip_buddies;
-
-
-ALTER TABLE public.cc_sip_buddies_empty OWNER TO postgres;
-
---
--- Name: cc_sip_buddies_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_sip_buddies_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_sip_buddies_id_seq OWNER TO postgres;
-
---
--- Name: cc_sip_buddies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_sip_buddies_id_seq OWNED BY cc_sip_buddies.id;
-
-
---
--- Name: cc_sip_buddies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_sip_buddies_id_seq', 1, false);
-
-
---
--- Name: cc_speeddial; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_speeddial (
-    id bigint NOT NULL,
-    id_cc_card bigint DEFAULT 0 NOT NULL,
-    phone text NOT NULL,
-    name text NOT NULL,
-    speeddial integer DEFAULT 0,
-    creationdate timestamp without time zone DEFAULT now()
-);
-
-
-ALTER TABLE public.cc_speeddial OWNER TO postgres;
-
---
--- Name: cc_speeddial_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_speeddial_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_speeddial_id_seq OWNER TO postgres;
-
---
--- Name: cc_speeddial_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_speeddial_id_seq OWNED BY cc_speeddial.id;
-
-
---
--- Name: cc_speeddial_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_speeddial_id_seq', 1, false);
-
-
---
--- Name: cc_status_log; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_status_log (
-    id bigint NOT NULL,
-    status integer NOT NULL,
-    id_cc_card bigint NOT NULL,
-    updated_date timestamp without time zone DEFAULT now()
-);
-
-
-ALTER TABLE public.cc_status_log OWNER TO postgres;
-
---
--- Name: cc_status_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_status_log_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_status_log_id_seq OWNER TO postgres;
-
---
--- Name: cc_status_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_status_log_id_seq OWNED BY cc_status_log.id;
-
-
---
--- Name: cc_status_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_status_log_id_seq', 1, false);
-
-
---
--- Name: cc_subscription_fee; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_subscription_fee (
-    id bigint NOT NULL,
-    label text NOT NULL,
-    fee numeric(12,4) NOT NULL,
-    currency character varying(3) DEFAULT 'USD'::character varying,
-    status integer DEFAULT 0 NOT NULL,
-    numberofrun integer DEFAULT 0 NOT NULL,
-    datecreate timestamp(0) without time zone DEFAULT now(),
-    datelastrun timestamp(0) without time zone DEFAULT now(),
-    emailreport text,
-    totalcredit double precision DEFAULT 0 NOT NULL,
-    totalcardperform integer DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE public.cc_subscription_fee OWNER TO postgres;
-
---
--- Name: cc_subscription_fee_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_subscription_fee_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_subscription_fee_id_seq OWNER TO postgres;
-
---
--- Name: cc_subscription_fee_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_subscription_fee_id_seq OWNED BY cc_subscription_fee.id;
-
-
---
--- Name: cc_subscription_fee_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_subscription_fee_id_seq', 1, false);
-
-
---
--- Name: cc_support; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_support (
-    id integer NOT NULL,
-    name character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public.cc_support OWNER TO postgres;
-
---
--- Name: cc_support_component; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_support_component (
-    id integer NOT NULL,
-    id_support integer NOT NULL,
-    name character varying(50) DEFAULT ''::character varying NOT NULL,
-    activated smallint DEFAULT 1 NOT NULL
-);
-
-
-ALTER TABLE public.cc_support_component OWNER TO postgres;
-
---
--- Name: cc_support_component_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_support_component_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_support_component_id_seq OWNER TO postgres;
-
---
--- Name: cc_support_component_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_support_component_id_seq OWNED BY cc_support_component.id;
-
-
---
--- Name: cc_support_component_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_support_component_id_seq', 1, false);
-
-
---
--- Name: cc_support_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_support_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_support_id_seq OWNER TO postgres;
-
---
--- Name: cc_support_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_support_id_seq OWNED BY cc_support.id;
-
-
---
--- Name: cc_support_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_support_id_seq', 1, false);
-
-
---
--- Name: cc_system_log; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_system_log (
-    id bigint NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    loglevel integer DEFAULT 0 NOT NULL,
-    action text NOT NULL,
-    description text,
-    data text,
-    tablename character varying(255),
-    pagename character varying(255),
-    ipaddress character varying(255),
-    creationdate timestamp(0) without time zone DEFAULT now()
-);
-
-
-ALTER TABLE public.cc_system_log OWNER TO postgres;
-
---
--- Name: cc_system_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_system_log_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_system_log_id_seq OWNER TO postgres;
-
---
--- Name: cc_system_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_system_log_id_seq OWNED BY cc_system_log.id;
-
-
---
--- Name: cc_system_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_system_log_id_seq', 1, false);
-
-
---
--- Name: cc_tariffgroup; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_tariffgroup (
-    id integer NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    idtariffplan integer DEFAULT 0 NOT NULL,
-    tariffgroupname text NOT NULL,
-    lcrtype integer DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    removeinterprefix integer DEFAULT 0 NOT NULL,
-    id_cc_package_offer bigint DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE public.cc_tariffgroup OWNER TO postgres;
-
---
--- Name: cc_tariffgroup_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_tariffgroup_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_tariffgroup_id_seq OWNER TO postgres;
-
---
--- Name: cc_tariffgroup_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_tariffgroup_id_seq OWNED BY cc_tariffgroup.id;
-
-
---
--- Name: cc_tariffgroup_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_tariffgroup_id_seq', 1, false);
-
-
---
--- Name: cc_tariffgroup_plan; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_tariffgroup_plan (
-    idtariffgroup integer NOT NULL,
-    idtariffplan integer NOT NULL
-);
-
-
-ALTER TABLE public.cc_tariffgroup_plan OWNER TO postgres;
-
---
--- Name: cc_tariffplan; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_tariffplan (
-    id integer NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    tariffname text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    startingdate timestamp without time zone DEFAULT now(),
-    expirationdate timestamp without time zone,
-    description text,
-    id_trunk integer DEFAULT 0,
-    secondusedreal integer DEFAULT 0,
-    secondusedcarrier integer DEFAULT 0,
-    secondusedratecard integer DEFAULT 0,
-    reftariffplan integer DEFAULT 0,
-    idowner integer DEFAULT 0,
-    dnidprefix text DEFAULT 'all'::text NOT NULL,
-    calleridprefix text DEFAULT 'all'::text NOT NULL
-);
-
-
-ALTER TABLE public.cc_tariffplan OWNER TO postgres;
-
---
--- Name: cc_tariffplan_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_tariffplan_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_tariffplan_id_seq OWNER TO postgres;
-
---
--- Name: cc_tariffplan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_tariffplan_id_seq OWNED BY cc_tariffplan.id;
-
-
---
--- Name: cc_tariffplan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_tariffplan_id_seq', 1, false);
-
-
---
--- Name: cc_templatemail; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_templatemail (
-    mailtype text,
-    fromemail text,
-    fromname text,
-    subject text,
-    messagetext text,
-    messagehtml text,
-    id integer NOT NULL,
-    id_language character varying(20) DEFAULT 'en'::character varying
-);
-
-
-ALTER TABLE public.cc_templatemail OWNER TO postgres;
-
---
--- Name: cc_templatemail_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_templatemail_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_templatemail_id_seq OWNER TO postgres;
-
---
--- Name: cc_templatemail_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_templatemail_id_seq OWNED BY cc_templatemail.id;
-
-
---
--- Name: cc_templatemail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_templatemail_id_seq', 7, true);
-
-
---
--- Name: cc_ticket; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_ticket (
-    id bigint NOT NULL,
-    id_component integer NOT NULL,
-    title character varying(100) NOT NULL,
-    description text,
-    priority smallint DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now() NOT NULL,
-    creator bigint NOT NULL,
-    status integer DEFAULT 0 NOT NULL,
-    creator_type smallint DEFAULT 0::smallint NOT NULL,
-    viewed_cust smallint DEFAULT 1::smallint NOT NULL,
-    viewed_agent smallint DEFAULT 1::smallint NOT NULL,
-    viewed_admin smallint DEFAULT 1::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_ticket OWNER TO postgres;
-
---
--- Name: cc_ticket_comment; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_ticket_comment (
-    id bigint NOT NULL,
-    date timestamp without time zone DEFAULT now() NOT NULL,
-    id_ticket bigint NOT NULL,
-    description text,
-    creator bigint NOT NULL,
-    creator_type boolean DEFAULT false NOT NULL,
-    viewed_cust smallint DEFAULT 1::smallint NOT NULL,
-    viewed_agent smallint DEFAULT 1::smallint NOT NULL,
-    viewed_admin smallint DEFAULT 1::smallint NOT NULL
-);
-
-
-ALTER TABLE public.cc_ticket_comment OWNER TO postgres;
-
---
--- Name: cc_ticket_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_ticket_comment_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_ticket_comment_id_seq OWNER TO postgres;
-
---
--- Name: cc_ticket_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_ticket_comment_id_seq OWNED BY cc_ticket_comment.id;
-
-
---
--- Name: cc_ticket_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_ticket_comment_id_seq', 1, false);
-
-
---
--- Name: cc_ticket_comment_id_ticket_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_ticket_comment_id_ticket_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_ticket_comment_id_ticket_seq OWNER TO postgres;
-
---
--- Name: cc_ticket_comment_id_ticket_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_ticket_comment_id_ticket_seq OWNED BY cc_ticket_comment.id_ticket;
-
-
---
--- Name: cc_ticket_comment_id_ticket_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_ticket_comment_id_ticket_seq', 1, false);
-
-
---
--- Name: cc_ticket_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_ticket_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_ticket_id_seq OWNER TO postgres;
-
---
--- Name: cc_ticket_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_ticket_id_seq OWNED BY cc_ticket.id;
-
-
---
--- Name: cc_ticket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_ticket_id_seq', 1, false);
-
-
---
--- Name: cc_timezone; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_timezone (
-    id integer NOT NULL,
-    gmtzone character varying(255),
-    gmttime character varying(255),
-    gmtoffset bigint DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE public.cc_timezone OWNER TO postgres;
-
---
--- Name: cc_timezone_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_timezone_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_timezone_id_seq OWNER TO postgres;
-
---
--- Name: cc_timezone_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_timezone_id_seq OWNED BY cc_timezone.id;
-
-
---
--- Name: cc_timezone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_timezone_id_seq', 75, true);
-
-
---
--- Name: cc_trunk; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_trunk (
-    id_trunk integer NOT NULL,
-    trunkcode text NOT NULL,
-    trunkprefix text,
-    providertech text NOT NULL,
-    providerip text NOT NULL,
-    removeprefix text,
-    secondusedreal integer DEFAULT 0,
-    secondusedcarrier integer DEFAULT 0,
-    secondusedratecard integer DEFAULT 0,
-    creationdate timestamp(0) without time zone DEFAULT now(),
-    failover_trunk integer,
-    addparameter text,
-    id_provider integer,
-    inuse integer DEFAULT 0,
-    maxuse integer DEFAULT (-1),
-    status integer DEFAULT 1,
-    if_max_use integer DEFAULT 0
-);
-
-
-ALTER TABLE public.cc_trunk OWNER TO postgres;
-
---
--- Name: cc_trunk_id_trunk_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_trunk_id_trunk_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_trunk_id_trunk_seq OWNER TO postgres;
-
---
--- Name: cc_trunk_id_trunk_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_trunk_id_trunk_seq OWNED BY cc_trunk.id_trunk;
-
-
---
--- Name: cc_trunk_id_trunk_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_trunk_id_trunk_seq', 2, true);
-
-
---
--- Name: cc_ui_authen; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cc_ui_authen (
-    userid bigint NOT NULL,
-    login text NOT NULL,
-    pwd_encoded text NOT NULL,
-    groupid integer,
-    perms integer,
-    confaddcust integer,
-    name text,
-    direction text,
-    zipcode text,
-    state text,
-    phone text,
-    fax text,
-    datecreation timestamp without time zone DEFAULT now(),
-    email character varying(70)
-);
-
-
-ALTER TABLE public.cc_ui_authen OWNER TO postgres;
-
---
--- Name: cc_ui_authen_userid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_ui_authen_userid_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_ui_authen_userid_seq OWNER TO postgres;
-
---
--- Name: cc_ui_authen_userid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_ui_authen_userid_seq OWNED BY cc_ui_authen.userid;
-
-
---
--- Name: cc_ui_authen_userid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_ui_authen_userid_seq', 3, true);
-
-
---
--- Name: cc_voucher; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE ONLY cc_paypal
+ADD CONSTRAINT cc_paypal_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY cc_paypal
+    ADD CONSTRAINT cons_txn_id_cc_paypal UNIQUE (txn_id);
+	
+	
+	
 
 CREATE TABLE cc_voucher (
-    id bigint NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    usedate timestamp without time zone,
-    expirationdate timestamp without time zone,
-    voucher text NOT NULL,
-    usedcardnumber text,
-    tag text,
-    credit numeric(12,4) NOT NULL,
-    activated boolean DEFAULT true NOT NULL,
-    used integer DEFAULT 0,
-    currency character varying(3) DEFAULT 'USD'::character varying
+    id 									BIGSERIAL NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    usedate 							TIMESTAMP WITHOUT TIME ZONE,
+    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,	
+    voucher 							TEXT NOT NULL,
+    usedcardnumber 						TEXT ,
+    tag 								TEXT ,	
+    credit 								NUMERIC(12,4) NOT NULL,    
+    activated 							BOOLEAN DEFAULT true NOT NULL,
+    used 								INTEGER DEFAULT 0,
+    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying
+);
+
+ALTER TABLE ONLY cc_voucher
+    ADD CONSTRAINT cc_voucher_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_voucher
+    ADD CONSTRAINT cons_voucher_cc_voucher UNIQUE (voucher);
+
+
+
+
+CREATE TABLE cc_service (
+    id 									BIGSERIAL NOT NULL,	
+    name 								TEXT NOT NULL,
+    amount 								double precision NOT NULL,
+    period 								INTEGER NOT NULL DEFAULT 1,
+    rule 								INTEGER NOT NULL DEFAULT 0,
+    daynumber 							INTEGER NOT NULL DEFAULT 0,
+    stopmode 							INTEGER NOT NULL DEFAULT 0,
+    maxnumbercycle 						INTEGER NOT NULL DEFAULT 0,
+    status 								INTEGER NOT NULL DEFAULT 0,
+    numberofrun 						INTEGER NOT NULL DEFAULT 0,
+    datecreate 							TIMESTAMP(0) without time zone DEFAULT NOW(),
+    datelastrun 						TIMESTAMP(0) without time zone DEFAULT NOW(),
+    emailreport 						TEXT ,
+    totalcredit 						double precision NOT NULL DEFAULT 0,
+    totalcardperform 					INTEGER NOT NULL DEFAULT 0
+);
+ALTER TABLE ONLY cc_service
+ADD CONSTRAINT cc_service_pkey PRIMARY KEY (id);
+
+	
+CREATE TABLE cc_service_report (
+    id 									BIGSERIAL NOT NULL,
+    cc_service_id 						BIGINT NOT NULL,
+    daterun 							TIMESTAMP(0) without time zone DEFAULT NOW(),
+    totalcardperform 					INTEGER,
+    totalcredit 						double precision
+);
+ALTER TABLE ONLY cc_service_report
+ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
+
+
+
+
+
+CREATE TABLE cc_callerid (
+    id 									BIGSERIAL NOT NULL,
+    cid 								TEXT NOT NULL,
+    id_cc_card 							BIGINT NOT NULL,
+    activated 							BOOLEAN DEFAULT true NOT NULL
+);
+
+ALTER TABLE ONLY cc_callerid
+    ADD CONSTRAINT cc_calleridd_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY cc_callerid
+    ADD CONSTRAINT cc_callerid_cid_key UNIQUE (cid);
+
+
+CREATE TABLE cc_ui_authen (
+    userid 								BIGSERIAL NOT NULL,
+    login 								TEXT NOT NULL,
+    "password" 							TEXT NOT NULL,
+    groupid 							INTEGER,
+    perms 								INTEGER,
+    confaddcust 						INTEGER,
+    name 								TEXT ,
+    direction 							TEXT ,
+    zipcode 							TEXT ,
+    state 								TEXT ,
+    phone	 							TEXT ,
+    fax 								TEXT ,
+    datecreation 						TIMESTAMP without time zone DEFAULT NOW()
+);
+
+ALTER TABLE ONLY cc_ui_authen
+    ADD CONSTRAINT cc_ui_authen_pkey PRIMARY KEY (userid);
+
+ALTER TABLE ONLY cc_ui_authen
+    ADD CONSTRAINT cons_cc_ui_authen_login_key UNIQUE(login);
+
+CREATE TABLE cc_call (
+    id 									BIGSERIAL NOT NULL,
+    sessionid 							TEXT NOT NULL,
+    uniqueid 							TEXT NOT NULL,
+    username 							TEXT NOT NULL,
+    nasipaddress 						TEXT ,
+    starttime 							TIMESTAMP WITHOUT TIME ZONE,
+    stoptime 							TIMESTAMP WITHOUT TIME ZONE,
+    sessiontime 						INTEGER,
+    calledstation 						TEXT ,
+    startdelay 							INTEGER,
+    stopdelay 							INTEGER,
+    terminatecause 						TEXT ,
+    usertariff 							TEXT ,
+    calledprovider 						TEXT ,
+    calledcountry 						TEXT ,
+    calledsub 							TEXT ,
+    calledrate 							double precision,
+    sessionbill 						double precision,
+    destination 						TEXT ,
+    id_tariffgroup 						INTEGER,
+    id_tariffplan 						INTEGER,
+    id_ratecard 						INTEGER,
+    id_trunk 							INTEGER,
+    sipiax 								INTEGER DEFAULT 0,
+    src 								TEXT ,
+    id_did 								INTEGER,
+    buyrate 							NUMERIC(15,5) DEFAULT 0,
+    buycost 							NUMERIC(15,5) DEFAULT 0,
+	id_card_package_offer 				INTEGER DEFAULT 0
 );
 
 
-ALTER TABLE public.cc_voucher OWNER TO postgres;
+CREATE TABLE cc_templatemail (
+    mailtype 							TEXT ,
+    fromemail 							TEXT ,
+    fromname 							TEXT ,
+    subject 							TEXT ,
+    messagetext 						TEXT ,
+    messagehtml 						TEXT 
+);
+ALTER TABLE ONLY cc_templatemail
+    ADD CONSTRAINT cons_cc_templatemail_mailtype UNIQUE (mailtype);
+
+
+
+CREATE TABLE cc_tariffgroup (
+    id 									serial NOT NULL,
+    iduser 								INTEGER DEFAULT 0 NOT NULL,
+    idtariffplan 						INTEGER DEFAULT 0 NOT NULL,
+    tariffgroupname 					TEXT NOT NULL,
+    lcrtype 							INTEGER DEFAULT 0 NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    removeinterprefix 					INTEGER DEFAULT 0 NOT NULL,
+	id_cc_package_offer 				BIGINT not null default 0
+);
+
+
+
+CREATE TABLE cc_tariffgroup_plan (
+    idtariffgroup 						INTEGER NOT NULL,
+    idtariffplan 						INTEGER NOT NULL
+);
+
+
+
+CREATE TABLE cc_tariffplan (
+    id 									serial NOT NULL,
+    iduser 								INTEGER DEFAULT 0 NOT NULL,
+    tariffname 							TEXT NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    startingdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,
+    description 						TEXT ,
+    id_trunk 							INTEGER DEFAULT 0,
+    secondusedreal 						INTEGER DEFAULT 0,
+    secondusedcarrier 					INTEGER DEFAULT 0,
+    secondusedratecard 					INTEGER DEFAULT 0,
+    reftariffplan 						INTEGER DEFAULT 0,
+    idowner 							INTEGER DEFAULT 0,
+    dnidprefix 							TEXT NOT NULL DEFAULT 'all'::text,
+    calleridprefix 						TEXT NOT NULL DEFAULT 'all'::text
+);
+
+
+
+CREATE TABLE cc_card (
+    id 									BIGSERIAL NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    firstusedate 						TIMESTAMP WITHOUT TIME ZONE,
+    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,
+    enableexpire 						INTEGER DEFAULT 0,
+    expiredays 							INTEGER DEFAULT 0,
+    username 							TEXT NOT NULL,
+    useralias 							TEXT NOT NULL,
+    userpass 							TEXT NOT NULL,
+    uipass 								TEXT ,
+    credit 								NUMERIC(12,4) NOT NULL,
+    tariff 								INTEGER DEFAULT 0,
+    id_didgroup 						INTEGER DEFAULT 0,
+    activated 							BOOLEAN DEFAULT false NOT NULL,
+    lastname 							TEXT ,
+    firstname 							TEXT ,
+    address 							TEXT ,
+    city 								TEXT ,
+    state 								TEXT ,
+    country 							TEXT ,
+    zipcode 							TEXT ,
+    phone 								TEXT ,
+    email 								TEXT ,
+    fax 								TEXT ,
+    inuse 								INTEGER DEFAULT 0,
+    simultaccess 						INTEGER DEFAULT 0,
+    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
+    lastuse 							date DEFAULT NOW(),
+    nbused 								INTEGER DEFAULT 0,
+    typepaid 							INTEGER DEFAULT 0,
+    creditlimit 						INTEGER DEFAULT 0,
+    voipcall 							INTEGER DEFAULT 0,
+    sip_buddy 							INTEGER DEFAULT 0,
+    iax_buddy 							INTEGER DEFAULT 0,
+    "language" 							TEXT DEFAULT 'en'::text,
+    redial 								TEXT ,
+    runservice 							INTEGER DEFAULT 0,
+    nbservice 							INTEGER DEFAULT 0,
+    id_campaign 						INTEGER DEFAULT 0,
+    num_trials_done 					INTEGER DEFAULT 0,
+    callback 							TEXT ,
+    vat 								NUMERIC(6,3) DEFAULT 0,
+    servicelastrun 						TIMESTAMP WITHOUT TIME ZONE,
+    initialbalance 						NUMERIC(12,4) NOT NULL DEFAULT 0,
+    invoiceday 							INTEGER DEFAULT 1,
+    autorefill 							INTEGER DEFAULT 0,
+    loginkey 							TEXT ,
+    activatedbyuser 					BOOLEAN DEFAULT false NOT NULL,
+	id_subscription_fee 				INTEGER DEFAULT 0,
+	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL
+);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);
+
+
+CREATE TABLE cc_ratecard (
+    id 									serial NOT NULL,
+    idtariffplan 						INTEGER DEFAULT 0 NOT NULL,
+    dialprefix 							TEXT NOT NULL,
+    destination 						TEXT NOT NULL,
+    buyrate 							real DEFAULT 0 NOT NULL,
+    buyrateinitblock 					INTEGER DEFAULT 0 NOT NULL,
+    buyrateincrement 					INTEGER DEFAULT 0 NOT NULL,
+    rateinitial 						real DEFAULT 0 NOT NULL,
+    initblock 							INTEGER DEFAULT 0 NOT NULL,
+    billingblock 						INTEGER DEFAULT 0 NOT NULL,
+    connectcharge 						real DEFAULT 0 NOT NULL,
+    disconnectcharge 					real DEFAULT 0 NOT NULL,
+    stepchargea 						real DEFAULT 0 NOT NULL,
+    chargea 							real DEFAULT 0 NOT NULL,
+    timechargea 						INTEGER DEFAULT 0 NOT NULL,
+    billingblocka 						INTEGER DEFAULT 0 NOT NULL,
+    stepchargeb 						real DEFAULT 0 NOT NULL,
+    chargeb 							real DEFAULT 0 NOT NULL,
+    timechargeb 						INTEGER DEFAULT 0 NOT NULL,
+    billingblockb 						INTEGER DEFAULT 0 NOT NULL,
+    stepchargec 						real DEFAULT 0 NOT NULL,
+    chargec 							real DEFAULT 0 NOT NULL,
+    timechargec 						INTEGER DEFAULT 0 NOT NULL,
+    billingblockc 						INTEGER DEFAULT 0 NOT NULL,
+    startdate 							TIMESTAMP(0) without time zone DEFAULT NOW(),
+    stopdate 							TIMESTAMP(0) without time zone,
+    starttime 							INTEGER NOT NULL DEFAULT 0,
+    endtime 							INTEGER NOT NULL DEFAULT 10079,
+    id_trunk 							INTEGER DEFAULT -1,	
+    musiconhold 						CHARACTER VARYING(100),
+    freetimetocall_package_offer 		INTEGER NOT NULL DEFAULT 0,
+    id_outbound_cidgroup 				INTEGER NOT NULL DEFAULT -1
+);
+CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
+
+
+CREATE TABLE cc_trunk (
+    id_trunk 							serial NOT NULL,
+    trunkcode 							TEXT NOT NULL,
+    trunkprefix 						TEXT ,
+    providertech 						TEXT NOT NULL,
+    providerip 							TEXT NOT NULL,
+    removeprefix 						TEXT ,
+    secondusedreal 						INTEGER DEFAULT 0,
+    secondusedcarrier 					INTEGER DEFAULT 0,
+    secondusedratecard 					INTEGER DEFAULT 0,
+    creationdate 						TIMESTAMP(0) without time zone DEFAULT NOW(),
+    failover_trunk 						INTEGER,
+    addparameter 						TEXT,
+    id_provider							INTEGER
+);
+
+
+CREATE TABLE cc_sip_buddies (
+    id 									serial NOT NULL,
+    id_cc_card 							INTEGER DEFAULT 0 NOT NULL,
+    name 								CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying NOT NULL,
+    "type" 								CHARACTER VARYING(6) DEFAULT 'friend'::CHARACTER varying NOT NULL,
+    username 							CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying NOT NULL,	
+    accountcode 						CHARACTER VARYING(20),    
+    regexten 							CHARACTER VARYING(20),
+    callerid 							CHARACTER VARYING(80),	
+    amaflags 							CHARACTER VARYING(7),
+    secret 								CHARACTER VARYING(80),
+    md5secret 							CHARACTER VARYING(80),
+    nat 								CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying NOT NULL,
+    dtmfmode 							CHARACTER VARYING(7) DEFAULT 'RFC2833'::CHARACTER varying NOT NULL,	
+    disallow 							CHARACTER VARYING(100) DEFAULT 'all'::CHARACTER varying,
+    allow 								CHARACTER VARYING(100) DEFAULT 'gsm,ulaw,alaw'::CHARACTER varying,
+    host 								CHARACTER VARYING(31) DEFAULT ''::CHARACTER varying NOT NULL,
+    qualify 							CHARACTER VARYING(7) DEFAULT 'yes'::CHARACTER varying NOT NULL,
+    canreinvite 						CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying,
+    callgroup 							CHARACTER VARYING(10),
+    context 							CHARACTER VARYING(80),
+    defaultip 							CHARACTER VARYING(15),
+    fromuser 							CHARACTER VARYING(80),    
+    fromdomain 							CHARACTER VARYING(80),
+    insecure 							CHARACTER VARYING(20),
+    "language" 							CHARACTER VARYING(2),
+    mailbox 							CHARACTER VARYING(50),
+    permit 								CHARACTER VARYING(95),
+    deny 								CHARACTER VARYING(95),
+    mask 								CHARACTER VARYING(95),
+    pickupgroup 						CHARACTER VARYING(10),
+    port 								CHARACTER VARYING(5) DEFAULT ''::CHARACTER varying NOT NULL,
+    restrictcid 						CHARACTER VARYING(1),
+    rtptimeout 							CHARACTER VARYING(3),
+    rtpholdtimeout 						CHARACTER VARYING(3),
+    musiconhold 						CHARACTER VARYING(100),
+    regseconds 							INTEGER DEFAULT 0 NOT NULL,
+    ipaddr 								CHARACTER VARYING(15) DEFAULT ''::CHARACTER varying NOT NULL,
+    cancallforward 						CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying,	
+    fullcontact 						CHARACTER VARYING(80),
+    setvar 								CHARACTER VARYING(100) DEFAULT ''::CHARACTER varying NOT NULL
+);
+
+
+
+CREATE TABLE cc_iax_buddies (
+    id 									serial NOT NULL,
+    id_cc_card 							INTEGER DEFAULT 0 NOT NULL,
+    name 								CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying NOT NULL,
+    "type" 								CHARACTER VARYING(6) DEFAULT 'friend'::CHARACTER varying NOT NULL,
+    username 							CHARACTER VARYING(80) DEFAULT ''::CHARACTER varying NOT NULL,	
+    accountcode 						CHARACTER VARYING(20),    
+    regexten 							CHARACTER VARYING(20),
+    callerid 							CHARACTER VARYING(80),	
+    amaflags 							CHARACTER VARYING(7),
+    secret 								CHARACTER VARYING(80),
+    md5secret 							CHARACTER VARYING(80),
+    nat 								CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying NOT NULL,
+    dtmfmode 							CHARACTER VARYING(7) DEFAULT 'RFC2833'::CHARACTER varying NOT NULL,	
+    disallow 							CHARACTER VARYING(100) DEFAULT 'all'::CHARACTER varying,
+    allow 								CHARACTER VARYING(100) DEFAULT 'gsm,ulaw,alaw'::CHARACTER varying,
+    host 								CHARACTER VARYING(31) DEFAULT ''::CHARACTER varying NOT NULL,
+    qualify 							CHARACTER VARYING(7) DEFAULT 'yes'::CHARACTER varying NOT NULL,
+    canreinvite 						CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying,
+    callgroup 							CHARACTER VARYING(10),
+    context 							CHARACTER VARYING(80),
+    defaultip 							CHARACTER VARYING(15),
+    fromuser 							CHARACTER VARYING(80),    
+    fromdomain 							CHARACTER VARYING(80),
+    insecure 							CHARACTER VARYING(20),
+    "language" 							CHARACTER VARYING(2),
+    mailbox 							CHARACTER VARYING(50),
+    permit 								CHARACTER VARYING(95),
+    deny 								CHARACTER VARYING(95),
+    mask 								CHARACTER VARYING(95),
+    pickupgroup 						CHARACTER VARYING(10),
+    port 								CHARACTER VARYING(5) DEFAULT ''::CHARACTER varying NOT NULL,
+    restrictcid 						CHARACTER VARYING(1),
+    rtptimeout 							CHARACTER VARYING(3),
+    rtpholdtimeout 						CHARACTER VARYING(3),
+    musiconhold 						CHARACTER VARYING(100),
+    regseconds							INTEGER DEFAULT 0 NOT NULL,
+    ipaddr 								CHARACTER VARYING(15) DEFAULT ''::CHARACTER varying NOT NULL,
+    cancallforward 						CHARACTER VARYING(3) DEFAULT 'yes'::CHARACTER varying
+);
+
+
+
+
+CREATE TABLE cc_logrefill (
+    id 									serial NOT NULL,
+    date 								TIMESTAMP(0) without time zone DEFAULT NOW() NOT NULL,
+    credit 								NUMERIC(12,4) NOT NULL,
+    card_id 							BIGINT NOT NULL,
+    reseller_id 						BIGINT
+);
+
+
+CREATE TABLE cc_logpayment (
+    id 									serial NOT NULL,
+    date 								TIMESTAMP(0) without time zone DEFAULT NOW() NOT NULL,
+    payment 							real NOT NULL,
+    card_id 							BIGINT NOT NULL,
+    reseller_id 						BIGINT
+);
+
+create table cc_did_use (
+    id 									bigserial not null ,
+    id_cc_card 							BIGINT,
+    id_did 								BIGINT not null,
+    reservationdate						TIMESTAMP WITHOUT TIME ZONE not null default NOW(),
+    releasedate 						TIMESTAMP WITHOUT TIME ZONE,
+    activated 							INTEGER default 0,
+    month_payed 						INTEGER default 0
+);
+ALTER TABLE cc_did_use
+ADD CONSTRAINT cc_did_use_pkey PRIMARY KEY (id);
+
+INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
+INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
 
---
--- Name: cc_voucher_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE cc_voucher_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.cc_voucher_id_seq OWNER TO postgres;
-
---
--- Name: cc_voucher_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE cc_voucher_id_seq OWNED BY cc_voucher.id;
-
-
---
--- Name: cc_voucher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('cc_voucher_id_seq', 1, false);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_agent ALTER COLUMN id SET DEFAULT nextval('cc_agent_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_agent_commission ALTER COLUMN id SET DEFAULT nextval('cc_agent_commission_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_alarm ALTER COLUMN id SET DEFAULT nextval('cc_alarm_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_alarm_report ALTER COLUMN id SET DEFAULT nextval('cc_alarm_report_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_autorefill_report ALTER COLUMN id SET DEFAULT nextval('cc_autorefill_report_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_backup ALTER COLUMN id SET DEFAULT nextval('cc_backup_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_billing_customer ALTER COLUMN id SET DEFAULT nextval('cc_billing_customer_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_call ALTER COLUMN id SET DEFAULT nextval('cc_call_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_call_archive ALTER COLUMN id SET DEFAULT nextval('cc_call_archive_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_callback_spool ALTER COLUMN id SET DEFAULT nextval('cc_callback_spool_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_callerid ALTER COLUMN id SET DEFAULT nextval('cc_callerid_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_campaign ALTER COLUMN id SET DEFAULT nextval('cc_campaign_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_campaign_config ALTER COLUMN id SET DEFAULT nextval('cc_campaign_config_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_card ALTER COLUMN id SET DEFAULT nextval('cc_card_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_card_archive ALTER COLUMN id SET DEFAULT nextval('cc_card_archive_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_card_group ALTER COLUMN id SET DEFAULT nextval('cc_card_group_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_card_history ALTER COLUMN id SET DEFAULT nextval('cc_card_history_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_card_package_offer ALTER COLUMN id SET DEFAULT nextval('cc_card_package_offer_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_card_seria ALTER COLUMN id SET DEFAULT nextval('cc_card_seria_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_card_subscription ALTER COLUMN id SET DEFAULT nextval('cc_card_subscription_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_charge ALTER COLUMN id SET DEFAULT nextval('cc_charge_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_config ALTER COLUMN id SET DEFAULT nextval('cc_config_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_config_group ALTER COLUMN id SET DEFAULT nextval('cc_config_group_id_seq'::regclass);
-
-
---
--- Name: configuration_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_configuration ALTER COLUMN configuration_id SET DEFAULT nextval('cc_configuration_configuration_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_country ALTER COLUMN id SET DEFAULT nextval('cc_country_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_currencies ALTER COLUMN id SET DEFAULT nextval('cc_currencies_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_did ALTER COLUMN id SET DEFAULT nextval('cc_did_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_did_destination ALTER COLUMN id SET DEFAULT nextval('cc_did_destination_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_did_use ALTER COLUMN id SET DEFAULT nextval('cc_did_use_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_didgroup ALTER COLUMN id SET DEFAULT nextval('cc_didgroup_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_ecommerce_product ALTER COLUMN id SET DEFAULT nextval('cc_ecommerce_product_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_epayment_log ALTER COLUMN id SET DEFAULT nextval('cc_epayment_log_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_epayment_log_agent ALTER COLUMN id SET DEFAULT nextval('cc_epayment_log_agent_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_iax_buddies ALTER COLUMN id SET DEFAULT nextval('cc_iax_buddies_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_invoice ALTER COLUMN id SET DEFAULT nextval('cc_invoice_id_seq1'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_invoice_conf ALTER COLUMN id SET DEFAULT nextval('cc_invoice_conf_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_invoice_item ALTER COLUMN id SET DEFAULT nextval('cc_invoice_item_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_logpayment ALTER COLUMN id SET DEFAULT nextval('cc_logpayment_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_logpayment_agent ALTER COLUMN id SET DEFAULT nextval('cc_logpayment_agent_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_logrefill ALTER COLUMN id SET DEFAULT nextval('cc_logrefill_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_logrefill_agent ALTER COLUMN id SET DEFAULT nextval('cc_logrefill_agent_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_notification ALTER COLUMN id SET DEFAULT nextval('cc_notification_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_outbound_cid_group ALTER COLUMN id SET DEFAULT nextval('cc_outbound_cid_group_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_outbound_cid_list ALTER COLUMN id SET DEFAULT nextval('cc_outbound_cid_list_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_package_group ALTER COLUMN id SET DEFAULT nextval('cc_package_group_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_package_offer ALTER COLUMN id SET DEFAULT nextval('cc_package_offer_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_payment_methods ALTER COLUMN id SET DEFAULT nextval('cc_payment_methods_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_payments ALTER COLUMN id SET DEFAULT nextval('cc_payments_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_payments_agent ALTER COLUMN id SET DEFAULT nextval('cc_payments_agent_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_payments_status ALTER COLUMN id SET DEFAULT nextval('cc_payments_status_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_paypal ALTER COLUMN id SET DEFAULT nextval('cc_paypal_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_phonebook ALTER COLUMN id SET DEFAULT nextval('cc_phonebook_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_phonenumber ALTER COLUMN id SET DEFAULT nextval('cc_phonenumber_id_seq'::regclass);
-
-
---
--- Name: prefix; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_prefix ALTER COLUMN prefix SET DEFAULT nextval('cc_prefix_prefix_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_provider ALTER COLUMN id SET DEFAULT nextval('cc_provider_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_ratecard ALTER COLUMN id SET DEFAULT nextval('cc_ratecard_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_receipt ALTER COLUMN id SET DEFAULT nextval('cc_receipt_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_receipt_item ALTER COLUMN id SET DEFAULT nextval('cc_receipt_item_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_restricted_phonenumber ALTER COLUMN id SET DEFAULT nextval('cc_restricted_phonenumber_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_server_group ALTER COLUMN id SET DEFAULT nextval('cc_server_group_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_server_manager ALTER COLUMN id SET DEFAULT nextval('cc_server_manager_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_service ALTER COLUMN id SET DEFAULT nextval('cc_service_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_service_report ALTER COLUMN id SET DEFAULT nextval('cc_service_report_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_sip_buddies ALTER COLUMN id SET DEFAULT nextval('cc_sip_buddies_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_speeddial ALTER COLUMN id SET DEFAULT nextval('cc_speeddial_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_status_log ALTER COLUMN id SET DEFAULT nextval('cc_status_log_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_subscription_fee ALTER COLUMN id SET DEFAULT nextval('cc_subscription_fee_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_support ALTER COLUMN id SET DEFAULT nextval('cc_support_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_support_component ALTER COLUMN id SET DEFAULT nextval('cc_support_component_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_system_log ALTER COLUMN id SET DEFAULT nextval('cc_system_log_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_tariffgroup ALTER COLUMN id SET DEFAULT nextval('cc_tariffgroup_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_tariffplan ALTER COLUMN id SET DEFAULT nextval('cc_tariffplan_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_templatemail ALTER COLUMN id SET DEFAULT nextval('cc_templatemail_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_ticket ALTER COLUMN id SET DEFAULT nextval('cc_ticket_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_ticket_comment ALTER COLUMN id SET DEFAULT nextval('cc_ticket_comment_id_seq'::regclass);
-
-
---
--- Name: id_ticket; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_ticket_comment ALTER COLUMN id_ticket SET DEFAULT nextval('cc_ticket_comment_id_ticket_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_timezone ALTER COLUMN id SET DEFAULT nextval('cc_timezone_id_seq'::regclass);
-
-
---
--- Name: id_trunk; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_trunk ALTER COLUMN id_trunk SET DEFAULT nextval('cc_trunk_id_trunk_seq'::regclass);
-
-
---
--- Name: userid; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_ui_authen ALTER COLUMN userid SET DEFAULT nextval('cc_ui_authen_userid_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE cc_voucher ALTER COLUMN id SET DEFAULT nextval('cc_voucher_id_seq'::regclass);
-
-
---
--- Data for Name: cc_agent; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_agent_commission; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_agent_tariffgroup; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_alarm; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_alarm_report; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_autorefill_report; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_backup; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_billing_customer; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_call; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_call_archive; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_callback_spool; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_callerid; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_campaign; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_campaign_config; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_campaign_phonebook; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_campaign_phonestatus; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_campaignconf_cardgroup; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_card; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_card_archive; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_card_group; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_card_group VALUES (1, 'DEFAULT', 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.', 129022, NULL);
-
-
---
--- Data for Name: cc_card_history; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_card_package_offer; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_card_seria; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_card_subscription; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_cardgroup_service; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_charge; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_config; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_config VALUES (65, 'Enable SSL', 'enable_ssl', '1', 'secure webserver for checkout procedure?', 1, 'yes,no', 'epayment_method');
-INSERT INTO cc_config VALUES (194, 'Monitor File Format', 'monitor_formatfile', 'gsm', 'format of the recorded monitor file.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (1, 'Card Number length', 'interval_len_cardnumber', '10-15', 'Card Number length, You can define a Range e.g: 10-15.', 0, '10-15,5-20,10-30', 'global');
-INSERT INTO cc_config VALUES (2, 'Card Alias length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (3, 'Voucher length', 'len_voucher', '15', 'Voucher Number Length.', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (4, 'Base Currency', 'base_currency', 'usd', 'Base Currency to use for application.', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (5, 'Invoice Image', 'invoice_image', 'asterisk01.jpg', 'Image to Display on the Top of Invoice', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (6, 'Admin Email', 'admin_email', 'root@localhost', 'Web Administrator Email Address.', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (7, 'DID Bill Payment Day', 'didbilling_daytopay', '5', 'DID Bill Payment Day of Month', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (8, 'Manager Host', 'manager_host', 'localhost', 'Manager Host Address', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (9, 'Manager User ID', 'manager_username', 'myasterisk', 'Manger Host User Name', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (10, 'Manager Password', 'manager_secret', 'mycode', 'Manager Host Password', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (11, 'Use SMTP Server', 'smtp_server', '0', 'Define if you want to use an STMP server or Send Mail (value yes for server SMTP)', 1, 'yes,no', 'global');
-INSERT INTO cc_config VALUES (12, 'SMTP Host', 'smtp_host', 'localhost', 'SMTP Hostname', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (13, 'SMTP UserName', 'smtp_username', '', 'User Name to connect on the SMTP server', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (14, 'SMTP Password', 'smtp_password', '', 'Password to connect on the SMTP server', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (15, 'Use Realtime', 'use_realtime', '1', 'if Disabled, it will generate the config files and offer an option to reload asterisk after an update on the Voip settings', 1, 'yes,no', 'global');
-INSERT INTO cc_config VALUES (16, 'Go To Customer', 'customer_ui_url', '../../customer/index.php', 'Link to the customer account', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (17, 'Context Callback', 'context_callback', 'a2billing-callback', 'Contaxt to use in Callback', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (18, 'Extension', 'extension', '1000', 'Extension to call while callback.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (19, 'Wait before callback', 'sec_wait_before_callback', '10', 'Seconds to wait before callback.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (20, 'Avoid Repeat Duration', 'sec_avoid_repeate', '10', 'Number of seconds before the call-back can be re-initiated from the web page to prevent repeated and unwanted calls.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (21, 'Time out', 'timeout', '20', 'if the callback doesnt succeed within the value below, then the call is deemed to have failed.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (22, 'Answer on Call', 'answer_call', '1', 'if we want to manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 'yes,no', 'callback');
-INSERT INTO cc_config VALUES (23, 'No of Predictive Calls', 'nb_predictive_call', '10', 'number of calls an agent will do when the call button is clicked.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (24, 'Delay for Availability', 'nb_day_wait_before_retry', '1', 'Number of days to wait before the number becomes available to call again.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (25, 'PD Contect', 'context_preditctivedialer', 'a2billing-predictivedialer', 'The context to redirect the call for the predictive dialer.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (26, 'Max Time to call', 'predictivedialer_maxtime_tocall', '5400', 'When a call is made we need to limit the call duration : amount in seconds.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (27, 'PD Caller ID', 'callerid', '123456', 'Set the callerID for the predictive dialer and call-back.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (28, 'Callback CallPlan ID', 'all_callback_tariff', '1', 'ID Call Plan to use when you use the all-callback mode, check the ID in the "list Call Plan" - WebUI.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (29, 'Server Group ID', 'id_server_group', '1', 'Define the group of servers that are going to be used by the callback.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (30, 'Audio Intro', 'callback_audio_intro', 'prepaid-callback_intro', 'Audio intro message when the callback is initiate.', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (31, 'Signup URL', 'signup_page_url', '', 'url of the signup page to show up on the sign in page (if empty no link will show up).', 0, NULL, 'webcustomerui');
-INSERT INTO cc_config VALUES (32, 'Payment Method', 'paymentmethod', '1', 'Enable or disable the payment methods; yes for multi-payment or no for single payment method option.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (33, 'Personal Info', 'personalinfo', '1', 'Enable or disable the page which allow customer to modify its personal information.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (34, 'Payment Info', 'customerinfo', '1', 'Enable display of the payment interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (35, 'SIP/IAX Info', 'sipiaxinfo', '1', 'Enable display of the sip/iax info - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (36, 'CDR', 'cdr', '1', 'Enable the Call history - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (37, 'Invoices', 'invoice', '1', 'Enable invoices - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (38, 'Voucher Screen', 'voucher', '1', 'Enable the voucher screen - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (39, 'Paypal', 'paypal', '1', 'Enable the paypal payment buttons - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (40, 'Speed Dial', 'speeddial', '1', 'Allow Speed Dial capabilities - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (41, 'DID', 'did', '1', 'Enable the DID (Direct Inwards Dialling) interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (42, 'RateCard', 'ratecard', '1', 'Show the ratecards - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (43, 'Simulator', 'simulator', '1', 'Offer simulator option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (44, 'CallBack', 'callback', '1', 'Enable the callback option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (45, 'Predictive Dialer', 'predictivedialer', '1', 'Enable the predictivedialer option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (46, 'WebPhone', 'webphone', '1', 'Let users use SIP/IAX Webphone (Options : yes/no).', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (47, 'WebPhone Server', 'webphoneserver', 'localhost', 'IP address or domain name of asterisk server that would be used by the web-phone.', 0, NULL, 'webcustomerui');
-INSERT INTO cc_config VALUES (48, 'Caller ID', 'callerid', '1', 'Let the users add new callerid.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (49, 'Password', 'password', '1', 'Let the user change the webui password.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (50, 'CallerID Limit', 'limit_callerid', '5', 'The total number of callerIDs for CLI Recognition that can be add by the customer.', 0, NULL, 'webcustomerui');
-INSERT INTO cc_config VALUES (51, 'Trunk Name', 'sip_iax_info_trunkname', 'call-labs', 'Trunk Name to show in sip/iax info.', 0, NULL, 'sip-iax-info');
-INSERT INTO cc_config VALUES (52, 'Codecs Allowed', 'sip_iax_info_allowcodec', 'g729', 'Allowed Codec, ulaw, gsm, g729.', 0, NULL, 'sip-iax-info');
-INSERT INTO cc_config VALUES (53, 'Host', 'sip_iax_info_host', 'call-labs.com', 'Host information.', 0, NULL, 'sip-iax-info');
-INSERT INTO cc_config VALUES (54, 'IAX Parms', 'iax_additional_parameters', 'canreinvite = no', 'IAX Additional Parameters.', 0, NULL, 'sip-iax-info');
-INSERT INTO cc_config VALUES (55, 'SIP Parms', 'sip_additional_parameters', 'trustrpid = yes | sendrpid = yes | canreinvite = no', 'SIP Additional Parameters.', 0, NULL, 'sip-iax-info');
-INSERT INTO cc_config VALUES (56, 'Enable', 'enable', '1', 'Enable/Disable.', 1, 'yes,no', 'epayment_method');
-INSERT INTO cc_config VALUES (57, 'HTTP Server Customer', 'http_server', 'http://www.call-labs.com', 'Set the Server Address of Customer Website, It should be empty for productive Servers.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (58, 'HTTPS Server Customer', 'https_server', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Customers Server Address, should not be empty for productive servers.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (59, 'Server Customer IP/Domain', 'http_cookie_domain', '26.63.165.200', 'Enter your Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (60, 'Secure Server Customer IP/Domain', 'https_cookie_domain', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (61, 'Application Customer Path', 'http_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (62, 'Secure Application Customer Path', 'https_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your Secure Server.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (63, 'Application Customer Physical Path', 'dir_ws_http_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (64, 'Secure Application Customer Physical Path', 'dir_ws_https_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your Secure server.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (66, 'HTTP Domain', 'http_domain', '26.63.165.200', 'Http Address.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (67, 'Directory Path', 'dir_ws_http', '/~areski/svn/a2billing/payment/customer/', 'Directory Path.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (68, 'Payment Amount', 'purchase_amount', '1:2:5:10:20', 'define the different amount of purchase that would be available - 5 amount maximum (5:10:15).', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (69, 'Item Name', 'item_name', 'Credit Purchase', 'Item name that would be display to the user when he will buy credit.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (70, 'Currency Code', 'currency_code', 'USD', 'Currency for the Credit purchase, only one can be define here.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (71, 'Paypal Payment URL', 'paypal_payment_url', 'https://secure.paypal.com/cgi-bin/webscr', 'Define here the URL of paypal gateway the payment (to test with paypal sandbox).', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (72, 'Paypal Verify URL', 'paypal_verify_url', 'ssl://www.paypal.com', 'paypal transaction verification url.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (73, 'Authorize.NET Payment URL', 'authorize_payment_url', 'https://secure.authorize.net/gateway/transact.dll', 'Define here the URL of Authorize gateway.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (74, 'PayPal Store Name', 'store_name', 'Asterisk2Billing', 'paypal store name to show in the paypal site when customer will go to pay.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (75, 'Transaction Key', 'transaction_key', 'asdf1212fasd121554sd4f5s45sdf', 'Transaction Key for security of Epayment Max length of 60 Characters.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (76, 'Secret Word', 'moneybookers_secretword', 'areski', 'Moneybookers secret word.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (77, 'Enable', 'enable_signup', '1', 'Enable Signup Module.', 1, 'yes,no', 'signup');
-INSERT INTO cc_config VALUES (78, 'Captcha Security', 'enable_captcha', '1', 'enable Captcha on the signup module (value : YES or NO).', 1, 'yes,no', 'signup');
-INSERT INTO cc_config VALUES (79, 'Credit', 'credit', '0', 'amount of credit applied to a new user.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (80, 'CallPlan ID List', 'callplan_id_list', '1,2', 'the list of id of call plans which will be shown in signup.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (81, 'Card Activation', 'activated', '0', 'Specify whether the card is created as active or pending.', 1, 'yes,no', 'signup');
-INSERT INTO cc_config VALUES (82, 'Access Type', 'simultaccess', '0', 'Simultaneous or non concurrent access with the card - 0 = INDIVIDUAL ACCESS or 1 = SIMULTANEOUS ACCESS.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (83, 'Paid Type', 'typepaid', '0', 'PREPAID CARD  =  0 - POSTPAY CARD  =  1.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (84, 'Credit Limit', 'creditlimit', '0', 'Define credit limit, which is only used for a POSTPAY card.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (85, 'Run Service', 'runservice', '0', 'Authorise the recurring service to apply on this card  -  Yes 1 - No 0.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (86, 'Enable Expire', 'enableexpire', '0', 'Enable the expiry of the card  -  Yes 1 - No 0.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (87, 'Date Format', 'expirationdate', '', 'Expiry Date format YYYY-MM-DD HH:MM:SS. For instance 2004-12-31 00:00:00', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (88, 'Expire Limit', 'expiredays', '0', 'The number of days after which the card will expire.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (89, 'Create SIP', 'sip_account', '1', 'Create a sip account from signup ( default : yes ).', 1, 'yes,no', 'signup');
-INSERT INTO cc_config VALUES (90, 'Create IAX', 'iax_account', '1', 'Create an iax account from signup ( default : yes ).', 1, 'yes,no', 'signup');
-INSERT INTO cc_config VALUES (91, 'Activate Card', 'activatedbyuser', '0', 'active card after the new signup. if No, the Signup confirmation is needed and an email will be sent to the user with a link for activation (need to put the link into the Signup mail template).', 1, 'yes,no', 'signup');
-INSERT INTO cc_config VALUES (92, 'Customer Interface URL', 'urlcustomerinterface', 'http://localhost/customer/', 'url of the customer interface to display after activation.', 0, NULL, 'signup');
-INSERT INTO cc_config VALUES (93, 'Asterisk Reload', 'reload_asterisk_if_sipiax_created', '0', 'Define if you want to reload Asterisk when a SIP / IAX Friend is created at signup time.', 1, 'yes,no', 'signup');
-INSERT INTO cc_config VALUES (94, 'Backup Path', 'backup_path', '/tmp', 'Path to store backup of database.', 0, NULL, 'backup');
-INSERT INTO cc_config VALUES (95, 'GZIP Path', 'gzip_exe', '/bin/gzip', 'Path for gzip.', 0, NULL, 'backup');
-INSERT INTO cc_config VALUES (96, 'GunZip Path', 'gunzip_exe', '/bin/gunzip', 'Path for gunzip .', 0, NULL, 'backup');
-INSERT INTO cc_config VALUES (97, 'MySql Dump Path', 'mysqldump', '/usr/bin/mysqldump', 'path for mysqldump.', 0, NULL, 'backup');
-INSERT INTO cc_config VALUES (98, 'PGSql Dump Path', 'pg_dump', '/usr/bin/pg_dump', 'path for pg_dump.', 0, NULL, 'backup');
-INSERT INTO cc_config VALUES (99, 'MySql Path', 'mysql', '/usr/bin/mysql', 'Path for MySql.', 0, NULL, 'backup');
-INSERT INTO cc_config VALUES (100, 'PSql Path', 'psql', '/usr/bin/psql', 'Path for PSql.', 0, NULL, 'backup');
-INSERT INTO cc_config VALUES (101, 'SIP File Path', 'buddy_sip_file', '/etc/asterisk/additional_a2billing_sip.conf', 'Path to store the asterisk configuration files SIP.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (102, 'IAX File Path', 'buddy_iax_file', '/etc/asterisk/additional_a2billing_iax.conf', 'Path to store the asterisk configuration files IAX.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (103, 'API Security Key', 'api_security_key', 'Ae87v56zzl34v', 'API have a security key to validate the http request, the key has to be sent after applying md5, Valid characters are [a-z,A-Z,0-9].', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (104, 'Authorized IP', 'api_ip_auth', '127.0.0.1', 'API to restrict the IPs authorised to make a request, Define The the list of ips separated by '';''.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (105, 'Admin Email', 'email_admin', 'root@localhost', 'Administative Email.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (106, 'MOH Directory', 'dir_store_mohmp3', '/var/lib/asterisk/mohmp3', 'MOH (Music on Hold) base directory.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (107, 'MOH Classes', 'num_musiconhold_class', '10', 'Number of MOH classes you have created in musiconhold.conf : acc_1, acc_2... acc_10 class	etc....', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (108, 'Display Help', 'show_help', '1', 'Display the help section inside the admin interface  (YES - NO).', 1, 'yes,no', 'webui');
-INSERT INTO cc_config VALUES (109, 'Max File Upload Size', 'my_max_file_size_import', '1024000', 'File Upload parameters, PLEASE CHECK ALSO THE VALUE IN YOUR PHP.INI THE LIMIT IS 2MG BY DEFAULT .', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (110, 'Audio Directory Path', 'dir_store_audio', '/var/lib/asterisk/sounds/a2billing', 'Not used yet, The goal is to upload files and use them in the IVR.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (111, 'Max Audio File Size', 'my_max_file_size_audio', '3072000', 'upload maximum file size.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (112, 'Extensions Allowed', 'file_ext_allow', 'gsm, mp3, wav', 'File type extensions permitted to be uploaded such as "gsm, mp3, wav" (separated by ,).', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (113, 'Muzic Files Allowed', 'file_ext_allow_musiconhold', 'mp3', 'File type extensions permitted to be uploaded for the musiconhold such as "gsm, mp3, wav" (separate by ,).', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (114, 'Link Audio', 'link_audio_file', '0', 'Enable link on the CDR viewer to the recordings. (YES - NO).', 1, 'yes,no', 'webui');
-INSERT INTO cc_config VALUES (115, 'Monitor Path', 'monitor_path', '/var/spool/asterisk/monitor', 'Path to link the recorded monitor files.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (116, 'Monitor Format', 'monitor_formatfile', 'gsm', 'FORMAT OF THE RECORDED MONITOR FILE.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (117, 'Invoice Icon', 'show_icon_invoice', '1', 'Display the icon in the invoice.', 1, 'yes,no', 'webui');
-INSERT INTO cc_config VALUES (118, 'Show Top Frame', 'show_top_frame', '0', 'Display the top frame (useful if you want to save space on your little tiny screen ) .', 1, 'yes,no', 'webui');
-INSERT INTO cc_config VALUES (119, 'Currency', 'currency_choose', 'usd, eur, cad, hkd', 'Allow the customer to chose the most appropriate currency ("all" can be used).', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (120, 'Card Export Fields', 'card_export_field_list', 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused, mac_addr, template_invoice, template_outstanding', 'Fields to export in csv format from cc_card table.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (121, 'Vouvher Export Fields', 'voucher_export_field_list', 'voucher, credit, tag, activated, usedcardnumber, usedate, currency', 'Field to export in csv format from cc_voucher table.', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (122, 'Advance Mode', 'advanced_mode', '0', 'Advanced mode - Display additional configuration options on the ratecard (progressive rates, musiconhold, ...).', 1, 'yes,no', 'webui');
-INSERT INTO cc_config VALUES (123, 'SIP/IAX Delete', 'delete_fk_card', '1', 'Delete the SIP/IAX Friend & callerid when a card is deleted.', 1, 'yes,no', 'webui');
-INSERT INTO cc_config VALUES (124, 'Type', 'type', 'friend', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO cc_config VALUES (125, 'Allow', 'allow', 'ulaw,alaw,gsm,g729', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO cc_config VALUES (126, 'Context', 'context', 'a2billing', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO cc_config VALUES (127, 'Nat', 'nat', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO cc_config VALUES (128, 'AMA Flag', 'amaflag', 'billing', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO cc_config VALUES (129, 'Qualify', 'qualify', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO cc_config VALUES (130, 'Host', 'host', 'dynamic', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO cc_config VALUES (131, 'DTMF Mode', 'dtmfmode', 'RFC2833', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, NULL, 'peer_friend');
-INSERT INTO cc_config VALUES (132, 'Alarm Log File', 'cront_alarm', '/var/log/a2billing/cront_a2b_alarm.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (133, 'Auto refill Log File', 'cront_autorefill', '/var/log/a2billing/cront_a2b_autorefill.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (134, 'Bactch Process Log File', 'cront_batch_process', '/var/log/a2billing/cront_a2b_batch_process.log', 'To disable application logging, remove/comment the log file name aside service .', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (135, 'Archive Log File', 'cront_archive_data', '/var/log/a2billing/cront_a2b_archive_data.log', 'To disable application logging, remove/comment the log file name aside service .', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (136, 'DID Billing Log File', 'cront_bill_diduse', '/var/log/a2billing/cront_a2b_bill_diduse.log', 'To disable application logging, remove/comment the log file name aside service .', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (137, 'Subscription Fee Log File', 'cront_subscriptionfee', '/var/log/a2billing/cront_a2b_subscription_fee.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (138, 'Currency Cront Log File', 'cront_currency_update', '/var/log/a2billing/cront_a2b_currency_update.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (139, 'Invoice Cront Log File', 'cront_invoice', '/var/log/a2billing/cront_a2b_invoice.log', 'To disable application logging, remove/comment the log file name aside service.', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (140, 'Cornt Log File', 'cront_check_account', '/var/log/a2billing/cront_a2b_check_account.log', 'To disable application logging, remove/comment the log file name aside service .', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (141, 'Paypal Log File', 'paypal', '/var/log/a2billing/a2billing_paypal.log', 'paypal log file, to log all the transaction & error.', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (142, 'EPayment Log File', 'epayment', '/var/log/a2billing/a2billing_epayment.log', 'epayment log file, to log all the transaction & error .', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (143, 'ECommerce Log File', 'api_ecommerce', '/var/log/a2billing/a2billing_api_ecommerce_request.log', 'Log file to store the ecommerce API requests .', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (144, 'Callback Log File', 'api_callback', '/var/log/a2billing/a2billing_api_callback_request.log', 'Log file to store the CallBack API requests.', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (145, 'Webservice Card Log File', 'api_card', '/var/log/a2billing/a2billing_api_card.log', 'Log file to store the Card Webservice Logs', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (146, 'AGI Log File', 'agi', '/var/log/a2billing/a2billing_agi.log', 'File to log.', 0, NULL, 'log-files');
-INSERT INTO cc_config VALUES (147, 'Description', 'description', 'agi-config', 'Description/notes field', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (148, 'Asterisk Version', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1,1_2,1_4 By Default it will take 1_2 or higher .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (149, 'Answer Call', 'answer_call', '1', 'Manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (150, 'Play Audio', 'play_audio', '1', 'Play audio - this will disable all stream file but not the Get Data , for wholesale ensure that the authentication works and than number_try = 1.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (151, 'Say GoodBye', 'say_goodbye', '0', 'play the goodbye message when the user has finished.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (152, 'Play Language Menu', 'play_menulanguage', '0', 'enable the menu to choose the language, press 1 for English, pulsa 2 para el español, Pressez 3 pour Français', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (153, 'Force Language', 'force_language', '', 'force the use of a language, if you dont want to use it leave the option empty, Values : ES, EN, FR, etc... (according to the audio you have installed).', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (154, 'Intro Prompt', 'intro_prompt', '', 'Introduction prompt : to specify an additional prompt to play at the beginning of the application .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (155, 'Min Call Credit', 'min_credit_2call', '0', 'Minimum amount of credit to use the application .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (156, 'Min Bill Duration', 'min_duration_2bill', '0', 'this is the minimum duration in seconds of a call in order to be billed any call with a length less than min_duration_2bill will have a 0 cost useful not to charge callers for system errors when a call was answered but it actually didn''t connect.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (157, 'Not Enough Credit', 'notenoughcredit_cardnumber', '0', 'if user doesn''t have enough credit to call a destination, prompt him to enter another cardnumber .', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (158, 'New Caller ID', 'notenoughcredit_assign_newcardnumber_cid', '0', 'if notenoughcredit_cardnumber = YES  then	assign the CallerID to the new cardnumber.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (159, 'Use DNID', 'use_dnid', '0', 'if YES it will use the DNID and try to dial out, without asking for the phonenumber to call.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (160, 'Not Use DNID', 'no_auth_dnid', '2400,2300', 'list the dnid on which you want to avoid the use of the previous option "use_dnid" .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (161, 'Try Count', 'number_try', '3', 'number of times the user can dial different number.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (162, 'Force CallPlan', 'force_callplan_id', '', 'this will force to select a specific call plan by the Rate Engine.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (163, 'Say Balance After Auth', 'say_balance_after_auth', '1', 'Play the balance to the user after the authentication (values : yes - no).', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (164, 'Say Balance After Call', 'say_balance_after_call', '0', 'Play the balance to the user after the call (values : yes - no).', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (165, 'Say Rate', 'say_rateinitial', '0', 'Play the initial cost of the route (values : yes - no)', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (166, 'Say Duration', 'say_timetocall', '1', 'Play the amount of time that the user can call (values : yes - no).', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (167, 'Auto Set CLID', 'auto_setcallerid', '1', 'enable the setup of the callerID number before the outbound is made, by default the user callerID value will be use.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (168, 'Force CLID', 'force_callerid', '', 'If auto_setcallerid is enabled, the value of force_callerid will be set as CallerID.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (169, 'CLID Sanitize', 'cid_sanitize', '0', 'If force_callerid is not set, then the following option ensures that CID is set to one of the card''s configured caller IDs or blank if none available.(NO - disable this feature, caller ID can be anything, CID - Caller ID must be one of the customers caller IDs, DID - Caller ID must be one of the customers DID nos, BOTH - Caller ID must be one of the above two items)', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (170, 'CLID Enable', 'cid_enable', '0', 'enable the callerid authentication if this option is active the CC system will check the CID of caller  .', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (171, 'Ask PIN', 'cid_askpincode_ifnot_callerid', '1', 'if the CID does not exist, then the caller will be prompt to enter his cardnumber .', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (172, 'FailOver LCR/LCD Prefix', 'failover_lc_prefix', '0', 'if we will failover for LCR/LCD prefix. For instance if you have 346 and 34 for if 346 fail it will try to outbound with 34 route.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (173, 'Auto CLID', 'cid_auto_assign_card_to_cid', '1', 'if the callerID authentication is enable and the authentication fails then the user will be prompt to enter his cardnumber;this option will bound the cardnumber entered to the current callerID so that next call will be directly authenticate.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (174, 'Auto Create Card', 'cid_auto_create_card', '0', 'if the callerID is captured on a2billing, this option will create automatically a new card and add the callerID to it.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (175, 'Auto Create Card Length', 'cid_auto_create_card_len', '10', 'set the length of the card that will be auto create (ie, 10).', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (176, 'Auto Create Card Type', 'cid_auto_create_card_typepaid', 'POSTPAY', 'billing type of the new card( value : POSTPAY or PREPAY) .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (177, 'Auto Create Card Credit', 'cid_auto_create_card_credit', '0', 'amount of credit of the new card.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (178, 'Auto Create Card Limit', 'cid_auto_create_card_credit_limit', '1000', 'if postpay, define the credit limit for the card.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (179, 'Auto Create Card TariffGroup', 'cid_auto_create_card_tariffgroup', '6', 'the tariffgroup to use for the new card (this is the ID that you can find on the admin web interface) .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (180, 'Auto CLID Security', 'callerid_authentication_over_cardnumber', '0', 'to check callerID over the cardnumber authentication (to guard against spoofing).', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (181, 'SIP Call', 'sip_iax_friends', '0', 'enable the option to call sip/iax friend for free (values : YES - NO).', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (182, 'SIP Call Prefix', 'sip_iax_pstn_direct_call_prefix', '555', 'if SIP_IAX_FRIENDS is active, you can define a prefix for the dialed digits to call a pstn number .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (183, 'Direct Call', 'sip_iax_pstn_direct_call', '0', 'this will enable a prompt to enter your destination number. if number start by sip_iax_pstn_direct_call_prefix we do directly a sip iax call, if not we do a normal call.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (184, 'IVR Voucher Refill', 'ivr_voucher', '0', 'enable the option to refill card with voucher in IVR (values : YES - NO) .', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (185, 'IVR Voucher Prefix', 'ivr_voucher_prefix', '8', 'if ivr_voucher is active, you can define a prefix for the voucher number to refill your card, values : number - don''t forget to change prepaid-refill_card_with_voucher audio accordingly .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (186, 'IVR Low Credit', 'jump_voucher_if_min_credit', '0', 'When the user credit are below the minimum credit to call min_credit jump directly to the voucher IVR menu  (values: YES - NO) .', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (188, 'SIP/IAX Dial Command Params', 'dialcommand_param_sipiax_friend', '|60|HiL(3600000:61000:30000)', 'by default (3600000  =  1HOUR MAX CALL).', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (189, 'Outbound Call', 'switchdialcommand', '0', 'Define the order to make the outbound call<br>YES -> SIP/dialedphonenumber@gateway_ip - NO  SIP/gateway_ip/dialedphonenumber<br>Both should work exactly the same but i experimented one case when gateway was supporting dialedphonenumber@gateway_ip, So in case of trouble, try it out.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (190, 'Failover Retry Limit', 'failover_recursive_limit', '2', 'failover recursive search - define how many time we want to authorize the research of the failover trunk when a call fails (value : 0 - 20) .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (191, 'Max Time', 'maxtime_tocall_negatif_free_route', '5400', 'This setting specifies an upper limit for the duration of a call to a destination for which the selling rate is less than or equal to 0.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (192, 'Send Reminder', 'send_reminder', '0', 'Send a reminder email to the user when they are under min_credit_2call.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (193, 'Record Call', 'record_call', '0', 'enable to monitor the call (to record all the conversations) value : YES - NO .', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (195, 'AGI Force Currency', 'agi_force_currency', '', 'Force to play the balance to the caller in a predefined currency, to use the currency set for by the customer leave this field empty.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (196, 'Currency Associated', 'currency_association', 'usd:dollars,mxn:pesos,eur:euros,all:credit', 'Define all the audio (without file extensions) that you want to play according to currency (use , to separate, ie "usd:prepaid-dollar,mxn:pesos,eur:Euro,all:credit").', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (197, 'Minor Currency Associated', 'currency_association_minor', 'usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit', 'Define all the audio (without file extensions) that you want to play according to minor currency (use , to separate, ie "usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit").', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (198, 'File Enter Destination', 'file_conf_enter_destination', 'prepaid-enter-dest', 'Please enter the file name you want to play when we prompt the calling party to enter the destination number, file_conf_enter_destination = prepaid-enter-number-u-calling-1-or-011.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (200, 'Bill Callback', 'callback_bill_1stleg_ifcall_notconnected', '1', 'Define if you want to bill the 1st leg on callback even if the call is not connected to the destination.', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (201, 'International prefixes', 'international_prefixes', '011,00,09,1', 'List the prefixes you want stripped off if the call plan requires it', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (202, 'Server GMT', 'server_GMT', 'GMT+10:00', 'Define the sever gmt time', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (203, 'Invoice Template Path', 'invoice_template_path', '../invoice/', 'gives invoice template path from default one', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (204, 'Outstanding Template Path', 'outstanding_template_path', '../outstanding/', 'gives outstanding template path from default one', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (205, 'Sales Template Path', 'sales_template_path', '../sales/', 'gives sales template path from default one', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (187, 'Dial Command Params', 'dialcommand_param', '|60|HRrL(%timeout%:61000:30000)', 'More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>g: When the called party hangs up, exit to execute more commands in the current context. (new in 1.4)<br>i: Asterisk will ignore any forwarding (302 Redirect) requests received. Essential for DID usage to prevent fraud. (new in 1.4)<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (206, 'Extra charge DIDs', 'extracharge_did', '1800,1900', 'Add extra per-minute charges to this comma-separated list of DNIDs; needs "extracharge_fee" and "extracharge_buyfee"', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (207, 'Extra charge DID fees', 'extracharge_fee', '0.05,0.15', 'Comma-separated list of extra sell-rate charges corresponding to the DIDs in "extracharge_did"', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (208, 'Extra charge DID buy fees', 'extracharge_buyfee', '0.04,0.13', 'Comma-separated list of extra buy-rate charges corresponding to the DIDs in "extracharge_did"', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (209, 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (210, 'List of possible values to notify', 'values_notifications', '10:20:50:100:500:1000', 'Possible values to choose when the user receive a notification. You can define a List e.g: 10:20:100.', 0, NULL, 'notifications');
-INSERT INTO cc_config VALUES (211, 'Notifications Modules', 'notification', '1', 'Enable or Disable the module of notification for the customers', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (212, 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disable the cron module of notification for the customers. If it correctly configured in the crontab', 0, 'yes,no', 'notifications');
-INSERT INTO cc_config VALUES (213, 'Notications Delay', 'delay_notifications', '1', 'Delay in number of days to send an other notification for the customers. If the value is 0, it will notify the user everytime the cront is running.', 0, NULL, 'notifications');
-INSERT INTO cc_config VALUES (214, 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define the different amount of purchase that would be available.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (215, 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (216, 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (217, 'CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID
-The parameters are as follow : <br/>
--- ID of the first callplan : called seconds needed to switch to the next CallplanID <br/>
--- ID of the second callplan : called seconds needed to switch to the next CallplanID <br/>
--- if not needed seconds are defined it will automatically switch to the next one <br/>
--- if defined we will sum the previous needed seconds and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of seconds needed<br/>
-value example for callplan_deck_minute_threshold = 1:300, 2:60, 3', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (218, 'Payment Historique Modules', 'payment', '1', 'Enable or Disable the module of payment historique for the customers', 1, 'yes,no', 'webcustomerui');
-INSERT INTO cc_config VALUES (219, 'Menu Language Order', 'conf_order_menulang', 'en:fr:es', 'Enter the list of languages authorized for the menu.Use the code language separate by a colon charactere e.g: en:es:fr', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (220, 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 'Desactived the annoucement of the seconds when there are more of one minutes (values : yes - no)', 1, 'yes,no', 'agi-conf1');
-INSERT INTO cc_config VALUES (221, 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived, if you want assum the fee of paypal and don''t apply it on the customer (values : yes - no)', 1, 'yes,no', 'epayment_method');
-INSERT INTO cc_config VALUES (222, 'Cents Currency Associated', 'currency_cents_association', '', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (223, 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Context to use in Campaign of Callback', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (224, 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 'Context to use by default to forward the call in Campaign of Callback', 0, NULL, 'callback');
-INSERT INTO cc_config VALUES (226, 'Enable CDR local cache', 'cache_enabled', '0', 'If you want enabled the local cache to save the CDR in a SQLite Database.', 1, 'yes,no', 'global');
-INSERT INTO cc_config VALUES (227, 'Path for the CDR cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the CDR cache to save the CDR in a local SQLite database.', 0, NULL, 'global');
-INSERT INTO cc_config VALUES (228, 'PNL Pay Phones', 'report_pnl_pay_phones', '(8887798764,0.02,0.06)', 'Info for PNL report. Must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (229, 'PNL Toll Free Numbers', 'report_pnl_toll_free', '(6136864646,0.1,0),(6477249717,0.1,0)', 'Info for PNL report. must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (230, 'Verbosity', 'verbosity_level', '0', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (231, 'Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (232, 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'If you want enabled the info module customer and place it somewhere on the home page.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
-INSERT INTO cc_config VALUES (233, 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 'If you want enabled the info module refills and place it somewhere on the home page.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
-INSERT INTO cc_config VALUES (234, 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 'If you want enabled the info module payments and place it somewhere on the home page.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
-INSERT INTO cc_config VALUES (235, 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'If you want enabled the info module calls and place it somewhere on the home page.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
-INSERT INTO cc_config VALUES (236, 'PlugnPay Payment URL', 'plugnpay_payment_url', 'https://pay1.plugnpay.com/payment/pnpremote.cgi', 'Define here the URL of PlugnPay gateway.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (237, 'DIDX ID', 'didx_id', '708XXX', 'DIDX parameter : ID', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (238, 'DIDX PASS', 'didx_pass', 'XXXXXXXXXX', 'DIDX parameter : Password', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (239, 'DIDX MIN RATING', 'didx_min_rating', '0', 'DIDX parameter : min rating', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (240, 'DIDX RING TO', 'didx_ring_to', '0', 'DIDX parameter : ring to', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (225, 'Card Show Fields', 'card_show_field_list', 'id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,', 'Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname, id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused, firstname, email, discount, callerid, id_seria, serial', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (241, 'Card Serial Pad Length', 'card_serial_length', '7', 'Value of zero padding for serial. If this value set to 3 serial wil looks like 001', 0, NULL, 'webui');
-INSERT INTO cc_config VALUES (242, 'Dial Balance reservation', 'dial_balance_reservation', '0.25', 'Credit to reserve from the balance when a call is made. This will prevent negative balance on huge peak.', 0, NULL, 'agi-conf1');
-INSERT INTO cc_config VALUES (243, 'HTTP Server Agent', 'http_server_agent', 'http://www.call-labs.com', 'Set the Server Address of Agent Website, It should be empty for productive Servers.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (244, 'HTTPS Server Agent', 'https_server_agent', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Agents Server Address, should not be empty for productive servers.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (245, 'Server Agent IP/Domain', 'http_cookie_domain_agent', '26.63.165.200', 'Enter your Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, NULL, '5');
-INSERT INTO cc_config VALUES (246, 'Secure Server Agent IP/Domain', 'https_cookie_domain_agent', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (247, 'Application Agent Path', 'http_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (248, 'Secure Application Agent Path', 'https_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure Server.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (249, 'Application Agent Physical Path', 'dir_ws_http_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, NULL, 'epayment_method');
-INSERT INTO cc_config VALUES (250, 'Secure Application Agent Physical Path', 'dir_ws_https_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure server.', 0, NULL, 'epayment_method');
-
-
---
--- Data for Name: cc_config_group; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_config_group VALUES (1, 'global', 'This configuration group handles the global settings for application.');
-INSERT INTO cc_config_group VALUES (2, 'callback', 'This configuration group handles calllback settings.');
-INSERT INTO cc_config_group VALUES (3, 'webcustomerui', 'This configuration group handles Web Customer User Interface.');
-INSERT INTO cc_config_group VALUES (4, 'sip-iax-info', 'SIP & IAX client configuration information.');
-INSERT INTO cc_config_group VALUES (5, 'epayment_method', 'Epayment Methods Configuration.');
-INSERT INTO cc_config_group VALUES (6, 'signup', 'This configuration group handles the signup related settings.');
-INSERT INTO cc_config_group VALUES (7, 'backup', 'This configuration group handles the backup/restore related settings.');
-INSERT INTO cc_config_group VALUES (8, 'webui', 'This configuration group handles the WEBUI and API Configuration.');
-INSERT INTO cc_config_group VALUES (9, 'peer_friend', 'This configuration group define parameters for the friends creation.');
-INSERT INTO cc_config_group VALUES (10, 'log-files', 'This configuration group handles the Log Files Directory Paths.');
-INSERT INTO cc_config_group VALUES (11, 'agi-conf1', 'This configuration group handles the AGI Configuration.');
-INSERT INTO cc_config_group VALUES (12, 'notifications', 'This configuration group handles the notifcations configuration');
-INSERT INTO cc_config_group VALUES (13, 'dashboard', 'This configuration group handles the dashboard configuration');
-
-
---
--- Data for Name: cc_configuration; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_configuration VALUES (1, 'Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service', 0, NULL, NULL);
-INSERT INTO cc_configuration VALUES (2, 'Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data', 0, NULL, NULL);
-INSERT INTO cc_configuration VALUES (3, 'Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 0, NULL, 'tep_cfg_select_option(array(''Test'', ''Production''), ');
-INSERT INTO cc_configuration VALUES (4, 'Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 0, NULL, 'tep_cfg_select_option(array(''Credit Card'', ''eCheck''), ');
-INSERT INTO cc_configuration VALUES (5, 'Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
-INSERT INTO cc_configuration VALUES (6, 'Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
-INSERT INTO cc_configuration VALUES (7, 'Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
-INSERT INTO cc_configuration VALUES (8, 'E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service', 0, NULL, NULL);
-INSERT INTO cc_configuration VALUES (10, 'E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service', 0, NULL, NULL);
-INSERT INTO cc_configuration VALUES (11, 'Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com', 0, NULL, NULL);
-INSERT INTO cc_configuration VALUES (13, 'Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 0, NULL, 'tep_cfg_select_option(array(''Selected Language'',''EN'', ''DE'', ''ES'', ''FR''), ');
-INSERT INTO cc_configuration VALUES (14, 'Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
-INSERT INTO cc_configuration VALUES (15, 'Enable PlugnPay Module', 'MODULE_PAYMENT_PLUGNPAY_STATUS', 'True', 'Do you want to accept payments through PlugnPay?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
-INSERT INTO cc_configuration VALUES (16, 'Login Username', 'MODULE_PAYMENT_PLUGNPAY_LOGIN', 'Your Login Name', 'Enter your PlugnPay account username', 0, NULL, NULL);
-INSERT INTO cc_configuration VALUES (17, 'Publisher Email', 'MODULE_PAYMENT_PLUGNPAY_PUBLISHER_EMAIL', 'Enter Your Email Address', 'The email address you want PlugnPay conformations sent to', 0, NULL, NULL);
-INSERT INTO cc_configuration VALUES (18, 'cURL Setup', 'MODULE_PAYMENT_PLUGNPAY_CURL', 'Not Compiled', 'Whether cURL is compiled into PHP or not.  Windows users, select not compiled.', 0, NULL, 'tep_cfg_select_option(array(''Not Compiled'', ''Compiled''), ');
-INSERT INTO cc_configuration VALUES (19, 'cURL Path', 'MODULE_PAYMENT_PLUGNPAY_CURL_PATH', 'The Path To cURL', 'For Not Compiled mode only, input path to the cURL binary (i.e. c:/curl/curl)', 0, NULL, NULL);
-INSERT INTO cc_configuration VALUES (20, 'Transaction Mode', 'MODULE_PAYMENT_PLUGNPAY_TESTMODE', 'Test', 'Transaction mode used for processing orders', 0, NULL, 'tep_cfg_select_option(array(''Test'', ''Test And Debug'', ''Production''), ');
-INSERT INTO cc_configuration VALUES (21, 'Require CVV', 'MODULE_PAYMENT_PLUGNPAY_CVV', 'yes', 'Ask For CVV information', 0, NULL, 'tep_cfg_select_option(array(''yes'', ''no''), ');
-INSERT INTO cc_configuration VALUES (22, 'Transaction Method', 'MODULE_PAYMENT_PLUGNPAY_PAYMETHOD', 'credit', 'Transaction method used for processing orders.<br><b>NOTE:</b> Selecting ''onlinecheck'' assumes you''ll offer ''credit'' as well.', 0, NULL, 'tep_cfg_select_option(array(''credit'', ''onlinecheck''), ');
-INSERT INTO cc_configuration VALUES (23, 'Authorization Type', 'MODULE_PAYMENT_PLUGNPAY_CCMODE', 'authpostauth', 'Credit card processing mode', 0, NULL, 'tep_cfg_select_option(array(''authpostauth'', ''authonly''), ');
-INSERT INTO cc_configuration VALUES (24, 'Customer Notifications', 'MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL', 'yes', 'Should PlugnPay not email a receipt to the customer?', 0, NULL, 'tep_cfg_select_option(array(''yes'', ''no''), ');
-INSERT INTO cc_configuration VALUES (25, 'Accepted Credit Cards', 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC', 'Mastercard, Visa', 'The credit cards you currently accept', 0, NULL, '_selectOptions(array(''Amex'',''Discover'', ''Mastercard'', ''Visa''), ');
-INSERT INTO cc_configuration VALUES (9, 'Alternative Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The alternative currency to use for credit card transactions if the system currency is not usable', 0, NULL, 'tep_cfg_select_option(array(''USD'',''CAD'',''EUR'',''GBP'',''JPY''), ');
-INSERT INTO cc_configuration VALUES (12, 'Alternative Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The alternative currency to use for credit card transactions if the system currency is not usable', 0, NULL, 'tep_cfg_select_option(array(''EUR'', ''USD'', ''GBP'', ''HKD'', ''SGD'', ''JPY'', ''CAD'', ''AUD'', ''CHF'', ''DKK'', ''SEK'', ''NOK'', ''ILS'', ''MYR'', ''NZD'', ''TWD'', ''THB'', ''CZK'', ''HUF'', ''SKK'', ''ISK'', ''INR''), ');
-
-
---
--- Data for Name: cc_country; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_country VALUES (1, 'AFG', '93', 'Afghanistan');
-INSERT INTO cc_country VALUES (2, 'ALB', '355', 'Albania');
-INSERT INTO cc_country VALUES (3, 'DZA', '213', 'Algeria');
-INSERT INTO cc_country VALUES (4, 'ASM', '684', 'American Samoa');
-INSERT INTO cc_country VALUES (5, 'AND', '376', 'Andorra');
-INSERT INTO cc_country VALUES (6, 'AGO', '244', 'Angola');
-INSERT INTO cc_country VALUES (7, 'AIA', '1264', 'Anguilla');
-INSERT INTO cc_country VALUES (8, 'ATA', '672', 'Antarctica');
-INSERT INTO cc_country VALUES (9, 'ATG', '1268', 'Antigua And Barbuda');
-INSERT INTO cc_country VALUES (10, 'ARG', '54', 'Argentina');
-INSERT INTO cc_country VALUES (11, 'ARM', '374', 'Armenia');
-INSERT INTO cc_country VALUES (12, 'ABW', '297', 'Aruba');
-INSERT INTO cc_country VALUES (13, 'AUS', '61', 'Australia');
-INSERT INTO cc_country VALUES (14, 'AUT', '43', 'Austria');
-INSERT INTO cc_country VALUES (15, 'AZE', '994', 'Azerbaijan');
-INSERT INTO cc_country VALUES (16, 'BHS', '1242', 'Bahamas');
-INSERT INTO cc_country VALUES (17, 'BHR', '973', 'Bahrain');
-INSERT INTO cc_country VALUES (18, 'BGD', '880', 'Bangladesh');
-INSERT INTO cc_country VALUES (19, 'BRB', '1246', 'Barbados');
-INSERT INTO cc_country VALUES (20, 'BLR', '375', 'Belarus');
-INSERT INTO cc_country VALUES (21, 'BEL', '32', 'Belgium');
-INSERT INTO cc_country VALUES (22, 'BLZ', '501', 'Belize');
-INSERT INTO cc_country VALUES (23, 'BEN', '229', 'Benin');
-INSERT INTO cc_country VALUES (24, 'BMU', '1441', 'Bermuda');
-INSERT INTO cc_country VALUES (25, 'BTN', '975', 'Bhutan');
-INSERT INTO cc_country VALUES (26, 'BOL', '591', 'Bolivia');
-INSERT INTO cc_country VALUES (27, 'BIH', '387', 'Bosnia And Herzegovina');
-INSERT INTO cc_country VALUES (28, 'BWA', '267', 'Botswana');
-INSERT INTO cc_country VALUES (29, 'BVT', '0', 'Bouvet Island');
-INSERT INTO cc_country VALUES (30, 'BRA', '55', 'Brazil');
-INSERT INTO cc_country VALUES (31, 'IOT', '1284', 'British Indian Ocean Territory');
-INSERT INTO cc_country VALUES (32, 'BRN', '673', 'Brunei Darussalam');
-INSERT INTO cc_country VALUES (33, 'BGR', '359', 'Bulgaria');
-INSERT INTO cc_country VALUES (34, 'BFA', '226', 'Burkina Faso');
-INSERT INTO cc_country VALUES (35, 'BDI', '257', 'Burundi');
-INSERT INTO cc_country VALUES (36, 'KHM', '855', 'Cambodia');
-INSERT INTO cc_country VALUES (37, 'CMR', '237', 'Cameroon');
-INSERT INTO cc_country VALUES (38, 'CAN', '1', 'Canada');
-INSERT INTO cc_country VALUES (39, 'CPV', '238', 'Cape Verde');
-INSERT INTO cc_country VALUES (40, 'CYM', '1345', 'Cayman Islands');
-INSERT INTO cc_country VALUES (41, 'CAF', '236', 'Central African Republic');
-INSERT INTO cc_country VALUES (42, 'TCD', '235', 'Chad');
-INSERT INTO cc_country VALUES (43, 'CHL', '56', 'Chile');
-INSERT INTO cc_country VALUES (44, 'CHN', '86', 'China');
-INSERT INTO cc_country VALUES (45, 'CXR', '618', 'Christmas Island');
-INSERT INTO cc_country VALUES (46, 'CCK', '61', 'Cocos (Keeling); Islands');
-INSERT INTO cc_country VALUES (47, 'COL', '57', 'Colombia');
-INSERT INTO cc_country VALUES (48, 'COM', '269', 'Comoros');
-INSERT INTO cc_country VALUES (49, 'COG', '242', 'Congo');
-INSERT INTO cc_country VALUES (50, 'COD', '243', 'Congo, The Democratic Republic Of The');
-INSERT INTO cc_country VALUES (51, 'COK', '682', 'Cook Islands');
-INSERT INTO cc_country VALUES (52, 'CRI', '506', 'Costa Rica');
-INSERT INTO cc_country VALUES (54, 'HRV', '385', 'Croatia');
-INSERT INTO cc_country VALUES (55, 'CUB', '53', 'Cuba');
-INSERT INTO cc_country VALUES (56, 'CYP', '357', 'Cyprus');
-INSERT INTO cc_country VALUES (57, 'CZE', '420', 'Czech Republic');
-INSERT INTO cc_country VALUES (58, 'DNK', '45', 'Denmark');
-INSERT INTO cc_country VALUES (59, 'DJI', '253', 'Djibouti');
-INSERT INTO cc_country VALUES (60, 'DMA', '1767', 'Dominica');
-INSERT INTO cc_country VALUES (61, 'DOM', '1809', 'Dominican Republic');
-INSERT INTO cc_country VALUES (62, 'ECU', '593', 'Ecuador');
-INSERT INTO cc_country VALUES (63, 'EGY', '20', 'Egypt');
-INSERT INTO cc_country VALUES (64, 'SLV', '503', 'El Salvador');
-INSERT INTO cc_country VALUES (65, 'GNQ', '240', 'Equatorial Guinea');
-INSERT INTO cc_country VALUES (66, 'ERI', '291', 'Eritrea');
-INSERT INTO cc_country VALUES (67, 'EST', '372', 'Estonia');
-INSERT INTO cc_country VALUES (68, 'ETH', '251', 'Ethiopia');
-INSERT INTO cc_country VALUES (69, 'FLK', '500', 'Falkland Islands (Malvinas);');
-INSERT INTO cc_country VALUES (70, 'FRO', '298', 'Faroe Islands');
-INSERT INTO cc_country VALUES (71, 'FJI', '679', 'Fiji');
-INSERT INTO cc_country VALUES (72, 'FIN', '358', 'Finland');
-INSERT INTO cc_country VALUES (73, 'FRA', '33', 'France');
-INSERT INTO cc_country VALUES (74, 'GUF', '596', 'French Guiana');
-INSERT INTO cc_country VALUES (75, 'PYF', '594', 'French Polynesia');
-INSERT INTO cc_country VALUES (76, 'ATF', '689', 'French Southern Territories');
-INSERT INTO cc_country VALUES (77, 'GAB', '241', 'Gabon');
-INSERT INTO cc_country VALUES (78, 'GMB', '220', 'Gambia');
-INSERT INTO cc_country VALUES (79, 'GEO', '995', 'Georgia');
-INSERT INTO cc_country VALUES (80, 'DEU', '49', 'Germany');
-INSERT INTO cc_country VALUES (81, 'GHA', '233', 'Ghana');
-INSERT INTO cc_country VALUES (82, 'GIB', '350', 'Gibraltar');
-INSERT INTO cc_country VALUES (83, 'GRC', '30', 'Greece');
-INSERT INTO cc_country VALUES (84, 'GRL', '299', 'Greenland');
-INSERT INTO cc_country VALUES (85, 'GRD', '1473', 'Grenada');
-INSERT INTO cc_country VALUES (86, 'GLP', '590', 'Guadeloupe');
-INSERT INTO cc_country VALUES (87, 'GUM', '1671', 'Guam');
-INSERT INTO cc_country VALUES (88, 'GTM', '502', 'Guatemala');
-INSERT INTO cc_country VALUES (89, 'GIN', '224', 'Guinea');
-INSERT INTO cc_country VALUES (90, 'GNB', '245', 'Guinea-Bissau');
-INSERT INTO cc_country VALUES (91, 'GUY', '592', 'Guyana');
-INSERT INTO cc_country VALUES (92, 'HTI', '509', 'Haiti');
-INSERT INTO cc_country VALUES (93, 'HMD', '0', 'Heard Island And McDonald Islands');
-INSERT INTO cc_country VALUES (94, 'VAT', '0', 'Holy See (Vatican City State);');
-INSERT INTO cc_country VALUES (95, 'HND', '504', 'Honduras');
-INSERT INTO cc_country VALUES (96, 'HKG', '852', 'Hong Kong');
-INSERT INTO cc_country VALUES (97, 'HUN', '36', 'Hungary');
-INSERT INTO cc_country VALUES (98, 'ISL', '354', 'Iceland');
-INSERT INTO cc_country VALUES (99, 'IND', '91', 'India');
-INSERT INTO cc_country VALUES (100, 'IDN', '62', 'Indonesia');
-INSERT INTO cc_country VALUES (101, 'IRN', '98', 'Iran, Islamic Republic Of');
-INSERT INTO cc_country VALUES (102, 'IRQ', '964', 'Iraq');
-INSERT INTO cc_country VALUES (103, 'IRL', '353', 'Ireland');
-INSERT INTO cc_country VALUES (104, 'ISR', '972', 'Israel');
-INSERT INTO cc_country VALUES (105, 'ITA', '39', 'Italy');
-INSERT INTO cc_country VALUES (106, 'JAM', '1876', 'Jamaica');
-INSERT INTO cc_country VALUES (107, 'JPN', '81', 'Japan');
-INSERT INTO cc_country VALUES (108, 'JOR', '962', 'Jordan');
-INSERT INTO cc_country VALUES (109, 'KAZ', '7', 'Kazakhstan');
-INSERT INTO cc_country VALUES (110, 'KEN', '254', 'Kenya');
-INSERT INTO cc_country VALUES (111, 'KIR', '686', 'Kiribati');
-INSERT INTO cc_country VALUES (112, 'PRK', '850', 'Korea, Democratic People''s Republic Of');
-INSERT INTO cc_country VALUES (113, 'KOR', '82', 'Korea, Republic of');
-INSERT INTO cc_country VALUES (114, 'KWT', '965', 'Kuwait');
-INSERT INTO cc_country VALUES (115, 'KGZ', '996', 'Kyrgyzstan');
-INSERT INTO cc_country VALUES (117, 'LVA', '371', 'Latvia');
-INSERT INTO cc_country VALUES (118, 'LBN', '961', 'Lebanon');
-INSERT INTO cc_country VALUES (119, 'LSO', '266', 'Lesotho');
-INSERT INTO cc_country VALUES (120, 'LBR', '231', 'Liberia');
-INSERT INTO cc_country VALUES (121, 'LBY', '218', 'Libyan Arab Jamahiriya');
-INSERT INTO cc_country VALUES (122, 'LIE', '423', 'Liechtenstein');
-INSERT INTO cc_country VALUES (123, 'LTU', '370', 'Lithuania');
-INSERT INTO cc_country VALUES (124, 'LUX', '352', 'Luxembourg');
-INSERT INTO cc_country VALUES (125, 'MAC', '853', 'Macao');
-INSERT INTO cc_country VALUES (126, 'MKD', '389', 'Macedonia, The Former Yugoslav Republic Of');
-INSERT INTO cc_country VALUES (127, 'MDG', '261', 'Madagascar');
-INSERT INTO cc_country VALUES (128, 'MWI', '265', 'Malawi');
-INSERT INTO cc_country VALUES (129, 'MYS', '60', 'Malaysia');
-INSERT INTO cc_country VALUES (130, 'MDV', '960', 'Maldives');
-INSERT INTO cc_country VALUES (131, 'MLI', '223', 'Mali');
-INSERT INTO cc_country VALUES (132, 'MLT', '356', 'Malta');
-INSERT INTO cc_country VALUES (133, 'MHL', '692', 'Marshall islands');
-INSERT INTO cc_country VALUES (134, 'MTQ', '596', 'Martinique');
-INSERT INTO cc_country VALUES (135, 'MRT', '222', 'Mauritania');
-INSERT INTO cc_country VALUES (136, 'MUS', '230', 'Mauritius');
-INSERT INTO cc_country VALUES (137, 'MYT', '269', 'Mayotte');
-INSERT INTO cc_country VALUES (138, 'MEX', '52', 'Mexico');
-INSERT INTO cc_country VALUES (139, 'FSM', '691', 'Micronesia, Federated States Of');
-INSERT INTO cc_country VALUES (140, 'MDA', '1808', 'Moldova, Republic Of');
-INSERT INTO cc_country VALUES (141, 'MCO', '377', 'Monaco');
-INSERT INTO cc_country VALUES (142, 'MNG', '976', 'Mongolia');
-INSERT INTO cc_country VALUES (143, 'MSR', '1664', 'Montserrat');
-INSERT INTO cc_country VALUES (144, 'MAR', '212', 'Morocco');
-INSERT INTO cc_country VALUES (145, 'MOZ', '258', 'Mozambique');
-INSERT INTO cc_country VALUES (146, 'MMR', '95', 'Myanmar');
-INSERT INTO cc_country VALUES (147, 'NAM', '264', 'Namibia');
-INSERT INTO cc_country VALUES (148, 'NRU', '674', 'Nauru');
-INSERT INTO cc_country VALUES (149, 'NPL', '977', 'Nepal');
-INSERT INTO cc_country VALUES (150, 'NLD', '31', 'Netherlands');
-INSERT INTO cc_country VALUES (151, 'ANT', '599', 'Netherlands Antilles');
-INSERT INTO cc_country VALUES (152, 'NCL', '687', 'New Caledonia');
-INSERT INTO cc_country VALUES (153, 'NZL', '64', 'New Zealand');
-INSERT INTO cc_country VALUES (154, 'NIC', '505', 'Nicaragua');
-INSERT INTO cc_country VALUES (155, 'NER', '227', 'Niger');
-INSERT INTO cc_country VALUES (156, 'NGA', '234', 'Nigeria');
-INSERT INTO cc_country VALUES (157, 'NIU', '683', 'Niue');
-INSERT INTO cc_country VALUES (158, 'NFK', '672', 'Norfolk Island');
-INSERT INTO cc_country VALUES (159, 'MNP', '1670', 'Northern Mariana Islands');
-INSERT INTO cc_country VALUES (160, 'NOR', '47', 'Norway');
-INSERT INTO cc_country VALUES (161, 'OMN', '968', 'Oman');
-INSERT INTO cc_country VALUES (162, 'PAK', '92', 'Pakistan');
-INSERT INTO cc_country VALUES (163, 'PLW', '680', 'Palau');
-INSERT INTO cc_country VALUES (164, 'PSE', '970', 'Palestinian Territory, Occupied');
-INSERT INTO cc_country VALUES (165, 'PAN', '507', 'Panama');
-INSERT INTO cc_country VALUES (166, 'PNG', '675', 'Papua New Guinea');
-INSERT INTO cc_country VALUES (167, 'PRY', '595', 'Paraguay');
-INSERT INTO cc_country VALUES (168, 'PER', '51', 'Peru');
-INSERT INTO cc_country VALUES (169, 'PHL', '63', 'Philippines');
-INSERT INTO cc_country VALUES (170, 'PCN', '0', 'Pitcairn');
-INSERT INTO cc_country VALUES (171, 'POL', '48', 'Poland');
-INSERT INTO cc_country VALUES (172, 'PRT', '351', 'Portugal');
-INSERT INTO cc_country VALUES (173, 'PRI', '1787', 'Puerto Rico');
-INSERT INTO cc_country VALUES (174, 'QAT', '974', 'Qatar');
-INSERT INTO cc_country VALUES (175, 'REU', '262', 'Reunion');
-INSERT INTO cc_country VALUES (176, 'ROU', '40', 'Romania');
-INSERT INTO cc_country VALUES (177, 'RUS', '7', 'Russian Federation');
-INSERT INTO cc_country VALUES (178, 'RWA', '250', 'Rwanda');
-INSERT INTO cc_country VALUES (179, 'SHN', '290', 'Saint Helena');
-INSERT INTO cc_country VALUES (180, 'KNA', '1869', 'Saint Kitts And Nevis');
-INSERT INTO cc_country VALUES (181, 'LCA', '1758', 'Saint Lucia');
-INSERT INTO cc_country VALUES (182, 'SPM', '508', 'Saint Pierre And Miquelon');
-INSERT INTO cc_country VALUES (183, 'VCT', '1784', 'Saint Vincent And The Grenadines');
-INSERT INTO cc_country VALUES (184, 'WSM', '685', 'Samoa');
-INSERT INTO cc_country VALUES (185, 'SMR', '378', 'San Marino');
-INSERT INTO cc_country VALUES (186, 'STP', '239', 'São Tomé And Principe');
-INSERT INTO cc_country VALUES (187, 'SAU', '966', 'Saudi Arabia');
-INSERT INTO cc_country VALUES (188, 'SEN', '221', 'Senegal');
-INSERT INTO cc_country VALUES (189, 'SYC', '248', 'Seychelles');
-INSERT INTO cc_country VALUES (190, 'SLE', '232', 'Sierra Leone');
-INSERT INTO cc_country VALUES (191, 'SGP', '65', 'Singapore');
-INSERT INTO cc_country VALUES (192, 'SVK', '421', 'Slovakia');
-INSERT INTO cc_country VALUES (193, 'SVN', '386', 'Slovenia');
-INSERT INTO cc_country VALUES (194, 'SLB', '677', 'Solomon Islands');
-INSERT INTO cc_country VALUES (195, 'SOM', '252', 'Somalia');
-INSERT INTO cc_country VALUES (196, 'ZAF', '27', 'South Africa');
-INSERT INTO cc_country VALUES (197, 'SGS', '0', 'South Georgia And The South Sandwich Islands');
-INSERT INTO cc_country VALUES (198, 'ESP', '34', 'Spain');
-INSERT INTO cc_country VALUES (199, 'LKA', '94', 'Sri Lanka');
-INSERT INTO cc_country VALUES (200, 'SDN', '249', 'Sudan');
-INSERT INTO cc_country VALUES (201, 'SUR', '597', 'Suriname');
-INSERT INTO cc_country VALUES (202, 'SJM', '0', 'Svalbard and Jan Mayen');
-INSERT INTO cc_country VALUES (203, 'SWZ', '268', 'Swaziland');
-INSERT INTO cc_country VALUES (204, 'SWE', '46', 'Sweden');
-INSERT INTO cc_country VALUES (205, 'CHE', '41', 'Switzerland');
-INSERT INTO cc_country VALUES (206, 'SYR', '963', 'Syrian Arab Republic');
-INSERT INTO cc_country VALUES (207, 'TWN', '886', 'Taiwan, Province Of China');
-INSERT INTO cc_country VALUES (208, 'TJK', '992', 'Tajikistan');
-INSERT INTO cc_country VALUES (209, 'TZA', '255', 'Tanzania, United Republic Of');
-INSERT INTO cc_country VALUES (210, 'THA', '66', 'Thailand');
-INSERT INTO cc_country VALUES (212, 'TGO', '228', 'Togo');
-INSERT INTO cc_country VALUES (213, 'TKL', '690', 'Tokelau');
-INSERT INTO cc_country VALUES (214, 'TON', '676', 'Tonga');
-INSERT INTO cc_country VALUES (215, 'TTO', '1868', 'Trinidad And Tobago');
-INSERT INTO cc_country VALUES (216, 'TUN', '216', 'Tunisia');
-INSERT INTO cc_country VALUES (217, 'TUR', '90', 'Turkey');
-INSERT INTO cc_country VALUES (218, 'TKM', '993', 'Turkmenistan');
-INSERT INTO cc_country VALUES (219, 'TCA', '1649', 'Turks And Caicos Islands');
-INSERT INTO cc_country VALUES (220, 'TUV', '688', 'Tuvalu');
-INSERT INTO cc_country VALUES (221, 'UGA', '256', 'Uganda');
-INSERT INTO cc_country VALUES (222, 'UKR', '380', 'Ukraine');
-INSERT INTO cc_country VALUES (223, 'ARE', '971', 'United Arab Emirates');
-INSERT INTO cc_country VALUES (224, 'GBR', '44', 'United Kingdom');
-INSERT INTO cc_country VALUES (225, 'USA', '1', 'United States');
-INSERT INTO cc_country VALUES (226, 'UMI', '0', 'United States Minor Outlying Islands');
-INSERT INTO cc_country VALUES (227, 'URY', '598', 'Uruguay');
-INSERT INTO cc_country VALUES (228, 'UZB', '998', 'Uzbekistan');
-INSERT INTO cc_country VALUES (229, 'VUT', '678', 'Vanuatu');
-INSERT INTO cc_country VALUES (230, 'VEN', '58', 'Venezuela');
-INSERT INTO cc_country VALUES (231, 'VNM', '84', 'Vietnam');
-INSERT INTO cc_country VALUES (232, 'VGB', '1284', 'Virgin Islands, British');
-INSERT INTO cc_country VALUES (233, 'VIR', '808', 'Virgin Islands, U.S.');
-INSERT INTO cc_country VALUES (234, 'WLF', '681', 'Wallis And Futuna');
-INSERT INTO cc_country VALUES (235, 'ESH', '0', 'Western Sahara');
-INSERT INTO cc_country VALUES (236, 'YEM', '967', 'Yemen');
-INSERT INTO cc_country VALUES (237, 'YUG', '0', 'Yugoslavia');
-INSERT INTO cc_country VALUES (238, 'ZMB', '260', 'Zambia');
-INSERT INTO cc_country VALUES (239, 'ZWE', '263', 'Zimbabwe');
-INSERT INTO cc_country VALUES (240, 'ASC', '0', 'Ascension Island');
-INSERT INTO cc_country VALUES (241, 'DGA', '0', 'Diego Garcia');
-INSERT INTO cc_country VALUES (242, 'XNM', '0', 'Inmarsat');
-INSERT INTO cc_country VALUES (244, 'AK', '0', 'Alaska');
-INSERT INTO cc_country VALUES (245, 'HI', '0', 'Hawaii');
-INSERT INTO cc_country VALUES (53, 'CIV', '225', 'Côte d''Ivoire');
-INSERT INTO cc_country VALUES (246, 'ALA', '35818', 'Aland Islands');
-INSERT INTO cc_country VALUES (247, 'BLM', '0', 'Saint Barthelemy');
-INSERT INTO cc_country VALUES (248, 'GGY', '441481', 'Guernsey');
-INSERT INTO cc_country VALUES (249, 'IMN', '441624', 'Isle of Man');
-INSERT INTO cc_country VALUES (250, 'JEY', '441534', 'Jersey');
-INSERT INTO cc_country VALUES (251, 'MAF', '0', 'Saint Martin');
-INSERT INTO cc_country VALUES (252, 'MNE', '382', 'Montenegro, Republic of');
-INSERT INTO cc_country VALUES (253, 'SRB', '381', 'Serbia, Republic of');
-INSERT INTO cc_country VALUES (254, 'CPT', '0', 'Clipperton Island');
-INSERT INTO cc_country VALUES (211, 'TLS', '670', 'Timor-Leste');
-INSERT INTO cc_country VALUES (255, 'TAA', '0', 'Tristan da Cunha');
-INSERT INTO cc_country VALUES (116, 'LAO', '856', 'Lao People''s Democratic Republic');
-INSERT INTO cc_country VALUES (243, 'TMP', '0', 'East timor');
-
-
---
--- Data for Name: cc_currencies; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_currencies VALUES (1, 'ALL', 'Albanian Lek (ALL)', 0.00974, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (2, 'DZD', 'Algerian Dinar (DZD)', 0.01345, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (3, 'XAL', 'Aluminium Ounces (XAL)', 1.08295, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (4, 'ARS', 'Argentine Peso (ARS)', 0.32455, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (5, 'AWG', 'Aruba Florin (AWG)', 0.55866, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (6, 'AUD', 'Australian Dollar (AUD)', 0.73384, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (7, 'BSD', 'Bahamian Dollar (BSD)', 1.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (8, 'BHD', 'Bahraini Dinar (BHD)', 2.65322, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (9, 'BDT', 'Bangladesh Taka (BDT)', 0.01467, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (10, 'BBD', 'Barbados Dollar (BBD)', 0.50000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (11, 'BYR', 'Belarus Ruble (BYR)', 0.00046, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (12, 'BZD', 'Belize Dollar (BZD)', 0.50569, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (13, 'BMD', 'Bermuda Dollar (BMD)', 1.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (14, 'BTN', 'Bhutan Ngultrum (BTN)', 0.02186, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (15, 'BOB', 'Bolivian Boliviano (BOB)', 0.12500, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (16, 'BRL', 'Brazilian Real (BRL)', 0.46030, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (17, 'GBP', 'British Pound (GBP)', 1.73702, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (18, 'BND', 'Brunei Dollar (BND)', 0.61290, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (19, 'BGN', 'Bulgarian Lev (BGN)', 0.60927, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (20, 'BIF', 'Burundi Franc (BIF)', 0.00103, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (21, 'KHR', 'Cambodia Riel (KHR)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (22, 'CAD', 'Canadian Dollar (CAD)', 0.86386, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (23, 'KYD', 'Cayman Islands Dollar (KYD)', 1.16496, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (24, 'XOF', 'CFA Franc (BCEAO) (XOF)', 0.00182, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (25, 'XAF', 'CFA Franc (BEAC) (XAF)', 0.00182, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (26, 'CLP', 'Chilean Peso (CLP)', 0.00187, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (27, 'CNY', 'Chinese Yuan (CNY)', 0.12425, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (28, 'COP', 'Colombian Peso (COP)', 0.00044, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (29, 'KMF', 'Comoros Franc (KMF)', 0.00242, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (30, 'XCP', 'Copper Ounces (XCP)', 2.16403, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (31, 'CRC', 'Costa Rica Colon (CRC)', 0.00199, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (32, 'HRK', 'Croatian Kuna (HRK)', 0.16249, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (33, 'CUP', 'Cuban Peso (CUP)', 1.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (34, 'CYP', 'Cyprus Pound (CYP)', 2.07426, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (35, 'CZK', 'Czech Koruna (CZK)', 0.04133, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (36, 'DKK', 'Danish Krone (DKK)', 0.15982, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (37, 'DJF', 'Dijibouti Franc (DJF)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (38, 'DOP', 'Dominican Peso (DOP)', 0.03035, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (39, 'XCD', 'East Caribbean Dollar (XCD)', 0.37037, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (40, 'ECS', 'Ecuador Sucre (ECS)', 0.00004, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (41, 'EGP', 'Egyptian Pound (EGP)', 0.17433, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (42, 'SVC', 'El Salvador Colon (SVC)', 0.11426, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (43, 'ERN', 'Eritrea Nakfa (ERN)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (44, 'EEK', 'Estonian Kroon (EEK)', 0.07615, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (45, 'ETB', 'Ethiopian Birr (ETB)', 0.11456, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (46, 'EUR', 'Euro (EUR)', 1.19175, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (47, 'FKP', 'Falkland Islands Pound (FKP)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (48, 'GMD', 'Gambian Dalasi (GMD)', 0.03515, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (49, 'GHC', 'Ghanian Cedi (GHC)', 0.00011, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (50, 'GIP', 'Gibraltar Pound (GIP)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (51, 'XAU', 'Gold Ounces (XAU)', 555.55556, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (52, 'GTQ', 'Guatemala Quetzal (GTQ)', 0.13103, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (53, 'GNF', 'Guinea Franc (GNF)', 0.00022, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (54, 'HTG', 'Haiti Gourde (HTG)', 0.02387, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (55, 'HNL', 'Honduras Lempira (HNL)', 0.05292, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (56, 'HKD', 'Hong Kong Dollar (HKD)', 0.12884, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (57, 'HUF', 'Hungarian Forint (HUF)', 0.00461, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (58, 'ISK', 'Iceland Krona (ISK)', 0.01436, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (59, 'INR', 'Indian Rupee (INR)', 0.02253, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (60, 'IDR', 'Indonesian Rupiah (IDR)', 0.00011, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (61, 'IRR', 'Iran Rial (IRR)', 0.00011, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (62, 'ILS', 'Israeli Shekel (ILS)', 0.21192, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (63, 'JMD', 'Jamaican Dollar (JMD)', 0.01536, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (64, 'JPY', 'Japanese Yen (JPY)', 0.00849, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (65, 'JOD', 'Jordanian Dinar (JOD)', 1.41044, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (66, 'KZT', 'Kazakhstan Tenge (KZT)', 0.00773, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (67, 'KES', 'Kenyan Shilling (KES)', 0.01392, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (68, 'KRW', 'Korean Won (KRW)', 0.00102, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (69, 'KWD', 'Kuwaiti Dinar (KWD)', 3.42349, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (70, 'LAK', 'Lao Kip (LAK)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (71, 'LVL', 'Latvian Lat (LVL)', 1.71233, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (72, 'LBP', 'Lebanese Pound (LBP)', 0.00067, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (73, 'LSL', 'Lesotho Loti (LSL)', 0.15817, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (74, 'LYD', 'Libyan Dinar (LYD)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (75, 'LTL', 'Lithuanian Lita (LTL)', 0.34510, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (76, 'MOP', 'Macau Pataca (MOP)', 0.12509, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (77, 'MKD', 'Macedonian Denar (MKD)', 0.01945, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (78, 'MGF', 'Malagasy Franc (MGF)', 0.00011, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (79, 'MWK', 'Malawi Kwacha (MWK)', 0.00752, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (80, 'MYR', 'Malaysian Ringgit (MYR)', 0.26889, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (81, 'MVR', 'Maldives Rufiyaa (MVR)', 0.07813, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (82, 'MTL', 'Maltese Lira (MTL)', 2.77546, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (83, 'MRO', 'Mauritania Ougulya (MRO)', 0.00369, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (84, 'MUR', 'Mauritius Rupee (MUR)', 0.03258, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (85, 'MXN', 'Mexican Peso (MXN)', 0.09320, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (86, 'MDL', 'Moldovan Leu (MDL)', 0.07678, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (87, 'MNT', 'Mongolian Tugrik (MNT)', 0.00084, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (88, 'MAD', 'Moroccan Dirham (MAD)', 0.10897, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (89, 'MZM', 'Mozambique Metical (MZM)', 0.00004, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (90, 'NAD', 'Namibian Dollar (NAD)', 0.15817, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (91, 'NPR', 'Nepalese Rupee (NPR)', 0.01408, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (92, 'ANG', 'Neth Antilles Guilder (ANG)', 0.55866, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (93, 'TRY', 'New Turkish Lira (TRY)', 0.73621, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (94, 'NZD', 'New Zealand Dollar (NZD)', 0.65096, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (95, 'NIO', 'Nicaragua Cordoba (NIO)', 0.05828, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (96, 'NGN', 'Nigerian Naira (NGN)', 0.00777, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (97, 'NOK', 'Norwegian Krone (NOK)', 0.14867, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (98, 'OMR', 'Omani Rial (OMR)', 2.59740, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (99, 'XPF', 'Pacific Franc (XPF)', 0.00999, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (100, 'PKR', 'Pakistani Rupee (PKR)', 0.01667, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (101, 'XPD', 'Palladium Ounces (XPD)', 277.77778, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (102, 'PAB', 'Panama Balboa (PAB)', 1.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (103, 'PGK', 'Papua New Guinea Kina (PGK)', 0.33125, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (104, 'PYG', 'Paraguayan Guarani (PYG)', 0.00017, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (105, 'PEN', 'Peruvian Nuevo Sol (PEN)', 0.29999, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (106, 'PHP', 'Philippine Peso (PHP)', 0.01945, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (107, 'XPT', 'Platinum Ounces (XPT)', 1000.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (108, 'PLN', 'Polish Zloty (PLN)', 0.30574, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (109, 'QAR', 'Qatar Rial (QAR)', 0.27476, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (110, 'ROL', 'Romanian Leu (ROL)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (111, 'RON', 'Romanian New Leu (RON)', 0.34074, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (112, 'RUB', 'Russian Rouble (RUB)', 0.03563, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (113, 'RWF', 'Rwanda Franc (RWF)', 0.00185, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (114, 'WST', 'Samoa Tala (WST)', 0.35492, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (115, 'STD', 'Sao Tome Dobra (STD)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (116, 'SAR', 'Saudi Arabian Riyal (SAR)', 0.26665, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (117, 'SCR', 'Seychelles Rupee (SCR)', 0.18114, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (118, 'SLL', 'Sierra Leone Leone (SLL)', 0.00034, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (119, 'XAG', 'Silver Ounces (XAG)', 9.77517, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (120, 'SGD', 'Singapore Dollar (SGD)', 0.61290, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (121, 'SKK', 'Slovak Koruna (SKK)', 0.03157, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (122, 'SIT', 'Slovenian Tolar (SIT)', 0.00498, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (123, 'SOS', 'Somali Shilling (SOS)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (124, 'ZAR', 'South African Rand (ZAR)', 0.15835, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (125, 'LKR', 'Sri Lanka Rupee (LKR)', 0.00974, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (126, 'SHP', 'St Helena Pound (SHP)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (127, 'SDD', 'Sudanese Dinar (SDD)', 0.00427, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (128, 'SRG', 'Surinam Guilder (SRG)', 0.36496, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (129, 'SZL', 'Swaziland Lilageni (SZL)', 0.15817, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (130, 'SEK', 'Swedish Krona (SEK)', 0.12609, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (131, 'CHF', 'Swiss Franc (CHF)', 0.76435, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (132, 'SYP', 'Syrian Pound (SYP)', 0.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (133, 'TWD', 'Taiwan Dollar (TWD)', 0.03075, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (134, 'TZS', 'Tanzanian Shilling (TZS)', 0.00083, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (135, 'THB', 'Thai Baht (THB)', 0.02546, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (136, 'TOP', 'Tonga Paanga (TOP)', 0.48244, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (137, 'TTD', 'Trinidad&Tobago Dollar (TTD)', 0.15863, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (138, 'TND', 'Tunisian Dinar (TND)', 0.73470, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (139, 'USD', 'U.S. Dollar (USD)', 1.00000, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (140, 'AED', 'UAE Dirham (AED)', 0.27228, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (141, 'UGX', 'Ugandan Shilling (UGX)', 0.00055, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (142, 'UAH', 'Ukraine Hryvnia (UAH)', 0.19755, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (143, 'UYU', 'Uruguayan New Peso (UYU)', 0.04119, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (144, 'VUV', 'Vanuatu Vatu (VUV)', 0.00870, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (145, 'VEB', 'Venezuelan Bolivar (VEB)', 0.00037, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (146, 'VND', 'Vietnam Dong (VND)', 0.00006, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (147, 'YER', 'Yemen Riyal (YER)', 0.00510, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (148, 'ZMK', 'Zambian Kwacha (ZMK)', 0.00031, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (149, 'ZWD', 'Zimbabwe Dollar (ZWD)', 0.00001, '2009-04-02 16:05:53.530259', 'USD');
-INSERT INTO cc_currencies VALUES (150, 'GYD', 'Guyana Dollar (GYD)', 0.00527, '2009-04-02 16:05:53.530259', 'USD');
-
-
---
--- Data for Name: cc_did; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_did_destination; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_did_use; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_didgroup; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_ecommerce_product; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_epayment_log; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_epayment_log_agent; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_iax_buddies; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_invoice; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_invoice_conf; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_invoice_conf VALUES (1, 'company_name', 'My company');
-INSERT INTO cc_invoice_conf VALUES (2, 'address', 'address');
-INSERT INTO cc_invoice_conf VALUES (3, 'zipcode', 'xxxx');
-INSERT INTO cc_invoice_conf VALUES (4, 'country', 'country');
-INSERT INTO cc_invoice_conf VALUES (5, 'city', 'city');
-INSERT INTO cc_invoice_conf VALUES (6, 'phone', 'xxxxxxxxxxx');
-INSERT INTO cc_invoice_conf VALUES (7, 'fax', 'xxxxxxxxxxx');
-INSERT INTO cc_invoice_conf VALUES (8, 'email', 'xxxxxxx@xxxxxxx.xxx');
-INSERT INTO cc_invoice_conf VALUES (9, 'vat', 'xxxxxxxxxx');
-INSERT INTO cc_invoice_conf VALUES (10, 'web', 'www.xxxxxxx.xxx');
-
-
---
--- Data for Name: cc_invoice_item; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_invoice_payment; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_iso639; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_iso639 VALUES ('ab', 'Abkhazian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('om', 'Afan (Oromo)    ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('aa', 'Afar            ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('af', 'Afrikaans       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sq', 'Albanian        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('am', 'Amharic         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ar', 'Arabic          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('hy', 'Armenian        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('as', 'Assamese        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ay', 'Aymara          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('az', 'Azerbaijani     ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ba', 'Bashkir         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('eu', 'Basque          ', 'Euskera         ', 'ISO-8859-15     ');
-INSERT INTO cc_iso639 VALUES ('bn', 'Bengali Bangla  ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('dz', 'Bhutani         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('bh', 'Bihari          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('bi', 'Bislama         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('br', 'Breton          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('bg', 'Bulgarian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('my', 'Burmese         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('be', 'Byelorussian    ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('km', 'Cambodian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ca', 'Catalan         ', '          		    ', 'ISO-8859-15     ');
-INSERT INTO cc_iso639 VALUES ('zh', 'Chinese         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('co', 'Corsican        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('hr', 'Croatian        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('cs', 'Czech           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('da', 'Danish          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('nl', 'Dutch           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('en', 'English         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('eo', 'Esperanto       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('et', 'Estonian        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('fo', 'Faroese         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('fj', 'Fiji            ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('fi', 'Finnish         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('fr', 'French          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('fy', 'Frisian         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('gl', 'Galician        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ka', 'Georgian        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('de', 'German          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('el', 'Greek           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('kl', 'Greenlandic     ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('gn', 'Guarani         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('gu', 'Gujarati        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ha', 'Hausa           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('he', 'Hebrew          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('hi', 'Hindi           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('hu', 'Hungarian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('is', 'Icelandic       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('id', 'Indonesian      ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ia', 'Interlingua     ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ie', 'Interlingue     ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('iu', 'Inuktitut       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ik', 'Inupiak         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ga', 'Irish           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('it', 'Italian         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ja', 'Japanese        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('jv', 'Javanese        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('kn', 'Kannada         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ks', 'Kashmiri        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('kk', 'Kazakh          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('rw', 'Kinyarwanda     ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ky', 'Kirghiz         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('rn', 'Kurundi         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ko', 'Korean          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ku', 'Kurdish         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('lo', 'Laothian        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('la', 'Latin           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('lv', 'Latvian Lettish ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ln', 'Lingala         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('lt', 'Lithuanian      ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('mk', 'Macedonian      ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('mg', 'Malagasy        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ms', 'Malay           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ml', 'Malayalam       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('mt', 'Maltese         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('mi', 'Maori           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('mr', 'Marathi         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('mo', 'Moldavian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('mn', 'Mongolian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('na', 'Nauru           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ne', 'Nepali          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('no', 'Norwegian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('oc', 'Occitan         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('or', 'Oriya           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ps', 'Pashto Pushto   ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('fa', 'Persian (Farsi) ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('pl', 'Polish          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('pt', 'Portuguese      ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('pa', 'Punjabi         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('qu', 'Quechua         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('rm', 'Rhaeto-Romance  ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ro', 'Romanian        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ru', 'Russian         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sm', 'Samoan          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sg', 'Sangho          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sa', 'Sanskrit        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('gd', 'Scots Gaelic    ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sr', 'Serbian         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sh', 'Serbo-Croatian  ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('st', 'Sesotho         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('tn', 'Setswana        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sn', 'Shona           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sd', 'Sindhi          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('si', 'Singhalese      ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ss', 'Siswati         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sk', 'Slovak          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sl', 'Slovenian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('so', 'Somali          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('es', 'Spanish         ', '         		     ', 'ISO-8859-15     ');
-INSERT INTO cc_iso639 VALUES ('su', 'Sundanese       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sw', 'Swahili         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('sv', 'Swedish         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('tl', 'Tagalog         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('tg', 'Tajik           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ta', 'Tamil           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('tt', 'Tatar           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('te', 'Telugu          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('th', 'Thai            ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('bo', 'Tibetan         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ti', 'Tigrinya        ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('to', 'Tonga           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ts', 'Tsonga          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('tr', 'Turkish         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('tk', 'Turkmen         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('tw', 'Twi             ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ug', 'Uigur           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('uk', 'Ukrainian       ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('ur', 'Urdu            ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('uz', 'Uzbek           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('vi', 'Vietnamese      ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('vo', 'Volapuk         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('cy', 'Welsh           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('wo', 'Wolof           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('xh', 'Xhosa           ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('yi', 'Yiddish         ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('yo', 'Yoruba          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('za', 'Zhuang          ', '                ', 'ISO-8859-1      ');
-INSERT INTO cc_iso639 VALUES ('zu', 'Zulu            ', '                ', 'ISO-8859-1      ');
-
-
---
--- Data for Name: cc_logpayment; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_logpayment_agent; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_logrefill; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_logrefill_agent; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_notification; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_notification_admin; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_outbound_cid_group; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_outbound_cid_list; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_package_group; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_package_offer; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_package_rate; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_packgroup_package; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_payment_methods; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_payment_methods VALUES (1, 'paypal', 'paypal.php');
-INSERT INTO cc_payment_methods VALUES (2, 'Authorize.Net', 'authorizenet.php');
-INSERT INTO cc_payment_methods VALUES (3, 'MoneyBookers', 'moneybookers.php');
-INSERT INTO cc_payment_methods VALUES (4, 'plugnpay', 'plugnpay.php');
-
-
---
--- Data for Name: cc_payments; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_payments_agent; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_payments_status; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_payments_status VALUES (1, -2, 'Failed');
-INSERT INTO cc_payments_status VALUES (2, -1, 'Denied');
-INSERT INTO cc_payments_status VALUES (3, 0, 'Pending');
-INSERT INTO cc_payments_status VALUES (4, 1, 'In-Progress');
-INSERT INTO cc_payments_status VALUES (5, 2, 'Completed');
-INSERT INTO cc_payments_status VALUES (6, 3, 'Processed');
-INSERT INTO cc_payments_status VALUES (7, 4, 'Refunded');
-INSERT INTO cc_payments_status VALUES (8, 5, 'Unknown');
-
-
---
--- Data for Name: cc_paypal; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_phonebook; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_phonenumber; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_prefix; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_provider; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_ratecard; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_receipt; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_receipt_item; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_restricted_phonenumber; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_server_group; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_server_group VALUES (1, 'default', 'default group of server');
-
-
---
--- Data for Name: cc_server_manager; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_server_manager VALUES (1, 1, 'localhost', 'localhost', 'myasterisk', 'mycode', '2009-04-02 16:05:53.530259');
-
-
---
--- Data for Name: cc_service; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_service_report; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_sip_buddies; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_speeddial; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_status_log; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_subscription_fee; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_support; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_support VALUES (1, 'DEFAULT');
-
-
---
--- Data for Name: cc_support_component; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_support_component VALUES (1, 1, 'DEFAULT', 1);
-
-
---
--- Data for Name: cc_system_log; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_tariffgroup; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_tariffgroup_plan; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_tariffplan; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_templatemail; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 INSERT INTO cc_templatemail VALUES ('signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '
 Thank you for registering with us
@@ -6141,7 +631,8 @@ transfer, money Gram, and Pay pal.
 
 Kind regards,
 Call Labs
-', '', 1, 'en');
+', '');
+
 INSERT INTO cc_templatemail VALUES ('epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
 
 Please check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.
@@ -6154,7 +645,29 @@ Amount: $amount
 
 Kind regards,
 Call Labs
-', '', 2, 'en');
+', '');
+
+INSERT INTO cc_templatemail VALUES ('reminder', 'info@call-labs.com', 'Call-Labs', 'REMINDER', '
+Our record indicates that you have less than $min_credit usd in your "$card_gen" account.
+We hope this message provides you with enough notice to refill your account.
+We value your business, but our system can disconnect you automatically
+when you reach your pre-paid balance.
+
+Please login to your account through our website to check your account
+details. Plus,
+you can pay by credit card, on demand.
+
+http://call-labs.com/A2BCustomer_UI/
+
+If you believe this information to be incorrect please contact
+info@call-labs.com
+immediately.
+
+
+Kind regards,
+Call Labs
+', '');
+
 INSERT INTO cc_templatemail VALUES ('forgetpassword', 'info@call-labs.com', 'Call-Labs', 'Login Information', 'Your login information is as below:
 
 Your account is $card_gen
@@ -6168,7 +681,8 @@ http://call-labs.com/A2BCustomer_UI/
 
 Kind regards,
 Call Labs
-', '', 4, 'en');
+', '');
+
 INSERT INTO cc_templatemail VALUES ('signupconfirmed', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 'Thank you for registering with us
 
 Please make sure you active your account by making payment to us either by
@@ -6184,7 +698,9 @@ http://call-labs.com/A2BCustomer_UI/
 
 Kind regards,
 Call Labs
-', '', 5, 'en');
+', '');
+
+
 INSERT INTO cc_templatemail VALUES ('payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.
 
 Shopping details is as below.
@@ -6198,15 +714,2139 @@ Status = <b>$paymentStatus</b>
 
 Kind regards,
 Call Labs
-', '', 6, 'en');
+', '');
+
 INSERT INTO cc_templatemail VALUES ('invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
 
 Attached is the invoice.
 
 Kind regards,
 Call Labs
-', '', 7, 'en');
-INSERT INTO cc_templatemail VALUES ('reminder', 'info@call-labs.com', 'Call-Labs', 'Your Call-Labs account $cardnumber is low on credit ($currency $credit_currency)', '
+', '');
+
+INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
+
+
+
+
+
+
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_username_cc_card UNIQUE (username);
+
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_useralias_cc_card UNIQUE (useralias);
+
+
+
+ALTER TABLE ONLY cc_call
+    ADD CONSTRAINT cc_call_pkey PRIMARY KEY (id);
+
+
+
+ALTER TABLE ONLY cc_tariffgroup
+    ADD CONSTRAINT cc_tariffgroup_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE ONLY cc_tariffplan
+    ADD CONSTRAINT cc_tariffplan_pkey PRIMARY KEY (id);
+
+
+
+ALTER TABLE ONLY cc_tariffplan
+    ADD CONSTRAINT cons_iduser_tariffname UNIQUE (iduser, tariffname);
+
+
+ALTER TABLE ONLY cc_tariffgroup_plan
+    ADD CONSTRAINT pk_groupplan PRIMARY KEY (idtariffgroup, idtariffplan);
+
+
+
+ALTER TABLE ONLY cc_ratecard
+    ADD CONSTRAINT cc_ratecard_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE ONLY cc_trunk
+    ADD CONSTRAINT cc_trunk_pkey PRIMARY KEY (id_trunk);
+
+ALTER TABLE ONLY cc_sip_buddies
+    ADD CONSTRAINT cc_sip_buddies_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE ONLY cc_sip_buddies
+    ADD CONSTRAINT unique_name UNIQUE (name);
+
+
+
+ALTER TABLE ONLY cc_iax_buddies
+    ADD CONSTRAINT cc_iax_buddies_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE ONLY cc_iax_buddies
+    ADD CONSTRAINT iax_unique_name UNIQUE (name);
+
+
+SELECT pg_catalog.setval('cc_ui_authen_userid_seq', 3, true);
+
+SELECT pg_catalog.setval('cc_trunk_id_trunk_seq', 2, true);
+
+
+
+
+
+
+--
+-- Country table : Store the iso country list
+--
+
+CREATE TABLE cc_country (
+    id 									serial NOT NULL,
+    countrycode 						TEXT NOT NULL,
+    countryprefix 						TEXT NOT NULL DEFAULT '0',
+    countryname 						TEXT NOT NULL
+);
+
+ALTER TABLE ONLY cc_country
+    ADD CONSTRAINT cc_country_pkey PRIMARY KEY (id);
+
+
+INSERT INTO cc_country VALUES (1, 'AFG' ,'93', 'Afghanistan');
+INSERT INTO cc_country VALUES (2, 'ALB' ,'355',  'Albania');
+INSERT INTO cc_country VALUES (3, 'DZA' ,'213',  'Algeria');
+INSERT INTO cc_country VALUES (4, 'ASM' ,'684',  'American Samoa');
+INSERT INTO cc_country VALUES (5, 'AND' ,'376',  'Andorra');
+INSERT INTO cc_country VALUES (6, 'AGO' ,'244',  'Angola');
+INSERT INTO cc_country VALUES (7, 'AIA' ,'1264',  'Anguilla');
+INSERT INTO cc_country VALUES (8, 'ATA' ,'672',  'Antarctica');
+INSERT INTO cc_country VALUES (9, 'ATG' ,'1268',  'Antigua And Barbuda');
+INSERT INTO cc_country VALUES (10, 'ARG' ,'54',  'Argentina');
+INSERT INTO cc_country VALUES (11, 'ARM' ,'374',  'Armenia');
+INSERT INTO cc_country VALUES (12, 'ABW' ,'297', 'Aruba');
+INSERT INTO cc_country VALUES (13, 'AUS' ,'61',  'Australia');
+INSERT INTO cc_country VALUES (14, 'AUT' ,'43',  'Austria');
+INSERT INTO cc_country VALUES (15, 'AZE' ,'994',  'Azerbaijan');
+INSERT INTO cc_country VALUES (16, 'BHS' ,'1242',  'Bahamas');
+INSERT INTO cc_country VALUES (17, 'BHR' ,'973',  'Bahrain');
+INSERT INTO cc_country VALUES (18, 'BGD' ,'880',  'Bangladesh');
+INSERT INTO cc_country VALUES (19, 'BRB' ,'1246',  'Barbados');
+INSERT INTO cc_country VALUES (20, 'BLR' ,'375',  'Belarus');
+INSERT INTO cc_country VALUES (21, 'BEL' ,'32',  'Belgium');
+INSERT INTO cc_country VALUES (22, 'BLZ' ,'501',  'Belize');
+INSERT INTO cc_country VALUES (23, 'BEN' ,'229',  'Benin');
+INSERT INTO cc_country VALUES (24, 'BMU' ,'1441', 'Bermuda');
+INSERT INTO cc_country VALUES (25,  'BTN' ,'975', 'Bhutan');
+INSERT INTO cc_country VALUES (26,  'BOL' ,'591', 'Bolivia');
+INSERT INTO cc_country VALUES (27,  'BIH' ,'387', 'Bosnia And Herzegovina');
+INSERT INTO cc_country VALUES (28,  'BWA' ,'267', 'Botswana');
+INSERT INTO cc_country VALUES (29,  'BVT' ,'0', 'Bouvet Island');
+INSERT INTO cc_country VALUES (30,  'BRA' ,'55', 'Brazil');
+INSERT INTO cc_country VALUES (31,  'IOT' ,'1284', 'British Indian Ocean Territory');
+INSERT INTO cc_country VALUES (32,  'BRN' ,'673', 'Brunei Darussalam');
+INSERT INTO cc_country VALUES (33,  'BGR' ,'359', 'Bulgaria');
+INSERT INTO cc_country VALUES (34,  'BFA' ,'226', 'Burkina Faso');
+INSERT INTO cc_country VALUES (35,  'BDI' ,'257', 'Burundi');
+INSERT INTO cc_country VALUES (36,  'KHM' ,'855', 'Cambodia');
+INSERT INTO cc_country VALUES (37,  'CMR' ,'237', 'Cameroon');
+INSERT INTO cc_country VALUES (38,  'CAN' ,'1', 'Canada');
+INSERT INTO cc_country VALUES (39, 'CPV' ,'238',  'Cape Verde');
+INSERT INTO cc_country VALUES (40, 'CYM' ,'1345',  'Cayman Islands');
+INSERT INTO cc_country VALUES (41, 'CAF' ,'236',  'Central African Republic');
+INSERT INTO cc_country VALUES (42, 'TCD' ,'235',  'Chad');
+INSERT INTO cc_country VALUES (43, 'CHL' ,'56',  'Chile');
+INSERT INTO cc_country VALUES (44, 'CHN' ,'86', 'China');
+INSERT INTO cc_country VALUES (45,  'CXR' ,'618', 'Christmas Island');
+INSERT INTO cc_country VALUES (46, 'CCK' ,'61',  'Cocos (Keeling); Islands');
+INSERT INTO cc_country VALUES (47, 'COL' ,'57', 'Colombia');
+INSERT INTO cc_country VALUES (48, 'COM' ,'269', 'Comoros');
+INSERT INTO cc_country VALUES (49, 'COG' ,'242', 'Congo');
+INSERT INTO cc_country VALUES (50, 'COD' ,'243','Congo, The Democratic Republic Of The');
+INSERT INTO cc_country VALUES (51, 'COK' ,'682', 'Cook Islands');
+INSERT INTO cc_country VALUES (52, 'CRI' ,'506', 'Costa Rica');
+INSERT INTO cc_country VALUES (54, 'HRV' ,'385', 'Croatia');
+INSERT INTO cc_country VALUES (55, 'CUB' ,'53', 'Cuba');
+INSERT INTO cc_country VALUES (56, 'CYP' ,'357', 'Cyprus');
+INSERT INTO cc_country VALUES (57, 'CZE' ,'420', 'Czech Republic');
+INSERT INTO cc_country VALUES (58, 'DNK' ,'45', 'Denmark');
+INSERT INTO cc_country VALUES (59, 'DJI' ,'253', 'Djibouti');
+INSERT INTO cc_country VALUES (60, 'DMA' ,'1767', 'Dominica');
+INSERT INTO cc_country VALUES (61, 'DOM' ,'1809', 'Dominican Republic');
+INSERT INTO cc_country VALUES (62, 'ECU' ,'593', 'Ecuador');
+INSERT INTO cc_country VALUES (63, 'EGY' ,'20', 'Egypt');
+INSERT INTO cc_country VALUES (64, 'SLV' ,'503', 'El Salvador');
+INSERT INTO cc_country VALUES (65, 'GNQ' ,'240', 'Equatorial Guinea');
+INSERT INTO cc_country VALUES (66, 'ERI' ,'291', 'Eritrea');
+INSERT INTO cc_country VALUES (67, 'EST' ,'372', 'Estonia');
+INSERT INTO cc_country VALUES (68, 'ETH' ,'251', 'Ethiopia');
+INSERT INTO cc_country VALUES (69, 'FLK' ,'500', 'Falkland Islands (Malvinas);');
+INSERT INTO cc_country VALUES (70, 'FRO' ,'298', 'Faroe Islands');
+INSERT INTO cc_country VALUES (71, 'FJI' ,'679', 'Fiji');
+INSERT INTO cc_country VALUES (72, 'FIN' ,'358', 'Finland');
+INSERT INTO cc_country VALUES (73, 'FRA' ,'33', 'France');
+INSERT INTO cc_country VALUES (74, 'GUF' ,'596', 'French Guiana');
+INSERT INTO cc_country VALUES (75, 'PYF' ,'594', 'French Polynesia');
+INSERT INTO cc_country VALUES (76, 'ATF' ,'689', 'French Southern Territories');
+INSERT INTO cc_country VALUES (77, 'GAB' ,'241', 'Gabon');
+INSERT INTO cc_country VALUES (78, 'GMB' ,'220', 'Gambia');
+INSERT INTO cc_country VALUES (79, 'GEO' ,'995', 'Georgia');
+INSERT INTO cc_country VALUES (80, 'DEU' ,'49', 'Germany');
+INSERT INTO cc_country VALUES (81, 'GHA' ,'233', 'Ghana');
+INSERT INTO cc_country VALUES (82, 'GIB' ,'350', 'Gibraltar');
+INSERT INTO cc_country VALUES (83, 'GRC' ,'30', 'Greece');
+INSERT INTO cc_country VALUES (84, 'GRL' ,'299', 'Greenland');
+INSERT INTO cc_country VALUES (85, 'GRD' ,'1473', 'Grenada');
+INSERT INTO cc_country VALUES (86, 'GLP' ,'590', 'Guadeloupe');
+INSERT INTO cc_country VALUES (87, 'GUM' ,'1671', 'Guam');
+INSERT INTO cc_country VALUES (88, 'GTM' ,'502', 'Guatemala');
+INSERT INTO cc_country VALUES (89, 'GIN' ,'224', 'Guinea');
+INSERT INTO cc_country VALUES (90, 'GNB' ,'245', 'Guinea-Bissau');
+INSERT INTO cc_country VALUES (91, 'GUY' ,'592', 'Guyana');
+INSERT INTO cc_country VALUES (92, 'HTI' ,'509', 'Haiti');
+INSERT INTO cc_country VALUES (93, 'HMD' ,'0', 'Heard Island And McDonald Islands');
+INSERT INTO cc_country VALUES (94, 'VAT' ,'0', 'Holy See (Vatican City State);');
+INSERT INTO cc_country VALUES (95, 'HND' ,'504', 'Honduras');
+INSERT INTO cc_country VALUES (96, 'HKG' ,'852', 'Hong Kong');
+INSERT INTO cc_country VALUES (97, 'HUN' ,'36', 'Hungary');
+INSERT INTO cc_country VALUES (98, 'ISL' ,'354', 'Iceland');
+INSERT INTO cc_country VALUES (99, 'IND' ,'91', 'India');
+INSERT INTO cc_country VALUES (100, 'IDN' ,'62', 'Indonesia');
+INSERT INTO cc_country VALUES (101, 'IRN' ,'98', 'Iran, Islamic Republic Of');
+INSERT INTO cc_country VALUES (102, 'IRQ' ,'964', 'Iraq');
+INSERT INTO cc_country VALUES (103, 'IRL' ,'353', 'Ireland');
+INSERT INTO cc_country VALUES (104, 'ISR' ,'972', 'Israel');
+INSERT INTO cc_country VALUES (105, 'ITA' ,'39', 'Italy');
+INSERT INTO cc_country VALUES (106, 'JAM' ,'1876', 'Jamaica');
+INSERT INTO cc_country VALUES (107, 'JPN' ,'81', 'Japan');
+INSERT INTO cc_country VALUES (108, 'JOR' ,'962', 'Jordan');
+INSERT INTO cc_country VALUES (109, 'KAZ' ,'7', 'Kazakhstan');
+INSERT INTO cc_country VALUES (110, 'KEN' ,'254', 'Kenya');
+INSERT INTO cc_country VALUES (111, 'KIR' ,'686', 'Kiribati');
+INSERT INTO cc_country VALUES (112, 'PRK' ,'850', 'Korea, Democratic People''s Republic Of');
+INSERT INTO cc_country VALUES (113, 'KOR' ,'82', 'Korea, Republic of');
+INSERT INTO cc_country VALUES (114, 'KWT' ,'965', 'Kuwait');
+INSERT INTO cc_country VALUES (115, 'KGZ' ,'996', 'Kyrgyzstan');
+INSERT INTO cc_country VALUES (116, 'LAO' ,'856', 'Lao People''s Democratic Republic');
+INSERT INTO cc_country VALUES (117, 'LVA' ,'371', 'Latvia');
+INSERT INTO cc_country VALUES (118, 'LBN' ,'961', 'Lebanon');
+INSERT INTO cc_country VALUES (119, 'LSO' ,'266', 'Lesotho');
+INSERT INTO cc_country VALUES (120, 'LBR' ,'231', 'Liberia');
+INSERT INTO cc_country VALUES (121, 'LBY' ,'218', 'Libyan Arab Jamahiriya');
+INSERT INTO cc_country VALUES (122, 'LIE' ,'423', 'Liechtenstein');
+INSERT INTO cc_country VALUES (123, 'LTU' ,'370', 'Lithuania');
+INSERT INTO cc_country VALUES (124, 'LUX' ,'352', 'Luxembourg');
+INSERT INTO cc_country VALUES (125, 'MAC' ,'853', 'Macao');
+INSERT INTO cc_country VALUES (126, 'MKD' ,'389', 'Macedonia, The Former Yugoslav Republic Of');
+INSERT INTO cc_country VALUES (127, 'MDG' ,'261', 'Madagascar');
+INSERT INTO cc_country VALUES (128, 'MWI' ,'265', 'Malawi');
+INSERT INTO cc_country VALUES (129, 'MYS' ,'60', 'Malaysia');
+INSERT INTO cc_country VALUES (130, 'MDV' ,'960', 'Maldives');
+INSERT INTO cc_country VALUES (131, 'MLI' ,'223', 'Mali');
+INSERT INTO cc_country VALUES (132, 'MLT' ,'356', 'Malta');
+INSERT INTO cc_country VALUES (133, 'MHL' ,'692', 'Marshall islands');
+INSERT INTO cc_country VALUES (134, 'MTQ' ,'596', 'Martinique');
+INSERT INTO cc_country VALUES (135, 'MRT' ,'222', 'Mauritania');
+INSERT INTO cc_country VALUES (136, 'MUS' ,'230', 'Mauritius');
+INSERT INTO cc_country VALUES (137, 'MYT' ,'269', 'Mayotte');
+INSERT INTO cc_country VALUES (138, 'MEX' ,'52', 'Mexico');
+INSERT INTO cc_country VALUES (139, 'FSM' ,'691', 'Micronesia, Federated States Of');
+INSERT INTO cc_country VALUES (140, 'MDA' ,'1808', 'Moldova, Republic Of');
+INSERT INTO cc_country VALUES (141, 'MCO' ,'377', 'Monaco');
+INSERT INTO cc_country VALUES (142, 'MNG' ,'976', 'Mongolia');
+INSERT INTO cc_country VALUES (143, 'MSR' ,'1664', 'Montserrat');
+INSERT INTO cc_country VALUES (144, 'MAR' ,'212', 'Morocco');
+INSERT INTO cc_country VALUES (145, 'MOZ' ,'258', 'Mozambique');
+INSERT INTO cc_country VALUES (146, 'MMR' ,'95', 'Myanmar');
+INSERT INTO cc_country VALUES (147, 'NAM' ,'264', 'Namibia');
+INSERT INTO cc_country VALUES (148, 'NRU' ,'674', 'Nauru');
+INSERT INTO cc_country VALUES (149, 'NPL' ,'977', 'Nepal');
+INSERT INTO cc_country VALUES (150, 'NLD' ,'31', 'Netherlands');
+INSERT INTO cc_country VALUES (151, 'ANT' ,'599', 'Netherlands Antilles');
+INSERT INTO cc_country VALUES (152, 'NCL' ,'687', 'New Caledonia');
+INSERT INTO cc_country VALUES (153, 'NZL' ,'64', 'New Zealand');
+INSERT INTO cc_country VALUES (154, 'NIC' ,'505', 'Nicaragua');
+INSERT INTO cc_country VALUES (155, 'NER' ,'227', 'Niger');
+INSERT INTO cc_country VALUES (156, 'NGA' ,'234', 'Nigeria');
+INSERT INTO cc_country VALUES (157, 'NIU' ,'683', 'Niue');
+INSERT INTO cc_country VALUES (158, 'NFK' ,'672', 'Norfolk Island');
+INSERT INTO cc_country VALUES (159, 'MNP' ,'1670', 'Northern Mariana Islands');
+INSERT INTO cc_country VALUES (160, 'NOR' ,'47', 'Norway');
+INSERT INTO cc_country VALUES (161, 'OMN' ,'968', 'Oman');
+INSERT INTO cc_country VALUES (162, 'PAK' ,'92', 'Pakistan');
+INSERT INTO cc_country VALUES (163, 'PLW' ,'680', 'Palau');
+INSERT INTO cc_country VALUES (164, 'PSE' ,'970', 'Palestinian Territory, Occupied');
+INSERT INTO cc_country VALUES (165, 'PAN' ,'507', 'Panama');
+INSERT INTO cc_country VALUES (166, 'PNG' ,'675', 'Papua New Guinea');
+INSERT INTO cc_country VALUES (167, 'PRY' ,'595', 'Paraguay');
+INSERT INTO cc_country VALUES (168, 'PER' ,'51', 'Peru');
+INSERT INTO cc_country VALUES (169, 'PHL' ,'63', 'Philippines');
+INSERT INTO cc_country VALUES (170, 'PCN' ,'0', 'Pitcairn');
+INSERT INTO cc_country VALUES (171, 'POL' ,'48', 'Poland');
+INSERT INTO cc_country VALUES (172, 'PRT' ,'351', 'Portugal');
+INSERT INTO cc_country VALUES (173, 'PRI' ,'1787', 'Puerto Rico');
+INSERT INTO cc_country VALUES (174, 'QAT' ,'974', 'Qatar');
+INSERT INTO cc_country VALUES (175, 'REU' ,'262', 'Reunion');
+INSERT INTO cc_country VALUES (176, 'ROU' ,'40', 'Romania');
+INSERT INTO cc_country VALUES (177, 'RUS' ,'7', 'Russian Federation');
+INSERT INTO cc_country VALUES (178, 'RWA' ,'250', 'Rwanda');
+INSERT INTO cc_country VALUES (179, 'SHN' ,'290', 'Saint Helena');
+INSERT INTO cc_country VALUES (180, 'KNA' ,'1869', 'Saint Kitts And Nevis');
+INSERT INTO cc_country VALUES (181, 'LCA' ,'1758', 'Saint Lucia');
+INSERT INTO cc_country VALUES (182, 'SPM' ,'508', 'Saint Pierre And Miquelon');
+INSERT INTO cc_country VALUES (183, 'VCT' ,'1784', 'Saint Vincent And The Grenadines');
+INSERT INTO cc_country VALUES (184, 'WSM' ,'685', 'Samoa');
+INSERT INTO cc_country VALUES (185, 'SMR' ,'378', 'San Marino');
+INSERT INTO cc_country VALUES (186, 'STP' ,'239', 'São Tomé And Principe');
+INSERT INTO cc_country VALUES (187, 'SAU' ,'966', 'Saudi Arabia');
+INSERT INTO cc_country VALUES (188, 'SEN' ,'221', 'Senegal');
+INSERT INTO cc_country VALUES (189, 'SYC' ,'248', 'Seychelles');
+INSERT INTO cc_country VALUES (190, 'SLE' ,'232', 'Sierra Leone');
+INSERT INTO cc_country VALUES (191, 'SGP' ,'65', 'Singapore');
+INSERT INTO cc_country VALUES (192, 'SVK' ,'421', 'Slovakia');
+INSERT INTO cc_country VALUES (193, 'SVN' ,'386', 'Slovenia');
+INSERT INTO cc_country VALUES (194, 'SLB' ,'677', 'Solomon Islands');
+INSERT INTO cc_country VALUES (195, 'SOM' ,'252', 'Somalia');
+INSERT INTO cc_country VALUES (196, 'ZAF' ,'27', 'South Africa');
+INSERT INTO cc_country VALUES (197, 'SGS' ,'0', 'South Georgia And The South Sandwich Islands');
+INSERT INTO cc_country VALUES (198, 'ESP' ,'34', 'Spain');
+INSERT INTO cc_country VALUES (199, 'LKA' ,'94', 'Sri Lanka');
+INSERT INTO cc_country VALUES (200, 'SDN' ,'249', 'Sudan');
+INSERT INTO cc_country VALUES (201, 'SUR' ,'597', 'Suriname');
+INSERT INTO cc_country VALUES (202, 'SJM' ,'0', 'Svalbard and Jan Mayen');
+INSERT INTO cc_country VALUES (203, 'SWZ' ,'268', 'Swaziland');
+INSERT INTO cc_country VALUES (204, 'SWE' ,'46', 'Sweden');
+INSERT INTO cc_country VALUES (205, 'CHE' ,'41', 'Switzerland');
+INSERT INTO cc_country VALUES (206, 'SYR' ,'963', 'Syrian Arab Republic');
+INSERT INTO cc_country VALUES (207, 'TWN' ,'886', 'Taiwan, Province Of China');
+INSERT INTO cc_country VALUES (208, 'TJK' ,'992', 'Tajikistan');
+INSERT INTO cc_country VALUES (209, 'TZA' ,'255', 'Tanzania, United Republic Of');
+INSERT INTO cc_country VALUES (210, 'THA' ,'66', 'Thailand');
+INSERT INTO cc_country VALUES (211, 'TLS' ,'670', 'Timor-Leste');
+INSERT INTO cc_country VALUES (212, 'TGO' ,'228', 'Togo');
+INSERT INTO cc_country VALUES (213, 'TKL' ,'690', 'Tokelau');
+INSERT INTO cc_country VALUES (214, 'TON' ,'676', 'Tonga');
+INSERT INTO cc_country VALUES (215, 'TTO' ,'1868', 'Trinidad And Tobago');
+INSERT INTO cc_country VALUES (216, 'TUN' ,'216', 'Tunisia');
+INSERT INTO cc_country VALUES (217, 'TUR' ,'90', 'Turkey');
+INSERT INTO cc_country VALUES (218, 'TKM' ,'993', 'Turkmenistan');
+INSERT INTO cc_country VALUES (219, 'TCA' ,'1649', 'Turks And Caicos Islands');
+INSERT INTO cc_country VALUES (220, 'TUV' ,'688', 'Tuvalu');
+INSERT INTO cc_country VALUES (221, 'UGA' ,'256', 'Uganda');
+INSERT INTO cc_country VALUES (222, 'UKR' ,'380', 'Ukraine');
+INSERT INTO cc_country VALUES (223, 'ARE' ,'971', 'United Arab Emirates');
+INSERT INTO cc_country VALUES (224, 'GBR' ,'44', 'United Kingdom');
+INSERT INTO cc_country VALUES (225, 'USA' ,'1', 'United States');
+INSERT INTO cc_country VALUES (226, 'UMI' ,'0', 'United States Minor Outlying Islands');
+INSERT INTO cc_country VALUES (227, 'URY' ,'598', 'Uruguay');
+INSERT INTO cc_country VALUES (228, 'UZB' ,'998', 'Uzbekistan');
+INSERT INTO cc_country VALUES (229, 'VUT' ,'678', 'Vanuatu');
+INSERT INTO cc_country VALUES (230, 'VEN' ,'58', 'Venezuela');
+INSERT INTO cc_country VALUES (231, 'VNM' ,'84', 'Vietnam');
+INSERT INTO cc_country VALUES (232, 'VGB','1284', 'Virgin Islands, British');
+INSERT INTO cc_country VALUES (233, 'VIR','808', 'Virgin Islands, U.S.');
+INSERT INTO cc_country VALUES (234, 'WLF' ,'681', 'Wallis And Futuna');
+INSERT INTO cc_country VALUES (235, 'ESH' ,'0', 'Western Sahara');
+INSERT INTO cc_country VALUES (236, 'YEM' ,'967', 'Yemen');
+INSERT INTO cc_country VALUES (237, 'YUG' ,'0', 'Yugoslavia');
+INSERT INTO cc_country VALUES (238, 'ZMB' ,'260', 'Zambia');
+INSERT INTO cc_country VALUES (239, 'ZWE' ,'263', 'Zimbabwe');
+INSERT INTO cc_country VALUES (240, 'ASC' ,'0', 'Ascension Island');
+INSERT INTO cc_country VALUES (241, 'DGA' ,'0', 'Diego Garcia');
+INSERT INTO cc_country VALUES (242, 'XNM' ,'0', 'Inmarsat');
+INSERT INTO cc_country VALUES (243, 'TMP' ,'0', 'East timor');
+INSERT INTO cc_country VALUES (244, 'AK' ,'0', 'Alaska');
+INSERT INTO cc_country VALUES (245, 'HI' ,'0', 'Hawaii');
+INSERT INTO cc_country VALUES (53, 'CIV' ,'225', 'Côte d''Ivoire');
+INSERT INTO cc_country VALUES (246, 'ALA' ,'35818', 'Aland Islands');
+INSERT INTO cc_country VALUES (247, 'BLM' ,'0', 'Saint Barthelemy');
+INSERT INTO cc_country VALUES (248, 'GGY' ,'441481', 'Guernsey');
+INSERT INTO cc_country VALUES (249, 'IMN' ,'441624', 'Isle of Man');
+INSERT INTO cc_country VALUES (250, 'JEY' ,'441534', 'Jersey');
+INSERT INTO cc_country VALUES (251, 'MAF' ,'0', 'Saint Martin');
+INSERT INTO cc_country VALUES (252, 'MNE' ,'382', 'Montenegro, Republic of');
+INSERT INTO cc_country VALUES (253, 'SRB' ,'381', 'Serbia, Republic of');
+INSERT INTO cc_country VALUES (254, 'CPT' ,'0', 'Clipperton Island');
+INSERT INTO cc_country VALUES (255, 'TAA' ,'0', 'Tristan da Cunha');
+
+CREATE TABLE cc_provider(
+    id 										BIGSERIAL NOT NULL,
+    provider_name 							TEXT NOT NULL,
+    creationdate 							TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    description 							TEXT
+);
+
+ALTER TABLE ONLY cc_provider
+    ADD CONSTRAINT cc_provider_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_provider
+    ADD CONSTRAINT cons_cc_provider_name_key UNIQUE (provider_name);
+
+
+
+--
+--  cc_currencies table
+--
+
+CREATE TABLE cc_currencies (
+    id 									serial NOT NULL,
+    currency 							char(3) default '' NOT NULL,
+    name 								CHARACTER VARYING(30) default '' NOT NULL,
+    value 								NUMERIC(12,5) default '0.00000' NOT NULL,
+    lastupdate 							TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
+    basecurrency 						char(3) default 'USD' NOT NULL
+);
+
+
+ALTER TABLE ONLY cc_currencies
+    ADD CONSTRAINT cc_currencies_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_currencies
+    ADD CONSTRAINT cons_cc_currencies_currency_key UNIQUE(currency);
+
+
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (1, 'ALL', 'Albanian Lek (ALL)', 0.00974,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (2, 'DZD', 'Algerian Dinar (DZD)', 0.01345,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (3, 'XAL', 'Aluminium Ounces (XAL)', 1.08295,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (4, 'ARS', 'Argentine Peso (ARS)', 0.32455,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (5, 'AWG', 'Aruba Florin (AWG)', 0.55866,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (6, 'AUD', 'Australian Dollar (AUD)', 0.73384,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (7, 'BSD', 'Bahamian Dollar (BSD)', 1.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (8, 'BHD', 'Bahraini Dinar (BHD)', 2.65322,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (9, 'BDT', 'Bangladesh Taka (BDT)', 0.01467,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (10, 'BBD', 'Barbados Dollar (BBD)', 0.50000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (11, 'BYR', 'Belarus Ruble (BYR)', 0.00046,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (12, 'BZD', 'Belize Dollar (BZD)', 0.50569,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (13, 'BMD', 'Bermuda Dollar (BMD)', 1.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (14, 'BTN', 'Bhutan Ngultrum (BTN)', 0.02186,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (15, 'BOB', 'Bolivian Boliviano (BOB)', 0.12500,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (16, 'BRL', 'Brazilian Real (BRL)', 0.46030, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (17, 'GBP', 'British Pound (GBP)', 1.73702,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (18, 'BND', 'Brunei Dollar (BND)', 0.61290,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (19, 'BGN', 'Bulgarian Lev (BGN)', 0.60927,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (20, 'BIF', 'Burundi Franc (BIF)', 0.00103,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (21, 'KHR', 'Cambodia Riel (KHR)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (22, 'CAD', 'Canadian Dollar (CAD)', 0.86386,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (23, 'KYD', 'Cayman Islands Dollar (KYD)', 1.16496,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (24, 'XOF', 'CFA Franc (BCEAO) (XOF)', 0.00182,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (25, 'XAF', 'CFA Franc (BEAC) (XAF)', 0.00182, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (26, 'CLP', 'Chilean Peso (CLP)', 0.00187,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (27, 'CNY', 'Chinese Yuan (CNY)', 0.12425,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (28, 'COP', 'Colombian Peso (COP)', 0.00044,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (29, 'KMF', 'Comoros Franc (KMF)', 0.00242,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (30, 'XCP', 'Copper Ounces (XCP)', 2.16403,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (31, 'CRC', 'Costa Rica Colon (CRC)', 0.00199,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (32, 'HRK', 'Croatian Kuna (HRK)', 0.16249,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (33, 'CUP', 'Cuban Peso (CUP)', 1.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (34, 'CYP', 'Cyprus Pound (CYP)', 2.07426, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (35, 'CZK', 'Czech Koruna (CZK)', 0.04133,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (36, 'DKK', 'Danish Krone (DKK)', 0.15982,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (37, 'DJF', 'Dijibouti Franc (DJF)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (38, 'DOP', 'Dominican Peso (DOP)', 0.03035,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (39, 'XCD', 'East Caribbean Dollar (XCD)', 0.37037,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (40, 'ECS', 'Ecuador Sucre (ECS)', 0.00004,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (41, 'EGP', 'Egyptian Pound (EGP)', 0.17433,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (42, 'SVC', 'El Salvador Colon (SVC)', 0.11426,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (43, 'ERN', 'Eritrea Nakfa (ERN)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (44, 'EEK', 'Estonian Kroon (EEK)', 0.07615,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (45, 'ETB', 'Ethiopian Birr (ETB)', 0.11456,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (46, 'EUR', 'Euro (EUR)', 1.19175,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (47, 'FKP', 'Falkland Islands Pound (FKP)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (48, 'GMD', 'Gambian Dalasi (GMD)', 0.03515,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (49, 'GHC', 'Ghanian Cedi (GHC)', 0.00011,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (50, 'GIP', 'Gibraltar Pound (GIP)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (51, 'XAU', 'Gold Ounces (XAU)', 555.55556,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (52, 'GTQ', 'Guatemala Quetzal (GTQ)', 0.13103,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (53, 'GNF', 'Guinea Franc (GNF)', 0.00022,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (54, 'HTG', 'Haiti Gourde (HTG)', 0.02387,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (55, 'HNL', 'Honduras Lempira (HNL)', 0.05292,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (56, 'HKD', 'Hong Kong Dollar (HKD)', 0.12884,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (57, 'HUF', 'Hungarian Forint (HUF)', 0.00461,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (58, 'ISK', 'Iceland Krona (ISK)', 0.01436,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (59, 'INR', 'Indian Rupee (INR)', 0.02253,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (60, 'IDR', 'Indonesian Rupiah (IDR)', 0.00011,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (61, 'IRR', 'Iran Rial (IRR)', 0.00011, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (62, 'ILS', 'Israeli Shekel (ILS)', 0.21192,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (63, 'JMD', 'Jamaican Dollar (JMD)', 0.01536,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (64, 'JPY', 'Japanese Yen (JPY)', 0.00849,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (65, 'JOD', 'Jordanian Dinar (JOD)', 1.41044,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (66, 'KZT', 'Kazakhstan Tenge (KZT)', 0.00773,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (67, 'KES', 'Kenyan Shilling (KES)', 0.01392,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (68, 'KRW', 'Korean Won (KRW)', 0.00102,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (69, 'KWD', 'Kuwaiti Dinar (KWD)', 3.42349,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (70, 'LAK', 'Lao Kip (LAK)', 0.00000, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (71, 'LVL', 'Latvian Lat (LVL)', 1.71233,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (72, 'LBP', 'Lebanese Pound (LBP)', 0.00067,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (73, 'LSL', 'Lesotho Loti (LSL)', 0.15817,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (74, 'LYD', 'Libyan Dinar (LYD)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (75, 'LTL', 'Lithuanian Lita (LTL)', 0.34510, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (76, 'MOP', 'Macau Pataca (MOP)', 0.12509,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (77, 'MKD', 'Macedonian Denar (MKD)', 0.01945,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (78, 'MGF', 'Malagasy Franc (MGF)', 0.00011,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (79, 'MWK', 'Malawi Kwacha (MWK)', 0.00752, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (80, 'MYR', 'Malaysian Ringgit (MYR)', 0.26889,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (81, 'MVR', 'Maldives Rufiyaa (MVR)', 0.07813,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (82, 'MTL', 'Maltese Lira (MTL)', 2.77546,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (83, 'MRO', 'Mauritania Ougulya (MRO)', 0.00369,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (84, 'MUR', 'Mauritius Rupee (MUR)', 0.03258,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (85, 'MXN', 'Mexican Peso (MXN)', 0.09320,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (86, 'MDL', 'Moldovan Leu (MDL)', 0.07678,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (87, 'MNT', 'Mongolian Tugrik (MNT)', 0.00084,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (88, 'MAD', 'Moroccan Dirham (MAD)', 0.10897,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (89, 'MZM', 'Mozambique Metical (MZM)', 0.00004,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (90, 'NAD', 'Namibian Dollar (NAD)', 0.15817, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (91, 'NPR', 'Nepalese Rupee (NPR)', 0.01408, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (92, 'ANG', 'Neth Antilles Guilder (ANG)', 0.55866,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (93, 'TRY', 'New Turkish Lira (TRY)', 0.73621,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (94, 'NZD', 'New Zealand Dollar (NZD)', 0.65096,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (95, 'NIO', 'Nicaragua Cordoba (NIO)', 0.05828,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (96, 'NGN', 'Nigerian Naira (NGN)', 0.00777,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (97, 'NOK', 'Norwegian Krone (NOK)', 0.14867,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (98, 'OMR', 'Omani Rial (OMR)', 2.59740,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (99, 'XPF', 'Pacific Franc (XPF)', 0.00999,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (100, 'PKR', 'Pakistani Rupee (PKR)', 0.01667,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (101, 'XPD', 'Palladium Ounces (XPD)', 277.77778,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (102, 'PAB', 'Panama Balboa (PAB)', 1.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (103, 'PGK', 'Papua New Guinea Kina (PGK)', 0.33125,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (104, 'PYG', 'Paraguayan Guarani (PYG)', 0.00017,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (105, 'PEN', 'Peruvian Nuevo Sol (PEN)', 0.29999,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (106, 'PHP', 'Philippine Peso (PHP)', 0.01945,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (107, 'XPT', 'Platinum Ounces (XPT)', 1000.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (108, 'PLN', 'Polish Zloty (PLN)', 0.30574, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (109, 'QAR', 'Qatar Rial (QAR)', 0.27476,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (110, 'ROL', 'Romanian Leu (ROL)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (111, 'RON', 'Romanian New Leu (RON)', 0.34074,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (112, 'RUB', 'Russian Rouble (RUB)', 0.03563,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (113, 'RWF', 'Rwanda Franc (RWF)', 0.00185,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (114, 'WST', 'Samoa Tala (WST)', 0.35492,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (115, 'STD', 'Sao Tome Dobra (STD)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (116, 'SAR', 'Saudi Arabian Riyal (SAR)', 0.26665,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (117, 'SCR', 'Seychelles Rupee (SCR)', 0.18114,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (118, 'SLL', 'Sierra Leone Leone (SLL)', 0.00034,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (119, 'XAG', 'Silver Ounces (XAG)', 9.77517,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (120, 'SGD', 'Singapore Dollar (SGD)', 0.61290,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (121, 'SKK', 'Slovak Koruna (SKK)', 0.03157, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (122, 'SIT', 'Slovenian Tolar (SIT)', 0.00498,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (123, 'SOS', 'Somali Shilling (SOS)', 0.00000, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (124, 'ZAR', 'South African Rand (ZAR)', 0.15835, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (125, 'LKR', 'Sri Lanka Rupee (LKR)', 0.00974,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (126, 'SHP', 'St Helena Pound (SHP)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (127, 'SDD', 'Sudanese Dinar (SDD)', 0.00427,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (128, 'SRG', 'Surinam Guilder (SRG)', 0.36496,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (129, 'SZL', 'Swaziland Lilageni (SZL)', 0.15817,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (130, 'SEK', 'Swedish Krona (SEK)', 0.12609,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (131, 'CHF', 'Swiss Franc (CHF)', 0.76435,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (132, 'SYP', 'Syrian Pound (SYP)', 0.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (133, 'TWD', 'Taiwan Dollar (TWD)', 0.03075,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (134, 'TZS', 'Tanzanian Shilling (TZS)', 0.00083,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (135, 'THB', 'Thai Baht (THB)', 0.02546,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (136, 'TOP', 'Tonga Paanga (TOP)', 0.48244, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (137, 'TTD', 'Trinidad&Tobago Dollar (TTD)', 0.15863,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (138, 'TND', 'Tunisian Dinar (TND)', 0.73470,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (139, 'USD', 'U.S. Dollar (USD)', 1.00000,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (140, 'AED', 'UAE Dirham (AED)', 0.27228,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (141, 'UGX', 'Ugandan Shilling (UGX)', 0.00055, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (142, 'UAH', 'Ukraine Hryvnia (UAH)', 0.19755,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (143, 'UYU', 'Uruguayan New Peso (UYU)', 0.04119,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (144, 'VUV', 'Vanuatu Vatu (VUV)', 0.00870,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (145, 'VEB', 'Venezuelan Bolivar (VEB)', 0.00037,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (146, 'VND', 'Vietnam Dong (VND)', 0.00006,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (147, 'YER', 'Yemen Riyal (YER)', 0.00510,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (148, 'ZMK', 'Zambian Kwacha (ZMK)', 0.00031, 'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (149, 'ZWD', 'Zimbabwe Dollar (ZWD)', 0.00001,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150, 'GYD', 'Guyana Dollar (GYD)', 0.00527,  'USD');
+
+
+
+CREATE TABLE cc_backup (
+    id 										BIGSERIAL NOT NULL,
+    name 									CHARACTER VARYING(255) DEFAULT ''::CHARACTER varying NOT NULL,
+    path 									CHARACTER VARYING(255) DEFAULT ''::CHARACTER varying NOT NULL,
+    creationdate 							TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE ONLY cc_backup
+    ADD CONSTRAINT cc_backup_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_backup
+    ADD CONSTRAINT cons_cc_backup_name_key UNIQUE (name);
+    
+
+CREATE TABLE cc_ecommerce_product (
+    id 										BIGSERIAL NOT NULL,
+    product_name 							TEXT NOT NULL,
+    creationdate 							TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),		
+    description 							TEXT ,	
+    expirationdate 							TIMESTAMP WITHOUT TIME ZONE,
+    enableexpire 							INTEGER DEFAULT 0,
+    expiredays 								INTEGER DEFAULT 0,    
+    credit 									NUMERIC(12,4) NOT NULL,
+    tariff 									INTEGER DEFAULT 0,
+    id_didgroup 							INTEGER DEFAULT 0,
+    mailtype 								CHARACTER VARYING(50) DEFAULT ''::CHARACTER varying NOT NULL,
+    activated 								BOOLEAN DEFAULT false NOT NULL,
+    simultaccess 							INTEGER DEFAULT 0,
+    currency 								CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
+    typepaid 								INTEGER DEFAULT 0,
+    creditlimit 							INTEGER DEFAULT 0,        
+    "language" 								TEXT DEFAULT 'en'::text,	
+    runservice 								INTEGER DEFAULT 0,
+    sip_friend 								INTEGER DEFAULT 0,
+    iax_friend 								INTEGER DEFAULT 0
+);
+
+ALTER TABLE ONLY cc_ecommerce_product
+    ADD CONSTRAINT cc_ecommerce_product_pkey PRIMARY KEY (id);
+
+
+
+
+
+-- 
+-- Speed Dial Table
+--
+
+
+CREATE TABLE cc_speeddial (
+    id 									BIGSERIAL NOT NULL,
+    id_cc_card 							BIGINT DEFAULT 0 NOT NULL,	
+    phone 								TEXT NOT NULL,
+    name 								TEXT NOT NULL,
+    speeddial 							INTEGER DEFAULT 0,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
+
+
+ALTER TABLE ONLY cc_speeddial
+    ADD CONSTRAINT cc_speeddial_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE ONLY cc_speeddial
+    ADD CONSTRAINT cons_cc_speeddial_pkey UNIQUE (id_cc_card, speeddial);
+
+
+
+
+-- Auto Refill Report Table	
+
+CREATE TABLE cc_autorefill_report (
+	id 									BIGSERIAL NOT NULL,
+	daterun 							TIMESTAMP(0) without time zone DEFAULT NOW(),
+	totalcardperform 					INTEGER,
+	totalcredit 						double precision
+);
+ALTER TABLE ONLY cc_autorefill_report
+ADD CONSTRAINT cc_autorefill_report_pkey PRIMARY KEY (id);
+
+
+-- cc_prefix Table	
+
+CREATE TABLE cc_prefix (
+	id 									serial NOT NULL,
+	prefixe 							TEXT NOT NULL,
+	destination 						TEXT NOT NULL,
+	id_cc_country 						BIGINT
+);
+
+ALTER TABLE ONLY cc_prefix ADD CONSTRAINT cc_prefix_pkey PRIMARY KEY (id);
+
+
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Afghanistan','93','1');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Albania','355','2');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Algeria','213','3');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('American Samoa','684','4');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Andorra','376','5');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Angola','244','6');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Anguilla','1264','7');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Antarctica','672','8');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Antigua','1268',9);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Argentina','54','10');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Armenia','374','11');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Aruba','297','12');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Ascension','247',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Australia','61','13');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Australian External Territories','672','13');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Austria','43','14');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Azerbaijan','994','15');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Bahamas','1242','16');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Bahrain','973','17');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Bangladesh','880','18');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Barbados','1246','19');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Barbuda','1268',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Belarus','375','20');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Belgium','32','21');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Belize','501','22');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Benin','229','23');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Bermuda','1441','24');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Bhutan','975','25');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Bolivia','591','26');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Bosnia & Herzegovina','387','27');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Botswana','267','28');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Brazil','55','30');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Brasil Telecom','5514','30');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Brazil Telefonica','5515','30');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Brazil Embratel','5521','30');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Brazil Intelig','5523','30');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Brazil Telemar','5531','30');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Brazil mobile phones','550','30');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('British Virgin Islands','1284','31');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Brunei Darussalam','673','32');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Bulgaria','359','33');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Burkina Faso','226','34');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Burundi','257','35');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cambodia','855','36');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cameroon','237','37');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Canada','1','38');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cape Verde Islands','238','39');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cayman Islands','1345','40');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Central African Republic','236','41');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Chad','235','42');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Chatham Island (New Zealand)','64',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Chile','56','43');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('China (PRC)','86','44');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Christmas Island','618','45');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cocos-Keeling Islands','61','46');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Colombia','57','47');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Colombia Mobile Phones','573','47');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Colombia Orbitel','575','47');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Colombia ETB','577','47');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Colombia Telecom','579','47');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Comoros','269','48');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Congo','242','49');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Congo, Dem. Rep. of  (former Zaire)','243',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cook Islands','682','51');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Costa Rica','506','52');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Côte d''Ivoire (Ivory Coast)','225','53');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Croatia','385','54');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cuba','53','55');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cuba (Guantanamo Bay)','5399','55');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Curaâo','599',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Cyprus','357','56');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Czech Republic','420','57');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Denmark','45','58');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Diego Garcia','246','241');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Djibouti','253','59');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Dominica','1767','60');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Dominican Republic','1809','61');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('East Timor','670','211');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Easter Island','56',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Ecuador','593','62');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Egypt','20','63');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('El Salvador','503','64');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Ellipso (Mobile Satellite service)','8812',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('EMSAT (Mobile Satellite service)','88213',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Equatorial Guinea','240','65');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Eritrea','291','66');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Estonia','372','67');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Ethiopia','251','68');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Falkland Islands (Malvinas)','500','69');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Faroe Islands','298','70');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Fiji Islands','679','71');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Finland','358','72');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('France','33','73');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('French Antilles','596','74');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('French Guiana','594','75');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('French Polynesia','689','76');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Gabonese Republic','241','77');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Gambia','220','78');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Georgia','995','79');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Germany','49','80');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Ghana','233','81');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Gibraltar','350','82');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Global Mobile Satellite System (GMSS)','881',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('ICO Global','8810-8811',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Ellipso','8812-8813',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Iridium','8816-8817',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Globalstar','8818-8819',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Globalstar (Mobile Satellite Service)','8818-8819',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Greece','30','83');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Greenland','299','84');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Grenada','1473','85');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Guadeloupe','590','86');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Guam','1671','87');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Guantanamo Bay','5399',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Guatemala','502','88');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Guinea-Bissau','245','90');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Guinea','224','89');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Guyana','592','91');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Haiti','509','92');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Honduras','504','95');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Hong Kong','852','96');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Hungary','36','97');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('ICO Global (Mobile Satellite Service)','8810-8811',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Iceland','354','98');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('India','91','99');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Indonesia','62','100');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Inmarsat (Atlantic Ocean - East)','871','242');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Inmarsat (Atlantic Ocean - West)','874','242');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Inmarsat (Indian Ocean)','873','242');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Inmarsat (Pacific Ocean)','872','242');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Inmarsat SNAC','870','242');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('International Freephone Service','800',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('International Shared Cost Service (ISCS)','808',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Iran','98','101');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Iraq','964','102');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Ireland','353','103');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Iridium (Mobile Satellite service)','8816-8817',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Israel','972','104');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Italy','39','105');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Jamaica','1876','106');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Japan','81','107');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Jordan','962','108');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Kazakhstan','7','109');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Kenya','254','110');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Kiribati','686','111');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Korea (North)','850','112');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Korea (South)','82','113');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Kuwait','965','114');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Kyrgyz Republic','996','115');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Laos','856','116');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Latvia','371','117');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Lebanon','961','118');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Lesotho','266','119');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Liberia','231','120');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Libya','218','121');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Liechtenstein','423','122');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Lithuania','370','123');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Luxembourg','352','124');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Macao','853','125');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Macedonia (Former Yugoslav Rep of.)','389','126');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Madagascar','261','127');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Malawi','265','128');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Malaysia','60','129');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Maldives','960','130');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Mali Republic','223','131');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Malta','356','132');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Marshall Islands','692','133');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Martinique','596','134');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Mauritania','222','135');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Mauritius','230','136');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Mayotte Island','269','137');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Mexico','52','138');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Micronesia, (Federal States of)','691','139');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Midway Island','1808',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Moldova','373','140');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Monaco','377','141');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Mongolia','976','142');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Montserrat','1664','143');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Morocco','212','144');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Mozambique','258','145');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Myanmar','95','146');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Namibia','264','147');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Nauru','674','148');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Nepal','977','149');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Netherlands','31','150');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Netherlands Antilles','599','151');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Nevis','1869',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('New Caledonia','687','152');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('New Zealand','64','153');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Nicaragua','505','154');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Niger','227','155');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Nigeria','234','156');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Niue','683','157');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Norfolk Island','672','158');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Northern Marianas Islands(Saipan, Rota, & Tinian)','1670','159');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Norway','47','160');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Oman','968','161');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Pakistan','92','162');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Palau','680','163');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Palestinian Settlements','970','164');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Panama','507','165');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Papua New Guinea','675','166');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Paraguay','595','167');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Peru','51','168');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Philippines','63','169');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Poland','48','171');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Portugal','351','172');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Puerto Rico','1787','173');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Qatar','974','174');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Réunion Island','262','175');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Romania','40','176');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Russia','7','177');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Rwandese Republic','250','178');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('St. Helena','290','179');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('St. Kitts/Nevis','1869','180');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('St. Lucia','1758','181');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('St. Pierre & Miquelon','508','182');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('St. Vincent & Grenadines','1784','183');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('San Marino','378','185');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('São Tomé and Principe','239','186');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Saudi Arabia','966','187');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Senegal','221','188');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Serbia and Montenegro','381',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Seychelles Republic','248','189');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Sierra Leone','232','190');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Singapore','65','191');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Slovak Republic','421','192');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Slovenia','386','193');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Solomon Islands','677','194');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Somali Democratic Republic','252','195');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('South Africa','27','196');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Spain','34','198');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Sri Lanka','94','199');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Sudan','249','200');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Suriname','597','201');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Swaziland','268','203');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Sweden','46','204');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Switzerland','41','205');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Syria','963','206');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Taiwan','886','207');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Tajikistan','992','208');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Tanzania','255','209');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Thailand','66','210');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Thuraya (Mobile Satellite service)','88216',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Togolese Republic','228','212');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Tokelau','690','213');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Tonga Islands','676','214');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Trinidad & Tobago','1868','215');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Tunisia','216','216');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Turkey','90','217');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Turkmenistan','993','218');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Turks and Caicos Islands','1649','219');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Tuvalu','688','220');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Uganda','256','221');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Ukraine','380','222');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('United Arab Emirates','971','223');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('United Kingdom','44','224');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('United States of America','1','225');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('US Virgin Islands','1340','225');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Universal Personal Telecommunications (UPT)','878',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Uruguay','598','227');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Uzbekistan','998','228');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Vanuatu','678','229');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Vatican City','39',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela','58','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela Etelix','58102','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela http://www.multiphone.net.ve','58107','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela CANTV','58110','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela Convergence Comunications','58111','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela Telcel, C.A.','58114','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela Totalcom Venezuela','58119','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela Orbitel de Venezuela, C.A. ENTEL Venezuela','58123','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela LD Telecomunicaciones, C.A.','58150','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela Telecomunicaciones NGTV','58133','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Venezuela Veninfotel Comunicaciones','58199','230');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Vietnam','84','231');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Wake Island','808',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Wallis and Futuna Islands','681',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Western Samoa','685','184');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Yemen','967','236');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zambia','260','238');
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zanzibar','255',NULL);
+INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zimbabwe','263','239');
+
+
+
+
+CREATE TABLE cc_alarm (
+    id 								BIGSERIAL NOT NULL,
+    name 							TEXT NOT NULL,
+    periode 						INTEGER NOT NULL DEFAULT 1,
+    type 							INTEGER NOT NULL DEFAULT 1,
+    maxvalue 						numeric NOT NULL,
+    minvalue 						numeric NOT NULL DEFAULT -1,
+    id_trunk 						INTEGER,
+    status 							INTEGER NOT NULL DEFAULT 0,
+    numberofrun 					INTEGER NOT NULL DEFAULT 0,
+    numberofalarm 					INTEGER NOT NULL DEFAULT 0,    
+    datecreate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    datelastrun 					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    emailreport 					TEXT
+);
+ALTER TABLE ONLY cc_alarm
+    ADD CONSTRAINT cc_alarm_pkey PRIMARY KEY (id);
+
+CREATE TABLE cc_alarm_report (
+    id 								BIGSERIAL NOT NULL,
+    cc_alarm_id 					BIGINT NOT NULL,
+    calculatedvalue 				numeric NOT NULL,
+    daterun 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
+ALTER TABLE ONLY cc_alarm_report
+    ADD CONSTRAINT cc_alarm_report_pkey PRIMARY KEY (id);
+
+
+CREATE TABLE cc_callback_spool (
+    id 								BIGSERIAL NOT NULL,
+    uniqueid 						TEXT ,
+    entry_time 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
+    status 							TEXT ,
+    server_ip 						TEXT ,	
+    num_attempt 					int NOT NULL DEFAULT 0,
+    last_attempt_time 				TIMESTAMP WITHOUT TIME ZONE,
+    manager_result 					TEXT ,
+    agi_result 						TEXT ,
+    callback_time 					TIMESTAMP WITHOUT TIME ZONE,	
+    channel 						TEXT ,
+    exten 							TEXT ,
+    context 						TEXT ,
+    priority 						TEXT ,
+    application 					TEXT ,
+    data 							TEXT ,
+    timeout 						TEXT ,
+    callerid 						TEXT ,
+    variable 						TEXT ,
+    account 						TEXT ,
+    async 							TEXT ,
+    actionid 						TEXT ,
+	id_server						INTEGER,
+	id_server_group					INTEGER
+) WITH OIDS;
+
+ALTER TABLE ONLY cc_callback_spool
+    ADD CONSTRAINT cc_callback_spool_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_callback_spool
+    ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
+
+
+CREATE TABLE cc_server_manager (
+    id 								BIGSERIAL NOT NULL,
+	id_group						INTEGER DEFAULT 1,
+    server_ip 						TEXT ,
+    manager_host 					TEXT ,
+    manager_username 				TEXT ,
+    manager_secret 					TEXT ,
+	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+) WITH OIDS;
+ALTER TABLE ONLY cc_server_manager
+    ADD CONSTRAINT cc_server_manager_pkey PRIMARY KEY (id);
+INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
+
+
+CREATE TABLE cc_server_group (
+	id								BIGSERIAL NOT NULL,
+	name							TEXT ,
+	description						TEXT
+) WITH OIDS;
+ALTER TABLE ONLY cc_server_group
+    ADD CONSTRAINT cc_server_group_pkey PRIMARY KEY (id);
+INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
+
+
+
+CREATE TABLE cc_invoices (
+    id 								BIGSERIAL NOT NULL,
+    cardid 							BIGINT NOT NULL,
+    orderref 						TEXT ,
+    invoicecreated_date 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    cover_startdate 				TIMESTAMP WITHOUT TIME ZONE,
+    cover_enddate 					TIMESTAMP WITHOUT TIME ZONE,
+    amount 							NUMERIC(15,5) DEFAULT 0,
+    tax 							NUMERIC(15,5) DEFAULT 0,
+    total 							NUMERIC(15,5) DEFAULT 0,
+    invoicetype 					INTEGER,
+    filename 						TEXT,
+	payment_date 					TIMESTAMP WITHOUT TIME ZONE,
+	payment_status 					INTEGER DEFAULT 0
+) WITH OIDS;
+
+ALTER TABLE ONLY cc_invoices
+    ADD CONSTRAINT cc_invoices_pkey PRIMARY KEY (id);
+CREATE INDEX ind_cc_invoices ON cc_invoices USING btree (cover_startdate);
+
+
+CREATE TABLE cc_invoice_history (
+    id 								BIGSERIAL NOT NULL,
+    invoiceid 						INTEGER NOT NULL,	
+    invoicesent_date 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    invoicestatus 					INTEGER
+) WITH OIDS;
+ALTER TABLE ONLY cc_invoice_history
+    ADD CONSTRAINT cc_invoice_history_pkey PRIMARY KEY (id);
+CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicesent_date);
+
+
+CREATE TABLE cc_package_offer (
+    id 								BIGSERIAL NOT NULL,
+    creationdate 					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    label 							TEXT NOT NULL,
+    packagetype 					INTEGER NOT NULL,
+	billingtype 					INTEGER NOT NULL,
+	startday 						INTEGER NOT NULL,
+	freetimetocall 					INTEGER NOT NULL
+);
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+
+
+CREATE TABLE cc_card_package_offer (
+    id 					BIGSERIAL NOT NULL,
+	id_cc_card 			BIGINT NOT NULL,
+	id_cc_package_offer BIGINT NOT NULL,
+    date_consumption 	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	used_secondes 		BIGINT NOT NULL
+);
+CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_cc_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_cc_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
+
+
+
+CREATE TABLE cc_subscription_fee (
+    id 				BIGSERIAL NOT NULL,
+    label 			TEXT NOT NULL,	
+	fee 			NUMERIC(12,4) NOT NULL,
+	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
+	status 			INTEGER NOT NULL DEFAULT 0,
+    numberofrun 	INTEGER NOT NULL DEFAULT 0,
+    datecreate 		TIMESTAMP(0) without time zone DEFAULT NOW(),
+    datelastrun 	TIMESTAMP(0) without time zone DEFAULT NOW(),
+    emailreport 	TEXT,
+    totalcredit 	DOUBLE PRECISION NOT NULL DEFAULT 0,
+    totalcardperform INTEGER NOT NULL DEFAULT 0
+);
+ALTER TABLE ONLY cc_subscription_fee
+ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
+
+-- ## 	INSTEAD USE CC_CHARGE  ##
+-- CREATE TABLE cc_subscription_fee_card (
+--     id 						BIGSERIAL NOT NULL,
+--     id_cc_card 				 NOT NULL,
+-- 	id_cc_subscription_fee 	 NOT NULL,
+--     datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
+--     fee 					NUMERIC(12,4) NOT NULL,
+-- 	fee_converted			NUMERIC(12,4) NOT NULL,
+-- 	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
+-- );
+-- ALTER TABLE ONLY cc_subscription_fee_card
+-- ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id)
+-- 
+-- 
+-- CREATE INDEX ind_cc_charge_id_cc_card 								ON cc_subscription_fee_card USING btree (id_cc_card);
+-- CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
+-- CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card USING btree (datefee);
+
+
+CREATE TABLE cc_outbound_cid_group (
+    id 					BIGSERIAL NOT NULL,
+    creationdate 		TIMESTAMP(0) without time zone DEFAULT NOW(),
+    group_name 			TEXT NOT NULL    
+    
+);
+ALTER TABLE ONLY cc_outbound_cid_group
+ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
+
+
+CREATE TABLE cc_outbound_cid_list (
+    id 					BIGSERIAL NOT NULL,
+	outbound_cid_group	BIGINT NOT NULL,
+	cid					TEXT NOT NULL,    
+    activated 			INTEGER NOT NULL DEFAULT 0,
+    creationdate 		TIMESTAMP(0) without time zone DEFAULT NOW()   
+);
+ALTER TABLE ONLY cc_outbound_cid_list
+ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
+
+
+
+
+
+
+
+
+CREATE TABLE cc_payment_methods (
+    id 									BIGSERIAL NOT NULL,
+    payment_method 						TEXT NOT NULL,
+    payment_filename 					TEXT NOT NULL,
+    active 								CHARACTER VARYING(1) DEFAULT 'f' NOT NULL
+);
+ALTER TABLE ONLY cc_payment_methods
+    ADD CONSTRAINT cc_payment_methods_pkey PRIMARY KEY (id);
+
+Insert into cc_payment_methods (payment_method,payment_filename,active) values('paypal','paypal.php','t');
+Insert into cc_payment_methods (payment_method,payment_filename,active) values('Authorize.Net','authorizenet.php','t');
+Insert into cc_payment_methods (payment_method,payment_filename,active) values('MoneyBookers','moneybookers.php','t');
+
+
+CREATE TABLE cc_payments (
+  id 									BIGSERIAL NOT NULL,
+  customers_id 							CHARACTER VARYING(60) NOT NULL,
+  customers_name 						TEXT NOT NULL,
+  customers_email_address 				TEXT NOT NULL,
+  item_name 							TEXT NOT NULL,
+  item_id 								TEXT NOT NULL,
+  item_quantity 						INTEGER NOT NULL DEFAULT 0,
+  payment_method 						VARCHAR(32) NOT NULL,
+  cc_type 								CHARACTER VARYING(20),
+  cc_owner 								CHARACTER VARYING(64),
+  cc_number 							CHARACTER VARYING(32),
+  cc_expires 							CHARACTER VARYING(6),
+  orders_status 						INTEGER NOT NULL,
+  orders_amount 						NUMERIC(14,6),
+  last_modified 						TIMESTAMP WITHOUT TIME ZONE,
+  date_purchased 						TIMESTAMP WITHOUT TIME ZONE,
+  orders_date_finished 					TIMESTAMP WITHOUT TIME ZONE,
+  currency 								CHARACTER VARYING(3),
+  currency_value 						decimal(14,6)
+);
+
+ALTER TABLE ONLY cc_payments
+    ADD CONSTRAINT cc_payments_pkey PRIMARY KEY (id);
+
+
+CREATE TABLE cc_payments_status (
+  id 									BIGSERIAL NOT NULL,
+  status_id 							INTEGER NOT NULL,
+  status_name 							CHARACTER VARYING(200) NOT NULL
+);
+ALTER TABLE ONLY cc_payments_status
+    ADD CONSTRAINT cc_payments_status_pkey PRIMARY KEY (id);
+
+
+Insert into cc_payments_status (status_id,status_name) values (-2, 'Failed');
+Insert into cc_payments_status (status_id,status_name) values (-1, 'Denied');
+Insert into cc_payments_status (status_id,status_name) values (0, 'Pending');
+Insert into cc_payments_status (status_id,status_name) values (1, 'In-Progress');
+Insert into cc_payments_status (status_id,status_name) values (2, 'Completed');
+Insert into cc_payments_status (status_id,status_name) values (3, 'Processed');
+Insert into cc_payments_status (status_id,status_name) values (4, 'Refunded');
+Insert into cc_payments_status (status_id,status_name) values (5, 'Unknown');
+
+CREATE TABLE cc_configuration (
+  configuration_id 						BIGSERIAL NOT NULL,
+  configuration_title 					CHARACTER VARYING(64) NOT NULL,
+  configuration_key 					CHARACTER VARYING(64) NOT NULL,
+  configuration_value 					CHARACTER VARYING(255) NOT NULL,
+  configuration_description 			CHARACTER VARYING(255) NOT NULL,
+  configuration_type 					INTEGER NOT NULL DEFAULT 0,
+  use_function 							CHARACTER VARYING(255) NULL,
+  set_function 							CHARACTER VARYING(255) NULL
+
+);
+ALTER TABLE ONLY cc_configuration
+ADD CONSTRAINT cc_configuration_id_pkey PRIMARY KEY (configuration_id);
+
+
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
+
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+
+CREATE TABLE cc_epayment_log (
+    id 				BIGSERIAL NOT NULL,
+    cardid 			INTEGER NOT NULL DEFAULT 0,	
+	amount 			DOUBLE PRECISION NOT NULL DEFAULT 0,
+	vat 			DOUBLE PRECISION NOT NULL DEFAULT 0,
+	paymentmethod	CHARACTER VARYING(255) NOT NULL,
+    cc_owner 		CHARACTER VARYING(255) NOT NULL,
+    cc_number 		CHARACTER VARYING(255) NOT NULL,
+    cc_expires 		CHARACTER VARYING(255) NOT NULL,
+    creationdate 	TIMESTAMP(0) without time zone DEFAULT NOW(),
+    status 			INTEGER NOT NULL DEFAULT 0
+);
+ALTER TABLE ONLY cc_epayment_log
+ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);
+
+CREATE TABLE cc_system_log (
+    id 								BIGSERIAL NOT NULL,
+    iduser 							INTEGER NOT NULL DEFAULT 0,
+    loglevel	 					INTEGER NOT NULL DEFAULT 0,
+    action			 				TEXT NOT NULL,
+    description						TEXT,    
+    data			 				TEXT,
+	tablename						CHARACTER VARYING(255),
+	pagename			 			CHARACTER VARYING(255),
+	ipaddress						CHARACTER VARYING(255),	
+	creationdate  					TIMESTAMP(0) without time zone DEFAULT NOW()   
+);
+ALTER TABLE ONLY cc_system_log
+ADD CONSTRAINT cc_system_log_pkey PRIMARY KEY (id);
+
+
+-- integrate changes from ISO-3166-1 newsletters V-1 to V-12
+UPDATE cc_country SET countryname='Lao People''s Democratic Republic' WHERE countrycode='LAO';
+UPDATE cc_country SET countryname='Timor-Leste', countryprefix='670' WHERE countrycode='TLS';
+UPDATE cc_country SET countryprefix='0' WHERE countrycode='TMP';
+
+-- Never too late to add some indexes :D
+
+CREATE INDEX cc_call_username_ind ON cc_call USING btree (username);
+CREATE INDEX cc_call_starttime_ind ON cc_call USING btree (starttime);
+CREATE INDEX cc_call_terminatecause_ind ON cc_call USING btree (terminatecause);
+CREATE INDEX cc_call_calledstation_ind ON cc_call USING btree (calledstation);
+
+
+CREATE INDEX cc_card_creationdate_ind ON cc_card USING btree (creationdate);
+CREATE INDEX cc_card_username_ind ON cc_card USING btree (username);
+--
+-- A2Billing database script - Update database for Postgres
+--
+--
+-- See the last 2 lines of this file BEFORE running this.
+--
+--
+
+-- If you have defined any custom functions you should comment this out:
+DROP LANGUAGE IF EXISTS plpgsql CASCADE;
+CREATE LANGUAGE plpgsql;
+
+-- Wrap the whole update in a transaction so everything is reverted upon failure
+BEGIN;
+
+CREATE TABLE cc_invoice_items (
+	id 						BIGSERIAL NOT NULL,
+	invoiceid 				INTEGER NOT NULL,
+	invoicesection 			TEXT,
+	designation 			TEXT,
+	sub_designation 		TEXT,
+	start_date 				DATE DEFAULT NULL,
+	end_date 				DATE default NULL,
+	bill_date 				DATE default NULL,
+	calltime 				INTEGER DEFAULT NULL,
+	nbcalls 				INTEGER DEFAULT NULL,
+	quantity 				INTEGER DEFAULT NULL,
+	price 					DECIMAL(15,5) DEFAULT NULL,
+	buy_price				DECIMAL(15,5) DEFAULT NULL
+);
+ALTER TABLE ONLY cc_invoice_items ADD CONSTRAINT cc_invoice_items_pkey PRIMARY KEY (id);
+
+CREATE TABLE cc_invoice (
+	id 						SERIAL NOT NULL,
+	cardid 					BIGINT DEFAULT 0 NOT NULL,
+	invoicecreated_date 	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	amount 					DECIMAL(15,5) DEFAULT '0.00000',
+	tax						DECIMAL(15,5) DEFAULT '0.00000',
+	total					DECIMAL(15,5) DEFAULT '0.00000',
+	filename				CHARACTER VARYING(255) NOT NULL,
+	payment_status 			INTEGER DEFAULT 0 NOT NULL,
+	cover_call_startdate 	TIMESTAMP WITHOUT TIME ZONE,
+	cover_call_enddate 		TIMESTAMP WITHOUT TIME ZONE,
+	cover_charge_startdate 	TIMESTAMP WITHOUT TIME ZONE,
+	cover_charge_enddate 	TIMESTAMP WITHOUT TIME ZONE,
+	currency 				CHARACTER VARYING(3) NOT NULL,
+	previous_balance 		DECIMAL(15,5) DEFAULT '0.00000',
+	current_balance 		DECIMAL(15,5) DEFAULT '0.00000',
+	templatefile 			CHARACTER VARYING(255) NOT NULL,
+	username 				CHARACTER VARYING(50) NOT NULL,
+	lastname 				CHARACTER VARYING(50) NOT NULL,
+	firstname 				CHARACTER VARYING(50) NOT NULL,
+	address 				CHARACTER VARYING(100) NOT NULL,
+	city					CHARACTER VARYING(40) NOT NULL,
+	state					CHARACTER VARYING(40) NOT NULL,
+	country					CHARACTER VARYING(40) NOT NULL,
+	zipcode 				CHARACTER VARYING(20) NOT NULL,
+	phone					CHARACTER VARYING(20) NOT NULL,
+	email					CHARACTER VARYING(70) NOT NULL,
+	fax						CHARACTER VARYING(20) NOT NULL,
+	vat						FLOAT DEFAULT NULL
+);
+ALTER TABLE ONLY cc_invoice ADD CONSTRAINT cc_invoice_pkey PRIMARY KEY (id);
+
+ALTER TABLE cc_charge DROP COLUMN id_cc_subscription_fee;
+
+ALTER TABLE cc_charge ADD COLUMN id_cc_card_subscription BIGINT;
+ALTER TABLE cc_charge ADD COLUMN cover_from DATE;
+ALTER TABLE cc_charge ADD COLUMN cover_to 	DATE;
+
+ALTER TABLE cc_trunk ADD COLUMN inuse INTEGER DEFAULT 0;
+ALTER TABLE cc_trunk ADD COLUMN maxuse INTEGER DEFAULT -1;
+ALTER TABLE cc_trunk ADD COLUMN status INTEGER DEFAULT 1;
+ALTER TABLE cc_trunk ADD COLUMN if_max_use INTEGER DEFAULT 0;
+
+
+CREATE TABLE cc_card_subscription (
+	id 								BIGSERIAL NOT NULL,
+	id_cc_card 						BIGINT DEFAULT 0 NOT NULL,
+	id_subscription_fee 			INTEGER DEFAULT 0 NOT NULL,
+    startdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    stopdate 						TIMESTAMP WITHOUT TIME ZONE,
+	product_id						CHARACTER VARYING(100) NOT NULL,
+	product_name 					CHARACTER VARYING(100) NOT NULL
+);
+ALTER TABLE ONLY cc_card_subscription ADD CONSTRAINT cc_card_subscription_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE cc_card DROP id_subscription_fee;
+ALTER TABLE cc_card ADD COLUMN id_timezone INTEGER DEFAULT 0;
+
+
+CREATE TABLE cc_config_group (
+	id 								SERIAL NOT NULL,
+	group_title 					CHARACTER VARYING(64) NOT NULL,
+	group_description 				CHARACTER VARYING(255) NOT NULL
+);
+ALTER TABLE ONLY cc_config_group ADD CONSTRAINT cc_config_group_pkey PRIMARY KEY (id);
+
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('global', 'This configuration group handles the global settings for application.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('callback', 'This configuration group handles calllback settings.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('webcustomerui', 'This configuration group handles Web Customer User Interface.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('sip-iax-info', 'SIP & IAX client configuration information.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('epayment_method', 'Epayment Methods Configuration.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('signup', 'This configuration group handles the signup related settings.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('backup', 'This configuration group handles the backup/restore related settings.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('webui', 'This configuration group handles the WEBUI and API Configuration.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('peer_friend', 'This configuration group define parameters for the friends creation.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('log-files', 'This configuration group handles the Log Files Directory Paths.');
+INSERT INTO cc_config_group (group_title, group_description) VALUES ('agi-conf1', 'This configuration group handles the AGI Configuration.');
+
+
+
+CREATE TABLE cc_config (
+  	id 								SERIAL NOT NULL,
+	config_title		 			CHARACTER VARYING(100) NOT NULL,
+	config_key 						CHARACTER VARYING(100) NOT NULL,
+	config_value 					TEXT NOT NULL,  -- Some of the data to insert is > 100 chars! XXX
+	config_description 				TEXT NOT NULL,  -- Some of the data to insert is > 255 chars! XXX
+	config_valuetype				INTEGER NOT NULL DEFAULT 0,
+	config_group_id 				INTEGER NOT NULL,
+	config_listvalues				TEXT
+);
+ALTER TABLE ONLY cc_config ADD CONSTRAINT cc_config_pkey PRIMARY KEY (id);
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Number length', 'interval_len_cardnumber', '10-15', 'Card Number length, You can define a Range e.g: 10-15.', 0, 1, '10-15,5-20,10-30');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Alias length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Voucher length', 'len_voucher', '15', 'Voucher Number Length.', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Base Currency', 'base_currency', 'usd', 'Base Currency to use for application.', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Image', 'invoice_image', 'asterisk01.jpg', 'Image to Display on the Top of Invoice', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Admin Email', 'admin_email', 'root@localhost', 'Web Administrator Email Address.', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DID Bill Payment Day', 'didbilling_daytopay', '5', 'DID Bill Payment Day of Month', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Manager Host', 'manager_host', 'localhost', 'Manager Host Address', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Manager User ID', 'manager_username', 'myasterisk', 'Manger Host User Name', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Manager Password', 'manager_secret', 'mycode', 'Manager Host Password', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Use SMTP Server', 'smtp_server', '0', 'Define if you want to use an STMP server or Send Mail (value yes for server SMTP)', 1, 1, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SMTP Host', 'smtp_host', 'localhost', 'SMTP Hostname', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SMTP UserName', 'smtp_username', '', 'User Name to connect on the SMTP server', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SMTP Password', 'smtp_password', '', 'Password to connect on the SMTP server', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Use Realtime', 'use_realtime', '1', 'if Disabled, it will generate the config files and offer an option to reload asterisk after an update on the Voip settings', 1, 1, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Go To Customer', 'customer_ui_url', '../../customer/index.php', 'Link to the customer account', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Context Callback', 'context_callback', 'a2billing-callback', 'Contaxt to use in Callback', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extension', 'extension', '1000', 'Extension to call while callback.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Wait before callback', 'sec_wait_before_callback', '10', 'Seconds to wait before callback.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Avoid Repeat Duration', 'sec_avoid_repeate', '10', 'Number of seconds before the call-back can be re-initiated from the web page to prevent repeated and unwanted calls.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Time out', 'timeout', '20', 'if the callback doesnt succeed within the value below, then the call is deemed to have failed.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Answer on Call', 'answer_call', '1', 'if we want to manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 2, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('No of Predictive Calls', 'nb_predictive_call', '10', 'number of calls an agent will do when the call button is clicked.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Delay for Availability', 'nb_day_wait_before_retry', '1', 'Number of days to wait before the number becomes available to call again.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PD Contect', 'context_preditctivedialer', 'a2billing-predictivedialer', 'The context to redirect the call for the predictive dialer.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Max Time to call', 'predictivedialer_maxtime_tocall', '5400', 'When a call is made we need to limit the call duration : amount in seconds.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PD Caller ID', 'callerid', '123456', 'Set the callerID for the predictive dialer and call-back.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Callback CallPlan ID', 'all_callback_tariff', '1', 'ID Call Plan to use when you use the all-callback mode, check the ID in the "list Call Plan" - WebUI.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Server Group ID', 'id_server_group', '1', 'Define the group of servers that are going to be used by the callback.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Audio Intro', 'callback_audio_intro', 'prepaid-callback_intro', 'Audio intro message when the callback is initiate.', 0, 2, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Signup URL', 'signup_page_url', '', 'url of the signup page to show up on the sign in page (if empty no link will show up).', 0, 3, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Payment Method', 'paymentmethod', 1, 'Enable or disable the payment methods; yes for multi-payment or no for single payment method option.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Personal Info', 'personalinfo', 1, 'Enable or disable the page which allow customer to modify its personal information.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Payment Info', 'customerinfo', 1, 'Enable display of the payment interface - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP/IAX Info', 'sipiaxinfo', 1, 'Enable display of the sip/iax info - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CDR', 'cdr', 1, 'Enable the Call history - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoices', 'invoice', 1, 'Enable invoices - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Voucher Screen', 'voucher', 1, 'Enable the voucher screen - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Paypal', 'paypal', 1, 'Enable the paypal payment buttons - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Speed Dial', 'speeddial', 1, 'Allow Speed Dial capabilities - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DID', 'did', 1, 'Enable the DID (Direct Inwards Dialling) interface - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('RateCard', 'ratecard', 1, 'Show the ratecards - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Simulator', 'simulator', 1, 'Offer simulator option on the customer interface - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CallBack', 'callback', 1, 'Enable the callback option on the customer interface - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Predictive Dialer', 'predictivedialer', 1, 'Enable the predictivedialer option on the customer interface - yes or no.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('WebPhone', 'webphone', 1, 'Let users use SIP/IAX Webphone (Options : yes/no).', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('WebPhone Server', 'webphoneserver', 'localhost', 'IP address or domain name of asterisk server that would be used by the web-phone.', 0, 3, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Caller ID', 'callerid', 1, 'Let the users add new callerid.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Password', 'password', 1, 'Let the user change the webui password.', 1, 3, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CallerID Limit', 'limit_callerid', '5', 'The total number of callerIDs for CLI Recognition that can be add by the customer.', 0, 3, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Trunk Name', 'sip_iax_info_trunkname', 'call-labs', 'Trunk Name to show in sip/iax info.', 0, 4, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Codecs Allowed', 'sip_iax_info_allowcodec', 'g729', 'Allowed Codec, ulaw, gsm, g729.', 0, 4, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Host', 'sip_iax_info_host', 'call-labs.com', 'Host information.', 0, 4, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IAX Parms', 'iax_additional_parameters', 'canreinvite = no', 'IAX Additional Parameters.', 0, 4, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP Parms', 'sip_additional_parameters', 'trustrpid = yes | sendrpid = yes | canreinvite = no', 'SIP Additional Parameters.', 0, 4, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Enable', 'enable', 1, 'Enable/Disable.', 1, 5, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTP Server Customer', 'http_server', 'http://www.call-labs.com', 'Set the Server Address of Customer Website, It should be empty for productive Servers.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTPS Server Customer', 'https_server', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Customers Server Address, should not be empty for productive servers.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Server Customer IP/Domain', 'http_cookie_domain', '26.63.165.200', 'Enter your Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Server Customer IP/Domain', 'https_cookie_domain', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Customers application, eg, 26.63.165.200.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Application Customer Path', 'http_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Application Customer Path', 'https_cookie_path', '/customer/', 'Enter the Physical path of your Customers Application on your Secure Server.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Application Customer Physical Path', 'dir_ws_http_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your server.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secure Application Customer Physical Path', 'dir_ws_https_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your Secure server.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Enable SSL', 'enable_ssl', 1, 'secure webserver for checkout procedure?', 1, 5, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('HTTP Domain', 'http_domain', '26.63.165.200', 'Http Address.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Directory Path', 'dir_ws_http', '/~areski/svn/a2billing/payment/customer/', 'Directory Path.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Payment Amount', 'purchase_amount', '1:2:5:10:20', 'define the different amount of purchase that would be available - 5 amount maximum (5:10:15).', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Item Name', 'item_name', 'Credit Purchase', 'Item name that would be display to the user when he will buy credit.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Currency Code', 'currency_code', 'USD', 'Currency for the Credit purchase, only one can be define here.', 0, 5, NULL);
+-- https://www.sandbox.paypal.com/cgi-bin/webscr
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Paypal Payment URL', 'paypal_payment_url', 'https://secure.paypal.com/cgi-bin/webscr', 'Define here the URL of paypal gateway the payment (to test with paypal sandbox).', 0, 5, NULL);
+-- www.sandbox.paypal.com
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Paypal Verify URL', 'paypal_verify_url', 'ssl://www.paypal.com', 'paypal transaction verification url.', 0, 5, NULL);
+-- https://test.authorize.net/gateway/transact.dll
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Authorize.NET Payment URL', 'authorize_payment_url', 'https://secure.authorize.net/gateway/transact.dll', 'Define here the URL of Authorize gateway.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PayPal Store Name', 'store_name', 'Asterisk2Billing', 'paypal store name to show in the paypal site when customer will go to pay.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Transaction Key', 'transaction_key', 'asdf1212fasd121554sd4f5s45sdf', 'Transaction Key for security of Epayment Max length of 60 Characters.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Secret Word', 'moneybookers_secretword', 'areski', 'Moneybookers secret word.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Enable', 'enable_signup', 1, 'Enable Signup Module.', 1, 6, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Captcha Security', 'enable_captcha', 1, 'enable Captcha on the signup module (value : YES or NO).', 1, 6, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Credit', 'credit', '0', 'amount of credit applied to a new user.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CallPlan ID List', 'callplan_id_list', '1,2', 'the list of id of call plans which will be shown in signup.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Activation', 'activated', '0', 'Specify whether the card is created as active or pending.', 1, 6, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Access Type', 'simultaccess', '0', 'Simultaneous or non concurrent access with the card - 0 = INDIVIDUAL ACCESS or 1 = SIMULTANEOUS ACCESS.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Paid Type', 'typepaid', '0', 'PREPAID CARD  =  0 - POSTPAY CARD  =  1.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Credit Limit', 'creditlimit', '0', 'Define credit limit, which is only used for a POSTPAY card.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Run Service', 'runservice', '0', 'Authorise the recurring service to apply on this card  -  Yes 1 - No 0.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Enable Expire', 'enableexpire', '0', 'Enable the expiry of the card  -  Yes 1 - No 0.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Date Format', 'expirationdate', '', 'Expiry Date format YYYY-MM-DD HH:MM:SS. For instance 2004-12-31 00:00:00', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Expire Limit', 'expiredays', '0', 'The number of days after which the card will expire.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Create SIP', 'sip_account', 1, 'Create a sip account from signup ( default : yes ).', 1, 6, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Create IAX', 'iax_account', 1, 'Create an iax account from signup ( default : yes ).', 1, 6, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Activate Card', 'activatedbyuser', 0, 'active card after the new signup. if No, the Signup confirmation is needed and an email will be sent to the user with a link for activation (need to put the link into the Signup mail template).', 1, 6, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Customer Interface URL', 'urlcustomerinterface', 'http://localhost/customer/', 'url of the customer interface to display after activation.', 0, 6, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Asterisk Reload', 'reload_asterisk_if_sipiax_created', '0', 'Define if you want to reload Asterisk when a SIP / IAX Friend is created at signup time.', 1, 6, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Backup Path', 'backup_path', '/tmp', 'Path to store backup of database.', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('GZIP Path', 'gzip_exe', '/bin/gzip', 'Path for gzip.', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('GunZip Path', 'gunzip_exe', '/bin/gunzip', 'Path for gunzip .', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('MySql Dump Path', 'mysqldump', '/usr/bin/mysqldump', 'path for mysqldump.', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PGSql Dump Path', 'pg_dump', '/usr/bin/pg_dump', 'path for pg_dump.', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('MySql Path', 'mysql', '/usr/bin/mysql', 'Path for MySql.', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('PSql Path', 'psql', '/usr/bin/psql', 'Path for PSql.', 0, 7, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP File Path', 'buddy_sip_file', '/etc/asterisk/additional_a2billing_sip.conf', 'Path to store the asterisk configuration files SIP.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IAX File Path', 'buddy_iax_file', '/etc/asterisk/additional_a2billing_iax.conf', 'Path to store the asterisk configuration files IAX.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('API Security Key', 'api_security_key', 'Ae87v56zzl34v', 'API have a security key to validate the http request, the key has to be sent after applying md5, Valid characters are [a-z,A-Z,0-9].', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Authorized IP', 'api_ip_auth', '127.0.0.1', 'API to restrict the IPs authorised to make a request, Define The the list of ips separated by '';''.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Admin Email', 'email_admin', 'root@localhost', 'Administative Email.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('MOH Directory', 'dir_store_mohmp3', '/var/lib/asterisk/mohmp3', 'MOH (Music on Hold) base directory.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('MOH Classes', 'num_musiconhold_class', '10', 'Number of MOH classes you have created in musiconhold.conf : acc_1, acc_2... acc_10 class	etc....', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Display Help', 'show_help', 1, 'Display the help section inside the admin interface  (YES - NO).', 1, 8, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Max File Upload Size', 'my_max_file_size_import', '1024000', 'File Upload parameters, PLEASE CHECK ALSO THE VALUE IN YOUR PHP.INI THE LIMIT IS 2MG BY DEFAULT .', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Audio Directory Path', 'dir_store_audio', '/var/lib/asterisk/sounds/a2billing', 'Not used yet, The goal is to upload files and use them in the IVR.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Max Audio File Size', 'my_max_file_size_audio', '3072000', 'upload maximum file size.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extensions Allowed', 'file_ext_allow', 'gsm, mp3, wav', 'File type extensions permitted to be uploaded such as "gsm, mp3, wav" (separated by ,).', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Muzic Files Allowed', 'file_ext_allow_musiconhold', 'mp3', 'File type extensions permitted to be uploaded for the musiconhold such as "gsm, mp3, wav" (separate by ,).', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Link Audio', 'link_audio_file', '0', 'Enable link on the CDR viewer to the recordings. (YES - NO).', 1, 8, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Monitor Path', 'monitor_path', '/var/spool/asterisk/monitor', 'Path to link the recorded monitor files.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Monitor Format', 'monitor_formatfile', 'gsm', 'FORMAT OF THE RECORDED MONITOR FILE.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Icon', 'show_icon_invoice', 1, 'Display the icon in the invoice.', 1, 8, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Show Top Frame', 'show_top_frame', '0', 'Display the top frame (useful if you want to save space on your little tiny screen ) .', 1, 8, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Currency', 'currency_choose', 'usd, eur, cad, hkd', 'Allow the customer to chose the most appropriate currency ("all" can be used).', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Export Fields', 'card_export_field_list', 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused, mac_addr, template_invoice, template_outstanding', 'Fields to export in csv format from cc_card table.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Vouvher Export Fields', 'voucher_export_field_list', 'voucher, credit, tag, activated, usedcardnumber, usedate, currency', 'Field to export in csv format from cc_voucher table.', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Advance Mode', 'advanced_mode', '0', 'Advanced mode - Display additional configuration options on the ratecard (progressive rates, musiconhold, ...).', 1, 8, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP/IAX Delete', 'delete_fk_card', 1, 'Delete the SIP/IAX Friend & callerid when a card is deleted.', 1, 8, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Type', 'type', 'friend', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Allow', 'allow', 'ulaw,alaw,gsm,g729', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Context', 'context', 'a2billing', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Nat', 'nat', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('AMA Flag', 'amaflag', 'billing', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Qualify', 'qualify', 'yes', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Host', 'host', 'dynamic', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DTMF Mode', 'dtmfmode', 'RFC2833', 'Refer to sip.conf & iax.conf documentation for the meaning of those parameters.', 0, 9, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Alarm Log File', 'cront_alarm', '/var/log/a2billing/cront_a2b_alarm.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto refill Log File', 'cront_autorefill', '/var/log/a2billing/cront_a2b_autorefill.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Bactch Process Log File', 'cront_batch_process', '/var/log/a2billing/cront_a2b_batch_process.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Archive Log File', 'cront_archive_data', '/var/log/a2billing/cront_a2b_archive_data.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DID Billing Log File', 'cront_bill_diduse', '/var/log/a2billing/cront_a2b_bill_diduse.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Subscription Fee Log File', 'cront_subscriptionfee', '/var/log/a2billing/cront_a2b_subscription_fee.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Currency Cront Log File', 'cront_currency_update', '/var/log/a2billing/cront_a2b_currency_update.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Cront Log File', 'cront_invoice', '/var/log/a2billing/cront_a2b_invoice.log', 'To disable application logging, remove/comment the log file name aside service.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Cornt Log File', 'cront_check_account', '/var/log/a2billing/cront_a2b_check_account.log', 'To disable application logging, remove/comment the log file name aside service .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Paypal Log File', 'paypal', '/var/log/a2billing/a2billing_paypal.log', 'paypal log file, to log all the transaction & error.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('EPayment Log File', 'epayment', '/var/log/a2billing/a2billing_epayment.log', 'epayment log file, to log all the transaction & error .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('ECommerce Log File', 'api_ecommerce', '/var/log/a2billing/a2billing_api_ecommerce_request.log', 'Log file to store the ecommerce API requests .', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Callback Log File', 'api_callback', '/var/log/a2billing/a2billing_api_callback_request.log', 'Log file to store the CallBack API requests.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Webservice Card Log File', 'api_card', '/var/log/a2billing/a2billing_api_card.log', 'Log file to store the Card Webservice Logs', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('AGI Log File', 'agi', '/var/log/a2billing/a2billing_agi.log', 'File to log.', 0, 10, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Description', 'description', 'agi-config', 'Description/notes field', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Asterisk Version', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1,1_2,1_4 By Default it will take 1_2 or higher .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Answer Call', 'answer_call', 1, 'Manage the answer on the call. Disabling this for callback trigger numbers makes it ring not hang up.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Play Audio', 'play_audio', 1, 'Play audio - this will disable all stream file but not the Get Data , for wholesale ensure that the authentication works and than number_try = 1.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Say GoodBye', 'say_goodbye', '0', 'play the goodbye message when the user has finished.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Play Language Menu', 'play_menulanguage', '0', 'enable the menu to choose the language, press 1 for English, pulsa 2 para el español, Pressez 3 pour Français', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Force Language', 'force_language', '', 'force the use of a language, if you dont want to use it leave the option empty, Values : ES, EN, FR, etc... (according to the audio you have installed).', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Intro Prompt', 'intro_prompt', '', 'Introduction prompt : to specify an additional prompt to play at the beginning of the application .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Min Call Credit', 'min_credit_2call', '0', 'Minimum amount of credit to use the application .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Min Bill Duration', 'min_duration_2bill', '0', 'this is the minimum duration in seconds of a call in order to be billed any call with a length less than min_duration_2bill will have a 0 cost useful not to charge callers for system errors when a call was answered but it actually didn''t connect.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Not Enough Credit', 'notenoughcredit_cardnumber', 0, 'if user doesn''t have enough credit to call a destination, prompt him to enter another cardnumber .', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('New Caller ID', 'notenoughcredit_assign_newcardnumber_cid', 0, 'if notenoughcredit_cardnumber = YES  then	assign the CallerID to the new cardnumber.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Use DNID', 'use_dnid', '0', 'if YES it will use the DNID and try to dial out, without asking for the phonenumber to call.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Not Use DNID', 'no_auth_dnid', '2400,2300', 'list the dnid on which you want to avoid the use of the previous option "use_dnid" .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Try Count', 'number_try', '3', 'number of times the user can dial different number.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Force CallPlan', 'force_callplan_id', '', 'this will force to select a specific call plan by the Rate Engine.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Say Balance After Auth', 'say_balance_after_auth', 1, 'Play the balance to the user after the authentication (values : yes - no).', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Say Balance After Call', 'say_balance_after_call', '0', 'Play the balance to the user after the call (values : yes - no).', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Say Rate', 'say_rateinitial', '0', 'Play the initial cost of the route (values : yes - no)', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Say Duration', 'say_timetocall', 1, 'Play the amount of time that the user can call (values : yes - no).', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto Set CLID', 'auto_setcallerid', 1, 'enable the setup of the callerID number before the outbound is made, by default the user callerID value will be use.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Force CLID', 'force_callerid', '', 'If auto_setcallerid is enabled, the value of force_callerid will be set as CallerID.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CLID Sanitize', 'cid_sanitize', '0', 'If force_callerid is not set, then the following option ensures that CID is set to one of the card''s configured caller IDs or blank if none available.(NO - disable this feature, caller ID can be anything, CID - Caller ID must be one of the customers caller IDs, DID - Caller ID must be one of the customers DID nos, BOTH - Caller ID must be one of the above two items)', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('CLID Enable', 'cid_enable', '0', 'enable the callerid authentication if this option is active the CC system will check the CID of caller  .', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Ask PIN', 'cid_askpincode_ifnot_callerid', 1, 'if the CID does not exist, then the caller will be prompt to enter his cardnumber .', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('FailOver LCR/LCD Prefix', 'failover_lc_prefix', 0, 'if we will failover for LCR/LCD prefix. For instance if you have 346 and 34 for if 346 fail it will try to outbound with 34 route.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto CLID', 'cid_auto_assign_card_to_cid', 1, 'if the callerID authentication is enable and the authentication fails then the user will be prompt to enter his cardnumber;this option will bound the cardnumber entered to the current callerID so that next call will be directly authenticate.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto Create Card', 'cid_auto_create_card', '0', 'if the callerID is captured on a2billing, this option will create automatically a new card and add the callerID to it.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto Create Card Length', 'cid_auto_create_card_len', '10', 'set the length of the card that will be auto create (ie, 10).', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto Create Card Type', 'cid_auto_create_card_typepaid', 'POSTPAY', 'billing type of the new card( value : POSTPAY or PREPAY) .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto Create Card Credit', 'cid_auto_create_card_credit', '0', 'amount of credit of the new card.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto Create Card Limit', 'cid_auto_create_card_credit_limit', '1000', 'if postpay, define the credit limit for the card.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto Create Card TariffGroup', 'cid_auto_create_card_tariffgroup', '6', 'the tariffgroup to use for the new card (this is the ID that you can find on the admin web interface) .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Auto CLID Security', 'callerid_authentication_over_cardnumber', '0', 'to check callerID over the cardnumber authentication (to guard against spoofing).', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP Call', 'sip_iax_friends', '0', 'enable the option to call sip/iax friend for free (values : YES - NO).', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP Call Prefix', 'sip_iax_pstn_direct_call_prefix', '555', 'if SIP_IAX_FRIENDS is active, you can define a prefix for the dialed digits to call a pstn number .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Direct Call', 'sip_iax_pstn_direct_call', '0', 'this will enable a prompt to enter your destination number. if number start by sip_iax_pstn_direct_call_prefix we do directly a sip iax call, if not we do a normal call.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IVR Voucher Refill', 'ivr_voucher', '0', 'enable the option to refill card with voucher in IVR (values : YES - NO) .', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IVR Voucher Prefix', 'ivr_voucher_prefix', '8', 'if ivr_voucher is active, you can define a prefix for the voucher number to refill your card, values : number - don''t forget to change prepaid-refill_card_with_voucher audio accordingly .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('IVR Low Credit', 'jump_voucher_if_min_credit', 0, 'When the user credit are below the minimum credit to call min_credit jump directly to the voucher IVR menu  (values: YES - NO) .', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Dail Command Parms', 'dialcommand_param', '|60|HRrL(%timeout%:61000:30000)', 'More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('SIP/IAX Dial Command Parms', 'dialcommand_param_sipiax_friend', '|60|HL(3600000:61000:30000)', 'by default (3600000  =  1HOUR MAX CALL).', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Outbound Call', 'switchdialcommand', '0', 'Define the order to make the outbound call<br>YES -> SIP/dialedphonenumber@gateway_ip - NO  SIP/gateway_ip/dialedphonenumber<br>Both should work exactly the same but i experimented one case when gateway was supporting dialedphonenumber@gateway_ip, So in case of trouble, try it out.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Failover Retry Limit', 'failover_recursive_limit', '2', 'failover recursive search - define how many time we want to authorize the research of the failover trunk when a call fails (value : 0 - 20) .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Max Time', 'maxtime_tocall_negatif_free_route', '5400', 'This setting specifies an upper limit for the duration of a call to a destination for which the selling rate is less than or equal to 0.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Send Reminder', 'send_reminder', '0', 'Send a reminder email to the user when they are under min_credit_2call.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Record Call', 'record_call', '0', 'enable to monitor the call (to record all the conversations) value : YES - NO .', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Monitor File Format', 'monitor_formatfile', 'gsm', 'format of the recorded monitor file.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('AGI Force Currency', 'agi_force_currency', '', 'Force to play the balance to the caller in a predefined currency, to use the currency set for by the customer leave this field empty.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Currency Associated', 'currency_association', 'usd:dollars,mxn:pesos,eur:euros,all:credit', 'Define all the audio (without file extensions) that you want to play according to currency (use , to separate, ie "usd:prepaid-dollar,mxn:pesos,eur:Euro,all:credit").', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Minor Currency Associated', 'currency_association_minor', 'usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit', 'Define all the audio (without file extensions) that you want to play according to minor currency (use , to separate, ie "usd:prepaid-cents,eur:prepaid-cents,gbp:prepaid-pence,all:credit").', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('File Enter Destination', 'file_conf_enter_destination', 'prepaid-enter-dest', 'Please enter the file name you want to play when we prompt the calling party to enter the destination number, file_conf_enter_destination = prepaid-enter-number-u-calling-1-or-011.', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('File Language Menu', 'file_conf_enter_menulang', 'prepaid-menulang2', 'Please enter the file name you want to play when we prompt the calling party to choose the prefered language .', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Bill Callback', 'callback_bill_1stleg_ifcall_notconnected', 1, 'Define if you want to bill the 1st leg on callback even if the call is not connected to the destination.', 1, 11, 'yes,no');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('International prefixes', 'international_prefixes', '011,00,09,1', 'List the prefixes you want stripped off if the call plan requires it', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Server GMT', 'server_GMT', 'GMT+10:00', 'Define the sever gmt time', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Invoice Template Path', 'invoice_template_path', '../invoice/', 'gives invoice template path from default one', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Outstanding Template Path', 'outstanding_template_path', '../outstanding/', 'gives outstanding template path from default one', 0, 1, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Sales Template Path', 'sales_template_path', '../sales/', 'gives sales template path from default one', 0, 1, NULL);
+
+
+CREATE TABLE cc_timezone (
+    id 								SERIAL NOT NULL,
+    gmtzone							CHARACTER VARYING(255),
+    gmttime		 					CHARACTER VARYING(255),
+	gmtoffset						BIGINT NOT NULL DEFAULT 0
+);
+ALTER TABLE ONLY cc_timezone ADD CONSTRAINT cc_timezone_pkey PRIMARY KEY (id);
+
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-12:00) International Date Line West', 'GMT-12:00', '-43200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-11:00) Midway Island, Samoa', 'GMT-11:00', '-39600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-10:00) Hawaii', 'GMT-10:00', '-36000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-09:00) Alaska', 'GMT-09:00', '-32400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-08:00) Pacific Time (US & Canada) Tijuana', 'GMT-08:00', '-28800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-07:00) Arizona', 'GMT-07:00', '-25200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-07:00) Chihuahua, La Paz, Mazatlan', 'GMT-07:00', '-25200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-07:00) Mountain Time(US & Canada)', 'GMT-07:00', '-25200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-06:00) Central America', 'GMT-06:00', '-21600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-06:00) Central Time (US & Canada)', 'GMT-06:00', '-21600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-06:00) Guadalajara, Mexico City, Monterrey', 'GMT-06:00', '-21600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-06:00) Saskatchewan', 'GMT-06:00', '-21600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-05:00) Bogota, Lima, Quito', 'GMT-05:00', '-18000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-05:00) Eastern Time (US & Canada)', 'GMT-05:00', '-18000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-05:00) Indiana (East)', 'GMT-05:00', '-18000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-04:00) Atlantic Time (Canada)', 'GMT-04:00', '-14400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-04:00) Caracas, La Paz', 'GMT-04:00', '-14400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-04:00) Santiago', 'GMT-04:00', '-14400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-03:30) NewFoundland', 'GMT-03:30', '-12600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-03:00) Brasillia', 'GMT-03:00', '-10800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-03:00) Buenos Aires, Georgetown', 'GMT-03:00', '-10800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-03:00) Greenland', 'GMT-03:00', '-10800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-03:00) Mid-Atlantic', 'GMT-03:00', '-10800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-01:00) Azores', 'GMT-01:00', '-3600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT-01:00) Cape Verd Is.', 'GMT-01:00', '-3600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT) Casablanca, Monrovia', 'GMT+00:00', '0');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon,  London', 'GMT', '0');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna', 'GMT+01:00', '3600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague', 'GMT+01:00', '3600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+01:00) Brussels, Copenhagen, Madrid, Paris', 'GMT+01:00', '3600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb', 'GMT+01:00', '3600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+01:00) West Central Africa', 'GMT+01:00', '3600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+02:00) Athens, Istanbul, Minsk', 'GMT+02:00', '7200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+02:00) Bucharest', 'GMT+02:00', '7200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+02:00) Cairo', 'GMT+02:00', '7200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+02:00) Harere, Pretoria', 'GMT+02:00', '7200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius', 'GMT+02:00', '7200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+02:00) Jeruasalem', 'GMT+02:00', '7200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+03:00) Baghdad', 'GMT+03:00', '10800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+03:00) Kuwait, Riyadh', 'GMT+03:00', '10800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+03:00) Moscow, St.Petersburg, Volgograd', 'GMT+03:00', '10800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+03:00) Nairobi', 'GMT+03:00', '10800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+03:30) Tehran', 'GMT+03:30', '12600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+04:00) Abu Dhabi, Muscat', 'GMT+04:00', '14400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+04:00) Baku, Tbillisi, Yerevan', 'GMT+04:00', '14400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+04:30) Kabul', 'GMT+04:30', '16200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+05:00) Ekaterinburg', 'GMT+05:00', '18000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+05:00) Islamabad, Karachi, Tashkent', 'GMT+05:00', '18000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi', 'GMT+05:30', '19800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+05:45) Kathmandu', 'GMT+05:45', '20700');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+06:00) Almaty, Novosibirsk', 'GMT+06:00', '21600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+06:00) Astana, Dhaka', 'GMT+06:00', '21600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+06:00) Sri Jayawardenepura', 'GMT+06:00', '21600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+06:30) Rangoon', 'GMT+06:30', '23400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+07:00) Bangkok, Hanoi, Jakarta', 'GMT+07:00', '25200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+07:00) Krasnoyarsk', 'GMT+07:00', '25200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+08:00) Beijiing, Chongging, Hong Kong, Urumqi', 'GMT+08:00', '28800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+08:00) Irkutsk, Ulaan Bataar', 'GMT+08:00', '28800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+08:00) Kuala Lumpur, Singapore', 'GMT+08:00', '28800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+08:00) Perth', 'GMT+08:00', '28800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+08:00) Taipei', 'GMT+08:00', '28800');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+09:00) Osaka, Sapporo, Tokyo', 'GMT+09:00', '32400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+09:00) Seoul', 'GMT+09:00', '32400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+09:00) Yakutsk', 'GMT+09:00', '32400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+09:00) Adelaide', 'GMT+09:00', '32400');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+09:30) Darwin', 'GMT+09:30', '34200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+10:00) Brisbane', 'GMT+10:00', '36000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+10:00) Canberra, Melbourne, Sydney', 'GMT+10:00', '36000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+10:00) Guam, Port Moresby', 'GMT+10:00', '36000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+10:00) Hobart', 'GMT+10:00', '36000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+10:00) Vladivostok', 'GMT+10:00', '36000');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+11:00) Magadan, Solomon Is., New Caledonia', 'GMT+11:00', '39600');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+12:00) Auckland, Wellington', 'GMT+1200', '43200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+12:00) Fiji, Kamchatka, Marshall Is.', 'GMT+12:00', '43200');
+INSERT INTO cc_timezone (gmtzone, gmttime, gmtoffset) VALUES ('(GMT+13:00) Nuku alofa', 'GMT+13:00', '46800');
+
+
+CREATE TABLE cc_iso639 (
+    code		TEXT NOT NULL,
+    name		TEXT NOT NULL,
+    lname		TEXT,
+    charset		TEXT NOT NULL DEFAULT 'ISO-8859-1'
+);
+ALTER TABLE ONLY cc_iso639 ADD CONSTRAINT cc_iso639_pkey PRIMARY KEY (code);
+ALTER TABLE ONLY cc_iso639 ADD CONSTRAINT iso639_name_key UNIQUE (name);
+
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ab', 'Abkhazian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('om', 'Afan (Oromo)    ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('aa', 'Afar            ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('af', 'Afrikaans       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sq', 'Albanian        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('am', 'Amharic         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ar', 'Arabic          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('hy', 'Armenian        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('as', 'Assamese        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ay', 'Aymara          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('az', 'Azerbaijani     ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ba', 'Bashkir         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('eu', 'Basque          ', 'Euskera         ', 'ISO-8859-15     ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('bn', 'Bengali Bangla  ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('dz', 'Bhutani         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('bh', 'Bihari          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('bi', 'Bislama         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('br', 'Breton          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('bg', 'Bulgarian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('my', 'Burmese         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('be', 'Byelorussian    ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('km', 'Cambodian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ca', 'Catalan         ', '          \t\t    ', 'ISO-8859-15     ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('zh', 'Chinese         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('co', 'Corsican        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('hr', 'Croatian        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('cs', 'Czech           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('da', 'Danish          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('nl', 'Dutch           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('en', 'English         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('eo', 'Esperanto       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('et', 'Estonian        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('fo', 'Faroese         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('fj', 'Fiji            ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('fi', 'Finnish         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('fr', 'French          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('fy', 'Frisian         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('gl', 'Galician        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ka', 'Georgian        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('de', 'German          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('el', 'Greek           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('kl', 'Greenlandic     ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('gn', 'Guarani         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('gu', 'Gujarati        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ha', 'Hausa           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('he', 'Hebrew          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('hi', 'Hindi           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('hu', 'Hungarian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('is', 'Icelandic       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('id', 'Indonesian      ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ia', 'Interlingua     ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ie', 'Interlingue     ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('iu', 'Inuktitut       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ik', 'Inupiak         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ga', 'Irish           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('it', 'Italian         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ja', 'Japanese        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('jv', 'Javanese        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('kn', 'Kannada         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ks', 'Kashmiri        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('kk', 'Kazakh          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('rw', 'Kinyarwanda     ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ky', 'Kirghiz         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('rn', 'Kurundi         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ko', 'Korean          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ku', 'Kurdish         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('lo', 'Laothian        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('la', 'Latin           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('lv', 'Latvian Lettish ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ln', 'Lingala         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('lt', 'Lithuanian      ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('mk', 'Macedonian      ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('mg', 'Malagasy        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ms', 'Malay           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ml', 'Malayalam       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('mt', 'Maltese         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('mi', 'Maori           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('mr', 'Marathi         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('mo', 'Moldavian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('mn', 'Mongolian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('na', 'Nauru           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ne', 'Nepali          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('no', 'Norwegian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('oc', 'Occitan         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('or', 'Oriya           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ps', 'Pashto Pushto   ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('fa', 'Persian (Farsi) ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('pl', 'Polish          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('pt', 'Portuguese      ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('pa', 'Punjabi         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('qu', 'Quechua         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('rm', 'Rhaeto-Romance  ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ro', 'Romanian        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ru', 'Russian         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sm', 'Samoan          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sg', 'Sangho          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sa', 'Sanskrit        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('gd', 'Scots Gaelic    ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sr', 'Serbian         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sh', 'Serbo-Croatian  ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('st', 'Sesotho         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('tn', 'Setswana        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sn', 'Shona           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sd', 'Sindhi          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('si', 'Singhalese      ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ss', 'Siswati         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sk', 'Slovak          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sl', 'Slovenian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('so', 'Somali          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('es', 'Spanish         ', '         \t\t     ', 'ISO-8859-15     ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('su', 'Sundanese       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sw', 'Swahili         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('sv', 'Swedish         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('tl', 'Tagalog         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('tg', 'Tajik           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ta', 'Tamil           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('tt', 'Tatar           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('te', 'Telugu          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('th', 'Thai            ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('bo', 'Tibetan         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ti', 'Tigrinya        ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('to', 'Tonga           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ts', 'Tsonga          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('tr', 'Turkish         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('tk', 'Turkmen         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('tw', 'Twi             ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ug', 'Uigur           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('uk', 'Ukrainian       ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('ur', 'Urdu            ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('uz', 'Uzbek           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('vi', 'Vietnamese      ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('vo', 'Volapuk         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('cy', 'Welsh           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('wo', 'Wolof           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('xh', 'Xhosa           ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('yi', 'Yiddish         ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('yo', 'Yoruba          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('za', 'Zhuang          ', '                ', 'ISO-8859-1      ');
+INSERT INTO cc_iso639 (code, name, lname, charset) VALUES ('zu', 'Zulu            ', '                ', 'ISO-8859-1      ');
+
+ALTER TABLE ONLY cc_templatemail DROP CONSTRAINT cons_cc_templatemail_mailtype;
+ALTER TABLE cc_templatemail ADD COLUMN id SERIAL NOT NULL;
+ALTER TABLE ONLY cc_templatemail ADD CONSTRAINT cc_templatemail_pkey PRIMARY KEY (id);
+ALTER TABLE cc_templatemail ADD COLUMN id_language CHARACTER VARYING( 20 ) DEFAULT 'en';
+ALTER TABLE ONLY cc_templatemail DROP CONSTRAINT cc_templatemail_pkey;
+ALTER TABLE ONLY cc_templatemail ADD CONSTRAINT cons_cc_templatemail_mailtype UNIQUE (id,id_language);
+
+
+ALTER TABLE ONLY cc_card ADD COLUMN status INTEGER NOT NULL DEFAULT '1';
+UPDATE cc_card SET status = 1 where activated = 't';
+UPDATE cc_card SET status = 0 where activated = 'f';
+
+CREATE TABLE cc_status_log (
+  id						BIGSERIAL NOT NULL,
+  status 					INTEGER NOT NULL,
+  id_cc_card 				BIGINT NOT NULL,
+  updated_date 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
+ALTER TABLE ONLY cc_status_log ADD CONSTRAINT cc_status_log_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE cc_card ADD COLUMN tag CHARACTER VARYING(50);
+ALTER TABLE cc_ratecard ADD COLUMN rounding_calltime INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN rounding_threshold INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge DECIMAL(15,5) NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN tag CHARACTER VARYING(50);
+
+ALTER TABLE cc_card ADD COLUMN template_invoice CHARACTER VARYING(100);
+ALTER TABLE cc_card ADD COLUMN template_outstanding CHARACTER VARYING(100);
+
+CREATE TABLE cc_card_history (
+	id 							BIGSERIAL NOT NULL,
+	id_cc_card 					BIGINT ,
+    datecreated					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	description 				TEXT
+);
+ALTER TABLE ONLY cc_card_history ADD CONSTRAINT cc_card_history_pkey PRIMARY KEY (id);
+
+
+
+ALTER TABLE cc_callback_spool ALTER COLUMN variable TYPE CHARACTER VARYING(300);
+
+
+
+ALTER TABLE cc_call ADD COLUMN real_sessiontime INTEGER;
+
+
+
+
+CREATE TABLE cc_call_archive (
+	id 								BIGSERIAL NOT NULL,
+	sessionid 						CHARACTER VARYING(40) NOT NULL,
+	uniqueid 						CHARACTER VARYING(30) NOT NULL,
+	username 						CHARACTER VARYING(40) NOT NULL,
+	nasipaddress 					CHARACTER VARYING(30) ,
+	starttime 						TIMESTAMP WITHOUT TIME ZONE,  -- MYSQL version has CURRENT_TIMESTAMP: achived so it probably shouldn't? XXX
+	stoptime 						TIMESTAMP WITHOUT TIME ZONE,
+	sessiontime 					INTEGER,
+	calledstation 					CHARACTER VARYING(30) ,
+	startdelay 						INTEGER,
+	stopdelay 						INTEGER,
+	terminatecause 					CHARACTER VARYING(20) ,
+	usertariff 						CHARACTER VARYING(20) ,
+	calledprovider 					CHARACTER VARYING(20) ,
+	calledcountry 					CHARACTER VARYING(30) ,
+	calledsub 						CHARACTER VARYING(20) ,
+	calledrate 						DOUBLE PRECISION,
+	sessionbill 					DOUBLE PRECISION,
+	destination 					CHARACTER VARYING(40) ,
+	id_tariffgroup 					INTEGER,
+	id_tariffplan 					INTEGER,
+	id_ratecard 					INTEGER,
+	id_trunk 						INTEGER,
+	sipiax 							INTEGER DEFAULT 0,
+	src 							CHARACTER VARYING(30) ,
+	id_did 							INTEGER,
+	buyrate 						DECIMAL(15,5) DEFAULT 0,
+	buycost 						DECIMAL(15,5) DEFAULT 0,
+	id_card_package_offer 			INTEGER DEFAULT 0,
+	real_sessiontime				INTEGER
+);
+ALTER TABLE ONLY cc_call_archive ADD CONSTRAINT cc_call_archive_pkey PRIMARY KEY (id);
+
+CREATE INDEX cc_call_username_arc_ind ON cc_call_archive USING btree (username);
+CREATE INDEX cc_call_starttime_arc_ind ON cc_call_archive USING btree (starttime);
+CREATE INDEX cc_call_terminatecause_arc_ind ON cc_call_archive USING btree (terminatecause);
+CREATE INDEX cc_call_calledstation_arc_ind ON cc_call_archive USING btree (calledstation);
+
+
+
+
+ALTER TABLE cc_card DROP COLUMN userpass;
+
+CREATE TABLE cc_card_archive (
+	id 								BIGSERIAL NOT NULL,
+	creationdate 					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+	firstusedate 					TIMESTAMP WITHOUT TIME ZONE,
+	expirationdate 					TIMESTAMP WITHOUT TIME ZONE,
+	enableexpire 					INTEGER DEFAULT 0,
+	expiredays 						INTEGER DEFAULT 0,
+	username 						CHARACTER VARYING(50) NOT NULL,
+	useralias 						CHARACTER VARYING(50) NOT NULL,
+	uipass 							CHARACTER VARYING(50) ,
+	credit 							DECIMAL(15,5) NOT NULL,
+	tariff 							INTEGER DEFAULT 0,
+	id_didgroup 					INTEGER DEFAULT 0,
+	activated 						BOOLEAN DEFAULT false NOT NULL,
+	status							INTEGER DEFAULT 1,
+	lastname 						CHARACTER VARYING(50) ,
+	firstname 						CHARACTER VARYING(50) ,
+	address 						CHARACTER VARYING(100) ,
+	city 							CHARACTER VARYING(40) ,
+	state 							CHARACTER VARYING(40) ,
+	country 						CHARACTER VARYING(40) ,
+	zipcode 						CHARACTER VARYING(20) ,
+	phone 							CHARACTER VARYING(20) ,
+	email 							CHARACTER VARYING(70) ,
+	fax 							CHARACTER VARYING(20) ,
+	inuse 							INTEGER DEFAULT 0,
+	simultaccess 					INTEGER DEFAULT 0,
+	currency 						CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING,
+	lastuse 						TIMESTAMP ,
+	nbused 							INTEGER DEFAULT 0,
+	typepaid 						INTEGER DEFAULT 0,
+	creditlimit 					INTEGER DEFAULT 0,
+	voipcall 						INTEGER DEFAULT 0,
+	sip_buddy 						INTEGER DEFAULT 0,
+	iax_buddy 						INTEGER DEFAULT 0,
+	"language" 						CHARACTER VARYING(5) DEFAULT 'en'::text,
+	redial 							CHARACTER VARYING(50) ,
+	runservice 						INTEGER DEFAULT 0,
+	nbservice 						INTEGER DEFAULT 0,
+	id_campaign 					INTEGER DEFAULT 0,
+	num_trials_done 				BIGINT DEFAULT 0,
+	callback 						CHARACTER VARYING(50) ,
+	vat 							NUMERIC(6,3) DEFAULT 0,   -- MYSQL uses FLOAT. Probably not a good idea.
+	servicelastrun 					TIMESTAMP WITHOUT TIME ZONE,
+	initialbalance 					DECIMAL(15,5) NOT NULL DEFAULT 0,
+	invoiceday 						INTEGER DEFAULT 1,
+	autorefill 						INTEGER DEFAULT 0,
+	loginkey 						CHARACTER VARYING(40) ,
+	activatedbyuser 				BOOLEAN DEFAULT true NOT NULL,
+	id_timezone						INTEGER DEFAULT 0,
+	tag								CHARACTER VARYING(50),
+	template_invoice				TEXT,
+	template_outstanding			TEXT,
+	mac_addr						CHARACTER VARYING(30) DEFAULT '00-00-00-00-00-00' NOT NULL -- Could use the macaddr datatype
+);
+ALTER TABLE ONLY cc_card_archive ADD CONSTRAINT cons_cc_card_archive_username UNIQUE (username);
+
+
+
+CREATE INDEX cc_card_archive_creationdate_ind ON cc_card_archive USING btree (creationdate);
+CREATE INDEX cc_card_archive_username_ind ON cc_card_archive USING btree (username);
+ALTER TABLE cc_ratecard ADD COLUMN is_merged INTEGER DEFAULT 0;
+
+UPDATE cc_config SET config_title='Dial Command Params', config_description='More information about the Dial : http://voip-info.org/wiki-Asterisk+cmd+dial<br>30 :  The timeout parameter is optional. If not specifed, the Dial command will wait indefinitely, exiting only when the originating channel hangs up, or all the dialed channels return a busy or error condition. Otherwise it specifies a maximum time, in seconds, that the Dial command is to wait for a channel to answer.<br>H: Allow the caller to hang up by dialing * <br>r: Generate a ringing tone for the calling party<br>R: Indicate ringing to the calling party when the called party indicates ringing, pass no audio until answered.<br>g: When the called party hangs up, exit to execute more commands in the current context. (new in 1.4)<br>i: Asterisk will ignore any forwarding (302 Redirect) requests received. Essential for DID usage to prevent fraud. (new in 1.4)<br>m: Provide Music on Hold to the calling party until the called channel answers.<br>L(x[:y][:z]): Limit the call to ''x'' ms, warning when ''y'' ms are left, repeated every ''z'' ms)<br>%timeout% tag is replaced by the calculated timeout according the credit & destination rate!.' WHERE  config_key='dialcommand_param';
+UPDATE cc_config SET config_title='SIP/IAX Dial Command Params', config_value='|60|HiL(3600000:61000:30000)' WHERE config_key='dialcommand_param_sipiax_friend';
+
+
+
+
+
+-- VOICEMAIL CHANGES
+ALTER TABLE cc_card ADD voicemail_permitted INTEGER DEFAULT 0 NOT NULL;
+ALTER TABLE cc_card ADD voicemail_activated INTEGER DEFAULT 0 NOT NULL;
+
+
+-- CREATE OR REPLACE VIEW voicemail_users AS (
+-- 	SELECT id AS uniqueid, id AS customer_id, 'default'::varchar(50) AS context, useralias AS mailbox, uipass AS password,
+-- 	lastname || ' ' || firstname AS fullname, email AS email, ''::varchar(50) AS pager, '1984-01-01 00:00:00'::timestamp AS stamp
+-- 	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
+-- );
+
+
+
+-- ADD MISSING extracharge_did settings
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DIDs', 'extracharge_did', '1800,1900', 'Add extra per-minute charges to this comma-separated list of DNIDs; needs "extracharge_fee" and "extracharge_buyfee"', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DID fees', 'extracharge_fee', '0.05,0.15', 'Comma-separated list of extra sell-rate charges corresponding to the DIDs in "extracharge_did"', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DID buy fees', 'extracharge_buyfee', '0.04,0.13', 'Comma-separated list of extra buy-rate charges corresponding to the DIDs in "extracharge_did"', 0, 11, NULL);
+
+
+-- This trigger is to prevent bogus regexes making it into the database
+CREATE OR REPLACE FUNCTION cc_ratecard_validate_regex() RETURNS TRIGGER AS $$
+  BEGIN
+    IF SUBSTRING(new.dialprefix,1,1) != '_' THEN
+      RETURN new;
+    END IF;
+    PERFORM '0' ~* REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE('^' || new.dialprefix || '$', 'X', '[0-9]', 'g'), 'Z', '[1-9]', 'g'), 'N', '[2-9]', 'g'), E'\\.', '+', 'g'), '_', '', 'g');
+    RETURN new;
+  END
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER cc_ratecard_validate_regex BEFORE INSERT OR UPDATE ON cc_ratecard FOR EACH ROW EXECUTE PROCEDURE cc_ratecard_validate_regex();
+
+
+-- CREATE OR REPLACE FUNCTION after_ins_cc_card_logrefill() RETURNS TRIGGER AS $$
+--  BEGIN
+--	INSERT INTO cc_logrefill (credit,card_id,reseller_id) VALUES (new.credit,new.id,new.reseller);
+--	RETURN new;
+--  END
+-- $$ LANGUAGE plpgsql;
+
+-- CREATE TRIGGER after_ins_cc_card AFTER INSERT ON cc_card FOR EACH ROW EXECUTE PROCEDURE after_ins_cc_card_logrefill();
+
+
+
+
+
+
+
+
+
+
+
+-- More info into log payment
+ALTER TABLE cc_logpayment ADD COLUMN id_logrefill BIGINT;
+
+
+-- Support / Ticket section
+
+CREATE TABLE cc_support (
+	id 				SERIAL NOT NULL,
+	"name"			CHARACTER VARYING(50) NOT NULL,
+	CONSTRAINT		cc_support_pkey PRIMARY KEY (id)
+);
+
+
+
+CREATE TABLE cc_support_component (
+	id						SERIAL NOT NULL,
+	id_support				INTEGER NOT NULL,
+	"name"					CHARACTER VARYING(50) NOT NULL DEFAULT ''::CHARACTER VARYING,
+	activated					SMALLINT NOT NULL DEFAULT 1,
+	CONSTRAINT cc_support_component_pkey PRIMARY KEY (id),
+	CONSTRAINT cc_support_id_fkey FOREIGN KEY (id_support)
+	REFERENCES cc_support (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
+CREATE TABLE cc_ticket (
+	id				BIGSERIAL NOT NULL,
+	id_component		INTEGER NOT NULL,
+	title				CHARACTER VARYING(100) NOT NULL,
+	description		TEXT,
+	priority			SMALLINT NOT NULL DEFAULT 0,
+	creationdate		TIMESTAMP without time zone NOT NULL DEFAULT now(),
+	creator			BIGINT NOT NULL,
+	status			INTEGER NOT NULL DEFAULT 0,
+	CONSTRAINT		cc_ticket_pkey PRIMARY KEY (id)
+);
+
+
+
+CREATE TABLE cc_ticket_comment (
+	id				BIGSERIAL NOT NULL,
+	date				TIMESTAMP without time zone NOT NULL DEFAULT now(),
+	id_ticket			BIGSERIAL NOT NULL,
+	description		TEXT,
+	creator			BIGINT NOT NULL,
+	is_admin			BOOLEAN DEFAULT false NOT NULL,             -- Type Mismatch? XXX
+	CONSTRAINT		cc_ticket_comment_pkey PRIMARY KEY (id),
+	CONSTRAINT		cc_ticket_id_fkey FOREIGN KEY (id_ticket) REFERENCES cc_ticket (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
+INSERT INTO cc_config( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ( 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 3, 'yes,no');
+
+
+
+
+
+
+
+--- Section for notifications
+
+INSERT INTO cc_config_group (group_title ,group_description) VALUES
+ ( 'notifications', 'This configuration group handles the notifcations configuration');
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+ VALUES ( 'List of possible values to notify', 'values_notifications', '10:20:50:100:500:1000', 'Possible values to choose when the user receive a notification. You can define a List e.g: 10:20:100.', '0', '12', NULL);
+
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
+ VALUES ( 'Notifications Modules', 'notification', '1', 'Enable or Disable the module of notification for the customers', 1, 3, 'yes,no');
+
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disable the cron module of notification for the customers. If it correctly configured in the crontab', '0', '12', 'yes,no');
+
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Notications Delay', 'delay_notifications', '1', 'Delay in number of days to send an other notification for the customers. If the value is 0, it will notify the user everytime the cront is running.', '0', '12', NULL);
+
+ALTER TABLE cc_card ADD COLUMN last_notification TIMESTAMP WITHOUT TIME ZONE;
+
+
+ALTER TABLE cc_card ADD COLUMN email_notification CHARACTER VARYING(70);
+
+ALTER TABLE cc_card ADD COLUMN notify_email SMALLINT NOT NULL DEFAULT 0;
+
+
+ALTER TABLE cc_card ADD COLUMN credit_notification INTEGER NOT NULL DEFAULT -1;
+
+UPDATE cc_templatemail SET subject='Your Call-Labs account $cardnumber is low on credit ($currency $credit_currency)', messagetext = '
 
 Your Call-Labs Account number $cardnumber is running low on credit.
 
@@ -6231,1204 +2871,969 @@ Thanks,
 /Call-Labs Team
 -------------------------------------
 http://www.call-labs.com
- ', '', 3, 'en');
-
-
---
--- Data for Name: cc_ticket; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_ticket_comment; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: cc_timezone; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO cc_timezone VALUES (1, '(GMT-12:00) International Date Line West', 'GMT-12:00', -43200);
-INSERT INTO cc_timezone VALUES (2, '(GMT-11:00) Midway Island, Samoa', 'GMT-11:00', -39600);
-INSERT INTO cc_timezone VALUES (3, '(GMT-10:00) Hawaii', 'GMT-10:00', -36000);
-INSERT INTO cc_timezone VALUES (4, '(GMT-09:00) Alaska', 'GMT-09:00', -32400);
-INSERT INTO cc_timezone VALUES (5, '(GMT-08:00) Pacific Time (US & Canada) Tijuana', 'GMT-08:00', -28800);
-INSERT INTO cc_timezone VALUES (6, '(GMT-07:00) Arizona', 'GMT-07:00', -25200);
-INSERT INTO cc_timezone VALUES (7, '(GMT-07:00) Chihuahua, La Paz, Mazatlan', 'GMT-07:00', -25200);
-INSERT INTO cc_timezone VALUES (8, '(GMT-07:00) Mountain Time(US & Canada)', 'GMT-07:00', -25200);
-INSERT INTO cc_timezone VALUES (9, '(GMT-06:00) Central America', 'GMT-06:00', -21600);
-INSERT INTO cc_timezone VALUES (10, '(GMT-06:00) Central Time (US & Canada)', 'GMT-06:00', -21600);
-INSERT INTO cc_timezone VALUES (11, '(GMT-06:00) Guadalajara, Mexico City, Monterrey', 'GMT-06:00', -21600);
-INSERT INTO cc_timezone VALUES (12, '(GMT-06:00) Saskatchewan', 'GMT-06:00', -21600);
-INSERT INTO cc_timezone VALUES (13, '(GMT-05:00) Bogota, Lima, Quito', 'GMT-05:00', -18000);
-INSERT INTO cc_timezone VALUES (14, '(GMT-05:00) Eastern Time (US & Canada)', 'GMT-05:00', -18000);
-INSERT INTO cc_timezone VALUES (15, '(GMT-05:00) Indiana (East)', 'GMT-05:00', -18000);
-INSERT INTO cc_timezone VALUES (16, '(GMT-04:00) Atlantic Time (Canada)', 'GMT-04:00', -14400);
-INSERT INTO cc_timezone VALUES (17, '(GMT-04:00) Caracas, La Paz', 'GMT-04:00', -14400);
-INSERT INTO cc_timezone VALUES (18, '(GMT-04:00) Santiago', 'GMT-04:00', -14400);
-INSERT INTO cc_timezone VALUES (19, '(GMT-03:30) NewFoundland', 'GMT-03:30', -12600);
-INSERT INTO cc_timezone VALUES (20, '(GMT-03:00) Brasillia', 'GMT-03:00', -10800);
-INSERT INTO cc_timezone VALUES (21, '(GMT-03:00) Buenos Aires, Georgetown', 'GMT-03:00', -10800);
-INSERT INTO cc_timezone VALUES (22, '(GMT-03:00) Greenland', 'GMT-03:00', -10800);
-INSERT INTO cc_timezone VALUES (23, '(GMT-03:00) Mid-Atlantic', 'GMT-03:00', -10800);
-INSERT INTO cc_timezone VALUES (24, '(GMT-01:00) Azores', 'GMT-01:00', -3600);
-INSERT INTO cc_timezone VALUES (25, '(GMT-01:00) Cape Verd Is.', 'GMT-01:00', -3600);
-INSERT INTO cc_timezone VALUES (26, '(GMT) Casablanca, Monrovia', 'GMT+00:00', 0);
-INSERT INTO cc_timezone VALUES (27, '(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon,  London', 'GMT', 0);
-INSERT INTO cc_timezone VALUES (28, '(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna', 'GMT+01:00', 3600);
-INSERT INTO cc_timezone VALUES (29, '(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague', 'GMT+01:00', 3600);
-INSERT INTO cc_timezone VALUES (30, '(GMT+01:00) Brussels, Copenhagen, Madrid, Paris', 'GMT+01:00', 3600);
-INSERT INTO cc_timezone VALUES (31, '(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb', 'GMT+01:00', 3600);
-INSERT INTO cc_timezone VALUES (32, '(GMT+01:00) West Central Africa', 'GMT+01:00', 3600);
-INSERT INTO cc_timezone VALUES (33, '(GMT+02:00) Athens, Istanbul, Minsk', 'GMT+02:00', 7200);
-INSERT INTO cc_timezone VALUES (34, '(GMT+02:00) Bucharest', 'GMT+02:00', 7200);
-INSERT INTO cc_timezone VALUES (35, '(GMT+02:00) Cairo', 'GMT+02:00', 7200);
-INSERT INTO cc_timezone VALUES (36, '(GMT+02:00) Harere, Pretoria', 'GMT+02:00', 7200);
-INSERT INTO cc_timezone VALUES (37, '(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius', 'GMT+02:00', 7200);
-INSERT INTO cc_timezone VALUES (38, '(GMT+02:00) Jeruasalem', 'GMT+02:00', 7200);
-INSERT INTO cc_timezone VALUES (39, '(GMT+03:00) Baghdad', 'GMT+03:00', 10800);
-INSERT INTO cc_timezone VALUES (40, '(GMT+03:00) Kuwait, Riyadh', 'GMT+03:00', 10800);
-INSERT INTO cc_timezone VALUES (41, '(GMT+03:00) Moscow, St.Petersburg, Volgograd', 'GMT+03:00', 10800);
-INSERT INTO cc_timezone VALUES (42, '(GMT+03:00) Nairobi', 'GMT+03:00', 10800);
-INSERT INTO cc_timezone VALUES (43, '(GMT+03:30) Tehran', 'GMT+03:30', 12600);
-INSERT INTO cc_timezone VALUES (44, '(GMT+04:00) Abu Dhabi, Muscat', 'GMT+04:00', 14400);
-INSERT INTO cc_timezone VALUES (45, '(GMT+04:00) Baku, Tbillisi, Yerevan', 'GMT+04:00', 14400);
-INSERT INTO cc_timezone VALUES (46, '(GMT+04:30) Kabul', 'GMT+04:30', 16200);
-INSERT INTO cc_timezone VALUES (47, '(GMT+05:00) Ekaterinburg', 'GMT+05:00', 18000);
-INSERT INTO cc_timezone VALUES (48, '(GMT+05:00) Islamabad, Karachi, Tashkent', 'GMT+05:00', 18000);
-INSERT INTO cc_timezone VALUES (49, '(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi', 'GMT+05:30', 19800);
-INSERT INTO cc_timezone VALUES (50, '(GMT+05:45) Kathmandu', 'GMT+05:45', 20700);
-INSERT INTO cc_timezone VALUES (51, '(GMT+06:00) Almaty, Novosibirsk', 'GMT+06:00', 21600);
-INSERT INTO cc_timezone VALUES (52, '(GMT+06:00) Astana, Dhaka', 'GMT+06:00', 21600);
-INSERT INTO cc_timezone VALUES (53, '(GMT+06:00) Sri Jayawardenepura', 'GMT+06:00', 21600);
-INSERT INTO cc_timezone VALUES (54, '(GMT+06:30) Rangoon', 'GMT+06:30', 23400);
-INSERT INTO cc_timezone VALUES (55, '(GMT+07:00) Bangkok, Hanoi, Jakarta', 'GMT+07:00', 25200);
-INSERT INTO cc_timezone VALUES (56, '(GMT+07:00) Krasnoyarsk', 'GMT+07:00', 25200);
-INSERT INTO cc_timezone VALUES (57, '(GMT+08:00) Beijiing, Chongging, Hong Kong, Urumqi', 'GMT+08:00', 28800);
-INSERT INTO cc_timezone VALUES (58, '(GMT+08:00) Irkutsk, Ulaan Bataar', 'GMT+08:00', 28800);
-INSERT INTO cc_timezone VALUES (59, '(GMT+08:00) Kuala Lumpur, Singapore', 'GMT+08:00', 28800);
-INSERT INTO cc_timezone VALUES (60, '(GMT+08:00) Perth', 'GMT+08:00', 28800);
-INSERT INTO cc_timezone VALUES (61, '(GMT+08:00) Taipei', 'GMT+08:00', 28800);
-INSERT INTO cc_timezone VALUES (62, '(GMT+09:00) Osaka, Sapporo, Tokyo', 'GMT+09:00', 32400);
-INSERT INTO cc_timezone VALUES (63, '(GMT+09:00) Seoul', 'GMT+09:00', 32400);
-INSERT INTO cc_timezone VALUES (64, '(GMT+09:00) Yakutsk', 'GMT+09:00', 32400);
-INSERT INTO cc_timezone VALUES (65, '(GMT+09:00) Adelaide', 'GMT+09:00', 32400);
-INSERT INTO cc_timezone VALUES (66, '(GMT+09:30) Darwin', 'GMT+09:30', 34200);
-INSERT INTO cc_timezone VALUES (67, '(GMT+10:00) Brisbane', 'GMT+10:00', 36000);
-INSERT INTO cc_timezone VALUES (68, '(GMT+10:00) Canberra, Melbourne, Sydney', 'GMT+10:00', 36000);
-INSERT INTO cc_timezone VALUES (69, '(GMT+10:00) Guam, Port Moresby', 'GMT+10:00', 36000);
-INSERT INTO cc_timezone VALUES (70, '(GMT+10:00) Hobart', 'GMT+10:00', 36000);
-INSERT INTO cc_timezone VALUES (71, '(GMT+10:00) Vladivostok', 'GMT+10:00', 36000);
-INSERT INTO cc_timezone VALUES (72, '(GMT+11:00) Magadan, Solomon Is., New Caledonia', 'GMT+11:00', 39600);
-INSERT INTO cc_timezone VALUES (73, '(GMT+12:00) Auckland, Wellington', 'GMT+1200', 43200);
-INSERT INTO cc_timezone VALUES (74, '(GMT+12:00) Fiji, Kamchatka, Marshall Is.', 'GMT+12:00', 43200);
-INSERT INTO cc_timezone VALUES (75, '(GMT+13:00) Nuku alofa', 'GMT+13:00', 46800);
-
-
---
--- Data for Name: cc_trunk; Type: TABLE DATA; Schema: public; Owner: postgres
---
+ '
+WHERE cc_templatemail.mailtype ='reminder';
 
-INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL, 0, -1, 1, 0);
 
 
---
--- Data for Name: cc_ui_authen; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
-INSERT INTO cc_ui_authen VALUES (2, 'admin', '410fc6268dd3332226de95e42d9efa4046c5463769d7493b85e65cfa5c26362dc2455cc23c0bc5831deb008def4ab11a9eaa9b76ba3f377da134f39ec60dd758', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501', NULL);
-INSERT INTO cc_ui_authen VALUES (1, 'root', '410fc6268dd3332226de95e42d9efa4046c5463769d7493b85e65cfa5c26362dc2455cc23c0bc5831deb008def4ab11a9eaa9b76ba3f377da134f39ec60dd758', 0, 5242879, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314', NULL);
 
+-- Section for Agent
 
---
--- Data for Name: cc_voucher; Type: TABLE DATA; Schema: public; Owner: postgres
---
+CREATE TABLE cc_agent (
+    id 								BIGSERIAL NOT NULL PRIMARY KEY,
+    datecreation 					TIMESTAMP without time zone DEFAULT now(),
+    active 							BOOLEAN NOT NULL DEFAULT false,
+    login 							CHARACTER VARYING(20) NOT NULL,
+    passwd 							CHARACTER VARYING(40),
+    location 						TEXT,
+    "language" 						CHARACTER VARYING(5) DEFAULT 'en'::text,
+    id_tariffgroup 					INTEGER REFERENCES cc_tariffgroup(id),
+    options 						INTEGER NOT NULL DEFAULT 0,
+    credit 							DECIMAL(15,5) NOT NULL DEFAULT 0,
+    climit 							DECIMAL(15,5) NOT NULL DEFAULT 0,
+    currency 						CHARACTER VARYING(3) NOT NULL DEFAULT 'USD',
+    locale 							CHARACTER VARYING(10) DEFAULT 'C',
+    commission 						DECIMAL(10,4) NOT NULL DEFAULT 0,
+    vat 							DECIMAL(10,4) NOT NULL DEFAULT 0,
+    banner 							TEXT,
+    perms 							INTEGER,
+    lastname 						CHARACTER VARYING(50) ,
+    firstname 						CHARACTER VARYING(50) ,
+    address 						CHARACTER VARYING(100) ,
+    city 							CHARACTER VARYING(40) ,
+    state 							CHARACTER VARYING(40) ,
+    country 						CHARACTER VARYING(40) ,
+    zipcode 						CHARACTER VARYING(20),
+    phone 							CHARACTER VARYING(20),
+    email 							CHARACTER VARYING(70),
+    fax 							CHARACTER VARYING(20)
+);
 
 
 
---
--- Name: cc_agent_commission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_agent_commission
-    ADD CONSTRAINT cc_agent_commission_pkey PRIMARY KEY (id);
+ALTER TABLE cc_card ADD id_agent INTEGER NOT NULL DEFAULT 0;
 
+-- Add card id field in CDR to authorize filtering by agent
 
---
--- Name: cc_agent_login_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_call ADD card_id BIGINT; -- the NOT NULL constraint comes later (else upgrades from v1.3.x will fail)
 
-ALTER TABLE ONLY cc_agent
-    ADD CONSTRAINT cc_agent_login_key UNIQUE (login);
+UPDATE cc_call SET card_id=cc_card.id FROM cc_card
+	WHERE cc_card.username=cc_call.username;
+UPDATE cc_call SET card_id='-1' WHERE card_id IS NULL;	-- CDRs may exist for cards that have been deleted
 
+ALTER TABLE cc_call ALTER card_id SET NOT NULL;
 
---
--- Name: cc_agent_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_agent_tariffgroup (
+	id_agent			BIGINT NOT NULL ,
+	id_tariffgroup		INTEGER NOT NULL,
+	CONSTRAINT cc_agent_tariffgroup_pkey PRIMARY KEY (id_agent, id_tariffgroup)
+);
 
-ALTER TABLE ONLY cc_agent
-    ADD CONSTRAINT cc_agent_pkey PRIMARY KEY (id);
 
 
---
--- Name: cc_agent_tariffgroup_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_agent_tariffgroup
-    ADD CONSTRAINT cc_agent_tariffgroup_pkey PRIMARY KEY (id_agent, id_tariffgroup);
+-- Add new configuration payment agent
 
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues) VALUES ( 'Payment Amount', 'purchase_amount_agent', '100:200:500:1000', 'define the different amount of purchase that would be available.', '0', '5', NULL);
 
---
--- Name: cc_alarm_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_alarm
-    ADD CONSTRAINT cc_alarm_pkey PRIMARY KEY (id);
+-- create group for the card
 
+CREATE TABLE cc_card_group (
+	id 				SERIAL NOT NULL ,
+	name 			CHARACTER VARYING(30) NOT NULL ,
+	id_agi_conf		INTEGER NOT NULL ,
+	description		TEXT,
+	CONSTRAINT cc_card_group_pkey PRIMARY KEY (id)
+) ;
 
---
--- Name: cc_alarm_report_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_alarm_report
-    ADD CONSTRAINT cc_alarm_report_pkey PRIMARY KEY (id);
+-- insert default group
 
+SELECT setval('cc_card_group_id_seq'::regclass, 1, false); -- we need it to have id 1
+INSERT INTO cc_card_group (name, id_agi_conf) VALUES ('DEFAULT', '-1');
+-- add field for the group with default value
+ALTER TABLE cc_card ADD id_group INTEGER NOT NULL DEFAULT 1;
 
---
--- Name: cc_autorefill_report_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_autorefill_report
-    ADD CONSTRAINT cc_autorefill_report_pkey PRIMARY KEY (id);
+-- new table for the free minutes/calls package
 
 
---
--- Name: cc_backup_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_package_group (
+	id 				SERIAL NOT NULL  ,
+	name 			CHARACTER VARYING(30)  NOT NULL ,
+	description 	TEXT ,
+	CONSTRAINT		cc_package_group_pkey PRIMARY KEY (id)
+);
 
-ALTER TABLE ONLY cc_backup
-    ADD CONSTRAINT cc_backup_pkey PRIMARY KEY (id);
 
+CREATE TABLE cc_packgroup_package (
+	packagegroup_id 	INTEGER NOT NULL ,
+	package_id			INTEGER NOT NULL ,
+	CONSTRAINT cc_packgroup_package_pkey PRIMARY KEY  ( packagegroup_id , package_id )
+);
 
---
--- Name: cc_billing_customer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_billing_customer
-    ADD CONSTRAINT cc_billing_customer_pkey PRIMARY KEY (id);
+CREATE TABLE cc_package_rate (
+	package_id		INTEGER NOT NULL ,
+	rate_id			INTEGER NOT NULL ,
+	CONSTRAINT cc_package_rate_pkey PRIMARY KEY  ( package_id , rate_id )
+);
 
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues) VALUES ( 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', '0', '11', NULL), ( 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', '0', '11', NULL);
 
---
--- Name: cc_call_archive_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_ratecard DROP freetimetocall_package_offer;
 
-ALTER TABLE ONLY cc_call_archive
-    ADD CONSTRAINT cc_call_archive_pkey PRIMARY KEY (id);
+-- add additionnal grace to the ratecard
+ALTER TABLE cc_ratecard ADD additional_grace INTEGER NOT NULL DEFAULT 0;
 
+-- add minimum cost option for a rate card
 
---
--- Name: cc_call_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_ratecard ADD minimal_cost REAL NOT NULL DEFAULT 0;
 
-ALTER TABLE ONLY cc_call
-    ADD CONSTRAINT cc_call_pkey PRIMARY KEY (id);
+-- add description for the REFILL AND PAYMENT
+ALTER TABLE cc_logpayment ADD description TEXT  ;
+ALTER TABLE cc_logrefill ADD description TEXT  ;
 
 
---
--- Name: cc_callback_spool_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_callback_spool
-    ADD CONSTRAINT cc_callback_spool_pkey PRIMARY KEY (id);
 
 
---
--- Name: cc_callback_spool_uniqueid_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- Deck threshold switch for callplan
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
+VALUES ('CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID
+The parameters are as follow : <br/>
+-- ID of the first callplan : called seconds needed to switch to the next CallplanID <br/>
+-- ID of the second callplan : called seconds needed to switch to the next CallplanID <br/>
+-- if not needed seconds are defined it will automatically switch to the next one <br/>
+-- if defined we will sum the previous needed seconds and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of seconds needed<br/>
+value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
+'0', '11', NULL);
 
-ALTER TABLE ONLY cc_callback_spool
-    ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
 
+ALTER TABLE cc_call ADD dnid CHARACTER VARYING(40);
 
---
--- Name: cc_callerid_cid_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- CHANGE SECURITY ABOUT PASSWORD
+ALTER TABLE cc_ui_authen ALTER COLUMN password TYPE TEXT; -- NOT NULL should already set XXX
+ALTER TABLE cc_ui_authen RENAME COLUMN password TO pwd_encoded;
 
-ALTER TABLE ONLY cc_callerid
-    ADD CONSTRAINT cc_callerid_cid_key UNIQUE (cid);
+-- CHANGE SECURITY ABOUT PASSWORD : All password will be changed to "changepassword"
+UPDATE cc_ui_authen SET pwd_encoded = '410fc6268dd3332226de95e42d9efa4046c5463769d7493b85e65cfa5c26362dc2455cc23c0bc5831deb008def4ab11a9eaa9b76ba3f377da134f39ec60dd758';
 
+ALTER TABLE cc_card ADD COLUMN company_name CHARACTER VARYING(50) ;
+ALTER TABLE cc_card ADD COLUMN company_website CHARACTER VARYING(60) ;
+ALTER TABLE cc_card ADD COLUMN VAT_RN CHARACTER VARYING(40) ;
+ALTER TABLE cc_card ADD COLUMN traffic BIGINT DEFAULT 0;
+ALTER TABLE cc_card ADD COLUMN traffic_target TEXT ;
 
---
--- Name: cc_calleridd_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_logpayment ADD COLUMN added_refill SMALLINT NOT NULL DEFAULT 0;
 
-ALTER TABLE ONLY cc_callerid
-    ADD CONSTRAINT cc_calleridd_pkey PRIMARY KEY (id);
+-- Add payment history in customer WebUI
 
+INSERT INTO cc_config( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues )
+VALUES ('Payment Historique Modules', 'payment', '1', 'Enable or Disable the module of payment historique for the customers', 1, 3, 'yes,no');
 
---
--- Name: cc_campaign_config_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_campaign_config
-    ADD CONSTRAINT cc_campaign_config_pkey PRIMARY KEY (id);
+-- modify the field type to authoriz to search by sell rate
+ALTER TABLE cc_call ALTER COLUMN calledrate TYPE DECIMAL( 15, 5 ) ;
 
+-- Delete old menufile.
+DELETE FROM cc_config WHERE config_key = 'file_conf_enter_menulang' ;
 
---
--- Name: cc_campaign_phonebook_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ('Menu Language Order', 'conf_order_menulang', 'en:fr:es', 'Enter the list of languages authorized for the menu.Use the code language separate by a colon charactere e.g: en:es:fr', '0', '11', NULL);
 
-ALTER TABLE ONLY cc_campaign_phonebook
-    ADD CONSTRAINT cc_campaign_phonebook_pkey PRIMARY KEY (id_campaign, id_phonebook);
 
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 'Desactived the annoucement of the seconds when there are more of one minutes (values : yes - no)', '1', '11', 'yes,no');
 
---
--- Name: cc_campaign_phonestatus_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_campaign_phonestatus
-    ADD CONSTRAINT cc_campaign_phonestatus_pkey PRIMARY KEY (id_phonenumber, id_campaign);
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived, if you want assum the fee of paypal and don''t apply it on the customer (values : yes - no)', '1', '5', 'yes,no');
 
 
---
--- Name: cc_campaign_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- Optimization on terminatecause
+ALTER TABLE cc_call ADD COLUMN terminatecauseid SMALLINT DEFAULT 1;
+UPDATE cc_call SET terminatecauseid=1 WHERE terminatecause='ANSWER';
+UPDATE cc_call SET terminatecauseid=1 WHERE terminatecause='ANSWERED';
+UPDATE cc_call SET terminatecauseid=2 WHERE terminatecause='BUSY';
+UPDATE cc_call SET terminatecauseid=3 WHERE terminatecause='NOANSWER';
+UPDATE cc_call SET terminatecauseid=4 WHERE terminatecause='CANCEL';
+UPDATE cc_call SET terminatecauseid=5 WHERE terminatecause='CONGESTION';
+UPDATE cc_call SET terminatecauseid=6 WHERE terminatecause='CHANUNAVAIL';
 
-ALTER TABLE ONLY cc_campaign
-    ADD CONSTRAINT cc_campaign_pkey PRIMARY KEY (id);
+ALTER TABLE cc_call DROP COLUMN terminatecause;
+CREATE INDEX cc_call_terminatecause_id ON cc_call USING btree( terminatecauseid );
 
+-- Add index on prefix
+CREATE INDEX cc_prefix_index ON cc_prefix USING btree( prefixe );
 
---
--- Name: cc_campaignconf_cardgroup_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- optimization on CDR
+ALTER TABLE cc_call ADD COLUMN id_cc_prefix INTEGER DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN id_cc_prefix INTEGER DEFAULT 0;
 
-ALTER TABLE ONLY cc_campaignconf_cardgroup
-    ADD CONSTRAINT cc_campaignconf_cardgroup_pkey PRIMARY KEY (id_campaign_config, id_card_group);
+ALTER TABLE cc_call DROP COLUMN username;
+ALTER TABLE cc_call DROP COLUMN destination;
+ALTER TABLE cc_call DROP COLUMN startdelay;
+ALTER TABLE cc_call DROP COLUMN stopdelay;
+ALTER TABLE cc_call DROP COLUMN usertariff;
+ALTER TABLE cc_call DROP COLUMN calledprovider;
+ALTER TABLE cc_call DROP COLUMN calledcountry;
+ALTER TABLE cc_call DROP COLUMN calledsub;
 
 
---
--- Name: cc_card_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- Update all rates values to use Decimal
+ALTER TABLE cc_ratecard ALTER buyrate TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER buyrate SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER buyrate SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER rateinitial TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER rateinitial SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER rateinitial SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER connectcharge TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER connectcharge SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER connectcharge SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER disconnectcharge TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER disconnectcharge SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER disconnectcharge SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER stepchargea TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER stepchargea SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER stepchargea SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER chargea TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER chargea SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER chargea SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER stepchargeb TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER stepchargeb SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER stepchargeb SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER chargeb TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER chargeb SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER chargeb SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER stepchargeb TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER stepchargeb SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER stepchargeb SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER chargeb TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER chargeb SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER chargeb SET DEFAULT '0';
+ALTER TABLE cc_ratecard ALTER minimal_cost TYPE decimal(15,5);
+ALTER TABLE cc_ratecard ALTER minimal_cost SET NOT NULL;
+ALTER TABLE cc_ratecard ALTER minimal_cost SET DEFAULT '0';
+
+
+
+-- change perms for new menu
+UPDATE cc_ui_authen SET perms = '5242879' WHERE userid=1;
+
+-- correct card group
+ALTER TABLE cc_card_group DROP COLUMN id_agi_conf;
+
+
+CREATE TABLE cc_cardgroup_service (
+	id_card_group		INT NOT NULL ,
+	id_service 			INT NOT NULL
+);
+ALTER TABLE cc_cardgroup_service ADD CONSTRAINT cons_cc_cardgroup_unique
+	UNIQUE ( id_card_group , id_service );
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ('Cents Currency Associated', 'currency_cents_association', '', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', '0', '11', NULL);
+
+ALTER TABLE cc_call DROP COLUMN calledrate;
+ALTER TABLE cc_call DROP COLUMN buyrate;
+
+
+-- ------------------------------------------------------
+-- for AutoDialer
+-- ------------------------------------------------------
+
+-- Create phonebook for
+CREATE TABLE cc_phonebook (
+	id 					SERIAL NOT NULL,
+	name 				VARCHAR(30) NOT NULL,
+	description			TEXT
+);
+ALTER TABLE cc_phonebook ADD CONSTRAINT cc_phonebook_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY cc_card_group
-    ADD CONSTRAINT cc_card_group_pkey PRIMARY KEY (id);
+CREATE TABLE cc_phonenumber (
+	id 					BIGSERIAL NOT NULL,
+	id_phonebook 		INT NOT NULL,
+	number 				VARCHAR(30) NOT NULL,
+	name 				VARCHAR(40),
+	creationdate 		TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+	status 				SMALLINT NOT NULL DEFAULT '1',
+	info 				TEXT
+);
+ALTER TABLE cc_phonenumber ADD CONSTRAINT cc_phonenumber_pkey PRIMARY KEY (id);
 
+ALTER TABLE cc_phonebook ADD id_card BIGINT NOT NULL ;
 
---
--- Name: cc_card_history_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_campaign_phonebook (
+	id_campaign 		INT NOT NULL ,
+	id_phonebook 		INT NOT NULL
+);
+ALTER TABLE cc_campaign_phonebook ADD CONSTRAINT cc_campaign_phonebook_pkey
+	PRIMARY KEY ( id_campaign , id_phonebook );
 
-ALTER TABLE ONLY cc_card_history
-    ADD CONSTRAINT cc_card_history_pkey PRIMARY KEY (id);
+ALTER TABLE cc_campaign RENAME COLUMN campaign_name TO name;
+ALTER TABLE cc_campaign ALTER name TYPE VARCHAR(50);
+ALTER TABLE cc_campaign ALTER name SET NOT NULL;
+ALTER TABLE cc_campaign RENAME COLUMN enable TO status;
+ALTER TABLE cc_campaign ALTER status TYPE INT;
+ALTER TABLE cc_campaign ALTER status SET NOT NULL;
+ALTER TABLE cc_campaign ALTER status SET DEFAULT '1';
 
+ALTER TABLE cc_campaign ADD frequency INT NOT NULL DEFAULT '20';
 
---
--- Name: cc_card_seria_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_campaign_phonestatus (
+	id_phonenumber 		BIGINT NOT NULL,
+	id_campaign 		INT NOT NULL,
+	id_callback 		VARCHAR(40) NOT NULL,
+	status 				INT NOT NULL DEFAULT '0',
+	lastuse 			TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now()
+);
+ALTER TABLE cc_campaign_phonestatus ADD CONSTRAINT cc_campaign_phonestatus_pkey
+	PRIMARY KEY ( id_phonenumber , id_campaign );
 
-ALTER TABLE ONLY cc_card_seria
-    ADD CONSTRAINT cc_card_seria_pkey PRIMARY KEY (id);
+ALTER TABLE cc_campaign RENAME COLUMN id_trunk TO id_card;
+ALTER TABLE cc_campaign ALTER id_card TYPE BIGINT;
+ALTER TABLE cc_campaign ALTER id_card SET NOT NULL;
+ALTER TABLE cc_campaign ALTER id_card SET DEFAULT '0';
+ALTER TABLE cc_campaign ADD forward_number VARCHAR(50);
 
+DROP TABLE cc_phonelist;
 
---
--- Name: cc_card_subscription_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES
+( 'Context Campaign''s Callback', 'context_campaign_callback', 'a2billing-campaign-callback', 'Context to use in Campaign of Callback', '0', '2', NULL);
 
-ALTER TABLE ONLY cc_card_subscription
-    ADD CONSTRAINT cc_card_subscription_pkey PRIMARY KEY (id);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES
+( 'Default Context forward Campaign''s Callback ', 'default_context_campaign', 'campaign', 'Context to use by default to forward the call in Campaign of Callback', '0', '2', NULL);
 
+ALTER TABLE cc_campaign ADD daily_start_time TIME WITHOUT TIME ZONE NOT NULL DEFAULT '10:00:00';
+ALTER TABLE cc_campaign ADD daily_stop_time TIME WITHOUT TIME ZONE NOT NULL DEFAULT '18:00:00';
+ALTER TABLE cc_campaign ADD monday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD tuesday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD wednesday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD thursday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD friday SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_campaign ADD saturday SMALLINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_campaign ADD sunday SMALLINT NOT NULL DEFAULT '0';
 
---
--- Name: cc_charge_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_campaign ADD id_cid_group INT NOT NULL;
 
-ALTER TABLE ONLY cc_charge
-    ADD CONSTRAINT cc_charge_pkey PRIMARY KEY (id);
+CREATE TABLE cc_campaign_config (
+	id 					SERIAL NOT NULL,
+	name 				VARCHAR(40) NOT NULL,
+	flatrate			DECIMAL(15,5) DEFAULT 0 NOT NULL,
+	context 			VARCHAR(40) NOT NULL,
+	description 		TEXT
+);
+ALTER TABLE cc_campaign_config ADD CONSTRAINT cc_campaign_config_pkey
+	PRIMARY KEY (id);
 
 
---
--- Name: cc_config_group_group_title_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_campaignconf_cardgroup (
+	id_campaign_config 	INT NOT NULL ,
+	id_card_group 		INT NOT NULL
+);
+ALTER TABLE cc_campaignconf_cardgroup ADD CONSTRAINT cc_campaignconf_cardgroup_pkey
+	PRIMARY KEY ( id_campaign_config , id_card_group );
 
-ALTER TABLE ONLY cc_config_group
-    ADD CONSTRAINT cc_config_group_group_title_key UNIQUE (group_title);
 
+ALTER TABLE cc_campaign ADD id_campaign_config INT NOT NULL ;
 
---
--- Name: cc_config_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_config_group
-    ADD CONSTRAINT cc_config_group_pkey PRIMARY KEY (id);
+-- ------------------------------------------------------
+-- for Agent
+-- ------------------------------------------------------
 
+ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
 
---
--- Name: cc_config_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_config ALTER config_value TYPE VARCHAR(300);
 
-ALTER TABLE ONLY cc_config
-    ADD CONSTRAINT cc_config_pkey PRIMARY KEY (id);
+INSERT INTO  cc_config (config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values ('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname, id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused, firstname, email, discount, callerid',0,8);
 
 
---
--- Name: cc_configuration_id_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- ------------------------------------------------------
+-- Cache system with SQLite Agent
+-- ------------------------------------------------------
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable CDR local cache', 'cache_enabled', '0', 'If you want enabled the local cache to save the CDR in a SQLite Database.', '1', '1', 'yes,no'),
+( 'Path for the CDR cache file', 'cache_path', '/etc/asterisk/cache_a2billing', 'Defined the file that you want use for the CDR cache to save the CDR in a local SQLite database.', '0', '1', NULL);
 
-ALTER TABLE ONLY cc_configuration
-    ADD CONSTRAINT cc_configuration_id_pkey PRIMARY KEY (configuration_id);
 
+ALTER TABLE cc_logrefill ADD COLUMN refill_type SMALLINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_logpayment ADD COLUMN payment_type SMALLINT NOT NULL DEFAULT 0;
 
---
--- Name: cc_country_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_country
-    ADD CONSTRAINT cc_country_pkey PRIMARY KEY (id);
+-- ------------------------------------------------------
+-- Add management of the web customer in groups
+-- ------------------------------------------------------
+ALTER TABLE cc_card_group ADD users_perms INT NOT NULL DEFAULT '0';
 
 
---
--- Name: cc_currencies_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_currencies
-    ADD CONSTRAINT cc_currencies_pkey PRIMARY KEY (id);
+-- ------------------------------------------------------
+-- PNL report
+-- ------------------------------------------------------
+INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values
+('PNL Pay Phones','report_pnl_pay_phones','(8887798764,0.02,0.06)','Info for PNL report. Must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
+INSERT INTO  cc_config(config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values
+('PNL Toll Free Numbers','report_pnl_toll_free','(6136864646,0.1,0),(6477249717,0.1,0)','Info for PNL report. must be in form "(number1,buycost,sellcost),(number2,buycost,sellcost)", number can be prefix, i.e 1800',0,8);
 
 
---
--- Name: cc_did_destination_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_did_destination
-    ADD CONSTRAINT cc_did_destination_pkey PRIMARY KEY (id);
+-- ------------------------------------------------------
+-- Update to use VarChar instead of Char
+-- ------------------------------------------------------
+-- Postgres generally uses the 'TEXT' type anyway,  so this is unnecessary
 
+-- extend length of canreinvite to cope with new Asterisk syntax
+ALTER TABLE cc_iax_buddies ALTER canreinvite TYPE VARCHAR(20);
+-- but we can't ALTER if there are any VIEWs on the table...  (it'll be re-created later in this file)
+DROP VIEW IF EXISTS cc_sip_buddies_empty;
+ALTER TABLE cc_sip_buddies ALTER canreinvite TYPE VARCHAR(20);
 
---
--- Name: cc_did_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- ------------------------------------------------------
+-- Add restricted rules on the call system for customers
+-- ------------------------------------------------------
 
-ALTER TABLE ONLY cc_did
-    ADD CONSTRAINT cc_did_pkey PRIMARY KEY (id);
+CREATE TABLE cc_restricted_phonenumber (
+	id 					BIGSERIAL NOT NULL,
+	number 				VARCHAR(50) NOT NULL,
+	id_card 			BIGINT NOT NULL
+);
+ALTER TABLE cc_restricted_phonenumber ADD CONSTRAINT cc_restricted_phonenumber_pkey
+	PRIMARY KEY (id);
 
 
---
--- Name: cc_did_use_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_did_use
-    ADD CONSTRAINT cc_did_use_pkey PRIMARY KEY (id);
+ALTER TABLE cc_card ADD restriction SMALLINT NOT NULL DEFAULT '0';
 
 
---
--- Name: cc_didgroup_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- remove callback from card
+ALTER TABLE cc_card DROP COLUMN callback;
 
-ALTER TABLE ONLY cc_didgroup
-    ADD CONSTRAINT cc_didgroup_pkey PRIMARY KEY (id);
 
 
---
--- Name: cc_ecommerce_product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- ADD IAX TRUNKING
+ALTER TABLE cc_iax_buddies ADD trunk VARCHAR(3) DEFAULT 'no';
 
-ALTER TABLE ONLY cc_ecommerce_product
-    ADD CONSTRAINT cc_ecommerce_product_pkey PRIMARY KEY (id);
 
 
---
--- Name: cc_epayment_log_agent_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- Refactor Agent Section
+ALTER TABLE cc_card DROP COLUMN id_agent;
+ALTER TABLE cc_card_group ADD id_agent INT NOT NULL DEFAULT '0';
 
-ALTER TABLE ONLY cc_epayment_log_agent
-    ADD CONSTRAINT cc_epayment_log_agent_pkey PRIMARY KEY (id);
 
+-- remove old template invoice
+ALTER TABLE cc_card DROP COLUMN template_invoice;
+ALTER TABLE cc_card DROP COLUMN template_outstanding;
 
---
--- Name: cc_epayment_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- rename vat field
+ALTER TABLE cc_card ALTER vat_rn TYPE VARCHAR(40);
+ALTER TABLE cc_card ALTER vat_rn SET DEFAULT NULL;
 
-ALTER TABLE ONLY cc_epayment_log
-    ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);
+-- add amount
+ALTER TABLE cc_phonenumber ADD amount INT NOT NULL DEFAULT '0';
 
 
---
--- Name: cc_iax_buddies_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- add company to Agent
+ALTER TABLE cc_agent ADD COLUMN company varchar(50);
 
-ALTER TABLE ONLY cc_iax_buddies
-    ADD CONSTRAINT cc_iax_buddies_pkey PRIMARY KEY (id);
 
+-- Change AGI Verbosity & logging
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
+VALUES ('Verbosity', 'verbosity_level', '0', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)
+VALUES ('Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
 
---
--- Name: cc_invoice_conf_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_invoice_conf
-    ADD CONSTRAINT cc_invoice_conf_pkey PRIMARY KEY (id);
+ALTER TABLE cc_ticket_comment RENAME COLUMN is_admin TO creator_type;
+ALTER TABLE cc_ticket ADD COLUMN creator_type SMALLINT NOT NULL DEFAULT '0';
+-- ALTER TABLE cc_ticket_comment ALTER creator_type TYPE SMALLINT;
+-- ALTER TABLE cc_ticket_comment ALTER creator_type SET NOT NULL;
+-- ALTER TABLE cc_ticket_comment ALTER creator_type SET DEFAULT '0';
 
+ALTER TABLE cc_ratecard ADD COLUMN announce_time_correction decimal(5,3) NOT NULL DEFAULT 1.0;
 
---
--- Name: cc_invoice_conf_unique; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_invoice_conf
-    ADD CONSTRAINT cc_invoice_conf_unique UNIQUE (key_val);
+ALTER TABLE cc_agent DROP COLUMN climit;
 
+CREATE TABLE cc_agent_cardgroup (
+	id_agent 			INT NOT NULL ,
+	id_card_group 		INT NOT NULL
+);
+ALTER TABLE cc_agent_cardgroup ADD CONSTRAINT cc_agent_cardgroup_pkey
+	PRIMARY KEY ( id_agent , id_card_group );
 
---
--- Name: cc_invoice_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_card_group DROP id_agent;
 
-ALTER TABLE ONLY cc_invoice_item
-    ADD CONSTRAINT cc_invoice_item_pkey PRIMARY KEY (id);
+ALTER TABLE cc_agent ADD secret VARCHAR(20) NOT NULL;
 
+-- optimization on CDR
+ALTER TABLE cc_ratecard DROP COLUMN destination;
+ALTER TABLE cc_call DROP COLUMN id_cc_prefix;
+ALTER TABLE cc_ratecard DROP COLUMN id_cc_prefix;
+ALTER TABLE cc_call ADD COLUMN destination INT DEFAULT 0;
+ALTER TABLE cc_ratecard ADD COLUMN destination INT DEFAULT 0;
 
---
--- Name: cc_invoice_payment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_invoice_payment
-    ADD CONSTRAINT cc_invoice_payment_pkey PRIMARY KEY (id_invoice, id_payment);
+UPDATE cc_card_group SET description = 'This group is the default group used when you create a customer. It''s forbidden to delete it because you need at least one group but you can edit it.' WHERE id = 1;
+UPDATE cc_card_group SET users_perms = '129022' WHERE id = 1;
 
+ALTER TABLE cc_ticket ADD viewed_cust SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_ticket ADD viewed_agent SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_ticket ADD viewed_admin SMALLINT NOT NULL DEFAULT '1';
 
---
--- Name: cc_invoice_payment_unique; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_invoice_payment
-    ADD CONSTRAINT cc_invoice_payment_unique UNIQUE (id_payment);
+ALTER TABLE cc_ticket_comment ADD viewed_cust SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_ticket_comment ADD viewed_agent SMALLINT NOT NULL DEFAULT '1';
+ALTER TABLE cc_ticket_comment ADD viewed_admin SMALLINT NOT NULL DEFAULT '1';
 
+ALTER TABLE cc_ui_authen ADD email VARCHAR(70);
 
---
--- Name: cc_invoice_pkey1; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_logrefill ALTER id TYPE BIGINT;  -- the sequence is already BIG
+ALTER TABLE cc_logrefill ALTER id SET NOT NULL;
 
-ALTER TABLE ONLY cc_invoice
-    ADD CONSTRAINT cc_invoice_pkey1 PRIMARY KEY (id);
 
+-- Refill table for Agent
+CREATE TABLE cc_logrefill_agent (
+	id 					BIGSERIAL NOT NULL,
+	date 				timestamp WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+	credit 				float NOT NULL,
+	agent_id 			BIGINT NOT NULL,
+	description 		TEXT,
+	refill_type 		SMALLINT NOT NULL default '0'
+);
+ALTER TABLE cc_logrefill_agent ADD CONSTRAINT cc_logrefill_agent_pkey
+	PRIMARY KEY  (id);
 
---
--- Name: cc_invoice_unique_ref; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- logpayment table for Agent
+CREATE TABLE cc_logpayment_agent (
+	id 					BIGSERIAL NOT NULL,
+	date 				TIMESTAMP WITHOUT TIME ZONE NOT NULL default now(),
+	payment 			float NOT NULL,
+	agent_id 			BIGINT NOT NULL,
+	id_logrefill 		BIGINT default NULL,
+	description 		TEXT,
+	added_refill 		SMALLINT NOT NULL default '0',
+	payment_type 		SMALLINT NOT NULL default '0'
+);
+ALTER TABLE cc_logpayment_agent ADD CONSTRAINT cc_logpayment_agent_pkey
+	PRIMARY KEY  (id);
 
-ALTER TABLE ONLY cc_invoice
-    ADD CONSTRAINT cc_invoice_unique_ref UNIQUE (reference);
 
+-- Table structure for table cc_prefix
+DROP TABLE IF EXISTS cc_prefix;
+CREATE TABLE cc_prefix (
+	prefix 				BIGSERIAL NOT NULL,
+	destination 		varchar(60) NOT NULL
+);
+ALTER TABLE cc_prefix ADD CONSTRAINT cc_prefix_pkey PRIMARY KEY (prefix);
+CREATE INDEX cc_prefix_dest ON cc_prefix USING  btree(destination);
 
---
--- Name: cc_iso639_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_iso639
-    ADD CONSTRAINT cc_iso639_pkey PRIMARY KEY (code);
 
+INSERT INTO cc_config_group (group_title ,group_description) VALUES ( 'dashboard', 'This configuration group handles the dashboard configuration');
 
---
--- Name: cc_logpayment_agent_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable info module about customers', 'customer_info_enabled', 'LEFT', 'If you want enabled the info module customer and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable info module about refills', 'refill_info_enabled', 'CENTER', 'If you want enabled the info module refills and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable info module about payments', 'payment_info_enabled', 'CENTER', 'If you want enabled the info module payments and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+VALUES ( 'Enable info module about calls', 'call_info_enabled', 'RIGHT', 'If you want enabled the info module calls and place it somewhere on the home page.', '0', '13', 'NONE,LEFT,CENTER,RIGHT');
 
-ALTER TABLE ONLY cc_logpayment_agent
-    ADD CONSTRAINT cc_logpayment_agent_pkey PRIMARY KEY (id);
 
+-- New Invoice Tables
+ALTER TABLE cc_invoices RENAME TO bkp_cc_invoices;
+ALTER TABLE cc_invoice RENAME TO bkp_cc_invoice;
+ALTER TABLE cc_invoice_history RENAME TO bkp_cc_invoice_history;
+ALTER TABLE cc_invoice_items RENAME TO bkp_cc_invoice_items;
 
---
--- Name: cc_logrefill_agent_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_invoice (
+	id 					BIGSERIAL NOT NULL,
+	reference 			VARCHAR(30),
+	id_card 			BIGINT NOT NULL ,
+	date 				TIMESTAMP WITHOUT TIME ZONE NOT NULL default now(),
+	paid_status 		SMALLINT NOT NULL DEFAULT '0',
+	status 				SMALLINT NOT NULL DEFAULT '0',
+	title 				VARCHAR(50) NOT NULL,
+	description 		TEXT  NOT NULL,
+	PRIMARY KEY ( id )
+);
+ALTER TABLE cc_invoice ADD CONSTRAINT cc_invoice_unique_ref UNIQUE (reference);
 
-ALTER TABLE ONLY cc_logrefill_agent
-    ADD CONSTRAINT cc_logrefill_agent_pkey PRIMARY KEY (id);
+CREATE TABLE cc_invoice_item (
+	id 					BIGSERIAL NOT NULL,
+	id_invoice 			BIGINT NOT NULL,
+	date 				TIMESTAMP WITHOUT TIME ZONE NOT NULL default now(),
+	price 				DECIMAL(15, 5) NOT NULL DEFAULT '0',
+	VAT 				DECIMAL( 4, 2) NOT NULL DEFAULT '0',
+	description 		TEXT NOT NULL,
+	PRIMARY KEY ( id )
+);
 
 
---
--- Name: cc_notification_admin_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_invoice_conf (
+	id 					SERIAL NOT NULL,
+	key_val 			VARCHAR(50) NOT NULL,
+	value 				VARCHAR(50) NOT NULL
+);
+ALTER TABLE cc_invoice_conf ADD CONSTRAINT cc_invoice_conf_pkey PRIMARY KEY ( id );
+ALTER TABLE cc_invoice_conf ADD CONSTRAINT cc_invoice_conf_unique UNIQUE (key_val);
 
-ALTER TABLE ONLY cc_notification_admin
-    ADD CONSTRAINT cc_notification_admin_pkey PRIMARY KEY (id_notification, id_admin);
+INSERT INTO cc_invoice_conf (key_val ,value)
+	VALUES 	('company_name', 'My company'),
+		('address', 'address'),
+		('zipcode', 'xxxx'),
+		('country', 'country'),
+		('city', 'city'),
+		('phone', 'xxxxxxxxxxx'),
+		('fax', 'xxxxxxxxxxx'),
+		('email', 'xxxxxxx@xxxxxxx.xxx'),
+		('vat', 'xxxxxxxxxx'),
+		('web', 'www.xxxxxxx.xxx');
 
+ALTER TABLE cc_logrefill ADD added_invoice SMALLINT NOT NULL DEFAULT '0';
 
---
--- Name: cc_notification_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_invoice_payment (
+	id_invoice 			BIGINT NOT NULL ,
+	id_payment 			BIGINT NOT NULL
+);
+ALTER TABLE cc_invoice_payment ADD CONSTRAINT cc_invoice_payment_pkey
+	PRIMARY KEY ( id_invoice , id_payment );
+ALTER TABLE cc_invoice_payment ADD CONSTRAINT cc_invoice_payment_unique UNIQUE (id_payment);
 
-ALTER TABLE ONLY cc_notification
-    ADD CONSTRAINT cc_notification_pkey PRIMARY KEY (id);
 
 
---
--- Name: cc_outbound_cid_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable PlugnPay Module', 'MODULE_PAYMENT_PLUGNPAY_STATUS', 'True', 'Do you want to accept payments through PlugnPay?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Login Username', 'MODULE_PAYMENT_PLUGNPAY_LOGIN', 'Your Login Name', 'Enter your PlugnPay account username');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Publisher Email', 'MODULE_PAYMENT_PLUGNPAY_PUBLISHER_EMAIL', 'Enter Your Email Address', 'The email address you want PlugnPay conformations sent to');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('cURL Setup', 'MODULE_PAYMENT_PLUGNPAY_CURL', 'Not Compiled', 'Whether cURL is compiled into PHP or not.  Windows users, select not compiled.', 'tep_cfg_select_option(array(\'Not Compiled\', \'Compiled\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('cURL Path', 'MODULE_PAYMENT_PLUGNPAY_CURL_PATH', 'The Path To cURL', 'For Not Compiled mode only, input path to the cURL binary (i.e. c:/curl/curl)');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Mode', 'MODULE_PAYMENT_PLUGNPAY_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Test And Debug\', \'Production\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Require CVV', 'MODULE_PAYMENT_PLUGNPAY_CVV', 'yes', 'Ask For CVV information', 'tep_cfg_select_option(array(\'yes\', \'no\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Method', 'MODULE_PAYMENT_PLUGNPAY_PAYMETHOD', 'credit', 'Transaction method used for processing orders.<br><b>NOTE:</b> Selecting \'onlinecheck\' assumes you\'ll offer \'credit\' as well.',  'tep_cfg_select_option(array(\'credit\', \'onlinecheck\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Authorization Type', 'MODULE_PAYMENT_PLUGNPAY_CCMODE', 'authpostauth', 'Credit card processing mode', 'tep_cfg_select_option(array(\'authpostauth\', \'authonly\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Customer Notifications', 'MODULE_PAYMENT_PLUGNPAY_DONTSNDMAIL', 'yes', 'Should PlugnPay not email a receipt to the customer?', 'tep_cfg_select_option(array(\'yes\', \'no\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Accepted Credit Cards', 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC', 'Mastercard, Visa', 'The credit cards you currently accept', '_selectOptions(array(\'Amex\',\'Discover\', \'Mastercard\', \'Visa\'), ');
 
-ALTER TABLE ONLY cc_outbound_cid_group
-    ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
 
+INSERT INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('plugnpay','plugnpay.php','t');
 
---
--- Name: cc_outbound_cid_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_outbound_cid_list
-    ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
 
 
---
--- Name: cc_package_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_package_group
-    ADD CONSTRAINT cc_package_group_pkey PRIMARY KEY (id);
+ALTER TABLE cc_card_archive DROP COLUMN  callback;
+-- ALTER TABLE cc_card_archive ADD COLUMN  id_timezone int default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  voicemail_permitted int NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  voicemail_activated smallint NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  last_notification TIMESTAMP WITHOUT TIME ZONE default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  email_notification VARCHAR(70);
+ALTER TABLE cc_card_archive ADD COLUMN  notify_email SMALLINT NOT NULL default '0';
+ALTER TABLE cc_card_archive ADD COLUMN  credit_notification INT NOT NULL default '-1';
+ALTER TABLE cc_card_archive ADD COLUMN  id_group INT NOT NULL default '1';
+ALTER TABLE cc_card_archive ADD COLUMN  company_name VARCHAR(50) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  company_website varchar(60) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  VAT_RN varchar(40) default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  traffic BIGINT default NULL;
+ALTER TABLE cc_card_archive ADD COLUMN  traffic_target TEXT;
+ALTER TABLE cc_card_archive ADD COLUMN  discount decimal(5,2) NOT NULL default '0.00';
+ALTER TABLE cc_card_archive ADD COLUMN  restriction SMALLINT NOT NULL default '0';
+ALTER TABLE cc_card_archive DROP COLUMN template_invoice;
+ALTER TABLE cc_card_archive DROP COLUMN template_outstanding;
+ALTER TABLE cc_card_archive DROP COLUMN mac_addr;
+ALTER TABLE cc_card_archive ADD COLUMN mac_addr char(17) NOT NULL default '00-00-00-00-00-00';
 
 
---
--- Name: cc_package_rate_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- synched with MySQL up to r1405
+CREATE TABLE cc_billing_customer (
+	id BIGSERIAL ,
+	id_card BIGINT NOT NULL ,
+	date TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	id_invoice BIGINT NOT NULL ,
+	PRIMARY KEY ( id )
+);
 
-ALTER TABLE ONLY cc_package_rate
-    ADD CONSTRAINT cc_package_rate_pkey PRIMARY KEY (package_id, rate_id);
+-- PLUGNPAY
+ALTER TABLE cc_epayment_log ADD COLUMN cvv VARCHAR(4);
+ALTER TABLE cc_epayment_log ADD COLUMN credit_card_type VARCHAR(20);
+ALTER TABLE cc_epayment_log ADD COLUMN currency VARCHAR(4);
 
 
---
--- Name: cc_packgroup_package_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) 
+VALUES ('PlugnPay Payment URL', 'plugnpay_payment_url', 'https://pay1.plugnpay.com/payment/pnpremote.cgi', 'Define here the URL of PlugnPay gateway.', 0, 5, NULL);
 
-ALTER TABLE ONLY cc_packgroup_package
-    ADD CONSTRAINT cc_packgroup_package_pkey PRIMARY KEY (packagegroup_id, package_id);
 
+-- Currency handle update
+UPDATE cc_configuration SET configuration_description = 'The alternative currency to use for credit card transactions if the system currency is not usable' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
+UPDATE cc_configuration SET configuration_title = 'Alternative Transaction Currency' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
+UPDATE cc_configuration SET configuration_description = 'The alternative currency to use for credit card transactions if the system currency is not usable' WHERE configuration_key = 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY';
+UPDATE cc_configuration SET configuration_title = 'Alternative Transaction Currency' WHERE configuration_key = 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY';
+UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''USD'',''CAD'',''EUR'',''GBP'',''JPY''), ' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
+UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''EUR'', ''USD'', ''GBP'', ''HKD'', ''SGD'', ''JPY'', ''CAD'', ''AUD'', ''CHF'', ''DKK'', ''SEK'', ''NOK'', ''ILS'', ''MYR'', ''NZD'', ''TWD'', ''THB'', ''CZK'', ''HUF'', ''SKK'', ''ISK'', ''INR''), '  WHERE configuration_key = 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY';
 
---
--- Name: cc_payment_methods_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_payment_methods DROP active;
 
-ALTER TABLE ONLY cc_payment_methods
-    ADD CONSTRAINT cc_payment_methods_pkey PRIMARY KEY (id);
 
+ALTER TABLE cc_epayment_log ADD transaction_detail TEXT NULL;
 
---
--- Name: cc_payments_agent_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_invoice_item ADD id_billing BIGINT NULL,
+ADD billing_type VARCHAR( 10 ) NULL ;
 
-ALTER TABLE ONLY cc_payments_agent
-    ADD CONSTRAINT cc_payments_agent_pkey PRIMARY KEY (id);
 
 
---
--- Name: cc_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- DIDX.NET 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX ID', 'didx_id', '708XXX', 'DIDX parameter : ID', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX PASS', 'didx_pass', 'XXXXXXXXXX', 'DIDX parameter : Password', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX MIN RATING', 'didx_min_rating', '0', 'DIDX parameter : min rating', 0, 8, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('DIDX RING TO', 'didx_ring_to', '0', 'DIDX parameter : ring to', 0, 8, NULL);
 
-ALTER TABLE ONLY cc_payments
-    ADD CONSTRAINT cc_payments_pkey PRIMARY KEY (id);
+-- Commission Agent
+CREATE TABLE cc_agent_commission (
+	id BIGSERIAL ,
+	id_payment BIGINT NULL ,
+	id_card BIGINT NOT NULL ,
+	date TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	amount DECIMAL( 15, 5 ) NOT NULL ,
+	PRIMARY KEY ( id )
+);
 
+ALTER TABLE cc_card_group ADD id_agent INT NULL ;
 
---
--- Name: cc_payments_status_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+DROP TABLE cc_agent_cardgroup;
 
-ALTER TABLE ONLY cc_payments_status
-    ADD CONSTRAINT cc_payments_status_pkey PRIMARY KEY (id);
+ALTER TABLE cc_agent_commission ADD paid_status SMALLINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_agent_commission ADD description TEXT NULL ;
 
 
---
--- Name: cc_paypal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_paypal
-    ADD CONSTRAINT cc_paypal_pkey PRIMARY KEY (id);
 
 
---
--- Name: cc_phonebook_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- Card Serial Number
+CREATE TABLE cc_card_seria (
+	id SERIAL ,
+	name CHAR( 30 ) NOT NULL ,
+	description TEXT NULL,
+	value	BIGINT NOT NULL DEFAULT 0,
+	PRIMARY KEY ( id )
+);
+ 
+ALTER TABLE cc_card ADD id_seria integer;
+ALTER TABLE cc_card ADD serial BIGINT;
+UPDATE cc_config SET config_description = (config_description || ', id_seria, serial') WHERE config_key = 'card_show_field_list' ;
 
-ALTER TABLE ONLY cc_phonebook
-    ADD CONSTRAINT cc_phonebook_pkey PRIMARY KEY (id);
+CREATE OR REPLACE FUNCTION cc_card_serial_set() RETURNS TRIGGER AS $$
+  BEGIN
+    UPDATE cc_card_seria SET value=value+1 WHERE id=NEW.id_seria;
+    SELECT value INTO NEW.serial FROM cc_card_seria WHERE id=NEW.id_seria;
+    RETURN NEW;
+  END
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER cc_card_serial BEFORE INSERT ON cc_card
+  FOR EACH ROW EXECUTE PROCEDURE cc_card_serial_set();
 
+CREATE OR REPLACE FUNCTION cc_card_serial_update() RETURNS TRIGGER AS $$
+  BEGIN
+    IF NEW.id_seria IS NOT NULL AND NEW.id_seria = OLD.id_seria THEN
+      RETURN NEW;
+    END IF;
+    UPDATE cc_card_seria SET value=value+1 WHERE id=NEW.id_seria;
+    SELECT value INTO NEW.serial FROM cc_card_seria WHERE id=NEW.id_seria;
+    RETURN NEW;
+  END
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER cc_card_serial_upd BEFORE UPDATE ON cc_card
+  FOR EACH ROW EXECUTE PROCEDURE cc_card_serial_update();
 
---
--- Name: cc_phonenumber_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_phonenumber
-    ADD CONSTRAINT cc_phonenumber_pkey PRIMARY KEY (id);
+INSERT INTO  cc_config (config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values('Card Serial Pad Length','card_serial_length','7','Value of zero padding for serial. If this value set to 3 serial wil looks like 001',0,8);
 
 
---
--- Name: cc_prefix_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_prefix
-    ADD CONSTRAINT cc_prefix_pkey PRIMARY KEY (prefix);
+-- Reserve credit :
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Dial Balance reservation', 'dial_balance_reservation', '0.25', 'Credit to reserve from the balance when a call is made. This will prevent negative balance on huge peak.', 0, 11, NULL);
 
 
---
--- Name: cc_provider_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- change the schema to authorize only one login
+ALTER TABLE cc_agent ADD UNIQUE (login); 
+ALTER TABLE cc_ui_authen ADD UNIQUE (login); 
 
-ALTER TABLE ONLY cc_provider
-    ADD CONSTRAINT cc_provider_pkey PRIMARY KEY (id);
+-- update for invoice
+ALTER TABLE cc_charge ADD charged_status SMALLINT NOT NULL DEFAULT '0',
+ADD invoiced_status SMALLINT NOT NULL DEFAULT '0';
+ALTER TABLE cc_did_use ADD reminded SMALLINT NOT NULL DEFAULT '0';
 
+ALTER TABLE cc_invoice_item RENAME COLUMN id_billing TO id_ext;
+ALTER TABLE cc_invoice_item RENAME COLUMN billing_type TO type_ext;
 
---
--- Name: cc_ratecard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_ratecard
-    ADD CONSTRAINT cc_ratecard_pkey PRIMARY KEY (id);
+-- update on configuration
+ALTER TABLE cc_config_group ADD UNIQUE (group_title); 
+ALTER TABLE cc_config ADD config_group_title varchar(64);
 
+UPDATE cc_config SET config_group_title=(SELECT group_title FROM cc_config_group WHERE cc_config_group.id=cc_config.config_group_id);
 
---
--- Name: cc_receipt_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+ALTER TABLE cc_config DROP COLUMN config_group_id;
+ALTER TABLE cc_config ALTER COLUMN config_group_title SET NOT NULL;
 
-ALTER TABLE ONLY cc_receipt_item
-    ADD CONSTRAINT cc_receipt_item_pkey PRIMARY KEY (id);
+-- add receipt objects
+CREATE TABLE cc_receipt (
+	id BIGSERIAL ,
+	id_card BIGINT NOT NULL ,
+	date TIMESTAMP WITHOUT TIME ZONE NOT NULL default CURRENT_TIMESTAMP,
+	title VARCHAR( 50 ) NOT NULL ,
+	description TEXT NOT NULL ,
+	status SMALLINT NOT NULL DEFAULT '0',
+	PRIMARY KEY ( id )
+);
+
+CREATE TABLE cc_receipt_item (
+	id BIGSERIAL ,
+	id_receipt BIGINT NOT NULL ,
+	date TIMESTAMP WITHOUT TIME ZONE NOT NULL default CURRENT_TIMESTAMP,
+	price DECIMAL( 15, 5 ) NOT NULL DEFAULT '0',
+	description TEXT NOT NULL ,
+	id_ext BIGINT NULL DEFAULT NULL,
+	type_ext VARCHAR( 10 ) NULL DEFAULT NULL,
+	PRIMARY KEY (id)
+);
+
+
+ALTER TABLE cc_logpayment ALTER COLUMN payment TYPE DECIMAL( 15, 5 );
+ALTER TABLE cc_logpayment ALTER COLUMN payment SET NOT NULL;
+ALTER TABLE cc_logpayment_agent ALTER COLUMN payment TYPE DECIMAL( 15, 5 );
+ALTER TABLE cc_logpayment_agent ALTER COLUMN payment SET NOT NULL;
+ALTER TABLE cc_logrefill ALTER COLUMN credit TYPE DECIMAL( 15, 5);
+ALTER TABLE cc_logrefill ALTER COLUMN credit SET NOT NULL;
+ALTER TABLE cc_logrefill_agent ALTER COLUMN credit TYPE DECIMAL( 15, 5 );
+ALTER TABLE cc_logrefill_agent ALTER COLUMN credit SET NOT NULL ;
+
+-- changes from recurring services - bound to callplan
+alter table cc_service add column operate_mode smallint default 0;
+alter table cc_service add column dialplan integer default 0;
+alter table cc_service add column use_group smallint default 0;
+
+ALTER TABLE cc_sip_buddies ADD regserver varchar(20);
+
+ALTER TABLE cc_logpayment ADD added_commission SMALLINT NOT NULL DEFAULT '0';
+
+-- Empty password view for OpenSips
+CREATE OR REPLACE VIEW cc_sip_buddies_empty AS
+  SELECT id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context,
+  DEFAULTip, dtmfmode, fromuser, fromdomain, host, insecure, language, mailbox, md5secret, nat, permit,
+  deny, mask, pickupgroup, port, qualify, restrictcid, rtptimeout, rtpholdtimeout, ''::text as secret,
+  type, username, disallow, allow, musiconhold, regseconds, ipaddr, cancallforward, fullcontact, setvar
+  FROM cc_sip_buddies;
+
+-- remove activatedbyuser
+ALTER TABLE cc_card DROP activatedbyuser;
+
+
+-- Agent epayment
 
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('HTTP Server Agent', 'http_server_agent', 'http://www.call-labs.com', 'Set the Server Address of Agent Website, It should be empty for productive Servers.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('HTTPS Server Agent', 'https_server_agent', 'https://www.call-labs.com', 'https://localhost - Enter here your Secure Agents Server Address, should not be empty for productive servers.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Server Agent IP/Domain', 'http_cookie_domain_agent', '26.63.165.200', 'Enter your Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, 5, NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Secure Server Agent IP/Domain', 'https_cookie_domain_agent', '26.63.165.200', 'Enter your Secure server Domain Name or IP Address for the Agents application, eg, 26.63.165.200.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Application Agent Path', 'http_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Secure Application Agent Path', 'https_cookie_path_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure Server.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Application Agent Physical Path', 'dir_ws_http_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, 'epayment_method', NULL);
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_title, config_listvalues) VALUES ('Secure Application Agent Physical Path', 'dir_ws_https_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure server.', 0, 'epayment_method', NULL);
 
---
--- Name: cc_receipt_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_epayment_log_agent (
+	id BIGSERIAL NOT NULL,
+	agent_id BIGINT NOT NULL default '0',
+	amount DECIMAL( 15, 5 ) NOT NULL default '0',
+	vat FLOAT NOT NULL default '0',
+	paymentmethod char(50) NOT NULL,
+	cc_owner varchar(64) default NULL,
+	cc_number varchar(32) default NULL,
+	cc_expires varchar(7) default NULL,
+	creationdate timestamp without time zone NOT NULL default CURRENT_TIMESTAMP,
+	status int NOT NULL default '0',
+	cvv varchar(4) default NULL,
+	credit_card_type varchar(20) default NULL,
+	currency varchar(4) default NULL,
+	transaction_detail text,
+	PRIMARY KEY (id)
+);
 
-ALTER TABLE ONLY cc_receipt
-    ADD CONSTRAINT cc_receipt_pkey PRIMARY KEY (id);
+ALTER TABLE cc_epayment_log ALTER id SET NOT NULL,
+	ALTER cardid TYPE BIGINT, ALTER cardid SET DEFAULT '0',
+	ALTER cardid SET NOT NULL, ALTER amount TYPE DECIMAL( 15, 5 );
 
+ALTER TABLE cc_payments RENAME COLUMN customers_id TO text_cust_id;
+ALTER TABLE cc_payments ADD COLUMN customers_id BIGINT DEFAULT '0' NOT NULL;
+UPDATE cc_payments SET customers_id = text_cust_id::int8;
+ALTER TABLE cc_payments DROP COLUMN text_cust_id;
 
---
--- Name: cc_restricted_phonenumber_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_payments_agent (
+	id BIGSERIAL,
+	agent_id BIGINT NOT NULL,
+	agent_name varchar(200) NOT NULL,
+	agent_email_address varchar(96) NOT NULL,
+	item_name varchar(127) default NULL,
+	item_id varchar(127) default NULL,
+	item_quantity int NOT NULL default '0',
+	payment_method varchar(32) NOT NULL,
+	cc_type varchar(20) default NULL,
+	cc_owner varchar(64) default NULL,
+	cc_number varchar(32) default NULL,
+	cc_expires varchar(4) default NULL,
+	orders_status int NOT NULL,
+	orders_amount decimal(14,6) default NULL,
+	last_modified timestamp without time zone default NULL,
+	date_purchased timestamp without time zone default NULL,
+	orders_date_finished timestamp without time zone default NULL,
+	currency char(3) default NULL,
+	currency_value decimal(14,6) default NULL,
+	PRIMARY KEY (id)
+);
 
-ALTER TABLE ONLY cc_restricted_phonenumber
-    ADD CONSTRAINT cc_restricted_phonenumber_pkey PRIMARY KEY (id);
 
+ALTER TABLE cc_agent_commission ADD id_agent INT NOT NULL ;
 
---
--- Name: cc_server_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+-- remove reseller field from logpayment & log refill
+ALTER TABLE cc_logpayment DROP reseller_id; 
+ALTER TABLE cc_logrefill DROP reseller_id;
 
-ALTER TABLE ONLY cc_server_group
-    ADD CONSTRAINT cc_server_group_pkey PRIMARY KEY (id);
 
+-- Add notification system
+CREATE TABLE cc_notification (
+	id 					BIGSERIAL,
+	key_value 			varchar(40),
+	date 				timestamp NOT NULL default CURRENT_TIMESTAMP,
+	priority 			SMALLINT NOT NULL DEFAULT '0',
+	from_type 			SMALLINT NOT NULL,
+	from_id 			BIGINT NULL DEFAULT '0',
+	PRIMARY KEY ( id )
+);
 
---
--- Name: cc_server_manager_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
+CREATE TABLE cc_notification_admin (
+	id_notification		BIGINT NOT NULL,
+	id_admin			INT NOT NULL,
+	viewed				SMALLINT NOT NULL DEFAULT '0',
+	PRIMARY KEY ( id_notification , id_admin )
+);
 
-ALTER TABLE ONLY cc_server_manager
-    ADD CONSTRAINT cc_server_manager_pkey PRIMARY KEY (id);
 
+-- Add default value for support box
+INSERT INTO cc_support (id ,name) VALUES (1, 'DEFAULT');
+INSERT INTO cc_support_component (id ,id_support ,name ,activated) VALUES (1, 1, 'DEFAULT', 1);
 
---
--- Name: cc_service_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_service
-    ADD CONSTRAINT cc_service_pkey PRIMARY KEY (id);
+-- synched with MySQL up to r1793
 
+-- Commit the whole update;  psql will automatically rollback if we failed at any point
+COMMIT;
 
---
--- Name: cc_service_report_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
 
-ALTER TABLE ONLY cc_service_report
-    ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
 
+VACUUM FULL ANALYZE;
 
---
--- Name: cc_sip_buddies_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_sip_buddies
-    ADD CONSTRAINT cc_sip_buddies_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_speeddial_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_speeddial
-    ADD CONSTRAINT cc_speeddial_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_status_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_status_log
-    ADD CONSTRAINT cc_status_log_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_subscription_fee_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_subscription_fee
-    ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_support_component_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_support_component
-    ADD CONSTRAINT cc_support_component_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_support_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_support
-    ADD CONSTRAINT cc_support_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_system_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_system_log
-    ADD CONSTRAINT cc_system_log_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_tariffgroup_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_tariffgroup
-    ADD CONSTRAINT cc_tariffgroup_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_tariffplan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_tariffplan
-    ADD CONSTRAINT cc_tariffplan_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_ticket_comment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_ticket_comment
-    ADD CONSTRAINT cc_ticket_comment_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_ticket_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_ticket
-    ADD CONSTRAINT cc_ticket_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_timezone_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_timezone
-    ADD CONSTRAINT cc_timezone_pkey PRIMARY KEY (id);
-
-
---
--- Name: cc_trunk_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_trunk
-    ADD CONSTRAINT cc_trunk_pkey PRIMARY KEY (id_trunk);
-
-
---
--- Name: cc_ui_authen_login_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_ui_authen
-    ADD CONSTRAINT cc_ui_authen_login_key UNIQUE (login);
-
-
---
--- Name: cc_ui_authen_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_ui_authen
-    ADD CONSTRAINT cc_ui_authen_pkey PRIMARY KEY (userid);
-
-
---
--- Name: cc_voucher_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_voucher
-    ADD CONSTRAINT cc_voucher_pkey PRIMARY KEY (id);
-
-
---
--- Name: cons_cc_backup_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_backup
-    ADD CONSTRAINT cons_cc_backup_name_key UNIQUE (name);
-
-
---
--- Name: cons_cc_card_archive_username; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_card_archive
-    ADD CONSTRAINT cons_cc_card_archive_username UNIQUE (username);
-
-
---
--- Name: cons_cc_card_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);
-
-
---
--- Name: cons_cc_card_useralias; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
-
-
---
--- Name: cons_cc_card_username; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
-
-
---
--- Name: cons_cc_cardgroup_unique; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_cardgroup_service
-    ADD CONSTRAINT cons_cc_cardgroup_unique UNIQUE (id_card_group, id_service);
-
-
---
--- Name: cons_cc_currencies_currency_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_currencies
-    ADD CONSTRAINT cons_cc_currencies_currency_key UNIQUE (currency);
-
-
---
--- Name: cons_cc_provider_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_provider
-    ADD CONSTRAINT cons_cc_provider_name_key UNIQUE (provider_name);
-
-
---
--- Name: cons_cc_speeddial_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_speeddial
-    ADD CONSTRAINT cons_cc_speeddial_pkey UNIQUE (id_cc_card, speeddial);
-
-
---
--- Name: cons_cc_templatemail_mailtype; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_templatemail
-    ADD CONSTRAINT cons_cc_templatemail_mailtype UNIQUE (id, id_language);
-
-
---
--- Name: cons_cc_ui_authen_login_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_ui_authen
-    ADD CONSTRAINT cons_cc_ui_authen_login_key UNIQUE (login);
-
-
---
--- Name: cons_did_cc_did; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_did
-    ADD CONSTRAINT cons_did_cc_did UNIQUE (did);
-
-
---
--- Name: cons_iduser_tariffname; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_tariffplan
-    ADD CONSTRAINT cons_iduser_tariffname UNIQUE (iduser, tariffname);
-
-
---
--- Name: cons_phonelistname; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_campaign
-    ADD CONSTRAINT cons_phonelistname UNIQUE (name);
-
-
---
--- Name: cons_txn_id_cc_paypal; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_paypal
-    ADD CONSTRAINT cons_txn_id_cc_paypal UNIQUE (txn_id);
-
-
---
--- Name: cons_useralias_cc_card; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_useralias_cc_card UNIQUE (useralias);
-
-
---
--- Name: cons_username_cc_card; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_username_cc_card UNIQUE (username);
-
-
---
--- Name: cons_voucher_cc_voucher; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_voucher
-    ADD CONSTRAINT cons_voucher_cc_voucher UNIQUE (voucher);
-
-
---
--- Name: iax_unique_name; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_iax_buddies
-    ADD CONSTRAINT iax_unique_name UNIQUE (name);
-
-
---
--- Name: iso639_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_iso639
-    ADD CONSTRAINT iso639_name_key UNIQUE (name);
-
-
---
--- Name: pk_groupplan; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_tariffgroup_plan
-    ADD CONSTRAINT pk_groupplan PRIMARY KEY (idtariffgroup, idtariffplan);
-
-
---
--- Name: unique_name; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY cc_sip_buddies
-    ADD CONSTRAINT unique_name UNIQUE (name);
-
-
---
--- Name: cc_call_calledstation_arc_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_call_calledstation_arc_ind ON cc_call_archive USING btree (calledstation);
-
-
---
--- Name: cc_call_calledstation_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_call_calledstation_ind ON cc_call USING btree (calledstation);
-
-
---
--- Name: cc_call_starttime_arc_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_call_starttime_arc_ind ON cc_call_archive USING btree (starttime);
-
-
---
--- Name: cc_call_starttime_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_call_starttime_ind ON cc_call USING btree (starttime);
-
-
---
--- Name: cc_call_terminatecause_arc_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_call_terminatecause_arc_ind ON cc_call_archive USING btree (terminatecause);
-
-
---
--- Name: cc_call_terminatecause_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_call_terminatecause_id ON cc_call USING btree (terminatecauseid);
-
-
---
--- Name: cc_call_username_arc_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_call_username_arc_ind ON cc_call_archive USING btree (username);
-
-
---
--- Name: cc_card_archive_creationdate_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_card_archive_creationdate_ind ON cc_card_archive USING btree (creationdate);
-
-
---
--- Name: cc_card_archive_username_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_card_archive_username_ind ON cc_card_archive USING btree (username);
-
-
---
--- Name: cc_card_creationdate_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_card_creationdate_ind ON cc_card USING btree (creationdate);
-
-
---
--- Name: cc_card_username_ind; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_card_username_ind ON cc_card USING btree (username);
-
-
---
--- Name: cc_prefix_dest; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX cc_prefix_dest ON cc_prefix USING btree (destination);
-
-
---
--- Name: ind_cc_card_package_offer_date_consumption; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
-
-
---
--- Name: ind_cc_card_package_offer_id_card; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_cc_card);
-
-
---
--- Name: ind_cc_card_package_offer_id_package_offer; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_cc_package_offer);
-
-
---
--- Name: ind_cc_charge_creationdate; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX ind_cc_charge_creationdate ON cc_charge USING btree (creationdate);
-
-
---
--- Name: ind_cc_charge_id_cc_card; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX ind_cc_charge_id_cc_card ON cc_charge USING btree (id_cc_card);
-
-
---
--- Name: ind_cc_ratecard_dialprefix; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
-
-
---
--- Name: cc_card_serial; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER cc_card_serial
-    BEFORE INSERT ON cc_card
-    FOR EACH ROW
-    EXECUTE PROCEDURE cc_card_serial_set();
-
-
---
--- Name: cc_card_serial_upd; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER cc_card_serial_upd
-    BEFORE UPDATE ON cc_card
-    FOR EACH ROW
-    EXECUTE PROCEDURE cc_card_serial_update();
-
-
---
--- Name: cc_ratecard_validate_regex; Type: TRIGGER; Schema: public; Owner: postgres
---
-
-CREATE TRIGGER cc_ratecard_validate_regex
-    BEFORE INSERT OR UPDATE ON cc_ratecard
-    FOR EACH ROW
-    EXECUTE PROCEDURE cc_ratecard_validate_regex();
-
-
---
--- Name: cc_agent_id_tariffgroup_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY cc_agent
-    ADD CONSTRAINT cc_agent_id_tariffgroup_fkey FOREIGN KEY (id_tariffgroup) REFERENCES cc_tariffgroup(id);
-
-
---
--- Name: cc_support_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY cc_support_component
-    ADD CONSTRAINT cc_support_id_fkey FOREIGN KEY (id_support) REFERENCES cc_support(id) ON DELETE CASCADE;
-
-
---
--- Name: cc_ticket_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY cc_ticket_comment
-    ADD CONSTRAINT cc_ticket_id_fkey FOREIGN KEY (id_ticket) REFERENCES cc_ticket(id) ON DELETE CASCADE;
-
-
---
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
---
--- database install complete
---
-
-
-
+-- Change below your dbname & uncomment
+-- REINDEX DATABASE a2billing;
