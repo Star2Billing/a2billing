@@ -76,15 +76,11 @@ $CC_help_generate_signup='
 
 $CC_help_list_customer='
 <div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 <div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("Customers are listed below by account number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>")
+<div class="msg_info">'.gettext("Customers are listed below by account number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>")
 .gettext("The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication.").'
-	<br/>'.help_wiki_link('ListCustomers').'
-</div></div></div>
-</div></div>';
+	<br/>'.help_wiki_link('ListCustomers').'<a href="#" target="_self" class="toggle_menu" style="float:right;"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+</div></div></div>';
 
 
 $CC_help_import_customer='

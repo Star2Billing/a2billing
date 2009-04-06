@@ -7,14 +7,14 @@ $(document).ready(
 		$("div.toggle_menu a.toggle_menu").click(function(){
 			div_toggle = $(this).parent().parent().find("div.tohide");
 			if (div_toggle.css('display') == 'none') {
-				div_toggle.animate({ height: 'show', opacity: 'show' }, 'slow');
+				div_toggle.slideDown('slow');
 				$(this).find("img").each(function(i) {
 					newimage = $(this).attr('src');
 					//alert(newimage.substr(0,newimage.length-8) + 'minus.gif');
 					$(this).attr('src', newimage.substr(0,newimage.length-8) + 'minus.gif');
 				});				
 			} else {
-				div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
+				div_toggle.slideUp( 'slow');
 				$(this).find("img").each(function(i) {
 					newimage = $(this).attr('src');
 					$(this).attr('src', newimage.substr(0,newimage.length-9) + 'plus.gif');
@@ -24,47 +24,11 @@ $(document).ready(
 		});
 		
 		
-		$("div.toggle_hide2show a.toggle_menu").toggle(function(){
-			//div_toggle = $(this).parent().parent().parent().find("div.toggle_hide2show");
-			//div_toggle.css("background-color","#555555");
-			//$(this).parent().parent().append("&nbsp;");
-			$(this).find("img").each(function(i) {
-				newimage = $(this).attr('src');
-				$(this).attr('src', newimage.substr(0,newimage.length-4) + '_on.png');
-			});
-			div_toggle = $(this).parent().parent().find("div.tohide");
-			//alert(div_toggle.html());
-			div_toggle.animate({ height: 'show', opacity: 'show' }, 'slow');
-			
-		},function(){
-			//div_toggle = $(this).parent().parent().parent().find("div.toggle_hide2show");
-			//div_toggle.css("background-color","#FFFF44");
-			//$(this).parent().parent().append("&nbsp;");
-			$(this).find("img").each(function(i) {
-				newimage = $(this).attr('src');
-				$(this).attr('src', newimage.substr(0,newimage.length-7) + '.png');
-			});
-			div_toggle = $(this).parent().parent().find("div.tohide");
-			div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
-		});
-		
-		$("div.toggle_show2hide a.toggle_menu").toggle(function(){
-			$(this).find("img").each(function(i) {
-				newimage = $(this).attr('src');
-				$(this).attr('src', newimage.substr(0,newimage.length-7) + '.png');
-			});
-			div_toggle = $(this).parent().find("div.tohide");
+		$("div.toggle_show2hide a.toggle_menu").click(function(){
+			div_toggle = $(this).parent().parent().parent().find("div.tohide");
 			//alert(div_toggle.html());
 			div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
 			
-		},function(){			
-			$(this).find("img").each(function(i) {
-				newimage = $(this).attr('src');
-				$(this).attr('src', newimage.substr(0,newimage.length-4) + '_on.png');
-			});
-			div_toggle = $(this).parent().find("div.tohide");
-			//alert(div_toggle.html());
-			div_toggle.animate({ height: 'show', opacity: 'show' }, 'slow');
 		});
 		
 		

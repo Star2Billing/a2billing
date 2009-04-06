@@ -20,46 +20,58 @@
 </HEAD>
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 {if ($popupwindow == 0)}
-	<p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}<br><br><br>
-	{if ($adminname) }
-	Logged-in as: <b>{$adminname}</b></p>
-	<br>
-	{/if}
+	<div id="top_menu">
+		<ul id="menu_horizontal">
+			<li class="bouton_gauche">
+				<div style="width:100%;height:100%;text-align:center;" >
+					<a href="PP_intro.php"> 
+							<strong> {php} echo gettext("HOME");{/php}</strong>&nbsp;
+						<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/house.png"> 
+					</a>
+				</div>
+			</li>
+			{if ($ACXDASHBOARD > 0) }
+			<li class="bouton_gauche">
+				<div style="width:100%;height:100%;text-align:center;" >
+					<a href="dashboard.php" > 
+						<strong> {php} echo gettext("DASHBOARD");{/php}</strong>&nbsp;
+						<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/chart_bar.png"> 
+					</a>
+				</div>
+			</li>
+			{/if}
+			<li class="bouton_gauche">
+				<div style="width:100%;height:100%;text-align:center;" >
+					 <a href="A2B_notification.php" "> 
+						<strong > {php} echo gettext("NOTIFICATION");{/php}</strong>&nbsp;
+					<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/email.png"> 
+					{if ($NEW_NOTIFICATION > 0) }
+						<strong style="font-size:8px; color:red;"> NEW</strong>
+					{else}
+						<strong style="font-size:8px;">&nbsp;&nbsp,&nbsp;</strong>
+					{/if}
+					  </a>
+				</div>
+			</li>
+			<li class="bouton_gauche" style="border-right:none;">
+				<div style="width:100%;height:100%;text-align:center;" >
+					<a href="logout.php?logout=true" target="_top"><font color="#EC3F41"><b>&nbsp;&nbsp;{php} echo gettext("LOGOUT");{/php}</b></font>
+					<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/logout.png"> </a>
+				</div>
+			</li>
+		</ul>
+
+	</div>
+	
 {/if}
 <DIV border="0" width="1000px">
 {if ($popupwindow == 0)}
 <div class="divleft">
+<div id="rightmenu-top">
+<div id="rightmenu-down">
+<br/>
+<br/>
 
-
-<div id="nav_before"></div>
-<ul id="nav">
-	<li><a href="#" target="_self"></a></a></li>
-		<ul><li> <a href="PP_intro.php" style="height:14px;text-align:left;"> 
-			<strong style="font-size:12px;"> {php} echo gettext("HOME");{/php}</strong>&nbsp;
-		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/house.png"> </a>
-		</li></ul>
-  	<li><a href="#" target="_self"></a></a></li>
-</ul>
-{if ($ACXDASHBOARD > 0) }
-<ul id="nav">
-		<ul><li> <a href="dashboard.php" style="height:14px;text-align:left;"> 
-			<strong style="font-size:12px;"> {php} echo gettext("DASHBOARD");{/php}</strong>&nbsp;
-		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/chart_bar.png">  </a>
-		</li></ul>
-  	<li><a href="#" target="_self"></a></a></li>
-</ul>
-{/if}
-<ul id="nav">
-		<ul><li> <a href="A2B_notification.php" style="height:14px;text-align:left;"> 
-			<strong style="font-size:12px;"> {php} echo gettext("NOTIFICATION");{/php}</strong>&nbsp;
-		<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/email.png"> 
-		{if ($NEW_NOTIFICATION > 0) }
-			<strong style="font-size:8px; color:red;"> {php} echo gettext("NEW");{/php}</strong>
-		{/if}
-		  </a>
-		</li></ul>
-  	<li><a href="#" target="_self"></a></a></li>
-</ul>
 <ul id="nav">
   
   	{if ($ACXCUSTOMER > 0) }
@@ -71,7 +83,7 @@
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
- onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></li>
+ onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="1")}
 	style="">
@@ -103,7 +115,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AGENTS");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("AGENTS");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="2")}
 		style="">
@@ -128,7 +140,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("ADMINS");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("ADMINS");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="3")}
 		style="">
@@ -152,7 +164,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="4")}
 		style="">
@@ -178,7 +190,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("CALL REPORTS");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  > &nbsp;<strong>{php} echo gettext("CALL REPORTS");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="5")}
 		style="">
@@ -209,7 +221,7 @@
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("RATES");{/php}</strong></a></li>
+	  onmouseover="this.style.cursor='hand';"  > &nbsp;<strong>{php} echo gettext("RATES");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="6")}
 		style="">
@@ -237,7 +249,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PROVIDERS");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  > &nbsp;<strong>{php} echo gettext("PROVIDERS");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="7")}
 		style="">
@@ -263,7 +275,7 @@
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("INBOUND DID");{/php}</strong></a></li>
+	 onmouseover="this.style.cursor='hand';"  > &nbsp;<strong>{php} echo gettext("INBOUND DID");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="8")}
 		style="">
@@ -294,7 +306,7 @@
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("OUTBOUND CID");{/php}</strong></a></li>
+	  onmouseover="this.style.cursor='hand';"  > &nbsp;<strong>{php} echo gettext("OUTBOUND CID");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="9")}
 		style="">
@@ -321,7 +333,7 @@
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></li>
+	 onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="10")}
 
@@ -362,7 +374,7 @@
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
+	 onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="11")}
 	style="">
@@ -397,7 +409,7 @@
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PACKAGE OFFER");{/php}</strong></a></li>
+	  onmouseover="this.style.cursor='hand';"  > &nbsp;<strong>{php} echo gettext("PACKAGE OFFER");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="12")}
 		style="">
@@ -424,7 +436,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("RECUR SERVICE");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("RECUR SERVICE");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="13")}
 		style="">
@@ -453,7 +465,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="14")}
 		style="">
@@ -478,7 +490,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CAMPAIGNS");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("CAMPAIGNS");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="15")}
 		style="">
@@ -506,7 +518,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MAINTENANCE");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("MAINTENANCE");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="16")}
 		style="">
@@ -541,7 +553,7 @@
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MAIL");{/php}</strong></a></li>
+	onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("MAIL");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="17")}
 		style="">
@@ -566,7 +578,7 @@
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SYSTEM SETTINGS");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';"  >&nbsp; <strong>{php} echo gettext("SYSTEM SETTINGS");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="18")}
 		style="">
@@ -589,22 +601,20 @@
 	
 	{/if}
 	
-	
-	<li><a href="#" target="_self"></a></a></li>
-		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("Change Password");{/php}</strong></a></li></ul>
-  	<li><a href="#" target="_self"></a></a></li>
-  	
-
-	<li><a href="#" target="_self"></a></a></li>
-	<ul>
-		<li><ul>
-		<li><a href="logout.php?logout=true" target="_top"><font color="#DD0000"><b>&nbsp;&nbsp;{php} echo gettext("LOGOUT");{/php}</b></font></a></li>
-		</ul></li>
-	</ul>
-
 </ul>
-<div id="nav_after"></div>
-<br>
+	
+<br/>
+<ul id="nav"><li>
+	<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("Change Password");{/php}</strong></a></li></ul>
+</li></ul>
+<br/>
+<br/>
+<br/>
+
+</div>
+</div>
+
+
 
 <table width="100%">
 <tr>
@@ -634,7 +644,7 @@
 </div>
 
 <div class="divright">
-
+<br/>
 {else}
 <div>
 {/if}
