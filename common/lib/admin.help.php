@@ -4,170 +4,48 @@ function help_wiki_link($wiki_article_name) {
 	return gettext("For further information please consult").' <a target="_blank" href="http://trac.asterisk2billing.org/cgi-bin/trac.cgi/wiki/1-4-'.$wiki_article_name.'">'.gettext("the online documention").'</a>.<br/>';
 }
 
+function create_help($text,$wiki=null) {
+	if(!empty($wiki)) $wiki_text =  help_wiki_link($wiki);
+	else $wiki_text = "";
+	$help='
+	<div class="toggle_show2hide">
+	<div class="tohide" style="display:visible;">
+	<div class="msg_info">'.$text.'
+	<br/>'.$wiki_text.'<a href="#" target="_self" class="toggle_menu" style="float:right;"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+	</div></div></div>';
+	return $help;
+	
+}
+
 
 if (SHOW_HELP) {
 	
-$CC_help_list_prefix='<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-        <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
-        <div class="w2">
+$CC_help_mail_notifications =create_help(gettext("The Notification component is responsible of informing the Customer via e-mail that the account has reached a minimum credit."),'Notification');
 
-';
-$CC_help_list_postfix='<br/>
-</div></div></div>
-</div></div>';
+$CC_help_notifications = create_help (gettext("Notification: You can see below all notifications received about some event."),'Notificationbox') ;
 
-$CC_help_mail_notifications = '<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-        <img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
-        <div class="w2"><br>'
-.gettext("The Notification component is responsible of informing the Customer via e-mail that the account has reached a minimum credit."). '<br/>'.help_wiki_link('Notification').'
-<br/>
-</div></div></div>
-</div></div>
-';
+$CC_help_list_seria= create_help(gettext("This page shows the series list. <br> Series & serials is used for the creation of stable card range for large accounting purposes instead of card id."),'ListSeria');
 
-$CC_help_notifications = '<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
- <div class="w2"><br/>'
-.gettext("Notification: You can see below all notifications received about some event."). '<br/>'.help_wiki_link('Notificationbox').'
-<br/>
-</div></div></div>
-</div></div>
-';
+$CC_help_list_group= create_help(gettext("This page shows a group list.").gettext("The Group field is used for grouping customers for quick search, batch update and reporting."),'ListGroup');
 
+$CC_help_generate_signup= create_help(gettext("Generate a specific crypted URL and to configure signup with a customer group and call plan."));
 
-$CC_help_list_seria=$CC_help_list_prefix.gettext("This page shows the series list. <br> Series & serials is used for the creation of stable card range for large accounting purposes instead of card id.").'<br/>'.help_wiki_link('ListSeria').$CC_help_list_postfix;
+$CC_help_list_customer= create_help(gettext("Customers are listed below by account number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>").gettext("The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication."),'ListCustomers');
 
+$CC_help_import_customer=create_help(gettext("Import Customers from a CSV file."),'ImportCustomers');
 
-	
-$CC_help_list_group='<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-        <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
-        <div class="w2">
-'.gettext("This page shows a group list."). 
-gettext("The Group field is used for grouping customers for quick search, batch update and reporting.").'<br/>'.help_wiki_link('ListGroup').'<br/>
-</div></div></div>
-</div></div>';
+$CC_help_info_customer=create_help(gettext("Customer information."),'ListCustomers');
 
-	
-$CC_help_generate_signup='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
-	<div class="w2"><br>
-'.gettext("Generate a specific crypted URL and to configure signup with a customer group and call plan.").'
-<br/>
-</div></div></div>
-</div></div>';
+$CC_help_refill_customer=create_help(gettext("Top up the account by selecting or typing in the account number directly, and enter the amount of credit to apply, then click ADD to confirm."),'RefillCustomer');
 
+$CC_help_create_customer=create_help(gettext("Create and edit the properties of each customer. Click <b>CONFIRM DATA</b> at the bottom of the page to save changes."),'CreateCustomer');
 
+$CC_help_generate_customer=create_help(gettext("Bulk create customers in a single step. <br> Set the properties of the batch such as initial credit, account type and currency, then click on the GENERATE CUSTOMERS button to create the batch."),'GenerateCustomers');
 
+$CC_help_sipfriend_list =create_help(gettext("SIP and IAX Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
+.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret word as the username and password."),'ListSIPFriend');
 
-$CC_help_list_customer='
-<div class="toggle_show2hide">
-<div class="tohide" style="display:visible;">
-<div class="msg_info">'.gettext("Customers are listed below by account number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>")
-.gettext("The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication.").'
-	<br/>'.help_wiki_link('ListCustomers').'<a href="#" target="_self" class="toggle_menu" style="float:right;"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-</div></div></div>';
-
-
-$CC_help_import_customer='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("Import Customers from a CSV file.").'
-	<br/>'.help_wiki_link('ImportCustomers').'
-</div></div></div>
-</div></div>';
-
-
-
-$CC_help_info_customer='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2"></br>'.gettext("Customer information.").'
-	<br/>'.help_wiki_link('ListCustomers').'
-</div></div></div>
-</div></div>';
-
-
-$CC_help_refill_customer='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/pipe.gif" class="kikipic"/>
-	<div class="w2">
-'.gettext("Top up the account by selecting or typing in the account number directly, and enter the amount of credit to apply, then click ADD to confirm.").'
-<br/>'.help_wiki_link('RefillCustomer').'<br/>
-</div></div></div>
-</div></div>';
-
-$CC_help_create_customer='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
-	<div class="w2"><br>
-'.gettext("Create and edit the properties of each customer. Click <b>CONFIRM DATA</b> at the bottom of the page to save changes.").'
-<br/>'.help_wiki_link('CreateCustomer').'<br/>
-</div></div></div>
-</div></div>';
-
-$CC_help_generate_customer='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
-	<div class="w2">
-'.gettext("Bulk create customers in a single step. <br> Set the properties of the batch such as initial credit, account type and currency, then click on the GENERATE CUSTOMERS button to create the batch.").'
-<br/>'.help_wiki_link('GenerateCustomers').'<br/>
-</div></div></div>
-</div></div>';
-
-$CC_help_sipfriend_list ='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
-	<div class="w2">
-'.gettext("SIP and IAX Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>")
-.gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret word as the username and password.").'
-<br/>'.help_wiki_link('ListSIPFriend').'
-</div></div></div>
-</div></div>';
-
-$CC_help_sipfriend_reload ='
-<div class="toggle_show2hide">
-<a href="#" target="_self" class="toggle_menu"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
-	<div class="w2">
-'.gettext("Click reload to commit changes to Asterisk").'<br>
-<br/><br/>
-</div></div></div>
-</div></div>';
+$CC_help_sipfriend_reload =create_help(gettext("Click reload to commit changes to Asterisk"));
 
 $CC_help_sipfriend_edit ='
 <div class="toggle_show2hide">

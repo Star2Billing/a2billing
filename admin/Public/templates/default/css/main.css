@@ -285,7 +285,7 @@ SPAN.errorText {
 	position: absolute;
 	z-index: 0;
 	height: auto;
-	width: 200px;
+	width: 180px;
 	top: 50px;
 	left:0px;
 }

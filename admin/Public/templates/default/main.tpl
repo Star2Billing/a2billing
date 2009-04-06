@@ -67,10 +67,9 @@
 <DIV border="0" width="1000px">
 {if ($popupwindow == 0)}
 <div class="divleft">
-<div id="rightmenu-top">
-<div id="rightmenu-down">
-<br/>
-<br/>
+<div id="leftmenu-top">
+<div id="leftmenu-down">
+<div id="leftmenu-middle">
 
 <ul id="nav">
   
@@ -605,12 +604,10 @@
 	
 <br/>
 <ul id="nav"><li>
-	<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("Change Password");{/php}</strong></a></li></ul>
+	<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("Change Password");{/php}</strong> <img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/key.png"> </a></li></ul>
 </li></ul>
-<br/>
-<br/>
-<br/>
 
+</div>
 </div>
 </div>
 
