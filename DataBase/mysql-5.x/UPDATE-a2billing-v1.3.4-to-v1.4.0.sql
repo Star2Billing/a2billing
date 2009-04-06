@@ -1855,3 +1855,16 @@ INSERT INTO cc_config_group (group_title ,group_description)
 INSERT INTO cc_config (`config_title` ,`config_key` ,`config_value` ,`config_description` ,`config_valuetype` ,`config_listvalues` ,`config_group_title`)
 	VALUES ( 'Personal Info', 'personalinfo', '1', 'Enable or disable the page which allow agent to modify its personal information.', '0', 'yes,no', 'webagentui');
 
+
+-- Add index for SIP / IAX Friend
+ALTER TABLE cc_iax_buddies ADD INDEX ( name );
+ALTER TABLE cc_iax_buddies ADD INDEX ( host );
+ALTER TABLE cc_iax_buddies ADD INDEX ( ipaddr );
+ALTER TABLE cc_iax_buddies ADD INDEX ( port );
+
+ALTER TABLE cc_sip_buddies ADD INDEX ( name );
+ALTER TABLE cc_sip_buddies ADD INDEX ( host );
+ALTER TABLE cc_sip_buddies ADD INDEX ( ipaddr );
+ALTER TABLE cc_sip_buddies ADD INDEX ( port );
+
+
