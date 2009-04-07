@@ -11,7 +11,7 @@ function create_help($text,$wiki=null) {
 	<div class="toggle_show2hide">
 	<div class="tohide" style="display:visible;">
 	<div class="msg_info">'.$text.'
-	<br/>'.$wiki_text.'<a href="#" target="_self" class="toggle_menu" style="float:right;"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+	<br/>'.$wiki_text.'<a href="#" target="_self" class="hide_help" style="float:right;"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 	</div></div></div>';
 	return $help;
 	
