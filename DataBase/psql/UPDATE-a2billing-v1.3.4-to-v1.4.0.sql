@@ -626,7 +626,7 @@ CREATE TABLE cc_call_archive (
 	uniqueid 						CHARACTER VARYING(30) NOT NULL,
 	username 						CHARACTER VARYING(40) NOT NULL,
 	nasipaddress 					CHARACTER VARYING(30) ,
-	starttime 						TIMESTAMP WITHOUT TIME ZONE,  -- MYSQL version has CURRENT_TIMESTAMP: achived so it probably shouldn't? XXX
+	starttime 						TIMESTAMP WITHOUT TIME ZONE,
 	stoptime 						TIMESTAMP WITHOUT TIME ZONE,
 	sessiontime 					INTEGER,
 	calledstation 					CHARACTER VARYING(30) ,
@@ -830,7 +830,7 @@ CREATE TABLE cc_ticket_comment (
 	id_ticket			BIGSERIAL NOT NULL,
 	description		TEXT,
 	creator			BIGINT NOT NULL,
-	is_admin			BOOLEAN DEFAULT false NOT NULL,             -- Type Mismatch? XXX
+	is_admin			BOOLEAN DEFAULT false NOT NULL,
 	CONSTRAINT		cc_ticket_comment_pkey PRIMARY KEY (id),
 	CONSTRAINT		cc_ticket_id_fkey FOREIGN KEY (id_ticket) REFERENCES cc_ticket (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE
 );
@@ -1042,7 +1042,7 @@ value example for callplan_deck_minute_threshold = 1:300, 2:60, 3',
 ALTER TABLE cc_call ADD dnid CHARACTER VARYING(40);
 
 -- CHANGE SECURITY ABOUT PASSWORD
-ALTER TABLE cc_ui_authen ALTER COLUMN password TYPE TEXT; -- NOT NULL should already set XXX
+ALTER TABLE cc_ui_authen ALTER COLUMN password TYPE TEXT;
 ALTER TABLE cc_ui_authen RENAME COLUMN password TO pwd_encoded;
 
 -- CHANGE SECURITY ABOUT PASSWORD : All password will be changed to "changepassword"
@@ -1374,11 +1374,8 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 VALUES ('Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
 
 
-ALTER TABLE cc_ticket_comment RENAME COLUMN is_admin TO creator_type;
+ALTER TABLE cc_ticket_comment DELETE COLUMN is_admin;
 ALTER TABLE cc_ticket ADD COLUMN creator_type SMALLINT NOT NULL DEFAULT '0';
--- ALTER TABLE cc_ticket_comment ALTER creator_type TYPE SMALLINT;
--- ALTER TABLE cc_ticket_comment ALTER creator_type SET NOT NULL;
--- ALTER TABLE cc_ticket_comment ALTER creator_type SET DEFAULT '0';
 
 ALTER TABLE cc_ratecard ADD COLUMN announce_time_correction decimal(5,3) NOT NULL DEFAULT 1.0;
 
