@@ -19,7 +19,7 @@ $smarty->display('main.tpl');
 		<td width="340">
 			<img src="<?php echo Images_Path;?>/a2b-logo-450.png">
 			<br><br>
-			<center><b><i>A2Billing is licensed under AGPL.</i></b></center>
+			<center><b><i>A2Billing is licensed under <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>.</i></b></center>
 			<br><br>
 		</td>
 		<td align="left"> <?php  echo ''; ?>
