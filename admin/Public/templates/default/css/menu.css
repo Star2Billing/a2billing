@@ -226,7 +226,7 @@ list-style-type : none;
 #leftmenu-top{
 	background: url(../images/bg-menu-up.png) no-repeat;
 	background-position: top right; 
-	padding-top: 19px;
+	padding-top: 30px;
 }
 #leftmenu-middle{
 	background: url(../images/bg-menu-middle.png) repeat-y;
@@ -236,7 +236,7 @@ list-style-type : none;
 #leftmenu-down{
 	background: url(../images/bg-menu-down.png) no-repeat;
 	background-position: bottom right; 
-	padding-bottom: 19px;
+	padding-bottom: 30px;
 }
 
 
