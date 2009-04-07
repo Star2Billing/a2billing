@@ -1374,7 +1374,7 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 VALUES ('Logging', 'logging_level', '3', '0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4', 0, 11, NULL);
 
 
-ALTER TABLE cc_ticket_comment DELETE COLUMN is_admin;
+ALTER TABLE cc_ticket_comment DROP COLUMN is_admin;
 ALTER TABLE cc_ticket ADD COLUMN creator_type SMALLINT NOT NULL DEFAULT '0';
 
 ALTER TABLE cc_ratecard ADD COLUMN announce_time_correction decimal(5,3) NOT NULL DEFAULT 1.0;
