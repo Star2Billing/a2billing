@@ -1,5 +1,5 @@
 <html>
-<head><title>Asterisk2Billing :: JIAXClient applet</title></head>
+<head><title>A2Billing :: JIAXClient applet</title></head>
 <body>
 
 <!--"CONVERTED_APPLET"-->

@@ -4,7 +4,7 @@
  * Misc.php : PHP A2Billing Functions for A2Billing
  * Written for PHP 4.x & PHP 5.X versions.
  *
- * A2Billing -- Asterisk billing solution.
+ * A2Billing -- Billing solution for use with Asterisk(tm).
  * Copyright (C) 2004, 2009 Belaid Arezqui <areski _atl_ gmail com>
  *
  * See http://www.asterisk2billing.org for more information about

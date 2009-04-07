@@ -4,10 +4,10 @@
  * soap-card-client.php : PHP A2Billing - Test Services
  * Written for PHP 4.x & PHP 5.X versions.
  *
- * A2Billing -- Asterisk billing solution.
- * Copyright (C) 2004, 2007 Belaid Arezqui <areski _atl_ gmail com>
+ * A2Billing -- Billing solution for use with Asterisk(tm).
+ * Copyright (C) 2004, 2009 Belaid Arezqui <areski _atl_ gmail com>
  *
- * See http://www.asterisk2billing.org for more information about
+ * See http://www.a2billing.org for more information about
  * the A2Billing project. 
  * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
  *
@@ -29,7 +29,7 @@ require('SOAP/Client.php');
 
 
 $security_key = API_SECURITY_KEY;
-$endpoint = 'http://localhost/~areski/svn/asterisk2billing/trunk/webservice/SOAP/soap-card-server.php';
+$endpoint = 'http://localhost/~areski/svn/a2billing/trunk/webservice/SOAP/soap-card-server.php';
 // ADD ON THE SPEC SECURITY KEY
 $card = new SOAP_Client($endpoint);
 

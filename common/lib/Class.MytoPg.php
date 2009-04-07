@@ -11,7 +11,7 @@
 *
 * Copyright (C) 2009 Steve Dommett <steve@st4vs.net>
 *
-* Please submit bug reports, patches, etc to http://www.asterisk2billing.org/
+* Please submit bug reports, patches, etc to http://www.a2billing.org/
 * and,  ideally,  assign the ticket to 'stavros'
 *
 * This software is released under the terms of the GNU Lesser General Public License v2.1
