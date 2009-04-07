@@ -1849,7 +1849,39 @@ INSERT INTO cc_support (id ,name) VALUES (1, 'DEFAULT');
 INSERT INTO cc_support_component (id ,id_support ,name ,activated) VALUES (1, 1, 'DEFAULT', 1);
 
 
--- synched with MySQL up to r1793
+DELETE FROM cc_config WHERE config_key = 'sipiaxinfo' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'cdr' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'invoice' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'voucher' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'paypal' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'speeddial' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'did' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'ratecard' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'simulator' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'callback' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'predictivedialer' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'callerid' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'webphone' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'support' AND config_group_title = 'webcustomerui';
+DELETE FROM cc_config WHERE config_key = 'payment' AND config_group_title = 'webcustomerui';
+
+INSERT INTO cc_config_group (group_title, group_description)
+	VALUES ( 'webagentui', 'This configuration group handles Web Agent Interface.');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title)
+	VALUES ( 'Personal Info', 'personalinfo', '1', 'Enable or disable the page which allow agent to modify its personal information.', '0', 'yes,no', 'webagentui');
+
+-- Add index for SIP / IAX Friend
+CREATE INDEX cc_iax_buddies_name ON cc_iax_buddies USING btree(name);
+CREATE INDEX cc_iax_buddies_host ON cc_iax_buddies USING btree(host);
+CREATE INDEX cc_iax_buddies_ipaddr ON cc_iax_buddies USING btree(ipaddr);
+CREATE INDEX cc_iax_buddies_port ON cc_iax_buddies USING btree(port);
+
+CREATE INDEX cc_sip_buddies_name ON cc_sip_buddies USING btree(name);
+CREATE INDEX cc_sip_buddies_host ON cc_sip_buddies USING btree(host);
+CREATE INDEX cc_sip_buddies_ipaddr ON cc_sip_buddies USING btree(ipaddr);
+CREATE INDEX cc_sip_buddies_port ON cc_sip_buddies USING btree(port);
+
+-- synched with MySQL up to r1848
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
