@@ -2743,7 +2743,7 @@ class A2Billing {
 		// Run dial command
 		$res_dial = $agi->exec("DIAL $dialstr");
 		
-		return $myres;
+		return $res_dial;
 	}
 	
 };

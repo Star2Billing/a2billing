@@ -963,7 +963,7 @@ class RateEngine
 		if ($sessiontime > 0) {
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
 			$this->freetimetocall_used = 0;
-			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "ft2c_package_offer : $freetimetocall_package_offer ; $freetimetocall ; ".$this -> freetimetocall_left[$K]);
+			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "ft2c_package_offer : /*$freetimetocall_package_offer ;*/ $freetimetocall ; ".$this -> freetimetocall_left[$K]);
 			if ($this -> debug_st) print_r($this -> freetimetocall_left[$K]);
 
 			if (($id_cc_package_group!=-1) && ($this ->package_to_apply[$K] !=null )){
@@ -1090,6 +1090,9 @@ class RateEngine
 
 
 		if ($sessiontime>0) {
+			if(!defined($myclause_nodidcall)){
+				$myclause_nodidcall = null;
+			}
 			//Update the global credit
 			$A2B -> credit = $A2B -> credit + $cost;
 			
