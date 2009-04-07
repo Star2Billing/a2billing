@@ -42,13 +42,13 @@
 			{/if}
 			<li class="bouton_gauche">
 				<div style="width:100%;height:100%;text-align:center;" >
-					 <a href="A2B_notification.php" "> 
+					 <a href="A2B_notification.php" > 
 						<strong > {php} echo gettext("NOTIFICATION");{/php}</strong>&nbsp;
 					<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/email.png"> 
 					{if ($NEW_NOTIFICATION > 0) }
 						<strong style="font-size:8px; color:red;"> NEW</strong>
 					{else}
-						<strong style="font-size:8px;">&nbsp;&nbsp,&nbsp;</strong>
+						<strong style="font-size:8px;">&nbsp;</strong>
 					{/if}
 					  </a>
 				</div>

@@ -400,7 +400,7 @@ SPAN.errorText {
 .forgetpassword_image{
 	padding-right: 8px;
 	padding-left: 8px;
-	background-image: url(../images/security.png);
+	background-image: url(/common/images/security.png);
 	width: 64px;
 	height:64px;
 	background-repeat: no-repeat;
