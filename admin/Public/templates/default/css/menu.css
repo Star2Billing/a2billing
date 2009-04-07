@@ -58,6 +58,18 @@
   margin-left: 55px;
 }
 
+#footer {
+  margin-bottom: 1em;
+  color: #BD2A15;  
+  margin-right: 55px;  
+  margin-left: 55px;
+  border: solid 1px #EFEFEF;
+  background-color:#E5E5E5;
+  font-size: 9px;
+}
+
+
+
 #kiblue .w1 {
   border: solid #B0B0FA;
   border-width: 0px 1px 1px 0px;
