@@ -1,6 +1,5 @@
 
 DEBUG = true;
-
 $(document).ready(
 	function()
 	{
@@ -9,15 +8,13 @@ $(document).ready(
 			if (div_toggle.css('display') == 'none') {
 				div_toggle.slideDown('slow');
 				$(this).find("img").each(function(i) {
-					newimage = $(this).attr('src');
 					//alert(newimage.substr(0,newimage.length-8) + 'minus.gif');
-					$(this).attr('src', newimage.substr(0,newimage.length-8) + 'minus.gif');
+					$(this).attr('src', IMAGE_PATH + 'minus.gif');
 				});				
 			} else {
 				div_toggle.slideUp( 'slow');
 				$(this).find("img").each(function(i) {
-					newimage = $(this).attr('src');
-					$(this).attr('src', newimage.substr(0,newimage.length-9) + 'plus.gif');
+					$(this).attr('src', IMAGE_PATH + 'plus.gif');
 				});
 			}
 			

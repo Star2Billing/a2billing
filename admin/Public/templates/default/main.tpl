@@ -9,7 +9,9 @@
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/invoice.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/receipt.css" rel="stylesheet" type="text/css">
-
+	<script type="text/javascript">	
+		var IMAGE_PATH = "templates/{$SKIN_NAME}/images/";
+	</script>
 	<script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>
