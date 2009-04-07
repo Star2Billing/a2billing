@@ -569,7 +569,7 @@ ALTER TABLE cc_templatemail DROP INDEX cons_cc_templatemail_mailtype;
 ALTER TABLE cc_templatemail ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST, ADD id_language CHAR( 20 ) NOT NULL DEFAULT 'en' AFTER id ;
 ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL ;
 ALTER TABLE cc_templatemail DROP PRIMARY KEY;
-ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language );
+ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( mailtype, id_language );
 
 
 ALTER TABLE cc_card ADD status INT NOT NULL DEFAULT '1' AFTER activated ;

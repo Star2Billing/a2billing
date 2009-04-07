@@ -8326,7 +8326,7 @@ CREATE TABLE IF NOT EXISTS `cc_templatemail` (
   `subject` char(70) collate utf8_bin default NULL,
   `messagetext` longtext collate utf8_bin,
   `messagehtml` longtext collate utf8_bin,
-  UNIQUE KEY `cons_cc_templatemail_id_language` (`id`,`id_language`)
+  UNIQUE KEY `cons_cc_templatemail_id_language` (`mailtype`,`id_language`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --

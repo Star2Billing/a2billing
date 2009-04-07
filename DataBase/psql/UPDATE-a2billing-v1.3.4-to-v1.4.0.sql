@@ -575,7 +575,7 @@ ALTER TABLE cc_templatemail ADD COLUMN id SERIAL NOT NULL;
 ALTER TABLE ONLY cc_templatemail ADD CONSTRAINT cc_templatemail_pkey PRIMARY KEY (id);
 ALTER TABLE cc_templatemail ADD COLUMN id_language CHARACTER VARYING( 20 ) DEFAULT 'en';
 ALTER TABLE ONLY cc_templatemail DROP CONSTRAINT cc_templatemail_pkey;
-ALTER TABLE ONLY cc_templatemail ADD CONSTRAINT cons_cc_templatemail_mailtype UNIQUE (id,id_language);
+ALTER TABLE ONLY cc_templatemail ADD CONSTRAINT cons_cc_templatemail_mailtype UNIQUE (mailtype, id_language);
 
 
 ALTER TABLE ONLY cc_card ADD COLUMN status INTEGER NOT NULL DEFAULT '1';
@@ -1274,7 +1274,7 @@ ALTER TABLE cc_campaign ADD id_campaign_config INT NOT NULL ;
 
 ALTER TABLE cc_card ADD COLUMN discount decimal(5,2) NOT NULL DEFAULT '0';
 
-ALTER TABLE cc_config ALTER config_value TYPE VARCHAR(300);
+-- ALTER TABLE cc_config ALTER config_value TYPE VARCHAR(300); -- was already of type TEXT,  so this may be harmful
 
 INSERT INTO  cc_config (config_title,config_key,config_value,config_description,config_valuetype,config_group_id) values ('Card Show Fields','card_show_field_list','id:,username:, useralias:, lastname:,id_group:, id_agent:,  credit:, tariff:, status:, language:, inuse:, currency:, sip_buddy:, iax_buddy:, nbused:,','Fields to show in Customer. Order is important. You can setup size of field using "fieldname:10%" notation or "fieldname:" for harcoded size,"fieldname" for autosize. <br/>You can use:<br/> id,username, useralias, lastname, id_group, id_agent,  credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused, firstname, email, discount, callerid',0,8);
 
