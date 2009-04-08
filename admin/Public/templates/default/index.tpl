@@ -37,17 +37,6 @@
 -->
 </script>
 
-<style TEXT="test/css">
-<!-- 
-.form_enter {
-	font-family: Arial, Helvetica, Sans-Serif;
-	font-size: 11px;
-	font-weight: bold;
-	color: #FF9900;
-	border: 1px solid #C1C1C1;
-}
--->
-</style>
 {/literal}
 
 	<form name="form" method="POST" action="PP_intro.php" onsubmit="return test()">

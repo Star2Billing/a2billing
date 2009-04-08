@@ -56,7 +56,7 @@
 				</div>
 			</li>
 			<li class="topmenu-right-button" style="border-right:none;">
-				<div style="width:100%;height:100%;text-align:center;" >
+				<div style="width:90%;height:100%;text-align:center;" >
 					<a href="logout.php?logout=true" target="_top"><font color="#EC3F41"><b>&nbsp;&nbsp;{php} echo gettext("LOGOUT");{/php}</b></font>
 					<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/logout.png"> </a>
 				</div>
