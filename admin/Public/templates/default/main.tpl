@@ -24,7 +24,7 @@
 {if ($popupwindow == 0)}
 	<div id="top_menu">
 		<ul id="menu_horizontal">
-			<li class="bouton_gauche">
+			<li class="topmenu-left-button" style="border:none;">
 				<div style="width:100%;height:100%;text-align:center;" >
 					<a href="PP_intro.php"> 
 							<strong> {php} echo gettext("HOME");{/php}</strong>&nbsp;
@@ -33,7 +33,7 @@
 				</div>
 			</li>
 			{if ($ACXDASHBOARD > 0) }
-			<li class="bouton_gauche">
+			<li class="topmenu-left-button" >
 				<div style="width:100%;height:100%;text-align:center;" >
 					<a href="dashboard.php" > 
 						<strong> {php} echo gettext("DASHBOARD");{/php}</strong>&nbsp;
@@ -42,7 +42,7 @@
 				</div>
 			</li>
 			{/if}
-			<li class="bouton_gauche">
+			<li class="topmenu-left-button">
 				<div style="width:100%;height:100%;text-align:center;" >
 					 <a href="A2B_notification.php" > 
 						<strong > {php} echo gettext("NOTIFICATION");{/php}</strong>&nbsp;
@@ -55,7 +55,7 @@
 					  </a>
 				</div>
 			</li>
-			<li class="bouton_gauche" style="border-right:none;">
+			<li class="topmenu-right-button" style="border-right:none;">
 				<div style="width:100%;height:100%;text-align:center;" >
 					<a href="logout.php?logout=true" target="_top"><font color="#EC3F41"><b>&nbsp;&nbsp;{php} echo gettext("LOGOUT");{/php}</b></font>
 					<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/logout.png"> </a>

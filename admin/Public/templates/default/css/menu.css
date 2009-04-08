@@ -263,22 +263,25 @@ height:25px;
 }
 
 
-.bouton_gauche{
+.topmenu-left-button{
 width: 173px;
-
 }
+.topmenu-right-button{
+width: 173px;
+}
+
 ul#menu_horizontal li {
 height:60%;
 margin-top:2px;
 padding-top:2px;
 }
  
-ul#menu_horizontal li.bouton_gauche {
+ul#menu_horizontal li.topmenu-left-button {
 float : left;
-border-right: 1px solid #AAAAAA;
+border-left: 1px solid #AAAAAA;
 }
  
-ul#menu_horizontal li.bouton_droite {
+ul#menu_horizontal li.topmenu-right-button {
 float : right;
 }
  
