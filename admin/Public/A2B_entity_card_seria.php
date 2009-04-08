@@ -14,15 +14,10 @@ if (! has_rights (ACX_CUSTOMER)) {
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname'));
 
 
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
-
-
 $HD_Form -> init();
 
-
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
@@ -42,21 +37,12 @@ $smarty->display('main.tpl');
 echo $CC_help_list_seria;
 
 
-
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 if (!$popup_select) $smarty->display('footer.tpl');
 
-
-
-
-?>

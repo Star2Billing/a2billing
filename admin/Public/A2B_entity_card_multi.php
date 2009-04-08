@@ -246,7 +246,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 <tr>
 	<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 	<td align="left" width="75%">
-	<strong>1)</strong> <?php echo gettext("Length of card number:");?>
+	<strong>1)</strong> <?php echo gettext("Length of card number :");?>
 	<select name="cardnumberlenght_list" size="1" class="form_input_select">
 	<?php 
 	foreach ($A2B -> cardnumber_range as $value){
@@ -260,7 +260,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	?>						
 	</select><br>
 	<strong>2)</strong> 
-	 <?php echo gettext("Number of customers to create")?>:<select size="1" class="form_input_select" id="choose_list_s">
+	 <?php echo gettext("Number of customers to create")?> : <select size="1" class="form_input_select" id="choose_list_s">
 		<option value=""><?php echo gettext("Choose the number");?></option>
 		<option class="input" onClick="javascript:$('#choose_list').attr('value',1)"><?php echo gettext("1 Customer");?></option>
 		<option class="input" onClick="javascript:$('#choose_list').attr('value',10)"><?php echo gettext("10 Customers");?></option>
@@ -285,7 +285,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	<br/>
 	
 	<strong>4)</strong> 
-	<?php echo gettext("Initial amount of credit");?> : 	<input class="form_input_text" name="addcredit" size="10" maxlength="10" >
+	<?php echo gettext("Initial amount of credit");?> : <input class="form_input_text" name="addcredit" size="10" maxlength="10" >
 	<?php echo strtoupper(BASE_CURRENCY) ?>
 	<br/>
 	
@@ -336,15 +336,15 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	?>
 	
 	<strong>10)</strong>
-	<?php echo gettext("Expiry Date");?>&nbsp;: <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
+	<?php echo gettext("Expiry Date");?> : <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>> <?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
 	<br/>
 	
 	<strong>11)</strong>
-   <?php echo gettext("Expiry days");?>&nbsp;: <input class="form_input_text"  name="expiredays" size="10" maxlength="6" value="0">
+   <?php echo gettext("Expiry days");?> : <input class="form_input_text"  name="expiredays" size="10" maxlength="6" value="0">
 	<br/>
 	
 	<strong>12)</strong>
-	<?php echo gettext("Run service");?>&nbsp; : 
+	<?php echo gettext("Run service");?> : 
 	<?php echo gettext("Yes");?> <input name="runservice" value="1" type="radio"> - <?php echo gettext("No");?> <input name="runservice" value="0" checked="checked"  type="radio">
 	<br/>
 	
@@ -357,7 +357,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	<br/>
 	
 	<strong>15)</strong>
-	<?php echo gettext("Customer group");?>&nbsp; : 
+	<?php echo gettext("Customer group");?> : 
 	<select NAME="id_group" size="1" class="form_input_select" >
 	<option value=''><?php echo gettext("Choose a group");?></option>
 	<?php foreach ($list_group as $recordset){ ?>
@@ -367,7 +367,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	
 	<br/>
     <strong>16)</strong>
-   
+     <?php echo gettext("Discount");?> :
     <select NAME="discount" size="1" class="form_input_select" >
     <option value='0'><?php echo gettext("NO DISCOUNT");?></option>
     <?php for($i=1;$i<99;$i++){ ?>
@@ -376,8 +376,9 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
     </select>
 	<br/>
 	<strong>17)</strong>
+	<?php echo gettext("Serie");?> :
     <select NAME="id_seria" size="1" class="form_input_select" >
-    <option value=''><?php echo gettext("Choose a Seria");?></option>
+    <option value=''><?php echo gettext("Choose a Serie");?></option>
     <?php
      foreach ($list_seria as $recordset){
     ?>
