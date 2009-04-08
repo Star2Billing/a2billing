@@ -376,12 +376,7 @@ $sip_account = $A2B->config["signup"]['sip_account'] ? 1 : 0;
 $iax_account = $A2B->config["signup"]['iax_account'] ? 1 : 0;
 $amaflag = $A2B->config["signup"]['amaflag'];
 $context = $A2B->config["signup"]['context'];
-$activatedbyuser = $A2B->config["signup"]['activatedbyuser'] ? 't' : 'f';
 $status = $A2B->config["signup"]['activatedbyuser'] ? '1' : '3';
-
-//END END END  Code here for getting data from configuration files
-
-//$HD_Form ->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$maxi', '$maxi', '$maxi', '$amaflag', '$maxi2', '$context', 'RFC2833','dynamic', 'friend', '$maxi', 'g729,ulaw,alaw,gsm','$pass'";
 
 $HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, status";
 $HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass','$loginkey', '$status'";
@@ -422,6 +417,7 @@ $HD_Form->FG_TEXT_ADITION_CONFIRMATION = "<font>" . gettext("Thanks for register
 $HD_Form->FG_BUTTON_EDITION_SRC = $HD_Form->FG_BUTTON_ADITION_SRC = Images_Path . "/cormfirmboton.gif";
 //$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONFIRM DATA button.");
 $HD_Form->FG_ADD_PAGE_CONFIRM_BUTTON = gettext("SIGNUP");
+
 
 if (RELOAD_ASTERISK_IF_SIPIAX_CREATED) {
 	$HD_Form->FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends_reload';

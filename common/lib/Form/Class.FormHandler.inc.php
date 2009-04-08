@@ -1439,7 +1439,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		}
 		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
 		if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0 && ($this->VALID_SQL_REG_EXP))
-					$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
+			$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
 		
 		if ($this->FG_ADITION_GO_EDITION == "yes"){
 			$form_action="ask-edit";
@@ -1541,12 +1541,14 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		$as = new AGI_AsteriskManager();
 		// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
-		$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);				
-		if	($res){
+		$res =@  $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);				
+		if	($res) {
 			$res = $as->Command('sip reload');		
 			$res = $as->Command('iax2 reload');		
 			// && DISCONNECTING	
 			$as->disconnect();
+		} else {
+			echo "Error : Manager Connection";
 		}
 	}
 	
