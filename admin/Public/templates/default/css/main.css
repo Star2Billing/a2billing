@@ -29,6 +29,51 @@
     background-image: url('../images/msg_error.png');
 }
 
+#login-wrapper {
+  position:absolute;
+  left: 50%; 
+  top: 50%;
+  width: 350px;
+  height: 150px;
+  margin-top: -100px; /* half height */
+  margin-left: -175px; /* half width */
+}
+
+.login-border-up{
+	background: url(../images/login-border-up.png) no-repeat;
+	background-position: top center; 
+	padding-top : 30px;
+}
+.login-border-center{
+	background: url(../images/login-border-center.png) repeat-y;
+	background-position: center center; 
+	padding-right : 20px;
+	padding-left : 20px;
+}
+.login-border-down{
+	background: url(../images/login-border-down.png) no-repeat;
+	background-position: bottom center; 
+	padding-bottom : 30px;
+}
+
+.login-title{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #BC2222;
+	text-align:center;
+}
+.form_input_button:hover{
+    cursor:  pointer;
+}
+
+div#login-wrapper .form_input_button {
+	border:1px solid #BC2222;
+}
+
+.div#login-wrapper {
+	order:1px dashed #66666;
+}
 
 div.scroll {
 	height: 200px;
