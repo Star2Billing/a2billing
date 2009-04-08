@@ -1881,7 +1881,11 @@ CREATE INDEX cc_sip_buddies_host ON cc_sip_buddies USING btree(host);
 CREATE INDEX cc_sip_buddies_ipaddr ON cc_sip_buddies USING btree(ipaddr);
 CREATE INDEX cc_sip_buddies_port ON cc_sip_buddies USING btree(port);
 
--- synched with MySQL up to r1848
+-- add parameters return_url_distant_login & return_url_distant_forgetpassword on webcustomerui
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Return URL distant Login', 'return_url_distant_login', '', 'URL for specific return if an error occur after login', 0, NULL, 'webcustomerui');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Return URL distant Forget Password', 'return_url_distant_forgetpassword', '', 'URL for specific return if an error occur after forgetpassword', 0, NULL, 'webcustomerui');
+
+-- synched with MySQL up to r1867
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
