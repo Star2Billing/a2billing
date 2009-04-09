@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-04 16:34+0200\n"
+"POT-Creation-Date: 2009-04-09 15:49+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -500,29 +500,29 @@ msgstr ""
 msgid "Welcome! Your account has been successfully activated. Thank you!"
 msgstr ""
 
-#: activate.php:86 signup_confirmation.php:140
+#: activate.php:86 signup_confirmation.php:143
 msgid "Thank you for registering with us !"
 msgstr ""
 
-#: activate.php:87 signup_confirmation.php:141
+#: activate.php:87 signup_confirmation.php:144
 msgid "An email confirming your information has been sent to"
 msgstr ""
 
-#: activate.php:89 signup_confirmation.php:143
+#: activate.php:89 signup_confirmation.php:146
 #, fuzzy
 msgid "Your cardnumber is "
 msgstr "Seu Número / Localização"
 
-#: activate.php:90 signup_confirmation.php:144
+#: activate.php:90 signup_confirmation.php:147
 #, fuzzy
 msgid "To login to your account :"
 msgstr "créditos em sua conta!"
 
-#: activate.php:91 signup_confirmation.php:145
+#: activate.php:91 signup_confirmation.php:148
 msgid "Your card alias (login) is "
 msgstr ""
 
-#: activate.php:92 signup_confirmation.php:146 form_data/FG_var_signup.inc:420
+#: activate.php:92 signup_confirmation.php:149 form_data/FG_var_signup.inc:415
 msgid "Your password is "
 msgstr ""
 
@@ -969,16 +969,16 @@ msgstr ""
 msgid "characters."
 msgstr ""
 
-#: lib/customer.defines.php:238
+#: lib/customer.defines.php:242
 #, fuzzy
 msgid "This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"
 msgstr "Este software foi criado por Areski sobre a licença GPL. Para maiores informações, entre em contato"
 
-#: lib/customer.defines.php:241
+#: lib/customer.defines.php:245
 msgid " <a href=\"http://www.star2billing.com\" target=\"_blank\">www.star2billing.com</a> - Commercial Open Source Telephony"
 msgstr ""
 
-#: lib/customer.defines.php:242
+#: lib/customer.defines.php:246
 msgid "A2Billing : Customer Portal"
 msgstr ""
 
@@ -2000,128 +2000,128 @@ msgstr "(NUMERAL COM OU SEM DECIMAIS, use '.' para decimal)"
 msgid "This did is in use by customer id:"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1588
+#: lib/Form/Class.FormHandler.inc.php:1590
 msgid "CREATION CARD REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1614
+#: lib/Form/Class.FormHandler.inc.php:1616
 msgid "DELETION CARD REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1630
+#: lib/Form/Class.FormHandler.inc.php:1632
 msgid "CREATION AGENT REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1698
+#: lib/Form/Class.FormHandler.inc.php:1700
 #, fuzzy
 msgid "SUMMARY OF CALLS"
 msgstr "MAIO"
 
-#: lib/Form/Class.FormHandler.inc.php:1699
+#: lib/Form/Class.FormHandler.inc.php:1701
 msgid "Summary of the calls charged since the last billing"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1717
+#: lib/Form/Class.FormHandler.inc.php:1719
 msgid "SUMMARY OF CHARGE"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1719
+#: lib/Form/Class.FormHandler.inc.php:1721
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1725
-#: lib/Form/Class.FormHandler.inc.php:1750
+#: lib/Form/Class.FormHandler.inc.php:1727
+#: lib/Form/Class.FormHandler.inc.php:1752
 #, fuzzy
 msgid "CHARGE :"
 msgstr "NB CHARGE"
 
-#: lib/Form/Class.FormHandler.inc.php:1742
+#: lib/Form/Class.FormHandler.inc.php:1744
 #, fuzzy
 msgid "BILLING CHARGES"
 msgstr "NB CHARGE"
 
-#: lib/Form/Class.FormHandler.inc.php:1743
+#: lib/Form/Class.FormHandler.inc.php:1745
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1768
+#: lib/Form/Class.FormHandler.inc.php:1770
 msgid "BILLING POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1769
+#: lib/Form/Class.FormHandler.inc.php:1771
 msgid "Invoice for POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1805
 #: lib/Form/Class.FormHandler.inc.php:1807
-#: lib/Form/Class.FormHandler.inc.php:1903
+#: lib/Form/Class.FormHandler.inc.php:1809
 #: lib/Form/Class.FormHandler.inc.php:1905
+#: lib/Form/Class.FormHandler.inc.php:1907
 msgid "REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1809
-#: lib/Form/Class.FormHandler.inc.php:1907 checkout_process.php:324
+#: lib/Form/Class.FormHandler.inc.php:1811
+#: lib/Form/Class.FormHandler.inc.php:1909 checkout_process.php:324
 msgid "Invoice for refill"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1945 checkout_process.php:358
+#: lib/Form/Class.FormHandler.inc.php:1948 checkout_process.php:359
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2058
-#: lib/Form/Class.FormHandler.inc.php:2101
+#: lib/Form/Class.FormHandler.inc.php:2061
+#: lib/Form/Class.FormHandler.inc.php:2104
 msgid "Could not open buddy file"
 msgstr "Não foi possível abrir lista de contatos"
 
-#: lib/Form/Class.FormHandler.inc.php:2075
-#: lib/Form/Class.FormHandler.inc.php:2106
-#: lib/Form/Class.FormHandler.inc.php:2118
+#: lib/Form/Class.FormHandler.inc.php:2078
+#: lib/Form/Class.FormHandler.inc.php:2109
+#: lib/Form/Class.FormHandler.inc.php:2121
 msgid "Impossible to write to the file"
 msgstr "Impossível escrever no arquivo"
 
-#: lib/Form/Class.FormHandler.inc.php:2293
+#: lib/Form/Class.FormHandler.inc.php:2296
 #: CC_entity_edit_did_destination.php:200
 msgid "error deletion"
 msgstr "erro ao deletar"
 
-#: lib/Form/Class.FormHandler.inc.php:2428
+#: lib/Form/Class.FormHandler.inc.php:2431
 msgid "ERROR_DUPLICATION"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2513
+#: lib/Form/Class.FormHandler.inc.php:2516
 msgid "Done"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2553
+#: lib/Form/Class.FormHandler.inc.php:2556
 #, fuzzy
 msgid "Call Plan"
 msgstr "Histórico Ligações"
 
-#: lib/Form/Class.FormHandler.inc.php:2559
+#: lib/Form/Class.FormHandler.inc.php:2562
 #, fuzzy
 msgid "Choose a call plan"
 msgstr "Escolha um plano"
 
-#: lib/Form/Class.FormHandler.inc.php:2571
+#: lib/Form/Class.FormHandler.inc.php:2574
 msgid "This option will enable LCR/LCD - This query is processor intensive and may affect the quality of calls in progress."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2580
-#: lib/Form/Class.FormHandler.inc.php:2637
+#: lib/Form/Class.FormHandler.inc.php:2583
+#: lib/Form/Class.FormHandler.inc.php:2640
 msgid "Rate Card"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2586
-#: lib/Form/Class.FormHandler.inc.php:2643
-#: lib/Form/Class.FormHandler.inc.php:2703
+#: lib/Form/Class.FormHandler.inc.php:2589
+#: lib/Form/Class.FormHandler.inc.php:2646
+#: lib/Form/Class.FormHandler.inc.php:2706
 msgid "Choose a ratecard"
 msgstr "Escolha um plano"
 
-#: lib/Form/Class.FormHandler.inc.php:2686
+#: lib/Form/Class.FormHandler.inc.php:2689
 msgid "THE CURRENT RATECARD"
 msgstr "TARIFA ATUAL"
 
-#: lib/Form/Class.FormHandler.inc.php:2697
+#: lib/Form/Class.FormHandler.inc.php:2700
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
@@ -2545,11 +2545,11 @@ msgstr ""
 msgid "SIGNUP CONFIRMATION"
 msgstr ""
 
-#: signup_confirmation.php:149
+#: signup_confirmation.php:140
 msgid "thank you for registering with us!"
 msgstr ""
 
-#: signup_confirmation.php:150
+#: signup_confirmation.php:141
 msgid "An activation email has been sent to"
 msgstr ""
 
@@ -2753,30 +2753,30 @@ msgstr "DESTINO"
 msgid "Insert code from above picture"
 msgstr ""
 
-#: form_data/FG_var_signup.inc:415
+#: form_data/FG_var_signup.inc:410
 #, fuzzy
 msgid "You can modify, through the following form, the different properties of your "
 msgstr "Você pode modificar, através do seguinte formulário, as propriedades diferentes do seu "
 
-#: form_data/FG_var_signup.inc:416
+#: form_data/FG_var_signup.inc:411
 #, fuzzy
 msgid "If you really want remove this "
 msgstr "Você realmente quer remover isto"
 
-#: form_data/FG_var_signup.inc:417
+#: form_data/FG_var_signup.inc:412
 msgid "you can add easily a new "
 msgstr "você pode facilmente adicionar um "
 
-#: form_data/FG_var_signup.inc:420
+#: form_data/FG_var_signup.inc:415
 msgid "Thanks for registering with us.<br>A email with your information has been sent to your account "
 msgstr ""
 
-#: form_data/FG_var_signup.inc:420
+#: form_data/FG_var_signup.inc:415
 #, fuzzy
 msgid "Your card number is "
 msgstr "Seu Número / Localização"
 
-#: form_data/FG_var_signup.inc:424
+#: form_data/FG_var_signup.inc:419
 #, fuzzy
 msgid "SIGNUP"
 msgstr "ATRIBUA"
