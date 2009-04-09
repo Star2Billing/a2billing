@@ -83,9 +83,7 @@ function SetLocalLanguage()
 			$charEncoding = "iso88591";
 			break;
 	}
-	/*
-	Code here to set the Encoding of the Lanuages and its Envirnoment Variables
-	*/
+	
 	// echo "languageEncoding=$languageEncoding - slectedLanguage=$slectedLanguage - path=".BINDTEXTDOMAIN;
 	@setlocale(LC_TIME,$languageEncoding);
 	putenv("LANG=$slectedLanguage");
