@@ -234,6 +234,19 @@ Logged-in as: <b>{$adminname}</b></p>
 
 
 
+<table width="100%">
+<tr>
+	<td>
+		<a href="PP_intro.php?language=english" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/gb.gif" border="0" title="English" alt="English"></a>
+		<a href="PP_intro.php?language=brazilian" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/br.gif" border="0" title="Brazilian" alt="Brazilian"></a>
+		<a href="PP_intro.php?language=spanish" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
+		<a href="PP_intro.php?language=romanian" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/ro.gif" border="0" title="Romanian"alt="Romanian"></a>
+		<a href="PP_intro.php?language=french" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/fr.gif" border="0" title="French" alt="French"></a>
+	</td>
+</tr>
+</table>
+
+
 </div>
 
 <div class="divright">
