@@ -61,7 +61,7 @@ if (!is_null($return)&& (!empty($return)>0)) {
 		if ( has_rights (ACX_ACXSETTING)) {
 			echo gettext("Press");
 		    echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'">';
-			echo gettext("Modify") ."</a> to change enable or disable periodical notifications";
+			echo gettext("Modify") ."</a> ". gettext("to change enable or disable periodical notifications");
 		} else {  
 			echo gettext("You don't have enough rights To Enable or Disable the process of notification. Ask your administrator");
 
@@ -97,7 +97,7 @@ if(!is_null($return)&& (!empty($return)>0) ){
 			if ( has_rights (ACX_ACXSETTING)) {
 					echo gettext("Press");
 					echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'">';
-					echo gettext("Modify") ."</a> to change the values.";
+					echo gettext("Modify") ."</a> ". gettext("to change the values.");
 			} else {
 					echo gettext("You don't have enough rights to modify the list of values. Ask your administrator");
 			} ?>
@@ -144,7 +144,7 @@ if (!is_null($return)&& (!empty($return)>0)) {
 		if ( has_rights (ACX_ACXSETTING)) {
 			echo gettext("Press");
 		    echo ' <a href="A2B_entity_config.php?form_action=ask-edit&id='.$id_config.'">';
-			echo gettext("Modify") ."</a> to change the periodicity";
+			echo gettext("Modify") ."</a> ". gettext("to change the periodicity");
 		} else {
 			echo gettext("You don't have enough rights to modify the delay of notification. Ask your administrator");
 		} ?>

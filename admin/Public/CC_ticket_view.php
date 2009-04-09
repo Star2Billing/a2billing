@@ -6,57 +6,48 @@ include ("../lib/support/classes/ticket.php");
 include ("../lib/support/classes/comment.php");
 include ("../lib/epayment/includes/general.php");
 
-if (! has_rights (ACX_SUPPORT)){
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!has_rights(ACX_SUPPORT)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-if($_GET["result"]=="success")
-{
+if ($_GET["result"] == "success") {
 	$message = gettext("Ticket updated successfully");
 }
 
-if (isset($_GET["id"]))
-{
-    $ticketID = $_GET["id"];
-}
-else
-{
-    exit(gettext("Ticket ID not found"));
+if (isset ($_GET["id"])) {
+	$ticketID = $_GET["id"];
+} else {
+	exit (gettext("Ticket ID not found"));
 }
 
+$action = (isset ($_POST['action']) ? $_POST['action'] : '');
 
-$action = (isset($_POST['action']) ? $_POST['action'] : '');
-  if (tep_not_null($action))
-  {
-    switch ($action)
-    {
-      case 'update':
-		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket", "*");
-          $instance_sub_table -> Update_table($DBHandle, "status = '" . $_POST['status'] . "'","id = '" . $_GET['id'] . "'" );
-		  $ticket = new Ticket($ticketID);
-		  $ticket->insertComment($_POST['comment'],$_SESSION["admin_id"],1);
-          tep_redirect("CC_ticket_view.php?"."id=".$_GET['id']."&result=success");
-       case 'view_comment':
-		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket_comment", "*");
-          $instance_sub_table -> Update_table($DBHandle, "viewed_admin = '0'","id = '" . $_POST['idc'] . "'" );
-          tep_redirect("CC_ticket_view.php?id=".$_GET['id']."#nav".$_POST['idc']);
-           break;
-        case 'view_ticket':
-		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket", "*");
-          $instance_sub_table -> Update_table($DBHandle, "viewed_admin = '0'","id = '" . $_GET['id'] . "'" );
-          tep_redirect("CC_ticket_view.php?id=".$_GET['id']);
-           break;
-      break;
-    }
-  }
-
-
-
+if (tep_not_null($action)) {
+	switch ($action) {
+		case 'update' :
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_ticket", "*");
+			$instance_sub_table->Update_table($DBHandle, "status = '" . $_POST['status'] . "'", "id = '" . $_GET['id'] . "'");
+			$ticket = new Ticket($ticketID);
+			$ticket->insertComment($_POST['comment'], $_SESSION["admin_id"], 1);
+			tep_redirect("CC_ticket_view.php?" . "id=" . $_GET['id'] . "&result=success");
+		case 'view_comment' :
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_ticket_comment", "*");
+			$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $_POST['idc'] . "'");
+			tep_redirect("CC_ticket_view.php?id=" . $_GET['id'] . "#nav" . $_POST['idc']);
+			break;
+		case 'view_ticket' :
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_ticket", "*");
+			$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $_GET['id'] . "'");
+			tep_redirect("CC_ticket_view.php?id=" . $_GET['id']);
+			break;
+			break;
+	}
+}
 
 $ticket = new Ticket($ticketID);
 $comments = $ticket->loadComments();
@@ -68,7 +59,7 @@ $smarty->display('main.tpl');
 <table class="epayment_conf_table">
 	<tr class="form_head">
 	    <td ><font color="#FFFFFF"><?php echo gettext("TICKET: "); ?></font><font color="#FFFFFF"><b><?php echo $ticket->getTitle();  ?></b></font></td>
-	    <td align="center" ><font color="#FFFFFF">Number : </font><font color="Red"> <?php echo $ticket->getId(); ?></font></td>
+	    <td align="center" ><font color="#FFFFFF"><?php echo gettext("Number"); ?> : </font><font color="Red"> <?php echo $ticket->getId(); ?></font></td>
 	</tr>
 	<tr>
 		<td>
@@ -173,7 +164,7 @@ $smarty->display('main.tpl');
 		<tr>
 			<td colspan="2" align="right">
 
-				<input class="form_input_button" type="submit" value="UPDATE"/>
+				<input class="form_input_button" type="submit" value="<?php echo gettext("UPDATE"); ?>"/>
 
 			 </td>
 		</tr>
@@ -191,7 +182,7 @@ foreach ($comments as $comment)
  	<table id="nav<?php echo $comment->getId(); ?>" class="epayment_conf_table">
   	<tr class="form_head"> 
   		<td>
-  		 BY :  <?php echo $comment->getCreatorname(); ?>  </td>
+  		 <?php echo gettext("BY"); ?> :  <?php echo $comment->getCreatorname(); ?>  </td>
   		 <td align="right"> <?php echo $comment->getCreationdate() ?> </td> 
   	</tr> 
 	<tr>
@@ -259,4 +250,3 @@ $(document).ready(function () {
        
 });
 </script>
-
