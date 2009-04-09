@@ -1,4 +1,6 @@
-<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <HEAD>
 	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
 	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
@@ -21,44 +23,39 @@
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
-<br><br>
-<DIV border=0 width="1000">
-
+<div id="page-wrap">
+	<div id="inside">
 {if ($popupwindow == 0)}
 {if ($EXPORT == 0)}
-<div class="divleft">
+<div id="left-sidebar">
+<div id="leftmenu-top">
+<div id="leftmenu-down">
+<div id="leftmenu-middle">
 
 	<div id="nav_before"></div>
 	<ul id="nav">
 
 
 
-		<div>
-		<ul><li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li></ul>
+		<li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li>
 
 		{if $ACXSIP_IAX>0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_sipiax_info.php?section=1"><strong>{php} echo gettext("SIP/IAX INFO");{/php}</strong></a></li></ul>
+		<li><a href="A2B_entity_sipiax_info.php?section=1"><strong>{php} echo gettext("SIP/IAX INFO");{/php}</strong></a></li>
 		{/if}
 
 		{if $ACXCALL_HISTORY >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="call-history.php?section=2"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li></ul>
+		<li><a href="call-history.php?section=2"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li>
 		{/if}
 		
 		{if $ACXPAYMENT_HISTORY >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="payment-history.php?section=3"><strong>{php} echo gettext("PAYMENT HISTORY");{/php}</strong></a></li></ul>
+		<li><a href="payment-history.php?section=3"><strong>{php} echo gettext("PAYMENT HISTORY");{/php}</strong></a></li>
 		{/if}
 		
 
 		{if $ACXVOUCHER >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_voucher.php?form_action=list&section=4"><strong>{php} echo gettext("VOUCHERS");{/php}</strong></a></li></ul>
+		<li><a href="A2B_entity_voucher.php?form_action=list&section=4"><strong>{php} echo gettext("VOUCHERS");{/php}</strong></a></li>
 		{/if}
 
-		<li><a href="#" target="_self"></a></li>
-		</div>
 
 		{if $ACXINVOICES >0 }
 		<div class="toggle_menu">
@@ -69,7 +66,7 @@
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
 		{/if}
-	 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
+	 	onmouseover="this.style.cursor='hand';">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
 		<div class="tohide"
 		{if ($section == "5")}
 		style="">
@@ -89,55 +86,44 @@
 
 
 		{if $ACXDID >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_did.php?form_action=list&section=6"><strong>{php} echo gettext("DID");{/php}</strong></a></li></ul>
+		<li><a href="A2B_entity_did.php?form_action=list&section=6"><strong>{php} echo gettext("DID");{/php}</strong></a></li>
 		{/if}
 
 		{if $ACXSPEED_DIAL >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=7"><strong>{php} echo gettext("SPEED DIAL");{/php}</strong></a></li></ul>
+		<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=7"><strong>{php} echo gettext("SPEED DIAL");{/php}</strong></a></li>
 		{/if}
 
 		{if $ACXRATECARD >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_ratecard.php?form_action=list&section=8"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li></ul>
+		<li><a href="A2B_entity_ratecard.php?form_action=list&section=8"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
 		{/if}
 
 		{if $ACXSIMULATOR >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="simulator.php?section=9"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li></ul>
+		<li><a href="simulator.php?section=9"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li>
 		{/if}
 
 		{if $ACXCALL_BACK >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="callback.php?section=10"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li></ul>
+		<li><a href="callback.php?section=10"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
 		{/if}
 		{if $ACXWEB_PHONE >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="webphone.php?section=11"><strong>{php} echo gettext("WEB-PHONE");{/php}</strong></a></li></ul>
+		<li><a href="webphone.php?section=11"><strong>{php} echo gettext("WEB-PHONE");{/php}</strong></a></li>
 		{/if}
 
 		{if $ACXCALLER_ID >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=12"><strong>{php} echo gettext("ADD CALLER ID");{/php}</strong></a></li></ul>
+		<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=12"><strong>{php} echo gettext("ADD CALLER ID");{/php}</strong></a></li>
 		{/if}
 
 		{if $ACXPASSWORD>0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li></ul>
+		<li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li>
 		{/if}
 		{if $ACXSUPPORT >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_support.php"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li></ul>
+		<li><a href="A2B_support.php"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
 		{/if}
 		{if $ACXNOTIFICATION >0 }
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="A2B_notification.php?form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li></ul>
+		<li><a href="A2B_notification.php?form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li>
 		
 		{/if}
 		
 		{if $ACXAUTODIALER>0 }
-		<li><a href="#" target="_self"></a></li>
 		<div class="toggle_menu">
 		<li>
 		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
@@ -146,7 +132,7 @@
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
 		{/if}
-	 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></a></li>
+	 	onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></a></li>
 		<div class="tohide"
 		{if ($section == "10")}
 		style="">
@@ -165,14 +151,20 @@
 		</div>
 		{/if}
 		
-		
-		
 
-		<li><a href="#" target="_self"></a></li>
-		<ul><li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong>{php} echo gettext("LOGOUT");{/php}</strong></font></a></li></ul>
+</ul>
+</br>
+<ul id="nav">
+	<li>
+	<a href="logout.php?logout=true" target="_top"><img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/logout.png"> <font color="#DD0000"><b>&nbsp;&nbsp;{php} echo gettext("LOGOUT");{/php}</b></font> </a>
+	</li>
+</ul>
 
-	</ul>
-	<div id="nav_after"></div>
+
+</div>
+</div>
+</div>
+
 
 	<table width="150">
 	<tr>
@@ -210,6 +202,8 @@
 
 
 </div>
-<div class="divright">
+
+<div id="main-content">
+<br/>
 {/if}
 {/if}
