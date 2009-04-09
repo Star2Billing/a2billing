@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-09 16:52+0200\n"
+"POT-Creation-Date: 2009-04-09 17:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -3984,12 +3984,12 @@ msgid "FOR : "
 msgstr ""
 
 #: Public/A2B_invoice_edit.php:79 Public/A2B_invoice_edit.php:251
-#: Public/CC_ticket_view.php:89 Public/A2B_receipt_edit.php:77
+#: Public/CC_ticket_view.php:80 Public/A2B_receipt_edit.php:77
 #: Public/A2B_receipt_edit.php:173
 msgid "DATE : "
 msgstr ""
 
-#: Public/A2B_invoice_edit.php:86 Public/CC_ticket_view.php:136
+#: Public/A2B_invoice_edit.php:86 Public/CC_ticket_view.php:127
 msgid "STATUS : "
 msgstr ""
 
@@ -3998,7 +3998,7 @@ msgid "PAID STATUS : "
 msgstr ""
 
 #: Public/A2B_invoice_edit.php:100 Public/A2B_invoice_edit.php:272
-#: Public/CC_ticket_view.php:101 Public/A2B_receipt_edit.php:83
+#: Public/CC_ticket_view.php:92 Public/A2B_receipt_edit.php:83
 #: Public/A2B_receipt_edit.php:187
 msgid "DESCRIPTION : "
 msgstr ""
@@ -4045,7 +4045,8 @@ msgstr ""
 msgid "VAT : "
 msgstr ""
 
-#: Public/A2B_invoice_edit.php:280 Public/A2B_receipt_edit.php:195
+#: Public/A2B_invoice_edit.php:280 Public/CC_ticket_view.php:167
+#: Public/A2B_receipt_edit.php:195
 msgid "UPDATE"
 msgstr ""
 
@@ -4679,36 +4680,44 @@ msgstr ""
 msgid "Import Customer's"
 msgstr ""
 
-#: Public/CC_ticket_view.php:17
+#: Public/CC_ticket_view.php:16
 msgid "Ticket updated successfully"
 msgstr ""
 
-#: Public/CC_ticket_view.php:26
+#: Public/CC_ticket_view.php:22
 msgid "Ticket ID not found"
 msgstr ""
 
-#: Public/CC_ticket_view.php:70
+#: Public/CC_ticket_view.php:61
 msgid "TICKET: "
 msgstr ""
 
-#: Public/CC_ticket_view.php:80
+#: Public/CC_ticket_view.php:62
+msgid "Number"
+msgstr ""
+
+#: Public/CC_ticket_view.php:71
 msgid "BY : "
 msgstr ""
 
-#: Public/CC_ticket_view.php:86
+#: Public/CC_ticket_view.php:77
 msgid "PRIORITY : "
 msgstr ""
 
-#: Public/CC_ticket_view.php:94
+#: Public/CC_ticket_view.php:85
 msgid "COMPONENT : "
 msgstr ""
 
-#: Public/CC_ticket_view.php:107 Public/CC_ticket_view.php:208
+#: Public/CC_ticket_view.php:98 Public/CC_ticket_view.php:199
 msgid "Click here to consider it like viewed"
 msgstr ""
 
-#: Public/CC_ticket_view.php:162
+#: Public/CC_ticket_view.php:153
 msgid "COMMENT : "
+msgstr ""
+
+#: Public/CC_ticket_view.php:185
+msgid "BY"
 msgstr ""
 
 #: Public/call-count-reporting.php:52
@@ -10149,12 +10158,20 @@ msgstr ""
 msgid "Modify"
 msgstr ""
 
+#: Public/A2B_notifications.php:64
+msgid "to change enable or disable periodical notifications"
+msgstr ""
+
 #: Public/A2B_notifications.php:66
 msgid "You don't have enough rights To Enable or Disable the process of notification. Ask your administrator"
 msgstr ""
 
 #: Public/A2B_notifications.php:94
 msgid "This box shows the possible values to choose from when the user receives a notification"
+msgstr ""
+
+#: Public/A2B_notifications.php:100
+msgid "to change the values."
 msgstr ""
 
 #: Public/A2B_notifications.php:102
@@ -10171,6 +10188,10 @@ msgstr ""
 
 #: Public/A2B_notifications.php:139
 msgid " days"
+msgstr ""
+
+#: Public/A2B_notifications.php:147
+msgid "to change the periodicity"
 msgstr ""
 
 #: Public/A2B_notifications.php:149

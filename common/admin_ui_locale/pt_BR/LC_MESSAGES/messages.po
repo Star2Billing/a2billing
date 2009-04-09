@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-09 16:52+0200\n"
+"POT-Creation-Date: 2009-04-09 17:18+0200\n"
 "PO-Revision-Date: 2007-08-07 14:20-0300\n"
 "Last-Translator: Caros Alberto Cesario <carloscesario@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -4230,13 +4230,13 @@ msgid "FOR : "
 msgstr ""
 
 #: Public/A2B_invoice_edit.php:79 Public/A2B_invoice_edit.php:251
-#: Public/CC_ticket_view.php:89 Public/A2B_receipt_edit.php:77
+#: Public/CC_ticket_view.php:80 Public/A2B_receipt_edit.php:77
 #: Public/A2B_receipt_edit.php:173
 #, fuzzy
 msgid "DATE : "
 msgstr "DATA"
 
-#: Public/A2B_invoice_edit.php:86 Public/CC_ticket_view.php:136
+#: Public/A2B_invoice_edit.php:86 Public/CC_ticket_view.php:127
 #, fuzzy
 msgid "STATUS : "
 msgstr "STATUS"
@@ -4247,7 +4247,7 @@ msgid "PAID STATUS : "
 msgstr "STATUS"
 
 #: Public/A2B_invoice_edit.php:100 Public/A2B_invoice_edit.php:272
-#: Public/CC_ticket_view.php:101 Public/A2B_receipt_edit.php:83
+#: Public/CC_ticket_view.php:92 Public/A2B_receipt_edit.php:83
 #: Public/A2B_receipt_edit.php:187
 #, fuzzy
 msgid "DESCRIPTION : "
@@ -4301,7 +4301,8 @@ msgstr ""
 msgid "VAT : "
 msgstr "IVA"
 
-#: Public/A2B_invoice_edit.php:280 Public/A2B_receipt_edit.php:195
+#: Public/A2B_invoice_edit.php:280 Public/CC_ticket_view.php:167
+#: Public/A2B_receipt_edit.php:195
 msgid "UPDATE"
 msgstr "ATUALIZAR"
 
@@ -4983,41 +4984,51 @@ msgstr "Use o exemplo abaixo para o formato do arquivo CSV. Os campos são separ
 msgid "Import Customer's"
 msgstr "Clientes"
 
-#: Public/CC_ticket_view.php:17
+#: Public/CC_ticket_view.php:16
 #, fuzzy
 msgid "Ticket updated successfully"
 msgstr "Gravação atualizada com sucesso"
 
-#: Public/CC_ticket_view.php:26
+#: Public/CC_ticket_view.php:22
 #, fuzzy
 msgid "Ticket ID not found"
 msgstr "ID do módulo de pagamento não encontrado"
 
-#: Public/CC_ticket_view.php:70
+#: Public/CC_ticket_view.php:61
 msgid "TICKET: "
 msgstr ""
 
-#: Public/CC_ticket_view.php:80
+#: Public/CC_ticket_view.php:62
+#, fuzzy
+msgid "Number"
+msgstr "número_do_cc"
+
+#: Public/CC_ticket_view.php:71
 msgid "BY : "
 msgstr ""
 
-#: Public/CC_ticket_view.php:86
+#: Public/CC_ticket_view.php:77
 #, fuzzy
 msgid "PRIORITY : "
 msgstr "PRIORIDADE"
 
-#: Public/CC_ticket_view.php:94
+#: Public/CC_ticket_view.php:85
 msgid "COMPONENT : "
 msgstr ""
 
-#: Public/CC_ticket_view.php:107 Public/CC_ticket_view.php:208
+#: Public/CC_ticket_view.php:98 Public/CC_ticket_view.php:199
 #, fuzzy
 msgid "Click here to consider it like viewed"
 msgstr "Clique aqui para recarregar o Servidor do Asterisk"
 
-#: Public/CC_ticket_view.php:162
+#: Public/CC_ticket_view.php:153
 msgid "COMMENT : "
 msgstr ""
+
+#: Public/CC_ticket_view.php:185
+#, fuzzy
+msgid "BY"
+msgstr "COMPRA"
 
 #: Public/call-count-reporting.php:52
 #, fuzzy
@@ -10865,12 +10876,20 @@ msgstr "endereço"
 msgid "Modify"
 msgstr ""
 
+#: Public/A2B_notifications.php:64
+msgid "to change enable or disable periodical notifications"
+msgstr ""
+
 #: Public/A2B_notifications.php:66
 msgid "You don't have enough rights To Enable or Disable the process of notification. Ask your administrator"
 msgstr ""
 
 #: Public/A2B_notifications.php:94
 msgid "This box shows the possible values to choose from when the user receives a notification"
+msgstr ""
+
+#: Public/A2B_notifications.php:100
+msgid "to change the values."
 msgstr ""
 
 #: Public/A2B_notifications.php:102
@@ -10890,6 +10909,11 @@ msgstr "dias"
 #, fuzzy
 msgid " days"
 msgstr "dias"
+
+#: Public/A2B_notifications.php:147
+#, fuzzy
+msgid "to change the periodicity"
+msgstr "Insira a prioridade"
 
 #: Public/A2B_notifications.php:149
 msgid "You don't have enough rights to modify the delay of notification. Ask your administrator"
