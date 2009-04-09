@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-09 17:56+0200\n"
+"POT-Creation-Date: 2009-04-09 18:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -724,11 +724,11 @@ msgstr ""
 msgid "characters."
 msgstr ""
 
-#: lib/agent.defines.php:302
+#: lib/agent.defines.php:300
 msgid " This software is under AGPL licence. For further information, please visit : <a href=\"http://www.a2billing.org\" target=\"_blank\">a2billing.org</a>"
 msgstr ""
 
-#: lib/agent.defines.php:303
+#: lib/agent.defines.php:301
 msgid "A2Billing : CallingCard & VOIP Billing system"
 msgstr ""
 

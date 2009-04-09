@@ -1,19 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# A2Billing Agent Panel - PO File.
+# Copyright (C) 2004-2009 A2BILLING
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# ARESKI <areski@gmail.com>.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-09 17:56+0200\n"
+"POT-Creation-Date: 2009-04-09 18:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: ARESKI <areski@gmail.com>\n"
+"Language-Team: ARESKI <areski@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/interface/constants.php:8 lib/interface/constants.php:17
@@ -725,11 +724,11 @@ msgstr ""
 msgid "characters."
 msgstr ""
 
-#: lib/agent.defines.php:302
+#: lib/agent.defines.php:300
 msgid " This software is under AGPL licence. For further information, please visit : <a href=\"http://www.a2billing.org\" target=\"_blank\">a2billing.org</a>"
 msgstr ""
 
-#: lib/agent.defines.php:303
+#: lib/agent.defines.php:301
 msgid "A2Billing : CallingCard & VOIP Billing system"
 msgstr ""
 
