@@ -9,7 +9,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'voicemail_permitted','email_notification','credit_notification','notify_email', 'id_seria',
 'company_name' , 'company_website' , 'vat_rn' , 'traffic' , 'traffic_target','discount','restriction' ));
 
-$HD_Form = new FormHandler("cc_card","Card");
+$HD_Form = new FormHandler("cc_card", gettext("Card"));
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
@@ -93,7 +93,7 @@ foreach ($show_list_temp as $i => $value) {
 $show_fields=array();
 $show_fields['id']=array(gettext("ID"), "id", "3%", "center", "sort","", "", "", "", "", "", "");
 
-$show_fields['username']=array("Account Number", "username", "14%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$show_fields['username']=array(gettext("Account Number"), "username", "14%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 if (!($popup_select>=1)) 
  $show_fields['useralias']=array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 
@@ -252,7 +252,7 @@ if (($popup_select>=1)) {
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
-$HD_Form -> FG_FILTERFIELDNAME = 'account number';
+$HD_Form -> FG_FILTERFIELDNAME = gettext('Account Number');
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 

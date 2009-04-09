@@ -607,10 +607,10 @@ function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $
 //  ONLY USER BY THE OLD FRAME WORK
 // *********************************
 
-$lang['strfirst']='&lt;&lt; First';
-$lang['strprev']='&lt; Prev';
-$lang['strnext']='Next &gt;';
-$lang['strlast']='Last &gt;&gt;';
+$lang['strfirst']='&lt;&lt; '.gettext('First');
+$lang['strprev']='&lt; '.gettext('Prev');
+$lang['strnext']= gettext('Next').' &gt;';
+$lang['strlast']= gettext('Last').' &gt;&gt;';
 
 /**
 * Do multi-page navigation.  Displays the prev, next and page options.
