@@ -337,12 +337,12 @@ SPAN.errorText {
 
 .divright {
 	z-index: 0;
+	position:absolute;
 	height: auto;
-	width: auto;
-	left: 180px;
 	top: 40px;
-	PADDING-LEFT: 180px; 
-	PADDING-RIGHT: 10px; 
+	left:200px;
+	PADDING-RIGHT: 15px;
+	PADDING-LEFT: 15px; 
 }
 .callhistory_totalcost {
 	background-color: #000000;

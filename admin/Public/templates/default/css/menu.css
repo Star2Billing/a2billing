@@ -249,12 +249,11 @@ background:transparent url(../images/top_menu_bg.png) no-repeat scroll left bott
 width:700px;
 padding:0;
 position : relative;
-margin-left: auto;
-margin-right: auto;
+left: 50%; 
+margin-left: -350px;
 padding-left: 2px;
 padding-right: 2px;
 font-size:10px;
-left:0;
 line-height:normal;
 top:0;
 z-index:1;

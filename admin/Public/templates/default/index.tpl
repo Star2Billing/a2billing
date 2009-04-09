@@ -42,22 +42,7 @@
 	<form name="form" method="POST" action="PP_intro.php" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
-	{if ($error == 1)}
-	  	
-
-		<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>AUTHENTICATION REFUSED, please check your user/password!</b>
-		</font>
-    {elseif ($error==2)}
-        <font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>INACTIVE ACCOUNT, Please activate your account!</b>
-		</font>
-    {elseif ($error==3)}
-        <font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>BLOCKED ACCOUNT, Please contact your administrator!</b>
-		</font>
-    {/if}
-    <br><br>
+	
 	<div id="login-wrapper" class="login-border-up">
 	<div class="login-border-down">
 	<div class="login-border-center">
@@ -91,6 +76,14 @@
       	</table>
       	</div>
       	</div>
+      	<div style="color:#BC2222;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;padding-left:10px;" >
+      	{if ($error == 1)}
+				AUTHENTICATION REFUSED, please check your user/password!
+	    {elseif ($error==2)}
+				INACTIVE ACCOUNT, Please activate your account!
+	    {elseif ($error==3)}
+				BLOCKED ACCOUNT, Please contact your administrator!
+	    {/if}
       	</div>
 	</form>
 {literal}
