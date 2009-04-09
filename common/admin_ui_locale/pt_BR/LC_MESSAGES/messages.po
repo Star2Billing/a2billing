@@ -1,7 +1,7 @@
-# A2Billing Admin Panel : Portuguese (Brazilian) translation
-# Copyright (C) 2007, Carlos Alberto Cesario <carloscesario@gmail.com>
-#
-# This file is distributed under the same license as the Asterisk2Billing package.
+# A2Billing Admin Panel - PO File.
+# Copyright (C) 2004-2009 A2BILLING
+# This file is distributed under the same license as the PACKAGE package.
+# ARESKI <areski@gmail.com>.
 #
 # Thanks to Maurício Collares, Felipe Neuwald, Danilo Chilene
 #
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-06 08:15-0300\n"
+"POT-Creation-Date: 2009-04-09 16:10+0200\n"
 "PO-Revision-Date: 2007-08-07 14:20-0300\n"
 "Last-Translator: Caros Alberto Cesario <carloscesario@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -59,14 +59,14 @@ msgstr ""
 
 #: lib/interface/constants.php:33 Public/A2B_entity_card_multi.php:348
 #: Public/A2B_data_archiving.php:97 Public/A2B_call_archiving.php:31
-#: Public/call-count-reporting.php:291 Public/A2B_entity_card.php:372
+#: Public/call-count-reporting.php:291 Public/A2B_entity_card.php:376
 msgid "Yes"
 msgstr "Sim"
 
 #: lib/interface/constants.php:34
-#: lib/Form/Class.FormHandler.EditForm.inc.php:313
+#: lib/Form/Class.FormHandler.EditForm.inc.php:311
 #: Public/A2B_entity_card_multi.php:348 Public/A2B_data_archiving.php:98
-#: Public/A2B_call_archiving.php:32 Public/A2B_entity_card.php:372
+#: Public/A2B_call_archiving.php:32 Public/A2B_entity_card.php:376
 msgid "No"
 msgstr "Não"
 
@@ -112,21 +112,21 @@ msgstr "Discar"
 #: lib/interface/constants.php:81 lib/interface/constants.php:292
 #: lib/interface/constants.php:299 Public/A2B_entity_card_multi.php:295
 #: Public/A2B_data_archiving.php:35 Public/A2B_data_archiving.php:39
-#: Public/A2B_mass_mail.php:34 Public/A2B_entity_card.php:277
+#: Public/A2B_mass_mail.php:34 Public/A2B_entity_card.php:281
 msgid "INDIVIDUAL ACCESS"
 msgstr "ACESSO INDIVIDUAL"
 
 #: lib/interface/constants.php:82 lib/interface/constants.php:291
 #: lib/interface/constants.php:298 Public/A2B_entity_card_multi.php:296
 #: Public/A2B_data_archiving.php:36 Public/A2B_data_archiving.php:40
-#: Public/A2B_mass_mail.php:35 Public/A2B_entity_card.php:278
+#: Public/A2B_mass_mail.php:35 Public/A2B_entity_card.php:282
 #: Public/form_data/FG_var_ecommerce.inc:141
 #: Public/form_data/FG_var_card.inc:552
 msgid "SIMULTANEOUS ACCESS"
 msgstr "ACESSOS SIMULTÂNEOS"
 
 #: lib/interface/constants.php:88 Public/A2B_entity_card_multi.php:312
-#: Public/A2B_data_archiving.php:82 Public/A2B_entity_card.php:304
+#: Public/A2B_data_archiving.php:82 Public/A2B_entity_card.php:308
 msgid "PREPAID CARD"
 msgstr "CARTÃO PRÉ-PAGO"
 
@@ -141,19 +141,19 @@ msgstr "NÃO EXPIRAR"
 
 #: lib/interface/constants.php:96 lib/interface/constants.php:306
 #: Public/A2B_entity_card_multi.php:325 Public/A2B_data_archiving.php:87
-#: Public/A2B_entity_card.php:332
+#: Public/A2B_entity_card.php:336
 msgid "EXPIRE DATE"
 msgstr "EXPIRAR EM UMA DATA"
 
 #: lib/interface/constants.php:97 lib/interface/constants.php:307
 #: Public/A2B_entity_card_multi.php:326 Public/A2B_data_archiving.php:88
-#: Public/A2B_entity_card.php:333
+#: Public/A2B_entity_card.php:337
 msgid "EXPIRE DAYS SINCE FIRST USE"
 msgstr "EXPIRAR ALGUNS DIAS DESDE O PRIMEIRO USO"
 
 #: lib/interface/constants.php:98 lib/interface/constants.php:308
 #: Public/A2B_entity_card_multi.php:327 Public/A2B_data_archiving.php:89
-#: Public/A2B_entity_card.php:334
+#: Public/A2B_entity_card.php:338
 msgid "EXPIRE DAYS SINCE CREATION"
 msgstr "EXPIRAR ALGUNS DIAS DESDE A CRIAÇÃO"
 
@@ -390,8 +390,7 @@ msgstr ""
 #: lib/interface/constants.php:266 lib/interface/constants.php:279
 #: lib/support/classes/ticket.php:275 Public/A2B_data_archiving.php:58
 #: Public/A2B_data_archiving.php:66 Public/A2B_data_archiving.php:75
-#: Public/A2B_mass_mail.php:22 Public/templates/default/main.tpl:57
-#: Public/form_data/FG_var_statuslog.inc:52
+#: Public/A2B_mass_mail.php:22 Public/form_data/FG_var_statuslog.inc:52
 msgid "NEW"
 msgstr "NOVO"
 
@@ -460,22 +459,25 @@ msgid "ACTIVE"
 msgstr "ATIVADO"
 
 #: lib/interface/constants.php:252 lib/interface/constants.php:264
-#: Public/A2B_data_archiving.php:56 Public/A2B_data_archiving.php:64
-#: Public/A2B_mass_mail.php:20 Public/form_data/FG_var_statuslog.inc:50
+#: lib/interface/constants.php:277 Public/A2B_data_archiving.php:56
+#: Public/A2B_data_archiving.php:64 Public/A2B_mass_mail.php:20
+#: Public/form_data/FG_var_statuslog.inc:50
 #, fuzzy
 msgid "CANCELLED"
 msgstr "IDENTIFICADOR DE CHAMADAS"
 
 #: lib/interface/constants.php:254 lib/interface/constants.php:267
-#: Public/A2B_data_archiving.php:59 Public/A2B_data_archiving.php:67
-#: Public/A2B_mass_mail.php:23 Public/form_data/FG_var_statuslog.inc:53
+#: lib/interface/constants.php:280 Public/A2B_data_archiving.php:59
+#: Public/A2B_data_archiving.php:67 Public/A2B_mass_mail.php:23
+#: Public/form_data/FG_var_statuslog.inc:53
 #, fuzzy
 msgid "WAITING-MAILCONFIRMATION"
 msgstr "CONFIRMAÇÃO DE REGISTRO"
 
 #: lib/interface/constants.php:255 lib/interface/constants.php:268
-#: Public/A2B_data_archiving.php:60 Public/A2B_data_archiving.php:68
-#: Public/A2B_mass_mail.php:24 Public/form_data/FG_var_statuslog.inc:54
+#: lib/interface/constants.php:281 Public/A2B_data_archiving.php:60
+#: Public/A2B_data_archiving.php:68 Public/A2B_mass_mail.php:24
+#: Public/form_data/FG_var_statuslog.inc:54
 #, fuzzy
 msgid "RESERVED"
 msgstr "EXECUTAR SERVIÇO"
@@ -490,19 +492,14 @@ msgid "EXPIRED"
 msgstr "EXPIRAR EM UMA DATA"
 
 #: lib/interface/constants.php:257 lib/interface/constants.php:270
-#: Public/form_data/FG_var_statuslog.inc:56
+#: lib/interface/constants.php:283 Public/form_data/FG_var_statuslog.inc:56
 msgid "SUSPENDED FOR UNDERPAYMENT"
 msgstr ""
 
 #: lib/interface/constants.php:258 lib/interface/constants.php:271
-#: Public/form_data/FG_var_statuslog.inc:57
+#: lib/interface/constants.php:284 Public/form_data/FG_var_statuslog.inc:57
 msgid "SUSPENDED FOR LITIGATION"
 msgstr ""
-
-#: lib/interface/constants.php:277 Public/A2B_data_archiving.php:73
-#, fuzzy
-msgid "<acronym title=\"CANCELLED\">"
-msgstr "<acronym title=\"ATIVADO\">"
 
 #: lib/interface/constants.php:278 Public/A2B_entity_voucher.php:156
 #: Public/form_data/FG_var_callerid.inc:19
@@ -517,61 +514,27 @@ msgstr "<acronym title=\"ATIVADO\">"
 msgid "ACTIVATED"
 msgstr "ATIVADO"
 
-#: lib/interface/constants.php:278 Public/form_data/FG_var_did.inc:32
-msgid "<acronym title=\"ACTIVATED\">"
-msgstr "<acronym title=\"ATIVADO\">"
-
-#: lib/interface/constants.php:279 Public/A2B_data_archiving.php:75
-#, fuzzy
-msgid "<acronym title=\"NEW\">"
-msgstr "<acronym title=\"ATIVADO\">"
-
 #: lib/interface/constants.php:280
 #, fuzzy
 msgid "WAITING"
 msgstr "AÇÃO"
-
-#: lib/interface/constants.php:280 Public/A2B_data_archiving.php:76
-#, fuzzy
-msgid "<acronym title=\"WAITING-MAILCONFIRMATION\">"
-msgstr "<acronym title=\"ATIVADO\">"
 
 #: lib/interface/constants.php:281 Public/A2B_data_archiving.php:77
 #, fuzzy
 msgid "RESERV"
 msgstr "GRÁTIS"
 
-#: lib/interface/constants.php:281 Public/A2B_data_archiving.php:77
-#, fuzzy
-msgid "<acronym title=\"RESERVED\">"
-msgstr "<acronym title=\"ATIVADO\">"
-
-#: lib/interface/constants.php:282 Public/A2B_data_archiving.php:78
-#, fuzzy
-msgid "<acronym title=\"EXPIRED\">"
-msgstr "<acronym title=\"ATIVADO\">"
-
 #: lib/interface/constants.php:283
 msgid "SUS-PAY"
 msgstr ""
-
-#: lib/interface/constants.php:283
-#, fuzzy
-msgid "<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">"
-msgstr "<acronym title=\"MINUTOS USADOS\">"
 
 #: lib/interface/constants.php:284
 #, fuzzy
 msgid "SUS-LIT"
 msgstr "RESULTADO"
 
-#: lib/interface/constants.php:284
-#, fuzzy
-msgid "<acronym title=\"SUSPENDED FOR LITIGATION\">"
-msgstr "<acronym title=\"TEMPO GRÁTIS PARA LIGAÇÃO\">"
-
 #: lib/interface/constants.php:305 Public/A2B_data_archiving.php:86
-#: Public/A2B_entity_card.php:331
+#: Public/A2B_entity_card.php:335
 msgid "NO EXPIRY"
 msgstr "NÃO EXPIRAR"
 
@@ -600,7 +563,7 @@ msgid "EXTRA FEE"
 msgstr "TAXA EXTRA"
 
 #: lib/interface/constants.php:329 Public/A2B_entity_card_multi.php:372
-#: Public/A2B_entity_card.php:401
+#: Public/A2B_entity_card.php:405
 msgid "NO DISCOUNT"
 msgstr ""
 
@@ -608,64 +571,64 @@ msgstr ""
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número do cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:2479
+#: lib/Class.A2Billing.php:2463
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:2517 lib/Class.A2Billing.php:2522
+#: lib/Class.A2Billing.php:2501 lib/Class.A2Billing.php:2506
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o bastante para ligar !!!"
 
-#: lib/Class.A2Billing.php:2528
+#: lib/Class.A2Billing.php:2512
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativado!!!"
 
-#: lib/Class.A2Billing.php:2534
+#: lib/Class.A2Billing.php:2518
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:2543 lib/Class.A2Billing.php:2551
-#: lib/Class.A2Billing.php:2559
+#: lib/Class.A2Billing.php:2527 lib/Class.A2Billing.php:2535
+#: lib/Class.A2Billing.php:2543
 msgid "Error : Card have expired!!!"
 msgstr "Erro : O cartão expirou!!!"
 
-#: lib/Misc.php:696
+#: lib/Misc.php:706
 msgid "File size is greater than allowed limit."
 msgstr "O tamanho do arquivo é maior do que o permitido."
 
-#: lib/Misc.php:699
+#: lib/Misc.php:709
 msgid "You did not upload anything!"
 msgstr "Você não fez o upload de nada!"
 
-#: lib/Misc.php:701
+#: lib/Misc.php:711
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Falha ao fazer o upload do arquivo. O arquivo que você fez upload pode não existir no disco."
 
-#: lib/Misc.php:704
+#: lib/Misc.php:714
 msgid "file type is not allowed"
 msgstr "tipo de arquivo não permitido"
 
-#: lib/Misc.php:995
+#: lib/Misc.php:1005
 msgid "Can't find our base_currency in cc_currencies."
 msgstr ""
 
-#: lib/Misc.php:995 lib/Misc.php:1016 lib/Misc.php:1020 lib/Misc.php:1030
+#: lib/Misc.php:1005 lib/Misc.php:1026 lib/Misc.php:1030 lib/Misc.php:1040
 msgid "Currency update ABORTED."
 msgstr ""
 
-#: lib/Misc.php:1016
+#: lib/Misc.php:1026
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr ""
 
-#: lib/Misc.php:1020
+#: lib/Misc.php:1030
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr ""
 
-#: lib/Misc.php:1030
+#: lib/Misc.php:1040
 msgid "Our base_currency seems to be worthless."
 msgstr ""
 
-#: lib/Misc.php:1064
+#: lib/Misc.php:1074
 msgid "Success! All currencies are now updated."
 msgstr "Sucesso! Todas as moedas estão atualizadas agora."
 
@@ -720,487 +683,484 @@ msgstr ""
 msgid "the online documention"
 msgstr ""
 
-#: lib/admin.help.php:28
+#: lib/admin.help.php:23
 msgid "The Notification component is responsible of informing the Customer via e-mail that the account has reached a minimum credit."
 msgstr ""
 
-#: lib/admin.help.php:39
+#: lib/admin.help.php:25
 msgid "Notification: You can see below all notifications received about some event."
 msgstr ""
 
-#: lib/admin.help.php:46
+#: lib/admin.help.php:27
 msgid "This page shows the series list. <br> Series & serials is used for the creation of stable card range for large accounting purposes instead of card id."
 msgstr ""
 
-#: lib/admin.help.php:56
+#: lib/admin.help.php:29
 msgid "This page shows a group list."
 msgstr ""
 
-#: lib/admin.help.php:57
+#: lib/admin.help.php:29
 msgid "The Group field is used for grouping customers for quick search, batch update and reporting."
 msgstr ""
 
-#: lib/admin.help.php:69
+#: lib/admin.help.php:31
 msgid "Generate a specific crypted URL and to configure signup with a customer group and call plan."
 msgstr ""
 
-#: lib/admin.help.php:83
+#: lib/admin.help.php:33
 #, fuzzy
 msgid "Customers are listed below by account number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>"
 msgstr "Os clientes estão listados abaixo pelo número de cartão. Cada coluna corresponde a um cliente, junto informações como seu grupo de tarifa, crédito restante, etc.</br>"
 
-#: lib/admin.help.php:84
+#: lib/admin.help.php:33
 msgid "The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication."
 msgstr "Os botões SIP e IAX criam entradas SIP e IAX, para permitir conexões VOIP diretas com o servidor Asterisk, sem autenticação adicional."
 
-#: lib/admin.help.php:96
+#: lib/admin.help.php:35
 #, fuzzy
 msgid "Import Customers from a CSV file."
 msgstr "Importar Clientes"
 
-#: lib/admin.help.php:109
+#: lib/admin.help.php:37
 #, fuzzy
 msgid "Customer information."
 msgstr "(formato de número)"
 
-#: lib/admin.help.php:122
+#: lib/admin.help.php:39
 #, fuzzy
 msgid "Top up the account by selecting or typing in the account number directly, and enter the amount of credit to apply, then click ADD to confirm."
 msgstr "Recarregue cartões nesta tela selecionando ou digitando diretamente o número do cartão, coloque aquantia de crédito a ser aplicada, então clique em ADICIONAR para confirmar."
 
-#: lib/admin.help.php:134
+#: lib/admin.help.php:41
 msgid "Create and edit the properties of each customer. Click <b>CONFIRM DATA</b> at the bottom of the page to save changes."
 msgstr "Crie e edite as propriedades de cada cliente. Clique em <b>CONFIRMAR DADOS</b> no fim da página para salvar as alterações."
 
-#: lib/admin.help.php:146
+#: lib/admin.help.php:43
 #, fuzzy
 msgid "Bulk create customers in a single step. <br> Set the properties of the batch such as initial credit, account type and currency, then click on the GENERATE CUSTOMERS button to create the batch."
 msgstr "Crie cartões e clientes em lote em um único passo. <br> Defina as propriedades do lote como crédito inicial,tipo e moeda do cartão, e então clique no botão GERAR CARTÕES para criar o lote."
 
-#: lib/admin.help.php:158
+#: lib/admin.help.php:45
 #, fuzzy
 msgid "SIP and IAX Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>"
 msgstr "SIP e IAX friend criarão uma entrada SIP ou IAX no servidor Asterisk, de modo que o cliente possa configurar uma conta SIP ou IAX em seu cliente de conexão para poder conectar diretamente ao servidor asterisk sem precisar colocar um código ou pin toda hora que fizer uma ligação. Quando feito isso clique no botão CONFIRMAR DADOS, então clique em recarregar para aplicar as alterações feitas no servidor Asterisk.</br>"
 
-#: lib/admin.help.php:159
+#: lib/admin.help.php:46
 #, fuzzy
 msgid "The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Account Number and Secret word as the username and password."
 msgstr "O cliente deve colocar o endereço da URL/IP do servidor asterisk no cliente de conexão SIP/IAX, e usar o Número do Cartão e a Senha como usuário e senha."
 
-#: lib/admin.help.php:171
+#: lib/admin.help.php:48
 msgid "Click reload to commit changes to Asterisk"
 msgstr "Clique em recarregar para gravar as mudanças no Asterisk"
 
-#: lib/admin.help.php:184
+#: lib/admin.help.php:50
 #, fuzzy
 msgid "Each SIP/IAX client is identified by a number of parameters.</br></br>"
 msgstr "Cada cliente SIP/IAX é identificado por um número de parâmetros.</br></br>"
 
-#: lib/admin.help.php:185
+#: lib/admin.help.php:51
 msgid "More details on how to configure clients are on the Wiki"
 msgstr "Mais detalhes de como configurar os clientes estão no Wiki"
 
-#: lib/admin.help.php:198
+#: lib/admin.help.php:54
 #, fuzzy
 msgid "Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with the account number"
 msgstr "Configure o identificador de chamadas de modo que, ao ligar, o cliente seja autenticado a partir do número no identificador de chamadas, ao invés de ser identificado pelo número da conta"
 
-#: lib/admin.help.php:211
+#: lib/admin.help.php:56
 #, fuzzy
 msgid "This screen shows refills and payments made against each account, along with the current credit on each account. The initial amount of credit applied to the account is not included. The amount owing is calculated by subtracting payments from refills"
 msgstr "Esta tela mostra os reenchimentos e pagamentos feitos de acordo com cada conta, junto com o crédito atual de cada cartão. A quantidade inicial de crédito aplicada ao cartão não é incluída. A quantidade que resta é calculada subtraindo os pagamentos dos reenchimentos."
 
-#: lib/admin.help.php:225
+#: lib/admin.help.php:58
 msgid "Agents Commission history - The section below allows you to add commissions against an agent. Normally the commissions are generated automatically by the customer's payment."
 msgstr ""
 
-#: lib/admin.help.php:237
+#: lib/admin.help.php:60
 #, fuzzy
 msgid "Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the account. Click on 'create associate refill' when you create a payment to top-up an account."
 msgstr "Histórico de pagamento - A seção abaixo permite que você adicione pagamentos a um cliente. Note que isto não muda o saldo do cartão. Clique em recarregar na lista de clientes para recarregar um cartão."
 
-#: lib/admin.help.php:249
+#: lib/admin.help.php:62
 #, fuzzy
 msgid "Agent Payment history - The section below allows you to add payments against an agent. Note that this does not change the balance on the account. Click on 'create associate refill' when you create  a payment to top-up an account."
 msgstr "Histórico de pagamento - A seção abaixo permite que você adicione pagamentos a um cliente. Note que isto não muda o saldo do cartão. Clique em recarregar na lista de clientes para recarregar um cartão."
 
-#: lib/admin.help.php:261
+#: lib/admin.help.php:64
 msgid "Billing history - The section below allows you to see all billing generated by the batch for the customers, or also to run a billing manually for a specific customer. Note that this creates one invoice associated with the created billing."
 msgstr ""
 
-#: lib/admin.help.php:273
+#: lib/admin.help.php:66
 msgid "Billing history - The section below allows you see all billing generate by the batch for the agents , or also to run a billing manualy for a specific agent. Note that this create one invoice associate to the created billing."
 msgstr ""
 
-#: lib/admin.help.php:285
+#: lib/admin.help.php:68
 #, fuzzy
 msgid "Refill history - The section below allows you to add refills against a customer. Note that this changes the balance on the account"
 msgstr "Histórico de pagamento - A seção abaixo permite que você adicione pagamentos a um cliente. Note que isto não muda o saldo do cartão. Clique em recarregar na lista de clientes para recarregar um cartão."
 
-#: lib/admin.help.php:297
+#: lib/admin.help.php:70
 #, fuzzy
 msgid "Invoice history - The section below allows you to see and create invoices against a customer. Only the closed invoice can be seen on the customer interface"
 msgstr "Histórico de pagamento - A seção abaixo permite que você adicione pagamentos a um cliente. Note que isto não muda o saldo do cartão. Clique em recarregar na lista de clientes para recarregar um cartão."
 
-#: lib/admin.help.php:309
+#: lib/admin.help.php:72
 msgid "Receipt history - The section below allows you to see and create receipt against a customer.Only the closed receipt can be see in the customer interface. Receipts are only an information for the user and aren't used in the balance of the system"
 msgstr ""
 
-#: lib/admin.help.php:321
+#: lib/admin.help.php:74
 #, fuzzy
 msgid "Agents Refill history - The section below allows you to add refills against an agent. Note that this changes the balance on the account."
 msgstr "Histórico de pagamento - A seção abaixo permite que você adicione pagamentos a um cliente. Note que isto não muda o saldo do cartão. Clique em recarregar na lista de clientes para recarregar um cartão."
 
-#: lib/admin.help.php:333
+#: lib/admin.help.php:76
 msgid "Paypal History - The section below shows all paypal receipts."
 msgstr "Histórico do Pagamento - A seção abaixo mostra todos os recibos do paypal."
 
-#: lib/admin.help.php:347
+#: lib/admin.help.php:78
 msgid "Add payments to a customer's account!"
 msgstr "Adicionar pagamentos Ã  conta de cliente!"
 
-#: lib/admin.help.php:359
+#: lib/admin.help.php:80
 #, fuzzy
 msgid "List of Call Plans, a Call Plan is a collection of ratecards. You can click on edit to add new ratecards to the Call Plan"
 msgstr "Lista dos Planos de Ligações, um Plano de Ligação é uma coleção de ratecards, clique em editar para adicionar ratecards ao Plano de Ligação"
 
-#: lib/admin.help.php:372
+#: lib/admin.help.php:82
 msgid "A Call Plan is a collection of ratecards."
 msgstr "Um Plano de Ligações é uma coleção de ratecards."
 
-#: lib/admin.help.php:373
+#: lib/admin.help.php:83
 #, fuzzy
 msgid "The system will choose the most appropriate rate according to the Call Plan settings (LCR or LCD).<br/>"
 msgstr "O sistema de cartões escolherá a mais apropriada taxa de acordo com as configurações do Plano de ligação (LCR ou LCD).<br/>"
 
-#: lib/admin.help.php:374
+#: lib/admin.help.php:84
 msgid "LCR : Least Cost Routing - Find the trunk with the cheapest carrier cost. (buying rate)<br>"
 msgstr "Rota de menor custo - Procura o tronco com o menor custo. (taxa de compra)<br>"
 
-#: lib/admin.help.php:375
+#: lib/admin.help.php:85
 msgid "LCD : Least Cost Dialing - Find the trunk with the cheapest retail rate (selling rate)"
 msgstr "Discagem de menor custo - Procura o tronco com a menor taxa de varejo (taxa de venda)"
 
-#: lib/admin.help.php:386
+#: lib/admin.help.php:87
 #, fuzzy
 msgid "List ratecards that have been created!<br>Ensure that a ratecard is added into the call plan under 'List Ratecard'"
 msgstr "Listar os cartões que foram criados!<br>Esteja certo de que o ratecard foi adicionado no plano de ligação. Clique em 'Listar Ratecard' para verificar"
 
-#: lib/admin.help.php:397
-msgid "Set the properties and attributes of the ratecard"
-msgstr "Definir as propriedades e atributos do ratecard"
-
-#: lib/admin.help.php:398
+#: lib/admin.help.php:89
 #, fuzzy
 msgid "A ratecard is a set of rates defined and applied according to the dialing prefix, for instance 441 & 442 : UK Landline."
 msgstr "Um ratecard é um conjunto de taxas definidas e aplicadas de acordo com o prefixo discado, por exemplo 441 e 442 : Reino Unido."
 
-#: lib/admin.help.php:399
+#: lib/admin.help.php:90
 #, fuzzy
 msgid "Each ratecard may have as many rates as you wish, however, if a dialing prefix cannot be matched when a call is made, then the call will be terminated."
 msgstr "Cada ratecard por ter muitas taxas da maneira você desejar, entretanto, se o prefixo discado não puder ser encontrado quando a chamada for feita, então a ligação será terminada."
 
-#: lib/admin.help.php:400
+#: lib/admin.help.php:91
 msgid "A ratecard has a \"start date\", an \"expiry date\" and a you can define a default trunk, but if no trunk is defined, the ratecard default trunk will be used."
 msgstr "Um ratecard tem uma \"data de início\", uma \"data de expiração\" e você pode definir um tronco padrão, mas nenhum tronco for definido, o tronco do ratecard padrão será utilizado."
 
-#: lib/admin.help.php:411
+#: lib/admin.help.php:93
 msgid "Please select a ratecard and click on search to browse the different rates/dialing prefix of the selected ratecard."
 msgstr "Por favor selecione um ratecard e clique em pesquisar para navegar pelas diferentes taxas/prefixos de discagem do ratecard selecionado."
 
-#: lib/admin.help.php:422
+#: lib/admin.help.php:95
 #, fuzzy
 msgid "Please select an account, then enter the number you wish to call and press the \"SIMULATE\" button."
 msgstr "Por favor selecione o cartão que fará a ligação, entre com o número que deseja ligar e pressione o botão \"SIMULAR\"."
 
-#: lib/admin.help.php:434
+#: lib/admin.help.php:97
 msgid "Please fill in the fields below to set up the rate for each destination."
 msgstr "Preencher por favor os campos abaixo para definir a taxa para cada destino."
 
-#: lib/admin.help.php:446
+#: lib/admin.help.php:99
 msgid "This section is a utility to import ratecards from a CSV file.<br>"
 msgstr "Esta seção é uma utilidade para importar ratecards de um arquivo CSV.<br>"
 
-#: lib/admin.help.php:447
+#: lib/admin.help.php:100
 msgid "Define the ratecard name, the trunk to use and the fields that you wish to include from your csv files. Finally, select the csv files and click on the \"Import Ratecard\" button."
 msgstr "Defina o nome do ratecard, o tronco a ser usado e os campos que você deseja incluir do seus arquivos cvs. Finalmente, selecione os arquivos csv e clique no botão \"Importar Ratecard\"."
 
-#: lib/admin.help.php:460
+#: lib/admin.help.php:102
 #, fuzzy
 msgid "This section is a utility to import Phonebook from a CSV file.<br>"
 msgstr "Esta seção é uma utilidade para importar ratecards de um arquivo CSV.<br>"
 
-#: lib/admin.help.php:461
+#: lib/admin.help.php:103
 #, fuzzy
 msgid "Define the phonebook name, the user to use and the fields that you wish to include from your csv files. Finally, select the csv files and click on the \"Import Phonebook\" button."
 msgstr "Defina o nome do ratecard, o tronco a ser usado e os campos que você deseja incluir do seus arquivos cvs. Finalmente, selecione os arquivos csv e clique no botão \"Importar Ratecard\"."
 
-#: lib/admin.help.php:475
+#: lib/admin.help.php:106
 msgid "This is the second step of the import ratecard! <br>"
 msgstr "Esta é a segunda etapa de importação do ratecard! <br>"
 
-#: lib/admin.help.php:476
+#: lib/admin.help.php:107
 msgid "The first line of your csv files has been read and the values are displayed below according to the fields"
 msgstr "A primeira de seu arquivo csv foi lida e os valores serão mostrados abaixo de acordo com os campos"
 
-#: lib/admin.help.php:477
+#: lib/admin.help.php:108
 msgid "you decided to import on the ratecard! You can check the values and if there are correct,"
 msgstr "você decidiu-se importar no ratecard! Você pode verificar os valores e se estiver correto, "
 
-#: lib/admin.help.php:478
+#: lib/admin.help.php:109
 msgid "please select the same file and click on \"Continue to Import the Ratecard\" button..."
 msgstr "por favor selecione o mesmo arquivo e clique no botão \"Continue para Importar o Ratecard\"..."
 
-#: lib/admin.help.php:490
+#: lib/admin.help.php:111
 msgid "Ratecard comfirmation page. <br>"
 msgstr "Página de confirmação do ratecard. <br>"
 
-#: lib/admin.help.php:491
+#: lib/admin.help.php:112
 msgid "Import results, how many new rates have been imported, and the line numbers of the CSV files that generated errors."
 msgstr "Resultados da importação, como muitas novas taxas foram importadas, e o número de linhas do arquivo CVS que geraram erros."
 
-#: lib/admin.help.php:503
+#: lib/admin.help.php:114
 msgid "Trunk List."
 msgstr "Lista de Troncos."
 
-#: lib/admin.help.php:505
+#: lib/admin.help.php:114
 msgid "Trunks can be modified by clicking the edit button"
 msgstr "Os Troncos podem ser modificados clicando no botão editar"
 
-#: lib/admin.help.php:519
+#: lib/admin.help.php:116
 msgid "Trunks are used to terminate the call!<br>"
 msgstr "Os Troncos são usados para terminar uma ligação!<br>"
 
-#: lib/admin.help.php:520
+#: lib/admin.help.php:117
 msgid "The trunk and ratecard is selected by the rating engine on the basis of the dialed digits."
 msgstr "O tronco e o ratecard são selecionados de acordo com o sistema de taxas com base nos dígitos discados."
 
-#: lib/admin.help.php:521
+#: lib/admin.help.php:118
 msgid "The trunk is used to dial out from your asterisk box which can be a zaptel interface or a voip provider."
 msgstr "O tronco é utilizado para discar do seu asterisk no qual pode utilizar uma interface zaptel ou um provedor voip."
 
-#: lib/admin.help.php:534
+#: lib/admin.help.php:120
 #, fuzzy
 msgid "Administrators - this shows a list of all the Administrators who have access to the Administrator interface."
 msgstr "Lista de administradores que tem acesso à interface administrativa dos cartões."
 
-#: lib/admin.help.php:547
+#: lib/admin.help.php:122
 #, fuzzy
 msgid "The system log helps you track all events on your application. Log levels are the Importance Levels for the events - 1 is lowest level and 3 is highest level. 1 is used for Login, Logout and Page Visit. 2 is used for Add, Import, Export. 3 is for Update and Delete."
 msgstr "O log do sistema ajuda você a manter todos os registros e eventos que acontecem em sua aplicação. O nível do log tem importantes níveis para os eventos que são registrados. '1' é o menor nível e '3' é o maior nível. 1 é usado para registrar Login - Logout - Páginas Visitadas, 2 para Adicionar - Importar - Exportar e 3 para Atualizar e Deletar."
 
-#: lib/admin.help.php:560
+#: lib/admin.help.php:124
 msgid "Status logs help you to keep track of the status of all customers. The status can be 'New, Active, Cancelled, Reserved, Waiting-MailConfirmation and Expired."
 msgstr ""
 
-#: lib/admin.help.php:573
+#: lib/admin.help.php:127
 msgid "Add administrator."
 msgstr "Adicionar administrador."
 
-#: lib/admin.help.php:585
+#: lib/admin.help.php:129
 msgid "Listed below are the vouchers created on the system,.<br/>"
 msgstr "Listado abaixo estão os vouchers criados no sistema,.<br/>"
 
-#: lib/admin.help.php:586
+#: lib/admin.help.php:130
 msgid "Each row corresponds to a voucher and shows it's status, value and currency.."
 msgstr "Cada coluna corresponde a um voucher e mostra o status, valor e moeda.."
 
-#: lib/admin.help.php:587
+#: lib/admin.help.php:131
 #, fuzzy
 msgid "Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credits to their account via the customer interface or via an IVR menu."
 msgstr "Crie um simples voucher, definindo propriedades como crédito, identificação, moeda, etc. Clique em confirmar quando terminar. <br/>O cliente utilizará o crédito do voucher em seu cartão através da interface do cliente ou através do menu da URA."
 
-#: lib/admin.help.php:599
+#: lib/admin.help.php:133
 #, fuzzy
 msgid "Bulk generate a batch of vouchers, defining such properties as credit and currency etc, click Generate Vouchers when finished.<br/>The customer applies voucher credit to their account via the customer interface."
 msgstr "Gere vouchers em lote, definindo propriedades como crédito, moeda, etc. Clique em Gerar Vouchers quando terminar.<br/>O cliente utilizará o crédito do voucher em seu cartão através da interface do cliente."
 
-#: lib/admin.help.php:612
+#: lib/admin.help.php:135
 #, fuzzy
 msgid "Re-occuring services that decrement an account at timed intervals."
 msgstr "Serviços recorrentes que farão um decréscimo no cartão em intervalos de tempo."
 
-#: lib/admin.help.php:624
+#: lib/admin.help.php:137
 #, fuzzy
 msgid "Utility to apply a scheduled action on the account.<br>"
 msgstr "Utilitário para aplicar uma ação agendada no cartão.<br>"
 
-#: lib/admin.help.php:625
+#: lib/admin.help.php:138
 #, fuzzy
 msgid "For example if you want to remove 10 cents everyday on each single account, it can be defined here, alternatively, if you now want to remove 1 credit every week but only 7 times on each account, the different rules/parameters below will define this."
 msgstr "Por exemplo se você quer remover 10 centavos diário em cada único cartão, isto pode ser definido aqui, alternativamente, se você quiser remover 1 crédito cada semana mas somente 7 vezes em cada cartão, as diferentes regras/parâmetros abaixo definirá isto."
 
-#: lib/admin.help.php:638
+#: lib/admin.help.php:140
 msgid "CID Group list. CID can be chosen by customers through the customer interface."
 msgstr "Lista dos Grupos de CID (Identificador de Chamadas). O CID pode ser escolhido pelos clientes através da interface do cliente."
 
-#: lib/admin.help.php:651
+#: lib/admin.help.php:142
 msgid "Outbound CID list. CID can be added by customers through the customer interface."
 msgstr "Lista de CID (Identificador de Chamadas) de saída. O CID pode ser adicionado pelos clientes através da interface do cliente."
 
-#: lib/admin.help.php:665
+#: lib/admin.help.php:145
 msgid "CID group offers customers a group of CID numbers which can be selected for a ratecard for outgoing calls"
 msgstr "O grupo de CID (Identificador de Chamadas) oferece aos clientes um grupo de números de CID que podem ser selecionados pelo ratecard para as ligações que são feitas."
 
-#: lib/admin.help.php:678
+#: lib/admin.help.php:147
 msgid "Outbound CID offers customers a number which will be selected randomly for a ratecard for outgoing calls"
 msgstr "O CID (Identificador de Chamadas) de saída oferece aos clientes um número que será selecionado de forma randômica para um ratecard para as ligações que são feitas"
 
-#: lib/admin.help.php:690
+#: lib/admin.help.php:149
 #, fuzzy
 msgid "Currency data are automatically updated from Yahoo Financial."
 msgstr "Dados da moeda são automaticamente atualizados a partir do Yahoo Finanças."
 
-#: lib/admin.help.php:691
+#: lib/admin.help.php:150
 #, fuzzy
 msgid "For more information please visit the website http://finance.yahoo.com."
 msgstr "<br>Para maiores informações por favor visite o website http://finance.yahoo.com."
 
-#: lib/admin.help.php:692
+#: lib/admin.help.php:151
 #, fuzzy
 msgid "The list below is based on your currency :"
 msgstr "<br>A lista abaixo é baseada na base de sua moeda :"
 
-#: lib/admin.help.php:705
+#: lib/admin.help.php:153
 msgid "DID (or DDI) Group list. DID can be chosen by customers through the customer interface."
 msgstr "Lista de grupo DID (ou DDI). o DID pode ser escolhido pelos clientes através da interface do cliente."
 
-#: lib/admin.help.php:718
+#: lib/admin.help.php:155
 msgid "DID group offers customers a group of DID numbers which can be selected by the customer"
 msgstr "O grupo de DID oferece aos clientes um grupo de números DID que podem ser selecionados pelo cliente"
 
-#: lib/admin.help.php:731
+#: lib/admin.help.php:157
 msgid "DID number list with destinations."
 msgstr "Lista de números DID com destinos."
 
-#: lib/admin.help.php:746
+#: lib/admin.help.php:160
 #, fuzzy
 msgid "DID can be assigned to a customer to re-route calls to a SIP/IAX client or a PSTN number. The Priority sets the order in which the calls are to be routed to allow for failover or follow-me."
 msgstr "O DID pode ser atribuído a um cartão para redistribuir chamadas para um cliente SIP/IAX ou para um número PSTN. A prioridade define a ordem em que as chamadas devem ser distribuídas para permitir o failover ou o siga-me."
 
-#: lib/admin.help.php:759
+#: lib/admin.help.php:163
 msgid "You can import lists of DIDs using a CSV file."
 msgstr ""
 
-#: lib/admin.help.php:771
+#: lib/admin.help.php:165
 #, fuzzy
 msgid "List the DIDs currently in use with the customer id and their destination number <br/> You can use the search option to show the usage of a given DID or all DIDs"
 msgstr "Lista do DIDs atualmente em uso com o id do cartão e seu número de destino <br/> Você pode usar a opção de pesquisa  para mostrar uso de um DID informado ou todos "
 
-#: lib/admin.help.php:783
+#: lib/admin.help.php:167
 msgid "Releasing DID put it in free stat and the user will not be monthly charged any more.."
 msgstr "Liberando o DID, coloque ele em estado livre e o usuário não será mais cobrado com taxa extra mensalmente."
 
-#: lib/admin.help.php:795
+#: lib/admin.help.php:169
 #, fuzzy
 msgid "Extra charges allow the billing of one-off or re-occurring monthly charges. These may be used as setup or service charges, etc..."
 msgstr "Taxas extras irão permitir a cobrança de taxas mensais únicas ou recorrentes. Elas podem ser utilizadas como em configurações ou serviços extras, etc..."
 
-#: lib/admin.help.php:796
+#: lib/admin.help.php:170
 msgid "Charges will appear to the user with the description you attach. Each charge that you create for a user will decrement his account."
 msgstr "As taxas irão aparecer para o usuário com a descrição que você anexar. Cada taxa que você criar para um usuário será diminuída da conta dele."
 
-#: lib/admin.help.php:808
-msgid "DID list and billing list. "
+#: lib/admin.help.php:172
+#, fuzzy
+msgid "DID list and billing list."
 msgstr "Lista de DID e lista de tarifação. "
 
-#: lib/admin.help.php:809
+#: lib/admin.help.php:173
 #, fuzzy
 msgid "You will see which customers have used your DIDs in past months and the traffic (amount of seconds)."
 msgstr "Você verá quais cartões usaram seus DID's nos meses passados e o tráfego (quantidade em segundos)."
 
-#: lib/admin.help.php:821
+#: lib/admin.help.php:175
 #, fuzzy
 msgid "Configure the mail template below."
 msgstr "Criar Modelo de Email"
 
-#: lib/admin.help.php:822
+#: lib/admin.help.php:176
 #, fuzzy
 msgid "A Reminder email can be sent (see a2billing.conf) to customers having low credit, a confirmation mail can be sent to customers after their signup, etc..."
 msgstr "Um email de lembrete pode ser enviado (veja no a2billing.conf) para os clientes com baixo crédito."
 
-#: lib/admin.help.php:834
+#: lib/admin.help.php:178
 msgid "This section will allow you to create and edit campaigns. A campaign will be attached to a user in order to let him use the predictive dialler option. Predictive dialler will browse all the phone numbers from the campaign and perform outgoing calls."
 msgstr ""
 
-#: lib/admin.help.php:846
+#: lib/admin.help.php:180
 #, fuzzy
 msgid "This section will allow you to create and edit campaign configs."
 msgstr "Esta seção permitirá você criar e editar uma campanha. "
 
-#: lib/admin.help.php:858
+#: lib/admin.help.php:182
 #, fuzzy
 msgid "Phone Number - here you will find a list of all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."
 msgstr "Lista de telefone tem todos os números vinculados a esta campanha. Você pode adicionar, remover ou editar os números de telefone."
 
-#: lib/admin.help.php:871
+#: lib/admin.help.php:185
 msgid "A Phonebook is a set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebooks to a campaign in the Campaign section"
 msgstr ""
 
-#: lib/admin.help.php:883
+#: lib/admin.help.php:187
 msgid "This section will allow you to create and edit VOIP Providers for reporting purposes. "
 msgstr "Esta seção permitirá que você crie e edite Provedores VOIP para listar finalidades."
 
-#: lib/admin.help.php:884
+#: lib/admin.help.php:188
 msgid "A provider is the company/person that provides you with termination."
 msgstr "Um provedor é a companhia/pessoa que o fornece com uma terminação."
 
-#: lib/admin.help.php:896
+#: lib/admin.help.php:190
 msgid "This section will allow you to restore or download an existing database backup. The restore process will delete the existing database and import the new one. You can also upload a database backup that you previously downloaded (make sure to use the same file format)."
 msgstr ""
 
-#: lib/admin.help.php:908
+#: lib/admin.help.php:192
 #, fuzzy
 msgid "This section will allow you to backup an existing database context. The Backup process will export the whole database, so you can restore it later..."
 msgstr "Esta seção permitirá você fazer o backup do contexto de uma base de dados existente. "
 
-#: lib/admin.help.php:921
+#: lib/admin.help.php:194
 msgid "This section will allow you to define the E-Commerce Production Setting."
 msgstr "Esta seção permitirá você definir as Configurações de Produção do E-Commerce."
 
-#: lib/admin.help.php:922
+#: lib/admin.help.php:195
 #, fuzzy
 msgid "This will be used by E-Commerce API to find out how we want the new account to be created."
 msgstr "Isto será usado pela API de E-Commerce para descobrir como o novo cartão tem que ser criado."
 
-#: lib/admin.help.php:934
+#: lib/admin.help.php:197
 msgid "This section allows you to define the Speed dials for the customer. <br>"
 msgstr "Esta seção permite você definir a Discagem Rápida para os clientes. <br>"
 
-#: lib/admin.help.php:935
+#: lib/admin.help.php:198
 msgid "A Speed Dial will be entered on the IVR in order to make a shortcut to their preferred dialed phone number."
 msgstr "Uma Discagem Rápida será colocada na URA a fim fazer um atalho para seu número de telefone discado preferido."
 
-#: lib/admin.help.php:948
+#: lib/admin.help.php:200
 msgid "Prefix list with destinations."
 msgstr "Lista de prefixo com destinos."
 
-#: lib/admin.help.php:961
+#: lib/admin.help.php:202
 msgid "Prefixe can be assigned to a Ratecard"
 msgstr "O prefixo pode ser atribuído a um Ratecard"
 
-#: lib/admin.help.php:972
+#: lib/admin.help.php:204
 msgid "Utility to apply a scheduled monitor on trunks.<br>"
 msgstr "Utilitário para aplicar um monitor agendado nos troncos.<br>"
 
-#: lib/admin.help.php:973
+#: lib/admin.help.php:205
 msgid "For example if you want to monitor ASR (answer seize ratio) or ALOC (average length of call) everyday on each single trunk, it can be defined here, the different parameters below will define the rules to apply the alarm."
 msgstr "Por exemplo, se você quer monitorar  ASR (tentativas de chamadas) ou ALOC (tamanho médio da ligação) todos os dias em cada único tronco, isto pode definido aqui, os diferentes parâmetros abaixo definirão as regras para aplicar o alarme."
 
-#: lib/admin.help.php:985
+#: lib/admin.help.php:207
 msgid "Alarms that monitors trunks at timed intervals."
 msgstr "Alarmes que monitoram os troncos em intervalos programados."
 
-#: lib/admin.help.php:998
+#: lib/admin.help.php:210
 #, fuzzy
 msgid "Browse your server log files."
 msgstr "Navegar no arquivo de log"
 
-#: lib/admin.help.php:999
+#: lib/admin.help.php:211
 msgid "This tool can be used to extract and present information from various logfiles."
 msgstr ""
 
-#: lib/admin.help.php:1011
+#: lib/admin.help.php:213
 #, fuzzy
 msgid ""
 "Callback will offer you an easy way to connect any phone to our Asterisk platform.\n"
@@ -1209,83 +1169,83 @@ msgstr ""
 "O Callback oferecerá à você uma forma fácil de conectar qualquer telefone à sua plataforma Asterisk.\n"
 "Nós mantemos uma fila com todos os callbacks que precisam ser executados e você poderá ver aqui todos os callbacks executados ou pendentes e o status atual. Diferentes parâmetros determinam o calback, a maneira de alcançar o usuário, a hora que precisamos ligar para ele, o resultado das últimas tentativas, etc..."
 
-#: lib/admin.help.php:1024
+#: lib/admin.help.php:216
 msgid "PACKAGES SYSTEM - FREE MINUTES, etc..."
 msgstr "SISTEMA DE PACOTES - MINUTOS GRÁTIS, etc..."
 
-#: lib/admin.help.php:1036
+#: lib/admin.help.php:218
 #, fuzzy
 msgid "SUBSCRIPTION FEE - You can bill the user  in a monthly, weekly or any time period for being subscribed on your service. The fee amount is defined here and the period through the cront configuration."
 msgstr "TAXA DE ASSINATURA - Você pode faturar mensalmente, semanalmente ou a qualquer hora por estar assinando o seu serviço. A quantia da taxa é definida aqui e o período através da configuração do cront."
 
-#: lib/admin.help.php:1048
+#: lib/admin.help.php:220
 msgid "SUBSCRIBER - You can make customers subscribe for any subscription and for a certain time."
 msgstr ""
 
-#: lib/admin.help.php:1060
+#: lib/admin.help.php:222
 #, fuzzy
 msgid "Servers are used by the callback system through the asterisk manager in order to initiate the callback and outbound calls for your customers. You can add/modify the callback server to be used here. The AGI and callback modes need to be installed on those machines."
 msgstr "O servidor é usado pelo sistema de callback através do gerenciador do asterisk a fim iniciar o callback e a saída de uma ligação para seus clientes. Você pode adicionar/modificar o servidor de callback que está sendo usado aqui. O AGI e o callback necessitam serem instalados nessas máquinas."
 
-#: lib/admin.help.php:1072
+#: lib/admin.help.php:224
 #, fuzzy
 msgid "Server Groups define the set of servers that are going to be used by the callback system. A callback is bound to a server group which will be used to dispatch the callback requests."
 msgstr "O grupo de servidores define os servidores ue serão usados pelo sistema de callback. O callback é limitado a um grupo de servidores, esses servidores serão usados para despachar os pedidos de callback."
 
-#: lib/admin.help.php:1084
+#: lib/admin.help.php:226
 #, fuzzy
 msgid "You can view all the transactions through the different epayment configured systems (Paypal, MoneyBookers, etc...). "
 msgstr "Você pode ver todas as transações através dos diferentes sistemas de epayment configurados (Paypal, MoneyBookers, etc...). "
 
-#: lib/admin.help.php:1096
+#: lib/admin.help.php:228
 msgid "You can configure your epayment method here. It helps you to enable or disable the payment method. You can define the currency settings."
 msgstr "Você pode configurar seu método do epayment aqui. Isto ajuda você habilitar ou desabilitar o método de pagamento. Você pode definir as configurações da moeda."
 
-#: lib/admin.help.php:1107
+#: lib/admin.help.php:230
 msgid "Epayment methods help you to collect payments from your customers."
 msgstr "Os métodos de Epayment ajudam você a coletar pagamentos de seus clientes."
 
-#: lib/admin.help.php:1119
+#: lib/admin.help.php:232
 msgid "This action will generate agi-conf2 as a global configuration along with all list of configurations."
 msgstr ""
 
-#: lib/admin.help.php:1131
+#: lib/admin.help.php:234
 msgid "Here is a list of all configuration groups. You can pick one and see its members"
 msgstr ""
 
-#: lib/admin.help.php:1143
+#: lib/admin.help.php:236
 msgid "Here you can see and edit the different A2Billing settings."
 msgstr ""
 
-#: lib/admin.help.php:1155
+#: lib/admin.help.php:238
 msgid "Payment log with status, payment methods , owner and creation date."
 msgstr ""
 
-#: lib/admin.help.php:1167
+#: lib/admin.help.php:240
 msgid "Here you can email a message to all of your users. To do this, an email will be sent out to the administrative email address supplied, with a blind carbon copy sent to all recipients. If you are emailing a large group of people please be patient after submitting and do not stop the page halfway through. It is normal for a mass emailing to take a long time and you will be notified when the script has completed."
 msgstr ""
 
-#: lib/admin.help.php:1179
+#: lib/admin.help.php:242
 msgid "You can see here, all tickets created. You can also add a new ticket for one customer."
 msgstr ""
 
-#: lib/admin.help.php:1191
+#: lib/admin.help.php:244
 msgid "You can see here, all tickets created by Agents. You can also add a new ticket for one Agent."
 msgstr ""
 
-#: lib/admin.help.php:1203
+#: lib/admin.help.php:246
 msgid "Here you can see all components which you use to handle the support task. You can use components to categorise the subject of the ticket. i.e : Tarification, Payment"
 msgstr ""
 
-#: lib/admin.help.php:1215
+#: lib/admin.help.php:248
 msgid "You can see here the Support Box, you need at least one support box to start support activity."
 msgstr ""
 
-#: lib/admin.help.php:1227
+#: lib/admin.help.php:250
 msgid "Here you can archive the data. The Default listing will show you the previous 3 months data. But you can also search the data and archive it."
 msgstr ""
 
-#: lib/admin.help.php:1241
+#: lib/admin.help.php:252
 msgid "Agents - this shows a list of all of the Agents who have access to the Agent interface"
 msgstr ""
 
@@ -1319,13 +1279,9 @@ msgstr "FECHAR"
 msgid "INVALID"
 msgstr "VALOR MIN"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:136
-msgid "<br> TYPE DE SELECT :"
-msgstr "<br> TIPO DE SELEÇÃO :"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:199
-#: lib/Form/Class.FormHandler.EditForm.inc.php:392
-#: lib/Form/Class.FormHandler.EditForm.inc.php:792
+#: lib/Form/Class.FormHandler.EditForm.inc.php:197
+#: lib/Form/Class.FormHandler.EditForm.inc.php:390
+#: lib/Form/Class.FormHandler.EditForm.inc.php:790
 #: lib/Form/Class.FormHandler.DelForm.inc.php:155
 #: lib/Form/Class.FormHandler.AddForm.inc.php:140 Public/card-history.php:290
 #: Public/A2B_detail_package.php:519 Public/call-dnid.php:744
@@ -1333,18 +1289,18 @@ msgstr "<br> TIPO DE SELEÇÃO :"
 msgid "No data found !!!"
 msgstr "Dados não encontrados !!!"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:259
+#: lib/Form/Class.FormHandler.EditForm.inc.php:257
 msgid "LIST "
 msgstr "LISTAR "
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:344
-#: lib/Form/Class.FormHandler.EditForm.inc.php:512
-#: lib/Form/Class.FormHandler.EditForm.inc.php:641
+#: lib/Form/Class.FormHandler.EditForm.inc.php:342
+#: lib/Form/Class.FormHandler.EditForm.inc.php:510
+#: lib/Form/Class.FormHandler.EditForm.inc.php:639
 msgid "Add a new"
 msgstr "Adicionar um novo"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:433
-#: lib/Form/Class.FormHandler.EditForm.inc.php:570
+#: lib/Form/Class.FormHandler.EditForm.inc.php:431
+#: lib/Form/Class.FormHandler.EditForm.inc.php:568
 msgid "LIST"
 msgstr "LISTAR"
 
@@ -1496,9 +1452,9 @@ msgstr "Igual"
 #: lib/Form/Class.SearchHandler.inc.php:459
 #: lib/Form/Class.SearchHandler.inc.php:475
 #: lib/Form/Class.SearchHandler.inc.php:492 Public/A2B_entity_voucher.php:176
-#: Public/templates/default/main.tpl:306 Public/templates/default/main.tpl:409
-#: Public/templates/default/main.tpl:465 Public/templates/default/main.tpl:490
-#: Public/A2B_entity_card.php:259 Public/A2B_entity_card.php:319
+#: Public/templates/default/main.tpl:319 Public/templates/default/main.tpl:422
+#: Public/templates/default/main.tpl:478 Public/templates/default/main.tpl:503
+#: Public/A2B_entity_card.php:263 Public/A2B_entity_card.php:323
 #: Public/A2B_entity_def_ratecard.php:278
 #: Public/A2B_entity_def_ratecard.php:312
 msgid "Add"
@@ -1555,41 +1511,46 @@ msgstr "TAXA POR DESCONEXÃO"
 msgid " BATCH UPDATE RATECARD "
 msgstr " ATUALIZAR RATECARD EM LOTE "
 
-#: lib/Form/Class.FormHandler.inc.php:504
+#: lib/Form/Class.FormHandler.inc.php:505
 #, fuzzy
 msgid "No data found!"
 msgstr "Dados não encontrados !!!"
 
-#: lib/Form/Class.FormHandler.inc.php:505
+#: lib/Form/Class.FormHandler.inc.php:506
 msgid "DIRECTORY"
 msgstr "DIRETÓRIO"
 
-#: lib/Form/Class.FormHandler.inc.php:506
-#: lib/Form/Class.FormHandler.inc.php:568
+#: lib/Form/Class.FormHandler.inc.php:507
+msgid "list"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:508
+#: lib/Form/Class.FormHandler.inc.php:567
 msgid "Define criteria to make a precise search"
 msgstr "Defina o critério para uma pesquisa precisa"
 
-#: lib/Form/Class.FormHandler.inc.php:507
+#: lib/Form/Class.FormHandler.inc.php:509
 msgid "You can browse through our"
 msgstr "Você pode navegar através do nosso"
 
-#: lib/Form/Class.FormHandler.inc.php:507
-msgid "and modify their different properties<br>"
+#: lib/Form/Class.FormHandler.inc.php:509
+#, fuzzy
+msgid "and modify their different properties"
 msgstr "e modificar suas diferentes propriedades<br>"
 
-#: lib/Form/Class.FormHandler.inc.php:508
+#: lib/Form/Class.FormHandler.inc.php:510
 msgid "Delete this record"
 msgstr "Deletar este registro"
 
-#: lib/Form/Class.FormHandler.inc.php:509
+#: lib/Form/Class.FormHandler.inc.php:511
 msgid "Edit this record"
 msgstr "Editar este registro"
 
-#: lib/Form/Class.FormHandler.inc.php:510
+#: lib/Form/Class.FormHandler.inc.php:512
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
 msgstr "O documento foi criado corretamente. Agora, você pode definir as diferentes tarifas que você quer associar."
 
-#: lib/Form/Class.FormHandler.inc.php:511
+#: lib/Form/Class.FormHandler.inc.php:513
 #: Public/form_data/FG_var_provider.inc:72
 #: Public/form_data/FG_var_campaign.inc:285
 #: Public/form_data/FG_var_phonenumber.inc:112
@@ -1612,12 +1573,12 @@ msgstr "O documento foi criado corretamente. Agora, você pode definir as difere
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Você pode modificar, através do seguinte formulário, as diferentes propriedades do seu"
 
-#: lib/Form/Class.FormHandler.inc.php:512
+#: lib/Form/Class.FormHandler.inc.php:514
 #: Public/form_data/FG_var_provider.inc:73
 #: Public/form_data/FG_var_campaign.inc:286
 #: Public/form_data/FG_var_phonenumber.inc:113
 #: Public/form_data/FG_var_package_group.inc:81
-#: Public/form_data/FG_var_user.inc:264
+#: Public/form_data/FG_var_user.inc:265
 #: Public/form_data/FG_var_tariffplan.inc:133
 #: Public/form_data/FG_var_moneysituation.inc:44
 #: Public/form_data/FG_var_callerid.inc:83
@@ -1661,24 +1622,24 @@ msgstr "Você pode modificar, através do seguinte formulário, as diferentes pr
 msgid "If you really want remove this"
 msgstr "Se você quer realmente remover isto"
 
-#: lib/Form/Class.FormHandler.inc.php:512
+#: lib/Form/Class.FormHandler.inc.php:514
 msgid "Click on the delete button."
 msgstr "Clique no botão delete."
 
-#: lib/Form/Class.FormHandler.inc.php:513
+#: lib/Form/Class.FormHandler.inc.php:515
 msgid "One"
 msgstr "Um"
 
-#: lib/Form/Class.FormHandler.inc.php:513
+#: lib/Form/Class.FormHandler.inc.php:515
 msgid "has been deleted!"
 msgstr "foi deletado!"
 
-#: lib/Form/Class.FormHandler.inc.php:515
+#: lib/Form/Class.FormHandler.inc.php:517
 #: Public/form_data/FG_var_provider.inc:74
 #: Public/form_data/FG_var_campaign.inc:287
 #: Public/form_data/FG_var_phonenumber.inc:114
 #: Public/form_data/FG_var_package_group.inc:82
-#: Public/form_data/FG_var_user.inc:265
+#: Public/form_data/FG_var_user.inc:266
 #: Public/form_data/FG_var_tariffplan.inc:134
 #: Public/form_data/FG_var_moneysituation.inc:45
 #: Public/form_data/FG_var_callerid.inc:84
@@ -1720,12 +1681,12 @@ msgstr "foi deletado!"
 msgid "you can add easily a new"
 msgstr "você pode facilmente adicionar um novo"
 
-#: lib/Form/Class.FormHandler.inc.php:515
+#: lib/Form/Class.FormHandler.inc.php:517
 #: Public/form_data/FG_var_provider.inc:74
 #: Public/form_data/FG_var_campaign.inc:287
 #: Public/form_data/FG_var_phonenumber.inc:114
 #: Public/form_data/FG_var_package_group.inc:82
-#: Public/form_data/FG_var_user.inc:265
+#: Public/form_data/FG_var_user.inc:266
 #: Public/form_data/FG_var_tariffplan.inc:134
 #: Public/form_data/FG_var_moneysituation.inc:45
 #: Public/form_data/FG_var_callerid.inc:84
@@ -1734,7 +1695,7 @@ msgstr "você pode facilmente adicionar um novo"
 #: Public/form_data/FG_var_package.inc:125
 #: Public/form_data/FG_var_tariffgroup.inc:146
 #: Public/form_data/FG_var_mailtemplate.inc:125
-#: Public/form_data/FG_var_alarm.inc:150
+#: Public/form_data/FG_var_call.inc:103 Public/form_data/FG_var_alarm.inc:150
 #: Public/form_data/FG_var_charge.inc:160
 #: Public/form_data/FG_var_trunk.inc:208
 #: Public/form_data/FG_var_speeddial.inc:104
@@ -1767,27 +1728,27 @@ msgstr "você pode facilmente adicionar um novo"
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Preencha os seguintes campos e confirme clicando no botão adicionar."
 
-#: lib/Form/Class.FormHandler.inc.php:516
+#: lib/Form/Class.FormHandler.inc.php:518
 #: Public/form_data/FG_var_currencies.inc:45
 #: Public/form_data/FG_var_restore.inc:77
 #: Public/form_data/FG_var_service_details.inc:42
 msgid "Add a"
 msgstr "Adicionar um"
 
-#: lib/Form/Class.FormHandler.inc.php:516
+#: lib/Form/Class.FormHandler.inc.php:518
 #: Public/form_data/FG_var_currencies.inc:45
 #: Public/form_data/FG_var_restore.inc:77
 #: Public/form_data/FG_var_service_details.inc:42
 msgid "now."
 msgstr "agora."
 
-#: lib/Form/Class.FormHandler.inc.php:517
-#: lib/Form/Class.FormHandler.inc.php:518
+#: lib/Form/Class.FormHandler.inc.php:519
+#: lib/Form/Class.FormHandler.inc.php:520
 #: Public/form_data/FG_var_provider.inc:77
 #: Public/form_data/FG_var_campaign.inc:291
 #: Public/form_data/FG_var_phonenumber.inc:118
 #: Public/form_data/FG_var_package_group.inc:86
-#: Public/form_data/FG_var_user.inc:269
+#: Public/form_data/FG_var_user.inc:270
 #: Public/form_data/FG_var_tariffplan.inc:137
 #: Public/form_data/FG_var_callerid.inc:97
 #: Public/form_data/FG_var_outbound_cid.php:89
@@ -1795,7 +1756,7 @@ msgstr "agora."
 #: Public/form_data/FG_var_package.inc:128
 #: Public/form_data/FG_var_tariffgroup.inc:151
 #: Public/form_data/FG_var_mailtemplate.inc:129
-#: Public/form_data/FG_var_alarm.inc:154
+#: Public/form_data/FG_var_call.inc:111 Public/form_data/FG_var_alarm.inc:154
 #: Public/form_data/FG_var_charge.inc:164
 #: Public/form_data/FG_var_trunk.inc:211
 #: Public/form_data/FG_var_didgroup.inc:66
@@ -1829,279 +1790,270 @@ msgstr "agora."
 msgid "Your new"
 msgstr "Seu novo"
 
-#: lib/Form/Class.FormHandler.inc.php:517
-#: Public/form_data/FG_var_outbound_cid.php:89
-#: Public/form_data/FG_var_alarm.inc:154 Public/form_data/FG_var_did.inc:169
-#: Public/form_data/FG_var_config_group.inc:41
-#: Public/form_data/FG_var_friend.inc:500
-#: Public/form_data/FG_var_did_destination.inc:148
-msgid "has been inserted. <br>"
-msgstr "foi inserido. <br>"
-
-#: lib/Form/Class.FormHandler.inc.php:518
-#, fuzzy
-msgid "hasn't been inserted. <br>"
-msgstr "foi inserido. <br>"
-
 #: lib/Form/Class.FormHandler.inc.php:519
+#, fuzzy
+msgid "has been inserted.<br>"
+msgstr "foi inserido. <br>"
+
+#: lib/Form/Class.FormHandler.inc.php:520
+#, fuzzy
+msgid "hasn't been inserted."
+msgstr "foi inserido."
+
+#: lib/Form/Class.FormHandler.inc.php:521
 msgid "You cannot choose more than one !"
 msgstr "Você não pode escolher mais que um !"
 
-#: lib/Form/Class.FormHandler.inc.php:521
+#: lib/Form/Class.FormHandler.inc.php:523
 msgid "Are you sure to delete all records connected to this instance."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:523
 #: lib/Form/Class.FormHandler.inc.php:525
+#: lib/Form/Class.FormHandler.inc.php:527
 msgid "CONFIRM DATA"
 msgstr "CONFIRMAR DADOS"
 
-#: lib/Form/Class.FormHandler.inc.php:524
+#: lib/Form/Class.FormHandler.inc.php:526
 #, fuzzy
 msgid "DELETE"
 msgstr "DATA"
 
-#: lib/Form/Class.FormHandler.inc.php:557
-#: lib/Form/Class.FormHandler.inc.php:745
+#: lib/Form/Class.FormHandler.inc.php:556
+#: lib/Form/Class.FormHandler.inc.php:744
 msgid "Delete this "
 msgstr "Deletar este "
 
-#: lib/Form/Class.FormHandler.inc.php:558
-#: lib/Form/Class.FormHandler.inc.php:739
+#: lib/Form/Class.FormHandler.inc.php:557
+#: lib/Form/Class.FormHandler.inc.php:738
 msgid "Edit this "
 msgstr "Editar este "
 
-#: lib/Form/Class.FormHandler.inc.php:585
+#: lib/Form/Class.FormHandler.inc.php:584
 msgid "INSERTED"
 msgstr "INSERIDO"
 
-#: lib/Form/Class.FormHandler.inc.php:586
+#: lib/Form/Class.FormHandler.inc.php:585
 msgid "ENABLE"
 msgstr "HABILITAR"
 
-#: lib/Form/Class.FormHandler.inc.php:587
+#: lib/Form/Class.FormHandler.inc.php:586
 msgid "DISABLE"
 msgstr "DESABILITAR"
 
-#: lib/Form/Class.FormHandler.inc.php:588
+#: lib/Form/Class.FormHandler.inc.php:587
 #: Public/form_data/FG_var_package.inc:32
 msgid "FREE"
 msgstr "GRÁTIS"
 
-#: lib/Form/Class.FormHandler.inc.php:714
-#: lib/Form/Class.FormHandler.inc.php:716
+#: lib/Form/Class.FormHandler.inc.php:713
+#: lib/Form/Class.FormHandler.inc.php:715
 msgid "You can browse through our "
 msgstr "Você pode navegar através do nosso "
 
-#: lib/Form/Class.FormHandler.inc.php:714
-#: lib/Form/Class.FormHandler.inc.php:716
+#: lib/Form/Class.FormHandler.inc.php:713
+#: lib/Form/Class.FormHandler.inc.php:715
 msgid " and modify their different properties<br>"
 msgstr " e modificar suas diferentes propriedades<br>"
 
-#: lib/Form/Class.FormHandler.inc.php:887
+#: lib/Form/Class.FormHandler.inc.php:886
 msgid "(at least 3 characters)"
 msgstr "(pelo menos 3 caracteres)"
 
-#: lib/Form/Class.FormHandler.inc.php:891
+#: lib/Form/Class.FormHandler.inc.php:890
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr "(deve conter a estrutura de email. Exemplo: nome@domínio.com)"
 
-#: lib/Form/Class.FormHandler.inc.php:895
+#: lib/Form/Class.FormHandler.inc.php:894
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr "(pelo menos 5 caracteres sucessivos aparecem no fim desta string)"
 
-#: lib/Form/Class.FormHandler.inc.php:899
+#: lib/Form/Class.FormHandler.inc.php:898
 msgid "(at least 4 characters)"
 msgstr "(pelo menos 4 caracteres)"
 
-#: lib/Form/Class.FormHandler.inc.php:903
+#: lib/Form/Class.FormHandler.inc.php:902
 msgid "(number format)"
 msgstr "(formato de número)"
 
-#: lib/Form/Class.FormHandler.inc.php:911
+#: lib/Form/Class.FormHandler.inc.php:910
 msgid "(only number with more that 8 digits)"
 msgstr "(somente números com mais de 8 dígitos)"
 
-#: lib/Form/Class.FormHandler.inc.php:915
+#: lib/Form/Class.FormHandler.inc.php:914
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr "(pelo menos 8 dígitos usando . ou - ou tecla de espaço)"
 
-#: lib/Form/Class.FormHandler.inc.php:919
+#: lib/Form/Class.FormHandler.inc.php:918
 msgid "network adress format"
 msgstr "formato de endereço de rede"
 
-#: lib/Form/Class.FormHandler.inc.php:923
+#: lib/Form/Class.FormHandler.inc.php:922
 msgid "at least 1 character"
 msgstr "(pelo menos 1 caracter)"
 
-#: lib/Form/Class.FormHandler.inc.php:931
+#: lib/Form/Class.FormHandler.inc.php:930
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(PELO MENOS 2 CARACTERES)"
 
-#: lib/Form/Class.FormHandler.inc.php:935
+#: lib/Form/Class.FormHandler.inc.php:934
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr "(FORMATO DE NÚMERO COM/SEM CASA DECIMAL, use '.' para casa decimal)"
 
-#: lib/Form/Class.FormHandler.inc.php:951
+#: lib/Form/Class.FormHandler.inc.php:950
 msgid "You must write something."
 msgstr "Você deve escrever alguma coisa."
 
-#: lib/Form/Class.FormHandler.inc.php:955
+#: lib/Form/Class.FormHandler.inc.php:954
 msgid "8 characters alphanumeric"
 msgstr "8 caracteres alfanuméricos"
 
-#: lib/Form/Class.FormHandler.inc.php:962
+#: lib/Form/Class.FormHandler.inc.php:961
 msgid "(at least 6 Alphanumeric characters)"
 msgstr "(pelo menos 6 caracteres alfanuméricos)"
 
-#: lib/Form/Class.FormHandler.inc.php:970
+#: lib/Form/Class.FormHandler.inc.php:969
 #, fuzzy, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 msgstr "(FORMATO DE NÚMERO COM/SEM CASA DECIMAL, use '.' para casa decimal)"
 
-#: lib/Form/Class.FormHandler.inc.php:1473
+#: lib/Form/Class.FormHandler.inc.php:1472
 msgid "This did is in use by customer id:"
 msgstr "Este did esta em uso pelo cliente id número:"
 
-#: lib/Form/Class.FormHandler.inc.php:1589
+#: lib/Form/Class.FormHandler.inc.php:1590
 #, fuzzy
 msgid "CREATION CARD REFILL"
 msgstr "DATA DE CRIAÇÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:1615
+#: lib/Form/Class.FormHandler.inc.php:1616
 #, fuzzy
 msgid "DELETION CARD REFILL"
 msgstr "TOTAL DE REENCHIMENTO"
 
-#: lib/Form/Class.FormHandler.inc.php:1631
+#: lib/Form/Class.FormHandler.inc.php:1632
 #, fuzzy
 msgid "CREATION AGENT REFILL"
 msgstr "DATA DE CRIAÇÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:1699
+#: lib/Form/Class.FormHandler.inc.php:1700
 #, fuzzy
 msgid "SUMMARY OF CALLS"
 msgstr "NÚMERO DE FALHA DE LIGAÇÕES"
 
-#: lib/Form/Class.FormHandler.inc.php:1700
+#: lib/Form/Class.FormHandler.inc.php:1701
 msgid "Summary of the calls charged since the last billing"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1718
+#: lib/Form/Class.FormHandler.inc.php:1719
 msgid "SUMMARY OF CHARGE"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1720
+#: lib/Form/Class.FormHandler.inc.php:1721
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1726
-#: lib/Form/Class.FormHandler.inc.php:1751
+#: lib/Form/Class.FormHandler.inc.php:1727
+#: lib/Form/Class.FormHandler.inc.php:1752
 #, fuzzy
 msgid "CHARGE :"
 msgstr "TAXA A"
 
-#: lib/Form/Class.FormHandler.inc.php:1743
+#: lib/Form/Class.FormHandler.inc.php:1744
 #, fuzzy
 msgid "BILLING CHARGES"
 msgstr "TEMPO PARA TARIFAÇÃO A"
 
-#: lib/Form/Class.FormHandler.inc.php:1744
+#: lib/Form/Class.FormHandler.inc.php:1745
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1769
+#: lib/Form/Class.FormHandler.inc.php:1770
 #, fuzzy
 msgid "BILLING POSTPAID"
 msgstr "TIPO DE TARIFAÇÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:1770
+#: lib/Form/Class.FormHandler.inc.php:1771
 msgid "Invoice for POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1806
-#: lib/Form/Class.FormHandler.inc.php:1808
-#: lib/Form/Class.FormHandler.inc.php:1904
-#: lib/Form/Class.FormHandler.inc.php:1906
+#: lib/Form/Class.FormHandler.inc.php:1807
+#: lib/Form/Class.FormHandler.inc.php:1809
+#: lib/Form/Class.FormHandler.inc.php:1905
+#: lib/Form/Class.FormHandler.inc.php:1907
 #: Public/form_data/FG_var_payment.inc:24
 #: Public/form_data/FG_var_card_money.inc:30
 #: Public/form_data/FG_var_card_money.inc:35
 msgid "REFILL"
 msgstr "REENCHER"
 
-#: lib/Form/Class.FormHandler.inc.php:1810
-#: lib/Form/Class.FormHandler.inc.php:1908
+#: lib/Form/Class.FormHandler.inc.php:1811
+#: lib/Form/Class.FormHandler.inc.php:1909
 #, fuzzy
 msgid "Invoice for refill"
 msgstr "Detalhes da Fatura"
 
-#: lib/Form/Class.FormHandler.inc.php:1946
+#: lib/Form/Class.FormHandler.inc.php:1948
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2059
-#: lib/Form/Class.FormHandler.inc.php:2102
+#: lib/Form/Class.FormHandler.inc.php:2061
+#: lib/Form/Class.FormHandler.inc.php:2104
 #: Public/A2B_entity_card_multi.php:121 Public/A2B_entity_card_multi.php:163
 msgid "Could not open buddy file"
 msgstr "Não foi possível abrir o arquivo de contatos"
 
-#: lib/Form/Class.FormHandler.inc.php:2076
-#: lib/Form/Class.FormHandler.inc.php:2107
-#: lib/Form/Class.FormHandler.inc.php:2119
+#: lib/Form/Class.FormHandler.inc.php:2078
+#: lib/Form/Class.FormHandler.inc.php:2109
+#: lib/Form/Class.FormHandler.inc.php:2121
 #: Public/A2B_entity_card_multi.php:140 Public/A2B_entity_card_multi.php:182
 #: Public/CC_generate_friend_file.php:84 Public/CC_generate_friend_file.php:97
 msgid "Impossible to write to the file"
 msgstr "Impossível escrever no arquivo"
 
-#: lib/Form/Class.FormHandler.inc.php:2254
-#: lib/Form/Class.FormHandler.inc.php:2299
-msgid "<br> GOTO ; "
-msgstr "<br> IR PARA ; "
-
-#: lib/Form/Class.FormHandler.inc.php:2294
+#: lib/Form/Class.FormHandler.inc.php:2296
 msgid "error deletion"
 msgstr "erro ao deletar"
 
-#: lib/Form/Class.FormHandler.inc.php:2429
+#: lib/Form/Class.FormHandler.inc.php:2431
 msgid "ERROR_DUPLICATION"
 msgstr "ERRO_NA_DUPLICAÇÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:2514
+#: lib/Form/Class.FormHandler.inc.php:2516
 msgid "Done"
 msgstr "Feito"
 
-#: lib/Form/Class.FormHandler.inc.php:2554
-#: Public/templates/default/main.tpl:221 Public/form_data/FG_var_card.inc:108
+#: lib/Form/Class.FormHandler.inc.php:2556
+#: Public/templates/default/main.tpl:234 Public/form_data/FG_var_card.inc:108
 msgid "Call Plan"
 msgstr "Plano de Ligações"
 
-#: lib/Form/Class.FormHandler.inc.php:2560
+#: lib/Form/Class.FormHandler.inc.php:2562
 #, fuzzy
 msgid "Choose a call plan"
 msgstr "Escolha a campanha"
 
-#: lib/Form/Class.FormHandler.inc.php:2572
+#: lib/Form/Class.FormHandler.inc.php:2574
 msgid "This option will enable LCR/LCD - This query is processor intensive and may affect the quality of calls in progress."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2581
-#: lib/Form/Class.FormHandler.inc.php:2638
+#: lib/Form/Class.FormHandler.inc.php:2583
+#: lib/Form/Class.FormHandler.inc.php:2640
 #, fuzzy
 msgid "Rate Card"
 msgstr "Listar RateCard"
 
-#: lib/Form/Class.FormHandler.inc.php:2587
-#: lib/Form/Class.FormHandler.inc.php:2644
-#: lib/Form/Class.FormHandler.inc.php:2704 Public/CC_ratecard_import.php:196
+#: lib/Form/Class.FormHandler.inc.php:2589
+#: lib/Form/Class.FormHandler.inc.php:2646
+#: lib/Form/Class.FormHandler.inc.php:2706 Public/CC_ratecard_import.php:196
 msgid "Choose a ratecard"
 msgstr "Escolha um ratecard"
 
-#: lib/Form/Class.FormHandler.inc.php:2687
+#: lib/Form/Class.FormHandler.inc.php:2689
 #: Public/form_data/FG_var_def_ratecard.inc:30
 msgid "THE CURRENT RATECARD"
 msgstr "O ATUAL RATECARD"
 
-#: lib/Form/Class.FormHandler.inc.php:2698
+#: lib/Form/Class.FormHandler.inc.php:2700
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
@@ -2144,7 +2096,7 @@ msgstr "Insira o ID do Cliente"
 #: Public/call-dnid.php:362 Public/call-dnid.php:834
 #: Public/call-count-reporting.php:185 Public/call-daily-load.php:336
 #: Public/A2B_notification.php:98 Public/form_data/FG_var_phonenumber.inc:27
-#: Public/form_data/FG_var_user.inc:69 Public/form_data/FG_var_receipt.inc:52
+#: Public/form_data/FG_var_user.inc:70 Public/form_data/FG_var_receipt.inc:52
 #: Public/form_data/FG_var_invoice.inc:59
 #: Public/form_data/FG_var_charge.inc:45
 #: Public/form_data/FG_var_speeddial.inc:23
@@ -2308,10 +2260,11 @@ msgid "Announce correction "
 msgstr ""
 
 #: Public/A2B_entity_card_multi.php:249
-msgid "Length of card number:"
+#, fuzzy
+msgid "Length of card number :"
 msgstr "Tamanho do número do cartão:"
 
-#: Public/A2B_entity_card_multi.php:256 Public/A2B_entity_card.php:488
+#: Public/A2B_entity_card_multi.php:256 Public/A2B_entity_card.php:492
 msgid "Digits"
 msgstr "Dígitos"
 
@@ -2382,7 +2335,7 @@ msgstr "Quantidade inicial de crédito"
 msgid "Simultaneous access"
 msgstr "Acessos simultâneos"
 
-#: Public/A2B_entity_card_multi.php:301 Public/A2B_entity_card.php:287
+#: Public/A2B_entity_card_multi.php:301 Public/A2B_entity_card.php:291
 msgid "Currency"
 msgstr "Moeda"
 
@@ -2391,7 +2344,7 @@ msgid "Card type"
 msgstr "Tipo do cartão"
 
 #: Public/A2B_entity_card_multi.php:313 Public/A2B_data_archiving.php:83
-#: Public/A2B_entity_card.php:305
+#: Public/A2B_entity_card.php:309
 msgid "POSTPAY CARD"
 msgstr "CARTÃO PÓS-PAGO"
 
@@ -2399,7 +2352,7 @@ msgstr "CARTÃO PÓS-PAGO"
 msgid "Credit Limit of postpay"
 msgstr "Limite de crédito do pós-pago"
 
-#: Public/A2B_entity_card_multi.php:322 Public/A2B_entity_card.php:329
+#: Public/A2B_entity_card_multi.php:322 Public/A2B_entity_card.php:333
 msgid "Enable expire"
 msgstr "Habilitar expiração"
 
@@ -2407,7 +2360,7 @@ msgstr "Habilitar expiração"
 msgid "Expiry Date"
 msgstr "Data da expiração"
 
-#: Public/A2B_entity_card_multi.php:339 Public/A2B_entity_card.php:351
+#: Public/A2B_entity_card_multi.php:339 Public/A2B_entity_card.php:355
 msgid "(Format YYYY-MM-DD HH:MM:SS)"
 msgstr "(Formato YYYY-MM-DD HH:MM:SS)"
 
@@ -2415,7 +2368,7 @@ msgstr "(Formato YYYY-MM-DD HH:MM:SS)"
 msgid "Expiry days"
 msgstr "Expirar em X dias"
 
-#: Public/A2B_entity_card_multi.php:347 Public/A2B_entity_card.php:369
+#: Public/A2B_entity_card_multi.php:347 Public/A2B_entity_card.php:373
 msgid "Run service"
 msgstr "Executar serviço"
 
@@ -2451,9 +2404,19 @@ msgstr "Clientes"
 msgid "Choose a group"
 msgstr "Escolha o Grupo de DID"
 
-#: Public/A2B_entity_card_multi.php:380
+#: Public/A2B_entity_card_multi.php:370
 #, fuzzy
-msgid "Choose a Seria"
+msgid "Discount"
+msgstr "país"
+
+#: Public/A2B_entity_card_multi.php:379
+#, fuzzy
+msgid "Serie"
+msgstr "Adicionar Servidor"
+
+#: Public/A2B_entity_card_multi.php:381
+#, fuzzy
+msgid "Choose a Serie"
 msgstr "Escolha uma tarifa"
 
 #: Public/A2B_entity_voucher_multi.php:79
@@ -2527,7 +2490,7 @@ msgstr "Esqueceu a senha"
 msgid "System is failed to update your password."
 msgstr ""
 
-#: Public/A2B_entity_password.php:105 Public/templates/default/main.tpl:594
+#: Public/A2B_entity_password.php:105 Public/templates/default/main.tpl:609
 #, fuzzy
 msgid "Change Password"
 msgstr "Esqueceu a senha"
@@ -2556,9 +2519,9 @@ msgid "REFILL INFO"
 msgstr "REENCHER"
 
 #: Public/A2B_refill_info.php:44 Public/A2B_data_archiving.php:141
-#: Public/A2B_mass_mail.php:47 Public/A2B_card_info.php:65
+#: Public/A2B_mass_mail.php:47 Public/A2B_card_info.php:70
 #: Public/A2B_payment_info.php:44 Public/form_data/FG_var_campaign.inc:40
-#: Public/form_data/FG_var_callerid.inc:18
+#: Public/form_data/FG_var_callerid.inc:18 Public/form_data/FG_var_call.inc:11
 #: Public/form_data/FG_var_charge.inc:44
 #: Public/form_data/FG_var_speeddial.inc:24
 #: Public/form_data/FG_var_voucher.inc:74
@@ -2569,7 +2532,7 @@ msgstr "REENCHER"
 msgid "ACCOUNT NUMBER"
 msgstr "NÚMERO DO CC"
 
-#: Public/A2B_refill_info.php:66 Public/A2B_card_info.php:115
+#: Public/A2B_refill_info.php:66 Public/A2B_card_info.php:120
 #: Public/A2B_payment_info.php:66 Public/A2B_log_activity_info.php:100
 #: Public/form_data/FG_var_alarm.inc:43
 #: Public/form_data/FG_var_didgroup.inc:31
@@ -2630,7 +2593,7 @@ msgid "TAG"
 msgstr "IDENTIFICAÇÃO"
 
 #: Public/CC_ratecard_merging.php:108 Public/A2B_call_archiving.php:346
-#: Public/A2B_card_info.php:551 Public/form_data/FG_var_prefix.inc:63
+#: Public/A2B_card_info.php:556 Public/form_data/FG_var_prefix.inc:63
 #: Public/form_data/FG_var_def_ratecard.inc:85
 #: Public/form_data/FG_var_def_ratecard.inc:143
 #: Public/form_data/FG_var_did_destination.inc:29
@@ -2811,6 +2774,11 @@ msgstr ""
 msgid "Selected Fields..."
 msgstr "Campos selecionados..."
 
+#: Public/A2B_data_archiving.php:73
+#, fuzzy
+msgid "<acronym title=\"CANCELLED\">"
+msgstr "<acronym title=\"ATIVADO\">"
+
 #: Public/A2B_data_archiving.php:74
 #, fuzzy
 msgid "ACTIV"
@@ -2821,14 +2789,34 @@ msgstr "ATIVADO"
 msgid "<acronym title=\"ACTIVE\">"
 msgstr "<acronym title=\"ATIVADO\">"
 
+#: Public/A2B_data_archiving.php:75
+#, fuzzy
+msgid "<acronym title=\"NEW\">"
+msgstr "<acronym title=\"ATIVADO\">"
+
 #: Public/A2B_data_archiving.php:76
 msgid "WAIT"
 msgstr ""
+
+#: Public/A2B_data_archiving.php:76
+#, fuzzy
+msgid "<acronym title=\"WAITING-MAILCONFIRMATION\">"
+msgstr "<acronym title=\"ATIVADO\">"
+
+#: Public/A2B_data_archiving.php:77
+#, fuzzy
+msgid "<acronym title=\"RESERVED\">"
+msgstr "<acronym title=\"ATIVADO\">"
 
 #: Public/A2B_data_archiving.php:78
 #, fuzzy
 msgid "EXPIR"
 msgstr "NÃO EXPIRAR"
+
+#: Public/A2B_data_archiving.php:78
+#, fuzzy
+msgid "<acronym title=\"EXPIRED\">"
+msgstr "<acronym title=\"ATIVADO\">"
 
 #: Public/A2B_data_archiving.php:93
 msgid "On"
@@ -2839,7 +2827,7 @@ msgid "Off"
 msgstr "Desligado"
 
 #: Public/A2B_data_archiving.php:107 Public/A2B_call_archiving.php:38
-#: Public/A2B_card_info.php:411 Public/A2B_card_info.php:481
+#: Public/A2B_card_info.php:416 Public/A2B_card_info.php:486
 #: Public/A2B_log_activity_info.php:44 Public/form_data/FG_var_provider.inc:17
 #: Public/form_data/FG_var_commission.inc:16
 #: Public/form_data/FG_var_tariffplan.inc:27
@@ -2848,7 +2836,7 @@ msgstr "Desligado"
 #: Public/form_data/FG_var_support_component.inc:34
 #: Public/form_data/FG_var_invoice.inc:56
 #: Public/form_data/FG_var_tariffgroup.inc:37
-#: Public/form_data/FG_var_trunk.inc:40
+#: Public/form_data/FG_var_call.inc:9 Public/form_data/FG_var_trunk.inc:40
 #: Public/form_data/FG_var_didgroup.inc:29
 #: Public/form_data/FG_var_transactions.inc:12
 #: Public/form_data/FG_var_card_seria.inc:29
@@ -2868,7 +2856,7 @@ msgstr "Desligado"
 msgid "ID"
 msgstr "ID"
 
-#: Public/A2B_data_archiving.php:109 Public/A2B_card_info.php:281
+#: Public/A2B_data_archiving.php:109 Public/A2B_card_info.php:286
 #: Public/form_data/FG_var_card.inc:102 Public/form_data/FG_var_card.inc:322
 msgid "BALANCE"
 msgstr "SALDO"
@@ -2885,7 +2873,7 @@ msgid "LASTNAME"
 msgstr "SOBRENOME"
 
 #: Public/A2B_data_archiving.php:111 Public/A2B_entity_paymentlog.php:184
-#: Public/A2B_card_info.php:55 Public/A2B_card_info.php:105
+#: Public/A2B_card_info.php:60 Public/A2B_card_info.php:110
 #: Public/A2B_entity_phonenumber.php:93
 #: Public/form_data/FG_var_campaign.inc:41
 #: Public/form_data/FG_var_phonenumber.inc:28
@@ -2916,7 +2904,7 @@ msgstr "USO"
 
 #: Public/A2B_data_archiving.php:114 Public/A2B_call_archiving.php:400
 #: Public/A2B_entity_voucher.php:186 Public/call-dnid.php:583
-#: Public/A2B_card_info.php:289 Public/call-count-reporting.php:310
+#: Public/A2B_card_info.php:294 Public/call-count-reporting.php:310
 #: Public/form_data/FG_var_charge.inc:113
 #: Public/form_data/FG_var_transactions.inc:22
 #: Public/form_data/FG_var_subscription.inc:80
@@ -2956,7 +2944,7 @@ msgstr "Defina o critério para pesquisa"
 msgid "Creation date"
 msgstr "data de criação"
 
-#: Public/A2B_data_archiving.php:133 Public/A2B_card_info.php:131
+#: Public/A2B_data_archiving.php:133 Public/A2B_card_info.php:136
 #: Public/form_data/FG_var_card.inc:646
 msgid "FIRST USE DATE"
 msgstr "DATA DO PRIMEIRO USO"
@@ -2966,7 +2954,7 @@ msgid "Select customer created more than"
 msgstr ""
 
 #: Public/A2B_data_archiving.php:143 Public/A2B_mass_mail.php:49
-#: Public/form_data/FG_var_user.inc:70 Public/form_data/FG_var_user.inc:99
+#: Public/form_data/FG_var_user.inc:71 Public/form_data/FG_var_user.inc:100
 #: Public/form_data/FG_var_log_viewer.inc:57
 #: Public/form_data/FG_var_card.inc:98 Public/form_data/FG_var_card.inc:201
 msgid "LOGIN"
@@ -2978,8 +2966,8 @@ msgid "MACADDRESS"
 msgstr "ENDEREÇO MAC"
 
 #: Public/A2B_data_archiving.php:145 Public/A2B_mass_mail.php:51
-#: Public/A2B_mass_mail.php:244 Public/A2B_card_info.php:238
-#: Public/form_data/FG_var_user.inc:182 Public/form_data/FG_var_card.inc:118
+#: Public/A2B_mass_mail.php:244 Public/A2B_card_info.php:243
+#: Public/form_data/FG_var_user.inc:183 Public/form_data/FG_var_card.inc:118
 #: Public/form_data/FG_var_card.inc:199 Public/form_data/FG_var_card.inc:372
 msgid "EMAIL"
 msgstr "EMAIL"
@@ -3039,7 +3027,7 @@ msgid "SELECT CURRENCY"
 msgstr "SELECIONE A MOEDA"
 
 #: Public/A2B_data_archiving.php:188 Public/A2B_mass_mail.php:149
-#: Public/A2B_entity_card.php:149
+#: Public/A2B_entity_card.php:153
 #, fuzzy
 msgid "SEARCH CUSTOMERS"
 msgstr "CLIENTES"
@@ -3202,7 +3190,7 @@ msgstr "Linha que não foi inserida!"
 #: Public/A2B_entity_log_viewer.php:52 Public/call-last-month.php:177
 #: Public/A2B_call_archiving.php:173 Public/A2B_detail_package.php:226
 #: Public/call-dnid.php:312 Public/A2B_entity_statuslog.php:48
-#: Public/call-daily-load.php:176 Public/templates/default/main.tpl:74
+#: Public/call-daily-load.php:176 Public/templates/default/main.tpl:87
 #: Public/form_data/FG_var_user.inc:42 Public/call-comp.php:191
 msgid "CUSTOMERS"
 msgstr "CLIENTES"
@@ -3491,7 +3479,7 @@ msgstr "NúmeroChamado"
 
 #: Public/call-last-month.php:41 Public/A2B_call_archiving.php:41
 #: Public/call-count-reporting.php:46 Public/call-daily-load.php:37
-#: Public/templates/default/main.tpl:277 Public/graph_stat.php:24
+#: Public/templates/default/main.tpl:290 Public/graph_stat.php:24
 #: Public/graph_statbar.php:25 Public/form_data/FG_var_prefix.inc:20
 #: Public/call-comp.php:41
 msgid "Destination"
@@ -3500,7 +3488,8 @@ msgstr "Destino"
 #: Public/call-last-month.php:42 Public/A2B_call_archiving.php:42
 #: Public/call-dnid.php:79 Public/call-count-reporting.php:57
 #: Public/call-daily-load.php:38 Public/graph_stat.php:25
-#: Public/graph_statbar.php:26 Public/call-comp.php:42
+#: Public/graph_statbar.php:26 Public/form_data/FG_var_call.inc:76
+#: Public/call-comp.php:42
 msgid "Duration"
 msgstr "Duração"
 
@@ -3547,7 +3536,7 @@ msgstr "Provedor"
 
 #: Public/call-last-month.php:195 Public/A2B_call_archiving.php:191
 #: Public/call-dnid.php:330 Public/call-daily-load.php:194
-#: Public/templates/default/main.tpl:192 Public/call-comp.php:209
+#: Public/templates/default/main.tpl:205 Public/call-comp.php:209
 msgid "Trunk"
 msgstr "Tronco"
 
@@ -3587,7 +3576,7 @@ msgid "PROFIT"
 msgstr "LUCRO"
 
 #: Public/call-last-month.php:293 Public/call-dnid.php:840
-#: Public/A2B_card_info.php:563 Public/call-count-reporting.php:539
+#: Public/A2B_card_info.php:568 Public/call-count-reporting.php:539
 msgid "SELL"
 msgstr "VENDA"
 
@@ -3729,7 +3718,7 @@ msgstr "A atualização em lote foi executada com sucesso!"
 msgid "SEARCH VOUCHERS"
 msgstr "PROCURAR CARTÕES"
 
-#: Public/A2B_entity_voucher.php:127 Public/A2B_entity_card.php:188
+#: Public/A2B_entity_voucher.php:127 Public/A2B_entity_card.php:192
 #: Public/A2B_entity_def_ratecard.php:213
 msgid "BATCH UPDATE"
 msgstr "ATUALIZAR EM LOTE"
@@ -3744,13 +3733,13 @@ msgstr "cartões selecionados!"
 msgid "Use the options below to batch update the selected vouchers."
 msgstr "Usar as opções abaixo para atualizar em lote os cartões selecionados."
 
-#: Public/A2B_entity_voucher.php:175 Public/A2B_entity_card.php:258
-#: Public/A2B_entity_card.php:318
+#: Public/A2B_entity_voucher.php:175 Public/A2B_entity_card.php:262
+#: Public/A2B_entity_card.php:322
 msgid "Equals"
 msgstr "Iguais"
 
-#: Public/A2B_entity_voucher.php:177 Public/A2B_entity_card.php:260
-#: Public/A2B_entity_card.php:320 Public/A2B_entity_def_ratecard.php:279
+#: Public/A2B_entity_voucher.php:177 Public/A2B_entity_card.php:264
+#: Public/A2B_entity_card.php:324 Public/A2B_entity_def_ratecard.php:279
 #: Public/A2B_entity_def_ratecard.php:313
 msgid "Subtract"
 msgstr "Subtrair"
@@ -3940,7 +3929,7 @@ msgid "PACKAGE CARD : SUMMARY"
 msgstr "PACOTE DO CARTÃO : SUMÁRIO"
 
 #: Public/A2B_detail_package.php:627 Public/call-dnid.php:835
-#: Public/A2B_card_info.php:554 Public/call-count-reporting.php:523
+#: Public/A2B_card_info.php:559 Public/call-count-reporting.php:523
 #: Public/call-count-reporting.php:536 Public/call-daily-load.php:337
 #: Public/call-comp.php:415
 msgid "DURATION"
@@ -4146,7 +4135,7 @@ msgid "ERROR: Cannot download file "
 msgstr "ERRO: Não pode ser feito o download do arquivo "
 
 #: Public/call-dnid.php:75 Public/call-dnid.php:499
-#: Public/templates/default/main.tpl:193
+#: Public/templates/default/main.tpl:206
 #, fuzzy
 msgid "DNID"
 msgstr "DID"
@@ -4284,7 +4273,7 @@ msgstr "TENTATIVAS DE CHAMADA"
 msgid "ASR"
 msgstr "ASR"
 
-#: Public/call-dnid.php:841 Public/A2B_card_info.php:560
+#: Public/call-dnid.php:841 Public/A2B_card_info.php:565
 #: Public/call-count-reporting.php:540
 msgid "BUY"
 msgstr "COMPRA"
@@ -4297,153 +4286,158 @@ msgstr "MARGEM"
 msgid "MARKUP"
 msgstr "MARCAÇÃO"
 
-#: Public/A2B_card_info.php:50
+#: Public/A2B_card_info.php:45 Public/A2B_entity_card.php:518
+#, fuzzy
+msgid "GO TO CUSTOMER ACCOUNT"
+msgstr "SELECIONE A MOEDA"
+
+#: Public/A2B_card_info.php:55
 #, fuzzy
 msgid "ACCOUNT INFO"
 msgstr "CÓDIGO DA CONTA"
 
-#: Public/A2B_card_info.php:73 Public/form_data/FG_var_card.inc:107
+#: Public/A2B_card_info.php:78 Public/form_data/FG_var_card.inc:107
 #, fuzzy
 msgid "SERIAL NUMBER"
 msgstr "NÚMERO DO FAX"
 
-#: Public/A2B_card_info.php:81
+#: Public/A2B_card_info.php:86
 #, fuzzy
 msgid "WEB ALIAS"
 msgstr "APELIDO"
 
-#: Public/A2B_card_info.php:89
+#: Public/A2B_card_info.php:94
 #, fuzzy
 msgid "WEB PASSWORD"
 msgstr "SENHA WEB"
 
-#: Public/A2B_card_info.php:97 Public/form_data/FG_var_friend.inc:323
+#: Public/A2B_card_info.php:102 Public/form_data/FG_var_friend.inc:323
 #: Public/form_data/FG_var_ecommerce.inc:98
 #: Public/form_data/FG_var_card.inc:523
 msgid "LANGUAGE"
 msgstr "IDIOMA"
 
-#: Public/A2B_card_info.php:123 Public/form_data/FG_var_campaign.inc:147
+#: Public/A2B_card_info.php:128 Public/form_data/FG_var_campaign.inc:147
 #: Public/form_data/FG_var_ecommerce.inc:210
 msgid "EXPIRATION DATE"
 msgstr "DATA DA EXPIRAÇÃO"
 
-#: Public/A2B_card_info.php:139
+#: Public/A2B_card_info.php:144
 #, fuzzy
 msgid "LAST USE DATE"
 msgstr "DATA DO PRIMEIRO USO"
 
-#: Public/A2B_card_info.php:147 Public/templates/default/main.tpl:456
+#: Public/A2B_card_info.php:152 Public/templates/default/main.tpl:469
 msgid "CALLBACK"
 msgstr "CALLBACK"
 
-#: Public/A2B_card_info.php:160
+#: Public/A2B_card_info.php:165
 #, fuzzy
 msgid "CUSTOMER INFO"
 msgstr "ID DO CLIENTE"
 
-#: Public/A2B_card_info.php:166 Public/form_data/FG_var_statuslog.inc:62
+#: Public/A2B_card_info.php:171 Public/form_data/FG_var_statuslog.inc:62
 #: Public/form_data/FG_var_card.inc:353
 #, fuzzy
 msgid "LAST NAME"
 msgstr "SOBRENOME"
 
-#: Public/A2B_card_info.php:176 Public/form_data/FG_var_card.inc:362
+#: Public/A2B_card_info.php:181 Public/form_data/FG_var_card.inc:362
 #, fuzzy
 msgid "FIRST NAME"
 msgstr "PRIMEIRO NOME"
 
-#: Public/A2B_card_info.php:188 Public/form_data/FG_var_user.inc:138
+#: Public/A2B_card_info.php:193 Public/form_data/FG_var_user.inc:139
 #: Public/form_data/FG_var_card.inc:382
 msgid "ADDRESS"
 msgstr "ENDEREÇO"
 
-#: Public/A2B_card_info.php:199
+#: Public/A2B_card_info.php:204
 #, fuzzy
 msgid "ZIP CODE"
 msgstr "CEP"
 
-#: Public/A2B_card_info.php:208 Public/form_data/FG_var_card.inc:392
+#: Public/A2B_card_info.php:213 Public/form_data/FG_var_card.inc:392
 msgid "CITY"
 msgstr "CIDADE"
 
-#: Public/A2B_card_info.php:218 Public/form_data/FG_var_user.inc:156
+#: Public/A2B_card_info.php:223 Public/form_data/FG_var_user.inc:157
 msgid "STATE"
 msgstr "ESTADO"
 
-#: Public/A2B_card_info.php:229 Public/form_data/FG_var_did.inc:31
+#: Public/A2B_card_info.php:234 Public/form_data/FG_var_did.inc:31
 #: Public/form_data/FG_var_did.inc:121 Public/form_data/FG_var_card.inc:411
 msgid "COUNTRY"
 msgstr "PAÍS"
 
-#: Public/A2B_card_info.php:247 Public/form_data/FG_var_user.inc:165
+#: Public/A2B_card_info.php:252 Public/form_data/FG_var_user.inc:166
 #: Public/form_data/FG_var_speeddial.inc:26
 #: Public/form_data/FG_var_speeddial.inc:63
 msgid "PHONE"
 msgstr "TELEFONE"
 
-#: Public/A2B_card_info.php:255 Public/form_data/FG_var_user.inc:174
+#: Public/A2B_card_info.php:260 Public/form_data/FG_var_user.inc:175
 msgid "FAX"
 msgstr "FAX"
 
-#: Public/A2B_card_info.php:276
+#: Public/A2B_card_info.php:281
 #, fuzzy
 msgid "ACCOUNT STATUS"
 msgstr "STATUS DO PAGAMENTO"
 
-#: Public/A2B_card_info.php:297 Public/form_data/FG_var_ecommerce.inc:180
+#: Public/A2B_card_info.php:302 Public/form_data/FG_var_ecommerce.inc:180
 #: Public/form_data/FG_var_card.inc:572
 msgid "CREDIT LIMIT"
 msgstr "LIMITE DE CRÉDITO"
 
-#: Public/A2B_card_info.php:305 Public/form_data/FG_var_card.inc:736
+#: Public/A2B_card_info.php:310 Public/form_data/FG_var_card.inc:736
 #: Public/form_data/FG_var_card.inc:744
 #, fuzzy
 msgid "AUTOREFILL"
 msgstr "EXECUTAR AUTO REENCHIMENTO"
 
-#: Public/A2B_card_info.php:313 Public/form_data/FG_var_card.inc:757
+#: Public/A2B_card_info.php:318 Public/form_data/FG_var_card.inc:757
 msgid "INVOICE DAY"
 msgstr "DIA DA FATURA"
 
-#: Public/A2B_card_info.php:326
+#: Public/A2B_card_info.php:331
 #, fuzzy
 msgid "COMPANY INFO"
 msgstr "CAMPANHA"
 
-#: Public/A2B_card_info.php:332 Public/form_data/FG_var_card.inc:450
+#: Public/A2B_card_info.php:337 Public/form_data/FG_var_card.inc:450
 #, fuzzy
 msgid "COMPANY NAME"
 msgstr "NOME DA CAMPANHA"
 
-#: Public/A2B_card_info.php:340 Public/form_data/FG_var_card.inc:460
+#: Public/A2B_card_info.php:345 Public/form_data/FG_var_card.inc:460
 msgid "COMPANY WEBSITE"
 msgstr ""
 
-#: Public/A2B_card_info.php:350
+#: Public/A2B_card_info.php:355
 msgid "VAT REGISTRATION NUMBER"
 msgstr ""
 
-#: Public/A2B_card_info.php:361 Public/form_data/FG_var_card.inc:798
+#: Public/A2B_card_info.php:366 Public/form_data/FG_var_card.inc:798
 msgid "TRAFFIC PER MONTH"
 msgstr ""
 
-#: Public/A2B_card_info.php:370
+#: Public/A2B_card_info.php:375
 #, fuzzy
 msgid "TARGET TRAFIC"
 msgstr "HORA DE INÍCIO"
 
-#: Public/A2B_card_info.php:386 Public/A2B_card_info.php:624
+#: Public/A2B_card_info.php:391 Public/A2B_card_info.php:629
 #, fuzzy
 msgid "CUSTOMERS LIST"
 msgstr "ID DO CLIENTE"
 
-#: Public/A2B_card_info.php:401
+#: Public/A2B_card_info.php:406
 #, fuzzy
 msgid "Recent Payments"
 msgstr "Ver Pagamento"
 
-#: Public/A2B_card_info.php:414 Public/form_data/FG_var_commission.inc:19
+#: Public/A2B_card_info.php:419 Public/form_data/FG_var_commission.inc:19
 #: Public/form_data/FG_var_commission.inc:71
 #: Public/form_data/FG_var_payment.inc:21
 #: Public/form_data/FG_var_payment.inc:75
@@ -4451,13 +4445,13 @@ msgstr "Ver Pagamento"
 msgid "PAYMENT DATE"
 msgstr "DATA DO PAGAMENTO"
 
-#: Public/A2B_card_info.php:417 Public/form_data/FG_var_payment.inc:22
+#: Public/A2B_card_info.php:422 Public/form_data/FG_var_payment.inc:22
 #: Public/form_data/FG_var_payment.inc:84
 #: Public/form_data/FG_var_payment_invoice.inc:17
 msgid "PAYMENT AMOUNT"
 msgstr "QUANTIA DO PAGAMENTO"
 
-#: Public/A2B_card_info.php:420 Public/A2B_card_info.php:490
+#: Public/A2B_card_info.php:425 Public/A2B_card_info.php:495
 #: Public/A2B_log_activity_info.php:76 Public/form_data/FG_var_config.inc:73
 #: Public/form_data/FG_var_config.inc:150
 #: Public/form_data/FG_var_provider.inc:20
@@ -4489,53 +4483,53 @@ msgstr "QUANTIA DO PAGAMENTO"
 msgid "DESCRIPTION"
 msgstr "DESCRIÇÃO"
 
-#: Public/A2B_card_info.php:423
+#: Public/A2B_card_info.php:428
 #, fuzzy
 msgid "ID REFILL"
 msgstr "REENCHER"
 
-#: Public/A2B_card_info.php:471
+#: Public/A2B_card_info.php:476
 #, fuzzy
 msgid "Recent Refills"
 msgstr "Reenchimento"
 
-#: Public/A2B_card_info.php:484 Public/form_data/FG_var_logrefill.inc:24
+#: Public/A2B_card_info.php:489 Public/form_data/FG_var_logrefill.inc:24
 #: Public/form_data/FG_var_logrefill.inc:69
 #, fuzzy
 msgid "REFILL DATE"
 msgstr "REENCHER"
 
-#: Public/A2B_card_info.php:487 Public/form_data/FG_var_logrefill.inc:25
+#: Public/A2B_card_info.php:492 Public/form_data/FG_var_logrefill.inc:25
 #: Public/form_data/FG_var_logrefill.inc:78
 #, fuzzy
 msgid "REFILL AMOUNT"
 msgstr "REENCHER"
 
-#: Public/A2B_card_info.php:535
+#: Public/A2B_card_info.php:540
 #, fuzzy
 msgid "Recent Calls"
 msgstr "Ligações atendidas"
 
-#: Public/A2B_card_info.php:545
+#: Public/A2B_card_info.php:550
 #, fuzzy
 msgid "CALL DATE"
 msgstr "DATA DO CALLBACK"
 
-#: Public/A2B_card_info.php:548
+#: Public/A2B_card_info.php:553 Public/form_data/FG_var_call.inc:48
 #, fuzzy
 msgid "CALLED NUMBER"
 msgstr "NÚMERO DO CARTÃO"
 
-#: Public/A2B_card_info.php:557
+#: Public/A2B_card_info.php:562
 #, fuzzy
 msgid "TERMINATE CAUSE"
 msgstr "MINUTOS USADOS"
 
-#: Public/A2B_card_info.php:566
+#: Public/A2B_card_info.php:571
 msgid "LINK TO THE RATE"
 msgstr ""
 
-#: Public/A2B_card_info.php:604
+#: Public/A2B_card_info.php:609
 #, fuzzy
 msgid "Link to the used rate"
 msgstr "Insira o nome do usuário"
@@ -4848,7 +4842,7 @@ msgstr "Ligações pelo destino"
 msgid "GROUP BY DAY"
 msgstr "GRUPO POR DIA"
 
-#: Public/call-count-reporting.php:293 Public/form_data/FG_var_user.inc:74
+#: Public/call-count-reporting.php:293 Public/form_data/FG_var_user.inc:75
 #: Public/form_data/FG_var_voucher.inc:85
 #: Public/form_data/FG_var_def_ratecard.inc:128
 msgid "NO"
@@ -4891,7 +4885,7 @@ msgstr "Relatório"
 
 #: Public/call-pnl-report.php:427
 #: Public/A2B_entity_config_generate_confirm.php:78
-#: Public/templates/default/main.tpl:410
+#: Public/templates/default/main.tpl:423
 #, fuzzy
 msgid "Group"
 msgstr "Grupo de CID"
@@ -5171,441 +5165,441 @@ msgstr "Nenhum tronco definido !"
 msgid "new phone number have been imported"
 msgstr "novo número de telefone foi importado."
 
-#: Public/templates/default/main.tpl:38
+#: Public/templates/default/main.tpl:30
 #, fuzzy
 msgid "HOME"
 msgstr "TELEFONE"
 
-#: Public/templates/default/main.tpl:46 Public/form_data/FG_var_user.inc:58
+#: Public/templates/default/main.tpl:39 Public/form_data/FG_var_user.inc:58
 msgid "DASHBOARD"
 msgstr ""
 
-#: Public/templates/default/main.tpl:54
+#: Public/templates/default/main.tpl:48
 #: Public/form_data/FG_var_card_group.inc:64
 #, fuzzy
 msgid "NOTIFICATION"
 msgstr "VERIFICAÇÃO"
 
-#: Public/templates/default/main.tpl:83 Public/templates/default/main.tpl:115
-#: Public/templates/default/main.tpl:140 Public/templates/default/main.tpl:275
+#: Public/templates/default/main.tpl:60
+msgid "LOGOUT"
+msgstr "LOGOUT"
+
+#: Public/templates/default/main.tpl:96 Public/templates/default/main.tpl:128
+#: Public/templates/default/main.tpl:153 Public/templates/default/main.tpl:288
 #, fuzzy
 msgid "Add :: Search"
 msgstr "Pesquisa"
 
-#: Public/templates/default/main.tpl:84 Public/templates/default/main.tpl:223
-#: Public/templates/default/main.tpl:494
+#: Public/templates/default/main.tpl:97 Public/templates/default/main.tpl:236
+#: Public/templates/default/main.tpl:507
 #, fuzzy
 msgid "Import"
 msgstr "Importar DID"
 
-#: Public/templates/default/main.tpl:85
+#: Public/templates/default/main.tpl:98
 msgid "VoIP Settings"
 msgstr ""
 
-#: Public/templates/default/main.tpl:86
+#: Public/templates/default/main.tpl:99
 #, fuzzy
 msgid "Caller-ID"
 msgstr "Listar CallerID"
 
-#: Public/templates/default/main.tpl:87
+#: Public/templates/default/main.tpl:100
 msgid "Credit Notification"
 msgstr ""
 
-#: Public/templates/default/main.tpl:88 Public/templates/default/main.tpl:276
-#: Public/templates/default/main.tpl:307
+#: Public/templates/default/main.tpl:101 Public/templates/default/main.tpl:289
+#: Public/templates/default/main.tpl:320
 #, fuzzy
 msgid "Groups"
 msgstr "Grupo de CID"
 
-#: Public/templates/default/main.tpl:89
+#: Public/templates/default/main.tpl:102
 #, fuzzy
 msgid "Card series"
 msgstr "Número do cartão"
 
-#: Public/templates/default/main.tpl:90
+#: Public/templates/default/main.tpl:103
 #, fuzzy
 msgid "Speed Dial"
 msgstr "Listar Discagem Rápida"
 
-#: Public/templates/default/main.tpl:91
+#: Public/templates/default/main.tpl:104
 msgid "History"
 msgstr ""
 
-#: Public/templates/default/main.tpl:92 Public/A2B_entity_card.php:214
+#: Public/templates/default/main.tpl:105 Public/A2B_entity_card.php:218
 #: Public/form_data/FG_var_paymentlog.inc:64
 msgid "Status"
 msgstr "Status"
 
-#: Public/templates/default/main.tpl:106
+#: Public/templates/default/main.tpl:119
 #, fuzzy
 msgid "AGENTS"
 msgstr "URGENTE"
 
-#: Public/templates/default/main.tpl:116
+#: Public/templates/default/main.tpl:129
 #, fuzzy
 msgid "Signup URLs"
 msgstr "Registrar"
 
-#: Public/templates/default/main.tpl:131
+#: Public/templates/default/main.tpl:144
 #, fuzzy
 msgid "ADMINS"
 msgstr "USUÁRIO DE ADMINISTRAÇÃO"
 
-#: Public/templates/default/main.tpl:141
+#: Public/templates/default/main.tpl:154
 msgid "Access Control"
 msgstr ""
 
-#: Public/templates/default/main.tpl:155 Public/form_data/FG_var_user.inc:57
+#: Public/templates/default/main.tpl:168 Public/form_data/FG_var_user.inc:57
 #: Public/form_data/FG_var_card_group.inc:63
 #, fuzzy
 msgid "SUPPORT"
 msgstr "PORTA"
 
-#: Public/templates/default/main.tpl:164
+#: Public/templates/default/main.tpl:177
 #, fuzzy
 msgid "Customer Tickets"
 msgstr "Clientes"
 
-#: Public/templates/default/main.tpl:165
+#: Public/templates/default/main.tpl:178
 msgid "Agent Tickets"
 msgstr ""
 
-#: Public/templates/default/main.tpl:166
+#: Public/templates/default/main.tpl:179
 msgid "Ticket Components"
 msgstr ""
 
-#: Public/templates/default/main.tpl:167
+#: Public/templates/default/main.tpl:180
 msgid "Support Boxes"
 msgstr ""
 
-#: Public/templates/default/main.tpl:181
+#: Public/templates/default/main.tpl:194
 #, fuzzy
 msgid "CALL REPORTS"
 msgstr "RELATÓRIO DE<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIGAÇÕES"
 
-#: Public/templates/default/main.tpl:190
+#: Public/templates/default/main.tpl:203
 msgid "CDRs"
 msgstr ""
 
-#: Public/templates/default/main.tpl:191
+#: Public/templates/default/main.tpl:204
 #, fuzzy
 msgid "Call Count"
 msgstr "Plano de Ligações"
 
-#: Public/templates/default/main.tpl:194
+#: Public/templates/default/main.tpl:207
 msgid "PNL"
 msgstr ""
 
-#: Public/templates/default/main.tpl:195
+#: Public/templates/default/main.tpl:208
 msgid "Compare Calls"
 msgstr ""
 
-#: Public/templates/default/main.tpl:196
+#: Public/templates/default/main.tpl:209
 #, fuzzy
 msgid "Daily Traffic"
 msgstr "Tráfego Mensal"
 
-#: Public/templates/default/main.tpl:197
+#: Public/templates/default/main.tpl:210
 msgid "Monthly Traffic"
 msgstr "Tráfego Mensal"
 
-#: Public/templates/default/main.tpl:212
+#: Public/templates/default/main.tpl:225
 #, fuzzy
 msgid "RATES"
 msgstr "VALOR DE COMPRA"
 
-#: Public/templates/default/main.tpl:222
+#: Public/templates/default/main.tpl:235
 #, fuzzy
 msgid "RateCards"
 msgstr "Listar RateCard"
 
-#: Public/templates/default/main.tpl:224
+#: Public/templates/default/main.tpl:237
 #, fuzzy
 msgid "Merge"
 msgstr "Mensagem"
 
-#: Public/templates/default/main.tpl:225
+#: Public/templates/default/main.tpl:238
 #, fuzzy
 msgid "Simulator"
 msgstr "Simulador de RateCard"
 
-#: Public/templates/default/main.tpl:226
+#: Public/templates/default/main.tpl:239
 #, fuzzy
 msgid "Rates"
 msgstr "Data"
 
-#: Public/templates/default/main.tpl:240
+#: Public/templates/default/main.tpl:253
 #, fuzzy
 msgid "PROVIDERS"
 msgstr "PROVEDOR"
 
-#: Public/templates/default/main.tpl:249
+#: Public/templates/default/main.tpl:262
 #, fuzzy
 msgid "Providers"
 msgstr "Provedor"
 
-#: Public/templates/default/main.tpl:250
+#: Public/templates/default/main.tpl:263
 #, fuzzy
 msgid "Trunks"
 msgstr "Tronco"
 
-#: Public/templates/default/main.tpl:251
+#: Public/templates/default/main.tpl:264
 #, fuzzy
 msgid "Prefixes"
 msgstr "Prefixo"
 
-#: Public/templates/default/main.tpl:266
+#: Public/templates/default/main.tpl:279
 #, fuzzy
 msgid "INBOUND DID"
 msgstr "ID DO DID"
 
-#: Public/templates/default/main.tpl:278
+#: Public/templates/default/main.tpl:291
 #, fuzzy
 msgid "Import [CSV]"
 msgstr "Exportar CSV"
 
-#: Public/templates/default/main.tpl:279
+#: Public/templates/default/main.tpl:292
 #, fuzzy
 msgid "Import [DIDX]"
 msgstr "Importar DID"
 
-#: Public/templates/default/main.tpl:280
+#: Public/templates/default/main.tpl:293
 #, fuzzy
 msgid "Usage"
 msgstr "Utilização do DID"
 
-#: Public/templates/default/main.tpl:281
+#: Public/templates/default/main.tpl:294
 #, fuzzy
 msgid "Billing"
 msgstr "Faturamento do DID"
 
-#: Public/templates/default/main.tpl:297 Public/form_data/FG_var_user.inc:53
+#: Public/templates/default/main.tpl:310 Public/form_data/FG_var_user.inc:53
 msgid "OUTBOUND CID"
 msgstr "CID DE LIGAÇÕES <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EFETUADAS"
 
-#: Public/templates/default/main.tpl:324 Public/form_data/FG_var_user.inc:43
+#: Public/templates/default/main.tpl:337 Public/form_data/FG_var_user.inc:43
 #: Public/form_data/FG_var_did.inc:27 Public/form_data/FG_var_did.inc:84
 msgid "BILLING"
 msgstr "TARIFAÇÃO"
 
-#: Public/templates/default/main.tpl:334
+#: Public/templates/default/main.tpl:347
 #, fuzzy
 msgid "Vouchers"
 msgstr "10 Vouchers"
 
-#: Public/templates/default/main.tpl:335
+#: Public/templates/default/main.tpl:348
 #, fuzzy
 msgid "Customers Balance"
 msgstr "Clientes"
 
-#: Public/templates/default/main.tpl:336 Public/templates/default/main.tpl:343
+#: Public/templates/default/main.tpl:349 Public/templates/default/main.tpl:356
 #, fuzzy
 msgid "Transactions"
 msgstr "Ver Transações"
 
-#: Public/templates/default/main.tpl:337
+#: Public/templates/default/main.tpl:350
 #, fuzzy
 msgid "Billings"
 msgstr "Faturamento do DID"
 
-#: Public/templates/default/main.tpl:338 Public/templates/default/main.tpl:344
+#: Public/templates/default/main.tpl:351 Public/templates/default/main.tpl:357
 #, fuzzy
 msgid "Refills"
 msgstr "Reenchimento"
 
-#: Public/templates/default/main.tpl:339 Public/templates/default/main.tpl:345
+#: Public/templates/default/main.tpl:352 Public/templates/default/main.tpl:358
 #, fuzzy
 msgid "Payments"
 msgstr "Pagamento"
 
-#: Public/templates/default/main.tpl:340 Public/templates/default/main.tpl:346
+#: Public/templates/default/main.tpl:353 Public/templates/default/main.tpl:359
 #, fuzzy
 msgid "E-Payment Log"
 msgstr "Pagamento"
 
-#: Public/templates/default/main.tpl:341
+#: Public/templates/default/main.tpl:354
 #, fuzzy
 msgid "Charges"
 msgstr "taxa a"
 
-#: Public/templates/default/main.tpl:342
+#: Public/templates/default/main.tpl:355
 msgid "Agents Commissions"
 msgstr ""
 
-#: Public/templates/default/main.tpl:347
+#: Public/templates/default/main.tpl:360
 #, fuzzy
 msgid "Payment Methods"
 msgstr "Método de pagamento"
 
-#: Public/templates/default/main.tpl:348
+#: Public/templates/default/main.tpl:361
 msgid "Currency List"
 msgstr "Lista de Moedas"
 
-#: Public/templates/default/main.tpl:349
+#: Public/templates/default/main.tpl:362
 #, fuzzy
 msgid "E-Products"
 msgstr "Adicionar E-Produtos"
 
-#: Public/templates/default/main.tpl:365 Public/form_data/FG_var_user.inc:56
+#: Public/templates/default/main.tpl:378 Public/form_data/FG_var_user.inc:56
 #: Public/form_data/FG_var_card_group.inc:55
 msgid "INVOICES"
 msgstr "FATURAS"
 
-#: Public/templates/default/main.tpl:374
+#: Public/templates/default/main.tpl:387
 msgid "Receipts"
 msgstr ""
 
-#: Public/templates/default/main.tpl:375
+#: Public/templates/default/main.tpl:388
 msgid "Invoices"
 msgstr "Faturas"
 
-#: Public/templates/default/main.tpl:376
+#: Public/templates/default/main.tpl:389
 #, fuzzy
 msgid "Configuration"
 msgstr "Duração"
 
-#: Public/templates/default/main.tpl:400 Public/form_data/FG_var_user.inc:54
+#: Public/templates/default/main.tpl:413 Public/form_data/FG_var_user.inc:54
 msgid "PACKAGE OFFER"
 msgstr "PACOTE DE OFERTAS"
 
-#: Public/templates/default/main.tpl:411
+#: Public/templates/default/main.tpl:424
 #, fuzzy
 msgid "Details"
 msgstr "Detalhe"
 
-#: Public/templates/default/main.tpl:427
+#: Public/templates/default/main.tpl:440
 #, fuzzy
 msgid "RECUR SERVICE"
 msgstr "SERVIÇO RECORRENTE"
 
-#: Public/templates/default/main.tpl:436
+#: Public/templates/default/main.tpl:449
 #, fuzzy
 msgid "Account Service"
 msgstr "Executar serviço"
 
-#: Public/templates/default/main.tpl:437
+#: Public/templates/default/main.tpl:450
 #, fuzzy
 msgid "Subscriptions"
 msgstr "Taxa da assinatura"
 
-#: Public/templates/default/main.tpl:438
+#: Public/templates/default/main.tpl:451
 msgid "Subscribers"
 msgstr ""
 
-#: Public/templates/default/main.tpl:439
+#: Public/templates/default/main.tpl:452
 msgid "AutoRefill Report"
 msgstr "Relatório de Auto Reenchimento"
 
-#: Public/templates/default/main.tpl:466
+#: Public/templates/default/main.tpl:479
 #, fuzzy
 msgid "Server Group"
 msgstr "Adicionar Grupo de Servidores"
 
-#: Public/templates/default/main.tpl:467
+#: Public/templates/default/main.tpl:480
 #, fuzzy
 msgid "Server"
 msgstr "Adicionar Servidor"
 
-#: Public/templates/default/main.tpl:481
+#: Public/templates/default/main.tpl:494
 #, fuzzy
 msgid "CAMPAIGNS"
 msgstr "CAMPANHA"
 
-#: Public/templates/default/main.tpl:491
+#: Public/templates/default/main.tpl:504
 msgid "Config"
 msgstr ""
 
-#: Public/templates/default/main.tpl:492
+#: Public/templates/default/main.tpl:505
 #: Public/form_data/FG_var_phonenumber.inc:56
 msgid "Phone Book"
 msgstr ""
 
-#: Public/templates/default/main.tpl:493
+#: Public/templates/default/main.tpl:506
 #, fuzzy
 msgid "Add Number"
 msgstr "Número do cartão"
 
-#: Public/templates/default/main.tpl:509 Public/form_data/FG_var_user.inc:49
+#: Public/templates/default/main.tpl:522 Public/form_data/FG_var_user.inc:49
 #, fuzzy
 msgid "MAINTENANCE"
 msgstr "NOME DO ITEM"
 
-#: Public/templates/default/main.tpl:518
+#: Public/templates/default/main.tpl:531
 #, fuzzy
 msgid "Alarms"
 msgstr "Adicionar Alarme"
 
-#: Public/templates/default/main.tpl:519
+#: Public/templates/default/main.tpl:532
 msgid "Users Activity"
 msgstr ""
 
-#: Public/templates/default/main.tpl:520
+#: Public/templates/default/main.tpl:533
 msgid "Database Backup"
 msgstr "Backup da Base de dados"
 
-#: Public/templates/default/main.tpl:521
+#: Public/templates/default/main.tpl:534
 msgid "Database Restore"
 msgstr "Restaurar Base de Dados"
 
-#: Public/templates/default/main.tpl:522
+#: Public/templates/default/main.tpl:535
 msgid "MusicOnHold"
 msgstr "Música de Espera"
 
-#: Public/templates/default/main.tpl:523
+#: Public/templates/default/main.tpl:536
 #, fuzzy
 msgid "Upload File"
 msgstr "Upload"
 
-#: Public/templates/default/main.tpl:524
+#: Public/templates/default/main.tpl:537
 msgid "Watch Log files"
 msgstr "Visualizar arquivos de log"
 
-#: Public/templates/default/main.tpl:525
+#: Public/templates/default/main.tpl:538
 msgid "Archiving"
 msgstr ""
 
-#: Public/templates/default/main.tpl:544 Public/form_data/FG_var_user.inc:50
+#: Public/templates/default/main.tpl:557 Public/form_data/FG_var_user.inc:50
 #, fuzzy
 msgid "MAIL"
 msgstr "EMAIL"
 
-#: Public/templates/default/main.tpl:553
+#: Public/templates/default/main.tpl:566
 #, fuzzy
 msgid "Mail templates"
 msgstr "Ver Modelo de Email"
 
-#: Public/templates/default/main.tpl:554
+#: Public/templates/default/main.tpl:567
 msgid "Mass Mail"
 msgstr ""
 
-#: Public/templates/default/main.tpl:569 Public/form_data/FG_var_user.inc:59
+#: Public/templates/default/main.tpl:582 Public/form_data/FG_var_user.inc:59
 msgid "SYSTEM SETTINGS"
 msgstr ""
 
-#: Public/templates/default/main.tpl:578
+#: Public/templates/default/main.tpl:591
 msgid "Global List"
 msgstr ""
 
-#: Public/templates/default/main.tpl:579
+#: Public/templates/default/main.tpl:592
 #, fuzzy
 msgid "Group List"
 msgstr "Lista de Troncos."
 
-#: Public/templates/default/main.tpl:580
+#: Public/templates/default/main.tpl:593
 msgid "Add agi-conf"
 msgstr ""
 
-#: Public/templates/default/main.tpl:581
+#: Public/templates/default/main.tpl:594
 msgid "* Config Editor"
 msgstr ""
 
-#: Public/templates/default/main.tpl:583
+#: Public/templates/default/main.tpl:596
 msgid "Asterisk GUI"
 msgstr ""
-
-#: Public/templates/default/main.tpl:601
-msgid "LOGOUT"
-msgstr "LOGOUT"
 
 #: Public/A2B_entity_phonenumber.php:87 Public/form_data/FG_var_card.inc:635
 msgid "CAMPAIGN"
@@ -5844,87 +5838,87 @@ msgstr "Estatística : Compras por Hora"
 msgid "Could not perform refill log for the batch update!"
 msgstr "Não foi possível executar a atualização em lote!"
 
-#: Public/A2B_entity_card.php:192
+#: Public/A2B_entity_card.php:196
 msgid "cards selected!"
 msgstr "cartões selecionados!"
 
-#: Public/A2B_entity_card.php:192
+#: Public/A2B_entity_card.php:196
 msgid "Use the options below to batch update the selected cards."
 msgstr "Usar as opções abaixo para atualizar em lote os cartões selecionados."
 
-#: Public/A2B_entity_card.php:202
+#: Public/A2B_entity_card.php:206
 #, fuzzy
 msgid "In use"
 msgstr "em_uso"
 
-#: Public/A2B_entity_card.php:228
+#: Public/A2B_entity_card.php:232
 #, fuzzy
 msgid "Language"
 msgstr "idioma"
 
-#: Public/A2B_entity_card.php:241
+#: Public/A2B_entity_card.php:245
 #, fuzzy
 msgid "Tariff"
 msgstr "tarifa"
 
-#: Public/A2B_entity_card.php:255
+#: Public/A2B_entity_card.php:259
 msgid "Credit"
 msgstr "Crédito"
 
-#: Public/A2B_entity_card.php:275
+#: Public/A2B_entity_card.php:279
 #, fuzzy
 msgid "Access"
 msgstr "Sucesso"
 
-#: Public/A2B_entity_card.php:302
+#: Public/A2B_entity_card.php:306
 #, fuzzy
 msgid "Payment type"
 msgstr "Pagamento"
 
-#: Public/A2B_entity_card.php:315
+#: Public/A2B_entity_card.php:319
 #, fuzzy
 msgid "Credit limit"
 msgstr "limite_de_crédito"
 
-#: Public/A2B_entity_card.php:350
+#: Public/A2B_entity_card.php:354
 #, fuzzy
 msgid "Expiry date"
 msgstr "Data da expiração"
 
-#: Public/A2B_entity_card.php:359
+#: Public/A2B_entity_card.php:363
 #, fuzzy
 msgid "Expiration days"
 msgstr "Data de expiração"
 
-#: Public/A2B_entity_card.php:382
+#: Public/A2B_entity_card.php:386
 msgid "Group this batch belongs to"
 msgstr ""
 
-#: Public/A2B_entity_card.php:399
+#: Public/A2B_entity_card.php:403
 msgid "Set discount to"
 msgstr ""
 
-#: Public/A2B_entity_card.php:413
+#: Public/A2B_entity_card.php:417
 msgid "Move to Seria"
 msgstr ""
 
-#: Public/A2B_entity_card.php:427
+#: Public/A2B_entity_card.php:431
 msgid "BATCH UPDATE CARD"
 msgstr "ATUALIZAR CARTÃO EM LOTE"
 
-#: Public/A2B_entity_card.php:443
+#: Public/A2B_entity_card.php:447
 msgid "Changes detected on SIP/IAX Friends"
 msgstr "Mudanças detectadas no SIP/IAX Friends"
 
-#: Public/A2B_entity_card.php:448
+#: Public/A2B_entity_card.php:452
 msgid "GENERATE ADDITIONAL_A2BILLING_SIP.CONF"
 msgstr "GERAR O ADDITIONAL_A2BILLING_SIP.CONF"
 
-#: Public/A2B_entity_card.php:452
+#: Public/A2B_entity_card.php:456
 msgid "GENERATE ADDITIONAL_A2BILLING_IAX.CONF"
 msgstr "GERAR ADDITIONAL_A2BILLING_IAX.CONF"
 
-#: Public/A2B_entity_card.php:483
+#: Public/A2B_entity_card.php:487
 #, fuzzy
 msgid "Change the Account Number Length"
 msgstr "Mudar o tamanho do número do cartão"
@@ -6199,7 +6193,7 @@ msgstr "Insira a descrição"
 #: Public/form_data/FG_var_provider.inc:80
 #: Public/form_data/FG_var_phonenumber.inc:122
 #: Public/form_data/FG_var_package_group.inc:90
-#: Public/form_data/FG_var_user.inc:273
+#: Public/form_data/FG_var_user.inc:274
 #: Public/form_data/FG_var_outbound_cid.php:93
 #: Public/form_data/FG_var_support_component.inc:94
 #: Public/form_data/FG_var_tariffgroup.inc:154
@@ -6278,7 +6272,7 @@ msgstr "Insira a descrição"
 #: Public/form_data/FG_var_campaign.inc:286
 #: Public/form_data/FG_var_phonenumber.inc:113
 #: Public/form_data/FG_var_package_group.inc:81
-#: Public/form_data/FG_var_user.inc:264
+#: Public/form_data/FG_var_user.inc:265
 #: Public/form_data/FG_var_tariffplan.inc:133
 #: Public/form_data/FG_var_moneysituation.inc:44
 #: Public/form_data/FG_var_callerid.inc:83
@@ -6335,14 +6329,14 @@ msgstr "Adicionar $HD_Form->FG_INSTANCE_NAME."
 #: Public/form_data/FG_var_campaign.inc:291
 #: Public/form_data/FG_var_phonenumber.inc:118
 #: Public/form_data/FG_var_package_group.inc:86
-#: Public/form_data/FG_var_user.inc:269
+#: Public/form_data/FG_var_user.inc:270
 #: Public/form_data/FG_var_tariffplan.inc:137
 #: Public/form_data/FG_var_callerid.inc:97
 #: Public/form_data/FG_var_support_component.inc:91
 #: Public/form_data/FG_var_package.inc:128
 #: Public/form_data/FG_var_tariffgroup.inc:151
 #: Public/form_data/FG_var_mailtemplate.inc:129
-#: Public/form_data/FG_var_charge.inc:164
+#: Public/form_data/FG_var_call.inc:111 Public/form_data/FG_var_charge.inc:164
 #: Public/form_data/FG_var_trunk.inc:211
 #: Public/form_data/FG_var_didgroup.inc:66
 #: Public/form_data/FG_var_speeddial.inc:107
@@ -6381,7 +6375,7 @@ msgstr "CAMPANHA"
 #: Public/form_data/FG_var_phonenumber.inc:67
 #: Public/form_data/FG_var_package_group.inc:20
 #: Public/form_data/FG_var_package_group.inc:36
-#: Public/form_data/FG_var_user.inc:129
+#: Public/form_data/FG_var_user.inc:130
 #: Public/form_data/FG_var_support_component.inc:35
 #: Public/form_data/FG_var_support_component.inc:51
 #: Public/form_data/FG_var_tariffgroup.inc:38
@@ -6616,7 +6610,7 @@ msgstr "TELEFONE"
 #: Public/form_data/FG_var_campaign.inc:290
 #: Public/form_data/FG_var_moneysituation.inc:60
 #: Public/form_data/FG_var_callerid.inc:96
-#: Public/form_data/FG_var_backup.inc:81
+#: Public/form_data/FG_var_call.inc:110 Public/form_data/FG_var_backup.inc:81
 #: Public/form_data/FG_var_did_billing.inc:74
 msgid "Add a "
 msgstr "Adicionar um "
@@ -6913,76 +6907,81 @@ msgstr "EMAIL PARA O CLIENTE"
 msgid "DELETE NOTIFICATIONS"
 msgstr "VERIFICAÇÃO"
 
-#: Public/form_data/FG_var_user.inc:68 Public/form_data/FG_var_user.inc:89
+#: Public/form_data/FG_var_user.inc:64
+#, fuzzy
+msgid "DELETE CDR"
+msgstr "DATA"
+
+#: Public/form_data/FG_var_user.inc:69 Public/form_data/FG_var_user.inc:90
 msgid "USERID"
 msgstr "ID DO USUÁRIO"
 
-#: Public/form_data/FG_var_user.inc:74
+#: Public/form_data/FG_var_user.inc:75
 msgid "HAVE BEEN CREATED!"
 msgstr "FOI CRIADO!"
 
-#: Public/form_data/FG_var_user.inc:95
+#: Public/form_data/FG_var_user.inc:96
 msgid "Insert the userid"
 msgstr "Insira o id do usuário"
 
-#: Public/form_data/FG_var_user.inc:105 Public/form_data/FG_var_friend.inc:130
+#: Public/form_data/FG_var_user.inc:106 Public/form_data/FG_var_friend.inc:130
 msgid "Insert the username"
 msgstr "Insira o nome do usuário"
 
-#: Public/form_data/FG_var_user.inc:108
+#: Public/form_data/FG_var_user.inc:109
 #: Public/form_data/FG_var_card_group.inc:50
 msgid "PASSWORD"
 msgstr "SENHA"
 
-#: Public/form_data/FG_var_user.inc:114
+#: Public/form_data/FG_var_user.inc:115
 msgid "Insert the Reseller password"
 msgstr "Insira a senha do Revendedor"
 
-#: Public/form_data/FG_var_user.inc:118
+#: Public/form_data/FG_var_user.inc:119
 msgid "PERMISSION"
 msgstr "PERMISSÃO"
 
-#: Public/form_data/FG_var_user.inc:125
+#: Public/form_data/FG_var_user.inc:126
 #: Public/form_data/FG_var_card_group.inc:105
 msgid "To select several rights in the above ListBox, hold the CTRL key down while clicking the items"
 msgstr "Para selecionar diversas direitas no ListBox acima, mantenha pressionada a tecla CTRL e clique sobre os itens"
 
-#: Public/form_data/FG_var_user.inc:135
+#: Public/form_data/FG_var_user.inc:136
 #: Public/form_data/FG_var_speeddial.inc:59
 #: Public/form_data/FG_var_server_group.inc:42
 #: Public/form_data/FG_var_friend.inc:111
 msgid "Insert the name"
 msgstr "Insira o nome"
 
-#: Public/form_data/FG_var_user.inc:144
+#: Public/form_data/FG_var_user.inc:145
 msgid "Insert the direction"
 msgstr "Insira a direção"
 
-#: Public/form_data/FG_var_user.inc:147
+#: Public/form_data/FG_var_user.inc:148
 msgid "ZIPCODE"
 msgstr "CEP"
 
-#: Public/form_data/FG_var_user.inc:153
+#: Public/form_data/FG_var_user.inc:154
 msgid "Insert the zip code"
 msgstr "insira o cep"
 
-#: Public/form_data/FG_var_user.inc:162 Public/form_data/FG_var_card.inc:408
+#: Public/form_data/FG_var_user.inc:163 Public/form_data/FG_var_card.inc:408
 msgid "Insert the state"
 msgstr "Insira o estado"
 
-#: Public/form_data/FG_var_user.inc:171
+#: Public/form_data/FG_var_user.inc:172
 msgid "Insert the telephone number"
 msgstr "Insira o número do telefone"
 
-#: Public/form_data/FG_var_user.inc:180
+#: Public/form_data/FG_var_user.inc:181
 msgid "Insert the fax number"
 msgstr "Insira o número do fax"
 
-#: Public/form_data/FG_var_user.inc:188 Public/form_data/FG_var_card.inc:378
+#: Public/form_data/FG_var_user.inc:189 Public/form_data/FG_var_card.inc:378
 msgid "Insert the email"
 msgstr "Insira o email"
 
-#: Public/form_data/FG_var_user.inc:263
+#: Public/form_data/FG_var_user.inc:264
 #: Public/form_data/FG_var_package.inc:123
 #: Public/form_data/FG_var_callback.inc:276
 #: Public/form_data/FG_var_server_group.inc:72
@@ -7208,7 +7207,7 @@ msgstr "Insira o identificador de chamadas"
 msgid "Choose if you want to activate this card"
 msgstr "Escolha se você quer ativar este cartão"
 
-#: Public/form_data/FG_var_callerid.inc:55
+#: Public/form_data/FG_var_callerid.inc:55 Public/form_data/FG_var_call.inc:36
 #: Public/form_data/FG_var_speeddial.inc:73
 #: Public/form_data/FG_var_paymentlog.inc:144
 #: Public/form_data/FG_var_statuslog.inc:60
@@ -7217,7 +7216,7 @@ msgstr "Escolha se você quer ativar este cartão"
 msgid "ID CARD"
 msgstr "ID DO CARTÃO"
 
-#: Public/form_data/FG_var_callerid.inc:61
+#: Public/form_data/FG_var_callerid.inc:61 Public/form_data/FG_var_call.inc:42
 #: Public/form_data/FG_var_speeddial.inc:79
 #: Public/form_data/FG_var_paymentlog.inc:150
 #: Public/form_data/FG_var_friend.inc:98
@@ -7225,7 +7224,7 @@ msgstr "ID DO CARTÃO"
 msgid "Insert the Id CardNumber"
 msgstr "Insira o ID do Cartão"
 
-#: Public/form_data/FG_var_callerid.inc:65
+#: Public/form_data/FG_var_callerid.inc:65 Public/form_data/FG_var_call.inc:46
 #: Public/form_data/FG_var_speeddial.inc:83
 msgid "Define the card number ID to use."
 msgstr "Defina o ID do número do cartão para usar."
@@ -7235,6 +7234,7 @@ msgid "Modify via the form below, the properties of the callerID"
 msgstr "Modificar através do formulário abaixo, as propriedades do identificador de chamadas"
 
 #: Public/form_data/FG_var_callerid.inc:101
+#: Public/form_data/FG_var_call.inc:115
 msgid "Click Confirm Data to apply your changes"
 msgstr "Clique em Confirmar Dados para aplicar suas alterações"
 
@@ -7267,6 +7267,14 @@ msgstr "Defina o identificador de chamadas. Quando você ADICIONAR um Identifica
 #, fuzzy
 msgid "Choose if you want to activate this CallerID"
 msgstr "Escolha se você quer ativar este cartão"
+
+#: Public/form_data/FG_var_outbound_cid.php:89
+#: Public/form_data/FG_var_alarm.inc:154 Public/form_data/FG_var_did.inc:169
+#: Public/form_data/FG_var_config_group.inc:41
+#: Public/form_data/FG_var_friend.inc:500
+#: Public/form_data/FG_var_did_destination.inc:148
+msgid "has been inserted. <br>"
+msgstr "foi inserido. <br>"
 
 #: Public/form_data/FG_var_support_component.inc:17
 msgid "Add COMPONENT"
@@ -7522,6 +7530,45 @@ msgstr "Adicionar um novo modelo"
 #, fuzzy
 msgid "Then MailType is signupconfirmed, some variables can be set within the email that will be replaced when the email is sent. Variables are:"
 msgstr "As variáveis definidas dentro do email serão substituídas quando o email for enviado.As variáveis são:"
+
+#: Public/form_data/FG_var_call.inc:10
+#, fuzzy
+msgid "CALLEDSTATION"
+msgstr "DESTINO"
+
+#: Public/form_data/FG_var_call.inc:17
+#, fuzzy
+msgid "THERE IS NO CALL CREATED!"
+msgstr "NÃO HÁ LOG DISPONÍVEL!"
+
+#: Public/form_data/FG_var_call.inc:27
+#, fuzzy
+msgid "CALL ID"
+msgstr "IDENTIFICADOR DE CHAMADAS"
+
+#: Public/form_data/FG_var_call.inc:58
+#, fuzzy
+msgid "Source"
+msgstr "Sucesso"
+
+#: Public/form_data/FG_var_call.inc:67
+msgid "Dnid"
+msgstr ""
+
+#: Public/form_data/FG_var_call.inc:101
+#, fuzzy
+msgid "Modify via the form below, the properties of the call"
+msgstr "Modificar através do formulário abaixo, as propriedades do identificador de chamadas"
+
+#: Public/form_data/FG_var_call.inc:102
+#, fuzzy
+msgid "If you really want remove this call, click on the delete button."
+msgstr "Se você quer realmente liberar este DID, Clique no \tbotão liberar."
+
+#: Public/form_data/FG_var_call.inc:103
+#, fuzzy
+msgid "you can add easily a new call"
+msgstr "você pode facilmente adicionar um novo "
 
 #: Public/form_data/FG_var_alarm.inc:15
 msgid "Add Alarm"
@@ -8154,6 +8201,10 @@ msgstr "Adicionar DID"
 #: Public/form_data/FG_var_card.inc:495
 msgid "DIDGROUP"
 msgstr "GRUPO DE DID"
+
+#: Public/form_data/FG_var_did.inc:32
+msgid "<acronym title=\"ACTIVATED\">"
+msgstr "<acronym title=\"ATIVADO\">"
 
 #: Public/form_data/FG_var_did.inc:33
 msgid "MU"
@@ -10422,3 +10473,23 @@ msgstr "Continue para importar a Lita de Telefones"
 msgid "new phone number have been imported."
 msgstr "novo número de telefone foi importado."
 
+#, fuzzy
+#~ msgid "<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">"
+#~ msgstr "<acronym title=\"MINUTOS USADOS\">"
+
+#, fuzzy
+#~ msgid "<acronym title=\"SUSPENDED FOR LITIGATION\">"
+#~ msgstr "<acronym title=\"TEMPO GRÁTIS PARA LIGAÇÃO\">"
+
+#~ msgid "Set the properties and attributes of the ratecard"
+#~ msgstr "Definir as propriedades e atributos do ratecard"
+
+#~ msgid "<br> TYPE DE SELECT :"
+#~ msgstr "<br> TIPO DE SELEÇÃO :"
+
+#, fuzzy
+#~ msgid "hasn't been inserted. <br>"
+#~ msgstr "foi inserido. <br>"
+
+#~ msgid "<br> GOTO ; "
+#~ msgstr "<br> IR PARA ; "
