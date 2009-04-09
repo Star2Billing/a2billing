@@ -176,35 +176,33 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
 	
 /*
  *		GLOBAL POST/GET VARIABLE
- */		 
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select'));
-
-/*
- *		CONNECT / DISCONNECT DATABASE
  */
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'language'));
 
 if (!isset($_SESSION)) {
 	session_start();
 }
  
- // Language session
-if (!isset($_SESSION["language"])) {
-	$_SESSION["language"]='english';
-} else if (isset($language)) {
+// Language Selection
+if (isset($language)) {
 	$_SESSION["language"] = $language;
+} elseif (!isset($_SESSION["language"])) {
+	$_SESSION["language"]='english';
 }
 
 define ("LANGUAGE",$_SESSION["language"]);
-define ("BINDTEXTDOMAIN", '../common/agent_ui_locale');
+define ("BINDTEXTDOMAIN", '../../common/agent_ui_locale');
 require("languageSettings.php");
 SetLocalLanguage();
 
- 
+
+/*
+ *		CONNECT / DISCONNECT DATABASE
+ */ 
 function DbConnect()
 {
 	return Connection::GetDBHandler();
 }
-
 
 function DbDisconnect($DBHandle)
 {

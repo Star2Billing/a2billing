@@ -165,12 +165,13 @@ define ("BINDTEXTDOMAIN", '../../common/admin_ui_locale');
 require("languageSettings.php");
 SetLocalLanguage();
 
-
+/*
+ *		CONNECT / DISCONNECT DATABASE
+ */
 function DbConnect()
 {
 	return Connection::GetDBHandler();
 }
-
 
 function DbDisconnect($DBHandle)
 {
