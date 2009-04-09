@@ -44,7 +44,7 @@ class FormHandler
 
 	var $CV_CURRENT_PAGE = 0;
 
-	var $FG_VIEW_TABLE_WITDH = '95%';
+	var $FG_VIEW_TABLE_WITDH = '100%';
 	var $FG_ACTION_SIZE_COLUMN = '25%';
 	/**
     * Sets the debug output (1 = low, 2 = Normal, 3 = High). Default value is "0" .

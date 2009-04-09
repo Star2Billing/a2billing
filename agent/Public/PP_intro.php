@@ -14,7 +14,7 @@ $smarty->display('main.tpl');
 ?>
 <br/><br/>
 
-<table align="center" width="90%" bgcolor="white" cellpadding="15" cellspacing="15" style="border-bottom: medium dotted #AA0000">
+<table align="center" width="90%" bgcolor="white" cellpadding="15" cellspacing="15" style="border: solid 1px">
 	<tr>
 		<td width="340">
 			<img src="<?php echo Images_Path;?>/a2b-logo-450.png">
@@ -39,7 +39,7 @@ $smarty->display('main.tpl');
 
 <br>
 	
-<table align=center width="90%" bgcolor="white" cellpadding="5" cellspacing="5">
+<table align=center width="90%" bgcolor="white" style="border: solid 1px" cellpadding="5" cellspacing="5">
 	<tr>
 		<td align="center"> 
 		

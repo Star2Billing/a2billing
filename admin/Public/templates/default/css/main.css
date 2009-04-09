@@ -1,6 +1,32 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#page-wrap {
+	min-width: 780px;
+	max-width: 1260px;
+	margin: 10px auto;
+	}
+#page-wrap #inside {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+	
+#main-content {
+	padding-left: 230px;
+	padding-right: 20px;
+}
+	
+#left-sidebar {
+	width: 200px;
+	float: left;
+	padding-top: 20px;
+}
+
 .msg_info, .msg_success, .msg_warning, .msg_error, .msg_validation {
     border: 1px solid;
-    margin:10px 20px;
+    margin:10px 10px 10px 0px;
     padding:15px 10px 20px 50px;
     background-repeat: no-repeat;
     background-position: 10px center;
@@ -324,25 +350,6 @@ TD.formAreaTitle {
 SPAN.errorText {
   font-family: Verdana, Arial, sans-serif;
   color: #ff0000;
-}
-.divleft {
-	overflow: auto;
-	position: absolute;
-	z-index: 0;
-	height: auto;
-	width: 195px;
-	top: 50px;
-	left:0px;
-}
-
-.divright {
-	z-index: 0;
-	position:absolute;
-	height: auto;
-	top: 40px;
-	left:200px;
-	PADDING-RIGHT: 15px;
-	PADDING-LEFT: 15px; 
 }
 .callhistory_totalcost {
 	background-color: #000000;

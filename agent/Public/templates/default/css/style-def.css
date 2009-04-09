@@ -1,25 +1,25 @@
 
 a:link {
    	font-family: Arial,Verdana;
-	color: #3399FF;
+	color: #005298;
 	text-decoration: none;
 }
 
 a:visited {
    	font-family: Arial,Verdana;
-	color: #3399FF;
+	color: #005298;
 	text-decoration: none;
 }
 
 a:active {
    	font-family: Arial,Verdana;
-	color: #3399FF;
+	color: #005298;
 	text-decoration: none;
 }
 
 a:hover {
    	font-family: Arial,Verdana;
-	color: #55AAFF;
+	color: #3b60af;
 	text-decoration: underline;
 }
 
@@ -35,20 +35,21 @@ table {
 body {
 	font-family: Arial,Verdana;
 	color: #666666;
+	background: #FCFCFC;
 }
 
 
 
-.textfield {
+.upload_textfield {
 	font-family: Arial,Verdana;
 	font-size: 9px;
 	color: #666666;
 	border: solid 1px;
 	border-color: #DBDBDB;
-	background-image: url('textfield.gif');
+	background-image: url('../images/textfield.gif');
 }
 
-.button {
+.upload_button {
 	font-family: Arial,Verdana;
 	font-size: 10px;
 	color: #FFFFFF;

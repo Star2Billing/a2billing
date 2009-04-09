@@ -260,10 +260,10 @@ if ($this->FG_FILTER_SEARCH_FORM){
 
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
+				<td>
 				<?php
 				foreach ($this->FG_FILTER_SEARCH_FORM_SELECT as $selects){
 				?>
-				<td>
 					<select NAME="<?php echo $selects[2]?>" size="1" class="form_input_select">
 						<option value=''><?php echo $selects[0]?></option>
 				<?php
@@ -273,10 +273,10 @@ if ($this->FG_FILTER_SEARCH_FORM){
 				<?php 	 }
 				?>
 					</select>
-				</td>
 				<?php
 				}
 				?>
+				</td>
 				</tr>
 				</table></td>
 			</tr>

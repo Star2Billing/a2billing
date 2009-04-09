@@ -1,9 +1,14 @@
-<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <HEAD>
 	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
 	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
 	<title>..:: {$CCMAINTITLE} ::..</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!--[if lt IE 7]>
+		<link rel="stylesheet" type="text/css" href="templates/{$SKIN_NAME}/css/style-ie.css" />
+	<![endif]-->
 	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
@@ -16,21 +21,15 @@
 </HEAD>
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
-<p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}<br><br><br>
-
-{if ($adminname) }
-Logged-in as: <b>{$adminname}</b></p>
-<br>
-{/if}
-<DIV border="0" width="1000px">
+<div id="page-wrap">
+	<div id="inside">
 {if ($popupwindow == 0)}
-<div class="divleft">
+<div id="left-sidebar">
+<div id="leftmenu-top">
+<div id="leftmenu-down">
+<div id="leftmenu-middle">
 
-
-<div id="nav_before"></div>
 <ul id="nav">
-
-
 
 	{if ($ACXMYACCOUNT > 0) }
 	<div class="toggle_menu">
@@ -41,7 +40,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
- onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MY ACCOUNT");{/php}</strong></a></li>
+ onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("MY ACCOUNT");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="0")}
 	style="">
@@ -67,7 +66,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
- onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></li>
+ onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="1")}
 	style="">
@@ -99,7 +98,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
- onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SIGNUP");{/php}</strong></a></li>
+ onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("SIGNUP");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="8")}
 	style="">
@@ -126,7 +125,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></li>
+	 onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="2")}
 	style="">
@@ -156,7 +155,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
+	  onmouseover="this.style.cursor='hand';" > &nbsp;<strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="3")}
 		style="">
@@ -165,7 +164,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Browse Rates");{/php}</a></li>
+				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Browse Rates");{/php} </a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -179,7 +178,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("CALL REPORT");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" > &nbsp;<strong>{php} echo gettext("CALL REPORT");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="6")}
 		style="">
@@ -203,7 +202,7 @@ Logged-in as: <b>{$adminname}</b></p>
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="7")}
 		style="">
@@ -221,17 +220,17 @@ Logged-in as: <b>{$adminname}</b></p>
 	{/if}
 	
 
-
-	<li><a href="#" target="_self"></a></a></li>
-	<ul>
-		<li><ul>
-		<li><a href="logout.php?logout=true" target="_top"><font color="#DD0000"><b>&nbsp;&nbsp;{php} echo gettext("LOGOUT");{/php}</b></font></a></li>
-		</ul></li>
-	</ul>
-
 </ul>
-<div id="nav_after"></div>
+</br>
+<ul id="nav">
+	<li>
+	<a href="logout.php?logout=true" target="_top"><img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/logout.png"> <font color="#DD0000"><b>&nbsp;&nbsp;{php} echo gettext("LOGOUT");{/php}</b></font> </a>
+	</li>
+</ul>
 
+</div>
+</div>
+</div>
 
 
 <table width="100%">
@@ -249,7 +248,8 @@ Logged-in as: <b>{$adminname}</b></p>
 
 </div>
 
-<div class="divright">
+<div id="main-content">
+<br/>
 
 {else}
 <div>

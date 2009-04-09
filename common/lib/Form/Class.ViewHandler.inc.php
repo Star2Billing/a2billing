@@ -662,7 +662,7 @@ function openURLFilter(theLINK)
     
     
 	<br><br>
-	<table width="50%" border="0" align="center">
+	<table width="100%" border="0" align="center">
 		
 		<tr>
 			<td align="center">

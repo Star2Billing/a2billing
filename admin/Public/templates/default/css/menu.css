@@ -60,7 +60,8 @@
 
 #footer {
   margin-bottom: 1em;
-  color: #BD2A15;  
+  color: #BD2A15; 
+  margin-top: 20px; 
   margin-right: 55px;  
   margin-left: 55px;
   border: solid 1px #EFEFEF;

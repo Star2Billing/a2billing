@@ -1,9 +1,14 @@
-<HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <HEAD>
 	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
 	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
 	<title>..:: {$CCMAINTITLE} ::..</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!--[if lt IE 7]>
+		<link rel="stylesheet" type="text/css" href="templates/{$SKIN_NAME}/css/style-ie.css" />
+	<![endif]-->
 	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
@@ -66,9 +71,10 @@
 	</div>
 	
 {/if}
-<DIV border="0" width="1000px">
+<div id="page-wrap">
+		<div id="inside">
 {if ($popupwindow == 0)}
-<div class="divleft">
+<div id="left-sidebar">
 <div id="leftmenu-top">
 <div id="leftmenu-down">
 <div id="leftmenu-middle">
@@ -645,7 +651,7 @@
 
 </div>
 
-<div class="divright">
+<div id="main-content">
 <br/>
 {else}
 <div>
