@@ -36,7 +36,7 @@ generate_admin_PO(){
 	cd $DIR_CURRENT
 	
 	rm -rf templates_c/*
-    find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "customer.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+    find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "agent.defines.php" | grep -v "agent.help.php" | grep -v "agent.module.access.php" | grep -v "customer.defines.php" | grep -v "customer.help.php" | grep -v "customer.module.access.php" | xargs xgettext -n --no-wrap
     
     cd $cwd
     
@@ -55,7 +55,7 @@ generate_agent_PO(){
 	cd $DIR_CURRENT
 	
 	rm -rf templates_c/*
-    find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "customer.*" | grep -v "admin.*" | xargs xgettext -n --no-wrap
+    find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "admin.defines.php" | grep -v "admin.help.php" | grep -v "admin.module.access.php" | grep -v "customer.defines.php" | grep -v "customer.help.php" | grep -v "customer.module.access.php" | xargs xgettext -n --no-wrap
     
     cd $cwd
     
@@ -74,7 +74,7 @@ generate_customer_PO(){
 	cd $DIR_CURRENT
 	
 	rm -rf templates_c/*
-    find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "admin.*" | grep -v "agent.*" | xargs xgettext -n --no-wrap
+    find -follow | grep -i [.][pit][hnp][pcl]$  | grep -v "admin.defines.php" | grep -v "admin.help.php" | grep -v "admin.module.access.php" | grep -v "agent.defines.php" | grep -v "agent.help.php" | grep -v "agent.module.access.php" | xargs xgettext -n --no-wrap
     
     cd $cwd
     
