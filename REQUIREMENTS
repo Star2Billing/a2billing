@@ -28,4 +28,5 @@ REQUIREMENTS :
 		python-mysqldb
 		python-psycopg2
 		python-sqlalchemy
-	
+
+
