@@ -5,11 +5,10 @@
 
 #page-wrap {
 	min-width: 780px;
-	max-width: 1260px;
 	margin: 10px auto;
 	}
 #page-wrap #inside {
-	padding-top: 30px;
+	padding-top: 10px;
 	padding-bottom: 10px;
 }
 	
