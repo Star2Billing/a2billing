@@ -10,10 +10,16 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 7]>
+		<link rel="stylesheet" type="text/css" href="templates/{$SKIN_NAME}/css/style-ie.css" />
+	<![endif]-->
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/invoice.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/receipt.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript">	
+		var IMAGE_PATH = "templates/{$SKIN_NAME}/images/";
+	</script>
 	<script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>
@@ -34,8 +40,6 @@
 
 	<div id="nav_before"></div>
 	<ul id="nav">
-
-
 
 		<li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li>
 
@@ -58,8 +62,8 @@
 
 
 		{if $ACXINVOICES >0 }
-		<div class="toggle_menu">
 		<li>
+		<div class="toggle_menu">
 		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
 		{if ($section == "5")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -82,6 +86,7 @@
 		</ul>
 		</div>
 		</div>
+		</li>
 		{/if}
 
 
@@ -124,8 +129,8 @@
 		{/if}
 		
 		{if $ACXAUTODIALER>0 }
-		<div class="toggle_menu">
 		<li>
+		<div class="toggle_menu">
 		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
 		{if ($section == "10")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -149,6 +154,7 @@
 		</ul>
 		</div>
 		</div>
+		</li>
 		{/if}
 		
 
@@ -200,10 +206,13 @@
 	
 	</table>
 
-
 </div>
 
 <div id="main-content">
 <br/>
+{else}
+<div>
 {/if}
+{else}
+<div>
 {/if}

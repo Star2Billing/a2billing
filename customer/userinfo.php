@@ -59,7 +59,7 @@ $smarty->display( 'main.tpl');
 
 <?php if ($A2B->config["webcustomerui"]['customerinfo']){ ?>
 
-<table width="90%" class="tablebackgroundblue" align="center">
+<table width="80%" class="tablebackgroundblue" align="center">
 <tr>
 	<td><img src="<?php echo KICON_PATH ?>/personal.gif" align="left" class="kikipic"/></td>
 	<td width="50%"><font class="fontstyle_002">
@@ -95,7 +95,7 @@ $smarty->display( 'main.tpl');
 
 <?php } ?>
 <br>
-<table width="100%" align="center" >
+<table width="80%" align="center" >
 <tr>
 	<td align="center">
 		<table width="80%" align="center" class="tablebackgroundcamel">
@@ -138,7 +138,7 @@ $smarty->display( 'main.tpl');
 	echo $PAYMENT_METHOD;
 ?>
 
-<table width="70%" align="center" cellspacing="0" >
+<table width="80%" align="center" cellspacing="0" >
 	<tr background="<?php echo Images_Path; ?>/background_cells.gif" >
 		<TD  valign="top" align="right" class="tableBodyRight"   >
 			<font size="2"><?php echo gettext("Click below to buy credit : ");?> </font>

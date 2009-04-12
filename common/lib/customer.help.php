@@ -1,234 +1,54 @@
 <?php
+function create_help($text) {
+	$help='
+	<div class="toggle_show2hide">
+	<div class="tohide" style="display:visible;">
+	<div class="msg_info">'.$text.'
+	<a href="#" target="_self" class="hide_help" style="float:right;"><img class="toggle_show2hide" src="'.Images_Path.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+	</div></div></div>';
+	return $help;
+	
+}
+
 
 if (SHOW_HELP){
 
-$CC_help_webphone='
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/stock_landline-phone.gif" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr>
-<td width="50%">'.gettext("From here, you can use the web based screen phone. You need microphone and speakers on your PC.").
-'</br></br>
-</td>
-</tr>
-</table>
-</div></div></div>';
+$CC_help_webphone=create_help(gettext("From here, you can use the web based screen phone. You need microphone and speakers on your PC."));
 
-$CC_help_balance_customer='
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/gnome-finance.gif" width="48" height="48" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr>
-<td width="100%">
+$CC_help_balance_customer=create_help(gettext("All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."));
 
-'.gettext("All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price.").'
-<br></br>
-</td>
-</tr>
-</table>
-</div></div></div>&nbsp;';
+$CC_help_card=create_help(gettext("Personal information.").'<br>
+'.gettext("You can update your personal information here."));
 
-$CC_help_card='
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/personal.gif" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr>
-<td width="100%">
-'.gettext("Personal information.").'<br>
-'.gettext("You can update your personal information here.").'<br>
-<br></td>
-</tr>
-</table>
-</div></div></div>
-';
+$CC_help_simulator_rateengine=create_help(gettext("Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."));
 
-$CC_help_simulator_rateengine='
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/connect_to_network.gif" width="48" height="48" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr>
-<td width="100%">
-'.gettext("Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit.").'
-</td>
-</tr>
-</table>
-</div></div></div>
-&nbsp;
-';
+$CC_help_sipiax_info=create_help(gettext("Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and do necessary modifications."));
 
-$CC_help_sipiax_info='
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/connect_to_network.gif" width="48" height="48" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr>
-<td width="100%">'.gettext("Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and do necessary modifications.").'<br>
-<br></td>
-</tr>
-</table>
-</div></div></div>
-&nbsp;
-';
+$CC_help_password_change =create_help(gettext("On this page you will be able to change your password, You have to enter the New Password and Confirm it."));
 
-$CC_help_password_change ='
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/connect_to_network.gif" width="48" height="48" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr>
-<td width="100%">
-'.gettext("On this page you will be able to change your password, You have to enter the New Password and Confirm it.").'
-<br>&nbsp;
-</td>
-</tr>
-</table>
-</div></div></div>
-&nbsp;
-';
+$CC_help_ratecard =create_help(gettext("View Ratecards"));
 
-$CC_help_ratecard ='
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/connect_to_network.gif" width="48" height="48" class="kikipic"/>
-	<div class="w2">
-<table width="90%"><tr><td width="100%">'.gettext("View Ratecards").
-'<br>&nbsp;
-</td></tr></table>
-</div></div></div>
-';
-
-$CC_help_view_payment='
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/gnome-finance.gif" width="48" height="48" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr>
-<td width="100%">'.gettext("Payment history - Record of payments made.").'<br>
-<br></td>
-</tr>
-</table>
-</div></div></div>
-&nbsp;
-';
+$CC_help_view_payment=create_help(gettext("Payment history - Record of payments made."));
 
 
-$CC_help_list_voucher = '
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/vcard.gif" width="50" height="50" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr height="55px">
-<td width="100%">
-'.gettext("Enter your voucher number to top up your card.").'
-<br>&nbsp;
-</td>
-</tr>
-</table>
-</div></div></div>
-';
+$CC_help_list_voucher = create_help(gettext("Enter your voucher number to top up your card."));
 
 
-$CC_help_campaign ='
-<div class="toggle_show2hide">
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/yast_remote.gif" class="kikipic"/>
-	<div class="w2">'
-	.gettext("This section will allow you to create and edit campaign. ")
+$CC_help_campaign =create_help(gettext("This section will allow you to create and edit campaign. ")
     .gettext("A campaign will be attached to a user in order to let him use the predictive-dialer option. ")
-    .gettext("Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls.").'
-<br/><br/>
-</div></div></div>
-</div></div>';
+    .gettext("Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls."));
 
-$CC_help_phonelist ='
-<div class="toggle_show2hide">
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
-	<div class="w2"><br/>'
-	.gettext("Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers.").'
-	<br/><br/>
-</div></div></div>
-</div></div>';
+$CC_help_phonelist =create_help(gettext("Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers."));
+
+$CC_help_view_invoice =create_help(gettext("Invoice history - The section below allows you to see and pay the invoices that you have to pay."));
 	
-
-$CC_help_view_invoice ='
-<div class="toggle_show2hide">
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
-	<div class="w2"><br>
-'.gettext("Invoice history - The section below allows you to see and pay the invoices that you have to pay.").'
-<br/><br/>
-</div></div></div>
-</div></div>';
+$CC_help_view_receipt =create_help(gettext("Receipt history - The section below allows you to see the receipt that you received. you can see in them the summary of some withdrawal"));
 	
-$CC_help_view_receipt ='
-<div class="toggle_show2hide">
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
-	<div class="w2"><br>
-'.gettext("Receipt history - The section below allows you to see the receipt that you received. you can see in them the summary of some withdrawal").'
-<br/><br/>
-</div></div></div>
-</div></div>';
-	
+$CC_help_phonebook =create_help(gettext("Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section"));	
 
-	
-$CC_help_phonebook ='
-<div class="toggle_show2hide">
-<div class="tohide" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
-	<div class="w2"><br/>'
-	.gettext("Phonebook are set of phone numbers. You can add, remove and edit the phonebook. You can also associate phonebook to a campaign in the Campaign section").'
-	<br/><br/>
-</div></div></div>
-</div></div>';	
+$CC_help_list_did =create_help(gettext("Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."));
 
-$CC_help_list_did = '
-<div id="div1000" style="display:visible;">
-<div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/vcard.gif" width="50" height="50" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr height="55px">
-<td width="100%">
-'.gettext("Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to.").'
-<br>&nbsp;
-</td>
-</tr>
-</table>
-</div></div></div><br>
-';
-
-
-$CC_help_release_did ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
-	<div class="w2">
-	<br/>'
-	.gettext("After confirmation, the release of the did will be done immediately and you will not be monthly charged any more.").'<br/>
-
-<br/>
-</div></div></div>
-</div>';
+$CC_help_release_did =create_help(gettext("After confirmation, the release of the did will be done immediately and you will not be monthly charged any more."));
 
 } //ENDIF SHOW_HELP
 

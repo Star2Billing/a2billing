@@ -1,4 +1,3 @@
-
 DEBUG = true;
 $(document).ready(
 	function()
@@ -6,6 +5,7 @@ $(document).ready(
 		$("div.toggle_menu a.toggle_menu").click(function(){
 			div_toggle = $(this).parent().parent().find("div.tohide");
 			if (div_toggle.css('display') == 'none') {
+			
 				div_toggle.slideDown('slow');
 				$(this).find("img").each(function(i) {
 					//alert(newimage.substr(0,newimage.length-8) + 'minus.gif');
