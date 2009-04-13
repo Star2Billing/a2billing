@@ -355,7 +355,7 @@ $link = CUSTOMER_UI_URL;
 						<?php echo gettext("VAT REGISTRATION NUMBER") ?> :
 					</td>
 					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
-						&nbsp;<?php echo $card['VAT_RN']?> 
+						&nbsp;<?php echo $card['vat_rn']?> 
 					</td>
 					
 					
