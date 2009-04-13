@@ -3,7 +3,7 @@ $(document).ready(
 	function()
 	{
 		$("div.toggle_menu a.toggle_menu").click(function(){
-			div_toggle = $(this).parent().parent().find("div.tohide");
+			div_toggle = $(this).parent().parent().next("div.tohide");
 			if (div_toggle.css('display') == 'none') {
 			
 				div_toggle.slideDown('slow');

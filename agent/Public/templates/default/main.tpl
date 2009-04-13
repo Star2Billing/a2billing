@@ -34,15 +34,15 @@
 <ul id="nav">
 
 	{if ($ACXMYACCOUNT > 0) }
-	<div class="toggle_menu">
 	<li>
+	<div class="toggle_menu">
 	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
 	{if ($section == "0")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
- onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("MY ACCOUNT");{/php}</strong></a></li>
+ onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("MY ACCOUNT");{/php}</strong></a></div></li>
 	<div class="tohide"
 	{if ($section =="0")}
 	style="">
@@ -56,19 +56,18 @@
 		</ul></li>
 	</ul>
 	</div>
-	</div>
 	{/if}
 	
 	{if ($ACXCUSTOMER > 0) }
-	<div class="toggle_menu">
 	<li>
+	<div class="toggle_menu">
 	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
 	{if ($section == "1")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
- onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></li>
+ onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></div></li>
 	<div class="tohide"
 	{if ($section =="1")}
 	style="">
@@ -87,20 +86,19 @@
 		</ul></li>
 	</ul>
 	</div>
-	</div>
 	{/if}
 	
 	
 	{if ($ACXSIGNUP > 0) }
-	<div class="toggle_menu">
 	<li>
+	<div class="toggle_menu">
 	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
 	{if ($section == "8")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
- onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("SIGNUP");{/php}</strong></a></li>
+ onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("SIGNUP");{/php}</strong></a></div></li>
 	<div class="tohide"
 	{if ($section =="8")}
 	style="">
@@ -114,20 +112,20 @@
 		</ul></li>
 	</ul>
 	</div>
-	</div>
 	{/if}
 
 
 
 	{if ($ACXBILLING > 0)}
+	<li>
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img2"
+	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img2"
 	{if ($section =="2")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	 onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></li>
+	 onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></div></li>
 	<div class="tohide"
 	{if ($section =="2")}
 	style="">
@@ -146,18 +144,18 @@
 			</ul></li>
 		</ul>
 	</div>
-	</div>
 	{/if}
 
 	{if ($ACXRATECARD > 0)}
+	<li>
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img3"
+	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img3"
 	{if ($section =="3")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	{/if}
-	  onmouseover="this.style.cursor='hand';" > &nbsp;<strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
+	  onmouseover="this.style.cursor='hand';" > &nbsp;<strong>{php} echo gettext("RATECARD");{/php}</strong></a></div></li>
 		<div class="tohide"
 	{if ($section =="3")}
 		style="">
@@ -170,17 +168,17 @@
 			</ul></li>
 		</ul>
 	</div>
-	</div>
 	{/if}
 
 	{if ($ACXCALLREPORT > 0)}
+	<li>
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img5"
+	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img5"
 	{if ($section == "6")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" > &nbsp;<strong>{php} echo gettext("CALL REPORT");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" > &nbsp;<strong>{php} echo gettext("CALL REPORT");{/php}</strong></a></div></li>
 		<div class="tohide"
 	{if ($section =="6")}
 		style="">
@@ -194,17 +192,17 @@
 			</ul></li>
 		</ul>
 	</div>
-	</div>
 	{/if}
 	
 	{if ($ACXSUPPORT  > 0)}
+	<li>
 	<div class="toggle_menu">
-	<li><a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
+	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img8"
 	{if ($section == "7")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("SUPPORT");{/php}</strong></a></div></li>
 		<div class="tohide"
 	{if ($section =="7")}
 		style="">
@@ -217,7 +215,6 @@
 				<li><a href="A2B_support.php">{php} echo gettext("View and Create Tickets");{/php}</a></li>
 			</ul></li>
 		</ul>
-	</div>
 	</div>
 	{/if}
 	

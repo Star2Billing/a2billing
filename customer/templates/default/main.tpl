@@ -70,7 +70,7 @@
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
 		{/if}
-	 	onmouseover="this.style.cursor='hand';">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
+	 	onmouseover="this.style.cursor='hand';">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></div></li>
 		<div class="tohide"
 		{if ($section == "5")}
 		style="">
@@ -85,8 +85,6 @@
 			</ul></li>
 		</ul>
 		</div>
-		</div>
-		</li>
 		{/if}
 
 
@@ -137,7 +135,7 @@
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
 		{/if}
-	 	onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></a></li>
+	 	onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></a></div></li>
 		<div class="tohide"
 		{if ($section == "10")}
 		style="">
@@ -153,8 +151,6 @@
 			</ul></li>
 		</ul>
 		</div>
-		</div>
-		</li>
 		{/if}
 		
 
