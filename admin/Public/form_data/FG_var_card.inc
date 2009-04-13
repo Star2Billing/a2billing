@@ -765,11 +765,16 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 				   '', '', gettext("Invoice Status"));
 	
 	
+	if ($form_action =="ask-add" || $form_action=="add") {
+		$vat_init = "value = '0'";
+		
+	}
+	
 	$HD_Form -> AddEditElement (gettext("VAT"),
 				   "vat",
 				   "",
 				   "INPUT",
-				   "size=10 maxlength=6 value=0",
+				   "size=10 maxlength=6 $vat_init",
 				   "12",
 				   gettext("Insert the number for the VAT"),
 				   "" , "", "",	"", "", "", "" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
