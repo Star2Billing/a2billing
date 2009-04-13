@@ -9,12 +9,12 @@ function sendto(action, record, field_inst, instance){
   document.myForm.form_action.value = action;
   document.myForm.sub_action.value = record;
   if (field_inst != null) document.myForm.elements[field_inst].value = instance;
-  myForm.submit();
+  document.myForm.submit();
 }
 
 function sendtolittle(direction){
-  myForm.action=direction;
-  myForm.submit();
+  document.myForm.action=direction;
+  document.myForm.submit();
 
 }
 
