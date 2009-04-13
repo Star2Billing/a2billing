@@ -1,9 +1,9 @@
 <?php
-include ("../lib/admin.defines.php");
-include ("../lib/admin.module.access.php");
+include ("../lib/agent.defines.php");
+include ("../lib/agent.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_moneysituation_details.inc");
-include ("../lib/admin.smarty.php");
+include ("../lib/agent.smarty.php");
 
 if (! has_rights (ACX_BILLING)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -18,7 +18,7 @@ if (isset($id)) {
 		$table_agent_security = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
 		$clause_agent_security = "cc_card.id= ".$id;
 		$result_security= $table_agent_security -> Get_list ($DBHandle, $clause_agent_security, null, null, null, null, null, null);
-		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
+		if ( $result_security[0][0] != $_SESSION['agent_id'] ) { 
 			Header ("Location: A2B_entity_moneysituation.php?section=10");
 			die();	   
 		}
