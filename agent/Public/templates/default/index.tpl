@@ -85,6 +85,7 @@
 				BLOCKED ACCOUNT, Please contact your administrator!
 	    {/if}
       	</div>
+      	</div>
 	</form>
 {literal}
 <script LANGUAGE="JavaScript">

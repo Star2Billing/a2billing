@@ -84,6 +84,7 @@
 	    {elseif ($error==3)}
 				BLOCKED ACCOUNT, Please contact your administrator!
 	    {/if}
+	    </div>
       	</div>
 	</form>
 {literal}

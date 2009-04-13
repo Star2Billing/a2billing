@@ -5,10 +5,9 @@
 
 #page-wrap {
 	min-width: 1000px;
-	margin: 10px auto;
+	margin: 0px auto;
 	}
 #page-wrap #inside {
-	padding-top: 10px;
 	padding-bottom: 10px;
 }
 	

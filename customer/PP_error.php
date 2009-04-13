@@ -1,11 +1,11 @@
 <?php
 include ("lib/customer.defines.php");
 session_destroy();
-$popup_select=1;
 include ("lib/customer.smarty.php");
 
-$smarty->display('main.tpl');
+$smarty->display('header.tpl');
 
+getpost_ifset(array('c'));
 
 if (!isset($c))	$c="0";
 
@@ -17,35 +17,35 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 
 ?>
 
-<br></br><br></br>
-<table width="460" border="2" align="center" cellpadding="1" cellspacing="2" bordercolor="#eeeeff" bgcolor="#FFFFFF">
-	<tr  class="pp_error_maintable_tr1">
-		<td> 					
-			<div align="center"><b><font size="3"><?php echo gettext("Error Page");?></font></b></div>
+<div id="login-wrapper" class="login-border-up">
+	<div class="login-border-down">
+	<div class="login-border-center">
+	<table>
+	<tr>
+		<td class="login-title" colspan="2">
+			 <?php echo gettext("ERROR PAGE");?>
 		</td>
-	</tr>				 
-	<tr> 
-	<td align="center" colspan=2> 
-		<table width="100%" border="0" cellpadding="5" cellspacing="5">		  
-		<tr> 
-			<td align="center"><br/>
-				<img src="<?php echo KICON_PATH; ?>/system-config-rootpassword.gif"> 
-				<br/>
-				<b><font size="3"><?php echo $error[$c]?></font></b>
-				<br/><br/>
-			</td>
-		</tr>
-		<tr> 
-			<td align="right"><br/>
-				<a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
-			</td>
-		</tr>
-		</table>			
-	</td>
 	</tr>
-</table>
-<br/><br/>
+	<tr>
+		<td width="70px" align="center">
+			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.gif"> 
+		</td>
+		<td align="center">
+			<b><font size="3"><?php echo $error[$c]?></font></b>
+		</td>
+	</tr>           
 
-<?php
-	$smarty->display('footer.tpl');
-?>
+	</tr>
+      	</table>
+      	</div>
+      	</div>
+      	<div style="text-align:right;padding-right:10px;" >
+	      	<a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
+      	</div>
+	</div>
+	
+
+
+	</div>
+	</div>
+
