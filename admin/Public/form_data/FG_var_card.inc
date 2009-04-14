@@ -103,7 +103,7 @@ $show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettex
 
 if (!($popup_select>=1)) {
 	$serial_pad_length=$A2B->config["webui"]['card_serial_length'];
-	$show_fields['id_seria']=array(gettext("SERIA"), "id_seria", "*", "center", "sort", "15", "lie", "cc_card_seria", "name","id='%id'", "%1","");
+	$show_fields['id_seria']=array(gettext("SERIE"), "id_seria", "*", "center", "sort", "15", "lie", "cc_card_seria", "name","id='%id'", "%1","");
 	$show_fields['serial']=array("<acronym title=\"".gettext("SERIAL NUMBER")."\">SERIAL#</acronym>", "serial", "*","center", "sort","","eval",'str_pad("%C",'.$serial_pad_length.' , "0", STR_PAD_LEFT)');
 	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>",
 	       "tariff", "8%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
@@ -207,7 +207,7 @@ $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credi
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
 
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
-$HD_Form -> AddSearchElement_Select(gettext("SELECT SERIA"),"cc_card_seria","id, name", "", "name", "ASC", "id_seria");
+$HD_Form -> AddSearchElement_Select(gettext("SELECT SERIE"),"cc_card_seria","id, name", "", "name", "ASC", "id_seria");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, null,null , "status", 0, $cardstatus_list_r);
@@ -339,7 +339,7 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 				   "name, id",
 				   "", "", "%1", "", "", "", "", "");
 			   
-	$HD_Form -> AddEditElement (gettext("SERIA"),
+	$HD_Form -> AddEditElement (gettext("SERIE"),
 	               "id_seria",
 	               "",
 	               "SELECT",

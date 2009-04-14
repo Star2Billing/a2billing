@@ -14,23 +14,15 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = 
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/add.png" ;
 
 
-
 $language_list = Constants::getLanguagesList();
 $simultaccess_list = Constants::getCardAccess_List();
 $simultaccess_list_r = Constants::getCardAccess_Revert_List();
-$currency_list=getCurrenciesList();
+$currency_list = getCurrenciesList();
 $currency_list_r = getCurrenciesRateList();
 $currency_list_key = getCurrenciesKeyList();
 $typepaid_list = Constants::getPaidTypeList();
 $expire_list = Constants::getExpirationList();
 
-
-
-$inuse_list = array();
-for ($k=0;$k<=40;$k++)
-	$inuse_list["$k"]  = array( gettext("currently in use")." : $k", "$k");
-
-$actived_list = Constants::getActivationTrueFalseList();
 
 $yesno = Constants::getYesNoList();
 
@@ -165,7 +157,7 @@ $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 				   "",	
 				   "",	
 				   gettext("Choose if you want to enable the service recurring on this card"),
-				   "" , "", "", "Yes :1, - No:0",	"", "" , "", gettext("Define if you want to authorize the recurring service to apply on this card"));
+				   "" , "", "", "Yes :1, - No:0",	"", "" , "", gettext("Define if you want to authorise the recurring service to apply on this card"));
 
 
 $HD_Form -> AddEditElement (gettext("CARD TYPE"),

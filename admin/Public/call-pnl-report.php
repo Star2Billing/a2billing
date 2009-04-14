@@ -247,7 +247,8 @@ $condition1=str_replace('cdr.starttime','date',$condition);
 $condition2=str_replace('cdr.starttime','firstusedate',$condition);
 $payphones=$A2B->config["webui"]["report_pnl_pay_phones"];
 $tallfree=$A2B->config["webui"]["report_pnl_tall_free"];
-$payphones=str_replace(' ','',$payphones);$tallfree=str_replace(' ','',$tallfree);
+$payphones=str_replace(' ','',$payphones);
+$tallfree=str_replace(' ','',$tallfree);
 $payphones=str_replace('),(',' ,1 as dnid_type union select ',$payphones);
 $payphones=str_replace(')',' ,1  ',$payphones);
 $tallfree=str_replace('),(',' ,2  union select ',$tallfree);
@@ -371,12 +372,10 @@ if(!isset($group_id)) {
 	)as final
 ";
   }
-}else{
- $QUERY.="left join cc_prefix as cg on cg.prefix=t1.destination,
-  (select '-' as  credits,'-' as charges,'-' as first_use) as t2 
- )as result
-)as final
-";
+} else {
+	$QUERY.= "left join cc_prefix as cg on cg.prefix=t1.destination,  " .
+			 "(select '-' as  credits,'-' as charges,'-' as first_use) as t2 " .
+			 ")as result )as final ";
 }
 
 
@@ -465,7 +464,6 @@ $HD_Form -> FG_TOTAL_TABLE_COL=19;
 
 
 
-
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_HTML_TABLE_WIDTH ="90%";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
@@ -493,8 +491,6 @@ if (!isset($action)) $action = $form_action;
 $list = $HD_Form -> perform_action($form_action);
 
 
-
-
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
@@ -513,34 +509,44 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
  if ($res){
 	?><br><br><table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
 	<tr class="form_head"><td class='tableBody'></td>
-	<td class='tableBody'>Total Calls</td><td class='tableBody'>Total Min</td><td class='tableBody'>Toll Free Cost</td>
-	<td class='tableBody'>PayPhone Cost</td><td class='tableBody'>Origination Cost</td><td class='tableBody'>Credits</td>
-	<td class='tableBody'>Total Cost</td><td class='tableBody'>Tall Free Revenue</td><td class='tableBody'>Pay Phone Revenue</td>
-	<td class='tableBody'>Termination Revenu</td><td class='tableBody'>Extra Charges</td><td class='tableBody'>Total Revenue</td>
-	<td class='tableBody'>First Use</td><td class='tableBody'>Average Discount</td><td class='tableBody'>Net Revenue</td><td class='tableBody'
-	>Margin</td><td class='tableBody'>Total Profit</td></tr>
-			<?php
-			$roa=array();
-                        $row =$res -> fetchRow();
-			echo "<TR>";
-			for($k=0;$k<18;$k++) {
-			  echo "<TD class='tableBody'>";
-			 if ($k<3){
-			  echo $row[$k];
-			 }else{
-				echo number_format($row[$k],2);
-				if(($k==14)||($k==16)){
+	<td class='tableBody'><?php gettext('Total Calls');?></td>
+	<td class='tableBody'><?php gettext('Total Min');?></td>
+	<td class='tableBody'><?php gettext('Toll Free Cost');?></td>
+	<td class='tableBody'><?php gettext('PayPhone Cost');?></td>
+	<td class='tableBody'><?php gettext('Origination Cost');?></td>
+	<td class='tableBody'><?php gettext('Credits');?></td>
+	<td class='tableBody'><?php gettext('Total Cost');?></td>
+	<td class='tableBody'><?php gettext('Toll Free Revenue');?></td>
+	<td class='tableBody'><?php gettext('Pay Phone Revenue');?></td>
+	<td class='tableBody'><?php gettext('Termination Revenue');?></td>
+	<td class='tableBody'><?php gettext('Extra Charges');?></td>
+	<td class='tableBody'><?php gettext('Total Revenue');?></td>
+	<td class='tableBody'><?php gettext('First Use');?></td>
+	<td class='tableBody'><?php gettext('Average Discount');?></td>
+	<td class='tableBody'><?php gettext('Net Revenue');?></td>
+	<td class='tableBody'><?php gettext('Margin');?></td>
+	<td class='tableBody'><?php gettext('Total Profit');?></td></tr>
+	<?php
+	$roa=array();
+	$row =$res -> fetchRow();
+	echo "<TR>";
+	for($k=0;$k<18;$k++) {
+		echo "<TD class='tableBody'>";
+	 	if ($k<3) {
+			echo $row[$k];
+		} else {
+			echo number_format($row[$k],2);
+			if(($k==14)||($k==16)) {
 				echo "%";
-			           }
-			 }
-			echo "</TD>";
-			}?>
-			</tr><td colspan="19" class="tableDivider"><img height="1" width="1" src="../Public/templates/default/images/clear.gif"/></td>
+			}
+		}
+		echo "</TD>";
+	}?>
+	
+	</tr><td colspan="19" class="tableDivider"><img height="1" width="1" src="../Public/templates/default/images/clear.gif"/></td>
 </table>
 <?php         
- }
-
-
+}
 
 // Code for the Export Functionality
 //* Query Preparation.
@@ -549,7 +555,6 @@ if (strlen($HD_Form->FG_TABLE_CLAUSE)>1)
         $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";
 if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!=''))
         $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
-
 
 
 $smarty->display('footer.tpl');

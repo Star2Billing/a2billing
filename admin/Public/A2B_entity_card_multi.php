@@ -243,9 +243,9 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 ?>
 
 <table align="center"  class="bgcolor_001" border="0" width="65%">
+<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 <tr>
-	<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-	<td align="left" width="75%">
+	<td align="left" width="100%">
 	<strong>1)</strong> <?php echo gettext("Length of card number :");?>
 	<select name="cardnumberlenght_list" size="1" class="form_input_select">
 	<?php 
@@ -378,7 +378,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	<strong>17)</strong>
 	<?php echo gettext("Serie");?> :
     <select NAME="id_seria" size="1" class="form_input_select" >
-    <option value=''><?php echo gettext("Choose a Serie");?></option>
+    <option value=''><?php echo gettext("Choose a Series");?></option>
     <?php
      foreach ($list_seria as $recordset){
     ?>
@@ -386,12 +386,14 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
     <?php } ?>
      </select>
 
-	</td>	
-	<td align="left" valign="bottom"> 
-		<input class="form_input_button"  value=" GENERATE CUSTOMERS " type="submit"> 
 	</td>
-	</form>
 </tr>
+<tr>
+	<td align="right">
+		<input class="form_input_button"  value=" GENERATE CUSTOMERS " type="submit">
+	</td>
+</tr>
+</form>
 </table>
 <br>
 

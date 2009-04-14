@@ -75,9 +75,9 @@ $HD_Form -> AddEditElement (gettext("UNIQUEID"),
 	"size=20 maxlength=30",	
 	"3",	
 	gettext("Insert the uniqueid"), 
-	"" , "", "",	"", "" , "", "", gettext("This is an identifier to cross check the callback's request <br>(useful if you have request coming from an other platform through the API))") );
+	"" , "", "",	"", "" , "", "", gettext("This is an identifier to cross check the callback's request.".gettext("(useful if you have requests coming from an other platform through the API))") );
 	
-if ($form_action=="ask-add"){	
+if ($form_action=="ask-add") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+25;	
 	$end_date = date("-m-d H:i:s");

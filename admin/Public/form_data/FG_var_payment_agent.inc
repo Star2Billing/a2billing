@@ -3,10 +3,10 @@
 getpost_ifset(array('id', 'agent_id', 'date', 'payment','description','added_refill','refill_type'));
 
 
-if (!isset($form_action) || $form_action=="list"){
+if (!isset($form_action) || $form_action=="list") {
 	$HD_Form = new FormHandler("cc_logpayment_agent LEFT JOIN cc_agent ON cc_agent.id=agent_id","Payment Agent");
-}else{
-	$HD_Form = new FormHandler("cc_logpayment_agent","Payment Agent");
+} else {
+	$HD_Form = new FormHandler("cc_logpayment_agent","Agent Payment");
 }
 
 $HD_Form -> FG_TABLE_ID = 'cc_logpayment_agent.id';
@@ -24,7 +24,7 @@ $HD_Form -> AddViewElement(gettext("ID"), "cc_logpayment.id", "10%", "center", "
 if (has_rights (ACX_ADMINISTRATOR)) { 
 	$HD_Form -> AddViewElement(gettext("AGENT"), "agent_id", "20%", "center", "sort", "", "30", "", "", "", "", "linktoagent");
 	echo linktoagent($payment['agent_id']);
-}else{
+} else {
 	$HD_Form -> AddViewElement(gettext("AGENT"), "agent_id", "20%", "center", "sort", "", "30", "", "", "", "", "nameofagent");
 	echo nameofagent($payment['agent_id']);
 }
@@ -36,7 +36,7 @@ $HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "17%", "center", "
 $HD_Form -> FieldViewElement ('cc_logpayment_agent.id, agent_id, date, payment ,payment_type,id_logrefill');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
+$HD_Form -> CV_NO_FIELDS = gettext("THERE IS NO AGENT PAYMENT CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -44,11 +44,11 @@ $HD_Form -> FG_INFO = true;
 $HD_Form -> FG_INFO_LINK = "A2B_payment_info_agent.php?id=";
 $HD_Form -> FG_ADDITION = true;
 
-if (! has_rights (ACXMODIFY_PAYMENTS)){
+if (! has_rights (ACXMODIFY_PAYMENTS)) {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	
-	if ($form_action=="ask-add" && !empty($card_id)){	
+	if ($form_action=="ask-add" && !empty($card_id)) {	
 		$id_val = "value='$card_id'";
 	}
 	
@@ -64,7 +64,7 @@ if (! has_rights (ACXMODIFY_PAYMENTS)){
 					, ", 'AgentSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 					gettext("Select the Agent ID"));
 				   
-	if ($form_action=="ask-add"){	
+	if ($form_action=="ask-add") {
 		$begin_date = date("Y");
 		$end_date = date("-m-d H:i:s");
 		$comp_date=$begin_date.$end_date;

@@ -21,8 +21,9 @@ echo $CC_help_mail_notifications;
 	<tr>
 	 	<td>
 		<?php if ( has_rights (ACX_ACXSETTING)) {		
-				echo gettext("All parameters related to the Notifications module can be set using the Global Config available in System Settings menu.<br/>");
+				echo gettext("All parameters relating to the Notifications module can be set using the Global Config available in System Settings menu.");
 		?>
+				<br/>
 		 		<a href="A2B_entity_config.php?groupselect=notifications"><?php echo gettext("System Settings - Global Config")?></a>
 		<?php 
 			} else { 
@@ -55,7 +56,7 @@ if (!is_null($return)&& (!empty($return)>0)) {
 		if($return[0]["config_value"]) echo gettext("Currently, the cron process of notifications is activated.");
 		else echo gettext("Currently, the cron process of notification is deactivated.");
 		echo '<br/>';
-		echo gettext("Make sure that the cron files are correctly configure in the crontab!");
+		echo gettext("Make sure that the cron files are correctly configured in the crontab!");
 		echo '<br/>';
 		
 		if ( has_rights (ACX_ACXSETTING)) {

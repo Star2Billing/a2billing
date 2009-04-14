@@ -6,7 +6,7 @@ getpost_ifset(array('id', 'agent_id', 'date', 'credit','description'));
 if (!isset($form_action) || $form_action=="list") {
 	$HD_Form = new FormHandler("cc_logrefill_agent LEFT JOIN cc_agent ON cc_agent.id=agent_id","Refill Agent");
 } else {
-	$HD_Form = new FormHandler("cc_logrefill_agent","Refill Agent");
+	$HD_Form = new FormHandler("cc_logrefill_agent","Agent Refill");
 }
 
 $HD_Form -> FG_TABLE_ID = 'cc_logrefill_agent.id';
@@ -37,7 +37,7 @@ $HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "credit", "15%", "center", 
 $HD_Form -> FieldViewElement ('cc_logrefill_agent.id, agent_id, date, cc_logrefill_agent.refill_type as refill_type, cc_logrefill_agent.credit');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO AGENT REFILL CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -45,10 +45,10 @@ $HD_Form -> FG_INFO = true;
 $HD_Form -> FG_INFO_LINK = "A2B_refill_info_agent.php?id=";
 
 $HD_Form -> FG_ADDITION = true;
-if (! has_rights (ACXMODIFY_REFILLS)){
+
+if (! has_rights (ACXMODIFY_REFILLS)) {
 	$HD_Form -> FG_EDITION = true;
-	$HD_Form -> FG_DELETION = true;
-	
+	$HD_Form -> FG_DELETION = true;	
 	
 	$HD_Form -> AddEditElement (gettext("ID AGENT"),
 				   "agent_id",		
@@ -58,7 +58,7 @@ if (! has_rights (ACXMODIFY_REFILLS)){
 					"A2B_entity_agent.php?popup_select=1&", ", 'AgentSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 					gettext("Select the Agent ID"));
 	
-	if ($form_action=="ask-add"){	
+	if ($form_action=="ask-add") {
 		$begin_date = date("Y");
 		$end_date = date("-m-d H:i:s");
 		$comp_date=$begin_date.$end_date;

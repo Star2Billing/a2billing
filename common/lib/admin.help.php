@@ -20,15 +20,15 @@ function create_help($text,$wiki=null) {
 
 if (SHOW_HELP) {
 	
-$CC_help_mail_notifications =create_help(gettext("The Notification component is responsible of informing the Customer via e-mail that the account has reached a minimum credit."),'Notification');
+$CC_help_mail_notifications = create_help(gettext("The Notification component is responsible for informing the Customer, via e-mail, that the account has reached a minimum credit."),'Notification');
 
 $CC_help_notifications = create_help (gettext("Notification: You can see below all notifications received about some event."),'Notificationbox') ;
 
-$CC_help_list_seria= create_help(gettext("This page shows the series list. <br> Series & serials is used for the creation of stable card range for large accounting purposes instead of card id."),'ListSeria');
+$CC_help_list_seria= create_help(gettext("This page shows the series list.").'<br>'.gettext("Series & serials is used for the creation of a card range specifically for accounting purposes instead of card id."),'ListSeria');
 
 $CC_help_list_group= create_help(gettext("This page shows a group list.").gettext("The Group field is used for grouping customers for quick search, batch update and reporting."),'ListGroup');
 
-$CC_help_generate_signup= create_help(gettext("Generate a specific crypted URL and to configure signup with a customer group and call plan."));
+$CC_help_generate_signup= create_help(gettext("Generate a specific crypted URL to configure signup with a customer group and call plan."));
 
 $CC_help_list_customer= create_help(gettext("Customers are listed below by account number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>").gettext("The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication."),'ListCustomers');
 
@@ -86,8 +86,8 @@ $CC_help_add_tariffgroup =create_help(gettext("A Call Plan is a collection of ra
 
 $CC_help_list_ratecard =create_help(gettext("List ratecards that have been created!<br>Ensure that a ratecard is added into the call plan under 'List Ratecard'"),'ListRatecard');
 
-$CC_help_edit_ratecard =create_help(gettext("A ratecard is a set of rates defined and applied according to the dialing prefix, for instance 441 & 442 : UK Landline.").'<br/>'
-	.gettext("Each ratecard may have as many rates as you wish, however, if a dialing prefix cannot be matched when a call is made, then the call will be terminated.").'<br/>'
+$CC_help_edit_ratecard =create_help(gettext("A ratecard is a set of rates defined and applied according to the dialling prefix, for instance 441 & 442 : UK Landline.").'<br/>'
+	.gettext("Each ratecard may have as many rates as you wish, however, if a dialling prefix cannot be matched when a call is made, then the call will be terminated.").'<br/>'
 	.gettext('A ratecard has a "start date", an "expiry date" and a you can define a default trunk, but if no trunk is defined, the ratecard default trunk will be used.'),'EditRatecard');
 
 $CC_help_def_ratecard =create_help(gettext("Please select a ratecard and click on search to browse the different rates/dialing prefix of the selected ratecard."),'BrowseRates');
@@ -130,9 +130,11 @@ $CC_help_list_voucher=create_help(gettext("Listed below are the vouchers created
 .gettext("Each row corresponds to a voucher and shows it's status, value and currency..")
 .gettext("Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credits to their account via the customer interface or via an IVR menu."),'ListVoucher');
 
-$CC_help_generate_voucher=create_help(gettext("Bulk generate a batch of vouchers, defining such properties as credit and currency etc, click Generate Vouchers when finished.<br/>The customer applies voucher credit to their account via the customer interface."),'GenerateVouchers');
+$CC_help_generate_voucher= create_help(gettext("Bulk generate a batch of vouchers, defining such properties as credit and currency etc, click Generate Vouchers when finished.<br/>The customer applies voucher credit to their account via the customer interface."),'GenerateVouchers');
 
-$CC_help_list_service =create_help(gettext("Re-occuring services that decrement an account at timed intervals."),'ListRecurringService');
+$CC_help_list_service = create_help(gettext("Recurring services that decrement an account at timed intervals."),'ListRecurringService');
+
+$CC_help_list_autorefill = create_help(gettext("Auto Refill report."),'AutoRefillReport');
 
 $CC_help_edit_service =create_help(gettext("Utility to apply a scheduled action on the account.<br>")
 .gettext("For example if you want to remove 10 cents everyday on each single account, it can be defined here, alternatively, if you now want to remove 1 credit every week but only 7 times on each account, the different rules/parameters below will define this."),'EditRecurringService');
@@ -146,7 +148,7 @@ $CC_help_edit_cidgroup =create_help(gettext("CID group offers customers a group 
 
 $CC_help_edit_cid =create_help(gettext("Outbound CID offers customers a number which will be selected randomly for a ratecard for outgoing calls"),'EditCID');
 
-$CC_help_currency =create_help(gettext("Currency data are automatically updated from Yahoo Financial.")
+$CC_help_currency =create_help(gettext("Currency data is automatically updated from Yahoo Financial.")
 .'<br>'.gettext("For more information please visit the website http://finance.yahoo.com.")
 .'<br>'.gettext("The list below is based on your currency :").' <b>'.BASE_CURRENCY.'</b>','CurrencyList');
 
@@ -194,8 +196,8 @@ $CC_help_database_backup=create_help(gettext("This section will allow you to bac
 $CC_help_ecommerce =create_help(gettext("This section will allow you to define the E-Commerce Production Setting.")
 	.'<br>'.gettext("This will be used by E-Commerce API to find out how we want the new account to be created."),'ListE-Product');
 
-$CC_help_speeddial =create_help(gettext("This section allows you to define the Speed dials for the customer. <br>")
-	.gettext("A Speed Dial will be entered on the IVR in order to make a shortcut to their preferred dialed phone number."),'ListSpeeddial');
+$CC_help_speeddial =create_help(gettext("This section allows you to define the Speed dials for the customer.").'<br>'
+	.gettext("A Speed Dial will be entered on the IVR in order to make a shortcut to their preferred dialled phone number."),'ListSpeeddial');
 
 $CC_help_list_prefix=create_help(gettext("Prefix list with destinations."),'BrowsePrefix');
 

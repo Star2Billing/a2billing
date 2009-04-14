@@ -161,7 +161,7 @@ $HD_Form -> AddEditElement (gettext("FAILOVER TRUNK"),
 	"sql",
 	"cc_trunk",
 	"trunkcode, id_trunk",
-	"", "", "%1", "", gettext("You can define an other trunk in case of failover!"), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
+	"", "", "%1", "", gettext("You can define another trunk in case of failover!"), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
 
 $HD_Form -> AddEditElement (gettext("CURRENT CONNECTIONS"),
 	"inuse",

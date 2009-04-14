@@ -54,7 +54,14 @@ class Constants
 	public static function getActivationTrueFalseList(){
 		$actived_list = array();
 		$actived_list["t"] = array( "Active", "t");
-		$actived_list["f"] = array( "Disactive", "f");
+		$actived_list["f"] = array( "Inactive", "f");
+		return $actived_list;
+	}
+	
+	public static function getActivationTrueFalse_Revert_List(){
+		$actived_list = array();
+		$actived_list["t"] = array( "t", "Active");
+		$actived_list["f"] = array( "f", "Inactive");
 		return $actived_list;
 	}
 
@@ -213,8 +220,15 @@ class Constants
 
 	public static function getUsedList(){
 		$used_list = array();
-		$used_list["0"] = array( gettext("NO USED"), "0");
+		$used_list["0"] = array( gettext("NOT USED"), "0");
 		$used_list["1"] = array( gettext("USED"), "1");
+		return $used_list;
+	}
+	
+	public static function getUsed_revert_List(){
+		$used_list = array();
+		$used_list["0"] = array( "0", gettext("NOT USED"));
+		$used_list["1"] = array( "1", gettext("USED"));
 		return $used_list;
 	}
 	

@@ -18,17 +18,9 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 $actived_list = Constants::getActivationTrueFalseList();
-
-$actived_list_r = array(); 
-$actived_list_r["t"] = array( "t", gettext("Active") );
-$actived_list_r["f"] = array( "f", gettext("Inactive") );
-
+$actived_list_r = Constants::getActivationTrueFalse_Revert_List();
 $used_list = Constants::getUsedList();
-
-$used_list_r = array();
-$used_list_r["0"] = array( "0", gettext("UNUSED"));
-$used_list_r["1"] = array( "1", gettext("USED"));
-
+$used_list_r = Constants::getUsed_revert_List();
 $yesno = Constants::getYesNoList();
 
 foreach($currencies_list as $key => $cur_value) {
