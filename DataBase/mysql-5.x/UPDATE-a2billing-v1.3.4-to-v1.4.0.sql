@@ -1872,4 +1872,14 @@ ALTER TABLE cc_sip_buddies ADD INDEX ( port );
 INSERT INTO `cc_config` (`config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES('Return URL distant Login', 'return_url_distant_login', '', 'URL for specific return if an error occur after login', 0, NULL, 'webcustomerui');
 INSERT INTO `cc_config` (`config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES('Return URL distant Forget Password', 'return_url_distant_forgetpassword', '', 'URL for specific return if an error occur after forgetpassword', 0, NULL, 'webcustomerui');
 
+CREATE TABLE cc_agent_signup (
+	id BIGINT NOT NULL AUTO_INCREMENT ,
+	id_agent INT NOT NULL ,
+	code VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+	id_tariffgroup INT NOT NULL ,
+	id_group INT NOT NULL ,
+	PRIMARY KEY (id) ,
+	UNIQUE (code)
+) ENGINE = MYISAM;
 
+ALTER TABLE cc_agent DROP secret;

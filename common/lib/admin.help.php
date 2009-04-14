@@ -253,6 +253,9 @@ $CC_help_data_archive = create_help(gettext("Here you can archive the data. The 
 
 $CC_help_agent =create_help(gettext("Agents - this shows a list of all of the Agents who have access to the Agent interface"),'ShowAgent');
 
+$CC_help_signup_agent = create_help(gettext("This shows a list of all signup key create for the Agents, this key is used to identify the default paramater for the subscription on the signup page"));
+
+
 } //ENDIF SHOW_HELP
 
 $SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';

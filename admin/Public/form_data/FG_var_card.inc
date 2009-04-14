@@ -805,7 +805,7 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 				   '$value',
 				   "INPUT",
 				   "size=30 maxlength=20",
-				   "",
+				   "4",
 				   gettext("Insert the traffic per month for this customer"),
 				   "" , "", "",	"", "", "" , "NO", "",
 				   '', '', gettext("TARGET TRAFFIC")); 

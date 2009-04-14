@@ -267,8 +267,6 @@ define ("WEBUI_VERSION", 'A2Billing - Version 1.4 - Trunk');
 define ("COPYRIGHT", gettext(" This software is under AGPL licence. For further information, please visit : <a href=\"http://www.a2billing.org\" target=\"_blank\">a2billing.org</a>"));
 define ("CCMAINTITLE", gettext("A2Billing : CallingCard & VOIP Billing system"));
 
-//Enable Disable Captcha
-define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
 
 $restircted_url = substr($URI,-16);

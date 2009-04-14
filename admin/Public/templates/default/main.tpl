@@ -104,7 +104,7 @@
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_agent.php?atmenu=user&section=2">{php} echo gettext("Add :: Search");{/php}</a></li>
-				<li><a href="A2B_signup_agent.php?atmenu=user&section=2">{php} echo gettext("Signup URLs");{/php}</a></li>
+				<li><a href="A2B_entity_signup_agent.php?atmenu=user&section=2">{php} echo gettext("Signup URLs");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

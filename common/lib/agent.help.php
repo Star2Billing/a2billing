@@ -52,6 +52,9 @@ $CC_help_view_payment_agent =create_help(gettext("Agent Payment history - The se
 
 $CC_help_support_list=create_help(gettext("You can see here, all tickets created. You can also add a new ticket for one customer."));
 
+$CC_help_signup_agent = create_help(gettext("This shows a list of all signup key create for this agent, this key is used to identify the default paramater for the subscription on the signup page"));
+
+
 } //ENDIF SHOW_HELP
 
 

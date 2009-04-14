@@ -23,7 +23,7 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 	<table>
 	<tr>
 		<td class="login-title" colspan="2">
-			 <?php echo gettext("ERROR PAGE");?>
+			<font size="3"> <?php echo gettext("ERROR PAGE");?> </font>
 		</td>
 	</tr>
 	<tr>
@@ -31,7 +31,7 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.gif"> 
 		</td>
 		<td align="center">
-			<b><font size="3"><?php echo $error[$c]?></font></b>
+			<b><font size="é"><?php echo $error[$c]?></font></b>
 		</td>
 	</tr>           
 

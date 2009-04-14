@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid','agentid'));
+getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid'));
 
 //put parameter in session
 $HD_Form = new FormHandler("cc_card", "User");
@@ -11,33 +11,27 @@ $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 $HD_Form -> FG_ADDITION = true;
 
 $HD_Form->setDBHandler(DbConnect());
-$agent_conf = false;
-$agentkey = $_GET['agentkey'];
-if (!empty ($agentkey) && !empty ($agentid)) {
+	$agent_conf = false;
+if(!empty($_GET['key'])){
+	$agentkey = $_GET['key'];
+	$_SESSION["key"] = $agentkey;
+}elseif (!empty($_SESSION["key"])){
+	$agentkey =$_SESSION["key"];
+}
 
-	$instance_table_agent_secret = new Table("cc_agent ", "secret");
-	$list_agent_secret = $instance_table_agent_secret->Get_list($HD_Form->DBHandle, "id=" . $agentid, "id", "ASC", null, null, null, null);
-	if (is_array($list_agent_secret) && !empty ($list_agent_secret[0][0])) {
-		$secret = $list_agent_secret[0][0];
-		$agentkey = a2b_decrypt($agentkey, $secret);
-		$agent_conf = true;
-		$groupid = '';
-		$tariffid = '';
-		if (strpos($agentkey, '-') === false) {
-			$agent_conf = false;
-		} else {
-			$param = split('-', $agentkey, 3);
-			$groupid = $param[0];
-			$tariffid = $param[1];
-		}
+if (!empty ($agentkey) ) {
+	$table_key = new Table("cc_agent_signup", "*");
+	$data = $table_key->Get_list($HD_Form->DBHandle, "code= '". $agentkey."'");
+	if (is_array($data)) {
+		$groupid = $data[0]['id_group'];
+		$tariffid = $data[0]['id_tariffgroup'];
+		$agentid = $data[0]['id_agent'];
 		// check if groupid and tarif in already in this agent
 		$instance_table_agent_check = new Table("cc_agent JOIN cc_agent_tariffgroup ON cc_agent_tariffgroup.id_agent =  cc_agent.id JOIN cc_card_group ON cc_card_group.id_agent =  cc_agent.id  ", "cc_agent.id");
 		$list_agent_check = $instance_table_agent_check->Get_list($HD_Form->DBHandle, "cc_agent.id= $agentid AND cc_agent_tariffgroup.id_tariffgroup = $tariffid  AND cc_card_group.id = $groupid", "cc_agent.id", "ASC", null, null, null, null);
 		if (is_array($list_agent_check)) {
 			if (!empty ($groupid) && is_numeric($groupid) && !empty ($tariffid) && is_numeric($tariffid)) {
-				$_SESSION["id_group"] = $groupid;
-				$_SESSION["tariff"] = $tariffid;
-				$_SESSION["agent_conf"] = true;
+				$agent_conf = true;
 			} else {
 				$agent_conf = false;
 			}
@@ -48,11 +42,6 @@ if (!empty ($agentkey) && !empty ($agentid)) {
 }
 
 
-if ($_SESSION["agent_conf"] == true) {
-	$agent_conf = true;
-	$groupid = $_SESSION["id_group"];
-	$tariffid = $_SESSION["tariff"];
-}
 
 if (!$agent_conf) {
 	$callPlan_idlist = isset ($A2B->config["signup"]['callplan_id_list']) ? $A2B->config["signup"]['callplan_id_list'] : null;
@@ -312,7 +301,7 @@ $HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
 			   '$value',
 			   "INPUT",
 			   "size=30 maxlength=20",
-			   "0",
+			   "4",
 			   gettext("Insert the traffic per month for this customer"),
 			   "" , "", "",	"", "", "" , "NO", "");		   
 

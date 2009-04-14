@@ -30,14 +30,12 @@ $disabled =false;
 
 
 if($task=="generate" && !empty($tariffplan) && !empty($group)){
-	$instance_table_agent_secret = new Table("cc_agent ", "secret");
-	$list_agent_secret = $instance_table_agent_secret  -> Get_list ($DBHandle, "id=".$_SESSION['agent_id'], "id", "ASC", null, null, null, null);
-	if(is_array($list_agent_secret)){
-		$URL = $A2B->config['signup']['urlcustomerinterface']."signup.php?agentid=".$_SESSION['agent_id']."&agentkey=";
-		$secret = $list_agent_secret[0][0];
-		$result = a2b_encrypt($group."-".$tariffplan."-",$secret);
-		$URL.= urlencode($result);
-	}
+	$code = gen_card('cc_agent_signup',10,'code');
+	$table_signup = new Table('cc_agent_signup');
+	$fields = "code,id_agent,id_tariffgroup,id_group";
+	$values =  "'$code','".$_SESSION['agent_id']."', '$tariffplan','$group'";
+	$result_insert = $table_signup -> Add_table($DBHandle,$values,$fields);
+	if($result_insert)$URL = $A2B->config['signup']['urlcustomerinterface']."signup.php?key=$code";
 }
 
 
@@ -68,7 +66,7 @@ function submit_form(form){
 	echo $CC_help_generate_signup;
 ?>
 <center>
-		<b><?php echo gettext("Create signup url for a specific agent, customer group and Call Plan.");?>.</b></br></br>
+		<b><?php echo gettext("Create signup url for a specific agent, customer group and Call Plan.");?>.</b><br/><br/>
 		<table width="95%" border="0" cellspacing="2" align="center" class="records">
 			
               <form name="form" enctype="multipart/form-data" action="A2B_signup_agent.php" method="post">
@@ -103,17 +101,28 @@ function submit_form(form){
 				
 				</td>
 				</tr>
+               <tr>
+					<td  colspan="2"> 
+						 &nbsp;   
+	                 </td>
+				</tr>
                 <tr> 
-                 <td  width="50%"> 
-					 &nbsp;   
+                 <td  width="50%" align="center"> 
+						<a class="cssbutton_big"  href="A2B_entity_signup_agent.php?section=2">
+							<?php echo gettext("RETURN TO URL KEY LIST"); ?>
+						</a>  
                   </td>
                   <td  align="center" width="50%"> 
                   	  <input type="hidden" name="task" value="">
-					  <input id="generate" type="button" value="Generate Url" onFocus=this.select() class="form_input_button_disabled" name="submit1" onClick="submit_form(this.form);" disabled="true" />
+					  <input id="generate" type="button" value="<?php echo gettext('ADD URL KEY');?>" onFocus=this.select() class="form_input_button_disabled" name="submit1" onClick="submit_form(this.form);" disabled="true" />
 					   </p>     
                   </td>
                 </tr>
-				
+				<tr>
+					<td  colspan="2"> 
+						 &nbsp;   
+	                 </td>
+				</tr>
 				
                 <tr> 
                   <td colspan="2"  align="left"> 
@@ -122,13 +131,10 @@ function submit_form(form){
 						 
 						 <?php if(!empty($URL)){ ?>
 						 <span style="font-family: sans-serif" > 
-						 <?php 	echo "<b>";
-						 	echo gettext("GENERATED URL:");
-						 	?>
-						 	&nbsp;<a href="<?php echo $URL;?>"> <?php echo gettext("LINK"); ?></a>
+						 <b>
+						 	<a href="<?php echo $URL;?>"> <?php 	echo gettext("URL")."";?> <img src="<?php echo Images_Path."/link.png"?>" border="0" style="vertical-align:bottom;" title="<?php echo gettext("Link to the URL")?>" alt="<?php echo  gettext("Link to the URL")?>"></a>
 						 	<?php
-						 	 echo "<br/>";echo "<br/>";
-						 	echo $URL;	echo "</b><br>"; ?>
+						 	echo " : ".$URL;	echo "</b><br>"; ?>
 						   </span>
 						<?php  }  ?>
 						
@@ -136,7 +142,6 @@ function submit_form(form){
 					  
                   </td>
                 </tr>
-               
                
               </form>
             </table>

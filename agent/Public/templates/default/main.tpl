@@ -81,8 +81,8 @@
 	{/if}
 	<ul>
 		<li><ul>
-				<li><a href="A2B_signup_agent.php?atmenu=generatesignup&stitle=Signup&section=8">{php} echo gettext("Generate Signup Url");{/php}</a></li>
-				<li><a href="A2B_entity_secret.php?atmenu=changesecret&stitle=Card+History&section=8">{php} echo gettext("Change Secret");{/php}</a></li>
+				<li><a href="A2B_entity_signup_agent.php?atmenu=listurl&stitle=Signup&section=8">{php} echo gettext("Signup Url List");{/php}</a></li>
+				<li><a href="A2B_signup_agent.php?atmenu=generatesignup&stitle=Signup&section=8">{php} echo gettext("Add New Signup Url");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>

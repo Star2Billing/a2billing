@@ -36,7 +36,7 @@ $error["ERR-0002"] 		= gettext("No such card number found. Please check your car
 	<table>
 	<tr>
 		<td class="login-title" colspan="2">
-			 <?php echo gettext("ERROR PAGE");?>
+			<font size="3"> <?php echo gettext("ERROR PAGE");?> </font>
 		</td>
 	</tr>
 	<tr>
@@ -44,7 +44,7 @@ $error["ERR-0002"] 		= gettext("No such card number found. Please check your car
 			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.gif"> 
 		</td>
 		<td align="center">
-			<b><font size="3"><?php echo $error[$c]?></font></b>
+			<b><font size="2"><?php echo $error[$c]?></font></b>
 		</td>
 	</tr>           
 
