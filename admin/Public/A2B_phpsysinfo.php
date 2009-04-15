@@ -5,13 +5,13 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_MAINTENANCE)){ 
+if (! has_rights (ACX_MAINTENANCE)) { 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
 }
 
-/***********************************************************************************/
+check_demo_mode_intro();
 
 
 // #### HEADER SECTION
@@ -27,6 +27,8 @@ $smarty->display('main.tpl');
 
 </center>
 <?php
+
+
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-?>
+

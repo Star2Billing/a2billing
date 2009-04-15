@@ -78,13 +78,11 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
-if($popup_select == "") {
+if ($popup_select == "") {
 	$HD_Form -> FG_ADDITION = true;
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 }
-
-
 
 if ($form_action!="ask-add" && $form_action!="add") {
 	$HD_Form -> AddEditElement (gettext("USERID"),

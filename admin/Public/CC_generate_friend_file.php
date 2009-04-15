@@ -11,13 +11,13 @@ $FG_DEBUG =0;
 getpost_ifset(array('action', 'atmenu'));
 
 
-if (! has_rights (ACX_CUSTOMER)){ 
+if (! has_rights (ACX_CUSTOMER)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
 }
 
-
+check_demo_mode();
 
 $DBHandle  = DbConnect();
 

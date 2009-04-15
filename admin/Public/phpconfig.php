@@ -26,6 +26,8 @@ if (!has_rights(ACX_ACXSETTING)) {
 	die();
 }
 
+check_demo_mode_intro();
+
 require_once ("phpconfig_init.php");
 require_once ("cls_phpconfig.php");
 require_once ("cls_phpconfig_html.php");

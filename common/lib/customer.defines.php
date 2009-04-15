@@ -30,6 +30,8 @@ if (!isset($disable_load_conf) || !($disable_load_conf)) {
 	if (!$res_load_conf) exit;
 }
 
+// Define a demo mode
+define("DEMO_MODE", false);
 
 // DEFINE FOR THE DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
@@ -157,7 +159,7 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
 /*
  *		GLOBAL POST/GET VARIABLE
  */
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'language', 'cssname','popup_select', 'exporttype'));
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'language', 'cssname','popup_select', 'exporttype', 'msg'));
 
 if (!isset($_SESSION)) {
 	session_start();

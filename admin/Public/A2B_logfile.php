@@ -11,6 +11,8 @@ if (! has_rights (ACX_MAINTENANCE)) {
 	die();	   
 }
 
+check_demo_mode();
+
 getpost_ifset(array('nb', 'view_log', 'filter'));
 
 

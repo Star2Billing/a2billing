@@ -33,8 +33,14 @@ if (!is_numeric($popup_select)) {
 	$popup_select=0;
 }
 $smarty->assign("popupwindow", $popup_select);
-// for menu
 
+if (!empty($msg)) {
+	switch($msg){
+		case "nodemo": 	$smarty->assign("MAIN_MSG", '<center><b><font color="red">'.gettext("This option is not available on the Demo!").'</font></b></center><br>');
+	}
+}
+
+// for menu
 $smarty->assign("ACXCUSTOMER", $ACXCUSTOMER);
 $smarty->assign("ACXBILLING", $ACXBILLING);
 $smarty->assign("ACXRATECARD", $ACXRATECARD);

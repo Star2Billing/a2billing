@@ -12,6 +12,8 @@ if (! has_rights (ACX_CUSTOMER)) {
 	die();
 }
 
+check_demo_mode();
+
 getpost_ifset(array('search_sources', 'task', 'status','uploadedfile_name'));
 
 if ($search_sources!='nochange') {

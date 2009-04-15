@@ -44,6 +44,9 @@ if (!($restircted_url == "Public/index.php")) {
 // Parameter to enable/disable the update of list of value in Config Edition
 define("LIST_OF_VALUES", false);
 
+// Define a demo mode
+define("DEMO_MODE", false);
+
 // Parameter to show link to Asterisk GUI
 define("ASTERISK_GUI_LINK", false);
 // DEFINE FOR THE DATABASE CONNECTION
@@ -145,7 +148,7 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
 /*
  *		GLOBAL POST/GET VARIABLE
  */
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'language'));
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'language', 'msg'));
 
 // Language Selection
 if (isset($language)) {

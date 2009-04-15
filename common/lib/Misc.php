@@ -1125,3 +1125,21 @@ function generate_invoice_reference()
 	$reference = $year.sprintf("%08d",$count);
 	return $reference;
 }
+
+function check_demo_mode(){
+	if (DEMO_MODE) {
+		if (strpos($_SERVER['HTTP_REFERER'],'?')===false)
+			Header ("Location: ".$_SERVER['HTTP_REFERER']."?msg=nodemo");
+		else
+			Header ("Location: ".$_SERVER['HTTP_REFERER']."&msg=nodemo");
+		
+		die();	   
+	}
+}
+
+function check_demo_mode_intro(){
+	if (DEMO_MODE) {
+		Header ("Location: PP_intro.php?msg=nodemo");
+		die();	   
+	}
+}

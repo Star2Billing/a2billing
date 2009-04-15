@@ -23,6 +23,8 @@ $nbcard = $choose_list;
 
 if ($nbcard>0) {
 	
+		check_demo_mode();
+	
 		$FG_ADITION_SECOND_ADD_TABLE  = "cc_voucher";		
 		//$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, userpass, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays";
 		$FG_ADITION_SECOND_ADD_FIELDS = "voucher, credit, activated, tag, currency, expirationdate";

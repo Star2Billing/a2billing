@@ -10,6 +10,7 @@ if (! has_rights (ACX_MAINTENANCE)){
 	die();
 }
 
+check_demo_mode();
 
 $HD_Form = new FormHandler("cc_card","Customer");
 $HD_Form -> setDBHandler (DbConnect());

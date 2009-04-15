@@ -5,7 +5,7 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_def_ratecard.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_RATECARD)) { 
+if (! has_rights (ACX_RATECARD)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();	   
@@ -50,6 +50,8 @@ $HD_Form -> init();
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)){
 
+	check_demo_mode();
+	
 	$HD_Form->prepare_list_subselection('list');
 	
 	// Array ( [upd_simultaccess] => on [upd_currency] => on )
@@ -123,6 +125,9 @@ if ($id!="" || !is_null($id)){
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
+if ($form_action!="list") { 
+	check_demo_mode();
+}
 
 if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {		
 	list($mytariffgroup_id, $mytariffgroupname, $mytariffgrouplcrtype) = split('-:-', $tariffgroup);

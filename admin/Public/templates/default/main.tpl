@@ -619,3 +619,7 @@
 {else}
 <div>
 {/if}
+
+
+{$MAIN_MSG}
+

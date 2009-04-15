@@ -21,7 +21,10 @@ $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
 getpost_ifset(array('posted' ,'ratecard_source' ,'ratecard_destination', 'search_sources'));
 
-if($posted == 1){
+if($posted == 1) {
+	
+	check_demo_mode();
+	
 	$instance_table = new Table();
 	$bool = false;
 	$ratecard_src_val = $ratecard_source;

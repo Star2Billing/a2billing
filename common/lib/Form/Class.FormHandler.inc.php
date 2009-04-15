@@ -648,7 +648,6 @@ class FormHandler
 			}
 	    }
 	    
-	    echo $output;
 	    return $output;
 	} 
 

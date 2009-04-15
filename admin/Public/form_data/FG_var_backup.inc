@@ -6,6 +6,9 @@ $HD_Form = new FormHandler("cc_backup","Backup");
 
 $HD_Form -> FG_DEBUG = 0;
 
+if ($form_action!='ask-add')
+	check_demo_mode();
+
 if ($form_action == 'add'){
         $backup_file = $path;
 

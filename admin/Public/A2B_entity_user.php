@@ -28,6 +28,10 @@ if ($id!="" || !is_null($id)) {
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
+if ($form_action!="list") { 
+	check_demo_mode();
+}
+
 
 $list = $HD_Form -> perform_action($form_action);
 
@@ -37,12 +41,13 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if($popup_select == "")
-{
+if($popup_select == "") {
 	if ($form_action == 'ask-add') echo $CC_help_admin_edit;
 	else echo $CC_help_admin_list;
 }
-if ($popup_select != ""){
+
+if ($popup_select != "") {
+
 ?>
 
 <SCRIPT LANGUAGE="javascript">

@@ -84,6 +84,8 @@ getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_cu
 
 if(isset($submit)) {
 	
+	check_demo_mode();
+	
 	foreach ($list_customer as $cc_customer){
 		$messagetext = $message;
 		//  $email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency

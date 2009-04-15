@@ -14,9 +14,7 @@ $smarty = new Smarty;
 $skin_name = $_SESSION["stylefile"];
 
 
-//$smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
 $smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
-
 $smarty->compile_dir = TEMPLATE_C_DIR;
 $smarty->plugins_dir= "./plugins/";
 
@@ -46,45 +44,40 @@ $smarty->assign("ACXNOTIFICATION", $ACXNOTIFICATION);
 $smarty->assign("ACXAUTODIALER", $ACXAUTODIALER);
 
 
-
-
-
-
-if($exporttype != "" && $exporttype != "html")
-{
+if($exporttype != "" && $exporttype != "html") {
 	$smarty->assign("EXPORT", 1);
-}
-else
-{
+} else {
 	$smarty->assign("EXPORT", 0);
 }
 
-if($_GET["section"]!="")
-{	
+if($_GET["section"]!="") {	
 	$section = $_GET["section"];
 	$_SESSION["menu_section"] = $section;
-}
-else
-{	
+} else {	
 	$section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
 
 $smarty->assign("SKIN_NAME", $skin_name);
 // if it is a pop window
-if (!is_numeric($popup_select))
-{
+if (!is_numeric($popup_select)) {
 	$popup_select=0;
 }
 // for menu
 $smarty->assign("popupwindow", $popup_select);
+
+if (!empty($msg)) {
+	switch($msg){
+		case "nodemo": 	$smarty->assign("MAIN_MSG", '<center><b><font color="red">'.gettext("This option is not available on the Demo!").'</font></b></center><br>');
+	}
+}
 
 
 // OPTION FOR THE MENU
 $smarty->assign("A2Bconfig", $A2B->config);
 
 
-
 $smarty->assign("PAGE_SELF", $PHP_SELF);
 
-?>
+
+

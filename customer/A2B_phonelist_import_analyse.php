@@ -11,6 +11,8 @@ if (! has_rights (ACX_AUTODIALER)) {
 	die();
 }
 
+check_demo_mode();
+
 getpost_ifset(array('phonebook', 'search_sources', 'task','status_import','uploadedfile_name','uploadedfile_name'));
  
 

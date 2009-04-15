@@ -25,6 +25,8 @@ if ($id!="" || !is_null($id)) {
 if (!isset($form_action))  $form_action="list";
 if (!isset($action)) $action = $form_action;
 
+if($form_action != "list")
+	check_demo_mode();
 
 $list = $HD_Form -> perform_action($form_action);
 
@@ -40,7 +42,9 @@ $HD_Form -> create_toppage ($form_action);
 
 // #### CREATE FORM OR LIST
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-if($form_action == "list" || $form_action == "list") {
+
+
+if($form_action == "list") {
 
 ?>
 <br>

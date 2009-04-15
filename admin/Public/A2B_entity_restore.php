@@ -5,23 +5,19 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_restore.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_MAINTENANCE)){ 
+if (! has_rights (ACX_MAINTENANCE)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
 }
 
-
-
-/***********************************************************************************/
+if (!empty($form_action))
+	check_demo_mode();
 
 $HD_Form -> setDBHandler (DbConnect());
-
-
 $HD_Form -> init();
 
-
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
