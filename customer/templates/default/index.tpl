@@ -46,14 +46,14 @@
 	<div id="login-wrapper" class="login-border-up">
 	<div class="login-border-down">
 	<div class="login-border-center">
-	<table>
+	<table width="100%" cellspacing="6">
 	<tr>
 		<td class="login-title">
 			 AUTHENTICATION
 		</td>
 	</tr>
 	<tr>
-		<td style="padding: 5px, 5px, 5px, 5px" >
+		<td width="100%" >
 			<table>
 			<tr align="center">
 				<td rowspan="3" style="padding-left: 2px; padding-right: 2px"><img src="templates/{$SKIN_NAME}/images/kicons/lock_bg.png"></td>
