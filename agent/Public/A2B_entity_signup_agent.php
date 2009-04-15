@@ -24,7 +24,7 @@ function getId(v) { return(document.getElementById(v)); }
 function style(v) { return(getId(v).style); }
 function agent(v) { return(Math.max(navigator.userAgent.toLowerCase().indexOf(v),0)); }
 function isset(v) { return((typeof(v)=='undefined' || v.length==0)?false:true); }
-function XYwin(v) { var z=Array($('#page-wrap').height(),$('#page-wrap').width()); return(isset(v)?z[v]:z); }
+function XYwin(v) { var z=Array($('#page-wrap').innerHeight()-2,$('#page-wrap').width()); return(isset(v)?z[v]:z); }
 
 function sexyTOG() { document.onclick=function(){ style('sexyBG').display='none'; style('sexyBOX').display='none'; document.onclick=function(){}; }; }
 function sexyBOX(v,b) { setTimeout("sexyTOG()",100); style('sexyBG').height=XYwin(0)+'px'; style('sexyBG').display='block'; getId('sexyBOX').innerHTML=v+'<div class="sexyX">('+msg+')'+"<\/div>"; style('sexyBOX').left=Math.round((XYwin(1)-b)/2)+'px'; style('sexyBOX').width=b+'px'; style('sexyBOX').display='block'; }
