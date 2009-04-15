@@ -43,10 +43,26 @@ $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
+
+if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'payment_cust_selection';
+
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for payments created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('DATE');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'date';
+
+$HD_Form -> AddSearchElement_C1(gettext("ACCOUNT NUMBER"), 'username','usernametype');
+$HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
+$HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
+
+
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
+
 
 
 

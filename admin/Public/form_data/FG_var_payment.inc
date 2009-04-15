@@ -3,7 +3,11 @@
 getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill','refill_type'));
 
 
-$HD_Form = new FormHandler("cc_logpayment","Payment");
+if (!isset($form_action) || $form_action=="list") {
+	$HD_Form = new FormHandler("cc_logpayment LEFT JOIN cc_card ON cc_card.id=card_id","Payment");
+} else {
+	$HD_Form = new FormHandler("cc_logpayment","Payment");
+}
 
 $HD_Form -> FG_TABLE_ID = 'cc_logpayment.id';
 
@@ -32,6 +36,27 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_INFO = true;
 $HD_Form -> FG_INFO_LINK = "A2B_payment_info.php?id=";
+
+
+
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for payments created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('DATE');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'date';
+
+if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'payment_cust_selection';
+
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for payments created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('DATE');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'date';
+
+$HD_Form -> AddSearchElement_C1(gettext("ACCOUNT NUMBER"), 'username','usernametype');
+$HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
+$HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
+
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
@@ -76,7 +101,7 @@ if (! has_rights (ACXMODIFY_PAYMENTS)){
 				   "date",		
 				   '$value',	
 				   "INPUT",	
-				   "size=40 READONLY maxlength=40  $comp_date",	
+				   "size=40 maxlength=40  $comp_date",	
 				   "10",	
 				   gettext("Insert the current date"),
 				   "" , "", "",	"", "", "", "", "" );

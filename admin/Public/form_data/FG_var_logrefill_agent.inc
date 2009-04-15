@@ -43,8 +43,20 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_INFO = true;
 $HD_Form -> FG_INFO_LINK = "A2B_refill_info_agent.php?id=";
-
 $HD_Form -> FG_ADDITION = true;
+
+
+if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'refill_agent_selection';
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for payments created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('DATE');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'date';
+
+$HD_Form -> AddSearchElement_C1(gettext("LOGIN"), 'login','logintype');
+$HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
+$HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
+
 
 if (! has_rights (ACXMODIFY_REFILLS)) {
 	$HD_Form -> FG_EDITION = true;

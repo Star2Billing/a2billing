@@ -2,8 +2,11 @@
 
 getpost_ifset(array('id', 'card_id', 'date', 'credit','description,added_invoice'));
 
-
-$HD_Form = new FormHandler("cc_logrefill","Refill");
+if (!isset($form_action) || $form_action=="list") {
+	$HD_Form = new FormHandler("cc_logrefill LEFT JOIN cc_card ON cc_card.id=card_id","Refill");
+} else {
+	$HD_Form = new FormHandler("cc_logrefill","Refill");
+}
 
 $HD_Form -> FG_TABLE_ID = 'cc_logrefill.id';
 
@@ -21,13 +24,23 @@ $list_refill_type=Constants::getRefillType_List();
 
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "17%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
-$HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "17%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("REFILL DATE"), "cc_logrefill.date", "17%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("REFILL AMOUNT"), "credit", "15%", "center", "sort","", "", "", "", "", "", "display_money");
 $HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "13%", "center", "sort", "", "list", $list_refill_type);
 
-$HD_Form -> FieldViewElement ('cc_logrefill.id, card_id, date, credit ,refill_type');
+$HD_Form -> FieldViewElement ('cc_logrefill.id, cc_logrefill.card_id, cc_logrefill.date, cc_logrefill.credit , cc_logrefill.refill_type');
+
+if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'refill_cust_selection';
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for refills created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('DATE');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'date';
 
 
+$HD_Form -> AddSearchElement_C1(gettext("ACCOUNT NUMBER"), 'username','usernametype');
+$HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
+$HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -70,7 +83,7 @@ if (! has_rights (ACXMODIFY_REFILLS)){
 				   "date",		
 				   '$value',	
 				   "INPUT",	
-				   "size=40 READONLY maxlength=40  $comp_date",	
+				   "size=40 maxlength=40  $comp_date",	
 				   "10",	
 				   gettext("Insert the current date"),
 				   "" , "", "",	"", "", "", "", "" );

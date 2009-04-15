@@ -32,6 +32,12 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 echo $CC_help_view_refill_agent;
 
+if ($form_action == "list") {
+	$HD_Form -> create_search_form();
+}
+
+
+
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
