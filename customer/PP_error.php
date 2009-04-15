@@ -28,7 +28,7 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 	</tr>
 	<tr>
 		<td width="70px" align="center">
-			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.gif"> 
+			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.png"> 
 		</td>
 		<td align="center">
 			<b><font size="é"><?php echo $error[$c]?></font></b>

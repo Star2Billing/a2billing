@@ -41,7 +41,7 @@ $error["ERR-0002"] 		= gettext("No such card number found. Please check your car
 	</tr>
 	<tr>
 		<td width="70px" align="center">
-			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.gif"> 
+			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.png"> 
 		</td>
 		<td align="center">
 			<b><font size="2"><?php echo $error[$c]?></font></b>
