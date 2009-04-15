@@ -1062,16 +1062,24 @@ function do_field($sql,$fld, $simple=0,$processed=null){
                         $sql = "$sql WHERE ";
                 }
 				$sql = "$sql $fld";
+		        if (DB_TYPE == "postgres"){		
+			 		$LIKE = "ILIKE";
+			 		$CONVERT ="";
+				}else{
+					$LIKE = "LIKE";
+					$CONVERT =" COLLATE utf8_unicode_ci";
+				}
+				
 				if ($simple==0){
 					if (isset ($parameters[$fldtype])){      
 							switch ($parameters[$fldtype]) {
 								case 1:	$sql = "$sql='".$parameters[$fld]."'";  break;
-								case 2: $sql = "$sql LIKE '".$parameters[$fld]."%'";  break;
-								case 3: $sql = "$sql LIKE '%".$parameters[$fld]."%'";  break;
-								case 4: $sql = "$sql LIKE '%".$parameters[$fld]."'";
+								case 2: $sql = "$sql $LIKE '".$parameters[$fld]."%'".$CONVERT;  break;
+								case 3: $sql = "$sql $LIKE '%".$parameters[$fld]."%'".$CONVERT;  break;
+								case 4: $sql = "$sql $LIKE '%".$parameters[$fld]."'".$CONVERT;
 							}
 					}else{ 
-						$sql = "$sql LIKE '%".$parameters[$fld]."%'"; 
+						$sql = "$sql $LIKE '%".$parameters[$fld]."%'".$CONVERT; 
 					}
 				}else{
 					$sql = "$sql ='".$parameters[$fld]."'";

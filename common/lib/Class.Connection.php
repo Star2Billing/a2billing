@@ -10,7 +10,7 @@ Class Connection {
 	if (DB_TYPE == "postgres") {
 		$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
 	}else{
-		$datasource = 'mysqli://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
+		$datasource = 'mysql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
 	}
 	
 	$DBHandle = NewADOConnection($datasource);
@@ -19,7 +19,10 @@ Class Connection {
 	if (DB_TYPE == "mysqli") {
 		$DBHandle -> Execute('SET AUTOCOMMIT=1');
 	}
-	
+	if (DB_TYPE == "mysqli" || DB_TYPE == "mysql") { 
+	$DBHandle -> Execute("SET NAMES 'UTF8'");
+	}
+	 
 	self::$DBHandler = $DBHandle;
    }
    
