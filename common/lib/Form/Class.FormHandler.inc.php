@@ -591,7 +591,7 @@ class FormHandler
 
 	function &getProcessed() {
 		foreach ($this->_vars as $key => $value) {
-			$this->_processed[$key] = $this -> sanitize_data($value);
+			$this->_processed[$key] = $this -> sanitize($value);
 			if($key=='username') {
 				//rebuild the search parameter to filter character to format card number
 				$filtered_char = array(" ", "-", "_","(",")","+");
@@ -601,25 +601,56 @@ class FormHandler
 		}
 		return $this->_processed;
 	}
-
-
-	function sanitize_data($data)
-	{
-		if(is_array($data)){
-			return $data; //Need to sanatize this later
-		}
-		$lowerdata = strtolower ($data);
-		$data = str_replace('--', '', $data);
-		$data = str_replace("'", '', $data);
-		$data = str_replace('=', '', $data);
-		$data = str_replace(';', '', $data);
-		//$lowerdata = str_replace('table', '', $lowerdata);
-		//$lowerdata = str_replace(' or ', '', $data);
-		if (!(strpos($lowerdata, ' or 1')===FALSE)){ return false;}
-		if (!(strpos($lowerdata, ' or true')===FALSE)){ return false;}
-		if (!(strpos($lowerdata, 'table')===FALSE)){ return false;}
-		return $data;
+	
+	
+	function cleanInput($input) {
+	
+		$search = array(
+		    '@<script[^>]*?>.*?</script>@si',   // Strip out javascript
+		    '@<[\/\!]*?[^<>]*?>@si',            // Strip out HTML tags
+		    '@<style[^>]*?>.*?</style>@siU',    // Strip style tags properly
+		    '@<![\s\S]*?--[ \t\n\r]*>@'         // Strip multi-line comments
+		);
+			 
+	    $output = preg_replace($search, '', $input);
+	    return $output;
 	}
+		
+	
+	function sanitize($input)  
+	{  
+		
+		if (is_array($input)) {
+	        foreach($input as $var=>$val) {
+	            $output[$var] = sanitize($val);
+	        }
+	    } else {
+	    	
+	    	// remove whitespaces (not a must though)  
+			$input = trim($input);
+			
+			$input = str_replace('--', '', $input);
+			$data = str_replace(';', '', $data);
+			
+			if (!(strpos($input, ' or 1')===FALSE)) { return false;}
+			if (!(strpos($input, ' or true')===FALSE)) { return false;}
+	    	
+	        if (get_magic_quotes_gpc()) {
+	            $input = stripslashes($input);
+	        }
+	        $input  = $this -> cleanInput($input);
+	        
+	        if (DB_TYPE == "mysql") {
+				// a mySQL connection is required before using this function  
+				$output = mysql_real_escape_string($input);  
+			} else {
+				$output = addslashes( $input );
+			}
+	    }
+	    
+	    echo $output;
+	    return $output;
+	} 
 
 
 
