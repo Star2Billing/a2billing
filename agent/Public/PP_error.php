@@ -23,8 +23,7 @@ if (!isset($c))	$c="0";
 $error["0"] 			= gettext("ERROR : ACCESS REFUSED");
 $error["syst"] 			= gettext("Sorry a problem occur on our system, please try later!");
 $error["errorpage"] 	= gettext("There is an error on this page!");
-$error["accessdenied"] 	= gettext("Sorry, you don t have access to this page !");
-$error["construction"] 	= gettext("Sorry, this page is in construction !");
+$error["accessdenied"] 	= gettext("Sorry, you don't have access to this page !");
 $error["ERR-0001"] 		= gettext("Invalid User Id !");
 $error["ERR-0002"] 		= gettext("No such card number found. Please check your card number!");
 
@@ -60,12 +59,11 @@ $error["ERR-0002"] 		= gettext("No such card number found. Please check your car
 
 
 <?php
-	if($err_type == 0) {
-	?>
+if($err_type == 0) {
+?>
 	</div>
 	</div>
 <?php 
 } else {
 	$smarty->display('footer.tpl');
 }
-?>

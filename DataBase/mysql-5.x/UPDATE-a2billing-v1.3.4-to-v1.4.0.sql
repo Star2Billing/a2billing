@@ -1883,3 +1883,9 @@ CREATE TABLE cc_agent_signup (
 ) ENGINE = MYISAM;
 
 ALTER TABLE cc_agent DROP secret;
+
+
+-- disable Authorize.net
+UPDATE cc_payment_methods SET active = 'f';
+UPDATE cc_configuration SET configuration_value = 'False' WHERE configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_STATUS';
+

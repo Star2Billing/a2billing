@@ -9,6 +9,8 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "payment_method";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
+$HD_Form -> FG_TABLE_CLAUSE = "active='t'";
+
 
 $HD_Form -> AddViewElement(gettext("Payment Method"), "payment_method", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("File Name"), "payment_filename", "20%", "center", "sort");

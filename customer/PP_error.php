@@ -12,8 +12,7 @@ if (!isset($c))	$c="0";
 $error["0"] = gettext("ERROR : ACCESS REFUSED");
 $error["syst"] = gettext("Sorry a problem occur on our system, please try later!");
 $error["errorpage"] = gettext("There is an error on this page!");
-$error["accessdenied"] = gettext("Sorry, you don t have access to this page !");
-$error["construction"] = gettext("Sorry, this page is in construction !");
+$error["accessdenied"] = gettext("Sorry, you don't have access to this page !");
 
 ?>
 
