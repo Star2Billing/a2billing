@@ -81,7 +81,7 @@ if (! has_rights (ACXMODIFY_REFILLS)) {
 				   "date",		
 				   '$value',	
 				   "INPUT",	
-				   "size=40 READONLY maxlength=40  $comp_date",	
+				   "size=40 maxlength=40  $comp_date",	
 				   "10",	
 				   gettext("Insert the current date"),
 				   "" , "", "",	"", "", "", "", "" );
