@@ -73,7 +73,7 @@ $HD_Form -> AddEditElement (gettext("START DATE"),
 				"size=40 maxlength=40  $comp_date",
 				"10",
 				gettext("Insert the start date"),
-				"" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+				"" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 	
 $HD_Form -> AddEditElement (gettext("STOP DATE"),
 				"stopdate",
@@ -82,7 +82,7 @@ $HD_Form -> AddEditElement (gettext("STOP DATE"),
 				"size=40 maxlength=40  $comp_date_plus",
 				"10",
 				gettext("Insert the stop date"),
-				"" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+				"" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 		
 $HD_Form -> AddEditElement (gettext("PRODUCT NAME"),
 				"product_name",		

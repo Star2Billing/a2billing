@@ -96,10 +96,10 @@ $CC_help_sim_ratecard =create_help(gettext('Please select an account, then enter
 
 $CC_help_add_rate =create_help(gettext("Please fill in the fields below to set up the rate for each destination."),'AddRate');
 
-$CC_help_import_ratecard =create_help(gettext("This section is a utility to import ratecards from a CSV file.<br>")
+$CC_help_import_ratecard =create_help(gettext("This section is a utility to import ratecards from a CSV file.")."<br>"
 	.gettext('Define the ratecard name, the trunk to use and the fields that you wish to include from your csv files. Finally, select the csv files and click on the "Import Ratecard" button.'),'ImportRatecard');
 
-$CC_help_import_phonebook =create_help(gettext("This section is a utility to import Phonebook from a CSV file.<br>")
+$CC_help_import_phonebook =create_help(gettext("This section is a utility to import Phonebooks from a CSV file.")."<br>"
 	.gettext('Define the phonebook name, the user to use and the fields that you wish to include from your csv files. Finally, select the csv files and click on the "Import Phonebook" button.'),'ImportPhoneBook');
 	
 
@@ -231,7 +231,7 @@ $CC_help_payment_config =create_help(gettext("You can configure your epayment me
 
 $CC_help_list_payment_methods = create_help(gettext("Epayment methods help you to collect payments from your customers."));
 
-$CC_help_add_agi_confx = create_help(gettext("This action will generate agi-conf2 as a global configuration along with all list of configurations."));
+$CC_help_add_agi_confx = create_help(gettext("This action will generate agi-conf2 as a global configuration along with a list of all configurations."));
 
 $CC_help_list_global_config = create_help(gettext("Here is a list of all configuration groups. You can pick one and see its members"));
 

@@ -680,7 +680,7 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 				   "size=40 maxlength=40  $comp_date_plus",
 				   "10",
 				   gettext("Insert the expiration date"),
-				   "" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+				   "" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 	
 	
 	

@@ -236,7 +236,7 @@ if(isset($submit)) {
 		 </TR>
 		 
 		<tr>
-		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);"> <?php echo gettext("The followings tag will be replaced in the message by the value in the database");?>  : $email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency </td>
+		 <td colspan="2"> <?php echo gettext("The followings tags will be replaced in the message by the value in the database");?>  : $email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency </td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
@@ -251,7 +251,7 @@ if(isset($submit)) {
 		}
 		?>
 		</table>
-		<input type = "hidden" name="total_customer" value="<?php echo $nb_customer?>">
+		<input type="hidden" name="total_customer" value="<?php echo $nb_customer?>">
 	</FORM>
 
 <?php

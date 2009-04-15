@@ -140,7 +140,7 @@ $HD_Form -> AddEditElement (gettext("CALLBACK DATE"),
 	"size=20 maxlength=20  $comp_date",
 	"10",
 	"Insert the callback time",
-	"" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+	"" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 	
 
 $HD_Form -> AddEditElement (gettext("CHANNEL"),
