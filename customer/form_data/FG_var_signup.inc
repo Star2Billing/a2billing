@@ -313,26 +313,28 @@ $HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
 				"",
 				gettext("Insert the target traffic description"),
 				"" , "", "", "", "" , "", "", "");
-			   
-$HD_Form -> AddEditElement (gettext("VERIFICATION"),
-			   "captchacode",
-			   '$value',
-			   "CAPTCHAIMAGE",
-			   "size=10 maxlength=6",
-			   "19",
-			   gettext("Insert code from above picture"),
-			   "" , "", "",	"", "", "" , "", "",CAPTCHA_ENABLE);
+if(CAPTCHA_ENABLE){	   
+	$HD_Form -> AddEditElement (gettext("VERIFICATION"),
+				   "captchacode",
+				   '$value',
+				   "CAPTCHAIMAGE",
+				   "size=10 maxlength=6",
+				   "19",
+				   gettext("Insert code from above picture"),
+				   "" , "", "",	"", "", "" , "", "",CAPTCHA_ENABLE);
+   $captcha="captchacode,";
+}
 
 if (!$agent_conf && strpos($callPlan_idlist, ',') !== false) {
 	$HD_Form->FieldEditElement('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,' .
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
 	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,' .
-	'fax,  company_name , company_website ,VAT_RN , traffic, traffic_target , captchacode , sip_buddy, iax_buddy, inuse');
+	'fax,  company_name , company_website ,VAT_RN , traffic, traffic_target , '.$captcha.' sip_buddy, iax_buddy, inuse');
 } else {
 	$HD_Form->FieldEditElement('username, useralias, uipass, credit, language, id_didgroup, id_campaign,' .
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
 	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,' .
-	'fax , company_name , company_website ,VAT_RN , traffic, traffic_target , captchacode ,sip_buddy, iax_buddy, inuse');
+	'fax , company_name , company_website ,VAT_RN , traffic, traffic_target , '.$captcha.' sip_buddy, iax_buddy, inuse');
 }
 
 if (!isset ($myusername))
