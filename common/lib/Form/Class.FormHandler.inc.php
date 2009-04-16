@@ -1126,6 +1126,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			   $this -> perform_edit($form_action);
 			   break;
 			case "delete":
+				
 			   $this -> perform_delete($form_action);
 			   break;
 		}
@@ -2062,10 +2063,10 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				elseif ($iax_buddy == 1) $key = "iax_changed";
 				//add notification
 				//check who
-				if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} 
-				elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$id=$_SESSION['agent_id'];}
+				if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];} 
+				elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$who_id=$_SESSION['agent_id'];}
 				else {$who=Notification::$UNKNOWN;$id=-1;}
-				NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$id);
+				NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 			}
 			
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);

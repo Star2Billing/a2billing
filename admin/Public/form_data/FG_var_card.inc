@@ -97,8 +97,8 @@ $show_fields['username']=array(gettext("Account Number"), "username", "14%", "ce
 if (!($popup_select>=1)) 
  $show_fields['useralias']=array("<acronym title=\"WEB UI LOGIN\">".gettext("LOGIN")."</acronym>", "useralias", "12%", "center", "sort","", "", "", "", "", "", "");
 
-$show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "15","", "", "", "", "", "");
-$show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "sort", "15", "lie", "cc_card_group", "name", "id='%id'", "%1","");
+$show_fields['lastname']=array(gettext("LASTNAME"), "lastname", "7%", "center", "sort", "20","", "", "", "", "", "");
+$show_fields['id_group']=array(gettext("GROUP"), "id_group", "6%", "center", "sort", "20", "lie", "cc_card_group", "name", "id='%id'", "%1","");
 $show_fields['credit']=array("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "display_2dec");
 
 if (!($popup_select>=1)) {
@@ -106,7 +106,7 @@ if (!($popup_select>=1)) {
 	$show_fields['id_seria']=array(gettext("SERIE"), "id_seria", "*", "center", "sort", "15", "lie", "cc_card_seria", "name","id='%id'", "%1","");
 	$show_fields['serial']=array("<acronym title=\"".gettext("SERIAL NUMBER")."\">SERIAL#</acronym>", "serial", "*","center", "sort","","eval",'str_pad("%C",'.$serial_pad_length.' , "0", STR_PAD_LEFT)');
 	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>",
-	       "tariff", "8%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+	       "tariff", "8%", "center", "sort", "20", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 	$show_fields['status']=array(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
 	$show_fields['language']=array(gettext("LG"), "language", "3%", "center", "sort");
 	$show_fields['inuse']=array(gettext("USE"), "inuse", "3%", "center", "sort");
@@ -924,10 +924,10 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 		if(($sip_buddy == 1) && ($iax_buddy == 1)) $key = "sip_iax_changed";
 		elseif (($sip_buddy == 1) ) $key = "sip_changed";
 		elseif ($iax_buddy == 1) $key = "iax_changed";
-		if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} 
-		elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$id=$_SESSION['agent_id'];}
-		else {$who=Notification::$UNKNOWN;$id=-1;}
-		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$id);
+		if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];} 
+		elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$who_id=$_SESSION['agent_id'];}
+		else {$who=Notification::$UNKNOWN;$who_id=-1;}
+		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 	}
 	
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?section=".$_SESSION["menu_section"]."&id=";
