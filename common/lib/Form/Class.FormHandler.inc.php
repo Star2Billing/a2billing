@@ -622,7 +622,7 @@ class FormHandler
 		
 		if (is_array($input)) {
 	        foreach($input as $var=>$val) {
-	            $output[$var] = sanitize($val);
+	            $output[$var] = $this -> sanitize($val);
 	        }
 	    } else {
 	    	
