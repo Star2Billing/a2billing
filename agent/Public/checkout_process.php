@@ -192,9 +192,10 @@ switch($transaction_data[0][4])
 }
 
 
+if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])) $VAT =0;
+else $VAT = $transaction_data[0]['vat'];
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
-
-
+$amount_without_vat = $amount_paid / (1+$VAT/100);
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='epaymentverify' ";
@@ -286,13 +287,13 @@ $id = $customer_info[0];
 if ($id > 0 ) {
     $addcredit = $transaction_data[0][2]; 
 	$instance_table = new Table("cc_agent", "");
-	$param_update .= " credit = credit+'".$amount_paid."'";
+	$param_update .= " credit = credit+'".$amount_without_vat."'";
 	$FG_EDITION_CLAUSE = " id='$id'";
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 
 	$field_insert = "date, credit, agent_id, description";
-	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '".$transaction_data[0][4]."'";
+	$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."'";
 	$instance_sub_table = new Table("cc_logrefill_agent", $field_insert);
 	$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
@@ -398,7 +399,7 @@ write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID
 
 
 if ($transaction_data[0][4]=='plugnpay') {
-	Header ("Location: userinfo.php");
+	Header ("Location: agentinfo.php");
 	die;
 }
 	

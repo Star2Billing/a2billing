@@ -1,7 +1,6 @@
 <?php
 include ("./lib/customer.defines.php");
 
-
 getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
 					'transaction_id', 'mc_fee', 'card_number'));
 
@@ -191,10 +190,11 @@ switch($transaction_data[0][4])
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO SUCH EPAYMENT FOUND");
 		exit();
 }
-if(empty($transaction_data[0][4]) || !is_numeric($transaction_data[0][4])) $VAT =0;
-else $VAT = $transaction_data[0][4];
+
+if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])) $VAT =0;
+else $VAT = $transaction_data[0]['vat'];
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
-$amount_without_vat = $amount_paid / (1+$vat/100);
+$amount_without_vat = $amount_paid / (1+$VAT/100);
 
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
@@ -238,8 +238,8 @@ if ($security_verify == false) {
 	
 	exit;
 }
-
 $newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]);
+echo  "<br/>old key :".$transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1];
 if($newkey == $key) {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----------- Transaction Key Verified ------------");
 } else {
@@ -248,12 +248,9 @@ if($newkey == $key) {
 }
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ---------- TRANSACTION INFO ------------\n".print_r($transaction_data,1));
-
 $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
 //$payment_modules->before_process();
-
-
 
 $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
 $numrow = 0;

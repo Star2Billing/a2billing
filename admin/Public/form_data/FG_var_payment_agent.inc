@@ -31,7 +31,7 @@ if (has_rights (ACX_ADMINISTRATOR)) {
 $HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "17%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("PAYMENT AMOUNT"), "payment", "15%", "center", "sort","", "", "", "", "", "", "display_money");
 $HD_Form -> AddViewElement(gettext("PAYMENT TYPE"),"payment_type", "13%", "center", "sort", "", "list", $list_refill_type);
-$HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "17%", "center", "sort", "", "lie_link", "cc_logrefill", "TRUNCATE(credit,2), id", "id='%id'", "%1 ".strtoupper(BASE_CURRENCY)." (id:%2)", "", "A2B_refill_info_agent.php");
+$HD_Form -> AddViewElement(gettext("REFILL"), "id_logrefill", "17%", "center", "sort", "", "lie_link", "cc_logrefill_agent", "TRUNCATE(credit,2), id", "id='%id'", "%1 ".strtoupper(BASE_CURRENCY)." (id:%2)", "", "A2B_refill_info_agent.php");
 
 $HD_Form -> FieldViewElement ('cc_logpayment_agent.id, agent_id, date, payment ,payment_type,id_logrefill');
 

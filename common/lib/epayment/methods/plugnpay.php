@@ -1,6 +1,6 @@
 <?php
 
-include("./lib/epayment/includes/methods/plugnpay.php");
+include(dirname(__FILE__).'/../includes/methods/plugnpay.php');
 
 class plugnpay {
     var $code, $title, $description, $enabled, $sort_order;
@@ -208,7 +208,7 @@ class plugnpay {
       }
       else {
         # Note: section assumes the payment method is credit card
-        include('./lib/epayment/classes/cc_validation.php');
+        include(dirname(__FILE__).'/../classes/cc_validation.php');
         $cc_validation = new cc_validation();
         $result = $cc_validation->validate($_POST['plugnpay_cc_number'], $_POST['plugnpay_cc_expires_month'], $_POST['plugnpay_cc_expires_year'], $_POST['cvv'], $_POST['credit_card_type']);
         
