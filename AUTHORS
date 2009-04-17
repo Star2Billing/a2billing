@@ -1,3 +1,4 @@
+
 a2billing 1.4 (c) AGPL 2003-2009 
 a2billing 1.4 is free software written by
 Areski Belaid info@asterisk2billing.org with contributions from: 
@@ -10,6 +11,7 @@ Alberto Escudero-Pascual <aep@it46.se>
 Jonathan Roper <jonathan@asterisk2billing.org>
 Abdoulaye Siby <asiby@hotmail.com>  
 
+
 The following third party software is included with the distribution:
 
 * phpagi 2.14 Copyright 2003, 2004, 2005 Matthew Asham and David Eder
@@ -18,7 +20,13 @@ The following third party software is included with the distribution:
 * adodb 4.991 Copyright (c) 2000, 2001, 2002, 2003, 2004 John Lim
 * html2pdf Copyright (C) 2004-2005 Renato Coelho
 * famfamfam.com Icons from Mark James
-* phpconfig (C) 2003 Dave Packham and Rob Birkinshaw 
+* phpconfig (C) 2003 Dave Packham and Rob Birkinshaw
+
+
+Translations credit :
+Brazilian : Emerson Reis <eluizbr@tofalando.com.br>
+
+
 
 Thanks to the community!
  

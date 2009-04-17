@@ -1,6 +1,8 @@
 #!/bin/bash
-# GPL (c) 2009 areski@gmail.com
+#
+# AGPL (c) 2009 areski@gmail.com
 # Asterisk2Billing : Autogenerate gettext & merge
+#
 
 # Get the path of this script
 cwd=`pwd`
@@ -27,7 +29,7 @@ show_menu(){
 
 generate_admin_PO(){
 	clear
-	echo " **** Generate PO for Customer UI *** "
+	echo " **** Generate PO for Admin UI *** "
 	
 	DIR_CURRENT=$DIR_ADMIN
 	PO_DIRECTORY_CURRENT=$PO_DIRECTORY_ADMIN
@@ -46,7 +48,7 @@ generate_admin_PO(){
 
 generate_agent_PO(){
 	clear
-	echo " **** Generate PO for Customer UI *** "
+	echo " **** Generate PO for Agent UI *** "
 	
 	DIR_CURRENT=$DIR_AGENT
 	PO_DIRECTORY_CURRENT=$PO_DIRECTORY_AGENT
@@ -144,5 +146,7 @@ while [ $ExitFinish -eq 0 ]; do
 	
 done
 
-########################################################################
+
 exit 0
+
+
