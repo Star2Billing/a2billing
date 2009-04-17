@@ -76,7 +76,7 @@ if (!empty($action)) {
 				$DBHandle = DbConnect();
 				$instance_sub_table = new Table("cc_invoice_item", "*");
 				$instance_sub_table -> Update_table($DBHandle,"date='$date',description='$description',price='$price',vat='$vat'", "id = $idc" );
-				//Header ("Location: A2B_invoice_edit.php?"."id=".$id);
+				Header ("Location: A2B_invoice_edit.php?"."id=".$id);
 				
 	 		}
 			break;

@@ -12,7 +12,7 @@ if (! has_rights (ACX_INVOICING)) {
 }
 
 
-getpost_ifset(array('id','action','price','description','idc'));
+getpost_ifset(array('date','id','action','price','description','idc'));
 
 if (empty($id)) {
 	Header ("Location: A2B_entity_receipt.php?atmenu=payment&section=13");
@@ -21,6 +21,13 @@ if (empty($id)) {
 if (!empty($action)) {
 	switch ($action) {
 		case 'add':
+			if(empty($date) || strtotime($date)===FALSE){
+				$error_msg.= gettext("Date inserted is invalid, it must respect a date format YYYY-MM-DD HH:MM:SS (time is optional).<br/>");
+			}
+			if(empty($price) || !is_numeric($price)){
+				$error_msg .= gettext("Amount inserted is invalid, it must be a number. Check the format.");
+			}
+			if(!empty($error_msg)) break;
 			$DBHandle = DbConnect();
 			$receipt = new Receipt($id);
 			$receipt->insertReceiptItem($description,$price);
@@ -47,6 +54,22 @@ if (!empty($action)) {
 				$instance_sub_table -> Delete_Selected($DBHandle, "id = $idc" );
 			}
 			Header ("Location: A2B_receipt_edit.php?"."id=".$id);
+			break;
+			case 'update':
+			if(!empty($idc) && is_numeric($idc)){
+				if(empty($date) || strtotime($date)===FALSE){
+					$error_msg.= gettext("Date inserted is invalid, it must respect a date format YYYY-MM-DD HH:MM:SS (time is optional).<br/>");
+				}
+				if(empty($price) || !is_numeric($price)){
+					$error_msg .= gettext("Amount inserted is invalid, it must be a number. Check the format.");
+				}
+				if(!empty($error_msg)) break;
+				$DBHandle = DbConnect();
+				$instance_sub_table = new Table("cc_receipt_item", "*");
+				$instance_sub_table -> Update_table($DBHandle,"date='$date',description='$description',price='$price'", "id = $idc" );
+				Header ("Location: A2B_receipt_edit.php?"."id=".$id);
+				
+	 		}
 			break;
 	}
 }
@@ -128,9 +151,9 @@ $smarty->display('main.tpl');
 	    	 	</td>
     	 	</tr>	 
     	<?php
-		$price = 0;
+		$totalprice = 0;
     	foreach ($items as $item){  
-    	 	$price = $price + $item->getPrice();
+    	 	$totalprice = $totalprice + $item->getPrice();
     	 } 
     	
     	 ?>
@@ -142,7 +165,7 @@ $smarty->display('main.tpl');
 	    	 		<?php echo gettext("TOTAL") ?>&nbsp;:
 	    	 	</td>
 	    	 	<td align="right" >
-	    	 		<?php echo money_format('%.2n',round($price,2)); ?>
+	    	 		<?php echo number_format(round($totalprice,2),2)." ".strtoupper(BASE_CURRENCY); ?>
 	    	 	</td>
 	    	 	<td >
 	    	 		&nbsp;
@@ -153,9 +176,14 @@ $smarty->display('main.tpl');
 	</tr>
 </table>
 <br/>
+<?php if(!empty($error_msg)){ ?>
+	<div class="msg_error" style="width:70%; margin-left:auto;margin-right:auto;">
+		<?php echo $error_msg ?>
+	</div>
+<?php } ?>
 
   <form action="<?php echo $PHP_SELF.'?id='.$receipt->getId(); ?>" method="post" >
- 	<input id="action" type="hidden" name="action" value="<?php if(!empty($idc)) echo "edit"; else echo "add" ?>"/>
+ 	<input id="action" type="hidden" name="action" value="<?php if(!empty($idc)) echo "update"; else echo "add" ?>"/>
 	<input id="idc" type="hidden" name="idc" value="<?php if(!empty($idc)) echo $idc;?>"/>
 	<table class="invoice_table">
 		<tr class="form_invoice_head">
@@ -173,7 +201,7 @@ $smarty->display('main.tpl');
 			<td ><font style="font-weight:bold; " ><?php echo gettext("DATE : "); ?>
 			 </td>
 			 <td>
-			 <input type="text" class="form_input_text" name="price" size="20" maxlength="20" <?php if(!empty($date)) echo 'value="'.$date.'"';?>/>
+			 <input type="text" class="form_input_text" name="date" size="20" maxlength="20" <?php if(!empty($date)) echo 'value="'.$date.'"';?>/>
 			 </td>
 		</tr>
 		<tr>
