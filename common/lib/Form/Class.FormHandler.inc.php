@@ -632,8 +632,8 @@ class FormHandler
 			$input = str_replace('--', '', $input);
 			$data = str_replace(';', '', $data);
 			
-			if (!(strpos($input, ' or 1')===FALSE)) { return false;}
-			if (!(strpos($input, ' or true')===FALSE)) { return false;}
+			if (!(stripos($input, ' or 1')===FALSE)) { return false;}
+			if (!(stripos($input, ' or true')===FALSE)) { return false;}
 	    	
 	        if (get_magic_quotes_gpc()) {
 	            $input = stripslashes($input);
@@ -1455,7 +1455,11 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			if ($i>0) $param_add_fields .= ", ";		
 			$param_add_fields .= $this->FG_QUERY_ADITION_HIDDEN_FIELDS;
 			if ($i>0) $param_add_value .= ", ";
-			$param_add_value  .= $this->FG_QUERY_ADITION_HIDDEN_VALUE;
+			$split_hidden_fields_value = split(",",trim($this->FG_QUERY_ADITION_HIDDEN_VALUE));
+			for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields_value);$cur_hidden++){
+				$param_add_value.="'".$split_hidden_fields_value[$cur_hidden]."'";
+				if($cur_hidden<count($split_hidden_fields_value)-1)$param_add_value.=",";
+			}
 		}
 			
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_fields";
@@ -2038,6 +2042,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$sip_buddy = stripslashes($processed['sip_buddy']);
 		$iax_buddy = stripslashes($processed['iax_buddy']);
 		
+		
 		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
 		if (strlen($this -> FG_QUERY_EXTRA_HIDDED[0])>0) {
 			$username 	= $this -> FG_QUERY_EXTRA_HIDDED[0];
@@ -2087,7 +2092,6 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		if ($sip_buddy == 1) {
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			
 			if (!USE_REALTIME) {
 				
 				$buddyfile = BUDDY_SIP_FILE;
@@ -2125,6 +2129,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 					}
 				} // endif is_array $list_friend
 			}
+			
 		}
 
 		// Save info in table and in iax file

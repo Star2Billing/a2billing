@@ -370,11 +370,11 @@ $context = $A2B->config["signup"]['context'];
 $status = $A2B->config["signup"]['activatedbyuser'] ? '1' : '3';
 
 $HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, status";
-$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass','$loginkey', '$status'";
+$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE = "$iax_account,$sip_account,$myexpiredays,$myexpirationdate,$mytypepaid,$myenableexpire, $myrunservice,$mysimultaccess,$myactivated,$mycredit,$maxi,$maxi2,$pass,$loginkey, $status";
 
 if ($agent_conf) {
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ",id_group";
-	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ",'$groupid'";
+	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ",$groupid";
 }
 
 // username, useralias, uipass, loginkey
@@ -408,7 +408,6 @@ $HD_Form->FG_TEXT_ADITION_CONFIRMATION = "<font>" . gettext("Thanks for register
 $HD_Form->FG_BUTTON_EDITION_SRC = $HD_Form->FG_BUTTON_ADITION_SRC = Images_Path . "/cormfirmboton.gif";
 //$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONFIRM DATA button.");
 $HD_Form->FG_ADD_PAGE_CONFIRM_BUTTON = gettext("SIGNUP");
-
 
 if (RELOAD_ASTERISK_IF_SIPIAX_CREATED) {
 	$HD_Form->FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends_reload';
