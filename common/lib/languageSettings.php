@@ -89,6 +89,8 @@ function SetLocalLanguage()
 	putenv("LANG=$slectedLanguage");
 	putenv("LANGUAGE=$slectedLanguage");
 	setlocale(LC_ALL, $slectedLanguage);
+	setlocale(LC_MESSAGES,  $languageEncoding);
+	
 	$domain = 'messages';
 	bindtextdomain("messages", BINDTEXTDOMAIN);
 	textdomain($domain);

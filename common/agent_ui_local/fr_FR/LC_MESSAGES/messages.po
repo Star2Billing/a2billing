@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-17 12:28+0200\n"
+"POT-Creation-Date: 2009-04-17 13:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -54,368 +54,381 @@ msgstr "###"
 msgid "No"
 msgstr "###"
 
-#: lib/interface/constants.php:49
+#: lib/interface/constants.php:40
+msgid "PENDING"
+msgstr ""
+
+#: lib/interface/constants.php:41
+#, fuzzy
+msgid "SENT"
+msgstr "###"
+
+#: lib/interface/constants.php:42
+msgid "ERROR"
+msgstr ""
+
+#: lib/interface/constants.php:58
 msgid "Inactive"
 msgstr "###"
 
-#: lib/interface/constants.php:50
+#: lib/interface/constants.php:59
 msgid "Active"
 msgstr "###"
 
-#: lib/interface/constants.php:70
+#: lib/interface/constants.php:79
 msgid "Fix per month + dialoutrate"
 msgstr "###"
 
-#: lib/interface/constants.php:71
+#: lib/interface/constants.php:80
 msgid "Fix per month"
 msgstr "###"
 
-#: lib/interface/constants.php:72
+#: lib/interface/constants.php:81
 msgid "Only dialout rate"
 msgstr "###"
 
-#: lib/interface/constants.php:73 lib/interface/constants.php:82
+#: lib/interface/constants.php:82 lib/interface/constants.php:91
 msgid "Free"
 msgstr "###"
 
-#: lib/interface/constants.php:79
+#: lib/interface/constants.php:88
 msgid "Fix+Dial"
 msgstr "###"
 
-#: lib/interface/constants.php:80
+#: lib/interface/constants.php:89
 msgid "Fix"
 msgstr "###"
 
-#: lib/interface/constants.php:81
+#: lib/interface/constants.php:90
 msgid "Dial"
 msgstr "###"
 
-#: lib/interface/constants.php:88 lib/interface/constants.php:306
-#: lib/interface/constants.php:313 Public/A2B_entity_card_multi.php:319
+#: lib/interface/constants.php:97 lib/interface/constants.php:315
+#: lib/interface/constants.php:322 Public/A2B_entity_card_multi.php:319
 #: Public/A2B_entity_card.php:411
 msgid "INDIVIDUAL ACCESS"
 msgstr "###"
 
-#: lib/interface/constants.php:89 lib/interface/constants.php:305
-#: lib/interface/constants.php:312 Public/A2B_entity_card_multi.php:320
+#: lib/interface/constants.php:98 lib/interface/constants.php:314
+#: lib/interface/constants.php:321 Public/A2B_entity_card_multi.php:320
 #: Public/A2B_entity_card.php:412 Public/form_data/FG_var_card.inc:569
 msgid "SIMULTANEOUS ACCESS"
 msgstr "###"
 
-#: lib/interface/constants.php:95 Public/A2B_entity_card_multi.php:336
+#: lib/interface/constants.php:104 Public/A2B_entity_card_multi.php:336
 #: Public/A2B_entity_card.php:438
 msgid "PREPAID CARD"
 msgstr "###"
 
-#: lib/interface/constants.php:96
+#: lib/interface/constants.php:105
 msgid "POSTPAID CARD"
 msgstr "###"
 
-#: lib/interface/constants.php:102 Public/A2B_entity_card_multi.php:348
+#: lib/interface/constants.php:111 Public/A2B_entity_card_multi.php:348
 msgid "NO EXPIRATION"
 msgstr "###"
 
-#: lib/interface/constants.php:103 lib/interface/constants.php:320
+#: lib/interface/constants.php:112 lib/interface/constants.php:329
 #: Public/A2B_entity_card_multi.php:349 Public/A2B_entity_card.php:466
 msgid "EXPIRE DATE"
 msgstr "###"
 
-#: lib/interface/constants.php:104 lib/interface/constants.php:321
+#: lib/interface/constants.php:113 lib/interface/constants.php:330
 #: Public/A2B_entity_card_multi.php:350 Public/A2B_entity_card.php:467
 msgid "EXPIRE DAYS SINCE FIRST USE"
 msgstr "###"
 
-#: lib/interface/constants.php:105 lib/interface/constants.php:322
+#: lib/interface/constants.php:114 lib/interface/constants.php:331
 #: Public/A2B_entity_card_multi.php:351 Public/A2B_entity_card.php:468
 msgid "EXPIRE DAYS SINCE CREATION"
 msgstr "###"
 
-#: lib/interface/constants.php:112 lib/interface/constants.php:119
+#: lib/interface/constants.php:121 lib/interface/constants.php:128
 msgid "OPEN"
 msgstr "###"
 
-#: lib/interface/constants.php:113 lib/interface/constants.php:120
+#: lib/interface/constants.php:122 lib/interface/constants.php:129
 msgid "CLOSE"
 msgstr "###"
 
-#: lib/interface/constants.php:127 lib/interface/constants.php:151
+#: lib/interface/constants.php:136 lib/interface/constants.php:160
 msgid "UNPAID"
 msgstr "###"
 
-#: lib/interface/constants.php:128 lib/interface/constants.php:154
+#: lib/interface/constants.php:137 lib/interface/constants.php:163
 msgid "PAID"
-msgstr "###"
-
-#: lib/interface/constants.php:134 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "January"
-msgstr "###"
-
-#: lib/interface/constants.php:135 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "February"
-msgstr "###"
-
-#: lib/interface/constants.php:136 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "March"
-msgstr "###"
-
-#: lib/interface/constants.php:137 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "April"
-msgstr "###"
-
-#: lib/interface/constants.php:138 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "May"
-msgstr "###"
-
-#: lib/interface/constants.php:139 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "June"
-msgstr "###"
-
-#: lib/interface/constants.php:140 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "July"
-msgstr "###"
-
-#: lib/interface/constants.php:141 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "August"
-msgstr "###"
-
-#: lib/interface/constants.php:142 lib/Form/Class.SearchHandler.inc.php:36
-#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
-#: Public/call-log-customers.php:410
-msgid "September"
 msgstr "###"
 
 #: lib/interface/constants.php:143 lib/Form/Class.SearchHandler.inc.php:36
 #: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
 #: Public/call-log-customers.php:410
-msgid "October"
+msgid "January"
 msgstr "###"
 
 #: lib/interface/constants.php:144 lib/Form/Class.SearchHandler.inc.php:36
 #: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
 #: Public/call-log-customers.php:410
-msgid "November"
+msgid "February"
 msgstr "###"
 
 #: lib/interface/constants.php:145 lib/Form/Class.SearchHandler.inc.php:36
 #: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
 #: Public/call-log-customers.php:410
+msgid "March"
+msgstr "###"
+
+#: lib/interface/constants.php:146 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
+msgid "April"
+msgstr "###"
+
+#: lib/interface/constants.php:147 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
+msgid "May"
+msgstr "###"
+
+#: lib/interface/constants.php:148 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
+msgid "June"
+msgstr "###"
+
+#: lib/interface/constants.php:149 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
+msgid "July"
+msgstr "###"
+
+#: lib/interface/constants.php:150 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
+msgid "August"
+msgstr "###"
+
+#: lib/interface/constants.php:151 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
+msgid "September"
+msgstr "###"
+
+#: lib/interface/constants.php:152 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
+msgid "October"
+msgstr "###"
+
+#: lib/interface/constants.php:153 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
+msgid "November"
+msgstr "###"
+
+#: lib/interface/constants.php:154 lib/Form/Class.SearchHandler.inc.php:36
+#: Public/call-last-month.php:201 Public/A2B_entity_paymentlog.php:77
+#: Public/call-log-customers.php:410
 msgid "December"
 msgstr "###"
 
-#: lib/interface/constants.php:152
+#: lib/interface/constants.php:161
 msgid "SENT-UNPAID"
 msgstr "###"
 
-#: lib/interface/constants.php:153
+#: lib/interface/constants.php:162
 msgid "SENT-PAID"
 msgstr "###"
 
-#: lib/interface/constants.php:161
+#: lib/interface/constants.php:170
 msgid "New"
 msgstr "###"
 
-#: lib/interface/constants.php:162
+#: lib/interface/constants.php:171
 msgid "Proceed"
 msgstr "###"
 
-#: lib/interface/constants.php:163
+#: lib/interface/constants.php:172
 msgid "In Process"
 msgstr "###"
 
-#: lib/interface/constants.php:169
+#: lib/interface/constants.php:178
 msgid "Failed"
 msgstr "###"
 
-#: lib/interface/constants.php:170
+#: lib/interface/constants.php:179
 msgid "Successful"
 msgstr "###"
 
-#: lib/interface/constants.php:171
+#: lib/interface/constants.php:180
 msgid "Not Sent"
 msgstr "###"
 
-#: lib/interface/constants.php:177
+#: lib/interface/constants.php:186
 msgid "Unlimited calls"
 msgstr "###"
 
-#: lib/interface/constants.php:178
+#: lib/interface/constants.php:187
 msgid "Number of Free calls"
 msgstr "###"
 
-#: lib/interface/constants.php:179
+#: lib/interface/constants.php:188
 msgid "Free minutes"
 msgstr "###"
 
-#: lib/interface/constants.php:185
+#: lib/interface/constants.php:194
 msgid "Monthly"
 msgstr "###"
 
-#: lib/interface/constants.php:186
+#: lib/interface/constants.php:195
 msgid "Weekly"
 msgstr "###"
 
-#: lib/interface/constants.php:192
+#: lib/interface/constants.php:201
 msgid "LCR : According to the buyer price"
 msgstr "###"
 
-#: lib/interface/constants.php:193
+#: lib/interface/constants.php:202
 msgid "LCD : According to the seller price"
 msgstr "###"
 
-#: lib/interface/constants.php:199
+#: lib/interface/constants.php:208
 msgid "LCR : buyer price"
 msgstr "###"
 
-#: lib/interface/constants.php:200
+#: lib/interface/constants.php:209
 msgid "LCD : seller price"
 msgstr "###"
 
-#: lib/interface/constants.php:206
+#: lib/interface/constants.php:215
 msgid "NONE"
 msgstr "###"
 
-#: lib/interface/constants.php:207 lib/Class.Notification.php:64
+#: lib/interface/constants.php:216 lib/Class.Notification.php:64
 msgid "LOW"
 msgstr "###"
 
-#: lib/interface/constants.php:208 lib/Class.Notification.php:61
+#: lib/interface/constants.php:217 lib/Class.Notification.php:61
 msgid "MEDIUM"
 msgstr "###"
 
-#: lib/interface/constants.php:209 lib/Class.Notification.php:59
+#: lib/interface/constants.php:218 lib/Class.Notification.php:59
 msgid "HIGH"
 msgstr "###"
 
-#: lib/interface/constants.php:215
+#: lib/interface/constants.php:224
 msgid "VIEWED"
 msgstr "###"
 
-#: lib/interface/constants.php:216 lib/interface/constants.php:267
-#: lib/interface/constants.php:280 lib/interface/constants.php:293
+#: lib/interface/constants.php:225 lib/interface/constants.php:276
+#: lib/interface/constants.php:289 lib/interface/constants.php:302
 #: lib/support/classes/ticket.php:275
 msgid "NEW"
 msgstr "###"
 
-#: lib/interface/constants.php:223 lib/interface/constants.php:230
+#: lib/interface/constants.php:232 lib/interface/constants.php:239
 #, fuzzy
 msgid "NOT USED"
 msgstr "###"
 
-#: lib/interface/constants.php:224 lib/interface/constants.php:231
+#: lib/interface/constants.php:233 lib/interface/constants.php:240
 msgid "USED"
 msgstr "###"
 
-#: lib/interface/constants.php:237
+#: lib/interface/constants.php:246
 msgid "ANSWER"
 msgstr "###"
 
-#: lib/interface/constants.php:238
+#: lib/interface/constants.php:247
 msgid "BUSY"
 msgstr "###"
 
-#: lib/interface/constants.php:239
+#: lib/interface/constants.php:248
 msgid "NOANSWER"
 msgstr "###"
 
-#: lib/interface/constants.php:240 lib/interface/constants.php:291
+#: lib/interface/constants.php:249 lib/interface/constants.php:300
 msgid "CANCEL"
 msgstr "###"
 
-#: lib/interface/constants.php:241
+#: lib/interface/constants.php:250
 msgid "CONGESTION"
 msgstr "###"
 
-#: lib/interface/constants.php:242
+#: lib/interface/constants.php:251
 msgid "CHANUNAVAIL"
 msgstr "###"
 
-#: lib/interface/constants.php:243
+#: lib/interface/constants.php:252
 msgid "DONTCALL"
 msgstr "###"
 
-#: lib/interface/constants.php:244
+#: lib/interface/constants.php:253
 msgid "TORTURE"
 msgstr "###"
 
-#: lib/interface/constants.php:245
+#: lib/interface/constants.php:254
 msgid "INVALIDARGS"
 msgstr "###"
 
-#: lib/interface/constants.php:265 lib/interface/constants.php:279
+#: lib/interface/constants.php:274 lib/interface/constants.php:288
 msgid "ACTIVE"
 msgstr "###"
 
-#: lib/interface/constants.php:266 lib/interface/constants.php:278
-#: lib/interface/constants.php:291
+#: lib/interface/constants.php:275 lib/interface/constants.php:287
+#: lib/interface/constants.php:300
 msgid "CANCELLED"
 msgstr "###"
 
-#: lib/interface/constants.php:268 lib/interface/constants.php:281
-#: lib/interface/constants.php:294
+#: lib/interface/constants.php:277 lib/interface/constants.php:290
+#: lib/interface/constants.php:303
 msgid "WAITING-MAILCONFIRMATION"
 msgstr "###"
 
-#: lib/interface/constants.php:269 lib/interface/constants.php:282
-#: lib/interface/constants.php:295
+#: lib/interface/constants.php:278 lib/interface/constants.php:291
+#: lib/interface/constants.php:304
 msgid "RESERVED"
 msgstr "###"
 
-#: lib/interface/constants.php:270 lib/interface/constants.php:283
-#: lib/interface/constants.php:296
+#: lib/interface/constants.php:279 lib/interface/constants.php:292
+#: lib/interface/constants.php:305
 msgid "EXPIRED"
 msgstr "###"
 
-#: lib/interface/constants.php:271 lib/interface/constants.php:284
-#: lib/interface/constants.php:297
+#: lib/interface/constants.php:280 lib/interface/constants.php:293
+#: lib/interface/constants.php:306
 msgid "SUSPENDED FOR UNDERPAYMENT"
 msgstr "###"
 
-#: lib/interface/constants.php:272 lib/interface/constants.php:285
-#: lib/interface/constants.php:298
+#: lib/interface/constants.php:281 lib/interface/constants.php:294
+#: lib/interface/constants.php:307
 msgid "SUSPENDED FOR LITIGATION"
 msgstr "###"
 
-#: lib/interface/constants.php:292
+#: lib/interface/constants.php:301
 msgid "ACTIVATED"
 msgstr "###"
 
-#: lib/interface/constants.php:294
+#: lib/interface/constants.php:303
 msgid "WAITING"
 msgstr "###"
 
-#: lib/interface/constants.php:295
+#: lib/interface/constants.php:304
 msgid "RESERV"
 msgstr "###"
 
-#: lib/interface/constants.php:297
+#: lib/interface/constants.php:306
 msgid "SUS-PAY"
 msgstr "###"
 
-#: lib/interface/constants.php:298
+#: lib/interface/constants.php:307
 msgid "SUS-LIT"
 msgstr "###"
 
-#: lib/interface/constants.php:319 Public/A2B_entity_card.php:465
+#: lib/interface/constants.php:328 Public/A2B_entity_card.php:465
 msgid "NO EXPIRY"
 msgstr "###"
 
-#: lib/interface/constants.php:328 Public/A2B_refill_info_agent.php:52
+#: lib/interface/constants.php:337 Public/A2B_refill_info_agent.php:52
 #: Public/A2B_refill_info.php:58 Public/A2B_payment_info_agent.php:52
 #: Public/A2B_payment_info.php:58 Public/form_data/FG_var_commission.inc:18
 #: Public/form_data/FG_var_paymentlog.inc:134
@@ -423,15 +436,15 @@ msgstr "###"
 msgid "AMOUNT"
 msgstr "###"
 
-#: lib/interface/constants.php:329
+#: lib/interface/constants.php:338
 msgid "CORRECTION"
 msgstr "###"
 
-#: lib/interface/constants.php:330
+#: lib/interface/constants.php:339
 msgid "EXTRA FEE"
 msgstr "###"
 
-#: lib/interface/constants.php:343 Public/A2B_entity_card_multi.php:396
+#: lib/interface/constants.php:352 Public/A2B_entity_card_multi.php:396
 msgid "NO DISCOUNT"
 msgstr "###"
 
