@@ -213,6 +213,8 @@ class plugnpay {
         $result = $cc_validation->validate($_POST['plugnpay_cc_number'], $_POST['plugnpay_cc_expires_month'], $_POST['plugnpay_cc_expires_year'], $_POST['cvv'], $_POST['credit_card_type']);
         
         $error = '';
+        echo $result;
+        
         switch ($result) {
           case -1:
             $error = sprintf(TEXT_CCVAL_ERROR_UNKNOWN_CARD, substr($cc_validation->cc_number, 0, 4));
@@ -232,11 +234,12 @@ class plugnpay {
             $error = TEXT_CCVAL_ERROR_INVALID_NUMBER;
             break;
         }
-		
-        if ( ($result == false) || ($result < 1) ) {
-          $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&plugnpay_cc_owner=' . urlencode($_POST['plugnpay_cc_owner']) . '&plugnpay_cc_expires_month=' . $_POST['plugnpay_cc_expires_month'] . '&plugnpay_cc_expires_year=' . $_POST['plugnpay_cc_expires_year'];
-          tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
-        }
+      if ( ($result == false) || ($result < 1) ) {
+        $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&authorizenet_cc_owner=' . urlencode($_POST['authorizenet_cc_owner']) . '&authorizenet_cc_expires_month=' . $_POST['authorizenet_cc_expires_month'] . '&authorizenet_cc_expires_year=' . $_POST['authorizenet_cc_expires_year'];
+		$payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
+
+        tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
+      }
 
         $this->cc_card_type = $cc_validation->cc_type;
         $this->cc_card_number = $cc_validation->cc_number;
@@ -364,10 +367,10 @@ class plugnpay {
     }
 
     function get_error() {
-      global $HTTP_GET_VARS;
+      global $_GET;
 
       $error = array('title' => MODULE_PAYMENT_PLUGNPAY_TEXT_ERROR,
-                     'error' => stripslashes(urldecode($HTTP_GET_VARS['error'])));
+                     'error' => stripslashes(urldecode($_GET['error'])));
       return $error;
     }
 
