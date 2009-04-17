@@ -121,9 +121,9 @@ if ($form_action=='list') {
 			<TR><FORM NAME="sipfriend">
 				<td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" >			
 				<b>
-				SIP : <input class="form_input_button"  TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_SIP.CONF " 
+				SIP : <input class="form_input_button"  TYPE="button" VALUE=" <?php echo gettext("GENERATE ADDITIONAL_A2BILLING_SIP.CONF"); ?> " 
 				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend';">
-				IAX : <input class="form_input_button"  TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_IAX.CONF " 
+				IAX : <input class="form_input_button"  TYPE="button" VALUE=" <?php echo gettext("GENERATE ADDITIONAL_A2BILLING_IAX.CONF"); ?> " 
 				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend';">
 				</b></td></FORM>
 			</TR>

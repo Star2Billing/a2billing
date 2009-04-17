@@ -6,7 +6,7 @@ getpost_ifset(array('id', 'IDCust', 'mailtype', 'fromemail', 'fromname', 'subjec
 // Get Latest id from the table
 $latest_id = mailtemplate_latest_id();
 
-$HD_Form = new FormHandler("cc_templatemail","mailtemplate");
+$HD_Form = new FormHandler("cc_templatemail", gettext("mail template"));
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID = "id";
@@ -25,8 +25,8 @@ $typemail_list["reminder"]  		= array( gettext("Reminder"), "reminder");
 $typemail_list["signup"]    		= array( gettext("Signup"), "signup");
 $typemail_list["forgetpassword"]  	= array( gettext("Forget password"), "forgetpassword");
 $typemail_list["signupconfirmed"]  	= array( gettext("Signup confirmed"), "signupconfirmed");
-$typemail_list["payment"]  		= array( gettext("Payment Confirmation"), "payment");
-$typemail_list["invoice"]  		= array( gettext("Invoice"), "invoice");
+$typemail_list["payment"]  			= array( gettext("Payment Confirmation"), "payment");
+$typemail_list["invoice"]  			= array( gettext("Invoice"), "invoice");
 $typemail_list["epaymentverify"]  	= array( gettext("EPayment Warning"), "epaymentverify");
 $typemail_list["template1"] 		= array( gettext("template1"), "template1");
 $typemail_list["template2"] 		= array( gettext("template2"), "template2");
@@ -61,7 +61,7 @@ $HD_Form -> FG_OTHER_BUTTON2 = true;
 $HD_Form -> FG_OTHER_BUTTON2_LINK= "A2B_entity_translate.php?form_action=ask-add&id=|param|&languages=$languages";
 $HD_Form -> FG_OTHER_BUTTON2_ALT = 'Translate';
 
-$HD_Form -> AddEditElement (gettext("MAILTYPE"),
+$HD_Form -> AddEditElement (gettext("MAIL TYPE"),
 	"mailtype",
 	'$value',
 	"SELECT",
@@ -70,7 +70,7 @@ $HD_Form -> AddEditElement (gettext("MAILTYPE"),
 	"",
 	"list" , "", "", "", $typemail_list, "%1", "", "");
 	
-$HD_Form -> AddEditElement (gettext("FROMEMAIL"),
+$HD_Form -> AddEditElement (gettext("FROM EMAIL"),
 	"fromemail",
 	'',
 	"INPUT",
@@ -79,7 +79,7 @@ $HD_Form -> AddEditElement (gettext("FROMEMAIL"),
 	gettext("Insert the user fromemail"),
 	"" , "", "", "", "" , "", "", "");
 
-$HD_Form -> AddEditElement (gettext("FROMNAME"),
+$HD_Form -> AddEditElement (gettext("FROM NAME"),
 	"fromname",
 	'',
 	"INPUT",
@@ -96,7 +96,7 @@ $HD_Form -> AddEditElement (gettext("SUBJECT"),
 	gettext("Insert the user subject"),
 	"" , "", "", "", "" , "", "", "");
 
-$HD_Form -> AddEditElement (gettext("MESSAGETEXT"),
+$HD_Form -> AddEditElement (gettext("MESSAGE TEXT"),
 	"messagetext",
 	'',
 	"TEXTAREA",
@@ -115,7 +115,7 @@ $HD_Form ->FG_QUERY_EDITION_HIDDEN_FIELDS = "id_language";
 $HD_Form ->FG_QUERY_EDITION_HIDDEN_VALUE  = "$id_language";
 
 $HD_Form -> FG_EDITION_CLAUSE = "id ='%id' ";
-if($id_language != '' || !is_null($id_language)){
+if($id_language != '' || !is_null($id_language)) {
 	$HD_Form -> FG_EDITION_CLAUSE .= "AND id_language = '$id_language'";
 }
 

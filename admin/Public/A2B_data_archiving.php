@@ -4,7 +4,7 @@ include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_MAINTENANCE)){
+if (! has_rights (ACX_MAINTENANCE)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -106,7 +106,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = FALSE;
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_DO_ARCHIVE_ALL = true;
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
-$HD_Form -> AddViewElement("ACCOUNT NUMBER", "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
+$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "username", "20%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("BALANCE")."\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "display_2dec");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "8%", "center", "sort", "", "list", $cardstatus_list_acronym);

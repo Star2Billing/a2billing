@@ -3,7 +3,7 @@
 getpost_ifset(array('id', 'uniqueid', 'entry_time', 'status', 'server_ip', 'num_attempt', 'last_attempt_time', 'manager_result', 'agi_result', 'callback_time', 'channel', 'exten', 'context', 'priority', 'application', 'data', 'timeout', 'callerid', 'variable', 'account', 'async', 'actionid'));
 
 
-$HD_Form = new FormHandler("cc_callback_spool","Callback");
+$HD_Form = new FormHandler("cc_callback_spool", gettext("Callback"));
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
@@ -19,35 +19,30 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/lightning_add.png" ;
 
 
 $actived_list = Constants::getActivationTrueFalseList();
-
-$status_list = array();
-$status_list["PENDING"] = array( "PENDING", "PENDING");
-$status_list["SENT"] = array( "SENT", "SENT");
-$status_list["ERROR"] = array( "ERROR", "ERROR");
-
+$status_list = Constants::getCallbackStatusList();
 $yesno = Constants::getYesNoList();
 
 
-$HD_Form -> AddViewElement("ID", "id", "3%", "center", "sort");
-$HD_Form -> AddViewElement("UNIQUEID", "uniqueid", "5%", "center", "sort");
-$HD_Form -> AddViewElement("ENTRY_TIME", "entry_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement("STATUS", "status", "5%", "center", "sort");
-$HD_Form -> AddViewElement("SERVER_IP", "server_ip", "5%", "center", "sort");
-$HD_Form -> AddViewElement("<acronym title=\"NUMBER OF ATTEMPT\">NA</acronym>", "num_attempt", "5%", "center", "sort");
-$HD_Form -> AddViewElement("<acronym title=\"MANAGER RESULT\">MR</acronym>", "manager_result", "10%", "center", "sort", "15");
-$HD_Form -> AddViewElement("<acronym title=\"AGI RESULT\">AR</acronym>", "agi_result", "5%", "center", "sort");
-$HD_Form -> AddViewElement("CALLBACK_TIME", "callback_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement("LAST_ATTEMPT", "last_attempt_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement("CHANNEL", "channel", "5%", "center", "sort");
-$HD_Form -> AddViewElement("CONTEXT", "context", "5%", "center", "sort");
-$HD_Form -> AddViewElement("SERVER", "id_server", "5%", "center", "sort", "15", "lie", "server_manager", "server_ip", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("UNIQUEID"), "uniqueid", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ENTRY TIME"), "entry_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("SERVER IP"), "server_ip", "5%", "center", "sort");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("NUMBER OF ATTEMPT")."\">NA</acronym>", "num_attempt", "5%", "center", "sort");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("MANAGER RESULT")."\">MR</acronym>", "manager_result", "10%", "center", "sort", "15");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("AGI RESULT")."\">AR</acronym>", "agi_result", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CALLBACK TIME"), "callback_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("LAST_ATTEMPT"), "last_attempt_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("CHANNEL"), "channel", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CONTEXT"), "context", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("SERVER"), "id_server", "5%", "center", "sort", "15", "lie", "server_manager", "server_ip", "id='%id'", "%1");
 
 
 
 $HD_Form -> FieldViewElement ('id, uniqueid, entry_time, status, server_ip, num_attempt, manager_result, agi_result, callback_time, last_attempt_time, channel, context, id_server');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO CALLBACK CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -263,7 +258,7 @@ $HD_Form -> FieldEditElement ('id_server_group, uniqueid, status, server_ip, num
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'uniqueid';
-$HD_Form -> FG_FILTERFIELDNAME = 'uniqueid';
+$HD_Form -> FG_FILTERFIELDNAME = gettext('uniqueid');
 
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){

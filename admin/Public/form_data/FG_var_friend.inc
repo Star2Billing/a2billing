@@ -6,9 +6,9 @@ getpost_ifset(array('id_cc_card', 'cardnumber', 'id', 'name', 'amaflags', 'callg
 
 
 if ($atmenu=='sip') {
-	$HD_Form = new FormHandler("cc_sip_buddies","SIP Config");
+	$HD_Form = new FormHandler("cc_sip_buddies", gettext("SIP Config"));
 } else {
-	$HD_Form = new FormHandler("cc_iax_buddies","IAX Config");
+	$HD_Form = new FormHandler("cc_iax_buddies", gettext("IAX Config"));
 }
 
 
@@ -31,6 +31,7 @@ $HD_Form -> AddViewElement(gettext("DTMF"), "dtmfmode", "8%", "center", "sort");
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_friend.php?form_action=ask-add&atmenu=sip&section=".$_SESSION["menu_section"];
+
 if ($atmenu=='sip') {
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SIP Config");
 } else {
@@ -482,7 +483,7 @@ if ($atmenu=='sip') {
 
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'username';
-$HD_Form -> FG_FILTERFIELDNAME = 'username';
+$HD_Form -> FG_FILTERFIELDNAME = gettext('username');
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 

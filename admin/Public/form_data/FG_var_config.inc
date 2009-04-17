@@ -44,18 +44,19 @@ foreach($config_list as $key => $cur_value) {
 		}
 	}
 }
-$HD_Form = new FormHandler("cc_config","Configuration");
+$HD_Form = new FormHandler("cc_config", gettext("Configuration"));
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_title";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 if ($groupselect != "") {
-	$HD_Form = new FormHandler("cc_config","Configuration");
+	$HD_Form = new FormHandler("cc_config", gettext("Configuration"));
 	$HD_Form -> FG_TABLE_ID = "id";
 	$HD_Form -> FG_TABLE_CLAUSE = " config_group_title = '$groupselect'";
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
+
 if (isset($posted)) {
 	$_SESSION['ss_groupselect'] = '';
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
@@ -70,7 +71,7 @@ if($form_action == "list") {
 $HD_Form -> FG_EDITION_CLAUSE = "id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");
-$HD_Form -> AddViewElement(gettext("Value"), "config_value", "10%", "center","","","list-conf",$yesno);
+$HD_Form -> AddViewElement(gettext("VALUE"), "config_value", "10%", "center","","","list-conf",$yesno);
 $HD_Form -> AddViewElement(gettext("DESCRIPTION"), "config_description", "40%", "left");
 $HD_Form -> AddViewElement(gettext("GROUP"), "config_group_title", "5%", "center");
 
@@ -156,6 +157,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"",
 	gettext("Insert the Description"),
 	"" , "", "", "", "" , "", "", "");
+
 
 if (LIST_OF_VALUES) {
 	$HD_Form -> FieldEditElement ('config_group_title, config_title, config_key, config_value ,config_listvalues, config_description');

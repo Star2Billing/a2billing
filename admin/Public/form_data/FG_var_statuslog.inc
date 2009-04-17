@@ -3,7 +3,7 @@
 getpost_ifset(array('id', 'status', 'id_cc_card', 'updated_date', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
 
-$HD_Form = new FormHandler("cc_status_log sl", "Status Log");
+$HD_Form = new FormHandler("cc_status_log sl", gettext("Status Log"));
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID = "id";
@@ -58,7 +58,7 @@ $cardstatus_list["7"]  = array( gettext("SUSPENDED FOR LITIGATION"), "7");
 
 
 $HD_Form -> AddViewElement(gettext("ID CARD"), "id_cc_card", "10%", "center", "sort");
-$HD_Form -> AddViewElement("CARDNUMBER", "id_cc_card", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
+$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("LAST NAME"), "id_cc_card", "20%", "center", "sort", "15", "lie", "cc_card", "lastname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "20%", "center", "sort", "", "list", $cardstatus_list);
 $HD_Form -> AddViewElement(gettext("DATE"), "updated_date", "20%", "center", "sort", "16");

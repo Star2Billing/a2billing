@@ -35,6 +35,15 @@ class Constants
 		return $yesno;
 	}	
 
+	public static function getCallbackStatusList(){
+		$status_list = array();
+		$status_list["PENDING"] = array( gettext("PENDING"), "PENDING");
+		$status_list["SENT"] = array( gettext("SENT"), "SENT");
+		$status_list["ERROR"] = array( gettext("ERROR"), "ERROR");
+		
+		return $status_list;
+	}	
+	
 	public static function getPeriodsList(){
 	  	$period_list = array();
 		$period_list["1"]  = array( "Hourly", "1");
