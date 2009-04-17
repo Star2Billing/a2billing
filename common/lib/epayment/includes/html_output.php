@@ -149,7 +149,7 @@
 ////
 // Output a form input field
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
-    $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+    $field = '<input class="form_input_text" type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
 
     if ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
       $field .= ' value="' . tep_output_string(stripslashes($GLOBALS[$name])) . '"';
@@ -251,7 +251,7 @@
 ////
 // Output a form pull down menu
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
-    $field = '<select name="' . tep_output_string($name) . '"';
+    $field = '<select class="form_input_select" name="' . tep_output_string($name) . '"';
 
     if (tep_not_null($parameters)) $field .= ' ' . $parameters;
 
