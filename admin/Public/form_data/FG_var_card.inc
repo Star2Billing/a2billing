@@ -776,7 +776,7 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 				   "INPUT",
 				   "size=10 maxlength=6 $vat_init",
 				   "12",
-				   gettext("Insert the number for the VAT"),
+				   gettext("Insert the VAT"),
 				   "" , "", "",	"", "", "", "" , gettext("VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"));
 	
 	

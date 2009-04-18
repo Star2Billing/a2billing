@@ -32,7 +32,7 @@ include (dirname(__FILE__) . "/lib/interface/constants.php");
 include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
 include (dirname(__FILE__) . "/lib/Misc.php");
 
-$verbose_level = 0;
+$verbose_level = 3;
 
 $groupcard = 5000;
 
@@ -110,8 +110,8 @@ foreach ($result as $myservice) {
 	// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
 	for ($page = 0; $page < $nbpagemax; $page++) {
 
-		$sql = "SELECT cc_card.id, credit, currency, username, email FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card " .
-		"WHERE id_subscription_fee='$myservice_id' AND startdate < NOW() AND (stopdate = '0000-00-00 00:00:00' OR stopdate > NOW()) ORDER BY id ";
+		$sql = "SELECT cc_card.id, credit, currency, username, email, cc_card_subscription.id FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card " .
+		"WHERE id_subscription_fee='$myservice_id' AND startdate < NOW() AND (stopdate = '0000-00-00 00:00:00' OR stopdate > NOW()) ORDER BY cc_card.id ";
 
 		if ($A2B->config["database"]['dbtype'] == "postgres") {
 			$sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
@@ -138,8 +138,8 @@ foreach ($result as $myservice) {
 				//if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 
 				// ADD A CHARGE
-				$QUERY = "INSERT INTO cc_charge (id_cc_card, id_cc_subscription_fee, chargetype, amount, currency, description) " .
-				"VALUES ('" . $mycard[0] . "', '$myservice_id', '3', '$amount_converted', '" . strtoupper($mycard[2]) . "','" . $mycard[5] . ' - ' . $myservice_label . "')";
+				$QUERY = "INSERT INTO cc_charge (id_cc_card, id_cc_card_subscription, chargetype, amount, currency, description) " .
+				"VALUES ('" . $mycard[0] . "', '$mycard[5]', '3', '$amount_converted', '" . strtoupper($mycard[2]) . "','" . $mycard[5] . ' - ' . $myservice_label . "')";
 				$result_insert = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 				if ($verbose_level >= 1)
 					echo "==> INSERT CHARGE QUERY=$QUERY\n";

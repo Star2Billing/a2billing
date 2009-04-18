@@ -4,7 +4,11 @@
 /***************************************************************************
  *            a2billing_invoice_cront.php
  *
- *  Purpose: To greate the invoices.
+ *  Purpose: To create the invoices.
+ * 
+ * 		This cront will generate the invoice for your customer the appropriate day (see invoiceday in customer conf)
+ * 		The script need to be run every day in order to bill all your customer the right day
+ * 
  *  Copyright  2009  @ Belaid Arezqui
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
