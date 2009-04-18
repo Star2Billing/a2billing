@@ -63,7 +63,7 @@ $caching_query = 300; // caching for 5 minutes
 
 
 getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 
-					'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 
+					'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'current_page', 'order', 'sens', 'choose_currency', 
 					'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage', 'lcr'));
 
 
@@ -85,6 +85,8 @@ if (!$_SESSION["access_display"] && (md5($security_key) !== $key  || strlen($sec
 	$_SESSION["access_display"] = 1;
 }
 
+$choose_currency = 0;
+
 //set  default values if not isset vars
 
 if (!isset($nb_display_lines) || strlen($nb_display_lines)==0) $nb_display_lines=1;
@@ -95,7 +97,8 @@ if (!isset($field_type) || strlen ($field_type)==0) $field_type=",,money";
 //if (!isset($column_name) || strlen($column_name)==0) $column_name="Destination,Prefix,Rate/Min";
 if (!isset($browse_letter) || strlen($browse_letter)==0) $browse_letter="yes";
 if (!isset($prefix_select) || strlen($prefix_select)==0) $prefix_select="";
-if (!isset($currency_select) || strlen($currency_select)==0) $currency_select=true;else $choose_currency=$currency_select;
+if (!isset($currency_select) || strlen($currency_select)==0) $currency_select=true;
+else $choose_currency=$currency_select;
 if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'])-24)."Public/templates/default/css/api_ratecard.css";
 
 if (!isset($merge_form) || strlen($merge_form)==0) $merge_form=0;
@@ -291,7 +294,6 @@ function Search(Source) {
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<FORM METHOD="GET" name="myForm" ACTION="<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url&$parameter_to_send"?>">
-	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form;?>>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
 	<div class="search">
@@ -311,9 +313,9 @@ function Search(Source) {
 			<?php for ($i=65;$i<=90;$i++) {
  				$x = chr($i);
 				if ($merge_form) {
- 					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url&$parameter_to_send\">$x</a> ";
+ 					echo "<a href=\"$page_url?letter=$x&order=$order&sens=$sens&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url&$parameter_to_send\">$x</a> ";
 				} else {
-					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url&$parameter_to_send\">$x</a> ";
+					echo "<a href=\"$page_url?letter=$x&order=$order&sens=$sens&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url&$parameter_to_send\">$x</a> ";
 				}
 			}?></font>
 		</div>
@@ -360,7 +362,7 @@ function Search(Source) {
 							<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title">
 							<center><strong>
 							<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-							<a href="<?php  echo "$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url&$parameter_to_send";?>">
+							<a href="<?php  echo "$page_url?current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url&$parameter_to_send";?>">
 							<?php  } ?>
 							<?php echo $FG_TABLE_COL[$i][0]?>
 							<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
@@ -402,7 +404,7 @@ function Search(Source) {
 	<TR>
 	<TD>
 		<?php
-		$c_url="$page_url?stitle=$stitle&order=$order&sens=$sens&current_page=%s&posted=$posted&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url&$parameter_to_send";
+		$c_url="$page_url?order=$order&sens=$sens&current_page=%s&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url&$parameter_to_send";
 		printPages($current_page+1, $nb_record_max, $c_url);
 		?>
 	</TD>
