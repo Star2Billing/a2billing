@@ -730,19 +730,16 @@ class A2Billing {
 
 
 	function enough_credit_to_call(){
-		$test_package = floor($this->credit*100)>0;
-		if(!$test_package){
-		$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
-		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-			if( !empty($result[0][0])){
-				$id_package_groupe = $result[0][0];
-				if($id_package_groupe ==-1){
-					$test_package = true;
-				}
-			}
-		}
-		if ( (!$test_package || $this->credit < $this->agiconfig['min_credit_2call']) && $A2B -> typepaid==0) return true;
-		else return false;
+		if($this->credit < $this->agiconfig['min_credit_2call'] && $A2B -> typepaid==0){
+			$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
+			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
+				if( !empty($result[0][0])){
+					$id_package_groupe = $result[0][0];
+					if($id_package_groupe >0){
+						return true;
+					}else return false;
+				}else return false;
+		}else return true;
 	}
 
 	/**
@@ -2040,7 +2037,7 @@ class A2Billing {
 				if( $result[0][2] != "t" && $result[0][2] != "1" ) 	$prompt = "prepaid-auth-fail";
 
 				// CHECK credit < min_credit_2call / you have zero balance
-				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
+				if(!$this -> enough_credit_to_call()) $prompt = "prepaid-no-enough-credit-stop";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED
@@ -2073,7 +2070,7 @@ class A2Billing {
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
 
-					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance") {
+					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && !$this -> enough_credit_to_call()) {
 
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher] ");
 						$vou_res = $this -> refill_card_with_voucher($agi,2);
@@ -2083,7 +2080,7 @@ class A2Billing {
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
-					if ($prompt == "prepaid-zero-balance" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
+					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
 						$this->accountcode=''; $callerID_enable=0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
 						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) $this -> ask_other_cardnumber=1;
@@ -2193,7 +2190,7 @@ class A2Billing {
 
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
-				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
+				if( !$this -> enough_credit_to_call() ) $prompt = "prepaid-no-enough-credit-stop";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED
@@ -2224,8 +2221,7 @@ class A2Billing {
 
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 
-					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance"){
-
+					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-no-enough-credit-stop"){
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher] ");
 						$vou_res = $this -> refill_card_with_voucher($agi,2);
 						if ($vou_res==1){
@@ -2234,7 +2230,7 @@ class A2Billing {
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
-					if ($prompt == "prepaid-zero-balance" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
+					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
 						$this->accountcode='';
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
 						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) $this -> ask_other_cardnumber=1;
@@ -2361,7 +2357,7 @@ class A2Billing {
 				}
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
-				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
+				if( !$this -> enough_credit_to_call() ) $prompt = "prepaid-no-enough-credit-stop";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED

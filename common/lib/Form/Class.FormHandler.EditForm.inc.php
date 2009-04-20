@@ -357,10 +357,10 @@ function sendtolittle(direction){
 							 <input name="<?php echo $table_split[1]?>_hidden" type="hidden" value="" />
                                           <SELECT name="<?php echo $table_split[1]?>[]" <?php echo $this->FG_TABLE_EDITION[$i][4]?> class="form_input_select">
                                             <?php
-					 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, null, null, null, null, null, null);
+					 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, $table_split[12], $table_split[13], null, null, null, null);
 
 					 if (count($split_select_list)>0)
-					 {
+					 {	
 						 $select_number=0;
 						 foreach ($split_select_list as $select_recordset){
 							 $select_number++;
@@ -368,9 +368,10 @@ function sendtolittle(direction){
 							 	if (is_numeric($table_split[7])){
 									$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
 									$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $select_recordset[$table_split[7]], $table_split[11] );
-									$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
+									$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null,null, null, null, null, null);
 									$select_recordset[$table_split[7]] = $sub_table_split_select_list[0][0];
 								}
+								
 								 $value_display = $table_split[6];
 								 $nb_recor_k = count($select_recordset);
 								 for ($k=1;$k<=$nb_recor_k;$k++){
