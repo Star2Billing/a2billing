@@ -379,6 +379,7 @@ class RateEngine
 				AND cc_packgroup_package.package_id = cc_package_offer.id 
 				AND cc_package_offer.id = cc_package_rate.package_id  
 				AND cc_package_rate.rate_id = ".$id_rate." ORDER BY packagetype ASC";
+			//$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[PACKAGE IN:$query_pakages ]");
 			$table_packages = new Table();
 			$result_packages = $table_packages -> SQLExec ($A2B -> DBHandle, $query_pakages);
 			$idx_pack = 0;
@@ -424,7 +425,7 @@ class RateEngine
 								}
 				
 							}
-							if ($this -> debug_st) print_r($this -> freetimetocall_left);
+							
 							// ****************  END PACKAGE PARAMETERS ****************
 						        break;
 					}
@@ -475,7 +476,7 @@ class RateEngine
 		This following "if" statement used to verify the minimum credit to call can be improved.
 		This mininum credit should be calculated based on the destination, and the minimum billing block.
 		*/
-		if ($credit < $A2B->agiconfig['min_credit_2call'] && !$this -> freecall[$K]){
+		if ($credit < $A2B->agiconfig['min_credit_2call'] && !$this -> freecall[$K] && $this -> freetimetocall_left[$K]<=0){
 			return "ERROR CT1";  //NO ENOUGH CREDIT TO CALL THIS NUMBER
 		}
 

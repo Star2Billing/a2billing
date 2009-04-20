@@ -92,7 +92,7 @@ $HD_Form -> AddEditElement (gettext("FREE UNITS"),
    "size=10 maxlength=10",	
    "4",	
    gettext("Insert the amount of free time to call (seconds)"),
-   "" , "", "",	"", "", "", "", gettext("Insert the amount of free units, in seconds, for UNLIMITED, FREE MINUTES, NORMAL. For NUMBER OF FREE CALLS insert the number of free calls"));
+   "" , "", "",	"", "", "", "", gettext("Insert the amount of free units, in seconds,for the FREE SECONDS mode. For NUMBER OF FREE CALLS insert the number of free calls"));
    
 
 	

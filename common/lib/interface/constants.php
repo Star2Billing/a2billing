@@ -185,7 +185,7 @@ class Constants
 		$packagetype_list = array();
 		$packagetype_list["0"] = array( gettext("Unlimited calls"), "0");
 		$packagetype_list["1"] = array( gettext("Number of Free calls"), "1");
-		$packagetype_list["2"] = array( gettext("Free minutes"), "2");
+		$packagetype_list["2"] = array( gettext("Free seconds"), "2");
 		return $packagetype_list;
 	}
 	
