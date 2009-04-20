@@ -2393,7 +2393,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		if(is_array($processed[$table_split[1]])){
 			foreach($processed[$table_split[1]] as $value) {
-				if (!isset($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
+				if (empty($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
 					// RESPECT REGULAR EXPRESSION
 					$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($value))."', '".addslashes(trim($id))."'", null, null);
 			
@@ -2415,7 +2415,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			}
 		} else {
 			$value = $processed[$table_split[1]];
-			if (!isset($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
+			if (empty($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
 				// RESPECT REGULAR EXPRESSION
 				$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($value))."', '".addslashes(trim($id))."'", null, null);
 		
@@ -2435,6 +2435,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				}
 			}
 		}
+		;
 	}
 
 

@@ -113,7 +113,7 @@ if ($numrow>0) {
 		"sql",		
 		"package_rates",	
 		"",		
-		"", "", "%1 : (%2)", "", "", "cc_package_rate:rate_id:cc_ratecard LEFT JOIN cc_package_rate ON cc_ratecard.id=cc_package_rate.rate_id LEFT JOIN  cc_prefix ON cc_prefix.prefix = cc_ratecard.destination:DISTINCT CONCAT(cc_prefix.destination,' - ',cc_ratecard.dialprefix ), cc_ratecard.id,cc_prefix.destination, cc_ratecard.dialprefix: cc_package_rate.package_id = %id:package_id:%3 - ( %4 )::::%1:id='%1':cc_prefix.destination:ASC");		
+		"", "", "%1 : (%2)", "", "", "cc_package_rate:rate_id:cc_ratecard LEFT JOIN cc_package_rate ON cc_ratecard.id=cc_package_rate.rate_id LEFT JOIN  cc_prefix ON cc_prefix.prefix = cc_ratecard.destination:DISTINCT CONCAT(cc_prefix.destination,' - ',cc_ratecard.dialprefix ), cc_ratecard.id,cc_prefix.destination, cc_ratecard.dialprefix: cc_package_rate.package_id = %id:package_id:%3 - ( %4 )::::%1:id='%1'::cc_prefix.destination:ASC");		
 	
 }   
 

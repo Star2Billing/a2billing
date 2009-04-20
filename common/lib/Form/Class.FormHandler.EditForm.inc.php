@@ -357,7 +357,7 @@ function sendtolittle(direction){
 							 <input name="<?php echo $table_split[1]?>_hidden" type="hidden" value="" />
                                           <SELECT name="<?php echo $table_split[1]?>[]" <?php echo $this->FG_TABLE_EDITION[$i][4]?> class="form_input_select">
                                             <?php
-					 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, $table_split[12], $table_split[13], null, null, null, null);
+					 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, $table_split[13], $table_split[14], null, null, null, null);
 
 					 if (count($split_select_list)>0)
 					 {	
