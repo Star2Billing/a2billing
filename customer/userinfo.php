@@ -56,10 +56,11 @@ $smarty->display( 'main.tpl');
 
 ?>
 
+<div>
 
 <?php if ($A2B->config["webcustomerui"]['customerinfo']){ ?>
 
-<table width="80%" class="tablebackgroundblue" align="center">
+<table  class="tablebackgroundblue" align="center" >
 <tr>
 	<td><img src="<?php echo KICON_PATH ?>/personal.gif" align="left" class="kikipic"/></td>
 	<td width="50%"><font class="fontstyle_002">
@@ -95,7 +96,7 @@ $smarty->display( 'main.tpl');
 
 <?php } ?>
 <br>
-<table width="80%" align="center" >
+<table style="width:70%;margin:0 auto;"  align="center" >
 <tr>
 	<td align="center">
 		<table width="80%" align="center" class="tablebackgroundcamel">
@@ -138,7 +139,7 @@ $smarty->display( 'main.tpl');
 	echo $PAYMENT_METHOD;
 ?>
 
-<table width="80%" align="center" cellspacing="0" >
+<table style="width:80%;margin:0 auto;" cellspacing="0"  align="center" >
 	<tr background="<?php echo Images_Path; ?>/background_cells.gif" >
 		<TD  valign="top" align="right" class="tableBodyRight"   >
 			<font size="2"><?php echo gettext("Click below to buy credit : ");?> </font>
@@ -186,7 +187,10 @@ $smarty->display( 'main.tpl');
 <?php } else { ?>
 <br></br><br></br>
 
-<?php } 
+<?php } ?>
+</div>
+
+<?php  
 
 $smarty->display( 'footer.tpl');
 

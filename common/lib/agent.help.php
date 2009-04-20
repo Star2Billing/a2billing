@@ -68,16 +68,16 @@ if (!isset($disable_load_conf) || !($disable_load_conf)) {
 	for ($index = 0; $index < sizeof($payment_methods); $index++) {
 		if( $payment_methods[$index][0] == "MODULE_PAYMENT_PAYPAL_STATUS") {
 			$show_logo .= '<a href="https://www.paypal.com/en/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a> &nbsp; ';
-		} elseif( $payment_methods[$index][0] == "MODULE_PAYMENT_AUTHORIZENET_STATUS") {
-			$show_logo .= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a> &nbsp; ';
+		//} elseif( $payment_methods[$index][0] == "MODULE_PAYMENT_AUTHORIZENET_STATUS") {
+		//	$show_logo .= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a> &nbsp; ';
 		} elseif( $payment_methods[$index][0] == "MODULE_PAYMENT_MONEYBOOKERS_STATUS") {
 			$show_logo .= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a> &nbsp; ';
-		} elseif( $payment_methods[$index][0] == "MODULE_PAYMENT_WORLDPAY_STATUS") {
-			$show_logo .= '<a href="http://www.worldpay.com/" target="_blank"><img src="'.KICON_PATH.'/worldpay.gif" alt="worldpay.com"/></a> &nbsp; ';
+		//} elseif( $payment_methods[$index][0] == "MODULE_PAYMENT_WORLDPAY_STATUS") {
+		//	$show_logo .= '<a href="http://www.worldpay.com/" target="_blank"><img src="'.KICON_PATH.'/worldpay.gif" alt="worldpay.com"/></a> &nbsp; ';
 		} elseif( $payment_methods[$index][0] == "MODULE_PAYMENT_PLUGNPAY_STATUS") {
 			$show_logo .= '<a href="http://www.plugnpay.com/" target="_blank"><img src="'.KICON_PATH.'/plugnpay.png" alt="plugnpay.com"/></a> &nbsp; ';
 		}
 	}
-	$PAYMENT_METHOD ='<table width="70%" align="center"><tr><TD valign="top" align="center" class="tableBodyRight">'.$show_logo.'</td></tr></table>';
+	$PAYMENT_METHOD ='<table style="width:70%;margin:0 auto;" align="center" ><tr><TD valign="top" align="center" class="tableBodyRight">'.$show_logo.'</td></tr></table>';
 }
 

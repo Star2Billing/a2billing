@@ -497,8 +497,8 @@ SPAN.errorText {
 	padding-right: 0px;
 	padding-left: 0px;
 	padding-bottom: 0px;
-	margin: 0px;
-	width: 100%;
+	margin: 0px auto;
+	width: 400px;
 	padding-top: 0px;
 	background-color: #f6f6f6;
 }
@@ -1291,8 +1291,9 @@ SPAN.errorText {
   background-position:bottom;  
   margin-bottom: 1em;
   color: #BD2A15;
-  margin-right: 55px;  
-  margin-left: 55px;
+  margin-right: auto;  
+  margin-left: auto;
+  width:80%;
 }
 .tablebackgroundcamel
 {	
