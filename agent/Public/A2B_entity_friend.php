@@ -27,23 +27,24 @@ getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
 if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
-	if(!USE_REALTIME){
-		$_SESSION["is_sip_iax_change"]=1;
-	}
 	
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION = "A2B_entity_card.php?atmenu=card&stitle=Customers_Card&id=";
 
-	if ( $form_action == "add_sip" ) { 
+	if ($form_action == "add_sip") { 
 		$friend_param_update=" sip_buddy='1' ";
 		if(!USE_REALTIME){
-			$_SESSION["is_sip_changed"] = 1;
+			$key = "sip_changed";
 		}
-	}	
-	else {
+	} else {
 		$friend_param_update=" iax_buddy='1' ";
-		if(!USE_REALTIME){
-			$_SESSION["is_iax_changed"] = 1;
+		if(!USE_REALTIME) {
+			$key = "iax_changed";
 		}
+	}
+	
+	if(!USE_REALTIME) {
+		$who= Notification::$AGENT;$who_id=$_SESSION['agent_id'];
+		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 	}
 	
 	$instance_table_friend = new Table('cc_card');

@@ -37,10 +37,8 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 	}
 	
 	if(!USE_REALTIME) {
-		if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$id=$_SESSION['admin_id'];} 
-		elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$id=$_SESSION['agent_id'];}
-		else {$who=Notification::$UNKNOWN;$id=-1;}
-		NotificationsDAO::AddNotification($key,Notification::$HIGN,$who,$id);
+		$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];} 
+		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 	}
 	
 	$instance_table_friend = new Table('cc_card');
