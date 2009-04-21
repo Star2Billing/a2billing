@@ -37,7 +37,7 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 	}
 	
 	if(!USE_REALTIME) {
-		$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];} 
+		$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id']; 
 		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 	}
 	
