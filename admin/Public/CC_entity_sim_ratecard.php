@@ -83,7 +83,7 @@ $smarty->display('main.tpl');
 echo $CC_help_sim_ratecard;
 
 ?>	
-	<center> <?php echo "$error_msg"; ?> </center>
+	<center> <?php echo "$error_msg"; ?> 
 	<br>
 	<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
 	<table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -180,7 +180,6 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 		<?php for($j=0;$j<count($RateEngine->ratecard_obj);$j++){ ?>
 			<TR> 
           	<td height="15" bgcolor="" style="padding-left: 5px; padding-right: 3px;" colspan="2">
-					
 			</td>
         	</TR>
 			<TR> 
@@ -198,7 +197,18 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 						
 				</td>
 			</tr>
-			
+			<?php if($RateEngine->ratecard_obj[$j]['freetime_include_in_timeout']>0) {?>
+			<tr>
+				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;">
+						<font color="blue"><?php echo gettext("FREE TIME INCLUDED IN THE DURATION");?></font>
+						
+				</td>
+				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;">
+						<font color="blue"><i><?php echo display_minute($RateEngine->ratecard_obj[$j]['freetime_include_in_timeout']);?> <?php echo gettext("Minutes");?> </i></font>
+						
+				</td>
+			</tr>
+			<?php } ?>
 			<?php if ($A2B->agiconfig['cheat_on_announcement_time']==1){ ?>
 			<tr>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
@@ -242,12 +252,14 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
           <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
         </TR>
 	  </table>
+	  
 <?php  } else { ?>
 
 <br><br><br><br>
 
-<?php  } 
-
+<?php  }  ?>
+</center>
+<?php 
 $smarty->display('footer.tpl');
 
 

@@ -147,6 +147,8 @@ class A2Billing {
 	var $expiredays;
 	var $firstusedate;
 	var $creationdate;
+	
+	var $creditlimit = 0;
 
 	var $languageselected;
 	var $current_language;
@@ -730,16 +732,33 @@ class A2Billing {
 
 
 	function enough_credit_to_call(){
-		if($this->credit < $this->agiconfig['min_credit_2call'] && $A2B -> typepaid==0){
-			$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
-			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-				if( !empty($result[0][0])){
-					$id_package_groupe = $result[0][0];
-					if($id_package_groupe >0){
-						return true;
+		
+		
+		
+		if($this->typepaid==0){
+			if($this->credit < $this->agiconfig['min_credit_2call'] && $A2B -> typepaid==0){
+				$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
+				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
+					if( !empty($result[0][0])){
+						$id_package_groupe = $result[0][0];
+						if($id_package_groupe >0){
+							return true;
+						}else return false;
 					}else return false;
-				}else return false;
-		}else return true;
+			}else return true;
+		
+		}else{
+			if( $this->credit <= -$creditlimit){
+				$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
+				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
+					if( !empty($result[0][0])){
+						$id_package_groupe = $result[0][0];
+						if($id_package_groupe >0){
+							return true;
+						}else return false;
+					}else return false;
+			}else return true;
+		}
 	}
 
 	/**
@@ -1987,6 +2006,7 @@ class A2Billing {
 					$simultaccess = 0;
 					$this->typepaid = $ttcard;
 					$creditlimit = $this->agiconfig['cid_auto_create_card_credit_limit'];
+					$this ->creditlimit = $creditlimit;
 					$language = 'en';
 					$this->accountcode = $card_gen;
 					if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
@@ -2009,6 +2029,7 @@ class A2Billing {
 				$simultaccess 				= $result[0][7];
 				$this->typepaid 			= $result[0][8];
 				$creditlimit 				= $result[0][9];
+				$this->creditlimit			= $result[0][9];
 				$language 					= $result[0][10];
 				$this->accountcode 			= $result[0][11];
 				$this->username             = $result[0][11];
@@ -2147,6 +2168,7 @@ class A2Billing {
 					$simultaccess 				= $result[0][4];
 					$this->typepaid 			= $result[0][5];
 					$creditlimit 				= $result[0][6];
+					$this -> creditlimit 		= $result[0][6];
 					$language 					= $result[0][7];
 					$this->removeinterprefix 	= $result[0][8];
 					$this->redial 				= $result[0][9];
@@ -2316,6 +2338,7 @@ class A2Billing {
 				$simultaccess = $result[0][4];
 				$this->typepaid = $result[0][5];
 				$creditlimit = $result[0][6];
+				$this->creditlimit 	= $result[0][6];
 				$language = $result[0][7];
 				$this->removeinterprefix = $result[0][8];
 				$this->redial = $result[0][9];
@@ -2471,6 +2494,7 @@ class A2Billing {
 		$simultaccess = $result[0][4];
 		$this->typepaid = $result[0][5];
 		$creditlimit = $result[0][6];
+		$this->creditlimit = $result[0][6];
 		$language = $result[0][7];
 		$this->removeinterprefix = $result[0][8];
 		$this->redial = $result[0][9];
@@ -2493,12 +2517,7 @@ class A2Billing {
 		if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 
 		// CHECK IF ENOUGH CREDIT TO CALL
-		if( $this->credit <= $this->agiconfig['min_credit_2call'] && $this -> typepaid==0){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
-			return 0;
-		}
-		// CHECK POSTPAY
-		if( $this->typepaid==1 && $this->credit <= -$creditlimit && $creditlimit!=0){
+		if( !$this->enough_credit_to_call()){
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
 			return 0;
 		}

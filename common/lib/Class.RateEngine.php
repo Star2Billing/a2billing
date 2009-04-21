@@ -359,7 +359,9 @@ class RateEngine
 		$id_rate 						= $this -> ratecard_obj[$K][6];
 		$initial_credit					= $credit;
 		// CHANGE THIS - ONLY ALLOW FREE TIME FOR CUSTOMER THAT HAVE MINIMUM CREDIT TO CALL A DESTINATION
-
+		
+		
+		
 		$this -> freetimetocall_left[$K] = 0;
 		$this -> freecall[$K] = false;
 		$this -> package_to_apply [$K] = null;
@@ -469,7 +471,10 @@ class RateEngine
 		$this -> ratecard_obj[$K]['callbackrate']=$callbackrate;
 		$this -> ratecard_obj[$K]['timeout']=0;
 		$this -> ratecard_obj[$K]['timeout_without_rules']=0;
+		// used for the simulator
+		$this -> ratecard_obj[$K]['freetime_include_in_timeout']=$this -> freetimetocall_left[$K];
 
+		
 		// CHECK IF THE USER IS ALLOW TO CALL WITH ITS CREDIT AMOUNT
 		/*
 		Comment from Abdoulaye Siby
@@ -487,6 +492,7 @@ class RateEngine
 		if ($rateinitial<=0){
 			$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tocall_negatif_free_route'];
 			$this -> ratecard_obj[$K]['timeout_without_rules'] =	$A2B->agiconfig['maxtime_tocall_negatif_free_route'];
+			$TIMEOUT = $A2B->agiconfig['maxtime_tocall_negatif_free_route'];
 			// 90 min
 			if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
 			return $TIMEOUT;
@@ -495,15 +501,28 @@ class RateEngine
 		if ($this -> freecall[$K]){
 			if(	$this -> package_to_apply [$K] ["type"] == 0){
 				$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tounlimited_calls']; // default : 90 min
+				$TIMEOUT = $A2B->agiconfig['maxtime_tounlimited_calls'];
 				$this -> ratecard_obj[$K]['timeout_without_rules'] =$A2B->agiconfig['maxtime_tounlimited_calls'];
+				$this -> ratecard_obj[$K]['freetime_include_in_timeout']=$A2B->agiconfig['maxtime_tounlimited_calls'];
 			}else{
 				$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tofree_calls'];
+				$TIMEOUT =  $A2B->agiconfig['maxtime_tofree_calls'];
 				$this -> ratecard_obj[$K]['timeout_without_rules'] = $A2B->agiconfig['maxtime_tofree_calls'];
+				$this -> ratecard_obj[$K]['freetime_include_in_timeout']=$A2B->agiconfig['maxtime_tofree_calls'];
 			}
 			
 			if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
 			return $TIMEOUT;
 		}
+		
+		if ($credit < $A2B->agiconfig['min_credit_2call'] && $this -> freetimetocall_left[$K]>0){
+			$this -> ratecard_obj[$K]['timeout']= $this -> freetimetocall_left[$K];
+			$TIMEOUT =  $this -> freetimetocall_left[$K];
+			$this -> ratecard_obj[$K]['timeout_without_rules'] = $this -> freetimetocall_left[$K];
+			return $TIMEOUT;
+			}
+		
+		
 
 		// IMPROVE THE get_variable AND TRY TO RETRIEVE THEM ALL SOMEHOW
 		if($A2B->mode == 'callback'){
