@@ -16,7 +16,7 @@ $smarty->display('main.tpl');
 echo $CC_help_mail_notifications;
 
 ?>
-
+<DIV ALIGN="CENTER">
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 	<tr>
 	 	<td>
@@ -155,7 +155,9 @@ if (!is_null($return)&& (!empty($return)>0)) {
 
 <?php 
 } 
-
+?>
+</DIV>
+<?php 
 $smarty->display('footer.tpl');
 
 
