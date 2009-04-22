@@ -186,7 +186,8 @@ function removeSource()
 // #### CREATE SEARCH FORM
 	$HD_Form -> create_search_form();
 ?>
-<center>
+<br/>
+<div align="center">
 		<table width="95%" border="0" cellspacing="2" align="center" class="editform_table1">
               <form name="prefs" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 				<?php if($posted){?>
@@ -296,7 +297,7 @@ function removeSource()
 				<input type="hidden" name="posted" value="1">
               </form>
             </table>
-</center>
+</div>
 
 <?php
 	$smarty->display('footer.tpl');

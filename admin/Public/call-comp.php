@@ -181,7 +181,7 @@ $smarty->display('main.tpl');
 
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<center>
+	<div align="center">
 	<FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=<?php echo $s?>&t=<?php echo $t?>&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 		<table class="bar-status" width="80%" border="0" cellspacing="1" cellpadding="2" align="center">
@@ -269,7 +269,7 @@ $smarty->display('main.tpl');
 				</td>				
 				<td class="bgcolor_005" align="left" >
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
+				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" class="form_input_text" NAME="dst" value="<?php echo $dst?>"></td>
 				<td  align="center" class="fontstyle_searchoptions" ><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
@@ -282,7 +282,7 @@ $smarty->display('main.tpl');
 				</td>				
 				<td class="bgcolor_003" align="left">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>"></td>
+				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" class="form_input_text" NAME="src" value="<?php echo "$src";?>"></td>
 				<td  align="center" class="fontstyle_searchoptions" ><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
@@ -322,7 +322,7 @@ $smarty->display('main.tpl');
 			</tr>
 		</tbody></table>
 	</FORM>
-</center>
+</div>
 
 
 
@@ -392,7 +392,7 @@ foreach ($table_graph as $tkey => $data){
 
 
 <!-- TITLE GLOBAL -->
-<center>
+<div align="center">
  <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
 		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
 			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
@@ -494,7 +494,7 @@ foreach ($table_graph as $tkey => $data){
 	<center><h3><?php echo gettext("No calls in your selection");?>.</h3></center>
 <?php  } ?>
 
-</center>
+</div>
 
 <br><br>
 

@@ -121,7 +121,7 @@ $smarty->display('main.tpl');
 if (strlen($_GET["menu"])>0) 
 	$_SESSION["menu"] = $_GET["menu"];
 ?>
-
+<div align="center">
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
@@ -545,9 +545,12 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 	
 	</tr><td colspan="19" class="tableDivider"><img height="1" width="1" src="../Public/templates/default/images/clear.gif"/></td>
 </table>
+
 <?php         
 }
-
+?>
+</div>
+<?php
 // Code for the Export Functionality
 //* Query Preparation.
 $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= $QUERY;

@@ -18,6 +18,14 @@ getpost_ifset(array('choose_list', 'addcredit', 'gen_id', 'cardnum', 'choose_cur
 
 $HD_Form -> setDBHandler (DbConnect());
 
+$HD_Form -> FG_FILTER_SEARCH_FORM = false;
+$HD_Form -> FG_EDITION = false;
+$HD_Form -> FG_DELETION = false;
+$HD_Form -> FG_OTHER_BUTTON1 = false;
+$HD_Form -> FG_OTHER_BUTTON2 = false;
+$HD_Form -> FG_FILTER_APPLY = false;
+$HD_Form -> FG_LIST_ADDING_BUTTON1 = false;
+$HD_Form -> FG_LIST_ADDING_BUTTON2 = false;
 
 $nbcard = $choose_list;
 
@@ -70,7 +78,7 @@ $smarty->display('main.tpl');
 echo $CC_help_generate_voucher;
 
 ?>
-  	  	  
+  	<div align="center">  	  
 	   <table align="center" class="bgcolor_001" border="0" width="65%">
         <tbody><tr>
 		<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
@@ -126,7 +134,7 @@ echo $CC_help_generate_voucher;
         </tr>
       </tbody></table>
 	  <br>
-	    
+	</div>    
 
 <?php
 

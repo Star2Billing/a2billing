@@ -48,6 +48,7 @@ function openURLFilter(theLINK)
 }
 //-->
 </script>
+<div align="center">
       <table width="<?php echo $this->FG_VIEW_TABLE_WITDH; ?>" align="center" border="0" cellpadding="0" cellspacing="0">
 	  <?php  IF ($this -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE){ ?>
 		<TR>
@@ -656,13 +657,15 @@ function openURLFilter(theLINK)
 		</td></tr>
 		</FORM>
       </table>
+   </div>  
 <?php
 	}else{
 ?>
     
     
 	<br><br>
-	<table width="100%" border="0" align="center">
+	<div align="center">
+	<table width="80%" border="0" align="center">
 		
 		<tr>
 			<td align="center">
@@ -670,6 +673,7 @@ function openURLFilter(theLINK)
 			</td>
 		</tr>
 	</table>
+	</div>
 	<br><br>
 <?php 
 	}//end_if

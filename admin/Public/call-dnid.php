@@ -300,7 +300,7 @@ $smarty->display('main.tpl');
 
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-<center>
+<div align="center">
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 <INPUT TYPE="hidden" NAME="posted" value=1>
 <INPUT TYPE="hidden" NAME="current_page" value=0>	
@@ -607,12 +607,12 @@ $smarty->display('main.tpl');
 		</tr>
 	</table>
 </FORM>
-</center>
+
 
 
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
 
-<center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
+<?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
 
       <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 		<TR bgcolor="#ffffff"> 
@@ -942,9 +942,9 @@ foreach ($asr_cic_list1 as $asr_cic_data){
 		
 		
 <?php  }else{ ?>
-	<center><h3><?php echo gettext("No calls in your selection");?>.</h3></center>
+	<h3><?php echo gettext("No calls in your selection");?>.</h3>
 <?php  } ?>
-</center>
+</div>
 
 <?php
 	$smarty->display('footer.tpl');

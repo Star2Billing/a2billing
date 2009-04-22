@@ -283,6 +283,7 @@ $PAYMENT_METHOD ='
 </table>';
 
 $CALL_LABS ='
+<div align="center">
 <table width="70%" align="center">
 	<tr>
 		<TD width="%75" valign="top" align="center" class="tableBodyRight" background="'.Images_Path.'/background_cells.gif" >
@@ -293,6 +294,7 @@ $CALL_LABS ='
 				<a href="http://www.call-labs.com/" target="_blank"><img src="'.Images_Path.'/call-labs.com.png" alt="call-labs"/></a>
 		</TD>
 	</tr>
-</table>';
+</table>
+</div>';
 
 

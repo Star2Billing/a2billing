@@ -20,7 +20,7 @@ function unavailable() {
 function getcountry($arr, $selected=0, $id=0) {
 	if($arr === false)
 		return unavailable();
-	$res = "<select name=\"country\" onchange=\"this.form.elements['area'].value=0; this.form.elements['nxx'].value=0; this.form.elements['number'].value=0; this.form.submit();\">\n";
+	$res = "<select class=\"form_input_select\" name=\"country\" onchange=\"this.form.elements['area'].value=0; this.form.elements['nxx'].value=0; this.form.elements['number'].value=0; this.form.submit();\">\n";
 	$res .= "<option value=\"0\">Select a Country</option>\n";
 	if($arr) {
 		$i = 0;
@@ -40,7 +40,7 @@ function getcountry($arr, $selected=0, $id=0) {
 function getarea($arr, $selected=0) {
 	if($arr === false)
 		return unavailable();
-	$res = "<select name=\"area\" onchange=\"this.form.elements['nxx'].value=0; this.form.elements['number'].value=0; this.form.submit();\">\n";
+	$res = "<select class=\"form_input_select\" name=\"area\" onchange=\"this.form.elements['nxx'].value=0; this.form.elements['number'].value=0; this.form.submit();\">\n";
 	$res .= "<option value=\"0\">Select an area code</option>\n";
 	if($arr) {
 		$i = 0;
@@ -61,7 +61,7 @@ function getarea($arr, $selected=0) {
 function getnxx($arr, $selected=0) {
 	if($arr === false)
 		return unavailable();
-	$res = "<select name=\"nxx\" onchange=\"this.form.elements['number'].value=0; this.form.submit();\">\n";
+	$res = "<select class=\"form_input_select\" name=\"nxx\" onchange=\"this.form.elements['number'].value=0; this.form.submit();\">\n";
 	$res .= "<option value=\"0\">Select rate center</option>\n";
 	if($arr) {
 		$i = 0;
@@ -81,7 +81,7 @@ function getnxx($arr, $selected=0) {
 function getnumber($arr, $country, $selected=0) {
 	if($arr === false)
 		return unavailable();
-	$res = "<select name=\"number\" onchange=\"this.form.submit();\">\n";
+	$res = "<select class=\"form_input_select\" name=\"number\" onchange=\"this.form.submit();\">\n";
 	$res .= "<option value=\"0\">Select a number</option>\n";
 	if($arr) {
 		$i = 0;
@@ -168,11 +168,12 @@ if($form_action == "purchase" || $form_action == "add") {
 		}
 	}
 ?>
-<table width=100%>
+<div align="center">
+<table>
 <tr><td>
 <FORM action="<?php echo $_SERVER['PHP_SELF']; ?> " method="get">
 <?php
-$res = "<select name=\"rating\" onchange=\"this.form.submit();\">\n";
+$res = "<select class=\"form_input_select\" name=\"rating\" onchange=\"this.form.submit();\">\n";
 for($i=0; $i<=9;$i++) {
 	$res .= "<option value=\"$i\"";
 	if($i == $rating)
@@ -194,6 +195,7 @@ Minimal <a href="http://www.didx.net/rating" target="new">DID vendor rating</a>
 </form>
 </td></tr>
 </table>
+</div>
 <?php
 
 if($number) {
