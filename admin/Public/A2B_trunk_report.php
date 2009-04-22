@@ -124,6 +124,7 @@ $smarty->display('main.tpl');
 if (strlen($_GET["menu"])>0) 
 	$_SESSION["menu"] = $_GET["menu"];
 	?>
+<div align="center">
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
@@ -246,7 +247,7 @@ if (strlen($_GET["menu"])>0)
 		</tbody></table>
 </FORM>
 
-
+<br/>
 			<table border="0" cellpadding="2" cellspacing="2" width="90%" align="center">
 				<tbody>
 				<?php $num = 1; if($num > 0){?>
@@ -313,7 +314,7 @@ if (strlen($_GET["menu"])>0)
 			<?php }?>
 			</tbody>
 </table>	
-
+</div>
 <?php
 
 $smarty->display('footer.tpl');
