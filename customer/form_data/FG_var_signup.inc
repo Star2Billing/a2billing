@@ -387,11 +387,11 @@ $HD_Form->FG_QUERY_EXTRA_HIDDED = array (
 
 if (!$agent_conf && strpos($callPlan_idlist, ',') === false) {
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
-	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", '$mytariff'";
+	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $mytariff";
 }
 elseif ($agent_conf) {
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
-	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", '$tariffid'";
+	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $tariffid";
 }
 $HD_Form->FG_FILTER_APPLY = true;
 $HD_Form->FG_FILTERFIELD = 'cardnumber';

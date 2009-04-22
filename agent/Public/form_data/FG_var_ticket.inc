@@ -122,7 +122,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 $HD_Form -> FieldEditElement (' creator, title, id_component, priority, description');
 
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_agent";
-$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0'";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "0";
 
 
 

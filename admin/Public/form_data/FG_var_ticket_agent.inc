@@ -107,7 +107,7 @@ $HD_Form -> FieldEditElement (' creator, title, id_component, priority, descript
 
 
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_admin,creator_type";
-$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'0',1";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "0,1";
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
