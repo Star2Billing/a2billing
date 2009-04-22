@@ -106,7 +106,7 @@ echo $CC_help_list_misc;
 	  <INPUT type="hidden" name="id" value="<?php echo $id?>">
 	</form>		
 
-<? 
+<?php 
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
