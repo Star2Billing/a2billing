@@ -1885,6 +1885,18 @@ CREATE INDEX cc_sip_buddies_port ON cc_sip_buddies USING btree(port);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Return URL distant Login', 'return_url_distant_login', '', 'URL for specific return if an error occur after login', 0, NULL, 'webcustomerui');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Return URL distant Forget Password', 'return_url_distant_forgetpassword', '', 'URL for specific return if an error occur after forgetpassword', 0, NULL, 'webcustomerui');
 
+CREATE TABLE cc_agent_signup (
+	id 				BIGSERIAL,
+	id_agent 		INT NOT NULL,
+	code 			VARCHAR(30) NOT NULL,
+	id_tariffgroup 	INT NOT NULL,
+	id_group 		INT NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (code)
+);
+
+ALTER TABLE cc_agent DROP secret;
+
 -- disable Authorize.net
 -- UPDATE cc_payment_methods SET active = 'f';  -- WTF?  We dropped that column earlier.
 UPDATE cc_configuration SET configuration_value = 'False' WHERE configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_STATUS';
