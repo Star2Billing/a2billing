@@ -2726,7 +2726,29 @@ CREATE INDEX cc_sip_buddies_port ON cc_sip_buddies USING btree(port);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Return URL distant Login', 'return_url_distant_login', '', 'URL for specific return if an error occur after login', 0, NULL, 'webcustomerui');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Return URL distant Forget Password', 'return_url_distant_forgetpassword', '', 'URL for specific return if an error occur after forgetpassword', 0, NULL, 'webcustomerui');
 
--- synched with MySQL up to r1867
+CREATE TABLE cc_agent_signup (
+	id 				BIGSERIAL,
+	id_agent 		INT NOT NULL,
+	code 			VARCHAR(30) NOT NULL,
+	id_tariffgroup 	INT NOT NULL,
+	id_group 		INT NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (code)
+);
+
+ALTER TABLE cc_agent DROP secret;
+
+-- disable Authorize.net
+-- UPDATE cc_payment_methods SET active = 'f';  -- WTF?  We dropped that column earlier.
+UPDATE cc_configuration SET configuration_value = 'False' WHERE configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_STATUS';
+
+ALTER TABLE cc_epayment_log ALTER amount TYPE VARCHAR(50);
+ALTER TABLE cc_epayment_log_agent ALTER amount TYPE VARCHAR(50);
+
+UPDATE cc_config SET config_value = 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy' WHERE config_key = 'card_export_field_list';
+-- ALTER TABLE cc_tariffgroup ALTER id_cc_package_offer TYPE NUMERIC(20) NOT NULL DEFAULT '-1'; -- WTF?  BIGINT already does 19 decimal digits.
+
+-- synched with MySQL up to r1953
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
