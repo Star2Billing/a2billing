@@ -17,8 +17,8 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
-$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid', 'cc_card_history');
-$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card", "id_cc_card");
+$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid', 'cc_card_history','cc_status_log');
+$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card", "id_cc_card","id_cc_card");
 // DEFINE IF WE WANT TO DELETE THE CARD OR NOT
 $HD_Form -> FG_FK_WARNONLY = (DELETE_FK_CARD == true) ? false: true;
 
