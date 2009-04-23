@@ -72,6 +72,10 @@ if ($nbcard>0) {
 	$_SESSION["IDfilter"]=$gen_id;
 	
 	$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
+	//initialize refill parameter
+	$description_refill = gettext("CREATION CARD REFILL");
+	$field_insert_refill = " credit,card_id, description";
+	$instance_refill_table = new Table("cc_logrefill", $field_insert_refill);
 	
 	for ($k=0;$k<$nbcard;$k++) {
 		 $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
@@ -87,6 +91,12 @@ if ($nbcard>0) {
 		if (isset($iax)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
 		
 		$id_cc_card = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, $HD_Form -> FG_TABLE_ID);
+		//create refill for each cards
+		
+		if($addcredit>0){
+			$value_insert_refill = "'$addcredit', '$id_cc_card', '$description_refill' ";
+			$instance_refill_table -> Add_table ($HD_Form -> DBHandle, $value_insert_refill, null, null);	
+		}
 		
 		// Insert data for sip_buddy
 		if (isset($sip)) {
@@ -109,7 +119,6 @@ if ($nbcard>0) {
 			}
 		}
 	}
-
 
 	// Save Sip accounts to file
 	if (isset($sip)) {
@@ -243,7 +252,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 
 // FORM FOR THE GENERATION
 ?>
-
+<div align="center">
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 <form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 <tr>
@@ -397,6 +406,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 </tr>
 </form>
 </table>
+</div>
 <br>
 
 
