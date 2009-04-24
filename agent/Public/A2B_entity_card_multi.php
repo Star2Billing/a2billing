@@ -309,8 +309,7 @@ $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 	<br/>
 	
 	<strong>4)</strong> 
-	<?php echo gettext("Initial amount of credit");?> : 0 	
-	<?php echo strtoupper(BASE_CURRENCY) ?>
+	<?php echo gettext("Initial amount of credit");?> : 0 
 	<br/>
 	
 	<strong>5)</strong> 

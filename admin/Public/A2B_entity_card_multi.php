@@ -297,7 +297,6 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	
 	<strong>4)</strong> 
 	<?php echo gettext("Initial amount of credit");?> : <input class="form_input_text" name="addcredit" size="10" maxlength="10" >
-	<?php echo strtoupper(BASE_CURRENCY) ?>
 	<br/>
 	
 	<strong>5)</strong> 
