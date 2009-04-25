@@ -59,6 +59,13 @@ if ($result_count_calls_buy == null)
 <?php if($result_count_chanunavail>0){ ?>
 	&nbsp;<?php echo gettext("NUMBER OF CALLS WITH CHANNEL UNAVAILABLE");?>&nbsp;:&nbsp;<?php echo $result_count_chanunavail; ?><br/>
 <?php } ?>
-<?php echo gettext("AMOUNT SELL TODAY TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_times;} ?> </font>&nbsp;sec <br/>
-<?php echo gettext("AMOUNT BUY TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_sell;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
-<?php echo gettext("TOTAL TIME USED TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_buy;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
+<?php echo gettext("AMOUNT SELL TODAY ");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+	<?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_times;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?> <br/>
+	
+<?php echo gettext("AMOUNT BUY TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+	<?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_sell;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
+	
+<?php echo gettext("TOTAL TIME USED TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+	<?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_buy;} ?> </font>&nbsp;<?php echo gettext("sec");?>  <br/>
+
+
