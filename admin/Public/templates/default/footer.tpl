@@ -10,6 +10,16 @@
 		<div style="clear: both;"></div>
 	
 	</div>
+	
+	{php} 
+		global $profiler;
+		global $G_instance_Table;
+		
+		if ($profiler->installed && $profiler->modedebug)
+			$profiler->display($G_instance_Table); 
+	{/php}
 
 </body>
 </html>
+
+

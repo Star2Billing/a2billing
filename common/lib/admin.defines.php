@@ -1,4 +1,11 @@
 <?php
+
+define ("PHP_QUICK_PROFILER", true);
+// Include PHP-Quick-Profiler
+require_once('PhpQuickProfiler.php');
+$profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
+
+
 define ("WRITELOG_QUERY",false);
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
 define ("LIBDIR", FSROOT."lib/");	
@@ -18,6 +25,8 @@ include (dirname(__FILE__)."/Class.Notification.php");
 
 session_name("UIADMINSESSION");
 session_start();
+
+$G_instance_Table = Table::getInstance();
 
 // A2B INSTANCE
 $A2B = new A2Billing();

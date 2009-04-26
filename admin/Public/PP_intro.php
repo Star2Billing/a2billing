@@ -70,3 +70,4 @@ $smarty->display('main.tpl');
 
 $smarty->display('footer.tpl');
 
+

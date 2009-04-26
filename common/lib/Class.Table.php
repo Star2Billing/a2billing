@@ -63,13 +63,18 @@ class Table {
 	
 	var $writelog 				= null;
 
-    var $FK_TABLES;
-    var $FK_EDITION_CLAUSE;
+    var $FK_TABLES				= null;
+    var $FK_EDITION_CLAUSE		= null;
     // FALSE if you want to delete the dependent Records, TRUE if you want to update
     // Dependent Records to -1
     var $FK_DELETE 				= true;
     var $FK_ID_VALUE 			= 0;
-
+	
+	public $queryCount = 0;
+	public $queries = array();
+	
+	private static $m_pInstance;
+	
 
 	/* CONSTRUCTOR */
 	function Table ($table = null, $liste_fields = null,  $fk_Tables = null, $fk_Fields = null, $id_Value = null, $fk_del_upd = true)
@@ -87,7 +92,23 @@ class Table {
 		}
 	}
 
-
+	// Table::getInstance();
+	public static function getInstance ($table = null, $fields = null,  $FK_TABLES = null, $FK_EDITION_CLAUSE = null, $FK_ID_VALUE = null, $FK_DELETE = true)
+	{
+	    if (!self::$m_pInstance) {
+	        self::$m_pInstance = new Table();
+	    }
+	    
+		self::$m_pInstance -> table = $table;
+		self::$m_pInstance -> fields = $fields;
+		self::$m_pInstance -> FK_TABLES = $FK_TABLES;
+		self::$m_pInstance -> FK_EDITION_CLAUSE = $FK_EDITION_CLAUSE;
+		self::$m_pInstance -> FK_ID_VALUE = $FK_ID_VALUE;
+		self::$m_pInstance -> FK_DELETE = $FK_DELETE;
+	
+	    return self::$m_pInstance;
+	}
+	
 
 	/* MODIFY PROPRIETY*/
 	function Define_fields ($liste_fields )
@@ -107,6 +128,7 @@ class Table {
 	function ExecuteQuery ($DBHandle, $QUERY, $cache = 0)
 	{
 		global $A2B;
+		
 		if ($this -> writelog) {
 			$time_start = microtime(true);
 		}
@@ -123,7 +145,10 @@ class Table {
 		if ($cache > 0) {
 			$res = $DBHandle -> CacheExecute($cache, $QUERY);
 		} else {
+			$start = $this->getTime();
 			$res = $DBHandle -> Execute($QUERY);
+			$this->queryCount += 1;
+			$this->logQuery($QUERY, $start);
 		}
 		
 		if ($DBHandle -> ErrorNo() != 0) {
@@ -366,6 +391,52 @@ class Table {
 		
 		return ($res);
 	}
+	
+	function logQuery($sql, $start) {
+		$query = array(
+				'sql' => $sql,
+				'time' => ($this->getTime() - $start)*1000
+			);
+		array_push($this->queries, $query);
+	}
+	
+	function getTime() {
+		$time = microtime();
+		$time = explode(' ', $time);
+		$time = $time[1] + $time[0];
+		$start = $time;
+		return $start;
+	}
 
 };
 
+
+
+Class Single_Table {
+   private static $instance_table;
+   
+   private function __construct() {
+   		
+ 		$instance_table = new Table ();
+ 		
+ 		return self::$instance_table;
+   }
+   
+   // Single_Table::GetTable();
+   static function GetTable($table = null, $fields = null,  $FK_TABLES = null, $FK_EDITION_CLAUSE = null, $FK_ID_VALUE = null, $FK_DELETE = true) {
+       if (empty(self::$instance_table)) {
+       		$Single_Table = new Single_Table();
+       }
+       echo "---------";
+       
+       self::$instance_table -> table = $table;
+       self::$instance_table -> fields = $fields;
+       self::$instance_table -> FK_TABLES = $FK_TABLES;
+       self::$instance_table -> FK_EDITION_CLAUSE = $FK_EDITION_CLAUSE;
+       self::$instance_table -> FK_ID_VALUE = $FK_ID_VALUE;
+       self::$instance_table -> FK_DELETE = $FK_DELETE;
+       
+       return self::$instance_table;
+   }
+     	
+}

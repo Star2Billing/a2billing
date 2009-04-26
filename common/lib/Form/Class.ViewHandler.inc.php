@@ -196,7 +196,7 @@ function openURLFilter(theLINK)
 				for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){
 					/**********************   select the mode to browse define the column value : lie, list, value, eval.... ************************/
 					if ($this->FG_TABLE_COL[$i][6]=="lie"){
-						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
+						$instance_sub_table = Table::getInstance($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
 						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
 
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
@@ -208,7 +208,7 @@ function openURLFilter(theLINK)
 						}
 
 					}elseif($this->FG_TABLE_COL[$i][6]=="lie_link"){
-						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
+						$instance_sub_table = Table::getInstance($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
 						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 						if(is_array($select_list)){

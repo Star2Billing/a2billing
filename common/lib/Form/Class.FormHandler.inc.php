@@ -26,6 +26,8 @@ class FormHandler
 	var $VALID_SQL_REG_EXP = true;
 	var $RESULT_QUERY = false;
 	
+	var $pqp;
+	
 	
 	/* CONFIG THE VIEWER : CV */
 	var $CV_TOPVIEWER = '';
@@ -488,6 +490,10 @@ class FormHandler
 
 	function FormHandler ($tablename=null, $instance_name=null, $action=null)
 	{
+		Console::log('Construct FormHandler');
+		Console::logMemory($this, 'FormHandler Class : Line '.__LINE__);
+		Console::logSpeed('FormHandler Class : Line '.__LINE__);
+		
 		$this->FG_TABLE_NAME = $tablename;
 		$this->FG_INSTANCE_NAME = $instance_name;
 		
@@ -529,11 +535,16 @@ class FormHandler
 		if($this -> FG_ENABLE_LOG == 1) {
 			$this -> logger = new Logger();
 		}
+		
 	}
 
 
 	function setDBHandler  ($DBHandle=null)
 	{
+		Console::log('FormHandler -> setDBHandler');
+		Console::logMemory($this, 'FormHandler -> setDBHandler : Line '.__LINE__);
+		Console::logSpeed('FormHandler -> setDBHandler : Line '.__LINE__);
+		
 		$this->DBHandle = $DBHandle;
 	}
 
@@ -542,7 +553,11 @@ class FormHandler
      * @public     	 
      */	
 	function init ()
-	{      
+	{
+		Console::log('FormHandler -> init');
+		Console::logMemory($this, 'FormHandler -> init : Line '.__LINE__);
+		Console::logSpeed('FormHandler -> init : Line '.__LINE__);
+		
 		global $_SERVER;		
 		if($_GET["section"]!="") {
 			$section = $_GET["section"];
@@ -579,8 +594,12 @@ class FormHandler
      * Define the list
      * @public
      */	
-	function def_list () {
-		
+	function def_list ()
+	{
+		Console::log('FormHandler -> def_list');
+		Console::logMemory($this, 'FormHandler -> def_list : Line '.__LINE__);
+		Console::logSpeed('FormHandler -> def_list : Line '.__LINE__);
+			
 		$this -> tablelist['status_list']["1"] = array( gettext("INSERTED"), "1");
 		$this -> tablelist['status_list']["2"] = array( gettext("ENABLE"), "2");
 		$this -> tablelist['status_list']["3"] = array( gettext("DISABLE"), "3");
@@ -589,7 +608,8 @@ class FormHandler
 	}
 
 
-	function &getProcessed() {
+	function &getProcessed()
+	{	
 		foreach ($this->_vars as $key => $value) {
 			$this->_processed[$key] = $this -> sanitize($value);
 			if($key=='username') {
@@ -603,8 +623,8 @@ class FormHandler
 	}
 	
 	
-	function cleanInput($input) {
-	
+	function cleanInput($input)
+	{
 		$search = array(
 		    '@<script[^>]*?>.*?</script>@si',   // Strip out javascript
 		    '@<[\/\!]*?[^<>]*?>@si',            // Strip out HTML tags
@@ -1166,7 +1186,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			}
 			
 			if ( $form_action == "list" ){
-				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
+				$instance_table = Table::getInstance($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 	
 				$this->prepare_list_subselection($form_action);
 	
@@ -1201,7 +1221,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 					
 			}else{
 			
-				$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
+				$instance_table = Single_Table::GetTable($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 				$list = $instance_table -> Get_list ($this->DBHandle, $this->FG_EDITION_CLAUSE, null, null, null, null, 1, 0);
 				
 				
@@ -1349,7 +1369,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
     {
         //if ( $form_action == "list" && $this->FG_FILTER_SEARCH_FORM)
         {
-            $instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
+            $instance_table = Single_Table::GetTable($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 			$result = $instance_table -> Delete_Selected ($this -> DBHandle, $this -> FG_TABLE_CLAUSE, $this->FG_ORDER, $this->FG_SENS, null, null,
 			                        					  $this -> FG_LIMITE_DISPLAY, $this -> CV_CURRENT_PAGE * $this -> FG_LIMITE_DISPLAY, $this -> SQL_GROUP);
         }
@@ -1465,7 +1485,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_fields";
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_value";	
 		
-		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
+		$instance_table = Single_Table::GetTable($this->FG_TABLE_NAME, $param_add_fields);
 		
 		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
 		if (strpos($param_add_value, '%TAGPREFIX%')){
@@ -1508,7 +1528,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	{
 		$processed = $this->getProcessed();
 		$did_id=$processed['id'];
-		$instance_did_use_table = new Table();
+		$instance_did_use_table = Single_Table::GetTable();
 		$QUERY_DID="select id_cc_card from cc_did_use where id_did ='".$did_id."' and releasedate IS NULL and activated = 1";
 		$row= $instance_did_use_table -> SQLexec ($this->DBHandle,$QUERY_DID, 1);
 		if ((isset($row[0][0])) && (strlen($row[0][0]) > 0))
@@ -1526,10 +1546,10 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$FG_TABLE_DID_USE_NAME = "cc_did_use";
 		$FG_TABLE_DID_USE_CLAUSE= "id_did = '".$did_id."' and releasedate IS NULL";
 		$FG_TABLE_DID_USE_PARAM= "releasedate = now()";
-		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME);
+		$instance_did_use_table = Single_Table::GetTable($FG_TABLE_DID_USE_NAME);
 		$result_query= $instance_did_use_table -> Update_table ($this->DBHandle, $FG_TABLE_DID_USE_PARAM, $FG_TABLE_DID_USE_CLAUSE, null);
 		$FG_TABLE_DID_USE_NAME = "cc_did_destination";
-		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME);
+		$instance_did_use_table = Single_Table::GetTable($FG_TABLE_DID_USE_NAME);
 		$FG_TABLE_DID_USE_CLAUSE= "id_cc_did = '".$did_id."'";
 		$result_query= $instance_did_use_table -> Delete_table ($this->DBHandle, $FG_TABLE_DID_USE_CLAUSE, null);
 	}
@@ -1544,7 +1564,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$did=$processed['did'];
 		$FG_TABLE_DID_USE_NAME = "cc_did_use";
 		$FG_QUERY_ADITION_DID_USE_FIELDS = 'id_did';
-		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME, $FG_QUERY_ADITION_DID_USE_FIELDS);
+		$instance_did_use_table = Single_Table::GetTable($FG_TABLE_DID_USE_NAME, $FG_QUERY_ADITION_DID_USE_FIELDS);
 		$id = $this -> RESULT_QUERY;
 		$result_query= $instance_did_use_table -> Add_table ($this->DBHandle, $id, null, null, null);
 	}
@@ -1567,7 +1587,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$func_fields = "status,id_cc_card";
 		$func_table = 'cc_status_log';
 		$id_name = "";
-		$instance_table = new Table();
+		$instance_table = Single_Table::GetTable();
 		$inserted_id = $instance_table -> Add_table ($this->DBHandle, $value, $func_fields, $func_table, $id_name);
 	}
 	
@@ -1606,7 +1626,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$credit = $processed['credit'];
 		$card_id = $processed['card_id'];
 			//REFILL CARD .. UPADTE CARD
-		$instance_table_card = new Table("cc_card");
+		$instance_table_card = Single_Table::GetTable("cc_card");
 		$param_update_card = "credit = credit + '".$credit."'";
 		$clause_update_card = " id='$card_id'";
 		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
@@ -1618,7 +1638,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$credit = $processed['credit'];
 		$agent_id = $processed['agent_id'];
 			//REFILL CARD .. UPADTE AGENT
-		$instance_table_agent = new Table("cc_agent");
+		$instance_table_agent = Single_Table::GetTable("cc_agent");
 		$param_update_agent = "credit = credit + '".$credit."'";
 		$clause_update_agent = " id='$agent_id'";
 		$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
@@ -1632,7 +1652,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$card_id = $this -> RESULT_QUERY;
 			$description = gettext("CREATION CARD REFILL");
 			$value_insert = "'$credit', '$card_id', '$description' ";
-			$instance_refill_table = new Table("cc_logrefill", $field_insert);
+			$instance_refill_table = Single_Table::GetTable("cc_logrefill", $field_insert);
 			$instance_refill_table -> Add_table ($this->DBHandle, $value_insert, null, null);	
 		}
 	}
@@ -1642,7 +1662,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		//AFTER A DELETE YOU DON T HAVE ACCESS TO ANY FIELD AND YOU CAN ACCESS ONLY TO THE ID
 		//SO YOU HAVE TO LOAD THE FIELD THAT YOU NEED
 		$card_id = $processed['id'];
-		$card_table = new Table('cc_card','credit');
+		$card_table = Single_Table::GetTable('cc_card','credit');
 		$card_clause = "id = ".$card_id;
 		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
 		
@@ -1651,7 +1671,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		if($credit>0 || $credit<0){
 			if($credit>0)$sign="+";
 			else $sign="-";
-			$instance_table_agent = new Table("cc_agent");
+			$instance_table_agent = Single_Table::GetTable("cc_agent");
 			$param_update_agent = "credit = credit $sign '".abs($credit)."'";
 			$clause_update_agent = " id='".$_SESSION['agent_id']."'";
 			$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
@@ -1659,7 +1679,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$description = gettext("DELETION CARD REFILL");
 			$credit = 0-$credit;
 			$value_insert = "'$credit', '$card_id', 1 ,'$description' ";
-			$instance_refill_table = new Table("cc_logrefill", $field_insert);
+			$instance_refill_table = Single_Table::GetTable("cc_logrefill", $field_insert);
 			$instance_refill_table -> Add_table ($this->DBHandle, $value_insert, null, null);
 		}
 
@@ -1674,7 +1694,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$agent_id = $this -> RESULT_QUERY;
 			$description = gettext("CREATION AGENT REFILL");
 			$value_insert = "'$credit', '$agent_id', '$description' ";
-			$instance_refill_table = new Table("cc_logrefill_agent", $field_insert);
+			$instance_refill_table = Single_Table::GetTable("cc_logrefill_agent", $field_insert);
 			$instance_refill_table -> Add_table ($this->DBHandle, $value_insert, null, null);	
 		}
 	}
@@ -1703,7 +1723,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$processed = $this->getProcessed();
 		//find the last billing 
 		$card_id = $processed['id_card'];
-		$card_table = new Table('cc_card','vat,typepaid,credit');
+		$card_table = Single_Table::GetTable('cc_card','vat,typepaid,credit');
 		$card_clause = "id = ".$card_id;
 		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
 		
@@ -1711,10 +1731,10 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				else $vat = $card_result[0][0];
 		
 		// FIND THE LAST BILLING
-		$billing_table = new Table('cc_billing_customer','id,date');
+		$billing_table = Single_Table::GetTable('cc_billing_customer','id,date');
 		$clause_last_billing = "id_card = ".$processed['id_card']." AND id != ".$this -> RESULT_QUERY;
 		$result = $billing_table -> Get_list($this->DBHandle, $clause_last_billing,"date","desc");
-		$call_table = new Table('cc_call',' COALESCE(SUM(sessionbill),0)' );
+		$call_table = Single_Table::GetTable('cc_call',' COALESCE(SUM(sessionbill),0)' );
 		$clause_call_billing ="card_id = ".$processed['id_card']." AND ";
 		$clause_charge = "id_cc_card = ".$processed['id_card']." AND ";
 		$desc_billing="";
@@ -1743,19 +1763,19 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$title = gettext("SUMMARY OF CALLS");
 			$description = gettext("Summary of the calls charged since the last billing");
 			$value_insert = " '$date' , '$card_id', '$title','$description',1";
-			$instance_table = new Table("cc_receipt", $field_insert);
+			$instance_table = Single_Table::GetTable("cc_receipt", $field_insert);
 			$id_receipt = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			if(!empty($id_receipt)&& is_numeric($id_receipt)){
 				$description = $desc_billing;
 				$field_insert = "date, id_receipt,price,description,id_ext,type_ext";
-				$instance_table = new Table("cc_receipt_item", $field_insert);
+				$instance_table = Single_Table::GetTable("cc_receipt_item", $field_insert);
 				$value_insert = " '$date' , '$id_receipt', '$amount_calls','$description','".$this -> RESULT_QUERY."','CALLS'";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 			
 		}	
 		// GENERATE RECEIPT FOR CHARGE ALREADY CHARGED 
-		$table_charge = new Table("cc_charge", "*");
+		$table_charge = Single_Table::GetTable("cc_charge", "*");
 		$result =  $table_charge -> Get_list($this->DBHandle, $clause_charge." AND charged_status = 1");
 		if(is_array($result)){
 			$field_insert = "date, id_card, title, description,status";
@@ -1763,21 +1783,21 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$date = date("Y-m-d h:i:s");
 			$description = gettext("Summary of the charge charged since the last billing.");
 			$value_insert = " '$date' , '$card_id', '$title','$description',1";
-			$instance_table = new Table("cc_receipt", $field_insert);
+			$instance_table = Single_Table::GetTable("cc_receipt", $field_insert);
 			$id_receipt = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			if(!empty($id_receipt)&& is_numeric($id_receipt)){
 				foreach ($result as $charge) {
 					$description = gettext("CHARGE :").$charge['description'];
 					$amount = $charge['amount'];
 					$field_insert = "date, id_receipt,price,description,id_ext,type_ext";
-					$instance_table = new Table("cc_receipt_item", $field_insert);
+					$instance_table = Single_Table::GetTable("cc_receipt_item", $field_insert);
 					$value_insert = " '".$charge['creationdate']."' , '$id_receipt', '$amount','$description','".$charge['id']."','CHARGE'";
 					$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 				}
 			}
 		}
 		// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
-		$table_charge = new Table("cc_charge", "*");
+		$table_charge = Single_Table::GetTable("cc_charge", "*");
 		$result =  $table_charge -> Get_list($this->DBHandle, $clause_charge." AND charged_status = 0 AND invoiced_status = 0");
 		if(is_array($result) && sizeof($result)>0){
 			$reference = generate_invoice_reference();
@@ -1788,14 +1808,14 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$description = gettext("This invoice is for some charges unpaid since the last billing.")." ".$desc_billing_postpaid;
 			
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
-			$instance_table = new Table("cc_invoice", $field_insert);
+			$instance_table = Single_Table::GetTable("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			if(!empty($id_invoice)&& is_numeric($id_invoice)){
 				foreach ($result as $charge) {
 					$description = gettext("CHARGE :").$charge['description'];
 					$amount = $charge['amount'];
 					$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
-					$instance_table = new Table("cc_invoice_item", $field_insert);
+					$instance_table = Single_Table::GetTable("cc_invoice_item", $field_insert);
 					$value_insert = " '".$charge['creationdate']."' , '$id_invoice', '$amount','$vat','$description','".$charge['id']."','CHARGE'";
 					$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 				}
@@ -1813,13 +1833,13 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$title = gettext("BILLING POSTPAID");
 			$description = gettext("Invoice for POSTPAID");
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
-			$instance_table = new Table("cc_invoice", $field_insert);
+			$instance_table = Single_Table::GetTable("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			if(!empty($id_invoice)&& is_numeric($id_invoice)){
 				$description = $desc_billing_postpaid;
 				$amount = abs($card_result[0]['credit']);
 				$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
-				$instance_table = new Table("cc_invoice_item", $field_insert);
+				$instance_table = Single_Table::GetTable("cc_invoice_item", $field_insert);
 				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','".$this -> RESULT_QUERY."','POSTPAID'";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
@@ -1854,19 +1874,19 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$description = gettext("Invoice for refill");
 			
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description' ";
-			$instance_table = new Table("cc_invoice", $field_insert);
+			$instance_table = Single_Table::GetTable("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			//load vat of this card
 			if(!empty($id_invoice)&& is_numeric($id_invoice)){
 				$amount = $processed['credit'];
 				$description = $processed['description'];
-				$card_table = new Table('cc_card','vat');
+				$card_table = Single_Table::GetTable('cc_card','vat');
 				$card_clause = "id = ".$card_id;
 				$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
 				if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
 				else $vat = $card_result[0][0];
 				$field_insert = "date, id_invoice ,price,vat, description";
-				$instance_table = new Table("cc_invoice_item", $field_insert);
+				$instance_table = Single_Table::GetTable("cc_invoice_item", $field_insert);
 				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description' ";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
@@ -1881,7 +1901,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		$id_invoice = $this -> RESULT_QUERY;
 		//CREATE AND UPDATE REF NUMBER
 		$reference = generate_invoice_reference();
-		$instance_table_invoice = new Table("cc_invoice");
+		$instance_table_invoice = Single_Table::GetTable("cc_invoice");
 		$param_update_invoice = "reference = '".$reference."'";
 		$clause_update_invoice = " id ='$id_invoice'";
 		$instance_table_invoice-> Update_table ($this->DBHandle, $param_update_invoice, $clause_update_invoice, $func_table = null);
@@ -1907,15 +1927,15 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$refill_type= $processed['payment_type'];
 			$description = $processed['description'];
 			$value_insert = " '$date' , '$credit', '$card_id','$refill_type', '$description' ";
-			$instance_sub_table = new Table("cc_logrefill", $field_insert);
+			$instance_sub_table = Single_Table::GetTable("cc_logrefill", $field_insert);
 			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
 			// REFILL CARD .. UPADTE CARD
-			$instance_table_card = new Table("cc_card");
+			$instance_table_card = Single_Table::GetTable("cc_card");
 			$param_update_card = "credit = credit + '".$credit."'";
 			$clause_update_card = " id='$card_id'";
 			$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
 			//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
-			$instance_table_pay = new Table("cc_logpayment");
+			$instance_table_pay = Single_Table::GetTable("cc_logpayment");
 			$param_update_pay = "id_logrefill = '".$id_refill."'";
 			$clause_update_pay = " id ='$id_payment'";
 			$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
@@ -1926,7 +1946,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$list_refill_type=Constants::getRefillType_List();
 			$refill_type = $processed['payment_type'];
 			$year = date("Y");
-			$invoice_conf_table = new Table('cc_invoice_conf','value');
+			$invoice_conf_table = Single_Table::GetTable('cc_invoice_conf','value');
 			$conf_clause = "key_val = 'count_$year'";
 			$result = $invoice_conf_table -> Get_list($this->DBHandle, $conf_clause, 0);
 			if (is_array($result) && !empty($result[0][0])) {
@@ -1952,23 +1972,23 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$description = gettext("Invoice for refill");
 			$reference = $year.sprintf("%08d",$count);
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description','1','1' ";
-			$instance_table = new Table("cc_invoice", $field_insert);
+			$instance_table = Single_Table::GetTable("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			//add payment to this invoice
 			$field_insert = "id_invoice, id_payment";
 			$value_insert = "'$id_invoice' , '$id_payment'";
-			$instance_table = new Table("cc_invoice_payment", $field_insert);
+			$instance_table = Single_Table::GetTable("cc_invoice_payment", $field_insert);
 			$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null);
 			//load vat of this card
 			if(!empty($id_invoice) && is_numeric($id_invoice)) {
 				$description = $processed['description'];
-				$card_table = new Table('cc_card','vat');
+				$card_table = Table::getInstance('cc_card','vat');
 				$card_clause = "id = ".$card_id;
 				$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
 				if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
 				else $vat = $card_result[0][0];
 				$field_insert = "date, id_invoice ,price,vat, description";
-				$instance_table = new Table("cc_invoice_item", $field_insert);
+				$instance_table = Table::getInstance("cc_invoice_item", $field_insert);
 				$value_insert = " '$date' , '$id_invoice', '$credit','$vat','$description' ";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
@@ -1976,13 +1996,13 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		if($processed['added_commission']==1) {
 			$card_id = $processed['card_id'];
-			$table_transaction = new Table();
+			$table_transaction = Table::getInstance();
 			$result_agent = $table_transaction -> SQLExec($this->DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $card_id");
 			
 			if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
 			//test if the agent exist and get its commission
 				$id_agent = $result_agent[0]['id_agent'];
-				$agent_table = new Table("cc_agent", "commission");
+				$agent_table = Table::getInstance("cc_agent", "commission");
 				$agent_clause = "id = ".$id_agent;
 				$result_agent= $agent_table -> Get_list($this->DBHandle,$agent_clause);
 				if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
@@ -1994,7 +2014,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 					$description_commission.= "\nPAYMENT AMOUNT: ".$amount_paid;
 					$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
 					$value_insert = "'".$id_payment."', '$card_id', '$commission','$description_commission','$id_agent'";
-					$commission_table = new Table("cc_agent_commission", $field_insert);
+					$commission_table = Table::getInstance("cc_agent_commission", $field_insert);
 					$id_commission = $commission_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 				}
 			}	
@@ -2014,15 +2034,15 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 			$refill_type= $processed['payment_type'];
 			$description = $processed['description'];
 			$value_insert = " '$date' , '$credit', '$agent_id','$refill_type', '$description' ";
-			$instance_sub_table = new Table("cc_logrefill_agent", $field_insert);
+			$instance_sub_table = Table::getInstance("cc_logrefill_agent", $field_insert);
 			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
 			//REFILL AGENT .. UPADTE AGENT
-			$instance_table_agent = new Table("cc_agent");
+			$instance_table_agent = Table::getInstance("cc_agent");
 			$param_update_agent = "credit = credit + '".$credit."'";
 			$clause_update_agent = " id='$agent_id'";
 			$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 			//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
-			$instance_table_pay = new Table("cc_logpayment_agent");
+			$instance_table_pay = Table::getInstance("cc_logpayment_agent");
 			$param_update_pay = "id_logrefill = '".$id_refill."'";
 			$clause_update_pay = " id ='$id_payment'";
 			$instance_table_pay-> Update_table ($this->DBHandle, $param_update_pay, $clause_update_pay, $func_table = null);
@@ -2090,12 +2110,12 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		// Save info in table and in sip file
 		if ($sip_buddy == 1) {
-			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
+			$instance_sip_table = Table::getInstance($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			if (!USE_REALTIME) {
 				
 				$buddyfile = BUDDY_SIP_FILE;
-				$instance_table_friend = new Table($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
+				$instance_table_friend = Table::getInstance($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
 				$list_friend = $instance_table_friend -> Get_list ($this->DBHandle, '', null, null, null, null);
 	
 				if (is_array($list_friend)){
@@ -2134,12 +2154,12 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 
 		// Save info in table and in iax file
 		if ($iax_buddy == 1){
-			$instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
+			$instance_iax_table = Table::getInstance($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_iax_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 
 			if (!USE_REALTIME) {
 				$buddyfile = BUDDY_IAX_FILE;
-				$instance_table_friend = new Table($FG_TABLE_IAX_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
+				$instance_table_friend = Table::getInstance($FG_TABLE_IAX_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
 				$list_friend = $instance_table_friend -> Get_list ($this->DBHandle, '', null, null, null, null);
 	
 				if (is_array($list_friend)){
@@ -2188,7 +2208,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		
 		$this->VALID_SQL_REG_EXP = true;
 		
-		$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
+		$instance_table = Table::getInstance($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 		
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
@@ -2238,7 +2258,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("CHECKBOX")) {
 					$table_split = split(":",$this->FG_TABLE_EDITION[$i][1]);
 					$checkbox_data = $table_split[0];	//doc_tariff			
-					$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);
+					$instance_sub_table = Table::getInstance($table_split[0], $table_split[1].", ".$table_split[5]);
 					$SPLIT_FG_DELETE_CLAUSE = $table_split[5]."='".trim($processed['id'])."'";	
 					$instance_sub_table -> Delete_table ($this -> DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);
 					
@@ -2322,10 +2342,10 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 
         if(($tableCount == $clauseCount) && $clauseCount > 0 && $this-> FG_FK_DELETE_ALLOWED) {
             if ($processed['id']!="" || !is_null($processed['id'])) {
-                $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION, $this -> FG_FK_TABLENAMES, $this -> FG_FK_EDITION_CLAUSE, $processed['id'], $this -> FG_FK_WARNONLY);
+                $instance_table = Table::getInstance($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION, $this -> FG_FK_TABLENAMES, $this -> FG_FK_EDITION_CLAUSE, $processed['id'], $this -> FG_FK_WARNONLY);
             }
         } else {
-		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
+		    $instance_table = Table::getInstance($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
         }
 		$instance_table->FK_DELETE = ($this->FG_FK_WARNONLY ? false : true);
 		
@@ -2369,7 +2389,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
             {
                 if ($processed['id']!="" || !is_null($processed['id']))
                 {
-                    $instance_table = new Table($this -> FG_FK_TABLENAMES[$i]);
+                    $instance_table = Table::getInstance($this -> FG_FK_TABLENAMES[$i]);
                     //$rowcount = $rowcount + $instance_table -> Table_count ($this->DBHandle, str_replace("%id", $processed['id'], $this -> FG_FK_EDITION_CLAUSE[$i]));
                     $rowcount = $rowcount + $instance_table -> Table_count ($this->DBHandle, $this -> FG_FK_EDITION_CLAUSE[$i], $processed['id']);
                 }
@@ -2389,7 +2409,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 
 		$table_split = split(":",$this->FG_TABLE_EDITION[$sub_action][14]);
 
-		$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);		
+		$instance_sub_table = Table::getInstance($table_split[0], $table_split[1].", ".$table_split[5]);		
 		
 		if(is_array($processed[$table_split[1]])){
 			foreach($processed[$table_split[1]] as $value) {
@@ -2452,7 +2472,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 		} else {
 			$value = trim($processed[$table_split[1]]);
 		}
-		$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);	
+		$instance_sub_table = Table::getInstance($table_split[0], $table_split[1].", ".$table_split[5]);	
 		$SPLIT_FG_DELETE_CLAUSE = $table_split[1]."='".$value."' AND ".$table_split[5]."='".trim($id)."'";
 		$instance_sub_table -> Delete_table ($this->DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);
 	}	
@@ -2577,11 +2597,11 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	 function create_select_form(){
 	 	$processed = $this->getProcessed();
 	 	include_once (FSROOT."lib/Class.Table.php");
-		$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
+		$instance_table_tariffname = Table::getInstance("cc_tariffplan", "id, tariffname");
 		$FG_TABLE_CLAUSE = "";
 		$list_tariffname = $instance_table_tariffname  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 
-		$instance_table_tariffgroup = new Table("cc_tariffgroup", "id, tariffgroupname, lcrtype");
+		$instance_table_tariffgroup = Table::getInstance("cc_tariffgroup", "id, tariffgroupname, lcrtype");
 		$FG_TABLE_CLAUSE = "";
 		$list_tariffgroup = $instance_table_tariffgroup  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 		
@@ -2664,7 +2684,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	 function create_select_form_agent(){
 	 	$processed = $this->getProcessed();
 	 	include_once (FSROOT."lib/Class.Table.php");
-		$instance_table_tariffname = new Table("cc_tariffplan,cc_tariffgroup_plan,cc_tariffgroup,cc_agent_tariffgroup", "cc_tariffplan.id, cc_tariffplan.tariffname");
+		$instance_table_tariffname = Table::getInstance("cc_tariffplan,cc_tariffgroup_plan,cc_tariffgroup,cc_agent_tariffgroup", "cc_tariffplan.id, cc_tariffplan.tariffname");
 		$FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffplan = cc_tariffgroup.id AND cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'] ;
 		$list_tariffname = $instance_table_tariffname  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 
@@ -2724,7 +2744,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	 function create_select_form_client($table_cluase = ""){
 	 	$processed = $this->getProcessed();
 	 	include_once (FSROOT."lib/Class.Table.php");
-		$instance_table_tariffname = new Table("cc_tariffplan, cc_tariffgroup_plan", "id, tariffname");
+		$instance_table_tariffname = Table::getInstance("cc_tariffplan, cc_tariffgroup_plan", "id, tariffname");
 		$FG_TABLE_CLAUSE = $table_cluase;
 
 		$list_tariffname = $instance_table_tariffname  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
@@ -2776,12 +2796,13 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	*/
 	function create_search_form()
 	{
+		Console::logSpeed('Time taken to get to line '.__LINE__);
 		$processed = $this->getProcessed();
 		$cur = 0;
 		foreach ($this->FG_FILTER_SEARCH_FORM_SELECT as $select) {
 			// 	If is a sql_type
 			if ($select[1]) {
-				$instance_table = new Table($select[1][0], $select[1][1]);
+				$instance_table = Table::getInstance($select[1][0], $select[1][1]);
 				$list = $instance_table -> Get_list ($this -> DBHandle, $select[1][2], $select[1][3], $select[1][4],
 												null, null, null, null);
 				$this->FG_FILTER_SEARCH_FORM_SELECT[$cur][1] = $list;
@@ -2799,6 +2820,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
      */
 	function create_form ($form_action, $list, $id=null)
 	{
+		Console::logSpeed('Time taken to get to line '.__LINE__);
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();
 		
@@ -2868,6 +2890,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	 */
 	function printPages($page, $pages, $url, $max_width = 20)
 	{
+		Console::logSpeed('Time taken to get to line '.__LINE__);
 		global $lang;
 		$window = 8;
 
