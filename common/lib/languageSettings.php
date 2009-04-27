@@ -30,7 +30,7 @@ function SetLocalLanguage()
 		case "spanish":
 			$languageEncoding = "es_ES.iso88591";
 			$slectedLanguage = "es_ES";
-			$charEncoding = "iso88591";
+			$charEncoding = "UTF-8";
 			break;
 		case "french":
 			$languageEncoding = "fr_FR.iso88591";
