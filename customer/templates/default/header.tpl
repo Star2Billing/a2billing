@@ -3,10 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <HEAD>
 	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
-	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
-
 	<title>..:: {$CCMAINTITLE} ::..</title>
-
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">

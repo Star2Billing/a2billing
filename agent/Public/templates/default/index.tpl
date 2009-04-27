@@ -1,10 +1,7 @@
 <HTML>
 <HEAD>
 	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
-	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
-	
 	<title>..:: {$CCMAINTITLE} ::..</title>
-	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		{if ($CSS_NAME!="" && $CSS_NAME!="default")}
 			   <link href="templates/default/css/{$CSS_NAME}.css" rel="stylesheet" type="text/css">
@@ -13,8 +10,6 @@
 			   <link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
 			   <link href="templates/default/css/style-def.css" rel="stylesheet" type="text/css">
 		{/if}
-			   
-			
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
