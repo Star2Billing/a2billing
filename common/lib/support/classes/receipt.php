@@ -13,7 +13,7 @@ class Receipt {
 	function __construct($id) {
 
 		$DBHandle = DbConnect();
-		$instance_sub_table = new Table("cc_receipt", "*");
+		$instance_sub_table = Table::getInstance("cc_receipt", "*");
 		$QUERY = " id = " . $id;
 		$return = null;
 		$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -29,7 +29,7 @@ class Receipt {
 		}
 
 		if (!is_null($this->card)) {
-			$instance_sub_table = new Table("cc_card", "lastname, firstname,username");
+			$instance_sub_table = Table::getInstance("cc_card", "lastname, firstname,username");
 			$QUERY = " id = " . $this->card;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -83,7 +83,7 @@ class Receipt {
 		if (!is_null($this->id)) {
 			$result = array ();
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_receipt_item", "*");
+			$instance_sub_table = Table::getInstance("cc_receipt_item", "*");
 			$QUERY = " id_receipt = " . $this->id;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
@@ -105,7 +105,7 @@ class Receipt {
 		if (!is_null($this->id)) {
 			$result = array ();
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_receipt_item", "*");
+			$instance_sub_table = Table::getInstance("cc_receipt_item", "*");
 			$QUERY = " id_receipt = " . $this->id;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
@@ -113,11 +113,11 @@ class Receipt {
 			foreach ($return as $value) {
 				if ($value['id_ext'] && $value['type_ext'] == "CALLS") {
 
-					$billing_table = new Table("cc_billing_customer", "date,start_date");
+					$billing_table = Table::getInstance("cc_billing_customer", "date,start_date");
 					$billing_clause = "id = " . $value['id_ext'];
 					$result_billing = $billing_table->Get_list($DBHandle, $billing_clause);
 					if (is_array($result_billing) && !empty ($result_billing[0]['date'])) {
-						$call_table = new Table("cc_call", "*");
+						$call_table = Table::getInstance("cc_call", "*");
 						$call_clause = " card_id = " . $this->card . " AND stoptime< '" . $result_billing[0]['date'] . "'";
 						if (!empty ($result_billing[0]['start_date'])) {
 							$call_clause .= " AND stoptime >= '" . $result_billing[0]['start_date'] . "'";
@@ -150,7 +150,7 @@ class Receipt {
 	function insertReceiptItem($desc, $price) {
 
 		$DBHandle = DbConnect();
-		$instance_sub_table = new Table("cc_receipt_item", "*");
+		$instance_sub_table = Table::getInstance("cc_receipt_item", "*");
 		$QUERY_FIELDS = 'id_receipt, description,price';
 		$QUERY_VALUES = "'$this->id', '$desc','$price'";
 		$return = $instance_sub_table->Add_table($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_receipt_item', 'id');

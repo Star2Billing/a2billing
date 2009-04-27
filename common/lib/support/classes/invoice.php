@@ -16,7 +16,7 @@ class Invoice {
 	function __construct($id) {
 
 		$DBHandle = DbConnect();
-		$instance_sub_table = new Table("cc_invoice", "*");
+		$instance_sub_table = Table::getInstance("cc_invoice", "*");
 		$QUERY = " id = " . $id;
 		$return = null;
 		$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -34,7 +34,7 @@ class Invoice {
 		}
 
 		if (!is_null($this->card)) {
-			$instance_sub_table = new Table("cc_card", "lastname, firstname,username");
+			$instance_sub_table = Table::getInstance("cc_card", "lastname, firstname,username");
 			$QUERY = " id = " . $this->card;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -102,7 +102,7 @@ class Invoice {
 		if (!is_null($this->id)) {
 			$result = array ();
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_invoice_item", "*");
+			$instance_sub_table = Table::getInstance("cc_invoice_item", "*");
 			$QUERY = " id_invoice = " . $this->id;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
@@ -124,7 +124,7 @@ class Invoice {
 		if (!is_null($this->id)) {
 			$result = array ();
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_invoice_item", "*");
+			$instance_sub_table = Table::getInstance("cc_invoice_item", "*");
 			$QUERY = " id_invoice = " . $this->id;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
@@ -132,11 +132,11 @@ class Invoice {
 			foreach ($return as $value) {
 				if ($value['id_ext'] && $value['type_ext'] == "CALLS") {
 
-					$billing_table = new Table("cc_billing_customer", "date,start_date");
+					$billing_table = Table::getInstance("cc_billing_customer", "date,start_date");
 					$billing_clause = "id = " . $value['id_ext'];
 					$result_billing = $billing_table->Get_list($DBHandle, $billing_clause);
 					if (is_array($result_billing) && !empty ($result_billing[0]['date'])) {
-						$call_table = new Table("cc_call", "*");
+						$call_table = Table::getInstance("cc_call", "*");
 						$call_clause = " card_id = " . $this->card . " AND stoptime< '" . $result_billing[0]['date'] . "'";
 						if (!empty ($result_billing[0]['start_date'])) {
 							$call_clause .= " AND stoptime >= '" . $result_billing[0]['start_date'] . "'";
@@ -167,7 +167,7 @@ class Invoice {
 	function loadPayments() {
 		if (!is_null($this->id)) {
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_invoice_payment,cc_logpayment", "*");
+			$instance_sub_table = Table::getInstance("cc_invoice_payment,cc_logpayment", "*");
 			$CLAUSE = " id_invoice = " . $this->id . " AND id_payment = cc_logpayment.id";
 			$result = null;
 			$result = $instance_sub_table->Get_list($DBHandle, $CLAUSE, "date", "ASC");
@@ -180,7 +180,7 @@ class Invoice {
 	function delPayment($idpayment) {
 		if (!is_null($this->id)) {
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_invoice_payment", "*");
+			$instance_sub_table = Table::getInstance("cc_invoice_payment", "*");
 			$CLAUSE = " id_invoice = " . $this->id . " AND id_payment = $idpayment";
 			$result = null;
 			$instance_sub_table->Delete_table($DBHandle, $CLAUSE);
@@ -191,7 +191,7 @@ class Invoice {
 	function addPayment($idpayment) {
 		if (!is_null($this->id)) {
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_invoice_payment", "*");
+			$instance_sub_table = Table::getInstance("cc_invoice_payment", "*");
 			$fields = " id_invoice , id_payment";
 			$values = " $this->id , $idpayment	";
 			$instance_sub_table->Add_table($DBHandle, $values, $fields);
@@ -202,7 +202,7 @@ class Invoice {
 	function changeStatus($status) {
 		if (!is_null($this->id)) {
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_invoice", "*");
+			$instance_sub_table = Table::getInstance("cc_invoice", "*");
 			$clause = "id = " . $this->id;
 			$param = " paid_status = " . $status;
 			$instance_sub_table->Update_table($DBHandle, $param, $clause);
@@ -210,7 +210,7 @@ class Invoice {
 				$items = $this -> loadItems();
 				foreach ($items as $item) {
 					if($item->getExtType() =="DID" && is_numeric($item->getExtId())){
-						$did_table = new Table("cc_did_use", "*");
+						$did_table = Table::getInstance("cc_did_use", "*");
 						if($status == 0) $param = " reminded = 1, month_payed = month_payed-1";
 						else $param = " reminded = 0, month_payed = month_payed+1";
 						$QUERY = "UPDATE cc_did_use set $param WHERE id_did = '".$item->getExtId() ."' and activated = 1" ;
@@ -226,7 +226,7 @@ class Invoice {
 	function insertInvoiceItem($desc, $price, $VAT) {
 
 		$DBHandle = DbConnect();
-		$instance_sub_table = new Table("cc_invoice_item", "*");
+		$instance_sub_table = Table::getInstance("cc_invoice_item", "*");
 		$QUERY_FIELDS = 'id_invoice, description,price, VAT';
 		$QUERY_VALUES = "'$this->id', '$desc','$price', '$VAT'";
 		$return = $instance_sub_table->Add_table($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_invoice_item', 'id');

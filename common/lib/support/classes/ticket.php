@@ -25,7 +25,7 @@ class Ticket {
 	function __construct($id) {
 
 		$DBHandle = DbConnect();
-		$instance_sub_table = new Table("cc_ticket", "*");
+		$instance_sub_table = Table::getInstance("cc_ticket", "*");
 		$QUERY = " id = " . $id;
 		$return = null;
 		$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -46,7 +46,7 @@ class Ticket {
 		}
 
 		if (!is_null($this->creatorid)) {
-			$instance_sub_table = new Table("cc_card", "lastname, firstname");
+			$instance_sub_table = Table::getInstance("cc_card", "lastname, firstname");
 			$QUERY = " id = " . $this->creatorid;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -58,7 +58,7 @@ class Ticket {
 		}
 
 		if (!is_null($this->componentid)) {
-			$instance_comp_table = new Table("cc_support_component", "name");
+			$instance_comp_table = Table::getInstance("cc_support_component", "name");
 			$QUERY = " id = " . $this->componentid;
 			$return = null;
 			$return = $instance_comp_table->Get_list($DBHandle, $QUERY, 0);
@@ -156,7 +156,7 @@ class Ticket {
 		if (!is_null($this->id)) {
 			$result = array ();
 			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_ticket_comment", "*");
+			$instance_sub_table = Table::getInstance("cc_ticket_comment", "*");
 			$QUERY = " id_ticket = " . $this->id;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
@@ -168,7 +168,7 @@ class Ticket {
 
 				if (!is_null($creatorid)) {
 					if ($creator_type == 1) {
-						$instance_sub_table = new Table("cc_ui_authen", "*");
+						$instance_sub_table = Table::getInstance("cc_ui_authen", "*");
 						$QUERY = " userid = " . $creatorid;
 						$subreturn = null;
 						$subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -179,7 +179,7 @@ class Ticket {
 					}
 					elseif ($creator_type == 0) {
 
-						$instance_sub_table = new Table("cc_card", "lastname, firstname");
+						$instance_sub_table = Table::getInstance("cc_card", "lastname, firstname");
 						$QUERY = " id = " . $creatorid;
 						$subreturn = null;
 						$subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -189,7 +189,7 @@ class Ticket {
 						}
 
 					} else {
-						$instance_sub_table = new Table("cc_agent", "lastname, firstname");
+						$instance_sub_table = Table::getInstance("cc_agent", "lastname, firstname");
 						$QUERY = " id = " . $creatorid;
 						$subreturn = null;
 						$subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
@@ -217,7 +217,7 @@ class Ticket {
 
 		$DBHandle = DbConnect();
 
-		$instance_sub_table = new Table("cc_ticket_comment", "*");
+		$instance_sub_table = Table::getInstance("cc_ticket_comment", "*");
 		$QUERY_FIELDS = 'id_ticket, description,creator, creator_type';
 		$QUERY_VALUES = "'$this->id', '$desc','$creator', '$creator_type'";
 
