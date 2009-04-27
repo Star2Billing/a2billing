@@ -11,6 +11,8 @@
 	
 	</div>
 	
+	<br><br>
+	
 	{php} 
 		global $profiler;
 		global $G_instance_Table;

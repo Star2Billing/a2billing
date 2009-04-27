@@ -18,7 +18,7 @@
 function displayPqp($output, $config) {
 
 $cssUrl = $config.'css/pQp.css';
-		
+	
 echo <<<JAVASCRIPT
 <!-- JavaScript -->
 <script type="text/javascript">
@@ -26,6 +26,7 @@ echo <<<JAVASCRIPT
 	var PQP_HEIGHT = "short";
 	
 	addEvent(window, 'load', loadCSS);
+	addEvent(window, 'load', toggleDetails);
 
 	function changeTab(tab) {
 		var pQp = document.getElementById('pQp');
@@ -124,6 +125,7 @@ echo <<<JAVASCRIPT
 	    obj.addEventListener( type, fn, false );	
 	  }
 	}
+	
 </script>
 JAVASCRIPT;
 
@@ -348,3 +350,4 @@ echo '</div></div>';
 }
 
 ?>
+
