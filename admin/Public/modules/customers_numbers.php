@@ -10,7 +10,7 @@ $QUERY_COUNT_CARD_WAITING = "select count(*) from cc_card WHERE status = 3";
 $QUERY_COUNT_CARD_RESERVED = "select count(*) from cc_card WHERE status = 4";
 $QUERY_COUNT_CARD_EXPIRED = "select count(*) from cc_card WHERE status = 5";
 $QUERY_COUNT_CARD_SUSPENDED = "select count(*) from cc_card WHERE status = 6 OR status = 7";
-$table = new Table('cc_card', '*');
+$table = Table::getInstance('cc_card', '*');
 $result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_ALL);
 $result_count_all = $result[0][0];
 $result = $table->SQLExec($DBHandle, $QUERY_COUNT_CARD_ACTIVED);

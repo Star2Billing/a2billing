@@ -49,7 +49,7 @@ $_SESSION["p_module"] = $payment;
 $_SESSION["p_amount"] = 3;
 
 
-$paymentTable = new Table();
+$paymentTable = Table::getInstance();
 $time_stamp = date("Y-m-d h:i:s"); 
 $amount_string=sprintf("%.3f",$total_amount);
 

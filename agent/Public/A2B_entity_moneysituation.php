@@ -47,7 +47,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
-$table = new Table();
+$table = Table::getInstance();
 $result_nb_card= $table->SQLExec($HD_Form -> DBHandle, "SELECT COUNT(*) from cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card_group.id_agent = ".$_SESSION['agent_id']);
 if($result_nb_card[0][0]>0){
 	$temp = date("Y-m-01");

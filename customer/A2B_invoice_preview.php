@@ -20,10 +20,10 @@ if(empty($_SESSION["card_id"])) {
 $DBHandle  = DbConnect();
 
 //find the last billing 
-$billing_table = new Table('cc_billing_customer','id,date');
+$billing_table = Table::getInstance('cc_billing_customer','id,date');
 $clause_last_billing = "id_card = ".$_SESSION["card_id"];
 $result = $billing_table -> Get_list($DBHandle, $clause_last_billing,"date","desc");
-$call_table = new Table('cc_call','*' );
+$call_table = Table::getInstance('cc_call','*' );
 $clause_call_billing ="card_id = ".$_SESSION["card_id"]." AND ";
 $desc_billing="";
 $start_date =null;

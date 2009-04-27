@@ -54,7 +54,7 @@ if(isset($form_action) && $form_action=="list"){
           <td align="left" width="75%">
 					<?php
 						$handle = DbConnect();
-						$instance_table = new Table();
+						$instance_table = Table::getInstance();
 						$QUERY =  "SELECT code, name FROM cc_iso639 order by code";
 						$result = $instance_table -> SQLExec ($handle, $QUERY);
 						if (is_array($result)){

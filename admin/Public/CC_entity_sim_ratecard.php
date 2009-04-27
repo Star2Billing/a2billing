@@ -21,7 +21,7 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 	$A2B -> DBHandle = DbConnect();
 	
 	if ($username>0) {
-		$instance_table_cardnum = new Table("cc_card", "username, id");
+		$instance_table_cardnum = Table::getInstance("cc_card", "username, id");
 		/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
 		$FG_TABLE_CLAUSE_card = "username='".$username."'";
 		$list_tariff_card = $instance_table_cardnum -> Get_list ($A2B -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
@@ -31,7 +31,7 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 	$calling = $called;
 	
 	if ( strlen($calling)>2 && is_numeric($calling)) {
-		$instance_table = new Table();
+		$instance_table = Table::getInstance();
 		$A2B -> set_instance_table ($instance_table);
 		$num = 0;
 		$QUERY = "SELECT username, tariff, credit FROM cc_card where id='$id_cc_card'";

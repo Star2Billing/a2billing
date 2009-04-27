@@ -305,7 +305,7 @@ class A2Billing {
     {
 		$this -> idconfig = $idconfig;
 		// load config
-		$config_table = new Table("cc_config", "config_key as cfgkey, config_value as cfgvalue, config_group_title as cfggname, config_valuetype as cfgtype");
+		$config_table = Table::getInstance("cc_config", "config_key as cfgkey, config_value as cfgvalue, config_group_title as cfggname, config_valuetype as cfgtype");
 		$this->DbConnect();
 
 		$config_res = $config_table -> Get_list($this->DBHandle, "");

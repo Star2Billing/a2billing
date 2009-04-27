@@ -96,7 +96,7 @@ class Table {
 	public static function getInstance ($table = null, $fields = null,  $FK_TABLES = null, $FK_EDITION_CLAUSE = null, $FK_ID_VALUE = null, $FK_DELETE = true)
 	{
 	    if (!self::$m_pInstance) {
-	        self::$m_pInstance = new Table();
+	        self::$m_pInstance = new  Table();
 	    }
 	    
 		self::$m_pInstance -> table = $table;
@@ -417,7 +417,7 @@ Class Single_Table {
    
    private function __construct() {
    		
- 		$instance_table = new Table ();
+ 		$instance_table = Table::getInstance ();
  		
  		return self::$instance_table;
    }

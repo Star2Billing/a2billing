@@ -1,7 +1,7 @@
 <?php
 
 $DBHandle  = DbConnect();
-$table = new Table('cc_logpayment','*');
+$table = Table::getInstance('cc_logpayment','*');
 
 $temp = date("Y-m-01");
 $datetime = new DateTime($temp);

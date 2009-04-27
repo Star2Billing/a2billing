@@ -13,7 +13,7 @@ if (! has_rights (ACX_MAIL)){
 getpost_ifset(array('id','languages','subject','mailtext','translate_data','id_language'));
 
 	$handle = DbConnect();
-	$instance_table = new Table();
+	$instance_table = Table::getInstance();
 
 /***********************************************************************************/
 // #### HEADER SECTION

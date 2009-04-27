@@ -396,7 +396,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 function linktonext_1($value){
 	$handle = DbConnect();
-        $inst_table = new Table("cc_card_group", "id");
+        $inst_table = Table::getInstance("cc_card_group", "id");
         $FG_TABLE_CLAUSE = "name = '$value'";
         $list_group = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
         $id = $list_group[0][0];
@@ -408,7 +408,7 @@ function linktonext_1($value){
 }
 function linktonext_2($value){
         $handle = DbConnect();
-        $inst_table = new Table("cc_tariffgroup", "id");
+        $inst_table = Table::getInstance("cc_tariffgroup", "id");
         $FG_TABLE_CLAUSE = "tariffgroupname = '$value'";
         $list_group = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
         $id = $list_group[0][0];

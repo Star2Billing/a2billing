@@ -86,7 +86,7 @@ function Check()
 			<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 			  <td class="fontstyle_searchoptions">
 			  <?php
-				$instance_table = new Table();
+				$instance_table = Table::getInstance();
 				$QUERY = "SELECT * from cc_config_group"; 					
 				$list_total_groups  = $instance_table->SQLExec ($HD_Form -> DBHandle, $QUERY);		
 			   ?>

@@ -19,13 +19,13 @@ getpost_ifset(array('OldPassword','NewPassword'));
 
 $DBHandle  = DbConnect();
 if($form_action=="ask-update") {
-	$table_old_pwd = new Table("cc_ui_authen", " login");
+	$table_old_pwd = Table::getInstance("cc_ui_authen", " login");
 	$OldPwd_encoded = hash( 'whirlpool',$OldPassword);
 	$clause_old_pwd = "login = '".$_SESSION["pr_login"]."' AND pwd_encoded = '".$OldPwd_encoded."'";
 	$result_old_pwd= $table_old_pwd -> Get_list ($DBHandle, $clause_old_pwd, null, null, null, null, null, null);
 		
 	if(!empty($result_old_pwd)){
-    $instance_sub_table = new Table('cc_ui_authen');
+    $instance_sub_table = Table::getInstance('cc_ui_authen');
     $NewPwd_encoded = hash( 'whirlpool',$NewPassword);
     $QUERY = "UPDATE cc_ui_authen SET  pwd_encoded= '".$NewPwd_encoded."' WHERE ( login = '".$_SESSION["pr_login"]."' ) ";
     $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);

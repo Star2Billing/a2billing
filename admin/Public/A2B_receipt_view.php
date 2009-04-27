@@ -24,7 +24,7 @@ $receipt = new Receipt($id);
 $items = $receipt->loadItems();
 //load customer
 $DBHandle  = DbConnect();
-$card_table = new Table('cc_card','*');
+$card_table = Table::getInstance('cc_card','*');
 $card_clause = "id = ".$receipt->getCard();
 $card_result = $card_table -> Get_list($DBHandle, $card_clause, 0);
 $card = $card_result[0];
@@ -35,7 +35,7 @@ if (empty($card)) {
 }
 $smarty->display('main.tpl');
 //Load invoice conf
-$invoice_conf_table = new Table('cc_invoice_conf','value');
+$invoice_conf_table = Table::getInstance('cc_invoice_conf','value');
 $conf_clause = "key_val = 'company_name'";
 $result = $invoice_conf_table -> Get_list($DBHandle, $conf_clause, 0);
 $company_name = $result[0][0];

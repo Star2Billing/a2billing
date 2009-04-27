@@ -243,10 +243,10 @@ if (is_null ($order) || is_null($sens)) {
 }
 
 
-$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
 $list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY, $sql_group, $caching_query);
 
-$country_table = new Table("cc_country","countryname"); 
+$country_table = Table::getInstance("cc_country","countryname"); 
 $country_list = $country_table -> Get_list ($DBHandle); 
  
 $QUERY = "SELECT count(*) FROM (SELECT t1.* FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE".$sql_group.") as setprefix "; 

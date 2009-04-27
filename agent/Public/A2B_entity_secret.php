@@ -22,18 +22,18 @@ getpost_ifset(array('NewSecret'));
 
 
 $DBHandle  = DbConnect();
-//////$instance_sub_table = new Table('cc_callerid');
+//////$instance_sub_table = Table::getInstance('cc_callerid');
 /////$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
 //////$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 
 if($form_action=="ask-update")
 {
-    $instance_sub_table = new Table('cc_agent',"id");
+    $instance_sub_table = Table::getInstance('cc_agent',"id");
     $QUERY = "UPDATE cc_agent SET secret= '".$NewSecret."' WHERE ( ID = ".$_SESSION["agent_id"]."  ) ";
     $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
 }
 
-$instance_table_agent_secret = new Table("cc_agent ", "secret");
+$instance_table_agent_secret = Table::getInstance("cc_agent ", "secret");
 $list_agent_secret = $instance_table_agent_secret  -> Get_list ($DBHandle, "id=".$_SESSION['agent_id'], "id", "ASC", null, null, null, null);
 $secret = $list_agent_secret[0][0];
 

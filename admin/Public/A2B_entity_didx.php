@@ -208,7 +208,7 @@ if($number) {
 		echo "<li>$key:&nbsp;$value</li>";
 	}
 	echo "</ul>";
-	$instance_table = new Table("cc_country");
+	$instance_table = Table::getInstance("cc_country");
 	if($countryname == "USA")
 		$countryname = "United States";
 	$QUERY = "select id from cc_country where countryname like '".$countryname."%'";

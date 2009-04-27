@@ -21,7 +21,7 @@ $HD_Form -> init();
 if($configtype == "") {
 	$configtype = "SIP";
 }
-$table_instance = new Table();
+$table_instance = Table::getInstance();
 if($configtype == "IAX") {
 	$config_name = gettext("IAX Config");
 	$config_file = gettext("iax.conf");

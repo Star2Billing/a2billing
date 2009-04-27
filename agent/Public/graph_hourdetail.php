@@ -51,7 +51,7 @@ $FG_COL_QUERY_GRAPH	= 'starttime, sessiontime';
 
 if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY_GRAPH";
 
-$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+$instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
 if ( is_null ($order) || is_null($sens) ){

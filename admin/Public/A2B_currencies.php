@@ -23,7 +23,7 @@ if ($updatecurrency == 1) {
 	
 	check_demo_mode();
 	
-	$instance_table = new Table();
+	$instance_table = Table::getInstance();
 	$A2B -> set_instance_table ($instance_table);
 	$return = currencies_update_yahoo($A2B -> DBHandle, $A2B -> instance_table);
 	$update_msg = '<center><font color="green"><b>'.$return.'</b></font></center>';

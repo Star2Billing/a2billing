@@ -97,8 +97,8 @@ $FG_HTML_TABLE_TITLE = gettext(" - Package Info - ");
 $FG_HTML_TABLE_WIDTH="85%";
 
 if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if ( is_null ($order) || is_null($sens) ){
 	$order = $FG_TABLE_DEFAULT_ORDER;
@@ -190,7 +190,7 @@ if ($nb_record<=$FG_LIMITE_DISPLAY) {
 
 
 /*************************************************************/
-$instance_table_customer = new Table("cc_card", "id,  username, lastname");
+$instance_table_customer = Table::getInstance("cc_card", "id,  username, lastname");
 
 $FG_TABLE_CLAUSE = "";
 if ($_SESSION["is_admin"]==0) {
@@ -200,7 +200,7 @@ if ($_SESSION["is_admin"]==0) {
 $list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 $nb_customer = count($list_customer);
 
-$instance_table_tariff = new Table("cc_package_offer", "id, label");
+$instance_table_tariff = Table::getInstance("cc_package_offer", "id, label");
 $FG_TABLE_CLAUSE = "";
 $list_package = $instance_table_tariff -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "label", "ASC", null, null, null, null);
 $nb_package = count($list_package);
@@ -460,7 +460,7 @@ $smarty->display('main.tpl');
 						<?php 	
 							if ($FG_TABLE_COL[$i][6]=="lie"){
 
-									$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
+									$instance_sub_table = Table::getInstance($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
 									$sub_clause = str_replace("%id", $recordset[$i], $FG_TABLE_COL[$i][9]);																																	
 									$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
 									

@@ -26,7 +26,7 @@ if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 if ($form_action == "delete"){
-	$instance_table = new Table($HD_Form -> FG_TABLE_NAME, null);
+	$instance_table = Table::getInstance($HD_Form -> FG_TABLE_NAME, null);
 	$res_delete = $instance_table -> Delete_table ($HD_Form -> DBHandle, $HD_Form ->FG_EDITION_CLAUSE, null);
 	if (!$res_delete){  
 		echo "error deletion";
@@ -36,7 +36,7 @@ if ($form_action == "delete"){
 }
 						
 if ($form_action == "restore"){
-	$instance_table_backup = new Table($HD_Form -> FG_TABLE_NAME,$HD_Form -> FG_QUERY_EDITION);
+	$instance_table_backup = Table::getInstance($HD_Form -> FG_TABLE_NAME,$HD_Form -> FG_QUERY_EDITION);
 	$list = $instance_table_backup -> Get_list ($HD_Form -> DBHandle, $HD_Form -> FG_EDITION_CLAUSE, null , null , null , null , 1 , 0);
 	$path = $list[0][1];
 	
@@ -58,7 +58,7 @@ if ($form_action == "restore"){
 }
 
 if ($form_action == "download"){
-	$instance_table_backup = new Table($HD_Form -> FG_TABLE_NAME,$HD_Form -> FG_QUERY_EDITION);
+	$instance_table_backup = Table::getInstance($HD_Form -> FG_TABLE_NAME,$HD_Form -> FG_QUERY_EDITION);
 	$list = $instance_table_backup -> Get_list ($HD_Form -> DBHandle, $HD_Form -> FG_EDITION_CLAUSE, null , null , null , null , 1 , 0);
 	$path = $list[0][1];
 	$filename = basename($path);
@@ -78,7 +78,7 @@ if ($form_action == "upload"){
 	$uploadfile = $uploaddir . basename($_FILES['databasebackup']['name']);
 
 	if (move_uploaded_file($_FILES['databasebackup']['tmp_name'], $uploadfile)) {
-		$instance_table_backup = new Table($HD_Form -> FG_TABLE_NAME, 'id, name, path, creationdate');
+		$instance_table_backup = Table::getInstance($HD_Form -> FG_TABLE_NAME, 'id, name, path, creationdate');
 		$param_add_value = "'','Custom".date("Ymd-His")."','".$uploadfile."',now()";
 		$result_query=$instance_table_backup -> Add_table ($HD_Form -> DBHandle, $param_add_value, null, null, null);
 		if (isset($FG_GO_LINK_AFTER_UPLOAD)){

@@ -18,7 +18,7 @@ $DBHandle=DbConnect();
 
 if($action=="lock"){
 	if(!empty($id) && is_numeric($id)){
-		$instance_table_invoice = new Table("cc_invoice");
+		$instance_table_invoice = Table::getInstance("cc_invoice");
 		$param_update_invoice = "status = '1'";
 		$clause_update_invoice = " id ='$id'";
 		$instance_table_invoice-> Update_table ($DBHandle, $param_update_invoice, $clause_update_invoice, $func_table = null);

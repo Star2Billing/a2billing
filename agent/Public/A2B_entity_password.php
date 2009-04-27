@@ -21,13 +21,13 @@ getpost_ifset(array('NewPassword','OldPassword'));
 
 
 $DBHandle  = DbConnect();
-//////$instance_sub_table = new Table('cc_callerid');
+//////$instance_sub_table = Table::getInstance('cc_callerid');
 /////$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
 //////$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 
 if($form_action=="ask-update")
 {
-    $instance_sub_table = new Table('cc_agent',"id");
+    $instance_sub_table = Table::getInstance('cc_agent',"id");
     $check_old_pwd = "id = '".$_SESSION["agent_id"]."' AND passwd = '$OldPassword'";
     $result_check=$instance_sub_table -> Get_list ($DBHandle,$check_old_pwd);
     if(is_array($result_check)){

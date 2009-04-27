@@ -19,7 +19,7 @@ if($form_action=="ask-update") {
 	
 	getpost_ifset(array('company_name','address','zipcode','country','city','phone','fax','email','vat','web'));
 	
-	$table_invoice_conf= new Table("cc_invoice_conf");
+	$table_invoice_conf= Table::getInstance("cc_invoice_conf");
 	$param_update_conf = "value ='".$company_name."'";
 	$clause_update_conf = "key_val = 'company_name'";
 	$table_invoice_conf -> Update_table ($DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
@@ -70,7 +70,7 @@ if($form_action=="ask-update") {
 $smarty->display( 'main.tpl');
 
 
-$table_invoice_conf= new Table("cc_invoice_conf","value");
+$table_invoice_conf= Table::getInstance("cc_invoice_conf","value");
 $clause_update_conf = "key_val = 'company_name'";
 $result=$table_invoice_conf -> Get_list($DBHandle, $clause_update_conf);
 $company_name=$result[0][0];

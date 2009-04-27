@@ -34,7 +34,7 @@ include ("../lib/epayment/includes/loadconfiguration.php");
 
 
 $DBHandle_max  = DbConnect();
-$paymentTable = new Table();
+$paymentTable = Table::getInstance();
 
 if (DB_TYPE == "postgres") {
 	$NOW_2MIN = " creationdate <= (now() - interval '2 minute') ";
@@ -286,7 +286,7 @@ $id = $customer_info[0];
 
 if ($id > 0 ) {
     $addcredit = $transaction_data[0][2]; 
-	$instance_table = new Table("cc_agent", "");
+	$instance_table = Table::getInstance("cc_agent", "");
 	$param_update .= " credit = credit+'".$amount_without_vat."'";
 	$FG_EDITION_CLAUSE = " id='$id'";
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
@@ -294,13 +294,13 @@ if ($id > 0 ) {
 
 	$field_insert = "date, credit, agent_id, description";
 	$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."'";
-	$instance_sub_table = new Table("cc_logrefill_agent", $field_insert);
+	$instance_sub_table = Table::getInstance("cc_logrefill_agent", $field_insert);
 	$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 	
 	$field_insert = "date, payment, agent_id, id_logrefill, description";
 	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."'";
-	$instance_sub_table = new Table("cc_logpayment_agent", $field_insert);
+	$instance_sub_table = Table::getInstance("cc_logpayment_agent", $field_insert);
 	$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 	

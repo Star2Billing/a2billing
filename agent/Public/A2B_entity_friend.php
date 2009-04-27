@@ -47,14 +47,14 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 	}
 	
-	$instance_table_friend = new Table('cc_card');
+	$instance_table_friend = Table::getInstance('cc_card');
 	$instance_table_friend -> Update_table ($HD_Form -> DBHandle, $friend_param_update, "id='$id_cc_card'", $func_table = null);
 	
 	
 	if ( $form_action == "add_sip" )	$TABLE_BUDDY = 'cc_sip_buddies';
 	else 	$TABLE_BUDDY = 'cc_iax_buddies';
 	
-	$instance_table_friend = new Table($TABLE_BUDDY,'*');	
+	$instance_table_friend = Table::getInstance($TABLE_BUDDY,'*');	
 	$list_friend = $instance_table_friend -> Get_list ($HD_Form -> DBHandle, "id_cc_card='$id_cc_card'", null, null, null, null);
 	
 	if (is_array($list_friend) && count($list_friend)>0){ Header ("Location: ".$HD_Form->FG_GO_LINK_AFTER_ACTION); exit();}

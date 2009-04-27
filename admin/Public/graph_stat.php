@@ -40,8 +40,8 @@ $FG_NB_TABLE_COL = count($FG_TABLE_COL);
 
 if ($FG_DEBUG == 3)
 	echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if (is_null($order) || is_null($sens)) {
 	$order = $FG_TABLE_DEFAULT_ORDER;

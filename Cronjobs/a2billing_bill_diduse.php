@@ -48,7 +48,7 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 //$A2B -> DBHandle
-$instance_table = new Table();
+$instance_table = Table::getInstance();
 
 // CHECK THE CARD WITH DID'S
 $QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, typepaid, creditlimit,reminded FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1 ORDER BY cc_card.id ASC";
@@ -145,7 +145,7 @@ foreach ($result as $mydids) {
 						$description = "Your credit was not enough to pay yours DID numbers automatically.\n";
 						$description .= "You have " . date("d", $day_remaining) . " days to pay this invoice (REF: $reference ) or the DID will be automatically released \n\n";
 						$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
-						$instance_table = new Table("cc_invoice", $field_insert);
+						$instance_table = Table::getInstance("cc_invoice", $field_insert);
 						if ($verbose_level >= 1)
 							echo "INSERT INVOICE : $field_insert =>	$value_insert \n";
 						$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
@@ -156,7 +156,7 @@ foreach ($result as $mydids) {
 						$amount = $mydids[3];
 						$vat = 0;
 						$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
-						$instance_table = new Table("cc_invoice_item", $field_insert);
+						$instance_table = Table::getInstance("cc_invoice_item", $field_insert);
 						$value_insert = " '$date' , '$last_invoice', '$amount','$vat','$description','" . $mydids[0] . "','DID'";
 						if ($verbose_level >= 1)
 							echo "INSERT INVOICE ITEM : $field_insert =>	$value_insert \n";

@@ -111,7 +111,7 @@ if (!$A2B -> DbConnect()) {
 }
 
 define ("WRITELOG_QUERY", true);
-$instance_table = new Table();
+$instance_table = Table::getInstance();
 $A2B -> set_instance_table ($instance_table);
 
 //GET CURRENCIES FROM DATABASE

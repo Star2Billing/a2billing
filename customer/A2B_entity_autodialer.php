@@ -23,7 +23,7 @@ $HD_Form -> init();
 /************************************  ADD SPEED DIAL  ***********************************************/
 if (strlen($add_callerid)>0  && is_numeric($add_callerid)){
 	
-	$instance_sub_table = new Table('cc_callerid');
+	$instance_sub_table = Table::getInstance('cc_callerid');
 	$QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card='".$_SESSION["card_id"]."'";
 	$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 1);
 	

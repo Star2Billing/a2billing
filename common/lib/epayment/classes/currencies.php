@@ -10,7 +10,7 @@
 // class constructor
     function currencies() {
       $this->currencies = array();
-      $currenciesTable= new Table("cc_currencies"," * ");
+      $currenciesTable= Table::getInstance("cc_currencies"," * ");
       $DBHandle = DBConnect();
       $return = $currenciesTable -> Get_list($DBHandle,"",0);
       $this->currencies = array();

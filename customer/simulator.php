@@ -42,7 +42,7 @@ if ($called  && $id_cc_card) {
 		if ( strlen($calling)>2 && is_numeric($calling)){
 				
 				$A2B -> DBHandle = DbConnect();
-				$instance_table = new Table();
+				$instance_table = Table::getInstance();
 				$A2B -> set_instance_table ($instance_table);
 				$num = 0;				
 				
@@ -84,7 +84,7 @@ if ($called  && $id_cc_card) {
 
 /**************************************************************/
 
-$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
+$instance_table_tariffname = Table::getInstance("cc_tariffplan", "id, tariffname");
 $FG_TABLE_CLAUSE = "";
 $list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 $nb_tariffname = count($list_tariffname);

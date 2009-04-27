@@ -22,7 +22,7 @@ class Logger
 	function insertLog_Add($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $param_add_fields, $param_add_value)
 	{
 		$DB_Handle = DBConnect();
-		$table_log = new Table();		
+		$table_log = Table::getInstance();		
 		$pageName = basename($pageName);
 		$pageName    = array_shift(explode('?', $pageName));		
 		$description = str_replace("'", "", $description);
@@ -47,7 +47,7 @@ class Logger
 	function insertLog_Update($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $param_update)
 	{
 		$DB_Handle = DBConnect();
-		$table_log = new Table();		
+		$table_log = Table::getInstance();		
 		$pageName = basename($pageName);
 		$pageName    = array_shift(explode('?', $pageName));		
 		$description = str_replace("'", "", $description);
@@ -72,7 +72,7 @@ class Logger
 	function insertLog($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $data='')
 	{
 		$DB_Handle = DBConnect();
-		$table_log = new Table();		
+		$table_log = Table::getInstance();		
 		$pageName = basename($pageName);
 		$pageArray = explode('?', $pageName);
 		$pageName = array_shift($pageArray);
@@ -88,7 +88,7 @@ class Logger
 	function insertLogAgent($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $data='')
 	{
 		$DB_Handle = DBConnect();
-		$table_log = new Table();		
+		$table_log = Table::getInstance();		
 		$pageName = basename($pageName);
 		$pageArray = explode('?', $pageName);
 		$pageName = array_shift($pageArray);
@@ -106,7 +106,7 @@ class Logger
 	function deleteLog($id = 0)
 	{
 		$DB_Handle = DBConnect();
-		$table_log = new Table();
+		$table_log = Table::getInstance();
 		$QUERY = "DELETE FROM cc_system_log WHERE id = ".$id;		
 		if ($this -> do_debug) echo $QUERY;		
 		$table_log -> SQLExec($DB_Handle, $QUERY);

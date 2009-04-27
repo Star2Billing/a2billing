@@ -120,8 +120,8 @@ $FG_HTML_TABLE_TITLE = gettext ( " - Call Logs - " );
 $FG_HTML_TABLE_WIDTH = '98%';
 
 
-$instance_table = new Table ( $FG_TABLE_NAME, $FG_COL_QUERY );
-$instance_table_graph = new Table ( $FG_TABLE_NAME, $FG_COL_QUERY_GRAPH );
+$instance_table = Table::getInstance ( $FG_TABLE_NAME, $FG_COL_QUERY );
+$instance_table_graph = Table::getInstance ( $FG_TABLE_NAME, $FG_COL_QUERY_GRAPH );
 
 if (is_null ( $order ) || is_null ( $sens )) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
@@ -1008,7 +1008,7 @@ height=1><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
 
 	<?php if ($FG_TABLE_COL [$i] [6] == "lie") {
 										
-					$instance_sub_table = new Table ( $FG_TABLE_COL [$i] [7], $FG_TABLE_COL [$i] [8] );
+					$instance_sub_table = Table::getInstance ( $FG_TABLE_COL [$i] [7], $FG_TABLE_COL [$i] [8] );
 					$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
 					$select_list = $instance_sub_table->Get_list ( $DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 					
@@ -1023,7 +1023,7 @@ height=1><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
 						$record_display = $recordset [$i];
 					}
 				} elseif($FG_TABLE_COL[$i][6]=="lie_link") {
-					$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
+					$instance_sub_table = Table::getInstance($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
 					$sub_clause = str_replace ( "%id", $recordset [$i], $FG_TABLE_COL [$i] [9] );
 					$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 					if(is_array($select_list)){

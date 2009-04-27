@@ -45,7 +45,7 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 //$A2B -> DBHandle
-$instance_table = new Table();
+$instance_table = Table::getInstance();
 
 // CHECK THE ALARMS
 $QUERY = "SELECT id, name, periode, type, maxvalue, minvalue, id_trunk, status, numberofrun, datecreate,

@@ -22,7 +22,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $actived_list = Constants::getActivationList();
 if ($form_action=="ask-edit") {
 	$DBHandle  = DbConnect();
-	$instance_table = new Table("cc_campaign", "id_card");
+	$instance_table = Table::getInstance("cc_campaign", "id_card");
 	$clause = "id = $id";
 	$list =$instance_table -> Get_list($DBHandle, $clause, 0);;
 	$id_card= $list[0][0];

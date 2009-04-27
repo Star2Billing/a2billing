@@ -46,7 +46,7 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 //$A2B -> DBHandle
-$instance_table = new Table();
+$instance_table = Table::getInstance();
 
 // CHECK NUMBER OF CARD
 $QUERY = 'SELECT count(*) FROM cc_card WHERE autorefill=1 AND initialbalance>0 AND credit<initialbalance';

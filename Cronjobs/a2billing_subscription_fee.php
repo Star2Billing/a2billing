@@ -53,7 +53,7 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 
-$instance_table = new Table();
+$instance_table = Table::getInstance();
 
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE SERVICE
 //$QUERY = 'SELECT count(*) FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1';

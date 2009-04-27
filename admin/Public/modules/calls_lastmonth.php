@@ -3,7 +3,7 @@ include_once ("../../lib/admin.defines.php");
 include_once ("../../lib/admin.module.access.php");
 
 $DBHandle = DbConnect();
-$table = new Table('cc_call', '*');
+$table = Table::getInstance('cc_call', '*');
 
 $temp = date("Y-m-01");
 $datetime = new DateTime($temp);

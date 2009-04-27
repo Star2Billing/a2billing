@@ -140,7 +140,7 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 	}
 }
 
-$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
 if (!$nodisplay) {
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY,$SQL_GROUP);
 	$res = $DBHandle -> Execute($QUERY_TOTAL);

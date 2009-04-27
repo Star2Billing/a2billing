@@ -132,7 +132,7 @@ if ($FG_DEBUG > 0)
 
 $DBHandle = DbConnect();
 $FG_TABLE_NAME = 'cc_ecommerce_product, cc_templatemail';
-$instance_table = new Table($FG_TABLE_NAME, $FG_QUERY_EDITION);
+$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_QUERY_EDITION);
 
 $ec_prod = get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $mail_content, $logfile);
 if ($FG_DEBUG > 0)
@@ -157,11 +157,11 @@ $uipass = MDP_STRING();
 
 if ($forceid > 0) {
 	// FORCE THE INSERT WITH A DEFINED ID
-	$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, 'id, ' . $FG_ADITION_SECOND_ADD_FIELDS);
+	$instance_sub_table = Table::getInstance($FG_ADITION_SECOND_ADD_TABLE, 'id, ' . $FG_ADITION_SECOND_ADD_FIELDS);
 	$FG_ADITION_SECOND_ADD_VALUE = "'$forceid', '$cardnum', '$useralias', '" . $ec_prod[6] . "', '" . $ec_prod[7] . "', '" . $ec_prod[8] . "', 't', '$lastname', '$firstname', '$email', '$address', '$city', '$state', '$country', '$zipcode', '$phone', '$cardnum', " . $ec_prod[10] . ", '" . $ec_prod[11] . "', '" . $ec_prod[12] . "', '" . $ec_prod[13] . "', '" . $ec_prod[14] . "', " . $ec_prod[15] . ", 0, '$uipass', " . $ec_prod[16] . ", " . $ec_prod[17] . "";
 } else {
 	// LEAVE THE AUTO INCREMENT FOR THE ID
-	$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
+	$instance_sub_table = Table::getInstance($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 	$FG_ADITION_SECOND_ADD_VALUE = "'$cardnum', '$useralias', '" . $ec_prod[6] . "', '" . $ec_prod[7] . "', '" . $ec_prod[8] . "', 't', '$lastname', '$firstname', '$email', '$address', '$city', '$state', '$country', '$zipcode', '$phone', '$cardnum', " . $ec_prod[10] . ", '" . $ec_prod[11] . "', '" . $ec_prod[12] . "', '" . $ec_prod[13] . "', '" . $ec_prod[14] . "', " . $ec_prod[15] . ", 0, '$uipass', " . $ec_prod[16] . ", " . $ec_prod[17] . "";
 }
 $result_query = $instance_sub_table->Add_table($DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, 'id');
@@ -215,10 +215,10 @@ for ($ki = 0; $ki < 2; $ki++) {
 
 	// Insert Sip/Iax account info
 	if ($ec_prod[17]) {
-		$instance_table1 = new Table($FG_TABLE_NAME, $FG_QUERY_ADITION_SIP_IAX);
+		$instance_table1 = Table::getInstance($FG_TABLE_NAME, $FG_QUERY_ADITION_SIP_IAX);
 		$result_query1 = $instance_table1->Add_table($DBHandle, $param_add_value, $param_add_fields, null, null);
 
-		$instance_table_friend = new Table($FG_TABLE_NAME, 'id, ' . $FG_QUERY_ADITION_SIP_IAX);
+		$instance_table_friend = Table::getInstance($FG_TABLE_NAME, 'id, ' . $FG_QUERY_ADITION_SIP_IAX);
 		$list_friend = $instance_table_friend->Get_list($DBHandle, '', null, null, null, null);
 
 		$fd = fopen($buddyfile, "w");

@@ -18,7 +18,7 @@ if (empty($id)) {
 
 $DBHandle  = DbConnect();
 
-$log_table = new Table('cc_system_log','*');
+$log_table = Table::getInstance('cc_system_log','*');
 $log_clause = "id = ".$id;
 $log_result = $log_table -> Get_list($DBHandle, $log_clause, 0);
 $log = $log_result[0];

@@ -25,7 +25,7 @@ $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 /*************************************************************/
 
-$instance_table_tariffname = new Table("cc_didgroup", "id, didgroupname");
+$instance_table_tariffname = Table::getInstance("cc_didgroup", "id, didgroupname");
 
 $FG_TABLE_CLAUSE = "";
 
@@ -33,7 +33,7 @@ $list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE
 
 $nb_tariffname = count($list_tariffname);
 
-$instance_table_country = new Table("cc_country", "id, countryname");
+$instance_table_country = Table::getInstance("cc_country", "id, countryname");
 
 $list_countryname = $instance_table_country  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "countryname", "ASC", null, null, null, null);
 

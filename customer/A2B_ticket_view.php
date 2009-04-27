@@ -36,20 +36,20 @@ $action = (isset($_POST['action']) ? $_POST['action'] : '');
     {
       case 'update':
 		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket", "*");
+		  $instance_sub_table = Table::getInstance("cc_ticket", "*");
           $instance_sub_table -> Update_table($DBHandle, "status = '" . $_POST['status'] . "'","id = '" . $_GET['id'] . "'" );
 		  $ticket = new Ticket($ticketID);
 		  $ticket->insertComment($_POST['comment'],$_SESSION['card_id'],0);
           tep_redirect("A2B_ticket_view.php?"."id=".$_GET['id']."&result=success");
        case 'view_comment':
 		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket_comment", "*");
+		  $instance_sub_table = Table::getInstance("cc_ticket_comment", "*");
           $instance_sub_table -> Update_table($DBHandle, "viewed_cust = '0'","id = '" . $_POST['idc'] . "'" );
           tep_redirect("A2B_ticket_view.php?id=".$_GET['id']."#nav".$_POST['idc']);
            break;
         case 'view_ticket':
 		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket", "*");
+		  $instance_sub_table = Table::getInstance("cc_ticket", "*");
           $instance_sub_table -> Update_table($DBHandle, "viewed_cust = '0'","id = '" . $_GET['id'] . "'" );
           tep_redirect("A2B_ticket_view.php?id=".$_GET['id']);
            break;

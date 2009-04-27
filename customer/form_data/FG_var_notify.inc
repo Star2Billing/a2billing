@@ -33,7 +33,7 @@ else $mycur = $currencies_list[strtoupper($customer_info [1])][2];
 
 
 // Possible value to notify the user
- $instance_config_table = new Table("cc_config", "id, config_value");
+ $instance_config_table = Table::getInstance("cc_config", "id, config_value");
  $QUERY = " config_key = 'values_notifications' ";
  $return = null;
  $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);

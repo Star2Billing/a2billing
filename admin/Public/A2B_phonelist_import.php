@@ -16,7 +16,7 @@ $FG_DEBUG = 0;
 $DBHandle  = DbConnect();
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
-$instance_table_phonebook = new Table("cc_phonebook", "id, name");
+$instance_table_phonebook = Table::getInstance("cc_phonebook", "id, name");
 $FG_TABLE_CLAUSE = "";
 $list_phonebook = $instance_table_phonebook  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 $nb_phonebook = count($list_phonebook);

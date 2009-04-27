@@ -41,7 +41,7 @@ if ($callback) {
 	if (strlen($called)>4 && strlen($calling)>4 && is_numeric($called) && is_numeric($calling)) {
 		
 		$A2B -> DBHandle = DbConnect();
-		$instance_table = new Table();
+		$instance_table = Table::getInstance();
 		$A2B -> set_instance_table ($instance_table);
 		$A2B -> cardnumber = $_SESSION["pr_login"];
 			

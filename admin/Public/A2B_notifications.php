@@ -40,7 +40,7 @@ echo $CC_help_mail_notifications;
 // Load the list of values in the config table ! key=values_notifications
 $key= "cron_notifications";
 $DBHandle  = DbConnect();
-$instance_config_table = new Table("cc_config", "id, config_value");
+$instance_config_table = Table::getInstance("cc_config", "id, config_value");
 $QUERY = " config_key = '".$key."' ";
 $return = null;
 $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
@@ -80,7 +80,7 @@ if (!is_null($return)&& (!empty($return)>0)) {
 // Load the list of values in the config table ! key=values_notifications
 $key= "values_notifications";
 $DBHandle  = DbConnect();
-$instance_config_table = new Table("cc_config", "id, config_value");
+$instance_config_table = Table::getInstance("cc_config", "id, config_value");
 $QUERY = " config_key = '".$key."' ";
 $return = null;
 $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
@@ -123,7 +123,7 @@ if(!is_null($return)&& (!empty($return)>0) ){
 // Load the list of values in the config table ! key=values_notifications
 $key= "delay_notifications";
 $DBHandle  = DbConnect();
-$instance_config_table = new Table("cc_config", "id, config_value");
+$instance_config_table = Table::getInstance("cc_config", "id, config_value");
 $QUERY = " config_key = '".$key."' ";
 $return = null;
 $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);

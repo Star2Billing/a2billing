@@ -44,7 +44,7 @@ if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE = " - ".gettext("Customer History")." - ";
 $FG_HTML_TABLE_WIDTH = "98%";
 
-$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
 
 if (is_null ($order) || is_null($sens)) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
