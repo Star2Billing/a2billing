@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-17 12:28+0200\n"
+"POT-Creation-Date: 2009-04-27 19:25+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -118,8 +118,8 @@ msgstr "Recherche"
 #: CC_entity_edit_speeddial.php:475 CC_entity_edit_speeddial.php:767
 #: CC_entity_edit_speeddial.php:1013
 #: lib/Form/Class.FormHandler.EditForm.inc.php:197
-#: lib/Form/Class.FormHandler.EditForm.inc.php:390
-#: lib/Form/Class.FormHandler.EditForm.inc.php:790
+#: lib/Form/Class.FormHandler.EditForm.inc.php:391
+#: lib/Form/Class.FormHandler.EditForm.inc.php:791
 #: lib/Form/Class.FormHandler.DelForm.inc.php:155
 #: lib/Form/Class.FormHandler.AddForm.inc.php:140
 #: CC_entity_edit_did_destination.php:374
@@ -289,87 +289,87 @@ msgstr ""
 msgid "Error loading your account information!"
 msgstr ""
 
-#: userinfo.php:66
+#: userinfo.php:67
 msgid "LAST NAME"
 msgstr "NOM"
 
-#: userinfo.php:67
+#: userinfo.php:68
 msgid "FIRST NAME"
 msgstr "PRENOM"
 
-#: userinfo.php:68 form_data/FG_var_signup.inc:173
+#: userinfo.php:69 form_data/FG_var_signup.inc:173
 msgid "EMAIL"
 msgstr "EMAIL"
 
-#: userinfo.php:69 form_data/FG_var_speeddial.inc:19
+#: userinfo.php:70 form_data/FG_var_speeddial.inc:19
 #: form_data/FG_var_speeddial.inc:67
 msgid "PHONE"
 msgstr "TELEPHONE"
 
-#: userinfo.php:70
+#: userinfo.php:71
 msgid "FAX"
 msgstr "FAX"
 
-#: userinfo.php:73 form_data/FG_var_signup.inc:183
+#: userinfo.php:74 form_data/FG_var_signup.inc:183
 #: form_data/FG_var_card.inc:34
 msgid "ADDRESS"
 msgstr "ADRESSE"
 
-#: userinfo.php:74
+#: userinfo.php:75
 msgid "ZIP CODE"
 msgstr "CODEPOSTAL"
 
-#: userinfo.php:75 form_data/FG_var_signup.inc:193
+#: userinfo.php:76 form_data/FG_var_signup.inc:193
 #: form_data/FG_var_card.inc:44
 msgid "CITY"
 msgstr "VILLE"
 
-#: userinfo.php:76
+#: userinfo.php:77
 msgid "STATE"
 msgstr "ETAT"
 
-#: userinfo.php:77 form_data/FG_var_signup.inc:213 form_data/FG_var_did.inc:36
+#: userinfo.php:78 form_data/FG_var_signup.inc:213 form_data/FG_var_did.inc:36
 #: form_data/FG_var_card.inc:64
 msgid "COUNTRY"
 msgstr "PAYS"
 
-#: userinfo.php:85
+#: userinfo.php:86
 msgid "GO TO VOICEMAIL"
 msgstr ""
 
-#: userinfo.php:90
+#: userinfo.php:91
 #, fuzzy
 msgid "EDIT PERSONAL INFORMATION"
 msgstr "DID DESTINATION"
 
-#: userinfo.php:105
+#: userinfo.php:106
 msgid "CARD NUMBER"
 msgstr "NUMERO DE CARTE"
 
-#: userinfo.php:109
+#: userinfo.php:110
 msgid "BALANCE REMAINING"
 msgstr "SOLDE RESTANTE"
 
-#: userinfo.php:115
+#: userinfo.php:116
 #, fuzzy
 msgid "CALLING PACKAGE"
 msgstr "MINUTES CALLINGCARD"
 
-#: userinfo.php:119
+#: userinfo.php:120
 #, fuzzy
 msgid "PACKAGE MINUTES REMAINING"
 msgstr "SOLDE RESTANTE"
 
-#: userinfo.php:121
+#: userinfo.php:122
 #, fuzzy
 msgid "PACKAGE MINUTES USED"
 msgstr "MINUTES APPELEES"
 
-#: userinfo.php:144
+#: userinfo.php:145
 msgid "Click below to buy credit : "
 msgstr "Cliquez ci-dessous pour acheter des credit : "
 
-#: userinfo.php:176
+#: userinfo.php:177
 msgid "BUY NOW"
 msgstr ""
 
@@ -449,15 +449,15 @@ msgstr ""
 
 #: CC_entity_edit_speeddial.php:419 CC_entity_edit_speeddial.php:609
 #: lib/Form/Class.FormHandler.EditForm.inc.php:342
-#: lib/Form/Class.FormHandler.EditForm.inc.php:510
-#: lib/Form/Class.FormHandler.EditForm.inc.php:639
+#: lib/Form/Class.FormHandler.EditForm.inc.php:511
+#: lib/Form/Class.FormHandler.EditForm.inc.php:640
 #: CC_entity_edit_did_destination.php:740
 msgid "Add a new"
 msgstr "Ajouter un nouveau"
 
 #: CC_entity_edit_speeddial.php:531 CC_entity_edit_speeddial.php:700
-#: lib/Form/Class.FormHandler.EditForm.inc.php:431
-#: lib/Form/Class.FormHandler.EditForm.inc.php:568
+#: lib/Form/Class.FormHandler.EditForm.inc.php:432
+#: lib/Form/Class.FormHandler.EditForm.inc.php:569
 #: CC_entity_edit_did_destination.php:647
 #: CC_entity_edit_did_destination.php:842
 #, fuzzy
@@ -481,7 +481,7 @@ msgstr "Supprimer"
 msgid "Deletetion"
 msgstr "Suppression"
 
-#: CC_entity_edit_speeddial.php:1047 lib/interface/constants.php:161
+#: CC_entity_edit_speeddial.php:1047 lib/interface/constants.php:170
 #: CC_entity_edit_did_destination.php:1239
 msgid "New"
 msgstr "Nouveau"
@@ -688,24 +688,24 @@ msgstr "TOTAL"
 msgid "Priority"
 msgstr ""
 
-#: A2B_support.php:73 lib/interface/constants.php:206
+#: A2B_support.php:73 lib/interface/constants.php:215
 #: A2B_entity_ratecard.php:68
 #, fuzzy
 msgid "NONE"
 msgstr "NON"
 
-#: A2B_support.php:74 lib/interface/constants.php:207
+#: A2B_support.php:74 lib/interface/constants.php:216
 #: lib/Class.Notification.php:64
 msgid "LOW"
 msgstr "BAS"
 
-#: A2B_support.php:75 lib/interface/constants.php:208
+#: A2B_support.php:75 lib/interface/constants.php:217
 #: lib/Class.Notification.php:61
 #, fuzzy
 msgid "MEDIUM"
 msgstr "REDIGER"
 
-#: A2B_support.php:76 lib/interface/constants.php:209
+#: A2B_support.php:76 lib/interface/constants.php:218
 #: lib/Class.Notification.php:59
 msgid "HIGH"
 msgstr ""
@@ -829,151 +829,151 @@ msgstr ""
 msgid "Import Phonebook"
 msgstr "T&eacute;l&eacute;phone:"
 
-#: lib/customer.defines.php:63
+#: lib/customer.defines.php:71
 msgid "The expiry date entered for the credit card is invalid."
 msgstr ""
 
-#: lib/customer.defines.php:63
+#: lib/customer.defines.php:71
 #, fuzzy
 msgid "Please check the date and try again."
 msgstr "Impossible de se connecter au manager !<br>v&eacute;rifiez la configuration du manager..."
 
-#: lib/customer.defines.php:64
+#: lib/customer.defines.php:72
 msgid "The credit card number entered is invalid."
 msgstr ""
 
-#: lib/customer.defines.php:64
+#: lib/customer.defines.php:72
 #, fuzzy
 msgid "Please check the number and try again."
 msgstr "Impossible de se connecter au manager !<br>v&eacute;rifiez la configuration du manager..."
 
-#: lib/customer.defines.php:65
+#: lib/customer.defines.php:73
 msgid "The first four digits of the number entered are"
 msgstr ""
 
-#: lib/customer.defines.php:65
+#: lib/customer.defines.php:73
 msgid "If that number is correct, we do not accept that type of credit card."
 msgstr ""
 
-#: lib/customer.defines.php:65
+#: lib/customer.defines.php:73
 msgid "If it is wrong, please try again."
 msgstr ""
 
-#: lib/customer.defines.php:72
+#: lib/customer.defines.php:80
 msgid "Errors have occured during the process of your form."
 msgstr ""
 
-#: lib/customer.defines.php:72
+#: lib/customer.defines.php:80
 msgid "Please make the following corrections:\\n\\n"
 msgstr ""
 
-#: lib/customer.defines.php:73
+#: lib/customer.defines.php:81
 msgid "* The 'Review Text' must have at least"
 msgstr ""
 
-#: lib/customer.defines.php:73 lib/customer.defines.php:85
-#: lib/customer.defines.php:86 lib/customer.defines.php:99
+#: lib/customer.defines.php:81 lib/customer.defines.php:93
+#: lib/customer.defines.php:94 lib/customer.defines.php:107
 #, fuzzy
 msgid "characters"
 msgstr "(au minimum 3 caract&egrave;res)"
 
-#: lib/customer.defines.php:74
+#: lib/customer.defines.php:82
 msgid "You must rate the product for your review."
 msgstr ""
 
-#: lib/customer.defines.php:75 lib/customer.defines.php:77
+#: lib/customer.defines.php:83 lib/customer.defines.php:85
 msgid "Please select a payment method for your order."
 msgstr ""
 
-#: lib/customer.defines.php:76
+#: lib/customer.defines.php:84
 msgid "This form has already been submitted. Please press Ok and wait for this process to be completed."
 msgstr ""
 
-#: lib/customer.defines.php:79
+#: lib/customer.defines.php:87
 msgid "Credit Card"
 msgstr ""
 
-#: lib/customer.defines.php:80 lib/customer.defines.php:90
+#: lib/customer.defines.php:88 lib/customer.defines.php:98
 msgid "Credit Card Test Info"
 msgstr ""
 
-#: lib/customer.defines.php:80 lib/customer.defines.php:90
+#: lib/customer.defines.php:88 lib/customer.defines.php:98
 msgid "Expiry: Any"
 msgstr ""
 
-#: lib/customer.defines.php:81
+#: lib/customer.defines.php:89
 msgid "Credit Card Type"
 msgstr ""
 
-#: lib/customer.defines.php:82
+#: lib/customer.defines.php:90
 #, fuzzy
 msgid "Credit Card Owner"
 msgstr "Cr&eacute;er un nouveau "
 
-#: lib/customer.defines.php:83
+#: lib/customer.defines.php:91
 #, fuzzy
 msgid "Credit Card Number"
 msgstr "Num&eacute;roCarte"
 
-#: lib/customer.defines.php:84
+#: lib/customer.defines.php:92
 msgid "Credit Card Expiry Date"
 msgstr ""
 
-#: lib/customer.defines.php:85 lib/customer.defines.php:98
+#: lib/customer.defines.php:93 lib/customer.defines.php:106
 msgid "* The owner's name of the credit card must be at least"
 msgstr ""
 
-#: lib/customer.defines.php:86 lib/customer.defines.php:99
+#: lib/customer.defines.php:94 lib/customer.defines.php:107
 msgid "* The credit card number must be at least"
 msgstr ""
 
-#: lib/customer.defines.php:87
+#: lib/customer.defines.php:95
 msgid "Credit Card Error!"
 msgstr ""
 
-#: lib/customer.defines.php:91
+#: lib/customer.defines.php:99
 msgid "There has been an error processing your credit card"
 msgstr ""
 
-#: lib/customer.defines.php:92
+#: lib/customer.defines.php:100
 msgid "Please check your credit card details!"
 msgstr ""
 
-#: lib/customer.defines.php:93
+#: lib/customer.defines.php:101
 msgid "Credit Card Owner:"
 msgstr ""
 
-#: lib/customer.defines.php:94
+#: lib/customer.defines.php:102
 #, fuzzy
 msgid "Credit Card Number:"
 msgstr "Num&eacute;roCarte"
 
-#: lib/customer.defines.php:95
+#: lib/customer.defines.php:103
 msgid "Credit Card Expiry Date:"
 msgstr ""
 
-#: lib/customer.defines.php:96
+#: lib/customer.defines.php:104
 msgid "Credit Card Checknumber:"
 msgstr ""
 
-#: lib/customer.defines.php:97
+#: lib/customer.defines.php:105
 msgid "(located at the back of the credit card)"
 msgstr ""
 
-#: lib/customer.defines.php:98
+#: lib/customer.defines.php:106
 msgid "characters."
 msgstr ""
 
-#: lib/customer.defines.php:247
+#: lib/customer.defines.php:255
 #, fuzzy
 msgid "This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"
 msgstr "Ce logiciel est cr&eacute;&eacute; par Areski sous licence GPL. Pour toute information, veuillez me contacter:"
 
-#: lib/customer.defines.php:250
+#: lib/customer.defines.php:258
 msgid " <a href=\"http://www.star2billing.com\" target=\"_blank\">www.star2billing.com</a> - Commercial Open Source Telephony"
 msgstr ""
 
-#: lib/customer.defines.php:251
+#: lib/customer.defines.php:259
 msgid "A2Billing : Customer Portal"
 msgstr ""
 
@@ -1017,381 +1017,393 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-#: lib/interface/constants.php:49 form_data/FG_var_did.inc:29
+#: lib/interface/constants.php:40
+msgid "PENDING"
+msgstr ""
+
+#: lib/interface/constants.php:41
+msgid "SENT"
+msgstr ""
+
+#: lib/interface/constants.php:42
+msgid "ERROR"
+msgstr ""
+
+#: lib/interface/constants.php:58 form_data/FG_var_did.inc:29
 msgid "Inactive"
 msgstr "Inactif"
 
-#: lib/interface/constants.php:50 form_data/FG_var_did.inc:29
+#: lib/interface/constants.php:59 form_data/FG_var_did.inc:29
 msgid "Active"
 msgstr "Active"
 
-#: lib/interface/constants.php:70
+#: lib/interface/constants.php:79
 msgid "Fix per month + dialoutrate"
 msgstr "Fixe par mois + coût d'appel"
 
-#: lib/interface/constants.php:71
+#: lib/interface/constants.php:80
 msgid "Fix per month"
 msgstr "Fixe par mois"
 
-#: lib/interface/constants.php:72
+#: lib/interface/constants.php:81
 msgid "Only dialout rate"
 msgstr "Coût d'appel uniquement"
 
-#: lib/interface/constants.php:73 lib/interface/constants.php:82
+#: lib/interface/constants.php:82 lib/interface/constants.php:91
 msgid "Free"
 msgstr "Gratuit"
 
-#: lib/interface/constants.php:79
+#: lib/interface/constants.php:88
 msgid "Fix+Dial"
 msgstr "Fixe + Appel"
 
-#: lib/interface/constants.php:80
+#: lib/interface/constants.php:89
 msgid "Fix"
 msgstr "Fixe"
 
-#: lib/interface/constants.php:81
+#: lib/interface/constants.php:90
 msgid "Dial"
 msgstr "Appel"
 
-#: lib/interface/constants.php:88 lib/interface/constants.php:306
-#: lib/interface/constants.php:313
+#: lib/interface/constants.php:97 lib/interface/constants.php:315
+#: lib/interface/constants.php:322
 msgid "INDIVIDUAL ACCESS"
 msgstr ""
 
-#: lib/interface/constants.php:89 lib/interface/constants.php:305
-#: lib/interface/constants.php:312
+#: lib/interface/constants.php:98 lib/interface/constants.php:314
+#: lib/interface/constants.php:321
 msgid "SIMULTANEOUS ACCESS"
 msgstr ""
 
-#: lib/interface/constants.php:95
+#: lib/interface/constants.php:104
 #, fuzzy
 msgid "PREPAID CARD"
 msgstr "RATECARD"
 
-#: lib/interface/constants.php:96
+#: lib/interface/constants.php:105
 msgid "POSTPAID CARD"
 msgstr ""
 
-#: lib/interface/constants.php:102
+#: lib/interface/constants.php:111
 #, fuzzy
 msgid "NO EXPIRATION"
 msgstr "MIN DURATION"
 
-#: lib/interface/constants.php:103 lib/interface/constants.php:320
+#: lib/interface/constants.php:112 lib/interface/constants.php:329
 #, fuzzy
 msgid "EXPIRE DATE"
 msgstr "STOP DATE"
 
-#: lib/interface/constants.php:104 lib/interface/constants.php:321
+#: lib/interface/constants.php:113 lib/interface/constants.php:330
 msgid "EXPIRE DAYS SINCE FIRST USE"
 msgstr ""
 
-#: lib/interface/constants.php:105 lib/interface/constants.php:322
+#: lib/interface/constants.php:114 lib/interface/constants.php:331
 msgid "EXPIRE DAYS SINCE CREATION"
 msgstr ""
 
-#: lib/interface/constants.php:112 lib/interface/constants.php:119
+#: lib/interface/constants.php:121 lib/interface/constants.php:128
 msgid "OPEN"
 msgstr ""
 
-#: lib/interface/constants.php:113 lib/interface/constants.php:120
+#: lib/interface/constants.php:122 lib/interface/constants.php:129
 msgid "CLOSE"
 msgstr "FERMER"
 
-#: lib/interface/constants.php:127 lib/interface/constants.php:151
+#: lib/interface/constants.php:136 lib/interface/constants.php:160
 msgid "UNPAID"
 msgstr ""
 
-#: lib/interface/constants.php:128 lib/interface/constants.php:154
+#: lib/interface/constants.php:137 lib/interface/constants.php:163
 #, fuzzy
 msgid "PAID"
 msgstr "DID"
 
-#: lib/interface/constants.php:134 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:143 lib/Form/Class.SearchHandler.inc.php:36
 msgid "January"
 msgstr "Janvier"
 
-#: lib/interface/constants.php:135 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:144 lib/Form/Class.SearchHandler.inc.php:36
 msgid "February"
 msgstr "F&eacute;vrier"
 
-#: lib/interface/constants.php:136 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:145 lib/Form/Class.SearchHandler.inc.php:36
 msgid "March"
 msgstr "Mars"
 
-#: lib/interface/constants.php:137 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:146 lib/Form/Class.SearchHandler.inc.php:36
 msgid "April"
 msgstr "Avril"
 
-#: lib/interface/constants.php:138 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:147 lib/Form/Class.SearchHandler.inc.php:36
 msgid "May"
 msgstr "Mai"
 
-#: lib/interface/constants.php:139 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:148 lib/Form/Class.SearchHandler.inc.php:36
 msgid "June"
 msgstr "Juin"
 
-#: lib/interface/constants.php:140 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:149 lib/Form/Class.SearchHandler.inc.php:36
 msgid "July"
 msgstr "Juillet"
 
-#: lib/interface/constants.php:141 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:150 lib/Form/Class.SearchHandler.inc.php:36
 msgid "August"
 msgstr "Août"
 
-#: lib/interface/constants.php:142 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:151 lib/Form/Class.SearchHandler.inc.php:36
 msgid "September"
 msgstr "Septembre"
 
-#: lib/interface/constants.php:143 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:152 lib/Form/Class.SearchHandler.inc.php:36
 msgid "October"
 msgstr "Octobre"
 
-#: lib/interface/constants.php:144 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:153 lib/Form/Class.SearchHandler.inc.php:36
 msgid "November"
 msgstr "Novembre"
 
-#: lib/interface/constants.php:145 lib/Form/Class.SearchHandler.inc.php:36
+#: lib/interface/constants.php:154 lib/Form/Class.SearchHandler.inc.php:36
 msgid "December"
 msgstr "D&eacute;cembre"
 
-#: lib/interface/constants.php:152
+#: lib/interface/constants.php:161
 msgid "SENT-UNPAID"
 msgstr ""
 
-#: lib/interface/constants.php:153
+#: lib/interface/constants.php:162
 msgid "SENT-PAID"
 msgstr ""
 
-#: lib/interface/constants.php:162
+#: lib/interface/constants.php:171
 msgid "Proceed"
 msgstr ""
 
-#: lib/interface/constants.php:163
+#: lib/interface/constants.php:172
 msgid "In Process"
-msgstr ""
-
-#: lib/interface/constants.php:169
-#, fuzzy
-msgid "Failed"
-msgstr "Fixe"
-
-#: lib/interface/constants.php:170
-msgid "Successful"
-msgstr ""
-
-#: lib/interface/constants.php:171
-msgid "Not Sent"
-msgstr ""
-
-#: lib/interface/constants.php:177
-msgid "Unlimited calls"
 msgstr ""
 
 #: lib/interface/constants.php:178
 #, fuzzy
-msgid "Number of Free calls"
-msgstr "Nombre d'appels"
+msgid "Failed"
+msgstr "Fixe"
 
 #: lib/interface/constants.php:179
-#, fuzzy
-msgid "Free minutes"
-msgstr "minutes"
+msgid "Successful"
+msgstr ""
 
-#: lib/interface/constants.php:185
-msgid "Monthly"
+#: lib/interface/constants.php:180
+msgid "Not Sent"
 msgstr ""
 
 #: lib/interface/constants.php:186
+msgid "Unlimited calls"
+msgstr ""
+
+#: lib/interface/constants.php:187
+#, fuzzy
+msgid "Number of Free calls"
+msgstr "Nombre d'appels"
+
+#: lib/interface/constants.php:188
+#, fuzzy
+msgid "Free seconds"
+msgstr "Secondes"
+
+#: lib/interface/constants.php:194
+msgid "Monthly"
+msgstr ""
+
+#: lib/interface/constants.php:195
 msgid "Weekly"
 msgstr ""
 
-#: lib/interface/constants.php:192
+#: lib/interface/constants.php:201
 msgid "LCR : According to the buyer price"
 msgstr ""
 
-#: lib/interface/constants.php:193
+#: lib/interface/constants.php:202
 msgid "LCD : According to the seller price"
 msgstr ""
 
-#: lib/interface/constants.php:199
+#: lib/interface/constants.php:208
 msgid "LCR : buyer price"
 msgstr ""
 
-#: lib/interface/constants.php:200
+#: lib/interface/constants.php:209
 msgid "LCD : seller price"
 msgstr ""
 
-#: lib/interface/constants.php:215 form_data/FG_var_ticket.inc:26
+#: lib/interface/constants.php:224 form_data/FG_var_ticket.inc:26
 msgid "VIEWED"
 msgstr ""
 
-#: lib/interface/constants.php:216 lib/interface/constants.php:267
-#: lib/interface/constants.php:280 lib/interface/constants.php:293
+#: lib/interface/constants.php:225 lib/interface/constants.php:276
+#: lib/interface/constants.php:289 lib/interface/constants.php:302
 #: lib/support/classes/ticket.php:275
 msgid "NEW"
 msgstr "NOUVEAU"
 
-#: lib/interface/constants.php:223 lib/interface/constants.php:230
+#: lib/interface/constants.php:232 lib/interface/constants.php:239
 #, fuzzy
 msgid "NOT USED"
 msgstr "INUTILIS&Eacute;"
 
-#: lib/interface/constants.php:224 lib/interface/constants.php:231
+#: lib/interface/constants.php:233 lib/interface/constants.php:240
 #, fuzzy
 msgid "USED"
 msgstr "INUTILIS&Eacute;"
 
-#: lib/interface/constants.php:237
+#: lib/interface/constants.php:246
 msgid "ANSWER"
 msgstr "REPONDRE"
 
-#: lib/interface/constants.php:238
+#: lib/interface/constants.php:247
 msgid "BUSY"
 msgstr ""
 
-#: lib/interface/constants.php:239
+#: lib/interface/constants.php:248
 #, fuzzy
 msgid "NOANSWER"
 msgstr "REPONDRE"
 
-#: lib/interface/constants.php:240 lib/interface/constants.php:291
+#: lib/interface/constants.php:249 lib/interface/constants.php:300
 #, fuzzy
 msgid "CANCEL"
 msgstr "APPEL"
 
-#: lib/interface/constants.php:241
+#: lib/interface/constants.php:250
 #, fuzzy
 msgid "CONGESTION"
 msgstr "CREATION"
 
-#: lib/interface/constants.php:242
+#: lib/interface/constants.php:251
 msgid "CHANUNAVAIL"
 msgstr ""
 
-#: lib/interface/constants.php:243
+#: lib/interface/constants.php:252
 #, fuzzy
 msgid "DONTCALL"
 msgstr "APPEL"
 
-#: lib/interface/constants.php:244
+#: lib/interface/constants.php:253
 #, fuzzy
 msgid "TORTURE"
 msgstr "SOURCE"
 
-#: lib/interface/constants.php:245
+#: lib/interface/constants.php:254
 msgid "INVALIDARGS"
 msgstr ""
 
-#: lib/interface/constants.php:265 lib/interface/constants.php:279
+#: lib/interface/constants.php:274 lib/interface/constants.php:288
 #, fuzzy
 msgid "ACTIVE"
 msgstr "ACTIV&Eacute;"
 
-#: lib/interface/constants.php:266 lib/interface/constants.php:278
-#: lib/interface/constants.php:291
+#: lib/interface/constants.php:275 lib/interface/constants.php:287
+#: lib/interface/constants.php:300
 #, fuzzy
 msgid "CANCELLED"
 msgstr "CALLERID"
 
-#: lib/interface/constants.php:268 lib/interface/constants.php:281
-#: lib/interface/constants.php:294
+#: lib/interface/constants.php:277 lib/interface/constants.php:290
+#: lib/interface/constants.php:303
 msgid "WAITING-MAILCONFIRMATION"
 msgstr ""
 
-#: lib/interface/constants.php:269 lib/interface/constants.php:282
-#: lib/interface/constants.php:295
+#: lib/interface/constants.php:278 lib/interface/constants.php:291
+#: lib/interface/constants.php:304
 #, fuzzy
 msgid "RESERVED"
 msgstr "ENREGISTR&Eacute;"
 
-#: lib/interface/constants.php:270 lib/interface/constants.php:283
-#: lib/interface/constants.php:296 A2B_entity_phonenumber.php:112
+#: lib/interface/constants.php:279 lib/interface/constants.php:292
+#: lib/interface/constants.php:305 A2B_entity_phonenumber.php:112
 msgid "EXPIRED"
 msgstr ""
 
-#: lib/interface/constants.php:271 lib/interface/constants.php:284
-#: lib/interface/constants.php:297
+#: lib/interface/constants.php:280 lib/interface/constants.php:293
+#: lib/interface/constants.php:306
 msgid "SUSPENDED FOR UNDERPAYMENT"
 msgstr ""
 
-#: lib/interface/constants.php:272 lib/interface/constants.php:285
-#: lib/interface/constants.php:298
+#: lib/interface/constants.php:281 lib/interface/constants.php:294
+#: lib/interface/constants.php:307
 msgid "SUSPENDED FOR LITIGATION"
 msgstr ""
 
-#: lib/interface/constants.php:292 form_data/FG_var_callerid.inc:16
+#: lib/interface/constants.php:301 form_data/FG_var_callerid.inc:16
 #: form_data/FG_var_callerid.inc:58 form_data/FG_var_did.inc:33
 #: form_data/FG_var_did.inc:80
 msgid "ACTIVATED"
 msgstr "ACTIV&Eacute;"
 
-#: lib/interface/constants.php:294
+#: lib/interface/constants.php:303
 #, fuzzy
 msgid "WAITING"
 msgstr "ACTION"
 
-#: lib/interface/constants.php:295
+#: lib/interface/constants.php:304
 #, fuzzy
 msgid "RESERV"
 msgstr "ENREGISTRE"
 
-#: lib/interface/constants.php:297
+#: lib/interface/constants.php:306
 msgid "SUS-PAY"
 msgstr ""
 
-#: lib/interface/constants.php:298
+#: lib/interface/constants.php:307
 msgid "SUS-LIT"
 msgstr ""
 
-#: lib/interface/constants.php:319
+#: lib/interface/constants.php:328
 msgid "NO EXPIRY"
 msgstr ""
 
-#: lib/interface/constants.php:328 form_data/FG_var_phonenumber.inc:30
+#: lib/interface/constants.php:337 form_data/FG_var_phonenumber.inc:30
 #: form_data/FG_var_phonenumber.inc:77
 #, fuzzy
 msgid "AMOUNT"
 msgstr "PAYS"
 
-#: lib/interface/constants.php:329
+#: lib/interface/constants.php:338
 #, fuzzy
 msgid "CORRECTION"
 msgstr "CREATION"
 
-#: lib/interface/constants.php:330
+#: lib/interface/constants.php:339
 #, fuzzy
 msgid "EXTRA FEE"
 msgstr "FACTURATION SUPPLEMENTAIRE"
 
-#: lib/interface/constants.php:343
+#: lib/interface/constants.php:352
 #, fuzzy
 msgid "NO DISCOUNT"
 msgstr "AUCUN COMPTE IAX"
 
-#: lib/Class.A2Billing.php:359
+#: lib/Class.A2Billing.php:361
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:2463
+#: lib/Class.A2Billing.php:2482
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:2501 lib/Class.A2Billing.php:2506
+#: lib/Class.A2Billing.php:2521
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:2512
+#: lib/Class.A2Billing.php:2527
 #, fuzzy
 msgid "Error : Card is not active!!!"
 msgstr "Erreur carte"
 
-#: lib/Class.A2Billing.php:2518
+#: lib/Class.A2Billing.php:2533
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:2527 lib/Class.A2Billing.php:2535
-#: lib/Class.A2Billing.php:2543
+#: lib/Class.A2Billing.php:2542 lib/Class.A2Billing.php:2550
+#: lib/Class.A2Billing.php:2558
 #, fuzzy
 msgid "Error : Card have expired!!!"
 msgstr "Erreur carte"
@@ -1611,48 +1623,48 @@ msgstr "Supprimer ce"
 msgid "Create a new "
 msgstr "Cr&eacute;er un nouveau "
 
-#: lib/Form/Class.ViewHandler.inc.php:68
+#: lib/Form/Class.ViewHandler.inc.php:69
 msgid "Archiving All "
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:81
+#: lib/Form/Class.ViewHandler.inc.php:82
 msgid "Sort"
 msgstr "Trier"
 
-#: lib/Form/Class.ViewHandler.inc.php:101
+#: lib/Form/Class.ViewHandler.inc.php:102
 #, fuzzy
 msgid "Records"
 msgstr "Secondes"
 
-#: lib/Form/Class.ViewHandler.inc.php:123
+#: lib/Form/Class.ViewHandler.inc.php:124
 msgid "FILTER ON "
 msgstr "FILTRER PAR"
 
-#: lib/Form/Class.ViewHandler.inc.php:140
+#: lib/Form/Class.ViewHandler.inc.php:141
 msgid "FILTER ON"
 msgstr "FILTRER PAR"
 
-#: lib/Form/Class.ViewHandler.inc.php:153
+#: lib/Form/Class.ViewHandler.inc.php:154
 msgid "APPLY FILTER "
 msgstr "UTILISER LE FILTRE"
 
-#: lib/Form/Class.ViewHandler.inc.php:184 A2B_entity_phonenumber.php:97
+#: lib/Form/Class.ViewHandler.inc.php:185 A2B_entity_phonenumber.php:97
 msgid "ACTION"
 msgstr "ACTION"
 
-#: lib/Form/Class.ViewHandler.inc.php:625
+#: lib/Form/Class.ViewHandler.inc.php:626
 msgid "DISPLAY"
 msgstr "AFFICHER"
 
-#: lib/Form/Class.ViewHandler.inc.php:644
+#: lib/Form/Class.ViewHandler.inc.php:645
 msgid "GO"
 msgstr "GO"
 
-#: lib/Form/Class.ViewHandler.inc.php:648
+#: lib/Form/Class.ViewHandler.inc.php:649
 msgid "Export CSV"
 msgstr "Exporter CSV"
 
-#: lib/Form/Class.ViewHandler.inc.php:652
+#: lib/Form/Class.ViewHandler.inc.php:653
 msgid "Export XML"
 msgstr "Exporter XML"
 
@@ -1776,354 +1788,354 @@ msgstr "DISCONNECT CHARGE"
 msgid " BATCH UPDATE RATECARD "
 msgstr "LA RATECARD EN COURS"
 
-#: lib/Form/Class.FormHandler.inc.php:505
+#: lib/Form/Class.FormHandler.inc.php:511
 #, fuzzy
 msgid "No data found!"
 msgstr "Aucune donn&eacute;es trouv&eacute;es !!!"
 
-#: lib/Form/Class.FormHandler.inc.php:506
+#: lib/Form/Class.FormHandler.inc.php:512
 msgid "DIRECTORY"
 msgstr "ANNUAIRE"
 
-#: lib/Form/Class.FormHandler.inc.php:507
+#: lib/Form/Class.FormHandler.inc.php:513
 msgid "list"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:508
-#: lib/Form/Class.FormHandler.inc.php:567
+#: lib/Form/Class.FormHandler.inc.php:514
+#: lib/Form/Class.FormHandler.inc.php:582
 #, fuzzy
 msgid "Define criteria to make a precise search"
 msgstr "D&eacute;finissez les crit&egrave;res de votre recherche"
 
-#: lib/Form/Class.FormHandler.inc.php:509
+#: lib/Form/Class.FormHandler.inc.php:515
 msgid "You can browse through our"
 msgstr "Parcourez notre"
 
-#: lib/Form/Class.FormHandler.inc.php:509
+#: lib/Form/Class.FormHandler.inc.php:515
 #, fuzzy
 msgid "and modify their different properties"
 msgstr "et modifiez leurs sp&eacute;cificit&eacute;s"
 
-#: lib/Form/Class.FormHandler.inc.php:510
+#: lib/Form/Class.FormHandler.inc.php:516
 msgid "Delete this record"
 msgstr "Supprimer cette donn&eacute;e"
 
-#: lib/Form/Class.FormHandler.inc.php:511
+#: lib/Form/Class.FormHandler.inc.php:517
 msgid "Edit this record"
 msgstr "R&eacute;diger cette donn&eacute;e"
 
-#: lib/Form/Class.FormHandler.inc.php:512
+#: lib/Form/Class.FormHandler.inc.php:518
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
 msgstr "Ce document a &eacute;t&eacute; cr&eacute;&eacute; correctement. Vous pouvez d&eacute;finir les tarifs à y associer."
 
-#: lib/Form/Class.FormHandler.inc.php:513 form_data/FG_var_campaign.inc:263
+#: lib/Form/Class.FormHandler.inc.php:519 form_data/FG_var_campaign.inc:263
 #: form_data/FG_var_phonenumber.inc:110 form_data/FG_var_callerid.inc:82
 #: form_data/FG_var_speeddial.inc:84 form_data/FG_var_phonebook.inc:75
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Vous pouvez modifer à l'aide du tableau suivant, les sp&eacute;cificit&eacute;s de votre"
 
-#: lib/Form/Class.FormHandler.inc.php:514 form_data/FG_var_campaign.inc:264
+#: lib/Form/Class.FormHandler.inc.php:520 form_data/FG_var_campaign.inc:264
 #: form_data/FG_var_phonenumber.inc:111 form_data/FG_var_callerid.inc:83
 #: form_data/FG_var_speeddial.inc:85 form_data/FG_var_did.inc:114
 #: form_data/FG_var_ticket.inc:48 form_data/FG_var_phonebook.inc:76
 msgid "If you really want remove this"
 msgstr "Si vous souhaitez vraiment supprimer ce"
 
-#: lib/Form/Class.FormHandler.inc.php:514
+#: lib/Form/Class.FormHandler.inc.php:520
 msgid "Click on the delete button."
 msgstr "Cliquez sur le bouton Supprimer"
 
-#: lib/Form/Class.FormHandler.inc.php:515
+#: lib/Form/Class.FormHandler.inc.php:521
 msgid "One"
 msgstr "Un"
 
-#: lib/Form/Class.FormHandler.inc.php:515
+#: lib/Form/Class.FormHandler.inc.php:521
 #, fuzzy
 msgid "has been deleted!"
 msgstr "a &eacute;t&eacute; ins&eacute;r&eacute;. <br>"
 
-#: lib/Form/Class.FormHandler.inc.php:517 form_data/FG_var_campaign.inc:265
+#: lib/Form/Class.FormHandler.inc.php:523 form_data/FG_var_campaign.inc:265
 #: form_data/FG_var_phonenumber.inc:112 form_data/FG_var_callerid.inc:84
 #: form_data/FG_var_speeddial.inc:86 form_data/FG_var_did.inc:115
 #: form_data/FG_var_ticket.inc:49 form_data/FG_var_phonebook.inc:77
 msgid "you can add easily a new"
 msgstr "vous pouvez facilement ajouter un nouveau"
 
-#: lib/Form/Class.FormHandler.inc.php:517 form_data/FG_var_campaign.inc:265
+#: lib/Form/Class.FormHandler.inc.php:523 form_data/FG_var_campaign.inc:265
 #: form_data/FG_var_phonenumber.inc:112 form_data/FG_var_callerid.inc:84
 #: form_data/FG_var_speeddial.inc:86 form_data/FG_var_did.inc:115
 #: form_data/FG_var_ticket.inc:49 form_data/FG_var_phonebook.inc:77
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Remplissez les champs suivants et confirmez en cliquant le bouton Ajouter "
 
-#: lib/Form/Class.FormHandler.inc.php:518
+#: lib/Form/Class.FormHandler.inc.php:524
 msgid "Add a"
 msgstr "Ajouter un"
 
-#: lib/Form/Class.FormHandler.inc.php:518
+#: lib/Form/Class.FormHandler.inc.php:524
 msgid "now."
 msgstr "maintenant."
 
-#: lib/Form/Class.FormHandler.inc.php:519
-#: lib/Form/Class.FormHandler.inc.php:520 form_data/FG_var_campaign.inc:269
+#: lib/Form/Class.FormHandler.inc.php:525
+#: lib/Form/Class.FormHandler.inc.php:526 form_data/FG_var_campaign.inc:269
 #: form_data/FG_var_callerid.inc:90 form_data/FG_var_speeddial.inc:91
 #: form_data/FG_var_did.inc:119 form_data/FG_var_ticket.inc:53
 #: form_data/FG_var_phonebook.inc:81
 msgid "Your new"
 msgstr "Votre nouveau"
 
-#: lib/Form/Class.FormHandler.inc.php:519
+#: lib/Form/Class.FormHandler.inc.php:525
 #, fuzzy
 msgid "has been inserted.<br>"
 msgstr "a &eacute;t&eacute; ins&eacute;r&eacute;. <br>"
 
-#: lib/Form/Class.FormHandler.inc.php:520
+#: lib/Form/Class.FormHandler.inc.php:526
 #, fuzzy
 msgid "hasn't been inserted."
 msgstr "a &eacute;t&eacute; ins&eacute;r&eacute;. <br>"
 
-#: lib/Form/Class.FormHandler.inc.php:521
+#: lib/Form/Class.FormHandler.inc.php:527
 msgid "You cannot choose more than one !"
 msgstr "Vous ne pouvez qu'en choisir un seul."
 
-#: lib/Form/Class.FormHandler.inc.php:523
+#: lib/Form/Class.FormHandler.inc.php:529
 msgid "Are you sure to delete all records connected to this instance."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:525
-#: lib/Form/Class.FormHandler.inc.php:527
+#: lib/Form/Class.FormHandler.inc.php:531
+#: lib/Form/Class.FormHandler.inc.php:533
 msgid "CONFIRM DATA"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:526
+#: lib/Form/Class.FormHandler.inc.php:532
 msgid "DELETE"
 msgstr "SUPPRIMER"
 
-#: lib/Form/Class.FormHandler.inc.php:556
-#: lib/Form/Class.FormHandler.inc.php:774
+#: lib/Form/Class.FormHandler.inc.php:571
+#: lib/Form/Class.FormHandler.inc.php:794
 msgid "Delete this "
 msgstr "Supprimer ce"
 
-#: lib/Form/Class.FormHandler.inc.php:557
-#: lib/Form/Class.FormHandler.inc.php:768
+#: lib/Form/Class.FormHandler.inc.php:572
+#: lib/Form/Class.FormHandler.inc.php:788
 msgid "Edit this "
 msgstr "Editer ce"
 
-#: lib/Form/Class.FormHandler.inc.php:584
+#: lib/Form/Class.FormHandler.inc.php:603
 msgid "INSERTED"
 msgstr "INSERE"
 
-#: lib/Form/Class.FormHandler.inc.php:585
+#: lib/Form/Class.FormHandler.inc.php:604
 msgid "ENABLE"
 msgstr "ACTIVER"
 
-#: lib/Form/Class.FormHandler.inc.php:586
+#: lib/Form/Class.FormHandler.inc.php:605
 msgid "DISABLE"
 msgstr "DESACTIVER"
 
-#: lib/Form/Class.FormHandler.inc.php:587
+#: lib/Form/Class.FormHandler.inc.php:606
 msgid "FREE"
 msgstr "GRATUIT"
 
-#: lib/Form/Class.FormHandler.inc.php:743
-#: lib/Form/Class.FormHandler.inc.php:745
+#: lib/Form/Class.FormHandler.inc.php:763
+#: lib/Form/Class.FormHandler.inc.php:765
 msgid "You can browse through our "
 msgstr "Vous pouvez parcourir notre"
 
-#: lib/Form/Class.FormHandler.inc.php:743
-#: lib/Form/Class.FormHandler.inc.php:745
+#: lib/Form/Class.FormHandler.inc.php:763
+#: lib/Form/Class.FormHandler.inc.php:765
 msgid " and modify their different properties<br>"
 msgstr "et modifier leurs sp&eacute;cificit&eacute;s<br>"
 
-#: lib/Form/Class.FormHandler.inc.php:916
+#: lib/Form/Class.FormHandler.inc.php:936
 msgid "(at least 3 characters)"
 msgstr "(au minimum 3 caract&egrave;res)"
 
-#: lib/Form/Class.FormHandler.inc.php:920
+#: lib/Form/Class.FormHandler.inc.php:940
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr "(doit suivre la structure e-mail. P.ex: name@domain.com)"
 
-#: lib/Form/Class.FormHandler.inc.php:924
+#: lib/Form/Class.FormHandler.inc.php:944
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr "(au minimum 5 caract&egrave;res successifs apparaissent à la fin de cette chaine)"
 
-#: lib/Form/Class.FormHandler.inc.php:928
+#: lib/Form/Class.FormHandler.inc.php:948
 msgid "(at least 4 characters)"
 msgstr "(au minimum 4 caract&egrave;res)"
 
-#: lib/Form/Class.FormHandler.inc.php:932
+#: lib/Form/Class.FormHandler.inc.php:952
 msgid "(number format)"
 msgstr "(format de num&eacute;ros)"
 
-#: lib/Form/Class.FormHandler.inc.php:940
+#: lib/Form/Class.FormHandler.inc.php:960
 msgid "(only number with more that 8 digits)"
 msgstr "(uniquement des num&eacute;ros avec plus de 8 chiffres)"
 
-#: lib/Form/Class.FormHandler.inc.php:944
+#: lib/Form/Class.FormHandler.inc.php:964
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr "(au minimum 8 chiffres en utilisant . ou - ou la touche espace)"
 
-#: lib/Form/Class.FormHandler.inc.php:948
+#: lib/Form/Class.FormHandler.inc.php:968
 msgid "network adress format"
 msgstr "format d'adresse IP'"
 
-#: lib/Form/Class.FormHandler.inc.php:952
+#: lib/Form/Class.FormHandler.inc.php:972
 msgid "at least 1 character"
 msgstr "au minimum 1 caract&egrave;re"
 
-#: lib/Form/Class.FormHandler.inc.php:960
+#: lib/Form/Class.FormHandler.inc.php:980
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(AU MINIMUM 2 CARACTERES)"
 
-#: lib/Form/Class.FormHandler.inc.php:964
+#: lib/Form/Class.FormHandler.inc.php:984
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr "(FORMAT DES NUMEROS AVEC/SANS DECIMALES. Utilisez '.' pour les d&eacute;cimales)"
 
-#: lib/Form/Class.FormHandler.inc.php:980
+#: lib/Form/Class.FormHandler.inc.php:1000
 msgid "You must write something."
 msgstr "Vous devez y ins&eacute;rer quelque chose"
 
-#: lib/Form/Class.FormHandler.inc.php:984
+#: lib/Form/Class.FormHandler.inc.php:1004
 msgid "8 characters alphanumeric"
 msgstr "8 caract&egrave;res alphanum&eacute;riques"
 
-#: lib/Form/Class.FormHandler.inc.php:991
+#: lib/Form/Class.FormHandler.inc.php:1011
 #, fuzzy
 msgid "(at least 6 Alphanumeric characters)"
 msgstr "(au minimum 3 caract&egrave;res)"
 
-#: lib/Form/Class.FormHandler.inc.php:999
+#: lib/Form/Class.FormHandler.inc.php:1019
 #, fuzzy, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 msgstr "(FORMAT DES NUMEROS AVEC/SANS DECIMALES. Utilisez '.' pour les d&eacute;cimales)"
 
-#: lib/Form/Class.FormHandler.inc.php:1510
+#: lib/Form/Class.FormHandler.inc.php:1535
 msgid "This did is in use by customer id:"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1628
+#: lib/Form/Class.FormHandler.inc.php:1653
 msgid "CREATION CARD REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1654
+#: lib/Form/Class.FormHandler.inc.php:1679
 msgid "DELETION CARD REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1670
+#: lib/Form/Class.FormHandler.inc.php:1695
 msgid "CREATION AGENT REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1738
+#: lib/Form/Class.FormHandler.inc.php:1763
 #, fuzzy
 msgid "SUMMARY OF CALLS"
 msgstr "Mai"
 
-#: lib/Form/Class.FormHandler.inc.php:1739
+#: lib/Form/Class.FormHandler.inc.php:1764
 msgid "Summary of the calls charged since the last billing"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1757
+#: lib/Form/Class.FormHandler.inc.php:1782
 msgid "SUMMARY OF CHARGE"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1759
+#: lib/Form/Class.FormHandler.inc.php:1784
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1765
 #: lib/Form/Class.FormHandler.inc.php:1790
+#: lib/Form/Class.FormHandler.inc.php:1815
 #, fuzzy
 msgid "CHARGE :"
 msgstr "CHARGE A"
 
-#: lib/Form/Class.FormHandler.inc.php:1782
+#: lib/Form/Class.FormHandler.inc.php:1807
 #, fuzzy
 msgid "BILLING CHARGES"
 msgstr "NB CHARGE"
 
-#: lib/Form/Class.FormHandler.inc.php:1783
+#: lib/Form/Class.FormHandler.inc.php:1808
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1808
+#: lib/Form/Class.FormHandler.inc.php:1833
 msgid "BILLING POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1809
+#: lib/Form/Class.FormHandler.inc.php:1834
 msgid "Invoice for POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1845
-#: lib/Form/Class.FormHandler.inc.php:1847
-#: lib/Form/Class.FormHandler.inc.php:1943
-#: lib/Form/Class.FormHandler.inc.php:1945
+#: lib/Form/Class.FormHandler.inc.php:1870
+#: lib/Form/Class.FormHandler.inc.php:1872
+#: lib/Form/Class.FormHandler.inc.php:1968
+#: lib/Form/Class.FormHandler.inc.php:1970
 #, fuzzy
 msgid "REFILL"
 msgstr "PREFIXE"
 
-#: lib/Form/Class.FormHandler.inc.php:1849
-#: lib/Form/Class.FormHandler.inc.php:1947 checkout_process.php:321
+#: lib/Form/Class.FormHandler.inc.php:1874
+#: lib/Form/Class.FormHandler.inc.php:1972 checkout_process.php:321
 msgid "Invoice for refill"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1986 checkout_process.php:356
+#: lib/Form/Class.FormHandler.inc.php:2011 checkout_process.php:356
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2099
-#: lib/Form/Class.FormHandler.inc.php:2142
+#: lib/Form/Class.FormHandler.inc.php:2124
+#: lib/Form/Class.FormHandler.inc.php:2168
 msgid "Could not open buddy file"
 msgstr "Le fichier n'a pas pu être ouvert"
 
-#: lib/Form/Class.FormHandler.inc.php:2116
-#: lib/Form/Class.FormHandler.inc.php:2147
-#: lib/Form/Class.FormHandler.inc.php:2159
+#: lib/Form/Class.FormHandler.inc.php:2141
+#: lib/Form/Class.FormHandler.inc.php:2173
+#: lib/Form/Class.FormHandler.inc.php:2185
 msgid "Impossible to write to the file"
 msgstr "Impossible d'envoyer à ce fichier"
 
-#: lib/Form/Class.FormHandler.inc.php:2334
+#: lib/Form/Class.FormHandler.inc.php:2360
 #: CC_entity_edit_did_destination.php:200
 msgid "error deletion"
 msgstr "erreur de suppression"
 
-#: lib/Form/Class.FormHandler.inc.php:2469
+#: lib/Form/Class.FormHandler.inc.php:2496
 msgid "ERROR_DUPLICATION"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2554
+#: lib/Form/Class.FormHandler.inc.php:2581
 msgid "Done"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2594
+#: lib/Form/Class.FormHandler.inc.php:2621
 #, fuzzy
 msgid "Call Plan"
 msgstr "Historique"
 
-#: lib/Form/Class.FormHandler.inc.php:2600
+#: lib/Form/Class.FormHandler.inc.php:2627
 #, fuzzy
 msgid "Choose a call plan"
 msgstr "Choisissez une ratecard"
 
-#: lib/Form/Class.FormHandler.inc.php:2612
+#: lib/Form/Class.FormHandler.inc.php:2639
 msgid "This option will enable LCR/LCD - This query is processor intensive and may affect the quality of calls in progress."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2621
-#: lib/Form/Class.FormHandler.inc.php:2678
+#: lib/Form/Class.FormHandler.inc.php:2648
+#: lib/Form/Class.FormHandler.inc.php:2705
 msgid "Rate Card"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2627
-#: lib/Form/Class.FormHandler.inc.php:2684
-#: lib/Form/Class.FormHandler.inc.php:2744
+#: lib/Form/Class.FormHandler.inc.php:2654
+#: lib/Form/Class.FormHandler.inc.php:2711
+#: lib/Form/Class.FormHandler.inc.php:2771
 msgid "Choose a ratecard"
 msgstr "Choisissez une ratecard"
 
-#: lib/Form/Class.FormHandler.inc.php:2727
+#: lib/Form/Class.FormHandler.inc.php:2754
 msgid "THE CURRENT RATECARD"
 msgstr "LA RATECARD EN COURS"
 
-#: lib/Form/Class.FormHandler.inc.php:2738
+#: lib/Form/Class.FormHandler.inc.php:2765
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
@@ -3509,6 +3521,10 @@ msgstr "COUT TOTAL"
 #: checkout_confirmation.php:147
 msgid "Please click button to confirm your order"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Free minutes"
+#~ msgstr "minutes"
 
 #~ msgid "Sorry, this page is in construction !"
 #~ msgstr "Page en construction"
