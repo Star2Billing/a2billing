@@ -123,14 +123,8 @@ elseif (strpos($date_clause, 'AND') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause, 5);
 }
 
-if ($FG_DEBUG == 3)
-	echo $FG_TABLE_CLAUSE;
-
-//$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, null, null);
-
 $list_total = $instance_table_graph->Get_list($DBHandle, $FG_TABLE_CLAUSE, 't1.starttime', 'ASC', null, null, null, null);
 
-//print_r($list_total);
 /**************************************/
 
 $nbcall = count($list_total);

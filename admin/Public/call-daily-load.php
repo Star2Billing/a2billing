@@ -57,9 +57,7 @@ $FG_HTML_TABLE_TITLE= gettext(" - Call Logs - ");
 $FG_HTML_TABLE_WIDTH="90%";
 
 
-if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 $instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
-$instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
 if (is_null ($order) || is_null($sens)) {
@@ -141,6 +139,8 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 
 if ($_POST['posted']==1) {
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+	
+	$instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 	$list_total = $instance_table_graph -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
 }
 

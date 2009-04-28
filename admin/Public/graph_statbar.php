@@ -35,15 +35,11 @@ $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", 
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 
-$FG_COL_QUERY = 't1.starttime, t1.sessiontime';
 $FG_COL_QUERY_GRAPH = 't1.starttime, t1.sessiontime';
 
 $FG_LIMITE_DISPLAY = 100;
 $FG_NB_TABLE_COL = count($FG_TABLE_COL);
 
-if ($FG_DEBUG == 3)
-	echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
 $instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if (is_null($order) || is_null($sens)) {
@@ -52,8 +48,6 @@ if (is_null($order) || is_null($sens)) {
 }
 
 $SQLcmd = '';
-
-//$SQLcmd = do_field($SQLcmd, 'src', 'source');
 $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 
 if ($_GET['before']) {
@@ -146,11 +140,6 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 elseif (strpos($date_clause, 'AND') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause, 5);
 }
-
-if ($FG_DEBUG == 3)
-	echo $FG_TABLE_CLAUSE;
-
-//$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, null, null);
 
 $list_total = $instance_table_graph->Get_list($DBHandle, $FG_TABLE_CLAUSE, 't1.starttime', 'ASC', null, null, null, null);
 

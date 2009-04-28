@@ -68,7 +68,6 @@ $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "12%", "center", "SORT",  
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "12%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 $FG_COL_QUERY = 't1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
-$FG_COL_QUERY_GRAPH = 't1.callstart, t1.duration';
 
 $FG_LIMITE_DISPLAY = 25;
 $FG_NB_TABLE_COL = count($FG_TABLE_COL);
@@ -78,9 +77,8 @@ if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE = " - ".gettext("Call Logs")." - ";
 $FG_HTML_TABLE_WIDTH = "98%";
 
-if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+
 $instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
-$instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
 if ( is_null ($order) || is_null($sens) ){

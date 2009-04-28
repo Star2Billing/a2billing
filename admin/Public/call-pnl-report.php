@@ -503,10 +503,9 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 
 
-#$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
-#$DBHandle  = DbConnect();
- $res = $HD_Form -> DBHandle -> Execute("select $FG_COL_QUERY_SUM from pnl_report");
- if ($res){
+$res = $HD_Form -> DBHandle -> Execute("select $FG_COL_QUERY_SUM from pnl_report");
+if ($res){
+
 	?><br><br><table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
 	<tr class="form_head"><td class='tableBody'></td>
 	<td class='tableBody'><?php gettext('Total Calls');?></td>

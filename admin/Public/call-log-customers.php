@@ -121,7 +121,6 @@ $FG_HTML_TABLE_WIDTH = '98%';
 
 
 $instance_table = Table::getInstance ( $FG_TABLE_NAME, $FG_COL_QUERY );
-$instance_table_graph = Table::getInstance ( $FG_TABLE_NAME, $FG_COL_QUERY_GRAPH );
 
 if (is_null ( $order ) || is_null ( $sens )) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
