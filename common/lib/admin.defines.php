@@ -55,7 +55,7 @@ if (!($restircted_url == "Public/index.php")) {
 define("LIST_OF_VALUES", false);
 
 // Define a demo mode
-define("DEMO_MODE", false);
+define("DEMO_MODE", true);
 
 // Parameter to show link to Asterisk GUI
 define("ASTERISK_GUI_LINK", false);

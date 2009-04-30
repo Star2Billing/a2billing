@@ -6,7 +6,7 @@ include ("./form_data/FG_var_agent.inc");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_ADMINISTRATOR)){ 
+if (! has_rights (ACX_ADMINISTRATOR)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -25,13 +25,14 @@ if ($id!="" || !is_null($id)){
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
-
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
+if ($form_action!="list") { 
+	check_demo_mode();
+}
 
 $list = $HD_Form -> perform_action($form_action);
-
 
 
 // #### HEADER SECTION
