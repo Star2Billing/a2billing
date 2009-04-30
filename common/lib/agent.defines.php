@@ -53,7 +53,7 @@ if (!isset($disable_load_conf) || !($disable_load_conf)) {
 }
 
 // Define a demo mode
-define("DEMO_MODE", true);
+define("DEMO_MODE", false);
 
 // DEFINE FOR THE DATABASE CONNECTION
 define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
