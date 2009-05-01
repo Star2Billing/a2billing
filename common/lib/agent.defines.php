@@ -27,6 +27,8 @@ include (dirname(__FILE__)."/Class.Notification.php");
 session_name("UIAGENTSESSION");
 session_start();
 
+$G_instance_Query_trace = Query_trace::getInstance();
+
 define('CC_OWNER_MIN_LENGTH', '2');
 define('CC_NUMBER_MIN_LENGTH', '15');
 

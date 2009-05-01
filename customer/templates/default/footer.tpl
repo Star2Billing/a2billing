@@ -15,10 +15,10 @@
 	
 	{php} 
 		global $profiler;
-		global $G_instance_Table;
+		global $G_instance_Query_trace;
 		
 		if ($profiler->installed && $profiler->modedebug)
-			$profiler->display($G_instance_Table); 
+			$profiler->display($G_instance_Query_trace); 
 	{/php}
 
 </body>

@@ -29,6 +29,7 @@ include (FSROOT."lib/Class.Logger.php");
 session_name("UICSESSION");
 session_start();
 
+$G_instance_Query_trace = Query_trace::getInstance();
 
 $A2B = new A2Billing();
 

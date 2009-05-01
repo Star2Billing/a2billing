@@ -27,7 +27,7 @@ include (dirname(__FILE__)."/Class.Notification.php");
 session_name("UIADMINSESSION");
 session_start();
 
-$G_instance_Table = Table::getInstance();
+$G_instance_Query_trace = Query_trace::getInstance();
 
 // A2B INSTANCE
 $A2B = new A2Billing();

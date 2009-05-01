@@ -49,6 +49,31 @@ include (dirname(__FILE__)."/Class.MytoPg.php");
 
 $ADODB_CACHE_DIR = '/tmp';
 
+class Query_trace {
+
+	public $queryCount = 0;
+	public $queries = array();
+	
+	private static $m_pInstance;
+
+	/* CONSTRUCTOR */
+	function Query_trace ()
+	{
+		
+	}
+
+	// Query_trace::getInstance();
+	public static function getInstance ()
+	{
+	    if (!self::$m_pInstance) {
+	        self::$m_pInstance = new  Query_trace();
+	    }
+	
+	    return self::$m_pInstance;
+	}
+}
+
+
 class Table {
 
 	var $fields 				= '*';
@@ -70,6 +95,8 @@ class Table {
     var $FK_DELETE 				= true;
     var $FK_ID_VALUE 			= 0;
 	
+	var $query_handler			= null;
+	
 	public $queryCount = 0;
 	public $queries = array();
 	
@@ -90,8 +117,11 @@ class Table {
 			$this -> FK_DELETE = $fk_del_upd;
 			$this -> FK_ID_VALUE = $id_Value;
 		}
+		
+		$this->query_handler = Query_trace::getInstance();
+		
 	}
-
+	
 	// Table::getInstance();
 	public static function getInstance ($table = null, $fields = null,  $FK_TABLES = null, $FK_EDITION_CLAUSE = null, $FK_ID_VALUE = null, $FK_DELETE = true)
 	{
@@ -147,7 +177,7 @@ class Table {
 		} else {
 			$start = $this->getTime();
 			$res = $DBHandle -> Execute($QUERY);
-			$this->queryCount += 1;
+			$this->query_handler->queryCount += 1;
 			$this->logQuery($QUERY, $start);
 		}
 		
@@ -397,7 +427,7 @@ class Table {
 				'sql' => $sql,
 				'time' => ($this->getTime() - $start)*1000
 			);
-		array_push($this->queries, $query);
+		array_push($this->query_handler->queries, $query);
 	}
 	
 	function getTime() {
