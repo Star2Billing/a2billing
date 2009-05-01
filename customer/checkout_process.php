@@ -33,7 +33,7 @@ include ("./lib/epayment/includes/loadconfiguration.php");
 
 
 $DBHandle_max  = DbConnect();
-$paymentTable = Table::getInstance();
+$paymentTable = new Table();
 
 if (DB_TYPE == "postgres") {
 	$NOW_2MIN = " creationdate <= (now() - interval '2 minute') ";
@@ -282,7 +282,7 @@ $result = $DBHandle_max -> Execute($Query);
 $id = 0;
 if ($customer_info[0] > 0 && $orderStatus == 2) {
     /* CHECK IF THE CARDNUMBER IS ON THE DATABASE */
-    $instance_table_card = Table::getInstance("cc_card", "username, id");
+    $instance_table_card = new Table("cc_card", "username, id");
     $FG_TABLE_CLAUSE_card = " username='".$customer_info[0]."'";
     $list_tariff_card = $instance_table_card -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);
     if ($customer_info[0] == $list_tariff_card[0][0]) {
@@ -294,7 +294,7 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
 
 if ($id > 0 ) {
     $addcredit = $transaction_data[0][2]; 
-	$instance_table = Table::getInstance("cc_card", "username, id");
+	$instance_table = new Table("cc_card", "username, id");
 	$param_update .= " credit = credit+'".$amount_without_vat."'";
 	$FG_EDITION_CLAUSE = " id='$id'";
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
@@ -302,13 +302,13 @@ if ($id > 0 ) {
 
 	$field_insert = "date, credit, card_id, description";
 	$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."'";
-	$instance_sub_table = Table::getInstance("cc_logrefill", $field_insert);
+	$instance_sub_table = new Table("cc_logrefill", $field_insert);
 	$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 	
 	$field_insert = "date, payment, card_id, id_logrefill, description";
 	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."'";
-	$instance_sub_table = Table::getInstance("cc_logpayment", $field_insert);
+	$instance_sub_table = new Table("cc_logpayment", $field_insert);
 	$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 	
@@ -320,19 +320,19 @@ if ($id > 0 ) {
 	$title = gettext("CUSTOMER REFILL");
 	$description = gettext("Invoice for refill");
 	$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,1 ";
-	$instance_table = Table::getInstance("cc_invoice", $field_insert);
+	$instance_table = new Table("cc_invoice", $field_insert);
 	$id_invoice = $instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 	//load vat of this card
 	if(!empty($id_invoice)&& is_numeric($id_invoice)){
 		$amount = $amount_without_vat;
 		$description = gettext("Refill ONLINE")." : ".$transaction_data[0][4];
 		$field_insert = "date, id_invoice ,price,vat, description";
-		$instance_table = Table::getInstance("cc_invoice_item", $field_insert);
+		$instance_table = new Table("cc_invoice_item", $field_insert);
 		$value_insert = " '$date' , '$id_invoice', '$amount','$VAT','$description' ";
 		$instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 	}
     //link payment to this invoice
-	$table_payment_invoice = Table::getInstance("cc_invoice_payment", "*");
+	$table_payment_invoice = new Table("cc_invoice_payment", "*");
 	$fields = " id_invoice , id_payment";
 	$values = " $id_invoice, $id_payment	";
 	$table_payment_invoice->Add_table($DBHandle, $values, $fields);
@@ -340,13 +340,13 @@ if ($id > 0 ) {
 	//END INVOICE
 	//Agent commision
 	// test if this card have a agent
-	$table_transaction = Table::getInstance();
+	$table_transaction = new Table();
 	$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
 	
 	if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
 		//test if the agent exist and get its commission
 		$id_agent =  $result_agent[0]['id_agent'];
-		$agent_table = Table::getInstance("cc_agent", "commission");
+		$agent_table = new Table("cc_agent", "commission");
 		$agent_clause = "id = ".$id_agent;
 		$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
 		
@@ -359,7 +359,7 @@ if ($id > 0 ) {
 			$description_commission.= "\nPAYMENT AMOUNT: ".$amount_paid;
 			$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
 			$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent'";
-			$commission_table = Table::getInstance("cc_agent_commission", $field_insert);
+			$commission_table = new Table("cc_agent_commission", $field_insert);
 			$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 		}
 	}

@@ -52,7 +52,7 @@ if (empty ($A2B->config['notifications']['cron_notifications'])) {
 }
 
 //$A2B -> DBHandle
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='reminder' ";
 $listtemplate = $instance_table->SQLExec($A2B->DBHandle, $QUERY);

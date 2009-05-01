@@ -22,7 +22,7 @@ if (strlen($voucher)>0) {
 		sleep(2);
 		$FG_VOUCHER_TABLE  = "cc_voucher";
 		$FG_VOUCHER_FIELDS = "voucher, credit, activated, tag, currency, expirationdate";
-		$instance_sub_table = Table::getInstance($FG_VOUCHER_TABLE, $FG_VOUCHER_FIELDS);
+		$instance_sub_table = new Table($FG_VOUCHER_TABLE, $FG_VOUCHER_FIELDS);
 
 		$FG_TABLE_CLAUSE_VOUCHER = "expirationdate >= CURRENT_TIMESTAMP AND activated='t' AND voucher='$voucher'";
 

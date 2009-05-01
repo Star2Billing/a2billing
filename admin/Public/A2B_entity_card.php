@@ -168,18 +168,18 @@ if ($form_action == "list") {
 /********************************* BATCH UPDATE ***********************************/
 if ( $form_action == "list" && (!($popup_select>=1)) ) {
 		
-	$instance_table_tariff = Table::getInstance("cc_tariffgroup", "id, tariffgroupname");
+	$instance_table_tariff = new Table("cc_tariffgroup", "id, tariffgroupname");
 	$FG_TABLE_CLAUSE = "";
 	$list_tariff = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 	$nb_tariff = count($list_tariff);
 
-	$instance_table_group=  Table::getInstance("cc_card_group"," id, name ");
+	$instance_table_group=  new Table("cc_card_group"," id, name ");
 	$list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 	
-	$instance_table_agent=  Table::getInstance("cc_agent"," id, login ");
+	$instance_table_agent=  new Table("cc_agent"," id, login ");
 	$list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "login", "ASC", null, null, null, null);
 
-	$instance_table_seria=  Table::getInstance("cc_card_seria"," id, name");
+	$instance_table_seria=  new Table("cc_card_seria"," id, name");
 	$list_seria  = $instance_table_seria -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
 	$list_refill_type=Constants::getRefillType_List();
@@ -504,7 +504,7 @@ if (!$popup_select && $form_action == "ask-add"){
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 if ($form_action=='ask-edit') {
-	$inst_table = Table::getInstance("cc_card", "useralias, uipass");
+	$inst_table = new Table("cc_card", "useralias, uipass");
 	$FG_TABLE_CLAUSE = "id = $id";
 	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
 	$username = $list_card_info[0][0];

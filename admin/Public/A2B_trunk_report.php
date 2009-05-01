@@ -13,7 +13,7 @@ if (! has_rights (ACX_CALL_REPORT)) {
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'lst_time','trunks'));
 
 $DBHandle  = DbConnect();
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 //     Initialization of variables	///////////////////////////////
 

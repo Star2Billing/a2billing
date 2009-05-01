@@ -99,7 +99,7 @@
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="SELECT"){
 			if ($this->FG_DEBUG == 1) { echo "<br> TYPE DE SELECT :".$this->FG_TABLE_ADITION[$i][7];}
 			if (strtoupper ($this->FG_TABLE_ADITION[$i][7])=="SQL"){
-				$instance_sub_table = Table::getInstance($this->FG_TABLE_ADITION[$i][8], $this->FG_TABLE_ADITION[$i][9]);
+				$instance_sub_table = new Table($this->FG_TABLE_ADITION[$i][8], $this->FG_TABLE_ADITION[$i][9]);
 				$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_ADITION[$i][10], null, null, null, null, null, null);
 				if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
 			}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][7])=="LIST"){

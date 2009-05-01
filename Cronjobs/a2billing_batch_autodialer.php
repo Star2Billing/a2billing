@@ -84,7 +84,7 @@ $tab_day = array (
 $num_day = date('N');
 $name_day = $tab_day[$num_day];
 
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 $QUERY_COUNT_PHONENUMBERS = 'SELECT count(*) FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign WHERE ';
 $QUERY_COUNT_PHONENUMBERS .= 'cc_phonenumber.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_campaign = cc_campaign.id ';
@@ -271,7 +271,7 @@ for ($page = 0; $page < $nbpage; $page++) {
 					} else {
 						$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";
 					}
-					$instance_cid_table = Table::getInstance();
+					$instance_cid_table = new Table();
 					echo "QUERY CID : " . $QUERY;
 					$cidresult = $instance_cid_table->SQLExec($A2B->DBHandle, $QUERY);
 					if (is_array($cidresult) && count($cidresult) > 0) {

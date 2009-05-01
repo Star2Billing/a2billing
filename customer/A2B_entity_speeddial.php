@@ -24,7 +24,7 @@ if (strlen($destination)>0  && is_numeric($choose_speeddial)){
 		
 		$FG_SPEEDDIAL_TABLE  = "cc_speeddial";		
 		$FG_SPEEDDIAL_FIELDS = "speeddial";
-		$instance_sub_table = Table::getInstance($FG_SPEEDDIAL_TABLE, $FG_SPEEDDIAL_FIELDS);		
+		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, $FG_SPEEDDIAL_FIELDS);		
 		
 		$QUERY = "INSERT INTO cc_speeddial (id_cc_card, phone, name, speeddial) VALUES ('".$_SESSION["card_id"]."', '".$destination."', '".$name."', '".$choose_speeddial."')";
 

@@ -70,7 +70,7 @@ $FG_HTML_TABLE_WIDTH="90%";
 
 
 if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 
 if ( is_null ($order) || is_null($sens) ){

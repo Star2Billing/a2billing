@@ -15,7 +15,7 @@ getpost_ifset(array('id','page','action'));
 if(!empty($action) && is_numeric($id)){
 	switch ($action) {
 		case "view": 	$DBHandle = DbConnect();
-						$table = Table::getInstance("cc_notification_admin", "*");
+						$table = new Table("cc_notification_admin", "*");
 						$fields = "id_notification,id_admin,viewed";
 						$values = " $id , ".$_SESSION['admin_id'].",1 ";
 						$return = $table->Add_table($DBHandle, $values, $fields);
@@ -39,7 +39,7 @@ if(!empty($action) && is_numeric($id)){
 	}
 	
 	$DBHandle = DbConnect();
-	$table = Table::getInstance("cc_notification_admin", "*");
+	$table = new Table("cc_notification_admin", "*");
 	$fields = "id_notification,id_admin,viewed";
 	$values = " $id , ".$_SESSION['admin_id'].",1 ";
 	$return = $table->Add_table($DBHandle, $values, $fields);

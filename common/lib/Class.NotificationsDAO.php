@@ -3,7 +3,7 @@ Class NotificationsDAO {
 	
 	static function AddNotification($key,$priority,$from_type,$from_id=0) {
 			$DBHandle = DbConnect();
-			$table = Table::getInstance("cc_notification", "*");
+			$table = new Table("cc_notification", "*");
 			$fields = " key_value , priority, from_type, from_id";
 			$values = " '$key' , $priority,$from_type	,$from_id ";
 			$return = $table->Add_table($DBHandle, $values, $fields);
@@ -13,10 +13,10 @@ Class NotificationsDAO {
 	static function DelNotification($id) {
 		if (is_numeric($id)) {
 			$DBHandle = DbConnect();
-			$table = Table::getInstance("cc_notification", "*");
+			$table = new Table("cc_notification", "*");
 			$CLAUSE = " id = " . $id ;
 			$table->Delete_table($DBHandle, $CLAUSE);
-			$table = Table::getInstance("cc_notification_admin", "*");
+			$table = new Table("cc_notification_admin", "*");
 			$CLAUSE = " id_notification = " . $id ;
 			$table->Delete_table($DBHandle, $CLAUSE);
 			return true;
@@ -28,14 +28,14 @@ Class NotificationsDAO {
   	 
   	static function getNbNotifications(){
   		$DBHandle = DbConnect();
-		$table = Table::getInstance("cc_notification", "count(*)");
+		$table = new Table("cc_notification", "count(*)");
 		$return = $table->Get_list($DBHandle, "", "", "");
   		return $return[0][0];
   	}
   	
 	static function getAllNotifications(){
 		$DBHandle = DbConnect();
-		$table = Table::getInstance("cc_notification LEFT JOIN cc_notification_admin ON id = id_notification", "*");
+		$table = new Table("cc_notification LEFT JOIN cc_notification_admin ON id = id_notification", "*");
 		$clause = "id_admin = $id";
 		$return = $table->Get_list($DBHandle, $clause, "date", "DESC");
 		$list = array();
@@ -52,7 +52,7 @@ Class NotificationsDAO {
   	
 	static function IfNewNotification($id){
   		$DBHandle = DbConnect();
-		$table = Table::getInstance("cc_notification LEFT JOIN cc_notification_admin ON id = id_notification AND id_admin =$id", "count(*)");
+		$table = new Table("cc_notification LEFT JOIN cc_notification_admin ON id = id_notification AND id_admin =$id", "count(*)");
 		$clause = "viewed != 1 OR viewed IS NULL";
 		$return = $table->Get_list($DBHandle,$clause, "", "");
 		if($return[0][0]==0)return false;
@@ -61,7 +61,7 @@ Class NotificationsDAO {
   	
 	static function getNotifications($id,$current,$nb){
   		$DBHandle = DbConnect();
-		$table = Table::getInstance("cc_notification LEFT JOIN cc_notification_admin ON id = id_notification AND id_admin =$id", "*");
+		$table = new Table("cc_notification LEFT JOIN cc_notification_admin ON id = id_notification AND id_admin =$id", "*");
 		$return = $table->Get_list($DBHandle, "", "date", "DESC",null,null,$nb,$current);
 		$i=0;
 		foreach ($return as $record) {

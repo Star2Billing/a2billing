@@ -15,7 +15,7 @@ getpost_ifset(array('id'));
 $DBHandle  = DbConnect();
 if (isset($id)) {
 	if(!empty($id)&& $id>0) {
-		$table_agent_security = Table::getInstance("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
+		$table_agent_security = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
 		$clause_agent_security = "cc_card.id= ".$id;
 		$result_security= $table_agent_security -> Get_list ($DBHandle, $clause_agent_security, null, null, null, null, null, null);
 		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
@@ -32,7 +32,7 @@ if (empty($id)) {
 }
 
 
-$card_table = Table::getInstance('cc_card','*');
+$card_table = new Table('cc_card','*');
 $card_clause = "id = ".$id;
 $card_result = $card_table -> Get_list($DBHandle, $card_clause, 0);
 $card = $card_result[0];
@@ -46,7 +46,7 @@ $smarty->display('main.tpl');
 
 echo $CC_help_info_customer;
 
-$inst_table = Table::getInstance("cc_card", "useralias, uipass");
+$inst_table = new Table("cc_card", "useralias, uipass");
 $FG_TABLE_CLAUSE = "id = $id";
 $list_card_info = $inst_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);			
 $username = $list_card_info[0][0];
@@ -409,7 +409,7 @@ $link = CUSTOMER_UI_URL;
 
 <?php
 
-$payment_table = Table::getInstance('cc_logpayment','*');
+$payment_table = new Table('cc_logpayment','*');
 $payment_clause = "card_id = ".$id;
 $payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 'date', 'DESC', NULL, NULL, 10, 0);
 if(sizeof($payment_result)>0 && $payment_result[0]!=null) {
@@ -482,7 +482,7 @@ if(sizeof($payment_result)>0 && $payment_result[0]!=null) {
 
 <?php
 
-$refill_table = Table::getInstance('cc_logrefill','*');
+$refill_table = new Table('cc_logrefill','*');
 $refill_clause = "card_id = ".$id;
 $refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 'date', 'DESC', NULL, NULL, 10, 0);
 
@@ -548,7 +548,7 @@ if(sizeof($refill_result)>0 && $refill_result[0]!=null) {
 <?php 
 }
 
-$call_table = Table::getInstance('cc_call,cc_prefix','*');
+$call_table = new Table('cc_call,cc_prefix','*');
 $call_clause = "card_id = ".$id." AND id_cc_prefix = cc_prefix.id";
 $call_result = $call_table -> Get_list($DBHandle, $call_clause, 'starttime', 'DESC', NULL, NULL, 10, 0);
 if(sizeof($call_result)>0 && $call_result[0]!=null) {

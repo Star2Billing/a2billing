@@ -44,7 +44,7 @@ if (!$A2B->DbConnect()) {
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
 
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 $from_month = $A2B->config["backup"]['archive_data_x_month'];
 

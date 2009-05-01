@@ -40,7 +40,7 @@ if (!empty($action)) {
 		case 'edit':
 	 		if(!empty($idc) && is_numeric($idc)){
 				$DBHandle = DbConnect();
-				$instance_sub_table = Table::getInstance("cc_invoice_item", "*");
+				$instance_sub_table = new Table("cc_invoice_item", "*");
 				$result=$instance_sub_table -> Get_list($DBHandle, "id = $idc" );
 				if(!is_array($result) || (sizeof($result)==0)){
 					 Header ("Location: A2B_invoice_edit.php?"."id=".$id);
@@ -55,7 +55,7 @@ if (!empty($action)) {
 		case 'delete':
 			if(!empty($idc) && is_numeric($idc)){
 				$DBHandle  = DbConnect();
-				$instance_sub_table = Table::getInstance("cc_invoice_item", "*");
+				$instance_sub_table = new Table("cc_invoice_item", "*");
 				$instance_sub_table -> Delete_Selected($DBHandle, "id = $idc" );
 			}
 			Header ("Location: A2B_invoice_edit.php?"."id=".$id);
@@ -74,7 +74,7 @@ if (!empty($action)) {
 				}
 				if(!empty($error_msg)) break;
 				$DBHandle = DbConnect();
-				$instance_sub_table = Table::getInstance("cc_invoice_item", "*");
+				$instance_sub_table = new Table("cc_invoice_item", "*");
 				$instance_sub_table -> Update_table($DBHandle,"date='$date',description='$description',price='$price',vat='$vat'", "id = $idc" );
 				Header ("Location: A2B_invoice_edit.php?"."id=".$id);
 				

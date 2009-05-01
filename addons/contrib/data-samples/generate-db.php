@@ -89,7 +89,7 @@ if (!$A2B -> DbConnect()){
 	exit;
 }
 
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 
 
@@ -106,7 +106,7 @@ for($i=0; $i< $nb_provider;$i++) {
 	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
 }
 
-$instance_provider = Table::getInstance("cc_provider","id");
+$instance_provider = new Table("cc_provider","id");
 $result_provider_id = $instance_provider-> Get_list($A2B -> DBHandle, null, null, null, null, null, 1000, 1);
 $nb_db_provider = sizeof($result_provider_id);
 
@@ -126,7 +126,7 @@ for($i=0;$i<$nb_trunk;$i++) {
 	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
 }
 
-$instance_trunk = Table::getInstance("cc_trunk","id_trunk");
+$instance_trunk = new Table("cc_trunk","id_trunk");
 $result_trunk_id = $instance_trunk-> Get_list($A2B -> DBHandle, null, null, null, null, null, 1000, 1);
 $nb_db_trunk = sizeof($result_trunk_id);
 
@@ -154,7 +154,7 @@ for($i=0; $i< $nb_callplan;$i++) {
 	$id_callplan_list [$i] = $id_tmp; 
 }
 
-$instance_callplan = Table::getInstance("cc_tariffgroup","id");
+$instance_callplan = new Table("cc_tariffgroup","id");
 $id_callplan_list = $instance_callplan-> Get_list($A2B -> DBHandle, null, null, null, null, null, 1000, 1);
 $nb_db_callplan = sizeof($id_callplan_list);
 
@@ -179,7 +179,7 @@ for($i=0; $i< $nb_ratecard;$i++) {
 	$id_ratecards_list [$i] = $id_tmp; 
 }
 
-$instance_ratecard = Table::getInstance("cc_tariffplan","id");
+$instance_ratecard = new Table("cc_tariffplan","id");
 $result_ratecard_id = $instance_ratecard-> Get_list($A2B -> DBHandle, null, null, null, null, null, 1000, 1);
 $nb_db_ratecard = sizeof($result_ratecard_id);
 
@@ -190,7 +190,7 @@ if($verbose > 0) echo "CREATE RATECARD : $nb_db_ratecard <br><br>\n\n";
 // LIST PREFIX
 // -----------------------------------
 
-$instance_prefix = Table::getInstance("cc_prefix","id,prefixe,destination");
+$instance_prefix = new Table("cc_prefix","id,prefixe,destination");
 $result_prefix = $instance_prefix-> Get_list($A2B -> DBHandle, null, null, null, null, null, 1000, 1);
 $nb_db_prefix = sizeof($result_prefix);
 
@@ -244,7 +244,7 @@ if($verbose > 0) echo "TOTAL DB RATES : ".$nb_db_rates[0][0]." <br><br>\n\n";
 // -----------------------------------
 // CREATE CARDS
 // -----------------------------------
-$instance_callplan = Table::getInstance("cc_tariffgroup","id");
+$instance_callplan = new Table("cc_tariffgroup","id");
 $result_callplan_id = $instance_callplan-> Get_list($A2B -> DBHandle, null, null, null, null, null, 1000, 1);
 $nb_db_callplan = sizeof($result_callplan_id);
 
@@ -268,7 +268,7 @@ $nb_db_card = $instance_table -> SQLExec ($A2B -> DBHandle, $query, 1);
 if($verbose > 0) echo "TOTAL DB CARDS : ".$nb_db_card[0][0]." <br><br>\n\n";
 
 // Get a list of card
-$instance_card = Table::getInstance("cc_card","id");
+$instance_card = new Table("cc_card","id");
 $result_card_id = $instance_card -> Get_list($A2B -> DBHandle, null, null, null, null, null, 1000, 1);
 $nb_db_card = sizeof($result_card_id);
 

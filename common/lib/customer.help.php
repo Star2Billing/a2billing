@@ -56,7 +56,7 @@ $CC_help_release_did =create_help(gettext("After confirmation, the release of th
 if (!isset($disable_load_conf) || !($disable_load_conf)) {
 	
 	$DBHandle = DbConnect();
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$QUERY = "SELECT configuration_key FROM cc_configuration where configuration_key in ('MODULE_PAYMENT_AUTHORIZENET_STATUS','MODULE_PAYMENT_PAYPAL_STATUS','MODULE_PAYMENT_MONEYBOOKERS_STATUS','MODULE_PAYMENT_WORLDPAY_STATUS','MODULE_PAYMENT_PLUGNPAY_STATUS') AND configuration_value='True'";
 	$payment_methods  = $instance_table->SQLExec ($DBHandle, $QUERY);
 	$show_logo = '';

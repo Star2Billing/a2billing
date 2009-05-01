@@ -58,7 +58,7 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 // CHECK COUNT OF CARD ON WHICH APPLY THE SERVICE
 $QUERY = 'SELECT count(*) FROM cc_card';
@@ -131,10 +131,10 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$vat = $Customer['vat'];
 
 			// FIND THE LAST BILLING
-			$billing_table = Table::getInstance('cc_billing_customer', 'id,date');
+			$billing_table = new Table('cc_billing_customer', 'id,date');
 			$clause_last_billing = "id_card = " . $card_id;
 			$result = $billing_table->Get_list($A2B->DBHandle, $clause_last_billing, "date", "desc");
-			$call_table = Table::getInstance('cc_call', ' COALESCE(SUM(sessionbill),0)');
+			$call_table = new Table('cc_call', ' COALESCE(SUM(sessionbill),0)');
 			$clause_call_billing = "card_id = " . $card_id . " AND ";
 			$clause_charge = "id_cc_card = " . $card_id . " AND ";
 			$desc_billing = "";
@@ -157,7 +157,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$field_insert .= ", start_date";
 				$value_insert .= ", '$start_date'";
 			}
-			$instance_table = Table::getInstance("cc_billing_customer", $field_insert);
+			$instance_table = new Table("cc_billing_customer", $field_insert);
 			$id_billing = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 
 			$clause_call_billing .= "stoptime < '" . $date_now . "' ";
@@ -172,40 +172,40 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$title = gettext("SUMMARY OF CALLS");
 				$description = gettext("Summary of the calls charged since the last billing");
 				$value_insert = "  '$card_id', '$title','$description',1";
-				$instance_table = Table::getInstance("cc_receipt", $field_insert);
+				$instance_table = new Table("cc_receipt", $field_insert);
 				$id_receipt = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				if (!empty ($id_receipt) && is_numeric($id_receipt)) {
 					$description = $desc_billing;
 					$field_insert = " id_receipt,price,description,id_ext,type_ext";
-					$instance_table = Table::getInstance("cc_receipt_item", $field_insert);
+					$instance_table = new Table("cc_receipt_item", $field_insert);
 					$value_insert = " '$id_receipt', '$amount_calls','$description','" . $id_billing . "','CALLS'";
 					$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				}
 
 			}
 			// GENERATE RECEIPT FOR CHARGE ALREADY CHARGED 
-			$table_charge = Table::getInstance("cc_charge", "*");
+			$table_charge = new Table("cc_charge", "*");
 			$result = $table_charge->Get_list($A2B->DBHandle, $clause_charge . " AND charged_status = 1");
 			if (is_array($result)) {
 				$field_insert = " id_card, title, description,status";
 				$title = gettext("SUMMARY OF CHARGE");
 				$description = gettext("Summary of the charge charged since the last billing.");
 				$value_insert = " '$card_id', '$title','$description',1";
-				$instance_table = Table::getInstance("cc_receipt", $field_insert);
+				$instance_table = new Table("cc_receipt", $field_insert);
 				$id_receipt = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				if (!empty ($id_receipt) && is_numeric($id_receipt)) {
 					foreach ($result as $charge) {
 						$description = gettext("CHARGE :") . $charge['description'];
 						$amount = $charge['amount'];
 						$field_insert = "date, id_receipt,price,description,id_ext,type_ext";
-						$instance_table = Table::getInstance("cc_receipt_item", $field_insert);
+						$instance_table = new Table("cc_receipt_item", $field_insert);
 						$value_insert = " '" . $charge['creationdate'] . "' , '$id_receipt', '$amount','$description','" . $charge['id'] . "','CHARGE'";
 						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 					}
 				}
 			}
 			// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
-			$table_charge = Table::getInstance("cc_charge", "*");
+			$table_charge = new Table("cc_charge", "*");
 			$result = $table_charge->Get_list($A2B->DBHandle, $clause_charge . " AND charged_status = 0 AND invoiced_status = 0");
 			if (is_array($result) && sizeof($result) > 0) {
 				$reference = generate_invoice_reference();
@@ -213,14 +213,14 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$title = gettext("BILLING CHARGES");
 				$description = gettext("This invoice is for some charges unpaid since the last billing.") . " " . $desc_billing_postpaid;
 				$value_insert = " '$card_id', '$title','$reference','$description',1,0";
-				$instance_table = Table::getInstance("cc_invoice", $field_insert);
+				$instance_table = new Table("cc_invoice", $field_insert);
 				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 					foreach ($result as $charge) {
 						$description = gettext("CHARGE :") . $charge['description'];
 						$amount = $charge['amount'];
 						$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
-						$instance_table = Table::getInstance("cc_invoice_item", $field_insert);
+						$instance_table = new Table("cc_invoice_item", $field_insert);
 						$value_insert = " '" . $charge['creationdate'] . "' , '$id_invoice', '$amount','$vat','$description','" . $charge['id'] . "','CHARGE'";
 						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 					}
@@ -236,13 +236,13 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$title = gettext("BILLING POSTPAID");
 				$description = gettext("Invoice for POSTPAID");
 				$value_insert = " '$card_id', '$title','$reference','$description',1,0";
-				$instance_table = Table::getInstance("cc_invoice", $field_insert);
+				$instance_table = new Table("cc_invoice", $field_insert);
 				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 					$description = $desc_billing_postpaid;
 					$amount = abs($Customer['credit']);
 					$field_insert = " id_invoice,price,vat,description,id_ext,type_ext";
-					$instance_table = Table::getInstance("cc_invoice_item", $field_insert);
+					$instance_table = new Table("cc_invoice_item", $field_insert);
 					$value_insert = " '$id_invoice', '$amount','$vat','$description','" . $id_billing . "','POSTPAID'";
 					$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				}

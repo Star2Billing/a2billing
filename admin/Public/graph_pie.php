@@ -66,7 +66,7 @@ $FG_LIMITE_DISPLAY = 100;
 $FG_NB_TABLE_COL = count($FG_TABLE_COL);
 
 $FG_COL_QUERY = ' sum(sessiontime), sum(sessionbill-buycost), sum(sessionbill), sum(buycost) ';
-$instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 if (is_null($order) || is_null($sens)) {
 	$order = $FG_TABLE_DEFAULT_ORDER;

@@ -78,7 +78,7 @@ $FG_HTML_TABLE_TITLE = " - ".gettext("Call Logs")." - ";
 $FG_HTML_TABLE_WIDTH = "98%";
 
 
-$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 
 if ( is_null ($order) || is_null($sens) ){
@@ -395,7 +395,7 @@ echo $CC_help_balance_customer;
 				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ ?>
 						<?php 				
 							if ($FG_TABLE_COL[$i][6]=="lie"){
-									$instance_sub_table = Table::getInstance($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
+									$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
 									$sub_clause = str_replace("%id", $recordset[$i], $FG_TABLE_COL[$i][9]);																																	
 									$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
 									

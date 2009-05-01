@@ -78,7 +78,7 @@ $group_description = $config_group[2];
 					<th class="tableBody" style="padding: 2px;" align="center" width="5%"><?php echo gettext("Group")?></th>
 				</tr>
 <?php
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 $QUERY = "SELECT config_title, config_key, config_value, config_description FROM cc_config WHERE config_group_title = 'agi-conf".$config_group[3]."' ORDER BY id LIMIT 10"; 					
 $config  = $instance_table->SQLExec ($HD_Form -> DBHandle, $QUERY);	
 

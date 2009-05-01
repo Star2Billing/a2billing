@@ -15,7 +15,7 @@ $HD_Form = new FormHandler("cc_card");
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
-$instance_cus_table = Table::getInstance("cc_card","id, email, credit, currency, lastname, firstname, loginkey, username, useralias, uipass");
+$instance_cus_table = new Table("cc_card","id, email, credit, currency, lastname, firstname, loginkey, username, useralias, uipass");
 $cardstatus_list_r = array();
 $cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
 $cardstatus_list_r["1"]  = array("1", gettext("ACTIVE"));
@@ -74,7 +74,7 @@ if(!empty($HD_Form -> FG_TABLE_CLAUSE)) {
 
 $nb_customer = sizeof($list_customer);
 $DBHandle  = DbConnect();
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 
 

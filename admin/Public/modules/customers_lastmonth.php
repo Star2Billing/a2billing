@@ -1,6 +1,6 @@
 <?php
 $DBHandle = DbConnect();
-$table = Table::getInstance('cc_card', '*');
+$table = new Table('cc_card', '*');
 
 $temp = date("Y-m-01");
 $datetime = new DateTime($temp);

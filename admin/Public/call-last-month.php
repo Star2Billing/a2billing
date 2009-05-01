@@ -69,7 +69,7 @@ $FG_HTML_TABLE_TITLE= gettext(" - Call Logs - ");
 $FG_HTML_TABLE_WIDTH="90%";
 
 
-$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 
 if ( is_null ($order) || is_null($sens) ){

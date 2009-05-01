@@ -200,13 +200,13 @@ if ($form_action == "list"){
 /********************************* BATCH UPDATE ***********************************/
 if ($form_action == "list" && !$popup_select){
 	
-	$instance_table_tariffname = Table::getInstance("cc_tariffplan", "id, tariffname");
+	$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
 	$FG_TABLE_CLAUSE = "";
 	$list_tariffname = $instance_table_tariffname  -> Get_list ($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 	$nb_tariffname = count($list_tariffname);
 	
 
-	$instance_table_trunk = Table::getInstance("cc_trunk", "id_trunk, trunkcode, providerip");
+	$instance_table_trunk = new Table("cc_trunk", "id_trunk, trunkcode, providerip");
 	$FG_TABLE_CLAUSE = "";
 	$list_trunk = $instance_table_trunk -> Get_list ($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "trunkcode", "ASC", null, null, null, null);
 	$nb_trunk = count($list_trunk);

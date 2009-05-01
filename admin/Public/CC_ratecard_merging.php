@@ -25,7 +25,7 @@ if($posted == 1) {
 	
 	check_demo_mode();
 	
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$bool = false;
 	$ratecard_src_val = $ratecard_source;
 	if (!is_numeric($ratecard_src_val)){ 
@@ -120,7 +120,7 @@ $_SESSION['search_ratecard'] = $HD_Form -> FG_TABLE_CLAUSE;
 
 /*************************************************************/
 
-$instance_table_tariffname = Table::getInstance("cc_tariffplan", "id, tariffname");
+$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
 
 $con = "";
 

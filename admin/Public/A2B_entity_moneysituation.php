@@ -49,7 +49,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 
-$table = Table::getInstance();
+$table = new Table();
 $result_nb_card= $table->SQLExec($HD_Form -> DBHandle, "SELECT COUNT(*) from cc_card" );
 if($result_nb_card[0][0]>0){
 	$temp = date("Y-m-01");

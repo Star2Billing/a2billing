@@ -97,11 +97,6 @@ class Table {
 	
 	var $query_handler			= null;
 	
-	public $queryCount = 0;
-	public $queries = array();
-	
-	private static $m_pInstance;
-	
 
 	/* CONSTRUCTOR */
 	function Table ($table = null, $liste_fields = null,  $fk_Tables = null, $fk_Fields = null, $id_Value = null, $fk_del_upd = true)
@@ -122,24 +117,6 @@ class Table {
 		
 	}
 	
-	// Table::getInstance();
-	public static function getInstance ($table = null, $fields = null,  $FK_TABLES = null, $FK_EDITION_CLAUSE = null, $FK_ID_VALUE = null, $FK_DELETE = true)
-	{
-	    if (!self::$m_pInstance) {
-	        self::$m_pInstance = new  Table();
-	    }
-	    
-		self::$m_pInstance -> table = $table;
-		self::$m_pInstance -> fields = $fields;
-		self::$m_pInstance -> FK_TABLES = $FK_TABLES;
-		self::$m_pInstance -> FK_EDITION_CLAUSE = $FK_EDITION_CLAUSE;
-		self::$m_pInstance -> FK_ID_VALUE = $FK_ID_VALUE;
-		self::$m_pInstance -> FK_DELETE = $FK_DELETE;
-	
-	    return self::$m_pInstance;
-	}
-	
-
 	/* MODIFY PROPRIETY*/
 	function Define_fields ($liste_fields )
 	{
@@ -441,32 +418,3 @@ class Table {
 };
 
 
-
-Class Single_Table {
-   private static $instance_table;
-   
-   private function __construct() {
-   		
- 		$instance_table = Table::getInstance ();
- 		
- 		return self::$instance_table;
-   }
-   
-   // Single_Table::GetTable();
-   static function GetTable($table = null, $fields = null,  $FK_TABLES = null, $FK_EDITION_CLAUSE = null, $FK_ID_VALUE = null, $FK_DELETE = true) {
-       if (empty(self::$instance_table)) {
-       		$Single_Table = new Single_Table();
-       }
-       echo "---------";
-       
-       self::$instance_table -> table = $table;
-       self::$instance_table -> fields = $fields;
-       self::$instance_table -> FK_TABLES = $FK_TABLES;
-       self::$instance_table -> FK_EDITION_CLAUSE = $FK_EDITION_CLAUSE;
-       self::$instance_table -> FK_ID_VALUE = $FK_ID_VALUE;
-       self::$instance_table -> FK_DELETE = $FK_DELETE;
-       
-       return self::$instance_table;
-   }
-     	
-}

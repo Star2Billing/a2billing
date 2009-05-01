@@ -36,7 +36,7 @@ if ($nbcard>0) {
 		$FG_ADITION_SECOND_ADD_TABLE  = "cc_voucher";		
 		//$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, userpass, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays";
 		$FG_ADITION_SECOND_ADD_FIELDS = "voucher, credit, activated, tag, currency, expirationdate";
-		$instance_sub_table = Table::getInstance($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
+		$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 				
 		$gen_id = time();
 		$_SESSION["IDfilter"]=$tag_list;

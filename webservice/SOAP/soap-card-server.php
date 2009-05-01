@@ -104,7 +104,7 @@ class Cards
 		// Activate the card
 		$FG_TABLE  = "cc_card";
 		$DBHandle  = DbConnect();
-		$instance_sub_table = Table::getInstance($FG_TABLE);
+		$instance_sub_table = new Table($FG_TABLE);
 		
 		$status_activate = 1;
 		$param_update = "status = $status_activate";
@@ -140,7 +140,7 @@ class Cards
 			}
 			$field_insert = "status, id_cc_card";
 			$value_insert = "'$status_activate', '$card_id'";
-			$instance_status_table = Table::getInstance("cc_status_log",$field_insert);
+			$instance_status_table = new Table("cc_status_log",$field_insert);
 			$result_query = $instance_status_table -> Add_table ($DBHandle, $value_insert, null, null);	
 		}
 		return array($transaction_code, 'result=200', " - card Activated : card_id=$card_id ; cardnumber=$cardnumber");
@@ -153,7 +153,7 @@ class Cards
 	{
 		// BATCH ACTIVATE
 		$DBHandle  = DbConnect();
-		$instance_table_card = Table::getInstance("cc_card", "id");
+		$instance_table_card = new Table("cc_card", "id");
 		
 		$QUERY = "SELECT count(*) FROM cc_card WHERE id between $begin_card_id and $end_card_id";
 		$result = $instance_table_card -> SQLExec ($DBHandle, $QUERY);
@@ -182,7 +182,7 @@ class Cards
 					if ( is_array($rec_card) && $id > 0 ){
 						$field_insert = "status, id_cc_card";
 						$value_insert = "'$status_activate', '$id'";
-						$instance_status_table = Table::getInstance("cc_status_log",$field_insert);
+						$instance_status_table = new Table("cc_status_log",$field_insert);
 						$result_query = $instance_status_table -> Add_table ($DBHandle, $value_insert, null, null);
 					}	
 				}
@@ -199,7 +199,7 @@ class Cards
 		// Activate the card
 		$FG_TABLE  = "cc_card";
 		$DBHandle  = DbConnect();
-		$instance_sub_table = Table::getInstance($FG_TABLE);
+		$instance_sub_table = new Table($FG_TABLE);
 		
 		$status_reserved = 4;
 		$param_update = "status = $status_reserved";
@@ -236,7 +236,7 @@ class Cards
 			}
 			$field_insert = "status, id_cc_card";
 			$value_insert = "'$status_reserved', '$card_id'";
-			$instance_status_table = Table::getInstance("cc_status_log",$field_insert);
+			$instance_status_table = new Table("cc_status_log",$field_insert);
 			$result_query = $instance_status_table -> Add_table ($DBHandle, $value_insert, null, null);	
 		}
 		return array($transaction_code, 'result=200', " - Card Reserved : card_id=$card_id ; cardnumber=$cardnumber");
@@ -268,7 +268,7 @@ class Cards
 		// Create new account			
 		$FG_TABLE  = "cc_card";
 		$DBHandle  = DbConnect();
-		$instance_sub_table = Table::getInstance($FG_TABLE);
+		$instance_sub_table = new Table($FG_TABLE);
 		$FG_EDITION_CLAUSE = " username = '$cardnumber' ";
 		$res_delete = $instance_sub_table -> Delete_table ($DBHandle, $FG_EDITION_CLAUSE);
 		if (!$res_delete){
@@ -323,7 +323,7 @@ class Cards
 			else $expirationdate="'$expirationdate'";
 			$DBHandle  = DbConnect();
 			
-			$instance_sub_table = Table::getInstance($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
+			$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 			$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '".$credit."', '".$tariff."', '0', '$activated', '$status', '$lastname', '$firstname', '$email', '$address', '$city', "
 			."'$state', '$country', '$zipcode', '$phone', '$fax', '$cardnum', ".$simultaccess.", '".$currency."', '".$typepaid."','".$creditlimit."', '".$language."', '".$runservice."', '"
 			.$enableexpire."', $expirationdate, '$expiredays', '$uipass', '$iax_friend', '$sip_friend'";
@@ -403,10 +403,10 @@ class Cards
 						
 						// Insert Sip/Iax account info
 						if (($ki==0 && $sip_friend) || ($ki==1 && $iax_friend)){
-							$instance_table1 = Table::getInstance($FG_TABLE_NAME, $FG_QUERY_ADITION_SIP_IAX);
+							$instance_table1 = new Table($FG_TABLE_NAME, $FG_QUERY_ADITION_SIP_IAX);
 							$result_query1=$instance_table1 -> Add_table ($DBHandle, $param_add_value, $param_add_fields, null, null);
 							
-							$instance_table_friend = Table::getInstance($FG_TABLE_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
+							$instance_table_friend = new Table($FG_TABLE_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
 							$list_friend = $instance_table_friend -> Get_list ($DBHandle, '', null, null, null, null);
 						
 							$fd=fopen($buddyfile,"w");

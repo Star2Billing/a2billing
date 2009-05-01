@@ -22,7 +22,7 @@ $HD_Form -> init();
 if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_numeric($component)){
 
 		$FG_SPEEDDIAL_TABLE  = "cc_ticket";
-		$instance_sub_table = Table::getInstance($FG_SPEEDDIAL_TABLE, "*");
+		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
 
 		$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, viewed_cust) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0')";
 		
@@ -85,7 +85,7 @@ if ($form_action == "list") {
          <select NAME="component" class="form_input_select">
 	         <?php
 			         $DBHandle  = DbConnect();
-			   	 $instance_sub_table = Table::getInstance("cc_support_component", "*");
+			   	 $instance_sub_table = new Table("cc_support_component", "*");
 				 $QUERY = " activated = 1";
 				 $return = null;
 			     $return = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);

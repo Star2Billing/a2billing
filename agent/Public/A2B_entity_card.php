@@ -39,7 +39,7 @@ $HD_Form -> setDBHandler (DbConnect());
 
 if ($form_action != "list" && isset($id)) {
 	if(!empty($id)&& $id>0){
-		$table_agent_security = Table::getInstance("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
+		$table_agent_security = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
 		$clause_agent_security = "cc_card.id= ".$id;
 		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
 		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
@@ -109,7 +109,7 @@ if ($batchupdate == 1 && is_array($check)) {
 
 if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 || $cardnumber>0)) {
 	
-	$instance_table = Table::getInstance("cc_card", "username, id");
+	$instance_table = new Table("cc_card", "username, id");
 	
 	if ($cardnumber>0){
 		/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
@@ -120,14 +120,14 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 	}
 	if ($id>0){
 		
-		$instance_check_card_agent = Table::getInstance("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
+		$instance_check_card_agent = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
 		$FG_TABLE_CLAUSE_check = "cc_card.id= ".$id;
 		$list_check= $instance_check_card_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_check, null, null, null, null, null, null);
 		if ( $list_check[0][0] ==$_SESSION['agent_id'] ) { 
 			
 				
 			//chech if enought credit
-			$instance_table_agent = Table::getInstance("cc_agent", "credit, currency");
+			$instance_table_agent = new Table("cc_agent", "credit, currency");
 			$FG_TABLE_CLAUSE_AGENT = "id = ".$_SESSION['agent_id'] ;
 			$agent_info = $instance_table_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_AGENT, null, null, null, null, null, null);			
 			$credit_agent = $agent_info[0][0];
@@ -145,14 +145,14 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 			$FG_EDITION_CLAUSE = " id='$id'" ; // AND id_agent=".$_SESSION['agent_id'];
 			
 			if ($HD_Form->FG_DEBUG == 1)  echo "<br>-----<br>$param_update<br>$FG_EDITION_CLAUSE";
-			$instance_table = Table::getInstance("cc_card", "username, id");			
+			$instance_table = new Table("cc_card", "username, id");			
 			$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 			
 			$update_msg ='<b><font color="green">'.gettext("Refill executed ").'</font></b>';	
 			
 			$field_insert = "date, credit, card_id, description, refill_type";
 			$value_insert = "now(), '$addcredit', '$id','$description','$refill_type'";
-			$instance_sub_table = Table::getInstance("cc_logrefill", $field_insert);
+			$instance_sub_table = new Table("cc_logrefill", $field_insert);
 			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
 			
 			if (!$result_query ){		
@@ -309,7 +309,7 @@ if ($form_action == "list"){
 /********************************* BATCH UPDATE ***********************************/
 if ($form_action == "list" && (!($popup_select>=1))	){
 		
-	$instance_table_tariff = Table::getInstance("cc_tariffgroup", "id, tariffgroupname");
+	$instance_table_tariff = new Table("cc_tariffgroup", "id, tariffgroupname");
 	$FG_TABLE_CLAUSE = "";
 	$list_tariff = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 	$nb_tariff = count($list_tariff);
@@ -595,7 +595,7 @@ if (!$popup_select && $form_action == "ask-add"){
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 if ($form_action=='ask-edit')
 {
-	$inst_table = Table::getInstance("cc_card", "useralias, uipass");
+	$inst_table = new Table("cc_card", "useralias, uipass");
 	$FG_TABLE_CLAUSE = "id = $id";
 	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
 	$username = $list_card_info[0][0];

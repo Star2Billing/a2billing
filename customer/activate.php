@@ -31,7 +31,7 @@ $key = $_GET["key"];
 
 
 $result = null;
-$instance_sub_table = Table::getInstance('cc_card',"username, lastname, firstname, email, uipass, credit, useralias, loginkey, status");
+$instance_sub_table = new Table('cc_card',"username, lastname, firstname, email, uipass, credit, useralias, loginkey, status");
 $QUERY = "( loginkey = '".$key."' )";
 $list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
 

@@ -916,7 +916,7 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
 	
 	if (isset($form_action) && $form_action=='delete' && USE_REALTIME) {
-		$card_table = Table::getInstance('cc_card','sip_buddy,iax_buddy');
+		$card_table = new Table('cc_card','sip_buddy,iax_buddy');
 		$card_clause = "id = ".$id;
 		$card_result = $card_table -> Get_list(DbConnect(), $card_clause, 0);
 		$sip_buddy= $card_result[0]['sip_buddy'];

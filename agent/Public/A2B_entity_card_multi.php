@@ -75,12 +75,12 @@ if ($nbcard>0) {
 	$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
 	if (isset($sip)) {
 		$FG_ADITION_SECOND_ADD_FIELDS .= ", sip_buddy"; 
-		$instance_sip_table = Table::getInstance($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
+		$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 	}
 	
 	if (isset($iax)) {
 		$FG_ADITION_SECOND_ADD_FIELDS .= ", iax_buddy";	
-		$instance_iax_table = Table::getInstance($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
+		$instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 	}	
 	
 	if ( (isset($sip)) ||  (isset($iax)) ){
@@ -95,7 +95,7 @@ if ($nbcard>0) {
 		$dtmfmode = FRIEND_DTMFMODE;
 	}	
 	
-	$instance_sub_table = Table::getInstance($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
+	$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 	$gen_id = time();
 	$_SESSION["IDfilter"]=$gen_id;
 	
@@ -143,7 +143,7 @@ if ($nbcard>0) {
 	if (isset($sip)) {
 		$buddyfile = BUDDY_SIP_FILE;
 		
-		$instance_table_friend = Table::getInstance($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
+		$instance_table_friend = new Table($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
 		$list_friend = $instance_table_friend -> Get_list ($HD_Form ->DBHandle, '', null, null, null, null);
 		if (is_array($list_friend)){
 			$fd=fopen($buddyfile,"w");
@@ -184,7 +184,7 @@ if ($nbcard>0) {
 	if (isset($iax)) {
 		$buddyfile = BUDDY_IAX_FILE;
 		
-		$instance_table_friend = Table::getInstance($FG_TABLE_IAX_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
+		$instance_table_friend = new Table($FG_TABLE_IAX_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
 		$list_friend = $instance_table_friend -> Get_list ($HD_Form ->DBHandle, '', null, null, null, null);	
 		
 		if (is_array($list_friend)) {
@@ -256,12 +256,12 @@ echo $CC_help_generate_customer;
 
 
 
-$instance_table_tariff = Table::getInstance("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_agent_tariffgroup.id_tariffgroup = cc_tariffgroup.id ", "id, tariffgroupname");
+$instance_table_tariff = new Table("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_agent_tariffgroup.id_tariffgroup = cc_tariffgroup.id ", "id, tariffgroupname");
 $FG_TABLE_CLAUSE = "cc_agent_tariffgroup.id_agent = ".$_SESSION['agent_id'];
 $list_tariff = $instance_table_tariff -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 $nb_tariff = count($list_tariff);
 $FG_TABLE_CLAUSE =  "cc_card_group.id_agent=".$_SESSION['agent_id'] ;
-$instance_table_group=  Table::getInstance("cc_card_group"," id, name ");
+$instance_table_group=  new Table("cc_card_group"," id, name ");
 $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
 ?>

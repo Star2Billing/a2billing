@@ -53,7 +53,7 @@ if ($resmax) {
 if ($action_release == "confirm_release") {
 
 	$message = "\n\n" . gettext("The following Destinaton-DID has been relesed:") . "\n\n";
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$QUERY = "UPDATE cc_did SET iduser = 0, reserved=0 WHERE id=$choose_did";
 	$result = $instance_table->SQLExec($HD_Form->DBHandle, $QUERY, 0);
 	$message .= "QUERY on cc_did : $QUERY \n\n";
@@ -123,7 +123,7 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 
 	if (is_numeric($voip_call) && ($confirm_buy_did >= 2) && ($voip_call==0 || ($voip_call==1 && strpos(substr($destination, strpos( $destination, '@')),'.')))) {
 		 
-		$instance_table_did_use = Table::getInstance();
+		$instance_table_did_use = new Table();
 		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('1', '" . $_SESSION["card_id"] . "', '" . $choose_did . "', '" . $destination . "', '1', '" . $voip_call . "')";
 
 		$result = $instance_table_did_use->SQLExec($HD_Form->DBHandle, $QUERY, 0);
@@ -181,8 +181,8 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 	}
 	$list = $HD_Form->perform_action($form_action);
 
-	$instance_table = Table::getInstance($HD_Form->FG_TABLE_NAME, $HD_Form->FG_COL_QUERY);
-	$instance_table_phonenumberdid = Table::getInstance($HD_Form->FG_TABLE_NAME, $HD_Form->FG_COL_QUERY);
+	$instance_table = new Table($HD_Form->FG_TABLE_NAME, $HD_Form->FG_COL_QUERY);
+	$instance_table_phonenumberdid = new Table($HD_Form->FG_TABLE_NAME, $HD_Form->FG_COL_QUERY);
 	$list_phonenumberdid = $instance_table_phonenumberdid->Get_list($HD_Form->DBHandle, $HD_Form->FG_TABLE_CLAUSE, $order, $sens, null, null, $limite, $current_record);
 	$nb_record = count($list_phonenumberdid);
 
@@ -198,7 +198,7 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 		}
 	}
 
-	$instance_table_country = Table::getInstance("cc_country, cc_did", "cc_country.id, countryname");
+	$instance_table_country = new Table("cc_country, cc_did", "cc_country.id, countryname");
 	$FG_TABLE_CLAUSE = "id_cc_country=cc_country.id and cc_did.reserved=0 group by cc_country.id, countryname ";
 	$list_country = $instance_table_country->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "countryname", "ASC", null, null, null, null);
 	$nb_country = count($list_country);
@@ -212,14 +212,14 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 
 	if (isset ($choose_country)) {
 		// LIST FREE DID TO ADD PHONENUMBER
-		$instance_table_did = Table::getInstance("cc_did", "DISTINCT cc_did.id, did, fixrate");
+		$instance_table_did = new Table("cc_did", "DISTINCT cc_did.id, did, fixrate");
 		$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='" . $_SESSION["id_didgroup"] . "' and reserved=0";
 		$list_did = $instance_table_did->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
 	}
 	elseif ($assign >= 2) {
 		// LIST USED DID TO ADD PHONENUMBER
-		$instance_table_did = Table::getInstance("cc_did LEFT JOIN cc_did_use ON id_did=cc_did.id", "cc_did.id, did, fixrate");
+		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_use ON id_did=cc_did.id", "cc_did.id, did, fixrate");
 		$FG_TABLE_CLAUSE = "id_cc_didgroup='" . $_SESSION["id_didgroup"] . "' and id_cc_card='" . $_SESSION["card_id"] . "' and cc_did_use.activated=1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00')  GROUP BY cc_did.id, did, fixrate ";
 		//$instance_table_did -> debug_st = 1;
 		$list_did = $instance_table_did->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);

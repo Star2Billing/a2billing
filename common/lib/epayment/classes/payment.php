@@ -16,7 +16,7 @@ Class payment {
 	// class constructor
     function payment($module = '') {
       global $payment, $language, $PHP_SELF;
-      $instance_sub_table = Table::getInstance("cc_payment_methods", "payment_filename");
+      $instance_sub_table = new Table("cc_payment_methods", "payment_filename");
       $DBHandle  = DbConnect();
       $return = null;
       $return = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);

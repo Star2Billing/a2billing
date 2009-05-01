@@ -12,7 +12,7 @@ if ($agi_conf) {
 
 $setbool = false;
 $handle = DbConnect();
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 if ($form_action == "ask-edit") {
 	$QUERY =  "SELECT config_value, config_listvalues FROM cc_config where id = $id";
@@ -28,7 +28,7 @@ $value_list["2"] = array( gettext("no"), 0);
 
 $yesno = array();
 
-$instance_config_table = Table::getInstance("cc_config", "config_value, config_valuetype, id");
+$instance_config_table = new Table("cc_config", "config_value, config_valuetype, id");
 $config_list = $instance_config_table -> Get_list ($handle, "", "id", "ASC");
 
 foreach($config_list as $key => $cur_value) {

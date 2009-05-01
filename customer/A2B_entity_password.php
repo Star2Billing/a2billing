@@ -19,7 +19,7 @@ getpost_ifset(array('NewPassword','OldPassword'));
 $DBHandle  = DbConnect();
 
 if($form_action=="ask-update") {
-    $instance_sub_table = Table::getInstance('cc_card',"id");
+    $instance_sub_table = new Table('cc_card',"id");
     $check_old_pwd = "id = '".$_SESSION["card_id"]."' AND uipass = '$OldPassword'";
     $result_check=$instance_sub_table -> Get_list ($DBHandle,$check_old_pwd);
     if(is_array($result_check)) {

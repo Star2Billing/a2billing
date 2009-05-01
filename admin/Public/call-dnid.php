@@ -100,8 +100,8 @@ $FG_HTML_TABLE_WIDTH = '70%';
 
 
 if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-$instance_table = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY);
-$instance_table_graph = Table::getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
 if ( is_null ($order) || is_null($sens) ) {
@@ -685,7 +685,7 @@ $smarty->display('main.tpl');
 						<?php 	
 							if ($FG_TABLE_COL[$i][6]=="lie"){
 
-									$instance_sub_table = Table::getInstance($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
+									$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
 									$sub_clause = str_replace("%id", $recordset[$i], $FG_TABLE_COL[$i][9]);																																	
 									$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
 									

@@ -9,7 +9,7 @@ class authorizenet {
     function authorizenet() {
 		global $order;
 
-		$this->authorizeTable = Table::getInstance;
+		$this->authorizeTable = new Table;
 		$this->code = 'authorizenet';
 		$this->title = MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE;
 		$this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;

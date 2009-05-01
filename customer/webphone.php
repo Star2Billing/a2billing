@@ -13,7 +13,7 @@ if (! has_rights (ACX_WEB_PHONE)) {
 $QUERY = "SELECT  activated, sip_buddy, iax_buddy, username FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle  = DbConnect();
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 $customer_info = $instance_table -> SQLExec ($DBHandle, $QUERY);
 
 if (!is_array($customer_info)) {

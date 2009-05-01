@@ -57,7 +57,7 @@ if (!$A2B -> DbConnect()){
 }
 
 //$A2B -> DBHandle
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 
 $A2B -> DBHandle -> Execute('SET AUTOCOMMIT=1');

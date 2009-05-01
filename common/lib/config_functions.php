@@ -16,7 +16,7 @@ function agi_confx_title($handle=null)
 	if (empty($handle)) {
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 
 	$QUERY =  "SELECT id, group_title, group_description FROM cc_config_group WHERE group_title like '%agi-conf%' ORDER BY group_title";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
@@ -62,7 +62,7 @@ function add_agi_confx($handle = null)
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$config_group = array();
 	$config_group  = agi_confx_title(); // calling function  to generate agi-conf(title_number)
 	$group_title = $config_group[0];
@@ -96,7 +96,7 @@ function delete_agi_confx($agi_conf)
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 
 	$clause = "group_title = '$agi_conf'";
 	$fun_table = "cc_config_group";

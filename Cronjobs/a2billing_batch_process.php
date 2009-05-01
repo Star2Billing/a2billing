@@ -51,7 +51,7 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 $oneday = 60 * 60 * 24;
 

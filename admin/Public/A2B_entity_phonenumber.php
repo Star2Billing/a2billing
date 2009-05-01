@@ -24,7 +24,7 @@ if(!empty($action) &&!empty($campaign) && is_numeric($campaign) && ($action=="ru
 	$status = 0;
 	if($action == "stop") $status =2;
 	elseif ($action == "hold") $status = 1;
-	$table = Table::getInstance();
+	$table = new Table();
 	$table ->SQLExec($DBHandle,"UPDATE cc_campaign_phonestatus SET status = $status WHERE id_phonenumber =$id AND id_campaign = $campaign " );
 	Header ("Location: A2B_entity_phonenumber.php?form_action=ask-edit&id=$id");
 	
@@ -69,7 +69,7 @@ $HD_Form -> create_form ($form_action, $list) ;
 
 if($form_action="ask_edit"){
 	$DBHandle  = DbConnect();
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	
 	$QUERY_PHONENUMBERS = 'SELECT cc_campaign.id, cc_campaign.name,cc_campaign.status, cc_campaign.startingdate <= CURRENT_TIMESTAMP started ,cc_campaign.expirationdate <= CURRENT_TIMESTAMP expired  FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign WHERE ';
 	//JOIN CLAUSE

@@ -67,7 +67,7 @@ switch ($actionbtn){
 <?php
 	break;
 	case "ask_release":
-		$instance_table = Table::getInstance();
+		$instance_table = new Table();
 		$QUERY = "UPDATE cc_did set iduser = 0 ,reserved=0 where id=$did" ;
 		$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 

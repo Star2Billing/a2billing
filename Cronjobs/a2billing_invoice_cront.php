@@ -52,7 +52,7 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 $currencies_list = get_currencies($A2B->DBHandle);
 
 // CHECK COUNT OF CARD ON WHICH APPLY THE SERVICE

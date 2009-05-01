@@ -21,7 +21,7 @@ $message = "";
 if ($_GET["result"] == "success") {
 	$message = gettext("Record updated successfully");
 }
-$instance_sub_table = Table::getInstance("cc_payment_methods", "payment_filename");
+$instance_sub_table = new Table("cc_payment_methods", "payment_filename");
 if (isset ($_GET["id"])) {
 	$paymentMethodID = $_GET["id"];
 } else {
@@ -33,7 +33,7 @@ $DBHandle = DbConnect();
 $return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
 $paymentMethod = substr($return[0][0], 0, strrpos($return[0][0], '.'));
 
-$instance_sub_table = Table::getInstance("cc_configuration", "payment_filename");
+$instance_sub_table = new Table("cc_configuration", "payment_filename");
 $QUERY = " active = 't'";
 
 $return = null;
@@ -64,7 +64,7 @@ $GLOBALS['plugnpay']->enabled = true;
 $module_keys = $payment_modules->keys();
 
 $keys_extra = array ();
-$instance_sub_table = Table::getInstance("cc_configuration", "configuration_title, configuration_value, configuration_description, use_function, set_function");
+$instance_sub_table = new Table("cc_configuration", "configuration_title, configuration_value, configuration_description, use_function, set_function");
 
 for ($j = 0, $k = sizeof($module_keys); $j < $k; $j++) {
 	$QUERY_CLAUSE = " configuration_key = '" . $module_keys[$j] . "'";

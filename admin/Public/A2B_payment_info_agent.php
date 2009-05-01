@@ -18,7 +18,7 @@ if (empty($id)) {
 
 $DBHandle  = DbConnect();
 
-$payment_table = Table::getInstance('cc_logpayment_agent','*');
+$payment_table = new Table('cc_logpayment_agent','*');
 $payment_clause = "id = ".$id;
 $payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 0);
 $payment = $payment_result[0];

@@ -24,7 +24,7 @@ $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 /*************************************************************/
 
-$instance_table_tariffname = Table::getInstance("cc_campaign", "id, name");
+$instance_table_tariffname = new Table("cc_campaign", "id, name");
 
 $FG_TABLE_CLAUSE = "";
 

@@ -79,7 +79,7 @@ class Callback
 		$uniqueid = '';
 		
 		$DBHandle  = DbConnect();
-		$instance_table = Table::getInstance();
+		$instance_table = new Table();
 		
 		$QUERY = "SELECT status, uniqueid FROM cc_callback_spool WHERE id='$id'";
 		$callback_data = $instance_table -> SQLExec ($DBHandle, $QUERY);
@@ -168,7 +168,7 @@ class Callback
 			return array($insert_id_callback, 'result=Error', ' ERROR - CONNECT DB ');
 		}
 		$A2B -> DBHandle = $DBHandle;
-		$instance_table = Table::getInstance();
+		$instance_table = new Table();
 		$A2B -> set_instance_table ($instance_table);
 		
 		$called=ereg_replace("^\+","011",$called);

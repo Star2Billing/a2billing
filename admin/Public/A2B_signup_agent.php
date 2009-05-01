@@ -15,16 +15,16 @@ getpost_ifset(array('agentid', 'tariffplan', 'group','task'));
 
 $FG_DEBUG = 0;
 $DBHandle  = DbConnect();
-$instance_table_agent = Table::getInstance("cc_agent ", "id, login, firstname, lastname");
+$instance_table_agent = new Table("cc_agent ", "id, login, firstname, lastname");
 $list_agent = $instance_table_agent  -> Get_list ($DBHandle, "", "id", "ASC", null, null, null, null);
 $disabled = true;
 	
 if(!empty($agentid) && is_numeric($agentid)) {
 	
-	$instance_table_tariffname = Table::getInstance("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup", "id, tariffgroupname");
+	$instance_table_tariffname = new Table("cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup", "id, tariffgroupname");
 	$FG_TABLE_CLAUSE = "id_agent = ".$agentid;
 	$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
-	$instance_table_group = Table::getInstance("cc_card_group", "id, name");
+	$instance_table_group = new Table("cc_card_group", "id, name");
 	$FG_TABLE_CLAUSE = "id_agent = ".$agentid;
 	$list_group = $instance_table_group -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 	$disabled =false;
@@ -32,7 +32,7 @@ if(!empty($agentid) && is_numeric($agentid)) {
 
 if($task=="generate" && !empty($agentid) && !empty($tariffplan) && !empty($group)) {
 	$code = gen_card('cc_agent_signup',10,'code');
-	$table_signup = Table::getInstance('cc_agent_signup');
+	$table_signup = new Table('cc_agent_signup');
 	$fields = "code,id_agent,id_tariffgroup,id_group";
 	$values =  "'$code','$agentid', '$tariffplan','$group'";
 	$result_insert = $table_signup -> Add_table($DBHandle,$values,$fields);

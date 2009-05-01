@@ -195,7 +195,7 @@ class RateEngine
 		AND ( calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) OR (calleridprefix='all' $CID_SUB_QUERY))
 		ORDER BY LENGTH(dialprefix) DESC";
 
-		$A2B->instance_table = Table::getInstance();
+		$A2B->instance_table = new Table();
 		$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 
 
@@ -369,7 +369,7 @@ class RateEngine
 		//CHECK THE PACKAGES TOAPPLY TO THIS RATES
 		if($id_cc_package_group!=-1){
 			
-			//$table_packages = Table::getInstance("cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate", "cc_package_offer.id, packagetype,billingtype,startday,freetimetocall");
+			//$table_packages = new Table("cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate", "cc_package_offer.id, packagetype,billingtype,startday,freetimetocall");
 			//$clause_packages= "cc_package_group.id= ".$id_cc_package_group." AND cc_package_group.id=cc_packgroup_package.packagegroup_id AND cc_packgroup_package.package_id = cc_package_offer.id AND cc_package_offer.id = cc_package_rate.package_id  AND cc_package_rate.rate_id = ".$id_rate;
 			//$order_packages = "cc_package_offer.packagetype";
 			//$sens_packages = "ASC";
@@ -382,7 +382,7 @@ class RateEngine
 				AND cc_package_offer.id = cc_package_rate.package_id  
 				AND cc_package_rate.rate_id = ".$id_rate." ORDER BY packagetype ASC";
 			//$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[PACKAGE IN:$query_pakages ]");
-			$table_packages = Table::getInstance();
+			$table_packages = new Table();
 			$result_packages = $table_packages -> SQLExec ($A2B -> DBHandle, $query_pakages);
 			$idx_pack = 0;
 			if(!empty($result_packages))
@@ -1245,7 +1245,7 @@ class RateEngine
 
 			$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";
 
-			$A2B->instance_table = Table::getInstance();
+			$A2B->instance_table = new Table();
 			$cidresult = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 			$outcid = 0;
 			if (is_array($cidresult) && count($cidresult)>0){
@@ -1305,7 +1305,7 @@ class RateEngine
 				$destination=$old_destination;
 
 				$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk, status, inuse, maxuse, if_max_use FROM cc_trunk WHERE id_trunk='$failover_trunk'";
-				$A2B->instance_table = Table::getInstance();
+				$A2B->instance_table = new Table();
 				$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 
 

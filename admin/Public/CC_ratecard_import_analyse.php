@@ -113,7 +113,7 @@ if ($task == 'upload') {
 		if (substr($ligne, 0, 1) != '#' && $val[2] != '' && strlen($val[2]) > 0) {
 
 			$FG_ADITION_SECOND_ADD_TABLE = 'cc_ratecard';
-			$instance_table_prefix = Table::getInstance("cc_prefix");
+			$instance_table_prefix = new Table("cc_prefix");
 			$FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql
 			$FG_ADITION_SECOND_ADD_FIELDS_PREFIX = 'prefix, destination';					
 			if ($currencytype == "cent") {

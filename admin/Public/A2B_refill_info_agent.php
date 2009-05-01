@@ -17,7 +17,7 @@ if (empty($id)) {
 
 $DBHandle  = DbConnect();
 
-$refill_table = Table::getInstance('cc_logrefill_agent','*');
+$refill_table = new Table('cc_logrefill_agent','*');
 $refill_clause = "id = ".$id;
 $refill_result = $refill_table -> Get_list($DBHandle, $refill_clause, 0);
 $refill = $refill_result[0];

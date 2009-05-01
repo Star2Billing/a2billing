@@ -66,7 +66,7 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 
-$instance_table = Table::getInstance();
+$instance_table = new Table();
 
 if ($A2B->config["global"]['cache_enabled']) {
 	if (empty ($A2B->config["global"]['cache_path'])) {

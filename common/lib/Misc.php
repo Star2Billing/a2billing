@@ -71,7 +71,7 @@ function get_currencies($handle = null)
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$QUERY =  "SELECT id, currency, name, value FROM cc_currencies ORDER BY id";
 	$result = $instance_table -> SQLExec ($handle, $QUERY, 1, 300);
 
@@ -371,7 +371,7 @@ function linkdelete_cdr($value)
 function linktocustomer($value)
 {
 	$handle = DbConnect();
-	$inst_table = Table::getInstance("cc_card", "id");
+	$inst_table = new Table("cc_card", "id");
 	$FG_TABLE_CLAUSE = "username = '$value'";
 	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	$id = $list_customer[0][0];
@@ -385,7 +385,7 @@ function linktocustomer($value)
 function linktocustomer_id($id)
 {	
 	$handle = DbConnect();
-	$inst_table = Table::getInstance("cc_card", "username");
+	$inst_table = new Table("cc_card", "username");
 	$FG_TABLE_CLAUSE = "id = '$id'";
 	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	$value = $list_customer[0][0];
@@ -399,7 +399,7 @@ function linktocustomer_id($id)
 function infocustomer_id($id)
 {	
 	$handle = DbConnect();
-	$inst_table = Table::getInstance("cc_card", "username,firstname,lastname");
+	$inst_table = new Table("cc_card", "username,firstname,lastname");
 	$FG_TABLE_CLAUSE = "id = '$id'";
 	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	if(is_array($list_customer))$value = $list_customer[0][1]." ".$list_customer[0][2]." (".$list_customer[0][0].")";
@@ -419,7 +419,7 @@ function nameofadmin($id)
 function getnameofadmin($id)
 {	
 	$handle = DbConnect();
-	$inst_table = Table::getInstance("cc_ui_authen", "login,name");
+	$inst_table = new Table("cc_ui_authen", "login,name");
 	$FG_TABLE_CLAUSE = "userid = '$id'";
 	$list_admin = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	if(is_array($list_admin))$value = $list_admin[0][1]." (".$list_admin[0][0].")";
@@ -435,7 +435,7 @@ function nameofcustomer_id($id)
 function getnameofcustomer_id($id)
 {	
 	$handle = DbConnect();
-	$inst_table = Table::getInstance("cc_card", "username,firstname,lastname");
+	$inst_table = new Table("cc_card", "username,firstname,lastname");
 	$FG_TABLE_CLAUSE = "id = '$id'";
 	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	if(is_array($list_customer))$value = $list_customer[0][1]." ".$list_customer[0][2]." (".$list_customer[0][0].")";
@@ -447,7 +447,7 @@ function getnameofcustomer_id($id)
 function linktoagent($id)
 {
 	$handle = DbConnect();
-	$inst_table = Table::getInstance("cc_agent", "login,firstname,lastname");
+	$inst_table = new Table("cc_agent", "login,firstname,lastname");
 	$FG_TABLE_CLAUSE = "id = '$id'";
 	$list_agent = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	if(is_array($list_agent))$value = $list_agent[0][1]." ".$list_agent[0][2]." (".$list_agent[0][0].")";
@@ -466,7 +466,7 @@ function nameofagent($id)
 function getnameofagent($id)
 {
 	$handle = DbConnect();
-	$inst_table = Table::getInstance("cc_agent", "login,firstname,lastname");
+	$inst_table = new Table("cc_agent", "login,firstname,lastname");
 	$FG_TABLE_CLAUSE = "id = '$id'";
 	$list_agent = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);
 	if(is_array($list_agent))$value = $list_agent[0][1]." ".$list_agent[0][2]." ( login: ".$list_agent[0][0].")";
@@ -760,7 +760,7 @@ function get_timezones($handle = null)
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$QUERY =  "SELECT id, gmttime, gmtzone from cc_timezone order by id";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 
@@ -806,7 +806,7 @@ function check_translated($id, $languages)
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 
 	$QUERY =  "SELECT id from cc_templatemail where id = $id and id_language = '$languages'";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
@@ -826,7 +826,7 @@ function update_translation($id, $languages, $subject, $mailtext)
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$param_update = "subject = '$subject', messagetext = '$mailtext'";
 	$clause = "id = $id and id_language = '$languages'";
 	$func_table = 'cc_templatemail';
@@ -839,7 +839,7 @@ function insert_translation($id, $languages, $subject, $mailtext)
 	if (empty($handle)) {
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$fromemail = '';
 	$fromname = '';
 	$mailtype = '';
@@ -866,7 +866,7 @@ function mailtemplate_latest_id()
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 
 	$QUERY =  "SELECT max(id) as latest_id from cc_templatemail where id_language = 'en'";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
@@ -880,7 +880,7 @@ function get_db_languages($handle = null)
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	$QUERY =  "SELECT code, name from cc_iso639 order by code";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 
@@ -903,7 +903,7 @@ function archive_data($condition, $entity = "")
 		exit;
 	}
 	$handle = DbConnect();
-	$instance_table = Table::getInstance();
+	$instance_table = new Table();
 	if(!empty($entity)) {
 		if($entity == "card") {
 			$func_fields = "id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, useralias, uipass, credit, tariff, id_didgroup, activated, status, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, inuse, simultaccess, currency, lastuse, nbused, typepaid, creditlimit, voipcall, sip_buddy, iax_buddy, language, redial, runservice, nbservice, id_campaign, num_trials_done, vat, servicelastrun, initialbalance, invoiceday, autorefill, loginkey, mac_addr, id_timezone, tag, voicemail_permitted, voicemail_activated, last_notification, email_notification, notify_email, credit_notification, id_group, company_name, company_website, VAT_RN, traffic, traffic_target, discount, restriction";
@@ -1105,7 +1105,7 @@ function generate_invoice_reference()
 {
 	$handle = DbConnect();
 	$year = date("Y");
-	$invoice_conf_table = Table::getInstance('cc_invoice_conf','value');
+	$invoice_conf_table = new Table('cc_invoice_conf','value');
 	$conf_clause = "key_val = 'count_$year'";
 	$result = $invoice_conf_table -> Get_list($handle, $conf_clause, 0);
 	if(is_array($result) && !empty($result[0][0])){
