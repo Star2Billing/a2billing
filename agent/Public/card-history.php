@@ -56,12 +56,9 @@ $FG_LIMITE_DISPLAY=25;
 // Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 
-// The variable $FG_EDITION define if you want process to the edition of the database record
-$FG_EDITION=false;
 
-//This variable will store the total number of column
+//This variable will store the total number of column + 1 the number of the line
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
-if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 
 //This variable define the Title of the HTML table
 $FG_HTML_TABLE_TITLE=" - ".gettext("Card History")." - ";
@@ -155,7 +152,7 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<center>
+	<div align="center">
 	<FORM METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>&terminatecauseid=<?php echo $terminatecauseid?>">
 		<INPUT TYPE="hidden" NAME="posted" value=1>
 		<INPUT TYPE="hidden" NAME="current_page" value=0>
@@ -288,7 +285,6 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
     		</tr>
 	</table>
 	</FORM>
-</center>
 
 
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
@@ -338,7 +334,7 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 				   
                 </TR>
                 <TR> 
-                  <TD bgColor=#e1e1e1 colSpan="<?php echo $FG_NB_TABLE_COL?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
+                  <TD bgColor=#e1e1e1 colSpan="<?php echo $FG_NB_TABLE_COL+1?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
                 </TR>
 				<?php
 				  	 $ligne_number=0;					 
@@ -379,12 +375,7 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 				  }//end_if
 				 ?>
                 <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
-                              src="<?php echo Images_Path_Main ?>/clear.gif" 
-                              width=1></TD>
-                </TR>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
+                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL+1?>><IMG height=1
                               src="<?php echo Images_Path_Main ?>/clear.gif" 
                               width=1></TD>
                 </TR>
@@ -392,7 +383,7 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
             </TABLE></td>
         </tr>
       </table>
-
+</div>
 <?php
 $smarty->display( 'footer.tpl');
 ?>

@@ -37,10 +37,8 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 
 $FG_COL_QUERY = 'username, ch.datecreated, ch.description';
 $FG_LIMITE_DISPLAY = 25;
-$FG_NB_TABLE_COL = count($FG_TABLE_COL);
-$FG_EDITION = false;
+$FG_NB_TABLE_COL=count($FG_TABLE_COL);
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
-if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE = " - ".gettext("Customer History")." - ";
 $FG_HTML_TABLE_WIDTH = "98%";
 
@@ -242,14 +240,11 @@ $smarty->display( 'main.tpl');
 						<?php }?>
 						</strong></TD>
 				   <?php } ?>		
-				   <?php if ($FG_DELETION || $FG_EDITION){ ?>
-				   
-                  
-				   <?php } ?>		
+				 		
 				   
                 </TR>
                 <TR> 
-                  <TD bgColor=#e1e1e1 colSpan="<?php echo $FG_NB_TABLE_COL?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
+                  <TD bgColor=#e1e1e1 colSpan="<?php echo $FG_NB_TABLE_COL+1?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
                 </TR>
 				<?php
 				  	 $ligne_number=0;					 
@@ -291,12 +286,7 @@ $smarty->display( 'main.tpl');
 				  }//end_if
 				 ?>
                 <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
-                              src="<?php echo Images_Path_Main ?>/clear.gif" 
-                              width=1></TD>
-                </TR>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
+                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL+1?>><IMG height=1
                               src="<?php echo Images_Path_Main ?>/clear.gif" 
                               width=1></TD>
                 </TR>
