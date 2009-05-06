@@ -467,19 +467,17 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 				   "" , "", "",	"", "", "" , "NO", "");
 	
 	
-	if ($form_action != "edit") {
 		
-		$update_field_typepaid = 'typepaid ,';
-		
-		$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
-					   "typepaid",
-					   "",
-					   "SELECT",
-					   "$payment_status",
-					   "",
-					   "",
-					   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
-	}
+	$update_field_typepaid = 'typepaid ,';
+	
+	$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
+				   "typepaid",
+				   "",
+				   "SELECT",
+				   "$payment_status",
+				   "",
+				   "",
+				   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
 	
 	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
 				   "tariff",
@@ -894,8 +892,12 @@ if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
 	
 	
 	if(!isset($myusername)) $myusername='';
-	
-	
+	if ($form_action == "ask-edit") {
+		$table_card = new Table("cc_card","status");
+		$result_card = $table_card ->Get_list(DbConnect(),"id=$id");
+		$HD_Form -> FG_EDITION_HIDDEN_PARAM = "oldstatus";
+		$HD_Form -> FG_EDITION_HIDDEN_PARAM_VALUE = "".$result_card[0][0];
+	}
 	
 	
 	

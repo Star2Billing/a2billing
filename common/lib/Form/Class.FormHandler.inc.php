@@ -351,6 +351,11 @@ class FormHandler
 	var $FG_QUERY_ADITION_HIDDEN_VALUE  = '';
 	var $FG_QUERY_SQL_HIDDEN = '';
 	
+	var $FG_EDITION_HIDDEN_PARAM = '';
+	var $FG_EDITION_HIDDEN_PARAM_VALUE  = '';
+	var $FG_ADITION_HIDDEN_PARAM = '';
+	var $FG_ADITION_HIDDEN_PARAM_VALUE  = '';
+	
 	/**
     * Set the EXTRA HIDDED VALUES for the edition/addition
     * @public	-	@type array
@@ -1582,17 +1587,20 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 	{
 		$processed = $this->getProcessed();
 		$status = $processed['status'];
-		if ($this -> RESULT_QUERY && !(is_object($this -> RESULT_QUERY)) )
-			$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
-		else
-			$id = $processed['id']; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
-		
-		$value = "'$status','$id'";
-		$func_fields = "status,id_cc_card";
-		$func_table = 'cc_status_log';
-		$id_name = "";
-		$instance_table = new Table();
-		$inserted_id = $instance_table -> Add_table ($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+		$oldstatus = $processed['oldstatus'];
+		if($oldstatus != $status){
+			if ($this -> RESULT_QUERY && !(is_object($this -> RESULT_QUERY)) )
+				$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+			else
+				$id = $processed['id']; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+			
+			$value = "'$status','$id'";
+			$func_fields = "status,id_cc_card";
+			$func_table = 'cc_status_log';
+			$id_name = "";
+			$instance_table = new Table();
+			$inserted_id = $instance_table -> Add_table ($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+		}
 	}
 	
 	/**
@@ -2594,9 +2602,6 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 	}
 	
 
-	
-	
-	
 	
 	
 
