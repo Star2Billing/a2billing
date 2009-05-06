@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock',
+getpost_ifset(array('id', 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock',
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge','disconnectcharge_after',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
@@ -9,7 +9,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 // put all the destination name to lowercase
 $_POST["destination"] = strtolower ($_POST["destination"]);
 
-$HD_Form = new FormHandler("cc_ratecard","Rates");
+$HD_Form = new FormHandler("cc_ratecard LEFT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffplan = cc_ratecard.idtariffplan ","Rates");
 
 $HD_Form -> FG_TABLE_ID = 'cc_ratecard.id';
 $HD_Form -> FG_DEBUG = 0;
@@ -24,58 +24,6 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = 
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/world_add.png" ;
 
 
-if (isset($posted) && !$popup_select){
-	if (is_string ($tariffplan) && strlen(trim($tariffplan))>0) {
-		$idtariff = explode('-:-',$tariffplan);
-		$HD_Form->FG_TOP_FILTER_NAME = gettext("THE CURRENT RATECARD").' : '.str_replace ("-:-","",$idtariff[1]);
-		$HD_Form->FG_TOP_FILTER_VALUE = $idtariff[0];
-		$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE' ";
-		$_SESSION['def_ratecard']=$HD_Form -> FG_TABLE_CLAUSE;
-	}
-	if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {
-		$tariffgroup = explode('-:-',$tariffgroup);
-		$HD_Form->FG_TOP_FILTER_NAME = gettext("THE CURRENT CALL PLAN").' : '.str_replace ("-:-","",$tariffgroup[1]);
-		$HD_Form->FG_TOP_FILTER_VALUE2 = $tariffgroup[0];
-		
-		$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
-				"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
-				"LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id";
-		if ($tariffgroup[2]==1)
-			$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.buyrate = (SELECT min(c1.buyrate) FROM cc_tariffgroup " .
-					"RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
-					"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
-					"LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id " .
-					"WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=c1.dialprefix)";
-		else
-			$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup " .
-					"RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
-					"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
-					"LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id ".
-					"WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=c1.dialprefix)";
-		
-		$_SESSION['def_ratecard_tariffgroup']=$HD_Form -> FG_TABLE_CLAUSE;
-		
-		/*	Query for LCR 
-			SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk,  cc_ratecard.id 
-
-			FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
-			
-			WHERE 
-			
-			cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
-			WHERE cc_ratecard.dialprefix=c1.dialprefix) ORDER BY  destination ASC LIMIT 0,10;
-		 */
-	}
-} else {
-	$HD_Form -> FG_TOP_FILTER_NAME = 0;
-	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard'];
-	
-	if (!empty($_SESSION['def_ratecard_tariffgroup'])) {
-		$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard_tariffgroup'];
-		if (empty($form_action) || $form_action=="list")
-			$HD_Form -> FG_TABLE_NAME = 'cc_ratecard, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3';
-	}
-}
 
 $musiconhold_list = Constants::getMusicOnHold_List();
 $yesno = Constants::getYesNoList();
@@ -145,10 +93,10 @@ $HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype')
 $HD_Form -> AddSearchElement_C2(gettext("BUYRATE"),'buyrate1','buyrate1type','buyrate2','buyrate2type','buyrate');
 $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinitial1type','rateinitial2','rateinitial2type','rateinitial');
 
-$HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = 'TRUNK';
+$HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
 $HD_Form -> AddSearchElement_Select('SELECT TRUNK',"cc_trunk","id_trunk, trunkcode, providerip","","trunkcode","ASC","id_trunk");
-
-
+$HD_Form -> AddSearchElement_Select('SELECT RATECARD',"cc_tariffplan","id, tariffname","","tariffname","ASC","idtariffplan",1,null,"cc_ratecard");
+$HD_Form -> AddSearchElement_Select('SELECT CALLPLAN',"cc_tariffgroup","id, tariffgroupname","","tariffgroupname","ASC","idtariffgroup");
 
 
 $HD_Form -> AddEditElement(gettext("RATECARD"),

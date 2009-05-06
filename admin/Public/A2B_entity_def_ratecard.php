@@ -184,17 +184,12 @@ function sendValue(selvalue){
 } 
 if(!$popup_select){
 ?>
-<div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH RATES");?> </font></a></center>
-	<div class="tohide" style="display:none;">
 <?php
 // #### CREATE SEARCH FORM
 if ($form_action == "list"){
 	$HD_Form -> create_search_form();
 }
 ?>
-	</div>
-</div>
 <?php }
 
 /********************************* BATCH UPDATE ***********************************/
@@ -344,8 +339,6 @@ if ($form_action == "list" && !$popup_select){
 <br>
 <?php
 
-// Weird hack to create a select form
-if ($form_action == "list" && !$popup_select) $HD_Form -> create_select_form();
 
 
 // #### TOP SECTION PAGE

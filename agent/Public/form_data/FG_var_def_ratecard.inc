@@ -25,28 +25,6 @@ $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
 
 
-if (isset($posted) && !$popup_select){
-	if (is_string ($tariffplan) && strlen(trim($tariffplan))>0) {
-		$idtariff = explode('-:-',$tariffplan);
-		$HD_Form->FG_TOP_FILTER_NAME = gettext("THE CURRENT RATECARD").' : '.str_replace ("-:-","",$idtariff[1]);
-		$HD_Form->FG_TOP_FILTER_VALUE = $idtariff[0];
-		$HD_Form -> FG_TABLE_CLAUSE .= " AND cc_ratecard.idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE' ";
-		$_SESSION['def_ratecard']=$HD_Form -> FG_TABLE_CLAUSE;
-	}
-	
-}else{
-	$HD_Form -> FG_TOP_FILTER_NAME = 0;
-	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard'];
-	
-	if (!empty($_SESSION['def_ratecard_tariffgroup'])){
-		$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard_tariffgroup'];
-		if (empty($form_action) || $form_action=="list")
-			$HD_Form -> FG_TABLE_NAME = 'cc_ratecard, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3';
-	}
-}
-
-
-
 $musiconhold_list = array();
 $musiconhold_list[] = array( "No MusicOnHold", "");
 for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){
@@ -111,7 +89,7 @@ $HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'startdate';
 $HD_Form -> AddSearchElement_C1(gettext("DESTINATION"), 'destination','destinationtype');
 $HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
 $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinitial1type','rateinitial2','rateinitial2type','rateinitial');
-
+$HD_Form -> AddSearchElement_Select('SELECT RATECARD',"cc_tariffplan,cc_tariffgroup_plan,cc_tariffgroup,cc_agent_tariffgroup","cc_tariffplan.id, cc_tariffplan.tariffname","cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffplan = cc_tariffgroup.id AND cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'],"tariffname","ASC","idtariffplan",1,null,"cc_ratecard");
 
 
 $HD_Form -> FG_SPLITABLE_FIELD = 'dialprefix';

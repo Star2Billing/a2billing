@@ -897,15 +897,15 @@ class FormHandler
 	 * @ $displayname , SQL or array to fill select and the name of select box
      */
 	function AddSearchElement_Select($displayname, $table = null, $fields = null, $clause = null,
-			$order = null ,$sens = null , $select_name, $sql_type = 1, $array_content = null){
+			$order = null ,$sens = null , $select_name, $sql_type = 1, $array_content = null,$search_table=null){
 			
 		$cur = count($this->FG_FILTER_SEARCH_FORM_SELECT);
 		
 		if ($sql_type) {
 			$sql = array($table, $fields, $clause, $order ,$sens);
-			$this->FG_FILTER_SEARCH_FORM_SELECT[$cur] = array($displayname, $sql, $select_name);
+			$this->FG_FILTER_SEARCH_FORM_SELECT[$cur] = array($displayname, $sql, $select_name,null,$search_table);
 		} else {
-			$this->FG_FILTER_SEARCH_FORM_SELECT[$cur] = array($displayname, 0, $select_name, $array_content);
+			$this->FG_FILTER_SEARCH_FORM_SELECT[$cur] = array($displayname, 0, $select_name, $array_content,null);
 		}		
 	}
 	
@@ -1067,7 +1067,7 @@ class FormHandler
 		return $sql;
   }
 
-function do_field($sql,$fld, $simple=0,$processed=null){
+function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
   		$fldtype = $fld.'type';
         if(!empty($processed)){
 	  		$parameters=$processed;
@@ -1081,7 +1081,11 @@ function do_field($sql,$fld, $simple=0,$processed=null){
                 }else{
                         $sql = "$sql WHERE ";
                 }
-				$sql = "$sql $fld";
+                if(empty($search_table)){
+					$sql = "$sql $fld";
+                }else{
+                	$sql = "$sql $search_table.$fld";
+                }
 		        if (DB_TYPE == "postgres"){		
 			 		$LIKE = "ILIKE";
 			 		$CONVERT ="";
@@ -1319,7 +1323,7 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 				
 				foreach ($this->FG_FILTER_SEARCH_FORM_SELECT as $r){
 					$search_parameters .= "|$r[2]=".$processed[$r[2]];
-					$SQLcmd = $this->do_field($SQLcmd, $r[2], 1);
+					$SQLcmd = $this->do_field($SQLcmd, $r[2], 1,null,$r[4]);
 				}
 				
 				$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = $search_parameters;
@@ -2590,149 +2594,8 @@ function do_field($sql,$fld, $simple=0,$processed=null){
 	}
 	
 
-	/**
-     *  CREATE_CUSTOM : Function to display a custom message using form_action
-     *  @public		TODO : maybe is better to allow use a string as parameter
-     */
-	 function create_select_form(){
-	 	$processed = $this->getProcessed();
-	 	include_once (FSROOT."lib/Class.Table.php");
-		$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
-		$FG_TABLE_CLAUSE = "";
-		$list_tariffname = $instance_table_tariffname  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
-
-		$instance_table_tariffgroup = new Table("cc_tariffgroup", "id, tariffgroupname, lcrtype");
-		$FG_TABLE_CLAUSE = "";
-		$list_tariffgroup = $instance_table_tariffgroup  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
-		
-	 ?>
-	<center>
-	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\"><b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
-
-	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
-
-	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-	<INPUT TYPE="hidden" NAME="posted" value=1>
-	<INPUT TYPE="hidden" NAME="current_page" value=0>
-		<table class="form_selectform" cellspacing="1">
-			
-			<tr>
-				<td align="left" valign="top" class="form_selectform_td1">
-					&nbsp;&nbsp;<?php echo gettext("Call Plan");?>
-				</td>
-				<td class="bgcolor_005" align="left">
-				<table class="form_selectform_table1"><tr>
-					<td width="50%" align="center">&nbsp;&nbsp;
-						<select NAME="tariffgroup" size="1"  class="form_input_select" width=250">
-								<option value=''><?php echo gettext("Choose a call plan");?></option>
-
-								<?php
-								 foreach ($list_tariffgroup as $recordset){
-								?>
-									<option class=input value='<?php  echo $recordset[0]."-:-".$recordset[1]."-:-".$recordset[2]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE2) echo "selected";?>><?php echo $recordset[1]?></option>
-								<?php 	 }
-								?>
-						</select>
-						 
-					</td>
-					<td class="form_selectform_table1_td1">
-					<?php echo gettext("This option will enable LCR/LCD - This query is processor intensive and may affect the quality of calls in progress.");?>
-	  			</td>
-
-				</tr></table>
-				</td>
-			</tr>
-			
-			<tr>
-				<td align="left" valign="top" class="form_selectform_td1">
-					&nbsp;&nbsp;<?php echo gettext("Rate Card");?>
-				</td>
-				<td class="bgcolor_005" align="left">
-				<table class="form_selectform_table1"><tr>
-					<td width="50%" align="center">&nbsp;&nbsp;
-						<select NAME="tariffplan" size="1"  class="form_input_select" width=250">
-								<option value=''><?php echo gettext("Choose a ratecard");?></option>
-
-								<?php
-								 foreach ($list_tariffname as $recordset){
-								?>
-									<option class=input value='<?php  echo $recordset[0]."-:-".$recordset[1]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE) echo "selected";?>><?php echo $recordset[1]?></option>
-								<?php 	 }
-								?>
-						</select>
-					</td>
-					<td>
-					
-	  			</td>
-				<td class="form_selectform_table1_td1">
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
-	  			</td>
-				</tr></table>
-				</td>
-			</tr>
-			
-		</table>
-	</FORM>
-</center>
-	<?php
-	}
 	
-	/**
-     *  CREATE_CUSTOM_AGENT : Function to display a custom message using form_action
-     *  @public		TODO : maybe is better to allow use a string as parameter
-     */
-	 function create_select_form_agent(){
-	 	$processed = $this->getProcessed();
-	 	include_once (FSROOT."lib/Class.Table.php");
-		$instance_table_tariffname = new Table("cc_tariffplan,cc_tariffgroup_plan,cc_tariffgroup,cc_agent_tariffgroup", "cc_tariffplan.id, cc_tariffplan.tariffname");
-		$FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffplan = cc_tariffgroup.id AND cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'] ;
-		$list_tariffname = $instance_table_tariffname  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
-
 	
-	 ?>
-	<center>
-	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\"><b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
-
-	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
-
-	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-	<INPUT TYPE="hidden" NAME="posted" value=1>
-	<INPUT TYPE="hidden" NAME="current_page" value=0>
-		<table class="form_selectform" cellspacing="1" width="500">
-			
-			<tr>
-				<td align="left" valign="top" class="form_selectform_td1">
-					&nbsp;&nbsp;<?php echo gettext("Rate Card");?>
-				</td>
-				<td class="bgcolor_005" align="left">
-				<table class="form_selectform_table1"><tr>
-					<td width="50%" align="center">&nbsp;&nbsp;
-						<select NAME="tariffplan" size="1"  class="form_input_select" width="250">
-								<option value=''><?php echo gettext("Choose a ratecard");?></option>
-
-								<?php
-								 foreach ($list_tariffname as $recordset){
-								?>
-									<option class=input value='<?php  echo $recordset[0]."-:-".$recordset[1]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE) echo "selected";?>><?php echo $recordset[1]?></option>
-								<?php 	 }
-								?>
-						</select>
-					</td>
-					<td>
-					
-	  			</td>
-				<td class="form_selectform_table1_td1">
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
-	  			</td>
-				</tr></table>
-				</td>
-			</tr>
-			
-		</table>
-	</FORM>
-</center>
-	<?php
-	}
 	
 	
 	
