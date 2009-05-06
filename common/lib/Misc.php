@@ -396,6 +396,13 @@ function linktocustomer_id($id)
     }
 }
 
+function linkto_TC($id)
+{	
+	$call_status=Constants::getDialStatusList();
+	if(!empty($call_status[$id][0])) echo $call_status[$id][0];
+	else echo gettext("UNKNOWN");
+}
+
 function infocustomer_id($id)
 {	
 	$handle = DbConnect();

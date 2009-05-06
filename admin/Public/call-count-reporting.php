@@ -39,7 +39,6 @@ $DBHandle  = DbConnect();
 
 $FG_TABLE_COL = array();
 
-
 switch ($topsearch) {
 	
 	case "topdestination":
@@ -49,7 +48,7 @@ switch ($topsearch) {
 		
 	case "topuser":
 	default:
-		$FG_TABLE_COL[]=array (gettext("Account Used"), 'card_id', "20%", "center","SORT", "", "30", "", "", "", "", "linktocustomer");
+		$FG_TABLE_COL[]=array (gettext("Account Used"), 'card_id', "20%", "center","SORT", "", "30", "", "", "", "", "linktocustomer_id");
 		$on_field = "card_id";
 	
 }
@@ -58,8 +57,7 @@ $FG_TABLE_COL[]=array (gettext("Duration"), "calltime", "20%", "center", "SORT",
 $FG_TABLE_COL[]=array (gettext("Buy"), "buy", "25%", "center","sort","","","","","","","display_2bill");
 $FG_TABLE_COL[]=array (gettext("Sell"), "cost", "25%", "center","sort","","","","","","","display_2bill");
 if ($grouped) $FG_TABLE_COL[]=array (gettext("Calldate"), "day", "10%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
-
+$FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30", "", "", "", "", "", "linkto_TC");
 if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($topsearch!="")){
 	$FG_TABLE_COL[]=array (gettext("NbrCall"), 'nbcall', "10%", "center", "SORT");
 }
@@ -78,9 +76,7 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 
 $FG_LIMITE_DISPLAY=20;
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
-$FG_EDITION=false;
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
-if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE=gettext(" - Call Report - ");
 $FG_HTML_TABLE_WIDTH="96%";
 
@@ -167,6 +163,7 @@ if ($nb_record<=$FG_LIMITE_DISPLAY) {
 	}	
 }
 
+ 
 
 $smarty->display('main.tpl');
 
@@ -391,7 +388,7 @@ $smarty->display('main.tpl');
 				   <?php } ?>		
                 </TR>
                 <TR> 
-                  <TD  class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG 
+                  <TD  class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL+1?>><IMG 
                               height=1 
                               src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
@@ -443,13 +440,9 @@ $smarty->display('main.tpl');
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>
+                
                 <TR> 
-                  <TD class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
-                </TR>
-                <TR> 
-                  <TD class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
+                  <TD class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL+1?>><IMG height=1 
                               src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
                 </TR>
