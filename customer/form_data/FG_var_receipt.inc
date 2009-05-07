@@ -10,7 +10,7 @@ if (!isset($form_action) || $form_action=="list") {
 }
 
 $HD_Form -> FG_TABLE_ID = 'cc_receipt.id';
-$HD_Form -> FG_TABLE_CLAUSE = " 1 GROUP BY cc_receipt.id";
+$HD_Form -> FG_TABLE_CLAUSE = " id_card = ".$_SESSION["card_id"]." GROUP BY cc_receipt.id";
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
