@@ -176,7 +176,7 @@ $smarty->display('main.tpl');
 					<?php echo number_format(round($item->getPrice(),2),2)." ".strtoupper(BASE_CURRENCY); ?>
 				</td>
 				<td align="right">
-					<?php echo number_format(round($item->getVAT(),2))." %" ?>
+					<?php echo number_format(round($item->getVAT(),2),2)." %" ?>
 				</td>
 				<td align="right">
 					<?php echo number_format(round($item->getPrice()*(1+($item->getVAT()/100)),2),2)." ".strtoupper(BASE_CURRENCY); ?>
