@@ -40,11 +40,6 @@ $HD_Form -> init();
 
 
 
-// #### HEADER SECTION
-$smarty->display( 'main.tpl');
-
-$HD_Form -> create_toppage ($form_action);
-
 $static_amount = false;
 $amount=0;
 if($item_type = "invoice" && is_numeric($item_id)){
@@ -52,13 +47,19 @@ if($item_type = "invoice" && is_numeric($item_id)){
 	$clause_invoice = "id = ".$item_id;
 	$result= $table_invoice -> Get_list($DBHandle,$clause_invoice);
 	if(is_array($result) && $result[0]['status']==1 && $result[0]['paid_status']==0 ){
-		$table_invoice_item = new Table("cc_invoice_item","COALESCE(SUM(price),0)");
+		$table_invoice_item = new Table("cc_invoice_item","COALESCE(SUM(price*(1+(vat/100))),0)");
 		$clause_invoice_item = "id_invoice = ".$item_id;
 		$result= $table_invoice_item -> Get_list($DBHandle,$clause_invoice_item);
 		$amount = $result[0][0];
+		$amount = ceil($amount*100)/100;
 		$static_amount = true;
 	}
 }
+// #### HEADER SECTION
+$smarty->display( 'main.tpl');
+
+$HD_Form -> create_toppage ($form_action);
+
 
 
 
