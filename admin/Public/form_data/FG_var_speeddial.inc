@@ -2,12 +2,15 @@
 
 getpost_ifset(array('id', 'speeddial', 'id_cc_card', 'name', 'phone','popup_select','popup_formname','popup_fieldname'));
 
-$HD_Form = new FormHandler("cc_speeddial","speed dial");
-
+if (!isset($form_action) || $form_action=="list") {
+	$HD_Form = new FormHandler("cc_speeddial LEFT JOIN cc_card ON cc_card.id = cc_speeddial.id_cc_card","speed dial");
+}else{
+	$HD_Form = new FormHandler("cc_speeddial ","speed dial");
+}
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = " creationdate";
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = "cc_speeddial.creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-
+$HD_Form -> FG_TABLE_ID="cc_card.id";
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_speeddial.php?form_action=ask-add&atmenu=speeddial&section=".$_SESSION["menu_section"];
@@ -20,14 +23,14 @@ for ($k=0;$k<=9;$k++)
 	$speeddial_list["$k"] = array("$k", "$k");
 
 
-$HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "20%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "22%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("NAME"), "name", "10%", "center", "sort", "26");
-$HD_Form -> AddViewElement(gettext("PHONE"), "phone", "10%", "center", "sort", "26");
-$HD_Form -> AddViewElement(gettext("SPEED DIAL"), "speeddial", "20%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("DATE"), "cc_speeddial.creationdate", "20%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), " cc_speeddial.id_cc_card", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
+$HD_Form -> AddViewElement(gettext("NAME"), "cc_speeddial.name", "10%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("PHONE"), "cc_speeddial.phone", "10%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("SPEED DIAL"), "cc_speeddial.speeddial", "20%", "center", "sort", "26");
 
 
-$HD_Form -> FieldViewElement ('creationdate, id_cc_card, name, phone, speeddial');
+$HD_Form -> FieldViewElement ('cc_speeddial.creationdate, cc_speeddial.id_cc_card, cc_speeddial.name, cc_speeddial.phone, cc_speeddial.speeddial');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO SPEED DIALS HAVE BEEN CREATED!"); 
@@ -82,20 +85,18 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
 				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 				gettext("Define the card number ID to use."));
 
-$HD_Form -> FieldEditElement ('speeddial, name, phone, id_cc_card');
+$HD_Form -> FieldEditElement ('cc_speeddial.speeddial, cc_speeddial.name, cc_speeddial.phone, cc_speeddial.id_cc_card');
 
 
 $HD_Form -> FG_FILTER_APPLY = true;
-$HD_Form -> FG_FILTERFIELD = 'id_cc_card ';
-$HD_Form -> FG_FILTERFIELDNAME = 'Customer ID';
+$HD_Form -> FG_FILTERFIELD = 'username';
+$HD_Form -> FG_FILTERFIELDNAME = gettext('Account Number');
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
-$HD_Form -> FG_FILTERTYPE = 'POPUPVALUE'; // INPUT :: SELECT :: POPUPVALUE
-$HD_Form -> FG_FILTERPOPUP = array('CC_entity_card.php?popup_select=1&', ", 'CardNumberSelection','width=550,height=350,top=20,left=100'");
 
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="id_cc_card like '$filterprefix'";
+	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
 
 
