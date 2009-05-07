@@ -85,6 +85,9 @@ if (!empty($action)) {
 
 
 $invoice = new invoice($id);
+$table_card = new Table("cc_card","vat");
+$result_vat = $table_card->Get_list(DbConnect(),"id=".$invoice->getCard());
+$card_vat =  $result_vat[0][0];
 $items = $invoice->loadItems();
 
 
@@ -299,7 +302,7 @@ $smarty->display('main.tpl');
 			<td ><font style="font-weight:bold; " ><?php echo gettext("VAT : "); ?>
 			 </td>
 			 <td>
-			 <input type="text" class="form_input_text" name="vat" size="5" maxlength="5" <?php if(!empty($vat)) echo 'value="'.$vat.'"';?> />
+			 <input type="text" class="form_input_text" name="vat" size="5" maxlength="5" <?php if(!empty($vat)) echo 'value="'.$vat.'"'; else echo 'value="'.$card_vat.'"';?> />
 			 </td>
 		</tr>
 		<tr>
