@@ -53,6 +53,9 @@ if($item_type == "invoice" && is_numeric($item_id)){
 		$amount = $result[0][0];
 		$amount = ceil($amount*100)/100;
 		$static_amount = true;
+	}else{
+		Header ("Location: userinfo.php");
+		die;
 	}
 }
 // #### HEADER SECTION

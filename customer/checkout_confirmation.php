@@ -37,14 +37,14 @@ getpost_ifset(array('credit_card_type', 'plugnpay_cc_owner', 'plugnpay_cc_number
 //invoice
 getpost_ifset(array('item_id','item_type'));
 
+$vat_amount= $amount*$vat/100;
+$total_amount = $amount+($amount*$vat/100);
 if(!isset($item_id)|| is_null($item_id)){
 	$item_id = 0;	
 }
 if(!isset($item_type)|| is_null($item_type)){
 	$item_type= "" ;
 }
-$vat_amount= $amount*$vat/100;
-$total_amount = $amount+($amount*$vat/100);
 
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
 
@@ -67,7 +67,7 @@ if (strtoupper($payment)=='PLUGNPAY') {
 }
 $transaction_no = $paymentTable->Add_table ($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log', 'id');
 
-$key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no."^".$amount_string."^".$_SESSION["card_id"]."^".$item_id."^".$transaction_type);
+$key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no."^".$amount_string."^".$_SESSION["card_id"]."^".$item_id."^".$item_type);
 if (empty($transaction_no)) {
 	exit(gettext("No Transaction ID found"));
 }
@@ -111,6 +111,7 @@ if (is_array($payment_modules->modules)) {
     <td width=50%><div align="right"><?php echo gettext("Payment Method");?>:&nbsp;</div></td>
     <td width=50%><?php echo strtoupper($payment)?></td>
 </tr>
+<?php if(strcasecmp("invoice",$item_type)!=0){?>
 <tr>
     <td align=right><?php echo gettext("Amount")?>: &nbsp;</td>
     <td align=left>
@@ -131,6 +132,7 @@ if (is_array($payment_modules->modules)) {
 	 }	
      ?> </td>
 </tr>
+<?php } ?>
 <tr>
     <td align=right><?php echo gettext("Total Amount Incl. VAT")?>: &nbsp;</td>
     <td align=left>

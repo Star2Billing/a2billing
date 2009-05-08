@@ -246,7 +246,6 @@ if($newkey == $key) {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----NEW KEY =".$newkey." OLD KEY= ".$key." ------- Transaction Key Verification Failed:".$transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]." ------------\n");
 	exit();
 }
-
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ---------- TRANSACTION INFO ------------\n".print_r($transaction_data,1));
 $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
@@ -382,6 +381,7 @@ if ($id > 0 ) {
 				//update invoice to paid !!
 				
 				$invoice = new Invoice($item_id);
+				$invoice -> addPayment($id_payment);
 				$invoice -> changeStatus(1);
 				
 				
@@ -425,7 +425,9 @@ switch ($orderStatus)
 }
 
 if ( ($orderStatus != 2) && ($transaction_data[0][4]=='plugnpay')) {
-	Header ("Location: checkout_payment.php?payment_error=plugnpay&error=The+payment+couldnt+be+proceed+correctly!");
+	$url_forward = "checkout_payment.php?payment_error=plugnpay&error=The+payment+couldnt+be+proceed+correctly";
+	if(!empty($item_id) && !empty($item_type)) $url_forward .= "&item_id=".$item_id."&item_type=".$item_type;
+	Header ("Location: $url_forward");
 	die();
 }
 
