@@ -42,7 +42,7 @@ $HD_Form -> init();
 
 $static_amount = false;
 $amount=0;
-if($item_type = "invoice" && is_numeric($item_id)){
+if($item_type == "invoice" && is_numeric($item_id)){
 	$table_invoice = new Table("cc_invoice","status,paid_status");
 	$clause_invoice = "id = ".$item_id;
 	$result= $table_invoice -> Get_list($DBHandle,$clause_invoice);
@@ -124,7 +124,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 ?>
 
     <input name="item_id" type=hidden value="<?php echo $item_id?>">
-    <input name="item_type" type=hidden value="<?php echo $item_type?>">
+    <input name="transaction_type" type=hidden value="<?php echo $item_type?>">
 
     <table width="80%" cellspacing="0" cellpadding="2" align=center>
     <?php

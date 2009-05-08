@@ -30,6 +30,8 @@ include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/configure.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
+include ("./lib/support/classes/invoice.php");
+include ("./lib/support/classes/invoiceItem.php");
 
 
 $DBHandle_max  = DbConnect();
@@ -42,9 +44,10 @@ if (DB_TYPE == "postgres") {
 }
 
 // Status - New 0 ; Proceed 1 ; In Process 2
-$QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency FROM cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
+$QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency,item_id,item_type FROM cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
-
+$item_id = $transaction_data[0][13];
+$item_type = $transaction_data[0][14];
 //Update the Transaction Status to 1
 $QUERY = "UPDATE cc_epayment_log SET status = 2 WHERE id = ".$transactionID;
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
@@ -67,7 +70,6 @@ $transaction_detail = serialize($_POST);
 
 $currencyObject 	= new currencies();
 $currencies_list 	= get_currencies();
-
 switch($transaction_data[0][4])
 {
 	case "paypal":
@@ -190,7 +192,6 @@ switch($transaction_data[0][4])
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO SUCH EPAYMENT FOUND");
 		exit();
 }
-
 if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])) $VAT =0;
 else $VAT = $transaction_data[0]['vat'];
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
@@ -238,8 +239,7 @@ if ($security_verify == false) {
 	
 	exit;
 }
-$newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]);
-echo  "<br/>old key :".$transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1];
+$newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]."^".$item_id."^".$item_type);
 if($newkey == $key) {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----------- Transaction Key Verified ------------");
 } else {
@@ -268,10 +268,12 @@ $nowDate = date("Y-m-d H:i:s");
 $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
+if(empty($item_type)) $transaction_type='balance';
+else $transaction_type = $item_type;
 
 $Query = "Insert into cc_payments ( customers_id, customers_name, customers_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, cc_number, " .
 									" cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
-									" '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', 'balance', '".
+									" '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', '$transaction_type', '".
 									$customer_info[0]."', 1, '$pmodule', '".$_SESSION["p_cardtype"]."', '".$transaction_data[0][5]."', '".$transaction_data[0][6]."', '".
 									$transaction_data[0][7]."',  $orderStatus, '".$nowDate."', '".$nowDate."', '".$nowDate."',  ".$amount_paid.",  '".$currCurrency."', '".
 									$currencyObject->get_value($currCurrency)."' )";
@@ -291,80 +293,103 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." CARD FOUND IN DB ($id)");
 }
 
-
 if ($id > 0 ) {
-    $addcredit = $transaction_data[0][2]; 
-	$instance_table = new Table("cc_card", "username, id");
-	$param_update .= " credit = credit+'".$amount_without_vat."'";
-	$FG_EDITION_CLAUSE = " id='$id'";
-	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
-
-	$field_insert = "date, credit, card_id, description";
-	$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."'";
-	$instance_sub_table = new Table("cc_logrefill", $field_insert);
-	$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
-	
-	$field_insert = "date, payment, card_id, id_logrefill, description";
-	$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."'";
-	$instance_sub_table = new Table("cc_logpayment", $field_insert);
-	$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
-	
-	//ADD an INVOICE
-	$reference = generate_invoice_reference();
-	$field_insert = "date, id_card, title ,reference, description,status,paid_status";
-	$date = $nowDate;
-	$card_id = $id;
-	$title = gettext("CUSTOMER REFILL");
-	$description = gettext("Invoice for refill");
-	$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,1 ";
-	$instance_table = new Table("cc_invoice", $field_insert);
-	$id_invoice = $instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
-	//load vat of this card
-	if(!empty($id_invoice)&& is_numeric($id_invoice)){
-		$amount = $amount_without_vat;
-		$description = gettext("Refill ONLINE")." : ".$transaction_data[0][4];
-		$field_insert = "date, id_invoice ,price,vat, description";
-		$instance_table = new Table("cc_invoice_item", $field_insert);
-		$value_insert = " '$date' , '$id_invoice', '$amount','$VAT','$description' ";
-		$instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
-	}
-    //link payment to this invoice
-	$table_payment_invoice = new Table("cc_invoice_payment", "*");
-	$fields = " id_invoice , id_payment";
-	$values = " $id_invoice, $id_payment	";
-	$table_payment_invoice->Add_table($DBHandle, $values, $fields);
-	
-	//END INVOICE
-	//Agent commision
-	// test if this card have a agent
-	$table_transaction = new Table();
-	$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
-	
-	if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
-		//test if the agent exist and get its commission
-		$id_agent =  $result_agent[0]['id_agent'];
-		$agent_table = new Table("cc_agent", "commission");
-		$agent_clause = "id = ".$id_agent;
-		$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
+	if(strcasecmp("invoice",$item_type)!=0){
 		
-		if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
-			$field_insert = "id_payment, id_card, amount,description,id_agent";
-			$commission = ceil(($amount_paid * ($result_agent[0]['commission'])/100)*100)/100;
-			$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
-			$description_commission.= "\nID CARD : ".$id;
-			$description_commission.= "\nID PAYMENT : ".$id_payment;
-			$description_commission.= "\nPAYMENT AMOUNT: ".$amount_paid;
-			$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
-			$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent'";
-			$commission_table = new Table("cc_agent_commission", $field_insert);
-			$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+	    $addcredit = $transaction_data[0][2]; 
+		$instance_table = new Table("cc_card", "username, id");
+		$param_update .= " credit = credit+'".$amount_without_vat."'";
+		$FG_EDITION_CLAUSE = " id='$id'";
+		$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
+	
+		$field_insert = "date, credit, card_id, description";
+		$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."'";
+		$instance_sub_table = new Table("cc_logrefill", $field_insert);
+		$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
+		
+		$field_insert = "date, payment, card_id, id_logrefill, description";
+		$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."'";
+		$instance_sub_table = new Table("cc_logpayment", $field_insert);
+		$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
+		
+		//ADD an INVOICE
+		$reference = generate_invoice_reference();
+		$field_insert = "date, id_card, title ,reference, description,status,paid_status";
+		$date = $nowDate;
+		$card_id = $id;
+		$title = gettext("CUSTOMER REFILL");
+		$description = gettext("Invoice for refill");
+		$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,1 ";
+		$instance_table = new Table("cc_invoice", $field_insert);
+		$id_invoice = $instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+		//load vat of this card
+		if(!empty($id_invoice)&& is_numeric($id_invoice)){
+			$amount = $amount_without_vat;
+			$description = gettext("Refill ONLINE")." : ".$transaction_data[0][4];
+			$field_insert = "date, id_invoice ,price,vat, description";
+			$instance_table = new Table("cc_invoice_item", $field_insert);
+			$value_insert = " '$date' , '$id_invoice', '$amount','$VAT','$description' ";
+			$instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+		}
+	    //link payment to this invoice
+		$table_payment_invoice = new Table("cc_invoice_payment", "*");
+		$fields = " id_invoice , id_payment";
+		$values = " $id_invoice, $id_payment	";
+		$table_payment_invoice->Add_table($DBHandle, $values, $fields);
+		
+		//END INVOICE
+		//Agent commision
+		// test if this card have a agent
+		$table_transaction = new Table();
+		$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
+		
+		if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
+			//test if the agent exist and get its commission
+			$id_agent =  $result_agent[0]['id_agent'];
+			$agent_table = new Table("cc_agent", "commission");
+			$agent_clause = "id = ".$id_agent;
+			$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
+			
+			if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
+				$field_insert = "id_payment, id_card, amount,description,id_agent";
+				$commission = ceil(($amount_paid * ($result_agent[0]['commission'])/100)*100)/100;
+				$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
+				$description_commission.= "\nID CARD : ".$id;
+				$description_commission.= "\nID PAYMENT : ".$id_payment;
+				$description_commission.= "\nPAYMENT AMOUNT: ".$amount_paid;
+				$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
+				$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent'";
+				$commission_table = new Table("cc_agent_commission", $field_insert);
+				$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+			}
+		}	
+	}else{
+		if($item_id>0){
+			$invoice_table = new Table('cc_invoice','reference');
+			$invoice_clause = "id = ".$item_id;
+			$result_invoice = $invoice_table->Get_list($DBHandle,$invoice_clause);
+			if(is_array($result_invoice)&& sizeof($result_invoice)==1){
+				$reference =$result_invoice[0][0];
+				
+				$field_insert = "date, payment, card_id, description";
+				$value_insert = "'$nowDate', '".$amount_paid."', '$id', '(".$transaction_data[0][4].") ".gettext('Invoice Payment Ref: ')."$reference '";
+				$instance_sub_table = new Table("cc_logpayment", $field_insert);
+				$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
+				//update invoice to paid !!
+				
+				$invoice = new Invoice($item_id);
+				$invoice -> changeStatus(1);
+				
+				
+			}
+			
 		}
 	}
 }
-
 //*************************END UPDATE CREDIT************************************
 
 $_SESSION["p_amount"] = null;

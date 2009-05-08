@@ -25,7 +25,7 @@ if (!empty($action)) {
 			if(empty($date) || strtotime($date)===FALSE){
 				$error_msg.= gettext("Date inserted is invalid, it must respect a date format YYYY-MM-DD HH:MM:SS (time is optional).<br/>");
 			}
-			if(empty($vat) || !is_numeric($vat)){
+			if( !is_numeric($vat)){
 				$error_msg.= gettext("VAT inserted is invalid, it must be a number. Check the format.<br/>");
 			}
 			if(empty($price) || !is_numeric($price)){
@@ -66,7 +66,7 @@ if (!empty($action)) {
 				if(empty($date) || strtotime($date)===FALSE){
 					$error_msg.= gettext("Date inserted is invalid, it must respect a date format YYYY-MM-DD HH:MM:SS (time is optional).<br/>");
 				}
-				if(empty($vat) || !is_numeric($vat)){
+				if( !is_numeric($vat)){
 					$error_msg.= gettext("VAT inserted is invalid, it must be a number. Check the format.<br/>");
 				}
 				if(empty($price) || !is_numeric($price)){
