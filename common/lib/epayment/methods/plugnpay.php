@@ -237,7 +237,7 @@ class plugnpay {
       if ( ($result == false) || ($result < 1) ) {
         $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&authorizenet_cc_owner=' . urlencode($_POST['authorizenet_cc_owner']) . '&authorizenet_cc_expires_month=' . $_POST['authorizenet_cc_expires_month'] . '&authorizenet_cc_expires_year=' . $_POST['authorizenet_cc_expires_year'];
 		$payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
-
+		$payment_error_return .= '&item_id='.$_POST['item_id'].'&item_type='.$_POST['item_type'];
         tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
       }
 

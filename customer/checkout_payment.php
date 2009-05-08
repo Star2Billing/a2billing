@@ -124,7 +124,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 ?>
 
     <input name="item_id" type=hidden value="<?php echo $item_id?>">
-    <input name="transaction_type" type=hidden value="<?php echo $item_type?>">
+    <input name="item_type" type=hidden value="<?php echo $item_type?>">
 
     <table width="80%" cellspacing="0" cellpadding="2" align=center>
     <?php
