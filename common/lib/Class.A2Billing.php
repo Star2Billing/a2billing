@@ -1431,36 +1431,39 @@ class A2Billing {
 			$cents_audio = "prepaid-cents";
 		}
 		switch ($cents_audio) {	
-		case 'prepaid-pence':
-			$cent_audio = 'prepaid-penny';  break;
-		default:
-			$cent_audio = substr($cents_audio,0,-1);
+			case 'prepaid-pence':
+				$cent_audio = 'prepaid-penny';
+				break;
+			default:
+				$cent_audio = substr($cents_audio,0,-1);
 		}
 
 		// say 'you have x dollars and x cents'
-		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
-		else $agi-> stream_file('prepaid-account_refill', '#');
+		if ($fromvoucher!=1)
+			$agi-> stream_file('prepaid-you-have', '#');
+		else 
+			$agi-> stream_file('prepaid-account_refill', '#');
+		
 		if ($units==0 && $cents==0) {
 			$agi->say_number(0);
-		  if (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') ) {
-			$agi-> stream_file($units_audio, '#');
-		  }else {
-			$agi-> stream_file($unit_audio, '#');
-		  }
+			if (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') ) {
+				$agi-> stream_file($units_audio, '#');
+			}else {
+				$agi-> stream_file($unit_audio, '#');
+			}
 		} else {
 			if ($units > 1) {
 				$agi->say_number($units);
-
+				
 				if (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && (  ($units%10==0) ||( $units%10==2) || ($units%10==3 ) || ($units%10==4)) ) {
 					// test for the specific grammatical rules in Russian
 					$agi-> stream_file('dollar2', '#');
-				}elseif (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && ( $units%10==1)) {
+				} elseif (($this ->current_language=='ru') && (strtolower($this->currency)=='usd') && ( $units%10==1)) {
 					// test for the specific grammatical rules in Russian
 					$agi-> stream_file($unit_audio, '#');
 				} else {
 					$agi-> stream_file($units_audio, '#');
 				}
-
 			} else {
 				$agi->say_number($units);
 				
@@ -1471,23 +1474,23 @@ class A2Billing {
 				}
 			}
 
-			if ($units > 0 && $cents > 0){
+			if ($units > 0 && $cents > 0) {
 				$agi-> stream_file('vm-and', '#');
 			}
-			if ($cents>0){
+			if ($cents>0) {
 				$agi->say_number($cents);
-				if($cents>1){
-					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ){
+				if ($cents>1) {
+					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ($cents%10==2) || ($cents%10==3)|| ($cents%10==4)) ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-cent2', '#');
-					}elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&&  ( $cents%10==1)  ){
+					}elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ($cents%10==1) ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file($cent_audio, '#');
 					}else{
 						$agi-> stream_file($cents_audio, '#');
 					}
-				}else{
-				$agi-> stream_file($cent_audio, '#');
+				} else {
+					$agi-> stream_file($cent_audio, '#');
 				}
 
 			}
@@ -1507,16 +1510,15 @@ class A2Billing {
 	{
 		global $currencies_list;
 
-		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3)
-		{
+		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3) {
 			$this->currency = $this->agiconfig['agi_force_currency'];
 		}
-
+		
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CURRENCY : $this->currency]");
 		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 		$credit_cur = $rate / $mycur;
-
+		
 		list($units,$cents)=split('[.]', $credit_cur);
 		if (strlen($cents)>2) $cents=substr($cents,0,2);
 		if ($units=='') $units=0;
@@ -1533,12 +1535,11 @@ class A2Billing {
 		}
 		$cent_audio = 'prepaid-cent';
 		$cents_audio = 'prepaid-cents';
-
-
+		
 		// say 'the cost of the call is '
 		$agi-> stream_file('prepaid-cost-call', '#');
 
-		if ($units==0 && $cents==0){
+		if ($units==0 && $cents==0) {
 			$agi -> say_number(0);
 			$agi -> stream_file($unit_audio, '#');
 		} else {
@@ -1560,12 +1561,11 @@ class A2Billing {
 				$agi -> stream_file($unit_audio, '#');
 			}
 
-			if ($units > 0 && $cents > 0){
+			if ($units > 0 && $cents > 0) {
 				$agi -> stream_file('vm-and', '#');
 			}
-			if ($cents>0){
+			if ($cents>0) {
 				$agi -> say_number($cents);
-				
 				
 				if($cents>1){
 					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ){
@@ -1578,13 +1578,8 @@ class A2Billing {
 						$agi-> stream_file($cents_audio, '#');
 					}
 				}else{
-				$agi-> stream_file($cent_audio, '#');
+					$agi-> stream_file($cent_audio, '#');
 				}
-				
-				
-				
-
-				$agi -> stream_file($cent_audio, '#');
 			}
 		}
 		// say 'per minutes'
