@@ -339,6 +339,8 @@ if ($form_action == "list" && !$popup_select){
 <br>
 <?php
 
+// Weird hack to create a select form
+if ($form_action == "list" && !$popup_select) $HD_Form -> create_select_form();
 
 
 // #### TOP SECTION PAGE

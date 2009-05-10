@@ -2601,6 +2601,65 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		<?php
 	}
 	
+	
+	/**
+     *  CREATE_CUSTOM : Function to display a custom message using form_action
+     *  @public		TODO : maybe is better to allow use a string as parameter
+     */
+	 function create_select_form() {
+	 	$processed = $this->getProcessed();
+	 	include_once (FSROOT."lib/Class.Table.php");
+		$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
+		$FG_TABLE_CLAUSE = "";
+		$list_tariffname = $instance_table_tariffname  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
+
+		$instance_table_tariffgroup = new Table("cc_tariffgroup", "id, tariffgroupname, lcrtype");
+		$FG_TABLE_CLAUSE = "";
+		$list_tariffgroup = $instance_table_tariffgroup  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
+		
+	 ?>
+	<center>
+	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\"><b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
+
+	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
+
+	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+	<INPUT TYPE="hidden" NAME="posted" value=1>
+	<INPUT TYPE="hidden" NAME="current_page" value=0>
+		<table class="form_selectform" cellspacing="1">
+			
+			<tr>
+				<td align="left" valign="top" class="form_selectform_td1">
+					&nbsp;&nbsp;<?php echo gettext("Export Call Plan with LCR");?>
+				</td>
+				<td class="bgcolor_005" align="left">
+				<table class="form_selectform_table1"><tr>
+					<td width="50%" align="center">&nbsp;&nbsp;
+						<select NAME="tariffgroup" size="1"  class="form_input_select" width=250">
+								<option value=''><?php echo gettext("Choose a call plan");?></option>
+
+								<?php
+								 foreach ($list_tariffgroup as $recordset){
+								?>
+									<option class=input value='<?php  echo $recordset[0]."-:-".$recordset[1]."-:-".$recordset[2]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE2) echo "selected";?>><?php echo $recordset[1]?></option>
+								<?php 	 }
+								?>
+						</select>
+						 
+					</td>
+					<td class="form_selectform_table1_td1">
+						<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
+	  				</td>
+
+				</tr></table>
+				</td>
+			</tr>
+			
+		</table>
+	</FORM>
+</center>
+	<?php
+	}
 
 	
 	
