@@ -26,7 +26,7 @@ if (isset($posted) && !$popup_select) {
 	
 	if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {
 		$tariffgroup = explode('-:-',$tariffgroup);
-		$HD_Form->FG_TOP_FILTER_NAME = gettext("EXPORTED LCR CALL PLAN").' : '.str_replace ("-:-","",$tariffgroup[1]);
+		$HD_Form->FG_TOP_FILTER_NAME = gettext("EXPORTED LCR CALL PLAN").' : <b>'.str_replace ("-:-","",$tariffgroup[1]).'</b>';
 		$HD_Form->FG_TOP_FILTER_VALUE2 = $tariffgroup[0];
 		
 		$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .

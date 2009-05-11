@@ -2692,10 +2692,9 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		
 	 ?>
 	<center>
-	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\"><b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
-
-	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
-
+	<?php  if (!empty($this->FG_TOP_FILTER_NAME)) echo "<font size=\"1\">$this->FG_TOP_FILTER_NAME</font><br>"; ?>
+	
+	<!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
 	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
@@ -2709,14 +2708,13 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 				<table class="form_selectform_table1"><tr>
 					<td width="50%" align="center">&nbsp;&nbsp;
 						<select NAME="tariffgroup" size="1"  class="form_input_select" width=250">
-								<option value=''><?php echo gettext("Choose a call plan");?></option>
-
-								<?php
-								 foreach ($list_tariffgroup as $recordset){
-								?>
-									<option class=input value='<?php  echo $recordset[0]."-:-".$recordset[1]."-:-".$recordset[2]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE2) echo "selected";?>><?php echo $recordset[1]?></option>
-								<?php 	 }
-								?>
+							<option value=''><?php echo gettext("Choose a call plan");?></option>
+							<?php
+							 foreach ($list_tariffgroup as $recordset){
+							?>
+								<option class=input value='<?php  echo $recordset[0]."-:-".$recordset[1]."-:-".$recordset[2]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE2) echo "selected";?>><?php echo $recordset[1]?></option>
+							<?php 	 }
+							?>
 						</select>
 						 
 					</td>

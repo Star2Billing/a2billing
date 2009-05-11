@@ -1,6 +1,6 @@
 <?php
 
-if ($this->FG_FILTER_SEARCH_FORM){
+if ($this->FG_FILTER_SEARCH_FORM) {
 
 ?>
 
@@ -513,4 +513,4 @@ if ($this->FG_FILTER_SEARCH_FORM){
 
 <?php
 }
-?>
+
