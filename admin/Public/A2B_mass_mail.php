@@ -11,6 +11,7 @@ if (! has_rights (ACX_MAIL)) {
 	die();
 }
 
+
 $HD_Form = new FormHandler("cc_card");
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 $HD_Form -> setDBHandler (DbConnect());
@@ -170,7 +171,7 @@ if (strlen($_GET["menu"])>0) {
 <FORM action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="mass_mail"> 
 	<table class="editform_table1" cellspacing="2">
 <?php
-if(isset($submit)) {
+	if(isset($submit)) {
 		if($result) {
 ?>
 		<TR> 
@@ -191,18 +192,20 @@ if(isset($submit)) {
 		<td align="right"> <span class="viewhandler_span1"><?php echo $nb_customer;?> <?php echo gettext("Record(s)");?></span></td>
 	</tr>
 <?php
-	if(!empty($HD_Form -> FG_TABLE_CLAUSE) && is_array($list_customer)) {
+	if (is_array($list_customer)) {
 ?>
        <TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("TO");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-		    <?php $link_to_customer = CUSTOMER_UI_URL; 
+		    <?php
+		    	$link_to_customer = CUSTOMER_UI_URL;
+		    	//print_r ($list_customer);
 		    	if(is_array($list_customer)){
-					for($key=0; $key < $nb_customer && $key <= 19; $key++){
-						echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$list_customer[$key][1]." target=\"_blank\">".$list_customer[$key][0]."</a>";
-						if($key + 1 != $nb_customer) echo " ,&nbsp;";
+					for($key=0; $key < $nb_customer && $key <= 50; $key++){
+						echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$list_customer[$key]['id']." target=\"_blank\">".$list_customer[$key][1]."</a>";
+						if ($key + 1 != $nb_customer) echo ",&nbsp;";
 							echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$list_customer[$key][0].">";
-						if($key == 19){
+						if($key == 19) {
 							echo "<br><a href=\"A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1\" target=\"_blank\">".gettext("Click on list customer to see them all")."</a>";
 						}
 					}
