@@ -2649,6 +2649,10 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 					</td>
 					<td class="form_selectform_table1_td1">
 						<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
+						<?php
+						if(!empty($_SESSION['def_ratecard_tariffgroup'])) { ?>
+                    	- <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch_callplanlcr=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.gif" height="16"> Cancel Search</b></font></a>&nbsp;
+                    <?php } ?>
 	  				</td>
 
 				</tr></table>

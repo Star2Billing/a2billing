@@ -4,7 +4,8 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge','disconnectcharge_after',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
-'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time', 'additional_grace','minimal_cost','announce_time_correction'));
+'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time', 'additional_grace','minimal_cost','announce_time_correction',
+'cancelsearch_callplanlcr'));
 
 // put all the destination name to lowercase
 $destination = strtolower ($destination);
@@ -17,7 +18,11 @@ if (empty($form_action) || $form_action=="list") {
 
 $HD_Form -> FG_TABLE_ID = 'cc_ratecard.id';
 
-if (isset($posted) && !$popup_select){
+if ($cancelsearch_callplanlcr) {
+	$_SESSION['def_ratecard_tariffgroup'] = '';
+}
+
+if (isset($posted) && !$popup_select) {
 	
 	if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {
 		$tariffgroup = explode('-:-',$tariffgroup);
@@ -40,7 +45,7 @@ if (isset($posted) && !$popup_select){
 					"LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id ".
 					"WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=c1.dialprefix)";
 		
-		$_SESSION['def_ratecard_tariffgroup']=$HD_Form -> FG_TABLE_CLAUSE;
+		$_SESSION['def_ratecard_tariffgroup'] = $HD_Form -> FG_TABLE_CLAUSE;
 		
 		/*	Query for LCR 
 			SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk,  cc_ratecard.id 
@@ -52,18 +57,18 @@ if (isset($posted) && !$popup_select){
 			cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
 			WHERE cc_ratecard.dialprefix=c1.dialprefix) ORDER BY  destination ASC LIMIT 0,10;
 		 */
+	} else {
+		$_SESSION['def_ratecard_tariffgroup'] = '';
 	}
 } else {
-	$HD_Form -> FG_TOP_FILTER_NAME = 0;
-	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard'];
 	
 	if (!empty($_SESSION['def_ratecard_tariffgroup'])) {
 		$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard_tariffgroup'];
-		if (empty($form_action) || $form_action=="list")
-			$HD_Form -> FG_TABLE_NAME = 'cc_ratecard, cc_tariffplan t1, cc_tariffgroup t2, cc_tariffgroup_plan t3';
+		$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
+				"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
+				"LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id";
 	}
 }
-
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " destination";

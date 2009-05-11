@@ -161,13 +161,6 @@ if ($batchupdate == 1 && is_array($check)) {
 	if (strlen($HD_Form->FG_TABLE_CLAUSE) > 1) {
 		$SQL_UPDATE .= ' WHERE ';
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
-		if ($_SESSION['def_ratecard'] != null) {
-			$SQL_UPDATE .= ' AND ' . $_SESSION['def_ratecard'];
-		}
-	} else {
-		if (strlen($_SESSION['def_ratecard']) > 1) {
-			$SQL_UPDATE .= ' WHERE ' . $_SESSION['def_ratecard'];
-		}
 	}
 	if (!$res = $HD_Form->DBHandle->query($SQL_UPDATE))
 		$update_msg = "<center><font color=\"red\"><b>" . gettext("Could not perform the batch update") . "!</b></font></center>";
@@ -207,13 +200,6 @@ if (($form_action == "list") && ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['po
 		$HD_Form->FG_TABLE_CLAUSE .= ' AND ';
 
 	$HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
-
-	/*
-	SELECT t1.destination, min(t1.rateinitial), t1.dialprefix FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, 
-	cc_tariffgroup_plan t6 
-	WHERE t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '3' 
-	GROUP BY t1.dialprefix
-	*/
 }
 
 $list = $HD_Form->perform_action($form_action);
