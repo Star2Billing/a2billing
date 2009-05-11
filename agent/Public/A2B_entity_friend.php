@@ -141,7 +141,7 @@ if ($form_action=='list'){
 
 if ($form_action=='list') {
 ?>
-
+<div align="center">
 <table width="40%" border="0" align="center" cellpadding="0" cellspacing="1">
 	<tr>
 	  <td  class="bgcolor_021">
@@ -162,7 +162,7 @@ if ($form_action=='list') {
 	  </table></td>
 	</tr>
 </table>
-
+</div>
 <?php
 }
 

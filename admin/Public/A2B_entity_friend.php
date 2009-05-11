@@ -115,7 +115,15 @@ if ($form_action=='list') {
 	echo $CC_help_sipfriend_list;
 	?>
 		  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
-			<TR><TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?></TD></TR>
+			<TR><TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?> &nbsp;:&nbsp;
+			</TD></TR>
+			<TR><TD  align="center"> 
+			<b><?php if(!USE_REALTIME) { 
+			      echo gettext("Realtime not activate, you have to use the conf file for your system");
+				}else{
+					echo gettext("Realtime activate, you don't have to use the conf file for your system");
+				}?></b>
+			</TD></TR>
 			<TR><FORM NAME="sipfriend">
 				<td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" >			
 				<b>
@@ -135,7 +143,7 @@ if ($form_action=='list') {
 
 if ($form_action=='list') {
 ?>
-
+<div align="center">
 <table width="40%" border="0" align="center" cellpadding="0" cellspacing="1">
 	<tr>
 	  <td  class="bgcolor_021">
@@ -156,7 +164,7 @@ if ($form_action=='list') {
 	  </table></td>
 	</tr>
 </table>
-
+</div>
 <?php
 }
 
