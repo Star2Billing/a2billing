@@ -263,7 +263,7 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 
 $HD_Form -> FG_ADDITION = true;
 
-if (! has_rights (ACXMODIFY_CUSTOMERS) && !($popup_select>=1)){
+if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	
