@@ -180,7 +180,6 @@ $HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_card";
 if (($popup_select>=1))	$HD_Form ->FG_LIMITE_DISPLAY = 7;
 
 
-
 $HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
 
 // Search form
@@ -465,7 +464,6 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Insert the company website of this customer"),
 				   "" , "", "",	"", "", "" , "NO", "");
-	
 	
 		
 	$update_field_typepaid = 'typepaid ,';

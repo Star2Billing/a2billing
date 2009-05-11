@@ -1,7 +1,7 @@
 <?php
-include ("../lib/admin.defines.php");
+include ("../lib/agent.defines.php");
 require_once ("../lib/iam_csvdump.php");
-include ("../lib/admin.module.access.php");
+include ("../lib/agent.module.access.php");
 
 if (!has_rights(ACX_CALL_REPORT) && !has_rights(ACX_CUSTOMER)) {
 	Header("HTTP/1.0 401 Unauthorized");
