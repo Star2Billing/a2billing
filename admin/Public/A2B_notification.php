@@ -4,47 +4,59 @@ include ("../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
 if (!$ACXACCESS) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
+getpost_ifset(array (
+	'id',
+	'page',
+	'action'
+));
 
-getpost_ifset(array('id','page','action'));
-
-if(!empty($action) && is_numeric($id)){
+if (!empty ($action) && is_numeric($id)) {
 	switch ($action) {
-		case "view": 	$DBHandle = DbConnect();
-						$table = new Table("cc_notification_admin", "*");
-						$fields = "id_notification,id_admin,viewed";
-						$values = " $id , ".$_SESSION['admin_id'].",1 ";
-						$return = $table->Add_table($DBHandle, $values, $fields);
-						if($return) echo "true";
-						else echo "false";
-						die();
-						break;
-		case "delete": 	if(has_rights (ACX_DELETE_NOTIFICATIONS)){
-							$return = NotificationsDAO::DelNotification($id);
-							if($return) echo "true";
-							else echo "false";
-							die();
-						}else{
-							echo "false";
-							die();
-						}
-						break;
-		
-		default: die();
-				break;
+		case "view" :
+			$DBHandle = DbConnect();
+			$table = new Table("cc_notification_admin", "*");
+			$fields = "id_notification,id_admin,viewed";
+			$values = " $id , " . $_SESSION['admin_id'] . ",1 ";
+			$return = $table->Add_table($DBHandle, $values, $fields);
+			if ($return)
+				echo "true";
+			else
+				echo "false";
+			die();
+			break;
+		case "delete" :
+			if (has_rights(ACX_DELETE_NOTIFICATIONS)) {
+				$return = NotificationsDAO :: DelNotification($id);
+				if ($return)
+					echo "true";
+				else
+					echo "false";
+				die();
+			} else {
+				echo "false";
+				die();
+			}
+			break;
+
+		default :
+			die();
+			break;
 	}
-	
+
 	$DBHandle = DbConnect();
 	$table = new Table("cc_notification_admin", "*");
 	$fields = "id_notification,id_admin,viewed";
-	$values = " $id , ".$_SESSION['admin_id'].",1 ";
+	$values = " $id , " . $_SESSION['admin_id'] . ",1 ";
 	$return = $table->Add_table($DBHandle, $values, $fields);
-	if($return) echo "true";
-	else echo "false";
+	if ($return)
+		echo "true";
+	else
+		echo "false";
 	die();
 }
 

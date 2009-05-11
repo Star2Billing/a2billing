@@ -13,12 +13,12 @@ $HD_Form -> FG_TABLE_ID = 'cc_logrefill.id';
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-
-$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_logrefill.php?form_action=ask-add&section=".$_SESSION["menu_section"];
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Refill");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
-
+if (has_rights (ACXMODIFY_REFILLS)) {
+	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_logrefill.php?form_action=ask-add&section=".$_SESSION["menu_section"];
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Refill");
+	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
+}
 
 $list_refill_type=Constants::getRefillType_List();
 
@@ -54,13 +54,14 @@ $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'Account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
 	
 $HD_Form -> FG_ADDITION = true;
-if (! has_rights (ACXMODIFY_REFILLS)){
+if (has_rights (ACXMODIFY_REFILLS)) {
+	
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	
@@ -72,7 +73,7 @@ if (! has_rights (ACXMODIFY_REFILLS)){
 					"A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,
 					gettext("Select the Customer ID"));
 	
-	if ($form_action=="ask-add"){	
+	if ($form_action=="ask-add") {	
 		$begin_date = date("Y");
 		$end_date = date("-m-d H:i:s");
 		$comp_date=$begin_date.$end_date;
@@ -130,8 +131,6 @@ if (! has_rights (ACXMODIFY_REFILLS)){
 	$HD_Form -> FieldEditElement ('card_id, date, credit, description, refill_type, added_invoice');
 	
 	
-
-	
 	
 	$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
 	$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
@@ -152,3 +151,4 @@ if (! has_rights (ACXMODIFY_REFILLS)){
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
 }
+
