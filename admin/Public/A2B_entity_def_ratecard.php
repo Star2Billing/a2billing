@@ -5,88 +5,150 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_def_ratecard.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_RATECARD)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
-	die();	   
+if (!has_rights(ACX_RATECARD)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
-
 
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname','posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('batchupdate', 'upd_id_trunk', 'upd_idtariffplan','upd_tag',
-# TODO: check why??? we use folowing
- 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', "filterprefix"));
+getpost_ifset(array (
+	'batchupdate',
+	'upd_id_trunk',
+	'upd_idtariffplan',
+	'upd_tag',
+	# TODO: check why??? we use folowing
+	'upd_inuse',
+	'upd_activated',
+	'upd_language',
+	'upd_tariff',
+	'upd_credit',
+	'upd_credittype',
+	'upd_simultaccess',
+	'upd_currency',
+	'upd_typepaid',
+	'upd_creditlimit',
+	'upd_enableexpire',
+	'upd_expirationdate',
+	'upd_expiredays',
+	'upd_runservice',
+	"filterprefix"
+));
 
-$update_fields=array("upd_buyrate","upd_buyrateinitblock","upd_buyrateincrement","upd_rateinitial","upd_initblock",
-			"upd_billingblock","upd_connectcharge","upd_disconnectcharge","upd_rounding_calltime","upd_rounding_threshold",
-			"upd_additional_block_charge","upd_additional_block_charge_time");
-$update_fields_info=array("BUYING RATE","BUYRATE MIN DURATION","BUYRATE BILLING BLOCK","SELLING RATE","SELLRATE MIN DURATION",
-			"SELLRATE BILLING BLOCK","CONNECT CHARGE","DISCONNECT CHARGE","ROUNDING CALLTIME","ROUNDING THRESHOLD",
-			"ADDITIONAL BLOCK CHARGE","ADDITIONAL BLOCK CHARGE TIME");
-$charges_abc=array();
-$charges_abc_info=array();
-if (ADVANCED_MODE){
-       $charges_abc=array("upd_stepchargea","upd_chargea","upd_timechargea","upd_stepchargeb","upd_chargeb","upd_timechargeb","upd_stepchargec","upd_chargec","upd_timechargec","upd_announce_time_correction");
-       $charges_abc_info=array("ENTRANCE CHARGE A","COST A","TIME FOR A","ENTRANCE CHARGE B","COST B","TIME FOR B","ENTRANCE CHARGE C","COST C","TIME FOR C","ANNOUNCE TIME CORRECTION");
+$update_fields = array (
+	"upd_buyrate",
+	"upd_buyrateinitblock",
+	"upd_buyrateincrement",
+	"upd_rateinitial",
+	"upd_initblock",
+	"upd_billingblock",
+	"upd_connectcharge",
+	"upd_disconnectcharge",
+	"upd_rounding_calltime",
+	"upd_rounding_threshold",
+	"upd_additional_block_charge",
+	"upd_additional_block_charge_time"
+);
+$update_fields_info = array (
+	"BUYING RATE",
+	"BUYRATE MIN DURATION",
+	"BUYRATE BILLING BLOCK",
+	"SELLING RATE",
+	"SELLRATE MIN DURATION",
+	"SELLRATE BILLING BLOCK",
+	"CONNECT CHARGE",
+	"DISCONNECT CHARGE",
+	"ROUNDING CALLTIME",
+	"ROUNDING THRESHOLD",
+	"ADDITIONAL BLOCK CHARGE",
+	"ADDITIONAL BLOCK CHARGE TIME"
+);
+$charges_abc = array ();
+$charges_abc_info = array ();
+if (ADVANCED_MODE) {
+	$charges_abc = array (
+		"upd_stepchargea",
+		"upd_chargea",
+		"upd_timechargea",
+		"upd_stepchargeb",
+		"upd_chargeb",
+		"upd_timechargeb",
+		"upd_stepchargec",
+		"upd_chargec",
+		"upd_timechargec",
+		"upd_announce_time_correction"
+	);
+	$charges_abc_info = array (
+		"ENTRANCE CHARGE A",
+		"COST A",
+		"TIME FOR A",
+		"ENTRANCE CHARGE B",
+		"COST B",
+		"TIME FOR B",
+		"ENTRANCE CHARGE C",
+		"COST C",
+		"TIME FOR C",
+		"ANNOUNCE TIME CORRECTION"
+	);
 };
-
 
 getpost_ifset($update_fields);
 
-if (ADVANCED_MODE){
+if (ADVANCED_MODE) {
 	getpost_ifset($charges_abc);
 };
 
-
 /***********************************************************************************/
 
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
-
+$HD_Form->setDBHandler(DbConnect());
+$HD_Form->init();
 
 // CHECK IF REQUEST OF BATCH UPDATE
-if ($batchupdate == 1 && is_array($check)){
+if ($batchupdate == 1 && is_array($check)) {
 
 	check_demo_mode();
-	
+
 	$HD_Form->prepare_list_subselection('list');
-	
+
 	// Array ( [upd_simultaccess] => on [upd_currency] => on )
-	$loop_pass=0;
+	$loop_pass = 0;
 	$SQL_UPDATE = '';
-	foreach ($check as $ind_field => $ind_val){
+	foreach ($check as $ind_field => $ind_val) {
 		//echo "<br>::> $ind_field -";
-		$myfield = substr($ind_field,4);
-		if ($loop_pass!=0) $SQL_UPDATE.=',';
-		
+		$myfield = substr($ind_field, 4);
+		if ($loop_pass != 0)
+			$SQL_UPDATE .= ',';
+
 		// Standard update mode
-		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){		
-			if (!isset($type["$ind_field"])){		
-				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
-			}else{
-				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
+		if (!isset ($mode["$ind_field"]) || $mode["$ind_field"] == 1) {
+			if (!isset ($type["$ind_field"])) {
+				$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+			} else {
+				$SQL_UPDATE .= " $myfield='" . $type["$ind_field"] . "'";
 			}
-		// Mode 2 - Equal - Add - Substract
-		}elseif($mode["$ind_field"]==2){
-			if (!isset($type["$ind_field"])){
-				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
-			}else{
-				if ($type["$ind_field"] == 1){
-					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
-				}elseif ($type["$ind_field"] == 2){
-					if (substr($$ind_field,-1) == "%") {
-						$SQL_UPDATE .= " $myfield = ROUND($myfield + (($myfield * ".substr($$ind_field,0,-1).") / 100)+0.00005,4)";
+			// Mode 2 - Equal - Add - Substract
+		}
+		elseif ($mode["$ind_field"] == 2) {
+			if (!isset ($type["$ind_field"])) {
+				$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+			} else {
+				if ($type["$ind_field"] == 1) {
+					$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+				}
+				elseif ($type["$ind_field"] == 2) {
+					if (substr($$ind_field, -1) == "%") {
+						$SQL_UPDATE .= " $myfield = ROUND($myfield + (($myfield * " . substr($$ind_field, 0, -1) . ") / 100)+0.00005,4)";
 					} else {
-						$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
+						$SQL_UPDATE .= " $myfield = $myfield +'" . $$ind_field . "'";
 					}
-				}else{
-					if (substr($$ind_field,-1) == "%") {
-						$SQL_UPDATE .= " $myfield = ROUND($myfield - (($myfield * ".substr($$ind_field,0,-1).") / 100)+0.00005,4)";
+				} else {
+					if (substr($$ind_field, -1) == "%") {
+						$SQL_UPDATE .= " $myfield = ROUND($myfield - (($myfield * " . substr($$ind_field, 0, -1) . ") / 100)+0.00005,4)";
 					} else {
-						$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
+						$SQL_UPDATE .= " $myfield = $myfield -'" . $$ind_field . "'";
 					}
 				}
 			}
@@ -95,58 +157,57 @@ if ($batchupdate == 1 && is_array($check)){
 		$loop_pass++;
 	}
 
-	$SQL_UPDATE = "UPDATE $HD_Form->FG_TABLE_NAME SET $SQL_UPDATE";	
-	if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
+	$SQL_UPDATE = "UPDATE $HD_Form->FG_TABLE_NAME SET $SQL_UPDATE";
+	if (strlen($HD_Form->FG_TABLE_CLAUSE) > 1) {
 		$SQL_UPDATE .= ' WHERE ';
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
-		if ($_SESSION['def_ratecard'] != null)
-		{		
-			$SQL_UPDATE .= ' AND '.$_SESSION['def_ratecard'];
+		if ($_SESSION['def_ratecard'] != null) {
+			$SQL_UPDATE .= ' AND ' . $_SESSION['def_ratecard'];
 		}
-	}else{
-	  if(strlen($_SESSION['def_ratecard'])>1) {
-		$SQL_UPDATE .= ' WHERE '.$_SESSION['def_ratecard'];
-	  }
-	}	
-	if (! $res = $HD_Form -> DBHandle -> query($SQL_UPDATE))		$update_msg = "<center><font color=\"red\"><b>".gettext("Could not perform the batch update")."!</b></font></center>";		
-	else		$update_msg = "<center><font color=\"green\"><b>".gettext("The batch update has been successfully perform")." !</b></font></center>";		
+	} else {
+		if (strlen($_SESSION['def_ratecard']) > 1) {
+			$SQL_UPDATE .= ' WHERE ' . $_SESSION['def_ratecard'];
+		}
+	}
+	if (!$res = $HD_Form->DBHandle->query($SQL_UPDATE))
+		$update_msg = "<center><font color=\"red\"><b>" . gettext("Could not perform the batch update") . "!</b></font></center>";
+	else
+		$update_msg = "<center><font color=\"green\"><b>" . gettext("The batch update has been successfully perform") . " !</b></font></center>";
 
 }
 //echo "FG_TABLE_NAME=$HD_Form->FG_TABLE_NAME :: FG_TABLE_CLAUSE=$HD_Form->FG_TABLE_CLAUSE<br>";
 /********************************* END BATCH UPDATE ***********************************/
 
-
-
-if ($id!="" || !is_null($id)){	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
+if (!isset ($form_action))
+	$form_action = "list"; //ask-add
+if (!isset ($action))
+	$action = $form_action;
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-if ($form_action!="list") { 
+if ($form_action != "list") {
 	check_demo_mode();
 }
 
-if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {		
-	list($mytariffgroup_id, $mytariffgroupname, $mytariffgrouplcrtype) = split('-:-', $tariffgroup);
-	$_SESSION["mytariffgroup_id"]= $mytariffgroup_id;
-	$_SESSION["mytariffgroupname"]= $mytariffgroupname;
-	$_SESSION["tariffgrouplcrtype"]= $mytariffgrouplcrtype;
+if (is_string($tariffgroup) && strlen(trim($tariffgroup)) > 0) {
+	list ($mytariffgroup_id, $mytariffgroupname, $mytariffgrouplcrtype) = split('-:-', $tariffgroup);
+	$_SESSION["mytariffgroup_id"] = $mytariffgroup_id;
+	$_SESSION["mytariffgroupname"] = $mytariffgroupname;
+	$_SESSION["tariffgrouplcrtype"] = $mytariffgrouplcrtype;
 } else {
 	$mytariffgroup_id = $_SESSION["mytariffgroup_id"];
 	$mytariffgroupname = $_SESSION["mytariffgroupname"];
 	$mytariffgrouplcrtype = $_SESSION["tariffgrouplcrtype"];
 }
 
+if (($form_action == "list") && ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1) && is_numeric($mytariffgroup_id)) {
+	if (!empty ($HD_Form->FG_TABLE_CLAUSE))
+		$HD_Form->FG_TABLE_CLAUSE .= ' AND ';
 
-
-if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1 ) && is_numeric($mytariffgroup_id)) {
-	if (!empty($HD_Form->FG_TABLE_CLAUSE)) $HD_Form->FG_TABLE_CLAUSE .= ' AND ';
-	
 	$HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
-	
+
 	/*
 	SELECT t1.destination, min(t1.rateinitial), t1.dialprefix FROM cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, 
 	cc_tariffgroup_plan t6 
@@ -155,20 +216,21 @@ if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['
 	*/
 }
 
-$list = $HD_Form -> perform_action($form_action);
-
+$list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
 if (!$popup_select) {
-	if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo $CC_help_add_rate;
+	if (($form_action == 'ask-add') || ($form_action == 'ask-edit'))
+		echo $CC_help_add_rate;
 } else {
 	echo $CC_help_def_ratecard;
 }
 // DISPLAY THE UPDATE MESSAGE
-if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
+if (isset ($update_msg) && strlen($update_msg) > 0)
+	echo $update_msg;
 
 if ($popup_select) {
 ?>
@@ -180,30 +242,28 @@ function sendValue(selvalue){
 }
 // End -->
 </script>
-<?php 
-} 
-if(!$popup_select){
-?>
 <?php
-// #### CREATE SEARCH FORM
-if ($form_action == "list"){
-	$HD_Form -> create_search_form();
+
 }
-?>
-<?php }
+
+if (!$popup_select) {
+	// #### CREATE SEARCH FORM
+	if ($form_action == "list") {
+		$HD_Form->create_search_form();
+	}
+}
 
 /********************************* BATCH UPDATE ***********************************/
-if ($form_action == "list" && !$popup_select){
-	
+if ($form_action == "list" && !$popup_select) {
+
 	$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
 	$FG_TABLE_CLAUSE = "";
-	$list_tariffname = $instance_table_tariffname  -> Get_list ($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
+	$list_tariffname = $instance_table_tariffname->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 	$nb_tariffname = count($list_tariffname);
-	
 
 	$instance_table_trunk = new Table("cc_trunk", "id_trunk, trunkcode, providerip");
 	$FG_TABLE_CLAUSE = "";
-	$list_trunk = $instance_table_trunk -> Get_list ($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "trunkcode", "ASC", null, null, null, null);
+	$list_trunk = $instance_table_trunk->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "trunkcode", "ASC", null, null, null, null);
 	$nb_trunk = count($list_trunk);
 ?>
 
