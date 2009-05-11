@@ -425,10 +425,9 @@ class FormHandler
 	var $FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_DELETE = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_EDITION = '';
-
+	
 	var $FG_TABLE_ALTERNATE_ROW_COLOR = array();
 	
-
 	var $FG_TABLE_DEFAULT_ORDER = "id";
 	var $FG_TABLE_DEFAULT_SENS = "ASC";
 
@@ -1698,10 +1697,11 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 	
 	}
 	
-	function creation_agent_refill(){
+	function creation_agent_refill()
+	{
 		$processed = $this->getProcessed();
 		$credit = $processed['credit'];
-		if($credit>0){
+		if($credit>0) {
 			$field_insert = " credit,agent_id, description";
 			$agent_id = $this -> RESULT_QUERY;
 			$description = gettext("CREATION AGENT REFILL");
@@ -1711,23 +1711,96 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		}
 	}
 	
-	function processing_card_add(){
+	function processing_card_add()
+	{
 		$this->create_sipiax_friends();
 		$this->creation_card_refill();
 		
 	}
-	function processing_card_del_agent(){
+	
+	function processing_card_del_agent()
+	{
 		$this->deletion_card_refill_agent();
 		
 	}
-	function processing_card_add_agent(){
+	
+	function processing_card_add_agent()
+	{
 		$this->create_sipiax_friends();
 	}
-	function processing_refill_add(){
+	
+	function processing_refill_add()
+	{
 		$this->add_card_refill();
 		//add invoice
 		$this->create_invoice_after_refill();
 		
+	}
+	
+	/*
+	 * function to add a new DID Destination and set the DID use & Charge correctly
+	 */
+	function did_destination_add()
+	{
+		global $A2B;
+		$processed = $this->getProcessed();
+		
+		$instance_table = new Table();
+		$id_cc_did = $processed['id_cc_did'];
+		
+		$result_did = $instance_table -> SQLExec($this->DBHandle, "SELECT fixrate FROM cc_did WHERE id = $id_cc_did AND (billingtype=0 OR billingtype=1)");
+		
+		if (is_array($result_did)) {
+		
+			$choose_did = $id_cc_did;
+			$rate = $result_did[0]['fixrate'];
+			$id_cc_card = $processed['id_cc_card'];
+			
+			$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ('" . $id_cc_card . "', '" . $rate . "', '2','" . $choose_did . "','" . strtoupper(BASE_CURRENCY) . "')";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+			
+			$QUERY1 = "UPDATE cc_did set iduser = " . $id_cc_card . ",reserved=1 where id = '" . $choose_did . "'";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+	
+			$QUERY1 = "UPDATE cc_card set credit = credit -" . $rate . " where id = '" . $id_cc_card . "'";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+	
+			$QUERY1 = "UPDATE cc_did_use set releasedate = now() where id_did = '" . $choose_did . "' and activated = 0";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+	
+			$QUERY1 = "INSERT INTO cc_did_use (activated, id_cc_card, id_did, month_payed) values ('1','" . $id_cc_card . "','" . $choose_did . "', 1)";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+			
+		}
+	}
+	
+	/*
+	 * function to release a DID and set the DID use correctly
+	 */
+	function did_destination_del()
+	{
+		global $A2B;
+		$processed = $this->getProcessed();
+		
+		$instance_table = new Table();
+		$id = $processed['id'];
+		
+		$result_did_dest = $instance_table -> SQLExec($this->DBHandle, "SELECT id_cc_did FROM cc_did_destination WHERE id = $id");
+		
+		if (is_array($result_did_dest) && !is_null($result_did_dest[0]['id_cc_did'])) {
+		
+			$choose_did = $result_did_dest[0]['id_cc_did'];
+			
+			$QUERY = "UPDATE cc_did SET iduser = 0, reserved=0 WHERE id=$choose_did";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
+		
+			$QUERY = "UPDATE cc_did_use SET releasedate = now() WHERE id_did =$choose_did and activated = 1";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
+		
+			$QUERY = "INSERT INTO cc_did_use (activated, id_did) VALUES ('0','" . $choose_did . "')";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
+			
+		}
 	}
 	
 	function proccessing_billing_customer(){

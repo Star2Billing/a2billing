@@ -75,27 +75,31 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	gettext("Insert the DID"),
 	"" , "", "", "", "" , "", "", gettext("Enter the phone number you wish to call, or the VoIP client to reach. (ie: 347894999 or SIP/jeremy@182.212.1.45). If the call is VoIP, the VoIP_Call must be set to yes."));
 
-$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
-	"id_cc_card",
-	'',
-	"POPUPVALUE",
-	"size=30 maxlength=50",
-	"4",
-	gettext("Insert the Id Customer ID"),
-	"" , "", "", "", "",
-	"A2B_entity_card.php?popup_select=1&"
-	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
-	gettext("Set the Customer ID."));
+if ($form_action!='ask-edit' && $form_action!='edit') {
+	
+	$HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
+		"id_cc_card",
+		'',
+		"POPUPVALUE",
+		"size=30 maxlength=50",
+		"4",
+		gettext("Insert the Id Customer ID"),
+		"" , "", "", "", "",
+		"A2B_entity_card.php?popup_select=1&"
+		, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
+		gettext("Set the Customer ID."));
 
-$HD_Form -> AddEditElement (gettext("DID"),
-	"id_cc_did",
-	'$value',
-	"SELECT",
-	"", "", "",
-	"sql",
-	"cc_did",
-	"did, id",
-	"", "", "%1", "" , "");
+
+	$HD_Form -> AddEditElement (gettext("DID"),
+		"id_cc_did",
+		'$value',
+		"SELECT",
+		"", "", "",
+		"sql",
+		"cc_did",
+		"did, id",
+		"", "", "%1", "" , "");
+}
 
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"activated",
@@ -124,9 +128,11 @@ $HD_Form -> AddEditElement (gettext("VOIP_CALL"),
 	gettext("Choose if you want to not use the trunk and let the asterisk call directly the destination (ie, Destination : SIP/jeremy@182.212.1.45)"),
 	"" , "",  "", "Yes :1, - No:0",  "", "" , "" , "");
 
-
-$HD_Form -> FieldEditElement ('destination, id_cc_card, id_cc_did, activated, priority, voip_call');
-
+if ($form_action!='ask-edit' && $form_action!='edit') {
+	$HD_Form -> FieldEditElement ('destination, id_cc_card, id_cc_did, activated, priority, voip_call');
+} else {
+	$HD_Form -> FieldEditElement ('destination, activated, priority, voip_call');
+}
 
 // Set the filter variables
 $HD_Form -> FG_FILTER_APPLY = true;
@@ -151,7 +157,8 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
-
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'did_destination_add';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE = 'did_destination_del';
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
