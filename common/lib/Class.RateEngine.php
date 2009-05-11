@@ -277,19 +277,14 @@ class RateEngine
 				$mylistoftrunk[]= $mycurrenttrunk;
 		}
 
-
-		//4) $result[K][34]==-1 USE THE VALUES OF THE TRUNK OF $result[K][29]
-
-
 		$this -> ratecard_obj = $distinct_result;
 		$this -> number_trunk = count($distinct_result);
-
+		
 		// if an extracharge DID number was called increase rates with the extracharge fee
-		if (strlen($A2B->dnid)>2 && is_array($A2B->agiconfig['extracharge_did']) && in_array($A2B->dnid, $A2B->agiconfig['extracharge_did']))
-		{
+		if (strlen($A2B->dnid)>1 && is_array($A2B->agiconfig['extracharge_did']) && in_array($A2B->dnid, $A2B->agiconfig['extracharge_did'])) {
 			$fee=$A2B->agiconfig['extracharge_fee'][array_search($A2B->dnid, $A2B->agiconfig['extracharge_did'])];
 			$buyfee=$A2B->agiconfig['extracharge_buyfee'][array_search($A2B->dnid, $A2B->agiconfig['extracharge_did'])];
-			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: Extracharge DID found: ".$A2B->dnid.", extra fee: ".$fee.", extra buy fee: ".$buyfee."]");
+			$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: Extracharge DID found: ".$A2B->dnid.", extra fee: ".$fee.", extra buy fee: ".$buyfee."]");
 			for ($i=0; $i<count($this->ratecard_obj); $i++)
 			{
 				$this->ratecard_obj[$i][9] +=$buyfee;
@@ -316,7 +311,7 @@ class RateEngine
 		if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT ($credit)]");
 		if (!is_array($this -> ratecard_obj) || count($this -> ratecard_obj)==0) return false;
 
-		for ($k=0;$k<count($this -> ratecard_obj);$k++){
+		for ($k=0;$k<count($this -> ratecard_obj);$k++) {
 			$res_calcultimeout = $this -> rate_engine_calcultimeout ($A2B,$credit,$k);
 			if ($this->webui)
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT: k=$k - res_calcultimeout:$res_calcultimeout]");
@@ -366,14 +361,9 @@ class RateEngine
 		$this -> freecall[$K] = false;
 		$this -> package_to_apply [$K] = null;
 		
-		//CHECK THE PACKAGES TOAPPLY TO THIS RATES
-		if($id_cc_package_group!=-1){
+		//CHECK THE PACKAGES TO APPLY TO THIS RATES
+		if($id_cc_package_group!=-1) {
 			
-			//$table_packages = new Table("cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate", "cc_package_offer.id, packagetype,billingtype,startday,freetimetocall");
-			//$clause_packages= "cc_package_group.id= ".$id_cc_package_group." AND cc_package_group.id=cc_packgroup_package.packagegroup_id AND cc_packgroup_package.package_id = cc_package_offer.id AND cc_package_offer.id = cc_package_rate.package_id  AND cc_package_rate.rate_id = ".$id_rate;
-			//$order_packages = "cc_package_offer.packagetype";
-			//$sens_packages = "ASC";
-			//$result_packages= $table_packages -> Get_list ($A2B -> DBHandle, $clause_packages, $order_packages, $sens_packages, null, null, null, null);
 			$query_pakages ="SELECT cc_package_offer.id, packagetype,billingtype,startday,freetimetocall 
 			FROM cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate 
 			WHERE cc_package_group.id= ".$id_cc_package_group." 
@@ -385,17 +375,19 @@ class RateEngine
 			$table_packages = new Table();
 			$result_packages = $table_packages -> SQLExec ($A2B -> DBHandle, $query_pakages);
 			$idx_pack = 0;
-			if(!empty($result_packages))
-			{ 
+			if(!empty($result_packages)) { 
 				$package_selected = false;
-				while(!$package_selected && $idx_pack < count($result_packages)){
+				
+				while (!$package_selected && $idx_pack < count($result_packages)) {
+					
 					$freetimetocall 	= $result_packages[$idx_pack]["freetimetocall"];
 					$packagetype 		= $result_packages[$idx_pack]["packagetype"];
 					$billingtype 		= $result_packages[$idx_pack]["billingtype"];
 					$startday 			= $result_packages[$idx_pack]["startday"];
 					$id_cc_package_offer= $result_packages[$idx_pack][0];
+					
 					if ($this -> debug_st) print_r("[ID PACKAGE  TO APPLY = $id_cc_package_offer]");
-					switch($packagetype){
+					switch($packagetype) {
 						// 0 : UNLIMITED PACKAGE
 						//IF PACKAGE IS "UNLIMITED" SO WE DON'T NEED TO CALCULATE THE USED TIMES
 						case 0 : $this -> freecall[$K] = true;
@@ -404,15 +396,16 @@ class RateEngine
 						        break;
 						// 1 : FREE CALLS         
 						//IF PACKAGE IS "NUMBER OF FREE CALLS"  AND WE CAN USE IT ELSE WE CHECK THE OTHERS PACKAGE LIKE FREE TIMES
-						case 1 :  if  ( $freetimetocall>0){
-									  $number_calls_used =$A2B -> number_free_calls_used($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
-							          if($number_calls_used < $freetimetocall){
-								          $this -> freecall[$K] = true;
-								          $package_selected = true;
-								          $this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Number of Free calls","type"=>$packagetype);
-							          }
-								  }
-						          break;
+						case 1 :  
+							if  ( $freetimetocall>0){
+								$number_calls_used =$A2B -> number_free_calls_used($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
+								if($number_calls_used < $freetimetocall){
+								    $this -> freecall[$K] = true;
+								    $package_selected = true;
+								    $this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Number of Free calls","type"=>$packagetype);
+							    }
+							}
+							break;
 						//2 : FREE TIMES 
 						case 2 : 
 							// CHECK IF WE HAVE A FREETIME THAT CAN APPLY FOR THIS DESTINATION
@@ -427,20 +420,13 @@ class RateEngine
 								}
 				
 							}
-							
-							// ****************  END PACKAGE PARAMETERS ****************
-						        break;
+							break;
 					}
-					
 					$idx_pack++;
 				}
-				
-				
-				
-	
 			}
 		}
-
+		
 		$credit -= $connectcharge;
 		if ($disconnectcharge_after==0) {
 			$credit -= $disconnectcharge; 
