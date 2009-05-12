@@ -22,6 +22,14 @@
 	padding-top: 20px;
 }
 
+#menutitlesection {
+	margin-left: 22px;
+}
+
+#menutitlebutton {
+	float: left;
+}
+
 .msg_info, .msg_success, .msg_warning, .msg_error, .msg_validation {
     border: 1px solid;
     margin:10px 10px 10px 0px;

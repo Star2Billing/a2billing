@@ -164,12 +164,12 @@
 	{if ($ACXCALLREPORT > 0)}
 	<li>
 	<div class="toggle_menu">
-	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img5"
+	<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img5"
 	{if ($section == "5")}
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if} onmouseover="this.style.cursor='hand';"  > &nbsp;<strong>{php} echo gettext("CALL REPORTS");{/php}</strong></a></div></li>
+	{/if} onmouseover="this.style.cursor='hand';" ></div> <div id="menutitlesection"><strong>{php} echo gettext("CALL REPORTS");{/php}</strong></div></div></a></div></li>
 		<div class="tohide"
 	{if ($section =="5")}
 		style="">
