@@ -1,6 +1,7 @@
 #!/usr/bin/php -q
 <?php
 
+
 /***************************************************************************
  *            a2billing_notify_account.php
  *
@@ -67,7 +68,6 @@ if ($FG_DEBUG == 1)
 	echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
 
 // Prepare the date interval to filter the card that don't have to receive a notification;
-
 $Delay_Clause = "( ";
 if ($A2B->config["database"]['dbtype'] == "postgres") {
 	$CURRENT_DATE = "CURRENT_DATE";
@@ -144,13 +144,15 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			$uipass = $mycard['uipass'];
 			$credit_notification = $mycard['credit_notification'];
 			// convert credit to currency
-			if (!isset ($currencies_list[strtoupper($currency)][2]) || !is_numeric($currencies_list[strtoupper($currency)][2]))
+			if (!isset ($currencies_list[strtoupper($currency)][2]) || !is_numeric($currencies_list[strtoupper($currency)][2])) {
 				$mycur = 1;
-			else
+			} else {
 				$mycur = $currencies_list[strtoupper($currency)][2];
+			}
+			
 			$credit_currency = $credit / $mycur;
 			$credit_currency = round($credit_currency, 3);
-
+			
 			// replace tags in message
 			$messagetextuser = str_replace('$credit_notification', $credit_notification, $messagetextuser);
 			$messagetextuser = str_replace('$email', $email, $messagetextuser);
@@ -164,7 +166,10 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			$messagetextuser = str_replace('$password', $uipass, $messagetextuser);
 			$messagetextuser = str_replace('$loginkey', "$loginkey", $messagetextuser);
 			$messagetextuser = str_replace('$base_currency', BASE_CURRENCY, $messagetextuser);
-			$mail_tile = "CREDIT LOW : You have less than  " . $mycard['credit_notification'];
+
+			$mail_tile = str_replace('$credit_notification', "$credit_notification", $subject);
+			$mail_tile = str_replace('$credit_currency', "$credit_currency", $mail_tile);
+			$mail_tile = str_replace('$currency', "$currency", $mail_tile);
 
 			// Sent Mail
 			a2b_mail($email, $mail_tile, $messagetextuser, $from, $fromname);
