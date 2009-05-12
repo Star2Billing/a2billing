@@ -84,7 +84,7 @@ $smarty->display('main.tpl');
 ?>
 <table class="invoice_table" >
 	<tr class="form_invoice_head">
-	    <td width="75%"><font color="#FFFFFF"><?php echo gettext("RECEIPT: "); ?></font><font color="#FFFFFF"><b><?php echo $receipt->getTitle();  ?></b></font></td>
+	    <td width="75%" colspan="2"><font color="#FFFFFF"><?php echo gettext("RECEIPT: "); ?></font><font color="#FFFFFF"><b><?php echo $receipt->getTitle();  ?></b></font></td>
 	</tr>
 	<tr>
 		<td>
@@ -93,11 +93,10 @@ $smarty->display('main.tpl');
 	</tr>
 	<tr>
 		<td >
-		 <font style="font-weight:bold; " ><?php echo gettext("FOR : "); ?></font>  <?php echo $receipt->getUsernames();  ?>
-
+			<font style="font-weight:bold;" ><?php echo gettext("FOR : "); ?></font>  <?php echo $receipt->getUsernames();  ?>
 		</td>
-		<td>
-		<font style="font-weight:bold; " ><?php echo gettext("DATE : "); ?></font>  <?php echo $receipt->getDate();  ?>
+		<td align="right">
+			<font style="font-weight:bold;"><?php echo gettext("DATE : "); ?></font>  <?php echo $receipt->getDate();  ?>
 		</td>
 	</tr>
 	<tr>
