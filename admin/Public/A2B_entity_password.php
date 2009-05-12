@@ -1,44 +1,42 @@
 <?php
-
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
 
-
-if (!$ACXACCESS) { 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+if (!$ACXACCESS) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
+getpost_ifset(array (
+	'OldPassword',
+	'NewPassword'
+));
 
-getpost_ifset(array('OldPassword','NewPassword'));
-
-
-
-$DBHandle  = DbConnect();
-if($form_action=="ask-update") {
-	$table_old_pwd = new Table("cc_ui_authen", " login");
-	$OldPwd_encoded = hash( 'whirlpool',$OldPassword);
-	$clause_old_pwd = "login = '".$_SESSION["pr_login"]."' AND pwd_encoded = '".$OldPwd_encoded."'";
-	$result_old_pwd= $table_old_pwd -> Get_list ($DBHandle, $clause_old_pwd, null, null, null, null, null, null);
-		
-	if(!empty($result_old_pwd)){
-    $instance_sub_table = new Table('cc_ui_authen');
-    $NewPwd_encoded = hash( 'whirlpool',$NewPassword);
-    $QUERY = "UPDATE cc_ui_authen SET  pwd_encoded= '".$NewPwd_encoded."' WHERE ( login = '".$_SESSION["pr_login"]."' ) ";
-    $result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
-   
+$DBHandle = DbConnect();
+if ($form_action == "ask-update") {
 	
-	}else{
-	$OldPasswordFaild= true;
-		
+	check_demo_mode();
+	
+	$table_old_pwd = new Table("cc_ui_authen", " login");
+	$OldPwd_encoded = hash('whirlpool', $OldPassword);
+	$clause_old_pwd = "login = '" . $_SESSION["pr_login"] . "' AND pwd_encoded = '" . $OldPwd_encoded . "'";
+	$result_old_pwd = $table_old_pwd->Get_list($DBHandle, $clause_old_pwd, null, null, null, null, null, null);
+
+	if (!empty ($result_old_pwd)) {
+		$instance_sub_table = new Table('cc_ui_authen');
+		$NewPwd_encoded = hash('whirlpool', $NewPassword);
+		$QUERY = "UPDATE cc_ui_authen SET  pwd_encoded= '" . $NewPwd_encoded . "' WHERE ( login = '" . $_SESSION["pr_login"] . "' ) ";
+		$result = $instance_sub_table->SQLExec($DBHandle, $QUERY, 0);
+	} else {
+		$OldPasswordFaild = true;
 	}
 }
-// #### HEADER SECTION
-$smarty->display( 'main.tpl');
 
+// #### HEADER SECTION
+$smarty->display('main.tpl');
 ?>
 <script language="JavaScript">
 function CheckPassword()
@@ -73,28 +71,29 @@ function CheckPassword()
 </script>
 
 <?php
-if ($form_action=="ask-update") {
-	
-	if (isset($result)) {
 
+if ($form_action == "ask-update") {
+
+	if (isset ($result)) {
 ?>
 <script language="JavaScript">
 alert("<?php echo gettext("Your password is updated successfully.")?>");
 </script>
 <?php
-	} elseif(isset($OldPasswordFaild)) {
+	}
+	elseif (isset ($OldPasswordFaild)) {
 ?>
 <script language="JavaScript">
 alert("<?php echo gettext("Wrong old password.")?>");
 </script>
-<?php	
+<?php
 	} else {
 ?>
 <script language="JavaScript">
 alert("<?php echo gettext("System is failed to update your password.")?>");
 </script>
 <?php
-	} 
+	}
 }
 ?>
 <br>
@@ -141,6 +140,6 @@ alert("<?php echo gettext("System is failed to update your password.")?>");
 
 <?php
 
+
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-
