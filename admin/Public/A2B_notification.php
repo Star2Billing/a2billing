@@ -60,19 +60,6 @@ if (!empty ($action) && is_numeric($id)) {
 	die();
 }
 
-
-?>
-<style type="text/css">
-  .newrecord {
-    font-weight:bold;
-    color:#444444;
-    cursor:  pointer;
-     }
-  </style>
-
-<?php
-
-
 if(empty($page))$page=1;
 
 $DBHandle  = DbConnect();
@@ -88,6 +75,14 @@ $nb_page = ceil($nb_total/$nb_by_page);
 $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(($page-1)*$nb_by_page),$nb_by_page);
 
 ?>
+
+<style type="text/css">
+.newrecord {
+	font-weight : bold;
+	color : #444444;
+	cursor : pointer;
+}
+</style>
 
 <?php if(sizeof($list_notifications)>0 && $list_notifications[0]!=null) {  ?>
 <table width="90%" style ="margin-left:auto;margin-right:auto;" cellspacing="2" cellpadding="2" border="0">
