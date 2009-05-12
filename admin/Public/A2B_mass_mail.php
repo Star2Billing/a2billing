@@ -65,12 +65,14 @@ $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $nb_customer = 0;
 
+$limit_massmail = 2000;
+
 if(!empty($HD_Form -> FG_TABLE_CLAUSE)) {
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND email <> ''";
-	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $HD_Form -> FG_TABLE_CLAUSE, null, null, null, null, null, null);			
+	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $HD_Form -> FG_TABLE_CLAUSE, null, null, null, null, $limit_massmail, 0);			
 } else {
 	$sql_clause = "email <> ''";
-	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $sql_clause);
+	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $sql_clause, null, null, null, null, $limit_massmail, 0);
 }
 
 $nb_customer = sizeof($list_customer);
@@ -189,6 +191,10 @@ if (strlen($_GET["menu"])>0) {
 ?>
 	<tr> 
 		<td><span class="viewhandler_span1">&nbsp;</span></td>
+		<td align="center"> <span class="viewhandler_span1"><?php echo gettext("The mass mail tool is limited to 2000 mails. You can use the search module to send on different group of customer and overpass this limit.");?></span></td>
+	</tr>
+	<tr> 
+		<td><span class="viewhandler_span1">&nbsp;</span></td>
 		<td align="right"> <span class="viewhandler_span1"><?php echo $nb_customer;?> <?php echo gettext("Record(s)");?></span></td>
 	</tr>
 <?php
@@ -199,13 +205,13 @@ if (strlen($_GET["menu"])>0) {
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
 		    <?php
 		    	$link_to_customer = CUSTOMER_UI_URL;
-		    	//print_r ($list_customer);
+		    	
 		    	if(is_array($list_customer)){
-					for($key=0; $key < $nb_customer && $key <= 50; $key++){
+					for($key=0; $key < $nb_customer && $key <= 100; $key++){
 						echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$list_customer[$key]['id']." target=\"_blank\">".$list_customer[$key][1]."</a>";
-						if ($key + 1 != $nb_customer) echo ",&nbsp;";
+						if ($key + 1 != $nb_customer) echo ", ";
 							echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$list_customer[$key][0].">";
-						if($key == 19) {
+						if ($key == 100) {
 							echo "<br><a href=\"A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1\" target=\"_blank\">".gettext("Click on list customer to see them all")."</a>";
 						}
 					}
@@ -248,7 +254,7 @@ if (strlen($_GET["menu"])>0) {
 			<td align="right">
 			<input class="form_input_button" name="submit"  TYPE="submit" VALUE="<?php echo gettext("EMAIL");?>"></td>
 		</tr>
-			<?php } else {?>
+			<?php } else { ?>
 		<tr>
 			 <td colspan="2" align="center"><?php echo gettext("No Record Found!");?></td>
 		</tr>
