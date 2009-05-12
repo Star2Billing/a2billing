@@ -988,19 +988,15 @@ height="12" border="0">
    <?php if ($FG_DELETION || $FG_EDITION) { ?>
    <?php } ?>		
 </TR>
-<TR>
-<TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?>
-height=1><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
-</TR>
 <?php
 															
-															$ligne_number = 0;
-															//print_r($list);
-							foreach ( $list as $recordset ) {
-								$ligne_number ++;
-								?>
+$ligne_number = 0;
+//print_r($list);
+foreach ( $list as $recordset ) {
+	$ligne_number ++;
+	?>
 
- <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>" onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
+<TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>" onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
 <TD vAlign=top align="<?php echo $FG_TABLE_COL [$i] [3]?>" class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . ".&nbsp;"; ?></TD>
  
 <?php for($i = 0; $i < $FG_NB_TABLE_COL; $i ++) { ?>
@@ -1080,13 +1076,8 @@ height=1><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
 				
 				} else {
 					echo gettext ( "No data found !!!" );
-				} //end_if ?>
-            <TR>
-				<TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
-			</TR>
-			<TR>
-				<TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
-			</TR>
+				} //end_if 
+		?>
 		</TABLE>
 		</td>
 	</tr>
@@ -1360,10 +1351,8 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 <?php
 } else {
 	?>
-	<center>
-<h3><?php
-	echo gettext ( "No calls in your selection");?>.</h3>
-</center>
+<center>
+<h3><?php echo gettext ( "No calls in your selection");?>.</h3>
 <?php  } ?>
 </center>
 

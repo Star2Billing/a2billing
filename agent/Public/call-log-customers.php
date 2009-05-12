@@ -3,13 +3,11 @@ include ("../lib/agent.defines.php");
 include ("../lib/agent.module.access.php");
 include ("../lib/agent.smarty.php");
 
-
 if (! has_rights ( ACX_CALL_REPORT )) {
 	Header ( "HTTP/1.0 401 Unauthorized" );
 	Header ( "Location: PP_error.php?c=accessdenied" );
 	die ();
 }
-
 
 getpost_ifset ( array ('customer', 'sellrate', 'buyrate', 'entercustomer',  'entertariffgroup', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'fromtime', 'totime', 'fromstatsday_hour', 'tostatsday_hour', 'fromstatsday_min', 'tostatsday_min', 'dsttype', 'srctype', 'dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'dnid', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype' ) );
 
@@ -965,25 +963,12 @@ height="12" border="0">
    <?php if ($FG_DELETION || $FG_EDITION) { ?>
    <?php } ?>		
 </TR>
-<TR>
-<TD bgColor=#e1e1e1 colSpan=<?php
-							echo $FG_TOTAL_TABLE_COL?>
-height=1><IMG height=1 src="<?php
-							echo Images_Path;
-							?>/clear.gif"
-width=1></TD>
-</TR>
 <?php
-															
-															$ligne_number = 0;
-															//print_r($list);
-							foreach ( $list as $recordset ) {
-								$ligne_number ++;
-								?>
-
- <TR
-bgcolor="<?php
-								echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"
+	$ligne_number = 0;
+	foreach ( $list as $recordset ) {
+		$ligne_number ++;
+		?>
+ <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>"
 onMouseOver="bgColor='#C4FFD7'"
 onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR [$ligne_number % 2]?>'">
 <TD vAlign=top align="<?php echo $FG_TABLE_COL [$i] [3]?>"
@@ -1045,16 +1030,10 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 		</TR>
 		
 		<?php } //END_WHILE
-				
-				} else {
-					echo gettext ( "No data found !!!" );
-				} //end_if ?>
-            <TR>
-				<TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
-			</TR>
-			<TR>
-				<TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path; ?>/clear.gif" width=1></TD>
-			</TR>
+			
+			} else {
+				echo gettext ( "No data found !!!" );
+			} //end_if ?>
 		</TABLE>
 		</td>
 	</tr>
@@ -1062,63 +1041,24 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 		<TD class="bgcolor_005" height=16
 			style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-				<TR>
-					<TD align="right"><SPAN class="fontstyle_003">
-                    <?php
-																				if ($current_page > 0) {
-																					?>
-                    <img src="<?php
-																					echo Images_Path;
-																					?>/fleche-g.gif"
-						width="5" height="10"> <a
-						href="<?php
-																					echo $PHP_SELF?>?s=1&t=0&order=<?php
-																					echo $order?>&sens=<?php
-																					echo $sens?>&current_page=<?php
-																					echo ($current_page - 1)?><?php
-
-																					if (! is_null ( $letter ) && ($letter != "")) {
-																						echo "&letter=$letter";
-																					}
-																					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer";
-																					?>">
-                    <?php
-																					echo gettext ( "Previous" );
-																					?> </a> -
-                    <?php
-																				}
-																				?>
-                    <?php
-																				echo ($current_page + 1);
-																				?> / <?php
-																				echo $nb_record_max;
-																				?>
-                    <?php
-																				if ($current_page < $nb_record_max - 1) {
-																					?>
-                    - <a
-						href="<?php
-																					echo $PHP_SELF?>?s=1&t=0&order=<?php
-																					echo $order?>&sens=<?php
-																					echo $sens?>&current_page=<?php
-																					echo ($current_page + 1)?><?php
-
-																					if (! is_null ( $letter ) && ($letter != "")) {
-																						echo "&letter=$letter";
-																					}
-																					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer";
-																					?>">
-                    <?php
-																					echo gettext ( "Next" );
-																					?></a> <img
-						src="<?php
-																					echo Images_Path;
-																					?>/fleche-d.gif" width="5" height="10">
-					</SPAN> 
-                    <?php
-																				}
-																				?>
-                  </TD>
+			<TR>
+				<TD align="right"><SPAN class="fontstyle_003">
+                <?php
+					if ($current_page > 0) {
+				?>
+<img src="<?php echo Images_Path; ?>/fleche-g.gif"
+width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo ($current_page - 1)?><?php if (! is_null ( $letter ) && ($letter != "")) {
+	echo "&letter=$letter"; } echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer";
+?>">
+<?php echo gettext ( "Previous" ); ?> </a> - <?php } ?><?php echo ($current_page + 1); ?> / <?php echo $nb_record_max; ?>
+<?php if ($current_page < $nb_record_max - 1) { ?>
+- <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo ($current_page + 1)?><?php
+	if (! is_null ( $letter ) && ($letter != "")) { echo "&letter=$letter"; }
+	echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecauseid=$terminatecauseid&choose_calltype=$choose_calltype&entercustomer=$entercustomer";
+?>"><?php echo gettext ( "Next" ); ?></a> <img src="<?php echo Images_Path; ?>/fleche-d.gif" width="5" height="10">
+</SPAN> 
+<?php } ?>
+        	</TD>
 		</TABLE>
 		</TD>
 	</TR>
@@ -1126,7 +1066,7 @@ class=tableBody><?php echo $ligne_number + $current_page * $FG_LIMITE_DISPLAY . 
 
 <?php
 if (is_array ( $list ) && count ( $list ) > 0 && 3 == 4) {
-	?>
+?>
 <!-- ************** TOTAL SECTION ************* -->
 <br />
 <div style="padding-right: 15px;">
@@ -1375,15 +1315,13 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 		
 <?php
 } else {
-	?>
-	<center>
-<h3><?php
-	echo gettext ( "No calls in your selection");?>.</h3>
-</center>
+?>
+<center>
+<h3><?php echo gettext ( "No calls in your selection");?>.</h3>
 <?php  } ?>
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
 

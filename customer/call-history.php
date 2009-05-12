@@ -380,7 +380,6 @@ echo $CC_help_balance_customer;
                 </TR>
                 <TR> 
                   <TD bgColor="#e1e1e1" colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height="1">
-                  <IMG height="1" src="<?php echo Images_Path_Main ?>/clear.gif" width="1"></TD>
                 </TR>
 				<?php
 				  	 $ligne_number=0;					 
@@ -454,16 +453,6 @@ echo $CC_help_balance_customer;
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
-                              src="<?php echo Images_Path_Main ?>/clear.gif" 
-                              width=1></TD>
-                </TR>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
-                              src="<?php echo Images_Path_Main ?>/clear.gif" 
-                              width=1></TD>
-                </TR>
             </TABLE></td>
         </tr>
         <TR bgcolor="#ffffff"> 
