@@ -1885,7 +1885,7 @@ CREATE TABLE cc_agent_signup (
 ALTER TABLE cc_agent DROP secret;
 
 -- disable Authorize.net
-UPDATE cc_payment_methods SET active = 'f';
+DELETE FROM cc_payment_methods WHERE payment_method = 'Authorize.Net';
 UPDATE cc_configuration SET configuration_value = 'False' WHERE configuration_key = 'MODULE_PAYMENT_AUTHORIZENET_STATUS';
 
 ALTER TABLE cc_epayment_log CHANGE amount amount VARCHAR( 50 ) NOT NULL DEFAULT '0';
