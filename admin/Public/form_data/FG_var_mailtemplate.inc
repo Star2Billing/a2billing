@@ -14,10 +14,6 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 
 
 
-$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&section=".$_SESSION["menu_section"];
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add MAIL TEMPLATE");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/email_add.png" ;
 
 
 $typemail_list = array();
@@ -39,12 +35,19 @@ $typemail_list["template8"] 		= array( gettext("template8"), "template8");
 $typemail_list["template9"] 		= array( gettext("template9"), "template9");
 
 
-
+if (($popup_select>=1)) {
+	$HD_Form -> AddViewElement(gettext("ID MAIL"), "id", "10%", "center", "sort");
+}
 $HD_Form -> AddViewElement(gettext("MAILTYPE"), "mailtype", "14%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FROMEMAIL"), "fromemail", "25%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("SUBJECT"), "subject", "40%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("SUBJECT"), "subject", "30%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('mailtype, fromemail, subject');
+
+if (($popup_select>=1)) {
+	$HD_Form -> FieldViewElement ('id,mailtype, fromemail, subject');
+}else{
+	$HD_Form -> FieldViewElement ('mailtype, fromemail, subject');
+}
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -52,15 +55,30 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-$HD_Form -> FG_ADDITION = true;
-$HD_Form -> FG_EDITION = true;
-$HD_Form -> FG_DELETION = true;
+if (($popup_select>=1)) {
+	$HD_Form -> FG_OTHER_BUTTON1 = true;
+	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;'.gettext("SELECT TEXT").'&gt;</font>';
+	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 
-// Translation
-$HD_Form -> FG_OTHER_BUTTON2 = true;
-$HD_Form -> FG_OTHER_BUTTON2_LINK= "A2B_entity_translate.php?form_action=ask-add&id=|param|&languages=$languages";
-$HD_Form -> FG_OTHER_BUTTON2_ALT = 'Translate';
+	if ($popup_select==1){
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
+	}
 
+}else{
+	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
+	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&section=".$_SESSION["menu_section"];
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add MAIL TEMPLATE");
+	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/email_add.png" ;
+	
+	$HD_Form -> FG_ADDITION = true;
+	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_DELETION = true;
+	
+	// Translation
+	$HD_Form -> FG_OTHER_BUTTON2 = true;
+	$HD_Form -> FG_OTHER_BUTTON2_LINK= "A2B_entity_translate.php?form_action=ask-add&id=|param|&languages=$languages";
+	$HD_Form -> FG_OTHER_BUTTON2_ALT = 'Translate';
+}
 $HD_Form -> AddEditElement (gettext("MAIL TYPE"),
 	"mailtype",
 	'$value',

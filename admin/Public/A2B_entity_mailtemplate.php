@@ -12,7 +12,37 @@ if (! has_rights (ACX_MAIL)) {
 }
 
 
-getpost_ifset(array('languages'));
+getpost_ifset(array('languages','id','action'));
+
+
+if($action=="loadtext"){
+$DBHandle=DbConnect();
+	if(!empty($id) && is_numeric($id)){
+		$instance_table_mail = new Table("cc_templatemail","messagetext");
+		$clause_mail = " id ='$id'";
+		$result=$instance_table_mail-> Get_list($DBHandle, $clause_mail);
+		echo $result[0][0];
+	}
+die();
+}
+
+if ($popup_select) {
+?>
+<SCRIPT LANGUAGE="javascript">
+<!-- Begin
+function sendValue(selvalue){
+	$.get("A2B_entity_mailtemplate.php", { id: ""+ selvalue, action: "loadtext" },
+				  function(data){
+				    window.opener.document.getElementById('msg_mail').value = data;
+				    window.close();
+				  });
+	
+}
+
+// End -->
+</script>
+<?php
+}
 
 $HD_Form -> setDBHandler (DbConnect());
 
@@ -45,12 +75,15 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-echo $CC_help_list_misc;
+if (!$popup_select) echo $CC_help_list_misc;
 if(isset($form_action) && $form_action=="list"){
 ?>
 <table align="center" class="bgcolor_001" border="0" width="30%">
     <tr>
 		<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+		  <?php if($popup_select){ ?>
+		  		<input type="hidden" name="popup_select" value="<?php echo $popup_select; ?>" />
+		  <?php } ?>
           <td align="left" width="75%">
 					<?php
 						$handle = DbConnect();

@@ -13,7 +13,7 @@ if (! has_rights (ACX_MAIL)) {
 
 
 $HD_Form = new FormHandler("cc_card");
-$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection_mail';
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 $instance_cus_table = new Table("cc_card","id, email, credit, currency, lastname, firstname, loginkey, username, useralias, uipass");
@@ -149,6 +149,17 @@ echo $CC_help_mass_mail;
 
 if(!isset($submit)) {
 ?>
+
+<SCRIPT LANGUAGE="javascript">
+<!-- Begin
+var win= null;
+function loadtmpl(){
+	//test si win est encore ouvert et close ou refresh
+    win=MM_openBrWindow('A2B_entity_mailtemplate.php?popup_select=1','','scrollbars=yes,resizable=yes,width=700,height=500');
+}
+// End -->
+
+</script>
 <script language="JavaScript" src="javascript/card.js"></script>
 <div class="toggle_hide2show">
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CUSTOMERS");?> </font></a></center>
@@ -242,7 +253,8 @@ if (strlen($_GET["menu"])>0) {
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("MESSAGE");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-				<textarea class="form_input_textarea" name="message"  cols="70" rows="10""></textarea> 
+				<input class="form_input_button" onClick="loadtmpl()"   style="vertical-align:top" TYPE="button" VALUE="<?php echo gettext(">LOAD TEMPLATE<");?>"> <br/><br/>
+				<textarea id="msg_mail" class="form_input_textarea" name="message"  cols="70" rows="10""></textarea> 
 					<span class="liens"></span>&nbsp; </TD>
 		 </TR>
 		 
