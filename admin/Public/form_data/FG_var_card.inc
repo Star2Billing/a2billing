@@ -465,17 +465,19 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   gettext("Insert the company website of this customer"),
 				   "" , "", "",	"", "", "" , "NO", "");
 	
+	if ($form_action != "edit") {
 		
-	$update_field_typepaid = 'typepaid ,';
+		$update_field_typepaid = 'typepaid ,';
 	
-	$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
-				   "typepaid",
-				   "",
-				   "SELECT",
-				   "$payment_status",
-				   "",
-				   "",
-				   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
+		$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
+					   "typepaid",
+					   "",
+					   "SELECT",
+					   "$payment_status",
+					   "",
+					   "",
+					   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
+	}
 	
 	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
 				   "tariff",
