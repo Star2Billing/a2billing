@@ -13,7 +13,7 @@ $HD_Form -> FG_TABLE_ID = 'cc_logrefill.id';
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-if (has_rights (ACXMODIFY_REFILLS)) {
+if (has_rights (ACX_MODIFY_REFILLS)) {
 	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_logrefill.php?form_action=ask-add&section=".$_SESSION["menu_section"];
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Refill");
@@ -58,9 +58,9 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
-	
+
 $HD_Form -> FG_ADDITION = true;
-if (has_rights (ACXMODIFY_REFILLS)) {
+if (has_rights (ACX_MODIFY_REFILLS)) {
 	
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
