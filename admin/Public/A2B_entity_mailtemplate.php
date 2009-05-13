@@ -11,19 +11,17 @@ if (! has_rights (ACX_MAIL)) {
 	die();	   
 }
 
-
 getpost_ifset(array('languages','id','action'));
 
-
-if($action=="loadtext"){
-$DBHandle=DbConnect();
+if($action=="loadtext") {
+	$DBHandle=DbConnect();
 	if(!empty($id) && is_numeric($id)){
 		$instance_table_mail = new Table("cc_templatemail","messagetext");
 		$clause_mail = " id ='$id'";
 		$result=$instance_table_mail-> Get_list($DBHandle, $clause_mail);
 		echo $result[0][0];
 	}
-die();
+	die();
 }
 
 if ($popup_select) {

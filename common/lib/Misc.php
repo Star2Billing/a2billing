@@ -48,11 +48,24 @@ function a2b_decrypt($text, $key)
  */
 function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = 'multipart/alternative')
 {
-	$mail = new phpmailer();
+	$mail = new PHPMailer();
+
+	if (SMTP_SERVER) {
+		$mail -> Mailer = "smtp";
+	} else {
+		$mail -> Mailer = "sendmail";
+	}
+	
+	$mail -> Host = SMTP_HOST;
+	$mail -> Username = SMTP_USERNAME;
+	$mail -> Password = SMTP_PASSWORD;
+	$mail -> Port = SMTP_PORT;
+	$mail -> SMTPSecure = SMTP_SECURE;
+	
+	if (strlen(SMTP_USERNAME) > 0)	$mail -> SMTPAuth = true;
+	
 	$mail -> From     = $from;
 	$mail -> FromName = $fromname;
-	//$mail -> IsSendmail();
-	//$mail -> IsSMTP();
 	$mail -> Subject = $subject;
 	$mail -> Body    = nl2br($mail_content); //$HTML;
 	$mail -> AltBody = $mail_content;  // Plain text body (for mail clients that cannot read 	HTML)
@@ -166,22 +179,52 @@ function write_log($logfile, $output)
 	}
 }
 
+/*
+ * function cleanInput
+ */
+function cleanInput($input)
+{
+	$search = array(
+	    '@<script[^>]*?>.*?</script>@si',   // Strip out javascript
+	    '@<[\/\!]*?[^<>]*?>@si',            // Strip out HTML tags
+	    '@<style[^>]*?>.*?</style>@siU',    // Strip style tags properly
+	    '@<![\s\S]*?--[ \t\n\r]*>@'         // Strip multi-line comments
+	);
+		 
+    $output = preg_replace($search, '', $input);
+    return $output;
+}
 
 /*
  * function sanitize_data
  */
-function sanitize_data($data)
-{
-	$lowerdata = strtolower ($data);
-	$data = str_replace('--', '', $data);
-	$data = str_replace("'", '', $data);
-	$data = str_replace('=', '', $data);
-	$data = str_replace(';', '', $data);
-	//$lowerdata = str_replace('table', '', $lowerdata);
-	//$lowerdata = str_replace(' or ', '', $data);
-	if (!(strpos($lowerdata, ' or ')===FALSE)){ return false;}
-	if (!(strpos($lowerdata, 'table')===FALSE)){ return false;}
-	return $data;
+function sanitize_data($input)  
+{  
+	
+	if (is_array($input)) {
+        foreach($input as $var=>$val) {
+            $output[$var] = sanitize_data($val);
+        }
+    } else {
+    	
+    	// remove whitespaces (not a must though)  
+		$input = trim($input);
+		
+		$input = str_replace('--', '', $input);
+		$data = str_replace(';', '', $data);
+		
+		if (!(stripos($input, ' or 1')===FALSE)) { return false;}
+		if (!(stripos($input, ' or true')===FALSE)) { return false;}
+    	
+        if (get_magic_quotes_gpc()) {
+            $input = stripslashes($input);
+        }
+        $input  = cleanInput($input);
+        
+        $output = addslashes($input);
+    }
+    
+    return $output;
 }
 
 

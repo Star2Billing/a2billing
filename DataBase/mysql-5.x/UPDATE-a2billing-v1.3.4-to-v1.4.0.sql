@@ -1900,3 +1900,8 @@ ALTER TABLE cc_epayment_log ADD item_type VARCHAR( 30 ) CHARACTER SET utf8 COLLA
 -- Last registration
 ALTER TABLE cc_sip_buddies ADD lastms varchar(11);
 
+
+-- Add new SMTP Settings
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES ('SMTP Port', 'smtp_port', '25', 'Port to connect on the SMTP server', 0, NULL, 'global');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES ('SMTP Secure', 'smtp_secure', '', 'sets the prefix to the SMTP server : tls ; ssl', 0, NULL, 'global');
+

@@ -11,6 +11,8 @@ if (! has_rights (ACX_MAIL)) {
 	die();
 }
 
+getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_customer', 'from', 'fromname'));
+
 
 $HD_Form = new FormHandler("cc_card");
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection_mail';
@@ -78,11 +80,6 @@ if(!empty($HD_Form -> FG_TABLE_CLAUSE)) {
 $nb_customer = sizeof($list_customer);
 $DBHandle  = DbConnect();
 $instance_table = new Table();
-
-
-
-/***********************************************************************************/
-getpost_ifset(array('subject', 'message','atmenu','submit','hd_email', 'total_customer', 'from', 'fromname'));
 
 
 if(isset($submit)) {
@@ -235,31 +232,31 @@ if (strlen($_GET["menu"])>0) {
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("EMAIL FROM");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-				<INPUT class="form_input_text" name="from"  size="20" maxlength="80" value="<?php echo EMAIL_ADMIN; ?>"><span class="liens"></span>&nbsp; 
+				<INPUT class="form_input_text" name="from"  size="30" maxlength="80" value="<?php echo EMAIL_ADMIN; ?>"><span class="liens"></span>&nbsp; 
 			 </TD>
 		</TR>
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("FROM NAME");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-				<INPUT class="form_input_text" name="fromname"  size="20" maxlength="80" value=""><span class="liens"></span>&nbsp; 
+				<INPUT class="form_input_text" name="fromname"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp; 
 			 </TD>
 		</TR>
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("SUBJECT");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-				<INPUT class="form_input_text" name="subject"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp; 
+				<INPUT class="form_input_text" name="subject"  size="50" maxlength="120" value=""><span class="liens"></span>&nbsp; 
 			 </TD>
 		</TR>
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("MESSAGE");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
 				<input class="form_input_button" onClick="loadtmpl()"   style="vertical-align:top" TYPE="button" VALUE="<?php echo gettext(">LOAD TEMPLATE<");?>"> <br/><br/>
-				<textarea id="msg_mail" class="form_input_textarea" name="message"  cols="70" rows="10""></textarea> 
+				<textarea id="msg_mail" class="form_input_textarea" name="message"  cols="80" rows="15""></textarea> 
 					<span class="liens"></span>&nbsp; </TD>
 		 </TR>
 		 
 		<tr>
-		 <td colspan="2"> <?php echo gettext("The followings tags will be replaced in the message by the value in the database");?>  : $email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency </td>
+		 <td colspan="2"> <?php echo gettext("The followings tags will be replaced in the message by the value in the database :")."<b>".'$email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency'."</b>"; ?></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

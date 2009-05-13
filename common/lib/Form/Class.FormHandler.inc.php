@@ -673,9 +673,7 @@ class FormHandler
 	    }
 	    
 	    return $output;
-	} 
-
-
+	}
 
 	
 
