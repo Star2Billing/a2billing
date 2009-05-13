@@ -13,15 +13,16 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_commission_agent.php?form_a
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Commission");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money_add.png" ;
 $paid_status_list = Constants::getInvoicePaidStatusList();
-$HD_Form -> AddViewElement(gettext("ID"), "cc_agent_commission.id", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ACCOUNT"), "id_card", "15%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
-$HD_Form -> AddViewElement(gettext("AGENT"), "id_agent", "20%", "center", "sort", "", "30", "", "", "", "", "linktoagent");
-$HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "20%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("ID"), "cc_agent_commission.id", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ACCOUNT"), "id_card", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
+$HD_Form -> AddViewElement(gettext("AGENT"), "id_agent", "10%", "center", "sort", "", "30", "", "", "", "", "linktoagent");
+$HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "15%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("AMOUNT"), "amount", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("PAID STATUS"),"payment_type", "7%", "center", "sort", "", "list", $paid_status_list);
-$HD_Form -> AddViewElement(gettext("LINK TO PAYMENT"), "id_payment", "20%", "center", "sort", "", "lie_link", "cc_logpayment", "payment, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_payment.php");
+$HD_Form -> AddViewElement(gettext("PAID STATUS"),"paid_status", "10%", "center", "sort", "", "list", $paid_status_list);
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "20%", "center", "sort", 50);
+$HD_Form -> AddViewElement(gettext("LINK TO PAYMENT"), "id_payment", "10%", "center", "sort", "", "lie_link", "cc_logpayment", "payment, id", "id='%id'", "%1 ".BASE_CURRENCY." (id:%2)", "", "A2B_entity_payment.php");
 
-$HD_Form -> FieldViewElement ('cc_agent_commission.id, id_card, id_agent, date, amount ,paid_status,id_payment');
+$HD_Form -> FieldViewElement ('cc_agent_commission.id, id_card, id_agent, date, amount, paid_status, description, id_payment');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -117,7 +118,7 @@ $HD_Form -> AddEditElement (gettext("PAID STATUS"),
                "",
                "list" , "", "",     "", $paid_status_list, "%1", "", gettext("Define if this commission is paid or not.") );
 
-$HD_Form -> FieldEditElement ('id_card,id_agent, date, amount, description,id_payment, payment_type');
+$HD_Form -> FieldEditElement ('id_card, id_agent, date, amount, description, id_payment, paid_status');
 
 
 
