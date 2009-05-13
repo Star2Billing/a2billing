@@ -214,10 +214,9 @@ img.rss {
 #nav li a {
 	display: block;
 	font-size: 12px;
-	padding: 2px 10px;
+	padding: 4px 10px;
 	text-decoration: none;
 	color : #444444;
-	height: 20px;
 }
 
 ul#menu_horizontal { 

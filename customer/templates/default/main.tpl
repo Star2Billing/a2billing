@@ -32,16 +32,15 @@
 		{if $ACXINVOICES >0 }
 		<li>
 		<div class="toggle_menu">
-		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
+		<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img5"
 		{if ($section == "5")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
-		{/if}
-	 	onmouseover="this.style.cursor='hand';">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></div></li>
-		<div class="tohide"
-		{if ($section == "5")}
-		style="">
+		{/if} onmouseover="this.style.cursor='hand';" ></div> <div id="menutitlesection"><strong>{php} echo gettext("INVOICES");{/php}</strong></div></div></a></div></li>
+			<div class="tohide"
+		{if ($section =="5")}
+			style="">
 		{else}
 		style="display:none;">
 		{/if}
@@ -97,16 +96,15 @@
 		{if $ACXAUTODIALER>0 }
 		<li>
 		<div class="toggle_menu">
-		<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
+		<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img10"
 		{if ($section == "10")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
-		{/if}
-	 	onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></a></div></li>
-		<div class="tohide"
-		{if ($section == "10")}
-		style="">
+		{/if} onmouseover="this.style.cursor='hand';" ></div> <div id="menutitlesection"><strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></div></div></a></div></li>
+			<div class="tohide"
+		{if ($section =="10")}
+			style="">
 		{else}
 		style="display:none;">
 		{/if}
