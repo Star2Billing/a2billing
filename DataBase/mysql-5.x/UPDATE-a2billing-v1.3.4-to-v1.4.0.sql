@@ -1880,7 +1880,7 @@ CREATE TABLE cc_agent_signup (
 	id_group INT NOT NULL ,
 	PRIMARY KEY (id) ,
 	UNIQUE (code)
-) ENGINE = MYISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 ALTER TABLE cc_agent DROP secret;
 

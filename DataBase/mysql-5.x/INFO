@@ -1,0 +1,20 @@
+
+
+Database schema for A2Billing 1.4
+-------------------------------------
+
+Install the followings script :
+	> a2billing-schema-v1.4.0.sql
+	> a2billing-prefix-table-v1.4.0.sql
+
+
+
+Create DB for MYSQL CLUSTER
+-------------------------------------
+
+replace all :
+	> ENGINE=MyISAM
+	by
+	> ENGINE=NDBCLUSTER
+	
+	
