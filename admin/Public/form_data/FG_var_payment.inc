@@ -14,14 +14,14 @@ $HD_Form -> FG_TABLE_ID = 'cc_logpayment.id';
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-if (has_rights (ACXMODIFY_PAYMENTS)) {
+if (has_rights (ACX_MODIFY_PAYMENTS)) {
 	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_payment.php?form_action=ask-add&section=".$_SESSION["menu_section"];
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Payment");
-	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money_add.png" ;
+	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money_add.png";
 }
 
-$list_refill_type=Constants::getRefillType_List();
+$list_refill_type = Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logpayment.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "17%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
 $HD_Form -> AddViewElement(gettext("PAYMENT DATE"), "date", "17%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
@@ -69,12 +69,13 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
+
+
+if (has_rights (ACX_MODIFY_PAYMENTS)) {
 	
-$HD_Form -> FG_ADDITION = true;
-if (has_rights (ACXMODIFY_PAYMENTS)) {
+	$HD_Form -> FG_ADDITION = true;
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
-	
 	
 	if ($form_action=="ask-add" && !empty($card_id)) {
 		$id_val = "value='$card_id'";
