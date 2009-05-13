@@ -29,8 +29,53 @@ getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choos
 $HD_Form -> setDBHandler (DbConnect());
 
 
+$nb_error = 0;
+$msg_error = '';
+$group_error = false;
+$tariff_error=false;
+$credit_error=false;
+$number_error=false;
+$expdate_error=false;
+$expday_error=false;
+if ($action=="generate") {
+	if(!is_numeric($id_group) || $id_group<1){
+		$nb_error++;
+		$group_error=true;
+		$msg_error = gettext("- Choose a GROUP for the customers!");
+	}
+	if(!is_numeric($choose_tariff) || $choose_tariff<1){
+		$nb_error++;
+		$tariff_error=true;
+		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$msg_error .= gettext("- Choose a CALL PLAN for the customers!");
+	}
+	if(!is_numeric($addcredit) || $addcredit<0){
+		$nb_error++;
+		$credit_error=true;
+		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$msg_error .= gettext("- Choose a BALANCE (initial amount)  equal or higher than 0 for the customers!");
+	}
+	if(!is_numeric($expiredays) || $expiredays<0){
+		$nb_error++;
+		$expday_error=true;
+		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$msg_error .= gettext("- Choose an EXPIRATIONS DAYS  equal or higher than 0 for the customers!");
+	}
+	if(empty($expirationdate) || strtotime($expirationdate)===FALSE){
+		$nb_error++;
+		$expdate_error=true;
+		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$msg_error .= gettext("- EXPIRATION DAY inserted is invalid, it must respect the date format YYYY-MM-DD HH:MM:SS (time is optional) !");
+	}
+	if(!is_numeric($choose_list) || $choose_list<1){
+		$nb_error++;
+		$number_error=true;
+		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$msg_error .= gettext("- Choose the number of customers that you want generate!");
+	}
+}
 $nbcard = $choose_list;
-if ($nbcard>0) {
+if ($nbcard>0 && $action=="generate" && $nb_error==0) {
 	
 	check_demo_mode();
 	
@@ -253,6 +298,11 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 // FORM FOR THE GENERATION
 ?>
 <div align="center">
+<?php if(!empty($msg_error) && $nb_error>0 ){ ?>
+	<div class="msg_error" style="width:70%;text-align:left;">
+		<?php echo $msg_error ?>
+	</div>
+<?php } ?>
 <table align="center"  class="bgcolor_001" border="0" width="65%">
 <form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 <tr>
@@ -282,28 +332,36 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 		<option class="input" onClick="javascript:$('#choose_list').attr('value',5000)"><?php echo gettext("5000 Customers");?></option>
 		<option class="input" onClick="javascript:$('#choose_list').attr('style','');$('#choose_list_s').hide();"><?php echo gettext("Other variant");?></option>
 	</select><input class="form_input_text" style="visibility:hidden" id="choose_list" name="choose_list" size="3" maxlength="6" >
+	<?php if($number_error){ ?>
+		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
+	<?php } ?>
 	<br/>
 		
 	<strong>3)</strong> 
 	<?php echo gettext("Call plan");?> : 
 	<select NAME="choose_tariff" size="1" class="form_input_select" >
 		<option value=''><?php echo gettext("Choose a Call Plan");?></option>
-	
 	<?php foreach ($list_tariff as $recordset){ ?>
-		<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>                        
+		<option class=input value='<?php echo $recordset[0]?>' <?php if($recordset[0]==$choose_tariff) echo "selected"; ?> ><?php echo $recordset[1]?></option>                        
 	<?php } ?>
 	</select>
+	<?php if($tariff_error){ ?>
+		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
+	<?php } ?>
 	<br/>
 	
 	<strong>4)</strong> 
-	<?php echo gettext("Initial amount of credit");?> : <input class="form_input_text" name="addcredit" size="10" maxlength="10" >
+	<?php echo gettext("Initial amount of credit");?> : <input class="form_input_text" value="<?php if(is_numeric($addcredit) && $addcredit>0) echo $addcredit; else echo 0;?>" name="addcredit" size="10" maxlength="10" >
+	<?php if($credit_error){ ?>
+		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
+	<?php } ?>
 	<br/>
 	
 	<strong>5)</strong> 
 	<?php echo gettext("Simultaneous access");?> : 
 	<select NAME="choose_simultaccess" size="1" class="form_input_select" >
-		<option value='0' selected><?php echo gettext("INDIVIDUAL ACCESS");?></option>
-		<option value='1'><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
+		<option value='0' <?php if($choose_simultaccess== 0 || empty($choose_simultaccess)) echo "selected"; ?>><?php echo gettext("INDIVIDUAL ACCESS");?></option>
+		<option value='1' <?php if($choose_simultaccess== 1) echo "selected"; ?>><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
 	   </select>
 	<br/>
 	
@@ -311,7 +369,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	<?php echo gettext("Currency");?> :
 	<select NAME="choose_currency" size="1" class="form_input_select" >
 	<?php foreach($currencies_list as $key => $cur_value) { ?>
-		<option value='<?php echo $key ?>'><?php echo $cur_value[1].' ('.$cur_value[2].')' ?></option>
+		<option value='<?php echo $key ?>' <?php if($choose_currency== $key) echo "selected"; ?>><?php echo $cur_value[1].' ('.$cur_value[2].')' ?></option>
 	<?php } ?>
 	</select>
 	<br/>
@@ -319,22 +377,22 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	<strong>7)</strong>
 	<?php echo gettext("Card type");?> :
 	<select NAME="choose_typepaid" size="1" class="form_input_select" >
-		<option value='0' selected><?php echo gettext("PREPAID CARD");?></option>
-		<option value='1'><?php echo gettext("POSTPAY CARD");?></option>
+		<option value='0' <?php if($choose_typepaid== 0 || empty($choose_typepaid)) echo "selected"; ?>><?php echo gettext("PREPAID CARD");?></option>
+		<option value='1' <?php if($choose_typepaid== 1) echo "selected"; ?>><?php echo gettext("POSTPAY CARD");?></option>
 	   </select>
 	<br/>
 	
 	<strong>8)</strong>
-	<?php echo gettext("Credit Limit of postpay");?> : <input class="form_input_text" name="creditlimit" size="10" maxlength="16" >
+	<?php echo gettext("Credit Limit of postpay");?> : <input class="form_input_text" value="<?php if(is_numeric($creditlimit) && $creditlimit>0) echo $creditlimit; else echo 0;?>" name="creditlimit" size="10" maxlength="16" >
 	<br/>
 	
 	<strong>9)</strong>
    	<?php echo gettext("Enable expire");?>&nbsp;: 
 	<select name="enableexpire" class="form_input_select" >
-		<option value="0" selected="selected"> <?php echo gettext("NO EXPIRATION");?> </option>
-		<option value="1"> <?php echo gettext("EXPIRE DATE");?> </option>
-		<option value="2"> <?php echo gettext("EXPIRE DAYS SINCE FIRST USE");?> </option>
-		<option value="3"> <?php echo gettext("EXPIRE DAYS SINCE CREATION");?> </option>
+		<option value="0" <?php if($enableexpire== 0 || empty($enableexpire)) echo "selected"; ?>> <?php echo gettext("NO EXPIRATION");?> </option>
+		<option value="1" <?php if($enableexpire== 1) echo "selected";?> > <?php echo gettext("EXPIRE DATE");?> </option>
+		<option value="2" <?php if($enableexpire== 2) echo "selected";?> > <?php echo gettext("EXPIRE DAYS SINCE FIRST USE");?> </option>
+		<option value="3" <?php if($enableexpire== 3) echo "selected"; ?> > <?php echo gettext("EXPIRE DAYS SINCE CREATION");?> </option>
 	</select>
 	<br/>
 	<?php 
@@ -346,24 +404,30 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	?>
 	
 	<strong>10)</strong>
-	<?php echo gettext("Expiry Date");?> : <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>> <?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
+	<?php echo gettext("Expiry Date");?> : <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php if(!empty($expirationdate)) echo "value='$expirationdate'"; else echo $comp_date_plus;?> > <?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
+	<?php if($expdate_error){ ?>
+		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
+	<?php } ?>
 	<br/>
 	
 	<strong>11)</strong>
-   <?php echo gettext("Expiry days");?> : <input class="form_input_text"  name="expiredays" size="10" maxlength="6" value="0">
+   <?php echo gettext("Expiry days");?> : <input class="form_input_text"  name="expiredays" size="10" maxlength="6" value="<?php if(is_numeric($expiredays) && $expiredays>0) echo $expiredays; else echo 0;?>">
+	<?php if($expday_error){ ?>
+		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
+	<?php } ?>
 	<br/>
 	
 	<strong>12)</strong>
 	<?php echo gettext("Run service");?> : 
-	<?php echo gettext("Yes");?> <input name="runservice" value="1" type="radio"> - <?php echo gettext("No");?> <input name="runservice" value="0" checked="checked"  type="radio">
+	<?php echo gettext("Yes");?> <input name="runservice" value="1" <?php if($runservice==1) echo "checked='checked'" ?> type="radio"> - <?php echo gettext("No");?> <input name="runservice" value="0" <?php if($runservice==0 || empty($runservice) ) echo "checked='checked'" ?>  type="radio">
 	<br/>
 	
 	<strong>13)</strong>
-   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: <?php echo gettext("SIP")?> <input type="checkbox" name="sip" value="1" checked> <?php echo gettext("IAX")?> : <input type="checkbox" name="iax" value="1" checked>
+   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: <?php echo gettext("SIP")?> <input type="checkbox" name="sip" value="1" <?php if($sip==1) echo "checked" ?>> <?php echo gettext("IAX")?> : <input type="checkbox" name="iax" value="1" <?php if($iax==1 ) echo "checked" ?> >
 	<br/>
 	
 	<strong>14)</strong>
-	<?php echo gettext("Tag");?> : <input class="form_input_text"  name="tag" size="40" maxlength="40" > 
+	<?php echo gettext("Tag");?> : <input class="form_input_text"  name="tag" size="40" maxlength="40" <?php if(!empty($tag)) echo "value='$tag'"; ?> > 
 	<br/>
 	
 	<strong>15)</strong>
@@ -371,17 +435,19 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 	<select NAME="id_group" size="1" class="form_input_select" >
 	<option value=''><?php echo gettext("Choose a group");?></option>
 	<?php foreach ($list_group as $recordset){ ?>
-		<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>
+		<option class=input value='<?php echo $recordset[0]?>' <?php if($recordset[0]==$id_group) echo "selected"; ?> ><?php echo $recordset[1]?></option>
 	<?php } ?>
 	</select>
-	
+	<?php if($group_error){ ?>
+		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
+	<?php } ?>
 	<br/>
     <strong>16)</strong>
      <?php echo gettext("Discount");?> :
     <select NAME="discount" size="1" class="form_input_select" >
     <option value='0'><?php echo gettext("NO DISCOUNT");?></option>
     <?php for($i=1;$i<99;$i++){ ?>
-		<option class=input value='<?php echo $i; ?>' ><?php echo $i;?>%</option>
+		<option class=input value='<?php echo $i; ?>' <?php if($i==$discount) echo "selected"; ?> ><?php echo $i;?>%</option>
     <?php } ?>
     </select>
 	<br/>
@@ -392,7 +458,7 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
     <?php
      foreach ($list_seria as $recordset){
     ?>
-        <option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>
+        <option class=input value='<?php echo $recordset[0]?>'  <?php if($recordset[0]==$id_seria) echo "selected"; ?>  ><?php echo $recordset[1]?></option>
     <?php } ?>
      </select>
 
@@ -400,7 +466,8 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
 </tr>
 <tr>
 	<td align="right">
-		<input class="form_input_button"  value=" GENERATE CUSTOMERS " type="submit">
+		<input name="action"  value="generate" type="hidden"/>
+		<input class="form_input_button"  value=" GENERATE CUSTOMERS " type="submit"/>
 	</td>
 </tr>
 </form>
