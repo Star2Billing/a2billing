@@ -245,11 +245,10 @@ function sendtolittle(direction){
                         &nbsp; </TD>
                     </TR>
                     <?php 					
-					}else{
-								
-						if (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT"){
-							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
+					} else {
 						
+						if (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT") {
+							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
 					?>
                     <TR> 
 						<!-- ******************** PARTIE EXTERN : SELECT ***************** -->
@@ -268,11 +267,9 @@ function sendtolittle(direction){
 								  </TABLE></TD>
 							  </TR>
 							  <TR> 
-								<TD> <TABLE class="editform_table3" cellSpacing=0>
-									  <TR> 
-										<TD class="editform_table3_td1" colspan=<?php echo $this->FG_TOTAL_TABLE_COL?> ><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
-									  </TR>
-									  <?php
+								<TD> 
+								<TABLE class="editform_table3" cellSpacing=0>
+								<?php
 								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
 	
 								$instance_sub_table = new Table($table_split[2], $table_split[3]);
@@ -284,20 +281,17 @@ function sendtolittle(direction){
 									$num = count($split_select_list);
 								}
 		
-	if($num>0)
-	{	
-	for($j=0;$j<$num;$j++)
-	  {
-			if (is_numeric($table_split[7])){
-																	
-					$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
-					
-					$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $split_select_list[$j][$table_split[7]], $table_split[11] );
-					$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
-					$split_select_list[$j][$table_split[7]] = $sub_table_split_select_list[0][0];
-			}	
-			
-	?>
+								if($num>0) {
+									for($j=0;$j<$num;$j++) {
+										if (is_numeric($table_split[7])) {
+																							
+										$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+										
+										$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $split_select_list[$j][$table_split[7]], $table_split[11] );
+										$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
+										$split_select_list[$j][$table_split[7]] = $sub_table_split_select_list[0][0];
+									} ?>
+								
                                   <TR class="" bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'"> 
                                     <TD vAlign=top class=tableBody> 
                                       <font face="Verdana" size="2">
@@ -311,30 +305,20 @@ function sendtolittle(direction){
                                       <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_split[1]?>_hidden','<?php echo $split_select_list[$j][1]?>');" title="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
                                     </TD>
                                   </TR>
-                                  <?php 
-	  }//end_for
-	}else{
-			?>
+                                  <?php  
+                                  
+                                  }//end_for
+								} else { ?>
+									
                                   <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'"> 
                                     <TD colspan="2" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" vAlign=top class=tableBody> 
                                       <div align="center" class="liens"><?php echo gettext("No");?><?php echo $this->FG_TABLE_EDITION[$i][0]?></div></TD>
                                   </TR>
-                                  <?php 
-	}
-	?>
-                                  <TR> 
-                                    <TD class=tableDivider colspan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
-                                  </TR>
+                                  <?php } ?>
                               </TABLE></td>
                           </tr>
                           <TR class="bgcolor_016"> 
-                            <TD class="editform_table3_td2"> 
-                              <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">                                
-                                  <TR> 
-                                    <TD height="4" align="right"></TD>
-                                </TR>
-                              </TABLE>
-							</TD>
+                            <TD class="editform_table3_td2" height="4"></TD>
                           </TR>
                         </table><br>
 						</TD>
