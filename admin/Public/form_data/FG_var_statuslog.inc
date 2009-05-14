@@ -3,10 +3,10 @@
 getpost_ifset(array('id', 'status', 'id_cc_card', 'updated_date', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
 
-$HD_Form = new FormHandler("cc_status_log sl", gettext("Status Log"));
+$HD_Form = new FormHandler("cc_status_log sl LEFT JOIN cc_card ON cc_card.id = sl.id_cc_card", gettext("Status Log"));
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID = "id";
+$HD_Form -> FG_TABLE_ID = "sl.id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "updated_date";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -63,7 +63,7 @@ $HD_Form -> AddViewElement(gettext("LAST NAME"), "id_cc_card", "20%", "center", 
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "20%", "center", "sort", "", "list", $cardstatus_list);
 $HD_Form -> AddViewElement(gettext("DATE"), "updated_date", "20%", "center", "sort", "16");
 
-$HD_Form -> FieldViewElement ('id_cc_card, id_cc_card, id_cc_card, status, updated_date');
+$HD_Form -> FieldViewElement ('sl.id_cc_card, id_cc_card, id_cc_card, sl.status, sl.updated_date');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO STATUS LOG AVAILABLE!");
 $HD_Form -> FG_INTRO_TEXT_EDITION = "";
@@ -75,4 +75,13 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
+$HD_Form -> FG_FILTER_APPLY = true;
+$HD_Form -> FG_FILTERFIELD = 'cardnumber';
+$HD_Form -> FG_FILTERFIELDNAME = 'Account number';
+$HD_Form -> FG_FILTER_FORM_ACTION = 'list';
+
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
+}
 
