@@ -25,10 +25,8 @@ $list_refill_type=Constants::getRefillType_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill_agent.id", "10%", "center", "sort");
 if (has_rights (ACX_ADMINISTRATOR)) { 
 	$HD_Form -> AddViewElement(gettext("AGENT"), "agent_id", "20%", "center", "sort", "", "30", "", "", "", "", "linktoagent");
-	echo linktoagent($payment['agent_id']);
 }else{
 	$HD_Form -> AddViewElement(gettext("AGENT"), "agent_id", "20%", "center", "sort", "", "30", "", "", "", "", "nameofagent");
-	echo nameofagent($payment['agent_id']);
 }
 $HD_Form -> AddViewElement(gettext("REFILL DATE"), "date", "15%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("REFILL TYPE"),"refill_type", "10%", "center", "sort", "", "list", $list_refill_type);
