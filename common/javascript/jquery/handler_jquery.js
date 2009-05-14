@@ -5,14 +5,14 @@ $(document).ready(
 		$("div.toggle_menu a.toggle_menu").click(function(){
 			div_toggle = $(this).parent().parent().next("div.tohide");
 			if (div_toggle.css('display') == 'none') {
-			
 				div_toggle.slideDown('slow');
 				$(this).find("img").each(function(i) {
 					//alert(newimage.substr(0,newimage.length-8) + 'minus.gif');
 					$(this).attr('src', IMAGE_PATH + 'minus.gif');
 				});				
 			} else {
-				div_toggle.slideUp( 'slow');
+				
+				div_toggle.slideUp('slow');
 				$(this).find("img").each(function(i) {
 					$(this).attr('src', IMAGE_PATH + 'plus.gif');
 				});

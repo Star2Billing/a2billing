@@ -30,14 +30,13 @@
 
 
 		{if $ACXINVOICES >0 }
-		<li>
-		<div class="toggle_menu">
+		<div class="toggle_menu"><li>
 		<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img5"
 		{if ($section == "5")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
-		{/if} onmouseover="this.style.cursor='hand';" ></div> <div id="menutitlesection"><strong>{php} echo gettext("INVOICES");{/php}</strong></div></div></a></div></li>
+		{/if} onmouseover="this.style.cursor='hand';" ></div> <div id="menutitlesection"><strong>{php} echo gettext("INVOICES");{/php}</strong></div></div></a></li></div>
 			<div class="tohide"
 		{if ($section =="5")}
 			style="">
@@ -74,6 +73,7 @@
 		{if $ACXCALL_BACK >0 }
 		<li><a href="callback.php?section=10"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
 		{/if}
+		
 		{if $ACXWEB_PHONE >0 }
 		<li><a href="webphone.php?section=11"><strong>{php} echo gettext("WEB-PHONE");{/php}</strong></a></li>
 		{/if}
@@ -85,23 +85,23 @@
 		{if $ACXPASSWORD>0 }
 		<li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li>
 		{/if}
+		
 		{if $ACXSUPPORT >0 }
 		<li><a href="A2B_support.php"><strong>{php} echo gettext("SUPPORT");{/php}</strong></a></li>
 		{/if}
+		
 		{if $ACXNOTIFICATION >0 }
 		<li><a href="A2B_notification.php?form_action=ask-edit"><strong>{php} echo gettext("NOTIFICATION");{/php}</strong></a></li>
-		
 		{/if}
 		
 		{if $ACXAUTODIALER>0 }
-		<li>
-		<div class="toggle_menu">
+		<div class="toggle_menu"><li>
 		<a href="javascript:;" class="toggle_menu" target="_self"> <div> <div id="menutitlebutton"> <img id="img10"
 		{if ($section == "10")}
 		src="templates/{$SKIN_NAME}/images/minus.gif"
 		{else}
 		src="templates/{$SKIN_NAME}/images/plus.gif"
-		{/if} onmouseover="this.style.cursor='hand';" ></div> <div id="menutitlesection"><strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></div></div></a></div></li>
+		{/if} onmouseover="this.style.cursor='hand';" ></div> <div id="menutitlesection"><strong>{php} echo gettext("AUTO DIALLER");{/php}</strong></div></div></a></li></div>
 			<div class="tohide"
 		{if ($section =="10")}
 			style="">
