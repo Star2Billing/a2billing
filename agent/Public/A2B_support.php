@@ -88,7 +88,7 @@ if ($form_action == "list") {
 	         <?php
 			         $DBHandle  = DbConnect();
 			   	 $instance_sub_table = new Table("cc_support_component", "*");
-				 $QUERY = " activated = 1";
+				 $QUERY = " activated = 1 AND (type_user = 1 OR type_user = 2)";
 				 $return = null;
 			     $return = $instance_sub_table -> Get_list($DBHandle, $QUERY, 0);
 			     	foreach ($return as $value){

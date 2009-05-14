@@ -27,6 +27,13 @@ class Constants
 		$restriction_list["2"] = array( gettext("CAN ONLY CALL RESTRICTED NUMBERS"),  "2");
 		return $restriction_list;
 	}
+	public static function getComponentUserTypeList(){
+		$usertype_list = array();
+		$usertype_list["0"] = array( gettext("CUSTOMERS"), "0");
+		$usertype_list["1"] = array( gettext("AGENTS"), "1");
+		$usertype_list["2"] = array( gettext("CUSTOMERS AND AGENTS"),  "2");
+		return $usertype_list;
+	}
 	
 	public static function getYesNoList(){
 		$yesno = array();

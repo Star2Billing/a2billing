@@ -13,13 +13,13 @@ if (! has_rights (ACX_MAIL)) {
 
 getpost_ifset(array('languages','id','action'));
 
-if($action=="loadtext") {
+if($action=="load") {
 	$DBHandle=DbConnect();
 	if(!empty($id) && is_numeric($id)){
-		$instance_table_mail = new Table("cc_templatemail","messagetext");
+		$instance_table_mail = new Table("cc_templatemail","messagetext,fromemail,fromname,subject");
 		$clause_mail = " id ='$id'";
 		$result=$instance_table_mail-> Get_list($DBHandle, $clause_mail);
-		echo $result[0][0];
+		echo json_encode($result[0]);
 	}
 	die();
 }
@@ -29,9 +29,12 @@ if ($popup_select) {
 <SCRIPT LANGUAGE="javascript">
 <!-- Begin
 function sendValue(selvalue){
-	$.get("A2B_entity_mailtemplate.php", { id: ""+ selvalue, action: "loadtext" },
+	$.getJSON("A2B_entity_mailtemplate.php", { id: ""+ selvalue, action: "load" },
 				  function(data){
-				    window.opener.document.getElementById('msg_mail').value = data;
+				    window.opener.document.getElementById('msg_mail').value = data.messagetext;
+				    window.opener.document.getElementById('from').value = data.fromemail;
+				    window.opener.document.getElementById('fromname').value = data.fromname;
+				    window.opener.document.getElementById('subject').value = data.subject;
 				    window.close();
 				  });
 	

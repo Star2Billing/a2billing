@@ -230,27 +230,33 @@ if (strlen($_GET["menu"])>0) {
 	}
 ?>
 		<TR> 		
+			<TD width="%25" valign="middle" class="form_head">&nbsp;</TD>  
+			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
+				<input class="form_input_button" onClick="loadtmpl()"   style="vertical-align:top" TYPE="button" VALUE="<?php echo gettext(">LOAD TEMPLATE<");?>" /> 
+			 </TD>
+		</TR>
+		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("EMAIL FROM");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-				<INPUT class="form_input_text" name="from"  size="30" maxlength="80" value="<?php echo EMAIL_ADMIN; ?>"><span class="liens"></span>&nbsp; 
+				<INPUT class="form_input_text" id="from" name="from"  size="30" maxlength="80" value="<?php echo EMAIL_ADMIN; ?>"><span class="liens"></span>&nbsp; 
 			 </TD>
 		</TR>
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("FROM NAME");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-				<INPUT class="form_input_text" name="fromname"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp; 
+				<INPUT class="form_input_text" id="fromname" name="fromname"  size="30" maxlength="80" value=""><span class="liens"></span>&nbsp; 
 			 </TD>
 		</TR>
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("SUBJECT");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-				<INPUT class="form_input_text" name="subject"  size="50" maxlength="120" value=""><span class="liens"></span>&nbsp; 
+				<INPUT class="form_input_text" name="subject" id="subject"  size="50" maxlength="120" value=""><span class="liens"></span>&nbsp; 
 			 </TD>
 		</TR>
 		<TR> 		
 			<TD width="%25" valign="middle" class="form_head"><?php echo gettext("MESSAGE");?></TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
-				<input class="form_input_button" onClick="loadtmpl()"   style="vertical-align:top" TYPE="button" VALUE="<?php echo gettext(">LOAD TEMPLATE<");?>"> <br/><br/>
+				
 				<textarea id="msg_mail" class="form_input_textarea" name="message"  cols="80" rows="15""></textarea> 
 					<span class="liens"></span>&nbsp; </TD>
 		 </TR>

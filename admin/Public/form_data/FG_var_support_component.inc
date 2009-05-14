@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'name', 'activated' ,'id_support'));
+getpost_ifset(array('id', 'name', 'activated' ,'id_support','type_user' ));
 
 
 
@@ -28,15 +28,16 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_component ");
 
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some tickets using this Support Component! Please comfirm that you really want to remove this Support Component? ");
 
-
+$user_type = Constants::getComponentUserTypeList();
 $activated_list = Constants::getActivationList();
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "15%", "center", "sort", "", "list", $activated_list);
+$HD_Form -> AddViewElement(gettext("USER TYPE"), "activated", "25%", "center", "sort", "", "list", $user_type);
 $HD_Form -> AddViewElement(gettext("SUPPORT BOX"), "id_support", "10%", "center", "sort", "15", "lie", "cc_support", "name", "id='%id'", "%1");
 
-$HD_Form -> FieldViewElement ('id, name, activated, id_support ');
+$HD_Form -> FieldViewElement ('id, name, activated,type_user, id_support ');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -76,9 +77,16 @@ $HD_Form -> AddEditElement (gettext("Support Box"),
    "name, id",
    "", "", "%1", "", "");
 
+$HD_Form -> AddEditElement (gettext("USER TYPE"),
+	               "type_user",
+	               '$value',
+	               "SELECT",
+	               "",
+	               "",
+	               "",
+	               "list" , "", "",     "", $user_type, "%1", "", gettext("Define who can use this component.") );
 
-
-$HD_Form -> FieldEditElement ('name, activated, id_support');
+$HD_Form -> FieldEditElement ('name, activated, id_support,type_user');
 
 
 

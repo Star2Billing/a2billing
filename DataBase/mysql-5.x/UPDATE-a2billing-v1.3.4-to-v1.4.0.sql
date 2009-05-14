@@ -1905,3 +1905,4 @@ ALTER TABLE cc_sip_buddies ADD lastms varchar(11);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES ('SMTP Port', 'smtp_port', '25', 'Port to connect on the SMTP server', 0, NULL, 'global');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES ('SMTP Secure', 'smtp_secure', '', 'sets the prefix to the SMTP server : tls ; ssl', 0, NULL, 'global');
 
+ALTER TABLE cc_support_component ADD type_user TINYINT NOT NULL DEFAULT '2';
