@@ -350,40 +350,37 @@ function sendtolittle(direction){
 							 <input name="<?php echo $table_split[1]?>_hidden" type="hidden" value="" />
                                           <SELECT name="<?php echo $table_split[1]?>[]" <?php echo $this->FG_TABLE_EDITION[$i][4]?> class="form_input_select">
                                             <?php
-					 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, $table_split[13], $table_split[14], null, null, null, null);
-
-					 if (count($split_select_list)>0)
-					 {	
-						 $select_number=0;
-						 foreach ($split_select_list as $select_recordset){
-							 $select_number++;
-							 if ($table_split[6]!="" && !is_null($table_split[6])){
-							 	if (is_numeric($table_split[7])){
-									$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
-									$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $select_recordset[$table_split[7]], $table_split[11] );
-									$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null,null, null, null, null, null);
-									$select_recordset[$table_split[7]] = $sub_table_split_select_list[0][0];
-								}
-								
-								 $value_display = $table_split[6];
-								 $nb_recor_k = count($select_recordset);
-								 for ($k=1;$k<=$nb_recor_k;$k++){
-									$value_display  = str_replace("%$k", $select_recordset[$k-1], $value_display );
-								 }
-							 }else{
-							 	$value_display  = $select_recordset[0];
-							 }
-
-			  ?>
-                                            <OPTION  value='<?php echo $select_recordset[1]?>'>
-                                            <?php echo $value_display?>
-                                            </OPTION>
-                                            <?php
-						 }// END_FOREACH
-					  }else{
-						echo gettext("No data found !!!");
-					  }//END_IF
-							  ?>
+											 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, $table_split[13], $table_split[14], null, null, null, null);
+						
+											 if (count($split_select_list)>0) {	
+												 $select_number=0;
+												 foreach ($split_select_list as $select_recordset) {
+													 $select_number++;
+													 if ($table_split[6]!="" && !is_null($table_split[6])) {
+													 	if (is_numeric($table_split[7])) {
+															$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+															$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $select_recordset[$table_split[7]], $table_split[11] );
+															$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null,null, null, null, null, null);
+															$select_recordset[$table_split[7]] = $sub_table_split_select_list[0][0];
+														}
+														
+														$value_display = $table_split[6];
+														$nb_recor_k = count($select_recordset);
+														for ($k=1;$k<=$nb_recor_k;$k++) {
+															$value_display  = str_replace("%$k", $select_recordset[$k-1], $value_display );
+														}
+													 } else {
+													 	$value_display  = $select_recordset[0];
+													 } ?>
+						                            <OPTION  value='<?php echo $select_recordset[1]?>'>
+						                            <?php echo $value_display?>
+						                            </OPTION>
+						                            <?php
+												}// END_FOREACH
+											}else{
+												echo gettext("No data found !!!");
+											}//END_IF
+											?>
                                           </SELECT>
                                         </div>
 										</TD>
@@ -434,24 +431,20 @@ function sendtolittle(direction){
                                 	<TD bgColor=#e1e1e1 colspan=<?php echo $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                                 </TR>
                                 <?php
-			$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
-
-			$instance_sub_table = new Table($table_split[2], $table_split[3]);
-			$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);
-	if (!is_array($split_select_list)){
-		$num=0;
-	}else{
-		$num = count($split_select_list);
-	}
-
-
-
-	if($num>0)
-	{
-	for($j=0;$j<$num;$j++)
-	  {
-
-	?>
+								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
+					
+								$instance_sub_table = new Table($table_split[2], $table_split[3]);
+								$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);
+								
+								if (!is_array($split_select_list)) {
+									$num=0;
+								} else {
+									$num = count($split_select_list);
+								}
+								
+								if($num>0) {
+								for($j=0;$j<$num;$j++) {
+								?>
                                   <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
                                     <TD vAlign="top" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" class="tableBody">
                                       <font face="Verdana" size="2">
@@ -466,17 +459,17 @@ function sendtolittle(direction){
                                       <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_split[1]?>','<?php echo $split_select_list[$j][1]?>');" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
                                     </TD>
                                   </TR>
-                                  <?php
-	  }//end_for
-	}else{
-			?>
+                                <?php
+								}//end_for
+								}else{
+								?>
                                   <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
                                     <TD colspan="2" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" vAlign="top" class="tableBody">
                                       <div align="center" class="liens">No <?php echo $this->FG_TABLE_EDITION[$i][0]?></div></TD>
                                   </TR>
-                                  <?php
-	}
-	?>
+                                <?php
+								}
+								?>
                                   <TR> 
                                     <TD class="tableDivider" colspan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                                   </TR>
@@ -490,7 +483,7 @@ function sendtolittle(direction){
 							</TD>
                           </TR>
                         </table><br>
-</TD>
+						</TD>
                     </TR>
                     <TR>
 					  <!-- *******************   Select to ADD new instances  ****************************** -->					  
@@ -545,7 +538,7 @@ function sendtolittle(direction){
                         </TABLE>
                         <br></TD>
                     </TR>					
-					<?php  }elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="HAS_MANY"){
+					<?php  } elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="HAS_MANY") {
 							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
 							$table_col = split(",", $table_split[2]);
 					?>
@@ -619,7 +612,7 @@ function sendtolittle(direction){
 							</TD>
                           </TR>
                         </table><br>
-</TD>
+						</TD>
                     </TR>
                     <TR>
 					  <!-- *******************   Select to ADD new instances  ****************************** -->					  
@@ -692,14 +685,12 @@ function sendtolittle(direction){
 					    
 	<?php 
 	$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
-	
-
 
 	$instance_sub_table = new Table($table_split[2], $table_split[3]);
 	$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);			
-	if (!is_array($split_select_list)){	
+	if (!is_array($split_select_list)) {	
 		$num=0;
-	}else{	
+	} else {
 		$num = count($split_select_list);
 	}
 	
@@ -707,8 +698,7 @@ function sendtolittle(direction){
 
 	 $table_split[12] = str_replace("%id", "$id", $table_split[12]);
 	 $split_select_list_tariff = $instance_sub_table -> Get_list ($this->DBHandle, $table_split[12], null, null, null, null, null, null);
-	 if (count($split_select_list_tariff)>0)
-	 {
+	 if (count($split_select_list_tariff)>0) {
 			 $select_number=0;
 			  ?>				
 			  <TABLE class="editform_table6" cellSpacing=0>
