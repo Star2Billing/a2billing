@@ -5,7 +5,7 @@ getpost_ifset(array('id', 'title', 'id_component','description','priority','stat
 
 
 if (!isset($form_action) || $form_action=="list"){
-	$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket", "Ticket");
+	$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket LEFT JOIN cc_agent ON cc_agent.id = cc_ticket.creator", "Ticket");
 }else {
 	$HD_Form = new FormHandler("cc_ticket","Ticket");
 }
@@ -14,7 +14,8 @@ if (!isset($form_action) || $form_action=="list"){
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " cc_ticket.id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type = 1 GROUP BY cc_ticket.id";
+$HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type = 1 ";
+$HD_Form -> SQL_GROUP = " GROUP BY cc_ticket.id ";
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
@@ -31,7 +32,7 @@ $filter_view ='CASE WHEN cc_ticket.viewed_admin=1 OR SUM(cc_ticket_comment.viewe
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("AGENT"), "creator", "10%", "center", "sort", "25", "lie", "cc_agent", "lastname, firstname", "id='%id'", "%1 %2");
-$HD_Form -> AddViewElement(gettext("LOGIN"), "login", "10%", "center", "sort", "25", "lie", "cc_agent", "login", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("LOGIN"), " cc_agent.login", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("COMPONENT"), "id_component", "10%", "center", "sort", "15", "lie", "cc_support_component", "name", "id='%id'", "%1");
@@ -39,11 +40,23 @@ $HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "7%", "center", "sor
 $HD_Form -> AddViewElement(gettext("VIEWED"), "viewed_admin", "7%", "center", "", "", "list", $viewed_list);
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $status_list);
 
-$HD_Form -> FieldViewElement ("cc_ticket.id, cc_ticket.creator, cc_ticket.creator, title, cc_ticket.creationdate, id_component , priority , $filter_view , cc_ticket.status");
+$HD_Form -> FieldViewElement ("cc_ticket.id, cc_ticket.creator, cc_agent.login, title, cc_ticket.creationdate, id_component , priority , $filter_view , cc_ticket.status");
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "CC_ticket_view.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/icon-viewdetails.gif";
 
+
+if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_DELETE_ALL =false;
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'ticket_agent_selection';
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for ticket created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("DATE");
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'cc_ticket.creationdate';
+
+$HD_Form -> AddSearchElement_C1(gettext("LOGIN"), 'login','logintype');
+$HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
+$HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;

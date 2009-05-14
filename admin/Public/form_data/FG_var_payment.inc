@@ -45,6 +45,7 @@ $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to sea
 $HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('DATE');
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'date';
+$HD_Form -> FG_FILTER_SEARCH_DELETE_ALL =false;
 
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 

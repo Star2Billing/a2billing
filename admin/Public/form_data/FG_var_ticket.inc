@@ -5,7 +5,7 @@ getpost_ifset(array('id', 'title', 'id_component','description','priority','stat
 
 
 if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket, cc_card", "Ticket");
+	$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket LEFT JOIN cc_card ON cc_card.id=cc_ticket.creator", "Ticket");
 } else {
 	$HD_Form = new FormHandler("cc_ticket","Ticket");
 }
@@ -14,7 +14,7 @@ if (!isset($form_action) || $form_action=="list") {
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " cc_ticket.id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = " cc_card.id=cc_ticket.creator AND cc_ticket.creator_type= 0 ";
+$HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type= 0 ";
 $HD_Form -> SQL_GROUP = " GROUP BY cc_ticket.id ";
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
@@ -62,6 +62,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_DELETE_ALL =false;
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'ticket_cust_selection';
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for ticket created.');
 $HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
