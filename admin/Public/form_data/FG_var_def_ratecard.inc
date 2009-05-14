@@ -186,7 +186,7 @@ $HD_Form -> AddEditElement(gettext("Destination Prefix"),
    "sql",		
    "cc_prefix",	
    "destination, prefix",		
-   "", "", "%2 (%1)", "", gettext("Select the prefix destination corresponding to your prefix rate."));
+   "prefix >= 0 ORDER BY prefix ASC", "", "%2 (%1)", "", gettext("Select the prefix destination corresponding to your prefix rate."));
    
 
 $HD_Form -> AddEditElement("BUYING RATE",

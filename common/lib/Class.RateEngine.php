@@ -92,62 +92,19 @@ class RateEngine
 		// Race condiction on $minutes ?!
 		$minutes_since_monday = ($daytag * 1440) + ($hours * 60) + $minutes;
 		if ($this -> debug_st) echo "$minutes_since_monday<br> ";
-		//$sql_clause_days = " AND ".$daytable[$daytag]."='1' ";
+		
 		$sql_clause_days = " AND (starttime <= ".$minutes_since_monday." AND endtime >=".$minutes_since_monday.") ";
-
-		/*
-
-		SELECT tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,
-
-		cc_ratecard.id,
-		dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock,
-		connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb,
-		timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,
-
-		cc_tariffplan.id_trunk AS tp_id_trunk, tp_trunk.trunkprefix AS tp_trunk, tp_trunk.providertech AS tp_providertech,
-		tp_trunk.providerip AS tp_providerip, tp_trunk.removeprefix AS tp_removeprefix,
-		cc_ratecard.id_trunk AS rc_id_trunk, rt_trunk.trunkprefix AS rc_trunkprefix, rt_trunk.providertech AS rc_providertech,
-		rt_trunk.providerip AS rc_providerip, rt_trunk.removeprefix AS rc_removeprefix
-
-		FROM cc_tariffgroup
-		LEFT JOIN cc_tariffgroup_plan ON idtariffgroup=id
-		LEFT JOIN cc_tariffplan ON cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan
-		LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
-		LEFT JOIN trunk AS rt_trunk ON cc_ratecard.id_trunk=rt_trunk.id_trunk
-		LEFT JOIN trunk AS tp_trunk ON cc_tariffplan.id_trunk=tp_trunk.id_trunk
-
-		WHERE dialprefix=SUBSTRING('346586699595',1,length(dialprefix))
-		AND startingdate<= CURRENT_TIMESTAMP AND (expirationdate > CURRENT_TIMESTAMP OR expirationdate IS NULL OR LENGTH(expirationdate)<5)
-		AND startdate<= CURRENT_TIMESTAMP AND (stopdate > CURRENT_TIMESTAMP OR stopdate IS NULL OR LENGTH(stopdate)<5)
-		ORDER BY LENGTH(dialprefix) DESC
-
-		*/
 
 		if (strlen($A2B->dnid)>=1) $mydnid = $A2B->dnid;
 		if (strlen($A2B->CallerID)>=1) $mycallerid = $A2B->CallerID;
 
 		if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: CALLERID]\n".$A2B->CallerID."\n",0);
 
-		if ($A2B->config["database"]['dbtype'] != "postgres") {
-			$DNID_QUERY = "SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix))";
-			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $DNID_QUERY);
-			if (!is_array($result_sub) || count($result_sub)==0) $nb_dnid = 0;
-			else $nb_dnid = $result_sub[0][0];
-			$DNID_SUB_QUERY = "AND 0 = $nb_dnid";
+		$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";
 
-			$CALLERID_QUERY = "SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix))";
-			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $CALLERID_QUERY);
-			if (!is_array($result_sub) || count($result_sub)==0) $nb_callerid = 0;
-			else $nb_callerid = $result_sub[0][0];
-			$CID_SUB_QUERY = "AND 0 = $nb_callerid";
-
-		} else {
-			$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";
-
-			$CID_SUB_QUERY = "AND 0 = (SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) ) ";
-		}
-
-
+		$CID_SUB_QUERY = "AND 0 = (SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) ) ";
+		
+		
 		// $prefixclause to allow good DB servers to use an index rather than sequential scan
 		// justification at http://forum.asterisk2billing.org/viewtopic.php?p=9620#9620
 		$max_len_prefix = min(strlen($phonenumber), 15);	// don't match more than 15 digits (the most I have on my side is 8 digit prefixes)
@@ -157,7 +114,7 @@ class RateEngine
 			$max_len_prefix--;
 		}
 		$prefixclause .= "dialprefix='defaultprefix')";
-
+		
 		// match Asterisk/POSIX regex prefixes,  rewrite the Asterisk '_XZN.' characters to
 		// POSIX equivalents, and test each of them against the dialed number
 		$prefixclause .= " OR (dialprefix LIKE '&_%' ESCAPE '&' AND '$phonenumber' ";
@@ -207,12 +164,13 @@ class RateEngine
 		// CHECK IF THERE IS OTHER RATE THAT 'DEFAULT', IF YES REMOVE THE DEFAULT RATES
 		// NOT NOT REMOVE SHIFT THEM TO THE END :P
 		$ind_stop_default = -1;
-		for ($i=0;$i<count($result);$i++){
-			if ( $result[$i][7] != 'defaultprefix'){
+		for ($i=0;$i<count($result);$i++) {
+			if ( $result[$i][7] != 'defaultprefix') {
 				$ind_stop_default = $i;
 				break;
 			}
 		}
+		
 		// IMPORTANT TO CUT THE PART OF THE defaultprefix CAUSE WE WILL APPLY THE SORT ACCORDING TO THE RATE
 		// DEFAULPERFIX IS AN ESCAPE IN CASE OF NO RATE IS DEFINED, NOT BE COUNT WITH OTHER DURING THE
 		// SORT OF RATE
@@ -220,19 +178,15 @@ class RateEngine
 			$result_defaultprefix = array_slice ($result, 0, $ind_stop_default);
 			$result = array_slice ($result, $ind_stop_default, count($result)-$ind_stop_default);
 		}
-
-
-		//if ($ind_stop_default>0)  array_rotate($result, $ind_stop_default);
-
-
+		
 		//1) REMOVE THOSE THAT HAVE A SMALLER DIALPREFIX
 		$max_len_prefix = strlen($result[0][7]);
 		for ($i=1;$i<count($result);$i++) {
 			if ( strlen($result[$i][7]) < $max_len_prefix) break;
 		}
 		$result = array_slice ($result, 0, $i);
-
-
+		
+		
 		//2) TAKE THE VALUE OF LCTYPE
 		//LCR : According to the buyer price	-0 	buyrate [col 6]
 		//LCD : According to the seller price	-1  rateinitial	[col 9]
@@ -247,14 +201,12 @@ class RateEngine
 			//$result = $this -> array_csort($result,'9',SORT_ASC); GOTTYA!
 			$result = $this -> array_csort($result,'12',SORT_ASC); //1
 		}
-
-
+		
 		// WE ADD THE DEFAULTPREFIX WE REMOVE BEFORE
 		if ($ind_stop_default > 0) {
 			$result = array_merge ($result, $result_defaultprefix);
 		}
-
-
+		
 		// 3) REMOVE THOSE THAT USE THE SAME TRUNK - MAKE A DISTINCT
 		//    AND THOSE THAT ARE DISABLED.
 		$mylistoftrunk = array();
