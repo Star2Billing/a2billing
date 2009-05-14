@@ -211,7 +211,7 @@ function sanitize_data($input)
 		$input = trim($input);
 		
 		$input = str_replace('--', '', $input);
-		$data = str_replace(';', '', $data);
+		$input = str_replace(';', '', $input);
 		
 		if (!(stripos($input, ' or 1')===FALSE)) { return false;}
 		if (!(stripos($input, ' or true')===FALSE)) { return false;}
