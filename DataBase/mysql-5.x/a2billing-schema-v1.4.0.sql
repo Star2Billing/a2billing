@@ -13,16 +13,13 @@
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_agent`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_agent`;
 CREATE TABLE IF NOT EXISTS `cc_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `datecreation` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -51,7 +48,6 @@ CREATE TABLE IF NOT EXISTS `cc_agent` (
   `email` char(70) collate utf8_bin default NULL,
   `fax` char(20) collate utf8_bin default NULL,
   `company` varchar(50) collate utf8_bin default NULL,
-  `secret` varchar(20) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `login` (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
@@ -66,11 +62,7 @@ CREATE TABLE IF NOT EXISTS `cc_agent` (
 --
 -- Table structure for table `cc_agent_commission`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_agent_commission`;
 CREATE TABLE IF NOT EXISTS `cc_agent_commission` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_payment` bigint(20) default NULL,
@@ -91,13 +83,30 @@ CREATE TABLE IF NOT EXISTS `cc_agent_commission` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cc_agent_tariffgroup`
---
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
+-- Table structure for table `cc_agent_signup`
 --
 
-DROP TABLE IF EXISTS `cc_agent_tariffgroup`;
+CREATE TABLE IF NOT EXISTS `cc_agent_signup` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `id_agent` int(11) NOT NULL,
+  `code` varchar(30) collate utf8_bin NOT NULL,
+  `id_tariffgroup` int(11) NOT NULL,
+  `id_group` int(11) NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cc_agent_signup`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cc_agent_tariffgroup`
+--
+
 CREATE TABLE IF NOT EXISTS `cc_agent_tariffgroup` (
   `id_agent` bigint(20) NOT NULL,
   `id_tariffgroup` int(11) NOT NULL,
@@ -114,11 +123,7 @@ CREATE TABLE IF NOT EXISTS `cc_agent_tariffgroup` (
 --
 -- Table structure for table `cc_alarm`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_alarm`;
 CREATE TABLE IF NOT EXISTS `cc_alarm` (
   `id` bigint(20) NOT NULL auto_increment,
   `name` text collate utf8_bin NOT NULL,
@@ -146,11 +151,7 @@ CREATE TABLE IF NOT EXISTS `cc_alarm` (
 --
 -- Table structure for table `cc_alarm_report`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_alarm_report`;
 CREATE TABLE IF NOT EXISTS `cc_alarm_report` (
   `id` bigint(20) NOT NULL auto_increment,
   `cc_alarm_id` bigint(20) NOT NULL,
@@ -169,11 +170,7 @@ CREATE TABLE IF NOT EXISTS `cc_alarm_report` (
 --
 -- Table structure for table `cc_autorefill_report`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_autorefill_report`;
 CREATE TABLE IF NOT EXISTS `cc_autorefill_report` (
   `id` bigint(20) NOT NULL auto_increment,
   `daterun` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -192,11 +189,7 @@ CREATE TABLE IF NOT EXISTS `cc_autorefill_report` (
 --
 -- Table structure for table `cc_backup`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_backup`;
 CREATE TABLE IF NOT EXISTS `cc_backup` (
   `id` bigint(20) NOT NULL auto_increment,
   `name` varchar(255) collate utf8_bin NOT NULL,
@@ -216,11 +209,7 @@ CREATE TABLE IF NOT EXISTS `cc_backup` (
 --
 -- Table structure for table `cc_billing_customer`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_billing_customer`;
 CREATE TABLE IF NOT EXISTS `cc_billing_customer` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_card` bigint(20) NOT NULL,
@@ -239,12 +228,7 @@ CREATE TABLE IF NOT EXISTS `cc_billing_customer` (
 --
 -- Table structure for table `cc_call`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
--- Last check: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_call`;
 CREATE TABLE IF NOT EXISTS `cc_call` (
   `id` bigint(20) NOT NULL auto_increment,
   `sessionid` varchar(40) collate utf8_bin NOT NULL,
@@ -285,11 +269,7 @@ CREATE TABLE IF NOT EXISTS `cc_call` (
 --
 -- Table structure for table `cc_callback_spool`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_callback_spool`;
 CREATE TABLE IF NOT EXISTS `cc_callback_spool` (
   `id` bigint(20) NOT NULL auto_increment,
   `uniqueid` varchar(40) collate utf8_bin default NULL,
@@ -329,11 +309,7 @@ CREATE TABLE IF NOT EXISTS `cc_callback_spool` (
 --
 -- Table structure for table `cc_callerid`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_callerid`;
 CREATE TABLE IF NOT EXISTS `cc_callerid` (
   `id` bigint(20) NOT NULL auto_increment,
   `cid` varchar(100) collate utf8_bin NOT NULL,
@@ -353,12 +329,7 @@ CREATE TABLE IF NOT EXISTS `cc_callerid` (
 --
 -- Table structure for table `cc_call_archive`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
--- Last check: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_call_archive`;
 CREATE TABLE IF NOT EXISTS `cc_call_archive` (
   `id` bigint(20) NOT NULL auto_increment,
   `sessionid` char(40) collate utf8_bin NOT NULL,
@@ -407,11 +378,7 @@ CREATE TABLE IF NOT EXISTS `cc_call_archive` (
 --
 -- Table structure for table `cc_campaign`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_campaign`;
 CREATE TABLE IF NOT EXISTS `cc_campaign` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(50) collate utf8_bin NOT NULL,
@@ -450,11 +417,7 @@ CREATE TABLE IF NOT EXISTS `cc_campaign` (
 --
 -- Table structure for table `cc_campaignconf_cardgroup`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_campaignconf_cardgroup`;
 CREATE TABLE IF NOT EXISTS `cc_campaignconf_cardgroup` (
   `id_campaign_config` int(11) NOT NULL,
   `id_card_group` int(11) NOT NULL,
@@ -471,11 +434,7 @@ CREATE TABLE IF NOT EXISTS `cc_campaignconf_cardgroup` (
 --
 -- Table structure for table `cc_campaign_config`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_campaign_config`;
 CREATE TABLE IF NOT EXISTS `cc_campaign_config` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(40) collate utf8_bin NOT NULL,
@@ -495,11 +454,7 @@ CREATE TABLE IF NOT EXISTS `cc_campaign_config` (
 --
 -- Table structure for table `cc_campaign_phonebook`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_campaign_phonebook`;
 CREATE TABLE IF NOT EXISTS `cc_campaign_phonebook` (
   `id_campaign` int(11) NOT NULL,
   `id_phonebook` int(11) NOT NULL,
@@ -516,11 +471,7 @@ CREATE TABLE IF NOT EXISTS `cc_campaign_phonebook` (
 --
 -- Table structure for table `cc_campaign_phonestatus`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_campaign_phonestatus`;
 CREATE TABLE IF NOT EXISTS `cc_campaign_phonestatus` (
   `id_phonenumber` bigint(20) NOT NULL,
   `id_campaign` int(11) NOT NULL,
@@ -540,12 +491,7 @@ CREATE TABLE IF NOT EXISTS `cc_campaign_phonestatus` (
 --
 -- Table structure for table `cc_card`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
--- Last check: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_card`;
 CREATE TABLE IF NOT EXISTS `cc_card` (
   `id` bigint(20) NOT NULL auto_increment,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -655,11 +601,7 @@ DELIMITER ;
 --
 -- Table structure for table `cc_cardgroup_service`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_cardgroup_service`;
 CREATE TABLE IF NOT EXISTS `cc_cardgroup_service` (
   `id_card_group` int(11) NOT NULL,
   `id_service` int(11) NOT NULL,
@@ -676,12 +618,7 @@ CREATE TABLE IF NOT EXISTS `cc_cardgroup_service` (
 --
 -- Table structure for table `cc_card_archive`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
--- Last check: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_card_archive`;
 CREATE TABLE IF NOT EXISTS `cc_card_archive` (
   `id` bigint(20) NOT NULL,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -762,11 +699,7 @@ CREATE TABLE IF NOT EXISTS `cc_card_archive` (
 --
 -- Table structure for table `cc_card_group`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_card_group`;
 CREATE TABLE IF NOT EXISTS `cc_card_group` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(30) collate utf8_bin NOT NULL,
@@ -787,11 +720,7 @@ INSERT INTO `cc_card_group` (`id`, `name`, `description`, `users_perms`, `id_age
 --
 -- Table structure for table `cc_card_history`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_card_history`;
 CREATE TABLE IF NOT EXISTS `cc_card_history` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) default NULL,
@@ -810,12 +739,7 @@ CREATE TABLE IF NOT EXISTS `cc_card_history` (
 --
 -- Table structure for table `cc_card_package_offer`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
--- Last check: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_card_package_offer`;
 CREATE TABLE IF NOT EXISTS `cc_card_package_offer` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) NOT NULL,
@@ -838,11 +762,7 @@ CREATE TABLE IF NOT EXISTS `cc_card_package_offer` (
 --
 -- Table structure for table `cc_card_seria`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_card_seria`;
 CREATE TABLE IF NOT EXISTS `cc_card_seria` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(30) collate utf8_bin NOT NULL,
@@ -861,11 +781,7 @@ CREATE TABLE IF NOT EXISTS `cc_card_seria` (
 --
 -- Table structure for table `cc_card_subscription`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_card_subscription`;
 CREATE TABLE IF NOT EXISTS `cc_card_subscription` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) default NULL,
@@ -887,12 +803,7 @@ CREATE TABLE IF NOT EXISTS `cc_card_subscription` (
 --
 -- Table structure for table `cc_charge`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
--- Last check: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_charge`;
 CREATE TABLE IF NOT EXISTS `cc_charge` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) NOT NULL,
@@ -923,11 +834,7 @@ CREATE TABLE IF NOT EXISTS `cc_charge` (
 --
 -- Table structure for table `cc_config`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_config`;
 CREATE TABLE IF NOT EXISTS `cc_config` (
   `id` int(11) NOT NULL auto_increment,
   `config_title` varchar(100) collate utf8_bin NOT NULL,
@@ -938,7 +845,7 @@ CREATE TABLE IF NOT EXISTS `cc_config` (
   `config_listvalues` varchar(100) collate utf8_bin default NULL,
   `config_group_title` varchar(64) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=252 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=257 ;
 
 --
 -- Dumping data for table `cc_config`
@@ -978,20 +885,10 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(32, 'Payment Method', 'paymentmethod', '1', 'Enable or disable the payment methods; yes for multi-payment or no for single payment method option.', 1, 'yes,no', 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(33, 'Personal Info', 'personalinfo', '1', 'Enable or disable the page which allow customer to modify its personal information.', 1, 'yes,no', 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(34, 'Payment Info', 'customerinfo', '1', 'Enable display of the payment interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(35, 'SIP/IAX Info', 'sipiaxinfo', '1', 'Enable display of the sip/iax info - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(36, 'CDR', 'cdr', '1', 'Enable the Call history - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(37, 'Invoices', 'invoice', '1', 'Enable invoices - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(38, 'Voucher Screen', 'voucher', '1', 'Enable the voucher screen - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(39, 'Paypal', 'paypal', '1', 'Enable the paypal payment buttons - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(40, 'Speed Dial', 'speeddial', '1', 'Allow Speed Dial capabilities - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(41, 'DID', 'did', '1', 'Enable the DID (Direct Inwards Dialling) interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(42, 'RateCard', 'ratecard', '1', 'Show the ratecards - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(43, 'Simulator', 'simulator', '1', 'Offer simulator option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(44, 'CallBack', 'callback', '1', 'Enable the callback option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(45, 'Predictive Dialer', 'predictivedialer', '1', 'Enable the predictivedialer option on the customer interface - yes or no.', 1, 'yes,no', 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(46, 'WebPhone', 'webphone', '1', 'Let users use SIP/IAX Webphone (Options : yes/no).', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(256, 'SMTP Secure', 'smtp_secure', '', 'sets the prefix to the SMTP server : tls ; ssl', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(255, 'SMTP Port', 'smtp_port', '25', 'Port to connect on the SMTP server', 0, NULL, 'global');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(254, 'Return URL distant Forget Password', 'return_url_distant_forgetpassword', '', 'URL for specific return if an error occur after forgetpassword', 0, NULL, 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(47, 'WebPhone Server', 'webphoneserver', 'localhost', 'IP address or domain name of asterisk server that would be used by the web-phone.', 0, NULL, 'webcustomerui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(48, 'Caller ID', 'callerid', '1', 'Let the users add new callerid.', 1, 'yes,no', 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(49, 'Password', 'password', '1', 'Let the user change the webui password.', 1, 'yes,no', 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(50, 'CallerID Limit', 'limit_callerid', '5', 'The total number of callerIDs for CLI Recognition that can be add by the customer.', 0, NULL, 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(51, 'Trunk Name', 'sip_iax_info_trunkname', 'call-labs', 'Trunk Name to show in sip/iax info.', 0, NULL, 'sip-iax-info');
@@ -1010,7 +907,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(64, 'Secure Application Customer Physical Path', 'dir_ws_https_catalog', '/customer/', 'Enter the Physical path of your Customers Application on your Secure server.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(65, 'Enable SSL', 'enable_ssl', '1', 'secure webserver for checkout procedure?', 1, 'yes,no', 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(66, 'HTTP Domain', 'http_domain', '26.63.165.200', 'Http Address.', 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(67, 'Directory Path', 'dir_ws_http', '/~areski/svn/a2billing/payment/customer/', 'Directory Path.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(67, 'Directory Path', 'dir_ws_http', '/customer/', 'Directory Path.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(68, 'Payment Amount', 'purchase_amount', '1:2:5:10:20', 'define the different amount of purchase that would be available - 5 amount maximum (5:10:15).', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(69, 'Item Name', 'item_name', 'Credit Purchase', 'Item name that would be display to the user when he will buy credit.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(70, 'Currency Code', 'currency_code', 'USD', 'Currency for the Credit purchase, only one can be define here.', 0, NULL, 'epayment_method');
@@ -1019,7 +916,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(73, 'Authorize.NET Payment URL', 'authorize_payment_url', 'https://secure.authorize.net/gateway/transact.dll', 'Define here the URL of Authorize gateway.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(74, 'PayPal Store Name', 'store_name', 'Asterisk2Billing', 'paypal store name to show in the paypal site when customer will go to pay.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(75, 'Transaction Key', 'transaction_key', 'asdf1212fasd121554sd4f5s45sdf', 'Transaction Key for security of Epayment Max length of 60 Characters.', 0, NULL, 'epayment_method');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(76, 'Secret Word', 'moneybookers_secretword', 'areski', 'Moneybookers secret word.', 0, NULL, 'epayment_method');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(76, 'Secret Word', 'moneybookers_secretword', '', 'Moneybookers secret word.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(77, 'Enable', 'enable_signup', '1', 'Enable Signup Module.', 1, 'yes,no', 'signup');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(78, 'Captcha Security', 'enable_captcha', '1', 'enable Captcha on the signup module (value : YES or NO).', 1, 'yes,no', 'signup');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(79, 'Credit', 'credit', '0', 'amount of credit applied to a new user.', 0, NULL, 'signup');
@@ -1063,7 +960,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(117, 'Invoice Icon', 'show_icon_invoice', '1', 'Display the icon in the invoice.', 1, 'yes,no', 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(118, 'Show Top Frame', 'show_top_frame', '0', 'Display the top frame (useful if you want to save space on your little tiny screen ) .', 1, 'yes,no', 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(119, 'Currency', 'currency_choose', 'usd, eur, cad, hkd', 'Allow the customer to chose the most appropriate currency ("all" can be used).', 0, NULL, 'webui');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(120, 'Card Export Fields', 'card_export_field_list', 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, ', 'Fields to export in csv format from cc_card table.', 0, NULL, 'webui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(120, 'Card Export Fields', 'card_export_field_list', 'id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy', 'Fields to export in csv format from cc_card table.', 0, NULL, 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(121, 'Vouvher Export Fields', 'voucher_export_field_list', 'voucher, credit, tag, activated, usedcardnumber, usedate, currency', 'Field to export in csv format from cc_voucher table.', 0, NULL, 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(122, 'Advance Mode', 'advanced_mode', '0', 'Advanced mode - Display additional configuration options on the ratecard (progressive rates, musiconhold, ...).', 1, 'yes,no', 'webui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(123, 'SIP/IAX Delete', 'delete_fk_card', '1', 'Delete the SIP/IAX Friend & callerid when a card is deleted.', 1, 'yes,no', 'webui');
@@ -1150,9 +1047,9 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(204, 'Outstanding Template Path', 'outstanding_template_path', '../outstanding/', 'gives outstanding template path from default one', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(205, 'Sales Template Path', 'sales_template_path', '../sales/', 'gives sales template path from default one', 0, NULL, 'global');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(206, 'Extra charge DIDs', 'extracharge_did', '1800,1900', 'Add extra per-minute charges to this comma-separated list of DNIDs; needs "extracharge_fee" and "extracharge_buyfee"', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(207, 'Extra charge DID fees', 'extracharge_fee', '0.05,0.15', 'Comma-separated list of extra sell-rate charges corresponding to the DIDs in "extracharge_did"', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(208, 'Extra charge DID buy fees', 'extracharge_buyfee', '0.04,0.13', 'Comma-separated list of extra buy-rate charges corresponding to the DIDs in "extracharge_did"', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(209, 'Support Modules', 'support', '1', 'Enable or Disable the module of support', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(207, 'Extra charge DID fees', 'extracharge_fee', '0,0', 'Comma-separated list of extra sell-rate charges corresponding to the DIDs in "extracharge_did" - ie : 0.08,0.18', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(208, 'Extra charge DID buy fees', 'extracharge_buyfee', '0,0', 'Comma-separated list of extra buy-rate charges corresponding to the DIDs in "extracharge_did" - ie : 0.04,0.13', 0, NULL, 'agi-conf1');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(253, 'Return URL distant Login', 'return_url_distant_login', '', 'URL for specific return if an error occur after login', 0, NULL, 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(210, 'List of possible values to notify', 'values_notifications', '10:20:50:100:500:1000', 'Possible values to choose when the user receive a notification. You can define a List e.g: 10:20:100.', 0, NULL, 'notifications');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(211, 'Notifications Modules', 'notification', '1', 'Enable or Disable the module of notification for the customers', 1, 'yes,no', 'webcustomerui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(212, 'Notications Cron Module', 'cron_notifications', '1', 'Enable or Disable the cron module of notification for the customers. If it correctly configured in the crontab', 0, 'yes,no', 'notifications');
@@ -1161,7 +1058,7 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(215, 'Max Time For Unlimited Calls', 'maxtime_tounlimited_calls', '5400', 'For unlimited calls, limit the duration: amount in seconds .', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(216, 'Max Time For Free Calls', 'maxtime_tofree_calls', '5400', 'For free calls, limit the duration: amount in seconds .', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(217, 'CallPlan threshold Deck switch', 'callplan_deck_minute_threshold', '', 'CallPlan threshold Deck switch. <br/>This option will switch the user callplan from one call plan ID to and other Callplan ID\nThe parameters are as follow : <br/>\n-- ID of the first callplan : called seconds needed to switch to the next CallplanID <br/>\n-- ID of the second callplan : called seconds needed to switch to the next CallplanID <br/>\n-- if not needed seconds are defined it will automatically switch to the next one <br/>\n-- if defined we will sum the previous needed seconds and check if the caller had done at least the amount of calls necessary to go to the next step and have the amount of seconds needed<br/>\nvalue example for callplan_deck_minute_threshold = 1:300, 2:60, 3', 0, NULL, 'agi-conf1');
-INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(218, 'Payment Historique Modules', 'payment', '1', 'Enable or Disable the module of payment historique for the customers', 1, 'yes,no', 'webcustomerui');
+INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(252, 'Personal Info', 'personalinfo', '1', 'Enable or disable the page which allow agent to modify its personal information.', 0, 'yes,no', 'webagentui');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(220, 'Disable annoucement the second of the times that the card can call', 'disable_announcement_seconds', '0', 'Desactived the annoucement of the seconds when there are more of one minutes (values : yes - no)', 1, 'yes,no', 'agi-conf1');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(221, 'Charge for the paypal extra fees', 'charge_paypal_fee', '0', 'Actived, if you want assum the fee of paypal and don''t apply it on the customer (values : yes - no)', 1, 'yes,no', 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(222, 'Cents Currency Associated', 'currency_cents_association', '', 'Define all the audio (without file extensions) that you want to play according to cents currency (use , to separate, ie "amd:lumas").By default the file used is "prepaid-cents" .Use plural to define the cents currency sound, but import two sounds but cents currency defined : ending by ''s'' and not ending by ''s'' (i.e. for lumas , add 2 files : ''lumas'' and ''luma'') ', 0, NULL, 'agi-conf1');
@@ -1195,18 +1092,12 @@ INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `co
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(250, 'Application Agent Physical Path', 'dir_ws_http_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your server.', 0, NULL, 'epayment_method');
 INSERT INTO `cc_config` (`id`, `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES(251, 'Secure Application Agent Physical Path', 'dir_ws_https_catalog_agent', '/agent/Public/', 'Enter the Physical path of your Agents Application on your Secure server.', 0, NULL, 'epayment_method');
 
-INSERT INTO `cc_config` (`config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES('Return URL distant Login', 'return_url_distant_login', '', 'URL for specific return if an error occur after login', 0, NULL, 'webcustomerui');
-INSERT INTO `cc_config` (`config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES('Return URL distant Forget Password', 'return_url_distant_forgetpassword', '', 'URL for specific return if an error occur after forgetpassword', 0, NULL, 'webcustomerui');
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_configuration`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_configuration`;
 CREATE TABLE IF NOT EXISTS `cc_configuration` (
   `configuration_id` int(11) NOT NULL auto_increment,
   `configuration_title` varchar(64) collate utf8_bin NOT NULL,
@@ -1228,7 +1119,7 @@ INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `conf
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(3, 'Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 0, NULL, 'tep_cfg_select_option(array(''Test'', ''Production''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(4, 'Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 0, NULL, 'tep_cfg_select_option(array(''Credit Card'', ''eCheck''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(5, 'Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
-INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(6, 'Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
+INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(6, 'Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'False', 'Do you want to accept Authorize.net payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(7, 'Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?', 0, NULL, 'tep_cfg_select_option(array(''True'', ''False''), ');
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(8, 'E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service', 0, NULL, NULL);
 INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `configuration_key`, `configuration_value`, `configuration_description`, `configuration_type`, `use_function`, `set_function`) VALUES(9, 'Alternative Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The alternative currency to use for credit card transactions if the system currency is not usable', 0, NULL, 'tep_cfg_select_option(array(''USD'',''CAD'',''EUR'',''GBP'',''JPY''), ');
@@ -1254,18 +1145,14 @@ INSERT INTO `cc_configuration` (`configuration_id`, `configuration_title`, `conf
 --
 -- Table structure for table `cc_config_group`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_config_group`;
 CREATE TABLE IF NOT EXISTS `cc_config_group` (
   `id` int(11) NOT NULL auto_increment,
   `group_title` varchar(64) collate utf8_bin NOT NULL,
   `group_description` varchar(255) collate utf8_bin NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `group_title` (`group_title`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `cc_config_group`
@@ -1284,17 +1171,14 @@ INSERT INTO `cc_config_group` (`id`, `group_title`, `group_description`) VALUES(
 INSERT INTO `cc_config_group` (`id`, `group_title`, `group_description`) VALUES(11, 'agi-conf1', 'This configuration group handles the AGI Configuration.');
 INSERT INTO `cc_config_group` (`id`, `group_title`, `group_description`) VALUES(12, 'notifications', 'This configuration group handles the notifcations configuration');
 INSERT INTO `cc_config_group` (`id`, `group_title`, `group_description`) VALUES(13, 'dashboard', 'This configuration group handles the dashboard configuration');
+INSERT INTO `cc_config_group` (`id`, `group_title`, `group_description`) VALUES(14, 'webagentui', 'This configuration group handles Web Agent Interface.');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_country`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_country`;
 CREATE TABLE IF NOT EXISTS `cc_country` (
   `id` bigint(20) NOT NULL auto_increment,
   `countrycode` char(80) collate utf8_bin NOT NULL,
@@ -1568,11 +1452,7 @@ INSERT INTO `cc_country` (`id`, `countrycode`, `countryprefix`, `countryname`) V
 --
 -- Table structure for table `cc_currencies`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_currencies`;
 CREATE TABLE IF NOT EXISTS `cc_currencies` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `currency` char(3) collate utf8_bin NOT NULL default '',
@@ -1588,167 +1468,163 @@ CREATE TABLE IF NOT EXISTS `cc_currencies` (
 -- Dumping data for table `cc_currencies`
 --
 
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(1, 'ALL', 'Albanian Lek (ALL)', 0.00974, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(2, 'DZD', 'Algerian Dinar (DZD)', 0.01345, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(3, 'XAL', 'Aluminium Ounces (XAL)', 1.08295, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(4, 'ARS', 'Argentine Peso (ARS)', 0.32455, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(5, 'AWG', 'Aruba Florin (AWG)', 0.55866, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(6, 'AUD', 'Australian Dollar (AUD)', 0.73384, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(7, 'BSD', 'Bahamian Dollar (BSD)', 1.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(8, 'BHD', 'Bahraini Dinar (BHD)', 2.65322, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(9, 'BDT', 'Bangladesh Taka (BDT)', 0.01467, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(10, 'BBD', 'Barbados Dollar (BBD)', 0.50000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(11, 'BYR', 'Belarus Ruble (BYR)', 0.00046, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(12, 'BZD', 'Belize Dollar (BZD)', 0.50569, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(13, 'BMD', 'Bermuda Dollar (BMD)', 1.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(14, 'BTN', 'Bhutan Ngultrum (BTN)', 0.02186, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(15, 'BOB', 'Bolivian Boliviano (BOB)', 0.12500, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(16, 'BRL', 'Brazilian Real (BRL)', 0.46030, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(17, 'GBP', 'British Pound (GBP)', 1.73702, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(18, 'BND', 'Brunei Dollar (BND)', 0.61290, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(19, 'BGN', 'Bulgarian Lev (BGN)', 0.60927, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(20, 'BIF', 'Burundi Franc (BIF)', 0.00103, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(21, 'KHR', 'Cambodia Riel (KHR)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(22, 'CAD', 'Canadian Dollar (CAD)', 0.86386, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(23, 'KYD', 'Cayman Islands Dollar (KYD)', 1.16496, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(24, 'XOF', 'CFA Franc (BCEAO) (XOF)', 0.00182, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(25, 'XAF', 'CFA Franc (BEAC) (XAF)', 0.00182, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(26, 'CLP', 'Chilean Peso (CLP)', 0.00187, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(27, 'CNY', 'Chinese Yuan (CNY)', 0.12425, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(28, 'COP', 'Colombian Peso (COP)', 0.00044, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(29, 'KMF', 'Comoros Franc (KMF)', 0.00242, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(30, 'XCP', 'Copper Ounces (XCP)', 2.16403, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(31, 'CRC', 'Costa Rica Colon (CRC)', 0.00199, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(32, 'HRK', 'Croatian Kuna (HRK)', 0.16249, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(33, 'CUP', 'Cuban Peso (CUP)', 1.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(34, 'CYP', 'Cyprus Pound (CYP)', 2.07426, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(35, 'CZK', 'Czech Koruna (CZK)', 0.04133, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(36, 'DKK', 'Danish Krone (DKK)', 0.15982, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(37, 'DJF', 'Dijibouti Franc (DJF)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(38, 'DOP', 'Dominican Peso (DOP)', 0.03035, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(39, 'XCD', 'East Caribbean Dollar (XCD)', 0.37037, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(40, 'ECS', 'Ecuador Sucre (ECS)', 0.00004, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(41, 'EGP', 'Egyptian Pound (EGP)', 0.17433, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(42, 'SVC', 'El Salvador Colon (SVC)', 0.11426, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(43, 'ERN', 'Eritrea Nakfa (ERN)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(44, 'EEK', 'Estonian Kroon (EEK)', 0.07615, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(45, 'ETB', 'Ethiopian Birr (ETB)', 0.11456, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(46, 'EUR', 'Euro (EUR)', 1.19175, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(47, 'FKP', 'Falkland Islands Pound (FKP)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(48, 'GMD', 'Gambian Dalasi (GMD)', 0.03515, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(49, 'GHC', 'Ghanian Cedi (GHC)', 0.00011, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(50, 'GIP', 'Gibraltar Pound (GIP)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(51, 'XAU', 'Gold Ounces (XAU)', 99.99999, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(52, 'GTQ', 'Guatemala Quetzal (GTQ)', 0.13103, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(53, 'GNF', 'Guinea Franc (GNF)', 0.00022, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(54, 'HTG', 'Haiti Gourde (HTG)', 0.02387, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(55, 'HNL', 'Honduras Lempira (HNL)', 0.05292, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(56, 'HKD', 'Hong Kong Dollar (HKD)', 0.12884, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(57, 'HUF', 'Hungarian ForINT (HUF)', 0.00461, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(58, 'ISK', 'Iceland Krona (ISK)', 0.01436, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(59, 'INR', 'Indian Rupee (INR)', 0.02253, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(60, 'IDR', 'Indonesian Rupiah (IDR)', 0.00011, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(61, 'IRR', 'Iran Rial (IRR)', 0.00011, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(62, 'ILS', 'Israeli Shekel (ILS)', 0.21192, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(63, 'JMD', 'Jamaican Dollar (JMD)', 0.01536, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(64, 'JPY', 'Japanese Yen (JPY)', 0.00849, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(65, 'JOD', 'Jordanian Dinar (JOD)', 1.41044, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(66, 'KZT', 'Kazakhstan Tenge (KZT)', 0.00773, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(67, 'KES', 'Kenyan Shilling (KES)', 0.01392, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(68, 'KRW', 'Korean Won (KRW)', 0.00102, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(69, 'KWD', 'Kuwaiti Dinar (KWD)', 3.42349, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(70, 'LAK', 'Lao Kip (LAK)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(71, 'LVL', 'Latvian Lat (LVL)', 1.71233, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(72, 'LBP', 'Lebanese Pound (LBP)', 0.00067, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(73, 'LSL', 'Lesotho Loti (LSL)', 0.15817, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(74, 'LYD', 'Libyan Dinar (LYD)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(75, 'LTL', 'Lithuanian Lita (LTL)', 0.34510, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(76, 'MOP', 'Macau Pataca (MOP)', 0.12509, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(77, 'MKD', 'Macedonian Denar (MKD)', 0.01945, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(78, 'MGF', 'Malagasy Franc (MGF)', 0.00011, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(79, 'MWK', 'Malawi Kwacha (MWK)', 0.00752, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(80, 'MYR', 'Malaysian Ringgit (MYR)', 0.26889, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(81, 'MVR', 'Maldives Rufiyaa (MVR)', 0.07813, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(82, 'MTL', 'Maltese Lira (MTL)', 2.77546, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(83, 'MRO', 'Mauritania Ougulya (MRO)', 0.00369, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(84, 'MUR', 'Mauritius Rupee (MUR)', 0.03258, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(85, 'MXN', 'Mexican Peso (MXN)', 0.09320, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(86, 'MDL', 'Moldovan Leu (MDL)', 0.07678, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(87, 'MNT', 'Mongolian Tugrik (MNT)', 0.00084, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(88, 'MAD', 'Moroccan Dirham (MAD)', 0.10897, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(89, 'MZM', 'Mozambique Metical (MZM)', 0.00004, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(90, 'NAD', 'Namibian Dollar (NAD)', 0.15817, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(91, 'NPR', 'Nepalese Rupee (NPR)', 0.01408, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(92, 'ANG', 'Neth Antilles Guilder (ANG)', 0.55866, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(93, 'TRY', 'New Turkish Lira (TRY)', 0.73621, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(94, 'NZD', 'New Zealand Dollar (NZD)', 0.65096, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(95, 'NIO', 'Nicaragua Cordoba (NIO)', 0.05828, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(96, 'NGN', 'Nigerian Naira (NGN)', 0.00777, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(97, 'NOK', 'Norwegian Krone (NOK)', 0.14867, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(98, 'OMR', 'Omani Rial (OMR)', 2.59740, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(99, 'XPF', 'Pacific Franc (XPF)', 0.00999, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(100, 'PKR', 'Pakistani Rupee (PKR)', 0.01667, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(101, 'XPD', 'Palladium Ounces (XPD)', 99.99999, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(102, 'PAB', 'Panama Balboa (PAB)', 1.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(103, 'PGK', 'Papua New Guinea Kina (PGK)', 0.33125, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(104, 'PYG', 'Paraguayan Guarani (PYG)', 0.00017, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(105, 'PEN', 'Peruvian Nuevo Sol (PEN)', 0.29999, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(106, 'PHP', 'Philippine Peso (PHP)', 0.01945, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(107, 'XPT', 'Platinum Ounces (XPT)', 99.99999, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(108, 'PLN', 'Polish Zloty (PLN)', 0.30574, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(109, 'QAR', 'Qatar Rial (QAR)', 0.27476, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(110, 'ROL', 'Romanian Leu (ROL)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(111, 'RON', 'Romanian New Leu (RON)', 0.34074, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(112, 'RUB', 'Russian Rouble (RUB)', 0.03563, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(113, 'RWF', 'Rwanda Franc (RWF)', 0.00185, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(114, 'WST', 'Samoa Tala (WST)', 0.35492, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(115, 'STD', 'Sao Tome Dobra (STD)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(116, 'SAR', 'Saudi Arabian Riyal (SAR)', 0.26665, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(117, 'SCR', 'Seychelles Rupee (SCR)', 0.18114, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(118, 'SLL', 'Sierra Leone Leone (SLL)', 0.00034, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(119, 'XAG', 'Silver Ounces (XAG)', 9.77517, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(120, 'SGD', 'Singapore Dollar (SGD)', 0.61290, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(121, 'SKK', 'Slovak Koruna (SKK)', 0.03157, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(122, 'SIT', 'Slovenian Tolar (SIT)', 0.00498, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(123, 'SOS', 'Somali Shilling (SOS)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(124, 'ZAR', 'South African Rand (ZAR)', 0.15835, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(125, 'LKR', 'Sri Lanka Rupee (LKR)', 0.00974, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(126, 'SHP', 'St Helena Pound (SHP)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(127, 'SDD', 'Sudanese Dinar (SDD)', 0.00427, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(128, 'SRG', 'Surinam Guilder (SRG)', 0.36496, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(129, 'SZL', 'Swaziland Lilageni (SZL)', 0.15817, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(130, 'SEK', 'Swedish Krona (SEK)', 0.12609, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(131, 'CHF', 'Swiss Franc (CHF)', 0.76435, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(132, 'SYP', 'Syrian Pound (SYP)', 0.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(133, 'TWD', 'Taiwan Dollar (TWD)', 0.03075, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(134, 'TZS', 'Tanzanian Shilling (TZS)', 0.00083, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(135, 'THB', 'Thai Baht (THB)', 0.02546, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(136, 'TOP', 'Tonga Paanga (TOP)', 0.48244, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(137, 'TTD', 'Trinidad&Tobago Dollar (TTD)', 0.15863, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(138, 'TND', 'Tunisian Dinar (TND)', 0.73470, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(139, 'USD', 'U.S. Dollar (USD)', 1.00000, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(140, 'AED', 'UAE Dirham (AED)', 0.27228, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(141, 'UGX', 'Ugandan Shilling (UGX)', 0.00055, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(142, 'UAH', 'Ukraine Hryvnia (UAH)', 0.19755, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(143, 'UYU', 'Uruguayan New Peso (UYU)', 0.04119, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(144, 'VUV', 'Vanuatu Vatu (VUV)', 0.00870, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(145, 'VEB', 'Venezuelan Bolivar (VEB)', 0.00037, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(146, 'VND', 'Vietnam Dong (VND)', 0.00006, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(147, 'YER', 'Yemen Riyal (YER)', 0.00510, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(148, 'ZMK', 'Zambian Kwacha (ZMK)', 0.00031, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(149, 'ZWD', 'Zimbabwe Dollar (ZWD)', 0.00001, '2009-03-30 20:49:29', 'USD');
-INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(150, 'GYD', 'Guyana Dollar (GYD)', 0.00527, '2009-03-30 20:49:29', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(1, 'ALL', 'Albanian Lek (ALL)', 0.00974, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(2, 'DZD', 'Algerian Dinar (DZD)', 0.01345, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(3, 'XAL', 'Aluminium Ounces (XAL)', 1.08295, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(4, 'ARS', 'Argentine Peso (ARS)', 0.32455, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(5, 'AWG', 'Aruba Florin (AWG)', 0.55866, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(6, 'AUD', 'Australian Dollar (AUD)', 0.73384, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(7, 'BSD', 'Bahamian Dollar (BSD)', 1.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(8, 'BHD', 'Bahraini Dinar (BHD)', 2.65322, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(9, 'BDT', 'Bangladesh Taka (BDT)', 0.01467, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(10, 'BBD', 'Barbados Dollar (BBD)', 0.50000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(11, 'BYR', 'Belarus Ruble (BYR)', 0.00046, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(12, 'BZD', 'Belize Dollar (BZD)', 0.50569, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(13, 'BMD', 'Bermuda Dollar (BMD)', 1.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(14, 'BTN', 'Bhutan Ngultrum (BTN)', 0.02186, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(15, 'BOB', 'Bolivian Boliviano (BOB)', 0.12500, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(16, 'BRL', 'Brazilian Real (BRL)', 0.46030, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(17, 'GBP', 'British Pound (GBP)', 1.73702, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(18, 'BND', 'Brunei Dollar (BND)', 0.61290, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(19, 'BGN', 'Bulgarian Lev (BGN)', 0.60927, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(20, 'BIF', 'Burundi Franc (BIF)', 0.00103, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(21, 'KHR', 'Cambodia Riel (KHR)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(22, 'CAD', 'Canadian Dollar (CAD)', 0.86386, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(23, 'KYD', 'Cayman Islands Dollar (KYD)', 1.16496, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(24, 'XOF', 'CFA Franc (BCEAO) (XOF)', 0.00182, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(25, 'XAF', 'CFA Franc (BEAC) (XAF)', 0.00182, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(26, 'CLP', 'Chilean Peso (CLP)', 0.00187, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(27, 'CNY', 'Chinese Yuan (CNY)', 0.12425, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(28, 'COP', 'Colombian Peso (COP)', 0.00044, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(29, 'KMF', 'Comoros Franc (KMF)', 0.00242, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(30, 'XCP', 'Copper Ounces (XCP)', 2.16403, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(31, 'CRC', 'Costa Rica Colon (CRC)', 0.00199, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(32, 'HRK', 'Croatian Kuna (HRK)', 0.16249, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(33, 'CUP', 'Cuban Peso (CUP)', 1.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(34, 'CYP', 'Cyprus Pound (CYP)', 2.07426, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(35, 'CZK', 'Czech Koruna (CZK)', 0.04133, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(36, 'DKK', 'Danish Krone (DKK)', 0.15982, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(37, 'DJF', 'Dijibouti Franc (DJF)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(38, 'DOP', 'Dominican Peso (DOP)', 0.03035, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(39, 'XCD', 'East Caribbean Dollar (XCD)', 0.37037, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(40, 'ECS', 'Ecuador Sucre (ECS)', 0.00004, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(41, 'EGP', 'Egyptian Pound (EGP)', 0.17433, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(42, 'SVC', 'El Salvador Colon (SVC)', 0.11426, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(43, 'ERN', 'Eritrea Nakfa (ERN)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(44, 'EEK', 'Estonian Kroon (EEK)', 0.07615, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(45, 'ETB', 'Ethiopian Birr (ETB)', 0.11456, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(46, 'EUR', 'Euro (EUR)', 1.19175, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(47, 'FKP', 'Falkland Islands Pound (FKP)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(48, 'GMD', 'Gambian Dalasi (GMD)', 0.03515, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(49, 'GHC', 'Ghanian Cedi (GHC)', 0.00011, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(50, 'GIP', 'Gibraltar Pound (GIP)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(51, 'XAU', 'Gold Ounces (XAU)', 99.99999, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(52, 'GTQ', 'Guatemala Quetzal (GTQ)', 0.13103, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(53, 'GNF', 'Guinea Franc (GNF)', 0.00022, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(54, 'HTG', 'Haiti Gourde (HTG)', 0.02387, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(55, 'HNL', 'Honduras Lempira (HNL)', 0.05292, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(56, 'HKD', 'Hong Kong Dollar (HKD)', 0.12884, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(57, 'HUF', 'Hungarian ForINT (HUF)', 0.00461, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(58, 'ISK', 'Iceland Krona (ISK)', 0.01436, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(59, 'INR', 'Indian Rupee (INR)', 0.02253, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(60, 'IDR', 'Indonesian Rupiah (IDR)', 0.00011, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(61, 'IRR', 'Iran Rial (IRR)', 0.00011, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(62, 'ILS', 'Israeli Shekel (ILS)', 0.21192, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(63, 'JMD', 'Jamaican Dollar (JMD)', 0.01536, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(64, 'JPY', 'Japanese Yen (JPY)', 0.00849, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(65, 'JOD', 'Jordanian Dinar (JOD)', 1.41044, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(66, 'KZT', 'Kazakhstan Tenge (KZT)', 0.00773, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(67, 'KES', 'Kenyan Shilling (KES)', 0.01392, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(68, 'KRW', 'Korean Won (KRW)', 0.00102, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(69, 'KWD', 'Kuwaiti Dinar (KWD)', 3.42349, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(70, 'LAK', 'Lao Kip (LAK)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(71, 'LVL', 'Latvian Lat (LVL)', 1.71233, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(72, 'LBP', 'Lebanese Pound (LBP)', 0.00067, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(73, 'LSL', 'Lesotho Loti (LSL)', 0.15817, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(74, 'LYD', 'Libyan Dinar (LYD)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(75, 'LTL', 'Lithuanian Lita (LTL)', 0.34510, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(76, 'MOP', 'Macau Pataca (MOP)', 0.12509, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(77, 'MKD', 'Macedonian Denar (MKD)', 0.01945, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(78, 'MGF', 'Malagasy Franc (MGF)', 0.00011, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(79, 'MWK', 'Malawi Kwacha (MWK)', 0.00752, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(80, 'MYR', 'Malaysian Ringgit (MYR)', 0.26889, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(81, 'MVR', 'Maldives Rufiyaa (MVR)', 0.07813, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(82, 'MTL', 'Maltese Lira (MTL)', 2.77546, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(83, 'MRO', 'Mauritania Ougulya (MRO)', 0.00369, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(84, 'MUR', 'Mauritius Rupee (MUR)', 0.03258, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(85, 'MXN', 'Mexican Peso (MXN)', 0.09320, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(86, 'MDL', 'Moldovan Leu (MDL)', 0.07678, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(87, 'MNT', 'Mongolian Tugrik (MNT)', 0.00084, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(88, 'MAD', 'Moroccan Dirham (MAD)', 0.10897, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(89, 'MZM', 'Mozambique Metical (MZM)', 0.00004, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(90, 'NAD', 'Namibian Dollar (NAD)', 0.15817, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(91, 'NPR', 'Nepalese Rupee (NPR)', 0.01408, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(92, 'ANG', 'Neth Antilles Guilder (ANG)', 0.55866, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(93, 'TRY', 'New Turkish Lira (TRY)', 0.73621, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(94, 'NZD', 'New Zealand Dollar (NZD)', 0.65096, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(95, 'NIO', 'Nicaragua Cordoba (NIO)', 0.05828, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(96, 'NGN', 'Nigerian Naira (NGN)', 0.00777, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(97, 'NOK', 'Norwegian Krone (NOK)', 0.14867, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(98, 'OMR', 'Omani Rial (OMR)', 2.59740, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(99, 'XPF', 'Pacific Franc (XPF)', 0.00999, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(100, 'PKR', 'Pakistani Rupee (PKR)', 0.01667, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(101, 'XPD', 'Palladium Ounces (XPD)', 99.99999, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(102, 'PAB', 'Panama Balboa (PAB)', 1.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(103, 'PGK', 'Papua New Guinea Kina (PGK)', 0.33125, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(104, 'PYG', 'Paraguayan Guarani (PYG)', 0.00017, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(105, 'PEN', 'Peruvian Nuevo Sol (PEN)', 0.29999, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(106, 'PHP', 'Philippine Peso (PHP)', 0.01945, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(107, 'XPT', 'Platinum Ounces (XPT)', 99.99999, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(108, 'PLN', 'Polish Zloty (PLN)', 0.30574, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(109, 'QAR', 'Qatar Rial (QAR)', 0.27476, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(110, 'ROL', 'Romanian Leu (ROL)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(111, 'RON', 'Romanian New Leu (RON)', 0.34074, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(112, 'RUB', 'Russian Rouble (RUB)', 0.03563, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(113, 'RWF', 'Rwanda Franc (RWF)', 0.00185, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(114, 'WST', 'Samoa Tala (WST)', 0.35492, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(115, 'STD', 'Sao Tome Dobra (STD)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(116, 'SAR', 'Saudi Arabian Riyal (SAR)', 0.26665, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(117, 'SCR', 'Seychelles Rupee (SCR)', 0.18114, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(118, 'SLL', 'Sierra Leone Leone (SLL)', 0.00034, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(119, 'XAG', 'Silver Ounces (XAG)', 9.77517, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(120, 'SGD', 'Singapore Dollar (SGD)', 0.61290, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(121, 'SKK', 'Slovak Koruna (SKK)', 0.03157, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(122, 'SIT', 'Slovenian Tolar (SIT)', 0.00498, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(123, 'SOS', 'Somali Shilling (SOS)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(124, 'ZAR', 'South African Rand (ZAR)', 0.15835, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(125, 'LKR', 'Sri Lanka Rupee (LKR)', 0.00974, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(126, 'SHP', 'St Helena Pound (SHP)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(127, 'SDD', 'Sudanese Dinar (SDD)', 0.00427, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(128, 'SRG', 'Surinam Guilder (SRG)', 0.36496, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(129, 'SZL', 'Swaziland Lilageni (SZL)', 0.15817, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(130, 'SEK', 'Swedish Krona (SEK)', 0.12609, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(131, 'CHF', 'Swiss Franc (CHF)', 0.76435, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(132, 'SYP', 'Syrian Pound (SYP)', 0.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(133, 'TWD', 'Taiwan Dollar (TWD)', 0.03075, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(134, 'TZS', 'Tanzanian Shilling (TZS)', 0.00083, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(135, 'THB', 'Thai Baht (THB)', 0.02546, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(136, 'TOP', 'Tonga Paanga (TOP)', 0.48244, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(137, 'TTD', 'Trinidad&Tobago Dollar (TTD)', 0.15863, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(138, 'TND', 'Tunisian Dinar (TND)', 0.73470, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(139, 'USD', 'U.S. Dollar (USD)', 1.00000, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(140, 'AED', 'UAE Dirham (AED)', 0.27228, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(141, 'UGX', 'Ugandan Shilling (UGX)', 0.00055, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(142, 'UAH', 'Ukraine Hryvnia (UAH)', 0.19755, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(143, 'UYU', 'Uruguayan New Peso (UYU)', 0.04119, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(144, 'VUV', 'Vanuatu Vatu (VUV)', 0.00870, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(145, 'VEB', 'Venezuelan Bolivar (VEB)', 0.00037, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(146, 'VND', 'Vietnam Dong (VND)', 0.00006, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(147, 'YER', 'Yemen Riyal (YER)', 0.00510, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(148, 'ZMK', 'Zambian Kwacha (ZMK)', 0.00031, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(149, 'ZWD', 'Zimbabwe Dollar (ZWD)', 0.00001, '2009-05-15 16:38:43', 'USD');
+INSERT INTO `cc_currencies` (`id`, `currency`, `name`, `value`, `lastupdate`, `basecurrency`) VALUES(150, 'GYD', 'Guyana Dollar (GYD)', 0.00527, '2009-05-15 16:38:43', 'USD');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_did`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_did`;
 CREATE TABLE IF NOT EXISTS `cc_did` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_didgroup` bigint(20) NOT NULL,
@@ -1778,11 +1654,7 @@ CREATE TABLE IF NOT EXISTS `cc_did` (
 --
 -- Table structure for table `cc_didgroup`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_didgroup`;
 CREATE TABLE IF NOT EXISTS `cc_didgroup` (
   `id` bigint(20) NOT NULL auto_increment,
   `iduser` int(11) NOT NULL default '0',
@@ -1801,11 +1673,7 @@ CREATE TABLE IF NOT EXISTS `cc_didgroup` (
 --
 -- Table structure for table `cc_did_destination`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_did_destination`;
 CREATE TABLE IF NOT EXISTS `cc_did_destination` (
   `id` bigint(20) NOT NULL auto_increment,
   `destination` char(50) collate utf8_bin NOT NULL,
@@ -1829,11 +1697,7 @@ CREATE TABLE IF NOT EXISTS `cc_did_destination` (
 --
 -- Table structure for table `cc_did_use`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_did_use`;
 CREATE TABLE IF NOT EXISTS `cc_did_use` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) default NULL,
@@ -1856,11 +1720,7 @@ CREATE TABLE IF NOT EXISTS `cc_did_use` (
 --
 -- Table structure for table `cc_ecommerce_product`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_ecommerce_product`;
 CREATE TABLE IF NOT EXISTS `cc_ecommerce_product` (
   `id` bigint(20) NOT NULL auto_increment,
   `product_name` varchar(255) collate utf8_bin NOT NULL,
@@ -1895,15 +1755,11 @@ CREATE TABLE IF NOT EXISTS `cc_ecommerce_product` (
 --
 -- Table structure for table `cc_epayment_log`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_epayment_log`;
 CREATE TABLE IF NOT EXISTS `cc_epayment_log` (
   `id` bigint(20) NOT NULL auto_increment,
   `cardid` bigint(20) NOT NULL default '0',
-  `amount` decimal(15,5) NOT NULL default '0.00000',
+  `amount` varchar(50) collate utf8_bin NOT NULL default '0',
   `vat` float NOT NULL default '0',
   `paymentmethod` char(50) collate utf8_bin NOT NULL,
   `cc_owner` varchar(64) collate utf8_bin default NULL,
@@ -1915,6 +1771,8 @@ CREATE TABLE IF NOT EXISTS `cc_epayment_log` (
   `credit_card_type` varchar(20) collate utf8_bin default NULL,
   `currency` varchar(4) collate utf8_bin default NULL,
   `transaction_detail` longtext collate utf8_bin,
+  `item_type` varchar(30) collate utf8_bin default NULL,
+  `item_id` bigint(20) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -1928,15 +1786,11 @@ CREATE TABLE IF NOT EXISTS `cc_epayment_log` (
 --
 -- Table structure for table `cc_epayment_log_agent`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_epayment_log_agent`;
 CREATE TABLE IF NOT EXISTS `cc_epayment_log_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `agent_id` bigint(20) NOT NULL default '0',
-  `amount` decimal(15,5) NOT NULL default '0.00000',
+  `amount` varchar(50) collate utf8_bin NOT NULL default '0',
   `vat` float NOT NULL default '0',
   `paymentmethod` char(50) collate utf8_bin NOT NULL,
   `cc_owner` varchar(64) collate utf8_bin default NULL,
@@ -1961,11 +1815,7 @@ CREATE TABLE IF NOT EXISTS `cc_epayment_log_agent` (
 --
 -- Table structure for table `cc_iax_buddies`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_iax_buddies`;
 CREATE TABLE IF NOT EXISTS `cc_iax_buddies` (
   `id` int(11) NOT NULL auto_increment,
   `id_cc_card` int(11) NOT NULL default '0',
@@ -2007,7 +1857,11 @@ CREATE TABLE IF NOT EXISTS `cc_iax_buddies` (
   `cancallforward` char(3) collate utf8_bin default 'yes',
   `trunk` char(3) collate utf8_bin default 'no',
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `cons_cc_iax_buddies_name` (`name`)
+  UNIQUE KEY `cons_cc_iax_buddies_name` (`name`),
+  KEY `name` (`name`),
+  KEY `host` (`host`),
+  KEY `ipaddr` (`ipaddr`),
+  KEY `port` (`port`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
@@ -2020,11 +1874,7 @@ CREATE TABLE IF NOT EXISTS `cc_iax_buddies` (
 --
 -- Table structure for table `cc_invoice`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_invoice`;
 CREATE TABLE IF NOT EXISTS `cc_invoice` (
   `id` bigint(20) NOT NULL auto_increment,
   `reference` varchar(30) collate utf8_bin default NULL,
@@ -2048,11 +1898,7 @@ CREATE TABLE IF NOT EXISTS `cc_invoice` (
 --
 -- Table structure for table `cc_invoice_conf`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_invoice_conf`;
 CREATE TABLE IF NOT EXISTS `cc_invoice_conf` (
   `id` int(11) NOT NULL auto_increment,
   `key_val` varchar(50) collate utf8_bin NOT NULL,
@@ -2081,11 +1927,7 @@ INSERT INTO `cc_invoice_conf` (`id`, `key_val`, `value`) VALUES(10, 'web', 'www.
 --
 -- Table structure for table `cc_invoice_item`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_invoice_item`;
 CREATE TABLE IF NOT EXISTS `cc_invoice_item` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_invoice` bigint(20) NOT NULL,
@@ -2108,11 +1950,7 @@ CREATE TABLE IF NOT EXISTS `cc_invoice_item` (
 --
 -- Table structure for table `cc_invoice_payment`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_invoice_payment`;
 CREATE TABLE IF NOT EXISTS `cc_invoice_payment` (
   `id_invoice` bigint(20) NOT NULL,
   `id_payment` bigint(20) NOT NULL,
@@ -2129,11 +1967,7 @@ CREATE TABLE IF NOT EXISTS `cc_invoice_payment` (
 --
 -- Table structure for table `cc_iso639`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_iso639`;
 CREATE TABLE IF NOT EXISTS `cc_iso639` (
   `code` char(2) collate utf8_bin NOT NULL,
   `name` char(16) collate utf8_bin NOT NULL,
@@ -2292,11 +2126,7 @@ INSERT INTO `cc_iso639` (`code`, `name`, `lname`, `charset`) VALUES('zu', 'Zulu'
 --
 -- Table structure for table `cc_logpayment`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_logpayment`;
 CREATE TABLE IF NOT EXISTS `cc_logpayment` (
   `id` int(11) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2320,11 +2150,7 @@ CREATE TABLE IF NOT EXISTS `cc_logpayment` (
 --
 -- Table structure for table `cc_logpayment_agent`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_logpayment_agent`;
 CREATE TABLE IF NOT EXISTS `cc_logpayment_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2347,11 +2173,7 @@ CREATE TABLE IF NOT EXISTS `cc_logpayment_agent` (
 --
 -- Table structure for table `cc_logrefill`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_logrefill`;
 CREATE TABLE IF NOT EXISTS `cc_logrefill` (
   `id` bigint(20) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2373,11 +2195,7 @@ CREATE TABLE IF NOT EXISTS `cc_logrefill` (
 --
 -- Table structure for table `cc_logrefill_agent`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_logrefill_agent`;
 CREATE TABLE IF NOT EXISTS `cc_logrefill_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2398,11 +2216,7 @@ CREATE TABLE IF NOT EXISTS `cc_logrefill_agent` (
 --
 -- Table structure for table `cc_notification`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_notification`;
 CREATE TABLE IF NOT EXISTS `cc_notification` (
   `id` bigint(20) NOT NULL auto_increment,
   `key_value` varchar(40) collate utf8_bin default NULL,
@@ -2423,11 +2237,7 @@ CREATE TABLE IF NOT EXISTS `cc_notification` (
 --
 -- Table structure for table `cc_notification_admin`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_notification_admin`;
 CREATE TABLE IF NOT EXISTS `cc_notification_admin` (
   `id_notification` bigint(20) NOT NULL,
   `id_admin` int(11) NOT NULL,
@@ -2445,11 +2255,7 @@ CREATE TABLE IF NOT EXISTS `cc_notification_admin` (
 --
 -- Table structure for table `cc_outbound_cid_group`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_outbound_cid_group`;
 CREATE TABLE IF NOT EXISTS `cc_outbound_cid_group` (
   `id` int(11) NOT NULL auto_increment,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2467,11 +2273,7 @@ CREATE TABLE IF NOT EXISTS `cc_outbound_cid_group` (
 --
 -- Table structure for table `cc_outbound_cid_list`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_outbound_cid_list`;
 CREATE TABLE IF NOT EXISTS `cc_outbound_cid_list` (
   `id` int(11) NOT NULL auto_increment,
   `outbound_cid_group` int(11) NOT NULL,
@@ -2491,11 +2293,7 @@ CREATE TABLE IF NOT EXISTS `cc_outbound_cid_list` (
 --
 -- Table structure for table `cc_package_group`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_package_group`;
 CREATE TABLE IF NOT EXISTS `cc_package_group` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(30) collate utf8_bin NOT NULL,
@@ -2513,11 +2311,7 @@ CREATE TABLE IF NOT EXISTS `cc_package_group` (
 --
 -- Table structure for table `cc_package_offer`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_package_offer`;
 CREATE TABLE IF NOT EXISTS `cc_package_offer` (
   `id` bigint(20) NOT NULL auto_increment,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -2539,11 +2333,7 @@ CREATE TABLE IF NOT EXISTS `cc_package_offer` (
 --
 -- Table structure for table `cc_package_rate`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_package_rate`;
 CREATE TABLE IF NOT EXISTS `cc_package_rate` (
   `package_id` int(11) NOT NULL,
   `rate_id` int(11) NOT NULL,
@@ -2560,11 +2350,7 @@ CREATE TABLE IF NOT EXISTS `cc_package_rate` (
 --
 -- Table structure for table `cc_packgroup_package`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_packgroup_package`;
 CREATE TABLE IF NOT EXISTS `cc_packgroup_package` (
   `packagegroup_id` int(11) NOT NULL,
   `package_id` int(11) NOT NULL,
@@ -2581,11 +2367,7 @@ CREATE TABLE IF NOT EXISTS `cc_packgroup_package` (
 --
 -- Table structure for table `cc_payments`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_payments`;
 CREATE TABLE IF NOT EXISTS `cc_payments` (
   `id` bigint(20) NOT NULL auto_increment,
   `customers_id` bigint(20) NOT NULL default '0',
@@ -2619,11 +2401,7 @@ CREATE TABLE IF NOT EXISTS `cc_payments` (
 --
 -- Table structure for table `cc_payments_agent`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_payments_agent`;
 CREATE TABLE IF NOT EXISTS `cc_payments_agent` (
   `id` bigint(20) NOT NULL auto_increment,
   `agent_id` bigint(20) NOT NULL,
@@ -2657,11 +2435,7 @@ CREATE TABLE IF NOT EXISTS `cc_payments_agent` (
 --
 -- Table structure for table `cc_payments_status`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_payments_status`;
 CREATE TABLE IF NOT EXISTS `cc_payments_status` (
   `id` int(11) NOT NULL auto_increment,
   `status_id` int(11) NOT NULL,
@@ -2687,11 +2461,7 @@ INSERT INTO `cc_payments_status` (`id`, `status_id`, `status_name`) VALUES(8, 5,
 --
 -- Table structure for table `cc_payment_methods`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_payment_methods`;
 CREATE TABLE IF NOT EXISTS `cc_payment_methods` (
   `id` int(11) NOT NULL auto_increment,
   `payment_method` char(100) collate utf8_bin NOT NULL,
@@ -2704,7 +2474,6 @@ CREATE TABLE IF NOT EXISTS `cc_payment_methods` (
 --
 
 INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(1, 'paypal', 'paypal.php');
-INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(2, 'Authorize.Net', 'authorizenet.php');
 INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(3, 'MoneyBookers', 'moneybookers.php');
 INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VALUES(4, 'plugnpay', 'plugnpay.php');
 
@@ -2713,11 +2482,7 @@ INSERT INTO `cc_payment_methods` (`id`, `payment_method`, `payment_filename`) VA
 --
 -- Table structure for table `cc_paypal`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_paypal`;
 CREATE TABLE IF NOT EXISTS `cc_paypal` (
   `id` int(11) NOT NULL auto_increment,
   `payer_id` varchar(50) collate utf8_bin default NULL,
@@ -2763,11 +2528,7 @@ CREATE TABLE IF NOT EXISTS `cc_paypal` (
 --
 -- Table structure for table `cc_phonebook`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_phonebook`;
 CREATE TABLE IF NOT EXISTS `cc_phonebook` (
   `id` int(11) NOT NULL auto_increment,
   `name` char(30) collate utf8_bin NOT NULL,
@@ -2786,11 +2547,7 @@ CREATE TABLE IF NOT EXISTS `cc_phonebook` (
 --
 -- Table structure for table `cc_phonenumber`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_phonenumber`;
 CREATE TABLE IF NOT EXISTS `cc_phonenumber` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_phonebook` int(11) NOT NULL,
@@ -2813,11 +2570,7 @@ CREATE TABLE IF NOT EXISTS `cc_phonenumber` (
 --
 -- Table structure for table `cc_prefix`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_prefix`;
 CREATE TABLE IF NOT EXISTS `cc_prefix` (
   `prefix` bigint(20) NOT NULL auto_increment,
   `destination` varchar(60) collate utf8_bin NOT NULL,
@@ -3067,7 +2820,7 @@ INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(26771, 'Botswana Mobile
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(26772, 'Botswana Mobile');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(26773, 'Botswana Mobile');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(26774, 'Botswana Mobile');
-INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(55, 'Falkland Islands Mobile');
+INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(55, 'Brazil');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(55117, 'Brazil Mobile');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(55118, 'Brazil Mobile');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(55119, 'Brazil Mobile');
@@ -7148,9 +6901,10 @@ INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(97156, 'United Arab Emi
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(44, 'United Kingdom');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(441, 'United Kingdom Landline');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(442, 'United Kingdom Landline');
+INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(443, 'United Kingdom Landline');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(4470, 'United Kingdom Personal Number');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(4475, 'United Kingdom Mobile');
-INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(4476, 'United Kingdom Mobile');
+INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(4476, 'United Kingdom Pager');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(4477, 'United Kingdom Mobile');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(4478, 'United Kingdom Mobile');
 INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(4479, 'United Kingdom Mobile');
@@ -7726,11 +7480,7 @@ INSERT INTO `cc_prefix` (`prefix`, `destination`) VALUES(998, 'Uzbekistan');
 --
 -- Table structure for table `cc_provider`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_provider`;
 CREATE TABLE IF NOT EXISTS `cc_provider` (
   `id` int(11) NOT NULL auto_increment,
   `provider_name` char(30) collate utf8_bin NOT NULL,
@@ -7750,12 +7500,7 @@ CREATE TABLE IF NOT EXISTS `cc_provider` (
 --
 -- Table structure for table `cc_ratecard`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
--- Last check: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_ratecard`;
 CREATE TABLE IF NOT EXISTS `cc_ratecard` (
   `id` int(11) NOT NULL auto_increment,
   `idtariffplan` int(11) NOT NULL default '0',
@@ -7834,11 +7579,7 @@ DELIMITER ;
 --
 -- Table structure for table `cc_receipt`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_receipt`;
 CREATE TABLE IF NOT EXISTS `cc_receipt` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_card` bigint(20) NOT NULL,
@@ -7859,11 +7600,7 @@ CREATE TABLE IF NOT EXISTS `cc_receipt` (
 --
 -- Table structure for table `cc_receipt_item`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_receipt_item`;
 CREATE TABLE IF NOT EXISTS `cc_receipt_item` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_receipt` bigint(20) NOT NULL,
@@ -7885,11 +7622,7 @@ CREATE TABLE IF NOT EXISTS `cc_receipt_item` (
 --
 -- Table structure for table `cc_restricted_phonenumber`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_restricted_phonenumber`;
 CREATE TABLE IF NOT EXISTS `cc_restricted_phonenumber` (
   `id` bigint(20) NOT NULL auto_increment,
   `number` varchar(50) collate utf8_bin NOT NULL,
@@ -7907,11 +7640,7 @@ CREATE TABLE IF NOT EXISTS `cc_restricted_phonenumber` (
 --
 -- Table structure for table `cc_server_group`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_server_group`;
 CREATE TABLE IF NOT EXISTS `cc_server_group` (
   `id` bigint(20) NOT NULL auto_increment,
   `name` varchar(60) collate utf8_bin default NULL,
@@ -7930,11 +7659,7 @@ INSERT INTO `cc_server_group` (`id`, `name`, `description`) VALUES(1, 'default',
 --
 -- Table structure for table `cc_server_manager`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_server_manager`;
 CREATE TABLE IF NOT EXISTS `cc_server_manager` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_group` int(11) default '1',
@@ -7950,18 +7675,14 @@ CREATE TABLE IF NOT EXISTS `cc_server_manager` (
 -- Dumping data for table `cc_server_manager`
 --
 
-INSERT INTO `cc_server_manager` (`id`, `id_group`, `server_ip`, `manager_host`, `manager_username`, `manager_secret`, `lasttime_used`) VALUES(1, 1, 'localhost', 'localhost', 'myasterisk', 'mycode', '2009-03-30 20:49:29');
+INSERT INTO `cc_server_manager` (`id`, `id_group`, `server_ip`, `manager_host`, `manager_username`, `manager_secret`, `lasttime_used`) VALUES(1, 1, 'localhost', 'localhost', 'myasterisk', 'mycode', '2009-05-15 16:38:43');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_service`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_service`;
 CREATE TABLE IF NOT EXISTS `cc_service` (
   `id` bigint(20) NOT NULL auto_increment,
   `name` char(100) collate utf8_bin NOT NULL,
@@ -7994,11 +7715,7 @@ CREATE TABLE IF NOT EXISTS `cc_service` (
 --
 -- Table structure for table `cc_service_report`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_service_report`;
 CREATE TABLE IF NOT EXISTS `cc_service_report` (
   `id` bigint(20) NOT NULL auto_increment,
   `cc_service_id` bigint(20) NOT NULL,
@@ -8018,11 +7735,7 @@ CREATE TABLE IF NOT EXISTS `cc_service_report` (
 --
 -- Table structure for table `cc_sip_buddies`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_sip_buddies`;
 CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
   `id` int(11) NOT NULL auto_increment,
   `id_cc_card` int(11) NOT NULL default '0',
@@ -8065,8 +7778,13 @@ CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
   `fullcontact` varchar(80) collate utf8_bin NOT NULL,
   `setvar` varchar(100) collate utf8_bin NOT NULL,
   `regserver` varchar(20) collate utf8_bin default NULL,
+  `lastms` varchar(11) collate utf8_bin default NULL,
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `cons_cc_sip_buddies_name` (`name`)
+  UNIQUE KEY `cons_cc_sip_buddies_name` (`name`),
+  KEY `name` (`name`),
+  KEY `host` (`host`),
+  KEY `ipaddr` (`ipaddr`),
+  KEY `port` (`port`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
@@ -8074,14 +7792,59 @@ CREATE TABLE IF NOT EXISTS `cc_sip_buddies` (
 --
 
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `cc_sip_buddies_empty`
+--
+CREATE TABLE IF NOT EXISTS `cc_sip_buddies_empty` (
+`id` int(11)
+,`id_cc_card` int(11)
+,`name` varchar(80)
+,`accountcode` varchar(20)
+,`regexten` varchar(20)
+,`amaflags` char(7)
+,`callgroup` char(10)
+,`callerid` varchar(80)
+,`canreinvite` varchar(20)
+,`context` varchar(80)
+,`DEFAULTip` char(15)
+,`dtmfmode` char(7)
+,`fromuser` varchar(80)
+,`fromdomain` varchar(80)
+,`host` varchar(31)
+,`insecure` varchar(20)
+,`language` char(2)
+,`mailbox` varchar(50)
+,`md5secret` varchar(80)
+,`nat` char(3)
+,`permit` varchar(95)
+,`deny` varchar(95)
+,`mask` varchar(95)
+,`pickupgroup` char(10)
+,`port` char(5)
+,`qualify` char(7)
+,`restrictcid` char(1)
+,`rtptimeout` char(3)
+,`rtpholdtimeout` char(3)
+,`secret` char(0)
+,`type` char(6)
+,`username` varchar(80)
+,`disallow` varchar(100)
+,`allow` varchar(100)
+,`musiconhold` varchar(100)
+,`regseconds` int(11)
+,`ipaddr` char(15)
+,`cancallforward` char(3)
+,`fullcontact` varchar(80)
+,`setvar` varchar(100)
+);
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `cc_speeddial`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_speeddial`;
 CREATE TABLE IF NOT EXISTS `cc_speeddial` (
   `id` bigint(20) NOT NULL auto_increment,
   `id_cc_card` bigint(20) NOT NULL default '0',
@@ -8103,11 +7866,7 @@ CREATE TABLE IF NOT EXISTS `cc_speeddial` (
 --
 -- Table structure for table `cc_status_log`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_status_log`;
 CREATE TABLE IF NOT EXISTS `cc_status_log` (
   `id` bigint(20) NOT NULL auto_increment,
   `status` int(11) NOT NULL,
@@ -8126,11 +7885,7 @@ CREATE TABLE IF NOT EXISTS `cc_status_log` (
 --
 -- Table structure for table `cc_subscription_fee`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_subscription_fee`;
 CREATE TABLE IF NOT EXISTS `cc_subscription_fee` (
   `id` bigint(20) NOT NULL auto_increment,
   `label` text collate utf8_bin NOT NULL,
@@ -8156,11 +7911,7 @@ CREATE TABLE IF NOT EXISTS `cc_subscription_fee` (
 --
 -- Table structure for table `cc_support`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_support`;
 CREATE TABLE IF NOT EXISTS `cc_support` (
   `id` smallint(5) NOT NULL auto_increment,
   `name` varchar(50) collate utf8_bin NOT NULL,
@@ -8178,11 +7929,7 @@ INSERT INTO `cc_support` (`id`, `name`) VALUES(1, 'DEFAULT');
 --
 -- Table structure for table `cc_support_component`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_support_component`;
 CREATE TABLE IF NOT EXISTS `cc_support_component` (
   `id` smallint(5) NOT NULL auto_increment,
   `id_support` smallint(5) NOT NULL,
@@ -8202,11 +7949,7 @@ INSERT INTO `cc_support_component` (`id`, `id_support`, `name`, `activated`) VAL
 --
 -- Table structure for table `cc_system_log`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_system_log`;
 CREATE TABLE IF NOT EXISTS `cc_system_log` (
   `id` int(11) NOT NULL auto_increment,
   `iduser` int(11) NOT NULL default '0',
@@ -8219,23 +7962,23 @@ CREATE TABLE IF NOT EXISTS `cc_system_log` (
   `ipaddress` varchar(255) collate utf8_bin default NULL,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `cc_system_log`
 --
 
+INSERT INTO `cc_system_log` (`id`, `iduser`, `loglevel`, `action`, `description`, `data`, `tablename`, `pagename`, `ipaddress`, `creationdate`) VALUES(1, 1, 1, 'User Logged In', 'User Logged in to website', '', '', 'PP_Intro.php', '127.0.0.1', '2009-05-15 16:40:44');
+INSERT INTO `cc_system_log` (`id`, `iduser`, `loglevel`, `action`, `description`, `data`, `tablename`, `pagename`, `ipaddress`, `creationdate`) VALUES(2, 1, 1, 'Page Visit', 'User Visited the Page', '', '', 'dashboard.php', '127.0.0.1', '2009-05-15 16:40:48');
+INSERT INTO `cc_system_log` (`id`, `iduser`, `loglevel`, `action`, `description`, `data`, `tablename`, `pagename`, `ipaddress`, `creationdate`) VALUES(3, 1, 1, 'Page Visit', 'User Visited the Page', '', '', 'logout.php', '127.0.0.1', '2009-05-15 16:40:58');
+INSERT INTO `cc_system_log` (`id`, `iduser`, `loglevel`, `action`, `description`, `data`, `tablename`, `pagename`, `ipaddress`, `creationdate`) VALUES(4, 1, 1, 'USER LOGGED OUT', 'User Logged out from website', '', '', 'logout.php', '127.0.0.1', '2009-05-15 16:40:58');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `cc_tariffgroup`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_tariffgroup`;
 CREATE TABLE IF NOT EXISTS `cc_tariffgroup` (
   `id` int(11) NOT NULL auto_increment,
   `iduser` int(11) NOT NULL default '0',
@@ -8244,7 +7987,7 @@ CREATE TABLE IF NOT EXISTS `cc_tariffgroup` (
   `lcrtype` int(11) NOT NULL default '0',
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `removeinterprefix` int(11) NOT NULL default '0',
-  `id_cc_package_offer` bigint(20) NOT NULL default '0',
+  `id_cc_package_offer` bigint(20) NOT NULL default '-1',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
@@ -8258,11 +8001,7 @@ CREATE TABLE IF NOT EXISTS `cc_tariffgroup` (
 --
 -- Table structure for table `cc_tariffgroup_plan`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_tariffgroup_plan`;
 CREATE TABLE IF NOT EXISTS `cc_tariffgroup_plan` (
   `idtariffgroup` int(11) NOT NULL,
   `idtariffplan` int(11) NOT NULL,
@@ -8279,11 +8018,7 @@ CREATE TABLE IF NOT EXISTS `cc_tariffgroup_plan` (
 --
 -- Table structure for table `cc_tariffplan`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_tariffplan`;
 CREATE TABLE IF NOT EXISTS `cc_tariffplan` (
   `id` int(11) NOT NULL auto_increment,
   `iduser` int(11) NOT NULL default '0',
@@ -8314,11 +8049,7 @@ CREATE TABLE IF NOT EXISTS `cc_tariffplan` (
 --
 -- Table structure for table `cc_templatemail`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_templatemail`;
 CREATE TABLE IF NOT EXISTS `cc_templatemail` (
   `id` int(11) NOT NULL,
   `id_language` char(20) collate utf8_bin NOT NULL default 'en',
@@ -8348,11 +8079,7 @@ INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fr
 --
 -- Table structure for table `cc_ticket`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_ticket`;
 CREATE TABLE IF NOT EXISTS `cc_ticket` (
   `id` bigint(10) NOT NULL auto_increment,
   `id_component` smallint(5) NOT NULL,
@@ -8379,11 +8106,7 @@ CREATE TABLE IF NOT EXISTS `cc_ticket` (
 --
 -- Table structure for table `cc_ticket_comment`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_ticket_comment`;
 CREATE TABLE IF NOT EXISTS `cc_ticket_comment` (
   `id` bigint(20) NOT NULL auto_increment,
   `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -8407,11 +8130,7 @@ CREATE TABLE IF NOT EXISTS `cc_ticket_comment` (
 --
 -- Table structure for table `cc_timezone`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_timezone`;
 CREATE TABLE IF NOT EXISTS `cc_timezone` (
   `id` int(11) NOT NULL auto_increment,
   `gmtzone` varchar(255) collate utf8_bin default NULL,
@@ -8505,11 +8224,7 @@ INSERT INTO `cc_timezone` (`id`, `gmtzone`, `gmttime`, `gmtoffset`) VALUES(75, '
 --
 -- Table structure for table `cc_trunk`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_trunk`;
 CREATE TABLE IF NOT EXISTS `cc_trunk` (
   `id_trunk` int(11) NOT NULL auto_increment,
   `trunkcode` char(20) collate utf8_bin NOT NULL,
@@ -8542,11 +8257,7 @@ INSERT INTO `cc_trunk` (`id_trunk`, `trunkcode`, `trunkprefix`, `providertech`, 
 --
 -- Table structure for table `cc_ui_authen`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_ui_authen`;
 CREATE TABLE IF NOT EXISTS `cc_ui_authen` (
   `userid` bigint(20) NOT NULL auto_increment,
   `login` char(50) collate utf8_bin NOT NULL,
@@ -8578,11 +8289,7 @@ INSERT INTO `cc_ui_authen` (`userid`, `login`, `pwd_encoded`, `groupid`, `perms`
 --
 -- Table structure for table `cc_voucher`
 --
--- Creation: Mar 30, 2009 at 08:49 PM
--- Last update: Mar 30, 2009 at 08:49 PM
---
 
-DROP TABLE IF EXISTS `cc_voucher`;
 CREATE TABLE IF NOT EXISTS `cc_voucher` (
   `id` bigint(20) NOT NULL auto_increment,
   `creationdate` timestamp NOT NULL default CURRENT_TIMESTAMP,
@@ -8616,5 +8323,5 @@ id, id_cc_card, name, accountcode, regexten, amaflags, callgroup, callerid, canr
 FROM cc_sip_buddies;
 
 
-
+ALTER TABLE cc_support_component ADD type_user TINYINT NOT NULL DEFAULT '2';
 
