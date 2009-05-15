@@ -1,6 +1,6 @@
 <?php
 
-define ("PHP_QUICK_PROFILER", true);
+define ("PHP_QUICK_PROFILER", false);
 // Include PHP-Quick-Profiler
 require_once('PhpQuickProfiler.php');
 $profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
@@ -249,8 +249,8 @@ define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->co
 define ("ADMIN_EMAIL", isset($A2B->config["global"]['admin_email'])?$A2B->config["global"]['admin_email']:null);
 
 // A2BILLING INFO
-define ("WEBUI_DATE", 'Release : no date');
-define ("WEBUI_VERSION", 'A2Billing - Version 1.4 - Trunk');
+define ("WEBUI_DATE", 'Released : 15 May');
+define ("WEBUI_VERSION", 'A2Billing - Version 1.4-RC1');
 
 // A2BILLING COPYRIGHT & CONTACT
 define ("TEXTCONTACT", gettext("This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"));
