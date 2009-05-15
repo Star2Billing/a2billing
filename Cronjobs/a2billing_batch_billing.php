@@ -84,7 +84,7 @@ write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[In
 for ($page = 0; $page < $nbpagemax; $page++) {
 	if ($verbose_level >= 1)
 		echo "$page <= $nbpagemax \n";
-	$Query_Customers = "SELECT id, vat, invoiceday ,typepaid,credit FROM cc_card ";
+	$Query_Customers = "SELECT id, vat, invoiceday, typepaid, credit FROM cc_card ";
 
 	if ($A2B->config["database"]['dbtype'] == "postgres") {
 		$Query_Customers .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
@@ -230,7 +230,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 
 			// behaviour postpaid
 			if ($Customer['typepaid'] == 1 && is_numeric($Customer['credit']) && $Customer['credit'] < 0) {
-				//GENERATE AN INVOICE TO COMPLETE THE BALANCE
+				// GENERATE AN INVOICE TO COMPLETE THE BALANCE
 				$reference = generate_invoice_reference();
 				$field_insert = " id_card, title ,reference, description,status,paid_status";
 				$title = gettext("BILLING POSTPAID");
