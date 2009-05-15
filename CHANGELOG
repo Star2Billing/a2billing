@@ -1,4 +1,220 @@
 
+
+2009-05-14 - Belaid Arezqui <areski@gmail.com>
+	Menu fix for IE
+	order prefix on ratecard - clean rates search (only support mysql5)
+
+2009-05-13 - Belaid Arezqui <areski@gmail.com>
+	Update Mailer to work with new PHPMailer and improve to support gmail
+	Update PHPMailer V5.0.0
+	Ticket #517: root has no rights for refills in if (has_rights (ACXMODIFY_REFILLS)) statement
+	correct brazil dial prefix
+	remove mysql cluster script file and add INFO
+	fix on edit card to not update the cardtype on edition
+	Ticket #504 : Cannot add or edit rates
+
+2009-05-13 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correct Ticket #493 : no check of parameter on the generate customer For the admin UI
+
+2009-05-12 - Belaid Arezqui <areski@gmail.com>
+	correct Mass Mail TO list
+	fix display of payment option
+	fix payment on customer panel
+	fix massmail : blank page if account # is upper than few thousands, memory limit
+	CSS correction to improve display on long text menu section
+
+2009-05-12 - Belaid Rachid <rachid.belaid@gmail.com>
+	Ticket #511 Load template for mass mail
+
+2009-05-11 - Belaid Arezqui <areski@gmail.com>
+	Ticket #504 : Cannot add or edit rates
+	Ticket #505 : retrieve rates back from LCR
+	Ticket #498 : add_DID_dest not worked correctly ; if someone create new DID in admin UI, then go add dest and add destination(select some card,some dest) 
+	set all extra charge to 0 by default + change in AGI debug for extra charge
+	bug on add refill and add payment due to new ACL
+	fix export on admin & agent
+	bug on edit customer for admin with ACL
+	add lastms in sip realtime
+	improve on search call-plan LCR
+
+2009-05-11 - Belaid Rachid <rachid.belaid@gmail.com>
+	Ticket 490 : there wasn't nothing to do a search on the ticket.
+	Ticket #477 : error of display on the VOIP configs page
+	Ticket #475 : There was nothing to inform the admin user that there was already a search filter apply on thelist of cards
+
+2009-05-09 - Belaid Arezqui <areski@gmail.com>
+	Ticket #496 : Voice Prompt cent playing twice
+	Ticket #504: Cannot add or edit rates
+
+2009-05-08 - Belaid Arezqui <areski@gmail.com>
+	add extensions_a2billing.conf
+
+2009-05-08 - Belaid Rachid <rachid.belaid@gmail.com>
+	Authorize payment online of invoices
+
+2009-05-07 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correct the amount to pay of an invoice
+	correct the vat format
+	fill the vat with the vat of the customer
+	Authorize a customer to see only this receipt
+	Correct Bug about the SPEED DIAL filter
+
+2009-05-06 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correct Ticket #473 : Some bugs in the rates browsing
+	Correct Ticket #481 : the display of the customers' history faild
+	Correct Ticket #483 : Too much modification are saved in the log status
+	Correct Ticket #491 : Error on the call reporting page
+
+2009-04-29 - Belaid Arezqui <areski@gmail.com>
+	update doc for AGI
+
+2009-04-27 - Belaid Arezqui <areski@gmail.com>
+	localization : add Spanish for customer UI
+	add PQP for Agent and Customer
+	use mysql in conf file by default
+
+2009-04-26 - Belaid Arezqui <areski@gmail.com>
+	Add : PHP Quick Profiler
+
+2009-04-21 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correct Ticket #484: log status are not deleted when you delete a customer
+	Correct Ticket #478: Generate Customers : we can modify the initial balance and no refills are created.. and an other display mistake.
+	Correct Css in the simulator page to center the result
+	Change the enough_credit_to_call function to handle the postpaid type.
+	Conserve credit limit in variable of A2billing class
+	Display  the free time information in the in the simulator
+
+2009-04-20 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correction use properly the package in every case in the test to know if a customer have enough credit 
+	Add a filter in framework to order the result in the multi select
+	Init call plan with a default value for the package. 
+	Correct Ticket #442 about the packages : now we can use the free minute even if we have not enough credit to call
+
+2009-04-18 - Belaid Arezqui <areski@gmail.com>
+	Correct Css mistake to align properly
+	fix notice error on display_ratecard api
+
+2009-04-17 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correct money format for the receipt ; Correct update of receipt item ; Add check on paramater and show alert for the the receipt
+	Corrected Ticket #459 : impossible to disable captcha
+	Correct Ticket #463 : Can't delete card in admin UI
+	Correct Ticket #464 : SIP & IAX were not created on the signup
+	
+2009-04-17 - Belaid Arezqui <areski@gmail.com>
+	fix charges on cront
+	fix bug on sanitize
+
+2009-04-15 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correct framework to do search insensitive to the case
+	Authorize to edit date in refill and payment if you have the right
+	New module to generate Signup URL with a simple key in the db.
+	Delete the old with a secret to crypt some info.
+	Correct filter search in admin ui
+	Add Search criteria for refills and paymens
+
+2009-04-15 - Belaid Arezqui <areski@gmail.com>
+	add feature : Demo mode
+	New Error Page.
+	Refactor Smarty Template to use an header
+
+2009-04-13 - Belaid Rachid <rachid.belaid@gmail.com> 
+	Delete inused Tpl
+	Correct Ticket 454 :  the VAT registry number was not showed  
+	Correct Ticket 449 : Account Balance in Agent Portal, if you click on Invoice or Payment on the right of the account it does not give you invoice
+	Correct display: Show summary table only if you have card in your system
+	Correct the default value of VAT : Ticket 451
+
+2009-04-09 - Belaid Rachid <rachid.belaid@gmail.com>
+	Adapt the Agent UI in the New Style
+	Create a new layout canvas compatible with Safari, Firefox and Fucking IE
+	Adapt some composant for the new layout
+
+2009-04-09 - Belaid Arezqui <areski@gmail.com>
+	internazionalization : add shell script to create & generate PO/MO
+	internazionalization : add flag and file to prepare romanian langague
+	add missing logo for plugnpay
+
+2009-04-08 - Belaid Arezqui <areski@gmail.com>
+	fix on signup : activatedbyuser
+	internazionalization : update for Customer & Admin panel 
+	
+2009-04-08 - Belaid Rachid <rachid.belaid@gmail.com>
+	correct: redirect after adding a rate
+
+2009-04-07 - Steve Dommett <steve@st4vs.net>
+	The UNIQUE contraint on the email template table ''must'' have been incorrect as it referenced an auto-incrementing column.  I think 
+	this makes more sense.  The fix for Pgsql v1.4.0 schema will come later,  as part of a much larger patch.
+	Also fixed an unnecessary column type conversion for Pgsql 1.3.4-1.4.0 upgrade.
+	Include a link to the AGPL 3 license from within the Admin UI
+
+2009-04-06 - Belaid Rachid <rachid.belaid@gmail.com> 
+	Correct menu template 
+	Add an Icon for the change password link menu
+	Convert some help msg in the new style
+	Acknowledge Digium's trademark.
+
+2009-04-01 - Steve Dommett <steve@st4vs.net>
+	Postgres compatibility fix:  for aggregate expressions,  like count(*) or sum(*),   ORDER BY makes little sense
+	as a maximum of one row can be returned.
+	
+2009-04-01 - Belaid Arezqui <areski@gmail.com>
+	customer Localization : Romanian languages
+	Feature : Add option & ACL to delete CDR
+	Add SQL script for postgresql 1.4 Database creation
+	rebuild & merge all the PO & MO for the customer interface
+
+2009-03-31 - Steve Dommett <steve@st4vs.net>
+	Fix MySQL schema triggers
+	More bug fixes to the MySQL schema installation.
+	Add 'text/x-csv' to the permitted MIME-types
+
+2009-03-31 - Belaid Rachid <rachid.belaid@gmail.com> 
+	Authorise an agent to edit this personal information
+
+2009-03-31 - Belaid Arezqui <areski@gmail.com>
+	Admin ui - PO & MO update : Spanish language
+	Admin ui - PO & MO update : Brazilian language
+	Customer ui - PO & MO update : Romanian language
+	Agent ui - PO & MO update : English language
+
+2009-03-30 - Belaid Rachid <rachid.belaid@gmail.com>
+	Correct display of captcha
+	Add right to delete notification because the box is shared between all admin
+	Add default value for the Support module to use it the first time
+	Add an notification after a ticket added by a customer or an agent
+
+2009-03-30 - Belaid Arezqui <areski@gmail.com>
+	Ticket #429 : pnl report enhance
+	customer ui - PO update : English
+	update doc for Gettext + remove sort on ticket
+
+2009-03-28 - Steve Dommett <steve@st4vs.net> 
+	misc of english correction + little fixes 
+	Spelling fix, and synch Postgres schema
+
+2009-03-27- Belaid Rachid <rachid.belaid@gmail.com>
+	Change SIP/IAX buddies to use notification module
+
+2009-03-27 - Belaid Arezqui <areski@gmail.com>
+	Improve structure
+
+2009-03-27 - Alberto Escudero-Pascual <aep@it46.se>
+	admin UI and Smarty Documentation
+	Adding a README file, expected to be the entry point of people to the code
+	change of header template document
+	Login-Forget password documentation
+	Epayment module documentation
+	WSDL code for callback in Documentation
+	Dial Status Documentation
+	Import Rates Documentation
+	DID billing documentation
+	Invoicing documentation 
+	Autodialer IVR interaction tip
+	Document for 1.3.4 for Ratecard API - needs changes for 1.4
+	Adding more documentation and templates for txt documents
+	Adding alarm info to documentation
+	The Ultime PDF Installation Guide to a2billing 1.4 :-) 1.0
+
 2009-03-26 - Belaid Arezqui <areski@gmail.com> - Alberto Escudero-Pascual <aep@it46.se>
 	* restructure files, tree, review existing doc
 	* delete not used files
@@ -23,7 +239,7 @@
 	* Add new rights for Admin ACL to
 		Edit / Delete a Refill
 		Edit / Delete a Payment
-		Edit / Delete a Customer  - Belaid Rachid <rachid.belaid@gmail.com>
+		Edit / Delete a Customer - Belaid Rachid <rachid.belaid@gmail.com>
 	
 
 2009-03-18 - Belaid Rachid <rachid.belaid@gmail.com>
