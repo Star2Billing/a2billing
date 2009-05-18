@@ -22,14 +22,10 @@ for ($k=1;$k<=20;$k++)
 
 
 
-$currency_list=getCurrenciesList();
-$currency_list_r = getCurrenciesRateList();
-$currency_list_key = getCurrenciesKeyList() ;
 
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FEE"), "fee", "7%", "center", "sort");
-$HD_Form -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("NBRUN"), "numberofrun", "6%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATELASTRUN"), "datelastrun", "12%", "center", "sort", "16");
@@ -38,7 +34,7 @@ $HD_Form -> AddViewElement(gettext("TOTALCREDIT"), "totalcredit", "10%", "center
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('label, fee, currency, status, numberofrun, datelastrun, totalcardperform, totalcredit');
+$HD_Form -> FieldViewElement ('label, fee, status, numberofrun, datelastrun, totalcardperform, totalcredit');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("There are no subscriptions created!");  
@@ -77,14 +73,6 @@ $HD_Form -> AddEditElement (gettext("FEE"),
 	gettext("Insert the fee amount."),
 	"" , "", "", "", "" , "", "", gettext("Set the fee amount that the user have to pay per month."));
 
-$HD_Form -> AddEditElement (gettext("CURRENCY"),
-   "currency",
-   "",
-   "SELECT",
-   "",
-   "",
-   "",
-   "list" , "", "",	"", $currency_list, "%1", "", "" );
 
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
@@ -106,7 +94,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND REPORT"),
 
 
 
-$HD_Form -> FieldEditElement ('label, fee, currency, status, emailreport');
+$HD_Form -> FieldEditElement ('label, fee, status, emailreport');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;

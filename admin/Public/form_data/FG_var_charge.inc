@@ -34,22 +34,16 @@ $chargetype_list["4"] = array( gettext("Extra charge"), "4");
 
 
 
-$currency_list = getCurrenciesList();
-$currency_list_r = getCurrenciesRateList();
-$currency_list_key = getCurrenciesKeyList() ;
-
-
 
 $HD_Form_c -> AddViewElement(gettext("ACCOUNT HOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
 $HD_Form_c -> AddViewElement(gettext("ACCOUNT NUMBER"), "username", "12%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form_c -> AddViewElement(gettext("DATE"), "cc_charge.creationdate", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form_c -> AddViewElement(gettext("AMOUNT"), "amount", "7%", "center", "sort");
-$HD_Form_c -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 $HD_Form_c -> AddViewElement(gettext("CHARGE TYPE"), "chargetype", "20%", "center", "sort", "30", "list", $chargetype_list);
 $HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "25%", "center", "SORT", "40");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form_c -> FieldViewElement ('id_cc_card, username, cc_charge.creationdate, amount, cc_charge.currency, chargetype, description');
+$HD_Form_c -> FieldViewElement ('id_cc_card, username, cc_charge.creationdate, amount, chargetype, description');
 
 
 $HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form_c->FG_INSTANCE_NAME)." CREATED!");
@@ -110,14 +104,6 @@ $HD_Form_c -> AddEditElement (gettext("AMOUNT"),
 	gettext("Insert the amount"),
 	"" , "", "", "", "" , "", "" ,"");
 
-$HD_Form_c -> AddEditElement (gettext("CURRENCY"),
-   "currency",
-   "",
-   "SELECT",
-   "",
-   "",
-   "",
-   "list" , "", "",	"", $currency_list, "%1", "", "" );
 
 $HD_Form_c -> AddEditElement (gettext("CHARGE TYPE"),
 	"chargetype",
@@ -138,7 +124,7 @@ $HD_Form_c -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "" , "", "", "");
 
 
-$HD_Form_c -> FieldEditElement ('id_cc_card, amount, currency, chargetype, description');
+$HD_Form_c -> FieldEditElement ('id_cc_card, amount, chargetype, description');
 
 
 

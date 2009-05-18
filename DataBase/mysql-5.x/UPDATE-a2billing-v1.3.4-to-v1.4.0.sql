@@ -1908,3 +1908,6 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 ALTER TABLE cc_support_component ADD type_user TINYINT NOT NULL DEFAULT '2';
 
 
+
+ALTER TABLE cc_charge DROP currency;
+ALTER TABLE cc_subscription_fee DROP currency;  

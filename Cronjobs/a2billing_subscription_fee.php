@@ -75,7 +75,7 @@ if (!($nb_card > 0)) {
 }
 
 // CHECK THE SUBSCRIPTION SERVICES
-$QUERY = 'SELECT id, label, fee, currency, emailreport FROM cc_subscription_fee WHERE status=1 ORDER BY id ';
+$QUERY = 'SELECT id, label, fee, emailreport FROM cc_subscription_fee WHERE status=1 ORDER BY id ';
 
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
 
@@ -99,7 +99,6 @@ foreach ($result as $myservice) {
 
 	$totalcardperform = 0;
 	$totalcredit = 0;
-	$totalcredit_converted = 0;
 
 	$myservice_id = $myservice[0];
 	$myservice_label = $myservice[1];
@@ -110,7 +109,7 @@ foreach ($result as $myservice) {
 	// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
 	for ($page = 0; $page < $nbpagemax; $page++) {
 
-		$sql = "SELECT cc_card.id, credit, currency, username, email, cc_card_subscription.id FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card " .
+		$sql = "SELECT cc_card.id, credit, username, email, cc_card_subscription.id FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card " .
 		"WHERE id_subscription_fee='$myservice_id' AND startdate < NOW() AND (stopdate = '0000-00-00 00:00:00' OR stopdate > NOW()) ORDER BY cc_card.id ";
 
 		if ($A2B->config["database"]['dbtype'] == "postgres") {
@@ -128,25 +127,24 @@ foreach ($result as $myservice) {
 			if ($verbose_level >= 1)
 				echo "------>>>  ID = " . $mycard[0] . " - CARD =" . $mycard[3] . " - BALANCE =" . $mycard[1] . " \n";
 
-			$amount_converted = convert_currency($currencies_list, $myservice_fee, strtoupper($myservice_cur), strtoupper($mycard[2]));
+			$amount = $myservice_fee;
 
 			if ($verbose_level >= 1)
-				echo "AMOUNT TO REMOVE FROM THE CARD ->" . $amount_converted;
-			if (abs($amount_converted) > 0) { // CHECK IF WE HAVE AN AMOUNT TO REMOVE
+				echo "AMOUNT TO REMOVE FROM THE CARD ->" . $amount;
+			if (abs($amount) > 0) { // CHECK IF WE HAVE AN AMOUNT TO REMOVE
 				//$QUERY = "UPDATE cc_card SET credit=credit-'".$myservice_fee."' WHERE id=".$mycard[0];	
 				//$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				//if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 
 				// ADD A CHARGE
-				$QUERY = "INSERT INTO cc_charge (id_cc_card, id_cc_card_subscription, chargetype, amount, currency, description) " .
-				"VALUES ('" . $mycard[0] . "', '$mycard[5]', '3', '$amount_converted', '" . strtoupper($mycard[2]) . "','" . $mycard[5] . ' - ' . $myservice_label . "')";
+				$QUERY = "INSERT INTO cc_charge (id_cc_card, id_cc_card_subscription, chargetype, amount, description) " .
+				"VALUES ('" . $mycard[0] . "', '$mycard[5]', '3', '$amount','" . $mycard[5] . ' - ' . $myservice_label . "')";
 				$result_insert = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 				if ($verbose_level >= 1)
 					echo "==> INSERT CHARGE QUERY=$QUERY\n";
 
 				$totalcardperform++;
 				$totalcredit += $myservice_fee;
-				$totalcredit_converted += $amount_converted;
 			}
 		}
 
