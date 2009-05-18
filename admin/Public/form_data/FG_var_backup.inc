@@ -28,16 +28,17 @@ if ($form_action == 'add'){
 			putenv($env_var);
 			$run_backup=PG_DUMP." -c -d -U ".USER." -h ".HOST." -f '{$backup_file}' ".DBNAME;
         }
-
 	if ($FG_DEBUG == 1 ) echo $run_backup."<br>";
-	exec($run_backup);
-
+	exec($run_backup,$output,$error);
 	if ($do_gzip){
 		// Compress file
 		$run_gzip = GZIP_EXE." '$backup_file'";
 		if ($FG_DEBUG == 1 ) echo $run_gzip."<br>";
-		exec($run_gzip);
+		exec($run_gzip,$output,$error_zip);
 	}
+	if($error==0 && $error_zip==0 ) $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = 'A2B_entity_restore.php?id';
+	elseif($error!=0)$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("An error occur when the system tried to backup of the database.")."<br>".gettext("Please check yours system settings for the backup section ");
+	else $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("An error occur when the system tried to compress the backup realized.")."<br>".gettext("Please check yours system settings for the backup section ");
 }
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
@@ -82,14 +83,12 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a ".$HD_Form->FG_INSTANCE_NAME." now.");
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = 'A2B_entity_restore.php?id';
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
