@@ -104,4 +104,12 @@ CALLBACK
 				ActionID: ABC45678901234
 
 
+4. Issue with remove international prefix
 
+	Remove international prefix doesnt work on call-back, the callerID is used to outbound and also to authenticate the call,
+	so if you get 0034XXX, you have to :
+	Either parse the callerID before callback context and remove the 00 (any international prefix) in front of the CallerID
+	or set the rates inside the ratecard with the international prefix, like 0034, 0044
+	
+	
+	

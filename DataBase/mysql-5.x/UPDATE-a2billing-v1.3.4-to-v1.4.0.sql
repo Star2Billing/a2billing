@@ -3,7 +3,7 @@
 -- 
 -- 
 -- Usage:
--- mysql -u root -p"root password" < UPDATE-a2billing-v1.3.0-to-v1.4.0-mysql.sql
+-- mysql -u root -p"root password" < UPDATE-a2billing-v1.3.0-to-v1.4.0.sql
 --
 
 
@@ -1907,7 +1907,3 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 ALTER TABLE cc_support_component ADD type_user TINYINT NOT NULL DEFAULT '2';
 
-
-
-ALTER TABLE cc_charge DROP currency;
-ALTER TABLE cc_subscription_fee DROP currency;  

@@ -443,7 +443,7 @@ if ($mode == 'standard') {
 			$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
 
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[destination: - '.$A2B->destination.']');
-
+			
 			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[resfindrate: - '.$resfindrate.']');
