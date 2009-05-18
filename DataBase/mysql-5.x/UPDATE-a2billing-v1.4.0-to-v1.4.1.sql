@@ -11,5 +11,3 @@
 ALTER TABLE cc_charge DROP currency;
 ALTER TABLE cc_subscription_fee DROP currency;  
 
-
-

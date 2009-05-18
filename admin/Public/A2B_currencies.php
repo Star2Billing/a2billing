@@ -16,7 +16,6 @@ getpost_ifset(array('updatecurrency'));
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-
 /********************************* BATCH UPDATE CURRENCY TABLE ***********************************/
 $A2B -> DBHandle = $HD_Form -> DBHandle;
 if ($updatecurrency == 1) {
@@ -28,7 +27,6 @@ if ($updatecurrency == 1) {
 	$return = currencies_update_yahoo($A2B -> DBHandle, $A2B -> instance_table);
 	$update_msg = '<center><font color="green"><b>'.$return.'</b></font></center>';
 }
-
 
 if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
@@ -50,6 +48,7 @@ $smarty->display('main.tpl');
 echo $CC_help_currency;
 
 ?>
+<div align="center">
 <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
 	<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 	<INPUT type="hidden" name="updatecurrency" value="1">
@@ -61,7 +60,7 @@ echo $CC_help_currency;
 	</tr>
 	</form>
 </table>
-
+</div>
 <?php
 
 if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
