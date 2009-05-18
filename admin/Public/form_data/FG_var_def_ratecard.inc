@@ -140,13 +140,12 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define the criteria to search");
 $HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Start Date");
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("START DATE");
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'startdate';
 
 
 $HD_Form -> AddSearchElement_C1(gettext("TAG"), 'tag','tagtype');
-$HD_Form -> AddSearchElement_C1(gettext("DESTINATION"), 'destination','destinationtype');
-$HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
+$HD_Form -> AddSearchElement_C1(gettext("DIALING PREFIX"),'dialprefix','dialprefixtype');
 $HD_Form -> AddSearchElement_C2(gettext("BUYRATE"),'buyrate1','buyrate1type','buyrate2','buyrate2type','buyrate');
 $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinitial1type','rateinitial2','rateinitial2type','rateinitial');
 

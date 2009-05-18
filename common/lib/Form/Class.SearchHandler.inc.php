@@ -16,7 +16,7 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 		<?php if ($this -> FG_FILTER_SEARCH_1_TIME){ ?>
 			<tr>
         		<td align="left" class="bgcolor_002">
-					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT?></font>
+					&nbsp;&nbsp;<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT?></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table  border="0" cellspacing="0" cellpadding="0" width="100%">

@@ -82,11 +82,10 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define the criteria to search");
 $HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Start Date");
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("START DATE");
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'startdate';
 
 
-$HD_Form -> AddSearchElement_C1(gettext("DESTINATION"), 'destination','destinationtype');
 $HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
 $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinitial1type','rateinitial2','rateinitial2type','rateinitial');
 $HD_Form -> AddSearchElement_Select('SELECT RATECARD',"cc_tariffplan,cc_tariffgroup_plan,cc_tariffgroup,cc_agent_tariffgroup","cc_tariffplan.id, cc_tariffplan.tariffname","cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffplan = cc_tariffgroup.id AND cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'],"tariffname","ASC","idtariffplan",1,null,"cc_ratecard");
