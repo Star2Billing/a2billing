@@ -1846,11 +1846,11 @@ class A2Billing {
 	{
 		// AUTO SetCallerID
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[AUTO SetCallerID]");
-		if ($this->agiconfig['auto_setcallerid']==1){
-			if ( strlen($this->agiconfig['force_callerid']) >=1 ){
+		if ($this->agiconfig['auto_setcallerid']==1) {
+			if ( strlen($this->agiconfig['force_callerid']) >=1 ) {
 				$agi -> set_callerid($this->agiconfig['force_callerid']);
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : ".$this->agiconfig['force_callerid']."]");
-			}elseif ( strlen($this->CallerID) >=1 ){
+			} elseif ( strlen($this->CallerID) >=1 ) {
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[REQUESTED SetCallerID : ".$this->CallerID."]");
 
       			// IF REQUIRED, VERIFY THAT THE CALLERID IS LEGAL
@@ -1859,11 +1859,24 @@ class A2Billing {
 				if (strlen($cid_sanitized)>0) {
 					$agi->set_callerid($cid_sanitized);
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : ".$cid_sanitized."]");
-				}else{
+				} else {
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CANNOT SetCallerID : cid_san is empty]");
 				}
 			}
 		}
+		
+		// Let the Caller set his CallerID
+		if ($this->agiconfig['callerid_update']==1) {
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[UPDATE CallerID]");
+			
+			$res_dtmf = $agi->get_data('prepaid-enter-cid', 6000, 20);
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
+			
+			if ( strlen($res_dtmf ["result"]) > 0 && is_numeric($res_dtmf ["result"]) ) {
+				$agi->set_callerid($res_dtmf ["result"]);
+			}
+		}
+		
 	}
 
 	

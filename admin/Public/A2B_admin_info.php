@@ -23,7 +23,6 @@ $admin_table = new Table('cc_ui_authen','*');
 $admin_clause = "userid = ".$id;
 $admin_result = $admin_table -> Get_list($DBHandle, $admin_clause, 0);
 $admin = $admin_result[0];
-print_r($admin);
 
 if (empty($admin)) {
 	header("Location: A2B_entity_user.php?atmenu=user&groupID=$groupID&section=3");
