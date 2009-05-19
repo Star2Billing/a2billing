@@ -43,6 +43,8 @@ define ("ACX_MODIFY_PAYMENTS",			524288);	// 1 << 19
 define ("ACX_MODIFY_CUSTOMERS",			1048576);	// 1 << 20
 define ("ACX_DELETE_NOTIFICATIONS",		2097152);	// 1 << 21
 define ("ACX_DELETE_CDR",				4194304);	// 1 << 22
+define ("ACX_MODIFY_ADMINS",			8388608);	// 1 << 23
+define ("ACX_MODIFY_AGENTS",			16777216);	// 1 << 24
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
@@ -103,7 +105,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		if ($return[3]==0){
 			$admin_id = $return[0];
 			$return = true;
-			$rights = 8388607;
+			$rights = 33554431;
 			$is_admin = 1;
 			$pr_groupID = $return[3];
 		}else{

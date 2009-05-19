@@ -62,6 +62,8 @@ $right_list["20"] = array( gettext("EDIT/DELETE PAYMENTS"), "524288");
 $right_list["21"] = array( gettext("EDIT/DELETE CUSTOMERS"), "1048576");
 $right_list["22"] = array( gettext("DELETE NOTIFICATIONS"), "2097152");
 $right_list["23"] = array( gettext("DELETE CDR"), "4194304");
+$right_list["24"] = array( gettext("EDIT/DELETE ADMIN"), "8388608");
+$right_list["25"] = array( gettext("EDIT/DELETE AGENT"), "16777216");
 
 $len_right_list = count($right_list);
 
@@ -79,220 +81,221 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
 if (!$popup_select) {
-	$HD_Form -> FG_ADDITION = true;
-	$HD_Form -> FG_EDITION = true;
-	$HD_Form -> FG_DELETION = true;
+	$HD_Form -> FG_ADDITION = true;	
 	$HD_Form -> FG_INFO = true;
 	$HD_Form -> FG_INFO_LINK = "A2B_admin_info.php?groupID=$groupID&id=";
 }
-
-if ($form_action!="ask-add" && $form_action!="add") {
-	$HD_Form -> AddEditElement (gettext("USERID"),
-		"userid",
+if (has_rights (ACX_MODIFY_ADMINS) && !($popup_select)) {
+	$HD_Form -> FG_DELETION = true;
+	$HD_Form -> FG_EDITION = true;
+	
+	if ($form_action!="ask-add" && $form_action!="add") {
+		$HD_Form -> AddEditElement (gettext("USERID"),
+			"userid",
+			'$value',
+			"INPUT",
+			"size=8 READONLY maxlength=6",
+			"4",
+			gettext("Insert the userid"),
+			"" , "", "", "", "", "", "", "" );
+	}
+	
+	$HD_Form -> AddEditElement (gettext("LOGIN"),
+		"login",
 		'$value',
 		"INPUT",
-		"size=8 READONLY maxlength=6",
-		"4",
-		gettext("Insert the userid"),
-		"" , "", "", "", "", "", "", "" );
-}
-
-$HD_Form -> AddEditElement (gettext("LOGIN"),
-	"login",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=12",
-	"3",
-	gettext("Insert the username"),
-	"" , "", "", "", "" , "", "", "");
-	
-$HD_Form -> AddEditElement (gettext("PASSWORD"),
-	"pwd_encoded",
-	'$value',
-	"INPUT",
-	"type=password size=30 maxlength=15",
-	"3",
-	gettext("Insert the Reseller password"),
-	"" , "", "", "", "", "", "", "");
-
-if ($groupID!="0") {
-	$HD_Form -> AddEditElement (gettext("PERMISSION"),
-		"perms",
+		"size=30 maxlength=12",
+		"3",
+		gettext("Insert the username"),
+		"" , "", "", "", "" , "", "", "");
+		
+	$HD_Form -> AddEditElement (gettext("PASSWORD"),
+		"pwd_encoded",
 		'$value',
-		"SELECT",
-		"size=\"$len_right_list\" multiple=\"multiple\"",
-		"", "",
-		"list", "", "description, id", "", $right_list, "%1" , "",
-		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
-}
-
-
-$HD_Form -> AddEditElement (gettext("NAME"),
-	"name",
-	'$value',
-	"INPUT",
-	"size=60 maxlength=50",
-	"",
-	gettext("Insert the name"),
-	"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("ADDRESS"),
-	"direction",
-	'$value',
-	"INPUT",
-	"size=60 maxlength=250",
-	"",
-	gettext("Insert the direction"),
-	"" , "", "", "", "", "", "", "");
-$HD_Form -> AddEditElement (gettext("CITY"),
-	"city",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30",
-	"",
-	gettext("Insert the country"),
-	"" , "", "", "", "" , "", "", "");
-
-$HD_Form -> AddEditElement (gettext("ZIPCODE"),
-	"zipcode",
-	'$value',
-	"INPUT",
-	"size=10 maxlength=7",
-	"",
-	gettext("Insert the zip code"),
-	"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("STATE"),
-	"state",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30",
-	"",
-	gettext("Insert the state"),
-	"" , "", "", "", "" , "", "", "");
-$HD_Form -> AddEditElement (gettext("COUNTRY"),
-	"country",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=30",
-	"",
-	gettext("Insert the country"),
-	"" , "", "", "", "" , "", "", "");
-
-$HD_Form -> AddEditElement (gettext("PHONE"),
-	"phone",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=20",
-	"",
-	gettext("Insert the telephone number"),
-	"" , "", "", "", "" , "", "", "");
-
-$HD_Form -> AddEditElement (gettext("FAX"),
-	"fax",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=20",
-	"",
-	gettext("Insert the fax number"),
-	"" , "", "", "", "" , "", "", "");
-$HD_Form -> AddEditElement (gettext("EMAIL"),
-	"email",
-	'$value',
-	"INPUT",
-	"size=30 maxlength=70",
-	"",
-	gettext("Insert the email"),
-	"" , "", "", "", "" , "", "", "");
+		"INPUT",
+		"type=password size=30 maxlength=15",
+		"3",
+		gettext("Insert the Reseller password"),
+		"" , "", "", "", "", "", "", "");
 	
-
-if (($groupID=="2") || ($groupID=="3")) {
-	if ($groupID=="2") {
-		$HD_Form -> AddEditElement ("UserID",
-			"a",
+	if ($groupID!="0") {
+		$HD_Form -> AddEditElement (gettext("PERMISSION"),
+			"perms",
 			'$value',
 			"SELECT",
-			"","", "Insert the iva",
-			"sql" ,
-			"Customer",
-			"AnaCust, IDCust",
-			"", "", "%2 (%1)", "", "");
+			"size=\"$len_right_list\" multiple=\"multiple\"",
+			"", "",
+			"list", "", "description, id", "", $right_list, "%1" , "",
+			gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
+	}
+	
+	
+	$HD_Form -> AddEditElement (gettext("NAME"),
+		"name",
+		'$value',
+		"INPUT",
+		"size=60 maxlength=50",
+		"",
+		gettext("Insert the name"),
+		"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("ADDRESS"),
+		"direction",
+		'$value',
+		"INPUT",
+		"size=60 maxlength=250",
+		"",
+		gettext("Insert the direction"),
+		"" , "", "", "", "", "", "", "");
+	$HD_Form -> AddEditElement (gettext("CITY"),
+		"city",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=30",
+		"",
+		gettext("Insert the country"),
+		"" , "", "", "", "" , "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("ZIPCODE"),
+		"zipcode",
+		'$value',
+		"INPUT",
+		"size=10 maxlength=7",
+		"",
+		gettext("Insert the zip code"),
+		"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("STATE"),
+		"state",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=30",
+		"",
+		gettext("Insert the state"),
+		"" , "", "", "", "" , "", "", "");
+	$HD_Form -> AddEditElement (gettext("COUNTRY"),
+		"country",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=30",
+		"",
+		gettext("Insert the country"),
+		"" , "", "", "", "" , "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("PHONE"),
+		"phone",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=20",
+		"",
+		gettext("Insert the telephone number"),
+		"" , "", "", "", "" , "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("FAX"),
+		"fax",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=20",
+		"",
+		gettext("Insert the fax number"),
+		"" , "", "", "", "" , "", "", "");
+	$HD_Form -> AddEditElement (gettext("EMAIL"),
+		"email",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=70",
+		"",
+		gettext("Insert the email"),
+		"" , "", "", "", "" , "", "", "");
+		
+	
+	if (($groupID=="2") || ($groupID=="3")) {
+		if ($groupID=="2") {
+			$HD_Form -> AddEditElement ("UserID",
+				"a",
+				'$value',
+				"SELECT",
+				"","", "Insert the iva",
+				"sql" ,
+				"Customer",
+				"AnaCust, IDCust",
+				"", "", "%2 (%1)", "", "");
+		} else {
+			$HD_Form -> AddEditElement ("ResellerID",
+				"a",
+				'$value',
+				"SELECT",
+				"","", "Insert the iva",
+				"sql" ,
+				"secauth",
+				"login, userID",
+				"groupID='1'", "", "%2 (%1)", "", "" );
+		}
+	}
+	
+	if ($form_action!="ask-add" && $form_action!="add") {
+	        $FG_QUERY_EDITION='userid, ';
+	}
+	
+	$FG_QUERY_EDITION .= 'login, ';
+	
+	$FG_QUERY_EDITION .='pwd_encoded,  ';
+	
+	if ($groupID!="0") {
+		$FG_QUERY_EDITION .= 'perms, ';
+	}
+	
+	$FG_QUERY_EDITION .= 'name, direction,city, zipcode, state,country, phone, fax,email';
+	
+	$HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
+	
+	$HD_Form -> FG_EDITION_CLAUSE = " userid='%id'";
+	
+	if (is_numeric($groupID)) {
+		$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
+		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "$groupID";
+	
+		$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS  = "groupID";
+		$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE   = "$groupID";
+	
+		if ($groupID=="0") {
+			$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= ", perms";
+			$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= ", 5242879";
+	
+			$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS .= ", perms";
+			$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE  .= ", 5242879";
+		}
 	} else {
-		$HD_Form -> AddEditElement ("ResellerID",
-			"a",
-			'$value',
-			"SELECT",
-			"","", "Insert the iva",
-			"sql" ,
-			"secauth",
-			"login, userID",
-			"groupID='1'", "", "%2 (%1)", "", "" );
+		$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
+		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "1";
 	}
-}
-
-if ($form_action!="ask-add" && $form_action!="add") {
-        $FG_QUERY_EDITION='userid, ';
-}
-
-$FG_QUERY_EDITION .= 'login, ';
-
-$FG_QUERY_EDITION .='pwd_encoded,  ';
-
-if ($groupID!="0") {
-	$FG_QUERY_EDITION .= 'perms, ';
-}
-
-$FG_QUERY_EDITION .= 'name, direction,city, zipcode, state,country, phone, fax,email';
-
-$HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
-
-$HD_Form -> FG_EDITION_CLAUSE = " userid='%id'";
-
-if (is_numeric($groupID)) {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "$groupID";
-
-	$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS  = "groupID";
-	$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE   = "$groupID";
-
-	if ($groupID=="0") {
-		$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= ", perms";
-		$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= ", 5242879";
-
-		$HD_Form -> FG_QUERY_EDITION_HIDDEN_FIELDS .= ", perms";
-		$HD_Form -> FG_QUERY_EDITION_HIDDEN_VALUE  .= ", 5242879";
-	}
-} else {
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "1";
-}
-
-if (($popup_select>=1)){
-	$HD_Form -> FG_OTHER_BUTTON1 = true;
-	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
-	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 	
-	if ($popup_select==1) {
-		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
+	if (($popup_select>=1)){
+		$HD_Form -> FG_OTHER_BUTTON1 = true;
+		$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
+		$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
+		
+		if ($popup_select==1) {
+			$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
+		}
 	}
+	
+	$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
+	$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+	$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
+	
+	
+	$HD_Form -> FG_INTRO_TEXT_ADITION = '';
+	$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
+	
+	
+	$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
+	$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
+	
+	
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
 }
-
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-
-
-$HD_Form -> FG_INTRO_TEXT_ADITION = '';
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
-
-
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
-
-
-$HD_Form -> FG_GO_LINK_AFTER_ACTION = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-
 

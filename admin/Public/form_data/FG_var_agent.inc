@@ -92,250 +92,250 @@ if ($popup_select) {
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
 } else {
-	$HD_Form -> FG_EDITION = true;
-	$HD_Form -> FG_ADDITION = true;
-	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_INFO = true;
 	$HD_Form -> FG_INFO_LINK = "A2B_agent_info.php?id=";
 }
-
-
-
-$HD_Form -> AddEditElement (gettext("LOGIN"),
-		"login",
-		'$value',
-		"INPUT",
-		"size=30 maxlength=12",
-		"3",
-		gettext("Insert the login"),
-		"" , "", "", "", "" , "", "", "");
-
-$HD_Form -> AddEditElement (gettext("PASSWORD"),
-		"passwd",
-		'$value',
-		"INPUT",
-		"size=30 maxlength=15",
-		"3",
-		gettext("Insert the password"),
-		"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("PERMISSION"),
-		"perms",
-		'$value',
-		"SELECT",
-		"size=\"$len_right_list\" multiple=\"multiple\"",
-		"", "",
-		"list", "", "description, id", "", $right_list, "%1" , "",
-		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
+if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
+	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_ADDITION = true;
+	$HD_Form -> FG_DELETION = true;
+	
+	
+	$HD_Form -> AddEditElement (gettext("LOGIN"),
+			"login",
+			'$value',
+			"INPUT",
+			"size=30 maxlength=12",
+			"3",
+			gettext("Insert the login"),
+			"" , "", "", "", "" , "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("PASSWORD"),
+			"passwd",
+			'$value',
+			"INPUT",
+			"size=30 maxlength=15",
+			"3",
+			gettext("Insert the password"),
+			"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("PERMISSION"),
+			"perms",
+			'$value',
+			"SELECT",
+			"size=\"$len_right_list\" multiple=\"multiple\"",
+			"", "",
+			"list", "", "description, id", "", $right_list, "%1" , "",
+			gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
+			
+	$HD_Form -> AddEditElement (gettext("ACTIVE"),
+		   "active",
+		   '1',
+		   "RADIOBUTTON",
+		   "",
+		   "",
+		   gettext("Choose if you want to active the agent"),
+		   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable agent"));
+	
+	if ($form_action =="ask-add" || $form_action=="add") {
+		$balance_access = "value = '0'";
+	} else {
+		$balance_access = 'readonly';
+	}
+		   
+	$HD_Form -> AddEditElement (gettext("BALANCE"),
+		   "credit",
+		   "",
+		   "INPUT",
+		   "size=30 maxlength=30 $balance_access",
+		   "12",
+		   gettext("Insert the number of credit"),
+		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
+		   
+	
+	$HD_Form -> AddEditElement (gettext("CURRENCY"),
+		   "currency",
+		   "",
+		   "SELECT",
+		   "",
+		   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
+	
+	$HD_Form -> AddEditElement (gettext("COMMISSION"),
+		   "commission",
+		   "",
+		   "INPUT",
+		   "size=20 maxlength=20",
+		   "21",
+		   gettext("Insert the commision"),
+		   "" , "", "",	"", "", "", "NO-NULL", gettext("Commission"));
+	
+	$HD_Form -> AddEditElement (gettext("VAT"),
+		   "vat",
+		   "",
+		   "INPUT",
+		   "size=20 maxlength=20",
+		   "12",
+		   gettext("Insert the VAT"),
+		   "" , "", "",	"", "", "", "NO-NULL", gettext("VAT"));
+	
+	$HD_Form -> AddEditElement (gettext("LANGUAGE"),
+		   "language",
+		   "",
+		   "SELECT",
+		   "",
+		   "",
+		   "",
+		   "list" , "", "",	"", $language_list, "%1", "", "" );
+	
+	$HD_Form -> AddEditElement (gettext("COMPANY"),
+			"company",
+			'$value',
+			"INPUT",
+			"size=60 maxlength=50",
+			"",
+			gettext("Insert the company"),
+			"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("LAST NAME"),
+			"lastname",
+			'$value',
+			"INPUT",
+			"size=60 maxlength=50",
+			"",
+			gettext("Insert the lastname"),
+			"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("FIRST NAME"),
+			"firstname",
+			'$value',
+			"INPUT",
+			"size=60 maxlength=50",
+			"",
+			gettext("Insert the firstname"),
+			"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("ADDRESS"),
+			"address",
+			'$value',
+			"INPUT",
+			"size=60 maxlength=250",
+			"",
+			gettext("Insert the address"),
+			"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("CITY"),
+			"city",
+			'$value',
+			"INPUT",
+			"size=20 maxlength=20",
+			"",
+			gettext("Insert the city"),
+			"" , "", "", "", "", "", "", "");
+			
+	$HD_Form -> AddEditElement (gettext("STATE"),
+			"state",
+			'$value',
+			"INPUT",
+			"size=20 maxlength=40",
+			"",
+			gettext("Insert the state"),
+			"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("COUNTRY"),
+			"country",
+			'$value',
+			"INPUT",
+			"size=20 maxlength=40",
+			"",
+			gettext("Insert the country"),
+			"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("ZIPCODE"),
+			"zipcode",
+			'$value',
+			"INPUT",
+			"size=10 maxlength=7",
+			"",
+			gettext("Insert the zip code"),
+			"" , "", "", "", "", "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("EMAIL"),
+			"email",
+			'$value',
+			"INPUT",
+			"size=30 maxlength=70",
+			"1",
+			gettext("Insert the email"),
+			"" , "", "", "", "" , "", "NO", "");
+	
+	$HD_Form -> AddEditElement (gettext("PHONE"),
+			"phone",
+			'$value',
+			"INPUT",
+			"size=30 maxlength=20",
+			"",
+			gettext("Insert the telephone number"),
+			"" , "", "", "", "" , "", "", "");
+	
+	$HD_Form -> AddEditElement (gettext("FAX"),
+			"fax",
+			'$value',
+			"INPUT",
+			"size=30 maxlength=20",
+			"",
+			gettext("Insert the fax number"),
+			"" , "", "", "", "" , "", "", "");
+			
 		
-$HD_Form -> AddEditElement (gettext("ACTIVE"),
-	   "active",
-	   '1',
-	   "RADIOBUTTON",
-	   "",
-	   "",
-	   gettext("Choose if you want to active the agent"),
-	   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable agent"));
-
-if ($form_action =="ask-add" || $form_action=="add") {
-	$balance_access = "value = '0'";
-} else {
-	$balance_access = 'readonly';
-}
-	   
-$HD_Form -> AddEditElement (gettext("BALANCE"),
-	   "credit",
-	   "",
-	   "INPUT",
-	   "size=30 maxlength=30 $balance_access",
-	   "12",
-	   gettext("Insert the number of credit"),
-	   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-	   
-
-$HD_Form -> AddEditElement (gettext("CURRENCY"),
-	   "currency",
-	   "",
-	   "SELECT",
-	   "",
-	   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
-
-$HD_Form -> AddEditElement (gettext("COMMISSION"),
-	   "commission",
-	   "",
-	   "INPUT",
-	   "size=20 maxlength=20",
-	   "21",
-	   gettext("Insert the commision"),
-	   "" , "", "",	"", "", "", "NO-NULL", gettext("Commission"));
-
-$HD_Form -> AddEditElement (gettext("VAT"),
-	   "vat",
-	   "",
-	   "INPUT",
-	   "size=20 maxlength=20",
-	   "12",
-	   gettext("Insert the VAT"),
-	   "" , "", "",	"", "", "", "NO-NULL", gettext("VAT"));
-
-$HD_Form -> AddEditElement (gettext("LANGUAGE"),
-	   "language",
-	   "",
-	   "SELECT",
-	   "",
-	   "",
-	   "",
-	   "list" , "", "",	"", $language_list, "%1", "", "" );
-
-$HD_Form -> AddEditElement (gettext("COMPANY"),
-		"company",
-		'$value',
-		"INPUT",
-		"size=60 maxlength=50",
-		"",
-		gettext("Insert the company"),
-		"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("LAST NAME"),
-		"lastname",
-		'$value',
-		"INPUT",
-		"size=60 maxlength=50",
-		"",
-		gettext("Insert the lastname"),
-		"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("FIRST NAME"),
-		"firstname",
-		'$value',
-		"INPUT",
-		"size=60 maxlength=50",
-		"",
-		gettext("Insert the firstname"),
-		"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("ADDRESS"),
-		"address",
-		'$value',
-		"INPUT",
-		"size=60 maxlength=250",
-		"",
-		gettext("Insert the address"),
-		"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("CITY"),
-		"city",
-		'$value',
-		"INPUT",
-		"size=20 maxlength=20",
-		"",
-		gettext("Insert the city"),
-		"" , "", "", "", "", "", "", "");
 		
-$HD_Form -> AddEditElement (gettext("STATE"),
-		"state",
-		'$value',
-		"INPUT",
-		"size=20 maxlength=40",
-		"",
-		gettext("Insert the state"),
-		"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("COUNTRY"),
-		"country",
-		'$value',
-		"INPUT",
-		"size=20 maxlength=40",
-		"",
-		gettext("Insert the country"),
-		"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("ZIPCODE"),
-		"zipcode",
-		'$value',
-		"INPUT",
-		"size=10 maxlength=7",
-		"",
-		gettext("Insert the zip code"),
-		"" , "", "", "", "", "", "", "");
-
-$HD_Form -> AddEditElement (gettext("EMAIL"),
-		"email",
-		'$value',
-		"INPUT",
-		"size=30 maxlength=70",
-		"1",
-		gettext("Insert the email"),
-		"" , "", "", "", "" , "", "NO", "");
-
-$HD_Form -> AddEditElement (gettext("PHONE"),
-		"phone",
-		'$value',
-		"INPUT",
-		"size=30 maxlength=20",
-		"",
-		gettext("Insert the telephone number"),
-		"" , "", "", "", "" , "", "", "");
-
-$HD_Form -> AddEditElement (gettext("FAX"),
-		"fax",
-		'$value',
-		"INPUT",
-		"size=30 maxlength=20",
-		"",
-		gettext("Insert the fax number"),
-		"" , "", "", "", "" , "", "", "");
+	$DBHandle_max  = DbConnect();
+	$numrow = 0;
+	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffgroup");
+	if ( $resmax )
+		$numrow = $resmax -> RecordCount( );
+	
+	if ($numrow > 0) { 
+		$HD_Form -> AddEditElement (gettext("CALL PLAN USABLE"),
+			"tariffgroup",	
+			'$value',	
+			"SELECT",		
+			'size="10" multiple="multiple"',
+			"",		
+			"",	
+			"sql",		
+			"call_tariff",	
+			"label, id",		
+			"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
+	}
+	
 		
 	
 	
-$DBHandle_max  = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffgroup");
-if ( $resmax )
-	$numrow = $resmax -> RecordCount( );
-
-if ($numrow > 0) { 
-	$HD_Form -> AddEditElement (gettext("CALL PLAN USABLE"),
-		"tariffgroup",	
-		'$value',	
-		"SELECT",		
-		'size="10" multiple="multiple"',
-		"",		
-		"",	
-		"sql",		
-		"call_tariff",	
-		"label, id",		
-		"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
-}
-
+	$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
 	
-
-
-$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
-
-$HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
-
-$HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
-
-
-$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'creation_agent_refill';
-
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-
-
-$HD_Form -> FG_INTRO_TEXT_ADITION = '';
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
-
-
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
-
-
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-
-
-
+	$HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
+	
+	$HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
+	
+	
+	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'creation_agent_refill';
+	
+	$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
+	$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+	$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
+	
+	
+	$HD_Form -> FG_INTRO_TEXT_ADITION = '';
+	$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
+	
+	
+	$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
+	$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
+	
+	
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+	$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+	
+	
+}	
