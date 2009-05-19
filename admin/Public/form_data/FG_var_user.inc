@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'groupID', 'userid', 'login', 'pwd_encoded', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname', 'email'));
+getpost_ifset(array('id', 'groupID', 'userid', 'login','country','city', 'pwd_encoded', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname', 'email'));
 
 
 if ($groupID=="0") {
@@ -78,10 +78,12 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
-if ($popup_select == "") {
+if (!$popup_select) {
 	$HD_Form -> FG_ADDITION = true;
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
+	$HD_Form -> FG_INFO = true;
+	$HD_Form -> FG_INFO_LINK = "A2B_admin_info.php?groupID=$groupID&id=";
 }
 
 if ($form_action!="ask-add" && $form_action!="add") {
@@ -142,6 +144,14 @@ $HD_Form -> AddEditElement (gettext("ADDRESS"),
 	"",
 	gettext("Insert the direction"),
 	"" , "", "", "", "", "", "", "");
+$HD_Form -> AddEditElement (gettext("CITY"),
+	"city",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30",
+	"",
+	gettext("Insert the country"),
+	"" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("ZIPCODE"),
 	"zipcode",
@@ -159,6 +169,14 @@ $HD_Form -> AddEditElement (gettext("STATE"),
 	"size=30 maxlength=30",
 	"",
 	gettext("Insert the state"),
+	"" , "", "", "", "" , "", "", "");
+$HD_Form -> AddEditElement (gettext("COUNTRY"),
+	"country",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30",
+	"",
+	gettext("Insert the country"),
 	"" , "", "", "", "" , "", "", "");
 
 $HD_Form -> AddEditElement (gettext("PHONE"),
@@ -224,7 +242,7 @@ if ($groupID!="0") {
 	$FG_QUERY_EDITION .= 'perms, ';
 }
 
-$FG_QUERY_EDITION .= 'name, direction, zipcode, state, phone, fax,email';
+$FG_QUERY_EDITION .= 'name, direction,city, zipcode, state,country, phone, fax,email';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 

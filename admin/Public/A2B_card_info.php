@@ -358,7 +358,6 @@ $link = CUSTOMER_UI_URL;
 						&nbsp;<?php echo $card['vat_rn']?> 
 					</td>
 					
-					
 				</tr>
 				
 				<tr height="20px">

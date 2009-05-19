@@ -63,8 +63,8 @@ if ($popup_select) {
 	$HD_Form -> AddViewElement(gettext("DATE"), "datecreation", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 	$HD_Form -> AddViewElement(gettext("LOGIN"), "login", "14%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("PASSWORD"), "passwd", "14%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("FIRSTNAME"), "firstname", "14%", "center", "sort");
-	$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "14%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("FIRSTNAME"), "firstname", "10%", "center", "sort");
+	$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "10%", "center", "sort");
 	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 	$HD_Form -> AddViewElement(gettext("ACTIVE"), "active", "3%", "center", "sort", "", "list", $yesno);
@@ -95,6 +95,8 @@ if ($popup_select) {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_ADDITION = true;
 	$HD_Form -> FG_DELETION = true;
+	$HD_Form -> FG_INFO = true;
+	$HD_Form -> FG_INFO_LINK = "A2B_agent_info.php?id=";
 }
 
 

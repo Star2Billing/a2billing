@@ -11,6 +11,14 @@ class Constants
 		$language_list["3"] = array( gettext("RUSSIAN"), "ru");
 		return $language_list;
 	}
+	public static function getLanguages(){
+		$language_list = array();
+		$language_list["en"] = array( gettext("ENGLISH"));
+		$language_list["es"] = array( gettext("SPANISH"));
+		$language_list["fr"] = array( gettext("FRENCH"));
+		$language_list["ru"] = array( gettext("RUSSIAN"));
+		return $language_list;
+	}
 	
 	public static function getLanguagesRevertList(){
 		$language_list_r = array();
