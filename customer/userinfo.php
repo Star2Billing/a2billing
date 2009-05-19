@@ -3,13 +3,11 @@ include ("lib/customer.defines.php");
 include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
 
-
 if (! has_rights (ACX_ACCESS)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-
 
 $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, " .
 		"freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency FROM cc_card " .
@@ -58,7 +56,6 @@ $smarty->display( 'main.tpl');
 
 <div>
 
-<?php if ($A2B->config["webcustomerui"]['customerinfo']){ ?>
 
 <table  class="tablebackgroundblue" align="center" >
 <tr>
@@ -82,19 +79,16 @@ $smarty->display( 'main.tpl');
 <tr>
 	<td></td>
 	<td align="right">
-		<?php if ($_SESSION["cc_voicemail"]){ ?>
-		<a href="../ARI/"><span class="cssbutton"><font color="red"><?php echo gettext("GO TO VOICEMAIL");?></font></span></a>
-		<?php } ?>
+		&nbsp;	
 	</td>
 	<td align="right">
-		<?php if ($A2B->config["webcustomerui"]['personalinfo']){ ?>
+		<?php if (has_rights (ACX_PERSONALINFO)){ ?>
 		<a href="A2B_entity_card.php?atmenu=password&form_action=ask-edit&stitle=Personal+Information"><span class="cssbutton"><font color="red"><?php echo gettext("EDIT PERSONAL INFORMATION");?></font></span></a>
 		<?php } ?>
 	</td>
 </tr>
 </table>
 
-<?php } ?>
 <br>
 <table style="width:70%;margin:0 auto;"  align="center" >
 <tr>

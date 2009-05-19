@@ -32,7 +32,7 @@ define ("ACX_CALLER_ID",					8192);		// 1 << 12
 define ("ACX_SUPPORT",						16384);		// 1 << 14
 define ("ACX_NOTIFICATION",					32768);		// 1 << 15
 define ("ACX_AUTODIALER",					65536);		// 1 << 16
-
+define ("ACX_PERSONALINFO",					131072);	
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 

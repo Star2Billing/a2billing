@@ -62,7 +62,7 @@ $right_list["14"] = array( gettext("CALLER_ID"), "8192");
 $right_list["15"] = array( gettext("SUPPORT"), "16384");
 $right_list["16"] = array( gettext("NOTIFICATION"), "32768");
 $right_list["17"] = array( gettext("AUTODIALER"), "65536");
-
+$right_list["18"] = array( gettext("EDIT PERSONAL INFO "), "131072");
 $len_right_list = count($right_list);
 
 
