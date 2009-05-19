@@ -1,0 +1,27 @@
+
+
+
+ # Audio Convertion Info
+ --------------------------------------
+ 
+ 
+ > CONVERT WAV TO GSM
+ 
+	sox filename.wav -r 8000 -c1 filename.gsm resample -ql
+
+	for a in *.wav; do sox "$a" -r 8000 -c1 "`echo $a|sed -e s/wav//`gsm" resample -ql; done 
+
+ 
+ > CONVERT MP3 TO WAV
+	
+	WITH MPG123 :
+	mpg123 -w filename.wav filename.mp3
+
+	for a in *.mp3; do mpg123 -w "`echo $a|sed -e s/mp3//`wav" "$a"; done
+	
+	
+ > CONVERT WAV TO SLN
+ 
+ 	for a in *.wav; do sox "$a" -t raw -r 8000 -s -w -c 1 "`echo $a|sed -e s/wav//`sln" ; done
+ 
+ 

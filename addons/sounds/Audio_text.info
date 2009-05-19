@@ -71,11 +71,12 @@ prepaid-voucher_enter_number					please enter the voucher number and press the p
 prepaid-callback_intro							Your call is now being connected, Please hold
 
 
-
 ; Say Rate initial
 prepaid-cost-call 								the cost of the call is 
 prepaid-per-minutes								per minutes
 
+; CallerID update
+prepaid-enter-cid								Please, enter your CallerID
 
 ---------------------------  FRENCH --------------------------
 
@@ -139,6 +140,10 @@ prepaid-callback_intro							?? Your call is now being connected, Please hold
 ; Say Rate initial
 prepaid-cost-call 								le cout de l appel est de 
 prepaid-per-minutes								par minutes
+
+; CallerID update
+prepaid-enter-cid								Entrez votre callerID
+
 
 ---------------------------  SPANISH  --------------------------
 
@@ -222,6 +227,8 @@ prepaid-callback_intro							Your call is now being connected, Please hold
 prepaid-cost-call 								El coste de la llamade es de
 prepaid-per-minutes								por minutos
 
+; CallerID update
+prepaid-enter-cid								Introduzca tu callerID
 
 ---------------------------  PORTUGUES / BRAZILIAN --------------------------
 
@@ -275,7 +282,8 @@ prepaid-callback_intro                    		Sua ligação está agora sendo cone
 prepaid-cost-call                        		O custo da chamda é de
 prepaid-per-minutes                        		por minuto
 
-
+; CallerID update
+prepaid-enter-cid								Entre com seu CallerID
 
 ---------------------------  Recorded by Allison ------------------------
 English :
