@@ -22,9 +22,9 @@
         global $languages_id;
 	
         if(isset($_SESSION["agent_id"]) && !empty($_SESSION["agent_id"])){
-        	$QUERY = "SELECT  login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, active as status, currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
+        	$QUERY = "SELECT login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
         }elseif(isset($_SESSION["card_id"]) && !empty($_SESSION["card_id"])){
-        	$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_card WHERE id = '".$_SESSION["card_id"]."'";
+        	$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_card WHERE id = '".$_SESSION["card_id"]."'";
         }else{
         	echo "ERROR";
         	die();
@@ -35,7 +35,7 @@
         $numrow = $resmax -> numRows();
         if ($numrow == 0) {exit();}
         $customer_info =$resmax -> fetchRow();
-        if($customer_info [12] != "1" ) {
+        if ($customer_info [12] != "1" ) {
 			exit();
 		}
 
