@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid'));
+getpost_ifset(array('id','subscriber', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid'));
 
 //put parameter in session
 $HD_Form = new FormHandler("cc_card", "User");
@@ -67,6 +67,14 @@ if (!$agent_conf) {
 		}
 	}
 }
+
+//check subscriber
+
+$table_key = new Table("cc_agent_signup", "*");
+
+//end check subscriber
+
+
 
 $currency_list = array ();
 $currency_list_r = array ();
@@ -393,6 +401,11 @@ elseif ($agent_conf) {
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $tariffid";
 }
+if(is_numeric($subscriber)){
+	$HD_Form->FG_ADITION_HIDDEN_PARAM = 'subscriber';
+	$HD_Form->FG_ADITION_HIDDEN_PARAM_VALUE  = "$subscriber";
+}
+
 $HD_Form->FG_FILTER_APPLY = true;
 $HD_Form->FG_FILTERFIELD = 'cardnumber';
 $HD_Form->FG_FILTERFIELDNAME = 'cardnumber';
@@ -409,11 +422,7 @@ $HD_Form->FG_BUTTON_EDITION_SRC = $HD_Form->FG_BUTTON_ADITION_SRC = Images_Path 
 //$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONFIRM DATA button.");
 $HD_Form->FG_ADD_PAGE_CONFIRM_BUTTON = gettext("SIGNUP");
 
-if (RELOAD_ASTERISK_IF_SIPIAX_CREATED) {
-	$HD_Form->FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends_reload';
-} else {
-	$HD_Form->FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends';
-}
+$HD_Form->FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'processing_card_signup';
 
 $HD_Form->FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form->FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF'] . "?atmenu=document&stitle=Document&wh=AC&id=";

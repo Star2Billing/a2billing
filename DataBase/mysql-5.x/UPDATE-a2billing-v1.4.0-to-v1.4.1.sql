@@ -20,3 +20,15 @@ DELETE FROM cc_config WHERE config_key = 'personalinfo' AND config_group_title =
 DELETE FROM cc_config WHERE config_key = 'customerinfo' AND config_group_title = 'webcustomerui';
 DELETE FROM cc_config WHERE config_key = 'password' AND config_group_title = 'webcustomerui';
 UPDATE cc_card_group SET users_perms = '262142' WHERE cc_card_group.id = 1;
+
+
+CREATE TABLE cc_subscription_signup (
+	id BIGINT NOT NULL ,
+	label VARCHAR( 50 ) collate utf8_bin NOT NULL ,
+	id_subscription BIGINT NULL ,
+	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+	enable TINYINT NOT NULL DEFAULT '1',
+	PRIMARY KEY ( id )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+

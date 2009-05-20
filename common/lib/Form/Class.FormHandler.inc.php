@@ -1709,6 +1709,31 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		}
 	}
 	
+	function processing_card_signup()
+	{
+		if (RELOAD_ASTERISK_IF_SIPIAX_CREATED) {
+			$this->create_sipiax_friends_reload();
+		} else {
+			$this->create_sipiax_friends();
+		}
+		
+		$this->create_subscriptions();
+		
+	}
+	
+	function create_subscriptions()
+	{
+		$processed = $this->getProcessed();
+		$subscriber = $processed['subscriber'];
+		if(is_numeric($subscriber)) {
+			$field_insert = " id_cc_card,id_subscription_fee";
+			$card_id = $this -> RESULT_QUERY;
+			$value_insert = "'$card_id', '$subscriber' ";
+			$instance_subscription_table = new Table("cc_card_subscription", $field_insert);
+			$instance_subscription_table -> Add_table ($this->DBHandle, $value_insert, null, null);	
+		}
+	}
+	
 	function processing_card_add()
 	{
 		$this->create_sipiax_friends();

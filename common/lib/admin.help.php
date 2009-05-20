@@ -221,6 +221,8 @@ $CC_help_list_subscription=create_help(gettext("SUBSCRIPTION FEE - You can bill 
 
 $CC_help_list_subscriber=create_help(gettext("SUBSCRIBER - You can make customers subscribe for any subscription and for a certain time."));
 
+$CC_help_subscriber_signup = create_help(gettext("SIGNUP SUBSCRIBER - You can make create a list of subscribers that the customers can subscribe."));
+
 $CC_help_server=create_help(gettext("Servers are used by the callback system through the asterisk manager in order to initiate the callback and outbound calls for your customers. You can add/modify the callback server to be used here. The AGI and callback modes need to be installed on those machines."),'ShowServer');
 
 $CC_help_server_group=create_help(gettext("Server Groups define the set of servers that are going to be used by the callback system. A callback is bound to a server group which will be used to dispatch the callback requests."),'ShowServerGroup');

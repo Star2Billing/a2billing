@@ -1315,11 +1315,9 @@ SPAN.errorText {
 }
 .signup_main
 {
-	position: absolute;
 	z-index: 0;
 	height: auto;
 	width: 650px;
-	left: 180px;
 	top: 35px;
 	PADDING-LEFT: 10px; 
 	PADDING-RIGHT: 10px; 

@@ -13,9 +13,9 @@
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
 		}
 	}
-	if (!empty($this->FG_EDITION_HIDDEN_PARAM)){
-		$split_hidden_fields = split(",",trim($this->FG_EDITION_HIDDEN_PARAM));
-		$split_hidden_fields_value = split(",",trim($this->FG_EDITION_HIDDEN_PARAM_VALUE));
+	if (!empty($this->FG_ADITION_HIDDEN_PARAM)){
+		$split_hidden_fields = split(",",trim($this->FG_ADITION_HIDDEN_PARAM));
+		$split_hidden_fields_value = split(",",trim($this->FG_ADITION_HIDDEN_PARAM_VALUE));
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
 		}
