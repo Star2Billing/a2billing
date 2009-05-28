@@ -730,34 +730,45 @@ class A2Billing {
 		return 0;
 	}
 
-
-	function enough_credit_to_call(){
-		
-		
-		
-		if($this->typepaid==0){
-			if($this->credit < $this->agiconfig['min_credit_2call'] && $A2B -> typepaid==0){
+	/*
+	 *	function enough_credit_to_call
+	 */
+	function enough_credit_to_call()
+	{	
+		if ($this->typepaid==0) {
+			if ($this->credit < $this->agiconfig['min_credit_2call']) {
 				$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-					if( !empty($result[0][0])){
-						$id_package_groupe = $result[0][0];
-						if($id_package_groupe >0){
-							return true;
-						}else return false;
-					}else return false;
-			}else return true;
-		
-		}else{
-			if( $this->credit <= -$creditlimit){
+				if (!empty($result[0][0])) {
+					$id_package_groupe = $result[0][0];
+					if ($id_package_groupe >0) {
+						return true;
+					} else { 
+						return false;
+					}
+				} else { 
+					return false;
+				}
+			} else {
+				return true;
+			}
+		} else {
+			if ($this->credit <= -$creditlimit) {
 				$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-					if( !empty($result[0][0])){
-						$id_package_groupe = $result[0][0];
-						if($id_package_groupe >0){
-							return true;
-						}else return false;
-					}else return false;
-			}else return true;
+				if (!empty($result[0][0])) {
+					$id_package_groupe = $result[0][0];
+					if($id_package_groupe >0) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			} else {
+				return true;
+			}
 		}
 	}
 
@@ -2067,12 +2078,15 @@ class A2Billing {
 
 				// CHECK credit < min_credit_2call / you have zero balance
 				if(!$this -> enough_credit_to_call()) $prompt = "prepaid-no-enough-credit-stop";
+				
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
+				
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
-				if ($this->enableexpire>0){
+				if ($this->enableexpire>0) {
 					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5) {
 						// expire date
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
@@ -2093,14 +2107,14 @@ class A2Billing {
 				}
 
 				if (strlen($prompt)>0) {
+					
 					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt
+					
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
-
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
-					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
-
+					
 					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && !$this -> enough_credit_to_call()) {
-
+						
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher] ");
 						$vou_res = $this -> refill_card_with_voucher($agi,2);
 						if ($vou_res==1) {
@@ -2245,36 +2259,40 @@ class A2Billing {
 					}
 				}
 
-				if (strlen($prompt)>0){
+				if (strlen($prompt)>0) {
+					
 					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt
+					
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
-
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 
-					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-no-enough-credit-stop"){
+					
+					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && !$this -> enough_credit_to_call()) {
+						
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher] ");
 						$vou_res = $this -> refill_card_with_voucher($agi,2);
-						if ($vou_res==1){
+						if ($vou_res==1) {
 							return 0;
-						}else {
+						} else {
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
 					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
-						$this->accountcode='';
+						$this->accountcode = '';
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
 						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) $this -> ask_other_cardnumber=1;
-					}else{
+					} else {
 						return -2;
 					}
 				}
 
 			} // For end
-		}elseif ($callerID_enable==0){
+		} elseif ($callerID_enable==0) {
 
-			// 		  -%-%-%-%-%-%-		IF NOT PREVIOUS WE WILL ASK THE CARDNUMBER AND AUTHENTICATE ACCORDINGLY 	-%-%-%-%-%-%-
+			// IF NOT PREVIOUS WE WILL ASK THE CARDNUMBER AND AUTHENTICATE ACCORDINGLY
 			for ($retries = 0; $retries < 3; $retries++) {
-				if (($retries>0) && (strlen($prompt)>0)){
+				
+				if (($retries>0) && (strlen($prompt)>0)) {
 					$agi-> stream_file($prompt, '#');
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 				}
@@ -2316,7 +2334,7 @@ class A2Billing {
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 					continue;
 				}else{
-					// 		  -%-%-%-	WE ARE GOING TO CHECK IF THE CALLERID IS CORRECT FOR THIS CARD	-%-%-%-
+					// WE ARE GOING TO CHECK IF THE CALLERID IS CORRECT FOR THIS CARD
 					if ($this->agiconfig['callerid_authentication_over_cardnumber']==1){
 
 						if (!is_numeric($this->CallerID) && $this->CallerID<=0){
@@ -2370,31 +2388,30 @@ class A2Billing {
 				$this->restriction = $result[0][28];
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 
-				if (strlen($language)==2  && !($this->languageselected>=1))
-				{
-					// http://www.voip-info.org/wiki/index.php?page=Asterisk+cmd+SetLanguage
-					// Set(CHANNEL(language)=<lang>) 1_4 & Set(LANGUAGE()=language) 1_2
-
-					if($this->agiconfig['asterisk_version'] == "1_2")
-					{
+				if (strlen($language)==2  && !($this->languageselected>=1)) {
+					if($this->agiconfig['asterisk_version'] == "1_2") {
 						$lg_var_set = 'LANGUAGE()';
-					}
-					else
-					{
+					} else {
 						$lg_var_set = 'CHANNEL(language)';
 					}
 					$agi -> set_variable($lg_var_set, $language);
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 				}
+				
 				$prompt = '';
+				
 				// CHECK credit > min_credit_2call / you have zero balance
 				if( !$this -> enough_credit_to_call() ) $prompt = "prepaid-no-enough-credit-stop";
+				
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
+				
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
-				if ($this->enableexpire>0){
+				if ($this->enableexpire>0) {
+					
 					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
 						// expire date
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
@@ -2429,7 +2446,7 @@ class A2Billing {
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CREATE AN INSTANCE IN CC_CALLERID -  QUERY_VALUES:$QUERY_VALUES, QUERY_FIELS:$QUERY_FIELS]");
 						$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
 						
-						if (!$result){
+						if (!$result) {
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
 							$prompt="prepaid-auth-fail";
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
@@ -2448,25 +2465,26 @@ class A2Billing {
 					$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 				}
 
-				if (strlen($prompt)>0){
+				if (strlen($prompt)>0) {
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 					$res = -2;
 					break;
 				}
 				break;
 			}//end for
-		}else{
+			
+		} else {
 			$res = -2;
 		}//end IF
+		
 		if (($retries < 3) && $res==0) {
 			
 			$this -> callingcard_acct_start_inuse($agi,1);
 			
-			if ($this->agiconfig['say_balance_after_auth']==1){
+			if ($this->agiconfig['say_balance_after_auth']==1) {
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] SAY BALANCE : $this->credit \n");
 				$this -> fct_say_balance ($agi, $this->credit);
 			}
-
 
 		} else if ($res == -2 ) {
 			$agi-> stream_file($prompt, '#');
@@ -2491,11 +2509,11 @@ class A2Billing {
 			return 0;
 		}
 		//If we receive a positive value from the rate simulator, we simulate with that initial balance. If we receive <=0 we use the value retrieved from the account
-           	if ($simbalance>0) {
-                        $this -> credit = $simbalance;
-                        } else {
-				$this->credit = $result[0][0];
-			}
+       	if ($simbalance>0) {
+            $this -> credit = $simbalance;
+		} else {
+			$this->credit = $result[0][0];
+		}
 		$this->tariff = $result[0][1];
 		$this->active = $result[0][2];
 		$isused = $result[0][3];
@@ -2525,7 +2543,7 @@ class A2Billing {
 		if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 
 		// CHECK IF ENOUGH CREDIT TO CALL
-		if( !$this->enough_credit_to_call()){
+		if( !$this->enough_credit_to_call()) {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
 			return 0;
 		}
@@ -2652,9 +2670,9 @@ class A2Billing {
 		/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
 		require_once('adodb/adodb.inc.php');
 
-		if ($this->config['database']['dbtype'] == "postgres"){
+		if ($this->config['database']['dbtype'] == "postgres") {
 			$datasource = 'pgsql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
-		}else{
+		} else {
 			$datasource = 'mysqli://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
 		}
 		$this->DBHandle = NewADOConnection($datasource);
@@ -2671,18 +2689,18 @@ class A2Billing {
      * Function DbReConnect
      * Returns: true / false if connection has been established
      */
-	function DbReConnect($agi){
+	function DbReConnect($agi) {
 		$res = $this->DBHandle -> Execute("select 1");
 		if (!$res) {
 		   	$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[DB CONNECTION LOST] - RECONNECT ATTEMPT");	
 		   	$this->DBHandle -> Close();
-			if ($this->config['database']['dbtype'] == "postgres"){
+			if ($this->config['database']['dbtype'] == "postgres") {
 				$datasource = 'pgsql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
-			}else{
+			} else {
             	$datasource = 'mysqli://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
 			}
 			$count=1;$sleep=1;
-			while ((!$res)&&($count<5)){
+			while ((!$res)&&($count<5)) {
 				$this->DBHandle = NewADOConnection($datasource);
 				if (!$this->DBHandle) {
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[DB CONNECTION LOST]- RECONNECT FAILED ,ATTEMPT $count sleep for $sleep ");
