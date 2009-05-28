@@ -6,9 +6,9 @@ include ("./form_data/FG_var_payment_invoice.inc");
 include ("../lib/admin.smarty.php");
 
 if (! has_rights (ACX_INVOICING)) {
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 $HD_Form -> setDBHandler (DbConnect());
@@ -29,7 +29,7 @@ if ($popup_select) {
 <!-- Begin
 function sendValue(selvalue){
 	 // redirect browser to the grabbed value (hopefully a URL)	  
-	window.opener.location.href= <?php echo '"A2B_invoice_manage_payment?id='.$invoice.'&addpayment="'; ?>+selvalue;
+	window.opener.location.href= <?php echo '"A2B_invoice_manage_payment.php?id='.$invoice.'&addpayment="'; ?>+selvalue;
 	self.location.href = "<?php echo $_SERVER['PHP_SELF']."?popup_select=1&invoice=$invoice&card=$card"?>";
 }
 // End -->
