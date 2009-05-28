@@ -144,7 +144,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
 				$clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
 				$desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
-				$desc_billing_postpaid = "Amount for periode between the " . date("Y-m-d", strptime($result[0][1])) . " and " . $date_now;
+				$desc_billing_postpaid = "Amount for periode between the " . date("Y-m-d", strtotime($result[0][1])) . " and " . $date_now;
 				$start_date = $result[0][1];
 			} else {
 				$desc_billing = "Calls cost before the " . $date_now;
@@ -154,8 +154,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			$field_insert = "id_card";
 			$value_insert = " '$card_id'";
 			if (!empty ($start_date)) {
-				$field_insert .= ", start_date";
-				$value_insert .= ", '$start_date'";
+				$field_insert .= ", date";
+				$value_insert .= ", '".date("Y-m-d H:i:s")."'";
 			}
 			$instance_table = new Table("cc_billing_customer", $field_insert);
 			$id_billing = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
