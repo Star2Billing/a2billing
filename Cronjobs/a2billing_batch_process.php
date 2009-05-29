@@ -171,8 +171,8 @@ foreach ($result as $myservice) {
 				}
 			}
 		} else {
-			$credit_sql = " credit-amount ";
-			$$refill_amount = $amount;
+			$credit_sql = " credit-$amount ";
+			$refill_amount = $amount;
 		}
 		if ($refill_amount > 0) {
 			$QUERY = "INSERT INTO cc_logrefill (credit,card_id,description,refill_type) VALUES (-$refill_amount,$card_id,'Recurrent $service_name ',2)";
