@@ -393,13 +393,41 @@ function remove_prefix($phonenumber) {
  * function linkonmonitorfile
  */
 function linkonmonitorfile($value) {
-	$myfile = $value . "." . MONITOR_FORMATFILE;
-	$dl_full = MONITOR_PATH . "/" . $myfile;
-	if (!file_exists($dl_full)) {
-		return;
+	$format_list = array ('wav','gsm','mp3','sln','g723','g729');
+	$find_record = false;
+	foreach ($format_list as $c_format){
+		$myfile = $value . "." . $c_format;
+		$dl_full = MONITOR_PATH . "/" . $myfile;
+		if (file_exists($dl_full)) {
+			$find_record = true;
+			break;
+		}
 	}
+	if (!$find_record) return false;
+	
 	$myfile = base64_encode($myfile);
 	echo "<a target=_blank href=\"call-log-customers.php?download=file&file=" . $myfile . "\">";
+	echo '<img src="' . Images_Path . '/stock-mic.png" height="18" /></a>';
+}
+
+/*
+ * function linkonmonitorfile_customer
+ */
+function linkonmonitorfile_customer($value) {
+	$format_list = array ('wav','gsm','mp3','sln','g723','g729');
+	$find_record = false;
+	foreach ($format_list as $c_format){
+		$myfile = $value . "." . $c_format;
+		$dl_full = MONITOR_PATH . "/" . $myfile;
+		if (file_exists($dl_full)) {
+			$find_record = true;
+			break;
+		}
+	}
+	if (!$find_record) return false;
+	
+	$myfile = base64_encode($myfile);
+	echo "<a target=_blank href=\"call-history.php?download=file&file=" . $myfile . "\">";
 	echo '<img src="' . Images_Path . '/stock-mic.png" height="18" /></a>';
 }
 

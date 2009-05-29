@@ -1119,7 +1119,7 @@ class A2Billing {
 
 			if ($this->agiconfig['record_call'] == 1){
 				$myres = $agi->exec("MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
-				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
+				$this -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
 			}
 
 			$agi->set_callerid($this->useralias);
@@ -1142,8 +1142,8 @@ class A2Billing {
 
 			if ($this->agiconfig['record_call'] == 1) {
 				// Monitor(wav,kiki,m)
-				$myres = $agi->exec("STOPMONITOR");
-				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$this->uniqueid."-".$this->cardnumber.")");
+				$myres = $agi->exec("StopMixMonitor");
+				$this -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (".$this->uniqueid.")");
 			}
 
 			$this -> debug( INFO, $agi, __FILE__, __LINE__, "[".$this->tech." Friend][K=$k]:[ANSWEREDTIME=".$answeredtime."-DIALSTATUS=".$dialstatus."]");
@@ -1258,7 +1258,7 @@ class A2Billing {
 					// RUN MIXMONITOR TO RECORD CALL
 					if ($this->agiconfig['record_call'] == 1){
 						$myres = $agi->exec("MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
-						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
+						$this -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
 					}
 
 					$dialparams = $this->agiconfig['dialcommand_param_sipiax_friend'];
@@ -1277,8 +1277,8 @@ class A2Billing {
 					$dialstatus 	= $dialstatus['data'];
 
 					if ($this->agiconfig['record_call'] == 1) {
-						$myres = $agi->exec("STOPMONITOR");
-						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$this->uniqueid."-".$this->cardnumber.")");
+						$myres = $agi->exec("StopMixMonitor");
+						$this -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (".$this->uniqueid.")");
 					}
 
 					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[".$inst_listdestination[4]." Friend][followme=$callcount]:[ANSWEREDTIME=".$answeredtime."-DIALSTATUS=".$dialstatus."]");

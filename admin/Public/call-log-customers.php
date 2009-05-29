@@ -9,11 +9,13 @@ if (! has_rights ( ACX_CALL_REPORT )) {
 	die ();
 }
 
-getpost_ifset ( array ('customer', 'sellrate', 'buyrate', 'entercustomer','entercustomer_num', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'fromtime', 'totime', 'fromstatsday_hour', 'tostatsday_hour', 'fromstatsday_min', 'tostatsday_min', 'dsttype', 'srctype', 'dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'dnid', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype' ) );
+getpost_ifset ( array ('customer', 'sellrate', 'buyrate', 'entercustomer','entercustomer_num', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'fromtime', 'totime', 'fromstatsday_hour', 'tostatsday_hour', 'fromstatsday_min', 'tostatsday_min', 'dsttype', 'srctype', 'dnidtype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'dnid', 'clid', 'choose_currency', 'terminatecauseid', 'choose_calltype', 'download', 'file') );
 
-if (($_GET [download] == "file") && $_GET [file]) {
+if (($download == "file") && $file) {
 	
-	$value_de = base64_decode ( $_GET [file] );
+	if (strpos($file, '/') !== false) exit;
+	
+	$value_de = base64_decode ( $file );
 	$dl_full = MONITOR_PATH . "/" . $value_de;
 	$dl_name = $value_de;
 	
@@ -91,21 +93,22 @@ $FG_TABLE_COL [] = array (gettext ( "Sell" ), "sessionbill", "7%", "center", "SO
 $FG_TABLE_COL [] = array (gettext ( "Margin" ), "margin", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec_percentage" );
 $FG_TABLE_COL [] = array (gettext ( "Markup" ), "markup", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec_percentage" );
 
-if (has_rights (ACX_DELETE_CDR)) {
-	$FG_TABLE_COL [] = array ("", "id", "1%", "center", "", "30", "", "", "", "", "", "linkdelete_cdr" );
-}
-
 if (LINK_AUDIO_FILE) {
 	$FG_TABLE_COL [] = array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile" );
 }
 
+if (has_rights (ACX_DELETE_CDR)) {
+	$FG_TABLE_COL [] = array ("", "id", "1%", "center", "", "30", "", "", "", "", "", "linkdelete_cdr" );
+}
+
 // This Variable store the argument for the SQL query
 $FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid, t1.calledstation, t1.destination, t4.buyrate, t4.rateinitial, t1.sessiontime, t1.card_id, t3.trunkcode, t1.terminatecauseid, t1.sipiax, t1.buycost, t1.sessionbill, case when t1.sessionbill!=0 then ((t1.sessionbill-t1.buycost)/t1.sessionbill)*100 else NULL end as margin,case when t1.buycost!=0 then ((t1.sessionbill-t1.buycost)/t1.buycost)*100 else NULL end as markup';
-if (has_rights (ACX_DELETE_CDR)) {
-	$FG_COL_QUERY .= ', t1.id';
-}
+
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
+}
+if (has_rights (ACX_DELETE_CDR)) {
+	$FG_COL_QUERY .= ', t1.id';
 }
 $FG_COL_QUERY_GRAPH = 't1.callstart, t1.duration';
 
@@ -1327,30 +1330,12 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 </table>
 
 <br>
-<!-- SECTION EXPORT //--> &nbsp; &nbsp; <a
-	href="export_csv.php?var_export=<?php
-	echo $FG_EXPORT_SESSION_VAR?>&var_export_type=type_csv"
-	target="_blank"><img src="<?php
-	echo Images_Path;
-	?>/excel.gif"
-	border="0" height="30" /><?php
-	echo gettext ( "Export CSV" );
-	?></a> -
-&nbsp; &nbsp; <a
-	href="export_csv.php?var_export=<?php
-	echo $FG_EXPORT_SESSION_VAR?>&var_export_type=type_xml"
-	target="_blank"><img src="<?php
-	echo Images_Path;
-	?>/icons_xml.gif"
-	border="0" height="32" /><?php
-	echo gettext ( "Export XML" );
-	?></a>
-		
-		
-		
-<?php
-} else {
-	?>
+<!-- SECTION EXPORT //--> &nbsp; &nbsp; 
+<a href="export_csv.php?var_export=<?php echo $FG_EXPORT_SESSION_VAR?>&var_export_type=type_csv" target="_blank"><img src="<?php echo Images_Path; ?>/excel.gif" border="0" height="30" /><?php echo gettext ( "Export CSV" ); ?></a> 
+- &nbsp; &nbsp;
+<a href="export_csv.php?var_export=<?php echo $FG_EXPORT_SESSION_VAR?>&var_export_type=type_xml" target="_blank"><img src="<?php echo Images_Path; ?>/icons_xml.gif" border="0" height="32" /><?php echo gettext ( "Export XML" ); ?></a>
+
+<?php } else { ?>
 <center>
 <h3><?php echo gettext ( "No calls in your selection");?>.</h3>
 <?php  } ?>

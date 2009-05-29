@@ -1142,12 +1142,11 @@ class RateEngine
 				$myres = $agi->exec("SETMUSICONHOLD $musiconhold");
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC SETMUSICONHOLD $musiconhold");
 			}
-
-			if ($A2B -> agiconfig['record_call'] == 1){
+			
+			if ($A2B -> agiconfig['record_call'] == 1) {
 				$myres = $agi->exec("MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
-				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
+				$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
 			}
-
 
 			$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 
@@ -1217,9 +1216,9 @@ class RateEngine
 				}
 			}
 
-			if ($A2B -> agiconfig['record_call'] == 1){
-				$myres = $agi->exec("STOPMONITOR");
-				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$A2B->uniqueid."-".$A2B->cardnumber.")");
+			if ($A2B -> agiconfig['record_call'] == 1) {
+				$myres = $agi->exec("StopMixMonitor");
+				$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (".$A2B->uniqueid.")");
 			}
 
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");

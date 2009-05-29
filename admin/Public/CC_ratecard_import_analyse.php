@@ -134,7 +134,6 @@ if ($task == 'upload') {
 						if ($currencytype == "cent") {
 							$val[$k +3] = $val[$k +3] / 100;
 						}
-
 					}
 					$FG_ADITION_SECOND_ADD_FIELDS .= ', ' . $fieldtoimport[$k];
 
@@ -197,10 +196,7 @@ if ($task == 'upload') {
 
 $smarty->display('main.tpl');
 
-
-
 ?>
-
 
 <style type="text/css">
 <!--
@@ -231,136 +227,130 @@ function sendtoupload(form){
 
 
 <?php
-if ($status=="ok"){
+if ($status=="ok") {
 	echo $CC_help_import_ratecard_confirm;
-}else{
+} else {
 	echo $CC_help_import_ratecard_analyse;
 }
 ?>
-	
-<?php  if ($status!="ok"){?> 
-	
-<center>
+
+<center>	
+<?php  if ($status!="ok"){ ?> 
+
 <?php echo gettext("The first line of your import is previewed below, please check to ensure that every is correct")?>.
-</center>
 	
-<table align=center border="0" cellpadding="2" cellspacing="2" width="300">
-	<tbody>
-		<tr class="form_head">                  					
-		  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
-			<strong> <span class="white_link"><?php echo gettext("FIELD")?> </span> </strong>
-		  </td>
-		  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
-			<strong> <span class="white_link"><?php echo gettext("VALUE")?> </span> </strong>
-		  </td>
-		</tr>
-		<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>'">  
-		 <td class="tableBody" align="left" valign="top"><font color="red"><b><?php echo strtoupper($fixfield[0])?></b></font></td>
-		 <td class="tableBody" align="center" valign="top"><font color="red"><b><?php echo $tariffplanval[1]?> (<?php echo $tariffplanval[0]?>)</b></font></td>
-		</tr>
-		<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[2]?>'">  
-		 <td class="tableBody" align="left" valign="top"><font color="red"><b><?php echo strtoupper($fixfield[1])?></b></font></td>
-		 <td class="tableBody" align="center" valign="top"><font color="red"><b><?php echo $trunkval[1]?> (<?php echo $trunkval[0]?>)</b></font></td>
-		</tr>
-		<?php  for ($i=0;$i<count($field);$i++){ ?>
-		<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i+1)%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i+1)%2]?>'">  
-		 <td class="tableBody" align="left" valign="top"><b><?php echo strtoupper($field[$i])?></b></td>
-		 <td class="tableBody" align="center" valign="top"><?php echo $val[$i]?></td>
-		</tr>
-		<?php  } ?>
-		<?php  for ($i=0;$i<count($fieldtoimport);$i++){ ?>
-		<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i)%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i)%2]?>'">  
-		 <td class="tableBody" align="left" valign="top"><b><?php echo strtoupper($fieldtoimport[$i])?></b></td>
-		 <td class="tableBody" align="center" valign="top"><?php echo $val[$i+3]?></td>
-		</tr>
-		<?php  } ?>
-		
-	</tbody>
+<table align="center" border="0" cellpadding="2" cellspacing="2" width="300">
+	<tr class="form_head">                  					
+	  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
+		<strong> <span class="white_link"><?php echo gettext("FIELD")?> </span> </strong>
+	  </td>
+	  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
+		<strong> <span class="white_link"><?php echo gettext("VALUE")?> </span> </strong>
+	  </td>
+	</tr>
+	<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>'">  
+	 <td class="tableBody" align="left" valign="top"><font color="red"><b><?php echo strtoupper($fixfield[0])?></b></font></td>
+	 <td class="tableBody" align="center" valign="top"><font color="red"><b><?php echo $tariffplanval[1]?> (<?php echo $tariffplanval[0]?>)</b></font></td>
+	</tr>
+	<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[2]?>'">  
+	 <td class="tableBody" align="left" valign="top"><font color="red"><b><?php echo strtoupper($fixfield[1])?></b></font></td>
+	 <td class="tableBody" align="center" valign="top"><font color="red"><b><?php echo $trunkval[1]?> (<?php echo $trunkval[0]?>)</b></font></td>
+	</tr>
+	<?php  for ($i=0;$i<count($field);$i++){ ?>
+	<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i+1)%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i+1)%2]?>'">  
+	 <td class="tableBody" align="left" valign="top"><b><?php echo strtoupper($field[$i])?></b></td>
+	 <td class="tableBody" align="center" valign="top"><?php echo $val[$i]?></td>
+	</tr>
+	<?php  } ?>
+	<?php  for ($i=0;$i<count($fieldtoimport);$i++){ ?>
+	<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i)%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i)%2]?>'">  
+	 <td class="tableBody" align="left" valign="top"><b><?php echo strtoupper($fieldtoimport[$i])?></b></td>
+	 <td class="tableBody" align="center" valign="top"><?php echo $val[$i+3]?></td>
+	</tr>
+	<?php  } ?>
 </table>
 
 
 <br></br>
 <table width="95%" border="0" cellspacing="2" align="center" class="records">
+  <form name="myform" enctype="multipart/form-data" action="CC_ratecard_import_analyse.php" method="post" >
+	<INPUT type="hidden" name="tariffplan" value="<?php echo $tariffplan?>">
+	<INPUT type="hidden" name="trunk" value="<?php echo $trunk?>">
+	<INPUT type="hidden" name="currencytype" value="<?php echo $currencytype?>">
+	<INPUT type="hidden" name="search_sources" value="<?php echo $search_sources?>">
+	<INPUT TYPE="hidden" VALUE="<?php echo $tag?>" NAME="tag">
 	
-	  <form name="myform" enctype="multipart/form-data" action="CC_ratecard_import_analyse.php" method="post" >
-		<INPUT type="hidden" name="tariffplan" value="<?php echo $tariffplan?>">
-		<INPUT type="hidden" name="trunk" value="<?php echo $trunk?>">
-		<INPUT type="hidden" name="currencytype" value="<?php echo $currencytype?>">
-		<INPUT type="hidden" name="search_sources" value="<?php echo $search_sources?>">
-		<INPUT TYPE="hidden" VALUE="<?php echo $tag?>" NAME="tag">
-		
-		<tr> 
-		  <td colspan="2"> 
-			<div align="center"><span class="textcomment"> 
-			   <?php echo gettext("Please check if the datas above are correct.")?> <br><b><?php echo gettext("If Yes")?></b>, <?php echo gettext("you can continue the import. Otherwise you must fix your csv file!")?>
-			  </span></div>
-		  </td>
-		</tr>                
-		<tr> 
-		  <td colspan="2"> 
-			<p align="center">
-			  <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
-			  <input type="hidden" name="task" value="upload">
-			  <input type="hidden" name="status" value="ok">
-			  <input type="hidden" name="uploadedfile_name" value="<?php echo $new_filename?>">
-			  <input type="hidden" name="uploadedfile_type" value="<?php echo $the_file_type?>">
-			  <input type="submit"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
-			  <br>
-			  &nbsp; </p>
-		  </td>
-		</tr>
-		
-		<tr> 
-		  <td  class="bgcolor_014" colspan="2"><b> 
-			<?php echo $translate[P34_9]?>
-			</b></td>
-		</tr>
-	   
-	  </form>
-	</table>
+	<tr> 
+	  <td colspan="2"> 
+		<div align="center"><span class="textcomment"> 
+		   <?php echo gettext("Please check if the datas above are correct.")?> <br><b><?php echo gettext("If Yes")?></b>, <?php echo gettext("you can continue the import. Otherwise you must fix your csv file!")?>
+		  </span></div>
+	  </td>
+	</tr>                
+	<tr> 
+	  <td colspan="2"> 
+		<p align="center">
+		  <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
+		  <input type="hidden" name="task" value="upload">
+		  <input type="hidden" name="status" value="ok">
+		  <input type="hidden" name="uploadedfile_name" value="<?php echo $new_filename?>">
+		  <input type="hidden" name="uploadedfile_type" value="<?php echo $the_file_type?>">
+		  <input type="submit"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
+		  <br>
+		  &nbsp; </p>
+	  </td>
+	</tr>
 	
-	<?php }else{ ?>
+	<tr> 
+	  <td  class="bgcolor_014" colspan="2"><b> 
+		<?php echo $translate[P34_9]?>
+		</b></td>
+	</tr>
+   
+  </form>
+</table>
 	
-	</br>
-	<table width="75%" border="0" cellspacing="2" align="center" class="records">
-	
-		<TR> 
-			<TD style="border-bottom: medium dotted #ED2525" align="center">&nbsp;</TD>
-		</TR>
-		<tr> 
-		  <td colspan="2" class="bgcolor_015" style="padding-left: 5px; padding-right: 3px;" align=center>
-			<div align="center"><span class="textcomment"> 
-			  <br>
-			  <?php 
-			  $log = new Logger();
-			  $log -> insertLog($_SESSION["admin_id"], 2, "RATE CARD IMPORTED", $nb_imported." Ratecards Imported Successfully", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
-			  $log = null;
-			  ?>
-			  <?php echo gettext("Success")?>, <?php echo $nb_imported?> &nbsp; <?php echo gettext("new rates have been imported")?>.<br>
-			  </span></div>
-			  <br><br>
-			  
-			  <?php  if (!empty($buffer_error)){ ?>
-			  <center>
-				 <b><i><?php echo gettext("Line that has not been inserted")?>!</i></b>
-				 <div class="myscroll">
-					  <span style="color: red;">
-					  <?php echo $buffer_error?> 
-					  </span>  
-				 </div>
-				</center>
-				<br>
-			 <?php  } ?>
-			 
-		  </td>
-		</tr>
-	</table>
-	
-	<?php }?>
-	<br>
-	
-<?php
+<?php } else { ?>
 
+</br>
+<table width="75%" border="0" cellspacing="2" align="center" class="records">
+	<TR> 
+		<TD style="border-bottom: medium dotted #ED2525" align="center">&nbsp;</TD>
+	</TR>
+	<tr> 
+	  <td colspan="2" class="bgcolor_015" style="padding-left: 5px; padding-right: 3px;" align=center>
+		<div align="center"><span class="textcomment"> 
+		  <br>
+		  <?php 
+		  $log = new Logger();
+		  $log -> insertLog($_SESSION["admin_id"], 2, "RATE CARD IMPORTED", $nb_imported." Ratecards Imported Successfully", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+		  $log = null;
+		  ?>
+		  <?php echo gettext("Success")?>, <?php echo $nb_imported?> &nbsp; <?php echo gettext("new rates have been imported")?>.<br>
+		  </span></div>
+		  <br><br>
+		  
+		  <?php  if (!empty($buffer_error)){ ?>
+		  <center>
+		  <b><i><?php echo gettext("Line that has not been inserted")?>!</i></b>
+		  <div class="myscroll">
+			<span style="color: red;">
+				<?php echo $buffer_error?> 
+			</span>  
+		  </div>
+		  </center>
+		  <br>
+		  <?php  } ?>
+	  </td>
+	</tr>
+</table>
+
+<?php } ?>
+<center>
+
+<br>
+
+<?php
 if($uploadedfile_name != "") {
 	unlink($uploadedfile_name);
 }

@@ -33,6 +33,7 @@ define ("ACX_SUPPORT",						16384);		// 1 << 14
 define ("ACX_NOTIFICATION",					32768);		// 1 << 15
 define ("ACX_AUTODIALER",					65536);		// 1 << 16
 define ("ACX_PERSONALINFO",					131072);	
+define ("ACX_SEERECORDING",					262144);
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 
@@ -175,6 +176,6 @@ $ACXCALLER_ID				= has_rights (ACX_CALLER_ID);
 $ACXSUPPORT 				= has_rights (ACX_SUPPORT);
 $ACXNOTIFICATION 			= has_rights (ACX_NOTIFICATION);
 $ACXAUTODIALER 				= has_rights (ACX_AUTODIALER);
-
+$ACXSEERECORDING 			= has_rights (ACX_SEERECORDING);
 
 
