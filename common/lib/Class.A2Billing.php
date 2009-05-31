@@ -229,6 +229,9 @@ class A2Billing {
 			$this -> write_log ($buffer_debug, 1, "[file:$file - line:$line - uniqueid:".$this->uniqueid."]:");
 		}
 	}
+	
+	
+	
 
 	/*
 	 * Write log into file
@@ -2494,7 +2497,150 @@ class A2Billing {
 
 		return $res;
 	}
+	
+	function callingcard_ivr_authenticate_minimum($agi)
+	{
+		$prompt				= '';
+		$res				= 0;
+		$retries			= 0;
+		$language 			= 'en';
+		$prompt_entercardnum= "prepaid-enter-pin-number";
+		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Account code - '.$this->accountcode);
 
+		for ($retries = 0; $retries < 3; $retries++) {
+			if (($retries>0) && (strlen($prompt)>0)){
+				$agi-> stream_file($prompt, '#');
+				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+			}
+			if ($res < 0) {
+				$res = -1;
+				break;
+			}
+
+			$res = 0;
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "Requesting DTMF, CARDNUMBER_LENGTH_MAX ".CARDNUMBER_LENGTH_MAX);
+			$res_dtmf = $agi->get_data($prompt_entercardnum, 6000, CARDNUMBER_LENGTH_MAX);
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
+			$this->cardnumber = $res_dtmf ["result"];
+
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "CARDNUMBER ::> ".$this->cardnumber);
+
+			if ( !isset($this->cardnumber) || strlen($this->cardnumber) == 0) {
+				$prompt = "prepaid-no-card-entered";
+				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+				continue;
+			}
+
+			if ( strlen($this->cardnumber) > CARDNUMBER_LENGTH_MAX || strlen($this->cardnumber) < CARDNUMBER_LENGTH_MIN) {
+				$prompt = "prepaid-invalid-digits";
+				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+				continue;
+			}
+			$this->accountcode = $this->username = $this->cardnumber;
+
+			$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
+			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
+
+			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result,true));
+
+			if( !is_array($result)) {
+				$prompt="prepaid-auth-fail";
+				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+				continue;
+			}
+
+			$this->credit = $result[0][0];
+			$this->tariff = $result[0][1];
+			$this->active = $result[0][2];
+			$isused = $result[0][3];
+			$simultaccess = $result[0][4];
+			$this->typepaid = $result[0][5];
+			$creditlimit = $result[0][6];
+			$this->creditlimit 	= $result[0][6];
+			$language = $result[0][7];
+			$this->removeinterprefix = $result[0][8];
+			$this->redial = $result[0][9];
+			$this->enableexpire = $result[0][10];
+			$this->expirationdate = $result[0][11];
+			$this->expiredays = $result[0][12];
+			$this->nbused = $result[0][13];
+			$this->firstusedate = $result[0][14];
+			$this->creationdate = $result[0][15];
+			$this->currency = $result[0][16];
+			$this->cardholder_lastname = $result[0][17];
+			$this->cardholder_firstname = $result[0][18];
+			$this->cardholder_email = $result[0][19];
+			$this->cardholder_uipass = $result[0][20];
+			$the_card_id = $result[0][21];
+			$this->id_campaign  = $result[0][22];
+			$this->id_card  = $result[0][23];
+			$this->useralias = $result[0][24];
+			$this->status = $result[0][25];
+			$this->voicemail = ($result[0][26] && $result[0][27]) ? 1 : 0;
+			$this->restriction = $result[0][28];
+			if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
+
+			if (strlen($language)==2  && !($this->languageselected>=1))
+			{
+				// http://www.voip-info.org/wiki/index.php?page=Asterisk+cmd+SetLanguage
+				// Set(CHANNEL(language)=<lang>) 1_4 & Set(LANGUAGE()=language) 1_2
+				if($this->agiconfig['asterisk_version'] == "1_2")
+				{
+					$lg_var_set = 'LANGUAGE()';
+				}
+				else
+				{
+					$lg_var_set = 'CHANNEL(language)';
+				}
+				$agi -> set_variable($lg_var_set, $language);
+				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
+			}
+			$prompt = '';
+			// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
+			if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+			// CHECK IF THE CARD IS USED
+			if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
+			// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
+			if ($this->enableexpire>0){
+				if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
+					// expire date
+					if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
+					$prompt = "prepaid-card-expired";
+
+				}elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+					// expire days since first use
+					$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
+					if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
+					$prompt = "prepaid-card-expired";
+
+				}elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+					// expire days since creation
+					$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
+					if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
+					$prompt = "prepaid-card-expired";
+				}
+			}
+
+			if (strlen($prompt)>0){
+				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
+				$res = -2;
+				break;
+			}
+			break;
+		}//end for
+		if (($retries < 3) && $res==0) {
+			$this -> callingcard_acct_start_inuse($agi,1);
+		} else if ($res == -2 ) {
+			$agi-> stream_file($prompt, '#');
+		} else {
+			$res = -1;
+		}
+
+		return $res;
+	}
+	
+	
 
 	function callingcard_ivr_authenticate_light (&$error_msg,$simbalance) {
 		
