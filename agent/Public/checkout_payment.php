@@ -12,52 +12,53 @@ include ("../lib/epayment/includes/loadconfiguration.php");
 include ("../lib/epayment/includes/configure.php");
 include ("../lib/agent.smarty.php");
 
-if (! has_rights (ACX_ACCESS)){
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!has_rights(ACX_ACCESS)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 $currencies_list = get_currencies();
 $two_currency = false;
-if (!isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeric($currencies_list[strtoupper($_SESSION['currency'])][2]) ){
-	$mycur = 1; 
-}else{ 
+if (!isset ($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeric($currencies_list[strtoupper($_SESSION['currency'])][2])) {
+	$mycur = 1;
+} else {
 	$mycur = $currencies_list[strtoupper($_SESSION['currency'])][2];
-	$display_currency =strtoupper($_SESSION['currency']);
-	if(strtoupper($_SESSION['currency'])!=strtoupper(BASE_CURRENCY))$two_currency=true;
+	$display_currency = strtoupper($_SESSION['currency']);
+	if (strtoupper($_SESSION['currency']) != strtoupper(BASE_CURRENCY))
+		$two_currency = true;
 }
 
+$HD_Form = new FormHandler("cc_payment_methods", "payment_method");
 
-$HD_Form = new FormHandler("cc_payment_methods","payment_method");
+getpost_ifset(array (
+	'item_id',
+	'item_type'
+));
 
-getpost_ifset(array('item_id','item_type'));
-$DBHandle =DbConnect();
-$HD_Form -> setDBHandler ($DBHandle);
-$HD_Form -> init();
-
+$DBHandle = DbConnect();
+$HD_Form->setDBHandler($DBHandle);
+$HD_Form->init();
 
 // #### HEADER SECTION
 
-
 $static_amount = false;
-$amount=0;
-if($item_type = "invoice" && is_numeric($item_id)){
-	$table_invoice = new Table("cc_invoice","status,paid_status");
-	$clause_invoice = "id = ".$item_id;
-	$result= $table_invoice -> Get_list($DBHandle,$clause_invoice);
-	if(is_array($result) && $result[0]['status']==1 && $result[0]['paid_status']==0 ){
-		$table_invoice_item = new Table("cc_invoice_item","COALESCE(SUM(price*(1+(vat/100))),0)");
-		$clause_invoice_item = "id_invoice = ".$item_id;
-		$result= $table_invoice_item -> Get_list($DBHandle,$clause_invoice_item);
+$amount = 0;
+if ($item_type = "invoice" && is_numeric($item_id)) {
+	$table_invoice = new Table("cc_invoice", "status,paid_status");
+	$clause_invoice = "id = " . $item_id;
+	$result = $table_invoice->Get_list($DBHandle, $clause_invoice);
+	if (is_array($result) && $result[0]['status'] == 1 && $result[0]['paid_status'] == 0) {
+		$table_invoice_item = new Table("cc_invoice_item", "COALESCE(SUM(price*(1+(vat/100))),0)");
+		$clause_invoice_item = "id_invoice = " . $item_id;
+		$result = $table_invoice_item->Get_list($DBHandle, $clause_invoice_item);
 		$amount = $result[0][0];
-		
+
 		$static_amount = true;
 	}
 }
-$smarty->display( 'main.tpl');
-$HD_Form -> create_toppage ($form_action);
-
+$smarty->display('main.tpl');
+$HD_Form->create_toppage($form_action);
 
 $payment_modules = new payment;
 ?>
@@ -105,17 +106,23 @@ function rowOutEffect(object) {
 }
 //--></script>
 
-<?php echo $payment_modules->javascript_validation(); ?>
+<?php
+
+echo $payment_modules->javascript_validation();
+?>
 
 <br>
 <center>
-<?php 
-	echo $PAYMENT_METHOD;
+<?php
+
+echo $PAYMENT_METHOD;
 ?>
 <br>
 <?php
+
 $form_action_url = tep_href_link("checkout_confirmation.php", '', 'SSL');
 echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="checkamount()"');
+
 ?>
 
     <input name="item_id" type=hidden value="<?php echo $item_id?>">
