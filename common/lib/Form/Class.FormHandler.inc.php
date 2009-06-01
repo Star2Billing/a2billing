@@ -664,12 +664,7 @@ class FormHandler
 	        }
 	        $input  = $this -> cleanInput($input);
 	        
-	        if (DB_TYPE == "mysql") {
-				// a mySQL connection is required before using this function  
-				$output = mysql_real_escape_string($input);  
-			} else {
-				$output = addslashes( $input );
-			}
+	        $output = addslashes( $input );
 	    }
 	    
 	    return $output;
@@ -2469,7 +2464,7 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%id", $processed['id'], $this->FG_INTRO_TEXT_DELETION);
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%table", $this->FG_TABLE_NAME, $this->FG_INTRO_TEXT_DELETION);
-		if (isset($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
+		if (isset($this->FG_GO_LINK_AFTER_ACTION_DELETE)) {
 			if ($this->FG_DEBUG == 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id'];
 			if( $this->FG_GO_LINK_AFTER_ACTION_DELETE){
 				if(substr($this->FG_GO_LINK_AFTER_ACTION_DELETE,-3)=="id="){
@@ -2491,14 +2486,11 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
         $tableCount = count($this -> FG_FK_TABLENAMES);
         $clauseCount = count($this -> FG_FK_EDITION_CLAUSE);
         $rowcount = 0;
-        if(($tableCount == $clauseCount) && $clauseCount > 0)
-        {
+        if(($tableCount == $clauseCount) && $clauseCount > 0) {
             for($i = 0; $i < $tableCount; $i++)
             {
-                if ($processed['id']!="" || !is_null($processed['id']))
-                {
+                if ($processed['id']!="" || !is_null($processed['id'])) {
                     $instance_table = new Table($this -> FG_FK_TABLENAMES[$i]);
-                    //$rowcount = $rowcount + $instance_table -> Table_count ($this->DBHandle, str_replace("%id", $processed['id'], $this -> FG_FK_EDITION_CLAUSE[$i]));
                     $rowcount = $rowcount + $instance_table -> Table_count ($this->DBHandle, $this -> FG_FK_EDITION_CLAUSE[$i], $processed['id']);
                 }
             }
@@ -2511,31 +2503,25 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 	* Function to add_content
 	* @public
 	*/
-	function perform_add_content($sub_action,$id){
-
+	function perform_add_content($sub_action,$id)
+	{
 		$processed = $this->getProcessed();
-
 		$table_split = split(":",$this->FG_TABLE_EDITION[$sub_action][14]);
-
 		$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);		
 		
-		if(is_array($processed[$table_split[1]])){
+		if (is_array($processed[$table_split[1]])) {
 			foreach($processed[$table_split[1]] as $value) {
 				if (empty($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
 					// RESPECT REGULAR EXPRESSION
 					$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($value))."', '".addslashes(trim($id))."'", null, null);
 			
-					if (!$result_query ){
-			
+					if (!$result_query) {
 						$findme   = 'duplicate';
 						$pos_find = strpos($instance_sub_table -> errstr, $findme);
 			
-						// Note our use of ===.  Simply == would not work as expected
-						// because the position of 'a' was the 0th (first) character.
-			
 						if ($pos_find === false) {
 							echo $instance_sub_table -> errstr;
-						}else{
+						} else {
 							$alarm_db_error_duplication = true;
 						}
 					}
@@ -2543,21 +2529,18 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 			}
 		} else {
 			$value = $processed[$table_split[1]];
-			if (empty($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)){
+			if (empty($table_split[12]) || ereg ($this->FG_regular[$table_split[12]][0], $value)) {
 				// RESPECT REGULAR EXPRESSION
 				$result_query = $instance_sub_table -> Add_table ($this->DBHandle, "'".addslashes(trim($value))."', '".addslashes(trim($id))."'", null, null);
 		
-				if (!$result_query ){
+				if (!$result_query) {
 		
 					$findme   = 'duplicate';
 					$pos_find = strpos($instance_sub_table -> errstr, $findme);
-		
-					// Note our use of ===.  Simply == would not work as expected
-					// because the position of 'a' was the 0th (first) character.
-		
+					
 					if ($pos_find === false) {
 						echo $instance_sub_table -> errstr;
-					}else{
+					} else {
 						$alarm_db_error_duplication = true;
 					}
 				}
@@ -2674,7 +2657,8 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
      *  CREATE_CUSTOM : Function to display a custom message using form_action
      *  @public		TODO : maybe is better to allow use a string as parameter
      */
-	function create_custom($form_action){
+	function create_custom($form_action)
+	{
 		$processed = $this->getProcessed();
 		?>
 
@@ -2702,7 +2686,8 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
      *  CREATE_CUSTOM : Function to display a custom message using form_action
      *  @public		TODO : maybe is better to allow use a string as parameter
      */
-	 function create_select_form() {
+	 function create_select_form()
+	 {
 	 	$processed = $this->getProcessed();
 	 	include_once (FSROOT."lib/Class.Table.php");
 		$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
@@ -2766,7 +2751,8 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
      *  create_select_form_client() : Function to display a select list on form
      *  @public		TODO : maybe is better to allow use a string as parameter
      */
-	 function create_select_form_client($table_cluase = ""){
+	 function create_select_form_client($table_cluase = "")
+	 {
 	 	$processed = $this->getProcessed();
 	 	include_once (FSROOT."lib/Class.Table.php");
 		$instance_table_tariffname = new Table("cc_tariffplan, cc_tariffgroup_plan", "id, tariffname");
