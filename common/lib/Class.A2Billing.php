@@ -1069,8 +1069,7 @@ class A2Billing {
 	{
 		$res = 0;
 
-		if ( ($this->agiconfig['use_dnid']==1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid)>2 ))
-		{
+		if ( ($this->agiconfig['use_dnid']==1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid)>2 )) {
 			$this->destination = $this->dnid;
 		} else {
 			$res_dtmf = $agi->get_data('prepaid-sipiax-enternumber', 6000, $this->config['global']['len_aliasnumber'], '#');
@@ -1081,9 +1080,9 @@ class A2Billing {
 				return -1;
 			}
 		}
-
-		$this->save_redial_number($this->destination);
-
+		
+		$this->save_redial_number($agi, $this->destination);
+		
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "SIP o IAX DESTINATION : ".$this->destination);
 		$sip_buddies = 0;
 		$iax_buddies = 0;
@@ -2873,7 +2872,8 @@ class A2Billing {
      * Function DbReConnect
      * Returns: true / false if connection has been established
      */
-	function DbReConnect($agi) {
+	function DbReConnect($agi)
+	{
 		$res = $this->DBHandle -> Execute("select 1");
 		if (!$res) {
 		   	$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[DB CONNECTION LOST] - RECONNECT ATTEMPT");	
@@ -2924,8 +2924,8 @@ class A2Billing {
 	 * used by parameter like interval_len_cardnumber : 8-10, 12-18, 20
 	 * it will build an array with the different interval
 	 */
-	function splitable_data ($splitable_value){
-
+	function splitable_data ($splitable_value)
+	{
 		$arr_splitable_value = explode(",", $splitable_value);
 		foreach ($arr_splitable_value as $arr_value){
 			$arr_value = trim ($arr_value);
@@ -2951,7 +2951,8 @@ class A2Billing {
 		return $arr_value_to_import;
 	}
 
-	function save_redial_number($agi, $number){
+	function save_redial_number($agi, $number)
+	{
 		if(($this->mode == 'did') || ($this->mode == 'callback')){
 		    return;
 		}
