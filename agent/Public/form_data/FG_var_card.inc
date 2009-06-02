@@ -750,6 +750,16 @@ $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "" , "", "",	"", "", "", "NO", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
 
 
+$HD_Form -> AddEditElement (gettext("ADD DIALING PREFIX"),
+			   "add_dialing_prefix",
+			   '$value',
+			   "INPUT",
+			   "size=7 maxlength=7",
+			   "",
+			   "",
+			   "" , "", "",	"", "", "", "NO", gettext("This will be used to apply a rules for customer on dialing - the prefix will be added if one leading 0 is in front of the dialing number.") );
+
+
 $HD_Form -> AddEditElement (gettext("AUTOREFILL"),
 			   "autorefill",
 			   '0',
@@ -901,7 +911,7 @@ $HD_Form -> FieldEditElement ('username, useralias, uipass'.$balance_delete.', i
 		' address, city, state, country, zipcode, phone, fax,company_name, company_website '.
 		$typepaid_delete.', tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
 		' creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
-		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, autorefill, initialbalance,' .
+		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, add_dialing_prefix, autorefill, initialbalance,' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
 
 

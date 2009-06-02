@@ -141,7 +141,8 @@ class A2Billing {
 	var $restriction = 1;
 	var $redial;
 	var $nbused = 0;
-
+	var $add_dialing_prefix = '';
+	
 	var $enableexpire;
 	var $expirationdate;
 	var $expiredays;
@@ -800,6 +801,7 @@ class A2Billing {
 			$this->destination = $res_dtmf ["result"];
 		}
 		
+		$this->destination = $this->apply_add_dialing_prefix ($this->destination);
 		
 		//TEST if this card is restricted !
 		if($this->restriction == 1 || $this->restriction == 2 ) {
@@ -825,7 +827,6 @@ class A2Billing {
 			  		return -1;
 				}
 			}
-			
 		}
 		
 		//REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
@@ -840,9 +841,13 @@ class A2Billing {
 		if ($this->CC_TESTING) $this->destination="1800300200";
 		
 		$this -> debug( INFO, $agi, __FILE__, __LINE__, "DESTINATION ::> ".$this->destination);
+		
+		$this->destination = $this->apply_add_dialing_prefix ($this->destination);
+		
 		if ($this->removeinterprefix) $this->destination = $this -> apply_rules ($this->destination);
+		
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RULES APPLY ON DESTINATION ::> ".$this->destination);
-
+		
 		// TRIM THE "#"s IN THE END, IF ANY
 		// usefull for SIP or IAX friends with "use_dnid" when their device sends also the "#"
 		// it should be safe for normal use
@@ -1799,6 +1804,18 @@ class A2Billing {
 		$this->myprefix='';
 		return $phonenumber;
 	}
+	
+	/*
+	 * Function apply_add_dialing_prefix to the phonenumber : add a dialing prefix 
+	 */
+	function apply_add_dialing_prefix ($phonenumber)
+	{
+		if ((strlen($this->add_dialing_prefix)>0) && (substr($phonenumber,0,1)=="0") && (substr($phonenumber,1,1)!="0")) {
+					return $this->add_dialing_prefix.substr($phonenumber,1);
+		}
+		
+		return $phonenumber;
+	}
 
 
 	/*
@@ -1960,11 +1977,11 @@ class A2Billing {
 
 			// NOT USE A LEFT JOIN HERE - In case the callerID is alone without card bound
 			$QUERY =  "SELECT cc_callerid.cid, cc_callerid.id_cc_card, cc_callerid.activated, cc_card.credit, ".
-				  " cc_card.tariff, cc_card.activated, cc_card.inuse, cc_card.simultaccess,  ".
-				  " cc_card.typepaid, cc_card.creditlimit, cc_card.language, cc_card.username, removeinterprefix, cc_card.redial, ";
-			$QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
-
-			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, cc_card.status, cc_card.voicemail_permitted, cc_card.voicemail_activated , cc_card.restriction".
+				  		" cc_card.tariff, cc_card.activated, cc_card.inuse, cc_card.simultaccess, cc_card.typepaid, cc_card.creditlimit, " .
+				  		" cc_card.language, cc_card.username, removeinterprefix, cc_card.redial, enableexpire, UNIX_TIMESTAMP(expirationdate), " .
+				  		" expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, " .
+				  		" cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, " .
+				  		" cc_card.status, cc_card.voicemail_permitted, cc_card.voicemail_activated, cc_card.restriction, cc_card.add_dialing_prefix".
 						" FROM cc_callerid ".
 						" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 						" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
@@ -2074,6 +2091,8 @@ class A2Billing {
 				$this->status 				= $result[0][28];
 				$this->voicemail			= ($result[0][29] && $result[0][30]) ? 1 : 0;
 				$this->restriction			= $result[0][31];
+				$this->add_dialing_prefix	= $result[0][32];
+				
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 
 				// CHECK IF CALLERID ACTIVATED
@@ -2150,12 +2169,16 @@ class A2Billing {
 			$this->username = $this -> cardnumber = $this->accountcode;
 			for ($i=0;$i<=0;$i++){
 
-				if ($callerID_enable!=1 || !is_numeric($this->CallerID) || $this->CallerID<=0){
-
-					$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
-					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card ";
-
-					$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
+				if ($callerID_enable!=1 || !is_numeric($this->CallerID) || $this->CallerID<=0) {
+					
+					$QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, creditlimit, language, removeinterprefix, " .
+								" redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), " .
+								" UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, " .
+								" cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated, " .
+								" cc_card.restriction, cc_card.add_dialing_prefix " .
+								" FROM cc_card " .
+								" LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id " .
+								" WHERE username='".$this->cardnumber."'";
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 					
 					if( !is_array($result)) {
@@ -2212,9 +2235,10 @@ class A2Billing {
 					$this->id_card  			= $result[0][22];
 					$this->useralias 			= $result[0][23];
 					$this->status 				= $result[0][24];
-					$this->voicemail		= ($result[0][25] && $result[0][26]) ? 1 : 0;
+					$this->voicemail			= ($result[0][25] && $result[0][26]) ? 1 : 0;
 					$this->restriction			= $result[0][27];
-
+					$this->add_dialing_prefix	= $result[0][28];
+					
 					if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				}
 
@@ -2324,11 +2348,16 @@ class A2Billing {
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 					continue;
 				}
-				$this->accountcode = $this->username = $this->cardnumber;
-
-				$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
-				$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
-
+				$this -> accountcode = $this -> username = $this -> cardnumber;
+				
+				$QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, creditlimit, language, removeinterprefix, redial, " .
+							" enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), " .
+							" UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, " .
+							" cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, " .
+							" voicemail_activated, cc_card.restriction, cc_card.add_dialing_prefix " .
+							" FROM cc_card LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id " .
+							" WHERE username='".$this->cardnumber."'";
+				
 				$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result,true));
 
@@ -2336,7 +2365,7 @@ class A2Billing {
 					$prompt="prepaid-auth-fail";
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 					continue;
-				}else{
+				} else {
 					// WE ARE GOING TO CHECK IF THE CALLERID IS CORRECT FOR THIS CARD
 					if ($this->agiconfig['callerid_authentication_over_cardnumber']==1){
 
@@ -2360,35 +2389,37 @@ class A2Billing {
 					}
 				}
 
-				$this->credit = $result[0][0];
-				$this->tariff = $result[0][1];
-				$this->active = $result[0][2];
-				$isused = $result[0][3];
-				$simultaccess = $result[0][4];
-				$this->typepaid = $result[0][5];
-				$creditlimit = $result[0][6];
-				$this->creditlimit 	= $result[0][6];
-				$language = $result[0][7];
-				$this->removeinterprefix = $result[0][8];
-				$this->redial = $result[0][9];
-				$this->enableexpire = $result[0][10];
-				$this->expirationdate = $result[0][11];
-				$this->expiredays = $result[0][12];
-				$this->nbused = $result[0][13];
-				$this->firstusedate = $result[0][14];
-				$this->creationdate = $result[0][15];
-				$this->currency = $result[0][16];
-				$this->cardholder_lastname = $result[0][17];
+				$this->credit 				= $result[0][0];
+				$this->tariff 				= $result[0][1];
+				$this->active 				= $result[0][2];
+				$isused 					= $result[0][3];
+				$simultaccess 				= $result[0][4];
+				$this->typepaid 			= $result[0][5];
+				$creditlimit 				= $result[0][6];
+				$this->creditlimit			= $result[0][6];
+				$language 					= $result[0][7];
+				$this->removeinterprefix 	= $result[0][8];
+				$this->redial 				= $result[0][9];
+				$this->enableexpire 		= $result[0][10];
+				$this->expirationdate 		= $result[0][11];
+				$this->expiredays 			= $result[0][12];
+				$this->nbused 				= $result[0][13];
+				$this->firstusedate 		= $result[0][14];
+				$this->creationdate 		= $result[0][15];
+				$this->currency 			= $result[0][16];
+				$this->cardholder_lastname 	= $result[0][17];
 				$this->cardholder_firstname = $result[0][18];
-				$this->cardholder_email = $result[0][19];
-				$this->cardholder_uipass = $result[0][20];
-				$the_card_id = $result[0][21];
-				$this->id_campaign  = $result[0][22];
-				$this->id_card  = $result[0][23];
-				$this->useralias = $result[0][24];
-				$this->status = $result[0][25];
-				$this->voicemail = ($result[0][26] && $result[0][27]) ? 1 : 0;
-				$this->restriction = $result[0][28];
+				$this->cardholder_email 	= $result[0][19];
+				$this->cardholder_uipass 	= $result[0][20];
+				$the_card_id 				= $result[0][21];
+				$this->id_campaign			= $result[0][22];
+				$this->id_card				= $result[0][23];
+				$this->useralias			= $result[0][24];
+				$this->status 				= $result[0][25];
+				$this->voicemail 			= ($result[0][26] && $result[0][27]) ? 1 : 0;
+				$this->restriction 			= $result[0][28];
+				$this->add_dialing_prefix 	= $result[0][29];
+				
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 
 				if (strlen($language)==2  && !($this->languageselected>=1)) {
@@ -2538,9 +2569,14 @@ class A2Billing {
 			}
 			$this->accountcode = $this->username = $this->cardnumber;
 
-			$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
-			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated , cc_card.restriction FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
-
+			$QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, creditlimit, language, removeinterprefix, redial, " .
+						" enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), " .
+						" UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, " .
+						" cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, status, voicemail_permitted, voicemail_activated, " .
+						" cc_card.restriction, cc_card.add_dialing_prefix " .
+						" FROM cc_card LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id " .
+						" WHERE username='".$this->cardnumber."'";
+			
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result,true));
 
@@ -2579,18 +2615,16 @@ class A2Billing {
 			$this->status = $result[0][25];
 			$this->voicemail = ($result[0][26] && $result[0][27]) ? 1 : 0;
 			$this->restriction = $result[0][28];
-			if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
+			$this->add_dialing_prefix = $result[0][29];
+			
+			if ($this->typepaid==1) $this->credit = $this->credit + $creditlimit;
 
-			if (strlen($language)==2  && !($this->languageselected>=1))
-			{
+			if (strlen($language)==2  && !($this->languageselected>=1)) {
 				// http://www.voip-info.org/wiki/index.php?page=Asterisk+cmd+SetLanguage
 				// Set(CHANNEL(language)=<lang>) 1_4 & Set(LANGUAGE()=language) 1_2
-				if($this->agiconfig['asterisk_version'] == "1_2")
-				{
+				if($this->agiconfig['asterisk_version'] == "1_2") {
 					$lg_var_set = 'LANGUAGE()';
-				}
-				else
-				{
+				} else {
 					$lg_var_set = 'CHANNEL(language)';
 				}
 				$agi -> set_variable($lg_var_set, $language);
@@ -2645,9 +2679,12 @@ class A2Billing {
 	function callingcard_ivr_authenticate_light (&$error_msg,$simbalance) {
 		
 		$res=0;
-		$QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
-		$QUERY .= "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, voicemail_permitted, voicemail_activated, cc_card.restriction FROM cc_card ";
-		$QUERY .= "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
+		$QUERY = "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, creditlimit, language, removeinterprefix, redial, enableexpire, " .
+					" UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), " .
+					" cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, status, " .
+					" voicemail_permitted, voicemail_activated, cc_card.restriction, cc_card.add_dialing_prefix " .
+					" FROM cc_card LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id " .
+					" WHERE username='".$this->cardnumber."'";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		
 		if( !is_array($result)) {
@@ -2684,8 +2721,9 @@ class A2Billing {
 		$this->id_campaign  = $result[0][21];
 		$this->status  = $result[0][22];
 		$this->voicemail = ($result[0][23] && $result[0][24]) ? 1 : 0;
-		$this->restriction			= $result[0][25];
-
+		$this->restriction = $result[0][25];
+		$this->add_dialing_prefix = $result[0][26];
+		
 		if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 
 		// CHECK IF ENOUGH CREDIT TO CALL
