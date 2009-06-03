@@ -75,6 +75,10 @@ $conf_clause = "key_val = 'vat'";
 $result = $invoice_conf_table -> Get_list($DBHandle, $conf_clause, 0);
 $vat_invoice = $result[0][0];
 
+$conf_clause = "key_val = 'display_account'";
+$result = $invoice_conf_table -> Get_list($DBHandle, $conf_clause, 0);
+$display_account = $result[0][0];
+
 //country convert
 $table_country= new Table('cc_country','countryname');
 $country_clause = "countrycode = '".$card['country']."'";
@@ -169,10 +173,12 @@ function openURL(theLINK)
             <strong><?php echo gettext("Invoice number"); ?></strong>
             <div><?php echo $invoice->getReference() ?></div>
           </td>
+          <?php if($display_account==1){ ?>
           <td class="three">
           	<strong><?php echo gettext("Client Account Number"); ?></strong>
             <div><?php echo $card['username'] ?></div>
           </td>
+          <?php } ?>
                  </tr>       
       </tbody></table>
     </td>

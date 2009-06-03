@@ -44,3 +44,5 @@ ALTER TABLE cc_card ADD add_dialing_prefix varchar(10) collate utf8_bin;
 
 -- Remove E-Product from 1.4.1
 DROP TABLE cc_ecommerce_product;
+
+INSERT INTO cc_invoice_conf (key_val ,`value`) VALUES ('display_account', '0');

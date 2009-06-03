@@ -82,6 +82,10 @@ $conf_clause = "key_val = 'vat'";
 $result = $invoice_conf_table -> Get_list($DBHandle, $conf_clause, 0);
 $vat_invoice = $result[0][0];
 
+$conf_clause = "key_val = 'display_account'";
+$result = $invoice_conf_table -> Get_list($DBHandle, $conf_clause, 0);
+$display_account = $result[0][0];
+
 //Currencies check
 $curr = $card['currency'];
 $currencies_list = get_currencies();
@@ -143,10 +147,12 @@ if(!$popup_select){
             <div><?php echo $receipt->getDate() ?></div>
           </td>
          
+           <?php if($display_account==1){ ?>
           <td class="three">
-           <strong>Client number</strong>
+          	<strong><?php echo gettext("Client Account Number"); ?></strong>
             <div><?php echo $card['username'] ?></div>
           </td>
+          <?php } ?>
                  </tr>       
       </tbody></table>
     </td>

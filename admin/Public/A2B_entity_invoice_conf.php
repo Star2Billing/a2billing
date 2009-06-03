@@ -17,7 +17,7 @@ if (! has_rights (ACX_INVOICING)) {
 $DBHandle  = DbConnect();
 if($form_action=="ask-update") {
 	
-	getpost_ifset(array('company_name','address','zipcode','country','city','phone','fax','email','vat','web'));
+	getpost_ifset(array('company_name','address','zipcode','country','city','phone','fax','email','vat','web','display_account'));
 	
 	$table_invoice_conf= new Table("cc_invoice_conf");
 	$param_update_conf = "value ='".$company_name."'";
@@ -62,6 +62,10 @@ if($form_action=="ask-update") {
 	
 	$param_update_conf = "value ='".$web."'";
 	$clause_update_conf = "key_val = 'web'";
+	$table_invoice_conf -> Update_table ($DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
+	
+	$param_update_conf = "value ='".$display_account."'";
+	$clause_update_conf = "key_val = 'display_account'";
 	$table_invoice_conf -> Update_table ($DBHandle, $param_update_conf, $clause_update_conf, $func_table = null);
 	
 }
@@ -114,6 +118,10 @@ $vat=$result[0][0];
 $clause_update_conf = "key_val = 'web'";
 $result=$table_invoice_conf -> Get_list($DBHandle, $clause_update_conf);
 $web=$result[0][0];
+
+$clause_update_conf = "key_val = 'display_account'";
+$result=$table_invoice_conf -> Get_list($DBHandle, $clause_update_conf);
+$display_account=$result[0][0];
 
 ?>
 
@@ -207,6 +215,18 @@ $web=$result[0][0];
     <td class="tableBodyRight" width="75%" valign="top" background="../Public/templates/default/images/background_cells.gif">
     	<input name="vat" type="text" class="form_input_text" <?php if(!empty($vat)) echo 'value="'.$vat.'"';?> > <br/>
     	<?php echo gettext("Insert your vat number"); ?>
+    </td>
+</tr>
+<tr>
+    <td class="form_head" width="25%" valign="middle">
+    	<?php echo gettext("Display Account number")?>&nbsp; :
+    </td>
+    <td class="tableBodyRight" width="75%" valign="top" background="../Public/templates/default/images/background_cells.gif">
+        <select name="display_account">
+        	<option value="1" <?php if($display_account==1) echo "selected"; ?> > <?php echo gettext("YES")?></option>
+        	<option value="0" <?php if($display_account==0) echo "selected"; ?> ><?php echo gettext("NO")?></option>
+        </select>
+    	<?php echo gettext("Choose if you want display the account number on the invoices"); ?>
     </td>
 </tr>
 
