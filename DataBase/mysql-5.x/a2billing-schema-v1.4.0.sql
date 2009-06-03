@@ -7964,15 +7964,6 @@ CREATE TABLE IF NOT EXISTS `cc_system_log` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
---
--- Dumping data for table `cc_system_log`
---
-
-INSERT INTO `cc_system_log` (`id`, `iduser`, `loglevel`, `action`, `description`, `data`, `tablename`, `pagename`, `ipaddress`, `creationdate`) VALUES(1, 1, 1, 'User Logged In', 'User Logged in to website', '', '', 'PP_Intro.php', '127.0.0.1', '2009-05-15 16:40:44');
-INSERT INTO `cc_system_log` (`id`, `iduser`, `loglevel`, `action`, `description`, `data`, `tablename`, `pagename`, `ipaddress`, `creationdate`) VALUES(2, 1, 1, 'Page Visit', 'User Visited the Page', '', '', 'dashboard.php', '127.0.0.1', '2009-05-15 16:40:48');
-INSERT INTO `cc_system_log` (`id`, `iduser`, `loglevel`, `action`, `description`, `data`, `tablename`, `pagename`, `ipaddress`, `creationdate`) VALUES(3, 1, 1, 'Page Visit', 'User Visited the Page', '', '', 'logout.php', '127.0.0.1', '2009-05-15 16:40:58');
-INSERT INTO `cc_system_log` (`id`, `iduser`, `loglevel`, `action`, `description`, `data`, `tablename`, `pagename`, `ipaddress`, `creationdate`) VALUES(4, 1, 1, 'USER LOGGED OUT', 'User Logged out from website', '', '', 'logout.php', '127.0.0.1', '2009-05-15 16:40:58');
-
 -- --------------------------------------------------------
 
 --
