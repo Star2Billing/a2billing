@@ -21,9 +21,9 @@ DELETE FROM cc_config WHERE config_key = 'customerinfo' AND config_group_title =
 DELETE FROM cc_config WHERE config_key = 'password' AND config_group_title = 'webcustomerui';
 UPDATE cc_card_group SET users_perms = '262142' WHERE cc_card_group.id = 1;
 
-
+DROP TABLE cc_subscription_signup;
 CREATE TABLE cc_subscription_signup (
-	id BIGINT NOT NULL ,
+	id BIGINT NOT NULL auto_increment,
 	label VARCHAR( 50 ) collate utf8_bin NOT NULL ,
 	id_subscription BIGINT NULL ,
 	description MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,
