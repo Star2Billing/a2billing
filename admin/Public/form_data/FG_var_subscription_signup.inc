@@ -54,7 +54,7 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"" , "", "", "Yes :1, - No:0", "", "", "" , "" );
 
 $CURRENCY = strtoupper(BASE_CURRENCY);	
-$HD_Form -> AddEditElement (gettext("SUBSCRIBER"),
+$HD_Form -> AddEditElement (gettext("SUBSCRIPTION OPTIONS"),
 	   "id_subscription",
 	   "",
 	   "SELECT",
