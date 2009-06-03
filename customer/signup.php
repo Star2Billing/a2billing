@@ -10,10 +10,7 @@ include ("./lib/customer.smarty.php");
 if (!$A2B->config["signup"]['enable_signup'])	
 	exit;
 
-getpost_ifset(array (
-	'test',
-	'subscriber'
-));
+getpost_ifset(array ( 'test', 'subscriber' ));
 
 
 if (!is_numeric($subscriber)) {

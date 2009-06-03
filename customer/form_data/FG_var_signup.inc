@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id','subscriber', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid'));
+getpost_ifset(array('id','subscriber', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid', 'key'));
 
 //put parameter in session
 $HD_Form = new FormHandler("cc_card", "User");
@@ -11,15 +11,16 @@ $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 $HD_Form -> FG_ADDITION = true;
 
 $HD_Form->setDBHandler(DbConnect());
-	$agent_conf = false;
-if(!empty($_GET['key'])){
-	$agentkey = $_GET['key'];
+
+$agent_conf = false;
+if (!empty($key)) {
+	$agentkey = $key;
 	$_SESSION["key"] = $agentkey;
-}elseif (!empty($_SESSION["key"])){
+} elseif (!empty($_SESSION["key"])) {
 	$agentkey =$_SESSION["key"];
 }
 
-if (!empty ($agentkey) ) {
+if (!empty ($agentkey)) {
 	$table_key = new Table("cc_agent_signup", "*");
 	$data = $table_key->Get_list($HD_Form->DBHandle, "code= '". $agentkey."'");
 	if (is_array($data)) {

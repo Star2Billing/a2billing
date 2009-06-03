@@ -5,28 +5,28 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./lib/customer.smarty.php");
 
 
-getpost_ifset(array('dotest'));
+if (!$A2B->config["signup"]['enable_signup'])
+	exit;
 
+getpost_ifset(array ('test'));
 
 
 //check subscriber
 $table_subscriber = new Table("cc_subscription_signup", "*");
 $clause_subscriber = "enable = 1";
-$result_subscriber = $table_subscriber -> Get_list(DbConnect(),$clause_subscriber);
+$result_subscriber = $table_subscriber->Get_list(DbConnect(), $clause_subscriber);
 
-
-/***********************************************************************************/
-if (!$A2B->config["signup"]['enable_signup']) exit;
-
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+if (strlen($_GET["menu"]) > 0)
+	$_SESSION["menu"] = $_GET["menu"];
 
 // #### HEADER SECTION
 $smarty->display('signup_header.tpl');
 
+
 ?>
 <form id="myForm" method="post" name="myForm" action="signup.php">
 <?php if ($dotest){ ?>
-	<input type="hidden" name="dotest" value="<?php echo $dotest; ?>" />
+	<input type="hidden" name="test" value="<?php echo $test; ?>" />
 <?php } ?>
 <div align="center">
 <table  style="width : 80%;" class="editform_table1">
@@ -74,6 +74,4 @@ $smarty->display('signup_header.tpl');
 
 // #### FOOTER SECTION
 $smarty->display('signup_footer.tpl');
-
-
 
