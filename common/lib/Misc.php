@@ -609,8 +609,9 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field = "username"
 	}
 }
 
-function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = LEN_CARDNUMBER, $DBHandle = null) {
 
+function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = LEN_CARDNUMBER, $DBHandle = null)
+{
 	if (!$DBHandle) {
 		$DBHandle = DbConnect();
 	}
@@ -645,36 +646,6 @@ function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = 
 	}
 }
 
-//Get productID and all parameter and retrieve info for card creation into cc_ecommerce_product
-function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $mail_content, $logfile) {
-	global $FG_DEBUG;
-	$QUERY = 'SELECT
-					product_name, creationdate, description, expirationdate, enableexpire, expiredays, credit, tariff, id_didgroup, activated, simultaccess, currency,
-					typepaid, creditlimit, language, runservice, sip_friend, iax_friend, cc_ecommerce_product.mailtype, fromemail, fromname, subject, messagetext,
-					messagehtml
-				  FROM cc_ecommerce_product, cc_templatemail
-				  WHERE cc_ecommerce_product.mailtype=cc_templatemail.mailtype AND id=' . $productid;
-
-	$result = $instance_table->SQLExec($DBHandle, $QUERY);
-	if ($FG_DEBUG > 0) {
-		echo "<br><b>$QUERY</b><br>";
-		print_r($result);
-		echo "<hr><br>";
-	}
-
-	if (!is_array($result)) {
-		if ($FG_DEBUG > 0)
-			echo ("get_productinfo ERROR");
-		mail($email_alarm, "ALARM : API (CODE_ERROR get_productinfo)", $mail_content);
-		error_log("[" . date("Y/m/d G:i:s", mktime()) . "] " . "CODE_ERROR get_productinfo" . "\n", 3, $logfile);
-		echo ("500 Internal server error");
-		exit ();
-	}
-
-	return $result[0];
-
-}
-
 /**
 * Do multi-page navigation.  Displays the prev, next and page options.
 * @param $page the page currently viewed
@@ -682,7 +653,8 @@ function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $
 * @param $url the url to refer to with the page number inserted
 * @param $max_width the number of pages to make available at any one time (default = 20)
 */
-function printPages($page, $pages, $url, $max_width = 20) {
+function printPages($page, $pages, $url, $max_width = 20)
+{
 	$lang['strfirst'] = '&lt;&lt; ' . gettext('First');
 	$lang['strprev'] = '&lt; ' . gettext('Prev');
 	$lang['strnext'] = gettext('Next') . ' &gt;';
@@ -709,8 +681,7 @@ function printPages($page, $pages, $url, $max_width = 20) {
 		if ($page <= $window) {
 			$min_page = 1;
 			$max_page = min(2 * $window, $pages);
-		}
-		elseif ($page > $window && $pages >= $page + $window) {
+		} elseif ($page > $window && $pages >= $page + $window) {
 			$min_page = ($page - $window) +1;
 			$max_page = $page + $window;
 		} else {

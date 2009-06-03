@@ -321,7 +321,6 @@
 				<li><a href="A2B_entity_paymentlog_agent.php?section=10">»» {php} echo gettext("E-Payment Log");{/php}</a></li>
 				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment&section=10">{php} echo gettext("Payment Methods");{/php}</a></li>
 				<li><a href="A2B_currencies.php?section=10">{php} echo gettext("Currency List");{/php}</a></li>
-				<li><a href="A2B_entity_ecommerce.php?atmenu=ecommerce&section=10">{php} echo gettext("E-Products");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

@@ -42,4 +42,5 @@ DELETE FROM cc_config WHERE config_key = 'currency_association_minor';
 ALTER TABLE cc_card ADD add_dialing_prefix varchar(10) collate utf8_bin;
 
 
-
+-- Remove E-Product from 1.4.1
+DROP TABLE cc_ecommerce_product;
