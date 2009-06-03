@@ -257,7 +257,7 @@ INSERT INTO cc_prefix VALUES(26771, 'Botswana Mobile');
 INSERT INTO cc_prefix VALUES(26772, 'Botswana Mobile');
 INSERT INTO cc_prefix VALUES(26773, 'Botswana Mobile');
 INSERT INTO cc_prefix VALUES(26774, 'Botswana Mobile');
-INSERT INTO cc_prefix VALUES(55, 'Falkland Islands Mobile');
+INSERT INTO cc_prefix VALUES(55, 'Brazil');
 INSERT INTO cc_prefix VALUES(55117, 'Brazil Mobile');
 INSERT INTO cc_prefix VALUES(55118, 'Brazil Mobile');
 INSERT INTO cc_prefix VALUES(55119, 'Brazil Mobile');
