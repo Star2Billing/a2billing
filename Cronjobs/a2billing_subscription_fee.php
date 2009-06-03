@@ -103,7 +103,6 @@ foreach ($result as $myservice) {
 	$myservice_id = $myservice[0];
 	$myservice_label = $myservice[1];
 	$myservice_fee = $myservice[2];
-	$myservice_cur = $myservice[3];
 
 	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[Subscription Fee Service No " . $myservice_id . " analyze cards on which to apply service ]");
 	// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
@@ -170,7 +169,7 @@ foreach ($result as $myservice) {
 		$mail_content = "SUBSCRIPTION SERVICE NAME = " . $myservice[1];
 		$mail_content .= "\n\nTotal card updated = " . $totalcardperform;
 		$mail_content .= "\nTotal credit removed = " . $totalcredit;
-		mail($myservice[4], "A2BILLING SUBSCRIPTION SERVICES : REPORT", $mail_content);
+		mail($myservice[3], "A2BILLING SUBSCRIPTION SERVICES : REPORT", $mail_content);
 	}
 
 } // END FOREACH SERVICES
