@@ -1926,6 +1926,12 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 ALTER TABLE cc_support_component ADD type_user SMALLINT NOT NULL DEFAULT '2';
 
+-- Some changes from r1093-1099 that were missed somehow
+ALTER TABLE cc_campaign ADD callerid VARCHAR(60) NOT NULL;
+ALTER TABLE cc_card_group ADD flatrate DECIMAL(15, 5) DEFAULT 0 NOT NULL;
+ALTER TABLE cc_card_group ADD campaign_context VARCHAR(40);
+ALTER TABLE cc_ratecard ADD COLUMN disconnectcharge_after INT NOT NULL DEFAULT 0;
+
 -- synched with MySQL up to r2051
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
