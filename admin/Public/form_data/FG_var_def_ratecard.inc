@@ -5,12 +5,13 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
 'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time', 'additional_grace','minimal_cost','announce_time_correction',
-'cancelsearch_callplanlcr'));
+'cancelsearch_callplanlcr', 'deleteselected'));
 
 // put all the destination name to lowercase
 $destination = strtolower ($destination);
 
-if (empty($form_action) || $form_action=="list") {
+
+if ( (empty($form_action) || $form_action=="list") && $deleteselected!='true') {
 	$HD_Form = new FormHandler("cc_ratecard LEFT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffplan = cc_ratecard.idtariffplan","Rates");
 } else {
 	$HD_Form = new FormHandler("cc_ratecard","Rates");
