@@ -17,8 +17,11 @@
 
 	Usage :
 		
-		include ("http://localhost/webservice/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial&column_name=Destination,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
+		open_url ("http://localhost/webservice/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial&column_name=Destination,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 	
+		see attached example : sample_display_ratecard.php
+		
+		
 	Variable to set rate display option :
 
 		?key
@@ -99,7 +102,7 @@ if (!isset($browse_letter) || strlen($browse_letter)==0) $browse_letter="yes";
 if (!isset($prefix_select) || strlen($prefix_select)==0) $prefix_select="";
 if (!isset($currency_select) || strlen($currency_select)==0) $currency_select=true;
 else $choose_currency=$currency_select;
-if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'])-24)."Public/templates/default/css/api_ratecard.css";
+if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'])-31)."admin/Public/templates/default/css/api_ratecard.css";
 
 if (!isset($merge_form) || strlen($merge_form)==0) $merge_form=0;
 if (!isset($fullhtmlpage) || strlen($fullhtmlpage)==0) $fullhtmlpage=1;
