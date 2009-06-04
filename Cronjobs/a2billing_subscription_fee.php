@@ -108,8 +108,10 @@ foreach ($result as $myservice) {
 	// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
 	for ($page = 0; $page < $nbpagemax; $page++) {
 
-		$sql = "SELECT cc_card.id, credit, username, email, cc_card_subscription.id FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card " .
-		"WHERE id_subscription_fee='$myservice_id' AND startdate < NOW() AND (stopdate = '0000-00-00 00:00:00' OR stopdate > NOW()) ORDER BY cc_card.id ";
+		$sql = "SELECT cc_card.id, credit, username, email, cc_card_subscription.id " .
+				"FROM cc_card JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card " .
+				"WHERE id_subscription_fee='$myservice_id' AND startdate < NOW() AND (stopdate = '0000-00-00 00:00:00' OR stopdate > NOW()) " .
+				"ORDER BY cc_card.id ";
 
 		if ($A2B->config["database"]['dbtype'] == "postgres") {
 			$sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
@@ -137,7 +139,7 @@ foreach ($result as $myservice) {
 
 				// ADD A CHARGE
 				$QUERY = "INSERT INTO cc_charge (id_cc_card, id_cc_card_subscription, chargetype, amount, description) " .
-				"VALUES ('" . $mycard[0] . "', '$mycard[5]', '3', '$amount','" . $mycard[5] . ' - ' . $myservice_label . "')";
+							"VALUES ('" . $mycard[0] . "', '$mycard[4]', '3', '$amount','" . $mycard[4] . ' - ' . $myservice_label . "')";
 				$result_insert = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 				if ($verbose_level >= 1)
 					echo "==> INSERT CHARGE QUERY=$QUERY\n";
@@ -165,7 +167,7 @@ foreach ($result as $myservice) {
 		echo "==> SERVICE UPDATE QUERY: 	$QUERY\n";
 
 	// SEND REPORT
-	if (strlen($myservice[4]) > 0) {
+	if (strlen($myservice[3]) > 0) {
 		$mail_content = "SUBSCRIPTION SERVICE NAME = " . $myservice[1];
 		$mail_content .= "\n\nTotal card updated = " . $totalcardperform;
 		$mail_content .= "\nTotal credit removed = " . $totalcredit;
