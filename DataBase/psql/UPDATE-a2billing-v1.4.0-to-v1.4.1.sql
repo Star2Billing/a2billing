@@ -48,7 +48,7 @@ DROP TABLE cc_ecommerce_product;
 INSERT INTO cc_invoice_conf (key_val ,`value`) VALUES ('display_account', '0');
 
 -- add missing agent field
-ALTER TABLE cc_system_log ADD agent SMALLINT;
+ALTER TABLE cc_system_log ADD agent SMALLINT DEFAULT 0;
 
 
 -- synched with MySQL up to r2097
