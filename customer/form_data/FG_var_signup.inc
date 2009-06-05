@@ -239,22 +239,25 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   gettext("Insert your zipcode"),
 			   "" , "", "",	"", "", "" , "", "");
 
-$timezone_list = get_timezones();  
-foreach($timezone_list as $key => $cur_value) {
-	if(in_array(SERVER_GMT, $cur_value)) {
-		$timezone_list[$key]  = array( $cur_value[2], $key." selected");
-	} else {
-		$timezone_list[$key]  = array( $cur_value[2], $key);
+$timezone_list = get_timezones();
+$one_select = false;
+foreach ($timezone_list as $key => $cur_value) {
+	$timezone_list[$key]  = array( $cur_value[2], $key);
+	if ($form_action == 'ask-add') {
+		if (in_array(SERVER_GMT,$cur_value) && !$one_select) {
+			$timezone_default_val = $key;
+			$one_select = true;
+		}
 	}
 }
 
-
 $HD_Form -> AddEditElement (gettext("TIMEZONE"),
 			   "id_timezone",
-			   "",
+			   "$timezone_default_val",
 			   "SELECT",
 			   "","","",
 			   "list" , "", "",	"", $timezone_list, "%1", "", "" );
+			   
 			   
 $HD_Form -> AddEditElement (gettext("PHONENUMBER"),
 			   "phone",
@@ -379,7 +382,7 @@ $context = $A2B->config["signup"]['context'];
 $status = $A2B->config["signup"]['activatedbyuser'] ? '1' : '3';
 
 $HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, status";
-$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE = "$iax_account,$sip_account,$myexpiredays,$myexpirationdate,$mytypepaid,$myenableexpire, $myrunservice,$mysimultaccess,$myactivated,$mycredit,$maxi,$maxi2,$pass,$loginkey, $status";
+$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE = "$iax_account, $sip_account, $myexpiredays, $myexpirationdate, $mytypepaid, $myenableexpire, $myrunservice, $mysimultaccess, $myactivated, $mycredit, $maxi, $maxi2, $pass, $loginkey, $status";
 
 if ($agent_conf) {
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ",id_group";

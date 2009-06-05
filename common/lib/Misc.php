@@ -805,8 +805,8 @@ function get_timezones($handle = null) {
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
-	$QUERY = "SELECT id, gmttime, gmtzone from cc_timezone order by id";
-	$result = $instance_table->SQLExec($handle, $QUERY);
+	$QUERY = "SELECT id, gmttime, gmtzone FROM cc_timezone ORDER by id";
+	$result = $instance_table->SQLExec($handle, $QUERY, 1, 1);
 
 	if (is_array($result)) {
 		$num_cur = count($result);

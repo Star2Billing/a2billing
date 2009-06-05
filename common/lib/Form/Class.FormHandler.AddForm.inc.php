@@ -98,18 +98,19 @@
 		cal<?php echo $this->FG_TABLE_ADITION[$i][1]?>.formatpgsql = true;
 		//-->
 		</script>
-	<?php 
-		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="TEXTAREA"){
+	<?php
+		} elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="TEXTAREA") {
 	?>
             <TEXTAREA class="form_input_textarea" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?> <?php echo $this->FG_TABLE_ADITION[$i][4]?>><?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?></TEXTAREA> 
 	<?php 	
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="SELECT"){
 			if ($this->FG_DEBUG == 1) { echo "<br> TYPE DE SELECT :".$this->FG_TABLE_ADITION[$i][7];}
-			if (strtoupper ($this->FG_TABLE_ADITION[$i][7])=="SQL"){
+			if (strtoupper ($this->FG_TABLE_ADITION[$i][7])=="SQL") {
+				
 				$instance_sub_table = new Table($this->FG_TABLE_ADITION[$i][8], $this->FG_TABLE_ADITION[$i][9]);
 				$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_ADITION[$i][10], null, null, null, null, null, null);
 				if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
-			}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][7])=="LIST"){
+			} elseif (strtoupper ($this->FG_TABLE_ADITION[$i][7])=="LIST") {
 				$select_list = $this->FG_TABLE_ADITION[$i][11];
 			}
 	?>
@@ -121,29 +122,29 @@
 	<option value="-1"><?php echo $this->FG_TABLE_ADITION[$i][6]?></option>
 	<?php  } 
 				if (count($select_list)>0){
-				  	 $select_number=0;
-				  	 foreach ($select_list as $select_recordset){ 
-						 $select_number++;
-				   		if ($this->FG_TABLE_ADITION[$i][12] != ""){
+					$select_number=0;
+				  	foreach ($select_list as $select_recordset) {
+						$select_number++;
+				   		if ($this->FG_TABLE_ADITION[$i][12] != "") {
 							$value_display = $this->FG_TABLE_ADITION[$i][12];
 							$nb_recor_k = count($select_recordset);
-							for ($k=1;$k<=$nb_recor_k;$k++){
+							for ($k=1;$k<=$nb_recor_k;$k++) {
 								$value_display  = str_replace("%$k", $select_recordset[$k-1], $value_display );
 							}
-						}else{
-							$value_display = $select_recordset[0];													}
+						} else {
+							$value_display = $select_recordset[0];
+						}
 	?>
 	<OPTION  value='<?php echo $select_recordset[1]?>' 
-	<?php 
+	<?php							
+						if ($this->FG_TABLE_ADITION[$i][2] == $select_recordset[1]) echo "selected";
 							
-							if ( $this->FG_TABLE_ADITION[$i][2] == $select_recordset[1] ) echo "selected";
-						
 						// CLOSE THE <OPTION
 						echo '> ';						
 						echo $value_display.'</OPTION>';
 						
-					 }// END_FOREACH
-				 }else{
+					 } // END_FOREACH
+				 } else {
 			  		echo gettext("No data found !!!");
 				 }//END_IF				
 	?>

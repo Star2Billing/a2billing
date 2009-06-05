@@ -501,18 +501,20 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 	
 	$timezone_list = get_timezones();
-	foreach($timezone_list as $key => $cur_value) {
-		if(in_array(SERVER_GMT,$cur_value)){
-			$timezone_list[$key]  = array( $cur_value[2], $key." selected");
-		}else{
-			$timezone_list[$key]  = array( $cur_value[2], $key);
+	$one_select = false;
+	foreach ($timezone_list as $key => $cur_value) {
+		$timezone_list[$key]  = array( $cur_value[2], $key);
+		if ($form_action == 'ask-add') {
+			if (in_array(SERVER_GMT,$cur_value) && !$one_select) {
+				$timezone_default_val = $key;
+				$one_select = true;
+			}
 		}
 	}
 	
-	
 	$HD_Form -> AddEditElement (gettext("TIMEZONE"),
 				   "id_timezone",
-				   "",
+				   "$timezone_default_val",
 				   "SELECT",
 				   "","","",
 				   "list" , "", "",	"", $timezone_list, "%1", "", "" );

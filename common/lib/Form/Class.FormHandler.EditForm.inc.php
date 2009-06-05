@@ -74,8 +74,7 @@ function sendtolittle(direction){
 				?>
 					<SELECT name='<?php echo $this->FG_TABLE_EDITION[$i][1]?>' class="form_input_select">
 					<?php 
-					foreach($valuelist as $listval)
-					{
+					foreach($valuelist as $listval) {
 					?>
 					<option value="<?php echo $listval;?>" <?php  if($listval == $list[0][$i]) echo " selected";?>><?php echo $listval;?></option>
 					<?php }?>
@@ -139,60 +138,57 @@ function sendtolittle(direction){
 			  ?>
                      <span name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></span> 	 
                         <?php 	
-				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT")
+				} elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT")
 				{
-					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])=="SQL"){
+					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])=="SQL") {
 						$instance_sub_table = new Table($this->FG_TABLE_EDITION[$i][8], $this->FG_TABLE_EDITION[$i][9]);
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_EDITION[$i][10], null, null, null, null, null, null);
 						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
 											
-					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][7])=="LIST")
+					} elseif (strtoupper ($this->FG_TABLE_EDITION[$i][7])=="LIST")
 					{
 						$select_list = $this->FG_TABLE_EDITION[$i][11];
 						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
-										 }
-						 if ($this->FG_DEBUG >= 2) print_r ($list);			 
-						 if ($this->FG_DEBUG >= 2) echo "<br>#$i<br>::>".$this->VALID_SQL_REG_EXP;
-						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$list[0][$i];
-						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$$this->FG_TABLE_ADITION[$i][1];											
-			  			?>
+					}
+					 if ($this->FG_DEBUG >= 2) print_r ($list);			 
+					 if ($this->FG_DEBUG >= 2) echo "<br>#$i<br>::>".$this->VALID_SQL_REG_EXP;
+					 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$list[0][$i];
+					 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$$this->FG_TABLE_ADITION[$i][1];											
+			  		 ?>
 						<SELECT name='<?php echo $this->FG_TABLE_EDITION[$i][1]?><?php if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")) echo "[]";?>' class="form_input_select" <?php echo $this->FG_TABLE_EDITION[$i][4]?>>
                         <?php
 						echo ($this->FG_TABLE_EDITION[$i][15]);
 						
-						if (count($select_list)>0)
-						{
+						if (count($select_list)>0) {
 							$select_number=0;
 							foreach ($select_list as $select_recordset){ 
 								$select_number++;
 								?>
 								<OPTION  value='<?php echo $select_recordset[1]?>' <?php 
 									
-									if($this->VALID_SQL_REG_EXP){ 
-										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){										
+									if ($this->VALID_SQL_REG_EXP) { 
+										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")) {									
 											if (intval($select_recordset[1]) & intval($list[0][$i])) echo "selected"; 
-										}else{
+										} else {
 											if (strcmp($list[0][$i],$select_recordset[1])==0) echo "selected";  
 										}
-									}else{ 										
-										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){
-											//if (intval($select_recordset[1]) & intval($_POST[$this->FG_TABLE_EDITION[$i][1]])) echo "selected"; 
+									} else {
+										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")) {
 											if (is_array($_POST[$this->FG_TABLE_EDITION[$i][1]]) && (intval($select_recordset[1]) & array_sum($_POST[$this->FG_TABLE_EDITION[$i][1]]))) echo "selected"; 
-										}else{
+										} else {
 											if (strcmp($_POST[$this->FG_TABLE_EDITION[$i][1]],$select_recordset[1])==0){ echo "selected"; } 
 										}
 									}
 									  
 									// CLOSE THE <OPTION
 									echo '> ';
-									if ($this->FG_TABLE_EDITION[$i][12] != ""){
+									if ($this->FG_TABLE_EDITION[$i][12] != "") {
 										$value_display = $this->FG_TABLE_EDITION[$i][12];
 										$nb_recor_k = count($select_recordset);
-										for ($k=1;$k<=$nb_recor_k;$k++){
+										for ($k=1;$k<=$nb_recor_k;$k++) {
 											$value_display  = str_replace("%$k", $select_recordset[$k-1], $value_display );
 										}
-											
-									}else{
+									} else {
 										$value_display = $select_recordset[0];	
 									}
 									
