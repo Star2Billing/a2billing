@@ -1013,7 +1013,7 @@ class RateEngine
 		if ($A2B->config["global"]['cache_enabled']) {
 			$QUERY .= " datetime( strftime('%s','now') - $sessiontime, 'unixepoch','localtime')";	
 		} else {
-			$QUERY .= "CURRENT_TIMESTAMP - INTERVAL $sessiontime SECOND ";
+			$QUERY .= "SUBDATE(CURRENT_TIMESTAMP, INTERVAL $sessiontime SECOND) ";
 		}
 
 		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$terminatecauseid', "; 
