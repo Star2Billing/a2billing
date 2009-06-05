@@ -1022,7 +1022,10 @@ class RateEngine
 		} else {
 			$QUERY .= "now()";
 		}
-		
+
+		if (! is_numeric($id_card_package_offer))
+			$id_card_package_offer = 'NULL';
+
 		$QUERY .= " , '$signe_cc_call".a2b_round(abs($cost))."', ".
 					" '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
 					" '$buycost', '$id_card_package_offer', '".$A2B->dnid."', '".$calldestination."')";
