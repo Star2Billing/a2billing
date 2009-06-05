@@ -45,7 +45,7 @@ ALTER TABLE cc_card ADD add_dialing_prefix varchar(10);
 -- Remove E-Product from 1.4.1
 DROP TABLE cc_ecommerce_product;
 
-INSERT INTO cc_invoice_conf (key_val ,`value`) VALUES ('display_account', '0');
+INSERT INTO cc_invoice_conf (key_val, value) VALUES ('display_account', '0');
 
 -- add missing agent field
 ALTER TABLE cc_system_log ADD agent SMALLINT DEFAULT 0;
