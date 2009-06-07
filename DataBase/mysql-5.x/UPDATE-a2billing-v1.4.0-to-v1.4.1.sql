@@ -50,3 +50,6 @@ INSERT INTO cc_invoice_conf (key_val ,`value`) VALUES ('display_account', '0');
 -- add missing agent field
 ALTER TABLE cc_system_log ADD agent TINYINT DEFAULT 0;
 
+DELETE FROM cc_config WHERE config_key = 'show_icon_invoice';
+DELETE FROM cc_config WHERE config_key = 'show_top_frame';
+

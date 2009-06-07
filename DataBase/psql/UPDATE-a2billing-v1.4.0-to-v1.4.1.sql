@@ -51,8 +51,10 @@ INSERT INTO cc_invoice_conf (key_val, value) VALUES ('display_account', '0');
 ALTER TABLE cc_system_log ADD agent SMALLINT DEFAULT 0;
 
 
--- synched with MySQL up to r2097
+DELETE FROM cc_config WHERE config_key = 'show_icon_invoice';
+DELETE FROM cc_config WHERE config_key = 'show_top_frame';
 
+-- synched with MySQL up to r2101
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;
