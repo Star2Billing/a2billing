@@ -1,6 +1,7 @@
 <?php
 Class Connection {
 	private static $DBHandler;
+	private static $MytoPgklass;
 
 	private function __construct() {
 
@@ -32,6 +33,25 @@ Class Connection {
 			$connection = new Connection();
 		}
 		return self :: $DBHandler;
+	}
+
+	static function CleanExecute($QUERY) {
+		if (empty (self :: $DBHandler)) {
+			$connection = new Connection();
+		} else {
+			$connection = self :: $DBHandler;
+		}
+
+		if (DB_TYPE == "postgres") {
+			if (empty (self :: $MytoPgklass)) {
+				self :: $MytoPgklass = new MytoPg(0);
+			}
+
+			// convert MySQLisms to be Postgres compatible
+			self :: $MytoPgklass -> My_to_Pg($QUERY);
+		}
+		
+		return $connection -> Execute($QUERY);
 	}
 
 }
