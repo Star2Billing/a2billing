@@ -86,7 +86,7 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
 $FG_COL_QUERY='t1.dnid ,count(*) as count,avg(rc.buyrate) as buyrate ,avg(rc.rateinitial) as calledrate,
- 	sum(t1.sessiontime) as sessiontime ,sum(t1.buycost) buycost, sum(t1.sessionbill) as sessionbill';
+ 	sum(t1.sessiontime) as sessiontime ,sum(t1.buycost) as buycost, sum(t1.sessionbill) as sessionbill';
 
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
@@ -262,7 +262,7 @@ if (!is_null ($order) && ($order!='') && !is_null ($sens) && ($sens!='')) {
 $QUERY = "SELECT DATE(t1.starttime) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall, sum(t1.buycost) AS buy FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY day ORDER BY day"; //extract(DAY from calldate)
 
 if (!$nodisplay){
-	$res = $DBHandle -> Execute($QUERY);
+	$res = Connection::CleanExecute($QUERY);
 	if ($res){
 		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
