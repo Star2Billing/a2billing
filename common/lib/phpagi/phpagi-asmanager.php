@@ -127,7 +127,7 @@
         $req .= "$var: $val\r\n";
       $req .= "\r\n";
       fwrite($this->socket, $req);
-      return $this->wait_response();
+      return $this->wait_response(true);
     }
 
    /**

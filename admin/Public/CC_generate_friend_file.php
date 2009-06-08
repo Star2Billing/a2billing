@@ -5,17 +5,14 @@ include ("../lib/regular_express.inc");
 include ("../lib/phpagi/phpagi-asmanager.php");
 include ("../lib/admin.smarty.php");
 
-$FG_DEBUG =0;
-
-
 getpost_ifset(array('action', 'atmenu'));
-
 
 if (! has_rights (ACX_CUSTOMER)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
 }
+
 
 check_demo_mode();
 
@@ -60,12 +57,12 @@ if ( $action == "reload" ) {
 	}
 	
 	// This Variable store the argument for the SQL query
-	$FG_QUERY_EDITION='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, 
-disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port, 
-restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
-
-	$list_names = explode(",",$FG_QUERY_EDITION);
-
+	$FG_QUERY_EDITION = 'name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,' .
+			' disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, ' .
+			' port, restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
+	
+	$list_names = explode(",", $FG_QUERY_EDITION);
+	
 	$instance_table_friend = new Table($TABLE_BUDDY,'id, '.$FG_QUERY_EDITION);	
 	$list_friend = $instance_table_friend -> Get_list ($DBHandle, 'id > 0', null, null, null, null);
 	
@@ -112,9 +109,8 @@ $smarty->display('main.tpl');
 echo $CC_help_sipfriend_reload;
 
 ?>
-
+<center>
 <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0" >
-
 <TR> 
   <TD style="border-bottom: medium dotted #555555">&nbsp; </TD>
 </TR>
@@ -131,9 +127,7 @@ echo $CC_help_sipfriend_reload;
 			} else {
 				echo gettext("The iaxfriend file has been generated : ").$buddyfile;
 			}
-		
 	?>
-	
 	
 	<br><br><br>
 	<a href="<?php  echo $PHP_SELF."?atmenu=$atmenu&action=reload";?>"><img src="<?php echo Images_Path;?>/icon_refresh.gif" /> 
@@ -142,23 +136,19 @@ echo $CC_help_sipfriend_reload;
 	
 	<?php 
 		} else {
-			
 			echo gettext("Asterisk has been reloaded.");
-		
 		}
 	?>
 	<br><br><br>
-	
 	</b>
-	  </td></FORM>
+	</td></FORM>
   </tr>
 </table>
+</center>
 
 <br><br><br>
-
 
 <?php
 
 $smarty->display('footer.tpl');
 
-?>
