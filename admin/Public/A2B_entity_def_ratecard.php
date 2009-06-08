@@ -278,6 +278,7 @@ if ($form_action == "list" && !$popup_select) {
 		  <td align="left"  class="bgcolor_001">
 				<font class="fontstyle_009">1) <?php echo gettext("TRUNK");?> :</font> 
 				<select NAME="upd_id_trunk" size="1" class="form_enter" >
+					<OPTION  value="-1" selected><?php echo gettext("NOT DEFINED");?></OPTION>
 					<?php
 					 foreach ($list_trunk as $recordset){ 						 
 					?>

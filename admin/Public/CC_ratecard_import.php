@@ -194,7 +194,6 @@ echo $CC_help_import_ratecard;
 				  <?php echo gettext("Choose the ratecard to import");?> :
 				  <select NAME="tariffplan" size="1"  style="width=250" class="form_input_select">
 								<option value=''><?php echo gettext("Choose a ratecard");?></option>
-							
 								<?php					 
 								 foreach ($list_tariffname as $recordset){ 						 
 								?>
@@ -205,6 +204,7 @@ echo $CC_help_import_ratecard;
 						<br><br>
 				   <?php echo gettext("Choose the trunk to use");?> :
 						  <select NAME="trunk" size="1"  style="width=250" class="form_input_select">
+						  		<OPTION  value="-1" selected><?php echo gettext("NOT DEFINED");?></OPTION>
 								<?php					 
 								 foreach ($list_trunk as $recordset){
 								?>
