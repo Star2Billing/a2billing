@@ -3,19 +3,19 @@ include (LIBDIR."/support/classes/ticket.php");
 
 getpost_ifset(array('id', 'title', 'id_component','description','priority','status','viewed_cust'));
 
-$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket","Ticket");
+$HD_Form = new FormHandler("cc_ticket LEFT JOIN ( SELECT aa.id, CASE WHEN MAX(aa.viewed_cust)=1 OR SUM(bb.viewed_cust)>0 THEN 1 ELSE 0 END as viewed FROM cc_ticket aa LEFT JOIN cc_ticket_comment bb ON aa.id = bb.id_ticket WHERE aa.creator_type = 0 AND aa.creator = ".$_SESSION['card_id']." GROUP BY aa.id ) AS v ON cc_ticket.id = v.id", "Ticket");
 
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "cc_ticket.id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type=0 AND cc_ticket.creator= ".$_SESSION['card_id']." GROUP BY cc_ticket.id";
+$HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type=0 AND cc_ticket.creator= ".$_SESSION['card_id'];
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $status_list = Ticket::getAllStatusListView();
 $viewed_list = Constants::getTicketViewedList();
 $priority_list = Constants::getTicketPriorityList();
-$filter_view ='CASE WHEN cc_ticket.viewed_cust=1 OR SUM(cc_ticket_comment.viewed_cust)>0 THEN 1 ELSE 0 END ';
+$filter_view ='v.viewed ';
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
@@ -27,7 +27,6 @@ $HD_Form -> AddViewElement(gettext("VIEWED"), "viewed_cust", "10%", "center", ""
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort", "", "list", $status_list);
 
 $HD_Form -> FieldViewElement ("cc_ticket.id, title, cc_ticket.creationdate, id_component , priority,$filter_view,status");
-
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_ticket_view.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/icon-viewdetails.gif";

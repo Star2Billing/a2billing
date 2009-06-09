@@ -4,7 +4,16 @@ include (LIBDIR."/support/classes/ticket.php");
 getpost_ifset(array('id', 'title', 'id_component','description','priority','status','creator','username','viewed_agent' ));
 
 if (!isset($form_action) || $form_action=="list"){
-  	 $HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket LEFT JOIN cc_card ON cc_card.id=cc_ticket.creator LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", "Ticket");
+	$HD_Form = new FormHandler("cc_ticket LEFT JOIN
+	( SELECT aa.id, CASE WHEN MAX(aa.viewed_agent)=1 OR SUM(bb.viewed_agent )>0 THEN 1 ELSE 0 END as viewed
+	  FROM cc_ticket aa
+	  LEFT JOIN cc_ticket_comment bb ON aa.id = bb.id_ticket
+	  LEFT JOIN cc_card dd ON dd.id = aa.creator
+	  LEFT JOIN cc_card_group ee ON dd.id_group = ee.id
+	  WHERE  aa.creator_type = 0 AND ee.id_agent=".$_SESSION['agent_id'] ." GROUP BY aa.id
+	) AS v ON cc_ticket.id = v.id
+	LEFT JOIN cc_card ON cc_card.id=cc_ticket.creator LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", "Ticket");
+
 }else {
 	 $HD_Form = new FormHandler("cc_ticket","Ticket");
 
@@ -14,14 +23,14 @@ if (!isset($form_action) || $form_action=="list"){
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " cc_ticket.id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type=0 AND cc_card_group.id_agent=".$_SESSION['agent_id']." GROUP BY cc_ticket.id";
+$HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type=0 AND cc_card_group.id_agent=".$_SESSION['agent_id'];
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $priority_list = Constants::getTicketPriorityList();
 $viewed_list = Constants::getTicketViewedList();
 $status_list = Ticket::getAllStatusListView();
 
-$filter_view ='CASE WHEN cc_ticket.viewed_agent=1 OR SUM(cc_ticket_comment.viewed_agent)>0 THEN 1 ELSE 0 END ';
+$filter_view ='v.viewed ';
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");

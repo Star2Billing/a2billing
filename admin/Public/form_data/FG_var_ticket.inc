@@ -5,7 +5,9 @@ getpost_ifset(array('id', 'title', 'id_component','description','priority','stat
 
 
 if (!isset($form_action) || $form_action=="list") {
-	$HD_Form = new FormHandler("cc_ticket LEFT JOIN cc_ticket_comment ON cc_ticket.id = cc_ticket_comment.id_ticket LEFT JOIN cc_card ON cc_card.id=cc_ticket.creator", "Ticket");
+	$HD_Form = new FormHandler("cc_ticket LEFT JOIN
+	( SELECT aa.id, CASE WHEN MAX(aa.viewed_admin)=1 OR SUM(bb.viewed_admin)>0 THEN 1 ELSE 0 END as viewed FROM cc_ticket aa LEFT JOIN cc_ticket_comment bb ON aa.id = bb.id_ticket	WHERE  aa.creator_type = 0 GROUP BY aa.id ) AS v ON cc_ticket.id = v.id
+	LEFT JOIN cc_card ON cc_card.id=cc_ticket.creator", "Ticket");
 } else {
 	$HD_Form = new FormHandler("cc_ticket","Ticket");
 }
@@ -15,7 +17,6 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " cc_ticket.id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form -> FG_TABLE_CLAUSE = " cc_ticket.creator_type= 0 ";
-$HD_Form -> SQL_GROUP = " GROUP BY cc_ticket.id ";
 $HD_Form -> FG_TABLE_ID="cc_ticket.id";
 
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
@@ -35,8 +36,7 @@ $priority_list = Constants::getTicketPriorityList();
 $viewed_list = Constants::getTicketViewedList();
 $status_list = Ticket::getAllStatusListView();
 
-$filter_view ='CASE WHEN cc_ticket.viewed_admin=1 OR SUM(cc_ticket_comment.viewed_admin)>0 THEN 1 ELSE 0 END ';
-
+$filter_view ='v.viewed ';
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CUSTOMER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
