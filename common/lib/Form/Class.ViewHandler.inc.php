@@ -637,10 +637,12 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
 
 			<select name="mydisplaylimit" size="1" class="form_input_select">
-				<option value="10" selected>10</option>
-				<option value="50">50</option>
-				<option value="100">100</option>
-				<option value="ALL">All</option>
+			<?php $session_limit = $this->FG_TABLE_NAME."-displaylimit"; ?>
+			
+				<option value="10" <?php if($_SESSION[$session_limit]==10 || empty($_SESSION[$session_limit])) echo "selected" ?>>10</option>
+				<option value="50" <?php if(is_numeric($_SESSION[$session_limit]) && $_SESSION[$session_limit]==50 ) echo "selected" ?>>50</option>
+				<option value="100" <?php if( is_numeric($_SESSION[$session_limit]) && $_SESSION[$session_limit]==100 ) echo "selected" ?>>100</option>
+				<option value="ALL" <?php if( is_numeric($_SESSION[$session_limit]) && $_SESSION[$session_limit]>100 ) echo "selected" ?>>All</option>
 			</select>
 			<input class="form_input_button"  value=" <?php echo gettext("GO");?> " type="SUBMIT">
 			&nbsp; &nbsp; &nbsp;

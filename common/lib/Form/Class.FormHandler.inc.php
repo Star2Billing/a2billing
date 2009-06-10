@@ -1173,13 +1173,21 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 			$this->FG_SENS = $processed['sens'];
 			$this -> CV_CURRENT_PAGE = $processed['current_page'];
 
+			$session_limit = $this->FG_TABLE_NAME."-displaylimit";
+			if (isset($_SESSION[$session_limit]) && is_numeric($_SESSION[$session_limit])){
+				$this -> FG_LIMITE_DISPLAY = $_SESSION[$session_limit];
+			}
+			
 			if (isset($processed['mydisplaylimit']) && (is_numeric($processed['mydisplaylimit']) || ($processed['mydisplaylimit']=='ALL'))){
 				if ($processed['mydisplaylimit']=='ALL'){
 					$this -> FG_LIMITE_DISPLAY = 5000;
 				}else{
 					$this -> FG_LIMITE_DISPLAY = $processed['mydisplaylimit'];
 				}
+				   $_SESSION[$this->FG_TABLE_NAME."-displaylimit"]=$this -> FG_LIMITE_DISPLAY;
 			}
+			
+			
 
 			if ( $this->FG_ORDER == "" || $this->FG_SENS == "" ){
 				$this->FG_ORDER = $this -> FG_TABLE_DEFAULT_ORDER;
