@@ -33,7 +33,9 @@ if ($this->FG_FK_DELETE_CONFIRM && $form_action == "ask-del-confirm" && $this-> 
 	<INPUT type="hidden" name="id" value="<?php echo $id?>">
 	<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
 	<INPUT type="hidden" name="form_action" value="delete">
-
+	<INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
+	<INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
+	<INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
 	<table cellspacing="2"  class="tablestyle_001">
     <tr>
         <td>
@@ -82,7 +84,9 @@ else
 	<INPUT type="hidden" name="id" value="<?php echo $id?>">
 	<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
     <INPUT type="hidden" name="fkCount" value="<?php echo $this -> FG_FK_RECORDS_COUNT;?>">
-
+	<INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
+	<INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
+	<INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
     <?php if ($this->FG_FK_DELETE_CONFIRM && $this-> FG_FK_DELETE_ALLOWED && $this -> FG_ISCHILDS){ ?>
 	<INPUT type="hidden" name="form_action" value="ask-del-confirm">
     <?php }else { ?>

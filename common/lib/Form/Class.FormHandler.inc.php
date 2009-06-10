@@ -569,8 +569,11 @@ class FormHandler
 		} else {
 			$section = $_SESSION["menu_section"];
 		}
-		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id=";
-		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&id=";
+		$ext_link ='';
+		if(is_numeric($_GET['current_page']))$ext_link.="&current_page=".$_GET['current_page'];
+		if(!empty($_GET['order']) && !empty($_GET['sens']))$ext_link.="&order=".$_GET['order']."&sens=".$_GET['sens'];
+		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit".$ext_link."&id=";
+		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete".$ext_link."&id=";
 		
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
@@ -2429,7 +2432,10 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		
 		if (($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))) {				
 			if ($this->FG_DEBUG == 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
-			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id']);
+			$ext_link ='';
+			if(is_numeric($processed['current_page']))$ext_link.="&current_page=".$processed['current_page'];
+			if(!empty($processed['order']) && !empty($processed['sens']))$ext_link.="&order=".$processed['order']."&sens=".$processed['sens'];
+			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'].$ext_link);
 		}
 	}
 	
@@ -2475,10 +2481,13 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		if (isset($this->FG_GO_LINK_AFTER_ACTION_DELETE)) {
 			if ($this->FG_DEBUG == 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id'];
 			if( $this->FG_GO_LINK_AFTER_ACTION_DELETE){
+				$ext_link ='';
+				if(is_numeric($processed['current_page']))$ext_link="&current_page=".$processed['current_page'];
+				if(!empty($processed['order']) && !empty($processed['sens']))$ext_link.="&order=".$processed['order']."&sens=".$processed['sens'];
 				if(substr($this->FG_GO_LINK_AFTER_ACTION_DELETE,-3)=="id="){
-					Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
+					Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id'].$ext_link);
 				}else{
-					Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE);
+					Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$ext_link);
 				}
 			}
 		}

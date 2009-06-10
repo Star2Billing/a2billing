@@ -28,6 +28,10 @@ function sendtolittle(direction){
 		<INPUT type="hidden" name="sub_action" value="">
 		<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
 		<INPUT type="hidden" name="stitle" value="<?php echo $stitle?>">
+		<INPUT type="hidden" name="current_page" value="<?php echo $processed['current_page'];?>">
+		<INPUT type="hidden" name="order" value="<?php echo $processed['order'];?>">
+		<INPUT type="hidden" name="sens" value="<?php echo $processed['sens'];?>">
+		
 <?php
 	if (!empty($this->FG_QUERY_EDITION_HIDDEN_FIELDS)){
 		$split_hidden_fields = split(",",trim($this->FG_QUERY_EDITION_HIDDEN_FIELDS));
