@@ -518,7 +518,7 @@ $HD_Form -> AddEditElement(gettext("CIDGroup"),
    "sql",
    "cc_outbound_cid_group",
    "group_name, id",
-	"", "", "%1", "", gettext("Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
+	"", "", "%1", "", gettext("Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
 
 $HD_Form -> AddEditElement(gettext("TAG"),
    "tag",

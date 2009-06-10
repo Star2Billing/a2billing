@@ -19,6 +19,7 @@ getpost_ifset(array (
 	'batchupdate',
 	'upd_id_trunk',
 	'upd_idtariffplan',
+	'upd_id_outbound_cidgroup',
 	'upd_tag',
 	# TODO: check why??? we use folowing
 	'upd_inuse',
@@ -242,15 +243,21 @@ if (!$popup_select) {
 /********************************* BATCH UPDATE ***********************************/
 if ($form_action == "list" && !$popup_select) {
 
-	$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
+	$instance_table = new Table("cc_tariffplan", "id, tariffname");
 	$FG_TABLE_CLAUSE = "";
-	$list_tariffname = $instance_table_tariffname->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
+	$list_tariffname = $instance_table->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 	$nb_tariffname = count($list_tariffname);
 
-	$instance_table_trunk = new Table("cc_trunk", "id_trunk, trunkcode, providerip");
+	$instance_table = new Table("cc_trunk", "id_trunk, trunkcode, providerip");
 	$FG_TABLE_CLAUSE = "";
-	$list_trunk = $instance_table_trunk->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "trunkcode", "ASC", null, null, null, null);
+	$list_trunk = $instance_table->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "trunkcode", "ASC", null, null, null, null);
 	$nb_trunk = count($list_trunk);
+	
+	$instance_table = new Table("cc_outbound_cid_group", "id, group_name");
+	$FG_TABLE_CLAUSE = "";
+	$list_cid_group = $instance_table->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "group_name", "ASC", null, null, null, null);
+	$nb_cid_group = count($list_cid_group);
+	
 ?>
 
 
@@ -304,6 +311,24 @@ if ($form_action == "list" && !$popup_select) {
 				<br/>
 			</td>
 		</tr>
+		<tr>		
+          <td align="left"  class="bgcolor_001">
+		  	<input name="check[upd_id_outbound_cidgroup]" type="checkbox" <?php if ($check["upd_id_outbound_cidgroup"]=="on") echo "checked"?> >
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+			  <font class="fontstyle_009">	3) <?php echo gettext("CIDGroup");?> :</font>
+				<select NAME="upd_id_outbound_cidgroup" size="1" class="form_enter" >
+					<OPTION  value="-1" selected><?php echo gettext("NOT DEFINED");?></OPTION>
+					<?php					 
+				  	 foreach ($list_cid_group as $recordset){ 						 
+					?>
+						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_outbound_cidgroup==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
+					<?php 	 }
+					?>
+				</select>
+				<br/>
+			</td>
+		</tr>
 				
 				</font>
 			</td>
@@ -318,7 +343,7 @@ if ($form_action == "list" && !$popup_select) {
                   </td>
                   <td align="left"  class="bgcolor_001">
 
-                                <font class="fontstyle_009"><?php echo ($index+3).") ".gettext($update_fields_info[$index]);?> :</font>
+                                <font class="fontstyle_009"><?php echo ($index + 4).") ".gettext($update_fields_info[$index]);?> :</font>
                                         <input class="form_input_text" name="<?php echo $value;?>" size="10" maxlength="10"  value="<?php if (isset(${$value})) echo ${$value}; else echo '0';?>" >
                                 <font class="version">
                                 <input type="radio" NAME="type[<?php echo $value;?>]" value="1" <?php if((!isset($type[$value]))|| ($type[$value]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
