@@ -55,15 +55,18 @@ if ($groupselect != "") {
 	$HD_Form -> FG_TABLE_ID = "id";
 	$HD_Form -> FG_TABLE_CLAUSE = " config_group_title = '$groupselect'";
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
+	$_SESSION['grpselect'] = $groupselect;
 }
 
 if (isset($posted)) {
 	$_SESSION['ss_groupselect'] = '';
+	$_SESSION['groupselect'] = '';
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
 
 if($form_action == "list") {
 	$_SESSION['ss_groupselect'] = '';
+	$_SESSION['groupselect'] = '';
 } else {
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }

@@ -95,7 +95,7 @@ function Check()
 			<?php 
 			foreach($list_total_groups as $groupname){
 			?>
-			<option value="<?php echo $groupname[1]?>" <?php if($groupselect == $groupname[1] || $groupname[1] == $_SESSION['ss_groupselect']) echo "selected"?>><?php echo $groupname[1]?></option>
+			<option value="<?php echo $groupname[1]?>" <?php if($groupselect == $groupname[1] || $groupname[1] == $_SESSION['grpselect']) echo "selected"?>><?php echo $groupname[1]?></option>
 			<?php 
 			}
 			?>
