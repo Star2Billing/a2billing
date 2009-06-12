@@ -1097,7 +1097,7 @@ class A2Billing {
 		}
 
 		$card_alias = $this->destination;
-		$QUERY = "SELECT name FROM cc_sip_buddies, cc_card WHERE cc_iax_buddies.id_cc_card=cc_card.id AND useralias='".$this->destination."'";
+		$QUERY = "SELECT name FROM cc_sip_buddies, cc_card WHERE cc_sip_buddies.id_cc_card=cc_card.id AND useralias='".$this->destination."'";
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RESULT : ".print_r($result,true));
 		
