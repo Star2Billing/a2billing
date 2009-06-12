@@ -63,10 +63,10 @@ class paypal {
 		$my_currency = MODULE_PAYMENT_PAYPAL_CURRENCY;
 		$base_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
 
-        if($my_currency ='Selected Currency' && in_array($base_currency,array('CAD', 'EUR', 'GBP', 'JPY', 'USD')) ){
+        if($my_currency ='Selected Currency' && in_array($base_currency,array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN')) ){
         	$my_currency = $base_currency;
         }
-        elseif (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
+        elseif (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN'))) {
 			$my_currency = 'USD';
 		}
 		$currencyObject = new currencies();
@@ -91,10 +91,10 @@ class paypal {
     {    
         $my_currency = MODULE_PAYMENT_PAYPAL_CURRENCY;
         $base_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
-        if($my_currency =='Selected Currency' && in_array($base_currency,array('CAD', 'EUR', 'GBP', 'JPY', 'USD')) ){
+        if($my_currency =='Selected Currency' && in_array($base_currency,array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN')) ){
         	$my_currency = $base_currency;
         }
-        elseif (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
+        elseif (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN'))) {
 			$my_currency = 'USD';
 		}
         return $my_currency;

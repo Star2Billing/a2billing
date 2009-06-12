@@ -53,3 +53,7 @@ ALTER TABLE cc_system_log ADD agent TINYINT DEFAULT 0;
 DELETE FROM cc_config WHERE config_key = 'show_icon_invoice';
 DELETE FROM cc_config WHERE config_key = 'show_top_frame';
 
+-- add MXN currency on Paypal
+UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''Selected Currency'',''USD'',''CAD'',''EUR'',''GBP'',''JPY'',''MXN''), ' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY' ;
+
+
