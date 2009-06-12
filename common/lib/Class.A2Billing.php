@@ -1087,19 +1087,17 @@ class A2Billing {
 		$sip_buddies = 0;
 		$iax_buddies = 0;
 
-		$QUERY = "SELECT name FROM cc_iax_buddies, cc_card WHERE cc_iax_buddies.name=cc_card.username AND useralias='".$this->destination."'";
-		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-
+		$QUERY = "SELECT name FROM cc_iax_buddies, cc_card WHERE cc_iax_buddies.id_cc_card=cc_card.id AND useralias='".$this->destination."'";
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, $result);
 
 		if( is_array($result) && count($result) > 0) {
 			$iax_buddies = 1;
-			$destiax=$result[0][0];
+			$destiax = $result[0][0];
 		}
 
 		$card_alias = $this->destination;
-		$QUERY = "SELECT name FROM cc_sip_buddies, cc_card WHERE cc_sip_buddies.name=cc_card.username AND useralias='".$this->destination."'";
+		$QUERY = "SELECT name FROM cc_sip_buddies, cc_card WHERE cc_iax_buddies.id_cc_card=cc_card.id AND useralias='".$this->destination."'";
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RESULT : ".print_r($result,true));
 		
