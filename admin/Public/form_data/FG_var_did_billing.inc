@@ -3,13 +3,12 @@
 getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'filterprefix', 'filterprefix2'));
 
 
-$HD_Form = new FormHandler("cc_call, cc_did","did billing");
+$HD_Form = new FormHandler("cc_call INNER JOIN cc_did ON cc_did.id = cc_call.id_did INNER JOIN cc_card ON cc_card.id = cc_call.card_id","did billing");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "date";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_TABLE_CLAUSE = "( sipiax = 2 OR sipiax = 3) and cc_did.id=id_did ";
+$HD_Form -> FG_TABLE_CLAUSE = "( sipiax = 2 OR sipiax = 3) ";
 
 
 $HD_Form -> AddViewElement(gettext("DATE"), "starttime", "15%", "center", "nosort");
@@ -26,9 +25,9 @@ $HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ("DATE(starttime) as date, cc_did.did, count(*) as nb_call, sum(sessiontime) as t_time, sum(sessionbill) as t_cost, username, id_did ", 0 );
+$HD_Form -> FieldViewElement ("DATE(starttime) as date, cc_did.did, count(*) as nb_call, sum(sessiontime) as t_time, sum(sessionbill) as t_cost, username ", 0 );
 
-$HD_Form -> SQL_GROUP = " GROUP BY username, cc_did.did, id_did, date ";
+$HD_Form -> SQL_GROUP = " GROUP BY cc_card.username, cc_did.did, date ";
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO DID BILLING HAS BEEN CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
