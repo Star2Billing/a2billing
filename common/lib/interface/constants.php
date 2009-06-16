@@ -9,8 +9,10 @@ class Constants
 		$language_list["1"] = array( gettext("SPANISH"), "es");
 		$language_list["2"] = array( gettext("FRENCH"),  "fr");
 		$language_list["3"] = array( gettext("RUSSIAN"), "ru");
+		$language_list["4"] = array( gettext("BRAZILIAN"), "br");
 		return $language_list;
 	}
+	
 	public static function getLanguages(){
 		$language_list = array();
 		$language_list["en"] = array( gettext("ENGLISH"));

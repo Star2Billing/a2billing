@@ -222,10 +222,8 @@ if (($popup_select>=1)) {
 
 	if ($popup_select==1) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|', '|col1|');";
-		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[$FG_NB_TABLE_COL]."');\">&lt;Select Card&gt;</a>";
 	} elseif ($popup_select==2) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col1|');";
-		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[1]."');\">&lt;Select Card&gt;</a>";
 	}
 
 } else {
@@ -407,9 +405,13 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   gettext("Insert the state"),
 				   "" , "", "",	"", "", "" , "NO", "");
 	
+	if ($form_action == 'ask-add') {
+		$country_default_val = 'USA';
+	}
+	
 	$HD_Form -> AddEditElement (gettext("COUNTRY"),
 				   "country",
-				   "",
+				   "$country_default_val",
 				   "SELECT",
 				   "", "", "",
 				   "sql",
