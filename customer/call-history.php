@@ -86,7 +86,7 @@ $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 
 $FG_TABLE_COL = array();
-$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "17%", "center", "SORT", "22", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "17%", "center", "SORT", "22", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Source"), "source", "14%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "14%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "14%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "prefix='%id'", "%1" );
@@ -450,20 +450,18 @@ echo $CC_help_balance_customer;
 									$record_display = $recordset[$i];
 							}
 							
-							
-							if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
+							if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5]) ) {
 								$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";  
-															
 							}
 							
 							
 				 		 ?>
                  		 <TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php 
                  		 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
-						 		call_user_func($FG_TABLE_COL[$i][11], $record_display);
+						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
-									echo stripslashes($record_display);
-							 }						 
+						 	echo stripslashes($record_display);
+						 }						 
 						 ?></TD>
 				 		 <?php  } ?>
                   
