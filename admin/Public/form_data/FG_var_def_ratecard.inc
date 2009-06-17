@@ -12,7 +12,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 $destination = strtolower ($destination);
 
 
-if ( (empty($form_action) || $form_action=="list") && $deleteselected!='true') {
+if ( (empty($form_action) || $form_action=="list") && $deleteselected != 'true') {
 	$HD_Form = new FormHandler("cc_ratecard LEFT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffplan = cc_ratecard.idtariffplan","Rates");
 } else {
 	$HD_Form = new FormHandler("cc_ratecard","Rates");
@@ -64,7 +64,7 @@ if (isset($posted) && !$popup_select) {
 	}
 } else {
 	
-	if (!empty($_SESSION['def_ratecard_tariffgroup'])) {
+	if (!empty($_SESSION['def_ratecard_tariffgroup']) && (empty($form_action) || $form_action=="list")) {
 		$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard_tariffgroup'];
 		$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
 				"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
