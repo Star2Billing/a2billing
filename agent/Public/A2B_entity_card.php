@@ -19,11 +19,9 @@ if ($form_action=="ask-edit") {
 		Header ("Location: PP_error.php?c=accessdenied");	   
 		die();	   
 	}
-	
 }
 
 if ($form_action=="ask-delete") {
-	
 	if (! has_rights (ACX_DELETE_CUSTOMER)) { 
 		Header ("HTTP/1.0 401 Unauthorized");
 		Header ("Location: PP_error.php?c=accessdenied");	   
@@ -38,13 +36,13 @@ $HD_Form -> setDBHandler (DbConnect());
 //SECURTY CHECK FOR AGENT
 
 if ($form_action != "list" && isset($id)) {
-	if(!empty($id)&& $id>0){
+	if (!empty($id)&& $id>0) {
 		$table_agent_security = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
 		$clause_agent_security = "cc_card.id= ".$id;
 		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
-		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
+		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) {
 			Header ("Location: A2B_entity_card.php?section=1");
-			die();	   
+			die();
 		}
 	}
 }
@@ -60,26 +58,26 @@ if ($batchupdate == 1 && is_array($check)) {
 	$HD_Form->prepare_list_subselection('list');
 	
 	// Array ( [upd_simultaccess] => on [upd_currency] => on )	
-	$loop_pass=0;
+	$loop_pass = 0;
 	$SQL_UPDATE = '';
-	foreach ($check as $ind_field => $ind_val){
+	foreach ($check as $ind_field => $ind_val) {
 		//echo "<br>::> $ind_field -";
 		$myfield = substr($ind_field,4);
 		if ($loop_pass!=0) $SQL_UPDATE.=',';
 		
 		// Standard update mode
 		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){		
-			if (!isset($type["$ind_field"])){		
+			if (!isset($type["$ind_field"])) {	
 				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
-			}else{
+			} else {
 				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
 			}
 		// Mode 2 - Equal - Add - Subtract
-		}elseif($mode["$ind_field"]==2){
-			if (!isset($type["$ind_field"])){		
+		} elseif($mode["$ind_field"]==2) {
+			if (!isset($type["$ind_field"])) {		
 				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
-			}else{
-				if ($type["$ind_field"] == 1){
+			} else {
+				if ($type["$ind_field"] == 1) {
 					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
 				}elseif ($type["$ind_field"] == 2){
 					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
@@ -155,11 +153,10 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 			$instance_sub_table = new Table("cc_logrefill", $field_insert);
 			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
 			
-			if (!$result_query ){		
+			if (!$result_query ) {		
 				$update_msg ="<b>".$instance_sub_table -> errstr."</b>";	
 			}
-				
-				
+			
 			}else{
 					
 				$currencies_list = get_currencies();
@@ -593,8 +590,7 @@ if (!$popup_select && $form_action == "ask-add"){
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-if ($form_action=='ask-edit')
-{
+if ($form_action=='ask-edit') {
 	$inst_table = new Table("cc_card", "useralias, uipass");
 	$FG_TABLE_CLAUSE = "id = $id";
 	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
@@ -616,7 +612,6 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 
 // Code for the Export Functionality
-//* Query Preparation.
 $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= "SELECT ".$HD_Form -> FG_EXPORT_FIELD_LIST." FROM $HD_Form->FG_TABLE_NAME";
 if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) 
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";
@@ -628,4 +623,4 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 // #### FOOTER SECTION
 if (!($popup_select>=1)) $smarty->display('footer.tpl');
 
-?>
+

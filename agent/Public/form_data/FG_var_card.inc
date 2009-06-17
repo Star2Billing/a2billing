@@ -41,12 +41,13 @@ if (has_rights (ACX_GENERATE_CUSTOMER)) {
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Generate Customers");
 	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_multi_add.png" ;
 }
+
 if (has_rights (ACX_CREATE_CUSTOMER)) { 
-$HD_Form -> FG_ADDITION = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
-$HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=".$_SESSION["menu_section"];
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add Customer");
-$HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
+	$HD_Form -> FG_ADDITION = true;
+	$HD_Form ->FG_LIST_ADDING_BUTTON2 = true;
+	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=".$_SESSION["menu_section"];
+	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add Customer");
+	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/user_add.png" ;
 }
 
 $language_list = Constants::getLanguagesList();
@@ -90,7 +91,7 @@ foreach ($show_list_temp as $i => $value) {
 		$b=$temp_ar[1];
 		$a=strtolower(trim($temp_ar[0]));	
 		if (strlen($a)>1) {
-		$show_list_sizes[$a]=$b;
+			$show_list_sizes[$a]=$b;
 		}
 	}
 	if (strlen($a)>1) {
