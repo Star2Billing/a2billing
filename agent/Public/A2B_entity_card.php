@@ -52,6 +52,7 @@ $HD_Form -> init();
 
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description','refill_type'));
+
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
 	
@@ -105,24 +106,25 @@ if ($batchupdate == 1 && is_array($check)) {
 /********************************* END BATCH UPDATE ***********************************/
 
 
-if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 || $cardnumber>0)) {
+if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber > 0)) {
 	
 	$instance_table = new Table("cc_card", "username, id");
 	
-	if ($cardnumber>0){
+	if ($cardnumber>0) {
 		/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
 		$FG_TABLE_CLAUSE_card = "username='".$cardnumber."'";
 		$list_tariff_card = $instance_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
 		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
 		
 	}
-	if ($id>0){
+	
+	if ($id>0) {
 		
 		$instance_check_card_agent = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
 		$FG_TABLE_CLAUSE_check = "cc_card.id= ".$id;
 		$list_check= $instance_check_card_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_check, null, null, null, null, null, null);
+		
 		if ( $list_check[0][0] ==$_SESSION['agent_id'] ) { 
-			
 				
 			//chech if enought credit
 			$instance_table_agent = new Table("cc_agent", "credit, currency");
@@ -130,54 +132,59 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 			$agent_info = $instance_table_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_AGENT, null, null, null, null, null, null);			
 			$credit_agent = $agent_info[0][0];
 			  
-			if($credit_agent>=$addcredit){
+			if ($credit_agent>=$addcredit) {
 				
-		   //Substract credit for agent
-			$param_update_agent = "credit = credit - '".$addcredit."'";
-			$instance_table_agent -> Update_table ($HD_Form -> DBHandle, $param_update_agent, $FG_TABLE_CLAUSE_AGENT, $func_table = null);	
+			   //Substract credit for agent
+				$param_update_agent = "credit = credit - '".$addcredit."'";
+				$instance_table_agent -> Update_table ($HD_Form -> DBHandle, $param_update_agent, $FG_TABLE_CLAUSE_AGENT, $func_table = null);	
+				
+			   // Add credit to Customer	
+				$param_update .= "credit = credit + '".$addcredit."'";
+				if ($HD_Form->FG_DEBUG == 1)  echo "<br><hr> $param_update";	
+				
+				$FG_EDITION_CLAUSE = " id='$id'" ; // AND id_agent=".$_SESSION['agent_id'];
+				
+				if ($HD_Form->FG_DEBUG == 1)  echo "<br>-----<br>$param_update<br>$FG_EDITION_CLAUSE";
+				$instance_table = new Table("cc_card", "username, id");			
+				$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
+				
+				$update_msg ='<b><font color="green">'.gettext("Refill executed ").'</font></b>';	
+				
+				$field_insert = "date, credit, card_id, description, refill_type";
+				$value_insert = "now(), '$addcredit', '$id','$description','$refill_type'";
+				$instance_sub_table = new Table("cc_logrefill", $field_insert);
+				$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
+				
+				if (!$result_query ) {		
+					$update_msg ="<b>".$instance_sub_table -> errstr."</b>";	
+				}
 			
-		   // Add credit to Customer	
-			$param_update .= "credit = credit + '".$addcredit."'";
-			if ($HD_Form->FG_DEBUG == 1)  echo "<br><hr> $param_update";	
-			
-			$FG_EDITION_CLAUSE = " id='$id'" ; // AND id_agent=".$_SESSION['agent_id'];
-			
-			if ($HD_Form->FG_DEBUG == 1)  echo "<br>-----<br>$param_update<br>$FG_EDITION_CLAUSE";
-			$instance_table = new Table("cc_card", "username, id");			
-			$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
-			
-			$update_msg ='<b><font color="green">'.gettext("Refill executed ").'</font></b>';	
-			
-			$field_insert = "date, credit, card_id, description, refill_type";
-			$value_insert = "now(), '$addcredit', '$id','$description','$refill_type'";
-			$instance_sub_table = new Table("cc_logrefill", $field_insert);
-			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
-			
-			if (!$result_query ) {		
-				$update_msg ="<b>".$instance_sub_table -> errstr."</b>";	
-			}
-			
-			}else{
+			} else {
 					
 				$currencies_list = get_currencies();
 		
-				if (!isset($currencies_list[strtoupper($agent_info [0][1])][2]) || !is_numeric($currencies_list[strtoupper($agent_info [0][1])][2])) $mycur = 1;
-				else $mycur = $currencies_list[strtoupper($agent_info [0][1])][2];
+				if (!isset($currencies_list[strtoupper($agent_info [0][1])][2]) || !is_numeric($currencies_list[strtoupper($agent_info [0][1])][2])) 
+					$mycur = 1;
+				else 
+					$mycur = $currencies_list[strtoupper($agent_info [0][1])][2];
+				
 				$credit_cur = $agent_info[0][0] / $mycur;
 				$credit_cur = round($credit_cur,3);
 				
 				$update_msg ='<b> <font color="red">'.gettext("You don't have enough credit to do this refill. You have ").$credit_cur.' '.$agent_info[0][1].' </font></b>';	
 			}
-		}else{
+			
+		} else {
 				$update_msg ='<b><font color="red">'.gettext("Impossible to refill this card ").'</font></b>';	
 		}
 	}
 }
 
-if ($form_action == "addcredit")	$form_action='list';
+if ($form_action == "addcredit")
+	$form_action='list';
 
 
-if ($id!="" || !is_null($id)){	
+if ($id!="" || !is_null($id)) {	
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
@@ -194,7 +201,7 @@ $smarty->display('main.tpl');
 
 
 
-if ($popup_select){
+if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
 <!-- Begin
@@ -209,9 +216,8 @@ function sendValue(selvalue){
 
 
 // #### HELP SECTION
-if ($form_action=='list' && !($popup_select>=1)){
-echo $CC_help_list_customer;
-
+if ($form_action=='list' && !($popup_select>=1)) {
+	echo $CC_help_list_customer;
 
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
@@ -293,7 +299,7 @@ echo $CC_help_list_customer;
 
 <?php
 // #### CREATE SEARCH FORM
-if ($form_action == "list"){
+if ($form_action == "list") {
 	$HD_Form -> create_search_form();
 }
 ?>
@@ -304,7 +310,7 @@ if ($form_action == "list"){
 <?php
 
 /********************************* BATCH UPDATE ***********************************/
-if ($form_action == "list" && (!($popup_select>=1))	){
+if ($form_action == "list" && (!($popup_select>=1))) {
 		
 	$instance_table_tariff = new Table("cc_tariffgroup", "id, tariffgroupname");
 	$FG_TABLE_CLAUSE = "";
