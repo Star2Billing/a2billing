@@ -17,7 +17,7 @@
 
 class PhpQuickProfiler {
 	
-	public $output = array();
+	public $output;
 	public $config = '';
 	public $installed = true;
 	public $modedebug = PHP_QUICK_PROFILER;
@@ -25,6 +25,9 @@ class PhpQuickProfiler {
 	private	$url_css = 'pqp/';
 	
 	public function __construct($startTime, $config = '/pqp/') {
+		
+		$this->output = array();
+		
 		$this->startTime = $startTime;
 		
 		// $this->path_qpq = $_SERVER['DOCUMENT_ROOT'];
