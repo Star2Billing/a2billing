@@ -1776,33 +1776,69 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		
 		$instance_table = new Table();
 		$id_cc_did = $processed['id_cc_did'];
+		$id_cc_card = $processed['id_cc_card'];
 		
-		$result_did = $instance_table -> SQLExec($this->DBHandle, "SELECT fixrate FROM cc_did WHERE id = $id_cc_did AND (billingtype=0 OR billingtype=1)");
+		// 3 cases to handle :
+		// the DID is released so we can purchase it
+		// the DID is used by an other user, we might want to change
+		// the DID is new nothing in cc_did_use
+
+		$QUERY_DID = "SELECT cc_did_use.id, cc_did_use.id_cc_card, cc_did.fixrate, billingtype ".
+		             "FROM cc_did_use ".
+		             "LEFT JOIN cc_did ON cc_did.id = cc_did_use.id_did ".
+		             "WHERE id_did ='".$id_cc_did."' AND releasedate IS NULL";
 		
-		if (is_array($result_did)) {
+		$QUERY_DID = "SELECT cc_did_use.id, cc_did_use.id_cc_card, cc_did.fixrate, billingtype, releasedate ".
+		             "FROM cc_did_use ".
+		             "LEFT JOIN cc_did ON cc_did.id = cc_did_use.id_did ".
+		             "WHERE id_did ='".$id_cc_did."'" .
+		             "ORDER BY cc_did_use.id DESC";
 		
-			$choose_did = $id_cc_did;
-			$rate = $result_did[0]['fixrate'];
-			$id_cc_card = $processed['id_cc_card'];
+		$result_did = $instance_table -> SQLExec($this->DBHandle, $QUERY_DID);
+
+		if (is_array($result_did) && count($result_did)>0) {
 			
-			$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ('" . $id_cc_card . "', '" . $rate . "', '2','" . $choose_did . "','" . strtoupper(BASE_CURRENCY) . "')";
-			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
-			
-			$QUERY1 = "UPDATE cc_did set iduser = " . $id_cc_card . ",reserved=1 where id = '" . $choose_did . "'";
-			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
-	
-			$QUERY1 = "UPDATE cc_card set credit = credit -" . $rate . " where id = '" . $id_cc_card . "'";
-			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
-	
-			$QUERY1 = "UPDATE cc_did_use set releasedate = now() where id_did = '" . $choose_did . "' and activated = 0";
-			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
-	
-			$QUERY1 = "INSERT INTO cc_did_use (activated, id_cc_card, id_did, month_payed) values ('1','" . $id_cc_card . "','" . $choose_did . "', 1)";
-			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
-			
+			// check the id_cc_card, if id_cc_card is null it means it has been released 
+			if ((isset($result_did[0]['id_cc_card'])) && (strlen($result_did[0]['id_cc_card']) > 0)){
+				// echo("DID $did_id is in use by customer id:".$existing_owner_id);
+				$existing_owner_id = $result_did[0]['id_cc_card'];
+				
+			} else {  
+				// did_use without a registered card
+				// echo("DID $did_id has been freed");
+				$existing_owner_id = -1;
+			}
+		} else {
+			// No result, the DID hasnt been purchased yet
+			$existing_owner_id = -2;
 		}
+
+		if($existing_owner_id >= -2 && $existing_owner_id != $id_cc_card) {
+			
+			// The did ownership has changed and we need to update. (regardless of how it's billed)
+			if( $result_did[0]['billingtype'] == 0 || $result_did[0]['billingtype'] == 1 ) {
+				$rate = $result_did[0]['fixrate'];
+				$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ".
+				           "('" . $id_cc_card . "', '" . $rate . "', '2','" . $id_cc_did . "','" . strtoupper(BASE_CURRENCY) . "')";
+				$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+
+				$QUERY1 = "UPDATE cc_card set credit = credit -" . $rate . " where id = '" . $id_cc_card . "'";
+				$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+			}
+
+			$QUERY1 = "UPDATE cc_did set iduser = " . $id_cc_card . ",reserved=1 where id = '" . $id_cc_did . "'";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+
+			$QUERY1 = "UPDATE cc_did_use set releasedate = now() where id_did = '" . $id_cc_did . "' and activated = 0";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+
+			// Should we do something special when billing != 0 or 1?
+			$QUERY1 = "INSERT INTO cc_did_use (activated, id_cc_card, id_did, month_payed) values ('1','" . $id_cc_card . "','" . $id_cc_did . "', 1)";
+			$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
+		} 
+		// else existing_owner_id is already correctly set due to prior destinations on the same DID
 	}
-	
+
 	/*
 	 * function to release a DID and set the DID use correctly
 	 */
@@ -1812,23 +1848,36 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		$processed = $this->getProcessed();
 		
 		$instance_table = new Table();
-		$id = $processed['id'];
-		
-		$result_did_dest = $instance_table -> SQLExec($this->DBHandle, "SELECT id_cc_did FROM cc_did_destination WHERE id = $id");
-		
-		if (is_array($result_did_dest) && !is_null($result_did_dest[0]['id_cc_did'])) {
-		
-			$choose_did = $result_did_dest[0]['id_cc_did'];
-			
-			$QUERY = "UPDATE cc_did SET iduser = 0, reserved=0 WHERE id=$choose_did";
-			$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
-		
-			$QUERY = "UPDATE cc_did_use SET releasedate = now() WHERE id_did =$choose_did and activated = 1";
-			$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
-		
-			$QUERY = "INSERT INTO cc_did_use (activated, id_did) VALUES ('0','" . $choose_did . "')";
-			$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
-			
+		$did_destination_id = $processed['id'];
+
+		$QUERY_did = "SELECT cc_did.id AS did_id, dg.dest_count AS destination_count ".
+		             "FROM cc_did ".
+		             "LEFT JOIN cc_did_destination ON cc_did_destination.id_cc_did = cc_did.id ".
+		             "LEFT JOIN ( SELECT st1.id, count(*) AS dest_count ".
+		                          "FROM cc_did AS st1 ".
+		                          "INNER JOIN cc_did_destination AS st2 ON st2.id_cc_did = st1.id ".
+		                          "GROUP BY st1.id ".
+		                        ") AS dg ON dg.id = cc_did.id ".
+		             "WHERE cc_did_destination.id = '". $did_destination_id ."'";
+		// Also possible to do FROM cc_did_destination AS dest1 JOIN cc_did JOIN cc_did_destination AS dest2 GROUP BY dest1.id, cc_did.id
+		// To get the count but NULL and NO row behavoir is flaky no matter the types of joins used. Therefore using SubSelect.
+		$result_did_dest = $instance_table -> SQLExec($this->DBHandle, $QUERY_did );
+
+		if (is_array($result_did_dest) && !is_null($result_did_dest[0]['did_id'])) {
+			if( $result_did_dest[0]['destination_count'] < 2 ) {
+				// Only remove did from card if this is the LAST destination connecting the two.
+				// < 2, not 1 because destination is deleted after this call.
+				$choose_did = $result_did_dest[0]['did_id'];
+				
+				$QUERY = "UPDATE cc_did SET iduser = 0, reserved=0 WHERE id=$choose_did";
+				$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
+
+				$QUERY = "UPDATE cc_did_use SET releasedate = now() WHERE id_did =$choose_did and activated = 1";
+				$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
+
+				$QUERY = "INSERT INTO cc_did_use (activated, id_did) VALUES ('0','" . $choose_did . "')";
+				$result = $instance_table->SQLExec($this->DBHandle, $QUERY, 0);
+			}
 		}
 	}
 	

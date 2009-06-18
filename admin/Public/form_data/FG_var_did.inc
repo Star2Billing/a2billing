@@ -21,6 +21,7 @@ $actived_list = Constants::getActivationList();
 $billingtype_list = Constants::getBillingTypeList();
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 $billingtype_list_short = Constants::getBillingTypeShortList();
+$yesno = Constants::getYesNoList();
 
 
 $HD_Form -> AddViewElement(gettext("DID"), "did", "10%", "center", "sort");
@@ -29,12 +30,13 @@ $HD_Form -> AddViewElement(gettext("START DATE"), "startingdate", "14%", "center
 $HD_Form -> AddViewElement(gettext("EXPIRY DATE"), "expirationdate", "14%", "center", "sort", "19", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DIDGROUP"), "id_cc_didgroup", "12%", "center", "sort", "15", "lie", "cc_didgroup", "didgroupname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "12%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>"), "activated", "5%", "center", "sort", "", "list", $actived_list);
-$HD_Form -> AddViewElement(gettext("<acronym title=\"MINUTES USED\">".gettext("MU")."</acronym>"), "secondusedreal", "4%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"MONTHLY RATE\">".gettext("MR")."</acronym>"), "fixrate", "8%", "center", "SORT", "30");
+$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("ACTIVATED")."\">".gettext("ACT")."</acronym>"), "activated", "5%", "center", "sort", "", "list", $actived_list);
+$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("MINUTES USED")."\">".gettext("MU")."</acronym>"), "secondusedreal", "4%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("MONTHLY RATE")."\">".gettext("MR")."</acronym>"), "fixrate", "4%", "center", "SORT", "30");
+$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("RESERVED")."\">".gettext("RES")."</acronym>"), "reserved", "4%", "center", "SORT", "", "list", $yesno);
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, secondusedreal, fixrate');
+$HD_Form -> FieldViewElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, secondusedreal, fixrate, reserved');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
