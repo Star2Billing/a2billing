@@ -1782,12 +1782,7 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		// the DID is released so we can purchase it
 		// the DID is used by an other user, we might want to change
 		// the DID is new nothing in cc_did_use
-
-		$QUERY_DID = "SELECT cc_did_use.id, cc_did_use.id_cc_card, cc_did.fixrate, billingtype ".
-		             "FROM cc_did_use ".
-		             "LEFT JOIN cc_did ON cc_did.id = cc_did_use.id_did ".
-		             "WHERE id_did ='".$id_cc_did."' AND releasedate IS NULL";
-		
+				
 		$QUERY_DID = "SELECT cc_did_use.id, cc_did_use.id_cc_card, cc_did.fixrate, billingtype, releasedate ".
 		             "FROM cc_did_use ".
 		             "LEFT JOIN cc_did ON cc_did.id = cc_did_use.id_did ".
