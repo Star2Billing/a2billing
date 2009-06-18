@@ -60,7 +60,7 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	"destination",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=30",
+	"size=40 maxlength=40",
 	"0",
 	"Insert the Destination",
 	"" , "", "", "", "" , "", "", gettext("Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "));

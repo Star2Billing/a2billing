@@ -821,7 +821,8 @@ function get_timezones($handle = null) {
 	return $timezone_list;
 }
 
-function display_GMT($currDate, $number, $fulldate = 1) {
+function display_GMT($currDate, $number, $fulldate = 1)
+{	
 	$date_time_array = getdate(strtotime($currDate));
 	$hours = $date_time_array['hours'];
 	$minutes = $date_time_array['minutes'];
@@ -830,22 +831,28 @@ function display_GMT($currDate, $number, $fulldate = 1) {
 	$day = $date_time_array['mday'];
 	$year = $date_time_array['year'];
 	$timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);
-
-	if ($number < 0) {
-		$timestamp = $timestamp - ($number);
-	} else {
-		$timestamp = $timestamp + ($number);
-	}
-
+	
+	$timestamp = $timestamp + ($number);
+	/*
 	if ($fulldate == 1) {
 		$gmdate = gmdate("m/d/Y H:i:s", $timestamp);
 	} else {
 		$gmdate = gmdate("m/d/Y", $timestamp);
 	}
 	return $gmdate;
+	*/
+	
+	if ($fulldate == 1) {
+		$date = date("m/d/Y H:i:s", $timestamp);
+	} else {
+		$date = date("m/d/Y", $timestamp);
+	}
+	return $date;
 }
 
-function check_translated($id, $languages) {
+
+function check_translated($id, $languages)
+{
 	if (empty ($handle)) {
 		$handle = DbConnect();
 	}

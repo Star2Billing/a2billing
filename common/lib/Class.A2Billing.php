@@ -1289,32 +1289,39 @@ class A2Billing {
 					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[".$inst_listdestination[4]." Friend][followme=$callcount]:[ANSWEREDTIME=".$answeredtime."-DIALSTATUS=".$dialstatus."]");
 					
 					//# Ooh, something actually happend!
-					if ($dialstatus  == "BUSY") {
+					if ($dialstatus == "BUSY") {
+						
 						$answeredtime=0;
 						$agi-> stream_file('prepaid-isbusy', '#');
-						// FOR FOLLOWME IF THERE IS MORE WE PASS TO THE NEXT ONE OTHERWISE WE NEED TO LOG THE CALL MADE
 						if (count($listdestination)>$callcount) continue;
+						
 					} elseif ($this->dialstatus == "NOANSWER") {
+						
 						$answeredtime=0;
 						$agi-> stream_file('prepaid-callfollowme', '#');
-						// FOR FOLLOWME IF THERE IS MORE WE PASS TO THE NEXT ONE OTHERWISE WE NEED TO LOG THE CALL MADE
 						if (count($listdestination)>$callcount) continue;
+						
 					} elseif ($dialstatus == "CANCEL") {
-						$answeredtime=0;
-						// FOR FOLLOWME IF THERE IS MORE WE PASS TO THE NEXT ONE OTHERWISE WE NEED TO LOG THE CALL MADE
-						if (count($listdestination)>$callcount) continue;
+						
+						// Call cancelled, no need to follow-me
+						return 1;
+						
 					} elseif ($dialstatus == "ANSWER") {
+						
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: dialstatus : $dialstatus, answered time is ".$answeredtime." \n");
+						
 					} elseif (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION")) {
+						
 						$answeredtime=0;
-						// FOR FOLLOWME IF THERE IS MORE WE PASS TO THE NEXT ONE OTHERWISE WE NEED TO LOG THE CALL MADE
 						if (count($listdestination)>$callcount) continue;
-					} else{
+						
+					} else {
+						
 						$agi-> stream_file('prepaid-callfollowme', '#');
-						// FOR FOLLOWME IF THERE IS MORE WE PASS TO THE NEXT ONE OTHERWISE WE NEED TO LOG THE CALL MADE
 						if (count($listdestination)>$callcount) continue;
+						
 					}
-
+					
 					if ($answeredtime >0) {
 
 						$this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
@@ -1366,7 +1373,11 @@ class A2Billing {
 						}
 
 						$dialstatus = $RateEngine->dialstatus;
-						if (($RateEngine->dialstatus == "NOANSWER") || ($RateEngine->dialstatus == "CANCEL") || ($RateEngine->dialstatus == "BUSY") || ($RateEngine->dialstatus == "CHANUNAVAIL") || ($RateEngine->dialstatus == "CONGESTION")) continue;
+						if (($RateEngine->dialstatus == "NOANSWER") || ($RateEngine->dialstatus == "BUSY") || 
+							($RateEngine->dialstatus == "CHANUNAVAIL") || ($RateEngine->dialstatus == "CONGESTION")) continue;
+						
+						if ($RateEngine->dialstatus == "CANCEL")
+							break;
 
 						// INSERT CDR  & UPDATE SYSTEM
 						$RateEngine->rate_engine_updatesystem($this, $agi, $this-> destination, $doibill, 1);
