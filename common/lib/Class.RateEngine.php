@@ -1004,11 +1004,21 @@ class RateEngine
 		else
 			$terminatecauseid = 0;
 			
+
+		$card_id =  (!is_numeric($A2B->id_card)) ? '-1' : "'". $A2B->id_card ."'";
+		$real_sessiontime = (!is_numeric($this->real_answeredtime)) ? 'NULL' : "'". $this->real_answeredtime ."'";
+		$id_tariffgroup = (!is_numeric($id_tariffgroup)) ? 'NULL' : "'$id_tariffgroup'";
+		$id_tariffplan = (!is_numeric($id_tariffplan)) ? 'NULL' : "'$id_tariffplan'";
+		$id_ratecard = (!is_numeric($id_ratecard)) ? 'NULL' : "'$id_ratecard'";
+		$trunk_id =  (!is_numeric( $this -> usedtrunk)) ? 'NULL' : "'". $this->usedtrunk ."'";
+		$id_card_package_offer = (!is_numeric($id_card_package_offer)) ? 'NULL' : "'$id_card_package_offer'";
+		$calldestination = (!is_numeric($calldestination)) ? 'DEFAULT' : "'$calldestination'";
+
 		$QUERY_COLUMN = "uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, real_sessiontime, calledstation, ".
 			" terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, " .
 			" id_trunk, src, sipiax, buycost, id_card_package_offer, dnid, destination";
-		$QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', '".
-			$A2B->id_card."', '".$A2B->hostname."', ";
+		$QUERY = "INSERT INTO cc_call ($QUERY_COLUMN) VALUES ('".$A2B->uniqueid."', '".$A2B->channel."', ".
+			"$card_id, '".$A2B->hostname."', ";
 
 		if ($A2B->config["global"]['cache_enabled']) {
 			$QUERY .= " datetime( strftime('%s','now') - $sessiontime, 'unixepoch','localtime')";	
@@ -1016,22 +1026,17 @@ class RateEngine
 			$QUERY .= "SUBDATE(CURRENT_TIMESTAMP, INTERVAL $sessiontime SECOND) ";
 		}
 
-		$QUERY .= 	", '$sessiontime', '".$this->real_answeredtime."', '$calledstation', '$terminatecauseid', "; 
+		$QUERY .= 	", '$sessiontime', $real_sessiontime, '$calledstation', $terminatecauseid, ";
 		if ($A2B->config["global"]['cache_enabled']) {
 			$QUERY .= "datetime('now','localtime')";
 		} else {
 			$QUERY .= "now()";
 		}
 
-		if (! is_numeric($id_card_package_offer))
-			$id_card_package_offer = 'NULL';
-		else $id_card_package_offer = "'$id_card_package_offer'";
-
 		$QUERY .= " , '$signe_cc_call".a2b_round(abs($cost))."', ".
-					" '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
-					" '$buycost', $id_card_package_offer, '".$A2B->dnid."', '".$calldestination."')";
-		
-		
+					" $id_tariffgroup, $id_tariffplan, $id_ratecard, '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', ".
+					" '$buycost', $id_card_package_offer, '".$A2B->dnid."', $calldestination)";
+
 		if ($A2B->config["global"]['cache_enabled']) {
 			 //insert query in the cache system
 			$create=false;
@@ -1073,7 +1078,7 @@ class RateEngine
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 			
-			$QUERY = "UPDATE cc_tariffplan SET secondusedreal = secondusedreal + $sessiontime WHERE id='$id_tariffplan'";
+			$QUERY = "UPDATE cc_tariffplan SET secondusedreal = secondusedreal + $sessiontime WHERE id=$id_tariffplan";
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 		}
