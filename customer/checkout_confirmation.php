@@ -34,16 +34,17 @@ $vat=$_SESSION["vat"];
 getpost_ifset(array('amount','payment','authorizenet_cc_expires_year','authorizenet_cc_owner','authorizenet_cc_expires_month','authorizenet_cc_number','authorizenet_cc_expires_year'));
 // PLUGNPAY
 getpost_ifset(array('credit_card_type', 'plugnpay_cc_owner', 'plugnpay_cc_number', 'plugnpay_cc_expires_month', 'plugnpay_cc_expires_year', 'cvv'));
-//invoice
+// Invoice
 getpost_ifset(array('item_id','item_type'));
 
 $vat_amount= $amount*$vat/100;
 $total_amount = $amount+($amount*$vat/100);
-if(!isset($item_id)|| is_null($item_id)){
+if (!isset($item_id) || is_null($item_id)) {
 	$item_id = 0;	
 }
-if(!isset($item_type)|| is_null($item_type)){
-	$item_type= "" ;
+
+if (!isset($item_type) || is_null($item_type)) {
+	$item_type = '';
 }
 
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
@@ -62,7 +63,7 @@ if (strtoupper($payment)=='PLUGNPAY') {
 	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, cvv, credit_card_type, currency , item_id , item_type";
 	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount_string', '".$_SESSION["vat"]."', '$payment','$plugnpay_cc_owner','".substr($plugnpay_cc_number,0,4)."XXXXXXXXXXXX','".$plugnpay_cc_expires_month."-".$plugnpay_cc_expires_year."','$time_stamp', '$cvv', '$credit_card_type', '".BASE_CURRENCY."' , '$item_id', '$item_type'";
 } else {
-	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, currency, item_id , item_type";
+	$QUERY_FIELDS = "cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, currency, item_id, item_type";
 	$QUERY_VALUES = "'".$_SESSION["card_id"]."','$amount_string', '".$_SESSION["vat"]."', '$payment','$authorizenet_cc_owner','".substr($authorizenet_cc_number,0,4)."XXXXXXXXXXXX','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp', '".BASE_CURRENCY."' , '$item_id','$item_type'";
 }
 $transaction_no = $paymentTable->Add_table ($HD_Form -> DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_epayment_log', 'id');

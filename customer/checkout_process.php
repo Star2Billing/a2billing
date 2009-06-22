@@ -44,10 +44,14 @@ if (DB_TYPE == "postgres") {
 }
 
 // Status - New 0 ; Proceed 1 ; In Process 2
-$QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency,item_id,item_type FROM cc_epayment_log WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
+$QUERY = "SELECT id, cardid, amount, vat, paymentmethod, cc_owner, cc_number, cc_expires, creationdate, status, cvv, credit_card_type, currency, item_id, item_type " .
+		 " FROM cc_epayment_log " .
+		 " WHERE id = ".$transactionID." AND (status = 0 OR (status = 2 AND $NOW_2MIN))";
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
+
 $item_id = $transaction_data[0][13];
 $item_type = $transaction_data[0][14];
+
 //Update the Transaction Status to 1
 $QUERY = "UPDATE cc_epayment_log SET status = 2 WHERE id = ".$transactionID;
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY = $QUERY");
@@ -192,8 +196,10 @@ switch($transaction_data[0][4])
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO SUCH EPAYMENT FOUND");
 		exit();
 }
+
 if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])) $VAT =0;
 else $VAT = $transaction_data[0]['vat'];
+
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 $amount_without_vat = $amount_paid / (1+$VAT/100);
 
@@ -220,25 +226,12 @@ if ($security_verify == false) {
 	// Add Post information / useful to track down payment transaction without having to log
 	$messagetext .= "\n\n\n\n"."-POST Var \n".print_r($_POST, true);
 	
-	// USE PHPMAILER
-	include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
-	
-	$mail = new phpmailer();
-	$mail -> From     = $from;
-	$mail -> FromName = $fromname;
-	//$mail -> IsSendmail();
-	$mail -> IsSMTP();
-	$mail -> Subject = $subject;
-	$mail -> Body    = $messagetext ; //$HTML;
-	$mail -> AltBody = $messagetext;  // Plain text body (for mail clients that cannot read 	HTML)
-	$mail -> ContentType = "multipart/alternative";
-	$mail -> AddAddress(ADMIN_EMAIL);				
-	$mail -> Send();
+	a2b_mail(ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
 	
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-EMAIL SENT: WARNING EMAIL TO ADMINISTRATOR FOR EPAYMENT VERIFICATION FAILURE");
-	
-	exit;
+	exit();
 }
+
 $newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]."^".$item_id."^".$item_type);
 if($newkey == $key) {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----------- Transaction Key Verified ------------");
@@ -251,13 +244,14 @@ $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
 //$payment_modules->before_process();
 
-$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute($QUERY);
-if ($resmax)
-	$numrow = $resmax -> RecordCount();
+$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency " .
+		 "FROM cc_card " .
+		 "WHERE id = '".$transaction_data[0][1]."'";
 
-if ($numrow == 0) {
+$resmax = $DBHandle_max -> Execute($QUERY);
+if ($resmax) {
+	$numrow = $resmax -> RecordCount();
+} else {
     write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
     exit(gettext("No Such Customer exists."));
 }
@@ -270,12 +264,12 @@ $orderStatus = $payment_modules->get_OrderStatus();
 if(empty($item_type)) $transaction_type='balance';
 else $transaction_type = $item_type;
 
-$Query = "Insert into cc_payments ( customers_id, customers_name, customers_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, cc_number, " .
-									" cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
-									" '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', '$transaction_type', '".
-									$customer_info[0]."', 1, '$pmodule', '".$_SESSION["p_cardtype"]."', '".$transaction_data[0][5]."', '".$transaction_data[0][6]."', '".
-									$transaction_data[0][7]."',  $orderStatus, '".$nowDate."', '".$nowDate."', '".$nowDate."',  ".$amount_paid.",  '".$currCurrency."', '".
-									$currencyObject->get_value($currCurrency)."' )";
+$Query = "INSERT INTO cc_payments ( customers_id, customers_name, customers_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, " .
+			" cc_number, cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
+			" '".$transaction_data[0][1]."', '".$customer_info[3]." ".$customer_info[2]."', '".$customer_info["email"]."', '$transaction_type', '".
+			$customer_info[0]."', 1, '$pmodule', '".$_SESSION["p_cardtype"]."', '".$transaction_data[0][5]."', '".$transaction_data[0][6]."', '".
+			$transaction_data[0][7]."',  $orderStatus, '".$nowDate."', '".$nowDate."', '".$nowDate."',  ".$amount_paid.",  '".$currCurrency."', '".
+			$currencyObject->get_value($currCurrency)."' )";
 $result = $DBHandle_max -> Execute($Query);
 
 
@@ -293,7 +287,7 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
 }
 
 if ($id > 0 ) {
-	if(strcasecmp("invoice",$item_type)!=0){
+	if (strcasecmp("invoice",$item_type)!=0) {
 		
 	    $addcredit = $transaction_data[0][2]; 
 		$instance_table = new Table("cc_card", "username, id");
@@ -301,7 +295,7 @@ if ($id > 0 ) {
 		$FG_EDITION_CLAUSE = " id='$id'";
 		$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
-	
+		
 		$field_insert = "date, credit, card_id, description";
 		$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."'";
 		$instance_sub_table = new Table("cc_logrefill", $field_insert);
@@ -325,7 +319,7 @@ if ($id > 0 ) {
 		$instance_table = new Table("cc_invoice", $field_insert);
 		$id_invoice = $instance_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 		//load vat of this card
-		if(!empty($id_invoice)&& is_numeric($id_invoice)){
+		if (!empty($id_invoice)&& is_numeric($id_invoice)) {
 			$amount = $amount_without_vat;
 			$description = gettext("Refill ONLINE")." : ".$transaction_data[0][4];
 			$field_insert = "date, id_invoice ,price,vat, description";
@@ -345,7 +339,7 @@ if ($id > 0 ) {
 		$table_transaction = new Table();
 		$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
 		
-		if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
+		if (is_array($result_agent) && !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
 			//test if the agent exist and get its commission
 			$id_agent =  $result_agent[0]['id_agent'];
 			$agent_table = new Table("cc_agent", "commission");
@@ -364,13 +358,13 @@ if ($id > 0 ) {
 				$commission_table = new Table("cc_agent_commission", $field_insert);
 				$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 			}
-		}	
-	}else{
-		if($item_id>0){
+		}
+	} else {
+		if($item_id>0) {
 			$invoice_table = new Table('cc_invoice','reference');
 			$invoice_clause = "id = ".$item_id;
 			$result_invoice = $invoice_table->Get_list($DBHandle,$invoice_clause);
-			if(is_array($result_invoice)&& sizeof($result_invoice)==1){
+			if (is_array($result_invoice) && sizeof($result_invoice)==1) {
 				$reference =$result_invoice[0][0];
 				
 				$field_insert = "date, payment, card_id, description";
@@ -383,10 +377,7 @@ if ($id > 0 ) {
 				$invoice = new Invoice($item_id);
 				$invoice -> addPayment($id_payment);
 				$invoice -> changeStatus(1);
-				
-				
 			}
-			
 		}
 	}
 }
@@ -474,7 +465,6 @@ if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]
 } else {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");
 }
-
 
 
 
