@@ -94,7 +94,7 @@ $CC_help_def_ratecard =create_help(gettext("Please select a ratecard and click o
 
 $CC_help_sim_ratecard =create_help(gettext('Please select an account, then enter the number you wish to call and press the "SIMULATE" button.'),'RatecardSimulator');
 
-$CC_help_add_rate =create_help(gettext("Please fill in the fields below to set up the rate for each destination."),'AddRate');
+$CC_help_rate = create_help(gettext("Please fill in the fields below to set up the rate for each destination."),'Rate');
 
 $CC_help_import_ratecard =create_help(gettext("This section is a utility to import ratecards from a CSV file.")."<br>"
 	.gettext('Define the ratecard name, the trunk to use and the fields that you wish to include from your csv files. Finally, select the csv files and click on the "Import Ratecard" button.'),'ImportRatecard');

@@ -211,7 +211,7 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 if (!$popup_select) {
 	if (($form_action == 'ask-add') || ($form_action == 'ask-edit'))
-		echo $CC_help_add_rate;
+		echo $CC_help_rate;
 } else {
 	echo $CC_help_def_ratecard;
 }
