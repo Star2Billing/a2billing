@@ -31,7 +31,7 @@ class MytoPg {
     // These regexes match the MySQL idioms that we need to rewrite
 	var $mytopg = array(
 		// The first pass matches only trivial deletions and re-writes
-		'(\s*)(REGEXP|RAND\(\)|UNIX_TIMESTAMP\(|LIMIT[[:space:]]+[[:digit:]]+[[:space:]]*,[[:space:]]*[[:digit:]]+)(\s*)'
+		'(\s*)(REGEXP|TRUNCATE|RAND\(\)|UNIX_TIMESTAMP\(|LIMIT[[:space:]]+[[:digit:]]+[[:space:]]*,[[:space:]]*[[:digit:]]+)(\s*)'
 		// The 2nd pass matches functions which consume the following () too
 		,'(\s*)(CONCAT|REPLACE|ADDDATE|DATE_ADD|SUBDATE|DATE_SUB|SUBSTRING|TIMEDIFF|TIME_TO_SEC|DATETIME|TIMESTAMP|YEAR|MONTH|DAY|DATE_FORMAT|DATE_PART)(\s*)\('
 		);
@@ -88,7 +88,11 @@ class MytoPg {
 						// this is just a simple replacement,  nothing difficult
 						$new = $match[1].'~*'.$match[3];
 						$pos = $matchpos + strlen($match[1].$match[3]) + 2;
-
+						
+					} elseif ('TRUNCATE' == $matched) {
+						// this is just a simple replacement,  nothing difficult
+						$new = $match[1].'TRUNC'.$match[3];
+						$pos = $matchpos + strlen($match[1].$match[3]) + 5;
 
 					} elseif ('RAND()' == $matched) {
 						// Again just a simple replace
