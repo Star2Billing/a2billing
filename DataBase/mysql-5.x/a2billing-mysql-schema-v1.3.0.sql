@@ -3,7 +3,7 @@
 --
 
 -- Usage:
--- mysql -u root -p"root password" < a2billing-mysql-schema-MYSQL.5.X-v1.2.0.sql 
+-- mysql -u root -p"root password" < a2billing-mysql-schema-v1.3.0.sql 
 
 
 --
@@ -531,7 +531,7 @@ Thank you for registering with us
 
 Please click on below link to activate your account.
 
-http://call-labs.com/A2Billing_UI/signup/activate.php?key$loginkey
+http://myaccount.call-labs.com/activate.php?key$loginkey
 
 Please make sure you active your account by making payment to us either by
 credit card, wire transfer, money order, cheque, and western union money
@@ -540,6 +540,7 @@ transfer, money Gram, and Pay pal.
 
 Kind regards,
 Call Labs
+http://www.call-labs.com
 ', '');
 INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('reminder', 'info@call-labs.com', 'Call-Labs', 'REMINDER', '
 Our record indicates that you have less than $min_credit usd in your "$card_gen" account.
@@ -548,9 +549,7 @@ We hope this message provides you with enough notice to refill your account.
 We value your business, but our system can disconnect you automatically
 when you reach your pre-paid balance.
 Please login to your account through our website to check your account
-details. Plus,
-you can pay by credit card, on demand.
-http://call-labs.com/A2BCustomer_UI/
+details. Plus, you can pay by credit card, on demand.
 
 If you believe this information to be incorrect please contact
 info@call-labs.com
@@ -569,10 +568,11 @@ Your password is $password
 
 Your cardalias is $cardalias
 
-http://call-labs.com/A2BCustomer_UI/
+http://myaccount.call-labs.com/
 
 Kind regards,
 Call Labs
+http://www.call-labs.com
 ', '');
 
 INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('signupconfirmed', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 'Thank you for registering with us
@@ -586,7 +586,7 @@ Your account is $card_gen
 Your password is $password
 
 To go to your account :
-http://call-labs.com/A2BCustomer_UI/
+http://myaccount.call-labs.com/
 
 Kind regards,
 Call Labs
@@ -604,6 +604,7 @@ Amount: $amount
 
 Kind regards,
 Call Labs
+http://www.call-labs.com
 ', '');
 
 
@@ -628,6 +629,7 @@ Attached is the invoice.
 
 Kind regards,
 Call Labs
+http://www.call-labs.com
 ', '');
 
 INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
