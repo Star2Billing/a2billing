@@ -23,17 +23,13 @@ $FG_TABLE_COL=array();
 $FG_TABLE_COL[]=array (gettext("DATE"), "date", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("TOTALCARDPERFORM"), "totalcardperform", "20%", "center", "sort");
 $FG_TABLE_COL[]=array (gettext("TOTALCREDIT"), "totalcredit", "20%", "center", "sort");
-			
-//$FG_TABLE_COL[]=array ("RESELLER", "RESELLER", "30%", "center", "sort");
 
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 
 
-
-
-if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
-	}
+if (!isset ($current_page) || ($current_page == "")) {	
+	$current_page=0; 
+}
 
 $DBHandle  = DbConnect();
 
@@ -57,8 +53,11 @@ if ($res){
 
 $QUERY = "SELECT  t3.daterun, t3.totalcardperform, t3.totalcredit from cc_service_report as t3 WHERE t3.cc_service_id='$id'";
 
+if ($A2B->config["database"]['dbtype'] == 'postgres')
+	$QUERY.=" ORDER BY t3.id DESC LIMIT 25 OFFSET 0";
+else
+	$QUERY.=" ORDER BY t3.id DESC LIMIT 0, 25";
 
-$QUERY.=" ORDER BY t3.id DESC LIMIT 25 OFFSET 0";
 if ($FG_DEBUG > 0)   echo $QUERY ;
 
 $res = $DBHandle -> Execute($QUERY);
@@ -74,23 +73,6 @@ if ($res){
 $smarty->display('main.tpl');
 
 ?>
-
-<script language="JavaScript" type="text/JavaScript">
-<!--
-
-function openURL(theLINK)
-{
-      // grab index number of the selected option
-      selInd = document.theForm.choose_list.selectedIndex;
-      // get value of the selected option
-      goURL = document.theForm.choose_list.options[selInd].value;
-      // redirect browser to the grabbed value (hopefully a URL)	  
-      self.location.href = theLINK + goURL;
-}
-
-//-->
-</script>
-	
 	  
 <center><b><?php echo gettext("SERVICE NAME")?>&nbsp; :	<?php echo $list_service [0][1] ?></b>
 <br>
@@ -112,7 +94,6 @@ function openURL(theLINK)
 				$color="red";
 				$ttitle=gettext("SERVICE REPORT");
 				
-				
 	  			if ((count($list )>0) && is_array($list )){
 	  ?>
 				  
@@ -121,7 +102,6 @@ function openURL(theLINK)
 		<TR> 
           <TD> 	
 		  <TABLE border=0 cellPadding=1 cellSpacing=1 width="100%">
-			<TBODY>
 				   <TR bgcolor=<?php echo $color?>> 
         			  <TD align=center colspan=<?php echo $FG_NB_TABLE_COL?>> <?php echo $ttitle?></TD>
 		        </TR>
@@ -226,13 +206,6 @@ function openURL(theLINK)
 					 } //END_WHILE
 					
 				 ?>
-                <!-- 
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="../Images/clear.gif" 
-                              width=1></TD>
-                </TR>-->
-              </TBODY>
             </TABLE></td>
         </tr>
 		<TR>
@@ -266,5 +239,6 @@ function openURL(theLINK)
 	 
 	 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
+
