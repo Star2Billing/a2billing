@@ -42,14 +42,16 @@ $FG_TABLE_COL = array();
 switch ($topsearch) {
 	
 	case "topdestination":
-		$FG_TABLE_COL[]=array (gettext("Destination"), "id_cc_prefix", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
-		$on_field = "id_cc_prefix";
+		$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
+		$on_field = "destination";
+		$FG_TABLE_DEFAULT_ORDER = "destination";
 		break;
 		
 	case "topuser":
 	default:
 		$FG_TABLE_COL[]=array (gettext("Account Used"), 'card_id', "20%", "center","SORT", "", "30", "", "", "", "", "linktocustomer_id");
 		$on_field = "card_id";
+		$FG_TABLE_DEFAULT_ORDER = "card_id";
 	
 }
 
@@ -57,20 +59,19 @@ $FG_TABLE_COL[]=array (gettext("Duration"), "calltime", "20%", "center", "SORT",
 $FG_TABLE_COL[]=array (gettext("Buy"), "buy", "25%", "center","sort","","","","","","","display_2bill");
 $FG_TABLE_COL[]=array (gettext("Sell"), "cost", "25%", "center","sort","","","","","","","display_2bill");
 if ($grouped) $FG_TABLE_COL[]=array (gettext("Calldate"), "day", "10%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30", "", "", "", "", "", "linkto_TC");
+$FG_TABLE_COL[]=array (gettext("Term Cause"), "terminatecauseid", "10%", "center", "SORT", "30", "", "", "", "", "", "linkto_TC");
 if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($topsearch!="")){
 	$FG_TABLE_COL[]=array (gettext("NbrCall"), 'nbcall', "10%", "center", "SORT");
 }
 
 if ($grouped){
 	$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day,terminatecauseid, count(*) as nbcall';
-	$SQL_GROUP="GROUP BY ".$on_field.",day,terminatecauseid ";
+	$SQL_GROUP=" GROUP BY ".$on_field.",DATE(starttime),terminatecauseid ";
 }else{
 	$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, count(*) as nbcall';
-	$SQL_GROUP="GROUP BY ".$on_field.",terminatecauseid ";
+	$SQL_GROUP=" GROUP BY ".$on_field.",terminatecauseid ";
 }
 
-$FG_TABLE_DEFAULT_ORDER = "card_id";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 
 
@@ -80,7 +81,7 @@ $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 $FG_HTML_TABLE_TITLE=gettext(" - Call Report - ");
 $FG_HTML_TABLE_WIDTH="96%";
 
-if ( is_null ($order) || is_null($sens) ){
+if ( is_null ($order) || is_null($sens) || ( $order == 'card_id' && $topsearch = 'topdestination') || ( $order == 'destination' && $topsearch = 'topuser')){
 	$order = $FG_TABLE_DEFAULT_ORDER;
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
@@ -88,8 +89,8 @@ if ( is_null ($order) || is_null($sens) ){
 
 $date_clause='';
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND UNIX_TIMESTAMP(starttime) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
-if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND UNIX_TIMESTAMP(starttime) <= UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND UNIX_TIMESTAMP(starttime) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday') ";
+if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND UNIX_TIMESTAMP(starttime) <= UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59') ";
 
 
 if (strpos($date_clause, 'AND') > 0) {
@@ -106,7 +107,7 @@ if ($terminatecauseid=="ANSWER") {
 }
 
 if ($grouped){
-	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME  GROUP BY day";
+	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME  GROUP BY DATE(starttime)";
 }else{
 	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall FROM $FG_TABLE_NAME";
 }
@@ -125,8 +126,8 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 		$FG_TABLE_NAME="temp_result";
 		if ($grouped) {
 			$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day,terminatecauseid, nbcall';
-			$SQL_GROUP=" GROUP BY ".$on_field.",day,terminatecauseid,nbcall ";
-			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME GROUP BY day";
+			$SQL_GROUP=" GROUP BY ".$on_field.",DATE(starttime),terminatecauseid,nbcall ";
+			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME GROUP BY DATE(starttime)";
 		} else {
 			$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, nbcall';
 			$SQL_GROUP=" GROUP BY ".$on_field.",terminatecauseid,nbcall ";
@@ -147,7 +148,7 @@ if (!$nodisplay) {
 		}
 	}
 	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-	$nb_record = $instance_table -> Table_count ($DBHandle);
+	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE . $SQL_GROUP );
 	if ($FG_DEBUG >= 1) var_dump ($list);
 }//end IF nodisplay
 

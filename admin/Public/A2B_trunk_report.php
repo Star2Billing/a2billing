@@ -99,7 +99,7 @@ foreach($res_CIC as $val){
 ///////////////////////////////////////////////////////////////////
 
 if($Total_calls > 0){
-	$QUERY_ASR = "SELECT (count( c.id ) / $Total_calls) AS ASR FROM cc_call c WHERE c.terminatecause = 'ANSWER' AND ". $condition;
+	$QUERY_ASR = "SELECT (count( c.id ) / $Total_calls) AS ASR FROM cc_call c WHERE c.terminatecauseid = 1 AND ". $condition;
 	$res_ASR  = $instance_table->SQLExec ($DBHandle, $QUERY_ASR);		
 	foreach($res_ASR as $val){
 		$ASR =  $val[0];

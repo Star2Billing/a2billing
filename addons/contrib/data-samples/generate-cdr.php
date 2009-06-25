@@ -27,7 +27,7 @@ $amount_cdr = 100;
 $cardid = 3;
 $id_ratecard = 1;
 $calledstation = '322111933244';
-$id_cc_prefix = 24; // Belgium
+$destination = 24; // Belgium
 $nb_cdr_flush = 500;
 
 $cli_args = arguments($argv);
@@ -64,7 +64,7 @@ $A2B -> DBHandle -> Execute('SET AUTOCOMMIT=1');
 
 $c_qry_header = "INSERT INTO cc_call ( sessionid, uniqueid,  starttime, stoptime, sessiontime, calledstation, " .
 				" terminatecauseid,   sessionbill, id_tariffgroup, src, buycost, " .
-				"id_card_package_offer, card_id, id_ratecard, id_cc_prefix) VALUES \n";
+				"id_card_package_offer, card_id, id_ratecard, destination) VALUES \n";
 
 $qry = '';
 
@@ -87,7 +87,7 @@ for ($i=1 ; $i <= $back_days; $i++){
 		$sessiontime = rand(0,500);
 		
 		$c_qry_value = " ( 'IAX2/areskiax-3', '$uniqueid', '$startdate_toinsert', '$enddate_toinsert', $sessiontime, " .
-				"'$calledstation', 1,   1.2000, 1,  '1856254697', 0.40000, 0, $cardid, $id_ratecard, $id_cc_prefix) \n";
+				"'$calledstation', 1,   1.2000, 1,  '1856254697', 0.40000, 0, $cardid, $id_ratecard, $destination) \n";
 		
 		if (strlen($qry)==0) {
 			$qry = $c_qry_header.$c_qry_value;

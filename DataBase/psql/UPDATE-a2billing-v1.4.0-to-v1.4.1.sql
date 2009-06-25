@@ -57,6 +57,11 @@ DELETE FROM cc_config WHERE config_key = 'show_top_frame';
 -- add MXN currency on Paypal
 UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''Selected Currency'',''USD'',''CAD'',''EUR'',''GBP'',''JPY'',''MXN''), ' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY' ;
 
+-- Was erroneously set to 'Not NULL' in PSQL version only
+ALTER TABLE cc_card_subscription ALTER COLUMN product_id DROP NOT NULL;
+ALTER TABLE cc_card_subscription ALTER COLUMN product_id SET DEFAULT NULL;
+ALTER TABLE cc_card_subscription ALTER COLUMN product_name DROP NOT NULL;
+ALTER TABLE cc_card_subscription ALTER COLUMN product_name SET DEFAULT NULL;
 
 -- synched with MySQL up to r2115
 

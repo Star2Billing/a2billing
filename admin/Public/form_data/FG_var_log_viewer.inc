@@ -9,48 +9,36 @@ $HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-$date_clause = "";
-if (DB_TYPE == "postgres"){		
-	 	$UNIX_TIMESTAMP = "";
-}else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
-}
+$condition_ary = array();
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if ($Period=="Month"){
-	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(csl.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($frommonth && isset($fromstatsmonth)) $condition_ary[] = "UNIX_TIMESTAMP(csl.creationdate) >= UNIX_TIMESTAMP('$fromstatsmonth-01')";
 	if ($tomonth && isset($tostatsmonth))
 	{
-		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(csl.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
+		$condition_ary[] = "UNIX_TIMESTAMP(csl.creationdate) <= UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')";
 	}
 }else{
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
 	{
-		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(csl.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+		$condition_ary[] = "UNIX_TIMESTAMP(csl.creationdate) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
 	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
 	{
-		if (strlen($date_clause)>0) $date_clause.=" AND ";
-		$date_clause.=" $UNIX_TIMESTAMP(csl.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+		$condition_ary[] = " UNIX_TIMESTAMP(csl.creationdate) <= UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 	}
 }
 
-if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0 && strlen($enteradmin)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 if($enteradmin != "")
 {
-	$HD_Form -> FG_TABLE_CLAUSE.=" csl.iduser = '$enteradmin'";
+	$condition_ary[] = "csl.iduser = '$enteradmin'";
 }	
-if (strlen($enteradmin)>0 && strlen($loglevel)>0 && $loglevel > 0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 if($loglevel != "" && $loglevel > 0)
 {
-	$HD_Form -> FG_TABLE_CLAUSE.=" csl.loglevel = '$loglevel'";
+	$condition_ary[] = " csl.loglevel = '$loglevel'";
 }
-if (strlen($loglevel)>0 && strlen($date_clause)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-if($date_clause != "")
-{
-	$HD_Form -> FG_TABLE_CLAUSE.=" ".$date_clause;
-}
+
+$HD_Form -> FG_TABLE_CLAUSE = implode(' AND ', $condition_ary);
+
 //$HD_Form -> FG_EDITION_CLAUSE = " id = $id";
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");

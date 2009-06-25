@@ -22,7 +22,10 @@ $billingtype_list = Constants::getBillingPeriodsList();
 
 // If packagetype == NUMBER OF FREE CALL -> concat unit with "times"
 // Else concat with "sec"
-$filter_unit = 'CASE packagetype WHEN 1 THEN CONCAT( freetimetocall, " times" ) WHEN 0 THEN "ALL" ELSE CONCAT( freetimetocall, " sec" ) END ';
+if ($A2B->config["database"]['dbtype'] == 'postgres') // Postgres doesn't like double quotes...
+	$filter_unit = "CASE packagetype WHEN 1 THEN CONCAT( freetimetocall, ' times' ) WHEN 0 THEN 'ALL' ELSE CONCAT( freetimetocall, ' sec' ) END ";
+else // And I don't know if mysql likes them single.
+	$filter_unit = 'CASE packagetype WHEN 1 THEN CONCAT( freetimetocall, " times" ) WHEN 0 THEN "ALL" ELSE CONCAT( freetimetocall, " sec" ) END ';
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "18%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");

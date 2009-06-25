@@ -155,8 +155,8 @@ foreach ($result as $myalarm) {
 			if ($page > 0)
 				sleep(15);
 
-			$QUERY = "SELECT CASE WHEN (terminatecause = 'ANSWER' OR terminatecause = 'ANSWERED') THEN 1 ELSE 0 END AS success," .
-			"CASE WHEN (terminatecause = 'ANSWER' OR terminatecause = 'ANSWERED') THEN 0 ELSE 1 END AS fail,sessiontime FROM cc_call $SQL_CLAUSE";
+			$QUERY = "SELECT CASE WHEN (terminatecauseid = 1) THEN 1 ELSE 0 END AS success," .
+			"CASE WHEN (terminatecauseid = 1) THEN 0 ELSE 1 END AS fail,sessiontime FROM cc_call $SQL_CLAUSE";
 
 			if ($A2B->config["database"]['dbtype'] == "postgres") {
 				$QUERY .= " LIMIT $groupcard OFFSET " . $page * $groupcard;

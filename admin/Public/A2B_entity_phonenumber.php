@@ -71,11 +71,12 @@ if($form_action="ask_edit"){
 	$DBHandle  = DbConnect();
 	$instance_table = new Table();
 	
-	$QUERY_PHONENUMBERS = 'SELECT cc_campaign.id, cc_campaign.name,cc_campaign.status, cc_campaign.startingdate <= CURRENT_TIMESTAMP started ,cc_campaign.expirationdate <= CURRENT_TIMESTAMP expired  FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign WHERE ';
+	$QUERY_PHONENUMBERS = 'SELECT cc_campaign.id, cc_campaign.name,cc_campaign.status, cc_campaign.startingdate <= CURRENT_TIMESTAMP AS started ,cc_campaign.expirationdate <= CURRENT_TIMESTAMP AS expired  FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign WHERE ';
 	//JOIN CLAUSE
 	$QUERY_PHONENUMBERS .= 'cc_phonenumber.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_campaign = cc_campaign.id ';
 	//CAMPAIGN CLAUSE
-	$QUERY_PHONENUMBERS .= 'AND cc_phonenumber.id= '.$id;
+	if ($id != null)                                      // Exclude if null otherwise kills the list query
+	$QUERY_PHONENUMBERS .= 'AND cc_phonenumber.id= '.$id; // I've no idea under what conditions this should be included. Please review!
 	$result = $instance_table -> SQLExec ($DBHandle, $QUERY_PHONENUMBERS);
 	if($result){
 	 	?>

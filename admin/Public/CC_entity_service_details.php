@@ -58,7 +58,7 @@ if ($res){
 $QUERY = "SELECT  t3.daterun, t3.totalcardperform, t3.totalcredit from cc_service_report as t3 WHERE t3.cc_service_id='$id'";
 
 
-$QUERY.=" ORDER BY t3.id DESC LIMIT 0, 25";
+$QUERY.=" ORDER BY t3.id DESC LIMIT 25 OFFSET 0";
 if ($FG_DEBUG > 0)   echo $QUERY ;
 
 $res = $DBHandle -> Execute($QUERY);
