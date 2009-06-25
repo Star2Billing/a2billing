@@ -505,7 +505,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 	$timezone_list = get_timezones();
 	$one_select = false;
 	foreach ($timezone_list as $key => $cur_value) {
-		$timezone_list[$key]  = array( $cur_value[2], $key);
+		$timezone_list[$key] = array($cur_value[2], $key);
 		if ($form_action == 'ask-add') {
 			if (in_array(SERVER_GMT,$cur_value) && !$one_select) {
 				$timezone_default_val = $key;

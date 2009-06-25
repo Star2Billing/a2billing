@@ -800,20 +800,23 @@ function securitykey($key, $data) {
 /*
 	Function to show GMT DateTime.
 */
-function get_timezones($handle = null) {
+function get_timezones($handle = null, $clause = null) {
 	if (empty ($handle)) {
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
-	$QUERY = "SELECT id, gmttime, gmtzone FROM cc_timezone ORDER by id";
-	$result = $instance_table->SQLExec($handle, $QUERY, 1, 1);
-
+	if (!is_null($clause)) 
+		$clause = 'WHERE '.$clause; 
+	$QUERY = "SELECT id, gmttime, gmtzone, gmtoffset FROM cc_timezone $clause ORDER by id";
+	$result = $instance_table->SQLExec($handle, $QUERY, 1, 300);
+	
 	if (is_array($result)) {
 		$num_cur = count($result);
 		for ($i = 0; $i < $num_cur; $i++) {
 			$timezone_list[$result[$i][0]] = array (
 				1 => $result[$i][1],
-				2 => $result[$i][2]
+				2 => $result[$i][2],
+				3 => $result[$i][3]
 			);
 		}
 	}
@@ -823,6 +826,12 @@ function get_timezones($handle = null) {
 
 function display_GMT($currDate, $number, $fulldate = 1)
 {	
+	$timezone_list = get_timezones(null, "gmttime = '".SERVER_GMT."'");
+	foreach ($timezone_list as $key => $timezone_list_val) {
+		$server_offset = $timezone_list_val[3];
+		break;
+	}
+	
 	$date_time_array = getdate(strtotime($currDate));
 	$hours = $date_time_array['hours'];
 	$minutes = $date_time_array['minutes'];
@@ -832,7 +841,7 @@ function display_GMT($currDate, $number, $fulldate = 1)
 	$year = $date_time_array['year'];
 	$timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);
 	
-	$timestamp = $timestamp + ($number);
+	$timestamp = $timestamp + ($server_offset - $number);
 	/*
 	if ($fulldate == 1) {
 		$gmdate = gmdate("m/d/Y H:i:s", $timestamp);
