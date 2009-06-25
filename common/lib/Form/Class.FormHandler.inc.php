@@ -1489,7 +1489,7 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 			if ($i>0) $param_add_value .= ", ";
 			$split_hidden_fields_value = split(",",trim($this->FG_QUERY_ADITION_HIDDEN_VALUE));
 			for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields_value);$cur_hidden++){
-				$param_add_value.="'".$split_hidden_fields_value[$cur_hidden]."'";
+				$param_add_value .= "'".trim($split_hidden_fields_value[$cur_hidden])."'" ;
 				if($cur_hidden<count($split_hidden_fields_value)-1)$param_add_value.=",";
 			}
 		}

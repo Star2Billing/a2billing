@@ -8,21 +8,22 @@ $HD_Form->FG_DEBUG = 0;
 
 $HD_Form->FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
-$HD_Form -> FG_ADDITION = true;
+$HD_Form->FG_ADDITION = true;
 
 $HD_Form->setDBHandler(DbConnect());
 
 $agent_conf = false;
-if (!empty($key)) {
+if (!empty ($key)) {
 	$agentkey = $key;
 	$_SESSION["key"] = $agentkey;
-} elseif (!empty($_SESSION["key"])) {
-	$agentkey =$_SESSION["key"];
+}
+elseif (!empty ($_SESSION["key"])) {
+	$agentkey = $_SESSION["key"];
 }
 
 if (!empty ($agentkey)) {
 	$table_key = new Table("cc_agent_signup", "*");
-	$data = $table_key->Get_list($HD_Form->DBHandle, "code= '". $agentkey."'");
+	$data = $table_key->Get_list($HD_Form->DBHandle, "code= '" . $agentkey . "'");
 	if (is_array($data)) {
 		$groupid = $data[0]['id_group'];
 		$tariffid = $data[0]['id_tariffgroup'];
@@ -41,8 +42,6 @@ if (!empty ($agentkey)) {
 		}
 	}
 }
-
-
 
 if (!$agent_conf) {
 	$callPlan_idlist = isset ($A2B->config["signup"]['callplan_id_list']) ? $A2B->config["signup"]['callplan_id_list'] : null;
@@ -75,8 +74,6 @@ $table_key = new Table("cc_agent_signup", "*");
 
 //end check subscriber
 
-
-
 $currency_list = array ();
 $currency_list_r = array ();
 $indcur = 0;
@@ -84,8 +81,14 @@ $indcur = 0;
 $currencies_list = get_currencies();
 
 foreach ($currencies_list as $key => $cur_value) {
-	$currency_list[$key] = array ( $cur_value[1] . ' (' . $cur_value[2] . ')', $key	);
-	$currency_list_r[$key] = array ( $key, $cur_value[1] );
+	$currency_list[$key] = array (
+		$cur_value[1] . ' (' . $cur_value[2] . ')',
+		$key
+	);
+	$currency_list_r[$key] = array (
+		$key,
+		$cur_value[1]
+	);
 	$currency_list_key[$key][0] = $key;
 }
 
@@ -118,239 +121,138 @@ $languages_db_list = get_db_languages();
 
 foreach ($languages_db_list as $key => $cur_value) {
 	if (in_array('en', $cur_value)) {
-		$lang_list[$key] = array ( $cur_value[1], $cur_value[0]	);
+		$lang_list[$key] = array (
+			$cur_value[1],
+			$cur_value[0]
+		);
 	} else {
-		$lang_list[$key] = array ( $cur_value[1], $cur_value[0]	);
+		$lang_list[$key] = array (
+			$cur_value[1],
+			$cur_value[0]
+		);
 	}
 }
 
-$HD_Form -> AddEditElement (gettext("LANGUAGE"),
-			   "language",
-			   "",
-			   "SELECT",
-			   "","","",
-			   "list" , "", "",	"", $lang_list, "%1", "", "" );
+$HD_Form->AddEditElement(gettext("LANGUAGE"), "language", "", "SELECT", "", "", "", "list", "", "", "", $lang_list, "%1", "", "");
 
-$HD_Form -> AddEditElement ("CURRENCY",
-			   "currency",
-			   "",
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $currency_list, "%1", "", "" );
+$HD_Form->AddEditElement("CURRENCY", "currency", "", "SELECT", "", "", "", "list", "", "", "", $currency_list, "%1", "", "");
 
 if (!$agent_conf && strpos($callPlan_idlist, ',') !== false) {
-$HD_Form -> AddEditElement (gettext("CALL PLAN"),
-			   "tariff",
-			   "",
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $callPlan_list, "%1", "", "" );			   
+	$HD_Form->AddEditElement(gettext("CALL PLAN"), "tariff", "", "SELECT", "", "", "", "list", "", "", "", $callPlan_list, "%1", "", "");
 }
-$comp_zero = $comp_date_plus='';
-if (isset($form_action) && $form_action=="ask-add") {
+$comp_zero = $comp_date_plus = '';
+if (isset ($form_action) && $form_action == "ask-add") {
 	$begin_date = date("Y");
-	$begin_date_plus = date("Y")+10;
+	$begin_date_plus = date("Y") + 10;
 	$end_date = date("-m-d H:i:s");
-	$comp_date = "value='".$begin_date.$end_date."'";
-	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
+	$comp_date = "value='" . $begin_date . $end_date . "'";
+	$comp_date_plus = "value='" . $begin_date_plus . $end_date . "'";
 	$comp_zero = "value='0'";
 }
 
-$HD_Form -> AddEditElement (gettext("LASTNAME"),
-			   "lastname",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=50",
-			   "11",
-			   gettext("Insert your lastname"),
-			   "" , "", "",	"", "", "" , "", "");
+$HD_Form->AddEditElement(gettext("LASTNAME"), "lastname", '$value', "INPUT", "size=30 maxlength=50", "11", gettext("Insert your lastname"), "", "", "", "", "", "", "", "");
 
-$HD_Form -> AddEditElement (gettext("FIRSTNAME"),
-			   "firstname",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=50",
-			   "11",
-			   gettext("Insert your firstname"),
-			   "" , "", "",	"", "", "" , "", "");
+$HD_Form->AddEditElement(gettext("FIRSTNAME"), "firstname", '$value', "INPUT", "size=30 maxlength=50", "11", gettext("Insert your firstname"), "", "", "", "", "", "", "", "");
 
+$HD_Form->AddEditElement(gettext("EMAIL"), "email", '$value', "INPUT", "size=30 maxlength=70", "1", gettext("Insert your email"), "", "", "", "", "", "", "", "");
 
-$HD_Form -> AddEditElement (gettext("EMAIL"),
-			   "email",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=70",
-			   "1",
-			   gettext("Insert your email"),
-			   "" , "", "",	"", "", "" , "", "");
+$HD_Form->AddEditElement(gettext("ADDRESS"), "address", '$value', "INPUT", "size=30 maxlength=100", "0", gettext("Insert your address"), "", "", "", "", "", "", "", "");
 
+$HD_Form->AddEditElement(gettext("CITY"), "city", '$value', "INPUT", "size=30 maxlength=40", "0", gettext("Insert your city"), "", "", "", "", "", "", "", "");
 
-$HD_Form -> AddEditElement (gettext("ADDRESS"),
-			   "address",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=100",
-			   "0",
-			   gettext("Insert your address"),
-			   "" , "", "",	"", "", "" , "", "");
+$HD_Form->AddEditElement(gettext("STATE/PROVINCE"), "state", '$value', "INPUT", "size=30 maxlength=40", "11", gettext("Insert your state"), "", "", "", "", "", "", "", "");
 
+$HD_Form->AddEditElement(gettext("COUNTRY"), "country", "", "SELECT", "", "", "", "sql", "cc_country", "countryname, countrycode", "", "", "%1", "", "", "", '');
 
-$HD_Form -> AddEditElement (gettext("CITY"),
-			   "city",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=40",
-			   "0",
-			   gettext("Insert your city"),
-			   "" , "", "",	"", "", "" , "", "");
-
-
-$HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
-			   "state",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=40",
-			   "11",
-			   gettext("Insert your state"),
-			   "" , "", "",	"", "", "" , "", "");
-
-
-$HD_Form -> AddEditElement (gettext("COUNTRY"),
-			   "country",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_country",
-			   "countryname, countrycode",
-			   "", "", "%1", "", "", "", '' );
-
-
-$HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
-			   "zipcode",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=20",
-			   "0",
-			   gettext("Insert your zipcode"),
-			   "" , "", "",	"", "", "" , "", "");
+$HD_Form->AddEditElement(gettext("ZIP/POSTAL CODE"), "zipcode", '$value', "INPUT", "size=30 maxlength=20", "0", gettext("Insert your zipcode"), "", "", "", "", "", "", "", "");
 
 $timezone_list = get_timezones();
 $one_select = false;
 foreach ($timezone_list as $key => $cur_value) {
-	$timezone_list[$key]  = array( $cur_value[2], $key);
+	$timezone_list[$key] = array (
+		$cur_value[2],
+		$key
+	);
 	if ($form_action == 'ask-add') {
-		if (in_array(SERVER_GMT,$cur_value) && !$one_select) {
+		if (in_array(SERVER_GMT, $cur_value) && !$one_select) {
 			$timezone_default_val = $key;
 			$one_select = true;
 		}
 	}
 }
 
-$HD_Form -> AddEditElement (gettext("TIMEZONE"),
-			   "id_timezone",
-			   "$timezone_default_val",
-			   "SELECT",
-			   "","","",
-			   "list" , "", "",	"", $timezone_list, "%1", "", "" );
-			   
-			   
-$HD_Form -> AddEditElement (gettext("PHONENUMBER"),
-			   "phone",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=20",
-			   "7",
-			   gettext("Insert your phone number"),
-			   "" , "", "",	"", "", "" , "", "");
+$HD_Form->AddEditElement(gettext("TIMEZONE"), 
+								"id_timezone", 
+								"$timezone_default_val", 
+								"SELECT", 
+								"", "", "", 
+								"list", "", "", "", 
+								$timezone_list, 
+								"%1", "", "");
+
+$HD_Form->AddEditElement(gettext("PHONENUMBER"), 
+								"phone", 
+								'$value', 
+								"INPUT", "size=30 maxlength=20", 
+								"7", gettext("Insert your phone number"), "", "", "", "", "", "", "", "");
+
+$HD_Form->AddEditElement(gettext("FAXNUMBER"), 
+								"fax", 
+								'$value', 
+								"INPUT", "size=30 maxlength=20", 
+								"", gettext("Insert your fax number"), "", "", "", "", "", "", "", "");
+
+$HD_Form->AddEditElement(gettext("COMPANY NAME"), 
+								"company_name", 
+								'$value', 
+								"INPUT", "size=40 maxlength=50", 
+								"", gettext("Insert Company name of this customer"), "", "", "", "", "", "", "NO", "");
+
+$HD_Form->AddEditElement(gettext("COMPANY WEBSITE"), 
+								"company_website", 
+								'$value', 
+								"INPUT", "size=40 maxlength=60", 
+								"", gettext("Insert the company website of this customer"), "", "", "", "", "", "", "NO", "");
+
+$HD_Form->AddEditElement(gettext("VAT REGISTRATION NUMBER "), 
+								"VAT_RN", 
+								'$value', 
+								"INPUT", "size=40 maxlength=40", 
+								"", gettext("Insert the VAT registration number of this customer"), "", "", "", "", "", "", "NO", "");
+
+$HD_Form->AddEditElement(gettext("TRAFFIC PER MONTH"), 
+								"traffic", 
+								'$value', 
+								"INPUT", "size=30 maxlength=20", 
+								"4", gettext("Insert the traffic per month for this customer"), "", "", "", "", "", "", "NO", "");
+
+$HD_Form->AddEditElement(gettext("TARGET TRAFFIC"), 
+								"traffic_target", 
+								'', 
+								"TEXTAREA", "cols=50 rows=4", 
+								"", gettext("Insert the target traffic description"), "", "", "", "", "", "", "", "");
 
 
-$HD_Form -> AddEditElement (gettext("FAXNUMBER"),
-			   "fax",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=20",
-			   "",
-			   gettext("Insert your fax number"),
-			   "" , "", "",	"", "", "" , "", "");
-			   
-			   
-
-$HD_Form -> AddEditElement (gettext("COMPANY NAME"),
-			   "company_name",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=50",
-			   "",
-			   gettext("Insert Company name of this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");
-			  
-$HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
-			   "company_website",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=60",
-			   "",
-			   gettext("Insert the company website of this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");
-
-$HD_Form -> AddEditElement (gettext("VAT REGISTRATION NUMBER "),
-			   "VAT_RN",
-			   '$value',
-			   "INPUT",
-			   "size=40 maxlength=40",
-			   "",
-			   gettext("Insert the VAT registration number of this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");
-
-
-$HD_Form -> AddEditElement (gettext("TRAFFIC PER MONTH"),
-			   "traffic",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=20",
-			   "4",
-			   gettext("Insert the traffic per month for this customer"),
-			   "" , "", "",	"", "", "" , "NO", "");		   
-
-$HD_Form -> AddEditElement (gettext("TARGET TRAFFIC"),
-				"traffic_target",
-				'',
-				"TEXTAREA",
-				"cols=50 rows=4",
-				"",
-				gettext("Insert the target traffic description"),
-				"" , "", "", "", "" , "", "", "");
-if(CAPTCHA_ENABLE){	   
-	$HD_Form -> AddEditElement (gettext("VERIFICATION"),
-				   "captchacode",
-				   '$value',
-				   "CAPTCHAIMAGE",
-				   "size=10 maxlength=6",
-				   "19",
-				   gettext("Insert code from above picture"),
-				   "" , "", "",	"", "", "" , "", "",CAPTCHA_ENABLE);
-   $captcha="captchacode,";
+if (CAPTCHA_ENABLE) {
+	$HD_Form->AddEditElement(gettext("VERIFICATION"), "captchacode", '$value', "CAPTCHAIMAGE", "size=10 maxlength=6", "19", gettext("Insert code from above picture"), "", "", "", "", "", "", "", "", CAPTCHA_ENABLE);
+	$captcha = "captchacode,";
 }
 
 if (!$agent_conf && strpos($callPlan_idlist, ',') !== false) {
 	$HD_Form->FieldEditElement('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,' .
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
 	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,' .
-	'fax,  company_name , company_website ,VAT_RN , traffic, traffic_target , '.$captcha.' sip_buddy, iax_buddy, inuse');
+	'fax,  company_name , company_website ,VAT_RN , traffic, traffic_target , ' . $captcha . ' sip_buddy, iax_buddy, inuse');
 } else {
 	$HD_Form->FieldEditElement('username, useralias, uipass, credit, language, id_didgroup, id_campaign,' .
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
 	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,' .
-	'fax , company_name , company_website ,VAT_RN , traffic, traffic_target , '.$captcha.' sip_buddy, iax_buddy, inuse');
+	'fax , company_name , company_website ,VAT_RN , traffic, traffic_target , ' . $captcha . ' sip_buddy, iax_buddy, inuse');
 }
 
 if (!isset ($myusername))
 	$myusername = '';
+
 //Code here for Getting Data from configuration files
 $comp_date_plus = $A2B->config["signup"]['expirationdate'];
 
@@ -381,7 +283,7 @@ $amaflag = $A2B->config["signup"]['amaflag'];
 $context = $A2B->config["signup"]['context'];
 $status = $A2B->config["signup"]['activatedbyuser'] ? '1' : '3';
 
-$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  loginkey, status";
+$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass, loginkey, status";
 $HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE = "$iax_account, $sip_account, $myexpiredays, $myexpirationdate, $mytypepaid, $myenableexpire, $myrunservice, $mysimultaccess, $myactivated, $mycredit, $maxi, $maxi2, $pass, $loginkey, $status";
 
 if ($agent_conf) {
@@ -405,9 +307,9 @@ elseif ($agent_conf) {
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $tariffid";
 }
-if(is_numeric($subscriber)){
+if (is_numeric($subscriber)) {
 	$HD_Form->FG_ADITION_HIDDEN_PARAM = 'subscriber';
-	$HD_Form->FG_ADITION_HIDDEN_PARAM_VALUE  = "$subscriber";
+	$HD_Form->FG_ADITION_HIDDEN_PARAM_VALUE = "$subscriber";
 }
 
 $HD_Form->FG_FILTER_APPLY = true;

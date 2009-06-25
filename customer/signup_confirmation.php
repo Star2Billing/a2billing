@@ -67,6 +67,7 @@ if ($FG_DEBUG == 1) {
 }
 
 $QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE username='".$_SESSION["cardnumber_signup"]."' ";
+
 $res = $DBHandle -> Execute($QUERY);
 $num = 0;	
 if ($res)
