@@ -112,6 +112,8 @@ if ($posted==1){
 
 $date_clause='';
 // Period (Month-Day)
+normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
+normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if ($Period=="Month") {
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND UNIX_TIMESTAMP(t1.date_consumption) >= UNIX_TIMESTAMP('$fromstatsmonth-01')";

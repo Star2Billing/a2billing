@@ -90,6 +90,8 @@ if (DB_TYPE == "postgres"){
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
+normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
+normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 if ($Period=="Month"){
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(ch.datecreated) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
 	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(ch.datecreated) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 

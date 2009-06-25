@@ -21,6 +21,8 @@ if (DB_TYPE == "postgres") {
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
+normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
+normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 if ($Period=="Month"){
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(cc_epayment_log.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
 	if ($tomonth && isset($tostatsmonth)) {

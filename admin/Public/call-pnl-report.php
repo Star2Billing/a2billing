@@ -27,8 +27,8 @@ $bool = false;
 
 //     Generating WHERE CLAUSE		///////////////////////////////
 
-$lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-
+normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
+normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 if($Period=="Time" && $lst_time != "") {
 	if (strlen($condition)>0) $condition.=" AND ";
 	if(DB_TYPE == "postgres"){
@@ -68,7 +68,7 @@ if($Period=="Time" && $lst_time != "") {
                                 $condition .= "DATE_SUB(NOW(),INTERVAL 1 MONTH) <= (cdr.starttime)";
                         break;
 		}
-	}	
+	}
 } elseif ($Period=="Day" && $fromday && $today) {
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
 	{

@@ -1305,7 +1305,13 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 
 			// Search Form On
 			if (($processed['posted_search'] == 1 )) {
-				
+
+				// This isn't the best placement. Updates for SQL, but doesn't update the repopulated form with the actual days used. But where does that happen?
+				normalize_day_of_month($processed[fromstatsday_sday], $processed[fromstatsmonth_sday],1);
+				normalize_day_of_month($processed[tostatsday_sday], $processed[tostatsmonth_sday],1);
+				normalize_day_of_month($processed[fromstatsday_sday_bis], $processed[fromstatsmonth_sday_bis],1);
+				normalize_day_of_month($processed[tostatsday_sday_bis], $processed[tostatsmonth_sday_bis],1);
+
 				$SQLcmd = '';
 				
 				$search_parameters = "Period=$processed[Period]|frommonth=$processed[frommonth]|fromstatsmonth=$processed[fromstatsmonth]|tomonth=$processed[tomonth]";

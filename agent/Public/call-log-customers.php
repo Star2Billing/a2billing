@@ -131,8 +131,9 @@ if (DB_TYPE == "postgres") {
 } else {
 	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
-$lastdayofmonth = date ( "t", strtotime ( $tostatsmonth . '-01' ) );
 
+normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
+normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 // Date Clause
 if ($fromday && isset ( $fromstatsday_sday ) && isset ( $fromstatsmonth_sday )) {
 	if ($fromtime) {

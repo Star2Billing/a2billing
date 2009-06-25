@@ -1219,3 +1219,20 @@ function isLuhnNum($num)
 	return (($tot % 10) == 0);
 }
 
+/*
+ * Checks the day of month for date related forms and reduces the day to the last valid day of the month if too large.
+ * Inputs: &$day: 'xx' from '01' to '31'
+ *         $year_month: 'xxxx-mm'
+ *         $inplace : 1 == edit day in place.
+ * Return  normalized day (integer)
+ */
+function normalize_day_of_month(&$day, $year_month, $inplace=0){
+	if( isset($day) && isset($year_month)) {
+		$year_month_ary = split('-', $year_month);
+		$year = (int) $year_month_ary[0];
+		$month = (int) $year_month_ary[1];
+		$normalized_day = min( (int) $day, cal_days_in_month(CAL_GREGORIAN, $month, $year) );
+		if($inplace == 1) $day = $normalized_day;
+		return $normalized_day;
+	}
+}

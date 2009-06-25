@@ -118,8 +118,8 @@ if ($posted==1) {
 
 
 $date_clause='';
-$lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-
+normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
+normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) {
 	if($fromtime){
 		$date_clause.=" AND UNIX_TIMESTAMP(t1.starttime) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsday_hour:$fromstatsday_min')";

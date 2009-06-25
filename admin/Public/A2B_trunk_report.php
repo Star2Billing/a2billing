@@ -29,8 +29,9 @@ $bool = false;
 
 
 //     Generating WHERE CLAUSE		///////////////////////////////
+normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
+normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
 
-$lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if($Period=="Time" && $lst_time != "") {
 	if (strlen($condition)>0) $condition.=" AND ";
 	switch($lst_time){
@@ -48,7 +49,7 @@ if($Period=="Time" && $lst_time != "") {
 		break;
 	}
 }else if($Period=="Day" && $fromday && $today){
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday))
 	{
 		if (strlen($condition)>0) $condition.=" AND ";
 		$condition.=" UNIX_TIMESTAMP(c.starttime) >= UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
