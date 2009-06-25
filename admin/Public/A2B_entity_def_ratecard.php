@@ -15,28 +15,9 @@ getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname','posted'
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array (
-	'batchupdate',
-	'upd_id_trunk',
-	'upd_idtariffplan',
-	'upd_id_outbound_cidgroup',
-	'upd_tag',
-	# TODO: check why??? we use folowing
-	'upd_inuse',
-	'upd_activated',
-	'upd_language',
-	'upd_tariff',
-	'upd_credit',
-	'upd_credittype',
-	'upd_simultaccess',
-	'upd_currency',
-	'upd_typepaid',
-	'upd_creditlimit',
-	'upd_enableexpire',
-	'upd_expirationdate',
-	'upd_expiredays',
-	'upd_runservice',
-	"filterprefix"
+getpost_ifset(array ( 'batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_id_outbound_cidgroup', 'upd_tag', 'upd_inuse', 'upd_activated', 'upd_language',
+	'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate',
+	'upd_expiredays', 'upd_runservice', 'filterprefix'
 ));
 
 $update_fields = array (
