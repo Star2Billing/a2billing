@@ -311,8 +311,7 @@ function CheckCountry(Source){
 </script>
 	  <center><?php echo $error_msg;?>
 	  <a href="A2B_entity_did.php?assign=1"><input type="radio" value="1" <?php if ($assign==1) echo 'checked'; ?>/><?php echo gettext("Buy New DID");?> </a> - <a href="A2B_entity_did.php?assign=2"><input type="radio" value="2" <?php if ($assign==2) echo 'checked'; ?>/><?php echo gettext("Add Phone Number to your DID");?></a> - <a href="A2B_entity_did.php?assign=3"><input type="radio" value="3" <?php if ($assign==3) echo 'checked'; ?>/><?php echo gettext("Release DID");?></a>
-	  </center>
-
+	  
 	   <table align="center"  border="0" class="bgcolor_006" width="75%">
 		<form name="theForm" action="A2B_entity_did.php">
 		<INPUT type="hidden" name="assign" value="<?php echo $assign ?>">
@@ -438,6 +437,7 @@ function CheckCountry(Source){
 
 	</form>
   </table>
+  </center>
   <br>
 
 <?php

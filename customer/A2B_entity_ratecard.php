@@ -6,7 +6,7 @@ include ("./form_data/FG_var_ratecard.inc");
 include ("./lib/customer.smarty.php");
 
 
-if (! has_rights (ACX_RATECARD)){
+if (! has_rights (ACX_RATECARD)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -62,6 +62,7 @@ $HD_Form -> FG_TABLE_CLAUSE .= " cc_tariffgroup_plan.idtariffplan=cc_ratecard.id
 $HD_Form -> create_toppage ($form_action);
 
 ?>
+<center>
     <table width="75%" border=0 cellspacing=1 cellpadding=3 bgcolor="#000033" align="center">
         <tr>
        <td bgcolor="#000033" width="100%" valign="top" align="center" class="bb2">
@@ -95,6 +96,7 @@ $HD_Form -> create_toppage ($form_action);
        </td>
         </tr>
     </table>
+</center>
 <?php   
 
 

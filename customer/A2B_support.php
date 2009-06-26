@@ -44,7 +44,6 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 if ($form_action == "list") {
-    // My code for Creating two functionalities in a page
     $HD_Form -> create_toppage ("ask-add");
     if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
@@ -116,7 +115,6 @@ if ($form_action == "list") {
 	  <br>
 <center><font class="error_message"><?php if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; ?></font></center>
 	<?php
-    // END END END My code for Creating two functionalities in a page
 }
 
 

@@ -303,6 +303,13 @@ function display_dateformat($mydate) {
 }
 
 /*
+ * function display_dateformat
+ */
+function display_date_timestamp($timestamp){
+	echo date("m/d/Y H:i:s", $timestamp);
+}	
+
+/*
  * function display_dateonly
  */
 function display_dateonly($mydate) {

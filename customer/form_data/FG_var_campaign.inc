@@ -62,7 +62,6 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN NAME"),
 	gettext("Insert the tariff name "),
 	"" , "", "", "", "" , "", "", "");
 
-
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
 	'1',
@@ -71,8 +70,6 @@ $HD_Form -> AddEditElement ("STATUS",
 	"",
 	"",
 	"list" , "", "", "", $actived_list, "%1" , "", gettext("Define if this campaign is active or not"));
-
-
 
 $HD_Form -> AddEditElement (gettext("CONFIG TO APPLY"),
    "id_campaign_config",
@@ -108,7 +105,6 @@ $HD_Form -> AddEditElement (gettext("CID GROUP"),
    "group_name, id",
    "", "", "%1", "", "");
 
-
 $HD_Form -> AddEditElement (gettext("STARTING DATE"),
 	"startingdate",
 	'$value',
@@ -126,7 +122,6 @@ $HD_Form -> AddEditElement (gettext("EXPIRATION DATE"),
 	"10",
 	gettext("Insert the expiration date"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"));
-
 
 $HD_Form -> AddEditElement (gettext("FREQUENCY"),
 	"frequency",
@@ -154,7 +149,6 @@ $HD_Form -> AddEditElement (gettext("DAILY STOPING TIME"),
 	"20",
 	gettext("Insert the daily stoping time"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Please respect the format HH:MM:SS. For instance, '00:00:00'"));
-	
 
 $HD_Form -> AddEditElement (gettext("MONDAY"),
    "monday",
@@ -164,6 +158,7 @@ $HD_Form -> AddEditElement (gettext("MONDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the monday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("TUESDAY"),
    "tuesday",
    '1',
@@ -172,6 +167,7 @@ $HD_Form -> AddEditElement (gettext("TUESDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the monday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("WEDNESDAY"),
    "wednesday",
    '1',
@@ -180,6 +176,7 @@ $HD_Form -> AddEditElement (gettext("WEDNESDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the monday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("THURSDAY"),
    "thursday",
    '1',
@@ -188,6 +185,7 @@ $HD_Form -> AddEditElement (gettext("THURSDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the thursday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("FRIDAY"),
    "friday",
    '1',
@@ -196,6 +194,7 @@ $HD_Form -> AddEditElement (gettext("FRIDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the friday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("SATURDAY"),
    "saturday",
    '0',
@@ -204,6 +203,7 @@ $HD_Form -> AddEditElement (gettext("SATURDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the saturday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
+   
 $HD_Form -> AddEditElement (gettext("SUNDAY"),
    "sunday",
    '0',
@@ -212,8 +212,6 @@ $HD_Form -> AddEditElement (gettext("SUNDAY"),
    "",
    gettext("Choose if you want to enable the campaign callback for the sunday"),
    "" , "", "", "Yes :1, - No:0", "", "" , "", "");
-	
-	
 	
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"description",
@@ -252,7 +250,7 @@ if ($form_action!="ask-delete") {
 
 
 $HD_Form -> FieldEditElement ("name, status, id_campaign_config, id_cid_group, startingdate, expirationdate, frequency, " .
-		"daily_start_time, daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description" );
+								"daily_start_time, daily_stop_time, monday,tuesday,wednesday,thursday,friday,saturday,sunday, description" );
 
 
 
@@ -274,9 +272,9 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 
 
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?id=";
 
 
 

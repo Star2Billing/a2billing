@@ -46,7 +46,7 @@ echo $CC_help_sipiax_info;
 <form name="form1">
 
 
-
+<center>
 <table width="60%" border="0" align="center" cellpadding="0" cellspacing="1">
 	<tr>
 	  <td  class="bgcolor_021">
@@ -123,11 +123,10 @@ if (count($additional_sip) > 0)
 }		
 ?>
 <?php } ?>
-<?php }else{ ?>
-
-
-<?php echo gettext("The peer is not defined, please contact your Administrator!")?>
-<?php } ?>
+<?php }else{ 
+	echo gettext("The peer is not defined, please contact your Administrator!");
+	} 
+?>
 </textarea>
 <br><br>
 </td>
@@ -136,11 +135,10 @@ if (count($additional_sip) > 0)
 	  </table></td>
 	</tr>
   </table>
-
+</center>
 </form>
+
 <?php
 
-// #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>

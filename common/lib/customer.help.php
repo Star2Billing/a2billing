@@ -27,6 +27,8 @@ if (SHOW_HELP) {
 	$CC_help_ratecard = create_help(gettext("View Ratecards"));
 
 	$CC_help_view_payment = create_help(gettext("Payment history - Record of payments made."));
+	
+	$CC_help_voicemail = create_help(gettext("Voicemail - The section below allows you to see all your voicemail, listen to them and move them into other folders."));
 
 	$CC_help_list_voucher = create_help(gettext("Enter your voucher number to top up your card."));
 
