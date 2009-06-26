@@ -150,6 +150,8 @@ define ("DIDX_MIN_RATING", isset($A2B->config['webui']['didx_min_rating'])?$A2B-
 define ("DIDX_SITE", "didx.net");
 define ("DIDX_RING_TO", isset($A2B->config['webui']['didx_ring_to'])?$A2B->config['webui']['didx_ring_to']:null);
 
+// VOICEMAIL
+define ("ACT_VOICEMAIL", false);
 
 // AGI
 define ("ASTERISK_VERSION", isset($A2B->config['agi-conf1']['asterisk_version'])?$A2B->config['agi-conf1']['asterisk_version']:'1_4');

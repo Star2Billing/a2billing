@@ -47,13 +47,15 @@ $smarty->display( 'main.tpl');
 if ($form_action == "list") {
     // My code for Creating two functionalities in a page
     $HD_Form -> create_toppage ("ask-add");
+?>
+<center>
+<?php
     
 	if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 	
 	if(sizeof($list)<$A2B->config["webcustomerui"]['limit_callerid']){
 
 ?>
-	 
 	   <table align="center"  border="0" width="55%" class="bgcolor_006">
 		<form name="theForm" action="<?php  $_SERVER["PHP_SELF"]?>">
 		<tr class="bgcolor_001" >
@@ -88,6 +90,9 @@ if ($form_action == "list") {
 	}
     // END END END My code for Creating two functionalities in a page
 }
+?>
+</center>
+<?php
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);

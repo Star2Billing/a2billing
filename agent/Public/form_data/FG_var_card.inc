@@ -630,25 +630,25 @@ $HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-/* 
-$HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
-			   "voicemail_permitted",
-			   '1',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Choose if you want to enable the voicemail functionality for this account"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
-
-$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
-			   "voicemail_activated",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Customer can choose to enable the voicemail for this account"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
-*/
+if (ACT_VOICEMAIL) { 
+	$HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
+				   "voicemail_permitted",
+				   '1',
+				   "RADIOBUTTON",
+				   "",
+				   "",
+				   gettext("Choose if you want to enable the voicemail functionality for this account"),
+				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
+	
+	$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
+				   "voicemail_activated",
+				   '0',
+				   "RADIOBUTTON",
+				   "",
+				   "",
+				   gettext("Customer can choose to enable the voicemail for this account"),
+				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
+}
 
 $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "id_campaign",
@@ -906,18 +906,20 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 			   // 4. Fourth param generates the where cluase
 			   // 5. Last, Sixth param is the FK column
 
-
+$add_fields_voicemail = '';
+if (ACT_VOICEMAIL)
+	$add_fields_voicemail = 'voicemail_permitted, voicemail_activated, ';
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass'.$balance_delete.', id_group, id_seria, lastname, firstname, email, '.
 		' address, city, state, country, zipcode, phone, fax,company_name, company_website '.
 		$typepaid_delete.', tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
-		' creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
+		' creditlimit, credit_notification, notify_email, email_notification, ' .$add_fields_voicemail.
+		' id_campaign, ' .
 		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, add_dialing_prefix, autorefill, initialbalance,' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
 
 
 if(!isset($myusername)) $myusername='';
-
 
 
 

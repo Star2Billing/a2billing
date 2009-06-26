@@ -613,26 +613,25 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   gettext("Insert the email to notify this customer"),
 				   "" , "", "",	"", "", "" , "NO", "");
 	
-	
-	/* 
-	$HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
-				   "voicemail_permitted",
-				   '1',
-				   "RADIOBUTTON",
-				   "",
-				   "",
-				   gettext("Choose if you want to enable the voicemail functionality for this account"),
-				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
-	
-	$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
-				   "voicemail_activated",
-				   '0',
-				   "RADIOBUTTON",
-				   "",
-				   "",
-				   gettext("Customer can choose to enable the voicemail for this account"),
-				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
-	*/
+	if (ACT_VOICEMAIL) { 
+		$HD_Form -> AddEditElement (gettext("PERMITTED VOICEMAIL"),
+					   "voicemail_permitted",
+					   '1',
+					   "RADIOBUTTON",
+					   "",
+					   "",
+					   gettext("Choose if you want to enable the voicemail functionality for this account"),
+					   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable the voicemail functionality for this account."));
+		
+		$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
+					   "voicemail_activated",
+					   '0',
+					   "RADIOBUTTON",
+					   "",
+					   "",
+					   gettext("Customer can choose to enable the voicemail for this account"),
+					   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this account."));
+	}
 	
 	$HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 				   "id_campaign",
@@ -895,24 +894,28 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   // 4. Fourth param generates the where cluase
 				   // 5. Last, Sixth param is the FK column
 	
-	
+	$add_fields_voicemail = '';
+	if (ACT_VOICEMAIL)
+		$add_fields_voicemail = 'voicemail_permitted, voicemail_activated, ';
 	
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, id_group, id_seria, lastname, firstname, email, '.
 			' address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
-			$update_field_typepaid.' tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
-			' creditlimit, credit_notification, notify_email, email_notification, id_campaign, ' .
-			' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, add_dialing_prefix, autorefill, initialbalance,' .
-			' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
+			$update_field_typepaid.' tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, creditlimit, ' .
+			' credit_notification, notify_email, email_notification, ' .$add_fields_voicemail.
+			' id_campaign, ' .
+			' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, add_dialing_prefix, ' .
+			' autorefill, initialbalance, invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
 	
 	
-	if(!isset($myusername)) $myusername='';
+	if(!isset($myusername)) 
+		$myusername='';
+	
 	if ($form_action == "ask-edit") {
 		$table_card = new Table("cc_card","status");
 		$result_card = $table_card ->Get_list(DbConnect(),"id=$id");
 		$HD_Form -> FG_EDITION_HIDDEN_PARAM = "oldstatus";
 		$HD_Form -> FG_EDITION_HIDDEN_PARAM_VALUE = "".$result_card[0][0];
 	}
-	
 	
 	
 	$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
@@ -937,12 +940,20 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 		$card_result = $card_table -> Get_list(DbConnect(), $card_clause, 0);
 		$sip_buddy= $card_result[0]['sip_buddy'];
 		$iax_buddy= $card_result[0]['iax_buddy'];
-		if(($sip_buddy == 1) && ($iax_buddy == 1)) $key = "sip_iax_changed";
-		elseif (($sip_buddy == 1) ) $key = "sip_changed";
-		elseif ($iax_buddy == 1) $key = "iax_changed";
-		if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];} 
-		elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$who_id=$_SESSION['agent_id'];}
-		else {$who=Notification::$UNKNOWN;$who_id=-1;}
+		if(($sip_buddy == 1) && ($iax_buddy == 1)) 
+			$key = "sip_iax_changed";
+		elseif (($sip_buddy == 1) ) 
+			$key = "sip_changed";
+		elseif ($iax_buddy == 1) 
+			$key = "iax_changed";
+		
+		if ($_SESSION["user_type"]=="ADMIN") {
+				$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];
+		} elseif ($_SESSION["user_type"]=="AGENT") {
+			$who= Notification::$AGENT;$who_id=$_SESSION['agent_id'];
+		} else { 
+			$who=Notification::$UNKNOWN;$who_id=-1;
+		}
 		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
 	}
 	

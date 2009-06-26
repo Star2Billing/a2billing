@@ -4,14 +4,19 @@ getpost_ifset(array('id', 'lastname', 'firstname', 'email', 'address','city', 's
 
 
 $HD_Form = new FormHandler("cc_card","Card");
+
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_HTML_TABLE_WIDTH = "60%";
 $HD_Form -> FG_EDITION_CLAUSE = " id = ".$_SESSION["card_id"];
+
 $HD_Form -> FG_INTRO_TEXT_EDITION = '';
+
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_ADDITION = false;
+
+
 $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   "lastname",
 			   '$value',
@@ -110,18 +115,23 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   gettext("Insert the fax number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
+if (ACT_VOICEMAIL) {
+	$HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
+				   "voicemail_activated",
+				   '0',
+				   "RADIOBUTTON",
+				   "",
+				   "",
+				   gettext("Customer can choose to enable the voicemail for this card"),
+				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this card."));
+}
 
-/* $HD_Form -> AddEditElement (gettext("ACTIVE VOICEMAIL SERVICE"),
-			   "voicemail_activated",
-			   '0',
-			   "RADIOBUTTON",
-			   "",
-			   "",
-			   gettext("Customer can choose to enable the voicemail for this card"),
-			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Customer can enable the voicemail for this card."));
-$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode,id_timezone, phone, fax, voicemail_activated');
-*/
-$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode,id_timezone, phone, fax');
+$add_fields_voicemail = '';
+if (ACT_VOICEMAIL)
+	$add_fields_voicemail = ', voicemail_activated ';
+
+
+$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode,id_timezone, phone, fax '.$add_fields_voicemail);
 
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily update your information clicking on the button.");
 
@@ -129,4 +139,6 @@ $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your record has been updated.")."<br>";
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?message=success";
+
+
 

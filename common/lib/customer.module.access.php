@@ -98,17 +98,22 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		
 		$cust_default_right=1;
 		if ($_POST["pr_login"]) {
+			
 			$pr_login = $return[0];
 			$pr_password = $_POST["pr_password"];
 			
-			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$cus_rights";
+			if ($FG_DEBUG == 1)
+				echo "<br>3. $pr_login-$pr_password-$cus_rights";
+			
 			$_SESSION["pr_login"]=$pr_login;
 			$_SESSION["pr_password"]=$pr_password;
-			if(empty($return[10]))
-				$_SESSION["cus_rights"]=$cust_default_right;
-			else 
-				$_SESSION["cus_rights"]=$return[10]+$cust_default_right;
 			
+			if(empty($return[10])) {
+				$_SESSION["cus_rights"]=$cust_default_right;
+			} else {
+				$_SESSION["cus_rights"]=$return[10]+$cust_default_right;
+			}
+						
 			$_SESSION["user_type"] = "CUST";
 			$_SESSION["card_id"]=$return[3];
 			$_SESSION["id_didgroup"]=$return[4];
@@ -116,9 +121,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["vat"]=$return[6];
 			$_SESSION["gmtoffset"]=$return[7];
 			$_SESSION["currency"]=$return["currency"];
-			if ($return[8] && $return[9]){
-				$_SESSION["cc_voicemail"] = false;
-			}
+			$_SESSION["voicemail"]=$return[8];
 		}
 	} else {
 		$_SESSION["cus_rights"]=0;
@@ -135,7 +138,11 @@ function login ($user, $pass)
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	
-	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, cc.voicemail_activated, cc_card_group.users_perms, cc.currency  FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'"; 
+	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
+			 "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
+			 "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group " .
+			 "WHERE (cc.email = '".$user."' OR cc.useralias = '".$user."') AND cc.uipass = '".$pass."'";
+			  
 	$res = $DBHandle -> Execute($QUERY);
 	
 	if (!$res) {
@@ -177,5 +184,5 @@ $ACXSUPPORT 				= has_rights (ACX_SUPPORT);
 $ACXNOTIFICATION 			= has_rights (ACX_NOTIFICATION);
 $ACXAUTODIALER 				= has_rights (ACX_AUTODIALER);
 $ACXSEERECORDING 			= has_rights (ACX_SEERECORDING);
-
+$ACXVOICEMAIL 				= $_SESSION["voicemail"];
 

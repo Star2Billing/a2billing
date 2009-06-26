@@ -42,7 +42,7 @@ $smarty->assign("ACXCALLER_ID", $ACXCALLER_ID);
 $smarty->assign("ACXSUPPORT", $ACXSUPPORT);
 $smarty->assign("ACXNOTIFICATION", $ACXNOTIFICATION);
 $smarty->assign("ACXAUTODIALER", $ACXAUTODIALER);
-
+$smarty->assign("ACXVOICEMAIL", $ACXVOICEMAIL);
 
 if($exporttype != "" && $exporttype != "html") {
 	$smarty->assign("EXPORT", 1);

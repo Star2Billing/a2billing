@@ -41,7 +41,7 @@ if($message == "success") {
 ?>
 <table width="50%" align="center">
 <tr height="100px">
-<td align="center"><?php echo gettext("Your personal information is updated successfully.")?></td>
+<td align="center"><?php echo gettext("Your personal information has successfully been updated.")?></td>
 </tr>
 </table>
 

@@ -11,6 +11,10 @@
 
 	<div class="toggle_menu"><li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li></div>
 	
+	{if $ACXVOICEMAIL>0 }
+	<div class="toggle_menu"><li><a href="A2B_entity_voicemail.php?section=1"><strong>{php} echo gettext("VOICEMAIL");{/php}</strong></a></li></div>
+	{/if}
+	
 	{if $ACXSIP_IAX>0 }
 	<div class="toggle_menu"><li><a href="A2B_entity_sipiax_info.php?section=1"><strong>{php} echo gettext("SIP/IAX INFO");{/php}</strong></a></li></div>
 	{/if}
