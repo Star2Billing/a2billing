@@ -731,13 +731,6 @@ ALTER TABLE cc_card ADD voicemail_permitted INTEGER DEFAULT 0 NOT NULL;
 ALTER TABLE cc_card ADD voicemail_activated SMALLINT DEFAULT 0 NOT NULL;
 
 
--- CREATE OR REPLACE VIEW voicemail_users AS (
---	SELECT id AS uniqueid, id AS customer_id, 'default' AS context, useralias AS mailbox, uipass AS password,
---	CONCAT(lastname, ' ', firstname) AS fullname, email AS email, '' AS pager,  '1984-01-01 00:00:00' AS stamp
---	FROM cc_card WHERE voicemail_permitted = '1' AND voicemail_activated = '1'
--- );
-
-
 
 -- ADD MISSING extracharge_did settings
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Extra charge DIDs', 'extracharge_did', '1800,1900', 'Add extra per-minute charges to this comma-separated list of DNIDs; needs "extracharge_fee" and "extracharge_buyfee"', 0, 11, NULL);
