@@ -392,6 +392,16 @@ $t[$i++] = array("MytoPg(): admin/Public/call-count-reporting.php's use of liter
 "select date_part('epoch','2008-06-01 23:59:59'::timestamp);");
 
 
+$t[$i++] = array("MytoPg(): Cast_date_part's timezone support",
+"SELECT DATETIME('2009-01-01 00:00:00 +0100') <= DATETIME('2009-01-01 00:00:00 UTC'   )",
+"SELECT ('2009-01-01 00:00:00 +0100'::timestamp) <= ('2009-01-01 00:00:00 UTC'::timestamp   )");
+
+
+$t[$i++] = array("MytoPg(): Cast_date_part's timezone support and non-zero-padded times and dates",
+"SELECT DATETIME('2009-1-1 0:0:0 GMT') <= DATETIME('2009-1-1 0:0:0 -1130')",
+"SELECT ('2009-1-1 0:0:0 GMT'::timestamp) <= ('2009-1-1 0:0:0 -1130'::timestamp)");
+
+
 
 #$t[$i++] = array("MytoPg():","","");
 

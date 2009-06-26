@@ -393,11 +393,11 @@ class MytoPg {
 
 		if (eregi('([[:space:]]*)[\'"]now[\'"]([[:space:]]*)', $part, $parm)) {
 			$part = "$parm[1]now()$parm[2]";
-
-		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}(-[[:digit:]]{2}){2}[[:space:]][[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
-			$part = "$parm[1]$parm[2]::timestamp$parm[4]";
-
-		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
+//                                                 |      year         | month 0?1-1     | day 0?1-31           |      hours 0?0-24     | min/secs 0?0-59     |  Timezone? [-+]0-1459] or ABC        |
+		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[0-1]?[[:digit:]]-[0-3]?[[:digit:]][[:space:]][0-2]?[[:digit:]](:[0-5]?[[:digit:]]){2}([[:space:]]?([-+][[:digit:]]{1,4}|[[:alpha:]]{2,3}))?[[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
+			$part = "$parm[1]$parm[2]::timestamp$parm[6]";
+//                                                 |      year         | month 0?1-12    | day 0?1-31           |
+		} elseif (ereg ('([[:space:]]*)([\'"][[:space:]]*[[:digit:]]{4}-[0-1]?[[:digit:]]-[0-3]?[[:digit:]][[:space:]]*[\'"])([[:space:]]*)', $part, $parm)) {
 			$part = "$parm[1]$parm[2]::date$parm[3]";
 		}
 		return $part;
