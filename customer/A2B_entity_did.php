@@ -19,12 +19,6 @@ if (!isset ($form_action))
 if (!isset ($action))
 	$action = $form_action;
 
-// #### TOP SECTION PAGE
-$HD_Form->create_toppage($form_action);
-
-// #### HEADER SECTION
-$smarty->display('main.tpl');
-
 $FG_LIMITE_DISPLAY = 10;
 if (isset ($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit == 'ALL'))) {
 	if ($mydisplaylimit == 'ALL') {
@@ -81,6 +75,9 @@ if ($action_release == "confirm_release") {
 /***********************************************************/
 
 if ($action_release == "ask_release") {
+	// #### HEADER SECTION
+	$smarty->display('main.tpl');
+
 	echo $CC_help_release_did;
 ?>
 	<FORM action="A2B_entity_did.php" name="form1">
@@ -106,10 +103,6 @@ if ($action_release == "ask_release") {
 
 
 if (!isset ($action_release) || $action_release == "confirm_release" || $action_release == "") {
-	// #### HELP SECTION
-	if ($form_action == 'list') {
-		echo $CC_help_list_did;
-	}
 
 	if ((isset ($confirm_buy_did)) && ($confirm_buy_did == 1)) {
 		if ($rate <= $user_credit || ($user_typepaid == 1 && $rate <= $user_credit + $user_creditlimit))
@@ -180,6 +173,17 @@ if (!isset ($action_release) || $action_release == "confirm_release" || $action_
 		$HD_Form->FG_EDITION_CLAUSE = "id_cc_card='" . $_SESSION["card_id"] . "' AND id = " . $id;
 	}
 	$list = $HD_Form->perform_action($form_action);
+
+	// #### HEADER SECTION
+	$smarty->display('main.tpl');
+
+	// #### HELP SECTION
+	if ($form_action == 'list') {
+		echo $CC_help_list_did;
+	}
+
+	// #### TOP SECTION PAGE
+	$HD_Form->create_toppage($form_action);
 
 	$instance_table = new Table($HD_Form->FG_TABLE_NAME, $HD_Form->FG_COL_QUERY);
 	$instance_table_phonenumberdid = new Table($HD_Form->FG_TABLE_NAME, $HD_Form->FG_COL_QUERY);
