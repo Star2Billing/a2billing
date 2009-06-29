@@ -1,33 +1,33 @@
 <?php
 include ("lib/customer.defines.php");
 include ("lib/customer.module.access.php");
-include ("lib/Class.RateEngine.php");	
+include ("lib/Class.RateEngine.php");
 include ("lib/customer.smarty.php");
 
-if (! has_rights (ACX_SIMULATOR)) { 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
+if (!has_rights(ACX_SIMULATOR)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, id, tariff FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, id, tariff FROM cc_card WHERE username = '" . $_SESSION["pr_login"] . "' AND uipass = '" . $_SESSION["pr_password"] . "'";
 
 $DBHandle_max = DbConnect();
 $numrow = 0;
-$resmax = $DBHandle_max -> Execute($QUERY);
+$resmax = $DBHandle_max->Execute($QUERY);
 if ($resmax)
-	$numrow = $resmax -> RecordCount();
+	$numrow = $resmax->RecordCount();
 
-if ($numrow == 0) exit();
-$customer_info =$resmax -> fetchRow();
+if ($numrow == 0)
+	exit ();
+$customer_info = $resmax->fetchRow();
 
-if($customer_info [14] != "1" ) {
-	exit();
+if ($customer_info[14] != "1") {
+	exit ();
 }
 
-
 getpost_ifset(array('posted', 'tariffplan', 'balance', 'id_cc_card', 'called'));
+
 $id_cc_card = $customer_info[15];
 $tariffplan = $customer_info[16];
 $balance = $customer_info[1];
@@ -35,74 +35,80 @@ $balance = $customer_info[1];
 $FG_DEBUG = 0;
 $DBHandle = DbConnect();
 
-if ($called  && $id_cc_card) {
-		
-		$calling = $called;
-		
-		if ( strlen($calling)>2 && is_numeric($calling)){
-				
-				$A2B -> DBHandle = DbConnect();
-				$instance_table = new Table();
-				$A2B -> set_instance_table ($instance_table);
-				$num = 0;				
-				
-				$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, "SELECT username, tariff FROM cc_card where id='$customer_info[15]'");
-				if (!is_array($result) || count($result)==0){
-					echo gettext("Error card !!!"); exit();
-				}
-				
-				$A2B -> cardnumber = $result[0][0] ;
-				$A2B -> credit = $balance;
-				if ($FG_DEBUG == 1) echo "cardnumber = ".$result[0][0] ." - balance=$balance<br>";
+if ($called && $id_cc_card) {
 
-				if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
-					if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
+	$calling = $called;
 
-					$RateEngine = new RateEngine();
-					$RateEngine -> webui = 1;
-					
-					$A2B ->agiconfig['accountcode'] = $A2B -> cardnumber ;
-					$A2B ->agiconfig['use_dnid']=1;
-					$A2B ->agiconfig['say_timetocall']=0;
-					$A2B ->dnid = $A2B ->destination = $calling;
-					if ($A2B->removeinterprefix) $A2B->destination = $A2B -> apply_rules ($A2B->destination);
+	if (strlen($calling) > 2 && is_numeric($calling)) {
 
-					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $result[0][1]);
-					if ($FG_DEBUG == 1) echo "resfindrate=$resfindrate";
-					
-					// IF FIND RATE
-					if ($resfindrate!=0){	
-						$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
-						if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
-					}
-					
+		$A2B->DBHandle = DbConnect();
+		$instance_table = new Table();
+		$A2B->set_instance_table($instance_table);
+		$num = 0;
 
-				}
+		$result = $A2B->instance_table->SQLExec($A2B->DBHandle, "SELECT username, tariff FROM cc_card where id='$customer_info[15]'");
+		if (!is_array($result) || count($result) == 0) {
+			echo gettext("Error card !!!");
+			exit ();
+		}
+
+		$A2B->cardnumber = $result[0][0];
+		$A2B->credit = $balance;
+		if ($FG_DEBUG == 1)
+			echo "cardnumber = " . $result[0][0] . " - balance=$balance<br>";
+
+		if ($A2B->callingcard_ivr_authenticate_light($error_msg)) {
+			if ($FG_DEBUG == 1)
+				$RateEngine->debug_st = 1;
+
+			$RateEngine = new RateEngine();
+			$RateEngine->webui = 1;
+
+			$A2B->agiconfig['accountcode'] = $A2B->cardnumber;
+			$A2B->agiconfig['use_dnid'] = 1;
+			$A2B->agiconfig['say_timetocall'] = 0;
+			$A2B->dnid = $A2B->destination = $calling;
+			if ($A2B->removeinterprefix)
+				$A2B->destination = $A2B->apply_rules($A2B->destination);
+
+			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $result[0][1]);
+			if ($FG_DEBUG == 1)
+				echo "resfindrate=$resfindrate";
+
+			// IF FIND RATE
+			if ($resfindrate != 0) {
+				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
+				if ($FG_DEBUG == 1)
+					print_r($RateEngine->ratecard_obj);
+			}
 
 		}
+
+	}
 }
 
 /**************************************************************/
 
 $instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
 $FG_TABLE_CLAUSE = "";
-$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
+$list_tariffname = $instance_table_tariffname->Get_list($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 $nb_tariffname = count($list_tariffname);
 
+$smarty->display('main.tpl');
 
-
-$smarty->display( 'main.tpl');
 // #### HELP SECTION
 echo $CC_help_simulator_rateengine;
 
 ?>
 
-<center><?php echo $error_msg; ?></center>
+<center>
+
+<?php echo $error_msg; ?>
 
 <br><br>
-<table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
+<table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
 	<TR> 
-	  <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("Call")." - ".gettext("Simulator");?></B></TD>
+	  <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("Simulator");?></B></TD>
 	</TR>
 	<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
 	<tr>			
@@ -125,9 +131,6 @@ echo $CC_help_simulator_rateengine;
 			</span></td>
 	</tr>
 	</FORM>
-	<TR>
-	  <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
-	</TR>
 </table>
 
 
@@ -196,9 +199,6 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 			
 		<?php } ?>
 		
-		<TR> 
-          <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
-        </TR>
 	  </table>
       <div align="center">
         <?php  } ?>
@@ -207,14 +207,14 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         <?php  if (count($RateEngine->ratecard_obj)==0) {
 		if  ($called){
 		?>
-		<center>
         <span style="font-weight: bold">	<img src="<?php echo Images_Path_Main ?>/kicons/button_cancel.gif" alt="a" width="32" height="32"/> <?php echo gettext("The number, you have entered, is not correct!");?>  </span>
-        </center>
         <?php  } ?>
         <?php  } ?>
         
         <br><br><br><br>
       </div>
+
+</center>
 
 <?php
 

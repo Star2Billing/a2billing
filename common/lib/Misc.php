@@ -303,11 +303,21 @@ function display_dateformat($mydate) {
 }
 
 /*
- * function display_dateformat
+ * function display_vm_callerid
  */
 function display_date_timestamp($timestamp){
 	echo date("m/d/Y H:i:s", $timestamp);
 }	
+
+/*
+ * function display_vm_callerid
+ */
+function display_vm_callerid($callerid_string){
+	$arr_spli = split(" ", $callerid_string);
+	echo str_replace('"',"", $arr_spli[0]);
+}	
+
+
 
 /*
  * function display_dateonly
