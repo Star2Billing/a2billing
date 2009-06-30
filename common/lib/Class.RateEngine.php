@@ -1000,16 +1000,18 @@ class RateEngine
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (sessiontime=$sessiontime :: dialstatus=$dialstatus :: buycost=$buycost :: cost=$cost : signe_cc_call=$signe_cc_call: signe=$signe)]");
 
 		// CALLTYPE -  0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
-		if ($didcall) $calltype = 2;
-		elseif ($callback) $calltype = 4;
-		else $calltype = 0;
+		if ($didcall) 
+			$calltype = 2;
+		elseif ($callback) 
+			$calltype = 4;
+		else 
+			$calltype = 0;
 		
 		if (strlen($this -> dialstatus_rev_list[$dialstatus])>0)
 			$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
 		else
 			$terminatecauseid = 0;
-			
-
+		
 		$card_id =  (!is_numeric($A2B->id_card)) ? '-1' : "'". $A2B->id_card ."'";
 		$real_sessiontime = (!is_numeric($this->real_answeredtime)) ? 'NULL' : "'". $this->real_answeredtime ."'";
 		$id_tariffgroup = (!is_numeric($id_tariffgroup)) ? 'NULL' : "'$id_tariffgroup'";
@@ -1062,7 +1064,14 @@ class RateEngine
 
 
 		if ($sessiontime>0) {
-			if(!defined($myclause_nodidcall)){
+			
+			if ($didcall==0 && $callback==0) {
+				$myclause_nodidcall = " , redial='".$calledstation."' ";
+			} else {
+				$myclause_nodidcall='';
+			}
+			
+			if (!defined($myclause_nodidcall)){
 				$myclause_nodidcall = null;
 			}
 			//Update the global credit

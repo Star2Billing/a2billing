@@ -757,7 +757,7 @@ class A2Billing {
 				return true;
 			}
 		} else {
-			if ($this->credit <= -$creditlimit) {
+			if ($this->credit <= -$this->creditlimit) {
 				$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 				if (!empty($result[0][0])) {
@@ -2052,11 +2052,10 @@ class A2Billing {
 					$isused = 0;
 					$simultaccess = 0;
 					$this->typepaid = $ttcard;
-					$creditlimit = $this->agiconfig['cid_auto_create_card_credit_limit'];
-					$this ->creditlimit = $creditlimit;
+					$this->creditlimit = $this->agiconfig['cid_auto_create_card_credit_limit'];
 					$language = 'en';
 					$this->accountcode = $card_gen;
-					if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
+					if ($this->typepaid==1) $this->credit = $this->credit + $this->creditlimit;
 				} else {
 
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_CONTROL - STOP - NO CALLERID]");
@@ -2075,7 +2074,6 @@ class A2Billing {
 				$isused 					= $result[0][6];
 				$simultaccess 				= $result[0][7];
 				$this->typepaid 			= $result[0][8];
-				$creditlimit 				= $result[0][9];
 				$this->creditlimit			= $result[0][9];
 				$language 					= $result[0][10];
 				$this->accountcode 			= $result[0][11];
@@ -2101,8 +2099,9 @@ class A2Billing {
 				$this->restriction			= $result[0][31];
 				$this->add_dialing_prefix	= $result[0][32];
 				
-				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
-
+				if ($this->typepaid==1)
+					$this->credit = $this->credit + $this->creditlimit;
+				
 				// CHECK IF CALLERID ACTIVATED
 				if( $result[0][2] != "t" && $result[0][2] != "1" ) 	$prompt = "prepaid-auth-fail";
 
@@ -2223,8 +2222,7 @@ class A2Billing {
 					$isused 					= $result[0][3];
 					$simultaccess 				= $result[0][4];
 					$this->typepaid 			= $result[0][5];
-					$creditlimit 				= $result[0][6];
-					$this -> creditlimit 		= $result[0][6];
+					$this->creditlimit 		= $result[0][6];
 					$language 					= $result[0][7];
 					$this->removeinterprefix 	= $result[0][8];
 					$this->redial 				= $result[0][9];
@@ -2247,7 +2245,7 @@ class A2Billing {
 					$this->restriction			= $result[0][27];
 					$this->add_dialing_prefix	= $result[0][28];
 					
-					if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
+					if ($this->typepaid==1) $this->credit = $this->credit + $this->creditlimit;
 				}
 
 				if (strlen($language)==2 && !($this->languageselected>=1)){
@@ -2265,8 +2263,8 @@ class A2Billing {
 					$this ->current_language=$language;
 				}
 
-				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[credit=".$this->credit." :: tariff=".$this->tariff." :: status=".$this->status." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");
-
+				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[credit=".$this->credit." :: tariff=".$this->tariff." :: status=".$this->status." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$this->creditlimit :: language=$language]");
+				
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
 				if( !$this -> enough_credit_to_call() ) $prompt = "prepaid-no-enough-credit-stop";
@@ -2403,7 +2401,6 @@ class A2Billing {
 				$isused 					= $result[0][3];
 				$simultaccess 				= $result[0][4];
 				$this->typepaid 			= $result[0][5];
-				$creditlimit 				= $result[0][6];
 				$this->creditlimit			= $result[0][6];
 				$language 					= $result[0][7];
 				$this->removeinterprefix 	= $result[0][8];
@@ -2428,8 +2425,8 @@ class A2Billing {
 				$this->restriction 			= $result[0][28];
 				$this->add_dialing_prefix 	= $result[0][29];
 				
-				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
-
+				if ($this->typepaid==1) $this->credit = $this->credit + $this->creditlimit;
+				
 				if (strlen($language)==2  && !($this->languageselected>=1)) {
 					if($this->agiconfig['asterisk_version'] == "1_2") {
 						$lg_var_set = 'LANGUAGE()';
@@ -2600,7 +2597,6 @@ class A2Billing {
 			$isused = $result[0][3];
 			$simultaccess = $result[0][4];
 			$this->typepaid = $result[0][5];
-			$creditlimit = $result[0][6];
 			$this->creditlimit 	= $result[0][6];
 			$language = $result[0][7];
 			$this->removeinterprefix = $result[0][8];
@@ -2625,8 +2621,8 @@ class A2Billing {
 			$this->restriction = $result[0][28];
 			$this->add_dialing_prefix = $result[0][29];
 			
-			if ($this->typepaid==1) $this->credit = $this->credit + $creditlimit;
-
+			if ($this->typepaid==1) $this->credit = $this->credit + $this->creditlimit;
+			
 			if (strlen($language)==2  && !($this->languageselected>=1)) {
 				// http://www.voip-info.org/wiki/index.php?page=Asterisk+cmd+SetLanguage
 				// Set(CHANNEL(language)=<lang>) 1_4 & Set(LANGUAGE()=language) 1_2
@@ -2710,7 +2706,6 @@ class A2Billing {
 		$isused = $result[0][3];
 		$simultaccess = $result[0][4];
 		$this->typepaid = $result[0][5];
-		$creditlimit = $result[0][6];
 		$this->creditlimit = $result[0][6];
 		$language = $result[0][7];
 		$this->removeinterprefix = $result[0][8];
@@ -2732,8 +2727,9 @@ class A2Billing {
 		$this->restriction = $result[0][25];
 		$this->add_dialing_prefix = $result[0][26];
 		
-		if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
-
+		if ($this->typepaid==1)
+			$this->credit = $this->credit + $this->creditlimit;
+		
 		// CHECK IF ENOUGH CREDIT TO CALL
 		if( !$this->enough_credit_to_call()) {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
