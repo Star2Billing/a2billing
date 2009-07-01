@@ -29,10 +29,10 @@ $desc_billing="";
 $start_date =null;
 if(is_array($result) && !empty($result[0][0])) {
 	$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND ";
-	$desc_billing = "Cost of calls between the ". display_GMT($result[0][1], $_SESSION["gmtoffset"], 1) ." and ". display_GMT(gmdate("Y/m/d H:i:s"), $_SESSION["gmtoffset"], 1) ;
+	$desc_billing = gettext("Cost of calls between the "). display_GMT($result[0][1], $_SESSION["gmtoffset"], 1) ." and ". display_GMT(gmdate("Y/m/d H:i:s"), $_SESSION["gmtoffset"], 1) ;
 	$start_date = $result[0][1];
 } else {
-	$desc_billing = "Cost of calls before the ". display_GMT(gmdate("Y/m/d H:i:s"), $_SESSION["gmtoffset"], 1) ;
+	$desc_billing = gettext("Cost of calls before the "). display_GMT(gmdate("Y/m/d H:i:s"), $_SESSION["gmtoffset"], 1) ;
 }
 $clause_call_billing .= "stoptime < NOW() ";
 $result_calls =  $call_table -> Get_list($DBHandle, $clause_call_billing);

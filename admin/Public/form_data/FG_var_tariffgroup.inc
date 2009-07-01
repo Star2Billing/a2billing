@@ -131,7 +131,7 @@ if ($numrow>0){
 		"",		
 		"",	
 		"sql",		
-		"call_tariff",	
+		"cc_tariffgroup_plan",	
 		"label, id",		
 		"", "", "%1 : (%2)", "", "", "cc_tariffgroup_plan:idtariffplan:cc_tariffplan LEFT JOIN cc_tariffgroup_plan ON cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan:DISTINCT cc_tariffplan.tariffname, cc_tariffplan.id: cc_tariffgroup_plan.idtariffgroup = %id:idtariffgroup:%2 - (%1)::::%1:id='%1'");		
 	
