@@ -19,7 +19,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 /************************************  ADD TICKET  ***********************************************/
-if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_numeric($component)){
+if ( (strlen($description)>0 || strlen($title)>0 ) && is_numeric($priority) && is_numeric($component)){
 
 		$FG_SPEEDDIAL_TABLE  = "cc_ticket";
 		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
@@ -30,6 +30,10 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		NotificationsDAO::AddNotification("ticket_added_cust",Notification::$LOW,Notification::$CUST,$_SESSION['card_id']);
 		$update_msg = gettext("Ticket added successfully");
 
+} elseif((strlen($description) + strlen($title) == 0 )) {
+	$update_msg = gettext("Please complete the title and description portions of the form.");
+} else {
+	$update_msg = gettext("Sorry, There was a problem creating your ticket.");
 }
 
 if ($id!="" || !is_null($id)) {
