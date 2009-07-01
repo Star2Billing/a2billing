@@ -36,7 +36,7 @@ if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 
-if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($posted_search == 1 )) {
+if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($posted_search == 1 ) && isset($mytariff_id) ) {
 	$HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
 }
 

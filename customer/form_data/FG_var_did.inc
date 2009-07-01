@@ -40,12 +40,14 @@ $HD_Form -> FieldViewElement ('destination, id_cc_did, activated, priority ,seco
 
 
 if (isset($form_action) && ($form_action=='ask-edit' || $form_action=='edit')){
-	$HD_Form -> FG_TABLE_NAME = "cc_did_destination";		
+	$HD_Form -> FG_TABLE_NAME = "cc_did_destination AS t1";
+	$country_field = '';
 }else{
-	$HD_Form -> FG_TABLE_NAME = "cc_did_destination t1, cc_did t2";
+	$HD_Form -> FG_TABLE_NAME = "cc_did_destination AS t1, cc_did AS t2";
 	$HD_Form -> FG_TABLE_CLAUSE = " id_cc_card='".$_SESSION["card_id"]."' AND t1.id_cc_did=t2.id";
+	$country_field = ' id_cc_country,';
 }
-$HD_Form -> FG_COL_QUERY = 'destination, id_cc_did, t1.activated, priority, t1.secondusedreal, id_cc_country, t1.id ';
+$HD_Form -> FG_COL_QUERY = 'destination, id_cc_did, t1.activated, priority, t1.secondusedreal,'. $country_field .' t1.id ';
 
 $HD_Form -> CV_NO_FIELDS  = gettext("There are no destinations created");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;

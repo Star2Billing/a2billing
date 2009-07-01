@@ -22,7 +22,7 @@ if (isset($posted) && strlen(trim($tariffplan)) > 0) {
 	$_SESSION['def_ratecard'] = $HD_Form -> FG_TABLE_CLAUSE;	
 } else {
 	$HD_Form -> FG_TOP_FILTER_NAME = 0;
-	$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND cc_tariffgroup_plan.idtariffplan=cc_ratecard.idtariffplan AND cc_ratecard.idtariffplan='".$_SESSION["mytariff_id"]."' AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND cc_prefix.prefix = cc_ratecard.destination";
+	$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND cc_tariffgroup_plan.idtariffplan=cc_ratecard.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND cc_prefix.prefix = cc_ratecard.destination";
 }
 
 

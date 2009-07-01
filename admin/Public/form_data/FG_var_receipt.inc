@@ -111,7 +111,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 				"" , "", "", "", "" , "", "", "");
 			   
 
-$HD_Form -> FieldEditElement ('id_card, date,title description');
+$HD_Form -> FieldEditElement ('id_card, date,title, description');
 
 
 

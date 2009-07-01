@@ -293,20 +293,21 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 	$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffgroup");
 	if ( $resmax )
 		$numrow = $resmax -> RecordCount( );
-	
-	if ($numrow > 0) { 
-		$HD_Form -> AddEditElement (gettext("CALL PLAN USABLE"),
-			"tariffgroup",	
-			'$value',	
-			"SELECT",		
-			'size="10" multiple="multiple"',
-			"",		
-			"",	
-			"sql",		
-			"call_tariff",	
-			"label, id",		
-			"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
-	}
+
+// This references non-existing tables, causing 'SELECT label, id FROM call_tariff' to be issued
+// 	if ($numrow > 0) { 
+// 		$HD_Form -> AddEditElement (gettext("CALL PLAN USABLE"),
+// 			"tariffgroup",	
+// 			'$value',	
+// 			"SELECT",		
+// 			'size="10" multiple="multiple"',
+// 			"",		
+// 			"",	
+// 			"sql",		
+// 			"call_tariff",	
+// 			"label, id",		
+// 			"", "", "%1 : (%2)", "", "", "cc_agent_tariffgroup:id_tariffgroup:cc_tariffgroup LEFT JOIN cc_agent_tariffgroup ON cc_tariffgroup.id=cc_agent_tariffgroup.id_tariffgroup:DISTINCT cc_tariffgroup.tariffgroupname, cc_tariffgroup.id: cc_agent_tariffgroup.id_agent = %id:id_agent:%2 - (%1)::::%1:id='%1'");
+// 	}
 	
 		
 	
