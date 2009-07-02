@@ -75,7 +75,7 @@ $HD_Form -> AddEditElement (gettext("BILLING TYPE"),
 	"list" , "", "", "", $billingtype_list, "%1", "", "");
 
 if (isset($form_action) && $form_action=="ask-add") {
-	$default_init = "value='0'";
+	$default_init = "value='1'";
 }
 
 $HD_Form -> AddEditElement (gettext("STARTING DAY"),
