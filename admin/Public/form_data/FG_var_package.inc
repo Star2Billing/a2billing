@@ -28,10 +28,10 @@ else // And I don't know if mysql likes them single.
 	$filter_unit = 'CASE packagetype WHEN 1 THEN CONCAT( freetimetocall, " times" ) WHEN 0 THEN "ALL" ELSE CONCAT( freetimetocall, " sec" ) END ';
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "18%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("PACKAGETYPE"), "packagetype", "15%", "center", "sort","","list",$packagetype_list);
-$HD_Form -> AddViewElement(gettext("BILLINGTYPE"), "billingtype", "15%", "center", "sort","","list",$billingtype_list);
-$HD_Form -> AddViewElement(gettext("STARTDAY"), "startday", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("PACKAGE TYPE"), "packagetype", "15%", "center", "sort","","list",$packagetype_list);
+$HD_Form -> AddViewElement(gettext("BILLING TYPE"), "billingtype", "15%", "center", "sort","","list",$billingtype_list);
+$HD_Form -> AddViewElement(gettext("STARTING DAY"), "startday", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FREE"), "freetimetocall", "17%", "center", "sort", "30", "", "", "", "", "", "");
 
 $HD_Form -> FieldViewElement ('label, creationdate, packagetype, billingtype, startday, '.$filter_unit);
@@ -56,7 +56,7 @@ $HD_Form -> AddEditElement (gettext("LABEL"),
 	gettext("Insert the package label"),
 	"" , "", "",	"", "", "", "",	"");
 
-$HD_Form -> AddEditElement (gettext("PACKAGETYPE"),
+$HD_Form -> AddEditElement (gettext("PACKAGE TYPE"),
 	"packagetype",		
 	'$value',	
 	"SELECT",	
@@ -65,7 +65,7 @@ $HD_Form -> AddEditElement (gettext("PACKAGETYPE"),
 	"",
 	"list" , "", "", "", $packagetype_list, "%1", "", "");
 
-$HD_Form -> AddEditElement (gettext("BILLINGTYPE"),
+$HD_Form -> AddEditElement (gettext("BILLING TYPE"),
 	"billingtype",
 	'$value',	
 	"SELECT",	
@@ -78,14 +78,14 @@ if (isset($form_action) && $form_action=="ask-add") {
 	$default_init = "value='0'";
 }
 
-$HD_Form -> AddEditElement (gettext("STARTDAY"),
+$HD_Form -> AddEditElement (gettext("STARTING DAY"),
    "startday",
    '$value',	
    "INPUT",	
    "size=10 $default_init maxlength=5",	
    "4",	
    gettext("Insert the start day"),			   
-   "" , "", "",	"", "", "", "", gettext("The value will be related to billingtype ; if monthly accepted value are 1-31 ; if Weekly accepted value 1-7 (Monday to Sunday) "));
+   "" , "", "",	"", "", "", "", gettext("The value will be related to billing type ; if monthly accepted value are 1-31 ; if Weekly accepted value 1-7 (Monday to Sunday) "));
 
 
 $HD_Form -> AddEditElement (gettext("FREE UNITS"),

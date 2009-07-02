@@ -208,7 +208,7 @@ if (SHOW_HELP) {
 	$CC_help_callback = create_help(gettext("Callback will offer you an easy way to connect any phone to our Asterisk platform.
 Browse here the pending and completed callbacks. You will see that different parameters determine the callback, the way to reach the user, the time when we need to call him, the result of the last attempts, etc..."), 'ShowCallbacks');
 
-	$CC_help_offer_package = create_help(gettext("PACKAGES SYSTEM - FREE MINUTES, etc..."), 'ListOfferPackage');
+	$CC_help_offer_package = create_help(gettext("PACKAGES SYSTEM - FREE MINUTES, etc..."), 'OfferPackage');
 
 	$CC_help_list_subscription = create_help(gettext("SUBSCRIPTION FEE - You can bill the user  in a monthly, weekly or any time period for being subscribed on your service. The fee amount is defined here and the period through the cront configuration."), 'ListSubscription');
 
