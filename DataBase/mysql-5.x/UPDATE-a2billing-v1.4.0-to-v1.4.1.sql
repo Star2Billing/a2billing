@@ -58,3 +58,16 @@ DELETE FROM cc_config WHERE config_key = 'show_top_frame';
 UPDATE cc_configuration SET set_function = 'tep_cfg_select_option(array(''Selected Currency'',''USD'',''CAD'',''EUR'',''GBP'',''JPY'',''MXN''), ' WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY' ;
 
 
+-- DID CALL AND BILLING
+ALTER TABLE cc_didgroup DROP iduser;
+ALTER TABLE cc_didgroup ADD connection_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT '0',
+ADD selling_rate DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+
+ALTER TABLE cc_did ADD UNIQUE (did);
+
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_listvalues ,config_group_title)
+VALUES ('Call to free DID Dial Command Params', 'dialcommand_param_call_2did', '|60|HiL(%timeout%:61000:30000)',  '%timeout% is the value of the paramater : ''Max time to Call a DID no billed''', '0', NULL , 'agi-conf1');
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_listvalues ,config_group_title)
+VALUES ('Max time to Call a DID no billed', 'max_call_call_2_did', '3600', 'max time to call a did of the system and not billed . this max value is in seconde and by default (3600 = 1HOUR MAX CALL).', '0', NULL , 'agi-conf1');
+
+

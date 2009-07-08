@@ -296,7 +296,9 @@ if ($mode == 'standard') {
 				$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine, $i);
 
 			} else {
-				if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i)==1) {
+                                $ans=$A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i,true);
+                                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, 'ANSWER fct callingcard_ivr authorize:> '.$ans);
+				if ($ans==1) {
 					// PERFORM THE CALL
 					$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
 
@@ -311,7 +313,34 @@ if ($mode == 'standard') {
 						$A2B-> fct_say_balance ($agi, $A2B-> credit);
 					}
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[a2billing account stop]');
-				}
+				}else if($ans=="2DID"){
+                                    
+                                    $A2B->call_2did($agi, $RateEngine, $listdestination);
+
+                                    ///
+                                    $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=".$A2B-> destination."]");
+
+                                    $QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias, connection_charge, selling_rate, did".
+                                            " FROM cc_did, cc_did_destination,  cc_card , cc_didgroup".
+                                            " WHERE id_cc_did=cc_did.id and cc_didgroup.id= cc_did.id_cc_didgroup AND cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='".$A2B-> destination."' ".
+                                            " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
+                                    if ($A2B->config["database"]['dbtype'] != "postgres"){
+                                            // MYSQL
+                                            $QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
+                                    }
+                                    $QUERY .= ") ORDER BY priority ASC";
+
+                                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+                                    $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
+                                   
+
+                                    if (is_array($result)){
+                                            $A2B -> call_2did($agi, $RateEngine, $result);
+                                            if ($A2B->set_inuse==1) $A2B -> callingcard_acct_start_inuse($agi,0);
+                                    }
+                                    //
+                                    
+                                }
 			}
 			$A2B->agiconfig['use_dnid']=0;
 		}//END FOR
@@ -349,7 +378,7 @@ if ($mode == 'standard') {
 
 		$QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias".
 			" FROM cc_did, cc_did_destination,  cc_card ".
-			" WHERE id_cc_did=cc_did.id and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='$mydnid' ".
+			" WHERE id_cc_did=cc_did.id and cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='$mydnid' ".
 			" AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
 		if ($A2B->config["database"]['dbtype'] != "postgres"){
 			// MYSQL

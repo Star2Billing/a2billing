@@ -1,7 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'didgroupname'));
-
+getpost_ifset(array('id', 'didgroupname','connection_charge','selling_rate'));
 $HD_Form = new FormHandler("cc_didgroup","Did Group");
 
 $HD_Form -> FG_DEBUG = 0;
@@ -26,19 +25,19 @@ $HD_Form -> FG_FK_EDITION_CLAUSE = array(" id_didgroup ");
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this DID Group! Please comfirm that you really want to remove this DID Group ? ");
 
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ID"), "id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "didgroupname", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "20%", "center", "sort", "30", "", "", "", "", "display_dateformat");
-
+$HD_Form -> AddViewElement("CONNECT CHARGE", "connection_charge", "15%", "center", "sort");
+$HD_Form -> AddViewElement("SELLING RATE", "selling_rate", "15%", "center", "sort");
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id, didgroupname, creationdate');
+$HD_Form -> FieldViewElement ('id, didgroupname, creationdate ,connection_charge ,selling_rate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
-$HD_Form -> FG_VIEW_TABLE_WITDH = '70%';
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
@@ -53,8 +52,26 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	gettext("Insert the Did group name "),
 	"" , "", "", "", "" , "" , "" , "");
 
+$HD_Form -> AddEditElement(gettext("CONNECT CHARGE"),
+   "connection_charge",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "12",
+   gettext("Insert the connect charge"),
+   "" , "", "",	"", "", "" , "NO", gettext("Apply a connection charge to connect DID together"));
 
-$HD_Form -> FieldEditElement ('didgroupname');
+$HD_Form -> AddEditElement(gettext("SELLING RATE"),
+   "selling_rate",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "12",
+   gettext("Insert the rate"),
+   "" , "", "",	"", "" , "", "", gettext("The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"), null, null, gettext("Define the selling cost for customers."));
+
+
+$HD_Form -> FieldEditElement ('didgroupname ,connection_charge ,selling_rate');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the DID Group");
