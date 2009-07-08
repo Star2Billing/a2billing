@@ -83,7 +83,5 @@
       	</div>
 	</form>
 {literal}
-<script LANGUAGE="JavaScript">
-	document.form.pr_login.focus();
-</script>
+
 {/literal}
