@@ -63,7 +63,10 @@
 			</tr>
 			<tr align="right" >
 				<td colspan="3" style="padding-top:10px;"><input type="submit" name="submit" value="LOGIN" class="form_input_button"></td>
-			</tr>           
+			</tr>
+                        <tr align="center">
+ 	                <td colspan=4><font class="fontstyle_007">Forgot your password? Click <a href="forgotpassword.php">here</a></font>.</td>
+                      </tr>
 
 			</table>
 		</td>

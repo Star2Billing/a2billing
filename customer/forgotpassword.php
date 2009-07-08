@@ -112,6 +112,8 @@ switch($error)
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet"  href="templates/default/css/main.css">
+<link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
+<link href="templates/default/css/style-def.css" rel="stylesheet" type="text/css">
 <script LANGUAGE="JavaScript">
 <!--
 	function test()
@@ -132,35 +134,30 @@ switch($error)
 </head>
 
 <body onload="document.form.pr_email.focus()">
-<br></br>
-<table width="100%" height="75%">
-<tr align="center" valign="middle">
-<td>
+<div id="login-wrapper" class="login-border-up">
+	<div class="login-border-down">
+	<div class="login-border-center">
 	<form name="form" method="POST" action="forgotpassword.php?action=email" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
-    <?php if($show_message== false){ ?>
-	<table  class="forgetpassword_maintable">
-	<tr>
-		<td align="center" class="forgetpassword_subtable">
-			<img src="<?php echo Images_Path_Main ?>/icon_arrow_orange.gif" width="15" height="15">
-			 <?php echo gettext("Forgot your password?")?>
+    <?php if($show_message == false){ ?>
+	<table width="100%" cellspacing="6">
+        <tr>
+		<td class="login-title">
+			 FORGOT YOUR PASSWORD?
 		</td>
 	</tr>
-	<tr>
-		<td class="forgetpassword_box">
-			<table border="0" cellpadding="0" cellspacing="10">
+        <tr>
+            <td width="100%" align="center" >
+			<table>
 			<tr align="center">
-				<td rowspan="3" class="forgetpassword_image">&nbsp;&nbsp;</td>
-				<td></td>
-				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b><?php echo gettext("Email")?>:</b></font></td>
+				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>Email:</b></font></td>
 				<td><input class="form_input_text" type="text" name="pr_email" size="32"></td>
 			</tr>
-			<tr align="center">
-				<td></td>
-				<td></td>
-				<td><input type="submit" name="submit" value="<?php echo gettext("SUBMIT")?>" class="form_input_button"></td>
+			<tr align="right" >
+				<td colspan="3" style="padding-top:10px;"><input type="submit" name="submit" value="SUBMIT" class="form_input_button"></td>
 			</tr>
+
 			</table>
 		</td>
 	</tr>
@@ -171,39 +168,29 @@ switch($error)
    else
    {
    ?>
-			<center>
 			
-			<br></br><br></br>
 			
-			<table class="bgcolor_007"  width="400px">
-			<tr><td colspan="2" ></td></tr>
+			<table width="100%" >
 			<tr><td colspan="2" ></td></tr>
 			<tr>
-			<td class="bgcolor_006">
-			<img src="<?php echo Images_Path_Main ?>/kicons/khelpcenter.gif"/></td>
-			<td class="bgcolor_006">
+			<td>
 			
 			<b>
 			<?php echo $login_message;?></b>
 			
 			</td></tr>
-			<tr><td colspan="2" ></td></tr>
-			<tr><td colspan="2" ></td></tr>
+                        <tr><td colspan="2" ></td></tr>
 			</table>
 			
-			<br></br><br></br>
 			
-			</center>
 			   
     <?php } ?>
 	</form>
 
-</td>
-</tr>
-</table>
 
-
-<br></br><br></br>
+        </div>
+        </div>
+        </div>
 
 </body>
 </html>
