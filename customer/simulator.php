@@ -176,14 +176,14 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         	</TR>
 			<tr>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<font color="blue"><b><a href="did.php"><img src="<?php echo Images_Path_Main ?>/icons/user.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo gettext("CallTime available");?></b></font>				</td>
+						<font color="blue"><b><img src="<?php echo Images_Path_Main ?>/icons/user.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /><?php echo gettext("CallTime available");?></b></font>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<font color="blue"><i><?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);?> <?php echo gettext("Minutes");?> </i></font>
 				</td>
 			</tr>
 				
 			<tr>			
-				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;"><b><a href="did.php"><img src="<?php echo Images_Path_Main ?>/icons/globe1.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><a href="simulador.php"></a><?php echo $arr_ratecard[3];?></b>				</td>
+				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;"><b><img src="<?php echo Images_Path_Main ?>/icons/globe1.png" name="image2" width="16" height="16" border="0" align="texttop" id="image2" /><?php echo $arr_ratecard[3];?></b></td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;">
 						<i><?php echo $destination;?></i>
 				</td>
@@ -191,7 +191,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 			
 			<tr>			
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<b><a href="simulador.php"><img src="<?php echo Images_Path_Main ?>/icons/query.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo $arr_ratecard[10];?></b>				</td>
+						<b><img src="<?php echo Images_Path_Main ?>/icons/query.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2"/><?php echo $arr_ratecard[10];?></b>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<i><?php echo $RateEngine->ratecard_obj[$j][12] ;?></i>
 				</td>
@@ -219,3 +219,5 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 <?php
 
 $smarty->display( 'footer.tpl');
+
+
