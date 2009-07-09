@@ -2,12 +2,17 @@
 
 getpost_ifset(array('id', 'destination', 'id_cc_card', 'id_cc_did', 'activated', 'priority', 'id_trunk', 'voip_call'));
 
-
-$HD_Form = new FormHandler("cc_did_destination","Did Destination");
+if ( (empty($form_action) || $form_action=="list")) {
+	$HD_Form = new FormHandler("cc_did_destination LEFT JOIN cc_did ON cc_did.id = cc_did_destination.id_cc_did","Did Destination");
+} else {
+	$HD_Form = new FormHandler("cc_did_destination");
+}
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "destination";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
+
+$HD_Form -> FG_TABLE_ID = 'cc_did_destination.id';
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_did_destination.php?form_action=ask-add&section=".$_SESSION["menu_section"];
@@ -28,7 +33,7 @@ for ($k=1;$k<=5;$k++)
 
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "15%", "center", "sort", "26");
 $HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("DID"), "id_cc_did", "12%", "center", "sort", "15", "lie", "cc_did", "did", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("DID"), "did", "12%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "15%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("ACTIVE"), "activated", "5%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("VOIP"), "voip_call", "5%", "center", "sort", "", "list", $actived_list);
@@ -39,7 +44,7 @@ $HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "10%", "ce
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('destination, creationdate, id_cc_did, id_cc_card, activated, voip_call, priority, secondusedreal');
+$HD_Form -> FieldViewElement ('destination, cc_did_destination.creationdate, cc_did.did, id_cc_card, cc_did_destination.activated, voip_call, priority, cc_did_destination.secondusedreal');
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
  
@@ -136,12 +141,12 @@ if ($form_action!='ask-edit' && $form_action!='edit') {
 
 // Set the filter variables
 $HD_Form -> FG_FILTER_APPLY = true;
-$HD_Form -> FG_FILTERFIELD = 'destination';
-$HD_Form -> FG_FILTERFIELDNAME = 'destination';
+$HD_Form -> FG_FILTERFIELD = 'did';
+$HD_Form -> FG_FILTERFIELDNAME = 'did';
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="destination like '$filterprefix%'";
+	$HD_Form -> FG_TABLE_CLAUSE .= "cc_did.did like '$filterprefix%'";
 }
 
 

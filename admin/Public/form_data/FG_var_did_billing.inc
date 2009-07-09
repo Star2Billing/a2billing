@@ -59,7 +59,7 @@ $HD_Form -> FG_FILTER_FORM_ACTION2 = 'list';
 
 if (isset($filterprefix2)  &&  (strlen($filterprefix2)>0)){
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="cc_did.did like '$filterprefix2%'";
+	$HD_Form -> FG_TABLE_CLAUSE .= "cc_did.did like '$filterprefix2%'";
 }
 
 
