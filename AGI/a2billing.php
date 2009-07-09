@@ -583,7 +583,7 @@ if ($mode == 'standard') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | error callerid]");
 	}
 
-}elseif ($mode == 'all-callback'){
+} elseif ($mode == 'all-callback') {
 
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[MODE : ALL-CALLBACK - '.$A2B->CallerID.']');
 
@@ -598,10 +598,10 @@ if ($mode == 'standard') {
 	$A2B ->credit = 1000;
 	$A2B ->tariff = $A2B -> config["callback"]['all_callback_tariff'];
 
-	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)){
+	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)) {
 
 		/* WE START ;) */
-		if ($cia_res==0){
+		if ($cia_res==0) {
 
 			$RateEngine = new RateEngine();
 			// $RateEngine -> webui = 0;
@@ -610,12 +610,12 @@ if ($mode == 'standard') {
 			$A2B ->agiconfig['use_dnid']=1;
 			$A2B ->agiconfig['say_timetocall']=0;
 			$A2B ->agiconfig['say_balance_after_auth']=0;
-			$A2B ->dnid = $A2B ->destination = $caller_areacode.$A2B->CallerID;
+			$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B -> CallerID;
 
-			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
+			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B -> destination, $A2B -> tariff);
 
 			// IF FIND RATE
-			if ($resfindrate!=0){
+			if ($resfindrate!=0) {
 				//$RateEngine -> debug_st = 1;
 				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 
@@ -647,12 +647,12 @@ if ($mode == 'standard') {
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 
-					if ($pos_dialingnumber !== false){
+					if ($pos_dialingnumber !== false) {
 						   $dialstr = "$tech/$ipaddress".$dialparams;
-					}else{
-						if ($A2B->agiconfig['switchdialcommand'] == 1){
+					} else {
+						if ($A2B->agiconfig['switchdialcommand'] == 1) {
 							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
-						}else{
+						} else {
 							$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
 						}
 					}
@@ -682,9 +682,9 @@ if ($mode == 'standard') {
 					$server_ip = 'localhost';
 					$num_attempt = 0;
 
-					if (is_numeric($A2B -> config["callback"]['sec_wait_before_callback']) && $A2B -> config["callback"]['sec_wait_before_callback']>=1){
+					if (is_numeric($A2B -> config["callback"]['sec_wait_before_callback']) && $A2B -> config["callback"]['sec_wait_before_callback']>=1) {
 						$sec_wait_before_callback = $A2B -> config["callback"]['sec_wait_before_callback'];
-					}else{
+					} else {
 						$sec_wait_before_callback = 1;
 					}
 
@@ -692,46 +692,46 @@ if ($mode == 'standard') {
 					$res = $A2B -> DBHandle -> Execute($QUERY);
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : INSERT CALLBACK REQUEST IN SPOOL : QUERY=$QUERY]");
 
-					if (!$res){
+					if (!$res) {
 						$error_msg= "Cannot insert the callback request in the spool!";
 						$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : CALLED=".$A2B ->destination." | $error_msg]");
 					}
 
-				}else{
+				} else {
 					$error_msg = 'Error : You don t have enough credit to call you back !!!';
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
 				}
-			}else{
+			} else {
 				$error_msg = 'Error : There is no route to call back your phonenumber !!!';
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
 			}
 
-		}else{
+		} else {
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | Authentication failed]");
 		}
 
-	}else{
+	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | error callerid]");
 	}
 
 
 // MODE CALLBACK
-}elseif ($mode == 'callback'){
+} elseif ($mode == 'callback') {
 
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[MODE : CALLBACK]');
 
 
-	if ($A2B -> config["callback"]['answer_call']==1){
+	if ($A2B -> config["callback"]['answer_call']==1) {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
 		$agi->answer();
 		$status_channel=6;
 
 		// PLAY INTRO FOR CALLBACK
-		if (strlen($A2B -> config["callback"]['callback_audio_intro']) > 0){
+		if (strlen($A2B -> config["callback"]['callback_audio_intro']) > 0) {
 			$agi-> stream_file($A2B -> config["callback"]['callback_audio_intro'], '#');
 		}
 
-	}else{
+	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
 		$status_channel=4;
 	}
@@ -745,18 +745,18 @@ if ($mode == 'standard') {
 
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
 
-	if ($callback_mode=='CID'){
+	if ($callback_mode=='CID') {
 		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 0;
 		$A2B->agiconfig['number_try'] =1;
 		$A2B->CallerID = $called_party;
 
-	}elseif ($callback_mode=='ALL'){
+	}elseif ($callback_mode=='ALL') {
 		$A2B->agiconfig['use_dnid'] = 0;
 		$A2B->agiconfig['number_try'] =1;
 		$A2B->agiconfig['cid_enable'] =0;
 
-	}else{
+	} else {
 		$charge_callback = 1;
 		// FOR THE WEB-CALLBACK
 		$A2B->agiconfig['number_try'] =1;
@@ -789,11 +789,16 @@ if ($mode == 'standard') {
 			$RateEngine->Reinit();
 			$A2B-> Reinit();
 			
+			// DIVIDE THE AMOUNT OF CREDIT BY 2 IN ORDER TO AVOID NEGATIVE BALANCE IF THE USER USE ALL HIS CREDIT
+			$orig_credit = $A2B -> credit;
+			$A2B -> credit = $A2B->credit / 2;
+			
 			$stat_channel = $agi->channel_status($A2B-> channel);
-			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[status_channel=$status_channel]:[ORIG_CREDIT : ".$A2B -> credit." - CUR_CREDIT - : ".$A2B -> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
+							"[status_channel=$status_channel]:[ORIG_CREDIT : ".$orig_credit." - CUR_CREDIT - : ".$A2B -> credit.
+							" - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 
-			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){
-			if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
+			if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)) {
 				break;
 			}
 
@@ -804,8 +809,7 @@ if ($mode == 'standard') {
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
 			}
 
-			if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i)==1){
-
+			if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i)==1) {
 				// PERFORM THE CALL
 				$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
 				if (!$result_callperf) {
@@ -901,11 +905,11 @@ if ($mode != 'cid-callback' && $mode != 'all-callback') {
 // SEND MAIL REMINDER WHEN CREDIT IS TOO LOW
 if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_reminder'] == 1) {
 
-	if (strlen($A2B -> cardholder_email) > 5){
+	if (strlen($A2B -> cardholder_email) > 5) {
 		$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='reminder' ";
 		$listtemplate = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
 
-		if (is_array($listtemplate)){
+		if (is_array($listtemplate)) {
 			list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
 			$messagetext = str_replace('$name', $A2B -> cardholder_lastname, $messagetext);
 			$messagetext = str_replace('$card_gen', $A2B -> username, $messagetext);
@@ -913,7 +917,7 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 			$messagetext = str_replace('$min_credit', $A2B->agiconfig['min_credit_2call'], $messagetext);
 
 			// USE PHPMAILER
-			include_once (dirname(__FILE__)."/libs_a2billing/mail/class.phpmailer.php");
+			include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
 
 			a2b_mail ($A2B -> cardholder_email, $subject, $messagetext, $from, $fromname);
 
