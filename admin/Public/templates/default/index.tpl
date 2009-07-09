@@ -44,7 +44,7 @@
 	<table width="100%" cellspacing="6" >
 	<tr>
 		<td class="login-title">
-			 AUTHENTICATION
+			 {php} echo gettext("AUTHENTICATION");{/php}
 		</td>
 	</tr>
 	<tr>
@@ -53,16 +53,16 @@
 			<tr align="center">
 				<td rowspan="4" style="padding-left: 2px; padding-right: 2px"><img src="templates/{$SKIN_NAME}/images/kicons/lock_bg.png"></td>
 				<td></td>
-				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>User:</b></font></td>
+				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>{php} echo gettext("User");{/php}:</b></font></td>
 				<td><input class="form_input_text" type="text" name="pr_login"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
-				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>Password:</b></font></td>
+				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>{php} echo gettext("Password");{/php}:</b></font></td>
 				<td><input class="form_input_text" type="password" name="pr_password"></td>
 			</tr>
 			<tr align="right" >
-				<td colspan="3" style="padding-top:10px;"><input type="submit" name="submit" value="LOGIN" class="form_input_button"></td>
+				<td colspan="3" style="padding-top:10px;"><input type="submit" name="submit" value="{php} echo gettext("LOGIN");{/php}" class="form_input_button"></td>
 			</tr>           
 
 			</table>
@@ -73,11 +73,11 @@
       	</div>
       	<div style="color:#BC2222;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;padding-left:10px;" >
       	{if ($error == 1)}
-				AUTHENTICATION REFUSED, please check your user/password!
+				{php} echo gettext("AUTHENTICATION REFUSED, please check your user/password!");{/php}
 	    {elseif ($error==2)}
-				INACTIVE ACCOUNT, Please activate your account!
+				{php} echo gettext("INACTIVE ACCOUNT, Please activate your account!");{/php}
 	    {elseif ($error==3)}
-				BLOCKED ACCOUNT, Please contact your administrator!
+				{php} echo gettext("BLOCKED ACCOUNT, Please contact the administrator!");{/php}
 	    {/if}
 	    </div>
       	</div>

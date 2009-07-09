@@ -71,3 +71,7 @@ INSERT INTO cc_config (config_title ,config_key ,config_value ,config_descriptio
 VALUES ('Max time to Call a DID no billed', 'max_call_call_2_did', '3600', 'max time to call a did of the system and not billed . this max value is in seconde and by default (3600 = 1HOUR MAX CALL).', '0', NULL , 'agi-conf1');
 
 
+-- remove the Signup Link option
+Delete from cc_config where config_key='signup_page_url';
+
+
