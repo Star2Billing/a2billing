@@ -74,4 +74,12 @@ VALUES ('Max time to Call a DID no billed', 'max_call_call_2_did', '3600', 'max 
 -- remove the Signup Link option
 Delete from cc_config where config_key='signup_page_url';
 
+-- remove the old auto create card feature
+Delete from cc_config where config_key='cid_auto_create_card';
+Delete from cc_config where config_key='cid_auto_create_card_len';
+Delete from cc_config where config_key='cid_auto_create_card_typepaid';
+Delete from cc_config where config_key='cid_auto_create_card_credit';
+Delete from cc_config where config_key='cid_auto_create_card_credit_limit';
+Delete from cc_config where config_key='cid_auto_create_card_tariffgroup';
+
 

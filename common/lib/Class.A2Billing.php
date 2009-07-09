@@ -2348,74 +2348,15 @@ class A2Billing {
 			
 			if (!is_array($result)) {
 				
-				if ($this->agiconfig['cid_auto_create_card']==1) {
-
-					for ($k=0 ; $k <= 20 ; $k++) {
-						if ($k == 20) {
-							$this -> debug( WARN, $agi, __FILE__, __LINE__, "ERROR : Impossible to generate a cardnumber not yet used!");
-							$prompt="prepaid-auth-fail";
-							$agi-> stream_file($prompt, '#');
-							return -2;
-						}
-						$card_gen = $this -> MDP ($this->agiconfig['cid_auto_create_card_len']);
-						$numrow = 0;
-						$resmax = $this->DBHandle -> Execute("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
-						if ($resmax)
-							$numrow = $resmax -> RecordCount();
-
-						if ($numrow!=0) continue;
-						break;
-					}
-					$card_alias = $this -> MDP ($this->agiconfig['cid_auto_create_card_len']);
-					$uipass = $this -> MDP (5);
-					$ttcard = ($this->agiconfig['cid_auto_create_card_typepaid']=="POSTPAY") ? 1 : 0;
-
-					//CREATE A CARD
-					
-					$QUERY_FIELS = 'username, useralias, uipass, credit, language, tariff, activated, typepaid, creditlimit, inuse, status, currency';
-					$QUERY_VALUES = "'$card_gen', '$card_alias', '$uipass', '".$this->agiconfig['cid_auto_create_card_credit']."', 'en', '".$this->agiconfig['cid_auto_create_card_tariffgroup']."', 't','$ttcard', '".$this->agiconfig['cid_auto_create_card_credit_limit']."', '0', '1', '".$this->config['global']['base_currency']."'";
-					if($this ->groupe_mode){ 
-						$QUERY_FIELS .= ", id_group";
-						$QUERY_VALUES .= " , '$this->group_id'";
-					}
-					
-					$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card', 'id');
-					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[CARDNUMBER: $card_gen]:[CARDID CREATED : $result]");
-
-					//CREATE A CARD AND AN INSTANCE IN CC_CALLERID
-					$QUERY_FIELS = 'cid, id_cc_card';
-					$QUERY_VALUES = "'".$this->CallerID."','$result'";
-
-					$result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
-					if (!$result) {
-						$this -> debug( ERROR, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
-						$prompt="prepaid-auth-fail";
-						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-						$agi-> stream_file($prompt, '#');
-						return -2;
-					}
-
-					$this->credit = $this->agiconfig['cid_auto_create_card_credit'];
-					$this->tariff = $this->agiconfig['cid_auto_create_card_tariffgroup'];
-					$this->active = 1;
-					$isused = 0;
-					$simultaccess = 0;
-					$this->typepaid = $ttcard;
-					$this->creditlimit = $this->agiconfig['cid_auto_create_card_credit_limit'];
-					$language = 'en';
-					$this->accountcode = $card_gen;
-					if ($this->typepaid==1) $this->credit = $this->credit + $this->creditlimit;
-				} else {
-
-					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_CONTROL - STOP - NO CALLERID]");
-					// $callerID_enable=1; -> we are checking later if the callerID/accountcode has been define if not ask for pincode
-					if ($this -> agiconfig['cid_askpincode_ifnot_callerid']==1) {
-						$this -> accountcode = '';
-						$callerID_enable = 0;
-					}
+				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_CONTROL - STOP - NO CALLERID]");
+				
+				if ($this -> agiconfig['cid_askpincode_ifnot_callerid']==1) {
+					$this -> accountcode = '';
+					$callerID_enable = 0;
 				}
+				
 			} else {
-				// We found a card for this callerID
+				// authenticate OK using the callerID
 
 				$this->credit 				= $result[0][3];
 				$this->tariff 				= $result[0][4];
@@ -2572,7 +2513,7 @@ class A2Billing {
 					$isused 					= $result[0][3];
 					$simultaccess 				= $result[0][4];
 					$this->typepaid 			= $result[0][5];
-					$this->creditlimit 		= $result[0][6];
+					$this->creditlimit 			= $result[0][6];
 					$language 					= $result[0][7];
 					$this->removeinterprefix 	= $result[0][8];
 					$this->redial 				= $result[0][9];
@@ -2600,17 +2541,14 @@ class A2Billing {
 
 				if (strlen($language)==2 && !($this->languageselected>=1)){
 
-					if($this->agiconfig['asterisk_version'] == "1_2")
-					{
+					if($this->agiconfig['asterisk_version'] == "1_2") {
 						$lg_var_set = 'LANGUAGE()';
-					}
-					else
-					{
+					} else {
 						$lg_var_set = 'CHANNEL(language)';
 					}
 					$agi -> set_variable($lg_var_set, $language);
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
-					$this ->current_language=$language;
+					$this -> current_language = $language;
 				}
 
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[credit=".$this->credit." :: tariff=".$this->tariff." :: status=".$this->status." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$this->creditlimit :: language=$language]");
@@ -2623,7 +2561,7 @@ class A2Billing {
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
-				if ($this->enableexpire>0){
+				if ($this->enableexpire>0) {
 					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
 						// expire date
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
@@ -2648,7 +2586,6 @@ class A2Billing {
 					
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
-
 					
 					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && !$this -> enough_credit_to_call()) {
 						
@@ -2660,6 +2597,7 @@ class A2Billing {
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
+					
 					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
 						$this->accountcode = '';
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
@@ -2885,6 +2823,7 @@ class A2Billing {
 		return $res;
 	}
 	
+	
 	function callingcard_ivr_authenticate_minimum($agi)
 	{
 		$prompt				= '';
@@ -2895,10 +2834,11 @@ class A2Billing {
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Account code - '.$this->accountcode);
 
 		for ($retries = 0; $retries < 3; $retries++) {
-			if (($retries>0) && (strlen($prompt)>0)){
+			if (($retries>0) && (strlen($prompt)>0)) {
 				$agi-> stream_file($prompt, '#');
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 			}
+			
 			if ($res < 0) {
 				$res = -1;
 				break;
