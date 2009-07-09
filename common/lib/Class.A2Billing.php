@@ -1473,13 +1473,13 @@ class A2Billing {
                                 }
                                  $max_long = 2147483647; //Maximum value for long type in C++. This will be used to avoid overflow when sending large numbers to Asterisk
                                 if($call_did_free){
+                                    $this -> fct_say_time_2_call($agi,$time2call,0);
                                     $dialparams = $this->agiconfig['dialcommand_param_call_2did'];
                                     $dialparams = str_replace("%timeout%", min($time2call * 1000, $max_long), $dialparams);
                                     $dialparams = str_replace("%timeoutsec%", min($time2call, $max_long), $dialparams);
                                     $dialstr 	= $inst_listdestination[4].$dialparams;
 
                                     $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: Dialing '$dialstr' Friend.\n");
-                                    $this->agiconfig['max_call_call_2_did'];
                                     //# Channel: technology/number@ip_of_gw_to PSTN
                                     // Dial(IAX2/guest@misery.digium.com/s@default)
                                     $myres = $this -> run_dial($agi, $dialstr);
@@ -1622,7 +1622,7 @@ class A2Billing {
                                          if(!$call_did_free){
                                              $this->timeout= min($this->timeout,$time2call);
                                          }
-
+                                          $this -> fct_say_time_2_call($agi, $this->timeout,$selling_rate);
                                         // PERFORM THE CALL
 
                                         $result_callperf = $RateEngine->rate_engine_performcall ($agi, $this -> destination, $this);
