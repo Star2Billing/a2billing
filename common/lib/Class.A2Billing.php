@@ -1165,10 +1165,15 @@ class A2Billing {
 				return 1;
 			}
 		}
+		
 		if ($this->voicemail) {
+			
 			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
 				// The following section will send the caller to VoiceMail with the unavailable priority.
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
+				
+				// $vm_parameters = $this -> format_parameters ($dest_username.'|u');
+				// $agi-> exec(VoiceMail, $vm_parameters);
 				
 				$agi-> exec(VoiceMail,$dest_username.'|u');
 			}
@@ -1176,6 +1181,9 @@ class A2Billing {
 			if (($dialstatus =="BUSY")) {
 				// The following section will send the caller to VoiceMail with the busy priority.
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest_username)");
+				
+				// $vm_parameters = $this -> format_parameters ($dest_username.'|n');
+				// $agi-> exec(VoiceMail, $vm_parameters);
 				
 				$agi-> exec(VoiceMail,$dest_username.'|b');
 			}
@@ -1680,7 +1688,7 @@ class A2Billing {
 				// The following section will send the caller to VoiceMail with the unavailable priority.\
 				$dest_username = $this->username;
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
-
+				
 				$agi-> exec(VoiceMail,$dest_username.'|u');
 			}
 
@@ -1688,7 +1696,7 @@ class A2Billing {
 				// The following section will send the caller to VoiceMail with the busy priority.
 				$dest_username = $this->username;
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest_username)");
-
+				
 				$agi-> exec(VoiceMail,$dest_username.'|b');
 			}
 		}
@@ -3313,13 +3321,23 @@ class A2Billing {
 	
 	function run_dial($agi, $dialstr)
 	{
-		if($this->agiconfig['asterisk_version'] == "1_6") {
-			$dialstr = str_replace("|", ',', $dialstr);
-		}
+		$dialstr = $this -> format_parameters ($dialstr);
+		
 		// Run dial command
 		$res_dial = $agi->exec("DIAL $dialstr");
 		
 		return $res_dial;
+	}
+	
+	/*
+	 * This function to set the parameters separator according the asterisk version
+	 */
+	function format_parameters ($parameters)
+	{
+		if($this->agiconfig['asterisk_version'] == "1_6") {
+			$parameters = str_replace("|", ',', $parameters);
+		}
+		return $parameters;
 	}
 	
 };
