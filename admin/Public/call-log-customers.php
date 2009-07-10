@@ -179,7 +179,7 @@ if (isset ( $customer ) && ($customer > 0)) {
 			$FG_TABLE_CLAUSE .= " AND ";
 		$FG_TABLE_CLAUSE .= "t1.card_id='$entercustomer'";
 	}elseif(isset ( $entercustomer_num ) && ($entercustomer_num > 0)) {
-		$res=$DBHandle -> Execute ("select id from cc_card where username=".$entercustomer_num);
+		$res = $DBHandle -> Execute ("select id from cc_card where username=".$entercustomer_num);
 		if ($res){
 			if($res->RecordCount ()){
 			 $row =$res -> fetchRow();

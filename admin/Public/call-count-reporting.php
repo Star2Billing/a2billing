@@ -16,58 +16,51 @@ if (!isset ($current_page) || ($current_page == "")) {
 	$current_page=0; 
 }
 
-if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
-		
-		$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d")); 	
-		$FG_TABLE_CLAUSE=" UNIX_TIMESTAMP(starttime) <= UNIX_TIMESTAMP('$cc_yearmonth')";
+if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0) {
+	$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d")); 	
+	$FG_TABLE_CLAUSE=" UNIX_TIMESTAMP(starttime) <= UNIX_TIMESTAMP('$cc_yearmonth')";
 }
-
 
 $FG_DEBUG = 0;
 $FG_TABLE_NAME="cc_call";
-$FG_TABLE_HEAD_COLOR = "#D1D9E7";
-
-$FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
-$FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 
-$DBHandle  = DbConnect();
+$DBHandle = DbConnect();
+$instance_table = new Table('cc_call');
+
 
 $FG_TABLE_COL = array();
-
-switch ($topsearch) {
-	
+switch ($topsearch) {	
 	case "topdestination":
-		$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
+		$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "25%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
 		$on_field = "destination";
 		$FG_TABLE_DEFAULT_ORDER = "destination";
 		break;
-		
 	case "topuser":
 	default:
-		$FG_TABLE_COL[]=array (gettext("Account Used"), 'card_id', "20%", "center","SORT", "", "30", "", "", "", "", "linktocustomer_id");
+		$FG_TABLE_COL[]=array (gettext("Account Used"), 'card_id', "25%", "center","SORT", "", "30", "", "", "", "", "linktocustomer_id");
 		$on_field = "card_id";
 		$FG_TABLE_DEFAULT_ORDER = "card_id";
 	
 }
 
-$FG_TABLE_COL[]=array (gettext("Duration"), "calltime", "20%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array (gettext("Buy"), "buy", "25%", "center","sort","","","","","","","display_2bill");
-$FG_TABLE_COL[]=array (gettext("Sell"), "cost", "25%", "center","sort","","","","","","","display_2bill");
+$FG_TABLE_COL[]=array (gettext("Duration"), "calltime", "15%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$FG_TABLE_COL[]=array (gettext("Sell"), "cost", "15%", "center","sort","","","","","","","display_2bill");
+$FG_TABLE_COL[]=array (gettext("Buy"), "buy", "15%", "center","sort","","","","","","","display_2bill");
 if ($grouped) $FG_TABLE_COL[]=array (gettext("Calldate"), "day", "10%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Term Cause"), "terminatecauseid", "10%", "center", "SORT", "30", "", "", "", "", "", "linkto_TC");
 if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($topsearch!="")){
 	$FG_TABLE_COL[]=array (gettext("NbrCall"), 'nbcall', "10%", "center", "SORT");
 }
 
-if ($grouped){
+if ($grouped) {
 	$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day,terminatecauseid, count(*) as nbcall';
 	$SQL_GROUP=" GROUP BY ".$on_field.",DATE(starttime),terminatecauseid ";
-}else{
+} else {
 	$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, count(*) as nbcall';
 	$SQL_GROUP=" GROUP BY ".$on_field.",terminatecauseid ";
 }
@@ -78,10 +71,10 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 $FG_LIMITE_DISPLAY=20;
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
-$FG_HTML_TABLE_TITLE=gettext(" - Call Report - ");
+$FG_HTML_TABLE_TITLE = gettext(" - Call Report - ");
 $FG_HTML_TABLE_WIDTH="96%";
 
-if ( is_null ($order) || is_null($sens) || ( $order == 'card_id' && $topsearch = 'topdestination') || ( $order == 'destination' && $topsearch = 'topuser')){
+if ( is_null ($order) || is_null($sens) || ( $order == 'card_id' && $topsearch = 'topdestination') || ( $order == 'destination' && $topsearch = 'topuser')) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
@@ -105,55 +98,50 @@ if (!isset($terminatecauseid)){
 }
 if ($terminatecauseid=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.=" (terminatecauseid=1) ";
+	$FG_TABLE_CLAUSE .=" (terminatecauseid=1) ";
 }
 
-if ($grouped){
-	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME  GROUP BY DATE(starttime)";
-}else{
-	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall FROM $FG_TABLE_NAME";
+if ($grouped) {
+	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE GROUP BY DATE(starttime)";
+} else {
+	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 }
 
 if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($topsearch!="")){
-	if ($grouped){
-		$FG_COL_QUERY1=$on_field.', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,DATE(starttime) AS starttime,terminatecauseid, count(*) as nbcall';
-		$SQL_GROUP1=" GROUP BY $on_field,starttime,terminatecauseid";
-	}else{
+	if ($grouped) {
+		$FG_COL_QUERY1 = $on_field.', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,DATE(starttime) AS starttime,terminatecauseid, count(*) as nbcall';
+		$SQL_GROUP1 =" GROUP BY $on_field,starttime,terminatecauseid";
+	} else {
 		$FG_COL_QUERY1=$on_field.', sum(sessiontime) AS sessiontime, sum(sessionbill) as sessionbill, sum(buycost) as buycost,terminatecauseid, count(*) as nbcall,starttime';
 		$SQL_GROUP1=" GROUP BY $on_field,terminatecauseid,starttime";
 	}
-	$QUERY = "CREATE TEMPORARY TABLE temp_result AS (SELECT $FG_COL_QUERY1 FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE  $SQL_GROUP1 ORDER BY nbcall DESC LIMIT $inputtopvar)";
-	$res = $DBHandle -> Execute($QUERY);
+	
+	$QUERY = "CREATE TEMPORARY TABLE temp_result AS (SELECT $FG_COL_QUERY1 FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE $SQL_GROUP1 ORDER BY nbcall DESC LIMIT $inputtopvar)";
+	$res = $instance_table -> SQLExec ($DBHandle, $QUERY, 0);
+	
 	if ($res) {
 		$FG_TABLE_NAME="temp_result";
 		if ($grouped) {
 			$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day,terminatecauseid, nbcall';
 			$SQL_GROUP=" GROUP BY ".$on_field.",DATE(starttime),terminatecauseid,nbcall ";
-			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME GROUP BY DATE(starttime)";
+			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall,DATE(starttime) AS day FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE GROUP BY DATE(starttime)";
 		} else {
 			$FG_COL_QUERY=$on_field.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, nbcall';
 			$SQL_GROUP=" GROUP BY ".$on_field.",terminatecauseid,nbcall ";
-			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall FROM $FG_TABLE_NAME";
+			$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, sum(nbcall) as nbcall FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 		}
 		$order = "nbcall";
 	}
 }
 
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+
 if (!$nodisplay) {
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY,$SQL_GROUP);
-	$res = $DBHandle -> Execute($QUERY_TOTAL);
-	if ($res) {
-		$num=$res->RecordCount( );
-		for($i=0;$i<$num;$i++) {				
-			$list_total[]=$res -> fetchRow();
-		}
-	}
-	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE . $SQL_GROUP );
-	if ($FG_DEBUG >= 1) var_dump ($list);
-}//end IF nodisplay
-
+	
+	$list_total = $instance_table -> SQLExec ($DBHandle, $QUERY_TOTAL, 1);
+	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE . $SQL_GROUP);
+}
 
 
 if ($nb_record<=$FG_LIMITE_DISPLAY) { 
@@ -166,12 +154,10 @@ if ($nb_record<=$FG_LIMITE_DISPLAY) {
 	}	
 }
 
- 
 
 $smarty->display('main.tpl');
 
 ?>
-
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>
@@ -182,7 +168,7 @@ $smarty->display('main.tpl');
 			
 			<tr>
         		<td align="left" class="bgcolor_002">
-					<font class="fontstyle_003"><?php echo gettext("DATE");?></font>
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DATE");?></font>
 				</td>
       			<td align="left" class="bgcolor_003" width="650">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -322,11 +308,8 @@ $smarty->display('main.tpl');
 					</td>
 				</tr>
 				</table>
-				
 			   </td>
-			  	
 				</tr>
-				
 				</table>
 			  </td>
 			  </tr>
@@ -346,16 +329,16 @@ $smarty->display('main.tpl');
 
 <center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
 <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
-	<TR bgcolor="#ffffff"> 
-    	<TD  class="bgcolor_021" height="16px" style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
-            <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-                <TR> 
-                  <TD><SPAN  class="fontstyle_003"><tr><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
-                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path;?>/btn_top_12x12.gif" width=12> 
-                  </TD>
-                </TR>
-            </TABLE></TD>
-        </TR>
+	<TR bgcolor="#ffffff">
+		<TD class="bgcolor_021" height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
+		<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+			<TR>
+				<TD><SPAN class="fontstyle_003"><?php echo $FG_HTML_TABLE_TITLE?></SPAN></TD>
+				<TD align=right><IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path; ?>/btn_top_12x12.gif" width=12></TD>
+			</TR>
+		</TABLE>
+		</TD>
+	</TR>
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                 <TR class="bgcolor_008"> 
@@ -384,52 +367,45 @@ $smarty->display('main.tpl');
                     </span></a> 
                     <?php }?>
                     </strong></center></TD>
-				   <?php } ?>		
-				   <?php if ($FG_DELETION || $FG_EDITION){ ?>
-				   
-                  
-				   <?php } ?>		
+				   <?php } ?>
                 </TR>
-                <TR> 
-                  <TD  class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL+1?>><IMG 
-                              height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
-                </TR>
+                
 				<?php
-					  
-				  	 $ligne_number=0;					 
-					 //print_r($list);
-				  	 foreach ($list as $recordset){ 
+				  	 $ligne_number=0;
+				  	 foreach ($list as $recordset) {
 						 $ligne_number++;
 				?>
-				
                		 <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'"> 
-				<TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY.".&nbsp;"; ?></TD>
+						<TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY.".&nbsp;"; ?></TD>
 							 
-					<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){
-						$record_display = $recordset[$i];
-						if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
-							$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";  
-						} ?>
-                 		 <TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php 
-						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
-						 		call_user_func($FG_TABLE_COL[$i][11], $record_display);
-						 }else{
-						 		echo stripslashes($record_display);
-						 }						 
+					<?php 
+						for($i=0;$i<$FG_NB_TABLE_COL;$i++) {
+							
+							$record_display = $recordset[$i];
+							if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
+								$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";  
+							} ?>
+	                 		 <TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php 
+							 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1) {
+							 		call_user_func($FG_TABLE_COL[$i][11], $record_display);
+							 } else {
+							 		echo stripslashes($record_display);
+							 }				 
 						 ?></TD>
-				 		 <?php  } ?>
-                  
+				 	<?php  
+				 		} ?>
 					</TR>
 				<?php
 					 }//foreach ($list as $recordset)
-					 if ($ligne_number < $FG_LIMITE_DISPLAY)  $ligne_number_end=$ligne_number +2;
-					 while ($ligne_number < $ligne_number_end){
+					 if ($ligne_number < $FG_LIMITE_DISPLAY)
+					 	$ligne_number_end=$ligne_number +2;
+					 
+					 while ($ligne_number < $ligne_number_end) {
 					 	$ligne_number++;
 				?>
 					<TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"> 
-				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
+				  		<?php 
+				  			for($i=0;$i<$FG_NB_TABLE_COL;$i++) { 
 				 		 ?>
                  		 <TD vAlign=top class=tableBody>&nbsp;</TD>
 				 		 <?php  } ?>
@@ -444,18 +420,13 @@ $smarty->display('main.tpl');
 				  }//end_if
 				 ?>
                 
-                <TR> 
-                  <TD class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL+1?>><IMG height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
-                </TR>
             </TABLE></td>
         </tr>
-        <TR bgcolor="#ffffff"> 
-          <TD bgColor=#ADBEDE height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
+        <TR bgcolor="#ffffff">
+			<TD class="bgcolor_005" height="16" style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-                <TR> 
-                  <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><td> 
+				<TR>
+					<TD align="right"><SPAN class="fontstyle_003">
                     <?php if ($current_page>0){?>
                     <img src="<?php echo Images_Path;?>/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
 					echo "&topsearch=$topsearch&inputtopvar=$inputtopvar&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&resulttype=$resulttype&terminatecauseid=$terminatecauseid&grouped=$grouped";?>">
@@ -466,10 +437,12 @@ $smarty->display('main.tpl');
                     - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";}
 					echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&clidtype=$clidtype&resulttype=$resulttype&clid=$clid&terminatecauseid=$terminatecauseid&topsearch=$topsearch&inputtopvar=$inputtopvar&grouped=$grouped";?>">
                     <?php echo gettext("Next");?></a> <img src="<?php echo Images_Path;?>/fleche-d.gif" width="5" height="10">
-                    </B></TD></SPAN> 
+                    </SPAN> 
                     <?php }?>
-            </TABLE></TD>
-        </TR>
+                    </TD>
+            </TABLE>
+			</TD>
+		</TR>
       </table>
 <br><br><br>
 
@@ -516,7 +489,7 @@ if (is_array($list) && count($list)>0){
 			<tr  class="bgcolor_019">
 			<TD align="center" class="sidenav" nowrap="nowrap" width="75%"><font class="fontstyle_006"><?php echo gettext ("DAYS");?></font><//TABLE>
 			</TD>
-			<TD align="center" class="sidenav" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><?php echo gettext("DURATION");?>></font></TD>
+			<TD align="center" class="sidenav" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><?php echo gettext("DURATION");?></font></TD>
 			</TD>
 			</tr>
 			<tr class="bgcolor_021">
@@ -544,7 +517,7 @@ if (is_array($list) && count($list)>0){
 	</tr>
 </tbody></table>
 
-<?php  }else{ ?>
+<?php  } else { ?>
 	<center><h3><?php echo gettext("No calls in your selection");?>.</h3></center>
 <?php  } ?>
 </center>
