@@ -176,7 +176,7 @@
 					<li><a href="call-count-reporting.php?nodisplay=1&posted=1&section=5">{php} echo gettext("Call Count");{/php}</a></li>
 					<li><a href="A2B_trunk_report.php?section=5">{php} echo gettext("Trunk");{/php}</a></li>
 					<li><a href="call-dnid.php?nodisplay=1&posted=1&section=5">{php} echo gettext("DNID");{/php}</a></li>
-					<!-- <li><a href="call-pnl-report.php?section=5">{php} echo gettext("PNL");{/php}</a></li> -->
+					<li><a href="call-pnl-report.php?section=5">{php} echo gettext("PNL");{/php}</a></li>
 					<li><a href="call-comp.php?section=5">{php} echo gettext("Compare Calls");{/php}</a></li>
 					<li><a href="call-daily-load.php?section=5">{php} echo gettext("Daily Traffic");{/php}</a></li>
 					<li><a href="call-last-month.php?section=5">{php} echo gettext("Monthly Traffic");{/php}</a></li>
