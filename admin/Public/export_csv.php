@@ -15,12 +15,6 @@ if (strlen($var_export) == 0) {
 	$var_export = 'pr_sql_export';
 }
 
-/*
-// DEBUG 
-echo "var_export = $var_export <br>";
-echo "SESSION var_export =".$_SESSION[$var_export]."</br>";
-echo "var_export_type = $var_export_type <br>";
-exit; */
 
 #  Set the parameters: SQL Query, hostname, databasename, dbuser and password
 $dumpfile = new iam_csvdump;

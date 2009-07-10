@@ -7,7 +7,7 @@
 
  /**
  *  IAM_CSVDump A class form performing a query dump and sending it to the browser or setting it or download.
- *  @author     Iván Ariel Melgrati <phpclasses@imelgrat.mailshell.com>
+ *  @author     Ivï¿½n Ariel Melgrati <phpclasses@imelgrat.mailshell.com>
  *  @package    iam_csvdump
  *  @version 1.0
  *
@@ -41,7 +41,7 @@ class iam_csvdump
     * @return String A CSV String. It returns an empty string if there Array is empty (NULL)
     * @todo Add param "fill to fit max length"?
     */
-    function arrayToCsvString($array, $separator=';', $trim='both', $removeEmptyLines=TRUE) {
+    function 	arrayToCsvString	($array, $separator=';', $trim='both', $removeEmptyLines=TRUE) {
     if (!is_array($array) || empty($array)) return '';
 
     switch ($trim) {
@@ -137,7 +137,7 @@ class iam_csvdump
          }
          else
          {
-            $unewline = "\n";
+            // $unewline = "\n";
          }
 
          return $unewline;
@@ -285,7 +285,7 @@ class iam_csvdump
             $crlf = $this->_define_newline();
             while ($str= @mysql_fetch_array($result, MYSQL_NUM))
             {
-                $file .= $this->arrayToCsvString($str,",'").$crlf;
+                $file .= $this->arrayToCsvString($str,";'").$crlf;
             }
             echo $file;
         }
@@ -520,4 +520,3 @@ class iam_csvdump
             }
     }
 }
-?>
