@@ -266,8 +266,7 @@ if (! $nodisplay) {
 	$list = $instance_table->Get_list ( $DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page * $FG_LIMITE_DISPLAY );
 }
 
-// EXPORT 
-// NOTE : MAYBE REWRITE THIS PAGE FROM THE FRAMEWORK
+// EXPORT
 $FG_EXPORT_SESSION_VAR = "pr_export_entity_call";
 
 // Query Preparation for the Export Functionality
@@ -1137,6 +1136,37 @@ if (is_array ( $list_total_day ) && count ( $list_total_day ) > 0) {
 	$max_fail = 0;	
 ?>
 
+<?php 
+$profit = $totalcost - $totalbuycost;
+$rand_num = rand(1,4);
+
+// Show the donate button only 25% of the page display
+if ($profit > 500 && $rand_num==4) {
+?>
+<center>
+<table align="center" width="50%" bgcolor="white" cellpadding="5" cellspacing="5" style="border: solid 1px">
+	<tr>
+		<td align="center"> 
+		
+			<center>
+				<b><font color="#A00000"><?php echo gettext("Thanks to A2Billing, you have made a profit of over 500 euro !");?></font></b><BR>
+					<?php echo gettext("Support A2Billing by clicking on the Donate button bellow :");?>  
+				
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+					<input type="hidden" name="cmd" value="_s-xclick">
+					<input type="hidden" name="lc" value="US">
+					<input type="hidden" name="country" value="USA">
+					<input type="hidden" name="hosted_button_id" value="3769548">
+					<input type="image" src="https://www.paypal.com/en_US/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Make Donation with PayPal">
+					<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+				</form>		
+			</center>		
+		</td>
+	</tr>
+</table>
+</center>
+<br>
+<?php } ?>
 
 <!-- END TITLE GLOBAL MINUTES //-->
 
