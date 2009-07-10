@@ -234,18 +234,19 @@ $smarty->display('main.tpl');
     		</tr>
 		<tr>
 			<TD class="bgcolor_004" align="left">
-				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("TOP");?></font>	
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("LIMIT RECORD");?></font>	
 			</TD>
 			<td class="bgcolor_005" align="left" >
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>	<TD  align="center" class="fontstyle_searchoptions" >
-						<input type="text" name="inputtopvar" value="<?php echo $inputtopvar;?>" class="form_input_text">
+				<tr>	
+					<TD  align="left" class="fontstyle_searchoptions" >
+						<input type="text" name="inputtopvar" value="<?php echo $inputtopvar;?>" size="10" class="form_input_text">
 					</td>
 					<td  align="center" class="fontstyle_searchoptions">
-						<input type="radio" name="topsearch" value="topuser"<?php if ($topsearch=="topuser"){ ?> checked="checked" <?php  } ?>><?php echo gettext("Calls by user");?>
+						
 					</td>
 					<td  align="center" class="fontstyle_searchoptions">
-						<input type="radio" name="topsearch" value="topdestination"<?php if ($topsearch=="topdestination"){ ?> checked="checked" <?php  } ?>><?php echo gettext("Calls by destination");?>
+						
 					</td>
 				</tr></table>
 			</TD>
@@ -258,6 +259,17 @@ $smarty->display('main.tpl');
 			  <tr>
 			  	<td width="35%" class="fontstyle_searchoptions" >
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr class="bgcolor_005">
+					<td  class="fontstyle_searchoptions">
+						<?php echo gettext("GROUP BY");?> : 
+				   </td>
+				   <td  class="fontstyle_searchoptions">
+				   		<?php echo gettext("Calls by user");?>
+				   		<input type="radio" name="topsearch" value="topuser"<?php if ($topsearch=="topuser"){ ?> checked="checked" <?php  } ?>>
+				   		<?php echo gettext("Calls by destination");?>
+				   		<input type="radio" name="topsearch" value="topdestination"<?php if ($topsearch=="topdestination"){ ?> checked="checked" <?php  } ?>>
+				   </td>
+				</tr>
 				<tr>
 					<td width="20%"  class="fontstyle_searchoptions">
 						<?php echo gettext("SHOW");?> :  						
@@ -287,7 +299,7 @@ $smarty->display('main.tpl');
 					<td  class="fontstyle_searchoptions">
 						
 	
-					<?php echo gettext("Mins");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("Secs")?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
+					<?php echo gettext("Mins");?> <input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("Secs")?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
 
 					</td>
 				</tr>
