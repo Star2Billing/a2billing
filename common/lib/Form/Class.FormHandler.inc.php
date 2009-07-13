@@ -2091,12 +2091,18 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 			$card_id = $processed['card_id'];
 			$refill_type= $processed['payment_type'];
 			$description = $processed['description'];
-			$value_insert = " '$date' , '$credit', '$card_id','$refill_type', '$description' ";
+                        $card_table = new Table('cc_card','vat');
+                        $card_clause = "id = ".$card_id;
+                        $card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
+                        if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
+                        else $vat = $card_result[0][0];
+                        $credit_without_vat = $credit / (1+$vat/100);
+			$value_insert = " '$date' , '$credit_without_vat', '$card_id','$refill_type', '$description' ";
 			$instance_sub_table = new Table("cc_logrefill", $field_insert);
 			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
 			// REFILL CARD .. UPADTE CARD
 			$instance_table_card = new Table("cc_card");
-			$param_update_card = "credit = credit + '".$credit."'";
+			$param_update_card = "credit = credit + '".$credit_without_vat."'";
 			$clause_update_card = " id='$card_id'";
 			$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
 			//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
@@ -2147,14 +2153,9 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 			//load vat of this card
 			if(!empty($id_invoice) && is_numeric($id_invoice)) {
 				$description = $processed['description'];
-				$card_table = new Table('cc_card','vat');
-				$card_clause = "id = ".$card_id;
-				$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
-				if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
-				else $vat = $card_result[0][0];
 				$field_insert = "date, id_invoice ,price,vat, description";
 				$instance_table = new Table("cc_invoice_item", $field_insert);
-				$value_insert = " '$date' , '$id_invoice', '$credit','$vat','$description' ";
+				$value_insert = " '$date' , '$id_invoice', '$credit_without_vat','$vat','$description' ";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 		}
