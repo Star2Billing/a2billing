@@ -21,9 +21,9 @@ if (! has_rights (ACX_ACCESS)) {
 
 $currencies_list = get_currencies();
 $two_currency = false;
-if (!isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeric($currencies_list[strtoupper($_SESSION['currency'])][2]) ){
+if (!isset($currencies_list[strtoupper($_SESSION['currency'])][2]) || !is_numeric($currencies_list[strtoupper($_SESSION['currency'])][2])) {
 	$mycur = 1; 
-}else{ 
+} else { 
 	$mycur = $currencies_list[strtoupper($_SESSION['currency'])][2];
 	$display_currency =strtoupper($_SESSION['currency']);
 	if(strtoupper($_SESSION['currency'])!=strtoupper(BASE_CURRENCY))$two_currency=true;
@@ -39,8 +39,8 @@ getpost_ifset(array('item_id','item_type'));
 
 $vat_amount= $amount*$vat/100;
 $total_amount = $amount+($amount*$vat/100);
-if (!isset($item_id) || is_null($item_id)) {
-	$item_id = 0;	
+if (!isset($item_id) || is_null($item_id) || $item_id == "") {
+	$item_id = 0;
 }
 
 if (!isset($item_type) || is_null($item_type)) {
