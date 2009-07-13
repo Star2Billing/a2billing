@@ -2000,7 +2000,6 @@ class A2Billing {
 		if ($result[0][0]==$this->vouchernumber) {
 			if (!isset ($currencies_list[strtoupper($result[0][4])][2])) {
 				$this -> debug( ERROR, $agi, __FILE__, __LINE__, "System Error : No currency table complete !!!");
-				$agi-> stream_file('prepaid-unknow_used_currencie', '#');
 				return -1;
 			} else {
 				// DISABLE THE VOUCHER
