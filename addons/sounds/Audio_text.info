@@ -1,15 +1,19 @@
 
 
----------------------------  MAIN --------------------------
+---------------------------  GLOBAL --------------------------
 prepaid-menulang 								press 1 for English, pulsa 2 para el español, Pressez 3 pour Français
 
 
-################################################################################
+
+
+===========================================  ENGLISH ===========================================
 
 prepaid-welcome 								welcome to  the calling card system...
+prepaid-final									goodbye
+
+-------- Authentication --------
 prepaid-enter-card-num   						please, enter your 10 digits card number skipping any ponctuations, follow by the pound key
 prepaid-enter-pin-number		   				please, enter your complete PIN number
-
 prepaid-no-card-entered							no card number has been entered
 prepaid-invalid-digits							invalid digits
 prepaid-auth-fail								sorry, your authentication failed
@@ -19,71 +23,58 @@ prepaid-no-enough-credit						sorry, you dont have enough credit to call this nu
 prepaid-no-enough-credit-stop					sorry, you dont have enough credit
 prepaid-card-in-use								this card number is already used!
 
-prepaid-you-have								you have
-prepaid-cents									cents
-vm-and											and
-
-
+-------- Call User --------
 prepaid-sipiax-press9							If you want to call a SIP or IAX Friend, please press 9 now...
-
-prepaid-sipiax-enternumber						Please enter the number of the IAX, SIP Friend 
-												you want to call and then press the pound key...
-
+prepaid-sipiax-enternumber						Please enter the number of the IAX, SIP Friend you want to call and then press the pound key...
 prepaid-sipiax-num-nomatch						Sorry, there is none SIP or IAX friend that match with this number!
 
+-------- Call Destination --------
+prepaid-enter-dest								Please, enter the number you wish to call and then press the pound key...
+prepaid-dest-unreachable						The number, you have dial, is currently unavailable...
 prepaid-isbusy									the number is currently busy
 prepaid-noanswer								the number is not answering
 prepaid-callfollowme							The person you are trying to reach did not answer. Please wait as the called party has the feature 
 												call follow me activated and we will route your call to the called party
-
-prepaid-enter-dest								Please, enter the number you wish to call and then press the pound key...
-? EUROPE
-												Please, enter the number you are calling starting with 00 and the prefix of the country you wish to call
-												and then press the pound key...
-prepaid-enter-number-u-calling-1-or-011.			
-												Please, enter the number you are calling starting for 1 for domestic or 011 for international calls
-												and then press the pound key...
-prepaid-dest-unreachable						The number, you have dial, is currently unavailable... 
-
-
+-------- Time to call and Balance --------
 prepaid-you-have								you have
 prepaid-minute									minute
 prepaid-minutes									minutes
 prepaid-second									second
 prepaid-seconds									seconds
-
-prepaid-final									goodbye
-
-
 prepaid-dollar									dollar
 prepaid-dollars									dollars
 prepaid-euro									euro
 prepaid-euros									euros
+prepaid-cents									cents
+vm-and											and
 
-; Voucher
+------ Voucher -------
 prepaid-account_refill							your account has been refill of 
 prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
-prepaid-unknow_used_currencie					sorry unknow used currency
 prepaid-voucher_does_not_exist					the voucher does not exist
 prepaid-voucher_enter_number					please enter the voucher number and press the pound key
 
-; Callback
+------ Callback -------
 prepaid-callback_intro							Your call is now being connected, Please hold
 
-
-; Say Rate initial
+------ Function Say Rate initial -------
 prepaid-cost-call 								the cost of the call is 
 prepaid-per-minutes								per minutes
 
-; CallerID update
+------ CallerID update ---------
 prepaid-enter-cid								Please, enter your CallerID
 
----------------------------  FRENCH --------------------------
+
+
+
+===========================================  FRENCH ===========================================
 
 prepaid-welcome 								Bienvenue dans notre système de carte pré-payé....
+prepaid-final									Au revoir
+
+-------- Authentication --------
 prepaid-enter-card-num		   					Entrez le numéro de votre carte, suivit de la touche dièse
 prepaid-enter-pin-number		   				Entrez votre numero d'identification...
-
 prepaid-no-card-entered							Aucun numéro de carte n'a été introduit...
 prepaid-invalid-digits							numéros incorrects...
 prepaid-auth-fail								désolé, votre authentification a échoué... 
@@ -93,146 +84,122 @@ prepaid-no-enough-credit						désolé, vous n'avez pas assez de crédit pour ap
 prepaid-no-enough-credit-stop					désolé, vous n'avez pas assez de crédit...
 prepaid-card-in-use								Cette carte est déjà en cours d'utilisation
 
-prepaid-you-have								vous avez
-prepaid-cents									centimes
-vm-and											et
+-------- Call User -------- (missing audio)
+prepaid-sipiax-press9							If you want to call a SIP or IAX Friend, please press 9 now...
+prepaid-sipiax-enternumber						Please enter the number of the IAX, SIP Friend you want to call and then press the pound key...
+prepaid-sipiax-num-nomatch						Sorry, there is none SIP or IAX friend that match with this number!
 
 
+-------- Call Destination --------
+prepaid-enter-dest								Composez le numéro que vous souhaitez appeler suivit de la touche dièse.
+prepaid-dest-unreachable						Le numero que vous avez composé n'est pas disponible... 
 prepaid-isbusy									Ce numéro est occupé.
 prepaid-noanswer								Ce numéro ne répond pas.
 prepaid-callfollowme							La personne que vous essayez de contacter n est pas disponible,
 												restez en ligne pendant que notre service fait suivre votre appel
 
-prepaid-enter-dest								Composez le numéro que vous souhaitez appeler suivit de la touche dièse.
-prepaid-enter-dest-europe						Composez le numéro que vous souhaitez appeler précédé par 00 
-												et le prefix pays. Finalisez avec la touche dièse.
-				
-prepaid-enter-number-u-calling-1-or-011			Entrez le numéro que vous souhaitez appeler précédé par 1 pour 
-												les appels domestiques et par 011 pour les appels international, 
-												suivit ensuite de la touche dièse...
-				
-prepaid-dest-unreachable						Le numero que vous avez composé n'est pas disponible... 
-
+-------- Time to call and Balance --------
 prepaid-you-have								vous avez
 prepaid-minute									minute
 prepaid-minutes									minutes
 prepaid-second									seconde
 prepaid-seconds									secondes
-prepaid-final									Au revoir
-
-
 dollar											dollar
 dollars											dollars
 euro											euro
 euros											euros
+prepaid-cents									centimes
+vm-and											et
 
-; Voucher
+------ Voucher -------
 prepaid-account_refill							Votre compte a été rechargé de 
 prepaid-refill_card_with_voucher				si vous désirez recharger votre carte avec un voucher, pressez la touche 8
-prepaid-unknow_used_currencie					Désolé, la device utilisé n'est pas reconnu
 prepaid-voucher_does_not_exist					Ce voucher n'existe pas
 prepaid-voucher_enter_number					Veuillez composer le numéro du voucher suivit de la touche dièse
 
-; Callback
-prepaid-callback_intro							?? Your call is now being connected, Please hold
+------ Callback ------- (missing ?)
+prepaid-callback_intro							Votre appel sera maintenant connecté, veuillez pantienter
 
-
-; Say Rate initial
+------ Function Say Rate initial -------
 prepaid-cost-call 								le cout de l appel est de 
 prepaid-per-minutes								par minutes
 
-; CallerID update
+------ CallerID update -------
 prepaid-enter-cid								Entrez votre callerID
 
 
----------------------------  SPANISH  --------------------------
+
+===========================================  SPANISH ===========================================
 
 prepaid-welcome                                 Bienvenido al sistema de tarjeta de llamada
+prepaid-final                                   Adiós
 
+-------- Authentication --------
 prepaid-enter-card-num                          Introduzca los diez números de su tarjeta seguido de almohadilla
-
 prepaid-enter-pin-number						Introduzca su código PIN
-
 prepaid-no-card-entered                       	No se ha introducido ningún número de tarjeta
-
 prepaid-invalid-digits							Números incorrectos
-
 prepaid-auth-fail								No se ha podido verificar su número de tarjeta
-
 prepaid-zero-balance							Lo sentimos, no tiene crédito en su tarjeta
-
 prepaid-card-expired							Lo sentimos, su tarjeta ha caducado
-
 prepaid-no-enough-credit                        Lo sentimos, no tiene suficientes créditos para esta llamada
-
 prepaid-no-enough-credit-stop                   Lo sentimos, no tiene suficientes créditos
-
 prepaid-card-in-use		                       	¡Su tarjeta está siendo utilizada en este momento!
 
-prepaid-you-have								tiene
 
-prepaid-cents                                   céntimos
-vm-and                                          y
-
-
+-------- Call User --------
 prepaid-sipiax-press9                           Si quiere llamar a un  SIP Friend o I A X Friend, marque 9
-
 prepaid-sipiax-enternumber                      Introduzca el número del  SIP Friend o I A X Friend que quiere llamar y marque almohadilla
-
 prepaid-sipiax-num-nomatch						Lo sentimos, no hay ningún  SIP Friend o I A X Friend con ese número
 
+
+-------- Call Destination --------
+prepaid-enter-dest								Introduzca el número que desea llamar seguido de almohadilla												
+prepaid-dest-unreachable                        El número marcado no está disponible
 prepaid-isbusy									El número marcado está comunicando
-
 prepaid-noanswer								El número marcado no contesta
-
 prepaid-callfollowme							la persona a la que ustede llamo no se encuentra disponible, 
 												porfavor espere on momento el servicio sigueme enrutara su llamada
 
-prepaid-enter-dest								Introduzca el número que desea llamar seguido de almohadilla
-
-prepaid-enter-dest-europe						Marque 00, el prefijo del país y el número que desea llamar seguido de almohadilla
-
-prepaid-enter-number-u-calling-1-or-011			Marque el número que quiere llamar comenzando por 1 si la llamada es doméstica, 
-												o comenzando por 011 para llamadas internacionales seguido de almohadilla
-												
-prepaid-dest-unreachable                        El número marcado no está disponible
-
-prepaid-you-have                                tiene
+-------- Time to call and Balance --------
+prepaid-you-have								tiene
 prepaid-minute                          		minuto
 prepaid-minutes                         		minutos
 prepaid-second                          		segundo
 prepaid-seconds                         		segundos
-
-prepaid-final                                   Adiós
-
 dollar											dólar
 dollars											dólares
 euro                                          	euro
 euros                                 			euros
+prepaid-cents                                   céntimos
+vm-and                                          y
 
-
-; Voucher
+------ Voucher -------
 prepaid-account_refill							your account has been refill of 
 prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
-prepaid-unknow_used_currencie					sorry unknow used currency
 prepaid-voucher_does_not_exist					the voucher does not exist
 prepaid-voucher_enter_number					please enter the voucher number and press the pound key
 
-
-; Callback
+------ Callback -------
 prepaid-callback_intro							Your call is now being connected, Please hold
 
-
-; Say Rate initial
+------ Function Say Rate initial -------
 prepaid-cost-call 								El coste de la llamade es de
 prepaid-per-minutes								por minutos
 
-; CallerID update
+------ CallerID update ---------
 prepaid-enter-cid								Introduzca tu callerID
 
----------------------------  PORTUGUES / BRAZILIAN --------------------------
+
+
+
+===========================================  PORTUGUES / BRAZILIAN ===========================================
 
 prepaid-welcome                        			Bem vindo ao sistema de cartão de chamda
+prepaid-final                            		Até logo
+
+
+-------- Authentication --------
 prepaid-enter-card-num                    		Entre com os dez numéros do seu cartão e em seguida pressione quadrado
 prepaid-enter-pin-number                    	Entre com seu código PIN
 prepaid-no-card-entered                    		Não foi colocado nenhum número de cartão
@@ -243,47 +210,60 @@ prepaid-card-expired                    		Desculpe, seu cartão expirou
 prepaid-no-enough-credit                    	Desculpe, não há credito suficente para esta ligação
 prepaid-no-enough-credit-stop                	Desculpe, não há crédito suficiente
 prepaid-card-in-use                        		Seu cartão já está sendo usado neste momento!
-prepaid-you-have                        		você tem
-prepaid-cents                            		centavos
-vm-and                                			e
+
+-------- Call User -------- (Missing)
 prepaid-sipiax-press9                    		Se você quer ligar para um SIP Friend ou IAX Friend, tecle 9
 prepaid-sipiax-enternumber                		Por favor, entre com o número do SIP Friend ou IAX Friend que deseja ligar e em seguida pressione quadrado
 prepaid-sipiax-num-nomatch                		Desculpe, não há nenhum SIP Friend ou IAX Friend com este número
+
+
+-------- Call Destination -------- ( 1 is missing )
+prepaid-enter-dest                        		Por favor, entre com o número que deseja ligar e em seguida pressione quadrado
+prepaid-dest-unreachable                    	O número discado está atualmente indisponível
 prepaid-isbusy                            		O número está ocupado nomento
 prepaid-noanswer                        		O número não responde
-prepaid-enter-dest                        		Por favor, entre com o número que deseja ligar e em seguida pressione quadrado
-prepaid-enter-dest-europe                		Por favor disque 00, seguido do prefixo do país e o número que deseja ligar, em seguida pressione quadrado
-prepaid-enter-number-u-calling-1-or-011        	Por favor entre com o número que deseja ligar começando com por 1 se a chamda é doméstica, 
-												ou começando por 011 para chamdas internacionais, e em seguida pressione quadrado
-prepaid-dest-unreachable                    	O número discado está atualmente indisponível
+prepaid-callfollowme							The person you are trying to reach did not answer. Please wait as the called party has the feature 
+												call follow me activated and we will route your call to the called party
+-------- Time to call and Balance --------
+prepaid-you-have                        		você tem
 prepaid-minute                            		minuto
 prepaid-minutes                        			minutos
 prepaid-second                            		segundo
 prepaid-seconds                        			segundos
-prepaid-final                            		Até logo
 prepaid-dollar                            		dólar
 prepaid-dollars                        			dólares
 prepaid-euro                            		euro
 prepaid-euros                            		euros
 prepaid-real                            		real
 prepaid-reais                            		reais
+prepaid-cents                            		centavos
+vm-and                                			e
 
-; Voucher
+------ Voucher -------
 prepaid-account_refill                    		sua conta teve um reenchimento de
 prepaid-refill_card_with_voucher            	se você quer reencher seu cartão com um voucher, por favor pressione 8 agora
-prepaid-unknow_used_currencie                	Desculpe, moeda usada desconhecida  # sorry unknow used currency
 prepaid-voucher_does_not_exist            		o voucher não existe 
-prepaid-voucher_enter_number                	por favor entre com o número do voucher e em seguida pressione quadrado 
+prepaid-voucher_enter_number                	por favor entre com o número do voucher e em seguida pressione quadrado
 
-; Callback
+------ Callback -------
 prepaid-callback_intro                    		Sua ligação está agora sendo conectada, Por favor aguarde
 
-; Say Rate initial
+------ Function Say Rate initial -------
 prepaid-cost-call                        		O custo da chamda é de
 prepaid-per-minutes                        		por minuto
 
-; CallerID update
+------ CallerID update ---------
 prepaid-enter-cid								Entre com seu CallerID
+
+
+
+
+
+
+
+
+===========================================  EXTRA ===========================================
+
 
 ---------------------------  Recorded by Allison ------------------------
 English :
@@ -294,9 +274,7 @@ English :
 	
 
 
----------------------------  CURRENCY LIST  ------------------------
-[MOST COMMON]
--------------
+---------------------------  MOST COMMON CURRENCIES  ------------------------
 US Dollar 
 Euro 
 Canadian Dollar
@@ -315,163 +293,4 @@ Colombian Peso
 Mexican Peso 
 Chilean Peso
 
-[NOT COMMON]
-------------
-Afghanistan Afghani 
-Albanian Lek 
-Algerian Dinar 
-Andorran Franc 
-Andorran Peseta 
-Angolan New Kwanza 
-Argentine Peso 
-Aruban Florin 
-Austrian Schilling 
-Bahamian Dollar 
-Bahraini Dinar 
-Bangladeshi Taka 
-Barbados Dollar 
-Belgian Franc 
-Belize Dollar 
-Bermudian Dollar 
-Bhutan Ngultrum 
-Bolivian Boliviano 
-Botswana Pula 
-Brazilian Real 
-Brunei Dollar 
-Bulgarian Lev 
-Burundi Franc 
-CFA Franc BCEAO 
-CFA Franc BEAC 
-CFP Franc 
-Cambodian Riel
-Cape Verde Escudo 
-Cayman Islands Dollar 
-Chinese Yuan Renminbi 
-Comoros Franc 
-Costa Rican Colon 
-Croatian Kuna 
-Cuban Convertible Peso 
-Cuban Peso 
-Cyprus Pound 
-Czech Koruna 
-Djibouti Franc 
-Dominican Ro 
-Dutch Guilder 
-ECU 
-East Caribbean Dollar 
-Ecuador Sucre 
-Egyptian Pound 
-El Salvador Colon 
-Estonian Kroon 
-Ethiopian Birr 
-Falkland Islands Pound 
-Fiji Dollar 
-Finnish Markka 
-French Franc 
-Gambian Dalasi 
-German Mark 
-Ghanaian Cedi 
-Gibraltar Pound 
-Gold (oz.) 
-Greek Drachma 
-Guatemalan Quetzal 
-Guinea Franc 
-Guyanese Dollar 
-Haitian Gourde 
-Honduran Lempira 
-Hungarian Forint 
-Iceland Krona 
-Indian Rupee 
-Indonesian Rupiah 
-Iranian Rial 
-Iraqi Dinar 
-Irish Punt 
-Israeli New Shekel 
-Italian Lira 
-Jamaican Dollar 
-Jordanian Dinar 
-Kazakhstan Tenge 
-Kenyan Shilling 
-Kuwaiti Dinar 
-Lao Kip 
-Latvian Lats 
-Lebanese Pound 
-Lesotho Loti 
-Liberian Dollar 
-Libyan Dinar 
-Lithuanian Litas 
-Luxembourg Franc 
-Macau Pataca 
-Malagasy Ariary 
-Malagasy Franc 
-Malawi Kwacha 
-Malaysian Ringgit 
-Maldive Rufiyaa 
-Maltese Lira 
-Mauritanian Ouguiya 
-Mauritius Rupee 
-Mongolian Tugrik 
-Moroccan Dirham 
-Mozambique Metical 
-Myanmar Kyat 
-NL Antillian Guilder 
-Namibia Dollar 
-Nepalese Rupee 
-Nicaraguan Cordoba Oro 
-Nigerian Naira 
-North Korean Won 
-Norwegian Kroner 
-Omani Rial 
-Pakistan Rupee 
-Palladium (oz.) 
-Panamanian Balboa 
-Papua New Guinea Kina 
-Paraguay Guarani 
-Peruvian Nuevo Sol 
-Philippine Peso 
-Platinum (oz.) 
-Portuguese Escudo 
-Qatari Rial 
-Romanian Lei 
-Romanian New Lei 
-Russian Rouble 
-Samoan Tala 
-Sao Tome/Principe Dobra 
-Saudi Riyal 
-Serbian Dinar 
-Seychelles Rupee 
-Sierra Leone Leone 
-Silver (oz.) 
-Slovak Koruna 
-Slovenian Tolar 
-Solomon Islands Dollar 
-Somali Shilling 
-South African Rand 
-South-Korean Won 
-Spanish Peseta 
-Sri Lanka Rupee 
-Stena Pound 
-Sudanese Dinar 
-Sudanese Pound 
-Suriname Dollar 
-Suriname Guilder 
-Swaziland Lilangeni 
-Syrian Pound 
-Tanzanian Shilling 
-Thai Baht 
-Tonga Pa'anga 
-Trinidad/Tobago Dollar 
-Tunisian Dinar 
-Turkish Lira 
-Turkish New Lira 
-Uganda Shilling 
-Ukraine Hryvnia 
-Uruguayan Peso 
-Utdb Emirham 
-Vanuatu Vatu 
-Venezuelan Bolivar 
-Vietnamese Dong 
-Yemeni Rial 
-Yugoslav Dinar 
-Zambian Kwacha 
-Zimbabwe Dollar
+
