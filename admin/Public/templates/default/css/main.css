@@ -1257,6 +1257,8 @@ SPAN.errorText {
 	border-bottom: #FF5500 2px ridge;
 	padding: 0px 3px 0px 3px;
 	text-align: center;
+        vertical-align:super;
+        text-decoration: none;
 }
 
 .cssbutton_big {	

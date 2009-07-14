@@ -11,7 +11,7 @@ if (!has_rights(ACX_RATECARD)) {
 	die();
 }
 
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname','posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
+getpost_ifset(array('package','popup_select', 'popup_formname', 'popup_fieldname','posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode"));
 
 
 /********************************* BATCH UPDATE ***********************************/
@@ -200,7 +200,7 @@ if (!$popup_select) {
 if (isset ($update_msg) && strlen($update_msg) > 0)
 	echo $update_msg;
 
-if ($popup_select) {
+if ($popup_select && empty($package) && !is_numeric($package) ) {
 ?>
 <SCRIPT LANGUAGE="javascript">
 <!-- Begin
@@ -213,6 +213,23 @@ function sendValue(selvalue){
 <?php
 
 }
+
+
+if ($popup_select && is_numeric($package)) {
+$HD_Form-> CV_FOLLOWPARAMETERS .= "&package=".$package;
+?>
+<SCRIPT LANGUAGE="javascript">
+<!-- Begin
+function sendValue(selvalue){
+	 // redirect browser to the grabbed value (hopefully a URL)
+	window.opener.location.href= <?php echo '"A2B_package_manage_rates.php?id='.$package.'&addrate="'; ?>+selvalue;
+	//self.location.href = "<?php echo $_SERVER['PHP_SELF']."?popup_select=1&package=$package?>"; ?>";
+}
+// End -->
+</script>
+<?php
+}
+
 
 if (!$popup_select) {
 	// #### CREATE SEARCH FORM

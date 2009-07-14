@@ -29,8 +29,8 @@ else // And I don't know if mysql likes them single.
 
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "18%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("PACKAGE TYPE"), "packagetype", "15%", "center", "sort","","list",$packagetype_list);
-$HD_Form -> AddViewElement(gettext("BILLING TYPE"), "billingtype", "15%", "center", "sort","","list",$billingtype_list);
+$HD_Form -> AddViewElement(gettext("PACKAGE TYPE"), "packagetype", "10%", "center", "sort","","list",$packagetype_list);
+$HD_Form -> AddViewElement(gettext("BILLING TYPE"), "billingtype", "10%", "center", "sort","","list",$billingtype_list);
 $HD_Form -> AddViewElement(gettext("STARTING DAY"), "startday", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FREE"), "freetimetocall", "17%", "center", "sort", "30", "", "", "", "", "", "");
 
@@ -45,8 +45,10 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_ADDITION = true;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-
-
+$HD_Form -> FG_OTHER_BUTTON1 = true;
+$HD_Form -> FG_OTHER_BUTTON1_ALT = gettext("Add rates");
+$HD_Form -> FG_OTHER_BUTTON1_IMG = "";
+$HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_package_manage_rates.php?id=|param|";
 $HD_Form -> AddEditElement (gettext("LABEL"),
 	"label",	
 	'$value',	
@@ -99,26 +101,6 @@ $HD_Form -> AddEditElement (gettext("FREE UNITS"),
    
 
 	
-$DBHandle_max  = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_ratecard");
-if ( $resmax )
-	$numrow = $resmax -> RecordCount( );
-
-if ($numrow>0) {
-	$HD_Form -> AddEditElement (gettext("RATE ASSOCIATE"),
-		"rates",	
-		'$value',	
-		"SELECT",		
-		'size="25" multiple="multiple"',
-		"",		
-		"",	
-		"sql",		
-		"package_rates",	
-		"",		
-		"", "", "%1 : (%2)", "", "", "cc_package_rate:rate_id:cc_ratecard LEFT JOIN cc_package_rate ON cc_ratecard.id=cc_package_rate.rate_id LEFT JOIN  cc_prefix ON cc_prefix.prefix = cc_ratecard.destination:DISTINCT CONCAT(cc_prefix.destination,' - ',cc_ratecard.dialprefix ), cc_ratecard.id,cc_prefix.destination, cc_ratecard.dialprefix: cc_package_rate.package_id = %id:package_id:%3 - ( %4 )::::%1:id='%1'::cc_prefix.destination:ASC");		
-	
-}   
 
 $HD_Form -> FieldEditElement ('label, packagetype, billingtype, startday, freetimetocall');
 

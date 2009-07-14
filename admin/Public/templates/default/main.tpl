@@ -368,8 +368,8 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_package.php?atmenu=prefixe&section=12">{php} echo gettext("Add");{/php}</a></li>
-				<li><a href="A2B_entity_package_group.php?atmenu=prefixe&section=12">{php} echo gettext("Group");{/php}</a></li>
+				<li><a href="A2B_entity_package.php?atmenu=package&section=12">{php} echo gettext("Add");{/php}</a></li>
+				<li><a href="A2B_entity_package_group.php?atmenu=package&section=12">{php} echo gettext("Group");{/php}</a></li>
 				<li><a href="A2B_detail_package.php?section=12">{php} echo gettext("Details");{/php}</a></li>
 			</ul></li>
 		</ul>

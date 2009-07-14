@@ -76,6 +76,7 @@ function openURLFilter(theLINK)
 	   		<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
 			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
+                        
             <TD class="tdstyle_002"><span >
 				<SELECT name="choose_list" size="1" class="form_input_select" style="width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
 
@@ -115,7 +116,9 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
 			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-
+                        <?php foreach ($_GET as $key => $val) {?>
+                               <input type="hidden" name="<?php echo $key?>" value="<?php echo $val?>">
+                         <?php  }?>
 			<INPUT type="hidden" name="form_action"	value="<?php echo $this->FG_FILTER_FORM_ACTION ?>">
             <td class="viewhandler_filter_td1">
 			<span >
@@ -620,7 +623,7 @@ function openURLFilter(theLINK)
         </TR>
 		<?php  	} 	?>
 
-		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
+        <FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 		<tr><td>
 		<?php if ($this->CV_DISPLAY_RECORD_LIMIT){ ?>
 			<?php echo gettext("DISPLAY");?>
@@ -635,6 +638,9 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
 			<input type="hidden" name="type" value="<?php echo $_GET['type']?>">
 			<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
+                        <?php foreach ($_GET as $key => $val) {?>
+                               <input type="hidden" name="<?php echo $key?>" value="<?php echo $val?>">
+                         <?php  }?>
 
 			<select name="mydisplaylimit" size="1" class="form_input_select">
 			<?php $session_limit = $this->FG_TABLE_NAME."-displaylimit"; ?>

@@ -70,9 +70,6 @@ function delpayment(){
 	//test si val is not null & numeric
 	if($('#payment').val()!=null){
 		self.location.href= "A2B_invoice_manage_payment.php?id=<?php echo $id; ?>&delpayment="+$('#payment').val();
-		if(win!=null){
-			win.location.href = "A2B_entity_payment_invoice.php?popup_select=1&invoice=<?php echo $id ?>&card=<?php echo $invoice->getCard() ?>";
-			}
 	}
 }
 
@@ -104,7 +101,7 @@ function changeStatus(){
 		</td>	
     <?php } ?>
     <tr>
-		<td colspan="2">
+	<td colspan="2">
 			<?php echo gettext("TOTAL INVOICE INCLUDE TVA"); ?>&nbsp;:&nbsp;<?php echo number_format(round($price_with_vat,2),2)." ".strtoupper(BASE_CURRENCY); ?>
 		</td>
 	</tr>
@@ -154,3 +151,9 @@ function changeStatus(){
 </table>
 
 
+<?php
+
+
+
+// #### FOOTER SECTION
+$smarty->display('footer.tpl');
