@@ -53,11 +53,11 @@
 			<table width="90%">
 			<tr align="center">
 				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>{php} echo gettext("User");{/php}:</b></font></td>
-				<td><input class="form_input_text" type="text" name="pr_login" size="15"></td>
+				<td><input class="form_input_text" type="text" name="pr_login" size="15" value="{$username}"></td>
 			</tr>
 			<tr align="center">
 				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>{php} echo gettext("Password");{/php}:</b></font></td>
-				<td><input class="form_input_text" type="password" name="pr_password" size="15"></td>
+				<td><input class="form_input_text" type="password" name="pr_password" size="15" value="{$password}"></td>
 			</tr>
 			<tr align="right" >
 				<td colspan="2"><input type="submit" name="submit" value="{php} echo gettext("LOGIN");{/php}" class="form_input_button"></td>
