@@ -193,9 +193,10 @@ $smarty->display('main.tpl');
 if (!$popup_select) {
 	if (($form_action == 'ask-add') || ($form_action == 'ask-edit'))
 		echo $CC_help_rate;
-} else {
-	echo $CC_help_def_ratecard;
+	else
+		echo $CC_help_def_ratecard;
 }
+
 // DISPLAY THE UPDATE MESSAGE
 if (isset ($update_msg) && strlen($update_msg) > 0)
 	echo $update_msg;
