@@ -79,7 +79,12 @@ echo $CC_help_sipiax_info;
 			<td colspan="2" class="fontstyle_008">&nbsp;<strong><?php echo $config_name;?></strong> </td>
 		  </tr>
 		  <tr>
-			<td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center"><br><?php echo gettext("Copy and past this into your ")?> <?php echo $config_file;?><br>
+			<td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center">
+				<br><b><?php echo $configtype;?> URI :</b> <?php echo SIP_IAX_INFO_HOST; ?><br>
+				<br><b><?php echo gettext("Username")?> :</b> <?php echo $sip_iax_data[0][1]?><br>
+				<br><b><?php echo gettext("Password")?> :</b> <?php echo $sip_iax_data[0][2]?><br><br>
+				
+				<br><?php echo gettext("To configure your Asterisk server, copy and past this into your ")?> <?php echo $config_file;?><br>
 			 
 				<textarea name="textfield" cols="80" rows="12" class="form_input_text" ><?php if(is_array($sip_iax_data)){ ?><?php if($configtype == "IAX"){ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
 username=<?php echo $sip_iax_data[0][1]?>
