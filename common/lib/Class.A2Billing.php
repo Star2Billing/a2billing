@@ -740,19 +740,8 @@ class A2Billing {
 	function enough_credit_to_call()
 	{	
 		if ($this->typepaid==0) {
-			if ($this->credit < $this->agiconfig['min_credit_2call']) {
-				$QUERY = "SELECT id_cc_package_offer FROM cc_tariffgroup WHERE id= ".$this->tariff ;
-				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-				if (!empty($result[0][0])) {
-					$id_package_groupe = $result[0][0];
-					if ($id_package_groupe >0) {
-						return true;
-					} else { 
-						return false;
-					}
-				} else { 
-					return false;
-				}
+			if ($this->credit < $this->agiconfig['min_credit_2call'] || $this->credit<0 ) {
+                                return false;
 			} else {
 				return true;
 			}
