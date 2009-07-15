@@ -244,7 +244,7 @@ $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
 //$payment_modules->before_process();
 
-$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency " .
+$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency, useralias, uipass " .
 		 "FROM cc_card " .
 		 "WHERE id = '".$transaction_data[0][1]."'";
 
@@ -450,22 +450,48 @@ if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]
 		
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
 		
+		// replace tags in message
 		$messagetext = str_replace('$itemName', "balance", $messagetext);
 		$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
 		$messagetext = str_replace('$itemAmount', $amount_paid." ".strtoupper(BASE_CURRENCY), $messagetext);
 		$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
 		$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
+		
+		$messagetext = str_replace('$email', $customer_info["email"], $messagetext);
+		$messagetext = str_replace('$lastname', $customer_info["lastname"], $messagetext);
+		$messagetext = str_replace('$firstname', $customer_info["firstname"], $messagetext);
+		$messagetext = str_replace('$cardnumber', $customer_info["username"], $messagetext);
+		$messagetext = str_replace('$cardalias', $customer_info["useralias"], $messagetext);
+		$messagetext = str_replace('$password', $customer_info["uipass"], $messagetext);
+		$messagetext = str_replace('$base_currency', BASE_CURRENCY, $messagetext);
+		
+		$subject_replaced = $subject;
+		
+		// replace tags in subject
+		$subject_replaced = str_replace('$email', $customer_info["email"], $subject_replaced);
+		$subject_replaced = str_replace('$lastname', $customer_info["lastname"], $subject_replaced);
+		$subject_replaced = str_replace('$firstname', $customer_info["firstname"], $subject_replaced);
+		$subject_replaced = str_replace('$cardnumber', $customer_info["username"], $subject_replaced);
+		$subject_replaced = str_replace('$cardalias', $customer_info["useralias"], $subject_replaced);
+		$subject_replaced = str_replace('$password', $customer_info["uipass"], $subject_replaced);
+		$subject_replaced = str_replace('$base_currency', BASE_CURRENCY, $subject_replaced);
+		
+		
+		a2b_mail ($customer_info["email"], $subject, $messagetext, $from, $fromname);
+		
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL COPY TO ADMIN ".ADMIN_EMAIL);
 		// Add Post information / useful to track down payment transaction without having to log
 		$messagetext .= "\n\n\n\n"."-POST Var \n".print_r($_POST, true);
 		
-		a2b_mail (ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
+		a2b_mail (ADMIN_EMAIL, "COPY FOR ADMIN : ".$subject, $messagetext, $from, $fromname);
+		
 		
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=$subject, mtext=$messagetext");
 	}
+	
 } else {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");
 }
-
 
 
 // load the after_process function from the payment modules
