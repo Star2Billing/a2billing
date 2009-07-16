@@ -41,7 +41,8 @@
     <div id="login-wrapper" class="login-border-up">
 	<div class="login-border-down">
 	<div class="login-border-center">
-	<table width="100%" cellspacing="12" >
+	<center>
+	<table border="0" cellpadding="3" cellspacing="12">
 	<tr>
 		<td class="login-title" colspan="2">
 			 {php} echo gettext("AUTHENTICATION");{/php}
@@ -73,6 +74,7 @@
         <td colspan="2"><font class="fontstyle_007">{php} echo gettext("To sign up");{/php} <a href="signup.php">{php} echo gettext("Click here");{/php}</a></font>.</td>
     </tr>    
   	</table>
+  	</center>
   	</div>
   	</div>
   	
