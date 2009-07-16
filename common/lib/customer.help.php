@@ -18,6 +18,8 @@ if (SHOW_HELP) {
 
 	$CC_help_card = create_help(gettext("Personal information.") . '<br>' . gettext("You can update your personal information here."));
 
+	$CC_help_notification = create_help(gettext("Notification settings.") . '<br>' . gettext("You can update your notification settings here."));
+	
 	$CC_help_simulator_rateengine = create_help(gettext("Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."));
 
 	$CC_help_sipiax_info = create_help(gettext("Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and do necessary modifications."));

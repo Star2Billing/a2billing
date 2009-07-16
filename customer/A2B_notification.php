@@ -36,7 +36,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-echo $CC_help_card;
+echo $CC_help_notification;
 
 
 // #### TOP SECTION PAGE
@@ -51,12 +51,12 @@ if($message == "success") {
 ?>
 <table width="50%" align="center">
 <tr height="100px">
-<td align="center"><?php echo gettext("Your personal information is updated successfully.")?></td>
+<td align="center"><?php echo gettext("Your notification settings has successfully been updated.")?></td>
 </tr>
 </table>
 
 <?php
-} else{
+} else {
 	$HD_Form -> create_form ($form_action, $list, $id=null) ;
 }
 // #### FOOTER SECTION

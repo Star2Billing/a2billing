@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'email_notification','credit_notification','notify_email',));
+getpost_ifset(array('id', 'email_notification','credit_notification','notify_email', 'message'));
 
 
 $HD_Form = new FormHandler("cc_card","Card");
@@ -33,21 +33,19 @@ else $mycur = $currencies_list[strtoupper($customer_info [1])][2];
 
 
 // Possible value to notify the user
- $instance_config_table = new Table("cc_config", "id, config_value");
- $QUERY = " config_key = 'values_notifications' ";
- $return = null;
- $return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
- $values = explode(":",$return[0]["config_value"]);
- $limits_notify = array();
- $idx =0;
-  foreach ($values as $val)
-	{ 	$val_display = $val / $mycur;
-		$val_display = round($val_display,2);	
-		$limits_notify [$idx] = array($val_display,$val);
-		$idx++;
-	}
-
-
+$instance_config_table = new Table("cc_config", "id, config_value");
+$QUERY = " config_key = 'values_notifications' ";
+$return = null;
+$return = $instance_config_table -> Get_list($DBHandle, $QUERY, 0);
+$values = explode(":",$return[0]["config_value"]);
+$limits_notify = array();
+$idx =0;
+foreach ($values as $val) {
+$val_display = $val / $mycur;
+	$val_display = round($val_display,2);	
+	$limits_notify [$idx] = array($val_display,$val);
+	$idx++;
+}
 	
 
 $HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
@@ -60,8 +58,6 @@ $HD_Form -> AddEditElement (gettext("LIMIT CREDIT NOTIFICATION"),
 			   "list" , "", "", "", $limits_notify , "%1", "", gettext("currency : ").strtoupper(BASE_CURRENCY),"", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>'  );
 
 
-
-
 $HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
 			   "notify_email",
 			   '0',
@@ -70,6 +66,7 @@ $HD_Form -> AddEditElement (gettext("PERMITTED NOTIFICATIONS BY MAIL"),
 			   "",
 			   gettext("Choose if you want to enable the notification by email for this card"),
 			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Enable Email Notification"));
+
 
 $HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 			   "email_notification",
@@ -82,11 +79,12 @@ $HD_Form -> AddEditElement (gettext("EMAIL NOTIFICATION"),
 
 $HD_Form -> FieldEditElement ('credit_notification, notify_email, email_notification');
 
+
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily update your information clicking on the button.");
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your record has been updated.")."<br>";
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = "userinfo.php?section=1";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = "A2B_notification.php?message=success";
 
 
