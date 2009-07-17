@@ -1370,20 +1370,12 @@ class A2Billing {
 		}// END FOR
 		
 		if ($this->voicemail) {
-			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
+			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") || ($dialstatus == "NOANSWER") || ($dialstatus =="BUSY")) {
 				// The following section will send the caller to VoiceMail with the unavailable priority.\
 				$dest_username = $this->username;
-				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
+				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 				
-				$agi-> exec(VoiceMail,$dest_username.'|u');
-			}
-
-			if (($dialstatus =="BUSY")) {
-				// The following section will send the caller to VoiceMail with the busy priority.
-				$dest_username = $this->username;
-				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest_username)");
-				
-				$agi-> exec(VoiceMail,$dest_username.'|b');
+				$agi-> exec(VoiceMail,$dest_username);
 			}
 		}
 	}
@@ -1673,20 +1665,12 @@ class A2Billing {
 		}// END FOR
 
 		if ($this->voicemail) {
-			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") ||($dialstatus == "NOANSWER")) {
+			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") || ($dialstatus == "NOANSWER") || ($dialstatus =="BUSY")) {
 				// The following section will send the caller to VoiceMail with the unavailable priority.\
 				$dest_username = $this->username;
-				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL UNAVAILABLE - GOTO VOICEMAIL ($dest_username)");
+				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 				
-				$agi-> exec(VoiceMail,$dest_username.'|u');
-			}
-
-			if (($dialstatus =="BUSY")) {
-				// The following section will send the caller to VoiceMail with the busy priority.
-				$dest_username = $this->username;
-				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL BUSY - GOTO VOICEMAIL ($dest_username)");
-				
-				$agi-> exec(VoiceMail,$dest_username.'|b');
+				$agi-> exec(VoiceMail,$dest_username);
 			}
 		}
 	}
