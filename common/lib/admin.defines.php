@@ -279,12 +279,8 @@ define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->co
 // INCLUDE HELP
 include (LIBDIR."admin.help.php");
 
-// A2BILLING INFO
-define ("WEBUI_DATE", 'Released : 15 May');
-define ("WEBUI_VERSION", 'A2Billing - Version 1.4-RC1');
-// A2BILLING COPYRIGHT & CONTACT
-define ("COPYRIGHT", gettext(" This software is under AGPL licence. For further information, please visit : <a href=\"http://www.a2billing.org\" target=\"_blank\">a2billing.org</a>"));
-define ("CCMAINTITLE", gettext("A2Billing : CallingCard & VOIP Billing system"));
+include (LIBDIR."common.defines.php");
+
 
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
 

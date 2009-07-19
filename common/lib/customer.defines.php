@@ -252,19 +252,11 @@ define('DIR_WS_IMAGES', Images_Path.'/');
 define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->config["global"]['invoice_image']:null);
 define ("ADMIN_EMAIL", isset($A2B->config["global"]['admin_email'])?$A2B->config["global"]['admin_email']:null);
 
-// A2BILLING INFO
-define ("WEBUI_DATE", 'Released : 15 May');
-define ("WEBUI_VERSION", 'A2Billing - Version 1.4-RC1');
 
-// A2BILLING COPYRIGHT & CONTACT
-define ("TEXTCONTACT", gettext("This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"));
-define ("EMAILCONTACT", "areski@gmail.com");
-
-define ("COPYRIGHT", gettext(" <a href=\"http://www.star2billing.com\" target=\"_blank\">www.star2billing.com</a> - Commercial Open Source Telephony"));
-define ("CCMAINTITLE", gettext("A2Billing : Customer Portal"));
-
-
+// INCLUDE HELP
 include (LIBDIR."customer.help.php");
+
+include (LIBDIR."common.defines.php");
 
 define ("ENABLE_LOG", 0);
 
