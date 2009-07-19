@@ -214,16 +214,12 @@ div.myscroll {
 
 <script type="text/javascript">
 <!--
-
-function sendtoupload(form){
-	
+function sendtoupload(form) {
     document.forms["myform"].elements["task"].value = "upload";	
-	document.forms[0].submit();
+	document.forms["myform"].submit();
 }
-
 //-->
 </script>
-
 
 
 <?php
