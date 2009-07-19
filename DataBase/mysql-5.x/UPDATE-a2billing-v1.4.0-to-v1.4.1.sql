@@ -89,3 +89,6 @@ ALTER TABLE cc_config CHANGE config_key config_key VARCHAR( 100 );
 ALTER TABLE cc_config CHANGE config_value config_value VARCHAR( 100 ); 
 ALTER TABLE cc_config CHANGE config_listvalues config_listvalues VARCHAR( 100 ); 
 
+-- Set Qualify at No per default
+UPDATE cc_config SET config_value='no' WHERE config_key='qualify';
+
