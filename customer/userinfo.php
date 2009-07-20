@@ -3,32 +3,32 @@ include ("lib/customer.defines.php");
 include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
 
-if (! has_rights (ACX_ACCESS)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!has_rights(ACX_ACCESS)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, " .
-		"freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency FROM cc_card " .
-		"LEFT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer " .
-		"LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group WHERE username = '".$_SESSION["pr_login"].
-		"' AND uipass = '".$_SESSION["pr_password"]."'";
+"freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency FROM cc_card " .
+"LEFT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff LEFT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer " .
+"LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group WHERE username = '" . $_SESSION["pr_login"] .
+"' AND uipass = '" . $_SESSION["pr_password"] . "'";
 
 $DBHandle_max = DbConnect();
 $numrow = 0;
-$resmax = $DBHandle_max -> Execute($QUERY);
+$resmax = $DBHandle_max->Execute($QUERY);
 if ($resmax)
-	$numrow = $resmax -> RecordCount();
+	$numrow = $resmax->RecordCount();
 
 if ($numrow == 0) {
 	echo gettext("Error loading your account information!");
-	exit();
+	exit ();
 }
-$customer_info =$resmax -> fetchRow();
+$customer_info = $resmax->fetchRow();
 
-if($customer_info [14] != "1" ) {
-	exit();
+if ($customer_info[14] != "1") {
+	exit ();
 }
 
 $customer = $_SESSION["pr_login"];
@@ -38,22 +38,20 @@ getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth'
 $currencies_list = get_currencies();
 
 $two_currency = false;
-if (!isset($currencies_list[strtoupper($customer_info [22])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [22])][2])){
-	$mycur = 1; 
-}else{ 
-	$mycur = $currencies_list[strtoupper($customer_info [22])][2];
-	$display_currency =strtoupper($customer_info [22]);
-	if(strtoupper($customer_info [22])!=strtoupper(BASE_CURRENCY))$two_currency=true;
+if (!isset ($currencies_list[strtoupper($customer_info[22])][2]) || !is_numeric($currencies_list[strtoupper($customer_info[22])][2])) {
+	$mycur = 1;
+} else {
+	$mycur = $currencies_list[strtoupper($customer_info[22])][2];
+	$display_currency = strtoupper($customer_info[22]);
+	if (strtoupper($customer_info[22]) != strtoupper(BASE_CURRENCY))
+		$two_currency = true;
 }
 $credit_cur = $customer_info[1] / $mycur;
-$credit_cur = round($credit_cur,3);
+$credit_cur = round($credit_cur, 3);
 
-
-
-$smarty->display( 'main.tpl');
-
+$smarty->display('main.tpl');
 ?>
-
+	
 <div>
 
 
@@ -138,21 +136,23 @@ $smarty->display( 'main.tpl');
 		<TD  valign="top" align="right" class="tableBodyRight"   >
 			<font size="2"><?php echo gettext("Click below to buy credit : ");?> </font>
 		</TD>
-		<td class="tableBodyRight" >	
+		<td class="tableBodyRight" >
+	
 			<?php
-			$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
-			if (!is_array($arr_purchase_amount)){
-				$to_echo = 10;
-			}else{
-				if($two_currency){
-				$purchase_amounts_convert= array();
-				for($i=0;$i<count($arr_purchase_amount);$i++){
-					$purchase_amounts_convert[$i]=round($arr_purchase_amount[$i]/$mycur,2);
-				}
-				$to_echo = join(" - ", $purchase_amounts_convert);
-			
-				echo $to_echo;
-			?>
+
+$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+if (!is_array($arr_purchase_amount)) {
+	$to_echo = 10;
+} else {
+	if ($two_currency) {
+		$purchase_amounts_convert = array ();
+		for ($i = 0; $i < count($arr_purchase_amount); $i++) {
+			$purchase_amounts_convert[$i] = round($arr_purchase_amount[$i] / $mycur, 2);
+		}
+		$to_echo = join(" - ", $purchase_amounts_convert);
+
+		echo $to_echo;
+?>
 			<font size="2">
 			<?php echo $display_currency; ?> </font>
 			<br/>
@@ -174,18 +174,16 @@ $smarty->display( 'main.tpl');
 </table>
 
 
-
-
-
-
 <?php } else { ?>
 <br></br><br></br>
 
 <?php } ?>
 </div>
 
-<?php  
+<?php
 
-$smarty->display( 'footer.tpl');
+$smarty->display('footer.tpl');
 
 
+
+		

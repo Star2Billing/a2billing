@@ -139,7 +139,7 @@
   function tep_draw_form($name, $action, $method = 'post', $parameters = '', $payment = '') {
   	
   	if (strtoupper($payment)=='PAYPAL') {
-  		$target = ' target="paypal" ';
+  		// $target = ' target="paypal" ';
   	}	
     $form = '<form '.$target.' name="' . tep_output_string($name) . '" action="' . tep_output_string($action) . '" method="' . tep_output_string($method) . '"';
 
@@ -290,4 +290,5 @@
 
     return tep_draw_pull_down_menu($name, $countries_array, $selected, $parameters);
   }
-?>
+
+  
