@@ -94,7 +94,7 @@ switch($transaction_data[0][4])
 		$header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
 		for ($i = 1; $i <=3; $i++) {
 			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-OPENDING HTTP CONNECTION TO ".PAYPAL_VERIFY_URL);
-			$fp = fsockopen (PAYPAL_VERIFY_URL, 443, $errno, $errstr, 30);
+			$fp = fsockopen (PAYPAL_VERIFY_URL, 80, $errno, $errstr, 30);
 			if($fp) {	
 				break;
 			} else {
@@ -110,13 +110,14 @@ switch($transaction_data[0][4])
 			$flag_ver = 0;
 			while (!feof($fp)) {
 				$res = fgets ($fp, 1024);
+				$gather_res .= $res;
 				if (strcmp ($res, "VERIFIED") == 0) {
 					write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Verified ");
 					$flag_ver = 1;
 				}				
 			}
-			if($flag_ver == 0) {
-				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Failed ");
+			if ($flag_ver == 0) {
+				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Failed \nreq=$req\n$gather_res");
 				$security_verify = false;
 			}
 		}

@@ -136,8 +136,12 @@
 
 ////
 // Output a form
-  function tep_draw_form($name, $action, $method = 'post', $parameters = '') {
-    $form = '<form name="' . tep_output_string($name) . '" action="' . tep_output_string($action) . '" method="' . tep_output_string($method) . '"';
+  function tep_draw_form($name, $action, $method = 'post', $parameters = '', $payment = '') {
+  	
+  	if (strtoupper($payment)=='PAYPAL') {
+  		$target = ' target="paypal" ';
+  	}	
+    $form = '<form '.$target.' name="' . tep_output_string($name) . '" action="' . tep_output_string($action) . '" method="' . tep_output_string($method) . '"';
 
     if (tep_not_null($parameters)) $form .= ' ' . $parameters;
 

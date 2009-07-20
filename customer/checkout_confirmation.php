@@ -92,7 +92,7 @@ if (isset($$payment->form_action_url)) {
     $form_action_url = tep_href_link("checkout_process.php", '', 'SSL');
 }
 
-echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
+echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post', $payment);
 
 if (is_array($payment_modules->modules)) {
     echo $payment_modules->process_button($transaction_no, $key);    
