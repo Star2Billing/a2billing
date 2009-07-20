@@ -92,3 +92,9 @@ ALTER TABLE cc_config CHANGE config_listvalues config_listvalues VARCHAR( 100 );
 -- Set Qualify at No per default
 UPDATE cc_config SET config_value='no' WHERE config_key='qualify';
 
+
+-- Update Paypal URL API
+UPDATE cc_config SET config_value='https://www.paypal.com/cgi-bin/webscr' WHERE config_key='paypal_payment_url';
+
+
+
