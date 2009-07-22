@@ -96,5 +96,7 @@ UPDATE cc_config SET config_value='no' WHERE config_key='qualify';
 -- Update Paypal URL API
 UPDATE cc_config SET config_value='https://www.paypal.com/cgi-bin/webscr' WHERE config_key='paypal_payment_url';
 
+-- change type in cc_config
+ALTER TABLE cc_config CHANGE config_value config_value VARCHAR( 200 ); 
 
 
