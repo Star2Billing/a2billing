@@ -136,7 +136,7 @@ if ($setbool) {
 		"config_value",
 		'$value',
 		"INPUT",
-		"size=40 ",
+		"size=100 maxlength=200",
 		"","",
 		"" , "", "", "", "", "", "", gettext("Insert the Value"));
 }
