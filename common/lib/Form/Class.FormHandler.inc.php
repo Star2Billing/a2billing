@@ -1888,6 +1888,8 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		$processed = $this->getProcessed();
 		//find the last billing 
 		$card_id = $processed['id_card'];
+                $date_bill=$processed['date'];
+                //GET VAT
 		$card_table = new Table('cc_card','vat,typepaid,credit');
 		$card_clause = "id = ".$card_id;
 		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
@@ -1897,26 +1899,26 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		
 		// FIND THE LAST BILLING
 		$billing_table = new Table('cc_billing_customer','id,date');
-		$clause_last_billing = "id_card = ".$processed['id_card']." AND id != ".$this -> RESULT_QUERY;
+		$clause_last_billing = "id_card = $card_id AND id != ".$this -> RESULT_QUERY;
 		$result = $billing_table -> Get_list($this->DBHandle, $clause_last_billing,"date","desc");
 		$call_table = new Table('cc_call',' COALESCE(SUM(sessionbill),0)' );
-		$clause_call_billing ="card_id = ".$processed['id_card']." AND ";
-		$clause_charge = "id_cc_card = ".$processed['id_card']." AND ";
+		$clause_call_billing ="card_id = $card_id AND ";
+		$clause_charge = "id_cc_card = $card_id AND ";
 		$desc_billing="";
 		$desc_billing_postpaid="";
 		$start_date =null;
 		if(is_array($result) && !empty($result[0][0])){
 			$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND "; 
 			$clause_charge .= "creationdate >= '".$result[0][1]."' AND  ";
-			$desc_billing = "Calls cost between the ".$result[0][1]." and ".$processed['date'] ;
-			$desc_billing_postpaid="Amount for periode between the ".date("Y-m-d",strptime($result[0][1]))." and ".$processed['date'];
+			$desc_billing = "Calls cost between the ".$result[0][1]." and  $date_bill" ;
+			$desc_billing_postpaid="Amount for periode between the ".date("Y-m-d",strptime($result[0][1]))." and $date_bill";
 			$start_date = $result[0][1];
 		}else{
-			$desc_billing = "Calls cost before the ".$processed['date'] ;
-			$desc_billing_postpaid="Amount for periode before the ".$processed['date'] ;
+			$desc_billing = "Calls cost before the $date_bill" ;
+			$desc_billing_postpaid="Amount for periode before the $date_bill" ;
 		}
-		$clause_call_billing .= "stoptime < '".$processed['date']."' ";
-		$clause_charge .= "creationdate < '".$processed['date']."' ";
+		$clause_call_billing .= "stoptime < '$date_bill' ";
+		$clause_charge .= "creationdate < '$date_bill' ";
 		$result =  $call_table -> Get_list($this->DBHandle, $clause_call_billing);
 		// COMMON BEHAVIOUR FOR PREPAID AND POSTPAID ... GENERATE A RECEIPT FOR THE CALLS OF THE MONTH
 		if(is_array($result) && is_numeric($result[0][0])){
@@ -1964,18 +1966,19 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
 		$table_charge = new Table("cc_charge", "*");
 		$result =  $table_charge -> Get_list($this->DBHandle, $clause_charge." AND charged_status = 0 AND invoiced_status = 0");
-		if(is_array($result) && sizeof($result)>0){
+		$last_invoice = null;
+                if(is_array($result) && sizeof($result)>0){
 			$reference = generate_invoice_reference();
 			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
 			$date = date("Y-m-d h:i:s");
-			$card_id = $processed['id_card'];
 			$title = gettext("BILLING CHARGES");
 			$description = gettext("This invoice is for some charges unpaid since the last billing.")." ".$desc_billing_postpaid;
 			
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
-			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+                        if(!empty($id_invoice)&& is_numeric($id_invoice)){
+                                $last_invoice = $id_invoice;
 				foreach ($result as $charge) {
 					$description = gettext("CHARGE :").$charge['description'];
 					$amount = $charge['amount'];
@@ -1991,15 +1994,18 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		// behaviour postpaid
 		if($card_result[0]['typepaid']==1 && is_numeric($card_result[0]['credit']) && $card_result[0]['credit']<0){
 			//GENERATE AN INVOICE TO COMPLETE THE BALANCE
-			$reference = generate_invoice_reference();
-			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
-			$date = date("Y-m-d h:i:s");
-			$card_id = $processed['id_card'];
-			$title = gettext("BILLING POSTPAID");
-			$description = gettext("Invoice for POSTPAID");
-			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
-			$instance_table = new Table("cc_invoice", $field_insert);
-			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+                        if(!empty($last_invoice)){
+                            $id_invoice = $last_invoice;
+                        }else{
+                            $reference = generate_invoice_reference();
+                            $field_insert = "date, id_card, title ,reference, description,status,paid_status";
+                            $date = date("Y-m-d h:i:s");
+                            $title = gettext("BILLING POSTPAID");
+                            $description = gettext("Invoice for POSTPAID");
+                            $value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
+                            $instance_table = new Table("cc_invoice", $field_insert);
+                            $id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+                        }
 			if(!empty($id_invoice)&& is_numeric($id_invoice)){
 				$description = $desc_billing_postpaid;
 				$amount = abs($card_result[0]['credit']);
@@ -2017,7 +2023,7 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 				$billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
 			
 			}
-    }
+        }
 	
 	
 	function create_invoice_after_refill(){

@@ -207,15 +207,17 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
 			$table_charge = new Table("cc_charge", "*");
 			$result = $table_charge->Get_list($A2B->DBHandle, $clause_charge . " AND charged_status = 0 AND invoiced_status = 0");
-			if (is_array($result) && sizeof($result) > 0) {
+			$last_invoice = null;
+                        if (is_array($result) && sizeof($result) > 0) {
 				$reference = generate_invoice_reference();
 				$field_insert = "id_card, title ,reference, description,status,paid_status";
-				$title = gettext("BILLING CHARGES");
+				$title = gettext("BILLING");
 				$description = gettext("This invoice is for some charges unpaid since the last billing.") . " " . $desc_billing_postpaid;
 				$value_insert = " '$card_id', '$title','$reference','$description',1,0";
 				$instance_table = new Table("cc_invoice", $field_insert);
 				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
+                                        $last_invoice = $id_invoice;
 					foreach ($result as $charge) {
 						$description = gettext("CHARGE :") . $charge['description'];
 						$amount = $charge['amount'];
@@ -231,13 +233,17 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			// behaviour postpaid
 			if ($Customer['typepaid'] == 1 && is_numeric($Customer['credit']) && $Customer['credit'] < 0) {
 				// GENERATE AN INVOICE TO COMPLETE THE BALANCE
-				$reference = generate_invoice_reference();
-				$field_insert = " id_card, title ,reference, description,status,paid_status";
-				$title = gettext("BILLING POSTPAID");
-				$description = gettext("Invoice for POSTPAID");
-				$value_insert = " '$card_id', '$title','$reference','$description',1,0";
-				$instance_table = new Table("cc_invoice", $field_insert);
-				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+                                if(!empty($last_invoice)){
+                                    $id_invoice = $last_invoice;
+                                }else{
+                                    $reference = generate_invoice_reference();
+                                    $field_insert = " id_card, title ,reference, description,status,paid_status";
+                                    $title = gettext("BILLING");
+                                    $description = gettext("Invoice for POSTPAID");
+                                    $value_insert = " '$card_id', '$title','$reference','$description',1,0";
+                                    $instance_table = new Table("cc_invoice", $field_insert);
+                                    $id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+                                }
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 					$description = $desc_billing_postpaid;
 					$amount = abs($Customer['credit']);
