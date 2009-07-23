@@ -27,46 +27,21 @@ $activatedbyuser = $A2B->config["signup"]['activatedbyuser'];
 
 $lang_code = $_SESSION["language_code"];
 if (!$activatedbyuser) {
-	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' and id_language = '$lang_code'";
+        $mailtype = Mail::$TYPE_SIGNUP;
 } else {
-	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' and id_language = '$lang_code'";
+        $mailtype = Mail::$TYPE_SIGNUPCONFIRM;
 }
 
-$res = $DBHandle -> Execute($QUERY);
-$num = 0;	
-if ($res)
-	$num = $res -> RecordCount();
-
-if (!$num) {
-	if (!$activatedbyuser) {
-		$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' and id_language = 'en'";
-	} else {
-		$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' and id_language = 'en'";
-	}
-	
-	$res = $DBHandle -> Execute($QUERY);
-	$num = 0;	
-	if ($res)
-		$num = $res -> RecordCount();
-	
-	if (!$num) {
-		echo "<br>".gettext("Error : No email Template Found");
-		exit();
-	}
+try {
+    $mail = new Mail($mailtype, $_SESSION["id_signup"],$_SESSION["language_code"]);
+} catch (A2bMailException $e) {
+    echo "<br>".gettext("Error : No email Template Found");
+    exit();
 }
 
 
-for($i=0;$i<$num;$i++) {
-	$listtemplate[] = $res->fetchRow();
-}
 
-list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-
-if ($FG_DEBUG == 1) {
-	echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
-}
-
-$QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE username='".$_SESSION["cardnumber_signup"]."' ";
+$QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE id=".$_SESSION["id_signup"];
 
 $res = $DBHandle -> Execute($QUERY);
 $num = 0;	
@@ -83,27 +58,12 @@ for($i=0;$i<$num;$i++) {
 }
 
 if ($FG_DEBUG == 1) echo "</br><b>BELOW THE CARD PROPERTIES </b><hr></br>";
-$keepmessagetext = $messagetext;
 
-foreach ($list as $recordset) {
-	$messagetext = $keepmessagetext;
 	
-	list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey) = $recordset;
+list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey) = $list[0];
+if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
 	
-	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
-	
-	$messagetext = str_replace('$name', $lastname, $messagetext);
-	$messagetext = str_replace('$card_gen', $username, $messagetext);
-	$messagetext = str_replace('$password', $uipass, $messagetext);
-	$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
-	$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
-	$messagetext = str_replace('=$loginkey', "=$loginkey", $messagetext);
-	$messagetext = str_replace('$loginkey', "=$loginkey", $messagetext);
-	$messagetext = str_replace('$email', "$email", $messagetext);
-
-	a2b_mail($recordset[3], $subject, $messagetext, $from, $fromname);
-	if ($FG_DEBUG == 1) echo "</br><b>".$recordset[3]."<br> subject=$subject,<br> messagetext=$messagetext,</br> em_headers=$em_headers</b><hr></br>";
-}
+ $mail->send();
 
 
 $smarty->display('signup_header.tpl');

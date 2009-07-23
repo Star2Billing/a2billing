@@ -11,6 +11,13 @@ if (!$ACXACCESS) {
 }
 
 $smarty->display('main.tpl');
+
+$mail = new Mail(Mail::$TYPE_REMINDER, 3);
+echo $mail->getTitle();
+echo $mail->getMessage();
+echo $mail->getFromEmail();
+echo $mail->getFromName();
+
 ?>
 <br/><br/>
 

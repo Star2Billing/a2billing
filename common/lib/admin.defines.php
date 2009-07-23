@@ -23,6 +23,7 @@ include_once (FSROOT."lib/mail/class.phpmailer.php");
 include (FSROOT."lib/Misc.php");
 include (dirname(__FILE__)."/Class.NotificationsDAO.php");
 include (dirname(__FILE__)."/Class.Notification.php");
+include (dirname(__FILE__)."/Class.Mail.php");
 
 session_name("UIADMINSESSION");
 session_start();

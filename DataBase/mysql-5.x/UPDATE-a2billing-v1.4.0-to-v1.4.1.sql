@@ -100,3 +100,32 @@ UPDATE cc_config SET config_value='https://www.paypal.com/cgi-bin/webscr' WHERE 
 ALTER TABLE cc_config CHANGE config_value config_value VARCHAR( 200 ); 
 
 
+ DROP TABLE `cc_templatemail` ;
+
+--
+-- Table structure for table `cc_templatemail`
+--
+
+CREATE TABLE IF NOT EXISTS `cc_templatemail` (
+  `id` int(11) NOT NULL,
+  `id_language` char(20) collate utf8_bin NOT NULL default 'en',
+  `mailtype` char(50) collate utf8_bin default NULL,
+  `fromemail` char(70) collate utf8_bin default NULL,
+  `fromname` char(70) collate utf8_bin default NULL,
+  `subject` char(70) collate utf8_bin default NULL,
+  `messagetext` longtext collate utf8_bin,
+  UNIQUE KEY `cons_cc_templatemail_id_language` (`mailtype`,`id_language`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `cc_templatemail`
+--
+
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`) VALUES(1, 'en', 'signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '\nThank you for registering with us\n\nPlease click on below link to activate your account.\n\nhttp://call-labs.com/A2Billing_UI/signup/activate.php?key=$login$\n\nPlease make sure you active your account by making payment to us either by\ncredit card, wire transfer, money order, cheque, and western union money\ntransfer, money Gram, and Pay pal.\n\n\nKind regards,\nCall Labs\n');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`) VALUES(2, 'en', 'reminder', 'info@call-labs.com', 'Call-Labs', 'Your Call-Labs account $cardnumber$ is low on credit ($currency$ $credit$', '\n\nYour Call-Labs Account number $cardnumber$ is running low on credit.\n\nThere is currently only $creditcurrency$ $currency$ left on your account which is lower than the warning level defined ($credit_notification$)\n\n\nPlease top up your account ASAP to ensure continued service\n\nIf you no longer wish to receive these notifications or would like to change the balance amount at which these warnings are generated,\nplease connect on your myaccount panel and change the appropriate parameters\n\n\nyour account information :\nYour account number for VOIP authentication : $cardnumber$\n\nhttp://myaccount.call-labs.com/\nYour account login : $cardalias$\nYour account password : $password$\n\n\nThanks,\n/Call-Labs Team\n-------------------------------------\nhttp://www.call-labs.com\n ');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`) VALUES(3, 'en', 'forgetpassword', 'info@call-labs.com', 'Call-Labs', 'Login Information', 'Your login information is as below:\n\nYour account is $cardnumber$\n\nYour password is $password$\n\nYour cardalias is $login$\n\nhttp://call-labs.com/A2BCustomer_UI/\n\nKind regards,\nCall Labs\n');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`) VALUES(4, 'en', 'signupconfirmed', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 'Thank you for registering with us\n\nPlease make sure you active your account by making payment to us either by\ncredit card, wire transfer, money order, cheque, and western union money\ntransfer, money Gram, and Pay pal.\n\nYour account is $cardnumber$\n\nYour password is $password$\n\nTo go to your account :\nhttp://call-labs.com/A2BCustomer_UI/\n\nKind regards,\nCall Labs\n');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`) VALUES(5, 'en', 'epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator\n\nPlease check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.\n\nTime of Transaction: $time$ \nPayment Gateway: $paymentgateway$\nAmount: $itemAmount$\n\n\n\nKind regards,\nCall Labs\n');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`) VALUES(6, 'en', 'payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.\n\nShopping details is as below.\n\nItem Name = <b>$itemName$</b>\nItem ID = <b>$itemID$</b>\nAmount = <b>$itemAmount$ $base_currency$</b>\nPayment Method = <b>$paymentMethod$</b>\nStatus = <b>$paymentStatus$</b>\n\n\nKind regards,\nCall Labs\n');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`) VALUES(7, 'en', 'invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.\n\nAttached is the invoice.\n\nKind regards,\nCall Labs\n');
+INSERT INTO `cc_templatemail` (`id`, `id_language`, `mailtype`, `fromemail`, `fromname`, `subject`, `messagetext`) VALUES(8, 'en', 'remindercall', 'info@call-labs.com', 'Call-Labs', 'Your Call-Labs account $cardnumber$ is low on credit ($currency$ $credit$', '\n\nYour Call-Labs Account number $cardnumber$ is running low on credit.\n\nThere is currently only $creditcurrency$ $currency$ left on your account which is lower than the minimum credit to call\n\n\nPlease top up your account ASAP to ensure continued service\n\n\nPlease connect on your myaccount panel and change the appropriate parameters\n\n\nyour account information :\nYour account number for VOIP authentication : $cardnumber$\n\nhttp://myaccount.call-labs.com/\nYour account login : $cardalias$\nYour account password : $password$\n\n\nThanks,\n/Call-Labs Team\n-------------------------------------\nhttp://www.call-labs.com\n ');

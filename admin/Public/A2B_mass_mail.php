@@ -87,55 +87,16 @@ if(isset($submit)) {
 	check_demo_mode();
 	
 	foreach ($list_customer as $cc_customer){
-		$messagetext = $message;
-		//  $email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency
-		$email = $cc_customer[1];
-		$credit = $cc_customer[2];
-		$currency = $cc_customer[3];
-		$lastname = $cc_customer[4];
-		$firstname = $cc_customer[5];
-		$loginkey = $cc_customer[6];
-		$username = $cc_customer[7];
-		$useralias = $cc_customer[8];
-		$uipass = $cc_customer[9];
+		$id_card = $cc_customer[O];
+                try {
+                    $mail = new Mail(null,$id_card,null,$message,$subject);
+                    $mail ->setFromName($fromname);
+                    $mail ->setFromEmail($from);
+                    $result = true;
+                } catch (A2bMailException $e) {
+
+                }
 		
-		// convert credit to currency
-		if (!isset($currencies_list[strtoupper($currency)][2]) || !is_numeric($currencies_list[strtoupper($currency)][2])) $mycur = 1;
-		else $mycur = $currencies_list[strtoupper($currency)][2];
-		$credit_currency = $credit / $mycur;
-		$credit_currency = round($credit_currency,3);
-		
-		// replace tags in message
-		$messagetext = str_replace('$email', $email, $messagetext);
-		$messagetext = str_replace('$lastname', $lastname, $messagetext);
-		$messagetext = str_replace('$firstname', $firstname, $messagetext);
-		$messagetext = str_replace('$credit_currency', "$credit_currency", $messagetext);
-		$messagetext = str_replace('$credit', $credit, $messagetext);
-		$messagetext = str_replace('$currency', $currency, $messagetext);
-		$messagetext = str_replace('$cardnumber', $username, $messagetext);
-		$messagetext = str_replace('$cardalias', $useralias, $messagetext);
-		$messagetext = str_replace('$password', $uipass, $messagetext);
-		$messagetext = str_replace('$loginkey', "$loginkey", $messagetext);
-		$messagetext = str_replace('$base_currency', BASE_CURRENCY, $messagetext);
-		
-		$subject_replaced = $subject;
-		
-		// replace tags in subject
-		$subject_replaced = str_replace('$email', $email, $subject_replaced);
-		$subject_replaced = str_replace('$lastname', $lastname, $subject_replaced);
-		$subject_replaced = str_replace('$firstname', $firstname, $subject_replaced);
-		$subject_replaced = str_replace('$credit_currency', "$credit_currency", $subject_replaced);
-		$subject_replaced = str_replace('$credit', $credit, $subject_replaced);
-		$subject_replaced = str_replace('$currency', $currency, $subject_replaced);
-		$subject_replaced = str_replace('$cardnumber', $username, $subject_replaced);
-		$subject_replaced = str_replace('$cardalias', $useralias, $subject_replaced);
-		$subject_replaced = str_replace('$password', $uipass, $subject_replaced);
-		$subject_replaced = str_replace('$loginkey', "$loginkey", $subject_replaced);
-		$subject_replaced = str_replace('$base_currency', BASE_CURRENCY, $subject_replaced);
-		
-		a2b_mail($email, $subject_replaced, $messagetext, $from, $fromname);
-		
-		$result = true;
 	}
 	
 }

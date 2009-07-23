@@ -904,25 +904,20 @@ if ($mode != 'cid-callback' && $mode != 'all-callback') {
 
 // SEND MAIL REMINDER WHEN CREDIT IS TOO LOW
 if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_reminder'] == 1) {
-
+         $A2B->id_card ;
 	if (strlen($A2B -> cardholder_email) > 5) {
-		$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='reminder' ";
-		$listtemplate = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
+                include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
+                include_once (dirname(__FILE__)."/lib/Class.Mail.php");
 
-		if (is_array($listtemplate)) {
-			list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-			$messagetext = str_replace('$name', $A2B -> cardholder_lastname, $messagetext);
-			$messagetext = str_replace('$card_gen', $A2B -> username, $messagetext);
-			$messagetext = str_replace('$password', $A2B -> cardholder_uipass, $messagetext);
-			$messagetext = str_replace('$min_credit', $A2B->agiconfig['min_credit_2call'], $messagetext);
-
-			// USE PHPMAILER
-			include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
+                try {
+                    $mail = new Mail(Mail::$TYPE_REMINDERCALL,$A2B->id_card );
+                    $mail->send();
+                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SEND-MAIL REMINDER]:[TO:".$A2B -> cardholder_email." - FROM:$from - SUBJECT:$subject]");
+                } catch (A2bMailException $e) {
+                }
 
 			a2b_mail ($A2B -> cardholder_email, $subject, $messagetext, $from, $fromname);
 
-			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SEND-MAIL REMINDER]:[TO:".$A2B -> cardholder_email." - FROM:$from - SUBJECT:$subject]");
-		}
 	}
 }
 

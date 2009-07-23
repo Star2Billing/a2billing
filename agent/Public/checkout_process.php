@@ -198,43 +198,19 @@ $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BA
 $amount_without_vat = $amount_paid / (1+$VAT/100);
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
-	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='epaymentverify' ";
-	$res = $DBHandle_max -> Execute($QUERY);
-	$num = 0;	
-	if ($res)
-		$num = $res -> RecordCount();
-	
-	if (!$num) {
-		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO EMAIL TEMPLATE FOUND TO SEND WARNING EMAIL TO ADMINISTRATOR FOR EPAYMENT VERIFICATION FAILURE");
-		exit();
-	}
-	for($i=0;$i<$num;$i++) {
-		$listtemplate[] = $res->fetchRow();
-	}
-	list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-
-	$messagetext = str_replace('$time', date("y-m-d H:i:s"), $messagetext);	
-	$messagetext = str_replace('$paymentgateway', $transaction_data[0][4], $messagetext);
-	$messagetext = str_replace('$amount', $amount_paid.$currCurrency, $messagetext);
+        try {
+        //TODO create mail class for agent
+        $mail = new Mail('epaymentverify',null);
+        } catch (A2bMailException $e) {
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
+            exit();
+        }
+        $mail->replaceInEmail(Mail::$TIME_KEY,date("y-m-d H:i:s"));
+        $mail->replaceInEmail(Mail::$PAYMENTGATEWAY_KEY, $transaction_data[0][4]);
+        $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY, $amount_paid.$currCurrency);
 	// Add Post information / useful to track down payment transaction without having to log
-	$messagetext .= "\n\n\n\n"."-POST Var \n".print_r($_POST, true);
-	
-	// USE PHPMAILER
-	include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
-	
-	$mail = new phpmailer();
-	$mail -> From     = $from;
-	$mail -> FromName = $fromname;
-	//$mail -> IsSendmail();
-	$mail -> IsSMTP();
-	$mail -> Subject = $subject;
-	$mail -> Body    = $messagetext ; //$HTML;
-	$mail -> AltBody = $messagetext;  // Plain text body (for mail clients that cannot read 	HTML)
-	$mail -> ContentType = "multipart/alternative";
-	$mail -> AddAddress(ADMIN_EMAIL);				
-	$mail -> Send();
-	
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-EMAIL SENT: WARNING EMAIL TO ADMINISTRATOR FOR EPAYMENT VERIFICATION FAILURE");
+	$mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
+	$mail ->send(ADMIN_EMAIL);
 	
 	exit;
 }
@@ -347,49 +323,28 @@ if ( ($orderStatus != 2) && ($transaction_data[0][4]=='plugnpay')) {
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
+/*
 if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])){
 	// FIND THE TEMPLATE APPROPRIATE
-	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='payment' ";
-	$res = $DBHandle_max -> Execute($QUERY);
-	
-	$num = 0;
-	if ($res) {
-		$num = $res -> RecordCount();
-	}
+        try {
+            $mail = new Mail('payment',$id);
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
+            $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY,$amount_paid);
+            $mail->replaceInEmail(Mail::$ITEM_ID_KEY,$customer_info[0]);
+            $mail->replaceInEmail(Mail::$ITEM_NAME_KEY,'balance');
+            $mail->replaceInEmail(Mail::$PAYMENT_METHOD_KEY,$pmodule);
+            $mail->replaceInEmail(Mail::$PAYMENT_STATUS_KEY,$statusmessage);
+            $mail->send($customer_info["email"]);
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=".$mail->getTitle()." , mtext=".$mail->getMessage());
+        } catch (A2bMailException $e) {
+            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
+        }
 
-	if (!$num) {
-		// WE DONT HAVE A TEMPLATE
-		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
-		
-	} else {
-		
-		// WE HAVE A TEMPLATE
-		for($i=0;$i<$num;$i++) {
-			$listtemplate[] = $res->fetchRow();
-		}
-		
-		list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-		$statusmessage= "";
-		
-		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
-		
-		$messagetext = str_replace('$itemName', "balance", $messagetext);
-		$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
-		$messagetext = str_replace('$itemAmount', $amount_paid." ".strtoupper(BASE_CURRENCY), $messagetext);
-		$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
-		$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
-		// Add Post information / useful to track down payment transaction without having to log
-		$messagetext .= "\n\n\n\n"."-POST Var \n".print_r($_POST, true);
-		
-		a2b_mail (ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
-		
-		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=$subject, mtext=$messagetext");
-	}
 } else {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");
 }
-
-
+*/
 
 
 // load the after_process function from the payment modules

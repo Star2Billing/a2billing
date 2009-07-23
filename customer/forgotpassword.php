@@ -23,23 +23,7 @@ if(isset($pr_email) && isset($action)) {
 		}
         $show_message = true;
         $DBHandle  = DbConnect();
-        $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='forgetpassword' ";
-		
-		$num = 0;
-        $res = $DBHandle -> Execute($QUERY);
-		if ($res)
-	        $num = $res -> RecordCount();
-		
-        if (!$num) exit();
-        for($i=0;$i<$num;$i++) {
-        	$listtemplate[] = $res->fetchRow();
-        }
-
-        list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-        if ($FG_DEBUG == 1) {
-            echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
-        }
-        $QUERY = "SELECT username, lastname, firstname, email, uipass, useralias FROM cc_card WHERE email='".$pr_email."' ";
+        $QUERY = "SELECT id,username, lastname, firstname, email, uipass, useralias FROM cc_card WHERE email='".$pr_email."' ";
 
         $res = $DBHandle -> Execute($QUERY);
 	$num = 0;
@@ -54,19 +38,19 @@ if(isset($pr_email) && isset($action)) {
             for($i=0;$i<$num;$i++) {
             	$list[] = $res->fetchRow();
             }
-            $keepmessagetext = $messagetext;
             foreach ($list as $recordset)
             {
-            	$messagetext = $keepmessagetext;
-            	list($username, $lastname, $firstname, $email, $uipass, $cardalias) = $recordset;
+            	list($id_card,$username, $lastname, $firstname, $email, $uipass, $cardalias) = $recordset;
 				
             	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
-				
-				$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
-            	$messagetext = str_replace('$card_gen', $username, $messagetext);
-            	$messagetext = str_replace('$password', $uipass, $messagetext);
-				
-				a2b_mail ($recordset[3], $subject, $messagetext, $from, $fromname);
+		try {
+                    $mail = new Mail(Mail::$TYPE_FORGETPASSWORD, $id_card);
+                    $mail->send();
+                } catch (A2bMailException $e) {
+                    echo "<br>".gettext("Error : No email Template Found");
+                    exit();
+                }
+
             }
         }
     }

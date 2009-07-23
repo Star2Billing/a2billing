@@ -49,7 +49,7 @@ if (!$A2B->DbConnect()) {
 //$A2B -> DBHandle
 $instance_table = new Table();
 
-$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='reminder' ";
+$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext FROM cc_templatemail WHERE mailtype='reminder' ";
 $listtemplate = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
 if (!is_array(listtemplate)) {
 	echo "[Cannot find a template mail for reminder]\n";
@@ -57,7 +57,7 @@ if (!is_array(listtemplate)) {
 	exit;
 }
 
-list ($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate[0];
+list ($mailtype, $from, $fromname, $subject, $messagetext) = $listtemplate[0];
 if ($FG_DEBUG == 1)
 	echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
 

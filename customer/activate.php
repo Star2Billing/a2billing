@@ -43,7 +43,7 @@ if(isset($key) && $list[0][8]!="1") {
 
 if( $list[0][8] != "1" && isset($result) && $result != null) {
 
-	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
 	$res = $HD_Form -> DBHandle -> Execute($QUERY);
 	$num = 0;
 	if ($res)
@@ -57,7 +57,7 @@ if( $list[0][8] != "1" && isset($result) && $result != null) {
 			$listtemplate[] = $res->fetchRow();
 		}
 		
-		list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
+		list($mailtype, $from, $fromname, $subject, $messagetext) = $listtemplate [0];
 		if ($FG_DEBUG == 1) echo "</br><b>BELOW THE CARD PROPERTIES </b><hr></br>";
 		$keepmessagetext = $messagetext;
 		
@@ -71,8 +71,8 @@ if( $list[0][8] != "1" && isset($result) && $result != null) {
 		$messagetext = str_replace('$password', $uipass, $messagetext);
 		$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
 		$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
-		$messagetext = str_replace('=$loginkey', "=$loginkey", $messagetext);
-		$messagetext = str_replace('$loginkey', "=$loginkey", $messagetext);
+		$messagetext = str_replace('$login', "=$loginkey", $messagetext);
+		$messagetext = str_replace('$logink', "=$loginkey", $messagetext);
 		
 		a2b_mail($email, $subject, $messagetext, $from, $fromname);
 	}
