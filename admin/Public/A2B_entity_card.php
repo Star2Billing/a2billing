@@ -472,6 +472,7 @@ if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 $HD_Form -> create_toppage ($form_action);
 if (!$popup_select && $form_action == "ask-add"){
 ?>
+<center>
 <table width="70%" align="center" cellpadding="2" cellspacing="0">
 	<script language="javascript">
 	function submitform()
@@ -497,7 +498,7 @@ if (!$popup_select && $form_action == "ask-add"){
 	</tr>
 	</form>
 </table>
-
+</center>
 <?php
 }
 
