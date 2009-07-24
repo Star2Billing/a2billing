@@ -100,7 +100,7 @@ UPDATE cc_config SET config_value='https://www.paypal.com/cgi-bin/webscr' WHERE 
 ALTER TABLE cc_config CHANGE config_value config_value VARCHAR( 200 ); 
 
 
- DROP TABLE `cc_templatemail` ;
+-- DROP TABLE `cc_templatemail` ;
 
 --
 -- Table structure for table `cc_templatemail`
