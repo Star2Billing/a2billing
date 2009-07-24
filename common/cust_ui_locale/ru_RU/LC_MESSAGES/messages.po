@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-23 20:00+0200\n"
+"POT-Creation-Date: 2009-07-25 01:20+0200\n"
 "PO-Revision-Date: 2006-06-12 14:37+0500\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -2117,105 +2117,105 @@ msgstr ""
 msgid "CREATION AGENT REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1928
+#: lib/Form/Class.FormHandler.inc.php:1930
 #, fuzzy
 msgid "SUMMARY OF CALLS"
 msgstr "МАЙ"
 
-#: lib/Form/Class.FormHandler.inc.php:1929
+#: lib/Form/Class.FormHandler.inc.php:1931
 msgid "Summary of the calls charged since the last billing"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1947
+#: lib/Form/Class.FormHandler.inc.php:1949
 msgid "SUMMARY OF CHARGE"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1949
+#: lib/Form/Class.FormHandler.inc.php:1951
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1955
-#: lib/Form/Class.FormHandler.inc.php:1980
+#: lib/Form/Class.FormHandler.inc.php:1957
+#: lib/Form/Class.FormHandler.inc.php:1983
 #, fuzzy
 msgid "CHARGE :"
 msgstr "НАДБАВКА"
 
-#: lib/Form/Class.FormHandler.inc.php:1972
+#: lib/Form/Class.FormHandler.inc.php:1974
 #, fuzzy
 msgid "BILLING CHARGES"
 msgstr "НАДБАВКА"
 
-#: lib/Form/Class.FormHandler.inc.php:1973
+#: lib/Form/Class.FormHandler.inc.php:1975
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1998
+#: lib/Form/Class.FormHandler.inc.php:2003
 msgid "BILLING POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1999
+#: lib/Form/Class.FormHandler.inc.php:2004
 msgid "Invoice for POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2035
-#: lib/Form/Class.FormHandler.inc.php:2037
-#: lib/Form/Class.FormHandler.inc.php:2139
-#: lib/Form/Class.FormHandler.inc.php:2141
+#: lib/Form/Class.FormHandler.inc.php:2041
+#: lib/Form/Class.FormHandler.inc.php:2043
+#: lib/Form/Class.FormHandler.inc.php:2145
+#: lib/Form/Class.FormHandler.inc.php:2147
 #, fuzzy
 msgid "REFILL"
 msgstr "ПРЕФИКС"
 
-#: lib/Form/Class.FormHandler.inc.php:2039
-#: lib/Form/Class.FormHandler.inc.php:2143 checkout_process.php:308
+#: lib/Form/Class.FormHandler.inc.php:2045
+#: lib/Form/Class.FormHandler.inc.php:2149 checkout_process.php:308
 msgid "Invoice for refill"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2177 checkout_process.php:343
+#: lib/Form/Class.FormHandler.inc.php:2183 checkout_process.php:343
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2290
-#: lib/Form/Class.FormHandler.inc.php:2334
+#: lib/Form/Class.FormHandler.inc.php:2296
+#: lib/Form/Class.FormHandler.inc.php:2340
 msgid "Could not open buddy file"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2307
-#: lib/Form/Class.FormHandler.inc.php:2339
-#: lib/Form/Class.FormHandler.inc.php:2351
+#: lib/Form/Class.FormHandler.inc.php:2313
+#: lib/Form/Class.FormHandler.inc.php:2345
+#: lib/Form/Class.FormHandler.inc.php:2357
 msgid "Impossible to write to the file"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2529
+#: lib/Form/Class.FormHandler.inc.php:2535
 #: CC_entity_edit_did_destination.php:200
 msgid "error deletion"
 msgstr "ошибка удаления"
 
-#: lib/Form/Class.FormHandler.inc.php:2656
+#: lib/Form/Class.FormHandler.inc.php:2662
 msgid "ERROR_DUPLICATION"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2742
+#: lib/Form/Class.FormHandler.inc.php:2748
 msgid "Done"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2782
+#: lib/Form/Class.FormHandler.inc.php:2788
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2788
+#: lib/Form/Class.FormHandler.inc.php:2794
 #, fuzzy
 msgid "Choose a call plan"
 msgstr "Выбирите тарифный план"
 
-#: lib/Form/Class.FormHandler.inc.php:2834
+#: lib/Form/Class.FormHandler.inc.php:2840
 msgid "THE CURRENT RATECARD"
 msgstr "ТЕКУЩИЙ ТАРИФНЫЙ ПЛАН"
 
-#: lib/Form/Class.FormHandler.inc.php:2845
+#: lib/Form/Class.FormHandler.inc.php:2851
 msgid "R A T E C A R D"
 msgstr "Т А Р И Ф Н Ы Й  П Л А Н"
 
-#: lib/Form/Class.FormHandler.inc.php:2851
+#: lib/Form/Class.FormHandler.inc.php:2857
 msgid "Choose a ratecard"
 msgstr "Выбирите тарифный план"
 

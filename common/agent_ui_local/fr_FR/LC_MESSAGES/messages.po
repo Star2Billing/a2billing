@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-23 20:11+0200\n"
+"POT-Creation-Date: 2009-07-25 01:20+0200\n"
 "PO-Revision-Date: 2009-07-22 HO:MI+ZONE\n"
 "Last-Translator: ARNOLD\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -695,84 +695,84 @@ msgstr "FERMÉ"
 msgid "INVALID"
 msgstr "INVALIDE"
 
-#: lib/agent.defines.php:114
+#: lib/agent.defines.php:115
 msgid "Please select a payment method for your order."
 msgstr "Veuillez selectionner un moyen de paiement pour votre commande."
 
-#: lib/agent.defines.php:116
+#: lib/agent.defines.php:117
 msgid "Credit Card"
 msgstr "Carte de Crédit"
 
-#: lib/agent.defines.php:117 lib/agent.defines.php:127
+#: lib/agent.defines.php:118 lib/agent.defines.php:128
 msgid "Credit Card Test Info"
 msgstr "Test Info Carte de Crédit"
 
-#: lib/agent.defines.php:117 lib/agent.defines.php:127
+#: lib/agent.defines.php:118 lib/agent.defines.php:128
 msgid "Expiry: Any"
 msgstr "Limite de validité: Aucune"
 
-#: lib/agent.defines.php:118
+#: lib/agent.defines.php:119
 msgid "Credit Card Type"
 msgstr "Type Carte Crédit"
 
-#: lib/agent.defines.php:119
+#: lib/agent.defines.php:120
 msgid "Credit Card Owner"
 msgstr "Propriétaire Carte de Crédit"
 
-#: lib/agent.defines.php:120
+#: lib/agent.defines.php:121
 msgid "Credit Card Number"
 msgstr "Numéro Carte de Crédit"
 
-#: lib/agent.defines.php:121
+#: lib/agent.defines.php:122
 msgid "Credit Card Expiry Date"
 msgstr "Date d'Expiration de la Carte de Crédit"
 
-#: lib/agent.defines.php:122 lib/agent.defines.php:135
+#: lib/agent.defines.php:123 lib/agent.defines.php:136
 msgid "* The owner's name of the credit card must be at least"
 msgstr "* Le nom du propriétaire, de la carte de crédit doit &ecirc;tre, au moins"
 
-#: lib/agent.defines.php:122 lib/agent.defines.php:123
-#: lib/agent.defines.php:136
+#: lib/agent.defines.php:123 lib/agent.defines.php:124
+#: lib/agent.defines.php:137
 msgid "characters"
 msgstr "caract&egrave;res"
 
-#: lib/agent.defines.php:123 lib/agent.defines.php:136
+#: lib/agent.defines.php:124 lib/agent.defines.php:137
 msgid "* The credit card number must be at least"
 msgstr "* Le numéro de la carte de crédit doit &ecirc;tre au moins"
 
-#: lib/agent.defines.php:124
+#: lib/agent.defines.php:125
 msgid "Credit Card Error!"
 msgstr "Erreur Carte de Crédit !"
 
-#: lib/agent.defines.php:128
+#: lib/agent.defines.php:129
 msgid "There has been an error processing your credit card"
 msgstr "Une erreur est survenue durant le traitement de votre carte de crédit"
 
-#: lib/agent.defines.php:129
+#: lib/agent.defines.php:130
 msgid "Please check your credit card details!"
 msgstr "Veuillez vérifier les param&egrave;tres de votre carte de crédit !"
 
-#: lib/agent.defines.php:130
+#: lib/agent.defines.php:131
 msgid "Credit Card Owner:"
 msgstr "Propriétaire Carte de Crédit:"
 
-#: lib/agent.defines.php:131
+#: lib/agent.defines.php:132
 msgid "Credit Card Number:"
 msgstr "Numéro Carte de Crédit:"
 
-#: lib/agent.defines.php:132
+#: lib/agent.defines.php:133
 msgid "Credit Card Expiry Date:"
 msgstr "Date Expiration Carte de Crédit:"
 
-#: lib/agent.defines.php:133
+#: lib/agent.defines.php:134
 msgid "Credit Card Checknumber:"
 msgstr "Numéro de vérification Carte de Crédit:"
 
-#: lib/agent.defines.php:134
+#: lib/agent.defines.php:135
 msgid "(located at the back of the credit card)"
 msgstr "(situé &agrave l'arri&egrave;re de la carte de crédit)"
 
-#: lib/agent.defines.php:135
+#: lib/agent.defines.php:136
 msgid "characters."
 msgstr "caract&egrave;res."
 
@@ -1224,103 +1224,103 @@ msgstr "SUPPRESSION CARTE RECHARGEMENT"
 msgid "CREATION AGENT REFILL"
 msgstr "CREATION RECHARGEMENT AGENT"
 
-#: lib/Form/Class.FormHandler.inc.php:1928
+#: lib/Form/Class.FormHandler.inc.php:1930
 msgid "SUMMARY OF CALLS"
 msgstr "RÉSUMÉ DES APPELS"
 
-#: lib/Form/Class.FormHandler.inc.php:1929
+#: lib/Form/Class.FormHandler.inc.php:1931
 msgid "Summary of the calls charged since the last billing"
 msgstr "Résumé des appels facturés depuis la derni&egrave;re facturation."
 
-#: lib/Form/Class.FormHandler.inc.php:1947
+#: lib/Form/Class.FormHandler.inc.php:1949
 msgid "SUMMARY OF CHARGE"
 msgstr "RÉSUMÉ DES FRAIS"
 
-#: lib/Form/Class.FormHandler.inc.php:1949
+#: lib/Form/Class.FormHandler.inc.php:1951
 msgid "Summary of the charge charged since the last billing."
 msgstr "Résumé des frais facturés depuis la derni&egrave;re facturation."
 
-#: lib/Form/Class.FormHandler.inc.php:1955
-#: lib/Form/Class.FormHandler.inc.php:1980
+#: lib/Form/Class.FormHandler.inc.php:1957
+#: lib/Form/Class.FormHandler.inc.php:1983
 msgid "CHARGE :"
 msgstr "FRAIS :"
 
-#: lib/Form/Class.FormHandler.inc.php:1972
+#: lib/Form/Class.FormHandler.inc.php:1974
 msgid "BILLING CHARGES"
 msgstr "FRAIS DE FACTURATION"
 
-#: lib/Form/Class.FormHandler.inc.php:1973
+#: lib/Form/Class.FormHandler.inc.php:1975
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr "Cet facture est impayé depuis la derni&egrave;re facturation."
 
-#: lib/Form/Class.FormHandler.inc.php:1998
+#: lib/Form/Class.FormHandler.inc.php:2003
 msgid "BILLING POSTPAID"
 msgstr "FACTURATION PAIEMENT DIFFÉRÉ"
 
-#: lib/Form/Class.FormHandler.inc.php:1999
+#: lib/Form/Class.FormHandler.inc.php:2004
 msgid "Invoice for POSTPAID"
 msgstr "Facture pour PAIEMENT DIFFÉRÉ"
 
-#: lib/Form/Class.FormHandler.inc.php:2035
-#: lib/Form/Class.FormHandler.inc.php:2037
-#: lib/Form/Class.FormHandler.inc.php:2139
-#: lib/Form/Class.FormHandler.inc.php:2141 Public/A2B_entity_card.php:227
+#: lib/Form/Class.FormHandler.inc.php:2041
+#: lib/Form/Class.FormHandler.inc.php:2043
+#: lib/Form/Class.FormHandler.inc.php:2145
+#: lib/Form/Class.FormHandler.inc.php:2147 Public/A2B_entity_card.php:227
 #: Public/form_data/FG_var_payment.inc:28
 msgid "REFILL"
 msgstr "RECHARGEMENT"
 
-#: lib/Form/Class.FormHandler.inc.php:2039
-#: lib/Form/Class.FormHandler.inc.php:2143
+#: lib/Form/Class.FormHandler.inc.php:2045
+#: lib/Form/Class.FormHandler.inc.php:2149
 msgid "Invoice for refill"
 msgstr "Facture pour rechargement"
 
-#: lib/Form/Class.FormHandler.inc.php:2177
+#: lib/Form/Class.FormHandler.inc.php:2183
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "COMMISSION GENEREE AUTOMATIQUEMENT !"
 
-#: lib/Form/Class.FormHandler.inc.php:2290
-#: lib/Form/Class.FormHandler.inc.php:2334
+#: lib/Form/Class.FormHandler.inc.php:2296
+#: lib/Form/Class.FormHandler.inc.php:2340
 #: Public/A2B_entity_card_multi.php:170 Public/A2B_entity_card_multi.php:212
 msgid "Could not open buddy file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: lib/Form/Class.FormHandler.inc.php:2307
-#: lib/Form/Class.FormHandler.inc.php:2339
-#: lib/Form/Class.FormHandler.inc.php:2351
+#: lib/Form/Class.FormHandler.inc.php:2313
+#: lib/Form/Class.FormHandler.inc.php:2345
+#: lib/Form/Class.FormHandler.inc.php:2357
 #: Public/A2B_entity_card_multi.php:189 Public/A2B_entity_card_multi.php:231
 #: Public/CC_generate_friend_file.php:84 Public/CC_generate_friend_file.php:97
 msgid "Impossible to write to the file"
 msgstr "Impossible d'écrire sur le fichier"
 
-#: lib/Form/Class.FormHandler.inc.php:2529
+#: lib/Form/Class.FormHandler.inc.php:2535
 msgid "error deletion"
 msgstr "erreur suppression"
 
-#: lib/Form/Class.FormHandler.inc.php:2656
+#: lib/Form/Class.FormHandler.inc.php:2662
 msgid "ERROR_DUPLICATION"
 msgstr "ERREUR_DUPLICATION"
 
-#: lib/Form/Class.FormHandler.inc.php:2742
+#: lib/Form/Class.FormHandler.inc.php:2748
 msgid "Done"
 msgstr "Fait"
 
-#: lib/Form/Class.FormHandler.inc.php:2782
+#: lib/Form/Class.FormHandler.inc.php:2788
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2788
+#: lib/Form/Class.FormHandler.inc.php:2794
 msgid "Choose a call plan"
 msgstr "Choisir un plan de numérotation"
 
-#: lib/Form/Class.FormHandler.inc.php:2834
+#: lib/Form/Class.FormHandler.inc.php:2840
 msgid "THE CURRENT RATECARD"
 msgstr "LA GRILLE TARIFAIRE EN COURS"
 
-#: lib/Form/Class.FormHandler.inc.php:2845
+#: lib/Form/Class.FormHandler.inc.php:2851
 msgid "R A T E C A R D"
 msgstr "GRILLE TARIFAIRE"
 
-#: lib/Form/Class.FormHandler.inc.php:2851
+#: lib/Form/Class.FormHandler.inc.php:2857
 msgid "Choose a ratecard"
 msgstr "Choisir une grille tarifaire"
 

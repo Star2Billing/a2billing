@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-23 20:00+0200\n"
+"POT-Creation-Date: 2009-07-25 01:20+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -2025,100 +2025,100 @@ msgstr ""
 msgid "CREATION AGENT REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1928
+#: lib/Form/Class.FormHandler.inc.php:1930
 msgid "SUMMARY OF CALLS"
 msgstr "Sumarul Apelurilor"
 
-#: lib/Form/Class.FormHandler.inc.php:1929
+#: lib/Form/Class.FormHandler.inc.php:1931
 msgid "Summary of the calls charged since the last billing"
 msgstr "Sumarul apelurilor "
 
-#: lib/Form/Class.FormHandler.inc.php:1947
+#: lib/Form/Class.FormHandler.inc.php:1949
 msgid "SUMMARY OF CHARGE"
 msgstr "Sumarul Platilor"
 
-#: lib/Form/Class.FormHandler.inc.php:1949
+#: lib/Form/Class.FormHandler.inc.php:1951
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1955
-#: lib/Form/Class.FormHandler.inc.php:1980
+#: lib/Form/Class.FormHandler.inc.php:1957
+#: lib/Form/Class.FormHandler.inc.php:1983
 msgid "CHARGE :"
 msgstr "EXTRA CHARGE"
 
-#: lib/Form/Class.FormHandler.inc.php:1972
+#: lib/Form/Class.FormHandler.inc.php:1974
 msgid "BILLING CHARGES"
 msgstr "DETALII"
 
-#: lib/Form/Class.FormHandler.inc.php:1973
+#: lib/Form/Class.FormHandler.inc.php:1975
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr "Aceasta factura include suma neplatita din ultima luna"
 
-#: lib/Form/Class.FormHandler.inc.php:1998
+#: lib/Form/Class.FormHandler.inc.php:2003
 msgid "BILLING POSTPAID"
 msgstr "Facturare Abonament"
 
-#: lib/Form/Class.FormHandler.inc.php:1999
+#: lib/Form/Class.FormHandler.inc.php:2004
 msgid "Invoice for POSTPAID"
 msgstr "Pactura pentru Abonament"
 
-#: lib/Form/Class.FormHandler.inc.php:2035
-#: lib/Form/Class.FormHandler.inc.php:2037
-#: lib/Form/Class.FormHandler.inc.php:2139
-#: lib/Form/Class.FormHandler.inc.php:2141
+#: lib/Form/Class.FormHandler.inc.php:2041
+#: lib/Form/Class.FormHandler.inc.php:2043
+#: lib/Form/Class.FormHandler.inc.php:2145
+#: lib/Form/Class.FormHandler.inc.php:2147
 msgid "REFILL"
 msgstr "Reincarca"
 
-#: lib/Form/Class.FormHandler.inc.php:2039
-#: lib/Form/Class.FormHandler.inc.php:2143 checkout_process.php:308
+#: lib/Form/Class.FormHandler.inc.php:2045
+#: lib/Form/Class.FormHandler.inc.php:2149 checkout_process.php:308
 msgid "Invoice for refill"
 msgstr "Factura pentru reincarcare"
 
-#: lib/Form/Class.FormHandler.inc.php:2177 checkout_process.php:343
+#: lib/Form/Class.FormHandler.inc.php:2183 checkout_process.php:343
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "Comision generat automat"
 
-#: lib/Form/Class.FormHandler.inc.php:2290
-#: lib/Form/Class.FormHandler.inc.php:2334
+#: lib/Form/Class.FormHandler.inc.php:2296
+#: lib/Form/Class.FormHandler.inc.php:2340
 msgid "Could not open buddy file"
 msgstr "NU pot deshide fisierul cu setari"
 
-#: lib/Form/Class.FormHandler.inc.php:2307
-#: lib/Form/Class.FormHandler.inc.php:2339
-#: lib/Form/Class.FormHandler.inc.php:2351
+#: lib/Form/Class.FormHandler.inc.php:2313
+#: lib/Form/Class.FormHandler.inc.php:2345
+#: lib/Form/Class.FormHandler.inc.php:2357
 msgid "Impossible to write to the file"
 msgstr "Imposibil sa scriu fisierul"
 
-#: lib/Form/Class.FormHandler.inc.php:2529
+#: lib/Form/Class.FormHandler.inc.php:2535
 #: CC_entity_edit_did_destination.php:200
 msgid "error deletion"
 msgstr "eroare la stergere"
 
-#: lib/Form/Class.FormHandler.inc.php:2656
+#: lib/Form/Class.FormHandler.inc.php:2662
 msgid "ERROR_DUPLICATION"
 msgstr " Eroare duplicat"
 
-#: lib/Form/Class.FormHandler.inc.php:2742
+#: lib/Form/Class.FormHandler.inc.php:2748
 msgid "Done"
 msgstr "Gata"
 
-#: lib/Form/Class.FormHandler.inc.php:2782
+#: lib/Form/Class.FormHandler.inc.php:2788
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2788
+#: lib/Form/Class.FormHandler.inc.php:2794
 msgid "Choose a call plan"
 msgstr "Alegeti Planul tarifar"
 
-#: lib/Form/Class.FormHandler.inc.php:2834
+#: lib/Form/Class.FormHandler.inc.php:2840
 msgid "THE CURRENT RATECARD"
 msgstr "GRUPA DE TARIFE"
 
-#: lib/Form/Class.FormHandler.inc.php:2845
+#: lib/Form/Class.FormHandler.inc.php:2851
 msgid "R A T E C A R D"
 msgstr "T A R I F E"
 
-#: lib/Form/Class.FormHandler.inc.php:2851
+#: lib/Form/Class.FormHandler.inc.php:2857
 msgid "Choose a ratecard"
 msgstr "Aegeti grupa de trarife"
 

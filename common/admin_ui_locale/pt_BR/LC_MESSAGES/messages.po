@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-23 20:10+0200\n"
+"POT-Creation-Date: 2009-07-25 01:20+0200\n"
 "PO-Revision-Date: 2009-05-13 16:30-0300\n"
 "Last-Translator: willian <willianmazzardo@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -1943,47 +1943,47 @@ msgstr "DELETAR RECARGA DE CARTÃO"
 msgid "CREATION AGENT REFILL"
 msgstr "CRIAÇÃO DA RECARGA DO AGENTE"
 
-#: lib/Form/Class.FormHandler.inc.php:1928
+#: lib/Form/Class.FormHandler.inc.php:1930
 msgid "SUMMARY OF CALLS"
 msgstr "SUMÁRIO DE LIGACÕES"
 
-#: lib/Form/Class.FormHandler.inc.php:1929
+#: lib/Form/Class.FormHandler.inc.php:1931
 msgid "Summary of the calls charged since the last billing"
 msgstr "Sumário de chamadas tarifadas desde a última bilhetagem."
 
-#: lib/Form/Class.FormHandler.inc.php:1947
+#: lib/Form/Class.FormHandler.inc.php:1949
 msgid "SUMMARY OF CHARGE"
 msgstr "Sumário de Cargas"
 
-#: lib/Form/Class.FormHandler.inc.php:1949
+#: lib/Form/Class.FormHandler.inc.php:1951
 msgid "Summary of the charge charged since the last billing."
 msgstr "Sumário de cargas tarifadas desde a última bilhetagem."
 
-#: lib/Form/Class.FormHandler.inc.php:1955
-#: lib/Form/Class.FormHandler.inc.php:1980
+#: lib/Form/Class.FormHandler.inc.php:1957
+#: lib/Form/Class.FormHandler.inc.php:1983
 msgid "CHARGE :"
 msgstr "TAXA :"
 
-#: lib/Form/Class.FormHandler.inc.php:1972
+#: lib/Form/Class.FormHandler.inc.php:1974
 msgid "BILLING CHARGES"
 msgstr "CARGAS DE FATURAMENTO"
 
-#: lib/Form/Class.FormHandler.inc.php:1973
+#: lib/Form/Class.FormHandler.inc.php:1975
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr "Esta fatura é para algumas cargas não pagas desde a última bilhetagem."
 
-#: lib/Form/Class.FormHandler.inc.php:1998
+#: lib/Form/Class.FormHandler.inc.php:2003
 msgid "BILLING POSTPAID"
 msgstr "COBRANCA PÓS-PAGA"
 
-#: lib/Form/Class.FormHandler.inc.php:1999
+#: lib/Form/Class.FormHandler.inc.php:2004
 msgid "Invoice for POSTPAID"
 msgstr "Faturas para PÓS-PAGO"
 
-#: lib/Form/Class.FormHandler.inc.php:2035
-#: lib/Form/Class.FormHandler.inc.php:2037
-#: lib/Form/Class.FormHandler.inc.php:2139
-#: lib/Form/Class.FormHandler.inc.php:2141
+#: lib/Form/Class.FormHandler.inc.php:2041
+#: lib/Form/Class.FormHandler.inc.php:2043
+#: lib/Form/Class.FormHandler.inc.php:2145
+#: lib/Form/Class.FormHandler.inc.php:2147
 #: Public/form_data/FG_var_payment_agent.inc:32
 #: Public/form_data/FG_var_payment.inc:30
 #: Public/form_data/FG_var_card_money.inc:30
@@ -1991,58 +1991,58 @@ msgstr "Faturas para PÓS-PAGO"
 msgid "REFILL"
 msgstr "REENCHER"
 
-#: lib/Form/Class.FormHandler.inc.php:2039
-#: lib/Form/Class.FormHandler.inc.php:2143
+#: lib/Form/Class.FormHandler.inc.php:2045
+#: lib/Form/Class.FormHandler.inc.php:2149
 msgid "Invoice for refill"
 msgstr "Invoice para a recarga"
 
-#: lib/Form/Class.FormHandler.inc.php:2177
+#: lib/Form/Class.FormHandler.inc.php:2183
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "COMISSÃO AUTOMATICAMENTE GERADA!"
 
-#: lib/Form/Class.FormHandler.inc.php:2290
-#: lib/Form/Class.FormHandler.inc.php:2334
+#: lib/Form/Class.FormHandler.inc.php:2296
+#: lib/Form/Class.FormHandler.inc.php:2340
 #: Public/A2B_entity_card_multi.php:177 Public/A2B_entity_card_multi.php:219
 msgid "Could not open buddy file"
 msgstr "Não foi possível abrir o arquivo de contatos"
 
-#: lib/Form/Class.FormHandler.inc.php:2307
-#: lib/Form/Class.FormHandler.inc.php:2339
-#: lib/Form/Class.FormHandler.inc.php:2351
+#: lib/Form/Class.FormHandler.inc.php:2313
+#: lib/Form/Class.FormHandler.inc.php:2345
+#: lib/Form/Class.FormHandler.inc.php:2357
 #: Public/A2B_entity_card_multi.php:196 Public/A2B_entity_card_multi.php:238
 #: Public/CC_generate_friend_file.php:81 Public/CC_generate_friend_file.php:94
 msgid "Impossible to write to the file"
 msgstr "Impossível escrever no arquivo"
 
-#: lib/Form/Class.FormHandler.inc.php:2529
+#: lib/Form/Class.FormHandler.inc.php:2535
 msgid "error deletion"
 msgstr "erro ao deletar"
 
-#: lib/Form/Class.FormHandler.inc.php:2656
+#: lib/Form/Class.FormHandler.inc.php:2662
 msgid "ERROR_DUPLICATION"
 msgstr "ERRO_NA_DUPLICAÇÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:2742
+#: lib/Form/Class.FormHandler.inc.php:2748
 msgid "Done"
 msgstr "Feito"
 
-#: lib/Form/Class.FormHandler.inc.php:2782
+#: lib/Form/Class.FormHandler.inc.php:2788
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2788
+#: lib/Form/Class.FormHandler.inc.php:2794
 msgid "Choose a call plan"
 msgstr "Escolha o plano de discagem"
 
-#: lib/Form/Class.FormHandler.inc.php:2834
+#: lib/Form/Class.FormHandler.inc.php:2840
 msgid "THE CURRENT RATECARD"
 msgstr "O ATUAL RATECARD"
 
-#: lib/Form/Class.FormHandler.inc.php:2845
+#: lib/Form/Class.FormHandler.inc.php:2851
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
-#: lib/Form/Class.FormHandler.inc.php:2851 Public/CC_ratecard_import.php:196
+#: lib/Form/Class.FormHandler.inc.php:2857 Public/CC_ratecard_import.php:196
 msgid "Choose a ratecard"
 msgstr "Escolha um ratecard"
 
@@ -2368,7 +2368,7 @@ msgstr "Escolha o número de vouchers para criar"
 msgid "Length of card number :"
 msgstr "Tamanho do número do cartão:"
 
-#: Public/A2B_entity_card_multi.php:317 Public/A2B_entity_card.php:492
+#: Public/A2B_entity_card_multi.php:317 Public/A2B_entity_card.php:493
 msgid "Digits"
 msgstr "Dígitos"
 
@@ -3413,7 +3413,7 @@ msgstr "ASSUNTO"
 msgid "MESSAGE"
 msgstr "MENSAGEM"
 
-#: Public/A2B_mass_mail.php:226 Public/form_data/FG_var_mailtemplate.inc:151
+#: Public/A2B_mass_mail.php:226
 msgid "The followings tags will be replaced in the message by the value in the database :"
 msgstr "A tag seguinte será substituida na mensagem pelo valor ndo banco de dados"
 
@@ -4357,7 +4357,7 @@ msgstr "MARGEM"
 msgid "MARKUP"
 msgstr "MARCAÇÃO"
 
-#: Public/A2B_card_info.php:45 Public/A2B_entity_card.php:518
+#: Public/A2B_card_info.php:45 Public/A2B_entity_card.php:519
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr "IR PARA A PÁGINA DO CLIENTE"
 
@@ -6082,7 +6082,7 @@ msgstr "GERAR O ADDITIONAL_A2BILLING_SIP.CONF"
 msgid "GENERATE ADDITIONAL_A2BILLING_IAX.CONF"
 msgstr "GERAR ADDITIONAL_A2BILLING_IAX.CONF"
 
-#: Public/A2B_entity_card.php:487
+#: Public/A2B_entity_card.php:488
 msgid "Change the Account Number Length"
 msgstr "Mudar o tamanho do número do cartão"
 
@@ -7741,8 +7741,8 @@ msgstr "Adicionar um novo modelo"
 
 #: Public/form_data/FG_var_mailtemplate.inc:152
 #, fuzzy
-msgid "Tags used by the credit notification cront :"
-msgstr "Atualmente, a periodicidade das notificações é"
+msgid "The followings tags will be replaced in the message by the value in the database."
+msgstr "A tag seguinte será substituida na mensagem pelo valor ndo banco de dados"
 
 #: Public/form_data/FG_var_call.inc:10
 #, fuzzy
@@ -10726,7 +10726,7 @@ msgstr "TOTAL DE COMPRA"
 msgid "TOTAL PROFIT"
 msgstr "TOTAL DE LUCRO"
 
-#: Public/PP_intro.php:54
+#: Public/PP_intro.php:49
 msgid "If you find A2Billing useful, please donate to the A2Billing project by clicking the Donate button :"
 msgstr "Se você achou o A2Billing útil, por favor faça uma doação para o projeto A2Billing clicando no botão Doação :"
 
@@ -10769,6 +10769,10 @@ msgstr "Continue para importar a Lita de Telefones"
 #: Public/CC_phonelist_import_analyse.php:307
 msgid "new phone number have been imported."
 msgstr "novo número de telefone foi importado."
+
+#, fuzzy
+#~ msgid "Tags used by the credit notification cront :"
+#~ msgstr "Atualmente, a periodicidade das notificações é"
 
 #~ msgid "A2Billing : CallingCard & VOIP Billing system"
 #~ msgstr "Asterisk2Billing : CallingCard & Sistema de Tarifação VOIP"
