@@ -195,7 +195,7 @@
 	  <TABLE cellspacing="0" class="editform_table8">
 		<tr>
 			<td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_ADITION_BOTTOM_TEXT?></span></td>
-			<td width="50%" align="right" class="text">
+                        <td width="50%" align="right" valign="top" class="text">
 				<a href="#" onClick="javascript:document.myForm.submit();" class="cssbutton_big"><IMG style="vertical-align:middle;" src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
 				<?php echo $this->FG_ADD_PAGE_CONFIRM_BUTTON; ?> </a>
 				<!--

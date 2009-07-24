@@ -199,58 +199,6 @@ function DbDisconnect($DBHandle)
 }
 
 
-function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessage,$attachmentfilename, $emailfilestream )
-{
-	$email_from = $emailfrom; 
-	$email_subject = $emailsubject;
-	$email_message = $emailmessage; 
-	
-	$email_to = $emailto;
-	$headers = "From: ".$email_from;
-	
-	$semi_rand = md5(time()); 
-	$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
-	   
-	$headers .= "\nMIME-Version: 1.0\n" . 
-				"Content-Type: multipart/mixed;\n" . 
-				" boundary=\"{$mime_boundary}\""; 
-	
-	$email_message .= "This is a multi-part message in MIME format.\n\n" . 
-					"--{$mime_boundary}\n" . 
-					"Content-Type:text/html; charset=\"iso-8859-1\"\n" . 
-					"Content-Transfer-Encoding: 7bit\n\n" . 
-	$email_message . "\n\n"; 
-	
-	$fileatt = "";           
-	$fileatt_type = "application/octet-stream"; 
-	$fileatt_name = $attachmentfilename;  
-	$stream = chunk_split(base64_encode($emailfilestream)); 
-	$email_message .= "--{$mime_boundary}\n" . 
-					  "Content-Type: {$fileatt_type};\n" . 
-					  " name=\"{$fileatt_name}\"\n" .                 
-					  "Content-Transfer-Encoding: base64\n\n" . 
-					 $stream . "\n\n" . 
-					  "--{$mime_boundary}\n"; 
-	unset($stream);
-	unset($file);
-	unset($fileatt);
-	unset($fileatt_type);
-	unset($fileatt_name);
-	
-	if (email_from != "" && PHP_VERSION >= "4.0") {
-		$old_from = ini_get("sendmail_from");
-		ini_set("sendmail_from", $email_from);
-	}
-
-	if (email_from != "" && PHP_VERSION >= "4.0.5") {
-		// The fifth parameter to mail is only available in PHP >= 4.0.5
-		$params = sprintf("-oi -f %s", $email_from);
-		$ok = @mail($email_to, $email_subject, $email_message, $headers, $params);
-	} else {
-		$ok = @mail($email_to, $email_subject, $email_message, $headers);
-	}
-	return $ok;
-}
 getpost_ifset(array('cssname'));
 	
 if(isset($cssname) && $cssname != "") {

@@ -784,7 +784,7 @@ function sendtolittle(direction){
 	  <TABLE cellspacing="0" class="editform_table8">
 		<tr>
 			<td width="50%"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
-			<td width="50%" align="right" class="text">
+                        <td width="50%" align="right" valign="top" class="text">
 			
 				<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
 				<?php echo $this->FG_EDIT_PAGE_CONFIRM_BUTTON; ?> </a>

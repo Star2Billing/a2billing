@@ -17,13 +17,13 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 
 
 $typemail_list = array();
-$typemail_list["reminder"]  		= array( gettext("Reminder"), "reminder");
-$typemail_list["signup"]    		= array( gettext("Signup"), "signup");
-$typemail_list["forgetpassword"]  	= array( gettext("Forget password"), "forgetpassword");
-$typemail_list["signupconfirmed"]  	= array( gettext("Signup confirmed"), "signupconfirmed");
-$typemail_list["payment"]  			= array( gettext("Payment Confirmation"), "payment");
-$typemail_list["invoice"]  			= array( gettext("Invoice"), "invoice");
-$typemail_list["epaymentverify"]  	= array( gettext("EPayment Warning"), "epaymentverify");
+$typemail_list["reminder"]  		= array( gettext("Reminder"), Mail::$TYPE_REMINDER);
+$typemail_list["signup"]    		= array( gettext("Signup"),  Mail::$TYPE_SIGNUP);
+$typemail_list["forgetpassword"]  	= array( gettext("Forget password"), Mail::$TYPE_FORGETPASSWORD);
+$typemail_list["signupconfirmed"]  	= array( gettext("Signup confirmed"), Mail::$TYPE_SIGNUPCONFIRM);
+$typemail_list["payment"]  			= array( gettext("Payment Confirmation"), Mail::$TYPE_PAYMENT);
+$typemail_list["invoice"]  			= array( gettext("Invoice"), Mail::$TYPE_INVOICE);
+$typemail_list["epaymentverify"]  	= array( gettext("EPayment Warning"), Mail::$TYPE_EPAYMENTVERIFY);
 $typemail_list["template1"] 		= array( gettext("template1"), "template1");
 $typemail_list["template2"] 		= array( gettext("template2"), "template2");
 $typemail_list["template3"] 		= array( gettext("template3"), "template3");
@@ -148,8 +148,23 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("The followings tags will be replaced in the message by the value in the database :")."<b>".'$email, $lastname, $firstname, $credit, $credit_currency, $currency, $cardnumber, $cardalias, $password, $loginkey, $base_currency'."</b>".
-											"<br/>".gettext("Tags used by the credit notification cront :")."<b> \$credit_notification ; \$credit_currency ; \$currency </b>";
+
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("The followings tags will be replaced in the message by the value in the database.");
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= 'Tags for EPayment Warning email: <br/> <b>$time$</b> : time of payment <br/><b>$paymentgateway$</b>: display payment gateway <br/><b>$itemAmount$</b>: amount of payment<br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= 'Tags for Payment email: <br/> <b>$itemName$</b>: name of item paid <br/> <b>$itemID$</b> : id of customer <br/> <b>$paymentMethod$</b> : methode of payment <br/> <b>$paymentStatus$</b> : status of payment <br/><b>$itemAmount$</b>: amount of payment';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= 'Tags used in all mails: <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$email$</b>: email of the customer <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$firstname$</b>: firstname of the customer <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$lastname$</b>: lastname of the customer <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=   '<b>$credit$</b>: credit of the customer in the system currency <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$creditcurrency$</b>: credit of the customer in the own currency <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$currency$</b>: currency of the customer <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$cardnumber$</b>: card number of the customer <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$password$</b>: password of the customer <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$login$</b>: login of the customer <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$credit_notification$</b>: credit notification of the customer <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=    '<b>$base_currency$</b>: base currency of system <br/>';
+$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT ;
 
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&languages=en&id=";

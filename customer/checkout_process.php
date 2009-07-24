@@ -422,7 +422,7 @@ if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]
             $mail = new Mail(Mail::$TYPE_PAYMENT,$id);
             write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
             $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY,$amount_paid);
-            $mail->replaceInEmail(Mail::$ITEM_ID_KEY,$customer_info[0]);
+            $mail->replaceInEmail(Mail::$ITEM_ID_KEY,$id_logrefill);
             $mail->replaceInEmail(Mail::$ITEM_NAME_KEY,'balance');
             $mail->replaceInEmail(Mail::$PAYMENT_METHOD_KEY,$pmodule);
             $mail->replaceInEmail(Mail::$PAYMENT_STATUS_KEY,$statusmessage);
