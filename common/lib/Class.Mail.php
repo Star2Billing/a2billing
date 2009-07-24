@@ -73,15 +73,14 @@ class Mail {
 				$this->from_email = $mail_tmpl['fromemail'];
 				$this->from_name = $mail_tmpl['fromname'];
 			} else {
-				throw new A2bMailException();
+				throw new A2bMailException("Template Type '$type' cannot be found into the database!");
 			}
 			//write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO EMAIL TEMPLATE FOUND TO SEND WARNING EMAIL TO ADMINISTRATOR FOR EPAYMENT VERIFICATION FAILURE");
-		}
-		elseif (!empty ($this->message) || !empty ($this->title)) {
+		} elseif (!empty ($msg) || !empty ($title)) {
 			$this->message = $msg;
 			$this->title = $title;
 		} else {
-			throw new A2bMailException();
+			throw new A2bMailException("Error : no Type defined and neither message or subject is provided!");
 		}
 
 		if (!empty ($this->message) || !empty ($this->title)) {
@@ -116,7 +115,6 @@ class Mail {
 				$this->replaceInEmail(self :: $CUSTOMER_CREDIT_NOTIFICATION, $card['credit_notification']);
 
 			}
-			$this->replaceInEmail(self :: $SYSTEM_CREDIT_NOTIFICATION, $currency);
 			$this->replaceInEmail(self :: $SYSTEM_CURRENCY, BASE_CURRENCY);
 		}
 	}

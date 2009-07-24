@@ -88,14 +88,14 @@ if(isset($submit)) {
 	
 	foreach ($list_customer as $cc_customer){
 		$id_card = $cc_customer[O];
-                try {
-                    $mail = new Mail(null,$id_card,null,$message,$subject);
-                    $mail ->setFromName($fromname);
-                    $mail ->setFromEmail($from);
-                    $result = true;
-                } catch (A2bMailException $e) {
-
-                }
+        try {
+            $mail = new Mail(null,$id_card,null,$message,$subject);
+            $mail ->setFromName($fromname);
+            $mail ->setFromEmail($from);
+            $result = true;
+        } catch (A2bMailException $e) {
+			echo $e;	
+        }
 		
 	}
 	
