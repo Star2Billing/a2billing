@@ -16,13 +16,13 @@ require_once('adodb/adodb.inc.php'); // AdoDB
 include_once (dirname(__FILE__)."/Class.Table.php");
 include_once (dirname(__FILE__)."/Class.Connection.php");
 
+// USE PHPMAILER
+include_once (FSROOT."lib/mail/class.phpmailer.php");
 // INCLUDE FILES
 include (FSROOT."lib/Misc.php");
 include (dirname(__FILE__)."/Class.NotificationsDAO.php");
 include (dirname(__FILE__)."/Class.Notification.php");
-
-// USE PHPMAILER
-include_once (FSROOT."lib/mail/class.phpmailer.php");
+include (dirname(__FILE__)."/Class.Mail.php");
 
 include (FSROOT."lib/Class.Logger.php");
 
