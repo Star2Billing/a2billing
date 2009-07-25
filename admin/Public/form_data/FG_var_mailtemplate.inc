@@ -150,9 +150,9 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("The followings tags will be replaced in the message by the value in the database.");
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= 'Tags for EPayment Warning email: <br/> <b>$time$</b> : time of payment <br/><b>$paymentgateway$</b>: display payment gateway <br/><b>$itemAmount$</b>: amount of payment<br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= 'Tags for Payment email: <br/> <b>$itemName$</b>: name of item paid <br/> <b>$itemID$</b> : id of customer <br/> <b>$paymentMethod$</b> : methode of payment <br/> <b>$paymentStatus$</b> : status of payment <br/><b>$itemAmount$</b>: amount of payment';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= 'Tags used in all mails: <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= gettext('Tags for EPayment Warning email').': <br/> <b>$time$</b> : time of payment <br/><b>$paymentgateway$</b>: display payment gateway <br/><b>$itemAmount$</b>: amount of payment<br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= gettext('Tags for Payment email').': <br/> <b>$itemName$</b>: name of item paid <br/> <b>$itemID$</b> : id of customer <br/> <b>$paymentMethod$</b> : methode of payment <br/> <b>$paymentStatus$</b> : status of payment <br/><b>$itemAmount$</b>: amount of payment<br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= gettext('Tags used in all emails').': <br/>';
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$email$</b>: email of the customer <br/>';
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$firstname$</b>: firstname of the customer <br/>';
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$lastname$</b>: lastname of the customer <br/>';
