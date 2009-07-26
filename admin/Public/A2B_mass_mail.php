@@ -87,15 +87,16 @@ if(isset($submit)) {
 	check_demo_mode();
 	
 	foreach ($list_customer as $cc_customer){
-		$id_card = $cc_customer[O];
-        try {
-            $mail = new Mail(null,$id_card,null,$message,$subject);
-            $mail ->setFromName($fromname);
-            $mail ->setFromEmail($from);
-            $result = true;
-        } catch (A2bMailException $e) {
-			echo $e;	
-        }
+		$id_card = $cc_customer[0];
+            try {
+                $mail = new Mail(null,$id_card,null,$message,$subject);
+                $mail ->setFromName($fromname);
+                $mail ->setFromEmail($from);
+                $mail ->send();
+                $result = true;
+            } catch (A2bMailException $e) {
+                echo $e->getMessage();
+            }
 		
 	}
 	
@@ -106,17 +107,17 @@ $smarty->display('main.tpl');
 echo $CC_help_mass_mail;
 
 $tags_help= gettext("The followings tags will be replaced in the message by the value in the database.");
-$tags_help .=  '<b>$email$</b>: email of the customer <br/>';
-$tags_help .= '<b>$firstname$</b>: firstname of the customer <br/>';
-$tags_help .=  '<b>$lastname$</b>: lastname of the customer <br/>';
-$tags_help .=   '<b>$credit$</b>: credit of the customer in the system currency <br/>';
-$tags_help .= '<b>$creditcurrency$</b>: credit of the customer in the own currency <br/>';
-$tags_help .= '<b>$currency$</b>: currency of the customer <br/>';
-$tags_help .= '<b>$cardnumber$</b>: card number of the customer <br/>';
-$tags_help .= '<b>$password$</b>: password of the customer <br/>';
-$tags_help .=  '<b>$login$</b>: login of the customer <br/>';
-$tags_help .=  '<b>$credit_notification$</b>: credit notification of the customer <br/>';
-$tags_help .=    '<b>$base_currency$</b>: base currency of system <br/>';
+$tags_help .=  '<br/><b>$email$</b>:'.gettext('email of the customer').'<br/>';
+$tags_help .= '<b>$firstname$</b>: '.gettext('firstname of the customer').' <br/>';
+$tags_help .=  '<b>$lastname$</b>: '.gettext('lastname of the customer').' <br/>';
+$tags_help .=   '<b>$credit$</b>: '.gettext('credit of the customer in the system currency').' <br/>';
+$tags_help .= '<b>$creditcurrency$</b>: '.gettext('credit of the customer in the own currency').' <br/>';
+$tags_help .= '<b>$currency$</b>: '.gettext('currency of the customer').' <br/>';
+$tags_help .= '<b>$cardnumber$</b>: '.gettext('card number of the customer').' <br/>';
+$tags_help .= '<b>$password$</b>: '.gettext('password of the customer').' <br/>';
+$tags_help .=  '<b>$login$</b>: '.gettext('login of the customer').' <br/>';
+$tags_help .=  '<b>$credit_notification$</b>: '.gettext('credit notification of the customer').' <br/>';
+$tags_help .=    '<b>$base_currency$</b>: '.gettext('base currency of system').' <br/>';
 
 
 if(!isset($submit)) {

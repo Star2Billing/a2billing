@@ -75,14 +75,12 @@ class Mail {
 			} else {
 				throw new A2bMailException("Template Type '$type' cannot be found into the database!");
 			}
-			//write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO EMAIL TEMPLATE FOUND TO SEND WARNING EMAIL TO ADMINISTRATOR FOR EPAYMENT VERIFICATION FAILURE");
 		} elseif (!empty ($msg) || !empty ($title)) {
 			$this->message = $msg;
 			$this->title = $title;
 		} else {
 			throw new A2bMailException("Error : no Type defined and neither message or subject is provided!");
 		}
-
 		if (!empty ($this->message) || !empty ($this->title)) {
 			if (!is_null($id_card) && is_numeric($id_card)) {
 				$this->id_card = $id_card;
@@ -169,10 +167,11 @@ class Mail {
 	}
 
 	function send($to_email = null) {
-		if (empty ($to_email))
+		if (empty ($to_email)){
+			a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);}
+		else{
 			a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);
-		else
-			a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);
+                }
 	}
 
 }
