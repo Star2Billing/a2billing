@@ -181,10 +181,11 @@ if (!isset($_SESSION)) {
 // Language Selection
 if (isset($language)) {
 	$_SESSION["language"] = $language;
+        setcookie  ("language",$language);
 } elseif (!isset($_SESSION["language"])) {
-	$_SESSION["language"]='english';
+       if(!isset($_COOKIE["language"])) $_SESSION["language"]='english';
+       else $_SESSION["language"]=$_COOKIE["language"];
 }
-
 define ("LANGUAGE",$_SESSION["language"]);
 define ("BINDTEXTDOMAIN", '../common/cust_ui_locale');
 require("languageSettings.php");

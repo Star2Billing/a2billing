@@ -10,6 +10,7 @@
 			   <link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
 			   <link href="templates/default/css/style-def.css" rel="stylesheet" type="text/css">
 		{/if}
+        <script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
@@ -65,7 +66,7 @@
                         </tr>
 			<tr align="right" >
                                 <td>
-                                    <select name="language"  id="some_language" class="icon-menu form_input_select">
+                                    <select name="language"  id="language" class="icon-menu form_input_select">
                                         <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/gb.gif);" value="english" {php} if(LANGUAGE=="english") echo "selected";{/php} >English</option>
                                         <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/br.gif);" value="brazilian" {php} if(LANGUAGE=="brazilian") echo "selected";{/php}>Brasileira</option>
                                         <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/es.gif);" value="spanish" {php} if(LANGUAGE=="spanish") echo "selected";{/php} >Español</option>Român
@@ -98,5 +99,9 @@
 {literal}
 <script LANGUAGE="JavaScript">
 	document.form.pr_login.focus();
+        $("#language").change(function () {
+          self.location.href= "index.php?language="+$("#language option:selected").val();
+        });
+
 </script>
 {/literal}

@@ -38,7 +38,6 @@ $_START_TIME = time();
 
 // The system will not log for Public/index.php and signup/index.php
 $URI = $_SERVER['REQUEST_URI'];
-$restircted_url = substr($URI,-16);
 
 // Enable UI Logger
 define ("ENABLE_LOG", 1);
@@ -47,7 +46,7 @@ $log = new Logger();
 
 
 // LOAD THE CONFIGURATION
-if (!($restircted_url == "Public/index.php")) {
+if (stripos($URI, "Public/index.php") === FALSE) {
 	$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
 	if (!$res_load_conf) exit;
 }
@@ -175,7 +174,6 @@ if (isset($language)) {
        if(!isset($_COOKIE["language"])) $_SESSION["language"]='english';
        else $_SESSION["language"]=$_COOKIE["language"];
 }
-echo $_SESSION["language"];
 // Open menu
 if (!empty($_GET["section"])) {
 	$section = $_GET["section"];
@@ -235,8 +233,7 @@ include (LIBDIR."common.defines.php");
 
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
 
-$restircted_url = substr($URI,-16);
-if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
+if((stripos($URI, "Public/index.php") === FALSE) && isset($_SESSION["admin_id"])) {
 	// Insert Log
 	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 	$log = null;

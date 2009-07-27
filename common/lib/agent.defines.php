@@ -206,8 +206,10 @@ if (!isset($_SESSION)) {
 // Language Selection
 if (isset($language)) {
 	$_SESSION["language"] = $language;
+        setcookie  ("language",$language);
 } elseif (!isset($_SESSION["language"])) {
-	$_SESSION["language"]='english';
+       if(!isset($_COOKIE["language"])) $_SESSION["language"]='english';
+       else $_SESSION["language"]=$_COOKIE["language"];
 }
 
 define ("LANGUAGE",$_SESSION["language"]);
@@ -272,8 +274,8 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 define ("EPAYMENT_PURCHASE_AMOUNT", isset($A2B->config['epayment_method']['purchase_amount_agent'])?$A2B->config['epayment_method']['purchase_amount_agent']:"100");
 
 $URI = $_SERVER['REQUEST_URI'];
-$restircted_url = substr($URI,-16);
-if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["agent_id"])) {
+
+if((stripos($URI, "Public/index.php") === FALSE)&& isset($_SESSION["agent_id"])) {
 	$log -> insertLogAgent($_SESSION["agent_id"], 1, "Page Visit", "Agent Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 $log = null;
 }
