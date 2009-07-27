@@ -46,6 +46,9 @@ prepaid-dollars									dollars
 prepaid-euro									euro
 prepaid-euros									euros
 prepaid-cents									cents
+prepaid-pound									pound
+prepaid-pounds									pounds
+prepaid-pence									pence
 vm-and											and
 
 ------ Voucher -------
