@@ -170,10 +170,12 @@ getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', '
 // Language Selection
 if (isset($language)) {
 	$_SESSION["language"] = $language;
+        setcookie  ("language",$language);
 } elseif (!isset($_SESSION["language"])) {
-	$_SESSION["language"]='english';
+       if(!isset($_COOKIE["language"])) $_SESSION["language"]='english';
+       else $_SESSION["language"]=$_COOKIE["language"];
 }
-
+echo $_SESSION["language"];
 // Open menu
 if (!empty($_GET["section"])) {
 	$section = $_GET["section"];

@@ -1,4 +1,8 @@
-
+select.icon-menu option {
+    background-repeat:no-repeat;
+    background-position:bottom left;
+    padding-left:30px;
+}
 a:link {
    	font-family: Arial,Verdana;
 	color: #005298;
