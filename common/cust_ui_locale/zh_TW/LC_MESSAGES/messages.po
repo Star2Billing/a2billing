@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-25 01:20+0200\n"
+"POT-Creation-Date: 2009-07-28 14:05+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -407,7 +407,7 @@ msgstr ""
 msgid "Username"
 msgstr "&#36755;&#20837;&#26032;&#21495;&#30721;"
 
-#: A2B_entity_sipiax_info.php:85 templates/default/index.tpl:60
+#: A2B_entity_sipiax_info.php:85 templates/default/index.tpl:61
 msgid "Password"
 msgstr ""
 
@@ -2519,36 +2519,36 @@ msgstr ""
 msgid "LOGOUT"
 msgstr "&#36864;&#20986;&#30331;&#24405;"
 
-#: templates/default/index.tpl:48
+#: templates/default/index.tpl:49
 #, fuzzy
 msgid "AUTHENTICATION"
 msgstr "&#34987;&#21483;&#30005;&#35805;&#21495;&#30721;"
 
-#: templates/default/index.tpl:56
+#: templates/default/index.tpl:57
 msgid "User"
 msgstr ""
 
-#: templates/default/index.tpl:71
+#: templates/default/index.tpl:97
 msgid "Forgot your password ?"
 msgstr ""
 
-#: templates/default/index.tpl:71 templates/default/index.tpl:74
+#: templates/default/index.tpl:97 templates/default/index.tpl:100
 msgid "Click here"
 msgstr ""
 
-#: templates/default/index.tpl:74
+#: templates/default/index.tpl:100
 msgid "To sign up"
 msgstr ""
 
-#: templates/default/index.tpl:83
+#: templates/default/index.tpl:109
 msgid "AUTHENTICATION REFUSED, please check your user/password!"
 msgstr ""
 
-#: templates/default/index.tpl:85
+#: templates/default/index.tpl:111
 msgid "INACTIVE ACCOUNT, Please activate your account!"
 msgstr ""
 
-#: templates/default/index.tpl:87
+#: templates/default/index.tpl:113
 msgid "BLOCKED ACCOUNT, Please contact the administrator!"
 msgstr ""
 

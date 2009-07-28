@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-25 01:20+0200\n"
+"POT-Creation-Date: 2009-07-28 14:04+0200\n"
 "PO-Revision-Date: 2009-06-05 14:23-0400\n"
 "Last-Translator: Arnold <arnoldkamba@live.fr>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -2152,7 +2152,7 @@ msgstr "NOVEMBRE"
 msgid "DECEMBER"
 msgstr "DECEMBRE"
 
-#: Public/card-history.php:163 Public/A2B_mass_mail.php:173
+#: Public/card-history.php:163 Public/A2B_mass_mail.php:188
 msgid "TO"
 msgstr "A"
 
@@ -2603,7 +2603,7 @@ msgstr "DESTINATION"
 msgid "PREFIX"
 msgstr "PREFIXE"
 
-#: Public/CC_ratecard_merging.php:199 Public/A2B_mass_mail.php:167
+#: Public/CC_ratecard_merging.php:199 Public/A2B_mass_mail.php:182
 msgid "Record(s)"
 msgstr "Enregistrement"
 
@@ -2971,7 +2971,7 @@ msgid "MACADDRESS"
 msgstr "ADRESSEMAC"
 
 #: Public/A2B_data_archiving.php:146 Public/A2B_mass_mail.php:54
-#: Public/A2B_mass_mail.php:231 Public/A2B_card_info.php:243
+#: Public/A2B_mass_mail.php:243 Public/A2B_card_info.php:243
 #: Public/A2B_agent_info.php:128 Public/A2B_admin_info.php:111
 #: Public/form_data/FG_var_user.inc:202 Public/form_data/FG_var_agent.inc:262
 #: Public/form_data/FG_var_card.inc:118 Public/form_data/FG_var_card.inc:198
@@ -3028,7 +3028,7 @@ msgstr "SELECTIONNER GROUPE"
 msgid "SELECT CURRENCY"
 msgstr "SELECTIONNER DEVISE"
 
-#: Public/A2B_data_archiving.php:189 Public/A2B_mass_mail.php:123
+#: Public/A2B_data_archiving.php:189 Public/A2B_mass_mail.php:138
 #: Public/A2B_entity_card.php:153
 msgid "SEARCH CUSTOMERS"
 msgstr "CHERCHER CLIENT"
@@ -3348,53 +3348,107 @@ msgstr "Date de création / Mois"
 msgid "Creation date / Day"
 msgstr "Date de création / Jour"
 
-#: Public/A2B_mass_mail.php:149
+#: Public/A2B_mass_mail.php:109 Public/form_data/FG_var_mailtemplate.inc:152
+#, fuzzy
+msgid "The followings tags will be replaced in the message by the value in the database."
+msgstr "Les étiquettes suivantes seront remplacées dans le message par les valeurs de la base de donnée :"
+
+#: Public/A2B_mass_mail.php:110
+#, fuzzy
+msgid "email of the customer"
+msgstr "AJOUTER ID APPELANT"
+
+#: Public/A2B_mass_mail.php:111
+#, fuzzy
+msgid "firstname of the customer"
+msgstr "Saisir le prénom des clients"
+
+#: Public/A2B_mass_mail.php:112
+#, fuzzy
+msgid "lastname of the customer"
+msgstr "Saisir le nom du client"
+
+#: Public/A2B_mass_mail.php:113
+msgid "credit of the customer in the system currency"
+msgstr ""
+
+#: Public/A2B_mass_mail.php:114
+msgid "credit of the customer in the own currency"
+msgstr ""
+
+#: Public/A2B_mass_mail.php:115
+#, fuzzy
+msgid "currency of the customer"
+msgstr "Devise utilisé sur la facture client."
+
+#: Public/A2B_mass_mail.php:116
+#, fuzzy
+msgid "card number of the customer"
+msgstr "Saisir le numero de fax des clients"
+
+#: Public/A2B_mass_mail.php:117
+#, fuzzy
+msgid "password of the customer"
+msgstr "Saisir l'ID du client"
+
+#: Public/A2B_mass_mail.php:118
+#, fuzzy
+msgid "login of the customer"
+msgstr "AJOUTER ID APPELANT"
+
+#: Public/A2B_mass_mail.php:119
+#, fuzzy
+msgid "credit notification of the customer"
+msgstr "Limite basse de crédit pour alerter le client"
+
+#: Public/A2B_mass_mail.php:120
+#, fuzzy
+msgid "base currency of system"
+msgstr "Devise : "
+
+#: Public/A2B_mass_mail.php:164
 msgid "The e-mail has been sent to "
 msgstr "Un mail d'activation a été envoyé &agrave;"
 
-#: Public/A2B_mass_mail.php:149
+#: Public/A2B_mass_mail.php:164
 msgid " customer(s)!"
 msgstr " client(s) !"
 
-#: Public/A2B_mass_mail.php:153
+#: Public/A2B_mass_mail.php:168
 msgid "There is some error sending e-mail, please try later."
 msgstr "Le syst&egrave;me, d'envoi de mail, rencontre des difficultés. Veuillez rééssayez ultérieurement."
 
-#: Public/A2B_mass_mail.php:163
+#: Public/A2B_mass_mail.php:178
 msgid "The mass mail tool is limited to 2000 mails. You can use the search module to send on different group of customer and overpass this limit."
 msgstr "L'outil d'envoi massif de mail est limité &agrave 2000 mails. Vous pouvez utilisé le module de recherche pour faire vos envoi par groupe, et ainsi outrepasser cette limite."
 
-#: Public/A2B_mass_mail.php:184
+#: Public/A2B_mass_mail.php:199
 msgid "Click on list customer to see them all"
 msgstr "Cliquer sur la liste des client pour tous les voir"
 
-#: Public/A2B_mass_mail.php:196
+#: Public/A2B_mass_mail.php:211
 msgid ">LOAD TEMPLATE<"
 msgstr ">CHARGER MODELE<"
 
-#: Public/A2B_mass_mail.php:200
+#: Public/A2B_mass_mail.php:215
 msgid "EMAIL FROM"
 msgstr "ADRESSE EMAIL EXPEDITEUR"
 
-#: Public/A2B_mass_mail.php:206 Public/form_data/FG_var_mailtemplate.inc:100
+#: Public/A2B_mass_mail.php:221 Public/form_data/FG_var_mailtemplate.inc:100
 msgid "FROM NAME"
 msgstr "NOM EXPEDITEUR"
 
-#: Public/A2B_mass_mail.php:212 Public/A2B_notification.php:111
+#: Public/A2B_mass_mail.php:227 Public/A2B_notification.php:111
 #: Public/form_data/FG_var_mailtemplate.inc:43
 #: Public/form_data/FG_var_mailtemplate.inc:108
 msgid "SUBJECT"
 msgstr "OBJET"
 
-#: Public/A2B_mass_mail.php:218
+#: Public/A2B_mass_mail.php:233
 msgid "MESSAGE"
 msgstr ""
 
-#: Public/A2B_mass_mail.php:226
-msgid "The followings tags will be replaced in the message by the value in the database :"
-msgstr "Les étiquettes suivantes seront remplacées dans le message par les valeurs de la base de donnée :"
-
-#: Public/A2B_mass_mail.php:235
+#: Public/A2B_mass_mail.php:250
 msgid "No Record Found!"
 msgstr "Pas de d'enregistrement trouvées !!!"
 
@@ -5646,30 +5700,30 @@ msgstr "* Editeur de Config"
 msgid "Asterisk GUI"
 msgstr ""
 
-#: Public/templates/default/index.tpl:48
+#: Public/templates/default/index.tpl:49
 #, fuzzy
 msgid "AUTHENTICATION"
 msgstr "NOTIFICATION"
 
-#: Public/templates/default/index.tpl:56
+#: Public/templates/default/index.tpl:57
 #, fuzzy
 msgid "User"
 msgstr "En cours d'utilisation"
 
-#: Public/templates/default/index.tpl:60
+#: Public/templates/default/index.tpl:61
 #, fuzzy
 msgid "Password"
 msgstr "Ancien Mot de Passe"
 
-#: Public/templates/default/index.tpl:77
+#: Public/templates/default/index.tpl:90
 msgid "AUTHENTICATION REFUSED, please check your user/password!"
 msgstr ""
 
-#: Public/templates/default/index.tpl:79
+#: Public/templates/default/index.tpl:92
 msgid "INACTIVE ACCOUNT, Please activate your account!"
 msgstr ""
 
-#: Public/templates/default/index.tpl:81
+#: Public/templates/default/index.tpl:94
 msgid "BLOCKED ACCOUNT, Please contact the administrator!"
 msgstr ""
 
@@ -7671,11 +7725,6 @@ msgstr "Modifier le contenu du mod&egrave;le d'email en dessous."
 #: Public/form_data/FG_var_mailtemplate.inc:146
 msgid "Add a new mail template"
 msgstr "Ajouter un nouveau mod&egrave;le de mail"
-
-#: Public/form_data/FG_var_mailtemplate.inc:152
-#, fuzzy
-msgid "The followings tags will be replaced in the message by the value in the database."
-msgstr "Les étiquettes suivantes seront remplacées dans le message par les valeurs de la base de donnée :"
 
 #: Public/form_data/FG_var_call.inc:10
 msgid "CALLEDSTATION"
@@ -10644,6 +10693,9 @@ msgstr "Continuer &agrave; Importer la liste de téléphone"
 #: Public/CC_phonelist_import_analyse.php:307
 msgid "new phone number have been imported."
 msgstr "nouveau numero de telephone a ete importé"
+
+#~ msgid "The followings tags will be replaced in the message by the value in the database :"
+#~ msgstr "Les étiquettes suivantes seront remplacées dans le message par les valeurs de la base de donnée :"
 
 #~ msgid "Tags used by the credit notification cront :"
 #~ msgstr "Etiquettes utilisé par le syst&egrave;me de notification de crédit :"

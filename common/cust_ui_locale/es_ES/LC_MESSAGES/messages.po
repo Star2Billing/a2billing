@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-25 01:20+0200\n"
+"POT-Creation-Date: 2009-07-28 14:05+0200\n"
 "PO-Revision-Date: 2009-04-23 16:29-0400\n"
 "Last-Translator: Ivan Žilić Schmidt <ivan@zilic.net>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -398,7 +398,7 @@ msgstr "SIP"
 msgid "Username"
 msgstr "Nombre"
 
-#: A2B_entity_sipiax_info.php:85 templates/default/index.tpl:60
+#: A2B_entity_sipiax_info.php:85 templates/default/index.tpl:61
 #, fuzzy
 msgid "Password"
 msgstr "Contraseña antigua"
@@ -2462,37 +2462,37 @@ msgstr "Importar Lista de teléfonos"
 msgid "LOGOUT"
 msgstr "CERRAR SESIÓN"
 
-#: templates/default/index.tpl:48
+#: templates/default/index.tpl:49
 #, fuzzy
 msgid "AUTHENTICATION"
 msgstr "NOTIFICACION"
 
-#: templates/default/index.tpl:56
+#: templates/default/index.tpl:57
 msgid "User"
 msgstr ""
 
-#: templates/default/index.tpl:71
+#: templates/default/index.tpl:97
 #, fuzzy
 msgid "Forgot your password ?"
 msgstr "Olvidó la contraseña?"
 
-#: templates/default/index.tpl:71 templates/default/index.tpl:74
+#: templates/default/index.tpl:97 templates/default/index.tpl:100
 msgid "Click here"
 msgstr ""
 
-#: templates/default/index.tpl:74
+#: templates/default/index.tpl:100
 msgid "To sign up"
 msgstr ""
 
-#: templates/default/index.tpl:83
+#: templates/default/index.tpl:109
 msgid "AUTHENTICATION REFUSED, please check your user/password!"
 msgstr ""
 
-#: templates/default/index.tpl:85
+#: templates/default/index.tpl:111
 msgid "INACTIVE ACCOUNT, Please activate your account!"
 msgstr ""
 
-#: templates/default/index.tpl:87
+#: templates/default/index.tpl:113
 msgid "BLOCKED ACCOUNT, Please contact the administrator!"
 msgstr ""
 
