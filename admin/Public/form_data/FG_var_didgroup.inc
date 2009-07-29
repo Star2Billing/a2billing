@@ -30,7 +30,7 @@ $HD_Form -> AddViewElement(gettext("NAME"), "didgroupname", "20%", "center", "so
 $HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "20%", "center", "sort", "30", "", "", "", "", "display_dateformat");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id, didgroupname, creationdate ,connection_charge ,selling_rate');
+$HD_Form -> FieldViewElement ('id, didgroupname, creationdate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
