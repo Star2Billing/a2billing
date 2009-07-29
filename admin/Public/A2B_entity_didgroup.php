@@ -11,27 +11,19 @@ if (! has_rights (ACX_DID)){
 	   die();	   
 }
 
-
-
-/***********************************************************************************/
-
 $HD_Form -> setDBHandler (DbConnect());
 
-
 $HD_Form -> init();
-
 
 if ($id!="" || !is_null($id)){	
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
-
 
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 
 $list = $HD_Form -> perform_action($form_action);
-
 
 
 // #### HEADER SECTION
@@ -57,5 +49,3 @@ $smarty->display('footer.tpl');
 
 
 
-
-?>

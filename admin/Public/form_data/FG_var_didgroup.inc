@@ -28,8 +28,7 @@ $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this DID G
 $HD_Form -> AddViewElement(gettext("ID"), "id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "didgroupname", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "20%", "center", "sort", "30", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement("CONNECT CHARGE", "connection_charge", "15%", "center", "sort");
-$HD_Form -> AddViewElement("SELLING RATE", "selling_rate", "15%", "center", "sort");
+
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('id, didgroupname, creationdate ,connection_charge ,selling_rate');
 
@@ -52,25 +51,6 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	gettext("Insert the Did group name "),
 	"" , "", "", "", "" , "" , "" , "");
 
-$HD_Form -> AddEditElement(gettext("CONNECT CHARGE"),
-   "connection_charge",
-   '$value',
-   "INPUT",
-   "size=30 maxlength=20",
-   "12",
-   gettext("Insert the connect charge"),
-   "" , "", "",	"", "", "" , "NO", gettext("Apply a connection charge to connect DID together"));
-
-$HD_Form -> AddEditElement(gettext("SELLING RATE"),
-   "selling_rate",
-   '$value',
-   "INPUT",
-   "size=30 maxlength=20",
-   "12",
-   gettext("Insert the rate"),
-   "" , "", "",	"", "" , "", "", gettext("The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"), null, null, gettext("Define the selling cost for customers."));
-
-
 $HD_Form -> FieldEditElement ('didgroupname');
 
 
@@ -87,8 +67,8 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 
-
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
 
