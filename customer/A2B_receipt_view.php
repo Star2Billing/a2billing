@@ -223,6 +223,7 @@ if(!$popup_select){
     </tr> 
   </tfoot>
   </table></div>
-
+<?php
+$smarty->display('footer.tpl');
 
 

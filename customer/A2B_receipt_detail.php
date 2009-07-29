@@ -127,3 +127,4 @@ function amount_convert($amount){
 
 
 
+<?php $smarty->display('profiler.tpl');

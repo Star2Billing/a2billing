@@ -48,11 +48,4 @@ $smarty->display('footer.tpl');
 
 ?>
 
-<script type="text/javascript">	
-$(document).ready(function () {
-	$('.lock').click(function () {
-			alert(this.id);
-	        });
-});
-</script>
 

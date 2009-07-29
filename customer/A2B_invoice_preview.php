@@ -180,5 +180,7 @@ if(!$popup_select) {
   </tbody>
   </table></div>
 
-
+<?php
+// #### FOOTER SECTION
+$smarty->display('footer.tpl');
 

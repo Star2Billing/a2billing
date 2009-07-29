@@ -12,7 +12,7 @@
 	</div>
 	
 	<br><br>
-	
+{include file="profiler.tpl"}
 	{php} 
 		global $profiler;
 		global $G_instance_Query_trace;

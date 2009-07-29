@@ -263,4 +263,5 @@ if(!$popup_select){
   </table></div>
 
 
-
+<?php
+$smarty->display('footer.tpl');
