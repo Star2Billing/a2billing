@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-29 18:37+0200\n"
+"POT-Creation-Date: 2009-07-30 01:41+0200\n"
 "PO-Revision-Date: 2009-06-05 14:23-0400\n"
 "Last-Translator: Arnold <arnoldkamba@live.fr>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -588,24 +588,24 @@ msgstr "PAS DE REMISE"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Longueur de carte incorrecte définie dans la configuration."
 
-#: lib/Class.A2Billing.php:2960
+#: lib/Class.A2Billing.php:2958
 msgid "Error : Authentication Failed !!!"
 msgstr "Erreur: Echec Authentification !!!"
 
-#: lib/Class.A2Billing.php:3000
+#: lib/Class.A2Billing.php:2998
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erreur : crédit insuffisant pour émettre un appel !!!"
 
-#: lib/Class.A2Billing.php:3006
+#: lib/Class.A2Billing.php:3004
 msgid "Error : Card is not active!!!"
 msgstr "Erreur : Carte non active !!!"
 
-#: lib/Class.A2Billing.php:3012
+#: lib/Class.A2Billing.php:3010
 msgid "Error : Card is actually in use!!!"
 msgstr "Erreur : Carte en cours d'utilisation !!!"
 
-#: lib/Class.A2Billing.php:3021 lib/Class.A2Billing.php:3029
-#: lib/Class.A2Billing.php:3037
+#: lib/Class.A2Billing.php:3019 lib/Class.A2Billing.php:3027
+#: lib/Class.A2Billing.php:3035
 msgid "Error : Card have expired!!!"
 msgstr "Erreur : Carte expirée !!!"
 
@@ -1358,12 +1358,12 @@ msgid "GO"
 msgstr "GO"
 
 #: lib/Form/Class.ViewHandler.inc.php:657 Public/call-dnid.php:938
-#: Public/call-log-customers.php:1364
+#: Public/call-log-customers.php:1340
 msgid "Export CSV"
 msgstr "Exporter CSV"
 
 #: lib/Form/Class.ViewHandler.inc.php:661 Public/call-dnid.php:940
-#: Public/call-log-customers.php:1366
+#: Public/call-log-customers.php:1342
 msgid "Export XML"
 msgstr "Exporter XML"
 
@@ -1592,7 +1592,7 @@ msgstr "Vous pouvez modifer &agrave l'aide du tableau suivant, les spécificité
 #: Public/form_data/FG_var_alarm.inc:149
 #: Public/form_data/FG_var_charge.inc:145
 #: Public/form_data/FG_var_trunk.inc:207
-#: Public/form_data/FG_var_didgroup.inc:78
+#: Public/form_data/FG_var_didgroup.inc:58
 #: Public/form_data/FG_var_speeddial.inc:104
 #: Public/form_data/FG_var_transactions.inc:51
 #: Public/form_data/FG_var_subscription.inc:101
@@ -1761,7 +1761,7 @@ msgstr "maintenant."
 #: Public/form_data/FG_var_call.inc:111 Public/form_data/FG_var_alarm.inc:154
 #: Public/form_data/FG_var_charge.inc:150
 #: Public/form_data/FG_var_trunk.inc:211
-#: Public/form_data/FG_var_didgroup.inc:83
+#: Public/form_data/FG_var_didgroup.inc:63
 #: Public/form_data/FG_var_speeddial.inc:108
 #: Public/form_data/FG_var_subscription.inc:106
 #: Public/form_data/FG_var_callback.inc:277
@@ -2070,7 +2070,7 @@ msgstr "AJOUTER ID APPELANT"
 #: Public/call-dnid.php:362 Public/call-dnid.php:834
 #: Public/call-count-reporting.php:171 Public/call-daily-load.php:336
 #: Public/call-log-customers.php:412 Public/call-log-customers.php:1185
-#: Public/A2B_notification.php:105 Public/form_data/FG_var_phonenumber.inc:27
+#: Public/A2B_notification.php:107 Public/form_data/FG_var_phonenumber.inc:27
 #: Public/form_data/FG_var_user.inc:72 Public/form_data/FG_var_receipt.inc:53
 #: Public/form_data/FG_var_invoice.inc:62
 #: Public/form_data/FG_var_charge.inc:40
@@ -2088,7 +2088,7 @@ msgstr "AJOUTER ID APPELANT"
 msgid "DATE"
 msgstr "DATE"
 
-#: Public/card-history.php:133 Public/A2B_notification.php:108
+#: Public/card-history.php:133 Public/A2B_notification.php:110
 msgid "FROM"
 msgstr "DE"
 
@@ -3438,7 +3438,7 @@ msgstr "ADRESSE EMAIL EXPEDITEUR"
 msgid "FROM NAME"
 msgstr "NOM EXPEDITEUR"
 
-#: Public/A2B_mass_mail.php:227 Public/A2B_notification.php:111
+#: Public/A2B_mass_mail.php:227 Public/A2B_notification.php:113
 #: Public/form_data/FG_var_mailtemplate.inc:43
 #: Public/form_data/FG_var_mailtemplate.inc:108
 msgid "SUBJECT"
@@ -3634,13 +3634,13 @@ msgid "Stat Graph"
 msgstr "Graph Stat"
 
 #: Public/call-last-month.php:282 Public/call-dnid.php:842
-#: Public/call-log-customers.php:1215
+#: Public/call-log-customers.php:1196
 msgid "PROFIT"
 msgstr "BENEFICE"
 
 #: Public/call-last-month.php:288 Public/call-dnid.php:840
 #: Public/A2B_card_info.php:567 Public/call-count-reporting.php:520
-#: Public/call-log-customers.php:1209
+#: Public/call-log-customers.php:1194
 msgid "SELL"
 msgstr "VENDRE"
 
@@ -4012,7 +4012,7 @@ msgstr ""
 #: Public/A2B_detail_package.php:613 Public/A2B_detail_package.php:673
 #: Public/call-dnid.php:918 Public/call-count-reporting.php:492
 #: Public/call-daily-load.php:321 Public/call-daily-load.php:375
-#: Public/call-log-customers.php:1328 Public/call-comp.php:391
+#: Public/call-log-customers.php:1304 Public/call-comp.php:391
 #: Public/call-comp.php:468 Public/A2B_receipt_edit.php:164
 msgid "TOTAL"
 msgstr "TOTAL"
@@ -4029,7 +4029,7 @@ msgid "DURATION"
 msgstr "DUREE"
 
 #: Public/A2B_detail_package.php:630 Public/call-dnid.php:836
-#: Public/call-daily-load.php:338 Public/call-log-customers.php:1191
+#: Public/call-daily-load.php:338 Public/call-log-customers.php:1188
 #: Public/call-comp.php:408
 msgid "GRAPHIC"
 msgstr "GRAPHIQUE"
@@ -4040,7 +4040,7 @@ msgstr "EFFECTUÉ"
 
 #: Public/A2B_detail_package.php:685 Public/call-dnid.php:945
 #: Public/call-count-reporting.php:533 Public/call-daily-load.php:450
-#: Public/call-log-customers.php:1370 Public/call-comp.php:486
+#: Public/call-log-customers.php:1346 Public/call-comp.php:486
 msgid "No calls in your selection"
 msgstr "Aucun appel dans votre sélection"
 
@@ -4340,42 +4340,42 @@ msgstr "Nombre d'Appels"
 msgid "TRAFFIC SUMMARY"
 msgstr "TOTAL DES APPELS"
 
-#: Public/call-dnid.php:835 Public/call-log-customers.php:1188
+#: Public/call-dnid.php:835 Public/call-log-customers.php:1187
 msgid "DUR"
 msgstr ""
 
 #: Public/call-dnid.php:837 Public/call-count-reporting.php:518
-#: Public/call-daily-load.php:339 Public/call-log-customers.php:1194
+#: Public/call-daily-load.php:339 Public/call-log-customers.php:1189
 #: Public/call-comp.php:409
 msgid "CALLS"
 msgstr "APPELS"
 
-#: Public/call-dnid.php:838 Public/call-log-customers.php:1198
+#: Public/call-dnid.php:838 Public/call-log-customers.php:1191
 msgid "AVERAGE LENGTH OF CALL"
 msgstr "DUREE MOYENNE APPEL"
 
-#: Public/call-dnid.php:838 Public/call-log-customers.php:1200
+#: Public/call-dnid.php:838 Public/call-log-customers.php:1191
 msgid "ALOC"
 msgstr "DMA"
 
-#: Public/call-dnid.php:839 Public/call-log-customers.php:1204
+#: Public/call-dnid.php:839 Public/call-log-customers.php:1193
 msgid "ANSWER SEIZE RATIO"
 msgstr "RATIO DES REPONSE SAISIE"
 
-#: Public/call-dnid.php:839 Public/call-log-customers.php:1206
+#: Public/call-dnid.php:839 Public/call-log-customers.php:1193
 msgid "ASR"
 msgstr "RRS"
 
 #: Public/call-dnid.php:841 Public/A2B_card_info.php:564
-#: Public/call-count-reporting.php:521 Public/call-log-customers.php:1212
+#: Public/call-count-reporting.php:521 Public/call-log-customers.php:1195
 msgid "BUY"
 msgstr "ACHETER"
 
-#: Public/call-dnid.php:843 Public/call-log-customers.php:1218
+#: Public/call-dnid.php:843 Public/call-log-customers.php:1197
 msgid "MARGIN"
 msgstr "MARGE"
 
-#: Public/call-dnid.php:844 Public/call-log-customers.php:1221
+#: Public/call-dnid.php:844 Public/call-log-customers.php:1198
 msgid "MARKUP"
 msgstr "MARQUER"
 
@@ -5926,7 +5926,7 @@ msgstr "INFO ADMIN"
 #: Public/form_data/FG_var_tariffgroup.inc:79
 #: Public/form_data/FG_var_alarm.inc:36 Public/form_data/FG_var_alarm.inc:72
 #: Public/form_data/FG_var_didgroup.inc:29
-#: Public/form_data/FG_var_didgroup.inc:46
+#: Public/form_data/FG_var_didgroup.inc:45
 #: Public/form_data/FG_var_speeddial.inc:28
 #: Public/form_data/FG_var_speeddial.inc:56
 #: Public/form_data/FG_var_transactions.inc:15
@@ -6148,15 +6148,15 @@ msgstr "Charger une sauvegarde de la base de données."
 msgid "Statistic : Load by hours"
 msgstr "Statistique : Chargement par heures"
 
-#: Public/A2B_notification.php:93 Public/A2B_notification.php:168
+#: Public/A2B_notification.php:93 Public/A2B_notification.php:170
 msgid "Newer"
 msgstr "Plus récente"
 
-#: Public/A2B_notification.php:99 Public/A2B_notification.php:174
+#: Public/A2B_notification.php:100 Public/A2B_notification.php:177
 msgid "Older"
 msgstr "Plus vieille"
 
-#: Public/A2B_notification.php:114 Public/form_data/FG_var_callback.inc:169
+#: Public/A2B_notification.php:116 Public/form_data/FG_var_callback.inc:169
 #: Public/form_data/FG_var_ticket_agent.inc:40
 #: Public/form_data/FG_var_ticket_agent.inc:102
 #: Public/form_data/FG_var_ticket.inc:47
@@ -6165,15 +6165,15 @@ msgstr "Plus vieille"
 msgid "PRIORITY"
 msgstr "PRIORITÉ"
 
-#: Public/A2B_notification.php:156
+#: Public/A2B_notification.php:158
 msgid "Delete this Notification"
 msgstr "Effacer cette Notification"
 
-#: Public/A2B_notification.php:187
+#: Public/A2B_notification.php:191
 msgid "No Notifications"
 msgstr "Aucune Notifications"
 
-#: Public/A2B_notification.php:211
+#: Public/A2B_notification.php:215
 msgid "Do you want delete this notification ?"
 msgstr "Souhaitez-vous supprimer cette notifications ?"
 
@@ -6363,7 +6363,7 @@ msgstr "Inserer la description"
 #: Public/form_data/FG_var_tariffgroup.inc:154
 #: Public/form_data/FG_var_alarm.inc:158
 #: Public/form_data/FG_var_charge.inc:154
-#: Public/form_data/FG_var_didgroup.inc:87
+#: Public/form_data/FG_var_didgroup.inc:67
 #: Public/form_data/FG_var_subscription.inc:110
 #: Public/form_data/FG_var_did.inc:195 Public/form_data/FG_var_service.inc:228
 #: Public/form_data/FG_var_card_seria.inc:75
@@ -6454,7 +6454,7 @@ msgstr "Saisir la description"
 #: Public/form_data/FG_var_alarm.inc:149
 #: Public/form_data/FG_var_charge.inc:145
 #: Public/form_data/FG_var_trunk.inc:207
-#: Public/form_data/FG_var_didgroup.inc:78
+#: Public/form_data/FG_var_didgroup.inc:58
 #: Public/form_data/FG_var_speeddial.inc:104
 #: Public/form_data/FG_var_transactions.inc:51
 #: Public/form_data/FG_var_subscription.inc:101
@@ -6511,7 +6511,7 @@ msgstr "Ajouter $HD_Form->FG_INSTANCE_NAME."
 #: Public/form_data/FG_var_mailtemplate.inc:147
 #: Public/form_data/FG_var_call.inc:111 Public/form_data/FG_var_charge.inc:150
 #: Public/form_data/FG_var_trunk.inc:211
-#: Public/form_data/FG_var_didgroup.inc:83
+#: Public/form_data/FG_var_didgroup.inc:63
 #: Public/form_data/FG_var_speeddial.inc:108
 #: Public/form_data/FG_var_subscription.inc:106
 #: Public/form_data/FG_var_callback.inc:277
@@ -7212,7 +7212,7 @@ msgstr "PREFIXE IDA"
 #: Public/form_data/FG_var_support_component.inc:42
 #: Public/form_data/FG_var_package.inc:40
 #: Public/form_data/FG_var_tariffgroup.inc:51
-#: Public/form_data/FG_var_didgroup.inc:37
+#: Public/form_data/FG_var_didgroup.inc:36
 #: Public/form_data/FG_var_service.inc:66
 #: Public/form_data/FG_var_moneysituation_details.inc:37
 #: Public/form_data/FG_var_server_group.inc:24
@@ -7233,7 +7233,7 @@ msgstr "L N'Y A PAS"
 #: Public/form_data/FG_var_support_component.inc:42
 #: Public/form_data/FG_var_package.inc:40
 #: Public/form_data/FG_var_tariffgroup.inc:51
-#: Public/form_data/FG_var_didgroup.inc:37
+#: Public/form_data/FG_var_didgroup.inc:36
 #: Public/form_data/FG_var_transactions.inc:28
 #: Public/form_data/FG_var_transactions_agent.inc:28
 #: Public/form_data/FG_var_service.inc:66
@@ -8043,52 +8043,16 @@ msgstr "Ajouter GROUPE de SDA"
 msgid "You have some cards using this DID Group! Please comfirm that you really want to remove this DID Group ? "
 msgstr "Certaines fiches utilisent ce Groupe de SDA ! Souhaitez-vous vraiment supprimer ce Groupe de SDA ?"
 
-#: Public/form_data/FG_var_didgroup.inc:52
+#: Public/form_data/FG_var_didgroup.inc:51
 msgid "Insert the Did group name "
 msgstr "Saisir le nom du Groupe de SDA "
 
-#: Public/form_data/FG_var_didgroup.inc:55 Public/form_data/FG_var_did.inc:155
-#: Public/form_data/FG_var_def_ratecard.inc:251
-msgid "CONNECT CHARGE"
-msgstr "FRAIS DE CONNECTION"
-
-#: Public/form_data/FG_var_didgroup.inc:61 Public/form_data/FG_var_did.inc:161
-#: Public/form_data/FG_var_def_ratecard.inc:257
-msgid "Insert the connect charge"
-msgstr "Saisir les frais de connection"
-
-#: Public/form_data/FG_var_didgroup.inc:62 Public/form_data/FG_var_did.inc:162
-#, fuzzy
-msgid "Apply a connection charge to connect DID together"
-msgstr "Appliquer des frais de connection"
-
-#: Public/form_data/FG_var_didgroup.inc:64 Public/form_data/FG_var_did.inc:36
-#: Public/form_data/FG_var_did.inc:164
-#: Public/form_data/FG_var_def_ratecard.inc:222
-msgid "SELLING RATE"
-msgstr "PRIX DE VENTE"
-
-#: Public/form_data/FG_var_didgroup.inc:70 Public/form_data/FG_var_did.inc:170
-#, fuzzy
-msgid "Insert the rate"
-msgstr "Insérez la région"
-
-#: Public/form_data/FG_var_didgroup.inc:71 Public/form_data/FG_var_did.inc:171
-#, fuzzy
-msgid "The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"
-msgstr "Le prix de vente au détail ou le co&ucirc;t par minute &agrave appliquer au client, p.e. 0.02"
-
-#: Public/form_data/FG_var_didgroup.inc:71 Public/form_data/FG_var_did.inc:152
-#: Public/form_data/FG_var_def_ratecard.inc:229
-msgid "Define the selling cost for customers."
-msgstr "Définissez le prix de vente pour les clients."
-
-#: Public/form_data/FG_var_didgroup.inc:77
+#: Public/form_data/FG_var_didgroup.inc:57
 #: Public/form_data/FG_var_outbound_cidgroup.php:63
 msgid "Modify the properties of the DID Group"
 msgstr "Modifier les propriétées du Groupe de SDA"
 
-#: Public/form_data/FG_var_didgroup.inc:79
+#: Public/form_data/FG_var_didgroup.inc:59
 msgid "you can add easily a new $HD_Form->FG_INSTANCE_NAME.<br>Fill the following fields and confirm by clicking on the button add."
 msgstr "vous pouvez ajouter facilement un nouveau $HD_Form->FG_INSTANCE_NAME.<br> Remplissez les champs suivants et confirmez en cliquant sur le bouton ajouter."
 
@@ -8474,6 +8438,11 @@ msgstr "TARIF MENSUEL"
 msgid "MR"
 msgstr "TM"
 
+#: Public/form_data/FG_var_did.inc:36 Public/form_data/FG_var_did.inc:164
+#: Public/form_data/FG_var_def_ratecard.inc:222
+msgid "SELLING RATE"
+msgstr "PRIX DE VENTE"
+
 #: Public/form_data/FG_var_did.inc:36
 #: Public/form_data/FG_var_def_ratecard.inc:97
 msgid "SR"
@@ -8496,6 +8465,36 @@ msgstr "Saisir le tarif mensuel"
 #: Public/form_data/FG_var_card.inc:326 Public/form_data/FG_var_card.inc:593
 msgid "currency : "
 msgstr "devise : "
+
+#: Public/form_data/FG_var_did.inc:152
+#: Public/form_data/FG_var_def_ratecard.inc:229
+msgid "Define the selling cost for customers."
+msgstr "Définissez le prix de vente pour les clients."
+
+#: Public/form_data/FG_var_did.inc:155
+#: Public/form_data/FG_var_def_ratecard.inc:251
+msgid "CONNECT CHARGE"
+msgstr "FRAIS DE CONNECTION"
+
+#: Public/form_data/FG_var_did.inc:161
+#: Public/form_data/FG_var_def_ratecard.inc:257
+msgid "Insert the connect charge"
+msgstr "Saisir les frais de connection"
+
+#: Public/form_data/FG_var_did.inc:162
+#, fuzzy
+msgid "Apply a connection charge to connect DID together"
+msgstr "Appliquer des frais de connection"
+
+#: Public/form_data/FG_var_did.inc:170
+#, fuzzy
+msgid "Insert the rate"
+msgstr "Insérez la région"
+
+#: Public/form_data/FG_var_did.inc:171
+#, fuzzy
+msgid "The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"
+msgstr "Le prix de vente au détail ou le co&ucirc;t par minute &agrave appliquer au client, p.e. 0.02"
 
 #: Public/form_data/FG_var_diduse.inc:21 Public/form_data/FG_var_diduse.inc:35
 msgid "Release this did"
