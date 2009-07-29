@@ -27,7 +27,7 @@ if($receipt->getCard() != $_SESSION["card_id"]){
 	die();
 }
 $nbitems = $receipt->nbDetailledItems();
-$nb_by_page =20;
+$nb_by_page =100;
 $nb_page = ceil($nbitems/$nb_by_page);
 $items = $receipt->loadDetailledItems((($page-1)*$nb_by_page),$nb_by_page);
 if($nb_page>1)$totalprice = $receipt->SumItemsPrice();
