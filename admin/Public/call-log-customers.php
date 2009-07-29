@@ -1141,7 +1141,7 @@ $profit = $totalcost - $totalbuycost;
 $rand_num = rand(1,4);
 
 // Show the donate button only 25% of the page display
-if ($profit > 500 && $rand_num==4) {
+if ($profit > 500 && $rand_num==4 && SHOW_DONATION) {
 ?>
 <center>
 <table align="center" width="50%" bgcolor="white" cellpadding="5" cellspacing="5" style="border: solid 1px">
@@ -1184,42 +1184,18 @@ if ($profit > 500 && $rand_num==4) {
 					<tr class="bgcolor_019">
 						<td align="center" class="bgcolor_020"><font class="fontstyle_003"><?php echo gettext ( "DATE" ); ?></font></td>
 						<td align="center"><font class="fontstyle_003"><acronym
-							title="<?php echo gettext ( "DURATION" ); ?>"><?php
-	echo gettext ( "DUR" );
-	?></acronym></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "GRAPHIC" );
-	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "CALLS" );
-	?></font></td>
+							title="<?php echo gettext ( "DURATION" ); ?>"><?php	echo gettext ( "DUR" );	?></acronym></font></td>
+						<td align="center"><font class="fontstyle_003"><?php echo gettext ( "GRAPHIC" ); ?></font></td>
+						<td align="center"><font class="fontstyle_003"><?php echo gettext ( "CALLS" ); ?></font></td>
 						<td align="center"><font class="fontstyle_003"><acronym
-							title="<?php
-	echo gettext ( "AVERAGE LENGTH OF CALL" );
-	?>"><?php
-	echo gettext ( "ALOC" );
-	?></acronym></font></td>
+							title="<?php echo gettext ( "AVERAGE LENGTH OF CALL" );	?>"><?php echo gettext ( "ALOC" );	?></acronym></font></td>
 						<td align="center"><font class="fontstyle_003"><acronym
-							title="<?php
-	echo gettext ( "ANSWER SEIZE RATIO" );
-	?>"><?php
-	echo gettext ( "ASR" );
-	?></acronym></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "SELL" );
-	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "BUY" );
-	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "PROFIT" );
-	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "MARGIN" );
-	?></font></td>
-						<td align="center"><font class="fontstyle_003"><?php
-	echo gettext ( "MARKUP" );
-	?></font></td>
+							title="<?php echo gettext ( "ANSWER SEIZE RATIO" );	?>"><?php echo gettext ( "ASR" ); ?></acronym></font></td>
+						<td align="center"><font class="fontstyle_003"><?php echo gettext ( "SELL" );	?></font></td>
+						<td align="center"><font class="fontstyle_003"><?php echo gettext ( "BUY" );	?></font></td>
+						<td align="center"><font class="fontstyle_003"><?php echo gettext ( "PROFIT" );	?></font></td>
+						<td align="center"><font class="fontstyle_003"><?php echo gettext ( "MARGIN" );	?></font></td>
+						<td align="center"><font class="fontstyle_003"><?php echo gettext ( "MARKUP" );	?></font></td>
 
 						<!-- LOOP -->
 	<?php
@@ -1305,19 +1281,19 @@ if ($profit > 500 && $rand_num==4) {
 							}
 							?>
 						</font></td>
-     <?php
-		$j ++;
-	}
-	
-	if ((! isset ( $resulttype )) || ($resulttype == "min")) {
-		$total_tmc = sprintf ( "%02d", intval ( ($totalminutes / $totalcall) / 60 ) ) . ":" . sprintf ( "%02d", intval ( ($totalminutes / $totalcall) % 60 ) );
-		$totalminutes = sprintf ( "%02d", intval ( $totalminutes / 60 ) ) . ":" . sprintf ( "%02d", intval ( $totalminutes % 60 ) );
-	} else {
-		$total_tmc = intval ( $totalminutes / $totalcall );
-	}
-	
-	?>                   	
-	</tr>
+			     <?php
+					$j ++;
+				}
+				
+				if ((! isset ( $resulttype )) || ($resulttype == "min")) {
+					$total_tmc = sprintf ( "%02d", intval ( ($totalminutes / $totalcall) / 60 ) ) . ":" . sprintf ( "%02d", intval ( ($totalminutes / $totalcall) % 60 ) );
+					$totalminutes = sprintf ( "%02d", intval ( $totalminutes / 60 ) ) . ":" . sprintf ( "%02d", intval ( $totalminutes % 60 ) );
+				} else {
+					$total_tmc = intval ( $totalminutes / $totalcall );
+				}
+				
+				?>                   	
+				</tr>
 					<!-- END DETAIL -->
 
 					<!-- END LOOP -->

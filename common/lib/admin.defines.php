@@ -153,6 +153,9 @@ define ("DIDX_RING_TO", isset($A2B->config['webui']['didx_ring_to'])?$A2B->confi
 // VOICEMAIL
 define ("ACT_VOICEMAIL", false);
 
+// SHOW DONATION
+define ("SHOW_DONATION", true);
+
 // AGI
 define ("ASTERISK_VERSION", isset($A2B->config['agi-conf1']['asterisk_version'])?$A2B->config['agi-conf1']['asterisk_version']:'1_4');
 
