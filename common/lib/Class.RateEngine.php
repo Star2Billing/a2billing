@@ -735,10 +735,9 @@ class RateEngine
 		/*
 		 * Following condition will append cost of call
 		 * according to the the additional_block_charge and additional_block_charge_time
-		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 2
 		 */
 		// If call duration is greater then block charge time
-		if ($callduration >= $additional_block_charge_time) {
+		if ($callduration >= $additional_block_charge_time && $additional_block_charge_time > 0) {
 			$block_charge = intval($callduration / $additional_block_charge_time);
 			$cost -= $block_charge * $additional_block_charge;
 		}
