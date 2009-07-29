@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk'));
+getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk','connection_charge','selling_rate'));
 
 
 $HD_Form = new FormHandler("cc_did","did");
@@ -150,7 +150,26 @@ $HD_Form -> AddEditElement (gettext("MONTHLY RATE"),
 	"" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 
 
-$HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate');
+$HD_Form -> AddEditElement(gettext("CONNECT CHARGE"),
+   "connection_charge",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "12",
+   gettext("Insert the connect charge"),
+   "" , "", "",	"", "", "" , "NO", gettext("Apply a connection charge to connect DID together"));
+
+$HD_Form -> AddEditElement(gettext("SELLING RATE"),
+   "selling_rate",
+   '$value',
+   "INPUT",
+   "size=30 maxlength=20",
+   "12",
+   gettext("Insert the rate"),
+   "" , "", "",	"", "" , "", "", gettext("The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"), null, null, gettext("Define the selling cost for customers."));
+
+
+$HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate,connection_charge,selling_rate');
 
 
 // Set the filter variables

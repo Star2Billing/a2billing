@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'didgroupname','connection_charge','selling_rate'));
+getpost_ifset(array('id', 'didgroupname'));
 $HD_Form = new FormHandler("cc_didgroup","Did Group");
 
 $HD_Form -> FG_DEBUG = 0;
@@ -71,7 +71,7 @@ $HD_Form -> AddEditElement(gettext("SELLING RATE"),
    "" , "", "",	"", "" , "", "", gettext("The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"), null, null, gettext("Define the selling cost for customers."));
 
 
-$HD_Form -> FieldEditElement ('didgroupname ,connection_charge ,selling_rate');
+$HD_Form -> FieldEditElement ('didgroupname');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the DID Group");

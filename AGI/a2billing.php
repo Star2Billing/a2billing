@@ -321,8 +321,8 @@ if ($mode == 'standard') {
                                     $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=".$A2B-> destination."]");
 
                                     $QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias, connection_charge, selling_rate, did".
-                                            " FROM cc_did, cc_did_destination,  cc_card , cc_didgroup".
-                                            " WHERE id_cc_did=cc_did.id and cc_didgroup.id= cc_did.id_cc_didgroup AND cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='".$A2B-> destination."' ".
+                                            " FROM cc_did, cc_did_destination,  cc_card ".
+                                            " WHERE id_cc_did=cc_did.id  AND cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='".$A2B-> destination."' ".
                                             " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
                                     if ($A2B->config["database"]['dbtype'] != "postgres"){
                                             // MYSQL
