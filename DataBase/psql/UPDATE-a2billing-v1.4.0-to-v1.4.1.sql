@@ -95,7 +95,9 @@ UPDATE cc_config SET config_value='https://www.paypal.com/cgi-bin/webscr' WHERE 
 ALTER TABLE cc_did ADD COLUMN connection_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT 0;
 ALTER TABLE cc_did ADD COLUMN selling_rate DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
 
--- synched with MySQL up to r2237
+ALTER TABLE cc_billing_customer ADD COLUMN start_date TIMESTAMP WITHOUT TIME ZONE;
+
+-- synched with MySQL up to r2240
 
 -- Commit the whole update;  psql will automatically rollback if we failed at any point
 COMMIT;

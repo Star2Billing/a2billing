@@ -90,7 +90,7 @@ if (SHOW_HELP) {
 	gettext("Each ratecard may have as many rates as you wish, however, if a dialling prefix cannot be matched when a call is made, then the call will be terminated.") . '<br/>' .
 	gettext('A ratecard has a "start date", an "expiry date" and a you can define a default trunk, but if no trunk is defined, the ratecard default trunk will be used.'), 'EditRatecard');
 
-	$CC_help_def_ratecard = create_help(gettext("Please select a ratecard and click on search to browse the different rates/dialing prefix of the selected ratecard."), 'BrowseRates');
+	$CC_help_def_ratecard = create_help(gettext("Please select a ratecard and click on search to browse the different rates/dialing prefix of the selected ratecard."), 'Rate');
 
 	$CC_help_sim_ratecard = create_help(gettext('Please select an account, then enter the number you wish to call and press the "SIMULATE" button.'), 'RatecardSimulator');
 
