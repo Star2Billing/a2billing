@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-28 14:04+0200\n"
+"POT-Creation-Date: 2009-07-29 18:37+0200\n"
 "PO-Revision-Date: 2009-05-13 16:30-0300\n"
 "Last-Translator: willian <willianmazzardo@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -507,7 +507,7 @@ msgstr "AGUARDANDO CONFIRMACÃO POR EMAIL"
 #: lib/interface/constants.php:295 lib/interface/constants.php:308
 #: lib/interface/constants.php:321 Public/A2B_data_archiving.php:61
 #: Public/A2B_data_archiving.php:69 Public/A2B_mass_mail.php:27
-#: Public/form_data/FG_var_did.inc:36 Public/form_data/FG_var_statuslog.inc:56
+#: Public/form_data/FG_var_did.inc:34 Public/form_data/FG_var_statuslog.inc:56
 msgid "RESERVED"
 msgstr "RESERVADO"
 
@@ -535,7 +535,7 @@ msgstr "SUSPENDIDO POR LITIGACÃO"
 #: Public/form_data/FG_var_outbound_cid.php:69
 #: Public/form_data/FG_var_support_component.inc:36
 #: Public/form_data/FG_var_support_component.inc:61
-#: Public/form_data/FG_var_did.inc:33 Public/form_data/FG_var_did.inc:134
+#: Public/form_data/FG_var_did.inc:32 Public/form_data/FG_var_did.inc:135
 #: Public/form_data/FG_var_voucher.inc:49
 #: Public/form_data/FG_var_voucher.inc:125
 #: Public/form_data/FG_var_subscription_signup.inc:47
@@ -1609,7 +1609,7 @@ msgstr "Você pode modificar, através do seguinte formulário, as diferentes pr
 #: Public/form_data/FG_var_transactions.inc:51
 #: Public/form_data/FG_var_subscription.inc:101
 #: Public/form_data/FG_var_callback.inc:272
-#: Public/form_data/FG_var_did.inc:167
+#: Public/form_data/FG_var_did.inc:188
 #: Public/form_data/FG_var_transactions_agent.inc:47
 #: Public/form_data/FG_var_service.inc:221
 #: Public/form_data/FG_var_card_seria.inc:68
@@ -1670,7 +1670,7 @@ msgstr "foi deletado!"
 #: Public/form_data/FG_var_speeddial.inc:105
 #: Public/form_data/FG_var_subscription.inc:102
 #: Public/form_data/FG_var_callback.inc:273
-#: Public/form_data/FG_var_did.inc:168 Public/form_data/FG_var_service.inc:222
+#: Public/form_data/FG_var_did.inc:189 Public/form_data/FG_var_service.inc:222
 #: Public/form_data/FG_var_card_seria.inc:69
 #: Public/form_data/FG_var_voucher.inc:178
 #: Public/form_data/FG_var_server_group.inc:74
@@ -1717,7 +1717,7 @@ msgstr "você pode facilmente adicionar um novo"
 #: Public/form_data/FG_var_speeddial.inc:105
 #: Public/form_data/FG_var_subscription.inc:102
 #: Public/form_data/FG_var_callback.inc:273
-#: Public/form_data/FG_var_did.inc:168 Public/form_data/FG_var_service.inc:222
+#: Public/form_data/FG_var_did.inc:189 Public/form_data/FG_var_service.inc:222
 #: Public/form_data/FG_var_card_seria.inc:69
 #: Public/form_data/FG_var_voucher.inc:178
 #: Public/form_data/FG_var_server_group.inc:74
@@ -1777,7 +1777,7 @@ msgstr "agora."
 #: Public/form_data/FG_var_speeddial.inc:108
 #: Public/form_data/FG_var_subscription.inc:106
 #: Public/form_data/FG_var_callback.inc:277
-#: Public/form_data/FG_var_did.inc:171 Public/form_data/FG_var_service.inc:225
+#: Public/form_data/FG_var_did.inc:192 Public/form_data/FG_var_service.inc:225
 #: Public/form_data/FG_var_card_seria.inc:72
 #: Public/form_data/FG_var_voucher.inc:181
 #: Public/form_data/FG_var_server_group.inc:79
@@ -4490,7 +4490,7 @@ msgstr "ESTADO"
 
 #: Public/A2B_card_info.php:234 Public/A2B_agent_info.php:119
 #: Public/A2B_admin_info.php:102 Public/form_data/FG_var_user.inc:176
-#: Public/form_data/FG_var_did.inc:32 Public/form_data/FG_var_did.inc:123
+#: Public/form_data/FG_var_did.inc:31 Public/form_data/FG_var_did.inc:124
 #: Public/form_data/FG_var_agent.inc:244 Public/form_data/FG_var_card.inc:412
 msgid "COUNTRY"
 msgstr "PAÍS"
@@ -4680,7 +4680,7 @@ msgid "Choose a Country"
 msgstr "Escolha um País"
 
 #: Public/A2B_entity_did_import.php:251 Public/form_data/FG_var_user.inc:51
-#: Public/form_data/FG_var_did.inc:27 Public/form_data/FG_var_did.inc:76
+#: Public/form_data/FG_var_did.inc:27 Public/form_data/FG_var_did.inc:77
 #: Public/form_data/FG_var_diduse.inc:46
 #: Public/form_data/FG_var_card_group.inc:55
 #: Public/form_data/FG_var_did_destination.inc:36
@@ -5281,7 +5281,7 @@ msgstr "MINUTOS DO ASTERISK"
 msgid "Average Connection Time"
 msgstr "Tempo médio de conexão"
 
-#: Public/call-daily-load.php:340 Public/form_data/FG_var_did.inc:33
+#: Public/call-daily-load.php:340 Public/form_data/FG_var_did.inc:32
 #: Public/call-comp.php:410
 msgid "ACT"
 msgstr "ACT"
@@ -5544,7 +5544,7 @@ msgid "OUTBOUND CID"
 msgstr "CID SAÍNTE"
 
 #: Public/templates/default/main.tpl:300 Public/form_data/FG_var_user.inc:43
-#: Public/form_data/FG_var_did.inc:28 Public/form_data/FG_var_did.inc:86
+#: Public/form_data/FG_var_did.inc:28 Public/form_data/FG_var_did.inc:87
 #: Public/form_data/FG_var_agent.inc:30
 msgid "BILLING"
 msgstr "BILHETAGEM"
@@ -6363,7 +6363,7 @@ msgstr "CHAVE"
 msgid "GROUP"
 msgstr "GRUPO"
 
-#: Public/form_data/FG_var_config.inc:83 Public/form_data/FG_var_did.inc:42
+#: Public/form_data/FG_var_config.inc:83 Public/form_data/FG_var_did.inc:43
 #: Public/form_data/FG_var_payment_configuration.inc:19
 #: Public/form_data/FG_var_paymentlog.inc:75
 #: Public/form_data/FG_var_config_group.inc:19
@@ -6420,7 +6420,7 @@ msgstr "Insira a descrição"
 #: Public/form_data/FG_var_charge.inc:154
 #: Public/form_data/FG_var_didgroup.inc:87
 #: Public/form_data/FG_var_subscription.inc:110
-#: Public/form_data/FG_var_did.inc:174 Public/form_data/FG_var_service.inc:228
+#: Public/form_data/FG_var_did.inc:195 Public/form_data/FG_var_service.inc:228
 #: Public/form_data/FG_var_card_seria.inc:75
 #: Public/form_data/FG_var_paymentlog.inc:176
 #: Public/form_data/FG_var_campaign_config.inc:128
@@ -6514,7 +6514,7 @@ msgstr "Insira a descrição"
 #: Public/form_data/FG_var_transactions.inc:51
 #: Public/form_data/FG_var_subscription.inc:101
 #: Public/form_data/FG_var_callback.inc:272
-#: Public/form_data/FG_var_did.inc:167
+#: Public/form_data/FG_var_did.inc:188
 #: Public/form_data/FG_var_transactions_agent.inc:47
 #: Public/form_data/FG_var_service.inc:221
 #: Public/form_data/FG_var_card_seria.inc:68
@@ -6817,7 +6817,7 @@ msgstr "COMEÇANDO NA DATA"
 
 #: Public/form_data/FG_var_campaign.inc:144
 #: Public/form_data/FG_var_tariffplan.inc:73
-#: Public/form_data/FG_var_did.inc:101
+#: Public/form_data/FG_var_did.inc:102
 #: Public/form_data/FG_var_def_ratecard.inc:421
 msgid "Insert the starting date"
 msgstr "Insira a data de início"
@@ -6829,7 +6829,7 @@ msgstr "Por favor respeite o formato YYYY-MM-DD HH:MM:SS. Por exemplo, '2004-12-
 
 #: Public/form_data/FG_var_campaign.inc:153
 #: Public/form_data/FG_var_tariffplan.inc:82
-#: Public/form_data/FG_var_did.inc:110 Public/form_data/FG_var_voucher.inc:159
+#: Public/form_data/FG_var_did.inc:111 Public/form_data/FG_var_voucher.inc:159
 #: Public/form_data/FG_var_card.inc:683
 msgid "Insert the expiration date"
 msgstr "Insira a data da expiração"
@@ -7238,7 +7238,7 @@ msgstr "NOME DA TARIFA"
 
 #: Public/form_data/FG_var_tariffplan.inc:29
 #: Public/form_data/FG_var_tariffplan.inc:67
-#: Public/form_data/FG_var_did.inc:29 Public/form_data/FG_var_did.inc:95
+#: Public/form_data/FG_var_did.inc:29 Public/form_data/FG_var_did.inc:96
 #: Public/form_data/FG_var_def_ratecard.inc:146
 #: Public/form_data/FG_var_def_ratecard.inc:415
 #: Public/form_data/FG_var_subscriber.inc:69
@@ -7247,14 +7247,13 @@ msgstr "DATA DE INÍCIO"
 
 #: Public/form_data/FG_var_tariffplan.inc:30
 #: Public/form_data/FG_var_tariffplan.inc:76
-#: Public/form_data/FG_var_did.inc:30 Public/form_data/FG_var_did.inc:104
-#: Public/form_data/FG_var_voucher.inc:153
+#: Public/form_data/FG_var_did.inc:105 Public/form_data/FG_var_voucher.inc:153
 #: Public/form_data/FG_var_card.inc:677
 msgid "EXPIRY DATE"
 msgstr "DATA DE EXPIRAÇÃO"
 
 #: Public/form_data/FG_var_tariffplan.inc:32
-#: Public/form_data/FG_var_trunk.inc:52 Public/form_data/FG_var_did.inc:34
+#: Public/form_data/FG_var_trunk.inc:52 Public/form_data/FG_var_did.inc:33
 #: Public/form_data/FG_var_did_destination.inc:41
 msgid "MINUTES USED"
 msgstr "MINUTOS USADOS"
@@ -7317,7 +7316,7 @@ msgid "Please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:0
 msgstr "Por favor respeite o formato YYYY-MM-DD HH:MM:SS. Por exemplo, '2004-12-31 00:00:00'"
 
 #: Public/form_data/FG_var_tariffplan.inc:83
-#: Public/form_data/FG_var_did.inc:102 Public/form_data/FG_var_did.inc:111
+#: Public/form_data/FG_var_did.inc:103 Public/form_data/FG_var_did.inc:112
 #: Public/form_data/FG_var_voucher.inc:160
 #: Public/form_data/FG_var_def_ratecard.inc:422
 msgid "Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
@@ -7443,7 +7442,7 @@ msgstr " CRIADO!"
 msgid "Insert the CallerID"
 msgstr "Identificador de chamadas"
 
-#: Public/form_data/FG_var_callerid.inc:52 Public/form_data/FG_var_did.inc:140
+#: Public/form_data/FG_var_callerid.inc:52 Public/form_data/FG_var_did.inc:141
 #: Public/form_data/FG_var_voucher.inc:131
 #: Public/form_data/FG_var_did_destination.inc:115
 msgid "Choose if you want to activate this card"
@@ -7512,7 +7511,7 @@ msgid "Choose if you want to activate this CallerID"
 msgstr "Escolha se você quer ativar este CallerID"
 
 #: Public/form_data/FG_var_outbound_cid.php:89
-#: Public/form_data/FG_var_alarm.inc:154 Public/form_data/FG_var_did.inc:171
+#: Public/form_data/FG_var_alarm.inc:154 Public/form_data/FG_var_did.inc:192
 #: Public/form_data/FG_var_config_group.inc:41
 #: Public/form_data/FG_var_friend.inc:501
 #: Public/form_data/FG_var_did_destination.inc:159
@@ -8123,37 +8122,38 @@ msgstr "Você tem alguns cartões usando este Grupo de DID! Por favor confirme s
 msgid "Insert the Did group name "
 msgstr "Insira o nome do grupo de DID "
 
-#: Public/form_data/FG_var_didgroup.inc:55
+#: Public/form_data/FG_var_didgroup.inc:55 Public/form_data/FG_var_did.inc:155
 #: Public/form_data/FG_var_def_ratecard.inc:251
 msgid "CONNECT CHARGE"
 msgstr "TAXA POR CONEXÃO"
 
-#: Public/form_data/FG_var_didgroup.inc:61
+#: Public/form_data/FG_var_didgroup.inc:61 Public/form_data/FG_var_did.inc:161
 #: Public/form_data/FG_var_def_ratecard.inc:257
 msgid "Insert the connect charge"
 msgstr "Insira a taxa por conexão"
 
-#: Public/form_data/FG_var_didgroup.inc:62
+#: Public/form_data/FG_var_didgroup.inc:62 Public/form_data/FG_var_did.inc:162
 #, fuzzy
 msgid "Apply a connection charge to connect DID together"
 msgstr "Defina a taxa por conexão (geralmente 0)"
 
-#: Public/form_data/FG_var_didgroup.inc:64
+#: Public/form_data/FG_var_didgroup.inc:64 Public/form_data/FG_var_did.inc:36
+#: Public/form_data/FG_var_did.inc:164
 #: Public/form_data/FG_var_def_ratecard.inc:222
 msgid "SELLING RATE"
 msgstr "TAXA DE VENDA"
 
-#: Public/form_data/FG_var_didgroup.inc:70
+#: Public/form_data/FG_var_didgroup.inc:70 Public/form_data/FG_var_did.inc:170
 #, fuzzy
 msgid "Insert the rate"
 msgstr "Insira o estado"
 
-#: Public/form_data/FG_var_didgroup.inc:71
+#: Public/form_data/FG_var_didgroup.inc:71 Public/form_data/FG_var_did.inc:171
 #, fuzzy
 msgid "The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"
 msgstr "A taxa de varejo; ou o custo por minuto para aplicar ao cliente, ex: 0.02"
 
-#: Public/form_data/FG_var_didgroup.inc:71
+#: Public/form_data/FG_var_didgroup.inc:71 Public/form_data/FG_var_did.inc:152
 #: Public/form_data/FG_var_def_ratecard.inc:229
 msgid "Define the selling cost for customers."
 msgstr "Defina o custo de venda para os clientes"
@@ -8529,22 +8529,28 @@ msgstr "O identificador da requisição. Permite que você identifique a respost
 msgid "Add DID"
 msgstr "Adicionar DID"
 
-#: Public/form_data/FG_var_did.inc:31 Public/form_data/FG_var_did.inc:113
+#: Public/form_data/FG_var_did.inc:30 Public/form_data/FG_var_did.inc:114
 #: Public/form_data/FG_var_card.inc:495
 msgid "DIDGROUP"
 msgstr "GRUPO DE DID"
 
-#: Public/form_data/FG_var_did.inc:33 Public/form_data/FG_var_did.inc:34
-#: Public/form_data/FG_var_did.inc:35 Public/form_data/FG_var_did.inc:36
+#: Public/form_data/FG_var_did.inc:32 Public/form_data/FG_var_did.inc:33
+#: Public/form_data/FG_var_did.inc:34 Public/form_data/FG_var_did.inc:35
+#: Public/form_data/FG_var_did.inc:36
 #, fuzzy
 msgid "<acronym title=\""
 msgstr "<acronym title=\"NOVO\">"
 
-#: Public/form_data/FG_var_did.inc:34
+#: Public/form_data/FG_var_did.inc:33
 msgid "MU"
 msgstr "MU"
 
-#: Public/form_data/FG_var_did.inc:35 Public/form_data/FG_var_did.inc:143
+#: Public/form_data/FG_var_did.inc:34
+#, fuzzy
+msgid "RES"
+msgstr "TARIFAS"
+
+#: Public/form_data/FG_var_did.inc:35 Public/form_data/FG_var_did.inc:144
 msgid "MONTHLY RATE"
 msgstr "TAXA MENSAL"
 
@@ -8553,24 +8559,24 @@ msgid "MR"
 msgstr "TM"
 
 #: Public/form_data/FG_var_did.inc:36
-#, fuzzy
-msgid "RES"
-msgstr "TARIFAS"
+#: Public/form_data/FG_var_def_ratecard.inc:97
+msgid "SR"
+msgstr "SR"
 
-#: Public/form_data/FG_var_did.inc:82
+#: Public/form_data/FG_var_did.inc:83
 #: Public/form_data/FG_var_did_destination.inc:80
 msgid "Insert the DID"
 msgstr "Insira o DID"
 
-#: Public/form_data/FG_var_did.inc:84
+#: Public/form_data/FG_var_did.inc:85
 msgid "Define the DID's. If you ADD a new DID, NOT an EDIT, you can define a range of DID. <br>80412340210-80412340218 would add all DID's between the range, whereas DIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual DID listed."
 msgstr "Defina o identificador de chamadas. Quando você ADICIONAR um Identificador, NÃO no modo de EDIÇÃO, você pode definir um intervalo de identificadores. <br>80412340210-80412340218 adicionará o intervalo entre os números Você pode adicionar individualmente usando a vírgula para separá-los. ex: 80412340210,80412340212,80412340214."
 
-#: Public/form_data/FG_var_did.inc:149
+#: Public/form_data/FG_var_did.inc:150
 msgid "Insert the monthly rate"
 msgstr "Insira a taxa mensal"
 
-#: Public/form_data/FG_var_did.inc:150 Public/form_data/FG_var_agent.inc:153
+#: Public/form_data/FG_var_did.inc:151 Public/form_data/FG_var_agent.inc:153
 #: Public/form_data/FG_var_card.inc:326 Public/form_data/FG_var_card.inc:593
 msgid "currency : "
 msgstr "moeda : "
@@ -9054,10 +9060,6 @@ msgstr "O ATUAL PLANO DE CHAMADA"
 #: Public/form_data/FG_var_def_ratecard.inc:96
 msgid "BR"
 msgstr "BR"
-
-#: Public/form_data/FG_var_def_ratecard.inc:97
-msgid "SR"
-msgstr "SR"
 
 #: Public/form_data/FG_var_def_ratecard.inc:98
 msgid "START-DATE"
