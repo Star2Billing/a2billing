@@ -99,9 +99,9 @@ UPDATE cc_config SET config_value='https://www.paypal.com/cgi-bin/webscr' WHERE 
 -- change type in cc_config
 ALTER TABLE cc_config CHANGE config_value config_value VARCHAR( 200 ); 
 
-ALTER TABLE `cc_didgroup`
-  DROP `connection_charge`,
-  DROP `selling_rate`;
+ALTER TABLE cc_didgroup
+  DROP connection_charge,
+  DROP selling_rate;
 
 ALTER TABLE cc_did ADD connection_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT '0',
 ADD selling_rate DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';

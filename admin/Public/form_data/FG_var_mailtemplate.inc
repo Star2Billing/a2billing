@@ -149,21 +149,29 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("The followings tags will be replaced in the message by the value in the database.");
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= gettext('Tags for EPayment Warning email').': <br/> <b>$time$</b> : time of payment <br/><b>$paymentgateway$</b>: display payment gateway <br/><b>$itemAmount$</b>: amount of payment<br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= gettext('Tags for Payment email').': <br/> <b>$itemName$</b>: name of item paid <br/> <b>$itemID$</b> : id of customer <br/> <b>$paymentMethod$</b> : methode of payment <br/> <b>$paymentStatus$</b> : status of payment <br/><b>$itemAmount$</b>: amount of payment<br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= gettext('Tags used in all emails').': <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$email$</b>: email of the customer <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$firstname$</b>: firstname of the customer <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$lastname$</b>: lastname of the customer <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=   '<b>$credit$</b>: credit of the customer in the system currency <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$creditcurrency$</b>: credit of the customer in the own currency <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$currency$</b>: currency of the customer <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$cardnumber$</b>: card number of the customer <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<b>$password$</b>: password of the customer <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$login$</b>: login of the customer <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=  '<b>$credit_notification$</b>: credit notification of the customer <br/>';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .=    '<b>$base_currency$</b>: base currency of system <br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("The followings tags will be replaced in the message by the value in the database.").'<br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags for EPayment Warning email').': </u><br/> ' .
+		'<b>$time$</b> : time of payment <br/>' .
+		'<b>$paymentgateway$</b>: '.gettext('display payment gateway').'<br/>' .
+		'<b>$itemAmount$</b>: '.gettext('amount of payment').'<br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags for Payment email').': </u><br/> ' .
+		'<b>$itemName$</b>: '.gettext('name of item paid').'<br/> ' .
+		'<b>$itemID$</b> : '.gettext('id of customer').'<br/> ' .
+		'<b>$paymentMethod$</b> : '.gettext('methode of payment').'<br/> ' .
+		'<b>$paymentStatus$</b> : '.gettext('status of payment').'<br/>' .
+		'<b>$itemAmount$</b>: '.gettext('amount of payment').'<br/>';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used in all emails').': </u><br/> ' .
+		'<b>$email$</b>: '.gettext('email of the customer').'<br/>' .
+		'<b>$firstname$</b>: '.gettext('firstname of the customer').'<br/>' .
+		'<b>$lastname$</b>: '.gettext('lastname of the customer').'<br/>' .
+		'<b>$credit$</b>: '.gettext('credit of the customer in the system currency').'<br/>' .
+		'<b>$creditcurrency$</b>: '.gettext('credit of the customer in the own currency').'<br/>' .
+		'<b>$currency$</b>: '.gettext('currency of the customer').'<br/>' .
+		'<b>$cardnumber$</b>: '.gettext('card number of the customer').'<br/>' .
+		'<b>$password$</b>: '.gettext('password of the customer').'<br/>' .
+		'<b>$login$</b>: '.gettext('login of the customer').'<br/>' .
+		'<b>$credit_notification$</b>: '.gettext('credit notification of the customer').'<br/>' .
+		'<b>$base_currency$</b>: '.gettext('base currency of system').'<br/>';
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT ;
 
 

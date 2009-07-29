@@ -24,19 +24,20 @@ $billingtype_list_short = Constants::getBillingTypeShortList();
 $yesno = Constants::getYesNoList();
 
 
-$HD_Form -> AddViewElement(gettext("DID"), "did", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("BILLING"), "billingtype", "8%", "center", "sort", "", "list", $billingtype_list_short);
+$HD_Form -> AddViewElement(gettext("DID"), "did", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("BILLING"), "billingtype", "10%", "center", "sort", "", "list", $billingtype_list_short);
 $HD_Form -> AddViewElement(gettext("START DATE"), "startingdate", "14%", "center", "sort", "19", "", "", "", "",  "display_dateformat");
-$HD_Form -> AddViewElement(gettext("EXPIRY DATE"), "expirationdate", "14%", "center", "sort", "19", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DIDGROUP"), "id_cc_didgroup", "12%", "center", "sort", "15", "lie", "cc_didgroup", "didgroupname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "12%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("ACTIVATED")."\">".gettext("ACT")."</acronym>"), "activated", "5%", "center", "sort", "", "list", $actived_list);
-$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("MINUTES USED")."\">".gettext("MU")."</acronym>"), "secondusedreal", "4%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("MONTHLY RATE")."\">".gettext("MR")."</acronym>"), "fixrate", "4%", "center", "SORT", "30");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("RESERVED")."\">".gettext("RES")."</acronym>"), "reserved", "4%", "center", "SORT", "", "list", $yesno);
+$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("MINUTES USED")."\">".gettext("MU")."</acronym>"), "secondusedreal", "5%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("RESERVED")."\">".gettext("RES")."</acronym>"), "reserved", "5%", "center", "SORT", "", "list", $yesno);
+$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("MONTHLY RATE")."\">".gettext("MR")."</acronym>"), "fixrate", "5%", "center", "SORT", "30");
+$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("SELLING RATE")."\">".gettext("SR")."</acronym>"), "selling_rate", "5%", "center", "SORT", "30");
+
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, secondusedreal, fixrate, reserved');
+$HD_Form -> FieldViewElement ('did, billingtype, startingdate, id_cc_didgroup, id_cc_country, activated, secondusedreal, reserved, fixrate, selling_rate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
@@ -147,7 +148,8 @@ $HD_Form -> AddEditElement (gettext("MONTHLY RATE"),
 	"size=20  maxlength=20 $fixval",
 	"12",
 	gettext("Insert the monthly rate"),
-	"" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
+	"" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY),
+	null, null, gettext("Define the selling cost for customers.") );
 
 
 $HD_Form -> AddEditElement(gettext("CONNECT CHARGE"),
@@ -166,7 +168,7 @@ $HD_Form -> AddEditElement(gettext("SELLING RATE"),
    "size=30 maxlength=20",
    "12",
    gettext("Insert the rate"),
-   "" , "", "",	"", "" , "", "", gettext("The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"), null, null, gettext("Define the selling cost for customers."));
+   "" , "", "",	"", "" , "", "", gettext("The retail rate; or the cost per minute to apply to the customer to connect DID together, e.g. 0.02"));
 
 
 $HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate,connection_charge,selling_rate');
