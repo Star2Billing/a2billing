@@ -5,7 +5,7 @@ include ("./lib/customer.smarty.php");
 include ("./lib/support/classes/invoice.php");
 include ("./lib/support/classes/invoiceItem.php");
 
-if (! has_rights (ACX_INVOICES)) {
+if (! has_rights (ACX_INVOICES)|| true) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
