@@ -105,3 +105,6 @@ ALTER TABLE cc_didgroup
 
 ALTER TABLE cc_did ADD connection_charge DECIMAL( 15, 5 ) NOT NULL DEFAULT '0',
 ADD selling_rate DECIMAL( 15, 5 ) NOT NULL DEFAULT '0';
+
+
+
