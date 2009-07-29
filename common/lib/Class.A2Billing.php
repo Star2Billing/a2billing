@@ -832,27 +832,24 @@ class A2Billing {
 		
 		// FOR TESTING : ENABLE THE DESTINATION NUMBER
 		if ($this->CC_TESTING) $this->destination="1800300200";
-
-            
-
-                //Test if the destination is a did
-                //if call to did is authorized chez if the destination is a did of system
-                $iscall2did = false;
-                if($call2did){
-                    $QUERY =  "SELECT cc_did.id,iduser".
-                            " FROM cc_did,  cc_card ".
-                            " WHERE cc_card.status=1 and cc_card.id=iduser  and cc_did.activated=1 and did='$this->destination' ".
-                            " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
-                                if ($A2B->config["database"]['dbtype'] != "postgres"){
-                                        // MYSQL
-                                        $QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
-                                }
-                            $QUERY .= ")";
-                    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-                    $result_did = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-                    if(is_array($result_did)&& !empty($result_did[0][0]) && !empty($result_did[0][1]))
-                     $iscall2did =true;
-                }
+		
+        //Test if the destination is a did
+        //if call to did is authorized chez if the destination is a did of system
+        $iscall2did = false;
+        if($call2did) {
+            $QUERY =  "SELECT cc_did.id,iduser".
+                    " FROM cc_did,  cc_card ".
+                    " WHERE cc_card.status=1 and cc_card.id=iduser  and cc_did.activated=1 and did='$this->destination' ".
+                    " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
+            if ($this->config["database"]['dbtype'] != "postgres") {
+            	$QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
+            }
+            $QUERY .= ")";
+            $this -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+            $result_did = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
+            if(is_array($result_did)&& !empty($result_did[0][0]) && !empty($result_did[0][1]))
+             $iscall2did =true;
+        }
 
 		$this -> debug( INFO, $agi, __FILE__, __LINE__, "DESTINATION ::> ".$this->destination);
 		
@@ -1676,66 +1673,67 @@ class A2Billing {
 	}
 
 
-        function fct_say_time_2_call($agi,$timeout,$rate=0){
-             // set destination and timeout
-                    // say 'you have x minutes and x seconds'
-                    $minutes = intval($timeout / 60);
-                    $seconds = $timeout % 60;
-                    
+    function fct_say_time_2_call($agi,$timeout,$rate=0)
+    {
+         // set destination and timeout
+        // say 'you have x minutes and x seconds'
+        $minutes = intval($timeout / 60);
+        $seconds = $timeout % 60;
+        
 
-                    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "TIMEOUT::> ".$this->timeout." x". $announce_time_correction." : minutes=$minutes - seconds=$seconds");
-                    if (!($minutes>0) && !($seconds>10)) {
-                            $prompt="prepaid-no-enough-credit";
-                            $agi-> stream_file($prompt, '#');
-                            return -1;
-                    }
-
-                    if ($this->agiconfig['say_rateinitial']==1) {
-                            $this -> fct_say_rate ($agi, $rate);
-                    }
-
-                    if ($this->agiconfig['say_timetocall']==1) {
-                            $agi-> stream_file('prepaid-you-have', '#');
-                            if ($minutes>0){
-                                    if ($minutes==1) {
-                                            if((strtolower($this ->current_language)=='ru')){
-                                            $agi-> stream_file('digits/1f', '#');
-                                            } else {
-                                                    $agi->say_number($minutes);
-                                            }
-                                            $agi-> stream_file('prepaid-minute', '#');
-                                    } else {
-                                            $agi->say_number($minutes);
-                                            if((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
-                                                    // test for the specific grammatical rules in RUssian
-                                                    $agi-> stream_file('prepaid-minute2', '#');
-                                            } else {
-                                                    $agi-> stream_file('prepaid-minutes', '#');
-                                            }
-                                    }
-                            }
-                            if ($seconds>0 && ($this->agiconfig['disable_announcement_seconds']==0)) {
-                                    if ($minutes>0) $agi-> stream_file('vm-and', '#');
-
-                                    if ($seconds==1) {
-                                            if((strtolower($this ->current_language)=='ru')){
-                                                    $agi-> stream_file('digits/1f', '#');
-                                            } else {
-                                                    $agi-> say_number($seconds);
-                                                    $agi-> stream_file('prepaid-second', '#');
-                                            }
-                                    } else {
-                                            $agi->say_number($seconds);
-                                            if((strtolower($this ->current_language)=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
-                                                    // test for the specific grammatical rules in RUssian
-                                                    $agi-> stream_file('prepaid-second2', '#');
-                                            } else {
-                                                    $agi-> stream_file('prepaid-seconds', '#');
-                                            }
-                                    }
-                            }
-                    }
+        $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "TIMEOUT::> ".$this->timeout." : minutes=$minutes - seconds=$seconds");
+        if (!($minutes>0) && !($seconds>10)) {
+            $prompt="prepaid-no-enough-credit";
+            $agi-> stream_file($prompt, '#');
+            return -1;
         }
+
+        if ($this->agiconfig['say_rateinitial']==1) {
+        	$this -> fct_say_rate ($agi, $rate);
+        }
+
+        if ($this->agiconfig['say_timetocall']==1) {
+                $agi-> stream_file('prepaid-you-have', '#');
+                if ($minutes>0){
+                        if ($minutes==1) {
+                                if((strtolower($this ->current_language)=='ru')){
+                                $agi-> stream_file('digits/1f', '#');
+                                } else {
+                                        $agi->say_number($minutes);
+                                }
+                                $agi-> stream_file('prepaid-minute', '#');
+                        } else {
+                                $agi->say_number($minutes);
+                                if((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
+                                        // test for the specific grammatical rules in RUssian
+                                        $agi-> stream_file('prepaid-minute2', '#');
+                                } else {
+                                        $agi-> stream_file('prepaid-minutes', '#');
+                                }
+                        }
+                }
+                if ($seconds>0 && ($this->agiconfig['disable_announcement_seconds']==0)) {
+                        if ($minutes>0) $agi-> stream_file('vm-and', '#');
+
+                        if ($seconds==1) {
+                                if((strtolower($this ->current_language)=='ru')){
+                                        $agi-> stream_file('digits/1f', '#');
+                                } else {
+                                        $agi-> say_number($seconds);
+                                        $agi-> stream_file('prepaid-second', '#');
+                                }
+                        } else {
+                                $agi->say_number($seconds);
+                                if((strtolower($this ->current_language)=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
+                                        // test for the specific grammatical rules in RUssian
+                                        $agi-> stream_file('prepaid-second2', '#');
+                                } else {
+                                        $agi-> stream_file('prepaid-seconds', '#');
+                                }
+                        }
+                }
+        }
+	}
 	/**
 	 *	Function to play the balance
 	 * 	format : "you have 100 dollars and 28 cents"
