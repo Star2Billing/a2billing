@@ -96,7 +96,9 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 		</td>
 		<td colspan="3" align="right">
 		&nbsp;
+                <?php if($page<$nb_page){ ?>
 		<a href="A2B_notification.php?page=<?php echo $page+1; ?>"><?php echo gettext("Older") ?> &gt;</a>
+                <?php } ?>
 		</td>
 	</tr>
 	<?php } ?>
@@ -171,7 +173,9 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 			</td>
 			<td colspan="3" align="right">
 			&nbsp;
+                         <?php if($page<$nb_page){ ?>
 			<a href="A2B_notification.php?page=<?php echo $page+1; ?>"><?php echo gettext("Older") ?> &gt;</a>
+                        <?php } ?>
 			</td>
 		</tr>
 		<?php } ?>

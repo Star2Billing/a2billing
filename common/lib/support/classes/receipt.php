@@ -101,7 +101,7 @@ class Receipt {
 
 	}
 
-	function loadDetailledItems() {
+	function loadDetailledItems($begin=null,$nb=null) {
 		if (!is_null($this->id)) {
 			$result = array ();
 			$DBHandle = DbConnect();
@@ -122,7 +122,7 @@ class Receipt {
 						if (!empty ($result_billing[0]['start_date'])) {
 							$call_clause .= " AND stoptime >= '" . $result_billing[0]['start_date'] . "'";
 						}
-						$return_calls = $call_table->Get_list($DBHandle, $call_clause);
+						$return_calls = $call_table->Get_list($DBHandle, $call_clause,'starttime','ASC',null,null,$nb,$begin);
 						foreach ($return_calls as $call) {
 							$min = floor($call['sessiontime'] / 60);
 							$sec = $call['sessiontime'] % 60;
@@ -144,8 +144,56 @@ class Receipt {
 			return null;
 
 	}
+        function nbDetailledItems() {
+		if (!is_null($this->id)) {
+			$result = array ();
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_receipt_item", "*");
+			$QUERY = " id_receipt = " . $this->id;
+			$return = null;
+			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
+			$i = 0;
+			foreach ($return as $value) {
+				if ($value['id_ext'] && $value['type_ext'] == "CALLS") {
 
-	
+					$billing_table = new Table("cc_billing_customer", "date,start_date");
+					$billing_clause = "id = " . $value['id_ext'];
+					$result_billing = $billing_table->Get_list($DBHandle, $billing_clause);
+					if (is_array($result_billing) && !empty ($result_billing[0]['date'])) {
+						$call_table = new Table("cc_call", "COUNT(*)");
+						$call_clause = " card_id = " . $this->card . " AND stoptime< '" . $result_billing[0]['date'] . "'";
+						if (!empty ($result_billing[0]['start_date'])) {
+							$call_clause .= " AND stoptime >= '" . $result_billing[0]['start_date'] . "'";
+						}
+						$return_calls = $call_table->Get_list($DBHandle, $call_clause,'starttime','ASC');
+						if(is_array($return_calls))$i=$i+$return_calls[0][0];
+
+					}
+				} else {
+					$i++;
+				}
+			}
+			return $i;
+
+		} else
+			return 0;
+
+	}
+
+	 function SumItemsPrice() {
+		if (!is_null($this->id)) {
+			$result = array ();
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_receipt_item", "SUM(price)");
+			$QUERY = " id_receipt = " . $this->id;
+			$return = null;
+			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
+			if(empty ($return)||!is_array($return)||empty ($return[0][0])) return 0;
+                        else return $return[0][0];
+		} else
+			return 0;
+
+	}
 
 	function insertReceiptItem($desc, $price) {
 

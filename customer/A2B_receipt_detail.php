@@ -12,21 +12,25 @@ if (! has_rights (ACX_INVOICES)){
 }
 
 
-getpost_ifset(array('id'));
+getpost_ifset(array('id','page'));
 
 if (empty($id))
 {
 Header ("Location: A2B_entity_receipt.php?atmenu=payment&section=13");
 }
 
-
+if(empty($page))$page=1;
 $receipt = new receipt($id);
 if($receipt->getCard() != $_SESSION["card_id"]){
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-$items = $receipt->loadDetailledItems();
+$nbitems = $receipt->nbDetailledItems();
+$nb_by_page =20;
+$nb_page = ceil($nbitems/$nb_by_page);
+$items = $receipt->loadDetailledItems((($page-1)*$nb_by_page),$nb_by_page);
+if($nb_page>1)$totalprice = $receipt->SumItemsPrice();
 //load customer
 $DBHandle  = DbConnect();
 
@@ -44,6 +48,25 @@ function amount_convert($amount){
 }
 
 ?>
+
+<?php if($nb_page>1){ ?>
+<table width="90%" style ="margin-left:auto;margin-right:auto;" >
+	<tr>
+		<td colspan="3" align="left">
+		<?php if($page>1){ ?>
+			<a href="A2B_receipt_detail.php?popup_select=1&id=<?php echo $id; ?>&page=<?php echo $page-1; ?>"> &lt; <?php echo gettext("Page") ?>&nbsp;<?php echo $page-1; ?> </a>
+		<?php } ?>
+		&nbsp;
+		</td>
+		<td colspan="3" align="right">
+		&nbsp;
+                <?php if($page<$nb_page){ ?>
+		<a href="A2B_receipt_detail.php?popup_select=1&id=<?php echo $id; ?>&page=<?php echo $page+1; ?>"><?php echo gettext("Page") ?>&nbsp;<?php echo $page+1; ?> &gt;</a>
+		<?php } ?>
+                </td>
+	</tr>
+</table>
+<?php } ?>
 
 <div class="receipt-wrapper">
   <table class="receipt-table">
@@ -106,16 +129,25 @@ function amount_convert($amount){
 		$price= 0;
     	foreach ($items as $item){  
     	 	$price = $price + $item->getPrice();
-    	 } 
+    	 }
+         if($nb_page<=1)$totalprice=$price;
     	 ?>
     <tr>
       <td colspan="3">
         <table class="total">
          <tbody>
+         <?php if($nb_page>1){ ?>
+         <tr class="extotal">
+           <td class="one"></td>
+           <td class="two"><?php echo gettext("Total Page");" "+$page ?></td>
+           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($price*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
+         </tr>
+         <?php }else{ ?>
+         <?php } ?>
          <tr class="inctotal">
            <td class="one"></td>
-           <td class="two"><?php echo gettext("Total :") ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($price*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
+           <td class="two"><?php echo gettext("Total Receipt :") ?></td>
+           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($totalprice*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
          </tr>
         </tbody></table>
       </td>

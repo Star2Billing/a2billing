@@ -154,8 +154,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			$field_insert = "id_card";
 			$value_insert = " '$card_id'";
 			if (!empty ($start_date)) {
-				$field_insert .= ", date";
-				$value_insert .= ", '".date("Y-m-d H:i:s")."'";
+				$field_insert .= ", start_date";
+				$value_insert .= ", '".$start_date."'";
 			}
 			$instance_table = new Table("cc_billing_customer", $field_insert);
 			$id_billing = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");

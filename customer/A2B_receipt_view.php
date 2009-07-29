@@ -112,7 +112,7 @@ if(!$popup_select){
   <thead>
   <tr class="one">  
     <td class="one">
-     <h1><?php echo gettext("INVOICE"); ?></h1>
+     <h1><?php echo gettext("RECEIPT"); ?></h1>
      <div class="client-wrapper">
      	<div class="company-name break"><?php echo $card['company_name'] ?></div>
      	<div class="fullname"><?php echo $card['lastname']." ".$card['firstname'] ?></div>

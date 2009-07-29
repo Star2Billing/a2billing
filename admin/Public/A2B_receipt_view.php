@@ -240,5 +240,8 @@ function openURL(theLINK)
   </tfoot>
   </table></div>
 
+<?php
+$smarty->display('footer.tpl');
+
 
 
