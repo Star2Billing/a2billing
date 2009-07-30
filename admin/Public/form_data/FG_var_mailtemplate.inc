@@ -158,7 +158,7 @@ $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used for Paymen
 		'<b>$paymentStatus$</b> : '.gettext('status of payment').'<br/>' .
 		'<b>$itemAmount$</b>: '.gettext('amount of payment').'<br/>';
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used for Signup').': </u><br/> ' .
-		'<b>$loginkey$</b>: '.gettext('key created to validate the signup').'<br/> ' .
+		'<b>$loginkey$</b>: '.gettext('key created to validate the signup').'<br/> ';
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used in all emails').': </u><br/> ' .
 		'<b>$email$</b>: '.gettext('email of the customer').'<br/>' .
 		'<b>$firstname$</b>: '.gettext('firstname of the customer').'<br/>' .
