@@ -63,9 +63,12 @@ function SetLocalLanguage()
 			$charEncoding = "UTF-8";
 			break;
 		case "turkish":
-			$languageEncoding = "tr_TR.iso88599";
-			$slectedLanguage = "tr_TR";
-			$charEncoding = "iso88599";
+			// issues with Turkish 
+			// http://forum.elxis.org/index.php?action=printpage%3Btopic=3090.0
+			// http://bugs.php.net/bug.php?id=39993
+			$languageEncoding = "tr_TR.UTF-8";
+			$slectedLanguage = "tr_TR.UTF-8";
+			$charEncoding = "UTF-8";
 			break;
 		case "urdu":
 			$languageEncoding = "ur.UTF-8";

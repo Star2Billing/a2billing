@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-28 14:05+0200\n"
+"POT-Creation-Date: 2009-07-30 02:05+0200\n"
 "PO-Revision-Date: 2006-06-12 14:37+0500\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -16,13 +16,13 @@ msgstr ""
 
 #: card-history.php:44 A2B_invoice_preview.php:89 A2B_invoice_preview.php:110
 #: A2B_receipt_view.php:146 A2B_receipt_view.php:167 A2B_invoice_view.php:153
-#: A2B_invoice_view.php:177 A2B_receipt_detail.php:62
-#: A2B_receipt_detail.php:81
+#: A2B_invoice_view.php:177 A2B_receipt_detail.php:85
+#: A2B_receipt_detail.php:104
 msgid "Date"
 msgstr "Дата"
 
 #: card-history.php:45 A2B_invoice_preview.php:111 A2B_receipt_view.php:168
-#: A2B_support.php:105 A2B_invoice_view.php:178 A2B_receipt_detail.php:82
+#: A2B_support.php:105 A2B_invoice_view.php:178 A2B_receipt_detail.php:105
 #, fuzzy
 msgid "Description"
 msgstr "Номер телефона"
@@ -633,10 +633,10 @@ msgstr "Минуты"
 msgid "The number, you have entered, is not correct!"
 msgstr "Введен неправильный номер"
 
-#: A2B_receipt_view.php:115 A2B_invoice_view.php:118
+#: A2B_receipt_view.php:115
 #, fuzzy
-msgid "INVOICE"
-msgstr "СЧЕТА"
+msgid "RECEIPT"
+msgstr "КРЕДИТ"
 
 #: A2B_receipt_view.php:122 A2B_invoice_view.php:126 A2B_invoice_view.php:143
 msgid "VAT nr."
@@ -646,7 +646,7 @@ msgstr ""
 msgid "Client Account Number"
 msgstr ""
 
-#: A2B_receipt_view.php:169 call-history.php:96 A2B_receipt_detail.php:83
+#: A2B_receipt_view.php:169 call-history.php:96 A2B_receipt_detail.php:106
 msgid "Cost"
 msgstr "Стоимость звонка"
 
@@ -1446,25 +1446,25 @@ msgstr "У ВАС НЕТ IAX АККАУНТА"
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:2960
+#: lib/Class.A2Billing.php:2958
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3000
+#: lib/Class.A2Billing.php:2998
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3006
+#: lib/Class.A2Billing.php:3004
 #, fuzzy
 msgid "Error : Card is not active!!!"
 msgstr "Неправильная карта"
 
-#: lib/Class.A2Billing.php:3012
+#: lib/Class.A2Billing.php:3010
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3021 lib/Class.A2Billing.php:3029
-#: lib/Class.A2Billing.php:3037
+#: lib/Class.A2Billing.php:3019 lib/Class.A2Billing.php:3027
+#: lib/Class.A2Billing.php:3035
 #, fuzzy
 msgid "Error : Card have expired!!!"
 msgstr "Неправильная карта"
@@ -2284,6 +2284,11 @@ msgstr ""
 msgid "COMMENT : "
 msgstr ""
 
+#: A2B_invoice_view.php:118
+#, fuzzy
+msgid "INVOICE"
+msgstr "СЧЕТА"
+
 #: A2B_invoice_view.php:139
 msgid "tel"
 msgstr ""
@@ -2492,10 +2497,6 @@ msgstr ""
 
 #: templates/default/main.tpl:53
 msgid "View Invoices"
-msgstr ""
-
-#: templates/default/main.tpl:54
-msgid "Preview Next Invoice"
 msgstr ""
 
 #: templates/default/main.tpl:62 form_data/FG_var_did.inc:32
@@ -3609,13 +3610,22 @@ msgstr "ИТОГО"
 msgid "No calls in your selection"
 msgstr "Нет подходящих звонков"
 
-#: A2B_receipt_detail.php:53
+#: A2B_receipt_detail.php:57 A2B_receipt_detail.php:64
+msgid "Page"
+msgstr ""
+
+#: A2B_receipt_detail.php:76
 msgid "RECEIPT DETAIL"
 msgstr ""
 
-#: A2B_receipt_detail.php:117
+#: A2B_receipt_detail.php:142
 #, fuzzy
-msgid "Total :"
+msgid "Total Page"
+msgstr "ИТОГО"
+
+#: A2B_receipt_detail.php:149
+#, fuzzy
+msgid "Total Receipt :"
 msgstr "ИТОГО"
 
 #: signup_service.php:35

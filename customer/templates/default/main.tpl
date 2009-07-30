@@ -135,8 +135,7 @@
 </div>
 
 
-
-<table width="150">
+<table width="90%" cellspacing="15">
 <tr>
    <td>
 		<a href="{$PAGE_SELF}?language=english"><img src="templates/{$SKIN_NAME}/images/flags/gb.gif" border="0" title="English" alt="English"></a>

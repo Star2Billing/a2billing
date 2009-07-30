@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-28 14:05+0200\n"
+"POT-Creation-Date: 2009-07-30 02:05+0200\n"
 "PO-Revision-Date: 2009-04-03 12:17-0300\n"
 "Last-Translator: felipe augusto <flipeicl@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -17,13 +17,13 @@ msgstr ""
 
 #: card-history.php:44 A2B_invoice_preview.php:89 A2B_invoice_preview.php:110
 #: A2B_receipt_view.php:146 A2B_receipt_view.php:167 A2B_invoice_view.php:153
-#: A2B_invoice_view.php:177 A2B_receipt_detail.php:62
-#: A2B_receipt_detail.php:81
+#: A2B_invoice_view.php:177 A2B_receipt_detail.php:85
+#: A2B_receipt_detail.php:104
 msgid "Date"
 msgstr "Data"
 
 #: card-history.php:45 A2B_invoice_preview.php:111 A2B_receipt_view.php:168
-#: A2B_support.php:105 A2B_invoice_view.php:178 A2B_receipt_detail.php:82
+#: A2B_support.php:105 A2B_invoice_view.php:178 A2B_receipt_detail.php:105
 msgid "Description"
 msgstr "Descrição"
 
@@ -611,9 +611,10 @@ msgstr "Minutos"
 msgid "The number, you have entered, is not correct!"
 msgstr "O número que você digitou está incorreto!"
 
-#: A2B_receipt_view.php:115 A2B_invoice_view.php:118
-msgid "INVOICE"
-msgstr "FATURA"
+#: A2B_receipt_view.php:115
+#, fuzzy
+msgid "RECEIPT"
+msgstr "DETALHES DO RECIBO"
 
 #: A2B_receipt_view.php:122 A2B_invoice_view.php:126 A2B_invoice_view.php:143
 msgid "VAT nr."
@@ -623,7 +624,7 @@ msgstr "Nr. IVA"
 msgid "Client Account Number"
 msgstr "Número da conta do cliente"
 
-#: A2B_receipt_view.php:169 call-history.php:96 A2B_receipt_detail.php:83
+#: A2B_receipt_view.php:169 call-history.php:96 A2B_receipt_detail.php:106
 msgid "Cost"
 msgstr "Custo"
 
@@ -1385,24 +1386,24 @@ msgstr "SEM DESCONTO"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número do cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:2960
+#: lib/Class.A2Billing.php:2958
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:3000
+#: lib/Class.A2Billing.php:2998
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o bastante para ligar !!!"
 
-#: lib/Class.A2Billing.php:3006
+#: lib/Class.A2Billing.php:3004
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativo!!!"
 
-#: lib/Class.A2Billing.php:3012
+#: lib/Class.A2Billing.php:3010
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:3021 lib/Class.A2Billing.php:3029
-#: lib/Class.A2Billing.php:3037
+#: lib/Class.A2Billing.php:3019 lib/Class.A2Billing.php:3027
+#: lib/Class.A2Billing.php:3035
 msgid "Error : Card have expired!!!"
 msgstr "Erro : O cartão expirou!!!"
 
@@ -2189,6 +2190,10 @@ msgstr "STATUS : "
 msgid "COMMENT : "
 msgstr "COMENTÁRIO : "
 
+#: A2B_invoice_view.php:118
+msgid "INVOICE"
+msgstr "FATURA"
+
 #: A2B_invoice_view.php:139
 msgid "tel"
 msgstr "tel"
@@ -2385,10 +2390,6 @@ msgstr "Ver Recibos"
 #: templates/default/main.tpl:53
 msgid "View Invoices"
 msgstr "Ver Faturas"
-
-#: templates/default/main.tpl:54
-msgid "Preview Next Invoice"
-msgstr "Pré-visualizar Próxima Fatura"
 
 #: templates/default/main.tpl:62 form_data/FG_var_did.inc:32
 msgid "DID"
@@ -3414,12 +3415,22 @@ msgstr "TOTAL"
 msgid "No calls in your selection"
 msgstr "Nenhuma ligação na sua seleção"
 
-#: A2B_receipt_detail.php:53
+#: A2B_receipt_detail.php:57 A2B_receipt_detail.php:64
+msgid "Page"
+msgstr ""
+
+#: A2B_receipt_detail.php:76
 msgid "RECEIPT DETAIL"
 msgstr "DETALHES DO RECIBO"
 
-#: A2B_receipt_detail.php:117
-msgid "Total :"
+#: A2B_receipt_detail.php:142
+#, fuzzy
+msgid "Total Page"
+msgstr "Total : "
+
+#: A2B_receipt_detail.php:149
+#, fuzzy
+msgid "Total Receipt :"
 msgstr "Total : "
 
 #: signup_service.php:35
@@ -3458,6 +3469,9 @@ msgstr "Quantia Total incl. IVA"
 #: checkout_confirmation.php:155
 msgid "Please click button to confirm your order"
 msgstr "Por favor clique no botão para confirmar sua ordem de pagamento"
+
+#~ msgid "Preview Next Invoice"
+#~ msgstr "Pré-visualizar Próxima Fatura"
 
 #~ msgid "Call"
 #~ msgstr "Ligações"
