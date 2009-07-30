@@ -133,18 +133,22 @@ class Mail {
 
 		return $this->from_email;
 	}
+	
 	function getToEmail() {
 
 		return $this->to_email;
 	}
+	
 	function getMessage() {
 
 		return $this->message;
 	}
+	
 	function AddToMessage($msg) {
 
 		$this->message = $this->message . $msg;
 	}
+	
 	function getTitle() {
 
 		return $this->title;
@@ -154,15 +158,27 @@ class Mail {
 
 		return $this->from_name;
 	}
+	
 	function setFromEmail($from_email) {
 
 		$this->from_email = $from_email;
 	}
 
+	function setTitle($title) {
+
+		$this->title = $title;
+	}
+	
+	function setMessage($message) {
+
+		$this->message = $message;
+	}
+	
 	function setToEmail($to_email) {
 
 		$this->to_email = $to_email;
 	}
+	
 	function setFromName($from_name) {
 
 		$this->from_name = $from_name;
@@ -173,7 +189,7 @@ class Mail {
 			a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);}
 		else{
 			a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);
-                }
+        }
 	}
 
 }
