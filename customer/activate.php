@@ -36,7 +36,13 @@ $QUERY = "( loginkey = '".$key."' )";
 $list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
 
 if(isset($key) && $list[0][8]!="1") {
-    $QUERY = "UPDATE cc_card SET status = 1 WHERE ( status = 2 OR status = 3 ) AND loginkey = '".$key."' ";
+	if ($A2B->config["signup"]['activated']) {
+		// Status : 1 - Active
+		$QUERY = "UPDATE cc_card SET status = 1 WHERE ( status = 2 OR status = 3 ) AND loginkey = '".$key."' ";
+	} else {
+		// Status : 2 - New
+		$QUERY = "UPDATE cc_card SET status = 2 WHERE ( status = 2 OR status = 3 ) AND loginkey = '".$key."' ";
+	}
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
 

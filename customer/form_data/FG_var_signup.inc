@@ -283,7 +283,7 @@ $amaflag = $A2B->config["signup"]['amaflag'];
 $context = $A2B->config["signup"]['context'];
 
 if ($A2B->config["signup"]['activated']) {
-	// Status : 2 - Active
+	// Status : 1 - Active
 	$status = $A2B->config["signup"]['activatedbyuser'] ? '1' : '3';
 } else {
 	// Status : 2 - New
