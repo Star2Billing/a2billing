@@ -84,9 +84,11 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		if (!is_array($return)) {
 			sleep(2);
 			header ("HTTP/1.0 401 Unauthorized");
-            if(is_int($return)) {
-                if($return == -1) {
+            if (is_int($return)) {
+                if ($return == -1) {
 			        Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=3");
+                } elseif ($return == -2) {
+			        Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=4");
                 } else {
                     Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=2");
                 }
@@ -153,7 +155,10 @@ function login ($user, $pass)
 	$row [] =$res -> fetchRow();
 	
 	if( $row [0][2] != "t" && $row [0][2] != "1" ) {
-		return -1;
+		if ($row [0][2] == "2")
+			return -2;
+		else
+			return -1;
 	}
 	
 	return ($row[0]);
