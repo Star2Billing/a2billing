@@ -13,9 +13,6 @@ $HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 
 
-
-
-
 $typemail_list = array();
 $typemail_list["reminder"]  		= array( gettext("Reminder"), Mail::$TYPE_REMINDER);
 $typemail_list["signup"]    		= array( gettext("Signup"),  Mail::$TYPE_SIGNUP);
@@ -45,7 +42,7 @@ $HD_Form -> AddViewElement(gettext("SUBJECT"), "subject", "30%", "center", "sort
 
 if (($popup_select>=1)) {
 	$HD_Form -> FieldViewElement ('id,mailtype, fromemail, subject');
-}else{
+} else {
 	$HD_Form -> FieldViewElement ('mailtype, fromemail, subject');
 }
 
@@ -60,11 +57,10 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;'.gettext("SELECT TEXT").'&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 
-	if ($popup_select==1){
+	if ($popup_select==1) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
 	}
-
-}else{
+} else {	
 	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&section=".$_SESSION["menu_section"];
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add MAIL TEMPLATE");
@@ -79,6 +75,8 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON2_LINK= "A2B_entity_translate.php?form_action=ask-add&id=|param|&languages=$languages";
 	$HD_Form -> FG_OTHER_BUTTON2_ALT = 'Translate';
 }
+
+
 $HD_Form -> AddEditElement (gettext("MAIL TYPE"),
 	"mailtype",
 	'$value',
@@ -105,6 +103,7 @@ $HD_Form -> AddEditElement (gettext("FROM NAME"),
 	"",
 	gettext("Insert the user fromname"),
 	"" , "", "", "", "" , "", "", "");
+
 $HD_Form -> AddEditElement (gettext("SUBJECT"),
 	"subject",
 	'',
@@ -128,11 +127,11 @@ $HD_Form -> FieldEditElement ('mailtype, fromemail, fromname, subject, messagete
 $HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "id";
 $HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "$latest_id";
 
-
 $HD_Form ->FG_QUERY_EDITION_HIDDEN_FIELDS = "id_language";
 $HD_Form ->FG_QUERY_EDITION_HIDDEN_VALUE  = "$id_language";
 
 $HD_Form -> FG_EDITION_CLAUSE = "id ='%id' ";
+
 if($id_language != '' || !is_null($id_language)) {
 	$HD_Form -> FG_EDITION_CLAUSE .= "AND id_language = '$id_language'";
 }
@@ -142,14 +141,12 @@ $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the contents of the email tem
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this").$HD_Form->FG_INSTANCE_NAME." ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
-
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a new mail template");
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
-
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("The followings tags will be replaced in the message by the value in the database.").'<br/>';
+
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags for EPayment Warning email').': </u><br/> ' .
 		'<b>$time$</b> : time of payment <br/>' .
 		'<b>$paymentgateway$</b>: '.gettext('display payment gateway').'<br/>' .
@@ -172,6 +169,7 @@ $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used in all ema
 		'<b>$login$</b>: '.gettext('login of the customer').'<br/>' .
 		'<b>$credit_notification$</b>: '.gettext('credit notification of the customer').'<br/>' .
 		'<b>$base_currency$</b>: '.gettext('base currency of system').'<br/>';
+
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT ;
 
 
