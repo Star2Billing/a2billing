@@ -40,7 +40,8 @@ class Mail {
 	static public $CUSTOMER_CURRENCY = '$currency$';
 	static public $CUSTOMER_CARDNUMBER_KEY = '$cardnumber$';
 	static public $CUSTOMER_PASSWORD_KEY = '$password$';
-	static public $CUSTOMER_LOGIN_KEY = '$login$';
+	static public $CUSTOMER_LOGIN = '$login$';
+	static public $CUSTOMER_LOGINKEY = '$loginkey$';
 	static public $CUSTOMER_CREDIT_NOTIFICATION = '$credit_notification$';
 	//About system
 	//used in all mail
@@ -105,7 +106,8 @@ class Mail {
 				$this->replaceInEmail(self :: $CUSTOMER_EMAIL_KEY, $card['email']);
 				$this->replaceInEmail(self :: $CUSTOMER_FIRSTNAME_KEY, $card['firstname']);
 				$this->replaceInEmail(self :: $CUSTOMER_LASTNAME_KEY, $card['lastname']);
-				$this->replaceInEmail(self :: $CUSTOMER_LOGIN_KEY, $card['useralias']);
+				$this->replaceInEmail(self :: $CUSTOMER_LOGIN, $card['useralias']);
+				$this->replaceInEmail(self :: $CUSTOMER_LOGINKEY, $card['loginkey']);
 				$this->replaceInEmail(self :: $CUSTOMER_PASSWORD_KEY, $card['uipass']);
 				$this->replaceInEmail(self :: $CUSTOMER_CREDIT_IN_OWN_CURRENCY_KEY, $credit_currency);
 				$this->replaceInEmail(self :: $CUSTOMER_CREDIT_BASE_CURRENCY_KEY, $credit);
