@@ -1,7 +1,7 @@
 <?php
 include ("./lib/customer.defines.php");
 
-getpost_ifset(array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
+getpost_ifset (array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
 					'transaction_id', 'mc_fee', 'card_number'));
 
 
@@ -206,19 +206,20 @@ $amount_without_vat = $amount_paid / (1+$VAT/100);
 
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 if ($security_verify == false) {
-        try {
-        //TODO create mail class for agent
-        $mail = new Mail('epaymentverify',$id);
-        } catch (A2bMailException $e) {
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
-            exit();
-        }
-        $mail->replaceInEmail(Mail::$TIME_KEY,date("y-m-d H:i:s"));
-        $mail->replaceInEmail(Mail::$PAYMENTGATEWAY_KEY, $transaction_data[0][4]);
-        $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY, $amount_paid.$currCurrency);
+    try {
+    	//TODO create mail class for agent
+    	$mail = new Mail('epaymentverify',$id);
+    } catch (A2bMailException $e) {
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
+        exit();
+    }
+    $mail->replaceInEmail(Mail::$TIME_KEY,date("y-m-d H:i:s"));
+    $mail->replaceInEmail(Mail::$PAYMENTGATEWAY_KEY, $transaction_data[0][4]);
+    $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY, $amount_paid.$currCurrency);
+    
 	// Add Post information / useful to track down payment transaction without having to log
 	$mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
-	$mail ->send(ADMIN_EMAIL);
+	$mail->send(ADMIN_EMAIL);
 
 	exit;
 }
@@ -414,26 +415,32 @@ if ( ($orderStatus != 2) && ($transaction_data[0][4]=='plugnpay')) {
 }
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
+
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
-if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])){
+if (eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])) {
 	// FIND THE TEMPLATE APPROPRIATE
-
-        try {
-            $mail = new Mail(Mail::$TYPE_PAYMENT,$id);
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
-            $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY,$amount_paid);
-            $mail->replaceInEmail(Mail::$ITEM_ID_KEY,$id_logrefill);
-            $mail->replaceInEmail(Mail::$ITEM_NAME_KEY,'balance');
-            $mail->replaceInEmail(Mail::$PAYMENT_METHOD_KEY,$pmodule);
-            $mail->replaceInEmail(Mail::$PAYMENT_STATUS_KEY,$statusmessage);
-            $mail->send($customer_info["email"]);
-            $mail->send(ADMIN_EMAIL);
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=".$mail->getTitle()." , mtext=".$mail->getMessage());
-        } catch (A2bMailException $e) {
-            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
-        }
-
+	
+    try {
+        $mail = new Mail(Mail::$TYPE_PAYMENT,$id);
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
+        $mail->replaceInEmail(Mail::$ITEM_AMOUNT_KEY,$amount_paid);
+        $mail->replaceInEmail(Mail::$ITEM_ID_KEY,$id_logrefill);
+        $mail->replaceInEmail(Mail::$ITEM_NAME_KEY,'balance');
+        $mail->replaceInEmail(Mail::$PAYMENT_METHOD_KEY,$pmodule);
+        $mail->replaceInEmail(Mail::$PAYMENT_STATUS_KEY,$statusmessage);
+        $mail->send($customer_info["email"]);
+        
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=".$mail->getTitle()." , mtext=".$mail->getMessage());
+        
+        // Add Post information / useful to track down payment transaction without having to log
+		$mail->AddToMessage("\n\n\n\n"."-POST Var \n".print_r($_POST, true));
+        $mail->setTitle("COPY FOR ADMIN : ".$mail->getTitle());
+        $mail->send(ADMIN_EMAIL);
+        
+    } catch (A2bMailException $e) {
+        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
+    }
 	
 } else {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");

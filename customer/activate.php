@@ -31,51 +31,31 @@ $key = $_GET["key"];
 
 
 $result = null;
-$instance_sub_table = new Table('cc_card',"username, lastname, firstname, email, uipass, credit, useralias, loginkey, status");
+$instance_sub_table = new Table('cc_card', "username, lastname, firstname, email, uipass, credit, useralias, loginkey, status, id");
 $QUERY = "( loginkey = '".$key."' )";
 $list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
 
 if(isset($key) && $list[0][8]!="1") {
-    $QUERY = "UPDATE cc_card SET status = 1 WHERE ( status = 2 Or status = 3 ) AND loginkey = '".$key."' ";
+    $QUERY = "UPDATE cc_card SET status = 1 WHERE ( status = 2 OR status = 3 ) AND loginkey = '".$key."' ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
 
 
 if( $list[0][8] != "1" && isset($result) && $result != null) {
 
-	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
-	$res = $HD_Form -> DBHandle -> Execute($QUERY);
-	$num = 0;
-	if ($res)
-		$num = $res -> RecordCount();
-
-	if (!$num) {
-		echo "<br>Error : No email Template Found <br>";        
-	} else {
-		
-		for($i=0;$i<$num;$i++) {
-			$listtemplate[] = $res->fetchRow();
-		}
-		
-		list($mailtype, $from, $fromname, $subject, $messagetext) = $listtemplate [0];
-		if ($FG_DEBUG == 1) echo "</br><b>BELOW THE CARD PROPERTIES </b><hr></br>";
-		$keepmessagetext = $messagetext;
-		
-		$messagetext = $keepmessagetext;	
-		list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey) = $list[0];	
-		if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";	
-		
-		$messagetext = str_replace('$name', $lastname, $messagetext);
-		//$message = str_replace('$username', $form->getValue('username'), $messagetext);
-		$messagetext = str_replace('$card_gen', $username, $messagetext);
-		$messagetext = str_replace('$password', $uipass, $messagetext);
-		$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
-		$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
-		$messagetext = str_replace('$login', "=$loginkey", $messagetext);
-		$messagetext = str_replace('$logink', "=$loginkey", $messagetext);
-		
-		a2b_mail($email, $subject, $messagetext, $from, $fromname);
-	}
+	list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey, $status, $idcard) = $list[0];	
+	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";	
+	
+	try {
+        $mail = new Mail(Mail::$TYPE_SIGNUPCONFIRM, $idcard);
+        $mail->send($email);
+        
+        $mail->setTitle("NEW ACCOUNT CREATED : ".$mail->getTitle());
+        $mail->send(ADMIN_EMAIL);
+        
+    } catch (A2bMailException $e) {
+    	echo "Error : sent mail!";
+    }
 
 ?>
 
