@@ -2212,7 +2212,12 @@ class A2Billing {
 
       			// IF REQUIRED, VERIFY THAT THE CALLERID IS LEGAL
       			$cid_sanitized = $this->CallerID;
-				
+				/*if ($this->agiconfig['cid_sanitize']=='DID' || $this->agiconfig['cid_sanitize']=='CID' || $this->agiconfig['cid_sanitize']=='BOTH') {
+                	$cid_sanitized = $this -> callingcard_cid_sanitize($agi);
+                    $this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[TRY : callingcard_cid_sanitize]");
+                    if ($this->agiconfig['debug']>=1) $agi->verbose('CALLERID SANITIZED: "'.$cid_sanitized.'"');
+                }*/
+
 				if (strlen($cid_sanitized)>0) {
 					$agi->set_callerid($cid_sanitized);
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : ".$cid_sanitized."]");

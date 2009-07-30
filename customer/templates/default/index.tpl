@@ -112,7 +112,7 @@
     {elseif ($error==3)}
 		{php} echo gettext("BLOCKED ACCOUNT : Please contact the administrator!");{/php}
     {elseif ($error==4)}
-		{php} echo gettext("NEW ACCOUNT : Your account hasn't been validate yet!");{/php}
+		{php} echo gettext("NEW ACCOUNT : Your account has bot been validate yet!");{/php}
     {/if}
     </div>
   	</div>
