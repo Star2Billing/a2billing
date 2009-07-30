@@ -11,5 +11,15 @@
 *                                                                                                 *
 ***************************************************************************************************
 
+sed -i "s/define (\"PHP_QUICK_PROFILER\", true);/define (\"PHP_QUICK_PROFILER\", false);/g"  common/lib/admin.defines.php ; sed -i "s/define (\"PHP_QUICK_PROFILER\", true);/define (\"PHP_QUICK_PROFILER\", false);/g"  common/lib/agent.defines.php ; sed -i "s/define (\"PHP_QUICK_PROFILER\", true);/define (\"PHP_QUICK_PROFILER\", false);/g"  common/lib/customer.defines.php
 
-cd trunk ; rm -rf customer/templates_c/* ; rm -rf admin/templates_c/* ; rm -rf agent/templates_c/* ; tar  --exclude="*.svn" -cvzf A2Billing_1.4-Beta.tar.gz *
+rm -rf customer/templates_c/* ; rm -rf admin/templates_c/* ; rm -rf agent/templates_c/* ; tar  --exclude="*.svn" -cvzf A2Billing_1.4.1.tar.gz *
+
+
+
+After Package done :
+-----------------------
+
+sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/admin.defines.php
+sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/agent.defines.php
+sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/customer.defines.php
