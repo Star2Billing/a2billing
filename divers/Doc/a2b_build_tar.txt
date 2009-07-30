@@ -20,6 +20,4 @@ rm -rf customer/templates_c/* ; rm -rf admin/templates_c/* ; rm -rf agent/templa
 After Package done :
 -----------------------
 
-sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/admin.defines.php
-sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/agent.defines.php
-sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/customer.defines.php
+sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/admin.defines.php ; sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/agent.defines.php ; sed -i "s/define (\"PHP_QUICK_PROFILER\", false);/define (\"PHP_QUICK_PROFILER\", true);/g"  common/lib/customer.defines.php
