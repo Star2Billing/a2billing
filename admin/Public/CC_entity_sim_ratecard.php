@@ -153,13 +153,13 @@ if ( (is_array($RateEngine->ratecard_obj)) && (!empty($RateEngine->ratecard_obj)
 if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
 
 $arr_ratecard=array('tariffgroupname', 'lcrtype', 'idtariffgroup', 'cc_tariffgroup_plan.idtariffplan', 'tariffname', 
-		'destination', 'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate',
+		'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate',
 		 'buyrateinitblock', 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock',
 		 'connectcharge', 'disconnectcharge','disconnectcharge_after', 'stepchargea', 'chargea', 
 		'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb', 
 		'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 
 		'tp_id_trunk', 'tp_trunk', 'providertech', 'tp_providerip', 'tp_removeprefix');
-$arr_ratecard_i=array(0,1,2,3,4,  5,6,7,8,9,   10,11,12,13,14, 15,16,60,17,18,  19,20,21,22,23,  24,25,26,27,28, 29,30,31,32,33);
+$arr_ratecard_i=array(0,1,2,3,4, 6,7,8,9,   10,11,12,13,14, 15,16,60,17,18,  19,20,21,22,23,  24,25,26,27,28, 29,30,31,32,33);
 $FG_TABLE_ALTERNATE_ROW_COLOR[0]='#CDC9C9';
 $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 ?>
@@ -177,7 +177,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 			</td>
         </TR>		
 		<?php } ?>
-		<?php for($j=0;$j<count($RateEngine->ratecard_obj);$j++){ ?>
+		<?php for($j=0;$j<count($RateEngine->ratecard_obj);$j++) { ?>
 			<TR> 
           	<td height="15" bgcolor="" style="padding-left: 5px; padding-right: 3px;" colspan="2">
 			</td>
@@ -234,7 +234,25 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
                                 </td>
                         </tr>
 			<?php }?>
-			<?php for($i=0;$i<count($arr_ratecard);$i++){ ?>
+			<?php for($i=0;$i<count($arr_ratecard);$i++){ 
+				if ($arr_ratecard[$i]=='destination') {
+					$instance_table_cardnum = new Table("cc_prefix", "destination");
+					$list_prefix = $instance_table_cardnum -> Get_list ($A2B -> DBHandle, "prefix=".$RateEngine->ratecard_obj[$j][$arr_ratecard_i[$i]], null, null, null, null, null, null);	
+					if (is_array($list_prefix)) {
+			?>
+			<tr>			
+				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i%2]?>" style="padding-left: 5px; padding-right: 3px;">
+						<b><?php echo $arr_ratecard[$i];?></b>
+						
+				</td>
+				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i%2]?>" style="padding-left: 5px; padding-right: 3px;">
+						<i><?php echo $list_prefix[0][0];?></i>
+				</td>
+			</tr>
+			<?php
+					}
+				} else {
+			?>
 			<tr>			
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i%2]?>" style="padding-left: 5px; padding-right: 3px;">
 						<b><?php echo $arr_ratecard[$i];?></b>
@@ -244,7 +262,8 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 						<i><?php echo $RateEngine->ratecard_obj[$j][$arr_ratecard_i[$i]];?></i>
 				</td>
 			</tr>
-			<?php  } ?>
+			<?php }  
+			} ?>
 			
 		<?php } ?>
 		
