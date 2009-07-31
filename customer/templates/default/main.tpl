@@ -71,7 +71,7 @@
 	{/if}
 
 	{if $ACXSIMULATOR >0 }
-	<div class="toggle_menu"><li><a href="simulator.php?section=9"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li></div>
+	<div class="toggle_menu"><li><a href="simulator.php"><strong>{php} echo gettext("SIMULATOR");{/php}</strong></a></li></div>
 	{/if}
 
 	{if $ACXCALL_BACK >0 }
