@@ -565,19 +565,7 @@
 </tr>
 
 
-	
-<!--
-<tr>
-		<td>
-			<form action="{$PAGE_SELF}" method="post">
-				<select name="cssname" class="form_input_select" >
-					<option value="default" {checkseleted file="default"}>Default</option>
-				</select>
-				<input type="submit" value="Change" class="form_input_button" >
-			</form>
-		</td>
-	</tr>
--->
+
 </table>
 
 
