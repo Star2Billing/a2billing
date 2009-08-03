@@ -18,7 +18,7 @@ function agi_confx_title($handle=null)
 	}
 	$instance_table = new Table();
 
-	$QUERY =  "SELECT id, group_title, group_description FROM cc_config_group WHERE group_title like '%agi-conf%' ORDER BY group_title";
+	$QUERY =  "SELECT id, group_title, group_description FROM cc_config_group WHERE group_title like '%agi-conf%' ORDER BY id";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 	
 	if (is_array($result)) {
@@ -30,8 +30,9 @@ function agi_confx_title($handle=null)
 		}
 	}
 	foreach($group_title as $value) {
-		$agi_number[] = (int)substr($value, -1);
+		$agi_number[] = (int)substr($value, 8);
 	}
+	
 	$len_agi_array = sizeof($agi_number);
 	$agi_conf_number = $len_agi_array + 1;
 	for($i=1; $i <= $len_agi_array; $i++) {
