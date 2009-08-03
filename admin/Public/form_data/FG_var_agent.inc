@@ -18,7 +18,9 @@ $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_agent.php?form_action=ask-add&groupID=0&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add AGENT");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_red.png" ;
-
+$HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_agent_home.php?id=";
+$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/comment_edit.png";
+$HD_Form -> FG_OTHER_BUTTON1 = true;
 
 $HD_Form -> FG_TABLE_CLAUSE = $FG_TABLE_CLAUSE;
 

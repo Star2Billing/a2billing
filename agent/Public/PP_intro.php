@@ -11,9 +11,24 @@ if (!$ACXACCESS) {
 }
 
 $smarty->display('main.tpl');
+$DBHandle = DbConnect();
+$table_message = new Table("cc_message_agent", "*");
+$clause_message = "id_agent = ".$_SESSION['agent_id'];
+$messages = $table_message -> Get_list($DBHandle, $clause_message, 'order_display', 'ASC');
+$message_types = Constants::getMsgTypeList();
 ?>
 <br/><br/>
+<?php
+if(is_array($messages)&& sizeof($messages)>0){
+    foreach ($messages as $message) {
+	?>
 
+	    <div id="msg" class="<?php echo $message_types[$message['type']][2];?>" style="margin-top:0px;position:relative;<?php if($message['logo']==0)echo 'background-image:none;padding-left:10px;'; ?>" >
+		<?php echo $message['message']; ?>
+	    </div>
+    <?php }
+}else{
+?>
 <center>
 <table align="center" width="90%" bgcolor="white" cellpadding="25" cellspacing="25" style="border: solid 1px">
 	<tr>
@@ -39,6 +54,6 @@ $smarty->display('main.tpl');
 	
 
 <?php
-
+}
 $smarty->display('footer.tpl');
 

@@ -2,7 +2,15 @@
 
 class Constants
 {
-	
+	public static function getMsgTypeList(){
+		$msgtype_list = array();
+		$msgtype_list["0"] = array( gettext("INFO"),"0","msg_info");
+		$msgtype_list["1"] = array( gettext("SUCCESS"),"1","msg_success");
+		$msgtype_list["2"] = array( gettext("WARNING"),"2","msg_warning");
+		$msgtype_list["3"] = array( gettext("ERROR"),"3","msg_error");
+		return $msgtype_list;
+	}
+
 	public static function getLanguagesList(){
 		$language_list = array();
 		$language_list["0"] = array( gettext("ENGLISH"), "en");

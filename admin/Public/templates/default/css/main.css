@@ -30,7 +30,7 @@
 	float: left;
 }
 
-.msg_info, .msg_success, .msg_warning, .msg_error, .msg_validation {
+.msg_info , .msg_success , .msg_warning , .msg_error  {
     border: 1px solid;
     margin:10px 10px 10px 0px;
     padding:15px 10px 20px 50px;
@@ -45,21 +45,49 @@
     background-color: #BDE5F8;
     background-image: url('../images/msg_info.png');
 }
-.msg_success {
+.msg_success  {
     color: #4F8A10;
     background-color: #DFF2BF;
     background-image:url('../images/msg_success.png');
 }
-.msg_warning {
+.msg_warning{
     color: #9F6000;
     background-color: #FEEFB3;
     background-image: url('../images/msg_warning.png');
 }
-.msg_error {
+.msg_error  {
     color: #D8000C;
     background-color: #FFBABA;
     background-image: url('../images/msg_error.png');
 }
+
+.msg_info h1 ,.msg_info h2,.msg_info h3{
+    margin:0px 0px;
+    font-family:Verdana,Arial,Helvetica,sans-serif;
+    text-decoration:none;
+    color: #00529B;
+}
+.msg_success h1 ,.msg_success h2,.msg_success h3{
+    margin:0px 0px;
+    font-family:Verdana,Arial,Helvetica,sans-serif;
+    text-decoration:none;
+    color: #00529B;
+}
+.msg_warning h1 ,.msg_warning h2,.msg_warning h3{
+    margin:0px 0px;
+    font-family:Verdana,Arial,Helvetica,sans-serif;
+    text-decoration:none;
+    color: #00529B;
+}
+.msg_error h1 ,.msg_error h2,.msg_error h3{
+    margin:0px 0px;
+    font-family:Verdana,Arial,Helvetica,sans-serif;
+    text-decoration:none;
+    color: #D8000C;
+}
+
+
+
 
 #login-wrapper {
   position:absolute;

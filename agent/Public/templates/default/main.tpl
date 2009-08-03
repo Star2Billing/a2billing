@@ -6,7 +6,9 @@
 <div id="leftmenu-middle">
 
 <ul id="nav">
-
+	<li>
+	<a href="PP_intro.php" target="_top"><img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/house.png"> <b>&nbsp;&nbsp;{php} echo gettext("HOME");{/php}</b> </a>
+	</li>
 	{if ($ACXMYACCOUNT > 0) }
 	<div class="toggle_menu"><li>
 	<a href="javascript:;" class="toggle_menu" target="_self"><img id="img1"
