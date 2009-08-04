@@ -223,7 +223,7 @@ function sanitize_data($input) {
 			$input = stripslashes($input);
 		}
 		$input = cleanInput($input);
-
+		
 		$output = addslashes($input);
 	}
 

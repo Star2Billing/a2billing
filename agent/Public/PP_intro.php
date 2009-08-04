@@ -24,7 +24,7 @@ if(is_array($messages)&& sizeof($messages)>0){
 	?>
 
 	    <div id="msg" class="<?php echo $message_types[$message['type']][2];?>" style="margin-top:0px;position:relative;<?php if($message['logo']==0)echo 'background-image:none;padding-left:10px;'; ?>" >
-		<?php echo $message['message']; ?>
+		<?php echo stripslashes($message['message']); ?>
 	    </div>
     <?php }
 }else{

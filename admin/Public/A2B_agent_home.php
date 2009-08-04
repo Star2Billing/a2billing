@@ -49,7 +49,7 @@ if (!empty($action)) {
 			    $instance_table = new Table("cc_message_agent","*");
 			    $result=$instance_table -> Get_list($DBHandle, $clause);
 			    if(is_array($result) && sizeof($result)>0){
-				$message = $result[0]['message'];
+				$message = stripslashes($result[0]['message']);
 				$logo =$result[0]['message'];
 				$type=$result[0]['type'];
 				$logo=$result[0]['logo'];
@@ -67,11 +67,11 @@ if (!empty($action)) {
 			    $return=$instance_table -> Update_table($DBHandle, $values, $clause);
 			    if($return)$result_param ="success";
 			    else $result_param ="faild";
-			    //header("Location: A2B_agent_home.php?" . "id=" . $id . "&result=$result_param");
-			    //die();
+			    header("Location: A2B_agent_home.php?" . "id=" . $id . "&result=$result_param");
+			    die();
 			}
-			//header("Location: A2B_agent_home.php?" . "id=" . $id . "&result=faild");
-			//die();
+			header("Location: A2B_agent_home.php?" . "id=" . $id . "&result=faild");
+			die();
 			break;
 		case 'delete' :
 			if(is_numeric($id_msg)){
@@ -134,7 +134,8 @@ if (!empty($action)) {
 	}
 }
 //load home message agent
-if(empty($action))$action="add";
+if(empty($action)) $action="add";
+
 $table_message = new Table("cc_message_agent", "*");
 $clause_message = "id_agent = $id";
 $messages = $table_message -> Get_list($DBHandle, $clause_message, 'order_display', 'ASC');
@@ -203,8 +204,9 @@ foreach ($messages as $message) {
 	     <?php if($message['order_display']<$size_msg-1){ ?>
 		    <img id="<?php echo $message['id']; ?>" onmouseover="this.style.cursor='pointer'" class="down" src="<?php echo Images_Path ?>/arrow_down.png"  border="0" style="position:absolute;right:0px;top:0;display:none" />
 	     <?php } ?>
-	    <?php echo $message['message']; ?>
+	    <?php echo stripslashes($message['message']); ?>
 	</div>
+
 <?php
 }
 
