@@ -5,237 +5,203 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_card.inc");
 include ("../lib/admin.smarty.php");
 
-
-if (! has_rights (ACX_CUSTOMER)) {
-   Header ("HTTP/1.0 401 Unauthorized");
-   Header ("Location: PP_error.php?c=accessdenied");	   
-   die();
+if (!has_rights(ACX_CUSTOMER)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
-$HD_Form -> FG_FILTER_SEARCH_FORM = false;
-$HD_Form -> FG_EDITION = false;
-$HD_Form -> FG_DELETION = false;
-$HD_Form -> FG_OTHER_BUTTON1 = false;
-$HD_Form -> FG_OTHER_BUTTON2 = false;
-$HD_Form -> FG_FILTER_APPLY = false;
-$HD_Form -> FG_LIST_ADDING_BUTTON1 = false;
-$HD_Form -> FG_LIST_ADDING_BUTTON2 = false;
 
 getpost_ifset(array('nb_to_create', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 
 	'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax',
-	'cardnumberlenght_list', 'tag', 'id_group', 'discount', 'id_seria'));
+	'cardnumberlenght_list', 'tag', 'id_group', 'discount', 'id_seria', 'id_didgroup'));
 
 
-$HD_Form -> setDBHandler (DbConnect());
+$HD_Form->FG_FILTER_SEARCH_FORM = false;
+$HD_Form->FG_EDITION = false;
+$HD_Form->FG_DELETION = false;
+$HD_Form->FG_OTHER_BUTTON1 = false;
+$HD_Form->FG_OTHER_BUTTON2 = false;
+$HD_Form->FG_FILTER_APPLY = false;
+$HD_Form->FG_LIST_ADDING_BUTTON1 = false;
+$HD_Form->FG_LIST_ADDING_BUTTON2 = false;
 
+$HD_Form->setDBHandler(DbConnect());
 
 $nb_error = 0;
 $msg_error = '';
 $group_error = false;
-$tariff_error=false;
-$credit_error=false;
-$number_error=false;
-$expdate_error=false;
-$expday_error=false;
-if ($action=="generate") {
-	if(!is_numeric($id_group) || $id_group<1){
+$tariff_error = false;
+$credit_error = false;
+$number_error = false;
+$expdate_error = false;
+$expday_error = false;
+
+if ($action == "generate") {
+	if (!is_numeric($id_group) || $id_group < 1) {
 		$nb_error++;
-		$group_error=true;
+		$group_error = true;
 		$msg_error = gettext("- Choose a GROUP for the customers!");
 	}
-	if(!is_numeric($choose_tariff) || $choose_tariff<1){
+	if (!is_numeric($choose_tariff) || $choose_tariff < 1) {
 		$nb_error++;
-		$tariff_error=true;
-		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$tariff_error = true;
+		if (!empty ($msg_error))
+			$msg_error .= "<br/>";
 		$msg_error .= gettext("- Choose a CALL PLAN for the customers!");
 	}
-	if(!is_numeric($addcredit) || $addcredit<0){
+	if (!is_numeric($addcredit) || $addcredit < 0) {
 		$nb_error++;
-		$credit_error=true;
-		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$credit_error = true;
+		if (!empty ($msg_error))
+			$msg_error .= "<br/>";
 		$msg_error .= gettext("- Choose a BALANCE (initial amount)  equal or higher than 0 for the customers!");
 	}
-	if(!is_numeric($expiredays) || $expiredays<0){
+	if (!is_numeric($expiredays) || $expiredays < 0) {
 		$nb_error++;
-		$expday_error=true;
-		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$expday_error = true;
+		if (!empty ($msg_error))
+			$msg_error .= "<br/>";
 		$msg_error .= gettext("- Choose an EXPIRATIONS DAYS  equal or higher than 0 for the customers!");
 	}
-	if(empty($expirationdate) || strtotime($expirationdate)===FALSE){
+	if (empty ($expirationdate) || strtotime($expirationdate) === FALSE) {
 		$nb_error++;
-		$expdate_error=true;
-		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$expdate_error = true;
+		if (!empty ($msg_error))
+			$msg_error .= "<br/>";
 		$msg_error .= gettext("- EXPIRATION DAY inserted is invalid, it must respect the date format YYYY-MM-DD HH:MM:SS (time is optional) !");
 	}
-	if(!is_numeric($nb_to_create) || $nb_to_create<1){
+	if (!is_numeric($nb_to_create) || $nb_to_create < 1) {
 		$nb_error++;
-		$number_error=true;
-		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$number_error = true;
+		if (!empty ($msg_error))
+			$msg_error .= "<br/>";
 		$msg_error .= gettext("- Choose the number of customers that you want generate!");
 	}
 }
 $nbcard = $nb_to_create;
-if ($nbcard>0 && $action=="generate" && $nb_error==0) {
-	
-	check_demo_mode();
-	
-	$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
-	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group, discount, id_seria";
+if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 
-	if (DB_TYPE != "postgres"){
+	check_demo_mode();
+
+	$FG_ADITION_SECOND_ADD_TABLE = "cc_card";
+	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group, discount, id_seria, id_didgroup";
+
+	if (DB_TYPE != "postgres") {
 		$FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
 	}
-	
-	$FG_TABLE_SIP_NAME="cc_sip_buddies";
-	$FG_TABLE_IAX_NAME="cc_iax_buddies";
-	
-	$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
-	if (isset($sip)) {
-		$FG_ADITION_SECOND_ADD_FIELDS .= ", sip_buddy"; 
+
+	$FG_TABLE_SIP_NAME = "cc_sip_buddies";
+	$FG_TABLE_IAX_NAME = "cc_iax_buddies";
+
+	$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat, qualify";
+	if (isset ($sip)) {
+		$FG_ADITION_SECOND_ADD_FIELDS .= ", sip_buddy";
 		$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 	}
-	
-	if (isset($iax)) {
-		$FG_ADITION_SECOND_ADD_FIELDS .= ", iax_buddy";	
+
+	if (isset ($iax)) {
+		$FG_ADITION_SECOND_ADD_FIELDS .= ", iax_buddy";
 		$instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
-	}	
-	
-	if ( (isset($sip)) ||  (isset($iax)) ){
-		$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
+	}
+
+	if ((isset ($sip)) || (isset ($iax))) {
+		$list_names = explode(",", $FG_QUERY_ADITION_SIP_IAX);
 		$type = FRIEND_TYPE;
 		$allow = FRIEND_ALLOW;
 		$context = FRIEND_CONTEXT;
 		$nat = FRIEND_NAT;
 		$amaflags = FRIEND_AMAFLAGS;
 		$qualify = FRIEND_QUALIFY;
-		$host = FRIEND_HOST;   
+		$host = FRIEND_HOST;
 		$dtmfmode = FRIEND_DTMFMODE;
-	}	
-	
+	}
+
 	$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 	$gen_id = time();
-	$_SESSION["IDfilter"]=$gen_id;
-	
+	$_SESSION["IDfilter"] = $gen_id;
+
 	$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
 	//initialize refill parameter
 	$description_refill = gettext("CREATION CARD REFILL");
 	$field_insert_refill = " credit,card_id, description";
 	$instance_refill_table = new Table("cc_logrefill", $field_insert_refill);
-	
-	for ($k=0;$k<$nbcard;$k++) {
-		 $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
-		 $cardnum = $arr_card_alias[0];
-		 $useralias = $arr_card_alias[1];
-		if (!is_numeric($addcredit)) $addcredit=0;
+
+	for ($k = 0; $k < $nbcard; $k++) {
+		$arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
+		$cardnum = $arr_card_alias[0];
+		$useralias = $arr_card_alias[1];
+		if (!is_numeric($addcredit))
+			$addcredit = 0;
 		$passui_secret = MDP_NUMERIC(10);
-		$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria'";
-		
-		if (DB_TYPE != "postgres") $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
-		
-		if (isset($sip)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
-		if (isset($iax)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
-		
-		$id_cc_card = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, $HD_Form -> FG_TABLE_ID);
+		$FG_ADITION_SECOND_ADD_VALUE = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria', '$id_didgroup'";
+
+		if (DB_TYPE != "postgres")
+			$FG_ADITION_SECOND_ADD_VALUE .= ", now() ";
+
+		if (isset ($sip))
+			$FG_ADITION_SECOND_ADD_VALUE .= ", 1";
+		if (isset ($iax))
+			$FG_ADITION_SECOND_ADD_VALUE .= ", 1";
+
+		$id_cc_card = $instance_sub_table->Add_table($HD_Form->DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, $HD_Form->FG_TABLE_ID);
 		//create refill for each cards
-		
-		if($addcredit>0){
+
+		if ($addcredit > 0) {
 			$value_insert_refill = "'$addcredit', '$id_cc_card', '$description_refill' ";
-			$instance_refill_table -> Add_table ($HD_Form -> DBHandle, $value_insert_refill, null, null);	
+			$instance_refill_table->Add_table($HD_Form->DBHandle, $value_insert_refill, null, null);
 		}
-		
+
 		// Insert data for sip_buddy
-		if (isset($sip)) {
-			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
-			$result_query1 = $instance_sip_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			if(USE_REALTIME) {
-	  			$_SESSION["is_sip_iax_change"]=1;
-	  			$_SESSION["is_sip_changed"]=1;
+		if (isset ($sip)) {
+			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '" . $passui_secret . "', '$id_cc_card', '$nat', '$qualify'";
+			$result_query1 = $instance_sip_table->Add_table($HD_Form->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
+			if (USE_REALTIME) {
+				$_SESSION["is_sip_iax_change"] = 1;
+				$_SESSION["is_sip_changed"] = 1;
 			}
 		}
-		
+
 		// Insert data for iax_buddy
-		if (isset($iax)) {
-			//$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
-			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
-			$result_query2 = $instance_iax_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			if(USE_REALTIME) {
-				$_SESSION["is_sip_iax_change"]=1;
-				$_SESSION["is_iax_changed"]=1;
+		if (isset ($iax)) {
+			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '" . $passui_secret . "', '$id_cc_card', '$nat', '$qualify'";
+			$result_query2 = $instance_iax_table->Add_table($HD_Form->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
+			if (USE_REALTIME) {
+				$_SESSION["is_sip_iax_change"] = 1;
+				$_SESSION["is_iax_changed"] = 1;
 			}
 		}
 	}
 
 	// Save Sip accounts to file
-	if (isset($sip)) {
+	if (isset ($sip)) {
 		$buddyfile = BUDDY_SIP_FILE;
-		
-		$instance_table_friend = new Table($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
-		$list_friend = $instance_table_friend -> Get_list ($HD_Form ->DBHandle, '', null, null, null, null);
-		if (is_array($list_friend)){
-			$fd=fopen($buddyfile,"w");
+
+		$instance_table_friend = new Table($FG_TABLE_SIP_NAME, 'id, ' . $FG_QUERY_ADITION_SIP_IAX);
+		$list_friend = $instance_table_friend->Get_list($HD_Form->DBHandle, '', null, null, null, null);
+		if (is_array($list_friend)) {
+			$fd = fopen($buddyfile, "w");
 			if (!$fd) {
-				$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file")." ". $buddyfile."</font></b></center>";
+				$error_msg = "</br><center><b><font color=red>" . gettext("Could not open buddy file") . " " . $buddyfile . "</font></b></center>";
 			} else {
 				foreach ($list_friend as $data) {
-					$line="\n\n[".$data[1]."]\n";
+					$line = "\n\n[" . $data[1] . "]\n";
 					if (fwrite($fd, $line) === FALSE) {
 						echo "Impossible to write to the file ($buddyfile)";
 						break;
 					} else {
-						for ($i=1;$i<count($data)-1;$i++){
-							if (strlen($data[$i+1])>0){
-								if (trim($list_names[$i]) == 'allow'){
-									$codecs = explode(",",$data[$i+1]);
+						for ($i = 1; $i < count($data) - 1; $i++) {
+							if (strlen($data[$i +1]) > 0) {
+								if (trim($list_names[$i]) == 'allow') {
+									$codecs = explode(",", $data[$i +1]);
 									$line = "";
 									foreach ($codecs as $value)
-										$line .= trim($list_names[$i]).'='.$value."\n";
+										$line .= trim($list_names[$i]) . '=' . $value . "\n";
 								} else {
-									$line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
+									$line = (trim($list_names[$i]) . '=' . $data[$i +1] . "\n");
 								}
 								if (fwrite($fd, $line) === FALSE) {
-									echo gettext("Impossible to write to the file")." ($buddyfile)";
-									break;
-								}
-							}
-						}
-					}
-				}	
-				fclose($fd);
-			}
-		}//end if is_array
-	} // END SAVE SIP ACCOUNTS 
-
-
-	// Save IAX accounts to file
-	if (isset($iax)) {
-		$buddyfile = BUDDY_IAX_FILE;
-		
-		$instance_table_friend = new Table($FG_TABLE_IAX_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
-		$list_friend = $instance_table_friend -> Get_list ($HD_Form ->DBHandle, '', null, null, null, null);	
-		
-		if (is_array($list_friend)) {
-			$fd=fopen($buddyfile,"w");
-			if (!$fd){
-				$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file"). $buddyfile."</font></b></center>";
-			} else {
-				foreach ($list_friend as $data){
-					$line="\n\n[".$data[1]."]\n";
-					 if (fwrite($fd, $line) === FALSE) {
-						echo "Impossible to write to the file ($buddyfile)";
-						break;
-					}else{
-						for ($i=1;$i<count($data)-1;$i++){
-							if (strlen($data[$i+1])>0){
-								if (trim($list_names[$i]) == 'allow'){
-									$codecs = explode(",",$data[$i+1]);
-									$line = "";
-									foreach ($codecs as $value)
-										$line .= trim($list_names[$i]).'='.$value."\n";
-								} else {
-									$line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
-								}
-								if (fwrite($fd, $line) === FALSE){
-									echo gettext("Impossible to write to the file")." ($buddyfile)";
+									echo gettext("Impossible to write to the file") . " ($buddyfile)";
 									break;
 								}
 							}
@@ -244,35 +210,70 @@ if ($nbcard>0 && $action=="generate" && $nb_error==0) {
 				}
 				fclose($fd);
 			}
-		}// end if is_array
+		} //end if is_array
+	} // END SAVE SIP ACCOUNTS 
+
+	// Save IAX accounts to file
+	if (isset ($iax)) {
+		$buddyfile = BUDDY_IAX_FILE;
+
+		$instance_table_friend = new Table($FG_TABLE_IAX_NAME, 'id, ' . $FG_QUERY_ADITION_SIP_IAX);
+		$list_friend = $instance_table_friend->Get_list($HD_Form->DBHandle, '', null, null, null, null);
+
+		if (is_array($list_friend)) {
+			$fd = fopen($buddyfile, "w");
+			if (!$fd) {
+				$error_msg = "</br><center><b><font color=red>" . gettext("Could not open buddy file") . $buddyfile . "</font></b></center>";
+			} else {
+				foreach ($list_friend as $data) {
+					$line = "\n\n[" . $data[1] . "]\n";
+					if (fwrite($fd, $line) === FALSE) {
+						echo "Impossible to write to the file ($buddyfile)";
+						break;
+					} else {
+						for ($i = 1; $i < count($data) - 1; $i++) {
+							if (strlen($data[$i +1]) > 0) {
+								if (trim($list_names[$i]) == 'allow') {
+									$codecs = explode(",", $data[$i +1]);
+									$line = "";
+									foreach ($codecs as $value)
+										$line .= trim($list_names[$i]) . '=' . $value . "\n";
+								} else {
+									$line = (trim($list_names[$i]) . '=' . $data[$i +1] . "\n");
+								}
+								if (fwrite($fd, $line) === FALSE) {
+									echo gettext("Impossible to write to the file") . " ($buddyfile)";
+									break;
+								}
+							}
+						}
+					}
+				}
+				fclose($fd);
+			}
+		} // end if is_array
 	} // END SAVE IAX ACCOUNTS
 
 }
-if (!isset($_SESSION["IDfilter"])) $_SESSION["IDfilter"]='NODEFINED';
+if (!isset ($_SESSION["IDfilter"]))
+	$_SESSION["IDfilter"] = 'NODEFINED';
 
-
-$HD_Form -> FG_TABLE_CLAUSE = " lastname='".$_SESSION["IDfilter"]."'";
+$HD_Form->FG_TABLE_CLAUSE = " lastname='" . $_SESSION["IDfilter"] . "'";
 
 // END GENERATE CARDS
 
+$HD_Form->init();
 
-
-$HD_Form -> init();
-
-
-if ($id!="" || !is_null($id)) {	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
+if (!isset ($form_action))
+	$form_action = "list"; //ask-add
+if (!isset ($action))
+	$action = $form_action;
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-	
-
-
-$list = $HD_Form -> perform_action($form_action);
-
-
+$list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
@@ -280,20 +281,22 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 echo $CC_help_generate_customer;
 
-
-
 $instance_table_tariff = new Table("cc_tariffgroup", "id, tariffgroupname");
 $FG_TABLE_CLAUSE = "";
-$list_tariff = $instance_table_tariff -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
+$list_tariff = $instance_table_tariff->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 $nb_tariff = count($list_tariff);
-$instance_table_group=  new Table("cc_card_group"," id, name ");
-$list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
+$instance_table_group = new Table("cc_card_group", " id, name ");
+$list_group = $instance_table_group->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
 
-$instance_table_agent =  new Table("cc_agent"," id, login ");
-$list_agent = $instance_table_agent  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "login", "ASC", null, null, null, null);
+$instance_table_agent = new Table("cc_agent", " id, login ");
+$list_agent = $instance_table_agent->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "login", "ASC", null, null, null, null);
 
-$instance_table_seria =  new Table("cc_card_seria"," id, name ");
-$list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
+$instance_table_seria = new Table("cc_card_seria", " id, name ");
+$list_seria = $instance_table_seria->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
+
+$instance_table_didgroup = new Table("cc_didgroup", " id, didgroupname ");
+$list_didgroup = $instance_table_didgroup->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "didgroupname", "ASC", null, null, null, null);
+
 
 // FORM FOR THE GENERATION
 ?>
@@ -450,6 +453,19 @@ $list_seria  = $instance_table_seria  -> Get_list ($HD_Form ->DBHandle, $FG_TABL
         <option class=input value='<?php echo $recordset[0]?>'  <?php if($recordset[0]==$id_seria) echo "selected"; ?>  ><?php echo $recordset[1]?></option>
     <?php } ?>
      </select>
+     <br/>
+     <strong>18)</strong>
+	<?php echo gettext("DID GROUP");?> : 
+	<select NAME="id_didgroup" size="1" class="form_input_select" >
+	<option value='0'><?php echo gettext("Choose a DID Group");?></option>
+	<?php foreach ($list_didgroup as $recordset){ ?>
+		<option class=input value='<?php echo $recordset[0]?>' <?php if($recordset[0]==$id_didgroup) echo "selected"; ?> ><?php echo $recordset[1]?></option>
+	<?php } ?>
+	</select>
+	<?php if($didgroup_error){ ?>
+		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
+	<?php } ?>
+	
 
 	</td>
 </tr>
