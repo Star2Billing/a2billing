@@ -861,17 +861,17 @@ function display_GMT($currDate, $number, $fulldate = 1)
 	$timestamp = $timestamp + ($server_offset - $number);
 	/*
 	if ($fulldate == 1) {
-		$gmdate = gmdate("m/d/Y H:i:s", $timestamp);
+		$gmdate = gmdate("Y-m-d H:i:s", $timestamp);
 	} else {
-		$gmdate = gmdate("m/d/Y", $timestamp);
+		$gmdate = gmdate("Y-m-d", $timestamp);
 	}
 	return $gmdate;
 	*/
 	
 	if ($fulldate == 1) {
-		$date = date("m/d/Y H:i:s", $timestamp);
+		$date = date("Y-m-d H:i:s", $timestamp);
 	} else {
-		$date = date("m/d/Y", $timestamp);
+		$date = date("Y-m-d", $timestamp);
 	}
 	return $date;
 }
