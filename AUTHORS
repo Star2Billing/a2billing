@@ -17,13 +17,14 @@ Areski Belaid info@asterisk2billing.org with contributions from:
 The following third party software is included with the distribution:
 
 	* phpagi 2.14 Copyright 2003, 2004, 2005 Matthew Asham and David Eder
-	* smarty 2.6.22 Copyright 2001-2005 New Digital Group, Inc
+	* smarty 2.6.26 Copyright 2001-2005 New Digital Group, Inc
 	* jgraph 1.27 Copyright 2001, 2002, 2003, 2004 Johan Persson Aditus Consulting 
 	* adodb 4.991 Copyright (c) 2000, 2001, 2002, 2003, 2004 John Lim
 	* famfamfam.com Icons from Mark James
 	* phpconfig (C) 2003 Dave Packham and Rob Birkinshaw
 	* PHP Quick Profiler : http://particletree.com/features/php-quick-profiler/
 	* PHPMailer V5.0.0 Copyright © 1999-2009, Worx International Inc : http://phpmailer.codeworxtech.com/
+	* phpSysInfo 2.5.3 - http://phpsysinfo.sourceforge.net/
 
 Translations credit :
 

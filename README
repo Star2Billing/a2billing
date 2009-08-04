@@ -1,6 +1,8 @@
+@version 1.4.2-dev
+#
 
-a2billing 1.4 Beta Release
---------------------------
+ A2billing Release 1.4.2
+---------------------------
 
 * A PDF guide with installation instructions is available in
 Doc/addons/a2billing_14_Installation_Guide_1.0.pdf
