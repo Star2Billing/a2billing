@@ -222,10 +222,10 @@ $(function()
 $(document).ready(function () {
 
 	$('.msg_info , .msg_success , .msg_warning , .msg_error').mouseover(function () {
-	    $(this).children("img").show();
+	    $(this).children(".up,.down,.delete,.edit").show();
 	     });
 	$('.msg_info , .msg_success , .msg_warning , .msg_error').mouseout(function () {
-		$(this).children("img").hide();
+		$(this).children(".up,.down,.delete,.edit").hide();
 	     });
 	$('.delete').click(function () {
 		if (confirm("<?php echo gettext("Do you want delete this message ?") ?>")) {
