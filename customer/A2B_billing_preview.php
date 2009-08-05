@@ -116,10 +116,8 @@ function amount_convert($amount) {
   <thead>
   <tr class="one">
     <td class="one">
-     <h1><?php echo gettext("PREVIEW RECEIPT"); ?>
-	 <?php
-	 //<a href="javascript:;" onClick="MM_openBrWindow('A2B_preview_receipt_detail.php?popup_select=1','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/info.png" title="Details" alt="Details" border="0"></a>
-	 ?>
+     <h1><?php echo gettext("PREVIEW NEXT RECEIPT"); ?>
+	 <a href="javascript:;" onClick="MM_openBrWindow('A2B_receipt_preview_detail.php?popup_select=1','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/info.png" title="Details" alt="Details" border="0"></a>
      </h1>
    </td>
   </tr>
@@ -164,7 +162,7 @@ function amount_convert($amount) {
 					<?php echo $item->getDescription(); ?>
 				</td>
 				<td align="right">
-					<?php echo number_format(round(amount_convert($item->getPrice()),2),2); ?>
+					<?php echo number_format(ceil(amount_convert($item->getPrice())*100)/100,2)  ?>
 				</td>
 			</tr>
 			 <?php  $i++;} ?>
@@ -212,7 +210,7 @@ function amount_convert($amount) {
   <thead>
   <tr class="one">  
     <td class="one">
-     <h1><?php echo gettext("PREVIEW INVOICE"); ?></h1>
+     <h1><?php echo gettext("PREVIEW NEXT INVOICE"); ?></h1>
      
     </td>
   </tr>
