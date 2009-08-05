@@ -9,3 +9,9 @@ CREATE TABLE cc_message_agent (
     PRIMARY KEY ( id )
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+
+UPDATE cc_config SET config_value = 'PREPAID',
+    config_description = 'billing type of the new card( value : POSTPAID or PREPAID) .',
+    config_listvalues = 'PREPAID,POSTPAID' WHERE config_key ='cid_auto_create_card_typepaid';
+UPDATE config SET config_value = '1' WHERE config_key ='cid_auto_create_card_credit_limit';
+UPDATE config SET config_value = '1' WHERE config_key ='cid_auto_create_card_tariffgroup';
