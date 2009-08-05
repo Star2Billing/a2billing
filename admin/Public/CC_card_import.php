@@ -2,23 +2,19 @@
 // Common includes
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
-//include ("../lib/Class.Table.php");
 include ("../lib/admin.smarty.php");
 
 set_time_limit(0);
 
-if (! has_rights (ACX_CUSTOMER)){
+if (! has_rights (ACX_CUSTOMER)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
 $FG_DEBUG = 0;
-
 $DBHandle  = DbConnect();
-
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
-
 
 
 $smarty->display('main.tpl');
@@ -30,7 +26,7 @@ $smarty->display('main.tpl');
 function sendtofield(form){
 
 	if (form.listemail.value.length < 5){
-		alert ('<?php echo gettext("Insert emails on the Field!")?>');
+		alert ('<?php echo addslashes(gettext("Insert emails on the Field!")); ?>');
 		form.listemail.focus ();
 		return (false);
 	}
@@ -41,7 +37,7 @@ function sendtofield(form){
 function sendtoupload(form){
 
 	if (form.the_file.value.length < 2){
-		alert ('<?php echo gettext("Please, you must first select a file !")?>');
+		alert ('<?php echo addslashes(gettext("Please, you must first select a file !")); ?>');
 		form.the_file.focus ();
 		return false;
 	}
@@ -54,8 +50,9 @@ function sendtoupload(form){
 </script>
 
 <?php
-//// HELP
-        echo $CC_help_import_customer;
+
+ echo $CC_help_import_customer;
+
 ?>
 
 <script language="JavaScript" type="text/javascript">
@@ -191,9 +188,6 @@ function moveSourceDown()
 // -->
 </script>
 
-<?php
-echo $CC_help_import_card;
-?>
 <center>
 	<b><?php echo gettext("New Cards have to be imported from a CSV file.");?>.</b></br></br>
 	<table width="95%" border="0" cellspacing="2" align="center" class="records">
@@ -286,9 +280,6 @@ echo $CC_help_import_card;
 			</tr>
 		</table>
 		
-
-
-
 				</td></tr>
 
                 <tr>

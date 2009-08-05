@@ -8,35 +8,23 @@ include ("../lib/admin.smarty.php");
 set_time_limit(0);
 
 
-if (! has_rights (ACX_DID)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+if (! has_rights (ACX_DID)) {
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 $FG_DEBUG = 0;
-
 $DBHandle  = DbConnect();
-
-
-
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 
-/*************************************************************/
-
 $instance_table_tariffname = new Table("cc_didgroup", "id, didgroupname");
-
 $FG_TABLE_CLAUSE = "";
-
 $list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "didgroupname", "ASC", null, null, null, null);
-
 $nb_tariffname = count($list_tariffname);
-
 $instance_table_country = new Table("cc_country", "id, countryname");
-
 $list_countryname = $instance_table_country  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "countryname", "ASC", null, null, null, null);
-
 $nb_countryname = count($list_countryname);
 
 
@@ -53,7 +41,7 @@ echo $CC_help_import_did;
 function sendtofield(form){
 
 	if (form.listemail.value.length < 5){
-		alert ('<?php echo gettext("Insert emails on the Field!")?>');
+		alert ('<?php echo addslashes(gettext("Insert emails on the Field!")); ?>');
 		form.listemail.focus ();
 		return (false);
 	}
@@ -65,7 +53,7 @@ function sendtofield(form){
 function sendtoupload(form){
 
 	if (form.the_file.value.length < 2){
-		alert ('<?php echo gettext("Please, you must first select a file !")?>');
+		alert ('<?php echo addslashes(gettext("Please, you must first select a file !")); ?>');
 		form.the_file.focus ();
 		return (false);
 	}
@@ -291,7 +279,6 @@ function moveSourceDown()
 
 
 
-
 				</td></tr>
 
                 <tr>
@@ -334,5 +321,6 @@ function moveSourceDown()
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
-?>
+
+$smarty->display('footer.tpl');
+
