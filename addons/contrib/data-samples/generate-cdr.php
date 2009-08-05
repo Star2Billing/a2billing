@@ -11,13 +11,14 @@
  *  USAGE : ./generate-cdr.php --debug --amount_cdr=1000
  * 
 ****************************************************************************/
-//exit();
+
+exit();
 // CHECK ALL AND ENSURE IT WORKS / NOT URGENT
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-require("../../common/lib/admin.defines.php");
+require("../../../common/lib/admin.defines.php");
 
 
 $verbose = 0;

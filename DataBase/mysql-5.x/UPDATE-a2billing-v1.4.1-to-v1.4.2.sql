@@ -1,4 +1,5 @@
- CREATE TABLE cc_message_agent (
+
+CREATE TABLE cc_message_agent (
     id BIGINT NOT NULL AUTO_INCREMENT ,
     id_agent INT NOT NULL ,
     message LONGTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL ,

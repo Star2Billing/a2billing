@@ -12,15 +12,15 @@
  * 
 ****************************************************************************/
 
-exit();
+exit;
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-require("../../common/lib/admin.defines.php");
+require("../../../common/lib/admin.defines.php");
 
 
-$verbose = 1;
+$verbose = 2;
 
 $cli_args = arguments($argv);
 
@@ -37,37 +37,37 @@ else if (!empty($cli_args['silent']) || !empty($cli_args['q']))
 
 
 // nb provider
-$nb_provider = 5;
+$nb_provider = 1;
 
 // nb_trunk
-$nb_trunk = 5;
+$nb_trunk = 1;
 
 // nb call plan
-$nb_callplan= 5;
+$nb_callplan= 1;
 
 // nb ratecard
-$nb_ratecard= 10;
+$nb_ratecard= 1;
 
 //nb rate 
-$nb_rate = 100;
+$nb_rate = 800000;
 
 // nb customer to create
-$nb_customer = 10000;
+$nb_customer = 1;
 
 // customer balance
-$customer_balance = 1000;
+$customer_balance = 1;
 
 // callerid
-$nb_callerid = 1000;
+$nb_callerid = 1;
 
 // history
-$nb_history =1000;
+$nb_history =1;
 
 //payment
-$nb_payment = 1000;
+$nb_payment = 1;
 
 //refill
-$nb_refill = 1000;
+$nb_refill = 1;
 
 echo "Going to add :\n---------------------------\n";
 echo "nb_provider=$nb_provider\n nb_trunk=$nb_trunk\n nb_callplan=$nb_callplan\n ".
@@ -210,31 +210,36 @@ $id_ratecards_list;
 // -----------------------------------
 
 $list_time = array('1','30','60');
+
+
+$id_ratecard = $result_ratecard_id [rand(0,$nb_db_ratecard )] ['id'];	
+	
+if ($nb_db_prefix >= $nb_rate) {
+	$prefix = "00".$result_prefix[$i]['prefixe'];
+	$dest = $result_prefix[$i]['destination'];	
+} else {
+	$ratio = intval( $nb_rate / $nb_db_prefix );
+	$idx = intval($i /$ratio );
+	$prefix = ($i%2 == 0) ? "":"0";
+	$sub_prefix = rand(1,9).rand(1,9).rand(1.9); 
+	$prefix .= "00".$result_prefix[$idx]['prefixe'].$sub_prefix;
+	$dest = $result_prefix[$i]['destination'];	
+}
+
+$block = $list_time[rand(0,count($list_time))];
+$buyrate = rand(5,20) /1000;
+$sellrate = $buyrate * ((rand(0,count($list_time)))+1);
+
 for($i=0; $i< $nb_rate;$i++) {
 	
-	if($verbose > 1) 
-		echo "CREATE RATE : $i\n";
-	
-	$id_ratecard = $result_ratecard_id [rand(0,$nb_db_ratecard )] ['id'];	
-		
-	if($nb_db_prefix >= $nb_rate) {
-		$prefix = "00".$result_prefix[$i]['prefixe'];
-		$dest = $result_prefix[$i]['destination'];	
-	} else {
-		$ratio = intval( $nb_rate / $nb_db_prefix );
-		$idx = intval($i /$ratio );
-		$prefix = ($i%2 == 0) ? "":"0";
-		$sub_prefix = rand(1,9).rand(1,9).rand(1.9); 
-		$prefix .= "00".$result_prefix[$idx]['prefixe'].$sub_prefix;
-		$dest = $result_prefix[$i]['destination'];	
-	}
-	
-	$block = $list_time[$i%3];
-	$buyrate = rand(5,20) /1000;
-	$sellrate = $buyrate * (($i%3)+1);
 	$query = "INSERT INTO cc_ratecard (idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, startdate, stopdate, starttime, endtime, id_trunk, id_outbound_cidgroup) values" .
 			"('$id_ratecard', '$prefix', '$dest', '$buyrate', '$block', '$block', '$sellrate', '$block', '$block', NOW(), '2020-12-31 06:06:06', '0', '10079', '-1', '-1');";
 	$instance_table -> SQLExec ($A2B -> DBHandle, $query);
+	
+	if (($i % 1000)==0) {
+		if($verbose > 1) 
+			echo "RATE CREATED : $i\n";
+	}
 }
 
 $query = "SELECT count(*) FROM cc_ratecard;";

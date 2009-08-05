@@ -400,11 +400,13 @@ class Table {
 	}
 	
 	function logQuery($sql, $start) {
-		$query = array(
-				'sql' => $sql,
-				'time' => ($this->getTime() - $start)*1000
-			);
-		array_push($this->query_handler->queries, $query);
+		if (count($this->query_handler->queries) < 100) {
+			$query = array(
+					'sql' => $sql,
+					'time' => ($this->getTime() - $start)*1000
+				);
+			array_push($this->query_handler->queries, $query);
+		}
 	}
 	
 	function getTime() {
