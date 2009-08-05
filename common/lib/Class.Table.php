@@ -78,6 +78,7 @@ class Table {
 
 	var $fields 				= '*';
 	var $table  				= '';
+	var $table_count			= '';
 	var $errstr 				= '';
 	var $debug_st 				= 0;
 	var $debug_st_stop 			= 0;
@@ -99,13 +100,14 @@ class Table {
 	
 
 	/* CONSTRUCTOR */
-	function Table ($table = null, $liste_fields = null,  $fk_Tables = null, $fk_Fields = null, $id_Value = null, $fk_del_upd = true)
+	function Table ($table = null, $liste_fields = null,  $fk_Tables = null, $fk_Fields = null, $id_Value = null, $fk_del_upd = true, $table_count = null)
 	{
         $this->writelog = defined('WRITELOG_QUERY') ? WRITELOG_QUERY : false;
 		$this -> table = $table;
+		$this -> table_count = $table_count;
 		$this -> fields = $liste_fields;
 		$this -> mytopg = new MytoPg(0); // debug level 0 logs only >30ms CPU hogs
-
+		
 		if ((count($fk_Tables) == count($fk_Fields)) && (count($fk_Fields) > 0)) {
 			$this -> FK_TABLES = $fk_Tables;
 			$this -> FK_EDITION_CLAUSE = $fk_Fields;
@@ -238,7 +240,19 @@ class Table {
 			else $sql_limit = " LIMIT $current_record,$limite";
 		}
 
-		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
+		$QUERY = $sql.$sql_clause.$sql_group;
+		
+		if (strpos($QUERY, '%ORDER%') === false) {
+			$QUERY .= $sql_orderby;
+		} else {
+			$QUERY = str_replace("%ORDER%", $sql_orderby, $QUERY);
+		}
+		
+		if (strpos($QUERY, '%LIMIT%') === false) {
+			$QUERY .= $sql_limit;
+		} else {
+			$QUERY = str_replace("%LIMIT%", $sql_limit, $QUERY);
+		}
 
 		$res = $this -> ExecuteQuery ($DBHandle, $QUERY, $cache);
 		if (!$res) return false;
@@ -258,8 +272,11 @@ class Table {
 
 	function Table_count ($DBHandle, $clause=null, $id_Value = null, $cache = 0)
 	{
-		$sql = 'SELECT count(*) FROM '.trim($this -> table);
-
+		if (!is_null($this -> table_count))
+			$sql = 'SELECT count(*) FROM '.trim($this -> table_count);
+		else
+			$sql = 'SELECT count(*) FROM '.trim($this -> table);
+		
 		$sql_clause='';
 		if ($clause!='') {
             if ($id_Value == null || $id_Value == '') {

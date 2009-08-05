@@ -59,6 +59,13 @@ class FormHandler
     * @public	-	@type string
     */	 
 	var $FG_TABLE_NAME="";
+	
+	/**
+    * Sets the table name used for count.
+    * @public	-	@type string
+    */	 
+	var $FG_TABLE_NAME_COUNT="";
+	
 	 	 
 	/**
     * Sets the instance_name, used to descripbe the name of the element your are managing
@@ -492,14 +499,15 @@ class FormHandler
 	//	@ $tablename + $instance_name
 	// ----------------------------------------------
 
-	function FormHandler ($tablename=null, $instance_name=null, $action=null)
+	function FormHandler ($tablename=null, $instance_name=null, $action=null, $tablename_count=null)
 	{
 		Console::log('Construct FormHandler');
 		Console::logMemory($this, 'FormHandler Class : Line '.__LINE__);
 		Console::logSpeed('FormHandler Class : Line '.__LINE__);
 		
-		$this->FG_TABLE_NAME = $tablename;
-		$this->FG_INSTANCE_NAME = $instance_name;
+		$this -> FG_TABLE_NAME = $tablename;
+		$this -> FG_INSTANCE_NAME = $instance_name;
+		$this -> FG_TABLE_NAME_COUNT = $tablename_count;
 		
 	  	if ($this->FG_DEBUG) echo "".$this -> Host."";
 		
@@ -1194,19 +1202,18 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 			
 			
 
-			if ( $this->FG_ORDER == "" || $this->FG_SENS == "" ){
+			if ( $this->FG_ORDER == "" || $this->FG_SENS == "" ) {
 				$this->FG_ORDER = $this -> FG_TABLE_DEFAULT_ORDER;
 				$this->FG_SENS  = $this -> FG_TABLE_DEFAULT_SENS;
 			}
 			
-			if ( $form_action == "list" ){
-				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
-	
+			if ( $form_action == "list" ) {
+				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY, null, null, null, true, $this -> FG_TABLE_NAME_COUNT);
+				
 				$this->prepare_list_subselection($form_action);
 	
 				// Code here to call the Delete Selected items Fucntion
-				if (isset($processed['deleteselected']))
-				{
+				if (isset($processed['deleteselected'])) {
 					$this -> Delete_Selected();
 				}
 				
@@ -1233,7 +1240,7 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 				if ($this->FG_DEBUG == 3) echo "<br>Nb_record : ".$this -> FG_NB_RECORD ;
 				if ($this->FG_DEBUG == 3) echo "<br>Nb_record_max : ".$this -> FG_NB_RECORD_MAX ;
 					
-			}else{
+			} else {
 			
 				$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 				$list = $instance_table -> Get_list ($this->DBHandle, $this->FG_EDITION_CLAUSE, null, null, null, null, 1, 0);

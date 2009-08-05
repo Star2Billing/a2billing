@@ -13,9 +13,9 @@ $destination = strtolower ($destination);
 
 
 if ( (empty($form_action) || $form_action=="list") && $deleteselected != 'true') {
-	$HD_Form = new FormHandler("cc_ratecard LEFT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffplan = cc_ratecard.idtariffplan","Rates");
+	$HD_Form = new FormHandler("cc_ratecard LEFT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffplan = cc_ratecard.idtariffplan", "Rates");
 } else {
-	$HD_Form = new FormHandler("cc_ratecard","Rates");
+	$HD_Form = new FormHandler("cc_ratecard", "Rates");
 }
 
 $HD_Form -> FG_TABLE_ID = 'cc_ratecard.id';
@@ -24,6 +24,8 @@ if ($cancelsearch_callplanlcr) {
 	$_SESSION['def_ratecard_tariffgroup'] = '';
 }
 
+$DISTINCT = "";
+
 if (isset($posted) && !$popup_select) {
 	
 	if (is_string ($tariffgroup) && strlen(trim($tariffgroup))>0) {
@@ -31,21 +33,25 @@ if (isset($posted) && !$popup_select) {
 		$HD_Form->FG_TOP_FILTER_NAME = gettext("EXPORTED LCR CALL PLAN").' : <b>'.str_replace ("-:-","",$tariffgroup[1]).'</b>';
 		$HD_Form->FG_TOP_FILTER_VALUE2 = $tariffgroup[0];
 		
+		$DISTINCT = " DISTINCT ";
+		
 		$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
 				"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
 				"LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id";
-		if ($tariffgroup[2]==1)
+		
+		if ($tariffgroup[2]==1) {
 			$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.buyrate = (SELECT min(c1.buyrate) FROM cc_tariffgroup " .
 					"RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
 					"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
 					"LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id " .
 					"WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=c1.dialprefix)";
-		else
+		} else {
 			$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup " .
 					"RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
 					"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
 					"LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id ".
 					"WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=c1.dialprefix)";
+		}
 		
 		$_SESSION['def_ratecard_tariffgroup'] = $HD_Form -> FG_TABLE_CLAUSE;
 		
@@ -65,6 +71,9 @@ if (isset($posted) && !$popup_select) {
 } else {
 	
 	if (!empty($_SESSION['def_ratecard_tariffgroup']) && (empty($form_action) || $form_action=="list")) {
+		
+		$DISTINCT = " DISTINCT ";
+		
 		$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard_tariffgroup'];
 		$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
 				"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
@@ -104,7 +113,7 @@ if (!$popup_select) $HD_Form -> AddViewElement(gettext("RATE CARD"), "cc_ratecar
 
 
 if (!$popup_select) {
-	$HD_Form -> FieldViewElement ('DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk , cc_ratecard.idtariffplan ');
+	$HD_Form -> FieldViewElement ($DISTINCT.'cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk , cc_ratecard.idtariffplan ');
 } else {
 	$HD_Form -> FieldViewElement ('cc_ratecard.id, cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial');
 }
