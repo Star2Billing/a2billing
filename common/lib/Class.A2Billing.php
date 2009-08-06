@@ -168,6 +168,7 @@ class A2Billing {
 
 	// Flag to know that we ask for an othercardnumber when for instance we doesnt have enough credit to make a call
 	var $ask_other_cardnumber=0;
+	var $update_callerid=0;
 
 	var $ivr_voucher;
 	var $vouchernumber;
@@ -2481,8 +2482,13 @@ class A2Billing {
 					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
 						$this->accountcode=''; $callerID_enable=0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
-						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) $this -> ask_other_cardnumber=1;
-					} else {
+						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1){ $this -> ask_other_cardnumber=1;$this->update_callerid=1;}
+					} elseif($prompt == "prepaid-card-expired"){
+					    $this->accountcode=''; $callerID_enable=0;
+					     $this -> ask_other_cardnumber=1;
+					     $this->update_callerid=1;
+
+					}else {
 						return -2;
 					}
 				}
@@ -2796,7 +2802,7 @@ class A2Billing {
 				}
 
 				//CREATE AN INSTANCE IN CC_CALLERID
-				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1){
+				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1 && $this->update_callerid!=1){
 
 					$QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card='$the_card_id'";
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 1);
@@ -2823,9 +2829,10 @@ class A2Billing {
 				}
 
 				//UPDATE THE CARD ASSIGN TO THIS CC_CALLERID
-				if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1 && strlen($this->CallerID)>1 && $this -> ask_other_cardnumber==1){
+				if ($this->update_callerid==1 && strlen($this->CallerID)>1 && $this -> ask_other_cardnumber==1){
 					$this -> ask_other_cardnumber=0;
 					$QUERY = "UPDATE cc_callerid SET id_cc_card='$the_card_id' WHERE cid='".$this->CallerID."'";
+					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
 					$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 				}
 
