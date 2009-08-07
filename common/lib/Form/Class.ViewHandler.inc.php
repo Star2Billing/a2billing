@@ -665,7 +665,7 @@ function openURLFilter(theLINK)
 		</td></tr>
 		</FORM>
       </table>
-   </div>  
+   </div>
 <?php
 	}else{
 ?>

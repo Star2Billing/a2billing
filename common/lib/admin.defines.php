@@ -1,6 +1,6 @@
 <?php
 
-define ("PHP_QUICK_PROFILER", true);
+define ("PHP_QUICK_PROFILER", false);
 // Include PHP-Quick-Profiler
 require_once('PhpQuickProfiler.php');
 $profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
@@ -9,6 +9,7 @@ $profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
 define ("WRITELOG_QUERY",false);
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
 define ("LIBDIR", FSROOT."lib/");	
+define ("COMMONDIR_IMAGES", FSROOT."images/");	
 
 include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");
