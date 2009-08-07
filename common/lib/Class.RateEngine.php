@@ -1,20 +1,36 @@
 <?php
-/***************************************************************************
+
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**
+ * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * Class.RateEngine.php : RateEngine Functions for A2Billing
- * Written for PHP 4.x & PHP 5.X versions.
+ * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * powered by Star2billing S.L. <http://www.star2billing.com/>
+ * 
+ * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ * @author      Belaid Arezqui <areski@gmail.com>
+ * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
+ * @package     A2Billing
  *
- * A2Billing -- Billing solution for use with Asterisk(tm).
- * Copyright (C) 2004, 2009 Belaid Arezqui <areski _atl_ gmail com>
+ * Software License Agreement (GNU Affero General Public License)
  *
- * See http://www.a2billing.org for more information about
- * the A2Billing project.
- * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * This software is released under the terms of the GNU Lesser General Public License v2.1
- * A copy of which is available from http://www.gnu.org/copyleft/lesser.html
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
  *
- ****************************************************************************/
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+**/
+
 include_once (FSROOT."lib/Misc.php");
 
 class RateEngine
