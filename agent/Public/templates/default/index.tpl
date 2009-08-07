@@ -93,6 +93,8 @@
 			{php} echo gettext("BLOCKED ACCOUNT, Please contact the administrator!");{/php}
     {/if}
     </div>
+    <div id="footer_index"><div style=" border: solid 1px #F4F4F4; text-align:center;">{$COPYRIGHT}</div></div>
+    
   	</div>
 	</form>
 {literal}

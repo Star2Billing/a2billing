@@ -9,7 +9,7 @@ $profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
 define ("WRITELOG_QUERY",false);
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
 define ("LIBDIR", FSROOT."lib/");	
-define ("COMMONDIR_IMAGES", FSROOT."images/");	
+
 
 include (FSROOT."lib/interface/constants.php");
 include_once (dirname(__FILE__)."/Class.A2Billing.php");

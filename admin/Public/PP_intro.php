@@ -21,23 +21,39 @@ $smarty->display('main.tpl');
 		<td width="340">
 			<img src="<?php echo Images_Path;?>/a2b-logo-450.png">
 			<br><br>
-			<center><b><i>A2Billing is licensed under <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>.</i></b></center>
-			<br><br>
+			
 		</td>
 		<td align="left">
 		For information and documentation on A2Billing, <br> please visit <a href="http://www.a2billing.org" target="_blank">http://www.a2billing.org</a><br><br>
 		
 		For Commercial Installations, Hosted Systems, Customisation and Commercial support, please visit <a href="http://www.star2billing.com" target="_blank">http://www.star2billing.com</a><br><br>
 		
+		
+		For VoIP termination, please visit <a href="http://www.call-labs.com" target="_blank">http://www.call-labs.com</a>
 		<center>
 		<?php echo '<a href="http://www.call-labs.com/" target="_blank"><img src="'.Images_Path.'/call-labs.com.png" alt="call-labs"/></a>'; ?>
 		</center>
-		For VoIP termination, please visit <a href="http://www.call-labs.com" target="_blank">http://www.call-labs.com</a> <br>
-		Profits from Call-Labs are used to support the A2Billing project.<br><br>
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan="2">
+		<center>
+			<b><i>A2Billing is licensed under <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" 	target="_blank">AGPL 3</a>.</i></b>
+			<br><a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank"><img src="images/agplv3-88x31.png"></a>
+			</center>
+			
+		<div class="scroll">
+<pre>
+<?php echo (file_get_contents("../lib/COPYING")); ?>
+</pre>
+</div> 
 		
 		</td>
 	</tr>
+	
 </table>
+
 
 <br>
 	

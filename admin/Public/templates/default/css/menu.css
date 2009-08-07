@@ -61,15 +61,23 @@
 #footer {
   margin-bottom: 1em;
   color: #BD2A15; 
-  margin-top: 20px; 
+  margin-top: 40px; 
   margin-right: 55px;  
-  margin-left: 55px;
+  margin-left: 235px;
   border: solid 1px #EFEFEF;
   background-color:#E5E5E5;
   font-size: 9px;
 }
 
-
+#footer_index {
+  color: #BD2A15; 
+  margin-top: 60px; 
+  margin-right: -100px;  
+  margin-left: -100px;
+  border: 1px solid #E5E5E5;
+  background-color : #F8F8F8;
+  font-size: 9px;
+}
 
 #kiblue .w1 {
   border: solid #B0B0FA;
@@ -245,20 +253,20 @@ list-style-type : none;
 
 
 #top_menu{
-background:transparent url(../images/top_menu_bg.png) no-repeat scroll left bottom;
-width:700px;
-padding:0;
-position : relative;
-left: 50%; 
-margin-left: -350px;
-padding-left: 2px;
-padding-right: 2px;
-font-size:10px;
-line-height:normal;
-top:0;
-z-index:1;
-font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-height:25px;
+	background:transparent url(../images/top_menu_bg.png) no-repeat scroll left bottom;
+	width:700px;
+	padding:0;
+	position : relative;
+	left: 50%; 
+	margin-left: -350px;
+	padding-left: 2px;
+	padding-right: 2px;
+	font-size:10px;
+	line-height:normal;
+	top:0;
+	z-index:1;
+	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+	height:25px;
 }
 
 
@@ -285,15 +293,15 @@ float : right;
 }
  
 ul#menu_horizontal a {
-color : #444444;
-display:block;
-text-decoration : none;
-font-size: 12px;
+	color : #444444;
+	display:block;
+	text-decoration : none;
+	font-size: 12px;
 }
+
 ul#menu_horizontal a:hover {
 	background: #F0F0F0;
 }
-
 
 #nav li a:hover {
 	background: #E9E9E9;
@@ -316,3 +324,6 @@ ul#menu_horizontal a:hover {
 	font-size:12px;
 	text-decoration:none;
 }
+
+
+

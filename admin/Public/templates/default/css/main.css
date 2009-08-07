@@ -1388,3 +1388,14 @@ SPAN.errorText {
 	font-size: 10px;
 	color: #666666;
 }
+
+div.scroll {
+	height: 100px;
+	width: 560px;
+	overflow: auto;
+	margin-left: auto;
+	margin-right: auto;	
+	border: 1px solid #CCC;
+	background-color: #EEE;
+	padding: 8px;
+}
