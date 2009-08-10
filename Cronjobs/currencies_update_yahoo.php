@@ -1,5 +1,37 @@
 #!/usr/bin/php -q
-<?php 
+<?php
+
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**
+ * This file is part of A2Billing (http://www.a2billing.net/)
+ *
+ * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * powered by Star2billing S.L. <http://www.star2billing.com/>
+ * 
+ * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ * @author      Belaid Arezqui <areski@gmail.com>
+ * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
+ * @package     A2Billing
+ *
+ * Software License Agreement (GNU Affero General Public License)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+**/
+
 /***************************************************************************
  *            currencies_update_yahoo.php
  *
@@ -23,33 +55,25 @@
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-//dl("pgsql.so"); // remove "extension= pgsql.so !
+
 include_once (dirname(__FILE__)."/lib/Class.Table.php");
-include (dirname(__FILE__)."/lib/interface/constants.php");
-include (dirname(__FILE__)."/lib/Class.A2Billing.php");
-include (dirname(__FILE__)."/lib/Misc.php");
+include_once (dirname(__FILE__)."/lib/interface/constants.php");
+include_once (dirname(__FILE__)."/lib/Class.A2Billing.php");
+include_once (dirname(__FILE__)."/lib/Misc.php");
 
 
 $FG_DEBUG=0;
-
-
 $A2B = new A2Billing();
-
-// SELECT THE FILES TO LOAD THE CONFIGURATION
 $A2B -> load_conf($agi, DEFAULT_A2BILLING_CONFIG, 1);	
-
 
 // DEFINE FOR THE DATABASE CONNECTION
 define ("BASE_CURRENCY", strtoupper($A2B->config["global"]['base_currency']));
 
-
-
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
-//$A2B -> log_file = $A2B -> config["log-files"]['cront_currencies_update'];
-//$A2B -> write_log("[START CURRENCY UPDATE]", 0);
+
 write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[#### START CURRENCY UPDATE ####]");
 
-if (!$A2B -> DbConnect()){
+if (!$A2B -> DbConnect()) {
 	echo "[Cannot connect to the database]\n";
 	write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
 	exit;
@@ -61,4 +85,4 @@ $A2B -> set_instance_table ($instance_table);
 $return = currencies_update_yahoo($A2B -> DBHandle, $A2B -> instance_table);
 write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__.$return, 0);
 
-?>
+
