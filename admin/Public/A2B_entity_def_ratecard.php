@@ -257,6 +257,10 @@ if ($form_action == "list" && !$popup_select) {
 	$list_cid_group = $instance_table->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "group_name", "ASC", null, null, null, null);
 	$nb_cid_group = count($list_cid_group);
 	
+	
+	// disable Batch update if LCR Export
+	if(empty($_SESSION['def_ratecard_tariffgroup'])) {
+		
 ?>
 
 
@@ -401,8 +405,10 @@ if ($form_action == "list" && !$popup_select) {
 	</div>
 </div>
 
-
 <?php
+
+	} // disable Batch update if LCR Export
+
 } // END if ($form_action == "list")
 ?>
 
