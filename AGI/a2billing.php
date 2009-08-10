@@ -315,7 +315,6 @@ if ($mode == 'standard') {
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[a2billing account stop]');
 				}else if($ans=="2DID"){
                                     
-                                    $A2B->call_2did($agi, $RateEngine, $listdestination);
 
                                     ///
                                     $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=".$A2B-> destination."]");
@@ -335,11 +334,12 @@ if ($mode == 'standard') {
                                    
 
                                     if (is_array($result)){
+					    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NUMBER CARD BEFORE::> ".$A2B->username."]");
                                             $A2B -> call_2did($agi, $RateEngine, $result);
-                                            if ($A2B->set_inuse==1) $A2B -> callingcard_acct_start_inuse($agi,0);
+					    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NUMBER CARD AFTER::> ".$A2B->username."]");
+                                            if($A2B->set_inuse==1) $A2B -> callingcard_acct_start_inuse($agi,0);
                                     }
                                     //
-                                    
                                 }
 			}
 			$A2B->agiconfig['use_dnid']=0;

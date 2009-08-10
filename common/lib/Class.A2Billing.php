@@ -746,7 +746,7 @@ class A2Billing {
 			$this -> set_inuse = 0;
 		}
 		if (!$this -> CC_TESTING) $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-
+		   $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY USING CARD UPDATE::> ".$QUERY."]");
 		return 0;
 	}
 
@@ -1380,8 +1380,10 @@ class A2Billing {
 					}
 				}
 			} // END IF AUTHENTICATE
+
 		}// END FOR
-		
+
+		//if ($this -> set_inuse) $this -> callingcard_acct_start_inuse($agi,0);
 		if ($this->voicemail) {
 			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") || ($dialstatus == "NOANSWER") || ($dialstatus =="BUSY")) {
 				// The following section will send the caller to VoiceMail with the unavailable priority.\
@@ -1437,6 +1439,12 @@ class A2Billing {
                 }
                 $this->timeout = $time2call;
 		$callcount=0;
+
+		$accountcode =$this->accountcode;
+		$username=$this->username ;
+		$useralias=$this->useralias ;
+		$set_inuse=$this->set_inuse ;
+
 		foreach ($listdestination as $inst_listdestination) {
 			$callcount++;
 
@@ -1448,8 +1456,6 @@ class A2Billing {
 			$this->destination 				= $inst_listdestination[4];
 			$this->username 				= $inst_listdestination[6];
 			$this->useralias 				= $inst_listdestination[7];
-
-			if ($this -> set_inuse) $this -> callingcard_acct_start_inuse($agi,0);
 
                         // CHECK IF DESTINATION IS SET
                         if (strlen($inst_listdestination[4])==0) continue;
@@ -1597,7 +1603,7 @@ class A2Billing {
                                         $result = $this->instance_table -> SQLExec ($this -> DBHandle, $QUERY, 0);
                                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[UPDATE DID_DESTINATION]:[result:$result]");
 
-                                        return 1;
+                                       
                                 }
 
                         // ELSEIF NOT VOIP CALL
@@ -1686,6 +1692,11 @@ class A2Billing {
 				$agi-> exec(VoiceMail,$dest_username);
 			}
 		}
+		$this->accountcode =$accountcode;
+		$this->username= $username ;
+		$this->useralias= $useralias ;
+		$this->set_inuse =$set_inuse ;
+
 	}
 
 
