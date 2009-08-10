@@ -98,6 +98,8 @@ if ($batchupdate == 1 && is_array($check)) {
 	// Array ( [upd_simultaccess] => on [upd_currency] => on )
 	$loop_pass = 0;
 	$SQL_UPDATE = '';
+	$PREFIX_FIELD = 'cc_ratecard.';
+	
 	foreach ($check as $ind_field => $ind_val) {
 		//echo "<br>::> $ind_field -";
 		$myfield = substr($ind_field, 4);
@@ -107,30 +109,30 @@ if ($batchupdate == 1 && is_array($check)) {
 		// Standard update mode
 		if (!isset ($mode["$ind_field"]) || $mode["$ind_field"] == 1) {
 			if (!isset ($type["$ind_field"])) {
-				$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+				$SQL_UPDATE .= " $PREFIX_FIELD$myfield='" . $$ind_field . "'";
 			} else {
-				$SQL_UPDATE .= " $myfield='" . $type["$ind_field"] . "'";
+				$SQL_UPDATE .= " $PREFIX_FIELD$myfield='" . $type["$ind_field"] . "'";
 			}
 			// Mode 2 - Equal - Add - Substract
 		}
 		elseif ($mode["$ind_field"] == 2) {
 			if (!isset ($type["$ind_field"])) {
-				$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+				$SQL_UPDATE .= " $PREFIX_FIELD$myfield='" . $$ind_field . "'";
 			} else {
 				if ($type["$ind_field"] == 1) {
-					$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+					$SQL_UPDATE .= " $PREFIX_FIELD$myfield='" . $$ind_field . "'";
 				}
 				elseif ($type["$ind_field"] == 2) {
 					if (substr($$ind_field, -1) == "%") {
-						$SQL_UPDATE .= " $myfield = ROUND($myfield + (($myfield * " . substr($$ind_field, 0, -1) . ") / 100)+0.00005,4)";
+						$SQL_UPDATE .= " $PREFIX_FIELD$myfield = ROUND($PREFIX_FIELD$myfield + (($PREFIX_FIELD$myfield * " . substr($$ind_field, 0, -1) . ") / 100)+0.00005,4)";
 					} else {
-						$SQL_UPDATE .= " $myfield = $myfield +'" . $$ind_field . "'";
+						$SQL_UPDATE .= " $PREFIX_FIELD$myfield = $PREFIX_FIELD$myfield +'" . $$ind_field . "'";
 					}
 				} else {
 					if (substr($$ind_field, -1) == "%") {
-						$SQL_UPDATE .= " $myfield = ROUND($myfield - (($myfield * " . substr($$ind_field, 0, -1) . ") / 100)+0.00005,4)";
+						$SQL_UPDATE .= " $PREFIX_FIELD$myfield = ROUND($PREFIX_FIELD$myfield - (($PREFIX_FIELD$myfield * " . substr($$ind_field, 0, -1) . ") / 100)+0.00005,4)";
 					} else {
-						$SQL_UPDATE .= " $myfield = $myfield -'" . $$ind_field . "'";
+						$SQL_UPDATE .= " $PREFIX_FIELD$myfield = $PREFIX_FIELD$myfield -'" . $$ind_field . "'";
 					}
 				}
 			}
@@ -144,7 +146,9 @@ if ($batchupdate == 1 && is_array($check)) {
 		$SQL_UPDATE .= ' WHERE ';
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
 	}
-	if (!$res = $HD_Form->DBHandle->query($SQL_UPDATE))
+	$instance_table = new Table();
+	$res = $instance_table->ExecuteQuery($HD_Form->DBHandle, $SQL_UPDATE);
+	if (!$res)
 		$update_msg = "<center><font color=\"red\"><b>" . gettext("Could not perform the batch update") . "!</b></font></center>";
 	else
 		$update_msg = "<center><font color=\"green\"><b>" . gettext("The batch update has been successfully perform") . " !</b></font></center>";
