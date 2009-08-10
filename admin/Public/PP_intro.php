@@ -75,11 +75,6 @@ $smarty->display('main.tpl');
 			</center>
 			<br>
 			<?php } ?>
-			
-			<span class="liens">
-		           BY USING THIS SOFTWARE, YOU ASSUME ALL RISKS OF USE AND NO WARRANTIES EXPRESSED OR IMPLIED <BR>
-				   ARE PROVIDED WITH THIS SOFTWARE INCLUDING FITNESS FOR A PARTICULAR PURPOSE AND MERCHANTABILITY.
-			</span> 		
 		</td>
 	</tr>
 </table>
