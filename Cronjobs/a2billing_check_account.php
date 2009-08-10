@@ -27,9 +27,9 @@ set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include_once (dirname(__FILE__) . "/lib/Class.Table.php");
-include (dirname(__FILE__) . "/lib/interface/constants.php");
-include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
-include (dirname(__FILE__) . "/lib/Misc.php");
+include_once (dirname(__FILE__) . "/lib/interface/constants.php");
+include_once (dirname(__FILE__) . "/lib/Class.A2Billing.php");
+include_once (dirname(__FILE__) . "/lib/Misc.php");
 
 $verbose_level = 0;
 $groupcard = 5000;
@@ -51,7 +51,7 @@ $instance_table = new Table();
 
 $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext FROM cc_templatemail WHERE mailtype='reminder' ";
 $listtemplate = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
-if (!is_array(listtemplate)) {
+if (!is_array($listtemplate)) {
 	echo "[Cannot find a template mail for reminder]\n";
 	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
 	exit;
