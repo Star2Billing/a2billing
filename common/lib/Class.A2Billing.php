@@ -2330,7 +2330,7 @@ class A2Billing {
 		$callerID_enable 	= $this->agiconfig['cid_enable'];
 		// 		  -%-%-%-%-%-%-		FIRST TRY WITH THE CALLERID AUTHENTICATION 	-%-%-%-%-%-%-
 
-		if ($callerID_enable==1 && is_numeric($this->CallerID) && $this->CallerID>0){
+		if ($callerID_enable==1 && is_numeric($this->CallerID) && $this->CallerID>0) {
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 
 			// NOT USE A LEFT JOIN HERE - In case the callerID is alone without card bound
@@ -2355,32 +2355,32 @@ class A2Billing {
 				if ($this -> agiconfig['cid_auto_create_card']==1) {
 				    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_CONTROL - NO CALLERID - ASK PIN CODE]");
 				    for ($k=0 ; $k <= 20 ; $k++) {
-					if ($k == 20) {
-					    $this -> debug( WARN, $agi, __FILE__, __LINE__, "ERROR : Impossible to generate a cardnumber not yet used!");	                            $prompt="prepaid-auth-fail";
-					    $agi-> stream_file($prompt, '#');
-					    return -2;
-					}
-					$card_gen = $this -> MDP ($this->agiconfig['cid_auto_create_card_len']);
-					$numrow = 0;
-					$resmax = $this->DBHandle -> Execute("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
-					if ($resmax)
-					    $numrow = $resmax -> RecordCount();
-					if ($numrow!=0) continue;
-					break;
+						if ($k == 20) {
+						    $this -> debug( WARN, $agi, __FILE__, __LINE__, "ERROR : Impossible to generate a cardnumber not yet used!");	                            $prompt="prepaid-auth-fail";
+						    $agi-> stream_file($prompt, '#');
+						    return -2;
+						}
+						$card_gen = $this -> MDP ($this->agiconfig['cid_auto_create_card_len']);
+						$numrow = 0;
+						$resmax = $this->DBHandle -> Execute("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
+						if ($resmax)
+						    $numrow = $resmax -> RecordCount();
+						if ($numrow!=0) continue;
+						break;
 				    }
 				    $card_alias = $this -> MDP ($this->agiconfig['cid_auto_create_card_len']);
 				    $uipass = $this -> MDP (5);
 				    $ttcard = ($this->agiconfig['cid_auto_create_card_typepaid']=="POSTPAID") ? 1 : 0;
 
 				    //CREATE A CARD
-
 				    $QUERY_FIELS = 'username, useralias, uipass, credit, language, tariff, activated, typepaid, creditlimit, inuse, status, currency';
 				    $QUERY_VALUES = "'$card_gen', '$card_alias', '$uipass', '".$this->agiconfig['cid_auto_create_card_credit']."', 'en', '".$this->agiconfig['cid_auto_create_card_tariffgroup']."', 't','$ttcard', '".$this->agiconfig['cid_auto_create_card_credit_limit']."', '0', '1', '".$this->config['global']['base_currency']."'";
-				    if($this ->groupe_mode){
-					$QUERY_FIELS .= ", id_group";
-					$QUERY_VALUES .= " , '$this->group_id'";
+				    
+				    if($this ->groupe_mode) {
+						$QUERY_FIELS .= ", id_group";
+						$QUERY_VALUES .= " , '$this->group_id'";
 				    }
-
+					
 				    $result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card', 'id');
 				    $this -> debug( INFO, $agi, __FILE__, __LINE__, "[CARDNUMBER: $card_gen]:[CARDID CREATED : $result]");
 
@@ -2390,11 +2390,11 @@ class A2Billing {
 
 				    $result = $this->instance_table -> Add_table ($this->DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callerid');
 				    if (!$result) {
-					$this -> debug( ERROR, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
-					$prompt="prepaid-auth-fail";
-					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-					$agi-> stream_file($prompt, '#');
-					return -2;
+						$this -> debug( ERROR, $agi, __FILE__, __LINE__, "[CALLERID CREATION ERROR TABLE cc_callerid]");
+						$prompt="prepaid-auth-fail";
+						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
+						$agi-> stream_file($prompt, '#');
+						return -2;
 				    }
 
 				    $this->credit = $this->agiconfig['cid_auto_create_card_credit'];
@@ -2407,11 +2407,11 @@ class A2Billing {
 				    $this->creditlimit = $this->agiconfig['cid_auto_create_card_credit_limit'];
 				    $language = 'en';
 				    $this->accountcode = $card_gen;
-				    if ($this->typepaid==1) $this->credit = $this->credit + $this->creditlimit;
+				    
+				    if ($this->typepaid==1) 
+				    	$this->credit = $this->credit + $this->creditlimit;
 
-
-
-				}else{
+				} else {
 				    if ($this -> agiconfig['cid_askpincode_ifnot_callerid']==1) {
 					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_CONTROL - NO CALLERID - ASK PIN CODE]");
 					    $this -> accountcode = '';
