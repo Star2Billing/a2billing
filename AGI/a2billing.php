@@ -904,20 +904,17 @@ if ($mode != 'cid-callback' && $mode != 'all-callback') {
 
 // SEND MAIL REMINDER WHEN CREDIT IS TOO LOW
 if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_reminder'] == 1) {
-         $A2B->id_card ;
+
 	if (strlen($A2B -> cardholder_email) > 5) {
-                include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
-                include_once (dirname(__FILE__)."/lib/Class.Mail.php");
-
-                try {
-                    $mail = new Mail(Mail::$TYPE_REMINDERCALL,$A2B->id_card );
-                    $mail->send();
-                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SEND-MAIL REMINDER]:[TO:".$A2B -> cardholder_email." - FROM:$from - SUBJECT:$subject]");
-                } catch (A2bMailException $e) {
-                }
-
-			a2b_mail ($A2B -> cardholder_email, $subject, $messagetext, $from, $fromname);
-
+        include_once (dirname(__FILE__)."/lib/mail/class.phpmailer.php");
+        include_once (dirname(__FILE__)."/lib/Class.Mail.php");
+		
+        try {
+            $mail = new Mail(Mail::$TYPE_REMINDERCALL,$A2B->id_card );
+            $mail -> send();
+            $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SEND-MAIL REMINDER]:[TO:".$A2B -> cardholder_email." - FROM:$from - SUBJECT:$subject]");
+        } catch (A2bMailException $e) {
+        }
 	}
 }
 

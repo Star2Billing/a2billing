@@ -61,8 +61,10 @@ include_once (dirname(__FILE__) . "/lib/Class.Table.php");
 include_once (dirname(__FILE__) . "/lib/interface/constants.php");
 include_once (dirname(__FILE__) . "/lib/Class.A2Billing.php");
 include_once (dirname(__FILE__) . "/lib/Misc.php");
+include_once (dirname(__FILE__) . "/lib/mail/class.phpmailer.php");
+include_once (dirname(__FILE__) . "/lib/Class.Mail.php");
 
-$verbose_level = 0;
+$verbose_level = 3;
 $groupcard = 5000;
 
 $min_credit = 5;
@@ -77,25 +79,14 @@ if (!$A2B->DbConnect()) {
 	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
 	exit;
 }
-//$A2B -> DBHandle
+
 $instance_table = new Table();
 
-$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext FROM cc_templatemail WHERE mailtype='reminder' ";
-$listtemplate = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
-if (!is_array($listtemplate)) {
-	echo "[Cannot find a template mail for reminder]\n";
-	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
-	exit;
-}
-
-list ($mailtype, $from, $fromname, $subject, $messagetext) = $listtemplate[0];
-if ($FG_DEBUG == 1)
-	echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
-
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE CHECK ACCOUNT SERVICE
-$QUERY = "SELECT count(*) FROM cc_card WHERE activated='1' AND credit < $min_credit";
-
+$QUERY = "SELECT count(*) FROM cc_card WHERE status=1 AND credit < $min_credit AND email <> ''";
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
+
+
 $nb_card = $result[0][0];
 $nbpagemax = (ceil($nb_card / $groupcard));
 if ($verbose_level >= 1)
@@ -113,7 +104,7 @@ write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ .
 // BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE 
 for ($page = 0; $page < $nbpagemax; $page++) {
 
-	$sql = "SELECT id, credit, username, email FROM cc_card WHERE activated='1' AND credit < $min_credit ORDER BY id  ";
+	$sql = "SELECT id, credit, username, email FROM cc_card WHERE status=1 AND credit < $min_credit AND email <> '' ORDER BY id";
 	if ($A2B->config["database"]['dbtype'] == "postgres") {
 		$sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
 	} else {
@@ -127,14 +118,15 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 		if ($verbose_level >= 1)
 			print_r($mycard);
 		if ($verbose_level >= 1)
-			echo "------>>>  ID = " . $mycard[0] . " - CARD =" . $mycard[2] . " - BALANCE =" . $mycard[1] . " \n";
-
-		// SEND NOTIFICATION
-		if (strlen($mycard[3]) > 0) { // ADD CHECK EMAIL
-			$mail_tile = $mail_content = "CREDIT LOW : You have less than $min_credit";
-			mail($mycard[12], $mail_tile, $mail_content);
+			echo "------>>>  ID = " . $mycard[0] . " - CARD =" . $mycard[2] . " - BALANCE =" . $mycard[1]. " - EMAIL =" . $mycard[3] . " \n";
+		
+		if (strlen($mycard[3]) > 5) {
+	        try {
+	            $mail = new Mail(Mail::$TYPE_REMINDERCALL, $mycard[0]);
+	            //$mail -> send();
+	        } catch (A2bMailException $e) {
+	        }
 		}
-
 	}
 	// Little bit of rest
 	sleep(15);
