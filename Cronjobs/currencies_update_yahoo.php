@@ -49,7 +49,6 @@
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
 	
 	The sample above will run the script every day at 6AM
-	
 
 ****************************************************************************/
 
