@@ -87,6 +87,7 @@ $PHP_SELF = $_SERVER["PHP_SELF"];
 
 $CURRENT_DATETIME = date("Y-m-d H:i:s");
 
+$_START_TIME = time();
 
 
 // A2BILLING INFO
@@ -105,4 +106,17 @@ define ("CCMAINTITLE", gettext("A2Billing Portal"));
 
 
 
+
+/*
+ *		CONNECT / DISCONNECT DATABASE
+ */ 
+function DbConnect()
+{
+	return Connection::GetDBHandler();
+}
+
+function DbDisconnect($DBHandle)
+{
+	$DBHandle ->disconnect();
+}
 

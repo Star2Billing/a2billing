@@ -68,8 +68,6 @@ define('CC_NUMBER_MIN_LENGTH', '15');
 // A2B INSTANCE
 $A2B = new A2Billing();
 
-$_START_TIME = time();
-
 define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();
@@ -85,6 +83,8 @@ if (!isset($disable_load_conf) || !($disable_load_conf)) {
 	$res_load_conf = $A2B -> load_conf($agi, A2B_CONFIG_DIR."a2billing.conf", 1);
 	if (!$res_load_conf) exit;
 }
+
+include (LIBDIR."common.defines.php");
 
 // Define a demo mode
 define("DEMO_MODE", false);
@@ -219,19 +219,6 @@ if (!empty($section)) {
 	$_SESSION["menu_section"] = $section;
 }
 
-/*
- *		CONNECT / DISCONNECT DATABASE
- */ 
-function DbConnect()
-{
-	return Connection::GetDBHandler();
-}
-
-function DbDisconnect($DBHandle)
-{
-	$DBHandle ->disconnect();
-}
-
 getpost_ifset(array('cssname'));
 	
 if(isset($cssname) && $cssname != "")
@@ -262,9 +249,6 @@ define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->co
 
 // INCLUDE HELP
 include (LIBDIR."agent.help.php");
-
-include (LIBDIR."common.defines.php");
-
 
 //Enable Disable Captcha
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);

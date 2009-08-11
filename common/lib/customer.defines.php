@@ -70,6 +70,8 @@ if (!isset($disable_load_conf) || !($disable_load_conf)) {
 	if (!$res_load_conf) exit;
 }
 
+include (LIBDIR."common.defines.php");
+
 // Define a demo mode
 define("DEMO_MODE", false);
 
@@ -189,22 +191,6 @@ define ("BINDTEXTDOMAIN", '../common/cust_ui_locale');
 require("languageSettings.php");
 SetLocalLanguage();
 
-
-/*
- *		CONNECT / DISCONNECT DATABASE
- */
-
-function DbConnect()
-{
-	return Connection::GetDBHandler();
-}
-
-function DbDisconnect($DBHandle)
-{
-	$DBHandle ->disconnect();
-}
-
-
 if(isset($cssname) && $cssname != "") {
 	if ($_SESSION["stylefile"]!=$cssname) {
 		foreach (glob("./templates_c/*.*") as $filename) {
@@ -254,8 +240,6 @@ define ("ADMIN_EMAIL", isset($A2B->config["global"]['admin_email'])?$A2B->config
 
 // INCLUDE HELP
 include (LIBDIR."customer.help.php");
-
-include (LIBDIR."common.defines.php");
 
 define ("ENABLE_LOG", 0);
 

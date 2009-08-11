@@ -179,20 +179,6 @@ if (!empty($section)) {
 	$_SESSION["menu_section"] = $section;
 }
 
-/*
- *		CONNECT / DISCONNECT DATABASE
- */
-function DbConnect()
-{
-	return Connection::GetDBHandler();
-}
-
-function DbDisconnect($DBHandle)
-{
-	$DBHandle -> disconnect();
-}
-
-
 getpost_ifset(array('cssname'));
 	
 if(isset($cssname) && $cssname != "") {
