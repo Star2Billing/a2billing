@@ -1,3 +1,9 @@
+<?php
+
+$processed = $this->getProcessed();
+
+?>
+
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -96,26 +102,26 @@ function sendtolittle(direction){
 						 <?php if(substr_count($this->FG_TABLE_EDITION[$i][4], "readonly") > 0){?>
 						 style="background-color: #CCCCCC;" 
 						 <?php }?> 
-						name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
+						name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
                         <?php 
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="POPUPVALUE"){
 			?>
 				<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php
 					if($this->VALID_SQL_REG_EXP){ 
 						echo stripslashes($list[0][$i]);
-					}else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
+					}else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]]; }?>">
                                 	<a href="#" onclick="window.open('<?php echo $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?php echo $this->FG_TABLE_EDITION[$i][1]?>' <?php echo $this->FG_TABLE_EDITION[$i][13]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 			 <?php
 				}elseif (strtoupper ($this -> FG_TABLE_EDITION[$i][3])=="POPUPVALUETIME")
 				{
                         ?>
-                        <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
+                        <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]]; }?>">
                          <a href="#" onclick="window.open('<?php echo $this->FG_TABLE_EDITION[$i][14]?>formname=myForm&fieldname=<?php echo $this->FG_TABLE_EDITION[$i][1]?>' <?php echo $this->FG_TABLE_EDITION[$i][14]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
                         <?php
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="POPUPDATETIME")
 				{
                         ?>
-                         <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
+                         <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]]; }?>">
                           <a href="javascript:cal<?php echo $this->FG_TABLE_EDITION[$i][1]?>.popup();"><img src="<?php echo Images_Path_Main;?>/cal.gif" width="16" height="16" border="0" title="Click Here to Pick up the date" alt="Click Here to Pick up the date"></a>
                           <script language="JavaScript">
                          <!-- // create calendar object(s) just after form tag closed
@@ -135,12 +141,12 @@ function sendtolittle(direction){
 					 <?php if(substr_count($this->FG_TABLE_EDITION[$i][4], "readonly") > 0){?>
 						 style="background-color: #CCCCCC;" 
 						 <?php }?> 
-					 name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></textarea> 
+					 name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]];  }?></textarea> 
 				<?php	
 		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SPAN")
 				{
 			  ?>
-                     <span name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></span> 	 
+                     <span name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]];  }?></span> 	 
                         <?php 	
 				} elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT")
 				{
@@ -178,9 +184,9 @@ function sendtolittle(direction){
 										}
 									} else {
 										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")) {
-											if (is_array($_POST[$this->FG_TABLE_EDITION[$i][1]]) && (intval($select_recordset[1]) & array_sum($_POST[$this->FG_TABLE_EDITION[$i][1]]))) echo "selected"; 
+											if (is_array($processed[$this->FG_TABLE_EDITION[$i][1]]) && (intval($select_recordset[1]) & array_sum($processed[$this->FG_TABLE_EDITION[$i][1]]))) echo "selected"; 
 										} else {
-											if (strcmp($_POST[$this->FG_TABLE_EDITION[$i][1]],$select_recordset[1])==0){ echo "selected"; } 
+											if (strcmp($processed[$this->FG_TABLE_EDITION[$i][1]],$select_recordset[1])==0){ echo "selected"; } 
 										}
 									}
 									  
@@ -217,7 +223,7 @@ function sendtolittle(direction){
 							if($this->VALID_SQL_REG_EXP){ 
 								$know_is_checked = stripslashes($list[0][$i]); 
 							}else{ 
-								$know_is_checked = $_POST[$this->FG_TABLE_EDITION[$i][1]];  
+								$know_is_checked = $processed[$this->FG_TABLE_EDITION[$i][1]];  
 							}
 													
 							if ($know_is_checked==$radio_composant[1]){
@@ -346,8 +352,8 @@ function sendtolittle(direction){
 								<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
 									<TR> 
 										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
-										<TD width="516"><div align="center"> 	
-							 <input name="<?php echo $table_split[1]?>_hidden" type="hidden" value="" />
+										<TD width="516"><div align="center">
+							 				<input name="<?php echo $table_split[1]?>_hidden" type="hidden" value="" />
                                           <SELECT name="<?php echo $table_split[1]?>[]" <?php echo $this->FG_TABLE_EDITION[$i][4]?> class="form_input_select">
                                             <?php
 											 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, $table_split[13], $table_split[14], null, null, null, null);
@@ -427,9 +433,6 @@ function sendtolittle(direction){
                           <TR>
                             <TD>
 								<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-                                <TR>
-                                	<TD bgColor=#e1e1e1 colspan=<?php echo $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
-                                </TR>
                                 <?php
 								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
 					
@@ -470,9 +473,6 @@ function sendtolittle(direction){
                                 <?php
 								}
 								?>
-                                  <TR> 
-                                    <TD class="tableDivider" colspan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
-                                  </TR>
                               </TABLE></td>
                           </tr>
                           <TR class="bgcolor_016"> 
@@ -560,20 +560,17 @@ function sendtolittle(direction){
                           <TR>
                             <TD>
 								<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-                                <TR>
-                                	<TD bgColor=#e1e1e1 colspan=<?php echo $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
-                                </TR>
                                 <?php
 								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[3]);
 								$instance_sub_table = new Table($table_split[0], $table_split[2]);
 								$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);
-								if (!is_array($split_select_list)){
+								if (!is_array($split_select_list)) {
 									$num=0;
-								}else{
+								} else {
 									$num = count($split_select_list);
 								}
-								if($num>0){
-								for($j=0;$j<$num;$j++){
+								if($num>0) {
+								for ($j=0;$j<$num;$j++) {
 								?>
                                   <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
                                     <TD vAlign="top" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" class="tableBody">
@@ -599,9 +596,6 @@ function sendtolittle(direction){
                                       <div align="center" class="liens">No <?php echo $this->FG_TABLE_EDITION[$i][0]?></div></TD>
                                   </TR>
                                <?php }?>
-                                  <TR> 
-                                    <TD class="tableDivider" colspan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
-                                  </TR>
                               </TABLE></td>
                           </tr>
                           <TR class="bgcolor_016"> 

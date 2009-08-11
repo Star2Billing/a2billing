@@ -1,5 +1,7 @@
 <?php
 
+$processed = $this->getProcessed();
+
 if ($form_action == "ask-delete")
 {
     if ($this -> isFKDataExists() == false)
@@ -48,7 +50,7 @@ if ($this->FG_FK_DELETE_CONFIRM && $form_action == "ask-del-confirm" && $this-> 
                 </tr>
                 <tr height="50px">
                     <td align=center class="bgcolor_006">
-                    <?php echo gettext("You have "). $_POST["fkCount"]." dependent records.<br>" ?>
+                    <?php echo gettext("You have "). $processed["fkCount"]." dependent records.<br>" ?>
                     <?php echo $this -> FG_FK_DELETE_MESSAGE;?>
                     </td>
                 </tr>
@@ -170,7 +172,7 @@ else
 							if($this->VALID_SQL_REG_EXP){ 
 								$know_is_checked = stripslashes($list[0][$i]); 
 							}else{ 
-								$know_is_checked = $_POST[$this->FG_TABLE_EDITION[$i][1]];  
+								$know_is_checked = $processed[$this->FG_TABLE_EDITION[$i][1]];  
 							}
 													
 							if ($know_is_checked==$radio_composant[1]){

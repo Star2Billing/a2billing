@@ -1,3 +1,9 @@
+<?php
+
+$processed = $this->getProcessed();
+
+?>
+
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 
 	<FORM action=<?php echo $_SERVER['PHP_SELF']?> id="myForm" method="post" name="myForm">
@@ -48,7 +54,7 @@
 		if ($this->FG_DEBUG == 1) print($this->FG_TABLE_ADITION[$i][3]);
   		if (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="INPUT"){
 	?>
-                 <INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>">
+                 <INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $processed[$this->FG_TABLE_ADITION[$i][1]];?>">
 	<?php
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="POPUPVALUE"){
 	?>
@@ -56,7 +62,7 @@
 		
 			if($this->VALID_SQL_REG_EXP){
 				echo stripslashes($list[0][$i]);
-			}else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
+			}else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]]; }?>">
 		<a href="#" onclick="window.open('<?php echo $this->FG_TABLE_ADITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?php echo $this->FG_TABLE_ADITION[$i][1]?>' <?php echo $this->FG_TABLE_ADITION[$i][13]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 <!--CAPTCHA IMAGE CODE START HERE-->
 	<?php
@@ -68,7 +74,7 @@
 				<td> <img src="./captcha/captcha.php" ></td>
 			</tr>			
 			<tr>
-			<td><INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>"> Enter code from above picture here.
+			<td><INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $processed[$this->FG_TABLE_ADITION[$i][1]];?>"> Enter code from above picture here.
 			</td>
 			</tr>
 			</table>
@@ -80,13 +86,13 @@
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="POPUPVALUETIME")
 		{
 	?>
-		<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
+		<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]]; }?>">
 		<a href="#" onclick="window.open('<?php echo $this->FG_TABLE_ADITION[$i][14]?>formname=myForm&fieldname=<?php echo $this->FG_TABLE_ADITION[$i][1]?>' <?php echo $this->FG_TABLE_ADITION[$i][14]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 	<?php
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="POPUPDATETIME")
 		{
 	?>
-		<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
+		<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]]; }?>">
 		<a href="javascript:cal<?php echo $this->FG_TABLE_ADITION[$i][1]?>.popup();"><img src="<?php echo Images_Path_Main;?>/cal.gif" width="16" height="16" border="0" title="Click Here to Pick up the date" alt="Click Here to Pick up the date"></a>
 		<script language="JavaScript">
 		<!-- // create calendar object(s) just after form tag closed
@@ -101,7 +107,7 @@
 	<?php
 		} elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="TEXTAREA") {
 	?>
-            <TEXTAREA class="form_input_textarea" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?> <?php echo $this->FG_TABLE_ADITION[$i][4]?>><?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?></TEXTAREA> 
+            <TEXTAREA class="form_input_textarea" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?> <?php echo $this->FG_TABLE_ADITION[$i][4]?>><?php echo $processed[$this->FG_TABLE_ADITION[$i][1]];?></TEXTAREA> 
 	<?php 	
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="SELECT"){
 			if ($this->FG_DEBUG == 1) { echo "<br> TYPE DE SELECT :".$this->FG_TABLE_ADITION[$i][7];}
@@ -157,7 +163,7 @@
 					echo $radio_composant[0];
 					echo ' <input type="radio" name="'.$this->FG_TABLE_ADITION[$i][1].'" value="'.$radio_composant[1].'" ';
 					// TODO just a temporary and quick hack please review $VALID_SQL_REG_EXP
-					if ($_POST[$this->FG_TABLE_ADITION[$i][1]]==$radio_composant[1]){
+					if ($processed[$this->FG_TABLE_ADITION[$i][1]]==$radio_composant[1]){
 						echo "checked";
 					}
 					else if($VALID_SQL_REG_EXP){

@@ -566,20 +566,24 @@ class FormHandler
      */	
 	function init ()
 	{
+		$processed = $this->getProcessed();
+		
 		Console::log('FormHandler -> init');
 		Console::logMemory($this, 'FormHandler -> init : Line '.__LINE__);
 		Console::logSpeed('FormHandler -> init : Line '.__LINE__);
 		
-		global $_SERVER;		
-		if($_GET["section"]!="") {
-			$section = $_GET["section"];
+		global $_SERVER;	
+		
+		
+		if ($processed['section']!="") {
+			$section = $processed['section'];
 			$_SESSION["menu_section"] = $section;
 		} else {
 			$section = $_SESSION["menu_section"];
 		}
 		$ext_link ='';
-		if(is_numeric($_GET['current_page']))$ext_link.="&current_page=".$_GET['current_page'];
-		if(!empty($_GET['order']) && !empty($_GET['sens']))$ext_link.="&order=".$_GET['order']."&sens=".$_GET['sens'];
+		if (is_numeric($processed['current_page']))$ext_link.="&current_page=".$processed['current_page'];
+		if (!empty($processed['order']) && !empty($processed['sens']))$ext_link.="&order=".$processed['order']."&sens=".$processed['sens'];
 		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit".$ext_link."&id=";
 		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete".$ext_link."&id=";
 		
@@ -1054,74 +1058,78 @@ class FormHandler
     // FUNCTION FOR THE FORM
     // ----------------------------------------------
 	
-	function do_field_duration($sql,$fld, $fldsql){
+	function do_field_duration($sql,$fld, $fldsql)
+	{	
+  		$processed = $this->getProcessed();
+  		
   		$fldtype = $fld.'type';
-
-		if (isset($_POST[$fld]) && ($_POST[$fld]!='')){
-                if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
-				$sql = "$sql $fldsql";
-				if (isset ($_POST[$fldtype])){                
-                        switch ($_POST[$fldtype]) {
-							case 1:	$sql = "$sql ='".$_POST[$fld]."'";  break;
-							case 2: $sql = "$sql <= '".$_POST[$fld]."'";  break;
-							case 3: $sql = "$sql < '".$_POST[$fld]."'";  break;							
-							case 4: $sql = "$sql > '".$_POST[$fld]."'";  break;
-							case 5: $sql = "$sql >= '".$_POST[$fld]."'";  break;
-						}
-                }else{ $sql = "$sql = '".$_POST[$fld]."'"; }
+  		
+  		if (isset($processed[$fld]) && ($processed[$fld]!='')){
+            if (strpos($sql,'WHERE') > 0){
+                $sql = "$sql AND ";
+            }else{
+                $sql = "$sql WHERE ";
+            }
+			$sql = "$sql $fldsql";
+			if (isset ($processed[$fldtype])){                
+                switch ($processed[$fldtype]) {
+					case 1:	$sql = "$sql ='".$processed[$fld]."'";  break;
+					case 2: $sql = "$sql <= '".$processed[$fld]."'";  break;
+					case 3: $sql = "$sql < '".$processed[$fld]."'";  break;							
+					case 4: $sql = "$sql > '".$processed[$fld]."'";  break;
+					case 5: $sql = "$sql >= '".$processed[$fld]."'";  break;
+				}
+            }else{ $sql = "$sql = '".$processed[$fld]."'"; }
 		}
 		return $sql;
-  }
+	}
 
-function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
+	function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null)
+	{
+		
+		
   		$fldtype = $fld.'type';
-        if(!empty($processed)){
-	  		$parameters=$processed;
-        }else{
-        	$parameters =$_POST ;
+        if(empty($processed)) { 
+        	$processed = $this->getProcessed();
         }
   		
-        if (isset($parameters[$fld]) && ($parameters[$fld]!='')){
-				if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
-                if(empty($search_table)){
-					$sql = "$sql $fld";
-                }else{
-                	$sql = "$sql $search_table.$fld";
-                }
-		        if (DB_TYPE == "postgres"){		
-			 		$LIKE = "ILIKE";
-			 		$CONVERT ="";
-				}else{
-					$LIKE = "LIKE";
-					$CONVERT =" COLLATE utf8_unicode_ci";
-				}
-				
-				if ($simple==0){
-					if (isset ($parameters[$fldtype])){      
-							switch ($parameters[$fldtype]) {
-								case 1:	$sql = "$sql='".$parameters[$fld]."'";  break;
-								case 2: $sql = "$sql $LIKE '".$parameters[$fld]."%'".$CONVERT;  break;
-								case 3: $sql = "$sql $LIKE '%".$parameters[$fld]."%'".$CONVERT;  break;
-								case 4: $sql = "$sql $LIKE '%".$parameters[$fld]."'".$CONVERT;
-							}
-					}else{ 
-						$sql = "$sql $LIKE '%".$parameters[$fld]."%'".$CONVERT; 
+        if (isset($processed[$fld]) && ($processed[$fld]!='')){
+			if (strpos($sql,'WHERE') > 0){
+                $sql = "$sql AND ";
+            }else{
+                $sql = "$sql WHERE ";
+            }
+            if(empty($search_table)){
+				$sql = "$sql $fld";
+            }else{
+            	$sql = "$sql $search_table.$fld";
+            }
+	        if (DB_TYPE == "postgres"){		
+		 		$LIKE = "ILIKE";
+		 		$CONVERT ="";
+			}else{
+				$LIKE = "LIKE";
+				$CONVERT =" COLLATE utf8_unicode_ci";
+			}
+			
+			if ($simple==0){
+				if (isset ($processed[$fldtype])){      
+					switch ($processed[$fldtype]) {
+						case 1:	$sql = "$sql='".$processed[$fld]."'";  break;
+						case 2: $sql = "$sql $LIKE '".$processed[$fld]."%'".$CONVERT;  break;
+						case 3: $sql = "$sql $LIKE '%".$processed[$fld]."%'".$CONVERT;  break;
+						case 4: $sql = "$sql $LIKE '%".$processed[$fld]."'".$CONVERT;
 					}
-				}else{
-					$sql = "$sql ='".$parameters[$fld]."'";
+				}else{ 
+					$sql = "$sql $LIKE '%".$processed[$fld]."%'".$CONVERT; 
 				}
+			}else{
+				$sql = "$sql ='".$processed[$fld]."'";
+			}
 		}
 		return $sql;
-  }
-
+	}
+	
 	/**
      * Function to execture the appropriate action
      * @public     	 
@@ -1160,12 +1168,10 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 			   $this -> perform_edit($form_action);
 			   break;
 			case "delete":
-				
 			   $this -> perform_delete($form_action);
 			   break;
 		}
-
-		
+				
 		$processed = $this->getProcessed();  //$processed['firstname']
 
 		if ($form_action == "ask-delete" && in_array($processed['id'],$this->FG_DELETION_FORBIDDEN_ID) ){
@@ -1177,9 +1183,8 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 			die();
 		}
 		
-		
 		if ( $form_action == "list" || $form_action == "edit" || $form_action == "ask-delete" ||
-			 $form_action == "ask-edit" || $form_action == "add-content" || $form_action == "del-content" || $form_action == "ask-del-confirm"){
+			 $form_action == "ask-edit" || $form_action == "add-content" || $form_action == "del-content" || $form_action == "ask-del-confirm") {
 			include_once (FSROOT."lib/Class.Table.php");
 
 			$this->FG_ORDER = $processed['order'];
@@ -1199,8 +1204,6 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 				}
 				   $_SESSION[$this->FG_TABLE_NAME."-displaylimit"]=$this -> FG_LIMITE_DISPLAY;
 			}
-			
-			
 
 			if ( $this->FG_ORDER == "" || $this->FG_SENS == "" ) {
 				$this->FG_ORDER = $this -> FG_TABLE_DEFAULT_ORDER;
@@ -1245,26 +1248,22 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 				$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 				$list = $instance_table -> Get_list ($this->DBHandle, $this->FG_EDITION_CLAUSE, null, null, null, null, 1, 0);
 				
-				
 				//PATCH TO CLEAN THE IMPORT OF PASSWORD FROM THE DATABASE
-				if( substr_count($this->FG_QUERY_EDITION,"pwd_encoded")>0 ){
+				if ( substr_count($this->FG_QUERY_EDITION,"pwd_encoded")>0 ) {
 					$tab_field = explode(',',  $this->FG_QUERY_EDITION ) ;
 					for ($i=0;$i< count($tab_field);$i++){
 						if(trim($tab_field[$i])=="pwd_encoded") {
 							$list[0][$i]="";
 						}
-						
 					}
 				}
 				
-				if (isset($list[0]["pwd_encoded"])){
-					$list[0]["pwd_encoded"]=""; 
-				
+				if (isset($list[0]["pwd_encoded"])) {
+					$list[0]["pwd_encoded"] = "";				
 				}
 			}
-
 			
-			if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r ($list);}			
+			if ($this->FG_DEBUG >= 2) print_r ($list);			
 		}
 
 		return $list;
@@ -1294,9 +1293,7 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 					if ($pos !== false) {
 						$entity_name = substr($val_element_arr,0,$pos);
 						$entity_value = substr($val_element_arr,$pos+1);
-						//echo "entity_name=$entity_name :: entity_value=$entity_value <br>";
 						$this->_processed[$entity_name]=$entity_value;
-						//$_POST[$entity_name]=$entity_value;
 					}
 				}
 			}
@@ -1895,8 +1892,9 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		$processed = $this->getProcessed();
 		//find the last billing 
 		$card_id = $processed['id_card'];
-                $date_bill=$processed['date'];
-                //GET VAT
+        $date_bill=$processed['date'];
+        
+        //GET VAT
 		$card_table = new Table('cc_card','vat,typepaid,credit');
 		$card_clause = "id = ".$card_id;
 		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
@@ -2752,7 +2750,7 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		 </TR>
 		  <TR>
 		    <TD width="516" valign="top" class="tdstyle_001"> <br>
-		    	<div align="center"><strong><?php echo $form_action?><?php echo gettext("Done");?>
+		    	<div align="center"><strong><?php echo $form_action ?><?php echo gettext("Done");?>
 			</strong></div>
 			<br>
 			</TD>
@@ -2918,56 +2916,48 @@ function do_field($sql,$fld, $simple=0,$processed=null,$search_table=null){
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();
 		
-		if ($_GET['id']=='') {
-			$id = $_POST['id'];
-			if (isset($_POST['atmenu'])) $atmenu =  $_POST['atmenu'];
-			else $atmenu = $_GET['atmenu'];
-			
-			if (isset($_POST['stitle']))  $stitle = $_POST['stitle'];
-			else $stitle = $_GET['stitle'];
-			
-			if (isset($_POST['ratesort'])) $ratesort = $_POST['ratesort'];
-			else $ratesort = $_GET['ratesort'];
-			
-			if (isset($_POST['sub_action'])) $sub_action = $_POST['sub_action'];
-			else $sub_action = $_GET['sub_action'];	
-		} else {
-			$id = $_GET['id'];
-			$atmenu = $_GET['atmenu'];
-			$stitle = $_GET['stitle'];
-			$ratesort = $_GET['ratesort'];
-			$sub_action = $_GET['sub_action'];
-		}
-	
+		$id = $processed['id'];
+		$atmenu = $processed['atmenu'];
+		$stitle = $processed['stitle'];
+		$ratesort = $processed['ratesort'];
+		$sub_action = $processed['sub_action'];
+		
 		switch ($form_action) {
 			case "add-content":
 				$this->perform_add_content($sub_action,$id);
 				include('Class.FormHandler.EditForm.inc.php');
-			break;	
+				break;
+					
 			case "del-content":
 				$this->perform_del_content($sub_action,$id);
 				include('Class.FormHandler.EditForm.inc.php');
-			break;	
+				break;
+					
 			case "ask-edit":
 			case "edit":
 				include('Class.FormHandler.EditForm.inc.php');
-			break;
+				break;
+				
 			case "ask-add":					
 				include('Class.FormHandler.AddForm.inc.php');
-			break;
+				break;
+				
 			case "ask-delete":
             case "ask-del-confirm":
 				if (strlen($this -> FG_ADDITIONAL_FUNCTION_BEFORE_DELETE) > 0)
 			   	$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_BEFORE_DELETE));
-				include('Class.FormHandler.DelForm.inc.php');	   	// need ID
-			break;
+				include('Class.FormHandler.DelForm.inc.php');
+				break;
+				
 			case "list":
 				include('Class.ViewHandler.inc.php');
-			break;
+				break;
+				
 			case "delete":
 			case "add":
 				$this -> create_actionfinish($form_action);
-			break;
+				break;
+				
 			default:
 				$this -> create_custom($form_action);
 			}

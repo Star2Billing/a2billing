@@ -12,8 +12,7 @@ if (!function_exists("stripos")) {
 
 getpost_ifset(array('stitle', 'ratesort', 'current_page', 'popup_select'));
 
-$this->FG_ORDER = $_GET['order']; // really need ?!
-$this->FG_SENS 	= $_GET['sens']; // really need  ?
+$processed = $this->getProcessed();
 
 
 if( !($popup_select>=1) &&($this->FG_LIST_ADDING_BUTTON1 || $this->FG_LIST_ADDING_BUTTON2)) {
@@ -60,10 +59,10 @@ function openURLFilter(theLINK)
 	  <?php  IF ($this -> CV_DO_ARCHIVE_ALL){ ?>
 		<TR>
 			<FORM NAME="theFormFilter" action="<?php echo $_SERVER['PHP_SELF']?>">
-			<input type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
-			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
-			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
-			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
+			<input type="hidden" name="atmenu" value="<?php echo $processed['atmenu']?>">
+			<input type="hidden" name="popup_select" value="<?php echo $processed['popup_select']?>">
+			<input type="hidden" name="popup_formname" value="<?php echo $processed['popup_formname']?>">
+			<input type="hidden" name="popup_fieldname" value="<?php echo $processed['popup_fieldname']?>">
 			<input type="hidden" name="archive" value="true">
             <td class="viewhandler_filter_td1">
 				<input type="SUBMIT" value="<?php echo gettext("Archiving All ");?>" class="form_input_button" onclick="return confirm('This action will archive the data, Are you sure?');"/>
@@ -73,9 +72,9 @@ function openURLFilter(theLINK)
 	   <?php  } //END IF ?>
 	   <?php  IF ($this -> CV_DISPLAY_FILTER_ABOVE_TABLE){ ?>
 	   <TR><FORM NAME="theFormFilter">
-	   		<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
-			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
-			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
+	   		<input type="hidden" name="popup_select" value="<?php echo $processed['popup_select']?>">
+			<input type="hidden" name="popup_formname" value="<?php echo $processed['popup_formname']?>">
+			<input type="hidden" name="popup_fieldname" value="<?php echo $processed['popup_fieldname']?>">
                         
             <TD class="tdstyle_002"><span >
 				<SELECT name="choose_list" size="1" class="form_input_select" style="width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
@@ -112,20 +111,26 @@ function openURLFilter(theLINK)
 		if ($this -> FG_FILTER_APPLY || $this -> FG_FILTER_APPLY2){
 		?>
 		<tr><FORM NAME="theFormFilter" action="<?php echo $_SERVER['PHP_SELF']?>">
-			<input type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
-			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
-			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
-			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-                        <?php foreach ($_GET as $key => $val) {?>
-                               <input type="hidden" name="<?php echo $key?>" value="<?php echo $val?>">
-                         <?php  }?>
+			<input type="hidden" name="atmenu" value="<?php echo $processed['atmenu']?>">
+			<input type="hidden" name="popup_select" value="<?php echo $processed['popup_select']?>">
+			<input type="hidden" name="popup_formname" value="<?php echo $processed['popup_formname']?>">
+			<input type="hidden" name="popup_fieldname" value="<?php echo $processed['popup_fieldname']?>">
+            <?php 
+            	foreach ($processed as $key => $val) {
+            		if ($key!='current_page' && $key!='id') {
+            	?>
+                   <input type="hidden" name="<?php echo $key?>" value="<?php echo $val?>">
+             	<?php  
+             		}
+            	}
+             ?>
 			<INPUT type="hidden" name="form_action"	value="<?php echo $this->FG_FILTER_FORM_ACTION ?>">
             <td class="viewhandler_filter_td1">
 			<span >
 			<?php if ($this -> FG_FILTER_APPLY){ ?>
 
 				<font class="viewhandler_filter_on"><?php echo gettext("FILTER ON ");?> <?php echo strtoupper($this->FG_FILTERFIELDNAME)?> :</font>
-				<INPUT type="text" name="filterprefix" value="<?php if(!empty($_GET['filterprefix'])) echo $_GET['filterprefix']; ?>" class="form_input_text">
+				<INPUT type="text" name="filterprefix" value="<?php if(!empty($processed['filterprefix'])) echo $processed['filterprefix']; ?>" class="form_input_text">
 
 				<INPUT type="hidden" name="filterfield"	value="<?php echo $this->FG_FILTERFIELD?>">
 				<?php
@@ -613,8 +618,8 @@ function openURLFilter(theLINK)
                 <TR>
                   <TD align="right" valign="bottom"><span class="viewhandler_span2">
 					<?php
-					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$_GET['order']."&sens=".$_GET['sens']."&mydisplaylimit=".$_GET['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
-					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$_GET['letter'];
+					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$processed['filterprefix']."&order=".$processed['order']."&sens=".$processed['sens']."&mydisplaylimit=".$processed['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
+					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$processed['letter'];
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;
 					?>
 					</span>
@@ -629,19 +634,24 @@ function openURLFilter(theLINK)
 			<?php echo gettext("DISPLAY");?>
 			<input type="hidden" name="stitle" value="<?php echo $stitle?>">
 			<input type="hidden" name="atmenu" value="<?php echo $atmenu?>">
-			<input type="hidden" name="order" value="<?php echo $_GET['order']?>">
-			<input type="hidden" name="sens" value="<?php echo $_GET['sens']?>">
+			<input type="hidden" name="order" value="<?php echo $processed['order']?>">
+			<input type="hidden" name="sens" value="<?php echo $processed['sens']?>">
 			<input type="hidden" name="current_page" value="0">
-			<input type="hidden" name="filterprefix" value="<?php echo $_GET['filterprefix']?>">
-			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
-			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
-			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-			<input type="hidden" name="type" value="<?php echo $_GET['type']?>">
-			<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
-                        <?php foreach ($_GET as $key => $val) {?>
-                               <input type="hidden" name="<?php echo $key?>" value="<?php echo $val?>">
-                         <?php  }?>
-
+			<input type="hidden" name="filterprefix" value="<?php echo $processed['filterprefix']?>">
+			<input type="hidden" name="popup_select" value="<?php echo $processed['popup_select']?>">
+			<input type="hidden" name="popup_formname" value="<?php echo $processed['popup_formname']?>">
+			<input type="hidden" name="popup_fieldname" value="<?php echo $processed['popup_fieldname']?>">
+			<input type="hidden" name="type" value="<?php echo $processed['type']?>">
+			<input type="hidden" name="id" value="<?php echo $processed['id']?>">
+            <?php 
+            	foreach ($processed as $key => $val) {
+            		if ($key!='current_page' && $key!='id') {
+            	?>
+                   <input type="hidden" name="<?php echo $key?>" value="<?php echo $val?>">
+             	<?php  
+             		}
+            	}
+             ?>
 			<select name="mydisplaylimit" size="1" class="form_input_select">
 			<?php $session_limit = $this->FG_TABLE_NAME."-displaylimit"; ?>
 			

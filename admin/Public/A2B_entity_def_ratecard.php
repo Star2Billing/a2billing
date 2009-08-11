@@ -154,7 +154,6 @@ if ($batchupdate == 1 && is_array($check)) {
 		$update_msg = "<center><font color=\"green\"><b>" . gettext("The batch update has been successfully perform") . " !</b></font></center>";
 
 }
-//echo "FG_TABLE_NAME=$HD_Form->FG_TABLE_NAME :: FG_TABLE_CLAUSE=$HD_Form->FG_TABLE_CLAUSE<br>";
 /********************************* END BATCH UPDATE ***********************************/
 
 if ($id != "" || !is_null($id)) {
