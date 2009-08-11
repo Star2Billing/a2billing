@@ -67,14 +67,14 @@ $filter_view ='v.viewed ';
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("HOLDER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
+$HD_Form -> AddViewElement(gettext("CUSTOMER"), "creator", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "username", "10%", "center", "sort", "", "30", "", "", "", "", "linktocustomer");
 $HD_Form -> AddViewElement(gettext("TITLE"), "title", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("COMPONENT"), "id_component", "10%", "center", "sort", "15", "lie", "cc_support_component", "name", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "10%", "center", "sort", "", "list", $priority_list);
-$HD_Form -> AddViewElement(gettext("TO SEE?"), "viewed_agent", "10%", "center", "sort", "", "list", $viewed_list);
-$HD_Form -> AddViewElement(gettext("STATUS"), "status", "10%", "center", "sort", "", "list", $status_list);
+$HD_Form -> AddViewElement(gettext("PRIORITY"), "priority", "7%", "center", "sort", "", "list", $priority_list);
+$HD_Form -> AddViewElement(gettext("VIEWED"), "viewed_agent", "7%", "center", "", "", "list", $viewed_list);
+$HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $status_list);
 
 $HD_Form -> FieldViewElement ("cc_ticket.id, cc_ticket.creator, username, cc_ticket.title, cc_ticket.creationdate, id_component , priority ,$filter_view, cc_ticket.status");
 

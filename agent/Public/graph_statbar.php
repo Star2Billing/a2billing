@@ -40,7 +40,7 @@ $FG_COL_QUERY_GRAPH = 't1.starttime, t1.sessiontime';
 $FG_LIMITE_DISPLAY = 100;
 $FG_NB_TABLE_COL = count($FG_TABLE_COL);
 
-$instance_table_graph = Table :: getInstance($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if (is_null($order) || is_null($sens)) {
 	$order = $FG_TABLE_DEFAULT_ORDER;

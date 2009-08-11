@@ -1,5 +1,6 @@
 <?php
 
+include_once ("./sessions.php");
 
 ////
 // Stop from parsing any further PHP code
