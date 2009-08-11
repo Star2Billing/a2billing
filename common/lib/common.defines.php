@@ -32,6 +32,26 @@
 **/
 
 
+// SETTINGS FOR DATABASE CONNECTION
+define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
+define ("PORT", isset($A2B->config['database']['port'])?$A2B->config['database']['port']:null);
+define ("USER", isset($A2B->config['database']['user'])?$A2B->config['database']['user']:null);
+define ("PASS", isset($A2B->config['database']['password'])?$A2B->config['database']['password']:null);
+define ("DBNAME", isset($A2B->config['database']['dbname'])?$A2B->config['database']['dbname']:null);
+define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null);
+
+// SETTINGS FOR SMTP
+define ("SMTP_SERVER", isset($A2B->config['global']['smtp_server'])?$A2B->config['global']['smtp_server']:null);
+define ("SMTP_HOST", isset($A2B->config['global']['smtp_host'])?$A2B->config['global']['smtp_host']:null);
+define ("SMTP_USERNAME", isset($A2B->config['global']['smtp_username'])?$A2B->config['global']['smtp_username']:null);
+define ("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password'])?$A2B->config['global']['smtp_password']:null);
+define ("SMTP_PORT", isset($A2B->config['global']['smtp_port'])?$A2B->config['global']['smtp_port']:'25');
+define ("SMTP_SECURE", isset($A2B->config['global']['smtp_secure'])?$A2B->config['global']['smtp_secure']:null);
+
+// SETTING FOR REALTIME
+define ("USE_REALTIME", isset($A2B->config['global']['use_realtime'])?$A2B->config['global']['use_realtime']:0);
+
+
 // A2BILLING INFO
 define ("WEBUI_DATE", 'Released : 30 July');
 define ("WEBUI_VERSION", 'A2Billing - Version 1.4.1 (Fiddler\'s Green)');

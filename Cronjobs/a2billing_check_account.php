@@ -58,19 +58,21 @@ set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include_once (dirname(__FILE__) . "/lib/Class.Table.php");
+include_once (dirname(__FILE__) . "/lib/Class.Connection.php");
 include_once (dirname(__FILE__) . "/lib/interface/constants.php");
 include_once (dirname(__FILE__) . "/lib/Class.A2Billing.php");
 include_once (dirname(__FILE__) . "/lib/Misc.php");
 include_once (dirname(__FILE__) . "/lib/mail/class.phpmailer.php");
 include_once (dirname(__FILE__) . "/lib/Class.Mail.php");
 
-$verbose_level = 3;
+$A2B = new A2Billing();
+$A2B->load_conf($agi, NULL, 0, $idconfig);
+include_once (dirname(__FILE__) . "/lib/common.defines.php");
+
+$verbose_level = 0;
 $groupcard = 5000;
 
 $min_credit = 5;
-
-$A2B = new A2Billing();
-$A2B->load_conf($agi, NULL, 0, $idconfig);
 
 write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[#### BATCH BEGIN ####]");
 
@@ -83,7 +85,7 @@ if (!$A2B->DbConnect()) {
 $instance_table = new Table();
 
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE CHECK ACCOUNT SERVICE
-$QUERY = "SELECT count(*) FROM cc_card WHERE status=1 AND credit < $min_credit AND email <> ''";
+$QUERY = "SELECT count(*) FROM cc_card WHERE status=1 AND id=1 AND credit < $min_credit AND email <> ''";
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
 
 
@@ -104,7 +106,7 @@ write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ .
 // BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE 
 for ($page = 0; $page < $nbpagemax; $page++) {
 
-	$sql = "SELECT id, credit, username, email FROM cc_card WHERE status=1 AND credit < $min_credit AND email <> '' ORDER BY id";
+	$sql = "SELECT id, credit, username, email FROM cc_card WHERE status=1 AND id=1 AND credit < $min_credit AND email <> '' ORDER BY id";
 	if ($A2B->config["database"]['dbtype'] == "postgres") {
 		$sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
 	} else {
@@ -123,8 +125,10 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 		if (strlen($mycard[3]) > 5) {
 	        try {
 	            $mail = new Mail(Mail::$TYPE_REMINDERCALL, $mycard[0]);
-	            //$mail -> send();
+	            $mail -> send();
 	        } catch (A2bMailException $e) {
+	        	echo "failed $e";
+	        	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
 	        }
 		}
 	}

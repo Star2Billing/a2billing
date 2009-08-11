@@ -50,7 +50,7 @@ class Mail {
 	static public $TYPE_SIGNUPCONFIRM = 'signupconfirmed';
 	static public $TYPE_EPAYMENTVERIFY = 'epaymentverify';
 	static public $TYPE_INVOICE = 'invoice';
-	static public $TYPE_REMINDERCALL = 'remindercall';
+	static public $TYPE_REMINDERCALL = 'reminder';
 
 	//Used by mail type = epaymentverify
 	static public $TIME_KEY = '$time$';
@@ -80,7 +80,9 @@ class Mail {
 	//
 
 	function __construct($type, $id_card = null, $lg = null, $msg = null, $title = null) {
-		$DBHandle = DbConnect();
+		
+		$DBHandle = Connection::GetDBHandler();
+		
 		if (!empty ($type)) {
 			$tmpl_table = new Table("cc_templatemail", "*");
 			$tmpl_clause = " mailtype = '$type'";

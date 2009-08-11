@@ -91,13 +91,7 @@ define("DEMO_MODE", false);
 
 // Parameter to show link to Asterisk GUI
 define("ASTERISK_GUI_LINK", false);
-// DEFINE FOR THE DATABASE CONNECTION
-define ("HOST", isset($A2B->config['database']['hostname'])?$A2B->config['database']['hostname']:null);
-define ("PORT", isset($A2B->config['database']['port'])?$A2B->config['database']['port']:null);
-define ("USER", isset($A2B->config['database']['user'])?$A2B->config['database']['user']:null);
-define ("PASS", isset($A2B->config['database']['password'])?$A2B->config['database']['password']:null);
-define ("DBNAME", isset($A2B->config['database']['dbname'])?$A2B->config['database']['dbname']:null);
-define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null);
+
 
 define ("LEN_ALIASNUMBER", isset($A2B->config['global']['len_aliasnumber'])?$A2B->config['global']['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config['global']['len_voucher'])?$A2B->config['global']['len_voucher']:null);
@@ -107,15 +101,6 @@ define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A
 define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
 define ("SERVER_GMT", isset($A2B->config['global']['server_GMT'])?$A2B->config['global']['server_GMT']:null);
 define ("CUSTOMER_UI_URL", isset($A2B->config['global']['customer_ui_url'])?$A2B->config['global']['customer_ui_url']:null);
-
-define ("SMTP_SERVER", isset($A2B->config['global']['smtp_server'])?$A2B->config['global']['smtp_server']:null);
-define ("SMTP_HOST", isset($A2B->config['global']['smtp_host'])?$A2B->config['global']['smtp_host']:null);
-define ("SMTP_USERNAME", isset($A2B->config['global']['smtp_username'])?$A2B->config['global']['smtp_username']:null);
-define ("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password'])?$A2B->config['global']['smtp_password']:null);
-define ("SMTP_PORT", isset($A2B->config['global']['smtp_port'])?$A2B->config['global']['smtp_port']:'25');
-define ("SMTP_SECURE", isset($A2B->config['global']['smtp_secure'])?$A2B->config['global']['smtp_secure']:null);
-
-define ("USE_REALTIME", isset($A2B->config['global']['use_realtime'])?$A2B->config['global']['use_realtime']:0);
 
 define ("BUDDY_SIP_FILE", isset($A2B->config['webui']['buddy_sip_file'])?$A2B->config['webui']['buddy_sip_file']:null);
 define ("BUDDY_IAX_FILE", isset($A2B->config['webui']['buddy_iax_file'])?$A2B->config['webui']['buddy_iax_file']:null);
@@ -232,7 +217,7 @@ function DbConnect()
 
 function DbDisconnect($DBHandle)
 {
-	$DBHandle ->disconnect();
+	$DBHandle -> disconnect();
 }
 
 

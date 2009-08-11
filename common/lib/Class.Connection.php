@@ -45,7 +45,7 @@ class Connection {
 		} else {
 			$datasource = 'mysql://' . USER . ':' . PASS . '@' . HOST . '/' . DBNAME;
 		}
-
+		
 		$DBHandle = NewADOConnection($datasource);
 		if (!$DBHandle)
 			die("Connection failed");
