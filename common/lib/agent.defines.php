@@ -228,26 +228,32 @@ $CURRENT_DATETIME = date("Y-m-d H:i:s");
 /*
  *		GLOBAL POST/GET VARIABLE
  */
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'language', 'msg'));
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'ui_language', 'msg', 'section'));
 
 if (!isset($_SESSION)) {
 	session_start();
 }
  
 // Language Selection
-if (isset($language)) {
-	$_SESSION["language"] = $language;
-        setcookie  ("language",$language);
-} elseif (!isset($_SESSION["language"])) {
-       if(!isset($_COOKIE["language"])) $_SESSION["language"]='english';
-       else $_SESSION["language"]=$_COOKIE["language"];
+if (isset($ui_language)) {
+	$_SESSION["ui_language"] = $ui_language;
+	setcookie  ("ui_language", $ui_language);
+} elseif (!isset($_SESSION["ui_language"])) {
+    if(!isset($_COOKIE["ui_language"])) 
+    	$_SESSION["ui_language"]='english';
+    else 
+    	$_SESSION["ui_language"]=$_COOKIE["ui_language"];
 }
 
-define ("LANGUAGE",$_SESSION["language"]);
+define ("LANGUAGE", $_SESSION["ui_language"]);
 define ("BINDTEXTDOMAIN", '../../common/agent_ui_locale');
 require("languageSettings.php");
 SetLocalLanguage();
 
+// Open menu
+if (!empty($section)) {
+	$_SESSION["menu_section"] = $section;
+}
 
 /*
  *		CONNECT / DISCONNECT DATABASE
