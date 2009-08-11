@@ -9,7 +9,7 @@
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  * 
  * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
- * @author      Belaid Arezqui <areski@gmail.com>
+ * @author      Belaid Rachid <rachid.belaid@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
  *
@@ -32,6 +32,7 @@
 **/
 
 class Connection {
+
 	private static $DBHandler;
 	private static $MytoPgklass;
 

@@ -12,6 +12,8 @@
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
+ * @contributor Steve Dommett <steve@st4vs.net>
+ *              Belaid Rachid <rachid.belaid@gmail.com>
  *
  * Software License Agreement (GNU Affero General Public License)
  *
