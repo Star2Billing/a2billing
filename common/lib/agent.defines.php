@@ -187,26 +187,7 @@ define ("PG_DUMP", isset($A2B->config['backup']['pg_dump'])?$A2B->config['backup
 define ("MYSQL", isset($A2B->config['backup']['mysql'])?$A2B->config['backup']['mysql']:null);
 define ("PSQL", isset($A2B->config['backup']['psql'])?$A2B->config['backup']['psql']:null);
 
-// SIP IAX FRIEND CREATION
-define ("FRIEND_TYPE", isset($A2B->config['peer_friend']['type'])?$A2B->config['peer_friend']['type']:null);
-define ("FRIEND_ALLOW", isset($A2B->config['peer_friend']['allow'])?$A2B->config['peer_friend']['allow']:null);
-define ("FRIEND_CONTEXT", isset($A2B->config['peer_friend']['context'])?$A2B->config['peer_friend']['context']:null);
-define ("FRIEND_NAT", isset($A2B->config['peer_friend']['nat'])?$A2B->config['peer_friend']['nat']:null);
-define ("FRIEND_AMAFLAGS", isset($A2B->config['peer_friend']['amaflags'])?$A2B->config['peer_friend']['amaflags']:null);
-define ("FRIEND_QUALIFY", isset($A2B->config['peer_friend']['qualify'])?$A2B->config['peer_friend']['qualify']:null);
-define ("FRIEND_HOST", isset($A2B->config['peer_friend']['host'])?$A2B->config['peer_friend']['host']:null);
-define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->config['peer_friend']['dtmfmode']:null);
-
-// VOICEMAIL
-define ("ACT_VOICEMAIL", false);
-
-/*
- *		GLOBAL USED VARIABLE
- */
-$PHP_SELF = $_SERVER["PHP_SELF"];
-
-
-$CURRENT_DATETIME = date("Y-m-d H:i:s");		
+		
 	
 /*
  *		GLOBAL POST/GET VARIABLE

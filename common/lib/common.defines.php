@@ -52,6 +52,43 @@ define ("SMTP_SECURE", isset($A2B->config['global']['smtp_secure'])?$A2B->config
 define ("USE_REALTIME", isset($A2B->config['global']['use_realtime'])?$A2B->config['global']['use_realtime']:0);
 
 
+// SIP IAX FRIEND CREATION
+define ("FRIEND_TYPE", isset($A2B->config['peer_friend']['type'])?$A2B->config['peer_friend']['type']:null);
+define ("FRIEND_ALLOW", isset($A2B->config['peer_friend']['allow'])?$A2B->config['peer_friend']['allow']:null);
+define ("FRIEND_CONTEXT", isset($A2B->config['peer_friend']['context'])?$A2B->config['peer_friend']['context']:null);
+define ("FRIEND_NAT", isset($A2B->config['peer_friend']['nat'])?$A2B->config['peer_friend']['nat']:null);
+define ("FRIEND_AMAFLAGS", isset($A2B->config['peer_friend']['amaflags'])?$A2B->config['peer_friend']['amaflags']:null);
+define ("FRIEND_QUALIFY", isset($A2B->config['peer_friend']['qualify'])?$A2B->config['peer_friend']['qualify']:null);
+define ("FRIEND_HOST", isset($A2B->config['peer_friend']['host'])?$A2B->config['peer_friend']['host']:null);
+define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->config['peer_friend']['dtmfmode']:null);
+
+//DIDX.NET API
+define ("DIDX_ID", isset($A2B->config['webui']['didx_id'])?$A2B->config['webui']['didx_id']:null);
+define ("DIDX_PASS", isset($A2B->config['webui']['didx_pass'])?$A2B->config['webui']['didx_pass']:null);
+define ("DIDX_MIN_RATING", isset($A2B->config['webui']['didx_min_rating'])?$A2B->config['webui']['didx_min_rating']:null);
+define ("DIDX_SITE", "api.didx.net");
+define ("DIDX_RING_TO", isset($A2B->config['webui']['didx_ring_to'])?$A2B->config['webui']['didx_ring_to']:null);
+
+// VOICEMAIL
+define ("ACT_VOICEMAIL", false);
+
+// SHOW DONATION
+define ("SHOW_DONATION", true);
+
+// AGI
+define ("ASTERISK_VERSION", isset($A2B->config['agi-conf1']['asterisk_version'])?$A2B->config['agi-conf1']['asterisk_version']:'1_4');
+
+
+
+/*
+ *		GLOBAL USED VARIABLE
+ */
+$PHP_SELF = $_SERVER["PHP_SELF"];
+
+$CURRENT_DATETIME = date("Y-m-d H:i:s");
+
+
+
 // A2BILLING INFO
 define ("WEBUI_DATE", 'Released : 30 July');
 define ("WEBUI_VERSION", 'A2Billing - Version 1.4.1 (Fiddler\'s Green)');
@@ -64,7 +101,7 @@ define ("EMAILCONTACT", "areski@gmail.com");
 define ("COPYRIGHT", "A2Billing - Version 1.4.2 (Radix) - Released : 30 July, is software licensed under the ".'<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>'.". <br/>" .
 		"Copyright (C) 2004-2009 - Star2billing S.L. <a href=\"http://www.star2billing.com\" target=\"_blank\">http://www.star2billing.com/</a>");
 
-define ("CCMAINTITLE", gettext("A2Billing : Customer Portal"));
+define ("CCMAINTITLE", gettext("A2Billing Portal"));
 
 
 
