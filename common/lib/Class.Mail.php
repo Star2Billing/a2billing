@@ -80,8 +80,8 @@ class Mail {
 	static public $SYSTEM_CURRENCY = '$base_currency$';
 	//
 
-	function __construct($type, $id_card = null, $lg = null, $msg = null, $title = null) {
-		
+	function __construct($type, $id_card = null, $lg = null, $msg = null, $title = null)
+	{		
 		$DBHandle = Connection::GetDBHandler();
 		
 		if (!empty ($type)) {
@@ -153,77 +153,78 @@ class Mail {
 		}
 	}
 
-	function replaceInEmail($key, $val) {
+	function replaceInEmail($key, $val)
+	{
 		$this->message = str_replace($key, $val, $this->message);
 		$this->title = str_replace($key, $val, $this->title);
 	}
 
-	function getIdCard() {
-
+	function getIdCard()
+	{
 		return $this->id_card;
 	}
 
-	function getFromEmail() {
-
+	function getFromEmail()
+	{
 		return $this->from_email;
 	}
 	
-	function getToEmail() {
-
+	function getToEmail()
+	{
 		return $this->to_email;
 	}
 	
-	function getMessage() {
-
+	function getMessage()
+	{
 		return $this->message;
 	}
 	
-	function AddToMessage($msg) {
-
+	function AddToMessage($msg)
+	{
 		$this->message = $this->message . $msg;
 	}
 	
-	function getTitle() {
-
+	function getTitle()
+	{
 		return $this->title;
 	}
 
-	function getFromName() {
-
+	function getFromName()
+	{
 		return $this->from_name;
 	}
 	
-	function setFromEmail($from_email) {
-
+	function setFromEmail($from_email)
+	{
 		$this->from_email = $from_email;
 	}
 
-	function setTitle($title) {
-
+	function setTitle($title)
+	{
 		$this->title = $title;
 	}
 	
-	function setMessage($message) {
-
+	function setMessage($message)
+	{
 		$this->message = $message;
 	}
 	
-	function setToEmail($to_email) {
-
+	function setToEmail($to_email)
+	{
 		$this->to_email = $to_email;
 	}
 	
-	function setFromName($from_name) {
-
+	function setFromName($from_name)
+	{
 		$this->from_name = $from_name;
 	}
 
-	function send($to_email = null) {
-		if (empty ($to_email)){
-			a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);}
-		else{
-			a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);
-        }
+	function send($to_email = null)
+	{
+		if (!empty ($to_email)){
+			$this->to_email = $to_email;
+		}
+		a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);
 	}
 
 }

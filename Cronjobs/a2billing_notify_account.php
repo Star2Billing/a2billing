@@ -61,7 +61,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include_once (dirname(__FILE__) . "/lib/admin.defines.php");
 
-$verbose_level = 0;
+$verbose_level = 3;
 $FG_DEBUG = 0;
 $groupcard = 5000;
 
@@ -87,7 +87,6 @@ $instance_table = new Table();
 
 
 
-
 // Prepare the date interval to filter the card that don't have to receive a notification;
 $Delay_Clause = "( ";
 if ($A2B->config["database"]['dbtype'] == "postgres") {
@@ -104,7 +103,7 @@ if ($A2B->config['notifications']['delay_notifications'] <= 0) {
 
 $Delay_Clause .= "last_notification IS NULL )";
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE CHECK ACCOUNT SERVICE
-$QUERY = "SELECT count(*) FROM cc_card WHERE notify_email ='1' AND credit < credit_notification AND " . $Delay_Clause;
+$QUERY = "SELECT count(*) FROM cc_card WHERE notify_email = 1 AND status = 1 AND credit < credit_notification AND " . $Delay_Clause;
 
 if ($verbose_level >= 1) {
 	echo "[QUERY COUNT]\n";
@@ -131,7 +130,9 @@ $currencies_list = get_currencies($A2B->DBHandle);
 
 // BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE
 for ($page = 0; $page < $nbpagemax; $page++) {
-	$sql = "SELECT id,email_notification,email FROM cc_card WHERE notify_email='1' AND credit < credit_notification AND " . $Delay_Clause . " ORDER BY id  ";
+	
+	$sql = "SELECT id, email_notification, email FROM cc_card WHERE notify_email = 1 AND status = 1 AND credit < credit_notification AND " . $Delay_Clause . " ORDER BY id  ";
+	
 	if ($A2B->config["database"]['dbtype'] == "postgres") {
 		$sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
 	} else {
@@ -154,31 +155,32 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 		if (strlen($mycard['email_notification']) > 0 || strlen($mycard['email']) > 0 ) { // ADD CHECK EMAIL
 
 			// Sent Mail
-                        try {
-                            $mail=new Mail(Mail::$TYPE_REMINDER, $id_card);
-                            if(strlen($mycard['email_notification']) > 0) $mail->send($mycard['email_notification']);
-                            else $mail->send($mycard['email_notification']);
+            try {
+                $mail=new Mail(Mail::$TYPE_REMINDER, $id_card);
+                if(strlen($mycard['email_notification']) > 0) 
+                	$mail->send($mycard['email_notification']);
+                else 
+                	$mail->send($mycard['email']);
 
-                            //update the card with the date of last notification
-                            if ($A2B->config["database"]['dbtype'] == "postgres") {
-                                    $now = "CURRENT_TIMESTAMP";
-                            } else {
-                                    $now = "now()";
-                            }
-                            $sql_update_card = "UPDATE cc_card SET last_notification = " . $now . " WHERE id = " . $mycard['id'];
-                            $instance_table->SQLExec($A2B->DBHandle, $sql_update_card);
+                //update the card with the date of last notification
+                if ($A2B->config["database"]['dbtype'] == "postgres") {
+                        $now = "CURRENT_TIMESTAMP";
+                } else {
+                        $now = "now()";
+                }
+                $sql_update_card = "UPDATE cc_card SET last_notification = " . $now . " WHERE id = " . $mycard['id'];
+                $instance_table->SQLExec($A2B->DBHandle, $sql_update_card);
 
-                            if ($verbose_level >= 1) {
-                                    echo "[UPDATE CARD ID < " . $mycard['id'] . " > : last_notification]\n";
-                                    echo "$sql_update_card\n";
-                            }
-                        } catch (Exception $e) {
-                            echo "[Cannot find a template mail for reminder]\n";
-                            write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
-                            exit;
-                        }
-
-
+                if ($verbose_level >= 1) {
+                        echo "[UPDATE CARD ID < " . $mycard['id'] . " > : last_notification]\n";
+                        echo "$sql_update_card\n";
+                }
+            } catch (Exception $e) {
+                echo "[Cannot find a template mail for reminder]\n";
+                write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
+                exit;
+            }
+            
 		} //endif check the email not null
 	}
 	// Little bit of rest
