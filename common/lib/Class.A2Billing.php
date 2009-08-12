@@ -2325,6 +2325,7 @@ class A2Billing {
 
 	function callingcard_ivr_authenticate($agi)
 	{
+		$authentication 	= false;
 		$prompt				= '';
 		$res				= 0;
 		$retries			= 0;
@@ -2493,8 +2494,6 @@ class A2Billing {
 				if (strlen($prompt)>0) {
 					
 					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt
-					
-					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 					
 					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && !$this -> enough_credit_to_call()) {
@@ -2508,17 +2507,23 @@ class A2Billing {
 						}
 					}
 					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
-						$this->accountcode=''; $callerID_enable=0;
+						$this->accountcode='';
+						$callerID_enable=0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
-						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1){ $this -> ask_other_cardnumber=1;$this->update_callerid=1;}
-					} elseif($prompt == "prepaid-card-expired"){
-					    $this->accountcode=''; $callerID_enable=0;
-					     $this -> ask_other_cardnumber=1;
-					     $this->update_callerid=1;
-
+						
+						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1){ 
+							$this -> ask_other_cardnumber=1;
+							$this -> update_callerid=1;
+						}
+					} elseif($prompt == "prepaid-card-expired") {
+					    $this -> accountcode=''; $callerID_enable=0;
+					    $this -> ask_other_cardnumber=1;
+					    $this -> update_callerid=1;
 					}else {
 						return -2;
 					}
+				} else {
+					$authentication = true;
 				}
 
 			} // elseif We -> found a card for this callerID
@@ -2532,7 +2537,7 @@ class A2Billing {
 
 		$prompt_entercardnum= "prepaid-enter-pin-number";
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Account code - '.$this->accountcode);
-		if (strlen ($this->accountcode)>=1) {
+		if (strlen ($this->accountcode)>=1 && !$authentication) {
 			$this->username = $this -> cardnumber = $this->accountcode;
 			for ($i=0;$i<=0;$i++){
 
@@ -2649,12 +2654,10 @@ class A2Billing {
 							$prompt = "prepaid-card-expired";
 					}
 				}
-
+				
 				if (strlen($prompt)>0) {
 					
-					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt
-					
-					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
+					$agi -> stream_file($prompt, '#'); // Added because was missing the prompt
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 					
 					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && !$this -> enough_credit_to_call()) {
@@ -2667,19 +2670,35 @@ class A2Billing {
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
-					
 					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
-						$this->accountcode = '';
+						$this->accountcode='';
+						$callerID_enable=0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
-						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) $this -> ask_other_cardnumber=1;
+						
+						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1){ 
+							$this -> ask_other_cardnumber=1;
+							$this -> update_callerid=1;
+						}
+					} elseif($prompt == "prepaid-card-expired") {
+					    $this -> accountcode = '';
+					    $callerID_enable = 0;
+					    $this -> ask_other_cardnumber=1;
+					    $this -> update_callerid = 1;
 					} else {
 						return -2;
 					}
+				} else {
+					$authentication = true;
 				}
-
 			} // For end
-		} elseif ($callerID_enable==0) {
-
+			
+		}
+		
+		
+		if ($callerID_enable==0 && !$authentication) {
+			
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "#############################3");
+			
 			// IF NOT PREVIOUS WE WILL ASK THE CARDNUMBER AND AUTHENTICATE ACCORDINGLY
 			for ($retries = 0; $retries < 3; $retries++) {
 				
@@ -2828,7 +2847,7 @@ class A2Billing {
 						$prompt = "prepaid-card-expired";
 					}
 				}
-
+				
 				//CREATE AN INSTANCE IN CC_CALLERID
 				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1 && $this->update_callerid!=1){
 
@@ -2872,9 +2891,9 @@ class A2Billing {
 				break;
 			}//end for
 			
-		} else {
+		} elseif (!$authentication) {
 			$res = -2;
-		}//end IF
+		}
 		
 		if (($retries < 3) && $res==0) {
 			
