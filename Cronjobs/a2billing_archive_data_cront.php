@@ -56,10 +56,7 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include_once (dirname(__FILE__) . "/lib/Class.Table.php");
-include (dirname(__FILE__) . "/lib/interface/constants.php");
-include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
-include (dirname(__FILE__) . "/lib/Misc.php");
+include (dirname(__FILE__) . "/lib/admin.defines.php");
 
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);

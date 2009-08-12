@@ -55,10 +55,7 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include_once (dirname(__FILE__)."/lib/Class.Table.php");
-include_once (dirname(__FILE__)."/lib/interface/constants.php");
-include_once (dirname(__FILE__)."/lib/Class.A2Billing.php");
-include_once (dirname(__FILE__)."/lib/Misc.php");
+include (dirname(__FILE__) . "/lib/admin.defines.php");
 
 
 $FG_DEBUG=0;

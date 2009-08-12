@@ -59,10 +59,7 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include_once (dirname(__FILE__) . "/lib/Class.Table.php");
-include (dirname(__FILE__) . "/lib/interface/constants.php");
-include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
-include (dirname(__FILE__) . "/lib/Misc.php");
+include (dirname(__FILE__) . "/lib/admin.defines.php");
 
 $verbose_level = 1;
 $groupcard = 1000;
@@ -248,10 +245,26 @@ foreach ($result as $myservice) {
 
 	// SEND REPORT
 	if (strlen($myservice[12]) > 0) {
+		
+		mail($myservice[12], "RECURRING SERVICES : REPORT", $mail_content);
+	}
+	
+	// SEND REPORT
+	if (strlen($myservice[12]) > 0) {
+		$mail_subject = "RECURRING SERVICES : REPORT";
+		
 		$mail_content = "SERVICE NAME = " . $myservice[1];
 		$mail_content .= "\n\nTotal card updated = " . $totalcardperform;
 		$mail_content .= "\nTotal credit removed = " . $totalcredit;
-		mail($myservice[12], "RECURRING SERVICES : REPORT", $mail_content);
+		
+        try {
+            $mail = new Mail(null, null, null, $mail_content, $mail_subject);
+            $mail -> send($myservice[12]);
+        } catch (A2bMailException $e) {
+        	if ($verbose_level >= 1)
+	        	echo "[Sent mail failed : $e]";
+        	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
+        }
 	}
 
 } // END FOREACH SERVICES

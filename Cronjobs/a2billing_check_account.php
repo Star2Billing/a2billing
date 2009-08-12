@@ -58,17 +58,10 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include_once (dirname(__FILE__) . "/lib/Class.Table.php");
-include_once (dirname(__FILE__) . "/lib/Class.Connection.php");
-include_once (dirname(__FILE__) . "/lib/interface/constants.php");
-include_once (dirname(__FILE__) . "/lib/Class.A2Billing.php");
-include_once (dirname(__FILE__) . "/lib/Misc.php");
-include_once (dirname(__FILE__) . "/lib/mail/class.phpmailer.php");
-include_once (dirname(__FILE__) . "/lib/Class.Mail.php");
+include (dirname(__FILE__) . "/lib/admin.defines.php");
 
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
-include_once (dirname(__FILE__) . "/lib/common.defines.php");
 
 $verbose_level = 0;
 $groupcard = 5000;
@@ -128,7 +121,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 	            $mail = new Mail(Mail::$TYPE_REMINDERCALL, $mycard[0]);
 	            $mail -> send();
 	        } catch (A2bMailException $e) {
-	        	echo "failed $e";
+	        	if ($verbose_level >= 1)
+	        		echo "[Sent mail failed : $e]";
 	        	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
 	        }
 		}

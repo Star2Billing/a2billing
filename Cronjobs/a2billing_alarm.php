@@ -54,15 +54,10 @@
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-//dl("pgsql.so"); // remove "extension= pgsql.so !
 
-include_once (dirname(__FILE__) . "/lib/Class.Table.php");
-include (dirname(__FILE__) . "/lib/interface/constants.php");
-include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
-include (dirname(__FILE__) . "/lib/Misc.php");
+include (dirname(__FILE__) . "/lib/admin.defines.php");
 
 $verbose_level = 0;
-
 $groupcard = 5000;
 
 $A2B = new A2Billing();
@@ -79,8 +74,8 @@ if (!$A2B->DbConnect()) {
 $instance_table = new Table();
 
 // CHECK THE ALARMS
-$QUERY = "SELECT id, name, periode, type, maxvalue, minvalue, id_trunk, status, numberofrun, datecreate,
-datelastrun, emailreport FROM cc_alarm WHERE status=1";
+$QUERY = "SELECT id, name, periode, type, maxvalue, minvalue, id_trunk, status, numberofrun, datecreate, datelastrun, emailreport " .
+		"FROM cc_alarm WHERE status=1";
 
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
 
@@ -273,9 +268,19 @@ foreach ($result as $myalarm) {
 
 		// SEND REPORT
 		if (($send_alarm) && (strlen($myalarm[7]) > 0)) {
+			$mail_subject = "A2BILLING ALARM : REPORT";
+			
 			$mail_content = "ALARM NAME = " . $myalarm[1];
 			$mail_content .= $content;
-			mail($myalarm[11], "A2BILLING ALARM : REPORT", $mail_content);
+			
+			try {
+		        $mail = new Mail(null, null, null, $mail_content, $mail_subject);
+		        $mail -> send($myalarm[11]);
+		    } catch (A2bMailException $e) {
+		    	if ($verbose_level >= 1)
+		        	echo "[Sent mail failed : $e]";
+		    	write_log(LOGFILE_CRONT_ALARM, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
+		    }
 		}
 
 	} // IF ALARM

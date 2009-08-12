@@ -53,17 +53,13 @@
 	The sample above will run the script every 21 of each month at 10AM
 	
 ****************************************************************************/
+
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-//dl("pgsql.so"); // remove "extension= pgsql.so !	
 
-include_once (dirname(__FILE__) . "/lib/Class.Table.php");
-include (dirname(__FILE__) . "/lib/interface/constants.php");
-include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
-include (dirname(__FILE__) . "/lib/Misc.php");
+include (dirname(__FILE__) . "/lib/admin.defines.php");
 
 $verbose_level = 0;
-
 $groupcard = 5000;
 
 $A2B = new A2Billing();
@@ -161,13 +157,24 @@ write_log(LOGFILE_CRONT_AUTOREFILL, basename(__FILE__) . ' line:' . __LINE__ . "
 
 // SEND REPORT
 if (strlen($A2B->config["webui"]["email_admin"]) > 4 && eregi("^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$", $A2B->config["webui"]["email_admin"])) {
+	$mail_subject = "A2BILLING AUTO REFILL : REPORT";
+	
 	$mail_content = "AUTO REFILL";
 	$mail_content .= "\n\nTotal card updated = " . $totalcardperform;
 	$mail_content .= "\nTotal credit added = " . $totalcredit;
-	mail($A2B->config["webui"]["email_admin"], "A2BILLING AUTO REFILL : REPORT", $mail_content);
-	if ($verbose_level >= 1)
-		echo "MAIL CONTENT (" . $A2B->config["webui"]["email_admin"] . ") : $mail_content\n";
+	
+    try {
+        $mail = new Mail(null, null, null, $mail_content, $mail_subject);
+        $mail -> send($A2B->config["webui"]["email_admin"]);
+        if ($verbose_level >= 1)
+			echo "MAIL CONTENT (" . $A2B->config["webui"]["email_admin"] . ") : $mail_content\n";
+    } catch (A2bMailException $e) {
+    	if ($verbose_level >= 1)
+        	echo "[Sent mail failed : $e]";
+    	write_log(LOGFILE_CRONT_AUTOREFILL, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
+    }
 }
+
 
 if ($verbose_level >= 1)
 	echo "#### END AUTO REFILL \n";

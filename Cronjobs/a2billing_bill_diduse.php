@@ -243,8 +243,19 @@ foreach ($result as $mydids) {
 		}
 	}
 	$user_mail_adrr = $mydids[6];
-	if ($mail_user && strlen($user_mail_adrr) > 5)
-		mail($user_mail_adrr, $mail_user_subject, $mail_user_content);
+	$user_card_id = $mydids[4];
+	
+	if ($mail_user && strlen($user_mail_adrr) > 5) {
+        try {
+            $mail = new Mail(null, null, null, $mail_user_content, $mail_user_subject);
+            $mail -> send($user_mail_adrr);
+        } catch (A2bMailException $e) {
+        	if ($verbose_level >= 1)
+	        	echo "[Sent mail failed : $e]";
+        	write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
+        }
+	}
+	
 }
 write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__) . ' line:' . __LINE__ . "[Service DIDUSE finish]");
 

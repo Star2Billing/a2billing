@@ -58,12 +58,9 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include_once (dirname(__FILE__) . "/lib/Class.Table.php");
-include (dirname(__FILE__) . "/lib/interface/constants.php");
-include (dirname(__FILE__) . "/lib/Class.A2Billing.php");
-include (dirname(__FILE__) . "/lib/Misc.php");
+include (dirname(__FILE__) . "/lib/admin.defines.php");
 
-$verbose_level = 3;
+$verbose_level = 0;
 
 $groupcard = 5000;
 
@@ -192,17 +189,28 @@ foreach ($result as $myservice) {
 
 	// UPDATE THE SERVICE		
 	$QUERY = "UPDATE cc_subscription_fee SET datelastrun=now(), numberofrun=numberofrun+1, totalcardperform=totalcardperform+" . $totalcardperform .
-	", totalcredit = totalcredit + '$totalcredit' WHERE id=$myservice_id";
+				", totalcredit = totalcredit + '$totalcredit' WHERE id=$myservice_id";
 	$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+	
 	if ($verbose_level >= 1)
-		echo "==> SERVICE UPDATE QUERY: 	$QUERY\n";
-
+		echo "==> SERVICE UPDATE QUERY : $QUERY\n";
+	
 	// SEND REPORT
 	if (strlen($myservice[3]) > 0) {
+		$mail_subject = "A2BILLING SUBSCRIPTION SERVICES : REPORT";
+		
 		$mail_content = "SUBSCRIPTION SERVICE NAME = " . $myservice[1];
 		$mail_content .= "\n\nTotal card updated = " . $totalcardperform;
 		$mail_content .= "\nTotal credit removed = " . $totalcredit;
-		mail($myservice[3], "A2BILLING SUBSCRIPTION SERVICES : REPORT", $mail_content);
+		
+		try {
+	        $mail = new Mail(null, null, null, $mail_content, $mail_subject);
+	        $mail -> send($myservice[3]);
+	    } catch (A2bMailException $e) {
+	    	if ($verbose_level >= 1)
+	        	echo "[Sent mail failed : $e]";
+	    	write_log(LOGFILE_CRONT_ALARM, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
+	    }
 	}
 
 } // END FOREACH SERVICES
