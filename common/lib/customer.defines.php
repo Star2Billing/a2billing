@@ -172,21 +172,24 @@ define ("RETURN_URL_DISTANT_FORGETPASSWORD", isset($A2B->config["webcustomerui"]
 /*
  *		GLOBAL POST/GET VARIABLE
  */
-getpost_ifset (array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'language', 'cssname','popup_select', 'exporttype', 'msg'));
+getpost_ifset (array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'ui_language', 'cssname', 'popup_select', 'exporttype', 'msg'));
 
 if (!isset($_SESSION)) {
 	session_start();
 }
 
 // Language Selection
-if (isset($language)) {
-	$_SESSION["language"] = $language;
-        setcookie  ("language",$language);
-} elseif (!isset($_SESSION["language"])) {
-       if(!isset($_COOKIE["language"])) $_SESSION["language"]='english';
-       else $_SESSION["language"]=$_COOKIE["language"];
+if (isset($ui_language)) {
+	$_SESSION["ui_language"] = $ui_language;
+	setcookie  ("ui_language", $ui_language);
+} elseif (!isset($_SESSION["ui_language"])) {
+    if(!isset($_COOKIE["ui_language"])) 
+    	$_SESSION["ui_language"]='english';
+    else 
+    	$_SESSION["ui_language"]=$_COOKIE["ui_language"];
 }
-define ("LANGUAGE",$_SESSION["language"]);
+
+define ("LANGUAGE", $_SESSION["ui_language"]);
 define ("BINDTEXTDOMAIN", '../common/cust_ui_locale');
 require("languageSettings.php");
 SetLocalLanguage();

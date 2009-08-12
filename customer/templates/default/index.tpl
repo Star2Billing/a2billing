@@ -22,7 +22,7 @@
 	{
 		if(document.form.pr_login.value=="" || document.form.pr_password.value=="")
 		{
-			alert("You must enter an user and a password!");
+			alert("You must enter an user and a password!" + document.form.pr_password.value);
 			return false;
 		}
 		else
@@ -58,7 +58,7 @@
 				<td><input class="form_input_text" type="text" name="pr_login" size="15" value="{$username}"></td>
 			</tr>
 			<tr align="center">
-				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>{php} echo gettext("Password");{/php}:</b></font></td>
+				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>{php} echo gettext("Password");{/php}:</b> {$password}</font></td>
 				<td><input class="form_input_text" type="password" name="pr_password" size="15" value="{$password}"></td>
 			</tr>
 			</tr><tr >
@@ -66,7 +66,7 @@
             </tr>
 			<tr align="right" >
                 <td>
-                    <select name="language"  id="language" class="icon-menu form_input_select">
+                    <select name="ui_language"  id="ui_language" class="icon-menu form_input_select">
                         <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/gb.gif);" value="english" {php} if(LANGUAGE=="english") echo "selected";{/php} >English</option>
                         <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/br.gif);" value="brazilian" {php} if(LANGUAGE=="brazilian") echo "selected";{/php}>Brazilian</option>
                         <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/es.gif);" value="spanish" {php} if(LANGUAGE=="spanish") echo "selected";{/php} >Spanish</option>Român
@@ -121,9 +121,9 @@
 	</form>
 {literal}
 <script LANGUAGE="JavaScript">
-        $("#language").change(function () {
-          self.location.href= "index.php?language="+$("#language option:selected").val();
+	document.form.pr_login.focus();
+        $("#ui_language").change(function () {
+          self.location.href= "index.php?ui_language="+$("#ui_language option:selected").val();
         });
-
 </script>
 {/literal}

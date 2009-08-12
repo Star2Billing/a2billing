@@ -66,7 +66,7 @@
                         </tr>
 			<tr align="right" >
             <td>
-                <select name="language"  id="language" class="icon-menu form_input_select">
+                <select name="ui_language"  id="ui_language" class="icon-menu form_input_select">
                     <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/gb.gif);" value="english" {php} if(LANGUAGE=="english") echo "selected";{/php} >English</option>
                     <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/br.gif);" value="brazilian" {php} if(LANGUAGE=="brazilian") echo "selected";{/php}>Brazilian</option>
                     <option style="background-image:url(templates/{$SKIN_NAME}/images/flags/ro.gif);" value="romanian" {php} if(LANGUAGE=="romanian") echo "selected";{/php} >Romanian</option>
@@ -103,10 +103,9 @@
 {literal}
 <script LANGUAGE="JavaScript">
 	document.form.pr_login.focus();
-        $("#language").change(function () {
-          self.location.href= "index.php?language="+$("#language option:selected").val();
+        $("#ui_language").change(function () {
+          self.location.href= "index.php?ui_language="+$("#ui_language option:selected").val();
         });
-
 </script>
 {/literal}
 
