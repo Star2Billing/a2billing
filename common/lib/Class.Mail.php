@@ -125,6 +125,7 @@ class Mail {
 				if (is_array($result_card) && sizeof($result_card) > 0)
 					$card = $result_card[0];
 				$credit = $card['credit'];
+				$credit = round($credit, 3);
 				$currency = $card['currency'];
 				$currencies_list = get_currencies($DBHandle);
 				if (!isset ($currencies_list[strtoupper($currency)][2]) || !is_numeric($currencies_list[strtoupper($currency)][2])) {
