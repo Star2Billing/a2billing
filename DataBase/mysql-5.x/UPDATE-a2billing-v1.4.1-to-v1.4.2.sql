@@ -49,3 +49,10 @@ INSERT INTO `cc_config` ( `config_title`, `config_key`, `config_value`, `config_
 INSERT INTO `cc_config` ( `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES( 'Auto Create Card Limit', 'cid_auto_create_card_credit_limit', '0', 'if postpay, define the credit limit for the card.', 0, NULL, 'agi-conf1');
 INSERT INTO `cc_config` ( `config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`) VALUES( 'Auto Create Card TariffGroup', 'cid_auto_create_card_tariffgroup', '1', 'the tariffgroup to use for the new card (this is the ID that you can find on the admin web interface) .', 0, NULL, 'agi-conf1');
 
+INSERT INTO cc_config (id ,config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_listvalues ,config_group_title)
+    VALUES  (NULL , 'Paypal Amount Subscription', 'paypal_subscription_amount', '10' , 'amount to billed each recurrence of payment ', '0', NULL , 'epayment_method'),
+	    (NULL , 'Paypal Subscription Time period number', 'paypal_subscription_period_number', '1', 'number of time periods between each recurrence', '0', NULL , 'epayment_method'),
+	    (NULL , 'Paypal Subscription Time period', 'paypal_subscription_time_period', 'M', 'time period (D=days, W=weeks, M=months, Y=years)', '0', NULL , 'epayment_method'),
+	    (NULL , 'Enable PayPal subscription', 'paypal_subscription_enabled', '0', 'Enable Paypal subscription on the User home page, you need a Premier or Business account.', '1', 'yes,no', 'epayment_method'),
+	    (NULL , 'Paypal Subscription account', 'paypal_subscription_account', '', 'Your PayPal ID or an email address associated with your PayPal account. Email addresses must be confirmed and bound to a Premier or Business Verified Account.', '0', NULL , 'epayment_method');
+
