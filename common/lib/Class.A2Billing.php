@@ -1385,7 +1385,6 @@ class A2Billing {
 
 		}// END FOR
 
-		//if ($this -> set_inuse) $this -> callingcard_acct_start_inuse($agi,0);
 		if ($this->voicemail) {
 			if (($dialstatus =="CHANUNAVAIL") || ($dialstatus == "CONGESTION") || ($dialstatus == "NOANSWER") || ($dialstatus =="BUSY")) {
 				// The following section will send the caller to VoiceMail with the unavailable priority.\
