@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-05 19:55+0200\n"
+"POT-Creation-Date: 2009-08-13 17:39+0200\n"
 "PO-Revision-Date: 2009-04-22 11:20-0300\n"
 "Last-Translator: felipe augusto <flipeicl@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -91,7 +91,7 @@ msgid "Yes"
 msgstr "Sim"
 
 #: lib/interface/constants.php:59
-#: lib/Form/Class.FormHandler.EditForm.inc.php:315
+#: lib/Form/Class.FormHandler.EditForm.inc.php:321
 #: Public/A2B_entity_card_multi.php:411 Public/A2B_entity_card.php:510
 msgid "No"
 msgstr "Não"
@@ -148,7 +148,7 @@ msgstr "ACESSO INDIVIDUAL"
 
 #: lib/interface/constants.php:123 lib/interface/constants.php:339
 #: lib/interface/constants.php:346 Public/A2B_entity_card_multi.php:353
-#: Public/A2B_entity_card.php:416 Public/form_data/FG_var_card.inc:570
+#: Public/A2B_entity_card.php:416 Public/form_data/FG_var_card.inc:603
 msgid "SIMULTANEOUS ACCESS"
 msgstr "ACESSO SIMULTÂNEO"
 
@@ -341,19 +341,19 @@ msgstr "LCD : preço do vendedor"
 msgid "NONE"
 msgstr "NENHUM"
 
-#: lib/interface/constants.php:241 lib/Class.Notification.php:64
+#: lib/interface/constants.php:241 lib/Class.Notification.php:94
 msgid "LOW"
 msgstr "BAIXO"
 
-#: lib/interface/constants.php:242 lib/Class.Notification.php:61
+#: lib/interface/constants.php:242 lib/Class.Notification.php:91
 msgid "MEDIUM"
 msgstr "MÉDIO"
 
-#: lib/interface/constants.php:243 lib/Class.Notification.php:59
+#: lib/interface/constants.php:243 lib/Class.Notification.php:89
 msgid "HIGH"
 msgstr "ALTO"
 
-#: lib/interface/constants.php:249
+#: lib/interface/constants.php:249 Public/form_data/FG_var_ticket.inc:76
 msgid "VIEWED"
 msgstr "VISUALIZADO"
 
@@ -467,9 +467,9 @@ msgstr "NÃO EXPIRA"
 
 #: lib/interface/constants.php:362 Public/A2B_refill_info_agent.php:52
 #: Public/A2B_refill_info.php:58 Public/A2B_payment_info_agent.php:52
-#: Public/A2B_payment_info.php:58 Public/form_data/FG_var_commission.inc:18
-#: Public/form_data/FG_var_paymentlog.inc:136
-#: Public/form_data/FG_var_moneysituation_details.inc:17
+#: Public/A2B_payment_info.php:58 Public/form_data/FG_var_commission.inc:51
+#: Public/form_data/FG_var_paymentlog.inc:169
+#: Public/form_data/FG_var_moneysituation_details.inc:50
 msgid "AMOUNT"
 msgstr "QUANTIDADE"
 
@@ -485,209 +485,204 @@ msgstr "TAXA EXTRA"
 msgid "NO DISCOUNT"
 msgstr "SEM DESCONTO"
 
-#: lib/Class.A2Billing.php:365
+#: lib/Class.A2Billing.php:383
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número de cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:2963
+#: lib/Class.A2Billing.php:3077
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:3003
+#: lib/Class.A2Billing.php:3117
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o suficiente para ligar !!!"
 
-#: lib/Class.A2Billing.php:3009
+#: lib/Class.A2Billing.php:3123
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativo!!!"
 
-#: lib/Class.A2Billing.php:3015
+#: lib/Class.A2Billing.php:3129
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:3024 lib/Class.A2Billing.php:3032
-#: lib/Class.A2Billing.php:3040
+#: lib/Class.A2Billing.php:3138 lib/Class.A2Billing.php:3146
+#: lib/Class.A2Billing.php:3154
 msgid "Error : Card have expired!!!"
 msgstr "Erro : Cartão expirou!!!"
 
-#: lib/customer.smarty.php:72 lib/admin.smarty.php:38 lib/agent.smarty.php:39
+#: lib/customer.smarty.php:104 lib/admin.smarty.php:70 lib/agent.smarty.php:71
 msgid "This option is not available on the Demo!"
 msgstr "Essa opção não está disponível na versão Demo!"
 
-#: lib/Misc.php:490 lib/Class.Notification.php:85
+#: lib/Misc.php:505 lib/Class.Notification.php:115
 msgid "UNKNOWN"
 msgstr "DESCONHECIDO"
 
-#: lib/Misc.php:675
+#: lib/Misc.php:690
 msgid "First"
 msgstr "Primeiro"
 
-#: lib/Misc.php:676
+#: lib/Misc.php:691
 msgid "Prev"
 msgstr "Anterior"
 
-#: lib/Misc.php:677 Public/call-log-customers.php:1062
+#: lib/Misc.php:692 Public/call-log-customers.php:1062
 msgid "Next"
 msgstr "Próximo"
 
-#: lib/Misc.php:678
+#: lib/Misc.php:693
 msgid "Last"
 msgstr "Último"
 
-#: lib/Misc.php:768
+#: lib/Misc.php:783
 msgid "File size is greater than allowed limit."
 msgstr "Tamanho do arquivo é maior que o limite permitido."
 
-#: lib/Misc.php:771
+#: lib/Misc.php:786
 msgid "You did not upload anything!"
 msgstr "Você não enviou nada!"
 
-#: lib/Misc.php:774
+#: lib/Misc.php:789
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Falha ao enviar arquivo, O arquivo que você enviou pode não existir no disco."
 
-#: lib/Misc.php:777
+#: lib/Misc.php:792
 msgid "file type is not allowed"
 msgstr "tipo de arquivo não é permitido"
 
-#: lib/Misc.php:1086
+#: lib/Misc.php:1101
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Não é possível encontrar nossa base_currency em cc_currencies"
 
-#: lib/Misc.php:1086 lib/Misc.php:1108 lib/Misc.php:1112 lib/Misc.php:1122
+#: lib/Misc.php:1101 lib/Misc.php:1123 lib/Misc.php:1127 lib/Misc.php:1137
 msgid "Currency update ABORTED."
 msgstr "Atualização de moeda ABORTADA."
 
-#: lib/Misc.php:1108
+#: lib/Misc.php:1123
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "O arquivo CSV não contém todas as moedas requisitadas."
 
-#: lib/Misc.php:1112
+#: lib/Misc.php:1127
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Ao meno uma das entradas no arquivo CSV não é um número."
 
-#: lib/Misc.php:1122
+#: lib/Misc.php:1137
 msgid "Our base_currency seems to be worthless."
 msgstr "Nossa base_currency parece estar desvalorizada."
 
-#: lib/Misc.php:1158
+#: lib/Misc.php:1173
 msgid "Success! All currencies are now updated."
 msgstr "Pronto! Todas as moedas estão atualizadas agora."
 
-#: lib/common.defines.php:8
+#: lib/common.defines.php:98
 msgid "This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"
 msgstr ""
 
-#: lib/common.defines.php:11
-#, fuzzy
-msgid "This software is under AGPL licence. For further information, please visit : <a href=\"http://www.star2billing.com\" target=\"_blank\">www.star2billing.com</a>"
-msgstr " Esse aplicativo está sobre a licença AGPL. Para mais informações, por favor visite : <a href=\"http://www.a2billing.org\" target=\"_blank\">a2billing.org</a>"
-
-#: lib/common.defines.php:12
-msgid "A2Billing : Customer Portal"
+#: lib/common.defines.php:105
+msgid "A2Billing Portal"
 msgstr ""
 
-#: lib/Class.Notification.php:35
+#: lib/Class.Notification.php:65
 msgid "New SIP & IAX added : Friends conf have to be generated"
 msgstr "Novo SIP & IAX adicionado : Conf dos Friends seram geradas"
 
-#: lib/Class.Notification.php:36
+#: lib/Class.Notification.php:66
 msgid "New SIP added : Sip Friends conf have to be generated"
 msgstr "Novo SIP adicionado : Conf do Sip Friend será gerada"
 
-#: lib/Class.Notification.php:37
+#: lib/Class.Notification.php:67
 msgid "New IAX added : IAX Friends conf have to be generated"
 msgstr "Novo IAX adicionado : Conf do IAX Friend será gerada"
 
-#: lib/Class.Notification.php:38
+#: lib/Class.Notification.php:68
 msgid "New Ticket added by agent"
 msgstr "Novo Ticket adicionado pelo agente"
 
-#: lib/Class.Notification.php:39
+#: lib/Class.Notification.php:69
 msgid "New Ticket added by customer"
 msgstr "Novo Ticket adicionado pelo cliente"
 
-#: lib/Class.Notification.php:83
+#: lib/Class.Notification.php:113
 msgid "BATCH"
 msgstr "LOTE"
 
-#: lib/Class.Notification.php:102
+#: lib/Class.Notification.php:132
 msgid "No Message Unknown"
 msgstr "Nenhuma Mensagem Desconhecida"
 
-#: lib/agent.help.php:4
+#: lib/agent.help.php:35
 msgid "For further information please consult"
 msgstr "Para mais informações por favor consulte "
 
-#: lib/agent.help.php:4
+#: lib/agent.help.php:35
 msgid "the online documention"
 msgstr "a documentação online"
 
-#: lib/agent.help.php:24
+#: lib/agent.help.php:55
 msgid "Agent list who have access to the Agent interface."
 msgstr "Agente lista quem tem acesso a interface do Agente."
 
-#: lib/agent.help.php:26
+#: lib/agent.help.php:57
 msgid "Personal information."
 msgstr "Informação Pessoal."
 
-#: lib/agent.help.php:26
+#: lib/agent.help.php:57
 msgid "You can update your personal information here."
 msgstr "Você pode atualizar sua informação pessoal aqui."
 
-#: lib/agent.help.php:28
+#: lib/agent.help.php:59
 msgid "Voip Config will create a SIP or IAX entry on the Asterisk server, so that a customer can set up a SIP or IAX client to connect directly to the asterisk server without the need to enter an account and pin each time a call is made. When done, click on the CONFIRM DATA button, then click reload to apply the changes on the Asterisk server.</br>"
 msgstr "Config Voip criará uma entrada SIP ou IAX no servidor Asterisk, de modo que um cliente possa conectar um cliente SIP ou IAX diretamente a um servidor asterisk sem precisar de entrar com uma conta e pin a cada vez que uma chamada é realizada. Quando pronto, clique no botão CONFIRMAR DADO, então clieque em recarregar para aplicar as mudanças no servidor Asterisk.</br>"
 
-#: lib/agent.help.php:29
+#: lib/agent.help.php:60
 msgid "The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client and use the account number and secret as the username and password."
 msgstr "O cliente deve então inserir o endereço de URL/IP do servidor asterisk no cliente SIP/IAX e usar o número da conta e a senha como nome de usuário e senha."
 
-#: lib/agent.help.php:31
+#: lib/agent.help.php:62
 msgid "Click reload to commit changes to Asterisk"
 msgstr "Clique em recarregar para confirmar as mudanças no Asterisk"
 
-#: lib/agent.help.php:33
+#: lib/agent.help.php:64
 msgid "Generate a specific crypted URL and to configure signup with a customer group and call plan."
 msgstr "Gerar um URL criptografada específica e configurar registro com um grupo de clientes e o plano de ligação."
 
-#: lib/agent.help.php:35
+#: lib/agent.help.php:66
 msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
 msgstr "Nessa página você poderá mudar sua senha, Você tem que inserir a Nova Senha e Confirmá-la."
 
-#: lib/agent.help.php:37
+#: lib/agent.help.php:68
 msgid "On this page you will be able to change your Secret used to crypt your generated signup URL, You have to enter the New Secret and Confirm it."
 msgstr "Nessa página você poderar mudar sua Senha usada para criptografar sua URL de registro gerada, Você tem que inserir uma Nova Senha e Confirmá-la."
 
-#: lib/agent.help.php:39
+#: lib/agent.help.php:70
 msgid "Customers are listed below by card number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>"
 msgstr "Clientes listados abaixo por número de cartão. Cada coluna corresponde a um cliente, junto com informação como seus planos de ligaçã, crédito restante, etc.</br>"
 
-#: lib/agent.help.php:40
+#: lib/agent.help.php:71
 msgid "The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication."
 msgstr "Os botões SIP e IAX criam entradas SIP e IAX que permitem conexões VoIP diretas com o servidor Asterisk sem outras autenticações."
 
-#: lib/agent.help.php:42
+#: lib/agent.help.php:73
 msgid "Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the card. Click refill under customer list to top-up a card."
 msgstr "Histórico de pagamento - A seção abaixo permite vocẽ adicionar pagamentos de um cliente. Note que isso não altera o saldo no cartão. Clique em recarregar sobre a lista de cliente para elevar um cartão."
 
-#: lib/agent.help.php:44
+#: lib/agent.help.php:75
 msgid "This screen shows refills and payments made against each account, along with the current credit on each card. The initial amount of credit applied to the card is not included. The amount owing is calculated by subtracting payments from refills"
 msgstr "Essa tela mostra recargas e pagamentos feitos há cada conta, junto com o crédito atual em cada cartão. A quantidade inicial de crédito aplicada ao cartão não é incluída. A quantidade devida é calculada pela subtraindo pagamentos de recargas"
 
-#: lib/agent.help.php:46
+#: lib/agent.help.php:77
 msgid "Agents Refill history - The section below allows you to see your refill"
 msgstr "Histórico De Recargas de Agentes - A seção abaixo permite você ver suas recargas"
 
-#: lib/agent.help.php:48
+#: lib/agent.help.php:79
 msgid "Agent Payment history - The section below allows you to browse your payments"
 msgstr "Histótico de Pagamento de Agente - A seção abaixo permite você visualizar seus pagamentos"
 
-#: lib/agent.help.php:50
+#: lib/agent.help.php:81
 msgid "You can see here, all tickets created. You can also add a new ticket for one customer."
 msgstr "Você pode ver aqui, todos os tickets criados. Você pode também adicionar um novo ticket para um cliente."
 
-#: lib/agent.help.php:52
+#: lib/agent.help.php:83
 msgid "This shows a list of all signup key create for this agent, this key is used to identify the default paramater for the subscription on the signup page"
 msgstr "Isso mostra uma lista de todas as chaves de registro criadas por esse agente, essa chave é usada para identificar o parâmetro padrão para a inscrição na página de registro"
 
@@ -715,169 +710,169 @@ msgstr "FECAHDO"
 msgid "INVALID"
 msgstr "INVÁLIDO"
 
-#: lib/agent.defines.php:115
+#: lib/agent.defines.php:129
 msgid "Please select a payment method for your order."
 msgstr "Por favor selecione o método de pagamento para o seu pedido."
 
-#: lib/agent.defines.php:117
+#: lib/agent.defines.php:131
 msgid "Credit Card"
 msgstr "Cartão de Crédito"
 
-#: lib/agent.defines.php:118 lib/agent.defines.php:128
+#: lib/agent.defines.php:132 lib/agent.defines.php:142
 msgid "Credit Card Test Info"
 msgstr "Teste de Info do Cartão de Crédito"
 
-#: lib/agent.defines.php:118 lib/agent.defines.php:128
+#: lib/agent.defines.php:132 lib/agent.defines.php:142
 msgid "Expiry: Any"
 msgstr "Expirar: Qualquer"
 
-#: lib/agent.defines.php:119
+#: lib/agent.defines.php:133
 msgid "Credit Card Type"
 msgstr "Tipo de Cartão de Crédito"
 
-#: lib/agent.defines.php:120
+#: lib/agent.defines.php:134
 msgid "Credit Card Owner"
 msgstr "Propietário do Cartão de Crédito"
 
-#: lib/agent.defines.php:121
+#: lib/agent.defines.php:135
 msgid "Credit Card Number"
 msgstr "Número do Cartão de Crédito"
 
-#: lib/agent.defines.php:122
+#: lib/agent.defines.php:136
 msgid "Credit Card Expiry Date"
 msgstr "Data de Vencimento do Cartão de Crédito"
 
-#: lib/agent.defines.php:123 lib/agent.defines.php:136
+#: lib/agent.defines.php:137 lib/agent.defines.php:150
 msgid "* The owner's name of the credit card must be at least"
 msgstr "* O nome do proprietário do cartão de crédito deve ser ao menos "
 
-#: lib/agent.defines.php:123 lib/agent.defines.php:124
-#: lib/agent.defines.php:137
+#: lib/agent.defines.php:137 lib/agent.defines.php:138
+#: lib/agent.defines.php:151
 msgid "characters"
 msgstr "caracteres"
 
-#: lib/agent.defines.php:124 lib/agent.defines.php:137
+#: lib/agent.defines.php:138 lib/agent.defines.php:151
 msgid "* The credit card number must be at least"
 msgstr "* O número do cartão de crédito deve ser ao menos "
 
-#: lib/agent.defines.php:125
+#: lib/agent.defines.php:139
 msgid "Credit Card Error!"
 msgstr "Erro no Cartão de Crédito!"
 
-#: lib/agent.defines.php:129
+#: lib/agent.defines.php:143
 msgid "There has been an error processing your credit card"
 msgstr "Há um erro no processamento do seu cartão de crédito"
 
-#: lib/agent.defines.php:130
+#: lib/agent.defines.php:144
 msgid "Please check your credit card details!"
 msgstr "Por favor cheuqe suas informações sobre o cartão de crédito!"
 
-#: lib/agent.defines.php:131
+#: lib/agent.defines.php:145
 msgid "Credit Card Owner:"
 msgstr "Propietário do Cartão de Crédito: "
 
-#: lib/agent.defines.php:132
+#: lib/agent.defines.php:146
 msgid "Credit Card Number:"
 msgstr "Número do Cartão de Crédito: "
 
-#: lib/agent.defines.php:133
+#: lib/agent.defines.php:147
 msgid "Credit Card Expiry Date:"
 msgstr "Data de Vencimento do Cartão de Crédito: "
 
-#: lib/agent.defines.php:134
+#: lib/agent.defines.php:148
 msgid "Credit Card Checknumber:"
 msgstr "Número de teste do Cartão de Crédito: "
 
-#: lib/agent.defines.php:135
+#: lib/agent.defines.php:149
 msgid "(located at the back of the credit card)"
 msgstr "(localizado no verso do cartão de crédito)"
 
-#: lib/agent.defines.php:136
+#: lib/agent.defines.php:150
 msgid "characters."
 msgstr "caracteres."
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:206
-#: lib/Form/Class.FormHandler.EditForm.inc.php:381
-#: lib/Form/Class.FormHandler.EditForm.inc.php:774
-#: lib/Form/Class.FormHandler.DelForm.inc.php:159
-#: lib/Form/Class.FormHandler.AddForm.inc.php:148 Public/card-history.php:376
+#: lib/Form/Class.FormHandler.EditForm.inc.php:212
+#: lib/Form/Class.FormHandler.EditForm.inc.php:387
+#: lib/Form/Class.FormHandler.EditForm.inc.php:768
+#: lib/Form/Class.FormHandler.DelForm.inc.php:161
+#: lib/Form/Class.FormHandler.AddForm.inc.php:154 Public/card-history.php:376
 #: Public/call-log-customers.php:1039
 msgid "No data found !!!"
 msgstr "Nenhum dado encontrado !!!"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:265
+#: lib/Form/Class.FormHandler.EditForm.inc.php:271
 msgid "LIST "
 msgstr "LISTA"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:335
+#: lib/Form/Class.FormHandler.EditForm.inc.php:341
 #: lib/Form/Class.FormHandler.EditForm.inc.php:497
-#: lib/Form/Class.FormHandler.EditForm.inc.php:626
+#: lib/Form/Class.FormHandler.EditForm.inc.php:620
 msgid "Add a new"
 msgstr "Adicionar um novo"
 
-#: lib/Form/Class.FormHandler.EditForm.inc.php:422
+#: lib/Form/Class.FormHandler.EditForm.inc.php:428
 #: lib/Form/Class.FormHandler.EditForm.inc.php:555
 msgid "LIST"
 msgstr "LISTA"
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:44
+#: lib/Form/Class.FormHandler.DelForm.inc.php:46
 #: Public/checkout_success.php:23
 msgid "Message"
 msgstr "Mensagem"
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:51
+#: lib/Form/Class.FormHandler.DelForm.inc.php:53
 msgid "You have "
 msgstr "Você tem"
 
-#: lib/Form/Class.FormHandler.DelForm.inc.php:206
+#: lib/Form/Class.FormHandler.DelForm.inc.php:208
 msgid "Remove this "
 msgstr "Remover isso"
 
-#: lib/Form/Class.FormHandler.AddForm.inc.php:202
+#: lib/Form/Class.FormHandler.AddForm.inc.php:208
 msgid "Create a new "
 msgstr "Criar um novo"
 
-#: lib/Form/Class.ViewHandler.inc.php:69
+#: lib/Form/Class.ViewHandler.inc.php:68
 msgid "Archiving All "
 msgstr "Arquivar Todos"
 
-#: lib/Form/Class.ViewHandler.inc.php:83
+#: lib/Form/Class.ViewHandler.inc.php:82
 msgid "Sort"
 msgstr "Ordenar"
 
-#: lib/Form/Class.ViewHandler.inc.php:103
+#: lib/Form/Class.ViewHandler.inc.php:102
 msgid "Records"
 msgstr "Gravações"
 
-#: lib/Form/Class.ViewHandler.inc.php:127
+#: lib/Form/Class.ViewHandler.inc.php:132
 msgid "FILTER ON "
 msgstr "FILTRO LIGADO"
 
-#: lib/Form/Class.ViewHandler.inc.php:144
+#: lib/Form/Class.ViewHandler.inc.php:149
 msgid "FILTER ON"
 msgstr "FILTRO LIGADO"
 
-#: lib/Form/Class.ViewHandler.inc.php:157
+#: lib/Form/Class.ViewHandler.inc.php:162
 msgid "APPLY FILTER "
 msgstr "APLICAR FILTRO"
 
-#: lib/Form/Class.ViewHandler.inc.php:188
+#: lib/Form/Class.ViewHandler.inc.php:193
 msgid "ACTION"
 msgstr "AÇÃO"
 
-#: lib/Form/Class.ViewHandler.inc.php:629
+#: lib/Form/Class.ViewHandler.inc.php:634
 msgid "DISPLAY"
 msgstr "MOSTRAR"
 
-#: lib/Form/Class.ViewHandler.inc.php:653
+#: lib/Form/Class.ViewHandler.inc.php:663
 msgid "GO"
 msgstr "IR"
 
-#: lib/Form/Class.ViewHandler.inc.php:657 Public/call-log-customers.php:1306
+#: lib/Form/Class.ViewHandler.inc.php:667 Public/call-log-customers.php:1306
 msgid "Export CSV"
 msgstr "Exportar CSV"
 
-#: lib/Form/Class.ViewHandler.inc.php:661 Public/call-log-customers.php:1315
+#: lib/Form/Class.ViewHandler.inc.php:671 Public/call-log-customers.php:1315
 msgid "Export XML"
 msgstr "Exportar XML"
 
@@ -978,7 +973,7 @@ msgid "BUYRATEINCREMENT"
 msgstr "ACRÉSCIMO DA TAXA DE COMPRA"
 
 #: lib/Form/Class.SearchHandler.inc.php:407
-#: Public/form_data/FG_var_def_ratecard.inc:92
+#: Public/form_data/FG_var_def_ratecard.inc:125
 msgid "RATE INITIAL"
 msgstr "TAXA INICIAL"
 
@@ -1006,341 +1001,341 @@ msgstr "PERCENTUAL MÍNIMO DA TAXA DE DESCONEXÃO"
 msgid " BATCH UPDATE RATECARD "
 msgstr "ATUALIZAR RATECAR EM LOTE"
 
-#: lib/Form/Class.FormHandler.inc.php:515
+#: lib/Form/Class.FormHandler.inc.php:527
 msgid "No data found!"
 msgstr "Nenhum dado encontrado!"
 
-#: lib/Form/Class.FormHandler.inc.php:516
+#: lib/Form/Class.FormHandler.inc.php:528
 msgid "DIRECTORY"
 msgstr "DIRETÓRIO"
 
-#: lib/Form/Class.FormHandler.inc.php:517
+#: lib/Form/Class.FormHandler.inc.php:529
 msgid "list"
 msgstr "listar"
 
-#: lib/Form/Class.FormHandler.inc.php:518
-#: lib/Form/Class.FormHandler.inc.php:589
+#: lib/Form/Class.FormHandler.inc.php:530
+#: lib/Form/Class.FormHandler.inc.php:605
 msgid "Define criteria to make a precise search"
 msgstr "Defina os critérios para fazer uma busca precisa"
 
-#: lib/Form/Class.FormHandler.inc.php:519
+#: lib/Form/Class.FormHandler.inc.php:531
 msgid "You can browse through our"
 msgstr "Você pode navegar através de nosso "
 
-#: lib/Form/Class.FormHandler.inc.php:519
+#: lib/Form/Class.FormHandler.inc.php:531
 msgid "and modify their different properties"
 msgstr "e modificar suas diferentes preferências"
 
-#: lib/Form/Class.FormHandler.inc.php:520
+#: lib/Form/Class.FormHandler.inc.php:532
 msgid "Delete this record"
 msgstr "Apagar essa gravação"
 
-#: lib/Form/Class.FormHandler.inc.php:521
+#: lib/Form/Class.FormHandler.inc.php:533
 msgid "Edit this record"
 msgstr "Editar essa gravação"
 
-#: lib/Form/Class.FormHandler.inc.php:522
+#: lib/Form/Class.FormHandler.inc.php:534
 msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
 msgstr "O documento foi criado corretamente. Agora, você pode definir as diferentes tarifas que você quer associar."
 
-#: lib/Form/Class.FormHandler.inc.php:523
-#: Public/form_data/FG_var_moneysituation.inc:44
-#: Public/form_data/FG_var_card.inc:916
+#: lib/Form/Class.FormHandler.inc.php:535
+#: Public/form_data/FG_var_moneysituation.inc:77
+#: Public/form_data/FG_var_card.inc:949
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Você pode modificar, através da seguinte forma, as diferentes propriedade do seu "
 
-#: lib/Form/Class.FormHandler.inc.php:524
-#: Public/form_data/FG_var_moneysituation.inc:45
-#: Public/form_data/FG_var_def_ratecard.inc:104
-#: Public/form_data/FG_var_ticket_agent.inc:57
-#: Public/form_data/FG_var_ticket.inc:139
-#: Public/form_data/FG_var_friend.inc:544 Public/form_data/FG_var_card.inc:917
+#: lib/Form/Class.FormHandler.inc.php:536
+#: Public/form_data/FG_var_moneysituation.inc:78
+#: Public/form_data/FG_var_def_ratecard.inc:137
+#: Public/form_data/FG_var_ticket_agent.inc:90
+#: Public/form_data/FG_var_ticket.inc:172
+#: Public/form_data/FG_var_friend.inc:577 Public/form_data/FG_var_card.inc:950
 msgid "If you really want remove this"
 msgstr "Se você realmente que remover isso "
 
-#: lib/Form/Class.FormHandler.inc.php:524
+#: lib/Form/Class.FormHandler.inc.php:536
 msgid "Click on the delete button."
 msgstr "Clique no botão apagar."
 
-#: lib/Form/Class.FormHandler.inc.php:525
+#: lib/Form/Class.FormHandler.inc.php:537
 msgid "One"
 msgstr "Um"
 
-#: lib/Form/Class.FormHandler.inc.php:525
+#: lib/Form/Class.FormHandler.inc.php:537
 msgid "has been deleted!"
 msgstr "foi apagado!"
 
-#: lib/Form/Class.FormHandler.inc.php:527
-#: Public/form_data/FG_var_moneysituation.inc:46
-#: Public/form_data/FG_var_def_ratecard.inc:105
-#: Public/form_data/FG_var_ticket_agent.inc:58
-#: Public/form_data/FG_var_ticket.inc:140
-#: Public/form_data/FG_var_friend.inc:545 Public/form_data/FG_var_card.inc:918
+#: lib/Form/Class.FormHandler.inc.php:539
+#: Public/form_data/FG_var_moneysituation.inc:79
+#: Public/form_data/FG_var_def_ratecard.inc:138
+#: Public/form_data/FG_var_ticket_agent.inc:91
+#: Public/form_data/FG_var_ticket.inc:173
+#: Public/form_data/FG_var_friend.inc:578 Public/form_data/FG_var_card.inc:951
 msgid "you can add easily a new"
 msgstr "você pode facilmente adicionar um novo"
 
-#: lib/Form/Class.FormHandler.inc.php:527
-#: Public/form_data/FG_var_moneysituation.inc:46
-#: Public/form_data/FG_var_def_ratecard.inc:105
-#: Public/form_data/FG_var_ticket_agent.inc:58
-#: Public/form_data/FG_var_ticket.inc:140
-#: Public/form_data/FG_var_friend.inc:545 Public/form_data/FG_var_card.inc:918
+#: lib/Form/Class.FormHandler.inc.php:539
+#: Public/form_data/FG_var_moneysituation.inc:79
+#: Public/form_data/FG_var_def_ratecard.inc:138
+#: Public/form_data/FG_var_ticket_agent.inc:91
+#: Public/form_data/FG_var_ticket.inc:173
+#: Public/form_data/FG_var_friend.inc:578 Public/form_data/FG_var_card.inc:951
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Preencha os seguintes campos e confirme clicando no botão adicionar."
 
-#: lib/Form/Class.FormHandler.inc.php:528
+#: lib/Form/Class.FormHandler.inc.php:540
 msgid "Add a"
 msgstr "Adicionar um"
 
-#: lib/Form/Class.FormHandler.inc.php:528
+#: lib/Form/Class.FormHandler.inc.php:540
 msgid "now."
 msgstr "agora."
 
-#: lib/Form/Class.FormHandler.inc.php:529
-#: lib/Form/Class.FormHandler.inc.php:530
-#: Public/form_data/FG_var_def_ratecard.inc:109
-#: Public/form_data/FG_var_ticket_agent.inc:62
-#: Public/form_data/FG_var_ticket.inc:144
-#: Public/form_data/FG_var_friend.inc:549 Public/form_data/FG_var_card.inc:922
+#: lib/Form/Class.FormHandler.inc.php:541
+#: lib/Form/Class.FormHandler.inc.php:542
+#: Public/form_data/FG_var_def_ratecard.inc:142
+#: Public/form_data/FG_var_ticket_agent.inc:95
+#: Public/form_data/FG_var_ticket.inc:177
+#: Public/form_data/FG_var_friend.inc:582 Public/form_data/FG_var_card.inc:955
 msgid "Your new"
 msgstr "Seu novo"
 
-#: lib/Form/Class.FormHandler.inc.php:529
+#: lib/Form/Class.FormHandler.inc.php:541
 msgid "has been inserted.<br>"
 msgstr "foi inserido.<br>"
 
-#: lib/Form/Class.FormHandler.inc.php:530
+#: lib/Form/Class.FormHandler.inc.php:542
 msgid "hasn't been inserted."
 msgstr "não foi inserido."
 
-#: lib/Form/Class.FormHandler.inc.php:531
+#: lib/Form/Class.FormHandler.inc.php:543
 msgid "You cannot choose more than one !"
 msgstr "Você não pode escolher mais que um !"
 
-#: lib/Form/Class.FormHandler.inc.php:533
+#: lib/Form/Class.FormHandler.inc.php:545
 msgid "Are you sure to delete all records connected to this instance."
 msgstr "Você tem certeza que quer apagar todas as gravações conectadas a essa instância."
 
-#: lib/Form/Class.FormHandler.inc.php:535
-#: lib/Form/Class.FormHandler.inc.php:537
+#: lib/Form/Class.FormHandler.inc.php:547
+#: lib/Form/Class.FormHandler.inc.php:549
 msgid "CONFIRM DATA"
 msgstr "CONFIRMAR DADO"
 
-#: lib/Form/Class.FormHandler.inc.php:536
+#: lib/Form/Class.FormHandler.inc.php:548
 msgid "DELETE"
 msgstr "APAGAR"
 
-#: lib/Form/Class.FormHandler.inc.php:578
-#: lib/Form/Class.FormHandler.inc.php:796
+#: lib/Form/Class.FormHandler.inc.php:594
+#: lib/Form/Class.FormHandler.inc.php:812
 msgid "Delete this "
 msgstr "Apagar isso"
 
-#: lib/Form/Class.FormHandler.inc.php:579
-#: lib/Form/Class.FormHandler.inc.php:790
+#: lib/Form/Class.FormHandler.inc.php:595
+#: lib/Form/Class.FormHandler.inc.php:806
 msgid "Edit this "
 msgstr "Editar isso"
 
-#: lib/Form/Class.FormHandler.inc.php:610
+#: lib/Form/Class.FormHandler.inc.php:626
 msgid "INSERTED"
 msgstr "INSERIDO"
 
-#: lib/Form/Class.FormHandler.inc.php:611
+#: lib/Form/Class.FormHandler.inc.php:627
 msgid "ENABLE"
 msgstr "HABILITAR"
 
-#: lib/Form/Class.FormHandler.inc.php:612
+#: lib/Form/Class.FormHandler.inc.php:628
 msgid "DISABLE"
 msgstr "DISABILITAR"
 
-#: lib/Form/Class.FormHandler.inc.php:613
+#: lib/Form/Class.FormHandler.inc.php:629
 msgid "FREE"
 msgstr "GRÁTIS"
 
-#: lib/Form/Class.FormHandler.inc.php:765
-#: lib/Form/Class.FormHandler.inc.php:767
+#: lib/Form/Class.FormHandler.inc.php:781
+#: lib/Form/Class.FormHandler.inc.php:783
 msgid "You can browse through our "
 msgstr "Você pode navegar através de nosso "
 
-#: lib/Form/Class.FormHandler.inc.php:765
-#: lib/Form/Class.FormHandler.inc.php:767
+#: lib/Form/Class.FormHandler.inc.php:781
+#: lib/Form/Class.FormHandler.inc.php:783
 msgid " and modify their different properties<br>"
 msgstr " e modificar suas diferentes propriedade<br>"
 
-#: lib/Form/Class.FormHandler.inc.php:938
+#: lib/Form/Class.FormHandler.inc.php:954
 msgid "(at least 3 characters)"
 msgstr "(ao menos 3 caracteres)"
 
-#: lib/Form/Class.FormHandler.inc.php:942
+#: lib/Form/Class.FormHandler.inc.php:958
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr "(deve casa com a estrutura de email. Exemplo : nome@dominio.com)"
 
-#: lib/Form/Class.FormHandler.inc.php:946
+#: lib/Form/Class.FormHandler.inc.php:962
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr "(ao menos 5 carecteres suscessivos aparecem no fim dessa string)"
 
-#: lib/Form/Class.FormHandler.inc.php:950
+#: lib/Form/Class.FormHandler.inc.php:966
 msgid "(at least 4 characters)"
 msgstr "(ao menos 4 caracteres)"
 
-#: lib/Form/Class.FormHandler.inc.php:954
+#: lib/Form/Class.FormHandler.inc.php:970
 msgid "(number format)"
 msgstr "(formato do número)"
 
-#: lib/Form/Class.FormHandler.inc.php:962
+#: lib/Form/Class.FormHandler.inc.php:978
 msgid "(only number with more that 8 digits)"
 msgstr "(somente número com mais de 8 dígitos)"
 
-#: lib/Form/Class.FormHandler.inc.php:966
+#: lib/Form/Class.FormHandler.inc.php:982
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr "(ao menos 8 dígitos usando . ou - ou a barra de espaço)"
 
-#: lib/Form/Class.FormHandler.inc.php:970
+#: lib/Form/Class.FormHandler.inc.php:986
 msgid "network adress format"
 msgstr "formato do endereço de rede"
 
-#: lib/Form/Class.FormHandler.inc.php:974
+#: lib/Form/Class.FormHandler.inc.php:990
 msgid "at least 1 character"
 msgstr "ao menos 1 caractere"
 
-#: lib/Form/Class.FormHandler.inc.php:982
+#: lib/Form/Class.FormHandler.inc.php:998
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr "(AO MENOS 2 CARACTERES)"
 
-#: lib/Form/Class.FormHandler.inc.php:986
+#: lib/Form/Class.FormHandler.inc.php:1002
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr "(FORMATO DO NÚMERO COM/SEM DECIMAL, use '.' para decimal)"
 
-#: lib/Form/Class.FormHandler.inc.php:1002
+#: lib/Form/Class.FormHandler.inc.php:1018
 msgid "You must write something."
 msgstr "Você deve escrever algo."
 
-#: lib/Form/Class.FormHandler.inc.php:1006
+#: lib/Form/Class.FormHandler.inc.php:1022
 msgid "8 characters alphanumeric"
 msgstr "8 caracteres alfanuméricos"
 
-#: lib/Form/Class.FormHandler.inc.php:1013
+#: lib/Form/Class.FormHandler.inc.php:1029
 msgid "(at least 6 Alphanumeric characters)"
 msgstr "(ao menos 6 caracteres alfanuméricos)"
 
-#: lib/Form/Class.FormHandler.inc.php:1021
+#: lib/Form/Class.FormHandler.inc.php:1037
 #, php-format
 msgid "(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"
 msgstr "(FORMATO DE PORCENTAGEM COM/SEM DECIMAL, use '.' para decimal e não use o caractere '%'. ex.: 12.4)"
 
-#: lib/Form/Class.FormHandler.inc.php:1554
+#: lib/Form/Class.FormHandler.inc.php:1562
 msgid "This did is in use by customer id:"
 msgstr "Isso estava em uso pela id de cliente: "
 
-#: lib/Form/Class.FormHandler.inc.php:1675
+#: lib/Form/Class.FormHandler.inc.php:1683
 #: Public/A2B_entity_card_multi.php:114
 msgid "CREATION CARD REFILL"
 msgstr "CRIAR RECARGA DE CARTÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:1701
+#: lib/Form/Class.FormHandler.inc.php:1709
 msgid "DELETION CARD REFILL"
 msgstr "APAGAR RECARDA DE CARTÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:1718
+#: lib/Form/Class.FormHandler.inc.php:1726
 msgid "CREATION AGENT REFILL"
 msgstr "CRIAR AGENTE DE RECARGA"
 
-#: lib/Form/Class.FormHandler.inc.php:1930
+#: lib/Form/Class.FormHandler.inc.php:1939
 msgid "SUMMARY OF CALLS"
 msgstr "SUMÁRIO DE CHAMADAS"
 
-#: lib/Form/Class.FormHandler.inc.php:1931
+#: lib/Form/Class.FormHandler.inc.php:1940
 msgid "Summary of the calls charged since the last billing"
 msgstr "Sumáio de chamadas cobradas desde a última bilhetagem"
 
-#: lib/Form/Class.FormHandler.inc.php:1949
+#: lib/Form/Class.FormHandler.inc.php:1958
 msgid "SUMMARY OF CHARGE"
 msgstr "SUMÁRIO DE TAXA"
 
-#: lib/Form/Class.FormHandler.inc.php:1951
+#: lib/Form/Class.FormHandler.inc.php:1960
 msgid "Summary of the charge charged since the last billing."
 msgstr "Sumário de taxas cobradas desde a última bilhetagem."
 
-#: lib/Form/Class.FormHandler.inc.php:1957
-#: lib/Form/Class.FormHandler.inc.php:1983
+#: lib/Form/Class.FormHandler.inc.php:1966
+#: lib/Form/Class.FormHandler.inc.php:1992
 msgid "CHARGE :"
 msgstr "TAXA : "
 
-#: lib/Form/Class.FormHandler.inc.php:1974
+#: lib/Form/Class.FormHandler.inc.php:1983
 msgid "BILLING CHARGES"
 msgstr "TAXAS DE BILHETAGEM"
 
-#: lib/Form/Class.FormHandler.inc.php:1975
+#: lib/Form/Class.FormHandler.inc.php:1984
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr "Essa fatura é para algumas taxas não pagas desde a última bilhetagem."
 
-#: lib/Form/Class.FormHandler.inc.php:2003
+#: lib/Form/Class.FormHandler.inc.php:2012
 msgid "BILLING POSTPAID"
 msgstr "BILHETAR PÓS-PAGO"
 
-#: lib/Form/Class.FormHandler.inc.php:2004
+#: lib/Form/Class.FormHandler.inc.php:2013
 msgid "Invoice for POSTPAID"
 msgstr "Fatura para PÓS-PAGO"
 
-#: lib/Form/Class.FormHandler.inc.php:2041
-#: lib/Form/Class.FormHandler.inc.php:2043
-#: lib/Form/Class.FormHandler.inc.php:2145
-#: lib/Form/Class.FormHandler.inc.php:2147 Public/A2B_entity_card.php:227
-#: Public/form_data/FG_var_payment.inc:28
+#: lib/Form/Class.FormHandler.inc.php:2050
+#: lib/Form/Class.FormHandler.inc.php:2052
+#: lib/Form/Class.FormHandler.inc.php:2154
+#: lib/Form/Class.FormHandler.inc.php:2156 Public/A2B_entity_card.php:227
+#: Public/form_data/FG_var_payment.inc:61
 msgid "REFILL"
 msgstr "RECARGA"
 
-#: lib/Form/Class.FormHandler.inc.php:2045
-#: lib/Form/Class.FormHandler.inc.php:2149
+#: lib/Form/Class.FormHandler.inc.php:2054
+#: lib/Form/Class.FormHandler.inc.php:2158
 msgid "Invoice for refill"
 msgstr "Fatura para recarga"
 
-#: lib/Form/Class.FormHandler.inc.php:2183
+#: lib/Form/Class.FormHandler.inc.php:2192
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "GERAR COMISSÃO AUTOMATICAMENTE!"
 
-#: lib/Form/Class.FormHandler.inc.php:2296
-#: lib/Form/Class.FormHandler.inc.php:2340
+#: lib/Form/Class.FormHandler.inc.php:2305
+#: lib/Form/Class.FormHandler.inc.php:2349
 #: Public/A2B_entity_card_multi.php:170 Public/A2B_entity_card_multi.php:212
 msgid "Could not open buddy file"
 msgstr "Não foi possível abrir arquivo de amigo"
 
-#: lib/Form/Class.FormHandler.inc.php:2313
-#: lib/Form/Class.FormHandler.inc.php:2345
-#: lib/Form/Class.FormHandler.inc.php:2357
+#: lib/Form/Class.FormHandler.inc.php:2322
+#: lib/Form/Class.FormHandler.inc.php:2354
+#: lib/Form/Class.FormHandler.inc.php:2366
 #: Public/A2B_entity_card_multi.php:189 Public/A2B_entity_card_multi.php:231
 #: Public/CC_generate_friend_file.php:84 Public/CC_generate_friend_file.php:97
 msgid "Impossible to write to the file"
 msgstr "Impossível escrever no arquivo"
 
-#: lib/Form/Class.FormHandler.inc.php:2535
+#: lib/Form/Class.FormHandler.inc.php:2544
 msgid "error deletion"
 msgstr "erro de eliminação"
 
-#: lib/Form/Class.FormHandler.inc.php:2662
+#: lib/Form/Class.FormHandler.inc.php:2671
 msgid "ERROR_DUPLICATION"
 msgstr "ERRO_DUPLICAÇÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:2748
+#: lib/Form/Class.FormHandler.inc.php:2757
 msgid "Done"
 msgstr "Pronto"
 
-#: lib/Form/Class.FormHandler.inc.php:2788
+#: lib/Form/Class.FormHandler.inc.php:2797
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2794
+#: lib/Form/Class.FormHandler.inc.php:2803
 msgid "Choose a call plan"
 msgstr "Escolha um plano de ligação"
 
-#: lib/Form/Class.FormHandler.inc.php:2840
+#: lib/Form/Class.FormHandler.inc.php:2849
 msgid "THE CURRENT RATECARD"
 msgstr "O RATECARD ATUAL"
 
-#: lib/Form/Class.FormHandler.inc.php:2851
+#: lib/Form/Class.FormHandler.inc.php:2860
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
-#: lib/Form/Class.FormHandler.inc.php:2857
+#: lib/Form/Class.FormHandler.inc.php:2866
 msgid "Choose a ratecard"
 msgstr "Escolha um ratecard"
 
@@ -1441,9 +1436,9 @@ msgid "REFILL INFO"
 msgstr "INFO DE RECARGA"
 
 #: Public/A2B_refill_info_agent.php:44 Public/A2B_payment_info_agent.php:44
-#: Public/form_data/FG_var_payment_agent.inc:20
-#: Public/form_data/FG_var_logrefill_agent.inc:21
-#: Public/form_data/FG_var_signup_agent.inc:20
+#: Public/form_data/FG_var_payment_agent.inc:53
+#: Public/form_data/FG_var_logrefill_agent.inc:54
+#: Public/form_data/FG_var_signup_agent.inc:53
 msgid "AGENT"
 msgstr "AGENTE"
 
@@ -1454,8 +1449,8 @@ msgid "CREATION DATE"
 msgstr "DATA DE CRIAÇÃO"
 
 #: Public/A2B_refill_info_agent.php:68 Public/A2B_refill_info.php:74
-#: Public/form_data/FG_var_logrefill_agent.inc:25
-#: Public/form_data/FG_var_logrefill.inc:24
+#: Public/form_data/FG_var_logrefill_agent.inc:58
+#: Public/form_data/FG_var_logrefill.inc:57
 msgid "REFILL TYPE"
 msgstr "TIPO DE RECARGA"
 
@@ -1652,12 +1647,12 @@ msgid "Create SIP/IAX Friends"
 msgstr "Criar SIP/IAX Friends"
 
 #: Public/A2B_entity_card_multi.php:415 Public/A2B_entity_friend.php:155
-#: Public/form_data/FG_var_card.inc:122
+#: Public/form_data/FG_var_card.inc:155
 msgid "SIP"
 msgstr "SIP"
 
 #: Public/A2B_entity_card_multi.php:415 Public/A2B_entity_friend.php:154
-#: Public/form_data/FG_var_card.inc:123
+#: Public/form_data/FG_var_card.inc:156
 msgid "IAX"
 msgstr "IAX"
 
@@ -1730,10 +1725,10 @@ msgid "Total Amount"
 msgstr "Quantidade Total"
 
 #: Public/A2B_refill_info.php:44 Public/A2B_card_info.php:85
-#: Public/A2B_payment_info.php:44 Public/form_data/FG_var_ticket.inc:38
-#: Public/form_data/FG_var_logrefill.inc:57
-#: Public/form_data/FG_var_payment.inc:56 Public/form_data/FG_var_card.inc:208
-#: Public/form_data/FG_var_card.inc:302
+#: Public/A2B_payment_info.php:44 Public/form_data/FG_var_ticket.inc:71
+#: Public/form_data/FG_var_logrefill.inc:90
+#: Public/form_data/FG_var_payment.inc:89 Public/form_data/FG_var_card.inc:241
+#: Public/form_data/FG_var_card.inc:335
 msgid "ACCOUNT NUMBER"
 msgstr "NÚMERO DA CONTA"
 
@@ -1806,8 +1801,8 @@ msgid "PAYMENT INFO"
 msgstr "INFO DE PAGAMENTO"
 
 #: Public/A2B_payment_info_agent.php:68 Public/A2B_payment_info.php:74
-#: Public/form_data/FG_var_payment_agent.inc:25
-#: Public/form_data/FG_var_payment.inc:27 Public/form_data/FG_var_card.inc:489
+#: Public/form_data/FG_var_payment_agent.inc:58
+#: Public/form_data/FG_var_payment.inc:60 Public/form_data/FG_var_card.inc:522
 msgid "PAYMENT TYPE"
 msgstr "TIPO DE PAGAMENTO"
 
@@ -1964,10 +1959,10 @@ msgstr "SELECIONAR DIA"
 
 #: Public/A2B_entity_paymentlog.php:189 Public/A2B_card_info.php:75
 #: Public/A2B_card_info.php:125 Public/A2B_entity_card.php:352
-#: Public/form_data/FG_var_paymentlog.inc:117
-#: Public/form_data/FG_var_ticket_agent.inc:36
-#: Public/form_data/FG_var_ticket.inc:44 Public/form_data/FG_var_card.inc:118
-#: Public/form_data/FG_var_card.inc:560
+#: Public/form_data/FG_var_paymentlog.inc:150
+#: Public/form_data/FG_var_ticket_agent.inc:69
+#: Public/form_data/FG_var_ticket.inc:77 Public/form_data/FG_var_card.inc:151
+#: Public/form_data/FG_var_card.inc:593
 msgid "STATUS"
 msgstr "STATUS"
 
@@ -1979,7 +1974,7 @@ msgstr "IR PARA CONTA DO CLIENTE"
 msgid "ACCOUNT INFO"
 msgstr "INFO DE CONTA"
 
-#: Public/A2B_card_info.php:93 Public/form_data/FG_var_card.inc:115
+#: Public/A2B_card_info.php:93 Public/form_data/FG_var_card.inc:148
 msgid "SERIAL NUMBER"
 msgstr "NÚMERO SERIAL"
 
@@ -1992,7 +1987,7 @@ msgid "WEB PASSWORD"
 msgstr "SENHA WEB"
 
 #: Public/A2B_card_info.php:117 Public/A2B_entity_card.php:368
-#: Public/form_data/FG_var_friend.inc:362 Public/form_data/FG_var_card.inc:541
+#: Public/form_data/FG_var_friend.inc:395 Public/form_data/FG_var_card.inc:574
 msgid "LANGUAGE"
 msgstr "IDIOMA"
 
@@ -2000,7 +1995,7 @@ msgstr "IDIOMA"
 msgid "EXPIRATION DATE"
 msgstr "DATA DE EXPIRAÇÃO"
 
-#: Public/A2B_card_info.php:151 Public/form_data/FG_var_card.inc:664
+#: Public/A2B_card_info.php:151 Public/form_data/FG_var_card.inc:697
 msgid "FIRST USE DATE"
 msgstr "DATA DO PRIMEIRO USO"
 
@@ -2017,17 +2012,17 @@ msgid "CUSTOMER INFO"
 msgstr "INFO DE CLIENTE"
 
 #: Public/A2B_card_info.php:186 Public/agentinfo.php:47
-#: Public/form_data/FG_var_agent.inc:22 Public/form_data/FG_var_card.inc:369
+#: Public/form_data/FG_var_agent.inc:55 Public/form_data/FG_var_card.inc:402
 msgid "LAST NAME"
 msgstr "SOBRENOME"
 
 #: Public/A2B_card_info.php:196 Public/agentinfo.php:48
-#: Public/form_data/FG_var_agent.inc:31 Public/form_data/FG_var_card.inc:378
+#: Public/form_data/FG_var_agent.inc:64 Public/form_data/FG_var_card.inc:411
 msgid "FIRST NAME"
 msgstr "NOME"
 
 #: Public/A2B_card_info.php:208 Public/agentinfo.php:54
-#: Public/form_data/FG_var_agent.inc:40 Public/form_data/FG_var_card.inc:398
+#: Public/form_data/FG_var_agent.inc:73 Public/form_data/FG_var_card.inc:431
 msgid "ADDRESS"
 msgstr "ENDEREÇO"
 
@@ -2036,33 +2031,33 @@ msgid "ZIP CODE"
 msgstr "CEP"
 
 #: Public/A2B_card_info.php:228 Public/agentinfo.php:56
-#: Public/form_data/FG_var_agent.inc:49 Public/form_data/FG_var_card.inc:408
+#: Public/form_data/FG_var_agent.inc:82 Public/form_data/FG_var_card.inc:441
 msgid "CITY"
 msgstr "CIDADE"
 
 #: Public/A2B_card_info.php:238 Public/agentinfo.php:57
-#: Public/form_data/FG_var_agent.inc:58
+#: Public/form_data/FG_var_agent.inc:91
 msgid "STATE"
 msgstr "ESTADO"
 
 #: Public/A2B_card_info.php:249 Public/agentinfo.php:58
-#: Public/form_data/FG_var_agent.inc:67 Public/form_data/FG_var_card.inc:427
+#: Public/form_data/FG_var_agent.inc:100 Public/form_data/FG_var_card.inc:460
 msgid "COUNTRY"
 msgstr "PAÍS"
 
 #: Public/A2B_card_info.php:258 Public/agentinfo.php:49
-#: Public/form_data/FG_var_agent.inc:85 Public/form_data/FG_var_card.inc:126
-#: Public/form_data/FG_var_card.inc:209 Public/form_data/FG_var_card.inc:388
+#: Public/form_data/FG_var_agent.inc:118 Public/form_data/FG_var_card.inc:159
+#: Public/form_data/FG_var_card.inc:242 Public/form_data/FG_var_card.inc:421
 msgid "EMAIL"
 msgstr "EMAIL"
 
 #: Public/A2B_card_info.php:267 Public/agentinfo.php:50
-#: Public/form_data/FG_var_agent.inc:94
+#: Public/form_data/FG_var_agent.inc:127
 msgid "PHONE"
 msgstr "TELEFONE"
 
 #: Public/A2B_card_info.php:275 Public/agentinfo.php:51
-#: Public/form_data/FG_var_agent.inc:103
+#: Public/form_data/FG_var_agent.inc:136
 msgid "FAX"
 msgstr "FAX"
 
@@ -2070,27 +2065,27 @@ msgstr "FAX"
 msgid "ACCOUNT STATUS"
 msgstr "STATUS DE CONTA"
 
-#: Public/A2B_card_info.php:301 Public/form_data/FG_var_card.inc:110
-#: Public/form_data/FG_var_card.inc:334
+#: Public/A2B_card_info.php:301 Public/form_data/FG_var_card.inc:143
+#: Public/form_data/FG_var_card.inc:367
 msgid "BALANCE"
 msgstr "SALDO"
 
 #: Public/A2B_card_info.php:309 Public/call-log-customers.php:853
-#: Public/A2B_entity_card.php:425 Public/form_data/FG_var_card.inc:121
-#: Public/form_data/FG_var_card.inc:551
+#: Public/A2B_entity_card.php:425 Public/form_data/FG_var_card.inc:154
+#: Public/form_data/FG_var_card.inc:584
 msgid "CURRENCY"
 msgstr "MOEDA"
 
-#: Public/A2B_card_info.php:317 Public/form_data/FG_var_card.inc:590
+#: Public/A2B_card_info.php:317 Public/form_data/FG_var_card.inc:623
 msgid "CREDIT LIMIT"
 msgstr "LIMITE DE CRÉDITO"
 
-#: Public/A2B_card_info.php:325 Public/form_data/FG_var_card.inc:753
-#: Public/form_data/FG_var_card.inc:761
+#: Public/A2B_card_info.php:325 Public/form_data/FG_var_card.inc:786
+#: Public/form_data/FG_var_card.inc:794
 msgid "AUTOREFILL"
 msgstr "AUTO-RECARGA"
 
-#: Public/A2B_card_info.php:333 Public/form_data/FG_var_card.inc:774
+#: Public/A2B_card_info.php:333 Public/form_data/FG_var_card.inc:807
 msgid "INVOICE DAY"
 msgstr "DIA DA FATURA"
 
@@ -2098,11 +2093,11 @@ msgstr "DIA DA FATURA"
 msgid "COMPANY INFO"
 msgstr "INFO DA EMPRESA"
 
-#: Public/A2B_card_info.php:352 Public/form_data/FG_var_card.inc:466
+#: Public/A2B_card_info.php:352 Public/form_data/FG_var_card.inc:499
 msgid "COMPANY NAME"
 msgstr "NOME DA EMPRESA"
 
-#: Public/A2B_card_info.php:360 Public/form_data/FG_var_card.inc:476
+#: Public/A2B_card_info.php:360 Public/form_data/FG_var_card.inc:509
 msgid "COMPANY WEBSITE"
 msgstr "PÁGINA DA EMPRESA"
 
@@ -2110,7 +2105,7 @@ msgstr "PÁGINA DA EMPRESA"
 msgid "VAT REGISTRATION NUMBER"
 msgstr "NÚMERO DE REGISTRO IVA"
 
-#: Public/A2B_card_info.php:381 Public/form_data/FG_var_card.inc:815
+#: Public/A2B_card_info.php:381 Public/form_data/FG_var_card.inc:848
 msgid "TRAFFIC PER MONTH"
 msgstr "TRÁFEGO POR MẼS"
 
@@ -2127,36 +2122,36 @@ msgid "Recent Payments"
 msgstr "Pagamentos Recentes"
 
 #: Public/A2B_card_info.php:431 Public/A2B_card_info.php:505
-#: Public/form_data/FG_var_payment_agent.inc:19
-#: Public/form_data/FG_var_commission.inc:15
-#: Public/form_data/FG_var_moneysituation.inc:9
-#: Public/form_data/FG_var_logrefill_agent.inc:20
-#: Public/form_data/FG_var_paymentlog.inc:86
-#: Public/form_data/FG_var_def_ratecard.inc:38
-#: Public/form_data/FG_var_ticket_agent.inc:30
-#: Public/form_data/FG_var_ticket.inc:36
-#: Public/form_data/FG_var_logrefill.inc:20
-#: Public/form_data/FG_var_payment.inc:22 Public/form_data/FG_var_card.inc:102
+#: Public/form_data/FG_var_payment_agent.inc:52
+#: Public/form_data/FG_var_commission.inc:48
+#: Public/form_data/FG_var_moneysituation.inc:42
+#: Public/form_data/FG_var_logrefill_agent.inc:53
+#: Public/form_data/FG_var_paymentlog.inc:119
+#: Public/form_data/FG_var_def_ratecard.inc:71
+#: Public/form_data/FG_var_ticket_agent.inc:63
+#: Public/form_data/FG_var_ticket.inc:69
+#: Public/form_data/FG_var_logrefill.inc:53
+#: Public/form_data/FG_var_payment.inc:55 Public/form_data/FG_var_card.inc:135
 msgid "ID"
 msgstr "ID"
 
-#: Public/A2B_card_info.php:434 Public/form_data/FG_var_payment_agent.inc:22
-#: Public/form_data/FG_var_commission.inc:17
-#: Public/form_data/FG_var_payment.inc:24
+#: Public/A2B_card_info.php:434 Public/form_data/FG_var_payment_agent.inc:55
+#: Public/form_data/FG_var_commission.inc:50
+#: Public/form_data/FG_var_payment.inc:57
 msgid "PAYMENT DATE"
 msgstr "DATA DE PAGAMENTO"
 
-#: Public/A2B_card_info.php:437 Public/form_data/FG_var_payment_agent.inc:23
-#: Public/form_data/FG_var_payment.inc:25
+#: Public/A2B_card_info.php:437 Public/form_data/FG_var_payment_agent.inc:56
+#: Public/form_data/FG_var_payment.inc:58
 msgid "PAYMENT AMOUNT"
 msgstr "QUANTIDADE DE PAGAMENTO"
 
 #: Public/A2B_card_info.php:440 Public/A2B_card_info.php:514
-#: Public/A2B_entity_card.php:258 Public/form_data/FG_var_payment_agent.inc:24
-#: Public/form_data/FG_var_logrefill_agent.inc:24
-#: Public/form_data/FG_var_ticket.inc:118
-#: Public/form_data/FG_var_logrefill.inc:23
-#: Public/form_data/FG_var_payment.inc:26
+#: Public/A2B_entity_card.php:258 Public/form_data/FG_var_payment_agent.inc:57
+#: Public/form_data/FG_var_logrefill_agent.inc:57
+#: Public/form_data/FG_var_ticket.inc:151
+#: Public/form_data/FG_var_logrefill.inc:56
+#: Public/form_data/FG_var_payment.inc:59
 msgid "DESCRIPTION"
 msgstr "DESCRIÇÃO"
 
@@ -2164,13 +2159,13 @@ msgstr "DESCRIÇÃO"
 msgid "Recent Refills"
 msgstr "Recargas Recentes"
 
-#: Public/A2B_card_info.php:508 Public/form_data/FG_var_logrefill_agent.inc:23
-#: Public/form_data/FG_var_logrefill.inc:22
+#: Public/A2B_card_info.php:508 Public/form_data/FG_var_logrefill_agent.inc:56
+#: Public/form_data/FG_var_logrefill.inc:55
 msgid "REFILL DATE"
 msgstr "DATA DE RECARGA"
 
-#: Public/A2B_card_info.php:511 Public/form_data/FG_var_logrefill_agent.inc:26
-#: Public/form_data/FG_var_logrefill.inc:25
+#: Public/A2B_card_info.php:511 Public/form_data/FG_var_logrefill_agent.inc:59
+#: Public/form_data/FG_var_logrefill.inc:58
 msgid "REFILL AMOUNT"
 msgstr "QUANTIDADE DE RECARGA"
 
@@ -2186,7 +2181,7 @@ msgstr "DATA DA CHAMADA"
 msgid "CALLED NUMBER"
 msgstr "NÚMERO CHAMADO"
 
-#: Public/A2B_card_info.php:577 Public/form_data/FG_var_def_ratecard.inc:39
+#: Public/A2B_card_info.php:577 Public/form_data/FG_var_def_ratecard.inc:72
 msgid "DESTINATION"
 msgstr "DESTINO"
 
@@ -2295,9 +2290,9 @@ msgid "Sell"
 msgstr "Vender"
 
 #: Public/call-log-customers.php:382 Public/call-log-customers.php:1173
-#: Public/form_data/FG_var_paymentlog.inc:97
-#: Public/form_data/FG_var_moneysituation_details.inc:16
-#: Public/form_data/FG_var_moneysituation_details.inc:31
+#: Public/form_data/FG_var_paymentlog.inc:130
+#: Public/form_data/FG_var_moneysituation_details.inc:49
+#: Public/form_data/FG_var_moneysituation_details.inc:64
 msgid "DATE"
 msgstr "DATA"
 
@@ -2644,12 +2639,12 @@ msgid "CARDNUMBER"
 msgstr "NÚMERO DO CARTÃO"
 
 #: Public/A2B_entity_card.php:250 Public/A2B_entity_card.php:399
-#: Public/form_data/FG_var_moneysituation.inc:15
-#: Public/form_data/FG_var_card.inc:216
+#: Public/form_data/FG_var_moneysituation.inc:48
+#: Public/form_data/FG_var_card.inc:249
 msgid "CREDIT"
 msgstr "CRÉDITO"
 
-#: Public/A2B_entity_card.php:266 Public/form_data/FG_var_friend.inc:120
+#: Public/A2B_entity_card.php:266 Public/form_data/FG_var_friend.inc:153
 msgid "TYPE"
 msgstr "TIPO"
 
@@ -2677,7 +2672,7 @@ msgstr "cartões selecionados!"
 msgid "Use the options below to batch update the selected cards."
 msgstr "Use as opções abaixo para atualizar em lote os cartões selecionados."
 
-#: Public/A2B_entity_card.php:337 Public/form_data/FG_var_card.inc:217
+#: Public/A2B_entity_card.php:337 Public/form_data/FG_var_card.inc:250
 msgid "INUSE"
 msgstr "EM USO"
 
@@ -2709,7 +2704,7 @@ msgstr "LIMITE DE CRÉDITO DE PÓS-PAGO"
 msgid "ENABLE EXPIRE"
 msgstr "HABILITAR EXPIRAR"
 
-#: Public/A2B_entity_card.php:488 Public/form_data/FG_var_card.inc:694
+#: Public/A2B_entity_card.php:488 Public/form_data/FG_var_card.inc:727
 msgid "EXPIRY DATE"
 msgstr "DATA DA EXPIRAÇÃO"
 
@@ -2717,7 +2712,7 @@ msgstr "DATA DA EXPIRAÇÃO"
 msgid "EXPIRATION DAYS"
 msgstr "DIAS DE EXPIRAÇÃO"
 
-#: Public/A2B_entity_card.php:507 Public/form_data/FG_var_card.inc:580
+#: Public/A2B_entity_card.php:507 Public/form_data/FG_var_card.inc:613
 msgid "RUN SERVICE"
 msgstr "RODAR SERVIÇO"
 
@@ -2753,1200 +2748,1202 @@ msgstr "Esse Cliente não existe."
 msgid "Statistic : Load by hours"
 msgstr "Estatística : Carga por horas"
 
-#: Public/form_data/FG_var_payment_agent.inc:21
-#: Public/form_data/FG_var_logrefill_agent.inc:22
-#: Public/form_data/FG_var_card.inc:106 Public/form_data/FG_var_card.inc:211
+#: Public/form_data/FG_var_payment_agent.inc:54
+#: Public/form_data/FG_var_logrefill_agent.inc:55
+#: Public/form_data/FG_var_card.inc:139 Public/form_data/FG_var_card.inc:244
 msgid "LOGIN"
 msgstr "LOGIN"
 
-#: Public/form_data/FG_var_payment_agent.inc:30
-#: Public/form_data/FG_var_commission.inc:25
-#: Public/form_data/FG_var_logrefill_agent.inc:31
-#: Public/form_data/FG_var_signup_agent.inc:29
-#: Public/form_data/FG_var_logrefill.inc:30
-#: Public/form_data/FG_var_friend.inc:63
-#: Public/form_data/FG_var_payment.inc:33
+#: Public/form_data/FG_var_payment_agent.inc:63
+#: Public/form_data/FG_var_commission.inc:58
+#: Public/form_data/FG_var_logrefill_agent.inc:64
+#: Public/form_data/FG_var_signup_agent.inc:62
+#: Public/form_data/FG_var_logrefill.inc:63
+#: Public/form_data/FG_var_friend.inc:96
+#: Public/form_data/FG_var_payment.inc:66
 msgid "THERE IS NO "
 msgstr "NÃO HÁ"
 
-#: Public/form_data/FG_var_commission.inc:16
-#: Public/form_data/FG_var_logrefill.inc:21
-#: Public/form_data/FG_var_payment.inc:23
+#: Public/form_data/FG_var_commission.inc:49
+#: Public/form_data/FG_var_logrefill.inc:54
+#: Public/form_data/FG_var_payment.inc:56
 msgid "ACCOUNT"
 msgstr "CONTA"
 
-#: Public/form_data/FG_var_commission.inc:19
+#: Public/form_data/FG_var_commission.inc:52
 msgid "PAID STATUS"
 msgstr "STATUS DE PAGO"
 
-#: Public/form_data/FG_var_commission.inc:20
+#: Public/form_data/FG_var_commission.inc:53
 msgid "LINK TO PAYMENT"
 msgstr "LINK PARA PAGAMENTO"
 
-#: Public/form_data/FG_var_moneysituation.inc:10
+#: Public/form_data/FG_var_moneysituation.inc:43
 msgid "CardNumber"
 msgstr "Número do Cartão"
 
-#: Public/form_data/FG_var_moneysituation.inc:11
+#: Public/form_data/FG_var_moneysituation.inc:44
 msgid "<acronym title=\"CARDALIAS\">ALIAS</acronym>"
 msgstr "<acronym title=\"APELIDO DO CARTÃO\">APELIDO</acronym>"
 
-#: Public/form_data/FG_var_moneysituation.inc:12
-#: Public/form_data/FG_var_logrefill.inc:59
-#: Public/form_data/FG_var_payment.inc:58 Public/form_data/FG_var_card.inc:125
+#: Public/form_data/FG_var_moneysituation.inc:45
+#: Public/form_data/FG_var_logrefill.inc:92
+#: Public/form_data/FG_var_payment.inc:91 Public/form_data/FG_var_card.inc:158
 msgid "FIRSTNAME"
 msgstr "NOME"
 
-#: Public/form_data/FG_var_moneysituation.inc:13
-#: Public/form_data/FG_var_logrefill.inc:58
-#: Public/form_data/FG_var_payment.inc:57 Public/form_data/FG_var_card.inc:108
-#: Public/form_data/FG_var_card.inc:210
+#: Public/form_data/FG_var_moneysituation.inc:46
+#: Public/form_data/FG_var_logrefill.inc:91
+#: Public/form_data/FG_var_payment.inc:90 Public/form_data/FG_var_card.inc:141
+#: Public/form_data/FG_var_card.inc:243
 msgid "LASTNAME"
 msgstr "SOBRENOME"
 
-#: Public/form_data/FG_var_moneysituation.inc:16
+#: Public/form_data/FG_var_moneysituation.inc:49
 msgid "INVOICE"
 msgstr "FATURA"
 
-#: Public/form_data/FG_var_moneysituation.inc:17
+#: Public/form_data/FG_var_moneysituation.inc:50
 msgid "PAYMENT"
 msgstr "PAGAMENTO"
 
-#: Public/form_data/FG_var_moneysituation.inc:18
+#: Public/form_data/FG_var_moneysituation.inc:51
 msgid "TO PAY"
 msgstr "HA PAGAR"
 
-#: Public/form_data/FG_var_moneysituation.inc:23
-#: Public/form_data/FG_var_moneysituation_details.inc:38
-#: Public/form_data/FG_var_ticket_agent.inc:45
-#: Public/form_data/FG_var_ticket.inc:53
+#: Public/form_data/FG_var_moneysituation.inc:56
+#: Public/form_data/FG_var_moneysituation_details.inc:71
+#: Public/form_data/FG_var_ticket_agent.inc:78
+#: Public/form_data/FG_var_ticket.inc:86
 msgid "THERE IS NO"
 msgstr "NÃO HÁ"
 
-#: Public/form_data/FG_var_moneysituation.inc:23
-#: Public/form_data/FG_var_moneysituation_details.inc:38
-#: Public/form_data/FG_var_ticket_agent.inc:45
-#: Public/form_data/FG_var_ticket.inc:53
+#: Public/form_data/FG_var_moneysituation.inc:56
+#: Public/form_data/FG_var_moneysituation_details.inc:71
+#: Public/form_data/FG_var_ticket_agent.inc:78
+#: Public/form_data/FG_var_ticket.inc:86
 msgid "CREATED!"
 msgstr "CRIADO"
 
-#: Public/form_data/FG_var_moneysituation.inc:45
-#: Public/form_data/FG_var_def_ratecard.inc:104
-#: Public/form_data/FG_var_ticket_agent.inc:57
-#: Public/form_data/FG_var_ticket.inc:139
-#: Public/form_data/FG_var_friend.inc:544 Public/form_data/FG_var_card.inc:917
+#: Public/form_data/FG_var_moneysituation.inc:78
+#: Public/form_data/FG_var_def_ratecard.inc:137
+#: Public/form_data/FG_var_ticket_agent.inc:90
+#: Public/form_data/FG_var_ticket.inc:172
+#: Public/form_data/FG_var_friend.inc:577 Public/form_data/FG_var_card.inc:950
 msgid "click on the delete button."
 msgstr "clique no botão apagar"
 
-#: Public/form_data/FG_var_moneysituation.inc:61
+#: Public/form_data/FG_var_moneysituation.inc:94
 msgid "Add a "
 msgstr "Adicionar um "
 
-#: Public/form_data/FG_var_moneysituation.inc:62
+#: Public/form_data/FG_var_moneysituation.inc:95
 msgid "Your new "
 msgstr "Seu novo "
 
-#: Public/form_data/FG_var_moneysituation.inc:66
-#: Public/form_data/FG_var_friend.inc:553 Public/form_data/FG_var_card.inc:926
+#: Public/form_data/FG_var_moneysituation.inc:99
+#: Public/form_data/FG_var_friend.inc:586 Public/form_data/FG_var_card.inc:959
 msgid "Once you have completed the form above, click on the CONTINUE button."
 msgstr "Logo que você completar o formulário acima, clique no botão CONTINUAR."
 
-#: Public/form_data/FG_var_paymentlog.inc:64
+#: Public/form_data/FG_var_paymentlog.inc:97
 msgid "Id"
 msgstr "Id"
 
-#: Public/form_data/FG_var_paymentlog.inc:65
+#: Public/form_data/FG_var_paymentlog.inc:98
 msgid "Created At"
 msgstr "Criado Em"
 
-#: Public/form_data/FG_var_paymentlog.inc:66
+#: Public/form_data/FG_var_paymentlog.inc:99
 #: Public/checkout_confirmation.php:107
 msgid "Payment Method"
 msgstr "Método de Pagamento"
 
-#: Public/form_data/FG_var_paymentlog.inc:67
+#: Public/form_data/FG_var_paymentlog.inc:100
 msgid "Status"
 msgstr "Status"
 
-#: Public/form_data/FG_var_paymentlog.inc:68
+#: Public/form_data/FG_var_paymentlog.inc:101
 msgid "Owner"
 msgstr "Proprietário"
 
-#: Public/form_data/FG_var_paymentlog.inc:69
+#: Public/form_data/FG_var_paymentlog.inc:102
 #: Public/checkout_confirmation.php:111
 msgid "Amount"
 msgstr "Quntidade"
 
-#: Public/form_data/FG_var_paymentlog.inc:70
+#: Public/form_data/FG_var_paymentlog.inc:103
 msgid "CardID"
 msgstr "ID do Cartão"
 
-#: Public/form_data/FG_var_paymentlog.inc:71
+#: Public/form_data/FG_var_paymentlog.inc:104
 msgid "Cardnumber"
 msgstr "Número do cartão"
 
-#: Public/form_data/FG_var_paymentlog.inc:76
+#: Public/form_data/FG_var_paymentlog.inc:109
 msgid "THERE ARE NO "
 msgstr "NÃO HÁ"
 
-#: Public/form_data/FG_var_paymentlog.inc:92
+#: Public/form_data/FG_var_paymentlog.inc:125
 msgid "Insert the Id "
 msgstr "Insira a Id"
 
-#: Public/form_data/FG_var_paymentlog.inc:94
+#: Public/form_data/FG_var_paymentlog.inc:127
 msgid "Select the ID"
 msgstr "Selecionar a ID"
 
-#: Public/form_data/FG_var_paymentlog.inc:103
+#: Public/form_data/FG_var_paymentlog.inc:136
 msgid "Insert the creation date"
 msgstr "Inserir a data de criação"
 
-#: Public/form_data/FG_var_paymentlog.inc:107
+#: Public/form_data/FG_var_paymentlog.inc:140
 msgid "PAYMENT METHOD"
 msgstr "MÉTODO DE PAGAMENTO"
 
-#: Public/form_data/FG_var_paymentlog.inc:113
+#: Public/form_data/FG_var_paymentlog.inc:146
 msgid "Insert the payment method"
 msgstr "Inserir o método de pagamento"
 
-#: Public/form_data/FG_var_paymentlog.inc:114
+#: Public/form_data/FG_var_paymentlog.inc:147
 msgid "Enter the payment method "
 msgstr "Entre com o método de pagamento"
 
-#: Public/form_data/FG_var_paymentlog.inc:126
+#: Public/form_data/FG_var_paymentlog.inc:159
 msgid "OWNER"
 msgstr "DONO"
 
-#: Public/form_data/FG_var_paymentlog.inc:132
+#: Public/form_data/FG_var_paymentlog.inc:165
 msgid "Insert the owner"
 msgstr "Inserir o proprietário"
 
-#: Public/form_data/FG_var_paymentlog.inc:133
+#: Public/form_data/FG_var_paymentlog.inc:166
 msgid "Enter the owner"
 msgstr "Entre com o proprietário"
 
-#: Public/form_data/FG_var_paymentlog.inc:142
+#: Public/form_data/FG_var_paymentlog.inc:175
 msgid "Insert the amount"
 msgstr "Inserir a quantidade"
 
-#: Public/form_data/FG_var_paymentlog.inc:143
+#: Public/form_data/FG_var_paymentlog.inc:176
 msgid "Enter the amount "
 msgstr "Entre com a quantidade"
 
-#: Public/form_data/FG_var_paymentlog.inc:147
-#: Public/form_data/FG_var_friend.inc:93
+#: Public/form_data/FG_var_paymentlog.inc:180
+#: Public/form_data/FG_var_friend.inc:126
 msgid "ID CARD"
 msgstr "ID DO CARTÃO"
 
-#: Public/form_data/FG_var_paymentlog.inc:153
-#: Public/form_data/FG_var_friend.inc:99
+#: Public/form_data/FG_var_paymentlog.inc:186
+#: Public/form_data/FG_var_friend.inc:132
 msgid "Insert the Id CardNumber"
 msgstr "Inserir a Id do Número do Cartão"
 
-#: Public/form_data/FG_var_paymentlog.inc:157
+#: Public/form_data/FG_var_paymentlog.inc:190
 msgid "Select the Card Number ID"
 msgstr "Selecionar a ID do Número do Cartão"
 
-#: Public/form_data/FG_var_paymentlog.inc:177
-#: Public/form_data/FG_var_ticket_agent.inc:65
-#: Public/form_data/FG_var_ticket.inc:147
-#: Public/form_data/FG_var_agent.inc:130
+#: Public/form_data/FG_var_paymentlog.inc:210
+#: Public/form_data/FG_var_ticket_agent.inc:98
+#: Public/form_data/FG_var_ticket.inc:180
+#: Public/form_data/FG_var_agent.inc:163
 msgid "Click 'Confirm Data' to continue"
 msgstr "Clique 'Confirmar Dado' para continuar"
 
-#: Public/form_data/FG_var_moneysituation_details.inc:32
+#: Public/form_data/FG_var_moneysituation_details.inc:65
 msgid "AMOUNT INCL VAT"
 msgstr "QUANTIDADE INCL IVA"
 
-#: Public/form_data/FG_var_def_ratecard.inc:40
-#: Public/form_data/FG_var_def_ratecard.inc:91
+#: Public/form_data/FG_var_def_ratecard.inc:73
+#: Public/form_data/FG_var_def_ratecard.inc:124
 msgid "PREFIX"
 msgstr "PREFIXO"
 
-#: Public/form_data/FG_var_def_ratecard.inc:41
+#: Public/form_data/FG_var_def_ratecard.inc:74
 msgid "SR"
 msgstr "SR"
 
-#: Public/form_data/FG_var_def_ratecard.inc:42
+#: Public/form_data/FG_var_def_ratecard.inc:75
 msgid "START-DATE"
 msgstr "DATA DE ÍNICIO"
 
-#: Public/form_data/FG_var_def_ratecard.inc:43
+#: Public/form_data/FG_var_def_ratecard.inc:76
 msgid "STOP-DATE"
 msgstr "DATA DE TÉRMINO"
 
-#: Public/form_data/FG_var_def_ratecard.inc:44
+#: Public/form_data/FG_var_def_ratecard.inc:77
 msgid "CC"
 msgstr "CC"
 
-#: Public/form_data/FG_var_def_ratecard.inc:45
+#: Public/form_data/FG_var_def_ratecard.inc:78
 msgid "RATE CARD"
 msgstr "RATE CARD"
 
-#: Public/form_data/FG_var_def_ratecard.inc:77
+#: Public/form_data/FG_var_def_ratecard.inc:110
 msgid "NO"
 msgstr "NÃO"
 
-#: Public/form_data/FG_var_def_ratecard.inc:77
+#: Public/form_data/FG_var_def_ratecard.inc:110
 msgid "HAVE BEEN CREATED."
 msgstr "FOI CRIADO."
 
-#: Public/form_data/FG_var_def_ratecard.inc:85
+#: Public/form_data/FG_var_def_ratecard.inc:118
 msgid "Define the criteria to search"
 msgstr "Definir os critérios para busca"
 
-#: Public/form_data/FG_var_def_ratecard.inc:87
+#: Public/form_data/FG_var_def_ratecard.inc:120
 #, fuzzy
 msgid "START DATE"
 msgstr "DATA DE ÍNICIO"
 
-#: Public/form_data/FG_var_def_ratecard.inc:103
+#: Public/form_data/FG_var_def_ratecard.inc:136
 msgid "Rates must be entered in the currency base : "
 msgstr "Taxas devem ser digitadas na moeda base : "
 
-#: Public/form_data/FG_var_def_ratecard.inc:109
-#: Public/form_data/FG_var_ticket_agent.inc:62
-#: Public/form_data/FG_var_ticket.inc:144 Public/form_data/FG_var_card.inc:922
+#: Public/form_data/FG_var_def_ratecard.inc:142
+#: Public/form_data/FG_var_ticket_agent.inc:95
+#: Public/form_data/FG_var_ticket.inc:177 Public/form_data/FG_var_card.inc:955
 msgid "has been inserted."
 msgstr "foi inserido."
 
-#: Public/form_data/FG_var_def_ratecard.inc:113
+#: Public/form_data/FG_var_def_ratecard.inc:146
 msgid "Click 'Confirm Data' to continue."
 msgstr "Clique 'Confirmar Dado' para continuar."
 
-#: Public/form_data/FG_var_signup_agent.inc:14
+#: Public/form_data/FG_var_signup_agent.inc:47
 msgid "Add Signup KEY"
 msgstr "Adicionar CHAVE de Registro"
 
-#: Public/form_data/FG_var_signup_agent.inc:19
+#: Public/form_data/FG_var_signup_agent.inc:52
 msgid "KEY"
 msgstr "SENHA"
 
-#: Public/form_data/FG_var_signup_agent.inc:21
-#: Public/form_data/FG_var_card.inc:502
+#: Public/form_data/FG_var_signup_agent.inc:54
+#: Public/form_data/FG_var_card.inc:535
 msgid "CALL PLAN"
 msgstr "PLANO DE LIGAÇÃO"
 
-#: Public/form_data/FG_var_signup_agent.inc:22
-#: Public/form_data/FG_var_card.inc:109
+#: Public/form_data/FG_var_signup_agent.inc:55
+#: Public/form_data/FG_var_card.inc:142
 msgid "GROUP"
 msgstr "GRUPO"
 
-#: Public/form_data/FG_var_ticket_agent.inc:31
-#: Public/form_data/FG_var_ticket.inc:39 Public/form_data/FG_var_ticket.inc:91
+#: Public/form_data/FG_var_ticket_agent.inc:64
+#: Public/form_data/FG_var_ticket.inc:72
+#: Public/form_data/FG_var_ticket.inc:124
 msgid "TITLE"
 msgstr "TÍTULO"
 
-#: Public/form_data/FG_var_ticket_agent.inc:32
-#: Public/form_data/FG_var_ticket.inc:40
+#: Public/form_data/FG_var_ticket_agent.inc:65
+#: Public/form_data/FG_var_ticket.inc:73
 msgid "CREATIONDATE"
 msgstr "DATA DE CRIAÇÃO"
 
-#: Public/form_data/FG_var_ticket_agent.inc:33
-#: Public/form_data/FG_var_ticket.inc:41 Public/form_data/FG_var_ticket.inc:99
+#: Public/form_data/FG_var_ticket_agent.inc:66
+#: Public/form_data/FG_var_ticket.inc:74
+#: Public/form_data/FG_var_ticket.inc:132
 msgid "COMPONENT"
 msgstr "COMPONENTE"
 
-#: Public/form_data/FG_var_ticket_agent.inc:34
-#: Public/form_data/FG_var_ticket.inc:42
-#: Public/form_data/FG_var_ticket.inc:109
+#: Public/form_data/FG_var_ticket_agent.inc:67
+#: Public/form_data/FG_var_ticket.inc:75
+#: Public/form_data/FG_var_ticket.inc:142
 msgid "PRIORITY"
 msgstr "PRIORIDADE"
 
-#: Public/form_data/FG_var_ticket_agent.inc:35
-#: Public/form_data/FG_var_ticket.inc:43
+#: Public/form_data/FG_var_ticket_agent.inc:68
 msgid "TO SEE?"
 msgstr "PARA VER?"
 
-#: Public/form_data/FG_var_ticket.inc:37
-msgid "HOLDER"
-msgstr "PROPIETÁRIO"
+#: Public/form_data/FG_var_ticket.inc:70
+#, fuzzy
+msgid "CUSTOMER"
+msgstr "CLIENTES"
 
-#: Public/form_data/FG_var_ticket.inc:78
+#: Public/form_data/FG_var_ticket.inc:111
 msgid "CREATOR"
 msgstr "CRIADOR"
 
-#: Public/form_data/FG_var_ticket.inc:84
+#: Public/form_data/FG_var_ticket.inc:117
 msgid "Insert the Customer ID"
 msgstr "Inserir o ID do Cliente"
 
-#: Public/form_data/FG_var_ticket.inc:88
+#: Public/form_data/FG_var_ticket.inc:121
 msgid "Set the Customer ID"
 msgstr "Defina o ID do Cliente"
 
-#: Public/form_data/FG_var_ticket.inc:97
+#: Public/form_data/FG_var_ticket.inc:130
 msgid "Insert the Title of ticket "
 msgstr "Inserir o Título do ticket"
 
-#: Public/form_data/FG_var_ticket.inc:124
+#: Public/form_data/FG_var_ticket.inc:157
 msgid "Insert the description"
 msgstr "Inserir a descrição"
 
-#: Public/form_data/FG_var_friend.inc:39
+#: Public/form_data/FG_var_friend.inc:72
 msgid "CARDHOLDER"
 msgstr "PROPRIETÁRIO DO CARTÃO"
 
-#: Public/form_data/FG_var_friend.inc:41
-#: Public/form_data/FG_var_friend.inc:139
+#: Public/form_data/FG_var_friend.inc:74
+#: Public/form_data/FG_var_friend.inc:172
 msgid "ACCOUNTCODE"
 msgstr "CÓDIGO DA CONTA"
 
-#: Public/form_data/FG_var_friend.inc:42
-#: Public/form_data/FG_var_friend.inc:182
+#: Public/form_data/FG_var_friend.inc:75
+#: Public/form_data/FG_var_friend.inc:215
 msgid "SECRET"
 msgstr "SENHA"
 
-#: Public/form_data/FG_var_friend.inc:43
-#: Public/form_data/FG_var_friend.inc:159 Public/form_data/FG_var_card.inc:859
+#: Public/form_data/FG_var_friend.inc:76
+#: Public/form_data/FG_var_friend.inc:192 Public/form_data/FG_var_card.inc:892
 msgid "CALLERID"
 msgstr "CALLERID"
 
-#: Public/form_data/FG_var_friend.inc:44
-#: Public/form_data/FG_var_friend.inc:310
+#: Public/form_data/FG_var_friend.inc:77
+#: Public/form_data/FG_var_friend.inc:343
 msgid "CONTEXT"
 msgstr "CONTEXTO"
 
-#: Public/form_data/FG_var_friend.inc:45
-#: Public/form_data/FG_var_friend.inc:320
+#: Public/form_data/FG_var_friend.inc:78
+#: Public/form_data/FG_var_friend.inc:353
 msgid "DEFAULTIP"
 msgstr "IP PADRÃO"
 
-#: Public/form_data/FG_var_friend.inc:46
+#: Public/form_data/FG_var_friend.inc:79
 msgid "DTMF"
 msgstr "DTMF"
 
-#: Public/form_data/FG_var_friend.inc:52
+#: Public/form_data/FG_var_friend.inc:85
 msgid "Add SIP Friend"
 msgstr "Adicionar SIP Friend"
 
-#: Public/form_data/FG_var_friend.inc:54
+#: Public/form_data/FG_var_friend.inc:87
 msgid "Add IAX Friend"
 msgstr "Adicionar IAX Friend"
 
-#: Public/form_data/FG_var_friend.inc:103
+#: Public/form_data/FG_var_friend.inc:136
 msgid "Insert the card ID."
 msgstr "Inserir o ID do cartão."
 
-#: Public/form_data/FG_var_friend.inc:106
+#: Public/form_data/FG_var_friend.inc:139
 msgid "NAME"
 msgstr "NOME"
 
-#: Public/form_data/FG_var_friend.inc:112
+#: Public/form_data/FG_var_friend.inc:145
 msgid "Insert the name"
 msgstr "Inserir o nome"
 
-#: Public/form_data/FG_var_friend.inc:126
+#: Public/form_data/FG_var_friend.inc:159
 msgid "Insert the type"
 msgstr "Inserir o tipo"
 
-#: Public/form_data/FG_var_friend.inc:127
+#: Public/form_data/FG_var_friend.inc:160
 msgid "type = friend | peer | user ( default : friend )"
 msgstr "tipo = friend | peer | user (padrão : friend )"
 
-#: Public/form_data/FG_var_friend.inc:129
+#: Public/form_data/FG_var_friend.inc:162
 msgid "USERNAME"
 msgstr "NOME DO USUÁRIO"
 
-#: Public/form_data/FG_var_friend.inc:135
+#: Public/form_data/FG_var_friend.inc:168
 msgid "Insert the username"
 msgstr "Inserir o nome de usuário"
 
-#: Public/form_data/FG_var_friend.inc:145
+#: Public/form_data/FG_var_friend.inc:178
 msgid "Insert the accountcode"
 msgstr "Inserir o código da conta"
 
-#: Public/form_data/FG_var_friend.inc:149
+#: Public/form_data/FG_var_friend.inc:182
 msgid "REGEXTEN"
 msgstr "REGEXTEN"
 
-#: Public/form_data/FG_var_friend.inc:155
+#: Public/form_data/FG_var_friend.inc:188
 msgid "Insert the regexten"
 msgstr "Inserir o regexten"
 
-#: Public/form_data/FG_var_friend.inc:165
+#: Public/form_data/FG_var_friend.inc:198
 msgid "Insert the callerid"
 msgstr "Inserir o callerid"
 
-#: Public/form_data/FG_var_friend.inc:172
+#: Public/form_data/FG_var_friend.inc:205
 msgid "AMAFLAGS"
 msgstr "AMAFLAGS"
 
-#: Public/form_data/FG_var_friend.inc:178
+#: Public/form_data/FG_var_friend.inc:211
 msgid "Insert the amaflags"
 msgstr "Inserir o amaflags"
 
-#: Public/form_data/FG_var_friend.inc:188
+#: Public/form_data/FG_var_friend.inc:221
 msgid "Insert the secret"
 msgstr "Inserir a senha"
 
-#: Public/form_data/FG_var_friend.inc:192
+#: Public/form_data/FG_var_friend.inc:225
 msgid "MD5SECRET"
 msgstr "SENHA MD5"
 
-#: Public/form_data/FG_var_friend.inc:198
+#: Public/form_data/FG_var_friend.inc:231
 msgid "Insert the md5secret"
 msgstr "Inserir o md5secret"
 
-#: Public/form_data/FG_var_friend.inc:206
+#: Public/form_data/FG_var_friend.inc:239
 msgid "NAT"
 msgstr "NAT"
 
-#: Public/form_data/FG_var_friend.inc:212
+#: Public/form_data/FG_var_friend.inc:245
 msgid "Insert the nat"
 msgstr "Inserir o nat"
 
-#: Public/form_data/FG_var_friend.inc:213
+#: Public/form_data/FG_var_friend.inc:246
 msgid "nat = yes | no | never | route ( default : yes )"
 msgstr "nat = yes | no | never | route ( padrão : yes ) "
 
-#: Public/form_data/FG_var_friend.inc:220
+#: Public/form_data/FG_var_friend.inc:253
 msgid "DTMFMODE"
 msgstr "DTMFMODE"
 
-#: Public/form_data/FG_var_friend.inc:226
+#: Public/form_data/FG_var_friend.inc:259
 msgid "Insert the dtmfmode"
 msgstr "Inserir o dtmfmode"
 
-#: Public/form_data/FG_var_friend.inc:227
+#: Public/form_data/FG_var_friend.inc:260
 msgid "dtmfmode = RFC2833 | INFO | INBAND | AUTO ( default : RFC2833 )"
 msgstr "dtmfmode = RFC2833 | INFO | INBAND | AUTo ( padrão : RFC2833 )"
 
-#: Public/form_data/FG_var_friend.inc:230
+#: Public/form_data/FG_var_friend.inc:263
 msgid "QUALIFY"
 msgstr "QUALIFY"
 
-#: Public/form_data/FG_var_friend.inc:236
+#: Public/form_data/FG_var_friend.inc:269
 msgid "Insert the qualify"
 msgstr "Inserir o qualify"
 
-#: Public/form_data/FG_var_friend.inc:244
+#: Public/form_data/FG_var_friend.inc:277
 msgid "CANREINVITE"
 msgstr "CANREINVITE"
 
-#: Public/form_data/FG_var_friend.inc:250
+#: Public/form_data/FG_var_friend.inc:283
 msgid "Insert the canreinvite"
 msgstr "Inserir o canreinvite"
 
-#: Public/form_data/FG_var_friend.inc:251
+#: Public/form_data/FG_var_friend.inc:284
 msgid "canreinvite : yes | no ( default : yes )"
 msgstr "canreinvite : yes | no (padrão : yes )"
 
-#: Public/form_data/FG_var_friend.inc:258
+#: Public/form_data/FG_var_friend.inc:291
 msgid "DISALLOW"
 msgstr "DISALLOW"
 
-#: Public/form_data/FG_var_friend.inc:264
+#: Public/form_data/FG_var_friend.inc:297
 msgid "Insert the disallow"
 msgstr "Inserir o disallow"
 
-#: Public/form_data/FG_var_friend.inc:265
+#: Public/form_data/FG_var_friend.inc:298
 msgid "need to disallow=all before we can use allow. ( default : all )"
 msgstr "need to disallow=tudo antes será permitido. ( padrão : all )"
 
-#: Public/form_data/FG_var_friend.inc:272
+#: Public/form_data/FG_var_friend.inc:305
 msgid "ALLOW"
 msgstr "ALLOW"
 
-#: Public/form_data/FG_var_friend.inc:278
+#: Public/form_data/FG_var_friend.inc:311
 msgid "Insert the allow"
 msgstr "Inserir o allow"
 
-#: Public/form_data/FG_var_friend.inc:279
+#: Public/form_data/FG_var_friend.inc:312
 msgid "Set allow codecs separated by a comma, e.g. gsm,alaw,ulaw ( default : ulaw,alaw,gsm,g729)"
 msgstr "Defina os codecs permitidos separados por vírgula, ex. gsm,alaw,ulaw ( padrão : ulaw,alaw,gsm,g729)"
 
-#: Public/form_data/FG_var_friend.inc:286
+#: Public/form_data/FG_var_friend.inc:319
 msgid "HOST"
 msgstr "HOST"
 
-#: Public/form_data/FG_var_friend.inc:292
+#: Public/form_data/FG_var_friend.inc:325
 msgid "Insert the host"
 msgstr "Inserir o host"
 
-#: Public/form_data/FG_var_friend.inc:293
+#: Public/form_data/FG_var_friend.inc:326
 msgid "Use dynamic or set an IP ( default : dynamic )"
 msgstr "Use dynamic ou defina um IP ( padrão : dynamic )"
 
-#: Public/form_data/FG_var_friend.inc:296
+#: Public/form_data/FG_var_friend.inc:329
 msgid "CALLGROUP"
 msgstr "CALLGROUP"
 
-#: Public/form_data/FG_var_friend.inc:302
+#: Public/form_data/FG_var_friend.inc:335
 msgid "Insert the callgroup"
 msgstr "Inserir o callgroup"
 
-#: Public/form_data/FG_var_friend.inc:316
+#: Public/form_data/FG_var_friend.inc:349
 msgid "Insert the context"
 msgstr "Inserir o context"
 
-#: Public/form_data/FG_var_friend.inc:317
+#: Public/form_data/FG_var_friend.inc:350
 msgid "set the context for this user (default : a2billing )"
 msgstr "defina o contexto para o usupario ( padrão : a2billing)"
 
-#: Public/form_data/FG_var_friend.inc:326
+#: Public/form_data/FG_var_friend.inc:359
 msgid "Insert the defaultip"
 msgstr "Inserir o defaultip"
 
-#: Public/form_data/FG_var_friend.inc:330
+#: Public/form_data/FG_var_friend.inc:363
 msgid "FROMUSER"
 msgstr "FROMUSER"
 
-#: Public/form_data/FG_var_friend.inc:336
+#: Public/form_data/FG_var_friend.inc:369
 msgid "Insert the fromuser"
 msgstr "Inserir o fromuser"
 
-#: Public/form_data/FG_var_friend.inc:341
+#: Public/form_data/FG_var_friend.inc:374
 msgid "FROMDOMAIN"
 msgstr "FROMDOMAIN"
 
-#: Public/form_data/FG_var_friend.inc:347
+#: Public/form_data/FG_var_friend.inc:380
 msgid "Insert the fromdomain"
 msgstr "Inserir o fromdomain"
 
-#: Public/form_data/FG_var_friend.inc:351
+#: Public/form_data/FG_var_friend.inc:384
 msgid "INSECURE"
 msgstr "INSECURE"
 
-#: Public/form_data/FG_var_friend.inc:357
+#: Public/form_data/FG_var_friend.inc:390
 msgid "Insert the insecure"
 msgstr "Inserir o insecure"
 
-#: Public/form_data/FG_var_friend.inc:368
+#: Public/form_data/FG_var_friend.inc:401
 msgid "Insert the language"
 msgstr "Inserir o idioma"
 
-#: Public/form_data/FG_var_friend.inc:372
+#: Public/form_data/FG_var_friend.inc:405
 msgid "MAILBOX"
 msgstr "MAILBOX"
 
-#: Public/form_data/FG_var_friend.inc:378
+#: Public/form_data/FG_var_friend.inc:411
 msgid "Insert the mailbox"
 msgstr "Inserir o mailbox"
 
-#: Public/form_data/FG_var_friend.inc:382
+#: Public/form_data/FG_var_friend.inc:415
 msgid "PERMIT"
 msgstr "PERMIT"
 
-#: Public/form_data/FG_var_friend.inc:388
+#: Public/form_data/FG_var_friend.inc:421
 msgid "Insert the permit"
 msgstr "Inserir o permit"
 
-#: Public/form_data/FG_var_friend.inc:393
+#: Public/form_data/FG_var_friend.inc:426
 msgid "DENY"
 msgstr "DENY"
 
-#: Public/form_data/FG_var_friend.inc:399
+#: Public/form_data/FG_var_friend.inc:432
 msgid "Insert the deny"
 msgstr "Inserir o deny"
 
-#: Public/form_data/FG_var_friend.inc:404
+#: Public/form_data/FG_var_friend.inc:437
 msgid "MASK"
 msgstr "MASK"
 
-#: Public/form_data/FG_var_friend.inc:410
+#: Public/form_data/FG_var_friend.inc:443
 msgid "Insert the mask"
 msgstr "Inserir o mask"
 
-#: Public/form_data/FG_var_friend.inc:415
+#: Public/form_data/FG_var_friend.inc:448
 msgid "PICKUPGROUP"
 msgstr "PICKUPGROUP"
 
-#: Public/form_data/FG_var_friend.inc:421
+#: Public/form_data/FG_var_friend.inc:454
 msgid "Insert the pickupgroup"
 msgstr "Inserir o pickupgroup"
 
-#: Public/form_data/FG_var_friend.inc:425
+#: Public/form_data/FG_var_friend.inc:458
 msgid "PORT"
 msgstr "PORT"
 
-#: Public/form_data/FG_var_friend.inc:431
+#: Public/form_data/FG_var_friend.inc:464
 msgid "Insert the port"
 msgstr "Inserir o port"
 
-#: Public/form_data/FG_var_friend.inc:435
+#: Public/form_data/FG_var_friend.inc:468
 msgid "RESTRICTCID"
 msgstr "RESTRICTID"
 
-#: Public/form_data/FG_var_friend.inc:441
+#: Public/form_data/FG_var_friend.inc:474
 msgid "Insert the restrictcid"
 msgstr "Inserir o restrictcid"
 
-#: Public/form_data/FG_var_friend.inc:445
+#: Public/form_data/FG_var_friend.inc:478
 msgid "RTPTIMEOUT"
 msgstr "RTPTIMEOUT"
 
-#: Public/form_data/FG_var_friend.inc:451
+#: Public/form_data/FG_var_friend.inc:484
 msgid "Insert the rtptimeout"
 msgstr "Inserir o rtptimeout"
 
-#: Public/form_data/FG_var_friend.inc:455
+#: Public/form_data/FG_var_friend.inc:488
 msgid "RTPHOLDTIMEOUT"
 msgstr "RTPHOLDTIMEOUT"
 
-#: Public/form_data/FG_var_friend.inc:461
+#: Public/form_data/FG_var_friend.inc:494
 msgid "Insert the rtpholdtimeout"
 msgstr "Inserir o rtpholdtimeout"
 
-#: Public/form_data/FG_var_friend.inc:465
+#: Public/form_data/FG_var_friend.inc:498
 msgid "MUSICONHOLD"
 msgstr "MUSICONHOLD"
 
-#: Public/form_data/FG_var_friend.inc:471
+#: Public/form_data/FG_var_friend.inc:504
 msgid "Insert the musiconhold"
 msgstr "Inserir o musiconhold"
 
-#: Public/form_data/FG_var_friend.inc:479
+#: Public/form_data/FG_var_friend.inc:512
 msgid "REGSECONDS"
 msgstr "REGSECONDS"
 
-#: Public/form_data/FG_var_friend.inc:485
+#: Public/form_data/FG_var_friend.inc:518
 msgid "Insert the regseconds"
 msgstr "Inserir o regseconds"
 
-#: Public/form_data/FG_var_friend.inc:489
+#: Public/form_data/FG_var_friend.inc:522
 msgid "IPADDR"
 msgstr "IPADDR"
 
-#: Public/form_data/FG_var_friend.inc:495
+#: Public/form_data/FG_var_friend.inc:528
 msgid "Insert the ipaddr"
 msgstr "Inserir o ipaddr"
 
-#: Public/form_data/FG_var_friend.inc:504
+#: Public/form_data/FG_var_friend.inc:537
 msgid "CANCALLFORWARD"
 msgstr "CANCALLFORWARD"
 
-#: Public/form_data/FG_var_friend.inc:510
+#: Public/form_data/FG_var_friend.inc:543
 msgid "Insert the cancallforward"
 msgstr "Inserir o cancallfoward"
 
-#: Public/form_data/FG_var_friend.inc:511
+#: Public/form_data/FG_var_friend.inc:544
 msgid "cancallforward = yes | no ( default : yes )"
 msgstr "cancallforward = yes | no ( padrão : yes )"
 
-#: Public/form_data/FG_var_friend.inc:514
+#: Public/form_data/FG_var_friend.inc:547
 msgid "TRUNK"
 msgstr "TRONCO"
 
-#: Public/form_data/FG_var_friend.inc:520
+#: Public/form_data/FG_var_friend.inc:553
 msgid "Define the iax trunking"
 msgstr "Definir o entroncamento iax"
 
-#: Public/form_data/FG_var_friend.inc:521
+#: Public/form_data/FG_var_friend.inc:554
 msgid "iax trunking = yes | no ( default : yes )"
 msgstr "entrocamento iax = yes | no ( padrão : yes )"
 
-#: Public/form_data/FG_var_friend.inc:549
+#: Public/form_data/FG_var_friend.inc:582
 msgid "has been inserted. <br>"
 msgstr "foi inserido. <br>"
 
-#: Public/form_data/FG_var_agent.inc:8
+#: Public/form_data/FG_var_agent.inc:41
 msgid "Agent"
 msgstr "Agente"
 
-#: Public/form_data/FG_var_agent.inc:28
+#: Public/form_data/FG_var_agent.inc:61
 msgid "Insert the lastname"
 msgstr "Inserir o sobrenome"
 
-#: Public/form_data/FG_var_agent.inc:37
+#: Public/form_data/FG_var_agent.inc:70
 msgid "Insert the firstname"
 msgstr "Inserir o nome "
 
-#: Public/form_data/FG_var_agent.inc:46
+#: Public/form_data/FG_var_agent.inc:79
 msgid "Insert the address"
 msgstr "Inserir o endereço"
 
-#: Public/form_data/FG_var_agent.inc:55 Public/form_data/FG_var_card.inc:414
+#: Public/form_data/FG_var_agent.inc:88 Public/form_data/FG_var_card.inc:447
 msgid "Insert the city"
 msgstr "Inserir cidade"
 
-#: Public/form_data/FG_var_agent.inc:64 Public/form_data/FG_var_card.inc:424
+#: Public/form_data/FG_var_agent.inc:97 Public/form_data/FG_var_card.inc:457
 msgid "Insert the state"
 msgstr "Inserir o estado"
 
-#: Public/form_data/FG_var_agent.inc:73
+#: Public/form_data/FG_var_agent.inc:106
 msgid "Insert the country"
 msgstr "Inserir o país"
 
-#: Public/form_data/FG_var_agent.inc:76
+#: Public/form_data/FG_var_agent.inc:109
 msgid "ZIPCODE"
 msgstr "CEP "
 
-#: Public/form_data/FG_var_agent.inc:82
+#: Public/form_data/FG_var_agent.inc:115
 msgid "Insert the zip code"
 msgstr "Inserir o CEP"
 
-#: Public/form_data/FG_var_agent.inc:91 Public/form_data/FG_var_card.inc:394
+#: Public/form_data/FG_var_agent.inc:124 Public/form_data/FG_var_card.inc:427
 msgid "Insert the email"
 msgstr "Inserir email"
 
-#: Public/form_data/FG_var_agent.inc:100
+#: Public/form_data/FG_var_agent.inc:133
 msgid "Insert the telephone number"
 msgstr "Inserir o número do telefone"
 
-#: Public/form_data/FG_var_agent.inc:109
+#: Public/form_data/FG_var_agent.inc:142
 msgid "Insert the fax number"
 msgstr "Inserir o número do fax"
 
-#: Public/form_data/FG_var_agent.inc:113
+#: Public/form_data/FG_var_agent.inc:146
 msgid "COMPANY"
 msgstr "EMPRESA"
 
-#: Public/form_data/FG_var_agent.inc:119
+#: Public/form_data/FG_var_agent.inc:152
 msgid "Insert the company"
 msgstr "Inserir a empresa"
 
-#: Public/form_data/FG_var_agent.inc:128
+#: Public/form_data/FG_var_agent.inc:161
 msgid "Modify your informations"
 msgstr "Modificar suas Informações"
 
-#: Public/form_data/FG_var_card.inc:32
+#: Public/form_data/FG_var_card.inc:65
 msgid "You are going as well to remove all the SIP/IAX accounts & CallerIDs attached to this card! Please confirm that you really want to remove this card ? "
 msgstr "Você está prestes a remover todas as contas SIP/IAX & CallerIDs associados a esse cartão! Por favor confirme se você quer realmente remover esse cartão ?"
 
-#: Public/form_data/FG_var_card.inc:35
+#: Public/form_data/FG_var_card.inc:68
 msgid "You are going to remove a card that have SIP/IAX accounts and/or CallerIDs attached to it ! Please confirm that you really want to remove this card ? "
 msgstr "Você está prestes a remover um cartão que tem contas SIP/IAX e/ou CallerIDs associados a ele ! Por favor confirme que você realmente quer remover esse cartão ?"
 
-#: Public/form_data/FG_var_card.inc:41
+#: Public/form_data/FG_var_card.inc:74
 msgid "Generate Customers"
 msgstr "Gerar Clientes"
 
-#: Public/form_data/FG_var_card.inc:49
+#: Public/form_data/FG_var_card.inc:82
 msgid "Add Customer"
 msgstr "Adicionar Cliente"
 
-#: Public/form_data/FG_var_card.inc:110
+#: Public/form_data/FG_var_card.inc:143
 msgid "BA"
 msgstr "BA"
 
-#: Public/form_data/FG_var_card.inc:114 Public/form_data/FG_var_card.inc:358
+#: Public/form_data/FG_var_card.inc:147 Public/form_data/FG_var_card.inc:391
 msgid "SERIA"
 msgstr "SERIA"
 
-#: Public/form_data/FG_var_card.inc:116
+#: Public/form_data/FG_var_card.inc:149
 msgid "Call Plan"
 msgstr "Plano de Ligação"
 
-#: Public/form_data/FG_var_card.inc:119
+#: Public/form_data/FG_var_card.inc:152
 msgid "LG"
 msgstr "LG"
 
-#: Public/form_data/FG_var_card.inc:120
+#: Public/form_data/FG_var_card.inc:153
 msgid "USE"
 msgstr "USAR"
 
-#: Public/form_data/FG_var_card.inc:121
+#: Public/form_data/FG_var_card.inc:154
 msgid "CUR"
 msgstr "MOE"
 
-#: Public/form_data/FG_var_card.inc:124
+#: Public/form_data/FG_var_card.inc:157
 msgid "ACD"
 msgstr "ACD"
 
-#: Public/form_data/FG_var_card.inc:127
+#: Public/form_data/FG_var_card.inc:160
 msgid "DISC"
 msgstr "DISC"
 
-#: Public/form_data/FG_var_card.inc:128
+#: Public/form_data/FG_var_card.inc:161
 msgid "CID"
 msgstr "CID"
 
-#: Public/form_data/FG_var_card.inc:176
+#: Public/form_data/FG_var_card.inc:209
 msgid "NO CARDS HAVE BEEN CREATED!"
 msgstr "NENHUM CARTÃO FOI CRIADO!"
 
-#: Public/form_data/FG_var_card.inc:212
+#: Public/form_data/FG_var_card.inc:245
 msgid "MACADDRESS"
 msgstr "ENDEREÇO MAC"
 
-#: Public/form_data/FG_var_card.inc:213
+#: Public/form_data/FG_var_card.inc:246
 msgid "CUSTOMER ID"
 msgstr "ID DO CLIENTE"
 
-#: Public/form_data/FG_var_card.inc:214
+#: Public/form_data/FG_var_card.inc:247
 msgid "SERIAL"
 msgstr "SERIAL"
 
-#: Public/form_data/FG_var_card.inc:220
+#: Public/form_data/FG_var_card.inc:253
 msgid "SELECT SERIA"
 msgstr "SELECIONAR SERIA"
 
-#: Public/form_data/FG_var_card.inc:221
+#: Public/form_data/FG_var_card.inc:254
 msgid "SELECT LANGUAGE"
 msgstr "SELECIONAR IDIOMA"
 
-#: Public/form_data/FG_var_card.inc:222
+#: Public/form_data/FG_var_card.inc:255
 msgid "SELECT TARIFF"
 msgstr "SELECIONAR TARIFA"
 
-#: Public/form_data/FG_var_card.inc:223
+#: Public/form_data/FG_var_card.inc:256
 msgid "SELECT STATUS"
 msgstr "SELECIONAR STATUS"
 
-#: Public/form_data/FG_var_card.inc:224
+#: Public/form_data/FG_var_card.inc:257
 msgid "SELECT ACCESS"
 msgstr "SELECIONAR ACESSO"
 
-#: Public/form_data/FG_var_card.inc:225
+#: Public/form_data/FG_var_card.inc:258
 msgid "SELECT GROUP"
 msgstr "SELECIONAR GRUPO"
 
-#: Public/form_data/FG_var_card.inc:226
+#: Public/form_data/FG_var_card.inc:259
 msgid "SELECT CURRENCY"
 msgstr "SELECIONAR MOEDA"
 
-#: Public/form_data/FG_var_card.inc:263
+#: Public/form_data/FG_var_card.inc:296
 msgid "SIP buddy"
 msgstr "Amigo SIP"
 
-#: Public/form_data/FG_var_card.inc:269
+#: Public/form_data/FG_var_card.inc:302
 msgid "IAX buddy"
 msgstr "Amigo IAX"
 
-#: Public/form_data/FG_var_card.inc:308
+#: Public/form_data/FG_var_card.inc:341
 msgid "Insert the account number"
 msgstr "Inserir o número da conta"
 
-#: Public/form_data/FG_var_card.inc:309
+#: Public/form_data/FG_var_card.inc:342
 msgid "Customer Information"
 msgstr "Informação do Cliente"
 
-#: Public/form_data/FG_var_card.inc:312
+#: Public/form_data/FG_var_card.inc:345
 msgid "WEBUI LOGIN"
 msgstr "LOGIN WEBUI"
 
-#: Public/form_data/FG_var_card.inc:318
+#: Public/form_data/FG_var_card.inc:351
 msgid "Insert the webui login"
 msgstr "Inserir login webui"
 
-#: Public/form_data/FG_var_card.inc:322
+#: Public/form_data/FG_var_card.inc:355
 msgid "WEBUI PASSWORD"
 msgstr "SENHA WEBUI"
 
-#: Public/form_data/FG_var_card.inc:328
+#: Public/form_data/FG_var_card.inc:361
 msgid "Insert the password"
 msgstr "Inserir senha"
 
-#: Public/form_data/FG_var_card.inc:329
+#: Public/form_data/FG_var_card.inc:362
 msgid "Password for customer to access to the web interface and view the balance."
 msgstr "Senha par o cliente acessar a interface web e ver o saldo."
 
-#: Public/form_data/FG_var_card.inc:340
+#: Public/form_data/FG_var_card.inc:373
 msgid "Insert the number of credit"
 msgstr "Inserir o número de crédito"
 
-#: Public/form_data/FG_var_card.inc:341 Public/form_data/FG_var_card.inc:609
+#: Public/form_data/FG_var_card.inc:374 Public/form_data/FG_var_card.inc:642
 msgid "currency : "
 msgstr "moeda : "
 
-#: Public/form_data/FG_var_card.inc:347
+#: Public/form_data/FG_var_card.inc:380
 msgid "CUSTOMER GROUP"
 msgstr "GRUPO DO CLIENTE"
 
-#: Public/form_data/FG_var_card.inc:366 Public/form_data/FG_var_card.inc:521
-#: Public/form_data/FG_var_card.inc:610 Public/form_data/FG_var_card.inc:661
+#: Public/form_data/FG_var_card.inc:399 Public/form_data/FG_var_card.inc:554
+#: Public/form_data/FG_var_card.inc:643 Public/form_data/FG_var_card.inc:694
 msgid "NOT DEFINED"
 msgstr "NÃO DEFINIDO"
 
-#: Public/form_data/FG_var_card.inc:375
+#: Public/form_data/FG_var_card.inc:408
 msgid "Insert the lastname of the customers"
 msgstr "Inserir o sobrenome dos clientes"
 
-#: Public/form_data/FG_var_card.inc:376
+#: Public/form_data/FG_var_card.inc:409
 msgid "Personal Information"
 msgstr "Informação Pessoal"
 
-#: Public/form_data/FG_var_card.inc:384
+#: Public/form_data/FG_var_card.inc:417
 msgid "Insert the firstname of the customers"
 msgstr "Inserir o nome dos clientes"
 
-#: Public/form_data/FG_var_card.inc:404
+#: Public/form_data/FG_var_card.inc:437
 msgid "Insert the address of the customers"
 msgstr "Inserir o endereço dos clientes"
 
-#: Public/form_data/FG_var_card.inc:418
+#: Public/form_data/FG_var_card.inc:451
 msgid "STATE/PROVINCE"
 msgstr "ESTADO/PROVÍNCIA"
 
-#: Public/form_data/FG_var_card.inc:437
+#: Public/form_data/FG_var_card.inc:470
 msgid "ZIP/POSTAL CODE"
 msgstr "CEP"
 
-#: Public/form_data/FG_var_card.inc:443
+#: Public/form_data/FG_var_card.inc:476
 msgid "Insert the zipcode"
 msgstr "Inserir CEP"
 
-#: Public/form_data/FG_var_card.inc:447
+#: Public/form_data/FG_var_card.inc:480
 msgid "PHONE NUMBER"
 msgstr "NÚMERO DO TELEFONE"
 
-#: Public/form_data/FG_var_card.inc:453
+#: Public/form_data/FG_var_card.inc:486
 msgid "Insert the phone number of the customers"
 msgstr "Inserir o número de telefone dos clientes"
 
-#: Public/form_data/FG_var_card.inc:457
+#: Public/form_data/FG_var_card.inc:490
 msgid "FAX NUMBER"
 msgstr "NÚMERO DO FAX"
 
-#: Public/form_data/FG_var_card.inc:463
+#: Public/form_data/FG_var_card.inc:496
 msgid "Insert the fax number of the customers"
 msgstr "Inserir o número de fax dos clientes"
 
-#: Public/form_data/FG_var_card.inc:472
+#: Public/form_data/FG_var_card.inc:505
 msgid "Insert Company name of this customer"
 msgstr "Inserir o nome da Empresa dos clientes"
 
-#: Public/form_data/FG_var_card.inc:482
+#: Public/form_data/FG_var_card.inc:515
 msgid "Insert the company website of this customer"
 msgstr "Inserir a página da empresa do cliente"
 
-#: Public/form_data/FG_var_card.inc:496
+#: Public/form_data/FG_var_card.inc:529
 msgid "Customer Paid Status"
 msgstr "Status de Cliente Pago"
 
-#: Public/form_data/FG_var_card.inc:513
+#: Public/form_data/FG_var_card.inc:546
 msgid "DIDGROUP"
 msgstr "GRUPO DID"
 
-#: Public/form_data/FG_var_card.inc:533
+#: Public/form_data/FG_var_card.inc:566
 msgid "TIMEZONE"
 msgstr "FUSO-HORÁRIO"
 
-#: Public/form_data/FG_var_card.inc:556
+#: Public/form_data/FG_var_card.inc:589
 msgid "Currency used at the customer end."
 msgstr "Moeda usada pelo cliente final."
 
-#: Public/form_data/FG_var_card.inc:586
+#: Public/form_data/FG_var_card.inc:619
 msgid "Choose if you want to enable the service recurring on this account"
 msgstr "Escolher se você quer habilitar o serviço recorrente nessa conta"
 
-#: Public/form_data/FG_var_card.inc:587
+#: Public/form_data/FG_var_card.inc:620
 msgid "Apply recurring service to this account."
 msgstr "Aplicar serviço recorrente nesse serviço."
 
-#: Public/form_data/FG_var_card.inc:596
+#: Public/form_data/FG_var_card.inc:629
 msgid "Insert the credit limit"
 msgstr "Inserir o limite de crédito"
 
-#: Public/form_data/FG_var_card.inc:597
+#: Public/form_data/FG_var_card.inc:630
 msgid "Credit limit is only used for the postpaid account."
 msgstr "Limite de crédito é somente usado ara conta pós-paga."
 
-#: Public/form_data/FG_var_card.inc:601
+#: Public/form_data/FG_var_card.inc:634
 msgid "CREDIT LIMIT NOTIFICATION"
 msgstr "NOTIFICAÇÃO DE LIMITE DE CRÉDITO"
 
-#: Public/form_data/FG_var_card.inc:609
+#: Public/form_data/FG_var_card.inc:642
 msgid "Low credit limit to alert the customer"
 msgstr "Baixo limite de crédito para alertar o cliente"
 
-#: Public/form_data/FG_var_card.inc:613
+#: Public/form_data/FG_var_card.inc:646
 msgid "PERMITTED NOTIFICATIONS BY MAIL"
 msgstr "NOTIFICAÇÕES POR EMAIL PERMITIDAS"
 
-#: Public/form_data/FG_var_card.inc:619
+#: Public/form_data/FG_var_card.inc:652
 msgid "Choose if you want to enable the notification by email for this account"
 msgstr "Escolher se você quer habilitar a notificição por email para essa conta"
 
-#: Public/form_data/FG_var_card.inc:620
+#: Public/form_data/FG_var_card.inc:653
 msgid "Enable the notification by mail for this account."
 msgstr "Habilitar notificação por email para essa conta."
 
-#: Public/form_data/FG_var_card.inc:623
+#: Public/form_data/FG_var_card.inc:656
 msgid "EMAIL NOTIFICATION"
 msgstr "NOTIFICAÇÃO POR EMAI"
 
-#: Public/form_data/FG_var_card.inc:629
+#: Public/form_data/FG_var_card.inc:662
 msgid "Insert the email to notify this customer"
 msgstr "Inserir o email para notificar o cliente"
 
-#: Public/form_data/FG_var_card.inc:634
+#: Public/form_data/FG_var_card.inc:667
 #, fuzzy
 msgid "PERMITTED VOICEMAIL"
 msgstr "NOTIFICAÇÕES POR EMAIL PERMITIDAS"
 
-#: Public/form_data/FG_var_card.inc:640
+#: Public/form_data/FG_var_card.inc:673
 #, fuzzy
 msgid "Choose if you want to enable the voicemail functionality for this account"
 msgstr "Escolher se você quer habilitar a notificição por email para essa conta"
 
-#: Public/form_data/FG_var_card.inc:641
+#: Public/form_data/FG_var_card.inc:674
 #, fuzzy
 msgid "Enable the voicemail functionality for this account."
 msgstr "Habilitar notificação por email para essa conta."
 
-#: Public/form_data/FG_var_card.inc:643
+#: Public/form_data/FG_var_card.inc:676
 msgid "ACTIVE VOICEMAIL SERVICE"
 msgstr ""
 
-#: Public/form_data/FG_var_card.inc:649
+#: Public/form_data/FG_var_card.inc:682
 #, fuzzy
 msgid "Customer can choose to enable the voicemail for this account"
 msgstr "Escolher se você quer habilitar a notificição por email para essa conta"
 
-#: Public/form_data/FG_var_card.inc:650
+#: Public/form_data/FG_var_card.inc:683
 #, fuzzy
 msgid "Customer can enable the voicemail for this account."
 msgstr "Escolher se você quer habilitar a notificição por email para essa conta"
 
-#: Public/form_data/FG_var_card.inc:653
+#: Public/form_data/FG_var_card.inc:686
 msgid "CAMPAIGN"
 msgstr "CAMPANHA"
 
-#: Public/form_data/FG_var_card.inc:674
+#: Public/form_data/FG_var_card.inc:707
 msgid "ENABLE EXPIRY"
 msgstr "HABILITAR EXPIRAR"
 
-#: Public/form_data/FG_var_card.inc:681
+#: Public/form_data/FG_var_card.inc:714
 msgid "Select method of expiry for the account."
 msgstr "Selecionar o método de vencimento para a conta."
 
-#: Public/form_data/FG_var_card.inc:700
+#: Public/form_data/FG_var_card.inc:733
 msgid "Insert the expiration date"
 msgstr "Inserir a data de vencimento"
 
-#: Public/form_data/FG_var_card.inc:701
+#: Public/form_data/FG_var_card.inc:734
 msgid "please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr "por favor respeite o formato YYYY-MM-DD HH:MM:SS. Por exemplo, '2004-12-31 00:00:00'"
 
-#: Public/form_data/FG_var_card.inc:705
+#: Public/form_data/FG_var_card.inc:738
 msgid "EXPIRY DAYS"
 msgstr "DIAS A EXPIRAR"
 
-#: Public/form_data/FG_var_card.inc:711
+#: Public/form_data/FG_var_card.inc:744
 msgid "Insert the number of days after which the account will expire"
 msgstr "Inserir o número de dias após o qual a conta irá vencer"
 
-#: Public/form_data/FG_var_card.inc:712
+#: Public/form_data/FG_var_card.inc:745
 msgid "The number of days after which the account will expire."
 msgstr "O número de dias após o qual a conta irá vencer."
 
-#: Public/form_data/FG_var_card.inc:715
+#: Public/form_data/FG_var_card.inc:748
 msgid "CREATE SIP CONFIG"
 msgstr "CRIAR CONFIG SIP"
 
-#: Public/form_data/FG_var_card.inc:721
+#: Public/form_data/FG_var_card.inc:754
 msgid "Choose if you want to enable the sip account"
 msgstr "Escolher ser você quer habilitar a conta sip"
 
-#: Public/form_data/FG_var_card.inc:722
+#: Public/form_data/FG_var_card.inc:755
 msgid "Create the SIP config automatically"
 msgstr "Criar a config SIP automaticamente"
 
-#: Public/form_data/FG_var_card.inc:725
+#: Public/form_data/FG_var_card.inc:758
 msgid "CREATE IAX CONFIG"
 msgstr "CRIAR CONFIG IAX"
 
-#: Public/form_data/FG_var_card.inc:731
+#: Public/form_data/FG_var_card.inc:764
 msgid "Choose if you want to enable the iax account"
 msgstr "Escolher se você quer habilitar a conta iax"
 
-#: Public/form_data/FG_var_card.inc:732
+#: Public/form_data/FG_var_card.inc:765
 msgid "Create the IAX config automatically"
 msgstr "Criar a config IAX automaticamente"
 
-#: Public/form_data/FG_var_card.inc:734
+#: Public/form_data/FG_var_card.inc:767
 msgid "MAC ADDRESS"
 msgstr "ENDEREÇO MAC"
 
-#: Public/form_data/FG_var_card.inc:740
+#: Public/form_data/FG_var_card.inc:773
 msgid "Insert the MAC address customers' device"
 msgstr "Inserir o endereço MAC do dispositivo do cliente"
 
-#: Public/form_data/FG_var_card.inc:741
+#: Public/form_data/FG_var_card.inc:774
 msgid "FORMAT: 00-08-74-4C-7F-1D"
 msgstr "FORMATO: 00-08-74-4C-7F-1D"
 
-#: Public/form_data/FG_var_card.inc:744
+#: Public/form_data/FG_var_card.inc:777
 msgid "IN USE"
 msgstr "EM USO"
 
-#: Public/form_data/FG_var_card.inc:751
+#: Public/form_data/FG_var_card.inc:784
 msgid "Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero."
 msgstr "Atualize para mostrar o número de chamadas simultâneas usadas por esse cliente. Se lá não haver chamadas atualmente, e no sistem mostrar que há, reinicie os campos para zero manualmente."
 
-#: Public/form_data/FG_var_card.inc:759
+#: Public/form_data/FG_var_card.inc:792
 msgid "Choose if you want to enable the autorefill on this account"
 msgstr "Escolher se você quer habilitar a auto-recarga para essa conta"
 
-#: Public/form_data/FG_var_card.inc:760
+#: Public/form_data/FG_var_card.inc:793
 msgid "Define if you want to authorize the autorefill to apply on this accout"
 msgstr "Definir se você quer autorizar a auto-recarga para aplicar nessa conta"
 
-#: Public/form_data/FG_var_card.inc:763
+#: Public/form_data/FG_var_card.inc:796
 msgid "INITIAL BALANCE"
 msgstr "SALDO INICIAL"
 
-#: Public/form_data/FG_var_card.inc:769
+#: Public/form_data/FG_var_card.inc:802
 msgid "Insert the amount of the initial balance"
 msgstr "Inserir a quantidade inicial de saldo"
 
-#: Public/form_data/FG_var_card.inc:770
+#: Public/form_data/FG_var_card.inc:803
 msgid "The initial balance is used by autorefill to reset the current balance to this amount"
 msgstr "O saldo inicial é usado pela auto-recarga para reiniciar a saldo atual para essa quantidade"
 
-#: Public/form_data/FG_var_card.inc:781
+#: Public/form_data/FG_var_card.inc:814
 msgid "Define the day of the month when the system will generate the customer invoice."
 msgstr "Definir o dia do mês em que o sistema irá gerar a fatura do cliente."
 
-#: Public/form_data/FG_var_card.inc:782
+#: Public/form_data/FG_var_card.inc:815
 msgid "Invoice Status"
 msgstr "Status da Fatura"
 
-#: Public/form_data/FG_var_card.inc:785 Public/checkout_confirmation.php:121
+#: Public/form_data/FG_var_card.inc:818 Public/checkout_confirmation.php:121
 msgid "VAT"
 msgstr "IVA"
 
-#: Public/form_data/FG_var_card.inc:791
+#: Public/form_data/FG_var_card.inc:824
 msgid "Insert the number for the VAT"
 msgstr "Inserir o número para o IVA"
 
-#: Public/form_data/FG_var_card.inc:792
+#: Public/form_data/FG_var_card.inc:825
 #, c-format
 msgid "VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"
 msgstr "IVA para adicionar na fatura do cliente. Deve ser um calor decimal '21' isso será para 21% do IVA!"
 
-#: Public/form_data/FG_var_card.inc:795
+#: Public/form_data/FG_var_card.inc:828
 msgid "VAT REGISTRATION NUMBER "
 msgstr "NÚMERO DE REGISTRO IVA"
 
-#: Public/form_data/FG_var_card.inc:801
+#: Public/form_data/FG_var_card.inc:834
 msgid "Insert the VAT registration number of this customer"
 msgstr "Inserir o número de registro IVA desse cliente"
 
-#: Public/form_data/FG_var_card.inc:805
+#: Public/form_data/FG_var_card.inc:838
 msgid "DISCOUNT"
 msgstr "DESCONTO"
 
-#: Public/form_data/FG_var_card.inc:821
+#: Public/form_data/FG_var_card.inc:854
 msgid "Insert the traffic per month for this customer"
 msgstr "Inserir o tráfego por mês desse cleinte"
 
-#: Public/form_data/FG_var_card.inc:823 Public/form_data/FG_var_card.inc:825
+#: Public/form_data/FG_var_card.inc:856 Public/form_data/FG_var_card.inc:858
 msgid "TARGET TRAFFIC"
 msgstr "TRÁFEGO ALVO"
 
-#: Public/form_data/FG_var_card.inc:831
+#: Public/form_data/FG_var_card.inc:864
 msgid "Insert the target traffic description"
 msgstr "Inserir a descrição do tráfego algo"
 
-#: Public/form_data/FG_var_card.inc:835
+#: Public/form_data/FG_var_card.inc:868
 msgid "RESTRICTION"
 msgstr "RESTRIÇÃO"
 
-#: Public/form_data/FG_var_card.inc:843 Public/form_data/FG_var_card.inc:845
+#: Public/form_data/FG_var_card.inc:876 Public/form_data/FG_var_card.inc:878
 msgid "RESTRICTED NUMBERS"
 msgstr "NÚMEROS RESTRITOS"
 
-#: Public/form_data/FG_var_card.inc:851
+#: Public/form_data/FG_var_card.inc:884
 msgid "Insert numbers that restrict the customer"
 msgstr "Inserir números que restrinjam o cliente"
 
-#: Public/form_data/FG_var_card.inc:870
+#: Public/form_data/FG_var_card.inc:903
 msgid "CALLERID / CUSTOMER HISTORY"
 msgstr "HISTÓRIDO DE CALLERID / CLIENTE"
 
-#: Public/form_data/FG_var_card.inc:876
+#: Public/form_data/FG_var_card.inc:909
 msgid "CUSTOMER HISTORY"
 msgstr "HISTÓRICO DE CLIENTE"
 
@@ -3989,6 +3986,13 @@ msgstr "Senha Antiga"
 #: Public/A2B_entity_secret.php:83
 msgid "New Secret"
 msgstr "Senha Nova"
+
+#, fuzzy
+#~ msgid "This software is under AGPL licence. For further information, please visit : <a href=\"http://www.star2billing.com\" target=\"_blank\">www.star2billing.com</a>"
+#~ msgstr " Esse aplicativo está sobre a licença AGPL. Para mais informações, por favor visite : <a href=\"http://www.a2billing.org\" target=\"_blank\">a2billing.org</a>"
+
+#~ msgid "HOLDER"
+#~ msgstr "PROPIETÁRIO"
 
 #~ msgid "If you find A2Billing useful, please donate to the A2Billing project by clicking the Donate button :"
 #~ msgstr "Se você achar o A2Billing útil, por favor doe para o projeto A2Billing clicando no botão Doar : "
