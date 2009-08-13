@@ -1,17 +1,20 @@
 
 
-A2Billing 1.4 (c) AGPL 2003-2009 
+A2Billing 1.4 (c) AGPL 2003-2009
 
-A2Billing 1.4 is free software written by 
-Areski Belaid info@asterisk2billing.org with contributions from: 
+A2Billing 1.4 is free software written by :
 	
-	Rachid Belaid <rach@asterisk2billing.org>  
-	Panos Christeas <p_christ@hol.gr>
-	Steve Dommett <steve@st4vs.net>
-	Alberto Escudero-Pascual <aep@it46.se>
-	Jonathan Roper <jonathan@asterisk2billing.org>
-	Abdoulaye Siby <asiby@hotmail.com>
-	David Lemstra <david@lemstra.ca>
+		Areski Belaid <info@asterisk2billing.org>
+	
+	with contributions from :
+	
+		Rachid Belaid <rach@asterisk2billing.org>  
+		Panos Christeas <p_christ@hol.gr>
+		Steve Dommett <steve@st4vs.net>
+		Alberto Escudero-Pascual <aep@it46.se>
+		Jonathan Roper <jonathan@asterisk2billing.org>
+		Abdoulaye Siby <asiby@hotmail.com>
+		David Lemstra <david@lemstra.ca>
 
 
 The following third party software is included with the distribution:
@@ -31,6 +34,7 @@ Translations credit :
 	Brazilian : Emerson Reis <eluizbr@tofalando.com.br>
 	Spanish : Ivan Žilic Schmidt <ivan@zilic.net>
 	French : Jean Cérien <cerien.jean@gmail.com> & Arnold KAMBA <arnoldkamba@live.fr>
+	Turkish : Tamer Keser <tkeser080107@hotmail.com>
 
 
 Thanks to the community!
