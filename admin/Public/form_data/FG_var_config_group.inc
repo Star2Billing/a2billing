@@ -32,7 +32,22 @@
 **/
 
 
-getpost_ifset(array('id', 'group_title', 'group_description','agi_conf'));
+getpost_ifset(array('id', 'group_title', 'group_description','agi_conf', 'groupdelete'));
+
+
+$setbool = false;
+$handle = DbConnect();
+$instance_table = new Table();
+
+if ( !empty($groupdelete) && substr($groupdelete,0,8) == "agi-conf" && $groupdelete != "agi-conf1" && strlen($groupdelete) < 11) {
+	$QUERY =  "DELETE FROM cc_config_group WHERE group_title='$groupdelete'";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	$QUERY =  "DELETE FROM cc_config WHERE config_group_title='$groupdelete'";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	
+	$msg = $groupdelete.' : '."Group deleted !";
+	$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="green"><b>'.$msg.'</b></font><br>';
+}
 
 
 $HD_Form = new FormHandler("cc_config_group","configuration group");
@@ -56,13 +71,18 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_LIMITE_DISPLAY = 15;
 
 $HD_Form -> FG_EDITION = false;
-$HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_ADDITION = false;
+$HD_Form -> FG_DELETION = false;
 
 $HD_Form -> FG_OTHER_BUTTON1 = true;
-$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_config.php?groupselect=|col0|";
+$HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_entity_config.php?groupselect=|col0|";
 $HD_Form -> FG_OTHER_BUTTON1_ALT = 'DETAILS';
 
+$HD_Form -> FG_OTHER_BUTTON2 = true;
+$HD_Form -> FG_OTHER_BUTTON2_LINK = "A2B_entity_config_group.php?groupdelete=|col0|";
+$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path."/delete.png";
+$HD_Form -> FG_OTHER_BUTTON2_HTML_ID = "|col0|";
+$HD_Form -> FG_OTHER_BUTTON2_CONDITION = 'substr("|col0|",0,8) == "agi-conf" && "|col0|" != "agi-conf1"';
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION = '';

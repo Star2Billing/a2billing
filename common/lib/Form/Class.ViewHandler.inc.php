@@ -304,7 +304,7 @@ function openURLFilter(theLINK)
 											$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
 										}
 									}
-							eval('$check_eval = '.$condition_eval.';');	
+									eval('$check_eval = '.$condition_eval.';');	
 								}
 					  		if($check || $check_eval){
 							
@@ -324,7 +324,7 @@ function openURLFilter(theLINK)
 											$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
 										}
 									}
-							eval('$check_eval = '.$condition_eval.';');	
+								eval('$check_eval = '.$condition_eval.';');	
 								}
 					  		if($check || $check_eval){
                         	
@@ -346,7 +346,7 @@ function openURLFilter(theLINK)
 											$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
 										}
 									}
-							eval('$check_eval = '.$condition_eval.';');	
+								eval('$check_eval = '.$condition_eval.';');	
 								}
 					  		if($check || $check_eval){
 					  		?>
@@ -424,14 +424,14 @@ function openURLFilter(theLINK)
 							$check_eval=false;	
 					  		if (!empty($this->FG_OTHER_BUTTON2_CONDITION) && (eregi ('col[0-9]', $this->FG_OTHER_BUTTON2_CONDITION))) {
 					  			$check =false;
-									for ($h=count($list[$ligne_number]);$h>=0;$h--){
-										$findme = "|col$h|";
-										$pos = stripos($condition_eval, $findme);
-										if ($pos !== false) {
-											$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
-										}
+								for ($h=count($list[$ligne_number]);$h>=0;$h--){
+									$findme = "|col$h|";
+									$pos = stripos($condition_eval, $findme);
+									if ($pos !== false) {
+										$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
 									}
-							eval('$check_eval = '.$condition_eval.';');	
+								}
+								eval('$check_eval = '.$condition_eval.';');
 								}
 					  		if($check || $check_eval){
 							?>

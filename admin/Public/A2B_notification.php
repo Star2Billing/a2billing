@@ -42,7 +42,6 @@ if (!empty ($action) && is_numeric($id)) {
 				die();
 			}
 			break;
-
 		default :
 			die();
 			break;
@@ -62,15 +61,15 @@ if (!empty ($action) && is_numeric($id)) {
 
 if(empty($page))$page=1;
 
-$DBHandle  = DbConnect();
+$DBHandle = DbConnect();
 
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 echo $CC_help_notifications;
-$nb_by_page =15;
-$nb_total= NotificationsDAO::getNbNotifications();
+$nb_by_page = 15;
+$nb_total = NotificationsDAO::getNbNotifications();
 $nb_page = ceil($nb_total/$nb_by_page);
 $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(($page-1)*$nb_by_page),$nb_by_page);
 
@@ -197,20 +196,16 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 
 $smarty->display( 'footer.tpl');
 
-
-
 ?>
-
-
 <script type="text/javascript">
 	
 $(document).ready(function () {
 	$('.newrecord').click(function () {
-			$.get("A2B_notification.php", { id: ""+ this.id, action: "view" },
-				  function(data){
-				    if(data=="true") location.reload(true);
-				  });			
-	        });
+		$.get("A2B_notification.php", { id: ""+ this.id, action: "view" },
+			  function(data){
+			    if(data=="true") location.reload(true);
+			  });			
+        });
 	$('.delete').click(function () {
 			if (confirm("<?php echo gettext("Do you want delete this notification ?") ?>")) { 
 				$.get("A2B_notification.php", { id: ""+ this.id, action: "delete" },
@@ -220,23 +215,19 @@ $(document).ready(function () {
 			}		
 	    });
 	$('.view_comment_icon').click(function () {
-			  $("#"+this.id+":checkbox").attr("checked", true);
-			  $("#action").val('view_comment')
-			  $("#idc").val(this.id);
-			  $('form').submit();
-	        });
+		  $("#"+this.id+":checkbox").attr("checked", true);
+		  $("#action").val('view_comment')
+		  $("#idc").val(this.id);
+		  $('form').submit();
+        });
 	$('.view_ticket').click(function () {
-			$("#action").val('view_ticket')
-			$('form').submit();
-	        });
+		$("#action").val('view_ticket')
+		$('form').submit();
+        });
 	$('.view_ticket_icon').click(function () {
-			  $('.view_ticket').attr("checked", true);
-			  $("#action").val('view_ticket')
-			  $('form').submit();
-	        });
-	                
-
-	
-       
+		  $('.view_ticket').attr("checked", true);
+		  $("#action").val('view_ticket')
+		  $('form').submit();
+        });
 });
 </script>

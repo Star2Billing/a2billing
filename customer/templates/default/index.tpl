@@ -58,7 +58,7 @@
 				<td><input class="form_input_text" type="text" name="pr_login" size="15" value="{$username}"></td>
 			</tr>
 			<tr align="center">
-				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>{php} echo gettext("Password");{/php}:</b> {$password}</font></td>
+				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>{php} echo gettext("Password");{/php}:</b></font></td>
 				<td><input class="form_input_text" type="password" name="pr_password" size="15" value="{$password}"></td>
 			</tr>
 			</tr><tr >

@@ -142,7 +142,7 @@ class FormHandler
 	var $FG_DELETION_LINK	= '';
 	var $FG_DELETION_FORBIDDEN_ID	= array();
 	var $FG_INFO_LINK='';	
-	var $FG_OTHER_BUTTON1_LINK	= '';
+	var $FG_OTHER_BUTTON1_LINK	= '';	
 	var $FG_OTHER_BUTTON2_LINK	= '';
 	var $FG_OTHER_BUTTON3_LINK	= '';
 	
@@ -153,6 +153,10 @@ class FormHandler
 	var $FG_OTHER_BUTTON1_IMG = '';
 	var $FG_OTHER_BUTTON2_IMG = '';
 	var $FG_OTHER_BUTTON3_IMG = '';
+	
+	var $FG_OTHER_BUTTON1_FORBIDDEN_KEY	= array();
+	var $FG_OTHER_BUTTON2_FORBIDDEN_KEY	= array();
+	var $FG_OTHER_BUTTON3_FORBIDDEN_KEY	= array();
 	
 	var $FG_EDIT_PAGE_CONFIRM_BUTTON	= '';
 	var $FG_DELETE_PAGE_CONFIRM_BUTTON	= '';

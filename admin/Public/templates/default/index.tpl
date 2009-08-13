@@ -61,9 +61,9 @@
 				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>{php} echo gettext("Password");{/php}:</b></font></td>
 				<td><input class="form_input_text" type="password" name="pr_password" size="15"></td>
 			</tr>
-                        <tr >
-                            <td colspan="2"> &nbsp;</td>
-                        </tr>
+            <tr >
+                <td colspan="2"> &nbsp;</td>
+            </tr>
 			<tr align="right" >
             <td>
                 <select name="ui_language"  id="ui_language" class="icon-menu form_input_select">
