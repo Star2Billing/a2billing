@@ -5,51 +5,56 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_ticket.inc");
 include ("./lib/customer.smarty.php");
 
-if (! has_rights (ACX_SUPPORT)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!has_rights(ACX_SUPPORT)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
+getpost_ifset(array (
+	'title',
+	'description',
+	'priority',
+	'component'
+));
 
-getpost_ifset(array('title', 'description', 'priority' , 'component'));
+$HD_Form->setDBHandler(DbConnect());
+$HD_Form->init();
 
+// ADD TICKET
+if ((strlen($description) > 0 || strlen($title) > 0) && is_numeric($priority) && is_numeric($component)) {
+	$FG_SPEEDDIAL_TABLE = "cc_ticket";
+	$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
 
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
+	$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, viewed_cust) VALUES ('" . $_SESSION["card_id"] . "', '" . $title . "', '" . $description . "', '" . $component . "', '" . $priority . "' ,'0')";
 
-/************************************  ADD TICKET  ***********************************************/
-if ( (strlen($description)>0 || strlen($title)>0 ) && is_numeric($priority) && is_numeric($component)){
+	$result = $instance_sub_table->SQLExec($HD_Form->DBHandle, $QUERY, 0);
+	NotificationsDAO :: AddNotification("ticket_added_cust", Notification :: $LOW, Notification :: $CUST, $_SESSION['card_id']);
+	$update_msg = gettext("Ticket added successfully");
 
-		$FG_SPEEDDIAL_TABLE  = "cc_ticket";
-		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
-
-		$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, viewed_cust) VALUES ('".$_SESSION["card_id"]."', '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0')";
-		
-		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
-		NotificationsDAO::AddNotification("ticket_added_cust",Notification::$LOW,Notification::$CUST,$_SESSION['card_id']);
-		$update_msg = gettext("Ticket added successfully");
-
-} elseif((strlen($description) + strlen($title) == 0 )) {
+}
+elseif ((strlen($description) + strlen($title) == 0)) {
 	$update_msg = gettext("Please complete the title and description portions of the form.");
 } else {
 	$update_msg = gettext("Sorry, There was a problem creating your ticket.");
 }
 
-if ($id!="" || !is_null($id)) {
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-$list = $HD_Form -> perform_action($form_action);
+if (!isset ($form_action))
+	$form_action = "list"; //ask-add
+if (!isset ($action))
+	$action = $form_action;
+$list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
+
 if ($form_action == "list") {
     $HD_Form -> create_toppage ("ask-add");
-    if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 ?>
 	  </center>
@@ -64,7 +69,7 @@ if ($form_action == "list") {
 		<font class="fontstyle_002"><?php echo gettext("Title");?> :</font>
 		</td>
 		<td>
-				<input class="form_input_text" name="title" size="100" maxlength="100" />
+			<input class="form_input_text" name="title" size="100" maxlength="100" />
 		</td>
 		</tr>
         <tr>
@@ -72,12 +77,12 @@ if ($form_action == "list") {
          	<font class="fontstyle_002"><?php echo gettext("Priority");?> :</font>
          </td>
          <td>
-       			<select NAME="priority" class="form_input_select">
-						<option class=input value='0' ><?php echo gettext("NONE");?> </option>
-						<option class=input value='1' ><?php echo gettext("LOW");?> </option>
-						<option class=input value='2' ><?php echo gettext("MEDIUM");?> </option>
-						<option class=input value='3' ><?php echo gettext("HIGH");?> </option>
-				</select>
+   			<select NAME="priority" class="form_input_select">
+				<option class=input value='0' ><?php echo gettext("NONE");?> </option>
+				<option class=input value='1' ><?php echo gettext("LOW");?> </option>
+				<option class=input value='2' ><?php echo gettext("MEDIUM");?> </option>
+				<option class=input value='3' ><?php echo gettext("HIGH");?> </option>
+			</select>
          </td>
         </tr>
           <tr class="bgcolor_001">

@@ -149,10 +149,6 @@ function loadtmpl(){
 <?php 
 }
 
-// #### CREATE FORM OR LIST
-if (strlen($_GET["menu"])>0) {
-	$_SESSION["menu"] = $_GET["menu"];
-}
 ?>
 <FORM action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="mass_mail"> 
 	<table class="editform_table1" cellspacing="2">

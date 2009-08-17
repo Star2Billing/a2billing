@@ -72,7 +72,7 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-$HD_Form -> CV_FOLLOWPARAMETERS = "&popup_select=".$_GET['popup_select']."&id=$id&type=$type";
+$HD_Form -> CV_FOLLOWPARAMETERS = "&popup_select=".$popup_select."&id=$id&type=$type";
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_ADDITION = false;

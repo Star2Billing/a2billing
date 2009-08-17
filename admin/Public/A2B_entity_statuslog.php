@@ -5,34 +5,35 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_statuslog.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_CUSTOMER)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
+if (!has_rights(ACX_CUSTOMER)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-getpost_ifset(array( 'id_cc_card'));
+getpost_ifset(array (
+	'id_cc_card'
+));
 
+$HD_Form->setDBHandler(DbConnect());
+$HD_Form->init();
 
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
-
-if ($id!="" || !is_null($id)) {
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
+if (!isset ($form_action))
+	$form_action = "list"; //ask-add
+if (!isset ($action))
+	$action = $form_action;
 
-$list = $HD_Form -> perform_action($form_action);
+$list = $HD_Form->perform_action($form_action);
 
 $smarty->display('main.tpl');
 
 echo $CC_help_status_log;
 
-$HD_Form -> create_toppage ($form_action);
-
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+$HD_Form->create_toppage($form_action);
 
 ?>
 
@@ -52,12 +53,10 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 					<td class="fontstyle_searchoptions" >
 					<INPUT TYPE="text" NAME="id_cc_card" value="<?php echo $id_cc_card?>" class="form_input_text">
 					<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=id_cc_card' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-					
-					
 					</td>					
 				</tr></table></td>
 			</tr>			
-			<?php  }?>
+			<?php  } ?>
 			<tr>
         		<td class="bgcolor_004" align="left">
 

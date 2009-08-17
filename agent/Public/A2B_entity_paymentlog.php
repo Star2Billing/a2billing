@@ -5,56 +5,50 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_paymentlog.inc");
 include ("../lib/agent.smarty.php");
 
-if (! has_rights (ACX_BILLING)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!has_rights(ACX_BILLING)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
+$HD_Form->setDBHandler(DbConnect());
 
-$HD_Form -> setDBHandler (DbConnect());
-
-if ($form_action != "list" && isset($id)) {
-	if(!empty($id)&& $id>0){
+if ($form_action != "list" && isset ($id)) {
+	if (!empty ($id) && $id > 0) {
 		$table_agent_security = new Table("cc_epayment_log,cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
-		$clause_agent_security = "cc_epayment_log.id= ".$id."AND cc_card.id=cc_epayment_log.cardid";
-		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
-		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) { 
-			Header ("HTTP/1.0 401 Unauthorized");
-			Header ("Location: PP_error.php?c=accessdenied");	   
-			die();	   
+		$clause_agent_security = "cc_epayment_log.id= " . $id . "AND cc_card.id=cc_epayment_log.cardid";
+		$result_security = $table_agent_security->Get_list($HD_Form->DBHandle, $clause_agent_security, null, null, null, null, null, null);
+		if ($result_security[0][0] != $_SESSION['agent_id']) {
+			Header("HTTP/1.0 401 Unauthorized");
+			Header("Location: PP_error.php?c=accessdenied");
+			die();
 		}
 	}
 }
 
-$HD_Form -> init();
+$HD_Form->init();
 
-if ($id!="" || !is_null($id)) {
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
+if (!isset ($form_action))
+	$form_action = "list"; //ask-add
+if (!isset ($action))
+	$action = $form_action;
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-$list = $HD_Form -> perform_action($form_action);
-
+$list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action=='list')	echo $CC_help_payment_log;
-
+if ($form_action == 'list')
+	echo $CC_help_payment_log;
 
 // #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
+$HD_Form->create_toppage($form_action);
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) 
-	$_SESSION["menu"] = $_GET["menu"];
 
 ?>
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">

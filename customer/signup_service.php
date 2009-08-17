@@ -16,9 +16,6 @@ $table_subscriber = new Table("cc_subscription_signup", "*");
 $clause_subscriber = "enable = 1";
 $result_subscriber = $table_subscriber->Get_list(DbConnect(), $clause_subscriber);
 
-if (strlen($_GET["menu"]) > 0)
-	$_SESSION["menu"] = $_GET["menu"];
-
 // #### HEADER SECTION
 $smarty->display('signup_header.tpl');
 

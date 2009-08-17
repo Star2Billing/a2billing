@@ -4,7 +4,11 @@ $disable_load_conf = true;
 include ("../lib/agent.defines.php");
 include ("../lib/agent.smarty.php");
 
-$smarty->assign("error", $_GET["error"]);
+getpost_ifset(array (
+	'error'
+));
 
-$smarty->display('index.tpl');
+$smarty -> assign("error", $error);
+$smarty -> display('index.tpl');
+
 

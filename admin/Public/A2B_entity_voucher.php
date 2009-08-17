@@ -5,92 +5,106 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_voucher.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_BILLING)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+if (!has_rights(ACX_BILLING)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
-/***********************************************************************************/
-
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
-
+$HD_Form->setDBHandler(DbConnect());
+$HD_Form->init();
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_tag', 'upd_currency', 'upd_credit', 'upd_activated', 'upd_used', 'upd_credittype', 'batchupdate', 'check', 'type', 'mode'));
+getpost_ifset(array (
+	'popup_select',
+	'popup_formname',
+	'popup_fieldname',
+	'upd_tag',
+	'upd_currency',
+	'upd_credit',
+	'upd_activated',
+	'upd_used',
+	'upd_credittype',
+	'batchupdate',
+	'check',
+	'type',
+	'mode'
+));
+
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
-	
+
 	$HD_Form->prepare_list_subselection('list');
-	
+
 	// Array ( [upd_simultaccess] => on [upd_currency] => on )	
-	$loop_pass=0;
+	$loop_pass = 0;
 	$SQL_UPDATE = '';
-	foreach ($check as $ind_field => $ind_val){
+	foreach ($check as $ind_field => $ind_val) {
 		//echo "<br>::> $ind_field -";
-		$myfield = substr($ind_field,4);
-		if ($loop_pass!=0) $SQL_UPDATE.=',';
-		
+		$myfield = substr($ind_field, 4);
+		if ($loop_pass != 0)
+			$SQL_UPDATE .= ',';
+
 		// Standard update mode
-		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){		
-			if (!isset($type["$ind_field"])){		
-				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
-			}else{
-				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
+		if (!isset ($mode["$ind_field"]) || $mode["$ind_field"] == 1) {
+			if (!isset ($type["$ind_field"])) {
+				$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+			} else {
+				$SQL_UPDATE .= " $myfield='" . $type["$ind_field"] . "'";
 			}
-		// Mode 2 - Equal - Add - Subtract
-		}elseif($mode["$ind_field"]==2){
-			if (!isset($type["$ind_field"])){		
-				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
-			}else{
-				if ($type["$ind_field"] == 1){
-					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
-				}elseif ($type["$ind_field"] == 2){
-					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
-				}else{
-					$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
-				}				
+			// Mode 2 - Equal - Add - Subtract
+		}
+		elseif ($mode["$ind_field"] == 2) {
+			if (!isset ($type["$ind_field"])) {
+				$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+			} else {
+				if ($type["$ind_field"] == 1) {
+					$SQL_UPDATE .= " $myfield='" . $$ind_field . "'";
+				}
+				elseif ($type["$ind_field"] == 2) {
+					$SQL_UPDATE .= " $myfield = $myfield +'" . $$ind_field . "'";
+				} else {
+					$SQL_UPDATE .= " $myfield = $myfield -'" . $$ind_field . "'";
+				}
 			}
 		}
 		$loop_pass++;
 	}
-	
+
 	$SQL_UPDATE = "UPDATE $HD_Form->FG_TABLE_NAME SET $SQL_UPDATE";
-	if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
+	if (strlen($HD_Form->FG_TABLE_CLAUSE) > 1) {
 		$SQL_UPDATE .= ' WHERE ';
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
 	}
-	if (! $res = $HD_Form -> DBHandle -> Execute($SQL_UPDATE)) {
-		$update_msg = '<center><font color="red"><b>'.gettext('Could not perform the batch update!').'</b></font></center>';
+	if (!$res = $HD_Form->DBHandle->Execute($SQL_UPDATE)) {
+		$update_msg = '<center><font color="red"><b>' . gettext('Could not perform the batch update!') . '</b></font></center>';
 	} else {
-		$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
+		$update_msg = '<center><font color="green"><b>' . gettext('The batch update has been successfully perform!') . '</b></font></center>';
 	}
-	
+
 }
 /********************************* END BATCH UPDATE ***********************************/
 
-
-if ($id!="" || !is_null($id)){
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
+if (!isset ($form_action))
+	$form_action = "list"; //ask-add
+if (!isset ($action))
+	$action = $form_action;
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form -> perform_action($form_action);
-
-
+$list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action=='list') echo $CC_help_list_voucher;
-else echo $CC_help_create_voucher;
-
+if ($form_action == 'list')
+	echo $CC_help_list_voucher;
+else
+	echo $CC_help_create_voucher;
+	
 
 
 ?>
@@ -225,10 +239,6 @@ if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;

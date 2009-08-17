@@ -98,6 +98,7 @@ if (!$popup_select) {
 } else {
 	echo $CC_help_def_ratecard;
 }
+
 // DISPLAY THE UPDATE MESSAGE
 if (isset ($update_msg) && strlen($update_msg) > 0)
 	echo $update_msg;
@@ -113,8 +114,8 @@ function sendValue(selvalue){
 // End -->
 </script>
 <?php
-
 }
+
 if (!$popup_select) {
 	// #### CREATE SEARCH FORM
 	if ($form_action == "list") {
@@ -123,18 +124,12 @@ if (!$popup_select) {
 }
 ?>
 
-
 <br>
 <?php
-
 
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"]) > 0)
-	$_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form->create_form($form_action, $list, $id = null);
 

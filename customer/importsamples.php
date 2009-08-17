@@ -22,8 +22,6 @@ if (isset($_GET["sample"]))
 
         default:
         echo "No sample defined!";
-        break;
-        
+        break;       
     }
 }
-?>

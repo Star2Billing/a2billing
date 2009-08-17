@@ -33,7 +33,8 @@ $HD_Form = new FormHandler("cc_payment_methods", "payment_method");
 
 getpost_ifset(array (
 	'item_id',
-	'item_type'
+	'item_type',
+	'payment_error'
 ));
 
 $DBHandle = DbConnect();
@@ -130,7 +131,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 
     <table width="80%" cellspacing="0" cellpadding="2" align=center>
     <?php
-	if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
+	if (isset($payment_error) && is_object(${$payment_error}) && ($error = ${$payment_error}->get_error())) {
   		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR ".$error['title']." ".$error['error']);
 	?>
 	

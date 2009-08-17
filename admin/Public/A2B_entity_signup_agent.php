@@ -11,9 +11,6 @@ if (! has_rights (ACX_ADMINISTRATOR)){
 	   die();	   
 }
 
-
-
-/***********************************************************************************/
 ?>
 <style type="text/css">
 	 #sexyBG { display: none; position: absolute; background: #000; opacity: 0.5; -moz-opacity: 0.5; -khtml-opacity: 0.5; filter: alpha(opacity=40); width: 100%; height: 100%; top: 0; left: 0; z-index: 99; }
@@ -45,7 +42,6 @@ if (!isset($action)) $action = $form_action;
 $list = $HD_Form -> perform_action($form_action);
 
 
-
 // #### HEADER SECTION
 $smarty->display('main.tpl'); ?>
 <div id="sexyBG"></div>
@@ -55,21 +51,11 @@ $smarty->display('main.tpl'); ?>
 // #### HELP SECTION
 echo $CC_help_signup_agent;
 
-
-
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-
-?>
-
 

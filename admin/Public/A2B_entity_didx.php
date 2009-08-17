@@ -12,6 +12,8 @@ if (! has_rights (ACX_DID)) {
 	die();
 }
 
+getpost_ifset(array('country', 'area', 'nxx', 'number', 'ID', 'rating'));
+
 
 function unavailable() {
 	return "Sorry, the DID selection service is currently unavailable because of uplink error, please come back and try again later or contact us about available DIDs (include country and area codes to your request).";
@@ -118,10 +120,6 @@ if($form_action == "purchase" || $form_action == "add") {
 		// #### TOP SECTION PAGE
 		$HD_Form -> create_toppage ($form_action);
 
-		// #### CREATE FORM OR LIST
-		//$HD_Form -> CV_TOPVIEWER = "menu";
-		if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 		$HD_Form -> create_form ($form_action, $list, $id=null) ;
 	}
 } else {
@@ -129,27 +127,19 @@ if($form_action == "purchase" || $form_action == "add") {
 	$smarty->display('main.tpl');
 
 	echo $CC_help_list_did;
-
-
-	$country = 0;
-	$area = 0;
-	$nxx = 0;
-	$number = 0;
-	$ID = 0;
-	$rating = MIN_RATING;
-
-	if($_GET['country'])
-		list($country, $ID, $countryname) = sscanf($_GET['country'], "%d/%d/%[^[]]");
-	if($_GET['area'])
-		$area = $_GET['area'];
-	if($_GET['area'])
-		$nxx = $_GET['nxx'];
-	if($_GET['number'])
-		$number = $_GET['number'];
-	if($_GET['ID'])
-		$ID = $_GET['ID'];
-	if($_GET['rating'])
-		$rating = $_GET['rating'];
+	
+	if (!empty($country))
+		list($country, $ID, $countryname) = sscanf($country, "%d/%d/%[^[]]");
+	if (empty($area))
+		$area = 0;
+	if (empty($nxx))
+		$nxx = 0;
+	if (empty($number))
+		$number = 0;
+	if (empty($ID))
+		$ID = 0;
+	if (empty($rating))
+		$rating = MIN_RATING;
 	$country_arr=$area_arr=$nxx_arr=$number_arr=0;
 	
 	$country_arr = $didx->getDIDCountry($rating);

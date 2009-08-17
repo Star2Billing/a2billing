@@ -4,18 +4,30 @@ include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
 
-
-if (! has_rights (ACX_CALL_REPORT)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!has_rights(ACX_CALL_REPORT)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-
-/***********************************************************************************/
-
-getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'lst_time','group_id','report_type'));
-
+getpost_ifset(array (
+	'posted',
+	'Period',
+	'frommonth',
+	'fromstatsmonth',
+	'tomonth',
+	'tostatsmonth',
+	'fromday',
+	'fromstatsday_sday',
+	'fromstatsmonth_sday',
+	'today',
+	'tostatsday_sday',
+	'tostatsmonth_sday',
+	'current_page',
+	'lst_time',
+	'group_id',
+	'report_type'
+));
 
 //     Initialization of variables	///////////////////////////////
 
@@ -24,102 +36,99 @@ $QUERY = '';
 $from_to = '';
 $bool = false;
 
-
 //     Generating WHERE CLAUSE		///////////////////////////////
 
 normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1);
 normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
-if($Period=="Time" && $lst_time != "") {
-	if (strlen($condition)>0) $condition.=" AND ";
-	if(DB_TYPE == "postgres"){
-		switch($lst_time){
-			case 1:
+if ($Period == "Time" && $lst_time != "") {
+	if (strlen($condition) > 0)
+		$condition .= " AND ";
+	if (DB_TYPE == "postgres") {
+		switch ($lst_time) {
+			case 1 :
 				$condition .= "CURRENT_TIMESTAMP - interval '1 hour' <= cdr.starttime";
-			break;
-			case 2:
+				break;
+			case 2 :
 				$condition .= "CURRENT_TIMESTAMP - interval '6 hours' <= cdr.starttime";
-			break;
-			case 3:
+				break;
+			case 3 :
 				$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= cdr.starttime";
-			break;
-			case 4:
+				break;
+			case 4 :
 				$condition .= "CURRENT_TIMESTAMP - interval '7 days' <= cdr.starttime";
-			break;
-			case 5:
-                                $condition .= "CURRENT_TIMESTAMP - interval '1 month' <= cdr.starttime";
-                        break;
+				break;
+			case 5 :
+				$condition .= "CURRENT_TIMESTAMP - interval '1 month' <= cdr.starttime";
+				break;
 
 		}
 	} else {
-		switch($lst_time) {
-			case 1:
+		switch ($lst_time) {
+			case 1 :
 				$condition .= "DATE_SUB(NOW(),INTERVAL 1 HOUR) <= (cdr.starttime)";
-			break;
-			case 2:
+				break;
+			case 2 :
 				$condition .= "DATE_SUB(NOW(),INTERVAL 6 HOUR) <= (cdr.starttime)";
-			break;
-			case 3:
+				break;
+			case 3 :
 				$condition .= "DATE_SUB(NOW(),INTERVAL 1 DAY) <= (cdr.starttime)";
-			break;
-			case 4:
+				break;
+			case 4 :
 				$condition .= "DATE_SUB(NOW(),INTERVAL 7 DAY) <= (cdr.starttime)";
-			break;
-			case 5:
-                                $condition .= "DATE_SUB(NOW(),INTERVAL 1 MONTH) <= (cdr.starttime)";
-                        break;
+				break;
+			case 5 :
+				$condition .= "DATE_SUB(NOW(),INTERVAL 1 MONTH) <= (cdr.starttime)";
+				break;
 		}
 	}
-} elseif ($Period=="Day" && $fromday && $today) {
-	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
-	{
-		if (strlen($condition)>0) $condition.=" AND ";
-		$condition.=" $UNIX_TIMESTAMP(cdr.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+}
+elseif ($Period == "Day" && $fromday && $today) {
+	if ($fromday && isset ($fromstatsday_sday) && isset ($fromstatsmonth_sday)) {
+		if (strlen($condition) > 0)
+			$condition .= " AND ";
+		$condition .= " $UNIX_TIMESTAMP(cdr.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	}
-	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
-	{
-		if (strlen($condition)>0) $condition.=" AND ";
-		$condition.=" $UNIX_TIMESTAMP(cdr.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+	if ($today && isset ($tostatsday_sday) && isset ($tostatsmonth_sday)) {
+		if (strlen($condition) > 0)
+			$condition .= " AND ";
+		$condition .= " $UNIX_TIMESTAMP(cdr.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-" . sprintf("%02d", intval($tostatsday_sday) /*+1*/
+		) . " 23:59:59')";
 	}
 } else {
 	$bool = true;
-	if(DB_TYPE == "postgres") {
+	if (DB_TYPE == "postgres") {
 		$condition .= "CURRENT_TIMESTAMP - interval '1 day' <= cdr.starttime";
-	}
-	else {
+	} else {
 		$condition .= "DATE_SUB( NOW( ) , INTERVAL 1 DAY ) <= cdr.starttime";
 	}
 }
 #save conditions for later use
-if ($posted =="1"){
-	$_SESSION['condition']=$condition;
-	$_SESSION['group_id']="";
-	$_SESSION['report_type']=$report_type;
+if ($posted == "1") {
+	$_SESSION['condition'] = $condition;
+	$_SESSION['group_id'] = "";
+	$_SESSION['report_type'] = $report_type;
 } else {
-if(isset($_SESSION['condition']) && strlen($_SESSION['condition'])>5 ) {
-	$condition=$_SESSION['condition'];
-}
-if(isset($_SESSION['report_type']) && strlen($_SESSION['report_type'])>0 ) {
-	$report_type= $_SESSION['report_type'];
-}
-}
-if (isset($group_id)) {
-  $_SESSION['group_id']=$group_id;
-}else{
-	if(isset($_SESSION['group_id']) && strlen($_SESSION['group_id'])>1 ) {
-		$group_id=$_SESSION['group_id'];
+	if (isset ($_SESSION['condition']) && strlen($_SESSION['condition']) > 5) {
+		$condition = $_SESSION['condition'];
+	}
+	if (isset ($_SESSION['report_type']) && strlen($_SESSION['report_type']) > 0) {
+		$report_type = $_SESSION['report_type'];
 	}
 }
-if (!isset($report_type)) {
-	$report_type=1;
+if (isset ($group_id)) {
+	$_SESSION['group_id'] = $group_id;
+} else {
+	if (isset ($_SESSION['group_id']) && strlen($_SESSION['group_id']) > 1) {
+		$group_id = $_SESSION['group_id'];
+	}
+}
+if (!isset ($report_type)) {
+	$report_type = 1;
 }
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) 
-	$_SESSION["menu"] = $_GET["menu"];
 ?>
 <div align="center">
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
@@ -494,10 +503,6 @@ $list = $HD_Form -> perform_action($form_action);
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 

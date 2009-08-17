@@ -6,11 +6,17 @@ include ("lib/customer.module.access.php");
 include ("lib/customer.smarty.php");
 
 
-$smarty->assign("error", $_GET["error"]);
-$password = base64_decode($_POST["password"]);
+getpost_ifset(array (
+	'error',
+	'password',
+	'username'
+));
 
-$smarty->assign("username", $_POST["username"]);
-$smarty->assign("password", $password);
+$smarty -> assign("error", $error);
+$password = base64_decode($password);
 
-$smarty->display('index.tpl');
+$smarty -> assign("username", $username);
+$smarty -> assign("password", $password);
+
+$smarty -> display('index.tpl');
 

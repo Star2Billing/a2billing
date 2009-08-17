@@ -6,12 +6,11 @@ include ("./form_data/FG_var_callerid.inc");
 include ("lib/customer.smarty.php");
 
 
-if (! has_rights (ACX_CALLER_ID)){
+if (! has_rights (ACX_CALLER_ID)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-
 
 
 
@@ -20,7 +19,8 @@ getpost_ifset(array('add_callerid'));
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-/************************************  ADD SPEED DIAL  ***********************************************/
+
+// ADD SPEED DIAL
 if (strlen($add_callerid)>0  && is_numeric($add_callerid)){
 	
 	$instance_sub_table = new Table('cc_callerid');
@@ -35,10 +35,9 @@ if (strlen($add_callerid)>0  && is_numeric($add_callerid)){
 		
 	}
 }
-/***********************************************************************************/
 
 
-if ($id!="" || !is_null($id)){
+if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
@@ -56,11 +55,7 @@ $smarty->display( 'main.tpl');
 
 
 
-if ($form_action == "list")
-{
-    // $HD_Form -> create_toppage ("ask-add");
-    if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-    
+if ($form_action == "list") {
 
 	if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 
@@ -75,14 +70,9 @@ if ($form_action == "list")
 }
 
 
-
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 

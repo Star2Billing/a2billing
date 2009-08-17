@@ -199,10 +199,6 @@ if(!isset($submit)){?>
 
 <?php }
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) 
-	$_SESSION["menu"] = $_GET["menu"];
 ?>
 <center>
 <form name="frm_archive" id="frm_archive" method="post" action="A2B_call_archiving.php">

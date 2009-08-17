@@ -192,7 +192,7 @@ define ("PSQL", isset($A2B->config['backup']['psql'])?$A2B->config['backup']['ps
 /*
  *		GLOBAL POST/GET VARIABLE
  */
-getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'ui_language', 'msg', 'section'));
+getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select', 'popup_formname', 'popup_fieldname', 'ui_language', 'msg', 'section'));
 
 if (!isset($_SESSION)) {
 	session_start();
@@ -226,18 +226,16 @@ if(isset($cssname) && $cssname != "")
 	$_SESSION["stylefile"] = $cssname;
 }
 	
-if(isset($cssname) && $cssname != "")
-{
+if(isset($cssname) && $cssname != "") {
 	if ($_SESSION["stylefile"]!=$cssname){
-		foreach (glob("./templates_c/*.*") as $filename)
-		{
+		foreach (glob("./templates_c/*.*") as $filename) {
 			unlink($filename);
-		}			
+		}
 	}
 	$_SESSION["stylefile"] = $cssname;		
 }
 
-if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]==''){
+if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]=='') {
 	$_SESSION["stylefile"]='default';
 }
 

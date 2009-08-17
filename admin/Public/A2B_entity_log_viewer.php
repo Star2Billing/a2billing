@@ -33,10 +33,6 @@ echo $CC_help_list_log;
 $HD_Form -> create_toppage ($form_action);
 
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 if($form_action=="list"){
 ?>
 

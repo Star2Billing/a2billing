@@ -67,7 +67,7 @@ if (!is_numeric($popup_select)) {
 $smarty->assign("popupwindow", $popup_select);
 
 if (!empty($msg)) {
-	switch($msg){
+	switch($msg) {
 		case "nodemo": 	$smarty->assign("MAIN_MSG", '<center><b><font color="red">'.gettext("This option is not available on the Demo!").'</font></b></center><br>');
 	}
 }
@@ -82,13 +82,15 @@ $smarty->assign("ACXSUPPORT", $ACXSUPPORT);
 $smarty->assign("ACXSIGNUP", $ACXSIGNUP);
 $smarty->assign("ACXVOIPCONF", $ACXVOIPCONF);
 
-if($_GET["section"]!="") {
-	$section = $_GET["section"];
+getpost_ifset(array('section'));
+
+if(!empty($section)) {	
 	$_SESSION["menu_section"] = $section;
 } else {
 	$section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
+
 $smarty->assign("adminname", $_SESSION["pr_login"]);
 
 // OPTION FOR THE MENU

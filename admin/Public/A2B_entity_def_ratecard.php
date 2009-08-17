@@ -17,7 +17,7 @@ getpost_ifset(array('package','popup_select', 'popup_formname', 'popup_fieldname
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array ( 'batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_id_outbound_cidgroup', 'upd_tag', 'upd_inuse', 'upd_activated', 'upd_language',
 	'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate',
-	'upd_expiredays', 'upd_runservice', 'filterprefix'
+	'upd_expiredays', 'upd_runservice', 'filterprefix', 'filterfield'
 ));
 
 $update_fields = array (
@@ -277,13 +277,13 @@ if ($form_action == "list" && !$popup_select) {
 	   <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
 		<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 		<INPUT type="hidden" name="batchupdate" value="1">
-		<INPUT type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
-		<INPUT type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
-		<INPUT type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
-		<INPUT type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-		<INPUT type="hidden" name="form_action" value="<?php echo $_GET['form_action']?>">
-		<INPUT type="hidden" name="filterprefix" value="<?php echo $_GET['filterprefix']?>">
-		<INPUT type="hidden" name="filterfield" value="<?php echo $_GET['filterfield']?>">
+		<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
+		<INPUT type="hidden" name="popup_select" value="<?php echo $popup_select?>">
+		<INPUT type="hidden" name="popup_formname" value="<?php echo $popup_formname?>">
+		<INPUT type="hidden" name="popup_fieldname" value="<?php echo $popup_fieldname?>">
+		<INPUT type="hidden" name="form_action" value="<?php echo $form_action?>">
+		<INPUT type="hidden" name="filterprefix" value="<?php echo $filterprefix?>">
+		<INPUT type="hidden" name="filterfield" value="<?php echo $filterfield?>">
 		<tr>		
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_id_trunk]" type="checkbox" <?php if ($check["upd_id_trunk"]=="on") echo "checked"?>>
@@ -426,10 +426,6 @@ if ($form_action == "list" && !$popup_select) $HD_Form -> create_select_form();
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 

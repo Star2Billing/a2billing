@@ -11,9 +11,7 @@ if (! has_rights (ACX_SUPPORT)) {
 	die();
 }
 
-
 getpost_ifset(array('title', 'description', 'priority' , 'component'));
-
 
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
@@ -48,7 +46,6 @@ echo $CC_help_support_list;
 if ($form_action == "list") {
     // My code for Creating two functionalities in a page
     $HD_Form -> create_toppage ("ask-add");
-    if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 ?>
 	  </center>
@@ -123,7 +120,6 @@ if ($form_action == "list") {
 	<?php
     // END END END My code for Creating two functionalities in a page
 }
-
 
 
 // #### TOP SECTION PAGE

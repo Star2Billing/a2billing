@@ -36,6 +36,7 @@ $tariff_error=false;
 $number_error=false;
 $expdate_error=false;
 $expday_error=false;
+
 if ($action=="generate") {
 	if(!is_numeric($id_group) || $id_group<1){
 		$nb_error++;
@@ -458,10 +459,6 @@ $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 

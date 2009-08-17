@@ -7,10 +7,10 @@ include ("../lib/agent.smarty.php");
 
 
 
-if (! has_rights (ACX_CUSTOMER)){ 
+if (! has_rights (ACX_CUSTOMER)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	die();
 }
 
 if ($form_action=="ask-edit") {
@@ -29,18 +29,16 @@ if ($form_action=="ask-delete") {
 	}
 }
 
-/***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
 
-//SECURTY CHECK FOR AGENT
-
+// SECURTY CHECK FOR AGENT
 if ($form_action != "list" && isset($id)) {
 	if (!empty($id)&& $id>0) {
 		$table_agent_security = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id ", " cc_card_group.id_agent");
 		$clause_agent_security = "cc_card.id= ".$id;
 		$result_security= $table_agent_security -> Get_list ($HD_Form -> DBHandle, $clause_agent_security, null, null, null, null, null, null);
-		if ( $result_security[0][0] !=$_SESSION['agent_id'] ) {
+		if ( $result_security[0][0] != $_SESSION['agent_id'] ) {
 			Header ("Location: A2B_entity_card.php?section=1");
 			die();
 		}
@@ -115,11 +113,10 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 		$FG_TABLE_CLAUSE_card = "username='".$cardnumber."'";
 		$list_tariff_card = $instance_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
 		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
-		
 	}
 	
 	if ($id>0) {
-		
+				
 		$instance_check_card_agent = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
 		$FG_TABLE_CLAUSE_check = "cc_card.id= ".$id;
 		$list_check= $instance_check_card_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_check, null, null, null, null, null, null);
@@ -593,9 +590,7 @@ if (!$popup_select && $form_action == "ask-add"){
 
 <?php
 }
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+
 if ($form_action=='ask-edit') {
 	$inst_table = new Table("cc_card", "useralias, uipass");
 	$FG_TABLE_CLAUSE = "id = $id";

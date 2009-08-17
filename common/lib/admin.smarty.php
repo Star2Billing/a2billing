@@ -66,7 +66,7 @@ $smarty->assign("popupwindow", $popup_select);
 
 
 if (!empty($msg)) {
-	switch($msg){
+	switch($msg) {
 		case "nodemo": 	$smarty->assign("MAIN_MSG", '<center><b><font color="red">'.gettext("This option is not available on the Demo!").'</font></b></center><br>');
 	}
 }

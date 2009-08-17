@@ -6,56 +6,53 @@ include ("../lib/support/classes/ticket.php");
 include ("../lib/support/classes/comment.php");
 include ("../lib/epayment/includes/general.php");
 
-if (! has_rights (ACX_SUPPORT)){
+if (! has_rights (ACX_SUPPORT)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-if($_GET["result"]=="success")
-{
+getpost_ifset(array (
+	'result',
+	'id'
+));
+
+if($result=="success") {
 	$message = gettext("Ticket updated successfully");
 }
 
-if (isset($_GET["id"]))
-{
-    $ticketID = $_GET["id"];
-}
-else
-{
+if (isset($id)) {
+    $ticketID = $id;
+} else {
     exit(gettext("Ticket ID not found"));
 }
 
 
 $action = (isset($_POST['action']) ? $_POST['action'] : '');
-  if (tep_not_null($action))
-  {
-    switch ($action)
-    {
-      case 'update':
-		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket", "*");
-          $instance_sub_table -> Update_table($DBHandle, "status = '" . $_POST['status'] . "'","id = '" . $_GET['id'] . "'" );
-		  $ticket = new Ticket($ticketID);
-		  $ticket->insertComment($_POST['comment'],$_SESSION['agent_id'],2);
-          tep_redirect("A2B_ticket_view.php?"."id=".$_GET['id']."&result=success");
-       case 'view_comment':
-		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket_comment", "*");
-          $instance_sub_table -> Update_table($DBHandle, "viewed_agent = '0'","id = '" . $_POST['idc'] . "'" );
-          tep_redirect("A2B_ticket_view.php?id=".$_GET['id']."#nav".$_POST['idc']);
-           break;
-        case 'view_ticket':
-		  $DBHandle  = DbConnect();
-		  $instance_sub_table = new Table("cc_ticket", "*");
-          $instance_sub_table -> Update_table($DBHandle, "viewed_agent = '0'","id = '" . $_GET['id'] . "'" );
-          tep_redirect("A2B_ticket_view.php?id=".$_GET['id']);
-           break;
-      break;
-    }
-  }
 
-
+if (tep_not_null($action)) {
+	switch ($action) {
+		case 'update' :
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_ticket", "*");
+			$instance_sub_table->Update_table($DBHandle, "status = '" . $status . "'", "id = '" . $id . "'");
+			$ticket = new Ticket($ticketID);
+			$ticket->insertComment($comment, $_SESSION['card_id'], 0);
+			tep_redirect("A2B_ticket_view.php?" . "id=" . $id . "&result=success");
+		case 'view_comment' :
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_ticket_comment", "*");
+			$instance_sub_table->Update_table($DBHandle, "viewed_agent = '0'", "id = '" . $idc . "'");
+			tep_redirect("A2B_ticket_view.php?id=" . $id . "#nav" . $idc);
+			break;
+		case 'view_ticket' :
+			$DBHandle = DbConnect();
+			$instance_sub_table = new Table("cc_ticket", "*");
+			$instance_sub_table->Update_table($DBHandle, "viewed_agent = '0'", "id = '" . $id . "'");
+			tep_redirect("A2B_ticket_view.php?id=" . $id);
+			break;
+	}
+}
 
 
 $ticket = new Ticket($ticketID);
@@ -122,14 +119,13 @@ $smarty->display('main.tpl');
 
 <br/>
 
-
   <form action="<?php echo $PHP_SELF.'?id='.$ticket->getId(); ?>" method="post" >
  	<input id="action" type="hidden" name="action" value="update"/>
 	<input id="idc" type="hidden" name="idc" value=""/>
 	<table class="epayment_conf_table">
 	  <?php
-	   $return_status = Ticket::getPossibleStatus($ticket->getStatus(),true);
-	  if(!is_null($return_status)) {
+	   	$return_status = Ticket::getPossibleStatus($ticket->getStatus(),true);
+	  	if(!is_null($return_status)) {
 
 	  	 ?>
 		<tr>
@@ -138,10 +134,8 @@ $smarty->display('main.tpl');
 			<select name="status"  >
 
 			 <?php
-
-
-			 foreach ($return_status as $value)
-				 {
+			 	foreach ($return_status as $value)
+				{
 				 	if($ticket->getStatus()==$value["id"]){
 
 				 		echo '<option selected "value="'.$value["id"] .'"> '.$value["name"].'</option> ' ;
@@ -149,10 +143,8 @@ $smarty->display('main.tpl');
 				 	}else{
 				 		echo '<option value="'.$value["id"] .'"> '.$value["name"].'</option> ' ;
 				 	}
-				 }
-
+				}
 			  ?>
-
 			</select>
 			</td>
 		</tr>
@@ -160,33 +152,27 @@ $smarty->display('main.tpl');
 
 		<tr>
 			<td colspan="2"><font style="font-weight:bold; " ><?php echo gettext("COMMENT : "); ?>
-
 			 </td>
 		</tr>
-
 		<tr>
 			<td colspan="2" align="center">
 			 <textarea class="form_input_textarea" name="comment" cols="100" rows="10"></textarea>
-
 			 </td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
-
 				<input class="form_input_button" type="submit" value="UPDATE"/>
-
 			 </td>
 		</tr>
 
 	</table>
   </form>
 
-
 <?php
 
-foreach ($comments as $comment)
- {
- ?>
+foreach ($comments as $comment) {
+
+?>
  	<br/>
  	<table id="nav<?php echo $comment->getId(); ?>" class="epayment_conf_table">
   	<tr class="form_head"> 
@@ -218,20 +204,15 @@ foreach ($comments as $comment)
 	} ?>
 	</table> 
 <?php	
- }
 
-?>
+}
 
-<?php
 
 $smarty->display('footer.tpl');
-
-
 
 ?>
 
 <script type="text/javascript">
-	
 $(document).ready(function () {
 	$('.view_comment').click(function () {
 			$("#action").val('view_comment')
@@ -253,10 +234,6 @@ $(document).ready(function () {
 			  $("#action").val('view_ticket')
 			  $('form').submit();
 	        });
-	                
-
-	
-       
 });
 </script>
 

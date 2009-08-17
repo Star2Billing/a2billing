@@ -213,7 +213,7 @@ $HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_card";
 if (($popup_select>=1))	$HD_Form ->FG_LIMITE_DISPLAY = 7;
 
 
-$HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
+$HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$popup_select."&popup_formname=".$popup_formname."&popup_fieldname=".$popup_fieldname;
 
 // Search form
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;

@@ -16,14 +16,17 @@ if (!has_rights(ACX_BILLING)) {
 	die();
 }
 
+getpost_ifset(array('action', 'configuration', 'id', 'configuration', 'result'));
+
+
 $nowDate = date("m/d/y");
 $message = "";
-if ($_GET["result"] == "success") {
+if ($result == "success") {
 	$message = gettext("Record updated successfully");
 }
 $instance_sub_table = new Table("cc_payment_methods", "payment_filename");
-if (isset ($_GET["id"])) {
-	$paymentMethodID = $_GET["id"];
+if (!empty ($id)) {
+	$paymentMethodID = $id;
 } else {
 	exit (gettext("Payment module ID not found"));
 }
@@ -38,22 +41,20 @@ $QUERY = " active = 't'";
 
 $return = null;
 
-$action = (isset ($_GET['action']) ? $_GET['action'] : '');
 if (tep_not_null($action)) {
 	switch ($action) {
 		case 'save' :
-			while (list ($key, $value) = each($_POST['configuration'])) {
+			while (list ($key, $value) = each($configuration)) {
 				if ($key == 'MODULE_PAYMENT_PLUGNPAY_ACCEPTED_CC') {
 					$value = join($value, ', ');
 				}
 				$instance_sub_table->Update_table($DBHandle, "configuration_value = '" . $value . "'", "configuration_key = '" . $key . "'");
 			}
-			tep_redirect("A2B_entity_payment_settings.php?" . 'method=' . $paymentMethod . "&id=" . $_GET['id'] . "&result=success");
+			tep_redirect("A2B_entity_payment_settings.php?" . 'method=' . $paymentMethod . "&id=" . $id . "&result=success");
 			break;
 	}
 }
 
-///**************************************************
 
 $payment_modules = new payment($paymentMethod);
 $GLOBALS['paypal']->enabled = true;
@@ -97,7 +98,7 @@ $heading[] = array (
 );
 $contents = array (
 	'form' => tep_draw_form('modules',
-	"A2B_entity_payment_settings.php?" . 'method=' . $paymentMethod . '&action=save&id=' . $_GET["id"]
+	"A2B_entity_payment_settings.php?" . 'method=' . $paymentMethod . '&action=save&id=' . $id
 ));
 $contents[] = array (
 	'text' => $keys
@@ -112,9 +113,8 @@ $smarty->display('main.tpl');
 echo $CC_help_payment_config;
 
 
-
-
 echo $PAYMENT_METHOD;
+
 ?>
 
 <table class="epayment_conf_table">

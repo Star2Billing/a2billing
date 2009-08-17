@@ -35,18 +35,13 @@ echo $CC_help_money_situation;
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"]) > 0)
-	$_SESSION["menu"] = $_GET["menu"];
-
 $HD_Form->create_form($form_action, $list, $id = null);
 
 $table = new Table();
 $result_nb_card = $table->SQLExec($HD_Form->DBHandle, "SELECT COUNT(*) from cc_card");
 
 if ($result_nb_card[0][0] > 0) {
-	
+
 	$temp = date("Y-m-01");
 	$now_month = date("m");
 	$nb_month = 5;
@@ -62,7 +57,7 @@ if ($result_nb_card[0][0] > 0) {
 	$QUERY_INVOICE_COUNT = "SELECT DATE_FORMAT(date,'%c'),COUNT(*) FROM cc_invoice WHERE cc_invoice.date >= TIMESTAMP('$checkdate') AND cc_invoice.date <= CURRENT_TIMESTAMP group by MONTH(date) ORDER BY date DESC";
 	$result_invoice_count = $table->SQLExec($HD_Form->DBHandle, $QUERY_INVOICE_COUNT);
 	$list_month = Constants :: getMonth();
-	
+
 	$list_invoice_enough_paid = array ();
 	$j = 0;
 	for ($i = 0; $i <= $nb_month; $i++) {
@@ -134,10 +129,7 @@ if ($result_nb_card[0][0] > 0) {
 		} else
 			$list_invoice_count[$i] = 0;
 	}
-	
-
-	?>
-	
+?>
 	
 	<br/>
 	<table border="1" cellpadding="4" cellspacing="2" width="90%" align="center" class="bgcolor_017" >		

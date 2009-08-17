@@ -1,4 +1,5 @@
 <?php
+
 session_name("UISIGNUP");
 session_start();
 
@@ -18,6 +19,11 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./lib/customer.smarty.php");
 
 
+getpost_ifset(array (
+	'key'
+));
+
+
 $HD_Form = new FormHandler("cc_card","User");
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
@@ -25,9 +31,8 @@ $HD_Form -> init();
 // HEADER SECTION
 $smarty->display('signup_header.tpl');
 
-
-$key = null;
-$key = $_GET["key"];
+if (empty($key))
+	$key = null;
 
 
 $result = null;

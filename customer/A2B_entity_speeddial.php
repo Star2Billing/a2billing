@@ -5,49 +5,53 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_speeddial.inc");
 include ("./lib/customer.smarty.php");
 
-if (! has_rights (ACX_SPEED_DIAL)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+if (!has_rights(ACX_SPEED_DIAL)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
+getpost_ifset(array (
+	'destination',
+	'choose_speeddial',
+	'name'
+));
 
+$HD_Form->setDBHandler(DbConnect());
+$HD_Form->init();
 
-getpost_ifset(array('destination', 'choose_speeddial', 'name'));
+// ADD SPEED DIAL
+if (strlen($destination) > 0 && is_numeric($choose_speeddial)) {
 
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
+	$FG_SPEEDDIAL_TABLE = "cc_speeddial";
+	$FG_SPEEDDIAL_FIELDS = "speeddial";
+	$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, $FG_SPEEDDIAL_FIELDS);
 
+	$QUERY = "INSERT INTO cc_speeddial (id_cc_card, phone, name, speeddial) VALUES ('" . $_SESSION["card_id"] . "', '" . $destination . "', '" . $name . "', '" . $choose_speeddial . "')";
 
-/************************************  ADD SPEED DIAL  ***********************************************/
-if (strlen($destination)>0  && is_numeric($choose_speeddial)){
-		
-		$FG_SPEEDDIAL_TABLE  = "cc_speeddial";		
-		$FG_SPEEDDIAL_FIELDS = "speeddial";
-		$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, $FG_SPEEDDIAL_FIELDS);		
-		
-		$QUERY = "INSERT INTO cc_speeddial (id_cc_card, phone, name, speeddial) VALUES ('".$_SESSION["card_id"]."', '".$destination."', '".$name."', '".$choose_speeddial."')";
-
-		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
-}
-/***********************************************************************************/
-
-if ($id!="" || !is_null($id)){
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
+	$result = $instance_sub_table->SQLExec($HD_Form->DBHandle, $QUERY, 0);
 }
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-$list = $HD_Form -> perform_action($form_action);
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
+}
+
+if (!isset ($form_action))
+	$form_action = "list";
+if (!isset ($action))
+	$action = $form_action;
+
+$list = $HD_Form->perform_action($form_action);
+
 // #### HEADER SECTION
 $smarty->display('main.tpl');
-// #### HELP SECTION
-if ($form_action == "list")
-{
-    // My code for Creating two functionalities in a page
-    $HD_Form -> create_toppage ("ask-add");
-    if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
- 	if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 	
+
+if ($form_action == "list") {
+	// My code for Creating two functionalities in a page
+	$HD_Form->create_toppage("ask-add");
+	
+ 	if (isset($update_msg) && strlen($update_msg)>0) 
+ 		echo $update_msg; 	
 ?>
 	  </center>	
 	  <center><font class="error_message"><?php echo gettext("Enter the number which you wish to assign to the code here"); ?></font></center>
@@ -87,13 +91,9 @@ if ($form_action == "list")
 $HD_Form -> create_toppage ($form_action);
 
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-?>
+	

@@ -12,33 +12,6 @@ if (! has_rights (ACX_PACKAGEOFFER)) {
 
 getpost_ifset(array('customer', 'enter_cardid', 'enter_packageid', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens'));
 
-
-if (($_GET[download]=="file") && $_GET[file] ) {
-	
-	$value_de=base64_decode($_GET[file]);
-	$dl_full = MONITOR_PATH."/".$value_de;
-	$dl_name=$value_de;
-
-	if (!file_exists($dl_full)) { 
-		echo gettext("ERROR: Cannot download file")." ".$dl_full.", ".gettext("it does not exist.")."<br>";
-		exit();
-	} 
-	
-	header("Content-Type: application/octet-stream");
-	header("Content-Disposition: attachment; filename=$dl_name");
-	header("Content-Length: ".filesize($dl_full));
-	header("Accept-Ranges: bytes");
-	header("Pragma: no-cache");
-	header("Expires: 0");
-	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-	header("Content-transfer-encoding: binary");
-			
-	@readfile($dl_full);
-	exit();
-}
-
-
-
 if (!isset ($current_page) || ($current_page == "")) {	
 	$current_page=0; 
 }
@@ -190,17 +163,6 @@ if ($nb_record<=$FG_LIMITE_DISPLAY) {
 }
 
 
-
-/*************************************************************/
-$instance_table_customer = new Table("cc_card", "id,  username, lastname");
-
-$FG_TABLE_CLAUSE = "";
-if ($_SESSION["is_admin"]==0) {
-	$FG_TABLE_CLAUSE =" IDmanager='".$_SESSION["pr_reseller_ID"]."'";	
-}
-
-$list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
-$nb_customer = count($list_customer);
 
 $instance_table_tariff = new Table("cc_package_offer", "id, label");
 $FG_TABLE_CLAUSE = "";
@@ -389,8 +351,9 @@ $smarty->display('main.tpl');
 <br><br>
 
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
-
-			<center><?php echo gettext("Calls with free minutes");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
+<center>
+	<?php echo gettext("Calls with free minutes");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?>
+    
       <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 		<TR bgcolor="#ffffff"> 
           <TD  class="bgcolor_021" height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
@@ -521,16 +484,7 @@ $smarty->display('main.tpl');
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
-                </TR>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
-                </TR>
+                
               </TBODY>
             </TABLE></td>
         </tr>
@@ -582,6 +536,7 @@ $smarty->display('main.tpl');
 <!-- ************** TOTAL SECTION ************* -->
 <?php  } ?>
 
+</center>
 <!-- ** ** ** ** ** Part to display the GRAPHIC ** ** ** ** ** -->
 <br><br>
 

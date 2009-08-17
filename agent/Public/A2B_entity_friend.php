@@ -25,9 +25,8 @@ $HD_Form -> init();
 /********************************* ADD SIP / IAX FRIEND ***********************************/
 getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
-if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
+if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ) {
 
-	
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION = "A2B_entity_card.php?atmenu=card&stitle=Customers_Card&id=";
 
 	if ($form_action == "add_sip") { 
@@ -78,10 +77,6 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 	$HD_Form->_vars = array_merge($_GET, $_POST);
 }
 
-/***********************************************************************************/
-
-
-
 
 $HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&atmenu=$atmenu&id=";
 $HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&atmenu=$atmenu&id=";
@@ -95,13 +90,14 @@ if ($id!="" || !is_null($id)){
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
-if(!USE_REALTIME){
+if(!USE_REALTIME) {
+	
 	// CHECK THE ACTION AND SET THE IS_SIP_IAX_CHANGE IF WE ADD/EDIT/REMOVE A RECORD
 	if ( $form_action == "add" || $form_action == "edit" || $form_action == "delete" ){
 		$_SESSION["is_sip_iax_change"]=1;
-		if ($atmenu=='sip'){
+		if ($atmenu=='sip') {
 			$_SESSION["is_sip_changed"]=1;
-	  	}else{
+	  	} else {
 	  		$_SESSION["is_iax_changed"]=1;
 	  	}
 	}
@@ -170,14 +166,9 @@ if ($form_action=='list') {
 $HD_Form -> create_toppage ($form_action);
 
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-
 
 

@@ -5,53 +5,40 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_paymentlog_agent.inc");
 include ("../lib/admin.smarty.php");
 
-if (! has_rights (ACX_BILLING)){
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!has_rights(ACX_BILLING)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-/***********************************************************************************/
+$HD_Form->setDBHandler(DbConnect());
 
-$HD_Form -> setDBHandler (DbConnect());
+$HD_Form->init();
 
-
-$HD_Form -> init();
-
-
-if ($id!="" || !is_null($id)){
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
 }
 
+if (!isset ($form_action))
+	$form_action = "list"; //ask-add
+if (!isset ($action))
+	$action = $form_action;
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form -> perform_action($form_action);
-
-
+$list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action=='list') 
+if ($form_action == 'list')
 	echo $CC_help_payment_log;
 
-
-
 // #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
+$HD_Form->create_toppage($form_action);
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) 
-	$_SESSION["menu"] = $_GET["menu"];
+if ($form_action == 'list' && !($popup_select >= 1)) {
 	
-if ($form_action=='list' && !($popup_select>=1)) {	
-	?>
+?>
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
@@ -207,4 +194,4 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-?>
+

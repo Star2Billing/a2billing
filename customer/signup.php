@@ -5,19 +5,20 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 
 if (!isset ($form_action))
 	$form_action = "ask-add";
+
 if (!isset ($action))
 	$action = $form_action;
 
 include ("./form_data/FG_var_signup.inc");
 include ("./lib/customer.smarty.php");
 
-
-
-if (!$A2B->config["signup"]['enable_signup'])	
+if (!$A2B->config["signup"]['enable_signup'])
 	exit;
 
-getpost_ifset(array ( 'test', 'subscriber' ));
-
+getpost_ifset(array (
+	'test',
+	'subscriber'
+));
 
 if (!is_numeric($subscriber)) {
 	//check subscriber
@@ -53,7 +54,7 @@ if ($form_action == "add") {
 	unset ($_SESSION["cardnumber_signup"]);
 	$_SESSION["language_code"] = $_POST["language"];
 	$_SESSION["cardnumber_signup"] = $maxi;
-        $_SESSION["id_signup"] = $HD_Form ->RESULT_QUERY;
+	$_SESSION["id_signup"] = $HD_Form->RESULT_QUERY;
 	Header("Location: signup_confirmation.php");
 }
 
@@ -62,10 +63,6 @@ $smarty->display('signup_header.tpl');
 
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
-
-// #### CREATE FORM OR LIST
-if (strlen($_GET["menu"]) > 0)
-	$_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form->create_form($form_action, $list, $id = null);
 

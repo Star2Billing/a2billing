@@ -40,9 +40,6 @@ else
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
 
-// #### CREATE FORM OR LIST
-if (strlen($_GET["menu"]) > 0)
-	$_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form->create_form($form_action, $list, $id = null);
 

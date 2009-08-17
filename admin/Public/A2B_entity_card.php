@@ -502,8 +502,6 @@ if (!$popup_select && $form_action == "ask-add"){
 <?php
 }
 
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
 if ($form_action=='ask-edit') {
 	$inst_table = new Table("cc_card", "useralias, uipass");
 	$FG_TABLE_CLAUSE = "id = $id";

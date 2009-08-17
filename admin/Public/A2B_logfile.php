@@ -4,17 +4,19 @@ include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/admin.smarty.php");
 
-
-if (! has_rights (ACX_MAINTENANCE)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+if (!has_rights(ACX_MAINTENANCE)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 check_demo_mode();
 
-getpost_ifset(array('nb', 'view_log', 'filter'));
-
+getpost_ifset(array (
+	'nb',
+	'view_log',
+	'filter'
+));
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
@@ -26,40 +28,48 @@ echo $CC_help_logfile;
 <center>
 <?php
 
-function array2drop_down($name, $currentvalue, $arr_value){
-	echo '<SELECT name="'.$name.'" class="form_enter">';
-		if (is_array($arr_value) && count($arr_value)>=1){
-			foreach ($arr_value as $ind => $value){
-				if ($ind!=$currentvalue){
-					echo '<option value="'.$ind.'">'.$value.'</option>';
-				}else{
-					echo '<option value="'.$ind.'" selected="selected">'.$value.'</option>';
-				}
+
+function array2drop_down($name, $currentvalue, $arr_value) {
+	echo '<SELECT name="' . $name . '" class="form_enter">';
+	if (is_array($arr_value) && count($arr_value) >= 1) {
+		foreach ($arr_value as $ind => $value) {
+			if ($ind != $currentvalue) {
+				echo '<option value="' . $ind . '">' . $value . '</option>';
+			} else {
+				echo '<option value="' . $ind . '" selected="selected">' . $value . '</option>';
 			}
 		}
+	}
 	echo '</SELECT>';
 }
-
 
 $directory = '/var/log/asterisk/';
 $d = dir($directory);
 
-while(false!==($entry=$d->read())) {
-	if(is_file($directory.$entry) && $entry!='.' && $entry!='..')
-		$arr_log[] = $directory.$entry;
+while (false !== ($entry = $d->read())) {
+	if (is_file($directory . $entry) && $entry != '.' && $entry != '..')
+		$arr_log[] = $directory . $entry;
 }
 $d->close();
 
-
-foreach($A2B->config["log-files"] as $log_file) {
-	if (strlen(trim($log_file))>1) {
+foreach ($A2B->config["log-files"] as $log_file) {
+	if (strlen(trim($log_file)) > 1) {
 		$arr_log[] = $log_file;
-	}	
+	}
 }
 sort($arr_log);
 
-$arr_nb = array(25=>25, 50=>50, 100=>100, 250=>250, 500=>500, 1000=>1000, 2500=>2500);
-$nb = $nb?$nb:50;
+$arr_nb = array (
+	25 => 25,
+	50 => 50,
+	100 => 100,
+	250 => 250,
+	500 => 500,
+	1000 => 1000,
+	2500 => 2500
+);
+$nb = $nb ? $nb : 50;
+
 ?>
 
 <form method="get">
@@ -74,8 +84,8 @@ $nb = $nb?$nb:50;
 </center>
 <?php
 
-if(isset($_GET['view_log'])) {
-	$f = $arr_log[$_GET['view_log']];
+if(isset($view_log)) {
+	$f = $arr_log[$view_log];
 	$arr = stat($f);
 	echo '<title>'.$f.'</title>';
 	echo '<font size="3"><pre>';

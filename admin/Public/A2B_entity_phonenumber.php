@@ -5,49 +5,45 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_phonenumber.inc");
 include ("../lib/admin.smarty.php");
 
-
-if (! has_rights (ACX_PREDICTIVE_DIALER)) { 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+if (!has_rights(ACX_PREDICTIVE_DIALER)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
+getpost_ifset(array (
+	'action',
+	'campaign'
+));
 
-
-/***********************************************************************************/
-
-
-getpost_ifset(array('action','campaign'));
-
-if(!empty($action) &&!empty($campaign) && is_numeric($campaign) && ($action=="run"||$action=="hold"|| $action=="stop")){
-	$DBHandle  = DbConnect();
+if (!empty ($action) && !empty ($campaign) && is_numeric($campaign) && ($action == "run" || $action == "hold" || $action == "stop")) {
+	$DBHandle = DbConnect();
 	$status = 0;
-	if($action == "stop") $status =2;
-	elseif ($action == "hold") $status = 1;
+	if ($action == "stop")
+		$status = 2;
+	elseif ($action == "hold") 
+		$status = 1;
+	
 	$table = new Table();
-	$table ->SQLExec($DBHandle,"UPDATE cc_campaign_phonestatus SET status = $status WHERE id_phonenumber =$id AND id_campaign = $campaign " );
-	Header ("Location: A2B_entity_phonenumber.php?form_action=ask-edit&id=$id");
+	$table->SQLExec($DBHandle, "UPDATE cc_campaign_phonestatus SET status = $status WHERE id_phonenumber =$id AND id_campaign = $campaign ");
 	
-}
-	
-$HD_Form -> setDBHandler (DbConnect());
-
-
-$HD_Form -> init();
-
-
-if ($id!="" || !is_null($id)) {	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
+	Header("Location: A2B_entity_phonenumber.php?form_action=ask-edit&id=$id");
 }
 
+$HD_Form->setDBHandler(DbConnect());
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
+$HD_Form->init();
 
+if ($id != "" || !is_null($id)) {
+	$HD_Form->FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form->FG_EDITION_CLAUSE);
+}
 
-$list = $HD_Form -> perform_action($form_action);
+if (!isset ($form_action))
+	$form_action = "list"; //ask-add
+if (!isset ($action))
+	$action = $form_action;
 
-
+$list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
@@ -55,31 +51,24 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 echo $CC_help_phonelist;
 
-
-
 // #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
+$HD_Form->create_toppage($form_action);
 
+$HD_Form->create_form($form_action, $list);
 
-// #### CREATE FORM OR LIST
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list) ;
-
-
-if($form_action="ask_edit"){
-	$DBHandle  = DbConnect();
+if ($form_action = "ask_edit") {
+	$DBHandle = DbConnect();
 	$instance_table = new Table();
-	
+
 	$QUERY_PHONENUMBERS = 'SELECT cc_campaign.id, cc_campaign.name,cc_campaign.status, cc_campaign.startingdate <= CURRENT_TIMESTAMP AS started ,cc_campaign.expirationdate <= CURRENT_TIMESTAMP AS expired  FROM cc_phonenumber , cc_phonebook , cc_campaign_phonebook, cc_campaign WHERE ';
 	//JOIN CLAUSE
 	$QUERY_PHONENUMBERS .= 'cc_phonenumber.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_phonebook = cc_phonebook.id AND cc_campaign_phonebook.id_campaign = cc_campaign.id ';
 	//CAMPAIGN CLAUSE
-	if ($id != null)                                      // Exclude if null otherwise kills the list query
-	$QUERY_PHONENUMBERS .= 'AND cc_phonenumber.id= '.$id; // I've no idea under what conditions this should be included. Please review!
-	$result = $instance_table -> SQLExec ($DBHandle, $QUERY_PHONENUMBERS);
-	if($result){
-	 	?>
+	if ($id != null) // Exclude if null otherwise kills the list query
+		$QUERY_PHONENUMBERS .= 'AND cc_phonenumber.id= ' . $id; // I've no idea under what conditions this should be included. Please review!
+	$result = $instance_table->SQLExec($DBHandle, $QUERY_PHONENUMBERS);
+	if ($result) {
+		?>
 	 	<br/>
 	 	<br/>
 		<table width="100%" class="editform_table1" >
@@ -151,6 +140,4 @@ if($form_action="ask_edit"){
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-
-
 

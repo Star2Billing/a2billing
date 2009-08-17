@@ -39,11 +39,6 @@ echo $CC_help_list_configuration;
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-
-// #### CREATE FORM OR LIST
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-
 if($form_action == "list") {
 
 ?>

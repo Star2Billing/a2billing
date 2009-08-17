@@ -11,7 +11,6 @@ if (!has_rights(ACX_INVOICES)) {
 	die();
 }
 
-
 $HD_Form->setDBHandler(DbConnect());
 
 $HD_Form->init();
@@ -22,6 +21,7 @@ if ($id != "" || !is_null($id)) {
 
 if (!isset ($form_action))
 	$form_action = "list"; //ask-add
+
 if (!isset ($action))
 	$action = $form_action;
 
@@ -36,16 +36,9 @@ echo $CC_help_view_invoice;
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
 
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"]) > 0)
-	$_SESSION["menu"] = $_GET["menu"];
-
 $HD_Form->create_form($form_action, $list, $id = null);
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-
-?>
 
 

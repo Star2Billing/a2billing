@@ -12,11 +12,15 @@ include ("./lib/epayment/includes/loadconfiguration.php");
 include ("./lib/epayment/includes/configure.php");
 include ("./lib/customer.smarty.php");
 
-if (! has_rights (ACX_ACCESS)){
+if (! has_rights (ACX_ACCESS)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
+
+getpost_ifset(array (
+	'payment_error'
+));
 
 
 $currencies_list = get_currencies();
@@ -131,7 +135,7 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 
     <table width="80%" cellspacing="0" cellpadding="2" align=center>
     <?php
-	if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
+	if (isset($payment_error) && is_object(${$payment_error}) && ($error = ${$payment_error}->get_error())) {
   		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR ".$error['title']." ".$error['error']);
 	?>
 	

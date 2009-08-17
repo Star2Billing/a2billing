@@ -119,12 +119,7 @@ if($ASR == NULL){
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) 
-	$_SESSION["menu"] = $_GET["menu"];
-	?>
+?>
 <div align="center">
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>

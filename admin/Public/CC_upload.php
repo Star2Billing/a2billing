@@ -11,7 +11,7 @@ if (!has_rights(ACX_MAINTENANCE)) {
 
 check_demo_mode();
 
-getpost_ifset(array ('acc'));
+getpost_ifset(array ('acc', 'method', 'file', 'to'));
 
 //Show the number of files to upload
 $files_to_upload = 1;
@@ -59,22 +59,13 @@ function arr_rid_blank($my_arr) {
 
 $file_ext_allow = arr_rid_blank($file_ext_allow);
 
-// print_r ($_FILES);  
-
-//When REGISTERED_GLOBALS are off in php.ini
-/*
-$_POST    = $HTTP_POST_VARS;
-$_GET     = $HTTP_GET_VARS;
-$_SESSION = $HTTP_SESSION_VARS;
-*/
-
 //Any other action the user must be logged in!
 
-if ($_GET['method']) {
+if ($method) {
 	session_register('message');
 
 	//Upload the file
-	if ($_GET['method'] == "upload") {
+	if ($method == "upload") {
 
 		$file_array = $_FILES['file'];
 		$_SESSION['message'] = "";
@@ -119,21 +110,21 @@ if ($_GET['method']) {
 	}
 
 	//Logout 
-	elseif ($_GET['method'] == "logout") {
+	elseif ($method == "logout") {
 		session_destroy();
 	}
 
 	//Delete the file
-	elseif ($_GET['method'] == "delete" && $_GET['file']) {
-		if (!@ unlink($upload_dir . "/" . $_GET['file']))
+	elseif ($method == "delete" && $file) {
+		if (!@ unlink($upload_dir . "/" . $file))
 			$_SESSION['message'] = "File not found!";
 		else
-			$_SESSION['message'] = $_GET['file'] . " deleted";
+			$_SESSION['message'] = $file . " deleted";
 	}
 
 	//Download a file 
-	elseif ($_GET['method'] == "download" && $_GET['file']) {
-		$file = $upload_dir . "/" . $_GET['file'];
+	elseif ($method == "download" && $file) {
+		$file = $upload_dir . "/" . $file;
 		$filename = basename($file);
 		$len = filesize($file);
 		header("content-type: application/stream");
@@ -145,9 +136,9 @@ if ($_GET['method']) {
 	}
 
 	//Rename a file
-	elseif ($_GET['method'] == "rename") {
-		rename($upload_dir . "/" . $_GET['file'], $upload_dir . "/" . $_GET['to']);
-		$_SESSION['message'] = "Renamed " . $_GET['file'] . " to " . $_GET['to'];
+	elseif ($method == "rename") {
+		rename($upload_dir . "/" . $file, $upload_dir . "/" . $to);
+		$_SESSION['message'] = "Renamed " . $file . " to " . $to;
 	}
 	// Redirect to the script again
 	Header("Location: " . $_SERVER['PHP_SELF'] . "?acc=$acc");

@@ -12,38 +12,47 @@ if (!has_rights(ACX_SUPPORT)) {
 	die();
 }
 
-if ($_GET["result"] == "success") {
+getpost_ifset(array (
+	'result',
+	'action',
+	'id',
+	'idc'
+));
+
+if ($result == "success") {
 	$message = gettext("Ticket updated successfully");
 }
 
-if (isset ($_GET["id"])) {
-	$ticketID = $_GET["id"];
+
+if (!empty($id)) {
+	$ticketID = $id;
 } else {
 	exit (gettext("Ticket ID not found"));
 }
 
-$action = (isset ($_POST['action']) ? $_POST['action'] : '');
+
+
 
 if (tep_not_null($action)) {
 	switch ($action) {
 		case 'update' :
 			$DBHandle = DbConnect();
 			$instance_sub_table = new Table("cc_ticket", "*");
-			$instance_sub_table->Update_table($DBHandle, "status = '" . $_POST['status'] . "'", "id = '" . $_GET['id'] . "'");
+			$instance_sub_table->Update_table($DBHandle, "status = '" . $status . "'", "id = '" . $id . "'");
 			$ticket = new Ticket($ticketID);
 			$ticket->insertComment($_POST['comment'], $_SESSION["admin_id"], 1);
-			tep_redirect("CC_ticket_view.php?" . "id=" . $_GET['id'] . "&result=success");
+			tep_redirect("CC_ticket_view.php?" . "id=" . $id . "&result=success");
 		case 'view_comment' :
 			$DBHandle = DbConnect();
 			$instance_sub_table = new Table("cc_ticket_comment", "*");
-			$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $_POST['idc'] . "'");
-			tep_redirect("CC_ticket_view.php?id=" . $_GET['id'] . "#nav" . $_POST['idc']);
+			$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $idc . "'");
+			tep_redirect("CC_ticket_view.php?id=" . $id . "#nav" . $idc);
 			break;
 		case 'view_ticket' :
 			$DBHandle = DbConnect();
 			$instance_sub_table = new Table("cc_ticket", "*");
-			$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $_GET['id'] . "'");
-			tep_redirect("CC_ticket_view.php?id=" . $_GET['id']);
+			$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $id . "'");
+			tep_redirect("CC_ticket_view.php?id=" . $id);
 			break;
 			break;
 	}

@@ -223,8 +223,7 @@ $HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_card";
 if (($popup_select>=1))	$HD_Form ->FG_LIMITE_DISPLAY = 7;
 
 
-
-$HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
+$HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$popup_select."&popup_formname=".$popup_formname."&popup_fieldname=".$popup_fieldname;
 
 // Search form
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
@@ -260,29 +259,30 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null
 
 
 if (($popup_select>=1)) {
+	
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 
-	if ($popup_select==1){
+	if ($popup_select==1) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[$FG_NB_TABLE_COL]."');\">&lt;Select Card&gt;</a>";
-	}elseif ($popup_select==2){
+	} elseif ($popup_select==2) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col1|');";
 		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[1]."');\">&lt;Select Card&gt;</a>";
 	}
 
 } else {
 	
-if (has_rights (ACX_EDIT_CUSTOMER)) { 
-	$HD_Form -> FG_EDITION = true;
+	if (has_rights (ACX_EDIT_CUSTOMER)) {
+		$HD_Form -> FG_EDITION = true;
 	}
 	
 	$HD_Form -> FG_INFO = true;
 	$HD_Form -> FG_INFO_LINK = "A2B_card_info.php?id=";
 	
 	if (has_rights (ACX_DELETE_CUSTOMER)) { 
-	$HD_Form -> FG_DELETION = true;
+		$HD_Form -> FG_DELETION = true;
 	}
 	
 	$FN_COLUMN_ID="col".($FG_COL_QUERY_COUNT);//get numbers of rows for needed fields
@@ -290,18 +290,18 @@ if (has_rights (ACX_EDIT_CUSTOMER)) {
 	$FN_COLUMN_ALIAS="col".($FG_COL_QUERY_COUNT+2);
 	
 	if (has_rights (ACX_SIPCONF)) { 
-	$HD_Form -> FG_OTHER_BUTTON1 = true;
-	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
-	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
-	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
-	}
-	if (has_rights (ACX_IAXCONF)) {
-	$HD_Form -> FG_OTHER_BUTTON2 = true;
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
-	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
-	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
+		$HD_Form -> FG_OTHER_BUTTON1 = true;
+		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
+		$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
+		$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
 	}
 	
+	if (has_rights (ACX_IAXCONF)) {
+		$HD_Form -> FG_OTHER_BUTTON2 = true;
+		$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
+		$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
+		$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
+	}
 }
 
 $HD_Form -> FG_FILTER_APPLY = true;

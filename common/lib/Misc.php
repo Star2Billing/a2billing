@@ -272,8 +272,7 @@ function getpost_ifset($test_vars) {
 				$$test_var = str_replace($filtered_char, "", $$test_var);
 
 			}
-		}
-		elseif (isset ($_GET[$test_var])) {
+		} elseif (isset ($_GET[$test_var])) {
 			global $$test_var;
 			$$test_var = $_GET[$test_var];
 			$$test_var = sanitize_data($$test_var);

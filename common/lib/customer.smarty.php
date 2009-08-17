@@ -83,10 +83,11 @@ if($exporttype != "" && $exporttype != "html") {
 	$smarty->assign("EXPORT", 0);
 }
 
-if($_GET["section"]!="") {	
-	$section = $_GET["section"];
+getpost_ifset(array('section'));
+
+if(!empty($section)) {	
 	$_SESSION["menu_section"] = $section;
-} else {	
+} else {
 	$section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
