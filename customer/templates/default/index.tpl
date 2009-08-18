@@ -112,7 +112,7 @@
     {elseif ($error==3)}
 		{php} echo gettext("BLOCKED ACCOUNT : Please contact the administrator!");{/php}
     {elseif ($error==4)}
-		{php} echo gettext("NEW ACCOUNT : Your account has bot been validate yet!");{/php}
+		{php} echo gettext("NEW ACCOUNT : Your account has not been validate yet!");{/php}
     {/if}
     </div>
     <div id="footer_index"><div style=" border: solid 1px #F4F4F4; text-align:center;">{$COPYRIGHT}</div></div>
