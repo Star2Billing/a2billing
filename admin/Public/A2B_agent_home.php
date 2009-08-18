@@ -11,8 +11,6 @@ if (!has_rights(ACX_ADMINISTRATOR)) {
 
 getpost_ifset(array('id','result','action','message','id_msg','type','logo'));
 
-
-
 if (empty($id)) {
 	header("Location: A2B_entity_agent.php?atmenu=user&section=2");
 }

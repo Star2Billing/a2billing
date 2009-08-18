@@ -18,12 +18,10 @@ if (!isset ($current_page) || ($current_page == "")) {
 	$current_page=0;
 }
 
-// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_card t2 ON  t2.id = t1.card_id LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk LEFT JOIN cc_card_group ON t2.id_group=cc_card_group.id";
-
 
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
@@ -79,23 +77,36 @@ if ( is_null ($order) || is_null($sens) ){
 }
 
 
-if ($_POST['posted']==1){
-	
+getpost_ifset(array (
+	'before',
+	'after',
+	'posted'
+));
+
+if ($posted==1) {	
 	$SQLcmd = '';
-	if ($_POST['before']) {
-	if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
-	}else{     								$SQLcmd = "$SQLcmd WHERE "; }
-		$SQLcmd = "$SQLcmd calldate<'".$_POST['before']."'";
+	
+	if ($before) {
+		if (strpos($SQLcmd, 'WHERE') > 0) {
+			$SQLcmd = "$SQLcmd AND ";
+		} else {
+			$SQLcmd = "$SQLcmd WHERE ";
+		}
+		$SQLcmd = "$SQLcmd calldate <'" . $before . "'";
 	}
-	if ($_POST['after']) {    if (strpos($SQLcmd, 'WHERE') > 0) {      $SQLcmd = "$SQLcmd AND ";
-	} else {      $SQLcmd = "$SQLcmd WHERE ";    }
-		$SQLcmd = "$SQLcmd calldate>'".$_POST['after']."'";
+	if ($after) {
+		if (strpos($SQLcmd, 'WHERE') > 0) {
+			$SQLcmd = "$SQLcmd AND ";
+		} else {
+			$SQLcmd = "$SQLcmd WHERE ";
+		}
+		$SQLcmd = "$SQLcmd calldate >'" . $after . "'";
 	}
 	
 	$SQLcmd = do_field($SQLcmd, 'dst');
 }
 
-$date_clause='';
+$date_clause = '';
 
 
 if (!isset($months_compare)){		
@@ -146,7 +157,7 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
 
-if ($_POST['posted']==1){
+if ($posted==1){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
 

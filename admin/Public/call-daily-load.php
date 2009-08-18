@@ -65,25 +65,31 @@ if (is_null ($order) || is_null($sens)) {
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
+getpost_ifset(array (
+	'before',
+	'after'
+));
 
 if ($posted==1) {
 	$SQLcmd = '';
+	$SQLcmd = do_field($SQLcmd, 'src', 'src');
 	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	if ($_POST['before']) {
-		if (strpos($SQLcmd, 'WHERE') > 0) {
-			$SQLcmd = "$SQLcmd AND ";
-		}else{
-			$SQLcmd = "$SQLcmd WHERE ";
-		}
-		$SQLcmd = "$SQLcmd t1.starttime <'".$_POST['before']."'";
-	}
-	if ($_POST['after']) {
+	
+	if ($before) {
 		if (strpos($SQLcmd, 'WHERE') > 0) {
 			$SQLcmd = "$SQLcmd AND ";
 		} else {
 			$SQLcmd = "$SQLcmd WHERE ";
 		}
-		$SQLcmd = "$SQLcmd t1.starttime >'".$_POST['after']."'";
+		$SQLcmd = "$SQLcmd t1.starttime <'" . $before . "'";
+	}
+	if ($after) {
+		if (strpos($SQLcmd, 'WHERE') > 0) {
+			$SQLcmd = "$SQLcmd AND ";
+		} else {
+			$SQLcmd = "$SQLcmd WHERE ";
+		}
+		$SQLcmd = "$SQLcmd t1.starttime >'" . $after . "'";
 	}
 }
 

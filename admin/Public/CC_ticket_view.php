@@ -16,7 +16,8 @@ getpost_ifset(array (
 	'result',
 	'action',
 	'id',
-	'idc'
+	'idc',
+	'comment'
 ));
 
 if ($result == "success") {
@@ -40,7 +41,7 @@ if (tep_not_null($action)) {
 			$instance_sub_table = new Table("cc_ticket", "*");
 			$instance_sub_table->Update_table($DBHandle, "status = '" . $status . "'", "id = '" . $id . "'");
 			$ticket = new Ticket($ticketID);
-			$ticket->insertComment($_POST['comment'], $_SESSION["admin_id"], 1);
+			$ticket->insertComment($comment, $_SESSION["admin_id"], 1);
 			tep_redirect("CC_ticket_view.php?" . "id=" . $id . "&result=success");
 		case 'view_comment' :
 			$DBHandle = DbConnect();

@@ -12,39 +12,21 @@ if (! has_rights (ACX_CALL_REPORT)) {
 	   die();	   
 }
 
-// this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
-
 
 getpost_ifset(array('typegraph', 'min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'hourinterval', 'customer', 'entercustomer', 'enterprovider', 'entertrunk'));
 
-//echo "posted=$posted 'accountcodetype=$accountcodetype', 'accountcode=$accountcode', 'fromstatsday_sday=$fromstatsday_sday', 'fromstatsmonth_sday=$fromstatsmonth_sday' hourinterval=$hourinterval ";
-//exit();
-
-//$hourinterval=12;
-// hourinterval -- 1 to 23
 if (!($hourinterval>=0) && ($hourinterval<=23)) exit();
 
-// http://localhost/Asterisk/asterisk-stat-v1_4/graph_stat.php?min_call=0&fromstatsday_sday=11&days_compare=2&fromstatsmonth_sday=2005-02&dsttype=1&srctype=1&clidtype=1&channel=&resulttype=&dst=1649&src=&clid=&userfieldtype=1&userfield=&accountcodetype=1&accountcode=
-
-// The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
-
-
-//$link = DbConnect();
 $DBHandle  = DbConnect();
 
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-
-
 $FG_TABLE_DEFAULT_ORDER = "starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 
 // This Variable store the argument for the SQL query
-
 $FG_COL_QUERY_GRAPH	= 'starttime, sessiontime';
 
 
@@ -59,23 +41,31 @@ if ( is_null ($order) || is_null($sens) ){
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
+getpost_ifset(array (
+	'before',
+	'after'
+));
 
-	
+$SQLcmd = '';
 
-  $SQLcmd = '';
+if ($before) {
+	if (strpos($SQLcmd, 'WHERE') > 0) {
+		$SQLcmd = "$SQLcmd AND ";
+	} else {
+		$SQLcmd = "$SQLcmd WHERE ";
+	}
+	$SQLcmd = "$SQLcmd starttime <'" . $before . "'";
+}
+if ($after) {
+	if (strpos($SQLcmd, 'WHERE') > 0) {
+		$SQLcmd = "$SQLcmd AND ";
+	} else {
+		$SQLcmd = "$SQLcmd WHERE ";
+	}
+	$SQLcmd = "$SQLcmd starttime >'" . $after . "'";
+}
 
-  if ($_POST['before']) {
-    if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
-    }else{     								$SQLcmd = "$SQLcmd WHERE "; }
-    $SQLcmd = "$SQLcmd starttime <'".$_POST['before']."'";
-  }
-  if ($_POST['after']) {    if (strpos($SQLcmd, 'WHERE') > 0) {      $SQLcmd = "$SQLcmd AND ";
-  } else {      $SQLcmd = "$SQLcmd WHERE ";    }
-    $SQLcmd = "$SQLcmd starttime >'".$_POST['after']."'";
-  }
-  
-  
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');  
+$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
   
 
 if (isset($customer)  &&  ($customer>0)){
@@ -89,6 +79,7 @@ if (isset($customer)  &&  ($customer>0)){
 		$SQLcmd.=" card_id='$entercustomer' ";
 	}
 }
+
 if ($_SESSION["is_admin"] == 1)
 {
 	if (isset($enterprovider) && $enterprovider > 0) {

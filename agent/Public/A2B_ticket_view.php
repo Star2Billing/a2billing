@@ -14,7 +14,8 @@ if (! has_rights (ACX_SUPPORT)) {
 
 getpost_ifset(array (
 	'result',
-	'id'
+	'id',
+	'action'
 ));
 
 if($result=="success") {
@@ -26,9 +27,6 @@ if (isset($id)) {
 } else {
     exit(gettext("Ticket ID not found"));
 }
-
-
-$action = (isset($_POST['action']) ? $_POST['action'] : '');
 
 if (tep_not_null($action)) {
 	switch ($action) {

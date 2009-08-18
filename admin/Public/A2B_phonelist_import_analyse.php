@@ -16,10 +16,6 @@ check_demo_mode();
 getpost_ifset(array('phonebook', 'search_sources', 'task','status_import','uploadedfile_name','uploadedfile_name'));
 
 
-//print_r ($_POST);
-//print_r ($HTTP_POST_FILES);
- 
-
 $phonebookval= split('-:-', $phonebook);
 if (!is_numeric($phonebookval[0])){ 
 	echo gettext("No Phonebook defined !"); 
@@ -27,22 +23,15 @@ if (!is_numeric($phonebookval[0])){
 }
 
 
-
 if ($search_sources!='nochange'){
-
-	//echo "<br>---$search_sources";
 	$fieldtoimport= split("\t", $search_sources);
 	$fieldtoimport_sql = str_replace("\t", ", ", $search_sources);
 	$fieldtoimport_sql = trim ($fieldtoimport_sql);
 	if (strlen($fieldtoimport_sql)>0) $fieldtoimport_sql = ', '.$fieldtoimport_sql;
 }
 
-//echo "<br>---$fieldtoimport_sql<br>";
-//print_r($fieldtoimport);
-
 
 $fixfield[0]="Id Phonebook (KEY)";
-
 $field[0]="Number";
 
 $FG_DEBUG = 0;
@@ -56,12 +45,9 @@ if ($FG_DEBUG == 1) echo "::::>> ".$the_file;
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 if ($FG_DEBUG == 1) echo "<br> Task :: $task";
-if ($task=='upload'){
 
-	//---------------------------------------------------------
-	//		 Effacer tout les fichiers du repertoire cache.
-	//---------------------------------------------------------
-
+if ($task=='upload') {
+	
 	$the_file_name = $_FILES['the_file']['name'];
 	$the_file_type = $_FILES['the_file']['type'];
 	$the_file = $_FILES['the_file']['tmp_name'];
@@ -144,8 +130,6 @@ if ($task=='upload'){
 					
 				}
 			}
-			 
-			
 				
 			$TT_QUERY .= "INSERT INTO ".$FG_ADITION_SECOND_ADD_TABLE." (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".$FG_ADITION_SECOND_ADD_VALUE.") ";
 			$nb_to_import++;
@@ -173,14 +157,11 @@ if ($task=='upload'){
 
 $Temps2 = time();
 $Temps = $Temps2 - $Temps1;
-//echo "<br>".$Temps2;
-//echo "<br>Script Time :".$Temps."<br>";
 
 
 $smarty->display('main.tpl');
 
 ?>
-
 
 <style type="text/css">
 <!--

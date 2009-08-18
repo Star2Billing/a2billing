@@ -77,17 +77,30 @@ if ( is_null ($order) || is_null($sens) ){
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
+getpost_ifset(array (
+	'before',
+	'after',
+	'posted'
+));
 
-if ($_POST['posted']==1){	
+if ($posted==1) {	
 	$SQLcmd = '';
-	if ($_POST['before']) {
-	if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
-	}else{     								$SQLcmd = "$SQLcmd WHERE "; }
-		$SQLcmd = "$SQLcmd calldate<'".$_POST['before']."'";
+	
+	if ($before) {
+		if (strpos($SQLcmd, 'WHERE') > 0) {
+			$SQLcmd = "$SQLcmd AND ";
+		} else {
+			$SQLcmd = "$SQLcmd WHERE ";
+		}
+		$SQLcmd = "$SQLcmd calldate <'" . $before . "'";
 	}
-	if ($_POST['after']) {    if (strpos($SQLcmd, 'WHERE') > 0) {      $SQLcmd = "$SQLcmd AND ";
-	} else {      $SQLcmd = "$SQLcmd WHERE ";    }
-		$SQLcmd = "$SQLcmd calldate>'".$_POST['after']."'";
+	if ($after) {
+		if (strpos($SQLcmd, 'WHERE') > 0) {
+			$SQLcmd = "$SQLcmd AND ";
+		} else {
+			$SQLcmd = "$SQLcmd WHERE ";
+		}
+		$SQLcmd = "$SQLcmd calldate >'" . $after . "'";
 	}
 	
 	$SQLcmd = do_field($SQLcmd, 'dst');
