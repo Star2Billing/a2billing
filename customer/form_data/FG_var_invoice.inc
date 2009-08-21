@@ -59,7 +59,7 @@ $HD_Form -> FG_INFO_IMG = "info.png";
 $HD_Form -> FG_OTHER_BUTTON3_LINK = "checkout_payment.php?item_type=invoice&item_id=";
 $HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path."/money.png";
 $HD_Form -> FG_OTHER_BUTTON3 = true;
-$HD_Form -> FG_OTHER_BUTTON3_CONDITION = '|col3| == "UNPAID"';
+$HD_Form -> FG_OTHER_BUTTON3_CONDITION = '|col6| == "UNPAID"';
 
 
 $status_list = Constants::getInvoicePaidStatusList();
@@ -69,7 +69,7 @@ $HD_Form -> AddViewElement(gettext("DATE"), "date", "15%", "center", "sort", "30
 $HD_Form -> AddViewElement(gettext("TITLE"), "title", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STATUS"), "paid_status", "5%", "center", "sort", "", "list", $status_list);
 $HD_Form -> AddViewElement(gettext("AMOUNT INCL VAT"), "price", "10%", "center", "sort","", "", "", "", "", "", "display_2bill");
-$HD_Form -> FieldViewElement ("cc_invoice.reference, cc_invoice.date,title,cc_invoice.paid_status,total_price");
+$HD_Form -> FieldViewElement ("cc_invoice.reference, cc_invoice.date, title, cc_invoice.paid_status, total_price, id, cc_invoice.paid_status");
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO INVOICE CREATED!"); 
