@@ -70,9 +70,9 @@ function SetLocalLanguage()
 			$charEncoding = "iso-8859-1";
 			break;
 		case "german":
-			$languageEncoding = "en_US.iso88591";
-			$slectedLanguage = "en_US";
-			$charEncoding = "iso88591";
+			$languageEncoding = "de_DE.iso88591";
+			$slectedLanguage = "de_DE";
+			$charEncoding = "iso-8859-1";
 			break;
 		case "italian":
 			$languageEncoding = "it_IT.iso8859-1";
@@ -119,7 +119,7 @@ function SetLocalLanguage()
 			break;
 	}
 	
-	// echo "languageEncoding=$languageEncoding - slectedLanguage=$slectedLanguage - path=".BINDTEXTDOMAIN;
+	//echo "languageEncoding=$languageEncoding - slectedLanguage=$slectedLanguage - path=".BINDTEXTDOMAIN;
 	@setlocale(LC_TIME,$languageEncoding);
 	putenv("LANG=$slectedLanguage");
 	putenv("LANGUAGE=$slectedLanguage");

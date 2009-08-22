@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-13 17:39+0200\n"
+"POT-Creation-Date: 2009-08-22 16:52+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Date"
 msgstr "DATA"
 
-#: card-history.php:45 A2B_receipt_view.php:168 A2B_support.php:105
+#: card-history.php:45 A2B_receipt_view.php:168 A2B_support.php:110
 #: A2B_invoice_view.php:178 A2B_billing_preview.php:151
 #: A2B_billing_preview.php:244 A2B_receipt_detail.php:105
 #: A2B_receipt_preview_detail.php:177
@@ -158,23 +158,23 @@ msgstr "Tranzactia este in curs de procesare"
 msgid "Your transaction was successful."
 msgstr "Tranzactia a fost procesata"
 
-#: A2B_entity_speeddial.php:53
+#: A2B_entity_speeddial.php:57
 msgid "Enter the number which you wish to assign to the code here"
 msgstr "Introduce-ti numarul pe care doriti sa fie format cand codul estre introdus"
 
-#: A2B_entity_speeddial.php:59
+#: A2B_entity_speeddial.php:63
 msgid "Speed Dial code"
 msgstr "Codul Apelare Rapida"
 
-#: A2B_entity_speeddial.php:69 A2B_entity_did.php:365 call-history.php:92
+#: A2B_entity_speeddial.php:73 A2B_entity_did.php:365 call-history.php:92
 msgid "Destination"
 msgstr "Destinatie"
 
-#: A2B_entity_speeddial.php:71
+#: A2B_entity_speeddial.php:75
 msgid "Name"
 msgstr "Nume"
 
-#: A2B_entity_speeddial.php:75
+#: A2B_entity_speeddial.php:79
 msgid "ASSIGN NUMBER TO SPEEDDIAL"
 msgstr "numarul alocat apelarii rapide"
 
@@ -222,11 +222,11 @@ msgstr "Confirma Parola"
 msgid "Save"
 msgstr "Salveaza"
 
-#: checkout_payment.php:270
+#: checkout_payment.php:274
 msgid "Please enter the order amount"
 msgstr "Te rugam sa introduci valoare dorita"
 
-#: checkout_payment.php:277
+#: checkout_payment.php:281
 msgid "Total Amount"
 msgstr "COST TOTAL"
 
@@ -459,35 +459,35 @@ msgstr "Copiati si lipiti aceasta configurare in"
 msgid "The peer is not defined, please contact your Administrator!"
 msgstr "Cont/peer Nedefinit! va rugam contactati administratorul"
 
-#: A2B_entity_voicemail.php:107
+#: A2B_entity_voicemail.php:105
 msgid "Voicemail message updated!"
 msgstr ""
 
-#: A2B_entity_voicemail.php:161
+#: A2B_entity_voicemail.php:159
 msgid "Move Voicemail to an other folder"
 msgstr ""
 
-#: A2B_entity_voicemail.php:171 form_data/FG_var_phonenumber.inc:64
+#: A2B_entity_voicemail.php:169 form_data/FG_var_phonenumber.inc:64
 #: form_data/FG_var_receipt.inc:67 form_data/FG_var_invoice.inc:68
 #: form_data/FG_var_voicemail.inc:65 call-history.php:218 call-history.php:553
 msgid "DATE"
 msgstr "DATA"
 
-#: A2B_entity_voicemail.php:179 form_data/FG_var_callerid.inc:48
+#: A2B_entity_voicemail.php:177 form_data/FG_var_callerid.inc:48
 #: form_data/FG_var_callerid.inc:81 form_data/FG_var_voicemail.inc:66
 msgid "CALLERID"
 msgstr "IDENTIFICATOR APELANT"
 
-#: A2B_entity_voicemail.php:187 form_data/FG_var_voicemail.inc:67
+#: A2B_entity_voicemail.php:185 form_data/FG_var_voicemail.inc:67
 #: call-history.php:554
 msgid "DURATION"
 msgstr "DURATA"
 
-#: A2B_entity_voicemail.php:195
+#: A2B_entity_voicemail.php:193
 msgid "CURRENT FOLDER"
 msgstr ""
 
-#: A2B_entity_voicemail.php:203 A2B_entity_voicemail.php:220
+#: A2B_entity_voicemail.php:201 A2B_entity_voicemail.php:218
 msgid "MOVE TO FOLDER"
 msgstr ""
 
@@ -532,47 +532,47 @@ msgstr "Nou"
 msgid "Inserted"
 msgstr "Introdus"
 
-#: activate.php:10
+#: activate.php:11
 msgid "Sorry the activation has been sent already, please wait 1 minute before making any other try !"
 msgstr "Ne pare rau , emai-ul de activare a fost trimis. Va rugam asteptati un minut pentru a reincerca"
 
-#: activate.php:70
+#: activate.php:75
 msgid "Welcome! Your account has been successfully activated. Thank you!"
 msgstr " Contul tau a fost creat . Multumim"
 
-#: activate.php:72 signup_confirmation.php:104
+#: activate.php:77 signup_confirmation.php:104
 msgid "Thank you for registering with us !"
 msgstr "Multumim ca folosesti serviciile noastre"
 
-#: activate.php:73 signup_confirmation.php:105
+#: activate.php:78 signup_confirmation.php:105
 msgid "An email confirming your information has been sent to"
 msgstr "Un email de confirmare a fost trimis la"
 
-#: activate.php:75 signup_confirmation.php:107
+#: activate.php:80 signup_confirmation.php:107
 msgid "Your cardnumber is "
 msgstr "Contul tau pesronal este"
 
-#: activate.php:76 signup_confirmation.php:108
+#: activate.php:81 signup_confirmation.php:108
 msgid "To login to your account :"
 msgstr "Pentru a intra in contul tau:"
 
-#: activate.php:77 signup_confirmation.php:109
+#: activate.php:82 signup_confirmation.php:109
 msgid "Your card alias (login) is "
 msgstr "Username-ul tau este"
 
-#: activate.php:78 signup_confirmation.php:110 form_data/FG_var_signup.inc:365
+#: activate.php:83 signup_confirmation.php:110 form_data/FG_var_signup.inc:365
 msgid "Your password is "
 msgstr "Parola ta este"
 
-#: activate.php:82
+#: activate.php:87
 msgid "Follow the link to access your account : "
 msgstr "Urmeaza acest link pentru a accesa contul tau"
 
-#: activate.php:104
+#: activate.php:109
 msgid "Your account is already activated."
 msgstr "Contul tau este activa deja"
 
-#: activate.php:108
+#: activate.php:113
 msgid "Your account cannot be activated please contact <br> the website administrator or retry later."
 msgstr "Contul tau nu poate fi activat.<br> Contacteaza Administratorul "
 
@@ -704,55 +704,55 @@ msgstr ""
 msgid "GO TO LOGIN PAGE"
 msgstr "Mergi la Authentificare"
 
-#: A2B_support.php:31
+#: A2B_support.php:33
 msgid "Ticket added successfully"
 msgstr "Bilet Adaugata cu sucess"
 
-#: A2B_support.php:34
+#: A2B_support.php:37
 msgid "Please complete the title and description portions of the form."
 msgstr ""
 
-#: A2B_support.php:36
+#: A2B_support.php:39
 msgid "Sorry, There was a problem creating your ticket."
 msgstr ""
 
-#: A2B_support.php:56
+#: A2B_support.php:61
 msgid "Create support ticket"
 msgstr "Creati un nou Bilet"
 
-#: A2B_support.php:64
+#: A2B_support.php:69
 msgid "Title"
 msgstr "Titlu"
 
-#: A2B_support.php:72
+#: A2B_support.php:77
 msgid "Priority"
 msgstr "Prioritate"
 
-#: A2B_support.php:76 lib/interface/constants.php:240
+#: A2B_support.php:81 lib/interface/constants.php:240
 #: A2B_entity_ratecard.php:69
 msgid "NONE"
 msgstr "Nici unul"
 
-#: A2B_support.php:77 lib/interface/constants.php:241
+#: A2B_support.php:82 lib/interface/constants.php:241
 #: lib/Class.Notification.php:94
 msgid "LOW"
 msgstr "Scazut"
 
-#: A2B_support.php:78 lib/interface/constants.php:242
+#: A2B_support.php:83 lib/interface/constants.php:242
 #: lib/Class.Notification.php:91
 msgid "MEDIUM"
 msgstr "Mediu"
 
-#: A2B_support.php:79 lib/interface/constants.php:243
+#: A2B_support.php:84 lib/interface/constants.php:243
 #: lib/Class.Notification.php:89
 msgid "HIGH"
 msgstr "Maxim"
 
-#: A2B_support.php:85
+#: A2B_support.php:90
 msgid "Component"
 msgstr "Componenta"
 
-#: A2B_support.php:113
+#: A2B_support.php:118
 msgid "CREATE"
 msgstr "Creaza"
 
@@ -989,7 +989,7 @@ msgstr "( aflat pe spatele cardului )"
 msgid "characters."
 msgstr "caractere"
 
-#: lib/interface/constants.php:7 A2B_entity_phonenumber.php:91
+#: lib/interface/constants.php:7 A2B_entity_phonenumber.php:83
 msgid "INFO"
 msgstr "INFO"
 
@@ -1348,7 +1348,7 @@ msgid "RESERVED"
 msgstr "Rezervat"
 
 #: lib/interface/constants.php:304 lib/interface/constants.php:317
-#: lib/interface/constants.php:330 A2B_entity_phonenumber.php:112
+#: lib/interface/constants.php:330 A2B_entity_phonenumber.php:104
 msgid "EXPIRED"
 msgstr "Expirat"
 
@@ -1430,68 +1430,68 @@ msgstr "Eroare : Contul tau  este activ in convorbire- nu ai decat un singur can
 msgid "Error : Card have expired!!!"
 msgstr "Eroare : Contul tau a expirat"
 
-#: lib/customer.smarty.php:104 lib/admin.smarty.php:70 lib/agent.smarty.php:71
+#: lib/customer.smarty.php:105 lib/admin.smarty.php:70 lib/agent.smarty.php:71
 msgid "This option is not available on the Demo!"
 msgstr ""
 
-#: lib/Misc.php:505 lib/Class.Notification.php:115
+#: lib/Misc.php:504 lib/Class.Notification.php:115
 msgid "UNKNOWN"
 msgstr "NECUNOSCUT"
 
-#: lib/Misc.php:690
+#: lib/Misc.php:689
 #, fuzzy
 msgid "First"
 msgstr "Lista"
 
-#: lib/Misc.php:691 A2B_entity_did.php:409
+#: lib/Misc.php:690 A2B_entity_did.php:409
 msgid "Prev"
 msgstr "Inapoi"
 
-#: lib/Misc.php:692 A2B_entity_did.php:379
+#: lib/Misc.php:691 A2B_entity_did.php:379
 msgid "Next"
 msgstr "Urmatorul"
 
-#: lib/Misc.php:693
+#: lib/Misc.php:692
 msgid "Last"
 msgstr ""
 
-#: lib/Misc.php:783
+#: lib/Misc.php:782
 msgid "File size is greater than allowed limit."
 msgstr "Marimea fisierului este mai mre decat limita maxima posibila"
 
-#: lib/Misc.php:786
+#: lib/Misc.php:785
 msgid "You did not upload anything!"
 msgstr "Nu ai incarcat nimic"
 
-#: lib/Misc.php:789
+#: lib/Misc.php:788
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr "Eroare la incarcarea fisierului ..."
 
-#: lib/Misc.php:792
+#: lib/Misc.php:791
 msgid "file type is not allowed"
 msgstr "Tipul fisierului nu este suporatat"
 
-#: lib/Misc.php:1101
+#: lib/Misc.php:1100
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Nu pot sa gasesc  base_currency in cc_currencies. "
 
-#: lib/Misc.php:1101 lib/Misc.php:1123 lib/Misc.php:1127 lib/Misc.php:1137
+#: lib/Misc.php:1100 lib/Misc.php:1122 lib/Misc.php:1126 lib/Misc.php:1136
 msgid "Currency update ABORTED."
 msgstr "ACTUALIZAREA MONEDELOR ANULATA"
 
-#: lib/Misc.php:1123
+#: lib/Misc.php:1122
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "FISIERUL CSV NU CONTINE TOATE MONEDELE CERUTE"
 
-#: lib/Misc.php:1127
+#: lib/Misc.php:1126
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Cel putin unu din intrarile in fisierul csv nu este un numar"
 
-#: lib/Misc.php:1137
+#: lib/Misc.php:1136
 msgid "Our base_currency seems to be worthless."
 msgstr ""
 
-#: lib/Misc.php:1173
+#: lib/Misc.php:1172
 msgid "Success! All currencies are now updated."
 msgstr "Toate monedele au fost actualizate"
 
@@ -1686,7 +1686,7 @@ msgstr "Filtreaza"
 msgid "APPLY FILTER "
 msgstr "Aplica Filtru"
 
-#: lib/Form/Class.ViewHandler.inc.php:193 A2B_entity_phonenumber.php:97
+#: lib/Form/Class.ViewHandler.inc.php:193 A2B_entity_phonenumber.php:89
 msgid "ACTION"
 msgstr "ACTIUNE"
 
@@ -2101,7 +2101,7 @@ msgstr "Reincarca"
 msgid "Invoice for refill"
 msgstr "Factura pentru reincarcare"
 
-#: lib/Form/Class.FormHandler.inc.php:2192 A2B_recurring_payment.php:159
+#: lib/Form/Class.FormHandler.inc.php:2192 A2B_recurring_payment.php:161
 #: checkout_process.php:344
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "Comision generat automat"
@@ -2166,47 +2166,47 @@ msgstr "Sterge destinatia pentru aces DID"
 msgid "Deletion"
 msgstr "Stergere"
 
-#: A2B_ticket_view.php:19
+#: A2B_ticket_view.php:25
 msgid "Ticket updated successfully"
 msgstr "Bilet completat"
 
-#: A2B_ticket_view.php:28
+#: A2B_ticket_view.php:31
 msgid "Ticket ID not found"
 msgstr "ID-ul biletului nu a fost gasit"
 
-#: A2B_ticket_view.php:72
+#: A2B_ticket_view.php:67
 msgid "TICKET: "
 msgstr "Bilet"
 
-#: A2B_ticket_view.php:82
+#: A2B_ticket_view.php:75
 msgid "BY : "
 msgstr ""
 
-#: A2B_ticket_view.php:88
+#: A2B_ticket_view.php:80
 msgid "PRIORITY : "
 msgstr "Prioritate"
 
-#: A2B_ticket_view.php:91
+#: A2B_ticket_view.php:83
 msgid "DATE : "
 msgstr "DATA"
 
-#: A2B_ticket_view.php:96
+#: A2B_ticket_view.php:88
 msgid "COMPONENT : "
 msgstr "Componenta"
 
-#: A2B_ticket_view.php:103
+#: A2B_ticket_view.php:94
 msgid "DESCRIPTION : "
 msgstr "Descriptie"
 
-#: A2B_ticket_view.php:109 A2B_ticket_view.php:210
+#: A2B_ticket_view.php:100 A2B_ticket_view.php:193
 msgid "Click here to consider it like viewed"
 msgstr "Marcare ca si citit"
 
-#: A2B_ticket_view.php:138
+#: A2B_ticket_view.php:127
 msgid "STATUS : "
 msgstr "STATUS :"
 
-#: A2B_ticket_view.php:164
+#: A2B_ticket_view.php:147
 msgid "COMMENT : "
 msgstr "Commentariu"
 
@@ -2346,7 +2346,7 @@ msgstr ""
 msgid "CUSTOMER REFILL"
 msgstr "Reincarcare Cont"
 
-#: A2B_recurring_payment.php:131
+#: A2B_recurring_payment.php:132
 msgid "Automated Refill : recurring payment"
 msgstr ""
 
@@ -2514,70 +2514,70 @@ msgstr "NOTIFICARE"
 msgid "User"
 msgstr ""
 
-#: templates/default/index.tpl:97
+#: templates/default/index.tpl:93
 #, fuzzy
 msgid "Forgot your password ?"
 msgstr "Parola uitata ?"
 
-#: templates/default/index.tpl:97 templates/default/index.tpl:100
+#: templates/default/index.tpl:93 templates/default/index.tpl:96
 msgid "Click here"
 msgstr ""
 
-#: templates/default/index.tpl:100
+#: templates/default/index.tpl:96
 msgid "To sign up"
 msgstr ""
 
-#: templates/default/index.tpl:109
+#: templates/default/index.tpl:105
 msgid "AUTHENTICATION REFUSED : please check your user/password!"
 msgstr ""
 
-#: templates/default/index.tpl:111
+#: templates/default/index.tpl:107
 msgid "INACTIVE ACCOUNT : Your account need to be activated!"
 msgstr ""
 
-#: templates/default/index.tpl:113
+#: templates/default/index.tpl:109
 msgid "BLOCKED ACCOUNT : Please contact the administrator!"
 msgstr ""
 
-#: templates/default/index.tpl:115
-msgid "NEW ACCOUNT : Your account has bot been validate yet!"
+#: templates/default/index.tpl:111
+msgid "NEW ACCOUNT : Your account has not been validate yet!"
 msgstr ""
 
-#: A2B_entity_phonenumber.php:88
+#: A2B_entity_phonenumber.php:80
 msgid "CAMPAIGN"
 msgstr "CAMPANIE"
 
-#: A2B_entity_phonenumber.php:94 form_data/FG_var_campaign.inc:72
+#: A2B_entity_phonenumber.php:86 form_data/FG_var_campaign.inc:72
 #: form_data/FG_var_phonenumber.inc:65 form_data/FG_var_invoice.inc:70
 #: form_data/FG_var_ticket.inc:60
 msgid "STATUS"
 msgstr "STATUS"
 
-#: A2B_entity_phonenumber.php:114
+#: A2B_entity_phonenumber.php:106
 msgid "STARTED AND IN PROCESS"
 msgstr "IN CUSR DE PROCESARE"
 
-#: A2B_entity_phonenumber.php:115
+#: A2B_entity_phonenumber.php:107
 msgid "STARTED BUT NOT IN PROCESS : check the batch"
 msgstr "INCEPUT dar neindeplinit. verifica 'batch' "
 
-#: A2B_entity_phonenumber.php:116
+#: A2B_entity_phonenumber.php:108
 msgid "NOT STARTED"
 msgstr "NEINCEPUT"
 
-#: A2B_entity_phonenumber.php:123
+#: A2B_entity_phonenumber.php:115
 msgid "RUN"
 msgstr "RULEAZA"
 
-#: A2B_entity_phonenumber.php:124
+#: A2B_entity_phonenumber.php:116
 msgid "HOLD"
 msgstr "ASTEAPTA"
 
-#: A2B_entity_phonenumber.php:125
+#: A2B_entity_phonenumber.php:117
 msgid "STOP"
 msgstr "STOP"
 
-#: A2B_entity_phonenumber.php:126
+#: A2B_entity_phonenumber.php:118
 msgid "NO STATUS"
 msgstr "FARA STATUS"
 
@@ -2589,7 +2589,7 @@ msgstr "Email-ul de confirmare a fost trimis. Asteapta 2 minute pentru a face o 
 msgid "Error : No User Created."
 msgstr "Eroare: Userul nu a fost creat"
 
-#: signup_confirmation.php:38 forgotpassword.php:50
+#: signup_confirmation.php:38 forgotpassword.php:54
 msgid "Error : No email Template Found"
 msgstr "Eroare : Nu am gasit template-ul e-mailului"
 
@@ -2658,31 +2658,31 @@ msgstr "Previzualizare Factura"
 msgid "This invoice is for some charges unpaid since the last billing, and for the negative balance."
 msgstr "Aceasta factura include suma neplatita din ultima luna"
 
-#: forgotpassword.php:21
+#: forgotpassword.php:25
 msgid "Please wait 1 minutes before making any other request for the forgot password!"
 msgstr "Te rugam sa astepti un minut (1 min) inainte de a face o noua cerere de parola"
 
-#: forgotpassword.php:76
+#: forgotpassword.php:74
 msgid "Your login information email has been sent to you."
 msgstr "Utilizatorul si parola au fost trimise pe mailul tau"
 
-#: forgotpassword.php:79
+#: forgotpassword.php:77
 msgid "No such login exists."
 msgstr "Utilizator inexitent"
 
-#: forgotpassword.php:82
+#: forgotpassword.php:80
 msgid "Invalid Action."
 msgstr "Actiune invalida"
 
-#: forgotpassword.php:85
+#: forgotpassword.php:83
 msgid "Please provide your email address to get your login information."
 msgstr "Introducete adesa de e-mail pentru a primi informatiile cerute"
 
-#: forgotpassword.php:107
+#: forgotpassword.php:104
 msgid "You must enter an email address!"
 msgstr "Trebuie sa Introduce-ti o adresa de e-mail"
 
-#: A2B_notification.php:54
+#: A2B_notification.php:42
 #, fuzzy
 msgid "Your notification settings has successfully been updated."
 msgstr "Tranzactia a fost procesata"
@@ -3513,16 +3513,16 @@ msgstr "Total"
 msgid "PREVIEW NEXT RECEIPT DETAIL"
 msgstr "Detali Chitanta"
 
-#: signup_service.php:35
+#: signup_service.php:32
 msgid "SELECT THE SERVICE THAT YOU WANT SUBSCRIBE"
 msgstr ""
 
-#: signup_service.php:45
+#: signup_service.php:42
 #, fuzzy
 msgid "SERVICE"
 msgstr "Rezervat"
 
-#: signup_service.php:64
+#: signup_service.php:61
 msgid "SUBSCRIBE THIS SERVICE"
 msgstr ""
 
