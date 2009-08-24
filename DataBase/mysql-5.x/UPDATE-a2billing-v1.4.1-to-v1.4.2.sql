@@ -56,3 +56,7 @@ INSERT INTO cc_config (id ,config_title ,config_key ,config_value ,config_descri
 	    (NULL , 'Enable PayPal subscription', 'paypal_subscription_enabled', '0', 'Enable Paypal subscription on the User home page, you need a Premier or Business account.', '1', 'yes,no', 'epayment_method'),
 	    (NULL , 'Paypal Subscription account', 'paypal_subscription_account', '', 'Your PayPal ID or an email address associated with your PayPal account. Email addresses must be confirmed and bound to a Premier or Business Verified Account.', '0', NULL , 'epayment_method');
 
+
+-- make sure we disabled Authorize
+DELETE FROM cc_payment_methods where payment_filename = 'authorizenet.php';
+
