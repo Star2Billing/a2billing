@@ -519,7 +519,7 @@ class FormHandler
 		
 		$this->_action = $action ? $action : $_SERVER['PHP_SELF'];
 		
-		$this->_vars = array_merge($_GET, $_POST);
+		$this->_vars = array_merge((array)$_GET, (array)$_POST);
 		
 		$this -> def_list();
 		

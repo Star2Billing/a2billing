@@ -69,7 +69,7 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 	$_POST['secret'] = MDP_NUMERIC(10);
 	
 	// for the getProcessed var
-	$HD_Form->_vars = array_merge($_GET, $_POST);
+	$HD_Form->_vars = array_merge((array)$_GET, (array)$_POST);
 }
 
 

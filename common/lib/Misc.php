@@ -181,7 +181,7 @@ function sort_currencies_list(& $currencies_list) {
 			unset ($currencies_list[$element_first_array]);
 		}
 	}
-	$currencies_list = array_merge($currencies_list2, $currencies_list);
+	$currencies_list = array_merge((array)$currencies_list2, (array)$currencies_list);
 }
 
 /*

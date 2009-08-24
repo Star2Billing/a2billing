@@ -222,7 +222,7 @@ class RateEngine
 		
 		// WE ADD THE DEFAULTPREFIX WE REMOVE BEFORE
 		if ($ind_stop_default > 0) {
-			$result = array_merge ($result, $result_defaultprefix);
+			$result = array_merge ((array)$result, (array)$result_defaultprefix);
 		}
 		
 		// 3) REMOVE THOSE THAT USE THE SAME TRUNK - MAKE A DISTINCT

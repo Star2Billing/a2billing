@@ -2207,7 +2207,7 @@ class A2Billing {
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result2,true));
 		}
 		if (count($result1)>0 || count($result2)>0)
-			$result = array_merge($result1, $result2);
+			$result = array_merge ((array) $result1, (array) $result2);
 
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RESULT MERGE -> ".print_r($result,true));
 
