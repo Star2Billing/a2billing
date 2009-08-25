@@ -74,6 +74,7 @@ echo $CC_help_webphone;
 <?php } ?>
 
 <br>
+<center>
 <table align="center" class="bgcolor_006" border="0" width="75%">
 	<FORM NAME="phoneiax" METHOD="POST" ACTION="jiaxclient/iaxphone.php" target="_blank">
 	<?php
@@ -99,6 +100,7 @@ echo $CC_help_webphone;
 	</tr>
 	</FORM>
 </table>
+</center>
 <br><br><br><br>
 
 
