@@ -82,7 +82,10 @@ if (!$A2B->DbConnect()) {
 $instance_table = new Table();
 
 // CHECK THE CARD WITH DID'S
-$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, typepaid, creditlimit,reminded FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1 ORDER BY cc_card.id ASC";
+$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, typepaid, creditlimit,reminded " .
+		 " FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) " .
+		 " WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1 AND cc_did.billingtype <> '3' " .
+		 " ORDER BY cc_card.id ASC";
 
 if ($verbose_level >= 1)
 	echo "==> SELECT CARD WIHT DID'S QUERY : $QUERY\n";
