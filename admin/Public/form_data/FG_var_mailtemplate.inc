@@ -54,6 +54,9 @@ $typemail_list["signupconfirmed"]  	= array( gettext("Signup confirmed"), Mail::
 $typemail_list["payment"]  			= array( gettext("Payment Confirmation"), Mail::$TYPE_PAYMENT);
 $typemail_list["invoice"]  			= array( gettext("Invoice"), Mail::$TYPE_INVOICE);
 $typemail_list["epaymentverify"]  	= array( gettext("EPayment Warning"), Mail::$TYPE_EPAYMENTVERIFY);
+$typemail_list["did_paid"]		= array( gettext("Did Payment confirmation"), Mail::$TYPE_DID_PAID);
+$typemail_list["did_unpaid"]		= array( gettext("Did not payment warning"), Mail::$TYPE_DID_UNPAID);
+$typemail_list["did_released"]		= array( gettext("Did released warning"), Mail::$TYPE_DID_RELEASED);
 $typemail_list["template1"] 		= array( gettext("template1"), "template1");
 $typemail_list["template2"] 		= array( gettext("template2"), "template2");
 $typemail_list["template3"] 		= array( gettext("template3"), "template3");
@@ -192,6 +195,14 @@ $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used for Paymen
 		'<b>$itemAmount$</b>: '.gettext('amount of payment').'<br/>';
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used for Signup').': </u><br/> ' .
 		'<b>$loginkey$</b>: '.gettext('key created to validate the signup').'<br/> ';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tag used for Did Payment confirmation email').': </u><br/> ' .
+		'<b>$balance_remaining$</b>: '.gettext('balance after payment').'<br/> ';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tag used for Did not payment warning email').': </u><br/> ' .
+		'<b>$days_remaining$</b>: '.gettext('number of day before release of the did').'<br/> '.
+		'<b>$invoice_ref$</b>: '.gettext('invoice reference to pay for the did').'<br/> ';
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tag used for emails about Did').': </u><br/> ' .
+		'<b>$did$</b>: '.gettext('did number').'<br/> '.
+		'<b>$did_cost$</b>: '.gettext('cost of the did').'<br/> ';
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used in all emails').': </u><br/> ' .
 		'<b>$email$</b>: '.gettext('email of the customer').'<br/>' .
 		'<b>$firstname$</b>: '.gettext('firstname of the customer').'<br/>' .

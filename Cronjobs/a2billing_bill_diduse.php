@@ -121,7 +121,6 @@ foreach ($result as $mydids) {
 	// mail variable for user notification
 	$user_mail_adrr = '';
 	$mail_user = false;
-	$mail_user_content = '';
 
 	if ($verbose_level >= 1)
 		print_r($mydids);
@@ -160,11 +159,11 @@ foreach ($result as $mydids) {
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 
-					$mail_user_content .= "BALANCE REMAINING " . $mydids[5] - $mydids[3] . " " . strtoupper($A2B->config['global']['base_currency']) . "\n\n";
-					$mail_user_content .= "An automatic taking away of :" . $mydids[3] . " " . strtoupper($A2B->config['global']['base_currency']) . " has been carry out of your account to pay your DID (" . $mydids[7] . ")\n\n";
-					$mail_user_content .= "Monthly cost for DID :" . $mydids[3] . " " . strtoupper($A2B->config['global']['base_currency']) . "\n\n";
 					$mail_user = true;
-					$mail_user_subject = "DID notification - (" . $mydids[7] . ")";
+					$mail = new Mail(Mail::$TYPE_DID_PAID,$mydids[4] );
+					$mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY,$mydids[5] - $mydids[3]);
+					$mail -> replaceInEmail(Mail::$DID_NUMBER_KEY,$mydids[7]);
+					$mail -> replaceInEmail(Mail::$DID_COST_KEY,$mydids[3]);
 				} else {
 					// USER DONT HAVE ENOUGH CREDIT TO PAY FOR THE DID - WE WILL WARN HIM
 
@@ -197,12 +196,12 @@ foreach ($result as $mydids) {
 						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 					}
 
-					$mail_user_content .= "BALANCE REMAINING " . $mydids[5] . "\n\n";
-					$mail_user_content .= "Your credit is not enough to pay your DID number (" . $mydids[7] . "), the monthly cost is :" . $mydids[3] . " " . strtoupper($A2B->config['global']['base_currency']) . "\n\n";
-					$mail_user_content .= "You have " . date("d", $day_remaining) . " days to pay the invoice (REF: $reference ) or the DID will be automatically released \n\n";
 					$mail_user = true;
-					$mail_user_subject = "DID notification - (" . $mydids[7] . ")";
-
+					$mail = new Mail(Mail::$TYPE_DID_UNPAID,$mydids[4] );
+					$mail -> replaceInEmail(Mail::$DAY_REMAINING_KEY,date("d", $day_remaining));
+					$mail -> replaceInEmail(Mail::$INVOICE_REF_KEY,$reference);
+					$mail -> replaceInEmail(Mail::$DID_NUMBER_KEY,$mydids[7]);
+					$mail -> replaceInEmail(Mail::$DID_COST_KEY,$mydids[3]);
 					//insert charge
 
 					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, invoiced_status) VALUES ('" . $mydids[4] . "', '" . $mydids[3] . "', '2','" . $mydids[0] . "','1')";
@@ -240,17 +239,18 @@ foreach ($result as $mydids) {
 			if ($verbose_level >= 1)
 				echo "==> DELETEDID did_destination QUERY: 	$QUERY\n";
 
-			$mail_user_content .= "The DID " . $mydids[7] . " has been automatically released!\n\n";
 			$mail_user = true;
-			$mail_user_subject = "DID Released";
+			$mail = new Mail(Mail::$TYPE_DID_RELEASED,$mydids[4] );
+			$mail -> replaceInEmail(Mail::$DID_NUMBER_KEY,$mydids[7]);
+			$mail -> replaceInEmail(Mail::$DID_COST_KEY,$mydids[3]);
 		}
 	}
 	$user_mail_adrr = $mydids[6];
 	$user_card_id = $mydids[4];
 	
-	if ($mail_user && strlen($user_mail_adrr) > 5) {
+	if (!is_null($mail )&& $mail_user && strlen($user_mail_adrr) > 5) {
         try {
-            $mail = new Mail(null, null, null, $mail_user_content, $mail_user_subject);
+	    $mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY, $mydids[5] - $mydids[3]);
             $mail -> send($user_mail_adrr);
         } catch (A2bMailException $e) {
         	if ($verbose_level >= 1)

@@ -52,7 +52,17 @@ class Mail {
 	static public $TYPE_EPAYMENTVERIFY = 'epaymentverify';
 	static public $TYPE_INVOICE = 'invoice';
 	static public $TYPE_REMINDERCALL = 'reminder';
-
+	static public $TYPE_DID_PAID = 'did_paid';
+	static public $TYPE_DID_UNPAID = 'did_unpaid';
+	static public $TYPE_DID_RELEASED = 'did_released';
+	//Used by mail type = did_paid
+	static public $BALANCE_REMAINING_KEY = '$balance_remaining$';
+	//Used by mail type = did_paid OR did_unpaid OR did_released
+	static public $DID_NUMBER_KEY = '$did$';
+	static public $DID_COST_KEY = '$did_cost$';
+	//Used by mail type = did_unpaid
+	static public $DAY_REMAINING_KEY = '$days_remaining$';
+	static public $INVOICE_REF_KEY = '$invoice_ref$';
 	//Used by mail type = epaymentverify
 	static public $TIME_KEY = '$time$';
 	static public $PAYMENTGATEWAY_KEY = '$paymentgateway$';
@@ -98,7 +108,20 @@ class Mail {
 					$order = 'DESC';
 			}
 			elseif (!is_null($id_card) && is_numeric($id_card)) {
-				//load the lg in the card... 
+				$card_table = new Table("cc_card", "*");
+				$card_clause = " id = " . $id_card;
+				$result_card = $card_table->Get_list($DBHandle, $card_clause, 0);
+				if (is_array($result_card) && sizeof($result_card) > 0)
+					$card = $result_card[0];
+				$language = $card['language'];
+				if (!empty ($language)) {
+				    $tmpl_clause .= " AND ( id_language = '$language' OR  id_language = 'en' )";
+				    $order_field = 'id_language';
+				    if (strcasecmp($language, 'en') < 0)
+					    $order = 'ASC';
+				    else
+					    $order = 'DESC';
+				}
 			}
 			$result_tmpl = $tmpl_table->Get_list($DBHandle, $tmpl_clause, $order_field, $order);
 			if (is_array($result_tmpl) && sizeof($result_tmpl) > 0) {
@@ -119,11 +142,13 @@ class Mail {
 		if (!empty ($this->message) || !empty ($this->title)) {
 			if (!is_null($id_card) && is_numeric($id_card)) {
 				$this->id_card = $id_card;
-				$card_table = new Table("cc_card", "*");
-				$card_clause = " id = " . $id_card;
-				$result_card = $card_table->Get_list($DBHandle, $card_clause, 0);
-				if (is_array($result_card) && sizeof($result_card) > 0)
-					$card = $result_card[0];
+				if(is_null($card)){
+				    $card_table = new Table("cc_card", "*");
+				    $card_clause = " id = " . $id_card;
+				    $result_card = $card_table->Get_list($DBHandle, $card_clause, 0);
+				    if (is_array($result_card) && sizeof($result_card) > 0)
+					    $card = $result_card[0];
+				}
 				$credit = $card['credit'];
 				$credit = round($credit, 3);
 				$currency = $card['currency'];
@@ -133,7 +158,6 @@ class Mail {
 				} else {
 					$mycur = $currencies_list[strtoupper($currency)][2];
 				}
-
 				$credit_currency = $credit / $mycur;
 				$credit_currency = round($credit_currency, 3);
 				$this->to_email = $card['email'];
