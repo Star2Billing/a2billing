@@ -63,11 +63,11 @@ $smarty->display('main.tpl');
 		  	<div class="dashtitle" >
 		  	 <?php echo $left[$i_left]["title"]; ?>
 		  	</div>
-		  			<?php for($j_left=0;$j_left<count($left[$i_left]["links"]);$j_left++){ 
-		  			  include ($left[$i_left]["links"][$j_left]);
-		  				?>
-		 			 <br/>
-		 		 	<?php } ?>
+	  			<?php for($j_left=0;$j_left<count($left[$i_left]["links"]);$j_left++){ 
+	  			  include ($left[$i_left]["links"][$j_left]);
+	  				?>
+	 			 <br/>
+	 		 	<?php } ?>
 		  </div>
 		   <br/>
 		  <?php } ?>
@@ -79,11 +79,11 @@ $smarty->display('main.tpl');
 		  	<div class="dashtitle" >
 		  	 <?php echo $center[$i_center]["title"]; ?>
 		  	</div>
-		  			<?php for($j_center=0;$j_center<count($center[$i_center]["links"]);$j_center++){ 
-		  			  include ($center[$i_center]["links"][$j_center]);
-		  				?>
-		 			 <br/>
-		 		 	<?php } ?>
+	  			<?php for($j_center=0;$j_center<count($center[$i_center]["links"]);$j_center++){ 
+	  			  include ($center[$i_center]["links"][$j_center]);
+	  				?>
+	 			 <br/>
+	 		 	<?php } ?>
 		  </div>
 		   <br/>
 		  <?php } ?>
@@ -95,11 +95,11 @@ $smarty->display('main.tpl');
 		  	<div class="dashtitle" >
 		  	 <?php echo $right[$i_right]["title"]; ?>
 		  	</div>
-		  			<?php for($j_right=0;$j_right<count($right[$i_right]["links"]);$j_right++){ 
-		  			  include ($right[$i_right]["links"][$j_right]);
-		  				?>
-		 			 <br/>
-		 		 	<?php } ?>
+	  			<?php for($j_right=0;$j_right<count($right[$i_right]["links"]);$j_right++){ 
+	  			  include ($right[$i_right]["links"][$j_right]);
+	  				?>
+	 			 <br/>
+	 		 	<?php } ?>
 		  </div>
 		   <br/>
 		  <?php } ?>

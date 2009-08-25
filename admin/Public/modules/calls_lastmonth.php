@@ -16,6 +16,7 @@ $begin_date_graphe = $checkdate = $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
 $mingraph = strtotime($begin_date_graphe);
 $maxgraph = strtotime($end_date_graphe);
+
 $QUERY_GRAPH_CALL_ANSWERED = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid = 1 GROUP BY this_month ORDER BY this_month;";
 $result_graph_calls_answered = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_ANSWERED);
 $QUERY_GRAPH_CALL_INCOMPLET = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid != 1 GROUP BY this_month ORDER BY this_month;";
@@ -26,6 +27,9 @@ $QUERY_GRAPH_CALL_SELL = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'
 $result_graph_calls_sell = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_SELL);
 $QUERY_GRAPH_CALL_BUY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
 $result_graph_calls_buy = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_BUY);
+$QUERY_GRAPH_CALL_PROFIT = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01')) AS this_month, sum(sessionbill)-sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+$result_graph_calls_profit = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_PROFIT);
+
 ?>
 
 
@@ -34,6 +38,7 @@ $result_graph_calls_buy = $table->SQLExec($DBHandle, $QUERY_GRAPH_CALL_BUY);
 <input id="call_times" type="radio" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("TIMES CALLS BY MONTH"); ?><br/>
 <input id="call_sell" type="radio" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("AMOUNT SELL BY MONTH"); ?><br/>
 <input id="call_buy" type="radio" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("AMOUNT BUY BY MONTH"); ?><br/>
+<input id="call_profit" type="radio" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("AMOUNT PROFIT BY MONTH"); ?><br/>
 <br/>
 <div id="call_graph" class="dashgraph" style="margin-left: auto;margin-right: auto;"></div>
 
@@ -104,6 +109,19 @@ if (is_array($result_graph_calls_buy)) {
 	}
 }
 $val_buy .= "]";
+
+$max_profit = 0;
+$val_profit = "[";
+if (is_array($result_graph_calls_profit)) {
+	for ($i = 0; $i < count($result_graph_calls_profit); $i++) {
+		$max_profit = max($max_profit, $result_graph_calls_profit[$i][1]);
+		$val_profit .= "[" . $result_graph_calls_profit[$i][0] . "000," . $result_graph_calls_profit[$i][1] . "]";
+		if ($i < count($result_graph_calls_profit) - 1) {
+			$val_profit .= ",";
+		}
+	}
+}
+$val_profit .= "]";
 ?>
 <script id="source" language="javascript" type="text/javascript">
 var format = "";  	
@@ -225,6 +243,33 @@ $("#call_graph").height(Math.floor(width/2));
 							  });
 				
 			
+	        });
+	$('#call_profit').click(function () {
+			format ="money";
+			var d = <?php echo $val_profit ?>;
+    		$.plot($("#call_graph"), [
+						        {
+						            data: d,
+						            bars: { show: true,
+						            		barWidth: <?php echo 28*24 * 60 * 60 * 1000; ?>,
+						            		align: "centered"
+						            }
+						        }
+   							 ],
+						    {   xaxis: {
+							    mode: "time",
+						   		timeformat: "%b",
+							    ticks :6,
+						   		min : <?php echo $mingraph."000" ?>,
+						   		max : <?php echo $maxgraph."000" ?>
+							  }, 
+							  yaxis: {
+							  max:<?php echo ($max_profit+5-($max_profit%5)); ?>,
+							  minTickSize: 1,
+							  tickDecimals:0
+							  },selection: { mode: "y" },
+						         grid: { hoverable: true,clickable: true}
+							  });
 	        });
 	$('#call_times').click(function () {
 			format ="times";
