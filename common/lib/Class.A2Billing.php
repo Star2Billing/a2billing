@@ -2474,20 +2474,28 @@ class A2Billing {
 					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5) {
 						// expire date
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
-							$prompt = "prepaid-card-expired";
+						    $prompt = "prepaid-card-expired";
 
 					} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)) {
 						// expire days since first use
 						$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
-						$prompt = "prepaid-card-expired";
+						    $prompt = "prepaid-card-expired";
 
 					} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)) {
 						// expire days since creation
 						$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
-							$prompt = "prepaid-card-expired";
+						    $prompt = "prepaid-card-expired";
 					}
+					//Update card status to Expired
+					if($prompt == "prepaid-card-expired") {
+					    $this->status =5;
+					    $QUERY = "UPDATE cc_card SET status='5' WHERE id='".$this->id_card."'";
+					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
+					    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+					}
+
 				}
 
 				if (strlen($prompt)>0) {
@@ -2652,6 +2660,13 @@ class A2Billing {
 						if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
 							$prompt = "prepaid-card-expired";
 					}
+					if($prompt == "prepaid-card-expired") {
+					    $this->status =5;
+					    $QUERY = "UPDATE cc_card SET status='5' WHERE id='".$this->id_card."'";
+					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
+					    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+					}
+
 				}
 				
 				if (strlen($prompt)>0) {
@@ -2844,6 +2859,14 @@ class A2Billing {
 						$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
+					}
+
+					//Update card status to Expired
+					if($prompt == "prepaid-card-expired") {
+					    $this->status =5;
+					    $QUERY = "UPDATE cc_card SET status='5' WHERE id='".$this->id_card."'";
+					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
+					    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 					}
 				}
 				
@@ -3038,6 +3061,12 @@ class A2Billing {
 					$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 					if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
 					$prompt = "prepaid-card-expired";
+				}
+				if($prompt == "prepaid-card-expired") {
+					    $this->status =5;
+					    $QUERY = "UPDATE cc_card SET status='5' WHERE id='".$this->id_card."'";
+					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
+					    $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 				}
 			}
 
