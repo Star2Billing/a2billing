@@ -2514,18 +2514,18 @@ class A2Billing {
 						}
 					}
 					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
-						$this->accountcode='';
-						$callerID_enable=0;
-						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
+						$this->accountcode = '';
+						$callerID_enable = 0;
+						$this->agiconfig['cid_auto_assign_card_to_cid'] = 0;
 						
-						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1){ 
-							$this -> ask_other_cardnumber=1;
-							$this -> update_callerid=1;
+						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) { 
+							$this -> ask_other_cardnumber = 1;
+							$this -> update_callerid = 1;
 						}
 					} elseif($prompt == "prepaid-card-expired") {
 					    $this -> accountcode=''; $callerID_enable=0;
-					    $this -> ask_other_cardnumber=1;
-					    $this -> update_callerid=1;
+					    $this -> ask_other_cardnumber = 1;
+					    $this -> update_callerid = 1;
 					}else {
 						return -2;
 					}
@@ -2684,19 +2684,20 @@ class A2Billing {
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
+					
 					if ($prompt == "prepaid-no-enough-credit-stop" && $this->agiconfig['notenoughcredit_cardnumber']==1) {
-						$this->accountcode='';
-						$callerID_enable=0;
+						$this->accountcode = '';
+						$callerID_enable = 0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
 						
 						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1){ 
-							$this -> ask_other_cardnumber=1;
+							$this -> ask_other_cardnumber = 1;
 							$this -> update_callerid=1;
 						}
 					} elseif($prompt == "prepaid-card-expired") {
 					    $this -> accountcode = '';
 					    $callerID_enable = 0;
-					    $this -> ask_other_cardnumber=1;
+					    $this -> ask_other_cardnumber = 1;
 					    $this -> update_callerid = 1;
 					} else {
 						return -2;
@@ -2710,8 +2711,6 @@ class A2Billing {
 		
 		
 		if ($callerID_enable==0 && !$authentication) {
-			
-			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "#############################3");
 			
 			// IF NOT PREVIOUS WE WILL ASK THE CARDNUMBER AND AUTHENTICATE ACCORDINGLY
 			for ($retries = 0; $retries < 3; $retries++) {
@@ -2871,7 +2870,7 @@ class A2Billing {
 				}
 				
 				//CREATE AN INSTANCE IN CC_CALLERID
-				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1 && $this->update_callerid!=1){
+				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1 && $this->update_callerid!=1) {
 
 					$QUERY = "SELECT count(*) FROM cc_callerid WHERE id_cc_card='$the_card_id'";
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 1);
