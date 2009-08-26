@@ -430,24 +430,12 @@ if ($form_action == "list" && (!($popup_select>=1))) {
 		  </td>
 		</tr>
 		<tr>		
-          <td align="left"  class="bgcolor_001">
-		  		<input name="check[upd_typepaid]" type="checkbox" <?php if ($check["upd_typepaid"]=="on") echo "checked"?>>
-		  </td>
-		  <td align="left" class="bgcolor_001">	
-				8)&nbsp;<?php echo gettext("CARD TYPE");?>&nbsp;:
-				<select NAME="upd_typepaid" size="1" class="form_input_select" >
-					<option value='0'  <?php if ($upd_typepaid==0) echo 'selected="selected"'?>><?php echo gettext("PREPAID CARD");?></option>
-					<option value='1'  <?php if ($upd_typepaid==1) echo 'selected="selected"'?>><?php echo gettext("POSTPAY CARD");?></option>
-		    </select>
-		  </td>
-		</tr>
-		<tr>		
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_creditlimit]" type="checkbox" <?php if ($check["upd_creditlimit"]=="on") echo "checked"?>>
 				<input name="mode[upd_creditlimit]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				9)&nbsp;<?php echo gettext("LIMIT CREDIT OF POSTPAY");?>&nbsp;:
+				8)&nbsp;<?php echo gettext("LIMIT CREDIT OF POSTPAY");?>&nbsp;:
 				 	<input class="form_input_text" name="upd_creditlimit" size="10" maxlength="10"  value="<?php if (isset($upd_creditlimit)) echo $upd_creditlimit; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_creditlimit]" value="1" <?php if((!isset($type[upd_creditlimit]))|| ($type[upd_creditlimit]==1) ){?>checked<?php }?>> <?php echo gettext("Equals");?>
@@ -461,7 +449,7 @@ if ($form_action == "list" && (!($popup_select>=1))) {
 		  		<input name="check[upd_enableexpire]" type="checkbox" <?php if ($check["upd_enableexpire"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				10)&nbsp;<?php echo gettext("ENABLE EXPIRE");?>&nbsp;: 
+				9)&nbsp;<?php echo gettext("ENABLE EXPIRE");?>&nbsp;: 
 				<select name="upd_enableexpire" class="form_input_select" >
 					<option value="0"  <?php if ($upd_enableexpire==0) echo 'selected="selected"'?>> <?php echo gettext("NO EXPIRY");?></option>
 					<option value="1"  <?php if ($upd_enableexpire==1) echo 'selected="selected"'?>> <?php echo gettext("EXPIRE DATE");?></option>
@@ -482,7 +470,7 @@ if ($form_action == "list" && (!($popup_select>=1))) {
 					$comp_date = "value='".$begin_date.$end_date."'";
 					$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 				?>
-				11)&nbsp;<?php echo gettext("EXPIRY DATE");?>&nbsp;:
+				10)&nbsp;<?php echo gettext("EXPIRY DATE");?>&nbsp;:
 				 <input class="form_input_text"  name="upd_expirationdate" size="20" maxlength="30" <?php echo $comp_date_plus; ?>> <font class="version"><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?></font>
 		  </td>
 		</tr>
@@ -491,7 +479,7 @@ if ($form_action == "list" && (!($popup_select>=1))) {
 		  		<input name="check[upd_expiredays]" type="checkbox" <?php if ($check["upd_expiredays"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				12)&nbsp;<?php echo gettext("EXPIRATION DAYS");?>&nbsp;: 
+				11)&nbsp;<?php echo gettext("EXPIRATION DAYS");?>&nbsp;: 
 				<input class="form_input_text"  name="upd_expiredays" size="10" maxlength="6" value="<?php if (isset($upd_expiredays)) echo $upd_expiredays; else echo '0';?>">
 				<br/>
 		</td>
@@ -501,7 +489,7 @@ if ($form_action == "list" && (!($popup_select>=1))) {
 		  	<input name="check[upd_runservice]" type="checkbox" <?php if ($check["upd_runservice"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				 13)&nbsp;<?php echo gettext("RUN SERVICE");?>&nbsp;: 	
+				 12)&nbsp;<?php echo gettext("RUN SERVICE");?>&nbsp;: 	
 				<font class="version">
 				<input type="radio" NAME="type[upd_runservice]" value="1" <?php if((!isset($type[upd_runservice]))|| ($type[upd_runservice]=='1') ){?>checked<?php }?>>
 				<?php echo gettext("Yes");?> <input type="radio" NAME="type[upd_runservice]" value="0" <?php if($type[upd_runservice]=='0'){?>checked<?php }?>><?php echo gettext("No");?>
