@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 16:52+0200\n"
+"POT-Creation-Date: 2009-08-27 21:00+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -250,15 +250,15 @@ msgstr "NU exista cont IAX "
 msgid "Click to start SIP WebPhone"
 msgstr "Click aici pentru  IAX WebPhone"
 
-#: webphone.php:88
+#: webphone.php:89
 msgid "IAX WEB-PHONE"
 msgstr "TELEFON WEB IAX"
 
-#: webphone.php:94
+#: webphone.php:95
 msgid "NO IAX ACCOUNT"
 msgstr "NU aveti un cont IAX activ"
 
-#: webphone.php:96
+#: webphone.php:97
 msgid "START IAX PHONE"
 msgstr "Porneste Telefonul Web IAX"
 
@@ -1409,24 +1409,24 @@ msgstr "Fara Discount"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Configurare numarului de caractere a cardului invalida in configurare"
 
-#: lib/Class.A2Billing.php:3077
+#: lib/Class.A2Billing.php:3105
 msgid "Error : Authentication Failed !!!"
 msgstr "Eroare : Authentificare esuata!"
 
-#: lib/Class.A2Billing.php:3117
+#: lib/Class.A2Billing.php:3145
 msgid "Error : Not enough credit to call !!!"
 msgstr "Eroare : Nu ai suficient credit!!!"
 
-#: lib/Class.A2Billing.php:3123
+#: lib/Class.A2Billing.php:3151
 msgid "Error : Card is not active!!!"
 msgstr "Eroare : Contul tau nu este activ"
 
-#: lib/Class.A2Billing.php:3129
+#: lib/Class.A2Billing.php:3157
 msgid "Error : Card is actually in use!!!"
 msgstr "Eroare : Contul tau  este activ in convorbire- nu ai decat un singur canal disponibil "
 
-#: lib/Class.A2Billing.php:3138 lib/Class.A2Billing.php:3146
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3166 lib/Class.A2Billing.php:3174
+#: lib/Class.A2Billing.php:3182
 msgid "Error : Card have expired!!!"
 msgstr "Eroare : Contul tau a expirat"
 
@@ -1662,47 +1662,47 @@ msgstr "Sterge acest"
 msgid "Create a new "
 msgstr "Creaz un nou"
 
-#: lib/Form/Class.ViewHandler.inc.php:68
+#: lib/Form/Class.ViewHandler.inc.php:72
 msgid "Archiving All "
 msgstr "Arhivez tot"
 
-#: lib/Form/Class.ViewHandler.inc.php:82
+#: lib/Form/Class.ViewHandler.inc.php:86
 msgid "Sort"
 msgstr "Sorteaza"
 
-#: lib/Form/Class.ViewHandler.inc.php:102
+#: lib/Form/Class.ViewHandler.inc.php:106
 msgid "Records"
 msgstr "Inregistrari"
 
-#: lib/Form/Class.ViewHandler.inc.php:132
+#: lib/Form/Class.ViewHandler.inc.php:136
 msgid "FILTER ON "
 msgstr "Filtreaza"
 
-#: lib/Form/Class.ViewHandler.inc.php:149
+#: lib/Form/Class.ViewHandler.inc.php:153
 msgid "FILTER ON"
 msgstr "Filtreaza"
 
-#: lib/Form/Class.ViewHandler.inc.php:162
+#: lib/Form/Class.ViewHandler.inc.php:166
 msgid "APPLY FILTER "
 msgstr "Aplica Filtru"
 
-#: lib/Form/Class.ViewHandler.inc.php:193 A2B_entity_phonenumber.php:89
+#: lib/Form/Class.ViewHandler.inc.php:197 A2B_entity_phonenumber.php:89
 msgid "ACTION"
 msgstr "ACTIUNE"
 
-#: lib/Form/Class.ViewHandler.inc.php:634
+#: lib/Form/Class.ViewHandler.inc.php:638
 msgid "DISPLAY"
 msgstr "AFISEAZA"
 
-#: lib/Form/Class.ViewHandler.inc.php:663
+#: lib/Form/Class.ViewHandler.inc.php:667
 msgid "GO"
 msgstr "OK"
 
-#: lib/Form/Class.ViewHandler.inc.php:667
+#: lib/Form/Class.ViewHandler.inc.php:671
 msgid "Export CSV"
 msgstr "Exporta CSV"
 
-#: lib/Form/Class.ViewHandler.inc.php:671
+#: lib/Form/Class.ViewHandler.inc.php:675
 msgid "Export XML"
 msgstr "Exporta XML"
 

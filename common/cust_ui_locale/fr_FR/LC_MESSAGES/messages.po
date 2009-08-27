@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 16:52+0200\n"
+"POT-Creation-Date: 2009-08-27 21:00+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -251,15 +251,15 @@ msgstr "AUCUN COMPTE SIP"
 msgid "Click to start SIP WebPhone"
 msgstr "Cliquez pour d&eacute;marrer le SIP WebPhone"
 
-#: webphone.php:88
+#: webphone.php:89
 msgid "IAX WEB-PHONE"
 msgstr "IAX WEB-PHONE"
 
-#: webphone.php:94
+#: webphone.php:95
 msgid "NO IAX ACCOUNT"
 msgstr "AUCUN COMPTE IAX"
 
-#: webphone.php:96
+#: webphone.php:97
 msgid "START IAX PHONE"
 msgstr "DEMARRER IAX PHONE"
 
@@ -1404,24 +1404,24 @@ msgstr "PAS DE REMISE"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Longueur de carte incorrecte d&eacute;finie dans la config"
 
-#: lib/Class.A2Billing.php:3077
+#: lib/Class.A2Billing.php:3105
 msgid "Error : Authentication Failed !!!"
 msgstr "Erreur: Echec Authentification"
 
-#: lib/Class.A2Billing.php:3117
+#: lib/Class.A2Billing.php:3145
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erreur : Pas assez de cr&eacute;dit pour appeler"
 
-#: lib/Class.A2Billing.php:3123
+#: lib/Class.A2Billing.php:3151
 msgid "Error : Card is not active!!!"
 msgstr "Erreur : carte non active"
 
-#: lib/Class.A2Billing.php:3129
+#: lib/Class.A2Billing.php:3157
 msgid "Error : Card is actually in use!!!"
 msgstr "Erreur : Carte en cours d'utilisation"
 
-#: lib/Class.A2Billing.php:3138 lib/Class.A2Billing.php:3146
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3166 lib/Class.A2Billing.php:3174
+#: lib/Class.A2Billing.php:3182
 msgid "Error : Card have expired!!!"
 msgstr "Erreur : la carte aexpir&eacute;"
 
@@ -1655,47 +1655,47 @@ msgstr "Supprimer ce"
 msgid "Create a new "
 msgstr "Cr&eacute;er un nouveau "
 
-#: lib/Form/Class.ViewHandler.inc.php:68
+#: lib/Form/Class.ViewHandler.inc.php:72
 msgid "Archiving All "
 msgstr "Tout Archiver"
 
-#: lib/Form/Class.ViewHandler.inc.php:82
+#: lib/Form/Class.ViewHandler.inc.php:86
 msgid "Sort"
 msgstr "Trier"
 
-#: lib/Form/Class.ViewHandler.inc.php:102
+#: lib/Form/Class.ViewHandler.inc.php:106
 msgid "Records"
 msgstr "Enregistrement(s)"
 
-#: lib/Form/Class.ViewHandler.inc.php:132
+#: lib/Form/Class.ViewHandler.inc.php:136
 msgid "FILTER ON "
 msgstr "FILTRER PAR"
 
-#: lib/Form/Class.ViewHandler.inc.php:149
+#: lib/Form/Class.ViewHandler.inc.php:153
 msgid "FILTER ON"
 msgstr "FILTRER PAR"
 
-#: lib/Form/Class.ViewHandler.inc.php:162
+#: lib/Form/Class.ViewHandler.inc.php:166
 msgid "APPLY FILTER "
 msgstr "UTILISER LE FILTRE"
 
-#: lib/Form/Class.ViewHandler.inc.php:193 A2B_entity_phonenumber.php:89
+#: lib/Form/Class.ViewHandler.inc.php:197 A2B_entity_phonenumber.php:89
 msgid "ACTION"
 msgstr "ACTION"
 
-#: lib/Form/Class.ViewHandler.inc.php:634
+#: lib/Form/Class.ViewHandler.inc.php:638
 msgid "DISPLAY"
 msgstr "AFFICHER"
 
-#: lib/Form/Class.ViewHandler.inc.php:663
+#: lib/Form/Class.ViewHandler.inc.php:667
 msgid "GO"
 msgstr "GO"
 
-#: lib/Form/Class.ViewHandler.inc.php:667
+#: lib/Form/Class.ViewHandler.inc.php:671
 msgid "Export CSV"
 msgstr "Exporter CSV"
 
-#: lib/Form/Class.ViewHandler.inc.php:671
+#: lib/Form/Class.ViewHandler.inc.php:675
 msgid "Export XML"
 msgstr "Exporter XML"
 

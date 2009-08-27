@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 16:52+0200\n"
+"POT-Creation-Date: 2009-08-27 21:00+0200\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -256,15 +256,15 @@ msgstr "&#65279;&#1705;&#1608;&#1620;&#1740; &#1575;&#1705;&#1575;&#1620;&#1608;
 msgid "Click to start SIP WebPhone"
 msgstr "&#65279;&#1587;&#1662; &#1601;&#1608;&#1606; &#1705;&#1746; &#1604;&#1740;&#1746; &#1740;&#1729;&#1575;&#1722; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;&#1748;"
 
-#: webphone.php:88
+#: webphone.php:89
 msgid "IAX WEB-PHONE"
 msgstr "&#65279;&#1608;&#1740;&#1576; &#1601;&#1608;&#1606; IAX "
 
-#: webphone.php:94
+#: webphone.php:95
 msgid "NO IAX ACCOUNT"
 msgstr "&#65279;&#1705;&#1608;&#1620;&#1740; &#1575;&#1705;&#1575;&#1620;&#1608;&#1606;&#1657; &#1606;&#1729;&#1740;&#1722;&#1748; IAX "
 
-#: webphone.php:96
+#: webphone.php:97
 msgid "START IAX PHONE"
 msgstr "&#65279;&#1570;&#1620;&#1740;&#1748;&#1575;&#1746;&#1748;&#1575;&#1740;&#1705;&#1587;&#1748;&#1601;&#1608;&#1606;&#1740;&#1729;&#1575;&#1722;&#1587;&#1657;&#1575;&#1585;&#1657;&#1705;&#1585;&#1740;&#1722;&#1748;"
 
@@ -1454,24 +1454,24 @@ msgstr "&#65279;&#1705;&#1608;&#1620;&#1740; &#1575;&#1705;&#1575;&#1620;&#1608;
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3077
+#: lib/Class.A2Billing.php:3105
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3117
+#: lib/Class.A2Billing.php:3145
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3123
+#: lib/Class.A2Billing.php:3151
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3129
+#: lib/Class.A2Billing.php:3157
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3138 lib/Class.A2Billing.php:3146
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3166 lib/Class.A2Billing.php:3174
+#: lib/Class.A2Billing.php:3182
 msgid "Error : Card have expired!!!"
 msgstr ""
 
@@ -1705,48 +1705,48 @@ msgstr ""
 msgid "Create a new "
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:68
+#: lib/Form/Class.ViewHandler.inc.php:72
 msgid "Archiving All "
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:82
+#: lib/Form/Class.ViewHandler.inc.php:86
 msgid "Sort"
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:102
+#: lib/Form/Class.ViewHandler.inc.php:106
 #, fuzzy
 msgid "Records"
 msgstr "&#65279;&#1587;&#1740;&#1705;&#1606;&#1672;"
 
-#: lib/Form/Class.ViewHandler.inc.php:132
+#: lib/Form/Class.ViewHandler.inc.php:136
 msgid "FILTER ON "
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:149
+#: lib/Form/Class.ViewHandler.inc.php:153
 msgid "FILTER ON"
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:162
+#: lib/Form/Class.ViewHandler.inc.php:166
 msgid "APPLY FILTER "
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:193 A2B_entity_phonenumber.php:89
+#: lib/Form/Class.ViewHandler.inc.php:197 A2B_entity_phonenumber.php:89
 msgid "ACTION"
 msgstr "&#65279;&#1575;&#1740;&#1603;&#1588;&#1606;"
 
-#: lib/Form/Class.ViewHandler.inc.php:634
+#: lib/Form/Class.ViewHandler.inc.php:638
 msgid "DISPLAY"
 msgstr "&#65279;&#1672;&#1587;&#1662;&#1604;&#1746;"
 
-#: lib/Form/Class.ViewHandler.inc.php:663
+#: lib/Form/Class.ViewHandler.inc.php:667
 msgid "GO"
 msgstr "&#65279;&#1711;&#1608;"
 
-#: lib/Form/Class.ViewHandler.inc.php:667
+#: lib/Form/Class.ViewHandler.inc.php:671
 msgid "Export CSV"
 msgstr ""
 
-#: lib/Form/Class.ViewHandler.inc.php:671
+#: lib/Form/Class.ViewHandler.inc.php:675
 msgid "Export XML"
 msgstr ""
 

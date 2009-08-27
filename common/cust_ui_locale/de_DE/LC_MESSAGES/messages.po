@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 16:52+0200\n"
-"PO-Revision-Date: 2009-08-22 11:07+0100\n"
+"POT-Creation-Date: 2009-08-27 21:00+0200\n"
+"PO-Revision-Date: 2009-08-27 11:44+0100\n"
 "Last-Translator: Tamer KESER <tkeser080107@hotmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: card-history.php:44 A2B_receipt_view.php:146 A2B_receipt_view.php:167
@@ -251,15 +251,15 @@ msgstr "KEIN SIP KONTO"
 msgid "Click to start SIP WebPhone"
 msgstr "Klicke um SIP Webphone zu starten"
 
-#: webphone.php:88
+#: webphone.php:89
 msgid "IAX WEB-PHONE"
 msgstr "IAX WEB-PHONE"
 
-#: webphone.php:94
+#: webphone.php:95
 msgid "NO IAX ACCOUNT"
 msgstr "KEIN IAX PHONE"
 
-#: webphone.php:96
+#: webphone.php:97
 msgid "START IAX PHONE"
 msgstr "STARTE IAX PHONE"
 
@@ -369,10 +369,9 @@ msgstr "Klicken Sie unten auf Kredit kaufen:"
 
 #: userinfo.php:188
 msgid "BUY NOW"
-msgstr "SATIN AL"
+msgstr "JETZT KAUFEN"
 
 #: userinfo.php:205
-#, fuzzy
 msgid "Click below to subscribe an automated refill : "
 msgstr "Klicken Sie unten auf Kredit kaufen:"
 
@@ -391,12 +390,10 @@ msgid "Days"
 msgstr ""
 
 #: userinfo.php:217
-#, fuzzy
 msgid "Months"
 msgstr "Monatlich"
 
 #: userinfo.php:219
-#, fuzzy
 msgid "Years"
 msgstr "Ja"
 
@@ -405,7 +402,6 @@ msgid "Automated refill"
 msgstr ""
 
 #: userinfo.php:266
-#, fuzzy
 msgid "SUBSCRIPTION"
 msgstr "BESCHREIBUNG"
 
@@ -1399,24 +1395,24 @@ msgstr "KEIN DISKOUNT"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Ungültige Kartennummer Länge in der Konfiguration definiert."
 
-#: lib/Class.A2Billing.php:3077
+#: lib/Class.A2Billing.php:3105
 msgid "Error : Authentication Failed !!!"
 msgstr "Fehler : Authentifizierung fehlgeschlagen !!!"
 
-#: lib/Class.A2Billing.php:3117
+#: lib/Class.A2Billing.php:3145
 msgid "Error : Not enough credit to call !!!"
 msgstr "Fehler: Nicht genügend Kredit zum Anrufen !!!"
 
-#: lib/Class.A2Billing.php:3123
+#: lib/Class.A2Billing.php:3151
 msgid "Error : Card is not active!!!"
 msgstr "Fehler : Karte ist nicht aktif !!!"
 
-#: lib/Class.A2Billing.php:3129
+#: lib/Class.A2Billing.php:3157
 msgid "Error : Card is actually in use!!!"
 msgstr "Fehler : Karte wird gerade benützt!!!"
 
-#: lib/Class.A2Billing.php:3138 lib/Class.A2Billing.php:3146
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3166 lib/Class.A2Billing.php:3174
+#: lib/Class.A2Billing.php:3182
 msgid "Error : Card have expired!!!"
 msgstr "Fehler : Karte ist abgelaufen!!!"
 
@@ -1489,7 +1485,6 @@ msgid "This software has been created by Areski under AGPL licence. For futher i
 msgstr "Diese Software wurde von Areski unter AGPL Lizenz geschrieben. Für weitere Informationen nehmen Sie Kontakt mit mir auf:"
 
 #: lib/common.defines.php:105
-#, fuzzy
 msgid "A2Billing Portal"
 msgstr "A2Billing : Kunden Portal"
 
@@ -1649,47 +1644,47 @@ msgstr "Entferne das"
 msgid "Create a new "
 msgstr "Erstelle ein neue"
 
-#: lib/Form/Class.ViewHandler.inc.php:68
+#: lib/Form/Class.ViewHandler.inc.php:72
 msgid "Archiving All "
 msgstr "Archiviere Alles"
 
-#: lib/Form/Class.ViewHandler.inc.php:82
+#: lib/Form/Class.ViewHandler.inc.php:86
 msgid "Sort"
 msgstr "Sortiere"
 
-#: lib/Form/Class.ViewHandler.inc.php:102
+#: lib/Form/Class.ViewHandler.inc.php:106
 msgid "Records"
 msgstr "Aufzeichnungen"
 
-#: lib/Form/Class.ViewHandler.inc.php:132
+#: lib/Form/Class.ViewHandler.inc.php:136
 msgid "FILTER ON "
 msgstr "FİLTER EIN"
 
-#: lib/Form/Class.ViewHandler.inc.php:149
+#: lib/Form/Class.ViewHandler.inc.php:153
 msgid "FILTER ON"
 msgstr "FİLTER EIN"
 
-#: lib/Form/Class.ViewHandler.inc.php:162
+#: lib/Form/Class.ViewHandler.inc.php:166
 msgid "APPLY FILTER "
 msgstr "ANWENDE FİLTER"
 
-#: lib/Form/Class.ViewHandler.inc.php:193 A2B_entity_phonenumber.php:89
+#: lib/Form/Class.ViewHandler.inc.php:197 A2B_entity_phonenumber.php:89
 msgid "ACTION"
 msgstr "AKTION"
 
-#: lib/Form/Class.ViewHandler.inc.php:634
+#: lib/Form/Class.ViewHandler.inc.php:638
 msgid "DISPLAY"
 msgstr "DISPLAY"
 
-#: lib/Form/Class.ViewHandler.inc.php:663
+#: lib/Form/Class.ViewHandler.inc.php:667
 msgid "GO"
 msgstr "GEH"
 
-#: lib/Form/Class.ViewHandler.inc.php:667
+#: lib/Form/Class.ViewHandler.inc.php:671
 msgid "Export CSV"
 msgstr "Export CSV"
 
-#: lib/Form/Class.ViewHandler.inc.php:671
+#: lib/Form/Class.ViewHandler.inc.php:675
 msgid "Export XML"
 msgstr "Export XML"
 
@@ -1994,11 +1989,11 @@ msgstr "network adres formatı"
 
 #: lib/Form/Class.FormHandler.inc.php:990
 msgid "at least 1 character"
-msgstr "en az 1 karakter"
+msgstr "mindestens 1 Zeichen"
 
 #: lib/Form/Class.FormHandler.inc.php:998
 msgid "(AT LEAST 2 CARACTERS)"
-msgstr "(EN AZ 2 KARAKTER)"
+msgstr "(MINDESTENDS  2 ZEICHEN)"
 
 #: lib/Form/Class.FormHandler.inc.php:1002
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
@@ -2006,7 +2001,7 @@ msgstr "(ZAHLENFORMAT MIT/OHNE NACHKOMMASTELLEN, verwenden Sie \".\" für dezima
 
 #: lib/Form/Class.FormHandler.inc.php:1018
 msgid "You must write something."
-msgstr "Birşey yazmalısınız."
+msgstr "Sie müssen etwas schreiben."
 
 #: lib/Form/Class.FormHandler.inc.php:1022
 msgid "8 characters alphanumeric"
@@ -2523,7 +2518,6 @@ msgid "BLOCKED ACCOUNT : Please contact the administrator!"
 msgstr "GESPERRTE KONTO: Bitte wenden Sie sich an den Administrator!"
 
 #: templates/default/index.tpl:111
-#, fuzzy
 msgid "NEW ACCOUNT : Your account has not been validate yet!"
 msgstr "NEUES KONTO: Ihr Konto ist noch in Validierung!"
 

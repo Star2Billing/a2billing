@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 16:52+0200\n"
+"POT-Creation-Date: 2009-08-27 21:00+0200\n"
 "PO-Revision-Date: 2009-08-13 13:15+0100\n"
 "Last-Translator: Tamer KESER <tkeser080107@hotmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -253,15 +253,15 @@ msgstr "SIP HESABI YOK"
 msgid "Click to start SIP WebPhone"
 msgstr "SIP WebPhone Başlatmak için Tıklayınız"
 
-#: webphone.php:88
+#: webphone.php:89
 msgid "IAX WEB-PHONE"
 msgstr "IAX WEB-PHONE"
 
-#: webphone.php:94
+#: webphone.php:95
 msgid "NO IAX ACCOUNT"
 msgstr "IAX HESABI YOK"
 
-#: webphone.php:96
+#: webphone.php:97
 msgid "START IAX PHONE"
 msgstr "IAX WebPhone Başlatmak için Tıklayınız"
 
@@ -1401,24 +1401,24 @@ msgstr "İNDİRİMSİZ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Ayar dosyasında girilen kart numara uzunluğu geçersiz."
 
-#: lib/Class.A2Billing.php:3077
+#: lib/Class.A2Billing.php:3105
 msgid "Error : Authentication Failed !!!"
 msgstr "Hata : Kullanıcı girişi başarısız !!!"
 
-#: lib/Class.A2Billing.php:3117
+#: lib/Class.A2Billing.php:3145
 msgid "Error : Not enough credit to call !!!"
 msgstr "Hata : Hesabınızda arama için yeterli para yok!!!"
 
-#: lib/Class.A2Billing.php:3123
+#: lib/Class.A2Billing.php:3151
 msgid "Error : Card is not active!!!"
 msgstr "Hata : Kart aktif değil!!!"
 
-#: lib/Class.A2Billing.php:3129
+#: lib/Class.A2Billing.php:3157
 msgid "Error : Card is actually in use!!!"
 msgstr "Hata : Kart kullanımda!!!"
 
-#: lib/Class.A2Billing.php:3138 lib/Class.A2Billing.php:3146
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3166 lib/Class.A2Billing.php:3174
+#: lib/Class.A2Billing.php:3182
 msgid "Error : Card have expired!!!"
 msgstr "Hata : Kart kullanım süresi doldu!!!"
 
@@ -1651,47 +1651,47 @@ msgstr "Kaldır"
 msgid "Create a new "
 msgstr "Yeni yap"
 
-#: lib/Form/Class.ViewHandler.inc.php:68
+#: lib/Form/Class.ViewHandler.inc.php:72
 msgid "Archiving All "
 msgstr "Hepsi Arşivleniyor"
 
-#: lib/Form/Class.ViewHandler.inc.php:82
+#: lib/Form/Class.ViewHandler.inc.php:86
 msgid "Sort"
 msgstr "Sırala"
 
-#: lib/Form/Class.ViewHandler.inc.php:102
+#: lib/Form/Class.ViewHandler.inc.php:106
 msgid "Records"
 msgstr "Kayıtlar"
 
-#: lib/Form/Class.ViewHandler.inc.php:132
+#: lib/Form/Class.ViewHandler.inc.php:136
 msgid "FILTER ON "
 msgstr "FİLTRE AÇIK"
 
-#: lib/Form/Class.ViewHandler.inc.php:149
+#: lib/Form/Class.ViewHandler.inc.php:153
 msgid "FILTER ON"
 msgstr "FİLTRE AÇIK"
 
-#: lib/Form/Class.ViewHandler.inc.php:162
+#: lib/Form/Class.ViewHandler.inc.php:166
 msgid "APPLY FILTER "
 msgstr "FİLTRE UYGULA"
 
-#: lib/Form/Class.ViewHandler.inc.php:193 A2B_entity_phonenumber.php:89
+#: lib/Form/Class.ViewHandler.inc.php:197 A2B_entity_phonenumber.php:89
 msgid "ACTION"
 msgstr "EYLEM"
 
-#: lib/Form/Class.ViewHandler.inc.php:634
+#: lib/Form/Class.ViewHandler.inc.php:638
 msgid "DISPLAY"
 msgstr "GÖSTER"
 
-#: lib/Form/Class.ViewHandler.inc.php:663
+#: lib/Form/Class.ViewHandler.inc.php:667
 msgid "GO"
 msgstr "GİT"
 
-#: lib/Form/Class.ViewHandler.inc.php:667
+#: lib/Form/Class.ViewHandler.inc.php:671
 msgid "Export CSV"
 msgstr "CSV ye aktar"
 
-#: lib/Form/Class.ViewHandler.inc.php:671
+#: lib/Form/Class.ViewHandler.inc.php:675
 msgid "Export XML"
 msgstr "XML e aktar"
 
