@@ -2,6 +2,11 @@
 include_once ("../../lib/admin.defines.php");
 include_once ("../../lib/admin.module.access.php");
 
+if (!has_rights(ACX_DASHBOARD)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
+}
 
 getpost_ifset(array (
 	'type'
@@ -87,12 +92,12 @@ $("#call_graph").height(Math.floor(width/2));
 				    var graph_max = data.max;
 				    var graph_data = data.data;
 				    format = data.format;
-				    plot_graph(graph_data,graph_max);
+				    plot_graph_calls(graph_data,graph_max);
 			     });
 
        });
 
-function plot_graph(data,max){
+function plot_graph_calls(data,max){
     var d= data;
     var max_data = (max+5-(max%5));
     $.plot($("#call_graph"), [
