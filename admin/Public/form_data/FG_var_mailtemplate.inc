@@ -109,7 +109,7 @@ if (($popup_select>=1)) {
 	// Translation
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
 	$HD_Form -> FG_OTHER_BUTTON2_LINK= "A2B_entity_translate.php?form_action=ask-add&id=|param|&languages=$languages";
-	$HD_Form -> FG_OTHER_BUTTON2_ALT = 'Translate';
+	$HD_Form -> FG_OTHER_BUTTON2_ALT = gettext('Translate');
 }
 
 

@@ -63,12 +63,14 @@ $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_receipt_edit.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/page_white_gear.png";
 $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_OTHER_BUTTON1_CONDITION = '|col4| == "OPEN"';
+$HD_Form -> FG_OTHER_BUTTON1_ALT = gettext("Edit receipt items");
 $HD_Form -> FG_OTHER_BUTTON2_LINK = "javascript:;";
 $HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path."/lock.png";
 $HD_Form -> FG_OTHER_BUTTON2 = true;
 $HD_Form -> FG_OTHER_BUTTON2_HTML_CLASS = "lock";
 $HD_Form -> FG_OTHER_BUTTON2_HTML_ID = "|col0|";
 $HD_Form -> FG_OTHER_BUTTON2_CONDITION = '|col4| == "OPEN"';
+$HD_Form -> FG_OTHER_BUTTON2_ALT = gettext("Close this receipt");
 $HD_Form -> FG_EDITION_CONDITION = '|col4| == "OPEN"';
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;

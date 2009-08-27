@@ -76,14 +76,14 @@ $HD_Form -> FG_DELETION = false;
 
 $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_entity_config.php?groupselect=|col0|";
-$HD_Form -> FG_OTHER_BUTTON1_ALT = 'DETAILS';
+$HD_Form -> FG_OTHER_BUTTON1_ALT = gettext('DETAILS');
 
 $HD_Form -> FG_OTHER_BUTTON2 = true;
 $HD_Form -> FG_OTHER_BUTTON2_LINK = "A2B_entity_config_group.php?groupdelete=|col0|";
 $HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path."/delete.png";
 $HD_Form -> FG_OTHER_BUTTON2_HTML_ID = "|col0|";
 $HD_Form -> FG_OTHER_BUTTON2_CONDITION = 'substr("|col0|",0,8) == "agi-conf" && "|col0|" != "agi-conf1"';
-
+$HD_Form -> FG_OTHER_BUTTON2_ALT = gettext('DELETE THIS AGI CONF');
 
 $HD_Form -> FG_INTRO_TEXT_EDITION = '';
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");

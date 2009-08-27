@@ -64,7 +64,6 @@ $HD_Form -> FG_LIMITE_DISPLAY = 10;
 $HD_Form -> FG_ADDITION = true;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
-$HD_Form -> FG_OTHER_BUTTON1 = true;
 
 
 $HD_Form -> AddEditElement (gettext("CALLERID"),
@@ -116,8 +115,6 @@ $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify via the form below, the prope
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME."<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
-$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_card.php?form_action=ask-edit&stitle=Customers_Card&id=|col_orig1|";
-$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-card.png";
 
 $HD_Form -> FG_OTHER_BUTTON2 = true;
 $HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|col_orig1|";

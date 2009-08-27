@@ -99,7 +99,7 @@ $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:;\" onClick=\"MM_openBrWindow('CC_entity_alarm_details.php?popup_select=2&displayfooter=0&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=600,height=350')\"";
 
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-viewdetails.gif";
-
+$HD_Form -> FG_OTHER_BUTTON1_ALT = gettext("View details");
 
 
 $HD_Form -> AddEditElement (gettext("NAME"),

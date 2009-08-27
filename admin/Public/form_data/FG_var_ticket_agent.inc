@@ -78,7 +78,7 @@ $HD_Form -> FieldViewElement ("cc_ticket.id, cc_ticket.creator, cc_agent.login, 
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "CC_ticket_view.php?id=";
 $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/icon-viewdetails.gif";
-
+$HD_Form -> FG_OTHER_BUTTON1_ALT = gettext("VIEW DETAILS");
 
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_DELETE_ALL =false;
