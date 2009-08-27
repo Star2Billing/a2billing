@@ -60,13 +60,9 @@ class paypal {
     function process_button($transactionID = 0, $key= "") {
 		global $order, $currencies, $currency;
 
-		$my_currency = MODULE_PAYMENT_PAYPAL_CURRENCY;
-		$base_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
+		$my_currency = strtoupper($GLOBALS['A2B']->config['global']['base_currency']);
 
-        if($my_currency ='Selected Currency' && in_array($base_currency,array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN')) ){
-        	$my_currency = $base_currency;
-        }
-        elseif (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN'))) {
+		if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD', 'MXN'))) {
 			$my_currency = 'USD';
 		}
 		$currencyObject = new currencies();
@@ -145,7 +141,7 @@ class paypal {
     }
 
     function keys() {
-		return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID','MODULE_PAYMENT_PAYPAL_CURRENCY');
+		return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID');
     }
 }
 

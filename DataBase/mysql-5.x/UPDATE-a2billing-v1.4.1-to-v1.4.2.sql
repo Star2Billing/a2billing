@@ -64,5 +64,8 @@ INSERT INTO cc_templatemail (id_language,mailtype ,fromemail ,fromname ,subject 
     VALUES	('en', 'did_paid', 'info@call-labs.com', 'Call-Labs', 'DID notification - ($did$)', 'BALANCE REMAINING $balance_remaining$ $base_currency$\n\nAn automatic taking away of : $did_cost$ $base_currency$ has been carry out of your account to pay your DID ($did$)\n\nMonthly cost for DID : $did_cost$ $base_currency$\n\n'),
 		('en', 'did_unpaid', 'info@call-labs.com', 'Call-Labs', 'DID notification - ($did$)', 'BALANCE REMAINING $balance_remaining$ $base_currency$\n\nYour credit is not enough to pay your DID number ($did$), the monthly cost is : $did_cost$ $base_currency$\n\nYou have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or the DID will be automatically released \n\n'),
 		('en', 'did_released', 'info@call-labs.com', 'Call-Labs', 'DID released - ($did$)', 'The DID $did$ has been automatically released!\n\n');
- ALTER TABLE cc_templatemail ADD PRIMARY KEY ( id )  ;
- ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL AUTO_INCREMENT  
+ALTER TABLE cc_templatemail ADD PRIMARY KEY ( id )  ;
+ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL AUTO_INCREMENT  ;
+
+DELETE FROM cc_configuration WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
+DELETE FROM cc_configuration WHERE configuration_key = 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY';
