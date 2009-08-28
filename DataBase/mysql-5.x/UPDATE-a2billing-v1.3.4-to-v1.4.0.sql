@@ -771,8 +771,6 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 
 
 -- These triggers are to prevent bogus regexes making it into the database
-DROP TRIGGER IF EXISTS cc_ratecard_validate_regex_ins;
-DROP TRIGGER IF EXISTS cc_ratecard_validate_regex_upd;
 DELIMITER //
 CREATE TRIGGER cc_ratecard_validate_regex_ins BEFORE INSERT ON cc_ratecard
 FOR EACH ROW
@@ -1661,8 +1659,7 @@ CREATE TABLE cc_card_seria (
 ALTER TABLE cc_card ADD id_seria integer;
 ALTER TABLE cc_card ADD serial BIGINT;
 UPDATE cc_config SET config_description = concat(config_description,', id_seria, serial') WHERE config_key = 'card_show_field_list' ;
-DROP TRIGGER IF EXISTS cc_card_serial_set;
-DROP TRIGGER IF EXISTS cc_card_serial_update;
+
 DELIMITER //
 CREATE TRIGGER cc_card_serial_set BEFORE INSERT ON cc_card
 FOR EACH ROW
