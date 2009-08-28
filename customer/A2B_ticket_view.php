@@ -183,7 +183,7 @@ foreach ($comments as $comment) {
 		 <td colspan="2">&nbsp;  </td> 
 	</tr> 
 	<tr> 
-		<td colspan="2"> <?php echo $comment->getDescription(); ?> </td> 
+		<td colspan="2"> <pre><?php echo $comment->getDescription(); ?></pre> </td>
 	</tr>  
 	
 	<?php if($comment->getViewed(0)){ ?>
