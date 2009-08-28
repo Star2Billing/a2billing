@@ -12,8 +12,23 @@ if (!$ACXACCESS) {
 getpost_ifset(array (
 	'id',
 	'page',
-	'action'
+	'action',
+	'ids'
 ));
+
+if($action=="viewall"&& !empty($ids)){
+    $DBHandle = DbConnect();
+    $table = new Table("cc_notification_admin", "*");
+    $fields = "id_notification,id_admin,viewed";
+    $ids_array = json_decode($ids);
+    foreach ($ids_array as $id){
+	$values = " $id , " . $_SESSION['admin_id'] . ",1 ";
+	$return = $table->Add_table($DBHandle, $values, $fields);
+    }
+     echo "true";
+    
+    die();
+}
 
 if (!empty ($action) && is_numeric($id)) {
 	switch ($action) {
@@ -29,6 +44,8 @@ if (!empty ($action) && is_numeric($id)) {
 				echo "false";
 			die();
 			break;
+		
+
 		case "delete" :
 			if (has_rights(ACX_DELETE_NOTIFICATIONS)) {
 				$return = NotificationsDAO :: DelNotification($id);
@@ -87,6 +104,11 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 <table width="90%" style ="margin-left:auto;margin-right:auto;" cellspacing="2" cellpadding="2" border="0">
 	<?php if($nb_page>1){ ?>
 	<tr>
+		<td colspan="6" align="center">
+		    <a id ="viewall" href="javascript:;" ><?php echo gettext("View All") ?></a>
+		</td>
+	</tr>
+	<tr>
 		<td colspan="3" align="left">
 		<?php if($page>1){ ?>
 			<a href="A2B_notification.php?page=<?php echo $page-1; ?>"> &lt; <?php echo gettext("Newer") ?> </a>
@@ -122,7 +144,10 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
  
 	<?php 
 		$i=0;
+		$js_id_array= array();
 		foreach ($list_notifications as $notification) {
+			if($notification->getNew()) $js_id_array[] = (int) $notification->getId();
+
 			switch ($notification->getPriority()) {
 				case 2: if($notification->getNew()) $bg="#F98886";
 						else $bg="#F1ACAC";
@@ -194,18 +219,30 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 <?php
 }
 
+$js_id_array_json = json_encode($js_id_array);
+
 $smarty->display( 'footer.tpl');
 
 ?>
 <script type="text/javascript">
-	
+var page = <?php echo $page?>;
+var ids = "<?php echo $js_id_array_json?>";
 $(document).ready(function () {
+
 	$('.newrecord').click(function () {
 		$.get("A2B_notification.php", { id: ""+ this.id, action: "view" },
 			  function(data){
 			    if(data=="true") location.reload(true);
 			  });			
         });
+
+	$('#viewall').click(function () {
+		$.get("A2B_notification.php", { page: ""+ page, action: "viewall", ids : ids },
+			  function(data){
+			    if(data=="true") location.reload(true);
+			  });
+        });
+
 	$('.delete').click(function () {
 			if (confirm("<?php echo gettext("Do you want delete this notification ?") ?>")) { 
 				$.get("A2B_notification.php", { id: ""+ this.id, action: "delete" },
