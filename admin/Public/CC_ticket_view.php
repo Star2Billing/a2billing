@@ -167,8 +167,9 @@ $smarty->display('main.tpl');
 
 		<tr>
 			<td colspan="2" align="center">
+			    
 			 <textarea class="form_input_textarea" name="comment" cols="100" rows="10"></textarea>
-
+			    
 			 </td>
 		</tr>
 		<tr>
@@ -199,7 +200,7 @@ foreach ($comments as $comment)
 		 <td colspan="2">&nbsp;  </td> 
 	</tr> 
 	<tr> 
-		<td colspan="2"> <?php echo $comment->getDescription(); ?> </td> 
+		<td colspan="2"><pre><?php echo $comment->getDescription(); ?></pre> </td>
 	</tr>  
 	
 	<?php if($comment->getViewed(2)){ ?>
