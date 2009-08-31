@@ -125,7 +125,9 @@ function plot_graph_calls(data,max){
 				  });
 
 	}
- 
+
+
+   $('#call_profit').click();
    function showTooltip(x, y, contents) {
         $('<div id="tooltip">' + contents + '</div>').css( {
             position: 'absolute',
