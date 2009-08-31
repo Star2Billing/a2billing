@@ -87,7 +87,7 @@ $HD_Form -> AddSearchElement_C1(gettext("LOGIN"), 'login','logintype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
 
-if (! has_rights (ACXMODIFY_PAYMENTS)) {
+if (has_rights (ACX_MODIFY_PAYMENTS)) {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	
@@ -154,13 +154,13 @@ if (! has_rights (ACXMODIFY_PAYMENTS)) {
 	}
 	
 	$HD_Form -> AddEditElement (gettext("REFILL TYPE"),
-	                           "payment_type",
-	                           '$value',
-	                           "SELECT",
-	                           "",
-	                           "",
-	                           "",
-	                           "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
+                       "payment_type",
+                       '$value',
+                       "SELECT",
+                       "",
+                       "",
+                       "",
+                       "list" , "", "",     "", $list_refill_type, "%1", "", gettext("Define type for payment and refill,if created.") );
 	
 	
 	if ($form_action!="ask-edit" && $form_action!="edit") {	
@@ -168,9 +168,6 @@ if (! has_rights (ACXMODIFY_PAYMENTS)) {
 	} else {
 		$HD_Form -> FieldEditElement ('agent_id, date, payment, description, added_refill, payment_type');
 	}
-	
-	
-	
 	
 	
 	$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);

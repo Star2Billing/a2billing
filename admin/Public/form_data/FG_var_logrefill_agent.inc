@@ -89,7 +89,7 @@ $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
 
 
-if (! has_rights (ACXMODIFY_REFILLS)) {
+if (has_rights (ACX_MODIFY_REFILLS)) {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;	
 	
