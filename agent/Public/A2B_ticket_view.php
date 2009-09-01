@@ -18,7 +18,6 @@ getpost_ifset(array (
 	'action',
 	'status',
 	'comment',
-	'card_id',
 	'idc'
 ));
 

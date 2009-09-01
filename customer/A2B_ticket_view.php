@@ -15,9 +15,9 @@ if (!has_rights(ACX_SUPPORT)) {
 getpost_ifset(array (
 	'result',
 	'id',
+	'action',
 	'status',
 	'comment',
-	'card_id',
 	'idc'
 ));
 
