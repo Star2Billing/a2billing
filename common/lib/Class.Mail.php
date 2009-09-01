@@ -55,6 +55,20 @@ class Mail {
 	static public $TYPE_DID_PAID = 'did_paid';
 	static public $TYPE_DID_UNPAID = 'did_unpaid';
 	static public $TYPE_DID_RELEASED = 'did_released';
+	static public $TYPE_TICKET_NEW = 'new_ticket';
+	static public $TYPE_TICKET_MODIFY = 'modify_ticket';
+	
+	//Used by mail type = new_ticket AND modify_ticket
+	static public $TICKET_NUMBER_KEY = '$ticket_id$';
+	static public $TICKET_OWNER_KEY = '$ticket_owner$';
+	static public $TICKET_PRIORITY_KEY = '$ticket_priority$';
+	static public $TICKET_STATUS_KEY = '$ticket_status$';
+	static public $TICKET_TITLE_KEY = '$ticket_title$';
+	static public $TICKET_DESCRIPTION_KEY = '$ticket_description$';
+	//Used by mail type = modify_ticket
+	static public $TICKET_COMMENT_CREATOR_KEY = '$comment_creator$';
+	static public $TICKET_COMMENT_DESCRIPTION_KEY = '$comment_description$';
+	
 	//Used by mail type = did_paid
 	static public $BALANCE_REMAINING_KEY = '$balance_remaining$';
 	//Used by mail type = did_paid OR did_unpaid OR did_released

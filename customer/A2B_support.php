@@ -23,14 +23,37 @@ $HD_Form->init();
 
 // ADD TICKET
 if ((strlen($description) > 0 || strlen($title) > 0) && is_numeric($priority) && is_numeric($component)) {
-	$FG_SPEEDDIAL_TABLE = "cc_ticket";
-	$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, "*");
 
-	$QUERY = "INSERT INTO cc_ticket (creator,title, description, id_component, priority, viewed_cust) VALUES ('" . $_SESSION["card_id"] . "', '" . $title . "', '" . $description . "', '" . $component . "', '" . $priority . "' ,'0')";
-
-	$result = $instance_sub_table->SQLExec($HD_Form->DBHandle, $QUERY, 0);
+	$fields = "creator,title, description, id_component, priority, viewed_cust";
+	$ticket_table = new Table('cc_ticket', $fields);
+	$values = "'" . $_SESSION["card_id"] . "', '" . $title . "', '" . $description . "', '" . $component . "', '" . $priority . "' ,'0'";
+	$id_ticket = $ticket_table ->Add_table($HD_Form -> DBHandle, $values, null, null, "id");
 	NotificationsDAO :: AddNotification("ticket_added_cust", Notification :: $LOW, Notification :: $CUST, $_SESSION['card_id']);
+	$table_card =new Table("cc_card", "firstname,lastname,language,email");
+	$card_clause = "id = ".$_SESSION["card_id"];
+	$result=$table_card ->Get_list($HD_Form -> DBHandle, $card_clause);
+	$owner = $_SESSION["pr_login"]." (".$result[0]['firstname']." ".$result[0]['lastname'].")";
+	$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
+	$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+	$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
+	$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
+	$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
+	$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
+	$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
+	$mail->send($result[0]['email']);
+	$component_table = new Table('cc_support_component LEFT JOIN cc_support ON id_support = cc_support.id', "email");
+	$component_clause = "cc_support_component.id = ".$component;
+	$result= $component_table -> Get_list($HD_Form -> DBHandle, $component_clause);
+	$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
+	$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+	$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
+	$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
+	$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
+	$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
+	$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
+	$mail->send($result[0]['email']);
 	$update_msg = gettext("Ticket added successfully");
+
 
 }
 elseif ((strlen($description) + strlen($title) == 0)) {

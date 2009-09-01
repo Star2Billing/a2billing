@@ -33,7 +33,7 @@
 
 
 
-getpost_ifset(array('id', 'name', 'popup_select'));
+getpost_ifset(array('id', 'name', 'email','language','popup_select'));
 
 
 
@@ -66,10 +66,11 @@ $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some components using this 
 
 
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ID"), "id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "20%", "center", "sort");
-
-$HD_Form -> FieldViewElement ('id, name');
+$HD_Form -> AddViewElement(gettext("EMAIL"), "email", "30%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("LANGUAGE"), "language", "10%", "center", "sort");
+$HD_Form -> FieldViewElement ('id,name,email,language');
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -79,7 +80,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 $HD_Form -> FG_ADDITION = true;
-
+$language_list = Constants::getLanguagesList();
 
 $HD_Form -> AddEditElement (gettext("NAME"),
 	"name",
@@ -89,9 +90,24 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	"9",
 	gettext("Insert the Support Box name "),
 	"" , "", "", "", "", "", "", "" );
+$HD_Form -> AddEditElement (gettext("LANGUAGE"),
+       "language",
+       "",
+       "SELECT",
+       "",
+       "",
+       "",
+       "list" , "", "",	"", $language_list, "%1", "", "" );
+$HD_Form -> AddEditElement (gettext("EMAIL"),
+	"email",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=70",
+	"1",
+	gettext("Insert the email"),
+	"" , "", "", "", "" , "", "NO", "");
 
-
-$HD_Form -> FieldEditElement ('name');
+$HD_Form -> FieldEditElement ('name,language,email');
 
 
 

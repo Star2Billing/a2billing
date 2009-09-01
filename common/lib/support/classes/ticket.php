@@ -118,8 +118,10 @@ class Ticket {
 	}
 
 	function getPriorityDisplay() {
-
-		switch ($this->priority) {
+		return Ticket::DisplayPriority($this->priority);
+	}
+	public static function DisplayPriority($prior) {
+		switch ($prior) {
 			case 1 :
 				return "LOW";
 			case 2 :
@@ -130,8 +132,8 @@ class Ticket {
 				return "NONE";
 
 		}
-
 	}
+
 
 	function getComponentid() {
 		return $this->componentid;

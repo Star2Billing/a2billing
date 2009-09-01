@@ -1661,6 +1661,77 @@ class FormHandler
 		$clause_update_card = " id='$card_id'";
 		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
 	}
+
+	function ticket_add()
+	{
+		global $A2B;
+		$id_ticket = $this -> RESULT_QUERY;
+		$processed = $this->getProcessed();
+		$title = $processed['title'];
+		$card_id = $processed['creator'];
+		$priority = $processed['priority'];
+		$description = $processed['description'];
+		$component_id = $processed['id_component'];
+		$table_card =new Table("cc_card", "username,firstname,lastname,language,email");
+		$card_clause = "id = ".$card_id;
+		$result=$table_card ->Get_list($this->DBHandle, $card_clause);
+		$owner = $result[0]['username']." (".$result[0]['firstname']." ".$result[0]['lastname'].")";
+		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
+		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
+		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
+		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
+		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
+		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
+		$mail->send($result[0]['email']);
+		$component_table = new Table('cc_support_component LEFT JOIN cc_support ON id_support = cc_support.id', "email,language");
+		$component_clause = "cc_support_component.id = ".$component_id;
+		$result= $component_table -> Get_list($this->DBHandle, $component_clause);
+		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
+		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
+		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
+		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
+		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
+		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
+		$mail->send($result[0]['email']);
+	}
+
+	function ticket_agent_add()
+	{
+		global $A2B;
+		$id_ticket = $this -> RESULT_QUERY;
+		$processed = $this->getProcessed();
+		$title = $processed['title'];
+		$agent_id = $processed['creator'];
+		$priority = $processed['priority'];
+		$description = $processed['description'];
+		$component_id = $processed['id_component'];
+		$table_agent =new Table("cc_agent", "login,firstname,lastname,language,email");
+		$agent_clause = "id = ".$agent_id;
+		$result=$table_agent ->Get_list($this->DBHandle, $agent_clause);
+		$owner = $result[0]['username']." (".$result[0]['firstname']." ".$result[0]['lastname'].")";
+		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
+		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
+		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
+		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
+		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
+		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
+		$mail->send($result[0]['email']);
+		$component_table = new Table('cc_support_component LEFT JOIN cc_support ON id_support = cc_support.id', "email,language");
+		$component_clause = "cc_support_component.id = ".$component_id;
+		$result= $component_table -> Get_list($this->DBHandle, $component_clause);
+		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
+		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
+		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
+		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
+		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
+		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
+		$mail->send($result[0]['email']);
+	}
+	
 	
 	function add_agent_refill(){
 		global $A2B;
