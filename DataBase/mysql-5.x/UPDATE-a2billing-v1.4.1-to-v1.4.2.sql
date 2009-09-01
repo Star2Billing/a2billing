@@ -76,5 +76,5 @@ ALTER TABLE cc_support ADD email VARCHAR( 70 ) CHARACTER SET utf8 COLLATE utf8_b
 ALTER TABLE cc_support ADD language CHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'en';
 INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject, messagetext)
     VALUES	('en', 'new_ticket', 'info@call-labs.com', 'Call-Labs', 'Support Ticket #$ticket_id$', 'New Ticket Open (#$ticket_id$) From $ticket_owner$.\n Title : $ticket_title$\n Priority : $ticket_priority$ \n Status : $ticket_status$ \n Description : $ticket_description$ \n'),
-		('en', 'modify_ticket', 'info@call-labs.com', 'Call-Labs', 'Support Ticket #$ticke_idt$', 'Ticket modified (#$ticket_id$) By $comment_creator$.\n Ticket Status -> $ticket_status$\n Description : $comment_description$ \n');
+		('en', 'modify_ticket', 'info@call-labs.com', 'Call-Labs', 'Support Ticket #$ticket_id$', 'Ticket modified (#$ticket_id$) By $comment_creator$.\n Ticket Status -> $ticket_status$\n Description : $comment_description$ \n');
 

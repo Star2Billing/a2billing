@@ -15,6 +15,7 @@ if (!has_rights(ACX_SUPPORT)) {
 getpost_ifset(array (
 	'result',
 	'action',
+	'status',
 	'id',
 	'idc',
 	'comment'

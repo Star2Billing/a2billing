@@ -7,6 +7,12 @@ class Ticket {
 	private $title;
 	private $description;
 	private $creatorid;
+	private $creator_type;
+	private $creator_login;
+	private $creator_firstname;
+	private $creator_lastname;
+	private $creator_language;
+	private $creator_email;
 	private $priority;
 	private $creationdate;
 	private $status;
@@ -15,7 +21,8 @@ class Ticket {
 	private $viewed_cust;
 	private $viewed_agent;
 	private $viewed_admin;
-
+	private $supportbox_email;
+	private $supportbox_language;
 	public static $NEW = 0;
 	public static $FIXED = 1;
 	public static $REOPEN = 2;
@@ -46,26 +53,52 @@ class Ticket {
 		}
 
 		if (!is_null($this->creatorid)) {
-			$instance_sub_table = new Table("cc_card", "lastname, firstname");
-			$QUERY = " id = " . $this->creatorid;
-			$return = null;
-			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
-			$value = $return[0];
+			$this->creator_type = $value["creator_type"];
 
-			if (!is_null($value)) {
-				$this->creatorname = $value["lastname"] . " " . $value["firstname"];
+			switch ($this->creator_type) {
+				case 0:	$instance_sub_table = new Table("cc_card", "lastname, firstname,username,language,email");
+					$QUERY = " id = " . $this->creatorid;
+					$subreturn = null;
+					$subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+					$subvalue = $subreturn[0];
+					if (!is_null($subvalue)) {
+						$this->creatorname= $subvalue["lastname"] . " " . $subvalue["firstname"];
+					}
+					$this->creator_login= $subvalue["username"];
+					$this->creator_firstname=$subvalue["firstname"];
+					$this->creator_lastname=$subvalue["lastname"];
+					$this->creator_language=$subvalue["language"];
+					$this->creator_email=$subvalue["email"];
+					break;
+				case 1: $instance_sub_table = new Table("cc_agent", "lastname, firstname,login,language,email");
+					$QUERY = " id = " . $this->creatorid;
+					$subreturn = null;
+					$subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+					$subvalue = $subreturn[0];
+					if (!is_null($subvalue)) {
+						$this->creatorname= gettext("(AGENT)") . " " . $subvalue["firstname"] . " " . $subvalue["lastname"];
+					}
+					$this->creator_login= $subvalue["login"];
+					$this->creator_firstname=$subvalue["firstname"];
+					$this->creator_lastname=$subvalue["lastname"];
+					$this->creator_language=$subvalue["language"];
+					$this->creator_email=$subvalue["email"];
+				    break;
 			}
+				
 		}
 
 		if (!is_null($this->componentid)) {
-			$instance_comp_table = new Table("cc_support_component", "name");
-			$QUERY = " id = " . $this->componentid;
+			$component_table = new Table('cc_support_component LEFT JOIN cc_support ON id_support = cc_support.id', "cc_support_component.name,email,language");
+			$component_clause = "cc_support_component.id = ".$this->componentid;
 			$return = null;
-			$return = $instance_comp_table->Get_list($DBHandle, $QUERY, 0);
-			$value = $return[0];
+			$return = $component_table->Get_list($DBHandle, $component_claus);
 
-			if (!is_null($value)) {
-				$this->componentname = $value["name"];
+			if (is_array($return)) {
+
+				$this->componentname = $return[0]["name"];
+				$this->supportbox_email = $return[0]["email"];
+				$this->supportbox_language = $return[0]["language"];
 			}
 		}
 
@@ -239,6 +272,58 @@ class Ticket {
 
 		}
 		$return = $instance_sub_table->Add_table($DBHandle, $QUERY_VALUES, $QUERY_FIELDS, 'cc_ticket_comment', 'id');
+		switch ($creator_type) {
+		    case 0: $instance_sub_table = new Table("cc_card", "lastname, firstname");
+			    $QUERY = " id = " . $creator;
+			    $subreturn = null;
+			    $subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+			    $subvalue = $subreturn[0];
+			    if (!is_null($subvalue)) {
+				    $owner_comment=$subvalue["lastname"] . " " . $subvalue["firstname"];
+			    }
+			    break;
+		    case 1: $instance_sub_table = new Table("cc_ui_authen", "*");
+			    $QUERY = " userid = " . $creator;
+			    $subreturn = null;
+			    $subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+			    $subvalue = $subreturn[0];
+			    if (!is_null($subvalue)) {
+				   $owner_comment="(ADMINISTRATOR) " . $subvalue["login"];
+			    }
+			    break;
+		    case 2: $instance_sub_table = new Table("cc_agent", "lastname, firstname,login");
+			    $QUERY = " id = " . $creator;
+			    $subreturn = null;
+			    $subreturn = $instance_sub_table->Get_list($DBHandle, $QUERY, 0);
+			    $subvalue = $subreturn[0];
+			    if (!is_null($subvalue)) {
+				    $owner_comment="(AGENT) " .$subvalue["login"]. " - " . $subvalue["firstname"] . " " . $subvalue["lastname"];
+			    }
+			    break;
+		}
+
+		$owner = $this->creator_login." (".$this->creator_firstname." ".$this->creator_lastname.")";
+		$mail = new Mail(Mail::$TYPE_TICKET_MODIFY, null, $this->creator_language);
+		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $this->id);
+		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $this->description);
+		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($this->priority));
+		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,Ticket::getStatusDisplay($this->status));
+		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $this->title);
+		$mail->replaceInEmail(Mail::$TICKET_COMMENT_DESCRIPTION_KEY, $desc);
+		$mail->replaceInEmail(Mail::$TICKET_COMMENT_CREATOR_KEY, $owner_comment);
+		$mail->send($this->creator_email);
+
+		$mail = new Mail(Mail::$TYPE_TICKET_MODIFY, null, $this->supportbox_language);
+		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $this->id);
+		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $this->description);
+		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($this->priority));
+		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,Ticket::getStatusDisplay($this->status));
+		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $this->title);
+		$mail->replaceInEmail(Mail::$TICKET_COMMENT_DESCRIPTION_KEY, $desc);
+		$mail->replaceInEmail(Mail::$TICKET_COMMENT_CREATOR_KEY, $owner_comment);
+		$mail->send($this->supportbox_email);
 
 	}
 

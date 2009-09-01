@@ -15,7 +15,11 @@ if (! has_rights (ACX_SUPPORT)) {
 getpost_ifset(array (
 	'result',
 	'id',
-	'action'
+	'action',
+	'status',
+	'comment',
+	'card_id',
+	'idc'
 ));
 
 if($result=="success") {
@@ -35,7 +39,7 @@ if (tep_not_null($action)) {
 			$instance_sub_table = new Table("cc_ticket", "*");
 			$instance_sub_table->Update_table($DBHandle, "status = '" . $status . "'", "id = '" . $id . "'");
 			$ticket = new Ticket($ticketID);
-			$ticket->insertComment($comment, $_SESSION['card_id'], 0);
+			$ticket->insertComment($comment, $_SESSION['agent_id'], 2);
 			tep_redirect("A2B_ticket_view.php?" . "id=" . $id . "&result=success");
 		case 'view_comment' :
 			$DBHandle = DbConnect();
