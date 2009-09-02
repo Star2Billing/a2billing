@@ -12,17 +12,22 @@ python-sqlalchemy
 
 
 
-1) INSTALL DAEMON : FEDORA
-=============================
+1) INSTALL DAEMON : CENTOS / REDHAT
+=====================================
 
   Install from egg :
   	easy_install dist/a2b_callback_daemon-versionXXX.egg
   
-  cp a2b-callback-daemon.rc /etc/init.d/a2b-callback-daemon
-  chmod +x /etc/init.d/a2b-callback-daemon
+  Install Init Script :
+    cp a2b-callback-daemon.rc /etc/init.d/a2b-callback-daemon
+    chmod +x /etc/init.d/a2b-callback-daemon
  
-  chkconfig --add callback-py-daemon
+  Add a service to start at boot :
+    chkconfig --add a2b-callback-daemon
+    chkconfig a2b-callback-daemon on
   
+  Start Daemon :
+    service a2b-callback-daemon start
 
 
 
@@ -32,13 +37,16 @@ python-sqlalchemy
   Install from egg :
   	easy_install dist/a2b_callback_daemon-versionXXX.egg
   
-  
-  cp a2b-callback-daemon.debian /etc/init.d/a2b-callback-daemon
-  chmod +x /etc/init.d/a2b-callback-daemon
+  Install Init Script :
+    cp a2b-callback-daemon.debian /etc/init.d/a2b-callback-daemon
+    chmod +x /etc/init.d/a2b-callback-daemon
  
-  update-rc.d a2b-callback-daemon defaults 40 60
-  * to remove update-rc.d -f a2b-callback-daemon remove
+    update-rc.d a2b-callback-daemon defaults 40 60
+    * to remove update-rc.d -f a2b-callback-daemon remove
  
+  Start Daemon :
+    /etc/init.d/a2b-callback-daemon start
+
 
 
 3) INSTALL DAEMON : Gentoo
@@ -64,5 +72,7 @@ python-sqlalchemy
 	c) Build RPMs :
 	
 		python setup.py bdist_rpm
+
+
 
 		
