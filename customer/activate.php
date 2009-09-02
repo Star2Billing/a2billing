@@ -1,15 +1,14 @@
 <?php
-
 session_name("UISIGNUP");
 session_start();
 
 // check if the script has been already called in the previous minute, no multiple signup
-if (!isset($_SESSION["date_activation"]) || (time()-$_SESSION["date_activation"]) > 0) {
-	$_SESSION["date_activation"]=time();
+if (!isset ($_SESSION["date_activation"]) || (time() - $_SESSION["date_activation"]) > 0) {
+	$_SESSION["date_activation"] = time();
 } else {
 	sleep(3);
 	echo gettext("Sorry the activation has been sent already, please wait 1 minute before making any other try !");
-	exit();
+	exit ();
 }
 
 // get include
@@ -18,55 +17,53 @@ include ("./lib/customer.module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./lib/customer.smarty.php");
 
-
 getpost_ifset(array (
 	'key'
 ));
 
-
-$HD_Form = new FormHandler("cc_card","User");
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
+$HD_Form = new FormHandler("cc_card", "User");
+$HD_Form->setDBHandler(DbConnect());
+$HD_Form->init();
 
 // HEADER SECTION
 $smarty->display('signup_header.tpl');
 
-if (empty($key))
+if (empty ($key))
 	$key = null;
-
 
 $result = null;
 $instance_sub_table = new Table('cc_card', "username, lastname, firstname, email, uipass, credit, useralias, loginkey, status, id");
-$QUERY = "( loginkey = '".$key."' )";
-$list = $instance_sub_table -> Get_list ($HD_Form -> DBHandle, $QUERY);
+$QUERY = "( loginkey = '" . $key . "' )";
+$list = $instance_sub_table->Get_list($HD_Form->DBHandle, $QUERY);
 
-if(isset($key) && $list[0][8]!="1") {
+if (isset ($key) && $list[0][8] != "1") {
 	if ($A2B->config["signup"]['activated']) {
 		// Status : 1 - Active
-		$QUERY = "UPDATE cc_card SET status = 1 WHERE ( status = 2 OR status = 3 ) AND loginkey = '".$key."' ";
+		$QUERY = "UPDATE cc_card SET status = 1 WHERE ( status = 2 OR status = 3 ) AND loginkey = '" . $key . "' ";
 	} else {
 		// Status : 2 - New
-		$QUERY = "UPDATE cc_card SET status = 2 WHERE ( status = 2 OR status = 3 ) AND loginkey = '".$key."' ";
+		$QUERY = "UPDATE cc_card SET status = 2 WHERE ( status = 2 OR status = 3 ) AND loginkey = '" . $key . "' ";
 	}
-    $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$result = $instance_sub_table->SQLExec($HD_Form->DBHandle, $QUERY, 0);
 }
 
+if ($list[0][8] != "1" && isset ($result) && $result != null) {
 
-if( $list[0][8] != "1" && isset($result) && $result != null) {
+	list ($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey, $status, $idcard) = $list[0];
+	if ($FG_DEBUG == 1)
+		echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
 
-	list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey, $status, $idcard) = $list[0];	
-	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";	
-	
 	try {
-        $mail = new Mail(Mail::$TYPE_SIGNUPCONFIRM, $idcard);
-        $mail->send($email);
-        
-        $mail->setTitle("NEW ACCOUNT CREATED : ".$mail->getTitle());
-        $mail->send(ADMIN_EMAIL);
-        
-    } catch (A2bMailException $e) {
-    	echo "Error : sent mail!";
-    }
+		$mail = new Mail(Mail :: $TYPE_SIGNUPCONFIRM, $idcard);
+		$mail->send($email);
+
+		$mail->setTitle("NEW ACCOUNT CREATED : " . $mail->getTitle());
+		$mail->send(ADMIN_EMAIL);
+
+	} catch (A2bMailException $e) {
+		echo "Error : sent mail!";
+	}
+	
 
 ?>
 
@@ -89,7 +86,7 @@ if( $list[0][8] != "1" && isset($result) && $result != null) {
 </div>
 </blockquote>
 
-<?php 
+<?php
 } else {
 ?>
 

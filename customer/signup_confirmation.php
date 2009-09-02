@@ -3,94 +3,69 @@ include ("./lib/customer.defines.php");
 include ("./lib/customer.smarty.php");
 
 if (!$A2B->config["signup"]['enable_signup']) {
-	exit();
+	exit ();
 }
 
-if (!isset($_SESSION["date_mail"]) || (time()-$_SESSION["date_mail"]) > 60) {
-	$_SESSION["date_mail"]=time();
+if (!isset ($_SESSION["date_mail"]) || (time() - $_SESSION["date_mail"]) > 60) {
+	$_SESSION["date_mail"] = time();
 } else {
 	sleep(3);
 	echo gettext("Sorry the confirmation email has been sent already, multi-signup are not authorized! Please wait 2 minutes before making any other signup!");
-	exit();
+	exit ();
 }
 
-if (!isset($_SESSION["cardnumber_signup"]) || strlen($_SESSION["cardnumber_signup"])<=1) {
+if (!isset ($_SESSION["cardnumber_signup"]) || strlen($_SESSION["cardnumber_signup"]) <= 1) {
 	echo gettext("Error : No User Created.");
-	exit();
+	exit ();
 }
-
 
 $FG_DEBUG = 0;
-$DBHandle  = DbConnect();
+$DBHandle = DbConnect();
 
 $activatedbyuser = $A2B->config["signup"]['activatedbyuser'];
 
 $lang_code = $_SESSION["language_code"];
 if (!$activatedbyuser) {
-        $mailtype = Mail::$TYPE_SIGNUP;
+	$mailtype = Mail :: $TYPE_SIGNUP;
 } else {
-        $mailtype = Mail::$TYPE_SIGNUPCONFIRM;
+	$mailtype = Mail :: $TYPE_SIGNUPCONFIRM;
 }
 
 try {
-    $mail = new Mail($mailtype, $_SESSION["id_signup"],$_SESSION["language_code"]);
+	$mail = new Mail($mailtype, $_SESSION["id_signup"], $_SESSION["language_code"]);
 } catch (A2bMailException $e) {
-    echo "<br>".gettext("Error : No email Template Found");
-    exit();
+	echo "<br>" . gettext("Error : No email Template Found");
+	exit ();
 }
 
+$QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE id=" . $_SESSION["id_signup"];
 
-
-$QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE id=".$_SESSION["id_signup"];
-
-$res = $DBHandle -> Execute($QUERY);
-$num = 0;	
+$res = $DBHandle->Execute($QUERY);
+$num = 0;
 if ($res)
-	$num = $res -> RecordCount();
+	$num = $res->RecordCount();
 
 if (!$num) {
-	echo "<br>".gettext("Error : No such user found in database");
-	exit();
+	echo "<br>" . gettext("Error : No such user found in database");
+	exit ();
 }
 
-for($i=0;$i<$num;$i++) {
+for ($i = 0; $i < $num; $i++) {
 	$list[] = $res->fetchRow();
 }
 
-if ($FG_DEBUG == 1) echo "</br><b>BELOW THE CARD PROPERTIES </b><hr></br>";
+if ($FG_DEBUG == 1)
+	echo "</br><b>BELOW THE CARD PROPERTIES </b><hr></br>";
 
-	
-list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey) = $list[0];
-if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
-	
- $mail->send();
+list ($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey) = $list[0];
+if ($FG_DEBUG == 1)
+	echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
+
+$mail->send();
 
 
 $smarty->display('signup_header.tpl');
-
 ?>
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-function sendto(action, record, field_inst, instance){
-  document.myForm.form_action.value = action;
-  document.myForm.sub_action.value = record;
-  document.myForm.elements[field_inst].value = instance;
-  myForm.submit();
-}
-
-function sendtolittle(direction){
-  myForm.action=direction;
-  myForm.submit();
-
-}
-
-//-->
-</script>
-
 
 <blockquote>
     <div align="center"><br></br>
@@ -114,11 +89,11 @@ function sendtolittle(direction){
 </div>
 </blockquote>      
 
-<br><br><br><br><br><br>
+<br><br><br>
+<br><br><br>
 
 
 <?php
 
 $smarty->display('signup_footer.tpl');
-
 
