@@ -1967,9 +1967,9 @@ class FormHandler
 		$processed = $this->getProcessed();
 		//find the last billing 
 		$card_id = $processed['id_card'];
-        $date_bill=$processed['date'];
-        
-        //GET VAT
+		$date_bill=$processed['date'];
+
+		//GET VAT
 		$card_table = new Table('cc_card','vat,typepaid,credit');
 		$card_clause = "id = ".$card_id;
 		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
@@ -2095,6 +2095,33 @@ class FormHandler
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 		}
+
+
+		//Send a mail for invoice to pay
+		if(!empty($last_invoice)){
+		    $table = "cc_invoice LEFT JOIN (SELECT st1.id_invoice, TRUNCATE(SUM(st1.price*(1+(st1.vat/100))),2) as total_vat,TRUNCATE(SUM(st1.price),2) as total" .
+		    $table .= " FROM cc_invoice_item AS st1 GROUP BY st1.id_invoice ) as items ON items.id_invoice = cc_invoice.id ";
+		    $instance_table = new Table("$table", "title, reference,description,total_vat,total");
+		    $invoice_clause = "id = ".$last_invoice;
+		    $result_invoice = $instance_table ->Get_list($this->DBHandle, $invoice_clause);
+		    if(is_array($result_invoice)){
+			
+			$invoice_title = $result_invoice[0]['title'];
+			$invoice_reference = $result_invoice[0]['reference'];
+			$invoice_description = $result_invoice[0]['description'];
+			$total = $result_invoice[0]['total'];
+			$total_vat = $result_invoice[0]['total_vat'];
+			$mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
+			$mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
+			$mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
+			$mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
+			$mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
+			$mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
+			$mail -> send();
+		    }
+
+		}
+
 		
 		//Update billing ...
 		if(!empty($start_date)){

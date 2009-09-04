@@ -276,6 +276,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                                     $id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
                                 }
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
+					$last_invoice = $id_invoice;
 					$description = $desc_billing_postpaid;
 					$amount = abs($Customer['credit']);
 					$field_insert = " id_invoice,price,vat,description,id_ext,type_ext";
@@ -284,6 +285,34 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				}
 			}
+
+			//Send a mail for invoice to pay
+			if(!empty($last_invoice)){
+			    $table = "cc_invoice LEFT JOIN (SELECT st1.id_invoice, TRUNCATE(SUM(st1.price*(1+(st1.vat/100))),2) as total_vat,TRUNCATE(SUM(st1.price),2) as total" .
+			    $table .=" FROM cc_invoice_item AS st1 GROUP BY st1.id_invoice ) as items ON items.id_invoice = cc_invoice.id ";
+			    $instance_table = new Table("$table", "title, reference,description,total_vat,total");
+			    $invoice_clause = "id = ".$last_invoice;
+			    $result_invoice = $instance_table ->Get_list($A2B->DBHandle, $invoice_clause);
+			    if(is_array($result_invoice)){
+				$invoice_title = $result_invoice[0]['title'];
+				$invoice_reference = $result_invoice[0]['reference'];
+				$invoice_description = $result_invoice[0]['description'];
+				$total = $result_invoice[0]['total'];
+				$total_vat = $result_invoice[0]['total_vat'];
+				$mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
+				$mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
+				$mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
+				$mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
+				$mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
+				$mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
+				$mail -> send();
+			    }
+
+			}
+			
+
+
+
 
 		} // END foreach($resmax as $Customer)
 	}

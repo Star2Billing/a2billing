@@ -50,14 +50,21 @@ class Mail {
 	static public $TYPE_FORGETPASSWORD = 'forgetpassword';
 	static public $TYPE_SIGNUPCONFIRM = 'signupconfirmed';
 	static public $TYPE_EPAYMENTVERIFY = 'epaymentverify';
-	static public $TYPE_INVOICE = 'invoice';
 	static public $TYPE_REMINDERCALL = 'reminder';
 	static public $TYPE_DID_PAID = 'did_paid';
 	static public $TYPE_DID_UNPAID = 'did_unpaid';
 	static public $TYPE_DID_RELEASED = 'did_released';
 	static public $TYPE_TICKET_NEW = 'new_ticket';
 	static public $TYPE_TICKET_MODIFY = 'modify_ticket';
-	
+	static public $TYPE_INVOICE_TO_PAY = 'invoice_to_pay';
+
+	//Used by mail type = invoice_to_pay
+	static public $INVOICE_TITLE_KEY = '$invoice_title$';
+	static public $INVOICE_REFERENCE_KEY = '$invoice_reference$';
+	static public $INVOICE_DESCRIPTION_KEY = '$invoice_description$';
+	static public $INVOICE_TOTAL_KEY = '$invoice_total$';
+	static public $INVOICE_TOTAL_VAT_KEY = '$invoice_total_vat$';
+
 	//Used by mail type = new_ticket AND modify_ticket
 	static public $TICKET_NUMBER_KEY = '$ticket_id$';
 	static public $TICKET_OWNER_KEY = '$ticket_owner$';
