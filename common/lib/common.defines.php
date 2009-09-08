@@ -69,6 +69,9 @@ define ("DIDX_MIN_RATING", isset($A2B->config['webui']['didx_min_rating'])?$A2B-
 define ("DIDX_SITE", "api.didx.net");
 define ("DIDX_RING_TO", isset($A2B->config['webui']['didx_ring_to'])?$A2B->config['webui']['didx_ring_to']:null);
 
+define ("API_LOGFILE", isset($A2B->config['webui']['api_logfile'])?$A2B->config['webui']['api_logfile']:null);
+
+
 // VOICEMAIL
 define ("ACT_VOICEMAIL", false);
 
