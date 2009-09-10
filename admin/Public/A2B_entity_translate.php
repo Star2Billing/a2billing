@@ -16,7 +16,8 @@ getpost_ifset(array (
 	'subject',
 	'mailtext',
 	'translate_data',
-	'id_language'
+	'id_language',
+	'mailtype'
 ));
 
 $handle = DbConnect();
@@ -25,26 +26,28 @@ $instance_table = new Table();
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
+
 if (isset ($translate_data) && $translate_data == 'translate') {
 	//print check_translated($id, $languages);
-	if (check_translated($id, $languages)) {
-		update_translation($id, $languages, $subject, $mailtext);
+	if (check_translated($id, $languages, $mailtype)) {
+		update_translation($id, $languages, $subject, $mailtext, $mailtype);
 	} else {
-		insert_translation($id, $languages, $subject, $mailtext);
+		insert_translation($id, $languages, $subject, $mailtext, $mailtype);
 	}
 }
+
 // Query to get mail template information
-$QUERY = "SELECT id,mailtype,subject,messagetext,id_language from cc_templatemail where id = $id";
+$QUERY = "SELECT id, mailtype, subject, messagetext, id_language FROM cc_templatemail WHERE mailtype = '$mailtype'";
 if (isset ($languages))
 	$QUERY .= " and id_language = '$languages'";
-
 $mail = $instance_table->SQLExec($handle, $QUERY);
+
 
 // #### HELP SECTION
 echo $CC_help_list_misc;
 
 // Query to get all languages with ids
-$QUERY = "SELECT code,name from cc_iso639 order by code";
+$QUERY = "SELECT code, name FROM cc_iso639 ORDER BY code";
 $result = $instance_table->SQLExec($handle, $QUERY);
 if (is_array($result)) {
 	$num_cur = count($result);
@@ -57,11 +60,13 @@ if (is_array($result)) {
 }
 
 ?>
-<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<FORM name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<input name="mailtype" value="<?php echo $mailtype; ?>" type="hidden">
+
 <table cellspacing="2" class="addform_table1">
 	 <TBODY>
 		<TR>
-			<TD width="%25" valign="middle" class="form_head"> 		Language 		</TD>  
+			<TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Language');?> </TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
 				<select NAME="languages" size="1" class="form_input_select" onChange="form.submit()">
 				<?php 
@@ -82,7 +87,7 @@ if (is_array($result)) {
 		</TR>
 
 		<TR>
-			<TD width="%25" valign="middle" class="form_head"> 		Subject 		</TD>  
+			<TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Subject');?> </TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
 			<INPUT class="form_input_text" name="subject"  size=30 maxlength=30 value="<?php echo $mail[0][2]?>">
 			<span class="liens">
@@ -91,7 +96,7 @@ if (is_array($result)) {
 		</TR>
 
 		<TR>
-			<TD width="%25" valign="middle" class="form_head"> 		Mail Text 		</TD>  
+			<TD width="%25" valign="middle" class="form_head"> <?php echo gettext('Mail Text');?> </TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" class="text">
 			<TEXTAREA class="form_input_textarea" name="mailtext" cols=60 rows=12><?php echo $mail[0][3]?></TEXTAREA> 
 			<span class="liens">
@@ -105,7 +110,7 @@ if (is_array($result)) {
 		</tr>
 
 		<tr>
-			<td width="50%" class="text_azul"><span class="tableBodyRight">Once you have completed the form above, click on the Translate button.</span></td>
+			<td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo gettext('Once you have completed the form above, click on the Translate button.');?></span></td>
 			<td width="50%" align="right" class="text">
 		<input class="form_input_button" TYPE="submit" name="translate_data" VALUE="translate">
 			</td>

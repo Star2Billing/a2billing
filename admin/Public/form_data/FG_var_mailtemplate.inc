@@ -46,13 +46,30 @@ $HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 
 
+if ($languages != '') {
+	if ($languages != '') {
+		$_SESSION["Langfilter"]=$languages;
+	}
+	if (isset($_SESSION["Langfilter"])) {
+		$HD_Form -> FG_TABLE_CLAUSE = "id_language='".$_SESSION["Langfilter"]."'";	
+	}
+} else {
+	if (isset($_SESSION["Langfilter"])) {
+		$languages = $_SESSION["Langfilter"];
+	}
+}
+$id_language = $languages;
+$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id_language=$languages&id=";
+$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&id_language=$languages&id=";
+
+
 $typemail_list = array();
 $typemail_list["reminder"]  		= array( gettext("Reminder"), Mail::$TYPE_REMINDER);
 $typemail_list["signup"]    		= array( gettext("Signup"),  Mail::$TYPE_SIGNUP);
 $typemail_list["forgetpassword"]  	= array( gettext("Forget password"), Mail::$TYPE_FORGETPASSWORD);
 $typemail_list["signupconfirmed"]  	= array( gettext("Signup confirmed"), Mail::$TYPE_SIGNUPCONFIRM);
 $typemail_list["payment"]  			= array( gettext("Payment Confirmation"), Mail::$TYPE_PAYMENT);
-$typemail_list["invoice"]  			= array( gettext("Invoice"), Mail::$TYPE_INVOICE);
+$typemail_list["invoice_to_pay"]  	= array( gettext("Invoice"), Mail::$TYPE_INVOICE_TO_PAY);
 $typemail_list["epaymentverify"]  	= array( gettext("EPayment Warning"), Mail::$TYPE_EPAYMENTVERIFY);
 $typemail_list["did_paid"]			= array( gettext("Did Payment confirmation"), Mail::$TYPE_DID_PAID);
 $typemail_list["did_unpaid"]		= array( gettext("Did not payment warning"), Mail::$TYPE_DID_UNPAID);
@@ -77,7 +94,7 @@ $HD_Form -> AddViewElement(gettext("SUBJECT"), "subject", "30%", "center", "sort
 
 
 if (($popup_select>=1)) {
-	$HD_Form -> FieldViewElement ('id,mailtype, fromemail, subject');
+	$HD_Form -> FieldViewElement ('id, mailtype, fromemail, subject');
 } else {
 	$HD_Form -> FieldViewElement ('mailtype, fromemail, subject');
 }
@@ -98,7 +115,7 @@ if (($popup_select>=1)) {
 	}
 } else {	
 	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&section=".$_SESSION["menu_section"];
+	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_mailtemplate.php?form_action=ask-add&id_language=$languages&section=".$_SESSION["menu_section"];
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add MAIL TEMPLATE");
 	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/email_add.png" ;
 	
@@ -108,7 +125,7 @@ if (($popup_select>=1)) {
 	
 	// Translation
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
-	$HD_Form -> FG_OTHER_BUTTON2_LINK= "A2B_entity_translate.php?form_action=ask-add&id=|param|&languages=$languages";
+	$HD_Form -> FG_OTHER_BUTTON2_LINK= "A2B_entity_translate.php?form_action=ask-add&id=|param|&mailtype=|col0|&languages=$languages";
 	$HD_Form -> FG_OTHER_BUTTON2_ALT = gettext('Translate');
 }
 
@@ -160,8 +177,8 @@ $HD_Form -> AddEditElement (gettext("MESSAGE TEXT"),
 
 $HD_Form -> FieldEditElement ('mailtype, fromemail, fromname, subject, messagetext');
 
-$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "id";
-$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "$latest_id";
+$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "id, id_language";
+$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "$latest_id, $id_language";
 
 $HD_Form ->FG_QUERY_EDITION_HIDDEN_FIELDS = "id_language";
 $HD_Form ->FG_QUERY_EDITION_HIDDEN_VALUE  = "$id_language";
@@ -171,7 +188,6 @@ $HD_Form -> FG_EDITION_CLAUSE = "id ='%id' ";
 if($id_language != '' || !is_null($id_language)) {
 	$HD_Form -> FG_EDITION_CLAUSE .= "AND id_language = '$id_language'";
 }
-
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the contents of the email template below.");
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this").$HD_Form->FG_INSTANCE_NAME." ".gettext("click on the delete button.");

@@ -16,7 +16,7 @@ getpost_ifset(array('languages','id','action'));
 if($action=="load") {
 	$DBHandle=DbConnect();
 	if(!empty($id) && is_numeric($id)){
-		$instance_table_mail = new Table("cc_templatemail","messagetext,fromemail,fromname,subject");
+		$instance_table_mail = new Table("cc_templatemail","messagetext, fromemail, fromname, subject");
 		$clause_mail = " id ='$id'";
 		$result=$instance_table_mail-> Get_list($DBHandle, $clause_mail);
 		echo json_encode($result[0]);
@@ -45,19 +45,8 @@ function sendValue(selvalue){
 
 $HD_Form -> setDBHandler (DbConnect());
 
-if($languages != '') {
-	if($languages != '') {
-		$_SESSION["Langfilter"]=$languages;
-	}
-	if (isset($_SESSION["Langfilter"])) {
-		$HD_Form -> FG_TABLE_CLAUSE = "id_language='".$_SESSION["Langfilter"]."'";	
-	}
-}
 
 $HD_Form -> init();
-$id_language = $languages;
-$HD_Form -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id_language=$id_language&id=";
-$HD_Form -> FG_DELETION_LINK = $_SERVER['PHP_SELF']."?form_action=ask-delete&id_language=$id_language&id=";
 
 if ($id!="" || !is_null($id)) {
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
@@ -100,7 +89,7 @@ if(isset($form_action) && $form_action=="list"){
 					<?php 
 					foreach($languages_list as $key => $lang_value) {											
 				?>
-					<option value='<?php echo $lang_value[0];?>' <?php if($lang_value[0]==$languages)print "selected";?>><?php echo $lang_value[1]; ?></option>
+					<option value='<?php echo $lang_value[0];?>' <?php if($lang_value[0]==$languages) print "selected";?>><?php echo $lang_value[1]; ?></option>
 				<?php } ?>		
         </td>
        </form>
