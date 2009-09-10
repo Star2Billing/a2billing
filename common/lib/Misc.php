@@ -417,6 +417,10 @@ function remove_prefix($phonenumber) {
 		echo substr($phonenumber, 3);
 		return 1;
 	}
+	if (substr($phonenumber, 0, 2) == "00") {
+		echo substr($phonenumber, 2);
+		return 1;
+	}
 	echo $phonenumber;
 }
 
