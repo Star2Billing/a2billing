@@ -162,7 +162,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$vat = $Customer['vat'];
 
 			// FIND THE LAST BILLING
-			$billing_table = new Table('cc_billing_customer', 'id,date');
+			$billing_table = new Table('cc_billing_customer', 'id,date,id_invoice');
 			$clause_last_billing = "id_card = " . $card_id;
 			$result = $billing_table->Get_list($A2B->DBHandle, $clause_last_billing, "date", "desc");
 			$call_table = new Table('cc_call', ' COALESCE(SUM(sessionbill),0)');
@@ -171,16 +171,29 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			$desc_billing = "";
 			$desc_billing_postpaid = "";
 			$start_date = null;
+			$lastbilling_invoice = null;
 			if (is_array($result) && !empty ($result[0][0])) {
 				$clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
 				$clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
 				$desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
-				$desc_billing_postpaid = "Amount for periode between the " . date("Y-m-d", strtotime($result[0][1])) . " and " . $date_now;
+				$desc_billing_postpaid = "Amount for periode between the " .date("Y-m-d", strtotime($result[0][1])). " and " . $date_now;
 				$start_date = $result[0][1];
+				$lastbilling_invoice = $result[0][2];
 			} else {
 				$desc_billing = "Calls cost before the " . $date_now;
 				$desc_billing_postpaid = "Amount for periode before the " . $date_now;
 			}
+
+			$lastpostpaid_amount = 0;
+			if(!empty($lastbilling_invoice)){
+			    $invoice_table = new Table('cc_invoice_item','TRUNCATE(SUM(price),2)');
+			    $lastinvoice_clause = "id_invoice = $lastbilling_invoice AND type_ext ='POSTPAID'";
+			    $result_lastinvoice = $invoice_table ->Get_list($A2B->DBHandle, $lastinvoice_clause);
+			    if(is_array($result_lastinvoice)&& !empty($result_lastinvoice[0][0])){
+				$lastpostpaid_amount = $result_lastinvoice [0][0];
+			    }
+			}
+
 			//insert billing
 			$field_insert = "id_card";
 			$value_insert = " '$card_id'";
@@ -260,9 +273,9 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				}
 
 			}
-
 			// behaviour postpaid
-			if ($Customer['typepaid'] == 1 && is_numeric($Customer['credit']) && $Customer['credit'] < 0) {
+			echo $lastpostpaid_amount;
+			if ($Customer['typepaid'] == 1 && is_numeric($Customer['credit']) && ($Customer['credit']+$lastpostpaid_amount) < 0) {
 				// GENERATE AN INVOICE TO COMPLETE THE BALANCE
                                 if(!empty($last_invoice)){
                                     $id_invoice = $last_invoice;
@@ -278,12 +291,17 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 					$last_invoice = $id_invoice;
 					$description = $desc_billing_postpaid;
-					$amount = abs($Customer['credit']);
+					$amount = abs($Customer['credit']+$lastpostpaid_amount);
 					$field_insert = " id_invoice,price,vat,description,id_ext,type_ext";
 					$instance_table = new Table("cc_invoice_item", $field_insert);
 					$value_insert = " '$id_invoice', '$amount','$vat','$description','" . $id_billing . "','POSTPAID'";
 					$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
 				}
+			}
+			if(!empty($last_invoice)){
+			    $param_update_billing = "id_invoice = '".$last_invoice."'";
+			    $clause_update_billing = " id= ".$id_billing;
+			    $billing_table ->Update_table($A2B->DBHandle,$param_update_billing,$clause_update_billing);
 			}
 
 			//Send a mail for invoice to pay
