@@ -58,7 +58,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include (dirname(__FILE__) . "/lib/admin.defines.php");
 
-$verbose_level = 1;
+$verbose_level = 0;
 
 $groupcard = 5000;
 
