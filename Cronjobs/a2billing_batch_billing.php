@@ -185,13 +185,13 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			}
 
 			$lastpostpaid_amount = 0;
-			if(!empty($lastbilling_invoice)){
-			    $invoice_table = new Table('cc_invoice_item','TRUNCATE(SUM(price),2)');
-			    $lastinvoice_clause = "id_invoice = $lastbilling_invoice AND type_ext ='POSTPAID'";
-			    $result_lastinvoice = $invoice_table ->Get_list($A2B->DBHandle, $lastinvoice_clause);
-			    if(is_array($result_lastinvoice)&& !empty($result_lastinvoice[0][0])){
-				$lastpostpaid_amount = $result_lastinvoice [0][0];
-			    }
+			$query_table = "cc_billing_customer LEFT JOIN cc_invoice ON cc_billing_customer.id_invoice = cc_invoice.id ";
+			$query_table .= "LEFT JOIN (SELECT st1.id_invoice, TRUNCATE(SUM(st1.price),2) as total_price FROM cc_invoice_item AS st1 WHERE st1.type_ext ='POSTPAID' GROUP BY st1.id_invoice ) as items ON items.id_invoice = cc_invoice.id";
+			$invoice_table = new Table($query_table,'SUM( items.total_price) as total');
+			$lastinvoice_clause = "cc_billing_customer.id_card = $card_id AND cc_invoice.paid_status=0";
+			$result_lastinvoice = $invoice_table ->Get_list($A2B->DBHandle, $lastinvoice_clause);
+			if(is_array($result_lastinvoice)&& !empty($result_lastinvoice[0][0])){
+			    $lastpostpaid_amount = $result_lastinvoice [0][0];
 			}
 
 			//insert billing

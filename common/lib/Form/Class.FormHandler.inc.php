@@ -1978,7 +1978,7 @@ class FormHandler
 				else $vat = $card_result[0][0];
 		
 		// FIND THE LAST BILLING
-		$billing_table = new Table('cc_billing_customer','id,date,id_invoice');
+		$billing_table = new Table('cc_billing_customer','id,date');
 		$clause_last_billing = "id_card = $card_id AND id != ".$this -> RESULT_QUERY;
 		$result = $billing_table -> Get_list($this->DBHandle, $clause_last_billing,"date","desc");
 		$call_table = new Table('cc_call',' COALESCE(SUM(sessionbill),0)' );
@@ -1987,26 +1987,24 @@ class FormHandler
 		$desc_billing="";
 		$desc_billing_postpaid="";
 		$start_date =null;
-		$lastbilling_invoice = null;
 		if(is_array($result) && !empty($result[0][0])){
 			$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND "; 
 			$clause_charge .= "creationdate >= '".$result[0][1]."' AND  ";
 			$desc_billing = "Calls cost between the ".$result[0][1]." and  $date_bill" ;
 			$desc_billing_postpaid="Amount for periode between the ".date("Y-m-d", strtotime($result[0][1]))." and $date_bill";
 			$start_date = $result[0][1];
-			$lastbilling_invoice = $result[0][2];
 		}else{
 			$desc_billing = "Calls cost before the $date_bill" ;
 			$desc_billing_postpaid="Amount for periode before the $date_bill" ;
 		}
 		$lastpostpaid_amount = 0;
-		if(!empty($lastbilling_invoice)){
-		    $invoice_table = new Table('cc_invoice_item','TRUNCATE(SUM(price),2)');
-		    $lastinvoice_clause = "id_invoice = $lastbilling_invoice AND type_ext ='POSTPAID'";
-		    $result_lastinvoice = $invoice_table ->Get_list($this->DBHandle, $lastinvoice_clause);
-		    if(is_array($result_lastinvoice)&& !empty($result_lastinvoice[0][0])){
-			$lastpostpaid_amount = $result_lastinvoice [0][0];
-		    }
+		$query_table = "cc_billing_customer LEFT JOIN cc_invoice ON cc_billing_customer.id_invoice = cc_invoice.id ";
+		$query_table .= "LEFT JOIN (SELECT st1.id_invoice, TRUNCATE(SUM(st1.price),2) as total_price FROM cc_invoice_item AS st1 WHERE st1.type_ext ='POSTPAID' GROUP BY st1.id_invoice ) as items ON items.id_invoice = cc_invoice.id";
+		$invoice_table = new Table($query_table,'SUM( items.total_price) as total');
+		$lastinvoice_clause = "cc_billing_customer.id_card = $card_id AND cc_invoice.paid_status=0 AND cc_billing_customer.id != ".$this -> RESULT_QUERY;
+		$result_lastinvoice = $invoice_table ->Get_list($this->DBHandle, $lastinvoice_clause);
+		if(is_array($result_lastinvoice)&& !empty($result_lastinvoice[0][0])){
+		    $lastpostpaid_amount = $result_lastinvoice [0][0];
 		}
 		$clause_call_billing .= "stoptime < '$date_bill' ";
 		$clause_charge .= "creationdate < '$date_bill' ";
@@ -2100,6 +2098,7 @@ class FormHandler
                             $id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
                         }
 			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+				$last_invoice = $id_invoice;
 				$description = $desc_billing_postpaid;
 				$amount = abs($card_result[0]['credit']+$lastpostpaid_amount);
 				$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
@@ -2107,6 +2106,11 @@ class FormHandler
 				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','".$this -> RESULT_QUERY."','POSTPAID'";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
+		}
+		if(!empty($last_invoice)){
+		    $param_update_billing = "id_invoice = '".$last_invoice."'";
+		    $clause_update_billing = " id= ".$this -> RESULT_QUERY;
+		    $billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
 		}
 
 		//Send a mail for invoice to pay
@@ -2133,11 +2137,7 @@ class FormHandler
 		    }
 
 		}
-		if(!empty($last_invoice)){
-		    $param_update_billing = "id_invoice = '".$last_invoice."'";
-		    $clause_update_billing = " id= ".$this -> RESULT_QUERY;
-		    $billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
-		}
+		
 
 		//Update billing ...
 		if(!empty($start_date)){
