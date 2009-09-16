@@ -56,7 +56,7 @@ $_SESSION["p_amount"] = 3;
 
 
 $paymentTable = new Table();
-$time_stamp = date("Y-m-d h:i:s"); 
+$time_stamp = date("Y-m-d H:i:s"); 
 $amount_string=sprintf("%.3f",$total_amount);
 
 if (strtoupper($payment)=='PLUGNPAY') {
@@ -100,6 +100,7 @@ if (is_array($payment_modules->modules)) {
 ?>
 
 <br><br>
+<center>
 <table width=80% align=center class="infoBox">
 <tr height="15">
     <td colspan=2 class="infoBoxHeading">&nbsp;<?php echo gettext("Please confirm your order")?></td>
@@ -158,8 +159,9 @@ if (is_array($payment_modules->modules)) {
             <input type="image" src="<?php echo Images_Path;?>/button_confirm_order.gif" alt="Confirm Order" border="0" title="Confirm Order">
              &nbsp;</td>
           </tr>
- </table>
+</table>
 </form>
+</center>
 
 
 <?php
