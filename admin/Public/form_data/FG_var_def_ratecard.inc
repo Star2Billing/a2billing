@@ -44,12 +44,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 // put all the destination name to lowercase
 $destination = strtolower ($destination);
 
-
-if ( (empty($form_action) || $form_action=="list") && $deleteselected != 'true') {
-	$HD_Form = new FormHandler("cc_ratecard LEFT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffplan = cc_ratecard.idtariffplan", "Rates");
-} else {
-	$HD_Form = new FormHandler("cc_ratecard", "Rates");
-}
+$HD_Form = new FormHandler("cc_ratecard", "Rates");
 
 $HD_Form -> FG_TABLE_ID = 'cc_ratecard.id';
 
@@ -90,11 +85,8 @@ if (isset($posted) && !$popup_select) {
 		
 		/*	Query for LCR 
 			SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk,  cc_ratecard.id 
-
 			FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
-			
 			WHERE 
-			
 			cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id= '7' INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id 
 			WHERE cc_ratecard.dialprefix=c1.dialprefix) ORDER BY  destination ASC LIMIT 0,10;
 		 */
@@ -120,7 +112,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
-if (!$popup_select){
+if (!$popup_select) {
     $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
     $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&section=".$_SESSION["menu_section"];
     $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Rate");
@@ -158,8 +150,7 @@ if ($popup_select) {
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
-
-	//echo $popup_select;
+	
 	if ($popup_select == 1)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 	elseif ($popup_select == 2)
@@ -197,7 +188,7 @@ $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinit
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
 $HD_Form -> AddSearchElement_Select('SELECT TRUNK',"cc_trunk","id_trunk, trunkcode, providerip","","trunkcode","ASC","id_trunk");
 $HD_Form -> AddSearchElement_Select('SELECT RATECARD',"cc_tariffplan","id, tariffname","","tariffname","ASC","idtariffplan",1,null,"cc_ratecard");
-$HD_Form -> AddSearchElement_Select('SELECT CALLPLAN',"cc_tariffgroup","id, tariffgroupname","","tariffgroupname","ASC","idtariffgroup");
+//$HD_Form -> AddSearchElement_Select('SELECT CALLPLAN',"cc_tariffgroup","id, tariffgroupname","","tariffgroupname","ASC","idtariffgroup");
 
 
 $HD_Form -> AddEditElement(gettext("RATECARD"),
@@ -243,6 +234,7 @@ $HD_Form -> AddEditElement("BUYING RATE",
    "" , "", "",	"", "" , "", "", gettext("Set the carrier cost, the price you pay for minutes."), null, null, 
    gettext("Set the carrier cost for this destination."));
 
+
 $HD_Form -> AddEditElement(gettext("BUYRATE MIN DURATION"),
    "buyrateinitblock",
    '$value',
@@ -252,6 +244,7 @@ $HD_Form -> AddEditElement(gettext("BUYRATE MIN DURATION"),
    gettext("Insert the buyrate init block"),
    "" , "", "",	"", "", "" , "NO", gettext("Set the minimum duration charged by the carrier. (i.e. 30 secs)"));
 
+
 $HD_Form -> AddEditElement(gettext("BUYRATE BILLING BLOCK"),
    "buyrateincrement",
    '$value',
@@ -260,6 +253,7 @@ $HD_Form -> AddEditElement(gettext("BUYRATE BILLING BLOCK"),
    "4",
    gettext("Insert the billing block"),
    "" , "", "",	"", "", "" , "NO", gettext("Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"));
+
 
 $HD_Form -> AddEditElement(gettext("SELLING RATE"),
    "rateinitial",
@@ -271,7 +265,6 @@ $HD_Form -> AddEditElement(gettext("SELLING RATE"),
    "" , "", "",	"", "" , "", "", gettext("The retail rate; or the cost per minute to apply to the customer, e.g. 0.02"), null, null, gettext("Define the selling cost for customers."));
 
 
-
 $HD_Form -> AddEditElement(gettext("SELLRATE MIN DURATION"),
    "initblock",		
    '$value',	
@@ -280,6 +273,7 @@ $HD_Form -> AddEditElement(gettext("SELLRATE MIN DURATION"),
    "4",	
    gettext("Insert the init block"),
    "" , "", "",	"", "", "", "NO", gettext("Set the minimum duration to charge the customer (ie 60 seconds)"));
+
 
 $HD_Form -> AddEditElement(gettext("SELLRATE BILLING BLOCK"),
    "billingblock",
@@ -290,6 +284,7 @@ $HD_Form -> AddEditElement(gettext("SELLRATE BILLING BLOCK"),
    gettext("Insert the billing block"),
    "" , "", "",	"", "", "", "NO", gettext("Set the billing increment in seconds to bill your customer."));
 
+
 $HD_Form -> AddEditElement(gettext("CONNECT CHARGE"),
    "connectcharge",
    '$value',
@@ -299,6 +294,7 @@ $HD_Form -> AddEditElement(gettext("CONNECT CHARGE"),
    gettext("Insert the connect charge"),
    "" , "", "",	"", "", "" , "NO", gettext("Apply a connection charge"));
 
+
 $HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE"),
    "disconnectcharge",
    '$value',
@@ -307,6 +303,8 @@ $HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE"),
    "12",
    gettext("Insert the disconnect charge"),
    "" , "", "",	"", "", "", "NO", gettext("Apply a disconnection charge" ));
+
+
 $HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE THRESHOLD"),
    "disconnectcharge_after",
    '$value',
@@ -325,8 +323,10 @@ $HD_Form -> AddEditElement(gettext("MINIMUM CALL COST "),
    "12",
    gettext("Insert the Minimum call cost"),
    "" , "", "",	"", "", "", "NO", gettext("Apply a minimum charge for the call." ));
-   
-if (ADVANCED_MODE){
+
+
+if (ADVANCED_MODE) {
+	
 	$HD_Form -> AddEditElement(gettext("STEPCHARGE A"),
 	   "stepchargea",
 	   '$value',
@@ -335,6 +335,7 @@ if (ADVANCED_MODE){
 	   "12",
 	   gettext("Insert the stepcharge A"),
 	   "" , "", "",	"", "", "", "NO", gettext("When entering in the cycle 'A', define the amount to charge for the entrance."), '', '', gettext("Below we have the section to create progressive rates. Progressive rate aims to bill the customer at various rates according the duration of the call. For instance you can define that you can to bill the customer 0.33dollars for the first 2 minutes and then you want to bill him 0.45dollars for the rest of the call." ));
+	
 	
 	$HD_Form -> AddEditElement(gettext("CHARGE A"),
 	   "chargea",
@@ -345,6 +346,7 @@ if (ADVANCED_MODE){
 	   gettext("Insert the charge A"),
 	   "" , "", "",	"", "", "", "NO", gettext("When entering in the cycle 'A', define the rate to apply." ));
 	
+	
 	$HD_Form -> AddEditElement(gettext("TIMECHARGE A"),
 	   "timechargea",
 	   '$value',
@@ -353,6 +355,7 @@ if (ADVANCED_MODE){
 	   "4",
 	   gettext("Insert the time charge A"),
 	   "" , "", "",	"", "", "", "NO", gettext("Define the duration of the cycle 'A'." ));
+	
 	
 	$HD_Form -> AddEditElement(gettext("BILLING BLOCK A"),
 	   "billingblocka",
@@ -363,6 +366,7 @@ if (ADVANCED_MODE){
 	   gettext("Insert the billing block A"),
 	   "" , "", "",	"", "", "" , "NO", gettext("Define the duration of each billing block to apply the rate 'CHARGE A'."));
 	
+	
 	$HD_Form -> AddEditElement(gettext("STEPCHARGE B"),
 	   "stepchargeb",
 	   '$value',
@@ -371,6 +375,7 @@ if (ADVANCED_MODE){
 	   "12",
 	   gettext("Insert the stepcharge B"),
 	   "" , "", "",	"", "", "" , "NO", gettext("When entering in the cycle 'B', define the amount to charge for the entrance."));
+	
 	
 	$HD_Form -> AddEditElement(gettext("CHARGE B"),
 	   "chargeb",
@@ -381,6 +386,7 @@ if (ADVANCED_MODE){
 	   gettext("Insert the charge B"),
 	   "" , "", "",	"", "", "", "NO", gettext("When entering in the cycle 'B', define the rate to apply." ));
 	
+	
 	$HD_Form -> AddEditElement(gettext("TIMECHARGE B"),
 	   "timechargeb",
 	   '$value',
@@ -389,6 +395,7 @@ if (ADVANCED_MODE){
 	   "4",
 	   gettext("Insert the time charge B"),
 	   "" , "", "",	"", "", "", "NO", gettext("Define the duration of the cycle 'B'." ));
+	
 	
 	$HD_Form -> AddEditElement(gettext("BILLING BLOCK B"),
 	   "billingblockb",
@@ -399,6 +406,7 @@ if (ADVANCED_MODE){
 	   gettext("Insert the billing block B"),
 	   "" , "", "",	"", "", "", "NO", gettext("Define the duration of each billing block to apply the rate 'CHARGE B'." ));
 	
+	
 	$HD_Form -> AddEditElement(gettext("STEPCHARGE C"),
 	   "stepchargec",
 	   '$value',
@@ -407,6 +415,7 @@ if (ADVANCED_MODE){
 	   "12",
 	   "Insert the stepcharge C",
 	   "" , "", "",	"", "", "", "NO", gettext("When entering in the cycle 'C', define the amount to charge for the entrance." ));
+	
 	
 	$HD_Form -> AddEditElement(gettext("CHARGE C"),
 	   "chargec",
@@ -417,6 +426,7 @@ if (ADVANCED_MODE){
 	   gettext("Insert the charge C"),
 	   "" , "", "",	"", "", "", "NO", gettext("When entering in the cycle 'C', define the rate to apply."));
 	
+	
 	$HD_Form -> AddEditElement(gettext("TIMECHARGE C"),
 	   "timechargec",
 	   '$value',
@@ -426,6 +436,7 @@ if (ADVANCED_MODE){
 	   gettext("Insert the time charge C"),
 	   "" , "", "",	"", "", "", "NO", gettext("Define the duration of the cycle 'C'."));
 	
+	
 	$HD_Form -> AddEditElement(gettext("BILLING BLOCK C"),
 	   "billingblockc",
 	   '$value',
@@ -434,6 +445,8 @@ if (ADVANCED_MODE){
 	   "4",
 	   gettext("Insert the billing block C"),
 	   "" , "", "",	"", "", "", "NO", gettext("Define the duration of each billing block to apply the rate 'CHARGE C'."));
+	
+	
 	$HD_Form -> AddEditElement(gettext("ANNOUNCE TIME CORRECTION"),
            "announce_time_correction",
            '$value',
@@ -446,7 +459,7 @@ if (ADVANCED_MODE){
 }//ENDif (ADVANCED_MODE)
 
 
-if ($form_action=="ask-add"){
+if ($form_action=="ask-add") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+10;
 	$end_date = date("-m-d H:i:s");
@@ -464,6 +477,7 @@ $HD_Form -> AddEditElement(gettext("START DATE"),
    "" , "", "",	"", "", "", "" , gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"),
    null, "res_display_dateformat", gettext("Define the period when this rate table is active."));
 
+
 $HD_Form -> AddEditElement(gettext("STOP DATE"),
    "stopdate",
    '$value',
@@ -473,7 +487,8 @@ $HD_Form -> AddEditElement(gettext("STOP DATE"),
    gettext("Insert the stop date"),
    "", "", "", "", "", "NO-NULL", "", gettext("Leave empty to apply this rate indefinitely. Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00"), null, "res_display_dateformat" );
 
-if ($form_action=="ask-add"){
+
+if ($form_action=="ask-add") {
 	$comp_time = " value=0 ";
 	$comp_time_plus = " value=10079 ";
 }
@@ -498,6 +513,7 @@ $HD_Form -> AddEditElement(gettext("END TIME"),
    gettext("Insert the end time"),
    "" , "", "", "", "",  "", "", gettext("Set the time and the day of the week that the rate is no longer valid. (ie Sunday 23:59 is 10079)") );
 
+
 $HD_Form -> AddEditElement(gettext("ROUNDING CALLTIME"),
    "rounding_calltime",
    '$value',
@@ -506,6 +522,7 @@ $HD_Form -> AddEditElement(gettext("ROUNDING CALLTIME"),
    "",
    gettext("Insert the rounding calltime"),
    "", "", "", "", "", "", "", gettext("Set the rounding calltime. All the selling rules will apply over this new calltime."));
+
 
 $HD_Form -> AddEditElement(gettext("ROUNDING THRESHOLD"),
    "rounding_threshold",
@@ -516,6 +533,7 @@ $HD_Form -> AddEditElement(gettext("ROUNDING THRESHOLD"),
    gettext("Insert the rounding threshold"),
    "", "", "", "", "", "", "", gettext("Set the rounding threshold"));
 
+
 $HD_Form -> AddEditElement(gettext("ADDITIONAL BLOCK CHARGE"),
    "additional_block_charge",
    '$value',
@@ -525,6 +543,7 @@ $HD_Form -> AddEditElement(gettext("ADDITIONAL BLOCK CHARGE"),
    gettext("Insert the additional block charge"),
    "", "", "", "", "", "", "", gettext("Set the initial block charge"));
 
+
 $HD_Form -> AddEditElement(gettext("ADDITIONAL BLOCK CHARGE TIME"),
    "additional_block_charge_time",
    '$value',
@@ -533,7 +552,8 @@ $HD_Form -> AddEditElement(gettext("ADDITIONAL BLOCK CHARGE TIME"),
    "",
    gettext("Insert the additional block charge time"),
    "", "", "", "", "", "", "", gettext("Set the initial block charge time"));
-   
+
+
 $HD_Form -> AddEditElement(gettext("ADDITIONAL GRACE TIME"),
    "additional_grace",
    '$value',
@@ -542,6 +562,7 @@ $HD_Form -> AddEditElement(gettext("ADDITIONAL GRACE TIME"),
    "",
    gettext("Insert the additional grace time in sec"),
    "", "", "", "", "", "", "", gettext("Set the additional grace time in sec"));
+
 
 $HD_Form -> AddEditElement(gettext("TRUNK"),
    "id_trunk",
@@ -553,6 +574,7 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
    "trunkcode, id_trunk",
 	"", "", "%1", "", gettext("Set the trunk to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
 
+
 $HD_Form -> AddEditElement(gettext("CIDGroup"),
    "id_outbound_cidgroup",
    '$value',
@@ -563,6 +585,7 @@ $HD_Form -> AddEditElement(gettext("CIDGroup"),
    "group_name, id",
 	"", "", "%1", "", gettext("Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>');
 
+
 $HD_Form -> AddEditElement(gettext("TAG"),
    "tag",
    '$value',
@@ -571,6 +594,7 @@ $HD_Form -> AddEditElement(gettext("TAG"),
    "11",
    "",
    "" , "", "",	"", "", "", "NO", gettext("Set a tag on this rate"));
+
 
 if (ADVANCED_MODE) {
 	$HD_Form -> AddEditElement(gettext("MUSICONHOLD"),
@@ -582,6 +606,7 @@ if (ADVANCED_MODE) {
 	   "",
 	   "list" , "", "", "", $musiconhold_list, "%1", "", "" );
 }
+
 
 if (ADVANCED_MODE) {
 	// This Variable store the argument for the SQL query
@@ -597,7 +622,6 @@ $HD_Form -> FG_SPLITABLE_FIELD = 'dialprefix';
 $HD_Form -> FG_INTRO_TEXT_ADITION = $HD_Form -> FG_INTRO_TEXT_EDITION = gettext("Rates must be entered in the currency base : ").strtoupper(BASE_CURRENCY);
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME."<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-
 
 
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
