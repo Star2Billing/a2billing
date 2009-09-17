@@ -393,6 +393,90 @@ $link = CUSTOMER_UI_URL;
 <br/>
 <?php
 
+// We need to list all required columns as both tables have an 'id' column
+$subscription_table = new Table('cc_card_subscription,cc_subscription_fee','cc_card_subscription.id,id_cc_card,startdate,product_name,fee');
+$subscription_clause = "id_cc_card = ".$id." AND cc_card_subscription.id_subscription_fee = cc_subscription_fee.id";
+$subscription_result = $subscription_table -> Get_list($DBHandle, $subscription_clause, 'startdate', 'DESC', NULL, NULL, 10, 0);
+if(sizeof($subscription_result)>0 && $subscription_result[0]!=null) {
+?>
+<table class="toppage_maintable">
+	<tr>
+		<td height="20" align="center"> 
+			<font class="toppage_maintable_text">						  
+			  <?php echo gettext("Current Subscriptions"); ?>		  <br/>
+			</font>
+		</td>
+	</tr>
+</table>
+
+<table width="95%"  cellspacing="2" cellpadding="2" border="0">
+
+	<tr class="form_head">
+		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		 <?php echo gettext("ID"); ?>
+		</td>
+		<td class="tableBody"  width="20%" align="center" style="padding: 2px;">
+		<?php echo gettext("DATE"); ?>
+		</td>
+		<td class="tableBody"  width="38%" align="center" style="padding: 2px;">
+		<?php echo gettext("SUBSCRIPTION"); ?>
+		</td>
+		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
+		<?php echo gettext("FEE"); ?>
+		</td>
+		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
+		 <?php echo gettext("LINKS"); ?>
+		</td>
+		
+	</tr><?php 
+		$i=0;
+		foreach ($subscription_result as $subscription) {
+			if($i%2==0) $bg="#fcfbfb";
+			else  $bg="#f2f2ee";
+	?>
+			<tr bgcolor="<?php echo $bg; ?>"  >
+				<td class="tableBody" align="center">
+				  <?php echo $subscription['id']; ?>
+				</td>
+			
+				<td class="tableBody" align="center">
+				  <?php echo $subscription['startdate']; ?>
+				</td>
+			
+				<td class="tableBody"  align="center">
+				  <?php echo $subscription['product_name']; ?>
+				</td>
+				
+				<td class="tableBody"  align="center">
+				  <?php echo $subscription['fee']; ?>
+				</td>
+				<td class="tableBody"  align="center">
+					<?php if(!empty($subscription['id'])){ ?>
+					<a href="A2B_entity_subscriber.php?form_action=ask-edit&id=<?php echo $subscription['id']?>"> <img src="<?php echo Images_Path."/link.png"?>" border="0" title="<?php echo gettext("Link to subscription")?>" alt="<?php echo  gettext("Link to subscription")?>"></a>
+					<a href="A2B_entity_subscriber.php?form_action=ask-delete&id=<?php echo $subscription['id']?>"> <img src="<?php echo Images_Path."/delete.png"?>" border="0" title="<?php echo gettext("Delete subscription")?>" alt="<?php echo  gettext("Delete subscription")?>"></a>
+					<?php } ?>
+				</td>
+				
+				
+			</tr>
+		<?php 
+		$i++;	
+		}
+		?>
+</table>
+<?php 
+}else
+{
+?>
+<div style="width : 100%; text-align : center; margin-left:auto;margin-center:auto;" >
+ 	<a class="cssbutton_big"  href="A2B_entity_subscriber.php?form_action=ask-add&section=13&id=<?php echo $id?>">
+		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
+		<?php echo gettext("Add Subscription"); ?>
+	</a>
+</div><?php 
+}
+
+
 $payment_table = new Table('cc_logpayment','*');
 $payment_clause = "card_id = ".$id;
 $payment_result = $payment_table -> Get_list($DBHandle, $payment_clause, 'date', 'DESC', NULL, NULL, 10, 0);
@@ -567,7 +651,7 @@ if (sizeof($call_result)>0 && $call_result[0]!=null) {
 		 <?php echo gettext("SELL"); ?>
 		</td>
 		<td class="tableBody"  width="10%" align="center" style="padding: 2px;">
-		 <?php echo gettext("LINK TO THE RATE"); ?>
+		 <?php echo gettext("RATE"); ?>
 		</td>
 		
 	</tr>
