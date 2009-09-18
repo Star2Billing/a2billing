@@ -44,18 +44,6 @@ if (tep_not_null($action)) {
 			$ticket = new Ticket($ticketID);
 			$ticket->insertComment($comment, $_SESSION["admin_id"], 1);
 			tep_redirect("CC_ticket_view.php?" . "id=" . $id . "&result=success");
-		case 'view_comment' :
-			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_ticket_comment", "*");
-			$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $idc . "'");
-			tep_redirect("CC_ticket_view.php?id=" . $id . "#nav" . $idc);
-			break;
-		case 'view_ticket' :
-			$DBHandle = DbConnect();
-			$instance_sub_table = new Table("cc_ticket", "*");
-			$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $id . "'");
-			tep_redirect("CC_ticket_view.php?id=" . $id);
-			break;
 			break;
 	}
 }
@@ -63,6 +51,19 @@ if (tep_not_null($action)) {
 $ticket = new Ticket($ticketID);
 $comments = $ticket->loadComments();
 
+$ticket = new Ticket($ticketID);
+$comments = $ticket->loadComments();
+$DBHandle = DbConnect();
+$instance_sub_table = new Table("cc_ticket", "*");
+    if($ticket->getViewed(2)){
+	$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $id . "'");
+    }
+$instance_sub_table = new Table("cc_ticket_comment", "*");
+foreach ($comments as $comment) {
+    if($comment->getViewed(2)){
+	$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $comment->getId() . "'");
+    }
+}
 
 $smarty->display('main.tpl');
 
@@ -105,15 +106,11 @@ $smarty->display('main.tpl');
 	<?php if($ticket->getViewed(2)){ ?>
 	<tr>
 		<td colspan="2" align="right">
-		<br/>&nbsp;
-		<input id="view_tick" class="view_ticket" type="checkbox" alt="<?php echo gettext("Click here to consider it like viewed"); ?>" style = "vertical-align:middle;" name="view" > <img  id="view_tick" src="<?php echo Images_Path ?>/eye.png"  class="view_ticket_icon" style = "vertical-align:middle;" border="0" title="<?php echo gettext("Click here to consider it like viewed"); ?>" alt="<?php echo gettext("Click here to consider it like viewed"); ?>" /> </td>
+		<strong style="font-size:8px; color:#B00000; "> &nbsp;NEW&nbsp;</strong>
+		</td>
 	</tr>
 	<?php }else{
 		?>
-	<tr>
-		<td colspan="2" >
-		<br/> &nbsp;
-	</tr>	
 		
 	<?php	
 	} ?>
@@ -208,14 +205,10 @@ foreach ($comments as $comment)
 	<tr>
 		<td colspan="2" align="right">
 		<br/>&nbsp;
-		<input id="<?php echo $comment->getId(); ?>" class="view_comment" type="checkbox" alt="<?php echo gettext("Click here to consider it like viewed"); ?>" style = "vertical-align:middle;" name="view" > <img  id="<?php echo $comment->getId(); ?>" src="<?php echo Images_Path ?>/eye.png"  class="view_comment_icon" style = "vertical-align:middle;" border="0" title="<?php echo gettext("Click here to consider it like viewed"); ?>" alt="<?php echo gettext("Click here to consider it like viewed"); ?>" /> </td>
+		<strong style="font-size:8px; color:#B00000; "> &nbsp;NEW&nbsp;</strong> </td>
 	</tr>
 	<?php }else{
 		?>
-	<tr>
-		<td colspan="2" >
-		<br/> &nbsp;
-	</tr>	
 		
 	<?php	
 	} ?>
@@ -232,33 +225,3 @@ $smarty->display('footer.tpl');
 
 
 ?>
-
-<script type="text/javascript">
-	
-$(document).ready(function () {
-	$('.view_comment').click(function () {
-			$("#action").val('view_comment')
-			$("#idc").val(this.id);
-			$('form').submit();
-	        });
-	$('.view_comment_icon').click(function () {
-			  $("#"+this.id+":checkbox").attr("checked", true);
-			  $("#action").val('view_comment')
-			  $("#idc").val(this.id);
-			  $('form').submit();
-	        });
-	$('.view_ticket').click(function () {
-			$("#action").val('view_ticket')
-			$('form').submit();
-	        });
-	$('.view_ticket_icon').click(function () {
-			  $('.view_ticket').attr("checked", true);
-			  $("#action").val('view_ticket')
-			  $('form').submit();
-	        });
-	                
-
-	
-       
-});
-</script>
