@@ -263,20 +263,24 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
 	$HD_Form -> FG_OTHER_BUTTON3 = true;
+	$HD_Form -> FG_OTHER_BUTTON4 = true;
 	$FN_COLUMN_ID="col".($FG_COL_QUERY_COUNT);//get numbers of rows for needed fields
 	$FN_COLUMN_USERNAME="col".($FG_COL_QUERY_COUNT+1);
 	$FN_COLUMN_ALIAS="col".($FG_COL_QUERY_COUNT+2);
-	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sip&form_action=add_sip&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iax&form_action=add_iax&stitle=Customers_Card&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
-	$HD_Form -> FG_OTHER_BUTTON3_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|$FN_COLUMN_ID|";
+	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sip&form_action=add_sip&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
+	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iax&form_action=add_iax&id_cc_card=|$FN_COLUMN_ID|&cardnumber=|$FN_COLUMN_USERNAME|&useralias=|$FN_COLUMN_ALIAS|";
+	$HD_Form -> FG_OTHER_BUTTON3_LINK="A2B_entity_payment.php?form_action=ask-add&card_id=|$FN_COLUMN_ID|";
+	$HD_Form -> FG_OTHER_BUTTON4_LINK="A2B_entity_subscriber.php?form_action=ask-add&id=|$FN_COLUMN_ID|";
 	$HD_Form -> FG_INFO_LINK = "A2B_card_info.php?id=";
 	//FOR INFO , DEL, EDIT  the image is already in Image_Path
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
 	$HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path . "/money.png";
+	$HD_Form -> FG_OTHER_BUTTON4_IMG = Images_Path . "/book_add.png";
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("Auto Create SIP Config");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("Auto Create IAX Config");
 	$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('Add Payment to this Card');
+	$HD_Form -> FG_OTHER_BUTTON4_ALT = gettext('Add Subscriber to this Card');
 }
 
 $HD_Form -> FG_FILTER_APPLY = true;

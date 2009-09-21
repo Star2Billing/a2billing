@@ -70,10 +70,12 @@ $HD_Form -> FG_ADDITION = true;
 $comp_zero = $comp_date_plus='';
 if (isset($form_action) && $form_action=="ask-add") {
 	$begin_date = date("Y");
-	$begin_date_plus = date("Y")+30;
 	$end_date = date("-m-d H:i:s");
 	$comp_date = "value='".$begin_date.$end_date."'";
-	$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
+	//set passed id if any (used if called from customer screen, id is passed to pr-epopluate value
+	$idd = "value='$id'";
+	//Max value Mysql Timestamp can store is '2038-01-19 03:14:07' UTC
+	$comp_date_plus = "value='2038-01-01 00:00:00'";
 	$comp_zero = "value='0'";
 }
 
@@ -81,7 +83,7 @@ $HD_Form -> AddEditElement (gettext("CUSTOMER ID"),
 				"id_cc_card",
 				'',
 				"POPUPVALUE",
-				"size=30 maxlength=50",
+				"size=30 maxlength=50 $idd",
 				"4",
 				gettext("Insert the Customer ID"),
 				"" , "", "", "", "",

@@ -131,8 +131,8 @@ class FormHandler
 	var $FG_OTHER_BUTTON1=false;
 	var $FG_OTHER_BUTTON2=false;
 	var $FG_OTHER_BUTTON3=false;
+	var $FG_OTHER_BUTTON4=false;
 	
-
 
 	/**
     * Keep the link for the action (EDIT & DELETE)
@@ -145,6 +145,7 @@ class FormHandler
 	var $FG_OTHER_BUTTON1_LINK	= '';	
 	var $FG_OTHER_BUTTON2_LINK	= '';
 	var $FG_OTHER_BUTTON3_LINK	= '';
+	var $FG_OTHER_BUTTON4_LINK	= '';
 	
 	var $FG_EDITION_IMG	= 'edit.png';
 	var $FG_DELETION_IMG= 'delete.png';
@@ -153,10 +154,12 @@ class FormHandler
 	var $FG_OTHER_BUTTON1_IMG = '';
 	var $FG_OTHER_BUTTON2_IMG = '';
 	var $FG_OTHER_BUTTON3_IMG = '';
+	var $FG_OTHER_BUTTON4_IMG = '';
 	
 	var $FG_OTHER_BUTTON1_FORBIDDEN_KEY	= array();
 	var $FG_OTHER_BUTTON2_FORBIDDEN_KEY	= array();
 	var $FG_OTHER_BUTTON3_FORBIDDEN_KEY	= array();
+	var $FG_OTHER_BUTTON4_FORBIDDEN_KEY	= array();
 	
 	var $FG_EDIT_PAGE_CONFIRM_BUTTON	= '';
 	var $FG_DELETE_PAGE_CONFIRM_BUTTON	= '';
@@ -275,19 +278,22 @@ class FormHandler
 	var $FG_OTHER_BUTTON1_ALT = '';
 	var $FG_OTHER_BUTTON2_ALT = '';
 	var $FG_OTHER_BUTTON3_ALT = '';
-
+	var $FG_OTHER_BUTTON4_ALT = '';
+	
 	var $FG_OTHER_BUTTON1_HTML_CLASS = '';
 	var $FG_OTHER_BUTTON2_HTML_CLASS = '';
 	var $FG_OTHER_BUTTON3_HTML_CLASS = '';
+	var $FG_OTHER_BUTTON4_HTML_CLASS = '';
 	
 	var $FG_OTHER_BUTTON1_HTML_ID = '';
 	var $FG_OTHER_BUTTON2_HTML_ID = '';
 	var $FG_OTHER_BUTTON3_HTML_ID = '';
-	
+	var $FG_OTHER_BUTTON4_HTML_ID = '';	
 	
 	var $FG_OTHER_BUTTON1_CONDITION = '';
 	var $FG_OTHER_BUTTON2_CONDITION = '';
 	var $FG_OTHER_BUTTON3_CONDITION = '';
+	var $FG_OTHER_BUTTON4_CONDITION = '';
 	var $FG_EDITION_CONDITION = '';
 	var $FG_DELETION_CONDITION = '';
 	
@@ -608,7 +614,7 @@ class FormHandler
 		$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 		
 		$this -> FG_TOTAL_TABLE_COL = $this -> FG_NB_TABLE_COL;
-		if ($this -> FG_DELETION || $this -> FG_INFO || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2 || $this -> FG_OTHER_BUTTON3) {
+		if ($this -> FG_DELETION || $this -> FG_INFO || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2 || $this -> FG_OTHER_BUTTON3 || $this -> FG_OTHER_BUTTON4) {
 			$this -> FG_TOTAL_TABLE_COL++;
 		}
 	}
