@@ -37,11 +37,13 @@ $HD_Form->create_toppage($form_action);
 
 if($message == "success") {
 ?>
+<center>
 <table width="50%" align="center">
 	<tr height="100px">
 		<td align="center"><?php echo gettext("Your notification settings has successfully been updated.")?></td>
 	</tr>
 </table>
+</center>
 <?php
 } else {
 	$HD_Form -> create_form ($form_action, $list, $id=null) ;
@@ -49,3 +51,4 @@ if($message == "success") {
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
+

@@ -465,17 +465,7 @@ if(sizeof($subscription_result)>0 && $subscription_result[0]!=null) {
 		?>
 </table>
 <?php 
-}else
-{
-?>
-<div style="width : 100%; text-align : center; margin-left:auto;margin-center:auto;" >
- 	<a class="cssbutton_big"  href="A2B_entity_subscriber.php?form_action=ask-add&section=13&id=<?php echo $id?>">
-		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
-		<?php echo gettext("Add Subscription"); ?>
-	</a>
-</div><?php 
-}
-
+} 
 
 $payment_table = new Table('cc_logpayment','*');
 $payment_clause = "card_id = ".$id;
