@@ -82,31 +82,59 @@ $DBHandle  = DbConnect();
 $instance_table = new Table();
 
 
-if(isset($submit)) {
+if (isset($submit)) {
 	
 	check_demo_mode();
 	
-	foreach ($list_customer as $cc_customer){
-		$id_card = $cc_customer[0];
-            try {
-                $mail = new Mail(null,$id_card,null,$message,$subject);
-                $mail ->setFromName($fromname);
-                $mail ->setFromEmail($from);
-                $mail ->send();
-                $result = true;
-            } catch (A2bMailException $e) {
-                echo $e->getMessage();
-            }
-		
-	}
+	$error_msg = '';
+	$sent = 0;
+	$err_sent = 0;
 	
+	foreach ($list_customer as $cc_customer) {
+		$id_card = $cc_customer[0];
+        try {
+        	$sent++;
+            $mail = new Mail(null,$id_card,null,$message,$subject);
+            $mail ->setFromName($fromname);
+            $mail ->setFromEmail($from);
+            
+            if (MAILQUEUE_THROTTLE) {
+				sleep(MAILQUEUE_THROTTLE);
+			} elseif (MAILQUEUE_BATCH_SIZE && $sent > 10) {
+				$totaltime = mt_end(0);
+				$msgperhour = (3600/$totaltime) * $sent; // 7200
+				$msgpersec = $msgperhour / 3600; // 2
+				$secpermsg = $totaltime / $sent; // 0.5
+				$target = MAILQUEUE_BATCH_SIZE / MAILQUEUE_BATCH_PERIOD; // 0.5
+				$actual = $sent / $totaltime;
+				$delay = $actual - $target;
+				//echo ("totaltime=$totaltime - Sent: $sent ; mph $msgperhour ; mps $msgpersec ; secpm $secpermsg ; target $target ; actual $actual ; delay $delay <br/>");
+				if ($delay > 0) {
+					// $expected = MAILQUEUE_BATCH_PERIOD / $secpermsg;
+					// $delay = MAILQUEUE_BATCH_SIZE / $expected;
+					//echo ("waiting for $delay seconds to make sure we don't exceed our limit of ".MAILQUEUE_BATCH_SIZE." messages in ".MAILQUEUE_BATCH_PERIOD."seconds <br/><br/>");
+					
+					$delay = $delay * 1000000;
+					usleep($delay);
+				}
+			}
+            
+            // SEND MAIL
+            //$mail ->send();
+            
+        } catch (A2bMailException $e) {
+        	$err_sent++;
+            $error_msg .= $e->getMessage();
+        }
+	}
 }
+
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
 echo $CC_help_mass_mail;
 
-$tags_help= gettext("The followings tags will be replaced in the message by the value in the database.");
+$tags_help = gettext("The followings tags will be replaced in the message by the value in the database.");
 $tags_help .=  '<br/><b>$email$</b>:'.gettext('email of the customer').'<br/>';
 $tags_help .= '<b>$firstname$</b>: '.gettext('firstname of the customer').' <br/>';
 $tags_help .=  '<b>$lastname$</b>: '.gettext('lastname of the customer').' <br/>';
@@ -153,15 +181,22 @@ function loadtmpl(){
 <FORM action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="mass_mail"> 
 	<table class="editform_table1" cellspacing="2">
 <?php
-	if(isset($submit)) {
-		if($result) {
+	if (isset($submit)) {
 ?>
 		<TR> 
 		 <td align="center" colspan="2"><?php echo gettext("The e-mail has been sent to "); echo $total_customer; echo gettext(" customer(s)!")?></td>
 		</TR>
-	<?php } else {?>
+	<?php if ($err_sent > 0) { ?>
 		<tr> 
-		 <td align="center" colspan="2"><?php echo gettext("There is some error sending e-mail, please try later.");?></td>
+		 <td align="center" colspan="2"><br/><?php echo gettext("There is some error sending e-mail :");?>
+		 
+		 <div class="scroll">
+<pre>
+<?php echo $error_msg; ?>
+</pre>
+</div> 
+		 
+		 </td>
 	   </tr>
 	<?php 
 		}

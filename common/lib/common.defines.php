@@ -82,6 +82,20 @@ define ("SHOW_DONATION", true);
 define ("ASTERISK_VERSION", isset($A2B->config['agi-conf1']['asterisk_version'])?$A2B->config['agi-conf1']['asterisk_version']:'1_4');
 
 
+# define the amount of emails you want to send per period. If 0, batch processing
+# is disabled and messages are sent out as fast as possible
+define("MAILQUEUE_BATCH_SIZE", 0);
+
+# define the length of one batch processing period, in seconds (3600 is an hour)
+define("MAILQUEUE_BATCH_PERIOD", 3600);
+
+# to avoid overloading the server that sends your email, you can add a little delay
+# between messages that will spread the load of sending
+# you will need to find a good value for your own server
+# value is in seconds (or you can play with the autothrottle below)
+define('MAILQUEUE_THROTTLE', 0);
+
+
 
 /*
  *		GLOBAL USED VARIABLE
@@ -90,7 +104,9 @@ $PHP_SELF = $_SERVER["PHP_SELF"];
 
 $CURRENT_DATETIME = date("Y-m-d H:i:s");
 
+// Store script start time
 $_START_TIME = time();
+mt_start();
 
 
 // A2BILLING INFO
