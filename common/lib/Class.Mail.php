@@ -270,7 +270,12 @@ class Mail {
 		if (!empty ($to_email)){
 			$this->to_email = $to_email;
 		}
-		a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);
+		try {
+			a2b_mail($this->to_email, $this->title, $this->message, $this->from_email, $this->from_name);
+		} catch (phpmailerException $e) {
+        	throw new A2bMailException("Error sent mail : ".$e->getMessage()."\n");
+        }
+		
 	}
 
 }

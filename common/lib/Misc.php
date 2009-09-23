@@ -57,9 +57,11 @@ function a2b_decrypt($text, $key) {
 /*
  * a2b_mail - function mail used in a2billing
  */
-function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = 'multipart/alternative') {
-	$mail = new PHPMailer();
-
+function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromname = '', $contenttype = 'multipart/alternative')
+{
+	
+	$mail = new PHPMailer(true);
+	
 	if (SMTP_SERVER) {
 		$mail->Mailer = "smtp";
 	} else {
@@ -83,7 +85,11 @@ function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromn
 	// if ContentType = multipart/alternative -> HTML will be send
 	$mail->ContentType = $contenttype;
 	$mail->AddAddress($to);
-	$mail->Send();
+	try {
+		$mail->Send();
+	} catch (phpmailerException $e) {
+		throw $e;
+	}
 }
 
 /*
@@ -1224,7 +1230,8 @@ function generate_invoice_reference() {
 	return $reference;
 }
 
-function check_demo_mode() {
+function check_demo_mode()
+{
 	if (DEMO_MODE) {
 		if (strpos($_SERVER['HTTP_REFERER'], '?') === false)
 			Header("Location: " . $_SERVER['HTTP_REFERER'] . "?msg=nodemo");
@@ -1235,7 +1242,8 @@ function check_demo_mode() {
 	}
 }
 
-function check_demo_mode_intro() {
+function check_demo_mode_intro()
+{
 	if (DEMO_MODE) {
 		Header("Location: PP_intro.php?msg=nodemo");
 		die();
@@ -1269,7 +1277,8 @@ function isLuhnNum($num)
  *         $inplace : 1 == edit day in place.
  * Return  normalized day (integer)
  */
-function normalize_day_of_month(&$day, $year_month, $inplace=0){
+function normalize_day_of_month(&$day, $year_month, $inplace=0)
+{
 	if( isset($day) && isset($year_month)) {
 		$year_month_ary = split('-', $year_month);
 		$year = (int) $year_month_ary[0];
@@ -1280,4 +1289,28 @@ function normalize_day_of_month(&$day, $year_month, $inplace=0){
 	}
 }
 
+
+
+
+// mt_get: returns the current microtime
+function mt_get()
+{
+    global $mt_time;
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec);
+}
+ 
+// mt_start: starts the microtime counter
+function mt_start()
+{
+    global $mt_time; $mt_time = mt_get();
+}
+ 
+// mt_end: calculates the elapsed time
+function mt_end($len=4)
+{
+    global $mt_time;
+    $time_end = mt_get();
+    return round($time_end - $mt_time, $len);
+}
 

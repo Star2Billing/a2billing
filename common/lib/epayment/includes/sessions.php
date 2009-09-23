@@ -120,7 +120,7 @@
       return session_name();
     }
   }
-
+  
   function tep_session_close() {
     if (PHP_VERSION >= '4.0.4') {
       return session_write_close();

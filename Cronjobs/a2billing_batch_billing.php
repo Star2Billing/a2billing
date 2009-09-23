@@ -81,11 +81,11 @@ $groupcard = 5000;
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
 
-write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[#### CRONT BILLING BEGIN ####]");
+write_log (LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[#### CRONT BILLING BEGIN ####]");
 
 if (!$A2B->DbConnect()) {
 	echo "[Cannot connect to the database]\n";
-	write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
+	write_log (LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot connect to the database]");
 	exit;
 }
 
@@ -104,13 +104,13 @@ if ($verbose_level >= 1)
 if (!($nb_card > 0)) {
 	if ($verbose_level >= 1)
 		echo "[No card to run the Invoice Billing Service]\n";
-	write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[No card to run the Invoice Billing service]");
+	write_log (LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[No card to run the Invoice Billing service]");
 	exit ();
 }
 
 if ($verbose_level >= 1)
 	echo ("[Invoice Billing Service analyze cards on which to apply service]");
-write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[Invoice Billing Service analyze cards on which to apply service]");
+write_log (LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[Invoice Billing Service analyze cards on which to apply service]");
 
 for ($page = 0; $page < $nbpagemax; $page++) {
 	if ($verbose_level >= 1)
@@ -136,7 +136,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 	if ($numrow == 0) {
 		if ($verbose_level >= 1)
 			echo "\n[No card to run the Invoice Billing Service]\n";
-		write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[No card to run the Invoice Billing service]");
+		write_log (LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[No card to run the Invoice Billing service]");
 		exit ();
 
 	} else {
@@ -162,9 +162,10 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$vat = $Customer['vat'];
 
 			// FIND THE LAST BILLING
-			$billing_table = new Table('cc_billing_customer', 'id,date,id_invoice');
+			$billing_table = new Table('cc_billing_customer', 'id, date, id_invoice');
 			$clause_last_billing = "id_card = " . $card_id;
 			$result = $billing_table->Get_list($A2B->DBHandle, $clause_last_billing, "date", "desc");
+			
 			$call_table = new Table('cc_call', ' COALESCE(SUM(sessionbill),0)');
 			$clause_call_billing = "card_id = " . $card_id . " AND ";
 			$clause_charge = "id_cc_card = " . $card_id . " AND ";
@@ -176,7 +177,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
 				$clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
 				$desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
-				$desc_billing_postpaid = "Amount for periode between the " .date("Y-m-d", strtotime($result[0][1])). " and " . $date_now;
+				$desc_billing_postpaid = "Amount for period between the " .date("Y-m-d", strtotime($result[0][1])). " and " . $date_now;
 				$start_date = $result[0][1];
 				$lastbilling_invoice = $result[0][2];
 			} else {

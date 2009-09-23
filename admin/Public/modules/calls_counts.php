@@ -44,30 +44,32 @@ foreach ($result as $res_row){
 
 $result = $table->SQLExec($DBHandle, $QUERY_COUNT_CALL_BILL);
 $result_count_calls_times = $result[0][0];
-$result_count_calls_sell = $result[0][1];
-$result_count_calls_buy = $result[0][2];
+$result_count_calls_sell = a2b_round($result[0][1]);
+$result_count_calls_buy = a2b_round($result[0][2]);
 $result_count_calls_profit = $result_count_calls_sell-$result_count_calls_buy;
 
 ?>
 
-<?php echo gettext("TOTAL NUMBER OF CALLS TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
-&nbsp;<?php echo gettext("NUMBER OF CALLS ANSWERED");?>&nbsp;:&nbsp;<?php echo $result_count_answered; ?><br/>
-&nbsp;<?php echo gettext("NUMBER OF CALLS BUSY");?>&nbsp;:&nbsp;<?php echo $result_count_busy; ?><br/>
-&nbsp;<?php echo gettext("NUMBER OF CALLS NOT ANSWERED");?>&nbsp;:&nbsp;<?php echo $result_count_noanswer; ?><br/>
-&nbsp;<?php echo gettext("NUMBER OF CALLS CANCELLED");?>&nbsp;:&nbsp;<?php echo $result_count_cancelled; ?><br/>
-&nbsp;<?php echo gettext("NUMBER OF CALLS CONGESTED");?>&nbsp;:&nbsp;<?php echo $result_count_congested; ?><br/>
-&nbsp;<?php echo gettext("NUMBER OF CALLS WITH CHANNEL UNAVAILABLE");?>&nbsp;:&nbsp;<?php echo $result_count_chanunavail; ?><br/>
+<?php echo gettext("Total Calls");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > <?php echo $result_count_all; ?> </font> <br/>
+&nbsp; :: <?php echo gettext("Answered");?>&nbsp;:&nbsp;<?php echo $result_count_answered; ?>
+&nbsp; :: <?php echo gettext("Busy");?>&nbsp;:&nbsp;<?php echo $result_count_busy; ?>
+&nbsp; :: <?php echo gettext("Unanswered");?>&nbsp;:&nbsp;<?php echo $result_count_noanswer; ?><br/>
+&nbsp; :: <?php echo gettext("Cancelled");?>&nbsp;:&nbsp;<?php echo $result_count_cancelled; ?>
+&nbsp; :: <?php echo gettext("Congestion");?>&nbsp;:&nbsp;<?php echo $result_count_congested; ?>
+&nbsp; :: <?php echo gettext("Unavailable");?>&nbsp;:&nbsp;<?php echo $result_count_chanunavail; ?><br/>
 
-<?php echo gettext("AMOUNT SELL TODAY ");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+<br/>
+
+<?php echo gettext("Revenue");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
 <?php if($result_count_calls_sell == null){echo "0";}else{ echo $result_count_calls_sell;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?> <br/>
 	
-<?php echo gettext("AMOUNT BUY TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+<?php echo gettext("Cost");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
 <?php if($result_count_calls_buy == null){echo "0";}else{ echo $result_count_calls_buy;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
 
-<?php echo gettext("AMOUNT PROFIT TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+<?php echo gettext("Profit");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
 <?php if($result_count_calls_profit == null){echo "0";}else{ echo $result_count_calls_profit;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?>  <br/>
 
-<?php echo gettext("TOTAL TIME USED TODAY");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+<?php echo gettext("Duration");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
 <?php if($result_count_calls_times == null){echo "0";}else{ echo $result_count_calls_times;} ?> </font>&nbsp;<?php echo gettext("sec");?>  <br/>
 
 

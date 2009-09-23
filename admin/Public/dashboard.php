@@ -39,7 +39,7 @@ function put_dislay($position,$title,$links)
 	
 }
 if( !empty($A2B->config["dashboard"]["customer_info_enabled"]) && $A2B->config["dashboard"]["customer_info_enabled"]!="NONE"){
-	put_dislay($A2B->config["dashboard"]["customer_info_enabled"],gettext("CUSTOMERS INFO"),array("./modules/customers_numbers.php","./modules/customers_lastmonth.php"));
+	put_dislay($A2B->config["dashboard"]["customer_info_enabled"],gettext("ACCOUNTS INFO"),array("./modules/customers_numbers.php","./modules/customers_lastmonth.php"));
 }
 if( !empty($A2B->config["dashboard"]["refill_info_enabled"]) && $A2B->config["dashboard"]["refill_info_enabled"]!="NONE"){
 	put_dislay($A2B->config["dashboard"]["refill_info_enabled"],gettext("REFILLS INFO"),array("./modules/refills_lastmonth.php"));
@@ -48,12 +48,15 @@ if( !empty($A2B->config["dashboard"]["payment_info_enabled"]) && $A2B->config["d
 	put_dislay($A2B->config["dashboard"]["payment_info_enabled"],gettext("PAYMENTS INFO"),array("./modules/payments_lastmonth.php"));
 }
 if( !empty($A2B->config["dashboard"]["call_info_enabled"]) && $A2B->config["dashboard"]["refill_info_enabled"]!="NONE"){
-	put_dislay($A2B->config["dashboard"]["call_info_enabled"],gettext("CALLS INFO"),array("./modules/calls_counts.php","./modules/calls_lastmonth.php"));
+	put_dislay($A2B->config["dashboard"]["call_info_enabled"],gettext("CALLS INFO TODAY"),array("./modules/calls_counts.php","./modules/calls_lastmonth.php"));
 }
 
 
 $smarty->display('main.tpl');
 ?>
+<center>
+<?php echo gettext("Report By ");?>
+<?php echo gettext("Months");?>
 
 <table align="center" width="100%">
 	<tr>
@@ -105,8 +108,8 @@ $smarty->display('main.tpl');
 		  <?php } ?>
 		</td>
 	</tr>
-
 </table>
+</center>
 
 <?php
 

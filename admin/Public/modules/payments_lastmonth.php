@@ -23,18 +23,19 @@ $begin_date_graphe = $checkdate= $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
 $mingraph = strtotime($begin_date_graphe);
 $maxgraph = strtotime($end_date_graphe);
-if(!empty($type)){
+
+if(!empty($type)) {
     $format='';
     $DBHandle = DbConnect();
     $table = new Table('cc_logpayment','*');
     switch ($type) {
-	case 'payments_count':
-	    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month, count( * )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
-	    break;
-	case 'payments_amount':
-	    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month , SUM( payment )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
-	    $format='money';
-	    break;
+		case 'payments_count':
+		    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month, count( * )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    break;
+		case 'payments_amount':
+		    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month , SUM( payment )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    $format='money';
+		    break;
     }
 
     $result_graph = $table->SQLExec($DBHandle, $QUERY);
@@ -52,8 +53,8 @@ if(!empty($type)){
 ?>
 
 
-<input id="payments_count" type="radio" name="mode_paym" class="update_payments_graph" value="count">&nbsp; <?php echo gettext("NUMBERS OF PAYMENTS BY MONTH"); ?><br/>
-<input id="payments_amount" type="radio" name="mode_paym" class="update_payments_graph" value="amount">&nbsp; <?php echo gettext("AMOUNT OF PAYMENTS BY MONTH"); ?><br/>
+<input id="payments_count" type="radio" name="mode_paym" class="update_payments_graph" value="count">&nbsp; <?php echo gettext("Total Number of Payments"); ?><br/>
+<input id="payments_amount" type="radio" name="mode_paym" class="update_payments_graph" value="amount">&nbsp; <?php echo gettext("Total Payment Amount"); ?><br/>
 <br/>
 <div id="payments_graph" class="dashgraph" style="margin-left: auto;margin-right: auto;"></div>
 	 

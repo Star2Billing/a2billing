@@ -226,7 +226,7 @@ $smarty->display('main.tpl');
 				   </td>
 				   <td  class="fontstyle_searchoptions">
 				   		<?php echo gettext("Calls by user");?>
-				   		<input type="radio" name="topsearch" value="topuser"<?php if ($topsearch=="topuser"){ ?> checked="checked" <?php  } ?>>
+				   		<input type="radio" name="topsearch" value="topuser"<?php if ($topsearch=="topuser" || $topsearch==""){ ?> checked="checked" <?php  } ?>>
 				   		<?php echo gettext("Calls by destination");?>
 				   		<input type="radio" name="topsearch" value="topdestination"<?php if ($topsearch=="topdestination"){ ?> checked="checked" <?php  } ?>>
 				   </td>

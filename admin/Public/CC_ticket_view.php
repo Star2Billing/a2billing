@@ -12,14 +12,7 @@ if (!has_rights(ACX_SUPPORT)) {
 	die();
 }
 
-getpost_ifset(array (
-	'result',
-	'action',
-	'status',
-	'id',
-	'idc',
-	'comment'
-));
+getpost_ifset(array ( 'result', 'action', 'status', 'id', 'idc', 'comment' ));
 
 if ($result == "success") {
 	$message = gettext("Ticket updated successfully");
@@ -33,9 +26,7 @@ if (!empty($id)) {
 }
 
 
-
-
-if (tep_not_null($action)) {
+if (!empty($action)) {
 	switch ($action) {
 		case 'update' :
 			$DBHandle = DbConnect();
@@ -54,14 +45,16 @@ $comments = $ticket->loadComments();
 $ticket = new Ticket($ticketID);
 $comments = $ticket->loadComments();
 $DBHandle = DbConnect();
+
 $instance_sub_table = new Table("cc_ticket", "*");
-    if($ticket->getViewed(2)){
+if($ticket->getViewed(2)) {
 	$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $id . "'");
-    }
+}
+
 $instance_sub_table = new Table("cc_ticket_comment", "*");
 foreach ($comments as $comment) {
-    if($comment->getViewed(2)){
-	$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $comment->getId() . "'");
+    if($comment->getViewed(2)) {
+		$instance_sub_table->Update_table($DBHandle, "viewed_admin = '0'", "id = '" . $comment->getId() . "'");
     }
 }
 
@@ -89,13 +82,12 @@ $smarty->display('main.tpl');
 		 <font style="font-weight:bold; " ><?php echo gettext("PRIORITY : "); ?></font>  <?php echo $ticket->getPriorityDisplay();  ?>
 		 </td>
 		<td>
-		<font style="font-weight:bold; " ><?php echo gettext("DATE : "); ?></font>  <?php echo $ticket->getCreationdate();  ?>
+		<font style="font-weight:bold; " ><?php echo gettext("DATE : "); ?></font>  <?php echo $ticket->getCreationdate(); ?>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-		 <font style="font-weight:bold; " ><?php echo gettext("COMPONENT : "); ?></font>  <?php echo $ticket->getComponentname();  ?>
-
+		 <font style="font-weight:bold; " ><?php echo gettext("COMPONENT : "); ?></font>  <?php echo $ticket->getComponentname(); ?>
 		</td>
 	</tr>
 	<tr>
@@ -127,31 +119,23 @@ $smarty->display('main.tpl');
 	<input id="idc" type="hidden" name="idc" value=""/>
 	<table class="epayment_conf_table">
 	  <?php
-	   $return_status = Ticket::getPossibleStatus($ticket->getStatus(),true);
-	  if(!is_null($return_status)) {
-
+		$return_status = Ticket::getPossibleStatus($ticket->getStatus(),true);
+		if(!is_null($return_status)) {
 	  	 ?>
 		<tr>
 			<td colspan="2">	<font style="font-weight:bold; " ><?php echo gettext("STATUS : "); ?></font>
 
-			<select name="status"  >
-
+			<select name="status">
 			 <?php
-
-
-			 foreach ($return_status as $value)
-				 {
-				 	if($ticket->getStatus()==$value["id"]){
-
-				 		echo '<option selected "value="'.$value["id"] .'"> '.$value["name"].'</option> ' ;
-
-				 	}else{
-				 		echo '<option value="'.$value["id"] .'"> '.$value["name"].'</option> ' ;
-				 	}
-				 }
-
+				foreach ($return_status as $value)
+				{
+					if($ticket->getStatus()==$value["id"]){
+						echo '<option selected "value="'.$value["id"] .'"> '.$value["name"].'</option> ' ;
+					} else {
+						echo '<option value="'.$value["id"] .'"> '.$value["name"].'</option> ' ;
+					}
+				}
 			  ?>
-
 			</select>
 			</td>
 		</tr>
@@ -159,34 +143,25 @@ $smarty->display('main.tpl');
 
 		<tr>
 			<td colspan="2"><font style="font-weight:bold; " ><?php echo gettext("COMMENT : "); ?>
-
 			 </td>
 		</tr>
-
 		<tr>
 			<td colspan="2" align="center">
-			    
 			 <textarea class="form_input_textarea" name="comment" cols="100" rows="10"></textarea>
-			    
 			 </td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
-
 				<input class="form_input_button" type="submit" value="<?php echo gettext("UPDATE"); ?>"/>
-
 			 </td>
 		</tr>
 
 	</table>
   </form>
 
-
 <?php
-
-foreach ($comments as $comment)
- {
- ?>
+foreach ($comments as $comment) {
+?>
  	<br/>
  	<table id="nav<?php echo $comment->getId(); ?>" class="epayment_conf_table">
   	<tr class="form_head"> 
@@ -195,33 +170,24 @@ foreach ($comments as $comment)
   		 <td align="right"> <?php echo $comment->getCreationdate() ?> </td> 
   	</tr> 
 	<tr>
-		 <td colspan="2">&nbsp;  </td> 
+		 <td colspan="2">&nbsp;</td> 
 	</tr> 
 	<tr> 
 		<td colspan="2"><pre><?php echo $comment->getDescription(); ?></pre> </td>
 	</tr>  
 	
-	<?php if($comment->getViewed(2)){ ?>
+	<?php if($comment->getViewed(2)) { ?>
 	<tr>
 		<td colspan="2" align="right">
 		<br/>&nbsp;
 		<strong style="font-size:8px; color:#B00000; "> &nbsp;NEW&nbsp;</strong> </td>
 	</tr>
-	<?php }else{
-		?>
-		
-	<?php	
-	} ?>
+	<?php } else { ?>
+	<?php } ?>
 	</table> 
-<?php	
- }
-
-?>
-
 <?php
-
+}
+sleep (2);
+echo mt_end(0);
 $smarty->display('footer.tpl');
 
-
-
-?>

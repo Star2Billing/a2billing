@@ -13,7 +13,7 @@
 ****************************************************************************/
 
 exit();
-// CHECK ALL AND ENSURE IT WORKS / NOT URGENT
+// CHECK ALL AND ENSURE IT WORKS / NOT URGENT	
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
@@ -21,14 +21,14 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 require("../../../common/lib/admin.defines.php");
 
 
-$verbose = 0;
+$verbose = 3;
 //$back_days = 15;
-$back_days = 1;
-$amount_cdr = 100;
+$back_days = 10;
+$amount_cdr = 10;
 $cardid = 3;
 $id_ratecard = 1;
-$calledstation = '322111933244';
-$destination = 24; // Belgium
+$calledstation = '670411000000';
+$destination = 670; // Belgium
 $nb_cdr_flush = 500;
 
 $cli_args = arguments($argv);

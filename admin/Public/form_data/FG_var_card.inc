@@ -372,7 +372,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "name, id",
 				   "", "", "%1", "", "", "", "", "");
 			   
-	$HD_Form -> AddEditElement (gettext("SERIE"),
+	$HD_Form -> AddEditElement (gettext("SERIAL"),
 	               "id_seria",
 	               "",
 	               "SELECT",

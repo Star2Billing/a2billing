@@ -1,5 +1,7 @@
 <?php
 
+include_once (dirname(__FILE__)."/sessions.php");
+
 ////
 // Stop from parsing any further PHP code
   function tep_exit() {

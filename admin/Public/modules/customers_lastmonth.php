@@ -8,9 +8,7 @@ if (!has_rights(ACX_DASHBOARD)) {
 	die();
 }
 
-getpost_ifset(array (
-	'type'
-));
+getpost_ifset(array ('type'));
 
 
 $temp = date("Y-m-01");
@@ -24,21 +22,22 @@ $begin_date_graphe = $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
 $mingraph = strtotime($begin_date_graphe);
 $maxgraph = strtotime($end_date_graphe);
-if(!empty($type)){
+
+if(!empty($type)) {
     $DBHandle = DbConnect();
     $table = new Table('cc_card', '*');
-    switch ($type) {
-	case 'card_creation':
-	    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(creationdate,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_card WHERE creationdate>= TIMESTAMP('$checkdate') AND creationdate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
-	    break;
-	case 'card_expiration':
-	    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(expirationdate,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_card WHERE expirationdate>= TIMESTAMP('$checkdate') AND expirationdate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
-	    break;
-	case 'card_firstuse':
-	    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(firstusedate,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_card WHERE firstusedate>= TIMESTAMP('$checkdate') AND firstusedate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
-	    break;
+	switch ($type) {
+		case 'card_creation':
+		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(creationdate,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_card WHERE creationdate>= TIMESTAMP('$checkdate') AND creationdate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    break;
+		case 'card_expiration':
+		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(expirationdate,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_card WHERE expirationdate>= TIMESTAMP('$checkdate') AND expirationdate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    break;
+		case 'card_firstuse':
+		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(firstusedate,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_card WHERE firstusedate>= TIMESTAMP('$checkdate') AND firstusedate <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    break;
     }
-
+	
     $result_graph = $table->SQLExec($DBHandle, $QUERY);
     $max = 0;
     $data = array();
@@ -53,9 +52,9 @@ if(!empty($type)){
 }
 ?>
 
-<input id="card_creation" type="radio" class="update_customers_graph" name="mode_cust" value="CreationDate">&nbsp; <?php echo gettext("CREATION DATE"); ?><br/>
-<input id="card_expiration" type="radio" class="update_customers_graph" name="mode_cust" value="ExpirationDate">&nbsp; <?php echo gettext("EXPIRATION DATE"); ?><br/>
-<input id="card_firstuse" type="radio" class="update_customers_graph" name="mode_cust" value="FirstUse">&nbsp; <?php echo gettext("FIRST USE DATE"); ?><br/>
+<input id="card_creation" type="radio" class="update_customers_graph" name="mode_cust" value="CreationDate">&nbsp; <?php echo gettext("Account Creation Date"); ?><br/>
+<input id="card_expiration" type="radio" class="update_customers_graph" name="mode_cust" value="ExpirationDate">&nbsp; <?php echo gettext("Account Expiry Date"); ?><br/>
+<input id="card_firstuse" type="radio" class="update_customers_graph" name="mode_cust" value="FirstUse">&nbsp; <?php echo gettext("Account First Used"); ?><br/>
 <br/>
 <div id="cust_graph" class="dashgraph" style="margin-left: auto;margin-right: auto;" ></div>
 <script id="source" language="javascript" type="text/javascript">
@@ -65,15 +64,15 @@ $("#cust_graph").width(width-10);
 $("#cust_graph").height(Math.floor(width/2));
 
 
-    $('.update_customers_graph').click(function () {
+$('.update_customers_graph').click(function () {
 	$.getJSON("modules/customers_lastmonth.php", { type: this.id },
-			  function(data){
-				    var graph_max = data.max;
-				    var graph_data = data.data;
-				    plot_graph_cust(graph_data,graph_max);
-			     });
+		  function(data){
+			    var graph_max = data.max;
+			    var graph_data = data.data;
+			    plot_graph_cust(graph_data,graph_max);
+		     });
 
-       });
+	});
 
 function plot_graph_cust(data,max){
     var d=data;

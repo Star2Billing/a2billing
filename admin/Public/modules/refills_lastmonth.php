@@ -23,20 +23,21 @@ $begin_date_graphe = $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
 $mingraph = strtotime($begin_date_graphe);
 $maxgraph = strtotime($end_date_graphe);
-if(!empty($type)){
+
+if (!empty($type)) {
     $format='';
     $DBHandle = DbConnect();
     $table = new Table('cc_logrefill','*');
     switch ($type) {
-	case 'refills_count':
-	    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month , count( * )  FROM cc_logrefill WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
-	    break;
-	case 'refills_amount':
-	    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month , SUM( credit )  FROM cc_logrefill WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
-	    $format='money';
-	    break;
+		case 'refills_count':
+		    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month , count( * )  FROM cc_logrefill WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    break;
+		case 'refills_amount':
+		    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month , SUM( credit )  FROM cc_logrefill WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    $format='money';
+		    break;
     }
-
+	
     $result_graph = $table->SQLExec($DBHandle, $QUERY);
     $max = 0;
     $data = array();
@@ -51,8 +52,8 @@ if(!empty($type)){
 }
 ?>
 
-<input id="refills_count" type="radio" name="mode_refill" class="update_refills_graph" value="count">&nbsp; <?php echo gettext("NUMBER OF REFILLS BY MONTH"); ?><br/>
-<input id="refills_amount" type="radio" name="mode_refill" class="update_refills_graph" value="amount">&nbsp; <?php echo gettext("AMOUNT OF REFILLS BY MONTH"); ?><br/>
+<input id="refills_count" type="radio" name="mode_refill" class="update_refills_graph" value="count">&nbsp; <?php echo gettext("Number of Refills"); ?><br/>
+<input id="refills_amount" type="radio" name="mode_refill" class="update_refills_graph" value="amount">&nbsp; <?php echo gettext("Total Amount of Refills"); ?><br/>
 <br/>
 <div id="refills_graph" class="dashgraph" style="margin-left: auto;margin-right: auto;"></div>
 	 

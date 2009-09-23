@@ -59,6 +59,11 @@
 	
 	#include extensions_a2billing.conf
 	
+	( or if you use Asterisk 1.6 )
+	
+	#include extensions_a2billing_1_6.conf
+	
+	
 	Call is connected using DeadAgi(a2billing.php|1)
 	when calling the a2billing script different parameters can be use
 	DeadAgi(a2billing.php|%AGI_CONF%|%MODE%|%AREA_CODE%|%GROUP_ID_AUTOCREATION%)
@@ -66,6 +71,8 @@
 	a parameter can be left empty, so a call as
 	DeadAgi(a2billing.php|1|||3)
 	This will define the GROUP_ID_AUTOCREATION to 3
+	
+	With Asterisk 1.6, replace all of the pipes "|" with commas ","
 
 
 8. Edit sip.conf and add :

@@ -65,8 +65,6 @@ $G_instance_Query_trace = Query_trace::getInstance();
 // A2B INSTANCE
 $A2B = new A2Billing();
 
-// Store script start time
-$_START_TIME = time();
 
 // The system will not log for Public/index.php and signup/index.php
 $URI = $_SERVER['REQUEST_URI'];
