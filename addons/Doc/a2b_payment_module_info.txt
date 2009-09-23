@@ -18,7 +18,7 @@
 	A2Billing EPayment Module will help you to deal with online payment gates and will provide to
 	your customers new ways to transfer credit in your A2Billing Accounts.
 	The actual epayment gateway supported by this module are : 
-	Paypal, MoneyBooker, Authorize.net
+	Paypal, MoneyBooker, PlugNPay
 	
 
 2. INSTALLATION GUIDE:
@@ -53,12 +53,6 @@
 	; paypal log file, to log all the transaction & error
 	paypal_logfile=/tmp/a2billing_paypal.log
 	
-		
-	; Define here the URL of Authorize gateway 
-	;authorize_payment_url=https://secure.authorize.net/gateway/transact.dll
-	authorize_payment_url=https://test.authorize.net/gateway/transact.dll	
-		
-		
 
 	
 	2. Put the contents of the all folder to the coresponding folders of the A2Billing application.
@@ -80,21 +74,7 @@
 	   Go to Tab "Profile" then under "Selling Preferences" go to "Website Payment Prefrences"
 	   Turn on Auto Return and Provide Return Path like. and also turn on the Payment data transfer.
 		e.g  http://a2billing.com/A2BCustomer_UI/checkout_process.php
-	   
 
-	7. For Authorize.Net Please configure you account as well. Following are the guide lines.
-		
-	    a). In your Authorize.NET Account go to Account "Settings" Section.	
-	    b). Go to the "Transaction Response Settings".
-	    c). Configure the Relay URL Settings and Direct Response.
-		
-	GOOD? 7. For Authorize.Net Please configure you account as well. Following are the guide lines.
-		
-	    a). In your Authorize.NET Account go to Account "Settings" Section.	
-	    b). Go to the "Response/Receipt URLs".		   	    
-	    c). Configure the Relay URL Settings.
-	The Payment Gateway verifies the URL specified in the post string against the URLs
-		
 
 
 3. Help
