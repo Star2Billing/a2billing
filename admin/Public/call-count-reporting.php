@@ -28,6 +28,9 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 $DBHandle = DbConnect();
 
+if($order=="day" && $grouped==0){
+    $order="";
+}
 
 $FG_TABLE_COL = array();
 switch ($topsearch) {	
@@ -37,6 +40,7 @@ switch ($topsearch) {
 		$on_field2 = "destination";
 		$FG_TABLE_DEFAULT_ORDER = "cc_prefix.destination";
 		$FG_TABLE_NAME="cc_call LEFT JOIN cc_prefix ON cc_call.destination = cc_prefix.prefix";
+		if($order=="card_id" || empty ($order))$order="destination";
 		break;
 	case "topuser":
 	default:
@@ -44,6 +48,8 @@ switch ($topsearch) {
 		$on_field1 = $on_field2 = "card_id";
 		$FG_TABLE_DEFAULT_ORDER = "card_id";
 		$FG_TABLE_NAME="cc_call";
+		if($order=="destination" || empty ($order))$order="card_id";
+		break;
 	
 }
 
@@ -55,11 +61,12 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 	$FG_TABLE_COL[]=array (gettext("NbrCall"), 'nbcall', "10%", "center", "SORT");
 }
 
+
 if ($grouped) {
-	$FG_COL_QUERY=$on_field1.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day,terminatecauseid, count(*) as nbcall';
+	$FG_COL_QUERY=$on_field1.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,DATE(starttime) AS day, count(*) as nbcall';
 	$SQL_GROUP=" GROUP BY ".$on_field2.",DATE(starttime) ";
 } else {
-	$FG_COL_QUERY=$on_field1.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecauseid, count(*) as nbcall';
+	$FG_COL_QUERY=$on_field1.', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall';
 	$SQL_GROUP=" GROUP BY ".$on_field2." ";
 }
 
@@ -71,7 +78,7 @@ $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 $FG_HTML_TABLE_TITLE = gettext(" - Call Report - ");
 $FG_HTML_TABLE_WIDTH="96%";
 
-if ( is_null ($order) || is_null($sens) || ( $order == 'card_id' && $topsearch = 'topdestination') || ( $order == 'destination' && $topsearch = 'topuser')) {
+if ( empty ($order) || empty($sens) || ( $order == 'card_id' && $topsearch == 'topdestination') || ( $order == 'destination' && $topsearch == 'topuser')) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
@@ -102,9 +109,9 @@ if ($terminatecauseid=="ANSWER") {
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 if (!$nodisplay) {
+echo $order;
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null,$inputtopvar , 0,$SQL_GROUP);
 	
-	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE . $SQL_GROUP);
 }
 
 
@@ -226,9 +233,9 @@ $smarty->display('main.tpl');
 				   </td>
 				   <td  class="fontstyle_searchoptions">
 				   		<?php echo gettext("Calls by user");?>
-				   		<input type="radio" name="topsearch" value="topuser"<?php if ($topsearch=="topuser" || $topsearch==""){ ?> checked="checked" <?php  } ?>>
+				   		<input type="radio" name="topsearch" value="topuser" <?php if ($topsearch=="topuser" || empty($topsearch)){ ?> checked="checked" <?php  } ?>>
 				   		<?php echo gettext("Calls by destination");?>
-				   		<input type="radio" name="topsearch" value="topdestination"<?php if ($topsearch=="topdestination"){ ?> checked="checked" <?php  } ?>>
+				   		<input type="radio" name="topsearch" value="topdestination" <?php if ($topsearch=="topdestination"){ ?> checked="checked" <?php  } ?>>
 				   </td>
 				</tr>
 				<tr>
@@ -392,27 +399,7 @@ $smarty->display('main.tpl');
                 
             </TABLE></td>
         </tr>
-        <TR bgcolor="#ffffff">
-			<TD class="bgcolor_005" height="16" style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
-			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-				<TR>
-					<TD align="right"><SPAN class="fontstyle_003">
-                    <?php if ($current_page>0){?>
-                    <img src="<?php echo Images_Path;?>/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
-					echo "&topsearch=$topsearch&inputtopvar=$inputtopvar&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&resulttype=$resulttype&terminatecauseid=$terminatecauseid&grouped=$grouped";?>">
-                    <?php echo gettext("Previous");?> </a> -
-                    <?php }?>
-                    <?php echo ($current_page+1);?> / <?php  echo $nb_record_max;?>
-                    <?php if ($current_page<$nb_record_max-1){?>
-                    - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";}
-					echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&clidtype=$clidtype&resulttype=$resulttype&clid=$clid&terminatecauseid=$terminatecauseid&topsearch=$topsearch&inputtopvar=$inputtopvar&grouped=$grouped";?>">
-                    <?php echo gettext("Next");?></a> <img src="<?php echo Images_Path;?>/fleche-d.gif" width="5" height="10">
-                    </SPAN> 
-                    <?php }?>
-                    </TD>
-            </TABLE>
-			</TD>
-		</TR>
+      
       </table>
 <br>
 <?php
