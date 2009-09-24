@@ -102,12 +102,12 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 
 <?php if(sizeof($list_notifications)>0 && $list_notifications[0]!=null) {  ?>
 <table width="90%" style ="margin-left:auto;margin-right:auto;" cellspacing="2" cellpadding="2" border="0">
-	<?php if($nb_page>1){ ?>
 	<tr>
 		<td colspan="6" align="center">
 		    <a id ="viewall" href="javascript:;" ><?php echo gettext("View All") ?></a>
 		</td>
 	</tr>
+	<?php if($nb_page>1){ ?>
 	<tr>
 		<td colspan="3" align="left">
 		<?php if($page>1){ ?>
