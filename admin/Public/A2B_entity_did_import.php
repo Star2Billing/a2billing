@@ -285,7 +285,7 @@ function moveSourceDown()
                   <td colspan="2">
                     <div align="center"><span class="textcomment">
 
-					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by ;");?></br>
+					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by ;");?><br/>
 					  <?php echo gettext(". and , are used for decimal format.");?>
 					  <br/>
 					  <a href="importsamples.php?sample=did_Complex" target="superframe"><?php echo gettext("Complex Sample");?></a> -

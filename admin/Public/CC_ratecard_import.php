@@ -307,7 +307,7 @@ echo $CC_help_import_ratecard;
                     <div align="center"><span class="textcomment"> 
                       
 
-					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by  ; or :");?></br>
+					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by  ; or :");?><br/>
 					  <?php echo gettext(". and , are used for decimal format.");?>
 
 

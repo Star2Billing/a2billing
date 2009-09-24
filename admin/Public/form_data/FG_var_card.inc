@@ -280,7 +280,7 @@ if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("Auto Create SIP Config");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("Auto Create IAX Config");
 	$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('Add Payment to this Card');
-	$HD_Form -> FG_OTHER_BUTTON4_ALT = gettext('Add Subscriber to this Card');
+	$HD_Form -> FG_OTHER_BUTTON4_ALT = gettext('Add New Subscription to this Card');
 }
 
 $HD_Form -> FG_FILTER_APPLY = true;
@@ -953,7 +953,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 	
 	
 	$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-	$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
+	$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on Confirm Data");
 	
 	
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'processing_card_add';
