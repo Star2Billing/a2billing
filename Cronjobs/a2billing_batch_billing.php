@@ -185,7 +185,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$desc_billing_postpaid = "Amount for periode before the " . $date_now;
 			}
 
-			// RETRIEVE THE LAST POSTPAID AMOUNT
+			// RETRIEVE THE LAST POSTPAID AMOUNT -SUM OF ALL INVOICE ITEMS UNPAID FOR A POSTPAID USER
 			$lastpostpaid_amount = 0;
 			$query_table = "cc_billing_customer LEFT JOIN cc_invoice ON cc_billing_customer.id_invoice = cc_invoice.id ";
 			$query_table .= "LEFT JOIN (SELECT st1.id_invoice, TRUNCATE(SUM(st1.price),2) as total_price FROM cc_invoice_item AS st1 WHERE st1.type_ext ='POSTPAID' GROUP BY st1.id_invoice ) as items ON items.id_invoice = cc_invoice.id";

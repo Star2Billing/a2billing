@@ -18,11 +18,12 @@ $smarty->display('main.tpl');
 <center>
 <table align="center" width="90%" bgcolor="white" cellpadding="15" cellspacing="15" style="border: solid 1px">
 	<tr>
-		<td width="340">
+		<td width="340" align="center">
 			<img src="<?php echo Images_Path;?>/a2b-logo-450.png">
 			<br><br>
 			
 		</td>
+		<?php if (SHOW_DONATION) { ?>
 		<td align="left">
 		For information and documentation on A2Billing, <br> please visit <a href="http://www.a2billing.org" target="_blank">http://www.a2billing.org</a><br><br>
 		
@@ -34,6 +35,7 @@ $smarty->display('main.tpl');
 		<?php echo '<a href="http://www.call-labs.com/" target="_blank"><img src="'.Images_Path.'/call-labs.com.png" alt="call-labs"/></a>'; ?>
 		</center>
 		</td>
+		<?php } ?>
 	</tr>
 	
 	<tr>
