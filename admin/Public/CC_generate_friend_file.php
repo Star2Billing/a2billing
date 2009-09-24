@@ -27,7 +27,10 @@ if ( $action == "reload" ) {
 	if ($res) {
 		if ( $atmenu == "sipfriend" ) {
 			$res = $as->Command('sip reload');
+		} elseif ( $atmenu == "iaxfriend" ) {
+			$res = $as->Command('iax2 reload');
 		} else {
+			$res = $as->Command('sip reload');
 			$res = $as->Command('iax2 reload');
 		}
 		$actiondone=1;

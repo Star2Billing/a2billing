@@ -34,7 +34,7 @@
 
 getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill','refill_type'));
 
-$HD_Form = new FormHandler("cc_agent_commission","Commission's Agents");
+$HD_Form = new FormHandler("cc_agent_commission","Commission Agent");
 
 $HD_Form -> FG_TABLE_ID = 'cc_agent_commission.id';
 
@@ -58,7 +58,7 @@ $HD_Form -> AddViewElement(gettext("LINK TO PAYMENT"), "id_payment", "10%", "cen
 $HD_Form -> FieldViewElement ('cc_agent_commission.id, id_card, id_agent, date, amount, paid_status, description, id_payment');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO COMMISSION AGENTS CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;

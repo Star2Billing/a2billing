@@ -99,12 +99,10 @@ if(!USE_REALTIME) {
 		elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$id=$_SESSION['agent_id'];}
 		else {$who=Notification::$UNKNOWN;$id=-1;}
 		NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$id);
-	  	
 	}
 }
 
 $list = $HD_Form -> perform_action($form_action);
-
 
 
 // #### HEADER SECTION
@@ -112,17 +110,16 @@ $smarty->display('main.tpl');
 
 // #### HELP SECTION
 if ($form_action=='list') {
+	
 	echo $CC_help_sipfriend_list;
+	
+	if(!USE_REALTIME) {
 	?>
 		  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
 			<TR><TD  align="center"> <?php echo gettext("Link to Generate on SIP/IAX Friends")?> &nbsp;:&nbsp;
 			</TD></TR>
 			<TR><TD  align="center"> 
-			<b><?php if(!USE_REALTIME) { 
-			      echo gettext("Realtime not activate, you have to use the conf file for your system");
-				}else{
-					echo gettext("Realtime activate, you don't have to use the conf file for your system");
-				}?></b>
+			<b><?php echo gettext("Realtime not active, you have to use the conf file for your system"); ?></b>
 			</TD></TR>
 			<TR><FORM NAME="sipfriend">
 				<td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" >			
@@ -136,7 +133,12 @@ if ($form_action=='list') {
 		   </table>
 		   <br/>
 	<?php  
-
+	} else { ?>
+		<center><a href="<?php  echo "CC_generate_friend_file.php?action=reload";?>"><img src="<?php echo Images_Path;?>/icon_refresh.gif"/>
+			<?php echo gettext("Reload Asterisk"); ?></a>
+		</center>
+	<?php 
+	}
 } else {
 	echo $CC_help_sipfriend_edit;
 }
