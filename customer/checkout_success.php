@@ -7,7 +7,6 @@ include ("./lib/epayment/includes/configure.php");
 include ("./lib/epayment/includes/html_output.php");
 $popup_select = 1;
 include ("./lib/customer.smarty.php");
-//include("./lib/epayment/includes/PP_header.php");
 
 
 getpost_ifset(array('errcode'));
@@ -67,6 +66,5 @@ $smarty->display( 'main.tpl');
 
 </table>
 <?php 
-// #### FOOTER SECTION
+
 $smarty->display( 'footer.tpl');
-?>
