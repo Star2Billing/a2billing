@@ -8,7 +8,6 @@ include ("./lib/epayment/classes/order.php");
 include ("./lib/epayment/classes/currencies.php");
 include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
-include ("./lib/epayment/includes/sessions.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
 include ("./lib/customer.smarty.php");
 
