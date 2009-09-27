@@ -340,11 +340,11 @@ if ($id > 0 ) {
 			
 			if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
 				$field_insert = "id_payment, id_card, amount,description,id_agent";
-				$commission = ceil(($amount_paid * ($result_agent[0]['commission'])/100)*100)/100;
+				$commission = ceil(($amount_without_vat * ($result_agent[0]['commission'])/100)*100)/100;
 				$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
 				$description_commission.= "\nID CARD : ".$id;
 				$description_commission.= "\nID PAYMENT : ".$id_payment;
-				$description_commission.= "\nPAYMENT AMOUNT: ".$amount_paid;
+				$description_commission.= "\nPAYMENT AMOUNT: ".$amount_without_vat;
 				$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
 				$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent'";
 				$commission_table = new Table("cc_agent_commission", $field_insert);
