@@ -825,11 +825,6 @@ class FormHandler
 
 
 
-
-
-
-
-
 	// ----------------------------------------------
     // METHOD FOR THE EDITION
     // ----------------------------------------------
@@ -1041,29 +1036,10 @@ class FormHandler
 		// 21 -> Check percent more of 0 and under 100
 		$this -> FG_regular[]  = array( "^100$|^(([0-9]){0,2})((\.)([0-9]*))?$"  ,
 					gettext("(PERCENT FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal and don't use '%' character. e.g.: 12.4 )"));
-					
 		
 	}
 	
 	
-	
-
-	//--------------------------------- TO ADD IN THE FUTURE
-	/*
-	// The variable  would define if you want have a link for the insert page in the view/edit page
-	$FG_LINK_ADD=true;
-
-	// The variable  Where the edition will target (link)
-	$FG_INSERT_LINK="P2E_entity_edit.php?form_action=ask-add&atmenu=$FG_CLASS_NAME";
-	
-	
-	// The variable  would define if you want use a search engine in this module
-	$FG_SEARCH_ENGINE=false;
-	*/
-	
-	
-	
-
 	// ----------------------------------------------
     // FUNCTION FOR THE FORM
     // ----------------------------------------------
@@ -1412,15 +1388,19 @@ class FormHandler
      * Function to perform the add action after inserting all data in required fields
      * @public     	 
      */
-	function perform_add (&$form_action){
+	function perform_add (&$form_action)
+	{
 		include_once (FSROOT."lib/Class.Table.php");
+		
 		$processed = $this->getProcessed();  //$processed['firstname']
 		$this->VALID_SQL_REG_EXP = true;		
-		for($i=0; $i < $this->FG_NB_TABLE_ADITION; $i++){ 
+		
+		for($i=0; $i < $this->FG_NB_TABLE_ADITION; $i++) {
 			
 			$pos = strpos($this->FG_TABLE_ADITION[$i][14], ":"); // SQL CUSTOM QUERY
 			$pos_mul = strpos($this->FG_TABLE_ADITION[$i][4], "multiple");
-			if (!$pos){
+			
+			if (!$pos) {
 				
 				$fields_name = $this->FG_TABLE_ADITION[$i][1];
 				$regexp = $this->FG_TABLE_ADITION[$i][5];
@@ -1462,22 +1442,22 @@ class FormHandler
 				 	if ($fields_name == $this -> FG_SPLITABLE_FIELD && substr($processed[$fields_name],0,1) != '_' ) {
 				 		$splitable_value = $processed[$fields_name];
 						$arr_splitable_value = explode(",", $splitable_value);
-						foreach ($arr_splitable_value as $arr_value){
+						foreach ($arr_splitable_value as $arr_value) {
 							$arr_value = trim ($arr_value);
 							$arr_value_explode = explode("-", $arr_value,2);
-							if (count($arr_value_explode)>1){
+							if (count($arr_value_explode)>1) {
 								if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1] ){
 									$kk=strlen($arr_value_explode[0])-strlen(ltrim($arr_value_explode[0],'0'));
 									$prefix=substr($arr_value_explode[0],0,$kk);
-									for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++){
+									for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++) {
 										$arr_value_to_import[] = $prefix.$kk;
 									}
-								}elseif (is_numeric($arr_value_explode[0])){
+								} elseif (is_numeric($arr_value_explode[0])) {
 									$arr_value_to_import[] = $arr_value_explode[0];
-								}elseif (is_numeric($arr_value_explode[1])){
+								} elseif (is_numeric($arr_value_explode[1])) {
 									$arr_value_to_import[] = $arr_value_explode[1];
 								}
-							}else{
+							} else {
 								$arr_value_to_import[] = $arr_value_explode[0];
 							}
 						}
@@ -1488,7 +1468,7 @@ class FormHandler
 							if ($i>0) $param_add_value .= ", ";
 							$param_add_value .= "'%TAGPREFIX%'";							
 						}
-					}else{
+					} else {
 						if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$processed[$fields_name];
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
 							if (strtoupper ($this->FG_TABLE_ADITION[$i][3]) != strtoupper("CAPTCHAIMAGE"))
@@ -1529,8 +1509,7 @@ class FormHandler
 		}else{
 			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 		}
-		if($this -> FG_ENABLE_LOG == 1)
-		{
+		if($this -> FG_ENABLE_LOG == 1) {
 			$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
 		}
 		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
@@ -1671,6 +1650,7 @@ class FormHandler
 	function ticket_add()
 	{
 		global $A2B;
+		
 		$id_ticket = $this -> RESULT_QUERY;
 		$processed = $this->getProcessed();
 		$title = $processed['title'];
@@ -1681,7 +1661,9 @@ class FormHandler
 		$table_card =new Table("cc_card", "username,firstname,lastname,language,email");
 		$card_clause = "id = ".$card_id;
 		$result=$table_card ->Get_list($this->DBHandle, $card_clause);
+		
 		$owner = $result[0]['username']." (".$result[0]['firstname']." ".$result[0]['lastname'].")";
+		
 		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
 		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
 		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
@@ -1690,9 +1672,11 @@ class FormHandler
 		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
 		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
 		$mail->send($result[0]['email']);
+		
 		$component_table = new Table('cc_support_component LEFT JOIN cc_support ON id_support = cc_support.id', "email,language");
 		$component_clause = "cc_support_component.id = ".$component_id;
 		$result= $component_table -> Get_list($this->DBHandle, $component_clause);
+		
 		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
 		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
 		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
@@ -1706,6 +1690,7 @@ class FormHandler
 	function ticket_agent_add()
 	{
 		global $A2B;
+		
 		$id_ticket = $this -> RESULT_QUERY;
 		$processed = $this->getProcessed();
 		$title = $processed['title'];
@@ -1716,7 +1701,9 @@ class FormHandler
 		$table_agent =new Table("cc_agent", "login,firstname,lastname,language,email");
 		$agent_clause = "id = ".$agent_id;
 		$result=$table_agent ->Get_list($this->DBHandle, $agent_clause);
+		
 		$owner = $result[0]['username']." (".$result[0]['firstname']." ".$result[0]['lastname'].")";
+		
 		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
 		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
 		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
@@ -1725,9 +1712,11 @@ class FormHandler
 		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
 		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
 		$mail->send($result[0]['email']);
+		
 		$component_table = new Table('cc_support_component LEFT JOIN cc_support ON id_support = cc_support.id', "email,language");
 		$component_clause = "cc_support_component.id = ".$component_id;
 		$result= $component_table -> Get_list($this->DBHandle, $component_clause);
+		
 		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
 		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
 		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
@@ -1739,23 +1728,28 @@ class FormHandler
 	}
 	
 	
-	function add_agent_refill(){
+	function add_agent_refill()
+	{
 		global $A2B;
+		
 		$processed = $this->getProcessed();
 		$credit = $processed['credit'];
 		$agent_id = $processed['agent_id'];
-			//REFILL CARD .. UPADTE AGENT
+		
+		//REFILL CARD .. UPADTE AGENT
 		$instance_table_agent = new Table("cc_agent");
 		$param_update_agent = "credit = credit + '".$credit."'";
 		$clause_update_agent = " id='$agent_id'";
 		$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 	}
 	
-	function creation_card_refill(){
+	function creation_card_refill()
+	{
 		$processed = $this->getProcessed();
 		$credit = $processed['credit'];
-		if($credit>0){
-			$field_insert = " credit,card_id, description";
+		
+		if ($credit>0) {
+			$field_insert = " credit, card_id, description";
 			$card_id = $this -> RESULT_QUERY;
 			$description = gettext("CREATION CARD REFILL");
 			$value_insert = "'$credit', '$card_id', '$description' ";
@@ -1764,7 +1758,8 @@ class FormHandler
 		}
 	}
 	
-	function deletion_card_refill_agent(){
+	function deletion_card_refill_agent()
+	{
 		$processed = $this->getProcessed();
 		//AFTER A DELETE YOU DON T HAVE ACCESS TO ANY FIELD AND YOU CAN ACCESS ONLY TO THE ID
 		//SO YOU HAVE TO LOAD THE FIELD THAT YOU NEED
@@ -1773,31 +1768,30 @@ class FormHandler
 		$card_clause = "id = ".$card_id;
 		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
 		
-		
 		$credit = $card_result[0][0];
-		if($credit>0 || $credit<0){
+		
+		if ($credit>0 || $credit<0) {
 			if($credit>0)$sign="+";
 			else $sign="-";
 			$instance_table_agent = new Table("cc_agent");
 			$param_update_agent = "credit = credit $sign '".abs($credit)."'";
 			$clause_update_agent = " id='".$_SESSION['agent_id']."'";
 			$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
-			$field_insert = " credit,card_id,refill_type, description";
+			$field_insert = " credit, card_id, refill_type, description";
 			$description = gettext("DELETION CARD REFILL");
 			$credit = 0-$credit;
 			$value_insert = "'$credit', '$card_id', 1 ,'$description' ";
 			$instance_refill_table = new Table("cc_logrefill", $field_insert);
 			$instance_refill_table -> Add_table ($this->DBHandle, $value_insert, null, null);
 		}
-
-	
 	}
 	
 	function creation_agent_refill()
 	{
 		$processed = $this->getProcessed();
 		$credit = $processed['credit'];
-		if($credit>0) {
+		
+		if ($credit>0) {
 			$field_insert = " credit,agent_id, description";
 			$agent_id = $this -> RESULT_QUERY;
 			$description = gettext("CREATION AGENT REFILL");
@@ -1816,14 +1810,14 @@ class FormHandler
 		}
 		
 		$this->create_subscriptions();
-		
 	}
 	
 	function create_subscriptions()
 	{
 		$processed = $this->getProcessed();
 		$subscriber = $processed['subscriber'];
-		if(is_numeric($subscriber)) {
+		
+		if (is_numeric($subscriber)) {
 			$field_insert = " id_cc_card,id_subscription_fee";
 			$card_id = $this -> RESULT_QUERY;
 			$value_insert = "'$card_id', '$subscriber' ";
@@ -1835,14 +1829,12 @@ class FormHandler
 	function processing_card_add()
 	{
 		$this->create_sipiax_friends();
-		$this->creation_card_refill();
-		
+		$this->creation_card_refill();	
 	}
 	
 	function processing_card_del_agent()
 	{
 		$this->deletion_card_refill_agent();
-		
 	}
 	
 	function processing_card_add_agent()
@@ -1855,7 +1847,6 @@ class FormHandler
 		$this->add_card_refill();
 		//add invoice
 		$this->create_invoice_after_refill();
-		
 	}
 	
 	/*
@@ -1968,7 +1959,8 @@ class FormHandler
 		}
 	}
 	
-	function proccessing_billing_customer(){
+	function proccessing_billing_customer()
+	{
 		global $A2B;
 		$processed = $this->getProcessed();
 		//find the last billing 
@@ -1976,12 +1968,14 @@ class FormHandler
 		$date_bill=$processed['date'];
 
 		//GET VAT
-		$card_table = new Table('cc_card','vat,typepaid,credit');
+		$card_table = new Table('cc_card', 'vat, typepaid, credit');
 		$card_clause = "id = ".$card_id;
 		$card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
 		
-		if(!is_array($card_result)||empty($card_result[0]['vat'])||!is_numeric($card_result[0]['vat'])) $vat=0;
-				else $vat = $card_result[0][0];
+		if(!is_array($card_result)||empty($card_result[0]['vat'])||!is_numeric($card_result[0]['vat']))
+			$vat=0;
+		else 
+			$vat = $card_result[0][0];
 		
 		// FIND THE LAST BILLING
 		$billing_table = new Table('cc_billing_customer','id,date');
@@ -1993,13 +1987,14 @@ class FormHandler
 		$desc_billing="";
 		$desc_billing_postpaid="";
 		$start_date =null;
-		if(is_array($result) && !empty($result[0][0])){
+		
+		if (is_array($result) && !empty($result[0][0])) {
 			$clause_call_billing .= "stoptime >= '" .$result[0][1]."' AND "; 
 			$clause_charge .= "creationdate >= '".$result[0][1]."' AND  ";
 			$desc_billing = "Calls cost between the ".$result[0][1]." and  $date_bill" ;
 			$desc_billing_postpaid="Amount for periode between the ".date("Y-m-d", strtotime($result[0][1]))." and $date_bill";
 			$start_date = $result[0][1];
-		}else{
+		} else {
 			$desc_billing = "Calls cost before the $date_bill" ;
 			$desc_billing_postpaid="Amount for periode before the $date_bill" ;
 		}
@@ -2018,7 +2013,7 @@ class FormHandler
 
 		$result =  $call_table -> Get_list($this->DBHandle, $clause_call_billing);
 		// COMMON BEHAVIOUR FOR PREPAID AND POSTPAID ... GENERATE A RECEIPT FOR THE CALLS OF THE MONTH
-		if(is_array($result) && is_numeric($result[0][0])){
+		if (is_array($result) && is_numeric($result[0][0])) {
 			$amount_calls = $result[0][0];
 			$amount_calls = ceil($amount_calls*100)/100;
 			$date = date("Y-m-d h:i:s");
@@ -2036,12 +2031,11 @@ class FormHandler
 				$value_insert = " '$date' , '$id_receipt', '$amount_calls','$description','".$this -> RESULT_QUERY."','CALLS'";
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
-			
-		}	
+		}
 		// GENERATE RECEIPT FOR CHARGE ALREADY CHARGED 
 		$table_charge = new Table("cc_charge", "*");
 		$result =  $table_charge -> Get_list($this->DBHandle, $clause_charge." AND charged_status = 1");
-		if(is_array($result)){
+		if (is_array($result)) {
 			$field_insert = "date, id_card, title, description,status";
 			$title = gettext("SUMMARY OF CHARGE");
 			$date = date("Y-m-d h:i:s");
@@ -2060,11 +2054,12 @@ class FormHandler
 				}
 			}
 		}
+		
 		// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
 		$table_charge = new Table("cc_charge", "*");
 		$result =  $table_charge -> Get_list($this->DBHandle, $clause_charge." AND charged_status = 0 AND invoiced_status = 0");
 		$last_invoice = null;
-                if(is_array($result) && sizeof($result)>0){
+		if (is_array($result) && sizeof($result)>0){
 			$reference = generate_invoice_reference();
 			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
 			$date = date("Y-m-d h:i:s");
@@ -2074,8 +2069,8 @@ class FormHandler
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
-                        if(!empty($id_invoice)&& is_numeric($id_invoice)){
-                                $last_invoice = $id_invoice;
+            if(!empty($id_invoice)&& is_numeric($id_invoice)){
+            	$last_invoice = $id_invoice;
 				foreach ($result as $charge) {
 					$description = gettext("CHARGE :").$charge['description'];
 					$amount = $charge['amount'];
@@ -2085,25 +2080,26 @@ class FormHandler
 					$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 				}
 			}
-			
 		}
 		
 		// behaviour postpaid
-		if($card_result[0]['typepaid']==1 && is_numeric($card_result[0]['credit']) && ($card_result[0]['credit']+$lastpostpaid_amount)<0){
+		if($card_result[0]['typepaid']==1 && is_numeric($card_result[0]['credit']) && ($card_result[0]['credit']+$lastpostpaid_amount)<0) {
+			
 			//GENERATE AN INVOICE TO COMPLETE THE BALANCE
-                        if(!empty($last_invoice)){
-                            $id_invoice = $last_invoice;
-                        }else{
-                            $reference = generate_invoice_reference();
-                            $field_insert = "date, id_card, title ,reference, description,status,paid_status";
-                            $date = date("Y-m-d h:i:s");
-                            $title = gettext("BILLING POSTPAID");
-                            $description = gettext("Invoice for POSTPAID");
-                            $value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
-                            $instance_table = new Table("cc_invoice", $field_insert);
-                            $id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
-                        }
-			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+            if (!empty($last_invoice)) {
+                $id_invoice = $last_invoice;
+            } else {
+                $reference = generate_invoice_reference();
+                $field_insert = "date, id_card, title ,reference, description,status,paid_status";
+                $date = date("Y-m-d h:i:s");
+                $title = gettext("BILLING POSTPAID");
+                $description = gettext("Invoice for POSTPAID");
+                $value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
+                $instance_table = new Table("cc_invoice", $field_insert);
+                $id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+            }
+            
+			if (!empty($id_invoice)&& is_numeric($id_invoice)) {
 				$last_invoice = $id_invoice;
 				$description = $desc_billing_postpaid;
 				$amount = abs($card_result[0]['credit']+$lastpostpaid_amount);
@@ -2113,51 +2109,50 @@ class FormHandler
 				$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
 			}
 		}
-		if(!empty($last_invoice)){
+		if (!empty($last_invoice)) {
 		    $param_update_billing = "id_invoice = '".$last_invoice."'";
 		    $clause_update_billing = " id= ".$this -> RESULT_QUERY;
 		    $billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
 		}
 
 		//Send a mail for invoice to pay
-		if(!empty($last_invoice)){
+		if (!empty($last_invoice)) {
 		    $table = "cc_invoice LEFT JOIN (SELECT st1.id_invoice, TRUNCATE(SUM(st1.price*(1+(st1.vat/100))),2) as total_vat,TRUNCATE(SUM(st1.price),2) as total" .
 		    $table .= " FROM cc_invoice_item AS st1 GROUP BY st1.id_invoice ) as items ON items.id_invoice = cc_invoice.id ";
 		    $instance_table = new Table("$table", "title, reference,description,total_vat,total");
 		    $invoice_clause = "id = ".$last_invoice;
 		    $result_invoice = $instance_table ->Get_list($this->DBHandle, $invoice_clause);
-		    if(is_array($result_invoice)){
-			
-			$invoice_title = $result_invoice[0]['title'];
-			$invoice_reference = $result_invoice[0]['reference'];
-			$invoice_description = $result_invoice[0]['description'];
-			$total = $result_invoice[0]['total'];
-			$total_vat = $result_invoice[0]['total_vat'];
-			$mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
-			$mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
-			$mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
-			$mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
-			$mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
-			$mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
-			$mail -> send();
+		    if (is_array($result_invoice)) {
+				$invoice_title = $result_invoice[0]['title'];
+				$invoice_reference = $result_invoice[0]['reference'];
+				$invoice_description = $result_invoice[0]['description'];
+				$total = $result_invoice[0]['total'];
+				$total_vat = $result_invoice[0]['total_vat'];
+				$mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
+				$mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
+				$mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
+				$mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
+				$mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
+				$mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
+				$mail -> send();
 		    }
-
 		}
-		
 
 		//Update billing ...
-		if(!empty($start_date)){
+		if (!empty($start_date)) {
 				$param_update_billing = "start_date = '".$start_date."'";
 				$clause_update_billing = " id= ".$this -> RESULT_QUERY;
 				$billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
-			}
-        }
+		}
+	}
 	
 	
-	function create_invoice_after_refill(){
+	function create_invoice_after_refill()
+	{
 		global $A2B;
 		$processed = $this->getProcessed();
-		if($processed['added_invoice']==1){
+		
+		if ($processed['added_invoice']==1) {
 			//CREATE AND UPDATE REF NUMBER
 			$list_refill_type=Constants::getRefillType_List();
 			$refill_type = $processed['refill_type'];
@@ -2192,10 +2187,11 @@ class FormHandler
 		}	
 	}
 	
-	
 	 
-	function create_invoice_reference(){
+	function create_invoice_reference()
+	{
 		global $A2B;
+		
 		$processed = $this->getProcessed();
 		$id_invoice = $this -> RESULT_QUERY;
 		//CREATE AND UPDATE REF NUMBER
@@ -2215,6 +2211,7 @@ class FormHandler
 	function create_refill_after_payment()
 	{ 
 		global $A2B;
+		
 		$processed = $this->getProcessed();
 		if ($processed['added_refill']==1) {
 			$id_payment = $this -> RESULT_QUERY;
@@ -2225,12 +2222,15 @@ class FormHandler
 			$card_id = $processed['card_id'];
 			$refill_type= $processed['payment_type'];
 			$description = $processed['description'];
-                        $card_table = new Table('cc_card','vat');
-                        $card_clause = "id = ".$card_id;
-                        $card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
-                        if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0])) $vat=0;
-                        else $vat = $card_result[0][0];
-                        $credit_without_vat = $credit / (1+$vat/100);
+            $card_table = new Table('cc_card','vat');
+            $card_clause = "id = ".$card_id;
+            $card_result = $card_table -> Get_list($this->DBHandle, $card_clause, 0);
+            if(!is_array($card_result)||empty($card_result[0][0])||!is_numeric($card_result[0][0]))
+            	$vat=0;
+            else
+            	$vat = $card_result[0][0];
+            $credit_without_vat = $credit / (1+$vat/100);
+            
 			$value_insert = " '$date' , '$credit_without_vat', '$card_id','$refill_type', '$description' ";
 			$instance_sub_table = new Table("cc_logrefill", $field_insert);
 			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
@@ -2285,7 +2285,7 @@ class FormHandler
 			$instance_table = new Table("cc_invoice_payment", $field_insert);
 			$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null);
 			//load vat of this card
-			if(!empty($id_invoice) && is_numeric($id_invoice)) {
+			if (!empty($id_invoice) && is_numeric($id_invoice)) {
 				$description = $processed['description'];
 				$field_insert = "date, id_invoice ,price,vat, description";
 				$instance_table = new Table("cc_invoice_item", $field_insert);
@@ -2299,13 +2299,15 @@ class FormHandler
 			$table_transaction = new Table();
 			$result_agent = $table_transaction -> SQLExec($this->DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $card_id");
 			
-			if(is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
-			//test if the agent exist and get its commission
+			if (is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
+				
+				// test if the agent exist and get its commission
 				$id_agent = $result_agent[0]['id_agent'];
 				$agent_table = new Table("cc_agent", "commission");
 				$agent_clause = "id = ".$id_agent;
 				$result_agent= $agent_table -> Get_list($this->DBHandle,$agent_clause);
-				if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
+				
+				if (is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
 					$field_insert = "id_payment, id_card, amount,description,id_agent";
 					$commission = ceil(($processed['payment'] * ($result_agent[0]['commission']/100))*100)/100;
 					$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
@@ -2321,11 +2323,14 @@ class FormHandler
 		}
 	}
 
-	function create_agent_refill(){
+	function create_agent_refill()
+	{
 		global $A2B;
 		$processed = $this->getProcessed();
-		if($processed['added_refill']==1){
+		
+		if ($processed['added_refill']==1) {
 			$id_payment = $this -> RESULT_QUERY;
+			
 			//CREATE REFILL
 			$field_insert = "date, credit, agent_id ,refill_type, description";
 			$date = $processed['date'];
@@ -2336,11 +2341,13 @@ class FormHandler
 			$value_insert = " '$date' , '$credit', '$agent_id','$refill_type', '$description' ";
 			$instance_sub_table = new Table("cc_logrefill_agent", $field_insert);
 			$id_refill = $instance_sub_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");	
+			
 			//REFILL AGENT .. UPADTE AGENT
 			$instance_table_agent = new Table("cc_agent");
 			$param_update_agent = "credit = credit + '".$credit."'";
 			$clause_update_agent = " id='$agent_id'";
 			$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
+			
 			//LINK THE REFILL TO THE PAYMENT .. UPADTE PAYMENT
 			$instance_table_pay = new Table("cc_logpayment_agent");
 			$param_update_pay = "id_logrefill = '".$id_refill."'";
@@ -2362,7 +2369,6 @@ class FormHandler
 		$sip_buddy = stripslashes($processed['sip_buddy']);
 		$iax_buddy = stripslashes($processed['iax_buddy']);
 		
-		
 		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
 		if (strlen($this -> FG_QUERY_EXTRA_HIDDED[0])>0) {
 			$username 	= $this -> FG_QUERY_EXTRA_HIDDED[0];
@@ -2379,7 +2385,9 @@ class FormHandler
 		
 		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
 		
-		$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
+		$FG_QUERY_ADITION_SIP_IAX = 'name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, ' .
+				'host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, ' .
+				'musiconhold, regseconds, ipaddr, cancallforward';
 
 		if (($sip_buddy == 1) || ($iax_buddy == 1)) {
 			if(!USE_REALTIME) {
