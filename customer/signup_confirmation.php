@@ -61,8 +61,11 @@ list ($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $l
 if ($FG_DEBUG == 1)
 	echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
 
-$mail->send();
-
+try {
+	$mail->send();
+} catch (A2bMailException $e) {
+    $error_msg = $e->getMessage();
+}
 
 $smarty->display('signup_header.tpl');
 ?>

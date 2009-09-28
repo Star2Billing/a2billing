@@ -156,6 +156,14 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			// Sent Mail
 			try {
 				$mail = new Mail(Mail :: $TYPE_REMINDER, $mycard['id']);
+			} catch (Exception $e) {
+				if ($verbose_level >= 1)
+					echo "[Cannot find a template mail for reminder]\n";
+				write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
+				exit;
+			}
+			
+			try {
 				if (strlen($mycard['email_notification']) > 0)
 					$mail->send($mycard['email_notification']);
 				else
@@ -174,12 +182,13 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					echo "[UPDATE CARD ID < " . $mycard['id'] . " > : last_notification]\n";
 					echo "$sql_update_card\n";
 				}
-			} catch (Exception $e) {
-				echo "[Cannot find a template mail for reminder]\n";
-				write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . "[Cannot find a template mail for reminder]");
-				exit;
-			}
-
+			} catch (A2bMailException $e) {
+	            $error_msg = $e->getMessage();
+	            if ($verbose_level >= 1)
+	            	echo "$error_msg\n";
+	            write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__) . ' line:' . __LINE__ . $mycard['email_notification']." - $error_msg");
+	        }
+	        
 		} //endif check the email not null
 	}
 	// Little bit of rest

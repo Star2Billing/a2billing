@@ -29,25 +29,34 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		$agent_clause = "id = ".$_SESSION["agent_id"];
 		$result=$table_agent ->Get_list($HD_Form -> DBHandle, $agent_clause);
 		$owner = $_SESSION["pr_login"]." (".$result[0]['firstname']." ".$result[0]['lastname'].")";
-		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
-		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
-		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
-		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
-		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
-		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
-		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
-		$mail->send($result[0]['email']);
+		try {
+			$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
+			$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+			$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
+			$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
+			$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
+			$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
+			$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
+			$mail->send($result[0]['email']);
+		} catch (A2bMailException $e) {
+            $error_msg = $e->getMessage();
+        }
 		$component_table = new Table('cc_support_component LEFT JOIN cc_support ON id_support = cc_support.id', "email");
 		$component_clause = "cc_support_component.id = ".$component;
 		$result= $component_table -> Get_list($HD_Form -> DBHandle, $component_clause);
-		$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
-		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
-		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
-		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
-		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
-		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
-		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
-		$mail->send($result[0]['email']);
+		
+		try {
+			$mail = new Mail(Mail::$TYPE_TICKET_NEW, null, $result[0]['language']);
+			$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+			$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $id_ticket);
+			$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($priority));
+			$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $description);
+			$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,"NEW");
+			$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $title);
+			$mail->send($result[0]['email']);
+		} catch (A2bMailException $e) {
+            $error_msg = $e->getMessage();
+        }
 		$update_msg = gettext("Ticket added successfully");
 
 }

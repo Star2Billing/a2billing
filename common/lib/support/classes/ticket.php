@@ -301,30 +301,38 @@ class Ticket {
 			    }
 			    break;
 		}
-
+		
 		$owner = $this->creator_login." (".$this->creator_firstname." ".$this->creator_lastname.")";
-		$mail = new Mail(Mail::$TYPE_TICKET_MODIFY, null, $this->creator_language);
-		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
-		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $this->id);
-		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $this->description);
-		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($this->priority));
-		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,Ticket::getStatusDisplay($this->status));
-		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $this->title);
-		$mail->replaceInEmail(Mail::$TICKET_COMMENT_DESCRIPTION_KEY, $desc);
-		$mail->replaceInEmail(Mail::$TICKET_COMMENT_CREATOR_KEY, $owner_comment);
-		$mail->send($this->creator_email);
-
-		$mail = new Mail(Mail::$TYPE_TICKET_MODIFY, null, $this->supportbox_language);
-		$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
-		$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $this->id);
-		$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $this->description);
-		$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($this->priority));
-		$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,Ticket::getStatusDisplay($this->status));
-		$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $this->title);
-		$mail->replaceInEmail(Mail::$TICKET_COMMENT_DESCRIPTION_KEY, $desc);
-		$mail->replaceInEmail(Mail::$TICKET_COMMENT_CREATOR_KEY, $owner_comment);
-		$mail->send($this->supportbox_email);
-
+		
+		try {
+			$mail = new Mail(Mail::$TYPE_TICKET_MODIFY, null, $this->creator_language);
+			$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+			$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $this->id);
+			$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $this->description);
+			$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($this->priority));
+			$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,Ticket::getStatusDisplay($this->status));
+			$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $this->title);
+			$mail->replaceInEmail(Mail::$TICKET_COMMENT_DESCRIPTION_KEY, $desc);
+			$mail->replaceInEmail(Mail::$TICKET_COMMENT_CREATOR_KEY, $owner_comment);
+			$mail->send($this->creator_email);
+		} catch (A2bMailException $e) {
+            $error_msg = $e->getMessage();
+        }
+        
+        try {
+			$mail = new Mail(Mail::$TYPE_TICKET_MODIFY, null, $this->supportbox_language);
+			$mail->replaceInEmail(Mail::$TICKET_OWNER_KEY, $owner);
+			$mail->replaceInEmail(Mail::$TICKET_NUMBER_KEY, $this->id);
+			$mail->replaceInEmail(Mail::$TICKET_DESCRIPTION_KEY, $this->description);
+			$mail->replaceInEmail(Mail::$TICKET_PRIORITY_KEY, Ticket::DisplayPriority($this->priority));
+			$mail->replaceInEmail(Mail::$TICKET_STATUS_KEY,Ticket::getStatusDisplay($this->status));
+			$mail->replaceInEmail(Mail::$TICKET_TITLE_KEY, $this->title);
+			$mail->replaceInEmail(Mail::$TICKET_COMMENT_DESCRIPTION_KEY, $desc);
+			$mail->replaceInEmail(Mail::$TICKET_COMMENT_CREATOR_KEY, $owner_comment);
+			$mail->send($this->supportbox_email);
+		} catch (A2bMailException $e) {
+            $error_msg = $e->getMessage();
+        }
 	}
 
 	public static function getStatusDisplay($status) {

@@ -17,9 +17,7 @@ include ("./lib/customer.module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./lib/customer.smarty.php");
 
-getpost_ifset(array (
-	'key'
-));
+getpost_ifset(array ( 'key' ));
 
 $HD_Form = new FormHandler("cc_card", "User");
 $HD_Form->setDBHandler(DbConnect());
