@@ -1101,9 +1101,11 @@ class A2Billing {
 			}
 			if ($this -> CC_TESTING) $this->destination = "kphone";
 
-			if ($this->agiconfig['record_call'] == 1){
-				$myres = $agi->exec("MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
-				$this -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
+			if ($this->agiconfig['record_call'] == 1) {
+				$command_mixmonitor = "MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b";
+				$command_mixmonitor = $this -> format_parameters ($command_mixmonitor);
+				$myres = $agi->exec($command_mixmonitor);
+				$this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
 			}
 
 			$agi->set_callerid($this->useralias);
@@ -1246,9 +1248,11 @@ class A2Billing {
 				if ($inst_listdestination[5]==1){
 
 					// RUN MIXMONITOR TO RECORD CALL
-					if ($this->agiconfig['record_call'] == 1){
-						$myres = $agi->exec("MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
-						$this -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
+					if ($this->agiconfig['record_call'] == 1) {
+						$command_mixmonitor = "MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b";
+						$command_mixmonitor = $this -> format_parameters ($command_mixmonitor);
+						$myres = $agi->exec($command_mixmonitor);
+						$this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
 					}
 
 					$dialparams = $this->agiconfig['dialcommand_param_sipiax_friend'];
@@ -1473,11 +1477,14 @@ class A2Billing {
             if ($inst_listdestination[5]==1) {
 				
                 // RUN MIXMONITOR TO RECORD CALL
-                if ($this->agiconfig['record_call'] == 1){
-                    $myres = $agi->exec("MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
-                    $this -> debug( INFO, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b");
-                }
-                 $max_long = 2147483647; //Maximum value for long type in C++. This will be used to avoid overflow when sending large numbers to Asterisk
+                if ($this->agiconfig['record_call'] == 1) {
+					$command_mixmonitor = "MixMonitor {$this->uniqueid}.{$this->agiconfig['monitor_formatfile']}|b";
+					$command_mixmonitor = $this -> format_parameters ($command_mixmonitor);
+					$myres = $agi->exec($command_mixmonitor);
+					$this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
+				}
+				
+				$max_long = 2147483647; //Maximum value for long type in C++. This will be used to avoid overflow when sending large numbers to Asterisk
                 if ($call_did_free) {
                     $this -> fct_say_time_2_call($agi,$time2call,0);
                     $dialparams = $this->agiconfig['dialcommand_param_call_2did'];
