@@ -19,8 +19,7 @@ $HD_Form -> init();
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
-$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
-
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_archiving_selection';
 $language_list = array();
 $language_list["0"] = array( gettext("ENGLISH"), "en");
 $language_list["1"] = array( gettext("SPANISH"), "es");
@@ -155,6 +154,8 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, 
 $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT GROUP"), "cc_card_group", "id, name", "", "name", "ASC", "id_group");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
+
 $HD_Form -> prepare_list_subselection('list');
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
@@ -186,7 +187,7 @@ echo $CC_help_data_archive;
 if(!isset($submit)){?>
 <script language="JavaScript" src="javascript/card.js"></script>
 <div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CUSTOMERS");?> </font></a></center>
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CUSTOMERS");?> </font></a><?php if(!empty($_SESSION['entity_archiving_selection'])){ ?>&nbsp;(<font style="color:#EE6564;" > <?php echo gettext("search activated"); ?> </font> ) <?php } ?></center>
 	<div class="tohide" style="display:none;">
 
 <?php
