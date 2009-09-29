@@ -8,6 +8,8 @@ if (!has_rights(ACX_DASHBOARD)) {
 	die();
 }
 
+$DEBUG_MODULE = FALSE;
+
 getpost_ifset(array (
 	'type','view_type'
 ));
@@ -98,16 +100,18 @@ if(!empty($type)) {
 		    $data[]= array((int)$result_graph[$i][0],floatval($result_graph[$i][1]));
 	    }
     }
-    echo json_encode(array('max'=> floatval($max), 'data'=>$data ,'format' => $format));
+    $response = array('max'=> floatval($max), 'data'=>$data ,'format' => $format);
+    if($DEBUG_MODULE) $response['query'] = $QUERY;
+    echo json_encode($response);
     die();
 }
 
 
 ?>
 
-<center><b><?php echo gettext("Monthly Report "); ?></b></center><br/>
-<b><?php echo gettext("View by :"); ?></b> &nbsp; <?php echo gettext("Days"); ?> &nbsp;<input id="view_call_day" type="radio" class="period_calls_graph" name="view_call" value="day" > &nbsp;
-<?php echo gettext("Months"); ?> &nbsp;<input id="view_call_month" type="radio" class="period_calls_graph" name="view_call" value="month"> <br/>
+<center><b><?php echo gettext("Report by"); ?></b></center><br/>
+<center><?php echo gettext("Days"); ?> &nbsp;<input id="view_call_day" type="radio" class="period_calls_graph" name="view_call" value="day" > &nbsp;
+<?php echo gettext("Months"); ?> &nbsp;<input id="view_call_month" type="radio" class="period_calls_graph" name="view_call" value="month"></center> <br/>
 <b><?php echo gettext("Call type :"); ?></b><br/>
 <input id="call_answer" type="radio" class="update_calls_graph" name="mode_call" value="answered">&nbsp; <?php echo gettext("Answered"); ?> &nbsp; 
 <input id="call_incomplet" type="radio" class="update_calls_graph" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("Incomplete"); ?> &nbsp; 
@@ -132,7 +136,7 @@ $("#call_graph").height(Math.floor(width/2));
 $('.update_calls_graph').click(function () {
 $.getJSON("modules/calls_lastmonth.php", { type: this.id , view_type : period_val   },
 		  function(data){
-			   // alert(""+data);
+			    <?php if($DEBUG_MODULE)echo "alert(data.query);"?>
 			    var graph_max = data.max;
 			    var graph_data = data.data;
 			    format = data.format;
