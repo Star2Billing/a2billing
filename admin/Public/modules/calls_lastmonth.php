@@ -9,20 +9,32 @@ if (!has_rights(ACX_DASHBOARD)) {
 }
 
 getpost_ifset(array (
-	'type'
+	'type','view_type'
 ));
-
-$temp = date("Y-m-01");
-$datetime = new DateTime($temp);
-$datetime_end = new DateTime($temp);
-$datetime_end->modify("+1 month");
-$datetime->modify("-5 month");
-$checkdate = $datetime->format("Y-m-d");
-$datetime->modify("-15 day");
-$begin_date_graphe = $checkdate = $datetime->format("Y-m-d");
-$end_date_graphe = $datetime_end->format("Y-m-01");
-$mingraph = strtotime($begin_date_graphe);
-$maxgraph = strtotime($end_date_graphe);
+//month view
+    $temp = date("Y-m-01");
+    $datetime = new DateTime($temp);
+    $datetime_end = new DateTime($temp);
+    $datetime_end->modify("+1 month");
+    $datetime->modify("-5 month");
+    $checkdate_month = $datetime->format("Y-m-d");
+    $datetime->modify("-15 day");
+    $begin_date_graphe = $checkdate = $datetime->format("Y-m-d");
+    $end_date_graphe = $datetime_end->format("Y-m-01");
+    $mingraph_month = strtotime($begin_date_graphe);
+    $maxgraph_month = strtotime($end_date_graphe);
+//day view
+    $temp = date("Y-m-d");
+    $datetime = new DateTime($temp);
+    $datetime_end = new DateTime($temp);
+    $datetime_end->modify("+1 day");
+    $datetime->modify("-7 day");
+    $checkdate_day = $datetime->format("Y-m-d");
+    $datetime->modify("-12 hour");
+    $begin_date_graphe = $checkdate = $datetime->format("Y-m-d HH");
+    $end_date_graphe = $datetime_end->format("Y-m-d");
+    $mingraph_day = strtotime($begin_date_graphe);
+    $maxgraph_day = strtotime($end_date_graphe);
 
 if(!empty($type)) {
     $DBHandle = DbConnect();
@@ -30,26 +42,50 @@ if(!empty($type)) {
     $format = "";
     switch ($type) {
 		case 'call_answer':
-		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid = 1 GROUP BY this_month ORDER BY this_month;";
+		    if($view_type == "month"){
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_month') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid = 1 GROUP BY this_month ORDER BY this_month;";
+		    }else{
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-%d'))*1000 AS this_day, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_day') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid = 1 GROUP BY this_day ORDER BY this_day;";
+		    }
 		    break;
 		case 'call_incomplet':
-		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid != 1 GROUP BY this_month ORDER BY this_month;";
+		    if($view_type == "month"){
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_month') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid != 1 GROUP BY this_month ORDER BY this_month;";
+		    }else{
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-%d'))*1000 AS this_day, count(*) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_day') AND starttime <= CURRENT_TIMESTAMP AND terminatecauseid != 1 GROUP BY this_day ORDER BY this_day;";
+		    }
 		    break;
 		case 'call_times':
 		    $format = 'time';
-		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, sum(sessiontime) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    if($view_type == "month"){
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, sum(sessiontime) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_month') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    }else{
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-%d'))*1000 AS this_day, sum(sessiontime) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_day') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_day ORDER BY this_day;";
+		    }
 		    break;
 		case 'call_sell':
 		    $format = 'time';
-		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, sum(sessionbill) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    if($view_type == "month"){
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, sum(sessionbill) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_month') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    }else{
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-%d'))*1000 AS this_day, sum(sessionbill) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_day') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_day ORDER BY this_day;";
+		    }
 		    break;
 		case 'call_buy':
 		    $format = 'money';
-		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    if($view_type == "month"){
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_month') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    }else{
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-%d'))*1000 AS this_day, sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_day') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_day ORDER BY this_day;";
+		    }
 		    break;
 		case 'call_profit':
 		    $format = 'money';
-		    $QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, sum(sessionbill)-sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    if($view_type == "month"){
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-01'))*1000 AS this_month, sum(sessionbill)-sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_month') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    }else{
+			$QUERY = "SELECT UNIX_TIMESTAMP(DATE_FORMAT(starttime,'%Y-%m-%d'))*1000 AS this_day, sum(sessionbill)-sum(buycost) FROM cc_call WHERE starttime>= TIMESTAMP('$checkdate_day') AND starttime <= CURRENT_TIMESTAMP GROUP BY this_day ORDER BY this_day;";
+		    }
 		    break;
     }
     
@@ -69,27 +105,34 @@ if(!empty($type)) {
 
 ?>
 
-<center><b><?php echo gettext("Monthly Report "); ?></b></center>
+<center><b><?php echo gettext("Monthly Report "); ?></b></center><br/>
+<b><?php echo gettext("View by :"); ?></b> &nbsp; <?php echo gettext("Days"); ?> &nbsp;<input id="view_call_day" type="radio" class="period_calls_graph" name="view_call" value="day" > &nbsp;
+<?php echo gettext("Months"); ?> &nbsp;<input id="view_call_month" type="radio" class="period_calls_graph" name="view_call" value="month"> <br/>
+<b><?php echo gettext("Call type :"); ?></b><br/>
 <input id="call_answer" type="radio" class="update_calls_graph" name="mode_call" value="answered">&nbsp; <?php echo gettext("Answered"); ?> &nbsp; 
 <input id="call_incomplet" type="radio" class="update_calls_graph" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("Incomplete"); ?> &nbsp; 
-<input id="call_times" type="radio" class="update_calls_graph" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("Duration"); ?> &nbsp; <br/>
-<input id="call_sell" type="radio" class="update_calls_graph" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("Revenue"); ?> &nbsp;
-<input id="call_buy" type="radio" class="update_calls_graph" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("Cost"); ?> &nbsp;
-<input id="call_profit" type="radio"  class="update_calls_graph" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("Profit"); ?><br/>
+<input id="call_times" type="radio" class="update_calls_graph" name="mode_call" value="times">&nbsp; <?php echo gettext("Duration"); ?> &nbsp; <br/>
+<input id="call_sell" type="radio" class="update_calls_graph" name="mode_call" value="sell">&nbsp; <?php echo gettext("Revenue"); ?> &nbsp;
+<input id="call_buy" type="radio" class="update_calls_graph" name="mode_call" value="buy">&nbsp; <?php echo gettext("Cost"); ?> &nbsp;
+<input id="call_profit" type="radio"  class="update_calls_graph" name="mode_call" value="profit">&nbsp; <?php echo gettext("Profit"); ?><br/>
 <br/>
 <div id="call_graph" class="dashgraph" style="margin-left: auto;margin-right: auto;"></div>
 <script id="source" language="javascript" type="text/javascript">
 
 $(document).ready(function () {
 var format = "";
+var x_format = "";
 var width= Math.min($("#call_graph").parent("div").width(),$("#call_graph").parent("div").innerWidth());
+
+var period_val="";
 $("#call_graph").width(width-10);
 $("#call_graph").height(Math.floor(width/2));
 
 
 $('.update_calls_graph').click(function () {
-$.getJSON("modules/calls_lastmonth.php", { type: this.id },
+$.getJSON("modules/calls_lastmonth.php", { type: this.id , view_type : period_val   },
 		  function(data){
+			   // alert(""+data);
 			    var graph_max = data.max;
 			    var graph_data = data.data;
 			    format = data.format;
@@ -97,24 +140,46 @@ $.getJSON("modules/calls_lastmonth.php", { type: this.id },
 		     });
    });
 
+$('.period_calls_graph').change(function () {
+    period_val = $(this).val();
+    if($(this).val() == "month" ) x_format ="%b";
+    else x_format ="%d-%m";
+    $('.update_calls_graph:checked').click();
+   });
+$('#view_call_day').click();
+$('#view_call_day').change();
 function plot_graph_calls(data,max){
     var d= data;
     var max_data = (max+5-(max%5));
+    var min_month = <?php echo $mingraph_month."000" ?>;
+    var max_month = <?php echo $maxgraph_month."000" ?>;
+    var min_day = <?php echo $mingraph_day."000" ?>;
+    var max_day = <?php echo $maxgraph_day."000" ?>;
+    if(period_val=="month"){
+	var min_graph = min_month;
+	var max_graph = max_month;
+	var bar_width = 28*24 * 60 * 60 * 1000;
+    }else{
+	var min_graph = min_day;
+	var max_graph = max_day;
+	var bar_width = 24 * 60 * 60 * 1000;
+    }
+
     $.plot($("#call_graph"), [
 				{
 				    data: d,
 				    bars: { show: true,
-						barWidth: <?php echo 28*24 * 60 * 60 * 1000; ?>,
+						barWidth: bar_width,
 						align: "centered"
 				    }
 				}
 				 ],
 			    {   xaxis: {
 				    mode: "time",
-					timeformat: "%b",
+				    timeformat: x_format,
 				    ticks :6,
-					min : <?php echo $mingraph."000" ?>,
-					max : <?php echo $maxgraph."000" ?>
+					min : min_graph,
+					max : max_graph
 				  },
 				  yaxis: {
 				  max:max_data,
@@ -126,7 +191,7 @@ function plot_graph_calls(data,max){
 
 	}
 
-
+   
    $('#call_profit').click();
    function showTooltip(x, y, contents) {
         $('<div id="tooltip">' + contents + '</div>').css( {
