@@ -97,7 +97,7 @@ if(!empty($type)) {
     if (is_array($result_graph)) {
 	    for ($i = 0; $i < count($result_graph); $i++) {
 		    $max = max($max,$result_graph[$i][1]);
-		    $data[]= array((int)$result_graph[$i][0],floatval($result_graph[$i][1]));
+		    $data[]= array($result_graph[$i][0],floatval($result_graph[$i][1]));
 	    }
     }
     $response = array('max'=> floatval($max), 'data'=>$data ,'format' => $format);
@@ -136,9 +136,14 @@ $("#call_graph").height(Math.floor(width/2));
 $('.update_calls_graph').click(function () {
 $.getJSON("modules/calls_lastmonth.php", { type: this.id , view_type : period_val   },
 		  function(data){
-			    <?php if($DEBUG_MODULE)echo "alert(data.query);"?>
+			    <?php if($DEBUG_MODULE)echo "alert(data.query);alert(data.data);"?>
 			    var graph_max = data.max;
-			    var graph_data = data.data;
+			    var graph_data = new Array();
+			    for (i = 0; i < data.data.length; i++) {
+				graph_data[i] = new Array();
+				graph_data[i][0]= parseInt(data.data[i][0]);
+				graph_data[i][1]= data.data[i][1]
+			     }
 			    format = data.format;
 			    plot_graph_calls(graph_data,graph_max);
 		     });
