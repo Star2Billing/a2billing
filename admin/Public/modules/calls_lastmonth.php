@@ -21,7 +21,7 @@ getpost_ifset(array (
     $datetime->modify("-5 month");
     $checkdate_month = $datetime->format("Y-m-d");
     $datetime->modify("-15 day");
-    $begin_date_graphe = $checkdate = $datetime->format("Y-m-d");
+    $begin_date_graphe  = $datetime->format("Y-m-d");
     $end_date_graphe = $datetime_end->format("Y-m-01");
     $mingraph_month = strtotime($begin_date_graphe);
     $maxgraph_month = strtotime($end_date_graphe);
@@ -33,7 +33,7 @@ getpost_ifset(array (
     $datetime->modify("-7 day");
     $checkdate_day = $datetime->format("Y-m-d");
     $datetime->modify("-12 hour");
-    $begin_date_graphe = $checkdate = $datetime->format("Y-m-d HH");
+    $begin_date_graphe = $datetime->format("Y-m-d HH");
     $end_date_graphe = $datetime_end->format("Y-m-d");
     $mingraph_day = strtotime($begin_date_graphe);
     $maxgraph_day = strtotime($end_date_graphe);
@@ -144,6 +144,7 @@ $.getJSON("modules/calls_lastmonth.php", { type: this.id , view_type : period_va
 				graph_data[i][0]= parseInt(data.data[i][0]);
 				graph_data[i][1]= data.data[i][1]
 			     }
+			      //alert(graph_data);
 			    format = data.format;
 			    plot_graph_calls(graph_data,graph_max);
 		     });

@@ -8,8 +8,9 @@ if (!has_rights(ACX_DASHBOARD)) {
 	die();
 }
 
+$DEBUG_MODULE = FALSE;
 getpost_ifset(array (
-	'type'
+	'type','view_type'
 ));
 
 $temp = date("Y-m-01");
@@ -17,12 +18,26 @@ $datetime = new DateTime($temp);
 $datetime_end = new DateTime($temp);
 $datetime_end->modify("+1 month");
 $datetime->modify("-11 month");
-$checkdate= $datetime->format("Y-m-d");
+$checkdate_month= $datetime->format("Y-m-d");
 $datetime->modify("-15 day");
-$begin_date_graphe = $checkdate= $datetime->format("Y-m-d");
+$begin_date_graphe =  $datetime->format("Y-m-d");
 $end_date_graphe = $datetime_end->format("Y-m-01");
-$mingraph = strtotime($begin_date_graphe);
-$maxgraph = strtotime($end_date_graphe);
+$mingraph_month = strtotime($begin_date_graphe);
+$maxgraph_month = strtotime($end_date_graphe);
+
+//day view
+$temp = date("Y-m-d");
+$datetime = new DateTime($temp);
+$datetime_end = new DateTime($temp);
+$datetime_end->modify("+1 day");
+$datetime->modify("-7 day");
+$checkdate_day = $datetime->format("Y-m-d");
+$datetime->modify("-12 hour");
+$begin_date_graphe =  $datetime->format("Y-m-d HH");
+$end_date_graphe = $datetime_end->format("Y-m-d");
+$mingraph_day = strtotime($begin_date_graphe);
+$maxgraph_day = strtotime($end_date_graphe);
+
 
 if(!empty($type)) {
     $format='';
@@ -30,10 +45,18 @@ if(!empty($type)) {
     $table = new Table('cc_logpayment','*');
     switch ($type) {
 		case 'payments_count':
-		    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month, count( * )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    if($view_type == "month"){
+			$QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month, count( * )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate_month' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    }else{
+			$QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-%d' ) )*1000 AS this_day, count( * )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate_day' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_day ORDER BY this_day;";
+		    }
 		    break;
 		case 'payments_amount':
-		    $QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month , SUM( payment )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    if($view_type == "month"){
+			$QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-01' ) )*1000 AS this_month , SUM( payment )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate_month' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_month ORDER BY this_month;";
+		    }else{
+			$QUERY = "SELECT UNIX_TIMESTAMP( DATE_FORMAT( date, '%Y-%m-%d' ) )*1000 AS this_day , SUM( payment )  FROM cc_logpayment WHERE date >= TIMESTAMP( '$checkdate_day' ) AND date <=CURRENT_TIMESTAMP GROUP BY this_day ORDER BY this_day;";
+		    }
 		    $format='money';
 		    break;
     }
@@ -44,15 +67,20 @@ if(!empty($type)) {
     if (is_array($result_graph)) {
 	    for ($i = 0; $i < count($result_graph); $i++) {
 		    $max = max($max,$result_graph[$i][1]);
-		    $data[]= array((int)$result_graph[$i][0],floatval($result_graph[$i][1]));
+		    $data[]= array($result_graph[$i][0],floatval($result_graph[$i][1]));
 	    }
     }
-    echo json_encode(array('max'=> floatval($max), 'data'=>$data , 'format'=>$format));
+    $response = array('max'=> floatval($max), 'data'=>$data ,'format' => $format);
+    if($DEBUG_MODULE) $response['query'] = $QUERY;
+    echo json_encode($response);
     die();
 }
 ?>
 
-
+<center><b><?php echo gettext("Report by"); ?></b></center><br/>
+<center><?php echo gettext("Days"); ?> &nbsp;<input id="view_payment_day" type="radio" class="period_payments_graph" name="view_payment" value="day" > &nbsp;
+<?php echo gettext("Months"); ?> &nbsp;<input id="view_payment_month" type="radio" class="period_payments_graph" name="view_payment" value="month"></center> <br/>
+<b><?php echo gettext("Customer type :"); ?></b><br/>
 <input id="payments_count" type="radio" name="mode_paym" class="update_payments_graph" value="count">&nbsp; <?php echo gettext("Total Number of Payments"); ?><br/>
 <input id="payments_amount" type="radio" name="mode_paym" class="update_payments_graph" value="amount">&nbsp; <?php echo gettext("Total Payment Amount"); ?><br/>
 <br/>
@@ -61,40 +89,73 @@ if(!empty($type)) {
 <script id="source" language="javascript" type="text/javascript">
 $(document).ready(function () {
 var format = "";
+var period_val="";
+var x_format = "";
+
 var width= Math.min($("#payments_graph").parent("div").width(),$("#payments_graph").parent("div").innerWidth());
 $("#payments_graph").width(width-10);
 $("#payments_graph").height(Math.floor(width/2));
 
 
 $('.update_payments_graph').click(function () {
-    $.getJSON("modules/payments_lastmonth.php", { type: this.id },
+    $.getJSON("modules/payments_lastmonth.php", { type: this.id, view_type : period_val },
 		      function(data){
+				<?php if($DEBUG_MODULE)echo "alert(data.query);alert(data.data);"?>
 				var graph_max = data.max;
-				var graph_data = data.data;
+				var graph_data = new Array();
+				for (i = 0; i < data.data.length; i++) {
+				    graph_data[i] = new Array();
+				    graph_data[i][0]= parseInt(data.data[i][0]);
+				    graph_data[i][1]= data.data[i][1]
+				 }
 				format = data.format;
 				plot_graph_payments(graph_data,graph_max);
 			 });
 
    });
 
+$('.period_payments_graph').change(function () {
+    period_val = $(this).val();
+    if($(this).val() == "month" ) x_format ="%b";
+    else x_format ="%d-%m";
+    $('.update_payments_graph:checked').click();
+   });
+
+$('#view_payment_day').click();
+$('#view_payment_day').change();
+
 function plot_graph_payments(data,max){
-    var d=data;
+    var d= data;
     var max_data = (max+5-(max%5));
+    var min_month = <?php echo $mingraph_month."000" ?>;
+    var max_month = <?php echo $maxgraph_month."000" ?>;
+    var min_day = <?php echo $mingraph_day."000" ?>;
+    var max_day = <?php echo $maxgraph_day."000" ?>;
+    if(period_val=="month"){
+	var min_graph = min_month;
+	var max_graph = max_month;
+	var bar_width = 28*24 * 60 * 60 * 1000;
+    }else{
+	var min_graph = min_day;
+	var max_graph = max_day;
+	var bar_width = 24 * 60 * 60 * 1000;
+    }
+
     $.plot($("#payments_graph"), [
 				{
 				    data: d,
 				    bars: { show: true,
-						barWidth: <?php echo 28*24 * 60 * 60 * 1000; ?>,
+						barWidth: bar_width,
 						align: "centered"
 				    }
 				}
 				 ],
 			    {   xaxis: {
 				    mode: "time",
-					timeformat: "%b",
+				    timeformat: x_format,
 				    ticks :6,
-					min : <?php echo $mingraph."000" ?>,
-					max : <?php echo $maxgraph."000" ?>
+					min : min_graph,
+					max : max_graph
 				  },
 				  yaxis: {
 				  max:max_data,
