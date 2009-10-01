@@ -341,21 +341,33 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			    $param_update_billing = "id_invoice = '".$last_invoice."'";
 			    $clause_update_billing = " id= ".$id_billing;
 			    $billing_table ->Update_table($A2B->DBHandle,$param_update_billing,$clause_update_billing);
+			    if ($verbose_level >= 2)
+					echo "\n Update Billing :> " . $param_update_billing . " WHERE " . $clause_update_billing;
 			}
 			
 			// Send a mail for invoice to pay
 			if (!empty($last_invoice)) {
 			    $total = round($total,2);
-			    $mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
-			    $mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
-			    $mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
-			    $mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
-			    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
-			    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
-			    $mail -> send();
-			    if ($verbose_level >= 2)
+			    try {
+				    $mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
+				    $mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
+				    $mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
+				    $mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
+				    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
+				    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
+				    $mail->send();
+				    if ($verbose_level >= 2)
 						echo "\n Email sent for invoice to pay, card id :> ".$card_id;
+			    } catch (A2bMailException $e) {
+		            $error_msg = $e->getMessage();
+		            if ($verbose_level >= 1)
+		            	echo "Sent mail error : ".$error_msg;
+		        }
 			}
+			
+			if ($verbose_level >= 2)
+				echo "\n Go to next Customer";
+			
 		} // END foreach($resmax as $Customer)
 	}
 }
