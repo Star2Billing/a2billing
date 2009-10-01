@@ -2070,7 +2070,8 @@ class FormHandler
 				}
 			}
 		}
-		
+		$total =0;
+		$total_vat =0;
 		// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
 		$table_charge = new Table("cc_charge", "*");
 		$result =  $table_charge -> Get_list($this->DBHandle, $clause_charge." AND charged_status = 0 AND invoiced_status = 0");
@@ -2081,44 +2082,53 @@ class FormHandler
 			$date = date("Y-m-d h:i:s");
 			$title = gettext("BILLING CHARGES");
 			$description = gettext("This invoice is for some charges unpaid since the last billing.")." ".$desc_billing_postpaid;
-			
+			$invoice_title = $title;
+			$invoice_reference =$reference;
+			$invoice_description = $description;
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
-            if(!empty($id_invoice)&& is_numeric($id_invoice)){
-            	$last_invoice = $id_invoice;
-				foreach ($result as $charge) {
-					$description = gettext("CHARGE :").$charge['description'];
-					$amount = $charge['amount'];
-					$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
-					$instance_table = new Table("cc_invoice_item", $field_insert);
-					$value_insert = " '".$charge['creationdate']."' , '$id_invoice', '$amount','$vat','$description','".$charge['id']."','CHARGE'";
-					$instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
-				}
-			}
+			if(!empty($id_invoice)&& is_numeric($id_invoice)){
+			    $last_invoice = $id_invoice;
+					    foreach ($result as $charge) {
+						    $description = gettext("CHARGE :").$charge['description'];
+						    $amount = $charge['amount'];
+						    $total = $total + $amount;
+						    $total_vat =$total_vat + round($amount *(1+($vat/100)),2);
+						    $field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
+						    $instance_table = new Table("cc_invoice_item", $field_insert);
+						    $value_insert = " '".$charge['creationdate']."' , '$id_invoice', '$amount','$vat','$description','".$charge['id']."','CHARGE'";
+						    $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+					    }
+				    }
 		}
 		
 		// behaviour postpaid
 		if($card_result[0]['typepaid']==1 && is_numeric($card_result[0]['credit']) && ($card_result[0]['credit']+$lastpostpaid_amount)<0) {
 			
 			//GENERATE AN INVOICE TO COMPLETE THE BALANCE
-            if (!empty($last_invoice)) {
-                $id_invoice = $last_invoice;
-            } else {
-                $reference = generate_invoice_reference();
-                $field_insert = "date, id_card, title ,reference, description,status,paid_status";
-                $date = date("Y-m-d h:i:s");
-                $title = gettext("BILLING POSTPAID");
-                $description = gettext("Invoice for POSTPAID");
-                $value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
-                $instance_table = new Table("cc_invoice", $field_insert);
-                $id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
-            }
+		    if (!empty($last_invoice)) {
+			$id_invoice = $last_invoice;
+		    } else {
+			$reference = generate_invoice_reference();
+			$field_insert = "date, id_card, title ,reference, description,status,paid_status";
+			$date = date("Y-m-d h:i:s");
+			$title = gettext("BILLING POSTPAID");
+			$description = gettext("Invoice for POSTPAID");
+			$invoice_title = $title;
+			$invoice_reference =$reference;
+			$invoice_description = $description;
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
+			$instance_table = new Table("cc_invoice", $field_insert);
+			$id_invoice = $instance_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+		    }
             
 			if (!empty($id_invoice)&& is_numeric($id_invoice)) {
 				$last_invoice = $id_invoice;
 				$description = $desc_billing_postpaid;
 				$amount = abs($card_result[0]['credit']+$lastpostpaid_amount);
+				$total = $total + $amount;
+				$total_vat =$total_vat + round($amount *(1+($vat/100)),2);
 				$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
 				$instance_table = new Table("cc_invoice_item", $field_insert);
 				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','".$this -> RESULT_QUERY."','POSTPAID'";
@@ -2130,28 +2140,16 @@ class FormHandler
 		    $clause_update_billing = " id= ".$this -> RESULT_QUERY;
 		    $billing_table ->Update_table($this->DBHandle,$param_update_billing,$clause_update_billing);
 		}
-
 		//Send a mail for invoice to pay
 		if (!empty($last_invoice)) {
-		    $table = "cc_invoice LEFT JOIN (SELECT st1.id_invoice, TRUNCATE(SUM(st1.price*(1+(st1.vat/100))),2) as total_vat,TRUNCATE(SUM(st1.price),2) as total" .
-		    $table .= " FROM cc_invoice_item AS st1 GROUP BY st1.id_invoice ) as items ON items.id_invoice = cc_invoice.id ";
-		    $instance_table = new Table("$table", "title, reference,description,total_vat,total");
-		    $invoice_clause = "id = ".$last_invoice;
-		    $result_invoice = $instance_table ->Get_list($this->DBHandle, $invoice_clause);
-		    if (is_array($result_invoice)) {
-				$invoice_title = $result_invoice[0]['title'];
-				$invoice_reference = $result_invoice[0]['reference'];
-				$invoice_description = $result_invoice[0]['description'];
-				$total = $result_invoice[0]['total'];
-				$total_vat = $result_invoice[0]['total_vat'];
-				$mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
-				$mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
-				$mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
-				$mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
-				$mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
-				$mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
-				$mail -> send();
-		    }
+		    $total = round($total,2);
+		    $mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
+		    $mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
+		    $mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
+		    $mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
+		    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
+		    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
+		    $mail -> send();
 		}
 
 		//Update billing ...

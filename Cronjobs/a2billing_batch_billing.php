@@ -251,7 +251,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					}
 				}
 			}
-			
+			$total =0;
+			$total_vat =0;
 			// GENERATE INVOICE FOR CHARGE NOT YET CHARGED
 			$table_charge = new Table("cc_charge", "*");
 			$result = $table_charge->Get_list($A2B->DBHandle, $clause_charge . " AND charged_status = 0 AND invoiced_status = 0");
@@ -261,6 +262,9 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$field_insert = "id_card, title, reference, description, status, paid_status";
 				$title = gettext("BILLING");
 				$description = gettext("Invoice for the unpaid charges since the last billing.") . " " . $desc_billing_postpaid;
+				$invoice_title = $title;
+				$invoice_reference =$reference;
+				$invoice_description = $description;
 				$value_insert = " '$card_id', '$title', '$reference', '$description', 1, 0";
 				$instance_table = new Table("cc_invoice", $field_insert);
 				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
@@ -270,6 +274,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					foreach ($result as $charge) {
 						$description = gettext("CHARGE :") . $charge['description'];
 						$amount = $charge['amount'];
+						$total = $total + $amount;
+						$total_vat =$total_vat + round($amount *(1+($vat/100)),2);
 						$field_insert = "date, id_invoice, price, vat, description, id_ext, type_ext";
 						$instance_table = new Table("cc_invoice_item", $field_insert);
 						$value_insert = " '" . $charge['creationdate'] . "' , '$id_invoice', '$amount', '$vat', '$description', '" . $charge['id'] . "', 'CHARGE'";
@@ -288,6 +294,9 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				    $field_insert = " id_card, title, reference, description, status, paid_status";
 				    $title = gettext("BILLING");
 				    $description = gettext("Invoice for POSTPAID");
+				    $invoice_title = $title;
+				    $invoice_reference =$reference;
+				    $invoice_description = $description;
 				    $value_insert = " '$card_id', '$title','$reference','$description',1,0";
 				    $instance_table = new Table("cc_invoice", $field_insert);
 				    $id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
@@ -296,6 +305,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					$last_invoice = $id_invoice;
 					$description = $desc_billing_postpaid;
 					$amount = abs($Customer['credit']+$lastpostpaid_amount);
+					$total = $total + $amount;
+					$total_vat =$total_vat + round($amount *(1+($vat/100)),2);
 					$field_insert = " id_invoice, price, vat, description, id_ext, type_ext";
 					$instance_table = new Table("cc_invoice_item", $field_insert);
 					$value_insert = " '$id_invoice', '$amount','$vat','$description','" . $id_billing . "','POSTPAID'";
@@ -311,27 +322,14 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			
 			// Send a mail for invoice to pay
 			if (!empty($last_invoice)) {
-			    $table = "cc_invoice LEFT JOIN " .
-			    		"(SELECT st1.id_invoice, TRUNCATE(SUM(st1.price*(1+(st1.vat/100))),2) AS total_vat,TRUNCATE(SUM(st1.price),2) AS total FROM cc_invoice_item AS st1 GROUP BY st1.id_invoice ) " .
-			    		"AS items ON items.id_invoice = cc_invoice.id ";
-			    $instance_table = new Table("$table", "title, reference, description, total_vat, total");
-			    $invoice_clause = "id = ".$last_invoice;
-			    $result_invoice = $instance_table ->Get_list($A2B->DBHandle, $invoice_clause);
-			    
-			    if (is_array($result_invoice)) {
-					$invoice_title = $result_invoice[0]['title'];
-					$invoice_reference = $result_invoice[0]['reference'];
-					$invoice_description = $result_invoice[0]['description'];
-					$total = $result_invoice[0]['total'];
-					$total_vat = $result_invoice[0]['total_vat'];
-					$mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
-					$mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
-					$mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
-					$mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
-					$mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
-					$mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
-					$mail -> send();
-			    }
+			    $total = round($total,2);
+			    $mail = new Mail(Mail::$TYPE_INVOICE_TO_PAY, $card_id);
+			    $mail->replaceInEmail(Mail::$INVOICE_REFERENCE_KEY, $invoice_reference);
+			    $mail->replaceInEmail(Mail::$INVOICE_TITLE_KEY, $invoice_title);
+			    $mail->replaceInEmail(Mail::$INVOICE_DESCRIPTION_KEY, $invoice_description);
+			    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
+			    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
+			    $mail -> send();
 			}
 		} // END foreach($resmax as $Customer)
 	}
