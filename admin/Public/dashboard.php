@@ -55,8 +55,6 @@ if( !empty($A2B->config["dashboard"]["call_info_enabled"]) && $A2B->config["dash
 $smarty->display('main.tpl');
 ?>
 <center>
-<?php echo gettext("Report By ");?>
-<?php echo gettext("Months");?>
 
 <table align="center" width="100%">
 	<tr>
