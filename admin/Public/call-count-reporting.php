@@ -28,7 +28,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 $DBHandle = DbConnect();
 
-if($order=="day" && $grouped==0){
+if($order=="day" && $grouped==0) {
     $order="";
 }
 
@@ -50,7 +50,6 @@ switch ($topsearch) {
 		$FG_TABLE_NAME="cc_call";
 		if($order=="destination" || empty ($order))$order="card_id";
 		break;
-	
 }
 
 $FG_TABLE_COL[]=array (gettext("Duration"), "calltime", "15%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
@@ -83,7 +82,6 @@ if ( empty ($order) || empty($sens) || ( $order == 'card_id' && $topsearch == 't
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
-
 $date_clause='';
 normalize_day_of_month($fromstatsday_sday, $fromstatsmonth_sday, 1); 
 normalize_day_of_month($tostatsday_sday, $tostatsmonth_sday, 1);
@@ -96,8 +94,8 @@ if (strpos($date_clause, 'AND') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
 
-//To select just terminatecauseid=ANSWER
-if (!isset($terminatecauseid)){
+// To select just terminatecauseid=ANSWER
+if (!isset($terminatecauseid)) {
 	$terminatecauseid="ANSWER";
 }
 if ($terminatecauseid=="ANSWER") {
@@ -109,12 +107,8 @@ if ($terminatecauseid=="ANSWER") {
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 if (!$nodisplay) {
-echo $order;
-	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null,$inputtopvar , 0,$SQL_GROUP);
-	
+	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null,$inputtopvar , 0,$SQL_GROUP);	
 }
-
-
 
 
 $smarty->display('main.tpl');
