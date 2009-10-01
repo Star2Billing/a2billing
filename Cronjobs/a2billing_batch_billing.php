@@ -74,7 +74,7 @@ if (ProcessHandler :: isActive()) {
 }
 
 //Flag to show the debuging information
-$verbose_level = 1;
+$verbose_level = 0;
 
 $groupcard = 5000;
 
@@ -109,13 +109,13 @@ if (!($nb_card > 0)) {
 }
 
 if ($verbose_level >= 1)
-	echo ("[Invoice Billing Service analyze cards on which to apply service]");
-write_log (LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[Invoice Billing Service analyze cards on which to apply service]");
+	echo ("[Invoice Billing Service analyze cards on which to apply billing]");
+write_log (LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[Invoice Billing Service analyze cards on which to apply billing]");
 
 for ($page = 0; $page < $nbpagemax; $page++) {
 	if ($verbose_level >= 1)
 		echo "$page <= $nbpagemax \n";
-	$Query_Customers = "SELECT id, vat, invoiceday, typepaid, credit FROM cc_card ";
+	$Query_Customers = "SELECT id, vat, invoiceday, typepaid, credit FROM cc_card";
 
 	if ($A2B->config["database"]['dbtype'] == "postgres") {
 		$Query_Customers .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
@@ -174,6 +174,9 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			$start_date = null;
 			$lastbilling_invoice = null;
 			if (is_array($result) && !empty ($result[0][0])) {
+				if ($verbose_level >= 1)
+					echo "\n Find the last billing -> Id card : " . $result[0][0];
+				
 				$clause_call_billing .= "stoptime >= '" . $result[0][1] . "' AND ";
 				$clause_charge .= "creationdate >= '" . $result[0][1] . "' AND  ";
 				$desc_billing = "Calls cost between the " . $result[0][1] . " and " . $date_now;
@@ -205,6 +208,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			}
 			$instance_table = new Table("cc_billing_customer", $field_insert);
 			$id_billing = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+			if ($verbose_level >= 2)
+					echo "\n Add billing -> Id card : " . $value_insert;
 
 			$clause_call_billing .= "stoptime < '" . $date_now . "' ";
 			$clause_charge .= "creationdate < '" . $date_now . "' ";
@@ -221,12 +226,17 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$value_insert = "  '$card_id', '$title','$description',1";
 				$instance_table = new Table("cc_receipt", $field_insert);
 				$id_receipt = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				if ($verbose_level >= 2)
+						echo "\n Add Receipt for the call of the last period :> " . $value_insert;
+				
 				if (!empty ($id_receipt) && is_numeric($id_receipt)) {
 					$description = $desc_billing;
 					$field_insert = " id_receipt, price, description, id_ext, type_ext";
 					$instance_table = new Table("cc_receipt_item", $field_insert);
 					$value_insert = " '$id_receipt', '$amount_calls','$description','" . $id_billing . "','CALLS'";
 					$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+					if ($verbose_level >= 2)
+						echo "\n Add Receipt Items for the call of the last period :> " . $value_insert;
 				}
 			}
 			
@@ -240,6 +250,9 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$value_insert = " '$card_id', '$title', '$description', 1";
 				$instance_table = new Table("cc_receipt", $field_insert);
 				$id_receipt = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				if ($verbose_level >= 2)
+					echo "\n Add Receipt for the charges already paid :> " . $value_insert;
+				
 				if (!empty ($id_receipt) && is_numeric($id_receipt)) {
 					foreach ($result as $charge) {
 						$description = gettext("CHARGE :") . $charge['description'];
@@ -248,6 +261,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 						$instance_table = new Table("cc_receipt_item", $field_insert);
 						$value_insert = " '" . $charge['creationdate'] . "' , '$id_receipt', '$amount','$description','" . $charge['id'] . "','CHARGE'";
 						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+						if ($verbose_level >= 2)
+							echo "\n Add Receipt Items for the charges already paid :> " . $value_insert;
 					}
 				}
 			}
@@ -268,6 +283,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				$value_insert = " '$card_id', '$title', '$reference', '$description', 1, 0";
 				$instance_table = new Table("cc_invoice", $field_insert);
 				$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				if ($verbose_level >= 2)
+					echo "\n Add Invoice for the unpaid charges :> " . $value_insert;
 				
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 					$last_invoice = $id_invoice;
@@ -280,6 +297,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 						$instance_table = new Table("cc_invoice_item", $field_insert);
 						$value_insert = " '" . $charge['creationdate'] . "' , '$id_invoice', '$amount', '$vat', '$description', '" . $charge['id'] . "', 'CHARGE'";
 						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+						if ($verbose_level >= 2)
+							echo "\n Add Invoice Items for the unpaid charges :> " . $value_insert;
 					}
 				}
 			}
@@ -300,6 +319,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 				    $value_insert = " '$card_id', '$title','$reference','$description',1,0";
 				    $instance_table = new Table("cc_invoice", $field_insert);
 				    $id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+				    if ($verbose_level >= 2)
+						echo "\n Add Invoice :> " . $value_insert;
 				}
 				if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 					$last_invoice = $id_invoice;
@@ -311,6 +332,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					$instance_table = new Table("cc_invoice_item", $field_insert);
 					$value_insert = " '$id_invoice', '$amount','$vat','$description','" . $id_billing . "','POSTPAID'";
 					$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+					if ($verbose_level >= 2)
+						echo "\n Add Invoice Item :> " . $value_insert;
 				}
 			}
 			
@@ -330,6 +353,8 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 			    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_KEY, $total);
 			    $mail->replaceInEmail(Mail::$INVOICE_TOTAL_VAT_KEY, $total_vat);
 			    $mail -> send();
+			    if ($verbose_level >= 2)
+						echo "\n Email sent for invoice to pay, card id :> ".$card_id;
 			}
 		} // END foreach($resmax as $Customer)
 	}
@@ -338,7 +363,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 
 
 if ($verbose_level >= 1)
-	echo "#### END BILLING \n";
+	echo "------- CRONT BILLING END ------- \n";
 
-write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "[#### BILLING END ####]");
+write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__) . ' line:' . __LINE__ . "------- CRONT BILLING END -------");
 
