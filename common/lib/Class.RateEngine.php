@@ -998,6 +998,8 @@ class RateEngine
 		$buycost = 0;
 		if ($doibill==0 || $sessiontime < $A2B->agiconfig['min_duration_2bill']) {
 			$cost = 0;
+			//(ST) fix to track buycosts even if not billing customer
+			$buycost = abs($this -> lastbuycost);
 		} else{
 			$cost = $this -> lastcost;
 			$buycost = abs($this -> lastbuycost);
