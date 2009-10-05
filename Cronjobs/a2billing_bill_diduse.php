@@ -82,7 +82,7 @@ if (!$A2B->DbConnect()) {
 $instance_table = new Table();
 
 // CHECK THE CARD WITH DID'S
-$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, typepaid, creditlimit,reminded " .
+$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, typepaid, creditlimit, reminded " .
 		 " FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) " .
 		 " WHERE ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') AND cc_did_use.activated=1 AND cc_did.billingtype <> '3' " .
 		 " ORDER BY cc_card.id ASC";
@@ -116,8 +116,10 @@ foreach ($result as $mydids) {
 	if ($last_idcard != $mydids[4]) {
 		$new_card = true;
 		$last_idcard = $mydids[4];
-	} else
+	} else {
 		$new_card = false;
+	}
+	
 	// mail variable for user notification
 	$user_mail_adrr = '';
 	$mail_user = false;
@@ -127,7 +129,10 @@ foreach ($result as $mydids) {
 	if ($verbose_level >= 1)
 		echo "------>>>  ID DID = " . $mydids[0] . " - MONTHLY RATE = " . $mydids[3] . "ID CARD = " . $mydids[4] . " -BALANCE =" . $mycard[5] . " \n";
 	$day_remaining = 0;
-	$timestamp_datetopay = mktime(date('H', (strtotime($mydids[1])) - (intval($daytopay) * $oneday)), date("i", (strtotime($mydids[1])) - (intval($daytopay) * $oneday)), date("s", (strtotime($mydids[1])) - (intval($daytopay) * $oneday)), date("m", (strtotime($mydids[1])) - (intval($daytopay) * $oneday)) + $mydids[2], date("d", (strtotime($mydids[1])) - (intval($daytopay) * $oneday)), date("Y", (strtotime($mydids[1])) - (intval($daytopay) * $oneday)));
+	// $mydids[1] -> reservationdate
+	$diff_reservation_daytopay = (strtotime($mydids[1])) - (intval($daytopay) * $oneday); // diff : reservationdate - daytopay : ie reserved 15Sept - day to pay 5 :> 10 days of diff
+	// $timestamp_datetopay : 10 Septembre
+	$timestamp_datetopay = mktime(date('H', $diff_reservation_daytopay), date("i", $diff_reservation_daytopay), date("s", $diff_reservation_daytopay), date("m", $diff_reservation_daytopay) + $mydids[2], date("d", $diff_reservation_daytopay), date("Y", $diff_reservation_daytopay));
 
 	$day_remaining = time() - $timestamp_datetopay;
 	if ($verbose_level >= 1)
@@ -169,9 +174,9 @@ foreach ($result as $mydids) {
 
 					$reference = generate_invoice_reference();
 
-					//CREATE INVOICE If a new card then just an invoice item in the  last invoice
+					//CREATE INVOICE If a new card then just an invoice item in the last invoice
 					if ($new_card) {
-						$field_insert = "date, id_card, title ,reference, description,status,paid_status";
+						$field_insert = "date, id_card, title, reference, description, status, paid_status";
 						$date = date("Y-m-d h:i:s");
 						$card_id = $last_idcard;
 						$title = gettext("DID INVOICE REMINDER");
@@ -188,7 +193,7 @@ foreach ($result as $mydids) {
 						$description = "DID number (" . $mydids[7] . ")";
 						$amount = $mydids[3];
 						$vat = 0;
-						$field_insert = "date, id_invoice,price,vat,description,id_ext,type_ext";
+						$field_insert = "date, id_invoice, price, vat, description, id_ext, type_ext";
 						$instance_table = new Table("cc_invoice_item", $field_insert);
 						$value_insert = " '$date' , '$last_invoice', '$amount','$vat','$description','" . $mydids[0] . "','DID'";
 						if ($verbose_level >= 1)
@@ -202,8 +207,8 @@ foreach ($result as $mydids) {
 					$mail -> replaceInEmail(Mail::$INVOICE_REF_KEY,$reference);
 					$mail -> replaceInEmail(Mail::$DID_NUMBER_KEY,$mydids[7]);
 					$mail -> replaceInEmail(Mail::$DID_COST_KEY,$mydids[3]);
+					
 					//insert charge
-
 					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, invoiced_status) VALUES ('" . $mydids[4] . "', '" . $mydids[3] . "', '2','" . $mydids[0] . "','1')";
 					if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
@@ -213,10 +218,10 @@ foreach ($result as $mydids) {
 					$QUERY = "UPDATE cc_did_use set reminded = 1 WHERE id_did = '" . $mydids[0] . "' and activated = 1";
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 					if ($verbose_level >= 1)
-						echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
+						echo "==> UPDATE DID USE QUERY: $QUERY\n";
 				}
-
 			}
+			
 		} else {
 			// RELEASE THE DID 
 			$QUERY = "UPDATE cc_did set iduser = 0, reserved = 0 WHERE id='" . $mydids[0] . "'";
@@ -245,12 +250,13 @@ foreach ($result as $mydids) {
 			$mail -> replaceInEmail(Mail::$DID_COST_KEY,$mydids[3]);
 		}
 	}
+	
 	$user_mail_adrr = $mydids[6];
 	$user_card_id = $mydids[4];
 	
 	if (!is_null($mail )&& $mail_user && strlen($user_mail_adrr) > 5) {
         try {
-	    $mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY, $mydids[5] - $mydids[3]);
+	    	$mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY, $mydids[5] - $mydids[3]);
             $mail -> send($user_mail_adrr);
         } catch (A2bMailException $e) {
         	if ($verbose_level >= 1)

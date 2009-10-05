@@ -34,3 +34,4 @@
 create index idtariffplan_index on cc_ratecard (idtariffplan);
 
 
+UPDATE cc_config SET config_title='DID Billing Days to pay', config_description='Define the amount of days you want to give to the user before releasing its DIDs' WHERE config_key='didbilling_daytopay ';
