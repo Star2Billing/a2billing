@@ -116,7 +116,7 @@ if(!empty($type)) {
 <input id="call_answer" type="radio" class="update_calls_graph" name="mode_call" value="answered">&nbsp; <?php echo gettext("Answered"); ?> &nbsp; 
 <input id="call_incomplet" type="radio" class="update_calls_graph" name="mode_call" value="incomplet">&nbsp; <?php echo gettext("Incomplete"); ?> &nbsp; 
 <input id="call_times" type="radio" class="update_calls_graph" name="mode_call" value="times">&nbsp; <?php echo gettext("Duration"); ?> &nbsp; <br/>
-<input id="call_sell" type="radio" class="update_calls_graph" name="mode_call" value="sell">&nbsp; <?php echo gettext("Revenue"); ?> &nbsp;
+<input id="call_sell" type="radio" class="update_calls_graph" name="mode_call" value="sell">&nbsp; <?php echo gettext("Sell"); ?> &nbsp;
 <input id="call_buy" type="radio" class="update_calls_graph" name="mode_call" value="buy">&nbsp; <?php echo gettext("Cost"); ?> &nbsp;
 <input id="call_profit" type="radio"  class="update_calls_graph" name="mode_call" value="profit">&nbsp; <?php echo gettext("Profit"); ?><br/>
 <br/>

@@ -60,7 +60,7 @@ $result_count_calls_profit = $result_count_calls_sell-$result_count_calls_buy;
 
 <br/>
 
-<?php echo gettext("Revenue");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
+<?php echo gettext("Sell");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
 <?php if($result_count_calls_sell == null){echo "0";}else{ echo $result_count_calls_sell;} ?> </font>&nbsp;<?php echo $A2B->config["global"]["base_currency"];?> <br/>
 	
 <?php echo gettext("Cost");?>&nbsp;:&nbsp; <font style="color:#EE6564;" > 
