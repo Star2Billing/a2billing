@@ -290,7 +290,6 @@ Step 8: Configure recurring services
 less than the user have choice.
 0 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_notify_account.php
 
-
 # To check all the accounts and send an notification email if the
 balance is less than the first argument.
 0 */6 * * php /usr/local/src/a2billing/Cronjobs/a2billing_check_account.php
@@ -304,8 +303,8 @@ order to keep their DIDs
 # This script will take care of the recurring service.
 0 12 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_process.php
 
-# To generate invoices and for each user.
-0 6 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_invoice_cront.php
+#Generate Invoices at 6am everyday
+0 6 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_billing.php
 
 # to proceed the autodialer
 */5 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_autodialer.php

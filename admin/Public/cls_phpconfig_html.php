@@ -1,4 +1,5 @@
-<?PHP
+<?php
+
 /**
  *
  * phpconfig HTML output

@@ -129,3 +129,9 @@ INVOCING
 	Cront for Automatic Invoice Generation is located into 
 	/A2Billing_AGI/libs_a2billing/crontjob/a2billing_invoice_cront.php
 	You should run this cront. this will get the billing date information from our a2billing.conf.
+	
+
+
+
+
+

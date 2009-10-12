@@ -144,9 +144,8 @@ echo "
 0 0 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_bill_diduse.php
 #Remind users of low balance every day at 06:00
 0 6 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_check_account.php
-#Generate Invoices at 7am everyday
-0 7 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_invoice2_cront.php
-0 7 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_invoice_cront.php
+#Generate Invoices at 6am everyday
+0 6 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_billing.php
 #Check if balance below preset value, and email user if so.
 1 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_notify_account.php
 #Charge subscriptions at 06:05 on the 1st of each month
