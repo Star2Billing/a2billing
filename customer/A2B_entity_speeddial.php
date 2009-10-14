@@ -44,11 +44,7 @@ if (!has_rights(ACX_SPEED_DIAL)) {
 	die();
 }
 
-getpost_ifset(array (
-	'destination',
-	'choose_speeddial',
-	'name'
-));
+getpost_ifset(array ('destination',	'choose_speeddial',	'name'));
 
 $HD_Form->setDBHandler(DbConnect());
 $HD_Form->init();
@@ -59,9 +55,9 @@ if (strlen($destination) > 0 && is_numeric($choose_speeddial)) {
 	$FG_SPEEDDIAL_TABLE = "cc_speeddial";
 	$FG_SPEEDDIAL_FIELDS = "speeddial";
 	$instance_sub_table = new Table($FG_SPEEDDIAL_TABLE, $FG_SPEEDDIAL_FIELDS);
-
+	
 	$QUERY = "INSERT INTO cc_speeddial (id_cc_card, phone, name, speeddial) VALUES ('" . $_SESSION["card_id"] . "', '" . $destination . "', '" . $name . "', '" . $choose_speeddial . "')";
-
+	
 	$result = $instance_sub_table->SQLExec($HD_Form->DBHandle, $QUERY, 0);
 }
 
@@ -71,6 +67,7 @@ if ($id != "" || !is_null($id)) {
 
 if (!isset ($form_action))
 	$form_action = "list";
+
 if (!isset ($action))
 	$action = $form_action;
 
@@ -78,6 +75,11 @@ $list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
+
+// #### HELP SECTION
+if ($form_action == 'list') {
+	echo $CC_help_speeddial;
+}
 
 if ($form_action == "list") {
 	// My code for Creating two functionalities in a page
@@ -95,10 +97,11 @@ if ($form_action == "list") {
 		<td align="left" valign="bottom">
 		<font class="fontstyle_002"> <?php echo gettext("Speed Dial code");?> : </font><select NAME="choose_speeddial" class="form_input_select">
 					<?php					 
-				  	 foreach ($speeddial_list as $recordset){ 						 
+				  	 foreach ($speeddial_list as $recordset) { 						 
 					?>
 						<option class=input value='<?php echo $recordset[1]?>' ><?php echo $recordset[1]?> </option>                        
-					<?php 	 }
+					<?php 	 
+					 }
 					?>
 				</select>
 		</td>
@@ -123,10 +126,9 @@ if ($form_action == "list") {
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
-
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
 
-	
+

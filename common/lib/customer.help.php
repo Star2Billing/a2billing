@@ -82,6 +82,8 @@ if (SHOW_HELP) {
 
 	$CC_help_release_did = create_help(gettext("After confirmation, the release of the did will be done immediately and you will not be monthly charged any more."));
 
+	$CC_help_speeddial = create_help(gettext("Map single digit to your most dialed numbers."));
+
 } //ENDIF SHOW_HELP
 
 if (!isset ($disable_load_conf) || !($disable_load_conf)) {
