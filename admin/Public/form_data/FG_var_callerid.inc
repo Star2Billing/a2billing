@@ -103,7 +103,7 @@ $HD_Form -> FieldEditElement ('cid, activated, id_cc_card');
 // Set the filter variables
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'callerid';
-$HD_Form -> FG_FILTERFIELDNAME = 'callerid';
+$HD_Form -> FG_FILTERFIELDNAME = gettext('CALLERID');
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";

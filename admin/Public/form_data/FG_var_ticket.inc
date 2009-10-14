@@ -173,11 +173,18 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	gettext("Insert the description"),
 	"" , "", "", "", "" , "", "", "");
 
-
-
-
-
 $HD_Form -> FieldEditElement (' creator, title, id_component, priority, description');
+
+// Set the filter variables
+$HD_Form -> FG_FILTER_APPLY = true;
+$HD_Form -> FG_FILTERFIELD = 'username';
+$HD_Form -> FG_FILTERFIELDNAME = gettext('ACCOUNT NUMBER');
+
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
+}
+
 
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "viewed_admin";
 $HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "0";
