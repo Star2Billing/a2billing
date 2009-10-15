@@ -98,9 +98,13 @@ if (has_rights (ACX_MODIFY_REFILLS)) {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	
+	if ($form_action=="ask-add" && !empty($card_id)) {
+		$id_val = "value='$card_id'";
+	}
+	
 	$HD_Form -> AddEditElement (gettext("ID CUSTOMER"),
 				   "card_id",		
-				   "$value", "POPUPVALUE", "size=30 maxlength=50",	
+				   "$value", "POPUPVALUE", "size=30 maxlength=50 ".$id_val,		
 				   "4",	gettext("Insert the Customer ID"),
 				    "" , "", "", "", "", 				
 					"A2B_entity_card.php?popup_select=1&", ", 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1'" ,

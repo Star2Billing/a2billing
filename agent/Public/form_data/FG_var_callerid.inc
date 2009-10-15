@@ -43,11 +43,6 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_LINK2 = "A2B_entity_callerid.php?form_action=as
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT2 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG2 = gettext("Add CallerID");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG2 = Images_Path ."/page_white_add.png" ;
 
-$HD_Form -> FG_OTHER_BUTTON3 = true;
-$HD_Form -> FG_OTHER_BUTTON3_LINK = "A2B_entity_logrefill.php?form_action=ask-add&card_id=|col_orig1|";
-$HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path . "/brick_add.png";
-$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('ADD REFILL');
-
 
 $actived_list = Constants::getActivationTrueFalseList();
 $yesno = Constants::getYesNoList();
@@ -120,11 +115,10 @@ $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify via the form below, the prope
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME."<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
-
-$HD_Form -> FG_OTHER_BUTTON2 = true;
-$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&card_id=|col_orig1|";
-$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/money.png";
-$HD_Form -> FG_OTHER_BUTTON2_ALT = gettext('ADD PAYMENT');
+$HD_Form -> FG_OTHER_BUTTON3 = true;
+$HD_Form -> FG_OTHER_BUTTON3_LINK = "A2B_entity_logrefill.php?form_action=ask-add&card_id=|col_orig1|";
+$HD_Form -> FG_OTHER_BUTTON3_IMG = Images_Path . "/brick_add.png";
+$HD_Form -> FG_OTHER_BUTTON3_ALT = gettext('ADD REFILL');
 
 
 

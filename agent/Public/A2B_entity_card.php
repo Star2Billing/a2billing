@@ -178,7 +178,7 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 				$instance_table = new Table("cc_card", "username, id");			
 				$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 				
-				$update_msg ='<b><font color="green">'.gettext("Refill executed ").'</font></b>';	
+				$update_msg ='<b><font color="green">'.gettext("Refill executed ").'!</font></b>';	
 				
 				$field_insert = "date, credit, card_id, description, refill_type";
 				$value_insert = "now(), '$addcredit', '$id','$description','$refill_type'";
@@ -568,7 +568,7 @@ if ($form_action == "list" && (!($popup_select>=1))) {
 }elseif (!($popup_select>=1)) echo $CC_help_create_customer;
 
 
-if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
+if (isset($update_msg) && strlen($update_msg)>0) echo "<br/><center>$update_msg</center>"; 
 
 
 
