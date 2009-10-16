@@ -98,8 +98,8 @@ if ($batchupdate == 1 && is_array($check)) {
 		if ($loop_pass!=0) $SQL_UPDATE.=',';
 		
 		// Standard update mode
-		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){		
-			if (!isset($type["$ind_field"])) {	
+		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1) {
+			if (!isset($type["$ind_field"])) {
 				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
 			} else {
 				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
@@ -111,9 +111,9 @@ if ($batchupdate == 1 && is_array($check)) {
 			} else {
 				if ($type["$ind_field"] == 1) {
 					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
-				}elseif ($type["$ind_field"] == 2){
+				} elseif ($type["$ind_field"] == 2) {
 					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
-				}else{
+				} else {
 					$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
 				}				
 			}
@@ -148,21 +148,21 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
 	}
 	
-	if ($id>0) {
+	if ($id > 0) {
 				
 		$instance_check_card_agent = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
 		$FG_TABLE_CLAUSE_check = "cc_card.id= ".$id;
 		$list_check= $instance_check_card_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_check, null, null, null, null, null, null);
 		
-		if ( $list_check[0][0] ==$_SESSION['agent_id'] ) { 
+		if ( $list_check[0][0] == $_SESSION['agent_id'] ) { 
 				
-			//chech if enought credit
+			//check if enought credit
 			$instance_table_agent = new Table("cc_agent", "credit, currency");
 			$FG_TABLE_CLAUSE_AGENT = "id = ".$_SESSION['agent_id'] ;
 			$agent_info = $instance_table_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_AGENT, null, null, null, null, null, null);			
 			$credit_agent = $agent_info[0][0];
 			  
-			if ($credit_agent>=$addcredit) {
+			if ($credit_agent >= $addcredit) {
 				
 			   //Substract credit for agent
 				$param_update_agent = "credit = credit - '".$addcredit."'";

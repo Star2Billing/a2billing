@@ -438,6 +438,7 @@ class FormHandler
 
 	var $FG_BUTTON_EDITION_BOTTOM_TEXT = "";
 
+	var $FG_ADDITIONAL_FUNCTION_BEFORE_ADD = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_ADD = '';
 	var $FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_DELETE = '';
@@ -1498,33 +1499,39 @@ class FormHandler
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_fields";
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_value";	
 		
-		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
+		// CALL DEFINED FUNCTION BEFORE THE ADDITION
+		if (strlen($this->FG_ADDITIONAL_FUNCTION_BEFORE_ADD)>0 && ($this->VALID_SQL_REG_EXP))
+			$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_BEFORE_ADD)); 
 		
-		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
-		if (strpos($param_add_value, '%TAGPREFIX%')){
-			foreach ($arr_value_to_import as $current_value){
-				$param_add_value_replaced = str_replace("%TAGPREFIX%", $current_value, $param_add_value);				
-				if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value_replaced, null, null, $this->FG_TABLE_ID);
+		if ($res_funct) {
+			
+			$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
+			// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
+			if (strpos($param_add_value, '%TAGPREFIX%')) {
+				foreach ($arr_value_to_import as $current_value) {
+					$param_add_value_replaced = str_replace("%TAGPREFIX%", $current_value, $param_add_value);				
+					if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value_replaced, null, null, $this->FG_TABLE_ID);
+				}
+			} else {
+				if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 			}
-		}else{
-			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
-		}
-		if($this -> FG_ENABLE_LOG == 1) {
-			$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
-		}
-		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
-		if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0 && ($this->VALID_SQL_REG_EXP))
-			$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
-		
-		if ($this->FG_ADITION_GO_EDITION == "yes"){
-			$form_action="ask-edit";
-			$this->FG_ADITION_GO_EDITION = "yes-done";
-		}
-		$id = $this -> RESULT_QUERY;
-		if ( !empty($id) && ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
-			if ($this->FG_DEBUG == 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
-			//echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
-			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id);
+			if($this -> FG_ENABLE_LOG == 1) {
+				$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
+			}
+			// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
+			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0 && ($this->VALID_SQL_REG_EXP))
+				$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
+			
+			if ($this->FG_ADITION_GO_EDITION == "yes"){
+				$form_action="ask-edit";
+				$this->FG_ADITION_GO_EDITION = "yes-done";
+			}
+			$id = $this -> RESULT_QUERY;
+			if ( !empty($id) && ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
+				if ($this->FG_DEBUG == 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
+				//echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
+				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id);
+			}
 		}
 	}
 
@@ -1640,11 +1647,47 @@ class FormHandler
 		$processed = $this->getProcessed();
 		$credit = $processed['credit'];
 		$card_id = $processed['card_id'];
-			//REFILL CARD .. UPADTE CARD
+		
+		// REFILL CARD
 		$instance_table_card = new Table("cc_card");
 		$param_update_card = "credit = credit + '".$credit."'";
 		$clause_update_card = " id='$card_id'";
 		$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+	}
+	
+	/**
+     * Function add_card_refill_agent
+     * @public
+     */
+	function add_card_refill_agent()
+	{
+		global $A2B;
+		$processed = $this->getProcessed();
+		$credit = $processed['credit'];
+		$card_id = $processed['card_id'];
+	
+		//check if enought credit
+		$instance_table_agent = new Table("cc_agent", "credit, currency");
+		$FG_TABLE_CLAUSE_AGENT = "id = ".$_SESSION['agent_id'] ;
+		$agent_info = $instance_table_agent -> Get_list ($this -> DBHandle, $FG_TABLE_CLAUSE_AGENT, null, null, null, null, null, null);			
+		$credit_agent = $agent_info[0][0];
+		  
+		if ($credit_agent >= $credit) {
+		
+			//Substract credit for agent
+			$param_update_agent = "credit = credit - '".$credit."'";
+			$instance_table_agent -> Update_table ($this -> DBHandle, $param_update_agent, $FG_TABLE_CLAUSE_AGENT, $func_table = null);	
+			
+			// REFILL CARD
+			$instance_table_card = new Table("cc_card");
+			$param_update_card = "credit = credit + '".$credit."'";
+			$clause_update_card = " id='$card_id'";
+			$instance_table_card -> Update_table ($this->DBHandle, $param_update_card, $clause_update_card, $func_table = null);
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 	function ticket_add()
