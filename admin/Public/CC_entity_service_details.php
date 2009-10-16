@@ -53,9 +53,9 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 
 $FG_TABLE_COL=array();
 
-$FG_TABLE_COL[]=array (gettext("DATE"), "date", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("TOTALCARDPERFORM"), "totalcardperform", "20%", "center", "sort");
-$FG_TABLE_COL[]=array (gettext("TOTALCREDIT"), "totalcredit", "20%", "center", "sort");
+$FG_TABLE_COL[]=array (gettext("DATE"), "date", "30%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("ACCOUNT DEDUCTED"), "totalcardperform", "20%", "center", "sort");
+$FG_TABLE_COL[]=array (gettext("TOTAL CREDIT"), "totalcredit", "20%", "center", "sort");
 
 $FG_NB_TABLE_COL = count($FG_TABLE_COL);
 
@@ -65,8 +65,8 @@ if (!isset ($current_page) || ($current_page == "")) {
 
 $DBHandle = DbConnect();
 
-/*******************   SERVICE INFO  *****************************************/
 
+// SERVICE INFO
 $QUERY = "SELECT id, name, numberofrun, datelastrun, totalcredit, totalcardperform from cc_service WHERE id='$id'";
 $res = $DBHandle->Execute($QUERY);
 if ($res) {
@@ -77,8 +77,8 @@ if ($res) {
 	}
 }
 
-/*******************  LIST REFILL  *****************************************/
 
+// LIST REFILL
 $QUERY = "SELECT  t3.daterun, t3.totalcardperform, t3.totalcredit from cc_service_report as t3 WHERE t3.cc_service_id='$id'";
 
 if ($A2B->config["database"]['dbtype'] == 'postgres')
@@ -106,10 +106,10 @@ $smarty->display('main.tpl');
 	  
 <center><b><?php echo gettext("SERVICE NAME")?>&nbsp; :	<?php echo $list_service [0][1] ?></b>
 <br>
-<?php echo gettext("NUMBEROFRUN")." :".$list_service [0][2] ?>
-<?php echo " - ".gettext("DATELASTRUN")." :".$list_service [0][3] ?>
-<?php echo " <br> ".gettext("TOTALCREDIT")." :".$list_service [0][4] ?>
-<?php echo " - ".gettext("TOTALCARDPERFORM")." :".$list_service [0][5] ?>
+<?php echo gettext("EXECUTED ")." : ".$list_service [0][2].' '.gettext("TIME(S)") ?>
+<?php echo " <br>".gettext("Last executed date")." : ".$list_service [0][3] ?>
+<?php echo " <br>".gettext("TOTAL CREDIT")." : ".$list_service [0][4].' '.BASE_CURRENCY ?>
+<?php echo " - ".gettext("TOTAL ACCOUNT DEDUCTED")." : ".$list_service [0][5] ?>
 
 </center>
 	  <table width="100%">
@@ -126,7 +126,7 @@ $smarty->display('main.tpl');
 	  			if ((count($list )>0) && is_array($list )){
 	  ?>
 				  
-	  <div class="scroll">
+	  <div class="pscroll">
       <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" >
 		<TR> 
           <TD> 	
@@ -262,5 +262,7 @@ $smarty->display('main.tpl');
 	 
 <?php
 
-$smarty->display('footer.tpl');
+if ($displayfooter!="0") {
+	$smarty->display('footer.tpl');
+}
 

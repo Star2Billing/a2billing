@@ -135,19 +135,10 @@ div#login-wrapper .form_input_button {
 	order:1px dashed #66666;
 }
 
-div.scroll {
-	height: 200px;
-	width: 300px;
-	overflow: auto;
-	border: 1px solid #666;
-	background-color: #ddd;
-	padding: 5px;
-}
-
 div.scrollreal{
 	position:relative;
 	top: 16px;
-	height: 250px;
+	height: 150px;
 	overflow: auto;
 	border: 1px solid #666;
 	background-color: #ddd;
@@ -1387,6 +1378,17 @@ SPAN.errorText {
 	font-family: Verdana;
 	font-size: 10px;
 	color: #666666;
+}
+
+div.pscroll {
+	height: 180px;
+	width: 450px;
+	overflow: auto;
+	margin-left: auto;
+	margin-right: auto;	
+	border: 1px solid #666;
+	background-color: #ddd;
+	padding: 5px;
 }
 
 div.scroll {
