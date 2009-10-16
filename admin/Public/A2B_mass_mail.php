@@ -153,7 +153,7 @@ if (isset($submit)) {
 			}
             
             // SEND MAIL
-            //$mail ->send();
+            $mail ->send();
             
         } catch (A2bMailException $e) {
         	$err_sent++;
