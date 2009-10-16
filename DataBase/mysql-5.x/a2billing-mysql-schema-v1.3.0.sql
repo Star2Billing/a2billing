@@ -559,12 +559,12 @@ CREATE TABLE cc_iax_buddies (
 
 INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('signup', 'info@mydomainname.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '
 Thank you for registering with us
 
 Please click on below link to activate your account.
 
-http://myaccount.call-labs.com/activate.php?key$loginkey
+http://myaccount.mydomainname.com/activate.php?key=$loginkey$
 
 Please make sure you active your account by making payment to us either by
 credit card, wire transfer, money order, cheque, and western union money
@@ -572,11 +572,10 @@ transfer, money Gram, and Pay pal.
 
 
 Kind regards,
-Call Labs
-http://www.call-labs.com
+/My Company Name
 ', '');
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('reminder', 'info@call-labs.com', 'Call-Labs', 'REMINDER', '
-Our record indicates that you have less than $min_credit usd in your "$card_gen" account.
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('reminder', 'info@mydomainname.com', 'Call-Labs', 'REMINDER', '
+Our record indicates that you have less than $min_credit usd in your "$cardnumber$" account.
 
 We hope this message provides you with enough notice to refill your account.
 We value your business, but our system can disconnect you automatically
@@ -585,84 +584,84 @@ Please login to your account through our website to check your account
 details. Plus, you can pay by credit card, on demand.
 
 If you believe this information to be incorrect please contact
-info@call-labs.com
+info@mydomainname.com
 immediately.
 
 
 Kind regards,
-Call Labs
+/My Company Name
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('forgetpassword', 'info@call-labs.com', 'Call-Labs', 'Login Information', 'Your login information is as below:
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('forgetpassword', 'info@mydomainname.com', 'Call-Labs', 'Login Information', 'Your login information is as below:
 
-Your account is $card_gen
+Your account is $cardnumber$
 
-Your password is $password
+Your password is $password$
 
-Your cardalias is $cardalias
+Your login is $cardalias$
 
-http://myaccount.call-labs.com/
+http://myaccount.mydomainname.com/
 
 Kind regards,
-Call Labs
-http://www.call-labs.com
+/My Company Name
+http://www.mydomainname.com
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('signupconfirmed', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 'Thank you for registering with us
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('signupconfirmed', 'info@mydomainname.com', 'Call-Labs', 'SIGNUP CONFIRMATION', 'Thank you for registering with us
 
 Please make sure you active your account by making payment to us either by
 credit card, wire transfer, money order, cheque, and western union money
 transfer, money Gram, and Pay pal.
 
-Your account is $card_gen
+Your account is $cardnumber$
 
-Your password is $password
+Your password is $password$
 
 To go to your account :
-http://myaccount.call-labs.com/
+http://myaccount.mydomainname.com/
 
 Kind regards,
-Call Labs
+/My Company Name
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('epaymentverify', 'info@mydomainname.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
 
 Please check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.
 
-Time of Transaction: $time
-Payment Gateway: $paymentgateway
-Amount: $amount
+Time of Transaction: $time$
+Payment Gateway: $paymentgateway$
+Amount: $itemAmount$
 
 
 
 Kind regards,
-Call Labs
-http://www.call-labs.com
+/My Company Name
+http://www.mydomainname.com
 ', '');
 
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('payment', 'info@mydomainname.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.
 
 Shopping details is as below.
 
-Item Name = <b>$itemName</b>
-Item ID = <b>$itemID</b>
-Amount = <b>$itemAmount</b>
-Payment Method = <b>$paymentMethod</b>
-Status = <b>$paymentStatus</b>
+Item Name = <b>$itemName$</b>
+Item ID = <b>$itemID$</b>
+Amount = <b>$itemAmount$</b>
+Payment Method = <b>$paymentMethod$</b>
+Status = <b>$paymentStatus$</b>
 
 
 Kind regards,
-Call Labs
+/My Company Name
 ', '');
 
-INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
+INSERT INTO cc_templatemail (mailtype, fromemail, fromname,  subject, messagetext, messagehtml) VALUES ('invoice', 'info@mydomainname.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
 
 Attached is the invoice.
 
 Kind regards,
-Call Labs
-http://www.call-labs.com
+/My Company Name
+http://www.mydomainname.com
 ', '');
 
 INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);

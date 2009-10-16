@@ -64,9 +64,9 @@ ALTER TABLE cc_templatemail ADD PRIMARY KEY ( id )  ;
 ALTER TABLE cc_templatemail CHANGE id id INT( 11 ) NOT NULL AUTO_INCREMENT  ;
 
 INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject, messagetext)
-    VALUES	('en', 'did_paid', 'info@call-labs.com', 'Call-Labs', 'DID notification - ($did$)', 'BALANCE REMAINING $balance_remaining$ $base_currency$\n\nAn automatic taking away of : $did_cost$ $base_currency$ has been carry out of your account to pay your DID ($did$)\n\nMonthly cost for DID : $did_cost$ $base_currency$\n\n'),
-		('en', 'did_unpaid', 'info@call-labs.com', 'Call-Labs', 'DID notification - ($did$)', 'BALANCE REMAINING $balance_remaining$ $base_currency$\n\nYour credit is not enough to pay your DID number ($did$), the monthly cost is : $did_cost$ $base_currency$\n\nYou have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or the DID will be automatically released \n\n'),
-		('en', 'did_released', 'info@call-labs.com', 'Call-Labs', 'DID released - ($did$)', 'The DID $did$ has been automatically released!\n\n');		
+    VALUES	('en', 'did_paid', 'info@mydomainname.com', 'COMPANY NAME', 'DID notification - ($did$)', 'BALANCE REMAINING $balance_remaining$ $base_currency$\n\nAn automatic taking away of : $did_cost$ $base_currency$ has been carry out of your account to pay your DID ($did$)\n\nMonthly cost for DID : $did_cost$ $base_currency$\n\n'),
+		('en', 'did_unpaid', 'info@mydomainname.com', 'COMPANY NAME', 'DID notification - ($did$)', 'BALANCE REMAINING $balance_remaining$ $base_currency$\n\nYour credit is not enough to pay your DID number ($did$), the monthly cost is : $did_cost$ $base_currency$\n\nYou have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or the DID will be automatically released \n\n'),
+		('en', 'did_released', 'info@mydomainname.com', 'COMPANY NAME', 'DID released - ($did$)', 'The DID $did$ has been automatically released!\n\n');		
 
 
 DELETE FROM cc_configuration WHERE configuration_key = 'MODULE_PAYMENT_PAYPAL_CURRENCY';
@@ -75,11 +75,11 @@ DELETE FROM cc_configuration WHERE configuration_key = 'MODULE_PAYMENT_MONEYBOOK
 ALTER TABLE cc_support ADD email VARCHAR( 70 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
 ALTER TABLE cc_support ADD language CHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'en';
 INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject, messagetext)
-    VALUES	('en', 'new_ticket', 'info@call-labs.com', 'Call-Labs', 'Support Ticket #$ticket_id$', 'New Ticket Open (#$ticket_id$) From $ticket_owner$.\n Title : $ticket_title$\n Priority : $ticket_priority$ \n Status : $ticket_status$ \n Description : $ticket_description$ \n'),
-		('en', 'modify_ticket', 'info@call-labs.com', 'Call-Labs', 'Support Ticket #$ticket_id$', 'Ticket modified (#$ticket_id$) By $comment_creator$.\n Ticket Status -> $ticket_status$\n Description : $comment_description$ \n');
+    VALUES	('en', 'new_ticket', 'info@mydomainname.com', 'COMPANY NAME', 'Support Ticket #$ticket_id$', 'New Ticket Open (#$ticket_id$) From $ticket_owner$.\n Title : $ticket_title$\n Priority : $ticket_priority$ \n Status : $ticket_status$ \n Description : $ticket_description$ \n'),
+		('en', 'modify_ticket', 'info@mydomainname.com', 'COMPANY NAME', 'Support Ticket #$ticket_id$', 'Ticket modified (#$ticket_id$) By $comment_creator$.\n Ticket Status -> $ticket_status$\n Description : $comment_description$ \n');
 DELETE FROM cc_templatemail WHERE mailtype = 'invoice';
 INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject, messagetext)
-    VALUES	('en', 'invoice_to_pay', 'info@call-labs.com', 'Call-Labs', 'Invoice to pay Ref: $invoice_reference$', 'New Invoice send with the reference : $invoice_reference$ .\n Title : $invoice_title$ .\n Description : $invoice_description$\n TOTAL (exclude VAT) : $invoice_total$  $base_currency$\n TOTAL (invclude VAT) : $invoice_total_vat$ $base_currency$ \n\n TOTAL TO PAY : $invoice_total_vat$ $base_currency$\n\n You can check and pay this invoice by your account on the web interface : http://call-labs.com/A2BCustomer_UI/  ');
+    VALUES	('en', 'invoice_to_pay', 'info@mydomainname.com', 'COMPANY NAME', 'Invoice to pay Ref: $invoice_reference$', 'New Invoice send with the reference : $invoice_reference$ .\n Title : $invoice_title$ .\n Description : $invoice_description$\n TOTAL (exclude VAT) : $invoice_total$  $base_currency$\n TOTAL (invclude VAT) : $invoice_total_vat$ $base_currency$ \n\n TOTAL TO PAY : $invoice_total_vat$ $base_currency$\n\n You can check and pay this invoice by your account on the web interface : http://mydomainname.com/customer/  ');
 
 
 
