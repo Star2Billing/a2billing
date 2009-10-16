@@ -78,10 +78,6 @@
 	<div class="toggle_menu"><li><a href="callback.php"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li></div>
 	{/if}
 	
-	{if $ACXWEB_PHONE >0 }
-	<div class="toggle_menu"><li><a href="webphone.php"><strong>{php} echo gettext("WEB-PHONE");{/php}</strong></a></li></div>
-	{/if}
-
 	{if $ACXCALLER_ID >0 }
 	<div class="toggle_menu"><li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID"><strong>{php} echo gettext("ADD CALLER ID");{/php}</strong></a></li></div>
 	{/if}
