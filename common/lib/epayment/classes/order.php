@@ -22,7 +22,7 @@
         global $languages_id;
 	
         if(isset($_SESSION["agent_id"]) && !empty($_SESSION["agent_id"])){
-        	$QUERY = "SELECT login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
+        	$QUERY = "SELECT login as username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, '1', currency FROM cc_agent WHERE id = '".$_SESSION["agent_id"]."'";
         }elseif(isset($_SESSION["card_id"]) && !empty($_SESSION["card_id"])){
         	$QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, status, currency FROM cc_card WHERE id = '".$_SESSION["card_id"]."'";
         }else{
