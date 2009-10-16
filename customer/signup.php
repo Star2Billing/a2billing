@@ -42,16 +42,21 @@ if (!isset ($form_action))
 if (!isset ($action))
 	$action = $form_action;
 
+
+// PROVISION TEST DATA
+if (true) {
+	$_POST["lastname"] = $_POST["firstname"] = $_POST["address"] = $_POST["city"] = $_POST["state"] = $_POST["country"] = 'SIGN-' . MDP_STRING(5) . '-' . MDP_NUMERIC(3);
+	$_POST["email"] = MDP_STRING(10) . '@sign-up.com';
+	$_POST["zipcode"] = $_POST["phone"] = '12345667789';
+}
+
 include ("./form_data/FG_var_signup.inc");
 include ("./lib/customer.smarty.php");
 
 if (!$A2B->config["signup"]['enable_signup'])
 	exit;
 
-getpost_ifset(array (
-	'test',
-	'subscriber'
-));
+getpost_ifset(array ('subscriber'));
 
 if (!is_numeric($subscriber)) {
 	//check subscriber
@@ -60,19 +65,11 @@ if (!is_numeric($subscriber)) {
 	$result_check_subscriber = $table_check_subscriber->Get_list(DbConnect(), $clause_check_subscriber);
 	$check_subscriber = $result_check_subscriber[0][0];
 	if ($check_subscriber > 0) {
-		if ($dotest)
-			Header("Location: signup_service.php?dotest=$dotest");
-		else
-			Header("Location: signup_service.php");
+		Header("Location: signup_service.php");
 		die();
 	}
 }
 
-if ($test) {
-	$_POST["lastname"] = $_POST["firstname"] = $_POST["address"] = $_POST["city"] = $_POST["state"] = $_POST["country"] = 'SIGN-' . MDP_STRING(5) . '-' . MDP_NUMERIC(3);
-	$_POST["email"] = MDP_STRING(10) . '@sign-up.com';
-	$_POST["zipcode"] = $_POST["phone"] = '12345667789';
-}
 
 $HD_Form->setDBHandler(DbConnect());
 $HD_Form->init();
@@ -83,6 +80,7 @@ if ($id != "" || !is_null($id)) {
 
 $list = $HD_Form->perform_action($form_action);
 
+echo "$list";
 if ($form_action == "add") {
 	unset ($_SESSION["cardnumber_signup"]);
 	$_SESSION["language_code"] = $_POST["language"];

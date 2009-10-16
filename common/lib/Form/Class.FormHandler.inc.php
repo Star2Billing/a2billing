@@ -1499,6 +1499,8 @@ class FormHandler
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_fields";
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_value";	
 		
+		$res_funct = true;
+		
 		// CALL DEFINED FUNCTION BEFORE THE ADDITION
 		if (strlen($this->FG_ADDITIONAL_FUNCTION_BEFORE_ADD)>0 && ($this->VALID_SQL_REG_EXP))
 			$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_BEFORE_ADD)); 
@@ -1862,6 +1864,7 @@ class FormHandler
 	
 	function processing_card_signup()
 	{
+		
 		if (RELOAD_ASTERISK_IF_SIPIAX_CREATED) {
 			$this->create_sipiax_friends_reload();
 		} else {
@@ -1869,6 +1872,7 @@ class FormHandler
 		}
 		
 		$this->create_subscriptions();
+		
 	}
 	
 	function create_subscriptions()
@@ -2453,7 +2457,7 @@ class FormHandler
 				elseif ($iax_buddy == 1) $key = "iax_changed";
 				//add notification
 				//check who
-				if($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];} 
+				if ($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];} 
 				elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$who_id=$_SESSION['agent_id'];}
 				else {$who=Notification::$UNKNOWN;$id=-1;}
 				NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
