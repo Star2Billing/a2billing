@@ -90,6 +90,10 @@ if ($argc > 4 && strlen($argv[4]) > 0){
 	$A2B -> group_id = $groupid;
 }
 
+if ($argc > 5 && strlen($argv[5]) > 0){ 
+	$cid_1st_leg_tariff_id = $argv[5];
+}
+
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 $A2B -> mode = $mode;
@@ -479,6 +483,13 @@ if ($mode == 'standard') {
 		if ($cia_res==0){
 
 			$RateEngine = new RateEngine();
+			
+			// Apply 1st leg tariff override if param was passed in
+			if (strlen($cid_1st_leg_tariff_id) > 0)
+			{ 
+				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, 'Callback Tariff override for 1st Leg only. New tariff is '.$cid_1st_leg_tariff_id);
+				$A2B ->tariff = $cid_1st_leg_tariff_id;
+			}
 
 			$A2B -> agiconfig['use_dnid']=1;
 			$A2B -> agiconfig['say_timetocall']=0;
@@ -561,6 +572,12 @@ if ($mode == 'standard') {
 					foreach($callbackrate as $key => $value){
 						$variable .= '|'.strtoupper($key).'='.$value;
 					}
+					//pass the tariff if it was passed in
+					if (strlen($cid_1st_leg_tariff_id) > 0)
+					{ 
+						$variable .= '|TARIFF='.$cid_1st_leg_tariff_id;
+					}
+					
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
@@ -870,6 +887,13 @@ if ($charge_callback) {
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[INFO FOR THE 1ST LEG - callback_username=$callback_username");
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[TRY : callingcard_ivr_authenticate]");
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
+	
+	//overrides the tariff for the user with the one passed in.
+	if (strlen($callback_tariff) > 0)
+	{ 
+		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "*** Tariff override **** Changing from ".$A2B -> tariff." to ".$callback_tariff);
+		$A2B ->tariff = $callback_tariff;
+	}
 	
 	if ($cia_res==0) {
 

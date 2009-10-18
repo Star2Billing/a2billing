@@ -66,11 +66,16 @@
 	
 	Call is connected using DeadAgi(a2billing.php|1)
 	when calling the a2billing script different parameters can be use
-	DeadAgi(a2billing.php|%AGI_CONF%|%MODE%|%AREA_CODE%|%GROUP_ID_AUTOCREATION%)
+	DeadAgi(a2billing.php|%AGI_CONF%|%MODE%|%AREA_CODE%|%GROUP_ID_AUTOCREATION%|%$CID_ALEG_TARIFF_ID%)
 	
 	a parameter can be left empty, so a call as
 	DeadAgi(a2billing.php|1|||3)
 	This will define the GROUP_ID_AUTOCREATION to 3
+	
+	DeadAgi(a2billing.php|1|cid-callback|||4)
+	
+	This will define the CID_ALEG_TARIFF_ID to 4
+	
 	
 	With Asterisk 1.6, replace all of the pipes "|" with commas ","
 
