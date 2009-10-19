@@ -79,7 +79,12 @@ INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject
 		('en', 'modify_ticket', 'info@mydomainname.com', 'COMPANY NAME', 'Support Ticket #$ticket_id$', 'Ticket modified (#$ticket_id$) By $comment_creator$.\n Ticket Status -> $ticket_status$\n Description : $comment_description$ \n');
 DELETE FROM cc_templatemail WHERE mailtype = 'invoice';
 INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject, messagetext)
-    VALUES	('en', 'invoice_to_pay', 'info@mydomainname.com', 'COMPANY NAME', 'Invoice to pay Ref: $invoice_reference$', 'New Invoice send with the reference : $invoice_reference$ .\n Title : $invoice_title$ .\n Description : $invoice_description$\n TOTAL (exclude VAT) : $invoice_total$  $base_currency$\n TOTAL (invclude VAT) : $invoice_total_vat$ $base_currency$ \n\n TOTAL TO PAY : $invoice_total_vat$ $base_currency$\n\n You can check and pay this invoice by your account on the web interface : http://mydomainname.com/customer/  ');
+    VALUES	('en', 'invoice_to_pay', 'info@mydomainname.com', 'COMPANY NAME', 'Invoice to pay Ref: $invoice_reference$', 
+    'New Invoice send with the reference : $invoice_reference$ .\n 
+    Title : $invoice_title$ .\n Description : $invoice_description$\n 
+    TOTAL (exclude VAT) : $invoice_total$  $base_currency$\n TOTAL (invclude VAT) : $invoice_total_vat$ $base_currency$ \n\n 
+    TOTAL TO PAY : $invoice_total_vat$ $base_currency$\n\n 
+    You can check and pay this invoice by your account on the web interface : http://mydomainname.com/customer/  ');
 
 
 

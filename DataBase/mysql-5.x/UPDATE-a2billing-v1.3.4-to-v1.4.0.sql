@@ -851,7 +851,7 @@ ALTER TABLE cc_ratecard CHANGE destination destination CHAR( 30 ) CHARACTER SET 
 INSERT INTO cc_config_group (group_title ,group_description) VALUES
  ( 'notifications', 'This configuration group handles the notifcations configuration');
 
- INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
+INSERT INTO cc_config (config_title ,config_key ,config_value ,config_description ,config_valuetype ,config_group_id ,config_listvalues)
 VALUES ( 'List of possible values to notify', 'values_notifications', '10:20:50:100:500:1000', 'Possible values to choose when the user receive a notification. You can define a List e.g: 10:20:100.', '0', '12', NULL);
 
 INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues)

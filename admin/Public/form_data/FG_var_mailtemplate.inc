@@ -83,7 +83,9 @@ $typemail_list["template6"] 		= array( gettext("template6"), "template6");
 $typemail_list["template7"] 		= array( gettext("template7"), "template7");
 $typemail_list["template8"] 		= array( gettext("template8"), "template8");
 $typemail_list["template9"] 		= array( gettext("template9"), "template9");
-
+$typemail_list["new_ticket"]		= array( gettext("New Ticket"), Mail::$TYPE_TICKET_NEW);
+$typemail_list["modify_ticket"]		= array( gettext("Modify Ticket"), Mail::$TYPE_TICKET_MODIFY);
+$typemail_list["invoice_to_pay"]	= array( gettext("Invoice to Pay"), Mail::$TYPE_INVOICE_TO_PAY);
 
 if (($popup_select>=1)) {
 	$HD_Form -> AddViewElement(gettext("ID MAIL"), "id", "10%", "center", "sort");
@@ -114,10 +116,10 @@ if (($popup_select>=1)) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
 	}
 } else {	
-	$HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
-	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_mailtemplate.php?form_action=ask-add&id_language=$languages&section=".$_SESSION["menu_section"];
-	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add MAIL TEMPLATE");
-	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/email_add.png" ;
+	$HD_Form -> FG_LIST_ADDING_BUTTON1 = true;
+	$HD_Form -> FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_mailtemplate.php?form_action=ask-add&id_language=$languages&section=".$_SESSION["menu_section"];
+	$HD_Form -> FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add MAIL TEMPLATE");
+	$HD_Form -> FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/email_add.png" ;
 	
 	$HD_Form -> FG_ADDITION = true;
 	$HD_Form -> FG_EDITION = true;
@@ -216,9 +218,18 @@ $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tag used for Did Pay
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tag used for Did not payment warning email').': </u><br/> ' .
 		'<b>$days_remaining$</b>: '.gettext('number of day before release of the did').'<br/> '.
 		'<b>$invoice_ref$</b>: '.gettext('invoice reference to pay for the did').'<br/> ';
-$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tag used for emails about Did').': </u><br/> ' .
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tag used for DID').': </u><br/> ' .
 		'<b>$did$</b>: '.gettext('did number').'<br/> '.
-		'<b>$did_cost$</b>: '.gettext('cost of the did').'<br/> ';
+		'<b>$did_cost$</b>: '.gettext('cost of the did').'<br/> ';	
+$HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tag used for Support Ticket').': </u><br/> ' .
+		'<b>$ticket_id$</b>: '.gettext('Ticket Id').'<br/> '.
+		'<b>$ticket_owner$</b>: '.gettext('Ticket Owner').'<br/> '.
+		'<b>$ticket_priority$</b>: '.gettext('Ticket Priority').'<br/> '.
+		'<b>$ticket_status$</b>: '.gettext('Ticket Status').'<br/> '.
+		'<b>$ticket_title$</b>: '.gettext('Ticket Title').'<br/> '.
+		'<b>$ticket_description$</b>: '.gettext('Ticket Description').'<br/> '.
+		'<b>$comment_creator$</b>: '.gettext('Comment Creator').'<br/> '.
+		'<b>$comment_description$</b>: '.gettext('Comment Description').'<br/> ';
 $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT .= '<u>'.gettext('Tags used in all emails').': </u><br/> ' .
 		'<b>$email$</b>: '.gettext('email of the customer').'<br/>' .
 		'<b>$firstname$</b>: '.gettext('firstname of the customer').'<br/>' .
