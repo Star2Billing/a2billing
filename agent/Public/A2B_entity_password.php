@@ -129,7 +129,7 @@ if(is_array($result_check)){
     <td align=left colspan=2><b><font color="#ffffff">- <?php echo gettext("Change Password")?>&nbsp; -</b></td>
 </tr>
 <tr>
-    <td align=left colspan=2>&nbsp;</td>
+    <td align="center" colspan=2>&nbsp;<p class="liens"><?php echo gettext("Do not use \" or = characters in your password");?></p></td>
 </tr>
 <tr>
     <td align=right><font class="fontstyle_002"><?php echo gettext("Old Password")?>&nbsp; :</font></td>
@@ -162,7 +162,8 @@ document.frmPass.NewPassword.focus();
 
 </script>
 </form>
-<br>
+
+<br><br><br>
 
 <?php
 

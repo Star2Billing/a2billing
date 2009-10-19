@@ -137,7 +137,7 @@ alert("<?php echo gettext("System is failed to update your password.")?>");
     <td align=left colspan=2><b><font color="#ffffff">- <?php echo gettext("Change Password")?>&nbsp; -</b></td>
 </tr>
 <tr>
-    <td align=left colspan=2>&nbsp;</td>
+    <td align="center" colspan=2>&nbsp;<p class="liens"><?php echo gettext("Do not use \" or = characters in your password");?></p></td>
 </tr>
 <tr>
     <td align=right><font class="fontstyle_002"><?php echo gettext("Old Password")?>&nbsp; :</font></td>
@@ -161,7 +161,6 @@ alert("<?php echo gettext("System is failed to update your password.")?>");
     <td align=left colspan=2>&nbsp;</td>
 </tr>
 
-
 </table>
 </center>
 <script language="JavaScript">
@@ -169,7 +168,7 @@ alert("<?php echo gettext("System is failed to update your password.")?>");
 </script>
 </form>
 
-<br>
+<br><br><br>
 
 <?php
 
