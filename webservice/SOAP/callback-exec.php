@@ -34,12 +34,10 @@
 
 /***************************************************************************
  *
- * USAGE : http://domainname/webservice/SOAP/callbackexec.php?wsdl
+ * USAGE : http://localhost/webservice/SOAP/callback-exec.php?wsdl
  *
  * 			webservice/SOAP/callbackexec.php?wsdl
  *
- * 	http://domain/webservice/SOAP/soap-db-callback.php?security_key=13a7fa40cfcef6fe7ac9718a5c76cdb5&phone_number=XXXXX&callerid=123456	
- *	 &callback_time=2006-09-20+19%3A30%3A00
  *
  ****************************************************************************/
 
@@ -259,7 +257,7 @@ class Callback
 				}	
 				
 				//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
-				if (strlen($addparameter)>0){
+				if (strlen($addparameter)>0) {
 					$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
 					$addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
 					$dialstr .= $addparameter;

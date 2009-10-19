@@ -34,7 +34,7 @@
 
 
 /*
- * 	USAGE : http://domainname/webservice/SOAP/test-callbackexec.php
+ * 	USAGE : http://localhost/webservice/SOAP/test-callbackexec.php
  */ 
 
 include ("../lib/admin.defines.php");
@@ -44,21 +44,17 @@ $security_key = API_SECURITY_KEY;
 
 
 $endpoint = 'http://localhost/~areski/svn/a2billing/trunk/webservice/SOAP/callback-exec.php';
-// ADD ON THE SPEC SECURITY KEY
 
+// Create SOAP Client
 $callback = new SOAP_Client($endpoint);
 
 
 
-
-//	#############   Request CallBack   #############
 echo "<hr>#############   Request CallBack   #############   </hr>";
 $method = 'Request';   
 
-// array('in' => array('security_key' => 'string', 'pn_callingparty' => 'string', 'pn_calledparty' => 'string', 'callerid' => 'string', 'callback_time' => 'string', 'uniqueid' => 'string'),
-//                   'out' => array('id' => 'string', 'result' => 'string', 'details' => 'string')
-$params = array('security_key' => md5($security_key), 'pn_callingparty' => '34650784355', 'pn_calledparty' => '5633434', 'callerid' => '34650555555', 'callback_time' => '', 'uniqueid' => '');
-
+$params = array('security_key' => md5($security_key), 
+                'pn_callingparty' => '34650784355', 'pn_calledparty' => '5633434', 'callerid' => '34650555555', 'callback_time' => '', 'uniqueid' => '');
 $ans = $callback -> call($method, $params);
 
 print_r($ans);
@@ -66,16 +62,16 @@ print_r($ans);
 $insert_id_callback = $ans[0];
 
 
-//	#############   Check Status   #############   
+
+
 echo "<hr>#############   Check Status  #############   </hr>";
 $method = 'Status';
-//$insert_id_callback = 1;
-// array('in' => array('security_key' => 'string', 'id' => 'string'),
-//				'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
 $params = array('security_key' => md5($security_key), 'id' => $insert_id_callback);
 
 $ans = $callback -> call($method, $params);
 
 print_r($ans);
+
+
 
 
