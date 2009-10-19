@@ -34,7 +34,13 @@
 
 getpost_ifset(array('IDCust', 'id', 'cid', 'activated'));
 
-$HD_Form = new FormHandler("cc_callerid","CallerID");
+if (!isset($form_action) || $form_action=="list") {
+	$HD_Form = new FormHandler("cc_callerid LEFT JOIN cc_card ON cc_card.id=cc_callerid.id_cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", "CallerID");
+	$HD_Form -> FG_TABLE_CLAUSE = " cc_card_group.id_agent=".$_SESSION['agent_id'] ;
+	$HD_Form -> FG_TABLE_ID = 'cc_callerid.id';
+} else {
+	$HD_Form = new FormHandler("cc_callerid", "CallerID");
+}
 
 $HD_Form -> FG_DEBUG = 0;
 
@@ -52,7 +58,7 @@ $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "30%", "cent
 $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "25%", "center", "sort", "", "list", $actived_list);
 
 
-$HD_Form -> FieldViewElement ('cid, id_cc_card, activated, id');
+$HD_Form -> FieldViewElement ('cid, id_cc_card, cc_callerid.activated, cc_callerid.id');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ").strtoupper($HD_Form->FG_INSTANCE_NAME).gettext(" CREATED!");

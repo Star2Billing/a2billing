@@ -654,15 +654,12 @@ $smarty->display('main.tpl');
               <TBODY>
                 <TR> 
                   <TD><SPAN  class="fontstyle_003"><?php echo $FG_HTML_TABLE_TITLE?></SPAN></TD>
-                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path;?>/btn_top_12x12.gif" width=12> 
-                  </TD>
                 </TR>
               </TBODY>
             </TABLE></TD>
         </TR>
-        <TR> 
+        <TR>
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-<TBODY>
                 <TR  class="bgcolor_008"> 
 				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
 				  
@@ -694,12 +691,6 @@ $smarty->display('main.tpl');
 				   
                   
 				   <?php } ?>		
-                </TR>
-                <TR> 
-                  <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG 
-                              height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
                 </TR>
 				<?php
 					  
@@ -777,17 +768,6 @@ $smarty->display('main.tpl');
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
-                </TR>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
-                </TR>
-              </TBODY>
             </TABLE></td>
         </tr>
         <TR bgcolor="#ffffff"> 

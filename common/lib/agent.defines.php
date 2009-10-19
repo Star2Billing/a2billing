@@ -31,7 +31,7 @@
  * 
 **/
 
-define ("PHP_QUICK_PROFILER", false);
+define ("PHP_QUICK_PROFILER", true);
 // Include PHP-Quick-Profiler
 require_once('PhpQuickProfiler.php');
 $profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
@@ -99,8 +99,6 @@ define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->
 define ("SERVER_GMT", isset($A2B->config['global']['server_GMT'])?$A2B->config['global']['server_GMT']:null);
 define ("CUSTOMER_UI_URL", isset($A2B->config['global']['customer_ui_url'])?$A2B->config['global']['customer_ui_url']:null);
 
-define ("BUDDY_SIP_FILE", isset($A2B->config['webui']['buddy_sip_file'])?$A2B->config['webui']['buddy_sip_file']:null);
-define ("BUDDY_IAX_FILE", isset($A2B->config['webui']['buddy_iax_file'])?$A2B->config['webui']['buddy_iax_file']:null);
 define ("API_SECURITY_KEY", isset($A2B->config['webui']['api_security_key'])?$A2B->config['webui']['api_security_key']:null);
 
 // WEB DEFINE FROM THE A2BILLING.CONF FILE

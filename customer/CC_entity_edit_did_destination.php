@@ -1139,36 +1139,14 @@ function sendtolittle(direction){
           </b></div>
       </blockquote>
       <br> 
-	  <!--
-	  <TABLE width="85%" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
-        <TBODY>
-          <TR> 
-            <TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px"> 
-              <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-                <TBODY>
-                  <TR> 
-                    <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B> <?php echo gettext("Deletion confirmation")?> </B></SPAN></TD>
-                    <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="../Images/btn_top_12x12.gif" width=12> 
-                    </TD>
-                  </TR>
-                </TBODY>
-              </TABLE></TD>
-          </TR>
-          <TR> 
-            <TD bgColor=#7f99cc> <IMG height=1 src="../Images/clear.gif" width=1> 
-            </TD>
-            <TD bgColor=#edf3ff style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px"> 
-			-->
+	  
 			<TABLE width="85%" border=0 align="center" cellPadding=2 cellSpacing=2 style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px">
                   <FORM action=<?php echo $PHP_SELF?> id=form1 method=post name=form1>
                   <INPUT type="hidden" name="id" value="<?php echo $id?>">
 				  <INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
                   <INPUT type="hidden" name="form_action" value="delete">
                   <TBODY>
-                    <?php for($i=0;$i<$FG_NB_TABLE_EDITION;$i++){ 
-						//$FG_TABLE_COL[$i][1];			
-						//$FG_TABLE_COL[]=array ("Name", "name", "20%");
-					?>
+                    <?php for($i=0;$i<$FG_NB_TABLE_EDITION;$i++) { ?>
                     <TR> 
                       <TD width="%25" class="form_head"> 
                         <?php echo $FG_TABLE_EDITION[$i][0]?>
@@ -1247,33 +1225,23 @@ function sendtolittle(direction){
                     
                   </TBODY>
                 </FORM>
-              </TABLE><!--</TD>
-            <TD bgColor=#7f99cc><IMG height=1 src="../Images/clear.gif" width=1> 
-            </TD>
-          </TR>
-          <TR> 
-            <TD bgColor=#7f99cc colSpan=3><IMG height=1 src="../Images/clear.gif" width=1></TD>
-          </TR>
-        </TBODY>
-      </TABLE>-->
+              </TABLE>
       <br> <br> 
       <?php } ?>
       <?php if ($form_action == "delete" || $form_action == "add"){ ?>
       <br><br>
-	  
         
  			  <TABLE width="85%" border=0 align="center" cellPadding=2 cellSpacing=2 style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px">              
-                <TBODY>
-				<TR> 
+                <TR> 
                     <TD class="form_head"> 
-							  <?php if ($form_action == "delete") { ?>
-							  <?php echo $FG_INSTANCE_NAME?> <?php gettext("Deletion");?>
-							  <?php }elseif ($form_action == "add"){ ?>
-							  <?php gettext("New")." ".$FG_INSTANCE_NAME." ".gettext("Inserted");?> 
-							  <?php  } ?>
-                      </TD>                    
-                  </TR>
-                  <TR> 
+					  <?php if ($form_action == "delete") { ?>
+					  <?php echo $FG_INSTANCE_NAME?> <?php gettext("Deletion");?>
+					  <?php }elseif ($form_action == "add"){ ?>
+					  <?php gettext("New")." ".$FG_INSTANCE_NAME." ".gettext("Inserted");?> 
+					  <?php  } ?>
+                    </TD>                    
+                 </TR>
+                 <TR> 
                     <TD width="516" valign="top" class="tableBodyRight" bgcolor="#CCCCCC"> <br>
 						<div align="center"><strong><font size="3"> 
 					<?php if ($form_action == "delete") { ?><?php echo $FG_INTRO_TEXT_DELETION?><?php }elseif ($form_action == "add"){ ?><?php echo $FG_TEXT_ADITION_CONFIRMATION?><?php  } ?>
@@ -1281,13 +1249,12 @@ function sendtolittle(direction){
                         </font></strong></div>
 						<br>
 					</TD>
-                  </TR>                  
-                </TBODY>
+                  </TR>
               </TABLE>
-			  <br><br><br><br><br>
+              
+	  <br><br><br><br><br>
       <?php } ?>
 <?php
-$smarty->display( 'footer.tpl');
-?>
 
+$smarty->display( 'footer.tpl');
 

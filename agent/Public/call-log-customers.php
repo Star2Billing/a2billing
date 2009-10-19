@@ -948,7 +948,6 @@ echo $FG_HTML_TABLE_WIDTH?>" border="0"
 			<TR>
 				<TD><SPAN class="fontstyle_003"><?php
 				echo $FG_HTML_TABLE_TITLE?></SPAN></TD>
-				<TD align=right><IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path; ?>/btn_top_12x12.gif" width=12></TD>
 			</TR>
 		</TABLE>
 		</TD>

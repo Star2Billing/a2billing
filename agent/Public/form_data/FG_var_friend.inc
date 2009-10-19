@@ -39,7 +39,6 @@ getpost_ifset(array('id_cc_card', 'cardnumber', 'id', 'name', 'amaflags', 'callg
 
 
 
-
 if ($atmenu=='sip') {
 	if (!isset($form_action) || $form_action=="list") {
 		$HD_Form = new FormHandler("cc_sip_buddies LEFT JOIN cc_card ON cc_card.id=cc_sip_buddies.id_cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id","SIP Friend");

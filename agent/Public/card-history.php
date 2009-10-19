@@ -99,10 +99,8 @@ $FG_HTML_TABLE_TITLE=" - ".gettext("Card History")." - ";
 //This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="98%";
 
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	//$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
-
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 if ( is_null ($order) || is_null($sens) ){
 	$order = $FG_TABLE_DEFAULT_ORDER;
@@ -112,9 +110,9 @@ if ( is_null ($order) || is_null($sens) ){
 
 $date_clause='';
 // Period (Month-Day)
-if (DB_TYPE == "postgres"){		
+if (DB_TYPE == "postgres") {
 	 	$UNIX_TIMESTAMP = "";
-}else{
+} else {
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
@@ -147,7 +145,7 @@ if (isset ($FG_TABLE_CLAUSE) && strlen($FG_TABLE_CLAUSE)>0){
 	$FG_TABLE_CLAUSE .= ' AND';
 }
 
-$FG_TABLE_CLAUSE .= ' ch.id_cc_card = cc.id AND cc_card_group.id_agent = '.$_SESSION['agent_id'] ;
+$FG_TABLE_CLAUSE .= ' ch.id_cc_card = cc.id AND cc_card_group.id_agent = '.$_SESSION['agent_id'];
 
 
 if (!$nodisplay){
@@ -321,18 +319,15 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 	</table>
 	</FORM>
 
-
+<BR/>
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
      <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 		<TR bgcolor="#ffffff"> 
           <TD class="callhistory_td11"> 
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-              <TBODY>
-                <TR> 
+               <TR> 
                   <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
-                  <TD align=right><IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path_Main ?>/btn_top_12x12.gif" width=12></TD>
                 </TR>
-              </TBODY>
             </TABLE></TD>
         </TR>
         <TR> 
@@ -367,9 +362,6 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
                   
 				   <?php } ?>		
 				   
-                </TR>
-                <TR> 
-                  <TD bgColor=#e1e1e1 colSpan="<?php echo $FG_NB_TABLE_COL+1?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
                 </TR>
 				<?php
 				  	 $ligne_number=0;					 
@@ -409,16 +401,11 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL+1?>><IMG height=1
-                              src="<?php echo Images_Path_Main ?>/clear.gif" 
-                              width=1></TD>
-                </TR>
-              </TBODY>
             </TABLE></td>
         </tr>
       </table>
 </div>
 <?php
+
 $smarty->display( 'footer.tpl');
-?>
+

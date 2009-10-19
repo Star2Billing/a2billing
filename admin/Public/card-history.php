@@ -233,7 +233,7 @@ $smarty->display( 'main.tpl');
 	</FORM>
 </center>
 
-
+<BR/>
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
      <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 		<TR bgcolor="#ffffff"> 
@@ -242,7 +242,6 @@ $smarty->display( 'main.tpl');
               <TBODY>
                 <TR> 
                   <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
-                  <TD align=right><IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path_Main ?>/btn_top_12x12.gif" width=12></TD>
                 </TR>
               </TBODY>
             </TABLE></TD>
@@ -276,9 +275,6 @@ $smarty->display( 'main.tpl');
 				   <?php } ?>		
 				 		
 				   
-                </TR>
-                <TR> 
-                  <TD bgColor=#e1e1e1 colSpan="<?php echo $FG_NB_TABLE_COL+1?>" height=1><IMG height=1 src="<?php echo Images_Path_Main ?>/clear.gif" width=1></TD>
                 </TR>
 				<?php
 				  	 $ligne_number=0;					 
@@ -319,11 +315,6 @@ $smarty->display( 'main.tpl');
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>
-                <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL+1?>><IMG height=1
-                              src="<?php echo Images_Path_Main ?>/clear.gif" 
-                              width=1></TD>
-                </TR>
             </TABLE></td>
         </tr>
       </table>

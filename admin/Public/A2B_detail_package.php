@@ -393,8 +393,7 @@ $smarty->display('main.tpl');
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
               <TBODY>
                 <TR> 
-                  <TD><SPAN  class="fontstyle_003"><?php echo $FG_HTML_TABLE_TITLE?></SPAN></TD>
-                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path;?>/btn_top_12x12.gif" width=12> 
+                  <TD><SPAN  class="fontstyle_003"><?php echo $FG_HTML_TABLE_TITLE?></SPAN></TD> 
                   </TD>
                 </TR>
               </TBODY>
@@ -435,12 +434,7 @@ $smarty->display('main.tpl');
                   
 				   <?php } ?>		
                 </TR>
-                <TR> 
-                  <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG 
-                              height=1 
-                              src="<?php echo Images_Path;?>/clear.gif" 
-                              width=1></TD>
-                </TR>
+                
 				<?php
 					  
 				  	 $ligne_number=0;					 
