@@ -37,7 +37,7 @@
  *
  * USAGE : http://domainname/webservice/SOAP/SOAP/soap-card-client.php
  *
- * http://localhost/~areski/svn/a2billing/trunk/webservice/SOAP/soap-card-client.php
+ * http://localhost/~areski/svn/asterisk2billing/trunk/webservice/SOAP/soap-card-client.php
  *
  ****************************************************************************/
  
@@ -46,7 +46,7 @@ require('SOAP/Client.php');
 
 
 $security_key = API_SECURITY_KEY;
-$endpoint = 'http://localhost/~areski/svn/a2billing/trunk/webservice/SOAP/soap-card-server.php';
+$endpoint = 'http://localhost/~areski/svn/asterisk2billing/trunk/webservice/SOAP/soap-card-server.php';
 // ADD ON THE SPEC SECURITY KEY
 $card = new SOAP_Client($endpoint);
 
@@ -88,9 +88,6 @@ $ans = $card->call($method, $params);
 
 print_r($ans);
 exit;
-
-
-
 
 
 

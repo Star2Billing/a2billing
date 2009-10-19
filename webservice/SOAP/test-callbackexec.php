@@ -43,15 +43,15 @@ require('SOAP/Client.php');
 $security_key = API_SECURITY_KEY;
 
 
-$endpoint = 'http://localhost/~areski/svn/a2billing/trunk/webservice/SOAP/callback-exec.php';
+$endpoint = 'http://localhost/~areski/svn/asterisk2billing/trunk/webservice/SOAP/soap-callback-server.php';
 
 // Create SOAP Client
 $callback = new SOAP_Client($endpoint);
 
 
 
-echo "<hr>#############   Request CallBack   #############   </hr>";
-$method = 'Request';   
+echo "<hr>#############   Request CallBack   ############# \n\n</hr>";
+$method = 'Request';
 
 $params = array('security_key' => md5($security_key), 
                 'pn_callingparty' => '34650784355', 'pn_calledparty' => '5633434', 'callerid' => '34650555555', 'callback_time' => '', 'uniqueid' => '');
@@ -64,7 +64,7 @@ $insert_id_callback = $ans[0];
 
 
 
-echo "<hr>#############   Check Status  #############   </hr>";
+echo "<hr>#############   Check Status  ############# \n\n</hr>";
 $method = 'Status';
 $params = array('security_key' => md5($security_key), 'id' => $insert_id_callback);
 
