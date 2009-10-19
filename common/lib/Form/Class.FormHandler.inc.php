@@ -1959,8 +1959,8 @@ class FormHandler
 			// The did ownership has changed and we need to update. (regardless of how it's billed)
 			if( $result_did[0]['billingtype'] == 0 || $result_did[0]['billingtype'] == 1 ) {
 				$rate = $result_did[0]['fixrate'];
-				$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ".
-				           "('" . $id_cc_card . "', '" . $rate . "', '2','" . $id_cc_did . "','" . strtoupper(BASE_CURRENCY) . "')";
+				$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did) VALUES ".
+				           "('" . $id_cc_card . "', '" . $rate . "', '2','" . $id_cc_did . "')";
 				$result = $instance_table->SQLExec($this->DBHandle, $QUERY1, 0);
 
 				$QUERY1 = "UPDATE cc_card set credit = credit -" . $rate . " where id = '" . $id_cc_card . "'";
