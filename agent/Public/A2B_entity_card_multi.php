@@ -54,7 +54,7 @@ $HD_Form -> FG_FILTER_APPLY = false;
 $HD_Form -> FG_LIST_ADDING_BUTTON1 = false;
 $HD_Form -> FG_LIST_ADDING_BUTTON2 = false;
 
-getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 
+getpost_ifset(array('nb_to_create', 'creditlimit', 'cardnum', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 
 	'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax',
 	'cardnumberlenght_list', 'tag', 'id_group', 'discount', 'id_seria'));
 
@@ -94,14 +94,15 @@ if ($action=="generate") {
 		if(!empty($msg_error)) $msg_error .= "<br/>";
 		$msg_error .= gettext("- EXPIRATION DAY inserted is invalid, it must respect the date format YYYY-MM-DD HH:MM:SS (time is optional) !");
 	}
-	if(!is_numeric($choose_list) || $choose_list<1){
+	if (!is_numeric($nb_to_create) || $nb_to_create < 1 || $nb_to_create > 100) {
 		$nb_error++;
-		$number_error=true;
-		if(!empty($msg_error)) $msg_error .= "<br/>";
+		$number_error = true;
+		if (!empty ($msg_error))
+			$msg_error .= "<br/>";
 		$msg_error .= gettext("- Choose the number of customers that you want generate!");
 	}
 }
-$nbcard = $choose_list;
+$nbcard = $nb_to_create;
 if ($nbcard>0 && $action=="generate" && $nb_error==0) {
 	
 	check_demo_mode();
@@ -347,21 +348,11 @@ $list_group = $instance_table_group  -> Get_list ($HD_Form ->DBHandle, $FG_TABLE
 	?>						
 	</select><br>
 	<strong>2)</strong> 
-	 <?php echo gettext("Number of customers to create")?> : <select size="1" class="form_input_select" id="choose_list_s">
-		<option value=""><?php echo gettext("Choose the number");?></option>
-		<option class="input" onClick="javascript:$('#choose_list').attr('value',1)"><?php echo gettext("1 Customer");?></option>
-		<option class="input" onClick="javascript:$('#choose_list').attr('value',10)"><?php echo gettext("10 Customers");?></option>
-		<option class="input" onClick="javascript:$('#choose_list').attr('value',50)"><?php echo gettext("50 Customers");?></option>
-		<option class="input" onClick="javascript:$('#choose_list').attr('value',100)"><?php echo gettext("100 Customers");?></option>
-		<option class="input" onClick="javascript:$('#choose_list').attr('value',200)"><?php echo gettext("200 Customers");?></option>
-		<option class="input" onClick="javascript:$('#choose_list').attr('value',500)"><?php echo gettext("500 Customers");?></option>
-		<option class="input" onClick="javascript:$('#choose_list').attr('value',5000)"><?php echo gettext("5000 Customers");?></option>
-		<option class="input" onClick="javascript:$('#choose_list').attr('style','');$('#choose_list_s').hide();"><?php echo gettext("Other variant");?></option>
-	</select><input class="form_input_text" style="visibility:hidden" id="choose_list" name="choose_list" size="3" maxlength="6" >
-	<?php if($number_error){ ?>
-		<img style="vertical-align:middle;" src="<?php echo Images_Path;?>/exclamation.png" />
-	<?php } ?>
+	 <?php echo gettext("Number of customers to create")?> : 
+		<input class="form_input_text" name="nb_to_create" size="5" maxlength="5" value="<?php echo $nb_to_create; ?>" >
+		<?php echo gettext("(max 100)");?>
 	<br/>
+	
 		
 	<strong>3)</strong> 
 	<?php echo gettext("Call plan");?> : 
