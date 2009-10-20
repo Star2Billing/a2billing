@@ -54,7 +54,7 @@ echo "<hr>#############   Request CallBack   ############# <br/><hr/>";
 $method = 'Request';
 
 $params = array('security_key' => md5($security_key), 
-                'pn_calledparty' => '34650784355', 'pn_destination' => '5633434', 'callerid' => '34650555555', 'callback_time' => '', 'uniqueid' => '');
+                'pn_calledparty' => '34650784355', 'pn_destination' => '1111122444', 'callerid' => '34650555555', 'callback_time' => '', 'uniqueid' => '', 'accountnumber' => '6098593343');
 $ans = $callback -> call($method, $params);
 
 print_r($ans);

@@ -73,7 +73,7 @@ class Callback {
 		
 		// Define the signature of the dispatch map on the Web servicesmethod
 		$this->__dispatch_map['Request'] = array (
-			'in' => array ( 'security_key' => 'string', 'pn_calledparty' => 'string', 'pn_destination' => 'string', 'callerid' => 'string', 'callback_time' => 'string', 'uniqueid' => 'string' ),
+			'in' => array ( 'security_key' => 'string', 'pn_calledparty' => 'string', 'pn_destination' => 'string', 'callerid' => 'string', 'callback_time' => 'string', 'uniqueid' => 'string', 'accountnumber' => 'string' ),
 			'out' => array ( 'id' => 'string', 'result' => 'string', 'details' => 'string' )
 		);
 
@@ -102,8 +102,7 @@ class Callback {
 			// FAIL SELECT
 			write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR SELECT -> \n QUERY=" . $QUERY);
 			sleep(2);
-			return array ( $uniqueid, 'result=null', ' ERROR - SELECT DB'
-			);
+			return array ( $uniqueid, 'result=null', ' ERROR - SELECT DB' );
 		}
 		
 		$status = $callback_data[0][0];
@@ -114,9 +113,11 @@ class Callback {
 	/*
 	 *		Function to make Callback : it will insert a callback request 
 	 */
-	function Request($security_key, $called, $calling, $callerid, $callback_time, $uniqueid)
+	function Request($security_key, $called, $calling, $callerid, $callback_time, $uniqueid, $accountnumber)
 	{
-
+		// $called : PHONE NUMBER PERSON CALLING
+		// $calling : DESTINATION PHONE NUMBER 
+		
 		global $A2B;
 
 		/*
@@ -185,14 +186,28 @@ class Callback {
 
 		$A2B->credit = 1000;
 		$A2B->tariff = $A2B->config["callback"]['all_callback_tariff'];
-		// USER Credit
-		// $_SESSION["tariff"]
+		
+		if (strlen($accountnumber) > 1) {
+			// IF WE HAVE AN ACCOUNT NUMBER DEFINED
+			$QUERY = "SELECT tariff, typepaid, credit, creditlimit FROM cc_card WHERE username='$accountnumber'";
+			$card_data = $instance_table->SQLExec($DBHandle, $QUERY);
+			if (is_array($card_data)) {
+				
+				$A2B->credit = $card_data[0]['credit'];
+				
+				if ($card_data[0]['typepaid']==1) {
+					$A2B->credit = $A2B->credit + $card_data[0]['creditlimit'];
+				}
+				
+				$A2B->tariff = $card_data[0]['tariff'];
+			}
+		}
 
 		$RateEngine = new RateEngine();
 		// $RateEngine -> webui = 0;
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 
-		$A2B->dnid = $A2B->destination = $calling;
+		$A2B ->dnid = $A2B ->destination = $called;
 
 		$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $A2B->tariff);
 
@@ -206,10 +221,10 @@ class Callback {
 				if ($RateEngine->ratecard_obj[0][34] != '-1') {
 					$usetrunk = 34;
 					$usetrunk_failover = 1;
-					$RateEngine->usedtrunk = $RateEngine->ratecard_obj[$k][34];
+					$RateEngine->usedtrunk = $RateEngine->ratecard_obj[0][34];
 				} else {
 					$usetrunk = 29;
-					$RateEngine->usedtrunk = $RateEngine->ratecard_obj[$k][29];
+					$RateEngine->usedtrunk = $RateEngine->ratecard_obj[0][29];
 					$usetrunk_failover = 0;
 				}
 
@@ -229,7 +244,8 @@ class Callback {
 
 				$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 				$ipaddress = str_replace("%dialingnumber%", $prefix . $destination, $ipaddress);
-
+				
+				$dialparams = '';
 				if ($pos_dialingnumber !== false) {
 					$dialstr = "$tech/$ipaddress" . $dialparams;
 				} else {
@@ -254,13 +270,12 @@ class Callback {
 				$priority = 1;
 				$timeout = $A2B->config["callback"]['timeout'] * 1000;
 				$application = '';
-
+				
 				$status = 'PENDING';
 				$server_ip = 'localhost';
 				$num_attempt = 0;
 				$variable = "MODE=CID|CALLED=$called|CALLING=$calling|CBID=$uniqueid|TARIFF=" . $A2B->tariff;
-				$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|LEG=".$A2B->cardnumber;
-
+				
 				if (is_numeric($A2B->config["callback"]['sec_wait_before_callback']) && $A2B->config["callback"]['sec_wait_before_callback'] >= 1) {
 					$sec_wait_before_callback = $A2B->config["callback"]['sec_wait_before_callback'];
 				} else {
@@ -272,21 +287,21 @@ class Callback {
 
 				// DEFINE THE CORRECT VALUE FOR THE INSERT
 				if (strlen($callback_time) > 1) {
-					$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', '$callback_time', '$account', '$callerid', '30000'";
+					$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', '$callback_time', '$accountnumber', '$callerid', '30000'";
 				} else {
-					$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ADDDATE( CURRENT_TIMESTAMP, INTERVAL $sec_wait_before_callback SECOND ), '$account', '$callerid', '30000'";
+					$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ADDDATE( CURRENT_TIMESTAMP, INTERVAL $sec_wait_before_callback SECOND ), '$accountnumber', '$callerid', '30000'";
 				}
 
 				$insert_id_callback = $instance_table->Add_table($DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_callback_spool', 'id');
 
 				if (!$insert_id_callback) {
 					// FAIL INSERT
-					write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR INSERT -> \n QUERY=" . $QUERY);
+					write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR INSERT -> \n QUERY= $QUERY_FIELS :: $QUERY_VALUES");
 					sleep(2);
 					return array ( $insert_id_callback,	'result=Error',	' ERROR - INSERT INTO DB' );
 				}
 				// SUCCEED INSERT
-				write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " CALLBACK INSERTED -> \n QUERY=" . $QUERY);
+				write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " CALLBACK INSERTED -> \n QUERY= $QUERY_FIELS :: $QUERY_VALUES");
 				return array ( $insert_id_callback, 'result=Success', " Success - Callback request has been accepted " );
 
 			} else {
@@ -313,8 +328,9 @@ $webservice = new Callback();
 
 
 // TEST WITH SOAP
-// $webservice -> Request(md5(API_SECURITY_KEY), '1234567896', '2342354324', '223424234', $callback_time, $uniqueid);
-// exit;
+// $arr_cb_req = $webservice -> Request(md5(API_SECURITY_KEY), '1234567896', '2342354324', '223424234', $callback_time='', $uniqueid='', $accountnumber='');
+// print_r ($arr_cb_req);
+//exit;
 
 $server->addObjectMap($webservice, 'http://schemas.xmlsoap.org/soap/envelope/');
 

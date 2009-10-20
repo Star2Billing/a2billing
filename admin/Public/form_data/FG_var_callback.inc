@@ -57,22 +57,21 @@ $yesno = Constants::getYesNoList();
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("UNIQUEID"), "uniqueid", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ENTRY TIME"), "entry_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("UNIQUEID"), "uniqueid", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ENTRY TIME"), "entry_time", "12%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("SERVER IP"), "server_ip", "5%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("NUMBER OF ATTEMPT")."\">NA</acronym>", "num_attempt", "5%", "center", "sort");
-$HD_Form -> AddViewElement("<acronym title=\"".gettext("MANAGER RESULT")."\">MR</acronym>", "manager_result", "10%", "center", "sort", "15");
+//$HD_Form -> AddViewElement("<acronym title=\"".gettext("MANAGER RESULT")."\">MR</acronym>", "manager_result", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement("<acronym title=\"".gettext("AGI RESULT")."\">AR</acronym>", "agi_result", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CALLBACK TIME"), "callback_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("CALLBACK TIME"), "callback_time", "12%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LAST_ATTEMPT"), "last_attempt_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("CHANNEL"), "channel", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CONTEXT"), "context", "5%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CHANNEL"), "channel", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CONTEXT"), "context", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("SERVER"), "id_server", "5%", "center", "sort", "15", "lie", "server_manager", "server_ip", "id='%id'", "%1");
 
 
-
-$HD_Form -> FieldViewElement ('id, uniqueid, entry_time, status, server_ip, num_attempt, manager_result, agi_result, callback_time, last_attempt_time, channel, context, id_server');
+$HD_Form -> FieldViewElement ('id, uniqueid, entry_time, status, server_ip, num_attempt, manager_result, callback_time, last_attempt_time, channel, context, id_server');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO CALLBACK CREATED!"); 
@@ -96,6 +95,7 @@ $HD_Form -> AddEditElement (gettext("SERVER GROUP"),
 	"name, id",
 	"", "", "%1","", "");
 
+
 $HD_Form -> AddEditElement (gettext("UNIQUEID"),	
 	"uniqueid",		
 	'$value',	
@@ -104,7 +104,8 @@ $HD_Form -> AddEditElement (gettext("UNIQUEID"),
 	"3",	
 	gettext("Insert the uniqueid"), 
 	"" , "", "",	"", "" , "", "", gettext("This is an identifier to cross check the callback's request.").gettext("(useful if you have requests coming from an other platform through the API))") );
-	
+
+
 if ($form_action=="ask-add") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+25;	
@@ -125,6 +126,7 @@ $HD_Form -> AddEditElement (gettext("STATUS"),
 	"", 
 	"list" , "", "",	"", $status_list, "%1", "", "" );
 
+
 $HD_Form -> AddEditElement (gettext("IP SERVER"),
 	"server_ip",
 	'$value',
@@ -133,6 +135,7 @@ $HD_Form -> AddEditElement (gettext("IP SERVER"),
 	"11",
 	gettext("Insert the Ip Server"),
 	"" , "", "",	"", "", "" , "", "");
+
 
 $HD_Form -> AddEditElement (gettext("NUMBER ATTEMPTS"),	
 	"num_attempt",		
@@ -143,6 +146,7 @@ $HD_Form -> AddEditElement (gettext("NUMBER ATTEMPTS"),
 	gettext("Insert the number of attempts"), 
 	"" , "", "",	"", "", "", "", "");
 
+
 $HD_Form -> AddEditElement (gettext("MANAGER RESULT"),
 	"manager_result",
 	'$value',
@@ -152,6 +156,7 @@ $HD_Form -> AddEditElement (gettext("MANAGER RESULT"),
 	gettext("Insert the manager result"),
 	"" , "", "",	"", "", "" , "NO", "");
 
+
 $HD_Form -> AddEditElement (gettext("AGI RESULT"),
 	"agi_result",
 	'$value',
@@ -160,7 +165,8 @@ $HD_Form -> AddEditElement (gettext("AGI RESULT"),
 	"11",
 	gettext("Insert the agi result"),
 	"" , "", "",	"", "", "" , "NO", "");
-	
+
+
 $HD_Form -> AddEditElement (gettext("CALLBACK DATE"),
 	"callback_time",
 	'$value',
@@ -199,6 +205,7 @@ $HD_Form -> AddEditElement (gettext("CONTEXT"),
 	gettext("Insert the context"),
 	"" , "", "",	"", "", "", "", gettext("Context to use on connect (must use Exten & Priority with it)") );
 
+
 $HD_Form -> AddEditElement (gettext("PRIORITY"),
 	"priority",
 	'$value',
@@ -208,6 +215,7 @@ $HD_Form -> AddEditElement (gettext("PRIORITY"),
 	gettext("Insert the priority"),
 	"" , "", "",	"", "", "", "", gettext("Priority to use on connect (must use Context & Exten with it)") );
 
+
 $HD_Form -> AddEditElement (gettext("APPLICATION"),
 	"application",
 	'$value',
@@ -216,7 +224,8 @@ $HD_Form -> AddEditElement (gettext("APPLICATION"),
 	"11",
 	gettext("Insert the application"),
 	"" , "", "",	"", "", "", "NO", gettext("Application to use on connect : meetme or other (use Data for parameters)") );
-   
+
+
 $HD_Form -> AddEditElement (gettext("DATA"),
 	"data",
 	'$value',
@@ -225,6 +234,7 @@ $HD_Form -> AddEditElement (gettext("DATA"),
 	"11",
 	gettext("Insert the data"),
 	"" , "", "",	"", "", "", "NO", gettext("Data if Application parameter is used") );
+
 
 $HD_Form -> AddEditElement (gettext("TIMEOUT"),
 	"timeout",
@@ -235,6 +245,7 @@ $HD_Form -> AddEditElement (gettext("TIMEOUT"),
 	gettext("Insert the timeout"),
 	"" , "", "",	"", "", "", "NO", gettext("Timeout for the connection to happen (30000)") );
 
+
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 	"callerid",
 	'$value',
@@ -243,7 +254,8 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 	"11",
 	gettext("Insert the callerid"),
 	"" , "", "",	"", "", "", "NO", gettext("CallerID to use for the call") );
-   
+
+
 $HD_Form -> AddEditElement (gettext("variable"),
 	"variable",
 	'$value',
@@ -252,7 +264,8 @@ $HD_Form -> AddEditElement (gettext("variable"),
 	"11",
 	gettext("Insert the variable"),
 	"" , "", "",	"", "", "", "NO", gettext("Callback info for Asterisk (variable list to transfer to the channel) var1=23|var2=24|var3=25") );
-   
+
+
 $HD_Form -> AddEditElement (gettext("account"),
 	"account",
 	'$value',
@@ -261,7 +274,8 @@ $HD_Form -> AddEditElement (gettext("account"),
 	"11",
 	gettext("Insert the account"),
 	"" , "", "",	"", "", "", "NO", gettext("Account code for the call for billing purpose") );
-	   
+
+
 $HD_Form -> AddEditElement (gettext("async"),
 	"async",
 	'$value',
@@ -282,23 +296,19 @@ $HD_Form -> AddEditElement (gettext("actionid"),
 	"" , "", "",	"", "", "", "NO", gettext("The request identifier. It allows you to identify the response to this request. You may use a number or a string. <br> Useful when you make several simultaneous requests. ActionID: ABC45678901234567890 ") );
 
 
-
-
 $HD_Form -> FieldEditElement ('id_server_group, uniqueid, status, server_ip, num_attempt, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid');
 
 
 // Set the filter variables
-
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'uniqueid';
 $HD_Form -> FG_FILTERFIELDNAME = gettext('uniqueid');
 
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.=" uniqueid like '$filterprefix%'";
 }
-
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME.".";
@@ -314,7 +324,8 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Setup those values to create the new")." ".$HD_Form->FG_INSTANCE_NAME;
 
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?id=";
+
+

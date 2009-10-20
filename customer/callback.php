@@ -100,10 +100,10 @@ if ($callback) {
 					if ($RateEngine -> ratecard_obj[0][34]!='-1') {
 						$usetrunk = 34; 
 						$usetrunk_failover = 1;
-						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][34];
+						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][34];
 					} else {
 						$usetrunk = 29;
-						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][29];
+						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][29];
 						$usetrunk_failover = 0;
 					}
 					
@@ -122,6 +122,7 @@ if ($callback) {
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 					
+					$dialparams = '';
 					if ($pos_dialingnumber !== false) {					   
 						$dialstr = "$tech/$ipaddress".$dialparams;
 					} else {
@@ -155,7 +156,10 @@ if ($callback) {
 					$num_attempt = 0;
 					$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|LEG=".$A2B->cardnumber;
 					
-					$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
+					$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority," .
+							 " variable, id_server_group, callback_time, account, callerid, timeout ) " .
+							 " VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority'," .
+							 " '$variable', '$id_server_group',  now(), '$account', '$callerid', '30000')";
 					$res = $A2B -> DBHandle -> Execute($QUERY);
 					
 					if (!$res) {
