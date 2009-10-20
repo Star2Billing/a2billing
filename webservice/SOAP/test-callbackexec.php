@@ -50,11 +50,11 @@ $callback = new SOAP_Client($endpoint);
 
 
 
-echo "<hr>#############   Request CallBack   ############# \n\n</hr>";
+echo "<hr>#############   Request CallBack   ############# <br/><hr/>";
 $method = 'Request';
 
 $params = array('security_key' => md5($security_key), 
-                'pn_callingparty' => '34650784355', 'pn_calledparty' => '5633434', 'callerid' => '34650555555', 'callback_time' => '', 'uniqueid' => '');
+                'pn_calledparty' => '34650784355', 'pn_destination' => '5633434', 'callerid' => '34650555555', 'callback_time' => '', 'uniqueid' => '');
 $ans = $callback -> call($method, $params);
 
 print_r($ans);
@@ -64,7 +64,7 @@ $insert_id_callback = $ans[0];
 
 
 
-echo "<hr>#############   Check Status  ############# \n\n</hr>";
+echo "<hr>#############   Check Status  ############# <br/><hr>";
 $method = 'Status';
 $params = array('security_key' => md5($security_key), 'id' => $insert_id_callback);
 

@@ -61,15 +61,19 @@ $callback_time = urldecode($_GET['callback_time']);
 //$ans = Request($security_key, $phone_number, $callerid, $callback_time, $uniqueid);
 //print_r($ans);
 
+
+
 class Callback {
 	
 	var $__dispatch_map = array ();
 
-	function Callback() {
+
+	function Callback()
+	{
 		
 		// Define the signature of the dispatch map on the Web servicesmethod
 		$this->__dispatch_map['Request'] = array (
-			'in' => array ( 'security_key' => 'string', 'pn_callingparty' => 'string', 'pn_calledparty' => 'string', 'callerid' => 'string', 'callback_time' => 'string', 'uniqueid' => 'string' ),
+			'in' => array ( 'security_key' => 'string', 'pn_calledparty' => 'string', 'pn_destination' => 'string', 'callerid' => 'string', 'callback_time' => 'string', 'uniqueid' => 'string' ),
 			'out' => array ( 'id' => 'string', 'result' => 'string', 'details' => 'string' )
 		);
 
@@ -83,7 +87,8 @@ class Callback {
 	/*
 	 *		Function to make Callback : it will insert a callback request 
 	 */
-	function Status($security_key, $id) {
+	function Status($security_key, $id)
+	{
 
 		$status = 'null';
 		$uniqueid = '';
@@ -109,7 +114,8 @@ class Callback {
 	/*
 	 *		Function to make Callback : it will insert a callback request 
 	 */
-	function Request($security_key, $called, $calling, $callerid, $callback_time, $uniqueid) {
+	function Request($security_key, $called, $calling, $callerid, $callback_time, $uniqueid)
+	{
 
 		global $A2B;
 
@@ -175,24 +181,12 @@ class Callback {
 		$A2B->DBHandle = $DBHandle;
 		$instance_table = new Table();
 		$A2B->set_instance_table($instance_table);
-
-		$called = ereg_replace("^\+", "011", $called);
-		$calling = ereg_replace("^\+", "011", $calling);
-
-		$called = ereg_replace("[^0-9]", "", $called);
-		$calling = ereg_replace("[^0-9]", "", $calling);
-
-		$called = ereg_replace("^01100", "011", $called);
-		$calling = ereg_replace("^01100", "011", $calling);
-
-		$called = ereg_replace("^00", "011", $called);
-		$calling = ereg_replace("^00", "011", $calling);
-
-		$called = ereg_replace("^0111", "1", $called);
-		$calling = ereg_replace("^0111", "1", $calling);
+		
 
 		$A2B->credit = 1000;
 		$A2B->tariff = $A2B->config["callback"]['all_callback_tariff'];
+		// USER Credit
+		// $_SESSION["tariff"]
 
 		$RateEngine = new RateEngine();
 		// $RateEngine -> webui = 0;
@@ -265,13 +259,14 @@ class Callback {
 				$server_ip = 'localhost';
 				$num_attempt = 0;
 				$variable = "MODE=CID|CALLED=$called|CALLING=$calling|CBID=$uniqueid|TARIFF=" . $A2B->tariff;
+				$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|LEG=".$A2B->cardnumber;
 
 				if (is_numeric($A2B->config["callback"]['sec_wait_before_callback']) && $A2B->config["callback"]['sec_wait_before_callback'] >= 1) {
 					$sec_wait_before_callback = $A2B->config["callback"]['sec_wait_before_callback'];
 				} else {
 					$sec_wait_before_callback = 1;
 				}
-
+					
 				// LIST FIELDS TO INSERT CALLBACK REQUEST
 				$QUERY_FIELS = 'uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout';
 
@@ -288,19 +283,11 @@ class Callback {
 					// FAIL INSERT
 					write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " ERROR INSERT -> \n QUERY=" . $QUERY);
 					sleep(2);
-					return array (
-						$insert_id_callback,
-						'result=Error',
-						' ERROR - INSERT INTO DB'
-					);
+					return array ( $insert_id_callback,	'result=Error',	' ERROR - INSERT INTO DB' );
 				}
 				// SUCCEED INSERT
 				write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " CALLBACK INSERTED -> \n QUERY=" . $QUERY);
-				return array (
-					$insert_id_callback,
-					'result=Success',
-					" Success - Callback request has been accepted "
-				);
+				return array ( $insert_id_callback, 'result=Success', " Success - Callback request has been accepted " );
 
 			} else {
 				$error_msg = 'Error : You don t have enough credit to call you back !!!';
@@ -311,25 +298,26 @@ class Callback {
 
 		// CALLBACK FAIL
 		write_log(LOG_CALLBACK, "error_msg = $error_msg");
-		return array (
-			$insert_id_callback,
-			'result=Error',
-			" ERROR - $error_msg"
-		);
-
+		return array ( $insert_id_callback, 'result=Error', " ERROR - $error_msg" );
 	}
 
-} // end Class
+}
 
+
+
+// Create SOAP SERVER
 $server = new SOAP_Server();
 
+// Create Service
 $webservice = new Callback();
+
 
 // TEST WITH SOAP
 // $webservice -> Request(md5(API_SECURITY_KEY), '1234567896', '2342354324', '223424234', $callback_time, $uniqueid);
 // exit;
 
 $server->addObjectMap($webservice, 'http://schemas.xmlsoap.org/soap/envelope/');
+
 
 if (isset ($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -345,3 +333,5 @@ if (isset ($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') 
 		echo $disco->getDISCO();
 	}
 }
+
+
