@@ -83,8 +83,8 @@ Step 1: Download and unpack source code
 
    If you use the tar.gz version run:
      #cd /usr/local/src/a2billing
-     #wget http://www.asterisk2billing.org/downloads/A2Billing_1.4-RC1.tar.gz
-     #tar zxvf A2Billing_1.4.0.beta_tar.gz
+     #wget http://www.asterisk2billing.org/downloads/A2Billing_1.4.2.1.tar.gz
+     #tar zxvf A2Billing_1.4.2.1.tar.gz
 
    If you download the code from the SVN repository run:
      #svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/trunk/ /usr/local/src/a2billing/
