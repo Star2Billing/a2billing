@@ -114,6 +114,79 @@ class Realtime {
 		} // end if is_array
 	}
 	
+	// insert_voip_config
+	// sip : 1 / 0
+	// iax : 1 / 0
+	function insert_voip_config ($sip, $iax, $id_card, $accountnumber, $passui_secret) 
+	{
+	    if (!isset ($sip))
+	        $sip = 0;
+	    
+	    if (!isset ($iax))
+	        $iax = 0;
+        
+	    // SIP / IAX FRIENDS TABLE
+	    $FG_TABLE_SIP_NAME = "cc_sip_buddies";
+	    $FG_TABLE_IAX_NAME = "cc_iax_buddies";
+	
+	    $FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat, qualify";
+	    
+	    if ((isset ($sip)) || (isset ($iax))) {
+		    $instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
+		    $instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
+		    
+		    $type = FRIEND_TYPE;
+		    $allow = str_replace(' ', '', FRIEND_ALLOW);
+		    $context = FRIEND_CONTEXT;
+		    $nat = FRIEND_NAT;
+		    $amaflags = FRIEND_AMAFLAGS;
+		    $qualify = FRIEND_QUALIFY;
+		    $host = FRIEND_HOST;
+		    $dtmfmode = FRIEND_DTMFMODE;
+		    
+		    if(!USE_REALTIME) {
+				if(($sip == 1) && ($iax == 1)) $key = "sip_iax_changed";
+				elseif (($sip == 1) ) $key = "sip_changed";
+				elseif ($iax == 1) $key = "iax_changed";
+				
+				//check who
+				if ($_SESSION["user_type"]=="ADMIN") {
+				    $who = Notification::$ADMIN;
+				    $who_id = $_SESSION['admin_id'];
+				} elseif ($_SESSION["user_type"]=="AGENT") {
+				    $who = Notification::$AGENT;
+				    $who_id = $_SESSION['agent_id'];
+				} else {
+				    $who=Notification::$UNKNOWN;
+				    $id=-1;
+				}
+				NotificationsDAO::AddNotification($key, Notification::$HIGH, $who, $who_id);
+			}
+	    }
+	    
+	    // Insert data for sip_buddy
+		if (isset ($sip)) {
+			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$accountnumber', '$accountnumber', '$accountnumber', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', ".
+			                                    "'$accountnumber', '$allow', '$passui_secret', '$id_card', '$nat', '$qualify'";
+			$result_query1 = $instance_sip_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
+			if (USE_REALTIME) {
+				$_SESSION["is_sip_iax_change"] = 1;
+				$_SESSION["is_sip_changed"] = 1;
+			}
+		}
+
+		// Insert data for iax_buddy
+		if (isset ($iax)) {
+			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$accountnumber', '$accountnumber', '$accountnumber', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', ".
+			                                   "'$accountnumber', '$allow', '$passui_secret', '$id_card', '$nat', '$qualify'";
+			$result_query2 = $instance_iax_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
+			if (USE_REALTIME) {
+				$_SESSION["is_sip_iax_change"] = 1;
+				$_SESSION["is_iax_changed"] = 1;
+			}
+		}
+	
+	}
 	
 
 }

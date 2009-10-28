@@ -2427,8 +2427,8 @@ class FormHandler
 		global $A2B;
 		$processed = $this->getProcessed();
 		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
-		$sip_buddy = stripslashes($processed['sip_buddy']);
-		$iax_buddy = stripslashes($processed['iax_buddy']);
+		$sip = stripslashes($processed['sip_buddy']);
+		$iax = stripslashes($processed['iax_buddy']);
 		
 		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
 		if (strlen($this -> FG_QUERY_EXTRA_HIDDED[0])>0) {
@@ -2441,57 +2441,17 @@ class FormHandler
 			$useralias 	= $processed['useralias'];
 		}
 		
-		$FG_TABLE_SIP_NAME = "cc_sip_buddies";
-		$FG_TABLE_IAX_NAME = "cc_iax_buddies";
-		
-		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
-		
-		$FG_QUERY_ADITION_SIP_IAX = 'name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, ' .
-				'host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, ' .
-				'musiconhold, regseconds, ipaddr, cancallforward';
-
-		if (($sip_buddy == 1) || ($iax_buddy == 1)) {
-			if(!USE_REALTIME) {
-				if(($sip_buddy == 1) && ($iax_buddy == 1)) $key = "sip_iax_changed";
-				elseif (($sip_buddy == 1) ) $key = "sip_changed";
-				elseif ($iax_buddy == 1) $key = "iax_changed";
-				//add notification
-				//check who
-				if ($_SESSION["user_type"]=="ADMIN") {$who= Notification::$ADMIN;$who_id=$_SESSION['admin_id'];} 
-				elseif ($_SESSION["user_type"]=="AGENT"){$who= Notification::$AGENT;$who_id=$_SESSION['agent_id'];}
-				else {$who=Notification::$UNKNOWN;$id=-1;}
-				NotificationsDAO::AddNotification($key,Notification::$HIGH,$who,$who_id);
-			}
-			
-			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
-			
-			$type = FRIEND_TYPE;
-			$allow = str_replace(' ', '', FRIEND_ALLOW);
-			$context = FRIEND_CONTEXT;
-			$nat = FRIEND_NAT;
-			$amaflags = FRIEND_AMAFLAGS;
-			$qualify = FRIEND_QUALIFY;
-			$host = FRIEND_HOST;   
-			$dtmfmode = FRIEND_DTMFMODE;
-			
-            $this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', '$username', '$allow', '".$uipass."', '$id', '$nat', '$qualify'";			
-		}
-		
 		$instance_realtime = new Realtime();
 		
+		$instance_realtime -> insert_voip_config ($sip, $iax, $id, $username, $uipass);
+		
 		// Save info in table and in sip file
-		if ($sip_buddy == 1) {
-			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
-			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			
+		if ($sip == 1) {
 			$instance_realtime -> create_trunk_config_file ('sip');
 		}
-
+		
 		// Save info in table and in iax file
-		if ($iax_buddy == 1){
-			$instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
-			$result_query1 = $instance_iax_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-
+		if ($iax == 1) {
 			$instance_realtime -> create_trunk_config_file ('iax');
 		}
 	}

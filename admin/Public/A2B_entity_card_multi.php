@@ -117,46 +117,28 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 
 	check_demo_mode();
 
+	$instance_realtime = new Realtime();
+
 	$FG_ADITION_SECOND_ADD_TABLE = "cc_card";
-	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group, discount, id_seria, id_didgroup";
+	$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, simultaccess, currency, typepaid, " .
+			"creditlimit, enableexpire, expirationdate, expiredays, uipass, runservice, tag,id_group, discount, id_seria, id_didgroup, sip_buddy, iax_buddy";
 
 	if (DB_TYPE != "postgres") {
 		$FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
 	}
-
-	$FG_TABLE_SIP_NAME = "cc_sip_buddies";
-	$FG_TABLE_IAX_NAME = "cc_iax_buddies";
-
-	$FG_QUERY_ADITION_SIP_IAX = 'name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, ' .
-				'host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, ' .
-				'musiconhold, regseconds, ipaddr, cancallforward';
 	
-	$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat, qualify";
-	if (isset ($sip)) {
-		$FG_ADITION_SECOND_ADD_FIELDS .= ", sip_buddy";
-		$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
-	}
-
-	if (isset ($iax)) {
-		$FG_ADITION_SECOND_ADD_FIELDS .= ", iax_buddy";
-		$instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
-	}
-
-	if ((isset ($sip)) || (isset ($iax))) {
-		$list_names = explode(",", $FG_QUERY_ADITION_SIP_IAX);
-		$type = FRIEND_TYPE;
-		$allow = FRIEND_ALLOW;
-		$context = FRIEND_CONTEXT;
-		$nat = FRIEND_NAT;
-		$amaflags = FRIEND_AMAFLAGS;
-		$qualify = FRIEND_QUALIFY;
-		$host = FRIEND_HOST;
-		$dtmfmode = FRIEND_DTMFMODE;
-	}
-
 	$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
+	
 	$gen_id = time();
 	$_SESSION["IDfilter"] = $gen_id;
+	
+	$sip_buddy = $iax_buddy = 0;
+	
+	if (isset ($sip) && $sip == 1)
+        $sip_buddy = 0;
+    
+    if (isset ($iax) && $iax == 1)
+        $iax_buddy = 0;
 
 	$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
 	//initialize refill parameter
@@ -166,20 +148,19 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 
 	for ($k = 0; $k < $nbcard; $k++) {
 		$arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
-		$cardnum = $arr_card_alias[0];
+		$accountnumber = $arr_card_alias[0];
 		$useralias = $arr_card_alias[1];
 		if (!is_numeric($addcredit))
 			$addcredit = 0;
 		$passui_secret = MDP_NUMERIC(10);
-		$FG_ADITION_SECOND_ADD_VALUE = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria', '$id_didgroup'";
+		
+		$FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', $choose_simultaccess, '$choose_currency', " .
+					"$choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice', '$tag', '$id_group', '$discount', '$id_seria', " .
+					"'$id_didgroup', $sip_buddy, $iax_buddy";
 
 		if (DB_TYPE != "postgres")
 			$FG_ADITION_SECOND_ADD_VALUE .= ", now() ";
-
-		if (isset ($sip))
-			$FG_ADITION_SECOND_ADD_VALUE .= ", 1";
-		if (isset ($iax))
-			$FG_ADITION_SECOND_ADD_VALUE .= ", 1";
+		
 
 		$id_cc_card = $instance_sub_table->Add_table($HD_Form->DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, $HD_Form->FG_TABLE_ID);
 		//create refill for each cards
@@ -189,27 +170,8 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 			$instance_refill_table->Add_table($HD_Form->DBHandle, $value_insert_refill, null, null);
 		}
 
-		// Insert data for sip_buddy
-		if (isset ($sip)) {
-			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '" . $passui_secret . "', '$id_cc_card', '$nat', '$qualify'";
-			$result_query1 = $instance_sip_table->Add_table($HD_Form->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			if (USE_REALTIME) {
-				$_SESSION["is_sip_iax_change"] = 1;
-				$_SESSION["is_sip_changed"] = 1;
-			}
-		}
-
-		// Insert data for iax_buddy
-		if (isset ($iax)) {
-			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '" . $passui_secret . "', '$id_cc_card', '$nat', '$qualify'";
-			$result_query2 = $instance_iax_table->Add_table($HD_Form->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			if (USE_REALTIME) {
-				$_SESSION["is_sip_iax_change"] = 1;
-				$_SESSION["is_iax_changed"] = 1;
-			}
-		}
+		$instance_realtime -> insert_voip_config ($sip, $iax, $id_cc_card, $accountnumber, $passui_secret);
 	}
-	$instance_realtime = new Realtime();
 	
 	// Save Sip accounts to file
 	if (isset ($sip)) {
