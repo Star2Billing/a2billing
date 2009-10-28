@@ -27,6 +27,7 @@ class Constants
 		$language_list["es"] = array( gettext("SPANISH"));
 		$language_list["fr"] = array( gettext("FRENCH"));
 		$language_list["ru"] = array( gettext("RUSSIAN"));
+		$language_list["br"] = array( gettext("BRAZILIAN"));
 		return $language_list;
 	}
 	
@@ -35,6 +36,8 @@ class Constants
 		$language_list_r["0"] = array("en", gettext("ENGLISH"));
 		$language_list_r["1"] = array("es", gettext("SPANISH"));
 		$language_list_r["2"] = array("fr", gettext("FRENCH"));
+		$language_list_r["3"] = array("ru", gettext("RUSSIAN"));
+		$language_list_r["4"] = array("br", gettext("BRAZILIAN"));
 		return $language_list_r;
 	}
 	

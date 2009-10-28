@@ -127,6 +127,10 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 	$FG_TABLE_SIP_NAME = "cc_sip_buddies";
 	$FG_TABLE_IAX_NAME = "cc_iax_buddies";
 
+	$FG_QUERY_ADITION_SIP_IAX = 'name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, ' .
+				'host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, ' .
+				'musiconhold, regseconds, ipaddr, cancallforward';
+	
 	$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat, qualify";
 	if (isset ($sip)) {
 		$FG_ADITION_SECOND_ADD_FIELDS .= ", sip_buddy";
@@ -187,7 +191,7 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 
 		// Insert data for sip_buddy
 		if (isset ($sip)) {
-			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '" . $passui_secret . "', '$id_cc_card', '$nat', '$qualify'";
+			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '" . $passui_secret . "', '$id_cc_card', '$nat', '$qualify'";
 			$result_query1 = $instance_sip_table->Add_table($HD_Form->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			if (USE_REALTIME) {
 				$_SESSION["is_sip_iax_change"] = 1;
@@ -197,7 +201,7 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 
 		// Insert data for iax_buddy
 		if (isset ($iax)) {
-			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '" . $passui_secret . "', '$id_cc_card', '$nat', '$qualify'";
+			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '" . $passui_secret . "', '$id_cc_card', '$nat', '$qualify'";
 			$result_query2 = $instance_iax_table->Add_table($HD_Form->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			if (USE_REALTIME) {
 				$_SESSION["is_sip_iax_change"] = 1;
@@ -205,9 +209,9 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 			}
 		}
 	}
-
+	
 	// Save Sip accounts to file
-	if (isset ($sip)) {
+	if (isset ($sip) && !USE_REALTIME) {
 		$buddyfile = BUDDY_SIP_FILE;
 
 		$instance_table_friend = new Table($FG_TABLE_SIP_NAME, 'id, ' . $FG_QUERY_ADITION_SIP_IAX);
@@ -247,7 +251,7 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 	} // END SAVE SIP ACCOUNTS 
 
 	// Save IAX accounts to file
-	if (isset ($iax)) {
+	if (isset ($iax) && !USE_REALTIME) {
 		$buddyfile = BUDDY_IAX_FILE;
 
 		$instance_table_friend = new Table($FG_TABLE_IAX_NAME, 'id, ' . $FG_QUERY_ADITION_SIP_IAX);

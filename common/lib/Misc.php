@@ -596,7 +596,8 @@ function getnameofagent($id) {
 /*
  * function MDP_STRING
  */
-function MDP_STRING($chrs = LEN_CARDNUMBER) {
+function MDP_STRING($chrs = LEN_CARDNUMBER)
+{
 	$pwd = "";
 	mt_srand((double) microtime() * 1000000);
 	while (strlen($pwd) < $chrs) {
@@ -607,7 +608,11 @@ function MDP_STRING($chrs = LEN_CARDNUMBER) {
 	return strtolower($pwd);
 }
 
-function MDP_NUMERIC($chrs = LEN_CARDNUMBER) {
+/*
+ * function MDP_NUMERIC
+ */
+function MDP_NUMERIC($chrs = LEN_CARDNUMBER)
+{
 	$pwd = "";
 	mt_srand((double) microtime() * 1000000);
 	while (strlen($pwd) < $chrs) {
@@ -618,7 +623,11 @@ function MDP_NUMERIC($chrs = LEN_CARDNUMBER) {
 	return strtolower($pwd);
 }
 
-function MDP($chrs = LEN_CARDNUMBER) {
+/*
+ * function MDP_NUMERIC
+ */
+function MDP($chrs = LEN_CARDNUMBER)
+{
 	$pwd = "";
 	mt_srand((double) microtime() * 1000000);
 	while (strlen($pwd) < $chrs) {
@@ -629,7 +638,19 @@ function MDP($chrs = LEN_CARDNUMBER) {
 	return $pwd;
 }
 
-function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field = "username") {
+/*
+ * function gen_card
+ */
+function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field = "username")
+{
+	generate_unique_value ($table, $len, $field);
+}
+
+/*
+ * function generate_unique_value
+ */
+function generate_unique_value($table, $len, $field)
+{
 	$DBHandle_max = DbConnect();
 	for ($k = 0; $k <= 200; $k++) {
 		$card_gen = MDP($len);
@@ -650,7 +671,9 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field = "username"
 	}
 }
 
-
+/*
+ * function gen_card_with_alias
+ */
 function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = LEN_CARDNUMBER, $DBHandle = null)
 {
 	if (!$DBHandle) {

@@ -39,7 +39,7 @@ include ("./form_data/FG_var_voucher.inc");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_BILLING)){ 
+if (! has_rights (ACX_BILLING)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -60,29 +60,24 @@ $HD_Form -> FG_FILTER_APPLY = false;
 $HD_Form -> FG_LIST_ADDING_BUTTON1 = false;
 $HD_Form -> FG_LIST_ADDING_BUTTON2 = false;
 
-$nbcard = $choose_list;
+$nbvoucher = $choose_list;
 
-if ($nbcard>0) {
+if ($nbvoucher>0) {
 	
 		check_demo_mode();
 	
 		$FG_ADITION_SECOND_ADD_TABLE  = "cc_voucher";		
-		//$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname, firstname, email, address, city, state, country, zipcode, phone, userpass, simultaccess, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays";
 		$FG_ADITION_SECOND_ADD_FIELDS = "voucher, credit, activated, tag, currency, expirationdate";
 		$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 				
 		$gen_id = time();
 		$_SESSION["IDfilter"]=$tag_list;
 		
-		$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
-		//echo "::> $choose_simultaccess, $choose_currency, $choose_typepaid, $creditlimit";
-		for ($k=0;$k<$nbcard;$k++){
-			$vouchernum = gen_card($FG_ADITION_SECOND_ADD_TABLE, LEN_VOUCHER, voucher);
-			if (!is_numeric($addcredit)) $addcredit=0;
+		for ($k=0;$k < $nbvoucher;$k++){
+			$vouchernum = generate_unique_value($FG_ADITION_SECOND_ADD_TABLE, LEN_VOUCHER, 'voucher');
 			$FG_ADITION_SECOND_ADD_VALUE  = "'$vouchernum', '$addcredit', 't', '$tag_list', '$choose_currency', '$expirationdate'";
 			
 			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null);
-				
 		}
 }
 

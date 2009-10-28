@@ -2474,7 +2474,7 @@ class FormHandler
 			$host = FRIEND_HOST;   
 			$dtmfmode = FRIEND_DTMFMODE;
 			
-            $this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflags', '$useralias', '$context', '$dtmfmode','$host', '$type', '$username', '$allow', '".$uipass."', '$id', '$nat', '$qualify'";			
+            $this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', '$username', '$allow', '".$uipass."', '$id', '$nat', '$qualify'";			
 		}
 		
 		// Save info in table and in sip file

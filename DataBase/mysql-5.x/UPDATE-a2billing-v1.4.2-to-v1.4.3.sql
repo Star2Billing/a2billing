@@ -35,3 +35,14 @@ create index idtariffplan_index on cc_ratecard (idtariffplan);
 
 
 UPDATE cc_config SET config_title='DID Billing Days to pay', config_description='Define the amount of days you want to give to the user before releasing its DIDs' WHERE config_key='didbilling_daytopay ';
+
+
+-- Add new field for VT provisioning
+ALTER TABLE cc_card_group ADD provisioning VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_bin NULL;
+
+
+-- New setting for Base_country and Base_language
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Base Country', 'base_country', 'USA', 'Define the country code in 3 letters where you are located (ISO 3166-1 : "USA" for United States)', 0, '', 'global');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Base Language', 'base_language', 'en', 'Define your language code in 2 letters (ISO 639 : "en" for English)', 0, '', 'global');
+
+
