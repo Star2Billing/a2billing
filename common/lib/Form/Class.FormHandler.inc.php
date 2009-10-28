@@ -2477,48 +2477,14 @@ class FormHandler
             $this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', '$username', '$allow', '".$uipass."', '$id', '$nat', '$qualify'";			
 		}
 		
+		$instance_realtime = new Realtime();
+		
 		// Save info in table and in sip file
 		if ($sip_buddy == 1) {
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-			if (!USE_REALTIME) {
-				
-				$buddyfile = BUDDY_SIP_FILE;
-				$instance_table_friend = new Table($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
-				$list_friend = $instance_table_friend -> Get_list ($this->DBHandle, '', null, null, null, null);
-	
-				if (is_array($list_friend)){
-					$fd=fopen($buddyfile,"w");
-					if (!$fd){
-						$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file")." '$buddyfile'</font></b></center>";
-					}else{
-						foreach ($list_friend as $data){
-							$line="\n\n[".$data[1]."]\n";
-							if (fwrite($fd, $line) === FALSE) {
-								echo "Impossible to write to the file ($buddyfile)";
-								break;
-							}else{
-								for ($i=1;$i<count($data)-1;$i++){
-									if (strlen($data[$i+1])>0){
-										if (trim($list_names[$i]) == 'allow'){
-											$codecs = explode(",",$data[$i+1]);
-											$line = "";
-											foreach ($codecs as $value)
-												$line .= trim($list_names[$i]).'='.$value."\n";
-										}else    $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
-										if (fwrite($fd, $line) === FALSE){
-											echo gettext("Impossible to write to the file")." ($buddyfile)";
-											break;
-										}
-									}
-								}
-							}
-						}
-						fclose($fd);
-					}
-				} // endif is_array $list_friend
-			}
 			
+			$instance_realtime -> create_trunk_config_file ('sip');
 		}
 
 		// Save info in table and in iax file
@@ -2526,42 +2492,7 @@ class FormHandler
 			$instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_iax_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 
-			if (!USE_REALTIME) {
-				$buddyfile = BUDDY_IAX_FILE;
-				$instance_table_friend = new Table($FG_TABLE_IAX_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
-				$list_friend = $instance_table_friend -> Get_list ($this->DBHandle, '', null, null, null, null);
-	
-				if (is_array($list_friend)){
-					$fd=fopen($buddyfile,"w");
-					if (!$fd){
-						$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file")." '$buddyfile'</font></b></center>";
-					}else{
-						foreach ($list_friend as $data){
-							$line="\n\n[".$data[1]."]\n";
-							if (fwrite($fd, $line) === FALSE) {
-								echo gettext("Impossible to write to the file")." ($buddyfile)";
-								break;
-							}else{
-								for ($i=1;$i<count($data)-1;$i++){
-									if (strlen($data[$i+1])>0){
-										if (trim($list_names[$i]) == 'allow'){
-											$codecs = explode(",",$data[$i+1]);
-											$line = "";
-											foreach ($codecs as $value)
-												$line .= trim($list_names[$i]).'='.$value."\n";
-										}else $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
-										if (fwrite($fd, $line) === FALSE){
-											echo gettext("Impossible to write to the file")." ($buddyfile)";
-											break;
-										}
-									}
-								}
-							}
-						}
-						fclose($fd);
-					}
-				}// end if (is_array($list_friend))
-			}
+			$instance_realtime -> create_trunk_config_file ('iax');
 		}
 	}
 	

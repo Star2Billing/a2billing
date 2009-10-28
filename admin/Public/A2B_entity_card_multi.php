@@ -209,87 +209,17 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 			}
 		}
 	}
+	$instance_realtime = new Realtime();
 	
 	// Save Sip accounts to file
-	if (isset ($sip) && !USE_REALTIME) {
-		$buddyfile = BUDDY_SIP_FILE;
-
-		$instance_table_friend = new Table($FG_TABLE_SIP_NAME, 'id, ' . $FG_QUERY_ADITION_SIP_IAX);
-		$list_friend = $instance_table_friend->Get_list($HD_Form->DBHandle, '', null, null, null, null);
-		if (is_array($list_friend)) {
-			$fd = fopen($buddyfile, "w");
-			if (!$fd) {
-				$error_msg = "</br><center><b><font color=red>" . gettext("Could not open buddy file") . " " . $buddyfile . "</font></b></center>";
-			} else {
-				foreach ($list_friend as $data) {
-					$line = "\n\n[" . $data[1] . "]\n";
-					if (fwrite($fd, $line) === FALSE) {
-						echo "Impossible to write to the file ($buddyfile)";
-						break;
-					} else {
-						for ($i = 1; $i < count($data) - 1; $i++) {
-							if (strlen($data[$i +1]) > 0) {
-								if (trim($list_names[$i]) == 'allow') {
-									$codecs = explode(",", $data[$i +1]);
-									$line = "";
-									foreach ($codecs as $value)
-										$line .= trim($list_names[$i]) . '=' . $value . "\n";
-								} else {
-									$line = (trim($list_names[$i]) . '=' . $data[$i +1] . "\n");
-								}
-								if (fwrite($fd, $line) === FALSE) {
-									echo gettext("Impossible to write to the file") . " ($buddyfile)";
-									break;
-								}
-							}
-						}
-					}
-				}
-				fclose($fd);
-			}
-		} //end if is_array
-	} // END SAVE SIP ACCOUNTS 
+	if (isset ($sip)) {
+		$instance_realtime -> create_trunk_config_file ('sip');
+	}
 
 	// Save IAX accounts to file
-	if (isset ($iax) && !USE_REALTIME) {
-		$buddyfile = BUDDY_IAX_FILE;
-
-		$instance_table_friend = new Table($FG_TABLE_IAX_NAME, 'id, ' . $FG_QUERY_ADITION_SIP_IAX);
-		$list_friend = $instance_table_friend->Get_list($HD_Form->DBHandle, '', null, null, null, null);
-
-		if (is_array($list_friend)) {
-			$fd = fopen($buddyfile, "w");
-			if (!$fd) {
-				$error_msg = "</br><center><b><font color=red>" . gettext("Could not open buddy file") . $buddyfile . "</font></b></center>";
-			} else {
-				foreach ($list_friend as $data) {
-					$line = "\n\n[" . $data[1] . "]\n";
-					if (fwrite($fd, $line) === FALSE) {
-						echo "Impossible to write to the file ($buddyfile)";
-						break;
-					} else {
-						for ($i = 1; $i < count($data) - 1; $i++) {
-							if (strlen($data[$i +1]) > 0) {
-								if (trim($list_names[$i]) == 'allow') {
-									$codecs = explode(",", $data[$i +1]);
-									$line = "";
-									foreach ($codecs as $value)
-										$line .= trim($list_names[$i]) . '=' . $value . "\n";
-								} else {
-									$line = (trim($list_names[$i]) . '=' . $data[$i +1] . "\n");
-								}
-								if (fwrite($fd, $line) === FALSE) {
-									echo gettext("Impossible to write to the file") . " ($buddyfile)";
-									break;
-								}
-							}
-						}
-					}
-				}
-				fclose($fd);
-			}
-		} // end if is_array
-	} // END SAVE IAX ACCOUNTS
+	if (isset ($iax)) {
+		$instance_realtime -> create_trunk_config_file ('iax');
+	}
 
 }
 if (!isset ($_SESSION["IDfilter"]))
