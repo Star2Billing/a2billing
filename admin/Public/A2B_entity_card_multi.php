@@ -135,10 +135,10 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 	$sip_buddy = $iax_buddy = 0;
 	
 	if (isset ($sip) && $sip == 1)
-        $sip_buddy = 0;
+        $sip_buddy = 1;
     
     if (isset ($iax) && $iax == 1)
-        $iax_buddy = 0;
+        $iax_buddy = 1;
 
 	$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
 	//initialize refill parameter
@@ -182,7 +182,6 @@ if ($nbcard > 0 && $action == "generate" && $nb_error == 0) {
 	if (isset ($iax)) {
 		$instance_realtime -> create_trunk_config_file ('iax');
 	}
-
 }
 if (!isset ($_SESSION["IDfilter"]))
 	$_SESSION["IDfilter"] = 'NODEFINED';
