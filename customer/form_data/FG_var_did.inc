@@ -100,18 +100,6 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	"Insert the Destination",
 	"" , "", "", "", "" , "", "", gettext("Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "));
 
-/*
-$HD_Form -> AddEditElement (gettext("DID"),
-	"id_cc_did",
-	'$value',
-	"SELECT",
-	"", "", "",
-	"sql",
-	"cc_did",
-	"did, id",
-	"(iduser='".$_SESSION["card_id"]."') AND (id_cc_didgroup = '".$_SESSION["id_didgroup"]."')", "", "%1", "" , "");
-*/
-
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"activated",
 	'1',
@@ -162,4 +150,5 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>
+
+

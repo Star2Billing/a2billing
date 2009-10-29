@@ -66,7 +66,7 @@ if (isset ($choose_did_rate) && strlen($choose_did_rate) != 0) {
 	$rate = $did_rate[1];
 }
 
-$QUERY = "SELECT credit, creditlimit, typepaid	FROM cc_card	WHERE username = '" . $_SESSION["pr_login"] . "' AND uipass = '" . $_SESSION["pr_password"] . "'";
+$QUERY = "SELECT credit, creditlimit, typepaid FROM cc_card	WHERE username = '" . $_SESSION["pr_login"] . "' AND uipass = '" . $_SESSION["pr_password"] . "'";
 $DBHandle_max = DbConnect();
 $resmax = $DBHandle_max->Execute($QUERY);
 if ($resmax) {
@@ -101,7 +101,8 @@ if ($action_release == "confirm_release") {
 	$from = 'a2billing_alert@localhost';
 	$fromname = 'A2BILLING ALERT';
 	$subject = "[$date] Release-DID notification";
-
+	$messagetext = '';
+	
 	a2b_mail(ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
 }
 
