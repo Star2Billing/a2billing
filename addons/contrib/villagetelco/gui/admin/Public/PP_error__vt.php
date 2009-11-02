@@ -85,7 +85,7 @@ $error["ERR-0002"] 		= gettext("No such card number found. Please check your car
       	</div>
       	</div>
       	<div style="text-align:right;padding-right:10px;" >
-	      	<a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
+	      	<a href="index__vt.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
       	</div>
 	</div>
 	
