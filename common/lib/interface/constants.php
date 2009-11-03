@@ -322,7 +322,7 @@ class Constants
 		$cardstatus_list_r["7"]  = array("7", gettext("SUSPENDED FOR LITIGATION"));
 		return $cardstatus_list_r;
 	}
-
+	
 	public static function getCardStatus_Acronym_List(){
 		$cardstatus_list_acronym = array();
 		$cardstatus_list_acronym["0"]  = array( "<acronym title=\"".gettext("CANCELLED")."\">".gettext("CANCEL")."</acronym>", "0");
@@ -333,6 +333,27 @@ class Constants
 		$cardstatus_list_acronym["5"]  = array( "<acronym title=\"".gettext("EXPIRED")."\">".gettext("EXPIRED")."</acronym>", "5");
 		$cardstatus_list_acronym["6"]  = array( "<acronym title=\"".gettext("SUSPENDED FOR UNDERPAYMENT")."\">".gettext("SUS-PAY")."</acronym>", "6");
 		$cardstatus_list_acronym["7"]  = array( "<acronym title=\"".gettext("SUSPENDED FOR LITIGATION")."\">".gettext("SUS-LIT")."</acronym>", "7");
+		return $cardstatus_list_acronym;
+	}
+	
+	public static function getCardStatus_VT_List(){
+		$cardstatus_list = array();
+		$cardstatus_list["1"]  = array( gettext("ACTIVE"), "1");
+		$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
+		return $cardstatus_list;
+	}
+	
+	public static function getCardStatus_VT_Revert_List(){
+		$cardstatus_list_r = array();
+		$cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
+		$cardstatus_list_r["1"]  = array("1", gettext("ACTIVE"));
+		return $cardstatus_list_r;
+	}
+	
+	public static function getCardStatus_VT_Acronym_List(){
+		$cardstatus_list_acronym = array();
+		$cardstatus_list_acronym["0"]  = array( "<acronym title=\"".gettext("CANCELLED")."\">".gettext("CANCEL")."</acronym>", "0");
+		$cardstatus_list_acronym["1"]  = array( "<acronym title=\"".gettext("ACTIVATED")."\">".gettext("ACTIVATED")."</acronym>", "1");
 		return $cardstatus_list_acronym;
 	}
 	
