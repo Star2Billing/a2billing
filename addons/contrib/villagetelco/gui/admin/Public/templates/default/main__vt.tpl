@@ -14,7 +14,7 @@
 			{if ($ACXDASHBOARD > 0) }
 			<li class="topmenu-left-button" >
 				<div style="width:100%;height:100%;text-align:center;" >
-					<a href="dashboard.php" > 
+					<a href="dashboard__vt.php" > 
 						<strong> {php} echo gettext("DASHBOARD");{/php}</strong>&nbsp;
 						<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/chart_bar.png"> 
 					</a>
@@ -25,7 +25,7 @@
 {if ($VT_MODE)} 
 			<li class="topmenu-left-button">
 				<div style="width:100%;height:100%;text-align:center;" >
-					 <a href="A2B_notification.php" > 
+					 <a href="A2B_notification__vt.php" > 
 						<strong > {php} echo gettext("NOTIFICATION");{/php}</strong>&nbsp;
 					<img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/email.png"> 
 					{if ($NEW_NOTIFICATION > 0) }
