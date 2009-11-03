@@ -556,6 +556,6 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 
 
-//if (!($popup_select>=1))
-	//$smarty->display('footer.tpl');
+if (!($popup_select>=1))
+	$smarty->display('footer.tpl');
 
