@@ -12,6 +12,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 
 function sendto(action, record, field_inst, instance){
+  alert ("action:" + action);
   document.myForm.form_action.value = action;
   document.myForm.sub_action.value = record;
   if (field_inst != null) document.myForm.elements[field_inst].value = instance;
@@ -27,8 +28,9 @@ function sendtolittle(direction){
 //-->
 </script>
 
+<FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm"> 
+
 <table class="editform_table1" cellspacing="2">
-	<FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm"> 
 		<INPUT type="hidden" name="id" value="<?php echo $id?>">
 		<INPUT type="hidden" name="form_action" value="edit">
 		<INPUT type="hidden" name="sub_action" value="">
@@ -584,7 +586,7 @@ function sendtolittle(direction){
                                       <?php echo $split_select_list[$j][0]?>
                                       </font> </TD>
                                     <TD align="center" vAlign="top2" class="tableBodyRight">
-                                      <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_col[0]?>','<?php echo $split_select_list[$j][0]?>');" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
+                                      <img onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_col[0]?>','<?php echo $split_select_list[$j][0]?>');" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id="del" name="del" src="<?php echo Images_Path_Main;?>/icon-del.gif" width=33 value="add-split">
                                     </TD>
                                   </TR>
                                   <?php
@@ -764,7 +766,7 @@ function sendtolittle(direction){
                         </TABLE>
 
 			  <?php
-	  		}else{
+	  		} else {
 				echo gettext("No data found !!!");
 	  }?>
 
@@ -773,20 +775,14 @@ function sendtolittle(direction){
                     <?php   	  }// end if if (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="SELECT")
 							}// end if pos
 			}//END_FOR ?>
-                </FORM>
+				               
               </TABLE>
 	  <TABLE cellspacing="0" class="editform_table8">
 		<tr>
 			<td width="50%"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
-                        <td width="50%" align="right" valign="top" class="text">
-			
-				<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
-				<?php echo $this->FG_EDIT_PAGE_CONFIRM_BUTTON; ?> </a>
-				
-				<!-- 
-				<input onClick="sendto('edit');" border=0 hspace=0 id=submit3 name=submit32 src="<?php echo $this->FG_BUTTON_EDITION_SRC?>" 
-				type=image value="add-split">		
-				-->
+            <td width="50%" align="right" valign="top" class="text">
+				<input value=" <?php echo $this->FG_EDIT_PAGE_CONFIRM_BUTTON; ?> " class="form_input_button" type="SUBMIT">
 			</td>
 		</tr>
 	  </TABLE>
+</FORM> 
