@@ -547,12 +547,14 @@ if ($form_action=='ask-edit') {
 	$link = CUSTOMER_UI_URL;
 	?>
 		<div align="right" style="padding-right:20px;">
-			<form action="<?php echo $link;?>" method="POST" target="_blank">
+   <?php if (!VT_DEMO) { ?>
+            <form action="<?php echo $link;?>" method="POST" target="_blank">
 				<input type="hidden" name="username" value="<?php echo $username ?>"/>
 				<input type="hidden" name="password" value="<?php echo $password ?>"/>
 				<a href="javascript:;" onclick="javascript:$('form').submit();" > <?php echo gettext("GO TO CUSTOMER ACCOUNT") ?> </a>
 			</form>
-		</div>
+  <?php } ?>
+    </div>
 	<?php 
 }
 

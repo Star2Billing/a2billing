@@ -101,9 +101,9 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 $restriction_list = Constants::getRestrictionList();
-$cardstatus_list = Constants::getCardStatus_List();
-$cardstatus_list_r = Constants::getCardStatus_Revert_List();
-$cardstatus_list_acronym = Constants::getCardStatus_Acronym_List();
+$cardstatus_list = Constants::getCardStatus_VT_List();
+$cardstatus_list_r = Constants::getCardStatus_VT_Revert_List();
+$cardstatus_list_acronym = Constants::getCardStatus_VT_Acronym_List();
 $typepaid_list = Constants::getPaidTypeList();
 $expire_list = Constants::getCardExpire_List();
 $yesno = Constants::getYesNoList();
@@ -370,24 +370,24 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "" , "", "",	"", "" , "", "", '', null, null, gettext("Customer Information"));
 				   
 	
-	$HD_Form -> AddEditElement (gettext("WEBUI LOGIN"),
+	$HD_Form -> AddEditElement (gettext("VOIP LOGIN"),
 				   "useralias",
 				   "",
 				   "INPUT",
-				    "size=20 $maxi2 maxlength=40",
+				    "size=20 $maxi2 readonly maxlength=40",
 				   "4",
 				   gettext("Insert the webui login"),
 				   "" , "", "",	"", "" , "", "", "");
 	
 	
-	$HD_Form -> AddEditElement (gettext("WEBUI PASSWORD"),
+	$HD_Form -> AddEditElement (gettext("VOIP PASSWORD"),
 				   "uipass",
 				   '',
 				   "INPUT",
-				   "size=20 $maxi3 maxlength=20",
+				   "size=20 $maxi3 readonly maxlength=20",
 				   "",
 				   gettext("Insert the password"),
-				   "" , "", "",	"", "", "",	"", gettext("Password for customer to access to the web interface and view the balance.") );
+				   "" , "", "",	"", "", "",	"", gettext("Password for customer to register with the VoIP gateway") );
 	
 	if ($form_action =="ask-add" || $form_action=="add") {
 		$balance_access = "value = '0'";
@@ -402,12 +402,12 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "credit",
 				   "",
 				   "INPUT",
-				   "size=30 maxlength=30 ".$balance_access,
+				   "size=30 readonly maxlength=30 ".$balance_access,
 				   "12",
 				   gettext("Insert the number of credit"),
 				   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-	
 				   
+if (!VT_MODE) {
 	$HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 				   "id_group",
 				   "",
@@ -417,8 +417,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "cc_card_group",
 				   "name, id",
 				   "", "", "%1", "", "", "", "", "");
-			   
-	$HD_Form -> AddEditElement (gettext("SERIAL"),
+
+$HD_Form -> AddEditElement (gettext("SERIAL"),
 	               "id_seria",
 	               "",
 	               "SELECT",
@@ -427,9 +427,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 	               "cc_card_seria",
 	               "name, id",
 	               "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-	
-	
-	$HD_Form -> AddEditElement (gettext("LAST NAME"),
+}	
+    $HD_Form -> AddEditElement (gettext("LAST NAME"),
 				   "lastname",
 				   '$value',
 				   "INPUT",
@@ -562,7 +561,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 					   "",
 					   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Status") );
 	}
-	
+if (!VT_MODE) {	
 	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
 				   "tariff",
 				   "",
@@ -572,7 +571,6 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "cc_tariffgroup",
 				   "tariffgroupname, id",
 				   "", "", "%1", "", "");
-	
 	
 	$HD_Form -> AddEditElement (gettext("DIDGROUP"),
 				   "id_didgroup",
@@ -584,7 +582,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "didgroupname, id",
 				   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 	
-	$timezone_list = get_timezones();
+    $timezone_list = get_timezones();
 	$one_select = false;
 	foreach ($timezone_list as $key => $cur_value) {
 		$timezone_list[$key] = array($cur_value[2], $key);
@@ -603,6 +601,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "","","",
 				   "list" , "", "",	"", $timezone_list, "%1", "", "" );
 	
+}
 	
 	$HD_Form -> AddEditElement (gettext("LANGUAGE"),
 				   "language",
@@ -613,7 +612,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "list" , "", "",	"", $language_list, "%1", "", "" );
 	
-	
+
 	$HD_Form -> AddEditElement (gettext("CURRENCY"),
 				   "currency",
 				   "",
@@ -642,7 +641,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "list" , "", "",	"", $simultaccess_list, "%1", "", "" );
 	
-	
+if (!VT_MODE) {	
 	$HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 				   "runservice",
 				   '0',
@@ -651,7 +650,6 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Choose if you want to enable the service recurring on this account"),
 				   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this account."));
-	
 	
 	$HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
 				   "creditlimit",
@@ -724,7 +722,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "cc_campaign",
 				   "name, id",
 				   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
-	
+//END OF VT_MODE IF CLAUSE	
+}	
 	
 	$HD_Form -> AddEditElement (gettext("FIRST USE DATE"),
 				   "firstusedate",
@@ -775,7 +774,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "4",
 				   gettext("Insert the number of days after which the account will expire"),
 				   "" , "", "",	"", "", "", "", gettext("The number of days after which the account will expire."));
-	
+if (!VT_MODE) {	
 	
 	$HD_Form -> AddEditElement (gettext("CREATE SIP CONFIG"),
 				   "sip_buddy",
@@ -795,7 +794,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   gettext("Choose if you want to enable the iax account"),
 				   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Create the IAX config automatically"));
-	
+}
+
 	$HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
 				   "mac_addr",
 				   '$value',
@@ -814,7 +814,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "",
 				   "" , "", "",	"", "", "", "NO", gettext("Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero.") );
-	
+if (!VT_DEMO) {	
 	$HD_Form -> AddEditElement (gettext("AUTOREFILL"),
 				   "autorefill",
 				   '0',
@@ -845,13 +845,13 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice."), 
 				   '', '', gettext("Invoice Status"));
-	
+}	
 	
 	if ($form_action =="ask-add" || $form_action=="add") {
 		$vat_init = "value = '0'";
 		
 	}
-	
+if (!VT_DEMO) {	
 	$HD_Form -> AddEditElement (gettext("VAT"),
 				   "vat",
 				   "",
@@ -924,7 +924,6 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "",
 				   "", "", "", "", "", "cc_restricted_phonenumber:number:number, id_card:id_card = %id::id_card:::::::0");
 	
-	
 				   
 	$HD_Form -> AddEditElement (gettext("CALLERID"),
 				   "callerid",
@@ -942,6 +941,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   
 	
 	
+}	
 	
 	$HD_Form -> AddEditElement (gettext("CUSTOMER HISTORY"),
 				   "description",
@@ -969,15 +969,22 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 	if (ACT_VOICEMAIL)
 		$add_fields_voicemail = 'voicemail_permitted, voicemail_activated, ';
 	
-	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, id_group, id_seria, lastname, firstname, email, '.
+// AS THIS FORM IS NOT REALLY REALLY NICE, I KEEP THE FORMER ARRAY FOR FUTURE REFERENCE
+/*        $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, id_group, id_seria, lastname, firstname, email, '.
 			' address, city, state, country, zipcode, phone, fax,company_name, company_website, '.
 			$update_field_typepaid.' tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, creditlimit, ' .
 			' credit_notification, notify_email, email_notification, ' .$add_fields_voicemail.
 			' id_campaign, ' .
 			' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, ' .
 			' autorefill, initialbalance, invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );
-	
-	
+*/ 
+
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, lastname, firstname, email, '.
+            ' address, city, state, country, zipcode, phone, fax, company_name, company_website, '.
+                   $update_field_typepaid.' language, currency, status, simultaccess, ' .
+            ' firstusedate, enableexpire, expirationdate, expiredays, mac_addr, inuse' );
+
+
 	if(!isset($myusername)) 
 		$myusername='';
 	

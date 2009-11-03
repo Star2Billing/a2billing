@@ -578,7 +578,7 @@
 	
 <br/>
 <ul id="nav"><li>
-	<ul><li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("Change Password");{/php}</strong> <img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/key.png"> </a></li></ul>
+	<ul><li><a href="A2B_entity_password__vt.php?atmenu=password&form_action=ask-edit"><strong>{php} echo gettext("Change Password");{/php}</strong> <img style="vertical-align:bottom;" src="templates/{$SKIN_NAME}/images/key.png"> </a></li></ul>
 </li></ul>
 
 </div>
