@@ -188,7 +188,6 @@ $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinit
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
 $HD_Form -> AddSearchElement_Select('SELECT TRUNK',"cc_trunk","id_trunk, trunkcode, providerip","","trunkcode","ASC","id_trunk");
 $HD_Form -> AddSearchElement_Select('SELECT RATECARD',"cc_tariffplan","id, tariffname","","tariffname","ASC","idtariffplan",1,null,"cc_ratecard");
-//$HD_Form -> AddSearchElement_Select('SELECT CALLPLAN',"cc_tariffgroup","id, tariffgroupname","","tariffgroupname","ASC","idtariffgroup");
 
 
 $HD_Form -> AddEditElement(gettext("RATECARD"),

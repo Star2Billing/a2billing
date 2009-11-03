@@ -251,6 +251,9 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 			<?php
 			}
 			?>
+			<?php
+			if (is_array($this->FG_FILTER_SEARCH_FORM_SELECT) && count($this->FG_FILTER_SEARCH_FORM_SELECT) > 0) {
+			?>
 			<!-- select box //-->
 			<tr>
 				<td class="bgcolor_002" align="left" >
@@ -280,6 +283,7 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 				</tr>
 				</table></td>
 			</tr>
+			<?php } ?>
 			<tr>
         		<td class="bgcolor_004" align="left"> </td>
 				<td class="bgcolor_005" align="center">
