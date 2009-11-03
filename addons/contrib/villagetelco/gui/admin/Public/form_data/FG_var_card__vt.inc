@@ -265,9 +265,9 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null
 
 
 if (($popup_select>=1)) {
-
+//This disables the select botton in the CDR
     if (VT_MODE){
-    $HD_Form -> FG_OTHER_BUTTON1 = false;
+    $HD_Form -> FG_OTHER_BUTTON1 = true;
     } else { 
     $HD_Form -> FG_OTHER_BUTTON1 = true;
     }
