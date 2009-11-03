@@ -64,7 +64,7 @@ if (DELETE_FK_CARD) {
 }
 
 if (!($popup_select>=1)) {
-	if (VT_DEMO) { 
+	if (VT_MODE) { 
     $HD_Form ->FG_LIST_ADDING_BUTTON1 = false;
 } else { 
     $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
@@ -72,7 +72,7 @@ if (!($popup_select>=1)) {
 	$HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_card_multi__vt.php?stitle=Card&section=".$_SESSION["menu_section"];
 	$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Generate Customers");
 	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/user_multi_add.png" ;
-    if (VT_DEMO) {  
+    if (VT_MODE) {  
 	$HD_Form ->FG_LIST_ADDING_BUTTON2 = false;
 } else {
     $HD_Form ->FG_LIST_ADDING_BUTTON2 = true;

@@ -164,9 +164,21 @@ if ($popup_select) {
 	//$HD_Form -> FieldExportElement ('DISTINCT cc_ratecard.dialprefix, cc_ratecard.destination, cc_ratecard.buyrate , cc_ratecard.buyrateinitblock, cc_ratecard.buyrateincrement, cc_ratecard.rateinitial , cc_ratecard.initblock, cc_ratecard.billingblock, cc_ratecard.connectcharge, cc_ratecard.disconnectcharge , cc_ratecard.stepchargea, cc_ratecard.chargea, cc_ratecard.timechargea, cc_ratecard.billingblocka, cc_ratecard.stepchargeb, cc_ratecard.chargeb, cc_ratecard.timechargeb, cc_ratecard.billingblockb, cc_ratecard.stepchargec, cc_ratecard.chargec, cc_ratecard.timechargec, cc_ratecard.billingblockc, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.starttime, cc_ratecard.endtime, cc_ratecard.id_trunk, cc_ratecard.musiconhold,  cc_ratecard.id_outbound_cidgroup, cc_ratecard.rounding_calltime, cc_ratecard.rounding_threshold, cc_ratecard.additional_block_charge, cc_ratecard.additional_block_charge_time, cc_ratecard.tag');
 	$HD_Form -> FieldExportElement ('DISTINCT '. str_replace('destination', '(select a.destination from cc_prefix as a where cc_ratecard.destination=a.prefix limit 1) as dest_name', RATE_EXPORT_FIELD_LIST));
 	$HD_Form -> FG_EXPORT_CSV = true;
-	$HD_Form -> FG_EXPORT_XML = true;
+
+if (VT_MODE) {
+    $HD_Form -> FG_EXPORT_XML = false; 
+    } else {
+    $HD_Form -> FG_EXPORT_XML = true; 
+    }
 	$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_rates";
-	$HD_Form -> FG_EDITION = true;
+}
+
+if (VT_MODE) {
+    $HD_Form -> FG_EDITION = false;
+	$HD_Form -> FG_DELETION = false;
+	$HD_Form -> FG_ADDITION = false;
+} else {
+    $HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_ADDITION = true;
 }
