@@ -81,7 +81,31 @@ class Callback {
 			'in' => array ( 'security_key' => 'string', 'id' => 'string' ),
 			'out' => array ( 'uniqueid' => 'string', 'result' => 'string', 'details' => 'string' )
 		);
+		
+		$this->__dispatch_map['Test'] = array (
+			'in' => array ( 'security_key' => 'string' ),
+			'out' => array ( 'result' => 'boolean', 'message' => 'string')
+		);
 
+	}
+	
+	/*
+	 *		Test Function
+	 */
+	function Test($security_key)
+	{
+		write_log(LOG_CALLBACK, " TEST( security_key=$security_key)");
+		
+		$mysecurity_key = API_SECURITY_KEY;
+		
+		// CHECK SECURITY KEY
+		if (md5($mysecurity_key) !== $security_key || strlen($security_key) == 0) {
+			write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " CODE_ERROR SECURITY_KEY");
+			
+			return array ( false, 'WRONG SECURITY KEY' );
+		}
+		
+		return array(true, "SUCCESSFUL TEST");
 	}
 
 	/*
