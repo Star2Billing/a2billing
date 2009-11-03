@@ -84,7 +84,7 @@ class Callback {
 		
 		$this->__dispatch_map['Test'] = array (
 			'in' => array ( 'security_key' => 'string' ),
-			'out' => array ( 'result' => 'boolean', 'message' => 'string')
+			'out' => array ( 'result' => 'array', 'message' => 'string')
 		);
 
 	}
