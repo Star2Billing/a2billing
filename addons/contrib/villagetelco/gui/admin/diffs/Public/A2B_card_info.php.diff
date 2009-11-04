@@ -1,0 +1,771 @@
+--- Public/A2B_card_info.php	2009-10-23 12:43:25.000000000 +0200
++++ Public/A2B_card_info__vt.php	2009-11-04 10:21:44.000000000 +0100
+@@ -32,20 +32,20 @@
+ **/
+ 
+ 
+-include ("../lib/admin.defines.php");
+-include ("../lib/admin.module.access.php");
+-include ("../lib/admin.smarty.php");
++include ("../lib/admin.defines__vt.php");
++include ("../lib/admin.module.access__vt.php");
++include ("../lib/admin.smarty__vt.php");
+ 
+ if (! has_rights (ACX_CUSTOMER)) { 
+ 	Header ("HTTP/1.0 401 Unauthorized");
+-	Header ("Location: PP_error.php?c=accessdenied");	   
++	Header ("Location: PP_error__vt.php?c=accessdenied");	   
+ 	die();	   
+ }
+ 
+ getpost_ifset(array('id'));
+ 
+ if (empty($id)) {
+-	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
++	header("Location: A2B_entity_card__vt.php?atmenu=card&stitle=Customers_Card&section=1");
+ }
+ 
+ $DBHandle  = DbConnect();
+@@ -56,13 +56,15 @@
+ $card = $card_result[0];
+ 
+ if (empty($card)) {
+-	header("Location: A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1");
++	header("Location: A2B_entity_card__vt.php?atmenu=card&stitle=Customers_Card&section=1");
+ }
+ 
+ // #### HEADER SECTION
+-$smarty->display('main.tpl');
++$smarty->display('main__vt.tpl');
+ 
++if (!VT_MODE) {
+ echo $CC_help_info_customer;
++}
+ 
+ $inst_table = new Table("cc_card", "useralias, uipass");
+ $FG_TABLE_CLAUSE = "id = $id";
+@@ -72,357 +74,377 @@
+ $link = CUSTOMER_UI_URL;
+ ?>
+ <div align="right" style="padding-right:20px;">
+-	<form action="<?php echo $link;?>" method="POST" target="_blank">
+-		<input type="hidden" name="username" value="<?php echo $username ?>"/>
+-		<input type="hidden" name="password" value="<?php echo $password ?>"/>
+-		<a href="javascript:;" onclick="javascript:$('form').submit();" > <?php echo gettext("GO TO CUSTOMER ACCOUNT") ?> </a>
+-	</form>
++
++<?php if (!VT_MODE) { ?>
++<form action="<?php echo $link;?>" method="POST" target="_blank">
++    <input type="hidden" name="username" value="<?php echo $username ?>"/>
++    <input type="hidden" name="password" value="<?php echo $password ?>"/>
++    <a href="javascript:;" onclick="javascript:$('form').submit();" > <?php echo gettext("GO TO CUSTOMER ACCOUNT") ?> </a>
++</form>
++<?php } ?>
++
+ </div>
+ 
+ <table width="95%" >	
+-	<tr>		
+-		<td valign="top" width="50%" >
+-			<table width="100%" class="editform_table1">
+-			   <tr>
+-			   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+-			   			<?php echo gettext("ACCOUNT INFO") ?>
+-			   		</th>	
+-			   </tr>
+-			   <tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("STATUS") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php 
+-						$list_typepaid = Constants::getPaidTypeList();
+-						echo $list_typepaid[$card['typepaid']][0];?> 
+-					</td>
+-			   </tr>
+-			   <tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("ACCOUNT NUMBER") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['username']?> 
+-					</td>
+-			   </tr>
+-			   <tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("SERIAL NUMBER") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo str_pad($card['serial'], $A2B->config["webui"]['card_serial_length'] , "0", STR_PAD_LEFT); ?> 
+-					</td>
+-			   </tr>
+-			   <tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("WEB ALIAS") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['useralias']?> 
+-					</td>
+-			   </tr>
+-			   <tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("WEB PASSWORD") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['uipass']?> 
+-					</td>
+-				</tr>
+-			   	<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("LANGUAGE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['language']?> 
+-					</td>
+-				</tr>
+-			   	<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("STATUS") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php 
+-						$list_status = Constants::getCardStatus_List();
+-						echo $list_status[$card['status']][0];?> 
+-					</td>
+-				</tr>
+-			   	<tr height="20px">	
+-					<td  class="form_head">
+-						<?php echo gettext("CREATION DATE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['creationdate']?> 
+-					</td>
+-				</tr>
+-			   	<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("EXPIRATION DATE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['expirationdate']?> 
+-					</td>
+-				</tr>
+-			   	<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("FIRST USE DATE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['firstusedate']?> 
+-					</td>
+-				</tr>
+-			   	<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("LAST USE DATE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['lastuse']?> 
+-					</td>
+-				</tr>
+-	  			<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("CALLBACK") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['callback']?> 
+-					</td>
+-				</tr>							
+-			 </table>
+-		</td>
+-	
+-		<td valign="top" width="50%" >
+-			<table width="100%" class="editform_table1"  >
+-				<tr>
+-					<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+-				 		<?php echo gettext("CUSTOMER INFO") ?>
+-				 	</th>
+-				 
+-				</tr>
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("LAST NAME") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['lastname']?> 
+-					</td>
+-					
+-					
+-				</tr>
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("FIRST NAME") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['firstname']?> 
+-					</td>
+-					
+-					
+-				
+-				</tr>
+-				
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("ADDRESS") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['address']?> 
+-					</td>
+-					
+-					
+-				</tr>
+-				
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("ZIP CODE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['zipcode']?> 
+-					</td>
+-				</tr>
+-				
+-				<tr  height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("CITY") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['city']?> 
+-					</td>
+-					
+-				</tr>
+-				
+-				<tr  height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("STATE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['state']?> 
+-					</td>
+-					
+-					
+-				</tr>
+-				
+-				<tr  height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("COUNTRY") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['country']?> 
+-					</td>
+-					
+-				</tr>
+-				<tr  height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("EMAIL") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['email']?> 
+-					</td>
+-					
+-				</tr>
+-				<tr  height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("PHONE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['phone']?> 
+-					</td>
+-				</tr>
+-				<tr  height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("FAX") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['fax']?> 
+-					</td>
+-				</tr>
+-			</table>
+-		</td>
+-	
+-	</tr>
++<tr>		
++    <td valign="top" width="50%" >
++        <table width="100%" class="editform_table1">
++           <tr>
++                <th colspan="2" background="../Public/templates/default/images/background_cells.gif">
++                    <?php echo gettext("ACCOUNT INFO") ?>
++                </th>	
++           </tr>
++           <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("STATUS") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php 
++                    $list_typepaid = Constants::getPaidTypeList();
++                    echo $list_typepaid[$card['typepaid']][0];?> 
++                </td>
++           </tr>
++           <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("ACCOUNT NUMBER") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['username']?> 
++                </td>
++           </tr>
++           <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("SERIAL NUMBER") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo str_pad($card['serial'], $A2B->config["webui"]['card_serial_length'] , "0", STR_PAD_LEFT); ?> 
++                </td>
++           </tr>
++           <tr height="20px">
++                <td  class="form_head">
++                    <?php if (!VT_DEMO) { echo gettext("WEB ALIAS"); } else { echo gettext("VOIP LOGIN"); } ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['useralias']?> 
++                </td>
++           </tr>
++           <tr height="20px">
++                <td  class="form_head">
++                    <?php if (!VT_DEMO) { echo gettext("WEB PASSWORD"); } else { echo gettext("VOIP PASSWORD"); } ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['uipass']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("LANGUAGE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['language']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("STATUS") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php 
++                    $list_status = Constants::getCardStatus_List();
++                    echo $list_status[$card['status']][0];?> 
++                </td>
++            </tr>
++            <tr height="20px">	
++                <td  class="form_head">
++                    <?php echo gettext("CREATION DATE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['creationdate']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("EXPIRATION DATE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['expirationdate']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("FIRST USE DATE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['firstusedate']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("LAST USE DATE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['lastuse']?> 
++                </td>
++            </tr>
++          
++          
++            <?php if (!VT_DEMO) { ?> 
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("CALLBACK") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['callback']?> 
++                </td>
++            </tr>	
++            <?php } ?>
++         </table>
++    </td>
++
++    <td valign="top" width="50%" >
++        <table width="100%" class="editform_table1"  >
++            <tr>
++                <th colspan="2" background="../Public/templates/default/images/background_cells.gif">
++                    <?php echo gettext("CUSTOMER INFO") ?>
++                </th>
++             
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("LAST NAME") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['lastname']?> 
++                </td>
++                
++                
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("FIRST NAME") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['firstname']?> 
++                </td>
++                
++                
++            
++            </tr>
++            
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("ADDRESS") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['address']?> 
++                </td>
++                
++                
++            </tr>
++            
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("ZIP CODE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['zipcode']?> 
++                </td>
++            </tr>
++            
++            <tr  height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("CITY") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['city']?> 
++                </td>
++                
++            </tr>
++            
++            <tr  height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("STATE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['state']?> 
++                </td>
++                
++                
++            </tr>
++            
++            <tr  height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("COUNTRY") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['country']?> 
++                </td>
++                
++            </tr>
++            <tr  height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("EMAIL") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['email']?> 
++                </td>
++                
++            </tr>
++            <tr  height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("PHONE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['phone']?> 
++                </td>
++            </tr>
++            <tr  height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("FAX") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['fax']?> 
++                </td>
++            </tr>
++        </table>
++    </td>
++
++</tr>
+ </table>
+ 
+ <br/>
+ 
+ <table width="95%">	
+-	<tr>
+-		
+-		<td valign="top" width="50%" >
+-			<table width="100%" class="editform_table1">	
+-			   <tr>
+-			   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+-			   			<?php echo gettext("ACCOUNT STATUS") ?>
+-			   		</th>	
+-			   </tr>
+-			   <tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("BALANCE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['credit']?> 
+-					</td>
+-				</tr>
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("CURRENCY") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['currency']?> 
+-					</td>
+-			  	</tr>
+-			   <tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("CREDIT LIMIT") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['creditlimit']?> 
+-					</td>
+-				</tr>
+-			   	<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("AUTOREFILL") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['autorefill']?> 
+-					</td>
+-				</tr>
+-			   	<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("INVOICE DAY") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						<?php echo $card['invoiceday']?> 
+-					</td>
+-				</tr>
+-			 </table>
+-		</td>
+-		
+-		<td valign="top" width="50%" >
+-			<table width="100%" class="editform_table1"  >
+-				<tr>
+-					<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+-				 		<?php echo gettext("COMPANY INFO") ?>
+-				 	</th>
+-				 
+-				</tr>
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("COMPANY NAME") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['company_name']?> 
+-					</td>
+-				</tr>
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("COMPANY WEBSITE") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['company_website']?> 
+-					</td>
+-				
+-				</tr>
+-				
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("VAT REGISTRATION NUMBER") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['vat_rn']?> 
+-					</td>
+-					
+-				</tr>
+-				
+-				<tr height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("TRAFFIC PER MONTH") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['traffic']?> 
+-					</td>
+-				</tr>
+-				
+-				<tr  height="20px">
+-					<td  class="form_head">
+-						<?php echo gettext("TARGET TRAFIC") ?> :
+-					</td>
+-					<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
+-						&nbsp;<?php echo $card['traffic_target']?> 
+-					</td>
+-					
+-				</tr>
+-			</table>
+-		</td>
+-	</tr>
++<tr>
++    
++    <td valign="top" width="50%" >
++        <table width="100%" class="editform_table1">	
++           <tr>
++                <th colspan="2" background="../Public/templates/default/images/background_cells.gif">
++                    <?php echo gettext("ACCOUNT STATUS") ?>
++                </th>	
++           </tr>
++           <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("BALANCE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['credit']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("CURRENCY") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['currency']?> 
++                </td>
++            </tr>
++        <?php if (!VT_DEMO) { ?> 
++           <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("CREDIT LIMIT") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['creditlimit']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("AUTOREFILL") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['autorefill']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("INVOICE DAY") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    <?php echo $card['invoiceday']?> 
++                </td>
++            </tr>
++        <?php } ?>
++         </table>
++    </td>
++    
++    <td valign="top" width="50%" >
++        <table width="100%" class="editform_table1"  >
++            <tr>
++                <th colspan="2" background="../Public/templates/default/images/background_cells.gif">
++                    <?php echo gettext("COMPANY INFO") ?>
++                </th>
++             
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("COMPANY NAME") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['company_name']?> 
++                </td>
++            </tr>
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("COMPANY WEBSITE") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['company_website']?> 
++                </td>
++            
++            </tr>
++            
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("VAT REGISTRATION NUMBER") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['vat_rn']?> 
++                </td>
++                
++            </tr>
++            
++        <?php if (!VT_DEMO) { ?> 
++            <tr height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("TRAFFIC PER MONTH") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['traffic']?> 
++                </td>
++            </tr>
++            
++            <tr  height="20px">
++                <td  class="form_head">
++                    <?php echo gettext("TARGET TRAFIC") ?> :
++                </td>
++                <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%">
++                    &nbsp;<?php echo $card['traffic_target']?> 
++                </td>
++                
++            </tr>
++        <?php } ?>
++        </table>
++    </td>
++</tr>
+ </table>
+ 
+ <br/>
++
++
++<?php if (!VT_MODE) { ?>
++
+ <div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
+- 	<a class="cssbutton_big"  href="A2B_entity_card.php?section=1">
+-		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
+-		<?php echo gettext("CUSTOMERS LIST"); ?>
+-	</a>
++<a class="cssbutton_big"  href="A2B_entity_card__vt.php?section=1">
++    <img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
++    <?php echo gettext("CUSTOMERS LIST"); ?>
++</a>
+ </div>
++
++<?php } ?>
++
++
+ <br/>
+ <?php
+ 
+@@ -730,7 +752,7 @@
+ ?>
+ <br/>
+ <div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
+- 	<a class="cssbutton_big"  href="A2B_entity_card.php?section=1">
++ 	<a class="cssbutton_big"  href="A2B_entity_card__vt.php?section=1">
+ 		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
+ 		<?php echo gettext("CUSTOMERS LIST"); ?>
+ 	</a>

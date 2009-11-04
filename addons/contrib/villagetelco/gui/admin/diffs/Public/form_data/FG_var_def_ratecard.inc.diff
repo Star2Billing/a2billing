@@ -1,0 +1,71 @@
+--- Public/form_data/FG_var_def_ratecard.inc	2009-11-03 10:47:30.000000000 +0100
++++ Public/form_data/FG_var_def_ratecard__vt.inc	2009-11-03 12:20:45.000000000 +0100
+@@ -113,7 +113,12 @@
+ $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
+ 
+ if (!$popup_select) {
+-    $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
++    if (VT_MODE) 
++    { 
++    $HD_Form ->FG_LIST_ADDING_BUTTON1 = false; 
++    } else {
++    $HD_Form ->FG_LIST_ADDING_BUTTON1 = true; 
++    }
+     $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&section=".$_SESSION["menu_section"];
+     $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Rate");
+     $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/world_add.png" ;
+@@ -159,15 +164,30 @@
+ 	//$HD_Form -> FieldExportElement ('DISTINCT cc_ratecard.dialprefix, cc_ratecard.destination, cc_ratecard.buyrate , cc_ratecard.buyrateinitblock, cc_ratecard.buyrateincrement, cc_ratecard.rateinitial , cc_ratecard.initblock, cc_ratecard.billingblock, cc_ratecard.connectcharge, cc_ratecard.disconnectcharge , cc_ratecard.stepchargea, cc_ratecard.chargea, cc_ratecard.timechargea, cc_ratecard.billingblocka, cc_ratecard.stepchargeb, cc_ratecard.chargeb, cc_ratecard.timechargeb, cc_ratecard.billingblockb, cc_ratecard.stepchargec, cc_ratecard.chargec, cc_ratecard.timechargec, cc_ratecard.billingblockc, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.starttime, cc_ratecard.endtime, cc_ratecard.id_trunk, cc_ratecard.musiconhold,  cc_ratecard.id_outbound_cidgroup, cc_ratecard.rounding_calltime, cc_ratecard.rounding_threshold, cc_ratecard.additional_block_charge, cc_ratecard.additional_block_charge_time, cc_ratecard.tag');
+ 	$HD_Form -> FieldExportElement ('DISTINCT '. str_replace('destination', '(select a.destination from cc_prefix as a where cc_ratecard.destination=a.prefix limit 1) as dest_name', RATE_EXPORT_FIELD_LIST));
+ 	$HD_Form -> FG_EXPORT_CSV = true;
+-	$HD_Form -> FG_EXPORT_XML = true;
++
++if (VT_MODE) {
++    $HD_Form -> FG_EXPORT_XML = false; 
++    } else {
++    $HD_Form -> FG_EXPORT_XML = true; 
++    }
+ 	$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_rates";
+-	$HD_Form -> FG_EDITION = true;
++}
++
++if (VT_MODE) {
++    $HD_Form -> FG_EDITION = false;
++	$HD_Form -> FG_DELETION = false;
++	$HD_Form -> FG_ADDITION = false;
++} else {
++    $HD_Form -> FG_EDITION = true;
+ 	$HD_Form -> FG_DELETION = true;
+ 	$HD_Form -> FG_ADDITION = true;
+ }
+ 
+-
++if (VT_MODE) {
++$HD_Form -> CV_NO_FIELDS  = '';
++} else {
+ $HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED."); 
++}
+ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
+ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
+ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
+@@ -179,15 +199,19 @@
+ $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("START DATE");
+ $HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'startdate';
+ 
+-
++if (!VT_MODE) {
+ $HD_Form -> AddSearchElement_C1(gettext("TAG"), 'tag','tagtype');
++}
+ $HD_Form -> AddSearchElement_C1(gettext("DIALING PREFIX"),'dialprefix','dialprefixtype');
+ $HD_Form -> AddSearchElement_C2(gettext("BUYRATE"),'buyrate1','buyrate1type','buyrate2','buyrate2type','buyrate');
+ $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinitial1type','rateinitial2','rateinitial2type','rateinitial');
+ 
++if (!VT_MODE) {
+ $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
+ $HD_Form -> AddSearchElement_Select('SELECT TRUNK',"cc_trunk","id_trunk, trunkcode, providerip","","trunkcode","ASC","id_trunk");
+ $HD_Form -> AddSearchElement_Select('SELECT RATECARD',"cc_tariffplan","id, tariffname","","tariffname","ASC","idtariffplan",1,null,"cc_ratecard");
++}
++//$HD_Form -> AddSearchElement_Select('SELECT CALLPLAN',"cc_tariffgroup","id, tariffgroupname","","tariffgroupname","ASC","idtariffgroup");
+ 
+ 
+ $HD_Form -> AddEditElement(gettext("RATECARD"),
