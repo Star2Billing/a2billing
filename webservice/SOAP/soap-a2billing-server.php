@@ -33,11 +33,12 @@
 
  
 include ("../lib/admin.defines.php");
+
+
 require_once('SOAP/Server.php');
 require_once('SOAP/Disco.php');
 
 
-define ("LOG_WEBSERVICE", isset($A2B->config["log-files"]['api_card'])?$A2B->config["log-files"]['api_card']:null); 
 
 
 class SOAP_A2Billing
@@ -104,12 +105,12 @@ class SOAP_A2Billing
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
      
-        $this->__dispatch_map['Get_setting'] =
+        $this->__dispatch_map['Get_Setting'] =
                  array('in' => array('security_key' => 'string', 'setting_key' => 'string'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
 
-        $this->__dispatch_map['Set_setting'] =
+        $this->__dispatch_map['Set_Setting'] =
                  array('in' => array('security_key' => 'string', 'setting_key' => 'string', 'value' => 'string'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
@@ -121,22 +122,22 @@ class SOAP_A2Billing
 
         $this->__dispatch_map['Create_DIDGroup'] =
                  array('in' => array('security_key' => 'string', 'instance' => 'string'),
-                       'out' => array('id' => 'integer', 'message' => 'string')
+                       'out' => array('id_didgroup' => 'integer', 'message' => 'string')
                        );
      
         $this->__dispatch_map['Create_Provider'] =
                  array('in' => array('security_key' => 'string', 'instance' => 'string'),
-                       'out' => array('id' => 'integer', 'message' => 'string')
+                       'out' => array('id_provider' => 'integer', 'message' => 'string')
                        );
 
         $this->__dispatch_map['Create_Ratecard'] =
                  array('in' => array('security_key' => 'string', 'instance' => 'string'),
-                       'out' => array('id' => 'integer', 'message' => 'string')
+                       'out' => array('id_ratecard' => 'integer', 'message' => 'string')
                        );
 
         $this->__dispatch_map['Create_Callplan'] =
                  array('in' => array('security_key' => 'string', 'instance' => 'string', 'id_ratecard' => 'integer'),
-                       'out' => array('id' => 'integer', 'message' => 'string')
+                       'out' => array('id_callplan' => 'integer', 'message' => 'string')
                        );
      
         $this->__dispatch_map['Create_Voucher'] =
@@ -206,7 +207,7 @@ class SOAP_A2Billing
      */
     function Check_KeyInstance($key, $instance)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -231,7 +232,7 @@ class SOAP_A2Billing
 	 */ 
     function Authenticate_Admin($security_key, $username, $pwd)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -254,7 +255,7 @@ class SOAP_A2Billing
 	 */ 
     function Set_AdminPwd($security_key, $username, $pwd)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -277,7 +278,7 @@ class SOAP_A2Billing
 	 */ 
     function Write_Notification($security_key, $from, $subject, $priority)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -302,7 +303,7 @@ class SOAP_A2Billing
 	 */ 
 	function Create_Instance ($security_key, $instance_name) {
 		
-		if (!Check_SecurityKey ($key)) {
+		if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -339,7 +340,7 @@ class SOAP_A2Billing
 	 */ 
 	function Set_InstanceDescription ($security_key, $instance, $description) {
 	    
-	    $arr_check = Check_KeyInstance($key, $instance);
+	    $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -359,7 +360,7 @@ class SOAP_A2Billing
 	 */
     function Get_CustomerGroups($security_key)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -379,7 +380,7 @@ class SOAP_A2Billing
 	 */
     function Get_Currencies($security_key)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -398,7 +399,7 @@ class SOAP_A2Billing
 	 */
     function Get_Countries($security_key)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -419,9 +420,9 @@ class SOAP_A2Billing
 	 *      Get_setting($security_key, 'base_country')
 	 *      Get_setting($security_key, 'base_language')
 	 */
-    function Get_setting($security_key, $setting_key)
+    function Get_Setting($security_key, $setting_key)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -442,9 +443,9 @@ class SOAP_A2Billing
 	 *      Set_setting($security_key, 'base_country', 'USA')
 	 *      Set_setting($security_key, 'base_language', 'en')
 	 */
-    function Set_setting($security_key, $setting_key, $value)
+    function Set_Setting($security_key, $setting_key, $value)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -463,7 +464,7 @@ class SOAP_A2Billing
 	 */
     function Get_Languages($security_key)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -478,7 +479,7 @@ class SOAP_A2Billing
 	 */
     function Create_DIDGroup($security_key, $instance)
     {
-        $arr_check = Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -500,7 +501,7 @@ class SOAP_A2Billing
 	 */
     function Create_Provider($security_key, $instance)
     {
-        $arr_check = Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -522,7 +523,7 @@ class SOAP_A2Billing
 	 */
     function Create_Ratecard($security_key, $instance)
     {
-        $arr_check = Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -550,7 +551,7 @@ class SOAP_A2Billing
 	 */
     function Create_Callplan($security_key, $instance, $id_ratecard)
     {
-        $arr_check = Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -588,7 +589,7 @@ class SOAP_A2Billing
 	 */
     function Create_Voucher($security_key, $credit, $units, $currency)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -623,7 +624,7 @@ class SOAP_A2Billing
     //$status : 1 Active
     function Create_Customer($security_key, $instance, $id_didgroup, $units, $accountnumber_len, $balance, $activated, $status,  $simultaccess, $currency, $typepaid, $sip_buddy, $iax_buddy,  $language, $voicemail_enabled)
     {
-        $arr_check = Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -713,7 +714,7 @@ class SOAP_A2Billing
     // array (bool $status, $message) 
     function Validate_DIDPrefix($security_key, $did_prefix)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -740,7 +741,7 @@ class SOAP_A2Billing
 	 */
     function Create_DID($security_key, $account_id, $id_didgroup, $rate, $connection_charge, $did_prefix, $did_suffix, $id_country)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -800,7 +801,7 @@ class SOAP_A2Billing
      */
     function Get_ProvisioningList ($security_key, $provisioning_uri)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
         
@@ -835,7 +836,7 @@ class SOAP_A2Billing
      */
     function Create_TrunkConfig($security_key, $instance, $uri_trunk, $activation_code)
     {
-        $arr_check = Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -863,6 +864,26 @@ class SOAP_A2Billing
 	        }
         }
         
+        /*
+        search #SIP-TRUNK-CONFIG-START# and #SIP-TRUNK-CONFIG-END#
+        mv "lol" to  sip_additional_$providername$_$instance$.conf.timestamp
+        copy content to 
+        sip_additional_$providername$-$instance$.conf
+        include  sip_additional_$instance$.conf in sip.conf
+        
+        Check if cc_trunk with $instance exist
+        */
+        $func_fields = "name";
+        $func_table = 'cc_trunk';
+        $id_name = "trunkcode, providertech, providerip";
+        $value = "'$instance', '$trunktech', '$trunkname'";
+        $inserted = $this->instance_table->Add_table($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+		
+		if (!$inserted) {
+		    return array(false, "ERROR CREATING ACCOUNT GROUP");
+		}
+		return array($instance_key, "");
+        
         return array(true, "TRUNK CONFIG CREATED WITH SUCCESS");
     }
      
@@ -873,7 +894,7 @@ class SOAP_A2Billing
     // RESULT : array(array(string $prefix, string $destination, float $buyrate, float $sellrate), string $message) 
     function Get_Rates(string $security_key, string $uri_rate, $activation_code, float $margin)
     {
-        if (!Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -906,17 +927,115 @@ class SOAP_A2Billing
     }
     
     /*
+     *  CHECK RATES VALIDITY - function check_rates_validity
+     */ 
+    function check_rates_validity ($arr_rates) {
+        $valid_rate = true;
+        foreach ($arr_rates as $arr_rates_val) {
+		    
+		    $dialprefix = trim($arr_rates_val[0]);
+		    $destination = trim($arr_rates_val[1]);
+		    $buyrate = trim($arr_rates_val[2]);
+		    $sellrate = trim($arr_rates_val[3]);
+		    
+		    if ((strlen($dialprefix) == 0) || !is_numeric($dialprefix)) {
+		        $valid_rate = false;
+		        break;
+		    }
+		    
+		    if (strlen($destination) == 0) {
+		        $valid_rate = false;
+		        break;
+		    }
+		    
+		    if (!is_numeric($buyrate) || !is_numeric($sellrate)) {
+		        $valid_rate = false;
+		        break;
+		    }
+		    $nb_rates++;
+		}
+		
+		return $valid_rate;
+	}
+    
+    /*
      *  Add Rates into A2Billing
      */
     // array(bool $result, string $message) 
     // array(string $prefix, string $destination, float $buyrate, float $sellrate)
     function Create_Rates($security_key, $instance, $arr_rates)
     {
-        $arr_check = Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
 		$id_group = $arr_check;
+		
+		$QUERY = "SELECT id_trunk FROM cc_trunk WHERE trunkcode = '$instance'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result))
+		{
+		    return array(false, "CANNOT LOAD THE TRUNK FOR THIS INSTANCE");
+		}
+		$id_trunk = $result[0][0];
+		
+		
+		$QUERY = "SELECT id FROM cc_tariffplan WHERE tariffname = '$instance'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result))
+		{
+		    return array(false, "CANNOT LOAD THE RATECARD FOR THIS INSTANCE");
+		}
+		$id_ratecard = $result[0][0];
+		$nb_to_import = 0;
+        $nb_rates = 0;
+        
+		
+		// CHECK RATES VALIDITY
+		if (!check_rates_validity ($arr_rates)) {
+		    return array(false, "ERROR RATES VALIDITY, LINE $nb_rates. ENSURE THAT ALL RATES HAVE A CORRECT FORMAT!");
+		}
+		
+		// START RATES IMPORT
+		foreach ($arr_rates as $arr_rates_val) {
+		    
+		    $dialprefix = trim($arr_rates_val[0]);
+		    $destination = trim($arr_rates_val[1]);
+		    $buyrate = trim($arr_rates_val[2]);
+		    $sellrate = trim($arr_rates_val[3]);
+		    
+		    
+		    // ADD PREFIX
+		    $instance_table_prefix = new Table("cc_prefix");
+		    $FG_ADITION_SECOND_ADD_FIELDS_PREFIX = 'prefix, destination';
+		    
+		    $FG_ADITION_SECOND_ADD_VALUE_PREFIX = "'" . intval($dialprefix) . "', '$destination'";
+			$TT_QUERY_PREFIX = "INSERT INTO " . $FG_ADITION_SECOND_ADD_TABLE_PREFIX . " (" . $FG_ADITION_SECOND_ADD_FIELDS_PREFIX . ") values (" . $FG_ADITION_SECOND_ADD_VALUE_PREFIX . ") ";
+			$instance_table_prefix -> Add_table ($this->DBHandle, $FG_ADITION_SECOND_ADD_VALUE_PREFIX, $FG_ADITION_SECOND_ADD_FIELDS_PREFIX);
+			
+			
+			// ADD RATES
+		    $FG_ADITION_SECOND_ADD_TABLE = 'cc_ratecard';
+		    $FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, buyrate, rateinitial, startdate, stopdate';
+		    
+		    $startdate = date("Y-m-d H:i:s");
+		    $stopdate_prefix = date("Y") + 30;
+		    $stopdate_suffix = date("-m-d H:i:s");
+		    
+		    $FG_ADITION_SECOND_ADD_VALUE = "'$id_ratecard', '$id_trunk', '$dialprefix', '$destination', '$buyrate', '$sellrate', '$startdate', '$stopdate_prefix$stopdate_suffix'";
+		    $TT_QUERY = "INSERT INTO " . $FG_ADITION_SECOND_ADD_TABLE . " (" . $FG_ADITION_SECOND_ADD_FIELDS . ") values (" . $FG_ADITION_SECOND_ADD_VALUE . ") ";
+		    
+		    $result_query = $this->DBHandle->Execute($TT_QUERY);
+		    
+		    if (!$result_query) {
+		        return array(false, "ERROR RATES CREATION ($nb_to_import Rates imported)");
+		    }
+		    
+		    $nb_to_import++;
+		}
+		
+		
+		return array(true, "RATES CREATED SUCCESSFULLY ($nb_to_import Rates imported)");
 		
     }
  
@@ -928,15 +1047,84 @@ class SOAP_A2Billing
      *  Update the rates of an existing provisioning
      */
     // array(bool $result, string $message) 
-    // array(string $prefix, string $destination, float $buyrate)
+    // array(string $prefix, string $destination, float $buyrate, float $sellrate)
     function Update_Rates($security_key, $instance, $arr_rates)
     {
-        $arr_check = Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
 		$id_group = $arr_check;
 		
+		
+		$QUERY = "SELECT id_trunk FROM cc_trunk WHERE trunkcode = '$instance'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result))
+		{
+		    return array(false, "CANNOT LOAD THE TRUNK FOR THIS INSTANCE");
+		}
+		$id_trunk = $result[0][0];
+		
+		
+		$QUERY = "SELECT id FROM cc_tariffplan WHERE tariffname = '$instance'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result))
+		{
+		    return array(false, "CANNOT LOAD THE RATECARD FOR THIS INSTANCE");
+		}
+		$id_ratecard = $result[0][0];
+		
+		
+		// CHECK RATES VALIDITY
+		if (!check_rates_validity ($arr_rates)) {
+		    return array(false, "ERROR RATES VALIDITY, LINE $nb_rates. ENSURE THAT ALL RATES HAVE A CORRECT FORMAT!");
+		}
+		
+		// DELETE EXISTING RATES
+		$DEL_QUERY = "DELETE FROM cc_ratecard WHERE idtariffplan=$id_ratecard";
+	    $result_query = $this->DBHandle->Execute($DEL_QUERY);
+	    
+	    
+		// REIMPORT RATES
+		foreach ($arr_rates as $arr_rates_val) {
+		    
+		    $dialprefix = trim($arr_rates_val[0]);
+		    $destination = trim($arr_rates_val[1]);
+		    $buyrate = trim($arr_rates_val[2]);
+		    $sellrate = trim($arr_rates_val[3]);
+		    
+		    
+		    // ADD PREFIX
+		    $instance_table_prefix = new Table("cc_prefix");
+		    $FG_ADITION_SECOND_ADD_FIELDS_PREFIX = 'prefix, destination';
+		    
+		    $FG_ADITION_SECOND_ADD_VALUE_PREFIX = "'" . intval($dialprefix) . "', '$destination'";
+			$TT_QUERY_PREFIX = "INSERT INTO " . $FG_ADITION_SECOND_ADD_TABLE_PREFIX . " (" . $FG_ADITION_SECOND_ADD_FIELDS_PREFIX . ") values (" . $FG_ADITION_SECOND_ADD_VALUE_PREFIX . ") ";
+			$instance_table_prefix -> Add_table ($this->DBHandle, $FG_ADITION_SECOND_ADD_VALUE_PREFIX, $FG_ADITION_SECOND_ADD_FIELDS_PREFIX);
+			
+			
+			// ADD RATES
+		    $FG_ADITION_SECOND_ADD_TABLE = 'cc_ratecard';
+		    $FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, buyrate, rateinitial, startdate, stopdate';
+		    
+		    $startdate = date("Y-m-d H:i:s");
+		    $stopdate_prefix = date("Y") + 30;
+		    $stopdate_suffix = date("-m-d H:i:s");
+		    
+		    $FG_ADITION_SECOND_ADD_VALUE = "'$id_ratecard', '$id_trunk', '$dialprefix', '$destination', '$buyrate', '$sellrate', '$startdate', '$stopdate_prefix$stopdate_suffix'";
+		    $TT_QUERY = "INSERT INTO " . $FG_ADITION_SECOND_ADD_TABLE . " (" . $FG_ADITION_SECOND_ADD_FIELDS . ") values (" . $FG_ADITION_SECOND_ADD_VALUE . ") ";
+		    
+		    $result_query = $this->DBHandle->Execute($TT_QUERY);
+		    
+		    if (!$result_query) {
+		        return array(false, "ERROR RATES CREATION ($nb_to_import Rates imported)");
+		    }
+		    
+		    $nb_to_import++;
+		}
+		
+		
+		return array(true, "RATES UPDATED SUCCESSFULLY ($nb_to_import Rates imported)");
 		
     }
 
