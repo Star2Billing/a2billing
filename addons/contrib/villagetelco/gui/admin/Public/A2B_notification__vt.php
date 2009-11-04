@@ -145,14 +145,14 @@ $list_notifications = NotificationsDAO::getNotifications($_SESSION['admin_id'],(
 	<tr>
 		<td colspan="3" align="left">
 		<?php if($page>1){ ?>
-			<a href="A2B_notification.php?page=<?php echo $page-1; ?>"> &lt; <?php echo gettext("Newer") ?> </a>
+			<a href="A2B_notification__vt.php?page=<?php echo $page-1; ?>"> &lt; <?php echo gettext("Newer") ?> </a>
 		<?php } ?>
 		&nbsp;
 		</td>
 		<td colspan="3" align="right">
 		&nbsp;
                 <?php if($page<$nb_page){ ?>
-		<a href="A2B_notification.php?page=<?php echo $page+1; ?>"><?php echo gettext("Older") ?> &gt;</a>
+		<a href="A2B_notification__vt.php?page=<?php echo $page+1; ?>"><?php echo gettext("Older") ?> &gt;</a>
                 <?php } ?>
 		</td>
 	</tr>
@@ -264,14 +264,14 @@ var ids = "<?php echo $js_id_array_json?>";
 $(document).ready(function () {
 
 	$('.newrecord').click(function () {
-		$.get("A2B_notification.php", { id: ""+ this.id, action: "view" },
+		$.get("A2B_notification__vt.php", { id: ""+ this.id, action: "view" },
 			  function(data){
 			    if(data=="true") location.reload(true);
 			  });			
         });
 
 	$('#viewall').click(function () {
-		$.get("A2B_notification.php", { page: ""+ page, action: "viewall", ids : ids },
+		$.get("A2B_notification__vt.php", { page: ""+ page, action: "viewall", ids : ids },
 			  function(data){
 			    if(data=="true") location.reload(true);
 			  });
@@ -279,7 +279,7 @@ $(document).ready(function () {
 
 	$('.delete').click(function () {
 			if (confirm("<?php echo gettext("Do you want delete this notification ?") ?>")) { 
-				$.get("A2B_notification.php", { id: ""+ this.id, action: "delete" },
+				$.get("A2B_notification__vt.php", { id: ""+ this.id, action: "delete" },
 					  function(data){
 					      location.reload(true);
 					  });	
