@@ -1,0 +1,17 @@
+--- lib/Form/Class.SearchHandler.inc.php	2009-11-03 10:49:51.000000000 +0100
++++ lib/Form/Class.SearchHandler.inc__vt.php	2009-11-03 11:03:42.000000000 +0100
+@@ -290,10 +290,13 @@
+ 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
+ 					<?php if(isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 ){ ?>
+                     	- <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.gif" height="16"> Cancel Search</b></font></a>&nbsp;
+-						<?php if ($this -> FG_FILTER_SEARCH_DELETE_ALL){ ?>
++
++<?php if (!VT_DEMO) { ?>
++					<?php if ($this -> FG_FILTER_SEARCH_DELETE_ALL){ ?>
+ 							- <a href="<?php echo $_SERVER['PHP_SELF']?>?deleteselected=true" onclick="return confirm('<?php echo "Are you sure to delete ".$this -> FG_NB_RECORD." selected records?";?>');"><font color="red"><b>Delete All</b></font></a>
+ 						<?php } ?>
+                     <?php } ?>
++<?php } ?>
+ 	  			</td>
+     		</tr>
+ 		</tbody></table>

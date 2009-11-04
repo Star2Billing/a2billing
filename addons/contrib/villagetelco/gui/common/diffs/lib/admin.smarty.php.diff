@@ -1,0 +1,18 @@
+--- lib/admin.smarty.php	2009-10-23 12:43:07.000000000 +0200
++++ lib/admin.smarty__vt.php	2009-11-02 10:50:38.000000000 +0100
+@@ -64,7 +64,6 @@
+ }
+ $smarty->assign("popupwindow", $popup_select);
+ 
+-
+ if (!empty($msg)) {
+ 	switch($msg) {
+ 		case "nodemo": 	$smarty->assign("MAIN_MSG", '<center><b><font color="red">'.gettext("This option is not available on the Demo!").'</font></b></center><br>');
+@@ -95,6 +94,7 @@
+ 
+ $smarty->assign("HTTP_HOST", $_SERVER['HTTP_HOST']);
+ $smarty->assign("ASTERISK_GUI_LINK", ASTERISK_GUI_LINK);
++$smarty->assign("VT_MODE", VT_MODE);
+ 
+ 
+ $section = $_SESSION["menu_section"];

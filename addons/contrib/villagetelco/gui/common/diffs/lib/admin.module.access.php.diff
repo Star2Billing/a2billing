@@ -1,0 +1,20 @@
+--- lib/admin.module.access.php	2009-10-23 12:43:07.000000000 +0200
++++ lib/admin.module.access__vt.php	2009-11-02 15:11:55.000000000 +0100
+@@ -76,7 +76,7 @@
+ 	session_destroy();
+ 	$rights=0;
+ 	Header ("HTTP/1.0 401 Unauthorized");
+-	Header ("Location: index.php");
++	Header ("Location: index__vt.php");
+ 	die();
+ }
+ 
+@@ -116,7 +116,7 @@
+ 
+ 		if (!is_array($return) || $return[1]==0 ) {
+ 			header ("HTTP/1.0 401 Unauthorized");
+-			Header ("Location: index.php?error=1");
++			Header ("Location: index__vt.php?error=1");
+ 			die();
+ 		}
+ 		// if groupID egal 1, this user is a root
