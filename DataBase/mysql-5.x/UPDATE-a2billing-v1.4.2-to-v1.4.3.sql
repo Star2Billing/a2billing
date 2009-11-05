@@ -46,3 +46,10 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES('Base Language', 'base_language', 'en', 'Define your language code in 2 letters (ISO 639 : "en" for English)', 0, '', 'global');
 
 
+
+-- Change lenght of field for provisioning system
+ALTER TABLE cc_card_group CHANGE name name varchar( 50 );
+ALTER TABLE cc_trunk CHANGE trunkcode trunkcode varchar( 50 );
+
+
+

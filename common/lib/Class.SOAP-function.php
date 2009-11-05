@@ -119,7 +119,7 @@ class SOAP_A2Billing
                        );
 
          $this->__dispatch_map['Create_Customer'] =
-                 array('in' => array('security_key' => 'string', 'instance' => 'string', 'id_didgroup' => 'integer', 'units' => 'integer', 'accountnumber_len' => 'integer', 'balance' => 'float', 'activated' => 'boolean', 'status' => 'integer', 'simultaccess' => 'integer', 'currency' => 'string', 'typepaid' => 'integer', 'sip_buddy' => 'integer', 'iax_buddy' => 'integer', 'language' => 'string', 'voicemail_enabled' => 'boolean'),
+                 array('in' => array('security_key' => 'string', 'instance' => 'string', 'id_callplan' => 'integer', 'id_didgroup' => 'integer', 'units' => 'integer', 'accountnumber_len' => 'integer', 'balance' => 'float', 'activated' => 'boolean', 'status' => 'integer', 'simultaccess' => 'integer', 'currency' => 'string', 'typepaid' => 'integer', 'sip_buddy' => 'integer', 'iax_buddy' => 'integer', 'language' => 'string', 'voicemail_enabled' => 'boolean'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
 
@@ -134,7 +134,7 @@ class SOAP_A2Billing
                        );
 
         $this->__dispatch_map['Get_ProvisioningList'] =
-                 array('in' => array('security_key' => 'string'),
+                 array('in' => array('security_key' => 'string', 'provisioning_uri' => 'string'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
                        
@@ -597,7 +597,7 @@ class SOAP_A2Billing
 	    $expirationdate = $begin_date_plus.$end_date;
 		$arr_voucher = array();
 		
-		for ($k=0;$k < $nbvoucher;$k++){
+		for ($k=0;$k < $units;$k++){
 			$vouchernum = generate_unique_value($func_table, LEN_VOUCHER, 'voucher');
 			$value  = "'$vouchernum', '$credit', 't', '$currency', '$expirationdate'";
 			
@@ -617,16 +617,16 @@ class SOAP_A2Billing
 	 */
     //Default values ($activated = true, $status = 1, $simultaccess = 0, $typepaid =0, $sip_buddy=1, $iax_buddy=1, $voicemail_enabled = true)
     //$status : 1 Active
-    function Create_Customer($security_key, $instance, $id_didgroup, $units, $accountnumber_len, $balance, $activated, $status,  $simultaccess, $currency, $typepaid, $sip_buddy, $iax_buddy,  $language, $voicemail_enabled)
+    function Create_Customer($security_key, $instance, $id_callplan, $id_didgroup, $units, $accountnumber_len, $balance, $activated, $status,  $simultaccess, $currency, $typepaid, $sip_buddy, $iax_buddy,  $language, $voicemail_enabled)
     {
         $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
-		$id_group = $arr_check;
+		$id_group = $arr_check[0];
 		
-		if (!is_numeric($id_ratecard)) {
-		    return array("ERROR", "NO ID_RATECARD PROVIDED");
+		if (!is_numeric($id_callplan)) {
+		    return array("ERROR", "NO ID_CALLPLAN PROVIDED");
 		}
 		
 		if ($accountnumber_len < 2 || $accountnumber_len > 40) {
@@ -669,14 +669,14 @@ class SOAP_A2Billing
 			    $balance = 0;
 		    $passui_secret = MDP_NUMERIC(10);
 		
-		    $FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$balance', '$choose_tariff', '$v_activated', $choose_simultaccess,".
-		                               " '$choose_currency', $choose_typepaid, '$passui_secret', '$id_group', '$id_didgroup', $sip_buddy, $iax_buddy";
+		    $FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$balance', '$id_callplan', '$activated', $simultaccess,".
+		                               " '$currency', $typepaid, '$passui_secret', '$id_group', '$id_didgroup', $sip_buddy, $iax_buddy";
             
 		    if (DB_TYPE != "postgres")
 			    $FG_ADITION_SECOND_ADD_VALUE .= ", now() ";
 		    
             
-		    $id_cc_card = $instance_sub_table->Add_table($this->DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, $HD_Form->FG_TABLE_ID);
+		    $id_cc_card = $instance_sub_table->Add_table($this->DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, 'id');
 		    
 		    if (!$id_cc_card) {
 		        return array(false, "ERROR CREATING ACCOUNT (".$k." Accounts created)");
@@ -974,14 +974,14 @@ class SOAP_A2Billing
      *  Retrieve the rates from the Provider
      */
     // RESULT : array(array(string $prefix, string $destination, float $buyrate, float $sellrate), string $message) 
-    function Get_Rates(string $security_key, string $uri_rate, $activation_code, float $margin)
+    function Get_Rates($security_key, $uri_rate, $activation_code, $margin)
     {
         if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
-		$add_param = "?activation_code=$activation_code";
-		$content = open_url ($uri_trunk.$add_param);
+		$full_uri_rate = "$uri_rate?activation_code=$activation_code";
+		$content = open_url ($full_uri_rate);
 		
 		$pos_error = strpos($content, 'ERROR');
         if ($pos_error !== false) {
@@ -1015,8 +1015,8 @@ class SOAP_A2Billing
         $valid_rate = true;
         foreach ($arr_rates as $arr_rates_val) {
 		    
-		    $dialprefix = trim($arr_rates_val[0]);
-		    $destination = trim($arr_rates_val[1]);
+		    $destination = trim($arr_rates_val[0]);
+		    $dialprefix = trim($arr_rates_val[1]);
 		    $buyrate = trim($arr_rates_val[2]);
 		    $sellrate = trim($arr_rates_val[3]);
 		    
@@ -1074,15 +1074,15 @@ class SOAP_A2Billing
         
 		
 		// CHECK RATES VALIDITY
-		if (!check_rates_validity ($arr_rates)) {
+		if (!$this->check_rates_validity ($arr_rates)) {
 		    return array(false, "ERROR RATES VALIDITY, LINE $nb_rates. ENSURE THAT ALL RATES HAVE A CORRECT FORMAT!");
 		}
 		
 		// START RATES IMPORT
 		foreach ($arr_rates as $arr_rates_val) {
 		    
-		    $dialprefix = trim($arr_rates_val[0]);
-		    $destination = trim($arr_rates_val[1]);
+		    $destination = trim($arr_rates_val[0]);
+		    $dialprefix = trim($arr_rates_val[1]);
 		    $buyrate = trim($arr_rates_val[2]);
 		    $sellrate = trim($arr_rates_val[3]);
 		    
@@ -1104,7 +1104,7 @@ class SOAP_A2Billing
 		    $stopdate_prefix = date("Y") + 30;
 		    $stopdate_suffix = date("-m-d H:i:s");
 		    
-		    $FG_ADITION_SECOND_ADD_VALUE = "'$id_ratecard', '$id_trunk', '$dialprefix', '$destination', '$buyrate', '$sellrate', '$startdate', '$stopdate_prefix$stopdate_suffix'";
+		    $FG_ADITION_SECOND_ADD_VALUE = "'$id_ratecard', '$id_trunk', '$dialprefix', '".intval($dialprefix)."', '$buyrate', '$sellrate', '$startdate', '$stopdate_prefix$stopdate_suffix'";
 		    $TT_QUERY = "INSERT INTO " . $FG_ADITION_SECOND_ADD_TABLE . " (" . $FG_ADITION_SECOND_ADD_FIELDS . ") values (" . $FG_ADITION_SECOND_ADD_VALUE . ") ";
 		    
 		    $result_query = $this->DBHandle->Execute($TT_QUERY);
@@ -1155,7 +1155,7 @@ class SOAP_A2Billing
 		
 		
 		// CHECK RATES VALIDITY
-		if (!check_rates_validity ($arr_rates)) {
+		if (!$this->check_rates_validity ($arr_rates)) {
 		    return array(false, "ERROR RATES VALIDITY, LINE $nb_rates. ENSURE THAT ALL RATES HAVE A CORRECT FORMAT!");
 		}
 		
@@ -1167,8 +1167,8 @@ class SOAP_A2Billing
 		// REIMPORT RATES
 		foreach ($arr_rates as $arr_rates_val) {
 		    
-		    $dialprefix = trim($arr_rates_val[0]);
-		    $destination = trim($arr_rates_val[1]);
+		    $destination = trim($arr_rates_val[0]);
+		    $dialprefix = trim($arr_rates_val[1]);
 		    $buyrate = trim($arr_rates_val[2]);
 		    $sellrate = trim($arr_rates_val[3]);
 		    
@@ -1190,7 +1190,7 @@ class SOAP_A2Billing
 		    $stopdate_prefix = date("Y") + 30;
 		    $stopdate_suffix = date("-m-d H:i:s");
 		    
-		    $FG_ADITION_SECOND_ADD_VALUE = "'$id_ratecard', '$id_trunk', '$dialprefix', '$destination', '$buyrate', '$sellrate', '$startdate', '$stopdate_prefix$stopdate_suffix'";
+		    $FG_ADITION_SECOND_ADD_VALUE = "'$id_ratecard', '$id_trunk', '$dialprefix', '".intval($dialprefix)."', '$buyrate', '$sellrate', '$startdate', '$stopdate_prefix$stopdate_suffix'";
 		    $TT_QUERY = "INSERT INTO " . $FG_ADITION_SECOND_ADD_TABLE . " (" . $FG_ADITION_SECOND_ADD_FIELDS . ") values (" . $FG_ADITION_SECOND_ADD_VALUE . ") ";
 		    
 		    $result_query = $this->DBHandle->Execute($TT_QUERY);
