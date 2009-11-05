@@ -134,7 +134,7 @@ class SOAP_A2Billing
                        );
                        
         $this->__dispatch_map['Create_TrunkConfig'] =
-                 array('in' => array('security_key' => 'string', 'instance' => 'string', 'uri_trunk' => 'string', 'activation_code' => 'string'),
+                 array('in' => array('security_key' => 'string', 'instance' => 'string', 'uri_trunk' => 'string', 'activation_code' => 'string', 'provider_name' => 'string'),
                        'out' => array('result' => 'string', 'message' => 'string')
                        );
      
@@ -158,9 +158,10 @@ class SOAP_A2Billing
     /*
      * Check the security key
      */
-    function Check_SecurityKey ($key)
+    function Check_SecurityKey ($security_key)
     {
-        if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0) 
+    	
+        if (md5($this->system_security_key) !== $security_key  || strlen($security_key)==0) 
         {
 			error_log ("[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY"."\n", 3, $this->logfile);
 			sleep(2);
@@ -173,9 +174,9 @@ class SOAP_A2Billing
      * Check the security key & Instance
      * return : group_id, message
      */
-    function Check_KeyInstance($key, $instance)
+    function Check_KeyInstance($security_key, $instance)
     {
-        if (!$this->$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -200,7 +201,7 @@ class SOAP_A2Billing
 	 */ 
     function Authenticate_Admin($security_key, $username, $pwd)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -214,7 +215,7 @@ class SOAP_A2Billing
 		    return array(false, "WRONG LOGIN / PASSWORD");
 		}
         
-        array (true, ''); 
+        return array (true, 'SUCCESS'); 
     }
     
     
@@ -223,21 +224,22 @@ class SOAP_A2Billing
 	 */ 
     function Set_AdminPwd($security_key, $username, $pwd)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
 		$pwd_encoded = hash('whirlpool', $pwd);
 		
 		$QUERY = "UPDATE cc_ui_authen SET login='$username', pwd_encoded='$pwd_encoded' WHERE login='$username'";
-		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 		if (!$result)
 		{
 		    sleep(2);
 		    return array(false, "ERROR SQL UPDATE");
 		}
         
-        array (true, ''); 
+        return array (true, 'SUCCESS'); 
     }
     
     
@@ -246,7 +248,7 @@ class SOAP_A2Billing
 	 */ 
     function Write_Notification($security_key, $from, $subject, $priority)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -271,7 +273,7 @@ class SOAP_A2Billing
 	 */ 
 	function Create_Instance ($security_key, $instance_name) {
 		
-		if (!$this->Check_SecurityKey ($key)) {
+		if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -286,7 +288,7 @@ class SOAP_A2Billing
 		// Check that there is not an existing Group with this name
 		$QUERY = "SELECT count(*) FROM cc_card_group WHERE name='$instance_key'";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-		if (!is_array($result) || $result[0][0] >= 0 )
+		if (!is_array($result) || $result[0][0] > 0 )
 		{
 		    return array(false, "EXISTING GROUP WITH SAME NAME AND KEY");
 		}
@@ -308,7 +310,7 @@ class SOAP_A2Billing
 	 */ 
 	function Set_InstanceDescription ($security_key, $instance, $description) {
 	    
-	    $arr_check = $this->Check_KeyInstance($key, $instance);
+	    $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -328,7 +330,7 @@ class SOAP_A2Billing
 	 */
     function Get_CustomerGroups($security_key)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -348,7 +350,7 @@ class SOAP_A2Billing
 	 */
     function Get_Currencies($security_key)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -367,7 +369,7 @@ class SOAP_A2Billing
 	 */
     function Get_Countries($security_key)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -390,7 +392,7 @@ class SOAP_A2Billing
 	 */
     function Get_Setting($security_key, $setting_key)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -413,7 +415,7 @@ class SOAP_A2Billing
 	 */
     function Set_Setting($security_key, $setting_key, $value)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -432,7 +434,7 @@ class SOAP_A2Billing
 	 */
     function Get_Languages($security_key)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -447,7 +449,7 @@ class SOAP_A2Billing
 	 */
     function Create_DIDGroup($security_key, $instance)
     {
-        $arr_check = $this->Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -469,7 +471,7 @@ class SOAP_A2Billing
 	 */
     function Create_Provider($security_key, $instance)
     {
-        $arr_check = $this->Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -491,7 +493,7 @@ class SOAP_A2Billing
 	 */
     function Create_Ratecard($security_key, $instance)
     {
-        $arr_check = $this->Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -519,7 +521,7 @@ class SOAP_A2Billing
 	 */
     function Create_Callplan($security_key, $instance, $id_ratecard)
     {
-        $arr_check = $this->Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -557,7 +559,7 @@ class SOAP_A2Billing
 	 */
     function Create_Voucher($security_key, $credit, $units, $currency)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -592,7 +594,7 @@ class SOAP_A2Billing
     //$status : 1 Active
     function Create_Customer($security_key, $instance, $id_didgroup, $units, $accountnumber_len, $balance, $activated, $status,  $simultaccess, $currency, $typepaid, $sip_buddy, $iax_buddy,  $language, $voicemail_enabled)
     {
-        $arr_check = $this->Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -682,7 +684,7 @@ class SOAP_A2Billing
     // array (bool $status, $message) 
     function Validate_DIDPrefix($security_key, $did_prefix)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -709,7 +711,7 @@ class SOAP_A2Billing
 	 */
     function Create_DID($security_key, $account_id, $id_didgroup, $rate, $connection_charge, $did_prefix, $did_suffix, $id_country)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -769,7 +771,7 @@ class SOAP_A2Billing
      */
     function Get_ProvisioningList ($security_key, $provisioning_uri)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
         
@@ -802,9 +804,9 @@ class SOAP_A2Billing
     /*
      *  Request to the Provider the Trunk configuration
      */
-    function Create_TrunkConfig($security_key, $instance, $uri_trunk, $activation_code)
+    function Create_TrunkConfig($security_key, $instance, $uri_trunk, $activation_code, $provider_name)
     {
-        $arr_check = $this->Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -817,42 +819,133 @@ class SOAP_A2Billing
         if ($pos_error !== false) {
             return array(false, "ERROR ".substr($content, $pos_error+5, 255));
         }
+        $provider_name = trim($provider_name);
+        // remove all special chars
+        $provider_name = preg_replace('/[^A-Za-z0-9_]*/', '', $provider_name);
         
-        $arr_provisioning = array();
-        $content_exp = explode("\n", $content);
-
-        foreach ($content_exp as $content_exp_val) {
-
-	        $content_exp_val= trim($content_exp_val);
-	        if (strlen($content_exp_val) > 1) {
-		        $content_exp_val_arr = explode("|", $content_exp_val);
-		        if (is_array($content_exp_val_arr) && count($content_exp_val_arr) > 1) {
-			        $arr_provisioning[] = $content_exp_val_arr;
-		        }
-	        }
+        $trunk_name = $provider_name.'_'.$instance;
+        
+        $content = str_replace("trunkname", $trunk_name, $content);
+        
+        $tag_start_sipconfig = '#SIP-TRUNK-CONFIG-START#';
+        $tag_end_sipconfig = '#SIP-TRUNK-CONFIG-END#';
+        $tag_start_iaxconfig = '#SIP-TRUNK-CONFIG-START#';
+        $tag_end_iaxconfig = '#SIP-TRUNK-CONFIG-END#';
+        
+        $pos_beg_sip = strpos ($content, $tag_start_sipconfig);
+        $pos_end_sip = strpos ($content, $tag_end_sipconfig);
+        $pos_beg_iax = strpos ($content, $tag_start_iaxconfig);
+        $pos_end_iax = strpos ($content, $tag_end_iaxconfig);
+        
+        $len_extra_sip = (($pos_end_sip-$pos_beg_sip-strlen($tag_start_sipconfig)));
+        $len_extra_iax = (($pos_end_iax-$pos_beg_iax-strlen($tag_start_iaxconfig)));
+        
+        if ($len_extra_sip < 0) $len_extra_sip = 0;
+        if ($len_extra_iax < 0) $len_extra_iax = 0;
+        
+        $sip_config = substr($content, $pos_beg_sip + strlen($tag_start_sipconfig), $len_extra_sip)."\n\n";
+        $iax_config = substr($content, $pos_beg_iax + strlen($tag_start_iaxconfig), $len_extra_iax)."\n\n";
+        
+        $use_sip = $use_iax = false;
+        
+        if (strlen($sip_config) > 30) {
+        	$use_sip = true;
         }
         
-        /*
-        search #SIP-TRUNK-CONFIG-START# and #SIP-TRUNK-CONFIG-END#
-        mv "lol" to  sip_additional_$providername$_$instance$.conf.timestamp
-        copy content to 
-        sip_additional_$providername$-$instance$.conf
-        include  sip_additional_$instance$.conf in sip.conf
-        
-        Check if cc_trunk with $instance exist
-        */
-        $func_fields = "name";
-        $func_table = 'cc_trunk';
-        $id_name = "trunkcode, providertech, providerip";
-        $value = "'$instance', '$trunktech', '$trunkname'";
-        $inserted = $this->instance_table->Add_table($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+        if (strlen($iax_config) > 30) {
+        	$use_iax = true;
+        }
 		
-		if (!$inserted) {
-		    return array(false, "ERROR CREATING ACCOUNT GROUP");
+		$astconf_path = '/etc/asterisk/';
+		
+		$sip_filename = "sip_additional_$provider_name_$instance.conf";
+		$iax_filename = "iax_additional_$provider_name_$instance.conf";
+		$sip_ast_filename = $astconf_path . $sip_filename;
+		$iax_ast_filename = $astconf_path . $iax_filename;
+		
+		$date_format = date("Y-m-d_His");
+		
+		if ($use_sip) {
+		
+			if (file_exists($sip_ast_filename)) {
+				rename($sip_ast_filename, $sip_ast_filename.'.'.$date_format);
+			}
+			// Write SIP conf
+			$handle = fopen($sip_ast_filename, "w");
+			if (fwrite($handle, $sip_config) === false) {
+				return array(false, "ERROR - Could not create $sip_ast_filename");        
+			}
+			fclose($handle);
+		
+			// CHECK AND ADD INCLUDE
+			$content_sip_conf = file_get_contents($astconf_path.'sip.conf');
+		
+			$pos_include = strpos ($content_sip_conf, "$sip_filename");
+		    if ($pos_include === false) {
+		    	// Add include in SIP conf
+				$handle = fopen($astconf_path.'sip.conf', "a");
+				if (fwrite($handle, "\n#include $sip_filename\n") === false) {
+					return array(false, "ERROR - Could not add the include in ".$astconf_path.'sip.conf'); 
+				}
+				fclose($handle);
+		    }
+		    
+		    // ADD NEW TRUNK IN DATABASE
+		    $func_fields = "trunkcode, providertech, providerip";
+		    $func_table = 'cc_trunk';
+		    $id_name = "id_trunk";
+		    $value = "'$instance', 'SIP', '$trunk_name'";
+		    $inserted = $this->instance_table->Add_table($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+			
+			if (!$inserted) {
+				return array(false, "ERROR CREATING TRUNK");
+			}
+			return array(true, "TRUNK CONFIG CREATED SUCCESSFULLY");
+		    
 		}
-		return array($instance_key, "");
+		
+		// CREATE IAX TRUNK IF NO SIP CREATED
+		if ($use_iax && !$use_sip) {
+		
+			if (file_exists($iax_ast_filename)) {
+				rename($iax_ast_filename, $iax_ast_filename.'.'.$date_format);
+			}
+			// Write IAX conf
+			$handle = fopen($iax_ast_filename, "w");
+			if (fwrite($handle, $iax_config) === false) {
+				return array(false, "ERROR - Could not create $iax_ast_filename");       
+			}
+			fclose($handle); 
+		
+			// CHECK AND ADD INCLUDE
+			$content_iax_conf = file_get_contents($astconf_path.'iax.conf');
+		
+		
+			$pos_include = strpos ($content_iax_conf, "$sip_filename");
+		    if ($pos_include === false) {
+		    	// Add include in IAX conf
+				$handle = fopen($astconf_path.'iax.conf', "a");
+				if (fwrite($handle, "\n#include $iax_filename\n") === false) {
+					return array(false, "ERROR - Could not add the include in ".$astconf_path.'iax.conf'); 
+				}
+				fclose($handle);
+		    }
+		    
+		    // ADD NEW TRUNK IN DATABASE
+		    $func_fields = "trunkcode, providertech, providerip";
+		    $func_table = 'cc_trunk';
+		    $id_name = "id_trunk";
+		    $value = "'$instance', 'IAX', '$trunk_name'";
+		    $inserted = $this->instance_table->Add_table($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+			
+			if (!$inserted) {
+				return array(false, "ERROR CREATING TRUNK");
+			}
+			return array(true, "TRUNK CONFIG CREATED SUCCESSFULLY");
+			
+        }
         
-        return array(true, "TRUNK CONFIG CREATED WITH SUCCESS");
+        return array(false, "ERROR - NO TRUNK CONFIG CREATED");
     }
      
 
@@ -862,7 +955,7 @@ class SOAP_A2Billing
     // RESULT : array(array(string $prefix, string $destination, float $buyrate, float $sellrate), string $message) 
     function Get_Rates(string $security_key, string $uri_rate, $activation_code, float $margin)
     {
-        if (!$this->Check_SecurityKey ($key)) {
+        if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
@@ -933,7 +1026,7 @@ class SOAP_A2Billing
     // array(string $prefix, string $destination, float $buyrate, float $sellrate)
     function Create_Rates($security_key, $instance, $arr_rates)
     {
-        $arr_check = $this->Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
@@ -1018,7 +1111,7 @@ class SOAP_A2Billing
     // array(string $prefix, string $destination, float $buyrate, float $sellrate)
     function Update_Rates($security_key, $instance, $arr_rates)
     {
-        $arr_check = $this->Check_KeyInstance($key, $instance);
+        $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
 		    return $arr_check;
 		}
