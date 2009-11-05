@@ -58,6 +58,11 @@ class SOAP_A2Billing
                        'out' => array('result' => 'boolean', 'message' => 'string')
                        );
 
+		$this->__dispatch_map['Set_InstanceProvisioning'] =
+                 array('in' => array('security_key' => 'string', 'instance' => 'string', 'provisioning' => 'string'),
+                       'out' => array('result' => 'boolean', 'message' => 'string')
+                       );
+
         $this->__dispatch_map['Get_CustomerGroups'] =
                  array('in' => array('security_key' => 'string'),
                        'out' => array('result' => 'array', 'message' => 'string')
@@ -192,7 +197,7 @@ class SOAP_A2Billing
 		    return array('ERROR', "GROUP DOES NOT EXIST");
 		}
 		
-		return array($result[0][0], "");
+		return array($result[0][0], "Check_KeyInstance SUCCESS");
 	}
     
     
@@ -215,7 +220,7 @@ class SOAP_A2Billing
 		    return array(false, "WRONG LOGIN / PASSWORD");
 		}
         
-        return array (true, 'SUCCESS'); 
+        return array (true, 'Authenticate_Admin SUCCESS'); 
     }
     
     
@@ -239,7 +244,7 @@ class SOAP_A2Billing
 		    return array(false, "ERROR SQL UPDATE");
 		}
         
-        return array (true, 'SUCCESS'); 
+        return array (true, 'Set_AdminPwd SUCCESS'); 
     }
     
     
@@ -264,7 +269,7 @@ class SOAP_A2Billing
 		
 		NotificationsDAO::AddNotification($key, $priority, $who, $who_id);
 	    
-        return array (true, '');
+        return array (true, 'Write_Notification SUCCESS');
     }
     
     
@@ -302,7 +307,7 @@ class SOAP_A2Billing
 		if (!$inserted) {
 		    return array(false, "ERROR CREATING ACCOUNT GROUP");
 		}
-		return array($instance_key, "");
+		return array($instance_key, "Create_Instance SUCCESS");
 	}
 	
 	/*
@@ -322,7 +327,27 @@ class SOAP_A2Billing
 		    return array(false, "SQL ERROR UPDATING cc_card_group");
 		}
 		
-		return array(true, '');
+		return array(true, 'Set_InstanceDescription SUCCESS');
+	}
+	
+	/*
+	 *		Function to define the provisioning information of the Instance
+	 */ 
+	function Set_InstanceProvisioning ($security_key, $instance, $provisioning) {
+	    
+	    $arr_check = $this->Check_KeyInstance($security_key, $instance);
+		if ($arr_check[0] == 'ERROR') {
+		    return $arr_check;
+		}
+		
+		$QUERY = "UPDATE cc_card_group SET provisioning='$provisioning' WHERE name='$instance'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		if (!$result)
+		{
+		    return array(false, "SQL ERROR UPDATING cc_card_group");
+		}
+		
+		return array(true, 'Set_InstanceProvisioning SUCCESS');
 	}
 	
 	/*
@@ -341,7 +366,7 @@ class SOAP_A2Billing
 		    return array(false, "CANNOT LOAD THE GROUP LIST");
 		}
 		
-		return array($result, '');
+		return array($result, 'Get_CustomerGroups SUCCESS');
     }
 
 	
@@ -361,7 +386,7 @@ class SOAP_A2Billing
 		    return array(false, "CANNOT LOAD THE CURRENCY LIST");
 		}
 		
-		return array($result, '');
+		return array($result, 'Get_Currencies SUCCESS');
     }
 
 	/*
@@ -380,7 +405,7 @@ class SOAP_A2Billing
 		    return array(false, "CANNOT LOAD THE CURRENCY LIST");
 		}
 		
-		return array($result, '');
+		return array($result, 'Get_Countries SUCCESS');
     }
     
     /*
@@ -403,7 +428,7 @@ class SOAP_A2Billing
 		    return array(false, "CANNOT LOAD THE SETTING");
 		}
 		
-		return array($result[0][0], '');
+		return array($result[0][0], 'Get_Setting SUCCESS');
     }
     
      /*
@@ -419,14 +444,14 @@ class SOAP_A2Billing
 		    return array("ERROR", "INVALID KEY");
 		}
 		
-		$QUERY = "UPDATE cc_config SET config_value='$value' WHERE config_key = '$setting_key''";
+		$QUERY = "UPDATE cc_config SET config_value='$value' WHERE config_key = '$setting_key'";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 		if (!$result)
 		{
 		    return array(false, "SQL ERROR UPDATING cc_config");
 		}
 		
-		return array(true, '');
+		return array(true, 'Set_Setting SUCCESS');
     }
     
     /*
@@ -440,7 +465,7 @@ class SOAP_A2Billing
 		
 		$language_list = Constants::getLanguagesRevertList();
 		
-		return array($language_list, '');
+		return array($language_list, 'Get_Languages SUCCESS');
     }
 
 	
@@ -463,7 +488,7 @@ class SOAP_A2Billing
 		if (!$inserted) {
 		    return array(false, "ERROR CREATING DID GROUP");
 		}
-		return array($inserted, "");
+		return array($inserted, "Create_DIDGroup SUCCESS");
     }
 
     /*
@@ -485,7 +510,7 @@ class SOAP_A2Billing
 		if (!$inserted) {
 		    return array(false, "ERROR CREATING PROVIDER");
 		}
-		return array($inserted, "");
+		return array($inserted, "Create_Provider SUCCESS");
     }
 
     /*
@@ -513,7 +538,7 @@ class SOAP_A2Billing
 		if (!$inserted) {
 		    return array(false, "ERROR CREATING RATECARD");
 		}
-		return array($inserted, "");
+		return array($inserted, "Create_Ratecard SUCCESS");
     }
 
     /*
@@ -551,7 +576,7 @@ class SOAP_A2Billing
 		    return array(false, "ERROR ATTACHING CALLPLAN AND RATECARD");
 		}
 		
-		return array($id_callplan, "");
+		return array($id_callplan, "Create_Callplan SUCCESS");
     }
 
     /*
@@ -584,7 +609,7 @@ class SOAP_A2Billing
 		    }
 		}
 		
-		return array($arr_voucher, $k." VOUCHERS CREATED");
+		return array($arr_voucher, "Create_Voucher SUCCESS - ".$k." VOUCHERS CREATED");
     }
 
     /*
@@ -675,7 +700,7 @@ class SOAP_A2Billing
 	    $instance_realtime -> create_trunk_config_file ('iax');
 	    
 	    
-		return array($arr_account, $k." ACCOUNTS CREATED");
+		return array($arr_account, "Create_Customer SUCCESS - ".$k." ACCOUNTS CREATED");
     }
 
     /*
@@ -694,12 +719,12 @@ class SOAP_A2Billing
 		
 		$QUERY = "SELECT did FROM cc_did WHERE did LIKE \"$did_prefix%\"";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-		if (!is_array($result))
+		if (is_array($result))
 		{
-		    return array(true, "VALID DID PREFIX");
+			return array(false, "ERROR - INVALID DID PREFIX");
 		}
 		
-		return array(false, "INVALID DID PREFIX");
+		return array(true, "Validate_DIDPrefix SUCCESS - VALID DID PREFIX");
 		
     }
 
@@ -749,14 +774,10 @@ class SOAP_A2Billing
 		    $arr_did[] = $did_to_create;
 		}
 		
-		return array($arr_did, "DIDs CREATION SUCCESSFUL (".$increment_did." DIDs created)");
+		return array($arr_did, "Create_DID SUCCESS - DIDs CREATION SUCCESSFUL (".$increment_did." DIDs created)");
 		
     }
     
-    
-    // *** Providers ***
-
- 
 
     //Get the Provider list with details
     /*
@@ -795,7 +816,7 @@ class SOAP_A2Billing
             return array(false, "ERROR NO PROVISIONING LIST FOUND");
         }
         
-        return array($arr_provisioning, "");
+        return array($arr_provisioning, "Get_ProvisioningList SUCCESS");
         
     }
     
@@ -900,7 +921,7 @@ class SOAP_A2Billing
 			if (!$inserted) {
 				return array(false, "ERROR CREATING TRUNK");
 			}
-			return array(true, "TRUNK CONFIG CREATED SUCCESSFULLY");
+			return array(true, "TRUNK CONFIG CREATED - SUCCESS");
 		    
 		}
 		
@@ -941,7 +962,7 @@ class SOAP_A2Billing
 			if (!$inserted) {
 				return array(false, "ERROR CREATING TRUNK");
 			}
-			return array(true, "TRUNK CONFIG CREATED SUCCESSFULLY");
+			return array(true, "TRUNK CONFIG CREATED - SUCCESS");
 			
         }
         
@@ -983,7 +1004,7 @@ class SOAP_A2Billing
 	        }
         }
         
-        return array($arr_rates, "RATES RETURNED WITH SUCCESS");
+        return array($arr_rates, "RATES RETURNED - SUCCESS");
         
     }
     
@@ -1096,13 +1117,10 @@ class SOAP_A2Billing
 		}
 		
 		
-		return array(true, "RATES CREATED SUCCESSFULLY ($nb_to_import Rates imported)");
+		return array(true, "RATES CREATED ($nb_to_import Rates imported) - SUCCESS");
 		
     }
- 
-
-
-    // *** Update rates ***
+	
 
     /*
      *  Update the rates of an existing provisioning
@@ -1185,7 +1203,7 @@ class SOAP_A2Billing
 		}
 		
 		
-		return array(true, "RATES UPDATED SUCCESSFULLY ($nb_to_import Rates imported)");
+		return array(true, "RATES UPDATED ($nb_to_import Rates imported) - SUCCESS");
 		
     }
 

@@ -47,13 +47,12 @@ $activation_code = 'PL@uj243oj24';
 
 
 // BUILD TEST SUIT FOR CLASS SOAP FUNCTION
+
+
+
+
+
 /*
-$method = 'Create_Instance';
-echo "\n\nTEST Method : $method \n\n... press key to test\n";
-$response = trim(fgets(STDIN));
-$arr_result = $webservice -> $method ($security_key, $instance_name);
-print_r ($arr_result);
-*/
 
 $method = 'Create_TrunkConfig';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
@@ -69,13 +68,11 @@ $arr_result = $webservice -> $method ($security_key, 'admin', 'admin');
 print_r ($arr_result);
 
 
-
 $method = 'Set_AdminPwd';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, 'admin', 'admin');
 print_r ($arr_result);
-
 
 
 $method = 'Write_Notification';
@@ -84,6 +81,26 @@ $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, 'admin', 'Test SOAP Notification : '.date("Y/m/d G:i:s", mktime()), 1);
 print_r ($arr_result);
 
+
+$method = 'Create_Instance';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key, $instance_name);
+print_r ($arr_result);
+
+
+$method = 'Set_InstanceDescription';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key, $instance, 'hello here');
+print_r ($arr_result);
+
+
+$method = 'Set_InstanceProvisioning';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key, $instance, 'test1|test2|ko');
+print_r ($arr_result);
 
 
 $method = 'Get_CustomerGroups';
@@ -107,3 +124,27 @@ echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
+
+
+$method = 'Set_Setting';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key, 'http_cookie_domain_agent', '127.0.0.1');
+print_r ($arr_result);
+
+$method = 'Get_Setting';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key, 'http_cookie_domain_agent');
+print_r ($arr_result);
+
+$method = 'Get_Languages';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key);
+print_r ($arr_result);
+
+
+
+
+*/
