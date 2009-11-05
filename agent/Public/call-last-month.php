@@ -43,158 +43,10 @@ if (! has_rights (ACX_CALL_REPORT)) {
 }
 
 
-getpost_ifset(array('months_compare', 'current_page', 'fromstatsmonth_sday', 'days_compare', 'min_call', 'posted',  'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer','entertariffgroup', 'entertrunk', 'enterratecard', 'graphtype'));
-
-// graphtype = 1, 2, 3 , 4 
-// 1 : traffic - 2 : Profit - 3 : Sells -  4 : Buys
-if (!isset ($current_page) || ($current_page == "")) {	
-	$current_page=0;
-}
-
-$FG_DEBUG = 0;
-
-// The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_card t2 ON  t2.id = t1.card_id LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk LEFT JOIN cc_card_group ON t2.id_group=cc_card_group.id";
-
-
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
-
-
+getpost_ifset(array('entercustomer','entertariffgroup','enterratecard','fromstatsmonth_sday','months_compare','dst','dsttype','posted'));
 $DBHandle  = DbConnect();
 
-$FG_TABLE_COL = array();
-$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "dest", "10%", "center", "SORT", "15", "lie", "cc_prefix", "destination", "id='%id'", "%1");
-$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array (gettext("CardUsed"), "card_id", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
-$FG_TABLE_COL[]=array (gettext("terminatecauseid"), "terminatecauseid", "10%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
-$FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
-$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-$FG_TABLE_DEFAULT_ORDER = "t1.starttime";
-$FG_TABLE_DEFAULT_SENS = "DESC";
-	
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination AS dest, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.calledrate, t1.sessionbill';
-$FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime';
-
-$FG_LIMITE_DISPLAY=25;
-$FG_NB_TABLE_COL=count($FG_TABLE_COL);
-
-// The variable $FG_EDITION define if you want process to the edition of the database record
-$FG_EDITION=true;
-
-//This variable will store the total number of column
-$FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
-if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
-
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE= gettext(" - Call Logs - ");
-
-//This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="90%";
-
-
-
-
-if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-
-
-if ( is_null ($order) || is_null($sens) ){
-	$order = $FG_TABLE_DEFAULT_ORDER;
-	$sens  = $FG_TABLE_DEFAULT_SENS;
-}
-
-
-getpost_ifset(array (
-	'before',
-	'after',
-	'posted'
-));
-
-if ($posted==1) {	
-	$SQLcmd = '';
-	
-	if ($before) {
-		if (strpos($SQLcmd, 'WHERE') > 0) {
-			$SQLcmd = "$SQLcmd AND ";
-		} else {
-			$SQLcmd = "$SQLcmd WHERE ";
-		}
-		$SQLcmd = "$SQLcmd calldate <'" . $before . "'";
-	}
-	if ($after) {
-		if (strpos($SQLcmd, 'WHERE') > 0) {
-			$SQLcmd = "$SQLcmd AND ";
-		} else {
-			$SQLcmd = "$SQLcmd WHERE ";
-		}
-		$SQLcmd = "$SQLcmd calldate >'" . $after . "'";
-	}
-	
-	$SQLcmd = do_field($SQLcmd, 'dst');
-}
-
-$date_clause = '';
-
-
-if (!isset($months_compare)){		
-	$months_compare=2;
-}
-
-$fromstatsday_sday = 1;
-
-if (DB_TYPE == "postgres") {	
-	if (isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '$months_compare MONTH' AND t1.starttime >= date'$fromstatsmonth_sday-$fromstatsday_sday' - INTERVAL '$months_compare MONTH'";
-} else {
-	if (isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $months_compare MONTH) AND t1.starttime >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $months_compare MONTH)";  
-}
-
-
-if (isset($customer)  &&  ($customer>0)) {
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="t1.card_id='$customer'";
-}else{
-	if (isset($entercustomer)  &&  ($entercustomer>0)) {
-		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-		$FG_TABLE_CLAUSE.="t1.card_id='$entercustomer'";
-	}
-}
-if (isset($entertariffgroup) && $entertariffgroup > 0) {
-	if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
-	$FG_TABLE_CLAUSE .= "t1.id_tariffgroup = '$entertariffgroup'";
-}
-if (isset($enterratecard) && $enterratecard > 0) {
-	if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
-	$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
-}
-
-if (isset ($FG_TABLE_CLAUSE) && strlen($FG_TABLE_CLAUSE)>0){
-	$FG_TABLE_CLAUSE .= ' AND';
-}
-
-$FG_TABLE_CLAUSE .= ' cc_card_group.id_agent = '.$_SESSION['agent_id'] ;
-
-
-if ($FG_DEBUG == 3) echo "<br>$date_clause<br>";
-
-
-  
-if (strpos($SQLcmd, 'WHERE') > 0) { 
-	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
-}elseif (strpos($date_clause, 'AND') > 0){
-	$FG_TABLE_CLAUSE = substr($date_clause,5); 
-}
-
-if ($posted==1){
-	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
-}
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 
 
 $smarty->display('main.tpl');
@@ -221,8 +73,6 @@ $smarty->display('main.tpl');
 				<td width="50%">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
-							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("CallPlan");?> :</td>
-							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="entertariffgroup" value="<?php echo $entertariffgroup?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_tariffgroup.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertariffgroup' , 'CallPlanSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
 							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Rate");?> :</td>
 							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="enterratecard" value="<?php echo $enterratecard?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_def_ratecard.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterratecard' , 'RatecardSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
 						</tr>

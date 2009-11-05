@@ -91,7 +91,7 @@ if (!isset ($months_compare))
 if (!isset ($fromstatsmonth_sday))
 	$fromstatsmonth_sday = date("Y-m");
 
-$FG_TABLE_NAME = "cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
+$FG_TABLE_NAME = "cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk LEFT JOIN cc_card ON t1.card_id= cc_card.id LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id";
 
 $DBHandle = DbConnect();
 $FG_TABLE_COL = array ();
@@ -117,66 +117,28 @@ getpost_ifset(array (
 
 $SQLcmd = '';
 
-if ($before) {
-	if (strpos($SQLcmd, 'WHERE') > 0) {
-		$SQLcmd = "$SQLcmd AND ";
-	} else {
-		$SQLcmd = "$SQLcmd WHERE ";
-	}
-	$SQLcmd = "$SQLcmd calldate <'" . $before . "'";
-}
-if ($after) {
-	if (strpos($SQLcmd, 'WHERE') > 0) {
-		$SQLcmd = "$SQLcmd AND ";
-	} else {
-		$SQLcmd = "$SQLcmd WHERE ";
-	}
-	$SQLcmd = "$SQLcmd calldate >'" . $after . "'";
-}
-$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-
-if (isset ($customer) && ($customer > 0)) {
+$SQLcmd .= 'cc_card_group.id_agent = '.$_SESSION['agent_id'];
+if (isset ($dst) && ($dst > 0)) {
 	if (strlen($SQLcmd) > 0)
 		$SQLcmd .= " AND ";
-	else
-		$SQLcmd .= " WHERE ";
-	$SQLcmd .= " card_id='$customer' ";
-} else {
-	if (isset ($entercustomer) && ($entercustomer > 0)) {
-		if (strlen($SQLcmd) > 0)
-			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
-		$SQLcmd .= " card_id='$entercustomer' ";
-	}
+	$SQLcmd .= " calledstation='$dst' ";
 }
-if ($_SESSION["is_admin"] == 1) {
-	if (isset ($enterprovider) && $enterprovider > 0) {
-		if (strlen($SQLcmd) > 0)
-			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
-		$SQLcmd .= " t3.id_provider = '$enterprovider' ";
-	}
-	if (isset ($entertrunk) && $entertrunk > 0) {
-		if (strlen($SQLcmd) > 0)
-			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
-		$SQLcmd .= " t3.id_trunk = '$entertrunk' ";
-	}
-	if (isset ($entertariffgroup) && $entertariffgroup > 0) {
-		if (strlen($FG_TABLE_CLAUSE) > 0)
-			$FG_TABLE_CLAUSE .= " AND ";
-		$FG_TABLE_CLAUSE .= "t1.id_tariffgroup = '$entertariffgroup'";
-	}
-	if (isset ($enterratecard) && $enterratecard > 0) {
-		if (strlen($FG_TABLE_CLAUSE) > 0)
-			$FG_TABLE_CLAUSE .= " AND ";
-		$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
-	}
+if (isset ($entercustomer) && ($entercustomer > 0)) {
+	if (strlen($SQLcmd) > 0)
+		$SQLcmd .= " AND ";
+	$SQLcmd .= " card_id='$entercustomer' ";
 }
-
+if (isset ($entertariffgroup) && $entertariffgroup > 0) {
+	if (strlen($SQLcmd) > 0)
+		$SQLcmd .= " AND ";
+	$SQLcmd .= "t1.id_tariffgroup = '$entertariffgroup'";
+}
+if (isset ($enterratecard) && $enterratecard > 0) {
+	if (strlen($SQLcmd) > 0)
+		$SQLcmd .= " AND ";
+	$SQLcmd .= "t1.id_ratecard = '$enterratecard'";
+}
+if (strlen($SQLcmd) > 0)	$SQLcmd .= " AND ";
 $date_clause = '';
 
 $min_call = intval($min_call);
@@ -219,23 +181,14 @@ for ($i = 0; $i < $months_compare +1; $i++) {
 	//echo "<br>$current_myyear-".sprintf("%02d",intval($current_mymonth));
 
 	//echo '<br>'.$date_clause;
-
+	
 	if (DB_TYPE == "postgres") {
-		$date_clause = " AND starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
+		$date_clause = "  starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
 	} else {
-		$date_clause = " AND starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
+		$date_clause = "  starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
 	}
-
-	if (strpos($SQLcmd, 'WHERE') > 0) {
-		$FG_TABLE_CLAUSE = substr($SQLcmd, 6) . $date_clause;
-	}
-	elseif (strpos($date_clause, 'AND') > 0) {
-		$FG_TABLE_CLAUSE = substr($date_clause, 5);
-	}
-
-	if ($FG_DEBUG == 3)
-		echo $FG_TABLE_CLAUSE;
-
+	
+	$FG_TABLE_CLAUSE = $SQLcmd . $date_clause;
 	$list_total = $instance_table_graph->Get_list($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
 	if ($graphtype == 1) {
 		// Traffic
