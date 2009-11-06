@@ -35,7 +35,7 @@
 
 define('A2B_CONFIG_DIR', '/etc/');
 define('AST_CONFIG_DIR', '/etc/asterisk/');
-define('DEFAULT_A2BILLING_CONFIG', A2B_CONFIG_DIR . '/a2billing.conf');
+define('DEFAULT_A2BILLING_CONFIG', A2B_CONFIG_DIR . 'a2billing.conf');
 
 // DEFINE VERBOSITY & LOGGING LEVEL : 0 = FATAL; 1 = ERROR; WARN = 2 ; INFO = 3 ; DEBUG = 4
 define ('FATAL',			0);
