@@ -12,7 +12,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 
 function sendto(action, record, field_inst, instance){
-  alert ("action:" + action);
+  //alert ("action:" + action);
   document.myForm.form_action.value = action;
   document.myForm.sub_action.value = record;
   if (field_inst != null) document.myForm.elements[field_inst].value = instance;
