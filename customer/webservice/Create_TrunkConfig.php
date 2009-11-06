@@ -41,20 +41,27 @@ Result :
 	
 Parameters :
 	activation_code
+	html : to display with <pre> tag
 
 Usage :
     http://localhost/trunk/customer/webservice/Create_TrunkConfig.php?activation_code=XXXXXXXXXXX
+    http://localhost/~areski/svn/asterisk2billing/trunk/customer/webservice/Create_TrunkConfig.php?activation_code=6098593343_12345&html=1
 */
 
 
 include ("../lib/customer.defines.php");
 
 
-$activation_code = $_GET['activation_code'];
+getpost_ifset(array('activation_code', 'html'));
+
+if ($activation_code)
 $activation_code = trim($activation_code);
 
 $res = Service_Create_TrunkConfig($activation_code);
 
+if (isset($html)) echo "<pre>";
+print_r ($res[0]);
+if (isset($html)) echo "</pre>";
 
 /*
  *		Function for the Service Callback : it will call a phonenumber and redirect it into the BCB application
@@ -75,8 +82,7 @@ function Service_Create_TrunkConfig($activation_code)
 	$QUERY = "SELECT cc.username, cc.credit, cc.status, cc.id, cc.id_didgroup, cc.tariff, cc.vat, ct.gmtoffset, cc.voicemail_permitted, " .
 			 "cc.voicemail_activated, cc_card_group.users_perms, cc.currency " .
 			 "FROM cc_card cc LEFT JOIN cc_timezone AS ct ON ct.id = cc.id_timezone LEFT JOIN cc_card_group ON cc_card_group.id=cc.id_group " .
-			 "WHERE (cc.email = '".$accountnumber."' OR cc.useralias = '".$accountnumber."') AND cc.uipass = '".$password."'";
-			  
+			 "WHERE cc.username = '".$accountnumber."' AND cc.uipass = '".$password."'";
 	$res = $DBHandle -> Execute($QUERY);
 	
 	if (!$res) {
@@ -100,7 +106,7 @@ function Service_Create_TrunkConfig($activation_code)
     $additional_iax = explode("|", IAX_ADDITIONAL_PARAMETERS);
     
     // SIP
-	$Config_output = "#PROTOCOL:SIP#\n#SIP-TRUNK-CONFIG-START#\n[trunkname]";
+	$Config_output = "#PROTOCOL:SIP#\n#SIP-TRUNK-CONFIG-START#\n[trunkname]\n";
 	$Config_output .= "username=".$sip_data[0][1]."\n";
 	$Config_output .= "type=friend\n";
 	$Config_output .= "secret=".$sip_data[0][2]."\n";
@@ -118,7 +124,7 @@ function Service_Create_TrunkConfig($activation_code)
 	$Config_output .= "#SIP-TRUNK-CONFIG-END#\n\n";
 	
 	// IAX
-	$Config_output = "#PROTOCOL:IAX#\n#IAX-TRUNK-CONFIG-START#\n[trunkname]";
+	$Config_output .= "#PROTOCOL:IAX#\n#IAX-TRUNK-CONFIG-START#\n[trunkname]\n";
 	$Config_output .= "username=".$iax_data[0][1]."\n";
 	$Config_output .= "type=friend\n";
 	$Config_output .= "secret=".$iax_data[0][2]."\n";
