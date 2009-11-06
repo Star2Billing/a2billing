@@ -35,9 +35,7 @@
 
 /*
 Result :
-    * 200 -- successful query
-    * 400 -- malformed query
-    * 500 -- error processing query or fetching data
+    SIP & IAX CONFIGURATION
 	
 Parameters :
 	activation_code
@@ -141,7 +139,7 @@ function Service_Create_TrunkConfig($activation_code)
     }
 	$Config_output .= "#IAX-TRUNK-CONFIG-END#\n\n";
 	
-	return array($Config_output, '200 -- Successful Config');
+	return array($Config_output, '200 -- Config OK');
 	
 }
 

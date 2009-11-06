@@ -44,31 +44,11 @@ if (!has_rights(ACX_CALL_REPORT)) {
 	die();
 }
 
-/*
-HANDLE THE SUBSTRACT ON DATE FIELD ON OUR SIDE
-
-* FAST
-cdrasterisk=> SELECT sum(duration) FROM cdr WHERE calldate < '2005-02-01' AND calldate >= '2005-01-01';
-   sum
-----------
- 69076793
-(1 row)
- 
-* VERY SLOW
-cdrasterisk=> SELECT sum(duration) FROM cdr WHERE calldate < date '2005-02-01'  - interval '0 months' AND calldate >=  date '2005-02-01'  - interval '1 months' ;
-   sum
-----------
- 69076793
-(1 row)
-*/
 
 getpost_ifset(array('months_compare', 'min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'enterratecard', 'entertariffgroup', 'graphtype'));
 
-// graphtype = 1, 2, 3  
-// 1 : traffic
-// 2 : Profit
-// 3 : Sells
-// 4 : Buys
+// graphtype = 1, 2, 3, 4 
+// 1 : traffic, 2 : Profit,  3 : Sells, 4 : Buys
 
 $FG_DEBUG = 0;
 $months = Array (
@@ -213,13 +193,19 @@ for ($i = 0; $i < $months_compare +1; $i++) {
 	}
 
 }
-//print_r($data);
-//print_r($mylegend);
+
+$at_least_one_data = false;
+for ($i=0 ; $i<count($data) ; $i++) {
+	if (!empty($data[$i]) && ($data[$i]<0 || $data[$i]>0))
+		$at_least_one_data = true;
+		 		
+}
+if (!$at_least_one_data)
+	$data[0] = 1;
 
 /**************************************/
 
 $data = array_reverse($data);
-//$data = array(40,60,21,33, 10, NULL);
 
 $graph = new PieGraph(475, 200, "auto");
 $graph->SetShadow();
