@@ -61,6 +61,23 @@ include (dirname(__FILE__)."/Class.Mail.php");
 session_name("UIADMINSESSION");
 session_start();
 
+// Control Session Time
+if (isset($_SESSION['startTime'])) {
+    $timeDiff = time() - $_SESSION['startTime'];
+  
+
+    //destroy session
+    if ($timeDiff > 3600) { // 60 minutes
+        //echo "You've been logged in too long. ($timeDiff)";
+        $_SESSION = array();
+        session_destroy();
+        setcookie('PHPSESSID', '', time()-3600, '/', '', 0,0);
+    }
+} else {
+  $_SESSION['startTime'] = time();
+}
+
+
 $G_instance_Query_trace = Query_trace::getInstance();
 
 // A2B INSTANCE

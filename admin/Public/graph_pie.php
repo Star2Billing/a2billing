@@ -44,33 +44,13 @@ if (!has_rights(ACX_CALL_REPORT)) {
 	die();
 }
 
-/*
-HANDLE THE SUBSTRACT ON DATE FIELD ON OUR SIDE
-
-* FAST
-cdrasterisk=> SELECT sum(duration) FROM cdr WHERE calldate < '2005-02-01' AND calldate >= '2005-01-01';
-   sum
-----------
- 69076793
-(1 row)
- 
-* VERY SLOW
-cdrasterisk=> SELECT sum(duration) FROM cdr WHERE calldate < date '2005-02-01'  - interval '0 months' AND calldate >=  date '2005-02-01'  - interval '1 months' ;
-   sum
-----------
- 69076793
-(1 row)
-*/
 
 getpost_ifset(array('months_compare', 'min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'enterratecard', 'entertariffgroup', 'graphtype'));
 
-// graphtype = 1, 2, 3  
-// 1 : traffic
-// 2 : Profit
-// 3 : Sells
-// 4 : Buys
+// graphtype = 1, 2, 3, 4 
+// 1 : traffic, 2 : Profit,  3 : Sells, 4 : Buys
 
-$FG_DEBUG = 0;
+$FG_DEBUG = 1;
 $months = Array (
 	0 => 'Jan',
 	1 => 'Feb',
@@ -106,10 +86,7 @@ if (is_null($order) || is_null($sens)) {
 	$sens = $FG_TABLE_DEFAULT_SENS;
 }
 
-getpost_ifset(array (
-	'before',
-	'after'
-));
+getpost_ifset(array ('before', 'after'));
 
 $SQLcmd = '';
 
@@ -118,6 +95,7 @@ if (isset ($dst) && ($dst > 0)) {
 		$SQLcmd .= " AND ";
 	$SQLcmd .= " calledstation='$dst' ";
 }
+
 if (isset ($customer) && ($customer > 0)) {
 	if (strlen($SQLcmd) > 0)
 		$SQLcmd .= " AND ";
@@ -129,6 +107,7 @@ if (isset ($customer) && ($customer > 0)) {
 		$SQLcmd .= " card_id='$entercustomer' ";
 	}
 }
+
 if ($_SESSION["is_admin"] == 1) {
 	if (isset ($enterprovider) && $enterprovider > 0) {
 		if (strlen($SQLcmd) > 0)
@@ -191,10 +170,6 @@ for ($i = 0; $i < $months_compare +1; $i++) {
 	}
 	$current_myyear2 = $myyear - $minus_oneyar;
 
-	//echo "<br>$current_myyear-".sprintf("%02d",intval($current_mymonth));
-
-	//echo '<br>'.$date_clause;
-
 	if (DB_TYPE == "postgres") {
 		$date_clause = " starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
 	} else {
@@ -202,7 +177,6 @@ for ($i = 0; $i < $months_compare +1; $i++) {
 	}
 
 	$FG_TABLE_CLAUSE = $SQLcmd . $date_clause;
-
 
 	$list_total = $instance_table_graph->Get_list($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
 	if ($graphtype == 1) {
@@ -231,13 +205,19 @@ for ($i = 0; $i < $months_compare +1; $i++) {
 	}
 
 }
-//print_r($data);
-//print_r($mylegend);
+
+$at_least_one_data = false;
+for ($i=0 ; $i<count($data) ; $i++) {
+	if (!empty($data[$i]) && ($data[$i]<0 || $data[$i]>0))
+		$at_least_one_data = true;
+		 		
+}
+if (!$at_least_one_data)
+	$data[0] = 1;
 
 /**************************************/
 
 $data = array_reverse($data);
-//$data = array(40,60,21,33, 10, NULL);
 
 $graph = new PieGraph(475, 200, "auto");
 $graph->SetShadow();
