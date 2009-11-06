@@ -113,36 +113,19 @@ getpost_ifset(array (
 
 $SQLcmd = '';
 
-if ($before) {
-	if (strpos($SQLcmd, 'WHERE') > 0) {
-		$SQLcmd = "$SQLcmd AND ";
-	} else {
-		$SQLcmd = "$SQLcmd WHERE ";
-	}
-	$SQLcmd = "$SQLcmd calldate <'" . $before . "'";
+if (isset ($dst) && ($dst > 0)) {
+	if (strlen($SQLcmd) > 0)
+		$SQLcmd .= " AND ";
+	$SQLcmd .= " calledstation='$dst' ";
 }
-if ($after) {
-	if (strpos($SQLcmd, 'WHERE') > 0) {
-		$SQLcmd = "$SQLcmd AND ";
-	} else {
-		$SQLcmd = "$SQLcmd WHERE ";
-	}
-	$SQLcmd = "$SQLcmd calldate >'" . $after . "'";
-}
-$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-
 if (isset ($customer) && ($customer > 0)) {
 	if (strlen($SQLcmd) > 0)
 		$SQLcmd .= " AND ";
-	else
-		$SQLcmd .= " WHERE ";
 	$SQLcmd .= " card_id='$customer' ";
 } else {
 	if (isset ($entercustomer) && ($entercustomer > 0)) {
 		if (strlen($SQLcmd) > 0)
 			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
 		$SQLcmd .= " card_id='$entercustomer' ";
 	}
 }
@@ -150,31 +133,27 @@ if ($_SESSION["is_admin"] == 1) {
 	if (isset ($enterprovider) && $enterprovider > 0) {
 		if (strlen($SQLcmd) > 0)
 			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
 		$SQLcmd .= " t3.id_provider = '$enterprovider' ";
 	}
 	if (isset ($entertrunk) && $entertrunk > 0) {
 		if (strlen($SQLcmd) > 0)
 			$SQLcmd .= " AND ";
-		else
-			$SQLcmd .= " WHERE ";
 		$SQLcmd .= " t3.id_trunk = '$entertrunk' ";
 	}
 	if (isset ($entertariffgroup) && $entertariffgroup > 0) {
-		if (strlen($FG_TABLE_CLAUSE) > 0)
-			$FG_TABLE_CLAUSE .= " AND ";
-		$FG_TABLE_CLAUSE .= "t1.id_tariffgroup = '$entertariffgroup'";
+		if (strlen($SQLcmd) > 0)
+			$SQLcmd .= " AND ";
+		$SQLcmd .= "t1.id_tariffgroup = '$entertariffgroup'";
 	}
 	if (isset ($enterratecard) && $enterratecard > 0) {
-		if (strlen($FG_TABLE_CLAUSE) > 0)
-			$FG_TABLE_CLAUSE .= " AND ";
-		$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
+		if (strlen($SQLcmd) > 0)
+			$SQLcmd .= " AND ";
+		$SQLcmd .= "t1.id_ratecard = '$enterratecard'";
 	}
 }
 
 $date_clause = '';
-
+if (strlen($SQLcmd) > 0)	$SQLcmd .= " AND ";
 $min_call = intval($min_call);
 if (($min_call != 0) && ($min_call != 1))
 	$min_call = 0;
@@ -217,20 +196,13 @@ for ($i = 0; $i < $months_compare +1; $i++) {
 	//echo '<br>'.$date_clause;
 
 	if (DB_TYPE == "postgres") {
-		$date_clause = " AND starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
+		$date_clause = " starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
 	} else {
-		$date_clause = " AND starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
+		$date_clause = " starttime >= '$current_myyear2-" . sprintf("%02d", intval($current_mymonth2)) . "-01' AND starttime < '$current_myyear-" . sprintf("%02d", intval($current_mymonth)) . "-01'";
 	}
 
-	if (strpos($SQLcmd, 'WHERE') > 0) {
-		$FG_TABLE_CLAUSE = substr($SQLcmd, 6) . $date_clause;
-	}
-	elseif (strpos($date_clause, 'AND') > 0) {
-		$FG_TABLE_CLAUSE = substr($date_clause, 5);
-	}
+	$FG_TABLE_CLAUSE = $SQLcmd . $date_clause;
 
-	if ($FG_DEBUG == 3)
-		echo $FG_TABLE_CLAUSE;
 
 	$list_total = $instance_table_graph->Get_list($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
 	if ($graphtype == 1) {

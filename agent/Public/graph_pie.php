@@ -110,10 +110,7 @@ if (is_null($order) || is_null($sens)) {
 	$sens = $FG_TABLE_DEFAULT_SENS;
 }
 
-getpost_ifset(array (
-	'before',
-	'after'
-));
+
 
 $SQLcmd = '';
 
