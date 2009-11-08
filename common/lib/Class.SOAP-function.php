@@ -258,9 +258,9 @@ class SOAP_A2Billing
 		}
 		
         //add notification
-		$who = Notification::$UNKNOWN;
-		$who_id = -1;
-		$key = "SOAP-Server";
+		$who = Notification::$SOAPSERVER;
+		$who_id = 0;
+		$key = "SOAP-Server Notification : ".$subject;
 		
 		//Priority -> 0:Low ; 1:Medium ; 2:High
         if ($priority < 0 || $priority > 2) {

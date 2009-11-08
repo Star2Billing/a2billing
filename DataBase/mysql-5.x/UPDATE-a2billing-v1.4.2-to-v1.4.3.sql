@@ -52,4 +52,8 @@ ALTER TABLE cc_card_group CHANGE name name varchar( 50 );
 ALTER TABLE cc_trunk CHANGE trunkcode trunkcode varchar( 50 );
 
 
+-- change lenght on Notification
+ALTER TABLE cc_notification CHANGE key_value key_value VARCHAR( 255 );
+
+
 

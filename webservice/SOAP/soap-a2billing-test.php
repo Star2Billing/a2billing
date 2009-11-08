@@ -39,21 +39,18 @@ $security_key = md5(API_SECURITY_KEY);
 $webservice = new SOAP_A2Billing();
 
 
-$instance = 'VillageTelco_rmsu-2114';
+//$instance = 'VillageTelco_rmsu-2114';
 $instance_name = 'VillageTelco';
 $uri_trunk = 'http://www.call-labs.com/Create_TrunkConfig.php';
 $provider_name = 'call-labs';
-$activation_code = 'PL@uj243oj24';
 $provisioning_uri = 'http://www.call-labs.com/provisioning.txt';
 $uri_rate = 'http://www.call-labs.com/Get_Rates.php';
 $activation_code = '54wefdsf$3Z';
 $margin = 0.2;
 
+
+
 // BUILD TEST SUIT FOR CLASS SOAP FUNCTION
-
-
-
-
 
 
 $method = 'Authenticate_Admin';
@@ -82,6 +79,8 @@ echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $instance_name);
 print_r ($arr_result);
+$instance = $arr_result[0];
+echo "instance => $instance \n-----------------------\n\n";
 
 
 $method = 'Set_InstanceDescription';

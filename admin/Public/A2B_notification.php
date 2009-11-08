@@ -49,10 +49,10 @@ getpost_ifset(array (
 	'ids'
 ));
 
-if($action=="viewall"&& !empty($ids)){
+if ($action=="viewall"&& !empty($ids)) {
     $DBHandle = DbConnect();
     $table = new Table("cc_notification_admin", "*");
-    $fields = "id_notification,id_admin,viewed";
+    $fields = "id_notification, id_admin, viewed";
     $ids_array = json_decode($ids);
     foreach ($ids_array as $id){
 	$values = " $id , " . $_SESSION['admin_id'] . ",1 ";
@@ -68,7 +68,7 @@ if (!empty ($action) && is_numeric($id)) {
 		case "view" :
 			$DBHandle = DbConnect();
 			$table = new Table("cc_notification_admin", "*");
-			$fields = "id_notification,id_admin,viewed";
+			$fields = "id_notification, id_admin, viewed";
 			$values = " $id , " . $_SESSION['admin_id'] . ",1 ";
 			$return = $table->Add_table($DBHandle, $values, $fields);
 			if ($return)
@@ -99,7 +99,7 @@ if (!empty ($action) && is_numeric($id)) {
 
 	$DBHandle = DbConnect();
 	$table = new Table("cc_notification_admin", "*");
-	$fields = "id_notification,id_admin,viewed";
+	$fields = "id_notification, id_admin, viewed";
 	$values = " $id , " . $_SESSION['admin_id'] . ",1 ";
 	$return = $table->Add_table($DBHandle, $values, $fields);
 	if ($return)

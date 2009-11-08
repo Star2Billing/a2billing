@@ -37,6 +37,7 @@ Class Notification {
 	static public $AGENT = 1;
 	static public $CUST = 2;
 	static public $BATCH = 3;
+	static public $SOAPSERVER = 4;
 	static public $UNKNOWN = -1;
 	
 	static public $LOW = 0;
@@ -106,11 +107,13 @@ Class Notification {
 		switch($this->from_type){
 			case 0: $display.= "ADMIN: ".getnameofadmin($this->from_id);
 					break;
-			case 1:$display.= "AGENT: ".getnameofagent($this->from_id);
+			case 1: $display.= "AGENT: ".getnameofagent($this->from_id);
 					break;
-			case 2:$display.= "CUST: ".getnameofcustomer_id($this->from_id);
+			case 2: $display.= "CUST: ".getnameofcustomer_id($this->from_id);
 					break;
-			case 3:$display.= gettext("BATCH");
+			case 3: $display.= gettext("BATCH");
+					break;
+			case 4: $display.= gettext("SOAP-SERVER");
 					break;
 			case -1 :$display.= gettext("UNKNOWN");
 					break;
@@ -129,7 +132,7 @@ Class Notification {
 	function getKeyMsg() {
 		$keys=Notification::getAllKey();
 		if(array_key_exists($this->key,$keys)) return $keys[$this->key];
-		else return gettext("No Message Unknown");
+		else return $this->key;
 	}
   	  	
 }
