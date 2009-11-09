@@ -57,3 +57,81 @@ ALTER TABLE cc_notification CHANGE key_value key_value VARCHAR( 255 );
 
 
 
+-- IAX Friends update
+
+CREATE INDEX iax_friend_nh_index on cc_iax_buddies (name, host);
+CREATE INDEX iax_friend_nip_index on cc_iax_buddies (name, ipaddr, port);
+CREATE INDEX iax_friend_ip_index on cc_iax_buddies (ipaddr, port);
+CREATE INDEX iax_friend_hp_index on cc_iax_buddies (host, port);
+
+
+ALTER TABLE cc_iax_buddies
+	DROP callgroup,
+	DROP canreinvite,
+	DROP dtmfmode,
+	DROP fromuser,
+	DROP fromdomain,
+	DROP insecure,
+	DROP mailbox,
+	DROP md5secret,
+	DROP nat,
+	DROP pickupgroup,
+	DROP restrictcid,
+	DROP rtptimeout,
+	DROP rtpholdtimeout,
+	DROP musiconhold,
+	DROP cancallforward;
+
+
+ALTER TABLE cc_iax_buddies 
+	ADD dbsecret varchar(40) NOT NULL default '',
+	ADD regcontext varchar(40) NOT NULL default '',
+	ADD sourceaddress varchar(20) NOT NULL default '',
+	ADD mohinterpret varchar(20) NOT NULL default '', 
+	ADD mohsuggest varchar(20) NOT NULL default '', 
+	ADD inkeys varchar(40) NOT NULL default '', 
+	ADD outkey varchar(40) NOT NULL default '', 
+	ADD cid_number varchar(40) NOT NULL default '', 
+	ADD sendani varchar(10) NOT NULL default '', 
+	ADD fullname varchar(40) NOT NULL default '', 
+	ADD auth varchar(20) NOT NULL default '', 
+	ADD maxauthreq varchar(15) NOT NULL default '', 
+	ADD encryption varchar(20) NOT NULL default '', 
+	ADD transfer varchar(10) NOT NULL default '', 
+	ADD jitterbuffer varchar(10) NOT NULL default '', 
+	ADD forcejitterbuffer varchar(10) NOT NULL default '', 
+	ADD codecpriority varchar(40) NOT NULL default '', 
+	ADD qualifysmoothing varchar(10) NOT NULL default '', 
+	ADD qualifyfreqok varchar(10) NOT NULL default '', 
+	ADD qualifyfreqnotok varchar(10) NOT NULL default '', 
+	ADD timezone varchar(20) NOT NULL default '', 
+	ADD adsi varchar(10) NOT NULL default '', 
+	ADD setvar varchar(200) NOT NULL default '';
+
+
+
+-- SIP Friends update
+
+CREATE INDEX sip_friend_hp_index on cc_sip_buddies (host, port);
+CREATE INDEX sip_friend_ip_index on cc_sip_buddies (ipaddr, port);
+
+
+ALTER TABLE cc_sip_buddies
+	ADD defaultuser varchar(40) NOT NULL default '',
+	ADD auth varchar(10) NOT NULL default '',
+	ADD subscribemwi varchar(10) NOT NULL default '', -- yes/no
+	ADD vmexten varchar(20) NOT NULL default '',
+	ADD cid_number varchar(40) NOT NULL default '',
+	ADD callingpres varchar(20) NOT NULL default '',
+	ADD usereqphone varchar(10) NOT NULL default '',
+	ADD incominglimit varchar(10) NOT NULL default '',
+	ADD subscribecontext varchar(40) NOT NULL default '',
+	ADD musicclass varchar(20) NOT NULL default '',
+	ADD mohsuggest varchar(20) NOT NULL default '',
+	ADD allowtransfer varchar(20) NOT NULL default '',
+	ADD autoframing varchar(10) NOT NULL default '', -- yes/no
+	ADD maxcallbitrate varchar(15) NOT NULL default '',
+	ADD outboundproxy varchar(40) NOT NULL default '',
+--  ADD regserver varchar(20) NOT NULL default '',
+	ADD rtpkeepalive varchar(15) NOT NULL default '';
+

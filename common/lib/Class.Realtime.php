@@ -39,23 +39,27 @@ class Realtime {
 	
 	private $FG_TABLE_SIP_NAME = "cc_sip_buddies";
 	private $FG_TABLE_IAX_NAME = "cc_iax_buddies";
-
-	private $FG_QUERY_ADITION_SIP_IAX;
-
-    private $FG_QUERY_ADITION_SIP_IAX_FIELDS;
-    
+	
+	private $FG_QUERY_ADITION_SIP;
+	
+	private $FG_QUERY_ADITION_IAX;
+	
     
     // Construct
 	public function __construct() {
         
 		$this -> DBHandler = DBConnect();
-		$this -> instance_table = new Table();	
+		$this -> instance_table = new Table();
 		
-		$this -> FG_QUERY_ADITION_SIP_IAX = 'name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, ' .
-				' allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout,' .
-				' rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
+		$this -> FG_QUERY_ADITION_SIP = 'name, accountcode, regexten, amaflags, callgroup, callerid, canreinvite, context, DEFAULTip, dtmfmode, fromuser, fromdomain, host, insecure, language, ' .
+				'mailbox, md5secret, nat, permit, deny, mask, pickupgroup, port, qualify, restrictcid, rtptimeout, rtpholdtimeout, secret, type, username, disallow, allow, musiconhold, regseconds, ' .
+				'ipaddr, cancallforward, fullcontact, setvar, lastms, regserver, defaultuser, auth, subscribemwi, vmexten, cid_number, callingpres, usereqphone, incominglimit, subscribecontext, ' .
+				'musicclass, mohsuggest, allowtransfer, autoframing, maxcallbitrate, outboundproxy, rtpkeepalive';
+
+		$this -> FG_QUERY_ADITION_IAX = 'name, accountcode, regexten, amaflags, callerid, context, DEFAULTip, host, language, mask, port, qualify, secret, username, disallow, allow, regseconds, ' .
+				'ipaddr, trunk, dbsecret, regcontext, sourceaddress, mohinterpret, mohsuggest, inkeys, outkey, cid_number, sendani, fullname, auth, maxauthreq, encryption, transfer, jitterbuffer, ' .
+				'forcejitterbuffer, codecpriority, qualifysmoothing, qualifyfreqok, qualifyfreqnotok, timezone, adsi, setvar, type, deny, permit';
 		
-		$this -> FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat, qualify";
 	}
 	
 	// create_iax_config
@@ -63,23 +67,28 @@ class Realtime {
 	public function create_trunk_config_file ($type = 'sip') {
 	    
 	    if (USE_REALTIME) {
-	        return false;
+	    //    return false;
 	    }
 	    
 	    if ($type == 'iax') {
 	        $buddyfile = BUDDY_IAX_FILE;
 	        $table_name = $this -> FG_TABLE_IAX_NAME;
+	        
+	        $this -> instance_table = new Table($table_name, 'id, ' . $this -> FG_QUERY_ADITION_IAX);
+			$list_friend = $this -> instance_table -> Get_list($this->DBHandler, '', null, null, null, null);
+			$list_names = explode(",",$this -> FG_QUERY_ADITION_IAX);
+			
         } else {
             $buddyfile = BUDDY_SIP_FILE;
             $table_name = $this -> FG_TABLE_SIP_NAME;
+            
+            $this -> instance_table = new Table($table_name, 'id, ' . $this -> FG_QUERY_ADITION_SIP);
+			$list_friend = $this -> instance_table -> Get_list($this->DBHandler, '', null, null, null, null);
+			$list_names = explode(",",$this -> FG_QUERY_ADITION_SIP);
+			
         }
-
-		$this -> instance_table = new Table($table_name, 'id, ' . $this -> FG_QUERY_ADITION_SIP_IAX);
-		$list_friend = $this -> instance_table -> Get_list($this->DBHandler, '', null, null, null, null);
 		
-		$list_names = explode(",",$this -> FG_QUERY_ADITION_SIP_IAX);
 		
-
 		if (is_array($list_friend)) {
 			$fd = fopen($buddyfile, "w");
 			if (!$fd) {
@@ -129,13 +138,9 @@ class Realtime {
 	    $FG_TABLE_SIP_NAME = "cc_sip_buddies";
 	    $FG_TABLE_IAX_NAME = "cc_iax_buddies";
 	
-	    $FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat, qualify";
-	    
 	    if ((isset ($sip)) || (isset ($iax))) {
-		    $instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
-		    $instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
-		    
-		    $type = FRIEND_TYPE;
+	    	
+	    	$type = FRIEND_TYPE;
 		    $allow = str_replace(' ', '', FRIEND_ALLOW);
 		    $context = FRIEND_CONTEXT;
 		    $nat = FRIEND_NAT;
@@ -166,9 +171,13 @@ class Realtime {
 	    
 	    // Insert data for sip_buddy
 		if (isset ($sip)) {
+			
+			$FG_QUERY_ADITION_SIP_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat, qualify";
+		    $instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_FIELDS);
+		    
 			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$accountnumber', '$accountnumber', '$accountnumber', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', ".
 			                                    "'$accountnumber', '$allow', '$passui_secret', '$id_card', '$nat', '$qualify'";
-			$result_query1 = $instance_sip_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
+			$result_query1 = $instance_sip_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_SIP_FIELDS, null, null, null);
 			if (USE_REALTIME) {
 				$_SESSION["is_sip_iax_change"] = 1;
 				$_SESSION["is_sip_changed"] = 1;
@@ -177,9 +186,13 @@ class Realtime {
 
 		// Insert data for iax_buddy
 		if (isset ($iax)) {
-			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$accountnumber', '$accountnumber', '$accountnumber', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', ".
-			                                   "'$accountnumber', '$allow', '$passui_secret', '$id_card', '$nat', '$qualify'";
-			$result_query2 = $instance_iax_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
+			
+			$FG_QUERY_ADITION_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, host, type, username, allow, secret, id_cc_card, qualify";
+		    $instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_IAX_FIELDS);
+		    
+			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$accountnumber', '$accountnumber', '$accountnumber', '$amaflags', '', '$context', '$host', '$type', ".
+			                                   "'$accountnumber', '$allow', '$passui_secret', '$id_card', '$qualify'";
+			$result_query2 = $instance_iax_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_IAX_FIELDS, null, null, null);
 			if (USE_REALTIME) {
 				$_SESSION["is_sip_iax_change"] = 1;
 				$_SESSION["is_iax_changed"] = 1;
