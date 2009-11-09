@@ -366,7 +366,7 @@ class SOAP_A2Billing
 		    return array(false, "CANNOT LOAD THE GROUP LIST");
 		}
 		
-		return array($result, 'Get_CustomerGroups SUCCESS');
+		return array(serialize($result), 'Get_CustomerGroups SUCCESS');
     }
 
 	
@@ -386,7 +386,7 @@ class SOAP_A2Billing
 		    return array(false, "CANNOT LOAD THE CURRENCY LIST");
 		}
 		
-		return array($result, 'Get_Currencies SUCCESS');
+		return array(serialize($result), 'Get_Currencies SUCCESS');
     }
 
 	/*
@@ -405,7 +405,7 @@ class SOAP_A2Billing
 		    return array(false, "CANNOT LOAD THE CURRENCY LIST");
 		}
 		
-		return array($result, 'Get_Countries SUCCESS');
+		return array(serialize($result), 'Get_Countries SUCCESS');
     }
     
     /*
@@ -465,7 +465,7 @@ class SOAP_A2Billing
 		
 		$language_list = Constants::getLanguagesRevertList();
 		
-		return array($language_list, 'Get_Languages SUCCESS');
+		return array(serialize($language_list), 'Get_Languages SUCCESS');
     }
 
 	
@@ -490,7 +490,8 @@ class SOAP_A2Billing
 		}
 		return array($inserted, "Create_DIDGroup SUCCESS");
     }
-
+	
+	
     /*
 	 *      Create provider associated with $instance
 	 */
@@ -578,7 +579,8 @@ class SOAP_A2Billing
 		
 		return array($id_callplan, "Create_Callplan SUCCESS");
     }
-
+	
+	
     /*
 	 *      Create a set of vouchers
 	 */
@@ -609,9 +611,10 @@ class SOAP_A2Billing
 		    }
 		}
 		
-		return array($arr_voucher, "Create_Voucher SUCCESS - ".$k." VOUCHERS CREATED");
+		return array(serialize($arr_voucher), "Create_Voucher SUCCESS - ".$k." VOUCHERS CREATED");
     }
-
+	
+	
     /*
 	 *      Create a set of accounts
 	 */
@@ -700,7 +703,7 @@ class SOAP_A2Billing
 	    $instance_realtime -> create_trunk_config_file ('iax');
 	    
 	    
-		return array($arr_account, "Create_Customer SUCCESS - ".$k." ACCOUNTS CREATED");
+		return array(serialize($arr_account), "Create_Customer SUCCESS - ".$k." ACCOUNTS CREATED");
     }
 
     /*
@@ -719,8 +722,7 @@ class SOAP_A2Billing
 		
 		$QUERY = "SELECT did FROM cc_did WHERE did LIKE \"$did_prefix%\"";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-		if (is_array($result))
-		{
+		if (is_array($result)) {
 			return array(false, "ERROR - INVALID DID PREFIX");
 		}
 		
@@ -774,7 +776,7 @@ class SOAP_A2Billing
 		    $arr_did[] = $did_to_create;
 		}
 		
-		return array($arr_did, "Create_DID SUCCESS - DIDs CREATION SUCCESSFUL (".$increment_did." DIDs created)");
+		return array(serialize($arr_did), "Create_DID SUCCESS - DIDs CREATION SUCCESSFUL (".$increment_did." DIDs created)");
 		
     }
     
@@ -816,7 +818,7 @@ class SOAP_A2Billing
             return array(false, "ERROR NO PROVISIONING LIST FOUND");
         }
         
-        return array($arr_provisioning, "Get_ProvisioningList SUCCESS");
+        return array(serialize($arr_provisioning), "Get_ProvisioningList SUCCESS");
         
     }
     
@@ -1004,7 +1006,7 @@ class SOAP_A2Billing
 	        }
         }
         
-        return array($arr_rates, "RATES RETURNED - SUCCESS");
+        return array(serialize($arr_rates), "RATES RETURNED - SUCCESS");
         
     }
     

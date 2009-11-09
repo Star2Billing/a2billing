@@ -50,6 +50,15 @@ $margin = 0.2;
 
 
 
+
+
+$method = 'Get_Languages';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key);
+print_r ($arr_result);
+exit;
+
 // BUILD TEST SUIT FOR CLASS SOAP FUNCTION
 
 
