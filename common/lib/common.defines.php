@@ -122,7 +122,7 @@ define ("TEXTCONTACT", gettext("This software has been created by Areski under A
 define ("EMAILCONTACT", "areski@gmail.com");
 
   
-define ("COPYRIGHT", "A2Billing - Version 1.4.2.1 (Radix) - Released : 02 October 2009, A2Billing is software licensed under the ".'<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>'.". <br/>" .
+define ("COPYRIGHT", "A2Billing - Version 1.4.3 (Sesame Street) - Released : 10 November 2009, A2Billing is software licensed under the ".'<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>'.". <br/>" .
 		"Copyright (C) 2004-2009 - Star2billing S.L. <a href=\"http://www.star2billing.com\" target=\"_blank\">http://www.star2billing.com/</a>");
 
 define ("CCMAINTITLE", gettext("A2Billing Portal"));
