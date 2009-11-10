@@ -117,7 +117,7 @@ class RateEngine
 		if (strlen($A2B->dnid)>=1) $mydnid = $A2B->dnid;
 		if (strlen($A2B->CallerID)>=1) $mycallerid = $A2B->CallerID;
 
-		if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: CALLERID]\n".$A2B->CallerID."\n",0);
+		if ($this->webui) $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine - CALLERID : ".$A2B->CallerID."]",0);
 
 		$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";
 

@@ -71,7 +71,7 @@ if($customer_info [14] != "1" ) {
 
 if ($callback) {
 	
-	if (strlen($called)>4 && strlen($calling)>4 && is_numeric($called) && is_numeric($calling)) {
+	if (strlen($called)>1 && strlen($calling)>1 && is_numeric($called) && is_numeric($calling)) {
 		
 		$A2B -> DBHandle = DbConnect();
 		$instance_table = new Table();

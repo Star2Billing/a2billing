@@ -622,7 +622,7 @@ if ($mode == 'standard') {
 	// END
 	if ($A2B->agiconfig['answer_call'] == 1) {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[HANGUP ALL CALLBACK TRIGGER]');
-		$agi->hangup();
+		$agi -> hangup();
 	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[ALL CALLBACK TRIGGER RINGING]');
 	}
@@ -631,7 +631,7 @@ if ($mode == 'standard') {
 	$A2B ->tariff = $A2B -> config["callback"]['all_callback_tariff'];
 
 	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)) {
-
+		
 		/* WE START ;) */
 		if ($cia_res==0) {
 
@@ -751,12 +751,12 @@ if ($mode == 'standard') {
 } elseif ($mode == 'callback') {
 
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[MODE : CALLBACK]');
-
+	
 
 	if ($A2B -> config["callback"]['answer_call']==1) {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
-		$agi->answer();
-		$status_channel=6;
+		$agi -> answer();
+		$status_channel = 6;
 
 		// PLAY INTRO FOR CALLBACK
 		if (strlen($A2B -> config["callback"]['callback_audio_intro']) > 0) {
@@ -765,7 +765,7 @@ if ($mode == 'standard') {
 
 	} else {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
-		$status_channel=4;
+		$status_channel = 4;
 	}
 
 	$called_party = $agi->get_variable("CALLED", true);
@@ -802,7 +802,7 @@ if ($mode == 'standard') {
 
 	$QUERY = "UPDATE cc_callback_spool SET agi_result='AGI PROCESSING' WHERE uniqueid='$callback_uniqueid'";
 	$res = $A2B -> DBHandle -> Execute($QUERY);
-	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : UPDATE CALLBACK AGI_RESULT : QUERY=$QUERY]");
+	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : UPDATE CALLBACK AGI_RESULT : QUERY=$QUERY]");
 
 
 	/* WE START ;) */
@@ -830,9 +830,9 @@ if ($mode == 'standard') {
 							"[status_channel=$status_channel]:[ORIG_CREDIT : ".$orig_credit." - CUR_CREDIT - : ".$A2B -> credit.
 							" - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 
-			if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)) {
-				break;
-			}
+			//if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)) {
+			//	break;
+			//}
 
 			if( !$A2B->enough_credit_to_call()) {
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
