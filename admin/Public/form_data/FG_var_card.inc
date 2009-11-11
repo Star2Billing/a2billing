@@ -964,8 +964,8 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 		$card_table = new Table('cc_card','sip_buddy,iax_buddy');
 		$card_clause = "id = ".$id;
 		$card_result = $card_table -> Get_list(DbConnect(), $card_clause, 0);
-		$sip_buddy= $card_result[0]['sip_buddy'];
-		$iax_buddy= $card_result[0]['iax_buddy'];
+		$sip_buddy = $card_result[0]['sip_buddy'];
+		$iax_buddy = $card_result[0]['iax_buddy'];
 		if(($sip_buddy == 1) && ($iax_buddy == 1)) 
 			$key = "sip_iax_changed";
 		elseif (($sip_buddy == 1) ) 

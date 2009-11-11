@@ -67,7 +67,7 @@ class Realtime {
 	public function create_trunk_config_file ($type = 'sip') {
 	    
 	    if (USE_REALTIME) {
-	    //    return false;
+	        return false;
 	    }
 	    
 	    if ($type == 'iax') {
@@ -177,7 +177,7 @@ class Realtime {
 		    
 			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$accountnumber', '$accountnumber', '$accountnumber', '$amaflags', '', '$context', '$dtmfmode','$host', '$type', ".
 			                                    "'$accountnumber', '$allow', '$passui_secret', '$id_card', '$nat', '$qualify'";
-			$result_query1 = $instance_sip_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_SIP_FIELDS, null, null, null);
+			$result_query1 = $instance_sip_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			if (USE_REALTIME) {
 				$_SESSION["is_sip_iax_change"] = 1;
 				$_SESSION["is_sip_changed"] = 1;
@@ -192,7 +192,7 @@ class Realtime {
 		    
 			$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$accountnumber', '$accountnumber', '$accountnumber', '$amaflags', '', '$context', '$host', '$type', ".
 			                                   "'$accountnumber', '$allow', '$passui_secret', '$id_card', '$qualify'";
-			$result_query2 = $instance_iax_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_IAX_FIELDS, null, null, null);
+			$result_query2 = $instance_iax_table->Add_table($this->DBHandler, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			if (USE_REALTIME) {
 				$_SESSION["is_sip_iax_change"] = 1;
 				$_SESSION["is_iax_changed"] = 1;
