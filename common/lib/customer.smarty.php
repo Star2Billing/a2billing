@@ -54,8 +54,6 @@ $smarty->assign("TEXTCONTACT", TEXTCONTACT);
 $smarty->assign("EMAILCONTACT", EMAILCONTACT);
 $smarty->assign("COPYRIGHT", COPYRIGHT);
 $smarty->assign("CCMAINTITLE", CCMAINTITLE);
-$smarty->assign("WEBUI_VERSION", WEBUI_VERSION);
-$smarty->assign("WEBUI_DATE", WEBUI_DATE);
 $smarty->assign("SIGNUPLINK", SIGNUP_LINK);
 
 $smarty->assign("ACXPASSWORD", $ACXPASSWORD);
