@@ -58,7 +58,8 @@ class Realtime {
 
 		$this -> FG_QUERY_ADITION_IAX = 'name, accountcode, regexten, amaflags, callerid, context, DEFAULTip, host, language, mask, port, qualify, secret, username, disallow, allow, regseconds, ' .
 				'ipaddr, trunk, dbsecret, regcontext, sourceaddress, mohinterpret, mohsuggest, inkeys, outkey, cid_number, sendani, fullname, auth, maxauthreq, encryption, transfer, jitterbuffer, ' .
-				'forcejitterbuffer, codecpriority, qualifysmoothing, qualifyfreqok, qualifyfreqnotok, timezone, adsi, setvar, type, deny, permit';
+				'forcejitterbuffer, codecpriority, qualifysmoothing, qualifyfreqok, qualifyfreqnotok, timezone, adsi, setvar, type, deny, permit, requirecalltoken, maxcallnumbers, ' .
+				'maxcallnumbers_nonvalidated';
 		
 	}
 	
@@ -67,7 +68,7 @@ class Realtime {
 	public function create_trunk_config_file ($type = 'sip') {
 	    
 	    if (USE_REALTIME) {
-	        return false;
+	        //return false;
 	    }
 	    
 	    if ($type == 'iax') {

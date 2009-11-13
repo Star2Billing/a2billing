@@ -776,6 +776,7 @@ if ($mode == 'standard') {
 	$callback_leg = $agi->get_variable("LEG", true);
 
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
+	$A2B-> destination = $calling_party;
 
 	if ($callback_mode=='CID') {
 		$charge_callback = 1;
@@ -816,7 +817,7 @@ if ($mode == 'standard') {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK]:[Start]");
 		$A2B -> callingcard_auto_setcallerid($agi);
 
-		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++) {
+		for ($i=0 ; $i < 1 ; $i++) {
 
 			$RateEngine->Reinit();
 			$A2B-> Reinit();

@@ -50,6 +50,15 @@ $callback = new SOAP_Client($endpoint);
 
 
 
+
+echo "<hr>#############   Get ProvisioningList   ############# <br/><hr/> <pre>";
+$method = 'Get_ProvisioningList';
+
+$params = array('security_key' => md5($security_key), 'provisioning_uri' => "http://www.call-labs.com/provisioning.txt");
+$ans = $callback -> call($method, $params);
+print_r(unserialize($ans[0]));
+
+
 echo "<hr>#############   GET LANGUAGE   ############# <br/><hr/> <pre>";
 $method = 'Get_Languages';
 

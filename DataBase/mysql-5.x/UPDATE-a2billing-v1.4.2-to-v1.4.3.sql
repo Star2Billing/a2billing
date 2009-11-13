@@ -108,6 +108,11 @@ ALTER TABLE cc_iax_buddies
 	ADD adsi varchar(10) NOT NULL default '', 
 	ADD setvar varchar(200) NOT NULL default '';
 
+-- Add IAX security settings / not support by realtime
+ALTER TABLE cc_iax_buddies 
+	ADD requirecalltoken varchar(20) NOT NULL default '',
+	ADD maxcallnumbers varchar(10) NOT NULL default '',
+	ADD maxcallnumbers_nonvalidated varchar(10) NOT NULL default '';
 
 
 -- SIP Friends update

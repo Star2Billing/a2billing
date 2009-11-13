@@ -371,9 +371,7 @@ $HD_Form -> AddEditElement (gettext("DENY"),
 
 
 
-
 if ($atmenu=='sip') {
-
 
 	
 	$HD_Form -> AddEditElement (gettext("USERNAME"),
@@ -911,6 +909,35 @@ if ($atmenu=='sip') {
 							   "",
 							   "" , "", "",	"", "", "",	"", "" );
 
+	
+	$HD_Form -> AddEditElement (gettext("REQUITE CALL TOKEN"),
+							   "requirecalltoken",		
+							   '',	
+							   "INPUT",	
+							   "size=15 maxlength=20",	
+							   "",	
+							   "",
+							   "" , "", "",	"", "", "",	"", gettext("No supported by Realtime") );
+							   
+	
+	$HD_Form -> AddEditElement (gettext("MAX CALL NUMBERS"),
+							   "maxcallnumbers",		
+							   '',	
+							   "INPUT",	
+							   "size=10 maxlength=10",	
+							   "",	
+							   "",
+							   "" , "", "",	"", "", "",	"", gettext("No supported by Realtime") );
+							   
+	
+	$HD_Form -> AddEditElement (gettext("MAX CALL NUMBERS NON VALIDATED"),
+							   "maxcallnumbers_nonvalidated",		
+							   '',	
+							   "INPUT",	
+							   "size=10 maxlength=10",	
+							   "",	
+							   "",
+							   "" , "", "",	"", "", "",	"", gettext("No supported by Realtime") );
 }
 
 
@@ -923,7 +950,7 @@ if ($atmenu=='sip') {
 			'autoframing, maxcallbitrate, outboundproxy, regserver, rtpkeepalive';
 } else {
 	$field_list_edit .= ', trunk, dbsecret , regcontext , sourceaddress , mohinterpret , mohsuggest , inkeys , outkey ,  sendani , fullname ,  maxauthreq , encryption , transfer , jitterbuffer , ' .
-			'forcejitterbuffer , codecpriority , qualifysmoothing , qualifyfreqok , qualifyfreqnotok , timezone , adsi';
+			'forcejitterbuffer , codecpriority , qualifysmoothing , qualifyfreqok , qualifyfreqnotok , timezone , adsi, requirecalltoken, maxcallnumbers, maxcallnumbers_nonvalidated';
 }
 
 
