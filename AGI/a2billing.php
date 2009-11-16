@@ -256,6 +256,8 @@ if ($mode == 'standard') {
 			} else {
 				$A2B->dnid = $agi->request['agi_extension'];
 			}
+			
+			$A2B->extension = $agi->request['agi_extension'];
 
 			if ($A2B->agiconfig['ivr_voucher']==1) {
 				$res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);

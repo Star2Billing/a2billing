@@ -129,6 +129,7 @@ class A2Billing {
 	var $uniqueid;
 	var $accountcode;
 	var $dnid;
+	var $extension;
 
 	// from apply_rules, if a prefix is removed we keep it to track exactly what the user introduce
 	
