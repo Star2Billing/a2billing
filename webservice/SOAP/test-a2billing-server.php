@@ -50,6 +50,13 @@ $callback = new SOAP_Client($endpoint);
 
 
 
+echo "<hr>#############   GET COUNTRIES   ############# <br/><hr/> <pre>";
+$method = 'Get_Countries';
+
+$params = array('security_key' => md5($security_key));
+$ans = $callback -> call($method, $params);
+print_r(unserialize($ans[0]));
+exit;
 
 echo "<hr>#############   Get ProvisioningList   ############# <br/><hr/> <pre>";
 $method = 'Get_ProvisioningList';
@@ -70,10 +77,4 @@ print_r(unserialize($ans[0]));
 
 exit;
 
-echo "<hr>#############   GET COUNTRIES   ############# <br/><hr/> <pre>";
-$method = 'Get_Countries';
-
-$params = array('security_key' => md5($security_key));
-$ans = $callback -> call($method, $params);
-print_r(unserialize($ans[0]));
 

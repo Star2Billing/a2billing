@@ -309,6 +309,8 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
         $id = $list_tariff_card[0][1];
     }
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." CARD FOUND IN DB ($id)");
+} else {
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR CUSTOMER INFO OR ORDERSTATUS ($orderStatus)\n".print_r($_POST, true)."\n");
 }
 
 if ($id > 0 ) {
