@@ -151,16 +151,14 @@ if ($A2B -> CC_TESTING) {
 	$accountcode = '2222222222';
 }
 
-// ??? $A2B->callingcard_auto_setcallerid($agi); for other modes
-
 
 if ($mode == 'standard') {
 
-	if ($A2B->agiconfig['answer_call']==1){
+	if ($A2B->agiconfig['answer_call']==1) {
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
 		$agi->answer();
 		$status_channel=6;
-	}else{
+	} else {
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
 		$status_channel=4;
 	}
@@ -210,7 +208,7 @@ if ($mode == 'standard') {
 
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
 				$vou_res = $A2B -> refill_card_with_voucher($agi,2);
-				if ($vou_res==1){
+				if ($vou_res==1) {
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ADDED CREDIT - refill_card_withvoucher Success] ");
 				} else {
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
@@ -226,9 +224,10 @@ if ($mode == 'standard') {
 				$agi-> stream_file($prompt, '#');
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[STOP STREAM FILE $prompt]");
 				
-				if (($A2B->agiconfig['notenoughcredit_cardnumber']==1) && (($i+1)< $A2B->agiconfig['number_try'])){
+				if (($A2B->agiconfig['notenoughcredit_cardnumber']==1) && (($i+1)< $A2B->agiconfig['number_try'])) {
 
-					if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
+					if ($A2B->set_inuse==1)
+						$A2B->callingcard_acct_start_inuse($agi,0);
 
 					$A2B->agiconfig['cid_enable']=0;
 					$A2B->agiconfig['use_dnid']=0;
@@ -245,41 +244,37 @@ if ($mode == 'standard') {
 					$A2B->callingcard_acct_start_inuse($agi,1);
 					continue;
 
-				}else{
-
+				} else {
 					$send_reminder = 1;
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[SET MAIL REMINDER - NOT ENOUGH CREDIT]");
 					break;
 				}
 			}
 			
-			if ($agi->request['agi_extension']=='s'){
+			if ($agi->request['agi_extension']=='s') {
 				$A2B->dnid = $agi->request['agi_dnid'];
-			}else{
+			} else {
 				$A2B->dnid = $agi->request['agi_extension'];
 			}
 
-			if ($A2B->agiconfig['ivr_voucher']==1){
+			if ($A2B->agiconfig['ivr_voucher']==1) {
 				$res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
 				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES REFILL CARD VOUCHER DTMF : ".$res_dtmf ["result"]);
 				$A2B-> ivr_voucher = $res_dtmf ["result"];
-				if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe']))
-				{
+				if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe'])) {
 					$vou_res = $A2B->refill_card_with_voucher($agi, $i);
-					//if ($vou_res==1)$A2B->fct_say_balance ($agi, $A2B->add_credit, 1);
 				}
 			}
-
+			
 			if ($A2B->agiconfig['sip_iax_friends']==1) {
 
-				if ($A2B->agiconfig['sip_iax_pstn_direct_call']==1){
-
-					if ($A2B->agiconfig['use_dnid']==1 && !in_array ($A2B->dnid, $A2B->agiconfig['no_auth_dnid']) && strlen($A2B->dnid)>2 && $i==0 ){
+				if ($A2B->agiconfig['sip_iax_pstn_direct_call']==1) {
+					
+					if ($A2B->agiconfig['use_dnid']==1 && !in_array ($A2B->dnid, $A2B->agiconfig['no_auth_dnid']) && strlen($A2B->dnid)>2 && $i==0 ) {
 
 						$A2B -> destination = $A2B->dnid;
 
 					} elseif ($i == 0) {
-
 						$prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
 						$res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
 						$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);
@@ -315,8 +310,10 @@ if ($mode == 'standard') {
 				$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine, $i);
 
 			} else {
-                                $ans=$A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i,true);
-                                $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, 'ANSWER fct callingcard_ivr authorize:> '.$ans);
+				
+				$ans=$A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i,true);
+				$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, 'ANSWER fct callingcard_ivr authorize:> '.$ans);
+				
 				if ($ans==1) {
 					// PERFORM THE CALL
 					$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
@@ -328,38 +325,32 @@ if ($mode == 'standard') {
 					// INSERT CDR  & UPDATE SYSTEM
 					$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination);
 
-					if ($A2B->agiconfig['say_balance_after_call']==1){
+					if ($A2B->agiconfig['say_balance_after_call']==1) {
 						$A2B-> fct_say_balance ($agi, $A2B-> credit);
 					}
 					$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[a2billing account stop]');
-				}else if($ans=="2DID"){
-                                    
+					
+				} else if($ans=="2DID") {
+					
+                    $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=".$A2B-> destination."]");
+					
+                    $QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias, connection_charge, selling_rate, did".
+                            " FROM cc_did, cc_did_destination,  cc_card ".
+                            " WHERE id_cc_did=cc_did.id  AND cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='".$A2B-> destination."' ".
+                            " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
+                    if ($A2B->config["database"]['dbtype'] == "mysql") {
+                        $QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
+                    }
+                    $QUERY .= ") ORDER BY priority ASC";
 
-                                    ///
-                                    $A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[ CALL OF THE SYSTEM - [DID=".$A2B-> destination."]");
+                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
+                    $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
 
-                                    $QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username, useralias, connection_charge, selling_rate, did".
-                                            " FROM cc_did, cc_did_destination,  cc_card ".
-                                            " WHERE id_cc_did=cc_did.id  AND cc_card.status=1 and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='".$A2B-> destination."' ".
-                                            " AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
-                                    if ($A2B->config["database"]['dbtype'] != "postgres"){
-                                            // MYSQL
-                                            $QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
-                                    }
-                                    $QUERY .= ") ORDER BY priority ASC";
-
-                                    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
-                                    $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
-                                   
-
-                                    if (is_array($result)){
-					    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NUMBER CARD BEFORE::> ".$A2B->username."]");
-                                            $A2B -> call_2did($agi, $RateEngine, $result);
-					    $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[NUMBER CARD AFTER::> ".$A2B->username."]");
-                                            if($A2B->set_inuse==1) $A2B -> callingcard_acct_start_inuse($agi,0);
-                                    }
-                                    //
-                                }
+                    if (is_array($result)) {
+						$A2B -> call_2did($agi, $RateEngine, $result);
+						if($A2B->set_inuse==1) $A2B -> callingcard_acct_start_inuse($agi,0);
+                    }
+            	}
 			}
 			$A2B->agiconfig['use_dnid']=0;
 		}//END FOR
@@ -373,14 +364,13 @@ if ($mode == 'standard') {
 
 
 // MODE DID
+
+} elseif ($mode == 'did') {
 	
-}elseif ($mode == 'did'){
-
-
-	if ($A2B->agiconfig['answer_call']==1){
+	if ($A2B->agiconfig['answer_call']==1) {
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
 		$agi->answer();
-	}else{
+	} else {
 		$A2B -> debug( INFO, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
 	}
 	// TODO
