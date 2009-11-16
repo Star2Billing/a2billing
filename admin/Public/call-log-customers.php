@@ -109,18 +109,18 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 $DBHandle = DbConnect ();
 
 $FG_TABLE_COL = array ();
-$FG_TABLE_COL [] = array (gettext ( "Calldate" ), "starttime", "10%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat" );
-$FG_TABLE_COL [] = array (gettext ( "Source" ), "src", "7%", "center", "SORT", "30" );
-$FG_TABLE_COL [] = array (gettext ( "Dnid" ), "dnid", "7%", "center", "SORT", "30" );
-$FG_TABLE_COL [] = array (gettext ( "CalledNumber" ), "calledstation", "10%", "center", "SORT", "30", "", "", "", "", "", "" );
+$FG_TABLE_COL [] = array (gettext ( "Date" ), "starttime", "10%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat" );
+$FG_TABLE_COL [] = array (gettext ( "CallerID" ), "src", "7%", "center", "SORT", "30" );
+$FG_TABLE_COL [] = array (gettext ( "DNID" ), "dnid", "7%", "center", "SORT", "30" );
+$FG_TABLE_COL [] = array (gettext ( "Phone Number" ), "calledstation", "10%", "center", "SORT", "30", "", "", "", "", "", "" );
 $FG_TABLE_COL [] = array (gettext ( "Destination" ), "dest","10%", "center", "SORT", "15", "lie", "cc_prefix", "destination,prefix", "prefix='%id'", "%1" );
 $FG_TABLE_COL [] = array (gettext ( "Buy Rate" ), "buyrate", "6%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Sell Rate" ), "rateinitial", "6%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Duration" ), "sessiontime", "5%", "center", "SORT", "30", "", "", "", "", "", "display_minute" );
-$FG_TABLE_COL [] = array (gettext ( "AccountUsed" ), "card_id", "6%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php" );
+$FG_TABLE_COL [] = array (gettext ( "Account" ), "card_id", "6%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php" );
 $FG_TABLE_COL [] = array (gettext ( "Trunk" ), "trunkcode", "6%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array ('<acronym title="' . gettext ( "Terminate Cause" ) . '">' . gettext ( "TC" ) . '</acronym>', "terminatecauseid", "7%", "center", "SORT", "", "list", $dialstatus_list );
-$FG_TABLE_COL [] = array (gettext ( "Calltype" ), "sipiax", "6%", "center", "SORT", "", "list", $list_calltype );
+$FG_TABLE_COL [] = array (gettext ( "CallType" ), "sipiax", "6%", "center", "SORT", "", "list", $list_calltype );
 $FG_TABLE_COL [] = array (gettext ( "Buy" ), "buycost", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Sell" ), "sessionbill", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2bill" );
 $FG_TABLE_COL [] = array (gettext ( "Margin" ), "margin", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec_percentage" );
@@ -598,7 +598,7 @@ $smarty->display ( 'main.tpl' );
 	</tr>
 	<tr>
 		<td class="bgcolor_002" align="left"><font class="fontstyle_003">&nbsp;&nbsp;<?php
-		echo gettext ( "CALLEDNUMBER" );
+		echo gettext ( "PHONENUMBER" );
 		?></font>
 		</td>
 		<td class="bgcolor_003" align="left">
@@ -649,7 +649,7 @@ $smarty->display ( 'main.tpl' );
 	</tr>
 	<tr>
 		<td align="left" class="bgcolor_004"><font class="fontstyle_003">&nbsp;&nbsp;<?php
-		echo gettext ( "SOURCE" );
+		echo gettext ( "CALLERID" );
 		?></font>
 		</td>
 		<td class="bgcolor_005" align="left">
