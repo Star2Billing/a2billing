@@ -150,23 +150,9 @@ if (isset ($form_action) && $form_action == "add") {
 	$loginkey = MDP_STRING(20);
 }
 
-$languages_db_list = get_db_languages();
+$language_list = Constants::getLanguagesList();
 
-foreach ($languages_db_list as $key => $cur_value) {
-	if (in_array('en', $cur_value)) {
-		$lang_list[$key] = array (
-			$cur_value[1],
-			$cur_value[0]
-		);
-	} else {
-		$lang_list[$key] = array (
-			$cur_value[1],
-			$cur_value[0]
-		);
-	}
-}
-
-$HD_Form->AddEditElement(gettext("LANGUAGE"), "language", "", "SELECT", "", "", "", "list", "", "", "", $lang_list, "%1", "", "");
+$HD_Form->AddEditElement(gettext("LANGUAGE"), "language", "", "SELECT", "", "", "", "list", "", "", "", $language_list, "%1", "", "");
 
 $HD_Form->AddEditElement("CURRENCY", "currency", "", "SELECT", "", "", "", "list", "", "", "", $currency_list, "%1", "", "");
 
@@ -195,7 +181,16 @@ $HD_Form->AddEditElement(gettext("CITY"), "city", '$value', "INPUT", "size=30 ma
 
 $HD_Form->AddEditElement(gettext("STATE/PROVINCE"), "state", '$value', "INPUT", "size=30 maxlength=40", "11", gettext("Insert your state"), "", "", "", "", "", "", "", "");
 
-$HD_Form->AddEditElement(gettext("COUNTRY"), "country", "", "SELECT", "", "", "", "sql", "cc_country", "countryname, countrycode", "", "", "%1", "", "", "", '');
+if ($form_action == 'ask-add') {
+	$country_default_val = 'USA';
+}
+$HD_Form->AddEditElement(gettext("COUNTRY"), 
+					"country", 
+					"$country_default_val", 
+					"SELECT", "", "", "", 
+					"sql", 
+					"cc_country", "countryname, countrycode", 
+					"", "", "%1", "", "", "", '');
 
 $HD_Form->AddEditElement(gettext("ZIP/POSTAL CODE"), "zipcode", '$value', "INPUT", "size=30 maxlength=20", "0", gettext("Insert your zipcode"), "", "", "", "", "", "", "", "");
 
