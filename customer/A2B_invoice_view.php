@@ -142,6 +142,7 @@ if(!$popup_select){
 <?php
 }
 ?>
+<P ALIGN="right"> <a href="javascript:window.print()"> <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"> <?php echo gettext("Print"); ?></a> &nbsp; &nbsp;</P>
 
 <div class="invoice-wrapper">
   <table class="invoice-table">
@@ -295,6 +296,3 @@ if(!$popup_select){
   </tfoot>
   </table></div>
 
-
-<?php
-$smarty->display('footer.tpl');

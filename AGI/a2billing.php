@@ -251,12 +251,7 @@ if ($mode == 'standard') {
 				}
 			}
 			
-			if ($agi->request['agi_extension']=='s') {
-				$A2B->dnid = $agi->request['agi_dnid'];
-			} else {
-				$A2B->dnid = $agi->request['agi_extension'];
-			}
-			
+			$A2B->dnid = $agi->request['agi_dnid'];
 			$A2B->extension = $agi->request['agi_extension'];
 
 			if ($A2B->agiconfig['ivr_voucher']==1) {

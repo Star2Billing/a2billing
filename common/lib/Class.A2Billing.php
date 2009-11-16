@@ -800,7 +800,11 @@ class A2Billing {
 
 		// CHECK IF USE_DNID IF NOT GET THE DESTINATION NUMBER
 		if ($this->agiconfig['use_dnid']==1 && !in_array ($this->dnid, $this->agiconfig['no_auth_dnid']) && strlen($this->dnid)>=1 && $try_num==0) {
-			$this->destination = $this->dnid;
+			if ($this->extension=='s') {
+				$this->destination = $this->dnid;
+			} else {
+				$this->destination = $this->extension;
+			}
 		} else {
 			$res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
