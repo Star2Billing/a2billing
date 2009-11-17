@@ -47,7 +47,9 @@ if (SHOW_HELP) {
 	$CC_help_webphone = create_help(gettext("From here, you can use the web based screen phone. You need microphone and speakers on your PC."));
 
 	$CC_help_balance_customer = create_help(gettext("All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."));
-
+	
+	$CC_help_support = create_help(gettext("On this page, you can open a support ticket and consult the status of your existing ticket."));
+	
 	$CC_help_card = create_help(gettext("Personal information.") . '<br>' . gettext("You can update your personal information here."));
 
 	$CC_help_notification = create_help(gettext("Notification settings.") . '<br>' . gettext("You can update your notification settings here."));

@@ -183,7 +183,7 @@ class RateEngine
 		// CHECK IF THERE IS OTHER RATE THAT 'DEFAULT', IF YES REMOVE THE DEFAULT RATES
 		// NOT NOT REMOVE SHIFT THEM TO THE END :P
 		$ind_stop_default = -1;
-		for ($i=0;$i<count($result);$i++) {
+		for ($i=0 ; $i<count($result) ; $i++) {
 			if ( $result[$i][7] != 'defaultprefix') {
 				$ind_stop_default = $i;
 				break;
@@ -191,8 +191,7 @@ class RateEngine
 		}
 		
 		// IMPORTANT TO CUT THE PART OF THE defaultprefix CAUSE WE WILL APPLY THE SORT ACCORDING TO THE RATE
-		// DEFAULPERFIX IS AN ESCAPE IN CASE OF NO RATE IS DEFINED, NOT BE COUNT WITH OTHER DURING THE
-		// SORT OF RATE
+		// DEFAULPERFIX IS AN ESCAPE IN CASE OF NO RATE IS DEFINED, NOT BE COUNT WITH OTHER DURING THE SORT OF RATE
 		if ($ind_stop_default>0) {
 			$result_defaultprefix = array_slice ($result, 0, $ind_stop_default);
 			$result = array_slice ($result, $ind_stop_default, count($result)-$ind_stop_default);

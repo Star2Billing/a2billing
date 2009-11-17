@@ -113,11 +113,14 @@ if (!isset ($form_action))
 	$form_action = "list"; //ask-add
 if (!isset ($action))
 	$action = $form_action;
+
 $list = $HD_Form->perform_action($form_action);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
+// #### HELP SECTION
+echo $CC_help_support;
 
 if ($form_action == "list") {
     $HD_Form -> create_toppage ("ask-add");
