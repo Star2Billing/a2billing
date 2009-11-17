@@ -792,7 +792,7 @@ class A2Billing {
 	function callingcard_ivr_authorize($agi, &$RateEngine, $try_num,$call2did=false)
 	{
 		$res=0;
-
+		
 		/************** 	ASK DESTINATION 	******************/
 		$prompt_enter_dest = $this->agiconfig['file_conf_enter_destination'];
 
@@ -1244,7 +1244,7 @@ class A2Billing {
 				if (strlen($inst_listdestination[4])==0) continue;
 
 				// IF VOIP CALL
-				if ($inst_listdestination[5]==1){
+				if ($inst_listdestination[5]==1) {
 
 					// RUN MIXMONITOR TO RECORD CALL
 					if ($this->agiconfig['record_call'] == 1) {
@@ -1347,8 +1347,8 @@ class A2Billing {
 					$this->agiconfig['use_dnid']=1;
 					$this->agiconfig['say_timetocall']=0;
 
-					$this->dnid = $this->destination = $inst_listdestination[4];
-					if ($this->CC_TESTING) $this->dnid = $this->destination="011324885";
+					$this->extension = $this->dnid = $this->destination = $inst_listdestination[4];
+					if ($this->CC_TESTING) $this->extension = $this->dnid = $this->destination="011324885";
 					
 					if ($this -> callingcard_ivr_authorize($agi, $RateEngine, 0)==1){
 						
@@ -1619,10 +1619,10 @@ class A2Billing {
                 $this->agiconfig['use_dnid']=1;
                 $this->agiconfig['say_timetocall']=0;
 
-                $this->dnid = $this->destination = $inst_listdestination[4];
-                if ($this->CC_TESTING) $this->dnid = $this->destination="011324885";
+                $this->extension = $this->dnid = $this->destination = $inst_listdestination[4];
+                if ($this->CC_TESTING) $this->extension = $this->dnid = $this->destination="011324885";
 
-
+				
                 if ($this -> callingcard_ivr_authorize($agi, $RateEngine, 0)==1){
 
                     // check the min to call

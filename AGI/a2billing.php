@@ -482,8 +482,8 @@ if ($mode == 'standard') {
 			$A2B -> agiconfig['say_timetocall']=0;
 
 			// We arent removing leading zero in front of the callerID if needed this might be done over the dialplan
-			$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
-
+			$A2B -> extension = $A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
+			
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[destination: - '.$A2B->destination.']');
 			
 			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
@@ -629,8 +629,8 @@ if ($mode == 'standard') {
 			$A2B ->agiconfig['use_dnid']=1;
 			$A2B ->agiconfig['say_timetocall']=0;
 			$A2B ->agiconfig['say_balance_after_auth']=0;
-			$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B -> CallerID;
-
+			$A2B -> extension = $A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B -> CallerID;
+			
 			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B -> destination, $A2B -> tariff);
 
 			// IF FIND RATE

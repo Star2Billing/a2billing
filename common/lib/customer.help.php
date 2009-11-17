@@ -60,7 +60,7 @@ if (SHOW_HELP) {
 
 	$CC_help_password_change = create_help(gettext("On this page you will be able to change your password, You have to enter the New Password and Confirm it."));
 
-	$CC_help_ratecard = create_help(gettext("View Ratecards"));
+	$CC_help_ratecard = create_help(gettext("View Rates"));
 
 	$CC_help_view_payment = create_help(gettext("Payment history - Record of payments made."));
 	
