@@ -52,6 +52,7 @@ $margin = 0.2;
 
 
 
+
 $method = 'Get_Languages';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
@@ -119,6 +120,13 @@ echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key);
 print_r ($arr_result);
+
+
+$method = 'Get_Currencies_value';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key, 'usd');
+print_r (unserialize($arr_result[0]));
 
 
 

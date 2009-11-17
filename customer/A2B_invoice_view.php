@@ -140,9 +140,12 @@ if(!$popup_select){
 <a href="javascript:;" onClick="MM_openBrWindow('<?php echo $PHP_SELF ?>?popup_select=1&id=<?php echo $id ?>','','scrollbars=yes,resizable=yes,width=700,height=500')" > <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"></a>
 &nbsp;&nbsp;
 <?php
-}
+} else {
 ?>
 <P ALIGN="right"> <a href="javascript:window.print()"> <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"> <?php echo gettext("Print"); ?></a> &nbsp; &nbsp;</P>
+<?php
+}
+?>
 
 <div class="invoice-wrapper">
   <table class="invoice-table">

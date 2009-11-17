@@ -142,10 +142,13 @@ if(!$popup_select) {
 	
 <?php
 	}	
+
+} else {
+?>
+<P ALIGN="right"> <a href="javascript:window.print()"> <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"> <?php echo gettext("Print"); ?></a> &nbsp; &nbsp;</P>
+<?php
 }
 ?>
-
-<P ALIGN="right"> <a href="javascript:window.print()"> <img src="./templates/default/images/printer.png" title="Print" alt="Print" border="0"> <?php echo gettext("Print"); ?></a> &nbsp; &nbsp;</P>
 
 
 <div class="invoice-wrapper">

@@ -72,6 +72,11 @@ class SOAP_A2Billing
                  array('in' => array('security_key' => 'string'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
+                       
+        $this->__dispatch_map['Get_Currencies_value'] =
+                 array('in' => array('security_key' => 'string', 'currency' => 'string'),
+                       'out' => array('result' => 'array', 'message' => 'string')
+                       );
 
         $this->__dispatch_map['Get_Countries'] =
                  array('in' => array('security_key' => 'string'),
@@ -389,6 +394,25 @@ class SOAP_A2Billing
 		return array(serialize($result), 'Get_Currencies SUCCESS');
     }
 
+	/*
+	 *      Get the value of a currency
+	 */
+    function Get_Currencies_value($security_key, $currency)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+		$QUERY = "SELECT value, basecurrency FROM cc_currencies WHERE currency='".strtoupper($currency)."'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result))
+		{
+		    return array(false, "CANNOT LOAD THE CURRENCY LIST");
+		}
+		
+		return array(serialize($result[0]), 'Get_Currencies_value SUCCESS');
+    }
+
+	
 	/*
 	 *      Get list of all countries ($country is the ISO-3166)
 	 */
