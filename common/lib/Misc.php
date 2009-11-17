@@ -1365,4 +1365,27 @@ function open_url($url)
 }
 
 
+/*
+ * function retrieve_rates_callplan
+ */
+function retrieve_rates_callplan($callplan_id, $DBHandle)
+{
+
+    $instance_table = new Table();
+    
+	// Check that there is not an existing Group with this name
+	$QUERY = "SELECT id FROM cc_card_group WHERE name='$instance'";
+	$result = $this->instance_table -> SQLExec ($DBHandle, $QUERY);
+	if (!is_array($result)) {
+	    return false;
+	}
+	
+	return $result;
+	
+}
+
+if (!$DBHandle) {
+	//$DBHandle = DbConnect();
+}
+
 

@@ -82,32 +82,9 @@ class Callback {
 			'out' => array ( 'uniqueid' => 'string', 'result' => 'string', 'details' => 'string' )
 		);
 		
-		$this->__dispatch_map['Test'] = array (
-			'in' => array ( 'security_key' => 'string' ),
-			'out' => array ( 'result' => 'array', 'message' => 'string')
-		);
-
 	}
 	
-	/*
-	 *		Test Function
-	 */
-	function Test($security_key)
-	{
-		write_log(LOG_CALLBACK, " TEST( security_key=$security_key)");
-		
-		$mysecurity_key = API_SECURITY_KEY;
-		
-		// CHECK SECURITY KEY
-		if (md5($mysecurity_key) !== $security_key || strlen($security_key) == 0) {
-			write_log(LOG_CALLBACK, basename(__FILE__) . ' line:' . __LINE__ . "[" . date("Y/m/d G:i:s", mktime()) . "] " . " CODE_ERROR SECURITY_KEY");
-			
-			return array ( false, 'WRONG SECURITY KEY' );
-		}
-		
-		return array(true, "SUCCESSFUL TEST");
-	}
-
+	
 	/*
 	 *		Function to make Callback : it will insert a callback request 
 	 */
@@ -131,6 +108,7 @@ class Callback {
 		
 		$status = $callback_data[0][0];
 		$uniqueid = $callback_data[0][1];
+		
 		return array ( $uniqueid, 'result=' . $status, " - Callback request found $QUERY" );
 	}
 
@@ -228,15 +206,14 @@ class Callback {
 		}
 
 		$RateEngine = new RateEngine();
-		// $RateEngine -> webui = 0;
+		
+		$A2B -> extension = $A2B -> dnid = $A2B -> destination = $called;
+		
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-
-		$A2B ->dnid = $A2B ->destination = $called;
-
 		$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $A2B->tariff);
 
-		// IF FIND RATE
 		if ($resfindrate != 0) {
+			
 			//$RateEngine -> debug_st = 1;
 			$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 
