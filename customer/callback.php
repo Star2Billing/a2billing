@@ -84,10 +84,10 @@ if ($callback) {
 			$RateEngine -> webui = 0;
 			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 			
-			$A2B ->agiconfig['accountcode']=$_SESSION["pr_login"];
-			$A2B ->agiconfig['use_dnid']=1;
-			$A2B ->agiconfig['say_timetocall']=0;						
-			$A2B ->dnid = $A2B ->destination = $called;
+			$A2B -> agiconfig['accountcode']=$_SESSION["pr_login"];
+			$A2B -> agiconfig['use_dnid']=1;
+			$A2B -> agiconfig['say_timetocall']=0;						
+			$A2B -> extension = $A2B -> dnid = $A2B -> destination = $called;
 			
 			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called, $_SESSION["tariff"]);
 			

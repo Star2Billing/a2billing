@@ -52,6 +52,8 @@ define ("ACX_DELETE_CUSTOMER",			256);
 define ("ACX_GENERATE_CUSTOMER",		512);
 define ("ACX_SIGNUP",					1024);
 define ("ACX_VOIPCONF",					2048);
+define ("ACX_SEE_CUSTOMERS_CALLERID",	4096);
+
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 
@@ -170,19 +172,19 @@ function has_rights ($condition) {
 	return ($_SESSION["rights"] & $condition);
 }
 
-$ACXACCESS 				= ($_SESSION["rights"] > 0) ? true : false;
-$ACXSIGNUP 				= has_rights (ACX_SIGNUP);
-$ACXCUSTOMER 			= has_rights (ACX_CUSTOMER);
-$ACXBILLING 			= has_rights (ACX_BILLING);
-$ACXRATECARD 			= has_rights (ACX_RATECARD);
-$ACXCALLREPORT			= has_rights (ACX_CALL_REPORT);
-$ACXMYACCOUNT  			= has_rights (ACX_MYACCOUNT);
-$ACXSUPPORT  			= has_rights (ACX_SUPPORT);
-$ACXCREATECUSTOMER  	= has_rights (ACX_CREATE_CUSTOMER);
-$ACXEDITCUSTOMER  		= has_rights (ACX_EDIT_CUSTOMER);
-$ACXDELETECUSTOMER  	= has_rights (ACX_DELETE_CUSTOMER);
-$ACXGENERATECUSTOMER  	= has_rights (ACX_GENERATE_CUSTOMER);
-$ACXVOIPCONF  			= has_rights (ACX_VOIPCONF);
-
+$ACXACCESS 					= ($_SESSION["rights"] > 0) ? true : false;
+$ACXSIGNUP 					= has_rights (ACX_SIGNUP);
+$ACXCUSTOMER 				= has_rights (ACX_CUSTOMER);
+$ACXBILLING 				= has_rights (ACX_BILLING);
+$ACXRATECARD 				= has_rights (ACX_RATECARD);
+$ACXCALLREPORT				= has_rights (ACX_CALL_REPORT);
+$ACXMYACCOUNT  				= has_rights (ACX_MYACCOUNT);
+$ACXSUPPORT  				= has_rights (ACX_SUPPORT);
+$ACXCREATECUSTOMER  		= has_rights (ACX_CREATE_CUSTOMER);
+$ACXEDITCUSTOMER  			= has_rights (ACX_EDIT_CUSTOMER);
+$ACXDELETECUSTOMER  		= has_rights (ACX_DELETE_CUSTOMER);
+$ACXGENERATECUSTOMER  		= has_rights (ACX_GENERATE_CUSTOMER);
+$ACXVOIPCONF  				= has_rights (ACX_VOIPCONF);
+$ACXSEE_CUSTOMERS_CALLERID	= has_rights (ACX_SEE_CUSTOMERS_CALLERID);
 
 

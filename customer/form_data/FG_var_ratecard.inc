@@ -36,16 +36,36 @@
 getpost_ifset(array('destination', 'dialprefix', 'rateinitial','posted','tariffplan'));
 
 
-$HD_Form = new FormHandler("cc_ratecard, cc_tariffgroup_plan, cc_tariffplan, cc_prefix","Ratecard");
+//$HD_Form = new FormHandler("cc_ratecard, cc_tariffgroup_plan, cc_tariffplan, cc_prefix","Ratecard");
+
+
+$HD_Form = new FormHandler("cc_ratecard", "Rates");
+$HD_Form -> FG_TABLE_ID = 'cc_ratecard.id';
 
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "destination";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_VIEW_TABLE_WITDH = "65%";
-$HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
 
+$HD_Form -> FG_TOP_FILTER_VALUE2 = "211";
+
+$DISTINCT = " DISTINCT ";
+		
+$HD_Form -> FG_TABLE_NAME = "cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
+			"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
+			"LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id";
+
+$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup " .
+			"RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id  " .
+			"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) " .
+			"LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id ".
+			"WHERE cc_tariffgroup.id= '$HD_Form->FG_TOP_FILTER_VALUE2' AND cc_ratecard.dialprefix=c1.dialprefix)";
+
+
+/*
 if (isset($posted) && strlen(trim($tariffplan)) > 0) {
 	$idtariff = explode('-:-',$tariffplan);
 	$HD_Form->FG_TOP_FILTER_NAME = str_replace ("-:-","",$idtariff[1]);
@@ -56,15 +76,15 @@ if (isset($posted) && strlen(trim($tariffplan)) > 0) {
 } else {
 	$HD_Form -> FG_TOP_FILTER_NAME = 0;
 	$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND cc_tariffgroup_plan.idtariffplan=cc_ratecard.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND cc_prefix.prefix = cc_ratecard.destination";
-}
+}*/
 
 
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "40");
 $HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "5%", "center", "sort", "");
 $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
 
+$HD_Form -> FieldViewElement ($DISTINCT.'cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.rateinitial');
 
-$HD_Form -> FieldViewElement ('cc_prefix.destination, dialprefix, rateinitial',0);
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO RATECARD CREATED!");
@@ -72,8 +92,6 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-
-$HD_Form -> FG_SPLITABLE_FIELD = 'dialprefix';
 
 
 

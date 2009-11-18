@@ -233,3 +233,5 @@ if((stripos($URI, "Public/index.php") === FALSE) && isset($_SESSION["admin_id"])
 	$log = null;
 }
 
+
+

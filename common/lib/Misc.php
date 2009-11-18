@@ -676,7 +676,7 @@ function generate_unique_value($table, $len, $field)
  */
 function gen_card_with_alias($table = "cc_card", $api = 0, $length_cardnumber = LEN_CARDNUMBER, $DBHandle = null)
 {
-	if (!$DBHandle) {
+	if (!isset($DBHandle)) {
 		$DBHandle = DbConnect();
 	}
 
@@ -1370,22 +1370,23 @@ function open_url($url)
  */
 function retrieve_rates_callplan($callplan_id, $DBHandle)
 {
-
     $instance_table = new Table();
     
-	// Check that there is not an existing Group with this name
-	$QUERY = "SELECT id FROM cc_card_group WHERE name='$instance'";
-	$result = $this->instance_table -> SQLExec ($DBHandle, $QUERY);
+    $QUERY = "SELECT DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, " .
+    		"cc_ratecard.connectcharge, cc_ratecard.id_trunk , cc_ratecard.idtariffplan , cc_ratecard.id FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id " .
+    		"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id WHERE cc_tariffgroup.id= '$callplan_id' " .
+    		"AND cc_ratecard.rateinitial = (SELECT min(c1.rateinitial) FROM cc_tariffgroup RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id " .
+    		"INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) LEFT JOIN cc_ratecard AS c1 ON c1.idtariffplan=cc_tariffplan.id WHERE cc_tariffgroup.id= '$callplan_id' " .
+    		"AND cc_ratecard.dialprefix=c1.dialprefix) ORDER BY destination ASC";
+	
+	$result = $instance_table -> SQLExec ($DBHandle, $QUERY, 1, 3600); // cached for 1hour
+	
 	if (!is_array($result)) {
 	    return false;
 	}
 	
 	return $result;
 	
-}
-
-if (!$DBHandle) {
-	//$DBHandle = DbConnect();
 }
 
 

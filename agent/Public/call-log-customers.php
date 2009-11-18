@@ -111,7 +111,9 @@ $DBHandle = DbConnect ();
 
 $FG_TABLE_COL = array ();
 $FG_TABLE_COL [] = array (gettext ( "Date" ), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat" );
-$FG_TABLE_COL [] = array (gettext ( "CallerID" ), "src", "7%", "center", "SORT", "30" );
+if ( has_rights ( ACX_SEE_CUSTOMERS_CALLERID )) {
+	$FG_TABLE_COL [] = array (gettext ( "CallerID" ), "src", "7%", "center", "SORT", "30" );
+}
 $FG_TABLE_COL [] = array (gettext ( "DNID" ), "dnid", "7%", "center", "SORT", "30" );
 $FG_TABLE_COL [] = array (gettext ( "Phone Number" ), "calledstation", "13%", "center", "SORT", "30", "", "", "", "", "", "" );
 $FG_TABLE_COL [] = array (gettext ( "Destination" ), "dest","10%", "center", "SORT", "15", "lie", "cc_prefix", "destination,prefix", "prefix='%id'", "%1" );
@@ -126,8 +128,11 @@ if (LINK_AUDIO_FILE) {
 	$FG_TABLE_COL [] = array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile" );
 }
 
-// This Variable store the argument for the SQL query
-$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid ,t1.calledstation, t1.destination AS dest, t4.rateinitial, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
+if ( has_rights ( ACX_SEE_CUSTOMERS_CALLERID )) {
+	$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid, t1.calledstation, t1.destination AS dest, t4.rateinitial, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
+} else {
+	$FG_COL_QUERY = 't1.starttime, t1.src, t1.dnid, t1.destination AS dest, t4.rateinitial, t1.sessiontime, t1.card_id, t1.terminatecauseid, t1.sipiax, t1.sessionbill';
+}
 if (LINK_AUDIO_FILE) {
 	$FG_COL_QUERY .= ', t1.uniqueid';
 }
