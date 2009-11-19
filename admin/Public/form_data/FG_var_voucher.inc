@@ -121,7 +121,7 @@ $HD_Form -> FG_DELETION = true;
 $HD_Form -> FG_ADDITION = true;
 
 if ($form_action=="ask-add") {
-	$card_gen = gen_card($HD_Form->FG_TABLE_NAME, LEN_VOUCHER, voucher);
+	$card_gen = gen_card($HD_Form->FG_TABLE_NAME, LEN_VOUCHER, "voucher");
 	$maxi = "value='".$card_gen."'";
 }
 

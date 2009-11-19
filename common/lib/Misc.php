@@ -643,7 +643,7 @@ function MDP($chrs = LEN_CARDNUMBER)
  */
 function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field = "username")
 {
-	generate_unique_value ($table, $len, $field);
+	return generate_unique_value ($table, $len, $field);
 }
 
 /*
