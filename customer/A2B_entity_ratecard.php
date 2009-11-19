@@ -45,12 +45,12 @@ if (! has_rights (ACX_RATECARD)) {
 	die();
 }
 
-getpost_ifset(array('ratesort', 'posted_search'));
+getpost_ifset(array('letter', 'posted_search'));
 
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-if (strlen($ratesort)==1) $HD_Form -> FG_TABLE_CLAUSE .= " AND (SUBSTRING(cc_prefix.destination,1,1)='".strtolower($ratesort)."' OR SUBSTRING(cc_prefix.destination,1,1)='".$ratesort."')"; // sort by first letter
+if (strlen($letter)==1) $HD_Form -> FG_TABLE_CLAUSE .= " AND (SUBSTRING(destination,1,1)='".strtolower($letter)."' OR SUBSTRING(destination,1,1)='".$letter."')"; // sort by first letter
 
 $FG_LIMITE_DISPLAY=10;
 if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit=='ALL'))) {
@@ -85,47 +85,44 @@ if ($form_action == 'list') {
     echo $CC_help_ratecard.'';
 }
 
-$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";
-
-if ($form_action == "list" ) $HD_Form -> create_select_form_client($HD_Form -> FG_TABLE_CLAUSE);
-
-$HD_Form -> FG_TABLE_CLAUSE .= " cc_tariffgroup_plan.idtariffplan=cc_ratecard.idtariffplan   AND cc_ratecard.idtariffplan='".$_SESSION["mytariff_id"]."' AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";
+echo $_SESSION["mytariff"];
 
  // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
 ?>
+<br/>
 <center>
-    <table width="75%" border=0 cellspacing=1 cellpadding=3 bgcolor="#000033" align="center">
+    <table width="50%" border=0 cellspacing=1 cellpadding=3 bgcolor="#000033" align="center">
         <tr>
-       <td bgcolor="#000033" width="100%" valign="top" align="center" class="bb2">
-	   		  <a href="A2B_entity_ratecard.php?form_action=list&ratesort="><?php echo gettext("NONE")?></a>
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=A">A</a>
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=B">B</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=C">C</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=D">D</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=E">E</a>
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=F">F</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=G">G</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=H">H</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=I">I</a>
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=J">J</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=K">K</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=L">L</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=M">M</a>
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=N">N</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=O">O</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=P">P</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=Q">Q</a>
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=R">R</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=S">S</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=T">T</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=U">U</a>
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=V">V</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=W">W</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=X">X</a>         
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=Y">Y</a>
-              <a href="A2B_entity_ratecard.php?form_action=list&ratesort=Z">Z</a>         
+       <td bgcolor="#EEEEEE" width="100%" valign="top" align="center" class="bb2">
+	   		  <a href="A2B_entity_ratecard.php?form_action=list&letter="><?php echo gettext("NONE")?></a> -
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=A">A</a> - 
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=B">B</a> -          
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=C">C</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=D">D</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=E">E</a> - 
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=F">F</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=G">G</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=H">H</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=I">I</a> - 
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=J">J</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=K">K</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=L">L</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=M">M</a> - 
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=N">N</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=O">O</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=P">P</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=Q">Q</a> - 
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=R">R</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=S">S</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=T">T</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=U">U</a> - 
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=V">V</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=W">W</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=X">X</a> -       
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=Y">Y</a> - 
+              <a href="A2B_entity_ratecard.php?form_action=list&letter=Z">Z</a>      
        </td>
         </tr>
     </table>

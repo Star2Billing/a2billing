@@ -10,7 +10,7 @@ if (!function_exists("stripos")) {
 
 // ******************** END IF $topviewer *******************************
 
-getpost_ifset(array('stitle', 'ratesort', 'current_page', 'popup_select'));
+getpost_ifset(array('stitle', 'letter', 'current_page', 'popup_select'));
 
 $processed = $this->getProcessed();
 
@@ -180,7 +180,7 @@ function openURLFilter(theLINK)
 				 <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $this->FG_TABLE_COL[$i][2]?>" >
 						<strong>
 						<?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
-						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>">
+						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&letter=".$processed["letter"]."&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>">
 						<font color="#FFFFFF"><?php  } ?>
 						<?php echo $this->FG_TABLE_COL[$i][0]?>
 						<?php if ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="ASC"){?>
@@ -703,7 +703,7 @@ function openURLFilter(theLINK)
                 <TR>
                   <TD align="right" valign="bottom"><span class="viewhandler_span2">
 					<?php
-					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$processed['filterprefix']."&order=".$processed['order']."&sens=".$processed['sens']."&mydisplaylimit=".$processed['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
+					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$processed['filterprefix']."&order=".$processed['order']."&sens=".$processed['sens']."&mydisplaylimit=".$processed['mydisplaylimit']."&letter=".$processed["letter"].$this-> CV_FOLLOWPARAMETERS;
 					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$processed['letter'];
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;
 					?>
