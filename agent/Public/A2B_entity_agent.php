@@ -72,11 +72,10 @@ $HD_Form -> create_toppage ($form_action);
 if($message == "success") {
 	
 ?>
-<table width="50%" align="center">
-<tr height="100px">
-<td align="center"><?php echo gettext("Your personal information is updated successfully.")?></td>
-</tr>
-</table>
+<br/>
+<div class="block_centered" >
+<?php echo gettext("Your personal information is updated successfully.")?>
+</div>
 
 <?php
 } else {

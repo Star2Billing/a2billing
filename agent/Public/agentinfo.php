@@ -43,7 +43,9 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 
-$QUERY = "SELECT  credit, currency, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, id FROM cc_agent WHERE login = '".$_SESSION["pr_login"]."' AND passwd = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  credit, currency, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, id, com_balance FROM cc_agent WHERE login = '".$_SESSION["pr_login"]."' AND passwd = '".$_SESSION["pr_password"]."'";
+$table_remittance = $table_remittance = new Table("cc_remittance_request",'*');
+$remittance_clause = "id_agent = ".$_SESSION['agent_id']." AND status = 0";
 
 $DBHandle_max = DbConnect();
 $numrow = 0;
@@ -68,6 +70,16 @@ if (!isset($currencies_list[strtoupper($agent_info [1])][2]) || !is_numeric($cur
 $credit_cur = $agent_info[0] / $mycur;
 $credit_cur = round($credit_cur,3);
 
+$result_remittance = $table_remittance -> Get_list($DBHandle_max,$remittance_clause);
+if(is_array($result_remittance) && sizeof($result_remittance)>=1 ){
+	$remittance_in_progress=true;
+	$remittance_value = $result_remittance[0]['amount'];
+}else{
+	$remittance_in_progress=false;
+}
+$remittance_value_cur = $remittance_value/$mycur;
+$commision_bal_cur  =  $agent_info[13] / $mycur;
+$commision_bal_cur = round($commision_bal_cur,3);
 $smarty->display( 'main.tpl');
 ?>
 
@@ -103,31 +115,48 @@ $smarty->display( 'main.tpl');
 	</td>
 </tr>
 </table>
-
+	
 <br>
-<table style="width:70%;margin:0 auto;" align="center">
+<table style="width:90%;margin:0 auto;" align="center">
 <tr>
 	<td align="center">
 		<table width="80%" align="center" class="tablebackgroundcamel">
 		<tr>
-			<td><img src="<?php echo KICON_PATH ?>/gnome-finance.gif" class="kikipic"/></td>
+			<td rowspan="2"><img src="<?php echo KICON_PATH ?>/gnome-finance.gif" class="kikipic"/></td>
 			<td width="50%">
 			<br><font class="fontstyle_002"><?php echo gettext("AGENT ID");?> :</font><font class="fontstyle_007"> <?php echo $agent_info[12]; ?></font>
 			<br></br>
 			</td>
 			<td width="50%">
-			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$agent_info[1]; ?> </font>
-			<br></br>
+			<br/><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$agent_info[1]; ?> </font>
+			
 			</td>
-			<td valign="bottom" align="right"><img src="<?php echo KICON_PATH ?>/help_index.gif" class="kikipic"></td>
+			<td valign="bottom" align="right" rowspan="2"  ><img src="<?php echo KICON_PATH ?>/help_index.gif" class="kikipic"></td>
+		</tr>
+		<tr>
+			<td>
+				<?php  if($remittance_in_progress){?>
+					<font class="fontstyle_002"><?php echo gettext("REMITTANCE IN PROGRESS");?> :</font><font class="fontstyle_007"> <?php echo $remittance_value_cur.' '.$agent_info[1]; ?> </font>
+				<?php }else{?>
+					&nbsp;
+				<?php }?>
+			</td>
+			<td width="50%">
+				<font class="fontstyle_002"><?php echo gettext("COMMISSION ACCRUED");?> :</font><font class="fontstyle_007"> <?php echo $commision_bal_cur.' '.$agent_info[1]; ?> </font>
+			</td>
 		</tr>
 		</table>
 	</td>
 </tr>
 </table>
 
-
-<?php if ($A2B->config["epayment_method"]['enable']){ ?>
+<?php if ($A2B->config["webagentui"]['remittance_request'] && !$remittance_in_progress){ ?>
+<div style="width:70%;margin:0 auto;text-align:center;">
+	<a href="A2B_agent_remittance_req.php"><span class="form_input_button"><?php echo gettext("REMITTANCE REQUEST");?></span></a>
+</div>
+<?php 
+}
+if ($A2B->config["epayment_method"]['enable']){ ?>
 
 <br>
 
