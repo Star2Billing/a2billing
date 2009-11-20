@@ -106,7 +106,16 @@ function sendtolittle(direction){
 						 <?php }?> 
 						name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
                         <?php 
-				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="POPUPVALUE"){
+				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("LABEL"))
+				{								
+					if (isset ($this->FG_TABLE_EDITION[$i][15]) && strlen($this->FG_TABLE_EDITION[$i][15])>1){				
+						$list[0][$i] = call_user_func($this->FG_TABLE_EDITION[$i][15], $list[0][$i]);
+					}			
+			  ?>  
+                         <?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $processed[$this->FG_TABLE_ADITION[$i][1]];  }?>
+                        <?php 
+				}
+				elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])=="POPUPVALUE"){
 			?>
 				<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php
 					if($this->VALID_SQL_REG_EXP){ 

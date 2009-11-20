@@ -88,7 +88,9 @@ if (SHOW_HELP) {
 	$CC_help_money_situation = create_help(gettext("This screen shows refills and payments made against each account, along with the current credit on each account. The initial amount of credit applied to the account is not included. The amount owing is calculated by subtracting payments from refills"), 'MoneySituation');
 
 	$CC_help_view_commission_agent = create_help(gettext("Agents Commission history - The section below allows you to add commissions against an agent. Normally the commissions are generated automatically by the customer's payment."), 'ViewCommissions');
-
+	
+	$CC_help_view_remittance_agent = create_help(gettext("Agents Remittance request history - The section below allows you to confirm or refuse remittance request of an agent. The remittance reques are generated automatically by the agent."), 'ViewRemittance');
+	
 	$CC_help_view_payment = create_help(gettext("Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the account. Click on 'create associate refill' when you create a payment to top-up an account."), 'ViewPayments');
 
 	$CC_help_view_payment_agent = create_help(gettext("Agent Payment history - The section below allows you to add payments against an agent. Note that this does not change the balance on the account. Click on 'create associate refill' when you create  a payment to top-up an account."), 'ViewPayments');

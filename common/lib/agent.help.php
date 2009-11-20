@@ -64,6 +64,8 @@ if (SHOW_HELP) {
 	$CC_help_generate_signup = create_help(gettext("Generate a specific crypted URL and to configure signup with a customer group and call plan."));
 
 	$CC_help_password_change = create_help(gettext("On this page you will be able to change your password, You have to enter the New Password and Confirm it."));
+	
+	$CC_help_remittance_request = create_help(gettext("On this page you will be able to create a remittance Remittance Request according to the commission accrued on your account.If the commission accrued is higher than a predefined threshold then it will be possible to ask a transfer on your balance or by a funds transfer."));
 
 	$CC_help_secret_change = create_help(gettext("On this page you will be able to change your Secret used to crypt your generated signup URL, You have to enter the New Secret and Confirm it."));
 

@@ -56,6 +56,10 @@ $processed = $this->getProcessed();
 	?>
                  <INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $processed[$this->FG_TABLE_ADITION[$i][1]];?>">
 	<?php
+		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="LABEL"){
+	?>
+                <?php echo $this->FG_TABLE_ADITION[$i][4]?> 
+	<?php
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])=="POPUPVALUE"){
 	?>
 		<INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php		

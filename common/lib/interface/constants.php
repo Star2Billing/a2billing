@@ -388,6 +388,19 @@ class Constants
 		$refill_type_list["2"]  = array( gettext("EXTRA FEE"),"2");
 		return $refill_type_list;
 	}
+	public static function getRemittanceType_List(){
+		$remittance_type_list = array();
+		$remittance_type_list["0"]  = array( gettext("TO BALANCE"),"0");
+		$remittance_type_list["1"]  = array( gettext("TO BANK"),"1");
+		return $remittance_type_list;
+	}
+	public static function getRemittanceStatus_List(){
+		$remittance_type_list = array();
+		$remittance_type_list["0"]  = array( gettext("WAITING"),"0");
+		$remittance_type_list["1"]  = array( gettext("ACCEPTED"),"1");
+		$remittance_type_list["2"]  = array( gettext("REFUSED"),"2");
+		return $remittance_type_list;
+	}
 	
 	public static function getInvoiceDay_List(){
 		$invoiceday_list = array();
