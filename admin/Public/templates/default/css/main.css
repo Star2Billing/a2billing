@@ -30,6 +30,13 @@
 	float: left;
 }
 
+.block_centered{
+	width: 80% ;
+	margin-left: auto ;
+	margin-right: auto ;
+	text-align: center;
+}
+
 .msg_info , .msg_success , .msg_warning , .msg_error  {
     border: 1px solid;
     margin:10px 10px 10px 0px;

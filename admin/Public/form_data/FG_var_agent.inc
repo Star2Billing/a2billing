@@ -176,8 +176,10 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 	
 	if ($form_action =="ask-add" || $form_action=="add") {
 		$balance_access = "value = '0'";
+		$default_label_value = "0";
 	} else {
 		$balance_access = 'readonly';
+		//$default_label_value = "0";
 	}
 		   
 	$HD_Form -> AddEditElement (gettext("BALANCE"),
@@ -186,10 +188,18 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "INPUT",
 		   "size=30 maxlength=30 $balance_access",
 		   "12",
-		   gettext("Insert the number of credit"),
+		   gettext("amount of credit"),
 		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 		   
-	
+	$HD_Form -> AddEditElement (gettext("COMMISSION BALANCE"),
+		   "com_balance",
+		   "",
+		   "LABEL",
+		   "$default_label_value",
+		   "",
+		   gettext("amount of commission"),
+		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
+		
 	$HD_Form -> AddEditElement (gettext("CURRENCY"),
 		   "currency",
 		   "",
@@ -348,7 +358,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		
 	
 	
-	$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
+	$FG_QUERY_EDITION = 'login, passwd, perms, active, credit,com_balance, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
 	
 	$HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 	
