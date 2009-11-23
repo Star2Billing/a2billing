@@ -39,3 +39,39 @@ FROM cc_tariffgroup
 RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id 
 INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) 
 LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id;
+
+
+--new Agent commission module
+ALTER TABLE `cc_agent` ADD `com_balance` DECIMAL( 15, 5 ) NOT NULL;
+ALTER TABLE `cc_agent_commission` DROP `paid_status` ;
+ALTER TABLE `cc_agent_commission` ADD `commission_type` TINYINT NOT NULL ;
+ALTER TABLE `cc_agent_commission` ADD `commission_percent` DECIMAL( 10, 4 ) NOT NULL ;
+INSERT INTO `a2billing`.`cc_config` (
+	`id` ,
+	`config_title` ,
+	`config_key` ,
+	`config_value` ,
+	`config_description` ,
+	`config_valuetype` ,
+	`config_listvalues` ,
+	`config_group_title`
+) VALUES (	NULL , 'Authorize Remittance Request', 'remittance_request', '1', 'Enable or disable the link which allow agent to submit a remittance request', '0', 'yes,no', 'webagentui');
+
+ALTER TABLE `cc_agent` ADD `threshold_remittance` DECIMAL( 15, 5 ) NOT NULL ;
+ALTER TABLE `cc_agent` ADD `bank_info` MEDIUMTEXT NULL ;
+
+CREATE TABLE `a2billing`.`cc_remittance_request` (
+`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`id_agent` BIGINT NOT NULL ,
+`amount` DECIMAL( 15, 5 ) NOT NULL ,
+`type` TINYINT NOT NULL
+) ENGINE = MYISAM ;
+
+ALTER TABLE `cc_remittance_request` ADD `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+ADD `status` TINYINT NOT NULL ,
+ADD `description` MEDIUMTEXT NULL;
+
+ALTER TABLE `cc_remittance_request` ADD `status` TINYINT NOT NULL DEFAULT '0',
+ADD `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+ADD `description` MEDIUMTEXT CHARACTER SET utf8 COLLATE utf8_bin NULL;
+
