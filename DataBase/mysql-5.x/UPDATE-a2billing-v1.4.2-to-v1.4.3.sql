@@ -150,9 +150,3 @@ CREATE TABLE cc_version (
 INSERT INTO cc_version (version) VALUES ('1.4.3');
 
 UPDATE cc_version SET version = '1.4.3';
-
-
-
-
-
-

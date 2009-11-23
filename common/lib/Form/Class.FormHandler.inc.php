@@ -1899,27 +1899,23 @@ class FormHandler
 		$id = $this -> RESULT_QUERY;
 		$type_com =  $processed['commission_type'];
 		if (!empty($id_agent)) {
-			if($type_com==0){
-				//update record with agent commission
-				$table_agent = new Table('cc_agent','commission');
-				$agent_clause = "id = ".$id_agent;
-				$agent_result = $table_agent -> Get_list($this->DBHandle, $agent_clause, 0);
-				$agent_com = $agent_result[0][0];
-				if (empty($agent_com) ) {
-					$table_commission = new Table("cc_agent_commission");
-					$param_update_commission = "commission_percent = $agent_com";
-					$clause_update_commission = " id='".$id."'";
-					$table_commission -> Update_table ($this->DBHandle, $param_update_commission, $clause_update_commission, $func_table = null);
-				}
-				$amount = $processed['amount'];
-				if ($amount>0) {
-					if($amount>0)$sign="+";
-					else $sign="-";
-					$param_update_agent = "com_balance = com_balance $sign '".abs($amount)."'";
-					$clause_update_agent = " id='".$id_agent."'";
-					$table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
-				}
+			//update record with agent commission
+			$table_agent = new Table('cc_agent','commission');
+			$agent_clause = "id = ".$id_agent;
+			$agent_result = $table_agent -> Get_list($this->DBHandle, $agent_clause, 0);
+			$agent_com = $agent_result[0][0];
+			if (empty($agent_com) ) {
+				$table_commission = new Table("cc_agent_commission");
+				$param_update_commission = "commission_percent = $agent_com";
+				$clause_update_commission = " id='".$id."'";
+				$table_commission -> Update_table ($this->DBHandle, $param_update_commission, $clause_update_commission, $func_table = null);
 			}
+			$amount = $processed['amount'];
+			if($amount>0)$sign="+";
+			else $sign="-";
+			$param_update_agent = "com_balance = com_balance $sign '".abs($amount)."'";
+			$clause_update_agent = " id='".$id_agent."'";
+			$table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 		}
 	}
 	function processing_card_add()

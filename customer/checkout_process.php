@@ -372,19 +372,24 @@ if ($id > 0 ) {
 			$agent_table = new Table("cc_agent", "commission");
 			$agent_clause = "id = ".$id_agent;
 			$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
-			
 			if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
-				$field_insert = "id_payment, id_card, amount,description,id_agent";
+				$field_insert = "id_payment, id_card, amount,description,id_agent,commission_percent,commission_type";
 				$commission = ceil(($amount_without_vat * ($result_agent[0]['commission'])/100)*100)/100;
+				$commission_percent = $result_agent[0]['commission'];
 				$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
 				$description_commission.= "\nID CARD : ".$id;
 				$description_commission.= "\nID PAYMENT : ".$id_payment;
 				$description_commission.= "\nPAYMENT AMOUNT: ".$amount_without_vat;
-				$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
-				$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent'";
+				$description_commission.= "\nCOMMISSION APPLIED: ".$commission_percent;
+				$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent','$commission_percent','0'";
 				$commission_table = new Table("cc_agent_commission", $field_insert);
 				$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
+				$table_agent = new Table('cc_agent','commission');
+				$param_update_agent = "com_balance = com_balance + '".$commission."'";
+				$clause_update_agent = " id='".$id_agent."'";
+				$table_agent -> Update_table ($DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 			}
+			
 		}
 	} else {
 		if($item_id>0) {
