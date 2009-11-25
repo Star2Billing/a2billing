@@ -402,7 +402,20 @@ class Constants
 		$remittance_type_list["3"]  = array( gettext("CANCELLED"),"3");
 		return $remittance_type_list;
 	}
-	
+	public static function getRemittanceType_Revert_List(){
+		$remittance_type_list = array();
+		$remittance_type_list["0"]  = array( "0",gettext("TO BALANCE"));
+		$remittance_type_list["1"]  = array( "1",gettext("TO BANK"));
+		return $remittance_type_list;
+	}
+	public static function getRemittanceStatus_Revert_List(){
+		$remittance_type_list = array();
+		$remittance_type_list["0"]  = array( "0", gettext("WAITING"));
+		$remittance_type_list["1"]  = array( "1", gettext("ACCEPTED"));
+		$remittance_type_list["2"]  = array( "2", gettext("REFUSED"));
+		$remittance_type_list["3"]  = array( "3", gettext("CANCELLED"));
+		return $remittance_type_list;
+	}
 	public static function getInvoiceDay_List(){
 		$invoiceday_list = array();
 		for ($k=1;$k<=28;$k++)
