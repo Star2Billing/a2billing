@@ -28,6 +28,7 @@
 		<li><ul>
 				<li><a href="agentinfo.php?section=0">{php} echo gettext("Account information");{/php}</a></li>
 				<li><a href="A2B_entity_password.php?stitle=Password&section=0">{php} echo gettext("Password");{/php}</a></li>
+				<li><a href="A2B_entity_remittance_request.php?stitle=Password&section=0">{php} echo gettext("Historic Remittance");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>

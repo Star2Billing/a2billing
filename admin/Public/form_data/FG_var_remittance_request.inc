@@ -32,7 +32,7 @@
 **/
 
 
-getpost_ifset(array('id', 'card_id', 'date', 'payment','description','added_refill','refill_type'));
+getpost_ifset(array('id','id_agent','date', 'amount,type', 'status'));
 
 $HD_Form = new FormHandler("cc_remittance_request","Remittance Request Agent");
 

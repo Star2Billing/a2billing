@@ -399,6 +399,7 @@ class Constants
 		$remittance_type_list["0"]  = array( gettext("WAITING"),"0");
 		$remittance_type_list["1"]  = array( gettext("ACCEPTED"),"1");
 		$remittance_type_list["2"]  = array( gettext("REFUSED"),"2");
+		$remittance_type_list["3"]  = array( gettext("CANCELLED"),"3");
 		return $remittance_type_list;
 	}
 	
