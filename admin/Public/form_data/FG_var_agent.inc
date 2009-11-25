@@ -214,7 +214,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "size=20 maxlength=20",
 		   "21",
 		   gettext("Insert the commision"),
-		   "" , "", "",	"", "", "", "NO-NULL", gettext("Commission"));
+		   "" , "", "",	"", "", "", "NO-NULL", gettext("Commission in percent"));
 	
 	$HD_Form -> AddEditElement (gettext("VAT"),
 		   "vat",
