@@ -34,7 +34,11 @@
 
 getpost_ifset(array('id','id_agent','date', 'amount,type', 'status'));
 
-$HD_Form = new FormHandler("cc_remittance_request","Remittance Request Agent");
+if (!isset($form_action) || $form_action=="list") {
+	$HD_Form = new FormHandler("cc_remittance_request LEFT JOIN cc_agent ON cc_agent.id=id_agent","Remittance Request Agent");
+} else {
+	$HD_Form = new FormHandler("cc_remittance_request","Remittance Request Agent");
+}
 
 $HD_Form -> FG_TABLE_ID = 'cc_remittance_request.id';
 
@@ -58,6 +62,8 @@ $HD_Form -> FG_OTHER_BUTTON2_ALT = gettext("REFUSE THIS REQUEST");
 
 $status_list = Constants::getRemittanceStatus_List();
 $type_list = Constants::getRemittanceType_List();
+$status_revert_list = Constants::getRemittanceStatus_Revert_List();
+$type_revert_list = Constants::getRemittanceType_Revert_List();
 $HD_Form -> AddViewElement(gettext("ID"), "cc_agent_commission.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("AGENT"), "id_agent", "15%", "center", "sort", "", "30", "", "", "", "", "linktoagent");
 $HD_Form -> AddViewElement(gettext("DATE"), "date", "15%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
@@ -66,6 +72,20 @@ $HD_Form -> AddViewElement(gettext("TYPE"),"type", "10%", "center", "sort", "", 
 $HD_Form -> AddViewElement(gettext("STATUS"),"status", "10%", "center", "sort", "", "list", $status_list);
 
 $HD_Form -> FieldViewElement ('cc_remittance_request.id, id_agent, date, amount,type, status ');
+
+$HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'remittance_agent_selection';
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for remittances requests created.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('DATE');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'date';
+$HD_Form -> FG_FILTER_SEARCH_DELETE_ALL =false;
+$HD_Form -> AddSearchElement_C1(gettext("LOGIN"), 'login','logintype');
+$HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
+$HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
+$HD_Form -> AddSearchElement_Select(gettext("SELECT REQUEST TYPE"), null, null, null, null, null, "type", 0, $type_revert_list);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT REQUEST STATUS"), null, null, null, null, null, "status", 0, $status_revert_list);
+
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO REMITTANCE REQUEST CREATED!"); 
