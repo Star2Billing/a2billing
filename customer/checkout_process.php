@@ -234,6 +234,8 @@ switch($transaction_data[0][4])
 if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])) $VAT =0;
 else $VAT = $transaction_data[0]['vat'];
 
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr amount $currAmount");
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr $currCurrency ".BASE_CURRENCY);
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 $amount_without_vat = $amount_paid / (1+$VAT/100);
 
@@ -384,10 +386,12 @@ if ($id > 0 ) {
 				$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent','$commission_percent','0'";
 				$commission_table = new Table("cc_agent_commission", $field_insert);
 				$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
-				$table_agent = new Table('cc_agent','commission');
+				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_agent_commission : $field_insert - VALUES $value_insert");
+				$table_agent = new Table('cc_agent');
 				$param_update_agent = "com_balance = com_balance + '".$commission."'";
 				$clause_update_agent = " id='".$id_agent."'";
 				$table_agent -> Update_table ($DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
+				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_agent : $param_update_agent - CLAUSE : $clause_update_agent");
 			}
 			
 		}
