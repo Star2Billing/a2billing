@@ -220,7 +220,5 @@ foreach ($comments as $comment) {
 	</table> 
 <?php
 }
-sleep (2);
-echo mt_end(0);
 $smarty->display('footer.tpl');
 
