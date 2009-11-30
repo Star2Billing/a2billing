@@ -46,6 +46,7 @@ include_once (dirname(__FILE__)."/Class.A2Billing.php");
 require_once ('adodb/adodb.inc.php'); // AdoDB
 include_once (dirname(__FILE__)."/Class.Table.php");
 include_once (dirname(__FILE__)."/Class.Connection.php");
+include_once (dirname(__FILE__)."/Class.Realtime.php");
 
 // USE PHPMAILER
 include_once (FSROOT."lib/mail/class.phpmailer.php");
