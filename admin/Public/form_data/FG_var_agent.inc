@@ -190,16 +190,17 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "12",
 		   gettext("amount of credit"),
 		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-		   
-	$HD_Form -> AddEditElement (gettext("COMMISSION BALANCE"),
-		   "com_balance",
-		   "",
-		   "LABEL",
-		   "$default_label_value",
-		   "",
-		   gettext("amount of commission"),
-		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
-		
+
+	if($form_action!="edit"){	   
+		$HD_Form -> AddEditElement (gettext("COMMISSION BALANCE"),
+			   "com_balance",
+			   "",
+			   "LABEL",
+			   "$default_label_value",
+			   "",
+			   gettext("amount of commission"),
+			   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
+	}	
 	$HD_Form -> AddEditElement (gettext("CURRENCY"),
 		   "currency",
 		   "",
@@ -356,14 +357,14 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 	}
 	
 		
-	
-	
-	$FG_QUERY_EDITION = 'login, passwd, perms, active, credit,com_balance, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
-	
-	$HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
+	if($form_action!="edit"){
+        $FG_QUERY_EDITION = 'login, passwd, perms, active, credit,com_balance, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
+	}else{
+		$FG_QUERY_EDITION = 'login, passwd, perms, active, credit, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
+	}
+    $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 	
 	$HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
-	
 	
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'creation_agent_refill';
 	
