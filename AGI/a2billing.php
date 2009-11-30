@@ -526,12 +526,12 @@ if ($mode == 'standard') {
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 
 					if ($pos_dialingnumber !== false){
-						   $dialstr = "$tech/$ipaddress".$dialparams;
+						   $dialstr = "$tech/$ipaddress";
 					}else{
 						if ($A2B->agiconfig['switchdialcommand'] == 1){
-							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
+							$dialstr = "$tech/$prefix$destination@$ipaddress";
 						}else{
-							$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
+							$dialstr = "$tech/$ipaddress/$prefix$destination";
 						}
 					}
 
@@ -667,12 +667,12 @@ if ($mode == 'standard') {
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 
 					if ($pos_dialingnumber !== false) {
-						   $dialstr = "$tech/$ipaddress".$dialparams;
+						   $dialstr = "$tech/$ipaddress";
 					} else {
 						if ($A2B->agiconfig['switchdialcommand'] == 1) {
-							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
+							$dialstr = "$tech/$prefix$destination@$ipaddress";
 						} else {
-							$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
+							$dialstr = "$tech/$ipaddress/$prefix$destination";
 						}
 					}
 
@@ -737,9 +737,10 @@ if ($mode == 'standard') {
 // MODE CALLBACK
 } elseif ($mode == 'callback') {
 
+	$callback_been_connected = 0;
+	
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[MODE : CALLBACK]');
 	
-
 	if ($A2B -> config["callback"]['answer_call']==1) {
 		$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
 		$agi -> answer();

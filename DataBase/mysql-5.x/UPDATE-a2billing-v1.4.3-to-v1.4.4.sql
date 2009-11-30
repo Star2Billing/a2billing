@@ -41,7 +41,7 @@ INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan )
 LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id;
 
 
---new Agent commission module
+-- New Agent commission module
 ALTER TABLE `cc_agent` ADD `com_balance` DECIMAL( 15, 5 ) NOT NULL;
 ALTER TABLE `cc_agent_commission` DROP `paid_status` ;
 ALTER TABLE `cc_agent_commission` ADD `commission_type` TINYINT NOT NULL ;
