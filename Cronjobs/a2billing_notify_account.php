@@ -37,7 +37,7 @@
  *            a2billing_notify_account.php
  *
  *  20 May 2008
- *  Purpose: To check account of each Users and send an email if the balance is less than the user have choice.
+ *  Purpose: To check account of each Users and send an email if the balance is less than the user have choosed.
  *  you can run this cront every hour
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
