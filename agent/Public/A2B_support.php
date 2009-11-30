@@ -57,7 +57,7 @@ if (strlen($description)>0  && is_numeric($priority) && strlen($title)>0  && is_
 		$ticket_table = new Table('cc_ticket', $fields);
 		$values = "'".$_SESSION["agent_id"]."',1, '".$title."', '".$description."', '".$component."', '".$priority ."' ,'0'";
 		$id_ticket = $ticket_table ->Add_table($HD_Form -> DBHandle, $values, null, null, "id");
-		NotificationsDAO::AddNotification("ticket_added_agent",Notification::$MEDIUM,Notification::$AGENT,$_SESSION['agent_id']);
+		NotificationsDAO::AddNotification("ticket_added_agent",Notification::$MEDIUM,Notification::$AGENT,$_SESSION['agent_id'],Notification::$LINK_TICKET_AGENT,$id_ticket);
 		$table_agent =new Table("cc_agent", "firstname,lastname,language,email");
 		$agent_clause = "id = ".$_SESSION["agent_id"];
 		$result=$table_agent ->Get_list($HD_Form -> DBHandle, $agent_clause);

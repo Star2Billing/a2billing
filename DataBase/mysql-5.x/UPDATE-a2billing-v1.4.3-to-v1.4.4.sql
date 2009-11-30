@@ -63,3 +63,6 @@ CREATE TABLE cc_remittance_request (
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
+--notifiction link to the record
+ALTER TABLE `cc_notification` ADD `link_id` BIGINT NULL ,
+ADD `link_type` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_bin NULL;

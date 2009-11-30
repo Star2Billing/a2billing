@@ -44,6 +44,11 @@ Class Notification {
 	static public $MEDIUM = 1;
 	static public $HIGH = 2;
 	
+	static public $LINK_NONE = "none";
+	static public $LINK_TICKET_CUST = "ticket_cust";
+	static public $LINK_TICKET_AGENT = "ticket_agent";
+	static public $LINK_REMITTANCE = "remittance";
+	
 	private $id;
 	private $date;
 	private $key;
@@ -51,8 +56,10 @@ Class Notification {
 	private $from_type;
 	private $from_id;
 	private $new;
+	private $link_type;
+	private $link_id;
 	
-	function __construct($id,$date,$key,$priority,$from_type,$from_id,$new){
+	function __construct($id,$date,$key,$priority,$from_type,$from_id,$link_id=null,$link_type=null,$new ){
 		$this->id = $id;
 		$this->date = $date;
 		$this->priority = $priority;
@@ -60,6 +67,8 @@ Class Notification {
 		$this->from_id = $from_id;
 		$this->key = $key;
 		$this->new = $new;
+		$this->link_id = $link_id;
+		$this->link_type = $link_type;
 	}
 	
 	static public function getAllKey(){
@@ -67,7 +76,8 @@ Class Notification {
 					  "sip_changed" 		=> gettext("New SIP added : Sip Friends conf have to be generated"),
 					  "iax_changed"			=> gettext("New IAX added : IAX Friends conf have to be generated"),
 					  "ticket_added_agent" 	=> gettext("New Ticket added by agent"),
-					  "ticket_added_cust" 	=> gettext("New Ticket added by customer"));
+					  "ticket_added_cust" 	=> gettext("New Ticket added by customer"),
+                      "remittance_added_agent"	=> gettext("New Remittance request added"));
 	}
 	function getId() {
 		return $this->id;
@@ -102,6 +112,14 @@ Class Notification {
 		return $this->from_type;
 	}
 	
+	function getLinkType() {
+		return $this->link_type;
+	}
+	
+	function getLinkId() {
+		return $this->link_id;
+	}
+	
 	function getFromDisplay() {
 		$display = "";
 		switch($this->from_type){
@@ -133,6 +151,21 @@ Class Notification {
 		$keys=Notification::getAllKey();
 		if(array_key_exists($this->key,$keys)) return $keys[$this->key];
 		else return $this->key;
+	}
+	
+	function getUrl(){
+		$link = "";
+		if(!empty($this->link_id) && !empty($this->link_type) && $this->link_type != Notification::$LINK_NONE ){
+			switch ($this->link_type) {
+				case Notification::$LINK_REMITTANCE:$link .= "xxx?id="; ;
+				break;
+				case Notification::$LINK_TICKET_CUST:
+				case Notification::$LINK_TICKET_AGENT:$link .= "CC_ticket_view.php?id=";
+                break;
+			}
+			$link .= $this->link_id;
+		}
+		return $link;
 	}
   	  	
 }

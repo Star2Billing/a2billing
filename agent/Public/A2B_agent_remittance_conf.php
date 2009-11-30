@@ -113,9 +113,7 @@ if(!$remittance_in_progress){
 		$id= $table_remittance -> Add_table($DBHandle_max,$values,$fields,"cc_remittance_request","id");
 		if(is_numeric($id) && $id>0) $insert= true;
 		else $insert = false;
-		if($insert){
-			$commision_bal_cur = $commision_bal_cur - $amount_rounded;
-		}
+		NotificationsDAO :: AddNotification("remittance_added_agent", Notification :: $MEDIUM, Notification :: $AGENT, $_SESSION['agent_id'],Notification::$LINK_REMITTANCE,$id);
 	}
 }
 ?>
