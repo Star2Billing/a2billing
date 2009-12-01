@@ -154,9 +154,9 @@ function openURLFilter(theLINK)
 				<INPUT type="text" name="filterprefix2" value="" class="form_input_text">
 				<INPUT type="hidden" name="filterfield2"	value="<?php echo $this->FG_FILTERFIELD2?>">
 				<?php
-				if ($this -> FG_FILTERTYPE2 == 'INPUT'){
+				if ($this -> FG_FILTERTYPE2 == 'INPUT') {
 					// IT S OK
-				}elseif ($this -> FG_FILTERTYPE2 == 'POPUPVALUE'){
+				} elseif ($this -> FG_FILTERTYPE2 == 'POPUPVALUE') {
 				?>
 					<a href="#" onclick="window.open('<?php echo $this->FG_FILTERPOPUP2[0]?>popup_formname=theFormFilter&popup_fieldname=filterprefix2' <?php echo $this->FG_FILTERPOPUP2[1]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 				<?php
@@ -171,7 +171,6 @@ function openURLFilter(theLINK)
 
         <TR>
           <TD>
-
 			<TABLE border="0" cellPadding="2" cellSpacing="2" width="100%">
 				<TR class="form_head">
 				<?php
@@ -180,7 +179,7 @@ function openURLFilter(theLINK)
 				 <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $this->FG_TABLE_COL[$i][2]?>" >
 						<strong>
 						<?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
-						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&letter=".$processed["letter"]."&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>">
+						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&letter=".$processed["letter"]."&popup_select=".$processed["popup_select"]."&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>">
 						<font color="#FFFFFF"><?php  } ?>
 						<?php echo $this->FG_TABLE_COL[$i][0]?>
 						<?php if ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="ASC"){?>
@@ -205,7 +204,7 @@ function openURLFilter(theLINK)
 				<TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onmouseover="bgColor='#FFDEA6'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'">
 		  		<?php
 				$k=0;
-				for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){
+				for($i=0;$i<$this->FG_NB_TABLE_COL;$i++) {
 					/**********************   select the mode to browse define the column value : lie, list, value, eval.... ************************/
 					if ($this->FG_TABLE_COL[$i][6]=="lie"){
 						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
@@ -219,11 +218,12 @@ function openURLFilter(theLINK)
 							$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);
 						}
 
-					}elseif($this->FG_TABLE_COL[$i][6]=="lie_link"){
+					} elseif($this->FG_TABLE_COL[$i][6]=="lie_link") {
 						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
 						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
-						if(is_array($select_list)){
+						
+						if(is_array($select_list)) {
 							$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 							$record_display = $this->FG_TABLE_COL[$i][10];
 							$link = $this->FG_TABLE_COL[$i][12];
@@ -234,11 +234,10 @@ function openURLFilter(theLINK)
 								$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
 								$record_display = "<a href='$link'>$val</a>";
 							}
-						}else{
+						} else {
 							$record_display="";
 						}
-					}
-					elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
+					} elseif ($this->FG_TABLE_COL[$i][6]=="eval") {
 						$string_to_eval = $this->FG_TABLE_COL[$i][7]; // %4-%3
 						for ($ll=15;$ll>=0;$ll--){
 							if ($list[$ligne_number][$ll]=='') $list[$ligne_number][$ll]=0;
@@ -246,44 +245,35 @@ function openURLFilter(theLINK)
 						}
 						eval("\$eval_res = $string_to_eval;");
 						$record_display = $eval_res;
-						//$record_display = "\$eval_res = $string_to_eval";
-
-					}elseif ($this->FG_TABLE_COL[$i][6]=="list"){
+						
+					} elseif ($this->FG_TABLE_COL[$i][6]=="list") {
 						$select_list = $this->FG_TABLE_COL[$i][7];
 						$record_display = $select_list[$list[$ligne_number][$i-$k]][0];
-					}elseif ($this->FG_TABLE_COL[$i][6]=="list-conf"){
+						
+					} elseif ($this->FG_TABLE_COL[$i][6]=="list-conf") {
 						$select_list = $this->FG_TABLE_COL[$i][7];
 						$key_config =  $list[$ligne_number][$i-$k + 3];
 						$record_display = $select_list[$key_config][0];
-						//print_r ($select_list);
-					}elseif ($this->FG_TABLE_COL[$i][6]=="value"){
+						
+					} elseif ($this->FG_TABLE_COL[$i][6]=="value") {
 						$record_display = $this->FG_TABLE_COL[$i][7];
 						$k++;
-					}else{
+						
+					} else {
 						$record_display = $list[$ligne_number][$i-$k];
 					}
 
 					/**********************   IF LENGHT OF THE VALUE IS TOO LONG IT MIGHT BE CUT ************************/
 					if ( is_numeric($this->FG_TABLE_COL[$i][5]) && (strlen($record_display) > $this->FG_TABLE_COL[$i][5])  ){
 						$record_display = substr($record_display, 0, $this->FG_TABLE_COL[$i][5])."";
-					}
-					/*
-
-					if (isset ($this -> FG_TABLE_COL[$i][10]) && strlen($this -> FG_TABLE_COL[$i][10])>1){
-						call_user_func($this -> FG_TABLE_COL[$i][10], $record_display);
-					}else{
-						echo stripslashes($record_display);
-					}
-					*/
-	 ?>
-
+					} ?>
 					<TD vAlign="top" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" class="tableBody"><?php
 						$origlist[$ligne_number][$i-$k] = $list[$ligne_number][$i-$k];
 						$list[$ligne_number][$i-$k] = $record_display;
 
-						if (isset ($this->FG_TABLE_COL[$i][11]) && strlen($this->FG_TABLE_COL[$i][11])>1){
+						if (isset ($this->FG_TABLE_COL[$i][11]) && strlen($this->FG_TABLE_COL[$i][11])>1) {
 							print call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
-						}else{
+						} else {
 							echo stripslashes($record_display);
 						}
 						?>
@@ -301,15 +291,15 @@ function openURLFilter(theLINK)
 							$check_eval=false;	
 					  		if (!empty($this->FG_EDITION_CONDITION) && (eregi ('col[0-9]', $this->FG_EDITION_CONDITION))) {
 					  			$check =false;
-									for ($h=count($list[$ligne_number]);$h>=0;$h--){
-										$findme = "|col$h|";
-										$pos = stripos($condition_eval, $findme);
-										if ($pos !== false) {
-											$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
-										}
+								for ($h=count($list[$ligne_number]);$h>=0;$h--){
+									$findme = "|col$h|";
+									$pos = stripos($condition_eval, $findme);
+									if ($pos !== false) {
+										$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
 									}
-									eval('$check_eval = '.$condition_eval.';');	
 								}
+								eval('$check_eval = '.$condition_eval.';');	
+							}
 					  		if($check || $check_eval){
 							
 							?>&nbsp; <a href="<?php echo $this->FG_EDITION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>"><img src="<?php echo Images_Path_Main;?>/<?php echo $this->FG_EDITION_IMG?>" border="0" title="<?php echo $this->FG_EDIT_ALT?>" alt="<?php echo $this->FG_EDIT_ALT?>"></a>
@@ -321,17 +311,16 @@ function openURLFilter(theLINK)
 							$check_eval=false;	
 					  		if (!empty($this->FG_DELETION_CONDITION) && (eregi ('col[0-9]', $this->FG_DELETION_CONDITION))) {
 					  			$check =false;
-									for ($h=count($list[$ligne_number]);$h>=0;$h--){
-										$findme = "|col$h|";
-										$pos = stripos($condition_eval, $findme);
-										if ($pos !== false) {
-											$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
-										}
+								for ($h=count($list[$ligne_number]);$h>=0;$h--){
+									$findme = "|col$h|";
+									$pos = stripos($condition_eval, $findme);
+									if ($pos !== false) {
+										$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
 									}
-								eval('$check_eval = '.$condition_eval.';');	
 								}
-					  		if($check || $check_eval){
-                        	
+								eval('$check_eval = '.$condition_eval.';');	
+							}
+					  		if ($check || $check_eval) {
                         	
                         	?>&nbsp;  <a href="<?php echo $this->FG_DELETION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>"><img src="<?php echo Images_Path_Main;?>/<?php echo $this->FG_DELETION_IMG?>" border="0" title="<?php echo $this->FG_DELETE_ALT?>" alt="<?php echo $this->FG_DELETE_ALT?>"></a>
                         	<?php }
@@ -343,16 +332,16 @@ function openURLFilter(theLINK)
 							$check_eval=false;	
 					  		if (!empty($this->FG_OTHER_BUTTON1_CONDITION) && (eregi ('col[0-9]', $this->FG_OTHER_BUTTON1_CONDITION))) {
 					  			$check =false;
-									for ($h=count($list[$ligne_number]);$h>=0;$h--){
-										$findme = "|col$h|";
-										$pos = stripos($condition_eval, $findme);
-										if ($pos !== false) {
-											$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
-										}
+								for ($h=count($list[$ligne_number]);$h>=0;$h--){
+									$findme = "|col$h|";
+									$pos = stripos($condition_eval, $findme);
+									if ($pos !== false) {
+										$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
 									}
-								eval('$check_eval = '.$condition_eval.';');	
 								}
-					  		if($check || $check_eval){
+								eval('$check_eval = '.$condition_eval.';');	
+							}
+					  		if ($check || $check_eval) {
 					  		?>
 							<a href="<?php
 								$new_FG_OTHER_BUTTON1_LINK = $this -> FG_OTHER_BUTTON1_LINK;
@@ -367,7 +356,7 @@ function openURLFilter(theLINK)
 
 								// REPLACE |colX|  where is a numero of the column by the column value
 								if ((eregi ('col[0-9]', $new_FG_OTHER_BUTTON1_LINK))) {
-									for ($h=count($list[$ligne_number]);$h>=0;$h--){
+									for ($h=count($list[$ligne_number]);$h>=0;$h--) {
 										$findme = "|col$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON1_LINK, $findme);
 										if ($pos !== false) {
@@ -378,7 +367,7 @@ function openURLFilter(theLINK)
 
 								// REPLACE |col_origX|  where is a numero of the column by the column value
 								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON1_LINK)) {
-									for ($h=count($list[$ligne_number]);$h>=0;$h--){
+									for ($h=count($list[$ligne_number]);$h>=0;$h--) {
 										$findme = "|col_orig$h|";
 										$pos = stripos($new_FG_OTHER_BUTTON1_LINK, $findme);
 										if ($pos !== false) {
@@ -389,11 +378,11 @@ function openURLFilter(theLINK)
 
 								echo $new_FG_OTHER_BUTTON1_LINK;
 								
-								$extra_html="";
+								$extra_html = "";
 								
-								if(!empty($this->FG_OTHER_BUTTON1_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON1_HTML_ID))){
+								if (!empty($this->FG_OTHER_BUTTON1_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON1_HTML_ID))) {
 									$temp_id =$this->FG_OTHER_BUTTON1_HTML_ID;
-									for ($h=count($list[$ligne_number]);$h>=0;$h--){
+									for ($h=count($list[$ligne_number]);$h>=0;$h--) {
 										$findme = "|col$h|";
 										$pos = stripos($temp_id, $findme);
 										if ($pos !== false) {
@@ -401,20 +390,16 @@ function openURLFilter(theLINK)
 										}
 									}
 									$extra_html.=' id="'.$temp_id.'"';
-									
 								}
 								
-					  			if(!empty($this->FG_OTHER_BUTTON1_HTML_CLASS) ){
+					  			if (!empty($this->FG_OTHER_BUTTON1_HTML_CLASS)) {
 									$extra_html.= ' class="'.$this->FG_OTHER_BUTTON1_HTML_CLASS.'" ';
 								}
 								
-					  			
-								
 								if (substr($new_FG_OTHER_BUTTON1_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
-								if (strlen($this -> FG_OTHER_BUTTON1_IMG)==0){
+								if (strlen($this -> FG_OTHER_BUTTON1_IMG)==0) {
 									echo '"'.$extra_html.'> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON1_ALT.'</span>';
-									// onclick="location.href='http://www.google.com'"
-								}else{
+								} else {
 									?>"<?php echo $extra_html ?>><img src="<?php echo $this -> FG_OTHER_BUTTON1_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON1_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON1_ALT?>"><?php
 								}
 								?></a>
@@ -703,7 +688,7 @@ function openURLFilter(theLINK)
                 <TR>
                   <TD align="right" valign="bottom"><span class="viewhandler_span2">
 					<?php
-					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$processed['filterprefix']."&order=".$processed['order']."&sens=".$processed['sens']."&mydisplaylimit=".$processed['mydisplaylimit']."&letter=".$processed["letter"].$this-> CV_FOLLOWPARAMETERS;
+					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$processed['filterprefix']."&order=".$processed['order']."&sens=".$processed['sens']."&mydisplaylimit=".$processed['mydisplaylimit']."&popup_select=".$processed["popup_select"]."&letter=".$processed["letter"].$this-> CV_FOLLOWPARAMETERS;
 					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$processed['letter'];
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;
 					?>

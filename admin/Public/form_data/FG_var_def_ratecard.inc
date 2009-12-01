@@ -123,7 +123,7 @@ if (!$popup_select) {
 $musiconhold_list = Constants::getMusicOnHold_List();
 $yesno = Constants::getYesNoList();
 
-
+// 
 if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "15", "lie", "cc_prefix", "destination", "prefix='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "10%", "center", "sort", "");
