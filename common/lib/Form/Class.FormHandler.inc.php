@@ -881,7 +881,9 @@ class FormHandler
 	function AddEditElement($displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message, $type_selectfield,
 		$lie_tablename, $lie_tablefield, $lie_clause, $listname, $displayformat_selectfield, $check_emptyvalue , $comment, $custom_query = null,
 		$displayinput_defaultselect = null, $comment_above = null, $field_enabled = true){
-		
+		if( strtoupper($fieldtype)=="LABEL" && (strtoupper($_GET['form_action']) == "edit" ||strtoupper($_POST['form_action'])) ){
+		 return;
+		}
 		if($field_enabled==true)
 		{		
 			$cur = count($this->FG_TABLE_EDITION);
@@ -2516,11 +2518,9 @@ class FormHandler
 					foreach ($processed[$fields_name] as $value){
 						$total_mult_select += $value;
 					}
-					
 					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$total_mult_select;
 					if ($i>0) $param_update .= ", ";				
 					$param_update .= "$fields_name = '".addslashes(trim($total_mult_select))."'";
-					
 				} else {
 					
 					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ) {
