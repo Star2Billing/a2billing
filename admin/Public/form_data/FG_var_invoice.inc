@@ -78,7 +78,7 @@ $HD_Form -> FG_OTHER_BUTTON3 = true;
 $HD_Form -> FG_OTHER_BUTTON3_CONDITION = '|col6| == "'.gettext('CLOSE').'"';
 $HD_Form -> FG_OTHER_BUTTON3_ALT = gettext("Manage payments");
 $HD_Form -> FG_EDITION_CONDITION = '|col6| == "'.gettext('OPEN').'"';
-
+$HD_Form -> FG_DELETION_CONDITION = '|col6| == "'.gettext('OPEN').'"';
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_invoice.php?form_action=ask-add&section=".$_SESSION["menu_section"];
 $HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add Invoice");
