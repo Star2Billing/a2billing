@@ -58,14 +58,13 @@ CREATE TABLE cc_remittance_request (
 	amount DECIMAL( 15, 5 ) NOT NULL ,
 	type TINYINT NOT NULL,
 	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-	status TINYINT NOT NULL DEFAULT '0',
-	description MEDIUMTEXT NULL
+	status TINYINT NOT NULL DEFAULT '0'
 ) ENGINE = MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
---notifiction link to the record
-ALTER TABLE `cc_notification` ADD `link_id` BIGINT NULL ,
-ADD `link_type` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_bin NULL;
+-- notifiction link to the record
+ALTER TABLE cc_notification ADD link_id BIGINT NULL ,
+ADD link_type VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_bin NULL;
 
---correct database schema
-ALTER TABLE `cc_remittance_request` DROP `description`;
+
+
