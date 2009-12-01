@@ -223,11 +223,10 @@ if (!is_array($arr_purchase_amount)) {
 			</form>
 		</td>
 	</tr>
-	<tr>
-		<td>
-		    &nbsp;
-		</td>
-	</tr>
+</table>
+
+<br/>
+<table style="width:80%;margin:0 auto;" cellspacing="0"  align="center" >
 	<?php
 	if($A2B->config['epayment_method']['paypal_subscription_enabled']==1){
 	    $vat= $_SESSION['vat'];
@@ -265,7 +264,6 @@ if (!is_array($arr_purchase_amount)) {
 	</tr>
 
 	<?php
-	   
 	    $desc = gettext("Automated refill")." ".$A2B->config['epayment_method']['paypal_subscription_amount']." ".strtoupper(BASE_CURRENCY);
 	    if($vat>0)$desc .= " + ".(($vat/100)*$amount_subscribe)." ".strtoupper(BASE_CURRENCY)." of ".gettext("VAT");
 	    $amount_subscribe = $amount_subscribe +(($vat/100)*$amount_subscribe);
@@ -273,11 +271,7 @@ if (!is_array($arr_purchase_amount)) {
 	    $link= tep_href_link("A2B_recurring_payment.php?id=".$_SESSION["card_id"]."&key=".$key, '', 'SSL');
 	    $link_return= tep_href_link("userinfo.php?subscribe=true", '', 'SSL');
 	    $link_cancel= tep_href_link("userinfo.php?subscribe=false", '', 'SSL');
-	    // TO use sand box in local... use
-	    //$link= "http://[PUBLIC IP ADDRESS]/customer/A2B_recurring_payment.php?id=".$_SESSION["card_id"]."&key=".$key;
-	    // $link_return= "http://[PUBLIC IP ADDRESS]/customer/userinfo.php?subscribe=true";
-	    //$link_cancel= "http://[PUBLIC IP ADDRESS]/customer/userinfo.php?subscribe=false";
-	    ?>
+	?>
 	
 	<tr>
 		<td align="center" colspan="2" class="tableBodyRight" >
@@ -298,7 +292,6 @@ if (!is_array($arr_purchase_amount)) {
 		    <input type="hidden" name="sra" value="1">
 		    <input type="submit" class="form_input_button" value="<?php echo gettext("SUBSCRIPTION");?>">
 		    </form>
-
 		</td>
 	</tr>
 
