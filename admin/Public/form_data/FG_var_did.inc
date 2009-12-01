@@ -62,11 +62,11 @@ $HD_Form -> AddViewElement(gettext("BILLING"), "billingtype", "10%", "center", "
 $HD_Form -> AddViewElement(gettext("START DATE"), "startingdate", "14%", "center", "sort", "19", "", "", "", "",  "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DIDGROUP"), "id_cc_didgroup", "12%", "center", "sort", "15", "lie", "cc_didgroup", "didgroupname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "12%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("ACTIVATED")."\">".gettext("ACT")."</acronym>"), "activated", "5%", "center", "sort", "", "list", $actived_list);
-$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("MINUTES USED")."\">".gettext("MU")."</acronym>"), "secondusedreal", "5%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("RESERVED")."\">".gettext("RES")."</acronym>"), "reserved", "5%", "center", "SORT", "", "list", $yesno);
-$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("MONTHLY RATE")."\">".gettext("MR")."</acronym>"), "fixrate", "5%", "center", "SORT", "30");
-$HD_Form -> AddViewElement(gettext("<acronym title=\"".gettext("SELLING RATE")."\">".gettext("SR")."</acronym>"), "selling_rate", "5%", "center", "SORT", "30");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("ACTIVATED")."\">".gettext("ACT")."</acronym>", "activated", "5%", "center", "sort", "", "list", $actived_list);
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("MINUTES USED")."\">".gettext("MU")."</acronym>", "secondusedreal", "5%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("RESERVED")."\">".gettext("RES")."</acronym>", "reserved", "5%", "center", "SORT", "", "list", $yesno);
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("MONTHLY RATE")."\">".gettext("MR")."</acronym>", "fixrate", "5%", "center", "SORT", "30");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("SELLING RATE")."\">".gettext("SR")."</acronym>", "selling_rate", "5%", "center", "SORT", "30");
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
