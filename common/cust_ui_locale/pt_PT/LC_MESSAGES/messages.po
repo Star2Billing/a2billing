@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Asterisk2Billing-1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-01 16:03+0100\n"
+"POT-Creation-Date: 2009-12-01 17:56+0100\n"
 "PO-Revision-Date: 2009-04-04 17:09-0300\n"
 "Last-Translator: felipe augusto <flipeicl@gmail.com>\n"
 "Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
@@ -343,40 +343,40 @@ msgstr "Clique abaixo para comprar créditos : "
 msgid "BUY NOW"
 msgstr "COMPRAR AGORA"
 
-#: userinfo.php:238
+#: userinfo.php:237
 #, fuzzy
 msgid "Click below to subscribe an automated refill : "
 msgstr "Clique abaixo para comprar créditos : "
 
-#: userinfo.php:243 userinfo.php:270 A2B_invoice_view.php:217
+#: userinfo.php:242 userinfo.php:268 A2B_invoice_view.php:217
 #: A2B_invoice_view.php:274 A2B_billing_preview.php:279
 #: checkout_confirmation.php:160
 msgid "VAT"
 msgstr "IVA"
 
-#: userinfo.php:245
+#: userinfo.php:244
 msgid "for each"
 msgstr ""
 
-#: userinfo.php:247
+#: userinfo.php:246
 msgid "Days"
 msgstr ""
 
-#: userinfo.php:250
+#: userinfo.php:249
 #, fuzzy
 msgid "Months"
 msgstr "Mensal"
 
-#: userinfo.php:252
+#: userinfo.php:251
 #, fuzzy
 msgid "Years"
 msgstr "Sim"
 
-#: userinfo.php:269
+#: userinfo.php:267
 msgid "Automated refill"
 msgstr ""
 
-#: userinfo.php:299
+#: userinfo.php:293
 #, fuzzy
 msgid "SUBSCRIPTION"
 msgstr "DESCRIÇÃO"
