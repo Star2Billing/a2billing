@@ -43,16 +43,14 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 $_POST["destination"] = strtolower ($_POST["destination"]);
 
 
-$HD_Form = new FormHandler("cc_ratecard, cc_tariffplan, cc_tariffgroup_plan, cc_tariffgroup, cc_agent_tariffgroup","Rates");
+$HD_Form = new FormHandler("cc_callplan_lcr LEFT JOIN cc_agent_tariffgroup ON tariffgroup_id=cc_agent_tariffgroup.id_tariffgroup", "Rates");
 
 
 
-$HD_Form -> FG_TABLE_ID = 'cc_ratecard.id';
-$HD_Form -> FG_TABLE_CLAUSE = "cc_ratecard.idtariffplan = cc_tariffplan.id AND cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan " .
-								"AND cc_tariffgroup_plan.idtariffgroup = cc_tariffgroup.id AND cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup " .
-								"AND cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'] ;
+$HD_Form -> FG_TABLE_ID = 'id';
+$HD_Form -> FG_TABLE_CLAUSE = "cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'] ;
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = " cc_ratecard.destination";
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = " dialprefix";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
@@ -69,19 +67,18 @@ for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){
 $yesno = Constants::getYesNoList();
 
 if ($popup_select) $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "15", "lie", "cc_prefix", "destination", "prefix='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "20");
 $HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "10%", "center", "sort", "");
 $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 if (!$popup_select) $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("RATE CARD"), "idtariffplan", "12%", "center", "sort", "15", "lie", "cc_tariffplan", "tariffname", "id='%id'", "%1");
-
-
+ 
 if (!$popup_select) {
-	$HD_Form -> FieldViewElement ('DISTINCT cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.connectcharge, cc_ratecard.idtariffplan ');
+	$HD_Form -> FieldViewElement ('destination, dialprefix, rateinitial, startdate, stopdate, connectcharge, idtariffplan ');
 } else {
-	$HD_Form -> FieldViewElement ('cc_ratecard.id, cc_ratecard.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial');
+	$HD_Form -> FieldViewElement ('id, destination, dialprefix, rateinitial');
 }
 
 if ($popup_select) {
@@ -98,8 +95,7 @@ if ($popup_select) {
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
 } else {
-	//$HD_Form -> FieldExportElement ('DISTINCT cc_ratecard.dialprefix, cc_ratecard.destination, cc_ratecard.buyrate , cc_ratecard.buyrateinitblock, cc_ratecard.buyrateincrement, cc_ratecard.rateinitial , cc_ratecard.initblock, cc_ratecard.billingblock, cc_ratecard.connectcharge, cc_ratecard.disconnectcharge , cc_ratecard.stepchargea, cc_ratecard.chargea, cc_ratecard.timechargea, cc_ratecard.billingblocka, cc_ratecard.stepchargeb, cc_ratecard.chargeb, cc_ratecard.timechargeb, cc_ratecard.billingblockb, cc_ratecard.stepchargec, cc_ratecard.chargec, cc_ratecard.timechargec, cc_ratecard.billingblockc, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.starttime, cc_ratecard.endtime, cc_ratecard.id_trunk, cc_ratecard.musiconhold,  cc_ratecard.id_outbound_cidgroup, cc_ratecard.rounding_calltime, cc_ratecard.rounding_threshold, cc_ratecard.additional_block_charge, cc_ratecard.additional_block_charge_time, cc_ratecard.tag');
-	$HD_Form -> FieldExportElement ('DISTINCT '. RATE_EXPORT_FIELD_LIST);
+	$HD_Form -> FieldExportElement (RATE_EXPORT_FIELD_LIST);
 	$HD_Form -> FG_EXPORT_CSV = true;
 	$HD_Form -> FG_EXPORT_XML = true;
 	$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_rates";
@@ -123,11 +119,12 @@ $HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'startdate';
 
 $HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
 $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinitial1type','rateinitial2','rateinitial2type','rateinitial');
+
 $HD_Form -> AddSearchElement_Select('SELECT RATECARD',"cc_tariffplan,cc_tariffgroup_plan,cc_tariffgroup,cc_agent_tariffgroup",
 									"cc_tariffplan.id, cc_tariffplan.tariffname",
 									"cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = cc_tariffgroup.id " .
 									"AND cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'],
-									"tariffname","ASC","idtariffplan",1,null,"cc_ratecard");
+									"tariffname","ASC","idtariffplan",1,null);
 
 
 $HD_Form -> FG_SPLITABLE_FIELD = 'dialprefix';
