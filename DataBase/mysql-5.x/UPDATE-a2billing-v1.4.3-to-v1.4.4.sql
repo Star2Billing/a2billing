@@ -68,3 +68,18 @@ ADD link_type VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_bin NULL;
 
 
 
+-- Improve CallPlan LCR
+DROP VIEW cc_callplan_lcr;
+CREATE VIEW cc_callplan_lcr AS
+	SELECT cc_ratecard.id, cc_prefix.destination, cc_ratecard.dialprefix, cc_ratecard.buyrate, cc_ratecard.rateinitial, cc_ratecard.startdate, cc_ratecard.stopdate, cc_ratecard.initblock, cc_ratecard.connectcharge, cc_ratecard.id_trunk , cc_ratecard.idtariffplan , cc_ratecard.id as ratecard_id, cc_tariffgroup.id AS tariffgroup_id
+	
+	FROM cc_tariffgroup 
+	RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=cc_tariffgroup.id 
+	INNER JOIN cc_tariffplan ON (cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan ) 
+	LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
+	LEFT JOIN cc_prefix ON prefix=cc_ratecard.destination
+	WHERE cc_ratecard.id IS NOT NULL;
+	
+
+
+

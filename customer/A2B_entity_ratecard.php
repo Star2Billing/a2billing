@@ -93,7 +93,7 @@ $HD_Form -> create_toppage ($form_action);
 ?>
 <br/>
 <center>
-    <table width="50%" border=0 cellspacing=1 cellpadding=3 bgcolor="#000033" align="center">
+    <table width="80%" border=0 cellspacing=1 cellpadding=3 bgcolor="#000033" align="center">
         <tr>
        <td bgcolor="#EEEEEE" width="100%" valign="top" align="center" class="bb2">
 	   		  <a href="A2B_entity_ratecard.php?form_action=list&letter="><?php echo gettext("NONE")?></a> -
