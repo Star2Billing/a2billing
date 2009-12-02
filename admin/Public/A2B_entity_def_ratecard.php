@@ -467,6 +467,8 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= "SELECT ".$HD_Form -> FG_EXPORT_FIELD_LIST." FROM $HD_Form->FG_TABLE_NAME";
 if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) 
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";
+if (!is_null($HD_Form->SQL_GROUP) && ($HD_Form->SQL_GROUP != ''))
+	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " $HD_Form->SQL_GROUP ";
 if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!='')) 
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
 

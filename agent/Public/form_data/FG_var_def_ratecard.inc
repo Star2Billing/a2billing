@@ -37,25 +37,25 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge','disconnectcharge_after',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
-'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 'additional_block_charge', 'additional_block_charge_time', 'additional_grace','minimal_cost'));
+'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan', 'tariffgroup','posted','id_outbound_cidgroup','rounding_calltime', 'rounding_threshold', 
+'additional_block_charge', 'additional_block_charge_time', 'additional_grace','minimal_cost', 'idtariffgroup'));
 
 // put all the destination name to lowercase
 $_POST["destination"] = strtolower ($_POST["destination"]);
-
 
 $HD_Form = new FormHandler("cc_callplan_lcr LEFT JOIN cc_agent_tariffgroup ON tariffgroup_id=cc_agent_tariffgroup.id_tariffgroup", "Rates");
 
 
 
 $HD_Form -> FG_TABLE_ID = 'id';
-$HD_Form -> FG_TABLE_CLAUSE = "cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'] ;
+$HD_Form -> FG_TABLE_CLAUSE = "cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'];
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " dialprefix";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
-$HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
+$HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
-
+$HD_Form -> SQL_GROUP = " GROUP BY dialprefix ";
 
 
 $musiconhold_list = array();
@@ -73,12 +73,11 @@ $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</a
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 if (!$popup_select) $HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 if (!$popup_select) $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
-if (!$popup_select) $HD_Form -> AddViewElement(gettext("RATE CARD"), "idtariffplan", "12%", "center", "sort", "15", "lie", "cc_tariffplan", "tariffname", "id='%id'", "%1");
  
 if (!$popup_select) {
-	$HD_Form -> FieldViewElement ('destination, dialprefix, rateinitial, startdate, stopdate, connectcharge, idtariffplan ');
+	$HD_Form -> FieldViewElement ('destination, dialprefix, MIN(rateinitial) as rateinitial, startdate, stopdate, connectcharge');
 } else {
-	$HD_Form -> FieldViewElement ('id, destination, dialprefix, rateinitial');
+	$HD_Form -> FieldViewElement ('id, destination, dialprefix, MIN(rateinitial) as rateinitial');
 }
 
 if ($popup_select) {
@@ -120,14 +119,10 @@ $HD_Form -> FG_FILTER_SEARCH_1_TIME_FIELD = 'startdate';
 $HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
 $HD_Form -> AddSearchElement_C2(gettext("RATE INITIAL"),'rateinitial1','rateinitial1type','rateinitial2','rateinitial2type','rateinitial');
 
-$HD_Form -> AddSearchElement_Select('SELECT RATECARD',"cc_tariffplan,cc_tariffgroup_plan,cc_tariffgroup,cc_agent_tariffgroup",
-									"cc_tariffplan.id, cc_tariffplan.tariffname",
-									"cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = cc_tariffgroup.id " .
-									"AND cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'],
-									"tariffname","ASC","idtariffplan",1,null);
-
-
-$HD_Form -> FG_SPLITABLE_FIELD = 'dialprefix';
+$HD_Form -> AddSearchElement_Select('SELECT CALLPLAN',"cc_tariffgroup,cc_agent_tariffgroup",
+									"cc_tariffgroup.id, cc_tariffgroup.tariffgroupname",
+									"cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent=".$_SESSION['agent_id'],
+									"tariffgroupname","ASC","tariffgroup_id",1,null);
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = $HD_Form -> FG_INTRO_TEXT_EDITION = gettext("Rates must be entered in the currency base : ").strtoupper(BASE_CURRENCY);
@@ -153,10 +148,6 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
     }
 	$HD_Form -> FG_TABLE_CLAUSE.="dialprefix like '$filterprefix%'";
 }
-
-//$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
 
 
