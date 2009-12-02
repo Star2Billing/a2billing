@@ -35,7 +35,7 @@
 -- 
 -- 
 -- Usage:
--- mysql -u root -p"root password" < UPDATE-a2billing-v1.3.4-to-v1.4.0-mysql-prefix-table.sql
+-- mysql -u root -p"root password" < a2billing-prefix-table-v1.4.0.sql
 --
 
 -- You may need to modify the UPDATEs near the end of this file to match all your rewritten dial-strings
