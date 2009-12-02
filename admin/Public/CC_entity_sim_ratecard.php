@@ -50,7 +50,8 @@ getpost_ifset(array('posted', 'tariffplan', 'balance', 'id_cc_card', 'called' , 
 $FG_DEBUG = 0;
 $DBHandle  = DbConnect();
 
-if ($called  && ($id_cc_card>0 || $username>0)) {
+if ($called  && ($id_cc_card > 0 || $username > 0)) {
+	
 	$A2B -> DBHandle = DbConnect();
 	
 	if ($username>0) {
@@ -63,7 +64,7 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 	
 	$calling = $called;
 	
-	if ( strlen($calling)>2 && is_numeric($calling)) {
+	if ( strlen($calling)>=1 && is_numeric($calling)) {
 		$instance_table = new Table();
 		$A2B -> set_instance_table ($instance_table);
 		$num = 0;
@@ -101,10 +102,12 @@ if ($called  && ($id_cc_card>0 || $username>0)) {
 			if ($FG_DEBUG == 1) echo "resfindrate=$resfindrate";
 			
 			// IF FIND RATE
-			if ($resfindrate!=0){	
+			if ($resfindrate!=0) {	
 				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 	
 				if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
+			} else {
+				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("No matching rate found !").'</b></font><br><br>';
 			}
 		}
 		
@@ -116,7 +119,7 @@ $smarty->display('main.tpl');
 echo $CC_help_sim_ratecard;
 
 ?>	
-	<center> <?php echo "$error_msg"; ?> 
+	<center> 
 	<br>
 	<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
 	<table width="500" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -307,7 +310,9 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 	  
 <?php  } else { ?>
 
-<br><br><br><br>
+<br><br><br>
+<?php echo "$error_msg"; ?> 
+<br>
 
 <?php  }  ?>
 </center>

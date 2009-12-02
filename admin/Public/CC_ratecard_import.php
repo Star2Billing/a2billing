@@ -340,8 +340,8 @@ echo $CC_help_import_ratecard;
                     <div align="center"><span class="textcomment"> 
                       
 
-					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by  ; or :");?><br/>
-					  <?php echo gettext(". and , are used for decimal format.");?>
+					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
+					  <?php echo gettext("(dot) . is used for decimal format.");?>
 
 
 					  <br/>
@@ -351,7 +351,7 @@ echo $CC_help_import_ratecard;
 
 
 						<center>
-							<iframe name="superframe" src="importsamples.php?sample=RateCard_Simple" BGCOLOR=white	width=500 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
+							<iframe name="superframe" src="importsamples.php?sample=RateCard_Simple" BGCOLOR=white	width=600 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
 
 							</iframe>
                             </font>

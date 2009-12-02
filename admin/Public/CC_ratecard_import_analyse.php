@@ -133,10 +133,8 @@ if ($task == 'upload') {
 		// strip out ' and " and, with the exception of dialprefix field,
 		// substitute , for . to allow European style floats, eg: 0,1 == 0.1
 		$ligne = str_replace(array ( '"', "'" ), '', $ligneoriginal);
-		$val = split('[;:]', $ligne);
-		for ($i = 1; $i < count($val); $i++)
-			$val[$i] = str_replace(',', '.', $val[$i]);
-
+		$val = split('[;,]', $ligne);
+		
 		if ($status != "ok") {
 			if ($currencytype == "cent") {
 				$val[2] = $val[2] / 100;

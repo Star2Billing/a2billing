@@ -97,6 +97,9 @@ class iam_csvdump
     if ($trimFunction) $val = $trimFunction($val);
     //If there is a separator (;) or a quote (") or a linebreak in the string, we need to quote it.
     $needQuote = FALSE;
+    // Change to always quote
+    $needQuote = TRUE;
+    $ForceTextType = TRUE;
     do {
       if (strpos($val, '"') !== FALSE) {
         $val = str_replace('"', '""', $val);
@@ -112,6 +115,10 @@ class iam_csvdump
         break;
       }
     } while (FALSE);
+    if ($ForceTextType) {
+   	  $val = '\'' . $val;
+    }
+    
     if ($needQuote) {
       $val = '"' . $val . '"';
     }
@@ -261,7 +268,7 @@ class iam_csvdump
             $crlf = $this->_define_newline();
 		while ($str= @pg_fetch_array($result,NULL, PGSQL_NUM))			
             {
-                $file .= $this->arrayToCsvString($str,",'").$crlf;
+                $file .= $this->arrayToCsvString($str,",").$crlf;
             }
             echo $file;
         }
@@ -285,7 +292,7 @@ class iam_csvdump
             $crlf = $this->_define_newline();
             while ($str= @mysql_fetch_array($result, MYSQL_NUM))
             {
-                $file .= $this->arrayToCsvString($str,";'").$crlf;
+                $file .= $this->arrayToCsvString($str,",").$crlf;
             }
             echo $file;
         }

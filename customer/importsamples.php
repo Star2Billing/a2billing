@@ -37,10 +37,11 @@ $phonebookSample_Simple = "003247354343
 <br>003247354563
 <br>003247354356";
 
-$phonebookSample_Complex = "003247354343;Jean Pest;advertissing
-<br>003247354563;Ale Beignard;Debt
-<br>003247354356;James Bon;Debt";
+$phonebookSample_Complex = "003247354343, Jean Pest, advertissing
+<br>003247354563, Ale Beignard, Debt
+<br>003247354356, James Bon, Debt";
 
+echo "<font size=\"1\">";
 if (isset($_GET["sample"]))
 {
     switch($_GET["sample"])
@@ -58,3 +59,6 @@ if (isset($_GET["sample"]))
         break;       
     }
 }
+echo "</font>";
+
+

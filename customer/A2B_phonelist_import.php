@@ -246,7 +246,7 @@ function moveSourceDown()
 				  				  
 				<?php echo gettext("These fields are mandatory");?><br>
 
-<select  name="bydefault" multiple="multiple" size="4" width="40" class="form_input_select">
+<select  name="bydefault" multiple="multiple" size="1" width="40" class="form_input_select">
 	<option value="bb1"><?php echo gettext("number");?></option>
 </select>
 <br/><br/>
@@ -257,7 +257,7 @@ function moveSourceDown()
 <table>
     <tbody><tr>
         <td>
-            <select name="unselected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders()" class="form_input_select">
+            <select name="unselected_search_sources" multiple="multiple" size="5" width="50" onchange="deselectHeaders()" class="form_input_select">
 				<option value=""><?php echo gettext("Unselected Fields...");?></option>
 				<option value="name"><?php echo gettext("name");?></option>
 				<option value="info"><?php echo gettext("info");?></option>
@@ -271,7 +271,7 @@ function moveSourceDown()
             <a href="" onclick="removeSource(); return false;"><img src="<?php echo Images_Path;?>/back.png" alt="remove source" title="remove source" border="0"></a>
         </td>
         <td>
-            <select name="selected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders();" class="form_input_select">
+            <select name="selected_search_sources" multiple="multiple" size="5" width="50" onchange="deselectHeaders();" class="form_input_select">
 				<option value=""><?php echo gettext("Selected Fields...");?></option>
 			</select>
         </td>
@@ -298,8 +298,8 @@ function moveSourceDown()
                     <div align="center"><span class="textcomment"> 
                       
 
-					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by  ; or :");?></br>
-					  <?php echo gettext(". and , are used for decimal format.");?>
+					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by [,] or [;]");?><br/>
+					  <?php echo gettext("(dot) . is used for decimal format.");?>
 
 
 					  <br/>
