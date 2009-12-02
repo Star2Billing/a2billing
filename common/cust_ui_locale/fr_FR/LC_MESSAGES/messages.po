@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-01 17:56+0100\n"
+"POT-Creation-Date: 2009-12-02 15:10+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -810,11 +810,13 @@ msgid "Selected Fields..."
 msgstr "Champs S&eacute;lectionn&eacute;s"
 
 #: A2B_phonelist_import.php:301
-msgid "Use the example below  to format the CSV file. Fields are separated by  ; or :"
+#, fuzzy
+msgid "Use the example below  to format the CSV file. Fields are separated by [,] or [;]"
 msgstr "Utilisez l'exemple dessous pour formatter le fichier CSV. Les champs sont d&eacute;limit&eacute;s par ; ou :"
 
 #: A2B_phonelist_import.php:302
-msgid ". and , are used for decimal format."
+#, fuzzy
+msgid "(dot) . is used for decimal format."
 msgstr ". et , sont utilis&eacute; pour les d&eacute;cimales."
 
 #: A2B_phonelist_import.php:306

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-01 17:56+0100\n"
+"POT-Creation-Date: 2009-12-02 15:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1020,7 +1020,7 @@ msgid "BUYRATEINCREMENT"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:411
-#: Public/form_data/FG_var_def_ratecard.inc:125
+#: Public/form_data/FG_var_def_ratecard.inc:121
 msgid "RATE INITIAL"
 msgstr ""
 
@@ -1094,7 +1094,7 @@ msgstr ""
 #: lib/Form/Class.FormHandler.inc.php:543
 #: Public/form_data/FG_var_moneysituation.inc:78
 #: Public/form_data/FG_var_callerid.inc:121
-#: Public/form_data/FG_var_def_ratecard.inc:137
+#: Public/form_data/FG_var_def_ratecard.inc:134
 #: Public/form_data/FG_var_ticket_agent.inc:90
 #: Public/form_data/FG_var_ticket.inc:172
 #: Public/form_data/FG_var_friend.inc:957 Public/form_data/FG_var_card.inc:949
@@ -1116,7 +1116,7 @@ msgstr ""
 #: lib/Form/Class.FormHandler.inc.php:546
 #: Public/form_data/FG_var_moneysituation.inc:79
 #: Public/form_data/FG_var_callerid.inc:122
-#: Public/form_data/FG_var_def_ratecard.inc:138
+#: Public/form_data/FG_var_def_ratecard.inc:135
 #: Public/form_data/FG_var_ticket_agent.inc:91
 #: Public/form_data/FG_var_ticket.inc:173
 #: Public/form_data/FG_var_friend.inc:958 Public/form_data/FG_var_card.inc:950
@@ -1126,7 +1126,7 @@ msgstr ""
 #: lib/Form/Class.FormHandler.inc.php:546
 #: Public/form_data/FG_var_moneysituation.inc:79
 #: Public/form_data/FG_var_callerid.inc:122
-#: Public/form_data/FG_var_def_ratecard.inc:138
+#: Public/form_data/FG_var_def_ratecard.inc:135
 #: Public/form_data/FG_var_ticket_agent.inc:91
 #: Public/form_data/FG_var_ticket.inc:173
 #: Public/form_data/FG_var_friend.inc:958 Public/form_data/FG_var_card.inc:950
@@ -1144,7 +1144,7 @@ msgstr ""
 #: lib/Form/Class.FormHandler.inc.php:548
 #: lib/Form/Class.FormHandler.inc.php:549
 #: Public/form_data/FG_var_callerid.inc:132
-#: Public/form_data/FG_var_def_ratecard.inc:142
+#: Public/form_data/FG_var_def_ratecard.inc:139
 #: Public/form_data/FG_var_ticket_agent.inc:95
 #: Public/form_data/FG_var_ticket.inc:177
 #: Public/form_data/FG_var_friend.inc:962 Public/form_data/FG_var_card.inc:954
@@ -2172,7 +2172,7 @@ msgstr ""
 #: Public/form_data/FG_var_moneysituation.inc:42
 #: Public/form_data/FG_var_logrefill_agent.inc:53
 #: Public/form_data/FG_var_paymentlog.inc:119
-#: Public/form_data/FG_var_def_ratecard.inc:71
+#: Public/form_data/FG_var_def_ratecard.inc:69
 #: Public/form_data/FG_var_ticket_agent.inc:63
 #: Public/form_data/FG_var_ticket.inc:69
 #: Public/form_data/FG_var_logrefill.inc:58
@@ -2229,7 +2229,7 @@ msgstr ""
 msgid "CALLED NUMBER"
 msgstr ""
 
-#: Public/A2B_card_info.php:610 Public/form_data/FG_var_def_ratecard.inc:72
+#: Public/A2B_card_info.php:610 Public/form_data/FG_var_def_ratecard.inc:70
 msgid "DESTINATION"
 msgstr ""
 
@@ -2953,7 +2953,7 @@ msgstr ""
 
 #: Public/form_data/FG_var_moneysituation.inc:78
 #: Public/form_data/FG_var_callerid.inc:121
-#: Public/form_data/FG_var_def_ratecard.inc:137
+#: Public/form_data/FG_var_def_ratecard.inc:134
 #: Public/form_data/FG_var_ticket_agent.inc:90
 #: Public/form_data/FG_var_ticket.inc:172
 #: Public/form_data/FG_var_friend.inc:957 Public/form_data/FG_var_card.inc:949
@@ -3016,7 +3016,7 @@ msgid "Modify via the form below, the properties of the callerID"
 msgstr ""
 
 #: Public/form_data/FG_var_callerid.inc:132
-#: Public/form_data/FG_var_def_ratecard.inc:142
+#: Public/form_data/FG_var_def_ratecard.inc:139
 #: Public/form_data/FG_var_ticket_agent.inc:95
 #: Public/form_data/FG_var_ticket.inc:177 Public/form_data/FG_var_card.inc:954
 msgid "has been inserted."
@@ -3119,52 +3119,52 @@ msgstr ""
 msgid "AMOUNT INCL VAT"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:73
-#: Public/form_data/FG_var_def_ratecard.inc:124
+#: Public/form_data/FG_var_def_ratecard.inc:71
+#: Public/form_data/FG_var_def_ratecard.inc:120
 msgid "PREFIX"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:74
+#: Public/form_data/FG_var_def_ratecard.inc:72
 msgid "SR"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:75
+#: Public/form_data/FG_var_def_ratecard.inc:73
 msgid "START-DATE"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:76
+#: Public/form_data/FG_var_def_ratecard.inc:74
 msgid "STOP-DATE"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:77
+#: Public/form_data/FG_var_def_ratecard.inc:75
 msgid "CC"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:78
+#: Public/form_data/FG_var_def_ratecard.inc:76
 msgid "RATE CARD"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:110
+#: Public/form_data/FG_var_def_ratecard.inc:106
 msgid "NO"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:110
+#: Public/form_data/FG_var_def_ratecard.inc:106
 msgid "HAVE BEEN CREATED."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:118
+#: Public/form_data/FG_var_def_ratecard.inc:114
 msgid "Define the criteria to search"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:120
+#: Public/form_data/FG_var_def_ratecard.inc:116
 msgid "START DATE"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:136
+#: Public/form_data/FG_var_def_ratecard.inc:133
 msgid "Rates must be entered in the currency base : "
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:146
+#: Public/form_data/FG_var_def_ratecard.inc:143
 #: Public/form_data/FG_var_logrefill.inc:175
 msgid "Click 'Confirm Data' to continue."
 msgstr ""

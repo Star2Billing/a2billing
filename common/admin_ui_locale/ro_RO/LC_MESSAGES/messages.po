@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-01 17:56+0100\n"
+"POT-Creation-Date: 2009-12-02 15:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1488,14 +1488,14 @@ msgstr "selectat , foloseste optiunea urmatoare daca vrei sa actualizaezi select
 #: lib/Form/Class.SearchHandler.inc.php:345
 #: Public/A2B_entity_def_ratecard.php:341 Public/form_data/FG_var_user.inc:77
 #: Public/form_data/FG_var_tariffgroup.inc:159
-#: Public/form_data/FG_var_def_ratecard.inc:193
+#: Public/form_data/FG_var_def_ratecard.inc:167
 #: Public/form_data/FG_var_card_group.inc:90
 #: Public/form_data/FG_var_agent.inc:67
 msgid "RATECARD"
 msgstr "Lista Pret"
 
 #: lib/Form/Class.SearchHandler.inc.php:364 Public/CC_ratecard_merging.php:146
-#: Public/form_data/FG_var_def_ratecard.inc:185
+#: Public/form_data/FG_var_def_ratecard.inc:159
 msgid "BUYRATE"
 msgstr "Pret Cumparare"
 
@@ -1551,7 +1551,7 @@ msgid "BUYRATEINCREMENT"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:411 Public/CC_ratecard_merging.php:147
-#: Public/form_data/FG_var_def_ratecard.inc:186
+#: Public/form_data/FG_var_def_ratecard.inc:160
 msgid "RATE INITIAL"
 msgstr ""
 
@@ -1572,7 +1572,7 @@ msgid "DISCONNECTCHARGE"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:491
-#: Public/form_data/FG_var_def_ratecard.inc:318
+#: Public/form_data/FG_var_def_ratecard.inc:292
 msgid "DISCONNECT CHARGE THRESHOLD"
 msgstr ""
 
@@ -1671,7 +1671,7 @@ msgstr "Poti modifica informatiile acestui"
 #: Public/form_data/FG_var_campaign_config.inc:152
 #: Public/form_data/FG_var_support.inc:115
 #: Public/form_data/FG_var_prefix.inc:125
-#: Public/form_data/FG_var_def_ratecard.inc:633
+#: Public/form_data/FG_var_def_ratecard.inc:607
 #: Public/form_data/FG_var_subscription_signup.inc:118
 #: Public/form_data/FG_var_ticket_agent.inc:170
 #: Public/form_data/FG_var_ticket.inc:193
@@ -1730,7 +1730,7 @@ msgstr "A fost sters!"
 #: Public/form_data/FG_var_campaign_config.inc:153
 #: Public/form_data/FG_var_support.inc:116
 #: Public/form_data/FG_var_prefix.inc:126
-#: Public/form_data/FG_var_def_ratecard.inc:634
+#: Public/form_data/FG_var_def_ratecard.inc:608
 #: Public/form_data/FG_var_subscription_signup.inc:119
 #: Public/form_data/FG_var_ticket_agent.inc:171
 #: Public/form_data/FG_var_ticket.inc:194
@@ -1777,7 +1777,7 @@ msgstr "Poti adauga un nou"
 #: Public/form_data/FG_var_campaign_config.inc:153
 #: Public/form_data/FG_var_support.inc:116
 #: Public/form_data/FG_var_prefix.inc:126
-#: Public/form_data/FG_var_def_ratecard.inc:634
+#: Public/form_data/FG_var_def_ratecard.inc:608
 #: Public/form_data/FG_var_subscription_signup.inc:119
 #: Public/form_data/FG_var_ticket_agent.inc:171
 #: Public/form_data/FG_var_ticket.inc:194
@@ -1837,7 +1837,7 @@ msgstr "acum"
 #: Public/form_data/FG_var_campaign_config.inc:157
 #: Public/form_data/FG_var_support.inc:120
 #: Public/form_data/FG_var_prefix.inc:130
-#: Public/form_data/FG_var_def_ratecard.inc:637
+#: Public/form_data/FG_var_def_ratecard.inc:611
 #: Public/form_data/FG_var_subscription_signup.inc:123
 #: Public/form_data/FG_var_ticket_agent.inc:175
 #: Public/form_data/FG_var_ticket.inc:198
@@ -2297,72 +2297,77 @@ msgstr "Link"
 msgid "Link to the URL"
 msgstr "Ancora spre URL"
 
-#: Public/CC_entity_sim_ratecard.php:76
+#: Public/CC_entity_sim_ratecard.php:77
 msgid "Error card !!!"
 msgstr "Eroare Cont!!!"
 
-#: Public/CC_entity_sim_ratecard.php:124
+#: Public/CC_entity_sim_ratecard.php:110
+#, fuzzy
+msgid "No matching rate found !"
+msgstr "Nu au fost gasite date"
+
+#: Public/CC_entity_sim_ratecard.php:127
 msgid "RATECARD SIMULATOR"
 msgstr "Simulator preturi"
 
-#: Public/CC_entity_sim_ratecard.php:128
+#: Public/CC_entity_sim_ratecard.php:131
 msgid "NUMBER TO CALL"
 msgstr "Numar Apelat"
 
-#: Public/CC_entity_sim_ratecard.php:131
+#: Public/CC_entity_sim_ratecard.php:134
 msgid "INITAL CREDIT"
 msgstr "Credit Inital"
 
-#: Public/CC_entity_sim_ratecard.php:134
+#: Public/CC_entity_sim_ratecard.php:137
 msgid "Choose 0 to simulate with the account current credit"
 msgstr "Alege 0"
 
-#: Public/CC_entity_sim_ratecard.php:145
+#: Public/CC_entity_sim_ratecard.php:148
 msgid "Card ID"
 msgstr "ID Cont"
 
-#: Public/CC_entity_sim_ratecard.php:155
+#: Public/CC_entity_sim_ratecard.php:158
 msgid "OR"
 msgstr "Sau"
 
-#: Public/CC_entity_sim_ratecard.php:165
+#: Public/CC_entity_sim_ratecard.php:168
 msgid "Card Number"
 msgstr "Numar COnt"
 
-#: Public/CC_entity_sim_ratecard.php:173
+#: Public/CC_entity_sim_ratecard.php:176
 msgid "SIMULATE"
 msgstr "Simulare"
 
-#: Public/CC_entity_sim_ratecard.php:203
+#: Public/CC_entity_sim_ratecard.php:206
 msgid "Simulator found a rate for your destination"
 msgstr "Simulator a gasit o ruta pentru destinatia ta"
 
-#: Public/CC_entity_sim_ratecard.php:209
+#: Public/CC_entity_sim_ratecard.php:212
 msgid "MORE THAN ONE ROUTE FOUND ON THE RATECARD"
 msgstr "2 sau mai multe rute au fost gasite in lista de preturi"
 
-#: Public/CC_entity_sim_ratecard.php:220
+#: Public/CC_entity_sim_ratecard.php:223
 msgid "PREFIX-RATECARD"
 msgstr ""
 
-#: Public/CC_entity_sim_ratecard.php:225
+#: Public/CC_entity_sim_ratecard.php:228
 msgid "MAX DURATION FOR THE CALL"
 msgstr "Durata maxima a apelului"
 
-#: Public/CC_entity_sim_ratecard.php:229 Public/CC_entity_sim_ratecard.php:240
-#: Public/CC_entity_sim_ratecard.php:254 Public/call-pnl-report.php:476
+#: Public/CC_entity_sim_ratecard.php:232 Public/CC_entity_sim_ratecard.php:243
+#: Public/CC_entity_sim_ratecard.php:257 Public/call-pnl-report.php:476
 msgid "Minutes"
 msgstr "Minute"
 
-#: Public/CC_entity_sim_ratecard.php:236
+#: Public/CC_entity_sim_ratecard.php:239
 msgid "FREE TIME INCLUDED IN THE DURATION"
 msgstr ""
 
-#: Public/CC_entity_sim_ratecard.php:248
+#: Public/CC_entity_sim_ratecard.php:251
 msgid "TIME ANNOUCEMENT FOR THE CALL"
 msgstr "Anunt Timp pentru apel"
 
-#: Public/CC_entity_sim_ratecard.php:262
+#: Public/CC_entity_sim_ratecard.php:265
 msgid "Announce correction "
 msgstr "Corectie Anunt"
 
@@ -2648,21 +2653,21 @@ msgstr "Data Start / ziua"
 #: Public/form_data/FG_var_voucher.inc:81
 #: Public/form_data/FG_var_voucher.inc:100
 #: Public/form_data/FG_var_voucher.inc:148
-#: Public/form_data/FG_var_def_ratecard.inc:183
-#: Public/form_data/FG_var_def_ratecard.inc:599
+#: Public/form_data/FG_var_def_ratecard.inc:157
+#: Public/form_data/FG_var_def_ratecard.inc:573
 msgid "TAG"
 msgstr "stegulet"
 
 #: Public/CC_ratecard_merging.php:144 Public/A2B_call_archiving.php:382
 #: Public/A2B_card_info.php:662 Public/form_data/FG_var_prefix.inc:96
-#: Public/form_data/FG_var_def_ratecard.inc:128
+#: Public/form_data/FG_var_def_ratecard.inc:104
 #: Public/form_data/FG_var_did_destination.inc:67
 #: Public/form_data/FG_var_did_destination.inc:107
 msgid "DESTINATION"
 msgstr "Destinatie"
 
 #: Public/CC_ratecard_merging.php:145 Public/form_data/FG_var_prefix.inc:87
-#: Public/form_data/FG_var_def_ratecard.inc:129
+#: Public/form_data/FG_var_def_ratecard.inc:105
 msgid "PREFIX"
 msgstr "Prefix"
 
@@ -2912,7 +2917,7 @@ msgstr "Oprit"
 #: Public/form_data/FG_var_paymentlog.inc:118
 #: Public/form_data/FG_var_voucher.inc:78
 #: Public/form_data/FG_var_support.inc:69
-#: Public/form_data/FG_var_def_ratecard.inc:127
+#: Public/form_data/FG_var_def_ratecard.inc:103
 #: Public/form_data/FG_var_ticket_agent.inc:67
 #: Public/form_data/FG_var_ticket.inc:74
 #: Public/form_data/FG_var_billing_customer.inc:55
@@ -3158,20 +3163,20 @@ msgstr "Fisier salvat , fisierul ="
 msgid "THE FILE DOESNOT EXIST"
 msgstr "Acest fisier nu exista"
 
-#: Public/CC_card_import_analyse.php:267
+#: Public/CC_card_import_analyse.php:266
 msgid "The first line of your import is previewed below, please check to ensure that every is correct."
 msgstr "Prima linie din fisierul tau este procesata si afisata pentru control. daca tot este in regula te rog sa continui."
 
-#: Public/CC_card_import_analyse.php:274
-#: Public/A2B_entity_did_import_analyse.php:301
-#: Public/CC_ratecard_import_analyse.php:274
+#: Public/CC_card_import_analyse.php:273
+#: Public/A2B_entity_did_import_analyse.php:300
+#: Public/CC_ratecard_import_analyse.php:272
 #: Public/A2B_phonelist_import_analyse.php:243
 msgid "FIELD"
 msgstr "Camp"
 
-#: Public/CC_card_import_analyse.php:277
-#: Public/A2B_entity_did_import_analyse.php:304
-#: Public/CC_ratecard_import_analyse.php:277
+#: Public/CC_card_import_analyse.php:276
+#: Public/A2B_entity_did_import_analyse.php:303
+#: Public/CC_ratecard_import_analyse.php:275
 #: Public/A2B_phonelist_import_analyse.php:246
 #: Public/form_data/FG_var_config.inc:110
 #: Public/form_data/FG_var_config.inc:160
@@ -3183,41 +3188,41 @@ msgstr "Camp"
 msgid "VALUE"
 msgstr "Valoare"
 
-#: Public/CC_card_import_analyse.php:308
-#: Public/A2B_entity_did_import_analyse.php:345
+#: Public/CC_card_import_analyse.php:307
+#: Public/A2B_entity_did_import_analyse.php:344
 msgid "Please check if the datas above are correct"
 msgstr "Te rog sa verifica daca datele sunt corecte"
 
-#: Public/CC_card_import_analyse.php:308
-#: Public/A2B_entity_did_import_analyse.php:345
-#: Public/CC_ratecard_import_analyse.php:315
+#: Public/CC_card_import_analyse.php:307
+#: Public/A2B_entity_did_import_analyse.php:344
+#: Public/CC_ratecard_import_analyse.php:313
 #: Public/A2B_phonelist_import_analyse.php:283
 msgid "If Yes"
 msgstr "Daca da"
 
-#: Public/CC_card_import_analyse.php:308
-#: Public/A2B_entity_did_import_analyse.php:345
-#: Public/CC_ratecard_import_analyse.php:315
+#: Public/CC_card_import_analyse.php:307
+#: Public/A2B_entity_did_import_analyse.php:344
+#: Public/CC_ratecard_import_analyse.php:313
 #: Public/A2B_phonelist_import_analyse.php:283
 msgid "you can continue the import. Otherwise you must fix your csv file!"
 msgstr "atunci poti continua cu importare , daca nu ... verifica fisierul csv si corecteaza greselile"
 
-#: Public/CC_card_import_analyse.php:320
+#: Public/CC_card_import_analyse.php:319
 msgid "Continue to Import the CARD's"
 msgstr "Continui importul conturilor?"
 
-#: Public/CC_card_import_analyse.php:353
-#: Public/CC_ratecard_import_analyse.php:358
+#: Public/CC_card_import_analyse.php:352
+#: Public/CC_ratecard_import_analyse.php:356
 #: Public/A2B_phonelist_import_analyse.php:327
 msgid "Success"
 msgstr "Finalizat OK"
 
-#: Public/CC_card_import_analyse.php:353
+#: Public/CC_card_import_analyse.php:352
 msgid "new cards have been imported."
 msgstr "Noi conturi importate"
 
-#: Public/CC_card_import_analyse.php:361
-#: Public/A2B_entity_did_import_analyse.php:399
+#: Public/CC_card_import_analyse.php:360
+#: Public/A2B_entity_did_import_analyse.php:398
 msgid "Line that has not been inserted!"
 msgstr "Linia nu a fost inserata"
 
@@ -3276,17 +3281,17 @@ msgstr "Nici un Grup DID definit"
 msgid "No Country defined !"
 msgstr "Nici o tara DEfinita"
 
-#: Public/A2B_entity_did_import_analyse.php:294
+#: Public/A2B_entity_did_import_analyse.php:293
 msgid ""
 "As a preview for the import, we have made a quick analyze of the first line of your csv file.<br/>\n"
 "\t\tPlease check out if everything look correct!"
 msgstr "Ca o previzualizare pentru import, am facut o analiza rapida din prima linie a fisierului csv. <br/>verifica dacă totul arata corect!"
 
-#: Public/A2B_entity_did_import_analyse.php:391
+#: Public/A2B_entity_did_import_analyse.php:390
 msgid "The import of the new DID's have been realized with success!"
 msgstr "Importul DID-urilor a fost realizat cu success"
 
-#: Public/A2B_entity_did_import_analyse.php:392
+#: Public/A2B_entity_did_import_analyse.php:391
 msgid "new DID's have been imported into your Database."
 msgstr "DID-urile au fost importate in baza de date"
 
@@ -3655,21 +3660,21 @@ msgstr "Nu ai defini un trunchi"
 msgid "Error: Failed to open the file."
 msgstr "Eroare : nu am reusit sa deshid fiesierul"
 
-#: Public/CC_ratecard_import_analyse.php:269
+#: Public/CC_ratecard_import_analyse.php:267
 #: Public/A2B_phonelist_import_analyse.php:236
 msgid "The first line of your import is previewed below, please check to ensure that every is correct"
 msgstr "Prima linie din fisier a fost afisata pentru eventuale corectii. verifica daca este importat corect."
 
-#: Public/CC_ratecard_import_analyse.php:315
+#: Public/CC_ratecard_import_analyse.php:313
 #: Public/A2B_phonelist_import_analyse.php:283
 msgid "Please check if the datas above are correct."
 msgstr "Verifica daca informatiile sunt corecte"
 
-#: Public/CC_ratecard_import_analyse.php:358
+#: Public/CC_ratecard_import_analyse.php:356
 msgid "new rates have been imported"
 msgstr "Preturile noi au fost importate"
 
-#: Public/CC_ratecard_import_analyse.php:364
+#: Public/CC_ratecard_import_analyse.php:362
 #: Public/A2B_phonelist_import_analyse.php:333
 msgid "Line that has not been inserted"
 msgstr "Linie ce nu a fost inserata"
@@ -3881,13 +3886,14 @@ msgstr "Nume"
 msgid "info"
 msgstr "Info"
 
-#: Public/A2B_phonelist_import.php:299 Public/CC_ratecard_import.php:343
+#: Public/A2B_phonelist_import.php:299
 msgid "Use the example below  to format the CSV file. Fields are separated by  ; or :"
 msgstr "Foloseste exemplul urmator pentru a formata fisierul csv. foloseste ca separator ; sau :"
 
 #: Public/A2B_phonelist_import.php:300 Public/A2B_entity_did_import.php:322
 #: Public/CC_card_import.php:323 Public/CC_ratecard_import.php:344
-msgid ". and , are used for decimal format."
+#, fuzzy
+msgid "(dot) . is used for decimal format."
 msgstr "iar  . sau , pentru decimale"
 
 #: Public/A2B_phonelist_import.php:304 Public/A2B_entity_did_import.php:324
@@ -4162,7 +4168,7 @@ msgstr ""
 #: Public/A2B_entity_invoice_conf.php:260 Public/call-count-reporting.php:286
 #: Public/form_data/FG_var_user.inc:110
 #: Public/form_data/FG_var_voucher.inc:110
-#: Public/form_data/FG_var_def_ratecard.inc:170
+#: Public/form_data/FG_var_def_ratecard.inc:144
 msgid "NO"
 msgstr "Nu"
 
@@ -4748,8 +4754,10 @@ msgstr "Data cand expira"
 msgid "billingtype"
 msgstr ""
 
-#: Public/A2B_entity_did_import.php:321
-msgid "Use the example below  to format the CSV file. Fields are separated by ;"
+#: Public/A2B_entity_did_import.php:321 Public/CC_card_import.php:322
+#: Public/CC_ratecard_import.php:343
+#, fuzzy
+msgid "Use the example below  to format the CSV file. Fields are separated by [,] or [;]"
 msgstr "Foloseste exemplul urmator pentru a formata sisierul CSV. foloseste ca separator ';'"
 
 #: Public/CC_card_import.php:225
@@ -4931,11 +4939,6 @@ msgstr ""
 #: Public/CC_card_import.php:293
 msgid "loginkey"
 msgstr ""
-
-#: Public/CC_card_import.php:322
-#, fuzzy
-msgid "Use the example below  to format the CSV file. Fields are separated by  ;"
-msgstr "Foloseste exemplul urmator pentru a formata sisierul CSV. foloseste ca separator ';'"
 
 #: Public/CC_card_import.php:347
 msgid "Import Customer's"
@@ -5228,8 +5231,8 @@ msgstr "Alege trunchiul"
 
 #: Public/CC_ratecard_import.php:240 Public/A2B_entity_def_ratecard.php:327
 #: Public/A2B_entity_def_ratecard.php:360
-#: Public/form_data/FG_var_def_ratecard.inc:585
-#: Public/form_data/FG_var_def_ratecard.inc:596
+#: Public/form_data/FG_var_def_ratecard.inc:559
+#: Public/form_data/FG_var_def_ratecard.inc:570
 #: Public/form_data/FG_var_subscriber.inc:102
 #: Public/form_data/FG_var_card.inc:384 Public/form_data/FG_var_card.inc:540
 #: Public/form_data/FG_var_card.inc:631 Public/form_data/FG_var_card.inc:681
@@ -6291,14 +6294,14 @@ msgstr "Folosestea optiunea urmatoare pentru a actualiza  selectia"
 #: Public/form_data/FG_var_tariffplan.inc:64
 #: Public/form_data/FG_var_tariffplan.inc:118
 #: Public/form_data/FG_var_alarm.inc:75 Public/form_data/FG_var_alarm.inc:149
-#: Public/form_data/FG_var_def_ratecard.inc:136
-#: Public/form_data/FG_var_def_ratecard.inc:577
+#: Public/form_data/FG_var_def_ratecard.inc:112
+#: Public/form_data/FG_var_def_ratecard.inc:551
 #: Public/form_data/FG_var_friend.inc:706
 msgid "TRUNK"
 msgstr "Trunchi"
 
 #: Public/A2B_entity_def_ratecard.php:358
-#: Public/form_data/FG_var_def_ratecard.inc:588
+#: Public/form_data/FG_var_def_ratecard.inc:562
 msgid "CIDGroup"
 msgstr ""
 
@@ -6643,7 +6646,7 @@ msgstr "Descriere"
 #: Public/form_data/FG_var_campaign_config.inc:152
 #: Public/form_data/FG_var_support.inc:115
 #: Public/form_data/FG_var_prefix.inc:125
-#: Public/form_data/FG_var_def_ratecard.inc:633
+#: Public/form_data/FG_var_def_ratecard.inc:607
 #: Public/form_data/FG_var_subscription_signup.inc:118
 #: Public/form_data/FG_var_ticket_agent.inc:170
 #: Public/form_data/FG_var_ticket.inc:193
@@ -6696,7 +6699,7 @@ msgstr "Adauga $HD_Form->FG_INSTANCE_NAME."
 #: Public/form_data/FG_var_campaign_config.inc:157
 #: Public/form_data/FG_var_support.inc:120
 #: Public/form_data/FG_var_prefix.inc:130
-#: Public/form_data/FG_var_def_ratecard.inc:637
+#: Public/form_data/FG_var_def_ratecard.inc:611
 #: Public/form_data/FG_var_subscription_signup.inc:123
 #: Public/form_data/FG_var_ticket_agent.inc:175
 #: Public/form_data/FG_var_ticket.inc:198
@@ -6849,7 +6852,7 @@ msgstr "Noul tau"
 #: Public/form_data/FG_var_invoice.inc:186
 #: Public/form_data/FG_var_voucher.inc:217
 #: Public/form_data/FG_var_currencies.inc:125
-#: Public/form_data/FG_var_def_ratecard.inc:641
+#: Public/form_data/FG_var_def_ratecard.inc:615
 #: Public/form_data/FG_var_logrefill.inc:182
 #: Public/form_data/FG_var_payment.inc:215
 msgid "Click 'Confirm Data' to continue."
@@ -6937,7 +6940,7 @@ msgstr "Data Pornire ( start)"
 #: Public/form_data/FG_var_campaign.inc:177
 #: Public/form_data/FG_var_tariffplan.inc:106
 #: Public/form_data/FG_var_did.inc:135
-#: Public/form_data/FG_var_def_ratecard.inc:486
+#: Public/form_data/FG_var_def_ratecard.inc:460
 msgid "Insert the starting date"
 msgstr "Introdu data de start"
 
@@ -7375,8 +7378,8 @@ msgstr "Plan Tarifar"
 #: Public/form_data/FG_var_tariffplan.inc:62
 #: Public/form_data/FG_var_tariffplan.inc:100
 #: Public/form_data/FG_var_did.inc:62 Public/form_data/FG_var_did.inc:129
-#: Public/form_data/FG_var_def_ratecard.inc:179
-#: Public/form_data/FG_var_def_ratecard.inc:480
+#: Public/form_data/FG_var_def_ratecard.inc:153
+#: Public/form_data/FG_var_def_ratecard.inc:454
 #: Public/form_data/FG_var_subscriber.inc:104
 msgid "START DATE"
 msgstr "Data Start"
@@ -7452,7 +7455,7 @@ msgstr "Foloseste urmatorul format AAAA-LL-ZZ HH:MM:SS exemplu '2009-12-31 00:00
 #: Public/form_data/FG_var_tariffplan.inc:116
 #: Public/form_data/FG_var_did.inc:136 Public/form_data/FG_var_did.inc:145
 #: Public/form_data/FG_var_voucher.inc:193
-#: Public/form_data/FG_var_def_ratecard.inc:487
+#: Public/form_data/FG_var_def_ratecard.inc:461
 msgid "Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr "Format AAAA-LL-ZZ HH:MM:SS exemplu '2009-12-31 00:00:00"
 
@@ -8711,12 +8714,12 @@ msgid "MR"
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:69 Public/form_data/FG_var_did.inc:197
-#: Public/form_data/FG_var_def_ratecard.inc:268
+#: Public/form_data/FG_var_def_ratecard.inc:242
 msgid "SELLING RATE"
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:69
-#: Public/form_data/FG_var_def_ratecard.inc:131
+#: Public/form_data/FG_var_def_ratecard.inc:107
 msgid "SR"
 msgstr ""
 
@@ -8740,17 +8743,17 @@ msgid "currency : "
 msgstr "moneda:"
 
 #: Public/form_data/FG_var_did.inc:185
-#: Public/form_data/FG_var_def_ratecard.inc:275
+#: Public/form_data/FG_var_def_ratecard.inc:249
 msgid "Define the selling cost for customers."
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:188
-#: Public/form_data/FG_var_def_ratecard.inc:298
+#: Public/form_data/FG_var_def_ratecard.inc:272
 msgid "CONNECT CHARGE"
 msgstr ""
 
 #: Public/form_data/FG_var_did.inc:194
-#: Public/form_data/FG_var_def_ratecard.inc:304
+#: Public/form_data/FG_var_def_ratecard.inc:278
 msgid "Insert the connect charge"
 msgstr ""
 
@@ -9081,7 +9084,7 @@ msgid "SELECT USED"
 msgstr ""
 
 #: Public/form_data/FG_var_voucher.inc:110
-#: Public/form_data/FG_var_def_ratecard.inc:170
+#: Public/form_data/FG_var_def_ratecard.inc:144
 msgid "HAVE BEEN CREATED."
 msgstr "A fost creat"
 
@@ -9197,7 +9200,7 @@ msgid "You have some components using this Support Box! Please comfirm that you 
 msgstr "Ai Componente ce folosesc aceasta casuta de suport. Confirmi stergerea casutei Suport?"
 
 #: Public/form_data/FG_var_currencies.inc:44
-#: Public/form_data/FG_var_def_ratecard.inc:118
+#: Public/form_data/FG_var_def_ratecard.inc:94
 msgid "Add Rate"
 msgstr "Adauga pret/ruta"
 
@@ -9246,445 +9249,445 @@ msgstr "Introdu Prefixul"
 msgid "Insert the Destination"
 msgstr "Introdu Destinatia"
 
-#: Public/form_data/FG_var_def_ratecard.inc:61
+#: Public/form_data/FG_var_def_ratecard.inc:65
 #, fuzzy
 msgid "EXPORTED LCR CALL PLAN"
 msgstr "Planul tarifar curent"
 
-#: Public/form_data/FG_var_def_ratecard.inc:130
+#: Public/form_data/FG_var_def_ratecard.inc:106
 msgid "BR"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:132
+#: Public/form_data/FG_var_def_ratecard.inc:108
 msgid "START-DATE"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:133
+#: Public/form_data/FG_var_def_ratecard.inc:109
 msgid "STOP-DATE"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:134
+#: Public/form_data/FG_var_def_ratecard.inc:110
 msgid "INITB"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:135
+#: Public/form_data/FG_var_def_ratecard.inc:111
 msgid "CC"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:137
+#: Public/form_data/FG_var_def_ratecard.inc:113
 msgid "RATE CARD"
 msgstr "Preturi / Rute"
 
-#: Public/form_data/FG_var_def_ratecard.inc:177
+#: Public/form_data/FG_var_def_ratecard.inc:151
 msgid "Define the criteria to search"
 msgstr "Defineste Criteriul de cautare"
 
-#: Public/form_data/FG_var_def_ratecard.inc:184
+#: Public/form_data/FG_var_def_ratecard.inc:158
 #, fuzzy
 msgid "DIALING PREFIX"
 msgstr "Prefix DNID"
 
-#: Public/form_data/FG_var_def_ratecard.inc:204
+#: Public/form_data/FG_var_def_ratecard.inc:178
 msgid "DIALPREFIX"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:210
+#: Public/form_data/FG_var_def_ratecard.inc:184
 msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
 msgstr "Introdu prefixul / exemplu UK 44"
 
-#: Public/form_data/FG_var_def_ratecard.inc:212
+#: Public/form_data/FG_var_def_ratecard.inc:186
 msgid "A) Add destination prefixes, ie '441' for UK Landlines.<br>B) Use 'defaultprefix' to setup a rate for all destinations where a specific rate is not provided.<br>C) if you ADD a rate, NOT an EDIT, you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed.<br>D) Asterisk extensions style + POSIX regex syntaxes are supported. '_447[7-9]XXXXXXXX' matches 12-digit UK mobiles. '_X{0,3}(112|999|911)' matches any 0-3 digits followed an emergency number. '_' can be used to add length, and raise the priority."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:215
+#: Public/form_data/FG_var_def_ratecard.inc:189
 msgid "Destination Prefix"
 msgstr "Prefix Ruta"
 
-#: Public/form_data/FG_var_def_ratecard.inc:223
+#: Public/form_data/FG_var_def_ratecard.inc:197
 msgid "Select the prefix destination corresponding to your prefix rate."
 msgstr "Selecteaza prefixul corespunzator destinatiei / rutei"
 
-#: Public/form_data/FG_var_def_ratecard.inc:223
+#: Public/form_data/FG_var_def_ratecard.inc:197
 msgid "This is the label that appears against the Call Detail Record."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:243
+#: Public/form_data/FG_var_def_ratecard.inc:217
 msgid "Insert the buy rate"
 msgstr "Introdu pretul de cumparare"
 
-#: Public/form_data/FG_var_def_ratecard.inc:244
+#: Public/form_data/FG_var_def_ratecard.inc:218
 msgid "Set the carrier cost, the price you pay for minutes."
 msgstr "Setati pretul operatorului pentru aceasta destinatie / pretul pe minut"
 
-#: Public/form_data/FG_var_def_ratecard.inc:245
+#: Public/form_data/FG_var_def_ratecard.inc:219
 msgid "Set the carrier cost for this destination."
 msgstr "Setati pretul operatorului pentru aceasta destinatie"
 
-#: Public/form_data/FG_var_def_ratecard.inc:248
+#: Public/form_data/FG_var_def_ratecard.inc:222
 msgid "BUYRATE MIN DURATION"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:254
+#: Public/form_data/FG_var_def_ratecard.inc:228
 msgid "Insert the buyrate init block"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:255
+#: Public/form_data/FG_var_def_ratecard.inc:229
 msgid "Set the minimum duration charged by the carrier. (i.e. 30 secs)"
 msgstr "Seteza durata minima taxa de operator  ( ex: 30 (in secunde))"
 
-#: Public/form_data/FG_var_def_ratecard.inc:258
+#: Public/form_data/FG_var_def_ratecard.inc:232
 msgid "BUYRATE BILLING BLOCK"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:264
-#: Public/form_data/FG_var_def_ratecard.inc:294
+#: Public/form_data/FG_var_def_ratecard.inc:238
+#: Public/form_data/FG_var_def_ratecard.inc:268
 msgid "Insert the billing block"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:265
+#: Public/form_data/FG_var_def_ratecard.inc:239
 msgid "Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:274
+#: Public/form_data/FG_var_def_ratecard.inc:248
 msgid "Insert the initial rate"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:275
+#: Public/form_data/FG_var_def_ratecard.inc:249
 msgid "The retail rate; or the cost per minute to apply to the customer, e.g. 0.02"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:278
+#: Public/form_data/FG_var_def_ratecard.inc:252
 msgid "SELLRATE MIN DURATION"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:284
+#: Public/form_data/FG_var_def_ratecard.inc:258
 msgid "Insert the init block"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:285
+#: Public/form_data/FG_var_def_ratecard.inc:259
 msgid "Set the minimum duration to charge the customer (ie 60 seconds)"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:288
+#: Public/form_data/FG_var_def_ratecard.inc:262
 msgid "SELLRATE BILLING BLOCK"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:295
+#: Public/form_data/FG_var_def_ratecard.inc:269
 msgid "Set the billing increment in seconds to bill your customer."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:305
+#: Public/form_data/FG_var_def_ratecard.inc:279
 msgid "Apply a connection charge"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:308
+#: Public/form_data/FG_var_def_ratecard.inc:282
 msgid "DISCONNECT CHARGE"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:314
+#: Public/form_data/FG_var_def_ratecard.inc:288
 msgid "Insert the disconnect charge"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:315
+#: Public/form_data/FG_var_def_ratecard.inc:289
 msgid "Apply a disconnection charge"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:324
+#: Public/form_data/FG_var_def_ratecard.inc:298
 msgid "Insert the disconnect charge threshold"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:325
+#: Public/form_data/FG_var_def_ratecard.inc:299
 msgid "Apply the disconnection charge if the call duration is greater than this amount of seconds. If 0, it will always apply."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:328
+#: Public/form_data/FG_var_def_ratecard.inc:302
 msgid "MINIMUM CALL COST "
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:334
+#: Public/form_data/FG_var_def_ratecard.inc:308
 msgid "Insert the Minimum call cost"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:335
+#: Public/form_data/FG_var_def_ratecard.inc:309
 msgid "Apply a minimum charge for the call."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:340
+#: Public/form_data/FG_var_def_ratecard.inc:314
 msgid "STEPCHARGE A"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:346
+#: Public/form_data/FG_var_def_ratecard.inc:320
 msgid "Insert the stepcharge A"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:347
+#: Public/form_data/FG_var_def_ratecard.inc:321
 msgid "When entering in the cycle 'A', define the amount to charge for the entrance."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:347
+#: Public/form_data/FG_var_def_ratecard.inc:321
 msgid "Below we have the section to create progressive rates. Progressive rate aims to bill the customer at various rates according the duration of the call. For instance you can define that you can to bill the customer 0.33dollars for the first 2 minutes and then you want to bill him 0.45dollars for the rest of the call."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:350
+#: Public/form_data/FG_var_def_ratecard.inc:324
 msgid "CHARGE A"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:356
+#: Public/form_data/FG_var_def_ratecard.inc:330
 msgid "Insert the charge A"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:357
+#: Public/form_data/FG_var_def_ratecard.inc:331
 msgid "When entering in the cycle 'A', define the rate to apply."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:360
+#: Public/form_data/FG_var_def_ratecard.inc:334
 msgid "TIMECHARGE A"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:366
+#: Public/form_data/FG_var_def_ratecard.inc:340
 msgid "Insert the time charge A"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:367
+#: Public/form_data/FG_var_def_ratecard.inc:341
 msgid "Define the duration of the cycle 'A'."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:370
+#: Public/form_data/FG_var_def_ratecard.inc:344
 msgid "BILLING BLOCK A"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:376
+#: Public/form_data/FG_var_def_ratecard.inc:350
 msgid "Insert the billing block A"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:377
+#: Public/form_data/FG_var_def_ratecard.inc:351
 msgid "Define the duration of each billing block to apply the rate 'CHARGE A'."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:380
+#: Public/form_data/FG_var_def_ratecard.inc:354
 msgid "STEPCHARGE B"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:386
+#: Public/form_data/FG_var_def_ratecard.inc:360
 msgid "Insert the stepcharge B"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:387
+#: Public/form_data/FG_var_def_ratecard.inc:361
 msgid "When entering in the cycle 'B', define the amount to charge for the entrance."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:390
+#: Public/form_data/FG_var_def_ratecard.inc:364
 msgid "CHARGE B"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:396
+#: Public/form_data/FG_var_def_ratecard.inc:370
 msgid "Insert the charge B"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:397
+#: Public/form_data/FG_var_def_ratecard.inc:371
 msgid "When entering in the cycle 'B', define the rate to apply."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:400
+#: Public/form_data/FG_var_def_ratecard.inc:374
 msgid "TIMECHARGE B"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:406
+#: Public/form_data/FG_var_def_ratecard.inc:380
 msgid "Insert the time charge B"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:407
+#: Public/form_data/FG_var_def_ratecard.inc:381
 msgid "Define the duration of the cycle 'B'."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:410
+#: Public/form_data/FG_var_def_ratecard.inc:384
 msgid "BILLING BLOCK B"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:416
+#: Public/form_data/FG_var_def_ratecard.inc:390
 msgid "Insert the billing block B"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:417
+#: Public/form_data/FG_var_def_ratecard.inc:391
 msgid "Define the duration of each billing block to apply the rate 'CHARGE B'."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:420
+#: Public/form_data/FG_var_def_ratecard.inc:394
 msgid "STEPCHARGE C"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:427
+#: Public/form_data/FG_var_def_ratecard.inc:401
 msgid "When entering in the cycle 'C', define the amount to charge for the entrance."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:430
+#: Public/form_data/FG_var_def_ratecard.inc:404
 msgid "CHARGE C"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:436
+#: Public/form_data/FG_var_def_ratecard.inc:410
 msgid "Insert the charge C"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:437
+#: Public/form_data/FG_var_def_ratecard.inc:411
 msgid "When entering in the cycle 'C', define the rate to apply."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:440
+#: Public/form_data/FG_var_def_ratecard.inc:414
 msgid "TIMECHARGE C"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:446
+#: Public/form_data/FG_var_def_ratecard.inc:420
 msgid "Insert the time charge C"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:447
+#: Public/form_data/FG_var_def_ratecard.inc:421
 msgid "Define the duration of the cycle 'C'."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:450
+#: Public/form_data/FG_var_def_ratecard.inc:424
 msgid "BILLING BLOCK C"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:456
+#: Public/form_data/FG_var_def_ratecard.inc:430
 msgid "Insert the billing block C"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:457
+#: Public/form_data/FG_var_def_ratecard.inc:431
 msgid "Define the duration of each billing block to apply the rate 'CHARGE C'."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:460
+#: Public/form_data/FG_var_def_ratecard.inc:434
 msgid "ANNOUNCE TIME CORRECTION"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:466
+#: Public/form_data/FG_var_def_ratecard.inc:440
 msgid "insert corection for announce time"
 msgstr "Anunţarea corecţie de timp"
 
-#: Public/form_data/FG_var_def_ratecard.inc:467
+#: Public/form_data/FG_var_def_ratecard.inc:441
 msgid "Define the multiplier on announce time for clients."
 msgstr "Definiţi anuntul de timp de multiplicare pentru clienti."
 
-#: Public/form_data/FG_var_def_ratecard.inc:488
+#: Public/form_data/FG_var_def_ratecard.inc:462
 msgid "Define the period when this rate table is active."
 msgstr "perioada când această Lista de preturi este activa."
 
-#: Public/form_data/FG_var_def_ratecard.inc:491
+#: Public/form_data/FG_var_def_ratecard.inc:465
 #: Public/form_data/FG_var_subscriber.inc:113
 msgid "STOP DATE"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:497
+#: Public/form_data/FG_var_def_ratecard.inc:471
 #: Public/form_data/FG_var_subscriber.inc:119
 msgid "Insert the stop date"
 msgstr "Introduceţi data de stop"
 
-#: Public/form_data/FG_var_def_ratecard.inc:498
+#: Public/form_data/FG_var_def_ratecard.inc:472
 msgid "Leave empty to apply this rate indefinitely. Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00"
 msgstr "Lăsaţi gol pentru a aplica această rată la nesfârşit. Format YYYY-MM-DD HH: MM: SS. De exemplu,'2004-12-31 00:00:00"
 
-#: Public/form_data/FG_var_def_ratecard.inc:507
+#: Public/form_data/FG_var_def_ratecard.inc:481
 msgid "START TIME"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:513
+#: Public/form_data/FG_var_def_ratecard.inc:487
 msgid "Insert the start time"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:514
+#: Public/form_data/FG_var_def_ratecard.inc:488
 msgid "Set the time and day of the week at the rate is first valid (ie Monday 00:00 is 0)"
 msgstr "Setaţi ora şi zi a săptămânii la care preturile sunt valide (adică 00:00 luni este 0)"
 
-#: Public/form_data/FG_var_def_ratecard.inc:517
+#: Public/form_data/FG_var_def_ratecard.inc:491
 msgid "END TIME"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:523
+#: Public/form_data/FG_var_def_ratecard.inc:497
 msgid "Insert the end time"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:524
+#: Public/form_data/FG_var_def_ratecard.inc:498
 msgid "Set the time and the day of the week that the rate is no longer valid. (ie Sunday 23:59 is 10079)"
 msgstr "Setaţi ora şi ziua din săptămână care rata nu mai este valabilă. (de exemplu, duminică 23:59 este 10079)"
 
-#: Public/form_data/FG_var_def_ratecard.inc:527
+#: Public/form_data/FG_var_def_ratecard.inc:501
 msgid "ROUNDING CALLTIME"
 msgstr "\tRotunjirea CALLTIME"
 
-#: Public/form_data/FG_var_def_ratecard.inc:533
+#: Public/form_data/FG_var_def_ratecard.inc:507
 msgid "Insert the rounding calltime"
 msgstr "Inserare de rotunjire calltime"
 
-#: Public/form_data/FG_var_def_ratecard.inc:534
+#: Public/form_data/FG_var_def_ratecard.inc:508
 msgid "Set the rounding calltime. All the selling rules will apply over this new calltime."
 msgstr "Set de rotunjire calltime. Toate regulile de vânzare se vor aplica peste aceast nou calltime."
 
-#: Public/form_data/FG_var_def_ratecard.inc:537
+#: Public/form_data/FG_var_def_ratecard.inc:511
 msgid "ROUNDING THRESHOLD"
 msgstr "\tRotunjire prag"
 
-#: Public/form_data/FG_var_def_ratecard.inc:543
+#: Public/form_data/FG_var_def_ratecard.inc:517
 msgid "Insert the rounding threshold"
 msgstr "\tIntroduceţi rotunjire pra"
 
-#: Public/form_data/FG_var_def_ratecard.inc:544
+#: Public/form_data/FG_var_def_ratecard.inc:518
 msgid "Set the rounding threshold"
 msgstr "Setaţi rotunjire prag"
 
-#: Public/form_data/FG_var_def_ratecard.inc:547
+#: Public/form_data/FG_var_def_ratecard.inc:521
 msgid "ADDITIONAL BLOCK CHARGE"
 msgstr "SUPLIMENTARE BLOCK GRATUIT"
 
-#: Public/form_data/FG_var_def_ratecard.inc:553
+#: Public/form_data/FG_var_def_ratecard.inc:527
 msgid "Insert the additional block charge"
 msgstr "\tIntroduceţi bloc taxe suplimentare"
 
-#: Public/form_data/FG_var_def_ratecard.inc:554
+#: Public/form_data/FG_var_def_ratecard.inc:528
 msgid "Set the initial block charge"
 msgstr "Setaţi bloc taxa iniţială"
 
-#: Public/form_data/FG_var_def_ratecard.inc:557
+#: Public/form_data/FG_var_def_ratecard.inc:531
 msgid "ADDITIONAL BLOCK CHARGE TIME"
 msgstr "SUPLIMENTARE BLOCK GRATUIT TIMP"
 
-#: Public/form_data/FG_var_def_ratecard.inc:563
+#: Public/form_data/FG_var_def_ratecard.inc:537
 msgid "Insert the additional block charge time"
 msgstr "\tInserare bloc taxe suplimentare de timp"
 
-#: Public/form_data/FG_var_def_ratecard.inc:564
+#: Public/form_data/FG_var_def_ratecard.inc:538
 msgid "Set the initial block charge time"
 msgstr "Setare iniţială bloc taxa timp"
 
-#: Public/form_data/FG_var_def_ratecard.inc:567
+#: Public/form_data/FG_var_def_ratecard.inc:541
 msgid "ADDITIONAL GRACE TIME"
 msgstr " Timpul de gratie aditional in secunde"
 
-#: Public/form_data/FG_var_def_ratecard.inc:573
+#: Public/form_data/FG_var_def_ratecard.inc:547
 msgid "Insert the additional grace time in sec"
 msgstr "Setatie timpul de gratie aditional in secunde"
 
-#: Public/form_data/FG_var_def_ratecard.inc:574
+#: Public/form_data/FG_var_def_ratecard.inc:548
 msgid "Set the additional grace time in sec"
 msgstr "Setatie timpul de gratie aditional in secunde"
 
-#: Public/form_data/FG_var_def_ratecard.inc:585
+#: Public/form_data/FG_var_def_ratecard.inc:559
 msgid "Set the trunk to use for this destination, or NOT DEFINED to use the rate card trunk."
 msgstr "Seteaza trunchiul folosit pentru aceasta destinati. daca nu este defini va fi folosit cel specificat in Lista de preturi"
 
-#: Public/form_data/FG_var_def_ratecard.inc:596
+#: Public/form_data/FG_var_def_ratecard.inc:570
 msgid "Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."
 msgstr "Setati Grupul CID pentru a fii folosit de aceasta destinatie"
 
-#: Public/form_data/FG_var_def_ratecard.inc:606
+#: Public/form_data/FG_var_def_ratecard.inc:580
 msgid "Set a tag on this rate"
 msgstr "Seteaza Stegulet acestui pret/ruta"
 
-#: Public/form_data/FG_var_def_ratecard.inc:610
+#: Public/form_data/FG_var_def_ratecard.inc:584
 #: Public/form_data/FG_var_friend.inc:534
 msgid "MUSICONHOLD"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:632
+#: Public/form_data/FG_var_def_ratecard.inc:606
 msgid "Rates must be entered in the currency base : "
 msgstr "Preturile pentru rute trebuie introduse in moneda sistemului :"
 
@@ -11223,6 +11226,9 @@ msgstr "Schimbul valutar este bazat pe Yahoo Finace"
 #: Public/A2B_currencies.php:91
 msgid "CLICK HERE TO UPDATE NOW"
 msgstr "Apasa aici pentru update"
+
+#~ msgid "Use the example below  to format the CSV file. Fields are separated by ;"
+#~ msgstr "Foloseste exemplul urmator pentru a formata sisierul CSV. foloseste ca separator ';'"
 
 #~ msgid "AccountUsed"
 #~ msgstr "Cont Folosit"
