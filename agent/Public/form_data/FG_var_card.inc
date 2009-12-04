@@ -527,20 +527,23 @@ if (isset($form_action) && $form_action=="ask-delete") {
 			   "",
 			   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Paid Status") );
 	
-	$typepaid_delete = ",typepaid";
-	
+	$typepaid_delete = ",typepaid";	
 }
 
-$HD_Form -> AddEditElement (gettext("CALL PLAN"),
-			   "tariff",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_tariffgroup, cc_agent_tariffgroup",
-			   "tariffgroupname, id",
-			   "cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent = ".$_SESSION['agent_id'] , "", "%1", "", "");
+$callplan_add = "";
+if (isset($form_action) && ($form_action=="ask-add" || $form_action=="ask-add")) {
+	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
+				   "tariff",
+				   "",
+				   "SELECT",
+				   "", "", "",
+				   "sql",
+				   "cc_tariffgroup, cc_agent_tariffgroup",
+				   "tariffgroupname, id",
+				   "cc_tariffgroup.id = cc_agent_tariffgroup.id_tariffgroup AND cc_agent_tariffgroup.id_agent = ".$_SESSION['agent_id'] , "", "%1", "", "");
 
+	$callplan_add = ",tariff";	
+}
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 			   "id_didgroup",
@@ -900,8 +903,6 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "",
 			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card:::::::0",
 			   '', gettext("CALLERID / CUSTOMER HISTORY"));
-				
-			   
 
 
 
@@ -933,7 +934,7 @@ if (ACT_VOICEMAIL)
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass'.$balance_delete.', id_group, id_seria, lastname, firstname, email, '.
 		' address, city, state, country, zipcode, phone, fax,company_name, company_website '.
-		$typepaid_delete.', tariff, id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
+		$typepaid_delete.$callplan_add.', id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
 		' creditlimit, credit_notification, notify_email, email_notification, ' .$add_fields_voicemail.
 		' id_campaign, ' .
 		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, autorefill, initialbalance,' .

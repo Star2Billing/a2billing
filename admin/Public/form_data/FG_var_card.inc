@@ -526,7 +526,7 @@ if (has_rights (ACX_MODIFY_CUSTOMERS) && !($popup_select>=1)) {
 				   "sql",
 				   "cc_tariffgroup",
 				   "tariffgroupname, id",
-				   "", "", "%1", "", "");
+				   "", "", "%1", "", gettext("Changing the call plan will result in the free minutes or free calls package being reset.") );
 	
 	
 	$HD_Form -> AddEditElement (gettext("DIDGROUP"),
