@@ -175,6 +175,9 @@ if (!is_null($HD_Form->SQL_GROUP) && ($HD_Form->SQL_GROUP != ''))
 if (!is_null($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER != '') && !is_null($HD_Form->FG_SENS) && ($HD_Form->FG_SENS != ''))
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
 
+if (strpos($_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR], 'cc_callplan_lcr')===false) {
+	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] = str_replace(', destination', ', cc_prefix.destination', $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]);
+}
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');

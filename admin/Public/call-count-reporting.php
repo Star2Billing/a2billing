@@ -223,7 +223,7 @@ $smarty->display('main.tpl');
     		</tr>
 		<tr>
 			<TD class="bgcolor_004" align="left">
-				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("Number in Result");?></font>
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo strtoupper(gettext("Number in Result"));?></font>
 			</TD>
 			<td class="bgcolor_005" align="left" >
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
