@@ -179,7 +179,6 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		$default_label_value = "0";
 	} else {
 		$balance_access = 'readonly';
-		//$default_label_value = "0";
 	}
 		   
 	$HD_Form -> AddEditElement (gettext("BALANCE"),
@@ -199,6 +198,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "",
 		   gettext("amount of commission"),
 		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
+	
 	$HD_Form -> AddEditElement (gettext("CURRENCY"),
 		   "currency",
 		   "",
