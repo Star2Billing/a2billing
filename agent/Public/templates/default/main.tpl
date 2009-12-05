@@ -19,16 +19,16 @@
 	{/if}
  onmouseover="this.style.cursor='hand';" >&nbsp; <strong>{php} echo gettext("MY ACCOUNT");{/php}</strong></a></li></div>
 	<div class="tohide"
-	{if ($section =="0")}
+	{if ($section =="4")}
 	style="">
 	{else}
 	style="display:none;">
 	{/if}
 	<ul>
 		<li><ul>
-				<li><a href="agentinfo.php?section=0">{php} echo gettext("Account information");{/php}</a></li>
-				<li><a href="A2B_entity_password.php?stitle=Password&section=0">{php} echo gettext("Password");{/php}</a></li>
-				<li><a href="A2B_entity_remittance_request.php?stitle=Password&section=0">{php} echo gettext("Historic Remittance");{/php}</a></li>
+				<li><a href="agentinfo.php?section=4">{php} echo gettext("Account information");{/php}</a></li>
+				<li><a href="A2B_entity_password.php?section=4">{php} echo gettext("Password");{/php}</a></li>
+				<li><a href="A2B_entity_remittance_request.php?section=4">{php} echo gettext("Historic Remittance");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>
@@ -50,10 +50,10 @@
 	{/if}
 	<ul>
 		<li><ul>
-				<li><a href="A2B_entity_card.php?atmenu=card&section=1">{php} echo gettext("List Customers");{/php}</a></li>
-				<li><a href="A2B_entity_callerid.php?atmenu=callerid&section=1">{php} echo gettext("Caller-ID");{/php}</a></li>
+				<li><a href="A2B_entity_card.php?section=1">{php} echo gettext("List Customers");{/php}</a></li>
+				<li><a href="A2B_entity_callerid.php?section=1">{php} echo gettext("Caller-ID");{/php}</a></li>
 				{if ($ACXCALLREPORT > 0) }
-				<li><a href="card-history.php?atmenu=cardhistory&section=1">{php} echo gettext("Card History");{/php}</a></li>
+				<li><a href="card-history.php?section=1">{php} echo gettext("Card History");{/php}</a></li>
 				{/if}
 				{if ($ACXVOIPCONF > 0) }
 				<li><a href="A2B_entity_friend.php?section=1">{php} echo gettext("VOIP Config");{/php}</a></li>
@@ -80,8 +80,8 @@
 	{/if}
 	<ul>
 		<li><ul>
-				<li><a href="A2B_entity_signup_agent.php?atmenu=listurl&stitle=Signup&section=8">{php} echo gettext("Signup Url List");{/php}</a></li>
-				<li><a href="A2B_signup_agent.php?atmenu=generatesignup&stitle=Signup&section=8">{php} echo gettext("Add New Signup Url");{/php}</a></li>
+				<li><a href="A2B_entity_signup_agent.php?section=8">{php} echo gettext("Signup Url List");{/php}</a></li>
+				<li><a href="A2B_signup_agent.php?section=8">{php} echo gettext("Add New Signup Url");{/php}</a></li>
 		</ul></li>
 	</ul>
 	</div>
@@ -104,13 +104,13 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&section=2">{php} echo gettext("Account balance");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=2">{php} echo gettext("Own Refills");{/php}</a></li>
-				<li><a href="A2B_entity_payment_agent.php?atmenu=payment&section=2">{php} echo gettext("Own Payments");{/php}</a></li>
-				<li><a href="A2B_entity_logrefill.php?atmenu=payment&section=2">{php} echo gettext("Customer's Refills");{/php}</a></li>
-				<li><a href="A2B_entity_payment.php?atmenu=payment&section=2">{php} echo gettext("Customer's Payment");{/php}</a></li>
-				<li><a href="A2B_entity_paymentlog.php?stitle=Payment_log&section=2">{php} echo gettext("Payment Log");{/php}</a></li>
-				<li><a href="A2B_entity_commission.php?stitle=Commission&section=2">{php} echo gettext("Commission");{/php}</a></li>
+				<li><a href="A2B_entity_moneysituation.php?section=2">{php} echo gettext("Account balance");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill_agent.php?section=2">{php} echo gettext("Own Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment_agent.php?section=2">{php} echo gettext("Own Payments");{/php}</a></li>
+				<li><a href="A2B_entity_logrefill.php?section=2">{php} echo gettext("Customer's Refills");{/php}</a></li>
+				<li><a href="A2B_entity_payment.php?section=2">{php} echo gettext("Customer's Payment");{/php}</a></li>
+				<li><a href="A2B_entity_paymentlog.php?section=2">{php} echo gettext("Payment Log");{/php}</a></li>
+				<li><a href="A2B_entity_commission.php?section=2">{php} echo gettext("Commission");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -132,7 +132,7 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Browse Rates");{/php} </a></li>
+				<li><a href="A2B_entity_def_ratecard.php?section=3">{php} echo gettext("Browse Rates");{/php} </a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -154,7 +154,7 @@
 	{/if}
 		<ul>
 			<li><ul>
-					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6">{php} echo gettext("CDR Report");{/php}</a></li>
+					<li><a href="call-log-customers.php?nodisplay=1&posted=1&section=6">{php} echo gettext("CDR Report");{/php}</a></li>
 					<li><a href="call-last-month.php?section=6">{php} echo gettext("Monthly Traffic");{/php}</a></li>
 			</ul></li>
 		</ul>
