@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-02 15:10+0100\n"
-"PO-Revision-Date: 2009-12-01 14:20-0300\n"
+"POT-Creation-Date: 2009-12-06 18:50+0100\n"
+"PO-Revision-Date: 2009-12-01 16:01-0300\n"
 "Last-Translator: Emerson Reis <eluizbr@tofalando.com.br>\n"
 "Language-Team: Emerson Reis <eluizbr@tofalando.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -1259,7 +1259,7 @@ msgstr "USADO"
 
 #: lib/interface/constants.php:274
 msgid "ANSWER"
-msgstr "ATENDER"
+msgstr "ATENDIDO"
 
 #: lib/interface/constants.php:275
 msgid "BUSY"
@@ -3345,7 +3345,7 @@ msgstr "ERROR: Não foi possívelrealizar o dowonload do arquivo"
 
 #: call-history.php:124
 msgid "PhoneNumber"
-msgstr "Número de Telefone "
+msgstr "Número chamado"
 
 #: call-history.php:126
 msgid "Duration"
@@ -3507,3 +3507,42 @@ msgstr "Quantia Total incl. IVA"
 #: checkout_confirmation.php:188
 msgid "Please click button to confirm your order"
 msgstr "Por favor clique no botão para confirmar sua ordem de pagamento"
+
+#~ msgid "ERROR TO LOAD PEER!"
+#~ msgstr "ERRO AO CARREGAR O \"PEER\"!"
+
+#~ msgid "Account/Phone"
+#~ msgstr "Conta/Telefone"
+
+#~ msgid "SIP WEB-PHONE"
+#~ msgstr "SIP WEB-PHONE"
+
+#~ msgid "NO SIP ACCOUNT"
+#~ msgstr "NENHUMA CONTA SIP"
+
+#~ msgid "Click to start SIP WebPhone"
+#~ msgstr "Clique para iniciar o SIP WebPhone"
+
+#~ msgid "IAX WEB-PHONE"
+#~ msgstr "IAX WEB-PHONE"
+
+#~ msgid "NO IAX ACCOUNT"
+#~ msgstr "NENHUMA CONTA IAX"
+
+#~ msgid "START IAX PHONE"
+#~ msgstr "INICIAR O IAX PHONE"
+
+#~ msgid "No Message Unknown"
+#~ msgstr "Sem Mensagem Desconhecida"
+
+#~ msgid "Deletion confirmation"
+#~ msgstr "Confirmação de deleção"
+
+#~ msgid "WEB-PHONE"
+#~ msgstr "WEB-PHONE"
+
+#~ msgid "Calldate"
+#~ msgstr "Data da ligação"
+
+#~ msgid "Source"
+#~ msgstr "Pesquisa"

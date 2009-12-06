@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-02 15:05+0100\n"
+"POT-Creation-Date: 2009-12-06 18:50+0100\n"
 "PO-Revision-Date: 2009-06-05 14:23-0400\n"
 "Last-Translator: Arnold <arnoldkamba@live.fr>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -1487,14 +1487,14 @@ msgstr "sélectionné, utilisez l'option dessous si vous vouler mettre a jours l
 #: lib/Form/Class.SearchHandler.inc.php:345
 #: Public/A2B_entity_def_ratecard.php:341 Public/form_data/FG_var_user.inc:77
 #: Public/form_data/FG_var_tariffgroup.inc:159
-#: Public/form_data/FG_var_def_ratecard.inc:167
+#: Public/form_data/FG_var_def_ratecard.inc:186
 #: Public/form_data/FG_var_card_group.inc:90
 #: Public/form_data/FG_var_agent.inc:67
 msgid "RATECARD"
 msgstr "TARIF"
 
 #: lib/Form/Class.SearchHandler.inc.php:364 Public/CC_ratecard_merging.php:146
-#: Public/form_data/FG_var_def_ratecard.inc:159
+#: Public/form_data/FG_var_def_ratecard.inc:178
 msgid "BUYRATE"
 msgstr "PRIXACHAT"
 
@@ -1550,7 +1550,7 @@ msgid "BUYRATEINCREMENT"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:411 Public/CC_ratecard_merging.php:147
-#: Public/form_data/FG_var_def_ratecard.inc:160
+#: Public/form_data/FG_var_def_ratecard.inc:179
 msgid "RATE INITIAL"
 msgstr "TARIF INITIAL"
 
@@ -1571,7 +1571,7 @@ msgid "DISCONNECTCHARGE"
 msgstr "FRAIS DE DECONNEXION"
 
 #: lib/Form/Class.SearchHandler.inc.php:491
-#: Public/form_data/FG_var_def_ratecard.inc:292
+#: Public/form_data/FG_var_def_ratecard.inc:311
 msgid "DISCONNECT CHARGE THRESHOLD"
 msgstr "SEUIL DES FRAIS DE DECONNEXION"
 
@@ -1670,7 +1670,7 @@ msgstr "Vous pouvez modifer &agrave l'aide du tableau suivant, les spécificité
 #: Public/form_data/FG_var_campaign_config.inc:152
 #: Public/form_data/FG_var_support.inc:115
 #: Public/form_data/FG_var_prefix.inc:125
-#: Public/form_data/FG_var_def_ratecard.inc:607
+#: Public/form_data/FG_var_def_ratecard.inc:626
 #: Public/form_data/FG_var_subscription_signup.inc:118
 #: Public/form_data/FG_var_ticket_agent.inc:170
 #: Public/form_data/FG_var_ticket.inc:193
@@ -1729,7 +1729,7 @@ msgstr "a été supprimé !"
 #: Public/form_data/FG_var_campaign_config.inc:153
 #: Public/form_data/FG_var_support.inc:116
 #: Public/form_data/FG_var_prefix.inc:126
-#: Public/form_data/FG_var_def_ratecard.inc:608
+#: Public/form_data/FG_var_def_ratecard.inc:627
 #: Public/form_data/FG_var_subscription_signup.inc:119
 #: Public/form_data/FG_var_ticket_agent.inc:171
 #: Public/form_data/FG_var_ticket.inc:194
@@ -1776,7 +1776,7 @@ msgstr "vous pouvez facilement ajouter un nouveau"
 #: Public/form_data/FG_var_campaign_config.inc:153
 #: Public/form_data/FG_var_support.inc:116
 #: Public/form_data/FG_var_prefix.inc:126
-#: Public/form_data/FG_var_def_ratecard.inc:608
+#: Public/form_data/FG_var_def_ratecard.inc:627
 #: Public/form_data/FG_var_subscription_signup.inc:119
 #: Public/form_data/FG_var_ticket_agent.inc:171
 #: Public/form_data/FG_var_ticket.inc:194
@@ -1836,7 +1836,7 @@ msgstr "maintenant."
 #: Public/form_data/FG_var_campaign_config.inc:157
 #: Public/form_data/FG_var_support.inc:120
 #: Public/form_data/FG_var_prefix.inc:130
-#: Public/form_data/FG_var_def_ratecard.inc:611
+#: Public/form_data/FG_var_def_ratecard.inc:630
 #: Public/form_data/FG_var_subscription_signup.inc:123
 #: Public/form_data/FG_var_ticket_agent.inc:175
 #: Public/form_data/FG_var_ticket.inc:198
@@ -2650,21 +2650,21 @@ msgstr "Date de Début / Jour"
 #: Public/form_data/FG_var_voucher.inc:81
 #: Public/form_data/FG_var_voucher.inc:100
 #: Public/form_data/FG_var_voucher.inc:148
-#: Public/form_data/FG_var_def_ratecard.inc:157
-#: Public/form_data/FG_var_def_ratecard.inc:573
+#: Public/form_data/FG_var_def_ratecard.inc:176
+#: Public/form_data/FG_var_def_ratecard.inc:592
 msgid "TAG"
 msgstr "ETIQUETTE"
 
 #: Public/CC_ratecard_merging.php:144 Public/A2B_call_archiving.php:382
 #: Public/A2B_card_info.php:662 Public/form_data/FG_var_prefix.inc:96
-#: Public/form_data/FG_var_def_ratecard.inc:104
+#: Public/form_data/FG_var_def_ratecard.inc:117
 #: Public/form_data/FG_var_did_destination.inc:67
 #: Public/form_data/FG_var_did_destination.inc:107
 msgid "DESTINATION"
 msgstr "DESTINATION"
 
 #: Public/CC_ratecard_merging.php:145 Public/form_data/FG_var_prefix.inc:87
-#: Public/form_data/FG_var_def_ratecard.inc:105
+#: Public/form_data/FG_var_def_ratecard.inc:118
 msgid "PREFIX"
 msgstr "PREFIXE"
 
@@ -2915,7 +2915,7 @@ msgstr "Arret"
 #: Public/form_data/FG_var_paymentlog.inc:118
 #: Public/form_data/FG_var_voucher.inc:78
 #: Public/form_data/FG_var_support.inc:69
-#: Public/form_data/FG_var_def_ratecard.inc:103
+#: Public/form_data/FG_var_def_ratecard.inc:116
 #: Public/form_data/FG_var_ticket_agent.inc:67
 #: Public/form_data/FG_var_ticket.inc:74
 #: Public/form_data/FG_var_billing_customer.inc:55
@@ -2932,7 +2932,7 @@ msgid "ID"
 msgstr "ID"
 
 #: Public/A2B_data_archiving.php:142 Public/A2B_card_info.php:319
-#: Public/A2B_agent_info.php:186 Public/form_data/FG_var_agent.inc:185
+#: Public/A2B_agent_info.php:186 Public/form_data/FG_var_agent.inc:184
 #: Public/form_data/FG_var_card.inc:135 Public/form_data/FG_var_card.inc:356
 msgid "BALANCE"
 msgstr "SOLDE RESTANT"
@@ -4163,7 +4163,7 @@ msgstr "OUI"
 #: Public/A2B_entity_invoice_conf.php:260 Public/call-count-reporting.php:286
 #: Public/form_data/FG_var_user.inc:110
 #: Public/form_data/FG_var_voucher.inc:110
-#: Public/form_data/FG_var_def_ratecard.inc:144
+#: Public/form_data/FG_var_def_ratecard.inc:163
 msgid "NO"
 msgstr "NON"
 
@@ -5225,8 +5225,8 @@ msgstr "Choisir le trunk &agrav utiliser"
 
 #: Public/CC_ratecard_import.php:240 Public/A2B_entity_def_ratecard.php:327
 #: Public/A2B_entity_def_ratecard.php:360
-#: Public/form_data/FG_var_def_ratecard.inc:559
-#: Public/form_data/FG_var_def_ratecard.inc:570
+#: Public/form_data/FG_var_def_ratecard.inc:578
+#: Public/form_data/FG_var_def_ratecard.inc:589
 #: Public/form_data/FG_var_subscriber.inc:102
 #: Public/form_data/FG_var_card.inc:384 Public/form_data/FG_var_card.inc:540
 #: Public/form_data/FG_var_card.inc:631 Public/form_data/FG_var_card.inc:681
@@ -6280,14 +6280,14 @@ msgstr "Utiliser les options, ci-dessous, pour mettre &agrave jour les tarifs s�
 #: Public/form_data/FG_var_tariffplan.inc:64
 #: Public/form_data/FG_var_tariffplan.inc:118
 #: Public/form_data/FG_var_alarm.inc:75 Public/form_data/FG_var_alarm.inc:149
-#: Public/form_data/FG_var_def_ratecard.inc:112
-#: Public/form_data/FG_var_def_ratecard.inc:551
+#: Public/form_data/FG_var_def_ratecard.inc:125
+#: Public/form_data/FG_var_def_ratecard.inc:570
 #: Public/form_data/FG_var_friend.inc:706
 msgid "TRUNK"
 msgstr ""
 
 #: Public/A2B_entity_def_ratecard.php:358
-#: Public/form_data/FG_var_def_ratecard.inc:562
+#: Public/form_data/FG_var_def_ratecard.inc:581
 msgid "CIDGroup"
 msgstr "Groupe d'IDA"
 
@@ -6632,7 +6632,7 @@ msgstr "Saisir la description"
 #: Public/form_data/FG_var_campaign_config.inc:152
 #: Public/form_data/FG_var_support.inc:115
 #: Public/form_data/FG_var_prefix.inc:125
-#: Public/form_data/FG_var_def_ratecard.inc:607
+#: Public/form_data/FG_var_def_ratecard.inc:626
 #: Public/form_data/FG_var_subscription_signup.inc:118
 #: Public/form_data/FG_var_ticket_agent.inc:170
 #: Public/form_data/FG_var_ticket.inc:193
@@ -6685,7 +6685,7 @@ msgstr "Ajouter $HD_Form->FG_INSTANCE_NAME."
 #: Public/form_data/FG_var_campaign_config.inc:157
 #: Public/form_data/FG_var_support.inc:120
 #: Public/form_data/FG_var_prefix.inc:130
-#: Public/form_data/FG_var_def_ratecard.inc:611
+#: Public/form_data/FG_var_def_ratecard.inc:630
 #: Public/form_data/FG_var_subscription_signup.inc:123
 #: Public/form_data/FG_var_ticket_agent.inc:175
 #: Public/form_data/FG_var_ticket.inc:198
@@ -6838,7 +6838,7 @@ msgstr "Votre nouveau "
 #: Public/form_data/FG_var_invoice.inc:186
 #: Public/form_data/FG_var_voucher.inc:217
 #: Public/form_data/FG_var_currencies.inc:125
-#: Public/form_data/FG_var_def_ratecard.inc:615
+#: Public/form_data/FG_var_def_ratecard.inc:634
 #: Public/form_data/FG_var_logrefill.inc:182
 #: Public/form_data/FG_var_payment.inc:215
 msgid "Click 'Confirm Data' to continue."
@@ -6926,7 +6926,7 @@ msgstr "DATE DEBUT"
 #: Public/form_data/FG_var_campaign.inc:177
 #: Public/form_data/FG_var_tariffplan.inc:106
 #: Public/form_data/FG_var_did.inc:135
-#: Public/form_data/FG_var_def_ratecard.inc:460
+#: Public/form_data/FG_var_def_ratecard.inc:479
 msgid "Insert the starting date"
 msgstr "Saisir la date de début"
 
@@ -7362,8 +7362,8 @@ msgstr "NOM-DU-TARIF"
 #: Public/form_data/FG_var_tariffplan.inc:62
 #: Public/form_data/FG_var_tariffplan.inc:100
 #: Public/form_data/FG_var_did.inc:62 Public/form_data/FG_var_did.inc:129
-#: Public/form_data/FG_var_def_ratecard.inc:153
-#: Public/form_data/FG_var_def_ratecard.inc:454
+#: Public/form_data/FG_var_def_ratecard.inc:172
+#: Public/form_data/FG_var_def_ratecard.inc:473
 #: Public/form_data/FG_var_subscriber.inc:104
 msgid "START DATE"
 msgstr "DATE DE DEBUT"
@@ -7439,7 +7439,7 @@ msgstr "Veuillez respecter le format YYYY-MM-DD HH:MM:SS. P.ex: '2004-12-31 00:0
 #: Public/form_data/FG_var_tariffplan.inc:116
 #: Public/form_data/FG_var_did.inc:136 Public/form_data/FG_var_did.inc:145
 #: Public/form_data/FG_var_voucher.inc:193
-#: Public/form_data/FG_var_def_ratecard.inc:461
+#: Public/form_data/FG_var_def_ratecard.inc:480
 msgid "Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr "Veuillez respecter le format YYYY-MM-DD HH:MM:SS. ex: '2004-12-31 00:00:00'"
 
@@ -8688,12 +8688,12 @@ msgid "MR"
 msgstr "TM"
 
 #: Public/form_data/FG_var_did.inc:69 Public/form_data/FG_var_did.inc:197
-#: Public/form_data/FG_var_def_ratecard.inc:242
+#: Public/form_data/FG_var_def_ratecard.inc:261
 msgid "SELLING RATE"
 msgstr "PRIX DE VENTE"
 
 #: Public/form_data/FG_var_did.inc:69
-#: Public/form_data/FG_var_def_ratecard.inc:107
+#: Public/form_data/FG_var_def_ratecard.inc:120
 msgid "SR"
 msgstr "PV"
 
@@ -8710,24 +8710,24 @@ msgstr "Définir le DID. Si vous faites AJOUTER un nouveau DID, et non EDITER, v
 msgid "Insert the monthly rate"
 msgstr "Saisir le tarif mensuel"
 
-#: Public/form_data/FG_var_did.inc:184 Public/form_data/FG_var_agent.inc:192
-#: Public/form_data/FG_var_agent.inc:201 Public/form_data/FG_var_card.inc:363
+#: Public/form_data/FG_var_did.inc:184 Public/form_data/FG_var_agent.inc:191
+#: Public/form_data/FG_var_agent.inc:200 Public/form_data/FG_var_card.inc:363
 #: Public/form_data/FG_var_card.inc:630
 msgid "currency : "
 msgstr "devise : "
 
 #: Public/form_data/FG_var_did.inc:185
-#: Public/form_data/FG_var_def_ratecard.inc:249
+#: Public/form_data/FG_var_def_ratecard.inc:268
 msgid "Define the selling cost for customers."
 msgstr "Définissez le prix de vente pour les clients."
 
 #: Public/form_data/FG_var_did.inc:188
-#: Public/form_data/FG_var_def_ratecard.inc:272
+#: Public/form_data/FG_var_def_ratecard.inc:291
 msgid "CONNECT CHARGE"
 msgstr "FRAIS DE CONNECTION"
 
 #: Public/form_data/FG_var_did.inc:194
-#: Public/form_data/FG_var_def_ratecard.inc:278
+#: Public/form_data/FG_var_def_ratecard.inc:297
 msgid "Insert the connect charge"
 msgstr "Saisir les frais de connection"
 
@@ -9058,7 +9058,7 @@ msgid "SELECT USED"
 msgstr "SELECTIONNER UTILISATION"
 
 #: Public/form_data/FG_var_voucher.inc:110
-#: Public/form_data/FG_var_def_ratecard.inc:144
+#: Public/form_data/FG_var_def_ratecard.inc:163
 msgid "HAVE BEEN CREATED."
 msgstr "CRÉÉ."
 
@@ -9174,7 +9174,7 @@ msgid "You have some components using this Support Box! Please comfirm that you 
 msgstr "Vous avez des composants qui utilisent cet Bo&icirc;te de  Support ! Souhaitez-vous vraiment supprimer cet Bo&icirc;te de Support ? "
 
 #: Public/form_data/FG_var_currencies.inc:44
-#: Public/form_data/FG_var_def_ratecard.inc:94
+#: Public/form_data/FG_var_def_ratecard.inc:107
 msgid "Add Rate"
 msgstr "Ajouter Tarif"
 
@@ -9219,445 +9219,445 @@ msgstr "Saisir le  Prefixe"
 msgid "Insert the Destination"
 msgstr "Saisir la Destination"
 
-#: Public/form_data/FG_var_def_ratecard.inc:65
+#: Public/form_data/FG_var_def_ratecard.inc:72
 msgid "EXPORTED LCR CALL PLAN"
 msgstr "PLAN DE NUMEROTATION CMR EXPORTÉ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:106
+#: Public/form_data/FG_var_def_ratecard.inc:119
 msgid "BR"
 msgstr "PA"
 
-#: Public/form_data/FG_var_def_ratecard.inc:108
+#: Public/form_data/FG_var_def_ratecard.inc:121
 msgid "START-DATE"
 msgstr "DATE-DEBUT"
 
-#: Public/form_data/FG_var_def_ratecard.inc:109
+#: Public/form_data/FG_var_def_ratecard.inc:122
 msgid "STOP-DATE"
 msgstr "DATE-FIN"
 
-#: Public/form_data/FG_var_def_ratecard.inc:110
+#: Public/form_data/FG_var_def_ratecard.inc:123
 msgid "INITB"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:111
+#: Public/form_data/FG_var_def_ratecard.inc:124
 msgid "CC"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:113
+#: Public/form_data/FG_var_def_ratecard.inc:126
 msgid "RATE CARD"
 msgstr "GRILLE TARIFFAIRE"
 
-#: Public/form_data/FG_var_def_ratecard.inc:151
+#: Public/form_data/FG_var_def_ratecard.inc:170
 msgid "Define the criteria to search"
 msgstr "Definir les crit&egrave;res de recherche"
 
-#: Public/form_data/FG_var_def_ratecard.inc:158
+#: Public/form_data/FG_var_def_ratecard.inc:177
 msgid "DIALING PREFIX"
 msgstr "PREFIXE DE NuméroTATION"
 
-#: Public/form_data/FG_var_def_ratecard.inc:178
+#: Public/form_data/FG_var_def_ratecard.inc:197
 msgid "DIALPREFIX"
 msgstr "PREFIXEDENUM"
 
-#: Public/form_data/FG_var_def_ratecard.inc:184
+#: Public/form_data/FG_var_def_ratecard.inc:203
 msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
 msgstr "Saisir le préfixe de numérotation. Par exemple: '33' pour la France ou '44' pour le Royaume-Uni "
 
-#: Public/form_data/FG_var_def_ratecard.inc:186
+#: Public/form_data/FG_var_def_ratecard.inc:205
 msgid "A) Add destination prefixes, ie '441' for UK Landlines.<br>B) Use 'defaultprefix' to setup a rate for all destinations where a specific rate is not provided.<br>C) if you ADD a rate, NOT an EDIT, you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed.<br>D) Asterisk extensions style + POSIX regex syntaxes are supported. '_447[7-9]XXXXXXXX' matches 12-digit UK mobiles. '_X{0,3}(112|999|911)' matches any 0-3 digits followed an emergency number. '_' can be used to add length, and raise the priority."
 msgstr "A) Ajouter des préfixes de destinations, ie '44' pour le Royaume-Uni.<br>B) Utilisez 'le préfixe par défaut' pour mettre en place un tarif spécifique, vers toutes les destinations qui n'en n'ont pas.<br>C) Si vous faites AJOUTER un tarif, et non EDITER, vous pouvez définir une gamme de préfixes. '32484-32487' ajoute tout les préfixes entre 32484 et 32487. '32484, 32386, 32488' ajouterait seulement préfixes, listés individuellement.<br>D) Les extensions Asterisk + la syntaxe POSIX regex est accépté. '_447[7-9]XXXXXXXX' correspond aux 12-chiffres des mobiles du Royaume-Uni. '_X{0,3}(112|999|911)' correspond &agrave n'importe quel des 0-3 chiffres suivant un numéro d'urgence. '_' peut &ecirc;tre utilisÉ pour ajouter de la longueur et augmenter la priorité."
 
-#: Public/form_data/FG_var_def_ratecard.inc:189
+#: Public/form_data/FG_var_def_ratecard.inc:208
 msgid "Destination Prefix"
 msgstr "Prefixe Destination"
 
-#: Public/form_data/FG_var_def_ratecard.inc:197
+#: Public/form_data/FG_var_def_ratecard.inc:216
 msgid "Select the prefix destination corresponding to your prefix rate."
 msgstr "Sélectionnez le préfixe de destination correspondant au tarif de votre préfixe."
 
-#: Public/form_data/FG_var_def_ratecard.inc:197
+#: Public/form_data/FG_var_def_ratecard.inc:216
 msgid "This is the label that appears against the Call Detail Record."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:217
+#: Public/form_data/FG_var_def_ratecard.inc:236
 msgid "Insert the buy rate"
 msgstr "Saisir le prix d'achat"
 
-#: Public/form_data/FG_var_def_ratecard.inc:218
+#: Public/form_data/FG_var_def_ratecard.inc:237
 msgid "Set the carrier cost, the price you pay for minutes."
 msgstr "Définir le co&ucirc;t du transport, le prix que vous payÉ &agrave la minute."
 
-#: Public/form_data/FG_var_def_ratecard.inc:219
+#: Public/form_data/FG_var_def_ratecard.inc:238
 msgid "Set the carrier cost for this destination."
 msgstr "Définir le co&ucirc;t du transport pour cette destination."
 
-#: Public/form_data/FG_var_def_ratecard.inc:222
+#: Public/form_data/FG_var_def_ratecard.inc:241
 msgid "BUYRATE MIN DURATION"
 msgstr "TEMPS MIN FACTURÉ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:228
+#: Public/form_data/FG_var_def_ratecard.inc:247
 msgid "Insert the buyrate init block"
 msgstr "Saisir le bloc de prix d'achat initial"
 
-#: Public/form_data/FG_var_def_ratecard.inc:229
+#: Public/form_data/FG_var_def_ratecard.inc:248
 msgid "Set the minimum duration charged by the carrier. (i.e. 30 secs)"
 msgstr "Définir la durée minimum facturÉ par le transporteur. (p.e. 30 secs)"
 
-#: Public/form_data/FG_var_def_ratecard.inc:232
+#: Public/form_data/FG_var_def_ratecard.inc:251
 msgid "BUYRATE BILLING BLOCK"
 msgstr "PRIX D'ACHAT BLOCK DE FACTURATION"
 
-#: Public/form_data/FG_var_def_ratecard.inc:238
-#: Public/form_data/FG_var_def_ratecard.inc:268
+#: Public/form_data/FG_var_def_ratecard.inc:257
+#: Public/form_data/FG_var_def_ratecard.inc:287
 msgid "Insert the billing block"
 msgstr "Saisir le block de facturation"
 
-#: Public/form_data/FG_var_def_ratecard.inc:239
+#: Public/form_data/FG_var_def_ratecard.inc:258
 msgid "Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"
 msgstr "Définir l'augmentation de la facturation, en seconde (block de facturation), que le transporteur applique. (p.e. 30 secs)"
 
-#: Public/form_data/FG_var_def_ratecard.inc:248
+#: Public/form_data/FG_var_def_ratecard.inc:267
 msgid "Insert the initial rate"
 msgstr "Saisir le tarif initial"
 
-#: Public/form_data/FG_var_def_ratecard.inc:249
+#: Public/form_data/FG_var_def_ratecard.inc:268
 msgid "The retail rate; or the cost per minute to apply to the customer, e.g. 0.02"
 msgstr "Le prix de vente au détail ou le co&ucirc;t par minute &agrave appliquer au client, p.e. 0.02"
 
-#: Public/form_data/FG_var_def_ratecard.inc:252
+#: Public/form_data/FG_var_def_ratecard.inc:271
 msgid "SELLRATE MIN DURATION"
 msgstr "TEMPS MIN FACTURÉ"
 
-#: Public/form_data/FG_var_def_ratecard.inc:258
+#: Public/form_data/FG_var_def_ratecard.inc:277
 msgid "Insert the init block"
 msgstr "Saisir le block initial"
 
-#: Public/form_data/FG_var_def_ratecard.inc:259
+#: Public/form_data/FG_var_def_ratecard.inc:278
 msgid "Set the minimum duration to charge the customer (ie 60 seconds)"
 msgstr "Définir la durée minimum &agrave facturÉ au client (p.e. 60 secondes)"
 
 # pb
-#: Public/form_data/FG_var_def_ratecard.inc:262
+#: Public/form_data/FG_var_def_ratecard.inc:281
 msgid "SELLRATE BILLING BLOCK"
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:269
+#: Public/form_data/FG_var_def_ratecard.inc:288
 msgid "Set the billing increment in seconds to bill your customer."
 msgstr ""
 
-#: Public/form_data/FG_var_def_ratecard.inc:279
+#: Public/form_data/FG_var_def_ratecard.inc:298
 msgid "Apply a connection charge"
 msgstr "Appliquer des frais de connection"
 
-#: Public/form_data/FG_var_def_ratecard.inc:282
+#: Public/form_data/FG_var_def_ratecard.inc:301
 msgid "DISCONNECT CHARGE"
 msgstr "FRAIS DE DECONNEXION"
 
-#: Public/form_data/FG_var_def_ratecard.inc:288
+#: Public/form_data/FG_var_def_ratecard.inc:307
 msgid "Insert the disconnect charge"
 msgstr "Saisir les frais de déconnexion"
 
-#: Public/form_data/FG_var_def_ratecard.inc:289
+#: Public/form_data/FG_var_def_ratecard.inc:308
 msgid "Apply a disconnection charge"
 msgstr "Appliquer des frais de déconnexion"
 
-#: Public/form_data/FG_var_def_ratecard.inc:298
+#: Public/form_data/FG_var_def_ratecard.inc:317
 msgid "Insert the disconnect charge threshold"
 msgstr "Saisir le seuil des frais de déconnexion"
 
-#: Public/form_data/FG_var_def_ratecard.inc:299
+#: Public/form_data/FG_var_def_ratecard.inc:318
 msgid "Apply the disconnection charge if the call duration is greater than this amount of seconds. If 0, it will always apply."
 msgstr "Appliquer les frais de déconnexion si la durée de l'appel est plus grande que ce total de secondes. Si c'est 0 on applique les frais de déconnexion."
 
-#: Public/form_data/FG_var_def_ratecard.inc:302
+#: Public/form_data/FG_var_def_ratecard.inc:321
 msgid "MINIMUM CALL COST "
 msgstr "CO&Ucirc;T MINIMUM D'APPEL "
 
-#: Public/form_data/FG_var_def_ratecard.inc:308
+#: Public/form_data/FG_var_def_ratecard.inc:327
 msgid "Insert the Minimum call cost"
 msgstr "Saisir le co&ucirc;t minimal d'un appel"
 
-#: Public/form_data/FG_var_def_ratecard.inc:309
+#: Public/form_data/FG_var_def_ratecard.inc:328
 msgid "Apply a minimum charge for the call."
 msgstr "Appliquer une facturation minimal par appel"
 
-#: Public/form_data/FG_var_def_ratecard.inc:314
+#: Public/form_data/FG_var_def_ratecard.inc:333
 msgid "STEPCHARGE A"
 msgstr "NIVEAU DE FRAIS A"
 
-#: Public/form_data/FG_var_def_ratecard.inc:320
+#: Public/form_data/FG_var_def_ratecard.inc:339
 msgid "Insert the stepcharge A"
 msgstr "Saisir le niveau de frais A"
 
-#: Public/form_data/FG_var_def_ratecard.inc:321
+#: Public/form_data/FG_var_def_ratecard.inc:340
 msgid "When entering in the cycle 'A', define the amount to charge for the entrance."
 msgstr "Lorsqu'on entre dans le cycle 'A', définir le montant &agrave facturer pour l'admission."
 
-#: Public/form_data/FG_var_def_ratecard.inc:321
+#: Public/form_data/FG_var_def_ratecard.inc:340
 msgid "Below we have the section to create progressive rates. Progressive rate aims to bill the customer at various rates according the duration of the call. For instance you can define that you can to bill the customer 0.33dollars for the first 2 minutes and then you want to bill him 0.45dollars for the rest of the call."
 msgstr "Cette section permet de créer une tarification progressive. La tarification progressive permet de facturer le client &agrave des prix différent selon la durrée de l'appel. Par exemple, vous pouvez définir que vous voulez facturer le client 0,33 Euros pour les 2 premi&egrave;res minutes, et ensuite, que vous souhaitez le facturer 0,45 Euros pour le reste de l'appel."
 
-#: Public/form_data/FG_var_def_ratecard.inc:324
+#: Public/form_data/FG_var_def_ratecard.inc:343
 msgid "CHARGE A"
 msgstr "TARIF A"
 
-#: Public/form_data/FG_var_def_ratecard.inc:330
+#: Public/form_data/FG_var_def_ratecard.inc:349
 msgid "Insert the charge A"
 msgstr "Saisir les tarifs A"
 
-#: Public/form_data/FG_var_def_ratecard.inc:331
+#: Public/form_data/FG_var_def_ratecard.inc:350
 msgid "When entering in the cycle 'A', define the rate to apply."
 msgstr "Lorsqu'on entre dans le cycle 'A', définir la tarification &agrave appliquer."
 
-#: Public/form_data/FG_var_def_ratecard.inc:334
+#: Public/form_data/FG_var_def_ratecard.inc:353
 msgid "TIMECHARGE A"
 msgstr "DURÉE FACTURATION A"
 
-#: Public/form_data/FG_var_def_ratecard.inc:340
+#: Public/form_data/FG_var_def_ratecard.inc:359
 msgid "Insert the time charge A"
 msgstr "Saisir la durée de facturation A"
 
-#: Public/form_data/FG_var_def_ratecard.inc:341
+#: Public/form_data/FG_var_def_ratecard.inc:360
 msgid "Define the duration of the cycle 'A'."
 msgstr "Définir la durée du cycle 'A'."
 
-#: Public/form_data/FG_var_def_ratecard.inc:344
+#: Public/form_data/FG_var_def_ratecard.inc:363
 msgid "BILLING BLOCK A"
 msgstr "BLOC DE FACTURATION A"
 
-#: Public/form_data/FG_var_def_ratecard.inc:350
+#: Public/form_data/FG_var_def_ratecard.inc:369
 msgid "Insert the billing block A"
 msgstr "Saisir le bloc de facturation A"
 
-#: Public/form_data/FG_var_def_ratecard.inc:351
+#: Public/form_data/FG_var_def_ratecard.inc:370
 msgid "Define the duration of each billing block to apply the rate 'CHARGE A'."
 msgstr "Définir la durée de chaque bloc de facturation sur lesquels appliquer le prix du 'TARIF A'."
 
-#: Public/form_data/FG_var_def_ratecard.inc:354
+#: Public/form_data/FG_var_def_ratecard.inc:373
 msgid "STEPCHARGE B"
 msgstr "NIVEAU DE FRAIS B"
 
-#: Public/form_data/FG_var_def_ratecard.inc:360
+#: Public/form_data/FG_var_def_ratecard.inc:379
 msgid "Insert the stepcharge B"
 msgstr "Saisir le niveau de frais B"
 
-#: Public/form_data/FG_var_def_ratecard.inc:361
+#: Public/form_data/FG_var_def_ratecard.inc:380
 msgid "When entering in the cycle 'B', define the amount to charge for the entrance."
 msgstr "Lorsqu'on entre dans le cycle 'B', définir le montant &agrave facturer pour l'admission."
 
-#: Public/form_data/FG_var_def_ratecard.inc:364
+#: Public/form_data/FG_var_def_ratecard.inc:383
 msgid "CHARGE B"
 msgstr "TARIF B"
 
-#: Public/form_data/FG_var_def_ratecard.inc:370
+#: Public/form_data/FG_var_def_ratecard.inc:389
 msgid "Insert the charge B"
 msgstr "Saisir le tarif B"
 
-#: Public/form_data/FG_var_def_ratecard.inc:371
+#: Public/form_data/FG_var_def_ratecard.inc:390
 msgid "When entering in the cycle 'B', define the rate to apply."
 msgstr "Lorsqu'on entre dans le cycle 'B', définir la tarification &agrave appliquer."
 
-#: Public/form_data/FG_var_def_ratecard.inc:374
+#: Public/form_data/FG_var_def_ratecard.inc:393
 msgid "TIMECHARGE B"
 msgstr "DURÉE FACTURATION B"
 
-#: Public/form_data/FG_var_def_ratecard.inc:380
+#: Public/form_data/FG_var_def_ratecard.inc:399
 msgid "Insert the time charge B"
 msgstr "Saisir la durée de facturation B"
 
-#: Public/form_data/FG_var_def_ratecard.inc:381
+#: Public/form_data/FG_var_def_ratecard.inc:400
 msgid "Define the duration of the cycle 'B'."
 msgstr "Définir la durée du cycle 'B'."
 
-#: Public/form_data/FG_var_def_ratecard.inc:384
+#: Public/form_data/FG_var_def_ratecard.inc:403
 msgid "BILLING BLOCK B"
 msgstr "BLOC FACTURATION B"
 
-#: Public/form_data/FG_var_def_ratecard.inc:390
+#: Public/form_data/FG_var_def_ratecard.inc:409
 msgid "Insert the billing block B"
 msgstr "Saisir le bloc de facturation B"
 
-#: Public/form_data/FG_var_def_ratecard.inc:391
+#: Public/form_data/FG_var_def_ratecard.inc:410
 msgid "Define the duration of each billing block to apply the rate 'CHARGE B'."
 msgstr "Définir la durée de chaque bloc de facturation sur lesquel appliquer le prix du 'TARIF B'."
 
-#: Public/form_data/FG_var_def_ratecard.inc:394
+#: Public/form_data/FG_var_def_ratecard.inc:413
 msgid "STEPCHARGE C"
 msgstr "NIVEAU DE FRAIS C"
 
-#: Public/form_data/FG_var_def_ratecard.inc:401
+#: Public/form_data/FG_var_def_ratecard.inc:420
 msgid "When entering in the cycle 'C', define the amount to charge for the entrance."
 msgstr "Lorsqu'on entre dans le cycle 'C', définir le montant &agrave facturer pour l'admission."
 
-#: Public/form_data/FG_var_def_ratecard.inc:404
+#: Public/form_data/FG_var_def_ratecard.inc:423
 msgid "CHARGE C"
 msgstr "TARIF C"
 
-#: Public/form_data/FG_var_def_ratecard.inc:410
+#: Public/form_data/FG_var_def_ratecard.inc:429
 msgid "Insert the charge C"
 msgstr "Saisir le tarif C"
 
-#: Public/form_data/FG_var_def_ratecard.inc:411
+#: Public/form_data/FG_var_def_ratecard.inc:430
 msgid "When entering in the cycle 'C', define the rate to apply."
 msgstr "Lorsqu'on entre dans le cycle 'C', définir la tarification &agrave appliquer."
 
-#: Public/form_data/FG_var_def_ratecard.inc:414
+#: Public/form_data/FG_var_def_ratecard.inc:433
 msgid "TIMECHARGE C"
 msgstr "DURÉE FACTURATION C"
 
-#: Public/form_data/FG_var_def_ratecard.inc:420
+#: Public/form_data/FG_var_def_ratecard.inc:439
 msgid "Insert the time charge C"
 msgstr "Saisir la durée de facturation C"
 
-#: Public/form_data/FG_var_def_ratecard.inc:421
+#: Public/form_data/FG_var_def_ratecard.inc:440
 msgid "Define the duration of the cycle 'C'."
 msgstr "Définir la durée du cycle 'C'."
 
-#: Public/form_data/FG_var_def_ratecard.inc:424
+#: Public/form_data/FG_var_def_ratecard.inc:443
 msgid "BILLING BLOCK C"
 msgstr "BLOC DE FACTURATION C"
 
-#: Public/form_data/FG_var_def_ratecard.inc:430
+#: Public/form_data/FG_var_def_ratecard.inc:449
 msgid "Insert the billing block C"
 msgstr "Saisir le bloc de facturation C"
 
-#: Public/form_data/FG_var_def_ratecard.inc:431
+#: Public/form_data/FG_var_def_ratecard.inc:450
 msgid "Define the duration of each billing block to apply the rate 'CHARGE C'."
 msgstr "Définir la durée de chaque bloc de facturation sur lesquel appliquer le prix du 'TARIF C'."
 
-#: Public/form_data/FG_var_def_ratecard.inc:434
+#: Public/form_data/FG_var_def_ratecard.inc:453
 msgid "ANNOUNCE TIME CORRECTION"
 msgstr "RECTIFICATION DE L'HEURE D'ANNONCE"
 
-#: Public/form_data/FG_var_def_ratecard.inc:440
+#: Public/form_data/FG_var_def_ratecard.inc:459
 #, fuzzy
 msgid "insert corection for announce time"
 msgstr "Saisir la rectification de l'heure d'annonce"
 
-#: Public/form_data/FG_var_def_ratecard.inc:441
+#: Public/form_data/FG_var_def_ratecard.inc:460
 msgid "Define the multiplier on announce time for clients."
 msgstr "Définir le multiplicateur sur l'heure d'annonce pour les clients."
 
-#: Public/form_data/FG_var_def_ratecard.inc:462
+#: Public/form_data/FG_var_def_ratecard.inc:481
 msgid "Define the period when this rate table is active."
 msgstr "Définir la période, durant laquelle, cette grille tarifaire est active."
 
-#: Public/form_data/FG_var_def_ratecard.inc:465
+#: Public/form_data/FG_var_def_ratecard.inc:484
 #: Public/form_data/FG_var_subscriber.inc:113
 msgid "STOP DATE"
 msgstr "DATE D'ARRET"
 
-#: Public/form_data/FG_var_def_ratecard.inc:471
+#: Public/form_data/FG_var_def_ratecard.inc:490
 #: Public/form_data/FG_var_subscriber.inc:119
 msgid "Insert the stop date"
 msgstr "Saisir la date d'arr&ecirc;t"
 
-#: Public/form_data/FG_var_def_ratecard.inc:472
+#: Public/form_data/FG_var_def_ratecard.inc:491
 msgid "Leave empty to apply this rate indefinitely. Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00"
 msgstr "Laisser vide pour appliquer ce tarif indéfiniment. Format AAAA-MM-JJ HH:MM:SS. par exemple, '1986-03-26 10:05:34'"
 
-#: Public/form_data/FG_var_def_ratecard.inc:481
+#: Public/form_data/FG_var_def_ratecard.inc:500
 msgid "START TIME"
 msgstr "HEURE DÉBUT"
 
-#: Public/form_data/FG_var_def_ratecard.inc:487
+#: Public/form_data/FG_var_def_ratecard.inc:506
 msgid "Insert the start time"
 msgstr "Saisir l'heure du début"
 
-#: Public/form_data/FG_var_def_ratecard.inc:488
+#: Public/form_data/FG_var_def_ratecard.inc:507
 msgid "Set the time and day of the week at the rate is first valid (ie Monday 00:00 is 0)"
 msgstr "Définir l'heure, et le jour de la semaine, de la premi&egrave;re activation du tarif ( p.e. Lundi 00:00 est 0)"
 
-#: Public/form_data/FG_var_def_ratecard.inc:491
+#: Public/form_data/FG_var_def_ratecard.inc:510
 msgid "END TIME"
 msgstr "HEURE FIN"
 
-#: Public/form_data/FG_var_def_ratecard.inc:497
+#: Public/form_data/FG_var_def_ratecard.inc:516
 msgid "Insert the end time"
 msgstr "Saisir l'heure de fin"
 
-#: Public/form_data/FG_var_def_ratecard.inc:498
+#: Public/form_data/FG_var_def_ratecard.inc:517
 msgid "Set the time and the day of the week that the rate is no longer valid. (ie Sunday 23:59 is 10079)"
 msgstr "Définir l'heure, et le jour de la semaine, &agrave partir desquelles le tarif n'est plus valable. (p.e. Dimanche 23:59 est 10079)"
 
-#: Public/form_data/FG_var_def_ratecard.inc:501
+#: Public/form_data/FG_var_def_ratecard.inc:520
 msgid "ROUNDING CALLTIME"
 msgstr "HEURE D'APPEL ARRONDI"
 
-#: Public/form_data/FG_var_def_ratecard.inc:507
+#: Public/form_data/FG_var_def_ratecard.inc:526
 msgid "Insert the rounding calltime"
 msgstr "Saisir l'heure d'appel arrondi"
 
-#: Public/form_data/FG_var_def_ratecard.inc:508
+#: Public/form_data/FG_var_def_ratecard.inc:527
 msgid "Set the rounding calltime. All the selling rules will apply over this new calltime."
 msgstr "Définir l'heure d'appel arrondi. Toutes les r&egrave;gles de ventes s'appliqueront cette nouvelle heures d'appel."
 
-#: Public/form_data/FG_var_def_ratecard.inc:511
+#: Public/form_data/FG_var_def_ratecard.inc:530
 msgid "ROUNDING THRESHOLD"
 msgstr "SEUIL ARRONDI"
 
-#: Public/form_data/FG_var_def_ratecard.inc:517
+#: Public/form_data/FG_var_def_ratecard.inc:536
 msgid "Insert the rounding threshold"
 msgstr "Saisir le seuil arrondi"
 
-#: Public/form_data/FG_var_def_ratecard.inc:518
+#: Public/form_data/FG_var_def_ratecard.inc:537
 msgid "Set the rounding threshold"
 msgstr "Définir le seuil arrondi"
 
-#: Public/form_data/FG_var_def_ratecard.inc:521
+#: Public/form_data/FG_var_def_ratecard.inc:540
 msgid "ADDITIONAL BLOCK CHARGE"
 msgstr "BLOC DE FACTURATION ADDITIONNEL"
 
-#: Public/form_data/FG_var_def_ratecard.inc:527
+#: Public/form_data/FG_var_def_ratecard.inc:546
 msgid "Insert the additional block charge"
 msgstr "Saisir le bloc additionnel de facturation"
 
-#: Public/form_data/FG_var_def_ratecard.inc:528
+#: Public/form_data/FG_var_def_ratecard.inc:547
 msgid "Set the initial block charge"
 msgstr "Définir le bloc initial de facturation"
 
-#: Public/form_data/FG_var_def_ratecard.inc:531
+#: Public/form_data/FG_var_def_ratecard.inc:550
 msgid "ADDITIONAL BLOCK CHARGE TIME"
 msgstr "DURÉE DU BLOC DE FRAIS ADDITIONNEL"
 
-#: Public/form_data/FG_var_def_ratecard.inc:537
+#: Public/form_data/FG_var_def_ratecard.inc:556
 msgid "Insert the additional block charge time"
 msgstr "Saisir la durée du bloc de frais additionnel"
 
-#: Public/form_data/FG_var_def_ratecard.inc:538
+#: Public/form_data/FG_var_def_ratecard.inc:557
 msgid "Set the initial block charge time"
 msgstr "Définir la duré du bloc de frais initial"
 
-#: Public/form_data/FG_var_def_ratecard.inc:541
+#: Public/form_data/FG_var_def_ratecard.inc:560
 msgid "ADDITIONAL GRACE TIME"
 msgstr "TEMPS DE GRACE ADDITIONNEL"
 
-#: Public/form_data/FG_var_def_ratecard.inc:547
+#: Public/form_data/FG_var_def_ratecard.inc:566
 msgid "Insert the additional grace time in sec"
 msgstr "Saisir le temps de grace additionnel en sec"
 
-#: Public/form_data/FG_var_def_ratecard.inc:548
+#: Public/form_data/FG_var_def_ratecard.inc:567
 msgid "Set the additional grace time in sec"
 msgstr "Définir le temps de grace additionnel en sec"
 
-#: Public/form_data/FG_var_def_ratecard.inc:559
+#: Public/form_data/FG_var_def_ratecard.inc:578
 msgid "Set the trunk to use for this destination, or NOT DEFINED to use the rate card trunk."
 msgstr "Définir le trunk &agrave utiliser pour cette destination, ou NON DEFINI pour utiliser la grille tarifaire du trunk."
 
-#: Public/form_data/FG_var_def_ratecard.inc:570
+#: Public/form_data/FG_var_def_ratecard.inc:589
 msgid "Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."
 msgstr "Définir le Groupe d'IDA Sortant &agrave utiliser pour cette destination, ou NON DEFINI pour utiliser la grille tarifaire du trunk"
 
-#: Public/form_data/FG_var_def_ratecard.inc:580
+#: Public/form_data/FG_var_def_ratecard.inc:599
 msgid "Set a tag on this rate"
 msgstr "Mettre une étiquette pour ce tarif"
 
-#: Public/form_data/FG_var_def_ratecard.inc:584
+#: Public/form_data/FG_var_def_ratecard.inc:603
 #: Public/form_data/FG_var_friend.inc:534
 msgid "MUSICONHOLD"
 msgstr "MUSIQUE D'ATTENTE"
 
-#: Public/form_data/FG_var_def_ratecard.inc:606
+#: Public/form_data/FG_var_def_ratecard.inc:625
 msgid "Rates must be entered in the currency base : "
 msgstr "Le cours actuel, de la devise, doit &ecirc;tre spécifié :"
 
@@ -10563,17 +10563,17 @@ msgstr "Choisissez si vous désirez activé l'agent"
 msgid "Enable agent"
 msgstr "Activer agent"
 
-#: Public/form_data/FG_var_agent.inc:191
+#: Public/form_data/FG_var_agent.inc:190
 #, fuzzy
 msgid "amount of credit"
 msgstr "Montant du Crédit"
 
-#: Public/form_data/FG_var_agent.inc:194
+#: Public/form_data/FG_var_agent.inc:193
 #, fuzzy
 msgid "COMMISSION BALANCE"
 msgstr "MONTANT COMMISSION"
 
-#: Public/form_data/FG_var_agent.inc:200
+#: Public/form_data/FG_var_agent.inc:199
 #, fuzzy
 msgid "amount of commission"
 msgstr "Saisir la commission"
@@ -10786,6 +10786,10 @@ msgstr "Saisir l'adresse du site internet de la société du client"
 #: Public/form_data/FG_var_card.inc:518
 msgid "Customer Status"
 msgstr "Statut Client"
+
+#: Public/form_data/FG_var_card.inc:529
+msgid "Changing the call plan will result in the free minutes or free calls package being reset."
+msgstr ""
 
 #: Public/form_data/FG_var_card.inc:601
 msgid "RUN SERVICE"
