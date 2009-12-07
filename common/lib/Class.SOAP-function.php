@@ -644,7 +644,7 @@ class SOAP_A2Billing
 	 */
     //Default values ($activated = true, $status = 1, $simultaccess = 0, $typepaid =0, $sip_buddy=1, $iax_buddy=1, $voicemail_enabled = true)
     //$status : 1 Active
-    function Create_Customer($security_key, $instance, $id_callplan, $id_didgroup, $units, $accountnumber_len, $balance, $activated, $status,  $simultaccess, $currency, $typepaid, $sip_buddy, $iax_buddy,  $language, $voicemail_enabled)
+    function Create_Customer($security_key, $instance, $id_callplan, $id_didgroup, $units, $accountnumber_len, $balance, $activated, $status,  $simultaccess, $currency, $typepaid, $sip_buddy, $iax_buddy,  $language, $voicemail_enabled, $country, $language)
     {
         $arr_check = $this->Check_KeyInstance($security_key, $instance);
 		if ($arr_check[0] == 'ERROR') {
@@ -660,13 +660,23 @@ class SOAP_A2Billing
 		    return array("ERROR", "WRONG ACCOUNT NUMBER LENGTH - $accountnumber_len");
 		}
 		
+		if (strlen($country)==3)
+			$country = strtoupper($country);
+		else 
+			$country = 'USA';
+		
+		if (strlen($country)==3)
+			$language = strtolower($language);
+		else
+			$language = 'en';
+		
 		if ($activated)
-		$v_activated = ($activated) ? 't' : 'f';
+			$v_activated = ($activated) ? 't' : 'f';
 		
 		$instance_realtime = new Realtime();
 
 	    $FG_ADITION_SECOND_ADD_TABLE = "cc_card";
-	    $FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, simultaccess, currency, typepaid, uipass, id_group, id_didgroup, sip_buddy, iax_buddy";
+	    $FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, country, language, activated, simultaccess, currency, typepaid, uipass, id_group, id_didgroup, sip_buddy, iax_buddy";
 
 	    if (DB_TYPE != "postgres") {
 		    $FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
@@ -696,13 +706,12 @@ class SOAP_A2Billing
 			    $balance = 0;
 		    $passui_secret = MDP_NUMERIC(10);
 		
-		    $FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$balance', '$id_callplan', '$activated', $simultaccess,".
-		                               " '$currency', $typepaid, '$passui_secret', '$id_group', '$id_didgroup', $sip_buddy, $iax_buddy";
+		    $FG_ADITION_SECOND_ADD_VALUE = "'$accountnumber', '$useralias', '$balance', '$id_callplan', '$country', '$language', '$activated', ".
+		                         " $simultaccess, '$currency', $typepaid, '$passui_secret', '$id_group', '$id_didgroup', $sip_buddy, $iax_buddy";
             
 		    if (DB_TYPE != "postgres")
 			    $FG_ADITION_SECOND_ADD_VALUE .= ", now() ";
 		    
-            
 		    $id_cc_card = $instance_sub_table->Add_table($this->DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, 'id');
 		    
 		    if (!$id_cc_card) {

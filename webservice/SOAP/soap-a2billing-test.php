@@ -51,6 +51,18 @@ $margin = 0.2;
 
 
 
+$method = 'Set_Setting';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key, 'base_country', 'swe');
+print_r ($arr_result);
+
+$method = 'Get_Setting';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key, 'base_country');
+print_r ($arr_result);
+
 
 
 $method = 'Get_Languages';
@@ -140,13 +152,13 @@ print_r ($arr_result);
 $method = 'Set_Setting';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
-$arr_result = $webservice -> $method ($security_key, 'http_cookie_domain_agent', '127.0.0.1');
+$arr_result = $webservice -> $method ($security_key, 'base_country', 'swe');
 print_r ($arr_result);
 
 $method = 'Get_Setting';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
-$arr_result = $webservice -> $method ($security_key, 'http_cookie_domain_agent');
+$arr_result = $webservice -> $method ($security_key, 'base_country');
 print_r ($arr_result);
 
 $method = 'Get_Languages';
@@ -180,7 +192,7 @@ echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $instance, $id_ratecard);
 print_r ($arr_result);
-
+$id_callplan = $arr_result[0];
 
 // VOUCHER CREATION 
 $credit = 3;
@@ -220,7 +232,7 @@ $arr_result = $webservice -> $method ($security_key, $instance, $id_callplan, $i
 print_r ($arr_result);
 
 $arr_id_card = array();
-foreach ($arr_result[0] as $arr_result_val) {
+foreach (unserialize($arr_result[0]) as $arr_result_val) {
     $arr_id_card[] = $arr_result_val[1];
 }
 print_r ($arr_id_card);
@@ -246,7 +258,7 @@ $method = 'Create_DID';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
 $response = trim(fgets(STDIN));
 $arr_result = $webservice -> $method ($security_key, $arr_id_card, $id_didgroup, $rate, $connection_charge, $did_prefix, $did_suffix, $id_country);
-print_r ($arr_result);
+print_r ($arr_result[0]);
 
 
 $method = 'Get_ProvisioningList';
