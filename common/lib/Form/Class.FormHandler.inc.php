@@ -2401,7 +2401,7 @@ class FormHandler
 				
 				if (is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
 					$field_insert = "id_payment, id_card, amount,description,id_agent";
-					$commission = ceil(($processed['payment'] * ($result_agent[0]['commission']/100))*100)/100;
+					$commission = a2b_round($processed['payment'] * ($result_agent[0]['commission']/100));
 					$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
 					$description_commission.= "\nID CARD : ".$card_id;
 					$description_commission.= "\nID PAYMENT : ".$id_payment;
@@ -2410,6 +2410,10 @@ class FormHandler
 					$value_insert = "'".$id_payment."', '$card_id', '$commission','$description_commission','$id_agent'";
 					$commission_table = new Table("cc_agent_commission", $field_insert);
 					$id_commission = $commission_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+					$table_agent = new Table('cc_agent');
+					$param_update_agent = "com_balance = com_balance + '".$commission."'";
+					$clause_update_agent = " id='".$id_agent."'";
+					$table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 				}
 			}	
 		}
