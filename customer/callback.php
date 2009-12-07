@@ -154,7 +154,12 @@ if ($callback) {
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
-					$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|LEG=".$A2B->cardnumber;
+					
+					if ($A2B->config['global']['asterisk_version'] == "1_6") {
+						$variable = "CALLED=$called,CALLING=$calling,CBID=$uniqueid,LEG=".$A2B->cardnumber;
+					} else {
+						$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|LEG=".$A2B->cardnumber;
+					}
 					
 					$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority," .
 							 " variable, id_server_group, callback_time, account, callerid, timeout ) " .
@@ -188,6 +193,8 @@ $customer = $_SESSION["pr_login"];
 
 $smarty->display( 'main.tpl');
 
+echo $CC_help_callback;
+
 ?>
 <br>
 <center>
@@ -205,7 +212,7 @@ $smarty->display( 'main.tpl');
 	<tr class="bgcolor_001">
 	<td align="left" valign="bottom">
 			<br/>
-			<font class="fontstyle_007"><?php echo gettext("Your PhoneNumber");?> :</font>
+			<font class="fontstyle_007"><?php echo gettext("Your Phone Number");?> :</font>
 			<input class="form_input_text" name="called" value="<?php echo $called; ?>" size="30" maxlength="40" >
 			<br/><br/>
 			<font class="fontstyle_007"><?php echo gettext("The number you wish to call");?> :</font>

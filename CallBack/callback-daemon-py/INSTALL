@@ -46,16 +46,14 @@ python-sqlalchemy
  
   Start Daemon :
     /etc/init.d/a2b-callback-daemon start
+  
 
-
-
-3) INSTALL DAEMON : Gentoo
+3) RUN DEBUG MODE
 =============================
-  
-  Ask Steve Dommet to complete 
-  
-
-
+	
+	cd CallBack/callback-daemon-py/callback_daemon
+	./a2b_callback_daemon.py --nodaemon
+	
 
 
 # ADDITIONAL INFO

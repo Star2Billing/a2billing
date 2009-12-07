@@ -85,6 +85,8 @@ if (SHOW_HELP) {
 	$CC_help_release_did = create_help(gettext("After confirmation, the release of the did will be done immediately and you will not be monthly charged any more."));
 
 	$CC_help_speeddial = create_help(gettext("Map single digit to your most dialed numbers."));
+	
+	$CC_help_callback = create_help(gettext("Callback : Entre your phone number and the phone number you wish to call."));
 
 } //ENDIF SHOW_HELP
 

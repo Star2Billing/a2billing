@@ -81,5 +81,8 @@ CREATE VIEW cc_callplan_lcr AS
 	WHERE cc_ratecard.id IS NOT NULL;
 	
 
-
+-- Add Asterisk Version - Global for Callback
+INSERT INTO cc_config ( config_title , config_key , config_value , config_description , config_valuetype , config_listvalues , config_group_title) 
+VALUES ('Asterisk Version Global', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1, 1_2, 1_4, 1_6. By Default the version is 1_4.', 
+'0', NULL, 'global');
 

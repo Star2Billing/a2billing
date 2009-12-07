@@ -555,14 +555,18 @@ if ($mode == 'standard') {
 					$account = $A2B -> accountcode;
 
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
-					$variable = "IDCONF=$idconfig|CALLED=".$A2B ->destination."|MODE=CID|CBID=$uniqueid|LEG=".$A2B -> username;
+					
+					$sep = ($A2B->config['global']['asterisk_version'] == "1_6")?',':'|';
+					
+					$variable = "IDCONF=$idconfig".$sep."CALLED=".$A2B ->destination.$sep."MODE=CID".$sep."CBID=$uniqueid".$sep."LEG=".$A2B -> username;
+					
 					foreach($callbackrate as $key => $value){
-						$variable .= '|'.strtoupper($key).'='.$value;
+						$variable .= $sep.strtoupper($key).'='.$value;
 					}
 					//pass the tariff if it was passed in
 					if (strlen($cid_1st_leg_tariff_id) > 0)
 					{ 
-						$variable .= '|TARIFF='.$cid_1st_leg_tariff_id;
+						$variable .= $sep.'TARIFF='.$cid_1st_leg_tariff_id;
 					}
 					
 					$status = 'PENDING';
@@ -695,8 +699,11 @@ if ($mode == 'standard') {
 					$account = $A2B -> accountcode;
 
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
-					$variable = "IDCONF=$idconfig|CALLED=".$A2B ->destination."|MODE=ALL|CBID=$uniqueid|TARIFF=".$A2B ->tariff.'|LEG='.$A2B -> username;
-
+					
+					$sep = ($A2B->config['global']['asterisk_version'] == "1_6")?',':'|';
+					
+					$variable = "IDCONF=$idconfig".$sep."CALLED=".$A2B ->destination.$sep."MODE=ALL".$sep."CBID=$uniqueid".$sep."TARIFF=".$A2B ->tariff.$sep."LEG=".$A2B -> username;
+					
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
@@ -764,7 +771,9 @@ if ($mode == 'standard') {
 	$callback_leg = $agi->get_variable("LEG", true);
 
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
-	$A2B-> destination = $calling_party;
+	$A2B -> extension = $A2B -> dnid = $A2B -> destination = $calling_party;
+	$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[calling_party:$calling_party - CALLING=$calling_party ]\n\n\n");
+
 
 	if ($callback_mode=='CID') {
 		$charge_callback = 1;
@@ -788,6 +797,7 @@ if ($mode == 'standard') {
 	}
 
 	$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg]");
+	$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[calling_party:$calling_party - CALLING=$calling_party ]\n\n\n");
 
 	$QUERY = "UPDATE cc_callback_spool SET agi_result='AGI PROCESSING' WHERE uniqueid='$callback_uniqueid'";
 	$res = $A2B -> DBHandle -> Execute($QUERY);

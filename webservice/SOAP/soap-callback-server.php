@@ -275,7 +275,10 @@ class Callback {
 				$status = 'PENDING';
 				$server_ip = 'localhost';
 				$num_attempt = 0;
-				$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|TARIFF=" . $A2B->tariff;
+				
+				$sep = ($A2B->config['global']['asterisk_version'] == "1_6")?',':'|';
+				
+				$variable = "CALLED=$called".$sep."CALLING=$calling".$sep."CBID=$uniqueid".$sep."TARIFF=" . $A2B->tariff;
 				
 				if (is_numeric($A2B->config["callback"]['sec_wait_before_callback']) && $A2B->config["callback"]['sec_wait_before_callback'] >= 1) {
 					$sec_wait_before_callback = $A2B->config["callback"]['sec_wait_before_callback'];
