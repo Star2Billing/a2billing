@@ -778,11 +778,13 @@ class SOAP_A2Billing
 	    $end_date = date("-m-d H:i:s");
 	    $startingdate = $begin_date.$end_date;
 	    $expirationdate = $begin_date_plus.$end_date;
-		
+		$lensuf = strlen($did_suffix);
 		$increment_did = 0;
 		foreach ($account_id as $val_account_id){
 		    
 		    $did_suffix_inc = $did_suffix + $increment_did;
+		    $did_suffix_inc = sprintf("%0$lensuf".'d', $did_suffix_inc);
+		    
 		    $did_to_create = "$did_prefix"."$did_suffix_inc";
 		    $increment_did++;
 		    
