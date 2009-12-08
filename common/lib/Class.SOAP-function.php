@@ -134,7 +134,7 @@ class SOAP_A2Billing
                        );
 
         $this->__dispatch_map['Create_DID'] =
-                 array('in' => array('security_key' => 'string', 'account_id' => 'array', 'id_didgroup' => 'integer', 'rate' => 'float', 'connection_charge' => 'float', 'did_prefix' => 'string', 'did_suffix' => 'string', 'id_country' => 'integer'),
+                 array('in' => array('security_key' => 'string', 'account_id' => 'array', 'id_didgroup' => 'integer', 'rate' => 'float', 'connection_charge' => 'float', 'did_prefix' => 'string', 'did_suffix' => 'string', 'country' => 'integer'),
                        'out' => array('result' => 'array', 'message' => 'string')
                        );
 
@@ -769,16 +769,27 @@ class SOAP_A2Billing
 	 * did_suffix = 8760
 	 * as the DID are 7 digits, the following DID will be created 6008760, 6008761, 6008762, 6008763, etc...
 	 */
-    function Create_DID($security_key, $account_id, $id_didgroup, $rate, $connection_charge, $did_prefix, $did_suffix, $id_country)
+    function Create_DID($security_key, $account_id, $id_didgroup, $rate, $connection_charge, $did_prefix, $did_suffix, $country)
     {
         if (!$this->Check_SecurityKey ($security_key)) {
 		    return array("ERROR", "INVALID KEY");
 		}
 		
-		if (!is_array($account_id))
-		{
+		if (!is_array($account_id)) {
 		    return array(false, "WRONG ARRAY OF ACCOUNT");
 		}
+		
+		if (strlen($country)==3)
+			$country = strtoupper($country);
+		else 
+			$country = 'USA';
+		
+		$QUERY = "SELECT id, countrycode, countryname FROM cc_country WHERE countrycode='$country'";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if (!is_array($result)) {
+		    $id_country = 225;
+		}
+		$id_country = $result[0][0];
 		
 		$arr_did = array();
 		
@@ -789,7 +800,7 @@ class SOAP_A2Billing
 	    $expirationdate = $begin_date_plus.$end_date;
 		$lensuf = strlen($did_suffix);
 		$increment_did = 0;
-		foreach ($account_id as $val_account_id){
+		foreach ($account_id as $val_account_id) {
 		    
 		    $did_suffix_inc = $did_suffix + $increment_did;
 		    $did_suffix_inc = sprintf("%0$lensuf".'d', $did_suffix_inc);
@@ -807,7 +818,6 @@ class SOAP_A2Billing
 		    if (!$inserted) {
 		        return array(false, "ERROR CREATING DID (".$increment_did." DIDs created)");
 		    }
-		    
 		    $arr_did[] = $did_to_create;
 		}
 		

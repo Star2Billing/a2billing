@@ -164,7 +164,7 @@ foreach ($result as $myservice) {
 				//$QUERY = "UPDATE cc_card SET credit=credit-'".$myservice_fee."' WHERE id=".$mycard[0];	
 				//$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				//if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-
+				
 				// ADD A CHARGE
 				$QUERY = "INSERT INTO cc_charge (id_cc_card, id_cc_card_subscription, chargetype, amount, description) " .
 							"VALUES ('" . $mycard[0] . "', '$mycard[4]', '3', '$amount','" . $mycard[4] . ' - ' . $myservice_label . "')";

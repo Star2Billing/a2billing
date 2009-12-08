@@ -45,14 +45,7 @@ if (! has_rights (ACX_SUPPORT)) {
 	die();
 }
 
-getpost_ifset(array (
-	'result',
-	'id',
-	'action',
-	'status',
-	'comment',
-	'idc'
-));
+getpost_ifset(array ('result', 'id', 'action', 'status', 'comment', 'idc'));
 
 if($result=="success") {
 	$message = gettext("Ticket updated successfully");
@@ -82,16 +75,15 @@ $ticket = new Ticket($ticketID);
 $comments = $ticket->loadComments();
 $DBHandle = DbConnect();
 $instance_sub_table = new Table("cc_ticket", "*");
-    if($ticket->getViewed(1)){
+if($ticket->getViewed(1)) {
 	$instance_sub_table->Update_table($DBHandle, "viewed_agent = '0'", "id = '" . $id . "'");
-    }
+}
 $instance_sub_table = new Table("cc_ticket_comment", "*");
 foreach ($comments as $comment) {
     if($comment->getViewed(1)){
-	$instance_sub_table->Update_table($DBHandle, "viewed_agent = '0'", "id = '" . $comment->getId() . "'");
+		$instance_sub_table->Update_table($DBHandle, "viewed_agent = '0'", "id = '" . $comment->getId() . "'");
     }
 }
-
 
 $smarty->display('main.tpl');
 
@@ -160,22 +152,18 @@ $smarty->display('main.tpl');
 	  <?php
 	   	$return_status = Ticket::getPossibleStatus($ticket->getStatus(),true);
 	  	if(!is_null($return_status)) {
-
-	  	 ?>
+	  	?>
 		<tr>
 			<td colspan="2">	<font style="font-weight:bold; " ><?php echo gettext("STATUS : "); ?></font>
 
 			<select name="status"  >
-
 			 <?php
-			 	foreach ($return_status as $value)
-				{
-				 	if($ticket->getStatus()==$value["id"]){
-
-				 		echo '<option selected "value="'.$value["id"] .'"> '.$value["name"].'</option> ' ;
-
-				 	}else{
-				 		echo '<option value="'.$value["id"] .'"> '.$value["name"].'</option> ' ;
+			 
+			 	foreach ($return_status as $value) {
+				 	if($ticket->getStatus()==$value["id"]) {
+				 		echo '<option selected "value="'.$value["id"] .'"> '.$value["name"].'</option>';
+				 	} else {
+				 		echo '<option value="'.$value["id"] .'"> '.$value["name"].'</option>';
 				 	}
 				}
 			  ?>
@@ -242,9 +230,5 @@ foreach ($comments as $comment) {
 
 }
 
-
 $smarty->display('footer.tpl');
-
-?>
-
 
