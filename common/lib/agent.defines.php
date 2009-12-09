@@ -87,6 +87,9 @@ if (!isset($disable_load_conf) || !($disable_load_conf)) {
 
 include (LIBDIR."common.defines.php");
 
+// COPYRIGHT
+define ("LCMODAL", check_cp());	
+
 // Define a demo mode
 define("DEMO_MODE", false);
 

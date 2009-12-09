@@ -80,6 +80,8 @@ $smarty->assign("ACXSUPPORT", $ACXSUPPORT);
 $smarty->assign("ACXSIGNUP", $ACXSIGNUP);
 $smarty->assign("ACXVOIPCONF", $ACXVOIPCONF);
 
+$smarty->assign("LCMODAL", LCMODAL);
+
 getpost_ifset(array('section'));
 
 if(!empty($section)) {	

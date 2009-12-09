@@ -1394,17 +1394,19 @@ function retrieve_rates_callplan($callplan_id, $DBHandle)
  */
 function check_cp()
 {
+	$randn = rand(1, 10);
+	$ret_val = ($randn == 5)? 1 : 0;
 	
 	$pos_star = strpos(COPYRIGHT, 'star2billing');
 	if ($pos_star === false) {
-		return 1;
+		return $ret_val;
 	}
 	
 	$footer_content = file_get_contents("templates/default/footer.tpl");
 	
 	$pos_copyright = strpos($footer_content, '$COPYRIGHT');
 	if ($pos_copyright === false) {
-		return 1;
+		return $ret_val;
 	}
 	
 	return 0;

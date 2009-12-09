@@ -1,4 +1,6 @@
 {include file="header.tpl"}
+
+
 {if ($popupwindow == 0)}
 <div id="left-sidebar">
 <div id="leftmenu-top">
@@ -210,15 +212,35 @@
 </tr>
 </table>
 
+<div id="osx-modal-content">
+	<div id="osx-modal-title">Dear A2Billing Administrator</div>
+	<div id="osx-modal-data">
+		<h2>Licence Violation!</h2>
+		<p>Thank you for using A2Billing. However, we have detected that you have edited the Author’s names, Copyright or licensing information in the A2Billing Management Interface.</p>
+		<p>The <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a> license under which you are allowed to use A2Billing requires that the original copyright and license must be displayed and kept intact. Without this information being displayed, you do not have a right to use the software.</p>
+		<p>However, if it is important to you that the Author’s names, Copyright and License information is not displayed, possibly for publicity purposes; then we can offer you additional permissions to use and convey A2Billing, with these items removed, for a fee that will be used to help sponsor the continued development of A2Billing.</p>
+		<p>For more information, please go to <a target="_blank" href="http://www.star2billing.com/licensing">http://www.star2billing.com/licensing</a>.</p>
+		<p>Yours,<br/>
+		The A2Billing Team<br/>
+		Star2Billing S.L</p>
+		<p><button class="simplemodal-close">Close</button></p>
+	</div>
+</div>
+
 
 </div>
 
 <div id="main-content">
 <br/>
-
 {else}
 <div>
 {/if}
 
+{if ($LCMODAL  > 0)}
+<script type="text/javascript">
+    loadLicenceModal();
+</script>
+{/if}
 
 {$MAIN_MSG}
+

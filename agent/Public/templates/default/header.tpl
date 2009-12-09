@@ -11,6 +11,7 @@
 	<![endif]-->
 	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
+	<link href="./javascript/jquery/osx.css" rel="stylesheet" type="text/css">
 	{if ($popupwindow != 0)}
 		<link href="templates/{$SKIN_NAME}/css/popup.css" rel="stylesheet" type="text/css">
  	{/if}
@@ -21,7 +22,9 @@
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/handler_jquery.js"></script>
-	<script language="javascript" type="text/javascript" src="./javascript/misc.js"></script>
+	<script type="text/javascript" src="./javascript/misc.js"></script>
+	<script type="text/javascript" src="./javascript/jquery/jquery.simplemodal.js"></script>
+	<script type="text/javascript" src="./javascript/jquery/osx.js"></script>
 </HEAD>
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
