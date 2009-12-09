@@ -772,8 +772,6 @@ if ($mode == 'standard') {
 
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
 	$A2B -> extension = $A2B -> dnid = $A2B -> destination = $calling_party;
-	$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[calling_party:$calling_party - CALLING=$calling_party ]\n\n\n");
-
 
 	if ($callback_mode=='CID') {
 		$charge_callback = 1;
@@ -797,8 +795,7 @@ if ($mode == 'standard') {
 	}
 
 	$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg]");
-	$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[calling_party:$calling_party - CALLING=$calling_party ]\n\n\n");
-
+	
 	$QUERY = "UPDATE cc_callback_spool SET agi_result='AGI PROCESSING' WHERE uniqueid='$callback_uniqueid'";
 	$res = $A2B -> DBHandle -> Execute($QUERY);
 	$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CALLBACK : UPDATE CALLBACK AGI_RESULT : QUERY=$QUERY]");
