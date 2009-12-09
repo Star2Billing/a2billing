@@ -14,17 +14,20 @@
 	<link href="templates/{$SKIN_NAME}/css/invoice.css" rel="stylesheet" type="text/css">
 	<link href="templates/{$SKIN_NAME}/css/receipt.css" rel="stylesheet" type="text/css">
 	<link href="./javascript/jquery/jquery.wysiwyg.css" rel="stylesheet" type="text/css">
+	<link href="./javascript/jquery/osx.css" rel="stylesheet" type="text/css">
 	{if ($popupwindow != 0)}
 		<link href="templates/{$SKIN_NAME}/css/popup.css" rel="stylesheet" type="text/css">
  	{/if}
 	<script type="text/javascript">	
 		var IMAGE_PATH = "templates/{$SKIN_NAME}/images/";
 	</script>
-	<script type="text/javascript" src="./javascript/jquery/jquery-1.2.6.min.js"></script>
+	<script type="text/javascript" src="./javascript/jquery/jquery.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/handler_jquery.js"></script>
 	<script type="text/javascript" src="./javascript/jquery/jquery.wysiwyg.js"></script>
+	<script type="text/javascript" src="./javascript/jquery/jquery.simplemodal.js"></script>
+	<script type="text/javascript" src="./javascript/jquery/osx.js"></script>
 	<!--[if IE]><script language="javascript" type="text/javascript" src="./javascript/jquery/excanvas.pack.js"></script><![endif]-->
     <script language="javascript" type="text/javascript" src="./javascript/jquery/jquery.flot.pack.js"></script>
 	<script language="javascript" type="text/javascript" src="./javascript/misc.js"></script>

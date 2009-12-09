@@ -164,9 +164,6 @@ define ("PG_DUMP", isset($A2B->config['backup']['pg_dump'])?$A2B->config['backup
 define ("MYSQL", isset($A2B->config['backup']['mysql'])?$A2B->config['backup']['mysql']:null);
 define ("PSQL", isset($A2B->config['backup']['psql'])?$A2B->config['backup']['psql']:null);
 
-
-	
-
 /*
  *		GLOBAL POST/GET VARIABLE
  */
@@ -223,6 +220,10 @@ define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->co
 include (LIBDIR."admin.help.php");
 
 include (LIBDIR."common.defines.php");
+
+
+// COPYRIGHT
+define ("LCMODAL", check_cp());	
 
 
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);

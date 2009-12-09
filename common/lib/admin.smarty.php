@@ -94,6 +94,8 @@ $smarty->assign("NEW_NOTIFICATION", $NEW_NOTIFICATION);
 $smarty->assign("HTTP_HOST", $_SERVER['HTTP_HOST']);
 $smarty->assign("ASTERISK_GUI_LINK", ASTERISK_GUI_LINK);
 
+$smarty->assign("LCMODAL", LCMODAL);
+
 
 $section = $_SESSION["menu_section"];
 
