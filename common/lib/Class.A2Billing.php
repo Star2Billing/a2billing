@@ -796,10 +796,10 @@ class A2Billing {
 		/************** 	ASK DESTINATION 	******************/
 		$prompt_enter_dest = $this->agiconfig['file_conf_enter_destination'];
 
-		$this -> debug( DEBUG, $agi, __FILE__, __LINE__,  $this->agiconfig['use_dnid']." && ".in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])." && ".strlen($this->dnid)."&& $try_num");
+		$this -> debug( DEBUG, $agi, __FILE__, __LINE__,  $this->agiconfig['use_dnid']." && ".in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])." && (".strlen($this->dnid)."|| ".strlen($this->extension). " )&& $try_num");
 
 		// CHECK IF USE_DNID IF NOT GET THE DESTINATION NUMBER
-		if ($this->agiconfig['use_dnid']==1 && !in_array ($this->dnid, $this->agiconfig['no_auth_dnid']) && strlen($this->dnid)>=1 && $try_num==0) {
+		if ($this->agiconfig['use_dnid']==1 && !in_array ($this->dnid, $this->agiconfig['no_auth_dnid']) && ( strlen($this->dnid)>=1 || strlen($this->extension)>=1 ) && $try_num==0) {
 			if ($this->extension=='s') {
 				$this->destination = $this->dnid;
 			} else {
