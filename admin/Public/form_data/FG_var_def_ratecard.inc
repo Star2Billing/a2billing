@@ -44,7 +44,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 // put all the destination name to lowercase
 $destination = strtolower ($destination);
 
-if (empty($form_action) || $form_action=="list") {
+if ( (empty($form_action) || $form_action=="list") && $deleteselected != 'true') {
 	$HD_Form = new FormHandler("cc_ratecard LEFT JOIN cc_prefix ON prefix=cc_ratecard.destination", "Rates");
 } else {
 	$HD_Form = new FormHandler("cc_ratecard", "Rates");
