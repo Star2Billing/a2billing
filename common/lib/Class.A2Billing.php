@@ -557,6 +557,7 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'])) $this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param'])) $this->config["agi-conf$idconfig"]['dialcommand_param'] = '|30|HL(%timeout%:61000:30000)';
 		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'])) $this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'] = '|30|HL(3600000:61000:30000)';
+		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param_call_2did '])) $this->config["agi-conf$idconfig"]['dialcommand_param_call_2did '] = '|30|HL(3600000:61000:30000)';
 		if(!isset($this->config["agi-conf$idconfig"]['switchdialcommand'])) $this->config["agi-conf$idconfig"]['switchdialcommand'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['failover_recursive_limit'])) $this->config["agi-conf$idconfig"]['failover_recursive_limit'] = 1;
 		if(!isset($this->config["agi-conf$idconfig"]['record_call'])) $this->config["agi-conf$idconfig"]['record_call'] = 0;
@@ -1254,7 +1255,7 @@ class A2Billing {
 						$this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
 					}
 
-					$dialparams = $this->agiconfig['dialcommand_param_sipiax_friend'];
+					$dialparams = $this->agiconfig['dialcommand_param_call_2did'];
 					$dialstr 	= $inst_listdestination[4].$dialparams;
 
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: Dialing '$dialstr' Friend.\n");
