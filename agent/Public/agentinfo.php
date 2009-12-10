@@ -36,7 +36,7 @@ include ("../lib/agent.defines.php");
 include ("../lib/agent.module.access.php");
 include ("../lib/agent.smarty.php");
 
-if (! has_rights (ACX_ACCESS)){ 
+if (! has_rights (ACX_ACCESS)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -44,7 +44,7 @@ if (! has_rights (ACX_ACCESS)){
 
 
 $QUERY = "SELECT  credit, currency, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, id, com_balance FROM cc_agent WHERE login = '".$_SESSION["pr_login"]."' AND passwd = '".$_SESSION["pr_password"]."'";
-$table_remittance = $table_remittance = new Table("cc_remittance_request",'*');
+$table_remittance = new Table("cc_remittance_request",'*');
 $remittance_clause = "id_agent = ".$_SESSION['agent_id']." AND status = 0";
 
 $DBHandle_max = DbConnect();

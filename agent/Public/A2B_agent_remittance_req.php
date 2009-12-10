@@ -1,5 +1,6 @@
 <?php
 
+
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -31,61 +32,67 @@
  * 
 **/
 
-
 include ("../lib/agent.defines.php");
 include ("../lib/agent.module.access.php");
 include ("../lib/agent.smarty.php");
 
-if (! has_rights (ACX_ACCESS)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!has_rights(ACX_ACCESS)) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-if (!$A2B->config["webagentui"]['remittance_request']){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");
+if (!$A2B->config["webagentui"]['remittance_request']) {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-
-$QUERY = "SELECT  credit, currency,com_balance,threshold_remittance FROM cc_agent WHERE id = ".$_SESSION['agent_id'];
-$table_remittance = $table_remittance = new Table("cc_remittance_request",'*');
-$remittance_clause = "id_agent = ".$_SESSION['agent_id']." AND status = 0";
+$QUERY = "SELECT  credit, currency, com_balance, threshold_remittance FROM cc_agent WHERE id = " . $_SESSION['agent_id'];
+$table_remittance = $table_remittance = new Table("cc_remittance_request", '*');
+$remittance_clause = "id_agent = " . $_SESSION['agent_id'] . " AND status = 0";
 
 $DBHandle_max = DbConnect();
 $numrow = 0;
 //echo $QUERY;
-$resmax = $DBHandle_max -> Execute($QUERY);
+$resmax = $DBHandle_max->Execute($QUERY);
 if ($resmax)
-	$numrow = $resmax -> RecordCount();
+	$numrow = $resmax->RecordCount();
 
-if ($numrow == 0) exit();
-$agent_info =$resmax -> fetchRow();
+if ($numrow == 0)
+	exit ();
+$agent_info = $resmax->fetchRow();
+
 $currencies_list = get_currencies();
 $two_currency = false;
-if (!isset($currencies_list[strtoupper($agent_info ['currency'])][2]) || !is_numeric($currencies_list[strtoupper($agent_info ['currency'])][2])){
-	$mycur = 1; 
-}else{ 
-	$mycur = $currencies_list[strtoupper($agent_info ['currency'])][2];
-}
-$credit_cur = $agent_info['credit'] / $mycur;
-$credit_cur = round($credit_cur,3);
-$commision_bal_cur  =  $agent_info['com_balance'] / $mycur;
-$commision_bal_cur = round($commision_bal_cur,3);
-$threshold_cur  =  $agent_info['threshold-remittance'] / $mycur;
-$threshold_cur = round($threshold_cur,3);
-$result_remittance = $table_remittance -> Get_list($DBHandle_max,$remittance_clause);
-if(is_array($result_remittance) && sizeof($result_remittance)>=1 ){
-	$remittance_in_progress=true;
-	$remittance_value = $result_remittance[0]['amount'];
-}else{
-	$remittance_in_progress=false;
-}
-$remittance_value_cur = $remittance_value/$mycur;
-$smarty->display( 'main.tpl');
 
-echo $CC_help_remittance_request."<br>";
+if (!isset ($currencies_list[strtoupper($agent_info['currency'])][2]) || !is_numeric($currencies_list[strtoupper($agent_info['currency'])][2])) {
+	$mycur = 1;
+} else {
+	$mycur = $currencies_list[strtoupper($agent_info['currency'])][2];
+}
+
+$credit_cur = $agent_info['credit'] / $mycur;
+$credit_cur = round($credit_cur, 3);
+
+$commision_bal_cur = $agent_info['com_balance'] / $mycur;
+$commision_bal_cur = round($commision_bal_cur, 3);
+
+$threshold_cur = $agent_info['threshold_remittance'] / $mycur;
+$threshold_cur = round($threshold_cur, 3);
+$result_remittance = $table_remittance->Get_list($DBHandle_max, $remittance_clause);
+
+if (is_array($result_remittance) && sizeof($result_remittance) >= 1) {
+	$remittance_in_progress = true;
+	$remittance_value = $result_remittance[0]['amount'];
+} else {
+	$remittance_in_progress = false;
+}
+$remittance_value_cur = $remittance_value / $mycur;
+$smarty->display('main.tpl');
+
+echo $CC_help_remittance_request . "<br>";
+
 ?>
 
 <script language="JavaScript">
@@ -156,19 +163,19 @@ function CheckForm()
 </tr>
 </table>
 <br>
-<?php if(!$remittance_in_progress){?>
+<?php if(!$remittance_in_progress) {?>
 <form method="post" action="A2B_agent_remittance_conf.php" name="frmRemittance">
 <center>
 <table class="changepassword_maintable" align=center width="400px">
 <tr class="bgcolor_009">
     <td align=center colspan=2><b><font color="#ffffff">- <?php echo gettext("Remittance Request")?>&nbsp; -</b></td>
 </tr>
-<?php if($commision_bal_cur>=$threshold_cur && $commision_bal_cur>0){ ?>
-<?php if($threshold_cur>0){?>
+<?php if($commision_bal_cur>=$threshold_cur && $commision_bal_cur>0) { ?>
+<?php if($threshold_cur>0) { ?>
 <tr>
     <td align="center" colspan=2>&nbsp;<p class="liens"><?php echo gettext("You have to use an amount higher than")." ".$threshold_cur.' '.$agent_info['currency'];?></p></td>
 </tr>
-<?php }?>
+<?php } ?>
 <tr>
     <td align=right><font class="fontstyle_002"><?php echo gettext("AMOUNT")?>&nbsp; :</font></td>
     <td align=left><input name="amount" type="text" class="form_input_text" >&nbsp;<?php echo $agent_info['currency'];?></td>
@@ -183,7 +190,7 @@ function CheckForm()
 <tr>
     <td align=center colspan=2 ><input type="submit" name="submitPassword" value="&nbsp;<?php echo gettext("Confirm")?>&nbsp;" class="form_input_button" onclick="return CheckForm();"  > </td>
 </tr>
-<?php }else{?>
+<?php } else {?>
 <tr>
     <td align=center colspan=2><?php echo gettext('Remittance Request is not available')?></td>
 </tr>
@@ -196,7 +203,7 @@ function CheckForm()
 </table>
 </center>
 </form>
-<?php }else{?>
+<?php } else { ?>
 <center>
 <table class="changepassword_maintable" align=center width="400px">
 	<tr>
@@ -204,7 +211,10 @@ function CheckForm()
 	</tr>
 </table>
 </center>
-<?php }?>
+<?php } ?>
+
+<BR/>
+
 <?php
+
 $smarty->display( 'footer.tpl');
-?>
