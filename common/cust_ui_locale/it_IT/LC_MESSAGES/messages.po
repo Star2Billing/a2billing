@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-06 18:50+0100\n"
+"POT-Creation-Date: 2009-12-10 15:57+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -629,40 +629,41 @@ msgstr "Costo"
 msgid "Total:"
 msgstr "TOTALE"
 
-#: callback.php:166
+#: callback.php:171
 msgid "Cannot insert the callback request in the spool!"
 msgstr ""
 
-#: callback.php:168
+#: callback.php:173
 msgid "Your callback request has been queued correctly!"
 msgstr ""
 
-#: callback.php:173
+#: callback.php:178
 msgid "Error : You don t have enough credit to call you back!"
 msgstr ""
 
-#: callback.php:176
+#: callback.php:181
 msgid "Error : There is no route to call back your phonenumber!"
 msgstr ""
 
-#: callback.php:182
+#: callback.php:187
 #, fuzzy
 msgid "Error : You have to specify your phonenumber and the number you wish to call!"
 msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Errore: bisogna specificare il proprio numero di telefono e il numero di telefono da chiamare!!!</b></font><br>"
 
-#: callback.php:199
+#: callback.php:206
 msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
 msgstr ""
 
-#: callback.php:208
-msgid "Your PhoneNumber"
-msgstr ""
+#: callback.php:215
+#, fuzzy
+msgid "Your Phone Number"
+msgstr "Aggiungi un nuovo numero di telefono alla tua Selezione Passante"
 
-#: callback.php:211
+#: callback.php:218
 msgid "The number you wish to call"
 msgstr ""
 
-#: callback.php:216
+#: callback.php:223
 msgid "Click here to Place Call"
 msgstr ""
 
@@ -1447,28 +1448,28 @@ msgstr "&nbsp;NESSUN ACCOUNT IAX&nbsp;"
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3108
+#: lib/Class.A2Billing.php:3106
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3148
+#: lib/Class.A2Billing.php:3146
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3152
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3160
+#: lib/Class.A2Billing.php:3158
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3169 lib/Class.A2Billing.php:3177
-#: lib/Class.A2Billing.php:3185
+#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
+#: lib/Class.A2Billing.php:3183
 msgid "Error : Card have expired!!!"
 msgstr ""
 
-#: lib/Class.SOAP-function.php:686 lib/Form/Class.FormHandler.inc.php:1820
+#: lib/Class.SOAP-function.php:696 lib/Form/Class.FormHandler.inc.php:1820
 msgid "CREATION CARD REFILL"
 msgstr ""
 
@@ -1641,6 +1642,11 @@ msgstr ""
 #: lib/customer.help.php:87
 msgid "Map single digit to your most dialed numbers."
 msgstr ""
+
+#: lib/customer.help.php:89
+#, fuzzy
+msgid "Callback : Entre your phone number and the phone number you wish to call."
+msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Errore: bisogna specificare il proprio numero di telefono e il numero di telefono da chiamare!!!</b></font><br>"
 
 #: lib/Class.Notification.php:75
 msgid "New SIP & IAX added : Friends conf have to be generated"
@@ -2175,37 +2181,37 @@ msgstr ""
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2652
+#: lib/Form/Class.FormHandler.inc.php:2656
 #: CC_entity_edit_did_destination.php:233
 msgid "error deletion"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2779
+#: lib/Form/Class.FormHandler.inc.php:2783
 msgid "ERROR_DUPLICATION"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2865
+#: lib/Form/Class.FormHandler.inc.php:2869
 msgid "Done"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2905
+#: lib/Form/Class.FormHandler.inc.php:2909
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2911
+#: lib/Form/Class.FormHandler.inc.php:2915
 #, fuzzy
 msgid "Choose a call plan"
 msgstr "Seleziona una Tariffa"
 
-#: lib/Form/Class.FormHandler.inc.php:2957
+#: lib/Form/Class.FormHandler.inc.php:2961
 msgid "THE CURRENT RATECARD"
 msgstr "TARIFFA ATTUALE"
 
-#: lib/Form/Class.FormHandler.inc.php:2968
+#: lib/Form/Class.FormHandler.inc.php:2972
 msgid "R A T E C A R D"
 msgstr "T A R I F F E"
 
-#: lib/Form/Class.FormHandler.inc.php:2974
+#: lib/Form/Class.FormHandler.inc.php:2978
 msgid "Choose a ratecard"
 msgstr "Seleziona una Tariffa"
 

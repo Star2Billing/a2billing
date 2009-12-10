@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-06 18:50+0100\n"
+"POT-Creation-Date: 2009-12-10 15:57+0100\n"
 "PO-Revision-Date: 2009-12-01 16:01-0300\n"
 "Last-Translator: Emerson Reis <eluizbr@tofalando.com.br>\n"
 "Language-Team: Emerson Reis <eluizbr@tofalando.com.br>\n"
@@ -611,39 +611,40 @@ msgstr "Custo"
 msgid "Total:"
 msgstr "Total:"
 
-#: callback.php:166
+#: callback.php:171
 msgid "Cannot insert the callback request in the spool!"
 msgstr "Não foi possível inserir a requisição do callback na fila!"
 
-#: callback.php:168
+#: callback.php:173
 msgid "Your callback request has been queued correctly!"
 msgstr "Seu pedido de callback foi corretamente enviado para a fila!"
 
-#: callback.php:173
+#: callback.php:178
 msgid "Error : You don t have enough credit to call you back!"
 msgstr "Erro : você não tem crédito o bastante para fazer o callback!"
 
-#: callback.php:176
+#: callback.php:181
 msgid "Error : There is no route to call back your phonenumber!"
 msgstr "Erro : Não há rota para o callback do seu número de telefone!"
 
-#: callback.php:182
+#: callback.php:187
 msgid "Error : You have to specify your phonenumber and the number you wish to call!"
 msgstr "Erro : Você tem que especificar seu número de telefone e o número que você deseja ligar!"
 
-#: callback.php:199
+#: callback.php:206
 msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
 msgstr "Você pode iniciar o callback digitando o seu número de telefone e o número que você deseja ligar"
 
-#: callback.php:208
-msgid "Your PhoneNumber"
+#: callback.php:215
+#, fuzzy
+msgid "Your Phone Number"
 msgstr "Seu número de telefone"
 
-#: callback.php:211
+#: callback.php:218
 msgid "The number you wish to call"
 msgstr "O número que deseja ligar"
 
-#: callback.php:216
+#: callback.php:223
 msgid "Click here to Place Call"
 msgstr "Clique aqui para fazer a ligação"
 
@@ -1395,28 +1396,28 @@ msgstr "SEM DESCONTO"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número do cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:3108
+#: lib/Class.A2Billing.php:3106
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:3148
+#: lib/Class.A2Billing.php:3146
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o bastante para ligar !!!"
 
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3152
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativo!!!"
 
-#: lib/Class.A2Billing.php:3160
+#: lib/Class.A2Billing.php:3158
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:3169 lib/Class.A2Billing.php:3177
-#: lib/Class.A2Billing.php:3185
+#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
+#: lib/Class.A2Billing.php:3183
 msgid "Error : Card have expired!!!"
 msgstr "Erro : O cartão expirou!!!"
 
-#: lib/Class.SOAP-function.php:686 lib/Form/Class.FormHandler.inc.php:1820
+#: lib/Class.SOAP-function.php:696 lib/Form/Class.FormHandler.inc.php:1820
 msgid "CREATION CARD REFILL"
 msgstr "CRIAR RECARGA DE CARTÃO"
 
@@ -1587,6 +1588,11 @@ msgstr "Após a confirmação, a liberação do did será feita imediatamente e 
 #: lib/customer.help.php:87
 msgid "Map single digit to your most dialed numbers."
 msgstr "Mapa de dígito único para seus números mais discados."
+
+#: lib/customer.help.php:89
+#, fuzzy
+msgid "Callback : Entre your phone number and the phone number you wish to call."
+msgstr "Você pode iniciar o callback digitando o seu número de telefone e o número que você deseja ligar"
 
 #: lib/Class.Notification.php:75
 msgid "New SIP & IAX added : Friends conf have to be generated"
@@ -2108,36 +2114,36 @@ msgstr "Fatura para recarga"
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "GERAÇÃO AUTOMÁTICA DE COMISSÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:2652
+#: lib/Form/Class.FormHandler.inc.php:2656
 #: CC_entity_edit_did_destination.php:233
 msgid "error deletion"
 msgstr "erro ao deletar"
 
-#: lib/Form/Class.FormHandler.inc.php:2779
+#: lib/Form/Class.FormHandler.inc.php:2783
 msgid "ERROR_DUPLICATION"
 msgstr "ERRO_NA_DUPLICAÇÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:2865
+#: lib/Form/Class.FormHandler.inc.php:2869
 msgid "Done"
 msgstr "Feito"
 
-#: lib/Form/Class.FormHandler.inc.php:2905
+#: lib/Form/Class.FormHandler.inc.php:2909
 msgid "Export Call Plan with LCR"
 msgstr "Espotar plano com LCR"
 
-#: lib/Form/Class.FormHandler.inc.php:2911
+#: lib/Form/Class.FormHandler.inc.php:2915
 msgid "Choose a call plan"
 msgstr "Escolha um plano de ligação"
 
-#: lib/Form/Class.FormHandler.inc.php:2957
+#: lib/Form/Class.FormHandler.inc.php:2961
 msgid "THE CURRENT RATECARD"
 msgstr "O RATECARD ATUAL"
 
-#: lib/Form/Class.FormHandler.inc.php:2968
+#: lib/Form/Class.FormHandler.inc.php:2972
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
-#: lib/Form/Class.FormHandler.inc.php:2974
+#: lib/Form/Class.FormHandler.inc.php:2978
 msgid "Choose a ratecard"
 msgstr "Escolha um ratecard"
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-06 18:50+0100\n"
+"POT-Creation-Date: 2009-12-10 15:57+0100\n"
 "PO-Revision-Date: 2009-07-22 HO:MI+ZONE\n"
 "Last-Translator: ARNOLD\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -71,7 +71,7 @@ msgid "CAN ONLY CALL RESTRICTED NUMBERS"
 msgstr "PEUT SEULEMENT APPELER LES NUMEROS RESTREINT"
 
 #: lib/interface/constants.php:53 Public/call-last-month.php:64
-#: Public/call-log-customers.php:374 Public/templates/default/main.tpl:44
+#: Public/call-log-customers.php:374 Public/templates/default/main.tpl:46
 msgid "CUSTOMERS"
 msgstr "CLIENTS"
 
@@ -515,28 +515,28 @@ msgstr "AUCUNE REMISE"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Longueur de numéro de carte définis dans la configuration invalide."
 
-#: lib/Class.A2Billing.php:3108
+#: lib/Class.A2Billing.php:3106
 msgid "Error : Authentication Failed !!!"
 msgstr "Erreur : Echec authentification !!!"
 
-#: lib/Class.A2Billing.php:3148
+#: lib/Class.A2Billing.php:3146
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erreur :  Crédit insuffisant pour téléphoner !!!"
 
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3152
 msgid "Error : Card is not active!!!"
 msgstr "Erreur : Carte incative !!!"
 
-#: lib/Class.A2Billing.php:3160
+#: lib/Class.A2Billing.php:3158
 msgid "Error : Card is actually in use!!!"
 msgstr "Erreur : Carte en cours d'utilisation !!!"
 
-#: lib/Class.A2Billing.php:3169 lib/Class.A2Billing.php:3177
-#: lib/Class.A2Billing.php:3185
+#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
+#: lib/Class.A2Billing.php:3183
 msgid "Error : Card have expired!!!"
 msgstr "Erreur : La carte &agrave expiré !!!"
 
-#: lib/Class.SOAP-function.php:686 lib/Form/Class.FormHandler.inc.php:1820
+#: lib/Class.SOAP-function.php:696 lib/Form/Class.FormHandler.inc.php:1820
 #: Public/A2B_entity_card_multi.php:149
 msgid "CREATION CARD REFILL"
 msgstr "CREATION CARTE RECHARGEMENT"
@@ -764,84 +764,84 @@ msgstr "FERMÉ"
 msgid "INVALID"
 msgstr "INVALIDE"
 
-#: lib/agent.defines.php:128
+#: lib/agent.defines.php:131
 msgid "Please select a payment method for your order."
 msgstr "Veuillez selectionner un moyen de paiement pour votre commande."
 
-#: lib/agent.defines.php:130
+#: lib/agent.defines.php:133
 msgid "Credit Card"
 msgstr "Carte de Crédit"
 
-#: lib/agent.defines.php:131 lib/agent.defines.php:141
+#: lib/agent.defines.php:134 lib/agent.defines.php:144
 msgid "Credit Card Test Info"
 msgstr "Test Info Carte de Crédit"
 
-#: lib/agent.defines.php:131 lib/agent.defines.php:141
+#: lib/agent.defines.php:134 lib/agent.defines.php:144
 msgid "Expiry: Any"
 msgstr "Limite de validité: Aucune"
 
-#: lib/agent.defines.php:132
+#: lib/agent.defines.php:135
 msgid "Credit Card Type"
 msgstr "Type Carte Crédit"
 
-#: lib/agent.defines.php:133
+#: lib/agent.defines.php:136
 msgid "Credit Card Owner"
 msgstr "Propriétaire Carte de Crédit"
 
-#: lib/agent.defines.php:134
+#: lib/agent.defines.php:137
 msgid "Credit Card Number"
 msgstr "Numéro Carte de Crédit"
 
-#: lib/agent.defines.php:135
+#: lib/agent.defines.php:138
 msgid "Credit Card Expiry Date"
 msgstr "Date d'Expiration de la Carte de Crédit"
 
-#: lib/agent.defines.php:136 lib/agent.defines.php:149
+#: lib/agent.defines.php:139 lib/agent.defines.php:152
 msgid "* The owner's name of the credit card must be at least"
 msgstr "* Le nom du propriétaire, de la carte de crédit doit &ecirc;tre, au moins"
 
-#: lib/agent.defines.php:136 lib/agent.defines.php:137
-#: lib/agent.defines.php:150
+#: lib/agent.defines.php:139 lib/agent.defines.php:140
+#: lib/agent.defines.php:153
 msgid "characters"
 msgstr "caract&egrave;res"
 
-#: lib/agent.defines.php:137 lib/agent.defines.php:150
+#: lib/agent.defines.php:140 lib/agent.defines.php:153
 msgid "* The credit card number must be at least"
 msgstr "* Le numéro de la carte de crédit doit &ecirc;tre au moins"
 
-#: lib/agent.defines.php:138
+#: lib/agent.defines.php:141
 msgid "Credit Card Error!"
 msgstr "Erreur Carte de Crédit !"
 
-#: lib/agent.defines.php:142
+#: lib/agent.defines.php:145
 msgid "There has been an error processing your credit card"
 msgstr "Une erreur est survenue durant le traitement de votre carte de crédit"
 
-#: lib/agent.defines.php:143
+#: lib/agent.defines.php:146
 msgid "Please check your credit card details!"
 msgstr "Veuillez vérifier les param&egrave;tres de votre carte de crédit !"
 
-#: lib/agent.defines.php:144
+#: lib/agent.defines.php:147
 msgid "Credit Card Owner:"
 msgstr "Propriétaire Carte de Crédit:"
 
-#: lib/agent.defines.php:145
+#: lib/agent.defines.php:148
 msgid "Credit Card Number:"
 msgstr "Numéro Carte de Crédit:"
 
-#: lib/agent.defines.php:146
+#: lib/agent.defines.php:149
 msgid "Credit Card Expiry Date:"
 msgstr "Date Expiration Carte de Crédit:"
 
-#: lib/agent.defines.php:147
+#: lib/agent.defines.php:150
 msgid "Credit Card Checknumber:"
 msgstr "Numéro de vérification Carte de Crédit:"
 
-#: lib/agent.defines.php:148
+#: lib/agent.defines.php:151
 msgid "(located at the back of the credit card)"
 msgstr "(situé &agrave l'arri&egrave;re de la carte de crédit)"
 
-#: lib/agent.defines.php:149
+#: lib/agent.defines.php:152
 msgid "characters."
 msgstr "caract&egrave;res."
 
@@ -973,7 +973,7 @@ msgid "selected, use the option below if you are willing to make a batch updated
 msgstr "sélectionné, utilisé l'option, ci-dessous, si vous souhaitez créer un lot, mis &agrave jour, des cartes sélectionné."
 
 #: lib/Form/Class.SearchHandler.inc.php:345
-#: Public/templates/default/main.tpl:126
+#: Public/templates/default/main.tpl:128
 msgid "RATECARD"
 msgstr "GRILLE TARIFAIRE"
 
@@ -1345,35 +1345,35 @@ msgstr "Facture pour rechargement"
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "COMMISSION GENEREE AUTOMATIQUEMENT !"
 
-#: lib/Form/Class.FormHandler.inc.php:2652
+#: lib/Form/Class.FormHandler.inc.php:2656
 msgid "error deletion"
 msgstr "erreur suppression"
 
-#: lib/Form/Class.FormHandler.inc.php:2779
+#: lib/Form/Class.FormHandler.inc.php:2783
 msgid "ERROR_DUPLICATION"
 msgstr "ERREUR_DUPLICATION"
 
-#: lib/Form/Class.FormHandler.inc.php:2865
+#: lib/Form/Class.FormHandler.inc.php:2869
 msgid "Done"
 msgstr "Fait"
 
-#: lib/Form/Class.FormHandler.inc.php:2905
+#: lib/Form/Class.FormHandler.inc.php:2909
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2911
+#: lib/Form/Class.FormHandler.inc.php:2915
 msgid "Choose a call plan"
 msgstr "Choisir un plan de numérotation"
 
-#: lib/Form/Class.FormHandler.inc.php:2957
+#: lib/Form/Class.FormHandler.inc.php:2961
 msgid "THE CURRENT RATECARD"
 msgstr "LA GRILLE TARIFAIRE EN COURS"
 
-#: lib/Form/Class.FormHandler.inc.php:2968
+#: lib/Form/Class.FormHandler.inc.php:2972
 msgid "R A T E C A R D"
 msgstr "GRILLE TARIFAIRE"
 
-#: lib/Form/Class.FormHandler.inc.php:2974
+#: lib/Form/Class.FormHandler.inc.php:2978
 msgid "Choose a ratecard"
 msgstr "Choisir une grille tarifaire"
 
@@ -1385,7 +1385,7 @@ msgstr "Date"
 msgid "Description"
 msgstr "Description"
 
-#: Public/card-history.php:97 Public/templates/default/main.tpl:56
+#: Public/card-history.php:97 Public/templates/default/main.tpl:58
 msgid "Card History"
 msgstr "Historique de la Carte"
 
@@ -2310,43 +2310,43 @@ msgstr "TYPE RECHARGE"
 msgid "Remittance Request is not available"
 msgstr ""
 
-#: Public/A2B_ticket_view.php:58
+#: Public/A2B_ticket_view.php:51
 msgid "Ticket updated successfully"
 msgstr "Ticket mis &agrave jour avec succ&egrave;s"
 
-#: Public/A2B_ticket_view.php:64
+#: Public/A2B_ticket_view.php:57
 msgid "Ticket ID not found"
 msgstr "ID Ticket introuvable"
 
-#: Public/A2B_ticket_view.php:101
+#: Public/A2B_ticket_view.php:93
 msgid "TICKET: "
 msgstr "TICKET: "
 
-#: Public/A2B_ticket_view.php:111
+#: Public/A2B_ticket_view.php:103
 msgid "BY : "
 msgstr "PAR : "
 
-#: Public/A2B_ticket_view.php:117
+#: Public/A2B_ticket_view.php:109
 msgid "PRIORITY : "
 msgstr "PRIORITE : "
 
-#: Public/A2B_ticket_view.php:120
+#: Public/A2B_ticket_view.php:112
 msgid "DATE : "
 msgstr "DATE : "
 
-#: Public/A2B_ticket_view.php:125
+#: Public/A2B_ticket_view.php:117
 msgid "COMPONENT : "
 msgstr "COMPOSANT : "
 
-#: Public/A2B_ticket_view.php:132
+#: Public/A2B_ticket_view.php:124
 msgid "DESCRIPTION : "
 msgstr "DESCRIPTION : "
 
-#: Public/A2B_ticket_view.php:166
+#: Public/A2B_ticket_view.php:157
 msgid "STATUS : "
 msgstr "ETAT : "
 
-#: Public/A2B_ticket_view.php:188
+#: Public/A2B_ticket_view.php:176
 msgid "COMMENT : "
 msgstr "COMMENTAIRE : "
 
@@ -2560,113 +2560,113 @@ msgstr "TOTAL"
 msgid "No calls in your selection"
 msgstr "Aucun appel dans votre sélection"
 
-#: Public/templates/default/main.tpl:10
+#: Public/templates/default/main.tpl:12
 #, fuzzy
 msgid "HOME"
 msgstr "TELEPHONE"
 
-#: Public/templates/default/main.tpl:20
+#: Public/templates/default/main.tpl:22
 msgid "MY ACCOUNT"
 msgstr "MON COMPTE"
 
-#: Public/templates/default/main.tpl:29
+#: Public/templates/default/main.tpl:31
 msgid "Account information"
 msgstr "Information du compte"
 
-#: Public/templates/default/main.tpl:30 Public/templates/default/index.tpl:61
+#: Public/templates/default/main.tpl:32 Public/templates/default/index.tpl:61
 msgid "Password"
 msgstr "Mot de Passe"
 
-#: Public/templates/default/main.tpl:31
+#: Public/templates/default/main.tpl:33
 msgid "Historic Remittance"
 msgstr ""
 
-#: Public/templates/default/main.tpl:53
+#: Public/templates/default/main.tpl:55
 msgid "List Customers"
 msgstr "Liste des Clients"
 
-#: Public/templates/default/main.tpl:54
+#: Public/templates/default/main.tpl:56
 #, fuzzy
 msgid "Caller-ID"
 msgstr "ID Carte"
 
-#: Public/templates/default/main.tpl:59
+#: Public/templates/default/main.tpl:61
 msgid "VOIP Config"
 msgstr "Config VoIP"
 
-#: Public/templates/default/main.tpl:74
+#: Public/templates/default/main.tpl:76
 msgid "SIGNUP"
 msgstr "INSCRIPTION"
 
-#: Public/templates/default/main.tpl:83
+#: Public/templates/default/main.tpl:85
 msgid "Signup Url List"
 msgstr "Liste des Url d'inscription"
 
-#: Public/templates/default/main.tpl:84
+#: Public/templates/default/main.tpl:86
 msgid "Add New Signup Url"
 msgstr "Ajouter Nouvel Url d'inscription"
 
-#: Public/templates/default/main.tpl:98
+#: Public/templates/default/main.tpl:100
 msgid "BILLING"
 msgstr "FACTURATION"
 
-#: Public/templates/default/main.tpl:107
+#: Public/templates/default/main.tpl:109
 msgid "Account balance"
 msgstr "Solde du Compte"
 
-#: Public/templates/default/main.tpl:108
+#: Public/templates/default/main.tpl:110
 msgid "Own Refills"
 msgstr "Mes Recharges"
 
-#: Public/templates/default/main.tpl:109
+#: Public/templates/default/main.tpl:111
 msgid "Own Payments"
 msgstr "Mes Paiements"
 
-#: Public/templates/default/main.tpl:110
+#: Public/templates/default/main.tpl:112
 msgid "Customer's Refills"
 msgstr "Recharges des Clients"
 
-#: Public/templates/default/main.tpl:111
+#: Public/templates/default/main.tpl:113
 msgid "Customer's Payment"
 msgstr "Paiement des Clients"
 
-#: Public/templates/default/main.tpl:112
+#: Public/templates/default/main.tpl:114
 msgid "Payment Log"
 msgstr "Log Paiement"
 
-#: Public/templates/default/main.tpl:113
+#: Public/templates/default/main.tpl:115
 msgid "Commission"
 msgstr "Commission"
 
-#: Public/templates/default/main.tpl:135
+#: Public/templates/default/main.tpl:137
 msgid "Browse Rates"
 msgstr "Parcourir Tarifs"
 
-#: Public/templates/default/main.tpl:148
+#: Public/templates/default/main.tpl:150
 msgid "CALL REPORT"
 msgstr "RAPPORT D'APPEL"
 
-#: Public/templates/default/main.tpl:157
+#: Public/templates/default/main.tpl:159
 msgid "CDR Report"
 msgstr "Rapport CDR"
 
-#: Public/templates/default/main.tpl:158
+#: Public/templates/default/main.tpl:160
 msgid "Monthly Traffic"
 msgstr "Trafic Mensuel"
 
-#: Public/templates/default/main.tpl:171
+#: Public/templates/default/main.tpl:173
 msgid "SUPPORT"
 msgstr "SUPPORT"
 
-#: Public/templates/default/main.tpl:180
+#: Public/templates/default/main.tpl:182
 msgid "Customer Tickets"
 msgstr "Tickets Clients"
 
-#: Public/templates/default/main.tpl:181
+#: Public/templates/default/main.tpl:183
 msgid "View and Create Tickets"
 msgstr "Visualiser et Créer des Tickets"
 
-#: Public/templates/default/main.tpl:192
+#: Public/templates/default/main.tpl:194
 msgid "LOGOUT"
 msgstr "DECONNEXION"
 

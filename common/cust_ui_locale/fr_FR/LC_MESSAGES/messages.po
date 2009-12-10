@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-06 18:50+0100\n"
+"POT-Creation-Date: 2009-12-10 15:57+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -617,39 +617,40 @@ msgstr "Co&ucirc;t"
 msgid "Total:"
 msgstr "Total:"
 
-#: callback.php:166
+#: callback.php:171
 msgid "Cannot insert the callback request in the spool!"
 msgstr "Impossible d'inserer la demande de callback dans le spool"
 
-#: callback.php:168
+#: callback.php:173
 msgid "Your callback request has been queued correctly!"
 msgstr "Votre demande de callback a bien &eacute;t>&eacute; mise en file"
 
-#: callback.php:173
+#: callback.php:178
 msgid "Error : You don t have enough credit to call you back!"
 msgstr "Erreur: Cr&eacute;dit insuffisant pour vous rappeler"
 
-#: callback.php:176
+#: callback.php:181
 msgid "Error : There is no route to call back your phonenumber!"
 msgstr "Erreur: Pas de route pour rappeler vote num&eacute;ro"
 
-#: callback.php:182
+#: callback.php:187
 msgid "Error : You have to specify your phonenumber and the number you wish to call!"
 msgstr "Erreur: Vous devez sp&eacute;cifier votre num&eacute;ro et le num&eacute;ro que vous voulez appeler"
 
-#: callback.php:199
+#: callback.php:206
 msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
 msgstr "Vous pouvez d&eacute;marrer le callback en entrant num&eacute;ro et celui que vous voulez appeler!"
 
-#: callback.php:208
-msgid "Your PhoneNumber"
+#: callback.php:215
+#, fuzzy
+msgid "Your Phone Number"
 msgstr "Votre num&eacute;ro de t&eacute;l&eacute;phone"
 
-#: callback.php:211
+#: callback.php:218
 msgid "The number you wish to call"
 msgstr "Le num&eacute;ro de votre destinataire"
 
-#: callback.php:216
+#: callback.php:223
 msgid "Click here to Place Call"
 msgstr "Cliquez ici pour appeler"
 
@@ -1404,28 +1405,28 @@ msgstr "PAS DE REMISE"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Longueur de carte incorrecte d&eacute;finie dans la config"
 
-#: lib/Class.A2Billing.php:3108
+#: lib/Class.A2Billing.php:3106
 msgid "Error : Authentication Failed !!!"
 msgstr "Erreur: Echec Authentification"
 
-#: lib/Class.A2Billing.php:3148
+#: lib/Class.A2Billing.php:3146
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erreur : Pas assez de cr&eacute;dit pour appeler"
 
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3152
 msgid "Error : Card is not active!!!"
 msgstr "Erreur : carte non active"
 
-#: lib/Class.A2Billing.php:3160
+#: lib/Class.A2Billing.php:3158
 msgid "Error : Card is actually in use!!!"
 msgstr "Erreur : Carte en cours d'utilisation"
 
-#: lib/Class.A2Billing.php:3169 lib/Class.A2Billing.php:3177
-#: lib/Class.A2Billing.php:3185
+#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
+#: lib/Class.A2Billing.php:3183
 msgid "Error : Card have expired!!!"
 msgstr "Erreur : la carte aexpir&eacute;"
 
-#: lib/Class.SOAP-function.php:686 lib/Form/Class.FormHandler.inc.php:1820
+#: lib/Class.SOAP-function.php:696 lib/Form/Class.FormHandler.inc.php:1820
 msgid "CREATION CARD REFILL"
 msgstr "CREATION RECHARGE CARTE"
 
@@ -1599,6 +1600,11 @@ msgstr "Apres confirmation, l'annulaton du DID sera immediate et vous ne serez p
 #: lib/customer.help.php:87
 msgid "Map single digit to your most dialed numbers."
 msgstr ""
+
+#: lib/customer.help.php:89
+#, fuzzy
+msgid "Callback : Entre your phone number and the phone number you wish to call."
+msgstr "Vous pouvez d&eacute;marrer le callback en entrant num&eacute;ro et celui que vous voulez appeler!"
 
 #: lib/Class.Notification.php:75
 msgid "New SIP & IAX added : Friends conf have to be generated"
@@ -2120,36 +2126,36 @@ msgstr "Facture de recharge"
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "COMMISSION GENEREE AUTOMATIQUEMENT"
 
-#: lib/Form/Class.FormHandler.inc.php:2652
+#: lib/Form/Class.FormHandler.inc.php:2656
 #: CC_entity_edit_did_destination.php:233
 msgid "error deletion"
 msgstr "erreur de suppression"
 
-#: lib/Form/Class.FormHandler.inc.php:2779
+#: lib/Form/Class.FormHandler.inc.php:2783
 msgid "ERROR_DUPLICATION"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2865
+#: lib/Form/Class.FormHandler.inc.php:2869
 msgid "Done"
 msgstr "Fait"
 
-#: lib/Form/Class.FormHandler.inc.php:2905
+#: lib/Form/Class.FormHandler.inc.php:2909
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2911
+#: lib/Form/Class.FormHandler.inc.php:2915
 msgid "Choose a call plan"
 msgstr "Choisissez un plan tarifaire"
 
-#: lib/Form/Class.FormHandler.inc.php:2957
+#: lib/Form/Class.FormHandler.inc.php:2961
 msgid "THE CURRENT RATECARD"
 msgstr "LA RATECARD EN COURS"
 
-#: lib/Form/Class.FormHandler.inc.php:2968
+#: lib/Form/Class.FormHandler.inc.php:2972
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
-#: lib/Form/Class.FormHandler.inc.php:2974
+#: lib/Form/Class.FormHandler.inc.php:2978
 msgid "Choose a ratecard"
 msgstr "Choisissez une ratecard"
 

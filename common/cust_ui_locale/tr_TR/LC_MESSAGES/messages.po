@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-06 18:50+0100\n"
+"POT-Creation-Date: 2009-12-10 15:57+0100\n"
 "PO-Revision-Date: 2009-08-13 13:15+0100\n"
 "Last-Translator: Tamer KESER <tkeser080107@hotmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -615,39 +615,40 @@ msgstr "Maliyet"
 msgid "Total:"
 msgstr "Toplam :"
 
-#: callback.php:166
+#: callback.php:171
 msgid "Cannot insert the callback request in the spool!"
 msgstr "Geriarama isteği işleme konulamıyor!"
 
-#: callback.php:168
+#: callback.php:173
 msgid "Your callback request has been queued correctly!"
 msgstr "Geriarama isteğiniz sıraya başarıyla eklendi!"
 
-#: callback.php:173
+#: callback.php:178
 msgid "Error : You don t have enough credit to call you back!"
 msgstr "Hata : Geriarama için hesabınızda yeterli para yok!"
 
-#: callback.php:176
+#: callback.php:181
 msgid "Error : There is no route to call back your phonenumber!"
 msgstr "Hata : Numaranıza geriarama için rota yok."
 
-#: callback.php:182
+#: callback.php:187
 msgid "Error : You have to specify your phonenumber and the number you wish to call!"
 msgstr "Hata : Kendi numaranızı ve aramak istediğiniz numarayı belirtmeniz gerekmektedir !"
 
-#: callback.php:199
+#: callback.php:206
 msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
 msgstr "Kendizinkini ve aramak istediğiniz numarayı girerek geriaramayı başlatabilirsiniz."
 
-#: callback.php:208
-msgid "Your PhoneNumber"
+#: callback.php:215
+#, fuzzy
+msgid "Your Phone Number"
 msgstr "Telefon Numaranız"
 
-#: callback.php:211
+#: callback.php:218
 msgid "The number you wish to call"
 msgstr "Aramak istediğiniz numara"
 
-#: callback.php:216
+#: callback.php:223
 msgid "Click here to Place Call"
 msgstr "Arama yapmak için tıkla"
 
@@ -1401,28 +1402,28 @@ msgstr "İNDİRİMSİZ"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Ayar dosyasında girilen kart numara uzunluğu geçersiz."
 
-#: lib/Class.A2Billing.php:3108
+#: lib/Class.A2Billing.php:3106
 msgid "Error : Authentication Failed !!!"
 msgstr "Hata : Kullanıcı girişi başarısız !!!"
 
-#: lib/Class.A2Billing.php:3148
+#: lib/Class.A2Billing.php:3146
 msgid "Error : Not enough credit to call !!!"
 msgstr "Hata : Hesabınızda arama için yeterli para yok!!!"
 
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3152
 msgid "Error : Card is not active!!!"
 msgstr "Hata : Kart aktif değil!!!"
 
-#: lib/Class.A2Billing.php:3160
+#: lib/Class.A2Billing.php:3158
 msgid "Error : Card is actually in use!!!"
 msgstr "Hata : Kart kullanımda!!!"
 
-#: lib/Class.A2Billing.php:3169 lib/Class.A2Billing.php:3177
-#: lib/Class.A2Billing.php:3185
+#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
+#: lib/Class.A2Billing.php:3183
 msgid "Error : Card have expired!!!"
 msgstr "Hata : Kart kullanım süresi doldu!!!"
 
-#: lib/Class.SOAP-function.php:686 lib/Form/Class.FormHandler.inc.php:1820
+#: lib/Class.SOAP-function.php:696 lib/Form/Class.FormHandler.inc.php:1820
 msgid "CREATION CARD REFILL"
 msgstr "KART YÜKLEME"
 
@@ -1595,6 +1596,11 @@ msgstr "Onaylamadan sonra, DID ve aylık DID kesintisi kaldırılır."
 #: lib/customer.help.php:87
 msgid "Map single digit to your most dialed numbers."
 msgstr ""
+
+#: lib/customer.help.php:89
+#, fuzzy
+msgid "Callback : Entre your phone number and the phone number you wish to call."
+msgstr "Kendizinkini ve aramak istediğiniz numarayı girerek geriaramayı başlatabilirsiniz."
 
 #: lib/Class.Notification.php:75
 msgid "New SIP & IAX added : Friends conf have to be generated"
@@ -2116,36 +2122,36 @@ msgstr "Yükleme faturası"
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "OTOMATİK ÜRETİLEN KOMİSYON"
 
-#: lib/Form/Class.FormHandler.inc.php:2652
+#: lib/Form/Class.FormHandler.inc.php:2656
 #: CC_entity_edit_did_destination.php:233
 msgid "error deletion"
 msgstr "silme hatası"
 
-#: lib/Form/Class.FormHandler.inc.php:2779
+#: lib/Form/Class.FormHandler.inc.php:2783
 msgid "ERROR_DUPLICATION"
 msgstr "HATA_KOPYALAMA"
 
-#: lib/Form/Class.FormHandler.inc.php:2865
+#: lib/Form/Class.FormHandler.inc.php:2869
 msgid "Done"
 msgstr "Tamamlandı"
 
-#: lib/Form/Class.FormHandler.inc.php:2905
+#: lib/Form/Class.FormHandler.inc.php:2909
 msgid "Export Call Plan with LCR"
 msgstr "Arama planını LCR ile aktar."
 
-#: lib/Form/Class.FormHandler.inc.php:2911
+#: lib/Form/Class.FormHandler.inc.php:2915
 msgid "Choose a call plan"
 msgstr "Aama planı seçiniz"
 
-#: lib/Form/Class.FormHandler.inc.php:2957
+#: lib/Form/Class.FormHandler.inc.php:2961
 msgid "THE CURRENT RATECARD"
 msgstr "ŞİMDİKİ TARİFE"
 
-#: lib/Form/Class.FormHandler.inc.php:2968
+#: lib/Form/Class.FormHandler.inc.php:2972
 msgid "R A T E C A R D"
 msgstr "T A R İ F E"
 
-#: lib/Form/Class.FormHandler.inc.php:2974
+#: lib/Form/Class.FormHandler.inc.php:2978
 msgid "Choose a ratecard"
 msgstr "Tarifei Seçiniz"
 

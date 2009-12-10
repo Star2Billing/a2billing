@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Admin : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-06 18:50+0100\n"
+"POT-Creation-Date: 2009-12-10 15:57+0100\n"
 "PO-Revision-Date: 2009-10-06 09:29-0300\n"
 "Last-Translator: Federico Pereira <info@opentecnologic.com>\n"
 "Language-Team: DebPBX <info@debpbx.org>\n"
@@ -75,12 +75,12 @@ msgstr "SOLO PUEDE LLAMAR A NUMEROS RESTRINGIDOS"
 #: Public/call-last-month.php:59 Public/A2B_call_archiving.php:209
 #: Public/A2B_detail_package.php:223 Public/call-dnid.php:345
 #: Public/A2B_entity_statuslog.php:82 Public/call-daily-load.php:215
-#: Public/call-log-customers.php:377 Public/templates/default/main.tpl:63
+#: Public/call-log-customers.php:377 Public/templates/default/main.tpl:65
 #: Public/form_data/FG_var_user.inc:75 Public/call-comp.php:221
 msgid "CUSTOMERS"
 msgstr "CLIENTES"
 
-#: lib/interface/constants.php:54 Public/templates/default/main.tpl:94
+#: lib/interface/constants.php:54 Public/templates/default/main.tpl:96
 msgid "AGENTS"
 msgstr "RESELLERS"
 
@@ -628,28 +628,28 @@ msgstr "SIN DESCUENTO"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Longitud del número inválido de tarjeta definidos en la configuración."
 
-#: lib/Class.A2Billing.php:3108
+#: lib/Class.A2Billing.php:3106
 msgid "Error : Authentication Failed !!!"
 msgstr "Error: Error de autenticación !!!"
 
-#: lib/Class.A2Billing.php:3148
+#: lib/Class.A2Billing.php:3146
 msgid "Error : Not enough credit to call !!!"
 msgstr "Error: el crédito no es suficiente para llamar!"
 
-#: lib/Class.A2Billing.php:3154
+#: lib/Class.A2Billing.php:3152
 msgid "Error : Card is not active!!!"
 msgstr "Error: Cuenta no esta activa"
 
-#: lib/Class.A2Billing.php:3160
+#: lib/Class.A2Billing.php:3158
 msgid "Error : Card is actually in use!!!"
 msgstr "Error: Cuenta está en uso!!!"
 
-#: lib/Class.A2Billing.php:3169 lib/Class.A2Billing.php:3177
-#: lib/Class.A2Billing.php:3185
+#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
+#: lib/Class.A2Billing.php:3183
 msgid "Error : Card have expired!!!"
 msgstr "Error: Cuenta ha expirado!!!"
 
-#: lib/Class.SOAP-function.php:686 lib/Form/Class.FormHandler.inc.php:1820
+#: lib/Class.SOAP-function.php:696 lib/Form/Class.FormHandler.inc.php:1820
 #: Public/A2B_entity_card_multi.php:145
 msgid "CREATION CARD REFILL"
 msgstr "CREACIÓN DE TARJETA DE RECARGA"
@@ -1517,8 +1517,8 @@ msgstr "Igual"
 #: lib/Form/Class.SearchHandler.inc.php:463
 #: lib/Form/Class.SearchHandler.inc.php:479
 #: lib/Form/Class.SearchHandler.inc.php:496 Public/A2B_entity_voucher.php:223
-#: Public/templates/default/main.tpl:284 Public/templates/default/main.tpl:372
-#: Public/templates/default/main.tpl:424 Public/templates/default/main.tpl:448
+#: Public/templates/default/main.tpl:286 Public/templates/default/main.tpl:374
+#: Public/templates/default/main.tpl:426 Public/templates/default/main.tpl:450
 #: Public/A2B_entity_card.php:296 Public/A2B_entity_card.php:344
 #: Public/A2B_entity_def_ratecard.php:389
 #: Public/A2B_entity_def_ratecard.php:423
@@ -2040,35 +2040,35 @@ msgstr "Factura de recarga"
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "GENERAR COMISION AUTOMATICAMENTE"
 
-#: lib/Form/Class.FormHandler.inc.php:2652
+#: lib/Form/Class.FormHandler.inc.php:2656
 msgid "error deletion"
 msgstr "supresión de error"
 
-#: lib/Form/Class.FormHandler.inc.php:2779
+#: lib/Form/Class.FormHandler.inc.php:2783
 msgid "ERROR_DUPLICATION"
 msgstr "ERROR DE DUPLICACIÓN"
 
-#: lib/Form/Class.FormHandler.inc.php:2865
+#: lib/Form/Class.FormHandler.inc.php:2869
 msgid "Done"
 msgstr "listo"
 
-#: lib/Form/Class.FormHandler.inc.php:2905
+#: lib/Form/Class.FormHandler.inc.php:2909
 msgid "Export Call Plan with LCR"
 msgstr "Llame al plan de exportación con LCR"
 
-#: lib/Form/Class.FormHandler.inc.php:2911
+#: lib/Form/Class.FormHandler.inc.php:2915
 msgid "Choose a call plan"
 msgstr "Elegir plan de llamada"
 
-#: lib/Form/Class.FormHandler.inc.php:2957
+#: lib/Form/Class.FormHandler.inc.php:2961
 msgid "THE CURRENT RATECARD"
 msgstr "TABLA DE TARIFA ACTUAL"
 
-#: lib/Form/Class.FormHandler.inc.php:2968
+#: lib/Form/Class.FormHandler.inc.php:2972
 msgid "R A T E C A R D"
 msgstr "TABLA DE TARIFA"
 
-#: lib/Form/Class.FormHandler.inc.php:2974 Public/CC_ratecard_import.php:229
+#: lib/Form/Class.FormHandler.inc.php:2978 Public/CC_ratecard_import.php:229
 msgid "Choose a ratecard"
 msgstr "Elija una tabla de tarifa"
 
@@ -2569,7 +2569,7 @@ msgstr "Antigua contraseña incorrecta."
 msgid "System is failed to update your password."
 msgstr "El sistema no pudo actualizar su contraseña"
 
-#: Public/A2B_entity_password.php:137 Public/templates/default/main.tpl:549
+#: Public/A2B_entity_password.php:137 Public/templates/default/main.tpl:551
 msgid "Change Password"
 msgstr "Cambie Contrseña"
 
@@ -3551,7 +3551,7 @@ msgstr "Proveedor"
 #: Public/call-last-month.php:77 Public/A2B_call_archiving.php:227
 #: Public/call-dnid.php:363 Public/call-daily-load.php:233
 #: Public/call-log-customers.php:121 Public/call-log-customers.php:412
-#: Public/templates/default/main.tpl:177 Public/call-comp.php:239
+#: Public/templates/default/main.tpl:179 Public/call-comp.php:239
 msgid "Trunk"
 msgstr "Troncal"
 
@@ -3673,7 +3673,7 @@ msgstr "Número de Llamada"
 
 #: Public/A2B_call_archiving.php:75 Public/call-count-reporting.php:71
 #: Public/call-daily-load.php:70 Public/call-log-customers.php:116
-#: Public/templates/default/main.tpl:257 Public/graph_stat.php:57
+#: Public/templates/default/main.tpl:259 Public/graph_stat.php:57
 #: Public/graph_statbar.php:58 Public/form_data/FG_var_prefix.inc:53
 #: Public/call-comp.php:74
 msgid "Destination"
@@ -4252,7 +4252,7 @@ msgstr "ERROR: No se puede descargar el archivo"
 
 #: Public/call-dnid.php:108 Public/call-dnid.php:532
 #: Public/call-log-customers.php:114 Public/call-log-customers.php:705
-#: Public/templates/default/main.tpl:178
+#: Public/templates/default/main.tpl:180
 msgid "DNID"
 msgstr "DNID"
 
@@ -4426,7 +4426,7 @@ msgstr "FECHA DE EXPIRACION"
 msgid "LAST USE DATE"
 msgstr "ULTIMA FECHA DE USO"
 
-#: Public/A2B_card_info.php:185 Public/templates/default/main.tpl:415
+#: Public/A2B_card_info.php:185 Public/templates/default/main.tpl:417
 msgid "CALLBACK"
 msgstr "LLAMADAS RECIBIDAS"
 
@@ -5004,7 +5004,7 @@ msgstr "Reportar tipo"
 
 #: Public/call-pnl-report.php:468
 #: Public/A2B_entity_config_generate_confirm.php:111
-#: Public/templates/default/main.tpl:373
+#: Public/templates/default/main.tpl:375
 msgid "Group"
 msgstr "Grupo"
 
@@ -5364,416 +5364,416 @@ msgstr "Guía telefónica No definida!"
 msgid "new phone number have been imported"
 msgstr "Un nuevo número telefónico ha sido importado"
 
-#: Public/templates/default/main.tpl:8
+#: Public/templates/default/main.tpl:10
 msgid "HOME"
 msgstr "INICIO"
 
-#: Public/templates/default/main.tpl:17 Public/form_data/FG_var_user.inc:91
+#: Public/templates/default/main.tpl:19 Public/form_data/FG_var_user.inc:91
 msgid "DASHBOARD"
 msgstr "DASHBOARD"
 
-#: Public/templates/default/main.tpl:26
+#: Public/templates/default/main.tpl:28
 #: Public/form_data/FG_var_card_group.inc:96
 msgid "NOTIFICATION"
 msgstr "NOTIFICACION"
 
-#: Public/templates/default/main.tpl:38
+#: Public/templates/default/main.tpl:40
 msgid "LOGOUT"
 msgstr "DESLOGUEARSE"
 
-#: Public/templates/default/main.tpl:72 Public/templates/default/main.tpl:103
-#: Public/templates/default/main.tpl:127 Public/templates/default/main.tpl:255
+#: Public/templates/default/main.tpl:74 Public/templates/default/main.tpl:105
+#: Public/templates/default/main.tpl:129 Public/templates/default/main.tpl:257
 msgid "Add :: Search"
 msgstr "Añadir:: Buscar"
 
-#: Public/templates/default/main.tpl:73 Public/templates/default/main.tpl:206
-#: Public/templates/default/main.tpl:452
+#: Public/templates/default/main.tpl:75 Public/templates/default/main.tpl:208
+#: Public/templates/default/main.tpl:454
 msgid "Import"
 msgstr "Importar"
 
-#: Public/templates/default/main.tpl:74
+#: Public/templates/default/main.tpl:76
 msgid "VoIP Settings"
 msgstr "Configuración de VoIP"
 
-#: Public/templates/default/main.tpl:75
+#: Public/templates/default/main.tpl:77
 msgid "Caller-ID"
 msgstr "Identificador de Llamadas"
 
-#: Public/templates/default/main.tpl:76
+#: Public/templates/default/main.tpl:78
 msgid "Credit Notification"
 msgstr "Notificación de Crédito"
 
-#: Public/templates/default/main.tpl:77 Public/templates/default/main.tpl:256
-#: Public/templates/default/main.tpl:285
+#: Public/templates/default/main.tpl:79 Public/templates/default/main.tpl:258
+#: Public/templates/default/main.tpl:287
 msgid "Groups"
 msgstr "Grupos"
 
-#: Public/templates/default/main.tpl:78
+#: Public/templates/default/main.tpl:80
 msgid "Card series"
 msgstr "Series de Tarjetas"
 
-#: Public/templates/default/main.tpl:79
+#: Public/templates/default/main.tpl:81
 msgid "Speed Dial"
 msgstr "Velocidad de marcado"
 
-#: Public/templates/default/main.tpl:80
+#: Public/templates/default/main.tpl:82
 msgid "History"
 msgstr "Historial"
 
-#: Public/templates/default/main.tpl:81 Public/A2B_entity_card.php:251
+#: Public/templates/default/main.tpl:83 Public/A2B_entity_card.php:251
 #: Public/form_data/FG_var_paymentlog.inc:99
 #: Public/form_data/FG_var_paymentlog_agent.inc:99
 msgid "Status"
 msgstr "Estado"
 
-#: Public/templates/default/main.tpl:104
+#: Public/templates/default/main.tpl:106
 msgid "Signup URLs"
 msgstr "Registro URL"
 
-#: Public/templates/default/main.tpl:118
+#: Public/templates/default/main.tpl:120
 msgid "ADMINS"
 msgstr "ADMINISTRADOR"
 
-#: Public/templates/default/main.tpl:128
+#: Public/templates/default/main.tpl:130
 msgid "Access Control"
 msgstr "Control de Acceso"
 
-#: Public/templates/default/main.tpl:141 Public/form_data/FG_var_user.inc:90
+#: Public/templates/default/main.tpl:143 Public/form_data/FG_var_user.inc:90
 #: Public/form_data/FG_var_card_group.inc:95
 #: Public/form_data/FG_var_agent.inc:70
 msgid "SUPPORT"
 msgstr "SOPORTE"
 
-#: Public/templates/default/main.tpl:150
+#: Public/templates/default/main.tpl:152
 msgid "Customer Tickets"
 msgstr "Tickets de clientes"
 
-#: Public/templates/default/main.tpl:151
+#: Public/templates/default/main.tpl:153
 msgid "Agent Tickets"
 msgstr "Tickets de Agentes"
 
-#: Public/templates/default/main.tpl:152
+#: Public/templates/default/main.tpl:154
 msgid "Ticket Components"
 msgstr "Ticket de Componentes"
 
-#: Public/templates/default/main.tpl:153
+#: Public/templates/default/main.tpl:155
 msgid "Support Boxes"
 msgstr "Cajas de Apoyo"
 
-#: Public/templates/default/main.tpl:166
+#: Public/templates/default/main.tpl:168
 msgid "CALL REPORTS"
 msgstr "REPORTES DE LLAMADAS"
 
-#: Public/templates/default/main.tpl:175
+#: Public/templates/default/main.tpl:177
 msgid "CDRs"
 msgstr "CDRs"
 
-#: Public/templates/default/main.tpl:176
+#: Public/templates/default/main.tpl:178
 msgid "Call Count"
 msgstr "Recueno de Llamadas"
 
-#: Public/templates/default/main.tpl:179
+#: Public/templates/default/main.tpl:181
 msgid "PNL"
 msgstr "PNL"
 
-#: Public/templates/default/main.tpl:180
+#: Public/templates/default/main.tpl:182
 msgid "Compare Calls"
 msgstr "Comparar Llamadas"
 
-#: Public/templates/default/main.tpl:181
+#: Public/templates/default/main.tpl:183
 msgid "Daily Traffic"
 msgstr "Tráfico Diario"
 
-#: Public/templates/default/main.tpl:182
+#: Public/templates/default/main.tpl:184
 msgid "Monthly Traffic"
 msgstr "Tráfico Mensual"
 
-#: Public/templates/default/main.tpl:195
+#: Public/templates/default/main.tpl:197
 msgid "RATES"
 msgstr "TARIFAS"
 
-#: Public/templates/default/main.tpl:204 Public/form_data/FG_var_card.inc:141
+#: Public/templates/default/main.tpl:206 Public/form_data/FG_var_card.inc:141
 msgid "Call Plan"
 msgstr "Plan de Llamadas"
 
-#: Public/templates/default/main.tpl:205
+#: Public/templates/default/main.tpl:207
 msgid "RateCards"
 msgstr "Tabla de Tarifas"
 
-#: Public/templates/default/main.tpl:207
+#: Public/templates/default/main.tpl:209
 msgid "Merge"
 msgstr "Fusión"
 
-#: Public/templates/default/main.tpl:208
+#: Public/templates/default/main.tpl:210
 msgid "Simulator"
 msgstr "Simulador"
 
-#: Public/templates/default/main.tpl:209
+#: Public/templates/default/main.tpl:211
 msgid "Rates"
 msgstr "Tablas"
 
-#: Public/templates/default/main.tpl:222
+#: Public/templates/default/main.tpl:224
 msgid "PROVIDERS"
 msgstr "PROVEEDORES"
 
-#: Public/templates/default/main.tpl:231
+#: Public/templates/default/main.tpl:233
 msgid "Providers"
 msgstr "Proveedores"
 
-#: Public/templates/default/main.tpl:232
+#: Public/templates/default/main.tpl:234
 msgid "Trunks"
 msgstr "Troncales"
 
-#: Public/templates/default/main.tpl:233
+#: Public/templates/default/main.tpl:235
 msgid "Prefixes"
 msgstr "Prefijos"
 
-#: Public/templates/default/main.tpl:246
+#: Public/templates/default/main.tpl:248
 msgid "INBOUND DID"
 msgstr "INBOUND DID"
 
-#: Public/templates/default/main.tpl:258
+#: Public/templates/default/main.tpl:260
 msgid "Import [CSV]"
 msgstr "Importar [CSV]"
 
-#: Public/templates/default/main.tpl:259
+#: Public/templates/default/main.tpl:261
 msgid "Import [DIDX]"
 msgstr "Importar [DIDX]"
 
-#: Public/templates/default/main.tpl:260
+#: Public/templates/default/main.tpl:262
 msgid "Usage"
 msgstr "Uso"
 
-#: Public/templates/default/main.tpl:261
+#: Public/templates/default/main.tpl:263
 msgid "Billing"
 msgstr "Facturación"
 
-#: Public/templates/default/main.tpl:275 Public/form_data/FG_var_user.inc:86
+#: Public/templates/default/main.tpl:277 Public/form_data/FG_var_user.inc:86
 msgid "OUTBOUND CID"
 msgstr "OUTBOUND CID"
 
-#: Public/templates/default/main.tpl:300 Public/form_data/FG_var_user.inc:76
+#: Public/templates/default/main.tpl:302 Public/form_data/FG_var_user.inc:76
 #: Public/form_data/FG_var_did.inc:61 Public/form_data/FG_var_did.inc:120
 #: Public/form_data/FG_var_agent.inc:66
 msgid "BILLING"
 msgstr "FACTURACION"
 
-#: Public/templates/default/main.tpl:309
+#: Public/templates/default/main.tpl:311
 msgid "Vouchers"
 msgstr "Vouchers"
 
-#: Public/templates/default/main.tpl:310
+#: Public/templates/default/main.tpl:312
 msgid "Customers Balance"
 msgstr "Balance de Clientes"
 
-#: Public/templates/default/main.tpl:311 Public/templates/default/main.tpl:319
+#: Public/templates/default/main.tpl:313 Public/templates/default/main.tpl:321
 msgid "Transactions"
 msgstr "Transación"
 
-#: Public/templates/default/main.tpl:312
+#: Public/templates/default/main.tpl:314
 msgid "Billings"
 msgstr "Facturación"
 
-#: Public/templates/default/main.tpl:313 Public/templates/default/main.tpl:320
+#: Public/templates/default/main.tpl:315 Public/templates/default/main.tpl:322
 msgid "Refills"
 msgstr "Recargas"
 
-#: Public/templates/default/main.tpl:314 Public/templates/default/main.tpl:321
+#: Public/templates/default/main.tpl:316 Public/templates/default/main.tpl:323
 msgid "Payments"
 msgstr "Pagos"
 
-#: Public/templates/default/main.tpl:315 Public/templates/default/main.tpl:322
+#: Public/templates/default/main.tpl:317 Public/templates/default/main.tpl:324
 msgid "E-Payment Log"
 msgstr "Registrarse en E-Payment"
 
-#: Public/templates/default/main.tpl:316
+#: Public/templates/default/main.tpl:318
 msgid "Charges"
 msgstr "Cargos"
 
-#: Public/templates/default/main.tpl:317
+#: Public/templates/default/main.tpl:319
 msgid "Agents Commissions"
 msgstr "Comisiones de Agentes"
 
-#: Public/templates/default/main.tpl:318
+#: Public/templates/default/main.tpl:320
 msgid "Remittance Request"
 msgstr ""
 
-#: Public/templates/default/main.tpl:323
+#: Public/templates/default/main.tpl:325
 msgid "Payment Methods"
 msgstr "Métodos de Pago"
 
-#: Public/templates/default/main.tpl:324
+#: Public/templates/default/main.tpl:326
 msgid "Currency List"
 msgstr "Lista de Monedas"
 
-#: Public/templates/default/main.tpl:338 Public/form_data/FG_var_user.inc:89
+#: Public/templates/default/main.tpl:340 Public/form_data/FG_var_user.inc:89
 #: Public/form_data/FG_var_card_group.inc:87
 msgid "INVOICES"
 msgstr "FACTURAS"
 
-#: Public/templates/default/main.tpl:347
+#: Public/templates/default/main.tpl:349
 msgid "Receipts"
 msgstr "Recibos"
 
-#: Public/templates/default/main.tpl:348
+#: Public/templates/default/main.tpl:350
 msgid "Invoices"
 msgstr "Facturas"
 
-#: Public/templates/default/main.tpl:349 Public/form_data/FG_var_config.inc:80
+#: Public/templates/default/main.tpl:351 Public/form_data/FG_var_config.inc:80
 #: Public/form_data/FG_var_config.inc:87
 msgid "Configuration"
 msgstr "Configuración"
 
-#: Public/templates/default/main.tpl:363 Public/form_data/FG_var_user.inc:87
+#: Public/templates/default/main.tpl:365 Public/form_data/FG_var_user.inc:87
 msgid "PACKAGE OFFER"
 msgstr "OFERTA DE PAQUETES"
 
-#: Public/templates/default/main.tpl:374
+#: Public/templates/default/main.tpl:376
 msgid "Details"
 msgstr "Detalles"
 
-#: Public/templates/default/main.tpl:388
+#: Public/templates/default/main.tpl:390
 msgid "RECUR SERVICE"
 msgstr "VOLVER AL SERVICIO"
 
-#: Public/templates/default/main.tpl:397
+#: Public/templates/default/main.tpl:399
 msgid "Account Service"
 msgstr "Cuenta del Servicio"
 
-#: Public/templates/default/main.tpl:398
+#: Public/templates/default/main.tpl:400
 msgid "Subscriptions"
 msgstr "Suscripciones"
 
-#: Public/templates/default/main.tpl:399
+#: Public/templates/default/main.tpl:401
 msgid "Subscriptions SIGNUP"
 msgstr "Suscripciones de INGRESO"
 
-#: Public/templates/default/main.tpl:400
+#: Public/templates/default/main.tpl:402
 msgid "Subscribers"
 msgstr "Suscriptores"
 
-#: Public/templates/default/main.tpl:401
+#: Public/templates/default/main.tpl:403
 msgid "AutoRefill Report"
 msgstr "Informe de Autorecarga"
 
-#: Public/templates/default/main.tpl:425
+#: Public/templates/default/main.tpl:427
 msgid "Server Group"
 msgstr "Grupo de Servidores"
 
-#: Public/templates/default/main.tpl:426
+#: Public/templates/default/main.tpl:428
 msgid "Server"
 msgstr "Servidor"
 
-#: Public/templates/default/main.tpl:439
+#: Public/templates/default/main.tpl:441
 msgid "CAMPAIGNS"
 msgstr "CAMPAÑAS"
 
-#: Public/templates/default/main.tpl:449
+#: Public/templates/default/main.tpl:451
 msgid "Config"
 msgstr "Configuración"
 
-#: Public/templates/default/main.tpl:450
+#: Public/templates/default/main.tpl:452
 #: Public/form_data/FG_var_phonenumber.inc:89
 msgid "Phone Book"
 msgstr "Guía Telefónica"
 
-#: Public/templates/default/main.tpl:451
+#: Public/templates/default/main.tpl:453
 msgid "Add Number"
 msgstr "Agregar Número"
 
-#: Public/templates/default/main.tpl:466 Public/form_data/FG_var_user.inc:82
+#: Public/templates/default/main.tpl:468 Public/form_data/FG_var_user.inc:82
 msgid "MAINTENANCE"
 msgstr "MANTENIMIENTO"
 
-#: Public/templates/default/main.tpl:475
+#: Public/templates/default/main.tpl:477
 msgid "Alarms"
 msgstr "Alarmas"
 
-#: Public/templates/default/main.tpl:476
+#: Public/templates/default/main.tpl:478
 msgid "Users Activity"
 msgstr "Usuarios Activos"
 
-#: Public/templates/default/main.tpl:477
+#: Public/templates/default/main.tpl:479
 msgid "Database Backup"
 msgstr "Copia de Seguridad de la Base de datos"
 
-#: Public/templates/default/main.tpl:478
+#: Public/templates/default/main.tpl:480
 msgid "Database Restore"
 msgstr "Restaurar la base de Datos"
 
-#: Public/templates/default/main.tpl:479
+#: Public/templates/default/main.tpl:481
 msgid "MusicOnHold"
 msgstr "Música en Espera"
 
-#: Public/templates/default/main.tpl:480
+#: Public/templates/default/main.tpl:482
 msgid "Upload File"
 msgstr "Subir Archivo"
 
-#: Public/templates/default/main.tpl:481
+#: Public/templates/default/main.tpl:483
 msgid "Watch Log files"
 msgstr "Ver archivos de registro"
 
-#: Public/templates/default/main.tpl:482
+#: Public/templates/default/main.tpl:484
 msgid "Archiving"
 msgstr "Archivando"
 
-#: Public/templates/default/main.tpl:499 Public/form_data/FG_var_user.inc:83
+#: Public/templates/default/main.tpl:501 Public/form_data/FG_var_user.inc:83
 msgid "MAIL"
 msgstr "CORREO ELECTRONICO"
 
-#: Public/templates/default/main.tpl:508
+#: Public/templates/default/main.tpl:510
 msgid "Mail templates"
 msgstr "Template de cCorreo Electrónico"
 
-#: Public/templates/default/main.tpl:509
+#: Public/templates/default/main.tpl:511
 msgid "Mass Mail"
 msgstr "Correo Masivo"
 
-#: Public/templates/default/main.tpl:523 Public/form_data/FG_var_user.inc:92
+#: Public/templates/default/main.tpl:525 Public/form_data/FG_var_user.inc:92
 msgid "SYSTEM SETTINGS"
 msgstr "CONFIGURACIÓN DEL SISTEMA"
 
-#: Public/templates/default/main.tpl:532
+#: Public/templates/default/main.tpl:534
 msgid "Global List"
 msgstr "Lista Global"
 
-#: Public/templates/default/main.tpl:533
+#: Public/templates/default/main.tpl:535
 msgid "Group List"
 msgstr "Grupo de Listas"
 
-#: Public/templates/default/main.tpl:534
+#: Public/templates/default/main.tpl:536
 msgid "Add agi-conf"
 msgstr "Añadir agi-conf"
 
-#: Public/templates/default/main.tpl:535
+#: Public/templates/default/main.tpl:537
 msgid "* Config Editor"
 msgstr "Configurar Editor"
 
-#: Public/templates/default/main.tpl:537
+#: Public/templates/default/main.tpl:539
 msgid "Asterisk GUI"
 msgstr "Asterisk GUI"
 
-#: Public/templates/default/index.tpl:49
+#: Public/templates/default/index.tpl:50
 msgid "AUTHENTICATION"
 msgstr "AUTENTICACION"
 
-#: Public/templates/default/index.tpl:57
+#: Public/templates/default/index.tpl:58
 msgid "User"
 msgstr "Usuario"
 
-#: Public/templates/default/index.tpl:61
+#: Public/templates/default/index.tpl:62
 msgid "Password"
 msgstr "Clave"
 
-#: Public/templates/default/index.tpl:89
+#: Public/templates/default/index.tpl:90
 msgid "AUTHENTICATION REFUSED, please check your user/password!"
 msgstr "AUTENTICACIÓN denegada, por favor revise su usuario / contraseña!"
 
-#: Public/templates/default/index.tpl:91
+#: Public/templates/default/index.tpl:92
 msgid "INACTIVE ACCOUNT, Please activate your account!"
 msgstr "Cuenta inactiva, Por favor active su cuenta!"
 
-#: Public/templates/default/index.tpl:93
+#: Public/templates/default/index.tpl:94
 msgid "BLOCKED ACCOUNT, Please contact the administrator!"
 msgstr "CUENTA BLOQUEDAS, Por favor comuníquese con el administrador"
 
