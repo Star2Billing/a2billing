@@ -214,6 +214,15 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 		   "21",
 		   gettext("Insert the commision"),
 		   "" , "", "",	"", "", "", "NO-NULL", gettext("Commission in percent"));
+
+    $HD_Form -> AddEditElement (gettext("THRESHOLD REMITTANCE"),
+		   "threshold_remittance",
+		   "",
+		   "INPUT",
+		   "size=20 maxlength=20",
+		   "12",
+		   gettext("treshold remittance"),
+		   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 	
 	$HD_Form -> AddEditElement (gettext("VAT"),
 		   "vat",
@@ -332,6 +341,14 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 			gettext("Insert the fax number"),
 			"" , "", "", "", "" , "", "", "");
 			
+	$HD_Form -> AddEditElement (gettext("BANK INFO"),
+					"bank_info",
+					'',
+					"TEXTAREA",
+					"cols=50 rows=4",
+					"",
+					gettext("Insert the bank info of this agent"),
+					"" , "", "", "", "" , "", "", "");		
 		
 		
 	$DBHandle_max  = DbConnect();
@@ -355,7 +372,7 @@ if (has_rights (ACX_MODIFY_AGENTS) && !($popup_select)) {
 	}
 	
 		
-    $FG_QUERY_EDITION = 'login, passwd, perms, active, credit,com_balance, currency, commission, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax';
+    $FG_QUERY_EDITION = 'login, passwd, perms, active, credit,com_balance, currency, commission,threshold_remittance, vat, language, company, lastname, firstname, address, city, state, country, zipcode, email, phone,  fax,bank_info';
     $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 	
 	$HD_Form -> FG_EDITION_CLAUSE = " id='%id'";
