@@ -59,11 +59,10 @@ for ($k=2;$k<=60;$k++)
 $actived_list = Constants::getActivationList();
 
 $rule_list = array();
-$rule_list["0"]  = array( gettext("No rule"), "0");
+$rule_list["3"]  = array( gettext("Apply Service every Y days"), "3");
 $rule_list["1"]  = array( gettext("Apply service if card not used in last X days"), "1");
 $rule_list["2"]  = array( gettext("Apply service if card has been used in the last X Days"), "2");
-$rule_list["3"]  = array( gettext("Apply Service every Y days"), "3");
-
+$rule_list["0"]  = array( gettext("No rule"), "0");
 
 $daynumber_list = array();
 for ($k=1;$k<=20;$k++)
@@ -131,15 +130,6 @@ $HD_Form -> AddEditElement (gettext("AMOUNT CREDIT"),
 	"12",
 	gettext("Insert the number of credit to remove from the cards."),
 	"" , "", "", "", "" , "", "", gettext("Set the amount of credit to remove from the card. 0 will remove all credit from the card use -1 for DID recurrent service."));
-	
-$HD_Form -> AddEditElement (gettext("PERIOD"),
-	"period",
-	'$value',
-	"SELECT",
-	"",
-	"",
-	"",
-	"list" , "", "", "", $period_list, "%1" , "" , gettext("Interval to apply service"));
 
 $HD_Form -> AddEditElement (gettext("RULE"),
 	"rule",
@@ -148,9 +138,9 @@ $HD_Form -> AddEditElement (gettext("RULE"),
 	"",
 	"",
 	"",
-	"list" , "", "", "", $rule_list, "%1", "", gettext("where X - nextfield daynumber in days <br>	and Y = number set in period field"));
+	"list" , "", "", "", $rule_list, "%1", "", gettext("where X - day number (X) in days <br>	and Y = number set in period field"));
 	
-$HD_Form -> AddEditElement ("NEXTFIELD DAYNUMBER",
+$HD_Form -> AddEditElement ("DAY NUMBER (X)",
 	"daynumber",
 	"$value",
 	"INPUT",
@@ -158,7 +148,16 @@ $HD_Form -> AddEditElement ("NEXTFIELD DAYNUMBER",
 	"4",
 	gettext("Insert the daynumber"),
 	"" , "", "", "", "", "" , "NO", gettext("Set the number of days to apply to the rule above."));
-	
+
+$HD_Form -> AddEditElement (gettext("PERIOD (Y)"),
+	"period",
+	'$value',
+	"SELECT",
+	"",
+	"",
+	"",
+	"list" , "", "", "", $period_list, "%1" , "" , gettext("Interval to apply service"));
+
 $HD_Form -> AddEditElement ("STOP MODE",
 	"stopmode",
 	'$value',
@@ -243,7 +242,7 @@ if ($numrow>0) {
 		"", "", "%1 : (%2)", "", "", "cc_cardgroup_service:id_card_group:cc_card_group LEFT JOIN cc_cardgroup_service ON cc_card_group.id=cc_cardgroup_service.id_card_group:DISTINCT cc_card_group.name, cc_card_group.id: cc_cardgroup_service.id_service = %id:id_service:%2 - (%1)::::%1:id='%1'");
 }
 
-$HD_Form->FieldEditElement('name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, emailreport, dialplan, operate_mode, use_group');
+$HD_Form->FieldEditElement('name, amount, rule, daynumber, period, stopmode, maxnumbercycle, status, emailreport, dialplan, operate_mode, use_group');
 
 if (DB_TYPE == "mysql") {
 	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS = "datecreate ";

@@ -61,7 +61,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include (dirname(__FILE__) . "/lib/admin.defines.php");
 
-$verbose_level = 1;
+$verbose_level = 0;
 $groupcard = 1000;
 $groupwait = 10;# number of second to wait if more then  groupcard updates done
 $time_checks = 20; #number of minute to check with. i.e if time1-time2< $time_checks minutes, consider it is equal.
@@ -82,12 +82,16 @@ if (!$A2B->DbConnect()) {
 $instance_table = new Table();
 
 $oneday = 60 * 60 * 24;
-
+$service_lastrun = "AND UNIX_TIMESTAMP(cc_service.datelastrun) < UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday  + $time_checks *60 ";
 
 // CHECK THE SERVICES
-$QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, UNIX_TIMESTAMP(datelastrun), emailreport, totalcredit,totalcardperform,dialplan,operate_mode,use_group FROM cc_service WHERE status=1 AND  UNIX_TIMESTAMP(cc_service.datelastrun)<UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday  + $time_checks *60  ORDER BY id DESC";
+$QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, " .
+		"UNIX_TIMESTAMP(datelastrun), emailreport, totalcredit, totalcardperform, dialplan, operate_mode, use_group " .
+		"FROM cc_service $service_lastrun" .
+		"WHERE status=1 ORDER BY id DESC";
 if ($verbose_level >= 1)
 	echo $QUERY;
+
 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY);
 if ($verbose_level >= 1)
 	print_r($result);
@@ -131,38 +135,39 @@ foreach ($result as $myservice) {
 	// RULES  
 	if ($rule == 3) {
 		$filter .= " -- card last run date <= period
-		 		AND UNIX_TIMESTAMP(servicelastrun) <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday * $period ";
+		 		AND UNIX_TIMESTAMP(servicelastrun) <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday * $period \n";
 	}
 	if (($rule == 1) && ($rule_day > 0)) {
 		$filter .= " -- Apply service if card NO used in last y days
-				AND UNIX_TIMESTAMP(lastuse) < UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday ";
+				AND UNIX_TIMESTAMP(lastuse) < UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday \n";
 	}
 	if (($rule == 2) && ($rule_day > 0)) {
 		$filter .= " -- Apply service if card used in last y days
-		                AND UNIX_TIMESTAMP(lastuse) >= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday ";
+		                AND UNIX_TIMESTAMP(lastuse) >= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) - $oneday \n";
 	}
 	//stopmode variants
 	if ($stopmode == 2) {
 		$filter .= " -- NBSERVICE <= MAXNUMBERCYCLE  STOPMODE Max number of cycle reach
-				AND nbservice <= " . $myservice[7];
+				AND nbservice <= " . $myservice[7] ."\n";
 	}
 	if ($stopmode == 1) {
 		$filter .= " -- CREDIT <= 0 STOPMODE Account balance below zero
-		                AND credit>0 ";
+		                AND credit>0 \n";
 	}
 	// dialplan
 	if ($dialplan > 0) {
 		$filter .= " -- dialplan check
-				AND tariff = $dialplan ";
+				AND tariff = $dialplan \n";
 	}
 	$sql = "";
+	$first_usedate = " AND firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00'";
 	if ($use_group == 0) {
 		$sql = "SELECT id, credit, nbservice, lastuse, username, servicelastrun, email
 				 		FROM cc_card , cc_cardgroup_service WHERE id_group = id_card_group AND id_service = " . $myservice[0] . 
-						" AND firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00' AND runservice=1 $filter";
+						" $first_usedate AND runservice=1 $filter \n";
 	} else {
 		$sql = "SELECT id, credit, nbservice, lastuse, username, servicelastrun, email
-		                 FROM cc_card where firstusedate IS NOT NULL AND firstusedate>'1984-01-01 00:00:00' AND runservice=1  $filter";
+		                 FROM cc_card WHERE runservice=1 $first_usedate $filter \n";
 	}
 	if ($verbose_level >= 1)
 		echo "==> SELECT CARD QUERY : $sql\n";
