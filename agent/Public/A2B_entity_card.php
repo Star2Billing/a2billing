@@ -195,7 +195,7 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 				if (is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
 					$field_insert = "id_payment, id_card, amount,description,id_agent";
 					$commission = a2b_round($addcredit * ($result_agent[0]['commission']/100));
-					$description_commission = gettext("GENERATED COMMISSION OF AN CUSTOMER REFILL BY AN AGENT!");
+					$description_commission = gettext("GENERATED COMMISSION OF AN CUSTOMER REFILLED BY AN AGENT!");
 					$description_commission.= "\nID CARD : ".$id;
 					$description_commission.= "\nID REFILL : ".$id_refill;
 					$description_commission.= "\REFILL AMOUNT: ".$addcredit;
