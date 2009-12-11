@@ -55,10 +55,10 @@ getpost_ifset(array('activation_code', 'html'));
 if ($activation_code)
 $activation_code = trim($activation_code);
 
-$res = Service_Get_Rates($activation_code);
+$rates = Service_Get_Rates($activation_code);
 
 if (isset($html)) echo "<pre>";
-print_r ($res[0]);
+echo $rates[0];
 if (isset($html)) echo "</pre>";
 
 /*
@@ -93,7 +93,7 @@ function Service_Get_Rates($activation_code)
 		return array('400', ' ERROR - AUTHENTICATE CODE');
 	}
 	
-	$QUERY = "SELECT SQL_CALC_FOUND_ROWS destination, dialprefix, MIN(rateinitial) as rateinitial, ratecard_id FROM cc_callplan_lcr WHERE tariffgroup_id = '220' ".
+	$QUERY = "SELECT SQL_CALC_FOUND_ROWS dialprefix, destination, MIN(rateinitial) as rateinitial FROM cc_callplan_lcr WHERE tariffgroup_id = '220' ".
 	         "GROUP BY dialprefix ORDER BY destination ASC LIMIT 0,50000";
 	
 	$res = $DBHandle -> Execute($QUERY);
@@ -106,8 +106,11 @@ function Service_Get_Rates($activation_code)
 	    return array('400', ' ERROR - NO RATES FOUND');
     }
 
+    $rates = '';
+    $arr_rates = array();
     for ($i = 0; $i < $num; $i++) {
-	    $rates[] = $res->fetchRow();
+	    $arr_rates[$i] = $res->fetchRow();
+	    $rates .= '"'.$arr_rates[$i]['destination'].'","'.$arr_rates[$i]['dialprefix'].'","'.$arr_rates[$i]['rateinitial']."\"\n";
     }
 	
 	return array($rates, '200 -- Rates OK');

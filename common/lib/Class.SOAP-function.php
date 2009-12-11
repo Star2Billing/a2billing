@@ -1046,7 +1046,7 @@ class SOAP_A2Billing
 		        if (is_array($content_exp_val_arr) && count($content_exp_val_arr) >= 3) {
 			        $rate_margin = $content_exp_val_arr[2] + $content_exp_val_arr[2] * $margin;
 			
-			        $arr_rates[] = array( $content_exp_val_arr[0], $content_exp_val_arr[1], $content_exp_val_arr[2], $rate_margin);
+			        $arr_rates[] = array( $content_exp_val_arr[1], $content_exp_val_arr[0], $content_exp_val_arr[2], $rate_margin);
 		        }
 	        }
         }

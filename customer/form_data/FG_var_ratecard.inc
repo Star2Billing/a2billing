@@ -52,12 +52,11 @@ $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 $HD_Form -> FG_TABLE_CLAUSE = "tariffgroup_id = '220' ";
 $HD_Form -> SQL_GROUP = "GROUP BY dialprefix";
 
+$HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "20%", "center", "sort", "");
+$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "60%", "center", "sort", "40");
+$HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "20%", "center", "sort");
 
-$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "40");
-$HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "5%", "center", "sort", "");
-$HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
-
-$HD_Form -> FieldViewElement ('destination, dialprefix, MIN(rateinitial) as rateinitial');
+$HD_Form -> FieldViewElement ('dialprefix, destination, MIN(rateinitial) as rateinitial');
 
 
 
