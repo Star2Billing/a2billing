@@ -59,18 +59,24 @@ if ($action == "accept") {
 		// load
 		$result=$instance_table_remittance -> Get_list($DBHandle,$clause_update_remittance);
 		$type = $result[0]['type'];
-		if($type==0){
-			$agent_id = $result[0]['id_agent'];
-			$credit = $result[0]['amount'];
+		$agent_id = $result[0]['id_agent'];
+		$credit = $result[0]['amount'];
+		if ($type==0) {
 			// insert refill
 			$field_insert = " credit, agent_id, description";
 			$value_insert = "'".$credit."', '$agent_id', '".gettext('REFILL BY REMITTANCE REQUEST')."'";
 			$instance_sub_table = new Table("cc_logrefill_agent", $field_insert);
 			$instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 		
-			//REFILL... UPADTE AGENT
+			//REFILL... UPDATE AGENT
 			$instance_table_agent = new Table("cc_agent");
 			$param_update_agent = "credit = credit + '".$credit."' , com_balance = com_balance - $credit ";
+			$clause_update_agent = " id='$agent_id'";
+			$instance_table_agent -> Update_table ($DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
+		} else {
+			//UPDATE AGENT
+			$instance_table_agent = new Table("cc_agent");
+			$param_update_agent = " com_balance = com_balance - $credit ";
 			$clause_update_agent = " id='$agent_id'";
 			$instance_table_agent -> Update_table ($DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 		}
@@ -123,11 +129,11 @@ $smarty->display('footer.tpl');
 <script type="text/javascript">	
 $(document).ready(function () {
 	$('.accept_click').click(function () {
-			$.get("A2B_entity_remittance_request.php", { id: ""+ this.id, action: "accept" },
-				  function(data){
-				    location.reload(true);
-				  });
-	        });
+		$.get("A2B_entity_remittance_request.php", { id: ""+ this.id, action: "accept" },
+			  function(data){
+			    location.reload(true);
+			  });
+        });
 	$('.refuse_click').click(function () {
 		$.get("A2B_entity_remittance_request.php", { id: ""+ this.id, action: "refuse" },
 			  function(data){
