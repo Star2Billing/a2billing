@@ -1837,18 +1837,49 @@ class FormHandler
 		$credit = $card_result[0][0];
 		
 		if ($credit>0 || $credit<0) {
-			if($credit>0)$sign="+";
-			else $sign="-";
+			if($credit>0){
+				$sign="+";
+			}else{
+				$sign="-";
+			}
 			$instance_table_agent = new Table("cc_agent");
 			$param_update_agent = "credit = credit $sign '".abs($credit)."'";
 			$clause_update_agent = " id='".$_SESSION['agent_id']."'";
 			$instance_table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
 			$field_insert = " credit, card_id, refill_type, description";
 			$description = gettext("DELETION CARD REFILL");
-			$credit = 0-$credit;
-			$value_insert = "'$credit', '$card_id', 1 ,'$description' ";
+			$correction = 0-$credit;
+			$value_insert = "'$correction', '$card_id', 1 ,'$description' ";
 			$instance_refill_table = new Table("cc_logrefill", $field_insert);
 			$instance_refill_table -> Add_table ($this->DBHandle, $value_insert, null, null);
+			if($credit>0){ 
+				$table_transaction = new Table();
+				$result_agent = $table_transaction -> SQLExec($this->DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $card_id");
+				
+				if (is_array($result_agent)&& !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
+					// test if the agent exist and get its commission
+					$id_agent = $result_agent[0]['id_agent'];
+					$agent_table = new Table("cc_agent", "commission");
+					$agent_clause = "id = ".$id_agent;
+					$result_agent= $agent_table -> Get_list($this->DBHandle,$agent_clause);
+					
+					if (is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
+						$field_insert = "id_payment, id_card, amount,description,id_agent";
+						$commission = -a2b_round($credit * ($result_agent[0]['commission']/100));
+						$description_commission = gettext("CORRECT COMMISSION AFTER CARD DELETED!");
+						$description_commission.= "\nID CARD : ".$card_id;
+						$description_commission.= "\n AMOUNT: ".$credit;
+						$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
+						$value_insert = "'-1', '$card_id', '$commission','$description_commission','$id_agent'";
+						$commission_table = new Table("cc_agent_commission", $field_insert);
+						$id_commission = $commission_table -> Add_table ($this->DBHandle, $value_insert, null, null,"id");
+						$table_agent = new Table('cc_agent');
+						$param_update_agent = "com_balance = com_balance - '".$commission."'";
+						$clause_update_agent = " id='".$id_agent."'";
+						$table_agent -> Update_table ($this->DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
+					}
+				}		
+			}
 		}
 	}
 	

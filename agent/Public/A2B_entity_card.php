@@ -158,7 +158,6 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 		$instance_check_card_agent = new Table("cc_card LEFT JOIN cc_card_group ON cc_card.id_group=cc_card_group.id", " cc_card_group.id_agent");
 		$FG_TABLE_CLAUSE_check = "cc_card.id= ".$id;
 		$list_check= $instance_check_card_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_check, null, null, null, null, null, null);
-		
 		if ( $list_check[0][0] == $_SESSION['agent_id'] ) { 
 				
 			//check if enought credit
@@ -166,9 +165,7 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 			$FG_TABLE_CLAUSE_AGENT = "id = ".$_SESSION['agent_id'] ;
 			$agent_info = $instance_table_agent -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_AGENT, null, null, null, null, null, null);			
 			$credit_agent = $agent_info[0][0];
-			  
 			if ($credit_agent >= $addcredit) {
-				
 			   //Substract credit for agent
 				$param_update_agent = "credit = credit - '".$addcredit."'";
 				$instance_table_agent -> Update_table ($HD_Form -> DBHandle, $param_update_agent, $FG_TABLE_CLAUSE_AGENT, $func_table = null);	
@@ -188,9 +185,32 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 				$field_insert = "date, credit, card_id, description, refill_type";
 				$value_insert = "now(), '$addcredit', '$id','$description','$refill_type'";
 				$instance_sub_table = new Table("cc_logrefill", $field_insert);
-				$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
+				$id_refill = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null,'id');	
 				
-				if (!$result_query ) {		
+				$agent_table = new Table("cc_agent", "commission");
+				$id_agent = $_SESSION['agent_id'];
+				$agent_clause = "id = ".$id_agent;
+				$result_agent= $agent_table -> Get_list($HD_Form -> DBHandle,$agent_clause);
+				
+				if (is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
+					$field_insert = "id_payment, id_card, amount,description,id_agent";
+					$commission = a2b_round($addcredit * ($result_agent[0]['commission']/100));
+					$description_commission = gettext("GENERATED COMMISSION OF AN CUSTOMER REFILL BY AN AGENT!");
+					$description_commission.= "\nID CARD : ".$id;
+					$description_commission.= "\nID REFILL : ".$id_refill;
+					$description_commission.= "\REFILL AMOUNT: ".$addcredit;
+					$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
+					$value_insert = "'-1', '$id', '$commission','$description_commission','$id_agent'";
+					$commission_table = new Table("cc_agent_commission", $field_insert);
+					$id_commission = $commission_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null,"id");
+					$table_agent = new Table('cc_agent');
+					$param_update_agent = "com_balance = com_balance + '".$commission."'";
+					$clause_update_agent = " id='".$id_agent."'";
+					$table_agent -> Update_table ($HD_Form -> DBHandle, $param_update_agent, $clause_update_agent, $func_table = null);
+				}
+				
+				
+				if (!$id_refill ) {		
 					$update_msg ="<b>".$instance_sub_table -> errstr."</b>";	
 				}
 			

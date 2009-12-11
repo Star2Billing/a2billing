@@ -150,7 +150,7 @@ $smarty->display( 'main.tpl');
 </tr>
 </table>
 
-<?php if ($A2B->config["webagentui"]['remittance_request'] && !$remittance_in_progress){ ?>
+<?php if ($A2B->config["webagentui"]['remittance_request'] && !$remittance_in_progress && $commision_bal_cur>0){ ?>
 <div style="width:70%;margin:0 auto;text-align:center;">
 	<a href="A2B_agent_remittance_req.php"><span class="form_input_button"><?php echo gettext("REMITTANCE REQUEST");?></span></a>
 </div>
