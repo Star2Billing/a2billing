@@ -56,6 +56,11 @@ $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path."/comment_edit.png";
 $HD_Form -> FG_OTHER_BUTTON1 = true;
 $HD_Form -> FG_OTHER_BUTTON1_ALT = gettext("Edit agent homepage");
 
+$HD_Form -> FG_OTHER_BUTTON2 = true;
+$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_payment_agent.php?form_action=ask-add&agent_id=|col0|";
+$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/money.png";
+$HD_Form -> FG_OTHER_BUTTON2_ALT = gettext('Add Payment to this Agent');
+
 $HD_Form -> FG_TABLE_CLAUSE = $FG_TABLE_CLAUSE;
 
 $language_list = Constants::getLanguagesList();

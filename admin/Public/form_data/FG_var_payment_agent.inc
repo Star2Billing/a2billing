@@ -91,8 +91,8 @@ if (has_rights (ACX_MODIFY_PAYMENTS)) {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	
-	if ($form_action=="ask-add" && !empty($card_id)) {	
-		$id_val = "value='$card_id'";
+	if ($form_action=="ask-add" && !empty($agent_id)) {	
+		$id_val = "value='$agent_id'";
 	}
 	
 	$HD_Form -> AddEditElement (gettext("AGENT ID"),
