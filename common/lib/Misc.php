@@ -1096,13 +1096,14 @@ function do_field($sql, $fld, $dbfld) {
 // we always request in a strong currency and convert ourselves.
 // We use ounces of silver,  as if silver ever devalues significantly
 // we'll all be pretty much boned anyway,  wouldn't you say?
-function currencies_update_yahoo($DBHandle, $instance_table) {
+function currencies_update_yahoo ($DBHandle, $instance_table)
+{
 	global $FG_DEBUG;
 	$strong_currency = 'XAG';
 	$url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
 	$return = "";
 
-	$QUERY = "SELECT id,currency,basecurrency FROM cc_currencies ORDER BY id";
+	$QUERY = "SELECT id, currency, basecurrency FROM cc_currencies ORDER BY id";
 	$old_currencies = $instance_table->SQLExec($DBHandle, $QUERY);
 
 	// we will retrieve a .CSV file e.g. USD to EUR and USD to CAD with a URL like:
@@ -1200,6 +1201,8 @@ function currencies_update_yahoo($DBHandle, $instance_table) {
 				$return .= "$QUERY -> [$result]\n";
 
 			$i++;
+			if ($i > 2000)
+				return $return;
 		}
 		$return .= gettext('Success! All currencies are now updated.');
 	}

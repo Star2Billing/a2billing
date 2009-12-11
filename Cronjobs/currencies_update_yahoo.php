@@ -52,7 +52,7 @@
 
 ****************************************************************************/
 
-set_time_limit(0);
+set_time_limit(120);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include (dirname(__FILE__) . "/lib/admin.defines.php");
@@ -81,4 +81,5 @@ $A2B -> set_instance_table ($instance_table);
 $return = currencies_update_yahoo($A2B -> DBHandle, $A2B -> instance_table);
 write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__.$return, 0);
 
+die();
 
