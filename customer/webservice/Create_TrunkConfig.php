@@ -38,7 +38,7 @@ Result :
     SIP & IAX CONFIGURATION
 	
 Parameters :
-	activation_code
+	activation_code : Concatenation of Customer's Account code + '_' + Customer's password
 	html : to display with <pre> tag
 
 Usage :

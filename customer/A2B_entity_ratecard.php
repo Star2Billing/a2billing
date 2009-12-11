@@ -85,8 +85,6 @@ if ($form_action == 'list') {
     echo $CC_help_ratecard.'';
 }
 
-echo $_SESSION["mytariff"];
-
  // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
