@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-10 15:57+0100\n"
+"POT-Creation-Date: 2009-12-14 00:23+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -721,7 +721,7 @@ msgid "Priority"
 msgstr ""
 
 #: A2B_support.php:150 lib/interface/constants.php:243
-#: A2B_entity_ratecard.php:99
+#: A2B_entity_ratecard.php:97
 #, fuzzy
 msgid "NONE"
 msgstr "&#21542;"
@@ -1451,24 +1451,24 @@ msgstr "&#35831;&#19982;&#31649;&#29702;&#21592;&#32852;&#32476;&#24320;&#36890;
 msgid "Invalid card number lenght defined in configuration."
 msgstr ""
 
-#: lib/Class.A2Billing.php:3106
+#: lib/Class.A2Billing.php:3107
 msgid "Error : Authentication Failed !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3146
+#: lib/Class.A2Billing.php:3147
 msgid "Error : Not enough credit to call !!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3152
+#: lib/Class.A2Billing.php:3153
 msgid "Error : Card is not active!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3158
+#: lib/Class.A2Billing.php:3159
 msgid "Error : Card is actually in use!!!"
 msgstr ""
 
-#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
-#: lib/Class.A2Billing.php:3183
+#: lib/Class.A2Billing.php:3168 lib/Class.A2Billing.php:3176
+#: lib/Class.A2Billing.php:3184
 msgid "Error : Card have expired!!!"
 msgstr ""
 
@@ -1516,27 +1516,27 @@ msgstr ""
 msgid "file type is not allowed"
 msgstr ""
 
-#: lib/Misc.php:1132
+#: lib/Misc.php:1133
 msgid "Can't find our base_currency in cc_currencies."
 msgstr ""
 
-#: lib/Misc.php:1132 lib/Misc.php:1154 lib/Misc.php:1158 lib/Misc.php:1168
+#: lib/Misc.php:1133 lib/Misc.php:1155 lib/Misc.php:1159 lib/Misc.php:1169
 msgid "Currency update ABORTED."
 msgstr ""
 
-#: lib/Misc.php:1154
+#: lib/Misc.php:1155
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr ""
 
-#: lib/Misc.php:1158
+#: lib/Misc.php:1159
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr ""
 
-#: lib/Misc.php:1168
+#: lib/Misc.php:1169
 msgid "Our base_currency seems to be worthless."
 msgstr ""
 
-#: lib/Misc.php:1204
+#: lib/Misc.php:1207
 msgid "Success! All currencies are now updated."
 msgstr ""
 
@@ -2116,104 +2116,108 @@ msgstr ""
 msgid "This did is in use by customer id:"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1847
+#: lib/Form/Class.FormHandler.inc.php:1850
 msgid "DELETION CARD REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1863
+#: lib/Form/Class.FormHandler.inc.php:1869
+msgid "CORRECT COMMISSION AFTER CARD DELETED!"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1894
 msgid "CREATION AGENT REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2116
+#: lib/Form/Class.FormHandler.inc.php:2147
 #, fuzzy
 msgid "SUMMARY OF CALLS"
 msgstr "&#20116;&#26376;"
 
-#: lib/Form/Class.FormHandler.inc.php:2117
+#: lib/Form/Class.FormHandler.inc.php:2148
 msgid "Summary of the calls charged since the last billing"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2134
+#: lib/Form/Class.FormHandler.inc.php:2165
 msgid "SUMMARY OF CHARGE"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2136 A2B_billing_preview.php:230
+#: lib/Form/Class.FormHandler.inc.php:2167 A2B_billing_preview.php:230
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2142
-#: lib/Form/Class.FormHandler.inc.php:2172 A2B_billing_preview.php:107
+#: lib/Form/Class.FormHandler.inc.php:2173
+#: lib/Form/Class.FormHandler.inc.php:2203 A2B_billing_preview.php:107
 #: A2B_billing_preview.php:116 A2B_receipt_preview_detail.php:77
 #, fuzzy
 msgid "CHARGE :"
 msgstr "&#38468;&#21152;&#36153;"
 
-#: lib/Form/Class.FormHandler.inc.php:2161
+#: lib/Form/Class.FormHandler.inc.php:2192
 #, fuzzy
 msgid "BILLING CHARGES"
 msgstr "&#32479;&#35745;&#22270;&#20363;"
 
-#: lib/Form/Class.FormHandler.inc.php:2162
+#: lib/Form/Class.FormHandler.inc.php:2193
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2194
+#: lib/Form/Class.FormHandler.inc.php:2225
 msgid "BILLING POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2195
+#: lib/Form/Class.FormHandler.inc.php:2226
 msgid "Invoice for POSTPAID"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2256
-#: lib/Form/Class.FormHandler.inc.php:2258
-#: lib/Form/Class.FormHandler.inc.php:2365
-#: lib/Form/Class.FormHandler.inc.php:2367
+#: lib/Form/Class.FormHandler.inc.php:2287
+#: lib/Form/Class.FormHandler.inc.php:2289
+#: lib/Form/Class.FormHandler.inc.php:2396
+#: lib/Form/Class.FormHandler.inc.php:2398
 msgid "REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2260
-#: lib/Form/Class.FormHandler.inc.php:2369 A2B_recurring_payment.php:157
+#: lib/Form/Class.FormHandler.inc.php:2291
+#: lib/Form/Class.FormHandler.inc.php:2400 A2B_recurring_payment.php:157
 #: checkout_process.php:346
 msgid "Invoice for refill"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2405 A2B_recurring_payment.php:194
+#: lib/Form/Class.FormHandler.inc.php:2436 A2B_recurring_payment.php:194
 #: checkout_process.php:381
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2656
+#: lib/Form/Class.FormHandler.inc.php:2687
 #: CC_entity_edit_did_destination.php:233
 msgid "error deletion"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2783
+#: lib/Form/Class.FormHandler.inc.php:2814
 msgid "ERROR_DUPLICATION"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2869
+#: lib/Form/Class.FormHandler.inc.php:2900
 msgid "Done"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2909
+#: lib/Form/Class.FormHandler.inc.php:2940
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2915
+#: lib/Form/Class.FormHandler.inc.php:2946
 #, fuzzy
 msgid "Choose a call plan"
 msgstr "&#36873;&#25321;&#24080;&#21495;"
 
-#: lib/Form/Class.FormHandler.inc.php:2961
+#: lib/Form/Class.FormHandler.inc.php:2992
 msgid "THE CURRENT RATECARD"
 msgstr "<tt><big>&#36890;&#35805;&#36153;&#29575;</big></tt>"
 
-#: lib/Form/Class.FormHandler.inc.php:2972
+#: lib/Form/Class.FormHandler.inc.php:3003
 msgid "R A T E C A R D"
 msgstr "&#36153;    &#29575;"
 
-#: lib/Form/Class.FormHandler.inc.php:2978
+#: lib/Form/Class.FormHandler.inc.php:3009
 msgid "Choose a ratecard"
 msgstr "&#36873;&#25321;&#24080;&#21495;"
 
@@ -3260,15 +3264,15 @@ msgstr ""
 msgid "THERE IS NO RECEIPT CREATED!"
 msgstr ""
 
-#: form_data/FG_var_ratecard.inc:57
+#: form_data/FG_var_ratecard.inc:55
 msgid "PREFIX"
 msgstr ""
 
-#: form_data/FG_var_ratecard.inc:58
+#: form_data/FG_var_ratecard.inc:57
 msgid "SR"
 msgstr ""
 
-#: form_data/FG_var_ratecard.inc:64
+#: form_data/FG_var_ratecard.inc:63
 #, fuzzy
 msgid "THERE IS NO RATECARD CREATED!"
 msgstr "<tt><big>&#36890;&#35805;&#36153;&#29575;</big></tt>"

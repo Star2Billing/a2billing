@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-10 15:57+0100\n"
+"POT-Creation-Date: 2009-12-14 00:23+0100\n"
 "PO-Revision-Date: 2009-03-30 15:17+0200\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -703,7 +703,7 @@ msgid "Priority"
 msgstr "Prioritate"
 
 #: A2B_support.php:150 lib/interface/constants.php:243
-#: A2B_entity_ratecard.php:99
+#: A2B_entity_ratecard.php:97
 msgid "NONE"
 msgstr "Nici unul"
 
@@ -1410,24 +1410,24 @@ msgstr "Fara Discount"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Configurare numarului de caractere a cardului invalida in configurare"
 
-#: lib/Class.A2Billing.php:3106
+#: lib/Class.A2Billing.php:3107
 msgid "Error : Authentication Failed !!!"
 msgstr "Eroare : Authentificare esuata!"
 
-#: lib/Class.A2Billing.php:3146
+#: lib/Class.A2Billing.php:3147
 msgid "Error : Not enough credit to call !!!"
 msgstr "Eroare : Nu ai suficient credit!!!"
 
-#: lib/Class.A2Billing.php:3152
+#: lib/Class.A2Billing.php:3153
 msgid "Error : Card is not active!!!"
 msgstr "Eroare : Contul tau nu este activ"
 
-#: lib/Class.A2Billing.php:3158
+#: lib/Class.A2Billing.php:3159
 msgid "Error : Card is actually in use!!!"
 msgstr "Eroare : Contul tau  este activ in convorbire- nu ai decat un singur canal disponibil "
 
-#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
-#: lib/Class.A2Billing.php:3183
+#: lib/Class.A2Billing.php:3168 lib/Class.A2Billing.php:3176
+#: lib/Class.A2Billing.php:3184
 msgid "Error : Card have expired!!!"
 msgstr "Eroare : Contul tau a expirat"
 
@@ -1476,27 +1476,27 @@ msgstr "Eroare la incarcarea fisierului ..."
 msgid "file type is not allowed"
 msgstr "Tipul fisierului nu este suporatat"
 
-#: lib/Misc.php:1132
+#: lib/Misc.php:1133
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Nu pot sa gasesc  base_currency in cc_currencies. "
 
-#: lib/Misc.php:1132 lib/Misc.php:1154 lib/Misc.php:1158 lib/Misc.php:1168
+#: lib/Misc.php:1133 lib/Misc.php:1155 lib/Misc.php:1159 lib/Misc.php:1169
 msgid "Currency update ABORTED."
 msgstr "ACTUALIZAREA MONEDELOR ANULATA"
 
-#: lib/Misc.php:1154
+#: lib/Misc.php:1155
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "FISIERUL CSV NU CONTINE TOATE MONEDELE CERUTE"
 
-#: lib/Misc.php:1158
+#: lib/Misc.php:1159
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Cel putin unu din intrarile in fisierul csv nu este un numar"
 
-#: lib/Misc.php:1168
+#: lib/Misc.php:1169
 msgid "Our base_currency seems to be worthless."
 msgstr ""
 
-#: lib/Misc.php:1204
+#: lib/Misc.php:1207
 msgid "Success! All currencies are now updated."
 msgstr "Toate monedele au fost actualizate"
 
@@ -2069,100 +2069,104 @@ msgstr ""
 msgid "This did is in use by customer id:"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1847
+#: lib/Form/Class.FormHandler.inc.php:1850
 msgid "DELETION CARD REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:1863
+#: lib/Form/Class.FormHandler.inc.php:1869
+msgid "CORRECT COMMISSION AFTER CARD DELETED!"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1894
 msgid "CREATION AGENT REFILL"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2116
+#: lib/Form/Class.FormHandler.inc.php:2147
 msgid "SUMMARY OF CALLS"
 msgstr "Sumarul Apelurilor"
 
-#: lib/Form/Class.FormHandler.inc.php:2117
+#: lib/Form/Class.FormHandler.inc.php:2148
 msgid "Summary of the calls charged since the last billing"
 msgstr "Sumarul apelurilor "
 
-#: lib/Form/Class.FormHandler.inc.php:2134
+#: lib/Form/Class.FormHandler.inc.php:2165
 msgid "SUMMARY OF CHARGE"
 msgstr "Sumarul Platilor"
 
-#: lib/Form/Class.FormHandler.inc.php:2136 A2B_billing_preview.php:230
+#: lib/Form/Class.FormHandler.inc.php:2167 A2B_billing_preview.php:230
 msgid "Summary of the charge charged since the last billing."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2142
-#: lib/Form/Class.FormHandler.inc.php:2172 A2B_billing_preview.php:107
+#: lib/Form/Class.FormHandler.inc.php:2173
+#: lib/Form/Class.FormHandler.inc.php:2203 A2B_billing_preview.php:107
 #: A2B_billing_preview.php:116 A2B_receipt_preview_detail.php:77
 msgid "CHARGE :"
 msgstr "EXTRA CHARGE"
 
-#: lib/Form/Class.FormHandler.inc.php:2161
+#: lib/Form/Class.FormHandler.inc.php:2192
 msgid "BILLING CHARGES"
 msgstr "DETALII"
 
-#: lib/Form/Class.FormHandler.inc.php:2162
+#: lib/Form/Class.FormHandler.inc.php:2193
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr "Aceasta factura include suma neplatita din ultima luna"
 
-#: lib/Form/Class.FormHandler.inc.php:2194
+#: lib/Form/Class.FormHandler.inc.php:2225
 msgid "BILLING POSTPAID"
 msgstr "Facturare Abonament"
 
-#: lib/Form/Class.FormHandler.inc.php:2195
+#: lib/Form/Class.FormHandler.inc.php:2226
 msgid "Invoice for POSTPAID"
 msgstr "Pactura pentru Abonament"
 
-#: lib/Form/Class.FormHandler.inc.php:2256
-#: lib/Form/Class.FormHandler.inc.php:2258
-#: lib/Form/Class.FormHandler.inc.php:2365
-#: lib/Form/Class.FormHandler.inc.php:2367
+#: lib/Form/Class.FormHandler.inc.php:2287
+#: lib/Form/Class.FormHandler.inc.php:2289
+#: lib/Form/Class.FormHandler.inc.php:2396
+#: lib/Form/Class.FormHandler.inc.php:2398
 msgid "REFILL"
 msgstr "Reincarca"
 
-#: lib/Form/Class.FormHandler.inc.php:2260
-#: lib/Form/Class.FormHandler.inc.php:2369 A2B_recurring_payment.php:157
+#: lib/Form/Class.FormHandler.inc.php:2291
+#: lib/Form/Class.FormHandler.inc.php:2400 A2B_recurring_payment.php:157
 #: checkout_process.php:346
 msgid "Invoice for refill"
 msgstr "Factura pentru reincarcare"
 
-#: lib/Form/Class.FormHandler.inc.php:2405 A2B_recurring_payment.php:194
+#: lib/Form/Class.FormHandler.inc.php:2436 A2B_recurring_payment.php:194
 #: checkout_process.php:381
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "Comision generat automat"
 
-#: lib/Form/Class.FormHandler.inc.php:2656
+#: lib/Form/Class.FormHandler.inc.php:2687
 #: CC_entity_edit_did_destination.php:233
 msgid "error deletion"
 msgstr "eroare la stergere"
 
-#: lib/Form/Class.FormHandler.inc.php:2783
+#: lib/Form/Class.FormHandler.inc.php:2814
 msgid "ERROR_DUPLICATION"
 msgstr " Eroare duplicat"
 
-#: lib/Form/Class.FormHandler.inc.php:2869
+#: lib/Form/Class.FormHandler.inc.php:2900
 msgid "Done"
 msgstr "Gata"
 
-#: lib/Form/Class.FormHandler.inc.php:2909
+#: lib/Form/Class.FormHandler.inc.php:2940
 msgid "Export Call Plan with LCR"
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:2915
+#: lib/Form/Class.FormHandler.inc.php:2946
 msgid "Choose a call plan"
 msgstr "Alegeti Planul tarifar"
 
-#: lib/Form/Class.FormHandler.inc.php:2961
+#: lib/Form/Class.FormHandler.inc.php:2992
 msgid "THE CURRENT RATECARD"
 msgstr "GRUPA DE TARIFE"
 
-#: lib/Form/Class.FormHandler.inc.php:2972
+#: lib/Form/Class.FormHandler.inc.php:3003
 msgid "R A T E C A R D"
 msgstr "T A R I F E"
 
-#: lib/Form/Class.FormHandler.inc.php:2978
+#: lib/Form/Class.FormHandler.inc.php:3009
 msgid "Choose a ratecard"
 msgstr "Aegeti grupa de trarife"
 
@@ -3146,15 +3150,15 @@ msgstr "SUMA + TVA"
 msgid "THERE IS NO RECEIPT CREATED!"
 msgstr "NU EXISTA CHITANTA CREATA"
 
-#: form_data/FG_var_ratecard.inc:57
+#: form_data/FG_var_ratecard.inc:55
 msgid "PREFIX"
 msgstr "PREFIX"
 
-#: form_data/FG_var_ratecard.inc:58
+#: form_data/FG_var_ratecard.inc:57
 msgid "SR"
 msgstr ""
 
-#: form_data/FG_var_ratecard.inc:64
+#: form_data/FG_var_ratecard.inc:63
 msgid "THERE IS NO RATECARD CREATED!"
 msgstr "NU EXISTA GRUPA DE TARIFE CREAT"
 

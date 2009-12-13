@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-10 15:57+0100\n"
+"POT-Creation-Date: 2009-12-14 00:23+0100\n"
 "PO-Revision-Date: 2009-12-01 14:12-0300\n"
 "Last-Translator: Emerson Reis <eluizbr@tofalando.com.br>\n"
 "Language-Team: Emerson Reis <eluizbr@tofalando.com.br>\n"
@@ -84,13 +84,13 @@ msgid "CUSTOMERS AND AGENTS"
 msgstr "CLIENTES E AGENTES"
 
 #: lib/interface/constants.php:61 Public/A2B_entity_card_multi.php:436
-#: Public/A2B_entity_card.php:479
+#: Public/A2B_entity_card.php:499
 msgid "Yes"
 msgstr "Sim"
 
 #: lib/interface/constants.php:62
 #: lib/Form/Class.FormHandler.EditForm.inc.php:332
-#: Public/A2B_entity_card_multi.php:436 Public/A2B_entity_card.php:479
+#: Public/A2B_entity_card_multi.php:436 Public/A2B_entity_card.php:499
 msgid "No"
 msgstr "Não"
 
@@ -140,13 +140,13 @@ msgstr "Discar"
 
 #: lib/interface/constants.php:125 lib/interface/constants.php:364
 #: lib/interface/constants.php:371 Public/A2B_entity_card_multi.php:377
-#: Public/A2B_entity_card.php:410
+#: Public/A2B_entity_card.php:430
 msgid "INDIVIDUAL ACCESS"
 msgstr "ACESSO INDIVIDUAL"
 
 #: lib/interface/constants.php:126 lib/interface/constants.php:363
 #: lib/interface/constants.php:370 Public/A2B_entity_card_multi.php:378
-#: Public/A2B_entity_card.php:411 Public/form_data/FG_var_card.inc:605
+#: Public/A2B_entity_card.php:431 Public/form_data/FG_var_card.inc:605
 msgid "SIMULTANEOUS ACCESS"
 msgstr "ACESSO SIMULTÂNEO"
 
@@ -163,17 +163,17 @@ msgid "NO EXPIRATION"
 msgstr "NÃO EXPIRAR"
 
 #: lib/interface/constants.php:140 lib/interface/constants.php:378
-#: Public/A2B_entity_card_multi.php:407 Public/A2B_entity_card.php:439
+#: Public/A2B_entity_card_multi.php:407 Public/A2B_entity_card.php:459
 msgid "EXPIRE DATE"
 msgstr "DATA DE EXPIRAÇÃO"
 
 #: lib/interface/constants.php:141 lib/interface/constants.php:379
-#: Public/A2B_entity_card_multi.php:408 Public/A2B_entity_card.php:440
+#: Public/A2B_entity_card_multi.php:408 Public/A2B_entity_card.php:460
 msgid "EXPIRE DAYS SINCE FIRST USE"
 msgstr "DIAS A EXPIRAR DESDE O PRIMEIRO USO"
 
 #: lib/interface/constants.php:142 lib/interface/constants.php:380
-#: Public/A2B_entity_card_multi.php:409 Public/A2B_entity_card.php:441
+#: Public/A2B_entity_card_multi.php:409 Public/A2B_entity_card.php:461
 msgid "EXPIRE DAYS SINCE CREATION"
 msgstr "DIAS A EXPIRAR DESDE A CRIAÇÃO"
 
@@ -464,15 +464,15 @@ msgstr "SUS-PAGAMENTO"
 msgid "SUS-LIT"
 msgstr "SUS-LIT"
 
-#: lib/interface/constants.php:377 Public/A2B_entity_card.php:438
+#: lib/interface/constants.php:377 Public/A2B_entity_card.php:458
 msgid "NO EXPIRY"
 msgstr "NÃO EXPIRA"
 
 #: lib/interface/constants.php:386 Public/A2B_refill_info_agent.php:85
 #: Public/A2B_refill_info.php:91 Public/A2B_agent_remittance_conf.php:183
 #: Public/A2B_payment_info_agent.php:85
-#: Public/A2B_agent_remittance_req.php:173 Public/A2B_payment_info.php:91
-#: Public/form_data/FG_var_commission.inc:51
+#: Public/A2B_agent_remittance_req.php:180 Public/A2B_payment_info.php:91
+#: Public/form_data/FG_var_commission.inc:52
 #: Public/form_data/FG_var_remittance_request.inc:57
 #: Public/form_data/FG_var_paymentlog.inc:169
 #: Public/form_data/FG_var_moneysituation_details.inc:49
@@ -511,24 +511,24 @@ msgstr "SEM DESCONTO"
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número de cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:3106
+#: lib/Class.A2Billing.php:3107
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:3146
+#: lib/Class.A2Billing.php:3147
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o suficiente para ligar !!!"
 
-#: lib/Class.A2Billing.php:3152
+#: lib/Class.A2Billing.php:3153
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativo!!!"
 
-#: lib/Class.A2Billing.php:3158
+#: lib/Class.A2Billing.php:3159
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:3167 lib/Class.A2Billing.php:3175
-#: lib/Class.A2Billing.php:3183
+#: lib/Class.A2Billing.php:3168 lib/Class.A2Billing.php:3176
+#: lib/Class.A2Billing.php:3184
 msgid "Error : Card have expired!!!"
 msgstr "Erro : Cartão expirou!!!"
 
@@ -577,27 +577,27 @@ msgstr "Falha ao enviar arquivo, O arquivo que você enviou pode não existir no
 msgid "file type is not allowed"
 msgstr "tipo de arquivo não é permitido"
 
-#: lib/Misc.php:1132
+#: lib/Misc.php:1133
 msgid "Can't find our base_currency in cc_currencies."
 msgstr "Não é possível encontrar nossa base_currency em cc_currencies"
 
-#: lib/Misc.php:1132 lib/Misc.php:1154 lib/Misc.php:1158 lib/Misc.php:1168
+#: lib/Misc.php:1133 lib/Misc.php:1155 lib/Misc.php:1159 lib/Misc.php:1169
 msgid "Currency update ABORTED."
 msgstr "Atualização de moeda ABORTADA."
 
-#: lib/Misc.php:1154
+#: lib/Misc.php:1155
 msgid "The CSV file doesn't contain all the currencies we requested."
 msgstr "O arquivo CSV não contém todas as moedas requisitadas."
 
-#: lib/Misc.php:1158
+#: lib/Misc.php:1159
 msgid "At least one of the entries in the CSV file isn't a number."
 msgstr "Ao meno uma das entradas no arquivo CSV não é um número."
 
-#: lib/Misc.php:1168
+#: lib/Misc.php:1169
 msgid "Our base_currency seems to be worthless."
 msgstr "Nossa base_currency parece estar desvalorizada."
 
-#: lib/Misc.php:1204
+#: lib/Misc.php:1207
 msgid "Success! All currencies are now updated."
 msgstr "Pronto! Todas as moedas estão atualizadas agora."
 
@@ -1279,97 +1279,102 @@ msgstr "(FORMATO DE PORCENTAGEM COM/SEM DECIMAL, use '.' para decimal e não use
 msgid "This did is in use by customer id:"
 msgstr "Isso estava em uso pela id de cliente: "
 
-#: lib/Form/Class.FormHandler.inc.php:1847
+#: lib/Form/Class.FormHandler.inc.php:1850
 msgid "DELETION CARD REFILL"
 msgstr "APAGAR RECARDA DE CARTÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:1863
+#: lib/Form/Class.FormHandler.inc.php:1869
+#, fuzzy
+msgid "CORRECT COMMISSION AFTER CARD DELETED!"
+msgstr "NEHUMA COMISSÃO CRIADA!"
+
+#: lib/Form/Class.FormHandler.inc.php:1894
 msgid "CREATION AGENT REFILL"
 msgstr "CRIAR AGENTE DE RECARGA"
 
-#: lib/Form/Class.FormHandler.inc.php:2116
+#: lib/Form/Class.FormHandler.inc.php:2147
 msgid "SUMMARY OF CALLS"
 msgstr "SUMÁRIO DE CHAMADAS"
 
-#: lib/Form/Class.FormHandler.inc.php:2117
+#: lib/Form/Class.FormHandler.inc.php:2148
 msgid "Summary of the calls charged since the last billing"
 msgstr "Sumáio de chamadas cobradas desde a última bilhetagem"
 
-#: lib/Form/Class.FormHandler.inc.php:2134
+#: lib/Form/Class.FormHandler.inc.php:2165
 msgid "SUMMARY OF CHARGE"
 msgstr "SUMÁRIO DE TAXA"
 
-#: lib/Form/Class.FormHandler.inc.php:2136
+#: lib/Form/Class.FormHandler.inc.php:2167
 msgid "Summary of the charge charged since the last billing."
 msgstr "Sumário de taxas cobradas desde a última bilhetagem."
 
-#: lib/Form/Class.FormHandler.inc.php:2142
-#: lib/Form/Class.FormHandler.inc.php:2172
+#: lib/Form/Class.FormHandler.inc.php:2173
+#: lib/Form/Class.FormHandler.inc.php:2203
 msgid "CHARGE :"
 msgstr "TAXA : "
 
-#: lib/Form/Class.FormHandler.inc.php:2161
+#: lib/Form/Class.FormHandler.inc.php:2192
 msgid "BILLING CHARGES"
 msgstr "TAXAS DE BILHETAGEM"
 
-#: lib/Form/Class.FormHandler.inc.php:2162
+#: lib/Form/Class.FormHandler.inc.php:2193
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr "Essa fatura é para algumas taxas não pagas desde a última bilhetagem."
 
-#: lib/Form/Class.FormHandler.inc.php:2194
+#: lib/Form/Class.FormHandler.inc.php:2225
 msgid "BILLING POSTPAID"
 msgstr "BILHETAR PÓS-PAGO"
 
-#: lib/Form/Class.FormHandler.inc.php:2195
+#: lib/Form/Class.FormHandler.inc.php:2226
 msgid "Invoice for POSTPAID"
 msgstr "Fatura para PÓS-PAGO"
 
-#: lib/Form/Class.FormHandler.inc.php:2256
-#: lib/Form/Class.FormHandler.inc.php:2258
-#: lib/Form/Class.FormHandler.inc.php:2365
-#: lib/Form/Class.FormHandler.inc.php:2367 Public/A2B_entity_card.php:262
+#: lib/Form/Class.FormHandler.inc.php:2287
+#: lib/Form/Class.FormHandler.inc.php:2289
+#: lib/Form/Class.FormHandler.inc.php:2396
+#: lib/Form/Class.FormHandler.inc.php:2398 Public/A2B_entity_card.php:282
 #: Public/form_data/FG_var_payment.inc:61
 msgid "REFILL"
 msgstr "RECARGA"
 
-#: lib/Form/Class.FormHandler.inc.php:2260
-#: lib/Form/Class.FormHandler.inc.php:2369
+#: lib/Form/Class.FormHandler.inc.php:2291
+#: lib/Form/Class.FormHandler.inc.php:2400
 msgid "Invoice for refill"
 msgstr "Fatura para recarga"
 
-#: lib/Form/Class.FormHandler.inc.php:2405
+#: lib/Form/Class.FormHandler.inc.php:2436
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "GERAR COMISSÃO AUTOMATICAMENTE!"
 
-#: lib/Form/Class.FormHandler.inc.php:2656
+#: lib/Form/Class.FormHandler.inc.php:2687
 msgid "error deletion"
 msgstr "erro de eliminação"
 
-#: lib/Form/Class.FormHandler.inc.php:2783
+#: lib/Form/Class.FormHandler.inc.php:2814
 msgid "ERROR_DUPLICATION"
 msgstr "ERRO_DUPLICAÇÃO"
 
-#: lib/Form/Class.FormHandler.inc.php:2869
+#: lib/Form/Class.FormHandler.inc.php:2900
 msgid "Done"
 msgstr "Pronto"
 
-#: lib/Form/Class.FormHandler.inc.php:2909
+#: lib/Form/Class.FormHandler.inc.php:2940
 msgid "Export Call Plan with LCR"
 msgstr "Esportar o Plano com LCR"
 
-#: lib/Form/Class.FormHandler.inc.php:2915
+#: lib/Form/Class.FormHandler.inc.php:2946
 msgid "Choose a call plan"
 msgstr "Escolha um plano de ligação"
 
-#: lib/Form/Class.FormHandler.inc.php:2961
+#: lib/Form/Class.FormHandler.inc.php:2992
 msgid "THE CURRENT RATECARD"
 msgstr "O RATECARD ATUAL"
 
-#: lib/Form/Class.FormHandler.inc.php:2972
+#: lib/Form/Class.FormHandler.inc.php:3003
 msgid "R A T E C A R D"
 msgstr "R A T E C A R D"
 
-#: lib/Form/Class.FormHandler.inc.php:2978
+#: lib/Form/Class.FormHandler.inc.php:3009
 msgid "Choose a ratecard"
 msgstr "Escolha um ratecard"
 
@@ -1471,6 +1476,7 @@ msgstr "INFO DE RECARGA"
 
 #: Public/A2B_refill_info_agent.php:77 Public/A2B_payment_info_agent.php:77
 #: Public/form_data/FG_var_payment_agent.inc:53
+#: Public/form_data/FG_var_commission.inc:50
 #: Public/form_data/FG_var_logrefill_agent.inc:54
 #: Public/form_data/FG_var_signup_agent.inc:53
 msgid "AGENT"
@@ -1484,8 +1490,7 @@ msgstr "DATA DE CRIAÇÃO"
 
 #: Public/A2B_refill_info_agent.php:101 Public/A2B_refill_info.php:107
 #: Public/form_data/FG_var_logrefill_agent.inc:58
-#: Public/form_data/FG_var_logrefill.inc:62
-#: Public/form_data/FG_var_logrefill.inc:151
+#: Public/form_data/FG_var_logrefill.inc:56
 msgid "REFILL TYPE"
 msgstr "TIPO DE RECARGA"
 
@@ -1582,7 +1587,7 @@ msgstr "Escolha o número de clientes que você deseja gerar!"
 msgid "Length of card number :"
 msgstr "Tamanho do número de cartão:"
 
-#: Public/A2B_entity_card_multi.php:344 Public/A2B_entity_card.php:552
+#: Public/A2B_entity_card_multi.php:344 Public/A2B_entity_card.php:572
 msgid "Digits"
 msgstr "Dígitos"
 
@@ -1606,7 +1611,7 @@ msgstr "Quantidade inicial de crédito"
 msgid "Simultaneous access"
 msgstr "Acessos simultâneos"
 
-#: Public/A2B_entity_card_multi.php:383 Public/A2B_entity_card.php:420
+#: Public/A2B_entity_card_multi.php:383 Public/A2B_entity_card.php:440
 msgid "Currency"
 msgstr "Moeda"
 
@@ -1622,7 +1627,7 @@ msgstr "CARTÃO PÓS-PAGO"
 msgid "Credit Limit of postpay"
 msgstr "Limite de Crédito de pós-pago"
 
-#: Public/A2B_entity_card_multi.php:404 Public/A2B_entity_card.php:436
+#: Public/A2B_entity_card_multi.php:404 Public/A2B_entity_card.php:456
 msgid "Enable expire"
 msgstr "Habilitar vencimento"
 
@@ -1630,7 +1635,7 @@ msgstr "Habilitar vencimento"
 msgid "Expiry Date"
 msgstr "Data de Vencimento"
 
-#: Public/A2B_entity_card_multi.php:421 Public/A2B_entity_card.php:458
+#: Public/A2B_entity_card_multi.php:421 Public/A2B_entity_card.php:478
 msgid "(Format YYYY-MM-DD HH:MM:SS)"
 msgstr "(Formato YYYY-MM-DD HH:MM:SS)"
 
@@ -1638,7 +1643,7 @@ msgstr "(Formato YYYY-MM-DD HH:MM:SS)"
 msgid "Expiry days"
 msgstr "Dias de vencimento"
 
-#: Public/A2B_entity_card_multi.php:435 Public/A2B_entity_card.php:476
+#: Public/A2B_entity_card_multi.php:435 Public/A2B_entity_card.php:496
 msgid "Run service"
 msgstr "Rodar serviço"
 
@@ -1731,7 +1736,7 @@ msgstr "Quantidade Total"
 #: Public/A2B_refill_info.php:77 Public/A2B_card_info.php:118
 #: Public/A2B_payment_info.php:77 Public/form_data/FG_var_callerid.inc:57
 #: Public/form_data/FG_var_ticket.inc:71
-#: Public/form_data/FG_var_logrefill.inc:95
+#: Public/form_data/FG_var_logrefill.inc:82
 #: Public/form_data/FG_var_payment.inc:89 Public/form_data/FG_var_card.inc:240
 #: Public/form_data/FG_var_card.inc:334
 msgid "ACCOUNT NUMBER"
@@ -1750,22 +1755,22 @@ msgid "Invalid amount, is higher than your commission Accrued"
 msgstr "Valor inválido, é superior a sua comissão acomulada"
 
 #: Public/A2B_agent_remittance_conf.php:129
-#: Public/A2B_agent_remittance_req.php:132 Public/agentinfo.php:131
+#: Public/A2B_agent_remittance_req.php:139 Public/agentinfo.php:131
 msgid "BALANCE REMAINING"
 msgstr "SALDO RESTANTE"
 
 #: Public/A2B_agent_remittance_conf.php:133
-#: Public/A2B_agent_remittance_req.php:136
+#: Public/A2B_agent_remittance_req.php:143
 msgid "THRESHOLD REMITTANCE REQUEST"
 msgstr "PEDIDO MÍNIMO DE REMESSA"
 
 #: Public/A2B_agent_remittance_conf.php:140
-#: Public/A2B_agent_remittance_req.php:143 Public/agentinfo.php:145
+#: Public/A2B_agent_remittance_req.php:150 Public/agentinfo.php:145
 msgid "COMMISSION ACCRUED"
 msgstr "COMISSÃO ACUMULADA"
 
 #: Public/A2B_agent_remittance_conf.php:144
-#: Public/A2B_agent_remittance_req.php:147 Public/agentinfo.php:139
+#: Public/A2B_agent_remittance_req.php:154 Public/agentinfo.php:139
 msgid "REMITTANCE IN PROGRESS"
 msgstr "REMESSA EM ANDAMENTO"
 
@@ -1775,14 +1780,14 @@ msgstr "Confirmação de pedido de remessa"
 
 #: Public/A2B_agent_remittance_conf.php:171
 #: Public/form_data/FG_var_moneysituation.inc:45
-#: Public/form_data/FG_var_logrefill.inc:97
+#: Public/form_data/FG_var_logrefill.inc:84
 #: Public/form_data/FG_var_payment.inc:91 Public/form_data/FG_var_card.inc:158
 msgid "FIRSTNAME"
 msgstr "NOME"
 
 #: Public/A2B_agent_remittance_conf.php:175
 #: Public/form_data/FG_var_moneysituation.inc:46
-#: Public/form_data/FG_var_logrefill.inc:96
+#: Public/form_data/FG_var_logrefill.inc:83
 #: Public/form_data/FG_var_payment.inc:90 Public/form_data/FG_var_card.inc:141
 #: Public/form_data/FG_var_card.inc:242
 msgid "LASTNAME"
@@ -1831,12 +1836,12 @@ msgid "Back to home page"
 msgstr "Volta para a Home page"
 
 #: Public/A2B_agent_remittance_conf.php:229
-#: Public/A2B_agent_remittance_req.php:184
+#: Public/A2B_agent_remittance_req.php:191
 msgid "Confirm"
 msgstr "Confirmar"
 
 #: Public/A2B_agent_remittance_conf.php:246
-#: Public/A2B_agent_remittance_req.php:203
+#: Public/A2B_agent_remittance_req.php:210
 msgid "One remittance request is already in progress for"
 msgstr "Um pedido de remessa já está em processo para"
 
@@ -2018,7 +2023,7 @@ msgstr "SELECIONAR DIA"
 msgid "STATUS"
 msgstr "STATUS"
 
-#: Public/A2B_card_info.php:93 Public/A2B_entity_card.php:579
+#: Public/A2B_card_info.php:93 Public/A2B_entity_card.php:599
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr "IR PARA CONTA DO CLIENTE"
 
@@ -2177,13 +2182,13 @@ msgstr "Pagamentos Recentes"
 #: Public/form_data/FG_var_def_ratecard.inc:69
 #: Public/form_data/FG_var_ticket_agent.inc:63
 #: Public/form_data/FG_var_ticket.inc:69
-#: Public/form_data/FG_var_logrefill.inc:58
+#: Public/form_data/FG_var_logrefill.inc:52
 #: Public/form_data/FG_var_payment.inc:55 Public/form_data/FG_var_card.inc:135
 msgid "ID"
 msgstr "ID"
 
 #: Public/A2B_card_info.php:467 Public/form_data/FG_var_payment_agent.inc:55
-#: Public/form_data/FG_var_commission.inc:50
+#: Public/form_data/FG_var_commission.inc:51
 #: Public/form_data/FG_var_payment.inc:57
 msgid "PAYMENT DATE"
 msgstr "DATA DE PAGAMENTO"
@@ -2194,11 +2199,11 @@ msgid "PAYMENT AMOUNT"
 msgstr "QUANTIDADE DE PAGAMENTO"
 
 #: Public/A2B_card_info.php:473 Public/A2B_card_info.php:547
-#: Public/A2B_entity_card.php:293 Public/form_data/FG_var_payment_agent.inc:57
+#: Public/A2B_entity_card.php:313 Public/form_data/FG_var_payment_agent.inc:57
+#: Public/form_data/FG_var_commission.inc:54
 #: Public/form_data/FG_var_logrefill_agent.inc:57
 #: Public/form_data/FG_var_ticket.inc:151
-#: Public/form_data/FG_var_logrefill.inc:61
-#: Public/form_data/FG_var_logrefill.inc:142
+#: Public/form_data/FG_var_logrefill.inc:55
 #: Public/form_data/FG_var_payment.inc:59
 msgid "DESCRIPTION"
 msgstr "DESCRIÇÃO"
@@ -2208,14 +2213,12 @@ msgid "Recent Refills"
 msgstr "Recargas Recentes"
 
 #: Public/A2B_card_info.php:541 Public/form_data/FG_var_logrefill_agent.inc:56
-#: Public/form_data/FG_var_logrefill.inc:60
-#: Public/form_data/FG_var_logrefill.inc:124
+#: Public/form_data/FG_var_logrefill.inc:54
 msgid "REFILL DATE"
 msgstr "DATA DE RECARGA"
 
 #: Public/A2B_card_info.php:544 Public/form_data/FG_var_logrefill_agent.inc:59
-#: Public/form_data/FG_var_logrefill.inc:63
-#: Public/form_data/FG_var_logrefill.inc:133
+#: Public/form_data/FG_var_logrefill.inc:57
 msgid "REFILL AMOUNT"
 msgstr "QUANTIDADE DE RECARGA"
 
@@ -2255,47 +2258,47 @@ msgstr "LINK PARA A TAXA"
 msgid "Link to the used rate"
 msgstr "Link para taxa usada"
 
-#: Public/A2B_agent_remittance_req.php:99
+#: Public/A2B_agent_remittance_req.php:106
 msgid "The amount entered is not a number"
 msgstr "O valor informado não é um número"
 
-#: Public/A2B_agent_remittance_req.php:105
+#: Public/A2B_agent_remittance_req.php:112
 msgid "The amount entered is higher than the commission accrued"
 msgstr "O valor informado é maior do que a Comissão acomulada"
 
-#: Public/A2B_agent_remittance_req.php:111
+#: Public/A2B_agent_remittance_req.php:118
 msgid "The amount entered is lower than the thresold to do a remittance request"
 msgstr ""
 
-#: Public/A2B_agent_remittance_req.php:117
+#: Public/A2B_agent_remittance_req.php:124
 msgid "The amount entered must be positive"
 msgstr "O valor informado deve ser positivo"
 
-#: Public/A2B_agent_remittance_req.php:149
+#: Public/A2B_agent_remittance_req.php:156
 msgid "REMITTANCE"
 msgstr "REMESSA"
 
-#: Public/A2B_agent_remittance_req.php:149
+#: Public/A2B_agent_remittance_req.php:156
 msgid "AVAILABLE"
 msgstr "DISPONÍVEL "
 
-#: Public/A2B_agent_remittance_req.php:149
+#: Public/A2B_agent_remittance_req.php:156
 msgid "UNAVAILABLE"
 msgstr "INDISPONÍVEL "
 
-#: Public/A2B_agent_remittance_req.php:164
+#: Public/A2B_agent_remittance_req.php:171
 msgid "Remittance Request"
 msgstr "Solicitação de remessa"
 
-#: Public/A2B_agent_remittance_req.php:169
+#: Public/A2B_agent_remittance_req.php:176
 msgid "You have to use an amount higher than"
 msgstr " Você deve usar um valor superior a"
 
-#: Public/A2B_agent_remittance_req.php:177
+#: Public/A2B_agent_remittance_req.php:184
 msgid "REMITTANCE TYPE"
 msgstr "TIPO DE REMESSA"
 
-#: Public/A2B_agent_remittance_req.php:188
+#: Public/A2B_agent_remittance_req.php:195
 msgid "Remittance Request is not available"
 msgstr "Solicitação de remessa não está disponível"
 
@@ -2764,107 +2767,111 @@ msgstr "Não é possível atualizar em lote!"
 msgid "The batch update has been successfully perform!"
 msgstr "A atualização em lote foi feita com sucesso!"
 
-#: Public/A2B_entity_card.php:186
+#: Public/A2B_entity_card.php:183
 msgid "Refill executed "
 msgstr "Recarga executada"
 
-#: Public/A2B_entity_card.php:209
+#: Public/A2B_entity_card.php:198
+msgid "GENERATED COMMISSION OF AN CUSTOMER REFILLED BY AN AGENT!"
+msgstr ""
+
+#: Public/A2B_entity_card.php:229
 msgid "You don't have enough credit to do this refill. You have "
 msgstr "Você não tem crédito o suficiente para fazer essa recarga. Você tem "
 
-#: Public/A2B_entity_card.php:213
+#: Public/A2B_entity_card.php:233
 msgid "Impossible to refill this card "
 msgstr "Impossível recarregar esse cartão"
 
-#: Public/A2B_entity_card.php:272
+#: Public/A2B_entity_card.php:292
 msgid "CARD ID"
 msgstr "ID DO CARTÃO"
 
-#: Public/A2B_entity_card.php:274
+#: Public/A2B_entity_card.php:294
 msgid "or"
 msgstr "ou"
 
-#: Public/A2B_entity_card.php:277
+#: Public/A2B_entity_card.php:297
 msgid "CARDNUMBER"
 msgstr "NÚMERO DO CARTÃO"
 
-#: Public/A2B_entity_card.php:285
+#: Public/A2B_entity_card.php:305
 #: Public/form_data/FG_var_moneysituation.inc:48
 #: Public/form_data/FG_var_card.inc:247
 msgid "CREDIT"
 msgstr "CRÉDITO"
 
-#: Public/A2B_entity_card.php:301
+#: Public/A2B_entity_card.php:321
 #: Public/form_data/FG_var_remittance_request.inc:58
 #: Public/form_data/FG_var_friend.inc:354
 msgid "TYPE"
 msgstr "TIPO"
 
-#: Public/A2B_entity_card.php:318
+#: Public/A2B_entity_card.php:338
 msgid "ADD CREDIT TO THE SELECTED CARD"
 msgstr "ADICIONAR CRÉDITO AO CARTÃO SELECIONADO"
 
-#: Public/A2B_entity_card.php:332
+#: Public/A2B_entity_card.php:352
 msgid "SEARCH CARDS"
 msgstr "PROCURAR CARTÕES"
 
-#: Public/A2B_entity_card.php:332
+#: Public/A2B_entity_card.php:352
 msgid "search activated"
 msgstr "Pesquisa ativada"
 
-#: Public/A2B_entity_card.php:355
+#: Public/A2B_entity_card.php:375
 msgid "BATCH UPDATE"
 msgstr "ATUALIZAR EM LOTE"
 
-#: Public/A2B_entity_card.php:359
+#: Public/A2B_entity_card.php:379
 msgid "cards selected!"
 msgstr "cartões selecionados!"
 
-#: Public/A2B_entity_card.php:359
+#: Public/A2B_entity_card.php:379
 msgid "Use the options below to batch update the selected cards."
 msgstr "Use as opções abaixo para atualizar em lote os cartões selecionados."
 
-#: Public/A2B_entity_card.php:369
+#: Public/A2B_entity_card.php:389
 msgid "In use"
 msgstr "Em uso"
 
-#: Public/A2B_entity_card.php:381 Public/form_data/FG_var_paymentlog.inc:100
+#: Public/A2B_entity_card.php:401 Public/form_data/FG_var_paymentlog.inc:100
 msgid "Status"
 msgstr "Status"
 
-#: Public/A2B_entity_card.php:395
+#: Public/A2B_entity_card.php:415
 msgid "Language"
 msgstr "Idioma"
 
-#: Public/A2B_entity_card.php:408
+#: Public/A2B_entity_card.php:428
 msgid "Access"
 msgstr "Acesso"
 
-#: Public/A2B_entity_card.php:457
+#: Public/A2B_entity_card.php:477
 msgid "Expiry date"
 msgstr "Data de Vencimento"
 
-#: Public/A2B_entity_card.php:466
+#: Public/A2B_entity_card.php:486
 msgid "Expiration days"
 msgstr "Dias de vencimento"
 
-#: Public/A2B_entity_card.php:487
+#: Public/A2B_entity_card.php:507
 msgid "BATCH UPDATE CARD"
 msgstr "ATUALIZAR CARTÃO EM LOTE"
 
-#: Public/A2B_entity_card.php:503 Public/A2B_entity_friend.php:152
+#: Public/A2B_entity_card.php:523 Public/A2B_entity_friend.php:152
 msgid "Changes detected on SIP/IAX Friends"
 msgstr "Mudanças detectadas no SIP/IAX Friends"
 
-#: Public/A2B_entity_card.php:508
+#: Public/A2B_entity_card.php:528
 msgid "GENERATE ADDITIONAL_A2BILLING_SIP.CONF"
 msgstr "GERAR ADDITIONAL_A2BILLING_SIP.CONF"
 
-#: Public/A2B_entity_card.php:512
+#: Public/A2B_entity_card.php:532
 msgid "GENERATE ADDITIONAL_A2BILLING_IAX.CONF"
 msgstr "GERAR ADDITIONAL_A2BILLING_IAX.CONF"
 
-#: Public/A2B_entity_card.php:543
+#: Public/A2B_entity_card.php:563
 msgid "Change the Card Number Length"
 msgstr "Mudar o Tamanho do Número do Cartão"
 
@@ -2887,27 +2894,27 @@ msgid "LOGIN"
 msgstr "LOGIN"
 
 #: Public/form_data/FG_var_payment_agent.inc:63
-#: Public/form_data/FG_var_commission.inc:58
+#: Public/form_data/FG_var_commission.inc:60
 #: Public/form_data/FG_var_logrefill_agent.inc:64
 #: Public/form_data/FG_var_callerid.inc:64
 #: Public/form_data/FG_var_signup_agent.inc:62
-#: Public/form_data/FG_var_logrefill.inc:68
+#: Public/form_data/FG_var_logrefill.inc:61
 #: Public/form_data/FG_var_friend.inc:97
 #: Public/form_data/FG_var_payment.inc:66
 msgid "THERE IS NO "
 msgstr "NÃO HÁ "
 
 #: Public/form_data/FG_var_commission.inc:49
-#: Public/form_data/FG_var_logrefill.inc:59
+#: Public/form_data/FG_var_logrefill.inc:53
 #: Public/form_data/FG_var_payment.inc:56
 msgid "ACCOUNT"
 msgstr "CONTA"
 
-#: Public/form_data/FG_var_commission.inc:52
+#: Public/form_data/FG_var_commission.inc:53
 msgid "PAID STATUS"
 msgstr "STATUS DE PAGO"
 
-#: Public/form_data/FG_var_commission.inc:53
+#: Public/form_data/FG_var_commission.inc:55
 msgid "LINK TO PAYMENT"
 msgstr "LINK PARA PAGAMENTO"
 
@@ -2968,7 +2975,6 @@ msgid "Add a "
 msgstr "Adicionar um "
 
 #: Public/form_data/FG_var_moneysituation.inc:95
-#: Public/form_data/FG_var_logrefill.inc:171
 msgid "Your new "
 msgstr "Seu novo "
 
@@ -3163,7 +3169,6 @@ msgid "Rates must be entered in the currency base : "
 msgstr "Taxas devem ser digitadas na moeda base : "
 
 #: Public/form_data/FG_var_def_ratecard.inc:138
-#: Public/form_data/FG_var_logrefill.inc:175
 msgid "Click 'Confirm Data' to continue."
 msgstr "Clique 'Confirmar Dado' para continuar."
 
@@ -3221,7 +3226,6 @@ msgid "CREATOR"
 msgstr "CRIADOR"
 
 #: Public/form_data/FG_var_ticket.inc:117
-#: Public/form_data/FG_var_logrefill.inc:112
 msgid "Insert the Customer ID"
 msgstr "Inserir o ID do Cliente"
 
@@ -3234,49 +3238,8 @@ msgid "Insert the Title of ticket "
 msgstr "Inserir o Título do ticket"
 
 #: Public/form_data/FG_var_ticket.inc:157
-#: Public/form_data/FG_var_logrefill.inc:148
 msgid "Insert the description"
 msgstr "Inserir a descrição"
-
-#: Public/form_data/FG_var_logrefill.inc:53
-msgid "Add Refill"
-msgstr "Adicionar Recarga"
-
-#: Public/form_data/FG_var_logrefill.inc:109
-msgid "ID CUSTOMER"
-msgstr "ID DO CLIENTE"
-
-#: Public/form_data/FG_var_logrefill.inc:115
-msgid "Select the Customer ID"
-msgstr "Selecione o ID do cliente"
-
-#: Public/form_data/FG_var_logrefill.inc:130
-msgid "Insert the current date"
-msgstr "Insira a data atual"
-
-#: Public/form_data/FG_var_logrefill.inc:139
-msgid "Insert the credit amount"
-msgstr "Insira o valor do crédito"
-
-#: Public/form_data/FG_var_logrefill.inc:140
-msgid "Enter the amount in the currency base : "
-msgstr "Insira o valor da moeda base: "
-
-#: Public/form_data/FG_var_logrefill.inc:158
-msgid "Define type for payment and refill,if created."
-msgstr "Defina o tipo de pagamento e recarga, se criado."
-
-#: Public/form_data/FG_var_logrefill.inc:165
-msgid "You can modify, through the following form, the different properties of your "
-msgstr "Você pode modificar, por meio do formulário a seguir, as propriedades diferentes do seu"
-
-#: Public/form_data/FG_var_logrefill.inc:166
-msgid "If you really want remove this "
-msgstr "Se você realmente que remover issso"
-
-#: Public/form_data/FG_var_logrefill.inc:167
-msgid "you can add easily a new "
-msgstr "Você pode adicionar facilmente um novo"
 
 #: Public/form_data/FG_var_friend.inc:75
 msgid "CARDHOLDER"
@@ -4347,6 +4310,36 @@ msgstr "Senha Antiga"
 msgid "New Secret"
 msgstr "Senha Nova"
 
+#~ msgid "Add Refill"
+#~ msgstr "Adicionar Recarga"
+
+#~ msgid "ID CUSTOMER"
+#~ msgstr "ID DO CLIENTE"
+
+#~ msgid "Select the Customer ID"
+#~ msgstr "Selecione o ID do cliente"
+
+#~ msgid "Insert the current date"
+#~ msgstr "Insira a data atual"
+
+#~ msgid "Insert the credit amount"
+#~ msgstr "Insira o valor do crédito"
+
+#~ msgid "Enter the amount in the currency base : "
+#~ msgstr "Insira o valor da moeda base: "
+
+#~ msgid "Define type for payment and refill,if created."
+#~ msgstr "Defina o tipo de pagamento e recarga, se criado."
+
+#~ msgid "You can modify, through the following form, the different properties of your "
+#~ msgstr "Você pode modificar, por meio do formulário a seguir, as propriedades diferentes do seu"
+
+#~ msgid "If you really want remove this "
+#~ msgstr "Se você realmente que remover issso"
+
+#~ msgid "you can add easily a new "
+#~ msgstr "Você pode adicionar facilmente um novo"
+
 #~ msgid "RATE CARD"
 #~ msgstr "RATE CARD"
 
@@ -4364,9 +4357,6 @@ msgstr "Senha Nova"
 
 #~ msgid "THERE ARE NO PAYMENT CREATED!"
 #~ msgstr "NENHUM PAGAMENTO CRIADO!"
-
-#~ msgid "THERE IS NO COMMISSION CREATED!"
-#~ msgstr "NEHUMA COMISSÃO CRIADA!"
 
 #~ msgid "THERE IS NO IAX FRIEND CREATED!"
 #~ msgstr "NENHUMA CONFIGURAÇÃO IAX CRIADA!"
