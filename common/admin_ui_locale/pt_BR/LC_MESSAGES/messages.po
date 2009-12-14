@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-14 00:23+0100\n"
+"POT-Creation-Date: 2009-12-14 19:01+0100\n"
 "PO-Revision-Date: 2009-12-01 13:34-0300\n"
 "Last-Translator: Emerson Reis <eluizbr@tofalando.com.br>\n"
 "Language-Team: Emerson Reis <eluizbr@tofalando.com.br>\n"
@@ -2710,11 +2710,11 @@ msgstr "taxa de compra"
 msgid "rateinitial"
 msgstr "taxa inicial"
 
-#: Public/CC_ratecard_merging.php:273 Public/CC_ratecard_import.php:268
+#: Public/CC_ratecard_merging.php:273
 msgid "buyrateinitblock"
 msgstr "tempo pago pela chamada"
 
-#: Public/CC_ratecard_merging.php:274 Public/CC_ratecard_import.php:269
+#: Public/CC_ratecard_merging.php:274
 msgid "buyrateincrement"
 msgstr "bloco de segs a pagar"
 
@@ -2722,109 +2722,109 @@ msgstr "bloco de segs a pagar"
 msgid "trunk"
 msgstr "Tronco"
 
-#: Public/CC_ratecard_merging.php:276 Public/CC_ratecard_import.php:271
+#: Public/CC_ratecard_merging.php:276
 msgid "initblock"
 msgstr "tempo minimo do bloco"
 
-#: Public/CC_ratecard_merging.php:277 Public/CC_ratecard_import.php:272
+#: Public/CC_ratecard_merging.php:277
 msgid "billingblock"
 msgstr "tempo para tarifação"
 
-#: Public/CC_ratecard_merging.php:278 Public/CC_ratecard_import.php:273
+#: Public/CC_ratecard_merging.php:278
 msgid "connectcharge"
 msgstr "taxa por conexão"
 
-#: Public/CC_ratecard_merging.php:279 Public/CC_ratecard_import.php:274
+#: Public/CC_ratecard_merging.php:279
 msgid "disconnectcharge"
 msgstr "taxa por desconexão"
 
-#: Public/CC_ratecard_merging.php:280 Public/CC_ratecard_import.php:276
+#: Public/CC_ratecard_merging.php:280
 msgid "stepchargea"
 msgstr "passo taxa a"
 
-#: Public/CC_ratecard_merging.php:281 Public/CC_ratecard_import.php:277
+#: Public/CC_ratecard_merging.php:281
 msgid "chargea"
 msgstr "taxa a"
 
-#: Public/CC_ratecard_merging.php:282 Public/CC_ratecard_import.php:278
+#: Public/CC_ratecard_merging.php:282
 msgid "timechargea"
 msgstr "tempo taxa a"
 
-#: Public/CC_ratecard_merging.php:283 Public/CC_ratecard_import.php:279
+#: Public/CC_ratecard_merging.php:283
 msgid "billingblocka"
 msgstr "tempo para tarifação a"
 
-#: Public/CC_ratecard_merging.php:285 Public/CC_ratecard_import.php:281
+#: Public/CC_ratecard_merging.php:285
 msgid "stepchargeb"
 msgstr "passo taxa b"
 
-#: Public/CC_ratecard_merging.php:286 Public/CC_ratecard_import.php:282
+#: Public/CC_ratecard_merging.php:286
 msgid "chargeb"
 msgstr "taxa b"
 
-#: Public/CC_ratecard_merging.php:287 Public/CC_ratecard_import.php:283
+#: Public/CC_ratecard_merging.php:287
 msgid "timechargeb"
 msgstr "tempo taxa b"
 
-#: Public/CC_ratecard_merging.php:288 Public/CC_ratecard_import.php:284
+#: Public/CC_ratecard_merging.php:288
 msgid "billingblockb"
 msgstr "tempo para tarifação b"
 
-#: Public/CC_ratecard_merging.php:290 Public/CC_ratecard_import.php:286
+#: Public/CC_ratecard_merging.php:290
 msgid "stepchargec"
 msgstr "passo taxa c"
 
-#: Public/CC_ratecard_merging.php:291 Public/CC_ratecard_import.php:287
+#: Public/CC_ratecard_merging.php:291
 msgid "chargec"
 msgstr "taxa c"
 
-#: Public/CC_ratecard_merging.php:292 Public/CC_ratecard_import.php:288
+#: Public/CC_ratecard_merging.php:292
 msgid "timechargec"
 msgstr "tempo taxa c"
 
-#: Public/CC_ratecard_merging.php:293 Public/CC_ratecard_import.php:289
+#: Public/CC_ratecard_merging.php:293
 msgid "billingblockc"
 msgstr "tempo para tarifação c"
 
-#: Public/CC_ratecard_merging.php:295 Public/CC_ratecard_import.php:291
+#: Public/CC_ratecard_merging.php:295
 msgid "startdate"
 msgstr "data de início"
 
-#: Public/CC_ratecard_merging.php:296 Public/CC_ratecard_import.php:292
+#: Public/CC_ratecard_merging.php:296
 msgid "stopdate"
 msgstr "data de término"
 
-#: Public/CC_ratecard_merging.php:298 Public/CC_ratecard_import.php:294
+#: Public/CC_ratecard_merging.php:298
 msgid "starttime"
 msgstr "hora de início"
 
-#: Public/CC_ratecard_merging.php:299 Public/CC_ratecard_import.php:295
+#: Public/CC_ratecard_merging.php:299
 msgid "endtime"
 msgstr "hora de término"
 
-#: Public/CC_ratecard_merging.php:300 Public/CC_ratecard_import.php:296
+#: Public/CC_ratecard_merging.php:300 Public/CC_ratecard_import.php:300
 msgid "tag"
 msgstr "tag"
 
-#: Public/CC_ratecard_merging.php:301 Public/CC_ratecard_import.php:297
+#: Public/CC_ratecard_merging.php:301 Public/CC_ratecard_import.php:301
 msgid "rounding calltime"
 msgstr "Arredondamento do tempo de chamada"
 
-#: Public/CC_ratecard_merging.php:302 Public/CC_ratecard_import.php:298
+#: Public/CC_ratecard_merging.php:302 Public/CC_ratecard_import.php:302
 msgid "rounding threshold"
 msgstr "Ponto inicial do arredondamento"
 
-#: Public/CC_ratecard_merging.php:303 Public/CC_ratecard_import.php:299
+#: Public/CC_ratecard_merging.php:303 Public/CC_ratecard_import.php:303
 msgid "additional block charge"
 msgstr "Bloco adicional de carga"
 
-#: Public/CC_ratecard_merging.php:304 Public/CC_ratecard_import.php:300
+#: Public/CC_ratecard_merging.php:304 Public/CC_ratecard_import.php:304
 msgid "additional block charge time"
 msgstr "Tempo adicional do bloco de carga"
 
 #: Public/CC_ratecard_merging.php:315 Public/A2B_phonelist_import.php:271
 #: Public/A2B_entity_did_import.php:301 Public/CC_card_import.php:304
-#: Public/CC_ratecard_import.php:312
+#: Public/CC_ratecard_import.php:317
 msgid "Selected Fields..."
 msgstr "Campos selecionados..."
 
@@ -3873,23 +3873,23 @@ msgid "Use the example below  to format the CSV file. Fields are separated by  ;
 msgstr "Use o exemplo abaixo para o formato do arquivo CSV. Os campos são separados por ; ou :"
 
 #: Public/A2B_phonelist_import.php:300 Public/A2B_entity_did_import.php:322
-#: Public/CC_card_import.php:323 Public/CC_ratecard_import.php:344
+#: Public/CC_card_import.php:323 Public/CC_ratecard_import.php:349
 #, fuzzy
 msgid "(dot) . is used for decimal format."
 msgstr ". e , são usados para formato decimal."
 
 #: Public/A2B_phonelist_import.php:304 Public/A2B_entity_did_import.php:324
-#: Public/CC_card_import.php:325 Public/CC_ratecard_import.php:348
+#: Public/CC_card_import.php:325 Public/CC_ratecard_import.php:353
 msgid "Complex Sample"
 msgstr "Exemplo Complexo"
 
 #: Public/A2B_phonelist_import.php:305 Public/A2B_entity_did_import.php:325
-#: Public/CC_card_import.php:326 Public/CC_ratecard_import.php:349
+#: Public/CC_card_import.php:326 Public/CC_ratecard_import.php:354
 msgid "Simple Sample"
 msgstr "Exemplo Simples"
 
 #: Public/A2B_phonelist_import.php:321 Public/A2B_entity_did_import.php:340
-#: Public/CC_card_import.php:341 Public/CC_ratecard_import.php:365
+#: Public/CC_card_import.php:341 Public/CC_ratecard_import.php:370
 msgid "The maximum file size is "
 msgstr "O tamanho máximo do arquivo é "
 
@@ -4721,7 +4721,7 @@ msgid "billingtype"
 msgstr "tipo_de_tarifação"
 
 #: Public/A2B_entity_did_import.php:321 Public/CC_card_import.php:322
-#: Public/CC_ratecard_import.php:343
+#: Public/CC_ratecard_import.php:348
 #, fuzzy
 msgid "Use the example below  to format the CSV file. Fields are separated by [,] or [;]"
 msgstr "Use o exemplo abaixo para o formato do arquivo CSV. Os campos são separados por ;"
@@ -5207,30 +5207,147 @@ msgid "dialprefix"
 msgstr "prefixodediscagem"
 
 #: Public/CC_ratecard_import.php:255
-msgid "rate initial"
-msgstr "taxa inicial"
+#, fuzzy
+msgid "selling rate"
+msgstr "Venda"
+
+#: Public/CC_ratecard_import.php:268
+#, fuzzy
+msgid "buyrate min duration"
+msgstr "tempo pago pela chamada"
+
+#: Public/CC_ratecard_import.php:269
+#, fuzzy
+msgid "buyrate billing block"
+msgstr "tempo pago pela chamada"
+
+#: Public/CC_ratecard_import.php:271
+#, fuzzy
+msgid "sellrate min duration"
+msgstr "Insira o Destino"
+
+#: Public/CC_ratecard_import.php:272
+#, fuzzy
+msgid "sellrate billing block"
+msgstr "Insira o valor inicial do bloco de tempo"
+
+#: Public/CC_ratecard_import.php:274
+#, fuzzy
+msgid "connect charge"
+msgstr "taxa por conexão"
 
 #: Public/CC_ratecard_import.php:275
-msgid "disconnectcharge_after"
-msgstr "taxa por desconexão posterior"
+#, fuzzy
+msgid "disconnect charge"
+msgstr "taxa por desconexão"
+
+#: Public/CC_ratecard_import.php:276
+#, fuzzy
+msgid "disconnect charge threshold"
+msgstr "Insira a taxa por desconexão"
+
+#: Public/CC_ratecard_import.php:278
+#, fuzzy
+msgid "minimum call cost"
+msgstr "Insira o custo mínimo por chamada"
+
+#: Public/CC_ratecard_import.php:280
+#, fuzzy
+msgid "step charge a"
+msgstr "passo taxa a"
+
+#: Public/CC_ratecard_import.php:281
+#, fuzzy
+msgid "charge a"
+msgstr "taxa a"
+
+#: Public/CC_ratecard_import.php:282
+#, fuzzy
+msgid "time charge a"
+msgstr "tempo taxa a"
+
+#: Public/CC_ratecard_import.php:283
+#, fuzzy
+msgid "billing block a"
+msgstr "tempo para tarifação a"
+
+#: Public/CC_ratecard_import.php:285
+#, fuzzy
+msgid "step charge b"
+msgstr "passo taxa b"
+
+#: Public/CC_ratecard_import.php:286
+#, fuzzy
+msgid "charge b"
+msgstr "taxa b"
+
+#: Public/CC_ratecard_import.php:287
+#, fuzzy
+msgid "time charge b"
+msgstr "tempo taxa b"
+
+#: Public/CC_ratecard_import.php:288
+#, fuzzy
+msgid "billing block b"
+msgstr "tempo para tarifação b"
+
+#: Public/CC_ratecard_import.php:290
+#, fuzzy
+msgid "step charge c"
+msgstr "passo taxa c"
+
+#: Public/CC_ratecard_import.php:291
+#, fuzzy
+msgid "charge c"
+msgstr "taxa c"
+
+#: Public/CC_ratecard_import.php:292
+#, fuzzy
+msgid "time charge c"
+msgstr "tempo taxa c"
 
 #: Public/CC_ratecard_import.php:293
+#, fuzzy
+msgid "billing block c"
+msgstr "tempo para tarifação c"
+
+#: Public/CC_ratecard_import.php:295
+#, fuzzy
+msgid "start date"
+msgstr "data de início"
+
+#: Public/CC_ratecard_import.php:296
+#, fuzzy
+msgid "stop date"
+msgstr "data de término"
+
+#: Public/CC_ratecard_import.php:297
 msgid "additional grace"
 msgstr "cortesia adicional"
 
-#: Public/CC_ratecard_import.php:301
+#: Public/CC_ratecard_import.php:298
+#, fuzzy
+msgid "start time"
+msgstr "hora de início"
+
+#: Public/CC_ratecard_import.php:299
+#, fuzzy
+msgid "end time"
+msgstr "hora de término"
+
+#: Public/CC_ratecard_import.php:305
 msgid "announce time correction"
 msgstr "tempo de correção do anúncio"
 
-#: Public/CC_ratecard_import.php:329
+#: Public/CC_ratecard_import.php:334
 msgid "Currency import as"
 msgstr "Moedas importadas como"
 
-#: Public/CC_ratecard_import.php:329
+#: Public/CC_ratecard_import.php:334
 msgid "Unit"
 msgstr "Unidade"
 
-#: Public/CC_ratecard_import.php:330
+#: Public/CC_ratecard_import.php:335
 msgid "Cents"
 msgstr "Centavos"
 
@@ -9280,7 +9397,8 @@ msgid "Apply the disconnection charge if the call duration is greater than this 
 msgstr "Aplicar a carga de desconexão se a duração da ligação é maior que este total de segudnso, Se 0, irá sempre aplicar."
 
 #: Public/form_data/FG_var_def_ratecard.inc:321
-msgid "MINIMUM CALL COST "
+#, fuzzy
+msgid "MINIMUM CALL COST"
 msgstr "CUSTO MINIMO DE CHAMADA"
 
 #: Public/form_data/FG_var_def_ratecard.inc:327
@@ -11082,6 +11200,12 @@ msgstr "A LISTA DE MOEDAS É BASEADA NO YAHOO FINANÇAS"
 #: Public/A2B_currencies.php:91
 msgid "CLICK HERE TO UPDATE NOW"
 msgstr "CLIQUE AQUI PARA ATUALIZAR AGORA"
+
+#~ msgid "rate initial"
+#~ msgstr "taxa inicial"
+
+#~ msgid "disconnectcharge_after"
+#~ msgstr "taxa por desconexão posterior"
 
 #~ msgid "Use the example below  to format the CSV file. Fields are separated by ;"
 #~ msgstr "Use o exemplo abaixo para o formato do arquivo CSV. Os campos são separados por ;"

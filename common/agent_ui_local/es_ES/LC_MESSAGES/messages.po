@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-14 00:23+0100\n"
+"POT-Creation-Date: 2009-12-14 19:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -144,7 +144,7 @@ msgstr "ACCESO INDIVIDUAL"
 
 #: lib/interface/constants.php:126 lib/interface/constants.php:363
 #: lib/interface/constants.php:370 Public/A2B_entity_card_multi.php:378
-#: Public/A2B_entity_card.php:431 Public/form_data/FG_var_card.inc:605
+#: Public/A2B_entity_card.php:431 Public/form_data/FG_var_card.inc:590
 msgid "SIMULTANEOUS ACCESS"
 msgstr "ACCESO SIMULTANEO"
 
@@ -1091,7 +1091,7 @@ msgstr "El documento se ha creado correctamente. Ahora, usted puede definir las 
 
 #: lib/Form/Class.FormHandler.inc.php:542
 #: Public/form_data/FG_var_moneysituation.inc:77
-#: Public/form_data/FG_var_card.inc:949
+#: Public/form_data/FG_var_card.inc:923
 msgid "You can modify, through the following form, the different properties of your"
 msgstr "Por el metodo siguiente, puede modificar las distintas propiedades de su"
 
@@ -1101,7 +1101,7 @@ msgstr "Por el metodo siguiente, puede modificar las distintas propiedades de su
 #: Public/form_data/FG_var_def_ratecard.inc:129
 #: Public/form_data/FG_var_ticket_agent.inc:90
 #: Public/form_data/FG_var_ticket.inc:172
-#: Public/form_data/FG_var_friend.inc:957 Public/form_data/FG_var_card.inc:950
+#: Public/form_data/FG_var_friend.inc:957 Public/form_data/FG_var_card.inc:924
 msgid "If you really want remove this"
 msgstr "Si desea remover esto"
 
@@ -1123,7 +1123,7 @@ msgstr "se a borrado"
 #: Public/form_data/FG_var_def_ratecard.inc:130
 #: Public/form_data/FG_var_ticket_agent.inc:91
 #: Public/form_data/FG_var_ticket.inc:173
-#: Public/form_data/FG_var_friend.inc:958 Public/form_data/FG_var_card.inc:951
+#: Public/form_data/FG_var_friend.inc:958 Public/form_data/FG_var_card.inc:925
 msgid "you can add easily a new"
 msgstr "puede añadir facilmente un nuevo"
 
@@ -1133,7 +1133,7 @@ msgstr "puede añadir facilmente un nuevo"
 #: Public/form_data/FG_var_def_ratecard.inc:130
 #: Public/form_data/FG_var_ticket_agent.inc:91
 #: Public/form_data/FG_var_ticket.inc:173
-#: Public/form_data/FG_var_friend.inc:958 Public/form_data/FG_var_card.inc:951
+#: Public/form_data/FG_var_friend.inc:958 Public/form_data/FG_var_card.inc:925
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr "Complete los campos siguientes y confirmelos haciendo clic en el boton Añadir"
 
@@ -1151,7 +1151,7 @@ msgstr "ahora"
 #: Public/form_data/FG_var_def_ratecard.inc:134
 #: Public/form_data/FG_var_ticket_agent.inc:95
 #: Public/form_data/FG_var_ticket.inc:177
-#: Public/form_data/FG_var_friend.inc:962 Public/form_data/FG_var_card.inc:955
+#: Public/form_data/FG_var_friend.inc:962 Public/form_data/FG_var_card.inc:929
 msgid "Your new"
 msgstr "Su nuevo"
 
@@ -1916,7 +1916,7 @@ msgstr "INFO DE PAGO"
 
 #: Public/A2B_payment_info_agent.php:101 Public/A2B_payment_info.php:107
 #: Public/form_data/FG_var_payment_agent.inc:58
-#: Public/form_data/FG_var_payment.inc:60 Public/form_data/FG_var_card.inc:521
+#: Public/form_data/FG_var_payment.inc:60
 msgid "PAYMENT TYPE"
 msgstr "TIPO DE PAGO"
 
@@ -2024,7 +2024,7 @@ msgstr "SELECCIONAR DIA"
 #: Public/form_data/FG_var_paymentlog.inc:150
 #: Public/form_data/FG_var_ticket_agent.inc:69
 #: Public/form_data/FG_var_ticket.inc:77 Public/form_data/FG_var_card.inc:151
-#: Public/form_data/FG_var_card.inc:595
+#: Public/form_data/FG_var_card.inc:580
 msgid "STATUS"
 msgstr "ESTADO"
 
@@ -2049,7 +2049,7 @@ msgid "WEB PASSWORD"
 msgstr "CONTRASEÑA DE WEB"
 
 #: Public/A2B_card_info.php:150 Public/form_data/FG_var_friend.inc:286
-#: Public/form_data/FG_var_card.inc:576
+#: Public/form_data/FG_var_card.inc:561
 msgid "LANGUAGE"
 msgstr "LENGUAJE"
 
@@ -2057,7 +2057,7 @@ msgstr "LENGUAJE"
 msgid "EXPIRATION DATE"
 msgstr "FECHA DE EXPIRACION"
 
-#: Public/A2B_card_info.php:184 Public/form_data/FG_var_card.inc:699
+#: Public/A2B_card_info.php:184 Public/form_data/FG_var_card.inc:673
 msgid "FIRST USE DATE"
 msgstr "FECHA DE PRIMER USO"
 
@@ -2128,20 +2128,20 @@ msgid "BALANCE"
 msgstr "BALANCE"
 
 #: Public/A2B_card_info.php:342 Public/call-log-customers.php:891
-#: Public/form_data/FG_var_card.inc:154 Public/form_data/FG_var_card.inc:586
+#: Public/form_data/FG_var_card.inc:154 Public/form_data/FG_var_card.inc:571
 msgid "CURRENCY"
 msgstr "MONEDA"
 
-#: Public/A2B_card_info.php:350 Public/form_data/FG_var_card.inc:625
+#: Public/A2B_card_info.php:350
 msgid "CREDIT LIMIT"
 msgstr "LIMITE DE CREDITO"
 
-#: Public/A2B_card_info.php:358 Public/form_data/FG_var_card.inc:788
-#: Public/form_data/FG_var_card.inc:796
+#: Public/A2B_card_info.php:358 Public/form_data/FG_var_card.inc:762
+#: Public/form_data/FG_var_card.inc:770
 msgid "AUTOREFILL"
 msgstr "AUTORELLENO"
 
-#: Public/A2B_card_info.php:366 Public/form_data/FG_var_card.inc:809
+#: Public/A2B_card_info.php:366 Public/form_data/FG_var_card.inc:783
 msgid "INVOICE DAY"
 msgstr "FECHA DE FACTURA"
 
@@ -2161,7 +2161,7 @@ msgstr "SITIO DE EMPRESA"
 msgid "VAT REGISTRATION NUMBER"
 msgstr "NUMERO RE REGISTRO VAT"
 
-#: Public/A2B_card_info.php:414 Public/form_data/FG_var_card.inc:850
+#: Public/A2B_card_info.php:414 Public/form_data/FG_var_card.inc:824
 msgid "TRAFFIC PER MONTH"
 msgstr "TRAFICO MENSUAL"
 
@@ -2436,7 +2436,7 @@ msgstr "TELEFONO"
 #: Public/call-log-customers.php:627 Public/form_data/FG_var_callerid.inc:56
 #: Public/form_data/FG_var_callerid.inc:75
 #: Public/form_data/FG_var_friend.inc:79
-#: Public/form_data/FG_var_friend.inc:186 Public/form_data/FG_var_card.inc:894
+#: Public/form_data/FG_var_friend.inc:186 Public/form_data/FG_var_card.inc:868
 msgid "CALLERID"
 msgstr "IDENTIFICACION DE LLAMADAS"
 
@@ -2982,7 +2982,7 @@ msgstr "CREADO"
 #: Public/form_data/FG_var_def_ratecard.inc:129
 #: Public/form_data/FG_var_ticket_agent.inc:90
 #: Public/form_data/FG_var_ticket.inc:172
-#: Public/form_data/FG_var_friend.inc:957 Public/form_data/FG_var_card.inc:950
+#: Public/form_data/FG_var_friend.inc:957 Public/form_data/FG_var_card.inc:924
 msgid "click on the delete button."
 msgstr "haga clic en el boton de borrar"
 
@@ -2996,7 +2996,7 @@ msgid "Your new "
 msgstr "Su Nuevo"
 
 #: Public/form_data/FG_var_moneysituation.inc:99
-#: Public/form_data/FG_var_friend.inc:966 Public/form_data/FG_var_card.inc:959
+#: Public/form_data/FG_var_friend.inc:966 Public/form_data/FG_var_card.inc:933
 msgid "Once you have completed the form above, click on the CONTINUE button."
 msgstr "Cuando complete la forma de arriba, haga clic en el boton CONTINUAR"
 
@@ -3048,7 +3048,7 @@ msgstr ""
 #: Public/form_data/FG_var_callerid.inc:132
 #: Public/form_data/FG_var_def_ratecard.inc:134
 #: Public/form_data/FG_var_ticket_agent.inc:95
-#: Public/form_data/FG_var_ticket.inc:177 Public/form_data/FG_var_card.inc:955
+#: Public/form_data/FG_var_ticket.inc:177 Public/form_data/FG_var_card.inc:929
 msgid "has been inserted."
 msgstr "ha sido introducido"
 
@@ -3204,7 +3204,7 @@ msgid "KEY"
 msgstr "LLAVE"
 
 #: Public/form_data/FG_var_signup_agent.inc:54
-#: Public/form_data/FG_var_card.inc:535
+#: Public/form_data/FG_var_card.inc:520
 msgid "CALL PLAN"
 msgstr "PLAN DE PAGO"
 
@@ -3794,7 +3794,7 @@ msgstr "CALIFICAR"
 msgid "QUALIFYFREQNOTOK"
 msgstr "CALIFICAR"
 
-#: Public/form_data/FG_var_friend.inc:908 Public/form_data/FG_var_card.inc:568
+#: Public/form_data/FG_var_friend.inc:908 Public/form_data/FG_var_card.inc:553
 msgid "TIMEZONE"
 msgstr "HORARIO - ZONA"
 
@@ -4006,7 +4006,7 @@ msgstr "La contraseña es para que el cliente tenga acceso al interfaz del web y 
 msgid "Insert the number of credit"
 msgstr "Introduzca el numero del credito"
 
-#: Public/form_data/FG_var_card.inc:373 Public/form_data/FG_var_card.inc:644
+#: Public/form_data/FG_var_card.inc:373 Public/form_data/FG_var_card.inc:618
 msgid "currency : "
 msgstr "moneda"
 
@@ -4014,8 +4014,8 @@ msgstr "moneda"
 msgid "CUSTOMER GROUP"
 msgstr "GRUPO DE CLIENTES"
 
-#: Public/form_data/FG_var_card.inc:398 Public/form_data/FG_var_card.inc:556
-#: Public/form_data/FG_var_card.inc:645 Public/form_data/FG_var_card.inc:696
+#: Public/form_data/FG_var_card.inc:398 Public/form_data/FG_var_card.inc:541
+#: Public/form_data/FG_var_card.inc:619 Public/form_data/FG_var_card.inc:670
 msgid "NOT DEFINED"
 msgstr "NO DEFINIDO"
 
@@ -4071,252 +4071,240 @@ msgstr "Introduzca el nimbre de la empresa de este cliente"
 msgid "Insert the company website of this customer"
 msgstr "Introduzca el sitio de la empresa de este cliente"
 
-#: Public/form_data/FG_var_card.inc:528
-msgid "Customer Paid Status"
-msgstr "Estado Pago de Cliente"
-
-#: Public/form_data/FG_var_card.inc:548
+#: Public/form_data/FG_var_card.inc:533
 msgid "DIDGROUP"
 msgstr "GRUPO DID"
 
-#: Public/form_data/FG_var_card.inc:591
+#: Public/form_data/FG_var_card.inc:576
 msgid "Currency used at the customer end."
 msgstr "Moneda usada de parte del cliente"
 
-#: Public/form_data/FG_var_card.inc:615
+#: Public/form_data/FG_var_card.inc:600
 msgid "RUN SERVICE"
 msgstr "SERVICIO FUNCIONANDO"
 
-#: Public/form_data/FG_var_card.inc:621
+#: Public/form_data/FG_var_card.inc:606
 msgid "Choose if you want to enable the service recurring on this account"
 msgstr "Elige si quiere habilitar el servicio recurrente en esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:622
+#: Public/form_data/FG_var_card.inc:607
 msgid "Apply recurring service to this account."
 msgstr "Aplicar servicio recurrente a esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:631
-msgid "Insert the credit limit"
-msgstr "Introduzca el limite de credito"
-
-#: Public/form_data/FG_var_card.inc:632
-msgid "Credit limit is only used for the postpaid account."
-msgstr "Limites de credito solo se usan para las cuentas con pos pago"
-
-#: Public/form_data/FG_var_card.inc:636
+#: Public/form_data/FG_var_card.inc:610
 msgid "CREDIT LIMIT NOTIFICATION"
 msgstr "NOTIFICACION DE LIMITE DE CREDITO"
 
-#: Public/form_data/FG_var_card.inc:644
+#: Public/form_data/FG_var_card.inc:618
 msgid "Low credit limit to alert the customer"
 msgstr "Limite de credito bajo para avisar el cliente"
 
-#: Public/form_data/FG_var_card.inc:648
+#: Public/form_data/FG_var_card.inc:622
 msgid "PERMITTED NOTIFICATIONS BY MAIL"
 msgstr "NOTIFICACIONED PERMITIDAS POR CORREO"
 
-#: Public/form_data/FG_var_card.inc:654
+#: Public/form_data/FG_var_card.inc:628
 msgid "Choose if you want to enable the notification by email for this account"
 msgstr "Seleccione si desea habilitar la notificaciOn por EMAIL para esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:655
+#: Public/form_data/FG_var_card.inc:629
 msgid "Enable the notification by mail for this account."
 msgstr "Habilitar notificacion por correo para esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:658
+#: Public/form_data/FG_var_card.inc:632
 msgid "EMAIL NOTIFICATION"
 msgstr "NOTIFICACION POR EMAIL"
 
-#: Public/form_data/FG_var_card.inc:664
+#: Public/form_data/FG_var_card.inc:638
 msgid "Insert the email to notify this customer"
 msgstr "Introduzca el email para notificar al cliente"
 
-#: Public/form_data/FG_var_card.inc:669
+#: Public/form_data/FG_var_card.inc:643
 msgid "PERMITTED VOICEMAIL"
 msgstr "CORREO DE VOZ PERMITIDO"
 
-#: Public/form_data/FG_var_card.inc:675
+#: Public/form_data/FG_var_card.inc:649
 msgid "Choose if you want to enable the voicemail functionality for this account"
 msgstr "Seleccione si desea habilitar la notificaciOn por CORREO DE VOZ para esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:676
+#: Public/form_data/FG_var_card.inc:650
 msgid "Enable the voicemail functionality for this account."
 msgstr "Habilitar correo de voz para esta cuenta."
 
-#: Public/form_data/FG_var_card.inc:678
+#: Public/form_data/FG_var_card.inc:652
 msgid "ACTIVE VOICEMAIL SERVICE"
 msgstr "SERVICIO DE CORREO DE VOZ ACTIVO"
 
-#: Public/form_data/FG_var_card.inc:684
+#: Public/form_data/FG_var_card.inc:658
 msgid "Customer can choose to enable the voicemail for this account"
 msgstr "El cliente puede elegir habilitar el correo de voz para esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:685
+#: Public/form_data/FG_var_card.inc:659
 msgid "Customer can enable the voicemail for this account."
 msgstr "El cliente puede habilitar el correo de voz para esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:688
+#: Public/form_data/FG_var_card.inc:662
 msgid "CAMPAIGN"
 msgstr "Campaña"
 
-#: Public/form_data/FG_var_card.inc:709
+#: Public/form_data/FG_var_card.inc:683
 msgid "ENABLE EXPIRY"
 msgstr "Habilitar Expiracion"
 
-#: Public/form_data/FG_var_card.inc:716
+#: Public/form_data/FG_var_card.inc:690
 msgid "Select method of expiry for the account."
 msgstr "Seleccione metodo de expiracion para esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:729
+#: Public/form_data/FG_var_card.inc:703
 msgid "EXPIRY DATE"
 msgstr "FECHA DE EXPIRACION"
 
-#: Public/form_data/FG_var_card.inc:735
+#: Public/form_data/FG_var_card.inc:709
 msgid "Insert the expiration date"
 msgstr "Introduzca la fecha de expiracion"
 
-#: Public/form_data/FG_var_card.inc:736
+#: Public/form_data/FG_var_card.inc:710
 msgid "please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
 msgstr "Favor de respetar el formato AAAA-MM-DD HH:MM:SS Ejemplo,'2004-12-31 00:00:00' "
 
-#: Public/form_data/FG_var_card.inc:740
+#: Public/form_data/FG_var_card.inc:714
 msgid "EXPIRY DAYS"
 msgstr "Dias de Expiracion"
 
-#: Public/form_data/FG_var_card.inc:746
+#: Public/form_data/FG_var_card.inc:720
 msgid "Insert the number of days after which the account will expire"
 msgstr "Introduzca el numero de dias despues de que la cuenta expirara"
 
-#: Public/form_data/FG_var_card.inc:747
+#: Public/form_data/FG_var_card.inc:721
 msgid "The number of days after which the account will expire."
 msgstr "Introduzca la acntidad de dias despues de que la cuenta expirara"
 
-#: Public/form_data/FG_var_card.inc:750
+#: Public/form_data/FG_var_card.inc:724
 msgid "CREATE SIP CONFIG"
 msgstr "CREAR CONFIG SIP"
 
-#: Public/form_data/FG_var_card.inc:756
+#: Public/form_data/FG_var_card.inc:730
 msgid "Choose if you want to enable the sip account"
 msgstr "Seleccione si desea habilitar la cuenta SIP"
 
-#: Public/form_data/FG_var_card.inc:757
+#: Public/form_data/FG_var_card.inc:731
 msgid "Create the SIP config automatically"
 msgstr "Crear la config de SIP Automaticamente"
 
-#: Public/form_data/FG_var_card.inc:760
+#: Public/form_data/FG_var_card.inc:734
 msgid "CREATE IAX CONFIG"
 msgstr "Crear CONFIG IAX"
 
-#: Public/form_data/FG_var_card.inc:766
+#: Public/form_data/FG_var_card.inc:740
 msgid "Choose if you want to enable the iax account"
 msgstr "Seleccione si desea habilitar la cuenta IAX"
 
-#: Public/form_data/FG_var_card.inc:767
+#: Public/form_data/FG_var_card.inc:741
 msgid "Create the IAX config automatically"
 msgstr "Crear la config de IAX Automaticamente"
 
-#: Public/form_data/FG_var_card.inc:769
+#: Public/form_data/FG_var_card.inc:743
 msgid "MAC ADDRESS"
 msgstr "DIRECCION MAC"
 
-#: Public/form_data/FG_var_card.inc:775
+#: Public/form_data/FG_var_card.inc:749
 msgid "Insert the MAC address customers' device"
 msgstr "Introduzca la direccion MAC del cliente"
 
-#: Public/form_data/FG_var_card.inc:776
+#: Public/form_data/FG_var_card.inc:750
 msgid "FORMAT: 00-08-74-4C-7F-1D"
 msgstr "FORMATO: 00-08-74-4C-7F-1D"
 
-#: Public/form_data/FG_var_card.inc:779
+#: Public/form_data/FG_var_card.inc:753
 msgid "IN USE"
 msgstr "EN USO"
 
-#: Public/form_data/FG_var_card.inc:786
+#: Public/form_data/FG_var_card.inc:760
 msgid "Updated to show the number of concurrent calls in use by this customer. If there are no currently no calls, and the system shows that there are, manually reset this field back to zero."
 msgstr "Actualizado para mostrar la cantidad de llamadas simultaneas en el uso de este cliente. Si actualmente no hay llamadas, y el sistema muestra que hay, reajuste el sistema de forma manual a cero."
 
-#: Public/form_data/FG_var_card.inc:794
+#: Public/form_data/FG_var_card.inc:768
 msgid "Choose if you want to enable the autorefill on this account"
 msgstr "Seleccione si desea habilitar la opcion de autorellenar en esta cuenta"
 
-#: Public/form_data/FG_var_card.inc:795
+#: Public/form_data/FG_var_card.inc:769
 msgid "Define if you want to authorize the autorefill to apply on this accout"
 msgstr "Define si quiere autorizar la opcion de autorellenar en este cuenta y aplicarla"
 
-#: Public/form_data/FG_var_card.inc:798
+#: Public/form_data/FG_var_card.inc:772
 msgid "INITIAL BALANCE"
 msgstr "BALANCE INICIAL"
 
-#: Public/form_data/FG_var_card.inc:804
+#: Public/form_data/FG_var_card.inc:778
 msgid "Insert the amount of the initial balance"
 msgstr "Introduzca la cantidad del balance inicial"
 
-#: Public/form_data/FG_var_card.inc:805
+#: Public/form_data/FG_var_card.inc:779
 msgid "The initial balance is used by autorefill to reset the current balance to this amount"
 msgstr "El Balance inicial es utilizado por el autorellenado para reajustar el balance actual en esta cuenta."
 
-#: Public/form_data/FG_var_card.inc:816
+#: Public/form_data/FG_var_card.inc:790
 msgid "Define the day of the month when the system will generate the customer invoice."
 msgstr "Define el dia del mes cuando el sistema generara una factura para el cliente."
 
-#: Public/form_data/FG_var_card.inc:817
+#: Public/form_data/FG_var_card.inc:791
 msgid "Invoice Status"
 msgstr "Estado de Factura"
 
-#: Public/form_data/FG_var_card.inc:820 Public/checkout_confirmation.php:154
+#: Public/form_data/FG_var_card.inc:794 Public/checkout_confirmation.php:154
 msgid "VAT"
 msgstr "IVA"
 
-#: Public/form_data/FG_var_card.inc:826
+#: Public/form_data/FG_var_card.inc:800
 msgid "Insert the number for the VAT"
 msgstr "Introduzca la cantidad de IVA"
 
-#: Public/form_data/FG_var_card.inc:827
+#: Public/form_data/FG_var_card.inc:801
 #, c-format
 msgid "VAT to add on the invoice of this customer. it should be a decimal value '21' this will be for 21% of VAT!"
 msgstr "IVA a añadir en la factura de este cliente. debe ser un valor decimal de '21 'este sera el 21% de IVA"
 
-#: Public/form_data/FG_var_card.inc:830
+#: Public/form_data/FG_var_card.inc:804
 msgid "VAT REGISTRATION NUMBER "
 msgstr "NUMERO DE REGISTRO DE IVA"
 
-#: Public/form_data/FG_var_card.inc:836
+#: Public/form_data/FG_var_card.inc:810
 msgid "Insert the VAT registration number of this customer"
 msgstr "Introduzca el numero de registro de IVA de este cliente"
 
-#: Public/form_data/FG_var_card.inc:840
+#: Public/form_data/FG_var_card.inc:814
 msgid "DISCOUNT"
 msgstr "DESCUENTO"
 
-#: Public/form_data/FG_var_card.inc:856
+#: Public/form_data/FG_var_card.inc:830
 msgid "Insert the traffic per month for this customer"
 msgstr "Introduzca el trafico mensual de este cliente"
 
-#: Public/form_data/FG_var_card.inc:858 Public/form_data/FG_var_card.inc:860
+#: Public/form_data/FG_var_card.inc:832 Public/form_data/FG_var_card.inc:834
 msgid "TARGET TRAFFIC"
 msgstr "TRAFICO ESTIMADO"
 
-#: Public/form_data/FG_var_card.inc:866
+#: Public/form_data/FG_var_card.inc:840
 msgid "Insert the target traffic description"
 msgstr "Introduzca la descripcion del trafico estimado"
 
-#: Public/form_data/FG_var_card.inc:870
+#: Public/form_data/FG_var_card.inc:844
 msgid "RESTRICTION"
 msgstr "RESTRICCION"
 
-#: Public/form_data/FG_var_card.inc:878 Public/form_data/FG_var_card.inc:880
+#: Public/form_data/FG_var_card.inc:852 Public/form_data/FG_var_card.inc:854
 msgid "RESTRICTED NUMBERS"
 msgstr "NUMEROS RESTRINGIDOS"
 
-#: Public/form_data/FG_var_card.inc:886
+#: Public/form_data/FG_var_card.inc:860
 msgid "Insert numbers that restrict the customer"
 msgstr "Introduzca los numeros que restrigen el cliente"
 
-#: Public/form_data/FG_var_card.inc:905
+#: Public/form_data/FG_var_card.inc:879
 msgid "CALLERID / CUSTOMER HISTORY"
 msgstr "IDENTIFICACION DE LLAMADAS / HISTORIA DEL CLIENTE"
 
-#: Public/form_data/FG_var_card.inc:909
+#: Public/form_data/FG_var_card.inc:883
 msgid "CUSTOMER HISTORY"
 msgstr "HISTORIA DEL CLIENTE"
 
@@ -4359,6 +4347,15 @@ msgstr "Clave Previa"
 #: Public/A2B_entity_secret.php:116
 msgid "New Secret"
 msgstr "Clave Nueva"
+
+#~ msgid "Customer Paid Status"
+#~ msgstr "Estado Pago de Cliente"
+
+#~ msgid "Insert the credit limit"
+#~ msgstr "Introduzca el limite de credito"
+
+#~ msgid "Credit limit is only used for the postpaid account."
+#~ msgstr "Limites de credito solo se usan para las cuentas con pos pago"
 
 #, fuzzy
 #~ msgid "Add Refill"
