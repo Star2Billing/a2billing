@@ -142,8 +142,6 @@ echo "
 20 0 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_process.php
 #Bill DID usage at 00:00 each day
 0 0 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_bill_diduse.php
-#Remind users of low balance every day at 06:00
-0 6 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_check_account.php
 #Generate Invoices at 6am everyday
 0 6 * * * php /usr/local/src/a2billing/Cronjobs/a2billing_batch_billing.php
 #Check if balance below preset value, and email user if so.
@@ -167,7 +165,6 @@ touch /var/log/cront_a2b_bill_diduse.log
 touch /var/log/cront_a2b_subscription_fee.log
 touch /var/log/cront_a2b_currency_update.log
 touch /var/log/cront_a2b_invoice.log
-touch /var/log/cront_a2b_check_account.log
 touch /var/log/a2billing_paypal.log
 touch /var/log/a2billing_epayment.log
 touch /var/log/api_ecommerce_request.log
@@ -228,4 +225,6 @@ Guidelines
    Bugs can be dicussed in the 1.4 bugs section here - http://forum.asterisk2billing.org/viewforum.php?f=22 before reporting them on the bug tracker.
 
    Bugs tracking and reporting can be done here:- http://www.asterisk2billing.org/cgi-bin/trac.cgi/report
+
+
 

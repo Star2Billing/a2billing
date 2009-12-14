@@ -124,6 +124,8 @@ User password is: a2billing
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/a2billing-schema-MYSQL.5.X-v1.4.0.sql
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.0-to-v1.4.1.sql
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.1-to-v1.4.2.sql
+     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.2-to-v1.4.3.sql
+     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.3-to-v1.4.4.sql
 
    Checkpoint 1: Check that the database (my2billing) and that (93) tables have been created.
      #mysql -u root -p mya2billing
@@ -292,10 +294,6 @@ Step 8: Configure recurring services
 less than the user have choice.
 0 * * * * php /usr/local/src/a2billing/Cronjobs/a2billing_notify_account.php
 
-# To check all the accounts and send an notification email if the
-balance is less than the first argument.
-0 */6 * * php /usr/local/src/a2billing/Cronjobs/a2billing_check_account.php
-
 # this script will browse all the DID that are reserve and check if
 the customer need to pay for it
 # bill them or warn them per email to know if they want to pay in
@@ -333,4 +331,6 @@ Step 9: Call back daemon (only for Call backs)
 
    If you need to remove the daemon in the future run
      #update-rc.d -f a2b-callback-daemon remove
+
+
 
