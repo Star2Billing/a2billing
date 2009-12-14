@@ -270,9 +270,13 @@ echo $CC_help_import_ratecard;
 					
 									<option value="initblock"><?php echo gettext("sellrate min duration");?></option>
 									<option value="billingblock"><?php echo gettext("sellrate billing block");?></option>
+									
 									<option value="connectcharge"><?php echo gettext("connect charge");?></option>
 									<option value="disconnectcharge"><?php echo gettext("disconnect charge");?></option>
 									<option value="disconnectcharge_after"><?php echo gettext("disconnect charge threshold");?></option>
+									
+									<option value="minimal_cost"><?php echo gettext("minimum call cost");?></option> 
+									
 									<option value="stepchargea"><?php echo gettext("step charge a");?></option>
 									<option value="chargea"><?php echo gettext("charge a");?></option>
 									<option value="timechargea"><?php echo gettext("time charge a");?></option>
@@ -298,7 +302,8 @@ echo $CC_help_import_ratecard;
 									<option value="rounding_threshold"><?php echo gettext("rounding threshold");?></option>
 					 				<option value="additional_block_charge"><?php echo gettext("additional block charge");?></option>
 									<option value="additional_block_charge_time"><?php echo gettext("additional block charge time");?></option>
-									<option value="announce_time_correction"><?php echo gettext("announce time correction");?></option> 
+									<option value="announce_time_correction"><?php echo gettext("announce time correction");?></option>
+									
 								</select>
 					        </td>
 					
