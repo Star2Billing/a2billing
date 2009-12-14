@@ -35,15 +35,15 @@
 
 /*
 Result :
-    Send the Ratesof Customer using LCR/LCD
+    Send the Customer's Rates using the LCR/LCD Logic
 	
 Parameters :
 	activation_code : Concatenation of Customer's Account code + '_' + Customer's password
 	html : to display with <pre> tag
 
 Usage :
-    http://localhost/trunk/customer/webservice/Create_TrunkConfig.php?activation_code=XXXXXXXXXXX
-    http://localhost/~areski/svn/asterisk2billing/trunk/customer/webservice/Create_TrunkConfig.php?activation_code=6098593343_12345&html=1
+    http://localhost/trunk/customer/webservice/Get_Rates.php?activation_code=XXXXXXXXXXX
+    http://localhost/~areski/svn/asterisk2billing/trunk/customer/webserviceGet_Rates.php?activation_code=6098593343_12345&html=1
 */
 
 

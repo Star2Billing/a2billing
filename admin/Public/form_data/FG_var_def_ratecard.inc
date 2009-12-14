@@ -318,7 +318,7 @@ $HD_Form -> AddEditElement(gettext("DISCONNECT CHARGE THRESHOLD"),
    "" , "", "", "", "", "", "NO", gettext("Apply the disconnection charge if the call duration is greater than this amount of seconds. If 0, it will always apply." ));
 
 
-$HD_Form -> AddEditElement(gettext("MINIMUM CALL COST "),
+$HD_Form -> AddEditElement(gettext("MINIMUM CALL COST"),
    "minimal_cost",
    '$value',
    "INPUT",

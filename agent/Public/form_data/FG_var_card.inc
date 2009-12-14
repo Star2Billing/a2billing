@@ -515,21 +515,6 @@ $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-
-$typepaid_delete = "";			   
-if (isset($form_action) && $form_action=="ask-delete") {
-	$HD_Form -> AddEditElement (gettext("PAYMENT TYPE"),
-			   "typepaid",
-			   "",
-			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $typepaid_list, "%1", "", '', null, null, gettext("Customer Paid Status") );
-	
-	$typepaid_delete = ",typepaid";	
-}
-
 $callplan_add = "";
 if (isset($form_action) && ($form_action=="ask-add" || $form_action=="ask-add")) {
 	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
@@ -620,17 +605,6 @@ $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 			   "",
 			   gettext("Choose if you want to enable the service recurring on this account"),
 			   "" , "", "", "Yes :1, - No:0", "", "" , "", gettext("Apply recurring service to this account."));
-
-
-$HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
-			   "creditlimit",
-			   "",
-			   "INPUT",
-			   "size=20 maxlength=20",
-			   "4",
-			   gettext("Insert the credit limit"),
-			   "" , "", "",	"", "", "", "NO-NULL", gettext("Credit limit is only used for the postpaid account."));
-
 
 
 $HD_Form -> AddEditElement (gettext("CREDIT LIMIT NOTIFICATION"),
@@ -934,8 +908,8 @@ if (ACT_VOICEMAIL)
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass'.$balance_delete.', id_group, id_seria, lastname, firstname, email, '.
 		' address, city, state, country, zipcode, phone, fax,company_name, company_website '.
-		$typepaid_delete.$callplan_add.', id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
-		' creditlimit, credit_notification, notify_email, email_notification, ' .$add_fields_voicemail.
+		$callplan_add.', id_didgroup, id_timezone, language, currency, status, simultaccess,  runservice, ' .
+		' credit_notification, notify_email, email_notification, ' .$add_fields_voicemail.
 		' id_campaign, ' .
 		' firstusedate, enableexpire, expirationdate, expiredays, sip_buddy, iax_buddy, mac_addr, inuse, autorefill, initialbalance,' .
 		' invoiceday, vat, vat_rn, discount, traffic, traffic_target, restriction' );

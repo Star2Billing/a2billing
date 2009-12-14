@@ -252,7 +252,7 @@ echo $CC_help_import_ratecard;
 					<select  name="bydefault" multiple="multiple" size="4" width="40" class="form_input_select">
 						<option value="bb1"><?php echo gettext("dialprefix");?></option>
 						<option value="bb2"><?php echo gettext("destination");?></option>
-						<option value="bb3"><?php echo gettext("rate initial");?></option>
+						<option value="bb3"><?php echo gettext("selling rate");?></option>
 					</select>
 					<br/><br/>
 					
@@ -265,34 +265,34 @@ echo $CC_help_import_ratecard;
 					            <select name="unselected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders()" class="form_input_select">
 									<option value=""><?php echo gettext("Unselected Fields...");?></option>
 									<option value="buyrate"><?php echo gettext("buyrate");?></option>
-									<option value="buyrateinitblock"><?php echo gettext("buyrateinitblock");?></option>
-									<option value="buyrateincrement"><?php echo gettext("buyrateincrement");?></option>
+									<option value="buyrateinitblock"><?php echo gettext("buyrate min duration");?></option>
+									<option value="buyrateincrement"><?php echo gettext("buyrate billing block");?></option>
 					
-									<option value="initblock"><?php echo gettext("initblock");?></option>
-									<option value="billingblock"><?php echo gettext("billingblock");?></option>
-									<option value="connectcharge"><?php echo gettext("connectcharge");?></option>
-									<option value="disconnectcharge"><?php echo gettext("disconnectcharge");?></option>
-									<option value="disconnectcharge_after"><?php echo gettext("disconnectcharge_after");?></option>
-									<option value="stepchargea"><?php echo gettext("stepchargea");?></option>
-									<option value="chargea"><?php echo gettext("chargea");?></option>
-									<option value="timechargea"><?php echo gettext("timechargea");?></option>
-									<option value="billingblocka"><?php echo gettext("billingblocka");?></option>
+									<option value="initblock"><?php echo gettext("sellrate min duration");?></option>
+									<option value="billingblock"><?php echo gettext("sellrate billing block");?></option>
+									<option value="connectcharge"><?php echo gettext("connect charge");?></option>
+									<option value="disconnectcharge"><?php echo gettext("disconnect charge");?></option>
+									<option value="disconnectcharge_after"><?php echo gettext("disconnect charge threshold");?></option>
+									<option value="stepchargea"><?php echo gettext("step charge a");?></option>
+									<option value="chargea"><?php echo gettext("charge a");?></option>
+									<option value="timechargea"><?php echo gettext("time charge a");?></option>
+									<option value="billingblocka"><?php echo gettext("billing block a");?></option>
 					
-									<option value="stepchargeb"><?php echo gettext("stepchargeb");?></option>
-									<option value="chargeb"><?php echo gettext("chargeb");?></option>
-									<option value="timechargeb"><?php echo gettext("timechargeb");?></option>
-									<option value="billingblockb"><?php echo gettext("billingblockb");?></option>
+									<option value="stepchargeb"><?php echo gettext("step charge b");?></option>
+									<option value="chargeb"><?php echo gettext("charge b");?></option>
+									<option value="timechargeb"><?php echo gettext("time charge b");?></option>
+									<option value="billingblockb"><?php echo gettext("billing block b");?></option>
 					
-									<option value="stepchargec"><?php echo gettext("stepchargec");?></option>
-									<option value="chargec"><?php echo gettext("chargec");?></option>
-									<option value="timechargec"><?php echo gettext("timechargec");?></option>
-									<option value="billingblockc"><?php echo gettext("billingblockc");?></option>
+									<option value="stepchargec"><?php echo gettext("step charge c");?></option>
+									<option value="chargec"><?php echo gettext("charge c");?></option>
+									<option value="timechargec"><?php echo gettext("time charge c");?></option>
+									<option value="billingblockc"><?php echo gettext("billing block c");?></option>
 					
-									<option value="startdate"><?php echo gettext("startdate");?></option>
-									<option value="stopdate"><?php echo gettext("stopdate");?></option>
+									<option value="startdate"><?php echo gettext("start date");?></option>
+									<option value="stopdate"><?php echo gettext("stop date");?></option>
 									<option value="additional_grace"><?php echo gettext("additional grace");?></option>
-									<option value="starttime"><?php echo gettext("starttime");?></option>
-									<option value="endtime"><?php echo gettext("endtime");?></option>
+									<option value="starttime"><?php echo gettext("start time");?></option>
+									<option value="endtime"><?php echo gettext("end time");?></option>
 									<option value="tag"><?php echo gettext("tag");?></option>
 									<option value="rounding_calltime"><?php echo gettext("rounding calltime");?></option>
 									<option value="rounding_threshold"><?php echo gettext("rounding threshold");?></option>
