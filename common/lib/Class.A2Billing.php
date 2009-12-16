@@ -1397,7 +1397,7 @@ class A2Billing {
 				$dest_username = $this->username;
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 				
-				$agi-> exec(VoiceMail,$dest_username);
+				$agi-> exec(VoiceMail,$dest_username.'|s');
 			}
 		}
 	}
@@ -1697,7 +1697,7 @@ class A2Billing {
 				$dest_username = $this->username;
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "[STATUS] CHANNEL ($dialstatus) - GOTO VOICEMAIL ($dest_username)");
 				
-				$agi-> exec(VoiceMail,$dest_username);
+				$agi-> exec(VoiceMail,$dest_username.'|s');
 			}
 		}
 		$this->accountcode = $accountcode;
