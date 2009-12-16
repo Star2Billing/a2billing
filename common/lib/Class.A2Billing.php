@@ -1254,8 +1254,12 @@ class A2Billing {
 						$myres = $agi->exec($command_mixmonitor);
 						$this -> debug( INFO, $agi, __FILE__, __LINE__, $command_mixmonitor);
 					}
-
+					
+					$max_long = 2147483647;
+					$time2call =$this->agiconfig['max_call_call_2_did'];
 					$dialparams = $this->agiconfig['dialcommand_param_call_2did'];
+					$dialparams = str_replace("%timeout%", min($time2call * 1000, $max_long), $dialparams);
+					$dialparams = str_replace("%timeoutsec%", min($time2call, $max_long), $dialparams);
 					$dialstr 	= $inst_listdestination[4].$dialparams;
 
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: Dialing '$dialstr' Friend.\n");
@@ -1398,7 +1402,7 @@ class A2Billing {
 		}
 	}
 
-
+	
     function call_2did ($agi, &$RateEngine, $listdestination)
     {
     	$card_number = $this->username;
