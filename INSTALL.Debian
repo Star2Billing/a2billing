@@ -81,13 +81,8 @@ Step 1: Download and unpack source code
 
    Unpack the code
 
-   If you use the tar.gz version run:
-     #cd /usr/local/src/a2billing
-     #wget http://www.asterisk2billing.org/downloads/A2Billing_1.4.2.1.tar.gz
-     #tar zxvf A2Billing_1.4.2.1.tar.gz
-
-   If you download the code from the SVN repository run:
-     #svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/trunk/ /usr/local/src/a2billing/
+   Download the code from the SVN repository run:
+     #svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/tags/1.4-current /usr/local/src/a2billing/
 
    At the end of this step you should have a a2billing tree structure that should look like:
 /usr/local/src/a2billing/
@@ -126,6 +121,7 @@ User password is: a2billing
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.1-to-v1.4.2.sql
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.2-to-v1.4.3.sql
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.3-to-v1.4.4.sql
+     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.4-to-v1.4.4.1.sql
 
    Checkpoint 1: Check that the database (my2billing) and that (93) tables have been created.
      #mysql -u root -p mya2billing
@@ -220,7 +216,7 @@ Step 5: Install web-based Graphical interfaces
    In this step, we will install the three graphical interfaces of A2Billing: the Administration (admin), Agent (agent) and Customer (customer) interface. As in previous
    steps you can copy the folders of make symbolic links.
 
-   Place the directories A2Billing_UI and A2BCustomer_UI into your webserver document root.
+   Place the directories "admin" and "customer" into your webserver document root.
 
    Create a2billing folder in your web root folder
      #mkdir /var/www/a2billing
