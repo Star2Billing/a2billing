@@ -2,6 +2,14 @@
 
 class Constants
 {
+	public function reverse_array($arr) {
+		$reverted_arr = array();
+		foreach ($arr as $ind => $val_arr) {
+			$reverted_arr[$ind] = array($val_arr[1], $val_arr[0]);
+		}
+		return $reverted_arr;
+	}
+	
 	public static function getMsgTypeList(){
 		$msgtype_list = array();
 		$msgtype_list["0"] = array( gettext("INFO"),"0","msg_info");
@@ -21,6 +29,10 @@ class Constants
 		return $language_list;
 	}
 	
+	public static function getLanguagesRevertList() {
+		return Constants::reverse_array(Constants::getLanguagesList());
+	}
+	
 	public static function getLanguages(){
 		$language_list = array();
 		$language_list["en"] = array( gettext("ENGLISH"));
@@ -29,16 +41,6 @@ class Constants
 		$language_list["ru"] = array( gettext("RUSSIAN"));
 		$language_list["br"] = array( gettext("BRAZILIAN"));
 		return $language_list;
-	}
-	
-	public static function getLanguagesRevertList(){
-		$language_list_r = array();
-		$language_list_r["0"] = array("en", gettext("ENGLISH"));
-		$language_list_r["1"] = array("es", gettext("SPANISH"));
-		$language_list_r["2"] = array("fr", gettext("FRENCH"));
-		$language_list_r["3"] = array("ru", gettext("RUSSIAN"));
-		$language_list_r["4"] = array("br", gettext("BRAZILIAN"));
-		return $language_list_r;
 	}
 	
 	public static function getRestrictionList(){
@@ -95,11 +97,8 @@ class Constants
 		return $actived_list;
 	}
 	
-	public static function getActivationTrueFalse_Revert_List(){
-		$actived_list = array();
-		$actived_list["t"] = array( "t", "Active");
-		$actived_list["f"] = array( "f", "Inactive");
-		return $actived_list;
+	public static function getActivationTrueFalse_Revert_List() {
+		return Constants::reverse_array(Constants::getActivationTrueFalseList());
 	}
 
 	public static function getBillingTypeList(){	
@@ -132,6 +131,10 @@ class Constants
 		$typepaid_list["0"] = array( gettext("PREPAID CARD"), "0");
 		$typepaid_list["1"] = array( gettext("POSTPAID CARD"), "1");
 		return $typepaid_list;
+	}
+	
+	public static function getPaidTypeList_Revert_List(){
+		return Constants::reverse_array(Constants::getPaidTypeList());
 	}
 
 	public static function getExpirationList(){
@@ -262,11 +265,8 @@ class Constants
 		return $used_list;
 	}
 	
-	public static function getUsed_revert_List(){
-		$used_list = array();
-		$used_list["0"] = array( "0", gettext("NOT USED"));
-		$used_list["1"] = array( "1", gettext("USED"));
-		return $used_list;
+	public static function getUsed_revert_List() {
+		return Constants::reverse_array(Constants::getUsedList());
 	}
 	
 	public static function getDialStatusList(){
@@ -310,17 +310,8 @@ class Constants
 		return $cardstatus_list;
 	}
 	
-	public static function getCardStatus_Revert_List(){
-		$cardstatus_list_r = array();
-		$cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
-		$cardstatus_list_r["1"]  = array("1", gettext("ACTIVE"));
-		$cardstatus_list_r["2"]  = array("2", gettext("NEW"));
-		$cardstatus_list_r["3"]  = array("3", gettext("WAITING-MAILCONFIRMATION"));
-		$cardstatus_list_r["4"]  = array("4", gettext("RESERVED"));
-		$cardstatus_list_r["5"]  = array("5", gettext("EXPIRED"));
-		$cardstatus_list_r["6"]  = array("6", gettext("SUSPENDED FOR UNDERPAYMENT"));
-		$cardstatus_list_r["7"]  = array("7", gettext("SUSPENDED FOR LITIGATION"));
-		return $cardstatus_list_r;
+	public static function getCardStatus_Revert_List() {
+		return Constants::reverse_array(Constants::getCardStatus_List());
 	}
 	
 	public static function getCardStatus_Acronym_List(){
@@ -343,14 +334,11 @@ class Constants
 		return $cardstatus_list;
 	}
 	
-	public static function getCardStatus_VT_Revert_List(){
-		$cardstatus_list_r = array();
-		$cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
-		$cardstatus_list_r["1"]  = array("1", gettext("ACTIVE"));
-		return $cardstatus_list_r;
+	public static function getCardStatus_VT_Revert_List() {
+		return Constants::reverse_array(Constants::getCardStatus_VT_List());
 	}
 	
-	public static function getCardStatus_VT_Acronym_List(){
+	public static function getCardStatus_VT_Acronym_List() {
 		$cardstatus_list_acronym = array();
 		$cardstatus_list_acronym["0"]  = array( "<acronym title=\"".gettext("CANCELLED")."\">".gettext("CANCEL")."</acronym>", "0");
 		$cardstatus_list_acronym["1"]  = array( "<acronym title=\"".gettext("ACTIVATED")."\">".gettext("ACTIVATED")."</acronym>", "1");
@@ -358,18 +346,15 @@ class Constants
 	}
 	
 	
-	public static function getCardAccess_List(){
+	public static function getCardAccess_List() {
 		$simultaccess_list = array();
 		$simultaccess_list["1"] = array( gettext("SIMULTANEOUS ACCESS"), "1");
 		$simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
 		return $simultaccess_list;
 	}
 	
-	public static function getCardAccess_Revert_List(){
-		$simultaccess_list_r = array();
-		$simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
-		$simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
-		return $simultaccess_list_r;
+	public static function getCardAccess_Revert_List() {
+		return Constants::reverse_array(Constants::getCardAccess_List());
 	}
 	
 	public static function getCardExpire_List(){
@@ -388,13 +373,19 @@ class Constants
 		$refill_type_list["2"]  = array( gettext("EXTRA FEE"),"2");
 		return $refill_type_list;
 	}
+	
 	public static function getRemittanceType_List(){
 		$remittance_type_list = array();
 		$remittance_type_list["0"]  = array( gettext("TO BALANCE"),"0");
 		$remittance_type_list["1"]  = array( gettext("TO BANK"),"1");
 		return $remittance_type_list;
 	}
-	public static function getRemittanceStatus_List(){
+	
+	public static function getRemittanceType_Revert_List() {
+		return Constants::reverse_array(Constants::getRemittanceType_List());
+	}
+	
+	public static function getRemittanceStatus_List() {
 		$remittance_type_list = array();
 		$remittance_type_list["0"]  = array( gettext("WAITING"),"0");
 		$remittance_type_list["1"]  = array( gettext("ACCEPTED"),"1");
@@ -402,20 +393,11 @@ class Constants
 		$remittance_type_list["3"]  = array( gettext("CANCELLED"),"3");
 		return $remittance_type_list;
 	}
-	public static function getRemittanceType_Revert_List(){
-		$remittance_type_list = array();
-		$remittance_type_list["0"]  = array( "0",gettext("TO BALANCE"));
-		$remittance_type_list["1"]  = array( "1",gettext("TO BANK"));
-		return $remittance_type_list;
+	
+	public static function getRemittanceStatus_Revert_List() {
+		return Constants::reverse_array(Constants::getRemittanceStatus_List());
 	}
-	public static function getRemittanceStatus_Revert_List(){
-		$remittance_type_list = array();
-		$remittance_type_list["0"]  = array( "0", gettext("WAITING"));
-		$remittance_type_list["1"]  = array( "1", gettext("ACCEPTED"));
-		$remittance_type_list["2"]  = array( "2", gettext("REFUSED"));
-		$remittance_type_list["3"]  = array( "3", gettext("CANCELLED"));
-		return $remittance_type_list;
-	}
+	
 	public static function getInvoiceDay_List(){
 		$invoiceday_list = array();
 		for ($k=1;$k<=28;$k++)

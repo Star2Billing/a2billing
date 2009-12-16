@@ -86,3 +86,8 @@ INSERT INTO cc_config ( config_title , config_key , config_value , config_descri
 VALUES ('Asterisk Version Global', 'asterisk_version', '1_4', 'Asterisk Version Information, 1_1, 1_2, 1_4, 1_6. By Default the version is 1_4.', 
 '0', NULL, 'global');
 
+
+-- UPDATE A2Billing Database Version
+UPDATE cc_version SET version = '1.4.4';
+
+

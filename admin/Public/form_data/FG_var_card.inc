@@ -98,9 +98,11 @@ $cardstatus_list = Constants::getCardStatus_List();
 $cardstatus_list_r = Constants::getCardStatus_Revert_List();
 $cardstatus_list_acronym = Constants::getCardStatus_Acronym_List();
 $typepaid_list = Constants::getPaidTypeList();
+$typepaid_list_r = Constants::getPaidTypeList_Revert_List();
 $expire_list = Constants::getCardExpire_List();
 $yesno = Constants::getYesNoList();
 $invoiceday_list = Constants::getInvoiceDay_List();
+
 
 // Search for the field to display on the show list
 $show_list=array();
@@ -165,7 +167,7 @@ $index=0;
 foreach ($show_list as $i => $value) {
 	if (array_key_exists($i,$show_fields)) {
 		$param = $show_fields[$i];
-		$param = $param+array("","","","","","");#expand array to max length
+		$param = $param + array("","","","","","");#expand array to max length
 		$size = "*";
 		$param7=$param[7];
 		if ($param[6]=="eval"){
@@ -246,7 +248,7 @@ $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, 
 $HD_Form -> AddSearchElement_Select(gettext("SELECT GROUP"), "cc_card_group", "id, name", "", "name", "ASC", "id_group");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
-
+$HD_Form -> AddSearchElement_Select(gettext("SELECT PAYMENT TYPE"), null, null, null, null, null, "typepaid", 0, $typepaid_list_r);
 
 if (($popup_select>=1)) {
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
