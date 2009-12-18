@@ -82,7 +82,7 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description','refill_type'));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber','description'));
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)) {
@@ -183,7 +183,7 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 				$update_msg ='<b><font color="green">'.gettext("Refill executed ").'!</font></b>';	
 				
 				$field_insert = "date, credit, card_id, description, refill_type";
-				$value_insert = "now(), '$addcredit', '$id','$description','$refill_type'";
+				$value_insert = "now(), '$addcredit', '$id','$description','3'";
 				$instance_sub_table = new Table("cc_logrefill", $field_insert);
 				$id_refill = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null,'id');	
 				
@@ -316,22 +316,7 @@ if ($form_action=='list' && !($popup_select>=1)) {
 						<textarea class="form_input_textarea" name="description" cols="40" rows="4"></textarea> 
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<?php echo gettext("TYPE");?>&nbsp;:
-					</td>
-					<td>
-						<select name="refill_type" size="1"  class="form_input_select">
-							<?php 
-								$list_type = Constants::getRefillType_List();
-								foreach ($list_type as $type){
-							?>
-							<option value="<?php echo $type[1] ?>"><?php echo $type[0] ?> </option>
-							<?php
-								} ?>
-						</select>
-					</td>
-				</tr>
+				
 				<tr>
 					<td colspan="2" align="center">
 					<input class="form_input_button" 
