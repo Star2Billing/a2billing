@@ -371,6 +371,7 @@ class Constants
 		$refill_type_list["0"]  = array( gettext("AMOUNT"),"0");
 		$refill_type_list["1"]  = array( gettext("CORRECTION"),"1");
 		$refill_type_list["2"]  = array( gettext("EXTRA FEE"),"2");
+		$refill_type_list["3"]  = array( gettext("AGENT REFUND"),"3");
 		return $refill_type_list;
 	}
 	
