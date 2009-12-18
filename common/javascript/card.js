@@ -42,8 +42,7 @@ function openURL(theLINK)
 	// get calue of credits
 	description = document.theForm.description.value;
 	
-	refill_type = 0;
-	refill_type = document.theForm.refill_type.value;	
+	
 		
 	if ( (addcredit == 0) || (!IsNumeric(parseFloat(addcredit))) ){
 		alert ('Please , Fill credit box with a numeric value'); 
@@ -51,7 +50,7 @@ function openURL(theLINK)
 	}	
 	
 	// redirect browser to the grabbed value (hopefully a URL)
-	self.location.href = theLINK + goURL + "&addcredit="+addcredit +"&description="+description+"&refill_type="+refill_type;
+	self.location.href = theLINK + goURL + "&addcredit="+addcredit +"&description="+description;
 	
 	return false;
 	
