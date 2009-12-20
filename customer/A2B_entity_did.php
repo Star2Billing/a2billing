@@ -399,7 +399,7 @@ function CheckCountry(Source){
 				<br>
 				<?php echo gettext("Destination");?> :
 
-				<input class="form_input_text" name="destination" size="40" maxlength="80"  <?php if (isset($destination) && ($confirm_buy_did!=4)) {?>value="<?php echo $destination; }?>">
+				<input class="form_input_text" name="destination" size="40" maxlength="120"  <?php if (isset($destination) && ($confirm_buy_did!=4)) {?>value="<?php echo $destination; }?>">
 				<br/><center><font color="red"><?php echo gettext("Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call");?> </font></center>
 			</td>
 		<?php } else { ?>

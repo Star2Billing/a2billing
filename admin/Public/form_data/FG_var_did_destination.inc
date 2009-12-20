@@ -64,7 +64,7 @@ for ($k=1;$k<=5;$k++)
         $priority_list["$k"]  = array( "$k", "$k");
 
 
-$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "15%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "15%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("DID"), "did", "12%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "15%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");
@@ -108,7 +108,7 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	"destination",
 	'$value',
 	"INPUT",
-	"size=50 maxlength=40",
+	"size=50 maxlength=120",
 	"0",
 	gettext("Insert the DID"),
 	"" , "", "", "", "" , "", "", gettext("Enter the phone number you wish to call, or the VoIP client to reach. (ie: 347894999 or SIP/jeremy@182.212.1.45). If the call is VoIP, the VoIP_Call must be set to yes."));
