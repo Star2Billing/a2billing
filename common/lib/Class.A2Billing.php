@@ -757,9 +757,9 @@ class A2Billing {
 	 */
 	function enough_credit_to_call()
 	{	
-		if ($this->typepaid==0) {
-			if ($this->credit < $this->agiconfig['min_credit_2call'] || $this->credit<0 ) {
-                                return false;
+		if ($this->typepaid == 0) {
+			if ($this->credit < $this->agiconfig['min_credit_2call'] || $this->credit <= 0 ) {
+				return false;
 			} else {
 				return true;
 			}
@@ -769,7 +769,7 @@ class A2Billing {
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 				if (!empty($result[0][0])) {
 					$id_package_groupe = $result[0][0];
-					if($id_package_groupe >0) {
+					if ($id_package_groupe > 0) {
 						return true;
 					} else {
 						return false;
@@ -790,7 +790,7 @@ class A2Billing {
      *  @param float $credit
      *  @return 1 if Ok ; -1 if error
 	**/
-	function callingcard_ivr_authorize($agi, &$RateEngine, $try_num,$call2did=false)
+	function callingcard_ivr_authorize($agi, &$RateEngine, $try_num, $call2did=false)
 	{
 		$res=0;
 		
@@ -812,11 +812,11 @@ class A2Billing {
 			$this->destination = $res_dtmf ["result"];
 		}
 		
-                 //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
-                if ( $this->destination=='0*' ){
-                        $this->destination = $this->redial;
-                        $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[REDIAL : DTMF DESTINATION ::> ".$this->destination."]");
-                }
+        //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
+        if ( $this->destination=='0*' ){
+                $this->destination = $this->redial;
+                $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[REDIAL : DTMF DESTINATION ::> ".$this->destination."]");
+        }
 		
 		//TEST if this card is restricted !
 		if($this->restriction == 1 || $this->restriction == 2 ) {
