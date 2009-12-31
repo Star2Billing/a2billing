@@ -1292,7 +1292,7 @@ class A2Billing {
 						
 						$answeredtime=0;
 						$agi-> stream_file('prepaid-callfollowme', '#');
-						if (count($listdestination)>$callcount) continue;
+						if (count($listdestination) > $callcount) continue;
 						
 					} elseif ($dialstatus == "CANCEL") {
 						
@@ -1311,7 +1311,7 @@ class A2Billing {
 					} else {
 						
 						$agi-> stream_file('prepaid-callfollowme', '#');
-						if (count($listdestination)>$callcount) continue;
+						if (count($listdestination) > $callcount) continue;
 						
 					}
 					
