@@ -31,21 +31,23 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 						?>
 					</select>
 				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	
-						$year_actual = date("Y");  	
+					<?php  	
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
 						
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
+						$year_actual = date("Y");
+						for ($i = $year_actual ; $i >= $year_actual - 10 ; $i--)
 						{
-							if ($year_actual==$i){
+							if ($year_actual==$i) {
 								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
+							} else {
 								$monthnumber=11;
 							}
-							for ($j=$monthnumber;$j>=0;$j--){
+							for ($j=$monthnumber ; $j>=0 ; $j--) {
 								$month_formated = sprintf("%02d",$j+1);
-								if ($processed['fromstatsmonth_sday']=="$i-$month_formated") $selected="selected";
-								else $selected="";
+								if ($processed['fromstatsmonth_sday']=="$i-$month_formated") 
+									$selected="selected";
+								else
+									$selected="";
 								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
 							}
 						}
@@ -62,18 +64,21 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 					?>
 					</select>
 				 	<select name="tostatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					<?php
+						$year_actual = date("Y");
+						for ($i = $year_actual ; $i >= $year_actual - 10 ; $i--)
 						{
-							if ($year_actual==$i){
+							if ($year_actual==$i) {
 								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
+							} else {
 								$monthnumber=11;
 							}
-							for ($j=$monthnumber;$j>=0;$j--){
+							for ($j=$monthnumber ; $j>=0 ; $j--) {
 								$month_formated = sprintf("%02d",$j+1);
-								if ($processed['tostatsmonth_sday']=="$i-$month_formated") $selected="selected";
-								else $selected="";
+								if ($processed['tostatsmonth_sday']=="$i-$month_formated") 
+									$selected="selected";
+								else
+									$selected="";
 								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
 							}
 						}
@@ -87,7 +92,7 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 		<?php if ($this -> FG_FILTER_SEARCH_1_TIME_BIS){ ?>
 			<tr>
         		<td align="left" class="bgcolor_002">
-					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT_BIS?></font>
+					&nbsp;&nbsp;<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT_BIS?></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table  border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -102,18 +107,21 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 						?>
 					</select>
 				 	<select name="fromstatsmonth_sday_bis" class="form_input_select">
-					<?php 	$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					<?php 	
+						$year_actual = date("Y");
+						for ($i = $year_actual ; $i >= $year_actual - 10 ; $i--)
 						{
-							if ($year_actual==$i){
+							if ($year_actual==$i) {
 								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
+							} else {
 								$monthnumber=11;
 							}
-							for ($j=$monthnumber;$j>=0;$j--){
+							for ($j=$monthnumber ; $j>=0 ; $j--) {
 								$month_formated = sprintf("%02d",$j+1);
-								if ($processed['fromstatsmonth_sday_bis']=="$i-$month_formated") $selected="selected";
-								else $selected="";
+								if ($processed['fromstatsmonth_sday_bis']=="$i-$month_formated") 
+									$selected="selected";
+								else
+									$selected="";
 								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
 							}
 						}
@@ -130,18 +138,21 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 					?>
 					</select>
 				 	<select name="tostatsmonth_sday_bis" class="form_input_select">
-					<?php 	$year_actual = date("Y");
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					<?php
+						$year_actual = date("Y");
+						for ($i = $year_actual ; $i >= $year_actual - 10 ; $i--)
 						{
-							if ($year_actual==$i){
+							if ($year_actual==$i) {
 								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
+							} else {
 								$monthnumber=11;
 							}
-							for ($j=$monthnumber;$j>=0;$j--){
+							for ($j=$monthnumber ; $j>=0 ; $j--) {
 								$month_formated = sprintf("%02d",$j+1);
-								if ($processed['tostatsmonth_sday_bis']=="$i-$month_formated") $selected="selected";
-								else $selected="";
+								if ($processed['tostatsmonth_sday_bis']=="$i-$month_formated") 
+									$selected="selected";
+								else
+									$selected="";
 								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
 							}
 						}
@@ -164,7 +175,7 @@ if ($this->FG_FILTER_SEARCH_FORM) {
 					<tr><td class="fontstyle_searchoptions">&nbsp;
 					<select name="month_earlier" class="form_input_select">
 						<?php
-							for ($i=3;$i<=12;$i++){
+							for ($i=3 ; $i<=12 ; $i++){
 								if ($processed['month_earlier']==$i){$selected="selected";}else{$selected="";}
 								echo '<option value="'.$i."\"$selected>".$i.' Months</option>';
 							}

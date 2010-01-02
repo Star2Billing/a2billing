@@ -84,7 +84,7 @@ if (!$A2B->DbConnect()) {
 $instance_table = new Table();
 
 // CHECK AMOUNT OF CARD ON WHICH APPLY THE SERVICE
-//$QUERY = 'SELECT count(*) FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1';
+// $QUERY = 'SELECT count(*) FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1';
 
 $QUERY = 'SELECT count(*) FROM cc_card_subscription JOIN cc_subscription_fee ON cc_card_subscription.id_subscription_fee=cc_subscription_fee.id' .
 ' WHERE cc_subscription_fee.status=1 AND startdate < NOW() AND (stopdate = "0000-00-00 00:00:00" OR stopdate > NOW())';

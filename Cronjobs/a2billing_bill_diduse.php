@@ -145,30 +145,34 @@ foreach ($result as $mydids) {
 			//type of user prepaid 
 			if ($mydids['reminded'] == 0) {
 				// THE USER HAVE TO PAY FOR HIS DID NOW
-
+				
 				if (($mydids['credit'] + $mydids['typepaid'] * $mydids['creditlimit']) >= $mydids['fixrate']) {
+					
 					// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID 
 					$QUERY = "UPDATE cc_card SET credit=credit-'" . $mydids[3] . "' WHERE id=" . $mydids[4];
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 					if ($verbose_level >= 1)
 						echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-
+					
 					$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '" . $mydids[0] .
 					"' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') ";
 					if ($verbose_level >= 1)
 						echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-
-					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did,charged_status) VALUES ('" . $mydids[4] . "', '" . $mydids[3] . "', '2','" . $mydids[0] . "',1)";
+					
+					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, charged_status) VALUES ('" . $mydids[4] . "', '" . $mydids[3] . "', '2','" . $mydids[0] . "',1)";
+					
 					if ($verbose_level >= 1)
 						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
+					
 					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-
+					
 					$mail_user = true;
 					$mail = new Mail(Mail::$TYPE_DID_PAID,$mydids[4] );
 					$mail -> replaceInEmail(Mail::$BALANCE_REMAINING_KEY,$mydids[5] - $mydids[3]);
 					$mail -> replaceInEmail(Mail::$DID_NUMBER_KEY,$mydids[7]);
 					$mail -> replaceInEmail(Mail::$DID_COST_KEY,$mydids[3]);
+					
 				} else {
 					// USER DONT HAVE ENOUGH CREDIT TO PAY FOR THE DID - WE WILL WARN HIM
 

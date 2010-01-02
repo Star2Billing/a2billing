@@ -52,7 +52,6 @@
 	day of month	1-31
 	month	 		1-12 (or names, see below)
 	day of week	 	0-7 (0 or 7 is Sun, or use names)
-
 	
 ****************************************************************************/
 
@@ -63,10 +62,10 @@ include (dirname(__FILE__) . "/lib/admin.defines.php");
 
 $verbose_level = 0;
 $groupcard = 1000;
-$groupwait = 10;# number of second to wait if more then  groupcard updates done
-$time_checks = 20; #number of minute to check with. i.e if time1-time2< $time_checks minutes, consider it is equal.
-# this value must be greater then script run time. used only when checked if service msut be run.
-$run = 1; #set to 0 if u want to just report, no updates. must be set to 1 on productional
+$groupwait = 10; // number of second to wait if more then  groupcard updates done
+$time_checks = 20; // number of minute to check with. i.e if time1-time2< $time_checks minutes, consider it is equal.
+// this value must be greater then script run time. used only when checked if service msut be run.
+$run = 1; // set to 0 if u want to just report, no updates. must be set to 1 on productional
 
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
@@ -101,9 +100,9 @@ if (!is_array($result)) {
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[ No Recurring service to run]");
 	exit ();
 }
+
 // 0 id, 1 name, 2 amount, 3 period, 4 rule, 5 daynumber, 6 stopmode,  7 maxnumbercycle, 8 status, 9 numberofrun, 
-// 10 datecreate, 11 datelastrun, 12 emailreport, 13 totalcredit, 14 totalcardperform 
-// 15 dialplan 16 operate_mode
+// 10 datecreate, 11 datelastrun, 12 emailreport, 13 totalcredit, 14 totalcardperform, 15 dialplan 16 operate_mode
 
 write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Number of card found : $nb_card]");
 
@@ -111,24 +110,24 @@ write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ 
 
 // BROWSE THROUGH THE SERVICES 
 foreach ($result as $myservice) {
-
+	
 	$totalcardperform = 0;
 	$totalcredit = 0;
 	$timestamp_lastsend = $myservice[11]; // 4 aug 1PM
-
+	
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Service : " . $myservice[1] . " ]");
-	$filters = "";
-	$service_name = $myservice[1];
-	$period = $myservice[3];
-	$rule = $myservice[4];
-	$rule_day = $myservice[5];
-	$stopmode = $myservice[6];
+	$filters 		= '';
+	$service_name 	= $myservice[1];
+	$period 		= $myservice[3];
+	$rule 			= $myservice[4];
+	$rule_day 		= $myservice[5];
+	$stopmode 		= $myservice[6];
 	$maxnumbercycle = $myservice[7];
-	$dialplan = $myservice[15];
-	$operate_mode = $myservice[16];
-	$use_group = $myservice[17];
-	$amount = $myservice[2];
-	$filter = "";
+	$dialplan		= $myservice[15];
+	$operate_mode	= $myservice[16];
+	$use_group		= $myservice[17];
+	$amount			= $myservice[2];
+	$filter			= '';
 	if ($verbose_level >= 1)
 		echo "[ rule $rule  $rule_day ]";
 			
@@ -169,14 +168,18 @@ foreach ($result as $myservice) {
 		$sql = "SELECT id, credit, nbservice, lastuse, username, servicelastrun, email
 		                 FROM cc_card WHERE runservice=1 $first_usedate $filter \n";
 	}
+	
 	if ($verbose_level >= 1)
 		echo "==> SELECT CARD QUERY : $sql\n";
 
 	$result_card = $instance_table->SQLExec($A2B->DBHandle, $sql);
 	$instance_table->SQLExec($A2B->DBHandle, "begin;");
 	$query_count=0;
+	
 	foreach ($result_card as $mycard) {
+		
 		$query_count=$query_count+1;
+		
 		if($query_count>=$groupcard) {
 			$instance_table->SQLExec($A2B->DBHandle, "commit");
 			if ($verbose_level >= 1)
@@ -185,8 +188,10 @@ foreach ($result as $myservice) {
 			$instance_table->SQLExec($A2B->DBHandle, "begin;");
 			$query_count=0;
 		}
+		
 		if ($verbose_level >= 1)
 			print_r($mycard);
+		
 		$card_id = $mycard[0];
 		if ($verbose_level >= 1)
 			echo "------>>>  ID = $card_id - CARD =" . $mycard[4] . " - BALANCE =" . $mycard[1] . " \n";
@@ -207,6 +212,7 @@ foreach ($result as $myservice) {
 			$credit_sql = " credit-$amount ";
 			$refill_amount = $amount;
 		}
+		
 		if ($refill_amount > 0) {
 			$QUERY = "INSERT INTO cc_logrefill (credit,card_id,description,refill_type) VALUES (-$refill_amount,$card_id,'Recurrent $service_name ',2)";
 			if ($verbose_level >= 1)
@@ -216,6 +222,7 @@ foreach ($result as $myservice) {
 			}
 			$totalcredit += $refill_amount;
 		}
+		
 		$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit= $credit_sql, servicelastrun=now() WHERE id=" . $mycard[0];
 		if ($run) {
 			$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
@@ -224,6 +231,7 @@ foreach ($result as $myservice) {
 			echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 		$totalcardperform++;
 	}
+	
 	$instance_table->SQLExec($A2B->DBHandle, "commit");
 
 	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__) . ' line:' . __LINE__ . "[Service finish]");
@@ -241,10 +249,11 @@ foreach ($result as $myservice) {
 
 	// UPDATE THE SERVICE		
 	$QUERY = "UPDATE cc_service SET datelastrun=now(), numberofrun=numberofrun+1, totalcardperform=totalcardperform+" . $totalcardperform .
-	", totalcredit = totalcredit + '" . $totalcredit . "' WHERE id=" . $myservice[0];
-	if ($run) {
+			 ", totalcredit = totalcredit + '" . $totalcredit . "' WHERE id=" . $myservice[0];
+	
+	if ($run)
 		$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-	}
+	
 	if ($verbose_level >= 1)
 		echo "==> SERVICE UPDATE QUERY: 	$QUERY\n";
 
