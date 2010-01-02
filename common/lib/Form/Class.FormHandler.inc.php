@@ -1200,7 +1200,11 @@ class FormHandler
 			}
 			
 			if ( $form_action == "list" ) {
-				$instance_table = new Table($this -> FG_TABLE_NAME, "SQL_CALC_FOUND_ROWS ".$this -> FG_COL_QUERY, null, null, null, true, $this -> FG_TABLE_NAME_COUNT);
+				$sql_calc_found_rows = '';
+				if (DB_TYPE != "postgres") {
+					$sql_calc_found_rows = 'SQL_CALC_FOUND_ROWS';
+				}
+				$instance_table = new Table($this -> FG_TABLE_NAME, "$sql_calc_found_rows ".$this -> FG_COL_QUERY, null, null, null, true, $this -> FG_TABLE_NAME_COUNT);
 				
 				$this->prepare_list_subselection($form_action);
 	
@@ -1220,10 +1224,13 @@ class FormHandler
 				$list = $instance_table -> Get_list ($this -> DBHandle, $this -> FG_TABLE_CLAUSE, $this->FG_ORDER, $this->FG_SENS, null, null,
 													 $this -> FG_LIMITE_DISPLAY, $this -> CV_CURRENT_PAGE * $this -> FG_LIMITE_DISPLAY, $this -> SQL_GROUP);
 				if ($this->FG_DEBUG == 3) echo "<br>Clause : ".$this -> FG_TABLE_CLAUSE;
-				//$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE);
-				$res_count = $instance_table -> SQLExec($this->DBHandle, "SELECT FOUND_ROWS() as count", 1);
-				$this -> FG_NB_RECORD = $res_count[0][0];
-				 
+				if (DB_TYPE == "postgres") {
+					$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE);
+				} else {
+					$res_count = $instance_table -> SQLExec($this->DBHandle, "SELECT FOUND_ROWS() as count", 1);
+					$this -> FG_NB_RECORD = $res_count[0][0];
+				}
+				
 				if ($this->FG_DEBUG >= 1) var_dump ($list);
 				
 				if ($this -> FG_NB_RECORD <=$this -> FG_LIMITE_DISPLAY){
