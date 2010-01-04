@@ -238,10 +238,10 @@ class A2Billing {
 	function debug( $level, $agi, $file, $line, $buffer_debug)
 	{
 		$file = basename($file);
-
+		
 		// VERBOSE
 		if ($this->agiconfig['verbosity_level'] >= $level && $agi) {
-			$agi -> verbose('file:'.$file.' - line:'.$line.' - uniqueid:'.$this->uniqueid.' - '.$buffer_debug." ::> ".$level);
+			$agi -> verbose('file:'.$file.' - line:'.$line.' - uniqueid:'.$this->uniqueid.' - '.$buffer_debug);
 		}
 		
 		// LOG INTO FILE
@@ -797,15 +797,16 @@ class A2Billing {
 		/************** 	ASK DESTINATION 	******************/
 		$prompt_enter_dest = $this->agiconfig['file_conf_enter_destination'];
 
-		$this -> debug( DEBUG, $agi, __FILE__, __LINE__,  $this->agiconfig['use_dnid']." && ".in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])." && (".strlen($this->dnid)."|| ".strlen($this->extension). " )&& $try_num");
+		$this -> debug( DEBUG, $agi, __FILE__, __LINE__,  "use_dnid:".$this->agiconfig['use_dnid']." && (!in_array:".in_array ($this->dnid, $this->agiconfig['no_auth_dnid']).") && len_dnid:(".strlen($this->dnid)." || len_exten:".strlen($this->extension). " ) && (try_num:$try_num)");
 
 		// CHECK IF USE_DNID IF NOT GET THE DESTINATION NUMBER
-		if ($this->agiconfig['use_dnid']==1 && !in_array ($this->dnid, $this->agiconfig['no_auth_dnid']) && ( strlen($this->dnid)>=1 || strlen($this->extension)>=1 ) && $try_num==0) {
-			if ($this->extension=='s') {
+		if (($this->agiconfig['use_dnid'] == 1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && ( strlen($this->dnid)>=1 || strlen($this->extension)>=1 ) && $try_num==0) {
+			if ($this->extension == 's') {
 				$this->destination = $this->dnid;
 			} else {
 				$this->destination = $this->extension;
 			}
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[USE_DNID DESTINATION ::> ".$this->destination."]");
 		} else {
 			$res_dtmf = $agi->get_data($prompt_enter_dest, 6000, 20);
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
@@ -813,13 +814,15 @@ class A2Billing {
 		}
 		
         //REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
-        if ( $this->destination=='0*' ){
-                $this->destination = $this->redial;
-                $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[REDIAL : DTMF DESTINATION ::> ".$this->destination."]");
+        if ( $this->destination == '0*' ) {
+            $this->destination = $this->redial;
+            $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[REDIAL : DTMF DESTINATION ::> ".$this->destination."]");
         }
 		
-		//TEST if this card is restricted !
+		//Check if Account have restriction
 		if($this->restriction == 1 || $this->restriction == 2 ) {
+			
+			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ACCOUNT WITH RESTRICTION]");
 			
 			$QUERY = "SELECT * FROM cc_restricted_phonenumber WHERE number='".$this->destination."'";
 			if ($this->removeinterprefix) { 
@@ -828,16 +831,18 @@ class A2Billing {
 			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 
 			if ($this->restriction == 1) {
-				//CAN'T CALL RESTRICTED NUMBER	
+				// NOT ALLOW TO CALL RESTRICTED NUMBERS
 				if(is_array($result)) {
-					//NUMBER NOT AUHTORIZED
+					// NUMBER NOT AUHTORIZED
+					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[NUMBER NOT AUHTORIZED - NOT ALLOW TO CALL RESTRICTED NUMBERS]");
 					$agi-> stream_file('prepaid-not-authorized-phonenumber', '#');
 					return -1;
 				}
 			} else {
-				//CAN ONLY CALL RESTRICTED NUMBER		
+				// ALLOW TO CALL ONLY RESTRICTED NUMBERS		
 				if(!is_array($result)) {
 			  		//NUMBER NOT AUHTORIZED
+			  		$this -> debug( INFO, $agi, __FILE__, __LINE__, "[NUMBER NOT AUHTORIZED - ALLOW TO CALL ONLY RESTRICTED NUMBERS]");
 			  		$agi-> stream_file('prepaid-not-authorized-phonenumber', '#');
 			  		return -1;
 				}
@@ -845,11 +850,11 @@ class A2Billing {
 		}
 		
 		//REDIAL FIND THE LAST DIALED NUMBER (STORED IN THE DATABASE)
-		if (strlen($this->destination)<=2 && is_numeric($this->destination) && $this->destination>=0) {
+		if ( strlen($this->destination) <= 2 && is_numeric($this->destination) && $this->destination >= 0) {
 			$QUERY = "SELECT phone FROM cc_speeddial WHERE id_cc_card='".$this->id_card."' AND speeddial='".$this->destination."'";
 			$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-			if( is_array($result))	$this->destination = $result[0][0];
-			$this -> debug( INFO, $agi, __FILE__, __LINE__, "REDIAL : DESTINATION ::> ".$this->destination);
+			if (is_array($result))	$this->destination = $result[0][0];
+			$this -> debug( INFO, $agi, __FILE__, __LINE__, "SPEEDIAL REPLACE DESTINATION ::> ".$this->destination);
 		}
 		
 		// FOR TESTING : ENABLE THE DESTINATION NUMBER
@@ -859,6 +864,7 @@ class A2Billing {
         //if call to did is authorized chez if the destination is a did of system
         $iscall2did = false;
         if ($call2did) {
+        	$this -> debug( INFO, $agi, __FILE__, __LINE__, "[CALL 2 DID]");
             $QUERY =  "SELECT cc_did.id, iduser".
                     " FROM cc_did, cc_card ".
                     " WHERE cc_card.status=1 and cc_card.id=iduser  and cc_did.activated=1 and did='$this->destination' ".

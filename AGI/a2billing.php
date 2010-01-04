@@ -52,7 +52,7 @@ $G_startime = time();
 $agi_version = "A2Billing - Version 1.4.5 (Snowball) - Released : no date";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v')) {
-	echo "A2Billing - Version $agi_version\n";
+	echo "$agi_version\n";
 	exit;
 }
 
@@ -119,6 +119,7 @@ define ("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password'])?$A2B->co
 // Print header
 $A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "AGI Request:\n".print_r($agi->request, true));
 
+$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[INFO : $agi_version]");
 
 /* GET THE AGI PARAMETER */
 $A2B -> get_agi_request_parameter ($agi);
