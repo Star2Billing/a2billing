@@ -86,8 +86,8 @@ $service_lastrun = "AND UNIX_TIMESTAMP(cc_service.datelastrun) < UNIX_TIMESTAMP(
 // CHECK THE SERVICES
 $QUERY = "SELECT DISTINCT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, " .
 		"UNIX_TIMESTAMP(datelastrun), emailreport, totalcredit, totalcardperform, dialplan, operate_mode, use_group " .
-		"FROM cc_service $service_lastrun" .
-		"WHERE status=1 ORDER BY id DESC";
+		"FROM cc_service " .
+		"WHERE status=1 $service_lastrun ORDER BY id DESC";
 if ($verbose_level >= 1)
 	echo $QUERY;
 
