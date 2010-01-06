@@ -35,6 +35,41 @@
 ALTER TABLE cc_did_destination CHANGE destination destination VARCHAR(120) NOT NULL;
 
 
+DROP TABLE IF EXISTS cc_call_archive;
+CREATE TABLE IF NOT EXISTS cc_call_archive (
+    id bigint(20) NOT NULL auto_increment,
+    sessionid varchar(40) collate utf8_bin NOT NULL,
+    uniqueid varchar(30) collate utf8_bin NOT NULL,
+    card_id bigint(20) NOT NULL,
+    nasipaddress varchar(30) collate utf8_bin NOT NULL,
+    starttime timestamp NOT NULL default CURRENT_TIMESTAMP,
+    stoptime timestamp NOT NULL default '0000-00-00 00:00:00',
+    sessiontime int(11) default NULL,
+    calledstation varchar(30) collate utf8_bin NOT NULL,
+    sessionbill float default NULL,
+    id_tariffgroup int(11) default NULL,
+    id_tariffplan int(11) default NULL,
+    id_ratecard int(11) default NULL,
+    id_trunk int(11) default NULL,
+    sipiax int(11) default '0',
+    src varchar(40) collate utf8_bin NOT NULL,
+    id_did int(11) default NULL,
+    buycost decimal(15,5) default '0.00000',
+    id_card_package_offer int(11) default '0',
+    real_sessiontime int(11) default NULL,
+    dnid varchar(40) collate utf8_bin NOT NULL,
+    terminatecauseid int(1) default '1',
+    destination int(11) default '0',
+    PRIMARY KEY  (id),
+    KEY starttime (starttime),
+    KEY calledstation (calledstation),
+    KEY terminatecauseid (terminatecauseid)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES ('Archive Calls', 'archive_call_prior_x_month', '24', 'A cront can be enabled in order to archive your CDRs, this setting allow to define prior which month it will archive', 0, NULL, 'backup');
+
+
 UPDATE cc_version SET version = '1.4.5';
 
 

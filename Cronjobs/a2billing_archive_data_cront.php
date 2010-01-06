@@ -74,16 +74,16 @@ $A2B->load_conf($agi, NULL, 0, $idconfig);
 
 $instance_table = new Table();
 
-$from_month = $A2B->config["backup"]['archive_data_x_month'];
+$prior_x_month = $A2B->config["backup"]['archive_call_prior_x_month'];
 
 if ($A2B->config["database"]['dbtype'] == "postgres") {
-	$condition = "CURRENT_TIMESTAMP - interval '$from_month months' > starttime";
+    $condition = "CURRENT_TIMESTAMP - interval '$prior_x_month months' > starttime";
 } else {
-	$condition = "DATE_SUB(NOW(),INTERVAL $from_month MONTH) > starttime";
+    $condition = "DATE_SUB(NOW(),INTERVAL $prior_x_month MONTH) > starttime";
 }
 
-$value = "SELECT sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecauseid,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call WHERE $condition";
-$func_fields = "sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecauseid,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime";
+$value = "SELECT sessionid, uniqueid, card_id, nasipaddress, starttime, stoptime, sessiontime, calledstation, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, sipiax, src, id_did, buycost, id_card_package_offer, real_sessiontime, dnid, terminatecauseid, destination FROM cc_call WHERE $condition";
+$func_fields = "sessionid, uniqueid, card_id, nasipaddress, starttime, stoptime, sessiontime, calledstation, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, sipiax, src, id_did, buycost, id_card_package_offer, real_sessiontime, dnid, terminatecauseid, destination";
 $func_table = 'cc_call_archive';
 $id_name = "";
 $subquery = true;
