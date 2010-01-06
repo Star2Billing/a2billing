@@ -82,7 +82,7 @@ if ($A2B->config["database"]['dbtype'] == "postgres") {
 	$condition = "DATE_SUB(NOW(),INTERVAL $from_month MONTH) > starttime";
 }
 
-$value = "SELECT sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecauseid,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call where $condition";
+$value = "SELECT sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecauseid,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call WHERE $condition";
 $func_fields = "sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecauseid,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime";
 $func_table = 'cc_call_archive';
 $id_name = "";
