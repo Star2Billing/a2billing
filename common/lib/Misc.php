@@ -905,7 +905,7 @@ function display_GMT($currDate, $number, $fulldate = 1)
 	$year = $date_time_array['year'];
 	$timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);
 	
-	$timestamp = $timestamp + ($server_offset - $number);
+	$timestamp = $timestamp - ($server_offset - $number);
 	/*
 	if ($fulldate == 1) {
 		$gmdate = gmdate("Y-m-d H:i:s", $timestamp);
