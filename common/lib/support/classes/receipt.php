@@ -188,11 +188,13 @@ class Receipt {
 			$QUERY = " id_receipt = " . $this->id;
 			$return = null;
 			$return = $instance_sub_table->Get_list($DBHandle, $QUERY, "date", "ASC");
-			if(empty ($return)||!is_array($return)||empty ($return[0][0])) return 0;
-                        else return $return[0][0];
-		} else
+			if(empty ($return)||!is_array($return)||empty ($return[0][0]))
+				return 0;
+			else
+				return $return[0][0];
+		} else {
 			return 0;
-
+		}
 	}
 
 	function insertReceiptItem($desc, $price) {

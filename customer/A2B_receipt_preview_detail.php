@@ -139,7 +139,7 @@ $nbitems = nbDetailledItems($start_date);
 $nb_by_page =100;
 $nb_page = ceil($nbitems/$nb_by_page);
 $items = loadDetailledItems($start_date,(($page-1)*$nb_by_page),$nb_by_page);
-if ($nb_page>1) $totalprice = SumItemsPrice($start_date);
+if ($nb_page>1) $totalprice = SumDetailledItems($start_date);
 
 //load customer
 $DBHandle  = DbConnect();
@@ -192,12 +192,12 @@ if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_li
 			<tr class="two">
 				<td colspan="3" class="receipt-details">
 					<table class="receipt-details">
-						<tbody><tr>
+						<tbody>
+							<tr>
 								<td class="one">
 									&nbsp;
 								</td>
-
-								<td class="three">
+								<td class="three" align="right">
 									<strong>Client number</strong>
 									<div><?php echo $_SESSION['pr_login'] ?></div>
 								</td>
@@ -217,24 +217,24 @@ if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_li
 								<th width="20%" ><?php echo gettext("Cost"); ?></th>
 							</tr>
 							<?php
-$i=0;
-foreach ($items as $item) { ?>
+							$i=0;
+							foreach ($items as $item) { ?>
 							<tr style="vertical-align:top;" class="<?php if($i%2==0) echo "odd"; else echo "even";?>" >
 								<td style="text-align:left;">
-	<?php echo $item->getDate(); ?>
+									<?php echo $item->getDate(); ?>
 								</td>
 								<td class="description">
-	<?php echo $item->getDescription(); ?>
+									<?php echo $item->getDescription(); ?>
 								</td>
 								<td align="right">
-	<?php echo number_format(round(amount_convert($item->getPrice()),6),6); ?>
+									<?php echo number_format(round(amount_convert($item->getPrice()),6),6); ?>
 								</td>
 							</tr>
-	<?php  $i++;
-} ?>	
-
-
-						</tbody></table>
+							<?php
+							$i++;
+							} ?>
+						</tbody>
+					</table>
 				</td>
 			</tr>
 			<?php
@@ -242,16 +242,16 @@ foreach ($items as $item) { ?>
 			foreach ($items as $item) {
 				$price = $price + $item->getPrice();
 			}
-			if($nb_page<=1)$totalprice=$price;
+			if ($nb_page<=1) $totalprice = $price;
 			?>
 			<tr>
 				<td colspan="3">
 					<table class="total">
 						<tbody>
-			<?php if($nb_page>1) { ?>
+			<?php if($nb_page > 1) { ?>
 							<tr class="extotal">
 								<td class="one"></td>
-								<td class="two"><?php echo gettext("Total Page")+" "+$page ?></td>
+								<td class="two"><?php echo gettext("Total Page")." ".$page ?></td>
 								<td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($price*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
 							</tr>
 			<?php } ?>
