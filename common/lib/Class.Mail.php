@@ -129,7 +129,7 @@ class Mail {
 					$order = 'DESC';
 			}
 			elseif (!is_null($id_card) && is_numeric($id_card)) {
-				$card_table = new Table("cc_card", "*");
+				$card_table = new Table("cc_card", "*, IF((typepaid=1) AND (creditlimit IS NOT NULL), credit + creditlimit, credit) AS real_credit");
 				$card_clause = " id = " . $id_card;
 				$result_card = $card_table->Get_list($DBHandle, $card_clause, 0);
 				if (is_array($result_card) && sizeof($result_card) > 0)
@@ -164,13 +164,13 @@ class Mail {
 			if (!is_null($id_card) && is_numeric($id_card)) {
 				$this->id_card = $id_card;
 				if(is_null($card)){
-				    $card_table = new Table("cc_card", "*");
+				    $card_table = new Table("cc_card", "*, IF((typepaid=1) AND (creditlimit IS NOT NULL), credit + creditlimit, credit) AS real_credit");
 				    $card_clause = " id = " . $id_card;
 				    $result_card = $card_table->Get_list($DBHandle, $card_clause, 0);
 				    if (is_array($result_card) && sizeof($result_card) > 0)
 					    $card = $result_card[0];
 				}
-				$credit = $card['credit'];
+				$credit = $card['real_credit'];
 				$credit = round($credit, 3);
 				$currency = $card['currency'];
 				$currencies_list = get_currencies($DBHandle);
