@@ -101,7 +101,7 @@ $arr_all = array(
 	"Subscribe/Notify" => "show hints",
 	"Zaptel driver info" => "zap show channels",
 	"Conference Info" => "meetme",
-	"Voicemail users" => "show voicemail users",
+	"Voicemail users" => "voicemail show users",
 );
 $arr_registries = array(
 	"Sip Registry" => "sip show registry",
@@ -131,7 +131,7 @@ $arr_subscriptions = array(
 	"Subscribe/Notify" => "show hints"
 );
 $arr_voicemail = array(
-	"Voicemail users" => "show voicemail users",
+	"Voicemail users" => "voicemail show users",
 );
 
 
