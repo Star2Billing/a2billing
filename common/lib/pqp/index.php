@@ -159,6 +159,7 @@ strong a{
 }
 </style>
 
+</head>
 <body>
 
 <div id="box">

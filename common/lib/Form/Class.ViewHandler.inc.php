@@ -80,7 +80,7 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_formname" value="<?php echo $processed['popup_formname']?>">
 			<input type="hidden" name="popup_fieldname" value="<?php echo $processed['popup_fieldname']?>">
                         
-            <TD class="tdstyle_002"><span >
+            <TD class="tdstyle_002"><SPAN>
 				<SELECT name="choose_list" size="1" class="form_input_select" style="width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
 
 					<OPTION><?php echo gettext("Sort");?></OPTION>
