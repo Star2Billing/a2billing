@@ -5,10 +5,10 @@
 /**
  * This file is part of A2Billing (http://www.a2billing.net/)
  *
- * A2Billing, Commercial Open Source Telecom Billing platform,   
+ * A2Billing, Commercial Open Source Telecom Billing platform,
  * powered by Star2billing S.L. <http://www.star2billing.com/>
- * 
- * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ *
+ * @copyright   Copyright (C) 2004-2009 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -27,9 +27,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
-**/
+ *
+ *
+ **/
 
 
 include ("./lib/customer.defines.php");
@@ -38,7 +38,7 @@ include ("./lib/customer.smarty.php");
 include ("./lib/support/classes/receipt.php");
 include ("./lib/support/classes/receiptItem.php");
 
-if (! has_rights (ACX_INVOICES)){
+if (! has_rights (ACX_INVOICES)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
@@ -48,7 +48,7 @@ if (! has_rights (ACX_INVOICES)){
 getpost_ifset(array('page'));
 
 
-if(empty($page))$page=1;
+if (empty($page))$page=1;
 
 $card_id = $_SESSION["card_id"];
 
@@ -121,7 +121,7 @@ function SumDetailledItems($startdate) {
 	return $i;
 }
 
-function amount_convert($amount){
+function amount_convert($amount) {
 	global $mycur;
 	return $amount/$mycur;
 }
@@ -151,9 +151,11 @@ $curr = $_SESSION['currency'];
 $currencies_list = get_currencies();
 
 if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_list[strtoupper($curr)][2])) {
-	$mycur = 1;$display_curr=strtoupper(BASE_CURRENCY);
+	$mycur = 1;
+	$display_curr=strtoupper(BASE_CURRENCY);
 } else {
-	$mycur = $currencies_list[strtoupper($curr)][2];$display_curr=strtoupper($curr);
+	$mycur = $currencies_list[strtoupper($curr)][2];
+	$display_curr=strtoupper($curr);
 }
 
 
@@ -163,108 +165,108 @@ if (!isset($currencies_list[strtoupper($curr)][2]) || !is_numeric($currencies_li
 <table width="90%" style ="margin-left:auto;margin-right:auto;" >
 	<tr>
 		<td colspan="3" align="left">
-		<?php if($page>1){ ?>
+				<?php if($page>1) { ?>
 			<a href="A2B_receipt_detail.php?popup_select=1&id=<?php echo $id; ?>&page=<?php echo $page-1; ?>"> &lt; <?php echo gettext("Page") ?>&nbsp;<?php echo $page-1; ?> </a>
 		<?php } ?>
-		&nbsp;
+			&nbsp;
 		</td>
 		<td colspan="3" align="right">
-		&nbsp;
-                <?php if($page<$nb_page){ ?>
-		<a href="A2B_receipt_detail.php?popup_select=1&id=<?php echo $id; ?>&page=<?php echo $page+1; ?>"><?php echo gettext("Page") ?>&nbsp;<?php echo $page+1; ?> &gt;</a>
+			&nbsp;
+				<?php if($page<$nb_page) { ?>
+			<a href="A2B_receipt_detail.php?popup_select=1&id=<?php echo $id; ?>&page=<?php echo $page+1; ?>"><?php echo gettext("Page") ?>&nbsp;<?php echo $page+1; ?> &gt;</a>
 		<?php } ?>
-                </td>
+		</td>
 	</tr>
 </table>
-<?php } ?>
+	<?php } ?>
 
 <div class="receipt-wrapper">
-  <table class="receipt-table">
-  <thead>
-  <tr class="one">  
-    <td class="one">
-     <h1><?php echo gettext("PREVIEW NEXT RECEIPT DETAIL"); ?></h1>
-     
-    </td>
-  </tr>
-  <tr class="two">
-    <td colspan="3" class="receipt-details">
-      <table class="receipt-details"> 
-        <tbody><tr>
-          <td class="one">
-            &nbsp;
-          </td>
+	<table class="receipt-table">
+		<thead>
+			<tr class="one">
+				<td class="one">
+					<h1><?php echo gettext("PREVIEW NEXT RECEIPT DETAIL"); ?></h1>
 
-          <td class="three">
-           <strong>Client number</strong>
-            <div><?php echo $_SESSION['pr_login'] ?></div>
-          </td>
-                 </tr>       
-      </tbody></table>
-    </td>
-  </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="3" class="items">
-        <table class="items">
-          <tbody>
-          <tr class="one">
-	          <th style="text-align:left;" width="20%"><?php echo gettext("Date"); ?></th>
-	          <th class="description" width="60%"><?php echo gettext("Description"); ?></th>
-	          <th width="20%" ><?php echo gettext("Cost"); ?></th>
-          </tr>
-          <?php 
-          $i=0;
-          foreach ($items as $item){ ?>
-			<tr style="vertical-align:top;" class="<?php if($i%2==0) echo "odd"; else echo "even";?>" >
-				<td style="text-align:left;">
-					<?php echo $item->getDate(); ?>
 				</td>
-				<td class="description">
-					<?php echo $item->getDescription(); ?>
+			</tr>
+			<tr class="two">
+				<td colspan="3" class="receipt-details">
+					<table class="receipt-details">
+						<tbody><tr>
+								<td class="one">
+									&nbsp;
+								</td>
+
+								<td class="three">
+									<strong>Client number</strong>
+									<div><?php echo $_SESSION['pr_login'] ?></div>
+								</td>
+							</tr>
+						</tbody></table>
 				</td>
-				<td align="right">
-					<?php echo number_format(round(amount_convert($item->getPrice()),6),6); ?>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="3" class="items">
+					<table class="items">
+						<tbody>
+							<tr class="one">
+								<th style="text-align:left;" width="20%"><?php echo gettext("Date"); ?></th>
+								<th class="description" width="60%"><?php echo gettext("Description"); ?></th>
+								<th width="20%" ><?php echo gettext("Cost"); ?></th>
+							</tr>
+							<?php
+$i=0;
+foreach ($items as $item) { ?>
+							<tr style="vertical-align:top;" class="<?php if($i%2==0) echo "odd"; else echo "even";?>" >
+								<td style="text-align:left;">
+	<?php echo $item->getDate(); ?>
+								</td>
+								<td class="description">
+	<?php echo $item->getDescription(); ?>
+								</td>
+								<td align="right">
+	<?php echo number_format(round(amount_convert($item->getPrice()),6),6); ?>
+								</td>
+							</tr>
+	<?php  $i++;
+} ?>	
+
+
+						</tbody></table>
 				</td>
-			</tr>  
-			 <?php  $i++;} ?>	
-          
-          
-        </tbody></table>        
-      </td>
-    </tr>
-    <?php
-		$price= 0;
-    	foreach ($items as $item){  
-    	 	$price = $price + $item->getPrice();
-    	 }
-         if($nb_page<=1)$totalprice=$price;
-    	 ?>
-    <tr>
-      <td colspan="3">
-        <table class="total">
-         <tbody>
-         <?php if($nb_page>1){ ?>
-         <tr class="extotal">
-           <td class="one"></td>
-           <td class="two"><?php echo gettext("Total Page");" "+$page ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($price*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
-         </tr>
-         <?php }else{ ?>
-         <?php } ?>
-         <tr class="inctotal">
-           <td class="one"></td>
-           <td class="two"><?php echo gettext("Total Receipt :") ?></td>
-           <td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($totalprice*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
-         </tr>
-        </tbody></table>
-      </td>
-    </tr>
-    
-  </tbody>
-  
-  </table></div>
+			</tr>
+			<?php
+			$price= 0;
+			foreach ($items as $item) {
+				$price = $price + $item->getPrice();
+			}
+			if($nb_page<=1)$totalprice=$price;
+			?>
+			<tr>
+				<td colspan="3">
+					<table class="total">
+						<tbody>
+			<?php if($nb_page>1) { ?>
+							<tr class="extotal">
+								<td class="one"></td>
+								<td class="two"><?php echo gettext("Total Page")+" "+$page ?></td>
+								<td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($price*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
+							</tr>
+			<?php } ?>
+							<tr class="inctotal">
+								<td class="one"></td>
+								<td class="two"><?php echo gettext("Total Receipt :") ?></td>
+								<td class="three"><div class="inctotal"><div class="inctotal inner"><?php echo number_format(ceil(amount_convert(ceil($totalprice*100)/100)*100)/100,2)." $display_curr"; ?></div></div></td>
+							</tr>
+						</tbody></table>
+				</td>
+			</tr>
+
+		</tbody>
+
+	</table></div>
 
 
 
