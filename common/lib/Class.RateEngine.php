@@ -1238,7 +1238,7 @@ class RateEngine
 			if ($maxuse == -1 || $inuse < $maxuse) {
 				// Count this call on the trunk
 				$this -> trunk_start_inuse($agi, $A2B, 1);
-				
+
 				$myres = $A2B -> run_dial($agi, $dialstr);
 	    		//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
 
@@ -1280,7 +1280,6 @@ class RateEngine
 
 				$A2B -> debug( INFO, $agi, __FILE__, __LINE__, "[K=$k]:[ANSWEREDTIME=".$this->answeredtime."-DIALSTATUS=".$this->dialstatus."]");
 
-
 				$destination=$old_destination;
 
 				$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk, status, inuse, maxuse, if_max_use FROM cc_trunk WHERE id_trunk='$failover_trunk'";
@@ -1288,19 +1287,19 @@ class RateEngine
 				$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 
 
-				if (is_array($result) && count($result)>0){
+				if (is_array($result) && count($result)>0) {
 
 					//DO SELECT WITH THE FAILOVER_TRUNKID
-					$prefix		= $result[0][0];
-					$tech 		= $result[0][1];
-					$ipaddress 	= $result[0][2];
-					$removeprefix 	= $result[0][3];
-					$next_failover_trunk = $result[0][4];
-					$status = $result[0][5];
-					$inuse = $result[0][6];
-					$maxuse = $result[0][7];
-					$ifmaxuse = $result[0][8];
-
+					$prefix					= $result[0][0];
+					$tech					= $result[0][1];
+					$ipaddress				= $result[0][2];
+					$removeprefix			= $result[0][3];
+					$next_failover_trunk	= $result[0][4];
+					$status					= $result[0][5];
+					$inuse					= $result[0][6];
+					$maxuse					= $result[0][7];
+					$ifmaxuse				= $result[0][8];
+					
 					// Check if we will be able to use this route:
 					//  if the trunk is activated and
 					//  if there are less connection than it can support or there is an unlimited number of connections
@@ -1309,7 +1308,7 @@ class RateEngine
 						$A2B -> debug( WARN, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because it is disabled. Now use next trunk\n");
 						continue 2;
 					}
-
+					
 					if ($maxuse!=-1 && $inuse >= $maxuse) {
 						$A2B -> debug( WARN, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because maximum number of connections on this trunk is already reached.\n");
 
@@ -1322,19 +1321,19 @@ class RateEngine
 							continue 2;
 						}
 					}
-
-					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
+					
+					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%');
 
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
-
+					
 					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0){
 						$destination= substr($destination, strlen($removeprefix));
 					}
 
 					$dialparams = str_replace("%timeout%", min($timeout * 1000, $max_long), $A2B->agiconfig['dialcommand_param']);
 
-					if ($pos_dialingnumber !== false){
+					if ($pos_dialingnumber !== false) {
 						$dialstr = "$tech/$ipaddress".$dialparams;
 					} else {
 						if ($A2B->agiconfig['switchdialcommand'] == 1) {
@@ -1376,6 +1375,7 @@ class RateEngine
 			//# Ooh, something actually happened!
 			if ($this->dialstatus  == "BUSY") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
+				$res_busy = $agi->exec("Busy 1");
 				$agi-> stream_file('prepaid-isbusy', '#');
 			} elseif ($this->dialstatus == "NOANSWER") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;

@@ -1142,13 +1142,14 @@ class A2Billing {
 
 			//# Ooh, something actually happend!
 			if ($dialstatus  == "BUSY") {
-				$answeredtime=0;
+				$answeredtime = 0;
+				$res_busy = $agi->exec("Busy 1");
 				$agi-> stream_file('prepaid-isbusy', '#');
 			} elseif ($this->dialstatus == "NOANSWER") {
-				$answeredtime=0;
+				$answeredtime = 0;
 				$agi-> stream_file('prepaid-noanswer', '#');
 			} elseif ($dialstatus == "CANCEL") {
-				$answeredtime=0;
+				$answeredtime = 0;
 			} elseif ($dialstatus == "ANSWER") {
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "-> dialstatus : $dialstatus, answered time is ".$answeredtime." \n");
 			} elseif ($k+1 == $sip_buddies+$iax_buddies){
@@ -1156,7 +1157,8 @@ class A2Billing {
 				$agi-> stream_file($prompt, '#');
 			}
 
-			if (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION"))	continue;
+			if (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION"))
+				continue;
 			
 			if (strlen($this -> dialstatus_rev_list[$dialstatus])>0)
 				$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
@@ -1289,36 +1291,28 @@ class A2Billing {
 					
 					//# Ooh, something actually happend!
 					if ($dialstatus == "BUSY") {
-						
-						$answeredtime=0;
+						$answeredtime = 0;
+						$res_busy = $agi->exec("Busy 1");
 						$agi-> stream_file('prepaid-isbusy', '#');
-						if (count($listdestination)>$callcount) continue;
-						
+						if (count($listdestination)>$callcount)
+							continue;
 					} elseif ($dialstatus == "NOANSWER") {
-						
-						$answeredtime=0;
+						$answeredtime = 0;
 						$agi-> stream_file('prepaid-callfollowme', '#');
-						if (count($listdestination) > $callcount) continue;
-						
+						if (count($listdestination) > $callcount)
+							continue;
 					} elseif ($dialstatus == "CANCEL") {
-						
 						// Call cancelled, no need to follow-me
 						return 1;
-						
 					} elseif ($dialstatus == "ANSWER") {
-						
-						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: dialstatus : $dialstatus, answered time is ".$answeredtime." \n");
-						
+						$this -> debug( DEBUG, $agi, __FILE__, __LINE__,
+										"[A2Billing] DID call friend: dialstatus : $dialstatus, answered time is ".$answeredtime." \n");
 					} elseif (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION")) {
-						
-						$answeredtime=0;
+						$answeredtime = 0;
 						if (count($listdestination)>$callcount) continue;
-						
 					} else {
-						
 						$agi-> stream_file('prepaid-callfollowme', '#');
 						if (count($listdestination) > $callcount) continue;
-						
 					}
 					
 					if ($answeredtime >0) {
@@ -1542,29 +1536,25 @@ class A2Billing {
 
                 //# Ooh, something actually happend!
                 if ($dialstatus == "BUSY") {
-
-                        $answeredtime=0;
-                        $agi-> stream_file('prepaid-isbusy', '#');
-                        if (count($listdestination)>$callcount) continue;
-
+					$answeredtime = 0;
+					$res_busy = $agi->exec("Busy 1");
+					$agi-> stream_file('prepaid-isbusy', '#');
+					if (count($listdestination)>$callcount)
+						continue;
                 } elseif ($this->dialstatus == "NOANSWER") {
-
-                        $answeredtime=0;
-                        $agi-> stream_file('prepaid-callfollowme', '#');
-                        if (count($listdestination)>$callcount) continue;
-
+					$answeredtime = 0;
+					$agi-> stream_file('prepaid-callfollowme', '#');
+					if (count($listdestination) > $callcount)
+						continue;
                 } elseif ($dialstatus == "CANCEL") {
-
-                        // Call cancelled, no need to follow-me
-                        return 1;
-
+					// Call cancelled, no need to follow-me
+					return 1;
                 } elseif ($dialstatus == "ANSWER") {
-                        $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: dialstatus : $dialstatus, answered time is ".$answeredtime." \n");
-
+					$this -> debug( DEBUG, $agi, __FILE__, __LINE__,
+									"[A2Billing] DID call friend: dialstatus : $dialstatus, answered time is ".$answeredtime." \n");
                 } elseif (($dialstatus  == "CHANUNAVAIL") || ($dialstatus  == "CONGESTION")) {
-                        $answeredtime=0;
-                        if (count($listdestination)>$callcount) continue;
-
+					$answeredtime = 0;
+					if (count($listdestination)>$callcount) continue;
                 } else {
                     $agi-> stream_file('prepaid-callfollowme', '#');
                     if (count($listdestination)>$callcount) continue;
@@ -1575,9 +1565,9 @@ class A2Billing {
                     $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: FOLLOWME=$callcount - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
 
                     if (strlen($this -> dialstatus_rev_list[$dialstatus])>0) {
-                            $terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
+						$terminatecauseid = $this -> dialstatus_rev_list[$dialstatus];
                     } else {
-                            $terminatecauseid = 0;
+						$terminatecauseid = 0;
                     }
                     
                     $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
@@ -1590,11 +1580,9 @@ class A2Billing {
                     $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - LOG CC_CALL: SQL: $QUERY]:[result:$result]");
 
                     //CALL2DID CDR if not free
-                    if(!$call_did_free){
+                    if (!$call_did_free) {
                         $cost = ($answeredtime/60) * abs($selling_rate) + abs($connection_charge);
 
-                        //update card
-                        
                         $QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
                                 " terminatecauseid, stoptime, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
                                 "('".$this->uniqueid."', '".$this->channel."',  '".$this->id_card."', '".$this->hostname."',";
@@ -1608,6 +1596,7 @@ class A2Billing {
                         } else {
                                $firstuse= "firstusedate=now(),";
                         }
+						//update card
                         $QUERY = "UPDATE cc_card SET credit= credit - ".a2b_round(abs($cost))." ,  lastuse=now(),$firstuse nbused=nbused+1 WHERE username='".$card_number."'";
                         $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
                         $this -> debug( INFO, $agi, __FILE__, __LINE__, "[DID CALL - UPDATE CARD: SQL: $QUERY]:[result:$result]");
