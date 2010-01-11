@@ -181,14 +181,14 @@ if (($form_action == "addcredit") && ($addcredit > 0) && ($id > 0 || $cardnumber
 				$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 				
 				$update_msg ='<b><font color="green">'.gettext("Refill executed ").'!</font></b>';	
-				
-				$field_insert = "date, credit, card_id, description, refill_type";
-				$value_insert = "now(), '$addcredit', '$id','$description','3'";
+				$id_agent = $_SESSION['agent_id'];
+				$field_insert = "date, credit, card_id, description, refill_type,agent_id";
+				$value_insert = "now(), '$addcredit', '$id','$description','3','$id_agent'";
 				$instance_sub_table = new Table("cc_logrefill", $field_insert);
 				$id_refill = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null,'id');	
 				
 				$agent_table = new Table("cc_agent", "commission");
-				$id_agent = $_SESSION['agent_id'];
+				
 				$agent_clause = "id = ".$id_agent;
 				$result_agent= $agent_table -> Get_list($HD_Form -> DBHandle,$agent_clause);
 				

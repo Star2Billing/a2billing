@@ -316,7 +316,8 @@
 				<li><a href="A2B_entity_payment.php?atmenu=payment&section=10">»» {php} echo gettext("Payments");{/php}</a></li>
 				<li><a href="A2B_entity_paymentlog.php?section=10">»» {php} echo gettext("E-Payment Log");{/php}</a></li>
 				<li><a href="A2B_entity_charge.php?section=10">»» {php} echo gettext("Charges");{/php}</a></li>
-				<li><a href="A2B_entity_commission_agent.php?atmenu=payment&section=10">{php} echo gettext("Agents Commissions");{/php}</a></li>
+				<li><a href="A2B_entity_agentsituation.php?atmenu=agentsituation&section=10">{php} echo gettext("Agents Balance");{/php}</a></li>
+				<li><a href="A2B_entity_commission_agent.php?atmenu=payment&section=10">»» {php} echo gettext("Commissions");{/php}</a></li>
 				<li><a href="A2B_entity_remittance_request.php?atmenu=payment&section=10">»» {php} echo gettext("Remittance Request");{/php}</a></li>
 				<li><a href="A2B_entity_transactions_agent.php?atmenu=payment&section=10">»» {php} echo gettext("Transactions");{/php}</a></li>
 				<li><a href="A2B_entity_logrefill_agent.php?atmenu=payment&section=10">»» {php} echo gettext("Refills");{/php}</a></li>

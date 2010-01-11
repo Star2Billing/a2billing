@@ -128,7 +128,7 @@ if ($popup_select) {
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
-
+	$HD_Form -> FG_OTHER_BUTTON2 = false;
 	//echo $popup_select;
 	if ($popup_select == 1)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";

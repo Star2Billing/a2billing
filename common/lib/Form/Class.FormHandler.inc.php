@@ -2433,6 +2433,17 @@ class FormHandler
 				
 				// test if the agent exist and get its commission
 				$id_agent = $result_agent[0]['id_agent'];
+				// update refill & payment to keep a trace of agent in the timeline
+				$table_refill = new Table("cc_logrefill");
+				$table_payment = new Table("cc_logpayment");
+				$param_update = "agent_id = '".$id_agent."'";
+				if(!empty($id_refill)){
+					$clause_update_refill_agent = " id ='$id_refill'";
+					$table_refill-> Update_table ($this->DBHandle, $param_update, $clause_update_refill_agent, $func_table = null);
+				}
+				$clause_update_payment_agent = " id ='$id_payment'";
+				$table_payment-> Update_table ($this->DBHandle, $param_update, $clause_update_payment_agent, $func_table = null);
+				
 				$agent_table = new Table("cc_agent", "commission");
 				$agent_clause = "id = ".$id_agent;
 				$result_agent= $agent_table -> Get_list($this->DBHandle,$agent_clause);

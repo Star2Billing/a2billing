@@ -325,14 +325,24 @@ if ($id > 0 ) {
 		$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 		
-		$field_insert = "date, credit, card_id, description";
-		$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."'";
+		$table_transaction = new Table();
+		$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
+		if (is_array($result_agent) && !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
+			$id_agent =  $result_agent[0]['id_agent'];
+			$id_agent_insert = "'$id_agent'";
+		}else{
+			$id_agent = null;
+			$id_agent_insert = "NULL";
+		}
+		
+		$field_insert = "date, credit, card_id, description,agent_id";
+		$value_insert = "'$nowDate', '".$amount_without_vat."', '$id', '".$transaction_data[0][4]."',$id_agent_insert";
 		$instance_sub_table = new Table("cc_logrefill", $field_insert);
 		$id_logrefill = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null, 'id');
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 		
-		$field_insert = "date, payment, card_id, id_logrefill, description";
-		$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."'";
+		$field_insert = "date, payment, card_id, id_logrefill, description,agent_id";
+		$value_insert = "'$nowDate', '".$amount_paid."', '$id', '$id_logrefill', '".$transaction_data[0][4]."',$id_agent_insert ";
 		$instance_sub_table = new Table("cc_logpayment", $field_insert);
 		$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
@@ -365,12 +375,9 @@ if ($id > 0 ) {
 		//END INVOICE
 		//Agent commision
 		// test if this card have a agent
-		$table_transaction = new Table();
-		$result_agent = $table_transaction -> SQLExec($DBHandle,"SELECT cc_card_group.id_agent FROM cc_card LEFT JOIN cc_card_group ON cc_card_group.id = cc_card.id_group WHERE cc_card.id = $id");
 		
-		if (is_array($result_agent) && !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
+		if (!empty($id_agent)) {
 			//test if the agent exist and get its commission
-			$id_agent =  $result_agent[0]['id_agent'];
 			$agent_table = new Table("cc_agent", "commission");
 			$agent_clause = "id = ".$id_agent;
 			$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
