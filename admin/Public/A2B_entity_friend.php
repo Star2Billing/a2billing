@@ -49,11 +49,73 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
+/********************************* BATCH UPDATE ***********************************/
+getpost_ifset(array('upd_callerid', 'upd_context', 'batchupdate', 'check', 'type', 'mode'));
+
+
+// CHECK IF REQUEST OF BATCH UPDATE
+if ($batchupdate == 1 && is_array($check)) {
+	$SQL_REFILL="";
+	$HD_Form->prepare_list_subselection('list');
+
+	// Array ( [upd_simultaccess] => on [upd_currency] => on )
+	$loop_pass=0;
+	$SQL_UPDATE = '';
+	foreach ($check as $ind_field => $ind_val) {
+		//echo "<br>::> $ind_field -";
+		$myfield = substr($ind_field,4);
+		if ($loop_pass!=0) $SQL_UPDATE.=',';
+
+		// Standard update mode
+		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1) {
+			if (!isset($type["$ind_field"])) {
+				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
+			} else {
+				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
+			}
+		// Mode 2 - Equal - Add - Subtract
+		} elseif($mode["$ind_field"]==2) {
+			if (!isset($type["$ind_field"])) {
+				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
+			} else {
+				if ($type["$ind_field"] == 1) {
+					$SQL_UPDATE .= " $myfield='".$$ind_field."'";
+				} elseif ($type["$ind_field"] == 2) {
+					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
+				} else {
+					$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
+				}
+			}
+		}
+		$loop_pass++;
+	}
+
+	$SQL_UPDATE = "UPDATE $HD_Form->FG_TABLE_NAME SET $SQL_UPDATE";
+	if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
+		$SQL_UPDATE .= ' WHERE ';
+		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
+	}
+	$update_msg_error = '<center><font color="red"><b>'.gettext('Could not perform the batch update!').'</b></font></center>';
+
+	if (!$HD_Form -> DBHandle -> Execute("begin")){
+		$update_msg = $update_msg_error;
+	} else {
+
+		if(!$HD_Form -> DBHandle -> Execute($SQL_UPDATE)){
+			$update_msg = $update_msg_error;
+		}
+		if (! $res = $HD_Form -> DBHandle -> Execute("commit")) {
+			$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
+		}
+
+	};
+}
+
 /********************************* ADD SIP / IAX FRIEND ***********************************/
 getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
-if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
+if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ) {
 	
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION = "A2B_entity_card.php?atmenu=card&stitle=Customers_Card&id=";
 
@@ -200,6 +262,54 @@ if ($form_action=='list') {
 	</tr>
 </table>
 </div>
+
+<br/>
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
+	<div class="tohide" style="display:none;">
+
+<center>
+<b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
+	   <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+        <tbody>
+		<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+		<INPUT type="hidden" name="batchupdate" value="1">
+		<tr>
+          <td align="left" class="bgcolor_001" >
+		  		<input name="check[upd_callerid]" type="checkbox" <?php if ($check["upd_callerid"]=="on") echo "checked"?>>
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				1)&nbsp;<?php echo gettext("CallerID"); ?>&nbsp;:
+				<input class="form_input_text"  name="upd_callerid" size="30" maxlength="40" value="<?php if (isset($upd_callerid)) echo $upd_callerid;?>">
+				<br/>
+		  </td>
+		</tr>
+
+		<tr>
+          <td align="left" class="bgcolor_001" >
+		  		<input name="check[upd_context]" type="checkbox" <?php if ($check["upd_context"]=="on") echo "checked"?>>
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				2)&nbsp;<?php echo gettext("Context"); ?>&nbsp;:
+				<input class="form_input_text"  name="upd_context" size="30" maxlength="40" value="<?php if (isset($upd_context)) echo $upd_context;?>">
+				<br/>
+		  </td>
+		</tr>
+
+		<tr>
+			<td align="right" class="bgcolor_001"></td>
+		 	<td align="right"  class="bgcolor_001">
+				<input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE VOIP SETTINGS");?>  " type="submit">
+        	</td>
+		</tr>
+		</form>
+		</table>
+</center>
+	</div>
+</div>
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+
 <?php
 }
 

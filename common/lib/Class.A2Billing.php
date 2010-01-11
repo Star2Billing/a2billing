@@ -1262,7 +1262,7 @@ class A2Billing {
 					}
 					
 					$max_long = 2147483647;
-					$time2call =$this->agiconfig['max_call_call_2_did'];
+					$time2call = $this->agiconfig['max_call_call_2_did'];
 					$dialparams = $this->agiconfig['dialcommand_param_call_2did'];
 					$dialparams = str_replace("%timeout%", min($time2call * 1000, $max_long), $dialparams);
 					$dialparams = str_replace("%timeoutsec%", min($time2call, $max_long), $dialparams);

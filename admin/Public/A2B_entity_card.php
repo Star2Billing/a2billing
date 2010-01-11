@@ -121,7 +121,7 @@ if ($batchupdate == 1 && is_array($check)) {
 	$update_msg_error = '<center><font color="red"><b>'.gettext('Could not perform the batch update!').'</b></font></center>';
 	
 	if (!$HD_Form -> DBHandle -> Execute("begin")){
-		$update_msg =$update_msg_error;
+		$update_msg = $update_msg_error;
 	} else {
 		
 		if (isset($check['upd_credit']) && (strlen(trim($upd_credit))>0) && ($upd_refill_type>=0)) {
@@ -130,7 +130,7 @@ if ($batchupdate == 1 && is_array($check)) {
 			}
 		}
 		if(!$HD_Form -> DBHandle -> Execute($SQL_UPDATE)){
-			$update_msg =$update_msg_error;
+			$update_msg = $update_msg_error;
 		}
 		if (! $res = $HD_Form -> DBHandle -> Execute("commit")) {
 			$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
@@ -171,7 +171,7 @@ function sendValue(selvalue, othervalue){
 }
 
 // End -->
-</script>
+</SCRIPT>
 <?php
 }
 
@@ -239,8 +239,6 @@ if ( $form_action == "list" && (!($popup_select>=1)) ) {
 				1)&nbsp;<?php echo gettext("In use"); ?>&nbsp;: 
 				<input class="form_input_text"  name="upd_inuse" size="10" maxlength="6" value="<?php if (isset($upd_inuse)) echo $upd_inuse; else echo '0';?>">
 				<br/>
-							
-		    </select>
 		  </td>
 		</tr>
 		<tr>		
