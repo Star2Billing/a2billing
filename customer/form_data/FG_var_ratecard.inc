@@ -49,7 +49,7 @@ $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 
 
 
-$HD_Form -> FG_TABLE_CLAUSE = "tariffgroup_id = '220' ";
+$HD_Form -> FG_TABLE_CLAUSE = "tariffgroup_id = '".$_SESSION["tariff"]."' ";
 $HD_Form -> SQL_GROUP = "GROUP BY dialprefix";
 
 $HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "20%", "center", "sort", "");
