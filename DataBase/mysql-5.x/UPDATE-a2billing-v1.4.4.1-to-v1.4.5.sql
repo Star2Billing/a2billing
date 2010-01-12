@@ -68,7 +68,10 @@ CREATE TABLE IF NOT EXISTS cc_call_archive (
 
 
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES ('Archive Calls', 'archive_call_prior_x_month', '24', 'A cront can be enabled in order to archive your CDRs, this setting allow to define prior which month it will archive', 0, NULL, 'backup');
+ 
 
+ALTER TABLE cc_logpayment ADD agent_id BIGINT NULL ;
+ALTER TABLE cc_logrefill ADD agent_id BIGINT NULL ;
 
 UPDATE cc_version SET version = '1.4.5';
 

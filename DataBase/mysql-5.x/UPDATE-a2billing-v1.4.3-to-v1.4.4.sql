@@ -87,11 +87,6 @@ VALUES ('Asterisk Version Global', 'asterisk_version', '1_4', 'Asterisk Version 
 '0', NULL, 'global');
 
 
-ALTER TABLE cc_logpayment ADD agent_id BIGINT NULL ;
-ALTER TABLE cc_logrefill ADD agent_id BIGINT NULL ;
-
-
-
 -- UPDATE A2Billing Database Version
 UPDATE cc_version SET version = '1.4.4';
 
