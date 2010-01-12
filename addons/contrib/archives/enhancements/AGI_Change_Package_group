@@ -1,0 +1,65 @@
+//CHECK THE PACKAGES TO APPLY TO THIS RATES
+		if ($id_cc_package_group!=-1) {
+			
+			$query_pakages ="SELECT cc_package_offer.id, packagetype, billingtype, startday, freetimetocall 
+			FROM cc_package_group,cc_packgroup_package,cc_package_offer,cc_package_rate 
+			WHERE cc_package_group.id= ".$id_cc_package_group." 
+				AND cc_package_group.id=cc_packgroup_package.packagegroup_id 
+				AND cc_packgroup_package.package_id = cc_package_offer.id 
+				AND cc_package_offer.id = cc_package_rate.package_id  
+				AND cc_package_rate.rate_id = ".$id_rate." ORDER BY packagetype ASC";
+			//$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, "[PACKAGE IN:$query_pakages ]");
+			$table_packages = new Table();
+			$result_packages = $table_packages -> SQLExec ($A2B -> DBHandle, $query_pakages);
+			$idx_pack = 0;
+			if (!empty($result_packages)) {
+				$package_selected = false;
+				
+				while (!$package_selected && $idx_pack < count($result_packages)) {
+					
+					$freetimetocall 	= $result_packages[$idx_pack]["freetimetocall"];
+					$packagetype 		= $result_packages[$idx_pack]["packagetype"];
+					$billingtype 		= $result_packages[$idx_pack]["billingtype"];
+					$startday 			= $result_packages[$idx_pack]["startday"];
+					$id_cc_package_offer= $result_packages[$idx_pack][0];
+					
+					if ($this -> debug_st) print_r("[ID PACKAGE  TO APPLY = $id_cc_package_offer]");
+					switch($packagetype) {
+						// 0 : UNLIMITED PACKAGE
+						//IF PACKAGE IS "UNLIMITED" SO WE DON'T NEED TO CALCULATE THE USED TIMES
+						case 0 : $this -> freecall[$K] = true;
+								$package_selected = true;
+								$this -> package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=>"Unlimited calls","type"=>$packagetype);
+						        break;
+						// 1 : FREE CALLS         
+						//IF PACKAGE IS "NUMBER OF FREE CALLS"  AND WE CAN USE IT ELSE WE CHECK THE OTHERS PACKAGE LIKE FREE TIMES
+						case 1 :  
+							if  ( $freetimetocall>0) {
+								$number_calls_used =$A2B -> number_free_calls_used($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
+								if ($number_calls_used < $freetimetocall) {
+								    $this -> freecall[$K] = true;
+								    $package_selected = true;
+								    $this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Number of Free calls","type"=>$packagetype);
+							    }
+							}
+							break;
+						//2 : FREE TIMES 
+						case 2 : 
+							// CHECK IF WE HAVE A FREETIME THAT CAN APPLY FOR THIS DESTINATION
+							if  ( $freetimetocall>0) {
+								// WE NEED TO RETRIEVE THE AMOUNT OF USED MINUTE FOR THIS CUSTOMER ACCORDING TO BILLINGTYPE (Monthly ; Weekly) & STARTDAY
+								$this -> freetimetocall_used = $A2B -> FT2C_used_seconds($A2B->DBHandle, $A2B->id_card, $id_cc_package_offer, $billingtype, $startday);
+								$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
+								if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
+								if ($this -> freetimetocall_left[$K] > 0) {
+									$package_selected = true; 
+									$this ->package_to_apply [$K] =  array("id"=>$id_cc_package_offer,"label"=> "Free minutes","type"=>$packagetype);
+								}
+				
+							}
+							break;
+					}
+					$idx_pack++;
+				}
+			}
+		}

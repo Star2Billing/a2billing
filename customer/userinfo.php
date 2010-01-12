@@ -137,12 +137,11 @@ $smarty->display('main.tpl');
 			<td><img src="<?php echo KICON_PATH ?>/gnome-finance.gif" class="kikipic"/></td>
 			<td width="50%">
 			<br><font class="fontstyle_002"><?php echo gettext("CARD NUMBER");?> :</font><font class="fontstyle_007"> <?php echo $customer_info[0]; ?></font>
-			<br></br>
+			<br><br>
 			</td>
 			<td width="50%">
 			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$customer_info[22]; ?> </font>
 			<br><br>
-			<pre><?php print_r ($customer_info);?></pre>
 			</td>
 			<?php
 				if ($customer_info[15] > 0) {
@@ -226,7 +225,7 @@ if (!is_array($arr_purchase_amount)) {
 			<form action="checkout_payment.php" method="post">
 
 				<input type="submit" class="form_input_button" value="<?php echo gettext("BUY NOW");?>">
-				<br/
+				<br>
 			</form>
 		</td>
 	</tr>

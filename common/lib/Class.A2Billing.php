@@ -295,9 +295,9 @@ class A2Billing {
     {
 		$this -> idconfig = $idconfig;
 		// load config
-		if(!is_null($config) && file_exists($config)) {
+		if (!is_null($config) && file_exists($config)) {
 			$this->config = parse_ini_file($config, true);
-		} elseif(file_exists(DEFAULT_A2BILLING_CONFIG)) {
+		} elseif (file_exists(DEFAULT_A2BILLING_CONFIG)) {
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);
 		} else {
 			echo "Error : A2Billing configuration file is missing!";
@@ -311,12 +311,12 @@ class A2Billing {
 		}*/
 
 		// conf for the database connection
-		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
-		if(!isset($this->config['database']['port']))		$this->config['database']['port'] = '5432';
-		if(!isset($this->config['database']['user']))		$this->config['database']['user'] = 'postgres';
-		if(!isset($this->config['database']['password']))	$this->config['database']['password'] = '';
-		if(!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
-		if(!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
+		if (!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
+		if (!isset($this->config['database']['port']))		$this->config['database']['port'] = '5432';
+		if (!isset($this->config['database']['user']))		$this->config['database']['user'] = 'postgres';
+		if (!isset($this->config['database']['password']))	$this->config['database']['password'] = '';
+		if (!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
+		if (!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
 
 		return $this->load_conf_db($agi, NULL, 0, $idconfig, $optconfig);
     }
@@ -344,13 +344,13 @@ class A2Billing {
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "\n\n conf :".$conf['cfgkey']);
 				$this -> debug( INFO, $agi, __FILE__, __LINE__, "\n\n conf :".$conf['cfgvalue']);
 			}*/
-			if($conf['cfgtype'] == 0) // if its type is text
+			if ($conf['cfgtype'] == 0) // if its type is text
 			{
 				$this->config[$conf['cfggname']][$conf['cfgkey']] = $conf['cfgvalue'];
 			}
-			elseif($conf['cfgtype'] == 1) // if its type is boolean
+			elseif ($conf['cfgtype'] == 1) // if its type is boolean
 			{
-				if(strtoupper($conf['cfgvalue']) == "YES" || $conf['cfgvalue'] == 1 || strtoupper($conf['cfgvalue']) == "TRUE") // if equal to 'yes'
+				if (strtoupper($conf['cfgvalue']) == "YES" || $conf['cfgvalue'] == 1 || strtoupper($conf['cfgvalue']) == "TRUE") // if equal to 'yes'
 				{
 					$this->config[$conf['cfggname']][$conf['cfgkey']] = 1;
 				}
@@ -373,7 +373,7 @@ class A2Billing {
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
 		$this -> cardnumber_range = $this -> splitable_data ($card_length_range);
 
-		if(is_array($this -> cardnumber_range) && ($this -> cardnumber_range[0] >= 4))
+		if (is_array($this -> cardnumber_range) && ($this -> cardnumber_range[0] >= 4))
 		{
 			define ("CARDNUMBER_LENGTH_MIN", $this -> cardnumber_range[0]);
 			define ("CARDNUMBER_LENGTH_MAX", $this -> cardnumber_range[count($this -> cardnumber_range)-1]);
@@ -384,107 +384,107 @@ class A2Billing {
 			echo gettext("Invalid card number lenght defined in configuration.");
 			exit;
 		}
-		if(!isset($this->config['global']['len_aliasnumber']))		$this->config['global']['len_aliasnumber'] = 15;
-		if(!isset($this->config['global']['len_voucher']))			$this->config['global']['len_voucher'] = 15;
-		if(!isset($this->config['global']['base_currency'])) 		$this->config['global']['base_currency'] = 'usd';
-		if(!isset($this->config['global']['didbilling_daytopay'])) 	$this->config['global']['didbilling_daytopay'] = 5;
-		if(!isset($this->config['global']['admin_email'])) 			$this->config['global']['admin_email'] = 'root@localhost';
+		if (!isset($this->config['global']['len_aliasnumber']))		$this->config['global']['len_aliasnumber'] = 15;
+		if (!isset($this->config['global']['len_voucher']))			$this->config['global']['len_voucher'] = 15;
+		if (!isset($this->config['global']['base_currency'])) 		$this->config['global']['base_currency'] = 'usd';
+		if (!isset($this->config['global']['didbilling_daytopay'])) 	$this->config['global']['didbilling_daytopay'] = 5;
+		if (!isset($this->config['global']['admin_email'])) 			$this->config['global']['admin_email'] = 'root@localhost';
 
 				// Conf for the Callback
-		if(!isset($this->config['callback']['context_callback']))	$this->config['callback']['context_callback'] = 'a2billing-callback';
-		if(!isset($this->config['callback']['ani_callback_delay']))	$this->config['callback']['ani_callback_delay'] = '10';
-		if(!isset($this->config['callback']['extension']))		$this->config['callback']['extension'] = '1000';
-		if(!isset($this->config['callback']['sec_avoid_repeate']))	$this->config['callback']['sec_avoid_repeate'] = '30';
-		if(!isset($this->config['callback']['timeout']))		$this->config['callback']['timeout'] = '20';
-		if(!isset($this->config['callback']['answer_call']))		$this->config['callback']['answer_call'] = '1';
-		if(!isset($this->config['callback']['nb_predictive_call']))	$this->config['callback']['nb_predictive_call'] = '10';
-		if(!isset($this->config['callback']['nb_day_wait_before_retry']))	$this->config['callback']['nb_day_wait_before_retry'] = '1';
-		if(!isset($this->config['callback']['context_preditctivedialer']))	$this->config['callback']['context_preditctivedialer'] = 'a2billing-predictivedialer';
-		if(!isset($this->config['callback']['predictivedialer_maxtime_tocall']))	$this->config['callback']['predictivedialer_maxtime_tocall'] = '5400';
-		if(!isset($this->config['callback']['sec_wait_before_callback']))	$this->config['callback']['sec_wait_before_callback'] = '10';
+		if (!isset($this->config['callback']['context_callback']))	$this->config['callback']['context_callback'] = 'a2billing-callback';
+		if (!isset($this->config['callback']['ani_callback_delay']))	$this->config['callback']['ani_callback_delay'] = '10';
+		if (!isset($this->config['callback']['extension']))		$this->config['callback']['extension'] = '1000';
+		if (!isset($this->config['callback']['sec_avoid_repeate']))	$this->config['callback']['sec_avoid_repeate'] = '30';
+		if (!isset($this->config['callback']['timeout']))		$this->config['callback']['timeout'] = '20';
+		if (!isset($this->config['callback']['answer_call']))		$this->config['callback']['answer_call'] = '1';
+		if (!isset($this->config['callback']['nb_predictive_call']))	$this->config['callback']['nb_predictive_call'] = '10';
+		if (!isset($this->config['callback']['nb_day_wait_before_retry']))	$this->config['callback']['nb_day_wait_before_retry'] = '1';
+		if (!isset($this->config['callback']['context_preditctivedialer']))	$this->config['callback']['context_preditctivedialer'] = 'a2billing-predictivedialer';
+		if (!isset($this->config['callback']['predictivedialer_maxtime_tocall']))	$this->config['callback']['predictivedialer_maxtime_tocall'] = '5400';
+		if (!isset($this->config['callback']['sec_wait_before_callback']))	$this->config['callback']['sec_wait_before_callback'] = '10';
 
 		// Conf for the signup
-		if(!isset($this->config['signup']['enable_signup']))$this->config['signup']['enable_signup'] = '1';
-		if(!isset($this->config['signup']['credit']))		$this->config['signup']['credit'] = '0';
-		if(!isset($this->config['signup']['tariff']))		$this->config['signup']['tariff'] = '8';
-		if(!isset($this->config['signup']['activated']))	$this->config['signup']['activated'] = 't';
-		if(!isset($this->config['signup']['simultaccess']))	$this->config['signup']['simultaccess'] = '0';
-		if(!isset($this->config['signup']['typepaid']))		$this->config['signup']['typepaid'] = '0';
-		if(!isset($this->config['signup']['creditlimit']))	$this->config['signup']['creditlimit'] = '0';
-		if(!isset($this->config['signup']['runservice']))	$this->config['signup']['runservice'] = '0';
-		if(!isset($this->config['signup']['enableexpire']))	$this->config['signup']['enableexpire'] = '0';
-		if(!isset($this->config['signup']['expiredays']))	$this->config['signup']['expiredays'] = '0';
+		if (!isset($this->config['signup']['enable_signup']))$this->config['signup']['enable_signup'] = '1';
+		if (!isset($this->config['signup']['credit']))		$this->config['signup']['credit'] = '0';
+		if (!isset($this->config['signup']['tariff']))		$this->config['signup']['tariff'] = '8';
+		if (!isset($this->config['signup']['activated']))	$this->config['signup']['activated'] = 't';
+		if (!isset($this->config['signup']['simultaccess']))	$this->config['signup']['simultaccess'] = '0';
+		if (!isset($this->config['signup']['typepaid']))		$this->config['signup']['typepaid'] = '0';
+		if (!isset($this->config['signup']['creditlimit']))	$this->config['signup']['creditlimit'] = '0';
+		if (!isset($this->config['signup']['runservice']))	$this->config['signup']['runservice'] = '0';
+		if (!isset($this->config['signup']['enableexpire']))	$this->config['signup']['enableexpire'] = '0';
+		if (!isset($this->config['signup']['expiredays']))	$this->config['signup']['expiredays'] = '0';
 
 		// Conf for Paypal
-		if(!isset($this->config['paypal']['item_name']))	$this->config['paypal']['item_name'] = 'Credit Purchase';
-		if(!isset($this->config['paypal']['currency_code']))	$this->config['paypal']['currency_code'] = 'USD';
-		if(!isset($this->config['paypal']['purchase_amount']))	$this->config['paypal']['purchase_amount'] = '5;10;15';
-		if(!isset($this->config['paypal']['paypal_fees']))   $this->config['paypal']['paypal_fees'] = '1';
+		if (!isset($this->config['paypal']['item_name']))	$this->config['paypal']['item_name'] = 'Credit Purchase';
+		if (!isset($this->config['paypal']['currency_code']))	$this->config['paypal']['currency_code'] = 'USD';
+		if (!isset($this->config['paypal']['purchase_amount']))	$this->config['paypal']['purchase_amount'] = '5;10;15';
+		if (!isset($this->config['paypal']['paypal_fees']))   $this->config['paypal']['paypal_fees'] = '1';
 
 		// Conf for Backup
-		if(!isset($this->config['backup']['backup_path']))	$this->config['backup']['backup_path'] ='/tmp';
-		if(!isset($this->config['backup']['gzip_exe']))		$this->config['backup']['gzip_exe'] ='/bin/gzip';
-		if(!isset($this->config['backup']['gunzip_exe']))	$this->config['backup']['gunzip_exe'] ='/bin/gunzip';
-		if(!isset($this->config['backup']['mysqldump']))	$this->config['backup']['mysqldump'] ='/usr/bin/mysqldump';
-		if(!isset($this->config['backup']['pg_dump']))		$this->config['backup']['pg_dump'] ='/usr/bin/pg_dump';
-		if(!isset($this->config['backup']['mysql']))		$this->config['backup']['mysql'] ='/usr/bin/mysql';
-		if(!isset($this->config['backup']['psql']))		$this->config['backup']['psql'] ='/usr/bin/psql';
-		if(!isset($this->config['backup']['archive_data_x_month']))		$this->config['backup']['archive_data_x_month'] ='3';
+		if (!isset($this->config['backup']['backup_path']))	$this->config['backup']['backup_path'] ='/tmp';
+		if (!isset($this->config['backup']['gzip_exe']))		$this->config['backup']['gzip_exe'] ='/bin/gzip';
+		if (!isset($this->config['backup']['gunzip_exe']))	$this->config['backup']['gunzip_exe'] ='/bin/gunzip';
+		if (!isset($this->config['backup']['mysqldump']))	$this->config['backup']['mysqldump'] ='/usr/bin/mysqldump';
+		if (!isset($this->config['backup']['pg_dump']))		$this->config['backup']['pg_dump'] ='/usr/bin/pg_dump';
+		if (!isset($this->config['backup']['mysql']))		$this->config['backup']['mysql'] ='/usr/bin/mysql';
+		if (!isset($this->config['backup']['psql']))		$this->config['backup']['psql'] ='/usr/bin/psql';
+		if (!isset($this->config['backup']['archive_data_x_month']))		$this->config['backup']['archive_data_x_month'] ='3';
 
 		// Conf for Customer Web UI
-		if(!isset($this->config['webcustomerui']['customerinfo']))	$this->config['webcustomerui']['customerinfo'] = '1';
-		if(!isset($this->config['webcustomerui']['personalinfo']))	$this->config['webcustomerui']['personalinfo'] = '1';
-		if(!isset($this->config['webcustomerui']['limit_callerid']))	$this->config['webcustomerui']['limit_callerid'] = '5';
-		if(!isset($this->config['webcustomerui']['error_email']))	$this->config['webcustomerui']['error_email'] = 'root@localhost';
+		if (!isset($this->config['webcustomerui']['customerinfo']))	$this->config['webcustomerui']['customerinfo'] = '1';
+		if (!isset($this->config['webcustomerui']['personalinfo']))	$this->config['webcustomerui']['personalinfo'] = '1';
+		if (!isset($this->config['webcustomerui']['limit_callerid']))	$this->config['webcustomerui']['limit_callerid'] = '5';
+		if (!isset($this->config['webcustomerui']['error_email']))	$this->config['webcustomerui']['error_email'] = 'root@localhost';
 		// conf for the web ui
-		if(!isset($this->config['webui']['buddy_sip_file']))		$this->config['webui']['buddy_sip_file'] = '/etc/asterisk/additional_a2billing_sip.conf';
-		if(!isset($this->config['webui']['buddy_iax_file']))		$this->config['webui']['buddy_iax_file'] = '/etc/asterisk/additional_a2billing_iax.conf';
-		if(!isset($this->config['webui']['api_logfile']))		$this->config['webui']['api_logfile'] = '/tmp/api_ecommerce_request.log';
-		if(isset($this->config['webui']['api_ip_auth']))		$this->config['webui']['api_ip_auth'] = explode(";", $this->config['webui']['api_ip_auth']);
+		if (!isset($this->config['webui']['buddy_sip_file']))		$this->config['webui']['buddy_sip_file'] = '/etc/asterisk/additional_a2billing_sip.conf';
+		if (!isset($this->config['webui']['buddy_iax_file']))		$this->config['webui']['buddy_iax_file'] = '/etc/asterisk/additional_a2billing_iax.conf';
+		if (!isset($this->config['webui']['api_logfile']))		$this->config['webui']['api_logfile'] = '/tmp/api_ecommerce_request.log';
+		if (isset($this->config['webui']['api_ip_auth']))		$this->config['webui']['api_ip_auth'] = explode(";", $this->config['webui']['api_ip_auth']);
 
-		if(!isset($this->config['webui']['dir_store_mohmp3']))		$this->config['webui']['dir_store_mohmp3'] = '/var/lib/asterisk/mohmp3';
-		if(!isset($this->config['webui']['num_musiconhold_class']))	$this->config['webui']['num_musiconhold_class'] = 10;
-		if(!isset($this->config['webui']['show_help']))			$this->config['webui']['show_help'] = 1;
-		if(!isset($this->config['webui']['my_max_file_size_import']))	$this->config['webui']['my_max_file_size_import'] = 1024000;
-		if(!isset($this->config['webui']['dir_store_audio']))		$this->config['webui']['dir_store_audio'] = '/var/lib/asterisk/sounds/a2billing';
-		if(!isset($this->config['webui']['my_max_file_size_audio']))	$this->config['webui']['my_max_file_size_audio'] = 3072000;
+		if (!isset($this->config['webui']['dir_store_mohmp3']))		$this->config['webui']['dir_store_mohmp3'] = '/var/lib/asterisk/mohmp3';
+		if (!isset($this->config['webui']['num_musiconhold_class']))	$this->config['webui']['num_musiconhold_class'] = 10;
+		if (!isset($this->config['webui']['show_help']))			$this->config['webui']['show_help'] = 1;
+		if (!isset($this->config['webui']['my_max_file_size_import']))	$this->config['webui']['my_max_file_size_import'] = 1024000;
+		if (!isset($this->config['webui']['dir_store_audio']))		$this->config['webui']['dir_store_audio'] = '/var/lib/asterisk/sounds/a2billing';
+		if (!isset($this->config['webui']['my_max_file_size_audio']))	$this->config['webui']['my_max_file_size_audio'] = 3072000;
 
-		if(isset($this->config['webui']['file_ext_allow']))		$this->config['webui']['file_ext_allow'] = explode(",", $this->config['webui']['file_ext_allow']);
+		if (isset($this->config['webui']['file_ext_allow']))		$this->config['webui']['file_ext_allow'] = explode(",", $this->config['webui']['file_ext_allow']);
 		else $this->config['webui']['file_ext_allow'] = explode(",", "gsm, mp3, wav");
 
-		if(isset($this->config['webui']['file_ext_allow_musiconhold']))	$this->config['webui']['file_ext_allow_musiconhold'] = explode(",", $this->config['webui']['file_ext_allow_musiconhold']);
+		if (isset($this->config['webui']['file_ext_allow_musiconhold']))	$this->config['webui']['file_ext_allow_musiconhold'] = explode(",", $this->config['webui']['file_ext_allow_musiconhold']);
 		else $this->config['webui']['file_ext_allow_musiconhold'] = explode(",", "mp3");
 
-		if(!isset($this->config['webui']['show_top_frame'])) 		$this->config['webui']['show_top_frame'] = 1;
-		if(!isset($this->config['webui']['currency_choose'])) 		$this->config['webui']['currency_choose'] = 'all';
-		if(!isset($this->config['webui']['card_export_field_list']))	$this->config['webui']['card_export_field_list'] = 'creationdate, username, credit, lastname, firstname';
-		if(!isset($this->config['webui']['rate_export_field_list']))    $this->config['webui']['rate_export_field_list'] = 'dest_name, dialprefix, rateinitial';
-		if(!isset($this->config['webui']['voucher_export_field_list']))	$this->config['webui']['voucher_export_field_list'] = 'id, voucher, credit, tag, activated, usedcardnumber, usedate, currency';
-		if(!isset($this->config['webui']['advanced_mode']))				$this->config['webui']['advanced_mode'] = 0;
-		if(!isset($this->config['webui']['delete_fk_card']))			$this->config['webui']['delete_fk_card'] = 1;
+		if (!isset($this->config['webui']['show_top_frame'])) 		$this->config['webui']['show_top_frame'] = 1;
+		if (!isset($this->config['webui']['currency_choose'])) 		$this->config['webui']['currency_choose'] = 'all';
+		if (!isset($this->config['webui']['card_export_field_list']))	$this->config['webui']['card_export_field_list'] = 'creationdate, username, credit, lastname, firstname';
+		if (!isset($this->config['webui']['rate_export_field_list']))    $this->config['webui']['rate_export_field_list'] = 'dest_name, dialprefix, rateinitial';
+		if (!isset($this->config['webui']['voucher_export_field_list']))	$this->config['webui']['voucher_export_field_list'] = 'id, voucher, credit, tag, activated, usedcardnumber, usedate, currency';
+		if (!isset($this->config['webui']['advanced_mode']))				$this->config['webui']['advanced_mode'] = 0;
+		if (!isset($this->config['webui']['delete_fk_card']))			$this->config['webui']['delete_fk_card'] = 1;
 
 		// conf for the recurring process
-		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
+		if (!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
 
 		// conf for the peer_friend
-		if(!isset($this->config['peer_friend']['type'])) 		$this->config['peer_friend']['type'] = 'friend';
-		if(!isset($this->config['peer_friend']['allow'])) 		$this->config['peer_friend']['allow'] = 'ulaw,alaw,gsm,g729';
-		if(!isset($this->config['peer_friend']['context'])) 	$this->config['peer_friend']['context'] = 'a2billing';
-		if(!isset($this->config['peer_friend']['nat'])) 		$this->config['peer_friend']['nat'] = 'yes';
-		if(!isset($this->config['peer_friend']['amaflags'])) 	$this->config['peer_friend']['amaflags'] = 'billing';
-		if(!isset($this->config['peer_friend']['qualify'])) 	$this->config['peer_friend']['qualify'] = 'yes';
-		if(!isset($this->config['peer_friend']['host'])) 		$this->config['peer_friend']['host'] = 'dynamic';
-		if(!isset($this->config['peer_friend']['dtmfmode'])) 	$this->config['peer_friend']['dtmfmode'] = 'RFC2833';
-		if(!isset($this->config['peer_friend']['use_realtime'])) 	$this->config['peer_friend']['use_realtime'] = '0';
+		if (!isset($this->config['peer_friend']['type'])) 		$this->config['peer_friend']['type'] = 'friend';
+		if (!isset($this->config['peer_friend']['allow'])) 		$this->config['peer_friend']['allow'] = 'ulaw,alaw,gsm,g729';
+		if (!isset($this->config['peer_friend']['context'])) 	$this->config['peer_friend']['context'] = 'a2billing';
+		if (!isset($this->config['peer_friend']['nat'])) 		$this->config['peer_friend']['nat'] = 'yes';
+		if (!isset($this->config['peer_friend']['amaflags'])) 	$this->config['peer_friend']['amaflags'] = 'billing';
+		if (!isset($this->config['peer_friend']['qualify'])) 	$this->config['peer_friend']['qualify'] = 'yes';
+		if (!isset($this->config['peer_friend']['host'])) 		$this->config['peer_friend']['host'] = 'dynamic';
+		if (!isset($this->config['peer_friend']['dtmfmode'])) 	$this->config['peer_friend']['dtmfmode'] = 'RFC2833';
+		if (!isset($this->config['peer_friend']['use_realtime'])) 	$this->config['peer_friend']['use_realtime'] = '0';
 
 
 		//conf for the notifications
-		if(!isset($this->config['notifications']['values_notifications'])) $this->config['notifications']['values_notifications'] = '0';
-		if(!isset($this->config['notifications']['cron_notifications'])) $this->config['notifications']['cron_notifications'] = '1';
-		if(!isset($this->config['notifications']['delay_notifications'])) $this->config['notifications']['delay_notifications'] = '1';
+		if (!isset($this->config['notifications']['values_notifications'])) $this->config['notifications']['values_notifications'] = '0';
+		if (!isset($this->config['notifications']['cron_notifications'])) $this->config['notifications']['cron_notifications'] = '1';
+		if (!isset($this->config['notifications']['delay_notifications'])) $this->config['notifications']['delay_notifications'] = '1';
 
 		// conf for the log-files
-		if(isset($this->config['log-files']['agi']) && strlen ($this->config['log-files']['agi']) > 1)
+		if (isset($this->config['log-files']['agi']) && strlen ($this->config['log-files']['agi']) > 1)
 		{
 			$this -> log_file = $this -> config['log-files']['agi'];
 		}
@@ -505,89 +505,89 @@ class A2Billing {
 
 
 		// conf for the AGI
-		if(!isset($this->config["agi-conf$idconfig"]['play_audio'])) 	$this->config["agi-conf$idconfig"]['play_audio'] = 1;
+		if (!isset($this->config["agi-conf$idconfig"]['play_audio'])) 	$this->config["agi-conf$idconfig"]['play_audio'] = 1;
 		define ("PLAY_AUDIO", 											$this->config["agi-conf$idconfig"]['play_audio']);
 
-		if(!isset($this->config["agi-conf$idconfig"]['verbosity_level'])) 	$this->config["agi-conf$idconfig"]['verbosity_level'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['logging_level'])) 	$this->config["agi-conf$idconfig"]['logging_level'] = 3;
+		if (!isset($this->config["agi-conf$idconfig"]['verbosity_level'])) 	$this->config["agi-conf$idconfig"]['verbosity_level'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['logging_level'])) 	$this->config["agi-conf$idconfig"]['logging_level'] = 3;
 		
-		if(!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['log_file'])) $this->config["agi-conf$idconfig"]['log_file'] = '/var/log/a2billing/a2billing.log';
+		if (!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;
+		if (!isset($this->config["agi-conf$idconfig"]['log_file'])) $this->config["agi-conf$idconfig"]['log_file'] = '/var/log/a2billing/a2billing.log';
 
-		if(!isset($this->config["agi-conf$idconfig"]['answer_call'])) $this->config["agi-conf$idconfig"]['answer_call'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['auto_setcallerid'])) $this->config["agi-conf$idconfig"]['auto_setcallerid'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['say_goodbye'])) $this->config["agi-conf$idconfig"]['say_goodbye'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['play_menulanguage'])) $this->config["agi-conf$idconfig"]['play_menulanguage'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['force_language'])) $this->config["agi-conf$idconfig"]['force_language'] = 'EN';
-		if(!isset($this->config["agi-conf$idconfig"]['min_credit_2call'])) $this->config["agi-conf$idconfig"]['min_credit_2call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['min_duration_2bill'])) $this->config["agi-conf$idconfig"]['min_duration_2bill'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['answer_call'])) $this->config["agi-conf$idconfig"]['answer_call'] = 1;
+		if (!isset($this->config["agi-conf$idconfig"]['auto_setcallerid'])) $this->config["agi-conf$idconfig"]['auto_setcallerid'] = 1;
+		if (!isset($this->config["agi-conf$idconfig"]['say_goodbye'])) $this->config["agi-conf$idconfig"]['say_goodbye'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['play_menulanguage'])) $this->config["agi-conf$idconfig"]['play_menulanguage'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['force_language'])) $this->config["agi-conf$idconfig"]['force_language'] = 'EN';
+		if (!isset($this->config["agi-conf$idconfig"]['min_credit_2call'])) $this->config["agi-conf$idconfig"]['min_credit_2call'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['min_duration_2bill'])) $this->config["agi-conf$idconfig"]['min_duration_2bill'] = 0;
 
-		if(!isset($this->config["agi-conf$idconfig"]['use_dnid'])) $this->config["agi-conf$idconfig"]['use_dnid'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['use_dnid'])) $this->config["agi-conf$idconfig"]['use_dnid'] = 0;
 		// Explode the no_auth_dnid string
-		if(isset($this->config["agi-conf$idconfig"]['no_auth_dnid'])) $this->config["agi-conf$idconfig"]['no_auth_dnid'] = explode(",",$this->config["agi-conf$idconfig"]['no_auth_dnid']);
+		if (isset($this->config["agi-conf$idconfig"]['no_auth_dnid'])) $this->config["agi-conf$idconfig"]['no_auth_dnid'] = explode(",",$this->config["agi-conf$idconfig"]['no_auth_dnid']);
 
 		// Explode the international_prefixes, extracharge_did and extracharge_fee strings
-		if(isset($this->config["agi-conf$idconfig"]['extracharge_did'])) $this->config["agi-conf$idconfig"]['extracharge_did'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_did']);
-		if(isset($this->config["agi-conf$idconfig"]['extracharge_fee'])) $this->config["agi-conf$idconfig"]['extracharge_fee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_fee']);
-		if(isset($this->config["agi-conf$idconfig"]['extracharge_buyfee'])) $this->config["agi-conf$idconfig"]['extracharge_buyfee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_buyfee']);
+		if (isset($this->config["agi-conf$idconfig"]['extracharge_did'])) $this->config["agi-conf$idconfig"]['extracharge_did'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_did']);
+		if (isset($this->config["agi-conf$idconfig"]['extracharge_fee'])) $this->config["agi-conf$idconfig"]['extracharge_fee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_fee']);
+		if (isset($this->config["agi-conf$idconfig"]['extracharge_buyfee'])) $this->config["agi-conf$idconfig"]['extracharge_buyfee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_buyfee']);
 		
-		if(isset($this->config["agi-conf$idconfig"]['international_prefixes'])) {
+		if (isset($this->config["agi-conf$idconfig"]['international_prefixes'])) {
 			$this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",",$this->config["agi-conf$idconfig"]['international_prefixes']);
 		} else {
 			// to retain config file compatibility assume a default unless config option is set
 			$this->config["agi-conf$idconfig"]['international_prefixes'] = explode(",","011,09,00,1");
 		}
 		
-		if(!isset($this->config["agi-conf$idconfig"]['number_try'])) $this->config["agi-conf$idconfig"]['number_try'] = 3;
-		if(!isset($this->config["agi-conf$idconfig"]['say_balance_after_auth'])) $this->config["agi-conf$idconfig"]['say_balance_after_auth'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['say_balance_after_call'])) $this->config["agi-conf$idconfig"]['say_balance_after_call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['say_rateinitial'])) $this->config["agi-conf$idconfig"]['say_rateinitial'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['say_timetocall'])) $this->config["agi-conf$idconfig"]['say_timetocall'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_enable'])) $this->config["agi-conf$idconfig"]['cid_enable'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_sanitize'])) $this->config["agi-conf$idconfig"]['cid_sanitize'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_askpincode_ifnot_callerid'])) $this->config["agi-conf$idconfig"]['cid_askpincode_ifnot_callerid'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_auto_assign_card_to_cid'])) $this->config["agi-conf$idconfig"]['cid_auto_assign_card_to_cid'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['notenoughcredit_cardnumber'])) $this->config["agi-conf$idconfig"]['notenoughcredit_cardnumber'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['notenoughcredit_assign_newcardnumber_cid'])) $this->config["agi-conf$idconfig"]['notenoughcredit_assign_newcardnumber_cid'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['maxtime_tocall_negatif_free_route'])) $this->config["agi-conf$idconfig"]['maxtime_tocall_negatif_free_route'] = 1800;
-		if(!isset($this->config["agi-conf$idconfig"]['callerid_authentication_over_cardnumber'])) $this->config["agi-conf$idconfig"]['callerid_authentication_over_cardnumber'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_auto_create_card_len'])) $this->config["agi-conf$idconfig"]['cid_auto_create_card_len'] = 10;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_auto_create_card'])) $this->config["agi-conf$idconfig"]['cid_auto_create_card'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['sip_iax_friends'])) $this->config["agi-conf$idconfig"]['sip_iax_friends'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'])) $this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param'])) $this->config["agi-conf$idconfig"]['dialcommand_param'] = '|30|HL(%timeout%:61000:30000)';
-		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'])) $this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'] = '|30|HL(3600000:61000:30000)';
-		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param_call_2did '])) $this->config["agi-conf$idconfig"]['dialcommand_param_call_2did '] = '|30|HL(3600000:61000:30000)';
-		if(!isset($this->config["agi-conf$idconfig"]['switchdialcommand'])) $this->config["agi-conf$idconfig"]['switchdialcommand'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['failover_recursive_limit'])) $this->config["agi-conf$idconfig"]['failover_recursive_limit'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['record_call'])) $this->config["agi-conf$idconfig"]['record_call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['monitor_formatfile'])) $this->config["agi-conf$idconfig"]['monitor_formatfile'] = 'gsm';
+		if (!isset($this->config["agi-conf$idconfig"]['number_try'])) $this->config["agi-conf$idconfig"]['number_try'] = 3;
+		if (!isset($this->config["agi-conf$idconfig"]['say_balance_after_auth'])) $this->config["agi-conf$idconfig"]['say_balance_after_auth'] = 1;
+		if (!isset($this->config["agi-conf$idconfig"]['say_balance_after_call'])) $this->config["agi-conf$idconfig"]['say_balance_after_call'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['say_rateinitial'])) $this->config["agi-conf$idconfig"]['say_rateinitial'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['say_timetocall'])) $this->config["agi-conf$idconfig"]['say_timetocall'] = 1;
+		if (!isset($this->config["agi-conf$idconfig"]['cid_enable'])) $this->config["agi-conf$idconfig"]['cid_enable'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['cid_sanitize'])) $this->config["agi-conf$idconfig"]['cid_sanitize'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['cid_askpincode_ifnot_callerid'])) $this->config["agi-conf$idconfig"]['cid_askpincode_ifnot_callerid'] = 1;
+		if (!isset($this->config["agi-conf$idconfig"]['cid_auto_assign_card_to_cid'])) $this->config["agi-conf$idconfig"]['cid_auto_assign_card_to_cid'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['notenoughcredit_cardnumber'])) $this->config["agi-conf$idconfig"]['notenoughcredit_cardnumber'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['notenoughcredit_assign_newcardnumber_cid'])) $this->config["agi-conf$idconfig"]['notenoughcredit_assign_newcardnumber_cid'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['maxtime_tocall_negatif_free_route'])) $this->config["agi-conf$idconfig"]['maxtime_tocall_negatif_free_route'] = 1800;
+		if (!isset($this->config["agi-conf$idconfig"]['callerid_authentication_over_cardnumber'])) $this->config["agi-conf$idconfig"]['callerid_authentication_over_cardnumber'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['cid_auto_create_card_len'])) $this->config["agi-conf$idconfig"]['cid_auto_create_card_len'] = 10;
+		if (!isset($this->config["agi-conf$idconfig"]['cid_auto_create_card'])) $this->config["agi-conf$idconfig"]['cid_auto_create_card'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['sip_iax_friends'])) $this->config["agi-conf$idconfig"]['sip_iax_friends'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'])) $this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['dialcommand_param'])) $this->config["agi-conf$idconfig"]['dialcommand_param'] = '|30|HL(%timeout%:61000:30000)';
+		if (!isset($this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'])) $this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'] = '|30|HL(3600000:61000:30000)';
+		if (!isset($this->config["agi-conf$idconfig"]['dialcommand_param_call_2did '])) $this->config["agi-conf$idconfig"]['dialcommand_param_call_2did '] = '|30|HL(3600000:61000:30000)';
+		if (!isset($this->config["agi-conf$idconfig"]['switchdialcommand'])) $this->config["agi-conf$idconfig"]['switchdialcommand'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['failover_recursive_limit'])) $this->config["agi-conf$idconfig"]['failover_recursive_limit'] = 1;
+		if (!isset($this->config["agi-conf$idconfig"]['record_call'])) $this->config["agi-conf$idconfig"]['record_call'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['monitor_formatfile'])) $this->config["agi-conf$idconfig"]['monitor_formatfile'] = 'gsm';
 		
-		if(!isset($this->config["agi-conf$idconfig"]['currency_association']))	$this->config["agi-conf$idconfig"]['currency_association'] = 'all:credit';
+		if (!isset($this->config["agi-conf$idconfig"]['currency_association']))	$this->config["agi-conf$idconfig"]['currency_association'] = 'all:credit';
 		$this->config["agi-conf$idconfig"]['currency_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_association']);
 		foreach($this->config["agi-conf$idconfig"]['currency_association'] as $cur_val) {
 			$cur_val = explode(":",$cur_val);
 			$this->config["agi-conf$idconfig"]['currency_association_internal'][$cur_val[0]]=$cur_val[1];
 		}
 		
-		//if(!isset($this->config["agi-conf$idconfig"]['currency_cents_association']))	$this->config["agi-conf$idconfig"]['currency_cents_association'] = '';
-		if(isset($this->config["agi-conf$idconfig"]['currency_cents_association']) && strlen($this->config["agi-conf$idconfig"]['currency_cents_association']) > 0) {
+		//if (!isset($this->config["agi-conf$idconfig"]['currency_cents_association']))	$this->config["agi-conf$idconfig"]['currency_cents_association'] = '';
+		if (isset($this->config["agi-conf$idconfig"]['currency_cents_association']) && strlen($this->config["agi-conf$idconfig"]['currency_cents_association']) > 0) {
 			$this->config["agi-conf$idconfig"]['currency_cents_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_cents_association']);
 			foreach($this->config["agi-conf$idconfig"]['currency_cents_association'] as $cur_val) {
 				$cur_val = explode(":",$cur_val);
 				$this->config["agi-conf$idconfig"]['currency_cents_association_internal'][$cur_val[0]]=$cur_val[1];
 			}
 		}
-		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_destination']))	$this->config["agi-conf$idconfig"]['file_conf_enter_destination'] = 'prepaid-enter-number-u-calling-1-or-011';
-		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_menulang']))	$this->config["agi-conf$idconfig"]['file_conf_enter_menulang'] = 'prepaid-menulang';
-		if(!isset($this->config["agi-conf$idconfig"]['send_reminder'])) $this->config["agi-conf$idconfig"]['send_reminder'] = 0;
-		if(isset($this->config["agi-conf$idconfig"]['debugshell']) && $this->config["agi-conf$idconfig"]['debugshell'] == 1 && isset($agi)) $agi->nlinetoread = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['file_conf_enter_destination']))	$this->config["agi-conf$idconfig"]['file_conf_enter_destination'] = 'prepaid-enter-number-u-calling-1-or-011';
+		if (!isset($this->config["agi-conf$idconfig"]['file_conf_enter_menulang']))	$this->config["agi-conf$idconfig"]['file_conf_enter_menulang'] = 'prepaid-menulang';
+		if (!isset($this->config["agi-conf$idconfig"]['send_reminder'])) $this->config["agi-conf$idconfig"]['send_reminder'] = 0;
+		if (isset($this->config["agi-conf$idconfig"]['debugshell']) && $this->config["agi-conf$idconfig"]['debugshell'] == 1 && isset($agi)) $agi->nlinetoread = 0;
 
-		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
-		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['failover_lc_prefix'])) $this->config["agi-conf$idconfig"]['failover_lc_prefix'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['cheat_on_announcement_time'])) $this->config["agi-conf$idconfig"]['cheat_on_announcement_time'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
+		if (!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['failover_lc_prefix'])) $this->config["agi-conf$idconfig"]['failover_lc_prefix'] = 0;
+		if (!isset($this->config["agi-conf$idconfig"]['cheat_on_announcement_time'])) $this->config["agi-conf$idconfig"]['cheat_on_announcement_time'] = 0;
 
 		// Define the agiconfig property
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
@@ -613,9 +613,9 @@ class A2Billing {
 		global $agi;
 		static $busy = false;
 
-		if($this->agiconfig['debug'] != false)
+		if ($this->agiconfig['debug'] != false)
 		{
-			if(!$busy) // no conlogs inside conlog!!!
+			if (!$busy) // no conlogs inside conlog!!!
 			{
 			  $busy = true;
 			  if (isset($agi)) $agi->verbose($str, $vbl);
@@ -630,18 +630,18 @@ class A2Billing {
 	function play_menulanguage ($agi)
 	{
 		// MENU LANGUAGE
-		if ($this->agiconfig['play_menulanguage']==1){
+		if ($this->agiconfig['play_menulanguage']==1) {
 			
 			$list_prompt_menulang = explode(':',$this->agiconfig['conf_order_menulang']);
 			$i=1;
-			foreach ($list_prompt_menulang as $lg_value ){
+			foreach ($list_prompt_menulang as $lg_value ) {
 				$res_dtmf = $agi->get_data("menu_".$lg_value, 500, 1);
-				if(!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"])&& $res_dtmf["result"]>0)break;
+				if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"])&& $res_dtmf["result"]>0)break;
 				
-				if($i==sizeof($list_prompt_menulang)) {$res_dtmf = $agi->get_data("num_".$lg_value."_".$i,3000, 1);}
+				if ($i==sizeof($list_prompt_menulang)) {$res_dtmf = $agi->get_data("num_".$lg_value."_".$i,3000, 1);}
 				else {$res_dtmf = $agi->get_data("num_".$lg_value."_".$i,1000, 1);}
 				
-				if(!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"]>0 )break;
+				if (!empty($res_dtmf["result"]) && is_numeric($res_dtmf["result"]) && $res_dtmf["result"]>0 )break;
 				$i++;
 			}
 			
@@ -649,7 +649,7 @@ class A2Billing {
 
 			$this -> languageselected = $res_dtmf ["result"];
 			
-			if($this -> languageselected>0 && $this -> languageselected<=sizeof($list_prompt_menulang) ){
+			if ($this -> languageselected>0 && $this -> languageselected<=sizeof($list_prompt_menulang) ) {
 				$language = $list_prompt_menulang[$this -> languageselected-1];
 			} else {
 				if (strlen($this->agiconfig['force_language'])==2) {
@@ -665,7 +665,7 @@ class A2Billing {
             $this -> debug( DEBUG, $agi, __FILE__, __LINE__, " CURRENT LANGUAGE : ".$language);
             
             
-			if($this->agiconfig['asterisk_version'] == "1_2") {
+			if ($this->agiconfig['asterisk_version'] == "1_2") {
 				$lg_var_set = 'LANGUAGE()';
 			} else {
 				$lg_var_set = 'CHANNEL(language)';
@@ -680,7 +680,7 @@ class A2Billing {
 			$this->languageselected = 1;
 			$language = strtolower($this->agiconfig['force_language']);
 			$this ->current_language = $language;
-			if($this->agiconfig['asterisk_version'] == "1_2") {
+			if ($this->agiconfig['asterisk_version'] == "1_2") {
 				$lg_var_set = 'LANGUAGE()';
 			} else {
 				$lg_var_set = 'CHANNEL(language)';
@@ -820,7 +820,7 @@ class A2Billing {
         }
 		
 		//Check if Account have restriction
-		if($this->restriction == 1 || $this->restriction == 2 ) {
+		if ($this->restriction == 1 || $this->restriction == 2 ) {
 			
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ACCOUNT WITH RESTRICTION]");
 			
@@ -832,7 +832,7 @@ class A2Billing {
 
 			if ($this->restriction == 1) {
 				// NOT ALLOW TO CALL RESTRICTED NUMBERS
-				if(is_array($result)) {
+				if (is_array($result)) {
 					// NUMBER NOT AUHTORIZED
 					$this -> debug( INFO, $agi, __FILE__, __LINE__, "[NUMBER NOT AUHTORIZED - NOT ALLOW TO CALL RESTRICTED NUMBERS]");
 					$agi-> stream_file('prepaid-not-authorized-phonenumber', '#');
@@ -840,7 +840,7 @@ class A2Billing {
 				}
 			} else {
 				// ALLOW TO CALL ONLY RESTRICTED NUMBERS		
-				if(!is_array($result)) {
+				if (!is_array($result)) {
 			  		//NUMBER NOT AUHTORIZED
 			  		$this -> debug( INFO, $agi, __FILE__, __LINE__, "[NUMBER NOT AUHTORIZED - ALLOW TO CALL ONLY RESTRICTED NUMBERS]");
 			  		$agi-> stream_file('prepaid-not-authorized-phonenumber', '#');
@@ -875,7 +875,7 @@ class A2Billing {
             $QUERY .= ")";
             $this -> debug( DEBUG, $agi, __FILE__, __LINE__, $QUERY);
             $result_did = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
-            if(is_array($result_did)&& !empty($result_did[0][0]) && !empty($result_did[0][1]))
+            if (is_array($result_did)&& !empty($result_did[0][0]) && !empty($result_did[0][1]))
 				$iscall2did =true;
         }
 
@@ -900,7 +900,10 @@ class A2Billing {
 				$this -> fct_say_balance ($agi, $this->credit);
 				
 				// Retrieve this customer's FT2C package details
-				$QUERY = "SELECT freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff RIGHT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer WHERE cc_card.id='".$this->id_card."'";
+				$QUERY = "SELECT freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer ".
+						 "FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff ".
+						 "RIGHT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer ".
+						 "WHERE cc_card.id='".$this->id_card."'";
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 				if (is_array($result) && ($result[0][0] > 0) ) {
 				        $freetime = $result[0][0];
@@ -927,8 +930,8 @@ class A2Billing {
 				                $agi-> stream_file('prepaid-you-have-dialed', '#');
 				        }
 				        if (($minutes > 0) || ($seconds == 0)) {
-							if ($minutes==1){
-								if((strtolower($this ->current_language)=='ru')){
+							if ($minutes==1) {
+								if ((strtolower($this ->current_language)=='ru')) {
 									$agi-> stream_file('digits/1f', '#');
 								} else {
 									$agi->say_number($minutes);
@@ -936,7 +939,7 @@ class A2Billing {
 								$agi-> stream_file('prepaid-minute', '#');
 							} else {
 								$agi->say_number($minutes);
-								if((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
+								if ((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ) {
 									// test for the specific grammatical rules in RUssian
 									$agi-> stream_file('prepaid-minute2', '#');
 								} else {
@@ -947,7 +950,7 @@ class A2Billing {
 				        if ($seconds > 0) {
 				                if ($minutes > 0) $agi-> stream_file('vm-and', '#');
 				                if ($seconds == 1) {
-				                        if((strtolower($this ->current_language)=='ru')) {
+				                        if ((strtolower($this ->current_language)=='ru')) {
 				                                $agi-> stream_file('digits/1f', '#');
 				                        } else {
 				                                $agi->say_number($seconds);
@@ -955,7 +958,7 @@ class A2Billing {
 				                        $agi-> stream_file('prepaid-second', '#');
 				                } else {
 				                        $agi->say_number($seconds);
-				                        if((strtolower($this ->current_language)=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ){
+				                        if ((strtolower($this ->current_language)=='ru')&& ( ( $seconds%10==2) || ($seconds%10==3 )|| ($seconds%10==4)) ) {
 				                                // test for the specific grammatical rules in RUssian
 				                                $agi-> stream_file('prepaid-second2', '#');
 				                        } else {
@@ -1003,7 +1006,7 @@ class A2Billing {
 			}
 	
 	        // IF DONT FIND RATE
-	        if ($resfindrate==0){
+	        if ($resfindrate==0) {
                 $prompt="prepaid-dest-unreachable";
                 $agi-> stream_file($prompt, '#');
                 return -1;
@@ -1012,7 +1015,7 @@ class A2Billing {
 	        $res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($this, $this->credit);
 	
 	        $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
-	        if (!$res_all_calcultimeout){
+	        if (!$res_all_calcultimeout) {
                 $prompt="prepaid-no-enough-credit";
                 $agi-> stream_file($prompt, '#');
                 return -1;
@@ -1074,7 +1077,7 @@ class A2Billing {
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, $result);
 
-		if( is_array($result) && count($result) > 0) {
+		if ( is_array($result) && count($result) > 0) {
 			$iax_buddies = 1;
 			$destiax = $result[0][0];
 			$dest_username = $result[0][1];
@@ -1085,13 +1088,13 @@ class A2Billing {
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RESULT : ".print_r($result,true));
 		
-		if( is_array($result) && count($result) > 0) {
+		if ( is_array($result) && count($result) > 0) {
 			$sip_buddies = 1;
 			$destsip=$result[0][0];
 			$dest_username = $result[0][1];
 		}
 
-		if (!$sip_buddies && !$iax_buddies){
+		if (!$sip_buddies && !$iax_buddies) {
 			$agi-> stream_file('prepaid-sipiax-num-nomatch', '#');
 			return -1;
 		}
@@ -1152,7 +1155,7 @@ class A2Billing {
 				$answeredtime = 0;
 			} elseif ($dialstatus == "ANSWER") {
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "-> dialstatus : $dialstatus, answered time is ".$answeredtime." \n");
-			} elseif ($k+1 == $sip_buddies+$iax_buddies){
+			} elseif ($k+1 == $sip_buddies+$iax_buddies) {
 				$prompt="prepaid-dest-unreachable";
 				$agi-> stream_file($prompt, '#');
 			}
@@ -1165,7 +1168,7 @@ class A2Billing {
 			else
 				$terminatecauseid = 0;
 			
-			if ($answeredtime > 0){
+			if ($answeredtime > 0) {
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (answeredtime=$answeredtime :: dialstatus=$dialstatus :: cost=$cost)]");
 				$QUERY = "INSERT INTO cc_call (uniqueid, sessionid, card_id, nasipaddress, starttime, sessiontime, calledstation, ".
 					" terminatecauseid, stoptime, calledrate, sessionbill, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
@@ -1355,7 +1358,7 @@ class A2Billing {
 					$this->extension = $this->dnid = $this->destination = $inst_listdestination[4];
 					if ($this->CC_TESTING) $this->extension = $this->dnid = $this->destination="011324885";
 					
-					if ($this -> callingcard_ivr_authorize($agi, $RateEngine, 0)==1){
+					if ($this -> callingcard_ivr_authorize($agi, $RateEngine, 0)==1) {
 						
 						// PERFORM THE CALL
 						$result_callperf = $RateEngine->rate_engine_performcall ($agi, $this -> destination, $this);
@@ -1424,7 +1427,7 @@ class A2Billing {
 			$doibill = 0;
 		}
 		
-        if (!$call_did_free){
+        if (!$call_did_free) {
 			
             if ($this->typepaid==0) {
                 if ($this->credit < $this->agiconfig['min_credit_2call']) {
@@ -1442,7 +1445,7 @@ class A2Billing {
 					$time2call =0;
 				} else {
 					$credit_without_charge = $this->credit + abs($this->creditlimit) - abs($connection_charge);
-					if($credit_without_charge>0 && $selling_rate!=0 ) {
+					if ($credit_without_charge>0 && $selling_rate!=0 ) {
 						$time2call = intval($credit_without_charge / abs($selling_rate))*60;
 					} else {
 						$time2call =  $this->agiconfig['max_call_call_2_did'];
@@ -1621,7 +1624,7 @@ class A2Billing {
                 $this->extension = $this->dnid = $this->destination = $inst_listdestination[4];
                 if ($this->CC_TESTING) $this->extension = $this->dnid = $this->destination = "011324885";
 				
-                if ($this -> callingcard_ivr_authorize($agi, $RateEngine, 0)==1){
+                if ($this -> callingcard_ivr_authorize($agi, $RateEngine, 0)==1) {
 					
 					// check the min to call
 					if (!$call_did_free) {
@@ -1724,7 +1727,7 @@ class A2Billing {
             $agi-> stream_file('prepaid-you-have', '#');
             if ($minutes>0) {
                 if ($minutes==1) {
-                    if((strtolower($this ->current_language)=='ru')){
+                    if ((strtolower($this ->current_language)=='ru')) {
                     $agi-> stream_file('digits/1f', '#');
                     } else {
 						$agi->say_number($minutes);
@@ -1744,7 +1747,7 @@ class A2Billing {
                 if ($minutes>0) $agi-> stream_file('vm-and', '#');
 
                 if ($seconds==1) {
-                    if((strtolower($this ->current_language)=='ru')) {
+                    if ((strtolower($this ->current_language)=='ru')) {
 						$agi-> stream_file('digits/1f', '#');
                     } else {
 						$agi-> say_number($seconds);
@@ -1853,10 +1856,10 @@ class A2Billing {
 			if ($cents>0) {
 				$agi->say_number($cents);
 				if ($cents>1) {
-					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ($cents%10==2) || ($cents%10==3)|| ($cents%10==4)) ){
+					if ((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ($cents%10==2) || ($cents%10==3)|| ($cents%10==4)) ) {
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-cent2', '#');
-					} elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ($cents%10==1) ){
+					} elseif ((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ($cents%10==1) ) {
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file($cent_audio, '#');
 					} else {
@@ -1898,7 +1901,7 @@ class A2Billing {
 		if ($cents=='') $cents=0;
 		elseif (strlen($cents)==1) $cents.= '0';
 
-		if (isset($this->agiconfig['currency_association_internal'][strtolower($this->currency)])){
+		if (isset($this->agiconfig['currency_association_internal'][strtolower($this->currency)])) {
 			$units_audio = $this->agiconfig['currency_association_internal'][strtolower($this->currency)];
 			// leave the last character ex: dollars -> dollar
 			$unit_audio = substr($units_audio,0,-1);
@@ -1916,13 +1919,13 @@ class A2Billing {
 			$agi -> say_number(0);
 			$agi -> stream_file($unit_audio, '#');
 		} else {
-			if ($units > 1){
+			if ($units > 1) {
 				$agi -> say_number($units);
 					
-				if(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ){
+				if (($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ) {
 					// test for the specific grammatical rules in RUssian
 					$agi-> stream_file('dollar2', '#');
-				} elseif(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( $units%10==1)) {
+				} elseif (($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( $units%10==1)) {
 					// test for the specific grammatical rules in RUssian
 					$agi-> stream_file($unit_audio, '#');
 				} else {
@@ -1940,11 +1943,11 @@ class A2Billing {
 			if ($cents>0) {
 				$agi -> say_number($cents);
 				
-				if($cents>1){
-					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ){
+				if ($cents>1) {
+					if ((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ) {
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-cent2', '#');
-					} elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&&  ( $cents%10==1)  ){
+					} elseif ((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&&  ( $cents%10==1)  ) {
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file($cent_audio, '#');
 					} else {
@@ -1973,11 +1976,11 @@ class A2Billing {
 		global $currencies_list;
 
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD LOG BEGIN]");
-		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3){
+		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3) {
 			$this -> currency = $this->agiconfig['agi_force_currency'];
 		}
 
-		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])){
+		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) {
 			$mycur = 1;
 		} else {
 			$mycur = $currencies_list[strtoupper($this->currency)][2];
@@ -1986,7 +1989,7 @@ class A2Billing {
 		$res_dtmf = $agi->get_data('prepaid-voucher_enter_number', $timetowait, $this->config['global']['len_voucher'], '#');
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "VOUCHERNUMBER RES DTMF : ".$res_dtmf ["result"]);
 		$this -> vouchernumber = $res_dtmf ["result"];
-		if ($this -> vouchernumber <= 0){
+		if ($this -> vouchernumber <= 0) {
 			return -1;
 		}
 
@@ -2058,9 +2061,9 @@ class A2Billing {
 	 *  @return integer number of seconds used of FT2C package so far in this period
 	 **/
 
-   function number_free_calls_used($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday){
+   function number_free_calls_used($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday) {
    	
-   		if ($billingtype == 0){
+   		if ($billingtype == 0) {
 			// PROCESSING FOR MONTHLY
 			// if > last day of the month
 			if ($startday > date("t")) $startday = date("t");
@@ -2194,7 +2197,7 @@ class A2Billing {
 			return '';
 		}
 		$QUERY="";
-		if($this->agiconfig['cid_sanitize']=="CID" || $this->agiconfig['cid_sanitize']=="BOTH"){
+		if ($this->agiconfig['cid_sanitize']=="CID" || $this->agiconfig['cid_sanitize']=="BOTH") {
 			$QUERY .=  "SELECT cc_callerid.cid ".
 				  " FROM cc_callerid ".
 				  " JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
@@ -2205,7 +2208,7 @@ class A2Billing {
 		}
 		
 		$QUERY="";
-		if($this->agiconfig['cid_sanitize']=="DID" || $this->agiconfig['cid_sanitize']=="BOTH"){
+		if ($this->agiconfig['cid_sanitize']=="DID" || $this->agiconfig['cid_sanitize']=="BOTH") {
 			$QUERY .=  "SELECT cc_did.did ".
 				  " FROM cc_did ".
 				  " JOIN cc_did_destination ON cc_did_destination.id_cc_did=cc_did.id ".
@@ -2220,13 +2223,13 @@ class A2Billing {
 
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "RESULT MERGE -> ".print_r($result,true));
 
-		if( !is_array($result)) {
+		if ( !is_array($result)) {
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: NO DATA]");
 			return '';
 		}
-		for ($i=0;$i<count($result);$i++){
+		for ($i=0;$i<count($result);$i++) {
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID COMPARING: ".substr($result[$i][0],strlen($this->CallerID)*-1)." to ".$this->CallerID."]");
-			if(substr($result[$i][0],strlen($this->CallerID)*-1)==$this->CallerID) {
+			if (substr($result[$i][0],strlen($this->CallerID)*-1)==$this->CallerID) {
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_SANITIZE - CID: ".$result[$i][0]."]");
 				return $result[$i][0];
 			}
@@ -2295,12 +2298,12 @@ class A2Billing {
 		$result_rate = $this->instance_table -> SQLExec ($this -> DBHandle, $query_rate);	
 		
 		$cost = 0;
-		if($result_rate) {
+		if ($result_rate) {
 			$cost = $result_rate[0][0];
 			$context = $result_rate[0][1];
 		}
 		
-		if(empty($context)) {
+		if (empty($context)) {
 			$context =  $this -> config["callback"]['context_campaign_callback'];
 		}
 		
@@ -2387,7 +2390,7 @@ class A2Billing {
 				    $QUERY_FIELS = 'username, useralias, uipass, credit, language, tariff, activated, typepaid, creditlimit, inuse, status, currency';
 				    $QUERY_VALUES = "'$card_gen', '$card_alias', '$uipass', '".$this->agiconfig['cid_auto_create_card_credit']."', 'en', '".$this->agiconfig['cid_auto_create_card_tariffgroup']."', 't','$ttcard', '".$this->agiconfig['cid_auto_create_card_credit_limit']."', '0', '1', '".$this->config['global']['base_currency']."'";
 				    
-				    if($this ->groupe_mode) {
+				    if ($this ->groupe_mode) {
 						$QUERY_FIELS .= ", id_group";
 						$QUERY_VALUES .= " , '$this->group_id'";
 				    }
@@ -2467,13 +2470,13 @@ class A2Billing {
 					$this->credit = $this->credit + $this->creditlimit;
 				
 				// CHECK IF CALLERID ACTIVATED
-				if( $result[0][2] != "t" && $result[0][2] != "1" ) 	$prompt = "prepaid-auth-fail";
+				if ( $result[0][2] != "t" && $result[0][2] != "1" ) 	$prompt = "prepaid-auth-fail";
 
 				// CHECK credit < min_credit_2call / you have zero balance
-				if(!$this -> enough_credit_to_call()) $prompt = "prepaid-no-enough-credit-stop";
+				if (!$this -> enough_credit_to_call()) $prompt = "prepaid-no-enough-credit-stop";
 				
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				if ( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
@@ -2498,7 +2501,7 @@ class A2Billing {
 						    $prompt = "prepaid-card-expired";
 					}
 					//Update card status to Expired
-					if($prompt == "prepaid-card-expired") {
+					if ($prompt == "prepaid-card-expired") {
 					    $this->status =5;
 					    $QUERY = "UPDATE cc_card SET status='5' WHERE id='".$this->id_card."'";
 					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
@@ -2531,7 +2534,7 @@ class A2Billing {
 							$this -> ask_other_cardnumber = 1;
 							$this -> update_callerid = 1;
 						}
-					} elseif($prompt == "prepaid-card-expired") {
+					} elseif ($prompt == "prepaid-card-expired") {
 					    $this -> accountcode=''; $callerID_enable=0;
 					    $this -> ask_other_cardnumber = 1;
 					    $this -> update_callerid = 1;
@@ -2555,7 +2558,7 @@ class A2Billing {
 		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Account code - '.$this->accountcode);
 		if (strlen ($this->accountcode)>=1 && !$authentication) {
 			$this->username = $this -> cardnumber = $this->accountcode;
-			for ($i=0;$i<=0;$i++){
+			for ($i=0;$i<=0;$i++) {
 
 				if ($callerID_enable!=1 || !is_numeric($this->CallerID) || $this->CallerID<=0) {
 					
@@ -2570,7 +2573,7 @@ class A2Billing {
 								" WHERE username='".$this->cardnumber."'";
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 					
-					if( !is_array($result)) {
+					if ( !is_array($result)) {
 						$prompt="prepaid-auth-fail";
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 						$res = -2;
@@ -2589,7 +2592,7 @@ class A2Billing {
 							$result_check_cid = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, $result_check_cid);
 
-							if( !is_array($result_check_cid)) {
+							if ( !is_array($result_check_cid)) {
 								$prompt="prepaid-auth-fail";
 								$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 								$res = -2;
@@ -2630,9 +2633,9 @@ class A2Billing {
 					if ($this->typepaid==1) $this->credit = $this->credit + $this->creditlimit;
 				}
 
-				if (strlen($language)==2 && !($this->languageselected>=1)){
+				if (strlen($language)==2 && !($this->languageselected>=1)) {
 
-					if($this->agiconfig['asterisk_version'] == "1_2") {
+					if ($this->agiconfig['asterisk_version'] == "1_2") {
 						$lg_var_set = 'LANGUAGE()';
 					} else {
 						$lg_var_set = 'CHANNEL(language)';
@@ -2646,30 +2649,30 @@ class A2Billing {
 				
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
-				if( !$this -> enough_credit_to_call() ) $prompt = "prepaid-no-enough-credit-stop";
+				if ( !$this -> enough_credit_to_call() ) $prompt = "prepaid-no-enough-credit-stop";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				if ( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
 				if ($this->enableexpire>0) {
-					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
+					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5) {
 						// expire date
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
-					} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)) {
 					// expire days since first use
 						$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
 
-					} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)) {
 						// expire days since creation
 						$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
 							$prompt = "prepaid-card-expired";
 					}
-					if($prompt == "prepaid-card-expired") {
+					if ($prompt == "prepaid-card-expired") {
 					    $this->status =5;
 					    $QUERY = "UPDATE cc_card SET status='5' WHERE id='".$this->id_card."'";
 					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
@@ -2699,11 +2702,11 @@ class A2Billing {
 						$callerID_enable = 0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
 						
-						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1){ 
+						if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1) {
 							$this -> ask_other_cardnumber = 1;
 							$this -> update_callerid=1;
 						}
-					} elseif($prompt == "prepaid-card-expired") {
+					} elseif ($prompt == "prepaid-card-expired") {
 					    $this -> accountcode = '';
 					    $callerID_enable = 0;
 					    $this -> ask_other_cardnumber = 1;
@@ -2767,15 +2770,15 @@ class A2Billing {
 				$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result,true));
 
-				if( !is_array($result)) {
+				if ( !is_array($result)) {
 					$prompt="prepaid-auth-fail";
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 					continue;
 				} else {
 					// WE ARE GOING TO CHECK IF THE CALLERID IS CORRECT FOR THIS CARD
-					if ($this->agiconfig['callerid_authentication_over_cardnumber']==1){
+					if ($this->agiconfig['callerid_authentication_over_cardnumber']==1) {
 
-						if (!is_numeric($this->CallerID) && $this->CallerID<=0){
+						if (!is_numeric($this->CallerID) && $this->CallerID<=0) {
 							$prompt="prepaid-auth-fail";
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 							continue;
@@ -2787,7 +2790,7 @@ class A2Billing {
 						$result_check_cid = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result_check_cid,true));
 						
-						if( !is_array($result_check_cid)) {
+						if ( !is_array($result_check_cid)) {
 							$prompt="prepaid-auth-fail";
 							$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 							continue;
@@ -2828,7 +2831,7 @@ class A2Billing {
 				if ($this->typepaid==1) $this->credit = $this->credit + $this->creditlimit;
 				
 				if (strlen($language)==2  && !($this->languageselected>=1)) {
-					if($this->agiconfig['asterisk_version'] == "1_2") {
+					if ($this->agiconfig['asterisk_version'] == "1_2") {
 						$lg_var_set = 'LANGUAGE()';
 					} else {
 						$lg_var_set = 'CHANNEL(language)';
@@ -2840,10 +2843,10 @@ class A2Billing {
 				$prompt = '';
 				
 				// CHECK credit > min_credit_2call / you have zero balance
-				if( !$this -> enough_credit_to_call() ) $prompt = "prepaid-no-enough-credit-stop";
+				if ( !$this -> enough_credit_to_call() ) $prompt = "prepaid-no-enough-credit-stop";
 				
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-				if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				if ( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				
 				// CHECK IF THE CARD IS USED
 				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
@@ -2851,18 +2854,18 @@ class A2Billing {
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
 				if ($this->enableexpire>0) {
 					
-					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
+					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5) {
 						// expire date
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
 
-					} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)) {
 						// expire days since first use
 						$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
 
-					} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)) {
 						// expire days since creation
 						$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
@@ -2870,7 +2873,7 @@ class A2Billing {
 					}
 
 					//Update card status to Expired
-					if($prompt == "prepaid-card-expired") {
+					if ($prompt == "prepaid-card-expired") {
 					    $this->status =5;
 					    $QUERY = "UPDATE cc_card SET status='5' WHERE id='".$this->id_card."'";
 					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
@@ -2906,7 +2909,7 @@ class A2Billing {
 				}
 
 				//UPDATE THE CARD ASSIGN TO THIS CC_CALLERID
-				if ($this->update_callerid==1 && strlen($this->CallerID)>1 && $this -> ask_other_cardnumber==1){
+				if ($this->update_callerid==1 && strlen($this->CallerID)>1 && $this -> ask_other_cardnumber==1) {
 					$this -> ask_other_cardnumber=0;
 					$QUERY = "UPDATE cc_callerid SET id_cc_card='$the_card_id' WHERE cid='".$this->CallerID."'";
 					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
@@ -2997,7 +3000,7 @@ class A2Billing {
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, print_r($result,true));
 
-			if( !is_array($result)) {
+			if ( !is_array($result)) {
 				$prompt="prepaid-auth-fail";
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 				continue;
@@ -3038,7 +3041,7 @@ class A2Billing {
 			if (strlen($language)==2  && !($this->languageselected>=1)) {
 				// http://www.voip-info.org/wiki/index.php?page=Asterisk+cmd+SetLanguage
 				// Set(CHANNEL(language)=<lang>) 1_4 & Set(LANGUAGE()=language) 1_2
-				if($this->agiconfig['asterisk_version'] == "1_2") {
+				if ($this->agiconfig['asterisk_version'] == "1_2") {
 					$lg_var_set = 'LANGUAGE()';
 				} else {
 					$lg_var_set = 'CHANNEL(language)';
@@ -3048,29 +3051,29 @@ class A2Billing {
 			}
 			$prompt = '';
 			// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-			if( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+			if ( $this->status != "1") 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 			// CHECK IF THE CARD IS USED
 			if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
 			// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
-			if ($this->enableexpire>0){
-				if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
+			if ($this->enableexpire>0) {
+				if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5) {
 					// expire date
 					if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
 					$prompt = "prepaid-card-expired";
 
-				} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+				} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)) {
 					// expire days since first use
 					$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 					if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
 					$prompt = "prepaid-card-expired";
 
-				} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+				} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)) {
 					// expire days since creation
 					$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 					if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
 					$prompt = "prepaid-card-expired";
 				}
-				if($prompt == "prepaid-card-expired") {
+				if ($prompt == "prepaid-card-expired") {
 					    $this->status =5;
 					    $QUERY = "UPDATE cc_card SET status='5' WHERE id='".$this->id_card."'";
 					    $this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[QUERY UPDATE : $QUERY]");
@@ -3078,7 +3081,7 @@ class A2Billing {
 				}
 			}
 
-			if (strlen($prompt)>0){
+			if (strlen($prompt)>0) {
 				$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 				$res = -2;
 				break;
@@ -3110,7 +3113,7 @@ class A2Billing {
 					" WHERE username='".$this->cardnumber."'";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		
-		if( !is_array($result)) {
+		if ( !is_array($result)) {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Authentication Failed !!!").'</b></font><br>';
 			return 0;
 		}
@@ -3150,44 +3153,44 @@ class A2Billing {
 			$this->credit = $this->credit + $this->creditlimit;
 		
 		// CHECK IF ENOUGH CREDIT TO CALL
-		if( !$this->enough_credit_to_call()) {
+		if ( !$this->enough_credit_to_call()) {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
 			return 0;
 		}
 
 		// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-		if( $this->status != "1"){
+		if ( $this->status != "1") {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card is not active!!!").'</b></font><br>';
 			return 0;
 		}
 
 		// CHECK IF THE CARD IS USED
-		if (($isused>0) && ($simultaccess!=1)){
+		if (($isused>0) && ($simultaccess!=1)) {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card is actually in use!!!").'</b></font><br>';
 			return 0;
 		}
 
 		// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
-		if ($this->enableexpire>0){
-			if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
+		if ($this->enableexpire>0) {
+			if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5) {
 				// expire date
-				if (intval($this->expirationdate-time())<0){ // CARD EXPIRED :(
+				if (intval($this->expirationdate-time())<0) { // CARD EXPIRED :(
 					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card have expired!!!").'</b></font><br>';
 					return 0;
 				}
 
-			} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+			} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)) {
 				// expire days since first use
 				$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
-				if (intval($date_will_expire-time())<0){ // CARD EXPIRED :(
+				if (intval($date_will_expire-time())<0) { // CARD EXPIRED :(
 				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card have expired!!!").'</b></font><br>';
 				return 0;
 			}
 
-			} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+			} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)) {
 				// expire days since creation
 				$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
-				if (intval($date_will_expire-time())<0){ // CARD EXPIRED :(
+				if (intval($date_will_expire-time())<0) { // CARD EXPIRED :(
 					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card have expired!!!").'</b></font><br>';
 					return 0;
 				}
@@ -3214,13 +3217,13 @@ class A2Billing {
 		
 			$arr_value = trim ($arr_value);
 			$arr_value_explode = explode(":", $arr_value,2);
-			if (count($arr_value_explode) > 1){
-				if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) ){
+			if (count($arr_value_explode) > 1) {
+				if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) ) {
 					$arr_value_deck_callplan[] = $arr_value_explode[0];
 					$arr_value_deck_minute[] = $arr_value_explode[1];
 				}
 			} else {
-				if (is_numeric($arr_value)){
+				if (is_numeric($arr_value)) {
 					$arr_value_deck_callplan[] = $arr_value;
 					$arr_value_deck_minute[] = 0;
 				}
@@ -3238,7 +3241,7 @@ class A2Billing {
 		
 		$find_deck = false;
 		$accumul_seconds = 0;
-		for ($ind_deck = 0 ; $ind_deck < count($arr_value_deck_callplan) ; $ind_deck++){
+		for ($ind_deck = 0 ; $ind_deck < count($arr_value_deck_callplan) ; $ind_deck++) {
 			$accumul_seconds += $arr_value_deck_minute[$ind_deck];
 			
 			if ($arr_value_deck_callplan[$ind_deck] == $this->tariff) {
@@ -3351,17 +3354,17 @@ class A2Billing {
 	function splitable_data ($splitable_value)
 	{
 		$arr_splitable_value = explode(",", $splitable_value);
-		foreach ($arr_splitable_value as $arr_value){
+		foreach ($arr_splitable_value as $arr_value) {
 			$arr_value = trim ($arr_value);
 			$arr_value_explode = explode("-", $arr_value,2);
-			if (count($arr_value_explode)>1){
-				if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1] ){
-					for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++){
+			if (count($arr_value_explode)>1) {
+				if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1] ) {
+					for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++) {
 						$arr_value_to_import[] = $kk;
 					}
-				} elseif (is_numeric($arr_value_explode[0])){
+				} elseif (is_numeric($arr_value_explode[0])) {
 					$arr_value_to_import[] = $arr_value_explode[0];
-				} elseif (is_numeric($arr_value_explode[1])){
+				} elseif (is_numeric($arr_value_explode[1])) {
 					$arr_value_to_import[] = $arr_value_explode[1];
 				}
 
@@ -3377,7 +3380,7 @@ class A2Billing {
 
 	function save_redial_number($agi, $number)
 	{
-		if(($this->mode == 'did') || ($this->mode == 'callback')){
+		if (($this->mode == 'did') || ($this->mode == 'callback')) {
 		    return;
 		}
 		$QUERY = "UPDATE cc_card SET redial = '{$number}' WHERE username='".$this->accountcode."'";
@@ -3400,7 +3403,7 @@ class A2Billing {
 	 */
 	function format_parameters ($parameters)
 	{
-		if($this->agiconfig['asterisk_version'] == "1_6") {
+		if ($this->agiconfig['asterisk_version'] == "1_6") {
 			$parameters = str_replace("|", ',', $parameters);
 		}
 		return $parameters;
