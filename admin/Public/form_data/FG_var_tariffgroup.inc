@@ -100,13 +100,11 @@ if ($popup_select) {
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 	elseif ($popup_select == 2)
 		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
-}
-else {
+} else {
 	$HD_Form -> FG_EDITION = true;
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_ADDITION = true;
 }
-
 
 
 $HD_Form -> AddEditElement (gettext("NAME"),
@@ -117,6 +115,7 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	"9",	
 	gettext("Insert the Call Plan name "),
 	"" , "", "", "", "", "", "", "" );
+
 
 $HD_Form -> AddEditElement (gettext("LC TYPE"),
 	"lcrtype",				
@@ -134,9 +133,10 @@ $HD_Form -> AddEditElement(gettext("PACKAGE"),
 	"SELECT",
 	"", "", "",
 	"sql",
-	"cc_package_group",
-	"name, id",
+	"cc_package_offer",
+	"label, id",
 	"", "", "%1", "", gettext("Set the Package Group offer if you wish to use one with this Call Plan"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
+
 
 $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 	"removeinterprefix",		

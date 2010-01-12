@@ -38,11 +38,14 @@ include ("lib/customer.smarty.php");
 include ("lib/epayment/includes/configure.php");
 include ("lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/general.php");
+
 if (!has_rights(ACX_ACCESS)) {
 	Header("HTTP/1.0 401 Unauthorized");
 	Header("Location: PP_error.php?c=accessdenied");
 	die();
 }
+
+$inst_table = new Table();
 
 $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, " .
 "freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer, cc_card.id, currency,cc_card.useralias,UNIX_TIMESTAMP(cc_card.creationdate) creationdate  FROM cc_card " .
@@ -50,17 +53,16 @@ $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, co
 "LEFT JOIN cc_card_group ON cc_card_group.id=cc_card.id_group WHERE username = '" . $_SESSION["pr_login"] .
 "' AND uipass = '" . $_SESSION["pr_password"] . "'";
 
-$DBHandle_max = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max->Execute($QUERY);
-if ($resmax)
-	$numrow = $resmax->RecordCount();
+$DBHandle = DbConnect();
 
-if ($numrow == 0) {
+$customer_res = $inst_table -> SQLExec($DBHandle, $QUERY);
+
+if (!$customer_res || !is_array($customer_res)) {
 	echo gettext("Error loading your account information!");
 	exit ();
 }
-$customer_info = $resmax->fetchRow();
+
+$customer_info = $customer_res[0];
 if ($customer_info[14] != "1") {
 	exit ();
 }
@@ -80,13 +82,12 @@ if (!isset ($currencies_list[strtoupper($customer_info[22])][2]) || !is_numeric(
 	if (strtoupper($customer_info[22]) != strtoupper(BASE_CURRENCY))
 		$two_currency = true;
 }
+
 $credit_cur = $customer_info[1] / $mycur;
 $credit_cur = round($credit_cur, 3);
 $useralias = $customer_info['useralias'];
 $creation_date = $customer_info['creationdate'];
 $username = $customer_info['username'];
-
-
 
 
 $smarty->display('main.tpl');
@@ -140,19 +141,25 @@ $smarty->display('main.tpl');
 			</td>
 			<td width="50%">
 			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$customer_info[22]; ?> </font>
-			<br></br>
+			<br><br>
+			<pre><?php print_r ($customer_info);?></pre>
 			</td>
-			<?php if ($customer_info[15]>0) {
-				$freetimetocall_used = $A2B->FT2C_used_seconds($DBHandle_max, $customer_info[21], $customer_info[20], $customer_info[18], $customer_info[19]);?>
+			<?php
+				if ($customer_info[15] > 0) {
+					$freetimetocall_used = $A2B->FT2C_used_seconds($DBHandle, $customer_info[21], $customer_info[20], $customer_info[18], $customer_info[19]);?>
 			</tr><tr><td /><td width="50%">
 			<font class="fontstyle_002"><?php echo gettext("CALLING PACKAGE");?> :</font><br><font class="fontstyle_007"> <?php echo $customer_info[16]; ?> </font>
 			</td>
 			<td width="50%">
-			<font class="fontstyle_002"><?php if (($customer_info[17]==0) || ($customer_info[17]==1)) {	
-					echo gettext("PACKAGE MINUTES REMAINING");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d of %d:%02d",intval(($customer_info[15]-$freetimetocall_used) / 60),($customer_info[15]-$freetimetocall_used) % 60,intval($customer_info[15]/60),$customer_info[15] % 60);
-				} else {
-					echo gettext("PACKAGE MINUTES USED");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d",intval($freetimetocall_used / 60),$freetimetocall_used % 60);
-				}?> </font>
+				<font class="fontstyle_002">
+					<?php
+					if (($customer_info[17]==0) || ($customer_info[17]==1)) {
+						echo gettext("PACKAGE MINUTES REMAINING");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d of %d:%02d",intval(($customer_info[15]-$freetimetocall_used) / 60),($customer_info[15]-$freetimetocall_used) % 60,intval($customer_info[15]/60),$customer_info[15] % 60);
+					} else {
+						echo gettext("PACKAGE MINUTES USED");?> :</font><br><font class="fontstyle_007"> <?php printf ("%d:%02d",intval($freetimetocall_used / 60),$freetimetocall_used % 60);
+					}
+					?>
+				</font>
 			</tr><tr><td /><td width="50%" /><td width="50%" />
 			<?php }?>
 			<td valign="bottom" align="right"><img src="<?php echo KICON_PATH ?>/help_index.gif" class="kikipic"></td>

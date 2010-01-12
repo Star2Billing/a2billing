@@ -651,7 +651,7 @@ class A2Billing {
 			
 			if($this -> languageselected>0 && $this -> languageselected<=sizeof($list_prompt_menulang) ){
 				$language = $list_prompt_menulang[$this -> languageselected-1];
-			}else{
+			} else {
 				if (strlen($this->agiconfig['force_language'])==2) {
 					$language = strtolower($this->agiconfig['force_language']);
 				} else {
@@ -900,7 +900,7 @@ class A2Billing {
 				$this -> fct_say_balance ($agi, $this->credit);
 				
 				// Retrieve this customer's FT2C package details
-				  /* $QUERY = "SELECT freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff RIGHT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer WHERE cc_card.id='".$this->id_card."'";
+				$QUERY = "SELECT freetimetocall, label, packagetype, billingtype, startday, id_cc_package_offer FROM cc_card RIGHT JOIN cc_tariffgroup ON cc_tariffgroup.id=cc_card.tariff RIGHT JOIN cc_package_offer ON cc_package_offer.id=cc_tariffgroup.id_cc_package_offer WHERE cc_card.id='".$this->id_card."'";
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 				if (is_array($result) && ($result[0][0] > 0) ) {
 				        $freetime = $result[0][0];
@@ -927,29 +927,29 @@ class A2Billing {
 				                $agi-> stream_file('prepaid-you-have-dialed', '#');
 				        }
 				        if (($minutes > 0) || ($seconds == 0)) {
-				                if ($minutes==1){
-				                        if((strtolower($this ->current_language)=='ru')){
-				                                $agi-> stream_file('digits/1f', '#');
-				                        }else{
-				                                $agi->say_number($minutes);
-				                        }
-				                        $agi-> stream_file('prepaid-minute', '#');
-				                }else{
-				                        $agi->say_number($minutes);
-				                        if((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
-				                                // test for the specific grammatical rules in RUssian
-				                                $agi-> stream_file('prepaid-minute2', '#');
-				                        }else{
-				                                $agi-> stream_file('prepaid-minutes', '#');
-				                        }
-				                }
+							if ($minutes==1){
+								if((strtolower($this ->current_language)=='ru')){
+									$agi-> stream_file('digits/1f', '#');
+								} else {
+									$agi->say_number($minutes);
+								}
+								$agi-> stream_file('prepaid-minute', '#');
+							} else {
+								$agi->say_number($minutes);
+								if((strtolower($this ->current_language)=='ru')&& ( ( $minutes%10==2) || ($minutes%10==3 )|| ($minutes%10==4)) ){
+									// test for the specific grammatical rules in RUssian
+									$agi-> stream_file('prepaid-minute2', '#');
+								} else {
+									$agi-> stream_file('prepaid-minutes', '#');
+								}
+							}
 				        }
 				        if ($seconds > 0) {
 				                if ($minutes > 0) $agi-> stream_file('vm-and', '#');
 				                if ($seconds == 1) {
 				                        if((strtolower($this ->current_language)=='ru')) {
 				                                $agi-> stream_file('digits/1f', '#');
-				                        }else{
+				                        } else {
 				                                $agi->say_number($seconds);
 				                        }
 				                        $agi-> stream_file('prepaid-second', '#');
@@ -976,7 +976,7 @@ class A2Billing {
 				        } else {
 				                $agi-> stream_file('weeks', '#');
 				        }
-				}*/
+				}
 				return -1;
 	        }
 	
@@ -1856,10 +1856,10 @@ class A2Billing {
 					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ($cents%10==2) || ($cents%10==3)|| ($cents%10==4)) ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-cent2', '#');
-					}elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ($cents%10==1) ){
+					} elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ($cents%10==1) ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file($cent_audio, '#');
-					}else{
+					} else {
 						$agi-> stream_file($cents_audio, '#');
 					}
 				} else {
@@ -1902,7 +1902,7 @@ class A2Billing {
 			$units_audio = $this->agiconfig['currency_association_internal'][strtolower($this->currency)];
 			// leave the last character ex: dollars -> dollar
 			$unit_audio = substr($units_audio,0,-1);
-		}else{
+		} else {
 			$units_audio = $this->agiconfig['currency_association_internal']['all'];
 			$unit_audio = $units_audio;
 		}
@@ -1922,14 +1922,14 @@ class A2Billing {
 				if(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( ( $units%10==2) || ($units%10==3 )|| ($units%10==4)) ){
 					// test for the specific grammatical rules in RUssian
 					$agi-> stream_file('dollar2', '#');
-				}elseif(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( $units%10==1)) {
+				} elseif(($this ->current_language=='ru')&&(strtolower($this->currency)=='usd')&& ( $units%10==1)) {
 					// test for the specific grammatical rules in RUssian
 					$agi-> stream_file($unit_audio, '#');
-				}else{
+				} else {
 					$agi-> stream_file($units_audio, '#');
 				}
 					
-			}else{
+			} else {
 				$agi -> say_number($units);
 				$agi -> stream_file($unit_audio, '#');
 			}
@@ -1944,13 +1944,13 @@ class A2Billing {
 					if((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&& ( ( $cents%10==2) || ($cents%10==3 )|| ($cents%10==4)) ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file('prepaid-cent2', '#');
-					}elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&&  ( $cents%10==1)  ){
+					} elseif((strtolower($this->currency)=='usd')&&($this ->current_language=='ru')&&  ( $cents%10==1)  ){
 						// test for the specific grammatical rules in RUssian
 						$agi-> stream_file($cent_audio, '#');
-					}else{
+					} else {
 						$agi-> stream_file($cents_audio, '#');
 					}
-				}else{
+				} else {
 					$agi-> stream_file($cent_audio, '#');
 				}
 			}
@@ -2072,7 +2072,7 @@ class A2Billing {
 
 			$yearmonth = sprintf("%s-%02d",$year_month,$startday);
 			$CLAUSE_DATE=" TIMESTAMP(date_consumption) >= TIMESTAMP('$yearmonth')";
-		}else{
+		} else {
 			// PROCESSING FOR WEEKLY
 			$startday = $startday % 7;
 			$dayofweek = date("w"); // Numeric representation of the day of the week 0 (for Sunday) through 6 (for Saturday)
@@ -2105,33 +2105,41 @@ class A2Billing {
 	 *  @param integer $startday
 	 *  @return integer number of seconds used of FT2C package so far in this period
 	 **/
-	function FT2C_used_seconds($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday) {
-		if ($billingtype == 0){
+	function FT2C_used_seconds($DBHandle, $id_cc_card, $id_cc_package_offer, $billingtype, $startday)
+	{
+		if ($billingtype == 0) {
 			// PROCESSING FOR MONTHLY
 			// if > last day of the month
-			if ($startday > date("t")) $startday = date("t");
-			if ($startday <= 0 ) $startday = 1;
+			if ($startday > date("t"))
+				$startday = date("t");
+			if ($startday <= 0)
+				$startday = 1;
 
 			// Check if the startday is upper that the current day
-			if ($startday > date("j")) $year_month = date('Y-m', strtotime('-1 month'));
-			else $year_month = date('Y-m');
+			if ($startday > date("j"))
+				$year_month = date('Y-m', strtotime('-1 month'));
+			else
+				$year_month = date('Y-m');
 
 			$yearmonth = sprintf("%s-%02d",$year_month,$startday);
 			$CLAUSE_DATE=" TIMESTAMP(date_consumption) >= TIMESTAMP('$yearmonth')";
-		}else{
+		} else {
 			// PROCESSING FOR WEEKLY
 			$startday = $startday % 7;
 			$dayofweek = date("w"); // Numeric representation of the day of the week 0 (for Sunday) through 6 (for Saturday)
-			if ($dayofweek==0) $dayofweek=7;
+			if ($dayofweek==0) $dayofweek = 7;
 			if ($dayofweek < $startday) $dayofweek = $dayofweek + 7;
 			$diffday = $dayofweek - $startday;
 			$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
 		}
 		$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
 				 "WHERE $CLAUSE_DATE AND id_cc_card = '$id_cc_card' AND id_cc_package_offer = '$id_cc_package_offer' ";
-		$pack_result = $DBHandle -> Execute($QUERY);
-		if ($pack_result && ($pack_result -> RecordCount() > 0)) {
-			$result = $pack_result -> fetchRow();
+
+		$this->instance_table = new Table();
+		$pack_result = $this->instance_table -> SQLExec ($DBHandle, $QUERY);
+		
+		if ($pack_result && is_array($pack_result)) {
+			$result = $pack_result[0];
 			$freetimetocall_used = $result[0];
 		} else {
 			$freetimetocall_used = 0;
@@ -2649,13 +2657,13 @@ class A2Billing {
 						// expire date
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
-					}elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
 					// expire days since first use
 						$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
 
-					}elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
 						// expire days since creation
 						$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
@@ -2848,13 +2856,13 @@ class A2Billing {
 						if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
 
-					}elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
 						// expire days since first use
 						$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
 						$prompt = "prepaid-card-expired";
 
-					}elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+					} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
 						// expire days since creation
 						$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 						if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
@@ -3050,13 +3058,13 @@ class A2Billing {
 					if (intval($this->expirationdate-time())<0) // CARD EXPIRED :(
 					$prompt = "prepaid-card-expired";
 
-				}elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+				} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
 					// expire days since first use
 					$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 					if (intval($date_will_expire-time())<0) // CARD EXPIRED :(
 					$prompt = "prepaid-card-expired";
 
-				}elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+				} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
 					// expire days since creation
 					$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 					if (intval($date_will_expire-time())<0)	// CARD EXPIRED :(
@@ -3168,7 +3176,7 @@ class A2Billing {
 					return 0;
 				}
 
-			}elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
+			} elseif ($this->enableexpire==2  && $this->firstusedate!='00000000000000' && strlen($this->firstusedate)>5 && ($this->expiredays>0)){
 				// expire days since first use
 				$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 				if (intval($date_will_expire-time())<0){ // CARD EXPIRED :(
@@ -3176,7 +3184,7 @@ class A2Billing {
 				return 0;
 			}
 
-			}elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
+			} elseif ($this->enableexpire==3  && $this->creationdate!='00000000000000' && strlen($this->creationdate)>5 && ($this->expiredays>0)){
 				// expire days since creation
 				$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays);
 				if (intval($date_will_expire-time())<0){ // CARD EXPIRED :(
@@ -3211,7 +3219,7 @@ class A2Billing {
 					$arr_value_deck_callplan[] = $arr_value_explode[0];
 					$arr_value_deck_minute[] = $arr_value_explode[1];
 				}
-			}else{
+			} else {
 				if (is_numeric($arr_value)){
 					$arr_value_deck_callplan[] = $arr_value;
 					$arr_value_deck_minute[] = 0;
@@ -3351,13 +3359,13 @@ class A2Billing {
 					for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++){
 						$arr_value_to_import[] = $kk;
 					}
-				}elseif (is_numeric($arr_value_explode[0])){
+				} elseif (is_numeric($arr_value_explode[0])){
 					$arr_value_to_import[] = $arr_value_explode[0];
-				}elseif (is_numeric($arr_value_explode[1])){
+				} elseif (is_numeric($arr_value_explode[1])){
 					$arr_value_to_import[] = $arr_value_explode[1];
 				}
 
-			}else{
+			} else {
 				$arr_value_to_import[] = $arr_value_explode[0];
 			}
 		}
