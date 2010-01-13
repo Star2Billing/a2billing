@@ -74,7 +74,7 @@ ALTER TABLE cc_logpayment ADD agent_id BIGINT NULL ;
 ALTER TABLE cc_logrefill ADD agent_id BIGINT NULL ;
 
 
-ALTER TABLE `cc_ratecard` CHANGE `destination` `destination` BIGINT( 20 ) NULL DEFAULT '0'
+ALTER TABLE `cc_ratecard` CHANGE `destination` `destination` BIGINT( 20 ) NULL DEFAULT '0';
 
 
 UPDATE cc_version SET version = '1.4.5';
