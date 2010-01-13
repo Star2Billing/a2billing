@@ -49,6 +49,7 @@ getpost_ifset(array('months_compare', 'min_call', 'fromstatsday_sday', 'days_com
 
 // graphtype = 1, 2, 3, 4 
 // 1 : traffic, 2 : Profit,  3 : Sells, 4 : Buys
+// 2 and 4 : removed for the Agent UI
 
 $FG_DEBUG = 0;
 $months = Array (
@@ -173,23 +174,11 @@ for ($i = 0; $i < $months_compare +1; $i++) {
 		$mylegend[] = $months[$current_mymonth2 -1] . " $current_myyear : " . intval($list_total[0][0] / 60) . " min";
 		$title_graph = "Traffic Last $months_compare Months";
 	}
-	elseif ($graphtype == 2) {
-		// Profit
-		$data[] = $list_total[0][1];
-		$mylegend[] = $months[$current_mymonth2 -1] . " $current_myyear : " . number_format($list_total[0][1], 3) . ' ' . BASE_CURRENCY;
-		$title_graph = "Profit Last $months_compare Months";
-	}
 	elseif ($graphtype == 3) {
 		// Sell
 		$data[] = $list_total[0][2];
 		$mylegend[] = $months[$current_mymonth2 -1] . " $current_myyear : " . number_format($list_total[0][2], 3) . ' ' . BASE_CURRENCY;
 		$title_graph = "Sell Last $months_compare Months";
-	}
-	elseif ($graphtype == 4) {
-		// Buy
-		$data[] = $list_total[0][3];
-		$mylegend[] = $months[$current_mymonth2 -1] . " $current_myyear : " . number_format($list_total[0][3], 3) . ' ' . BASE_CURRENCY;
-		$title_graph = "Buy Last $months_compare Months";
 	}
 
 }
