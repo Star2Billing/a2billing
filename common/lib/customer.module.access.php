@@ -61,11 +61,14 @@ define ("ACX_SEERECORDING",					262144);
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 
 
-if(strlen(RETURN_URL_DISTANT_LOGIN)>1)
-	$C_RETURN_URL_DISTANT_LOGIN = RETURN_URL_DISTANT_LOGIN; 
-else 
-	$C_RETURN_URL_DISTANT_LOGIN = 'index.php';
-
+if(strlen(RETURN_URL_DISTANT_LOGIN)>1) {
+	if (strpos(RETURN_URL_DISTANT_LOGIN, '?') === false)
+		$C_RETURN_URL_DISTANT_LOGIN = RETURN_URL_DISTANT_LOGIN . '?';
+	else
+		$C_RETURN_URL_DISTANT_LOGIN = RETURN_URL_DISTANT_LOGIN . '&';
+} else {
+	$C_RETURN_URL_DISTANT_LOGIN = 'index.php?';
+}
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") { 
 	session_destroy();
@@ -109,14 +112,14 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			header ("HTTP/1.0 401 Unauthorized");
             if (is_int($return)) {
                 if ($return == -1) {
-			        Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=3");
+			        Header ("Location: $C_RETURN_URL_DISTANT_LOGIN"."error=3");
                 } elseif ($return == -2) {
-			        Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=4");
+			        Header ("Location: $C_RETURN_URL_DISTANT_LOGIN"."error=4");
                 } else {
-                    Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=2");
+                    Header ("Location: $C_RETURN_URL_DISTANT_LOGIN"."error=2");
                 }
             } else {
-                Header ("Location: $C_RETURN_URL_DISTANT_LOGIN?error=1");
+                Header ("Location: $C_RETURN_URL_DISTANT_LOGIN"."error=1");
             }
 			die();
 		}

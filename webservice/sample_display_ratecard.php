@@ -67,6 +67,7 @@ $api_url = "http://localhost/~areski/svn/asterisk2billing/trunk/webservice/displ
 			"&page_url=http://localhost/~areski/svn/asterisk2billing/trunk/webservice/sample_display_ratecard.php" .
 			"&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial" .
 			"&column_name=Destination,Prefix,Rate/Min&field_type=,,money" .
+			"&fullhtmlpage=1&filter=countryname,prefix".
 			"&".$_SERVER['QUERY_STRING'];
 
 

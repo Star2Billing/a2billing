@@ -43,7 +43,7 @@ Parameters :
 
 Usage :
     http://localhost/trunk/customer/webservice/Get_Rates.php?activation_code=XXXXXXXXXXX
-    http://localhost/~areski/svn/asterisk2billing/trunk/customer/webserviceGet_Rates.php?activation_code=6098593343_12345&html=1
+    http://localhost/~areski/svn/asterisk2billing/trunk/customer/webservice/Get_Rates.php?activation_code=6098593343_12345&html=1
 */
 
 

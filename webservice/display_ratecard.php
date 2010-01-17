@@ -80,6 +80,10 @@ $email_alarm = EMAIL_ADMIN;
 $FG_DEBUG = 0;
 
 $caching_query = 300; // caching for 5 minutes
+echo "<br>GET :";
+print_r ($_GET);
+echo "<br>POST :";
+print_r ($_POST);
 
 getpost_ifset(array( 'key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 
 					 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'current_page', 'order', 'sens', 
@@ -88,6 +92,8 @@ getpost_ifset(array( 'key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_displa
 $ip_remote = getenv('REMOTE_ADDR');
 $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] " . "Request asked from:$ip_remote with key:$key \n";
 
+
+echo "searchpre:$searchpre";
 // CHECK KEY
 if ($FG_DEBUG > 0)
 	echo "<br> md5(" . md5($security_key) . ") !== $key";
@@ -139,15 +145,28 @@ if (!isset ($fullhtmlpage) || strlen($fullhtmlpage) == 0)
 if (!isset ($page_url) || strlen($page_url) == 0) {
 	echo "Error : need to define page_url !!!";
 	exit;
+} else {
+    $page_url = urldecode ($page_url);
 }
 if ((substr($page_url, 0, 7) != 'http://') && (substr($page_url, 0, 8) != 'https://')) {
 	echo "Error : page_url need to start by http:// or https:// ";
 	exit;
 }
+
 if (!isset ($lcr) || strlen($lcr) == 0)
 	$lcr = 0;
 
-$parameter_to_send = "&column_name=$column_name&field_type=$field_type&field_type=$field_type&resulttitle=$resulttitle";
+$parameter_to_send = "column_name=$column_name&field_type=$field_type&filter=$filter&resulttitle=$resulttitle";
+if (strpos($page_url, '?') === false) {
+    if (strpos($page_url, 'column_name') === false)
+        $page_url .= '?'.$parameter_to_send;
+} else {
+    if (strpos($page_url, 'column_name') === false)
+        $page_url .= '&'.$parameter_to_send;
+}
+
+
+$page_url_encode = urlencode($page_url);
 
 function add_clause(& $sqlclause, $addclause) {
 	if (strlen($sqlclause) == 0)
@@ -179,10 +198,10 @@ if ($lcr) {
 //end set default
 trim($field_to_display);
 trim($field_type);
-$field = explode(",", $field_to_display);
-$type = explode(",", $field_type);
-$column = explode(",", $column_name);
-$fltr = explode(",", $filter);
+$field      = explode(",", $field_to_display);
+$type       = explode(",", $field_type);
+$column     = explode(",", $column_name);
+$fltr       = explode(",", $filter);
 
 if (!isset ($current_page) || ($current_page == "")) {
 	$current_page = 0;
@@ -222,7 +241,6 @@ if (isset ($letter) && strlen($letter) != 0) {
 if (isset ($tariffgroupid) && strlen($tariffgroupid) != 0) {
 	$FG_TABLE_NAME = "cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6, cc_prefix t7";
 	add_clause($FG_TABLE_CLAUSE, "t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '$tariffgroupid' AND t7.prefix=t1.destination");
-
 } else {
 	$FG_TABLE_NAME = "cc_ratecard t1, cc_prefix t7";
 	add_clause($FG_TABLE_CLAUSE, "t7.prefix=t1.destination");
@@ -282,11 +300,12 @@ if (is_null($order) || is_null($sens)) {
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 $list = $instance_table->Get_list($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page * $FG_LIMITE_DISPLAY, $sql_group, $caching_query);
 
-$QUERY = 'SELECT DISTINCT destination FROM cc_prefix ORDER BY destination';
-$country_list = $instance_table->SQLExec($DBHandle, $QUERY, 1, $caching_query);
+if ($FILTER_COUNTRY) {
+    $QUERY = 'SELECT DISTINCT destination FROM cc_prefix ORDER BY destination LIMIT 0, 1000';
+    $country_list = $instance_table->SQLExec($DBHandle, $QUERY, 1, $caching_query);
+}
 
 $QUERY = "SELECT count(*) FROM (SELECT t1.* FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE" . $sql_group . ") as setprefix ";
-
 $list_nrecord = $instance_table->SQLExec($DBHandle, $QUERY, 1, $caching_query);
 $nb_record = $list_nrecord[0][0];
 
@@ -304,23 +323,29 @@ if ($nb_record <= $FG_LIMITE_DISPLAY) {
 <!--
 function Search(Source) {
 	if (Source == 'btn01') {
-		if (document.myForm.merge_form.value == 0) {
-			document.myForm.searchpre.value="";
+		if (document.a2b_rate_form.merge_form.value == 0) {
+			document.a2b_rate_form.searchpre.value = "";
 		}
 	}
 	if (Source == 'btn02') {
-		if (document.myForm.merge_form.value == 0) {
-			var index = document.myForm.choose_country.selectedIndex;
-			document.myForm.choose_country.options[index].value="";
+		if (document.a2b_rate_form.merge_form.value == 0) {
+            <?php if ($FILTER_COUNTRY) { ?>
+			var index = document.a2b_rate_form.choose_country.selectedIndex;
+			document.a2b_rate_form.choose_country.options[index].value="";
+			<?php } ?>
 		}
 	}
-	document.myForm.submit();
+	document.a2b_rate_form.submit();
 }
 //-->
 </script>
 
 
-<?php if ($fullhtmlpage) { ?>
+<?php 
+echo $page_url."<br>";
+echo $filter."<br>";
+
+if ($fullhtmlpage) { ?>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="<?php echo $css_url;?>" rel="stylesheet" type="text/css">
@@ -330,8 +355,8 @@ function Search(Source) {
 <?php } ?>
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<FORM METHOD="GET" name="myForm" ACTION="<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url&$parameter_to_send"?>">
-	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form;?>>
+	<FORM METHOD="GET" name="a2b_rate_form" action="<?php echo "$page_url"."order=$order"."&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url_encode"?>">
+	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form; ?>>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
 	<div class="search">
 		<?php if ($FILTER_COUNTRY) { ?>
@@ -342,24 +367,28 @@ function Search(Source) {
 				foreach($country_list as $country) {?>
 					<option value='<?php echo $country[0] ?>' <?php if ($choose_country==$country[0]) {?>selected<?php } ?>><?php echo $country[0] ?><br>
 					</option>
-				<?php 	} ?></select><input name="btn01" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn01');">
+				<?php 	} ?></select><INPUT name="btn01" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn01');"/>
 		</div>
-		<?php } if ($DISPLAY_LETTER) { ?>
+		<?php } else { ?>
+		     <INPUT TYPE="hidden" NAME="choose_country" value="">
+		<?php } ?> 
+		<?php if ($DISPLAY_LETTER) { ?>
 		<div class="searchelement"  align="left">
 			<?php echo gettext("select the first letter of the destination you are looking for");?><br>
 			<?php for ($i=65;$i<=90;$i++) {
  				$x = chr($i);
 				if ($merge_form) {
- 					echo "<a href=\"$page_url?letter=$x&order=$order&sens=$sens&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url&$parameter_to_send\">$x</a> ";
+ 					echo "<a href=\"$page_url"."letter=$x&order=$order&sens=$sens&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url_encode\">$x</a> ";
 				} else {
-					echo "<a href=\"$page_url?letter=$x&order=$order&sens=$sens&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url&$parameter_to_send\">$x</a> ";
+					echo "<a href=\"$page_url"."letter=$x&order=$order&sens=$sens&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url_encode\">$x</a> ";
 				}
 			}?></font>
 		</div>
 		<?php } if ($FILTER_PREFIX) { ?>
 		<div class="searchelement"  align="left">
 			<?php echo gettext("Enter dial code"); ?><br>
-			<INPUT TYPE="text" NAME="searchpre" class="textfield" value="<?php echo $searchpre ?>"></INPUT><input name="btn02" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn02');">
+			<INPUT TYPE="text" name="searchpre" class="textfield" value="<?php echo $searchpre; ?>"/>
+			<INPUT name="btn02" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn02');"/>
 		</div>
 		<?php } if ($currency_select) { ?>
 		<div class="searchelement"  align="left">
@@ -372,7 +401,7 @@ function Search(Source) {
 				</option>
 				<?php 	} ?>
 				</select>
-				
+				<input name="btn01" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn03');"/>
 		</div>
 		<?php } ?>
 		<div class="searchelement"  align="left">
@@ -382,7 +411,6 @@ function Search(Source) {
 
 <!-- ** ** ** ** ** Part to display the ratecard ** ** ** ** ** -->
 
-	<div class="result" align="left">
 	<table width="100%" border=0 cellPadding=0 cellSpacing=0>
 	<TR>
 		<TD>
@@ -392,7 +420,6 @@ function Search(Source) {
 	<TR>
 		<TD>
 		<TABLE width="100%" border=0 cellPadding=0 cellSpacing=0>
-		<TBODY>
 			<TR>
 				<?php 
 					if (is_array($list) && count($list)>0) {
@@ -400,7 +427,7 @@ function Search(Source) {
 							<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title">
 							<center><strong>
 							<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-							<a href="<?php  echo "$page_url?current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url&$parameter_to_send";?>">
+							<a href="<?php  echo "$page_url"."current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url_encode";?>">
 							<?php  } ?>
 							<?php echo $FG_TABLE_COL[$i][0]?>
 							<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
@@ -435,21 +462,18 @@ function Search(Source) {
 				echo gettext("No rate found !!!");
 			}
 			?>
-		</TBODY>
 		</TABLE>
 	</td>
 	</tr>
 	<TR>
 	<TD>
 		<?php
-		$c_url="$page_url?order=$order&sens=$sens&current_page=%s&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url&$parameter_to_send";
+		$c_url = "$page_url"."order=$order&sens=$sens&current_page=%s&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url_encode";
 		printPages($current_page+1, $nb_record_max, $c_url);
 		?>
 	</TD>
-	</TD>
 	</TR>
 	</table>
-	<div>
 
 <?php if ($fullhtmlpage) { ?>
 </div>
