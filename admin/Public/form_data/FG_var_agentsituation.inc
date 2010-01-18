@@ -49,7 +49,7 @@ $HD_Form -> AddViewElement(gettext("AGENT PAYMENT"), "payment", "7%", "center", 
 
 $HD_Form -> FieldViewElement ('id, id, credit,com_balance,id,id, id, id');
 
- $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'agent_situation';
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for agent infos.');
 $HD_Form -> FG_FILTER_SEARCH_DELETE_ALL =false;
