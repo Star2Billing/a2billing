@@ -223,7 +223,7 @@ include (LIBDIR."common.defines.php");
 
 
 // COPYRIGHT
-define ("LCMODAL", check_cp());	
+define ("LCMODAL", check_cp());
 
 
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);

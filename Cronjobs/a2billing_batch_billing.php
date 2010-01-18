@@ -74,7 +74,7 @@ if (ProcessHandler :: isActive()) {
 }
 
 //Flag to show the debuging information
-$verbose_level = 3;
+$verbose_level = 0;
 
 $groupcard = 5000;
 

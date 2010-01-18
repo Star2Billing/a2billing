@@ -320,7 +320,7 @@ if ($form_action=='list' && !($popup_select>=1)) {
 				<tr>
 					<td colspan="2" align="center">
 					<input class="form_input_button" 
-				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT TO THE SELECTED CARD");?>" onClick="openURL('<?php echo $_SERVER['PHP_SELF']?>?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
+				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT");?>" onClick="openURL('<?php echo $_SERVER['PHP_SELF']?>?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
         	
 					</td>
 				</tr>
