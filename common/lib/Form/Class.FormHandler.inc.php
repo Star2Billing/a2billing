@@ -15,7 +15,7 @@
  * A copy of which is available from http://www.gnu.org/copyleft/lesser.html
  *
  ****************************************************************************/
-include (dirname(__FILE__) . "/class.FormBO.php");
+include (dirname(__FILE__) . "/Class.FormBO.php");
 
 class FormHandler
 {	
