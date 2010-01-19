@@ -2342,9 +2342,10 @@ class A2Billing {
 		$retries			= 0;
 		$language 			= 'en';
 		$callerID_enable 	= $this->agiconfig['cid_enable'];
-		// 		  -%-%-%-%-%-%-		FIRST TRY WITH THE CALLERID AUTHENTICATION 	-%-%-%-%-%-%-
 
+		// 		  -%-%-%-%-%-%-		FIRST TRY WITH THE CALLERID AUTHENTICATION 	-%-%-%-%-%-%-
 		if ($callerID_enable==1 && is_numeric($this->CallerID) && $this->CallerID>0) {
+
 			$this -> debug( DEBUG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 
 			// NOT USE A LEFT JOIN HERE - In case the callerID is alone without card bound
@@ -2553,9 +2554,9 @@ class A2Billing {
 		}
 
 		// 		 -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
-
+		
 		$prompt_entercardnum= "prepaid-enter-pin-number";
-		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Account code - '.$this->accountcode);
+		$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Account code ::> '.$this->accountcode);
 		if (strlen ($this->accountcode)>=1 && !$authentication) {
 			$this->username = $this -> cardnumber = $this->accountcode;
 			for ($i=0;$i<=0;$i++) {
@@ -2572,7 +2573,8 @@ class A2Billing {
 								" LEFT JOIN cc_country ON cc_card.country=cc_country.countrycode ".
 								" WHERE username='".$this->cardnumber."'";
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-					
+					$this -> debug( DEBUG, $agi, __FILE__, __LINE__, ' - Retrieve account info SQL ::> '.$QUERY);
+
 					if ( !is_array($result)) {
 						$prompt="prepaid-auth-fail";
 						$this -> debug( DEBUG, $agi, __FILE__, __LINE__, strtoupper($prompt));

@@ -67,9 +67,9 @@ if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0) {
 	$idconfig = 1;
 }
 
-if($dynamic_idconfig = intval($agi->get_variable("IDCONF", true)))
+if ($dynamic_idconfig = intval($agi->get_variable("IDCONF", true))) {
 	$idconfig = $dynamic_idconfig;
-
+}
 
 if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')						$mode = 'did';
 elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'callback')			$mode = 'callback';
