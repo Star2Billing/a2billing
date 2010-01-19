@@ -122,6 +122,8 @@ User password is: a2billing
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.2-to-v1.4.3.sql
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.3-to-v1.4.4.sql
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.4-to-v1.4.4.1.sql
+     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.4.1-to-v1.4.5.sql
+     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.5-to-v1.5.0.sql
 
    Checkpoint 1: Check that the database (my2billing) and that (93) tables have been created.
      #mysql -u root -p mya2billing

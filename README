@@ -1,8 +1,8 @@
-@version 1.4.4.1-prod
+@version 1.5.0-prod
 #
 
- A2billing Release 1.4.4.1
----------------------------
+ A2billing Release
+----------------------
 
 * A PDF guide with installation instructions is available in
 Doc/addons/a2billing_14_Installation_Guide_1.0.pdf

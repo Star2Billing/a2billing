@@ -80,10 +80,7 @@ $email_alarm = EMAIL_ADMIN;
 $FG_DEBUG = 0;
 
 $caching_query = 300; // caching for 5 minutes
-echo "<br>GET :";
-print_r ($_GET);
-echo "<br>POST :";
-print_r ($_POST);
+
 
 getpost_ifset(array( 'key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 
 					 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'current_page', 'order', 'sens', 
@@ -93,7 +90,6 @@ $ip_remote = getenv('REMOTE_ADDR');
 $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] " . "Request asked from:$ip_remote with key:$key \n";
 
 
-echo "searchpre:$searchpre";
 // CHECK KEY
 if ($FG_DEBUG > 0)
 	echo "<br> md5(" . md5($security_key) . ") !== $key";
@@ -342,8 +338,6 @@ function Search(Source) {
 
 
 <?php 
-echo $page_url."<br>";
-echo $filter."<br>";
 
 if ($fullhtmlpage) { ?>
 <html><head>
@@ -355,9 +349,14 @@ if ($fullhtmlpage) { ?>
 <?php } ?>
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<FORM METHOD="GET" name="a2b_rate_form" action="<?php echo "$page_url"."order=$order"."&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url_encode"?>">
+	<FORM METHOD="GET" name="a2b_rate_form" action="<?php echo "$page_url"; ?>">
+	
+	<INPUT TYPE="hidden" NAME="order" value=<?php echo $order; ?>>
+	<INPUT TYPE="hidden" NAME="sens" value=<?php echo $sens; ?>>
+	<INPUT TYPE="hidden" NAME="current_page" value=<?php echo $current_page; ?>>
+	<INPUT TYPE="hidden" NAME="css_url" value=<?php echo $css_url; ?>>
+	<INPUT TYPE="hidden" NAME="page_url" value=<?php echo $page_url_encode; ?>>
 	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form; ?>>
-	<INPUT TYPE="hidden" NAME="current_page" value=0>
 	<div class="search">
 		<?php if ($FILTER_COUNTRY) { ?>
 		<div class="searchelement"  align="left">
@@ -427,7 +426,7 @@ if ($fullhtmlpage) { ?>
 							<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title">
 							<center><strong>
 							<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-							<a href="<?php  echo "$page_url"."current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url_encode";?>">
+							<a href="<?php  echo "$page_url"."&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url_encode";?>">
 							<?php  } ?>
 							<?php echo $FG_TABLE_COL[$i][0]?>
 							<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
