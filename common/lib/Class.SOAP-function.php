@@ -1,19 +1,15 @@
 <?php
 
+$disable_check_cp = true;
 
-include_once ("../lib/admin.defines.php");
-
-
-define ("LOG_WEBSERVICE", isset($A2B->config["log-files"]['api_card'])?$A2B->config["log-files"]['api_card']:null); 
-
-
+include (dirname(__FILE__)."/admin.defines.php");
 
 
 class SOAP_A2Billing
 {
 	var $__dispatch_map = array();
 	
-	var $logfile = LOG_WEBSERVICE;
+	var $logfile = API_LOGFILE;
 	
 	var $system_security_key = API_SECURITY_KEY;
 	
@@ -161,6 +157,11 @@ class SOAP_A2Billing
         $this->__dispatch_map['Update_Rates'] =
                  array('in' => array('security_key' => 'string', 'instance' => 'string', 'rates' => 'array'),
                        'out' => array('result' => 'boolean', 'message' => 'string')
+                       );
+		
+		$this->__dispatch_map['Get_Subscription_Signup'] =
+                 array('in' => array('security_key' => 'string'),
+                       'out' => array('result' => 'array', 'message' => 'string')
                        );
 	
     }
@@ -372,6 +373,30 @@ class SOAP_A2Billing
 		}
 		
 		return array(serialize($result), 'Get_CustomerGroups SUCCESS');
+    }
+
+	
+	/*
+	 *      Get list of service on signup subscription
+	 */
+    function Get_Subscription_Signup($security_key)
+    {
+        if (!$this->Check_SecurityKey ($security_key)) {
+		    return array("ERROR", "INVALID KEY");
+		}
+		
+		return array("aresk", 'Get_Subscription_Signup SUCCESS');
+		
+		$QUERY = "SELECT cc_subscription_signup.id, cc_subscription_signup.label, enable, id_subscription, description, cc_subscription_fee.label as fee_label, cc_subscription_fee.fee FROM cc_subscription_signup LEFT JOIN cc_subscription_fee ON id_subscription=cc_subscription_fee.id ORDER BY cc_subscription_signup.id";
+		
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		
+		if (!is_array($result))
+		{
+		    return array(false, "CANNOT LOAD THE SIGNUP SUBSCRIPTION LIST");
+		}
+		
+		return array(serialize($result), 'Get_Subscription_Signup SUCCESS');
     }
 
 	

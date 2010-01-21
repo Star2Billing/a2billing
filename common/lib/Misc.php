@@ -1393,7 +1393,7 @@ function retrieve_rates_callplan($callplan_id, $DBHandle)
 }
 
 /*
- * function retrieve_rates_callplan
+ * function
  */
 function check_cp()
 {
@@ -1414,3 +1414,6 @@ function check_cp()
 	
 	return 0;
 }
+
+
+
