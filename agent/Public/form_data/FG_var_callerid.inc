@@ -55,7 +55,7 @@ $yesno = Constants::getYesNoList();
 
 $HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "25%", "center", "sort", "", "lie_link", "cc_card", "username, id", "id='%id'", "%1", "", "A2B_entity_card.php");
-$HD_Form -> AddViewElement(gettext("CUSTOMER NAME"), "id_cc_card", "25%", "center", "sort", "", "lie_link", "cc_card", "lastname, firstname, id", "id='%id'", "%1 %2", "", "A2B_entity_card.php");
+$HD_Form -> AddViewElement(gettext("CUSTOMER NAME"), "id_cc_card", "25%", "center", "sort", "", "lie_link", "cc_card", "lastname, id, firstname", "id='%id'", "%1 %3", "", "A2B_entity_card.php");
 $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "15%", "center", "sort", "", "list", $actived_list);
 
 $HD_Form -> FieldViewElement ('cid, id_cc_card, id_cc_card, cc_callerid.activated, cc_callerid.id');
