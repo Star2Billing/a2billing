@@ -309,7 +309,7 @@ $HD_Form -> FG_FILTERFIELDNAME = 'account number';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)) {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
 }
@@ -371,10 +371,10 @@ if (isset($form_action) && $form_action=="ask-delete") {
 			   "12",
 			   gettext("Insert the number of credit"),
 			   "" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
+
 	$balance_delete = ",credit";
-	
 }
-			   
+
 		   
 $HD_Form -> AddEditElement (gettext("CUSTOMER GROUP"),
 			   "id_group",
@@ -516,7 +516,7 @@ $HD_Form -> AddEditElement (gettext("COMPANY WEBSITE"),
 
 
 $callplan_add = "";
-if (isset($form_action) && ($form_action=="ask-add" || $form_action=="ask-add")) {
+if (isset($form_action) && ($form_action=="ask-add" || $form_action=="add")) {
 	$HD_Form -> AddEditElement (gettext("CALL PLAN"),
 				   "tariff",
 				   "",
