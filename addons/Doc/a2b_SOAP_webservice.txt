@@ -148,6 +148,8 @@ array(bool $result, string $message) Update_Rates(string $security_key, string $
 array(array $result, string $message) Get_Subscription_Signup(string $security_key)
 
 
+*** Updates Card ***
 
-
+// Update Account Status
+array(bool $result, string $message) Account_Status_Update($security_key, $card_id, $cardnumber, $status)
 

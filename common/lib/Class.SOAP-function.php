@@ -1279,6 +1279,37 @@ class SOAP_A2Billing
 		
     }
 
+
+	/*
+     *  Update Account Status
+     */
+    // array(bool $result, string $message)
+    function Account_Status_Update($security_key, $card_id, $cardnumber, $status)
+    {
+		$arr_check = $this->Check_KeyInstance($security_key, $instance);
+		if ($arr_check[0] == 'ERROR') {
+		    return $arr_check;
+		}
+
+		$param_update = "status = $status";
+		if (is_numeric($card_id) && $card_id > 0 ) {
+			$clause = " id = $card_id ";
+		} else {
+			$clause = " username = '$cardnumber' ";
+		}
+
+		$QUERY = "UPDATE cc_card SET $param_update WHERE $clause";
+		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		if (!$result)
+		{
+		    return array(false, "SQL ERROR UPDATING cc_card");
+		}
+
+		return array(true, 'Account_Status_Update SUCCESS');
+    }
+
+
+// end Class
 }
 
 
