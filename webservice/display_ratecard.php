@@ -407,7 +407,8 @@ if ($fullhtmlpage) { ?>
 		</div>
 	</div>
 	</FORM>
-
+	
+    <BR/>
 <!-- ** ** ** ** ** Part to display the ratecard ** ** ** ** ** -->
 
 	<table width="100%" border=0 cellPadding=0 cellSpacing=0>
