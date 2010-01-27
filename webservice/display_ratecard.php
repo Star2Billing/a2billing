@@ -131,7 +131,7 @@ if (!isset ($currency_select) || strlen($currency_select) == 0)
 else
 	$choose_currency = $currency_select;
 if (!isset ($css_url) || strlen($css_url) == 0)
-	$css_url = substr("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'], 0, strlen("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']) - 31) . "admin/Public/templates/default/css/api_ratecard.css";
+	$css_url = substr("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'], 0, strlen("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']) - 31) . "webservice/css/api_ratecard.css";
 
 if (!isset ($merge_form) || strlen($merge_form) == 0)
 	$merge_form = 0;
@@ -357,22 +357,22 @@ if ($fullhtmlpage) { ?>
 	<INPUT TYPE="hidden" NAME="css_url" value=<?php echo $css_url; ?>>
 	<INPUT TYPE="hidden" NAME="page_url" value=<?php echo $page_url_encode; ?>>
 	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form; ?>>
-	<div class="search">
+	<div class="a2b_rate_search">
 		<?php if ($FILTER_COUNTRY) { ?>
 		<div class="searchelement"  align="left">
-			<select NAME="choose_country" class="select" >
+			<select NAME="choose_country" class="a2b_rate_select" >
 			<option value="" <?php if (!isset($choose_country)) {?>selected<?php } ?>><?php echo gettext("Select a destination");?></option>
 			<?php
 				foreach($country_list as $country) {?>
 					<option value='<?php echo $country[0] ?>' <?php if ($choose_country==$country[0]) {?>selected<?php } ?>><?php echo $country[0] ?><br>
 					</option>
-				<?php 	} ?></select><INPUT name="btn01" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn01');"/>
+				<?php 	} ?></select><INPUT name="btn01" type="button"  align="top" value="Search" class="a2b_rate_button" onclick="JavaScript:Search('btn01');"/>
 		</div>
 		<?php } else { ?>
 		     <INPUT TYPE="hidden" NAME="choose_country" value="">
 		<?php } ?> 
 		<?php if ($DISPLAY_LETTER) { ?>
-		<div class="searchelement"  align="left">
+		<div class="a2b_rate_searchelement"  align="left">
 			<?php echo gettext("select the first letter of the destination you are looking for");?><br>
 			<?php for ($i=65;$i<=90;$i++) {
  				$x = chr($i);
@@ -384,15 +384,15 @@ if ($fullhtmlpage) { ?>
 			}?></font>
 		</div>
 		<?php } if ($FILTER_PREFIX) { ?>
-		<div class="searchelement"  align="left">
+		<div class="a2b_rate_searchelement"  align="left">
 			<?php echo gettext("Enter dial code"); ?><br>
-			<INPUT TYPE="text" name="searchpre" class="textfield" value="<?php echo $searchpre; ?>"/>
-			<INPUT name="btn02" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn02');"/>
+			<INPUT TYPE="text" name="searchpre" class="a2b_rate_textfield" value="<?php echo $searchpre; ?>"/>
+			<INPUT name="btn02" type="button"  align="top" value="Search" class="a2b_rate_button" onclick="JavaScript:Search('btn02');"/>
 		</div>
 		<?php } if ($currency_select) { ?>
-		<div class="searchelement"  align="left">
+		<div class="a2b_rate_searchelement"  align="left">
 			<?php echo gettext("Select a currency");?><br>
-			<select NAME="choose_currency" class="select">
+			<select NAME="choose_currency" class="a2b_rate_select">
 				<?php
 				$currencies_list = get_currencies();
 				foreach($currencies_list as $key => $cur_value) {?>
@@ -400,10 +400,10 @@ if ($fullhtmlpage) { ?>
 				</option>
 				<?php 	} ?>
 				</select>
-				<input name="btn01" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn03');"/>
+				<input name="btn01" type="button"  align="top" value="Search" class="a2b_rate_button" onclick="JavaScript:Search('btn03');"/>
 		</div>
 		<?php } ?>
-		<div class="searchelement"  align="left">
+		<div class="a2b_rate_searchelement" align="left">
 		</div>
 	</div>
 	</FORM>
@@ -423,7 +423,7 @@ if ($fullhtmlpage) { ?>
 				<?php 
 					if (is_array($list) && count($list)>0) {
 						for($i=0;$i<$FG_NB_TABLE_COL;$i++) { ?>
-							<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title">
+							<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="a2b_rate_table_title">
 							<center><strong>
 							<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
 							<a href="<?php  echo "$page_url"."&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url_encode";?>">
@@ -446,7 +446,7 @@ if ($fullhtmlpage) { ?>
 					if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
 						$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";
 					} ?>
-                 			<TD class="tabletr_<?php echo $alternate;?>" vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>"><?php
+                 			<TD class="a2b_rate_tabletr_<?php echo $alternate;?>" vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>"><?php
 					if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						call_user_func($FG_TABLE_COL[$i][11], $record_display);
 					}else{
