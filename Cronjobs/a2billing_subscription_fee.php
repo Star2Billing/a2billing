@@ -41,7 +41,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	0 6 1 * * php /usr/local/a2billing/Cronjobs/a2billing_subscription_fee.php
+	0 6 * * * php /usr/local/a2billing/Cronjobs/a2billing_subscription_fee.php
 	
 	field	 allowed values
 	-----	 --------------
@@ -300,7 +300,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                     $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                     $QUERY = "UPDATE cc_card_subscription SET paid_status = 1 WHERE id=" . $subscription['card_subscription_id'];
                     if ($verbose_level >= 1)
-						echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
+						echo "==> UPDATE SUBSCRIPTION QUERY : $QUERY\n";
                     $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 
                     try {
@@ -311,9 +311,9 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 						write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
                     }
                 }
-                $QUERY = "UPDATE cc_card_subscription SET last_run = '$last_run' ,next_billing_date = '$next_bill_date' , limit_pay_date = '$limite_pay_date' WHERE id=" . $subscription['card_subscription_id'];
+                $QUERY = "UPDATE cc_card_subscription SET last_run = '$last_run', next_billing_date = '$next_bill_date', limit_pay_date = '$limite_pay_date' WHERE id=" . $subscription['card_subscription_id'];
                 if ($verbose_level >= 1)
-                        echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
+                        echo "==> UPDATE SUBSCRIPTION QUERY : 	$QUERY\n";
                 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 
                 break;
