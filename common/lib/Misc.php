@@ -1417,3 +1417,34 @@ function check_cp()
 
 
 
+//////////////////////////////////////////////////////
+// Get the last day of the month
+function lastDayOfMonth($month = '', $year = '' , $format = 'd-m-Y')
+{
+   if (empty($month)) {
+      $month = date('m');
+   }
+   if (empty($year)) {
+      $year = date('Y');
+   }
+   $result = strtotime("{$year}-{$month}-01");
+   $result = strtotime('-1 second', strtotime('+1 month', $result));
+   return date($format, $result);
+}
+
+function addRealMonth($timeStamp)
+{
+    // Check if it's the end of the year and the month and year need to be changed
+    $tempMonth = date('m', $timeStamp);
+    $tempYear  = date('Y', $timeStamp);
+    if($tempMonth == "12")
+    {
+        $tempMonth = 1;
+        $tempYear++;
+    }
+    else
+        $tempMonth++;
+
+    $newDate = lastDayOfMonth($tempMonth, $tempYear);
+    return strtotime($newDate);
+}

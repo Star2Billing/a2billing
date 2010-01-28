@@ -93,7 +93,7 @@ $HD_Form -> AddEditElement (gettext("SUBSCRIPTION OPTIONS"),
 	   "SELECT",
 	   "", "", "",
 	   "sql",
-	   "cc_subscription_fee",
+	   "cc_subscription_service",
 	   "label,id,fee",
 	   "", "", "%1 - %3 $CURRENCY (id:%2)", "", "", "", '<OPTION  value="NULL" selected>'.gettext("NONE").'</OPTION>' );
 

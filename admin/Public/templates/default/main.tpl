@@ -397,7 +397,7 @@
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_service.php?section=13">{php} echo gettext("Account Service");{/php}</a></li>
-				<li><a href="A2B_entity_subscription.php?section=13">{php} echo gettext("Subscriptions");{/php}</a></li>
+				<li><a href="A2B_entity_subscription.php?section=13">{php} echo gettext("Subscriptions Service");{/php}</a></li>
 				<li><a href="A2B_entity_subscriber_signup.php?section=13">{php} echo gettext("Subscriptions SIGNUP");{/php}</a></li>
 				<li><a href="A2B_entity_subscriber.php?section=13">{php} echo gettext("Subscribers");{/php}</a></li>
 				<li><a href="A2B_entity_autorefill.php?section=13">{php} echo gettext("AutoRefill Report");{/php}</a></li>

@@ -427,8 +427,8 @@ $link = CUSTOMER_UI_URL;
 <?php
 
 // We need to list all required columns as both tables have an 'id' column
-$subscription_table = new Table('cc_card_subscription,cc_subscription_fee','cc_card_subscription.id,id_cc_card,startdate,product_name,fee');
-$subscription_clause = "id_cc_card = ".$id." AND cc_card_subscription.id_subscription_fee = cc_subscription_fee.id";
+$subscription_table = new Table('cc_card_subscription,cc_subscription_service','cc_card_subscription.id,id_cc_card,startdate,product_name,fee');
+$subscription_clause = "id_cc_card = ".$id." AND cc_card_subscription.id_subscription_fee = cc_subscription_service.id";
 $subscription_result = $subscription_table -> Get_list($DBHandle, $subscription_clause, 'startdate', 'DESC', NULL, NULL, 10, 0);
 if(sizeof($subscription_result)>0 && $subscription_result[0]!=null) {
 ?>

@@ -49,7 +49,7 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/text_signature.png" ;
 
 
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "15%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription_fee", "20%", "center", "sort", "15", "lie", "cc_subscription_fee", "label", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription_fee", "20%", "center", "sort", "15", "lie", "cc_subscription_service", "label", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("DATESTART"), "startdate", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATESTOP"), "stopdate", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PRODUCT"), "product_name", "20%", "center", "sort", "25");
@@ -97,7 +97,7 @@ $HD_Form -> AddEditElement (gettext("ID SUBSCRIPTION"),
 				"SELECT",
 				"", "", "",
 				"sql",
-				"cc_subscription_fee",
+				"cc_subscription_service",
 				"label, id",
 				"", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
 

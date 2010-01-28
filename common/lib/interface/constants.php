@@ -168,6 +168,15 @@ class Constants
 		$invoice_status_list['1'] = array( gettext('PAID'), '1');
 		return $invoice_status_list;
 	}
+
+        public static function getSubscriptionPaidStatusList(){
+		$subscription_status_list = array();
+		$subscription_status_list['0'] = array( gettext('FIRSTUSE'), '0');
+		$subscription_status_list['1'] = array( gettext('BILLED'), '1');
+                $subscription_status_list['2'] = array( gettext('PAID'), '2');
+                $subscription_status_list['3'] = array( gettext('UNPAID'), '3');
+		return $subscription_status_list;
+	}
 	
 	public static function getMonth(){
 		$month_list = array();
@@ -307,6 +316,7 @@ class Constants
 		$cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
 		$cardstatus_list["6"]  = array( gettext("SUSPENDED FOR UNDERPAYMENT"), "6");
 		$cardstatus_list["7"]  = array( gettext("SUSPENDED FOR LITIGATION"), "7");
+                $cardstatus_list["8"]  = array( gettext("WAITING SUBSCRIPTION PAYMENT"), "8");
 		return $cardstatus_list;
 	}
 	

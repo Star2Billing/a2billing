@@ -31,7 +31,6 @@
  * 
 **/
 
-
 include ("./lib/customer.defines.php");
 
 getpost_ifset (array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency', 'md5sig', 'merchant_id', 'mb_amount', 'status', 'mb_currency',
@@ -408,6 +407,8 @@ if ($id > 0 ) {
 			$invoice_clause = "id = ".$item_id;
 			$result_invoice = $invoice_table->Get_list($DBHandle,$invoice_clause);
 			if (is_array($result_invoice) && sizeof($result_invoice)==1) {
+
+
 				$reference =$result_invoice[0][0];
 				
 				$field_insert = "date, payment, card_id, description";
@@ -415,12 +416,29 @@ if ($id > 0 ) {
 				$instance_sub_table = new Table("cc_logpayment", $field_insert);
 				$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
-				//update invoice to paid !!
+				//update invoice to paid 
 				
 				$invoice = new Invoice($item_id);
 				$invoice -> addPayment($id_payment);
 				$invoice -> changeStatus(1);
+
+                                $items = $invoice -> loadItems();
+                                foreach ($items as $item) {
+                                    if($item -> getExtType() == 'DID' ){
+                                        $QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 , reminded = 0 WHERE id_did = '" . $item -> getExtId() .
+					"' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') ";
+                                        $instance_table->SQLExec($DBHandle, $QUERY, 0);
+                                    }
+                                    if($item -> getExtType() == 'SUBSCR'){
+                                        $QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=" . $item -> getExtId();
+                                        $instance_table->SQLExec($DBHandle, $QUERY, 0);
+                                        
+                                    }
+
+                                }
 			}
+
+
 		}
 	}
 }

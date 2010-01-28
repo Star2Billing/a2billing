@@ -35,7 +35,7 @@
 
 getpost_ifset(array('id', 'label', 'fee', 'status', 'emailreport'));
 
-$HD_Form = new FormHandler("cc_subscription_fee","Subscription");
+$HD_Form = new FormHandler("cc_subscription_service","Subscription Service");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
@@ -44,7 +44,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_subscription.php?form_action=ask-add&section=".$_SESSION["menu_section"];
-$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SUBSCRIPTION");
+$HD_Form ->FG_LIST_ADDING_BUTTON_ALT1 = $HD_Form ->FG_LIST_ADDING_BUTTON_MSG1 = gettext("Add SUBSCRIPTION SERVICE");
 $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/script.png" ;
 
 $actived_list = Constants::getActivationList();
@@ -60,6 +60,8 @@ for ($k=1;$k<=20;$k++)
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FEE"), "fee", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
+$HD_Form -> AddViewElement(gettext("DATESTART"), "startdate", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DATESTOP"), "stopdate", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NBRUN"), "numberofrun", "6%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATELASTRUN"), "datelastrun", "12%", "center", "sort", "16");
 $HD_Form -> AddViewElement(gettext("CARDPERFORM"), "totalcardperform", "10%", "center", "sort");
@@ -67,7 +69,7 @@ $HD_Form -> AddViewElement(gettext("TOTALCREDIT"), "totalcredit", "10%", "center
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('label, fee, status, numberofrun, datelastrun, totalcardperform, totalcredit');
+$HD_Form -> FieldViewElement ('label, fee, status,startdate,stopdate, numberofrun, datelastrun, totalcardperform, totalcredit');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("There are no subscriptions created!");  
@@ -87,6 +89,17 @@ $HD_Form -> FG_ADDITION = true;
 //$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:;\" onClick=\"MM_openBrWindow('CC_entity_subscription_details.php?displayfooter=0&popup_select=1&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=600,height=350')\"";
 //$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-viewdetails.gif";
 
+$comp_zero = $comp_date_plus='';
+if (isset($form_action) && $form_action=="ask-add") {
+	$begin_date = date("Y");
+	$end_date = date("-m-d H:i:s");
+	$comp_date = "value='".$begin_date.$end_date."'";
+	//set passed id if any (used if called from customer screen, id is passed to pr-epopluate value
+	$idd = "value='$id'";
+	//Max value Mysql Timestamp can store is '2038-01-19 03:14:07' UTC
+	$comp_date_plus = "value='2038-01-01 00:00:00'";
+	$comp_zero = "value='0'";
+}
 
 $HD_Form -> AddEditElement (gettext("LABEL"),
 	"label",
@@ -116,6 +129,25 @@ $HD_Form -> AddEditElement ("STATUS",
 	"",
 	"list" , "", "", "", $actived_list, "%1" , "", "");
 
+$HD_Form -> AddEditElement (gettext("START DATE"),
+				"startdate",
+				'$value',
+				"INPUT",
+				"size=40 maxlength=40  $comp_date",
+				"10",
+				gettext("Insert the start date"),
+				"" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+
+$HD_Form -> AddEditElement (gettext("STOP DATE"),
+				"stopdate",
+				'$value',
+				"INPUT",
+				"size=40 maxlength=40  $comp_date_plus",
+				"10",
+				gettext("Insert the stop date"),
+				"" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
+
+
 $HD_Form -> AddEditElement (gettext("EMAIL TO SEND REPORT"),
 	"emailreport",
 	'$value',
@@ -127,7 +159,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND REPORT"),
 
 
 
-$HD_Form -> FieldEditElement ('label, fee, status, emailreport');
+$HD_Form -> FieldEditElement ('label, fee, status,startdate,stopdate, emailreport');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
@@ -147,3 +179,5 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+
+

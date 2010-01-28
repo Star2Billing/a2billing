@@ -51,6 +51,9 @@ class Mail {
 	static public $TYPE_SIGNUPCONFIRM = 'signupconfirmed';
 	static public $TYPE_EPAYMENTVERIFY = 'epaymentverify';
 	static public $TYPE_REMINDERCALL = 'reminder';
+        static public $TYPE_SUBSCRIPTION_PAID = 'subscription_paid';
+        static public $TYPE_SUBSCRIPTION_UNPAID = 'subscription_unpaid';
+        static public $TYPE_SUBSCRIPTION_DISABLE_CARD = 'subscription_disable_card';
 	static public $TYPE_DID_PAID = 'did_paid';
 	static public $TYPE_DID_UNPAID = 'did_unpaid';
 	static public $TYPE_DID_RELEASED = 'did_released';
@@ -78,10 +81,15 @@ class Mail {
 	
 	//Used by mail type = did_paid
 	static public $BALANCE_REMAINING_KEY = '$balance_remaining$';
+
+        //Used by mail type = subscription_paid OR subscription_unpaid
+	static public $SUBSCRIPTION_LABEL = '$subscription_label$';
+        static public $SUBSCRIPTION_ID = '$subscription_id$';
+        static public $SUBSCRIPTION_FEE = '$subscription_fee$';
 	//Used by mail type = did_paid OR did_unpaid OR did_released
 	static public $DID_NUMBER_KEY = '$did$';
 	static public $DID_COST_KEY = '$did_cost$';
-	//Used by mail type = did_unpaid
+	//Used by mail type = did_unpaid  & subscription_unpaid
 	static public $DAY_REMAINING_KEY = '$days_remaining$';
 	static public $INVOICE_REF_KEY = '$invoice_ref$';
 	//Used by mail type = epaymentverify
