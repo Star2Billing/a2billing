@@ -50,6 +50,14 @@ $margin = 0.2;
 
 
 
+$method = 'Get_Subscription_Signup';
+echo "\n\nTEST Method : $method \n\n... press key to test\n";
+$response = trim(fgets(STDIN));
+$arr_result = $webservice -> $method ($security_key);
+
+echo "##".$arr_result[0]."##";
+var_dump (unserialize($arr_result[0]));
+
 
 $method = 'Set_Setting';
 echo "\n\nTEST Method : $method \n\n... press key to test\n";
