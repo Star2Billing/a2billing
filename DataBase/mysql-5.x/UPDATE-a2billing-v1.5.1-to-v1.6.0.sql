@@ -46,24 +46,32 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 			VALUES ('Days to bill before month anniversary', 'subscription_bill_days_before_anniversary', '3',
 					'Numbers of days to bill a subscription service before the month anniversary', 0, NULL, 'global');
 
-ALTER TABLE `cc_templatemail` CHANGE `subject` `subject` CHAR( 130 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+ALTER TABLE `cc_templatemail` CHANGE `subject` `subject` VARCHAR( 130 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+
 INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject, messagetext)
-    VALUES  ('en', 'subscription_paid', 'info@mydomainname.com', 'COMPANY NAME',
-		'Subscription notification - $subscription_label$ ($subscription_id$)',
-		'BALANCE  $credit$ $base_currency$\n\n
-		 A decrement of: $subscription_fee$ $base_currency$ has removed from your account to pay your service. ($subscription_label$)\n\n
-		 the monthly cost is : $subscription_fee$\n\n'),
+VALUES  ('en', 'subscription_paid', 'info@mydomainname.com', 'COMPANY NAME',
+'Subscription notification - $subscription_label$ ($subscription_id$)',
+'BALANCE  $credit$ $base_currency$\n\n
+A decrement of: $subscription_fee$ $base_currency$ has removed from your account to pay your service. ($subscription_label$)\n\n
+the monthly cost is : $subscription_fee$\n\n'),
 
-			('en', 'subscription_unpaid', 'info@mydomainname.com', 'COMPANY NAME',
-		'Subscription notification - $subscription_label$ ($subscription_id$)',
-		'BALANCE $credit$ $base_currency$\n\n
-		 You do not have enough credit to pay your subscription,($subscription_label$), the monthly cost is : $subscription_fee$ $base_currency$\n\n
-		 You have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or your service may cease \n\n'),
+('en', 'subscription_unpaid', 'info@mydomainname.com', 'COMPANY NAME',
+'Subscription notification - $subscription_label$ ($subscription_id$)',
+'BALANCE $credit$ $base_currency$\n\n
+You do not have enough credit to pay your subscription,($subscription_label$), the monthly cost is : $subscription_fee$ $base_currency$\n\n
+You have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or your service may cease \n\n'),
 
-			('en', 'subscription_disable_card', 'info@mydomainname.com', 'COMPANY NAME',
-		'Service deactivated - unpaid service $subscription_label$ ($subscription_id$)',
-		'The account has been automatically deactivated until the invoice is settled.\n\n');
+('en', 'subscription_disable_card', 'info@mydomainname.com', 'COMPANY NAME',
+'Service deactivated - unpaid service $subscription_label$ ($subscription_id$)',
+'The account has been automatically deactivated until the invoice is settled.\n\n');
 
+
+
+
+
+ALTER TABLE `cc_subscription_service` CHANGE `label` `label` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+ALTER TABLE `cc_subscription_service` CHANGE `emailreport` `emailreport` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+ALTER TABLE `cc_subscription_signup` CHANGE `description` `description` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
 UPDATE cc_version SET version = '1.6.0';
 
