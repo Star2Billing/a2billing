@@ -35,9 +35,10 @@ ALTER TABLE `cc_subscription_fee` ADD `startdate` TIMESTAMP NOT NULL DEFAULT '00
 ADD `stopdate` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 
 RENAME TABLE `cc_subscription_fee`  TO `cc_subscription_service` ;
-ALTER TABLE `cc_card_subscription` ADD `paid_status` TINYINT NOT NULL ;
+ALTER TABLE `cc_card_subscription` ADD `paid_status` TINYINT NOT NULL DEFAULT '0' ;
 ALTER TABLE `cc_card_subscription` ADD `last_run` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 ALTER TABLE `cc_card_subscription` ADD `next_billing_date` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
+UPDATE `a2billing`.`cc_card_subscription` SET `next_billing_date` = NOW();
 ALTER TABLE `cc_card_subscription` ADD `limit_pay_date` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 
 
@@ -45,18 +46,18 @@ INSERT INTO cc_config (config_title, config_key, config_value, config_descriptio
 			VALUES ('Days to bill before month anniversary', 'subscription_bill_days_before_anniversary', '3',
 					'Numbers of days to bill a subscription service before the month anniversary', 0, NULL, 'global');
 
-
+ALTER TABLE `cc_templatemail` CHANGE `subject` `subject` CHAR( 130 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject, messagetext)
     VALUES  ('en', 'subscription_paid', 'info@mydomainname.com', 'COMPANY NAME',
 		'Subscription notification - $subscription_label$ ($subscription_id$)',
-		'BALANCE REMAINING $balance_remaining$ $base_currency$\n\n
+		'BALANCE  $credit$ $base_currency$\n\n
 		 A decrement of: $subscription_fee$ $base_currency$ has removed from your account to pay your service. ($subscription_label$)\n\n
-		 Monthly cost for DID : $did_cost$ $base_currency$\n\n'),
+		 the monthly cost is : $subscription_fee$\n\n'),
 
 			('en', 'subscription_unpaid', 'info@mydomainname.com', 'COMPANY NAME',
 		'Subscription notification - $subscription_label$ ($subscription_id$)',
-		'BALANCE REMAINING $balance_remaining$ $base_currency$\n\n
-		 You do not have enough credit to pay your subscription,	($subscription_label$), the monthly cost is : $subscription_fee$ $base_currency$\n\n
+		'BALANCE $credit$ $base_currency$\n\n
+		 You do not have enough credit to pay your subscription,($subscription_label$), the monthly cost is : $subscription_fee$ $base_currency$\n\n
 		 You have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or your service may cease \n\n'),
 
 			('en', 'subscription_disable_card', 'info@mydomainname.com', 'COMPANY NAME',

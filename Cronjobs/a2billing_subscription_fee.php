@@ -76,6 +76,23 @@ if (!$A2B->DbConnect()) {
 	exit;
 }
 
+$mail = new Mail(Mail::$TYPE_SUBSCRIPTION_PAID,6 );
+$mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,0.5);
+$mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID,1);
+$mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL,'test');
+
+$mail2 = new Mail(Mail::$TYPE_SUBSCRIPTION_UNPAID,6 );
+$mail2 -> replaceInEmail(Mail::$DAY_REMAINING_KEY,3 );
+$mail2 -> replaceInEmail(Mail::$INVOICE_REF_KEY,'34343434');
+$mail2 -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,0.5);
+$mail2 -> replaceInEmail(Mail::$SUBSCRIPTION_ID,1);
+$mail2 -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL,'test');
+
+$mail3 = new Mail(Mail::$TYPE_SUBSCRIPTION_DISABLE_CARD,6 );
+$mail3 -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,0.5);
+$mail3 -> replaceInEmail(Mail::$SUBSCRIPTION_ID,1);
+$mail3 -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL,'test');
+die();
 $instance_table = new Table();
 
 /*
