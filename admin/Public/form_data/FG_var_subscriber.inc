@@ -50,8 +50,8 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/text_signature.png" ;
 
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "15%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription_fee", "20%", "center", "sort", "15", "lie", "cc_subscription_service", "label", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("DATESTART"), "startdate", "15%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DATESTOP"), "stopdate", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DATE START"), "startdate", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DATE STOP"), "stopdate", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PRODUCT"), "product_name", "20%", "center", "sort", "25");
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
 
@@ -91,7 +91,7 @@ $HD_Form -> AddEditElement (gettext("ACCOUNT ID"),
 				, ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'" ,
 				gettext("Set the Customer ID."));
 		
-$HD_Form -> AddEditElement (gettext("ID SUBSCRIPTION"),
+$HD_Form -> AddEditElement (gettext("ID SUBSCRIPTION SERVICE"),
 				"id_subscription_fee",
 				"",
 				"SELECT",
@@ -119,7 +119,7 @@ $HD_Form -> AddEditElement (gettext("STOP DATE"),
 				gettext("Insert the stop date"),
 				"" , "", "",	"", "", "", "NO-NULL", gettext("please use the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 		
-$HD_Form -> AddEditElement (gettext("PRODUCT NAME"),
+$HD_Form -> AddEditElement (gettext("PRODUCT LABEL"),
 				"product_name",		
 				'',	
 				"TEXTAREA",	

@@ -66,13 +66,8 @@ $groupcard = 5000;
 
 $A2B = new A2Billing();
 $A2B->load_conf($agi, NULL, 0, $idconfig);
-/*
-if ($A2B->config["database"]['dbtype'] == "postgres") {
-	$UNIX_TIMESTAMP = "date_part('epoch',";
-} else {
-	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
-}
-*/
+
+
 write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[#### BATCH BEGIN ####]");
 
 if (!$A2B->DbConnect()) {
@@ -82,6 +77,14 @@ if (!$A2B->DbConnect()) {
 }
 
 $instance_table = new Table();
+
+/*
+	Pay_Status :
+		0 : First USE
+		1 : Billed
+		2 : Paid
+		3 : UnPaid
+*/
 
 $QUERY = 'SELECT count(*) FROM cc_card INNER JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card INNER JOIN cc_subscription_service ON cc_card_subscription.id_subscription_fee=cc_subscription_service.id' .
 ' WHERE cc_subscription_service.status=1 AND cc_card_subscription.startdate < NOW() AND (cc_card_subscription.stopdate = "0000-00-00 00:00:00" OR cc_card_subscription.stopdate > NOW())'.
@@ -101,7 +104,6 @@ if (!($nb_card > 0)) {
 }
 
 
-
 $billdaybefor_anniversery = $A2B->config['global']['subscription_bill_days_before_anniversary'];
 
 $currencies_list = get_currencies($A2B->DBHandle);
@@ -110,27 +112,29 @@ $service_array = array();
 
 for ($page = 0; $page < $nbpagemax; $page++) {
 
-$sql = 'SELECT cc_card.id card_id ,cc_subscription_service.id service_id, cc_subscription_service.label, cc_subscription_service.fee, cc_subscription_service.emailreport,DATE(cc_card_subscription.startdate) startdate , cc_card_subscription.paid_status , cc_card_subscription.last_run, cc_card_subscription.next_billing_date , cc_card_subscription.limit_pay_date , cc_card_subscription.id card_subscription_id, cc_card_subscription.product_name product_name'.
-' FROM cc_card INNER JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card  INNER JOIN cc_subscription_service ON cc_card_subscription.id_subscription_fee=cc_subscription_service.id '  .
-' WHERE cc_subscription_service.status=1 AND cc_card_subscription.startdate < NOW() AND (cc_card_subscription.stopdate = "0000-00-00 00:00:00" OR cc_card_subscription.stopdate > NOW())'.
-' AND cc_subscription_service.startdate < NOW() AND (cc_subscription_service.stopdate = "0000-00-00 00:00:00" OR cc_subscription_service.stopdate > NOW()) AND cc_card_subscription.paid_status !=3'.
-' ORDER BY cc_card.id';
+	$sql = 'SELECT cc_card.id card_id ,cc_subscription_service.id service_id, cc_subscription_service.label, cc_subscription_service.fee, cc_subscription_service.emailreport,DATE(cc_card_subscription.startdate) startdate , cc_card_subscription.paid_status , cc_card_subscription.last_run, cc_card_subscription.next_billing_date , cc_card_subscription.limit_pay_date , cc_card_subscription.id card_subscription_id, cc_card_subscription.product_name product_name'.
+	' FROM cc_card INNER JOIN cc_card_subscription ON cc_card.id = cc_card_subscription.id_cc_card  INNER JOIN cc_subscription_service ON cc_card_subscription.id_subscription_fee=cc_subscription_service.id '  .
+	' WHERE cc_subscription_service.status=1 AND cc_card_subscription.startdate < NOW() AND (cc_card_subscription.stopdate = "0000-00-00 00:00:00" OR cc_card_subscription.stopdate > NOW())'.
+	' AND cc_subscription_service.startdate < NOW() AND (cc_subscription_service.stopdate = "0000-00-00 00:00:00" OR cc_subscription_service.stopdate > NOW()) AND cc_card_subscription.paid_status !=3'.
+	' ORDER BY cc_card.id';
 
-if ($A2B->config["database"]['dbtype'] == "postgres") {
-    $sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
-} else {
-    $sql .= " LIMIT " . $page * $groupcard . ", $groupcard";
-}
+	if ($A2B->config["database"]['dbtype'] == "postgres") {
+		$sql .= " LIMIT $groupcard OFFSET " . $page * $groupcard;
+	} else {
+		$sql .= " LIMIT " . $page * $groupcard . ", $groupcard";
+	}
+	
     $result_subscriptions = $instance_table->SQLExec($A2B->DBHandle, $sql);
 
     foreach ($result_subscriptions as $subscription) {
         $service_id = $subscription['service_id'];
         
-        if(!is_array($service_array[$service_id])) $service_array[$service_id] = array("totalcardperform" => 0 , "totalcredit" => 0 );
+        if (!is_array($service_array[$service_id])) $service_array[$service_id] = array("totalcardperform" => 0 , "totalcredit" => 0 );
 
         $action = "";
 
         switch ($subscription['paid_status']) {
+			
             case 0:
                 //firstuse : billed
                 $action = "bill";
@@ -141,41 +145,38 @@ if ($A2B->config["database"]['dbtype'] == "postgres") {
                 $month_startdate = date("m",$unix_startdate);
                 $year_startdate= date("Y",$unix_startdate);
                 $lastday_of_startdate_month = lastDayOfMonth($month_startdate,$year_startdate,"j");
-               
 
                 $next_bill_date = strtotime("01-$month_startdate-$year_startdate + 1 month");
                 $lastday_of_next_month= lastDayOfMonth(date("m",$next_bill_date),date("Y",$next_bill_date),"j");
 
-                     //$diff_startdate_and_end_of_month=  $lastday_of_startdate_month - $day_startdate;
-             
                 $limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversery day")) ;
 
-                if($day_startdate>$lastday_of_next_month){
+                if ($day_startdate>$lastday_of_next_month){
                     $next_limite_pay_date = date ("$lastday_of_next_month-m-Y" ,$next_bill_date);
-                }else{
+                } else {
                     $next_limite_pay_date = date ("$day_startdate-m-Y" ,$next_bill_date);
                 }
 
                 $next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
-               
+				break;
 
-                break;
             case 1:
                 // billed : check if out of date -> unpaid
                 // date('m',strtotime($mycard['last_run']));
                 $unix_limit = strtotime($subscription['limit_pay_date']);
                 $unix_now = strtotime(date("d-m-Y"));
 
-                if($unix_now>=$unix_limit){
+                if ($unix_now>=$unix_limit){
                     $action = "unpaid";
                 }
                 
                 break;
+
             case 2:
                 // paid : check if the system have to bill it again
                 $unix_bill_time = strtotime($subscription['next_billing_date']);
                 $unix_now = strtotime(date("d-m-Y"));
-                if($unix_now>=$unix_limit){
+                if ($unix_now>=$unix_limit){
                     $action = "bill";
                 
                     $unix_startdate = strtotime($subscription['startdate']);
@@ -192,46 +193,55 @@ if ($A2B->config["database"]['dbtype'] == "postgres") {
 
                     $limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversery day")) ;
 
-                    if($day_startdate>$lastday_of_next_month){
+                    if ($day_startdate>$lastday_of_next_month){
                         $next_limite_pay_date = date ("$lastday_of_next_month-m-Y" ,$next_bill_date);
-                    }else{
+                    } else {
                         $next_limite_pay_date = date ("$day_startdate-m-Y" ,$next_bill_date);
                     }
 
                     $next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
 
                 }
-
                 break;
 
-            default: continue;
+            default:
+				continue;
                 break;
         }
 
         switch ($action) {
+			
             case "bill" :
                 //select card
                 $table_card = new Table('cc_card','*');
                 $card_clause = "id = ".$subscription['card_id'];
                 $result_card = $table_card -> Get_list($A2B->DBHandle, $card_clause);
-                if(!is_array($result_card)) break;
-                else $card = $result_card[0];
+
+				if (!is_array($result_card))
+					break;
+                else
+					$card = $result_card[0];
+
                 if (($card['credit'] + $card['typepaid'] * $card['creditlimit']) >= $subscription['fee']) {
-                    // USER HAVE ENOUGH CREDIT TO PAY FOR THE DID
+
+					// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID
                     $service_array[$service_id]['totalcardperform']++;
                     $service_array[$service_id]['totalcredit']+= $subscription['fee'];
-                    //
+                    
                     $QUERY = "UPDATE cc_card SET credit=credit-'" . $subscription['fee'] . "' WHERE id=" . $card['id'];
                     $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                     if ($verbose_level >= 1)
-                            echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-                    $QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, charged_status) VALUES ('" . $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
+						echo "==> UPDATE CARD QUERY: 	$QUERY\n";
+
+					$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, charged_status) VALUES ('" . $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
                     if ($verbose_level >= 1)
-                            echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
-                    $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
+
+					$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                     $QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=" . $subscription['card_subscription_id'];
                     if ($verbose_level >= 1)
-                            echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
+						echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
+
                     $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                     $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_PAID,$card['id'] );
                     $mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,$subscription['fee']);
@@ -242,37 +252,39 @@ if ($A2B->config["database"]['dbtype'] == "postgres") {
                     try {
                         $mail -> send();
                     } catch (A2bMailException $e) {
-                            if ($verbose_level >= 1)
-                                    echo "[Sent mail failed : $e]";
-                            write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
+						if ($verbose_level >= 1)
+							echo "[Sent mail failed : $e]";
+						write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
                     }
 
-                }else{
+                } else {
 
                     $reference = generate_invoice_reference();
 
                     //CREATE INVOICE If a new card then just an invoice item in the last invoice
-                            $field_insert = "date, id_card, title, reference, description, status, paid_status";
-                            $date = date("Y-m-d h:i:s");
-                            $card_id = $card['id'];
-                            $title = gettext("SUBSCRIPTION INVOICE REMINDER");
-                            $description = "Your credit was not enough to pay yours subscription automatically.\n";
-                            $description .= "You have $billdaybefor_anniversery days to pay this invoice (REF: $reference ) or the account will be automatically disactived \n\n";
-                            $value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
-                            $instance_table = new Table("cc_invoice", $field_insert);
-                            if ($verbose_level >= 1)
-                                    echo "INSERT INVOICE : $field_insert =>	$value_insert \n";
-                            $id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+					$field_insert = "date, id_card, title, reference, description, status, paid_status";
+					$date = date("Y-m-d h:i:s");
+					$card_id = $card['id'];
+					$title = gettext("SUBSCRIPTION INVOICE REMINDER");
+					$description = "Your credit was not enough to pay yours subscription automatically.\n";
+					$description .= "You have $billdaybefor_anniversery days to pay this invoice (REF: $reference ) or the account will be automatically disactived \n\n";
+					$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
+					$instance_table = new Table("cc_invoice", $field_insert);
+
+					if ($verbose_level >= 1)
+						echo "INSERT INVOICE : $field_insert =>	$value_insert \n";
+					$id_invoice = $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+
                     if (!empty ($id_invoice) && is_numeric($id_invoice)) {
-                            $description = "Subscription (" . $subscription['product_name'] . ")";
-                            $amount = $subscription['fee'];
-                            $vat = 0;
-                            $field_insert = "date, id_invoice, price, vat, description, id_ext, type_ext";
-                            $instance_table = new Table("cc_invoice_item", $field_insert);
-                            $value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','" . $subscription['card_subscription_id'] . "','SUBSCR'";
-                            if ($verbose_level >= 1)
-                                    echo "INSERT INVOICE ITEM : $field_insert =>	$value_insert \n";
-                            $instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
+						$description = "Subscription (" . $subscription['product_name'] . ")";
+						$amount = $subscription['fee'];
+						$vat = 0;
+						$field_insert = "date, id_invoice, price, vat, description, id_ext, type_ext";
+						$instance_table = new Table("cc_invoice_item", $field_insert);
+						$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','" . $subscription['card_subscription_id'] . "','SUBSCR'";
+						if ($verbose_level >= 1)
+							echo "INSERT INVOICE ITEM : $field_insert =>	$value_insert \n";
+						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
                     }
 
                     $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_UNPAID,$card['id'] );
@@ -284,19 +296,19 @@ if ($A2B->config["database"]['dbtype'] == "postgres") {
                     //insert charge
                     $QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
                     if ($verbose_level >= 1)
-                            echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
+						echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
                     $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                     $QUERY = "UPDATE cc_card_subscription SET paid_status = 1 WHERE id=" . $subscription['card_subscription_id'];
                     if ($verbose_level >= 1)
-                            echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
+						echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
                     $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 
                     try {
                         $mail -> send();
                     } catch (A2bMailException $e) {
-                            if ($verbose_level >= 1)
-                                    echo "[Sent mail failed : $e]";
-                            write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
+						if ($verbose_level >= 1)
+							echo "[Sent mail failed : $e]";
+						write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
                     }
                 }
                 $QUERY = "UPDATE cc_card_subscription SET last_run = '$last_run' ,next_billing_date = '$next_bill_date' , limit_pay_date = '$limite_pay_date' WHERE id=" . $subscription['card_subscription_id'];
@@ -311,14 +323,14 @@ if ($A2B->config["database"]['dbtype'] == "postgres") {
                 $QUERY = "UPDATE cc_card SET status = 8 WHERE id=" . $card['id'];
                 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                 if ($verbose_level >= 1)
-                        echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-
+					echo "==> UPDATE CARD QUERY: 	$QUERY\n";
+				
                 $QUERY = "UPDATE cc_card_subscription SET paid_status = 3 WHERE id=" . $subscription['card_subscription_id'];
-                 if ($verbose_level >= 1)
-                        echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
+                if ($verbose_level >= 1)
+					echo "==> UPDATE SUBSCRIPTION QUERY: 	$QUERY\n";
                 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                 if ($verbose_level >= 1)
-                        echo "==> UPDATE CARD QUERY: 	$QUERY\n";
+					echo "==> UPDATE CARD QUERY: 	$QUERY\n";
                 $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_DISABLE_CARD,$card['id'] );
                 $mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,$subscription['fee']);
                 $mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID,$subscription['id']);
@@ -326,9 +338,9 @@ if ($A2B->config["database"]['dbtype'] == "postgres") {
                 try {
                     $mail -> send();
                 } catch (A2bMailException $e) {
-                        if ($verbose_level >= 1)
-                                echo "[Sent mail failed : $e]";
-                        write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
+					if ($verbose_level >= 1)
+						echo "[Sent mail failed : $e]";
+					write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__) . ' line:' . __LINE__ . "[Sent mail failed : $e]");
                 }
                 break;
         }
@@ -338,8 +350,8 @@ if ($A2B->config["database"]['dbtype'] == "postgres") {
     sleep(10);
 }
 
-// UPDATE THE SERVICE
 
+// UPDATE THE SERVICE
 foreach ($service_array as $key => $value) {
         $QUERY = "UPDATE cc_subscription_service SET datelastrun=now(), numberofrun=numberofrun+1, totalcardperform=totalcardperform+" . $value['totalcardperform'] .
 				", totalcredit = totalcredit + '".$value['totalcredit'] ."' WHERE id=$key";
