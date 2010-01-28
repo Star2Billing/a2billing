@@ -52,7 +52,7 @@ $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "15%", "cent
 $HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription_fee", "20%", "center", "sort", "15", "lie", "cc_subscription_service", "label", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("DATE START"), "startdate", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATE STOP"), "stopdate", "15%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("PRODUCT"), "product_name", "20%", "center", "sort", "25");
+$HD_Form -> AddViewElement(gettext("PRODUCT"), "product_name", "20%", "center", "sort", "50");
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.

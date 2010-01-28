@@ -43,6 +43,7 @@ class Mail {
 	private $from_email = '';
 	private $from_name = '';
 	private $to_email = '';
+	
 	//mail type
 	static public $TYPE_PAYMENT = 'payment';
 	static public $TYPE_REMINDER = 'reminder';
@@ -51,9 +52,10 @@ class Mail {
 	static public $TYPE_SIGNUPCONFIRM = 'signupconfirmed';
 	static public $TYPE_EPAYMENTVERIFY = 'epaymentverify';
 	static public $TYPE_REMINDERCALL = 'reminder';
-        static public $TYPE_SUBSCRIPTION_PAID = 'subscription_paid';
-        static public $TYPE_SUBSCRIPTION_UNPAID = 'subscription_unpaid';
-        static public $TYPE_SUBSCRIPTION_DISABLE_CARD = 'subscription_disable_card';
+	static public $TYPE_SUBSCRIPTION_PAID = 'subscription_paid';
+	static public $TYPE_SUBSCRIPTION_UNPAID = 'subscription_unpaid';
+	static public $TYPE_SUBSCRIPTION_DISABLE_CARD = 'subscription_disable_card';
+
 	static public $TYPE_DID_PAID = 'did_paid';
 	static public $TYPE_DID_UNPAID = 'did_unpaid';
 	static public $TYPE_DID_RELEASED = 'did_released';
@@ -75,6 +77,7 @@ class Mail {
 	static public $TICKET_STATUS_KEY = '$ticket_status$';
 	static public $TICKET_TITLE_KEY = '$ticket_title$';
 	static public $TICKET_DESCRIPTION_KEY = '$ticket_description$';
+
 	//Used by mail type = modify_ticket
 	static public $TICKET_COMMENT_CREATOR_KEY = '$comment_creator$';
 	static public $TICKET_COMMENT_DESCRIPTION_KEY = '$comment_description$';
@@ -82,26 +85,32 @@ class Mail {
 	//Used by mail type = did_paid
 	static public $BALANCE_REMAINING_KEY = '$balance_remaining$';
 
-        //Used by mail type = subscription_paid OR subscription_unpaid
+	//Used by mail type = subscription_paid OR subscription_unpaid
 	static public $SUBSCRIPTION_LABEL = '$subscription_label$';
-        static public $SUBSCRIPTION_ID = '$subscription_id$';
-        static public $SUBSCRIPTION_FEE = '$subscription_fee$';
+	static public $SUBSCRIPTION_ID = '$subscription_id$';
+	static public $SUBSCRIPTION_FEE = '$subscription_fee$';
+
 	//Used by mail type = did_paid OR did_unpaid OR did_released
 	static public $DID_NUMBER_KEY = '$did$';
 	static public $DID_COST_KEY = '$did_cost$';
+
 	//Used by mail type = did_unpaid  & subscription_unpaid
 	static public $DAY_REMAINING_KEY = '$days_remaining$';
 	static public $INVOICE_REF_KEY = '$invoice_ref$';
+
 	//Used by mail type = epaymentverify
 	static public $TIME_KEY = '$time$';
 	static public $PAYMENTGATEWAY_KEY = '$paymentgateway$';
+
 	//Used by mail type = payment
 	static public $ITEM_NAME_KEY = '$itemName$';
 	static public $ITEM_ID_KEY = '$itemID$';
 	static public $PAYMENT_METHOD_KEY = '$paymentMethod$';
 	static public $PAYMENT_STATUS_KEY = '$paymentStatus$';
+
 	//used by type = payment and type = epaymentverify
 	static public $ITEM_AMOUNT_KEY = '$itemAmount$';
+
 	//used in all mail
 	static public $CUSTOMER_EMAIL_KEY = '$email$';
 	static public $CUSTOMER_FIRSTNAME_KEY = '$firstname$';
@@ -114,10 +123,9 @@ class Mail {
 	static public $CUSTOMER_LOGIN = '$login$';
 	static public $CUSTOMER_LOGINKEY = '$loginkey$';
 	static public $CUSTOMER_CREDIT_NOTIFICATION = '$credit_notification$';
-	//About system
+
 	//used in all mail
 	static public $SYSTEM_CURRENCY = '$base_currency$';
-	//
 
 	function __construct($type, $id_card = null, $lg = null, $msg = null, $title = null)
 	{		
