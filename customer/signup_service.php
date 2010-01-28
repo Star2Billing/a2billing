@@ -50,14 +50,17 @@ $result_subscriber = $table_subscriber->Get_list(DbConnect(), $clause_subscriber
 // #### HEADER SECTION
 $smarty->display('signup_header.tpl');
 
-
 ?>
+
+
+<BR/><BR/><BR/><BR/>
+
 <form id="myForm" method="post" name="myForm" action="signup.php">
 
 <div align="center">
 <table  style="width : 80%;" class="editform_table1">
    <tr>
-   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+   		<th colspan="2" background="templates/default/images/background_cells.gif">
    			<?php echo gettext("SELECT THE SERVICE THAT YOU WANT SUBSCRIBE") ?>
    		</th>	
    </tr>
@@ -70,7 +73,7 @@ $smarty->display('signup_header.tpl');
 		<td  class="form_head">
 			&nbsp;<?php echo gettext("SERVICE") ?> :
 		</td>
-		<td class="tableBodyRight"  background="./templates/default/images/background_cells.gif" width="70%">
+		<td class="tableBodyRight"  background="templates/default/images/background_cells.gif" width="70%">
 			&nbsp; <select name="subscriber" > 
 			<?php  foreach($result_subscriber as $subscriber){?>
 					<option  class="form_input_select" value="<?php echo $subscriber['id_subscription']; ?>" >  <?php echo $subscriber['label']; ?> </option>
@@ -95,6 +98,9 @@ $smarty->display('signup_header.tpl');
  </table>
  </div>
 </form>
+
+<BR/><BR/><BR/><BR/>
+
 
 <?php 
 
