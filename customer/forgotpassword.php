@@ -36,12 +36,10 @@
 // session_name("FORGOT");
 // session_start();
 
-include ("./lib/customer.defines.php");
+include ("lib/customer.defines.php");
+include ("lib/customer.smarty.php");
 
-getpost_ifset(array (
-	'pr_email',
-	'action'
-));
+getpost_ifset(array ('pr_email', 'action'));
 
 $FG_DEBUG = 0;
 $error = 0; //$error = 0 No Error; $error=1 No such User; $error = 2 Wrong Action
@@ -116,18 +114,11 @@ switch ($error) {
 		$login_message = gettext("Please provide your email address to get your login information.");
 		break;
 }
+
+$smarty->display('header.tpl');
+
 ?>
 
-<html>
-<head>
-<link rel="shortcut icon" href="<?php echo Images_Path_Main ?>/favicon.ico">
-<link rel="icon" href="<?php echo Images_Path_Main ?>/animated_favicon1.gif" type="image/gif">
-
-<title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet"  href="templates/default/css/main.css">
-<link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
-<link href="templates/default/css/style-def.css" rel="stylesheet" type="text/css">
 <script LANGUAGE="JavaScript">
 <!--
 	function test()
@@ -145,9 +136,9 @@ switch ($error) {
 -->
 </script>
 
-</head>
 
-<body onload="document.form.pr_email.focus()">
+<div class="block-updesign">
+
 <div id="login-wrapper" class="login-border-up">
 	<div class="login-border-down">
 	<div class="login-border-center">
@@ -160,7 +151,7 @@ switch ($error) {
 		<td class="login-title">
 			 FORGOT YOUR PASSWORD?
 		</td>
-	</tr>
+	    </tr>
         <tr>
             <td width="100%" align="center" >
 			<table>
@@ -174,7 +165,7 @@ switch ($error) {
 
 			</table>
 		</td>
-	</tr>
+	    </tr>
     </table>
 
    <?php
@@ -192,9 +183,14 @@ switch ($error) {
 			   
     <?php } ?>
 	</form>
-        </div>
-        </div>
-        </div>
+    </div>
+    </div>
+</div>
 
-</body>
-</html>
+</div>
+
+<?php
+
+$smarty->display('footer.tpl');
+
+

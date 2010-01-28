@@ -49,35 +49,37 @@ $error["accessdenied"] = gettext("Sorry, you don't have access to this page !");
 
 ?>
 
+<div class="block-updesign">
+
 <div id="login-wrapper" class="login-border-up">
 	<div class="login-border-down">
 	<div class="login-border-center">
 	<table>
-	<tr>
-		<td class="login-title" colspan="2">
-			<font size="3"> <?php echo gettext("ERROR PAGE");?> </font>
-		</td>
-	</tr>
-	<tr>
-		<td width="70px" align="center">
-			<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.png"> 
-		</td>
-		<td align="center">
-			<b><font size="é"><?php echo $error[$c]?></font></b>
-		</td>
-	</tr>           
-
-	</tr>
-      	</table>
-      	</div>
-      	</div>
+		<tr>
+			<td class="login-title" colspan="2">
+				<font size="3"> <?php echo gettext("ERROR PAGE");?> </font>
+			</td>
+		</tr>
+		<tr>
+			<td width="70px" align="center">
+				<img src="<?php echo KICON_PATH;?>/system-config-rootpassword.png">
+			</td>
+			<td align="center">
+				<b><font size="é"><?php echo $error[$c]?></font></b>
+			</td>
+		</tr>
+    </table>
       	<div style="text-align:right;padding-right:10px;" >
 	      	<a href="index.php" ><?php echo gettext("GO TO LOGIN PAGE"); ?>&nbsp;<img src="<?php echo Images_Path; ?>/key_go.png"> </a>
       	</div>
 	</div>
 	
 
-
 	</div>
-	</div>
+</div>
 
+</div>
+
+<?php
+
+$smarty->display('footer.tpl');
