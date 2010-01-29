@@ -333,12 +333,12 @@ class FormBO {
 					
 					if (is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
 						$field_insert = "id_payment, id_card, amount,description,id_agent";
-						$commission = -a2b_round($credit * ($result_agent[0]['commission']/100));
+						$commission = a2b_round($credit * ($result_agent[0]['commission']/100));
 						$description_commission = gettext("CORRECT COMMISSION AFTER CARD DELETED!");
 						$description_commission.= "\nID CARD : ".$card_id;
 						$description_commission.= "\n AMOUNT: ".$credit;
 						$description_commission.= "\nCOMMISSION APPLIED: ".$result_agent[0]['commission'];
-						$value_insert = "'-1', '$card_id', '$commission','$description_commission','$id_agent'";
+						$value_insert = "'-1', '$card_id', '-$commission','$description_commission','$id_agent'";
 						$commission_table = new Table("cc_agent_commission", $field_insert);
 						$id_commission = $commission_table -> Add_table ($FormHandler->DBHandle, $value_insert, null, null,"id");
 						$table_agent = new Table('cc_agent');
