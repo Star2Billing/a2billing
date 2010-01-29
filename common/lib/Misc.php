@@ -1448,3 +1448,28 @@ function addRealMonth($timeStamp)
     $newDate = lastDayOfMonth($tempMonth, $tempYear);
     return strtotime($newDate);
 }
+
+
+function Display_Login_Button ($DBHandle, $id) {
+	
+	$inst_table = new Table("cc_card", "useralias, uipass");
+	$FG_TABLE_CLAUSE = "id = $id";
+	$list_card_info = $inst_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);
+	$username = $list_card_info[0][0];
+	$password = $list_card_info[0][1];
+	$link = CUSTOMER_UI_URL;
+
+	if (strpos($link, 'index.php') !== false) {
+		$link = substr($link, 0, strlen($link)-9) . 'userinfo.php';
+	}
+
+	$content = '<div align="right" style="padding-right:20px;">
+		<form action="'.$link.'" method="POST" target="_blank">
+			<input type="hidden" name="done" value="submit_log"/>
+			<input type="hidden" name="pr_login" value="'.$username.'"/>
+			<input type="hidden" name="pr_password" value="'.$password.'"/>
+			<a href="javascript:;" onclick="javascript:$(\'form\').submit();" > '.gettext("GO TO CUSTOMER ACCOUNT").'</a>
+		</form>
+	</div>';
+	return $content;
+}

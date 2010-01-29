@@ -54,8 +54,8 @@ $DBHandle  = DbConnect();
 if ( $action == "reload" ) {
 	
 	$as = new AGI_AsteriskManager();
-	// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
-	$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);
+	
+	$res = $as->connect(MANAGER_HOST, MANAGER_USERNAME, MANAGER_SECRET);
 	
 	if ($res) {
 		if ( $atmenu == "sipfriend" ) {
