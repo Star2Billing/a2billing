@@ -385,9 +385,7 @@ class SOAP_A2Billing
 		    return array("ERROR", "INVALID KEY");
 		}
 		
-		return array("aresk", 'Get_Subscription_Signup SUCCESS');
-		
-		$QUERY = "SELECT cc_subscription_signup.id, cc_subscription_signup.label, enable, id_subscription, description, cc_subscription_fee.label as fee_label, cc_subscription_fee.fee FROM cc_subscription_signup LEFT JOIN cc_subscription_fee ON id_subscription=cc_subscription_fee.id ORDER BY cc_subscription_signup.id";
+		$QUERY = "SELECT cc_subscription_signup.id, description, cc_subscription_service.label as fee_label, cc_subscription_service.fee, id_subscription FROM cc_subscription_signup LEFT JOIN cc_subscription_service ON id_subscription=cc_subscription_service.id ORDER BY cc_subscription_signup.id";
 		
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		
@@ -396,7 +394,7 @@ class SOAP_A2Billing
 		    return array(false, "CANNOT LOAD THE SIGNUP SUBSCRIPTION LIST");
 		}
 		
-		return array(serialize($result), 'Get_Subscription_Signup SUCCESS');
+		return array(base64_encode(serialize($result)), 'Get_Subscription_Signup SUCCESS');
     }
 
 	
