@@ -38,7 +38,7 @@ RENAME TABLE `cc_subscription_fee`  TO `cc_subscription_service` ;
 ALTER TABLE `cc_card_subscription` ADD `paid_status` TINYINT NOT NULL DEFAULT '0' ;
 ALTER TABLE `cc_card_subscription` ADD `last_run` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 ALTER TABLE `cc_card_subscription` ADD `next_billing_date` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
-UPDATE `a2billing`.`cc_card_subscription` SET `next_billing_date` = NOW();
+UPDATE `cc_card_subscription` SET `next_billing_date` = NOW();
 ALTER TABLE `cc_card_subscription` ADD `limit_pay_date` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 
 

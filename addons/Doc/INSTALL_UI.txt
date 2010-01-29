@@ -135,6 +135,6 @@
 		
 	 * PEAR SOAP class
 	
-		pear install --alldeps SOAP-0.9.4
+		pear install --alldeps SOAP-0.12.0
 
 

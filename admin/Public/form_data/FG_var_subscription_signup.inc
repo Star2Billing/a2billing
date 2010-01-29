@@ -53,10 +53,11 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/add.png" ;
 
 
 $activated_list = Constants::getActivationList();
-$HD_Form -> AddViewElement(gettext("LABEL"), "label", "20%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ACTIVITY"), "enable", "20%", "center", "sort","", "list", $activated_list);
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "50%", "center", "SORT", "150");
-$HD_Form -> FieldViewElement ( 'label, enable, description');
+$HD_Form -> AddViewElement(gettext("LABEL"), "label", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ACTIVITY"), "enable", "15%", "center", "sort","", "list", $activated_list);
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "40%", "center", "SORT", "150");
+$HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription", "15%", "center", "sort", "15", "lie", "cc_subscription_service", "label", "id='%id'", "%1");
+$HD_Form -> FieldViewElement ( 'label, enable, description, id_subscription');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CUSTOMER GROUP CREATED!"); 
