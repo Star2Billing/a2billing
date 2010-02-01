@@ -1461,6 +1461,8 @@ function Display_Login_Button ($DBHandle, $id) {
 
 	if (strpos($link, 'index.php') !== false) {
 		$link = substr($link, 0, strlen($link)-9) . 'userinfo.php';
+	} else {
+		$link = $link . '/userinfo.php';
 	}
 
 	$content = '<div align="right" style="padding-right:20px;">
