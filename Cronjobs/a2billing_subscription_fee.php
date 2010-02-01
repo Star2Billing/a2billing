@@ -166,7 +166,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 $unix_limit = strtotime($subscription['limit_pay_date']);
                 $unix_now = strtotime(date("d-m-Y"));
 
-                if ($unix_now>=$unix_limit){
+                if ($unix_now>$unix_limit){
                     $action = "unpaid";
                 }
                 

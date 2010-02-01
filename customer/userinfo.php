@@ -63,8 +63,10 @@ if (!$customer_res || !is_array($customer_res)) {
 }
 
 $customer_info = $customer_res[0];
-if ($customer_info[14] != "1") {
-	exit ();
+if ($customer_info[14] != "1" && $customer_info[14] != "8") {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 $customer = $_SESSION["pr_login"];

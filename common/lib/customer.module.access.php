@@ -180,7 +180,7 @@ function login ($user, $pass)
 	
 	$row [] =$res -> fetchRow();
 	
-	if( $row [0][2] != "t" && $row [0][2] != "1" ) {
+	if( $row [0][2] != "t" && $row [0][2] != "1"  && $row [0][2] != "8" ) {
 		if ($row [0][2] == "2")
 			return -2;
 		else

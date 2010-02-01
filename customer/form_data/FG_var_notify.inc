@@ -55,9 +55,7 @@ if ($resmax)
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
-if($customer_info [0] != "1" ) {
-	exit();
-}	
+
 	
 $currencies_list = get_currencies();
 

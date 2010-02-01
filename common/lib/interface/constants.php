@@ -316,7 +316,7 @@ class Constants
 		$cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
 		$cardstatus_list["6"]  = array( gettext("SUSPENDED FOR UNDERPAYMENT"), "6");
 		$cardstatus_list["7"]  = array( gettext("SUSPENDED FOR LITIGATION"), "7");
-                $cardstatus_list["8"]  = array( gettext("WAITING SUBSCRIPTION PAYMENT"), "8");
+        $cardstatus_list["8"]  = array( gettext("WAITING SUBSCRIPTION PAYMENT"), "8");
 		return $cardstatus_list;
 	}
 	
@@ -334,6 +334,7 @@ class Constants
 		$cardstatus_list_acronym["5"]  = array( "<acronym title=\"".gettext("EXPIRED")."\">".gettext("EXPIRED")."</acronym>", "5");
 		$cardstatus_list_acronym["6"]  = array( "<acronym title=\"".gettext("SUSPENDED FOR UNDERPAYMENT")."\">".gettext("SUS-PAY")."</acronym>", "6");
 		$cardstatus_list_acronym["7"]  = array( "<acronym title=\"".gettext("SUSPENDED FOR LITIGATION")."\">".gettext("SUS-LIT")."</acronym>", "7");
+		$cardstatus_list_acronym["8"]  = array( "<acronym title=\"".gettext("WAITING-SUBSCRIPTION-PAYMENT")."\">".gettext("WAIT-PAY")."</acronym>", "8");
 		return $cardstatus_list_acronym;
 	}
 	

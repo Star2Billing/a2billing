@@ -74,11 +74,21 @@ $smarty->display('signup_header.tpl');
 			&nbsp;<?php echo gettext("SERVICE") ?> :
 		</td>
 		<td class="tableBodyRight"  background="templates/default/images/background_cells.gif" width="70%">
-			&nbsp; <select name="subscriber" > 
-			<?php  foreach($result_subscriber as $subscriber){?>
-					<option  class="form_input_select" value="<?php echo $subscriber['id_subscription']; ?>" >  <?php echo $subscriber['label']; ?> </option>
-			<?php  }?>
-					</select>
+			<table>
+			<?php 
+			$i=0;
+			foreach($result_subscriber as $subscriber){?>
+				<tr>
+					<td><input type="radio" name="subscriber" value="<?php echo $subscriber['id_subscription']; ?>" <?php if($i==0)echo"checked";?>   >  </td> <td><b> <?php echo $subscriber['label']; ?></b> </td>
+				</tr>
+				<tr>
+					<td>&nbsp; </td> <td><i> <?php echo $subscriber['description']; ?> </i> </td>
+				</tr>
+			<?php
+			$i++;
+
+			}?>
+			</table>
 		</td>
 	</tr>
 	 <tr height="20px">

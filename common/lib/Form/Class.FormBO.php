@@ -382,16 +382,73 @@ class FormBO {
 	
 	static public function create_subscriptions()
 	{
+		global $A2B;
 		$FormHandler = FormHandler::GetInstance();
 		$processed = $FormHandler->getProcessed();
 		$subscriber = $processed['subscriber'];
-		
-		if (is_numeric($subscriber)) {
-			$field_insert = " id_cc_card,id_subscription_fee";
+		$table_subscription = new Table("cc_subscription_service","*");
+		$subscription_clause = "id = ".$subscriber;
+		$result_sub = $table_subscription->Get_list($FormHandler->DBHandle, $clause);
+
+		if (is_numeric($subscriber) && is_array($result_sub)) {
+			$subscription = $result_sub[0];
+			$billdaybefor_anniversery = $A2B->config['global']['subscription_bill_days_before_anniversary'];
+			$unix_startdate = time();
+			$startdate = date("Y-m-d",$unix_startdate);
+			$day_startdate = date("j",$unix_startdate);
+			$month_startdate = date("m",$unix_startdate);
+			$year_startdate= date("Y",$unix_startdate);
+			$lastday_of_startdate_month = lastDayOfMonth($month_startdate,$year_startdate,"j");
+			$next_bill_date = strtotime("01-$month_startdate-$year_startdate + 1 month");
+			$lastday_of_next_month= lastDayOfMonth(date("m",$next_bill_date),date("Y",$next_bill_date),"j");
+			$limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversery day")) ;
+			if ($day_startdate>$lastday_of_next_month){
+				$next_limite_pay_date = date ("$lastday_of_next_month-m-Y" ,$next_bill_date);
+			} else {
+				$next_limite_pay_date = date ("$day_startdate-m-Y" ,$next_bill_date);
+			}
+			$next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
+			$field_insert = " id_cc_card,id_subscription_fee,product_name,paid_status,startdate,next_billing_date,limit_pay_date,last_run";
 			$card_id = $FormHandler -> RESULT_QUERY;
-			$value_insert = "'$card_id', '$subscriber' ";
+			$product_name = $subscription['label'];
+			$value_insert = "'$card_id', '$subscriber' ,'$product_name', 1 , '$startdate', '$next_bill_date','$limite_pay_date','$startdate'";
 			$instance_subscription_table = new Table("cc_card_subscription", $field_insert);
 			$instance_subscription_table -> Add_table ($FormHandler->DBHandle, $value_insert, null, null);	
+			$reference = generate_invoice_reference();
+			//CREATE INVOICE If a new card then just an invoice item in the last invoice
+			$field_insert = "date, id_card, title, reference, description, status, paid_status";
+			$date = date("Y-m-d h:i:s");
+			$title = gettext("SUBSCRIPTION INVOICE REMINDER");
+			$description = "You have $billdaybefor_anniversery days to pay your subscription with this invoice (REF: $reference ) or the account will be automatically disactived \n\n";
+			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
+			$instance_table = new Table("cc_invoice", $field_insert);
+			$id_invoice = $instance_table->Add_table($FormHandler->DBHandle, $value_insert, null, null, "id");
+			if (!empty ($id_invoice) && is_numeric($id_invoice)) {
+				$description = "Subscription service";
+				$amount = $subscription['fee'];
+				$vat = 0;
+				$field_insert = "date, id_invoice, price, vat, description, id_ext, type_ext";
+				$instance_table = new Table("cc_invoice_item", $field_insert);
+				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','" . $subscription['card_subscription_id'] . "','SUBSCR'";
+				if ($verbose_level >= 1)
+					echo "INSERT INVOICE ITEM : $field_insert =>	$value_insert \n";
+				$instance_table->Add_table($FormHandler->DBHandle, $value_insert, null, null, "id");
+			}
+
+			$mail = new Mail(Mail::$TYPE_SUBSCRIPTION_UNPAID,$card['id'] );
+			$mail -> replaceInEmail(Mail::$DAY_REMAINING_KEY,$day_remaining );
+			$mail -> replaceInEmail(Mail::$INVOICE_REF_KEY,$reference);
+			$mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,$subscription['fee']);
+			$mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID,$subscription['id']);
+			$mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL,$subscription['product_name']);
+			//insert charge
+			$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card_id . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
+			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+			try {
+				$mail -> send();
+			} catch (A2bMailException $e) {
+			}
+
 		}
 	}
 	

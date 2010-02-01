@@ -64,8 +64,10 @@ if ($resmax)
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
-if($customer_info [14] != "1" ) {
-	exit();
+if ($customer_info[14] != "1" && $customer_info[14] != "8") {
+	Header("HTTP/1.0 401 Unauthorized");
+	Header("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 
