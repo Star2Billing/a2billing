@@ -53,24 +53,24 @@ function put_dislay($position,$title,$links)
 	global $center;
 	global $right;
 	
-	if($position=="LEFT"){
+	if ($position=="LEFT") {
 		$idx = count($left);
 		$left[$idx] = array();
 		$left[$idx]["title"] = $title;
 		$left[$idx]["links"] = $links;
-	}elseif ($position=="CENTER"){
+	} elseif ($position=="CENTER") {
 		$idx = count($center);
 		$center[$idx] = array();
 		$center[$idx]["title"] = $title;
 		$center[$idx]["links"] = $links;
-	}elseif ($position=="RIGHT"){
+	} elseif ($position=="RIGHT") {
 		$idx = count($right);
 		$right[$idx] = array();
 		$right[$idx]["title"] = $title;
 		$right[$idx]["links"] = $links;
 	}
-	
 }
+
 if( !empty($A2B->config["dashboard"]["customer_info_enabled"]) && $A2B->config["dashboard"]["customer_info_enabled"]!="NONE"){
 	put_dislay($A2B->config["dashboard"]["customer_info_enabled"],gettext("ACCOUNTS INFO"),array("./modules/customers_numbers.php","./modules/customers_lastmonth.php"));
 }
@@ -83,11 +83,15 @@ if( !empty($A2B->config["dashboard"]["payment_info_enabled"]) && $A2B->config["d
 if( !empty($A2B->config["dashboard"]["call_info_enabled"]) && $A2B->config["dashboard"]["refill_info_enabled"]!="NONE"){
 	put_dislay($A2B->config["dashboard"]["call_info_enabled"],gettext("CALLS INFO TODAY"),array("./modules/calls_counts.php","./modules/calls_lastmonth.php"));
 }
-if( !empty($A2B->config["dashboard"]["system_info_enable"])){
+if( !empty($A2B->config["dashboard"]["system_info_enable"]) && $A2B->config["dashboard"]["system_info_enable"]!="NONE"){
 	put_dislay($A2B->config["dashboard"]["system_info_enable"],gettext("SYSTEM INFO"),array("./modules/system_info.php"));
+}
+if( !empty($A2B->config["dashboard"]["news_enabled"]) && $A2B->config["dashboard"]["news_enabled"]!="NONE"){
+	put_dislay($A2B->config["dashboard"]["news_enabled"],gettext("NEWS"),array("./modules/news.php"));
 }
 
 $smarty->display('main.tpl');
+
 ?>
 <center>
 

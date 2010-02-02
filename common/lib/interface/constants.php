@@ -154,6 +154,10 @@ class Constants
 		return $invoice_status_list;
 	}
 	
+	public static function getInvoiceStatusList_Revert_List() {
+		return Constants::reverse_array(Constants::getInvoiceStatusList());
+	}
+	
 	public static function getBillingInvoiceStatusList(){
 		$invoice_status_list = array();
 		$invoice_status_list['0'] = array( gettext('OPEN'), '0');
@@ -169,6 +173,9 @@ class Constants
 		return $invoice_status_list;
 	}
 
+	public static function getInvoicePaidStatusList_Revert_List(){
+		return Constants::reverse_array(Constants::getInvoicePaidStatusList());
+	}
         public static function getSubscriptionPaidStatusList(){
 		$subscription_status_list = array();
 		$subscription_status_list['0'] = array( gettext('FIRSTUSE'), '0');

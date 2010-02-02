@@ -87,6 +87,10 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/money.png" ;
 
 $status_list = Constants::getInvoiceStatusList();
 $paid_status_list = Constants::getInvoicePaidStatusList();
+$typepaid_list_r = Constants::getPaidTypeList_Revert_List();
+$paid_status_list_r = Constants::getInvoicePaidStatusList_Revert_List();
+$invoiceday_list = Constants::getInvoiceDay_List();
+$status_list_r = Constants::getInvoiceStatusList_Revert_List();
 
 //$filter_amount_without_vat ='SUM(cc_invoice_item.price)';
 // $filter_amount_with_vat ='SUM(cc_invoice_item.price*(1+(cc_invoice_item.vat/100)))';
@@ -98,9 +102,9 @@ $HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "10%", "center", "sor
 $HD_Form -> AddViewElement(gettext("DATE"), "date", "15%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("TITLE"), "title", "21%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PAID STATUS"), "status", "7%", "center", "sort", "", "list", $paid_status_list);
-$HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $status_list);
+$HD_Form -> AddViewElement(gettext("STATUS"), "cc_invoice_status", "7%", "center", "sort", "", "list", $status_list);
 $HD_Form -> AddViewElement(gettext("AMOUNT INCL VAT"), "total_price", "10%", "center", "sort","", "", "", "", "", "", "display_2bill");
-$HD_Form -> FieldViewElement ("cc_invoice.id,cc_invoice.reference, username, cc_invoice.date,title,cc_invoice.paid_status,cc_invoice.status,$filter_amount_with_vat");
+$HD_Form -> FieldViewElement ("cc_invoice.id, cc_invoice.reference, username, cc_invoice.date,title, cc_invoice.paid_status, cc_invoice.status as cc_invoice_status,$filter_amount_with_vat");
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -111,12 +115,9 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 if (!($popup_select>=1)) $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 if (!($popup_select>=1)) $HD_Form -> FG_FILTER_SEARCH_DELETE_ALL = false;
 
-$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Defina os criterios de pesquisa a uma fatura.');
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for invoice created.');
 $HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('CREATION DATE');
-
-$HD_Form -> FG_FILTER_SEARCH_3_TIME = true;
-$HD_Form -> FG_FILTER_SEARCH_3_TIME_TEXT = '&nbsp;&nbsp;'.gettext('MESES');
 
 $HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
@@ -129,7 +130,7 @@ $HD_Form -> AddSearchElement_Select(gettext("PAYMENT TYPE"), null, null, null, n
 $HD_Form -> AddSearchElement_Select(gettext("CALL PLAN"), "cc_tariffgroup", "id, tariffgroupname", "", "tariffgroupname", "ASC", "tariff");
 $HD_Form -> AddSearchElement_Select(gettext("INVOICE DAY"), null, null, null, null,null , "invoiceday", 0, $invoiceday_list);
 $HD_Form -> AddSearchElement_Select(gettext("PAID STATUS"), null, null, null, null,null , "paid_status", 0, $paid_status_list_r);
-$HD_Form -> AddSearchElement_Select(gettext("STATUS"), null, null, null, null,null , "status", 0, $status_list_r);
+
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
