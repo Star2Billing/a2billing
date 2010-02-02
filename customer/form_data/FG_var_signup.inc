@@ -179,7 +179,7 @@ $HD_Form->AddEditElement(gettext("ADDRESS"), "address", '$value', "INPUT", "size
 
 $HD_Form->AddEditElement(gettext("CITY"), "city", '$value', "INPUT", "size=30 maxlength=40", "0", gettext("Insert your city"), "", "", "", "", "", "", "", "");
 
-$HD_Form->AddEditElement(gettext("STATE/PROVINCE"), "state", '$value', "INPUT", "size=30 maxlength=40", "11", gettext("Insert your state"), "", "", "", "", "", "", "", "");
+$HD_Form->AddEditElement(gettext("STATE/PROVINCE"), "state", '$value', "INPUT", "size=30 maxlength=40", "11", gettext("Insert your state"), "", "", "", "", "", "", "NO", "");
 
 if ($form_action == 'ask-add') {
 	$country_default_val = 'USA';
