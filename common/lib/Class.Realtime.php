@@ -150,10 +150,13 @@ class Realtime {
 		    $host = FRIEND_HOST;
 		    $dtmfmode = FRIEND_DTMFMODE;
 		    
-		    if(!USE_REALTIME) {
-				if(($sip == 1) && ($iax == 1)) $key = "sip_iax_changed";
-				elseif (($sip == 1) ) $key = "sip_changed";
-				elseif ($iax == 1) $key = "iax_changed";
+		    if (!USE_REALTIME) {
+				if(($sip == 1) && ($iax == 1))
+					$key = "sip_iax_changed";
+				elseif ($sip == 1)
+					$key = "sip_changed";
+				elseif ($iax == 1)
+					$key = "iax_changed";
 				
 				//check who
 				if ($_SESSION["user_type"]=="ADMIN") {
@@ -171,7 +174,7 @@ class Realtime {
 	    }
 	    
 	    // Insert data for sip_buddy
-		if (isset ($sip)) {
+		if ($sip) {
 			
 			$FG_QUERY_ADITION_SIP_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat, qualify";
 		    $instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_FIELDS);
@@ -184,9 +187,9 @@ class Realtime {
 				$_SESSION["is_sip_changed"] = 1;
 			}
 		}
-
+		
 		// Insert data for iax_buddy
-		if (isset ($iax)) {
+		if ($iax) {
 			
 			$FG_QUERY_ADITION_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, host, type, username, allow, secret, id_cc_card, qualify";
 		    $instance_iax_table = new Table($FG_TABLE_IAX_NAME, $FG_QUERY_ADITION_IAX_FIELDS);
@@ -201,7 +204,6 @@ class Realtime {
 		}
 	
 	}
-	
 
 }
 
