@@ -108,6 +108,28 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
+if (!($popup_select>=1)) $HD_Form -> FG_FILTER_SEARCH_FORM = true;
+if (!($popup_select>=1)) $HD_Form -> FG_FILTER_SEARCH_DELETE_ALL = false;
+
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Defina os criterios de pesquisa a uma fatura.');
+$HD_Form -> FG_FILTER_SEARCH_1_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('CREATION DATE');
+
+$HD_Form -> FG_FILTER_SEARCH_3_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_3_TIME_TEXT = '&nbsp;&nbsp;'.gettext('MESES');
+
+$HD_Form -> AddSearchElement_C1(gettext("FIRSTNAME"),'firstname','firstnametype');
+$HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
+$HD_Form -> AddSearchElement_C1(gettext("REFERENCE"), 'reference','referencetype');
+$HD_Form -> AddSearchElement_C1(gettext("TITLE"), 'title','titletype');
+
+$HD_Form -> AddSearchElement_C2(gettext("AMOUNT INCL VAT"),'total_price1','total_price1type','total_price2','total_price2type','total_price');
+
+$HD_Form -> AddSearchElement_Select(gettext("PAYMENT TYPE"), null, null, null, null,null , "typepaid", 0, $typepaid_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("CALL PLAN"), "cc_tariffgroup", "id, tariffgroupname", "", "tariffgroupname", "ASC", "tariff");
+$HD_Form -> AddSearchElement_Select(gettext("INVOICE DAY"), null, null, null, null,null , "invoiceday", 0, $invoiceday_list);
+$HD_Form -> AddSearchElement_Select(gettext("PAID STATUS"), null, null, null, null,null , "paid_status", 0, $paid_status_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("STATUS"), null, null, null, null,null , "status", 0, $status_list_r);
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;

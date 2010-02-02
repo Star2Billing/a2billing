@@ -81,6 +81,21 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 echo $CC_help_view_invoice;
 
+?>
+<script language="JavaScript" src="javascript/card.js"></script>
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH INVOICE");?> </font></a><?php if(!empty($_SESSION['entity_invoice_selection'])){ ?>&nbsp;(<font style="color:#EE6564;" > <?php echo gettext("search activated"); ?> </font> ) <?php } ?> </center>
+	<div class="tohide" style="display:none;">
+<?php
+// #### CREATE SEARCH FORM
+if ($form_action == "list") {
+	$HD_Form -> create_search_form();
+}
+?>
+	</div>
+</div>
+
+<?php
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
 

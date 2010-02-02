@@ -83,7 +83,9 @@ if( !empty($A2B->config["dashboard"]["payment_info_enabled"]) && $A2B->config["d
 if( !empty($A2B->config["dashboard"]["call_info_enabled"]) && $A2B->config["dashboard"]["refill_info_enabled"]!="NONE"){
 	put_dislay($A2B->config["dashboard"]["call_info_enabled"],gettext("CALLS INFO TODAY"),array("./modules/calls_counts.php","./modules/calls_lastmonth.php"));
 }
-
+if( !empty($A2B->config["dashboard"]["system_info_enable"])){
+	put_dislay($A2B->config["dashboard"]["system_info_enable"],gettext("SYSTEM INFO"),array("./modules/system_info.php"));
+}
 
 $smarty->display('main.tpl');
 ?>

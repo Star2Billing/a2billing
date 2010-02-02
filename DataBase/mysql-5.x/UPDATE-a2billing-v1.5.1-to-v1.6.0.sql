@@ -67,13 +67,15 @@ You have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or your 
 
 
 
-
-
 ALTER TABLE `cc_subscription_service` CHANGE `label` `label` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
 ALTER TABLE `cc_subscription_service` CHANGE `emailreport` `emailreport` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
 ALTER TABLE `cc_subscription_signup` CHANGE `description` `description` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
+
+
+INSERT INTO `cc_config` (`config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`)
+VALUES ('Enable info module about system', 'system_info_enable', 'LEFT', 'Enabled this if you want to display the info module and place it somewhere on the Dashboard.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard')
+
+
 UPDATE cc_version SET version = '1.6.0';
-
-
 
