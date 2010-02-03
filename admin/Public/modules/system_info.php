@@ -112,8 +112,8 @@ $info_tmp = split(':', $distro_info, 2);
 $OS = trim($info_tmp[1]);
 $OS_img = split(' ', $OS);
 
-$info_tmp = split('-', COPYRIGHT);
-$UI = $info_tmp[0].$info_tmp[1];
+$info_tmp = split(" - ", COPYRIGHT);
+$UI = $info_tmp[0].' '.$info_tmp[1];
 
 $UI_path = '';
 $info_tmp = split('/', $_SERVER["SCRIPT_FILENAME"]);

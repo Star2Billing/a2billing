@@ -160,6 +160,21 @@ div.scrollreal{
 	padding:10px
 }
 
+.dashbox_news{
+	background-color: #F1F1F1;
+}
+
+.dashbox_news:hover {
+	background-color: #FFFFFF;
+}
+
+.dashbox_news2{
+	background-color: #E6E7E9;
+}
+
+.dashbox_news2:hover {
+	background-color: #F1F1F1;
+}
 
 .dashtitle{
 	 font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
