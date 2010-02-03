@@ -79,5 +79,11 @@ VALUES ('Enable info module about system', 'system_info_enable', 'LEFT', 'Enable
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title)
 VALUES ('Enable news module', 'news_enabled','RIGHT','Enabled this if you want to display the news module and place it somewhere on the Dashboard.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard');
 
+
+
+# update destination field to a BIGINT
+ALTER TABLE `cc_ratecard` CHANGE `destination` `destination` BIGINT( 20 ) NULL DEFAULT '0';
+
+
 UPDATE cc_version SET version = '1.6.0';
 
