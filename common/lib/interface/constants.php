@@ -384,6 +384,22 @@ class Constants
 		return $expire_list;
 	}
 	
+	public static function getMonitorQueryType_List(){
+		$mquery_type_list = array();
+		$mquery_type_list["1"]  = array( gettext("SQL"),"1");
+		$mquery_type_list["2"]  = array( gettext("SHELL SCRIPT"),"2");
+		return $mquery_type_list;
+	}
+
+	public static function getMonitorResultType_List(){
+		$mresult_type_list = array();
+		$mresult_type_list["1"]  = array( gettext("TEXT2SPEECH"), "1");
+		$mresult_type_list["2"]  = array( gettext("UNIXTIME"), "2");
+		$mresult_type_list["3"]  = array( gettext("NUMBER"), "3");
+		$mresult_type_list["4"]  = array( gettext("DIGIT"), "4");
+		return $mresult_type_list;
+	}
+	
 	public static function getRefillType_List(){
 		$refill_type_list = array();
 		$refill_type_list["0"]  = array( gettext("AMOUNT"),"0");

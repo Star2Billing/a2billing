@@ -39,75 +39,9 @@ if (!has_rights(ACX_DASHBOARD)) {
 	die();
 }
 
+exec("lsb_release -d 2> /dev/null", $output);
 
-function execute_program ($strProgramname, $strArgs = '', $booErrorRep = true ) {
-	$strProgram = find_program($strProgramname);
-	// see if we've gotten a |, if we have we need to do patch checking on the cmd
-	if( $strArgs ) {
-		$arrArgs = split( ' ', $strArgs );
-		for( $i = 0; $i < count( $arrArgs ); $i++ ) {
-			if ( $arrArgs[$i] == '|' ) {
-				$strCmd = $arrArgs[$i + 1];
-				$strNewcmd = find_program( $strCmd );
-				$strArgs = ereg_replace( "\| " . $strCmd, "| " . $strNewcmd, $strArgs );
-			}
-		}
-	}
-	// no proc_open() below php 4.3
-	if( function_exists( 'proc_open' ) ) {
-		$descriptorspec = array(
-			0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
-			1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
-			2 => array("pipe", "w")   // stderr is a pipe that the child will write to
-		);
-		$process = proc_open( $strProgram . " " . $strArgs, $descriptorspec, $pipes );
-		if( is_resource( $process ) ) {
-			while( !feof( $pipes[1] ) ) {
-				$strBuffer .= fgets( $pipes[1], 1024 );
-			}
-			fclose( $pipes[1] );
-		}
-		$return_value = proc_close( $process );
-	} else {
-		if( $fp = popen( "(" . $strProgram . " " . $strArgs . " > /dev/null) 3>&1 1>&2 2>&3", 'r' ) ) {
-			pclose( $fp );
-		}
-		if( $fp = popen( $strProgram . " " . $strArgs, 'r' ) ) {
-			while( ! feof( $fp ) ) {
-				$strBuffer .= fgets( $fp, 4096 );
-			}
-			$return_value = pclose( $fp );
-		}
-	}
-	$strBuffer = trim( $strBuffer );	
-	
-	return $strBuffer;
-	}	
-
-
-// Find a system program.  Do path checking
-function find_program ($strProgram) {
-	global $addpaths;
-	
-	$arrPath = array( '/bin', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin', '/usr/local/sbin' );
-	if( isset( $addpaths ) && is_array( $addpaths ) ) {
-		$arrPath = array_merge( $arrPath, $addpaths );
-	}
-	if ( function_exists( "is_executable" ) ) {
-		foreach ( $arrPath as $strPath ) {
-			$strProgrammpath = $strPath . "/" . $strProgram;
-			if( is_executable( $strProgrammpath ) ) {
-				return $strProgrammpath;
-			}
-		}
-	} else {
-		return strpos( $strProgram, '.exe' );
-	}
-}
-
-
-
-$distro_info = execute_program('lsb_release','-d 2> /dev/null', false);  // We have the '2> /dev/null' because Ubuntu gives an error on this command which causes the distro to be unknown
+$distro_info = $output[0];
 $info_tmp = split(':', $distro_info, 2);
 $OS = trim($info_tmp[1]);
 $OS_img = split(' ', $OS);

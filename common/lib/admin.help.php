@@ -236,6 +236,8 @@ if (SHOW_HELP) {
 
 	$CC_help_list_alarm = create_help(gettext("Alarms that monitors trunks at timed intervals."), 'ListAlarm');
 
+	$CC_help_list_monitoring = create_help(gettext("IVR Monitoring, an extension should be configured for the admin to call and monitor through an IVR some important data from your system."), 'ListMonitoring');
+
 	$CC_help_logfile = create_help(gettext("Browse your server log files.") . '<br/>' .
 	gettext("This tool can be used to extract and present information from various logfiles."), 'WatchLogFiles');
 

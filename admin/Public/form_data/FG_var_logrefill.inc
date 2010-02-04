@@ -53,7 +53,7 @@ if (has_rights (ACX_MODIFY_REFILLS)) {
 	$HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/time_add.png" ;
 }
 
-$list_refill_type=Constants::getRefillType_List();
+$list_refill_type = Constants::getRefillType_List();
 
 $HD_Form -> AddViewElement(gettext("ID"), "cc_logrefill.id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT"), "username", "17%", "center", "sort", "", "30", "", "", "", "", "linktocustomer_id");
@@ -121,7 +121,7 @@ if (has_rights (ACX_MODIFY_REFILLS)) {
 				   "date",		
 				   '$value',	
 				   "INPUT",	
-				   "size=40 maxlength=40  $comp_date",	
+				   "size=40 maxlength=40 $comp_date",	
 				   "10",	
 				   gettext("Insert the current date"),
 				   "" , "", "",	"", "", "", "", "" );

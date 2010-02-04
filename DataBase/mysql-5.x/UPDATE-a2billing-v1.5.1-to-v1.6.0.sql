@@ -31,22 +31,22 @@
 **/
 
 
-ALTER TABLE `cc_subscription_fee` ADD `startdate` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
-ADD `stopdate` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE cc_subscription_fee ADD startdate TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+ADD stopdate TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 
-RENAME TABLE `cc_subscription_fee`  TO `cc_subscription_service` ;
-ALTER TABLE `cc_card_subscription` ADD `paid_status` TINYINT NOT NULL DEFAULT '0' ;
-ALTER TABLE `cc_card_subscription` ADD `last_run` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
-ALTER TABLE `cc_card_subscription` ADD `next_billing_date` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
-UPDATE `cc_card_subscription` SET `next_billing_date` = NOW();
-ALTER TABLE `cc_card_subscription` ADD `limit_pay_date` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
+RENAME TABLE cc_subscription_fee  TO cc_subscription_service ;
+ALTER TABLE cc_card_subscription ADD paid_status TINYINT NOT NULL DEFAULT '0' ;
+ALTER TABLE cc_card_subscription ADD last_run TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE cc_card_subscription ADD next_billing_date TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
+UPDATE cc_card_subscription SET next_billing_date = NOW();
+ALTER TABLE cc_card_subscription ADD limit_pay_date TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00';
 
 
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) 
 			VALUES ('Days to bill before month anniversary', 'subscription_bill_days_before_anniversary', '3',
 					'Numbers of days to bill a subscription service before the month anniversary', 0, NULL, 'global');
 
-ALTER TABLE `cc_templatemail` CHANGE `subject` `subject` VARCHAR( 130 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+ALTER TABLE cc_templatemail CHANGE subject subject VARCHAR( 130 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
 INSERT INTO cc_templatemail (id_language, mailtype, fromemail, fromname, subject, messagetext)
 VALUES  ('en', 'subscription_paid', 'info@mydomainname.com', 'COMPANY NAME',
@@ -67,13 +67,13 @@ You have $days_remaining$ days to pay the invoice (REF: $invoice_ref$ ) or your 
 
 
 
-ALTER TABLE `cc_subscription_service` CHANGE `label` `label` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
-ALTER TABLE `cc_subscription_service` CHANGE `emailreport` `emailreport` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
-ALTER TABLE `cc_subscription_signup` CHANGE `description` `description` VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+ALTER TABLE cc_subscription_service CHANGE label label VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+ALTER TABLE cc_subscription_service CHANGE emailreport emailreport VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL;
+ALTER TABLE cc_subscription_signup CHANGE description description VARCHAR( 500 ) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
 
 
-INSERT INTO `cc_config` (`config_title`, `config_key`, `config_value`, `config_description`, `config_valuetype`, `config_listvalues`, `config_group_title`)
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title)
 VALUES ('Enable info module about system', 'system_info_enable', 'LEFT', 'Enabled this if you want to display the info module and place it somewhere on the Dashboard.', 0, 'NONE,LEFT,CENTER,RIGHT', 'dashboard')
 
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title)
@@ -82,7 +82,28 @@ VALUES ('Enable news module', 'news_enabled','RIGHT','Enabled this if you want t
 
 
 # update destination field to a BIGINT
-ALTER TABLE `cc_ratecard` CHANGE `destination` `destination` BIGINT( 20 ) NULL DEFAULT '0';
+ALTER TABLE cc_ratecard CHANGE destination destination BIGINT( 20 ) NULL DEFAULT '0';
+
+
+# query_type : 1 SQL ; 2 for shell script
+# result_type : 1 Text2Speech, 2 Date, 3 Number, 4 Digits
+CREATE TABLE cc_monitor (
+	id BIGINT NOT NULL auto_increment,
+	label VARCHAR( 50 ) collate utf8_bin NOT NULL ,
+	dial_code INT NULL ,
+	description VARCHAR( 250 ) collate utf8_bin NULL,
+	text_intro VARCHAR( 250 ) collate utf8_bin NULL,
+	query_type TINYINT NOT NULL DEFAULT '1',
+	query VARCHAR( 1000 ) collate utf8_bin NULL,
+	result_type TINYINT NOT NULL DEFAULT '1',
+	enable TINYINT NOT NULL DEFAULT '1',
+	PRIMARY KEY ( id )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO cc_monitor (label, dial_code, description, text_intro, query_type, query, result_type, enable) VALUES
+('TotalCall', 2, 'To say the total amount of calls', 'The total amount of call on your system is', 1, 'select count(*) from cc_call;', 3, 1),
+('Say Time', 1, 'just saying the current date and time', 'The current date and time is', 1, 'SELECT UNIX_TIMESTAMP( );', 2, 1),
+('Test Connectivity', 3, 'Test Connectivity with Google', 'you connectivity is', 2, 'check_connectivity.sh', 1, 1);
 
 
 UPDATE cc_version SET version = '1.6.0';

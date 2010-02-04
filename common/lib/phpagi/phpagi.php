@@ -1367,7 +1367,7 @@
           fputs($fp, $text);
           fclose($fp);
         }
-
+		echo "{$this->config['cepstral']['swift']} -p audio/channels=1,audio/sampling-rate=$frequency $voice -o $fname.wav -f $fname.txt \n\n";
         shell_exec("{$this->config['cepstral']['swift']} -p audio/channels=1,audio/sampling-rate=$frequency $voice -o $fname.wav -f $fname.txt");
       }
 

@@ -1475,3 +1475,5 @@ function Display_Login_Button ($DBHandle, $id) {
 	</div>';
 	return $content;
 }
+
+

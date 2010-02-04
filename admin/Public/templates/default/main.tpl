@@ -485,6 +485,7 @@
 				<li><a href="A2B_asteriskinfo.php?section=16">{php} echo "Asterisk Info";{/php}</a></li>
 				<li><a href="A2B_phpsysinfo.php?section=16">{php} echo "phpSysInfo";{/php}</a></li>
 				<li><a href="A2B_phpinfo.php?section=16">{php} echo "phpInfo";{/php}</a></li>
+				<li><a href="A2B_entity_monitor.php?section=16"> {php} echo gettext("Monitoring");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
