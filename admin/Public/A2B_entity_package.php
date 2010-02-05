@@ -63,10 +63,7 @@ $list = $HD_Form->perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action == 'list')
-	echo $CC_help_offer_package;
-else
-	echo $CC_help_offer_package;
+echo $CC_help_offer_package;
 
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);

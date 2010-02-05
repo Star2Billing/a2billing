@@ -446,10 +446,166 @@ if ($form_action == "list" && !$popup_select) {
 	} // disable Batch update if LCR Export
 
 } // END if ($form_action == "list")
+
+
+/********************************* BATCH ASSIGNED ***********************************/
+if ($popup_select) { 
+
+	$instance_table = new Table("cc_prefix GROUP BY destination", "destination");
+	$FG_TABLE_CLAUSE = "";
+	$list_destination = $instance_table->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, null, "ASC", null, null, null, null);
+	$destination = $list_destination[0];
+
+	$instance_table = new Table("cc_tariffplan", "id, tariffname");
+	$FG_TABLE_CLAUSE = "";
+	$list_tariffname = $instance_table->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
+	$nb_tariffname = count($list_tariffname);
+
+	$instance_table = new Table("cc_trunk", "id_trunk, trunkcode, providerip");
+	$FG_TABLE_CLAUSE = "";
+	$list_trunk = $instance_table->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "trunkcode", "ASC", null, null, null, null);
+	$nb_trunk = count($list_trunk);
+	
+	$instance_table = new Table("cc_outbound_cid_group", "id, group_name");
+	$FG_TABLE_CLAUSE = "";
+	$list_cid_group = $instance_table->Get_list($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "group_name", "ASC", null, null, null, null);
+	$nb_cid_group = count($list_cid_group);
+
+?>
+
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH ASSIGNED");?> </font></a></center>
+	<div class="tohide" style="display:none;">
+<center>
+
+<b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("rates selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected rates.");?></b>
+	   <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+		<form name="assignForm" action="javascript:;" method="post">
+		<INPUT type="hidden" name="batchupdate" value="1">
+		<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
+		<INPUT type="hidden" name="popup_select" value="<?php echo $popup_select?>">
+		<INPUT type="hidden" name="popup_formname" value="<?php echo $popup_formname?>">
+		<INPUT type="hidden" name="popup_fieldname" value="<?php echo $popup_fieldname?>">
+		<INPUT type="hidden" name="form_action" value="<?php echo $form_action?>">
+		<INPUT type="hidden" name="filterprefix" value="<?php echo $filterprefix?>">
+		<INPUT type="hidden" name="filterfield" value="<?php echo $filterfield?>">
+		<INPUT type="hidden" name="addbatchrate" value="1">
+		
+		<tr>		
+          <td align="left" class="bgcolor_001">
+		  		<input name="check" type="checkbox">
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				<font class="fontstyle_009">1) <?php echo gettext("TRUNK");?> :</font> 
+				<select NAME="assign_id_trunk" size="1" class="form_enter" >
+					<?php
+					 foreach ($list_trunk as $recordset){ 						 
+					?>
+						<option class=input value='<?php echo $recordset[0]?>'><?php echo $recordset[1].' ('.$recordset[2].')'?></option>                        
+					<?php } ?>
+				</select>
+			</td>
+		</tr>
+		<tr>		
+          <td align="left"  class="bgcolor_001">
+		  	<input name="check" type="checkbox">
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+			  <font class="fontstyle_009">	2) <?php echo gettext("RATECARD");?> :</font>
+				<select NAME="assign_idtariffplan" size="1" class="form_enter" >
+					<?php					 
+				  	 foreach ($list_tariffname as $recordset){ 						 
+					?>
+						<option class=input value='<?php echo $recordset[0]?>'><?php echo $recordset[1]?></option>
+					<?php 	 }
+					?>
+				</select>
+				<br/>
+			</td>
+		</tr>
+		
+		<tr>		
+          <td align="left" class="bgcolor_001">
+		  		<input name="check" type="checkbox">
+				<input name="mode[upd_tag]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  class="bgcolor_001">	
+				
+				<font class="fontstyle_009">3) <?php echo gettext("TAG");?> :</font>
+				<input class="form_input_text" name="assign_tag" size="20">
+		  </td>
+		</tr>
+		
+		<tr>
+          <td align="left" valign="top" class="bgcolor_001">
+				<input name="check" type="checkbox">
+				<input name="mode" type="hidden" value="2">
+		  </td>
+		  <td align="left"  class="bgcolor_001">
+				<font class="fontstyle_009">4) <?php echo gettext("PREFIX");?> :</font>
+						<input class="form_input_text" name="assign_prefix" size="20"><br />
+				<font class="version">
+				<input type="radio" NAME="rbPrefix" value="1" checked> <?php echo gettext("Exact");?>
+				<input type="radio" NAME="rbPrefix" value="2"> <?php echo gettext("Begins with");?>
+				<input type="radio" NAME="rbPrefix" value="3"> <?php echo gettext("Contains");?>
+				<input type="radio" NAME="rbPrefix" value="4"> <?php echo gettext("Ends with");?>
+				<input type="radio" NAME="rbPrefix" value="5"> <?php echo gettext("Expression");?>
+				</font>
+				<br />
+				<font class="fontstyle_009">
+					<?php echo gettext("With 'Expression' you can define a range of prefixes. '32484-32487' adds all prefixes between 32484 and 32487. '32484,32386,32488' would add only the individual prefixes listed.");?>
+				</font>
+			</td>
+		</tr>
+		<tr>		
+			<td align="right" class="bgcolor_001">
+			</td>
+		 	<td align="right"  class="bgcolor_001">
+				<input onclick="javascript:sendOpener();" class="form_input_button"  value=" <?php echo gettext("BATCH ASSIGNED");?> " type="submit">
+        	</td>
+		</tr>
+		</form>
+		</table>
+</center>
+
+<script language="javascript">
+function sendOpener()
+{
+	var send;
+	if (document.assignForm.check[0].checked==true){
+		var id_trunk = document.assignForm.assign_id_trunk.options[document.assignForm.assign_id_trunk.selectedIndex].value;
+	}
+	
+	if (document.assignForm.check[1].checked==true){
+		var id_tariffplan = document.assignForm.assign_idtariffplan.options[document.assignForm.assign_idtariffplan.selectedIndex].value;
+	}
+
+	if (document.assignForm.check[2].checked==true){
+		var tag = document.assignForm.assign_tag.value;
+	}
+
+	if (document.assignForm.check[3].checked==true){
+		for (var j=0;j<document.assignForm.rbPrefix.length;j++){
+		   if (document.assignForm.rbPrefix[j].checked)
+		      break;
+		}
+		var prefix = document.assignForm.assign_prefix.value+"&rbPrefix="+document.assignForm.rbPrefix[j].value;
+	}
+	window.opener.location.href = "A2B_package_manage_rates.php?id=<?php echo $package;?>&addbatchrate=true"+((id_trunk)? ('&id_trunk='+id_trunk):'')+((id_tariffplan)?('&id_tariffplan='+id_tariffplan):'')+((tag)? ('&tag='+tag):'')+((prefix)? ('&prefix='+prefix):'');
+}
+</script>
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+	</div>
+</div>
+
+<?php
+} // disable Batch update if not popup
+/********************************* END BATCH ASSIGNED ***********************************/
+
 ?>
 
 
-<br>
 <?php
 
 // Weird hack to create a select form
