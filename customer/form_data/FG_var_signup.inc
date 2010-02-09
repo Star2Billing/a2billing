@@ -169,21 +169,52 @@ if (isset ($form_action) && $form_action == "ask-add") {
 	$comp_zero = "value='0'";
 }
 
-$HD_Form->AddEditElement(gettext("LASTNAME"), "lastname", '$value', "INPUT", "size=30 maxlength=50", "11", gettext("Insert your lastname"), "", "", "", "", "", "", "", "");
+$HD_Form->AddEditElement(gettext("LASTNAME"), 
+		"lastname",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=50", "11",
+		gettext("Insert your lastname"), "", "", "", "", "", "", "", "");
 
-$HD_Form->AddEditElement(gettext("FIRSTNAME"), "firstname", '$value', "INPUT", "size=30 maxlength=50", "11", gettext("Insert your firstname"), "", "", "", "", "", "", "", "");
+$HD_Form->AddEditElement(gettext("FIRSTNAME"), 
+		"firstname",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=50", "11",
+		gettext("Insert your firstname"), "", "", "", "", "", "", "", "");
 
-$HD_Form->AddEditElement(gettext("EMAIL"), "email", '$value', "INPUT", "size=30 maxlength=70", "1", gettext("Insert your email"), "", "", "", "", "", "", "", "");
+$HD_Form->AddEditElement(gettext("EMAIL"), 
+		"email",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=70", "1",
+		gettext("Insert your email"), "", "", "", "", "", "", "", "");
 
-$HD_Form->AddEditElement(gettext("ADDRESS"), "address", '$value', "INPUT", "size=30 maxlength=100", "0", gettext("Insert your address"), "", "", "", "", "", "", "", "");
+$HD_Form->AddEditElement(gettext("ADDRESS"), 
+		"address",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=100", "0",
+		gettext("Insert your address"), "", "", "", "", "", "", "", "");
 
-$HD_Form->AddEditElement(gettext("CITY"), "city", '$value', "INPUT", "size=30 maxlength=40", "0", gettext("Insert your city"), "", "", "", "", "", "", "", "");
+$HD_Form->AddEditElement(gettext("CITY"), 
+		"city",
+		'$value',
+		"INPUT",
+		"size=30 maxlength=40", "0",
+		gettext("Insert your city"), "", "", "", "", "", "", "", "");
 
-$HD_Form->AddEditElement(gettext("STATE/PROVINCE"), "state", '$value', "INPUT", "size=30 maxlength=40", "11", gettext("Insert your state"), "", "", "", "", "", "", "NO", "");
+$HD_Form->AddEditElement(gettext("STATE/PROVINCE"), 
+		"state", 
+		'$value',
+		"INPUT",
+		"size=30 maxlength=40", "11",
+		gettext("Insert your state"), "", "", "", "", "", "", "NO", "");
 
 if ($form_action == 'ask-add') {
 	$country_default_val = 'USA';
 }
+
 $HD_Form->AddEditElement(gettext("COUNTRY"), 
 					"country", 
 					"$country_default_val", 
