@@ -259,12 +259,6 @@ foreach ($result as $myservice) {
 
 	// SEND REPORT
 	if (strlen($myservice[12]) > 0) {
-		
-		mail($myservice[12], "RECURRING SERVICES : REPORT", $mail_content);
-	}
-	
-	// SEND REPORT
-	if (strlen($myservice[12]) > 0) {
 		$mail_subject = "RECURRING SERVICES : REPORT";
 		
 		$mail_content = "SERVICE NAME = " . $myservice[1];
