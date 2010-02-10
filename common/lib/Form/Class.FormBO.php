@@ -419,7 +419,7 @@ class FormBO {
 
 			$instance_table = new Table("cc_card", "");
 			$QUERY = "UPDATE cc_card SET status=8 WHERE id=$card_id";
-			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+			$instance_table->SQLExec($FormHandler->DBHandle, $QUERY, 0);
 
 			$product_name = $subscription['label'];
 			$value_insert = "'$card_id', '$subscriber' ,'$product_name', 1 , '$startdate', '$next_bill_date','$limite_pay_date','$startdate'";
@@ -454,10 +454,7 @@ class FormBO {
 			$mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL,$subscription['product_name']);
 			//insert charge
 			$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card_id . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
-			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-
-			$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card_id . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
-			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+			$instance_table->SQLExec($FormHandler->DBHandle, $QUERY, 0);
 
 			try {
 				$mail -> send();
