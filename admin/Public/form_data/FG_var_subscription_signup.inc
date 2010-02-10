@@ -53,11 +53,12 @@ $HD_Form ->FG_LIST_ADDING_BUTTON_IMG1 = Images_Path ."/add.png" ;
 
 
 $activated_list = Constants::getActivationList();
-$HD_Form -> AddViewElement(gettext("LABEL"), "label", "15%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ACTIVITY"), "enable", "15%", "center", "sort","", "list", $activated_list);
-$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "40%", "center", "SORT", "150");
-$HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription", "15%", "center", "sort", "15", "lie", "cc_subscription_service", "label", "id='%id'", "%1");
-$HD_Form -> FieldViewElement ( 'label, enable, description, id_subscription');
+$HD_Form -> AddViewElement(gettext("LABEL"), "label", "12%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ACTIVITY"), "enable", "12%", "center", "sort","", "list", $activated_list);
+$HD_Form -> AddViewElement(gettext("DESCRIPTION"), "description", "35%", "center", "SORT", "150");
+$HD_Form -> AddViewElement(gettext("SERVICE"), "id_subscription", "12%", "center", "sort", "15", "lie", "cc_subscription_service", "label", "id='%id'", "%1");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("CALL PLAN")."\">".gettext('PLAN')."</acronym>", "id_callplan", "12%", "center", "sort", "20", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+$HD_Form -> FieldViewElement ( 'label, enable, description, id_subscription, id_callplan');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO SUBSCRIPTION IN SIGNUP CREATED!");
@@ -99,8 +100,6 @@ $HD_Form -> AddEditElement (gettext("SUBSCRIPTION OPTIONS"),
 	   "", "", "%1 - %3 $CURRENCY (id:%2)", "", "", "", '<OPTION  value="NULL" selected>'.gettext("NONE").'</OPTION>' );
 
 
-
-
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 		"description",
 		'',
@@ -110,7 +109,19 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 		gettext("Insert the description"),
 		"" , "", "", "", "" , "", "", "");
 
-$HD_Form -> FieldEditElement ('label,enable,id_subscription, description');
+
+$HD_Form -> AddEditElement (gettext("CALL PLAN"),
+			   "id_callplan",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_tariffgroup",
+			   "tariffgroupname, id",
+			   "", "", "%1", "", gettext("Define the callplan to associate to your Subscription") );
+
+
+$HD_Form -> FieldEditElement ('label,enable,id_subscription, description, id_callplan');
 
 
 

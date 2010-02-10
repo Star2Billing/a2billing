@@ -385,7 +385,7 @@ class FormBO {
 		global $A2B;
 		$FormHandler = FormHandler::GetInstance();
 		$processed = $FormHandler->getProcessed();
-		$subscriber = $processed['subscriber'];
+		$subscriber = $processed['subscriber_signup'];
 		$table_subscription = new Table("cc_subscription_service","*");
 		$subscription_clause = "id = ".$subscriber;
 		$result_sub = $table_subscription->Get_list($FormHandler->DBHandle, $clause);

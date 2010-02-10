@@ -79,7 +79,7 @@ $smarty->display('signup_header.tpl');
 			$i=0;
 			foreach($result_subscriber as $subscriber){?>
 				<tr>
-					<td><input type="radio" name="subscriber" value="<?php echo $subscriber['id_subscription']; ?>" <?php if($i==0)echo"checked";?>   >  </td> <td><b> <?php echo $subscriber['label']; ?></b> </td>
+					<td><input type="radio" name="subscriber_signup" value="<?php echo $subscriber['id']; ?>" <?php if($i==0)echo"checked";?>   >  </td> <td><b> <?php echo $subscriber['label']; ?></b> </td>
 				</tr>
 				<tr>
 					<td>&nbsp; </td> <td><i> <?php echo $subscriber['description']; ?> </i> </td>

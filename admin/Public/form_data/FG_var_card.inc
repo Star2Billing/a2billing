@@ -140,7 +140,7 @@ if (!($popup_select>=1)) {
 	$serial_pad_length=$A2B->config["webui"]['card_serial_length'];
 	$show_fields['id_seria']=array(gettext("SERIE"), "id_seria", "*", "center", "sort", "15", "lie", "cc_card_seria", "name","id='%id'", "%1","");
 	$show_fields['serial']=array("<acronym title=\"".gettext("SERIAL NUMBER")."\">SERIAL#</acronym>", "serial", "*","center", "sort","","eval",'str_pad("%C",'.$serial_pad_length.' , "0", STR_PAD_LEFT)');
-	$show_fields['tariff']=array("<acronym title=\"".gettext("Call Plan")."\">".gettext('PLAN')."</acronym>",
+	$show_fields['tariff']=array("<acronym title=\"".gettext("CALL PLAN")."\">".gettext('PLAN')."</acronym>",
 	       "tariff", "8%", "center", "sort", "20", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 	$show_fields['status']=array(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
 	$show_fields['language']=array(gettext("LG"), "language", "3%", "center", "sort");

@@ -56,10 +56,10 @@ include ("./lib/customer.smarty.php");
 if (!$A2B->config["signup"]['enable_signup'])
 	exit;
 
-getpost_ifset(array ('subscriber'));
+getpost_ifset(array ('subscriber_signup'));
 
-if (!is_numeric($subscriber)) {
-	//check subscriber
+if (!is_numeric($subscriber_signup)) {
+	//check subscriber_signup
 	$table_check_subscriber = new Table("cc_subscription_signup", "COUNT(*)");
 	$clause_check_subscriber = "";
 	$result_check_subscriber = $table_check_subscriber->Get_list(DbConnect(), $clause_check_subscriber);
@@ -80,7 +80,7 @@ if ($id != "" || !is_null($id)) {
 
 $list = $HD_Form->perform_action($form_action);
 
-echo "$list";
+
 if ($form_action == "add") {
 	unset ($_SESSION["cardnumber_signup"]);
 	$_SESSION["language_code"] = $_POST["language"];

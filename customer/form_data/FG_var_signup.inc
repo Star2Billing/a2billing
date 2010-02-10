@@ -33,7 +33,7 @@
 
 
 
-getpost_ifset(array('id','subscriber', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid', 'key'));
+getpost_ifset(array('id','subscriber_signup', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','company_name' , 'company_website' , 'VAT_RN' , 'traffic' , 'traffic_target','captchacode','groupid', 'key'));
 
 //put parameter in session
 $HD_Form = new FormHandler("cc_card", "User");
@@ -156,7 +156,7 @@ $HD_Form->AddEditElement(gettext("LANGUAGE"), "language", "", "SELECT", "", "", 
 
 $HD_Form->AddEditElement("CURRENCY", "currency", "", "SELECT", "", "", "", "list", "", "", "", $currency_list, "%1", "", "");
 
-if (!$agent_conf && strpos($callPlan_idlist, ',') !== false) {
+if (!$agent_conf && strpos($callPlan_idlist, ',') !== false && !($subscriber_signup>0)) {
 	$HD_Form->AddEditElement(gettext("CALL PLAN"), "tariff", "", "SELECT", "", "", "", "list", "", "", "", $callPlan_list, "%1", "", "");
 }
 $comp_zero = $comp_date_plus = '';
@@ -297,7 +297,7 @@ if (CAPTCHA_ENABLE) {
 	$captcha = "captchacode,";
 }
 
-if (!$agent_conf && strpos($callPlan_idlist, ',') !== false) {
+if (!$agent_conf && strpos($callPlan_idlist, ',') !== false && !($subscriber_signup>0)) {
 	$HD_Form->FieldEditElement('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,' .
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
 	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,' .
@@ -365,17 +365,30 @@ $HD_Form->FG_QUERY_EXTRA_HIDDED = array (
 	$loginkey
 );
 
-if (!$agent_conf && strpos($callPlan_idlist, ',') === false) {
-	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
-	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $mytariff";
-} elseif ($agent_conf) {
-	$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
-	$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $tariffid";
+if (!is_numeric($subscriber_signup)) {
+	if (!$agent_conf && strpos($callPlan_idlist, ',') === false) {
+		$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
+		$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $mytariff";
+	} elseif ($agent_conf) {
+		$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
+		$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $tariffid";
+	}
 }
 
-if (is_numeric($subscriber)) {
-	$HD_Form->FG_ADITION_HIDDEN_PARAM = 'subscriber';
-	$HD_Form->FG_ADITION_HIDDEN_PARAM_VALUE = "$subscriber";
+// If Service - find the callplan associate
+if (is_numeric($subscriber_signup)) {
+
+	$table_subscribe = new Table("cc_subscription_signup", "id_callplan");
+	$data = $table_subscribe->Get_list($HD_Form->DBHandle, "id='" . $subscriber_signup . "'");
+	if (is_array($data)) {
+		$id_callplan = $data[0]['id_callplan'];
+		$HD_Form->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
+		$HD_Form->FG_QUERY_ADITION_HIDDEN_VALUE .= ", $id_callplan";
+	}
+	
+	// HIDDEN VALUE
+	$HD_Form->FG_ADITION_HIDDEN_PARAM = 'subscriber_signup';
+	$HD_Form->FG_ADITION_HIDDEN_PARAM_VALUE = "$subscriber_signup";
 }
 
 $HD_Form->FG_FILTER_APPLY = true;

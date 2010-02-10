@@ -110,5 +110,8 @@ INSERT INTO cc_config ( config_title, config_key, config_value, config_descripti
 ( 'Busy Timeout', 'busy_timeout', '1', 'Define the timeout in second when indicate the busy condition', 0, NULL, 'agi-conf1');
 
 
+ALTER TABLE cc_subscription_signup ADD id_callplan BIGINT;
+
+
 UPDATE cc_version SET version = '1.6.0';
 
