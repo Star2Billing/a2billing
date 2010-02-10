@@ -391,29 +391,36 @@ class FormBO {
 		$result_sub = $table_subscription->Get_list($FormHandler->DBHandle, $clause);
 
 		if (is_numeric($subscriber) && is_array($result_sub) && $result_sub[0]['fee'] > 0) {
-			$instance_table = new Table("cc_card", "");
-			$QUERY = "UPDATE cc_card SET status=8 WHERE id=$card_id";
-			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 
 			$subscription = $result_sub[0];
 			$billdaybefor_anniversery = $A2B->config['global']['subscription_bill_days_before_anniversary'];
+
 			$unix_startdate = time();
 			$startdate = date("Y-m-d",$unix_startdate);
 			$day_startdate = date("j",$unix_startdate);
 			$month_startdate = date("m",$unix_startdate);
 			$year_startdate= date("Y",$unix_startdate);
 			$lastday_of_startdate_month = lastDayOfMonth($month_startdate,$year_startdate,"j");
+
 			$next_bill_date = strtotime("01-$month_startdate-$year_startdate + 1 month");
 			$lastday_of_next_month= lastDayOfMonth(date("m",$next_bill_date),date("Y",$next_bill_date),"j");
 			$limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversery day")) ;
+
 			if ($day_startdate>$lastday_of_next_month){
 				$next_limite_pay_date = date ("$lastday_of_next_month-m-Y" ,$next_bill_date);
 			} else {
 				$next_limite_pay_date = date ("$day_startdate-m-Y" ,$next_bill_date);
 			}
+
 			$next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
-			$field_insert = " id_cc_card,id_subscription_fee,product_name,paid_status,startdate,next_billing_date,limit_pay_date,last_run";
+			
+			$field_insert = " id_cc_card, id_subscription_fee, product_name, paid_status, startdate, next_billing_date, limit_pay_date, last_run";
 			$card_id = $FormHandler -> RESULT_QUERY;
+
+			$instance_table = new Table("cc_card", "");
+			$QUERY = "UPDATE cc_card SET status=8 WHERE id=$card_id";
+			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+
 			$product_name = $subscription['label'];
 			$value_insert = "'$card_id', '$subscriber' ,'$product_name', 1 , '$startdate', '$next_bill_date','$limite_pay_date','$startdate'";
 			$instance_subscription_table = new Table("cc_card_subscription", $field_insert);
