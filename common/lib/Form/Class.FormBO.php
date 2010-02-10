@@ -390,7 +390,11 @@ class FormBO {
 		$subscription_clause = "id = ".$subscriber;
 		$result_sub = $table_subscription->Get_list($FormHandler->DBHandle, $clause);
 
-		if (is_numeric($subscriber) && is_array($result_sub)) {
+		if (is_numeric($subscriber) && is_array($result_sub) && $result_sub[0]['fee'] > 0) {
+			$instance_table = new Table("cc_card", "");
+			$QUERY = "UPDATE cc_card SET status=8 WHERE id=$card_id";
+			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+
 			$subscription = $result_sub[0];
 			$billdaybefor_anniversery = $A2B->config['global']['subscription_bill_days_before_anniversary'];
 			$unix_startdate = time();
@@ -434,7 +438,7 @@ class FormBO {
 					echo "INSERT INVOICE ITEM : $field_insert =>	$value_insert \n";
 				$instance_table->Add_table($FormHandler->DBHandle, $value_insert, null, null, "id");
 			}
-
+			
 			$mail = new Mail(Mail::$TYPE_SUBSCRIPTION_UNPAID,$card['id'] );
 			$mail -> replaceInEmail(Mail::$DAY_REMAINING_KEY,$day_remaining );
 			$mail -> replaceInEmail(Mail::$INVOICE_REF_KEY,$reference);
@@ -444,11 +448,14 @@ class FormBO {
 			//insert charge
 			$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card_id . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
 			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+
+			$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card_id . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
+			$instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+
 			try {
 				$mail -> send();
 			} catch (A2bMailException $e) {
 			}
-
 		}
 	}
 	
