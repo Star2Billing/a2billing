@@ -57,6 +57,19 @@ set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include (dirname(__FILE__) . "/lib/admin.defines.php");
+include (dirname(__FILE__) . "/lib/ProcessHandler.php");
+
+if (!defined('PID')) {
+	define("PID", "/var/run/a2billing/a2billing_bill_diduse_pid.php");
+}
+
+// CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
+if (ProcessHandler :: isActive()) {
+	die(); // Already running!
+} else {
+	ProcessHandler :: activate();
+}
+
 
 $verbose_level = 0;
 

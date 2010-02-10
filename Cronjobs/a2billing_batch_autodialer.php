@@ -65,16 +65,14 @@ include (dirname(__FILE__) . "/lib/Class.RateEngine.php");
 include (dirname(__FILE__) . "/lib/ProcessHandler.php");
 
 if (!defined('PID')) {
-	define("PID", "/tmp/a2billing_batch_autodialer_pid.php");
+	define("PID", "/var/run/a2billing/a2billing_batch_autodialer_pid.php");
 }
 
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
 if (ProcessHandler :: isActive()) {
-	// Already running!
-	die();
+	die(); // Already running!
 } else {
 	ProcessHandler :: activate();
-	// run the cront
 }
 
 $verbose_level = 1;

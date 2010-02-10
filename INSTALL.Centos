@@ -155,6 +155,7 @@ echo "
 Add directory for monitoring Script
 
 mkdir -p /var/lib/a2billing/script
+mkdir -p /var/run/a2billing
 
 Create Log Files
 

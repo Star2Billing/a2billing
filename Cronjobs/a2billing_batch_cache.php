@@ -68,12 +68,12 @@ include (dirname(__FILE__) . "/lib/admin.defines.php");
 include (dirname(__FILE__) . "/lib/ProcessHandler.php");
 
 if (!defined('PID')) {
-	define("PID", "/tmp/a2billing_batch_cache_pid.php");
+	define("PID", "/var/run/a2billing/a2billing_batch_cache_pid.php");
 }
 
 // CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
 if (ProcessHandler :: isActive()) {
-	die();
+	die(); // Already running!
 } else {
 	ProcessHandler :: activate();
 }

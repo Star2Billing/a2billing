@@ -56,7 +56,18 @@ set_time_limit(120);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include (dirname(__FILE__) . "/lib/admin.defines.php");
+include (dirname(__FILE__) . "/lib/ProcessHandler.php");
 
+if (!defined('PID')) {
+	define("PID", "/var/run/a2billing/currencies_update_yahoo_pid.php");
+}
+
+// CHECK IF THE CRONT PROCESS IS ALREADY RUNNING
+if (ProcessHandler :: isActive()) {
+	die(); // Already running!
+} else {
+	ProcessHandler :: activate();
+}
 
 $FG_DEBUG=0;
 $A2B = new A2Billing();

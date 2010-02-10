@@ -228,6 +228,9 @@ Step 5: Install web-based Graphical interfaces
    Create folder directory for monitoring Scripts
 	 #mkdir -p /var/lib/a2billing/script
 
+   Create folder directory for Cronts PID
+	 #mkdir -p /var/run/a2billing
+
    Option 1
      #cp -rf /usr/local/src/a2billing/admin /var/www/a2billing
      #cp -rf /usr/local/src/a2billing/agent /var/www/a2billing
