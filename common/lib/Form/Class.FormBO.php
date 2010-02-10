@@ -446,7 +446,7 @@ class FormBO {
 				$instance_table->Add_table($FormHandler->DBHandle, $value_insert, null, null, "id");
 			}
 			
-			$mail = new Mail(Mail::$TYPE_SUBSCRIPTION_UNPAID,$card['id'] );
+			$mail = new Mail(Mail::$TYPE_SUBSCRIPTION_UNPAID,$card_id );
 			$mail -> replaceInEmail(Mail::$DAY_REMAINING_KEY,$day_remaining );
 			$mail -> replaceInEmail(Mail::$INVOICE_REF_KEY,$reference);
 			$mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,$subscription['fee']);
@@ -455,7 +455,7 @@ class FormBO {
 			//insert charge
 			$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card_id . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
 			$instance_table->SQLExec($FormHandler->DBHandle, $QUERY, 0);
-
+			
 			try {
 				$mail -> send();
 			} catch (A2bMailException $e) {
