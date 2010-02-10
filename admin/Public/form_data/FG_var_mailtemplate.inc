@@ -86,6 +86,9 @@ $typemail_list["template9"] 		= array( gettext("template9"), "template9");
 $typemail_list["new_ticket"]		= array( gettext("New Ticket"), Mail::$TYPE_TICKET_NEW);
 $typemail_list["modify_ticket"]		= array( gettext("Modify Ticket"), Mail::$TYPE_TICKET_MODIFY);
 $typemail_list["invoice_to_pay"]	= array( gettext("Invoice to Pay"), Mail::$TYPE_INVOICE_TO_PAY);
+$typemail_list["subscription_paid"]	= array( gettext("Subscription Paid"), Mail::$TYPE_SUBSCRIPTION_PAID);
+$typemail_list["subscription_unpaid"]	= array( gettext("Subscription Unpaid"), Mail::$TYPE_SUBSCRIPTION_UNPAID);
+$typemail_list["subscription_disable_card"]	= array( gettext("Subscription Disable Card"), Mail::$TYPE_SUBSCRIPTION_DISABLE_CARD);
 
 if (($popup_select>=1)) {
 	$HD_Form -> AddViewElement(gettext("ID MAIL"), "id", "10%", "center", "sort");
