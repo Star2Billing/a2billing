@@ -152,6 +152,10 @@ echo "
 0 1 * * * php /usr/local/src/a2billing/Cronjobs/currencies_update_yahoo.php
 " >> /var/spool/cron/asterisk
 
+Add directory for monitoring Script
+
+mkdir -p /var/lib/a2billing/script
+
 Create Log Files
 
 Log files and Permissions

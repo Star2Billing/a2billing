@@ -106,5 +106,9 @@ INSERT INTO cc_monitor (label, dial_code, description, text_intro, query_type, q
 ('Test Connectivity', 3, 'Test Connectivity with Google', 'you connectivity is', 2, 'check_connectivity.sh', 1, 1);
 
 
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES
+( 'Busy Timeout', 'busy_timeout', '1', 'Define the timeout in second when indicate the busy condition', 0, NULL, 'agi-conf1');
+
+
 UPDATE cc_version SET version = '1.6.0';
 

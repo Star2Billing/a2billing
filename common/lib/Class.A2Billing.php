@@ -590,7 +590,8 @@ class A2Billing {
 		if (!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
 		if (!isset($this->config["agi-conf$idconfig"]['failover_lc_prefix'])) $this->config["agi-conf$idconfig"]['failover_lc_prefix'] = 0;
 		if (!isset($this->config["agi-conf$idconfig"]['cheat_on_announcement_time'])) $this->config["agi-conf$idconfig"]['cheat_on_announcement_time'] = 0;
-
+		if (!isset($this->config["agi-conf$idconfig"]['busy_timeout'])) $this->config["agi-conf$idconfig"]['busy_timeout'] = 1;
+		
 		// Define the agiconfig property
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
 
@@ -1148,7 +1149,8 @@ class A2Billing {
 			//# Ooh, something actually happend!
 			if ($dialstatus  == "BUSY") {
 				$answeredtime = 0;
-				$res_busy = $agi->exec("Busy 1");
+				if ($this->agiconfig['busy_timeout'] > 0)
+					$res_busy = $agi->exec("Busy ".$this->agiconfig['busy_timeout']);
 				$agi-> stream_file('prepaid-isbusy', '#');
 			} elseif ($this->dialstatus == "NOANSWER") {
 				$answeredtime = 0;
@@ -1297,7 +1299,8 @@ class A2Billing {
 					//# Ooh, something actually happend!
 					if ($dialstatus == "BUSY") {
 						$answeredtime = 0;
-						$res_busy = $agi->exec("Busy 1");
+						if ($this->agiconfig['busy_timeout'] > 0)
+							$res_busy = $agi->exec("Busy ".$this->agiconfig['busy_timeout']);
 						$agi-> stream_file('prepaid-isbusy', '#');
 						if (count($listdestination)>$callcount)
 							continue;
@@ -1542,7 +1545,8 @@ class A2Billing {
                 //# Ooh, something actually happend!
                 if ($dialstatus == "BUSY") {
 					$answeredtime = 0;
-					$res_busy = $agi->exec("Busy 1");
+					if ($this->agiconfig['busy_timeout'] > 0)
+						$res_busy = $agi->exec("Busy ".$this->agiconfig['busy_timeout']);
 					$agi-> stream_file('prepaid-isbusy', '#');
 					if (count($listdestination)>$callcount)
 						continue;

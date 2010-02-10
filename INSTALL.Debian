@@ -224,6 +224,9 @@ Step 5: Install web-based Graphical interfaces
    Create a2billing folder in your web root folder
      #mkdir /var/www/a2billing
      #chown www-data:www-data /var/www/a2billing
+     
+   Create folder directory for monitoring Scripts
+	 #mkdir -p /var/lib/a2billing/script
 
    Option 1
      #cp -rf /usr/local/src/a2billing/admin /var/www/a2billing
