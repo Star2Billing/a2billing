@@ -86,6 +86,15 @@ define ("SHOW_DONATION", true);
 define ("ASTERISK_VERSION", isset($A2B->config['agi-conf1']['asterisk_version'])?$A2B->config['agi-conf1']['asterisk_version']:'1_4');
 
 
+// Iridium info
+define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_ADDR1", gettext("Address line 1:"));
+define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_ADDR2", gettext("Address line 2:"));
+define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_ADDR3", gettext("Address line 3:"));
+define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_POSTCODE", gettext("Postcode:"));
+define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_COUNTRY", gettext("Country:"));
+define ("MODULE_PAYMENT_IRIDIUM_TEXT_CREDIT_CARD_TELEPHONE", gettext("Telephone:"));
+
+
 # define the amount of emails you want to send per period. If 0, batch processing
 # is disabled and messages are sent out as fast as possible
 define("MAILQUEUE_BATCH_SIZE", 0);
