@@ -225,6 +225,11 @@ switch($transaction_data[0][4])
 		$transaction_detail = serialize($pnp_transaction_array);
 		break;
 		
+	case 'iridium':
+        $currCurrency           = BASE_CURRENCY;
+        $currAmount             = $transaction_data[0][2];
+		break;
+		
 	default:
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO SUCH EPAYMENT FOUND");
 		exit();
@@ -481,6 +486,11 @@ if ( ($orderStatus != 2) && ($transaction_data[0][4]=='plugnpay')) {
 	if(!empty($item_id) && !empty($item_type)) $url_forward .= "&item_id=".$item_id."&item_type=".$item_type;
 	Header ("Location: $url_forward");
 	die();
+}
+
+if ( ($orderStatus == 0) && ($transaction_data[0][4]=='iridium')) {
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
+    die();
 }
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
