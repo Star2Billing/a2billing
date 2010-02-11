@@ -2,9 +2,10 @@
 
 A2Billing v1.X (c) AGPL 2003-2010
 
+
 A2Billing v1.X is free software written by :
 	
-		Areski Belaid <info@asterisk2billing.org>
+	Areski Belaid <info@asterisk2billing.org>
 	
 	with contributions from :
 	
@@ -15,6 +16,7 @@ A2Billing v1.X is free software written by :
 		Jonathan Roper <jonathan@asterisk2billing.org>
 		Abdoulaye Siby <asiby@hotmail.com>
 		David Lemstra <david@lemstra.ca>
+		Gavin Henry <ghenry@suretecsystems.com> for the Iridium Payment Module
 
 
 The following third party software is included with the distribution:
