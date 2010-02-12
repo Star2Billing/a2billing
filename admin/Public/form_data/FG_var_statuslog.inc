@@ -33,7 +33,7 @@
 
 
 
-getpost_ifset(array('id', 'status', 'id_cc_card', 'updated_date', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
+getpost_ifset(array('id', 'status', 'id_cc_card', 'updated_date', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'status', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
 
 $HD_Form = new FormHandler("cc_status_log sl LEFT JOIN cc_card ON cc_card.id = sl.id_cc_card", gettext("Status Log"));
@@ -75,22 +75,20 @@ if($date_clause != "") {
 	$HD_Form -> FG_TABLE_CLAUSE.=" ".$date_clause;
 }
 
-if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0 && strlen($id_cc_card)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-
 if ($id_cc_card != "") {
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0)
+		$HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 	$HD_Form -> FG_TABLE_CLAUSE.=" sl.id_cc_card = '$id_cc_card'";
 }	
 
-$cardstatus_list = array();
-$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
-$cardstatus_list["1"]  = array( gettext("ACTIVE"), "1");
-$cardstatus_list["2"]  = array( gettext("NEW"), "2");
-$cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
-$cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
-$cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
-$cardstatus_list["6"]  = array( gettext("SUSPENDED FOR UNDERPAYMENT"), "6");
-$cardstatus_list["7"]  = array( gettext("SUSPENDED FOR LITIGATION"), "7");
+if ($status >= 0) {
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0)
+		$HD_Form -> FG_TABLE_CLAUSE.=" AND ";
 
+	$HD_Form -> FG_TABLE_CLAUSE.=" sl.status = '$status'";
+}	
+
+$cardstatus_list = Constants::getCardStatus_List();
 
 $HD_Form -> AddViewElement(gettext("ID CARD"), "id_cc_card", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNT NUMBER"), "id_cc_card", "20%", "center", "sort", "", "lie_link", "cc_card", "username,id", "id='%id'", "%1", "", "A2B_entity_card.php");

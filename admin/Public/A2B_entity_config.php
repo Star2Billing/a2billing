@@ -106,6 +106,120 @@ function Check()
 	<input type="hidden" name="posted" value="1">
 	
 	<table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
+	
+		<tr>
+			<td width="19%" align="left" valign="top" class="bgcolor_004">
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("VALUE");?></font>
+			</td>
+			
+			<td align="left"  class="bgcolor_003">
+			<table>
+				<tr>
+					<td width="25%" align="left" valign="top">
+						<input class="form_input_text" name="filterValue" size="20">
+					</td>
+					
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbValue" value="1" checked> <?php echo gettext("Exact");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbValue" value="2"> <?php echo gettext("Begins with");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbValue" value="3"> <?php echo gettext("Contains");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbValue" value="4"> <?php echo gettext("Ends with");?>
+						</font>
+					</td>
+				</td>
+			</table>
+			</td>
+		</tr>
+
+		<tr>
+			<td width="19%" align="left" valign="top" class="bgcolor_004">					
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("KEY");?></font>
+			</td>
+			
+			<td align="left"  class="bgcolor_005">
+			<table>
+				<tr>
+					<td width="25%" align="left" valign="top">
+						<input class="form_input_text" name="filterKey" size="20">
+					</td>
+
+					
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbKey" value="1" checked> <?php echo gettext("Exact");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbKey" value="2"> <?php echo gettext("Begins with");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbKey" value="3"> <?php echo gettext("Contains");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbKey" value="4"> <?php echo gettext("Ends with");?>
+						</font>
+					</td>
+				</td>
+			</table>
+			</td>
+		</tr>
+
+		<tr>
+			<td width="19%" align="left" valign="top" class="bgcolor_004">
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DESCRIPTION");?></font>
+			</td>
+			
+			<td align="left"  class="bgcolor_003">
+			<table>
+				<tr>
+					<td width="25%" align="left" valign="top">
+						<input class="form_input_text" name="filterDescription" size="20">
+					</td>
+					
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbDesc" value="1" checked> <?php echo gettext("Exact");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbDesc" value="2"> <?php echo gettext("Begins with");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbDesc" value="3"> <?php echo gettext("Contains");?>
+						</font>
+					</td>
+					<td width="10%">
+						<font class="version">
+						<input type="radio" NAME="rbDesc" value="4"> <?php echo gettext("Ends with");?>
+						</font>
+					</td>
+				</td>
+			</table>
+			</td>
+		</tr>
+
+
 		<tr>
 			<td width="19%" align="left" valign="top" class="bgcolor_004">					
 				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SELECT GROUP");?></font>

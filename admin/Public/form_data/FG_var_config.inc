@@ -33,7 +33,7 @@
 
 
 
-getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_title', 'groupselect', 'posted','agi_conf'));
+getpost_ifset(array('id', 'config_title', 'config_key', 'config_value', 'config_description', 'config_group_title', 'groupselect', 'filterKey', 'rbKey', 'filterDescription', 'rbDesc', 'filterValue', 'rbValue', 'posted','agi_conf'));
 
 // This will generate agi-confx 
 // agi-confx is duplication of Global configuration and list of configurations of : agi-conf1 
@@ -83,12 +83,56 @@ $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_title";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
-if ($groupselect != "") {
+if ($groupselect != "-1" && $groupselect != "") {
 	$HD_Form = new FormHandler("cc_config", gettext("Configuration"));
 	$HD_Form -> FG_TABLE_ID = "id";
 	$HD_Form -> FG_TABLE_CLAUSE = " config_group_title = '$groupselect'";
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 	$_SESSION['grpselect'] = $groupselect;
+}
+
+if (!empty($filterKey)) {
+	switch ($rbKey) {
+		case 1 : $filterKey = " = '$filterKey'"; break;
+		case 2 : $filterKey = " LIKE '$filterKey%'"; break;
+		case 3 : $filterKey = " LIKE '%$filterKey%'"; break;
+		case 4 : $filterKey = " LIKE '%$filterKey'"; break;
+	}
+
+	$OPL = '';
+	if ( ($groupselect != "-1") ) {
+		$OPL = 'AND';
+	}
+	$HD_Form -> FG_TABLE_CLAUSE .= " $OPL config_key $filterKey";
+}
+if (!empty($filterDescription)) {
+	switch ($rbDesc) {
+		case 1 : $filterDescription = " = '$filterDescription'"; break;
+		case 2 : $filterDescription = " LIKE '$filterDescription%'"; break;
+		case 3 : $filterDescription = " LIKE '%$filterDescription%'"; break;
+		case 4 : $filterDescription = " LIKE '%$filterDescription'"; break;
+	}
+
+	$OPL = '';
+	if ( ($groupselect != "-1") || !empty($filterKey) ) {
+		$OPL = 'AND';
+	}
+	$HD_Form -> FG_TABLE_CLAUSE .= " $OPL config_description $filterDescription";
+}
+
+if (!empty($filterValue)) {
+	switch ($rbValue) {
+		case 1 : $filterValue = " = '$filterValue'"; break;
+		case 2 : $filterValue = " LIKE '$filterValue%'"; break;
+		case 3 : $filterValue = " LIKE '%$filterValue%'"; break;
+		case 4 : $filterValue = " LIKE '%$filterValue'"; break;
+	}
+
+	$OPL = '';
+	if ( ($groupselect != "-1") || !empty($filterKey) || !empty($filterDescription) ) {
+		$OPL = 'AND';
+	}
+	$HD_Form -> FG_TABLE_CLAUSE .= " $OPL config_value $filterValue";
 }
 
 if (isset($posted)) {

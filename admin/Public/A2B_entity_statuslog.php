@@ -68,6 +68,7 @@ echo $CC_help_status_log;
 
 $HD_Form->create_toppage($form_action);
 
+
 ?>
 
 <FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
@@ -212,6 +213,25 @@ $HD_Form->create_toppage($form_action);
 					</td></tr></table>
 	  			</td>
     		</tr>
+			<tr>
+        		<td class="bgcolor_004" align="left">
+				</td>
+      			<td class="bgcolor_003" align="left">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="fontstyle_searchoptions">
+
+					<select name="status" class="form_input_select">
+					<?php
+							echo "<OPTION value=\"-1\">" . gettext("SELECT STATUS") . "</option>";		
+						foreach($cardstatus_list as $status){
+							echo "<OPTION value=\"$status[1]\"> $status[0] </option>";		
+						}
+					?>		
+					</select>
+					</td></tr></table>
+	  			</td>
+    		</tr>
+    		
 			<tr>
         		<td class="bgcolor_004" align="left" > </td>
 
