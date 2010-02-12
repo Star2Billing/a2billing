@@ -67,6 +67,9 @@ prepaid-per-minutes								per minutes
 ------ CallerID update ---------
 prepaid-enter-cid								Please, enter your CallerID
 
+------ Monitoring ----------
+prepaid-no-dialcode								Please, Enter your dial code
+prepaid-enter-dialcode							This dial code does not exist
 
 
 
@@ -130,6 +133,9 @@ prepaid-per-minutes								par minutes
 ------ CallerID update -------
 prepaid-enter-cid								Entrez votre callerID
 
+------ Monitoring ----------
+prepaid-no-dialcode								Entrez votre code
+prepaid-enter-dialcode							Votre code n'existe pas
 
 
 ===========================================  SPANISH ===========================================
@@ -193,7 +199,9 @@ prepaid-per-minutes								por minutos
 ------ CallerID update ---------
 prepaid-enter-cid								Introduzca tu callerID
 
-
+------ Monitoring ----------
+prepaid-no-dialcode								Por favor, introduzca su código
+prepaid-enter-dialcode							Este código no existe
 
 
 ===========================================  PORTUGUES / BRAZILIAN ===========================================
@@ -259,7 +267,9 @@ prepaid-per-minutes                        		por minuto
 prepaid-enter-cid								Entre com seu CallerID
 
 
-
+------ Monitoring ----------
+prepaid-no-dialcode								Please, Enter your dial code
+prepaid-enter-dialcode							This dial code does not exist
 
 
 
