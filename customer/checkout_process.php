@@ -429,12 +429,12 @@ if ($id > 0 ) {
 				$invoice -> changeStatus(1);
 				$items = $invoice -> loadItems();
 				foreach ($items as $item) {
-					if($item -> getExtType() == 'DID' ){
+					if ($item -> getExtType() == 'DID') {
 						$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 , reminded = 0 WHERE id_did = '" . $item -> getExtId() .
 								 "' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') ";
 						$instance_table->SQLExec($DBHandle, $QUERY, 0);
 					}
-					if($item -> getExtType() == 'SUBSCR'){
+					if ($item -> getExtType() == 'SUBSCR') {
 						//Load subscription
 						$table_subsc = new Table('cc_card_subscription','paid_status');
 						$subscr_clause = "id = ".$item -> getExtId();
