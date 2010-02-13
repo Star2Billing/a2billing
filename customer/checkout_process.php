@@ -435,8 +435,40 @@ if ($id > 0 ) {
 						$instance_table->SQLExec($DBHandle, $QUERY, 0);
 					}
 					if($item -> getExtType() == 'SUBSCR'){
-						$QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=" . $item -> getExtId();
-						$instance_table->SQLExec($DBHandle, $QUERY, 0);
+						//Load subscription
+						$table_subsc = new Table('cc_card_subscription','paid_status');
+						$subscr_clause = "id = ".$item -> getExtId();
+						$result_subscr = $table_subsc -> Get_list($DBHandle,$subscr_clause);
+						if(is_array($result_subscr)){
+							$subscription = $result_subscr[0];
+							if($subscription['paid_status']==3){
+								$billdaybefor_anniversery = $A2B->config['global']['subscription_bill_days_before_anniversary'];
+								$unix_startdate = time();
+								$startdate = date("Y-m-d",$unix_startdate);
+								$day_startdate = date("j",$unix_startdate);
+								$month_startdate = date("m",$unix_startdate);
+								$year_startdate= date("Y",$unix_startdate);
+								$lastday_of_startdate_month = lastDayOfMonth($month_startdate,$year_startdate,"j");
+
+								$next_bill_date = strtotime("01-$month_startdate-$year_startdate + 1 month");
+								$lastday_of_next_month= lastDayOfMonth(date("m",$next_bill_date),date("Y",$next_bill_date),"j");
+
+								if ($day_startdate > $lastday_of_next_month) {
+									$next_limite_pay_date = date ("$lastday_of_next_month-m-Y" ,$next_bill_date);
+								} else {
+								$next_limite_pay_date = date ("$day_startdate-m-Y" ,$next_bill_date);
+								}
+
+								$next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
+								$QUERY = "UPDATE cc_card SET status = 1 WHERE id=" . $id;
+								$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+								$QUERY = "UPDATE cc_card_subscription SET paid_status = 2, startdate = '$startdate' ,limit_pay_date = '$next_limite_pay_date', 	next_billing_date ='$next_bill_date' WHERE id=" . $item -> getExtId();
+								$instance_table->SQLExec($DBHandle, $QUERY, 0);
+							}else{
+								$QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=". $item -> getExtId();
+								$instance_table->SQLExec($DBHandle, $QUERY, 0);
+							}
+						}
 					}
 				}
 			}
