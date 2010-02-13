@@ -377,7 +377,6 @@ class FormBO {
 		}
 		
 		self::create_subscriptions();
-		
 	}
 	
 	static public function create_subscriptions()
@@ -389,7 +388,7 @@ class FormBO {
 		$table_subscription = new Table("cc_subscription_service","*");
 		$subscription_clause = "id = ".$subscriber;
 		$result_sub = $table_subscription->Get_list($FormHandler->DBHandle, $clause);
-
+		
 		if (is_numeric($subscriber) && is_array($result_sub) && $result_sub[0]['fee'] > 0) {
 
 			$subscription = $result_sub[0];
@@ -406,7 +405,7 @@ class FormBO {
 			$lastday_of_next_month= lastDayOfMonth(date("m",$next_bill_date),date("Y",$next_bill_date),"j");
 			$limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversery day")) ;
 
-			if ($day_startdate>$lastday_of_next_month){
+			if ($day_startdate > $lastday_of_next_month) {
 				$next_limite_pay_date = date ("$lastday_of_next_month-m-Y" ,$next_bill_date);
 			} else {
 				$next_limite_pay_date = date ("$day_startdate-m-Y" ,$next_bill_date);
@@ -426,6 +425,7 @@ class FormBO {
 			$instance_subscription_table = new Table("cc_card_subscription", $field_insert);
 			$instance_subscription_table -> Add_table ($FormHandler->DBHandle, $value_insert, null, null);	
 			$reference = generate_invoice_reference();
+
 			//CREATE INVOICE If a new card then just an invoice item in the last invoice
 			$field_insert = "date, id_card, title, reference, description, status, paid_status";
 			$date = date("Y-m-d h:i:s");
@@ -434,6 +434,7 @@ class FormBO {
 			$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
 			$instance_table = new Table("cc_invoice", $field_insert);
 			$id_invoice = $instance_table->Add_table($FormHandler->DBHandle, $value_insert, null, null, "id");
+
 			if (!empty ($id_invoice) && is_numeric($id_invoice)) {
 				$description = "Subscription service";
 				$amount = $subscription['fee'];
@@ -452,6 +453,7 @@ class FormBO {
 			$mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,$subscription['fee']);
 			$mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID,$subscription['id']);
 			$mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL,$subscription['product_name']);
+
 			//insert charge
 			$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card_id . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
 			$instance_table->SQLExec($FormHandler->DBHandle, $QUERY, 0);

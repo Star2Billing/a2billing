@@ -38,9 +38,7 @@ getpost_ifset (array('transactionID', 'sess_id', 'key', 'mc_currency', 'currency
 
 
 
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionKey=$key"." ----EPAYMENT TRANSACTION KEY----");
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-POST Var \n".print_r($_POST, true));
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."EPAYMENT : transactionID=$transactionID - transactionKey=$key \n -POST Var \n".print_r($_POST, true));
 
 if ($sess_id =="") {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
@@ -235,11 +233,12 @@ switch($transaction_data[0][4])
 		exit();
 }
 
-if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat'])) $VAT =0;
-else $VAT = $transaction_data[0]['vat'];
+if(empty($transaction_data[0]['vat']) || !is_numeric($transaction_data[0]['vat']))
+	$VAT =0;
+else
+	$VAT = $transaction_data[0]['vat'];
 
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr amount $currAmount");
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr $currCurrency ".BASE_CURRENCY);
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."curr amount $currAmount $currCurrency ".BASE_CURRENCY);
 $amount_paid = convert_currency($currencies_list, $currAmount, $currCurrency, BASE_CURRENCY);
 $amount_without_vat = $amount_paid / (1+$VAT/100);
 
@@ -276,9 +275,7 @@ $payment_modules = new payment($transaction_data[0][4]);
 //$payment_modules->before_process();
 
 $QUERY = "SELECT username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency, useralias, uipass " .
-		 "FROM cc_card " .
-		 "WHERE id = '".$transaction_data[0][1]."'";
-
+		 "FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax) {
 	$numrow = $resmax -> RecordCount();
@@ -292,8 +289,10 @@ $nowDate = date("Y-m-d H:i:s");
 $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
-if(empty($item_type)) $transaction_type='balance';
-else $transaction_type = $item_type;
+if(empty($item_type))
+	$transaction_type='balance';
+else
+	$transaction_type = $item_type;
 
 $Query = "INSERT INTO cc_payments ( customers_id, customers_name, customers_email_address, item_name, item_id, item_quantity, payment_method, cc_type, cc_owner, " .
 			" cc_number, cc_expires, orders_status, last_modified, date_purchased, orders_date_finished, orders_amount, currency, currency_value) values (" .
@@ -304,7 +303,7 @@ $Query = "INSERT INTO cc_payments ( customers_id, customers_name, customers_emai
 $result = $DBHandle_max -> Execute($Query);
 
 
-//************************UPDATE THE CREDIT IN THE CARD***********************
+// UPDATE THE CARD CREDIT
 $id = 0;
 if ($customer_info[0] > 0 && $orderStatus == 2) {
     /* CHECK IF THE CARDNUMBER IS ON THE DATABASE */
@@ -321,7 +320,6 @@ if ($customer_info[0] > 0 && $orderStatus == 2) {
 
 if ($id > 0 ) {
 	if (strcasecmp("invoice",$item_type)!=0) {
-		
 	    $addcredit = $transaction_data[0][2]; 
 		$instance_table = new Table("cc_card", "username, id");
 		$param_update .= " credit = credit+'".$amount_without_vat."'";
@@ -334,7 +332,7 @@ if ($id > 0 ) {
 		if (is_array($result_agent) && !is_null($result_agent[0]['id_agent']) && $result_agent[0]['id_agent']>0 ) {
 			$id_agent =  $result_agent[0]['id_agent'];
 			$id_agent_insert = "'$id_agent'";
-		}else{
+		} else {
 			$id_agent = null;
 			$id_agent_insert = "NULL";
 		}
@@ -375,29 +373,33 @@ if ($id > 0 ) {
 		$fields = " id_invoice , id_payment";
 		$values = " $id_invoice, $id_payment	";
 		$table_payment_invoice->Add_table($DBHandle, $values, $fields);
-		
 		//END INVOICE
-		//Agent commision
-		// test if this card have a agent
-		
+
+		// Agent commision
+		// test if this card have a agent		
 		if (!empty($id_agent)) {
+
 			//test if the agent exist and get its commission
 			$agent_table = new Table("cc_agent", "commission");
 			$agent_clause = "id = ".$id_agent;
 			$result_agent= $agent_table -> Get_list($DBHandle,$agent_clause);
 			if(is_array($result_agent) && is_numeric($result_agent[0]['commission']) && $result_agent[0]['commission']>0) {
+
 				$field_insert = "id_payment, id_card, amount,description,id_agent,commission_percent,commission_type";
 				$commission = ceil(($amount_without_vat * ($result_agent[0]['commission'])/100)*100)/100;
 				$commission_percent = $result_agent[0]['commission'];
+
 				$description_commission = gettext("AUTOMATICALY GENERATED COMMISSION!");
 				$description_commission.= "\nID CARD : ".$id;
 				$description_commission.= "\nID PAYMENT : ".$id_payment;
 				$description_commission.= "\nPAYMENT AMOUNT: ".$amount_without_vat;
 				$description_commission.= "\nCOMMISSION APPLIED: ".$commission_percent;
+
 				$value_insert = "'".$id_payment."', '$id', '$commission','$description_commission','$id_agent','$commission_percent','0'";
 				$commission_table = new Table("cc_agent_commission", $field_insert);
 				$id_commission = $commission_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_agent_commission : $field_insert - VALUES $value_insert");
+
 				$table_agent = new Table('cc_agent');
 				$param_update_agent = "com_balance = com_balance + '".$commission."'";
 				$clause_update_agent = " id='".$id_agent."'";
@@ -411,9 +413,8 @@ if ($id > 0 ) {
 			$invoice_table = new Table('cc_invoice','reference');
 			$invoice_clause = "id = ".$item_id;
 			$result_invoice = $invoice_table->Get_list($DBHandle,$invoice_clause);
+			
 			if (is_array($result_invoice) && sizeof($result_invoice)==1) {
-
-
 				$reference =$result_invoice[0][0];
 				
 				$field_insert = "date, payment, card_id, description";
@@ -421,33 +422,27 @@ if ($id > 0 ) {
 				$instance_sub_table = new Table("cc_logpayment", $field_insert);
 				$id_payment = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null,"id");
 				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
-				//update invoice to paid 
-				
+
+				//update invoice to paid
 				$invoice = new Invoice($item_id);
 				$invoice -> addPayment($id_payment);
 				$invoice -> changeStatus(1);
-
-                                $items = $invoice -> loadItems();
-                                foreach ($items as $item) {
-                                    if($item -> getExtType() == 'DID' ){
-                                        $QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 , reminded = 0 WHERE id_did = '" . $item -> getExtId() .
-					"' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') ";
-                                        $instance_table->SQLExec($DBHandle, $QUERY, 0);
-                                    }
-                                    if($item -> getExtType() == 'SUBSCR'){
-                                        $QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=" . $item -> getExtId();
-                                        $instance_table->SQLExec($DBHandle, $QUERY, 0);
-                                        
-                                    }
-
-                                }
+				$items = $invoice -> loadItems();
+				foreach ($items as $item) {
+					if($item -> getExtType() == 'DID' ){
+						$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 , reminded = 0 WHERE id_did = '" . $item -> getExtId() .
+								 "' AND activated = 1 AND ( releasedate IS NULL OR releasedate < '1984-01-01 00:00:00') ";
+						$instance_table->SQLExec($DBHandle, $QUERY, 0);
+					}
+					if($item -> getExtType() == 'SUBSCR'){
+						$QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=" . $item -> getExtId();
+						$instance_table->SQLExec($DBHandle, $QUERY, 0);
+					}
+				}
 			}
-
-
 		}
 	}
 }
-//*************************END UPDATE CREDIT************************************
 
 $_SESSION["p_amount"] = null;
 $_SESSION["p_cardexp"] = null;
