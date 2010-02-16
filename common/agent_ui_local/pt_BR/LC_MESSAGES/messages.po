@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: A2Billing Agent : 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-29 18:32+0100\n"
+"POT-Creation-Date: 2010-02-16 17:33+0100\n"
 "PO-Revision-Date: 2009-12-01 14:12-0300\n"
 "Last-Translator: Emerson Reis <eluizbr@tofalando.com.br>\n"
 "Language-Team: Emerson Reis <eluizbr@tofalando.com.br>\n"
@@ -133,12 +133,12 @@ msgstr "Determinar"
 msgid "Dial"
 msgstr "Discar"
 
-#: lib/interface/constants.php:124 lib/interface/constants.php:362
+#: lib/interface/constants.php:124 lib/interface/constants.php:370
 #: Public/A2B_entity_card_multi.php:377 Public/A2B_entity_card.php:415
 msgid "INDIVIDUAL ACCESS"
 msgstr "ACESSO INDIVIDUAL"
 
-#: lib/interface/constants.php:125 lib/interface/constants.php:361
+#: lib/interface/constants.php:125 lib/interface/constants.php:369
 #: Public/A2B_entity_card_multi.php:378 Public/A2B_entity_card.php:416
 #: Public/form_data/FG_var_card.inc:590
 msgid "SIMULTANEOUS ACCESS"
@@ -156,321 +156,356 @@ msgstr "CARTÃO PÓS-PAGO"
 msgid "NO EXPIRATION"
 msgstr "NÃO EXPIRAR"
 
-#: lib/interface/constants.php:143 lib/interface/constants.php:373
+#: lib/interface/constants.php:143 lib/interface/constants.php:381
 #: Public/A2B_entity_card_multi.php:407 Public/A2B_entity_card.php:444
 msgid "EXPIRE DATE"
 msgstr "DATA DE EXPIRAÇÃO"
 
-#: lib/interface/constants.php:144 lib/interface/constants.php:374
+#: lib/interface/constants.php:144 lib/interface/constants.php:382
 #: Public/A2B_entity_card_multi.php:408 Public/A2B_entity_card.php:445
 msgid "EXPIRE DAYS SINCE FIRST USE"
 msgstr "DIAS A EXPIRAR DESDE O PRIMEIRO USO"
 
-#: lib/interface/constants.php:145 lib/interface/constants.php:375
+#: lib/interface/constants.php:145 lib/interface/constants.php:383
 #: Public/A2B_entity_card_multi.php:409 Public/A2B_entity_card.php:446
 msgid "EXPIRE DAYS SINCE CREATION"
 msgstr "DIAS A EXPIRAR DESDE A CRIAÇÃO"
 
-#: lib/interface/constants.php:152 lib/interface/constants.php:159
+#: lib/interface/constants.php:152 lib/interface/constants.php:163
 msgid "OPEN"
 msgstr "ABRIR"
 
-#: lib/interface/constants.php:153 lib/interface/constants.php:160
+#: lib/interface/constants.php:153 lib/interface/constants.php:164
 msgid "CLOSE"
 msgstr "FECHAR"
 
-#: lib/interface/constants.php:167 lib/interface/constants.php:177
-#: lib/interface/constants.php:200
+#: lib/interface/constants.php:171 lib/interface/constants.php:184
+#: lib/interface/constants.php:207
 msgid "UNPAID"
 msgstr "NÃO PAGO"
 
-#: lib/interface/constants.php:168 lib/interface/constants.php:176
-#: lib/interface/constants.php:203
+#: lib/interface/constants.php:172 lib/interface/constants.php:183
+#: lib/interface/constants.php:210
 msgid "PAID"
 msgstr "PAGO"
 
-#: lib/interface/constants.php:174
+#: lib/interface/constants.php:181
 #, fuzzy
 msgid "FIRSTUSE"
 msgstr "DATA DO PRIMEIRO USO"
 
-#: lib/interface/constants.php:175
+#: lib/interface/constants.php:182
 #, fuzzy
 msgid "BILLED"
 msgstr "OCUPADO"
 
-#: lib/interface/constants.php:183 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:190 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "January"
 msgstr "Janeiro"
 
-#: lib/interface/constants.php:184 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:191 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "February"
 msgstr "Fevereiro"
 
-#: lib/interface/constants.php:185 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:192 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "March"
 msgstr "Março"
 
-#: lib/interface/constants.php:186 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:193 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "April"
 msgstr "Abril"
 
-#: lib/interface/constants.php:187 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:194 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "May"
 msgstr "Maio"
 
-#: lib/interface/constants.php:188 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:195 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "June"
 msgstr "Junho"
 
-#: lib/interface/constants.php:189 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:196 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "July"
 msgstr "Julho"
 
-#: lib/interface/constants.php:190 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:197 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "August"
 msgstr "Agosto"
 
-#: lib/interface/constants.php:191 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:198 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "September"
 msgstr "Setembro"
 
-#: lib/interface/constants.php:192 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:199 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "October"
 msgstr "Outubro"
 
-#: lib/interface/constants.php:193 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:200 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "November"
 msgstr "Novembro"
 
-#: lib/interface/constants.php:194 lib/Form/Class.SearchHandler.inc.php:35
+#: lib/interface/constants.php:201 lib/Form/Class.SearchHandler.inc.php:35
 #: Public/call-last-month.php:94 Public/A2B_entity_paymentlog.php:104
 #: Public/call-log-customers.php:448
 msgid "December"
 msgstr "Dezembro"
 
-#: lib/interface/constants.php:201
+#: lib/interface/constants.php:208
 msgid "SENT-UNPAID"
 msgstr "ENVIADO-NÃO PAGO"
 
-#: lib/interface/constants.php:202
+#: lib/interface/constants.php:209
 msgid "SENT-PAID"
 msgstr "ENVIADO-PAGO"
 
-#: lib/interface/constants.php:210
+#: lib/interface/constants.php:217
 msgid "New"
 msgstr "Novo"
 
-#: lib/interface/constants.php:211
+#: lib/interface/constants.php:218
 msgid "Proceed"
 msgstr "Proceder"
 
-#: lib/interface/constants.php:212
+#: lib/interface/constants.php:219
 msgid "In Process"
 msgstr "Em Processo"
 
-#: lib/interface/constants.php:218
+#: lib/interface/constants.php:225
 msgid "Failed"
 msgstr "Falhou"
 
-#: lib/interface/constants.php:219
+#: lib/interface/constants.php:226
 msgid "Successful"
 msgstr "Bem Sucedido"
 
-#: lib/interface/constants.php:220
+#: lib/interface/constants.php:227
 msgid "Not Sent"
 msgstr "Não Enviado"
 
-#: lib/interface/constants.php:226
+#: lib/interface/constants.php:233
 msgid "Unlimited calls"
 msgstr "Ligações ilimitadas"
 
-#: lib/interface/constants.php:227
+#: lib/interface/constants.php:234
 msgid "Number of Free calls"
 msgstr "Número de Ligações grátis"
 
-#: lib/interface/constants.php:228
+#: lib/interface/constants.php:235
 msgid "Free seconds"
 msgstr "Segundos grátis"
 
-#: lib/interface/constants.php:234
+#: lib/interface/constants.php:241
 msgid "Monthly"
 msgstr "Mensal"
 
-#: lib/interface/constants.php:235
+#: lib/interface/constants.php:242
 msgid "Weekly"
 msgstr "Semanal"
 
-#: lib/interface/constants.php:241
+#: lib/interface/constants.php:248
 msgid "LCR : According to the buyer price"
 msgstr "LCR : De acordo com o preço do comprador"
 
-#: lib/interface/constants.php:242
+#: lib/interface/constants.php:249
 msgid "LCD : According to the seller price"
 msgstr "LCD : De acordo com o preço do vendedor"
 
-#: lib/interface/constants.php:248
+#: lib/interface/constants.php:255
 msgid "LCR : buyer price"
 msgstr "LCR : preço do comprador"
 
-#: lib/interface/constants.php:249
+#: lib/interface/constants.php:256
 msgid "LCD : seller price"
 msgstr "LCD : preço do vendedor"
 
-#: lib/interface/constants.php:255
+#: lib/interface/constants.php:262
 msgid "NONE"
 msgstr "NENHUM"
 
-#: lib/interface/constants.php:256 lib/Class.Notification.php:105
+#: lib/interface/constants.php:263 lib/Class.Notification.php:105
 msgid "LOW"
 msgstr "BAIXO"
 
-#: lib/interface/constants.php:257 lib/Class.Notification.php:102
+#: lib/interface/constants.php:264 lib/Class.Notification.php:102
 msgid "MEDIUM"
 msgstr "MÉDIO"
 
-#: lib/interface/constants.php:258 lib/Class.Notification.php:100
+#: lib/interface/constants.php:265 lib/Class.Notification.php:100
 msgid "HIGH"
 msgstr "ALTO"
 
-#: lib/interface/constants.php:264 Public/form_data/FG_var_ticket.inc:76
+#: lib/interface/constants.php:271 Public/form_data/FG_var_ticket.inc:76
 msgid "VIEWED"
 msgstr "VISUALIZADO"
 
-#: lib/interface/constants.php:265 lib/interface/constants.php:313
-#: lib/interface/constants.php:331 lib/support/classes/ticket.php:370
+#: lib/interface/constants.php:272 lib/interface/constants.php:320
+#: lib/interface/constants.php:338 lib/support/classes/ticket.php:370
 msgid "NEW"
 msgstr "NOVO"
 
-#: lib/interface/constants.php:272
+#: lib/interface/constants.php:279
 msgid "NOT USED"
 msgstr "NÃO USADO "
 
-#: lib/interface/constants.php:273
+#: lib/interface/constants.php:280
 msgid "USED"
 msgstr "USADO"
 
-#: lib/interface/constants.php:283
+#: lib/interface/constants.php:290
 msgid "ANSWER"
 msgstr "RESPOSTA"
 
-#: lib/interface/constants.php:284
+#: lib/interface/constants.php:291
 msgid "BUSY"
 msgstr "OCUPADO"
 
-#: lib/interface/constants.php:285
+#: lib/interface/constants.php:292
 msgid "NOANSWER"
 msgstr "NÃO RESPONDER"
 
-#: lib/interface/constants.php:286 lib/interface/constants.php:329
-#: lib/interface/constants.php:353
+#: lib/interface/constants.php:293 lib/interface/constants.php:336
+#: lib/interface/constants.php:361
 msgid "CANCEL"
 msgstr "CANCELAR"
 
-#: lib/interface/constants.php:287
+#: lib/interface/constants.php:294
 msgid "CONGESTION"
 msgstr "CONGESTIONADO"
 
-#: lib/interface/constants.php:288
+#: lib/interface/constants.php:295
 msgid "CHANUNAVAIL"
 msgstr "CANAL NÃO DISPONÍVEL"
 
-#: lib/interface/constants.php:289
+#: lib/interface/constants.php:296
 msgid "DONTCALL"
 msgstr "NÃO CHAMAR"
 
-#: lib/interface/constants.php:290
+#: lib/interface/constants.php:297
 msgid "TORTURE"
 msgstr "TORTURE"
 
-#: lib/interface/constants.php:291
+#: lib/interface/constants.php:298
 msgid "INVALIDARGS"
 msgstr "ARGS INVÁLIDOS"
 
-#: lib/interface/constants.php:311 lib/interface/constants.php:342
+#: lib/interface/constants.php:318 lib/interface/constants.php:350
 msgid "ACTIVE"
 msgstr "ATIVO"
 
-#: lib/interface/constants.php:312 lib/interface/constants.php:329
-#: lib/interface/constants.php:343 lib/interface/constants.php:353
-#: lib/interface/constants.php:404
+#: lib/interface/constants.php:319 lib/interface/constants.php:336
+#: lib/interface/constants.php:351 lib/interface/constants.php:361
+#: lib/interface/constants.php:428
 msgid "CANCELLED"
 msgstr "CANCELADO"
 
-#: lib/interface/constants.php:314 lib/interface/constants.php:332
+#: lib/interface/constants.php:321 lib/interface/constants.php:339
 msgid "WAITING-MAILCONFIRMATION"
 msgstr "ESPERANDO-CONFIRMAÇÃO DE EMAIL"
 
-#: lib/interface/constants.php:315 lib/interface/constants.php:333
+#: lib/interface/constants.php:322 lib/interface/constants.php:340
 msgid "RESERVED"
 msgstr "RESERVADO"
 
-#: lib/interface/constants.php:316 lib/interface/constants.php:334
+#: lib/interface/constants.php:323 lib/interface/constants.php:341
 msgid "EXPIRED"
 msgstr "EXPIRADO"
 
-#: lib/interface/constants.php:317 lib/interface/constants.php:335
+#: lib/interface/constants.php:324 lib/interface/constants.php:342
 msgid "SUSPENDED FOR UNDERPAYMENT"
 msgstr "SUSPENSO POR PAGAMENTO NÃO SUFICIENTE"
 
-#: lib/interface/constants.php:318 lib/interface/constants.php:336
+#: lib/interface/constants.php:325 lib/interface/constants.php:343
 msgid "SUSPENDED FOR LITIGATION"
 msgstr "SUSPENSO POR LITÍGIO"
 
-#: lib/interface/constants.php:319
+#: lib/interface/constants.php:326
 #, fuzzy
 msgid "WAITING SUBSCRIPTION PAYMENT"
 msgstr "LINK PARA PAGAMENTO"
 
-#: lib/interface/constants.php:330 lib/interface/constants.php:354
+#: lib/interface/constants.php:337 lib/interface/constants.php:362
 #: Public/form_data/FG_var_callerid.inc:59
 #: Public/form_data/FG_var_callerid.inc:84
 msgid "ACTIVATED"
 msgstr "ATIVADO"
 
-#: lib/interface/constants.php:332 lib/interface/constants.php:401
+#: lib/interface/constants.php:339 lib/interface/constants.php:425
 msgid "WAITING"
 msgstr "ESPERANDO"
 
-#: lib/interface/constants.php:333
+#: lib/interface/constants.php:340
 msgid "RESERV"
 msgstr "RESERVA"
 
-#: lib/interface/constants.php:335
+#: lib/interface/constants.php:342
 msgid "SUS-PAY"
 msgstr "SUS-PAGAMENTO"
 
-#: lib/interface/constants.php:336
+#: lib/interface/constants.php:343
 msgid "SUS-LIT"
 msgstr "SUS-LIT"
 
-#: lib/interface/constants.php:372 Public/A2B_entity_card.php:443
+#: lib/interface/constants.php:344
+#, fuzzy
+msgid "WAITING-SUBSCRIPTION-PAYMENT"
+msgstr "LINK PARA PAGAMENTO"
+
+#: lib/interface/constants.php:344
+msgid "WAIT-PAY"
+msgstr ""
+
+#: lib/interface/constants.php:380 Public/A2B_entity_card.php:443
 msgid "NO EXPIRY"
 msgstr "NÃO EXPIRA"
 
-#: lib/interface/constants.php:381 Public/A2B_refill_info_agent.php:85
+#: lib/interface/constants.php:389
+msgid "SQL"
+msgstr ""
+
+#: lib/interface/constants.php:390
+#, fuzzy
+msgid "SHELL SCRIPT"
+msgstr "DESCRIÇÃO"
+
+#: lib/interface/constants.php:396
+msgid "TEXT2SPEECH"
+msgstr ""
+
+#: lib/interface/constants.php:397
+msgid "UNIXTIME"
+msgstr ""
+
+#: lib/interface/constants.php:398
+#, fuzzy
+msgid "NUMBER"
+msgstr "NÚMERO DO CARTÃO"
+
+#: lib/interface/constants.php:399
+msgid "DIGIT"
+msgstr ""
+
+#: lib/interface/constants.php:405 Public/A2B_refill_info_agent.php:85
 #: Public/A2B_refill_info.php:91 Public/A2B_agent_remittance_conf.php:183
 #: Public/A2B_payment_info_agent.php:85
 #: Public/A2B_agent_remittance_req.php:180 Public/A2B_payment_info.php:91
@@ -481,61 +516,61 @@ msgstr "NÃO EXPIRA"
 msgid "AMOUNT"
 msgstr "QUANTIDADE"
 
-#: lib/interface/constants.php:382
+#: lib/interface/constants.php:406
 msgid "CORRECTION"
 msgstr "CORREÇÃO"
 
-#: lib/interface/constants.php:383
+#: lib/interface/constants.php:407
 msgid "EXTRA FEE"
 msgstr "TAXA EXTRA"
 
-#: lib/interface/constants.php:384
+#: lib/interface/constants.php:408
 #, fuzzy
 msgid "AGENT REFUND"
 msgstr "ID DO AGENTE"
 
-#: lib/interface/constants.php:390
+#: lib/interface/constants.php:414
 msgid "TO BALANCE"
 msgstr "ADICIONAR AO SALDO"
 
-#: lib/interface/constants.php:391
+#: lib/interface/constants.php:415
 msgid "TO BANK"
 msgstr "DEPOSITO EM CONTA"
 
-#: lib/interface/constants.php:402
+#: lib/interface/constants.php:426
 msgid "ACCEPTED"
 msgstr "ACEITO"
 
-#: lib/interface/constants.php:403
+#: lib/interface/constants.php:427
 msgid "REFUSED"
 msgstr "RECUSADO"
 
-#: lib/interface/constants.php:421 Public/A2B_entity_card_multi.php:462
+#: lib/interface/constants.php:445 Public/A2B_entity_card_multi.php:462
 msgid "NO DISCOUNT"
 msgstr "SEM DESCONTO"
 
-#: lib/Class.A2Billing.php:384
+#: lib/Class.A2Billing.php:386
 msgid "Invalid card number lenght defined in configuration."
 msgstr "Tamanho do número de cartão inválido definido na configuração."
 
-#: lib/Class.A2Billing.php:3119
+#: lib/Class.A2Billing.php:3125
 msgid "Error : Authentication Failed !!!"
 msgstr "Erro : Autenticação falhou !!!"
 
-#: lib/Class.A2Billing.php:3159
+#: lib/Class.A2Billing.php:3165
 msgid "Error : Not enough credit to call !!!"
 msgstr "Erro : Não há crédito o suficiente para ligar !!!"
 
-#: lib/Class.A2Billing.php:3165
+#: lib/Class.A2Billing.php:3171
 msgid "Error : Card is not active!!!"
 msgstr "Erro : Cartão não está ativo!!!"
 
-#: lib/Class.A2Billing.php:3171
+#: lib/Class.A2Billing.php:3177
 msgid "Error : Card is actually in use!!!"
 msgstr "Erro : Cartão atualmente em uso!!!"
 
-#: lib/Class.A2Billing.php:3180 lib/Class.A2Billing.php:3188
-#: lib/Class.A2Billing.php:3196
+#: lib/Class.A2Billing.php:3186 lib/Class.A2Billing.php:3194
+#: lib/Class.A2Billing.php:3202
 msgid "Error : Card have expired!!!"
 msgstr "Erro : Cartão expirou!!!"
 
@@ -608,15 +643,39 @@ msgstr "Nossa base_currency parece estar desvalorizada."
 msgid "Success! All currencies are now updated."
 msgstr "Pronto! Todas as moedas estão atualizadas agora."
 
-#: lib/Misc.php:1471
+#: lib/Misc.php:1473
 msgid "GO TO CUSTOMER ACCOUNT"
 msgstr "IR PARA CONTA DO CLIENTE"
 
-#: lib/common.defines.php:117
+#: lib/common.defines.php:90
+msgid "Address line 1:"
+msgstr ""
+
+#: lib/common.defines.php:91
+msgid "Address line 2:"
+msgstr ""
+
+#: lib/common.defines.php:92
+msgid "Address line 3:"
+msgstr ""
+
+#: lib/common.defines.php:93
+msgid "Postcode:"
+msgstr ""
+
+#: lib/common.defines.php:94
+msgid "Country:"
+msgstr ""
+
+#: lib/common.defines.php:95
+msgid "Telephone:"
+msgstr ""
+
+#: lib/common.defines.php:126
 msgid "This software has been created by Areski under AGPL licence. For futher information, feel free to contact me:"
 msgstr "Este software foi criado por Areski ao sob a licença AGPL. Para obter mais informações, sinta-se de que entre em contato comigo:"
 
-#: lib/common.defines.php:123
+#: lib/common.defines.php:132
 msgid "A2Billing Portal"
 msgstr "ToFalando Portal"
 
@@ -746,6 +805,22 @@ msgstr "Isso mostra uma lista de todas as chaves de registro criadas por esse ag
 #: lib/agent.help.php:87
 msgid "Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with the account number"
 msgstr "Definir o identificador de chamada, para que o cliente chamando seja autenticado pelo callerID em vez de com o número de conta"
+
+#: lib/epayment/methods/iridium.php:607 Public/checkout_success.php:71
+msgid "We are sorry your transaction is failed. Please try later or check your provided information."
+msgstr "Nos desculpe mas sua transação falhou. Por favor tente depois ou cheque suas informações fornecidas."
+
+#: lib/epayment/methods/iridium.php:611 Public/checkout_success.php:75
+msgid "We are sorry your transaction is denied. Please try later or check your provided information."
+msgstr "Nos desculpe mas sua transação foi negada. Por favor tente depois ou cheque suas informações fornecidas."
+
+#: lib/epayment/methods/iridium.php:620 Public/checkout_success.php:83
+msgid "Your transaction is in progress."
+msgstr "Sua transação está em progresso."
+
+#: lib/epayment/methods/iridium.php:624 Public/checkout_success.php:87
+msgid "Your transaction was successful."
+msgstr "Sua transação foi realizada com sucesso."
 
 #: lib/support/classes/ticket.php:79 lib/support/classes/ticket.php:233
 msgid "(AGENT)"
@@ -910,53 +985,57 @@ msgstr "NEHUMA COMISSÃO CRIADA!"
 msgid "CREATION AGENT REFILL"
 msgstr "CRIAR AGENTE DE RECARGA"
 
-#: lib/Form/Class.FormBO.php:622
+#: lib/Form/Class.FormBO.php:432
+msgid "SUBSCRIPTION INVOICE REMINDER"
+msgstr ""
+
+#: lib/Form/Class.FormBO.php:692
 msgid "SUMMARY OF CALLS"
 msgstr "SUMÁRIO DE CHAMADAS"
 
-#: lib/Form/Class.FormBO.php:623
+#: lib/Form/Class.FormBO.php:693
 msgid "Summary of the calls charged since the last billing"
 msgstr "Sumáio de chamadas cobradas desde a última bilhetagem"
 
-#: lib/Form/Class.FormBO.php:640
+#: lib/Form/Class.FormBO.php:710
 msgid "SUMMARY OF CHARGE"
 msgstr "SUMÁRIO DE TAXA"
 
-#: lib/Form/Class.FormBO.php:642
+#: lib/Form/Class.FormBO.php:712
 msgid "Summary of the charge charged since the last billing."
 msgstr "Sumário de taxas cobradas desde a última bilhetagem."
 
-#: lib/Form/Class.FormBO.php:648 lib/Form/Class.FormBO.php:678
+#: lib/Form/Class.FormBO.php:718 lib/Form/Class.FormBO.php:748
 msgid "CHARGE :"
 msgstr "TAXA : "
 
-#: lib/Form/Class.FormBO.php:667
+#: lib/Form/Class.FormBO.php:737
 msgid "BILLING CHARGES"
 msgstr "TAXAS DE BILHETAGEM"
 
-#: lib/Form/Class.FormBO.php:668
+#: lib/Form/Class.FormBO.php:738
 msgid "This invoice is for some charges unpaid since the last billing."
 msgstr "Essa fatura é para algumas taxas não pagas desde a última bilhetagem."
 
-#: lib/Form/Class.FormBO.php:700
+#: lib/Form/Class.FormBO.php:770
 msgid "BILLING POSTPAID"
 msgstr "BILHETAR PÓS-PAGO"
 
-#: lib/Form/Class.FormBO.php:701
+#: lib/Form/Class.FormBO.php:771
 msgid "Invoice for POSTPAID"
 msgstr "Fatura para PÓS-PAGO"
 
-#: lib/Form/Class.FormBO.php:763 lib/Form/Class.FormBO.php:765
-#: lib/Form/Class.FormBO.php:872 lib/Form/Class.FormBO.php:874
+#: lib/Form/Class.FormBO.php:833 lib/Form/Class.FormBO.php:835
+#: lib/Form/Class.FormBO.php:942 lib/Form/Class.FormBO.php:944
 #: Public/A2B_entity_card.php:282 Public/form_data/FG_var_payment.inc:61
 msgid "REFILL"
 msgstr "RECARGA"
 
-#: lib/Form/Class.FormBO.php:767 lib/Form/Class.FormBO.php:876
+#: lib/Form/Class.FormBO.php:837 lib/Form/Class.FormBO.php:946
 msgid "Invoice for refill"
 msgstr "Fatura para recarga"
 
-#: lib/Form/Class.FormBO.php:923
+#: lib/Form/Class.FormBO.php:993
 msgid "AUTOMATICALY GENERATED COMMISSION!"
 msgstr "GERAR COMISSÃO AUTOMATICAMENTE!"
 
@@ -1550,25 +1629,9 @@ msgstr "Link para a URL"
 msgid "Thank you for your purchase"
 msgstr "Obrigado por sua compra"
 
-#: Public/checkout_success.php:71
-msgid "We are sorry your transaction is failed. Please try later or check your provided information."
-msgstr "Nos desculpe mas sua transação falhou. Por favor tente depois ou cheque suas informações fornecidas."
-
-#: Public/checkout_success.php:75
-msgid "We are sorry your transaction is denied. Please try later or check your provided information."
-msgstr "Nos desculpe mas sua transação foi negada. Por favor tente depois ou cheque suas informações fornecidas."
-
 #: Public/checkout_success.php:79
 msgid "We are sorry your transaction is pending."
 msgstr "Nos desculpe mas sua transação está pendente."
-
-#: Public/checkout_success.php:83
-msgid "Your transaction is in progress."
-msgstr "Sua transação está em progresso."
-
-#: Public/checkout_success.php:87
-msgid "Your transaction was successful."
-msgstr "Sua transação foi realizada com sucesso."
 
 #: Public/A2B_entity_card_multi.php:77
 msgid "- Choose a GROUP for the customers!"
