@@ -8,7 +8,7 @@
  * A2Billing, Commercial Open Source Telecom Billing platform,   
  * powered by Star2billing S.L. <http://www.star2billing.com/>
  * 
- * @copyright   Copyright (C) 2004-2009 - Star2billing S.L. 
+ * @copyright   Copyright (C) 2004-20010 - Star2billing S.L.
  * @author      Belaid Arezqui <areski@gmail.com>
  * @license     http://www.fsf.org/licensing/licenses/agpl-3.0.html
  * @package     A2Billing
@@ -127,7 +127,7 @@ define ("TEXTCONTACT", gettext("This software has been created by Areski under A
 define ("EMAILCONTACT", "areski@gmail.com");
 
 // A2BILLING INFO  
-define ("COPYRIGHT", "A2Billing - Version 1.6-Beta (Hickory) - Released : 19 January 2010, A2Billing is software licensed under the ".'<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>' . ". <br/>" . "Copyright (C) 2004-2009 - Star2billing S.L. <a href=\"http://www.star2billing.com\" target=\"_blank\">http://www.star2billing.com/</a>");
+define ("COPYRIGHT", "A2Billing - Version 1.6.0 (Hickory) - Released : 16 February 2010, A2Billing is software licensed under the ".'<a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html" target="_blank">AGPL 3</a>' . ". <br/>" . "Copyright (C) 2004-2009 - Star2billing S.L. <a href=\"http://www.star2billing.com\" target=\"_blank\">http://www.star2billing.com/</a>");
 
 define ("CCMAINTITLE", gettext("A2Billing Portal"));
 
