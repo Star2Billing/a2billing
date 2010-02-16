@@ -1,31 +1,31 @@
      ___________________________________________________________________________________________________________________________________________________________________
 
-A2Billing 1.4 INSTALLATION GUIDE
+A2Billing INSTALLATION GUIDE
 
-    1. A2Billing 1.4 INSTALLATION GUIDE
+    1. A2Billing INSTALLATION GUIDE
          1. Important note about distributions
          2. Default passwords and access info (READ THIS!)
          3. Pre-required software packages
     2. Installation
          1. Step 1: Download and unpack source code
          2. Step 2: Prepare the Database
-         3. Step 3: Edit the a2billing.conf configuration file
+         3. Step 3: Edit the A2Billing.conf configuration file
          4. Step 4: Fix permissions, files and folders
               1. SIP and IAX
               2. Sound files
               3. Configure Asterisk Manager
          5. Step 6: Install The AGI components
          6. Step 5: Install web-based Graphical interfaces
-         7. Step 7: Create a dialplan for a2billing
+         7. Step 7: Create a dialplan for A2Billing
          8. Step 8: Configure recurring services
          9. Step 9: Call back daemon (only for Call backs)
 
-   This document focuses on the installation of a2billing system for the Asterisk open source PBX. The document covers the installation and basic configuration of
-   a2billing. A2billing is an open source implementation of a telecommunication billing and added value services platform.
+   This document focuses on the installation of A2Billing system for the Asterisk open source PBX. The document covers the installation and basic configuration of
+   A2Billing. A2billing is an open source implementation of a telecommunication billing and added value services platform.
 
    A2billing is a LAMP (Linux Apache Mysql(Postgresql) PHP) application that interfaces with Asterisk using both the AMI and AGI interfaces.
 
-   This documentation has been tested using Debian etch, Debian etch and half, Ubuntu 8.04 and Ubuntu 8.10 and a2billing 1.4.
+   This documentation has been tested using Debian etch, Debian etch and half, Ubuntu 8.04 and Ubuntu 8.10 and A2Billing.
 
 Important note about distributions
 
@@ -44,9 +44,9 @@ Default passwords and access info (READ THIS!)
 
    This are the default passwords that you should know about
      * mysql root password (in default system normally is <ENTER>)
-     * a2billing default database is mya2billing, user is a2billinguser and password is a2billing
+     * A2Billing default database is mya2billing, user is a2billinguser and password is a2billing
      * asterisk manager default information is: [myasterisk] and secret=mycode
-     * a2billing admin default password is: user: root password: changepassword
+     * A2Billing admin default password is: user: root password: changepassword
 
 Pre-required software packages
 
@@ -55,7 +55,7 @@ Pre-required software packages
      #apt-get install php5-cli php5-mysql mysql-server apache2 php5-gd
      #apt-get install openssh-server subversion
 
-   Version 1.4 also requires MCrypt module for PHP5
+   A2Billing also requires MCrypt module for PHP5
      #apt-get install php5-mcrypt
 
    Asterisk is of course also needed.
@@ -63,7 +63,7 @@ Pre-required software packages
 
 Installation
 
-   In a nutshell installing a2billing requires seven steps:
+   In a nutshell installing A2Billing requires seven steps:
     1. Download and unpack source code
     2. Setup the database
     3. Edit a2billing.conf file. Setting up the database parameters
@@ -82,7 +82,7 @@ Step 1: Download and unpack source code
    Unpack the code
 
    Download the code from the SVN repository run:
-     #svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/tags/1.4-current /usr/local/src/a2billing/
+     #svn co --username guest --password guest http://svn.a2billing.net/svn/asterisk2billing/tags/1-current /usr/local/src/a2billing/
 
    At the end of this step you should have a a2billing tree structure that should look like:
 /usr/local/src/a2billing/
@@ -125,13 +125,13 @@ User password is: a2billing
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.4.1-to-v1.4.5.sql
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.4.5-to-v1.5.0.sql
      #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.5.0-to-v1.5.1.sql
+     #mysql -u root -p mya2billing < DataBase/mysql/Mysql-5.x/UPDATE-a2billing-v1.5.1-to-v1.6.0.sql
      
    Checkpoint 1: Check that the database (my2billing) and that (93) tables have been created.
      #mysql -u root -p mya2billing
      mysql>show tables
      mysql>exit
 
-   A big difference between version 1.3.4 and 1.4 is that all system configuration is now stored in the database.
 
 Step 3: Edit the a2billing.conf configuration file
 
@@ -256,9 +256,9 @@ Step 5: Install web-based Graphical interfaces
 user: root
 pass: changepassword
 
-Step 7: Create a dialplan for a2billing
+Step 7: Create a dialplan for A2Billing
 
-   The extensions.conf is the Asterisk dialplan. Calls that interact with the billing software need to be handled inside of one or many a2billing related contexts.
+   The extensions.conf is the Asterisk dialplan. Calls that interact with the billing software need to be handled inside of one or many A2Billing related contexts.
 
    The calls that reach the context are processed using the a2billing.php AGI script. The a2billing.php script can be invoked in many different modes (standard, did,
    voucher, callback, etc). In the example, we create two different contexts, the first context [a2billing] handles all the calls from our VoIP clients. When a call

@@ -221,13 +221,13 @@ General Setup
 
 Guidelines
 
-   Keep an eye on the development of A2Billing 1.4 here.
+   Keep an eye on the development of A2Billing here.
 
    http://www.asterisk2billing.org/cgi-bin/trac.cgi/browser/trunk
 
    Make sure that you are running the latest version before reporting a bug by periodically running.
 
-   Bugs can be dicussed in the 1.4 bugs section here - http://forum.asterisk2billing.org/viewforum.php?f=22 before reporting them on the bug tracker.
+   Bugs can be dicussed in the bugs section here - http://forum.asterisk2billing.org/viewforum.php?f=22 before reporting them on the bug tracker.
 
    Bugs tracking and reporting can be done here:- http://www.asterisk2billing.org/cgi-bin/trac.cgi/report
 
