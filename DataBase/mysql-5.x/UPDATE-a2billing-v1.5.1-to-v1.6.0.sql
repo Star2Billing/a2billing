@@ -138,5 +138,10 @@ INSERT INTO cc_configuration (configuration_title, configuration_key, configurat
 VALUES ('Enable iridium Module', 'MODULE_PAYMENT_IRIDIUM_STATUS', 'False', 'Do you want to accept Iridium payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
 
 
+
+INSERT INTO cc_config ( config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES
+( 'Callback Reduce Balance', 'callback_reduce_balance', '1', 'Define the amount to reduce the balance on Callback in order to make sure that the B leg wont alter the account into a negative value.', 0, NULL, 'agi-conf1');
+
+
 UPDATE cc_version SET version = '1.6.0';
 

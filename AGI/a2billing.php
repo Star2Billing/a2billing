@@ -39,7 +39,7 @@ if (function_exists('pcntl_signal')) {
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include_once (dirname(__FILE__)."/lib/Class.Table.php");
+include (dirname(__FILE__)."/lib/Class.Table.php");
 include (dirname(__FILE__)."/lib/Class.A2Billing.php");
 include (dirname(__FILE__)."/lib/Class.RateEngine.php");
 include (dirname(__FILE__)."/lib/phpagi/phpagi.php");
@@ -819,17 +819,18 @@ if ($mode == 'standard') {
 			
 			// DIVIDE THE AMOUNT OF CREDIT BY 2 IN ORDER TO AVOID NEGATIVE BALANCE IF THE USER USE ALL HIS CREDIT
 			$orig_credit = $A2B -> credit;
-			$A2B -> credit = $A2B->credit / 2;
+
+			if ($A2B->agiconfig['callback_reduce_balance'] > 0 && $A2B->credit > $A2B->agiconfig['callback_reduce_balance']) {
+				$A2B->credit = $A2B->credit - $A2B->agiconfig['callback_reduce_balance'];
+			} else {
+				$A2B->credit = $A2B->credit / 2;
+			}
 			
 			$stat_channel = $agi->channel_status($A2B-> channel);
 			$A2B -> debug( DEBUG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
 							"[status_channel=$status_channel]:[ORIG_CREDIT : ".$orig_credit." - CUR_CREDIT - : ".$A2B -> credit.
 							" - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
-
-			//if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)) {
-			//	break;
-			//}
-
+			
 			if( !$A2B->enough_credit_to_call()) {
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL
 				$prompt = "prepaid-no-enough-credit-stop";
