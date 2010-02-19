@@ -35,7 +35,7 @@
         $numrow = $resmax -> numRows();
         if ($numrow == 0) {exit();}
         $customer_info =$resmax -> fetchRow();
-        if ($customer_info [12] != "1" ) {
+        if ($customer_info [12] != "1" && $customer_info [12] != "8") {
 			exit();
 		}
 

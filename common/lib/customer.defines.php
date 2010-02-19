@@ -31,7 +31,7 @@
  * 
 **/
 
-define ("PHP_QUICK_PROFILER", false);
+define ("PHP_QUICK_PROFILER", true);
 // Include PHP-Quick-Profiler
 require_once('PhpQuickProfiler.php');
 $profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
