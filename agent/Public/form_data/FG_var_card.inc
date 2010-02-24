@@ -242,7 +242,7 @@ $HD_Form -> AddSearchElement_C1(gettext("EMAIL"), 'email','emailtype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("LOGIN"),'useralias','useraliastype');
 $HD_Form -> AddSearchElement_C1(gettext("MACADDRESS"),'mac_addr','macaddresstype');
-$HD_Form -> AddSearchElement_C2(gettext("CUSTOMER ID"),'id1','id1type','id2','id2type','id');
+$HD_Form -> AddSearchElement_C2(gettext("CUSTOMER ID"),'id1','id1type','id2','id2type','cc_card.id');
 $HD_Form -> AddSearchElement_C2(gettext("SERIAL"),'serial1','serial1type','serial2','serial2type','serial');
 $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credit2','credit2type','credit');
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
