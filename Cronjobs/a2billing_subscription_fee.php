@@ -116,7 +116,7 @@ if (!($nb_card > 0)) {
 }
 
 
-$billdaybefor_anniversery = $A2B->config['global']['subscription_bill_days_before_anniversary'];
+$billdaybefor_anniversary = $A2B->config['global']['subscription_bill_days_before_anniversary'];
 
 $currencies_list = get_currencies($A2B->DBHandle);
 
@@ -161,7 +161,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 $next_bill_date = strtotime("01-$month_startdate-$year_startdate + 1 month");
                 $lastday_of_next_month= lastDayOfMonth(date("m",$next_bill_date),date("Y",$next_bill_date),"j");
 
-                $limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversery day")) ;
+                $limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversary day")) ;
 
                 if ($day_startdate>$lastday_of_next_month){
                     $next_limite_pay_date = date ("$lastday_of_next_month-m-Y" ,$next_bill_date);
@@ -169,7 +169,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                     $next_limite_pay_date = date ("$day_startdate-m-Y" ,$next_bill_date);
                 }
 
-                $next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
+                $next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversary day")) ;
 				break;
 
             case 1:
@@ -203,7 +203,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                     $next_bill_date = strtotime("01-$month_lastbill_date-$year_lastbill_date + 1 month");
                     $lastday_of_next_month= lastDayOfMonth(date("m",$next_bill_date),date("Y",$next_bill_date),"j");
 
-                    $limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversery day")) ;
+                    $limite_pay_date = date("Y-m-d",strtotime(" + $billdaybefor_anniversary day")) ;
 
                     if ($day_startdate>$lastday_of_next_month){
                         $next_limite_pay_date = date ("$lastday_of_next_month-m-Y" ,$next_bill_date);
@@ -211,7 +211,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                         $next_limite_pay_date = date ("$day_startdate-m-Y" ,$next_bill_date);
                     }
 
-                    $next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
+                    $next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversary day")) ;
 
                 }
                 break;
@@ -279,7 +279,7 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 					$card_id = $card['id'];
 					$title = gettext("SUBSCRIPTION INVOICE REMINDER");
 					$description = "Your credit was not enough to pay yours subscription automatically.\n";
-					$description .= "You have $billdaybefor_anniversery days to pay this invoice (REF: $reference ) or the account will be automatically disactived \n\n";
+					$description .= "You have $billdaybefor_anniversary days to pay this invoice (REF: $reference ) or the account will be automatically disactived \n\n";
 					$value_insert = " '$date' , '$card_id', '$title','$reference','$description',1,0";
 					$instance_table = new Table("cc_invoice", $field_insert);
 
@@ -299,12 +299,12 @@ for ($page = 0; $page < $nbpagemax; $page++) {
 						$instance_table->Add_table($A2B->DBHandle, $value_insert, null, null, "id");
                     }
 
-                    $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_UNPAID,$card['id'] );
-                    $mail -> replaceInEmail(Mail::$DAY_REMAINING_KEY,$day_remaining );
-                    $mail -> replaceInEmail(Mail::$INVOICE_REF_KEY,$reference);
-                    $mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,$subscription['fee']);
-                    $mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID,$subscription['id']);
-                    $mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL,$subscription['product_name']);
+                    $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_UNPAID, $card['id'] );
+                    $mail -> replaceInEmail(Mail::$DAY_REMAINING_KEY, $billdaybefor_anniversary );
+                    $mail -> replaceInEmail(Mail::$INVOICE_REF_KEY, $reference);
+                    $mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE, $subscription['fee']);
+                    $mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID, $subscription['id']);
+                    $mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL, $subscription['product_name']);
                     //insert charge
                     $QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_card_subscription, invoiced_status) VALUES ('" . $card['id'] . "', '" . $subscription['fee']  . "', '3','" . $subscription['card_subscription_id'] . "',1)";
                     if ($verbose_level >= 1)
@@ -343,10 +343,10 @@ for ($page = 0; $page < $nbpagemax; $page++) {
                 $result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
                 if ($verbose_level >= 1)
 					echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-                $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_DISABLE_CARD,$card['id'] );
-                $mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE,$subscription['fee']);
-                $mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID,$subscription['id']);
-                $mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL,$subscription['product_name']);
+                $mail = new Mail(Mail::$TYPE_SUBSCRIPTION_DISABLE_CARD, $card['id'] );
+                $mail -> replaceInEmail(Mail::$SUBSCRIPTION_FEE, $subscription['fee']);
+                $mail -> replaceInEmail(Mail::$SUBSCRIPTION_ID, $subscription['id']);
+                $mail -> replaceInEmail(Mail::$SUBSCRIPTION_LABEL, $subscription['product_name']);
                 try {
                     $mail -> send();
                 } catch (A2bMailException $e) {
