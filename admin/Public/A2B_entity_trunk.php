@@ -92,6 +92,11 @@ if ($form_action == 'list') {
 
 echo $CALL_LABS;
 
+//  #### SEARCH SECTION
+if ($form_action == "list") {
+		$HD_Form->create_search_form();
+}
+
 // #### TOP SECTION PAGE
 $HD_Form->create_toppage($form_action);
 

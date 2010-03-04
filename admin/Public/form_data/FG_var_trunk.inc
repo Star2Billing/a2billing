@@ -35,8 +35,11 @@
 
 getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use'));
 
+$DBHandle  = DbConnect();
+$instance_table = new Table();
 
 $HD_Form = new FormHandler("cc_trunk","trunk");
+
 
 $HD_Form ->FG_LIST_ADDING_BUTTON1 = true;
 $HD_Form ->FG_LIST_ADDING_BUTTON_LINK1 = "A2B_entity_trunk.php?form_action=ask-add&section=".$_SESSION["menu_section"];
@@ -54,6 +57,19 @@ $actived_list = array();
 $actived_list["1"] = array( gettext("Active"), "1");
 $actived_list["0"] = array( gettext("Inactive"), "0");
 
+$actived_list = array();
+$actived_list["1"] = array( gettext("Active"), "1");
+$actived_list["0"] = array( gettext("Inactive"), "0");
+
+$trunk_actived_list = array();
+$trunk_actived_list["0"] = array( gettext("0"), "Inactive");
+$trunk_actived_list["1"] = array( gettext("1"), "Active");
+
+$provider_list_query="select * from cc_provider";
+$res_provider_list  = $instance_table->SQLExec ($DBHandle, $provider_list_query);
+foreach($res_provider_list as $val){
+	$provider_list_result[] = array(gettext($val['id']),$val['provider_name']);
+}
 
 $maxuse_behaviour_list = array();
 $maxuse_behaviour_list["0"] = array( gettext("Use failover trunk"), "0");
@@ -88,6 +104,13 @@ if ($popup_select) {
 
 	$HD_Form -> FieldViewElement ('trunkcode, trunkprefix, removeprefix, providertech, providerip, id_provider, secondusedreal, status, maxuse');
 }
+
+$HD_Form -> FG_FILTER_SEARCH_FORM = true;
+$HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Search");
+$HD_Form -> AddSearchElement_C1(gettext("IP/HOST"),'providerip','provideriptype');
+$HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
+$HD_Form -> AddSearchElement_Select(gettext("SELECT PROVIDER"), null, null, null, null, null, "id_provider", 0, $provider_list_result);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, null, null, "status", 0, $trunk_actived_list);
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
