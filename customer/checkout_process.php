@@ -469,6 +469,9 @@ if ($id > 0 ) {
                                 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
 								$instance_table->SQLExec($DBHandle, $QUERY, 0);
 							}else{
+                                $QUERY = "UPDATE cc_card SET status = 1 WHERE id=" . $id;
+                                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
+								$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 								$QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=". $item -> getExtId();
                                 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
 								$instance_table->SQLExec($DBHandle, $QUERY, 0);
