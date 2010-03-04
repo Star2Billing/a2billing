@@ -423,7 +423,7 @@ class FormBO {
 			$product_name = $subscription['label'];
 			$value_insert = "'$card_id', '$subscriber' ,'$product_name', 1 , '$startdate', '$next_bill_date','$limite_pay_date','$startdate'";
 			$instance_subscription_table = new Table("cc_card_subscription", $field_insert);
-			$instance_subscription_table -> Add_table ($FormHandler->DBHandle, $value_insert, null, null);	
+			$id_card_subscription = $instance_subscription_table -> Add_table ($FormHandler->DBHandle, $value_insert, null, null, "id");
 			$reference = generate_invoice_reference();
 
 			//CREATE INVOICE If a new card then just an invoice item in the last invoice
@@ -441,7 +441,7 @@ class FormBO {
 				$vat = 0;
 				$field_insert = "date, id_invoice, price, vat, description, id_ext, type_ext";
 				$instance_table = new Table("cc_invoice_item", $field_insert);
-				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','" . $subscription['card_subscription_id'] . "','SUBSCR'";
+				$value_insert = " '$date' , '$id_invoice', '$amount','$vat','$description','$id_card_subscription','SUBSCR'";
 				if ($verbose_level >= 1)
 					echo "INSERT INVOICE ITEM : $field_insert =>	$value_insert \n";
 				$instance_table->Add_table($FormHandler->DBHandle, $value_insert, null, null, "id");
