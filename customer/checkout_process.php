@@ -436,11 +436,13 @@ if ($id > 0 ) {
 					}
 					if ($item -> getExtType() == 'SUBSCR') {
 						//Load subscription
+                        write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- Type SUBSCR");
 						$table_subsc = new Table('cc_card_subscription','paid_status');
 						$subscr_clause = "id = ".$item -> getExtId();
 						$result_subscr = $table_subsc -> Get_list($DBHandle,$subscr_clause);
 						if(is_array($result_subscr)){
 							$subscription = $result_subscr[0];
+                            write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- cc_card_subscription paid_status : ".$subscription['paid_status']);
 							if($subscription['paid_status']==3){
 								$billdaybefor_anniversery = $A2B->config['global']['subscription_bill_days_before_anniversary'];
 								$unix_startdate = time();
@@ -461,11 +463,14 @@ if ($id > 0 ) {
 
 								$next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
 								$QUERY = "UPDATE cc_card SET status = 1 WHERE id=" . $id;
+                                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
 								$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
 								$QUERY = "UPDATE cc_card_subscription SET paid_status = 2, startdate = '$startdate' ,limit_pay_date = '$next_limite_pay_date', 	next_billing_date ='$next_bill_date' WHERE id=" . $item -> getExtId();
+                                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
 								$instance_table->SQLExec($DBHandle, $QUERY, 0);
 							}else{
 								$QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=". $item -> getExtId();
+                                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
 								$instance_table->SQLExec($DBHandle, $QUERY, 0);
 							}
 						}

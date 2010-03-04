@@ -176,12 +176,13 @@ class Constants
 	public static function getInvoicePaidStatusList_Revert_List(){
 		return Constants::reverse_array(Constants::getInvoicePaidStatusList());
 	}
-        public static function getSubscriptionPaidStatusList(){
+
+    public static function getSubscriptionPaidStatusList(){
 		$subscription_status_list = array();
 		$subscription_status_list['0'] = array( gettext('FIRSTUSE'), '0');
 		$subscription_status_list['1'] = array( gettext('BILLED'), '1');
-                $subscription_status_list['2'] = array( gettext('PAID'), '2');
-                $subscription_status_list['3'] = array( gettext('UNPAID'), '3');
+        $subscription_status_list['2'] = array( gettext('PAID'), '2');
+        $subscription_status_list['3'] = array( gettext('UNPAID'), '3');
 		return $subscription_status_list;
 	}
 	
