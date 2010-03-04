@@ -387,7 +387,7 @@ class FormBO {
 		$subscriber = $processed['subscriber_signup'];
 		$table_subscription = new Table("cc_subscription_service","*");
 		$subscription_clause = "id = ".$subscriber;
-		$result_sub = $table_subscription->Get_list($FormHandler->DBHandle, $clause);
+		$result_sub = $table_subscription->Get_list($FormHandler->DBHandle, $subscription_clause);
 		
 		if (is_numeric($subscriber) && is_array($result_sub) && $result_sub[0]['fee'] > 0) {
 
