@@ -761,7 +761,7 @@ class A2Billing {
 	function enough_credit_to_call()
 	{	
 		if ($this->typepaid == 0) {
-			if ($this->credit < $this->agiconfig['min_credit_2call'] || $this->credit <= 0 ) {
+			if ($this->credit < $this->agiconfig['min_credit_2call'] || $this->credit < 0 ) {
 				return false;
 			} else {
 				return true;
