@@ -90,17 +90,17 @@ $modes = array(
 	"all" => "Full Report"
 );
 $arr_all = array(
-	"Uptime" => "show uptime",
-	"Active Channel(s)" => "show channels",
+	"Uptime" => "core show uptime",
+	"Active Channel(s)" => "core show channels",
 	"Sip Channel(s)" => "sip show channels",
 	"IAX2 Channel(s)" => "iax2 show channels",
 	"Sip Registry" => "sip show registry",
 	"Sip Peers" => "sip show peers",
 	"IAX2 Registry" => "iax2 show registry",
 	"IAX2 Peers" => "iax2 show peers",
-	"Subscribe/Notify" => "show hints",
+	"Subscribe/Notify" => "core show hints",
 	"Zaptel driver info" => "zap show channels",
-	"Conference Info" => "meetme",
+	"Conference Info" => "meetme list",
 	"Voicemail users" => "voicemail show users",
 );
 $arr_registries = array(
@@ -108,7 +108,7 @@ $arr_registries = array(
 	"IAX2 Registry" => "iax2 show registry",
 );
 $arr_channels = array(
-	"Active Channel(s)" => "show channels",
+	"Active Channel(s)" => "core show channels",
 	"Sip Channel(s)" => "sip show channels",
 	"IAX2 Channel(s)" => "iax2 show channels",
 );
@@ -125,10 +125,10 @@ $arr_iax = array(
 	"IAX2 Peers" => "iax2 show peers",
 );
 $arr_conferences = array(
-	"Conference Info" => "meetme",
+	"Conference Info" => "meetme list",
 );
 $arr_subscriptions = array(
-	"Subscribe/Notify" => "show hints"
+	"Subscribe/Notify" => "core show hints"
 );
 $arr_voicemail = array(
 	"Voicemail users" => "voicemail show users",
