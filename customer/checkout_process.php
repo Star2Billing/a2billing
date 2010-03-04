@@ -462,17 +462,19 @@ if ($id > 0 ) {
 								}
 
 								$next_bill_date = date("Y-m-d",strtotime("$next_limite_pay_date - $billdaybefor_anniversery day")) ;
-								$QUERY = "UPDATE cc_card SET status = 1 WHERE id=" . $id;
-                                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
-								$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
+								$QUERY = "UPDATE cc_card SET status=1WHERE id=$id";
+                                $result = $instance_table->SQLExec($DBHandle, $QUERY, 0);
+								write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY - RESULT : $result");
+                                
 								$QUERY = "UPDATE cc_card_subscription SET paid_status = 2, startdate = '$startdate' ,limit_pay_date = '$next_limite_pay_date', 	next_billing_date ='$next_bill_date' WHERE id=" . $item -> getExtId();
                                 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
 								$instance_table->SQLExec($DBHandle, $QUERY, 0);
 							}else{
-                                $QUERY = "UPDATE cc_card SET status = 1 WHERE id=" . $id;
-                                write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
-								$result = $instance_table->SQLExec($A2B->DBHandle, $QUERY, 0);
-								$QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=". $item -> getExtId();
+                                $QUERY = "UPDATE cc_card SET status=1WHERE id=$id";
+                                $result = $instance_table->SQLExec($DBHandle, $QUERY, 0);
+								write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY - RESULT : $result");
+
+                                $QUERY = "UPDATE cc_card_subscription SET paid_status = 2 WHERE id=". $item -> getExtId();
                                 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."- QUERY : $QUERY");
 								$instance_table->SQLExec($DBHandle, $QUERY, 0);
 							}
