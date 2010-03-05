@@ -104,9 +104,17 @@ $limit_massmail = 2000;
 
 if(!empty($HD_Form -> FG_TABLE_CLAUSE)) {
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND email <> ''";
+	if($_REQUEST['id']!=null)
+	{
+		$HD_Form -> FG_TABLE_CLAUSE .= " AND id = '".$_REQUEST['id']."'";	
+	}
 	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $HD_Form -> FG_TABLE_CLAUSE, null, null, null, null, $limit_massmail, 0);			
 } else {
 	$sql_clause = "email <> ''";
+	if($_REQUEST['id']!=null)
+	{
+		$sql_clause .= " AND id = '".$_REQUEST['id']."'";	
+	}
 	$list_customer = $instance_cus_table -> Get_list ($HD_Form -> DBHandle, $sql_clause, null, null, null, null, $limit_massmail, 0);
 }
 
@@ -196,12 +204,21 @@ function loadtmpl(){
 </script>
 <script language="JavaScript" src="javascript/card.js"></script>
 <div class="toggle_hide2show">
+<?php
+	if($_REQUEST['id']==null)
+	{
+?>
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CUSTOMERS");?> </font></a></center>
 	<div class="tohide" style="display:none;">
-
 <?php
-// #### CREATE SEARCH FORM
+	} 
+?>
+<?php
+	if($_REQUEST['id']==null)
+	{
+	// #### CREATE SEARCH FORM
 	$HD_Form -> create_search_form();
+	}
 ?>
 
 	</div>
@@ -236,11 +253,17 @@ function loadtmpl(){
 	
 	} else {
 		if(is_array($list_customer) || $nb_customer > 1) {
+
+		if($_REQUEST['id']==null)
+		{
 ?>
 	<tr> 
 		<td><span class="viewhandler_span1">&nbsp;</span></td>
 		<td align="center"> <span class="viewhandler_span1"><?php echo gettext("The mass mail tool is limited to 2000 mails. You can use the search module to send on different group of customer and overpass this limit.");?></span></td>
 	</tr>
+<?php	
+		}	
+?>
 	<tr> 
 		<td><span class="viewhandler_span1">&nbsp;</span></td>
 		<td align="right"> <span class="viewhandler_span1"><?php echo $nb_customer;?> <?php echo gettext("Record(s)");?></span></td>
@@ -253,12 +276,15 @@ function loadtmpl(){
 			<TD width="%75" valign="top" class="tableBodyRight" background="../Public/templates/default/images/background_cells.gif" >
 		    <?php
 		    	$link_to_customer = CUSTOMER_UI_URL;
-		    	
+		    	if($nb_customer==1)
+			{	
+				echo "<input type=\"hidden\" name=\"id\" value=".$_REQUEST['id'].">";
+			}
 		    	if(is_array($list_customer)){
 					for($key=0; $key < $nb_customer && $key <= 100; $key++){
 						echo "<a href=A2B_entity_card.php?form_action=ask-edit&id=".$list_customer[$key]['id']." target=\"_blank\">".$list_customer[$key][1]."</a>";
 						if ($key + 1 != $nb_customer) echo ", ";
-							echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$list_customer[$key][0].">";
+							echo "<input type=\"hidden\" name=\"hd_email[]\" value=".$list_customer[$key][1].">";
 						if ($key == 100) {
 							echo "<br><a href=\"A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1\" target=\"_blank\">".gettext("Click on list customer to see them all")."</a>";
 						}

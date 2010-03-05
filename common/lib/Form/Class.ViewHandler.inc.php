@@ -657,7 +657,91 @@ function openURLFilter(theLINK)
 								}
 								?></a>
 						<?php }
-							} ?>
+						} 
+ 
+						if($this->FG_OTHER_BUTTON5){
+							$check = true;
+					  		$condition_eval=$this->FG_OTHER_BUTTON5_CONDITION;
+							$check_eval=false;	
+					  		if (!empty($this->FG_OTHER_BUTTON5_CONDITION) && (eregi ('col[0-9]', $this->FG_OTHER_BUTTON5_CONDITION))) {
+					  			$check =false;
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
+										$findme = "|col$h|";
+										$pos = stripos($condition_eval, $findme);
+										if ($pos !== false) {
+											$condition_eval = str_replace($findme,$list[$ligne_number][$h],$condition_eval);
+										}
+									}
+							eval('$check_eval = '.$condition_eval.';');	
+								}
+					  		if($check || $check_eval){
+							?>
+							<a href="<?php
+								$new_FG_OTHER_BUTTON5_LINK = $this -> FG_OTHER_BUTTON5_LINK;
+								if (strpos($this -> FG_OTHER_BUTTON5_LINK,"|param|")){
+									$new_FG_OTHER_BUTTON5_LINK = str_replace("|param|",$list[$ligne_number][$this->FG_NB_TABLE_COL],$this -> FG_OTHER_BUTTON5_LINK);
+									// SHOULD DO SMTH BETTER WITH paramx and get the x number to find the value to use
+								}
+								if (strpos($this -> FG_OTHER_BUTTON5_LINK,"|param1|")){
+									$new_FG_OTHER_BUTTON5_LINK = str_replace("|param1|",$list[$ligne_number][$this->FG_NB_TABLE_COL-1],$this -> FG_OTHER_BUTTON5_LINK);
+								}
+
+								// REPLACE |colX|  where is a numero of the column by the column value
+								if (eregi ('col[0-9]', $new_FG_OTHER_BUTTON5_LINK)) {
+									for ($h=0;$h<=$this->FG_NB_TABLE_COL;$h++){
+										$findme = "|col$h|";
+										$pos = stripos($new_FG_OTHER_BUTTON5_LINK, $findme);
+										if ($pos !== false) {
+											$new_FG_OTHER_BUTTON5_LINK = str_replace($findme,$list[$ligne_number][$h],$new_FG_OTHER_BUTTON5_LINK);
+										}
+									}
+								}
+
+								// REPLACE |col_origX|  where is a numero of the column by the column value
+								if (eregi ('col_orig[0-9]', $new_FG_OTHER_BUTTON5_LINK)) {
+										for ($h=count($list[$ligne_number]);$h>=0;$h--){
+										$findme = "|col_orig$h|";
+										$pos = stripos($new_FG_OTHER_BUTTON5_LINK, $findme);
+										if ($pos !== false) {
+											$new_FG_OTHER_BUTTON5_LINK = str_replace($findme,$origlist[$ligne_number][$h],$new_FG_OTHER_BUTTON5_LINK);
+										}
+									}
+								}
+								echo $new_FG_OTHER_BUTTON5_LINK;
+								
+								$extra_html="";
+								
+								if(!empty($this->FG_OTHER_BUTTON5_HTML_ID) && (eregi ('col[0-9]',$this->FG_OTHER_BUTTON5_HTML_ID))){
+									$temp_id =$this->FG_OTHER_BUTTON5_HTML_ID;
+									for ($h=count($list[$ligne_number]);$h>=0;$h--){
+										$findme = "|col$h|";
+										$pos = stripos($temp_id, $findme);
+										if ($pos !== false) {
+											$temp_id = str_replace($findme,$origlist[$ligne_number][$h],$temp_id);
+										}
+									}
+									$extra_html.=' id="'.$temp_id.'"';
+				
+								}
+								
+					  			if(!empty($this->FG_OTHER_BUTTON5_HTML_CLASS) ){
+									$extra_html.= ' class="'.$this->FG_OTHER_BUTTON5_HTML_CLASS.'" ';
+								}
+								
+								
+								
+								if (substr($new_FG_OTHER_BUTTON5_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
+								if (strlen($this -> FG_OTHER_BUTTON5_IMG)==0){
+									echo '"'.$extra_html.'> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON5_ALT.'</span>';
+								}else{
+									?>" <?php echo $extra_html ?> ><img src="<?php echo $this -> FG_OTHER_BUTTON5_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON5_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON5_ALT?>"><?php
+
+								}
+								?></a>
+						<?php
+							 }
+						} 
+						?>
 						
 
 					  </TD>
