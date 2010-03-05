@@ -1404,18 +1404,43 @@ function check_cp()
 	if ($pos_star === false) {
 		return $ret_val;
 	}
-	
-	$footer_content = file_get_contents("templates/default/footer.tpl");
-	
-	$pos_copyright = strpos($footer_content, '$COPYRIGHT');
-	if ($pos_copyright === false) {
-		return $ret_val;
-	}
-	
+	$pageURL = get_curPageURL();
+    $pos = strpos($pageURL, 'phpsysinfo');
+    
+    if ($pos === false) {
+        
+        $footer_content = file_get_contents("templates/default/footer.tpl");
+
+        $pos_copyright = strpos($footer_content, '$COPYRIGHT');
+        if ($pos_copyright === false) {
+            return $ret_val;
+        }
+    }
 	return 0;
 }
 
+function get_curPageURL($show_get = 0) {
+	$pageURL = 'http';
+	if ($_SERVER["HTTPS"] == "on") {
+		$pageURL .= "s";
+	}
+	$pageURL .= "://";
+	if ($_SERVER["SERVER_PORT"] != "80") {
+		$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+	} else {
+		$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+	}
 
+	$pos = strpos($pageURL, '?');
+
+	if ($show_get || ($pos === false))
+		return $pageURL;
+
+
+	$pageURL = substr($pageURL, 0, strpos($pageURL, '?'));
+
+	return $pageURL;
+}
 
 //////////////////////////////////////////////////////
 // Get the last day of the month
