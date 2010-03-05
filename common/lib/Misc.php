@@ -73,6 +73,7 @@ function a2b_mail($to, $subject, $mail_content, $from = 'root@localhost', $fromn
 	$mail->Password = SMTP_PASSWORD;
 	$mail->Port = SMTP_PORT;
 	$mail->SMTPSecure = SMTP_SECURE;
+    $mail->CharSet = 'UTF-8';
 
 	if (strlen(SMTP_USERNAME) > 0)
 		$mail->SMTPAuth = true;
