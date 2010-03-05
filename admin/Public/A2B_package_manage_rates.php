@@ -150,15 +150,6 @@ $smarty->display('main.tpl');
 
 //load rates
 $DBHandle = DbConnect();
-$table_rates = new Table();
-/*
-$result_rates = $table_rates -> SQLExec($DBHandle, "SELECT DISTINCT cc_ratecard.id,cc_prefix.destination, cc_ratecard.destination AS dialprefix, COUNT(cc_ratecard.destination) AS count
-
-													FROM cc_package_rate 
-													JOIN cc_ratecard ON cc_ratecard.id = cc_package_rate.rate_id 
-													LEFT JOIN cc_prefix ON cc_prefix.prefix = cc_ratecard.destination 
-													GROUP BY cc_ratecard.destination");
-*/
 
 $table_rates = new Table("cc_package_rate JOIN cc_ratecard ON cc_ratecard.id = cc_package_rate.rate_id LEFT JOIN cc_prefix ON cc_prefix.prefix = cc_ratecard.destination ","DISTINCT cc_ratecard.id,cc_prefix.destination, cc_ratecard.dialprefix");
 $rates_clauses = " cc_package_rate.package_id = $id";
@@ -199,7 +190,7 @@ function delallrate(){
 	<tr>
             <td colspan="2">
 			<?php echo gettext("NUMBER"); ?>&nbsp;:&nbsp;<?php echo $result_pack[0]['freetimetocall']; ?>&nbsp;<?php $pck_type = Constants::getPackagesTypeList(); echo $pck_type[$result_pack[0]['packagetype']][0]; ?>&nbsp;<?php echo gettext('per') ?>
-				<?php if($result_pack[0]['billingtype']==1) echo gettext("month"); else echo gettext("week"); ?>
+				<?php if($result_pack[0]['billingtype']==0) echo gettext("month"); else echo gettext("week"); ?>
             </td>
 	</tr>
 	<tr>
