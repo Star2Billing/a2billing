@@ -31,6 +31,43 @@
 **/
 
 
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Language field', 'field_language', '1', 'Enable The Language Field -  Yes 1 - No 0.', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Currency field', 'field_currency', '1', 'Enable The Currency Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Last Name Field', 'field_lastname', '1', 'Enable The Last Name Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'First Name Field', 'field_firstname', '1', 'Enable The First Name Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Address Field', 'field_address', '1', 'Enable The Address Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'City Field', 'field_city', '1', 'Enable The City Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'State Field', 'field_state', '1', 'Enable The State Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Country Field', 'field_country', '1', 'Enable The Country Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Zipcode Field', 'field_zipcode', '1', 'Enable The Zipcode Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Timezone Field', 'field_id_timezone', '1', 'Enable The Timezone Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Phone Field', 'field_phone', '1', 'Enable The Phone Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Fax Field', 'field_fax', '1', 'Enable The Fax Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Company Name Field', 'field_company', '1', 'Enable The Company Name Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Company Website Field', 'field_company_website', '1', 'Enable The Company Website Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'VAT Registration Number Field', 'field_VAT_RN', '1', 'Enable The VAT Registration Number Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Traffic Field', 'field_traffic', '1', 'Enable The Traffic Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+INSERT INTO cc_config (id, config_title, config_key, config_value, config_description, config_valuetype, config_listvalues, config_group_title) VALUES (NULL, 'Traffic Target Field', 'field_traffic_target', '1', 'Enable The Traffic Target Field - Yes 1 - No 0. ', '1', 'yes,no', 'signup');
+
+
+
+
 UPDATE cc_version SET version = '1.7.0';
 
 

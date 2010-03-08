@@ -88,6 +88,26 @@ define ("CUSTOMER_UI_URL", isset($A2B->config['global']['customer_ui_url'])?$A2B
 
 //Enable Disable Captcha
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
+
+//Enable Disable 
+define ("LANGUAGE_ENABLE", isset($A2B->config["signup"]['field_language'])?$A2B->config["signup"]['field_language']:0);
+define ("CURRENCY_ENABLE", isset($A2B->config["signup"]['field_currency'])?$A2B->config["signup"]['field_currency']:0);
+define ("LASTNAME_ENABLE", isset($A2B->config["signup"]['field_lastname'])?$A2B->config["signup"]['field_lastname']:0);
+define ("FIRSTNAME_ENABLE", isset($A2B->config["signup"]['field_firstname'])?$A2B->config["signup"]['field_firstname']:0);
+define ("ADDRESS_ENABLE", isset($A2B->config["signup"]['field_address'])?$A2B->config["signup"]['field_address']:0);
+define ("CITY_ENABLE", isset($A2B->config["signup"]['field_city'])?$A2B->config["signup"]['field_city']:0);
+define ("STATE_ENABLE", isset($A2B->config["signup"]['field_state'])?$A2B->config["signup"]['field_state']:0);
+define ("COUNTRY_ENABLE", isset($A2B->config["signup"]['field_country'])?$A2B->config["signup"]['field_country']:0);
+define ("ZIPCODE_ENABLE", isset($A2B->config["signup"]['field_zipcode'])?$A2B->config["signup"]['field_zipcode']:0);
+define ("TIMEZONE_ENABLE", isset($A2B->config["signup"]['field_id_timezone'])?$A2B->config["signup"]['field_id_timezone']:0);
+define ("PHONE_ENABLE", isset($A2B->config["signup"]['field_phone'])?$A2B->config["signup"]['field_phone']:0);
+define ("FAX_ENABLE", isset($A2B->config["signup"]['field_fax'])?$A2B->config["signup"]['field_fax']:0);
+define ("COMP_ENABLE", isset($A2B->config["signup"]['field_company'])?$A2B->config["signup"]['field_company']:0);
+define ("COMP_WEB_ENABLE", isset($A2B->config["signup"]['field_company_website'])?$A2B->config["signup"]['field_company_website']:0);
+define ("VAT_RN_ENABLE", isset($A2B->config["signup"]['field_VAT_RN'])?$A2B->config["signup"]['field_VAT_RN']:0);
+define ("TRAFFIC_ENABLE", isset($A2B->config["signup"]['field_traffic'])?$A2B->config["signup"]['field_traffic']:0);
+define ("TRAFFIC_TARGET_ENABLE", isset($A2B->config["signup"]['field_traffic_target'])?$A2B->config["signup"]['field_traffic_target']:0);
+
 // For ePayment Modules
 define('PULL_DOWN_DEFAULT', 'Please Select');
 define('TYPE_BELOW', 'Type Below');

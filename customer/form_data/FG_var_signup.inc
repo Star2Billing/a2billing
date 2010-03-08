@@ -151,11 +151,14 @@ if (isset ($form_action) && $form_action == "add") {
 }
 
 $language_list = Constants::getLanguagesList();
-
+if (LANGUAGE_ENABLE)  {
 $HD_Form->AddEditElement(gettext("LANGUAGE"), "language", "", "SELECT", "", "", "", "list", "", "", "", $language_list, "%1", "", "");
-
+$language_editFG = "language,";
+}
+if (CURRENCY_ENABLE)  {
 $HD_Form->AddEditElement("CURRENCY", "currency", "", "SELECT", "", "", "", "list", "", "", "", $currency_list, "%1", "", "");
-
+$currency_editFG = "currency,";
+}
 if (!$agent_conf && strpos($callPlan_idlist, ',') !== false && !($subscriber_signup>0)) {
 	$HD_Form->AddEditElement(gettext("CALL PLAN"), "tariff", "", "SELECT", "", "", "", "list", "", "", "", $callPlan_list, "%1", "", "");
 }
@@ -168,53 +171,61 @@ if (isset ($form_action) && $form_action == "ask-add") {
 	$comp_date_plus = "value='" . $begin_date_plus . $end_date . "'";
 	$comp_zero = "value='0'";
 }
-
+if (LASTNAME_ENABLE)  {
 $HD_Form->AddEditElement(gettext("LASTNAME"), 
 		"lastname",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=50", "11",
 		gettext("Insert your lastname"), "", "", "", "", "", "", "", "");
-
+$lastname_editFG = "lastname,";
+}
+if (FIRSTNAME_ENABLE)  {
 $HD_Form->AddEditElement(gettext("FIRSTNAME"), 
 		"firstname",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=50", "11",
 		gettext("Insert your firstname"), "", "", "", "", "", "", "", "");
-
+$firstname_editFG = "firstname,";
+}
 $HD_Form->AddEditElement(gettext("EMAIL"), 
 		"email",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=70", "1",
 		gettext("Insert your email"), "", "", "", "", "", "", "", "");
-
+if (ADDRESS_ENABLE)  {
 $HD_Form->AddEditElement(gettext("ADDRESS"), 
 		"address",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=100", "0",
 		gettext("Insert your address"), "", "", "", "", "", "", "", "");
-
+$address_editFG = "address,";
+}
+if (CITY_ENABLE)  {
 $HD_Form->AddEditElement(gettext("CITY"), 
 		"city",
 		'$value',
 		"INPUT",
 		"size=30 maxlength=40", "0",
 		gettext("Insert your city"), "", "", "", "", "", "", "", "");
-
+$city_editFG = "city,";
+}
+if (STATE_ENABLE)  {
 $HD_Form->AddEditElement(gettext("STATE/PROVINCE"), 
 		"state", 
 		'$value',
 		"INPUT",
 		"size=30 maxlength=40", "11",
 		gettext("Insert your state"), "", "", "", "", "", "", "NO", "");
-
+$state_editFG = "state,";
+}
 if ($form_action == 'ask-add') {
 	$country_default_val = 'USA';
 }
-
+if (COUNTRY_ENABLE)  {
 $HD_Form->AddEditElement(gettext("COUNTRY"), 
 					"country", 
 					"$country_default_val", 
@@ -222,9 +233,12 @@ $HD_Form->AddEditElement(gettext("COUNTRY"),
 					"sql", 
 					"cc_country", "countryname, countrycode", 
 					"", "", "%1", "", "", "", '');
-
+$country_editFG = "country,";
+}
+if (ZIPCODE_ENABLE)  {
 $HD_Form->AddEditElement(gettext("ZIP/POSTAL CODE"), "zipcode", '$value', "INPUT", "size=30 maxlength=20", "0", gettext("Insert your zipcode"), "", "", "", "", "", "", "", "");
-
+$zipcode_editFG = "zipcode,";
+}
 $timezone_list = get_timezones();
 $one_select = false;
 foreach ($timezone_list as $key => $cur_value) {
@@ -239,7 +253,7 @@ foreach ($timezone_list as $key => $cur_value) {
 		}
 	}
 }
-
+if (TIMEZONE_ENABLE)  {
 $HD_Form->AddEditElement(gettext("TIMEZONE"), 
 								"id_timezone", 
 								"$timezone_default_val", 
@@ -248,65 +262,77 @@ $HD_Form->AddEditElement(gettext("TIMEZONE"),
 								"list", "", "", "", 
 								$timezone_list, 
 								"%1", "", "");
-
+$id_timezone_editFG = "id_timezone,";
+}
+if (PHONE_ENABLE)  {
 $HD_Form->AddEditElement(gettext("PHONENUMBER"), 
 								"phone", 
 								'$value', 
 								"INPUT", "size=30 maxlength=20", 
 								"7", gettext("Insert your phone number"), "", "", "", "", "", "", "", "");
-
+$phone_editFG = "phone,";
+}
+if (FAX_ENABLE)  {
 $HD_Form->AddEditElement(gettext("FAXNUMBER"), 
 								"fax", 
 								'$value', 
 								"INPUT", "size=30 maxlength=20", 
 								"", gettext("Insert your fax number"), "", "", "", "", "", "", "", "");
-
+$fax_editFG = "fax,";
+}
+if (COMP_ENABLE)  {
 $HD_Form->AddEditElement(gettext("COMPANY NAME"), 
 								"company_name", 
 								'$value', 
 								"INPUT", "size=40 maxlength=50", 
 								"", gettext("Insert Company name of this customer"), "", "", "", "", "", "", "NO", "");
-
+$company_name_editFG = "company_name,";
+}
+if (COMP_WEB_ENABLE)  {
 $HD_Form->AddEditElement(gettext("COMPANY WEBSITE"), 
 								"company_website", 
 								'$value', 
 								"INPUT", "size=40 maxlength=60", 
 								"", gettext("Insert the company website of this customer"), "", "", "", "", "", "", "NO", "");
-
+$company_website_editFG = "company_website,";
+}
+if (VAT_RN_ENABLE)  {
 $HD_Form->AddEditElement(gettext("VAT REGISTRATION NUMBER "), 
 								"VAT_RN", 
 								'$value', 
 								"INPUT", "size=40 maxlength=40", 
 								"", gettext("Insert the VAT registration number of this customer"), "", "", "", "", "", "", "NO", "");
-
+$VAT_RN_editFG = "VAT_RN,";
+}
+if (TRAFFIC_ENABLE)  {
 $HD_Form->AddEditElement(gettext("TRAFFIC PER MONTH"), 
 								"traffic", 
 								'$value', 
 								"INPUT", "size=30 maxlength=20", 
 								"4", gettext("Insert the traffic per month for this customer"), "", "", "", "", "", "", "NO", "");
-
+$traffic_editFG = "traffic,";
+}
+if (TRAFFIC_TARGET_ENABLE)  {
 $HD_Form->AddEditElement(gettext("TARGET TRAFFIC"), 
 								"traffic_target", 
 								'', 
 								"TEXTAREA", "cols=50 rows=4", 
 								"", gettext("Insert the target traffic description"), "", "", "", "", "", "", "", "");
-
-
+$traffic_target_editFG = "traffic_target,";
+}
 if (CAPTCHA_ENABLE) {
 	$HD_Form->AddEditElement(gettext("VERIFICATION"), "captchacode", '$value', "CAPTCHAIMAGE", "size=10 maxlength=6", "19", gettext("Insert code from above picture"), "", "", "", "", "", "", "", "", CAPTCHA_ENABLE);
 	$captcha = "captchacode,";
 }
 
 if (!$agent_conf && strpos($callPlan_idlist, ',') !== false && !($subscriber_signup>0)) {
-	$HD_Form->FieldEditElement('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,' .
-	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
-	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,' .
-	'fax,  company_name , company_website ,VAT_RN , traffic, traffic_target , ' . $captcha . ' sip_buddy, iax_buddy, inuse');
+	$HD_Form->FieldEditElement('username, useralias, uipass, credit, ' . $language_editFG . ' tariff, id_didgroup, id_campaign,' .
+	'callback, activated, simultaccess, ' . $currency_editFG . ' runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
+	'expirationdate, expiredays, vat, ' . $lastname_editFG . $firstname_editFG . ' email,' . $address_editFG . $city_editFG . $state_editFG . $country_editFG . $zipcode_editFG . $id_timezone_editFG . $phone_editFG . $fax_editFG . $company_name_editFG . $company_website_editFG . $VAT_RN_editFG . $traffic_editFG . $traffic_target_editFG . $captcha . ' sip_buddy, iax_buddy, inuse');
 } else {
-	$HD_Form->FieldEditElement('username, useralias, uipass, credit, language, id_didgroup, id_campaign,' .
-	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
-	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,' .
-	'fax , company_name , company_website ,VAT_RN , traffic, traffic_target , ' . $captcha . ' sip_buddy, iax_buddy, inuse');
+	$HD_Form->FieldEditElement('username, useralias, uipass, credit, ' . $language_editFG . ' id_didgroup, id_campaign,' .
+	'callback, activated, simultaccess, ' . $currency_editFG . ' runservice, typepaid, creditlimit, firstusedate, enableexpire,' .
+	'expirationdate, expiredays, vat, ' . $lastname_editFG . $firstname_editFG . ' email,' . $address_editFG . $city_editFG . $state_editFG . $country_editFG . $zipcode_editFG . $id_timezone_editFG . $phone_editFG . $fax_editFG . $company_name_editFG . $company_website_editFG . $VAT_RN_editFG . $traffic_editFG . $traffic_target_editFG . $captcha . ' sip_buddy, iax_buddy, inuse');
 }
 
 if (!isset ($myusername))
