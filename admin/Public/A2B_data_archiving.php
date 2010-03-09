@@ -203,6 +203,7 @@ if(isset($archive) && !empty($archive)){
     if (strlen($condition) && strpos($condition,'WHERE') === false){
         $condition = " WHERE $condition";
     }
+    echo "condition : $condition";
     $rec = archive_data($condition, "card");
     if($rec > 0)
         $archive_message = "The data has been successfully archived";

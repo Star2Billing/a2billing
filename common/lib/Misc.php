@@ -1015,11 +1015,8 @@ function get_db_languages($handle = null) {
  * 2. A2Billing_UI/Public/A2B_call_archiving.php
  */
 
-function archive_data($condition, $entity = "") {
-	if (empty ($condition)) {
-		return 0;
-		exit;
-	}
+function archive_data($condition, $entity = "")
+{	
 	$handle = DbConnect();
 	$instance_table = new Table();
 	if (!empty ($entity)) {
