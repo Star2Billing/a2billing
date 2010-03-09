@@ -38,7 +38,7 @@ include_once(dirname(__FILE__) . "/../lib/admin.module.access.php");
 include ("../lib/admin.smarty.php");
 
 
-if (! has_rights (ACX_MAINTENANCE)){ 
+if (! has_rights (ACX_MAINTENANCE)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();
@@ -84,7 +84,7 @@ $FG_COL_QUERY='id, starttime, calledstation, destination, sessiontime, username,
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 
-if ($posted==1){
+if ($posted==1) {
 	$SQLcmd = '';
 	$SQLcmd = do_field($SQLcmd, 'src', 'src');
 	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
@@ -163,13 +163,8 @@ if ($_SESSION["is_admin"] == 1)
 
 }
 
-if ($_SESSION["is_admin"]==0){ 	
-	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="cardID=t2.IDCust AND t2.IDmanager='".$_SESSION["pr_reseller_ID"]."'";
-}
-
 //To select just terminatecauseid=ANSWER
-if (!isset($terminatecauseid)){
+if (!isset($terminatecauseid)) {
 	$terminatecauseid="ANSWER";
 }
 if ($terminatecauseid=="ANSWER") {
@@ -183,15 +178,16 @@ if($posted == 1){
 }
 if(isset($archive) && !empty($archive)){
 	$condition = $_SESSION['ss_calllist'];
-	if (strpos($condition,'WHERE') <= 0){
-	        $condition = " WHERE $condition";
-	}
-$rec = archive_data($condition, "call");
-if($rec > 0)
-	$archive_message = "The data has been successfully archived";
+    if (strlen($condition) && strpos($condition,'WHERE') === false){
+        $condition = " WHERE $condition";
+    }
+    $rec = archive_data($condition, "call");
+    if($rec > 0)
+        $archive_message = "The data has been successfully archived";
 }
 
 $smarty->display('main.tpl');
+
 ?>
 
 
@@ -483,21 +479,24 @@ $smarty->display('main.tpl');
 				</tr></table></td>
 			</tr>			
 		</tbody></table>
-</FORM>
+</form>
 </center>
 
 
 <!-- ** ** ** ** ** Displaying the Archiving message, calls list and Archive action button and link ** ** ** ** ** -->
 <?php
-if(isset($archive) && !empty($archive)){
+
+if(isset($archive) && !empty($archive)) {
 	$HD_Form -> CV_NO_FIELDS = "";
 	print "<div align=\"center\">".$archive_message."</div>";
 }
+
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
 
-      $HD_Form -> create_form ($form_action, $list, $id=null) ;
-       $smarty->display('footer.tpl');
-?>
+$HD_Form -> create_form ($form_action, $list, $id=null) ;
+
+$smarty->display('footer.tpl');
+
