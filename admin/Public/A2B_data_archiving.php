@@ -200,12 +200,12 @@ getpost_ifset(array('archive', 'id'));
 
 if(isset($archive) && !empty($archive)){
 	$condition = $HD_Form -> FG_TABLE_CLAUSE;
-if (strpos($condition,'WHERE') <= 0){
+    if (strlen($condition) && strpos($condition,'WHERE') === false){
         $condition = " WHERE $condition";
-}
-$rec = archive_data($condition, "card");
-if($rec > 0)
-	$archive_message = "The data has been successfully archived";
+    }
+    $rec = archive_data($condition, "card");
+    if($rec > 0)
+        $archive_message = "The data has been successfully archived";
 }
 
 if (!isset($form_action))  $form_action="list"; //ask-add
@@ -224,8 +224,7 @@ if(!isset($submit)){?>
 	<div class="tohide" style="display:none;">
 
 <?php
-// #### CREATE SEARCH FORM
-	$HD_Form -> create_search_form();
+$HD_Form -> create_search_form();
 ?>
 
 	</div>
@@ -235,7 +234,7 @@ if(!isset($submit)){?>
 
 ?>
 <center>
-<form name="frm_archive" id="frm_archive" method="post" action="A2B_call_archiving.php">
+<FORM name="frm_archive" id="frm_archive" method="post" action="A2B_call_archiving.php">
 <table class="bar-status" width="50%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>			
 			<tr>
