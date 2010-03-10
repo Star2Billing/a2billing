@@ -405,8 +405,208 @@ echo Display_Login_Button ($DBHandle, $id);
 		</td>
 	</tr>
 </table>
+<br/>
+<table width="95%">
+	<tr>
+	 <td valign="top" width="50%" >
+        <?php
+        $callerid_table = new Table('cc_callerid','*');
+        $callerid_clause = "id_cc_card  = ".$id;
+        $callerid_result = $callerid_table -> Get_list($DBHandle, $callerid_clause, 0);
+        $callerid = $callerid_result[0];
+        if(sizeof($callerid_result)>0 && $callerid_result[0]!=null) {
+        ?>
+	      <table width="100%" class="editform_table1">
+		<tr>
+		   <th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+					<?php echo gettext("CALLER-ID LIST ") ?>
+		   </th>
+		</tr>
+                <tr class="form_head">
+                   <td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+                    			<?php echo gettext("CID"); ?>
+                   </td>
+                   <td class="tableBody"  width="20%" align="center" style="padding: 2px;">
+                			<?php echo gettext("ACTIVATED"); ?>
+                   </td>
+               </tr>
+		   <?php
+		    $i=0;
+		    foreach ($callerid_result as $callerid) {
+		        if($i%2==0) $bg="#fcfbfb";
+		        else  $bg="#f2f2ee";
+		   ?>
+			<tr bgcolor="<?php echo $bg; ?>"  >
+				<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%" align="center">
+				  <?php echo $callerid['cid']; ?>
+				</td>
+
+				<td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%" align="center">
+				  <?php echo ($callerid['activated']=="t"?"Active":"Inactive"); ?>
+				</td>
+			</tr>
+		   <?php
+		   $i++;
+		   }
+		   ?>
+		</table>
+		<?
+		  }
+		?>
+		</td>
+
+		<td valign="top" width="50%" >
+		<?php
+		$speeddial_table = new Table('cc_speeddial','*');
+		$speeddial_clause = "id_cc_card  = ".$id;
+		$speeddial_result = $speeddial_table -> Get_list($DBHandle, $speeddial_clause, 0);
+		$speeddial = $speeddial_result[0];
+		if(sizeof($speeddial_result)>0 && $speeddial_result[0]!=null) {
+		?>
+		<table width="100%" class="editform_table1">
+		   <tr>
+			<th colspan="3" background="../Public/templates/default/images/background_cells.gif">
+		   			<?php echo gettext("SPEED-DIAL LIST ") ?>
+			</th>
+		   </tr>
+               	   <tr class="form_head">
+                    	<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+                     			<?php echo gettext("PHONE"); ?>
+                    	</td>
+                    	<td class="tableBody"  width="20%" align="center" style="padding: 2px;">
+                    			<?php echo gettext("NAME"); ?>
+                    	</td>
+                    	<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+                    			<?php echo gettext("SPEEDDIAL"); ?>
+                    	</td>
+                   </tr>
+               	<?php
+                $i=0;
+                foreach ($speeddial_result as $speeddial) {
+                    if($i%2==0) $bg="#fcfbfb";
+                    else  $bg="#f2f2ee";
+                ?>
+                    <tr bgcolor="<?php echo $bg; ?>"  >
+                        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%" align="center">
+                          		<?php echo $speeddial['phone']; ?>
+                        </td>
+                        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%" align="center">
+                          		<?php echo $speeddial['name']; ?>
+                        </td>
+                        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%"  align="center">
+                          		<?php echo $speeddial['speeddial']; ?>
+                        </td>
+                    </tr>
+                <?php
+                $i++;
+                }
+                ?>
+		</table>
+        	<?
+          	}
+        	?>
+		</td>
+	</tr>
+</table>
+<br/>
+<table width="95%">
+	<tr>
+	 <td valign="top" width="50%" >
+		<?php
+		$sip_buddies_table = new Table('cc_sip_buddies','*');
+		$sip_buddies_clause = "id_cc_card  = ".$id;
+		$sip_buddies_result = $sip_buddies_table -> Get_list($DBHandle, $sip_buddies_clause, 0);
+		$sip_buddies = $sip_buddies_result[0];
+		if(sizeof($sip_buddies_result)>0 && $sip_buddies_result[0]!=null) {
+		?>
+		<table width="100%" class="editform_table1">
+		   <tr>
+	   		<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+			   		<?php echo gettext("SIP-CONFIG") ?>
+	   		</th>
+		   </tr>
+               	   <tr class="form_head">
+                	<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+                 			<?php echo gettext("USERNAME"); ?>
+                	</td>
+                	<td class="tableBody"  width="20%" align="center" style="padding: 2px;">
+                			<?php echo gettext("SECRET"); ?>
+                	</td>
+              	  </tr>
+               	<?php
+                $i=0;
+                foreach ($sip_buddies_result as $sip_buddies) {
+                    if($i%2==0) $bg="#fcfbfb";
+                    else  $bg="#f2f2ee";
+                ?>
+                    <tr bgcolor="<?php echo $bg; ?>"  >
+                        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%" align="center">
+                		          <?php echo $sip_buddies['username']; ?>
+                        </td>
+                        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%"  align="center">
+                		          <?php echo $sip_buddies['secret']; ?>
+                        </td>
+                    </tr>
+                <?php
+                $i++;
+                }
+                ?>
+		</table>
+        	<?
+          	}
+        	?>
+		</td>
+
+		<td valign="top" width="50%" >
+		<?php
+		$iax_buddies_table = new Table('cc_iax_buddies','*');
+		$iax_buddies_clause = "id_cc_card  = ".$id;
+		$iax_buddies_result = $iax_buddies_table -> Get_list($DBHandle, $iax_buddies_clause, 0);
+		$iax_buddies = $iax_buddies_result[0];
+		if(sizeof($iax_buddies_result)>0 && $iax_buddies_result[0]!=null) {
+		?>
+		<table width="100%" class="editform_table1">
+		   <tr>
+			<th colspan="2" background="../Public/templates/default/images/background_cells.gif">
+			   			<?php echo gettext("IAX-CONFIG") ?>
+			</th>
+			   </tr>
+               <tr class="form_head">
+                	<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+                 				<?php echo gettext("USERNAME"); ?>
+                	</td>
+                	<td class="tableBody"  width="20%" align="center" style="padding: 2px;">
+                				<?php echo gettext("SECRET"); ?>
+                	</td>
+               </tr>
+               <?php
+                $i=0;
+                foreach ($iax_buddies_result as $iax_buddies) {
+                    if($i%2==0) $bg="#fcfbfb";
+                    else  $bg="#f2f2ee";
+               ?>
+                    <tr bgcolor="<?php echo $bg; ?>"  >
+                        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%" align="center">
+               			           <?php echo $iax_buddies['username']; ?>
+                        </td>
+                        <td class="tableBodyRight"  background="../Public/templates/default/images/background_cells.gif" width="70%"  align="center">
+               			           <?php echo $iax_buddies['secret']; ?>
+                        </td>
+                    </tr>
+                <?php
+                $i++;
+                }
+                ?>
+		</table>
+        	<?
+          	}
+        	?>
+		</td>
+	</tr>
+</table>
 
 <br/>
+
 <div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
  	<a class="cssbutton_big"  href="A2B_entity_card.php?section=1">
 		<img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/>
@@ -710,13 +910,75 @@ if (sizeof($call_result)>0 && $call_result[0]!=null) {
 		<?php 
 		$i++;	
 		}
-		?>
+}
+?>
+</table>
+<?php
+$did_destination_table = new Table('cc_did_destination,cc_did ','*');
+$did_destination_clause = " cc_did_destination.id_cc_did = cc_did.id and cc_did_destination.id_cc_card  = ".$id;
+$did_destination_result = $did_destination_table -> Get_list($DBHandle, $did_destination_clause, 0);
+$did_destination = $did_destination_result[0];
+if(sizeof($did_destination_result)>0 && $did_destination_result[0]!=null) {
+?>
+<table class="toppage_maintable">
+	<tr>
+		<td height="20" align="center">
+			<font class="toppage_maintable_text">
+			  <?php echo gettext("DIDs & DID Destination"); ?>		  <br/>
+			</font>
+		</td>
+	</tr>
+</table>
+
+<table width="95%"  cellspacing="2" cellpadding="2" border="0">
+
+	<tr class="form_head">
+		<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		 		<?php echo gettext("DID"); ?>
+		</td>
+		<td class="tableBody"  width="20%" align="center" style="padding: 2px;">
+				<?php echo gettext("DESTINATION"); ?>
+		</td>
+       	 	<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		 		<?php echo gettext("ACTIVATED"); ?>
+		</td>
+        	<td class="tableBody"  width="15%" align="center" style="padding: 2px;">
+		 		<?php echo gettext("VOIP"); ?>
+		</td>
+	</tr>
+
+	<?php
+		$i=0;
+		foreach ($did_destination_result as $did_destination) {
+			if($i%2==0) $bg="#fcfbfb";
+			else  $bg="#f2f2ee";
+	?>
+	<tr bgcolor="<?php echo $bg; ?>"  >
+		<td class="tableBody" align="center">
+				  <?php echo $did_destination['did']; ?>
+		</td>
+                <td class="tableBody" align="center">
+				  <?php echo $did_destination['destination']; ?>
+		</td>
+		<td class="tableBody" align="center">
+				  <?php echo ($did_destination['activated']=="1"?"Active":"Inactive"); ?>
+		</td>
+                <td class="tableBody" align="center">
+				  <?php echo ($did_destination['voip_call']=="1"?"Active":"Inactive"); ?>
+		</td>
+	</tr>
+	<?php
+		$i++;
+		}
+	?>
 </table>
 <?php 
 }
 ?>
 <?php 
-if ( (sizeof($payment_result)>0 && $payment_result[0]!=null) || (sizeof($call_result)>0 && $call_result[0]!=null) || (sizeof($refill_result)>0 && $refill_result[0]!=null) ) {
+if ( (sizeof($payment_result)>0 && $payment_result[0]!=null) || 
+        (sizeof($call_result)>0 && $call_result[0]!=null) ||
+        (sizeof($refill_result)>0 && $refill_result[0]!=null) ) {
 ?>
 <br/>
 <div style="width : 90%; text-align : right; margin-left:auto;margin-right:auto;" >
